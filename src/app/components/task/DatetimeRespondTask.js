@@ -102,7 +102,12 @@ class DatetimeRespondTask extends Component {
 
   canSubmit(date) {
     const value = date || this.state.date;
-    return !!value;
+
+    if (!value || Number.isNaN(new Date(value).getTime())) {
+      return false;
+    }
+
+    return true;
   }
 
   handlePressButton() {
@@ -116,7 +121,7 @@ class DatetimeRespondTask extends Component {
   }
 
   handleChangeTimezone(e, index, value) {
-    this.setState({ focus: true, timezone: value });
+    this.setState({ focus: true, timezone: value, taskAnswerDisabled: !this.canSubmit() });
   }
 
   handleChangeNote(e) {
@@ -124,27 +129,24 @@ class DatetimeRespondTask extends Component {
   }
 
   handleChangeTime(part, e) {
-    const value = parseInt(convertNumbers2English(e.target.value), 10);
+    const value = convertNumbers2English(e.target.value);
 
     const validators = {
-      hour: [0, 23],
-      minute: [0, 59],
+      hour: /^$|^([0-9]|0[0-9]|1[0-9]|2[0-3])$/,
+      minute: /^$|^([0-5]?[0-9])$/,
     };
 
     const state = {
       focus: true,
       taskAnswerDisabled: !this.canSubmit(),
     };
-    state[part] = e.target.value;
 
-    if (
-      e.target.value !== '' &&
-      (Number.isNaN(value) || value < validators[part][0] || value > validators[part][1])
-    ) {
-      state.timeError = this.props.intl.formatMessage(messages.timeError);
-    } else {
-      state.timeError = null;
+    if (!validators[part].test(value)) {
+      this.setState(state);
+      return;
     }
+
+    state[part] = e.target.value;
 
     this.setState(state);
   }
@@ -152,23 +154,21 @@ class DatetimeRespondTask extends Component {
   handleSubmit() {
     if (!this.state.taskAnswerDisabled && !this.state.timeError) {
       const { date, note, timezone } = this.state;
-      let month = `${date.getMonth() + 1}`;
-      let day = `${date.getDate()}`;
+
+      const format = (val, size, char) => `${val}`.padStart(size, char);
+
+      const month = format(date.getMonth() + 1, 2, '0');
+      const day = format(date.getDate(), 2, '0');
       const year = date.getFullYear();
-      if (month.length < 2) {
-        month = `0${month}`;
-      }
-      if (day.length < 2) {
-        day = `0${day}`;
-      }
-      let hour = 0;
-      let minute = 0;
-      if (this.state.hour !== '') {
-        ({ hour } = this.state);
-      }
-      if (this.state.minute !== '') {
-        ({ minute } = this.state);
-      }
+
+      const hour = (this.state.hour && this.state.hour !== '')
+        ? format(this.state.hour, 2, '0')
+        : '0';
+
+      const minute = (this.state.minute && this.state.minute !== '')
+        ? format(this.state.minute, 2, '0')
+        : '0';
+
       let offset = '';
       if (timezones[timezone]) {
         ({ offset } = timezones[timezone]);
@@ -176,6 +176,7 @@ class DatetimeRespondTask extends Component {
           offset = `+${offset}`;
         }
       }
+
       let notime = '';
       if (this.state.hour === '' && this.state.minute === '') {
         notime = 'notime';
@@ -281,8 +282,9 @@ class DatetimeRespondTask extends Component {
               id="task__response-time"
             >
               <TextField
-                hintText="HH"
                 name="hour"
+                hintText="HH"
+                maxLength="2"
                 style={styles.time}
                 inputStyle={styles.time}
                 hintStyle={styles.time}
@@ -294,6 +296,7 @@ class DatetimeRespondTask extends Component {
               <TextField
                 name="minute"
                 hintText="MM"
+                maxLength="2"
                 style={styles.time}
                 inputStyle={styles.time}
                 hintStyle={styles.time}

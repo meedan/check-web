@@ -28,5 +28,6 @@
   "annotation.flaggedHeader": "Flagged as {flag} by {author}",
   "annotation.projectMoved": "Moved from project {previousProject} to {currentProject} by {author}",
   "annotation.movedToTrash": "Moved to trash",
-  "annotation.movedFromTrash": "{author} moved this out of the trash"
+  "annotation.movedFromTrash": "{author} moved this out of the trash",
+  "annotation.teamCopied": "Copied from project {previousProject} on team {previousTeam} by {author}"
 }

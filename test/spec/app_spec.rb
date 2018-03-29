@@ -1538,14 +1538,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should paginate project page", bin2: true do
       page = api_create_team_project_claims_sources_and_redirect_to_project_page 21
       page.load
-      el = nil
-      begin
-        el = wait_for_selector("//span[contains(text(), 'Sources')]", :xpath)
-        el.click
-      rescue
-        el = wait_for_selector("//span[contains(text(), 'Sources')]", :xpath)
-        el.click
-      end
+      el = wait_for_selector("//span[contains(text(), 'Sources')]", :xpath, 100)
+      el.click
       wait_for_selector("source-card", :class)
       results = @driver.find_elements(:css, '.medias__item')
       expect(results.size == 40).to be(true)
@@ -1807,7 +1801,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_team_and_project(user: user)
       sleep 1
       api_create_team_and_project(user: user)
-      
+
       @driver.navigate.to(@config['self_url'] + '/check/me')
       button = wait_for_selector('#teams-tab')
       button.click
@@ -1823,7 +1817,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       link = wait_for_selector_list('.teams a').last
       link.click
       sleep 5
-      
+
       @driver.navigate.to(@config['self_url'])
       sleep 10
       notfound = @config['self_url'] + '/check/404'

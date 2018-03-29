@@ -118,5 +118,9 @@
   {
     "id": "annotation.movedFromTrash",
     "defaultMessage": "{author} moved this out of the trash"
+  },
+  {
+    "id": "annotation.teamCopied",
+    "defaultMessage": "Copied from project {previousProject} on team {previousTeam} by {author}"
   }
 ]

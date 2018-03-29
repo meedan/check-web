@@ -1,4 +1,5 @@
 {
   "datetimeTaskResponse.timeIs": "Ver este horário em time.is",
+  "datetimeTaskResponse.invalidTimestamp": "Erro: horário inválido",
   "datetimeTaskResponse.taskResponse": "{date} às {timeLink}"
 }

@@ -28,5 +28,6 @@
   "annotation.flaggedHeader": "Marqué {flag} par {author}",
   "annotation.projectMoved": "Transféré du projet {previousProject} à {currentProject} par {author}",
   "annotation.movedToTrash": "Mis à la corbeille",
-  "annotation.movedFromTrash": "Restauré par {author}"
+  "annotation.movedFromTrash": "Restauré par {author}",
+  "annotation.teamCopied": "Transféré du projet {previousProject} dans l'équipe {previousTeam} par {author}"
 }
