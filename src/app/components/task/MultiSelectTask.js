@@ -445,7 +445,7 @@ class MultiSelectTask extends Component {
 
       return (
         <div className="task__options">
-          <FormGroup row>
+          <FormGroup>
             {options.map((item, index) => (
               <FormControlLabel
                 key={`task__options-multiselect-${index.toString()}`}

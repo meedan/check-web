@@ -412,7 +412,7 @@ class SingleChoiceTask extends Component {
 
       return (
         <div className="task__options">
-          <FormGroup row>
+          <FormGroup>
             <RadioGroup
               name="response"
               onChange={this.handleSelectRadio.bind(this)}
