@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Checkbox from 'material-ui/Checkbox';
-import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
+import Radio, { RadioGroup } from 'material-ui-next/Radio';
+import { FormGroup, FormControlLabel } from 'material-ui-next/Form';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
@@ -12,7 +13,7 @@ import Attribution from './Attribution';
 import ConfirmRequired from './ConfirmRequired';
 import { safelyParseJSON, getStatus } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
-import { StyledTaskDescription, units } from '../../styles/js/shared';
+import { StyledSmallTextField, StyledTaskDescription, units } from '../../styles/js/shared';
 
 const messages = defineMessages({
   addValue: {
@@ -411,67 +412,80 @@ class SingleChoiceTask extends Component {
 
       return (
         <div className="task__options">
-          <RadioButtonGroup
-            name="response"
-            onChange={this.handleSelectRadio.bind(this)}
-            valueSelected={responseSelected}
-          >
-            {options.map((item, index) => (
-              <RadioButton
-                key={`task__options--radiobutton-${index.toString()}`}
-                label={item.label}
-                id={index.toString()}
-                value={item.label}
-                style={{ padding: '4px' }}
-                disabled={!editable}
-              />
-            ))}
-          </RadioButtonGroup>
-
-          <div className="task__options_other">
-            {other ? [
-              <RadioButtonGroup
-                name="task__option_other_radio"
-                key="task__option_other_radio"
-                className="task__option_other_radio"
-                valueSelected={responseOtherSelected}
-                onChange={this.handleSelectRadioOther.bind(this)}
-              >
-                <RadioButton value={responseOther} disabled={!editable} />
-              </RadioButtonGroup>,
-              <TextField
-                key="task__option_other_text_input"
-                className="task__option_other_text_input"
-                placeholder={other.label}
-                value={responseOther}
-                name="response"
-                onKeyPress={keyPressCallback}
-                onChange={this.handleEditOther.bind(this)}
-                disabled={!editable}
-                multiLine
-              />,
-            ] : null}
-          </div>
-
-          {editable ?
-            <TextField
-              className="task__response-note-input"
-              hintText={
-                <FormattedMessage
-                  id="task.noteLabel"
-                  defaultMessage="Note any additional details here."
+          <FormGroup row>
+            <RadioGroup
+              name="response"
+              onChange={this.handleSelectRadio.bind(this)}
+              value={responseSelected}
+            >
+              {options.map((item, index) => (
+                <FormControlLabel
+                  key={`task__options--radiobutton-${index.toString()}`}
+                  id={index.toString()}
+                  value={item.label}
+                  label={item.label}
+                  control={
+                    <Radio disabled={!editable} />
+                  }
                 />
-              }
-              name="note"
-              value={responseNote}
-              onKeyPress={keyPressCallback}
-              onChange={this.handleChange.bind(this)}
-              fullWidth
-              multiLine
-            /> : null}
-          {(this.state.focus && editable) || this.props.mode === 'edit_response'
-            ? actionBtns
-            : null}
+              ))}
+            </RadioGroup>
+
+            <div
+              style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}
+              className="task__options_other"
+            >
+              {other ?
+                <RadioGroup
+                  name="task__option_other_radio"
+                  key="task__option_other_radio"
+                  className="task__option_other_radio"
+                  value={responseOtherSelected}
+                  onChange={this.handleSelectRadioOther.bind(this)}
+                >
+                  <FormControlLabel
+                    value={responseOther}
+                    control={
+                      <Radio disabled={!editable} />
+                    }
+                    label={
+                      <StyledSmallTextField
+                        key="task__option_other_text_input"
+                        className="task__option_other_text_input"
+                        placeholder={other.label}
+                        value={responseOther}
+                        name="response"
+                        onKeyPress={keyPressCallback}
+                        onChange={this.handleEditOther.bind(this)}
+                        disabled={!editable}
+                        multiLine
+                      />
+                    }
+                  />
+                </RadioGroup>
+                : null}
+            </div>
+
+            {editable ?
+              <TextField
+                className="task__response-note-input"
+                hintText={
+                  <FormattedMessage
+                    id="task.noteLabel"
+                    defaultMessage="Note any additional details here."
+                  />
+                }
+                name="note"
+                value={responseNote}
+                onKeyPress={keyPressCallback}
+                onChange={this.handleChange.bind(this)}
+                fullWidth
+                multiLine
+              /> : null}
+            {(this.state.focus && editable) || this.props.mode === 'edit_response'
+              ? actionBtns
+              : null}
+          </FormGroup>
         </div>
       );
     }

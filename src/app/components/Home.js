@@ -4,6 +4,7 @@ import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-i
 import Favicon from 'react-favicon';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { MuiThemeProvider as MuiThemeProviderNext, createMuiTheme } from 'material-ui-next/styles';
 import rtlDetect from 'rtl-detect';
 import merge from 'lodash.merge';
 import styled, { injectGlobal } from 'styled-components';
@@ -18,6 +19,7 @@ import { bemClass } from '../helpers';
 import Message from './Message';
 import {
   muiThemeWithoutRtl,
+  muiThemeV1,
   units,
   gutterMedium,
   black38,
@@ -167,6 +169,7 @@ class Home extends Component {
       muiThemeWithoutRtl,
       { isRtl: rtlDetect.isRtlLang(this.props.intl.locale) },
     ));
+    const muiThemeNext = createMuiTheme(muiThemeV1);
 
     if (!this.state.sessionStarted) {
       return null;
@@ -220,49 +223,51 @@ class Home extends Component {
     })();
 
     return (
-      <MuiThemeProvider muiTheme={muiThemeWithRtl}>
-        <span>
-          <Favicon url={`/images/logo/${config.appName}.ico`} animated={false} />
-          <BrowserSupport />
-          <StyledWrapper className={bemClass('home', routeSlug, `--${routeSlug}`)}>
-            <StyledDisclaimer isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
-              <span>
-                <FormattedMessage id="home.beta" defaultMessage="Beta" />
-              </span>
-            </StyledDisclaimer>
-            <Header
+      <MuiThemeProviderNext theme={muiThemeNext}>
+        <MuiThemeProvider muiTheme={muiThemeWithRtl}>
+          <span>
+            <Favicon url={`/images/logo/${config.appName}.ico`} animated={false} />
+            <BrowserSupport />
+            <StyledWrapper className={bemClass('home', routeSlug, `--${routeSlug}`)}>
+              <StyledDisclaimer isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
+                <span>
+                  <FormattedMessage id="home.beta" defaultMessage="Beta" />
+                </span>
+              </StyledDisclaimer>
+              <Header
+                drawerToggle={this.handleDrawerToggle.bind(this)}
+                loggedIn={loggedIn}
+                inTeamContext={inTeamContext}
+                currentUserIsMember={currentUserIsMember}
+                {...this.props}
+              />
+              <Message
+                message={this.state.message}
+                onClick={this.resetMessage.bind(this)}
+                className="home__message"
+                style={{
+                  position: 'absolute',
+                  width: '100%',
+                  zIndex: '1000',
+                }}
+              />
+              <StyledContent inMediaPage={inMediaPage}>
+                {children}
+              </StyledContent>
+            </StyledWrapper>
+            { this.state.open ? <DrawerNavigation
+              docked={false}
+              open={this.state.open}
               drawerToggle={this.handleDrawerToggle.bind(this)}
+              onRequestChange={open => this.setState({ open })}
               loggedIn={loggedIn}
               inTeamContext={inTeamContext}
               currentUserIsMember={currentUserIsMember}
               {...this.props}
-            />
-            <Message
-              message={this.state.message}
-              onClick={this.resetMessage.bind(this)}
-              className="home__message"
-              style={{
-                position: 'absolute',
-                width: '100%',
-                zIndex: '1000',
-              }}
-            />
-            <StyledContent inMediaPage={inMediaPage}>
-              {children}
-            </StyledContent>
-          </StyledWrapper>
-          { this.state.open ? <DrawerNavigation
-            docked={false}
-            open={this.state.open}
-            drawerToggle={this.handleDrawerToggle.bind(this)}
-            onRequestChange={open => this.setState({ open })}
-            loggedIn={loggedIn}
-            inTeamContext={inTeamContext}
-            currentUserIsMember={currentUserIsMember}
-            {...this.props}
-          /> : null }
-        </span>
-      </MuiThemeProvider>
+            /> : null }
+          </span>
+        </MuiThemeProvider>
+      </MuiThemeProviderNext>
     );
   }
 }
