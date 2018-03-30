@@ -1,5 +1,6 @@
 import styled, { css, keyframes } from 'styled-components';
 import { CardTitle } from 'material-ui/Card';
+import TextField from 'material-ui/TextField';
 import IconButton from 'material-ui/IconButton';
 import { stripUnit, rgba } from 'polished';
 
@@ -237,6 +238,25 @@ export const muiThemeWithoutRtl = {
   },
   overlay: {
     backgroundColor: modalBlue,
+  },
+};
+
+export const muiThemeV1 = {
+  palette: {
+    type: 'light',
+    primary: {
+      main: checkBlue,
+    },
+    secondary: {
+      main: checkBlue,
+    },
+    types: {
+      light: {
+        text: {
+          primary: black87,
+        },
+      },
+    },
   },
 };
 
@@ -491,6 +511,21 @@ export const SmallerStyledIconButton = styled(StyledIconButton)`
   }
 `;
 
+// A smaller TextField
+// that better aligns with multiple choice options
+export const StyledSmallTextField = styled(TextField)`
+  height: ${units(3)}!important;
+  font: ${body2} !important;
+  * {
+    bottom: 0!important;
+  }
+  div {
+    font-size: inherit!important;
+  }
+  textarea {
+    margin: 0!important;
+  }
+`;
 
 // Hide descriptions with CSS checkbox technique
 //

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import Checkbox from 'material-ui/Checkbox';
+import CheckboxNext from 'material-ui-next/Checkbox';
+import { FormGroup, FormControlLabel } from 'material-ui-next/Form';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
-import styled from 'styled-components';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import MdCancel from 'react-icons/lib/md/cancel';
 import MdCheckBoxOutlineBlank from 'react-icons/lib/md/check-box-outline-blank';
@@ -12,23 +13,7 @@ import Attribution from './Attribution';
 import ConfirmRequired from './ConfirmRequired';
 import { safelyParseJSON, getStatus } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
-import { units, body2, StyledIconButton, StyledTaskDescription } from '../../styles/js/shared';
-
-// A smaller TextField
-// that better aligns with multiple choice options
-const StyledSmallTextField = styled(TextField)`
-  height: ${units(3)}!important;
-  font: ${body2} !important;
-  * {
-    bottom: 0!important;
-  }
-  div {
-    font-size: inherit!important;
-  }
-  textarea {
-    margin: 0!important;
-  }
-`;
+import { units, StyledIconButton, StyledSmallTextField, StyledTaskDescription } from '../../styles/js/shared';
 
 const messages = defineMessages({
   addValue: {
@@ -460,44 +445,55 @@ class MultiSelectTask extends Component {
 
       return (
         <div className="task__options">
-          {options.map((item, index) => (
-            <Checkbox
-              key={`task__options-multiselect-${index.toString()}`}
-              label={item.label}
-              checked={this.isChecked(item.label, index)}
-              onCheck={this.handleSelectCheckbox.bind(this)}
-              id={item.label}
-              disabled={!editable}
-              style={{ paddingBottom: units(1) }}
-            />
-          ))}
+          <FormGroup row>
+            {options.map((item, index) => (
+              <FormControlLabel
+                key={`task__options-multiselect-${index.toString()}`}
+                control={
+                  <CheckboxNext
+                    checked={this.isChecked(item.label, index)}
+                    onChange={this.handleSelectCheckbox.bind(this)}
+                    id={item.label}
+                    disabled={!editable}
+                  />
+                }
+                label={item.label}
+              />
+            ))}
 
-          <div
-            style={{ display: 'flex', justifyContent: 'flex-start' }}
-            className="task__options_other"
-          >
-            {other ? [
-              <div key="task__option_other_checkbox">
-                <Checkbox
-                  className="task__option_other_checkbox"
-                  checked={this.state.otherSelected || !!responseOther}
-                  onCheck={this.handleSelectCheckboxOther.bind(this)}
-                  disabled={!editable}
-                />
-              </div>,
-              <StyledSmallTextField
-                key="task__option_other_text_input"
-                className="task__option_other_text_input"
-                hintText={other.label}
-                value={responseOther}
-                name="response"
-                onKeyPress={keyPressCallback}
-                onChange={this.handleEditOther.bind(this)}
-                disabled={!editable}
-                multiLine
-              />,
-            ] : null}
-          </div>
+            <div
+              style={{ display: 'flex', justifyContent: 'flex-start' }}
+              className="task__options_other"
+            >
+              {other ?
+                <div key="task__option_other_checkbox">
+                  <FormControlLabel
+                    control={
+                      <CheckboxNext
+                        className="task__option_other_checkbox"
+                        checked={this.state.otherSelected || !!responseOther}
+                        onChange={this.handleSelectCheckboxOther.bind(this)}
+                        disabled={!editable}
+                      />
+                    }
+                    label={
+                      <StyledSmallTextField
+                        key="task__option_other_text_input"
+                        className="task__option_other_text_input"
+                        hintText={other.label}
+                        value={responseOther}
+                        name="response"
+                        onKeyPress={keyPressCallback}
+                        onChange={this.handleEditOther.bind(this)}
+                        disabled={!editable}
+                        multiLine
+                      />
+                    }
+                  />
+                </div>
+                : null}
+            </div>
+          </FormGroup>
 
           {editable ?
             <StyledSmallTextField
