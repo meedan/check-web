@@ -13,7 +13,7 @@ import Attribution from './Attribution';
 import ConfirmRequired from './ConfirmRequired';
 import { safelyParseJSON, getStatus } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
-import { StyledSmallTextField, StyledTaskDescription, units } from '../../styles/js/shared';
+import { units, StyledIconButton, StyledSmallTextField, StyledTaskDescription } from '../../styles/js/shared';
 
 const messages = defineMessages({
   addValue: {
@@ -293,10 +293,12 @@ class SingleChoiceTask extends Component {
           <div style={{ marginTop: units(2) }}>
             {this.state.options.map((item, index) => (
               <div key={`create-task__add-options-radiobutton-${index.toString()}`}>
-                <MdRadioButtonUnchecked
-                  key="create-task__md-icon"
-                  className="create-task__md-icon"
-                />
+                <StyledIconButton>
+                  <MdRadioButtonUnchecked
+                    key="create-task__md-icon"
+                    className="create-task__md-icon"
+                  />
+                </StyledIconButton>
                 <TextField
                   key="create-task__add-option-input"
                   className="create-task__add-option-input"
@@ -308,11 +310,13 @@ class SingleChoiceTask extends Component {
                   style={{ padding: `${units(0.5)} ${units(1)}`, width: '75%' }}
                 />
                 {canRemove ?
-                  <MdCancel
-                    key="create-task__remove-option-button"
-                    className="create-task__remove-option-button create-task__md-icon"
-                    onClick={this.handleRemoveOption.bind(this, index)}
-                  />
+                  <StyledIconButton>
+                    <MdCancel
+                      key="create-task__remove-option-button"
+                      className="create-task__remove-option-button create-task__md-icon"
+                      onClick={this.handleRemoveOption.bind(this, index)}
+                    />
+                  </StyledIconButton>
                   : null}
               </div>
             ))}
