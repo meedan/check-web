@@ -1,53 +1,5 @@
 [
   {
-    "id": "multiSelectTask.addValue",
-    "defaultMessage": "Add Option"
-  },
-  {
-    "id": "multiSelectTask.value",
-    "defaultMessage": "Value"
-  },
-  {
-    "id": "multiSelectTask.addOther",
-    "defaultMessage": "Add \"Other\""
-  },
-  {
-    "id": "multiSelectTask.other",
-    "defaultMessage": "Other"
-  },
-  {
-    "id": "multiSelectTask.newTask",
-    "defaultMessage": "New task"
-  },
-  {
-    "id": "tasks.cancelAdd",
-    "defaultMessage": "Cancel"
-  },
-  {
-    "id": "tasks.add",
-    "defaultMessage": "Create Task"
-  },
-  {
-    "id": "tasks.taskPrompt",
-    "defaultMessage": "Prompt"
-  },
-  {
-    "id": "tasks.requiredCheckbox",
-    "defaultMessage": "Required"
-  },
-  {
-    "id": "tasks.description",
-    "defaultMessage": "Description"
-  },
-  {
-    "id": "tasks.addDescription",
-    "defaultMessage": "Add a description"
-  },
-  {
-    "id": "tasks.assign",
-    "defaultMessage": "Assign"
-  },
-  {
     "id": "tasks.cancelEdit",
     "defaultMessage": "Cancel"
   },
