@@ -1,0 +1,50 @@
+[
+  {
+    "id": "singleChoiceTask.addValue",
+    "defaultMessage": "Add Option"
+  },
+  {
+    "id": "singleChoiceTask.value",
+    "defaultMessage": "Value"
+  },
+  {
+    "id": "singleChoiceTask.addOther",
+    "defaultMessage": "Add \"Other\""
+  },
+  {
+    "id": "singleChoiceTask.other",
+    "defaultMessage": "Other"
+  },
+  {
+    "id": "singleChoiceTask.newTask",
+    "defaultMessage": "New task"
+  },
+  {
+    "id": "tasks.cancelAdd",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "tasks.add",
+    "defaultMessage": "Create Task"
+  },
+  {
+    "id": "tasks.taskPrompt",
+    "defaultMessage": "Prompt"
+  },
+  {
+    "id": "tasks.requiredCheckbox",
+    "defaultMessage": "Required"
+  },
+  {
+    "id": "tasks.description",
+    "defaultMessage": "Description"
+  },
+  {
+    "id": "tasks.addDescription",
+    "defaultMessage": "Add a description"
+  },
+  {
+    "id": "tasks.assign",
+    "defaultMessage": "Assign"
+  }
+]
