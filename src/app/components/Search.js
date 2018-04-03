@@ -736,12 +736,12 @@ class SearchResultsComponent extends Component {
     const mediasCount = this.props.intl.formatMessage(messages.searchResults, {
       resultsCount: count,
     });
-    const title = /\/project\//.test(window.location.pathname) ? '' : mediasCount;
+
     const searchResults = SearchResultsComponent.mergeResults(medias, sources);
 
     return (
       <StyledSearchResultsWrapper className="search__results results">
-        <h3 className="search__results-heading">{title}</h3>
+        <h3 className="search__results-heading">{mediasCount}</h3>
         <InfiniteScroll hasMore loadMore={this.loadMore.bind(this)} threshold={500}>
           <div className="search__results-list results medias-list">
             {searchResults.map(item => (

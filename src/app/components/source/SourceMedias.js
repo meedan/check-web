@@ -1,12 +1,37 @@
 import React from 'react';
 import Relay from 'react-relay';
+import { FormattedMessage } from 'react-intl';
+import styled from 'styled-components';
 import SourceRoute from '../../relay/SourceRoute';
 import Medias from '../media/Medias';
+import { black87, units } from '../../styles/js/shared';
 
 const SourceMediasComponent = (props) => {
   const { source } = props;
+
+  const StyledSearchResultsHeading = styled.div`
+    .source-medias__results-heading {
+      color: ${black87};
+      margin-top: ${units(3)};
+      text-align: center;
+    }
+  `;
+
   if (source && source.source && source.source.medias) {
-    return <Medias medias={source.source.medias.edges} />;
+    return (
+      <div>
+        <StyledSearchResultsHeading>
+          <h3 className="source-medias__results-heading">
+            <FormattedMessage
+              id="sourceMedias.items"
+              defaultMessage="{resultsCount, plural, =0 {No results} one {1 result} other {# results}}"
+              values={{ resultsCount: source.source.medias_count }}
+            />
+          </h3>
+        </StyledSearchResultsHeading>
+        <Medias medias={source.source.medias.edges} />
+      </div>
+    );
   }
   return null;
 };
@@ -20,6 +45,7 @@ const SourceMediasContainer = Relay.createContainer(SourceMediasComponent, {
         source {
           id
           dbid
+          medias_count
           medias(first: 10000) {
             edges {
               node {

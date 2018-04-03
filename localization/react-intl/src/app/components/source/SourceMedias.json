@@ -1,0 +1,6 @@
+[
+  {
+    "id": "sourceMedias.items",
+    "defaultMessage": "{resultsCount, plural, =0 {No results} one {1 result} other {# results}}"
+  }
+]
