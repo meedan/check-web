@@ -17,7 +17,7 @@ import PageTitle from '../PageTitle';
 import CreateTeamMutation from '../../relay/mutations/CreateTeamMutation';
 import Message from '../Message';
 import CheckContext from '../../CheckContext';
-import { safelParseJSON } from '../../helpers';
+import { safelyParseJSON } from '../../helpers';
 import {
   ContentColumn,
   caption,
@@ -122,7 +122,7 @@ class CreateTeam extends Component {
     const onFailure = (transaction) => {
       const error = transaction.getError();
       let message = this.props.intl.formatMessage(messages.createTeamError);
-      const json = safelParseJSON(error.source);
+      const json = safelyParseJSON(error.source);
       if (json && json.error) {
         message = json.error;
       }
