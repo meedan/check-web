@@ -1,0 +1,3 @@
+{
+  "sourceMedias.items": "{resultsCount, plural, =0 {Nenhum resultado} one {1 resultado} other {# resultados}}"
+}

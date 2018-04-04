@@ -1,0 +1,14 @@
+{
+  "singleChoiceTask.addValue": "أضف خياراً",
+  "singleChoiceTask.value": "القيمة",
+  "singleChoiceTask.addOther": "أضف \"آخر\"",
+  "singleChoiceTask.other": "آخر",
+  "singleChoiceTask.newTask": "مهمة جديدة",
+  "tasks.cancelAdd": "إلغاء",
+  "tasks.add": "أضف مهمة",
+  "tasks.taskPrompt": "السؤال",
+  "tasks.requiredCheckbox": "إجباري",
+  "tasks.description": "وصف",
+  "tasks.addDescription": "أضف وصفاً",
+  "tasks.assign": "توكيل"
+}

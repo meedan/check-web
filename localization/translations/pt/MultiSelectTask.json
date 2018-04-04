@@ -1,16 +1,4 @@
 {
-  "multiSelectTask.addValue": "Adicionar Opção",
-  "multiSelectTask.value": "Valor",
-  "multiSelectTask.addOther": "Adicionar \"Outro\"",
-  "multiSelectTask.other": "Outro",
-  "multiSelectTask.newTask": "Nova tarefa",
-  "tasks.cancelAdd": "Cancelar",
-  "tasks.add": "Criar Tarefa",
-  "tasks.taskPrompt": "Questão",
-  "tasks.requiredCheckbox": "Requerido",
-  "tasks.description": "Descrição",
-  "tasks.addDescription": "Insira uma descrição",
-  "tasks.assign": "Atribuir",
   "tasks.cancelEdit": "Cancelar",
   "tasks.submit": "Resolver Tarefa",
   "task.noteLabel": "Insira quaisquer detalhes adicionais aqui."

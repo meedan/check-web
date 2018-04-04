@@ -128,6 +128,7 @@
     "lodash.xor": "^4.5.0",
     "marked": "^0.3.5",
     "material-ui": "^0.18.7",
+    "material-ui-next": "^1.0.0-beta.39",
     "material-ui-persian-date-picker-utils": "^0.1.2",
     "node-fetch": "^1.7.1",
     "node-window": "^1.0.1",
