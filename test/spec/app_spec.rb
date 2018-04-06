@@ -478,7 +478,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 2
       element = wait_for_selector( 'source__edit-save-button',:class)
       element.click
-      wait_for_selector('media-tags', :class, 50)
+      wait_for_selector('media-tags', :class)
       expect(@driver.page_source.include?('AC/DC Official Website')).to be(true)
 
       #networks tab
