@@ -15,11 +15,11 @@
   "mediaDetail.cancel": "إلغاء",
   "mediaDetail.deleteForever": "حذف نهائي",
   "mediaDetail.addedBy": "أضيف {byUser}",
-  "mediaDetail.assignedTo": "موّكل إلى {name}",
+  "mediaDetail.assignedTo": "مُكَلَّف إلى {name}",
   "mediaDetail.dialogHeader": "انقل {mediaType} إلى مشروع آخر",
   "mediaDetail.dialogMediaPath": "مضاف حالياً إلى {teamName} > {projectTitle}",
   "mediaDetail.deleteForeverConfirmationText": "هل أنت متأكد؟ سوف يتم حذف نهائي {notesCount, plural, =0 {٠ تعليق} one {تعليق واحد} other {# تعليقات}}. أكتب \"confirm\" للمتابعة.",
   "mediaDetail.confirmationError": "ليس مطابق",
   "mediaDetail.typeHere": "أكتب هنا",
-  "mediaDetail.assignDialogHeader": "التوكيل"
+  "mediaDetail.assignDialogHeader": "التكليف"
 }

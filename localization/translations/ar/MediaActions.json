@@ -6,6 +6,6 @@
   "mediaActions.refresh": "تحديث",
   "mediaActions.embed": "تضمين...",
   "mediaActions.deleteForever": "حذف نهائي",
-  "mediaActions.unassign": "إلغاء التوكيل",
-  "mediaActions.assign": "توكيل"
+  "mediaActions.unassign": "إلغاء التكليف",
+  "mediaActions.assign": "تكليف"
 }
