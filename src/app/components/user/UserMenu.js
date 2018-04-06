@@ -8,6 +8,7 @@ import MenuItem from 'material-ui/MenuItem';
 import UserUtil from './UserUtil';
 import UserMenuItems from '../UserMenuItems';
 import UserAvatar from '../UserAvatar';
+import UserFeedback from '../UserFeedback';
 import {
   black54,
   units,
@@ -57,6 +58,9 @@ const UserMenu = (props) => {
         {user && user.name}
       </MenuItem>
       <UserMenuItems {...props} />
+      <MenuItem>
+        <UserFeedback />
+      </MenuItem>
     </IconMenu>
   );
 };

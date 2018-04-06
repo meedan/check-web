@@ -1,0 +1,10 @@
+[
+  {
+    "id": "UserFeedback.label",
+    "defaultMessage": "How likely are you to recommend Check?"
+  },
+  {
+    "id": "UserFeedback.save",
+    "defaultMessage": "Save"
+  }
+]
