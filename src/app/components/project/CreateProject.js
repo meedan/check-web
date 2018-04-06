@@ -26,6 +26,10 @@ const messages = defineMessages({
     id: 'createProject.title',
     defaultMessage: 'Add a project',
   },
+  cardTitleBlank: {
+    id: 'createProject.titleBlank',
+    defaultMessage: 'Add your first project',
+  },
   newProjectName: {
     id: 'createProject.newProjectName',
     defaultMessage: 'Project name',
@@ -140,13 +144,17 @@ class CreateProject extends Component {
     if (team.plan === 'pro' ||
       team.projects.edges.length < team.limits.max_number_of_projects) {
       if (this.props.renderCard) {
+        const cardTitle = team.projects.edges.length
+          ? messages.cardTitle
+          : messages.cardTitleBlank;
+
         return (
           <Card
             style={{ marginTop: units(2), marginBottom: units(2) }}
             initiallyExpanded
           >
             <StyledCardHeader
-              title={this.props.intl.formatMessage(messages.cardTitle)}
+              title={this.props.intl.formatMessage(cardTitle)}
               showExpandableButton
             />
             <CardText expandable>

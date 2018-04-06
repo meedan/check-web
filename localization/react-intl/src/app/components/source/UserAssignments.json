@@ -1,5 +1,9 @@
 [
   {
+    "id": "userAssignments.blank",
+    "defaultMessage": "No activity yet"
+  },
+  {
     "id": "userAssignments.inProject",
     "defaultMessage": "In project {link}"
   }

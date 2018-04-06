@@ -11,6 +11,7 @@ import rtlDetect from 'rtl-detect';
 import ChangePasswordMutation from '../relay/mutations/ChangePasswordMutation';
 import PageTitle from './PageTitle';
 import CheckContext from '../CheckContext';
+import globalStrings from '../globalStrings';
 import { stringHelper } from '../customHelpers';
 import { safelyParseJSON } from '../helpers';
 import {
@@ -76,10 +77,6 @@ const messages = defineMessages({
     id: 'passwordChange.unmatchingPasswords',
     defaultMessage: 'Passwords didn\'t match',
   },
-  unknownError: {
-    id: 'passwordChange.unknownError',
-    defaultMessage: 'An unknown error has occurred. Please try again and contact {supportEmail} if the error persists.',
-  },
   title: {
     id: 'passwordChange.title',
     defaultMessage: 'Change password',
@@ -138,7 +135,7 @@ class UserPasswordChange extends Component {
         this.getHistory().push({ pathname: '/check/user/password-reset', state: { errorMsg: json.error } });
         return;
       }
-      this.setState({ errorMsg: this.props.intl.formatMessage(messages.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') }), submitDisabled: true });
+      this.setState({ errorMsg: this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') }), submitDisabled: true });
     };
 
     const onSuccess = () => {

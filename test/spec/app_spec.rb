@@ -478,7 +478,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 2
       element = wait_for_selector( 'source__edit-save-button',:class)
       element.click
-      wait_for_selector( 'media-tags',:class)
+      wait_for_selector('media-tags', :class)
       expect(@driver.page_source.include?('AC/DC Official Website')).to be(true)
 
       #networks tab
@@ -1538,6 +1538,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should paginate project page", bin2: true do
       page = api_create_team_project_claims_sources_and_redirect_to_project_page 21
       page.load
+      sleep 3
       el = wait_for_selector("//span[contains(text(), 'Sources')]", :xpath, 100)
       el.click
       wait_for_selector("source-card", :class)
