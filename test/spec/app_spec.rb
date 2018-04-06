@@ -1538,6 +1538,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should paginate project page", bin2: true do
       page = api_create_team_project_claims_sources_and_redirect_to_project_page 21
       page.load
+      sleep 3
       el = wait_for_selector("//span[contains(text(), 'Sources')]", :xpath, 100)
       el.click
       wait_for_selector("source-card", :class)
