@@ -6,5 +6,6 @@
   "global.confirm": "Confirmer",
   "global.save": "Sauvegarder",
   "global.submit": "Envoyer",
-  "global.tags": "Tags"
+  "global.tags": "Tags",
+  "global.unknownError": "Une erreur s'est produite. Veuillez réessayer et contactez {supportEmail} si l'erreur persiste."
 }
