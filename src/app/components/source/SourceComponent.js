@@ -40,6 +40,7 @@ import CheckContext from '../../CheckContext';
 import ParsedText from '../ParsedText';
 import UploadImage from '../UploadImage';
 import { truncateLength, safelyParseJSON } from '../../helpers';
+import { stringHelper } from '../../customHelpers';
 import globalStrings from '../../globalStrings';
 import CreateDynamicMutation from '../../relay/mutations/CreateDynamicMutation';
 import UpdateDynamicMutation from '../../relay/mutations/UpdateDynamicMutation';
@@ -462,7 +463,10 @@ class SourceComponent extends Component {
 
       if (index > -1) {
         const error = transaction.getError();
-        let message = this.props.intl.formatMessage(messages.invalidLink);
+        let message = this.props.intl.formatMessage(
+          globalStrings.unknownError,
+          { supportEmail: stringHelper('SUPPORT_EMAIL') },
+        );
         const json = safelyParseJSON(error.source);
         if (json && json.error) {
           message = json.error;
