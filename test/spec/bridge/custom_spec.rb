@@ -41,7 +41,7 @@ shared_examples 'custom' do
     old = wait_for_selector_list("medias__item", :class).length
     el = wait_for_selector("//div[contains(text(), 'Pending')]",:xpath)
     el.click
-    sleep 3 #due the reload
+    sleep 5 #due the reload
     wait_for_selector("//h3[contains(text(), '1 result')]",:xpath)
     wait_for_selector("search-input", :id)
     current = wait_for_selector_list("medias__item", :class).length
