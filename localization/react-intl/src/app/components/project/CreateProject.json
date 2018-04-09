@@ -8,6 +8,10 @@
     "defaultMessage": "Add a project"
   },
   {
+    "id": "createProject.titleBlank",
+    "defaultMessage": "Add your first project"
+  },
+  {
     "id": "createProject.newProjectName",
     "defaultMessage": "Project name"
   },

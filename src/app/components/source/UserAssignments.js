@@ -12,9 +12,10 @@ import MdDateRange from 'react-icons/lib/md/date-range';
 import MdFormatQuote from 'react-icons/lib/md/format-quote';
 import MdLink from 'react-icons/lib/md/link';
 import MdImage from 'react-icons/lib/md/image';
+import styled from 'styled-components';
 import UserRoute from '../../relay/UserRoute';
 import MediaUtil from '../media/MediaUtil';
-import { units } from '../../styles/js/shared';
+import { units, headline, black38 } from '../../styles/js/shared';
 
 class UserAssignmentsComponent extends Component {
   componentDidMount() {
@@ -63,8 +64,20 @@ class UserAssignmentsComponent extends Component {
       uploadedimage: <MdImage />,
     };
 
+    const StyledBlankState = styled.div`
+      font: ${headline};
+      color: ${black38};
+      text-align: center;
+    `;
+
     return (
       <div id="assignments">
+        <StyledBlankState>
+          {user.assignments.edges.length
+            ? null
+            : <FormattedMessage id="userAssignments.blank" defaultMessage="No activity yet" />
+          }
+        </StyledBlankState>
         {Object.keys(assignments).map(team => (
           <Card key={team}>
             <CardHeader title={team} />

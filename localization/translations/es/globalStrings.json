@@ -6,5 +6,6 @@
   "global.confirm": "Confirmar",
   "global.save": "Guardar",
   "global.submit": "Subir",
-  "global.tags": "Etiquetas"
+  "global.tags": "Etiquetas",
+  "global.unknownError": " Ha ocurrido un error inesperado. Por favor intenta de nuevo, si el error persiste contacta a {supportEmail}."
 }

@@ -1,6 +1,7 @@
 {
   "createProject.addProject": "Ajouter un projet",
   "createProject.title": "Ajouter un projet",
+  "createProject.titleBlank": "Ajoutez votre premier projet",
   "createProject.newProjectName": "Titre du projet",
   "createProject.error": "Désolé, il n'a pas été possible de créer le projet"
 }
