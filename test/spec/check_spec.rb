@@ -1,4 +1,4 @@
-require_relative '../spec_helper.rb'
+require_relative 'spec_helper.rb'
 
 shared_examples 'custom' do
   it "should register and redirect to newly created media", bin4: true do

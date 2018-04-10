@@ -9,8 +9,7 @@ require_relative './pages/page.rb'
 require_relative './api_helpers.rb'
 
 CONFIG = YAML.load_file('config.yml')
-
-require_relative "#{CONFIG['app_name']}/custom_spec.rb"
+require_relative "#{CONFIG['app_name']}_spec.rb"
 
 shared_examples 'app' do |webdriver_url, browser_capabilities|
 
@@ -1736,6 +1735,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       fill_field('textarea[name="cmd"]', 'Test')
       el = wait_for_selector("//span[contains(text(), 'Submit')]", :xpath)
       el.click
+      sleep 3
       old = wait_for_size_change(old, "annotation__default-content", :class)
       expect(@driver.page_source.include?('Your comment was added!')).to be(true)
       expect(@driver.page_source.include?('Comment deleted by')).to be(false)
