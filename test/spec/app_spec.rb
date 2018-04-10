@@ -1733,7 +1733,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Your comment was added!')).to be(false)
       old = wait_for_selector_list("annotation__default-content", :class).length
       fill_field('textarea[name="cmd"]', 'Test')
-      el = wait_for_selector(".add-annotation button[type=submit]", :class)
+      el = wait_for_selector(".add-annotation button[type=submit]")
       el.click
       old = wait_for_size_change(old, "annotation__default-content", :class)
       expect(@driver.page_source.include?('Your comment was added!')).to be(true)
