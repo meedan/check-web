@@ -4,7 +4,7 @@ shared_examples 'custom' do
   it "should register and redirect to newly created image media" do
     page = LoginPage.new(config: @config, driver: @driver).load
         .login_with_email(email: @email, password: @password)
-        .create_image_media(File.expand_path('../test.png', File.dirname(__FILE__)))
+        .create_image_media(File.expand_path('test.png', File.dirname(__FILE__)))
 
     expect(page.contains_string?('Added')).to be(true)
     expect(page.contains_string?('User With Email')).to be(true)

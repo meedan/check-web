@@ -1078,7 +1078,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       fill_field('textarea[name="cmd"]', 'https://meedan.com/en/')
       el = wait_for_selector("//span[contains(text(), 'Submit')]", :xpath)
       el.click
-      sleep 2 #wait for loading
+      sleep 5 #wait for loading
       old = wait_for_size_change(old, "annotation__default-content", :class)
       expect(@driver.page_source.include?('Your comment was added!')).to be(true)
       el = wait_for_selector_list("//a[contains(text(), 'https://meedan.com/en/')]", :xpath)

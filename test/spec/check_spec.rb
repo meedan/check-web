@@ -40,7 +40,7 @@ shared_examples 'custom' do
   it "should register and redirect to newly created image media", bin4: true do
     api_create_team_and_project
     page = ProjectPage.new(config: @config, driver: @driver).load
-           .create_image_media(File.expand_path('../test.png', File.dirname(__FILE__)))
+           .create_image_media(File.expand_path('test.png', File.dirname(__FILE__)))
 
     expect(page.contains_string?('Added')).to be(true)
     expect(page.contains_string?('User With Email')).to be(true)
