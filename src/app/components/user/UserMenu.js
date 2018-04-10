@@ -58,9 +58,7 @@ const UserMenu = (props) => {
         {user && user.name}
       </MenuItem>
       <UserMenuItems {...props} />
-      <MenuItem>
-        <UserFeedback />
-      </MenuItem>
+      <UserFeedback />
     </IconMenu>
   );
 };

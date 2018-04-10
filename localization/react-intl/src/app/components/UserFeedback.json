@@ -1,10 +1,18 @@
 [
   {
+    "id": "UserFeedback.thanks",
+    "defaultMessage": "Thanks for your feedback!"
+  },
+  {
     "id": "UserFeedback.label",
     "defaultMessage": "How likely are you to recommend Check?"
   },
   {
     "id": "UserFeedback.save",
     "defaultMessage": "Save"
+  },
+  {
+    "id": "UserFeedback.explainMore",
+    "defaultMessage": "Explain More"
   }
 ]
