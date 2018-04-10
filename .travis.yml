@@ -39,8 +39,7 @@ before_install:
 - bundle install --path=/tmp/bundler
 - bundle exec rake db:migrate RAILS_ENV=test
 - bundle exec rake lapis:api_keys:create_default RAILS_ENV=test
-- bundle exec thin -p 3000 -e test -t 60 --threadpool-size=60 --threaded start &
-- tail -f log/test.log &
+- bundle exec thin -p 3000 -e test -t 60 --threadpool-size=60 --threaded start >/dev/null &
 - cd -
 - export RAILS_ENV=development
 # pender
@@ -83,6 +82,7 @@ before_script:
 - npm run publish &
 - sleep 5
 after_script:
+- wget -q -O - http://localhost:9200/check_application_test_annotations/media_search/_search?pretty
 - size=$(du -k build/web/js/index.bundle.js | cut -f1) && size2=$(du -k build/web/js/vendor.bundle.js | cut -f1) && totalsize=$((size+size2)) && echo "Your bundle size is $totalsize kb"
 script:  cd test && CHROMEDRIVER_URL=http://localhost:9516 bundle exec rspec --example 6678 spec/integration_spec.rb
 notifications:
