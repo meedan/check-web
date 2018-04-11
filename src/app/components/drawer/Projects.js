@@ -153,6 +153,7 @@ const DrawerProjectsContainer = Relay.createContainer(injectIntl(DrawerProjectsC
               title,
               dbid,
               id,
+              search_id,
             }
           }
         }

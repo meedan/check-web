@@ -48,6 +48,7 @@ const DestinationProjectsContainer = Relay.createContainer(DestinationProjectsCo
               id,
               dbid,
               title,
+              search_id,
             }
           }
         }
