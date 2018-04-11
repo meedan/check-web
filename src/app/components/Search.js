@@ -784,6 +784,13 @@ const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsCom
 
 // eslint-disable-next-line react/no-multi-comp
 class Search extends Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    if (isEqual(this.props, nextProps) && isEqual(this.state, nextState)) {
+      return false;
+    }
+    return true;
+  }
+
   noFilters(query_) {
     const query = query_;
     delete query.timestamp;
