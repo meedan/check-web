@@ -2,10 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Button from 'material-ui-next/Button';
-import Card, { CardContent } from 'material-ui-next/Card';
+import Divider from 'material-ui-next/Divider';
+import { CardContent, CardHeader } from 'material-ui-next/Card';
 import IconButton from 'material-ui-next/IconButton';
 import Tooltip from 'material-ui-next/Tooltip';
-// import Dismiss from 'material-ui/svg-icons/content/clear';
+import Dismiss from 'material-ui/svg-icons/content/clear';
+import styled from 'styled-components';
 import FaceFrown from '../../assets/images/feedback/face-frown';
 import FaceNeutral from '../../assets/images/feedback/face-neutral';
 import FaceSmile from '../../assets/images/feedback/face-smile';
@@ -18,10 +20,18 @@ const styles = {
     paddingTop: units(2),
     paddingBottom: units(2),
     display: 'flex',
-    alignItems: 'flex-start',
     justifyContent: 'space-around',
   },
 };
+
+const StyledCardHeader = styled(CardHeader)`
+  .user-feedback__mui-card-header {
+    font-size: medium;
+  }
+  .user-feedback__mui-card-action {
+    margin-top: 0;
+  }
+`;
 
 class UserFeedback extends React.Component {
   constructor(props) {
@@ -44,6 +54,11 @@ class UserFeedback extends React.Component {
     }
   }
 
+  handleDismiss = () => {
+    window.storage.set('last-feedback-date', new Date());
+    this.forceUpdate();
+  };
+
   handleExplainMore = () => {
     const feedbackForm = 'https://docs.google.com/forms/d/e/1FAIpQLSd9QWfJpsRZX0xYib0Pld-1ccr2DZ_3JMdoeZ8dxqk1lLq-ag/viewform';
     window.open(feedbackForm);
@@ -53,7 +68,10 @@ class UserFeedback extends React.Component {
     if (this.state.value) {
       const { token } = this.getContext().currentUser;
       const endpoint = 'log';
-      const onSuccess = () => { this.setState({ value: null, resolved: true }); };
+      const onSuccess = () => {
+        this.setState({ value: null, resolved: true });
+        window.storage.set('last-feedback-date', new Date());
+      };
       const onFailure = () => { };
       const data = {};
       data.recommendCheck = this.state.value;
@@ -73,24 +91,45 @@ class UserFeedback extends React.Component {
     neutralColor = this.state.value === 'maybe' ? checkBlue : neutralColor;
     smileColor = this.state.value === 'likely' ? checkBlue : smileColor;
 
+    const lastFeedbackDate = window.storage.getValue('last-feedback-date');
+    const now = new Date();
+    const thirtyDaysAgo = new Date(new Date().setDate(now.getDate() - 30));
+
+    if (new Date(thirtyDaysAgo) < new Date(lastFeedbackDate)) {
+      return null;
+    }
+
     return (
-      <Card>
-        <CardContent>
-          { /* <IconButton style={{ float: 'right' }}><Dismiss /></IconButton> */ }
-          <div className="user-feedback__label">
-            { this.state.resolved ?
-              <FormattedMessage
-                id="UserFeedback.thanks"
-                defaultMessage="Thanks for your feedback!"
-              /> :
-              <FormattedMessage
-                id="UserFeedback.label"
-                defaultMessage="How likely are you to recommend Check?"
-              />
-            }
-          </div>
+      <div>
+        <Divider />
+        <StyledCardHeader
+          style={{ padding: `0 ${units(2)}` }}
+          classes={{
+            title: 'user-feedback__mui-card-header',
+            action: 'user-feedback__mui-card-action',
+          }}
+          title={this.state.resolved ?
+            <FormattedMessage
+              id="UserFeedback.thanks"
+              defaultMessage="Thanks for your feedback!"
+            /> :
+            <FormattedMessage
+              id="UserFeedback.label"
+              defaultMessage="How likely are you to recommend Check?"
+            />
+          }
+          action={<IconButton onClick={this.handleDismiss}><Dismiss /></IconButton>}
+        />
+
+        <CardContent style={{ padding: `0 ${units(2)}` }}>
           <div style={styles.faces}>
-            <Tooltip title="Unlikely" placement="top">
+            <Tooltip
+              placement="top"
+              title={<FormattedMessage
+                id="UserFeedback.unlikely"
+                defaultMessage="Unlikely"
+              />}
+            >
               <IconButton
                 disabled={this.state.resolved}
                 onClick={() => this.handleClickRating('unlikely')}
@@ -98,7 +137,14 @@ class UserFeedback extends React.Component {
                 <FaceFrown color={frownColor} />
               </IconButton>
             </Tooltip>
-            <Tooltip title="Maybe" placement="top">
+
+            <Tooltip
+              placement="top"
+              title={<FormattedMessage
+                id="UserFeedback.maybe"
+                defaultMessage="Maybe"
+              />}
+            >
               <IconButton
                 disabled={this.state.resolved}
                 onClick={() => this.handleClickRating('maybe')}
@@ -106,7 +152,14 @@ class UserFeedback extends React.Component {
                 <FaceNeutral color={neutralColor} />
               </IconButton>
             </Tooltip>
-            <Tooltip title="Likely" placement="top">
+
+            <Tooltip
+              placement="top"
+              title={<FormattedMessage
+                id="UserFeedback.likely"
+                defaultMessage="Likely"
+              />}
+            >
               <IconButton
                 disabled={this.state.resolved}
                 onClick={() => this.handleClickRating('likely')}
@@ -115,6 +168,7 @@ class UserFeedback extends React.Component {
               </IconButton>
             </Tooltip>
           </div>
+
           { this.state.value ?
             <Button
               className="user-feedback__save-button"
@@ -126,6 +180,7 @@ class UserFeedback extends React.Component {
               <FormattedMessage id="UserFeedback.save" defaultMessage="Save" />
             </Button> : null
           }
+
           { this.state.resolved ?
             <Button
               className="user-feedback__explain-more-button"
@@ -137,7 +192,7 @@ class UserFeedback extends React.Component {
             </Button> : null
           }
         </CardContent>
-      </Card>
+      </div>
     );
   }
 }

@@ -8,6 +8,18 @@
     "defaultMessage": "How likely are you to recommend Check?"
   },
   {
+    "id": "UserFeedback.unlikely",
+    "defaultMessage": "Unlikely"
+  },
+  {
+    "id": "UserFeedback.maybe",
+    "defaultMessage": "Maybe"
+  },
+  {
+    "id": "UserFeedback.likely",
+    "defaultMessage": "Likely"
+  },
+  {
     "id": "UserFeedback.save",
     "defaultMessage": "Save"
   },
