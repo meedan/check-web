@@ -579,6 +579,7 @@ class MediaMetadata extends Component {
       <FlatButton
         label={<FormattedMessage id="mediaDetail.move" defaultMessage="Move" />}
         primary
+        className="media-detail__move-button"
         keyboardFocused
         onClick={this.handleMoveProjectMedia.bind(this)}
         disabled={!this.state.dstProj}

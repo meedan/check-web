@@ -1160,18 +1160,73 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should move media to another project", bin2: true do
-      data = api_create_team_and_project
-      prj2 = api_create_project(data[:team].dbid.to_s)
-      p1 =  data[:project].team["projects"]["edges"][0]["node"]["title"]
-      p2 = prj2.team["projects"]["edges"][1]["node"]["title"]
-      media = api_create_media(data: data, url: "https://www.facebook.com/permalink.php?story_fbid=10155901893214439&id=54421674438")
-      @driver.navigate.to media.full_url
-      url1 = media.full_url
-      wait_for_selector('cmd-input', :id)
-      n1 =  wait_for_selector_list("//h3[contains(text(), '#{p1}')]",:xpath).length
-      n2 = wait_for_selector_list("//h3[contains(text(), '#{p2}')]",:xpath).length
-      expect(n1 == 1).to be(true) #At 1st project
-      expect(n2 == 0).to be(true)
+      claim = 'This is going to be moved'
+
+      # Create a couple projects under the same team
+      p1 = api_create_team_and_project
+      p1url = @config['self_url'] + '/' + p1[:team].slug + '/project/' + p1[:project].dbid.to_s
+      p2 = api_create_project(p1[:team].dbid.to_s)
+      p2url = @config['self_url'] + '/' + p2.team['slug'] + '/project/' + p2.dbid.to_s
+      
+      # Go to the first project, make sure that there is no claim, and thus store the data in local Relay store
+      @driver.navigate.to p1url
+      sleep 3
+      expect(@driver.page_source.include?(claim)).to be(false)
+
+      # Go to the second project, make sure that there is no claim, and thus store the data in local Relay store
+      wait_for_selector('.header-actions__drawer-toggle', :css).click
+      sleep 2
+      wait_for_selector('.project-list__link + .project-list__link', :css).click
+      sleep 3
+      expect(@driver.page_source.include?(claim)).to be(false)
+
+      # Create a claim under project 2
+      claimbutton = wait_for_selector('create-media__quote', :id)
+      claimbutton.click
+      sleep 1
+      @driver.action.send_keys(claim).perform
+      @driver.action.send_keys(:enter).perform
+      sleep 5
+
+      # Go to the second project, make sure that the claim is there
+      wait_for_selector('.header-actions__drawer-toggle', :css).click
+      sleep 2
+      wait_for_selector('.project-list__link + .project-list__link', :css).click
+      sleep 3
+      expect(@driver.page_source.include?(claim)).to be(true)
+
+      # Move the claim to another project
+      wait_for_selector('.card-with-border > div > div > div + button svg', :css).click
+      sleep 1
+      wait_for_selector('.media-actions__icon', :css).click
+      sleep 1
+      wait_for_selector('.media-actions__move', :css).click
+      sleep 2
+      wait_for_selector('input[name=moveMedia]', :css).click
+      sleep 1
+      wait_for_selector('.media-detail__move-button', :css).click
+      sleep 5
+
+      # Check if the claim is under the first project, which we should have been redirected to
+      expect(@driver.current_url.to_s == p1url).to be(true)
+      expect(@driver.page_source.include?(claim)).to be(true)
+
+      # Go back to the second project and make sure that the claim is not there anymore
+      wait_for_selector('.header-actions__drawer-toggle', :css).click
+      sleep 2
+      wait_for_selector('.project-list__link + .project-list__link', :css).click
+      sleep 3
+      expect(@driver.page_source.include?(claim)).to be(false)
+
+      # Reload the first project page and make sure that the claim is there
+      @driver.navigate.to p1url
+      sleep 3
+      expect(@driver.page_source.include?(claim)).to be(true)
+
+      # Reload the second project page and make sure that the claim is not there
+      @driver.navigate.to p2url
+      sleep 3
+      expect(@driver.page_source.include?(claim)).to be(false)
     end
 
     it "should add, edit, answer, update answer and delete short answer task", bin3: true do

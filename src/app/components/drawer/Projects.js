@@ -66,7 +66,7 @@ class DrawerProjectsComponent extends Component {
         .map((p) => {
           const projectPath = `/${props.team.slug}/project/${p.node.dbid}`;
           return (
-            <Link to={projectPath} key={p.node.dbid} >
+            <Link to={projectPath} key={p.node.dbid} className="project-list__link">
               <MenuItem className="project-list__item" primaryText={<Text ellipsis>{p.node.title}</Text>} />
             </Link>
           );
