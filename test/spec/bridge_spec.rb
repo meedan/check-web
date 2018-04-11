@@ -26,9 +26,9 @@ shared_examples 'custom' do
     expect(media_pg.status_label).to eq('TRANSLATED')
   end
 
-  it "should find medias when searching by status 6678", bin2: true do
+  it "should find medias when searching by status", bin2: true do
     api_create_media_and_go_to_search_page
-    sleep 3 #waiting load
+    sleep 20 #wait for ES to settle
     wait_for_selector("//h3[contains(text(), '1 result')]",:xpath)
     old = wait_for_selector_list("medias__item", :class).length
     el = wait_for_selector("//div[contains(text(), 'Translated')]",:xpath)
