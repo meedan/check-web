@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import Button from 'material-ui-next/Button';
 import Divider from 'material-ui-next/Divider';
 import { CardContent, CardHeader } from 'material-ui-next/Card';
@@ -14,6 +14,7 @@ import FaceSmile from '../../assets/images/feedback/face-smile';
 import CheckContext from '../CheckContext';
 import { request } from '../redux/actions';
 import { units, checkBlue, black54, black10 } from '../styles/js/shared';
+import { mapGlobalMessage } from './MappedMessage';
 
 const styles = {
   faces: {
@@ -115,7 +116,8 @@ class UserFeedback extends React.Component {
             /> :
             <FormattedMessage
               id="UserFeedback.label"
-              defaultMessage="How likely are you to recommend Check?"
+              defaultMessage="How likely are you to recommend {appName}?"
+              values={{ appName: mapGlobalMessage(this.props.intl, 'appNameHuman') }}
             />
           }
           action={<IconButton onClick={this.handleDismiss}><Dismiss /></IconButton>}
@@ -201,4 +203,4 @@ UserFeedback.contextTypes = {
   store: PropTypes.object,
 };
 
-export default UserFeedback;
+export default injectIntl(UserFeedback);
