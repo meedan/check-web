@@ -1172,6 +1172,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.navigate.to p1url
       sleep 3
       expect(@driver.page_source.include?(claim)).to be(false)
+      expect(@driver.page_source.include?('1 result')).to be(false)
+      expect(@driver.page_source.include?('Add a link or claim')).to be(true)
 
       # Go to the second project, make sure that there is no claim, and thus store the data in local Relay store
       wait_for_selector('.header-actions__drawer-toggle', :css).click
@@ -1179,6 +1181,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.project-list__link + .project-list__link', :css).click
       sleep 3
       expect(@driver.page_source.include?(claim)).to be(false)
+      expect(@driver.page_source.include?('1 result')).to be(false)
+      expect(@driver.page_source.include?('Add a link or claim')).to be(true)
 
       # Create a claim under project 2
       claimbutton = wait_for_selector('create-media__quote', :id)
@@ -1194,22 +1198,26 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.project-list__link + .project-list__link', :css).click
       sleep 3
       expect(@driver.page_source.include?(claim)).to be(true)
+      expect(@driver.page_source.include?('1 result')).to be(true)
+      expect(@driver.page_source.include?('Add a link or claim')).to be(false)
 
       # Move the claim to another project
       wait_for_selector('.card-with-border > div > div > div + button svg', :css).click
-      sleep 1
+      sleep 2
       wait_for_selector('.media-actions__icon', :css).click
-      sleep 1
+      sleep 2
       wait_for_selector('.media-actions__move', :css).click
       sleep 2
       wait_for_selector('input[name=moveMedia]', :css).click
-      sleep 1
+      sleep 2
       wait_for_selector('.media-detail__move-button', :css).click
       sleep 5
 
       # Check if the claim is under the first project, which we should have been redirected to
       expect(@driver.current_url.to_s == p1url).to be(true)
       expect(@driver.page_source.include?(claim)).to be(true)
+      expect(@driver.page_source.include?('1 result')).to be(true)
+      expect(@driver.page_source.include?('Add a link or claim')).to be(false)
 
       # Go back to the second project and make sure that the claim is not there anymore
       wait_for_selector('.header-actions__drawer-toggle', :css).click
@@ -1217,16 +1225,22 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.project-list__link + .project-list__link', :css).click
       sleep 3
       expect(@driver.page_source.include?(claim)).to be(false)
+      expect(@driver.page_source.include?('1 result')).to be(false)
+      expect(@driver.page_source.include?('Add a link or claim')).to be(true)
 
       # Reload the first project page and make sure that the claim is there
       @driver.navigate.to p1url
       sleep 3
       expect(@driver.page_source.include?(claim)).to be(true)
+      expect(@driver.page_source.include?('1 result')).to be(true)
+      expect(@driver.page_source.include?('Add a link or claim')).to be(false)
 
       # Reload the second project page and make sure that the claim is not there
       @driver.navigate.to p2url
       sleep 3
       expect(@driver.page_source.include?(claim)).to be(false)
+      expect(@driver.page_source.include?('1 result')).to be(false)
+      expect(@driver.page_source.include?('Add a link or claim')).to be(true)
     end
 
     it "should add, edit, answer, update answer and delete short answer task", bin3: true do
