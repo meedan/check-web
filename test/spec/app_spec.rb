@@ -1170,7 +1170,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       
       # Go to the first project, make sure that there is no claim, and thus store the data in local Relay store
       @driver.navigate.to p1url
-      sleep 3
+      sleep 10
       expect(@driver.page_source.include?(claim)).to be(false)
       expect(@driver.page_source.include?('1 result')).to be(false)
       expect(@driver.page_source.include?('Add a link or claim')).to be(true)
@@ -1179,7 +1179,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.header-actions__drawer-toggle', :css).click
       sleep 2
       wait_for_selector('.project-list__link + .project-list__link', :css).click
-      sleep 3
+      sleep 10
       expect(@driver.page_source.include?(claim)).to be(false)
       expect(@driver.page_source.include?('1 result')).to be(false)
       expect(@driver.page_source.include?('Add a link or claim')).to be(true)
@@ -1190,13 +1190,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 1
       @driver.action.send_keys(claim).perform
       @driver.action.send_keys(:enter).perform
-      sleep 5
+      sleep 10
 
       # Go to the second project, make sure that the claim is there
       wait_for_selector('.header-actions__drawer-toggle', :css).click
       sleep 2
       wait_for_selector('.project-list__link + .project-list__link', :css).click
-      sleep 3
+      sleep 10
       expect(@driver.page_source.include?(claim)).to be(true)
       expect(@driver.page_source.include?('1 result')).to be(true)
       expect(@driver.page_source.include?('Add a link or claim')).to be(false)
@@ -1217,7 +1217,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       move = wait_for_selector('.media-detail__move-button', :css)
       move.location_once_scrolled_into_view
       move.click
-      sleep 5
+      sleep 10
 
       # Check if the claim is under the first project, which we should have been redirected to
       expect(@driver.current_url.to_s == p1url).to be(true)
@@ -1229,21 +1229,21 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.header-actions__drawer-toggle', :css).click
       sleep 2
       wait_for_selector('.project-list__link + .project-list__link', :css).click
-      sleep 3
+      sleep 10
       expect(@driver.page_source.include?(claim)).to be(false)
       expect(@driver.page_source.include?('1 result')).to be(false)
       expect(@driver.page_source.include?('Add a link or claim')).to be(true)
 
       # Reload the first project page and make sure that the claim is there
       @driver.navigate.to p1url
-      sleep 3
+      sleep 10
       expect(@driver.page_source.include?(claim)).to be(true)
       expect(@driver.page_source.include?('1 result')).to be(true)
       expect(@driver.page_source.include?('Add a link or claim')).to be(false)
 
       # Reload the second project page and make sure that the claim is not there
       @driver.navigate.to p2url
-      sleep 3
+      sleep 10
       expect(@driver.page_source.include?(claim)).to be(false)
       expect(@driver.page_source.include?('1 result')).to be(false)
       expect(@driver.page_source.include?('Add a link or claim')).to be(true)
