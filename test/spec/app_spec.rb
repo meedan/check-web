@@ -1206,11 +1206,17 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 2
       wait_for_selector('.media-actions__icon', :css).click
       sleep 2
-      wait_for_selector('.media-actions__move', :css).click
+      move = wait_for_selector('.media-actions__move', :css)
+      move.location_once_scrolled_into_view
+      move.click
       sleep 2
-      wait_for_selector('input[name=moveMedia]', :css).click
+      move = wait_for_selector('input[name=moveMedia]', :css)
+      move.location_once_scrolled_into_view
+      move.click
       sleep 2
-      wait_for_selector('.media-detail__move-button', :css).click
+      move = wait_for_selector('.media-detail__move-button', :css)
+      move.location_once_scrolled_into_view
+      move.click
       sleep 5
 
       # Check if the claim is under the first project, which we should have been redirected to
