@@ -1,0 +1,14 @@
+[
+  {
+    "id": "ProjectBlankState.createMedia",
+    "defaultMessage": "Add a link or claim<br>to start verifying it"
+  },
+  {
+    "id": "ProjectBlankState.createMediaBridge",
+    "defaultMessage": "Add a link or quote<br>to start translating it"
+  },
+  {
+    "id": "userAssignments.blank",
+    "defaultMessage": "No activity yet"
+  }
+]

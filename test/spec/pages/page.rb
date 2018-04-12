@@ -93,7 +93,12 @@ class Page
   end
 
   def click_button(selector = 'button')
-    element(selector).click
+    begin
+      element(selector).click
+    rescue
+      sleep 1
+      element(selector).click
+    end
   end
 
   def contains_string?(string)

@@ -1,0 +1,9 @@
+{
+  "UserFeedback.thanks": "¡Gracias por sus comentarios!",
+  "UserFeedback.label": "¿Cuán probable es que recomiendes {appName}?",
+  "UserFeedback.unlikely": "Poco probable",
+  "UserFeedback.maybe": "Quizás",
+  "UserFeedback.likely": "Probable",
+  "UserFeedback.save": "Guardar",
+  "UserFeedback.explainMore": "Explica más"
+}

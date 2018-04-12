@@ -33,6 +33,10 @@ const globalStrings = defineMessages({
     id: 'global.tags',
     defaultMessage: 'Tags',
   },
+  unknownError: {
+    id: 'global.unknownError',
+    defaultMessage: 'An unknown error has occurred. Please try again and contact {supportEmail} if the error persists.',
+  },
 });
 
 export default globalStrings;

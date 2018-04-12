@@ -6,5 +6,6 @@
   "global.confirm": "Confirm",
   "global.save": "Save",
   "global.submit": "Submit",
-  "global.tags": "Tags"
+  "global.tags": "Tags",
+  "global.unknownError": "An unknown error has occurred. Please try again and contact {supportEmail} if the error persists."
 }

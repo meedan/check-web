@@ -15,6 +15,7 @@ import SearchRoute from '../relay/SearchRoute';
 import TeamRoute from '../relay/TeamRoute';
 import checkSearchResultFragment from '../relay/checkSearchResultFragment';
 import bridgeSearchResultFragment from '../relay/bridgeSearchResultFragment';
+import ProjectBlankState from './project/ProjectBlankState';
 import MediaDetail from './media/MediaDetail';
 import CheckContext from '../CheckContext';
 import MediasLoading from './media/MediasLoading';
@@ -732,16 +733,21 @@ class SearchResultsComponent extends Component {
   render() {
     const medias = this.props.search ? this.props.search.medias.edges : [];
     const sources = this.props.search ? this.props.search.sources.edges : [];
+    const searchResults = SearchResultsComponent.mergeResults(medias, sources);
+
     const count = this.props.search ? this.props.search.number_of_results : 0;
     const mediasCount = this.props.intl.formatMessage(messages.searchResults, {
       resultsCount: count,
     });
-    const title = /\/project\//.test(window.location.pathname) ? '' : mediasCount;
-    const searchResults = SearchResultsComponent.mergeResults(medias, sources);
+
+    const isProject = /\/project\//.test(window.location.pathname);
+    const title = (isProject && count === 0)
+      ? <ProjectBlankState project={this.currentContext().project} />
+      : <h3 className="search__results-heading">{mediasCount}</h3>;
 
     return (
       <StyledSearchResultsWrapper className="search__results results">
-        <h3 className="search__results-heading">{title}</h3>
+        {title}
         <InfiniteScroll hasMore loadMore={this.loadMore.bind(this)} threshold={500}>
           <div className="search__results-list results medias-list">
             {searchResults.map(item => (
@@ -778,6 +784,13 @@ const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsCom
 
 // eslint-disable-next-line react/no-multi-comp
 class Search extends Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    if (isEqual(this.props, nextProps) && isEqual(this.state, nextState)) {
+      return false;
+    }
+    return true;
+  }
+
   noFilters(query_) {
     const query = query_;
     delete query.timestamp;
