@@ -374,7 +374,7 @@ class Task extends Component {
       </div>
     ) : null;
 
-    const taskActions = (
+    const taskActions = !media.archived ? (
       <div>
         {taskAssignment}
         {data.by ?
@@ -443,7 +443,7 @@ class Task extends Component {
           </Can>
         </div>
       </div>
-    );
+    ) : null;
 
     const RequiredIndicator = styled.div`
       color: red;
@@ -467,7 +467,7 @@ class Task extends Component {
     );
 
     let taskBody = null;
-    if (!task.first_response) {
+    if (!task.first_response && !media.archived) {
       taskBody = (
         <Can permissions={media.permissions} permission="create Dynamic">
           <form name={`task-response-${task.id}`}>
