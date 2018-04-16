@@ -6,7 +6,6 @@ import rtlDetect from 'rtl-detect';
 import TimelineHeader from './TimelineHeader';
 import AddAnnotation from './AddAnnotation';
 import Annotation from './Annotation';
-import Can from '../Can';
 import { units, black16, black38, white, opaqueBlack16, borderWidthMedium, Text } from '../../styles/js/shared';
 
 const messages = defineMessages({
@@ -93,23 +92,11 @@ const Annotations = props => (
             </div>))}
       </div>
       <StyledAnnotationCardActions>
-        {props.annotatedType === 'ProjectMedia' ?
-          <Can
-            permissions={props.annotated.permissions}
-            permission="create Comment"
-          >
-            <AddAnnotation
-              annotated={props.annotated}
-              annotatedType={props.annotatedType}
-              types={props.types}
-            />
-          </Can>
-          :
-          <AddAnnotation
-            annotated={props.annotated}
-            annotatedType={props.annotatedType}
-            types={props.types}
-          />}
+        <AddAnnotation
+          annotated={props.annotated}
+          annotatedType={props.annotatedType}
+          types={props.types}
+        />
       </StyledAnnotationCardActions>
     </Card>
   </StyledAnnotation>);
