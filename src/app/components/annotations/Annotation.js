@@ -143,7 +143,6 @@ const StyledAnnotationWrapper = styled.section`
     color: #fff;
     border-radius: ${defaultBorderRadius};
 
-    .annotation__card-trash,
     .annotation__timestamp {
       color: #fff;
     }
@@ -878,20 +877,23 @@ class Annotation extends Component {
           </span>
         );
       } else if (activity.object_changes_json === '{"archived":[false,true]}') {
-        activityType = 'move_to_trash';
         contentTemplate = (
-          <div>
-            <div className="annotation__card-content annotation__card-trash">
-              <FormattedMessage id="annotation.movedToTrash" defaultMessage="Moved to trash" />
-            </div>
-          </div>
+          <span>
+            <FormattedMessage
+              id="annotation.movedToTrash"
+              defaultMessage="Moved to the trash by {author}"
+              values={{
+                author: authorName,
+              }}
+            />
+          </span>
         );
       } else if (activity.object_changes_json === '{"archived":[true,false]}') {
         contentTemplate = (
           <span>
             <FormattedMessage
               id="annotation.movedFromTrash"
-              defaultMessage="{author} moved this out of the trash"
+              defaultMessage="Moved out of the trash by {author}"
               values={{
                 author: authorName,
               }}
@@ -942,7 +944,7 @@ class Annotation extends Component {
       return null;
     }
 
-    const useCardTemplate = activityType === 'create_comment' || activityType === 'move_to_trash' || activityType === 'screenshot_taken';
+    const useCardTemplate = activityType === 'create_comment' || activityType === 'screenshot_taken';
     const templateClass = `annotation--${useCardTemplate ? 'card' : 'default'}`;
     const typeClass = annotation ? `annotation--${annotation.annotation_type}` : '';
     return (
