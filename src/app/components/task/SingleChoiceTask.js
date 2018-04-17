@@ -245,7 +245,7 @@ class SingleChoiceTask extends Component {
           : null
         }
         {this.props.mode === 'respond' ? this.renderOptions(response, note, jsonoptions) : null}
-        {this.props.mode === 'show_response'
+        {this.props.mode === 'show_response' && response
           ? this.renderOptions(response, note, jsonoptions)
           : null}
         {this.props.mode === 'edit_response'
