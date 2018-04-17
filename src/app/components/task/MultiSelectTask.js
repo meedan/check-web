@@ -278,7 +278,7 @@ class MultiSelectTask extends Component {
           : null
         }
         {this.props.mode === 'respond' ? this.renderOptions(jsonresponse, note, jsonoptions) : null}
-        {this.props.mode === 'show_response'
+        {this.props.mode === 'show_response' && jsonresponse
           ? this.renderOptions(jsonresponse, note, jsonoptions)
           : null}
         {this.props.mode === 'edit_response'
