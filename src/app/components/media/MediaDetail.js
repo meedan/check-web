@@ -176,6 +176,7 @@ class MediaDetail extends Component {
       : window.location.pathname;
 
     const projectPage = /^\/.*\/project\//.test(path);
+    const sourcePage = /^\/.*\/project\/.*\/source\//.test(path);
 
     media.url = media.media.url;
     media.quote = media.media.quote;
@@ -251,7 +252,7 @@ class MediaDetail extends Component {
       `${bemClassFromMediaStatus('media-detail', mediaLastStatus(media))} ` +
       `media-detail--${MediaUtil.mediaTypeCss(media, data)}`;
 
-    const shouldShowProjectName = !projectPage && projectTitle;
+    const shouldShowProjectName = projectTitle && (sourcePage || !projectPage);
 
     const shouldShowDescription = MediaUtil.hasCustomDescription(media, data);
 
