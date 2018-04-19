@@ -158,10 +158,12 @@ class MediaDetail extends Component {
       ? `/${media.team.slug}/project/${projectId}/media/${media.dbid}`
       : null;
 
-    const sourceUrl = media.team && media.project && media.project_source
-      ? `/${media.team.slug}/project/${media.project.dbid}/source/${media
-        .project_source.dbid}`
-      : null;
+    const sourceUrl = media.team &&
+      media.project &&
+      media.project_source &&
+      media.project_source.dbid ?
+      `/${media.team.slug}/project/${media.project.dbid}/source/${media.project_source.dbid}` :
+      null;
 
     const projectTitle = media.project ? media.project.title : null;
 
@@ -292,7 +294,7 @@ class MediaDetail extends Component {
                 </Offset>
               </Row> : null}
 
-            {sourceUrl && sourceName ?
+            {sourceName ?
               <Offset isRtl={isRtl}>
                 <Link to={sourceUrl}>
                   <Row>

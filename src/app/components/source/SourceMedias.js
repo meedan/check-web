@@ -19,8 +19,6 @@ const SourceMediasComponent = (props) => {
 
   if (source && source.source && source.source.medias) {
     const project_source = {
-      dbid: source.dbid,
-      project_id: source.project_id,
       source: {
         name: source.source.name,
       },
