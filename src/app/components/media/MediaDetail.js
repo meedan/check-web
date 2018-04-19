@@ -158,10 +158,12 @@ class MediaDetail extends Component {
       ? `/${media.team.slug}/project/${projectId}/media/${media.dbid}`
       : null;
 
-    const sourceUrl = media.team && media.project && media.project_source
-      ? `/${media.team.slug}/project/${media.project.dbid}/source/${media
-        .project_source.dbid}`
-      : null;
+    const sourceUrl = media.team &&
+      media.project &&
+      media.project_source &&
+      media.project_source.dbid ?
+      `/${media.team.slug}/project/${media.project.dbid}/source/${media.project_source.dbid}` :
+      null;
 
     const projectTitle = media.project ? media.project.title : null;
 
@@ -174,6 +176,7 @@ class MediaDetail extends Component {
       : window.location.pathname;
 
     const projectPage = /^\/.*\/project\//.test(path);
+    const sourcePage = /^\/.*\/project\/.*\/source\//.test(path);
 
     media.url = media.media.url;
     media.quote = media.media.quote;
@@ -249,7 +252,7 @@ class MediaDetail extends Component {
       `${bemClassFromMediaStatus('media-detail', mediaLastStatus(media))} ` +
       `media-detail--${MediaUtil.mediaTypeCss(media, data)}`;
 
-    const shouldShowProjectName = !projectPage && projectTitle;
+    const shouldShowProjectName = projectTitle && (sourcePage || !projectPage);
 
     const shouldShowDescription = MediaUtil.hasCustomDescription(media, data);
 
@@ -292,7 +295,7 @@ class MediaDetail extends Component {
                 </Offset>
               </Row> : null}
 
-            {sourceUrl && sourceName ?
+            {sourceName ?
               <Offset isRtl={isRtl}>
                 <Link to={sourceUrl}>
                   <Row>
