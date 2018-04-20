@@ -395,8 +395,11 @@ class Annotation extends Component {
 
           {/* embedded medias */}
           <div className="annotation__card-embedded-medias">
-            {annotation.medias.edges.map(media =>
-              <div><MediaDetail media={media.node} condensed readonly /></div>)}
+            {annotation.medias.edges.map(media => (
+              <div key={media.node.dbid}>
+                <MediaDetail media={media.node} condensed readonly />
+              </div>))
+            }
           </div>
 
           {/* lightbox */}

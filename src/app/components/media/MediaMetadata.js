@@ -25,7 +25,7 @@ import Message from '../Message';
 import Attribution from '../task/Attribution';
 import UserAvatar from '../UserAvatar';
 import ProfileLink from '../layout/ProfileLink';
-import { safelyParseJSON } from '../../helpers';
+import { nested, safelyParseJSON } from '../../helpers';
 import {
   Row,
   black10,
@@ -803,13 +803,13 @@ class MediaMetadata extends Component {
               defaultMessage="Currently filed under {teamName} > {projectTitle}"
               values={{
                 teamName: context.team.name,
-                projectTitle: media.project.title,
+                projectTitle: nested(['project', 'title'], media),
               }}
             />
           </small>
           <DestinationProjects
             team={context.team}
-            projectId={media.project.dbid}
+            projectId={nested(['project', 'dbid'], media)}
             onChange={this.handleSelectDestProject.bind(this)}
           />
         </Dialog>

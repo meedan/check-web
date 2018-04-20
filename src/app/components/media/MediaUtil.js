@@ -6,7 +6,7 @@ import FaYoutubePlay from 'react-icons/lib/fa/youtube-play';
 import MdLink from 'react-icons/lib/md/link';
 import { defineMessages } from 'react-intl';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
-import { truncateLength } from '../../helpers';
+import { nested, truncateLength } from '../../helpers';
 
 const messages = defineMessages({
   notesCount: {
@@ -129,15 +129,13 @@ const MediaUtil = {
   },
 
   hasCustomTitle(media, data) {
-    const { overridden } = media;
     const title = data && data.title && data.title.trim();
-    return overridden.title || (title && media.quote && (title !== media.quote));
+    return nested(['overridden', 'title'], media) || (title && media.quote && (title !== media.quote));
   },
 
   hasCustomDescription(media, data) {
-    const { overridden } = media;
     const description = data && data.description && data.description.trim();
-    return overridden.description || // Link type report
+    return nested(['overridden', 'description'], media) || // Link type report
       (media.quote && (description !== media.quote)) || // Quote type report
       (media.embed_path && description); // Image type report
   },
@@ -173,7 +171,7 @@ const MediaUtil = {
     case messages.typeTwitter:
     case messages.typeInstagram:
     case messages.typeVideo:
-      displayTitle = media.media.embed.title || byAttribution;
+      displayTitle = nested(['media', 'embed', 'title'], media) || byAttribution;
       break;
     default:
       displayTitle = media.media.quote || data.title || byAttribution || '';
