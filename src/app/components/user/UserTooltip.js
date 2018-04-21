@@ -11,7 +11,7 @@ import UserUtil from './UserUtil';
 import ParsedText from '../ParsedText';
 import MediaUtil from '../media/MediaUtil';
 import CheckContext from '../../CheckContext';
-import { truncateLength } from '../../helpers';
+import { nested, truncateLength } from '../../helpers';
 import UserRoute from '../../relay/UserRoute';
 import {
   black38,
@@ -78,9 +78,13 @@ class UserTooltipComponent extends Component {
 
   render() {
     const { user, team } = this.props;
-    const { source } = this.props.user;
+    const source = nested(['props', 'user', 'source'], this);
     const role = UserUtil.userRole(user, team);
     const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
+
+    if (!source) {
+      return null;
+    }
 
     return (
       <StyledTooltip>
