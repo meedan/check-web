@@ -263,6 +263,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
                         get_embed_whitelist
                       }
                       media {
+                        embed
                         embed_path,
                         thumbnail_path,
                         url,
