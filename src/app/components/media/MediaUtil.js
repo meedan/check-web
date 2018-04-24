@@ -157,7 +157,7 @@ const MediaUtil = {
 
     switch (type) {
     case messages.typePage:
-      displayTitle = media.media.embed.title ||
+      displayTitle = nested(['media', 'embed', 'title'], media) ||
       intl.formatMessage(messages.onDomain, { typeLabel, domain: media.domain });
       break;
     case messages.typeClaim:
