@@ -267,7 +267,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       expect(project_pg.driver.current_url.to_s.match(/\/project\/[0-9]+$/).nil?).to be(false)
       team_pg = project_pg.click_team_link
-      team_pg.click_projects_tab
       sleep 2
       element = @driver.find_element(:partial_link_text, project_name)
       expect(element.displayed?).to be(true)
@@ -907,14 +906,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       request_api 'project', { title: 'Team 2 Project', team_id: team.dbid }
 
       page = MePage.new(config: @config, driver: @driver).load.select_team(name: 'Team 1')
-      page.click_projects_tab
 
       expect(page.team_name).to eq('Team 1')
       expect(page.project_titles.include?('Team 1 Project')).to be(true)
       expect(page.project_titles.include?('Team 2 Project')).to be(false)
 
       page = MePage.new(config: @config, driver: @driver).load.select_team(name: 'Team 2')
-      page.click_projects_tab
 
       expect(page.team_name).to eq('Team 2')
       expect(page.project_titles.include?('Team 2 Project')).to be(true)
@@ -979,8 +976,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page = MePage.new(config: @config, driver: @driver).load
       @driver.navigate.to @config['self_url'] + '/'+@team1_slug
       sleep 2
-      wait_for_selector('.team__tab-button-members').click
-      sleep 2 # TODO: better soft keyboard strategies
       wait_for_selector('team-members__member',:class)
       el = wait_for_selector('team-members__edit-button',:class)
       el.click
@@ -1167,7 +1162,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       p1url = @config['self_url'] + '/' + p1[:team].slug + '/project/' + p1[:project].dbid.to_s
       p2 = api_create_project(p1[:team].dbid.to_s)
       p2url = @config['self_url'] + '/' + p2.team['slug'] + '/project/' + p2.dbid.to_s
-      
+
       # Go to the first project, make sure that there is no claim, and thus store the data in local Relay store
       @driver.navigate.to p1url
       sleep 10
