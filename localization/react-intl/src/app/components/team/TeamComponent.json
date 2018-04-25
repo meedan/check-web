@@ -54,17 +54,5 @@
   {
     "id": "teamComponent.upgradeButton",
     "defaultMessage": "Upgrade to PRO"
-  },
-  {
-    "id": "teamComponent.projects",
-    "defaultMessage": "Projects"
-  },
-  {
-    "id": "teamComponent.members",
-    "defaultMessage": "Members"
-  },
-  {
-    "id": "teamComponent.noProjects",
-    "defaultMessage": "No projects yet"
   }
 ]

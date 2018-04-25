@@ -1,28 +1,23 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay';
-import { Link } from 'react-router';
-import InfiniteScroll from 'react-infinite-scroller';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
-import { Tabs, Tab } from 'material-ui/Tabs';
 import rtlDetect from 'rtl-detect';
-import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
-import KeyboardArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
-import { List, ListItem } from 'material-ui/List';
+import { CardActions, CardText } from 'material-ui/Card';
 import styled from 'styled-components';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import UserUtil from '../user/UserUtil';
 import TeamAvatar from './TeamAvatar';
 import TeamMembers from './TeamMembers';
+import TeamProjects from './TeamProjects';
 import HeaderCard from '../HeaderCard';
 import PageTitle from '../PageTitle';
 import MappedMessage from '../MappedMessage';
 import UpdateTeamMutation from '../../relay/mutations/UpdateTeamMutation';
 import Message from '../Message';
-import CreateProject from '../project/CreateProject';
-import Can, { can } from '../Can';
+import { can } from '../Can';
 import CheckContext from '../../CheckContext';
 import ParsedText from '../ParsedText';
 import UploadImage from '../UploadImage';
@@ -31,12 +26,9 @@ import { safelyParseJSON } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 import {
   ContentColumn,
-  highlightBlue,
-  checkBlue,
-  title1,
   units,
   Row,
-  black54,
+  mediaQuery,
 } from '../../styles/js/shared';
 
 import {
@@ -96,7 +88,24 @@ const messages = defineMessages({
   },
 });
 
-const pageSize = 20;
+const StyledTwoColumnLayout = styled(ContentColumn)`
+  flex-direction: column;
+  ${mediaQuery.desktop`
+    display: flex;
+    justify-content: center;
+    max-width: ${units(120)};
+    padding: 0;
+    flex-direction: row;
+
+    .team__primary-column {
+      max-width: ${units(150)} !important;
+    }
+
+    .team__secondary-column {
+      max-width: ${units(50)};
+    }
+  `}
+`;
 
 class TeamComponent extends Component {
   constructor(props) {
@@ -109,7 +118,6 @@ class TeamComponent extends Component {
       isEditing: false,
       editProfileImg: false,
       submitDisabled: false,
-      showTab: 'projects',
       values: {
         name: team.name,
         description: team.description,
@@ -224,16 +232,6 @@ class TeamComponent extends Component {
     window.open(stringHelper('UPGRADE_URL'));
   };
 
-  handleTabChange(value) {
-    this.setState({
-      showTab: value,
-    });
-  }
-
-  loadMore() {
-    this.props.relay.setVariables({ pageSize: this.props.team.projects.edges.length + pageSize });
-  }
-
   render() {
     const { team } = this.props;
     const { isEditing } = this.state;
@@ -246,12 +244,6 @@ class TeamComponent extends Component {
       from: isRtl ? 'right' : 'left',
       to: isRtl ? 'left' : 'right',
     };
-
-    const StyledCardHeader = styled(CardHeader)`
-      span {
-        font: ${title1} !important;
-      }
-    `;
 
     if (contact) {
       if (contact.node.location) {
@@ -458,92 +450,23 @@ class TeamComponent extends Component {
                         }
                       </StyledBigColumn>
                     </StyledTwoColumns>
-                    <Tabs value={this.state.showTab} onChange={this.handleTabChange.bind(this)}>
-                      <Tab
-                        label={
-                          <FormattedMessage
-                            id="teamComponent.projects"
-                            defaultMessage="Projects"
-                          />
-                        }
-                        value="projects"
-                        className="team__tab-button-projects"
-                      />
-                      <Tab
-                        label={
-                          <FormattedMessage
-                            id="teamComponent.members"
-                            defaultMessage="Members"
-                          />
-                        }
-                        value="members"
-                        className="team__tab-button-members"
-                      />
-                    </Tabs>
                   </div>
                 );
               })()}
             </ContentColumn>
           </HeaderCard>
 
-          {(() => {
-            if (!isEditing) {
-              return (
-                <ContentColumn>
-                  {this.state.showTab === 'members' ? (
-                    <TeamMembers {...this.props} />
-                  ) : null }
-                  {this.state.showTab === 'projects' ? (
-                    <div>
-                      <Can permissions={team.permissions} permission="create Project">
-                        <CreateProject
-                          team={team}
-                          autoFocus={!team.projects.edges.length}
-                          renderCard
-                        />
-                      </Can>
-                      <Card style={{ marginTop: units(2), marginBottom: units(2) }}>
-                        <StyledCardHeader
-                          title={<MappedMessage msgObj={messages} msgKey="verificationProjects" />}
-                        />
-
-                        {!team.projects.edges.length ?
-                          <CardText style={{ color: black54 }}>
-                            <FormattedMessage id="teamComponent.noProjects" defaultMessage="No projects yet" />
-                          </CardText>
-                          :
-                          <InfiniteScroll
-                            hasMore
-                            loadMore={this.loadMore.bind(this)}
-                            threshold={500}
-                          >
-                            <List className="projects" style={{ padding: '0' }}>
-                              {team.projects.edges
-                                .sortp((a, b) => a.node.title.localeCompare(b.node.title))
-                                .map(p => (
-                                  <Link key={p.node.dbid} to={`/${team.slug}/project/${p.node.dbid}`}>
-                                    <ListItem
-                                      className="team__project"
-                                      hoverColor={highlightBlue}
-                                      focusRippleColor={checkBlue}
-                                      touchRippleColor={checkBlue}
-                                      primaryText={p.node.title}
-                                      rightIcon={<KeyboardArrowRight />}
-                                    />
-                                  </Link>
-                                ))
-                              }
-                            </List>
-                          </InfiniteScroll>
-                        }
-                      </Card>
-                    </div>
-                  ) : null }
-                </ContentColumn>
-              );
-            }
-            return '';
-          })()}
+          { isEditing ?
+            null :
+            <StyledTwoColumnLayout>
+              <ContentColumn>
+                <TeamMembers {...this.props} />
+              </ContentColumn>
+              <ContentColumn className="team__secondary-column">
+                <TeamProjects team={team} relay={this.props.relay} />
+              </ContentColumn>
+            </StyledTwoColumnLayout>
+          }
 
         </div>
       </PageTitle>
