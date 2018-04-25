@@ -47,12 +47,6 @@ const messages = defineMessages({
 });
 
 class SwitchTeamsComponent extends Component {
-  static cancelRequest(team) {
-    Relay.Store.commitUpdate(new DeleteTeamUserMutation({
-      id: team.team_user_id,
-    }));
-  }
-
   getContext() {
     return new CheckContext(this);
   }
@@ -86,6 +80,14 @@ class SwitchTeamsComponent extends Component {
       }),
       { onSuccess, onFailure },
     );
+  }
+
+  cancelRequest(team, e) {
+    Relay.Store.commitUpdate(new DeleteTeamUserMutation({
+      id: team.teamUser_id,
+      user: this.props.user,
+    }));
+    e.preventDefault();
   }
 
   render() {
@@ -124,7 +126,7 @@ class SwitchTeamsComponent extends Component {
           <FlatButton
             style={listItemButtonStyle}
             hoverColor={alertRed}
-            onClick={SwitchTeamsComponent.cancelRequest(team)}
+            onClick={this.cancelRequest.bind(this, team)}
           >
             <FormattedMessage id="switchTeams.cancelJoinRequest" defaultMessage="Cancel" />
           </FlatButton>
