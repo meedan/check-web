@@ -113,11 +113,11 @@
   },
   {
     "id": "annotation.movedToTrash",
-    "defaultMessage": "Moved to trash"
+    "defaultMessage": "Moved to the trash by {author}"
   },
   {
     "id": "annotation.movedFromTrash",
-    "defaultMessage": "{author} moved this out of the trash"
+    "defaultMessage": "Moved out of the trash by {author}"
   },
   {
     "id": "annotation.teamCopied",

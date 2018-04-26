@@ -199,7 +199,7 @@ const ProjectEditContainer = Relay.createContainer(injectIntl(ProjectEditCompone
 });
 
 const ProjectEdit = (props) => {
-  const route = new ProjectRoute({ contextId: parseInt(props.params.projectId, 10) });
+  const route = new ProjectRoute({ contextId: props.params.projectId });
   return (
     <Relay.RootContainer
       Component={ProjectEditContainer}

@@ -26,6 +26,9 @@ function safelyParseJSON(jsonString, invalid = null) {
   }
 }
 
+const nested = (path, obj) => path.reduce((parent, child) =>
+  (parent && parent[child]) ? parent[child] : null, obj);
+
 function getStatus(statusesJson, id) {
   const { statuses } = statusesJson;
   let status = '';
@@ -107,6 +110,7 @@ export {
   bemClassFromMediaStatus,
   rtlClass,
   safelyParseJSON,
+  nested,
   getStatus,
   getStatusStyle,
   notify,

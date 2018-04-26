@@ -66,6 +66,7 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
         ...this._init.headers,
         Accept: '*/*',
         'Content-Type': 'application/json',
+        'X-Check-Team': this._init.team(),
       },
       method: 'POST',
     });
@@ -106,6 +107,7 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
         headers: (0, _extends3.default)({}, this._init.headers, {
           Accept: '*/*',
           'Content-Type': 'application/json',
+          'X-Check-Team': this._init.team(),
         }),
         method: 'POST',
       });

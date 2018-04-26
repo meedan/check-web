@@ -23,4 +23,9 @@ describe('<DatetimeTaskResponse />', () => {
     const taskResponse = mountWithIntl(<DatetimeTaskResponse response={badResponse} />);
     expect(taskResponse.html()).to.contain('Error: Invalid timestamp');
   });
+
+  it('Returns null if no response', () => {
+    const taskResponse = mountWithIntl(<DatetimeTaskResponse />);
+    expect(taskResponse.html()).to.equal(null);
+  });
 });
