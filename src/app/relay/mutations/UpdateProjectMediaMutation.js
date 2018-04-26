@@ -12,7 +12,8 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
       fragment on UpdateProjectMediaPayload {
         project_mediaEdge,
         check_search_team { id }
-        check_search_project { id }
+        check_search_project { id, number_of_results }
+        check_search_project_was { id, number_of_results }
         project_media {
           project_id,
           overridden,
@@ -44,13 +45,8 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
           }
           project {
             title
+            search_id
           }
-        }
-        project {
-          project_medias
-        }
-        project_was {
-          project_medias
         }
       }
     `;
@@ -73,11 +69,13 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
 
   getConfigs() {
     const ids = { project_media: this.props.id };
+
     if (this.props.srcProj) {
-      ids.project_was = this.props.srcProj.id;
+      ids.check_search_project_was = this.props.srcProj.search_id;
     }
+
     if (this.props.dstProj) {
-      ids.project = this.props.dstProj.id;
+      ids.check_search_project = this.props.dstProj.search_id;
     }
 
     const configs = [
@@ -102,6 +100,29 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         ],
       },
     ];
+
+    if (this.props.srcProj) {
+      configs.push({
+        type: 'NODE_DELETE',
+        parentName: 'check_search_project',
+        parentID: this.props.srcProj.search_id,
+        connectionName: 'medias',
+        deletedIDFieldName: 'affectedId',
+      });
+    }
+
+    if (this.props.dstProj) {
+      configs.push({
+        type: 'RANGE_ADD',
+        parentName: 'check_search_project',
+        parentID: this.props.dstProj.search_id,
+        connectionName: 'medias',
+        edgeName: 'project_mediaEdge',
+        rangeBehaviors: {
+          '': 'prepend',
+        },
+      });
+    }
 
     if (this.props.archived === 1) {
       configs.push({

@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
 import { Link } from 'react-router';
-import IconMenu from 'material-ui/IconMenu';
 import IconButton from 'material-ui/IconButton';
 import MenuItem from 'material-ui/MenuItem';
+import Menu from 'material-ui-next/Menu';
 import UserUtil from './UserUtil';
 import UserMenuItems from '../UserMenuItems';
 import UserAvatar from '../UserAvatar';
+import UserFeedback from '../UserFeedback';
 import {
   black54,
   units,
@@ -25,41 +26,66 @@ const styles = {
   },
 };
 
-const UserMenu = (props) => {
-  const {
-    currentUserIsMember, inTeamContext, loggedIn, user, team,
-  } = props;
+class UserMenu extends React.Component {
+  state = {
+    anchorEl: null,
+  };
 
-  if (!loggedIn) {
-    return null;
-  }
+  handleClick = (event) => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
 
-  const role = inTeamContext && currentUserIsMember && UserUtil.userRole(user, team);
-  const localizedRoleText = role &&
-    <span className="user-menu__role" style={{ color: black54 }}>
-      {`(${UserUtil.localizedRole(role, props.intl)})`}
-    </span>;
+  handleClose = () => {
+    this.setState({ anchorEl: null });
+  };
 
-  return (
-    <IconMenu
-      className="header__user-menu"
-      iconButtonElement={
-        <IconButton style={styles.UserMenuStyle}>
-          <UserAvatar size={units(4)} {...props} />
+  render() {
+    const {
+      currentUserIsMember, inTeamContext, loggedIn, user, team,
+    } = this.props;
+
+    if (!loggedIn) {
+      return null;
+    }
+
+    const role = inTeamContext && currentUserIsMember && UserUtil.userRole(user, team);
+    const localizedRoleText = role &&
+      <span className="user-menu__role" style={{ color: black54, marginLeft: units(1) }}>
+        {`(${UserUtil.localizedRole(role, this.props.intl)})`}
+      </span>;
+
+    const { anchorEl } = this.state;
+
+    return (
+      <div className="header__user-menu">
+        <IconButton
+          style={styles.UserMenuStyle}
+          onClick={this.handleClick}
+        >
+          <UserAvatar size={units(4)} {...this.props} />
         </IconButton>
-      }
-      anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
-    >
-      <MenuItem
-        containerElement={<Link to="/check/me" />}
-        secondaryText={localizedRoleText}
-      >
-        {user && user.name}
-      </MenuItem>
-      <UserMenuItems {...props} />
-    </IconMenu>
-  );
-};
+        <Menu
+          anchorEl={anchorEl}
+          getContentAnchorEl={null}
+          open={Boolean(anchorEl)}
+          onClose={this.handleClose}
+          anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+        >
+          <MenuItem
+            containerElement={<Link to="/check/me" />}
+          >
+            <div>
+              {user && user.name}
+              {localizedRoleText}
+            </div>
+          </MenuItem>
+          <UserMenuItems {...this.props} />
+          <UserFeedback />
+        </Menu>
+      </div>
+    );
+  }
+}
 
 UserMenu.contextTypes = {
   store: PropTypes.object,

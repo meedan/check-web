@@ -13,6 +13,7 @@ import CreateStatusMutation from '../../relay/mutations/CreateStatusMutation';
 import UpdateStatusMutation from '../../relay/mutations/UpdateStatusMutation';
 import CreateFlagMutation from '../../relay/mutations/CreateFlagMutation';
 import CreateDynamicMutation from '../../relay/mutations/CreateDynamicMutation';
+import { can } from '../Can';
 import CheckContext from '../../CheckContext';
 import UploadImage from '../UploadImage';
 import { ContentColumn, Row, black38, black87, alertRed, units } from '../../styles/js/shared';
@@ -426,6 +427,12 @@ class AddAnnotation extends Component {
         }
       }
     `;
+
+    if (this.props.annotated.archived ||
+      (this.props.annotatedType === 'ProjectMedia' &&
+      !can(this.props.annotated.permissions, 'create Comment'))) {
+      return null;
+    }
 
     return (
       <form

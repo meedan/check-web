@@ -35,7 +35,7 @@ class MediaActions extends Component {
     } = this.props;
     const menuItems = [];
 
-    if (can(media.permissions, 'update ProjectMedia')) {
+    if (can(media.permissions, 'update ProjectMedia') && !media.archived) {
       menuItems.push((
         <MenuItem
           key="mediaActions.edit"
@@ -58,7 +58,7 @@ class MediaActions extends Component {
         </MenuItem>));
     }
 
-    if (can(media.permissions, 'update ProjectMedia')) {
+    if (can(media.permissions, 'update ProjectMedia') && !media.archived) {
       menuItems.push((
         <MenuItem
           key="mediaActions.move"
@@ -92,7 +92,9 @@ class MediaActions extends Component {
       }
     }
 
-    if (config.appName === 'check' && can(media.permissions, 'embed ProjectMedia')) {
+    if (config.appName === 'check' &&
+      can(media.permissions, 'embed ProjectMedia') &&
+      !media.archived) {
       menuItems.push((
         <MenuItem
           key="mediaActions.embed"
@@ -116,7 +118,7 @@ class MediaActions extends Component {
         </MenuItem>));
     }
 
-    if (can(media.permissions, 'create Status')) {
+    if (can(media.permissions, 'create Status') && !media.archived) {
       menuItems.push((
         <MenuItem
           key="mediaActions.assign"

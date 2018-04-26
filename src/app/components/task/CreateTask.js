@@ -274,6 +274,10 @@ class CreateTask extends Component {
       />,
     ];
 
+    if (media.archived) {
+      return null;
+    }
+
     return (
       <div>
 

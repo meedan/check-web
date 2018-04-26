@@ -3,6 +3,7 @@ import Dialog from 'material-ui/Dialog';
 import { Map, Marker, TileLayer } from 'react-leaflet';
 import styled from 'styled-components';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
+import { safelyParseJSON } from '../../helpers';
 import { units, black05, black38, FlexRow } from '../../styles/js/shared';
 
 const StyledMap = styled.div`
@@ -31,7 +32,11 @@ class GeolocationTaskResponse extends Component {
   }
 
   render() {
-    const geoJSON = JSON.parse(this.props.response);
+    if (!this.props.response) {
+      return null;
+    }
+
+    const geoJSON = safelyParseJSON(this.props.response);
     const { properties: { name }, geometry: { coordinates } } = geoJSON;
     let coordinatesString = false;
     let imgPath = false;

@@ -374,7 +374,7 @@ class Task extends Component {
       </div>
     ) : null;
 
-    const taskActions = (
+    const taskActions = !media.archived ? (
       <div>
         {taskAssignment}
         {data.by ?
@@ -398,7 +398,7 @@ class Task extends Component {
             marginLeft: 'auto',
             position: 'absolute',
             bottom: '0',
-            right: '0',
+            right: units(0.5),
           }}
         >
           <Can permissions={task.permissions} permission="update Task">
@@ -443,12 +443,13 @@ class Task extends Component {
           </Can>
         </div>
       </div>
-    );
+    ) : null;
 
     const RequiredIndicator = styled.div`
       color: red;
       font-weight: normal;
       font: ${title1};
+      line-height: 20px;
     `;
 
     const taskQuestion = (
@@ -467,7 +468,7 @@ class Task extends Component {
     );
 
     let taskBody = null;
-    if (!task.first_response) {
+    if (!task.first_response && !media.archived) {
       taskBody = (
         <Can permissions={media.permissions} permission="create Dynamic">
           <form name={`task-response-${task.id}`}>
@@ -619,6 +620,7 @@ class Task extends Component {
             title={taskQuestion}
             subtitle={task.description ? task.description : null}
             id={`task__label-${task.id}`}
+            showExpandableButton
           />
 
           <CardText expandable className="task__card-text">
@@ -627,7 +629,15 @@ class Task extends Component {
           </CardText>
 
           <CardActions
-            style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}
+            expandable
+            style={
+              {
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'flex-start',
+                minHeight: units(6),
+              }
+            }
           >
             {taskActions}
           </CardActions>

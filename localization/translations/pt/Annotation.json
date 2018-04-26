@@ -27,7 +27,7 @@
   "annotation.penderArchiveWait": "Este item está sendo arquivado em Keep. Volte em alguns minutos para receber um screenshot.",
   "annotation.flaggedHeader": "Marcado como {flag} por {author}",
   "annotation.projectMoved": "Movido do projeto {previousProject} para {currentProject} por {author}",
-  "annotation.movedToTrash": "Movido para Lixeira",
-  "annotation.movedFromTrash": "{author} moveu para fora da lixeira",
+  "annotation.movedToTrash": "Movido para lixeira por {author}",
+  "annotation.movedFromTrash": "Movido para fora da lixeira por {author}",
   "annotation.teamCopied": "Copiado do projeto {previousProject} na equipe {previousTeam} por {author}"
 }

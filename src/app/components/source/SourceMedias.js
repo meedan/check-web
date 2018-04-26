@@ -2,8 +2,8 @@ import React from 'react';
 import Relay from 'react-relay';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
+import MediaDetail from '../media/MediaDetail';
 import SourceRoute from '../../relay/SourceRoute';
-import Medias from '../media/Medias';
 import { black87, units } from '../../styles/js/shared';
 
 const SourceMediasComponent = (props) => {
@@ -18,6 +18,23 @@ const SourceMediasComponent = (props) => {
   `;
 
   if (source && source.source && source.source.medias) {
+    const project_source = {
+      source: {
+        name: source.source.name,
+      },
+    };
+
+    const medias = source.source.medias.edges.map((node) => {
+      const media = node.node;
+      media.project_source = project_source;
+
+      return (
+        <li key={media.dbid} style={{ marginTop: units(1) }}>
+          <MediaDetail media={media} condensed />
+        </li>
+      );
+    });
+
     return (
       <div>
         <StyledSearchResultsHeading>
@@ -29,7 +46,9 @@ const SourceMediasComponent = (props) => {
             />
           </h3>
         </StyledSearchResultsHeading>
-        <Medias medias={source.source.medias.edges} />
+        <ul className="medias">
+          {medias}
+        </ul>
       </div>
     );
   }
@@ -42,9 +61,11 @@ const SourceMediasContainer = Relay.createContainer(SourceMediasComponent, {
       fragment on ProjectSource {
         id
         dbid
+        project_id
         source {
           id
           dbid
+          name
           medias_count
           medias(first: 10000) {
             edges {

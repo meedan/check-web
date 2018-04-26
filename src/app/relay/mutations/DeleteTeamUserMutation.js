@@ -18,12 +18,22 @@ class DeleteTeamUserMutation extends Relay.Mutation {
   getFatQuery() {
     return Relay.QL`
       fragment on DestroyTeamUserPayload {
-        deletedId
+        deletedId,
+        user { id }
       }
     `;
   }
 
   getConfigs() {
+    if (this.props.user && this.props.user.id) {
+      return [{
+        type: 'NODE_DELETE',
+        parentName: 'user',
+        parentID: this.props.user.id,
+        connectionName: 'team_users',
+        deletedIDFieldName: 'deletedId',
+      }];
+    }
     return [];
   }
 }

@@ -238,6 +238,20 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
                       embed,
                       project_id,
                       last_status,
+                      last_status_obj {
+                        id
+                        dbid
+                        assigned_to {
+                          id
+                          dbid
+                          name
+                          source {
+                            id
+                            dbid
+                            image
+                          }
+                        }
+                      }
                       field_value(annotation_type_field_name: "translation_status:translation_status_status"),
                       log_count,
                       permissions,
@@ -249,15 +263,18 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
                         get_embed_whitelist
                       }
                       media {
+                        embed
                         embed_path,
                         thumbnail_path,
                         url,
                         quote
                       }
                       user {
-                        name,
+                        dbid
+                        name
                         source {
                           dbid
+                          image
                         }
                       }
                     }

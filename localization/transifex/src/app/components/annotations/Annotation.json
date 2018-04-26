@@ -27,7 +27,7 @@
   "annotation.penderArchiveWait": "The screenshot of this item is being taken by Keep. Come back in a few minutes to see it.",
   "annotation.flaggedHeader": "Flagged as {flag} by {author}",
   "annotation.projectMoved": "Moved from project {previousProject} to {currentProject} by {author}",
-  "annotation.movedToTrash": "Moved to trash",
-  "annotation.movedFromTrash": "{author} moved this out of the trash",
+  "annotation.movedToTrash": "Moved to the trash by {author}",
+  "annotation.movedFromTrash": "Moved out of the trash by {author}",
   "annotation.teamCopied": "Copied from project {previousProject} on team {previousTeam} by {author}"
 }
