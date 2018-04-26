@@ -26,7 +26,7 @@ shared_examples 'custom' do
     expect(media_pg.status_label).to eq('TRANSLATED')
   end
 
-  it "should find medias when searching by status", bin2: true do
+  xit "should find medias when searching by status", bin2: true do
     api_create_media_and_go_to_search_page
     sleep 20 #wait for ES to settle
     wait_for_selector("//h3[contains(text(), '1 result')]",:xpath)
