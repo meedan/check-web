@@ -73,9 +73,11 @@ class UserMenu extends React.Component {
         >
           <MenuItem
             containerElement={<Link to="/check/me" />}
-            secondaryText={localizedRoleText}
           >
-            {user && user.name}
+            <div>
+              {user && user.name}
+              {localizedRoleText}
+            </div>
           </MenuItem>
           <UserMenuItems {...this.props} />
           <UserFeedback />
