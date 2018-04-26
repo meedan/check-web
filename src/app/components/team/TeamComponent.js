@@ -1,45 +1,26 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay';
-import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import TextField from 'material-ui/TextField';
-import FlatButton from 'material-ui/FlatButton';
 import rtlDetect from 'rtl-detect';
-import { CardActions, CardText } from 'material-ui/Card';
 import styled from 'styled-components';
-import config from 'config'; // eslint-disable-line require-path-exists/exists
-import UserUtil from '../user/UserUtil';
-import TeamAvatar from './TeamAvatar';
+import TeamInfo from './TeamInfo';
+import TeamInfoEdit from './TeamInfoEdit';
 import TeamMembers from './TeamMembers';
 import TeamProjects from './TeamProjects';
 import HeaderCard from '../HeaderCard';
 import PageTitle from '../PageTitle';
-import MappedMessage from '../MappedMessage';
 import UpdateTeamMutation from '../../relay/mutations/UpdateTeamMutation';
 import Message from '../Message';
 import { can } from '../Can';
 import CheckContext from '../../CheckContext';
-import ParsedText from '../ParsedText';
-import UploadImage from '../UploadImage';
-import globalStrings from '../../globalStrings';
 import { safelyParseJSON } from '../../helpers';
-import { stringHelper } from '../../customHelpers';
 import {
   ContentColumn,
   units,
-  Row,
   mediaQuery,
 } from '../../styles/js/shared';
-
-import {
-  StyledTwoColumns,
-  StyledSmallColumn,
-  StyledBigColumn,
-  StyledName,
-  StyledDescription,
-  StyledContactInfo,
-  StyledAvatarEditButton,
-} from '../../styles/js/HeaderCard';
 
 const messages = defineMessages({
   editError: {
@@ -69,22 +50,6 @@ const messages = defineMessages({
   website: {
     id: 'teamComponent.website',
     defaultMessage: 'Website',
-  },
-  verificationTeam: {
-    id: 'teamComponent.verificationTeam',
-    defaultMessage: 'Verification Team',
-  },
-  bridge_verificationTeam: {
-    id: 'bridge.teamComponent.verificationTeam',
-    defaultMessage: 'Translation Team',
-  },
-  verificationProjects: {
-    id: 'teamComponent.title',
-    defaultMessage: 'Verification Projects',
-  },
-  bridge_verificationProjects: {
-    id: 'bridge.teamComponent.title',
-    defaultMessage: 'Translation Projects',
   },
 });
 
@@ -228,15 +193,10 @@ class TeamComponent extends Component {
     this.setState({ values });
   }
 
-  handleClickUpgrade = () => {
-    window.open(stringHelper('UPGRADE_URL'));
-  };
-
   render() {
     const { team } = this.props;
     const { isEditing } = this.state;
     const contact = team.contacts.edges[0];
-    const contactInfo = [];
 
     const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
 
@@ -245,48 +205,8 @@ class TeamComponent extends Component {
       to: isRtl ? 'left' : 'right',
     };
 
-    if (contact) {
-      if (contact.node.location) {
-        contactInfo.push((
-          <StyledContactInfo key="contactInfo.location" className="team__location">
-            <span className="team__location-name">
-              <ParsedText text={contact.node.location} />
-            </span>
-          </StyledContactInfo>
-        ));
-      }
-
-      if (contact.node.phone) {
-        contactInfo.push((
-          <StyledContactInfo key="contactInfo.phone" className="team__phone">
-            <span className="team__phone-name">
-              <ParsedText text={contact.node.phone} />
-            </span>
-          </StyledContactInfo>
-        ));
-      }
-
-      if (contact.node.web) {
-        contactInfo.push((
-          <StyledContactInfo key="contactInfo.web" className="team__web">
-            <span className="team__link-name">
-              <ParsedText text={contact.node.web} />
-            </span>
-          </StyledContactInfo>
-        ));
-      }
-    }
-
     const avatarPreview = this.state.avatar && this.state.avatar.preview;
-
     const context = new CheckContext(this).getContextStore();
-
-    const showUpgradeButton =
-      team.plan === 'free' &&
-      config.appName === 'check' &&
-      UserUtil.myRole(context.currentUser, team.slug) === 'owner' &&
-      team.projects.edges.length &&
-      team.projects.edges.find(p => p.node.medias_count > 0);
 
     return (
       <PageTitle prefix={false} skipTeam={false} team={team}>
@@ -299,163 +219,12 @@ class TeamComponent extends Component {
           >
             <ContentColumn>
               <Message message={this.state.message} />
-              {(() => {
-                if (isEditing) {
-                  return (
-                    <form onSubmit={this.handleEditTeam.bind(this)} name="edit-team-form">
-                      <StyledTwoColumns>
-                        <StyledSmallColumn>
-                          <TeamAvatar
-                            style={{ backgroundImage: `url(${avatarPreview || team.avatar})` }}
-                            size={units(9)}
-                            team={team}
-                          />
-                          {!this.state.editProfileImg ?
-                            <StyledAvatarEditButton className="team__edit-avatar-button">
-                              <FlatButton
-                                label={this.props.intl.formatMessage(globalStrings.edit)}
-                                onClick={this.handleEditProfileImg.bind(this)}
-                                primary
-                              />
-                            </StyledAvatarEditButton>
-                            : null}
-                        </StyledSmallColumn>
-
-                        <StyledBigColumn>
-                          {this.state.editProfileImg ?
-                            <UploadImage
-                              onImage={this.onImage.bind(this)}
-                              onClear={this.onClear.bind(this)}
-                              onError={this.onImageError.bind(this)}
-                              noPreview
-                            />
-                            : null}
-
-                          <CardText>
-                            <TextField
-                              className="team__name-input"
-                              id="team__name-container"
-                              defaultValue={team.name}
-                              floatingLabelText={this.props.intl.formatMessage(messages.teamName)}
-                              onChange={this.handleChange.bind(this, 'name')}
-                              fullWidth
-                            />
-
-                            <TextField
-                              className="team__description"
-                              id="team__description-container"
-                              defaultValue={team.description}
-                              floatingLabelText={
-                                this.props.intl.formatMessage(messages.teamDescription)
-                              }
-                              onChange={this.handleChange.bind(this, 'description')}
-                              fullWidth
-                              multiLine
-                              rows={1}
-                              rowsMax={4}
-                            />
-
-                            <TextField
-                              className="team__location"
-                              id="team__location-container"
-                              defaultValue={contact ? contact.node.location : ''}
-                              floatingLabelText={this.props.intl.formatMessage(messages.location)}
-                              onChange={this.handleChange.bind(this, 'contact_location')}
-                              fullWidth
-                            />
-
-                            <TextField
-                              className="team__phone"
-                              id="team__phone-container"
-                              defaultValue={contact ? contact.node.phone : ''}
-                              floatingLabelText={this.props.intl.formatMessage(messages.phone)}
-                              onChange={this.handleChange.bind(this, 'contact_phone')}
-                              fullWidth
-                            />
-
-                            <TextField
-                              className="team__location-name-input"
-                              id="team__link-container"
-                              defaultValue={contact ? contact.node.web : ''}
-                              floatingLabelText={this.props.intl.formatMessage(messages.website)}
-                              onChange={this.handleChange.bind(this, 'contact_web')}
-                              fullWidth
-                            />
-                          </CardText>
-
-                          <CardActions style={{ marginTop: units(4) }}>
-                            <FlatButton
-                              label={
-                                <FormattedMessage
-                                  id="teamComponent.cancelButton"
-                                  defaultMessage="Cancel"
-                                />
-                              }
-                              onClick={this.cancelEditTeam.bind(this)}
-                            />
-
-                            <FlatButton
-                              className="team__save-button"
-                              label={
-                                <FormattedMessage
-                                  id="teamComponent.saveButton"
-                                  defaultMessage="Save"
-                                  disabled={this.state.submitDisabled}
-                                />
-                              }
-                              primary
-                              onClick={this.handleEditTeam.bind(this)}
-                            />
-                          </CardActions>
-                        </StyledBigColumn>
-                      </StyledTwoColumns>
-                    </form>
-                  );
-                }
-
-                return (
-                  <div>
-                    <StyledTwoColumns>
-                      <StyledSmallColumn>
-                        <TeamAvatar
-                          size={units(9)}
-                          team={team}
-                        />
-                      </StyledSmallColumn>
-                      <StyledBigColumn>
-                        <div className="team__primary-info">
-                          <StyledName className="team__name">
-                            {team.name}
-                          </StyledName>
-                          <StyledDescription>
-                            {<ParsedText text={team.description} /> ||
-                              <MappedMessage msgObj={messages} msgKey="verificationTeam" />}
-                          </StyledDescription>
-                        </div>
-
-                        <Row>
-                          {contactInfo}
-                        </Row>
-                        {showUpgradeButton ?
-                          <FlatButton
-                            label={
-                              <FormattedMessage
-                                id="teamComponent.upgradeButton"
-                                defaultMessage="Upgrade to PRO"
-                              />
-                            }
-                            onClick={this.handleClickUpgrade}
-                            primary
-                          /> : null
-                        }
-                      </StyledBigColumn>
-                    </StyledTwoColumns>
-                  </div>
-                );
-              })()}
+              { isEditing ?
+                <TeamInfoEdit team={team} /> :
+                <TeamInfo team={team} context={context} />
+              }
             </ContentColumn>
           </HeaderCard>
-
           { isEditing ?
             null :
             <StyledTwoColumnLayout>
@@ -467,7 +236,6 @@ class TeamComponent extends Component {
               </ContentColumn>
             </StyledTwoColumnLayout>
           }
-
         </div>
       </PageTitle>
     );

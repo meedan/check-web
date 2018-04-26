@@ -50,7 +50,7 @@ class UserMenu extends React.Component {
 
     const role = inTeamContext && currentUserIsMember && UserUtil.userRole(user, team);
     const localizedRoleText = role &&
-      <span className="user-menu__role" style={{ color: black54 }}>
+      <span className="user-menu__role" style={{ color: black54, marginLeft: 'auto' }}>
         {`(${UserUtil.localizedRole(role, this.props.intl)})`}
       </span>;
 
@@ -73,9 +73,11 @@ class UserMenu extends React.Component {
         >
           <MenuItem
             containerElement={<Link to="/check/me" />}
-            secondaryText={localizedRoleText}
           >
-            {user && user.name}
+            <div>
+              {user && user.name}
+              {localizedRoleText}
+            </div>
           </MenuItem>
           <UserMenuItems {...this.props} />
           <UserFeedback />

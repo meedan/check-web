@@ -1,0 +1,10 @@
+[
+  {
+    "id": "teamComponent.cancelButton",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "teamComponent.saveButton",
+    "defaultMessage": "Save"
+  }
+]
