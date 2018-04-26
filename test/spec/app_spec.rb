@@ -1137,19 +1137,25 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should move media to another project", bin2: true do
       claim = 'This is going to be moved'
+      claim_name = case @config['app_name']
+      when 'bridge'
+        'quote'
+      when 'check'
+        'claim'
+      end
 
       # Create a couple projects under the same team
       p1 = api_create_team_and_project
       p1url = @config['self_url'] + '/' + p1[:team].slug + '/project/' + p1[:project].dbid.to_s
       p2 = api_create_project(p1[:team].dbid.to_s)
       p2url = @config['self_url'] + '/' + p2.team['slug'] + '/project/' + p2.dbid.to_s
-      
+
       # Go to the first project, make sure that there is no claim, and thus store the data in local Relay store
       @driver.navigate.to p1url
       sleep 10
       expect(@driver.page_source.include?(claim)).to be(false)
       expect(@driver.page_source.include?('1 result')).to be(false)
-      expect(@driver.page_source.include?('Add a link or claim')).to be(true)
+      expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(true)
 
       # Go to the second project, make sure that there is no claim, and thus store the data in local Relay store
       wait_for_selector('.header-actions__drawer-toggle', :css).click
@@ -1158,7 +1164,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 10
       expect(@driver.page_source.include?(claim)).to be(false)
       expect(@driver.page_source.include?('1 result')).to be(false)
-      expect(@driver.page_source.include?('Add a link or claim')).to be(true)
+      expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(true)
 
       # Create a claim under project 2
       claimbutton = wait_for_selector('create-media__quote', :id)
@@ -1175,7 +1181,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 10
       expect(@driver.page_source.include?(claim)).to be(true)
       expect(@driver.page_source.include?('1 result')).to be(true)
-      expect(@driver.page_source.include?('Add a link or claim')).to be(false)
+      expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(false)
 
       # Move the claim to another project
       wait_for_selector('.card-with-border > div > div > div + button svg', :css).click
@@ -1199,7 +1205,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.current_url.to_s == p1url).to be(true)
       expect(@driver.page_source.include?(claim)).to be(true)
       expect(@driver.page_source.include?('1 result')).to be(true)
-      expect(@driver.page_source.include?('Add a link or claim')).to be(false)
+      expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(false)
 
       # Go back to the second project and make sure that the claim is not there anymore
       wait_for_selector('.header-actions__drawer-toggle', :css).click
@@ -1208,21 +1214,21 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 10
       expect(@driver.page_source.include?(claim)).to be(false)
       expect(@driver.page_source.include?('1 result')).to be(false)
-      expect(@driver.page_source.include?('Add a link or claim')).to be(true)
+      expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(true)
 
       # Reload the first project page and make sure that the claim is there
       @driver.navigate.to p1url
       sleep 10
       expect(@driver.page_source.include?(claim)).to be(true)
       expect(@driver.page_source.include?('1 result')).to be(true)
-      expect(@driver.page_source.include?('Add a link or claim')).to be(false)
+      expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(false)
 
       # Reload the second project page and make sure that the claim is not there
       @driver.navigate.to p2url
       sleep 10
       expect(@driver.page_source.include?(claim)).to be(false)
       expect(@driver.page_source.include?('1 result')).to be(false)
-      expect(@driver.page_source.include?('Add a link or claim')).to be(true)
+      expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(true)
     end
 
     it "should add, edit, answer, update answer and delete short answer task", bin3: true do
