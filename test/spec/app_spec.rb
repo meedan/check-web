@@ -884,10 +884,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       input = wait_for_selector('input[type=file]')
       input.send_keys(File.join(File.dirname(__FILE__), 'test.png'))
 
-      el = wait_for_selector("team__save-button", :class)
+      el = wait_for_selector("source__edit-save-button", :class)
       el.click
       wait_for_selector("team__edit-button", :class)
-      expect(@driver.page_source.include?('Team information updated successfully!')).to be(true)
       expect(@driver.page_source.include?('Rome')).to be(true)
       expect(@driver.page_source.include?('www.meedan.com')).to be(true)
       expect(@driver.page_source.include?('EDIT DESCRIPTION')).to be(true)
