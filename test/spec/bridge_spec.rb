@@ -1,11 +1,10 @@
-require_relative '../spec_helper.rb'
+require_relative 'spec_helper.rb'
 
 shared_examples 'custom' do
-
   it "should register and redirect to newly created image media" do
     page = LoginPage.new(config: @config, driver: @driver).load
         .login_with_email(email: @email, password: @password)
-        .create_image_media(File.expand_path('../test.png', File.dirname(__FILE__)))
+        .create_image_media(File.expand_path('test.png', File.dirname(__FILE__)))
 
     expect(page.contains_string?('Added')).to be(true)
     expect(page.contains_string?('User With Email')).to be(true)
@@ -25,32 +24,30 @@ shared_examples 'custom' do
 
     media_pg.change_status('translated')
     expect(media_pg.status_label).to eq('TRANSLATED')
-    # expect(media_pg.contains_element?('.annotation__status--in-progress')).to be(true)
   end
 
-  # it "should search by status" do
-  #   create_claim_and_go_to_search_page
-  #   @driver.find_element(:xpath, "//*[contains(text(), 'Inconclusive')]").click
-  #   sleep 3
-  #   expect((@driver.title =~ /Inconclusive/).nil?).to be(false)
-  #   expect((@driver.current_url.to_s.match(/not_applicable/)).nil?).to be(false)
-  #   expect(@driver.page_source.include?('My search result')).to be(false)
-  #   @driver.find_element(:xpath, "//*[contains(text(), 'Unstarted')]").click
-  #   sleep 3
-  #   expect((@driver.title =~ /Unstarted/).nil?).to be(false)
-  #   expect((@driver.current_url.to_s.match(/undetermined/)).nil?).to be(false)
-  #   expect(@driver.page_source.include?('My search result')).to be(true)
-  # end
-
-  # it "should search by status through URL" do
-  #   create_claim_and_go_to_search_page
-  #   @driver.navigate.to @config['self_url'] + '/' + get_team + '/search/%7B"status"%3A%5B"false"%5D%7D'
-  #   sleep 3
-  #   expect((@driver.title =~ /False/).nil?).to be(false)
-  #   expect(@driver.page_source.include?('My search result')).to be(false)
-  #   selected = @driver.find_elements(:css, '.media-tags__suggestion--selected').map(&:text).sort
-  #   expect(selected == ['False', 'Created', 'Newest first'].sort).to be(true)
-  # end
+  xit "should find medias when searching by status", bin2: true do
+    api_create_media_and_go_to_search_page
+    sleep 20 #wait for ES to settle
+    wait_for_selector("//h3[contains(text(), '1 result')]",:xpath)
+    old = wait_for_selector_list("medias__item", :class).length
+    el = wait_for_selector("//div[contains(text(), 'Translated')]",:xpath)
+    el.click
+    sleep 3 #due the reload
+    wait_for_selector("//h3[contains(text(), 'No results')]",:xpath)
+    current = wait_for_selector_list("medias__item", :class).length
+    expect(old > current).to be(true)
+    expect(current == 0).to be(true)
+    old = wait_for_selector_list("medias__item", :class).length
+    el = wait_for_selector("//div[contains(text(), 'Pending')]",:xpath)
+    el.click
+    sleep 3 #due the reload
+    wait_for_selector("//h3[contains(text(), '1 result')]",:xpath)
+    wait_for_selector("search-input", :id)
+    current = wait_for_selector_list("medias__item", :class).length
+    expect(old < current).to be(true)
+    expect(current == 1).to be(true)
+  end
 
   it "should add and edit a translation" do
     media_pg = LoginPage.new(config: @config, driver: @driver).load

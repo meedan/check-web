@@ -12,10 +12,6 @@ config.js
 releases/
 supervisord.pid
 supervisord.log
-config.js.travis
-config.yml.travis
-travis
-travis.zip
 linters
 test/spec/sauce
 config-build.js

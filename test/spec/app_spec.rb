@@ -9,8 +9,7 @@ require_relative './pages/page.rb'
 require_relative './api_helpers.rb'
 
 CONFIG = YAML.load_file('config.yml')
-
-require_relative "#{CONFIG['app_name']}/custom_spec.rb"
+require_relative "#{CONFIG['app_name']}_spec.rb"
 
 shared_examples 'app' do |webdriver_url, browser_capabilities|
 
@@ -1070,9 +1069,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should linkify URLs on comments", bin1: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       expect(@driver.page_source.include?('Your comment was added!')).to be(false)
-      old = wait_for_selector_list("annotation__default-content",:class).length
+      old = wait_for_selector_list("annotation__default-content", :class).length
       fill_field('textarea[name="cmd"]', 'https://meedan.com/en/')
-      el = wait_for_selector("//span[contains(text(), 'Submit')]", :xpath)
+      el = wait_for_selector(".add-annotation button[type=submit]")
       el.click
       sleep 2 #wait for loading
       old = wait_for_size_change(old, "annotation__default-content", :class)
@@ -1131,31 +1130,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(false)
     end
 
-    it "should find medias when searching by status", bin2: true do
-      api_create_media_and_go_to_search_page
-      sleep 3 #waiting load
-      wait_for_selector("//h3[contains(text(), '1 result')]",:xpath)
-      old = wait_for_selector_list("medias__item", :class).length
-      el = wait_for_selector("//div[contains(text(), 'False')]",:xpath)
-      el.click
-      sleep 3 #due the reload
-      wait_for_selector("//h3[contains(text(), 'No results')]",:xpath)
-      current = wait_for_selector_list("medias__item", :class).length
-      expect(old > current).to be(true)
-      expect(current == 0).to be(true)
-      old = wait_for_selector_list("medias__item", :class).length
-      el = wait_for_selector("//div[contains(text(), 'Unstarted')]",:xpath)
-      el.click
-      sleep 3 #due the reload
-      wait_for_selector("//h3[contains(text(), '1 result')]",:xpath)
-      wait_for_selector("search-input", :id)
-      current = wait_for_selector_list("medias__item", :class).length
-      expect(old < current).to be(true)
-      expect(current == 1).to be(true)
-    end
-
     it "should move media to another project", bin2: true do
       claim = 'This is going to be moved'
+      claim_name = case @config['app_name']
+      when 'bridge'
+        'quote'
+      when 'check'
+        'claim'
+      end
 
       # Create a couple projects under the same team
       p1 = api_create_team_and_project
@@ -1168,7 +1150,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 10
       expect(@driver.page_source.include?(claim)).to be(false)
       expect(@driver.page_source.include?('1 result')).to be(false)
-      expect(@driver.page_source.include?('Add a link or claim')).to be(true)
+      expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(true)
 
       # Go to the second project, make sure that there is no claim, and thus store the data in local Relay store
       wait_for_selector('.header-actions__drawer-toggle', :css).click
@@ -1177,7 +1159,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 10
       expect(@driver.page_source.include?(claim)).to be(false)
       expect(@driver.page_source.include?('1 result')).to be(false)
-      expect(@driver.page_source.include?('Add a link or claim')).to be(true)
+      expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(true)
 
       # Create a claim under project 2
       claimbutton = wait_for_selector('create-media__quote', :id)
@@ -1194,7 +1176,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 10
       expect(@driver.page_source.include?(claim)).to be(true)
       expect(@driver.page_source.include?('1 result')).to be(true)
-      expect(@driver.page_source.include?('Add a link or claim')).to be(false)
+      expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(false)
 
       # Move the claim to another project
       wait_for_selector('.card-with-border > div > div > div + button svg', :css).click
@@ -1218,7 +1200,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.current_url.to_s == p1url).to be(true)
       expect(@driver.page_source.include?(claim)).to be(true)
       expect(@driver.page_source.include?('1 result')).to be(true)
-      expect(@driver.page_source.include?('Add a link or claim')).to be(false)
+      expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(false)
 
       # Go back to the second project and make sure that the claim is not there anymore
       wait_for_selector('.header-actions__drawer-toggle', :css).click
@@ -1227,21 +1209,21 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 10
       expect(@driver.page_source.include?(claim)).to be(false)
       expect(@driver.page_source.include?('1 result')).to be(false)
-      expect(@driver.page_source.include?('Add a link or claim')).to be(true)
+      expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(true)
 
       # Reload the first project page and make sure that the claim is there
       @driver.navigate.to p1url
       sleep 10
       expect(@driver.page_source.include?(claim)).to be(true)
       expect(@driver.page_source.include?('1 result')).to be(true)
-      expect(@driver.page_source.include?('Add a link or claim')).to be(false)
+      expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(false)
 
       # Reload the second project page and make sure that the claim is not there
       @driver.navigate.to p2url
       sleep 10
       expect(@driver.page_source.include?(claim)).to be(false)
       expect(@driver.page_source.include?('1 result')).to be(false)
-      expect(@driver.page_source.include?('Add a link or claim')).to be(true)
+      expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(true)
     end
 
     it "should add, edit, answer, update answer and delete short answer task", bin3: true do
@@ -1810,7 +1792,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Your comment was added!')).to be(false)
       old = wait_for_selector_list("annotation__default-content",:class).length
       fill_field('textarea[name="cmd"]', 'Test')
-      el = wait_for_selector("//span[contains(text(), 'Submit')]", :xpath)
+      el = wait_for_selector(".add-annotation button[type=submit]")
       el.click
       old = wait_for_size_change(old, "annotation__default-content", :class)
       expect(@driver.page_source.include?('Your comment was added!')).to be(true)
@@ -1825,9 +1807,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       #media
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       expect(@driver.page_source.include?('Your comment was added!')).to be(false)
-      old = wait_for_selector_list("annotation__default-content",:class).length
+      old = wait_for_selector_list("annotation__default-content", :class).length
       fill_field('textarea[name="cmd"]', 'Test')
-      el = wait_for_selector("//span[contains(text(), 'Submit')]", :xpath)
+      el = wait_for_selector(".add-annotation button[type=submit]")
       el.click
       old = wait_for_size_change(old, "annotation__default-content", :class)
       expect(@driver.page_source.include?('Your comment was added!')).to be(true)
