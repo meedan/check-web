@@ -8,7 +8,7 @@ import TeamAvatar from './TeamAvatar';
 import Message from '../Message';
 import UploadImage from '../UploadImage';
 import globalStrings from '../../globalStrings';
-import { safelyParseJSON } from '../../helpers';
+import { safelyParseJSON, validateURL } from '../../helpers';
 import UpdateTeamMutation from '../../relay/mutations/UpdateTeamMutation';
 import {
   StyledButtonGroup,
@@ -49,6 +49,10 @@ const messages = defineMessages({
   website: {
     id: 'teamComponent.website',
     defaultMessage: 'Website',
+  },
+  invalidLink: {
+    id: 'teamComponent.invalidLink',
+    defaultMessage: 'Please enter a valid URL',
   },
 });
 
@@ -100,6 +104,12 @@ class TeamInfoEdit extends React.Component {
   handleChange(key, e) {
     const value = (e.target.type === 'checkbox' && !e.target.checked) ? '0' : e.target.value;
     const values = Object.assign({}, this.state.values);
+
+    if (key === 'contact_web') {
+      const urlError = null;
+      this.setState({ urlError });
+    }
+
     values[key] = value;
     this.setState({ values });
   }
@@ -145,6 +155,16 @@ class TeamInfoEdit extends React.Component {
       );
       this.setState({ submitDisabled: true });
     }
+  }
+
+  validateWebsite(e) {
+    let urlError = null;
+
+    if (!validateURL(e.target.value)) {
+      urlError = this.props.intl.formatMessage(messages.invalidLink);
+    }
+
+    this.setState({ urlError, submitDisabled: !!urlError });
   }
 
   render() {
@@ -234,9 +254,12 @@ class TeamInfoEdit extends React.Component {
               id="team__link-container"
               defaultValue={contact ? contact.node.web : ''}
               label={this.props.intl.formatMessage(messages.website)}
+              onBlur={this.validateWebsite.bind(this)}
               onChange={this.handleChange.bind(this, 'contact_web')}
               fullWidth
               margin="normal"
+              error={!!this.state.urlError}
+              helperText={this.state.urlError}
             />
 
             <StyledButtonGroup
@@ -262,7 +285,6 @@ class TeamInfoEdit extends React.Component {
                   <FormattedMessage
                     id="teamComponent.saveButton"
                     defaultMessage="Save"
-                    disabled={this.state.submitDisabled}
                   />
                 </Button>
               </div>
