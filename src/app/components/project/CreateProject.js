@@ -150,7 +150,7 @@ class CreateProject extends Component {
 
         return (
           <Card
-            style={{ marginTop: units(2), marginBottom: units(2) }}
+            style={{ marginBottom: units(2) }}
             initiallyExpanded
           >
             <StyledCardHeader
