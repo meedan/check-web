@@ -1,6 +1,7 @@
 import React from 'react';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import { Link } from 'react-router';
+import InfiniteScroll from 'react-infinite-scroller';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 import { List, ListItem } from 'material-ui/List';
 import KeyboardArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
@@ -8,7 +9,6 @@ import styled from 'styled-components';
 import CreateProject from '../project/CreateProject';
 import Can from '../Can';
 import MappedMessage from '../MappedMessage';
-import LoadMore from '../layout/LoadMore';
 import {
   highlightBlue,
   checkBlue,
@@ -63,14 +63,12 @@ class TeamProjects extends React.Component {
               <FormattedMessage id="teamComponent.noProjects" defaultMessage="No projects yet" />
             </CardText>
             :
-            <LoadMore
-              hasMore={team.projects.edges.length < team.projects_count}
+            <InfiniteScroll
+              hasMore
               loadMore={this.loadMore.bind(this)}
+              threshold={500}
             >
-              <List
-                className="projects"
-                style={{ maxHeight: '500px', overflow: 'auto' }}
-              >
+              <List className="projects" style={{ padding: '0' }}>
                 {team.projects.edges
                   .sortp((a, b) => a.node.title.localeCompare(b.node.title))
                   .map(p => (
@@ -87,7 +85,7 @@ class TeamProjects extends React.Component {
                   ))
                 }
               </List>
-            </LoadMore>
+            </InfiniteScroll>
           }
         </Card>
       </div>

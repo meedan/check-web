@@ -103,6 +103,7 @@ const TeamInfo = (props) => {
         </Row>
         {showUpgradeButton ?
           <Button
+            className="user-feedback__save-button"
             variant="raised"
             color="primary"
             onClick={handleClickUpgrade}

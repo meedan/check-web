@@ -9,7 +9,6 @@ const teamFragment = Relay.QL`
     description,
     slug,
     plan,
-    projects_count,
     permissions,
     limits,
     get_suggested_tags,
