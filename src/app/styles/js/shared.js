@@ -258,16 +258,6 @@ export const muiThemeV1 = {
       },
     },
   },
-  overrides: {
-    MuiInput: {
-      underline: {
-        '&:hover:not($disabled):before': {
-          backgroundColor: black54,
-          height: 1,
-        },
-      },
-    },
-  },
 };
 
 export const mediaQuery = {

@@ -49,6 +49,7 @@ class TeamInviteCard extends Component {
 
     const StyledMdCard = styled(Card)`
       background-color: ${checkBlue} !important;
+      margin-top: ${units(2)};
       margin-bottom: ${units(2)};
       padding-top: 0;
       p, a {
