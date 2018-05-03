@@ -58,44 +58,38 @@ class UserComponent extends React.Component {
           >
             <ContentColumn>
               { this.state.isEditing ?
-                <UserInfoEdit user={user} onCancelEdit={this.handleLeaveEditMode} /> :
-                <div>
-                  <UserInfo user={user} />
-                  <Tabs value={this.state.showTab} onChange={this.handleTabChange}>
-                    <Tab
-                      id="teams-tab"
-                      label={
-                        <FormattedMessage
-                          id="userComponent.teams"
-                          defaultMessage="Teams"
-                        />
-                      }
-                      value="teams"
-                    />
-                    <Tab
-                      id="assignments-tab"
-                      label={
-                        <FormattedMessage
-                          id="userComponents.assignments"
-                          defaultMessage="Assignments"
-                        />
-                      }
-                      value="assignments"
-                    />
-                  </Tabs>
-                </div>
+                <UserInfoEdit user={user} onCancelEdit={this.handleLeaveEditMode} />
+                :
+                <UserInfo user={user} />
               }
+              <Tabs value={this.state.showTab} onChange={this.handleTabChange}>
+                <Tab
+                  id="teams-tab"
+                  label={
+                    <FormattedMessage
+                      id="userComponent.teams"
+                      defaultMessage="Teams"
+                    />
+                  }
+                  value="teams"
+                />
+                <Tab
+                  id="assignments-tab"
+                  label={
+                    <FormattedMessage
+                      id="userComponents.assignments"
+                      defaultMessage="Assignments"
+                    />
+                  }
+                  value="assignments"
+                />
+              </Tabs>
             </ContentColumn>
           </HeaderCard>
           <ContentColumn>
-            { this.state.isEditing ?
-              null :
-              <div>
-                <UserEmail user={user} />
-                { this.state.showTab === 'teams' ? <SwitchTeamsComponent user={user} isRtl={isRtl} /> : null}
-                { this.state.showTab === 'assignments' ? <UserAssignments user={user} /> : null}
-              </div>
-            }
+            <UserEmail user={user} />
+            { this.state.showTab === 'teams' ? <SwitchTeamsComponent user={user} isRtl={isRtl} /> : null}
+            { this.state.showTab === 'assignments' ? <UserAssignments user={user} /> : null}
           </ContentColumn>
         </div>
       </PageTitle>

@@ -1,5 +1,4 @@
 import truncate from 'lodash.truncate';
-import LinkifyIt from 'linkify-it';
 import rtlDetect from 'rtl-detect';
 
 // Functionally-pure sort: keeps the given array unchanged and returns sorted one.
@@ -106,17 +105,6 @@ function encodeSvgDataUri(svgString) {
   return `data:image/svg+xml,${uriPayload}`;
 }
 
-function validateURL(value) {
-  const linkify = new LinkifyIt();
-  const url = linkify.match(value);
-
-  if ((Array.isArray(url) && url[0] && url[0].url)) {
-    return true;
-  }
-
-  return false;
-}
-
 export {
   bemClass,
   bemClassFromMediaStatus,
@@ -130,5 +118,4 @@ export {
   unhumanizeSize,
   convertNumbers2English,
   encodeSvgDataUri,
-  validateURL,
 };
