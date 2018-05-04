@@ -37,13 +37,13 @@ class TeamMembersComponent extends Component {
   render() {
     const { isEditing } = this.state;
     const { team, team: { team_users: teamUsers } } = this.props;
-    const teamUsersRequestingMembership = [];
+    const teamUsersRequestingMembership = team.join_requests.edges;
     const teamUsersMembers = [];
 
     teamUsers.edges.map((teamUser_) => {
       const teamUser = teamUser_;
       if (teamUser.node.status === 'requested') {
-        return teamUsersRequestingMembership.push(teamUser);
+        return null;
       }
       if (teamUser.node.status === 'banned') {
         teamUser.node.role = 'Rejected';
