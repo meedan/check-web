@@ -23,7 +23,7 @@ class TeamMenu extends Component {
           key="teamMenu.trash"
           onClick={this.handleClickTrash.bind(this)}
           tooltip={
-            <FormattedMessage id="teamMenu.trash" defaultMessage="Trash" />
+            <FormattedMessage id="teamMenu.trash" defaultMessage="View trash" />
           }
         >
           <IconDelete />
