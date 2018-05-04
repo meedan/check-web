@@ -31,8 +31,6 @@ class MePage < SourcePage
     subdomain = options[:subdomain]
     @driver.navigate.to @config['self_url'] + '/'+subdomain
     sleep 2 # TODO: better soft keyboard strategies
-    click_button('.team__tab-button-members')
-    sleep 2 # TODO: better soft keyboard strategies
     click_button('.team-member-requests__user-button--approve button')
     sleep 2 # TODO: better soft keyboard strategies
   end
@@ -40,8 +38,6 @@ class MePage < SourcePage
   def disapprove_join_team(options = {})
     subdomain = options[:subdomain]
     @driver.navigate.to @config['self_url'] + '/'+subdomain
-    sleep 2 # TODO: better soft keyboard strategies
-    click_button('.team__tab-button-members')
     sleep 2 # TODO: better soft keyboard strategies
     click_button('.team-member-requests__user-button--deny button')
     sleep 2 # TODO: better soft keyboard strategies
