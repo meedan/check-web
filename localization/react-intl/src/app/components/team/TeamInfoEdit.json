@@ -26,5 +26,17 @@
   {
     "id": "teamComponent.website",
     "defaultMessage": "Website"
+  },
+  {
+    "id": "teamComponent.invalidLink",
+    "defaultMessage": "Please enter a valid URL"
+  },
+  {
+    "id": "teamComponent.cancelButton",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "teamComponent.saveButton",
+    "defaultMessage": "Save"
   }
 ]

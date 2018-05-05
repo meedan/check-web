@@ -1,0 +1,14 @@
+[
+  {
+    "id": "teamComponent.title",
+    "defaultMessage": "Verification Projects"
+  },
+  {
+    "id": "bridge.teamComponent.title",
+    "defaultMessage": "Translation Projects"
+  },
+  {
+    "id": "teamComponent.noProjects",
+    "defaultMessage": "No projects yet"
+  }
+]
