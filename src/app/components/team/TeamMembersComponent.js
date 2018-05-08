@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import InfiniteScroll from 'react-infinite-scroller';
 import MdCreate from 'react-icons/lib/md/create';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Card } from 'material-ui/Card';
@@ -8,6 +7,7 @@ import { List } from 'material-ui/List';
 import TeamInviteCard from './TeamInviteCard';
 import TeamMembersListItem from './TeamMembersListItem';
 import Can from '../Can';
+import LoadMore from '../layout/LoadMore';
 import {
   FlexRow,
   StyledMdCardTitle,
@@ -37,13 +37,13 @@ class TeamMembersComponent extends Component {
   render() {
     const { isEditing } = this.state;
     const { team, team: { team_users: teamUsers } } = this.props;
-    const teamUsersRequestingMembership = [];
+    const teamUsersRequestingMembership = team.join_requests.edges;
     const teamUsersMembers = [];
 
     teamUsers.edges.map((teamUser_) => {
       const teamUser = teamUser_;
       if (teamUser.node.status === 'requested') {
-        return teamUsersRequestingMembership.push(teamUser);
+        return null;
       }
       if (teamUser.node.status === 'banned') {
         teamUser.node.role = 'Rejected';
@@ -97,8 +97,14 @@ class TeamMembersComponent extends Component {
               />
             </Can>
           </FlexRow>
-          <InfiniteScroll hasMore loadMore={this.loadMore.bind(this)} threshold={500}>
-            <List className="team-members__list">
+          <LoadMore
+            hasMore={teamUsers.edges.length < team.members_count}
+            loadMore={this.loadMore.bind(this)}
+          >
+            <List
+              className="team-members__list"
+              style={{ maxHeight: '500px', overflow: 'auto' }}
+            >
               { teamUsersMembers.map(teamUser => (
                 <TeamMembersListItem
                   key={teamUser.node.id}
@@ -107,7 +113,7 @@ class TeamMembersComponent extends Component {
                 />
               ))}
             </List>
-          </InfiniteScroll>
+          </LoadMore>
         </Card>
       </div>
     );
