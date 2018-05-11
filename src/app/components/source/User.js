@@ -12,7 +12,13 @@ const UserContainer = Relay.createContainer(UserComponent, {
 
 const User = (props) => {
   const route = new UserRoute({ userId: props.params.userId });
-  return (<Relay.RootContainer Component={UserContainer} route={route} />);
+  return (
+    <Relay.RootContainer
+      Component={UserContainer}
+      route={route}
+      renderFetched={data => <UserContainer {...props} {...data} />}
+    />
+  );
 };
 
 export default User;

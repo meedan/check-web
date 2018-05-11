@@ -1,16 +1,5 @@
 import React from 'react';
-import MDEdit from 'react-icons/lib/md/edit';
-import { FormattedMessage, injectIntl } from 'react-intl';
-
-import {
-  StyledIconButton,
-} from '../styles/js/shared';
-
-import {
-  StyledProfileCard,
-  StyledEditButtonWrapper,
-} from '../styles/js/HeaderCard';
-
+import { StyledProfileCard } from '../styles/js/HeaderCard';
 
 // The "Header Card" is the layout at the top of Source, Profile and Team.
 // Currently we have an actual HeaderCard component that the TeamComponent uses,
@@ -23,22 +12,7 @@ import {
 const HeaderCard = props => (
   <StyledProfileCard>
     <div>{props.children}</div>
-    <section style={{ position: 'relative', marginTop: -60, marginBottom: 120 }}>
-      <StyledEditButtonWrapper>
-        {props.canEdit && !props.isEditing ?
-          <StyledIconButton
-            className="team__edit-button"
-            tooltip={
-              <FormattedMessage id="teamComponent.editButton" defaultMessage="Edit profile" />
-            }
-            tooltipPosition="top-center"
-            onTouchTap={props.handleEnterEditMode}
-          >
-            <MDEdit />
-          </StyledIconButton>
-          : null}
-      </StyledEditButtonWrapper>
-    </section>
-  </StyledProfileCard>);
+  </StyledProfileCard>
+);
 
-export default injectIntl(HeaderCard);
+export default HeaderCard;

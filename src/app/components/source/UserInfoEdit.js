@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay';
 import { injectIntl, defineMessages } from 'react-intl';
 import FlatButton from 'material-ui/FlatButton';
@@ -13,6 +14,7 @@ import SourcePicture from './SourcePicture';
 import Message from '../Message';
 import UploadImage from '../UploadImage';
 import globalStrings from '../../globalStrings';
+import CheckContext from '../../CheckContext';
 import UpdateSourceMutation from '../../relay/mutations/UpdateSourceMutation';
 import { updateUserNameEmail } from '../../relay/mutations/UpdateUserNameEmailMutation';
 import CreateAccountSourceMutation from '../../relay/mutations/CreateAccountSourceMutation';
@@ -127,8 +129,8 @@ class UserInfoEdit extends React.Component {
   }
 
   handleLeaveEditMode() {
-    this.onClear();
-    this.props.onCancelEdit();
+    const { history } = new CheckContext(this).getContextStore();
+    history.push('/check/me');
   }
 
   handleSubmit(e) {
@@ -570,5 +572,9 @@ class UserInfoEdit extends React.Component {
     );
   }
 }
+
+UserInfoEdit.contextTypes = {
+  store: PropTypes.object,
+};
 
 export default injectIntl(UserInfoEdit);
