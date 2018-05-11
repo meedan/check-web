@@ -42,6 +42,7 @@ class TeamMenu extends Component {
         }
         { pageType === 'source' && loggedIn ?
           <SmallerStyledIconButton
+            className="team-menu__edit-source-button"
             onClick={this.handleClickEditSource.bind(this)}
             tooltip={
               <FormattedMessage id="teamMenu.editSource" defaultMessage="Edit source" />
