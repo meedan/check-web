@@ -60,13 +60,13 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
       body: JSON.stringify({
         query: request.getQueryString(),
         variables: request.getVariables(),
-        team: this._init.team(),
+        team: encodeURIComponent(this._init.team()),
       }),
       headers: {
         ...this._init.headers,
         Accept: '*/*',
         'Content-Type': 'application/json',
-        'X-Check-Team': this._init.team(),
+        'X-Check-Team': encodeURIComponent(this._init.team()),
       },
       method: 'POST',
     });
@@ -89,7 +89,7 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
       const formData = new FormData();
       formData.append('query', request.getQueryString());
       formData.append('variables', (0, _stringify2.default)(request.getVariables()));
-      formData.append('team', this._init.team());
+      formData.append('team', encodeURIComponent(this._init.team()));
       Object.getOwnPropertyNames(files).forEach((filename) => {
         formData.append(filename, files[filename]);
       });
@@ -102,12 +102,12 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
         body: (0, _stringify2.default)({
           query: request.getQueryString(),
           variables: request.getVariables(),
-          team: this._init.team(),
+          team: encodeURIComponent(this._init.team()),
         }),
         headers: (0, _extends3.default)({}, this._init.headers, {
           Accept: '*/*',
           'Content-Type': 'application/json',
-          'X-Check-Team': this._init.team(),
+          'X-Check-Team': encodeURIComponent(this._init.team()),
         }),
         method: 'POST',
       });
