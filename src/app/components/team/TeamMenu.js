@@ -32,6 +32,7 @@ class TeamMenu extends Component {
       <div>
         { pageType === 'team' && loggedIn ?
           <SmallerStyledIconButton
+            className="team-menu__edit-team-button"
             onClick={this.handleClickEditTeam.bind(this)}
             tooltip={
               <FormattedMessage id="teamMenu.editTeam" defaultMessage="Edit team" />
