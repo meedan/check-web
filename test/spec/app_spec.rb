@@ -1097,7 +1097,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_media(data: data, url: "https://www.facebook.com/permalink.php?story_fbid=10155901893214439&id=54421674438")
       media = api_create_media(data: data, url: "https://twitter.com/TwitterVideo/status/931930009450795009")
       @driver.navigate.to @config['self_url'] + '/' + data[:team].slug + '/search'
-      sleep 3  #due the load
+      sleep 15 # because ES works on the background
       wait_for_selector("//h3[contains(text(), '2 results')]",:xpath)
       old = wait_for_selector_list("medias__item", :class).length
       expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
@@ -1107,7 +1107,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       el.send_keys "video"
       @driver.action.send_keys(:enter).perform
-      sleep 3  #due the load
+      sleep 3 # due the load
       wait_for_selector("//h3[contains(text(), '1 result')]",:xpath)
       current = wait_for_selector_list("medias__item", :class).length
       expect(old > current).to be(true)
@@ -1120,7 +1120,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       el.send_keys "meedan"
       @driver.action.send_keys(:enter).perform
-      sleep 3  #due the load
+      sleep 3 # due the load
       wait_for_selector("//h3[contains(text(), '1 result')]",:xpath)
       current = wait_for_selector_list("medias__item", :class).length
       expect(old > current).to be(true)
