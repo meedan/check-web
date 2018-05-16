@@ -141,6 +141,7 @@ class Root extends Component {
 
                 <Route path="check/user/:userId" component={User} />
                 <Route path="check/me" component={Me} />
+                <Route path="check/me/edit" isEditing component={Me} />
                 <Route path="check/teams/new" component={CreateTeam} />
                 <Route path="check/teams" component={Teams} />
 
@@ -148,12 +149,14 @@ class Root extends Component {
                 <Route path=":team/project/:projectId/media/:mediaId" component={ProjectMedia} public />
                 <Route path=":team/project/:projectId/media/:mediaId/embed" component={MediaEmbed} public />
                 <Route path=":team/project/:projectId/source/:sourceId" component={Source} public />
+                <Route path=":team/project/:projectId/source/:sourceId/edit" isEditing component={Source} />
                 <Route path=":team/join" component={JoinTeam} />
                 <Route path=":team/project/:projectId/edit" component={ProjectEdit} />
                 <Route path=":team/project/:projectId(/:query)" component={Project} public />
                 <Route path=":team/search(/:query)" component={Search} public />
                 <Route path=":team/trash(/:query)" component={Trash} />
                 <Route path=":team" component={Team} public />
+                <Route path=":team/edit" isEditing component={Team} />
 
                 <Route path="*" component={NotFound} public />
               </Route>

@@ -1,6 +1,6 @@
 [
   {
-    "id": "userMenu.Profile",
-    "defaultMessage": "Profile"
+    "id": "userMenu.edit",
+    "defaultMessage": "Edit profile"
   }
 ]

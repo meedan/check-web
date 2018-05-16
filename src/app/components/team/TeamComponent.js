@@ -43,7 +43,6 @@ class TeamComponent extends Component {
 
     this.state = {
       message: null,
-      isEditing: false,
     };
   }
 
@@ -67,23 +66,9 @@ class TeamComponent extends Component {
     }
   }
 
-  cancelEditTeam(e) {
-    e.preventDefault();
-    this.setState({ isEditing: false });
-  }
-
-  handleEnterEditMode(e) {
-    this.setState({ isEditing: true });
-    e.preventDefault();
-  }
-
-  handleLeaveEditMode = () => {
-    this.setState({ isEditing: false });
-  };
-
   render() {
     const { team } = this.props;
-    const { isEditing } = this.state;
+    const isEditing = this.props.route.isEditing && can(team.permissions, 'update Team');
 
     const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
 
@@ -98,15 +83,13 @@ class TeamComponent extends Component {
       <PageTitle prefix={false} skipTeam={false} team={team}>
         <div className="team">
           <HeaderCard
-            canEdit={can(team.permissions, 'update Team')}
             direction={direction}
-            handleEnterEditMode={this.handleEnterEditMode.bind(this)}
             isEditing={isEditing}
           >
             <ContentColumn>
               <Message message={this.state.message} />
               { isEditing ?
-                <TeamInfoEdit team={team} onCancelEdit={this.handleLeaveEditMode} /> :
+                <TeamInfoEdit team={team} /> :
                 <TeamInfo team={team} context={context} />
               }
             </ContentColumn>

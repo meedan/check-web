@@ -4,17 +4,21 @@ import MeRoute from '../../relay/MeRoute';
 import UserComponent from './UserComponent';
 import userFragment from '../../relay/userFragment';
 
-const MeComponent = props => <UserComponent user={props.user} />;
-
-const MeContainer = Relay.createContainer(MeComponent, {
+const MeContainer = Relay.createContainer(UserComponent, {
   fragments: {
     user: () => userFragment,
   },
 });
 
-const Me = () => {
+const Me = (props) => {
   const route = new MeRoute();
-  return (<Relay.RootContainer Component={MeContainer} route={route} />);
+  return (
+    <Relay.RootContainer
+      Component={MeContainer}
+      route={route}
+      renderFetched={data => <MeContainer {...props} {...data} />}
+    />
+  );
 };
 
 export default Me;

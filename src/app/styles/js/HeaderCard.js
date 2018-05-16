@@ -80,7 +80,7 @@ export const StyledDescription = styled.div`
   margin-bottom: ${units(1)};
 `;
 
-export const StyledMetadata = styled.span`
+export const StyledMetadata = styled.div`
   margin: ${units(1)} 0;
   color: ${black38};
   font: ${caption};

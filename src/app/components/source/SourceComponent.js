@@ -18,7 +18,6 @@ import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import MdCancel from 'react-icons/lib/md/cancel';
-import MDEdit from 'react-icons/lib/md/edit';
 import deepEqual from 'deep-equal';
 import capitalize from 'lodash.capitalize';
 import LinkifyIt from 'linkify-it';
@@ -35,7 +34,6 @@ import Tags from '../Tags';
 import PageTitle from '../PageTitle';
 import MediaUtil from '../media/MediaUtil';
 import Message from '../Message';
-import Can from '../Can';
 import CheckContext from '../../CheckContext';
 import ParsedText from '../ParsedText';
 import UploadImage from '../UploadImage';
@@ -50,7 +48,6 @@ import CreateAccountSourceMutation from '../../relay/mutations/CreateAccountSour
 import DeleteAccountSourceMutation from '../../relay/mutations/DeleteAccountSourceMutation';
 import UpdateSourceMutation, { refreshSource } from '../../relay/mutations/UpdateSourceMutation';
 import {
-  StyledEditButtonWrapper,
   StyledProfileCard,
   StyledContactInfo,
   StyledButtonGroup,
@@ -336,7 +333,11 @@ class SourceComponent extends Component {
       const isEditing = submitDisabled || this.state.hasFailure;
       const message = isEditing ? this.state.message : null;
 
-      this.setState({ isEditing, submitDisabled, message });
+      this.setState({ submitDisabled, message });
+
+      if (!isEditing) {
+        this.handleLeaveEditMode();
+      }
     };
 
     const pendingMutations = this.state.pendingMutations
@@ -731,9 +732,13 @@ class SourceComponent extends Component {
     });
   };
 
-  handleEnterEditMode(e) {
+  handleLeaveEditMode() {
+    if (this.state.shouldUpdate) {
+      this.props.relay.forceFetch();
+    }
+
     this.setState({
-      isEditing: true,
+      isEditing: false,
       addingTags: false,
       addingLanguages: false,
       editProfileImg: false,
@@ -744,22 +749,12 @@ class SourceComponent extends Component {
       submitDisabled: false,
       links: [],
       deleteLinks: [],
-    });
-    e.preventDefault();
-  }
-
-  handleLeaveEditMode() {
-    if (this.state.shouldUpdate) {
-      this.props.relay.forceFetch();
-    }
-
-    this.setState({
-      isEditing: false,
-      message: null,
-      metadata: null,
       shouldUpdate: false,
     });
     this.onClear();
+    const { team, projectId, sourceId } = this.props.params;
+
+    this.getContext().history.push(`/${team}/project/${projectId}/source/${sourceId}`);
   }
 
   handleChangeLink(e, index) {
@@ -785,6 +780,11 @@ class SourceComponent extends Component {
       const updateMetadataSent = this.updateMetadata();
       const isEditing =
         updateSourceSent || updateLinksSent || updateMetadataSent;
+
+      if (!isEditing) {
+        this.handleLeaveEditMode();
+        return;
+      }
 
       this.setState({
         isEditing,
@@ -1468,7 +1468,7 @@ class SourceComponent extends Component {
   render() {
     const isProjectSource = this.isProjectSource();
     const source = this.getSource();
-    const { isEditing } = this.state;
+    const { isEditing } = this.props.route;
     return (
       <PageTitle
         prefix={source.name}
@@ -1489,30 +1489,6 @@ class SourceComponent extends Component {
                 this.renderSourceView(source, isProjectSource)
               )}
             </ContentColumn>
-            {!isEditing ? (
-              <section style={{ position: 'relative' }}>
-                <Can
-                  permissions={source.permissions}
-                  permission="update Source"
-                >
-                  <StyledEditButtonWrapper>
-                    <StyledIconButton
-                      className="source__edit-button"
-                      tooltip={
-                        <FormattedMessage
-                          id="sourceComponent.editButton"
-                          defaultMessage="Edit profile"
-                        />
-                      }
-                      tooltipPosition="top-center"
-                      onTouchTap={this.handleEnterEditMode.bind(this)}
-                    >
-                      <MDEdit />
-                    </StyledIconButton>
-                  </StyledEditButtonWrapper>
-                </Can>
-              </section>
-            ) : null}
           </StyledProfileCard>
 
           {!isEditing ? (

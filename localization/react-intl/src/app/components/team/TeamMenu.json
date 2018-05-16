@@ -1,6 +1,14 @@
 [
   {
+    "id": "teamMenu.editTeam",
+    "defaultMessage": "Edit team"
+  },
+  {
+    "id": "teamMenu.editSource",
+    "defaultMessage": "Edit source"
+  },
+  {
     "id": "teamMenu.trash",
-    "defaultMessage": "Trash"
+    "defaultMessage": "View trash"
   }
 ]

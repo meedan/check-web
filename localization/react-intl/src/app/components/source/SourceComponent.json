@@ -122,9 +122,5 @@
   {
     "id": "sourceComponent.add",
     "defaultMessage": "Add Field"
-  },
-  {
-    "id": "sourceComponent.editButton",
-    "defaultMessage": "Edit profile"
   }
 ]

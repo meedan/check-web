@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
 import rtlDetect from 'rtl-detect';
@@ -9,6 +10,7 @@ import Message from '../Message';
 import UploadImage from '../UploadImage';
 import globalStrings from '../../globalStrings';
 import { safelyParseJSON, validateURL } from '../../helpers';
+import CheckContext from '../../CheckContext';
 import UpdateTeamMutation from '../../relay/mutations/UpdateTeamMutation';
 import {
   StyledButtonGroup,
@@ -97,8 +99,8 @@ class TeamInfoEdit extends React.Component {
   }
 
   handleLeaveEditMode() {
-    this.onClear();
-    this.props.onCancelEdit();
+    const { history } = new CheckContext(this).getContextStore();
+    history.push(`/${this.props.team.slug}`);
   }
 
   handleChange(key, e) {
@@ -300,6 +302,10 @@ TeamInfoEdit.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
+};
+
+TeamInfoEdit.contextTypes = {
+  store: PropTypes.object,
 };
 
 export default injectIntl(TeamInfoEdit);
