@@ -781,6 +781,11 @@ class SourceComponent extends Component {
       const isEditing =
         updateSourceSent || updateLinksSent || updateMetadataSent;
 
+      if (!isEditing) {
+        this.handleLeaveEditMode();
+        return;
+      }
+
       this.setState({
         isEditing,
         submitDisabled: true,

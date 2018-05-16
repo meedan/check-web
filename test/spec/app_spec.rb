@@ -576,7 +576,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       fill_field("sourceTagInput", "TAG2", :id)
       @driver.action.send_keys("\n").perform
       sleep 3
-      @driver.navigate.refresh
+      element =  wait_for_selector("source__edit-save-button", :class)
+      element.click
       sleep 3
       wait_for_selector("team-menu__edit-source-button", :class, 60)
       expect(@driver.page_source.include?('TAG1')).to be(true)
@@ -589,7 +590,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       list = wait_for_selector_list("div.source-tags__tag svg")
       list[0].click
       sleep 1
-      @driver.navigate.refresh
+      element =  wait_for_selector("source__edit-save-button", :class)
+      element.click
       wait_for_selector("source__tab-button-account", :class, 60)
       expect(@driver.page_source.include?('TAG1')).to be(true)
       expect(@driver.page_source.include?('TAG2')).to be(false)
@@ -886,7 +888,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       el = wait_for_selector("source__edit-save-button", :class)
       el.click
-      wait_for_selector("team-menu__edit-team-button", :class)
+      wait_for_selector("team__primary-info", :class)
       expect(@driver.page_source.include?('Rome')).to be(true)
       expect(@driver.page_source.include?('www.meedan.com')).to be(true)
       expect(@driver.page_source.include?('EDIT DESCRIPTION')).to be(true)
@@ -1827,7 +1829,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
              .register_and_login_with_email(email: email, password: password, file: avatar)
       me_page = MePage.new(config: @config, driver: page.driver).load
       sleep 2 #for load
-      wait_for_selector('.team-menu__edit-team-button')
+      wait_for_selector('.user-menu__edit-profile-button')
       script = "return window.getComputedStyle(document.getElementsByClassName('source__avatar')[0]).getPropertyValue('background-image')"
       avatar = @driver.execute_script(script)
       expect(avatar.include?('test.png')).to be(true)

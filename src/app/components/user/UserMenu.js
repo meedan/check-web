@@ -73,6 +73,7 @@ class UserMenu extends React.Component {
         <Row>
           { window.location.pathname === '/check/me' ?
             <SmallerStyledIconButton
+              className="user-menu__edit-profile-button"
               onClick={this.handleClickEdit.bind(this)}
               tooltip={
                 <FormattedMessage id="userMenu.edit" defaultMessage="Edit profile" />
