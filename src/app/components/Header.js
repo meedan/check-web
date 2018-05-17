@@ -14,6 +14,7 @@ import { stringHelper } from '../customHelpers';
 import PublicTeamRoute from '../relay/PublicTeamRoute';
 import teamPublicFragment from '../relay/teamPublicFragment';
 import ProjectMenuRelay from '../relay/containers/ProjectMenuRelay';
+import SourceMenuRelay from '../relay/containers/SourceMenuRelay';
 import TeamMenuRelay from '../relay/containers/TeamMenuRelay';
 import UserMenuRelay from '../relay/containers/UserMenuRelay';
 
@@ -136,6 +137,7 @@ const HeaderComponent = (props) => {
           {signInButton}
         </Offset>
         {teamPrivateContentShouldShow && editProjectMenuItem}
+        <SourceMenuRelay {...props} />
         {teamPrivateContentShouldShow && trashButton}
         {teamPrivateContentShouldShow && searchButton}
         <UserMenuRelay {...props} />
