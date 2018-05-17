@@ -5,5 +5,8 @@
   "teamComponent.teamDescription": "وصف الفريق",
   "teamComponent.location": "الموقع",
   "teamComponent.phone": "رقم الهاتف",
-  "teamComponent.website": "الموقع الإلكتروني"
+  "teamComponent.website": "الموقع الإلكتروني",
+  "teamComponent.invalidLink": "من فضلك أدخل رابطاً صحيحاً",
+  "teamComponent.cancelButton": "إلغاء",
+  "teamComponent.saveButton": "حفظ"
 }

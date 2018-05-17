@@ -5,5 +5,8 @@
   "teamComponent.teamDescription": "Team description",
   "teamComponent.location": "Location",
   "teamComponent.phone": "Phone number",
-  "teamComponent.website": "Website"
+  "teamComponent.website": "Website",
+  "teamComponent.invalidLink": "Please enter a valid URL",
+  "teamComponent.cancelButton": "Cancel",
+  "teamComponent.saveButton": "Save"
 }

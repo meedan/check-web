@@ -5,5 +5,8 @@
   "teamComponent.teamDescription": "Descrição da Equipe",
   "teamComponent.location": "Local",
   "teamComponent.phone": "Telefone",
-  "teamComponent.website": "Website"
+  "teamComponent.website": "Website",
+  "teamComponent.invalidLink": "Por favor insira uma URL válida",
+  "teamComponent.cancelButton": "Cancelar",
+  "teamComponent.saveButton": "Salvar"
 }

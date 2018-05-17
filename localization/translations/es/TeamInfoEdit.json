@@ -3,7 +3,10 @@
   "teamComponent.editSuccess": "¡La información del equipo fue actualizada con éxito!",
   "teamComponent.teamName": "Nombre del equipo",
   "teamComponent.teamDescription": "Descripción del equipo",
-  "teamComponent.location": "Ubicación",
+  "teamComponent.location": "Localización ",
   "teamComponent.phone": "Teléfono",
-  "teamComponent.website": "Sitio web"
+  "teamComponent.website": "Sitio web",
+  "teamComponent.invalidLink": "Por favor introduce un URL válido",
+  "teamComponent.cancelButton": "Cancelar",
+  "teamComponent.saveButton": "Guardar"
 }
