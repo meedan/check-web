@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import IconDelete from 'material-ui/svg-icons/action/delete';
 import IconEdit from 'material-ui/svg-icons/image/edit';
+import { can } from '../Can';
 import CheckContext from '../../CheckContext';
 import { SmallerStyledIconButton } from '../../styles/js/shared';
 
@@ -15,38 +16,21 @@ class TeamMenu extends Component {
     this.getHistory().push(`/${this.props.team.slug}/edit`);
   }
 
-  handleClickEditSource() {
-    const { team, projectId, sourceId } = this.props.params;
-
-    this.getHistory().push(`/${team}/project/${projectId}/source/${sourceId}/edit`);
-  }
-
   handleClickTrash() {
     this.getHistory().push(`/${this.props.team.slug}/trash`);
   }
 
   render() {
-    const { currentUserIsMember, pageType, loggedIn } = this.props;
+    const { team, currentUserIsMember, pageType } = this.props;
 
     return (
       <div>
-        { pageType === 'team' && loggedIn ?
+        { pageType === 'team' && can(team.permissions, 'update Team') ?
           <SmallerStyledIconButton
             className="team-menu__edit-team-button"
             onClick={this.handleClickEditTeam.bind(this)}
             tooltip={
               <FormattedMessage id="teamMenu.editTeam" defaultMessage="Edit team" />
-            }
-          >
-            <IconEdit />
-          </SmallerStyledIconButton> : null
-        }
-        { pageType === 'source' && loggedIn ?
-          <SmallerStyledIconButton
-            className="team-menu__edit-source-button"
-            onClick={this.handleClickEditSource.bind(this)}
-            tooltip={
-              <FormattedMessage id="teamMenu.editSource" defaultMessage="Edit source" />
             }
           >
             <IconEdit />

@@ -30,6 +30,7 @@ import SourcePicture from './SourcePicture';
 import SourceMedias from './SourceMedias';
 import SourceAnnotations from './SourceAnnotations';
 import SourceAccounts from './SourceAccounts';
+import { can } from '../Can';
 import Tags from '../Tags';
 import PageTitle from '../PageTitle';
 import MediaUtil from '../media/MediaUtil';
@@ -1468,7 +1469,8 @@ class SourceComponent extends Component {
   render() {
     const isProjectSource = this.isProjectSource();
     const source = this.getSource();
-    const { isEditing } = this.props.route;
+    const isEditing = this.props.route.isEditing && can(source.permissions, 'update Source');
+
     return (
       <PageTitle
         prefix={source.name}
