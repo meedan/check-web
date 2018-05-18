@@ -10,6 +10,9 @@ describe('<MediaDetail />', () => {
     },
     overridden: {},
     last_status: 'verified',
+    last_status_obj: {
+      locked: false,
+    },
     verification_statuses: { statuses: [{ label: 'verified' }] },
     translation_statuses: { statuses: [{ label: 'translated' }] },
     log_count: 0,

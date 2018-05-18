@@ -363,6 +363,33 @@ class MediaMetadata extends Component {
     this.setState({ openAssignDialog: false });
   }
 
+  handleStatusLock() {
+    const { media } = this.props;
+
+    const onFailure = (transaction) => {
+      const error = transaction.getError();
+      if (error.json) {
+        error.json().then(this.handleError);
+      } else {
+        this.handleError(JSON.stringify(error));
+      }
+    };
+
+    const statusAttr = {
+      parent_type: 'project_media',
+      annotated: media,
+      annotation: {
+        status_id: media.last_status_obj.id,
+        locked: !media.last_status_obj.locked,
+      },
+    };
+
+    Relay.Store.commitUpdate(
+      new UpdateStatusMutation(statusAttr),
+      { onFailure },
+    );
+  }
+
   currentProject() {
     return this.props.media.project;
   }
@@ -753,6 +780,7 @@ class MediaMetadata extends Component {
               handleRestore={this.handleRestore.bind(this)}
               handleDeleteForever={this.handleDeleteForever.bind(this)}
               handleAssign={this.handleAssign.bind(this)}
+              handleStatusLock={this.handleStatusLock.bind(this)}
               style={{ display: 'flex' }}
               locale={locale}
             />}

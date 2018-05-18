@@ -24,6 +24,14 @@
     "defaultMessage": "New claim added by {author}"
   },
   {
+    "id": "annotation.statusLocked",
+    "defaultMessage": "Status locked by {author}"
+  },
+  {
+    "id": "annotation.statusUnlocked",
+    "defaultMessage": "Status unlocked by {author}"
+  },
+  {
     "id": "annotation.mediaAssigned",
     "defaultMessage": "Assigned to {name} by {author}"
   },

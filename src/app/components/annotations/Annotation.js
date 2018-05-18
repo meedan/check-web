@@ -415,7 +415,25 @@ class Annotation extends Component {
     }
     case 'update_status': {
       const statusChanges = JSON.parse(activity.object_changes_json);
-      if (statusChanges.assigned_to_id) {
+      if (statusChanges.locked) {
+        if (statusChanges.locked[1]) {
+          contentTemplate = (
+            <FormattedMessage
+              id="annotation.statusLocked"
+              defaultMessage="Status locked by {author}"
+              values={{ author: authorName }}
+            />
+          );
+        } else {
+          contentTemplate = (
+            <FormattedMessage
+              id="annotation.statusUnlocked"
+              defaultMessage="Status unlocked by {author}"
+              values={{ author: authorName }}
+            />
+          );
+        }
+      } else if (statusChanges.assigned_to_id) {
         const assignment = JSON.parse(activity.meta);
         if (assignment.assigned_to_name) {
           contentTemplate = (

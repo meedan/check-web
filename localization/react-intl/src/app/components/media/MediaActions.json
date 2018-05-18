@@ -34,5 +34,13 @@
   {
     "id": "mediaActions.assign",
     "defaultMessage": "Assign"
+  },
+  {
+    "id": "mediaActions.unlockStatus",
+    "defaultMessage": "Unlock status"
+  },
+  {
+    "id": "mediaActions.lockStatus",
+    "defaultMessage": "Lock status"
   }
 ]

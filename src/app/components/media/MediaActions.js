@@ -32,6 +32,7 @@ class MediaActions extends Component {
       handleRestore,
       handleDeleteForever,
       handleAssign,
+      handleStatusLock,
     } = this.props;
     const menuItems = [];
 
@@ -128,6 +129,19 @@ class MediaActions extends Component {
           { media.last_status_obj.assigned_to ?
             <FormattedMessage id="mediaActions.unassign" defaultMessage="Unassign" /> :
             <FormattedMessage id="mediaActions.assign" defaultMessage="Assign" />}
+        </MenuItem>));
+    }
+
+    if (can(media.permissions, 'create Status') && !media.archived) {
+      menuItems.push((
+        <MenuItem
+          key="mediaActions.lockStatus"
+          className="media-actions__lock-status"
+          onClick={handleStatusLock}
+        >
+          { media.last_status_obj.locked ?
+            <FormattedMessage id="mediaActions.unlockStatus" defaultMessage="Unlock status" /> :
+            <FormattedMessage id="mediaActions.lockStatus" defaultMessage="Lock status" />}
         </MenuItem>));
     }
 

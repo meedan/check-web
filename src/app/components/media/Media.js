@@ -72,6 +72,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
         last_status_obj {
           id
           dbid
+          locked
           assigned_to {
             id
             dbid
