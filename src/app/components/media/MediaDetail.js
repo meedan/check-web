@@ -137,7 +137,10 @@ class MediaDetail extends Component {
     const randomNumber = Math.floor(Math.random() * 1000000);
     const status = getStatus(mediaStatuses(media), mediaLastStatus(media));
     const cardHeaderStatus = (
-      <MediaStatus media={media} readonly={this.props.readonly} />
+      <MediaStatus
+        media={media}
+        readonly={this.props.readonly || media.last_status_obj.locked}
+      />
     );
     const authorName = MediaUtil.authorName(media, data);
     const authorUsername = MediaUtil.authorUsername(media, data);

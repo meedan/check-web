@@ -20,7 +20,7 @@ class UpdateStatusMutation extends Relay.Mutation {
 
   getVariables() {
     const status = this.props.annotation;
-    const vars = { id: status.status_id };
+    const vars = { id: status.status_id, locked: status.locked };
     if (status.status) {
       vars.status = status.status;
     }
