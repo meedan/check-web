@@ -132,7 +132,7 @@ class MediaActions extends Component {
         </MenuItem>));
     }
 
-    if (can(media.permissions, 'create Status') && !media.archived) {
+    if (can(media.last_status_obj.permissions, 'update Status') && !media.archived) {
       menuItems.push((
         <MenuItem
           key="mediaActions.lockStatus"
