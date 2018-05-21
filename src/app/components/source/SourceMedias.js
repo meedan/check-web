@@ -137,6 +137,8 @@ const SourceMediasContainer = Relay.createContainer(SourceMediasComponent, {
                 last_status_obj {
                   id
                   dbid
+                  locked
+                  permissions
                   assigned_to {
                     id
                     dbid
