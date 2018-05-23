@@ -49,7 +49,7 @@ gulp.task('relay:copy', () => {
 gulp.task('webpack:build:server', (callback) => {
   webpack(Object.create(webpackServerConfig), (err, stats) => {
     if (err) {
-      gutil.log(err.error);
+      gutil.log(err.message);
       process.exit(1);
     }
     gutil.log('[webpack:build:server]', stats.toString({ colors: true, chunks: false }));
