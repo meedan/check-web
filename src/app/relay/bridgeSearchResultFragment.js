@@ -35,7 +35,6 @@ const bridgeSearchResultFragment = Relay.QL`
             id,
             dbid,
             locked
-            permissions
           }
           project {
             id,

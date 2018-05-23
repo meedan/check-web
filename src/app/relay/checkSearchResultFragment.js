@@ -27,7 +27,6 @@ const checkSearchResultFragment = Relay.QL`
             id,
             dbid,
             locked
-            permissions
             assigned_to {
               id
               dbid
