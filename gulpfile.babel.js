@@ -49,9 +49,10 @@ gulp.task('relay:copy', () => {
 gulp.task('webpack:build:server', (callback) => {
   webpack(Object.create(webpackServerConfig), (err, stats) => {
     if (err) {
-      throw new gutil.PluginError('webpack:build', err);
+      gutil.log(err.error);
+      process.exit(1);
     }
-    gutil.log('[webpack:build]', stats.toString({ colors: true, chunks: false }));
+    gutil.log('[webpack:build:server]', stats.toString({ colors: true, chunks: false }));
     callback();
   });
 });
@@ -61,9 +62,10 @@ gulp.task('webpack:build:web', (callback) => {
   webpackConfig.output.path = webpackConfig.output.pathWeb;
   webpack(Object.create(webpackConfig), (err, stats) => {
     if (err) {
-      throw new gutil.PluginError('webpack:build', err);
+      gutil.log(err.message);
+      process.exit(1);
     }
-    gutil.log('[webpack:build]', stats.toString({ colors: true, chunks: false }));
+    gutil.log('[webpack:build:web]', stats.toString({ colors: true, chunks: false }));
     callback();
   });
 });

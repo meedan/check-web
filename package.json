@@ -62,7 +62,7 @@
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.5.1",
-    "eslint-plugin-require-path-exists": "^1.1.7",
+    "eslint-plugin-require-path-exists": "1.1.7",
     "expect": "^1.12.2",
     "finalhandler": "^0.5.1",
     "gulp": "^3.9.0",
