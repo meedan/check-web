@@ -53,7 +53,7 @@ class TeamProjects extends React.Component {
             renderCard
           />
         </Can>
-        <Card style={{ marginTop: units(2), marginBottom: units(2) }}>
+        <Card style={{ marginBottom: units(2) }}>
           <StyledCardHeader
             title={<MappedMessage msgObj={messages} msgKey="verificationProjects" />}
           />
