@@ -26,6 +26,7 @@ import Attribution from '../task/Attribution';
 import UserAvatar from '../UserAvatar';
 import ProfileLink from '../layout/ProfileLink';
 import { nested, safelyParseJSON } from '../../helpers';
+import globalStrings from '../../globalStrings';
 import {
   Row,
   black10,
@@ -106,7 +107,7 @@ class MediaMetadata extends Component {
   }
 
   handleError(json) {
-    let message = this.props.intl.formatMessage(messages.error);
+    let message = this.props.intl.formatMessage(globalStrings.unknownError);
     if (json && json.error) {
       message = json.error;
     }
