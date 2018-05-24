@@ -26,6 +26,7 @@ const checkSearchResultFragment = Relay.QL`
           last_status_obj {
             id,
             dbid,
+            locked
             assigned_to {
               id
               dbid

@@ -73,7 +73,6 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
           id
           dbid
           locked
-          permissions
           assigned_to {
             id
             dbid
