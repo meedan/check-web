@@ -992,13 +992,16 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       media_pg.fill_input('#cmd-input', 'Test')
       media_pg.element('#cmd-input').submit
-      sleep 3
-      notes_count = get_element('.media-detail__check-notes-count')
-      expect(notes_count.text == '3 notes').to be(true)
+      sleep 5
+      notes_count_before = get_element('.media-detail__check-notes-count').text.gsub(/ .*/, '').to_i
+      expect(notes_count_before > 0).to be(true)
       expect(@driver.page_source.include?('Comment deleted')).to be(false)
       media_pg.delete_annotation
       wait_for_selector('.annotation__deleted')
-      expect(notes_count.text == '3 notes').to be(true)
+      sleep 5
+      notes_count_after = get_element('.media-detail__check-notes-count').text.gsub(/ .*/, '').to_i
+      expect(notes_count_after > 0).to be(true)
+      expect(notes_count_after == notes_count_before).to be(true) # Count should be the same because the comment is replaced by the "comment deleted" annotation
       expect(@driver.page_source.include?('Comment deleted')).to be(true)
     end
 
@@ -1264,15 +1267,17 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       editbutton.location_once_scrolled_into_view
       editbutton.click
       fill_field('textarea[name="label"]', '??')
+      sleep 5
       editbutton = wait_for_selector('.task__save', :css)
       editbutton.click
       media_pg.wait_all_elements(8, "annotations__list-item", :class)
+      sleep 10
       expect(@driver.page_source.include?('Task "Foo or bar?" edited to "Foo or bar???" by')).to be(true)
 
       # Edit task answer
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo or bar???" answered by User With Email: "Foo edited"')).to be(false)
-      el = wait_for_selector('.task-actions > button', :css)
-      el.click
+      sleep 5
+      el = wait_for_selector('.task-actions > button', :css).click
 
       el = wait_for_selector('.task-actions__edit-response', :css)
       el.click
@@ -1327,27 +1332,29 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       editbutton.location_once_scrolled_into_view
       editbutton.click
       fill_field('textarea[name="label"]', '??')
+      sleep 5
       editbutton = wait_for_selector('.task__save', :css)
       editbutton.click
-      media_pg.wait_all_elements(8, "annotations__list-item", :class)
+      media_pg.wait_all_elements(9, "annotations__list-item", :class)
+      sleep 10
       expect(@driver.page_source.include?('Task "Foo or bar?" edited to "Foo or bar???" by')).to be(true)
       # Edit task answer
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo or bar???" answered by User With Email: "Foo edited"')).to be(false)
-      el = wait_for_selector('.task-actions > button', :css)
-      el.click
+      sleep 5
+      el = wait_for_selector('.task-actions > button', :css).click
       el = wait_for_selector('.task-actions__edit-response', :css)
       el.click
       el = wait_for_selector('1', :id)
       el.click
       el = wait_for_selector('task__submit', :class)
       el.click
-      media_pg.wait_all_elements(9, "annotations__list-item", :class) #Wait for refresh page
+      media_pg.wait_all_elements(10, "annotations__list-item", :class) #Wait for refresh page
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo or bar???" answered by User With Email: "Bar"')).to be(true)
       # Delete task
       delete_task('Foo')
     end
 
-    it "should add, edit, answer, update answer and delete multiple_choice task", bin5:true do
+    it "should add, edit, answer, update answer and delete multiple_choice task", bin5: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       wait_for_selector('.create-task__add-button')
       # Create a task
@@ -1391,14 +1398,16 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       editbutton.location_once_scrolled_into_view
       editbutton.click
       fill_field('textarea[name="label"]', '??')
+      sleep 5
       editbutton = wait_for_selector('.task__save', :css)
       editbutton.click
       media_pg.wait_all_elements(8, "annotations__list-item", :class)
+      sleep 10
       expect(@driver.page_source.include?('Task "Foo, Doo or bar?" edited to "Foo, Doo or bar???" by')).to be(true)
       # Edit task answer
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo, Doo or bar???" answered by User With Email: "Foo and Boo"')).to be(false)
-      el = wait_for_selector('.task-actions > button', :css)
-      el.click
+      sleep 5
+      el = wait_for_selector('.task-actions > button', :css).click
       el = wait_for_selector('.task-actions__edit-response', :css)
       el.click
       el = wait_for_selector('Doo', :id)
@@ -1408,7 +1417,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       fill_field('textarea[name="response"]', 'Boo')
       el = wait_for_selector('task__submit', :class)
       el.click
-      media_pg.wait_all_elements(9, "annotations__list-item", :class) #Wait for refresh page
+      media_pg.wait_all_elements(10, "annotations__list-item", :class) #Wait for refresh page
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo, Doo or bar???" answered by User With Email: "Foo and Boo"')).to be(true)
       # Delete task
       delete_task('Foo')
@@ -1449,13 +1458,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       sleep 1
       @driver.find_element(:css, '.media-actions__lock-status').click
-      sleep 5 #Needs to wait the refresh
+      sleep 10 #Needs to wait the refresh
       expect(@driver.page_source.include?('Status locked by')).to be(true)
       el = wait_for_selector('.media-actions__icon')
       el.click
       sleep 1
       @driver.find_element(:css, '.media-actions__lock-status').click
-      sleep 5 #Needs to wait the refresh
+      sleep 10 #Needs to wait the refresh
       expect(@driver.page_source.include?('Status unlocked by')).to be(true)
     end
 
@@ -1571,37 +1580,30 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 5
       @driver.find_element(:css, '.media-actions__icon').click
       sleep 1
-      if @config['app_name'] == 'bridge'
-        expect(@driver.page_source.include?('Embed')).to be(false)
-        @driver.navigate.to "#{@driver.current_url}/embed"
-        sleep 2
-        expect(@driver.page_source.include?('Not available')).to be(true)
-      elsif @config['app_name'] == 'check'
-        expect(@driver.page_source.include?('Embed')).to be(true)
-        url = @driver.current_url.to_s
-        @driver.find_element(:css, '.media-actions__embed').click
-        sleep 2
-        expect(@driver.current_url.to_s == "#{url}/embed").to be(true)
-        expect(@driver.page_source.include?('Not available')).to be(false)
-        el = wait_for_selector('#media-embed__actions-customize')
-        el.click
-        sleep 1
-        @driver.find_elements(:css, '#media-embed__customization-menu input[type=checkbox]').map(&:click)
-        sleep 1
-        @driver.find_elements(:css, 'body').map(&:click)
-        sleep 1
-        el = wait_for_selector('#media-embed__actions-copy')
-        el.click
+      expect(@driver.page_source.include?('Embed')).to be(true)
+      url = @driver.current_url.to_s
+      @driver.find_element(:css, '.media-actions__embed').click
+      sleep 2
+      expect(@driver.current_url.to_s == "#{url}/embed").to be(true)
+      expect(@driver.page_source.include?('Not available')).to be(false)
+      el = wait_for_selector('#media-embed__actions-customize')
+      el.click
+      sleep 1
+      @driver.find_elements(:css, '#media-embed__customization-menu input[type=checkbox]').map(&:click)
+      sleep 1
+      @driver.find_elements(:css, 'body').map(&:click)
+      sleep 1
+      el = wait_for_selector('#media-embed__actions-copy')
+      el.click
 
-        sleep 1
-        @driver.navigate.to 'https://pastebin.mozilla.org/'
-        el = wait_for_selector('#code')
-        el.send_keys(' ')
-        @driver.action.send_keys(:control, 'v').perform
-        sleep 1
-        expect((@driver.find_element(:css, '#code').attribute('value') =~ /hide_open_tasks%3D1%26hide_tasks%3D1%26hide_notes%3D1/).nil?).to be(false)
-        sleep 5
-      end
+      sleep 1
+      @driver.navigate.to 'https://pastebin.mozilla.org/'
+      el = wait_for_selector('#code')
+      el.send_keys(' ')
+      @driver.action.send_keys(:control, 'v').perform
+      sleep 1
+      expect((@driver.find_element(:css, '#code').attribute('value') =~ /hide_open_tasks%3D1%26hide_tasks%3D1%26hide_notes%3D1/).nil?).to be(false)
+      sleep 5
     end
 
     it "should paginate project page", bin2: true do

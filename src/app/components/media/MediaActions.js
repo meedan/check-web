@@ -7,7 +7,6 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
-import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { can } from '../Can';
 import CheckContext from '../../CheckContext';
 
@@ -93,8 +92,7 @@ class MediaActions extends Component {
       }
     }
 
-    if (config.appName === 'check' &&
-      can(media.permissions, 'embed ProjectMedia') &&
+    if (can(media.permissions, 'embed ProjectMedia') &&
       !media.archived) {
       menuItems.push((
         <MenuItem
@@ -119,7 +117,7 @@ class MediaActions extends Component {
         </MenuItem>));
     }
 
-    if (can(media.permissions, 'create Status') && !media.archived) {
+    if (can(media.permissions, 'create Dynamic') && !media.archived) {
       menuItems.push((
         <MenuItem
           key="mediaActions.assign"
