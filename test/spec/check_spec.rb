@@ -105,7 +105,7 @@ shared_examples 'custom' do
     api_create_claim_and_go_to_search_page
     before = wait_for_selector("search__results-heading", :class)
     txt = before.text
-    @driver.navigate.to @config['self_url'] + '/' + get_team + '/search/%7B"status"%3A%5B"false"%5D%7D'
+    @driver.navigate.to @config['self_url'] + '/' + get_team + '/search/%7B"verification_status"%3A%5B"false"%5D%7D'
     txt = wait_for_text_change(txt, "search__results-heading", :class)
     expect((@driver.title =~ /False/).nil?).to be(false)
     expect(@driver.page_source.include?('My search result')).to be(false)

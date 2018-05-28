@@ -24,6 +24,18 @@
     "defaultMessage": "New claim added by {author}"
   },
   {
+    "id": "annotation.taggedHeader",
+    "defaultMessage": "Tagged #{tag} by {author}"
+  },
+  {
+    "id": "annotation.deletedComment",
+    "defaultMessage": "Comment deleted by {author}: \"{comment}\""
+  },
+  {
+    "id": "annotation.taskCreated",
+    "defaultMessage": "Task \"{task}\" created by {author}"
+  },
+  {
     "id": "annotation.statusLocked",
     "defaultMessage": "Status locked by {author}"
   },
@@ -42,18 +54,6 @@
   {
     "id": "annotation.statusSetHeader",
     "defaultMessage": "Status set to {status} by {author}"
-  },
-  {
-    "id": "annotation.taggedHeader",
-    "defaultMessage": "Tagged #{tag} by {author}"
-  },
-  {
-    "id": "annotation.deletedComment",
-    "defaultMessage": "Comment deleted by {author}: \"{comment}\""
-  },
-  {
-    "id": "annotation.taskCreated",
-    "defaultMessage": "Task \"{task}\" created by {author}"
   },
   {
     "id": "annotation.taskResolve",

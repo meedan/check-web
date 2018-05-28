@@ -4,10 +4,6 @@
     "defaultMessage": "Embed preview"
   },
   {
-    "id": "mediaEmbed.notAvailable",
-    "defaultMessage": "Not available"
-  },
-  {
     "id": "mediaEmbed.customizationOptionShowCompleteTasks",
     "defaultMessage": "Show complete tasks"
   },

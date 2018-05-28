@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import PageTitle from '../PageTitle';
 import PenderCard from '../PenderCard';
-import { FlexRow, ContentColumn, units, black87, black54, alertRed } from '../../styles/js/shared';
+import { FlexRow, units, black87, black54, alertRed } from '../../styles/js/shared';
 
 const StyledPopover = styled(Popover)`
   .media-embed__customization-label {
@@ -170,175 +170,168 @@ class MediaEmbed extends Component {
 
     return (
       <PageTitle title={this.props.intl.formatMessage(messages.preview)}>
-        {config.appName !== 'check' ?
-          <ContentColumn className="card">
-            <h2 className="main-title">
-              <FormattedMessage id="mediaEmbed.notAvailable" defaultMessage="Not available" />
-            </h2>
-          </ContentColumn>
-          :
-          <div id="media-embed">
-            <StyledPopover
-              open={this.state.customizationMenuOpened}
-              anchorEl={this.state.customizationMenuAnchor}
-              anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
-              targetOrigin={{ horizontal: 'left', vertical: 'top' }}
-              onRequestClose={this.handleCustomizationMenuClose.bind(this)}
-              style={{ padding: units(2) }}
-            >
-              <div id="media-embed__customization-menu">
-                <FlexRow>
-                  <span className="media-embed__customization-label">
-                    <FormattedMessage
-                      id="mediaEmbed.customizationOptionShowCompleteTasks"
-                      defaultMessage="Show complete tasks"
-                    />{' '}
-                  </span>
-                  <span>
-                    <Checkbox
-                      className="media-embed__customization-option"
-                      checked={this.state.customizationOptions.showTasks}
-                      onCheck={this.handleSelectCheckbox.bind(this, 'showTasks')}
-                    />
-                  </span>
-                </FlexRow>
-
-                <FlexRow>
-                  <span className="media-embed__customization-label">
-                    <FormattedMessage
-                      id="mediaEmbed.customizationOptionShowIncompleteTasks"
-                      defaultMessage="Show incomplete tasks"
-                    />{' '}
-                  </span>
-                  <span>
-                    <Checkbox
-                      className="media-embed__customization-option"
-                      checked={this.state.customizationOptions.showOpenTasks}
-                      onCheck={this.handleSelectCheckbox.bind(this, 'showOpenTasks')}
-                    />
-                  </span>
-                </FlexRow>
-
-                <FlexRow>
-                  <span className="media-embed__customization-label">
-                    <FormattedMessage
-                      id="mediaEmbed.customizationOptionShowNotes"
-                      defaultMessage="Show notes"
-                    />{' '}
-                  </span>
-                  <span>
-                    <Checkbox
-                      className="media-embed__customization-option"
-                      checked={this.state.customizationOptions.showNotes}
-                      onCheck={this.handleSelectCheckbox.bind(this, 'showNotes')}
-                    />
-                  </span>
-                </FlexRow>
-              </div>
-            </StyledPopover>
-
-            <StyledPopover
-              open={this.state.codeMenuOpened}
-              anchorEl={this.state.codeMenuAnchor}
-              anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
-              targetOrigin={{ horizontal: 'left', vertical: 'top' }}
-              onRequestClose={this.handleCodeMenuClose.bind(this)}
-            >
-              <div id="media-embed__copy-code">
-                <p className="media-embed__warning">
+        <div id="media-embed">
+          <StyledPopover
+            open={this.state.customizationMenuOpened}
+            anchorEl={this.state.customizationMenuAnchor}
+            anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+            targetOrigin={{ horizontal: 'left', vertical: 'top' }}
+            onRequestClose={this.handleCustomizationMenuClose.bind(this)}
+            style={{ padding: units(2) }}
+          >
+            <div id="media-embed__customization-menu">
+              <FlexRow>
+                <span className="media-embed__customization-label">
                   <FormattedMessage
-                    id="mediaEmbed.warning"
-                    defaultMessage="Warning — sharing this will expose information to people outside your private team. Proceed with caution."
+                    id="mediaEmbed.customizationOptionShowCompleteTasks"
+                    defaultMessage="Show complete tasks"
+                  />{' '}
+                </span>
+                <span>
+                  <Checkbox
+                    className="media-embed__customization-option"
+                    checked={this.state.customizationOptions.showTasks}
+                    onCheck={this.handleSelectCheckbox.bind(this, 'showTasks')}
                   />
-                </p>
-                <p className="media-embed__copy-footer">
-                  <input disabled readOnly value={embedTag} id="media-embed__code-field" />
-                  {this.state.codeCopied ?
-                    <span className="media-embed__copy-button-inactive">
-                      <FormattedMessage
-                        id="mediaEmbed.copyButtonInactive"
-                        defaultMessage="Copied"
-                      />
-                    </span>
-                    :
-                    <span className="media-embed__copy-button">
-                      <FormattedMessage id="mediaEmbed.copyButton" defaultMessage="Copy" />
-                    </span>}
-                </p>
-              </div>
-            </StyledPopover>
+                </span>
+              </FlexRow>
 
-            <StyledPopover
-              open={this.state.shareMenuOpened}
-              anchorEl={this.state.shareMenuAnchor}
-              anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
-              targetOrigin={{ horizontal: 'left', vertical: 'top' }}
-              onRequestClose={this.handleShareMenuClose.bind(this)}
-            >
-              <div id="media-embed__copy-share-url">
-                <p className="media-embed__warning">
+              <FlexRow>
+                <span className="media-embed__customization-label">
                   <FormattedMessage
-                    id="mediaEmbed.warning"
-                    defaultMessage="Warning — sharing this will expose information to people outside your private team. Proceed with caution."
+                    id="mediaEmbed.customizationOptionShowIncompleteTasks"
+                    defaultMessage="Show incomplete tasks"
+                  />{' '}
+                </span>
+                <span>
+                  <Checkbox
+                    className="media-embed__customization-option"
+                    checked={this.state.customizationOptions.showOpenTasks}
+                    onCheck={this.handleSelectCheckbox.bind(this, 'showOpenTasks')}
                   />
-                </p>
-                <p className="media-embed__copy-footer">
-                  <input disabled readOnly value={shareUrl} id="media-embed__share-field" />
-                  {this.state.urlCopied ?
-                    <span className="media-embed__copy-button-inactive">
-                      <FormattedMessage
-                        id="mediaEmbed.copyButtonInactive"
-                        defaultMessage="Copied"
-                      />
-                    </span>
-                    :
-                    <span className="media-embed__copy-button">
-                      <FormattedMessage id="mediaEmbed.copyButton" defaultMessage="Copy" />
-                    </span>}
-                </p>
-              </div>
-            </StyledPopover>
+                </span>
+              </FlexRow>
 
-            <p id="media-embed__actions">
-              <FlatButton
-                id="media-embed__actions-customize"
-                onClick={this.handleCustomizationMenuOpen.bind(this)}
-                label={<FormattedMessage id="mediaEmbed.customize" defaultMessage="Customize" />}
-              />
-              <CopyToClipboard text={embedTag} onCopy={this.handleCopyEmbedCode.bind(this)}>
-                <FlatButton
-                  id="media-embed__actions-copy"
-                  onClick={this.handleCodeMenuOpen.bind(this)}
-                  label={
-                    <FormattedMessage
-                      id="mediaEmbed.copyEmbedCode"
-                      defaultMessage="Copy embed code"
-                    />
-                  }
-                />
-              </CopyToClipboard>
-              <CopyToClipboard text={shareUrl} onCopy={this.handleCopyShareUrl.bind(this)}>
-                <FlatButton
-                  id="media-embed__actions-copy"
-                  onClick={this.handleShareMenuOpen.bind(this)}
-                  label={
-                    <FormattedMessage
-                      id="mediaEmbed.copyShareUrl"
-                      defaultMessage="Copy share URL"
-                    />
-                  }
-                />
-              </CopyToClipboard>
-            </p>
+              <FlexRow>
+                <span className="media-embed__customization-label">
+                  <FormattedMessage
+                    id="mediaEmbed.customizationOptionShowNotes"
+                    defaultMessage="Show notes"
+                  />{' '}
+                </span>
+                <span>
+                  <Checkbox
+                    className="media-embed__customization-option"
+                    checked={this.state.customizationOptions.showNotes}
+                    onCheck={this.handleSelectCheckbox.bind(this, 'showNotes')}
+                  />
+                </span>
+              </FlexRow>
+            </div>
+          </StyledPopover>
 
-            <PenderCard
-              url={url}
-              domId="embed-id"
-              penderUrl={config.penderUrl}
-              fallback={null}
-              mediaVersion={this.state.version}
+          <StyledPopover
+            open={this.state.codeMenuOpened}
+            anchorEl={this.state.codeMenuAnchor}
+            anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+            targetOrigin={{ horizontal: 'left', vertical: 'top' }}
+            onRequestClose={this.handleCodeMenuClose.bind(this)}
+          >
+            <div id="media-embed__copy-code">
+              <p className="media-embed__warning">
+                <FormattedMessage
+                  id="mediaEmbed.warning"
+                  defaultMessage="Warning — sharing this will expose information to people outside your private team. Proceed with caution."
+                />
+              </p>
+              <p className="media-embed__copy-footer">
+                <input disabled readOnly value={embedTag} id="media-embed__code-field" />
+                {this.state.codeCopied ?
+                  <span className="media-embed__copy-button-inactive">
+                    <FormattedMessage
+                      id="mediaEmbed.copyButtonInactive"
+                      defaultMessage="Copied"
+                    />
+                  </span>
+                  :
+                  <span className="media-embed__copy-button">
+                    <FormattedMessage id="mediaEmbed.copyButton" defaultMessage="Copy" />
+                  </span>}
+              </p>
+            </div>
+          </StyledPopover>
+
+          <StyledPopover
+            open={this.state.shareMenuOpened}
+            anchorEl={this.state.shareMenuAnchor}
+            anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+            targetOrigin={{ horizontal: 'left', vertical: 'top' }}
+            onRequestClose={this.handleShareMenuClose.bind(this)}
+          >
+            <div id="media-embed__copy-share-url">
+              <p className="media-embed__warning">
+                <FormattedMessage
+                  id="mediaEmbed.warning"
+                  defaultMessage="Warning — sharing this will expose information to people outside your private team. Proceed with caution."
+                />
+              </p>
+              <p className="media-embed__copy-footer">
+                <input disabled readOnly value={shareUrl} id="media-embed__share-field" />
+                {this.state.urlCopied ?
+                  <span className="media-embed__copy-button-inactive">
+                    <FormattedMessage
+                      id="mediaEmbed.copyButtonInactive"
+                      defaultMessage="Copied"
+                    />
+                  </span>
+                  :
+                  <span className="media-embed__copy-button">
+                    <FormattedMessage id="mediaEmbed.copyButton" defaultMessage="Copy" />
+                  </span>}
+              </p>
+            </div>
+          </StyledPopover>
+
+          <p id="media-embed__actions">
+            <FlatButton
+              id="media-embed__actions-customize"
+              onClick={this.handleCustomizationMenuOpen.bind(this)}
+              label={<FormattedMessage id="mediaEmbed.customize" defaultMessage="Customize" />}
             />
-          </div>}
+            <CopyToClipboard text={embedTag} onCopy={this.handleCopyEmbedCode.bind(this)}>
+              <FlatButton
+                id="media-embed__actions-copy"
+                onClick={this.handleCodeMenuOpen.bind(this)}
+                label={
+                  <FormattedMessage
+                    id="mediaEmbed.copyEmbedCode"
+                    defaultMessage="Copy embed code"
+                  />
+                }
+              />
+            </CopyToClipboard>
+            <CopyToClipboard text={shareUrl} onCopy={this.handleCopyShareUrl.bind(this)}>
+              <FlatButton
+                id="media-embed__actions-copy"
+                onClick={this.handleShareMenuOpen.bind(this)}
+                label={
+                  <FormattedMessage
+                    id="mediaEmbed.copyShareUrl"
+                    defaultMessage="Copy share URL"
+                  />
+                }
+              />
+            </CopyToClipboard>
+          </p>
+
+          <PenderCard
+            url={url}
+            domId="embed-id"
+            penderUrl={config.penderUrl}
+            fallback={null}
+            mediaVersion={this.state.version}
+          />
+        </div>
       </PageTitle>
     );
   }
