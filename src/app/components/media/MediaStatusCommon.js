@@ -32,7 +32,7 @@ class MediaStatusCommon extends Component {
   }
 
   canUpdate() {
-    return !this.props.readonly && can(this.props.media.permissions, 'create Dynamic');
+    return !this.props.readonly && can(this.props.media.permissions, 'update Status');
   }
 
   handleStatusClick(clickedStatus) {
