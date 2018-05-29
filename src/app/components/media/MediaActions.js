@@ -117,7 +117,7 @@ class MediaActions extends Component {
         </MenuItem>));
     }
 
-    if (can(media.permissions, 'create Dynamic') && !media.archived) {
+    if (can(media.permissions, 'update Status') && !media.archived) {
       menuItems.push((
         <MenuItem
           key="mediaActions.assign"
