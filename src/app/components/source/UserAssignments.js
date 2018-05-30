@@ -78,7 +78,7 @@ class UserAssignmentsComponent extends Component {
             : <FormattedMessage id="userAssignments.blank" defaultMessage="No activity yet" />
           }
         </StyledBlankState>
-        {Object.keys(assignments).map(team => (
+        {Object.keys(assignments).map(team => assignments[team].length ? (
           <Card key={team}>
             <CardHeader title={team} />
             <List>
@@ -119,7 +119,7 @@ class UserAssignmentsComponent extends Component {
               ))}
             </List>
           </Card>
-        ))}
+        ) : null)}
       </div>
     );
   }
