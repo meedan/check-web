@@ -118,7 +118,8 @@ class SlackConfig extends React.Component {
       }
     `;
 
-    if (UserUtil.myRole(this.getCurrentUser(), this.props.team.slug) !== 'owner') {
+    if (!team.limits.slack_integration ||
+      UserUtil.myRole(this.getCurrentUser(), this.props.team.slug) !== 'owner') {
       return null;
     }
 
