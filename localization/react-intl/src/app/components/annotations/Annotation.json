@@ -24,18 +24,6 @@
     "defaultMessage": "New claim added by {author}"
   },
   {
-    "id": "annotation.mediaAssigned",
-    "defaultMessage": "Assigned to {name} by {author}"
-  },
-  {
-    "id": "annotation.mediaUnassigned",
-    "defaultMessage": "Unassigned from {name} by {author}"
-  },
-  {
-    "id": "annotation.statusSetHeader",
-    "defaultMessage": "Status set to {status} by {author}"
-  },
-  {
     "id": "annotation.taggedHeader",
     "defaultMessage": "Tagged #{tag} by {author}"
   },
@@ -46,6 +34,26 @@
   {
     "id": "annotation.taskCreated",
     "defaultMessage": "Task \"{task}\" created by {author}"
+  },
+  {
+    "id": "annotation.statusLocked",
+    "defaultMessage": "Status locked by {author}"
+  },
+  {
+    "id": "annotation.statusUnlocked",
+    "defaultMessage": "Status unlocked by {author}"
+  },
+  {
+    "id": "annotation.mediaAssigned",
+    "defaultMessage": "Assigned to {name} by {author}"
+  },
+  {
+    "id": "annotation.mediaUnassigned",
+    "defaultMessage": "Unassigned from {name} by {author}"
+  },
+  {
+    "id": "annotation.statusSetHeader",
+    "defaultMessage": "Status set to {status} by {author}"
   },
   {
     "id": "annotation.taskResolve",

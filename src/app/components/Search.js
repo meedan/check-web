@@ -41,6 +41,8 @@ import {
 // TODO Make this a config
 const pageSize = 20;
 
+const statusKey = config.appName === 'bridge' ? 'translation_status' : 'verification_status';
+
 const StyledSearchInput = styled.input`
   background: ${units(2)} 50% url('/images/search.svg') ${white} no-repeat;
   background-size: ${units(2)};
@@ -257,7 +259,7 @@ class SearchQueryComponent extends Component {
   }
 
   statusIsSelected(statusCode, state = this.state) {
-    const selectedStatuses = state.query.status || [];
+    const selectedStatuses = state.query[statusKey] || [];
     return selectedStatuses.length && selectedStatuses.includes(statusCode);
   }
 
@@ -291,13 +293,13 @@ class SearchQueryComponent extends Component {
     this.setState((prevState) => {
       const state = Object.assign({}, prevState);
       const statusIsSelected = this.statusIsSelected(statusCode, state);
-      const selectedStatuses = state.query.status || []; // TODO Avoid ambiguous reference
+      const selectedStatuses = state.query[statusKey] || []; // TODO Avoid ambiguous reference
 
       if (statusIsSelected) {
         selectedStatuses.splice(selectedStatuses.indexOf(statusCode), 1); // remove from array
-        if (!selectedStatuses.length) delete state.query.status;
+        if (!selectedStatuses.length) delete state.query[statusKey];
       } else {
-        state.query.status = selectedStatuses.concat(statusCode);
+        state.query[statusKey] = selectedStatuses.concat(statusCode);
       }
 
       return { query: state.query };
@@ -382,8 +384,8 @@ class SearchQueryComponent extends Component {
                 return project ? project.node.title : '';
               })
               : [],
-            query.status
-              ? query.status.map((s) => {
+            query[statusKey]
+              ? query[statusKey].map((s) => {
                 const status = statuses.find(so => so.id === s);
                 return status ? status.label : '';
               })
@@ -804,8 +806,8 @@ class Search extends Component {
     ) {
       delete query.projects;
     }
-    if (query.status && query.status.length === 0) {
-      delete query.status;
+    if (query[statusKey] && query[statusKey].length === 0) {
+      delete query[statusKey];
     }
     if (query.sort && query.sort === 'recent_added') {
       delete query.sort;

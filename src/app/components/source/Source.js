@@ -126,7 +126,14 @@ const Source = (props, context_) => {
   const ids = `${props.params.sourceId},${projectId}`;
   const route = new SourceRoute({ ids });
 
-  return (<Relay.RootContainer Component={SourceContainer} route={route} forceFetch />);
+  return (
+    <Relay.RootContainer
+      Component={SourceContainer}
+      route={route}
+      forceFetch
+      renderFetched={data => <SourceContainer {...props} {...data} />}
+    />
+  );
 };
 
 Source.contextTypes = {

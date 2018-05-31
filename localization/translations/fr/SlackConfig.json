@@ -1,0 +1,4 @@
+{
+  "slackConfig.title": "Intégration avec Slack",
+  "slackConfig.text": "Envoyer une notification sur un canal Slack chaque fois qu'un de vos projets est modifié."
+}

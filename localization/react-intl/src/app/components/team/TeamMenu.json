@@ -1,6 +1,10 @@
 [
   {
+    "id": "teamMenu.editTeam",
+    "defaultMessage": "Edit team"
+  },
+  {
     "id": "teamMenu.trash",
-    "defaultMessage": "Trash"
+    "defaultMessage": "View trash"
   }
 ]

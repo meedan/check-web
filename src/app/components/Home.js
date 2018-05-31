@@ -205,9 +205,13 @@ class Home extends Component {
 
     const inTeamContext = !!this.props.params.team;
     const loggedIn = !!this.state.token;
-    const inMediaPage = !!(this.props.params.team &&
-      this.props.params.mediaId &&
-      this.props.params.projectId);
+
+    const inTeamPage = !!(this.props.params.team &&
+      !(this.props.params.mediaId ||
+        this.props.params.projectId ||
+        this.props.params.sourceId));
+
+    const pageType = routeSlug || (inTeamPage ? 'team' : null);
 
     const currentUserIsMember = (() => {
       if (inTeamContext && loggedIn) {
@@ -238,6 +242,7 @@ class Home extends Component {
                 drawerToggle={this.handleDrawerToggle.bind(this)}
                 loggedIn={loggedIn}
                 inTeamContext={inTeamContext}
+                pageType={pageType}
                 currentUserIsMember={currentUserIsMember}
                 {...this.props}
               />
@@ -251,7 +256,7 @@ class Home extends Component {
                   zIndex: '1000',
                 }}
               />
-              <StyledContent inMediaPage={inMediaPage}>
+              <StyledContent inMediaPage={routeSlug === 'media'}>
                 {children}
               </StyledContent>
             </StyledWrapper>

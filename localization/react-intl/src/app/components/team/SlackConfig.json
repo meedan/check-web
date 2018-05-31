@@ -1,0 +1,10 @@
+[
+  {
+    "id": "slackConfig.title",
+    "defaultMessage": "Slack integration"
+  },
+  {
+    "id": "slackConfig.text",
+    "defaultMessage": "Notify a Slack channel every time someone adds to one of your projects."
+  }
+]

@@ -17,6 +17,9 @@ class UpdateTeamMutation extends Relay.Mutation {
           description
           contacts
           avatar
+          get_slack_notifications_enabled
+          get_slack_webhook
+          get_slack_channel
         }
         public_team {
           avatar
@@ -34,6 +37,9 @@ class UpdateTeamMutation extends Relay.Mutation {
       description: this.props.description,
       empty_trash: this.props.empty_trash,
       contact: this.props.contact,
+      slack_notifications_enabled: this.props.slack_notifications_enabled,
+      slack_webhook: this.props.slack_webhook,
+      slack_channel: this.props.slack_channel,
     };
   }
 
@@ -51,6 +57,9 @@ class UpdateTeamMutation extends Relay.Mutation {
           fragment on UpdateTeamPayload {
             team {
               name, id, description, avatar,
+              get_slack_notifications_enabled,
+              get_slack_webhook,
+              get_slack_channel,
               contacts(first: 1) { edges { node { web, location, phone } } }
             }
           }`,

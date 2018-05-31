@@ -5,15 +5,5 @@
   "teamComponent.teamDescription": "Descrição da Equipe",
   "teamComponent.location": "Local",
   "teamComponent.phone": "Telefone",
-  "teamComponent.website": "Website",
-  "teamComponent.verificationTeam": "Equipe de Verificação",
-  "bridge.teamComponent.verificationTeam": "Equipe de Tradução",
-  "teamComponent.title": "Projetos de Verificação",
-  "bridge.teamComponent.title": "Projetos de Tradução",
-  "teamComponent.cancelButton": "Cancelar",
-  "teamComponent.saveButton": "Salvar",
-  "teamComponent.upgradeButton": "Assinar PRO",
-  "teamComponent.projects": "Projetos",
-  "teamComponent.members": "Membros",
-  "teamComponent.noProjects": "Nenhum projeto ainda"
+  "teamComponent.website": "Website"
 }

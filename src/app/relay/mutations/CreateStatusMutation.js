@@ -2,17 +2,17 @@ import Relay from 'react-relay';
 
 class CreateStatusMutation extends Relay.Mutation {
   getMutation() {
-    return Relay.QL`mutation createStatus {
-      createStatus
+    return Relay.QL`mutation createDynamic {
+      createDynamic
     }`;
   }
 
   getFatQuery() {
     switch (this.props.parent_type) {
     case 'source':
-      return Relay.QL`fragment on CreateStatusPayload { statusEdge, source { log, log_count, id } }`;
+      return Relay.QL`fragment on CreateDynamicPayload { dynamicEdge, source { log, log_count, id } }`;
     case 'project_media':
-      return Relay.QL`fragment on CreateStatusPayload { statusEdge, project_media { log, id, last_status, log_count, last_status_obj { id } } }`;
+      return Relay.QL`fragment on CreateDynamicPayload { dynamicEdge, project_media { log, id, last_status, log_count, last_status_obj { id } } }`;
     default:
       return '';
     }
@@ -20,7 +20,12 @@ class CreateStatusMutation extends Relay.Mutation {
 
   getVariables() {
     const status = this.props.annotation;
-    return { status: status.status, annotated_id: `${status.annotated_id}`, annotated_type: status.annotated_type };
+    return {
+      set_fields: JSON.stringify({ verification_status_status: status.status }),
+      annotation_type: 'verification_status',
+      annotated_id: `${status.annotated_id}`,
+      annotated_type: status.annotated_type,
+    };
   }
 
   getConfigs() {

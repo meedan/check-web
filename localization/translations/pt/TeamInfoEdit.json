@@ -1,0 +1,12 @@
+{
+  "teamComponent.editError": "Desculpe, não foi possível alterar a equipe",
+  "teamComponent.editSuccess": "Informações da equipe atualizadas com sucesso!",
+  "teamComponent.teamName": "Nome da Equipe",
+  "teamComponent.teamDescription": "Descrição da Equipe",
+  "teamComponent.location": "Local",
+  "teamComponent.phone": "Telefone",
+  "teamComponent.website": "Website",
+  "teamComponent.invalidLink": "Por favor insira uma URL válida",
+  "teamComponent.cancelButton": "Cancelar",
+  "teamComponent.saveButton": "Salvar"
+}

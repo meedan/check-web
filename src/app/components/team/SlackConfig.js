@@ -1,0 +1,208 @@
+import React from 'react';
+import Relay from 'react-relay';
+import PropTypes from 'prop-types';
+import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
+import Card, { CardHeader, CardContent } from 'material-ui-next/Card';
+import Dialog from 'material-ui/Dialog';
+import Button from 'material-ui-next/Button';
+import IconButton from 'material-ui-next/IconButton';
+import Switch from 'material-ui-next/Switch';
+import TextField from 'material-ui-next/TextField';
+import IconMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
+import styled from 'styled-components';
+import TeamSlackNudge from './TeamSlackNudge';
+import UserUtil from '../user/UserUtil';
+import Message from '../Message';
+import CheckContext from '../../CheckContext';
+// import FaceFrown from '../../../assets/images/feedback/face-frown';
+import UpdateTeamMutation from '../../relay/mutations/UpdateTeamMutation';
+import globalStrings from '../../globalStrings';
+import { safelyParseJSON } from '../../helpers';
+import { stringHelper } from '../../customHelpers';
+import {
+  title1,
+} from '../../styles/js/shared';
+
+const messages = defineMessages({
+  title: {
+    id: 'slackConfig.title',
+    defaultMessage: 'Slack integration',
+  },
+});
+
+class SlackConfig extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      openDialog: false,
+    };
+  }
+
+  getCurrentUser() {
+    return new CheckContext(this).getContextStore().currentUser;
+  }
+
+  handleChange(e) {
+    const state = {};
+    state[e.target.name] = e.target.value;
+    this.setState(state);
+  }
+
+  handleCloseDialog = () => {
+    this.setState({ openDialog: false });
+  }
+
+  handleOpenDialog = () => {
+    this.setState({
+      openDialog: true,
+      channel: null,
+      webhook: null,
+      message: null,
+    });
+  }
+
+  handleToggleSwitch = () => {
+    const enabled = typeof this.state.enabled !== 'undefined' && this.state.enabled !== null
+      ? this.state.enabled
+      : parseInt(this.props.team.get_slack_notifications_enabled, 10);
+
+    this.setState({ enabled: !enabled }, this.handleSubmit);
+  }
+
+  handleSubmit() {
+    const { enabled } = this.state;
+
+    const channel = typeof this.state.channel !== 'undefined' && this.state.channel !== null
+      ? this.state.channel
+      : this.props.team.get_slack_channel;
+
+    const webhook = typeof this.state.webhook !== 'undefined' && this.state.webhook !== null
+      ? this.state.webhook
+      : this.props.team.get_slack_webhook;
+
+    const onFailure = (transaction) => {
+      const error = transaction.getError();
+      let message = this.props.intl.formatMessage(
+        globalStrings.unknownError,
+        { supportEmail: stringHelper('SUPPORT_EMAIL') },
+      );
+      const json = safelyParseJSON(error.source);
+      if (json && json.error) {
+        message = json.error;
+      }
+      return this.setState({ message });
+    };
+
+    const onSuccess = () => {
+      this.handleCloseDialog();
+    };
+
+    Relay.Store.commitUpdate(
+      new UpdateTeamMutation({
+        id: this.props.team.id,
+        slack_notifications_enabled: enabled ? '1' : '0',
+        slack_webhook: webhook,
+        slack_channel: channel,
+      }),
+      { onSuccess, onFailure },
+    );
+  }
+
+  render() {
+    const { team } = this.props;
+    const slack_disabled = !parseInt(team.get_slack_notifications_enabled, 10);
+
+    const StyledCardHeader = styled(CardHeader)`
+      span {
+        font: ${title1} !important;
+      }
+    `;
+
+    if (UserUtil.myRole(this.getCurrentUser(), this.props.team.slug) !== 'owner') {
+      return null;
+    }
+
+    if (!team.limits.slack_integration) {
+      return <TeamSlackNudge renderCard />;
+    }
+
+    return (
+      <div>
+        <Card>
+          <StyledCardHeader
+            title={
+              <span>
+                {/* Todo: Slack Icon <FaceFrown /> */}
+                <FormattedMessage
+                  id="slackConfig.title"
+                  defaultMessage="Slack integration"
+                />
+              </span>
+            }
+            action={
+              <IconButton
+                onClick={this.handleOpenDialog.bind(this)}
+              >
+                <IconMoreHoriz />
+              </IconButton>
+            }
+          />
+          <CardContent>
+            <FormattedMessage
+              id="slackConfig.text"
+              defaultMessage="Notify a Slack channel every time someone adds to one of your projects."
+            />
+            <Switch
+              checked={!slack_disabled}
+              onClick={this.handleToggleSwitch}
+            />
+          </CardContent>
+        </Card>
+        <Dialog
+          open={this.state.openDialog}
+          onRequestClose={this.handleCloseDialog}
+          title={this.props.intl.formatMessage(messages.title)}
+        >
+          <Message message={this.state.message} />
+          <FormattedMessage
+            id="slackConfig.text"
+            defaultMessage="Notify a Slack channel every time someone adds to one of your projects."
+          />
+          <TextField
+            className="team__slack-webhook-input"
+            label="Slack webhook"
+            name="webhook"
+            defaultValue={team.get_slack_webhook}
+            onChange={this.handleChange.bind(this)}
+            margin="normal"
+            fullWidth
+          />
+          <TextField
+            className="team__slack-channel-input"
+            label="Slack default #channel"
+            name="channel"
+            defaultValue={team.get_slack_channel}
+            onChange={this.handleChange.bind(this)}
+            margin="normal"
+            fullWidth
+          />
+          <span>
+            <Button onClick={this.handleCloseDialog}>
+              {this.props.intl.formatMessage(globalStrings.cancel)}
+            </Button>
+            <Button color="primary" onClick={this.handleSubmit.bind(this)}>
+              {this.props.intl.formatMessage(globalStrings.save)}
+            </Button>
+          </span>
+        </Dialog>
+      </div>
+    );
+  }
+}
+
+SlackConfig.contextTypes = {
+  store: PropTypes.object,
+};
+
+export default injectIntl(SlackConfig);

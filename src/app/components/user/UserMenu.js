@@ -1,17 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { injectIntl } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import { Link } from 'react-router';
 import IconButton from 'material-ui/IconButton';
 import MenuItem from 'material-ui/MenuItem';
 import Menu from 'material-ui-next/Menu';
+import IconEdit from 'material-ui/svg-icons/image/edit';
 import UserUtil from './UserUtil';
+import CheckContext from '../../CheckContext';
 import UserMenuItems from '../UserMenuItems';
 import UserAvatar from '../UserAvatar';
 import UserFeedback from '../UserFeedback';
 import {
   black54,
   units,
+  Row,
+  SmallerStyledIconButton,
 } from '../../styles/js/shared';
 
 const styles = {
@@ -31,9 +35,17 @@ class UserMenu extends React.Component {
     anchorEl: null,
   };
 
+  getHistory() {
+    return new CheckContext(this).getContextStore().history;
+  }
+
   handleClick = (event) => {
     this.setState({ anchorEl: event.currentTarget });
   };
+
+  handleClickEdit() {
+    this.getHistory().push('/check/me/edit');
+  }
 
   handleClose = () => {
     this.setState({ anchorEl: null });
@@ -58,30 +70,43 @@ class UserMenu extends React.Component {
 
     return (
       <div className="header__user-menu">
-        <IconButton
-          style={styles.UserMenuStyle}
-          onClick={this.handleClick}
-        >
-          <UserAvatar size={units(4)} {...this.props} />
-        </IconButton>
-        <Menu
-          anchorEl={anchorEl}
-          getContentAnchorEl={null}
-          open={Boolean(anchorEl)}
-          onClose={this.handleClose}
-          anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
-        >
-          <MenuItem
-            containerElement={<Link to="/check/me" />}
+        <Row>
+          { window.location.pathname === '/check/me' ?
+            <SmallerStyledIconButton
+              className="user-menu__edit-profile-button"
+              onClick={this.handleClickEdit.bind(this)}
+              tooltip={
+                <FormattedMessage id="userMenu.edit" defaultMessage="Edit profile" />
+              }
+            >
+              <IconEdit />
+            </SmallerStyledIconButton> : null
+          }
+          <IconButton
+            style={styles.UserMenuStyle}
+            onClick={this.handleClick}
           >
-            <div>
-              {user && user.name}
-              {localizedRoleText}
-            </div>
-          </MenuItem>
-          <UserMenuItems {...this.props} />
-          <UserFeedback />
-        </Menu>
+            <UserAvatar size={units(4)} {...this.props} />
+          </IconButton>
+          <Menu
+            anchorEl={anchorEl}
+            getContentAnchorEl={null}
+            open={Boolean(anchorEl)}
+            onClose={this.handleClose}
+            anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+          >
+            <MenuItem
+              containerElement={<Link to="/check/me" />}
+            >
+              <div>
+                {user && user.name}
+                {localizedRoleText}
+              </div>
+            </MenuItem>
+            <UserMenuItems {...this.props} />
+            <UserFeedback />
+          </Menu>
+        </Row>
       </div>
     );
   }

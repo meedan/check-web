@@ -39,7 +39,10 @@ class UpdateTeamUserMutation extends Relay.Mutation {
       children: [Relay.QL`
         fragment on UpdateTeamUserPayload {
           team_user {
-            id, team_id, user_id, status, role
+            id, team_id, user_id, status, role,
+            team {
+              join_requests (first: 1000) { edges { node { status } }}
+            }
           }
         }`,
       ],

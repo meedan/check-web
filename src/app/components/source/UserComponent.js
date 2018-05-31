@@ -18,18 +18,9 @@ class UserComponent extends React.Component {
     super(props);
 
     this.state = {
-      isEditing: false,
       showTab: 'assignments',
     };
   }
-
-  handleEnterEditMode = () => {
-    this.setState({ isEditing: true });
-  };
-
-  handleLeaveEditMode = () => {
-    this.setState({ isEditing: false });
-  };
 
   handleTabChange = (value) => {
     this.setState({
@@ -39,7 +30,7 @@ class UserComponent extends React.Component {
 
   render() {
     const { user } = this.props;
-
+    const isEditing = this.props.route.isEditing && can(user.permissions, 'update User');
     const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
 
     const direction = {
@@ -50,46 +41,47 @@ class UserComponent extends React.Component {
     return (
       <PageTitle prefix={user.name} skipTeam>
         <div className="source">
-          <HeaderCard
-            canEdit={can(user.permissions, 'update User')}
-            direction={direction}
-            handleEnterEditMode={this.handleEnterEditMode.bind(this)}
-            isEditing={this.state.isEditing}
-          >
+          <HeaderCard direction={direction}>
             <ContentColumn>
-              { this.state.isEditing ?
-                <UserInfoEdit user={user} onCancelEdit={this.handleLeaveEditMode} />
-                :
-                <UserInfo user={user} />
+              { isEditing ?
+                <UserInfoEdit user={user} /> :
+                <div>
+                  <UserInfo user={user} />
+                  <Tabs value={this.state.showTab} onChange={this.handleTabChange}>
+                    <Tab
+                      id="teams-tab"
+                      label={
+                        <FormattedMessage
+                          id="userComponent.teams"
+                          defaultMessage="Teams"
+                        />
+                      }
+                      value="teams"
+                    />
+                    <Tab
+                      id="assignments-tab"
+                      label={
+                        <FormattedMessage
+                          id="userComponents.assignments"
+                          defaultMessage="Assignments"
+                        />
+                      }
+                      value="assignments"
+                    />
+                  </Tabs>
+                </div>
               }
-              <Tabs value={this.state.showTab} onChange={this.handleTabChange}>
-                <Tab
-                  id="teams-tab"
-                  label={
-                    <FormattedMessage
-                      id="userComponent.teams"
-                      defaultMessage="Teams"
-                    />
-                  }
-                  value="teams"
-                />
-                <Tab
-                  id="assignments-tab"
-                  label={
-                    <FormattedMessage
-                      id="userComponents.assignments"
-                      defaultMessage="Assignments"
-                    />
-                  }
-                  value="assignments"
-                />
-              </Tabs>
             </ContentColumn>
           </HeaderCard>
           <ContentColumn>
-            <UserEmail user={user} />
-            { this.state.showTab === 'teams' ? <SwitchTeamsComponent user={user} isRtl={isRtl} /> : null}
-            { this.state.showTab === 'assignments' ? <UserAssignments user={user} /> : null}
+            { isEditing ?
+              null :
+              <div>
+                <UserEmail user={user} />
+                { this.state.showTab === 'teams' ? <SwitchTeamsComponent user={user} isRtl={isRtl} /> : null}
+                { this.state.showTab === 'assignments' ? <UserAssignments user={user} /> : null}
+              </div>
+            }
           </ContentColumn>
         </div>
       </PageTitle>

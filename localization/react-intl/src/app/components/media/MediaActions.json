@@ -12,12 +12,12 @@
     "defaultMessage": "Move"
   },
   {
-    "id": "mediaActions.sendToTrash",
-    "defaultMessage": "Send to trash"
-  },
-  {
     "id": "mediaActions.refresh",
     "defaultMessage": "Refresh"
+  },
+  {
+    "id": "mediaActions.sendToTrash",
+    "defaultMessage": "Send to trash"
   },
   {
     "id": "mediaActions.embed",
@@ -34,5 +34,13 @@
   {
     "id": "mediaActions.assign",
     "defaultMessage": "Assign"
+  },
+  {
+    "id": "mediaActions.unlockStatus",
+    "defaultMessage": "Unlock status"
+  },
+  {
+    "id": "mediaActions.lockStatus",
+    "defaultMessage": "Lock status"
   }
 ]

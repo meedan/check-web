@@ -5,15 +5,5 @@
   "teamComponent.teamDescription": "Team description",
   "teamComponent.location": "Location",
   "teamComponent.phone": "Phone number",
-  "teamComponent.website": "Website",
-  "teamComponent.verificationTeam": "Verification Team",
-  "bridge.teamComponent.verificationTeam": "Translation Team",
-  "teamComponent.title": "Verification Projects",
-  "bridge.teamComponent.title": "Translation Projects",
-  "teamComponent.cancelButton": "Cancel",
-  "teamComponent.saveButton": "Save",
-  "teamComponent.upgradeButton": "Upgrade to PRO",
-  "teamComponent.projects": "Projects",
-  "teamComponent.members": "Members",
-  "teamComponent.noProjects": "No projects yet"
+  "teamComponent.website": "Website"
 }

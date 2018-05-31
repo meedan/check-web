@@ -19,6 +19,7 @@ import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import MdImage from 'react-icons/lib/md/image';
+import config from 'config'; // eslint-disable-line require-path-exists/exists
 import EmbedUpdate from './EmbedUpdate';
 import EmbedCreate from './EmbedCreate';
 import TaskUpdate, { shouldLogChange } from './TaskUpdate';
@@ -413,52 +414,6 @@ class Annotation extends Component {
       );
       break;
     }
-    case 'update_status': {
-      const statusChanges = JSON.parse(activity.object_changes_json);
-      if (statusChanges.assigned_to_id) {
-        const assignment = JSON.parse(activity.meta);
-        if (assignment.assigned_to_name) {
-          contentTemplate = (
-            <FormattedMessage
-              id="annotation.mediaAssigned"
-              defaultMessage="Assigned to {name} by {author}"
-              values={{ name: assignment.assigned_to_name, author: authorName }}
-            />
-          );
-        } else {
-          contentTemplate = (
-            <FormattedMessage
-              id="annotation.mediaUnassigned"
-              defaultMessage="Unassigned from {name} by {author}"
-              values={{ name: assignment.assigned_from_name, author: authorName }}
-            />
-          );
-        }
-      } else {
-        const statusCode = content.status.toLowerCase().replace(/[ _]/g, '-');
-        const status = getStatus(this.props.annotated.verification_statuses, content.status);
-        contentTemplate = (
-          <span>
-            <FormattedMessage
-              id="annotation.statusSetHeader"
-              defaultMessage="Status set to {status} by {author}"
-              values={{
-                status: (
-                  <span
-                    className={`annotation__status annotation__status--${statusCode}`}
-                    style={{ color: getStatusStyle(status, 'color') }}
-                  >
-                    {status.label}
-                  </span>
-                ),
-                author: authorName,
-              }}
-            />
-          </span>
-        );
-      }
-      break;
-    }
     case 'create_tag':
       contentTemplate = (
         <span>
@@ -494,8 +449,77 @@ class Annotation extends Component {
         </span>
       );
       break;
+    case 'create_dynamic':
+    case 'update_dynamic':
+      if (object.annotation_type === 'verification_status' || object.annotation_type === 'translation_status') {
+        const statusChanges = JSON.parse(activity.object_changes_json);
+        if (statusChanges.locked) {
+          if (statusChanges.locked[1]) {
+            contentTemplate = (
+              <FormattedMessage
+                id="annotation.statusLocked"
+                defaultMessage="Status locked by {author}"
+                values={{ author: authorName }}
+              />
+            );
+          } else {
+            contentTemplate = (
+              <FormattedMessage
+                id="annotation.statusUnlocked"
+                defaultMessage="Status unlocked by {author}"
+                values={{ author: authorName }}
+              />
+            );
+          }
+        } else if (statusChanges.assigned_to_id) {
+          const assignment = JSON.parse(activity.meta);
+          if (assignment.assigned_to_name) {
+            contentTemplate = (
+              <FormattedMessage
+                id="annotation.mediaAssigned"
+                defaultMessage="Assigned to {name} by {author}"
+                values={{ name: assignment.assigned_to_name, author: authorName }}
+              />
+            );
+          } else {
+            contentTemplate = (
+              <FormattedMessage
+                id="annotation.mediaUnassigned"
+                defaultMessage="Unassigned from {name} by {author}"
+                values={{ name: assignment.assigned_from_name, author: authorName }}
+              />
+            );
+          }
+        }
+      }
+      break;
     case 'create_dynamicannotationfield':
     case 'update_dynamicannotationfield':
+      if (object.field_name === 'verification_status_status' && config.appName === 'check' && activityType === 'update_dynamicannotationfield') {
+        const statusValue = object.value;
+        const statusCode = statusValue.toLowerCase().replace(/[ _]/g, '-');
+        const status = getStatus(this.props.annotated.verification_statuses, statusValue);
+        contentTemplate = (
+          <span>
+            <FormattedMessage
+              id="annotation.statusSetHeader"
+              defaultMessage="Status set to {status} by {author}"
+              values={{
+                status: (
+                  <span
+                    className={`annotation__status annotation__status--${statusCode}`}
+                    style={{ color: getStatusStyle(status, 'color') }}
+                  >
+                    {status.label}
+                  </span>
+                ),
+                author: authorName,
+              }}
+            />
+          </span>
+        );
+      }
+
       if (/^response_/.test(object.field_name) && activity.task) {
         const format_response = (type) => {
           if (type === 'multiple_choice') {
@@ -632,7 +656,10 @@ class Annotation extends Component {
               defaultMessage="Translation status set to {status} by {author}"
               values={{
                 status: (
-                  <span className={`annotation__status annotation__status--${statusCode}`}>
+                  <span
+                    className={`annotation__status annotation__status--${statusCode}`}
+                    style={{ color: getStatusStyle(status, 'color') }}
+                  >
                     {status.label}
                   </span>
                 ),

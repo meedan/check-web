@@ -7,7 +7,6 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
-import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { can } from '../Can';
 import CheckContext from '../../CheckContext';
 
@@ -32,6 +31,7 @@ class MediaActions extends Component {
       handleRestore,
       handleDeleteForever,
       handleAssign,
+      handleStatusLock,
     } = this.props;
     const menuItems = [];
 
@@ -58,7 +58,7 @@ class MediaActions extends Component {
         </MenuItem>));
     }
 
-    if (can(media.permissions, 'update ProjectMedia') && !media.archived) {
+    if (can(media.permissions, 'administer Content') && !media.archived) {
       menuItems.push((
         <MenuItem
           key="mediaActions.move"
@@ -67,17 +67,6 @@ class MediaActions extends Component {
         >
           <FormattedMessage id="mediaActions.move" defaultMessage="Move" />
         </MenuItem>));
-
-      if (!media.archived) {
-        menuItems.push((
-          <MenuItem
-            key="mediaActions.sendToTrash"
-            className="media-actions__send-to-trash"
-            onClick={handleSendToTrash}
-          >
-            <FormattedMessage id="mediaActions.sendToTrash" defaultMessage="Send to trash" />
-          </MenuItem>));
-      }
 
       if (media.url) {
         menuItems.push((
@@ -92,8 +81,20 @@ class MediaActions extends Component {
       }
     }
 
-    if (config.appName === 'check' &&
-      can(media.permissions, 'embed ProjectMedia') &&
+    if (can(media.permissions, 'update ProjectMedia') && !media.archived) {
+      if (!media.archived) {
+        menuItems.push((
+          <MenuItem
+            key="mediaActions.sendToTrash"
+            className="media-actions__send-to-trash"
+            onClick={handleSendToTrash}
+          >
+            <FormattedMessage id="mediaActions.sendToTrash" defaultMessage="Send to trash" />
+          </MenuItem>));
+      }
+    }
+
+    if (can(media.permissions, 'embed ProjectMedia') &&
       !media.archived) {
       menuItems.push((
         <MenuItem
@@ -118,7 +119,7 @@ class MediaActions extends Component {
         </MenuItem>));
     }
 
-    if (can(media.permissions, 'create Status') && !media.archived) {
+    if (can(media.permissions, 'update Status') && !media.archived) {
       menuItems.push((
         <MenuItem
           key="mediaActions.assign"
@@ -128,6 +129,19 @@ class MediaActions extends Component {
           { media.last_status_obj.assigned_to ?
             <FormattedMessage id="mediaActions.unassign" defaultMessage="Unassign" /> :
             <FormattedMessage id="mediaActions.assign" defaultMessage="Assign" />}
+        </MenuItem>));
+    }
+
+    if (can(media.permissions, 'lock Annotation') && !media.archived) {
+      menuItems.push((
+        <MenuItem
+          key="mediaActions.lockStatus"
+          className="media-actions__lock-status"
+          onClick={handleStatusLock}
+        >
+          { media.last_status_obj.locked ?
+            <FormattedMessage id="mediaActions.unlockStatus" defaultMessage="Unlock status" /> :
+            <FormattedMessage id="mediaActions.lockStatus" defaultMessage="Lock status" />}
         </MenuItem>));
     }
 

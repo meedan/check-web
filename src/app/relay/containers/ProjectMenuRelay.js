@@ -65,6 +65,10 @@ const ProjectMenuContainer = Relay.createContainer(ProjectMenu, {
 });
 
 const ProjectMenuRelay = (props) => {
+  const { mediaId, sourceId } = props.params;
+  if (mediaId || sourceId) {
+    return null;
+  }
   if (props.params && props.params.projectId) {
     const route = new ProjectRoute({ contextId: props.params.projectId });
     return <Relay.RootContainer Component={ProjectMenuContainer} route={route} />;

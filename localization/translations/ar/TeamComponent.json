@@ -5,15 +5,5 @@
   "teamComponent.teamDescription": "وصف الفريق",
   "teamComponent.location": "الموقع",
   "teamComponent.phone": "رقم الهاتف",
-  "teamComponent.website": "الموقع الإلكتروني",
-  "teamComponent.verificationTeam": "فريق التحقق",
-  "bridge.teamComponent.verificationTeam": "فريق الترجمة",
-  "teamComponent.title": "مشاريع التحقق",
-  "bridge.teamComponent.title": "مشاريع الترجمة",
-  "teamComponent.cancelButton": "إلغاء",
-  "teamComponent.saveButton": "حفظ",
-  "teamComponent.upgradeButton": "ترقية اﻹشتراك",
-  "teamComponent.projects": "مشاريع",
-  "teamComponent.members": "أعضاء",
-  "teamComponent.noProjects": "بدون أي مشروع"
+  "teamComponent.website": "الموقع الإلكتروني"
 }

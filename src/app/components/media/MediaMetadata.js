@@ -26,6 +26,7 @@ import Attribution from '../task/Attribution';
 import UserAvatar from '../UserAvatar';
 import ProfileLink from '../layout/ProfileLink';
 import { nested, safelyParseJSON } from '../../helpers';
+import globalStrings from '../../globalStrings';
 import {
   Row,
   black10,
@@ -106,7 +107,7 @@ class MediaMetadata extends Component {
   }
 
   handleError(json) {
-    let message = this.props.intl.formatMessage(messages.error);
+    let message = this.props.intl.formatMessage(globalStrings.unknownError);
     if (json && json.error) {
       message = json.error;
     }
@@ -361,6 +362,33 @@ class MediaMetadata extends Component {
     );
 
     this.setState({ openAssignDialog: false });
+  }
+
+  handleStatusLock() {
+    const { media } = this.props;
+
+    const onFailure = (transaction) => {
+      const error = transaction.getError();
+      if (error.json) {
+        error.json().then(this.handleError);
+      } else {
+        this.handleError(JSON.stringify(error));
+      }
+    };
+
+    const statusAttr = {
+      parent_type: 'project_media',
+      annotated: media,
+      annotation: {
+        status_id: media.last_status_obj.id,
+        locked: !media.last_status_obj.locked,
+      },
+    };
+
+    Relay.Store.commitUpdate(
+      new UpdateStatusMutation(statusAttr),
+      { onFailure },
+    );
   }
 
   currentProject() {
@@ -753,6 +781,7 @@ class MediaMetadata extends Component {
               handleRestore={this.handleRestore.bind(this)}
               handleDeleteForever={this.handleDeleteForever.bind(this)}
               handleAssign={this.handleAssign.bind(this)}
+              handleStatusLock={this.handleStatusLock.bind(this)}
               style={{ display: 'flex' }}
               locale={locale}
             />}

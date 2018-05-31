@@ -1,0 +1,12 @@
+{
+  "teamComponent.editError": "عذراً ، لم نستطع تحرير معلومات الفريق",
+  "teamComponent.editSuccess": "تم تحديث معلومات الفريق بنجاح!",
+  "teamComponent.teamName": "اسم الفريق",
+  "teamComponent.teamDescription": "وصف الفريق",
+  "teamComponent.location": "الموقع",
+  "teamComponent.phone": "رقم الهاتف",
+  "teamComponent.website": "الموقع الإلكتروني",
+  "teamComponent.invalidLink": "من فضلك أدخل رابطاً صحيحاً",
+  "teamComponent.cancelButton": "إلغاء",
+  "teamComponent.saveButton": "حفظ"
+}

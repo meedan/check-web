@@ -2,10 +2,12 @@
   "mediaActions.edit": "Modifier",
   "mediaActions.restore": "Restaurer au projet",
   "mediaActions.move": "Transférer",
-  "mediaActions.sendToTrash": "Mettre à la corbeille",
   "mediaActions.refresh": "Rafraîchir",
+  "mediaActions.sendToTrash": "Mettre à la corbeille",
   "mediaActions.embed": "Insérer...",
   "mediaActions.deleteForever": "Effacer définitivement",
   "mediaActions.unassign": "Désaffecter",
-  "mediaActions.assign": "Affecter"
+  "mediaActions.assign": "Affecter",
+  "mediaActions.unlockStatus": "Déverouiller le statut",
+  "mediaActions.lockStatus": "Verouiller le statut"
 }

@@ -29,6 +29,5 @@
   "sourceComponent.medias": "Media",
   "sourceComponent.notes": "Notes",
   "sourceComponent.network": "Networks",
-  "sourceComponent.add": "Add Field",
-  "sourceComponent.editButton": "Edit profile"
+  "sourceComponent.add": "Add Field"
 }

@@ -3,7 +3,7 @@
   "sourceComponent.editError": "Lo sentimos, no se pudo editar la fuente",
   "sourceComponent.createTagError": "No se pudo crear la etiqueta",
   "sourceComponent.selectLanguageError": "Por favor seleccione un idioma de la lista",
-  "sourceComponent.editSuccess": "¡La información de la fuente ha sido actualizada!",
+  "sourceComponent.editSuccess": "¡La información de la fuente fue actualizada con éxito!",
   "sourceComponent.mergeSource": "Unificar fuentes",
   "sourceComponent.sourceName": "Nombre de la fuente",
   "sourceComponent.sourceBio": "Biografía de la fuente",
@@ -29,6 +29,5 @@
   "sourceComponent.medias": "Medios de comunicación ",
   "sourceComponent.notes": "Notas",
   "sourceComponent.network": "Redes",
-  "sourceComponent.add": "Añadir campo",
-  "sourceComponent.editButton": "Editar perfil "
+  "sourceComponent.add": "Añadir campo"
 }

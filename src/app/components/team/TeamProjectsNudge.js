@@ -38,7 +38,7 @@ class TeamProjectsNudge extends React.Component {
 
     if (this.props.renderCard) {
       return (
-        <Card>
+        <Card style={{ marginBottom: units(2) }}>
           <CardHeader
             title={
               <FormattedMessage

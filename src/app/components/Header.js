@@ -14,6 +14,7 @@ import { stringHelper } from '../customHelpers';
 import PublicTeamRoute from '../relay/PublicTeamRoute';
 import teamPublicFragment from '../relay/teamPublicFragment';
 import ProjectMenuRelay from '../relay/containers/ProjectMenuRelay';
+import SourceMenuRelay from '../relay/containers/SourceMenuRelay';
 import TeamMenuRelay from '../relay/containers/TeamMenuRelay';
 import UserMenuRelay from '../relay/containers/UserMenuRelay';
 
@@ -88,21 +89,16 @@ const HeaderComponent = (props) => {
     }
   };
 
-  const signInButton = (() => {
-    if (!loggedIn) {
-      return (
-        <Link to="/">
-          <RaisedButton
-            primary
-            className="header__signin-button"
-            onClick={saveCurrentPage}
-            label={<FormattedMessage defaultMessage="Sign In" id="headerActions.signIn" />}
-          />
-        </Link>
-      );
-    }
-    return null;
-  })();
+  const signInButton = !loggedIn ? (
+    <Link to="/">
+      <RaisedButton
+        primary
+        className="header__signin-button"
+        onClick={saveCurrentPage}
+        label={<FormattedMessage defaultMessage="Sign In" id="headerActions.signIn" />}
+      />
+    </Link>
+  ) : null;
 
   const teamPrivateContentShouldShow =
     (inTeamContext && currentUserIsMember) || (inTeamContext && !props.team.private);
@@ -134,18 +130,20 @@ const HeaderComponent = (props) => {
     );
   })();
 
-  const secondary = (() => (
+  const secondary = (
     <AlignOpposite>
       <Row>
         <Offset isRtl>
           {signInButton}
         </Offset>
         {teamPrivateContentShouldShow && editProjectMenuItem}
+        <SourceMenuRelay {...props} />
         {teamPrivateContentShouldShow && trashButton}
         {teamPrivateContentShouldShow && searchButton}
         <UserMenuRelay {...props} />
       </Row>
-    </AlignOpposite>))();
+    </AlignOpposite>
+  );
 
   return (
     <HeaderBar>
