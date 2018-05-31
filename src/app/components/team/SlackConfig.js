@@ -61,9 +61,24 @@ class SlackConfig extends React.Component {
     });
   }
 
+  handleToggleSwitch = () => {
+    const enabled = typeof this.state.enabled !== 'undefined' && this.state.enabled !== null
+      ? this.state.enabled
+      : parseInt(this.props.team.get_slack_notifications_enabled, 10);
+
+    this.setState({ enabled: !enabled }, this.handleSubmit);
+  }
+
   handleSubmit() {
-    const enabled = parseInt(this.props.team.get_slack_notifications_enabled, 10);
-    const { channel, webhook } = this.state;
+    const { enabled } = this.state;
+
+    const channel = typeof this.state.channel !== 'undefined' && this.state.channel !== null
+      ? this.state.channel
+      : this.props.team.get_slack_channel;
+
+    const webhook = typeof this.state.webhook !== 'undefined' && this.state.webhook !== null
+      ? this.state.webhook
+      : this.props.team.get_slack_webhook;
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
@@ -85,7 +100,7 @@ class SlackConfig extends React.Component {
     Relay.Store.commitUpdate(
       new UpdateTeamMutation({
         id: this.props.team.id,
-        slack_notifications_enabled: enabled ? '0' : '1',
+        slack_notifications_enabled: enabled ? '1' : '0',
         slack_webhook: webhook,
         slack_channel: channel,
       }),
@@ -135,7 +150,7 @@ class SlackConfig extends React.Component {
             />
             <Switch
               checked={!slack_disabled}
-              onClick={this.handleSubmit.bind(this)}
+              onClick={this.handleToggleSwitch}
             />
           </CardContent>
         </Card>
