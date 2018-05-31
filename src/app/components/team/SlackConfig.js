@@ -10,6 +10,7 @@ import Switch from 'material-ui-next/Switch';
 import TextField from 'material-ui-next/TextField';
 import IconMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import styled from 'styled-components';
+import TeamSlackNudge from './TeamSlackNudge';
 import UserUtil from '../user/UserUtil';
 import Message from '../Message';
 import CheckContext from '../../CheckContext';
@@ -120,6 +121,10 @@ class SlackConfig extends React.Component {
 
     if (UserUtil.myRole(this.getCurrentUser(), this.props.team.slug) !== 'owner') {
       return null;
+    }
+
+    if (!team.limits.slack_integration) {
+      return <TeamSlackNudge renderCard />;
     }
 
     return (
