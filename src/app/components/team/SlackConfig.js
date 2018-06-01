@@ -65,13 +65,15 @@ class SlackConfig extends React.Component {
   handleToggleSwitch = () => {
     const enabled = typeof this.state.enabled !== 'undefined' && this.state.enabled !== null
       ? this.state.enabled
-      : parseInt(this.props.team.get_slack_notifications_enabled, 10);
+      : Boolean(parseInt(this.props.team.get_slack_notifications_enabled, 10));
 
     this.setState({ enabled: !enabled }, this.handleSubmit);
   }
 
   handleSubmit() {
-    const { enabled } = this.state;
+    const enabled = typeof this.state.enabled !== 'undefined' && this.state.enabled !== null
+      ? this.state.enabled
+      : Boolean(parseInt(this.props.team.get_slack_notifications_enabled, 10));
 
     const channel = typeof this.state.channel !== 'undefined' && this.state.channel !== null
       ? this.state.channel
@@ -111,7 +113,9 @@ class SlackConfig extends React.Component {
 
   render() {
     const { team } = this.props;
-    const slack_disabled = !parseInt(team.get_slack_notifications_enabled, 10);
+    const enabled = typeof this.state.enabled !== 'undefined' && this.state.enabled !== null
+      ? this.state.enabled
+      : Boolean(parseInt(this.props.team.get_slack_notifications_enabled, 10));
 
     const StyledCardHeader = styled(CardHeader)`
       span {
@@ -154,7 +158,7 @@ class SlackConfig extends React.Component {
               defaultMessage="Notify a Slack channel every time someone adds to one of your projects."
             />
             <Switch
-              checked={!slack_disabled}
+              checked={enabled}
               onClick={this.handleToggleSwitch}
             />
           </CardContent>
