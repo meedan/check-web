@@ -119,11 +119,11 @@ class SlackConfig extends React.Component {
       }
     `;
 
-    if (UserUtil.myRole(this.getCurrentUser(), this.props.team.slug) !== 'owner') {
+    if (UserUtil.myRole(this.getCurrentUser(), team.slug) !== 'owner') {
       return null;
     }
 
-    if (!team.limits.slack_integration) {
+    if (team.limits.slack_integration === false) {
       return <TeamSlackNudge renderCard />;
     }
 
