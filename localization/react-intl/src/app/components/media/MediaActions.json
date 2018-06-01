@@ -12,12 +12,12 @@
     "defaultMessage": "Move"
   },
   {
-    "id": "mediaActions.sendToTrash",
-    "defaultMessage": "Send to trash"
-  },
-  {
     "id": "mediaActions.refresh",
     "defaultMessage": "Refresh"
+  },
+  {
+    "id": "mediaActions.sendToTrash",
+    "defaultMessage": "Send to trash"
   },
   {
     "id": "mediaActions.embed",

@@ -58,7 +58,7 @@ class MediaActions extends Component {
         </MenuItem>));
     }
 
-    if (can(media.permissions, 'update ProjectMedia') && !media.archived) {
+    if (can(media.permissions, 'administer Content') && !media.archived) {
       menuItems.push((
         <MenuItem
           key="mediaActions.move"
@@ -67,17 +67,6 @@ class MediaActions extends Component {
         >
           <FormattedMessage id="mediaActions.move" defaultMessage="Move" />
         </MenuItem>));
-
-      if (!media.archived) {
-        menuItems.push((
-          <MenuItem
-            key="mediaActions.sendToTrash"
-            className="media-actions__send-to-trash"
-            onClick={handleSendToTrash}
-          >
-            <FormattedMessage id="mediaActions.sendToTrash" defaultMessage="Send to trash" />
-          </MenuItem>));
-      }
 
       if (media.url) {
         menuItems.push((
@@ -88,6 +77,19 @@ class MediaActions extends Component {
             onClick={handleRefresh}
           >
             <FormattedMessage id="mediaActions.refresh" defaultMessage="Refresh" />
+          </MenuItem>));
+      }
+    }
+
+    if (can(media.permissions, 'update ProjectMedia') && !media.archived) {
+      if (!media.archived) {
+        menuItems.push((
+          <MenuItem
+            key="mediaActions.sendToTrash"
+            className="media-actions__send-to-trash"
+            onClick={handleSendToTrash}
+          >
+            <FormattedMessage id="mediaActions.sendToTrash" defaultMessage="Send to trash" />
           </MenuItem>));
       }
     }
@@ -117,7 +119,7 @@ class MediaActions extends Component {
         </MenuItem>));
     }
 
-    if (can(media.permissions, 'create Dynamic') && !media.archived) {
+    if (can(media.permissions, 'update Status') && !media.archived) {
       menuItems.push((
         <MenuItem
           key="mediaActions.assign"
