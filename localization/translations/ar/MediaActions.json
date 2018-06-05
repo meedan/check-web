@@ -2,10 +2,12 @@
   "mediaActions.edit": "تحرير",
   "mediaActions.restore": "استعادة إلى المشروع",
   "mediaActions.move": "نقل",
-  "mediaActions.sendToTrash": "ارسل إلى سلة المهملات",
   "mediaActions.refresh": "تحديث",
+  "mediaActions.sendToTrash": "ارسل إلى سلة المهملات",
   "mediaActions.embed": "تضمين...",
   "mediaActions.deleteForever": "حذف نهائي",
   "mediaActions.unassign": "إلغاء التكليف",
-  "mediaActions.assign": "تكليف"
+  "mediaActions.assign": "تكليف",
+  "mediaActions.unlockStatus": "إلغاء تأمين الحالة",
+  "mediaActions.lockStatus": "تأمين الحالة"
 }

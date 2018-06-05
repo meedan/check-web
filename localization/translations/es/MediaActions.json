@@ -2,10 +2,12 @@
   "mediaActions.edit": "Editar",
   "mediaActions.restore": "Restaurar el proyecto",
   "mediaActions.move": "Mover",
-  "mediaActions.sendToTrash": "Enviar a la papelera",
   "mediaActions.refresh": "Actualizar ",
+  "mediaActions.sendToTrash": "Enviar a la papelera",
   "mediaActions.embed": "Incrustar ",
   "mediaActions.deleteForever": "Eliminar para siempre ",
   "mediaActions.unassign": "Desasignar ",
-  "mediaActions.assign": "Asignar"
+  "mediaActions.assign": "Asignar",
+  "mediaActions.unlockStatus": "Desbloquear estado",
+  "mediaActions.lockStatus": "Bloquear estado"
 }

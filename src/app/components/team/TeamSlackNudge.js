@@ -6,7 +6,7 @@ import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { stringHelper } from '../../customHelpers';
 import { Row, units } from '../../styles/js/shared';
 
-class TeamProjectsNudge extends React.Component {
+class TeamSlackNudge extends React.Component {
   handleClickUpgrade = () => {
     window.open(stringHelper('UPGRADE_URL'));
   };
@@ -14,8 +14,8 @@ class TeamProjectsNudge extends React.Component {
   render() {
     const nudge = (
       <FormattedMessage
-        id="teamProjectsNudge.nudge"
-        defaultMessage="Want to add more projects? Free accounts can host up to 1 project at a time, and Check Pro allows you to add an unlimited number of projects."
+        id="teamSlackNudge.nudge"
+        defaultMessage="Is your team on Slack? Check Pro allows you to set up custom Slack notifications for all activity, so you get all the latest activity on Check streamed directly to your Slack channels."
       />
     );
 
@@ -23,7 +23,7 @@ class TeamProjectsNudge extends React.Component {
       <FlatButton
         label={
           <FormattedMessage
-            id="teamProjectsNudge.upgradeButton"
+            id="teamSlackNudge.upgradeButton"
             defaultMessage="Upgrade now"
           />
         }
@@ -38,11 +38,11 @@ class TeamProjectsNudge extends React.Component {
 
     if (this.props.renderCard) {
       return (
-        <Card style={{ marginBottom: units(2) }}>
+        <Card>
           <CardHeader
             title={
               <FormattedMessage
-                id="teamProjectsNudge.title"
+                id="teamSlackNudge.title"
                 defaultMessage="Upgrade to Check Pro"
               />
             }
@@ -70,4 +70,4 @@ class TeamProjectsNudge extends React.Component {
   }
 }
 
-export default TeamProjectsNudge;
+export default TeamSlackNudge;

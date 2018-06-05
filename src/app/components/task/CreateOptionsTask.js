@@ -123,7 +123,7 @@ class CreateOptionsTask extends React.Component {
     const { media } = this.props;
     const status = getStatus(mediaStatuses(media), mediaLastStatus(media));
 
-    if (status.completed && inputChecked) {
+    if (inputChecked && status.completed && !media.last_status_obj.locked) {
       this.setState({ required: inputChecked, confirmRequired: true, status });
     } else {
       this.setState({ required: inputChecked });

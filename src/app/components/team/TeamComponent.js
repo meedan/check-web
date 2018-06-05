@@ -7,6 +7,7 @@ import TeamInfo from './TeamInfo';
 import TeamInfoEdit from './TeamInfoEdit';
 import TeamMembers from './TeamMembers';
 import TeamProjects from './TeamProjects';
+import SlackConfig from './SlackConfig';
 import HeaderCard from '../HeaderCard';
 import PageTitle from '../PageTitle';
 import Message from '../Message';
@@ -102,6 +103,7 @@ class TeamComponent extends Component {
               </ContentColumn>
               <ContentColumn className="team__secondary-column">
                 <TeamProjects team={team} relay={this.props.relay} />
+                <SlackConfig team={team} />
               </ContentColumn>
             </StyledTwoColumnLayout>
           }
