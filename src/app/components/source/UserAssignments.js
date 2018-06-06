@@ -28,6 +28,8 @@ class UserAssignmentsComponent extends Component {
     const { user } = this.props;
 
     const assignments = {};
+    let hasAssignment = false;
+
     user.assignments.edges.forEach((assignment) => {
       const a = assignment.node;
       const team = a.team.name;
@@ -50,6 +52,7 @@ class UserAssignmentsComponent extends Component {
       const assignee = a.last_status_obj.assigned_to;
       if (active || (assignee && assignee.dbid === user.dbid)) {
         assignments[team].push(a);
+        hasAssignment = true;
       }
     });
 
@@ -73,7 +76,7 @@ class UserAssignmentsComponent extends Component {
     return (
       <div id="assignments">
         <StyledBlankState>
-          {user.assignments.edges.length
+          {hasAssignment
             ? null
             : <FormattedMessage id="userAssignments.blank" defaultMessage="No activity yet" />
           }
