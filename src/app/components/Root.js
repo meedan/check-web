@@ -69,16 +69,16 @@ try {
 }
 
 class Root extends Component {
-  static propTypes = {
-    store: PropTypes.object.isRequired,
-  };
-
   static logPageView() {
     if (config.googleAnalyticsCode) {
       ReactGA.set({ page: window.location.pathname });
       ReactGA.pageview(window.location.pathname);
     }
   }
+
+  static propTypes = {
+    store: PropTypes.object.isRequired,
+  };
 
   componentWillMount() {
     this.setStore();

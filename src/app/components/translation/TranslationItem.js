@@ -51,6 +51,15 @@ const messages = defineMessages({
 });
 
 class TranslationItem extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isMenuOpen: false,
+      editing: false,
+    };
+  }
+
   static getTranslationText(content) {
     const object = content.find(it => it.field_name === 'translation_text');
     return object ? object.value : '';
@@ -69,15 +78,6 @@ class TranslationItem extends Component {
   static getTranslationLanguageCode(content) {
     const object = content.find(it => it.field_name === 'translation_language');
     return object ? object.value : '';
-  }
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isMenuOpen: false,
-      editing: false,
-    };
   }
 
   handleSubmitUpdate(e) {
