@@ -9,6 +9,15 @@ import UpdateDynamicMutation from '../../relay/mutations/UpdateDynamicMutation';
 import MediaStatusCommon from './MediaStatusCommon';
 
 class MediaStatus extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: false,
+      submitted: false,
+      setStatus: {},
+    };
+  }
+
   static setStatus(context, store, media, status, parentComponent, note_) {
     const note = note_ || '';
 
@@ -67,15 +76,6 @@ class MediaStatus extends Component {
       };
       Relay.Store.commitUpdate(new CreateDynamicMutation(vars), { onSuccess, onFailure });
     }
-  }
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      open: false,
-      submitted: false,
-      setStatus: {},
-    };
   }
 
   handleOpen() {

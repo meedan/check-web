@@ -46,16 +46,6 @@ const messages = defineMessages({
 });
 
 class CreateTask extends Component {
-  static getAssignment() {
-    let assignment = document.getElementById('attribution-new');
-    if (assignment) {
-      assignment = parseInt(assignment.value, 10);
-    } else {
-      assignment = 0;
-    }
-    return assignment;
-  }
-
   constructor(props) {
     super(props);
 
@@ -72,6 +62,16 @@ class CreateTask extends Component {
       required: false,
       confirmRequired: false,
     };
+  }
+
+  static getAssignment() {
+    let assignment = document.getElementById('attribution-new');
+    if (assignment) {
+      assignment = parseInt(assignment.value, 10);
+    } else {
+      assignment = 0;
+    }
+    return assignment;
   }
 
   getContext() {
