@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import Favicon from 'react-favicon';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -20,13 +20,7 @@ import Message from './Message';
 import {
   muiThemeWithoutRtl,
   muiThemeV1,
-  units,
   gutterMedium,
-  black38,
-  white,
-  tiny,
-  mediaQuery,
-  borderRadiusDefault,
 } from '../styles/js/shared';
 import { layout, typography, localeAr, removeYellowAutocomplete } from '../styles/js/global';
 
@@ -54,33 +48,6 @@ const StyledContent = styled.div`
   padding-top: ${gutterMedium};
   padding-bottom: ${props => (props.inMediaPage ? '0' : gutterMedium)};
   width: 100%;
-`;
-
-// The "beta" label
-//
-const StyledDisclaimer = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-
-  & > span {
-    ${mediaQuery.handheld`
-      ${props => (props.isRtl ? 'left' : 'right')}: 2%;
-    `}
-    background-color: ${black38};
-    border-radius: 0;
-    color: ${white};
-    font: ${tiny};
-    letter-spacing: 1px;
-    padding: 2px ${units(0.5)} 1px;
-    position: absolute;
-    text-transform: uppercase;
-    z-index: 1;
-    ${props => (props.isRtl ? 'left' : 'right')}: ${units(23)};
-    border-bottom-right-radius: ${borderRadiusDefault};
-    border-bottom-left-radius: ${borderRadiusDefault};
-  }
 `;
 
 const messages = defineMessages({
@@ -233,11 +200,6 @@ class Home extends Component {
             <Favicon url={`/images/logo/${config.appName}.ico`} animated={false} />
             <BrowserSupport />
             <StyledWrapper className={bemClass('home', routeSlug, `--${routeSlug}`)}>
-              <StyledDisclaimer isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
-                <span>
-                  <FormattedMessage id="home.beta" defaultMessage="Beta" />
-                </span>
-              </StyledDisclaimer>
               <Header
                 drawerToggle={this.handleDrawerToggle.bind(this)}
                 loggedIn={loggedIn}
