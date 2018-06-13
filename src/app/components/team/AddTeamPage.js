@@ -44,10 +44,7 @@ class AddTeamComponent extends React.Component {
         <main className="create-team">
           <ContentColumn narrow>
             { mode === 'find' ?
-              <FindTeamCard
-                relay={this.props.relay}
-              />
-              : <CreateTeamCard />
+              <FindTeamCard {...this.props} /> : <CreateTeamCard />
             }
           </ContentColumn>
         </main>

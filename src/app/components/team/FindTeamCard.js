@@ -11,7 +11,6 @@ import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import styled from 'styled-components';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
-import Message from '../Message';
 import CheckContext from '../../CheckContext';
 import {
   black38,
@@ -25,6 +24,10 @@ const messages = defineMessages({
   teamSlugHint: {
     id: 'findTeamCard.teamSlugHint',
     defaultMessage: 'team-slug',
+  },
+  teamNotFound: {
+    id: 'findTeamCard.teamNotFound',
+    defaultMessage: 'Team not found!',
   },
 });
 
@@ -55,16 +58,39 @@ class FindTeamCard extends React.Component {
     super(props);
 
     this.state = {
+      slug: this.props.teamSlug,
       message: null,
     };
+  }
+
+  componentWillMount() {
+    this.handleQuery();
+  }
+
+  componentWillReceiveProps() {
+    this.handleQuery();
   }
 
   getContext() {
     return new CheckContext(this).getContextStore();
   }
 
+  handleQuery = () => {
+    const { team, teamSlug } = this.props;
+
+    this.setState({ slug: teamSlug });
+
+    if (team && teamSlug) {
+      if (teamSlug === team.slug) {
+        this.getContext().history.push(`/${team.slug}/join`);
+      } else {
+        this.setState({ message: this.props.intl.formatMessage(messages.teamNotFound) });
+      }
+    }
+  };
+
   handleSlugChange = (e) => {
-    this.setState({ slug: e.target.value });
+    this.setState({ slug: e.target.value, message: null });
   };
 
   handleSubmit = (e) => {
@@ -87,7 +113,6 @@ class FindTeamCard extends React.Component {
 
     return (
       <div>
-        <Message message={this.state.message} />
         <Card>
           <CardHeader
             titleStyle={{ fontSize: '20px', lineHeight: '32px' }}
@@ -122,8 +147,10 @@ class FindTeamCard extends React.Component {
                   type="text"
                   id="team-slug-container"
                   className="find-team__team-slug-input"
+                  defaultValue={this.props.teamSlug}
                   onChange={this.handleSlugChange}
                   hintText={this.props.intl.formatMessage(messages.teamSlugHint)}
+                  errorText={this.state.message}
                   autoComplete="off"
                   fullWidth
                 />

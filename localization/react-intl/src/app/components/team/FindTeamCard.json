@@ -4,6 +4,10 @@
     "defaultMessage": "team-slug"
   },
   {
+    "id": "findTeamCard.teamNotFound",
+    "defaultMessage": "Team not found!"
+  },
+  {
     "id": "findTeamCard.createYourOwn",
     "defaultMessage": "create your own team"
   },
