@@ -1,0 +1,30 @@
+[
+  {
+    "id": "findTeamCard.teamSlugHint",
+    "defaultMessage": "team-slug"
+  },
+  {
+    "id": "findTeamCard.createYourOwn",
+    "defaultMessage": "create your own team"
+  },
+  {
+    "id": "findTeamCard.mainHeading",
+    "defaultMessage": "Find an existing team"
+  },
+  {
+    "id": "findTeamCard.blurb",
+    "defaultMessage": "Request to join an existing team by adding their name here, or get started by creating your own."
+  },
+  {
+    "id": "findTeamCard.url",
+    "defaultMessage": "Team URL"
+  },
+  {
+    "id": "findTeamCard.submitButton",
+    "defaultMessage": "Find team"
+  },
+  {
+    "id": "findTeamCard.createTeam",
+    "defaultMessage": "You can also {action}."
+  }
+]

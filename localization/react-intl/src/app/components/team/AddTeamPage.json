@@ -1,0 +1,10 @@
+[
+  {
+    "id": "addTeamPage.titleCreate",
+    "defaultMessage": "Create a Team"
+  },
+  {
+    "id": "addTeamPage.titleFind",
+    "defaultMessage": "Find an existing team"
+  }
+]
