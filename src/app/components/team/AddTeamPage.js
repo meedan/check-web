@@ -11,7 +11,7 @@ import PageTitle from '../PageTitle';
 import {
   ContentColumn,
 } from '../../styles/js/shared';
-import TeamRoute from '../../relay/TeamRoute';
+import PublicTeamRoute from '../../relay/PublicTeamRoute';
 import RelayContainer from '../../relay/RelayContainer';
 
 const messages = defineMessages({
@@ -25,33 +25,26 @@ const messages = defineMessages({
   },
 });
 
-class AddTeamComponent extends React.Component {
-  componentWillReceiveProps() {
-    console.log('this.props');
-    console.log(this.props);
-  }
+const AddTeamComponent = () => {
+  const mode = this.props.route.path === 'check/teams/find(/:slug)' ? 'find' : 'create';
 
-  render() {
-    const mode = this.props.route.path === 'check/teams/find(/:slug)' ? 'find' : 'create';
+  const title = mode === 'find' ? messages.titleFind : messages.titleCreate;
 
-    const title = mode === 'find' ? messages.titleFind : messages.titleCreate;
-
-    return (
-      <PageTitle
-        prefix={this.props.intl.formatMessage(title)}
-        skipTeam
-      >
-        <main className="create-team">
-          <ContentColumn narrow>
-            { mode === 'find' ?
-              <FindTeamCard {...this.props} /> : <CreateTeamCard />
-            }
-          </ContentColumn>
-        </main>
-      </PageTitle>
-    );
-  }
-}
+  return (
+    <PageTitle
+      prefix={this.props.intl.formatMessage(title)}
+      skipTeam
+    >
+      <main className="create-team">
+        <ContentColumn narrow>
+          { mode === 'find' ?
+            <FindTeamCard {...this.props} /> : <CreateTeamCard />
+          }
+        </ContentColumn>
+      </main>
+    </PageTitle>
+  );
+};
 
 AddTeamComponent.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
@@ -62,7 +55,7 @@ AddTeamComponent.propTypes = {
 const AddTeamContainer = Relay.createContainer(injectIntl(AddTeamComponent), {
   fragments: {
     team: () => Relay.QL`
-      fragment on Team {
+      fragment on PublicTeam {
         id,
         dbid,
         slug,
@@ -72,7 +65,8 @@ const AddTeamContainer = Relay.createContainer(injectIntl(AddTeamComponent), {
 });
 
 const AddTeam = (props) => {
-  const route = new TeamRoute({ teamSlug: props.params.slug });
+  const route = new PublicTeamRoute({ teamSlug: props.params.slug });
+
   return (
     <RelayContainer
       Component={AddTeamContainer}
