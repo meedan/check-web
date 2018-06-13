@@ -14,6 +14,7 @@ import MediaStatus from './MediaStatus';
 import QuoteMediaCard from './QuoteMediaCard';
 import MediaMetadata from './MediaMetadata';
 import MediaUtil from './MediaUtil';
+import MediaRelatedComponent from './MediaRelatedComponent';
 import PenderCard from '../PenderCard';
 import ImageMediaCard from './ImageMediaCard';
 import WebPageMediaCard from './WebPageMediaCard';
@@ -314,12 +315,13 @@ class MediaDetail extends Component {
       </div>
     );
 
+    const borderColor = this.props.borderColor || getStatusStyle(status, 'backgroundColor');
+
+
     return (
       <StyledMediaDetail
         className={cardClassName}
-        borderColor={
-          this.props.borderColor || getStatusStyle(status, 'backgroundColor')
-        }
+        borderColor={borderColor}
         fromDirection={fromDirection}
         hideBorder={this.props.hideBorder}
       >
@@ -328,6 +330,7 @@ class MediaDetail extends Component {
           initiallyExpanded={this.props.initiallyExpanded}
           expanded={this.state.expanded}
           onExpandChange={this.handleExpandChange}
+          style={{ borderColor }}
         >
           <StyledCardHeader
             title={cardHeaderStatus}
@@ -354,6 +357,8 @@ class MediaDetail extends Component {
             <MediaMetadata data={data} heading={title} {...this.props} />
           </CardActions>
         </Card>
+        { this.state.expanded && !this.props.hideRelated ?
+          <MediaRelatedComponent media={this.props.media} /> : null }
       </StyledMediaDetail>
     );
   }

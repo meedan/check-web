@@ -11,9 +11,9 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
     return Relay.QL`
       fragment on UpdateProjectMediaPayload {
         project_mediaEdge,
-        check_search_team { id }
-        check_search_project { id, number_of_results }
-        check_search_project_was { id, number_of_results }
+        check_search_team { id },
+        check_search_project { id, number_of_results },
+        check_search_project_was { id, number_of_results },
         project_media {
           project_id,
           overridden,
@@ -143,7 +143,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
       });
     }
 
-    if (this.props.archived === 0) {
+    if (this.props.archived === 0 && this.props.relationship_sources_count === 0) {
       configs.push({
         type: 'RANGE_ADD',
         parentName: 'check_search_team',

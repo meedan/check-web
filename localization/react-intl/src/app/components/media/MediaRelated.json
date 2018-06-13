@@ -1,0 +1,10 @@
+[
+  {
+    "id": "mediaRelated.relatedClaims",
+    "defaultMessage": "Related claims"
+  },
+  {
+    "id": "mediaRelated.counter",
+    "defaultMessage": "{total} related claims ({hidden} hidden by filters)"
+  }
+]
