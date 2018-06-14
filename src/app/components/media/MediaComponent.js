@@ -186,7 +186,7 @@ class MediaComponent extends Component {
               <Tasks tasks={media.tasks.edges} media={media} />
             </ContentColumn>
             <ContentColumn className="media__annotations-column">
-              <div style={{ paddingBottom: units(5), marginTop: units(5) }}>
+              <div style={{ paddingBottom: units(5) }}>
                 <MediaRelated media={media} showHeader />
               </div>
               <Annotations

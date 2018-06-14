@@ -60,15 +60,10 @@ class MediaRelatedComponent extends Component {
     const filters = getFilters();
     const { dbid } = this.props.media;
 
-    if (!previousFilters[dbid]) {
-      previousFilters[dbid] = filters;
-    }
-
     if (filters !== previousFilters[dbid]) {
       previousFilters[dbid] = filters;
       this.props.relay.setVariables({ filters });
       this.props.relay.forceFetch();
-      return null;
     }
 
     let medias = [];
@@ -90,7 +85,7 @@ class MediaRelatedComponent extends Component {
     }
 
     return (
-      <div style={{ display: this.state.loading ? 'none' : 'block' }}>
+      <div>
         { this.props.showHeader ?
           <StyledHeaderRow>
             <FlexRow>
