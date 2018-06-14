@@ -60,19 +60,18 @@ class MediaRelatedComponent extends Component {
     const filters = getFilters();
     const { dbid } = this.props.media;
 
-    if (filters !== previousFilters[dbid]) {
-      previousFilters[dbid] = filters;
-      this.props.relay.setVariables({ filters });
-      this.props.relay.forceFetch();
-    }
-
     let medias = [];
     const { relationships } = this.props.media;
     const { targets_count } = relationships;
     const targets = relationships.targets.edges;
     const sources = relationships.sources.edges;
     let filtered_count = 0;
-    if (targets.length > 0) {
+
+    if (filters !== previousFilters[dbid]) {
+      previousFilters[dbid] = filters;
+      this.props.relay.setVariables({ filters });
+      this.props.relay.forceFetch();
+    } else if (targets.length > 0) {
       medias = targets[0].node.targets.edges;
       filtered_count = targets_count - medias.length;
     } else if (sources.length > 0) {
@@ -99,7 +98,7 @@ class MediaRelatedComponent extends Component {
             <CreateRelatedMedia style={{ marginLeft: 'auto' }} media={this.props.media} />
           </StyledHeaderRow> : null }
 
-        { this.props.showNumbers ?
+        { (this.props.showNumbers && medias.length > 0) ?
           <StyledHeaderRow>
             <FlexRow>
               <FormattedMessage
