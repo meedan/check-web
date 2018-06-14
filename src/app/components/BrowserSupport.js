@@ -63,7 +63,7 @@ class BrowserSupport extends Component {
               <MdClear />
             </IconButton>
             <div>
-              <FormattedMessage id="browserSupport.message" defaultMessage="While in beta, {appName} is optimized for Google Chrome on desktop." values={{ appName: mapGlobalMessage(this.props.intl, 'appNameHuman') }} />
+              <FormattedMessage id="browserSupport.message" defaultMessage="{appName} is optimized for Google Chrome on desktop." values={{ appName: mapGlobalMessage(this.props.intl, 'appNameHuman') }} />
             </div>
           </ContentColumn>
         </Message>
