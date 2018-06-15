@@ -101,7 +101,7 @@ class FindTeamCard extends React.Component {
 
   render() {
     const link = (
-      <Link to="/check/teams/new">
+      <Link to="/check/teams/new" className="find-team__toggle-create">
         <FormattedMessage
           id="findTeamCard.createYourOwn"
           defaultMessage="create your own team"
@@ -111,7 +111,7 @@ class FindTeamCard extends React.Component {
 
     return (
       <div>
-        <Card>
+        <Card className="find-team-card">
           <CardHeader
             titleStyle={{ fontSize: '20px', lineHeight: '32px' }}
             title={

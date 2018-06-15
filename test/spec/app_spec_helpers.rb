@@ -220,6 +220,10 @@ module AppSpecHelpers
 
   def create_team
     if @driver.find_elements(:css, '.create-team').size > 0
+      if @driver.find_elements(:css, '.find-team-card').size > 0
+        el = wait_for_selector('.find-team__toggle-create')
+        el.click
+      end
       fill_field('#team-name-container', "Team #{Time.now}")
       fill_field('#team-slug-container', "team#{Time.now.to_i}#{Process.pid}")
       press_button('.create-team__submit-button')
