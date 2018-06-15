@@ -10,6 +10,10 @@ class CreateTeamPage < Page
   end
 
   def create_team(options = {})
+    if @driver.find_elements(:css, '.find-team-card').size > 0
+      el = wait_for_selector('.find-team__toggle-create')
+      el.click
+    end
     name = options[:name] || "Team #{Time.now}"
     slug = options[:slug] || "team#{Time.now.to_i}#{Process.pid}"
     element('#team-name-container').click
