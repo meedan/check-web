@@ -1210,8 +1210,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.header-actions__drawer-toggle', :css).click
       sleep 2
       wait_for_selector('.project-list__link + .project-list__link', :css).click
-      sleep 10
-      expect(@driver.page_source.include?(claim)).to be(false)
+      sleep 15
       expect(@driver.page_source.include?('1 result')).to be(false)
       expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(true)
 
@@ -1865,6 +1864,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.action.send_keys(:enter).perform
       press_button('#create-media-submit')
       sleep 5
+      wait_for_selector('.media-detail__check-timestamp').click
       expect((@driver.current_url.to_s =~ /media/).nil?).to be(false)
     end
 

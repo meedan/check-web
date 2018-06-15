@@ -19,8 +19,9 @@ class ProjectPage < Page
     wait_for_selector("create-media-submit", :id)
     fill_input('#create-media-input', options[:input])
     press(:enter)
-    sleep 2 #for loading
-    wait_for_selector(".media")
+    sleep 10
+    wait_for_selector('.media-detail__check-timestamp').click
+    wait_for_selector('.media')
     MediaPage.new(config: @config, driver: @driver)
   end
 
@@ -30,6 +31,8 @@ class ProjectPage < Page
     fill_input('input[type=file]', file, { hidden: true })
     sleep 3
     @driver.find_element(:css, '#create-media-submit').click
+    sleep 10
+    wait_for_selector('.media-detail__check-timestamp').click
     wait_for_selector('.image-media-card')
     MediaPage.new(config: @config, driver: @driver)
   end
