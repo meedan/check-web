@@ -12,7 +12,10 @@ class CreateProjectMediaMutation extends Relay.Mutation {
       fragment on CreateProjectMediaPayload {
         project_mediaEdge,
         project_media,
-        project { project_medias },
+        related_to { id, relationships },
+        relationships_target { id },
+        relationships_source { id },
+        project { id },
         check_search_team { id, number_of_results },
         check_search_project { id, number_of_results }
       }
@@ -20,12 +23,16 @@ class CreateProjectMediaMutation extends Relay.Mutation {
   }
 
   getVariables() {
-    return {
+    const vars = {
       url: this.props.url,
       quote: this.props.quote,
       quote_attributions: this.props.quoteAttributions,
       project_id: this.props.project.dbid,
     };
+    if (this.props.related_to_id) {
+      vars.related_to_id = this.props.related_to_id;
+    }
+    return vars;
   }
 
   getFiles() {
@@ -33,7 +40,7 @@ class CreateProjectMediaMutation extends Relay.Mutation {
   }
 
   getConfigs() {
-    return [
+    let configs = [
       {
         type: 'RANGE_ADD',
         parentName: 'check_search_team',
@@ -78,6 +85,43 @@ class CreateProjectMediaMutation extends Relay.Mutation {
         ],
       },
     ];
+
+    if (this.props.related_to_id) {
+      if (this.props.targets_count > 0) {
+        configs = [
+          {
+            type: 'RANGE_ADD',
+            parentName: 'relationships_target',
+            parentID: this.props.relationships_target_id,
+            connectionName: 'targets',
+            edgeName: 'project_mediaEdge',
+            rangeBehaviors: {
+              '': 'prepend',
+            },
+          },
+          {
+            type: 'RANGE_ADD',
+            parentName: 'relationships_source',
+            parentID: this.props.relationships_source_id,
+            connectionName: 'siblings',
+            edgeName: 'project_mediaEdge',
+            rangeBehaviors: {
+              '': 'prepend',
+            },
+          },
+        ];
+      } else {
+        configs = [];
+      }
+      configs.push({
+        type: 'FIELDS_CHANGE',
+        fieldIDs: {
+          related_to: this.props.related.id,
+        },
+      });
+    }
+
+    return configs;
   }
 }
 

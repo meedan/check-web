@@ -1,0 +1,30 @@
+[
+  {
+    "id": "createRelatedMedia.newClaim",
+    "defaultMessage": "Add a related claim"
+  },
+  {
+    "id": "createRelatedMedia.cancelAdd",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "createRelatedMedia.submit",
+    "defaultMessage": "Submit"
+  },
+  {
+    "id": "createRelatedMedia.addClaim",
+    "defaultMessage": "Add claim"
+  },
+  {
+    "id": "createRelatedMedia.dialog",
+    "defaultMessage": "Related to \"{claim}\""
+  },
+  {
+    "id": "createRelatedMedia.claimText",
+    "defaultMessage": "Claim text"
+  },
+  {
+    "id": "createRelatedMedia.source",
+    "defaultMessage": "Source"
+  }
+]
