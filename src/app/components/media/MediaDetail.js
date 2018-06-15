@@ -131,7 +131,7 @@ class MediaDetail extends Component {
       intl: { locale },
     } = this.props;
     // TODO drop data variable, use media.embed directly
-    const data = media.embed;
+    const data = typeof media.embed === 'string' ? JSON.parse(media.embed) : media.embed;
     const isRtl = rtlDetect.isRtlLang(locale);
     const fromDirection = isRtl ? 'right' : 'left';
     const annotationsCount = MediaUtil.notesCount(media, data, this.props.intl);
@@ -158,7 +158,7 @@ class MediaDetail extends Component {
       projectId = annotated.dbid;
     }
 
-    const mediaUrl = projectId && media.team
+    const mediaUrl = projectId && media.team && media.dbid > 0
       ? `/${media.team.slug}/project/${projectId}/media/${media.dbid}`
       : null;
 
@@ -261,7 +261,7 @@ class MediaDetail extends Component {
     const shouldShowDescription = MediaUtil.hasCustomDescription(media, data);
 
     const cardHeaderText = (
-      <div>
+      <div style={{ cursor: media.dbid === 0 ? 'wait' : 'default' }}>
         {shouldDisplayHeading ?
           <StyledHeadingContainer>{heading}</StyledHeadingContainer> : null
         }
