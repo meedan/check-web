@@ -25,20 +25,20 @@ const messages = defineMessages({
   },
 });
 
-const AddTeamComponent = () => {
-  const mode = this.props.route.path === 'check/teams/find(/:slug)' ? 'find' : 'create';
+const AddTeamComponent = (props) => {
+  const mode = props.route.path === 'check/teams/find(/:slug)' ? 'find' : 'create';
 
   const title = mode === 'find' ? messages.titleFind : messages.titleCreate;
 
   return (
     <PageTitle
-      prefix={this.props.intl.formatMessage(title)}
+      prefix={props.intl.formatMessage(title)}
       skipTeam
     >
       <main className="create-team">
         <ContentColumn narrow>
           { mode === 'find' ?
-            <FindTeamCard {...this.props} /> : <CreateTeamCard />
+            <FindTeamCard {...props} /> : <CreateTeamCard />
           }
         </ContentColumn>
       </main>

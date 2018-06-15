@@ -80,8 +80,8 @@ class FindTeamCard extends React.Component {
 
     this.setState({ slug: teamSlug });
 
-    if (team && teamSlug) {
-      if (teamSlug === team.slug) {
+    if (teamSlug) {
+      if (team && (teamSlug === team.slug)) {
         this.getContext().history.push(`/${team.slug}/join`);
       } else {
         this.setState({ message: this.props.intl.formatMessage(messages.teamNotFound) });
@@ -94,10 +94,8 @@ class FindTeamCard extends React.Component {
   };
 
   handleSubmit = (e) => {
-    const { slug } = this.state;
-    // this.props.relay.setVariables({ slug });
-    // this.props.relay.forceFetch();
     e.preventDefault();
+    const { slug } = this.state;
     this.getContext().history.push(`/check/teams/find/${slug}`);
   };
 

@@ -10,6 +10,7 @@ import rtlDetect from 'rtl-detect';
 import TeamHeader from './team/TeamHeader';
 import TeamPublicHeader from './team/TeamPublicHeader';
 import ProjectHeader from './project/ProjectHeader';
+import CheckContext from '../CheckContext';
 import { stringHelper } from '../customHelpers';
 import PublicTeamRoute from '../relay/PublicTeamRoute';
 import teamPublicFragment from '../relay/teamPublicFragment';
@@ -47,111 +48,140 @@ const HeaderBar = styled.div`
 
 // TODO Fix a11y issues
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
-const HeaderComponent = (props) => {
-  const {
-    inTeamContext,
-    loggedIn,
-    drawerToggle,
-    currentUserIsMember,
-    intl: { locale },
-  } = props;
-  const isRtl = rtlDetect.isRtlLang(locale);
-  const fromDirection = isRtl ? 'right' : 'left';
+class HeaderComponent extends React.Component {
+  constructor(props) {
+    super(props);
 
-  const AlignOpposite = styled.div`
-    margin-${fromDirection}: auto;
-    `;
+    this.state = {
 
-  const editProjectMenuItem = (
-    <ProjectMenuRelay key="headerActions.projectMenu" {...props} />
-  );
+    };
+  }
 
-  const trashButton = <TeamMenuRelay {...props} />;
+  componentWillMount() {
+    this.handleQuery();
+  }
 
-  const searchButton = (
-    <StyledIconButton
-      key="header.searchButton"
-      className="header-actions__search-icon"
-      containerElement={<Link to={`/${props.params.team}/search`} />}
-      name="search"
-      tooltip={<FormattedMessage defaultMessage="Search" id="headerActions.search" />}
-    >
-      <IconSearch />
-    </StyledIconButton>
-  );
+  getContext() {
+    return new CheckContext(this).getContextStore();
+  }
 
-  const checkLogo = <img width={units(8)} alt="Team Logo" src={stringHelper('LOGO_URL')} />;
+  handleQuery = () => {
+    const { team, teamSlug } = this.props;
 
-  const saveCurrentPage = () => {
-    const path = window.location.pathname;
-    if (path !== '/') {
-      window.storage.set('previousPage', path);
+    if (!team && teamSlug) {
+      this.getContext().history.push('/check/404');
     }
   };
 
-  const signInButton = !loggedIn ? (
-    <Link to="/">
-      <RaisedButton
-        primary
-        className="header__signin-button"
-        onClick={saveCurrentPage}
-        label={<FormattedMessage defaultMessage="Sign In" id="headerActions.signIn" />}
-      />
-    </Link>
-  ) : null;
+  render() {
+    const {
+      team,
+      loggedIn,
+      drawerToggle,
+      currentUserIsMember,
+      intl: { locale },
+    } = this.props;
 
-  const teamPrivateContentShouldShow =
-    (inTeamContext && currentUserIsMember) || (inTeamContext && !props.team.private);
+    const inTeamContext = team ? this.props.inTeamContext : false;
 
-  const teamPublicContentShouldShow =
-    inTeamContext && !currentUserIsMember && props.team.private;
+    const isRtl = rtlDetect.isRtlLang(locale);
+    const fromDirection = isRtl ? 'right' : 'left';
 
-  const primary = (() => {
-    if (teamPrivateContentShouldShow) {
-      return (
-        <Row containsEllipsis>
-          <div><TeamHeader {...props} /></div>
-          <div><ProjectHeader isRtl {...props} /></div>
-        </Row>
-      );
-    } else if (teamPublicContentShouldShow) {
-      return (
-        <Row containsEllipsis>
-          <TeamPublicHeader isRtl {...props} />
-        </Row>
-      );
-    }
+    const AlignOpposite = styled.div`
+      margin-${fromDirection}: auto;
+      `;
 
-    // Otherwise display the most basic header
-    return (
-      <Row>
-        <div onClick={drawerToggle}>{checkLogo}</div>
-      </Row>
+    const editProjectMenuItem = (
+      <ProjectMenuRelay key="headerActions.projectMenu" {...this.props} />
     );
-  })();
 
-  const secondary = (
-    <AlignOpposite>
-      <Row>
-        <Offset isRtl>
-          {signInButton}
-        </Offset>
-        {teamPrivateContentShouldShow && editProjectMenuItem}
-        <SourceMenuRelay {...props} />
-        {teamPrivateContentShouldShow && trashButton}
-        {teamPrivateContentShouldShow && searchButton}
-        <UserMenuRelay {...props} />
-      </Row>
-    </AlignOpposite>
-  );
+    const trashButton = <TeamMenuRelay {...this.props} />;
 
-  return (
-    <HeaderBar>
-      {primary}
-      {secondary}
-    </HeaderBar>
-  );
-};
+    const searchButton = (
+      <StyledIconButton
+        key="header.searchButton"
+        className="header-actions__search-icon"
+        containerElement={<Link to={`/${this.props.params.team}/search`} />}
+        name="search"
+        tooltip={<FormattedMessage defaultMessage="Search" id="headerActions.search" />}
+      >
+        <IconSearch />
+      </StyledIconButton>
+    );
+
+    const checkLogo = <img width={units(8)} alt="Team Logo" src={stringHelper('LOGO_URL')} />;
+
+    const saveCurrentPage = () => {
+      const path = window.location.pathname;
+      if (path !== '/') {
+        window.storage.set('previousPage', path);
+      }
+    };
+
+    const signInButton = !loggedIn ? (
+      <Link to="/">
+        <RaisedButton
+          primary
+          className="header__signin-button"
+          onClick={saveCurrentPage}
+          label={<FormattedMessage defaultMessage="Sign In" id="headerActions.signIn" />}
+        />
+      </Link>
+    ) : null;
+
+    const teamPrivateContentShouldShow =
+      (inTeamContext && currentUserIsMember) || (inTeamContext && !this.props.team.private);
+
+    const teamPublicContentShouldShow =
+      inTeamContext && !currentUserIsMember && this.props.team.private;
+
+    const primary = (() => {
+      if (teamPrivateContentShouldShow) {
+        return (
+          <Row containsEllipsis>
+            <div><TeamHeader {...this.props} /></div>
+            <div><ProjectHeader isRtl {...this.props} /></div>
+          </Row>
+        );
+      } else if (teamPublicContentShouldShow) {
+        return (
+          <Row containsEllipsis>
+            <TeamPublicHeader isRtl {...this.props} />
+          </Row>
+        );
+      }
+
+      // Otherwise display the most basic header
+      return (
+        <Row>
+          <div onClick={drawerToggle}>{checkLogo}</div>
+        </Row>
+      );
+    })();
+
+    const secondary = (
+      <AlignOpposite>
+        <Row>
+          <Offset isRtl>
+            {signInButton}
+          </Offset>
+          {teamPrivateContentShouldShow && editProjectMenuItem}
+          <SourceMenuRelay {...this.props} />
+          {teamPrivateContentShouldShow && trashButton}
+          {teamPrivateContentShouldShow && searchButton}
+          <UserMenuRelay {...this.props} />
+        </Row>
+      </AlignOpposite>
+    );
+
+    return (
+      <HeaderBar>
+        {primary}
+        {secondary}
+      </HeaderBar>
+    );
+  }
+}
 
 HeaderComponent.contextTypes = {
   store: PropTypes.object,
