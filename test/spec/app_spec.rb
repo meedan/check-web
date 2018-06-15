@@ -1896,6 +1896,30 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.current_url.to_s == notfound).to be(false)
     end
 
+    it "should manage related claims" do
+      api_create_team_project_and_claim_and_redirect_to_media_page
+      wait_for_selector('.create-related-media__add-button')
+      expect(@driver.page_source.include?('Child Claim')).to be(false)
+      press_button('.create-related-media__add-button')
+      sleep 3
+      fill_field('#claim-input', 'Child Claim')
+      sleep 1
+      fill_field('#source-input', 'Child Claim Source')
+      sleep 1
+      press_button('.create-related-media__dialog-submit-button')
+      sleep 5
+      expect(@driver.page_source.include?('Child Claim')).to be(true)
+      wait_for_selector('.project-header__back-button').click
+      expand = wait_for_selector('.card-with-border > div > div > div + button')
+      expect(@driver.page_source.include?('Child Claim')).to be(false)
+      expect(@driver.page_source.include?('1 related')).to be(false)
+      expand.click
+      sleep 5
+      expect(@driver.page_source.include?('Child Claim')).to be(true)
+      expect(@driver.page_source.include?('1 related')).to be(true)
+      sleep 5
+    end
+
     # Postponed due Alexandre's developement
     # it "should add and remove suggested tags" do
     #   skip("Needs to be implemented")
