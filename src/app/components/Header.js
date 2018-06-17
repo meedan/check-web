@@ -49,14 +49,6 @@ const HeaderBar = styled.div`
 // TODO Fix a11y issues
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
 class HeaderComponent extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-
-    };
-  }
-
   componentWillMount() {
     this.handleQuery();
   }

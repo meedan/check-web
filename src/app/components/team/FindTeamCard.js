@@ -67,18 +67,12 @@ class FindTeamCard extends React.Component {
     this.handleQuery();
   }
 
-  componentWillReceiveProps() {
-    this.handleQuery();
-  }
-
   getContext() {
     return new CheckContext(this).getContextStore();
   }
 
   handleQuery = () => {
     const { team, teamSlug } = this.props;
-
-    this.setState({ slug: teamSlug });
 
     if (teamSlug) {
       if (team && (teamSlug === team.slug)) {

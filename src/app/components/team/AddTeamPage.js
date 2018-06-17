@@ -71,6 +71,7 @@ const AddTeam = (props) => {
     <RelayContainer
       Component={AddTeamContainer}
       route={route}
+      forceFetch
       renderFetched={data => <AddTeamContainer {...props} {...data} />}
     />
   );
