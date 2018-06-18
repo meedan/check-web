@@ -24,7 +24,7 @@ import Source from './source/Source';
 import User from './source/User';
 import Me from './source/Me';
 import Team from './team/Team';
-import CreateTeam from './team/CreateTeam';
+import AddTeamPage from './team/AddTeamPage';
 import JoinTeam from './team/JoinTeam';
 import Teams from './team/Teams';
 import Trash from './team/Trash';
@@ -142,7 +142,8 @@ class Root extends Component {
                 <Route path="check/user/:userId" component={User} />
                 <Route path="check/me" component={Me} />
                 <Route path="check/me/edit" isEditing component={Me} />
-                <Route path="check/teams/new" component={CreateTeam} />
+                <Route path="check/teams/new" component={AddTeamPage} />
+                <Route path="check/teams/find(/:slug)" component={AddTeamPage} />
                 <Route path="check/teams" component={Teams} />
 
                 <Route path=":team/medias/new" component={CreateProjectMedia} />

@@ -26,7 +26,22 @@ const DrawerButtonGroup = styled(Row)`
 `;
 
 class TeamHeaderComponent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      willRedirect: null,
+    };
+  }
+
   componentWillMount() {
+    const { team } = this.props;
+
+    if (!team) {
+      this.getContext().history.push('/check/404');
+      this.setState({ willRedirect: true });
+      return;
+    }
+
     this.updateContext();
   }
 
@@ -41,6 +56,10 @@ class TeamHeaderComponent extends Component {
   render() {
     const isProjectUrl = /(.*\/project\/[0-9]+)/.test(window.location.pathname);
     const { team, isRtl } = this.props;
+
+    if (this.state.willRedirect) {
+      return null;
+    }
 
     return (
       <div>
