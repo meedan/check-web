@@ -161,7 +161,7 @@ class MediaComponent extends Component {
         >
           <StyledTwoColumnLayout>
             <ContentColumn>
-              <MediaDetail hideBorder initiallyExpanded media={media} />
+              <MediaDetail hideBorder initiallyExpanded hideRelated media={media} />
               {this.props.extras}
               <StyledTaskHeaderRow>
                 {media.tasks.edges.length ?
