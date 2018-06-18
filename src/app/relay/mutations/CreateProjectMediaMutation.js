@@ -1,4 +1,5 @@
 import Relay from 'react-relay';
+import optimisticProjectMedia from './optimisticProjectMedia';
 
 class CreateProjectMediaMutation extends Relay.Mutation {
   getMutation() {
@@ -20,6 +21,10 @@ class CreateProjectMediaMutation extends Relay.Mutation {
         check_search_project { id, number_of_results }
       }
     `;
+  }
+
+  getOptimisticResponse() {
+    return optimisticProjectMedia(this.props.title, this.props.project, this.props.context);
   }
 
   getVariables() {

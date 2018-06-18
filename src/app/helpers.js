@@ -30,7 +30,11 @@ function safelyParseJSON(jsonString, invalid = null) {
 const nested = (path, obj) => path.reduce((parent, child) =>
   (parent && parent[child]) ? parent[child] : null, obj);
 
-function getStatus(statusesJson, id) {
+function getStatus(statusesParam, id) {
+  let statusesJson = statusesParam;
+  if (typeof statusesJson === 'string') {
+    statusesJson = JSON.parse(statusesJson);
+  }
   const { statuses } = statusesJson;
   let status = '';
   statuses.forEach((st) => {
@@ -117,6 +121,26 @@ function validateURL(value) {
   return false;
 }
 
+function getFilters() {
+  let filters = '{}';
+  const urlParts = document.location.pathname.split('/');
+  try {
+    filters = JSON.parse(decodeURIComponent(urlParts[urlParts.length - 1]));
+  } catch (e) {
+    filters = '{}';
+  }
+  if (typeof filters === 'object') {
+    filters = JSON.stringify(filters);
+  } else {
+    filters = '{}';
+  }
+  return filters;
+}
+
+function hasFilters() {
+  return getFilters() !== '{}';
+}
+
 export {
   bemClass,
   bemClassFromMediaStatus,
@@ -131,4 +155,6 @@ export {
   convertNumbers2English,
   encodeSvgDataUri,
   validateURL,
+  getFilters,
+  hasFilters,
 };

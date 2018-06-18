@@ -7,6 +7,7 @@ import MediaRoute from '../../relay/MediaRoute';
 import mediaFragment from '../../relay/mediaFragment';
 import MediaDetail from './MediaDetail';
 import MediasLoading from './MediasLoading';
+import { getFilters } from '../../helpers';
 import {
   FlexRow,
   black54,
@@ -30,22 +31,6 @@ const StyledHeaderRow = styled.div`
     margin: 0;
   }
 `;
-
-const getFilters = () => {
-  let filters = '{}';
-  const urlParts = document.location.pathname.split('/');
-  try {
-    filters = JSON.parse(decodeURIComponent(urlParts[urlParts.length - 1]));
-  } catch (e) {
-    filters = '{}';
-  }
-  if (typeof filters === 'object') {
-    filters = JSON.stringify(filters);
-  } else {
-    filters = '{}';
-  }
-  return filters;
-};
 
 const previousFilters = {};
 
@@ -118,7 +103,7 @@ class MediaRelatedComponent extends Component {
               return (
                 <li key={item.node.dbid} className="medias__item" style={{ paddingBottom: units(1) }}>
                   {<MediaDetail media={item.node} condensed parentComponent={this} hideRelated />}
-                  {<ul />}
+                  {<ul className="empty" />}
                 </li>
               );
             })}
@@ -150,6 +135,8 @@ const MediaRelatedContainer = Relay.createContainer(MediaRelatedComponent, {
           permissions
           team {
             search_id
+            verification_statuses
+            translation_statuses
           }
         }
         relationships {

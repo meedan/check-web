@@ -121,6 +121,8 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
           dbid,
           slug,
           search_id,
+          verification_statuses,
+          translation_statuses,
         }
       }
     `,

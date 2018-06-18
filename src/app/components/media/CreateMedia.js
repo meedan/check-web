@@ -21,7 +21,7 @@ import CreateProjectSourceMutation from '../../relay/mutations/CreateProjectSour
 import Message from '../Message';
 import CheckContext from '../../CheckContext';
 import HttpStatus from '../../HttpStatus';
-import { safelyParseJSON } from '../../helpers';
+import { safelyParseJSON, hasFilters } from '../../helpers';
 import {
   FadeIn,
   Row,
@@ -123,6 +123,10 @@ const messages = defineMessages({
     id: 'createMedia.submitButton',
     defaultMessage: 'Post',
   },
+  errorTitle: {
+    id: 'createMedia.errorTitle',
+    defaultMessage: 'Could not submit "{title}"',
+  },
 });
 
 class CreateProjectMedia extends Component {
@@ -166,7 +170,7 @@ class CreateProjectMedia extends Component {
     }
   }
 
-  handleSubmitError(context, prefix, transactionError) {
+  handleSubmitError(context, prefix, transactionError, title) {
     let message = this.props.intl.formatMessage(messages.error, {
       code: `${transactionError.status} ${HttpStatus.getMessage(transactionError.status)}`,
     });
@@ -179,7 +183,27 @@ class CreateProjectMedia extends Component {
         message = json.error;
       }
     }
+    if (title) {
+      message = [this.props.intl.formatMessage(messages.errorTitle, { title }), message];
+      message = message.join('<br />');
+    }
     this.setState({ message, isSubmitting: false, submittable: false });
+  }
+
+  resetForm() {
+    // TODO Use React refs
+    ['create-media-quote-input', 'create-media-quote-attribution-source-input', 'create-media-input'].forEach((id) => {
+      const field = document.getElementById(id);
+      if (field) {
+        field.value = '';
+      }
+    });
+    const removeImage = document.getElementById('remove-image');
+    if (removeImage) {
+      removeImage.click();
+    }
+    document.forms.media.image = null;
+    this.setState({ previousInput: null });
   }
 
   submitSource() {
@@ -230,7 +254,7 @@ class CreateProjectMedia extends Component {
 
     if (this.state.mode === 'image') {
       ({ media: { image } } = document.forms);
-      if (!image || this.state.isSubmitting) {
+      if (!image) {
         return;
       }
     } else if (this.state.mode === 'quote') {
@@ -244,7 +268,7 @@ class CreateProjectMedia extends Component {
       inputValue = document.getElementById('create-media-input').value.trim();
       urls = inputValue.match(urlRegex());
       url = urls && urls[0] ? urls[0] : '';
-      if (!inputValue || !inputValue.length || this.state.isSubmitting) {
+      if (!inputValue || !inputValue.length) {
         return;
       }
       if (!url.length || inputValue !== url) {
@@ -253,18 +277,28 @@ class CreateProjectMedia extends Component {
       }
     }
 
-    this.setState({
-      isSubmitting: true,
-      message: this.props.intl.formatMessage(messages.submitting),
-    });
+    let title = 'Media';
+    if (quote !== '') {
+      title = quote;
+    }
+    if (url !== '') {
+      title = url;
+    }
+    if (image !== '') {
+      title = image.name;
+    }
+
+    this.resetForm();
 
     const onFailure = (transaction) => {
-      this.handleSubmitError(context, prefix, transaction.getError());
+      this.handleSubmitError(context, prefix, transaction.getError(), title);
     };
 
     const onSuccess = (response) => {
-      const rid = response.createProjectMedia.project_media.dbid;
-      context.history.push(prefix + rid);
+      if (hasFilters()) {
+        const rid = response.createProjectMedia.project_media.dbid;
+        context.history.push(prefix + rid);
+      }
       this.setState({ message: null, isSubmitting: false });
     };
 
@@ -274,6 +308,8 @@ class CreateProjectMedia extends Component {
         quote,
         quoteAttributions,
         image,
+        context,
+        title,
         project: context.project,
       }),
       { onSuccess, onFailure },
@@ -320,6 +356,7 @@ class CreateProjectMedia extends Component {
       return [
         <UploadImage
           key="createMedia.image.upload"
+          ref={(input) => { this.uploadImage = input; }}
           onImage={this.handleImage.bind(this)}
           onError={this.handleImageError.bind(this)}
         />,

@@ -398,7 +398,7 @@ class Annotation extends Component {
           <div className="annotation__card-embedded-medias">
             {annotation.medias.edges.map(media => (
               <div key={media.node.dbid}>
-                <MediaDetail media={media.node} condensed readonly />
+                <MediaDetail media={media.node} condensed readonly hideRelated />
               </div>))
             }
           </div>

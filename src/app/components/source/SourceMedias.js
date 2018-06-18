@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Relay from 'react-relay';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
@@ -312,11 +312,18 @@ const SourceMediasContainer = Relay.createContainer(SourceMediasComponent, {
   },
 });
 
-const SourceMedias = (props) => {
-  const ids = `${props.source.source_id},${props.source.project_id}`;
-  const route = new SourceRoute({ ids });
+class SourceMedias extends Component {
+  // eslint-disable-next-line class-methods-use-this
+  shouldComponentUpdate() {
+    return false;
+  }
 
-  return (<Relay.RootContainer Component={SourceMediasContainer} route={route} forceFetch />);
-};
+  render() {
+    const ids = `${this.props.source.source_id},${this.props.source.project_id}`;
+    const route = new SourceRoute({ ids });
+
+    return (<Relay.RootContainer Component={SourceMediasContainer} route={route} forceFetch />);
+  }
+}
 
 export default SourceMedias;
