@@ -19,13 +19,10 @@ const StyledTree = styled.div`
     padding-left: 1em;
   }
 
-  li {
+  li.medias__item {
     padding-left: 1em;
     border: 1px dashed #979797;
     border-width: 0 0 1px 1px; 
-  }
-
-  li.medias__item {
     border-bottom: 0px;
     margin-top: 0;
   }
@@ -39,14 +36,14 @@ const StyledTree = styled.div`
     margin-bottom: 5px;
   }
 
-  li p {
+  li.medias__item p {
     margin: 0;
     background: white;
     position: relative;
     top: 0.5em; 
   }
 
-  li ul { 
+  li.medias__item ul.empty {
     border-top: 1px dashed #979797;
     margin-left: -1em;
     padding-left: 2em;
@@ -55,7 +52,7 @@ const StyledTree = styled.div`
     width: 20px;
   }
 
-  ul li:last-child ul {
+  ul li.medias__item:last-child ul.empty {
     border-left: 1px solid white;
     margin-left: -17px;
   }
