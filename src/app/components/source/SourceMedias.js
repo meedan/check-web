@@ -324,6 +324,6 @@ class SourceMedias extends Component {
 
     return (<Relay.RootContainer Component={SourceMediasContainer} route={route} forceFetch />);
   }
-};
+}
 
 export default SourceMedias;
