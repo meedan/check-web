@@ -1896,6 +1896,34 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.current_url.to_s == notfound).to be(false)
     end
 
+    it "should be able to find a team after signing up" do
+      user = api_register_and_login_with_email
+      @driver.navigate.to @config['self_url']
+      wait_for_selector('.find-team-card')
+      expect(@driver.page_source.include?('Find an existing team')).to be(true)
+
+      # return error for non existing team
+      fill_field('#team-slug-container', 'non-existing-slug')
+      el = wait_for_selector('.find-team__submit-button', :css)
+      el.click
+      sleep 1
+      wait_for_selector('.find-team-card')
+      expect(@driver.page_source.include?('Team not found!')).to be(true)
+
+      # redirect to /team-slug/join if team exists
+      # /team-slug/join in turn redirects to team page because already member
+      page = CreateTeamPage.new(config: @config, driver: @driver).load
+      page.create_team({ name: 'Existing Team', slug: 'existing-slug' })
+
+      @driver.navigate.to @config['self_url'] + '/check/teams/find'
+      el = wait_for_selector('.find-team__submit-button', :css)
+      fill_field('#team-slug-container', 'existing-slug')
+      el.click
+      sleep 1
+      wait_for_selector('.team__primary-info')
+      expect(@driver.page_source.include?('Existing Team')).to be(true)
+    end
+
     # Postponed due Alexandre's developement
     # it "should add and remove suggested tags" do
     #   skip("Needs to be implemented")
