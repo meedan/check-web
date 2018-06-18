@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Relay from 'react-relay';
 import SourceRoute from '../../relay/SourceRoute';
 import AccountCard from './AccountCard';
@@ -60,11 +60,18 @@ const SourceAccountsContainer = Relay.createContainer(SourceAccountsComponent, {
   },
 });
 
-const SourceAccounts = (props) => {
-  const ids = `${props.source.source_id},${props.source.project_id}`;
-  const route = new SourceRoute({ ids });
+class SourceAccounts extends Component {
+  // eslint-disable-next-line class-methods-use-this
+  shouldComponentUpdate() {
+    return false;
+  }
 
-  return (<Relay.RootContainer Component={SourceAccountsContainer} route={route} forceFetch />);
-};
+  render() {
+    const ids = `${this.props.source.source_id},${this.props.source.project_id}`;
+    const route = new SourceRoute({ ids });
+
+    return (<Relay.RootContainer Component={SourceAccountsContainer} route={route} forceFetch />);
+  }
+}
 
 export default SourceAccounts;
