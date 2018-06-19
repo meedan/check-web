@@ -3,6 +3,7 @@ import { defineMessages } from 'react-intl';
 import util from 'util';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { request as requestFunction } from './redux/actions';
+import { mapGlobalMessage } from './components/MappedMessage';
 
 const fetchTimeout = config.timeout || 60000;
 
@@ -13,11 +14,11 @@ const messages = defineMessages({
   },
   offline: {
     id: 'network.offline',
-    defaultMessage: 'Can\'t connect to Check, please make sure you\'re connected to the internet. Trying to reconnect...',
+    defaultMessage: 'Can\'t connect to {app}, please make sure you\'re connected to the internet. Trying to reconnect...',
   },
   noResponse: {
     id: 'network.noResponse',
-    defaultMessage: 'Couldn\'t connect to Check, please make sure you\'re connected to the internet',
+    defaultMessage: 'Couldn\'t connect to {app}, please make sure you\'re connected to the internet',
   },
 });
 
@@ -95,7 +96,7 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
       return null;
     }
     if (this.caller) {
-      return this.caller.props.intl.formatMessage(message);
+      return this.caller.props.intl.formatMessage(message, { app: mapGlobalMessage(this.caller.props.intl, 'appNameHuman') });
     }
     return message.defaultMessage;
   }
