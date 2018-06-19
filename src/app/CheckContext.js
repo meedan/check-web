@@ -38,6 +38,7 @@ class CheckContext {
     const clientSessionId = context.clientSessionId || (`browser-${Date.now()}${parseInt(Math.random() * 1000000, 10)}`);
     this.setContextStore({ clientSessionId });
     Relay.injectNetworkLayer(new CheckNetworkLayer(config.relayPath, {
+      caller: this.caller,
       history,
       team: () => {
         const { team } = this.getContextStore();

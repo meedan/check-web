@@ -4,6 +4,7 @@ import { injectIntl, intlShape } from 'react-intl';
 import { Link } from 'react-router';
 import { Card, CardHeader } from 'material-ui/Card';
 import styled from 'styled-components';
+import MdAccessTime from 'react-icons/lib/md/access-time';
 import MdFormatQuote from 'react-icons/lib/md/format-quote';
 import FaFeed from 'react-icons/lib/fa/feed';
 import IconInsertPhoto from 'material-ui/svg-icons/editor/insert-photo';
@@ -174,7 +175,9 @@ class MediaDetail extends Component {
     media.quoteAttributions = media.media.quoteAttributions;
 
     const mediaIcon = (() => {
-      if (media.media.embed_path && media.media.embed_path !== '') {
+      if (media.dbid === 0) {
+        return <MdAccessTime />;
+      } else if (media.media.embed_path && media.media.embed_path !== '') {
         return <IconInsertPhoto />;
       } else if (media.quote) {
         return <MdFormatQuote />;
