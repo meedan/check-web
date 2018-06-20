@@ -36,6 +36,10 @@
     "defaultMessage": "Task \"{task}\" created by {author}"
   },
   {
+    "id": "annotation.relationshipCreated",
+    "defaultMessage": "Related {type} \"{title}\" added by {author}"
+  },
+  {
     "id": "annotation.statusLocked",
     "defaultMessage": "Status locked by {author}"
   },

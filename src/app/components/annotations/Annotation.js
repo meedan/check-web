@@ -449,6 +449,27 @@ class Annotation extends Component {
         </span>
       );
       break;
+    case 'create_relationship': {
+      const meta = JSON.parse(activity.meta);
+      if (meta) {
+        const { target } = meta;
+        const targetUrl = target.url.replace(/https?:\/\/[^/]+/, '');
+        contentTemplate = (
+          <span>
+            <FormattedMessage
+              id="annotation.relationshipCreated"
+              defaultMessage='Related {type} "{title}" added by {author}'
+              values={{
+                type: meta.target.type,
+                title: <Link to={targetUrl}>{target.title}</Link>,
+                author: authorName,
+              }}
+            />
+          </span>
+        );
+      }
+      break;
+    }
     case 'create_dynamic':
     case 'update_dynamic':
       if (object.annotation_type === 'verification_status' || object.annotation_type === 'translation_status') {
