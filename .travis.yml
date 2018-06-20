@@ -33,7 +33,7 @@ before_install:
 - 'echo "script.engine.groovy.inline.update: on" | sudo tee -a /etc/elasticsearch/elasticsearch.yml'
 - sudo /usr/share/elasticsearch/bin/plugin install analysis-icu
 - sudo service elasticsearch restart
-- git clone --branch feature/6688-log-entry-for-relationship https://github.com/meedan/check-api.git
+- git clone https://github.com/meedan/check-api.git
 - d=configurator/$APP/travis/check-api/; for f in $(find $d -type f); do cp "$f" "check-api/${f/$d/}"; done
 - cd check-api
 - bundle install --path=/tmp/bundler
