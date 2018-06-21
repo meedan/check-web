@@ -8,6 +8,7 @@
   "annotation.taggedHeader": "Etiquetado #{tag} por {author}",
   "annotation.deletedComment": "Comentario eliminado por {author}: \"{comment}\"",
   "annotation.taskCreated": "Tarea \"{task}\" creada por {author}",
+  "annotation.relationshipCreated": "Nuevo {type} relacionado \"{title}\" añadido por {author}",
   "annotation.statusLocked": "Estado bloqueado por {author}",
   "annotation.statusUnlocked": "Estado desbloqueado por {author}",
   "annotation.mediaAssigned": "Asignado a {name} por {author}",

@@ -6,9 +6,5 @@
   {
     "id": "home.somethingWrong",
     "defaultMessage": "Something went wrong – please refresh your browser or try again later."
-  },
-  {
-    "id": "home.beta",
-    "defaultMessage": "Beta"
   }
 ]

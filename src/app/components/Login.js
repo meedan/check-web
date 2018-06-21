@@ -152,10 +152,6 @@ const Column = styled.div`
 
 
 class Login extends Component {
-  static onImage(file) {
-    document.forms.register.image = file;
-  }
-
   constructor(props) {
     super(props);
     this.state = {
@@ -166,6 +162,10 @@ class Login extends Component {
       password: '',
       password_confirmation: '',
     };
+  }
+
+  static onImage(file) {
+    document.forms.register.image = file;
   }
 
   onFormSubmit(e) {

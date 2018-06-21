@@ -1210,8 +1210,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.header-actions__drawer-toggle', :css).click
       sleep 2
       wait_for_selector('.project-list__link + .project-list__link', :css).click
-      sleep 10
-      expect(@driver.page_source.include?(claim)).to be(false)
+      sleep 15
       expect(@driver.page_source.include?('1 result')).to be(false)
       expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(true)
 
@@ -1865,6 +1864,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.action.send_keys(:enter).perform
       press_button('#create-media-submit')
       sleep 5
+      wait_for_selector('.media-detail__check-timestamp').click
       expect((@driver.current_url.to_s =~ /media/).nil?).to be(false)
     end
 
@@ -1894,6 +1894,58 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 10
       notfound = @config['self_url'] + '/check/404'
       expect(@driver.current_url.to_s == notfound).to be(false)
+    end
+
+    it "should be able to find a team after signing up" do
+      user = api_register_and_login_with_email
+      @driver.navigate.to @config['self_url']
+      wait_for_selector('.find-team-card')
+      expect(@driver.page_source.include?('Find an existing team')).to be(true)
+
+      # return error for non existing team
+      fill_field('#team-slug-container', 'non-existing-slug')
+      el = wait_for_selector('.find-team__submit-button', :css)
+      el.click
+      sleep 1
+      wait_for_selector('.find-team-card')
+      expect(@driver.page_source.include?('Team not found!')).to be(true)
+
+      # redirect to /team-slug/join if team exists
+      # /team-slug/join in turn redirects to team page because already member
+      page = CreateTeamPage.new(config: @config, driver: @driver).load
+      page.create_team({ name: 'Existing Team', slug: 'existing-slug' })
+
+      @driver.navigate.to @config['self_url'] + '/check/teams/find'
+      el = wait_for_selector('.find-team__submit-button', :css)
+      fill_field('#team-slug-container', 'existing-slug')
+      el.click
+      sleep 1
+      wait_for_selector('.team__primary-info')
+      expect(@driver.page_source.include?('Existing Team')).to be(true)
+    end
+
+    it "should manage related claims" do
+      api_create_team_project_and_claim_and_redirect_to_media_page
+      wait_for_selector('.create-related-media__add-button')
+      expect(@driver.page_source.include?('Child Claim')).to be(false)
+      press_button('.create-related-media__add-button')
+      sleep 3
+      fill_field('#claim-input', 'Child Claim')
+      sleep 1
+      fill_field('#source-input', 'Child Claim Source')
+      sleep 1
+      press_button('.create-related-media__dialog-submit-button')
+      sleep 5
+      expect(@driver.page_source.include?('Child Claim')).to be(true)
+      wait_for_selector('.project-header__back-button').click
+      expand = wait_for_selector('.card-with-border > div > div > div + button')
+      expect(@driver.page_source.include?('Child Claim')).to be(false)
+      expect(@driver.page_source.include?('1 related')).to be(false)
+      expand.click
+      sleep 5
+      expect(@driver.page_source.include?('Child Claim')).to be(true)
+      expect(@driver.page_source.include?('1 related')).to be(true)
+      sleep 5
     end
 
     # Postponed due Alexandre's developement

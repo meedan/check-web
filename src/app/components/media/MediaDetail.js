@@ -2,34 +2,28 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from 'react-intl';
 import { Link } from 'react-router';
-import { Card, CardHeader, CardText, CardActions } from 'material-ui/Card';
+import { Card, CardHeader } from 'material-ui/Card';
 import styled from 'styled-components';
+import MdAccessTime from 'react-icons/lib/md/access-time';
 import MdFormatQuote from 'react-icons/lib/md/format-quote';
 import FaFeed from 'react-icons/lib/fa/feed';
 import IconInsertPhoto from 'material-ui/svg-icons/editor/insert-photo';
 import rtlDetect from 'rtl-detect';
-import config from 'config'; // eslint-disable-line require-path-exists/exists
 import TimeBefore from '../TimeBefore';
 import MediaStatus from './MediaStatus';
-import QuoteMediaCard from './QuoteMediaCard';
-import MediaMetadata from './MediaMetadata';
+import MediaExpanded from './MediaExpanded';
 import MediaUtil from './MediaUtil';
-import PenderCard from '../PenderCard';
-import ImageMediaCard from './ImageMediaCard';
-import WebPageMediaCard from './WebPageMediaCard';
+import MediaRelatedComponent from './MediaRelatedComponent';
 import CheckContext from '../../CheckContext';
 import { getStatus, getStatusStyle, bemClassFromMediaStatus } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
 import {
   Row,
-  FadeIn,
   units,
   black87,
-  black54,
   black38,
   defaultBorderRadius,
   Offset,
-  caption,
   subheading1,
   Text,
 } from '../../styles/js/shared';
@@ -97,8 +91,7 @@ class MediaDetail extends Component {
     super(props);
 
     this.state = {
-      mediaVersion: false,
-      expanded: null,
+      expanded: props.initiallyExpanded,
     };
   }
 
@@ -130,11 +123,10 @@ class MediaDetail extends Component {
       intl: { locale },
     } = this.props;
     // TODO drop data variable, use media.embed directly
-    const data = media.embed;
+    const data = typeof media.embed === 'string' ? JSON.parse(media.embed) : media.embed;
     const isRtl = rtlDetect.isRtlLang(locale);
     const fromDirection = isRtl ? 'right' : 'left';
     const annotationsCount = MediaUtil.notesCount(media, data, this.props.intl);
-    const randomNumber = Math.floor(Math.random() * 1000000);
     const status = getStatus(mediaStatuses(media), mediaLastStatus(media));
     const cardHeaderStatus = (
       <MediaStatus
@@ -142,14 +134,10 @@ class MediaDetail extends Component {
         readonly={this.props.readonly || media.last_status_obj.locked}
       />
     );
-    const authorName = MediaUtil.authorName(media, data);
-    const authorUsername = MediaUtil.authorUsername(media, data);
     const sourceName = MediaUtil.sourceName(media, data);
     const createdAt = MediaUtil.createdAt(media);
     const isImage = !!media.media.embed_path;
-    const isQuote = media.media.quote && media.media.quote.length;
     const isWebPage = media.media.url && data.provider === 'page';
-    const isPender = media.media.url && data.provider !== 'page';
 
     let projectId = media.project_id;
 
@@ -157,7 +145,7 @@ class MediaDetail extends Component {
       projectId = annotated.dbid;
     }
 
-    const mediaUrl = projectId && media.team
+    const mediaUrl = projectId && media.team && media.dbid > 0
       ? `/${media.team.slug}/project/${projectId}/media/${media.dbid}`
       : null;
 
@@ -186,46 +174,10 @@ class MediaDetail extends Component {
     media.embed_path = media.media.embed_path;
     media.quoteAttributions = media.media.quoteAttributions;
 
-    const embedCard = (() => {
-      if (isImage) {
-        return <ImageMediaCard imagePath={media.embed_path} />;
-      } else if (isQuote) {
-        return (
-          <QuoteMediaCard
-            quote={media.quote}
-            languageCode={media.language_code}
-            sourceUrl={sourceUrl}
-            sourceName={sourceName}
-          />
-        );
-      } else if (isWebPage) {
-        return (
-          <WebPageMediaCard
-            media={media}
-            mediaUrl={mediaUrl}
-            data={data}
-            isRtl={isRtl}
-            authorName={authorName}
-            authorUserName={authorUsername}
-          />
-        );
-      } else if (isPender) {
-        return (
-          <PenderCard
-            url={media.url}
-            penderUrl={config.penderUrl}
-            fallback={null}
-            domId={`pender-card-${randomNumber}`}
-            mediaVersion={this.state.mediaVersion || data.refreshes_count}
-          />
-        );
-      }
-
-      return null;
-    })();
-
     const mediaIcon = (() => {
-      if (media.media.embed_path && media.media.embed_path !== '') {
+      if (media.dbid === 0) {
+        return <MdAccessTime />;
+      } else if (media.media.embed_path && media.media.embed_path !== '') {
         return <IconInsertPhoto />;
       } else if (media.quote) {
         return <MdFormatQuote />;
@@ -234,7 +186,7 @@ class MediaDetail extends Component {
     })();
 
     const title = isWebPage
-      ? MediaUtil.title(media, data, this.props.intl) || authorName || authorUsername
+      ? MediaUtil.title(media, data, this.props.intl)
       : MediaUtil.title(media, data, this.props.intl);
 
     const heading = (
@@ -257,10 +209,8 @@ class MediaDetail extends Component {
 
     const shouldShowProjectName = projectTitle && (sourcePage || !projectPage);
 
-    const shouldShowDescription = MediaUtil.hasCustomDescription(media, data);
-
     const cardHeaderText = (
-      <div>
+      <div style={{ cursor: media.dbid === 0 ? 'wait' : 'default' }}>
         {shouldDisplayHeading ?
           <StyledHeadingContainer>{heading}</StyledHeadingContainer> : null
         }
@@ -314,12 +264,12 @@ class MediaDetail extends Component {
       </div>
     );
 
+    const borderColor = this.props.borderColor || getStatusStyle(status, 'backgroundColor');
+
     return (
       <StyledMediaDetail
         className={cardClassName}
-        borderColor={
-          this.props.borderColor || getStatusStyle(status, 'backgroundColor')
-        }
+        borderColor={borderColor}
         fromDirection={fromDirection}
         hideBorder={this.props.hideBorder}
       >
@@ -328,32 +278,27 @@ class MediaDetail extends Component {
           initiallyExpanded={this.props.initiallyExpanded}
           expanded={this.state.expanded}
           onExpandChange={this.handleExpandChange}
+          style={{ borderColor }}
         >
           <StyledCardHeader
             title={cardHeaderStatus}
             subtitle={cardHeaderText}
-            showExpandableButton
+            showExpandableButton={this.props.media.dbid > 0}
             style={{ paddingRight: units(5) }}
           />
 
-          <CardText expandable>
-            <FadeIn
-              className={bemClassFromMediaStatus(
-                'media-detail__media',
-                mediaLastStatus(media),
-              )}
-            >
-              {shouldShowDescription ?
-                <Text font={caption} style={{ color: black54 }}>
-                  {this.props.media.embed.description}
-                </Text> : null}
-              {embedCard}
-            </FadeIn>
-          </CardText>
-          <CardActions expandable style={{ paddingRight: units(0.5) }}>
-            <MediaMetadata data={data} heading={title} {...this.props} />
-          </CardActions>
+          { this.state.expanded ?
+            <MediaExpanded
+              currentMedia={this.props.media}
+              title={title}
+              mediaUrl={mediaUrl}
+              isRtl={isRtl}
+              sourceName={sourceName}
+              sourceUrl={sourceUrl}
+            /> : null }
         </Card>
+        { this.state.expanded && !this.props.hideRelated ?
+          <MediaRelatedComponent media={this.props.media} /> : null }
       </StyledMediaDetail>
     );
   }

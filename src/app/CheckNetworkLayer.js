@@ -1,5 +1,26 @@
 import Relay from 'react-relay';
+import { defineMessages } from 'react-intl';
 import util from 'util';
+import config from 'config'; // eslint-disable-line require-path-exists/exists
+import { request as requestFunction } from './redux/actions';
+import { mapGlobalMessage } from './components/MappedMessage';
+
+const fetchTimeout = config.timeout || 60000;
+
+const messages = defineMessages({
+  stillWorking: {
+    id: 'network.stillWorking',
+    defaultMessage: 'Still working...',
+  },
+  offline: {
+    id: 'network.offline',
+    defaultMessage: 'Can\'t connect to {app}, please make sure you\'re connected to the internet. Trying to reconnect...',
+  },
+  noResponse: {
+    id: 'network.noResponse',
+    defaultMessage: 'Couldn\'t connect to {app}, please make sure you\'re connected to the internet',
+  },
+});
 
 function createRequestError(request, responseStatus, payload) {
   const errorReason: string = `Server response had an error status ${responseStatus} and error ${util.inspect(payload)}`;
@@ -7,6 +28,7 @@ function createRequestError(request, responseStatus, payload) {
   const error = new Error(errorReason);
   (error: any).source = payload;
   (error: any).status = responseStatus;
+  (error: any).parsed = true;
 
   return error;
 }
@@ -20,9 +42,65 @@ function throwOnServerError(request, response) {
   });
 }
 
+let pollStarted = false;
+
 /* eslint-disable no-underscore-dangle */
 
 class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
+  constructor(path, options) {
+    super(path, options);
+    this.caller = options.caller;
+    this.startPoll();
+  }
+
+  messageCallback(message) {
+    if (this.caller) {
+      this.caller.setState({ message: this.l(message) });
+    }
+  }
+
+  startPoll() {
+    if (this.caller && !pollStarted) {
+      let online = true;
+      let poll = () => {};
+
+      const failureCallback = () => {
+        if (online) {
+          this.messageCallback(messages.offline);
+          online = false;
+        }
+        poll();
+      };
+
+      const successCallback = () => {
+        if (!online) {
+          this.messageCallback(null);
+          online = true;
+        }
+        poll();
+      };
+
+      poll = () => {
+        setTimeout(() => {
+          requestFunction('get', 'ping', failureCallback, successCallback);
+        }, 5000);
+      };
+
+      poll();
+      pollStarted = true;
+    }
+  }
+
+  l(message) {
+    if (!message) {
+      return null;
+    }
+    if (this.caller) {
+      return this.caller.props.intl.formatMessage(message, { app: mapGlobalMessage(this.caller.props.intl, 'appNameHuman') });
+    }
+    return message.defaultMessage;
+  }
+
   sendQueries(requests: Array<Relay.RelayQueryRequest>): ?Promise<any> {
     return Promise.all(requests.map(request => (
       this._sendQuery(request).then((result) => {
@@ -112,7 +190,29 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
         method: 'POST',
       });
     }
-    return fetch(this._uri, init).then(response => throwOnServerError(request, response));
+
+    const timeout = setTimeout(() => {
+      this.messageCallback(messages.stillWorking);
+    }, fetchTimeout);
+
+    return fetch(this._uri, init).then((response) => {
+      this.messageCallback(null);
+      clearTimeout(timeout);
+      return throwOnServerError(request, response);
+    }).catch((error) => {
+      if (error.parsed) {
+        throw error;
+      } else {
+        clearTimeout(timeout);
+
+        let { message } = error;
+        if (error.name === 'TypeError') {
+          message = this.l(messages.noResponse);
+        }
+
+        throw createRequestError(request, 0, JSON.stringify({ error: message }));
+      }
+    });
   }
 }
 

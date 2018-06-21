@@ -74,10 +74,6 @@ const styles = {
 };
 
 class AddAnnotation extends Component {
-  static onImage(file) {
-    document.forms.addannotation.image = file;
-  }
-
   static parseCommand(input) {
     const matches = input.match(/^\/([a-z_]+) (.*)/);
     let command = { type: 'unk', args: null };
@@ -98,6 +94,10 @@ class AddAnnotation extends Component {
       isSubmitting: false,
       fileMode: false,
     };
+  }
+
+  static onImage(file) {
+    document.forms.addannotation.image = file;
   }
 
   onImageError(file, message) {

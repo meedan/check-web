@@ -6,9 +6,11 @@
   "createTeam.title": "Create a Team",
   "createTeam.teamNameHint": "Team Name",
   "createTeam.teamSlugHint": "team-slug",
+  "createTeam.requestToJoin": "request to join",
   "createTeam.mainHeading": "Create a Team",
   "createTeam.blurb": "Create a team for your organization, or just for yourself:",
   "createTeam.displayName": "Team Name",
   "createTeam.url": "Team URL",
-  "createTeam.submitButton": "Create"
+  "createTeam.submitButton": "Create",
+  "createTeam.findTeam": "You can also {action} an existing team."
 }

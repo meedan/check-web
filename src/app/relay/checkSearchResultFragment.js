@@ -15,6 +15,7 @@ const checkSearchResultFragment = Relay.QL`
           updated_at,
           embed,
           archived,
+          relationships { sources_count, targets_count },
           log_count,
           verification_statuses,
           overridden,
@@ -27,16 +28,6 @@ const checkSearchResultFragment = Relay.QL`
             id,
             dbid,
             locked
-            assigned_to {
-              id
-              dbid
-              name
-              source {
-                id
-                dbid
-                image
-              }
-            }
           }
           project {
             id,
@@ -57,21 +48,6 @@ const checkSearchResultFragment = Relay.QL`
             quote,
             embed_path,
             thumbnail_path
-          }
-          user {
-            dbid,
-            name,
-            source {
-              dbid,
-              image,
-              accounts(first: 10000) {
-                edges {
-                  node {
-                    url
-                  }
-                }
-              }
-            }
           }
           team {
             slug

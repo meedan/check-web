@@ -128,8 +128,12 @@ const MediaUtil = {
     return type ? intl.formatMessage(type) : '';
   },
 
-  hasCustomTitle(media, data) {
+  hasCustomTitle(mediaParam, data) {
     const title = data && data.title && data.title.trim();
+    const media = mediaParam;
+    if (typeof media.overridden === 'string') {
+      media.overridden = JSON.parse(media.overridden);
+    }
     return nested(['overridden', 'title'], media) || (title && media.quote && (title !== media.quote));
   },
 

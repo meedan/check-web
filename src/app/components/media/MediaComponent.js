@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { stripUnit } from 'polished';
 import PageTitle from '../PageTitle';
 import MediaDetail from './MediaDetail';
+import MediaRelated from './MediaRelated';
 import MediaUtil from './MediaUtil';
 import Annotations from '../annotations/Annotations';
 import CheckContext from '../../CheckContext';
@@ -160,7 +161,7 @@ class MediaComponent extends Component {
         >
           <StyledTwoColumnLayout>
             <ContentColumn>
-              <MediaDetail hideBorder initiallyExpanded media={media} />
+              <MediaDetail hideBorder initiallyExpanded hideRelated media={media} />
               {this.props.extras}
               <StyledTaskHeaderRow>
                 {media.tasks.edges.length ?
@@ -185,6 +186,9 @@ class MediaComponent extends Component {
               <Tasks tasks={media.tasks.edges} media={media} />
             </ContentColumn>
             <ContentColumn className="media__annotations-column">
+              <div style={{ paddingBottom: units(5) }}>
+                <MediaRelated media={media} showHeader />
+              </div>
               <Annotations
                 annotations={media.log.edges}
                 annotated={media}

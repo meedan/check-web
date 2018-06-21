@@ -28,6 +28,10 @@
     "defaultMessage": "team-slug"
   },
   {
+    "id": "createTeam.requestToJoin",
+    "defaultMessage": "request to join"
+  },
+  {
     "id": "createTeam.mainHeading",
     "defaultMessage": "Create a Team"
   },
@@ -46,5 +50,9 @@
   {
     "id": "createTeam.submitButton",
     "defaultMessage": "Create"
+  },
+  {
+    "id": "createTeam.findTeam",
+    "defaultMessage": "You can also {action} an existing team."
   }
 ]

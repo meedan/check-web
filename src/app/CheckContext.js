@@ -38,6 +38,7 @@ class CheckContext {
     const clientSessionId = context.clientSessionId || (`browser-${Date.now()}${parseInt(Math.random() * 1000000, 10)}`);
     this.setContextStore({ clientSessionId });
     Relay.injectNetworkLayer(new CheckNetworkLayer(config.relayPath, {
+      caller: this.caller,
       history,
       team: () => {
         const { team } = this.getContextStore();
@@ -128,7 +129,7 @@ class CheckContext {
 
   // When accessing Check root, redirect to a friendlier location if needed:
   // - if user was on a previous page before logging in, go to that previous page
-  // - if no team, go to `/check/teams/new`
+  // - if no team, go to `/check/teams/find`
   // - if team but no current project, go to team root
   // - if team and current project, go to project page
   maybeRedirect(location, userData) {
@@ -136,7 +137,7 @@ class CheckContext {
 
     const userCurrentTeam = userData.current_team;
     if (!userCurrentTeam) {
-      this.redirectToPreviousPageOr('/check/teams/new');
+      this.redirectToPreviousPageOr('/check/teams/find');
       return;
     }
     const project = userData.current_project || userCurrentTeam.projects[0];

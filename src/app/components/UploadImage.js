@@ -60,7 +60,7 @@ const StyledUploader = styled.div`
       position: relative;
     }
 
-    .remove-image {
+    #remove-image {
       color: ${black38};
       cursor: pointer;
       margin: 0;
@@ -126,7 +126,7 @@ class UploadImageComponent extends Component {
     if (this.state.file && this.props.noPreview) {
       return (
         <Row><span className="no-preview" />
-          <StyledIconButton className="remove-image" onClick={this.onDelete.bind(this)}>
+          <StyledIconButton id="remove-image" onClick={this.onDelete.bind(this)}>
             <MdHighlightRemove />
           </StyledIconButton>
         </Row>
@@ -134,7 +134,7 @@ class UploadImageComponent extends Component {
     } else if (this.state.file) {
       return (
         <Row><span className="preview" style={style} />
-          <StyledIconButton className="remove-image" onClick={this.onDelete.bind(this)}>
+          <StyledIconButton id="remove-image" onClick={this.onDelete.bind(this)}>
             <MdHighlightRemove />
           </StyledIconButton>
         </Row>

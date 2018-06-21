@@ -43,6 +43,14 @@ class JoinTeamComponent extends Component {
   }
 
   componentWillMount() {
+    const { team } = this.props;
+
+    if (!team) {
+      this.getContext().history.push('/check/404');
+      this.setState({ willRedirect: true });
+      return;
+    }
+
     this.redirectIfMember();
   }
 
@@ -115,6 +123,10 @@ class JoinTeamComponent extends Component {
     const appName = mapGlobalMessage(this.props.intl, 'appNameHuman');
     const { requestStatus: isRequestSent } = this.state;
     const disableRequest = isRequestSent !== '';
+
+    if (this.state.willRedirect) {
+      return null;
+    }
 
     return (
       <PageTitle

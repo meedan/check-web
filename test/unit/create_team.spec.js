@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import { expect } from 'chai';
 import { mountWithIntl } from './helpers/intl-test';
 
-import CreateTeam from '../../src/app/components/team/CreateTeam';
+import CreateTeamCard from '../../src/app/components/team/CreateTeamCard';
 
 const intlProvider = new IntlProvider({ locale: 'en', messages: {} }, {});
 const { intl } = intlProvider.getChildContext();
@@ -13,9 +13,9 @@ const { intl } = intlProvider.getChildContext();
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
-describe('<CreateTeam />', () => {
+describe('<CreateTeamCard />', () => {
   it('creates a slug that contains Unicode alphanumeric chars only', function() {
-    const createTeam = mountWithIntl(<CreateTeam />);
+    const createTeam = mountWithIntl(<CreateTeamCard />);
     const name = createTeam.find('#team-name-container');
     const slug = createTeam.find('#team-slug-container');
     expect(name).to.have.length(1);

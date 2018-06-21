@@ -48,6 +48,10 @@
     "defaultMessage": "Post"
   },
   {
+    "id": "createMedia.errorTitle",
+    "defaultMessage": "Could not submit \"{title}\""
+  },
+  {
     "id": "createMedia.imageTitle",
     "defaultMessage": "Upload a photo"
   },
