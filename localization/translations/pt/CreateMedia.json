@@ -11,6 +11,7 @@
   "createMedia.sourceUrlInput": "URL da fonte",
   "createMedia.uploadImage": "Enviar uma imagem",
   "createMedia.submitButton": "Enviar",
+  "createMedia.errorTitle": "Não foi possível enviar \"{title}\"",
   "createMedia.imageTitle": "Enviar uma imagem",
   "createMedia.sourceTitle": "Insira uma fonte",
   "createMedia.linkTitle": "Insira um link",

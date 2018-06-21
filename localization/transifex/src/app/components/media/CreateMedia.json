@@ -11,6 +11,7 @@
   "createMedia.sourceUrlInput": "Link to source",
   "createMedia.uploadImage": "Upload an image",
   "createMedia.submitButton": "Post",
+  "createMedia.errorTitle": "Could not submit \"{title}\"",
   "createMedia.imageTitle": "Upload a photo",
   "createMedia.sourceTitle": "Add a source",
   "createMedia.linkTitle": "Add a link",
