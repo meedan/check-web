@@ -1,0 +1,5 @@
+{
+  "network.stillWorking": "Still working...",
+  "network.offline": "Can't connect to {app}, please make sure you're connected to the internet. Trying to reconnect...",
+  "network.noResponse": "Couldn't connect to {app}, please make sure you're connected to the internet"
+}

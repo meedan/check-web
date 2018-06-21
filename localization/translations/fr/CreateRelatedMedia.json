@@ -1,0 +1,9 @@
+{
+  "createRelatedMedia.newClaim": "Ajouter une déclaration connexe",
+  "createRelatedMedia.cancelAdd": "Annuler",
+  "createRelatedMedia.submit": "Envoyer",
+  "createRelatedMedia.addClaim": "Ajouter une déclaration",
+  "createRelatedMedia.dialog": "Lié à \"{claim}\"",
+  "createRelatedMedia.claimText": "Texte de la déclaration",
+  "createRelatedMedia.source": "Source"
+}

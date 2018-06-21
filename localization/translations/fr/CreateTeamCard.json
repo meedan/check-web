@@ -1,14 +1,16 @@
 {
   "createTeam.slugChecking": "Vérification de la disponibilité en cours...",
-  "createTeam.slugAvailable": "Disponible!",
+  "createTeam.slugAvailable": "Disponible",
   "createTeam.slugUnavailable": "Cette URL n'est pas disponible.",
   "createTeam.createTeamError": "Désolé, il n'a pas été possible de créer l'équipe",
   "createTeam.title": "Créer une équipe",
   "createTeam.teamNameHint": "Nom de l'équipe",
-  "createTeam.teamSlugHint": "team-slug",
+  "createTeam.teamSlugHint": "en-tête de l'équipe",
+  "createTeam.requestToJoin": "demander à joindre",
   "createTeam.mainHeading": "Créer une équipe",
-  "createTeam.blurb": "Créez une équipe pour votre organisation ou simplement pour vous-même:",
+  "createTeam.blurb": "Créez une équipe pour votre organisation ou pour vous-même :",
   "createTeam.displayName": "Nom de l'équipe",
   "createTeam.url": "URL de l'équipe",
-  "createTeam.submitButton": "créer"
+  "createTeam.submitButton": "Créer",
+  "createTeam.findTeam": "Vous pouvez aussi {action} une équipe actuelle."
 }
