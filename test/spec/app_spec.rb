@@ -1302,7 +1302,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Task "Foo or bar?" created by')).to be(false)
       el = wait_for_selector('.create-task__add-button', :css)
       el.click
-      sleep 1
+      sleep 5
       el = wait_for_selector('create-task__add-choose-one', :class)
       el.click
       wait_for_selector('#task-label-input', :css)
@@ -1361,7 +1361,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Task "Foo, Doo or bar?" created by')).to be(false)
       el = wait_for_selector('.create-task__add-button', :css)
       el.click
-      sleep 1
+      sleep 5
       el = wait_for_selector('create-task__add-choose-multiple', :class)
       el.click
       wait_for_selector('#task-label-input', :css)
@@ -1637,7 +1637,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Task "Where?" created by')).to be(false)
       el = wait_for_selector('.create-task__add-button')
       el.click
-      sleep 1
+      sleep 5
       el = wait_for_selector('.create-task__add-geolocation')
       el.click
       sleep 1
@@ -1742,7 +1742,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       old = wait_for_selector_list("annotation__default-content",:class).length
       el = wait_for_selector('.create-task__add-button')
       el.click
-      sleep 1
+      sleep 5
       el = wait_for_selector('.create-task__add-datetime')
       el.click
       sleep 1

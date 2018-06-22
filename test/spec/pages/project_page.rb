@@ -15,7 +15,7 @@ class ProjectPage < Page
   end
 
   def create_media(options = {})
-    sleep 2    
+    sleep 2
     wait_for_selector("create-media-submit", :id)
     fill_input('#create-media-input', options[:input])
     press(:enter)
@@ -44,7 +44,7 @@ class ProjectPage < Page
     MediaPage.new(config: @config, driver: @driver)
   end
 
-  def edit(options)    
+  def edit(options)
     element = wait_for_selector('.project-menu', :css, 60)
     element.click
     sleep 1
@@ -64,7 +64,6 @@ class ProjectPage < Page
 
   def click_team_link
     element('.header-actions__drawer-toggle').click
-    wait_for_element('.team-header__drawer-team-link')
     element('.team-header__drawer-team-link').click
     TeamPage.new(config: @config, driver: @driver)
   end
