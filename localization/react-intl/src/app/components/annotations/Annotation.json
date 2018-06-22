@@ -40,6 +40,10 @@
     "defaultMessage": "Related {type} \"{title}\" added by {author}"
   },
   {
+    "id": "annotation.relationshipDeleted",
+    "defaultMessage": "Related {type} \"{title}\" deleted by {author}"
+  },
+  {
     "id": "annotation.statusLocked",
     "defaultMessage": "Status locked by {author}"
   },

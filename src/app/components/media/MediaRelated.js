@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
@@ -7,6 +8,7 @@ import MediaRoute from '../../relay/MediaRoute';
 import mediaFragment from '../../relay/mediaFragment';
 import MediaDetail from './MediaDetail';
 import MediasLoading from './MediasLoading';
+import CheckContext from '../../CheckContext';
 import { getFilters } from '../../helpers';
 import {
   FlexRow,
@@ -39,6 +41,40 @@ class MediaRelatedComponent extends Component {
     super(props);
 
     this.state = {};
+  }
+
+  componentDidMount() {
+    this.subscribe();
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
+  getContext() {
+    return new CheckContext(this).getContextStore();
+  }
+
+  subscribe() {
+    const { pusher } = this.getContext();
+    if (pusher) {
+      pusher.subscribe(this.props.media.pusher_channel).bind('relationship_change', (data) => {
+        const relationship = JSON.parse(data.message);
+        if (
+          (this.getContext().clientSessionId !== data.actor_session_id) &&
+          (relationship.source_id === this.props.media.dbid)
+        ) {
+          this.props.relay.forceFetch();
+        }
+      });
+    }
+  }
+
+  unsubscribe() {
+    const { pusher } = this.getContext();
+    if (pusher) {
+      pusher.unsubscribe(this.props.media.pusher_channel);
+    }
   }
 
   render() {
@@ -114,6 +150,10 @@ class MediaRelatedComponent extends Component {
   }
 }
 
+MediaRelatedComponent.contextTypes = {
+  store: PropTypes.object,
+};
+
 const MediaRelatedContainer = Relay.createContainer(MediaRelatedComponent, {
   initialVariables: {
     contextId: null,
@@ -126,6 +166,7 @@ const MediaRelatedContainer = Relay.createContainer(MediaRelatedComponent, {
         dbid
         archived
         permissions
+        pusher_channel
         media {
           quote
         }

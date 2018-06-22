@@ -470,6 +470,26 @@ class Annotation extends Component {
       }
       break;
     }
+    case 'destroy_relationship': {
+      const meta = JSON.parse(activity.meta);
+      if (meta) {
+        const { target } = meta;
+        contentTemplate = (
+          <span>
+            <FormattedMessage
+              id="annotation.relationshipDeleted"
+              defaultMessage='Related {type} "{title}" deleted by {author}'
+              values={{
+                type: meta.target.type,
+                title: target.title,
+                author: authorName,
+              }}
+            />
+          </span>
+        );
+      }
+      break;
+    }
     case 'create_dynamic':
     case 'update_dynamic':
       if (object.annotation_type === 'verification_status' || object.annotation_type === 'translation_status') {
