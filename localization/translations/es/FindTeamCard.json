@@ -1,10 +1,9 @@
 {
   "findTeamCard.teamSlugHint": "slug del equipo",
   "findTeamCard.teamNotFound": "Equipo no encontrado ",
-  "findTeamCard.createYourOwn": "Crea un equipo",
   "findTeamCard.mainHeading": "Buscar un equipo existente",
   "findTeamCard.blurb": "Solicite unirse a un equipo existente agregando su nombre aquí, o comience creando el suyo.",
   "findTeamCard.url": "URL del equipo",
   "findTeamCard.submitButton": "Buscar equipo",
-  "findTeamCard.createTeam": "También puedes {action}."
+  "findTeamCard.createYourOwn": "También puedes crear tu propio equipo."
 }

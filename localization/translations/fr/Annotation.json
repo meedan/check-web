@@ -9,6 +9,7 @@
   "annotation.deletedComment": "Commentaire effacé par {author} : {comment}",
   "annotation.taskCreated": "Tâche \"{task}\" ajoutée par {author}",
   "annotation.relationshipCreated": "Nouveau·elle {type} connexe \"{title}\" ajouté·e par {author}",
+  "annotation.relationshipDeleted": "{type} connexe \"{title}\" effacé·e par {author}",
   "annotation.statusLocked": "Statut verouillé par {author}",
   "annotation.statusUnlocked": "Statut déverouillé par {author}",
   "annotation.mediaAssigned": "Affecté(e) à {name} par {author}",

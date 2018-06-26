@@ -6,11 +6,10 @@
   "createTeam.title": "أضف فريقاً",
   "createTeam.teamNameHint": "اسم الفريق",
   "createTeam.teamSlugHint": "مسار الفريق",
-  "createTeam.requestToJoin": "اطلب الانضمام",
   "createTeam.mainHeading": "أضف فريقاً",
   "createTeam.blurb": "أضف فريقاً لمؤسستك أو لك شخصياً :",
   "createTeam.displayName": "اسم الفريق",
   "createTeam.url": "رابط الفريق",
   "createTeam.submitButton": "أضف",
-  "createTeam.findTeam": "يمكنك أيضاً {action} فريقاً حالياً."
+  "createTeam.requestToJoin": "يمكنك أيضاً الانضمام الى فريق حالي."
 }
