@@ -132,7 +132,7 @@ class TagPickerComponent extends React.Component {
           }
           {checkedUsedTags.concat(uncheckedUsedTags).map((tag, index) => (
             <FormControlLabel
-              key={`team-tag-checked-${index.toString()}`}
+              key={`team-used-tag-${index.toString()}`}
               control={
                 <CheckboxNext
                   checked={plainMediaTags.includes(tag)}
