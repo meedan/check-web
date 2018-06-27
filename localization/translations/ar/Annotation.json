@@ -9,6 +9,7 @@
   "annotation.deletedComment": "تم حذف التعليق بواسطة {author}: {comment}",
   "annotation.taskCreated": "أُضيفت المهمة \"{task}\"  بواسطة {author}",
   "annotation.relationshipCreated": "{type} ذو صلة \"{title}\" أُضيف بواسطة {author}",
+  "annotation.relationshipDeleted": "{type} ذو صلة \"{title}\" حُذف بواسطة {author}",
   "annotation.statusLocked": "تم تأمين الحالة بواسطة {author}",
   "annotation.statusUnlocked": "تم إلغاء تأمين الحالة بواسطة {author}",
   "annotation.mediaAssigned": "تم تكليف الميديا إلى {name} بواسطة {author}",

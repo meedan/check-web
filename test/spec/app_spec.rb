@@ -1240,6 +1240,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el = wait_for_selector('.create-task__add-button', :css)
       el.click
       el = wait_for_selector('.create-task__add-short-answer', :css)
+      el.location_once_scrolled_into_view
       el.click
       wait_for_selector('#task-label-input', :css)
       fill_field('#task-label-input', 'Foo or bar?')
@@ -1288,6 +1289,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       fill_field('textarea[name="response"]', ' edited')
       @driver.find_element(:css, '.task__save').click
       media_pg.wait_all_elements(9, 'annotations__list-item', :class)
+      sleep 5
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo or bar???" answered by User With Email: "Foo edited"')).to be(true)
 
       # Delete task
@@ -1304,6 +1306,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       sleep 5
       el = wait_for_selector('create-task__add-choose-one', :class)
+      el.location_once_scrolled_into_view
       el.click
       wait_for_selector('#task-label-input', :css)
       fill_field('#task-label-input', 'Foo or bar?')
@@ -1363,6 +1366,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       sleep 5
       el = wait_for_selector('create-task__add-choose-multiple', :class)
+      el.location_once_scrolled_into_view
       el.click
       wait_for_selector('#task-label-input', :css)
       fill_field('#task-label-input', 'Foo, Doo or bar?')
