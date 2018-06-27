@@ -81,29 +81,21 @@ class TagPickerComponent extends React.Component {
   render() {
     const { media, tags, value } = this.props;
 
+    const plainMediaTags = tags.map(tag => tag.node.tag);
+
     const suggestedTags = media.team && media.team.get_suggested_tags
       ? media.team.get_suggested_tags.split(',').filter(tag => tag.includes(value))
       : [];
 
-    const nonRepeatedUsedTags = media.team.used_tags
-      .filter(tag => !suggestedTags.includes(tag) && tag.includes(value));
-    // const nonRepeatedUsedTags =
-    //   difference(media.team.used_tags, suggestedTags).filter(tag => tag.includes(value));
+    const nonRepeatedUsedTags =
+      difference(media.team.used_tags, suggestedTags).filter(tag => tag.includes(value));
 
-    const plainMediaTags = tags.map(tag => tag.node.tag);
+    const checkedSuggestedTags = intersection(suggestedTags, plainMediaTags);
+    const uncheckedSuggestedTags = difference(suggestedTags, plainMediaTags);
 
-    const checkedSuggestedTags = suggestedTags.filter(tag => plainMediaTags.includes(tag));
-    // const checkedSuggestedTags = intersection(suggestedTags, plainMediaTags);
-    const uncheckedSuggestedTags = suggestedTags.filter(tag => !plainMediaTags.includes(tag));
-    // const uncheckedSuggestedTags = difference(suggestedTags, plainMediaTags);
-
-
-    const checkedUsedTags = nonRepeatedUsedTags.filter(tag => plainMediaTags.includes(tag));
-    // const checkedUsedTags = intersection(nonRepeatedUsedTags, plainMediaTags);
-    // const checkedUsedTags =
-    //   difference(plainMediaTags, suggestedTags).filter(tag => tag.includes(value));
-    const uncheckedUsedTags = nonRepeatedUsedTags.filter(tag => !plainMediaTags.includes(tag));
-    // const uncheckedUsedTags = difference(nonRepeatedUsedTags, plainMediaTags);
+    const checkedUsedTags =
+      difference(plainMediaTags, suggestedTags).filter(tag => tag.includes(value));
+    const uncheckedUsedTags = difference(nonRepeatedUsedTags, plainMediaTags);
 
     return (
       <StyledTagPickerArea>
