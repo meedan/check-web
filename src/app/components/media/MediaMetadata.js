@@ -22,6 +22,7 @@ import CreateTagMutation from '../../relay/mutations/CreateTagMutation';
 import UpdateStatusMutation from '../../relay/mutations/UpdateStatusMutation';
 import CheckContext from '../../CheckContext';
 import Message from '../Message';
+import TagMenu from '../tag/TagMenu';
 import Attribution from '../task/Attribution';
 import UserAvatar from '../UserAvatar';
 import ProfileLink from '../layout/ProfileLink';
@@ -59,6 +60,12 @@ const StyledMetadata = styled.div`
   .media-detail__dialog-radio-group {
     margin-top: ${units(4)};
     margin-${props => props.fromDirection}: ${units(4)};
+  }
+
+  .media-detail__buttons {
+    display: flex;
+    alignItems: center;
+    margin-${props => props.fromDirection}: auto;
   }
 `;
 
@@ -749,6 +756,14 @@ class MediaMetadata extends Component {
           </Text>
         </Row>
         <Row>
+          {media.tags ?
+            <MediaTags
+              media={media}
+              tags={media.tags.edges}
+              isEditing={false}
+            /> : null}
+        </Row>
+        <Row>
           {byUser ?
             <span className="media-detail__check-added-by" style={{ display: 'flex' }}>
               <UserAvatar
@@ -765,29 +780,26 @@ class MediaMetadata extends Component {
               </span>
             </span>
             : null}
-          {media.tags ?
-            <MediaTags
-              media={media}
-              tags={media.tags.edges}
-              isEditing={false}
-            />
-            : null}
 
-          {this.props.readonly || this.state.isEditing ?
-            null :
-            <MediaActions
-              media={media}
-              handleEdit={this.handleEdit.bind(this)}
-              handleMove={this.handleMove.bind(this)}
-              handleRefresh={this.handleRefresh.bind(this)}
-              handleSendToTrash={this.handleSendToTrash.bind(this)}
-              handleRestore={this.handleRestore.bind(this)}
-              handleDeleteForever={this.handleDeleteForever.bind(this)}
-              handleAssign={this.handleAssign.bind(this)}
-              handleStatusLock={this.handleStatusLock.bind(this)}
-              style={{ display: 'flex' }}
-              locale={locale}
-            />}
+          <div className="media-detail__buttons">
+            <TagMenu media={media} />
+
+            {this.props.readonly || this.state.isEditing ?
+              null :
+              <MediaActions
+                media={media}
+                handleEdit={this.handleEdit.bind(this)}
+                handleMove={this.handleMove.bind(this)}
+                handleRefresh={this.handleRefresh.bind(this)}
+                handleSendToTrash={this.handleSendToTrash.bind(this)}
+                handleRestore={this.handleRestore.bind(this)}
+                handleDeleteForever={this.handleDeleteForever.bind(this)}
+                handleAssign={this.handleAssign.bind(this)}
+                handleStatusLock={this.handleStatusLock.bind(this)}
+                style={{ display: 'flex' }}
+                locale={locale}
+              />}
+          </div>
         </Row>
         {assignment && !this.isStatusFinal(media.last_status) ?
           <Row>

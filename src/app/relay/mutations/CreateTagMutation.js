@@ -26,6 +26,9 @@ class CreateTagMutation extends Relay.Mutation {
   }
 
   getOptimisticResponse() {
+    console.log('getOptimisticResponse - this.props.id');
+    console.log(this.props.id);
+
     const tag = {
       id: this.props.id,
       updated_at: new Date().toString(),
@@ -67,4 +70,43 @@ class CreateTagMutation extends Relay.Mutation {
   }
 }
 
+const createTag = (obj, onSuccess, onFailure) => {
+  const {
+    media, source, annotator, value,
+  } = obj;
+
+  const annotated = media || source;
+  let parent_type = '';
+  let annotated_type = '';
+
+  if (media) {
+    parent_type = 'project_media';
+    annotated_type = 'ProjectMedia';
+  }
+
+  if (source) {
+    parent_type = 'project_source';
+    annotated_type = 'ProjectSource';
+  }
+
+  const tagsList = [...new Set(value.split(','))];
+
+  tagsList.forEach((tag) => {
+    Relay.Store.commitUpdate(
+      new CreateTagMutation({
+        annotated,
+        annotator,
+        parent_type,
+        annotation: {
+          tag,
+          annotated_type,
+          annotated_id: annotated.dbid,
+        },
+      }),
+      { onSuccess, onFailure },
+    );
+  });
+};
+
 export default CreateTagMutation;
+export { createTag };
