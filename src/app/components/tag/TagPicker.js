@@ -97,32 +97,22 @@ class TagPickerComponent extends React.Component {
       difference(plainMediaTags, suggestedTags).filter(tag => tag.includes(value));
     const uncheckedUsedTags = difference(nonRepeatedUsedTags, plainMediaTags);
 
+    const shownSuggestedCount = checkedSuggestedTags.length + uncheckedSuggestedTags.length;
+    const shownUsedCount = checkedUsedTags.length + uncheckedUsedTags.length;
+
     return (
       <StyledTagPickerArea>
         <FormGroup>
           {
-            checkedSuggestedTags.length || uncheckedSuggestedTags.length ?
+            shownSuggestedCount > 0 ?
               <StyledHeading>
                 <FormattedMessage id="tagPicker.teamTags" defaultMessage="Team tags" />
               </StyledHeading>
               : null
           }
-          {checkedSuggestedTags.map((tag, index) => (
+          {checkedSuggestedTags.concat(uncheckedSuggestedTags).map((tag, index) => (
             <FormControlLabel
-              key={`team-suggested-tag-checked-${index.toString()}`}
-              control={
-                <CheckboxNext
-                  checked={plainMediaTags.includes(tag)}
-                  onChange={this.handleSelectCheckbox}
-                  id={tag}
-                />
-              }
-              label={tag}
-            />
-          ))}
-          {uncheckedSuggestedTags.map((tag, index) => (
-            <FormControlLabel
-              key={`team-suggested-tag-unchecked-${index.toString()}`}
+              key={`team-suggested-tag-${index.toString()}`}
               control={
                 <CheckboxNext
                   checked={plainMediaTags.includes(tag)}
@@ -134,13 +124,13 @@ class TagPickerComponent extends React.Component {
             />
           ))}
           {
-            checkedUsedTags.length || uncheckedUsedTags.length ?
+            shownUsedCount > 0 ?
               <StyledHeading>
                 <FormattedMessage id="tagPicker.teamOtherTags" defaultMessage="Other tags" />
               </StyledHeading>
               : null
           }
-          {checkedUsedTags.map((tag, index) => (
+          {checkedUsedTags.concat(uncheckedUsedTags).map((tag, index) => (
             <FormControlLabel
               key={`team-tag-checked-${index.toString()}`}
               control={
@@ -153,22 +143,9 @@ class TagPickerComponent extends React.Component {
               label={tag}
             />
           ))}
-          {uncheckedUsedTags.map((tag, index) => (
-            <FormControlLabel
-              key={`team-tag-unchecked-${index.toString()}`}
-              control={
-                <CheckboxNext
-                  checked={plainMediaTags.includes(tag)}
-                  onChange={this.handleSelectCheckbox}
-                  id={tag}
-                />
-              }
-              label={tag}
-            />
-          ))}
         </FormGroup>
-        { checkedSuggestedTags.length || uncheckedSuggestedTags.length ||
-          checkedUsedTags.length || uncheckedUsedTags.length ? null :
+        { shownSuggestedCount + shownUsedCount > 0 ?
+          null :
           <StyledNotFound>
             <FormattedMessage
               id="tagPicker.tagNotFound"

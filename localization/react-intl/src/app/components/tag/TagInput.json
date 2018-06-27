@@ -1,0 +1,14 @@
+[
+  {
+    "id": "tagInput.error",
+    "defaultMessage": "Sorry – we had trouble adding that tag."
+  },
+  {
+    "id": "tagInput.search",
+    "defaultMessage": "Search or add new tag"
+  },
+  {
+    "id": "tagInput.addTag",
+    "defaultMessage": "Add Tag"
+  }
+]
