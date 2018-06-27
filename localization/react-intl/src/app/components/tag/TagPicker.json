@@ -1,14 +1,18 @@
 [
   {
+    "id": "tagPicker.emptyTags",
+    "defaultMessage": "You currently have no tags added"
+  },
+  {
+    "id": "tagPicker.tagNotFound",
+    "defaultMessage": "Tag \"{tag}\" not found"
+  },
+  {
     "id": "tagPicker.teamTags",
     "defaultMessage": "Team tags"
   },
   {
     "id": "tagPicker.teamOtherTags",
     "defaultMessage": "Other tags"
-  },
-  {
-    "id": "tagPicker.tagNotFound",
-    "defaultMessage": "Tag \"{tag}\" not found"
   }
 ]

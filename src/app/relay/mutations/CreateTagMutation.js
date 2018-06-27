@@ -26,9 +26,6 @@ class CreateTagMutation extends Relay.Mutation {
   }
 
   getOptimisticResponse() {
-    console.log('getOptimisticResponse - this.props.id');
-    console.log(this.props.id);
-
     const tag = {
       id: this.props.id,
       updated_at: new Date().toString(),
