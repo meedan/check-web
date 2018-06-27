@@ -7,7 +7,6 @@ import {
   headline,
   black38,
   black54,
-  black87,
   caption,
   boxShadow,
   subheading1,
@@ -24,33 +23,6 @@ import {
 // @chris 2017-10-17
 
 const sourceProfileOffset = units(24);
-const sourceProfileFabWidth = units(5);
-
-// Ideally this would be a FAB component,
-// but MUI FAB doesn't have a tooltip
-// so we're doing our own using iconButton
-export const StyledEditButtonWrapper = styled.div`
-  [class*='edit-button'] {
-    box-shadow: ${boxShadow(2)};
-    background-color: white !important;
-    border-radius: 50% !important;
-    bottom: ${((-1 * stripUnit(sourceProfileFabWidth)) / 2)}px !important;
-    position: absolute !important;
-    ${props => (props.isRtl ? 'left' : 'right')}: 16% !important;
-
-    &:hover {
-      box-shadow: ${boxShadow(4)};
-
-      svg {
-        fill: ${black87} !important;
-      }
-    }
-    svg {
-      fill: ${black54} !important;
-      font-size: 20px;
-    }
-  }
-`;
 
 export const StyledButtonGroup = styled.div`
   margin: ${units(6)} auto;
