@@ -4,12 +4,13 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
-import IconLocalOffer from 'material-ui/svg-icons/maps/local-offer';
+// import IconLocalOffer from 'material-ui/svg-icons/maps/local-offer';
 import styled from 'styled-components';
 import TagInput from './TagInput';
 import TagPicker from './TagPicker';
 import { can } from '../Can';
 import { units } from '../../styles/js/shared';
+import TagOutline from '../../../assets/images/tag/tag-outline';
 
 const StyledActions = styled.div`
   padding: ${units(2)};
@@ -50,7 +51,7 @@ class TagMenu extends Component {
         onRequestChange={open => this.setState({ menuOpen: open })}
         iconButtonElement={
           <IconButton>
-            <IconLocalOffer />
+            <TagOutline />
           </IconButton>
         }
       >
