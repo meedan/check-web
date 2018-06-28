@@ -1,0 +1,6 @@
+{
+  "tagPicker.emptyTags": "Il n'y a aucun tag disponible",
+  "tagPicker.tagNotFound": "Tag \"{tag}\" introuvable",
+  "tagPicker.teamTags": "Tags de l'équipe",
+  "tagPicker.teamOtherTags": "Autres tags"
+}

@@ -1,0 +1,6 @@
+{
+  "tagPicker.emptyTags": "No hay etiquetas",
+  "tagPicker.tagNotFound": "Etiqueta \"{tag}\" no encontrada",
+  "tagPicker.teamTags": "Etiquetas del equipo",
+  "tagPicker.teamOtherTags": "Otras etiquetas"
+}
