@@ -37,7 +37,7 @@ class TagMenuComponent extends Component {
   };
 
   handleCloseMenu = () => {
-    this.setState({ menuOpen: false });
+    this.setState({ menuOpen: false, value: '' });
   };
 
   render() {
