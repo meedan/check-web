@@ -7,18 +7,27 @@ import styled from 'styled-components';
 import difference from 'lodash.difference';
 import intersection from 'lodash.intersection';
 import CheckContext from '../../CheckContext';
-import { black54, caption, units, opaqueBlack02, opaqueBlack05 } from '../../styles/js/shared';
+import { black54, black87, caption, units, opaqueBlack02, opaqueBlack05 } from '../../styles/js/shared';
 import { createTag } from '../../relay/mutations/CreateTagMutation';
 import { deleteTag } from '../../relay/mutations/DeleteTagMutation';
 
-const StyledHeading = styled.div`
-  color: ${black54};
+const StyledHeadingFirst = styled.div`
+  color: ${black87};
   font: ${caption};
+`;
+
+const StyledHeading = styled(StyledHeadingFirst)`
+  padding-top: ${units(3)};
+`;
+
+const StyledNone = styled.div`
+  color: ${black54};
+  padding-top: ${units(1)};
 `;
 
 const StyledNotFound = styled.div`
   color: ${black54};
-  padding-top: ${units(15)};
+  padding-top: ${units(14)};
   display: flex;
   justify-content: center;
 `;
@@ -76,16 +85,12 @@ class TagPicker extends React.Component {
   }
 
   renderNotFound(shownTagsCount, totalTagsCount) {
-    if (shownTagsCount > 0) {
-      return null;
-    }
-
     if (totalTagsCount === 0) {
       return (
         <StyledNotFound>
           <FormattedMessage
             id="tagPicker.emptyTags"
-            defaultMessage="You currently have no tags added"
+            defaultMessage="There are currently no tags for this team."
           />
         </StyledNotFound>
       );
@@ -95,7 +100,7 @@ class TagPicker extends React.Component {
       <StyledNotFound>
         <FormattedMessage
           id="tagPicker.tagNotFound"
-          defaultMessage='Tag "{tag}" not found'
+          defaultMessage="Tag #{tag} not found."
           values={{ tag: this.props.value }}
         />
       </StyledNotFound>
@@ -130,51 +135,64 @@ class TagPicker extends React.Component {
     const shownTagsCount = shownSuggestedCount + shownUsedCount;
     const totalTagsCount = suggestedTags.length + tags.length + media.team.used_tags.length;
 
-    return (
+    return (shownTagsCount === 0 ?
+      <StyledTagPickerArea>
+        { this.renderNotFound(shownTagsCount, totalTagsCount) }
+      </StyledTagPickerArea>
+      :
       <StyledTagPickerArea>
         <FormGroup>
-          {
-            shownSuggestedCount > 0 ?
-              <StyledHeading>
-                <FormattedMessage id="tagPicker.teamTags" defaultMessage="Team tags" />
-              </StyledHeading>
-              : null
-          }
-          {checkedSuggestedTags.concat(uncheckedSuggestedTags).map((tag, index) => (
-            <FormControlLabel
-              key={`team-suggested-tag-${index.toString()}`}
-              control={
-                <CheckboxNext
-                  checked={plainMediaTags.includes(tag)}
-                  onChange={this.handleSelectCheckbox}
-                  id={tag}
-                />
-              }
-              label={tag}
+          <StyledHeadingFirst>
+            <FormattedMessage
+              id="tagPicker.teamTags"
+              defaultMessage="{team} team tags"
+              values={{ team: media.team.name }}
             />
-          ))}
+          </StyledHeadingFirst>
           {
-            shownUsedCount > 0 ?
-              <StyledHeading>
-                <FormattedMessage id="tagPicker.teamOtherTags" defaultMessage="Other tags" />
-              </StyledHeading>
-              : null
-          }
-          {checkedUsedTags.concat(uncheckedUsedTags).map((tag, index) => (
-            <FormControlLabel
-              key={`team-used-tag-${index.toString()}`}
-              control={
-                <CheckboxNext
-                  checked={plainMediaTags.includes(tag)}
-                  onChange={this.handleSelectCheckbox}
-                  id={tag}
+            shownSuggestedCount === 0 ?
+              <StyledNone>
+                <FormattedMessage id="tagPicker.none" defaultMessage="None" />
+              </StyledNone>
+              :
+              checkedSuggestedTags.concat(uncheckedSuggestedTags).map((tag, index) => (
+                <FormControlLabel
+                  key={`team-suggested-tag-${index.toString()}`}
+                  control={
+                    <CheckboxNext
+                      checked={plainMediaTags.includes(tag)}
+                      onChange={this.handleSelectCheckbox}
+                      id={tag}
+                    />
+                  }
+                  label={tag}
                 />
-              }
-              label={tag}
-            />
-          ))}
+              ))
+          }
+          <StyledHeading>
+            <FormattedMessage id="tagPicker.teamOtherTags" defaultMessage="Custom tags" />
+          </StyledHeading>
+          {
+            shownUsedCount === 0 ?
+              <StyledNone>
+                <FormattedMessage id="tagPicker.none" defaultMessage="None" />
+              </StyledNone>
+              :
+              checkedUsedTags.concat(uncheckedUsedTags).map((tag, index) => (
+                <FormControlLabel
+                  key={`team-used-tag-${index.toString()}`}
+                  control={
+                    <CheckboxNext
+                      checked={plainMediaTags.includes(tag)}
+                      onChange={this.handleSelectCheckbox}
+                      id={tag}
+                    />
+                  }
+                  label={tag}
+                />
+              ))
+          }
         </FormGroup>
-        { this.renderNotFound(shownTagsCount, totalTagsCount) }
       </StyledTagPickerArea>
     );
   }

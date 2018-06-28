@@ -95,6 +95,7 @@ const TagMenuContainer = Relay.createContainer(TagMenuComponent, {
           }
         }
         team {
+          name
           used_tags
           get_suggested_tags
         }

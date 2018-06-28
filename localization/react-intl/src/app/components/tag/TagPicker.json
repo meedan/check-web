@@ -1,18 +1,22 @@
 [
   {
     "id": "tagPicker.emptyTags",
-    "defaultMessage": "You currently have no tags added"
+    "defaultMessage": "There are currently no tags for this team."
   },
   {
     "id": "tagPicker.tagNotFound",
-    "defaultMessage": "Tag \"{tag}\" not found"
+    "defaultMessage": "Tag #{tag} not found."
   },
   {
     "id": "tagPicker.teamTags",
-    "defaultMessage": "Team tags"
+    "defaultMessage": "{team} team tags"
+  },
+  {
+    "id": "tagPicker.none",
+    "defaultMessage": "None"
   },
   {
     "id": "tagPicker.teamOtherTags",
-    "defaultMessage": "Other tags"
+    "defaultMessage": "Custom tags"
   }
 ]
