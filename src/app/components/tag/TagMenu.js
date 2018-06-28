@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import Relay from 'react-relay';
 import { FormattedMessage, injectIntl } from 'react-intl';
+import isEqual from 'lodash.isequal';
 import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
@@ -11,6 +12,8 @@ import TagPicker from './TagPicker';
 import { can } from '../Can';
 import { units } from '../../styles/js/shared';
 import TagOutline from '../../../assets/images/tag/tag-outline';
+import MediaRoute from '../../relay/MediaRoute';
+import RelayContainer from '../../relay/RelayContainer';
 
 const StyledActions = styled.div`
   padding: ${units(2)};
@@ -19,7 +22,7 @@ const StyledActions = styled.div`
   display: flex;
 `;
 
-class TagMenu extends Component {
+class TagMenuComponent extends Component {
   constructor(props) {
     super(props);
 
@@ -77,8 +80,53 @@ class TagMenu extends Component {
   }
 }
 
-TagMenu.contextTypes = {
-  store: PropTypes.object,
-};
+const TagMenuContainer = Relay.createContainer(TagMenuComponent, {
+  fragments: {
+    media: () => Relay.QL`
+      fragment on ProjectMedia {
+        id
+        dbid
+        tags(first: 10000) {
+          edges {
+            node {
+              tag,
+              id
+            }
+          }
+        }
+        team {
+          used_tags
+          get_suggested_tags
+        }
+        permissions
+      }
+    `,
+  },
+});
+
+// eslint-disable-next-line react/no-multi-comp
+class TagMenu extends React.Component {
+  // eslint-disable-next-line class-methods-use-this
+  shouldComponentUpdate(nextProps, nextState) {
+    if (isEqual(this.props.tags, nextProps.tags) && isEqual(this.state, nextState)) {
+      return false;
+    }
+    return true;
+  }
+
+  render() {
+    const ids = `${this.props.media.dbid},${this.props.media.project_id}`;
+    const route = new MediaRoute({ ids });
+
+    return (
+      <RelayContainer
+        Component={TagMenuContainer}
+        route={route}
+        renderFetched={data => <TagMenuContainer {...this.props} {...data} />}
+        forceFetch
+      />
+    );
+  }
+}
 
 export default injectIntl(TagMenu);

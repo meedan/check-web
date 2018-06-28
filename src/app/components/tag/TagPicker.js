@@ -1,8 +1,6 @@
 import React from 'react';
-import Relay from 'react-relay';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import isEqual from 'lodash.isequal';
 import { FormGroup, FormControlLabel } from 'material-ui-next/Form';
 import CheckboxNext from 'material-ui-next/Checkbox';
 import styled from 'styled-components';
@@ -10,10 +8,8 @@ import difference from 'lodash.difference';
 import intersection from 'lodash.intersection';
 import CheckContext from '../../CheckContext';
 import { black54, caption, units, opaqueBlack02, opaqueBlack05 } from '../../styles/js/shared';
-import RelayContainer from '../../relay/RelayContainer';
 import { createTag } from '../../relay/mutations/CreateTagMutation';
 import { deleteTag } from '../../relay/mutations/DeleteTagMutation';
-import MediaRoute from '../../relay/MediaRoute';
 
 const StyledHeading = styled.div`
   color: ${black54};
@@ -35,7 +31,7 @@ const StyledTagPickerArea = styled.div`
   background-color: ${opaqueBlack02};
 `;
 
-class TagPickerComponent extends React.Component {
+class TagPicker extends React.Component {
   handleCreateTag(value) {
     const { media } = this.props;
 
@@ -184,56 +180,8 @@ class TagPickerComponent extends React.Component {
   }
 }
 
-TagPickerComponent.contextTypes = {
+TagPicker.contextTypes = {
   store: PropTypes.object,
 };
-
-const TagPickerContainer = Relay.createContainer(TagPickerComponent, {
-  fragments: {
-    media: () => Relay.QL`
-      fragment on ProjectMedia {
-        id
-        dbid
-        tags(first: 10000) {
-          edges {
-            node {
-              tag,
-              id
-            }
-          }
-        }
-        team {
-          used_tags
-          get_suggested_tags
-        }
-      }
-    `,
-  },
-});
-
-// eslint-disable-next-line react/no-multi-comp
-class TagPicker extends React.Component {
-  // eslint-disable-next-line class-methods-use-this
-  shouldComponentUpdate(nextProps, nextState) {
-    if (isEqual(this.props, nextProps) && isEqual(this.state, nextState)) {
-      return false;
-    }
-    return true;
-  }
-
-  render() {
-    const ids = `${this.props.media.dbid},${this.props.media.project_id}`;
-    const route = new MediaRoute({ ids });
-
-    return (
-      <RelayContainer
-        Component={TagPickerContainer}
-        route={route}
-        renderFetched={data => <TagPickerContainer {...this.props} {...data} />}
-        forceFetch
-      />
-    );
-  }
-}
 
 export default TagPicker;
