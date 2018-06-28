@@ -26,6 +26,16 @@ class TagInput extends React.Component {
     };
   }
 
+  handleKeyPress(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      if (!this.state.submitDisabled) {
+        this.setState({ submitDisabled: true });
+        this.handleSubmit();
+      }
+      e.preventDefault();
+    }
+  }
+
   handleChange(e) {
     const submitDisabled = !e.target.value.length;
     const { value } = e.target;
@@ -77,6 +87,7 @@ class TagInput extends React.Component {
             value={this.state.value}
             errorText={this.state.message}
             onChange={this.handleChange.bind(this)}
+            onKeyPress={this.handleKeyPress.bind(this)}
             hintText={
               <FormattedMessage
                 id="tagInput.search"
