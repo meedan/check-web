@@ -40,6 +40,14 @@ class TagMenuComponent extends Component {
     this.setState({ menuOpen: false, value: '' });
   };
 
+  handlePopup = (open) => {
+    if (open) {
+      this.props.relay.forceFetch();
+    }
+
+    this.setState({ menuOpen: open });
+  };
+
   render() {
     const { media } = this.props;
 
@@ -52,7 +60,7 @@ class TagMenuComponent extends Component {
         className="tag-menu__icon"
         onClick={this.handleOpenMenu}
         open={this.state.menuOpen}
-        onRequestChange={open => this.setState({ menuOpen: open })}
+        onRequestChange={this.handlePopup}
         iconButtonElement={
           <IconButton>
             <TagOutline />
