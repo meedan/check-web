@@ -494,6 +494,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       element.click
       element = wait_for_selector('source__edit-save-button',:class)
       element.click
+      sleep 1
       wait_for_selector( 'media-tags',:class)
       expect(@driver.page_source.include?('AC/DC Official Website')).to be(false)
     end
