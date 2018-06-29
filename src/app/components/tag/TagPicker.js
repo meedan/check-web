@@ -112,8 +112,7 @@ class TagPicker extends React.Component {
 
     const compareString = (tag, val) => tag.toLowerCase().includes(val.toLowerCase());
 
-    // eslint-disable-next-line no-underscore-dangle
-    const plainMediaTags = tags.filter(tag => !tag.__mutationStatus__).map(tag => tag.node.tag);
+    const plainMediaTags = tags.map(tag => tag.node.tag).filter((v, i, a) => a.indexOf(v) === i);
 
     const suggestedTags = media.team && media.team.get_suggested_tags
       ? media.team.get_suggested_tags.split(',').filter(tag => compareString(tag, value))

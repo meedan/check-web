@@ -28,6 +28,10 @@ class DeleteTagMutation extends Relay.Mutation {
     }
   }
 
+  getOptimisticResponse() {
+    return { deletedId: this.props.id };
+  }
+
   getConfigs() {
     const fieldIds = {};
     fieldIds[this.props.parent_type] = this.props.annotated.id;
