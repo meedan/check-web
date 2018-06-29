@@ -37,7 +37,7 @@ class TagMenuComponent extends Component {
   };
 
   handleCloseMenu = () => {
-    this.setState({ menuOpen: false });
+    this.setState({ menuOpen: false, value: '' });
   };
 
   render() {
@@ -49,6 +49,7 @@ class TagMenuComponent extends Component {
 
     return (
       <IconMenu
+        className="tag-menu__icon"
         onClick={this.handleOpenMenu}
         open={this.state.menuOpen}
         onRequestChange={open => this.setState({ menuOpen: open })}

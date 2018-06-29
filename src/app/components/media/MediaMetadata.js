@@ -18,7 +18,6 @@ import DestinationProjects from './DestinationProjects';
 import UserTooltip from '../user/UserTooltip';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
 import DeleteProjectMediaMutation from '../../relay/mutations/DeleteProjectMediaMutation';
-import CreateTagMutation from '../../relay/mutations/CreateTagMutation';
 import UpdateStatusMutation from '../../relay/mutations/UpdateStatusMutation';
 import CheckContext from '../../CheckContext';
 import Message from '../Message';
@@ -102,10 +101,7 @@ class MediaMetadata extends Component {
       openDeleteDialog: false,
       confirmationError: false,
       message: null,
-      pendingMutations: null,
-      hasFailure: false,
       openAssignDialog: false,
-
     };
   }
 
@@ -418,7 +414,6 @@ class MediaMetadata extends Component {
       event.preventDefault();
     }
 
-    const pendingTag = document.forms['edit-media-form'].sourceTagInput.value;
     const title = this.state.title && this.state.title.trim();
     const description = this.state.description && this.state.description.trim();
 
@@ -427,20 +422,12 @@ class MediaMetadata extends Component {
       description,
     };
 
-    const onEditFailure = (transaction) => {
-      this.fail(transaction, 'editMedia');
+    const onFailure = (transaction) => {
+      this.fail(transaction);
     };
 
-    const onTagFailure = (transaction) => {
-      this.fail(transaction, 'createTag');
-    };
-
-    const onEditSuccess = (response) => {
-      this.success(response, 'editMedia');
-    };
-
-    const onTagSuccess = (response) => {
-      this.success(response, 'createTag');
+    const onSuccess = () => {
+      this.success();
     };
 
     if ((typeof title !== 'undefined' && title !== null) ||
@@ -456,98 +443,36 @@ class MediaMetadata extends Component {
           embed: JSON.stringify(embed),
           id: media.id,
         }),
-        { onSuccess: onEditSuccess, onFailure: onEditFailure },
+        { onSuccess, onFailure },
       );
-
-      this.registerPendingMutation('editMedia');
-    }
-
-    const context = this.getContext();
-
-    if (pendingTag && pendingTag.trim()) {
-      const tagsList = [...new Set(pendingTag.split(','))];
-
-      tagsList.forEach((tag) => {
-        Relay.Store.commitUpdate(
-          new CreateTagMutation({
-            annotated: media,
-            annotator: context.currentUser,
-            parent_type: 'project_media',
-            context,
-            annotation: {
-              tag: tag.trim(),
-              annotated_type: 'ProjectMedia',
-              annotated_id: media.dbid,
-            },
-          }),
-          { onSuccess: onTagSuccess, onFailure: onTagFailure },
-        );
-
-        this.registerPendingMutation('createTag');
-      });
     }
 
     this.setState({
       message: null,
-      tagErrorMessage: null,
-      pendingMutations: null,
-      hasFailure: false,
     });
-
-    this.manageEditingState();
   }
 
-  fail(transaction, mutation) {
+  fail(transaction) {
     const error = transaction.getError();
     let message = this.props.intl.formatMessage(messages.editReportError);
     const json = safelyParseJSON(error.source);
     if (json && json.error) {
       message = json.error;
     }
-    if (mutation === 'createTag') {
-      this.setState({ tagErrorMessage: message, hasFailure: true });
-    } else {
-      this.setState({ message, hasFailure: true });
-    }
+
+    this.setState({ message });
   }
 
-  manageEditingState = () => {
-    const isEditing = (!!this.state.pendingMutations &&
-    this.state.pendingMutations.length > 0) ||
-    this.state.hasFailure;
-
-    const message = isEditing ? this.state.message : null;
-
-    this.setState({ isEditing, message });
-  };
-
-  success(response, mutation) {
-    const pendingMutations = this.state.pendingMutations
-      ? this.state.pendingMutations.slice(0)
-      : [];
-    this.setState(
-      { pendingMutations: pendingMutations.filter(m => m !== mutation) },
-      this.manageEditingState,
-    );
-  }
-
-  registerPendingMutation(mutation) {
-    const pendingMutations = this.state.pendingMutations
-      ? this.state.pendingMutations.slice(0)
-      : [];
-    pendingMutations.push(mutation);
-    this.setState({ pendingMutations });
+  success() {
+    this.setState({ isEditing: false, message: null });
   }
 
   handleCancel() {
     this.setState({
       isEditing: false,
-      hasFailure: false,
       message: null,
-      tagErrorMessage: null,
       title: null,
       description: null,
-      pendingMutations: null,
     });
   }
 
@@ -675,18 +600,6 @@ class MediaMetadata extends Component {
             onChange={this.handleChangeDescription.bind(this)}
             style={{ width: '100%' }}
           />
-
-          { media.tags ?
-            <MediaTags
-              media={media}
-              tags={media.tags.edges}
-              errorText={this.state.tagErrorMessage}
-              onChange={() => {
-                this.setState({ tagErrorMessage: null });
-              }}
-              isEditing
-            /> : null
-          }
         </form>
 
         <span style={{ display: 'flex' }}>
@@ -756,12 +669,7 @@ class MediaMetadata extends Component {
           </Text>
         </Row>
         <Row>
-          {media.tags ?
-            <MediaTags
-              media={media}
-              tags={media.tags.edges}
-              isEditing={false}
-            /> : null}
+          {media.tags ? <MediaTags media={media} tags={media.tags.edges} /> : null}
         </Row>
         <Row>
           {byUser ?

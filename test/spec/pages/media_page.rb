@@ -16,7 +16,7 @@ class MediaPage < Page
     @driver.find_element(:css, toggle_button_selector).click
     sleep 2
   end
-  
+
   def set_description(string)
     edit
     fill_input('.media-detail__description-input > input', string, {clear: true})
@@ -65,15 +65,24 @@ class MediaPage < Page
   end
 
   def add_tag(string)
-    edit unless editing_mode?
-    fill_input('#sourceTagInput', string, { clear: true })
+    el = wait_for_selector("tag-menu__icon", :class)
+    el.click
+    fill_input('#tag-input__tag-input', string, { clear: true })
     press(:enter)
     @wait.until { has_tag?(string) }
+    el = wait_for_selector("tag-menu__done", :class)
+    el.click
   end
 
   def delete_tag(string)
-    element = @driver.find_element(:class,"ReactTags__remove")
-    element.click
+    el = wait_for_selector("tag-menu__icon", :class)
+    el.click
+    fill_input('#tag-input__tag-input', string, { clear: true })
+    el = wait_for_selector(string, :id)
+    el.click
+    @wait.until { not has_tag?(string) }
+    el = wait_for_selector("tag-menu__done", :class)
+    el.click
   end
 
   def has_tag?(tag)

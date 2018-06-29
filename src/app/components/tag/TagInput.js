@@ -84,6 +84,7 @@ class TagInput extends React.Component {
       <div style={{ padding: units(2) }}>
         <Row>
           <TextField
+            id="tag-input__tag-input"
             value={this.state.value}
             errorText={this.state.message}
             onChange={this.handleChange.bind(this)}
