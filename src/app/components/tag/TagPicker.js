@@ -41,6 +41,73 @@ const StyledTagPickerArea = styled.div`
 `;
 
 class TagPicker extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      suggestedTags: [],
+      usedTags: [],
+    };
+  }
+
+  componentDidMount() {
+    this.setup(this.props);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setup(nextProps);
+  }
+
+  setup(props) {
+    const { media, tags, value } = props;
+
+    const isTagBeingSearched = tag => tag.toLowerCase().includes(value.toLowerCase());
+
+    // eslint-disable-next-line no-underscore-dangle
+    const plainMediaTags = tags.filter(tag => !tag.__mutationStatus__).map(tag => tag.node.tag);
+
+    const suggestedTags = media.team && media.team.get_suggested_tags
+      ? media.team.get_suggested_tags.split(',').filter(tag => isTagBeingSearched(tag))
+      : [];
+
+    const nonRepeatedUsedTags =
+      difference(media.team.used_tags, suggestedTags).filter(tag => isTagBeingSearched(tag));
+
+    const checkedSuggestedTags = intersection(suggestedTags, plainMediaTags);
+    const uncheckedSuggestedTags = difference(suggestedTags, plainMediaTags);
+
+    const checkedUsedTags =
+      difference(plainMediaTags, suggestedTags).filter(tag => isTagBeingSearched(tag));
+    const uncheckedUsedTags = difference(nonRepeatedUsedTags, plainMediaTags);
+
+    const shownSuggestedCount = checkedSuggestedTags.length + uncheckedSuggestedTags.length;
+    const shownUsedCount = checkedUsedTags.length + uncheckedUsedTags.length;
+
+    const shownTagsCount = shownSuggestedCount + shownUsedCount;
+    const totalTagsCount = suggestedTags.length + tags.length + media.team.used_tags.length;
+
+    this.setState({
+      shownSuggestedCount,
+      shownUsedCount,
+      shownTagsCount,
+      totalTagsCount,
+      plainMediaTags,
+      suggestedTags: checkedSuggestedTags.concat(uncheckedUsedTags),
+      usedTags: checkedUsedTags.concat(uncheckedUsedTags),
+    });
+  }
+
+  addToState(value) {
+    const plainMediaTags = this.state.plainMediaTags.slice(0);
+    plainMediaTags.push(value);
+    this.setState({ plainMediaTags });
+  }
+
+  removeFromState(value) {
+    const plainMediaTags = this.state.plainMediaTags.filter(t => t !== value);
+    this.setState({ plainMediaTags });
+  }
+
   handleCreateTag(value) {
     const { media } = this.props;
 
@@ -57,6 +124,8 @@ class TagPicker extends React.Component {
       },
       onSuccess, onFailure,
     );
+
+    this.addToState(value);
   }
 
   handleRemoveTag = (value) => {
@@ -74,6 +143,8 @@ class TagPicker extends React.Component {
       },
       onSuccess, onFailure,
     );
+
+    this.removeFromState(value);
   };
 
   handleSelectCheckbox = (e, inputChecked) => {
@@ -84,8 +155,8 @@ class TagPicker extends React.Component {
     }
   }
 
-  renderNotFound(shownTagsCount, totalTagsCount) {
-    if (totalTagsCount === 0) {
+  renderNotFound() {
+    if (this.state.totalTagsCount === 0) {
       return (
         <StyledNotFound>
           <FormattedMessage
@@ -108,36 +179,11 @@ class TagPicker extends React.Component {
   }
 
   render() {
-    const { media, tags, value } = this.props;
+    const { media } = this.props;
 
-    const compareString = (tag, val) => tag.toLowerCase().includes(val.toLowerCase());
-
-    // eslint-disable-next-line no-underscore-dangle
-    const plainMediaTags = tags.filter(tag => !tag.__mutationStatus__).map(tag => tag.node.tag);
-
-    const suggestedTags = media.team && media.team.get_suggested_tags
-      ? media.team.get_suggested_tags.split(',').filter(tag => compareString(tag, value))
-      : [];
-
-    const nonRepeatedUsedTags =
-      difference(media.team.used_tags, suggestedTags).filter(tag => compareString(tag, value));
-
-    const checkedSuggestedTags = intersection(suggestedTags, plainMediaTags);
-    const uncheckedSuggestedTags = difference(suggestedTags, plainMediaTags);
-
-    const checkedUsedTags =
-      difference(plainMediaTags, suggestedTags).filter(tag => compareString(tag, value));
-    const uncheckedUsedTags = difference(nonRepeatedUsedTags, plainMediaTags);
-
-    const shownSuggestedCount = checkedSuggestedTags.length + uncheckedSuggestedTags.length;
-    const shownUsedCount = checkedUsedTags.length + uncheckedUsedTags.length;
-
-    const shownTagsCount = shownSuggestedCount + shownUsedCount;
-    const totalTagsCount = suggestedTags.length + tags.length + media.team.used_tags.length;
-
-    return (shownTagsCount === 0 ?
+    return (this.state.shownTagsCount === 0 ?
       <StyledTagPickerArea>
-        { this.renderNotFound(shownTagsCount, totalTagsCount) }
+        { this.renderNotFound() }
       </StyledTagPickerArea>
       :
       <StyledTagPickerArea>
@@ -150,17 +196,17 @@ class TagPicker extends React.Component {
             />
           </StyledHeadingFirst>
           {
-            shownSuggestedCount === 0 ?
+            this.state.shownSuggestedCount === 0 ?
               <StyledNone>
                 <FormattedMessage id="tagPicker.none" defaultMessage="None" />
               </StyledNone>
               :
-              checkedSuggestedTags.concat(uncheckedSuggestedTags).map((tag, index) => (
+              this.state.suggestedTags.map((tag, index) => (
                 <FormControlLabel
                   key={`team-suggested-tag-${index.toString()}`}
                   control={
                     <CheckboxNext
-                      checked={plainMediaTags.includes(tag)}
+                      checked={this.state.plainMediaTags.includes(tag)}
                       onChange={this.handleSelectCheckbox}
                       id={tag}
                     />
@@ -173,17 +219,17 @@ class TagPicker extends React.Component {
             <FormattedMessage id="tagPicker.teamOtherTags" defaultMessage="Custom tags" />
           </StyledHeading>
           {
-            shownUsedCount === 0 ?
+            this.state.shownUsedCount === 0 ?
               <StyledNone>
                 <FormattedMessage id="tagPicker.none" defaultMessage="None" />
               </StyledNone>
               :
-              checkedUsedTags.concat(uncheckedUsedTags).map((tag, index) => (
+              this.state.usedTags.map((tag, index) => (
                 <FormControlLabel
                   key={`team-used-tag-${index.toString()}`}
                   control={
                     <CheckboxNext
-                      checked={plainMediaTags.includes(tag)}
+                      checked={this.state.plainMediaTags.includes(tag)}
                       onChange={this.handleSelectCheckbox}
                       id={tag}
                     />
