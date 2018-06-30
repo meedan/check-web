@@ -26,6 +26,9 @@ class CreateTagMutation extends Relay.Mutation {
   }
 
   getOptimisticResponse() {
+    const media = this.props.media || {};
+    const tags = media.tags ? media.tags.edges : [];
+    tags.push({ node: { id: 'VGFnLzA=\n', tag: this.props.annotation.tag } });
     const tag = {
       id: this.props.id,
       updated_at: new Date().toString(),
@@ -40,6 +43,12 @@ class CreateTagMutation extends Relay.Mutation {
       },
       medias: {
         edges: [],
+      },
+      project_media: {
+        id: media.id,
+        tags: {
+          edges: tags,
+        },
       },
     };
 
@@ -67,4 +76,44 @@ class CreateTagMutation extends Relay.Mutation {
   }
 }
 
+const createTag = (obj, onSuccess, onFailure) => {
+  const {
+    media, source, annotator, value,
+  } = obj;
+
+  const annotated = media || source;
+  let parent_type = '';
+  let annotated_type = '';
+
+  if (media) {
+    parent_type = 'project_media';
+    annotated_type = 'ProjectMedia';
+  }
+
+  if (source) {
+    parent_type = 'project_source';
+    annotated_type = 'ProjectSource';
+  }
+
+  const tagsList = [...new Set(value.split(','))];
+
+  tagsList.forEach((tag) => {
+    Relay.Store.commitUpdate(
+      new CreateTagMutation({
+        annotated,
+        annotator,
+        parent_type,
+        media,
+        annotation: {
+          tag,
+          annotated_type,
+          annotated_id: annotated.dbid,
+        },
+      }),
+      { onSuccess, onFailure },
+    );
+  });
+};
+
 export default CreateTagMutation;
+export { createTag };

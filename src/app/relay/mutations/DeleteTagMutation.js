@@ -28,6 +28,10 @@ class DeleteTagMutation extends Relay.Mutation {
     }
   }
 
+  getOptimisticResponse() {
+    return { deletedId: this.props.id };
+  }
+
   getConfigs() {
     const fieldIds = {};
     fieldIds[this.props.parent_type] = this.props.annotated.id;
@@ -48,4 +52,21 @@ class DeleteTagMutation extends Relay.Mutation {
   }
 }
 
+const deleteTag = (obj, onSuccess, onFailure) => {
+  const { media, source, tagId } = obj;
+
+  const annotated = media || source;
+  const parent_type = media ? 'project_media' : 'project_source';
+
+  Relay.Store.commitUpdate(
+    new DeleteTagMutation({
+      annotated,
+      parent_type,
+      id: tagId,
+    }),
+    { onSuccess, onFailure },
+  );
+};
+
 export default DeleteTagMutation;
+export { deleteTag };

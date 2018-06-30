@@ -94,15 +94,6 @@ class FindTeamCard extends React.Component {
   };
 
   render() {
-    const link = (
-      <Link to="/check/teams/new" className="find-team__toggle-create">
-        <FormattedMessage
-          id="findTeamCard.createYourOwn"
-          defaultMessage="create your own team"
-        />
-      </Link>
-    );
-
     return (
       <div>
         <Card className="find-team-card">
@@ -165,11 +156,12 @@ class FindTeamCard extends React.Component {
           </form>
         </Card>
         <div style={{ marginTop: units(2) }}>
-          <FormattedMessage
-            id="findTeamCard.createTeam"
-            defaultMessage="You can also {action}."
-            values={{ action: link }}
-          />
+          <Link to="/check/teams/new" className="find-team__toggle-create">
+            <FormattedMessage
+              id="findTeamCard.createYourOwn"
+              defaultMessage="You can also create your own team."
+            />
+          </Link>
         </div>
       </div>
     );

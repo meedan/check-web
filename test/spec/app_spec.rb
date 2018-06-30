@@ -143,25 +143,23 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(project_pg.elements('.media__heading').map(&:text).include?('Edited media title')).to be(true)
     end
 
-    it "should not add a duplicated tag from tags list", bin3: true, quick: true  do
+    it "should add a tag, reject duplicated and delete tag", bin3: true, quick: true  do
       page = api_create_team_project_and_claim_and_redirect_to_media_page
       wait_for_selector("add-annotation__insert-photo",:class)
       new_tag = Time.now.to_i.to_s
       # Validate assumption that tag does not exist
       expect(page.has_tag?(new_tag)).to be(false)
-      # Add tag from tags list
+      # Add tag
       page.add_tag(new_tag)
-      el = wait_for_selector("media-detail__cancel-edits", :class)
-      el.click
       expect(page.has_tag?(new_tag)).to be(true)
       # Try to add duplicate
       page.add_tag(new_tag)
       @wait.until { @driver.page_source.include?('Validation') }
       expect(page.contains_string?('Tag already exists')).to be(true)
-      el = wait_for_selector("media-detail__cancel-edits", :class)
-      el.click
       # Verify that tag is not added and that error message is displayed
       expect(page.tags.count(new_tag)).to be(1)
+      page.delete_tag(new_tag)
+      expect(page.has_tag?(new_tag)).to be(false)
     end
 
     it "should display a default title for new media", bin1: true, quick:true do
@@ -494,6 +492,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       element.click
       element = wait_for_selector('source__edit-save-button',:class)
       element.click
+      sleep 1
       wait_for_selector( 'media-tags',:class)
       expect(@driver.page_source.include?('AC/DC Official Website')).to be(false)
     end
@@ -669,24 +668,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(id1 == id2).to be(true)
     end
 
-    it "should tag media from tags list", bin5: true do
-      page = api_create_team_project_and_claim_and_redirect_to_media_page
-      sleep 3 #for loading
-      wait_for_selector("add-annotation__buttons", :class)
-      new_tag = Time.now.to_i.to_s
-      expect(page.contains_string?("Tagged \##{new_tag}")).to be(false)
-      page.add_tag(new_tag)
-      el = wait_for_selector("media-detail__cancel-edits", :class)
-      el.click
-      expect(page.has_tag?(new_tag)).to be(true)
-      expect(page.contains_string?("Tagged \##{new_tag}")).to be(true)
-      page.driver.navigate.refresh
-      sleep 3 #for loading
-      wait_for_selector("add-annotation__insert-photo",:class)
-      expect(page.has_tag?(new_tag)).to be(true)
-      expect(page.contains_string?("Tagged \##{new_tag}")).to be(true)
-    end
-
     it "should tag media as a command", bin4: true do
       page = api_create_team_project_and_claim_and_redirect_to_media_page
 
@@ -774,28 +755,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page = ProjectPage.new(config: @config, driver: @driver).logout
 
       expect(page.contains_string?('Sign in')).to be(true)
-    end
-
-    it "should delete tag from tags list (for media)", bin1:true  do
-      page = api_create_team_project_and_claim_and_redirect_to_media_page
-      expect(page.tags.length == 0).to be(true)
-      el = wait_for_selector('.media-detail')
-      el.click
-      el = wait_for_selector('.media-actions')
-      el.click
-      el = wait_for_selector('.media-actions__edit')
-      el.click
-      wait_for_selector('source-tags__tags', :class)
-      fill_field('#sourceTagInput', "TAG")
-      @driver.action.send_keys("\n").perform
-      sleep 1
-      fill_field('#sourceTagInput', "TAG2")
-      @driver.action.send_keys("\n").perform
-      expect(page.tags.length == 2).to be(true)
-      list = wait_for_selector_list("div.source-tags__tag svg")
-      list[1].click
-      sleep 3
-      expect(page.tags.length == 1).to be(true)
     end
 
     it "should show 'manage team' link only to team owners", bin3: true do
@@ -1240,6 +1199,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el = wait_for_selector('.create-task__add-button', :css)
       el.click
       el = wait_for_selector('.create-task__add-short-answer', :css)
+      el.location_once_scrolled_into_view
       el.click
       wait_for_selector('#task-label-input', :css)
       fill_field('#task-label-input', 'Foo or bar?')
@@ -1288,6 +1248,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       fill_field('textarea[name="response"]', ' edited')
       @driver.find_element(:css, '.task__save').click
       media_pg.wait_all_elements(9, 'annotations__list-item', :class)
+      sleep 5
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo or bar???" answered by User With Email: "Foo edited"')).to be(true)
 
       # Delete task
@@ -1302,8 +1263,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Task "Foo or bar?" created by')).to be(false)
       el = wait_for_selector('.create-task__add-button', :css)
       el.click
-      sleep 1
+      sleep 5
       el = wait_for_selector('create-task__add-choose-one', :class)
+      el.location_once_scrolled_into_view
       el.click
       wait_for_selector('#task-label-input', :css)
       fill_field('#task-label-input', 'Foo or bar?')
@@ -1361,8 +1323,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Task "Foo, Doo or bar?" created by')).to be(false)
       el = wait_for_selector('.create-task__add-button', :css)
       el.click
-      sleep 1
+      sleep 5
       el = wait_for_selector('create-task__add-choose-multiple', :class)
+      el.location_once_scrolled_into_view
       el.click
       wait_for_selector('#task-label-input', :css)
       fill_field('#task-label-input', 'Foo, Doo or bar?')
@@ -1637,7 +1600,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Task "Where?" created by')).to be(false)
       el = wait_for_selector('.create-task__add-button')
       el.click
-      sleep 1
+      sleep 5
       el = wait_for_selector('.create-task__add-geolocation')
       el.click
       sleep 1
@@ -1742,7 +1705,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       old = wait_for_selector_list("annotation__default-content",:class).length
       el = wait_for_selector('.create-task__add-button')
       el.click
-      sleep 1
+      sleep 5
       el = wait_for_selector('.create-task__add-datetime')
       el.click
       sleep 1

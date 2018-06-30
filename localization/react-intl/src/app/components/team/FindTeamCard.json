@@ -8,10 +8,6 @@
     "defaultMessage": "Team not found!"
   },
   {
-    "id": "findTeamCard.createYourOwn",
-    "defaultMessage": "create your own team"
-  },
-  {
     "id": "findTeamCard.mainHeading",
     "defaultMessage": "Find an existing team"
   },
@@ -28,7 +24,7 @@
     "defaultMessage": "Find team"
   },
   {
-    "id": "findTeamCard.createTeam",
-    "defaultMessage": "You can also {action}."
+    "id": "findTeamCard.createYourOwn",
+    "defaultMessage": "You can also create your own team."
   }
 ]

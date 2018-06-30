@@ -6,11 +6,10 @@
   "createTeam.title": "Criar uma Equipe",
   "createTeam.teamNameHint": "Nome da Equipe",
   "createTeam.teamSlugHint": "team-slug",
-  "createTeam.requestToJoin": "pedir para participar",
   "createTeam.mainHeading": "Criar uma Equipe",
   "createTeam.blurb": "Crie uma equipe para sua organização, ou para si:",
   "createTeam.displayName": "Nome da Equipe",
   "createTeam.url": "URL da equipe",
   "createTeam.submitButton": "Criar",
-  "createTeam.findTeam": "Você também pode {action} de um time existente."
+  "createTeam.requestToJoin": "Você também pode pedir para participar de um time existente."
 }

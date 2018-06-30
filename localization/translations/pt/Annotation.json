@@ -9,6 +9,7 @@
   "annotation.deletedComment": "Comentário excluído por {author}: {comment}",
   "annotation.taskCreated": "Tarefa \"{task}\" criada por {author}",
   "annotation.relationshipCreated": "{type} \"{title}\" relacionado adicionado por {author}",
+  "annotation.relationshipDeleted": "{type} \"{title}\" relacionado removido por {author}",
   "annotation.statusLocked": "Status bloqueado por {author}",
   "annotation.statusUnlocked": "Status desbloqueado por {author}",
   "annotation.mediaAssigned": "Atribuído(a) a {name} por {author}",

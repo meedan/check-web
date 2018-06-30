@@ -141,6 +141,16 @@ function hasFilters() {
   return getFilters() !== '{}';
 }
 
+function getErrorMessage(transaction, defaultMessage) {
+  const error = transaction.getError();
+  let errorMessage = defaultMessage;
+  const json = safelyParseJSON(error.source);
+  if (json && json.error) {
+    errorMessage = json.error;
+  }
+  return errorMessage;
+}
+
 export {
   bemClass,
   bemClassFromMediaStatus,
@@ -157,4 +167,5 @@ export {
   validateURL,
   getFilters,
   hasFilters,
+  getErrorMessage,
 };

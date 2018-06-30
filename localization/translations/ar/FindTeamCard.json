@@ -1,10 +1,9 @@
 {
   "findTeamCard.teamSlugHint": "مسار الفريق",
   "findTeamCard.teamNotFound": "هذا الفريق غير موجود",
-  "findTeamCard.createYourOwn": "أضف فريقاً",
   "findTeamCard.mainHeading": "العثور على فريق",
   "findTeamCard.blurb": "اطلب الانضمام إلى فريق حالي بإضافة أسمه هنا ، أو انشئ فريقاً جديداً خاص بك.",
   "findTeamCard.url": "رابط الفريق",
   "findTeamCard.submitButton": "العثور على فريق",
-  "findTeamCard.createTeam": "يمكنك أيضاً {action}."
+  "findTeamCard.createYourOwn": "يمكنك أيضاً اضافة فريق جديد."
 }

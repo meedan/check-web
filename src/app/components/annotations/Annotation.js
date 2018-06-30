@@ -892,6 +892,7 @@ class Annotation extends Component {
             </span>
           );
         }
+        contentTemplate = null;
       }
 
       break;
