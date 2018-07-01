@@ -95,6 +95,7 @@ const TagMenuContainer = Relay.createContainer(TagMenuComponent, {
       fragment on ProjectMedia {
         id
         dbid
+        archived
         tags(first: 10000) {
           edges {
             node {
