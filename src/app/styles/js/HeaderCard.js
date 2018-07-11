@@ -80,6 +80,13 @@ export const StyledContactInfo = styled.div`
   display: flex;
   flex-flow: wrap row;
   font: ${caption};
+  align-items: center;
+
+  svg {
+    max-height: 16px;
+    max-width: 16px;
+    margin-right: ${units(1)}
+  }
 
   margin: ${props => (props.noVerticalMargin ? '0' : `${units(2)} 0`)};
 

@@ -1,6 +1,11 @@
 import React from 'react';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import Button from 'material-ui-next/Button';
+import MdLock from 'material-ui/svg-icons/action/lock';
+import MdPublic from 'material-ui/svg-icons/social/public';
+import MdLink from 'material-ui/svg-icons/content/link';
+import MdLocation from 'material-ui/svg-icons/communication/location-on';
+import MdPhone from 'material-ui/svg-icons/communication/phone';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import TeamAvatar from './TeamAvatar';
 import ParsedText from '../ParsedText';
@@ -47,10 +52,23 @@ const TeamInfo = (props) => {
     team.projects.edges.length &&
     team.projects.edges.find(p => p.node.medias_count > 0);
 
+  contactInfo.push((
+    <StyledContactInfo key="contactInfo.privacy" className="team__privacy">
+      {team.private ? <MdLock /> : <MdPublic /> }
+      <span className="team__privacy-label">
+        {team.private ?
+          <FormattedMessage id="teamComponent.private" defaultMessage="Private" /> :
+          <FormattedMessage id="teamComponent.public" defaultMessage="Public" />
+        }
+      </span>
+    </StyledContactInfo>
+  ));
+
   if (contact) {
     if (contact.node.location) {
       contactInfo.push((
         <StyledContactInfo key="contactInfo.location" className="team__location">
+          <MdLocation />
           <span className="team__location-name">
             <ParsedText text={contact.node.location} />
           </span>
@@ -61,6 +79,7 @@ const TeamInfo = (props) => {
     if (contact.node.phone) {
       contactInfo.push((
         <StyledContactInfo key="contactInfo.phone" className="team__phone">
+          <MdPhone />
           <span className="team__phone-name">
             <ParsedText text={contact.node.phone} />
           </span>
@@ -71,6 +90,7 @@ const TeamInfo = (props) => {
     if (contact.node.web) {
       contactInfo.push((
         <StyledContactInfo key="contactInfo.web" className="team__web">
+          <MdLink />
           <span className="team__link-name">
             <ParsedText text={contact.node.web} />
           </span>
