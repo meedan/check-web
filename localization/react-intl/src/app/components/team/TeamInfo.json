@@ -8,6 +8,14 @@
     "defaultMessage": "Translation Team"
   },
   {
+    "id": "teamComponent.private",
+    "defaultMessage": "Private"
+  },
+  {
+    "id": "teamComponent.public",
+    "defaultMessage": "Public"
+  },
+  {
     "id": "teamComponent.upgradeButton",
     "defaultMessage": "Upgrade to PRO"
   }
