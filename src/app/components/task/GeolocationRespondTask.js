@@ -258,12 +258,14 @@ class GeolocationRespondTask extends Component {
     return (
       <div>
         <AutoComplete
+          id="geolocationsearch"
           floatingLabelText={
             <FormattedMessage
               id="geolocationRespondTask.searchMap"
               defaultMessage="Search the map"
             />
           }
+          name="geolocationsearch"
           dataSource={this.state.searchResult}
           dataSourceConfig={dataSourceConfig}
           filter={AutoComplete.noFilter}
