@@ -1911,6 +1911,33 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 5
     end
 
+    it "should search map in geolocation task", bin3: true do
+      media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
+      wait_for_selector('.create-task__add-button')
+
+      # Create a task
+      old = @driver.find_elements(:class, "annotations__list-item").length
+      expect(@driver.page_source.include?('Where?')).to be(false)
+      expect(@driver.page_source.include?('Task "Where?" created by')).to be(false)
+      el = wait_for_selector('.create-task__add-button')
+      el.click
+      sleep 5
+      el = wait_for_selector('.create-task__add-geolocation')
+      el.click
+      sleep 1
+      fill_field('#task-label-input', 'Where?')
+      el = wait_for_selector('.create-task__dialog-submit-button')
+      el.click
+      old = wait_for_size_change(old, "annotations__list-item", :class)
+      expect(@driver.page_source.include?('Where?')).to be(true)
+
+      # Search map
+      expect(@driver.page_source.include?('SSA')).to be(false)
+      fill_field("geolocationsearch", "Salvador", :id)
+      sleep 5
+      expect(@driver.page_source.include?('SSA')).to be(true)
+    end
+
     # Postponed due Alexandre's developement
     # it "should add and remove suggested tags" do
     #   skip("Needs to be implemented")
