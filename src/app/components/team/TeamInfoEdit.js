@@ -161,8 +161,9 @@ class TeamInfoEdit extends React.Component {
 
   validateWebsite(e) {
     let urlError = null;
+    const url = e.target.value;
 
-    if (!validateURL(e.target.value)) {
+    if (url.trim() && !validateURL(url)) {
       urlError = this.props.intl.formatMessage(messages.invalidLink);
     }
 
