@@ -189,9 +189,18 @@ class GeolocationRespondTask extends Component {
       lat: ori.lat,
       lng: ori.lng,
       coordinatesString: ori.coordinatesString,
+      message: '',
     });
     if (this.props.onDismiss) {
       this.props.onDismiss();
+    }
+    this.autoComplete.setState({ searchText: '' });
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  handleKeyPress(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
     }
   }
 
@@ -240,14 +249,16 @@ class GeolocationRespondTask extends Component {
     );
 
     const selectCallback = (obj) => {
-      const { lat, lng } = obj.geometry;
-      this.setState(
-        {
-          name: obj.formatted,
-          coordinatesString: `${lat}, ${lng}`,
-        },
-        this.handleBlur,
-      );
+      if (typeof obj === 'object') {
+        const { lat, lng } = obj.geometry;
+        this.setState(
+          {
+            name: obj.formatted,
+            coordinatesString: `${lat}, ${lng}`,
+          },
+          this.handleBlur,
+        );
+      }
     };
 
     const dataSourceConfig = {
@@ -269,7 +280,10 @@ class GeolocationRespondTask extends Component {
           dataSource={this.state.searchResult}
           dataSourceConfig={dataSourceConfig}
           filter={AutoComplete.noFilter}
+          onFocus={() => { this.setState({ focus: true }); }}
+          onKeyPress={this.handleKeyPress.bind(this)}
           onNewRequest={selectCallback}
+          ref={(a) => { this.autoComplete = a; }}
           onUpdateInput={this.handleSearchText.bind(this)}
           fullWidth
         />
