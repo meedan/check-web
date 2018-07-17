@@ -142,6 +142,17 @@ class GeolocationRespondTask extends Component {
       taskAnswerDisabled: !GeolocationRespondTask.canSubmit(),
       coordinatesString: e.target.value,
     });
+
+    const keystrokeWait = 1000;
+
+    this.setState({ message: '' });
+
+    clearTimeout(this.timer);
+
+    if (e.target.value) {
+      this.autoComplete.setState({ searchText: '' });
+      this.timer = setTimeout(() => this.handleBlur(), keystrokeWait);
+    }
   }
 
   handleBlur() {
@@ -151,6 +162,7 @@ class GeolocationRespondTask extends Component {
       lat: coordinates[0],
       lng: coordinates[1],
     });
+    this.autoComplete.setState({ searchText: '' });
   }
 
   handleSubmit() {
@@ -321,7 +333,6 @@ class GeolocationRespondTask extends Component {
           onBlur={this.handleBlur.bind(this)}
           value={this.state.coordinatesString}
           fullWidth
-          multiLine
         />
         <div>
           <Map

@@ -1614,7 +1614,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Answer task
       expect(@driver.page_source.include?('Task "Where?" answered by')).to be(false)
       fill_field('textarea[name="response"]', 'Salvador')
-      fill_field('textarea[name="coordinates"]', '-12.9015866, -38.560239')
+      fill_field('#task__response-geolocation-coordinates', '-12.9015866, -38.560239')
       el = wait_for_selector('.task__save')
       el.click
       wait_for_selector('.annotation--task_response_geolocation')
@@ -1644,7 +1644,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       sleep 1
       update_field('textarea[name="response"]', 'Vancouver')
-      update_field('textarea[name="coordinates"]', '49.2577142, -123.1941156')
+      update_field('#task__response-geolocation-coordinates', '49.2577142, -123.1941156')
       el = wait_for_selector('.task__save')
       el.click
       old = wait_for_size_change(old, "annotations__list-item", :class)
