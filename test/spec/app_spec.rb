@@ -1614,7 +1614,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Answer task
       expect(@driver.page_source.include?('Task "Where?" answered by')).to be(false)
       fill_field('textarea[name="response"]', 'Salvador')
-      fill_field('textarea[name="coordinates"]', '-12.9015866, -38.560239')
+      fill_field('#task__response-geolocation-coordinates', '-12.9015866, -38.560239')
       el = wait_for_selector('.task__save')
       el.click
       wait_for_selector('.annotation--task_response_geolocation')
@@ -1644,7 +1644,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       sleep 1
       update_field('textarea[name="response"]', 'Vancouver')
-      update_field('textarea[name="coordinates"]', '49.2577142, -123.1941156')
+      update_field('#task__response-geolocation-coordinates', '49.2577142, -123.1941156')
       el = wait_for_selector('.task__save')
       el.click
       old = wait_for_size_change(old, "annotations__list-item", :class)
@@ -1909,6 +1909,33 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Child Claim')).to be(true)
       expect(@driver.page_source.include?('1 related')).to be(true)
       sleep 5
+    end
+
+    it "should search map in geolocation task", bin3: true do
+      media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
+      wait_for_selector('.create-task__add-button')
+
+      # Create a task
+      old = @driver.find_elements(:class, "annotations__list-item").length
+      expect(@driver.page_source.include?('Where?')).to be(false)
+      expect(@driver.page_source.include?('Task "Where?" created by')).to be(false)
+      el = wait_for_selector('.create-task__add-button')
+      el.click
+      sleep 5
+      el = wait_for_selector('.create-task__add-geolocation')
+      el.click
+      sleep 1
+      fill_field('#task-label-input', 'Where?')
+      el = wait_for_selector('.create-task__dialog-submit-button')
+      el.click
+      old = wait_for_size_change(old, "annotations__list-item", :class)
+      expect(@driver.page_source.include?('Where?')).to be(true)
+
+      # Search map
+      expect(@driver.page_source.include?('SSA')).to be(false)
+      fill_field("geolocationsearch", "Salvador", :id)
+      sleep 5
+      expect(@driver.page_source.include?('SSA')).to be(true)
     end
 
     # Postponed due Alexandre's developement

@@ -1,8 +1,22 @@
 import React, { Component } from 'react';
+import AutoComplete from 'material-ui/AutoComplete';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
 import { Map, Marker, TileLayer } from 'react-leaflet';
+import config from 'config'; // eslint-disable-line require-path-exists/exists
+import { black54, caption } from '../../styles/js/shared';
+
+const messages = defineMessages({
+  searching: {
+    id: 'geoLocationRespondTask.searching',
+    defaultMessage: 'Searching...',
+  },
+  notFound: {
+    id: 'geoLocationRespondTask.notFound',
+    defaultMessage: 'Sorry, place not found!',
+  },
+});
 
 class GeolocationRespondTask extends Component {
   static canSubmit() {
@@ -44,7 +58,10 @@ class GeolocationRespondTask extends Component {
         name,
         coordinatesString,
       },
+      searchResult: [],
     };
+
+    this.timer = null;
   }
 
   componentDidMount() {
@@ -89,8 +106,9 @@ class GeolocationRespondTask extends Component {
     const zoom = this.marker.leafletElement._map.getZoom();
     const coordinatesString = `${parseFloat(lat).toFixed(7)}, ${parseFloat(lng).toFixed(7)}`;
     this.setState({
-      lat, lng, zoom, coordinatesString, focus: true,
+      lat, lng, zoom, coordinatesString, focus: true, message: '',
     });
+    this.autoComplete.setState({ searchText: '' });
   }
 
   handlePressButton() {
@@ -103,7 +121,21 @@ class GeolocationRespondTask extends Component {
     this.setState({
       taskAnswerDisabled: !GeolocationRespondTask.canSubmit(),
       name: e.target.value,
+      message: '',
     });
+  }
+
+  handleSearchText(query) {
+    const keystrokeWait = 1000;
+
+    this.setState({ message: '' });
+
+    clearTimeout(this.timer);
+
+    if (query) {
+      this.setState({ message: this.props.intl.formatMessage(messages.searching) });
+      this.timer = setTimeout(() => this.geoCodeQueryOpenCage(query), keystrokeWait);
+    }
   }
 
   handleChangeCoordinates(e) {
@@ -111,11 +143,27 @@ class GeolocationRespondTask extends Component {
       taskAnswerDisabled: !GeolocationRespondTask.canSubmit(),
       coordinatesString: e.target.value,
     });
+
+    const keystrokeWait = 1000;
+
+    this.setState({ message: '' });
+
+    clearTimeout(this.timer);
+
+    if (e.target.value) {
+      this.autoComplete.setState({ searchText: '' });
+      this.timer = setTimeout(() => this.handleBlur(), keystrokeWait);
+    }
   }
 
   handleBlur() {
     const coordinates = this.getCoordinates();
-    this.setState({ lat: coordinates[0], lng: coordinates[1] });
+    this.setState({
+      taskAnswerDisabled: !GeolocationRespondTask.canSubmit(),
+      lat: coordinates[0],
+      lng: coordinates[1],
+    });
+    this.autoComplete.setState({ searchText: '' });
   }
 
   handleSubmit() {
@@ -154,11 +202,37 @@ class GeolocationRespondTask extends Component {
       lat: ori.lat,
       lng: ori.lng,
       coordinatesString: ori.coordinatesString,
+      message: '',
     });
     if (this.props.onDismiss) {
       this.props.onDismiss();
     }
+    this.autoComplete.setState({ searchText: '' });
   }
+
+  // eslint-disable-next-line class-methods-use-this
+  handleKeyPress(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+    }
+  }
+
+  geoCodeQueryOpenCage = (query) => {
+    const apiKey = config.opencageApiKey;
+    const providerUrl = `https://api.opencagedata.com/geocode/v1/json?key=${apiKey}&q=${query}&no_annotations=1`;
+
+    fetch(providerUrl)
+      .then(response => response.json())
+      .catch(error => console.error('Error:', error))
+      .then((response) => {
+        const searchResult = response.results || [];
+        let message = '';
+        if (!searchResult.length) {
+          message = this.props.intl.formatMessage(messages.notFound);
+        }
+        this.setState({ searchResult, message });
+      });
+  };
 
   render() {
     const position = [this.state.lat, this.state.lng];
@@ -187,15 +261,55 @@ class GeolocationRespondTask extends Component {
       </p>
     );
 
+    const selectCallback = (obj) => {
+      if (typeof obj === 'object') {
+        const { lat, lng } = obj.geometry;
+        this.setState(
+          {
+            name: obj.formatted,
+            coordinatesString: `${lat}, ${lng}`,
+          },
+          this.handleBlur,
+        );
+      }
+    };
+
+    const dataSourceConfig = {
+      text: 'formatted',
+      value: 'geometry',
+    };
+
     return (
       <div>
+        <AutoComplete
+          id="geolocationsearch"
+          floatingLabelText={
+            <FormattedMessage
+              id="geolocationRespondTask.searchMap"
+              defaultMessage="Search the map"
+            />
+          }
+          name="geolocationsearch"
+          dataSource={this.state.searchResult}
+          dataSourceConfig={dataSourceConfig}
+          filter={AutoComplete.noFilter}
+          onFocus={() => { this.setState({ focus: true }); }}
+          onKeyPress={this.handleKeyPress.bind(this)}
+          onNewRequest={selectCallback}
+          ref={(a) => { this.autoComplete = a; }}
+          onUpdateInput={this.handleSearchText.bind(this)}
+          fullWidth
+        />
+        <div style={{ font: caption, color: black54 }}>
+          {this.state.message }
+        </div>
         <TextField
           id="task__response-geolocation-name"
           className="task__response-input"
           floatingLabelText={
             <FormattedMessage
               id="geolocationRespondTask.placeName"
-              defaultMessage="Type the name of the location"
+              defaultMessage="Customize place name"
             />
           }
           name="response"
@@ -220,7 +334,6 @@ class GeolocationRespondTask extends Component {
           onBlur={this.handleBlur.bind(this)}
           value={this.state.coordinatesString}
           fullWidth
-          multiLine
         />
         <div>
           <Map

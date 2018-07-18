@@ -1,5 +1,13 @@
 [
   {
+    "id": "geoLocationRespondTask.searching",
+    "defaultMessage": "Searching..."
+  },
+  {
+    "id": "geoLocationRespondTask.notFound",
+    "defaultMessage": "Sorry, place not found!"
+  },
+  {
     "id": "geolocationRespondTask.cancelTask",
     "defaultMessage": "Cancel"
   },
@@ -8,8 +16,12 @@
     "defaultMessage": "Resolve task"
   },
   {
+    "id": "geolocationRespondTask.searchMap",
+    "defaultMessage": "Search the map"
+  },
+  {
     "id": "geolocationRespondTask.placeName",
-    "defaultMessage": "Type the name of the location"
+    "defaultMessage": "Customize place name"
   },
   {
     "id": "geolocationRespondTask.coordinates",

@@ -12,4 +12,5 @@ window.config = {
   locale: 'en',
   googleAnalyticsCode: 'UA-00000000-1', // Optional
   mapboxApiKey: '' // Get one at mapbox.com
+  opencageApiKey: '' // Get one at opencagedata.com,
 }
