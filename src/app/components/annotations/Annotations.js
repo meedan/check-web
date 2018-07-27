@@ -26,12 +26,14 @@ const StyledAnnotation = styled.div`
     // Chrome only hack to avoid broken scroll on Firefox :( CGB 2017-10-6
     // TODO Figure out a real solution for this
     // https://github.com/philipwalton/flexbugs/issues/108
-    @media screen and (-webkit-min-device-pixel-ratio:0) {
-      height: ${props => props.height === 'short'
+    ${props => props.annotationCount < 4 ? 'height: 250px' :
+    `@media screen and (-webkit-min-device-pixel-ratio:0) {
+      max-height: ${props.height === 'short'
     ? 'calc(100vh - 580px);'
     : 'calc(100vh - 300px);'
 };
-    }
+    }`
+};
     min-height: 250px;
     overflow: auto;
     display: flex;
@@ -56,9 +58,7 @@ const StyledAnnotation = styled.div`
       }
       &:first-of-type {
         padding-bottom: ${units(6)};
-      }
-      &:last-of-type {
-        margin-top: ${units(6)};
+        height: 100%;
       }
     }
   }
@@ -74,6 +74,7 @@ const Annotations = props => (
     className="annotations"
     isRtl={rtlDetect.isRtlLang(props.intl.locale)}
     height={props.height}
+    annotationCount={props.annotations.length}
   >
     <Card>
       <TimelineHeader msgObj={messages} msgKey="timelineTitle" />
