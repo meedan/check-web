@@ -8,6 +8,10 @@
     "defaultMessage": "Sorry, place not found!"
   },
   {
+    "id": "geoLocationRespondTask.error",
+    "defaultMessage": "Error communicating with server!"
+  },
+  {
     "id": "geolocationRespondTask.cancelTask",
     "defaultMessage": "Cancel"
   },
