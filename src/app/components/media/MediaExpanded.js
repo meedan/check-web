@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Relay from 'react-relay';
+import Relay from 'react-relay/classic';
 import { CardText, CardActions } from 'material-ui/Card';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import MediaRoute from '../../relay/MediaRoute';

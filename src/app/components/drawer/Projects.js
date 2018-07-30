@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import Relay from 'react-relay';
+import Relay from 'react-relay/classic';
 import { Link } from 'react-router';
 import MenuItem from 'material-ui/MenuItem';
 import MdAddCircleOutline from 'material-ui/svg-icons/content/add-circle-outline';

@@ -6,7 +6,7 @@ import {
   injectIntl,
   intlShape,
 } from 'react-intl';
-import Relay from 'react-relay';
+import Relay from 'react-relay/classic';
 import Tooltip from 'rc-tooltip';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';

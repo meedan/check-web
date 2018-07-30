@@ -1,5 +1,5 @@
 import React from 'react';
-import Relay from 'react-relay';
+import Relay from 'react-relay/classic';
 import SourceRoute from '../../relay/SourceRoute';
 import Annotations from '../annotations/Annotations';
 import userFragment from '../../relay/userFragment';

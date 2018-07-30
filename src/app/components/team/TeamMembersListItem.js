@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
-import Relay from 'react-relay';
+import Relay from 'react-relay/classic';
 import { Link } from 'react-router';
 import Select from 'react-select';
-import 'react-select/dist/react-select.css';
+// import 'react-select/dist/react-select.css';
 import { ListItem } from 'material-ui/List';
 import MdClear from 'react-icons/lib/md/clear';
 import IconButton from 'material-ui/IconButton';

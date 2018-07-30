@@ -1,4 +1,4 @@
-import Relay from 'react-relay';
+import Relay from 'react-relay/classic';
 import { defineMessages } from 'react-intl';
 import util from 'util';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
