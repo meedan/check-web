@@ -16,6 +16,10 @@ const messages = defineMessages({
     id: 'geoLocationRespondTask.notFound',
     defaultMessage: 'Sorry, place not found!',
   },
+  error: {
+    id: 'geoLocationRespondTask.error',
+    defaultMessage: 'Error communicating with server!',
+  },
 });
 
 class GeolocationRespondTask extends Component {
@@ -106,8 +110,9 @@ class GeolocationRespondTask extends Component {
     const zoom = this.marker.leafletElement._map.getZoom();
     const coordinatesString = `${parseFloat(lat).toFixed(7)}, ${parseFloat(lng).toFixed(7)}`;
     this.setState({
-      lat, lng, zoom, coordinatesString, focus: true,
+      lat, lng, zoom, coordinatesString, focus: true, message: '',
     });
+    this.autoComplete.setState({ searchText: '' });
   }
 
   handlePressButton() {
@@ -142,6 +147,17 @@ class GeolocationRespondTask extends Component {
       taskAnswerDisabled: !GeolocationRespondTask.canSubmit(),
       coordinatesString: e.target.value,
     });
+
+    const keystrokeWait = 1000;
+
+    this.setState({ message: '' });
+
+    clearTimeout(this.timer);
+
+    if (e.target.value) {
+      this.autoComplete.setState({ searchText: '' });
+      this.timer = setTimeout(() => this.handleBlur(), keystrokeWait);
+    }
   }
 
   handleBlur() {
@@ -151,6 +167,7 @@ class GeolocationRespondTask extends Component {
       lat: coordinates[0],
       lng: coordinates[1],
     });
+    this.autoComplete.setState({ searchText: '' });
   }
 
   handleSubmit() {
@@ -209,8 +226,12 @@ class GeolocationRespondTask extends Component {
     const providerUrl = `https://api.opencagedata.com/geocode/v1/json?key=${apiKey}&q=${query}&no_annotations=1`;
 
     fetch(providerUrl)
-      .then(response => response.json())
-      .catch(error => console.error('Error:', error))
+      .then((response) => {
+        if (!response.ok) {
+          throw Error(this.props.intl.formatMessage(messages.error));
+        }
+        return response.json();
+      })
       .then((response) => {
         const searchResult = response.results || [];
         let message = '';
@@ -218,7 +239,8 @@ class GeolocationRespondTask extends Component {
           message = this.props.intl.formatMessage(messages.notFound);
         }
         this.setState({ searchResult, message });
-      });
+      })
+      .catch(error => this.setState({ message: error.message }));
   };
 
   render() {
@@ -321,7 +343,6 @@ class GeolocationRespondTask extends Component {
           onBlur={this.handleBlur.bind(this)}
           value={this.state.coordinatesString}
           fullWidth
-          multiLine
         />
         <div>
           <Map

@@ -35,6 +35,14 @@
             "aspects": [ "noHref", "invalidHref", "preferButton" ]
         }],
 
+        "jsx-a11y/label-has-for": [ 2, {
+            "components": [],
+            "required": {
+                "some": [ "nesting", "id" ]
+            },
+            "allowChildren": true
+        }],
+
         // TODO Reconfigure eslint to be aware of our configuration
         // files we import without extensions (or set this rule to "off")
         "import/no-extraneous-dependencies": "off",
