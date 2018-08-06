@@ -55,7 +55,8 @@
     "chai": "^3.5.0",
     "chrome-storage-local": "^0.1.1",
     "compression-webpack-plugin": "^0.3.2",
-    "enzyme": "^2.7.1",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "4.13.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-loader": "^1.9.0",
@@ -110,6 +111,7 @@
     "webpack-node-externals": "^1.5.4"
   },
   "dependencies": {
+    "@material-ui/core": "^1.4.2",
     "crossmessaging": "0.2.2",
     "deep-equal": "^1.0.1",
     "express": "^4.14.0",
@@ -128,7 +130,7 @@
     "lodash.truncate": "^4.4.2",
     "lodash.xor": "^4.5.0",
     "marked": "^0.3.5",
-    "material-ui": "^0.18.7",
+    "material-ui": "^0.20.0",
     "material-ui-next": "^1.0.0-beta.39",
     "material-ui-persian-date-picker-utils": "^0.1.2",
     "node-fetch": "^1.7.1",

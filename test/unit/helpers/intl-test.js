@@ -8,6 +8,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { IntlProvider, intlShape } from 'react-intl';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { mount, shallow } from 'enzyme';
@@ -65,7 +66,7 @@ export function getStore() {
 export function mountWithIntl(node) {
   return mount(nodeWithIntlProp(node), {
     context: { intl, store, muiTheme },
-    childContextTypes: { intl: intlShape, store: React.PropTypes.object, muiTheme: React.PropTypes.object },
+    childContextTypes: { intl: intlShape, store: PropTypes.object, muiTheme: PropTypes.object },
   });
 }
 
