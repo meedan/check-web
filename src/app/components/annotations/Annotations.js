@@ -30,7 +30,7 @@ const StyledAnnotation = styled.div`
     `@media screen and (-webkit-min-device-pixel-ratio:0) {
       max-height: ${props.height === 'short'
     ? 'calc(100vh - 580px);'
-    : 'calc(100vh - 300px);'
+    : 'calc(100vh - 420px);'
 };
     }`
 };
