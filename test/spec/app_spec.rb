@@ -1677,15 +1677,15 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(imgsrc.match(/test\.png$/).nil?).to be(false)
 
       # Zoom image
-      expect(@driver.find_elements(:css, '.image-current').empty?).to be(true)
+      expect(@driver.find_elements(:css, '.ril-image-current').empty?).to be(true)
       el = wait_for_selector('.annotation__card-thumbnail')
       el.click
 
-      wait_for_selector('.close')
-      expect(@driver.find_elements(:css, '.image-current').empty?).to be(false)
+      wait_for_selector('.ril-close')
+      expect(@driver.find_elements(:css, '.ril-image-current').empty?).to be(false)
       @driver.action.send_keys(:escape).perform
-      @wait.until {@driver.find_elements(:css, '.close').length == 0 }
-      expect(@driver.find_elements(:css, '.image-current').empty?).to be(true)
+      @wait.until {@driver.find_elements(:css, '.ril-close').length == 0 }
+      expect(@driver.find_elements(:css, '.ril-image-current').empty?).to be(true)
 
       # Reload the page and verify that comment is still there
       @driver.navigate.refresh

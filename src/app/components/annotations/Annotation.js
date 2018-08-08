@@ -13,6 +13,7 @@ import rtlDetect from 'rtl-detect';
 import { stripUnit } from 'polished';
 import { Link } from 'react-router';
 import Lightbox from 'react-image-lightbox';
+import 'react-image-lightbox/style.css';
 import { Card, CardText } from 'material-ui/Card';
 import IconMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import IconButton from 'material-ui/IconButton';
