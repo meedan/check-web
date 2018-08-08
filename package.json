@@ -52,6 +52,7 @@
     "babel-preset-react": "^6.16.0",
     "babel-preset-stage-0": "^6.16.0",
     "babel-relay-plugin": "^0.10.0",
+    "@babel/runtime": "7.0.0-beta.52",
     "chai": "^3.5.0",
     "chrome-storage-local": "^0.1.1",
     "compression-webpack-plugin": "^0.3.2",
