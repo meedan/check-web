@@ -16,6 +16,10 @@ const messages = defineMessages({
     id: 'geoLocationRespondTask.notFound',
     defaultMessage: 'Sorry, place not found!',
   },
+  error: {
+    id: 'geoLocationRespondTask.error',
+    defaultMessage: 'Error communicating with server!',
+  },
 });
 
 class GeolocationRespondTask extends Component {
@@ -222,8 +226,12 @@ class GeolocationRespondTask extends Component {
     const providerUrl = `https://api.opencagedata.com/geocode/v1/json?key=${apiKey}&q=${query}&no_annotations=1`;
 
     fetch(providerUrl)
-      .then(response => response.json())
-      .catch(error => console.error('Error:', error))
+      .then((response) => {
+        if (!response.ok) {
+          throw Error(this.props.intl.formatMessage(messages.error));
+        }
+        return response.json();
+      })
       .then((response) => {
         const searchResult = response.results || [];
         let message = '';
@@ -231,7 +239,8 @@ class GeolocationRespondTask extends Component {
           message = this.props.intl.formatMessage(messages.notFound);
         }
         this.setState({ searchResult, message });
-      });
+      })
+      .catch(error => this.setState({ message: error.message }));
   };
 
   render() {
