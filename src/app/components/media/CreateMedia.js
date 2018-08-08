@@ -142,7 +142,7 @@ class CreateProjectMedia extends Component {
     };
   }
 
-  setMode(mode) {
+  handleTabChange = (mode) => {
     this.setState({ mode });
   }
 
@@ -356,7 +356,6 @@ class CreateProjectMedia extends Component {
       return [
         <UploadImage
           key="createMedia.image.upload"
-          ref={(input) => { this.uploadImage = input; }}
           onImage={this.handleImage.bind(this)}
           onError={this.handleImageError.bind(this)}
         />,
@@ -393,6 +392,7 @@ class CreateProjectMedia extends Component {
           {...defaultInputProps}
         />,
         <AutoCompleteClaimAttribution
+          key="createMedia.source.input"
           team={context.team}
           hintText={this.props.intl.formatMessage(messages.quoteAttributionSourceInput)}
           inputProps={defaultInputProps}
@@ -491,28 +491,28 @@ class CreateProjectMedia extends Component {
 
               <div style={{ marginTop: units(2), width: '100%' }}>
                 <Row style={{ flexWrap: 'wrap' }}>
-                  <Tabs inkBarStyle={{ display: 'none' }}>
+                  <Tabs value={this.state.mode} onChange={this.handleTabChange} inkBarStyle={{ display: 'none' }}>
                     <Tab
                       id="create-media__link"
-                      onClick={this.setMode.bind(this, 'link')}
+                      value="link"
                       label={tabLabelLink}
                       {...defaultTabProps}
                     />
                     <Tab
                       id="create-media__quote"
-                      onClick={this.setMode.bind(this, 'quote')}
+                      value="quote"
                       label={tabLabelQuote}
                       {...defaultTabProps}
                     />
                     <Tab
                       id="create-media__source"
-                      onClick={this.setMode.bind(this, 'source')}
+                      value="source"
                       label={tabLabelSource}
                       {...defaultTabProps}
                     />
                     <Tab
                       id="create-media__image"
-                      onClick={this.setMode.bind(this, 'image')}
+                      value="image"
                       label={tabLabelImage}
                       {...defaultTabProps}
                     />
