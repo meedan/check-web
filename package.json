@@ -38,6 +38,7 @@
   ],
   "license": "MIT",
   "devDependencies": {
+    "@babel/runtime": "7.0.0-beta.52",
     "array-union": "^1.0.2",
     "autoprefixer": "^6.1.1",
     "babel-cli": "^6.24.1",
@@ -52,7 +53,6 @@
     "babel-preset-react": "^6.16.0",
     "babel-preset-stage-0": "^6.16.0",
     "babel-relay-plugin": "^0.10.0",
-    "@babel/runtime": "7.0.0-beta.52",
     "chai": "^3.5.0",
     "chrome-storage-local": "^0.1.1",
     "compression-webpack-plugin": "^0.3.2",
@@ -82,6 +82,7 @@
     "html-webpack-plugin": "^2.24.1",
     "http": "0.0.0",
     "husky": "^0.14.1",
+    "ignore-styles": "^5.0.1",
     "json-loader": "^0.5.4",
     "legit-tests": "^1.1.2",
     "lint-staged": "^4.0.0",
