@@ -592,8 +592,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       element =  wait_for_selector("source__edit-save-button", :class)
       element.click
       wait_for_selector("source__tab-button-account", :class, 60)
-      expect(@driver.page_source.include?('TAG1')).to be(true)
-      expect(@driver.page_source.include?('TAG2')).to be(false)
+      list = wait_for_selector_list("div.source-tags__tag")
+      expect(list.length == 1).to be(true)
     end
 
     it "should add and remove source languages", bin6: true  do
@@ -609,8 +609,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       element.click
       sleep 2
       fill_field("sourceLanguageInput", "Acoli", :id)
-      @driver.action.send_keys(:down).perform
-      @driver.action.send_keys(:return).perform
+      element = wait_for_selector('span[role="menuitem"]');
+      element.click
       sleep 1
       wait_for_size_change(0, "sourceLanguageInput",:id)
       element = wait_for_selector("source__edit-save-button",:class)
