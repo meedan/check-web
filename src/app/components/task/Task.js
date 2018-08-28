@@ -30,6 +30,7 @@ import UserAvatar from '../UserAvatar';
 import Attribution from './Attribution';
 import Sentence from '../Sentence';
 import { safelyParseJSON } from '../../helpers';
+import TaskLog from './TaskLog';
 
 const StyledWordBreakDiv = styled.div`
   hyphens: auto;
@@ -471,41 +472,43 @@ class Task extends Component {
     if (!task.first_response && !media.archived) {
       taskBody = (
         <Can permissions={media.permissions} permission="create Dynamic">
-          <form name={`task-response-${task.id}`}>
+          <div>
+            <form name={`task-response-${task.id}`}>
 
-            <div className="task__response-inputs">
-              {task.type === 'free_text' ?
-                <ShortTextRespondTask
-                  onSubmit={this.handleSubmitWithArgs.bind(this)}
-                />
-                : null}
-              {task.type === 'geolocation' ?
-                <GeolocationRespondTask
-                  onSubmit={this.handleSubmitWithArgs.bind(this)}
-                /> : null}
-              {task.type === 'datetime' ?
-                <DatetimeRespondTask onSubmit={this.handleSubmitWithArgs.bind(this)} note="" />
-                : null}
-              {task.type === 'single_choice' ?
-                <SingleChoiceTask
-                  mode="respond"
-                  response={response}
-                  note={note}
-                  jsonoptions={task.jsonoptions}
-                  onSubmit={this.handleSubmitWithArgs.bind(this)}
-                />
-                : null}
-              {task.type === 'multiple_choice' ?
-                <MultiSelectTask
-                  mode="respond"
-                  jsonresponse={response}
-                  note={note}
-                  jsonoptions={task.jsonoptions}
-                  onSubmit={this.handleSubmitWithArgs.bind(this)}
-                />
-                : null}
-            </div>
-          </form>
+              <div className="task__response-inputs">
+                {task.type === 'free_text' ?
+                  <ShortTextRespondTask
+                    onSubmit={this.handleSubmitWithArgs.bind(this)}
+                  />
+                  : null}
+                {task.type === 'geolocation' ?
+                  <GeolocationRespondTask
+                    onSubmit={this.handleSubmitWithArgs.bind(this)}
+                  /> : null}
+                {task.type === 'datetime' ?
+                  <DatetimeRespondTask onSubmit={this.handleSubmitWithArgs.bind(this)} note="" />
+                  : null}
+                {task.type === 'single_choice' ?
+                  <SingleChoiceTask
+                    mode="respond"
+                    response={response}
+                    note={note}
+                    jsonoptions={task.jsonoptions}
+                    onSubmit={this.handleSubmitWithArgs.bind(this)}
+                  />
+                  : null}
+                {task.type === 'multiple_choice' ?
+                  <MultiSelectTask
+                    mode="respond"
+                    jsonresponse={response}
+                    note={note}
+                    jsonoptions={task.jsonoptions}
+                    onSubmit={this.handleSubmitWithArgs.bind(this)}
+                  />
+                  : null}
+              </div>
+            </form>
+          </div>
         </Can>
       );
     } else if (this.state.editingResponse) {
@@ -641,6 +644,7 @@ class Task extends Component {
           >
             {taskActions}
           </CardActions>
+          <TaskLog task={task} />
         </Card>
 
         <Dialog

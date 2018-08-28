@@ -360,6 +360,17 @@ class Annotation extends Component {
               {this.props.intl.formatMessage(messages.deleteButton)}
             </MenuItem>
           </Can>
+          <MenuItem>
+            <a
+              href={`#annotation-${activity.dbid}`}
+              style={{ textDecoration: 'none', color: black87 }}
+            >
+              <FormattedMessage
+                id="annotation.permalink"
+                defaultMessage="Permalink"
+              />
+            </a>
+          </MenuItem>
         </IconMenu>)
         : null;
     }
