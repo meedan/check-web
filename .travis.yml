@@ -36,7 +36,7 @@ before_install:
 - sudo service elasticsearch restart
 - until curl --silent -XGET --fail http://localhost:9200; do printf '.'; sleep 1; done
 - sudo service elasticsearch status
-- git clone --branch feature/7059-comments-to-tasks https://github.com/meedan/check-api.git
+- git clone https://github.com/meedan/check-api.git
 - d=configurator/$APP/travis/check-api/; for f in $(find $d -type f); do cp "$f" "check-api/${f/$d/}"; done
 - cd check-api
 - bundle install --path=/tmp/bundler
