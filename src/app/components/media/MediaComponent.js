@@ -81,7 +81,7 @@ class MediaComponent extends Component {
     if (window.location.hash !== '') {
       const id = window.location.hash.replace(/^#/, '');
       const element = document.getElementById(id);
-      if (element.scrollIntoView !== undefined) {
+      if (element && element.scrollIntoView !== undefined) {
         element.scrollIntoView();
       }
     }
