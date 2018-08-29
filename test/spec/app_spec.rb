@@ -346,7 +346,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       fill_field('#create-media-source-url-input', @source_url)
       sleep 1
       press_button('#create-media-submit')
-      sleep 15
+      sleep 30
       expect(@driver.current_url.to_s.match(/\/source\/[0-9]+$/).nil?).to be(false)
       title = get_element('.source__name').text
       expect(title == @source_name).to be(true)
