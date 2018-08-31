@@ -264,7 +264,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       expect(project_pg.driver.current_url.to_s.match(/\/project\/[0-9]+$/).nil?).to be(false)
       team_pg = project_pg.click_team_link
-      sleep 2
+      sleep 10
       element = @driver.find_element(:partial_link_text, project_name)
       expect(element.displayed?).to be(true)
     end
@@ -346,7 +346,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       fill_field('#create-media-source-url-input', @source_url)
       sleep 1
       press_button('#create-media-submit')
-      sleep 30
+      sleep 45
       expect(@driver.current_url.to_s.match(/\/source\/[0-9]+$/).nil?).to be(false)
       title = get_element('.source__name').text
       expect(title == @source_name).to be(true)
@@ -1724,7 +1724,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       el = wait_for_selector_list('button')
       el.last.click
-      sleep 1
+      sleep 5
       fill_field('textarea[name="note"]', 'Test')
       el = wait_for_selector('.task__save')
       el.click
@@ -1793,6 +1793,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el = wait_for_selector(".add-annotation button[type=submit]")
       el.click
       old = wait_for_size_change(old, "annotation__default-content", :class)
+      sleep 10
       expect(@driver.page_source.include?('Your comment was added!')).to be(true)
       expect(@driver.page_source.include?('Comment deleted by')).to be(false)
       el = wait_for_selector('.menu-button')
@@ -1947,6 +1948,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       el = wait_for_selector('.create-task__add-short-answer', :css)
       el.location_once_scrolled_into_view
+      sleep 3
       el.click
       wait_for_selector('#task-label-input', :css)
       fill_field('#task-label-input', 'Test')
@@ -1961,7 +1963,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 5
       fill_field('#cmd-input', 'This is a comment under a task')
       @driver.action.send_keys(:enter).perform
-      sleep 15
+      sleep 20
       expect(@driver.page_source.include?('Hide 1 note')).to be(true)
     end
 
