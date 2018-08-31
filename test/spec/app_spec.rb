@@ -1961,7 +1961,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 5
       fill_field('#cmd-input', 'This is a comment under a task')
       @driver.action.send_keys(:enter).perform
-      sleep 5
+      sleep 15
       expect(@driver.page_source.include?('Hide 1 note')).to be(true)
     end
 
