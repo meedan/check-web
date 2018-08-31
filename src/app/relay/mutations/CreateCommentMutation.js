@@ -14,7 +14,7 @@ class CreateCommentMutation extends Relay.Mutation {
     case 'project_media':
       return Relay.QL`fragment on CreateCommentPayload { commentEdge, project_media { last_status, last_status_obj, log, log_count } }`;
     case 'task':
-      return Relay.QL`fragment on CreateCommentPayload { commentEdge, task { id, log, log_count } }`;
+      return Relay.QL`fragment on CreateCommentPayload { commentEdge, task { id, log, log_count }, project_media { id, log, log_count } }`;
     default:
       return '';
     }
@@ -52,6 +52,10 @@ class CreateCommentMutation extends Relay.Mutation {
   getConfigs() {
     const fieldIds = {};
     fieldIds[this.props.parent_type] = this.props.annotated.id;
+
+    if (this.props.parent_type === 'task') {
+      fieldIds.project_media = this.props.annotated.project_media.id;
+    }
 
     return [
       {

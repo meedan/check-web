@@ -26,9 +26,5 @@
   {
     "id": "datetimeRespondTask.timeOptional",
     "defaultMessage": "Time (optional)"
-  },
-  {
-    "id": "datetimeRespondTask.note",
-    "defaultMessage": "Note any additional details here."
   }
 ]

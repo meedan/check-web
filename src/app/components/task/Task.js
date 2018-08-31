@@ -612,6 +612,8 @@ class Task extends Component {
 
     const required = this.state.required !== null ? this.state.required : task.required;
 
+    task.project_media = this.props.media;
+
     return (
       <StyledWordBreakDiv>
         <Card

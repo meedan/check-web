@@ -23,6 +23,7 @@ const StyledTaskLog = styled.div`
 
     & > span {
       display: flex;
+      cursor: pointer;
     }
 
     span {
@@ -196,6 +197,7 @@ const TaskLogContainer = Relay.createContainer(TaskLogComponent, {
   },
 });
 
+/* eslint jsx-a11y/click-events-have-key-events: 0 */
 class TaskLog extends Component {
   constructor(props) {
     super(props);
@@ -229,7 +231,7 @@ class TaskLog extends Component {
                 values={{ count: this.props.task.log_count }}
               /> }
           </button>
-          <span>
+          <span onClick={this.toggle.bind(this)}>
             <ChatBubble /> <span>{this.props.task.log_count}</span>
           </span>
         </div>
