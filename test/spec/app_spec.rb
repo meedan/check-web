@@ -67,6 +67,35 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     include_examples "custom"
 
+    it "should add a comment to a task", bin5: true do
+      media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
+      wait_for_selector('.create-task__add-button')
+
+      # Create a task
+      el = wait_for_selector('.create-task__add-button', :css)
+      el.click
+      sleep 5
+      el = wait_for_selector('.create-task__add-short-answer', :css)
+      el.location_once_scrolled_into_view
+      sleep 3
+      el.click
+      wait_for_selector('#task-label-input', :css)
+      fill_field('#task-label-input', 'Test')
+      el = wait_for_selector('.create-task__dialog-submit-button', :css)
+      el.click
+      media_pg.wait_all_elements(2, "annotations__list-item", :class)
+      sleep 10
+      
+      # Add comment to task
+      expect(@driver.page_source.include?('Hide 1 note')).to be(false)
+      wait_for_selector('.task__log-top button', :css).click
+      sleep 5
+      fill_field('#cmd-input', 'This is a comment under a task')
+      @driver.action.send_keys(:enter).perform
+      sleep 20
+      expect(@driver.page_source.include?('Hide 1 note')).to be(true)
+    end
+
     it "should filter by medias or sources", bin6: true do
       api_create_team_project_and_link 'https://twitter.com/TheWho/status/890135323216367616'
       @driver.navigate.to @config['self_url']
@@ -1937,34 +1966,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       fill_field("geolocationsearch", "Salvador", :id)
       sleep 5
       expect(@driver.page_source.include?('SSA')).to be(true)
-    end
-
-    it "should add a comment to a task", bin5: true do
-      media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
-      wait_for_selector('.create-task__add-button')
-
-      # Create a task
-      el = wait_for_selector('.create-task__add-button', :css)
-      el.click
-      el = wait_for_selector('.create-task__add-short-answer', :css)
-      el.location_once_scrolled_into_view
-      sleep 3
-      el.click
-      wait_for_selector('#task-label-input', :css)
-      fill_field('#task-label-input', 'Test')
-      el = wait_for_selector('.create-task__dialog-submit-button', :css)
-      el.click
-      media_pg.wait_all_elements(2, "annotations__list-item", :class)
-      sleep 10
-      
-      # Add comment to task
-      expect(@driver.page_source.include?('Hide 1 note')).to be(false)
-      wait_for_selector('.task__log-top button', :css).click
-      sleep 5
-      fill_field('#cmd-input', 'This is a comment under a task')
-      @driver.action.send_keys(:enter).perform
-      sleep 20
-      expect(@driver.page_source.include?('Hide 1 note')).to be(true)
     end
 
     # Postponed due Alexandre's developement
