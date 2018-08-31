@@ -96,6 +96,73 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Hide 1 note')).to be(true)
     end
 
+    it "should add, edit, answer, update answer and delete datetime task", bin3: true do
+      media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
+      wait_for_selector('.create-task__add-button')
+
+      # Create a task
+      expect(@driver.page_source.include?('When?')).to be(false)
+      expect(@driver.page_source.include?('Task "When?" created by')).to be(false)
+      old = wait_for_selector_list("annotation__default-content",:class).length
+      el = wait_for_selector('.create-task__add-button')
+      el.click
+      sleep 5
+      el = wait_for_selector('.create-task__add-datetime')
+      el.click
+      sleep 1
+      fill_field('#task-label-input', 'When?')
+      el = wait_for_selector('.create-task__dialog-submit-button')
+      el.click
+      old = wait_for_size_change(old, "annotation__default-content", :class)
+      expect(@driver.page_source.include?('When?')).to be(true)
+      expect(@driver.page_source.include?('Task "When?" created by')).to be(true)
+
+      # Answer task
+      expect(@driver.page_source.include?('Task "When?" answered by')).to be(false)
+      fill_field('input[name="hour"]', '23')
+      fill_field('input[name="minute"]', '59')
+      el = wait_for_selector('#task__response-date')
+      el.click
+      el = wait_for_selector_list('button')
+      el.last.click
+      sleep 5
+      el = wait_for_selector('.task__save')
+      el.click
+      old = wait_for_size_change(old, "annotation__default-content", :class)
+      expect(@driver.page_source.include?('Task "When?" answered by')).to be(true)
+
+      # Edit task
+      expect(@driver.page_source.include?('Task "When?" edited to "When was it?" by')).to be(false)
+      el = wait_for_selector('.task-actions > button')
+      el.click
+      el = wait_for_selector(".task-actions__edit")
+      @driver.action.move_to(el).perform
+      el.click
+      sleep 1
+      wait_for_selector("//textarea[contains(text(), 'When?')]", :xpath)
+      update_field('textarea[name="label"]', 'When was it?')
+      el = wait_for_selector('.task__save')
+      el.click
+      old = wait_for_size_change(old, "annotation__default-content", :class)
+      expect(@driver.page_source.include?('Task "When?" edited to "When was it?" by')).to be(true)
+
+      # Edit task response
+      expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('12:34')).to be(false)
+      el = wait_for_selector('.task-actions > button')
+      el.click
+      el = wait_for_selector('.task-actions__edit-response')
+      el.click
+      update_field('input[name="hour"]', '12')
+      update_field('input[name="minute"]', '34')
+      el = wait_for_selector('.task__save')
+      el.click
+      old = wait_for_size_change(old, "annotation__default-content", :class)
+      expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('12:34')).to be(true)
+
+      # Delete task
+      delete_task('When was it')
+    end
+
     it "should filter by medias or sources", bin6: true do
       api_create_team_project_and_link 'https://twitter.com/TheWho/status/890135323216367616'
       @driver.navigate.to @config['self_url']
@@ -1722,75 +1789,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('This is my comment with image')).to be(true)
       imgsrc = @driver.find_element(:css, '.annotation__card-thumbnail').attribute('src')
       expect(imgsrc.match(/test\.png$/).nil?).to be(false)
-    end
-
-    it "should add, edit, answer, update answer and delete datetime task", bin3: true do
-      media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
-      wait_for_selector('.create-task__add-button')
-
-      # Create a task
-      expect(@driver.page_source.include?('When?')).to be(false)
-      expect(@driver.page_source.include?('Task "When?" created by')).to be(false)
-      old = wait_for_selector_list("annotation__default-content",:class).length
-      el = wait_for_selector('.create-task__add-button')
-      el.click
-      sleep 5
-      el = wait_for_selector('.create-task__add-datetime')
-      el.click
-      sleep 1
-      fill_field('#task-label-input', 'When?')
-      el = wait_for_selector('.create-task__dialog-submit-button')
-      el.click
-      old = wait_for_size_change(old, "annotation__default-content", :class)
-      expect(@driver.page_source.include?('When?')).to be(true)
-      expect(@driver.page_source.include?('Task "When?" created by')).to be(true)
-
-      # Answer task
-      expect(@driver.page_source.include?('Task "When?" answered by')).to be(false)
-      fill_field('input[name="hour"]', '23')
-      fill_field('input[name="minute"]', '59')
-      el = wait_for_selector('#task__response-date')
-      el.click
-      el = wait_for_selector_list('button')
-      el.last.click
-      sleep 5
-      fill_field('textarea[name="note"]', 'Test')
-      el = wait_for_selector('.task__save')
-      el.click
-      old = wait_for_size_change(old, "annotation__default-content", :class)
-      expect(@driver.page_source.include?('Task "When?" answered by')).to be(true)
-
-      # Edit task
-      expect(@driver.page_source.include?('Task "When?" edited to "When was it?" by')).to be(false)
-      el = wait_for_selector('.task-actions > button')
-      el.click
-      el = wait_for_selector(".task-actions__edit")
-      @driver.action.move_to(el).perform
-      el.click
-      sleep 1
-      wait_for_selector("//textarea[contains(text(), 'When?')]", :xpath)
-      update_field('textarea[name="label"]', 'When was it?')
-      el = wait_for_selector('.task__save')
-      el.click
-      old = wait_for_size_change(old, "annotation__default-content", :class)
-      expect(@driver.page_source.include?('Task "When?" edited to "When was it?" by')).to be(true)
-
-      # Edit task response
-      expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('12:34')).to be(false)
-      el = wait_for_selector('.task-actions > button')
-      el.click
-      el = wait_for_selector('.task-actions__edit-response')
-      el.click
-      update_field('input[name="hour"]', '12')
-      update_field('input[name="minute"]', '34')
-      update_field('textarea[name="note"]', '')
-      el = wait_for_selector('.task__save')
-      el.click
-      old = wait_for_size_change(old, "annotation__default-content", :class)
-      expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('12:34')).to be(true)
-
-      # Delete task
-      delete_task('When was it')
     end
 
     it "should delete annotation from annotations list (for media and source)", bin5: true do
