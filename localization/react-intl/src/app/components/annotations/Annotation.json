@@ -24,6 +24,10 @@
     "defaultMessage": "New claim added by {author}"
   },
   {
+    "id": "annotation.permalink",
+    "defaultMessage": "Permalink"
+  },
+  {
     "id": "annotation.taggedHeader",
     "defaultMessage": "Tagged #{tag} by {author}"
   },

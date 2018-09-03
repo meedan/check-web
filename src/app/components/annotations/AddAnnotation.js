@@ -429,8 +429,11 @@ class AddAnnotation extends Component {
     `;
 
     if (this.props.annotated.archived ||
-      (this.props.annotatedType === 'ProjectMedia' &&
-      !can(this.props.annotated.permissions, 'create Comment'))) {
+      ((this.props.annotatedType === 'ProjectMedia' &&
+      !can(this.props.annotated.permissions, 'create Comment')) ||
+      (this.props.annotatedType === 'Task' &&
+      !can(this.props.annotated.permissions, 'update Task'))
+      )) {
       return null;
     }
 

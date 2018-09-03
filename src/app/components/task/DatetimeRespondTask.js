@@ -324,20 +324,6 @@ class DatetimeRespondTask extends Component {
         <div style={styles.error}>
           {this.state.timeError ? this.state.timeError : ''}
         </div>
-        <TextField
-          floatingLabelText={
-            <FormattedMessage
-              id="datetimeRespondTask.note"
-              defaultMessage="Note any additional details here."
-            />
-          }
-          name="note"
-          value={this.state.note}
-          multiLine
-          fullWidth
-          onChange={this.handleChangeNote.bind(this)}
-          onFocus={() => { this.setState({ focus: true }); }}
-        />
         { this.state.focus || this.props.response ? actionBtns : null }
       </div>
     );

@@ -5,7 +5,7 @@ import FlatButton from 'material-ui/FlatButton';
 import { FormattedMessage } from 'react-intl';
 import CreateOptionsTask from './CreateOptionsTask';
 import { safelyParseJSON } from '../../helpers';
-import { units, StyledSmallTextField } from '../../styles/js/shared';
+import { StyledSmallTextField } from '../../styles/js/shared';
 
 class MultiSelectTask extends Component {
   constructor(props) {
@@ -174,9 +174,6 @@ class MultiSelectTask extends Component {
         this.state.responseOther !== null
         ? this.state.responseOther
         : response.other || '';
-      const responseNote = typeof this.state.note !== 'undefined' && this.state.note !== null
-        ? this.state.note
-        : note || '';
 
       return (
         <div className="task__options">
@@ -230,24 +227,6 @@ class MultiSelectTask extends Component {
             </div>
           </FormGroup>
 
-          {editable ?
-            <StyledSmallTextField
-              className="task__response-note-input"
-              hintText={
-                <FormattedMessage
-                  id="task.noteLabel"
-                  defaultMessage="Note any additional details here."
-                />
-              }
-              name="note"
-              value={responseNote}
-              onKeyPress={keyPressCallback}
-              onChange={this.handleChange.bind(this)}
-              style={{ marginTop: units(2) }}
-              fullWidth
-              multiLine
-            />
-            : null}
           {(this.state.focus && editable) || this.props.mode === 'edit_response'
             ? actionBtns
             : null}

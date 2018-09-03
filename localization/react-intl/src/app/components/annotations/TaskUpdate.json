@@ -18,5 +18,13 @@
   {
     "id": "annotation.assignmentRemoved",
     "defaultMessage": "Task \"{title}\" unassigned from \"{assigneeFrom}\" by {author}"
+  },
+  {
+    "id": "annotation.addedComment",
+    "defaultMessage": "{author} added a note to the task \"{title}\": \"{comment}\""
+  },
+  {
+    "id": "annotation.removedComment",
+    "defaultMessage": "{author} deleted a note from the task \"{title}\": \"{comment}\""
   }
 ]

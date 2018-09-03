@@ -123,6 +123,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
               description,
               permissions,
               jsonoptions,
+              log_count,
               assigned_to {
                 name
                 id
