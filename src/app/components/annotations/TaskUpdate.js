@@ -10,6 +10,8 @@ let editedNote = false;
 let createdNote = false;
 let changedAssignment = false;
 let removedAssignment = false;
+let addedComment = false;
+let removedComment = false;
 
 function shouldLogChange(activity) {
   const changes = JSON.parse(activity.object_changes_json);
@@ -27,6 +29,12 @@ function shouldLogChange(activity) {
       editedNote = false;
       createdNote = true;
     }
+    if (from.log_count < to.log_count || (!from.log_count && to.log_count)) {
+      addedComment = true;
+    }
+    if (from.log_count > to.log_count) {
+      removedComment = true;
+    }
   }
   if (changes.assigned_to_id) {
     assignment = changes.assigned_to_id;
@@ -36,7 +44,8 @@ function shouldLogChange(activity) {
       removedAssignment = true;
     }
   }
-  if (editedTitle || editedNote || createdNote || changedAssignment || removedAssignment) {
+  if (editedTitle || editedNote || createdNote || changedAssignment || removedAssignment
+    || addedComment || removedComment) {
     return true;
   }
   return false;
@@ -51,6 +60,8 @@ class TaskUpdate extends React.Component {
     createdNote = false;
     changedAssignment = false;
     removedAssignment = false;
+    addedComment = false;
+    removedComment = false;
   }
 
   render() {
@@ -58,14 +69,18 @@ class TaskUpdate extends React.Component {
 
     if (shouldLogChange(activity)) {
       let title = '';
+      let comment = '';
       let assigneeFrom = null;
       let assigneeTo = null;
-      if (changedAssignment || removedAssignment) {
+      if (changedAssignment || removedAssignment || addedComment || removedComment) {
         title = JSON.parse(activity.object_after).data.label;
         if (activity.meta) {
-          const assignee = JSON.parse(activity.meta);
-          assigneeFrom = assignee.assigned_from_name;
-          assigneeTo = assignee.assigned_to_name;
+          const meta = JSON.parse(activity.meta);
+          assigneeFrom = meta.assigned_from_name;
+          assigneeTo = meta.assigned_to_name;
+          if (meta.annotation_type === 'comment') {
+            comment = meta.data.text;
+          }
         }
       }
 
@@ -113,6 +128,20 @@ class TaskUpdate extends React.Component {
               values={{ title, assigneeFrom, author }}
             />
             : null}
+          {addedComment ?
+            <FormattedMessage
+              id="annotation.addedComment"
+              defaultMessage='{author} added a note to the task "{title}": "{comment}"'
+              values={{ author, title, comment }}
+            />
+            : null}
+          {removedComment ?
+            <FormattedMessage
+              id="annotation.removedComment"
+              defaultMessage='{author} deleted a note from the task "{title}": "{comment}"'
+              values={{ author, title, comment }}
+            />
+            : null}
         </span>
       );
 
@@ -121,6 +150,8 @@ class TaskUpdate extends React.Component {
       createdNote = false;
       changedAssignment = false;
       removedAssignment = false;
+      addedComment = false;
+      removedComment = false;
 
       return contentTemplate;
     }

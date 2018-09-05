@@ -75,9 +75,6 @@ class ShortTextRespondTask extends React.Component {
     const response = typeof this.state.response !== 'undefined' && this.state.response !== null
       ? this.state.response : this.props.response || '';
 
-    const note = typeof this.state.note !== 'undefined' && this.state.note !== null
-      ? this.state.note : this.props.note || '';
-
     return (
       <div>
         <TextField
@@ -92,20 +89,6 @@ class ShortTextRespondTask extends React.Component {
           name="response"
           onChange={this.handleChange.bind(this)}
           onKeyPress={this.handleKeyPress.bind(this)}
-          onFocus={() => { this.setState({ focus: true }); }}
-          fullWidth
-          multiLine
-        />
-        <TextField
-          hintText={
-            <FormattedMessage
-              id="shortTextRespondTask.noteHint"
-              defaultMessage="Note any additional details here."
-            />
-          }
-          value={note}
-          name="note"
-          onChange={this.handleChange.bind(this)}
           onFocus={() => { this.setState({ focus: true }); }}
           fullWidth
           multiLine

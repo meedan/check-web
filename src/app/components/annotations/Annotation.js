@@ -360,6 +360,17 @@ class Annotation extends Component {
               {this.props.intl.formatMessage(messages.deleteButton)}
             </MenuItem>
           </Can>
+          <MenuItem>
+            <a
+              href={`#annotation-${activity.dbid}`}
+              style={{ textDecoration: 'none', color: black87 }}
+            >
+              <FormattedMessage
+                id="annotation.permalink"
+                defaultMessage="Permalink"
+              />
+            </a>
+          </MenuItem>
         </IconMenu>)
         : null;
     }
@@ -1036,7 +1047,7 @@ class Annotation extends Component {
               >
                 {authorName ?
                   <Tooltip placement="top" overlay={<UserTooltip user={activity.user} team={annotated.team} />}>
-                    <StyledAvatarColumn isRtl={isRtl}>
+                    <StyledAvatarColumn isRtl={isRtl} className="annotation__avatar-col">
                       <SourcePicture
                         className="avatar"
                         type="user"
@@ -1049,7 +1060,7 @@ class Annotation extends Component {
                 <StyledPrimaryColumn isRtl={isRtl}>
                   {contentTemplate}
                   <StyledAnnotationMetadata isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
-                    <span>
+                    <span className="annotation__card-footer">
                       {authorName ?
                         <ProfileLink
                           className="annotation__card-author"

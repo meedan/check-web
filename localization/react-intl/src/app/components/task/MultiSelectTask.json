@@ -6,9 +6,5 @@
   {
     "id": "tasks.submit",
     "defaultMessage": "Resolve Task"
-  },
-  {
-    "id": "task.noteLabel",
-    "defaultMessage": "Note any additional details here."
   }
 ]

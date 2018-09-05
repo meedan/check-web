@@ -138,10 +138,6 @@ class SingleChoiceTask extends Component {
         : 'none';
       const responseSelected = this.state.response == null ? response : this.state.response;
 
-      const responseNote = typeof this.state.note !== 'undefined' && this.state.note !== null
-        ? this.state.note
-        : note || '';
-
       return (
         <div className="task__options">
           <FormGroup>
@@ -198,22 +194,6 @@ class SingleChoiceTask extends Component {
                 : null}
             </div>
 
-            {editable ?
-              <StyledSmallTextField
-                className="task__response-note-input"
-                hintText={
-                  <FormattedMessage
-                    id="task.noteLabel"
-                    defaultMessage="Note any additional details here."
-                  />
-                }
-                name="note"
-                value={responseNote}
-                onKeyPress={keyPressCallback}
-                onChange={this.handleChange.bind(this)}
-                fullWidth
-                multiLine
-              /> : null}
             {(this.state.focus && editable) || this.props.mode === 'edit_response'
               ? actionBtns
               : null}
