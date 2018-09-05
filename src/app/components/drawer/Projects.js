@@ -47,6 +47,12 @@ class DrawerProjectsComponent extends Component {
     this.props.relay.setVariables({ pageSize: this.props.team.projects.edges.length + pageSize });
   }
 
+  handleToggleDrawer = () => {
+    if (this.props.toggleDrawerCallback) {
+      this.props.toggleDrawerCallback();
+    }
+  };
+
   render() {
     const { props } = this;
     const projectList = (() => {
@@ -76,7 +82,12 @@ class DrawerProjectsComponent extends Component {
     // avoid clicks to create project widget to close drawer
     const createProject = (
       <div onClick={(e) => { e.stopPropagation(); }} style={{ width: '100%', padding: '16px' }}>
-        <CreateProject className="project-list__input" team={props.team} autofocus />
+        <CreateProject
+          className="project-list__input"
+          team={props.team}
+          onCreate={this.handleToggleDrawer}
+          autofocus
+        />
       </div>
     );
 
