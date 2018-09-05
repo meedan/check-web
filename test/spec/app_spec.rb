@@ -87,7 +87,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       media_pg.wait_all_elements(2, "annotations__list-item", :class)
       sleep 10
-      
+
       # Add comment to task
       expect(@driver.page_source.include?('Hide 1 note')).to be(false)
       wait_for_selector('.task__log-top button', :css).click
@@ -1531,11 +1531,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should search by project", bin2: true do
       api_create_claim_and_go_to_search_page
       expect((@driver.current_url.to_s.match(/project/)).nil?).to be(true)
-      @driver.find_element(:xpath, "//div[contains(text(), 'Project')]").click
+      el = wait_for_selector('.search-filter__project-chip')
+      el.click
       sleep 10
       expect((@driver.current_url.to_s.match(/project/)).nil?).to be(false)
       expect((@driver.title =~ /Project/).nil?).to be(false)
-      @driver.find_element(:xpath, "//div[contains(text(), 'Project')]").click
+      el = wait_for_selector('.search-filter__project-chip')
+      el.click
       sleep 10
       expect((@driver.title =~ /Project/).nil?).to be(true)
     end

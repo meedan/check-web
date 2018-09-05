@@ -478,7 +478,7 @@ class SearchQueryComponent extends Component {
                     title={project.node.description}
                     onClick={this.handleProjectClick.bind(this, project.node.dbid)}
                     className={bemClass(
-                      'media-tags__suggestion',
+                      'search-filter__project-chip',
                       this.projectIsSelected(project.node.dbid),
                       '--selected',
                     )}
@@ -735,9 +735,12 @@ class SearchResultsComponent extends Component {
   render() {
     const medias = this.props.search ? this.props.search.medias.edges : [];
     const sources = this.props.search ? this.props.search.sources.edges : [];
-    const searchResults = SearchResultsComponent.mergeResults(medias, sources);
 
+    const searchResults = SearchResultsComponent.mergeResults(medias, sources);
     const count = this.props.search ? this.props.search.number_of_results : 0;
+
+    const hasMore = (searchResults.length < count);
+
     const mediasCount = this.props.intl.formatMessage(messages.searchResults, {
       resultsCount: count,
     });
@@ -750,7 +753,7 @@ class SearchResultsComponent extends Component {
     return (
       <StyledSearchResultsWrapper className="search__results results">
         {title}
-        <InfiniteScroll hasMore loadMore={this.loadMore.bind(this)} threshold={500}>
+        <InfiniteScroll hasMore={hasMore} loadMore={this.loadMore.bind(this)} threshold={500}>
           <div className="search__results-list results medias-list">
             {searchResults.map(item => (
               <li key={item.node.id} className="medias__item">
