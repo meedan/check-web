@@ -28,22 +28,22 @@ const customHelpers = {
 const customStrings = {
   bridge: {
     ABOUT_URL: 'https://meedan.com/bridge',
-    ADMIN_EMAIL: 'admin@speakbridge.io',
-    CONTACT_HUMAN_URL: 'mailto:hello@speakbridge.io',
+    ADMIN_EMAIL: 'bridge@meedan.com',
+    CONTACT_HUMAN_URL: 'mailto:bridge@meedan.com',
     PP_URL: 'https://meedan.com/en/bridge/bridge_privacy.html',
-    SUPPORT_EMAIL: 'hello@speakbridge.io',
+    SUPPORT_EMAIL: 'bridge@meedan.com',
     TOS_URL: 'https://meedan.com/en/bridge/bridge_tos.html',
     LOGO_URL: '/images/logo/bridge.svg',
   },
   check: {
     ABOUT_URL: 'https://meedan.com/check',
-    ADMIN_EMAIL: 'admin@checkmedia.org',
+    ADMIN_EMAIL: 'check@meedan.com',
     CONTACT_HUMAN_URL: 'https://meedan.typeform.com/to/Tvf0b8',
     PP_URL: 'https://meedan.com/en/check/check_privacy.html',
     SUPPORT_EMAIL: 'check@meedan.com',
     TOS_URL: 'https://meedan.com/en/check/check_tos.html',
     LOGO_URL: '/images/logo/check.svg',
-    UPGRADE_URL: 'mailto:checkpro@meedan.com',
+    UPGRADE_URL: 'https://meedan.typeform.com/to/F9L2cY',
   },
 };
 

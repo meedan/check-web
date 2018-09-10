@@ -1659,12 +1659,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
 
       sleep 1
-      @driver.navigate.to 'https://pastebin.mozilla.org/'
-      el = wait_for_selector('#code')
+      @driver.navigate.to 'https://paste.ubuntu.com/'
+      el = wait_for_selector('#id_content')
       el.send_keys(' ')
       @driver.action.send_keys(:control, 'v').perform
       sleep 1
-      expect((@driver.find_element(:css, '#code').attribute('value') =~ /hide_open_tasks%3D1%26hide_tasks%3D1%26hide_notes%3D1/).nil?).to be(false)
+      expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /hide_open_tasks%3D1%26hide_tasks%3D1%26hide_notes%3D1/).nil?).to be(false)
       sleep 5
     end
 

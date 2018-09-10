@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 import ChatBubble from 'material-ui/svg-icons/communication/chat-bubble';
 import TaskRoute from '../../relay/TaskRoute';
+import CheckContext from '../../CheckContext';
 import Annotation from '../annotations/Annotation';
 import MediasLoading from '../media/MediasLoading';
 import AddAnnotation from '../annotations/AddAnnotation';
@@ -12,6 +14,23 @@ import { black16, units, opaqueBlack54 } from '../../styles/js/shared';
 const StyledAnnotation = styled.div`
   div {
     box-shadow: none !important;
+  }
+
+  .annotation__card-content {
+    display: block;
+  }
+
+  .annotation__avatar-col {
+    display: flex;
+  }
+
+  .avatar {
+    align-self: flex-end;
+  }
+
+  .annotation__card-footer {
+    align-self: flex-end;
+    line-height: 32px;
   }
 `;
 
@@ -60,32 +79,93 @@ const StyledTaskLog = styled.div`
   }
 `;
 
-const TaskLogComponent = (props) => {
-  const task = Object.assign(props.cachedTask, props.task);
-  const log = task.log.edges;
-  return (
-    <div>
-      <ul>
-        {log.map((node) => {
-          const item = node.node;
-          if (item.event_type !== 'create_comment') {
-            return null;
-          }
-          return (
-            <li key={item.id}>
-              <StyledAnnotation>
-                <Annotation
-                  annotation={item}
-                  annotated={task}
-                  annotatedType="Task"
-                />
-              </StyledAnnotation>
-            </li>
-          );
-        })}
-      </ul>
-    </div>
-  );
+/* eslint react/no-multi-comp: 0 */
+
+class TaskLogComponent extends Component {
+  static scrollToAnnotation() {
+    if (window.location.hash !== '') {
+      const id = window.location.hash.replace(/^#/, '');
+      const element = document.getElementById(id);
+      if (element && element.scrollIntoView !== undefined) {
+        element.scrollIntoView();
+      }
+    }
+  }
+
+  componentDidMount() {
+    TaskLogComponent.scrollToAnnotation();
+    this.subscribe();
+  }
+
+  componentDidUpdate() {
+    const container = document.getElementById(`task-log-${this.props.task.dbid}`);
+    if (container) {
+      container.scrollTop = container.scrollHeight + 600;
+    }
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
+  getContext() {
+    return new CheckContext(this).getContextStore();
+  }
+
+  subscribe() {
+    const { pusher } = this.getContext();
+    if (pusher) {
+      pusher.subscribe(this.props.cachedTask.project_media.pusher_channel).bind('media_updated', (data) => {
+        const annotation = JSON.parse(data.message);
+        if (annotation.annotation_type === 'task' &&
+          parseInt(annotation.id, 10) === parseInt(this.props.task.dbid, 10) &&
+          this.getContext().clientSessionId !== data.actor_session_id
+        ) {
+          this.props.relay.forceFetch();
+        }
+      });
+    }
+  }
+
+  unsubscribe() {
+    const { pusher } = this.getContext();
+    if (pusher) {
+      pusher.unsubscribe(this.props.cachedTask.project_media.pusher_channel);
+    }
+  }
+
+  render() {
+    const { props } = this;
+    const task = Object.assign(props.cachedTask, props.task);
+    const log = task.log.edges;
+    return (
+      <div>
+        <ul id={`task-log-${task.dbid}`}>
+          {log.map((node) => {
+            const item = node.node;
+            if (item.event_type !== 'create_comment') {
+              return null;
+            }
+            return (
+              <li key={item.id}>
+                <StyledAnnotation>
+                  <Annotation
+                    annotation={item}
+                    annotated={task}
+                    annotatedType="Task"
+                  />
+                </StyledAnnotation>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    );
+  }
+}
+
+TaskLogComponent.contextTypes = {
+  store: PropTypes.object,
 };
 
 const TaskLogContainer = Relay.createContainer(TaskLogComponent, {
@@ -203,7 +283,7 @@ class TaskLog extends Component {
     super(props);
 
     this.state = {
-      collapsed: true,
+      collapsed: (window.location.hash === ''),
     };
   }
 
