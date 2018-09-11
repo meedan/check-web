@@ -9,7 +9,7 @@ import CheckContext from '../../CheckContext';
 import Annotation from '../annotations/Annotation';
 import MediasLoading from '../media/MediasLoading';
 import AddAnnotation from '../annotations/AddAnnotation';
-import { black16, units, opaqueBlack54 } from '../../styles/js/shared';
+import { black16, units, opaqueBlack54, checkBlue } from '../../styles/js/shared';
 
 const StyledAnnotation = styled.div`
   div {
@@ -39,6 +39,11 @@ const StyledTaskLog = styled.div`
     display: flex;
     justify-content: space-between;
     padding: ${units(2)};
+
+    b {
+      color: ${checkBlue};
+      font-size: 36px;
+    }
 
     & > span {
       display: flex;
@@ -143,7 +148,9 @@ class TaskLogComponent extends Component {
         <ul id={`task-log-${task.dbid}`}>
           {log.map((node) => {
             const item = node.node;
-            if (item.event_type !== 'create_comment') {
+            if (item.event_type !== 'create_comment' &&
+              item.event_type !== 'create_dynamicannotationfield' &&
+              item.event_type !== 'update_dynamicannotationfield') {
               return null;
             }
             return (
@@ -175,6 +182,16 @@ const TaskLogContainer = Relay.createContainer(TaskLogComponent, {
         id
         dbid
         log_count
+        suggestions_count
+        project_media {
+          id
+          dbid
+          team {
+            id
+            dbid
+            slug
+          }
+        }
         log(first: 10000) {
           edges {
             node {
@@ -196,6 +213,9 @@ const TaskLogContainer = Relay.createContainer(TaskLogComponent, {
                   id,
                   dbid,
                   image,
+                },
+                bot {
+                  dbid
                 }
               }
               annotation {
@@ -294,6 +314,8 @@ class TaskLog extends Component {
   render() {
     const id = this.props.task.dbid;
     const route = new TaskRoute({ id });
+    const suggestionsCount = this.props.task.suggestions_count || 0;
+    const logCount = this.props.task.log_count + suggestionsCount;
 
     return (
       <StyledTaskLog>
@@ -303,16 +325,16 @@ class TaskLog extends Component {
               <FormattedMessage
                 id="taskLog.show"
                 defaultMessage="{count, plural, =0 {Show notes} one {Show 1 note} other {Show # notes}}"
-                values={{ count: this.props.task.log_count }}
+                values={{ count: logCount }}
               /> :
               <FormattedMessage
                 id="taskLog.hide"
                 defaultMessage="{count, plural, =0 {Hide notes} one {Hide 1 note} other {Hide # notes}}"
-                values={{ count: this.props.task.log_count }}
+                values={{ count: logCount }}
               /> }
           </button>
           <span onClick={this.toggle.bind(this)}>
-            <ChatBubble /> <span>{this.props.task.log_count}</span>
+            <b>{ suggestionsCount > 0 ? '•' : null }</b> <ChatBubble /> <span>{logCount}</span>
           </span>
         </div>
         { !this.state.collapsed ? <Relay.RootContainer

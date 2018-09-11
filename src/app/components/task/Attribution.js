@@ -29,8 +29,26 @@ class AttributionComponent extends React.Component {
     props.team.team_users.edges.forEach((team_user) => {
       const { node } = team_user;
       if (node.status === 'member') {
-        if (selectedUserIds.indexOf(node.user.dbid) === -1) {
-          unselectedUsers.push({ value: node.user.dbid, label: node.user.name });
+        const { user } = node;
+
+        let shouldDisplay = true;
+
+        if (user.is_bot) {
+          shouldDisplay = false;
+        }
+
+        if (props.taskType && user.is_bot) {
+          shouldDisplay = false;
+          const regexp = new RegExp(props.taskType);
+          user.bot_events.split(',').forEach((ev) => {
+            if (regexp.test(ev)) {
+              shouldDisplay = true;
+            }
+          });
+        }
+
+        if (selectedUserIds.indexOf(user.dbid) === -1 && shouldDisplay) {
+          unselectedUsers.push({ value: user.dbid, label: user.name });
         }
       }
     });
@@ -156,6 +174,8 @@ const AttributionContainer = Relay.createContainer(injectIntl(AttributionCompone
                 id
                 dbid
                 name
+                is_bot
+                bot_events
               }
             }
           }

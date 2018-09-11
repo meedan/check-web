@@ -1,0 +1,46 @@
+[
+  {
+    "id": "bot.confirmInstall",
+    "defaultMessage": "Are you sure you want to install bot on team {teamName}?"
+  },
+  {
+    "id": "bot.confirmUninstall",
+    "defaultMessage": "Are you sure you want to uninstall this bot from team {teamName}?"
+  },
+  {
+    "id": "bot.cantChange",
+    "defaultMessage": "Sorry, you are not allowed to do that."
+  },
+  {
+    "id": "bot.inUse",
+    "defaultMessage": "In Use"
+  },
+  {
+    "id": "bot.madeBy",
+    "defaultMessage": "Made by {teamLink}"
+  },
+  {
+    "id": "bot.permissions",
+    "defaultMessage": "Permissions"
+  },
+  {
+    "id": "bot.permissionsText",
+    "defaultMessage": "This bot has an access level of {role}."
+  },
+  {
+    "id": "bot.sourceCode",
+    "defaultMessage": "View source code"
+  },
+  {
+    "id": "bot.updatedAt",
+    "defaultMessage": "Updated"
+  },
+  {
+    "id": "bot.version",
+    "defaultMessage": "Version"
+  },
+  {
+    "id": "bot.installs",
+    "defaultMessage": "Installs"
+  }
+]

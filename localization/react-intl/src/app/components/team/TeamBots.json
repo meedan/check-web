@@ -1,0 +1,22 @@
+[
+  {
+    "id": "teamBots.confirmUninstall",
+    "defaultMessage": "Are you sure you want to uninstall this bot?"
+  },
+  {
+    "id": "teamBots.noBots",
+    "defaultMessage": "No bots installed."
+  },
+  {
+    "id": "teamBots.moreInfo",
+    "defaultMessage": "More info"
+  },
+  {
+    "id": "teamBots.inUse",
+    "defaultMessage": "In Use"
+  },
+  {
+    "id": "teamBots.botGarden",
+    "defaultMessage": "Browse the Bot Garden"
+  }
+]

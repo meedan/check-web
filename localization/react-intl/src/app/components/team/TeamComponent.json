@@ -1,30 +1,10 @@
 [
   {
-    "id": "teamComponent.editError",
-    "defaultMessage": "Sorry, could not edit the team"
+    "id": "teamComponent.teamInformation",
+    "defaultMessage": "Team Information"
   },
   {
-    "id": "teamComponent.editSuccess",
-    "defaultMessage": "Team information updated successfully!"
-  },
-  {
-    "id": "teamComponent.teamName",
-    "defaultMessage": "Team name"
-  },
-  {
-    "id": "teamComponent.teamDescription",
-    "defaultMessage": "Team description"
-  },
-  {
-    "id": "teamComponent.location",
-    "defaultMessage": "Location"
-  },
-  {
-    "id": "teamComponent.phone",
-    "defaultMessage": "Phone number"
-  },
-  {
-    "id": "teamComponent.website",
-    "defaultMessage": "Website"
+    "id": "teamComponent.teamBots",
+    "defaultMessage": "Team bots"
   }
 ]
