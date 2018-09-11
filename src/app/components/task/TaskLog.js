@@ -183,6 +183,7 @@ const TaskLogContainer = Relay.createContainer(TaskLogComponent, {
         dbid
         log_count
         suggestions_count
+        pending_suggestions_count
         project_media {
           id
           dbid
@@ -315,6 +316,7 @@ class TaskLog extends Component {
     const id = this.props.task.dbid;
     const route = new TaskRoute({ id });
     const suggestionsCount = this.props.task.suggestions_count || 0;
+    const pendingSuggestionsCount = this.props.task.pending_suggestions_count || 0;
     const logCount = this.props.task.log_count + suggestionsCount;
 
     return (
@@ -334,7 +336,7 @@ class TaskLog extends Component {
               /> }
           </button>
           <span onClick={this.toggle.bind(this)}>
-            <b>{ suggestionsCount > 0 ? '•' : null }</b> <ChatBubble /> <span>{logCount}</span>
+            <b>{ pendingSuggestionsCount > 0 ? '•' : null }</b> <ChatBubble /> <span>{logCount}</span>
           </span>
         </div>
         { !this.state.collapsed ? <Relay.RootContainer
