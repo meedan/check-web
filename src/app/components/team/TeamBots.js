@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Relay from 'react-relay';
+import Relay from 'react-relay/classic';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import { Card, CardText, CardActions } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
@@ -148,7 +148,7 @@ const TeamBotsContainer = Relay.createContainer(injectIntl(TeamBotsComponent), {
                 avatar
                 name
                 description
-              }    
+              }
             }
           }
         }
