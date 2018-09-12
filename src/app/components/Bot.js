@@ -11,6 +11,7 @@ import Switch from 'material-ui-next/Switch';
 import BotRoute from '../relay/BotRoute';
 import { units, ContentColumn, black32, black87 } from '../styles/js/shared';
 import UserUtil from './user/UserUtil';
+import PageTitle from './PageTitle';
 import Message from './Message';
 import CheckContext from '../CheckContext';
 import { stringHelper } from '../customHelpers';
@@ -166,77 +167,79 @@ class BotComponent extends Component {
     const botDate = new Date(parseInt(bot.updated_at, 10) * 1000);
 
     return (
-      <ContentColumn>
-        <Message message={this.state.message} />
-        <Card key={`bot-${bot.dbid}`}>
-          <CardActions style={{ padding: 0 }}>
-            <StyledToggle direction={direction} style={{ marginRight: 0 }}>
-              { bot.limited ? <span className="label proLabel">PRO</span> : null }
-              <span className="label">
-                <FormattedMessage id="bot.inUse" defaultMessage="In Use" />
-              </span>
-              <Switch
-                checked={bot.installed}
-                onClick={this.handleToggle.bind(this)}
-              />
-            </StyledToggle>
-          </CardActions>
-          <StyledCardText direction={direction}>
-            <img src={bot.avatar} alt={bot.name} />
-            <div>
-              <CardTitle
-                style={{ padding: 0, paddingTop: units(2) }}
-                title={bot.name}
-                subtitle={
-                  <FormattedMessage
-                    id="bot.madeBy"
-                    defaultMessage="Made by {teamLink}"
-                    values={{
-                      teamLink: <Link to={`/${bot.team_author.slug}`}>{bot.team_author.name}</Link>,
-                    }}
-                  />
-                }
-              />
-              <p>{bot.description}</p>
-            </div>
-          </StyledCardText>
-          <CardText>
-            <p><b><FormattedMessage id="bot.permissions" defaultMessage="Permissions" /></b></p>
-            <p>
-              <FormattedMessage
-                id="bot.permissionsText"
-                defaultMessage="This bot has an access level of {role}."
-                values={{
-                  role: UserUtil.localizedRole(bot.role, this.props.intl),
-                }}
-              />
-            </p>
-            { bot.source_code_url ?
-              <p>
-                <a href={bot.source_code_url} target="_blank" rel="noopener noreferrer">
-                  <FormattedMessage id="bot.sourceCode" defaultMessage="View source code" />
-                </a>
-              </p> : null }
-            <Divider />
-            <StyledCardFooter>
-              <div>
-                <b><FormattedMessage id="bot.updatedAt" defaultMessage="Updated" /></b><br />
-                <span>
-                  <FormattedDate value={botDate} day="numeric" month="numeric" year="numeric" />
+      <PageTitle prefix={bot.name} skipTeam>
+        <ContentColumn>
+          <Message message={this.state.message} />
+          <Card key={`bot-${bot.dbid}`}>
+            <CardActions style={{ padding: 0 }}>
+              <StyledToggle direction={direction} style={{ marginRight: 0 }}>
+                { bot.limited ? <span className="label proLabel">PRO</span> : null }
+                <span className="label">
+                  <FormattedMessage id="bot.inUse" defaultMessage="In Use" />
                 </span>
-              </div>
+                <Switch
+                  checked={bot.installed}
+                  onClick={this.handleToggle.bind(this)}
+                />
+              </StyledToggle>
+            </CardActions>
+            <StyledCardText direction={direction}>
+              <img src={bot.avatar} alt={bot.name} />
               <div>
-                <b><FormattedMessage id="bot.version" defaultMessage="Version" /></b><br />
-                <span>{bot.version}</span>
+                <CardTitle
+                  style={{ padding: 0, paddingTop: units(2) }}
+                  title={bot.name}
+                  subtitle={
+                    <FormattedMessage
+                      id="bot.madeBy"
+                      defaultMessage="Made by {teamLink}"
+                      values={{
+                        teamLink: <Link to={`/${bot.team_author.slug}`}>{bot.team_author.name}</Link>,
+                      }}
+                    />
+                  }
+                />
+                <p>{bot.description}</p>
               </div>
-              <div>
-                <b><FormattedMessage id="bot.installs" defaultMessage="Installs" /></b><br />
-                <span>{bot.installations_count}</span>
-              </div>
-            </StyledCardFooter>
-          </CardText>
-        </Card>
-      </ContentColumn>
+            </StyledCardText>
+            <CardText>
+              <p><b><FormattedMessage id="bot.permissions" defaultMessage="Permissions" /></b></p>
+              <p>
+                <FormattedMessage
+                  id="bot.permissionsText"
+                  defaultMessage="This bot has an access level of {role}."
+                  values={{
+                    role: UserUtil.localizedRole(bot.role, this.props.intl),
+                  }}
+                />
+              </p>
+              { bot.source_code_url ?
+                <p>
+                  <a href={bot.source_code_url} target="_blank" rel="noopener noreferrer">
+                    <FormattedMessage id="bot.sourceCode" defaultMessage="View source code" />
+                  </a>
+                </p> : null }
+              <Divider />
+              <StyledCardFooter>
+                <div>
+                  <b><FormattedMessage id="bot.updatedAt" defaultMessage="Updated" /></b><br />
+                  <span>
+                    <FormattedDate value={botDate} day="numeric" month="numeric" year="numeric" />
+                  </span>
+                </div>
+                <div>
+                  <b><FormattedMessage id="bot.version" defaultMessage="Version" /></b><br />
+                  <span>{bot.version}</span>
+                </div>
+                <div>
+                  <b><FormattedMessage id="bot.installs" defaultMessage="Installs" /></b><br />
+                  <span>{bot.installations_count}</span>
+                </div>
+              </StyledCardFooter>
+            </CardText>
+          </Card>
+        </ContentColumn>
+      </PageTitle>
     );
   }
 }
