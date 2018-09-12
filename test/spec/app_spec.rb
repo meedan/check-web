@@ -1891,7 +1891,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.current_url.to_s == notfound).to be(false)
     end
 
-    it "should be able to find a team after signing up" do
+    it "should be able to find a team after signing up", bin5: true do
       user = api_register_and_login_with_email
       @driver.navigate.to @config['self_url']
       wait_for_selector('.find-team-card')
@@ -1919,7 +1919,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Existing Team')).to be(true)
     end
 
-    it "should manage related claims" do
+    it "should manage related claims", bin5: true do
       api_create_team_project_and_claim_and_redirect_to_media_page
       wait_for_selector('.create-related-media__add-button')
       expect(@driver.page_source.include?('Child Claim')).to be(false)
@@ -1968,6 +1968,44 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       fill_field("geolocationsearch", "Salvador", :id)
       sleep 5
       expect(@driver.page_source.include?('SSA')).to be(true)
+    end
+
+    it "should install and uninstall bot", bin6: true do
+      # Create team, bot and go to team page
+      api_create_bot
+      team = "testteam#{Time.now.to_i}"
+      api_create_team(team: team)
+      p = Page.new(config: @config, driver: @driver)
+      p.go(@config['self_url'] + '/' + team)
+      
+      # No bots on team page
+      wait_for_selector('.team-menu__edit-team-button').click
+      wait_for_selector('.team button + button').click ; sleep 5
+      expect(@driver.page_source.include?('No bots installed')).to be(true)
+      expect(@driver.page_source.include?('Testing Bot')).to be(false)
+
+      # Install bot
+      wait_for_selector('.team > div + div button').click ; sleep 5
+      expect(@driver.page_source.include?('Bot Garden')).to be(true)
+      wait_for_selector('h2 + div > div + div .bot-garden__bot-name').click ; sleep 5
+      wait_for_selector('input').click ; sleep 1
+      @driver.switch_to.alert.accept ; sleep 5
+
+      # Bot on team page
+      wait_for_selector('.header__user-menu button').click ; sleep 1
+      wait_for_selector('a[role="menuitem"]').click
+      wait_for_selector('#teams-tab').click ; sleep 5
+      wait_for_selector('.teams > div > div > a').click ; sleep 5
+      wait_for_selector('.team-menu__edit-team-button').click ; sleep 5
+      wait_for_selector('.team button + button').click ; sleep 5
+      expect(@driver.page_source.include?('No bots installed')).to be(false)
+      expect(@driver.page_source.include?('Testing Bot')).to be(true)
+
+      # Uninstall bot
+      wait_for_selector('input').click ; sleep 1
+      @driver.switch_to.alert.accept ; sleep 5
+      expect(@driver.page_source.include?('No bots installed')).to be(true)
+      expect(@driver.page_source.include?('Testing Bot')).to be(false)
     end
 
     # Postponed due Alexandre's developement

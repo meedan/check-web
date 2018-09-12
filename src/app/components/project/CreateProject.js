@@ -85,6 +85,9 @@ class CreateProject extends Component {
       const { createProject: { project } } = response;
       const path = `/${team.slug}/project/${project.dbid}`;
       history.push(path);
+      if (this.props.onCreate) {
+        this.props.onCreate();
+      }
     };
 
     if (!this.state.submitDisabled) {

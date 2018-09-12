@@ -17,6 +17,7 @@ import 'react-image-lightbox/style.css';
 import { Card, CardText } from 'material-ui/Card';
 import IconMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import IconButton from 'material-ui/IconButton';
+import FlatButton from 'material-ui/FlatButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import MdImage from 'react-icons/lib/md/image';
@@ -31,6 +32,7 @@ import ProfileLink from '../layout/ProfileLink';
 import DeleteAnnotationMutation from '../../relay/mutations/DeleteAnnotationMutation';
 import DeleteVersionMutation from '../../relay/mutations/DeleteVersionMutation';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
+import UpdateTaskMutation from '../../relay/mutations/UpdateTaskMutation';
 import Can, { can } from '../Can';
 import TimeBefore from '../TimeBefore';
 import { safelyParseJSON, getStatus, getStatusStyle } from '../../helpers';
@@ -336,6 +338,34 @@ class Annotation extends Component {
     }
   }
 
+  handleSuggestion(vid, accept) {
+    const onFailure = (transaction) => {
+      const error = transaction.getError();
+      if (error.json) {
+        error.json().then(this.handleError);
+      } else {
+        this.handleError(error);
+      }
+    };
+
+    const onSuccess = () => {};
+
+    const task = { id: this.props.annotated.id };
+    if (accept) {
+      task.accept_suggestion = vid;
+    } else {
+      task.reject_suggestion = vid;
+    }
+
+    Relay.Store.commitUpdate(
+      new UpdateTaskMutation({
+        annotated: this.props.annotated.project_media,
+        task,
+      }),
+      { onSuccess, onFailure },
+    );
+  }
+
   render() {
     const { annotation: activity, annotated, annotation: { annotation } } = this.props;
     const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
@@ -570,6 +600,115 @@ class Annotation extends Component {
               }}
             />
           </span>
+        );
+      }
+
+      if (object.field_name === 'team_bot_response_formatted_data') {
+        activityType = 'bot_response';
+        const botResponse = JSON.parse(object.value);
+        contentTemplate = (
+          <div>
+            <div className="annotation__card-content annotation__bot-response">
+              <span>
+                <b>{botResponse.title}</b><br />
+                <ParsedText text={botResponse.description} />
+              </span>
+              <div>
+                { botResponse.image_url ?
+                  <div
+                    style={{
+                      background: `transparent url('${botResponse.image_url}') top left no-repeat`,
+                      backgroundSize: 'cover',
+                      border: '1px solid #ccc',
+                      width: 80,
+                      height: 80,
+                      cursor: 'pointer',
+                      display: 'inline-block',
+                    }}
+                    className="annotation__card-thumbnail annotation__bot-response-thumbnail"
+                    onClick={this.handleOpenCommentImage.bind(this, botResponse.image_url)}
+                  /> : null }
+              </div>
+            </div>
+
+            { botResponse.image_url && !!this.state.zoomedCommentImage ?
+              <Lightbox
+                onCloseRequest={this.handleCloseCommentImage.bind(this)}
+                mainSrc={this.state.zoomedCommentImage}
+              /> : null}
+          </div>
+        );
+      }
+
+      if (/^suggestion_/.test(object.field_name)) {
+        activityType = 'task_answer_suggestion';
+        const suggestion = JSON.parse(object.value);
+        const review = activity.meta ? JSON.parse(activity.meta) : null;
+        const { team } = this.props.annotated.project_media;
+        contentTemplate = (
+          <div>
+            <div className="annotation__card-content annotation__task-answer-suggestion">
+              <ParsedText text={suggestion.comment} />
+            </div>
+            <br />
+            <p>
+              <small>
+                <Link to={`/check/bot/${activity.user.bot.dbid}`}>
+                  <FormattedMessage
+                    id="annotation.seeHowThisBotWorks"
+                    defaultMessage="See how this bot works"
+                  />
+                </Link>
+              </small>
+            </p>
+            { review ?
+              <div style={{ fontStyle: 'italic' }}>
+                <small>
+                  { review.accepted ?
+                    <FormattedMessage
+                      id="annotation.suggestionAccepted"
+                      defaultMessage="Accepted by {user}"
+                      values={{
+                        user: <ProfileLink user={review.user} team={team} />,
+                      }}
+                    /> :
+                    <FormattedMessage
+                      id="annotation.suggestionRejected"
+                      defaultMessage="Rejected by {user}"
+                      values={{
+                        user: <ProfileLink user={review.user} team={team} />,
+                      }}
+                    />
+                  }
+                </small>
+              </div> :
+              <div>
+                <FlatButton
+                  onClick={this.handleSuggestion.bind(this, activity.dbid, true)}
+                  style={{ border: `1px solid ${black38}` }}
+                  primary
+                  label={
+                    <FormattedMessage
+                      id="annotation.acceptSuggestion"
+                      defaultMessage="Accept"
+                    />
+                  }
+                />
+                &nbsp;
+                <FlatButton
+                  onClick={this.handleSuggestion.bind(this, activity.dbid, false)}
+                  style={{ border: `1px solid ${black38}` }}
+                  primary
+                  label={
+                    <FormattedMessage
+                      id="annotation.rejectSuggestion"
+                      defaultMessage="Reject"
+                    />
+                  }
+                />
+              </div>
+            }
+          </div>
         );
       }
 
@@ -1028,7 +1167,7 @@ class Annotation extends Component {
       return null;
     }
 
-    const useCardTemplate = activityType === 'create_comment' || activityType === 'screenshot_taken';
+    const useCardTemplate = activityType === 'create_comment' || activityType === 'screenshot_taken' || activityType === 'bot_response' || activityType === 'task_answer_suggestion';
     const templateClass = `annotation--${useCardTemplate ? 'card' : 'default'}`;
     const typeClass = annotation ? `annotation--${annotation.annotation_type}` : '';
     return (

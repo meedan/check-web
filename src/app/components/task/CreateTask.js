@@ -415,7 +415,12 @@ class CreateTask extends Component {
             </label>
 
             { this.state.showAssignmentField ?
-              <Attribution multi={false} selectedUsers={[]} id="new" /> :
+              <Attribution
+                multi={false}
+                selectedUsers={[]}
+                id="new"
+                taskType={this.state.type}
+              /> :
               <button
                 className="create-task__add-assignment-button"
                 onClick={this.toggleAssignmentField.bind(this)}

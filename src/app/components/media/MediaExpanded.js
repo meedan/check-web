@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
+import PropTypes from 'prop-types';
 import { CardText, CardActions } from 'material-ui/Card';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import MediaRoute from '../../relay/MediaRoute';
@@ -11,6 +12,7 @@ import ImageMediaCard from './ImageMediaCard';
 import PenderCard from '../PenderCard';
 import { bemClassFromMediaStatus } from '../../helpers';
 import { mediaLastStatus } from '../../customHelpers';
+import CheckContext from '../../CheckContext';
 import {
   FadeIn,
   caption,
@@ -28,6 +30,10 @@ class MediaExpandedComponent extends Component {
     };
   }
 
+  getContext() {
+    return new CheckContext(this).getContextStore();
+  }
+
   render() {
     const media = Object.assign(this.props.currentMedia, this.props.media);
     const data = typeof media.embed === 'string' ? JSON.parse(media.embed) : media.embed;
@@ -39,6 +45,7 @@ class MediaExpandedComponent extends Component {
     const isPender = media.media.url && data.provider !== 'page';
     const randomNumber = Math.floor(Math.random() * 1000000);
     const shouldShowDescription = MediaUtil.hasCustomDescription(media, data);
+    const { inMediaPage, mediaUrl } = this.props;
 
     const embedCard = (() => {
       if (isImage) {
@@ -80,7 +87,12 @@ class MediaExpandedComponent extends Component {
 
     return (
       <span>
-        <CardText>
+        <CardText
+          style={{ cursor: inMediaPage ? null : 'pointer' }}
+          onClick={inMediaPage ? null : () => {
+            this.getContext().history.push(mediaUrl);
+          }}
+        >
           <FadeIn className={bemClassFromMediaStatus('media-detail__media', mediaLastStatus(media))}>
             {shouldShowDescription ?
               <Text font={caption} style={{ color: black54 }}>
@@ -96,6 +108,10 @@ class MediaExpandedComponent extends Component {
     );
   }
 }
+
+MediaExpandedComponent.contextTypes = {
+  store: PropTypes.object,
+};
 
 const MediaExpandedContainer = Relay.createContainer(MediaExpandedComponent, {
   initialVariables: {

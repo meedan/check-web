@@ -68,6 +68,26 @@
     "defaultMessage": "Status set to {status} by {author}"
   },
   {
+    "id": "annotation.seeHowThisBotWorks",
+    "defaultMessage": "See how this bot works"
+  },
+  {
+    "id": "annotation.suggestionAccepted",
+    "defaultMessage": "Accepted by {user}"
+  },
+  {
+    "id": "annotation.suggestionRejected",
+    "defaultMessage": "Rejected by {user}"
+  },
+  {
+    "id": "annotation.acceptSuggestion",
+    "defaultMessage": "Accept"
+  },
+  {
+    "id": "annotation.rejectSuggestion",
+    "defaultMessage": "Reject"
+  },
+  {
     "id": "annotation.taskResolve",
     "defaultMessage": "Task \"{task}\" answered by {author}: \"{response}\""
   },
