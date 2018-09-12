@@ -301,17 +301,12 @@ class MediaMetadata extends Component {
     const onSuccess = () => {
       if (/^\/[^/]+\/search\//.test(window.location.pathname)) {
         this.props.parentComponent.props.relay.forceFetch();
-      } else if (
-        /^\/[^/]+\/project\/[0-9]+\/media\/[0-9]+$/.test(window.location.pathname)
-      ) {
+      } else if (/^\/[^/]+\/project\/[0-9]+$/.test(window.location.pathname)) {
+        history.push(path);
+      } else if (/^\/[^/]+\/project\/[0-9]+\/media\/[0-9]+$/.test(window.location.pathname)) {
         history.push(`${path}/media/${media.dbid}`);
       }
     };
-
-    // Optimistic-redirect to target project
-    if (/^\/[^/]+\/project\/[0-9]+$/.test(window.location.pathname)) {
-      history.push(path);
-    }
 
     Relay.Store.commitUpdate(
       new UpdateProjectMediaMutation({
