@@ -1,9 +1,4 @@
 {
-  "teamComponent.editError": "عذراً ، لم نستطع تحرير معلومات الفريق",
-  "teamComponent.editSuccess": "تم تحديث معلومات الفريق بنجاح!",
-  "teamComponent.teamName": "اسم الفريق",
-  "teamComponent.teamDescription": "وصف الفريق",
-  "teamComponent.location": "الموقع",
-  "teamComponent.phone": "رقم الهاتف",
-  "teamComponent.website": "الموقع الإلكتروني"
+  "teamComponent.teamInformation": "معلومات الفريق",
+  "teamComponent.teamBots": "بوتات الفريق"
 }

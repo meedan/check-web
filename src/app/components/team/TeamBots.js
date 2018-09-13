@@ -49,6 +49,7 @@ class TeamBotsComponent extends Component {
   }
 
   handleToggle(id, teamId) {
+    // eslint-disable-next-line no-alert
     if (window.confirm(this.props.intl.formatMessage(messages.confirmUninstall))) {
       const onSuccess = () => {};
       const onFailure = () => {};
@@ -148,7 +149,7 @@ const TeamBotsContainer = Relay.createContainer(injectIntl(TeamBotsComponent), {
                 avatar
                 name
                 description
-              }    
+              }
             }
           }
         }

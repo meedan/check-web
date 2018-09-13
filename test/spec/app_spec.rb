@@ -85,15 +85,15 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       media_pg.wait_all_elements(2, "annotations__list-item", :class)
       sleep 10
-      
+
       # Add comment to task
-      expect(@driver.page_source.include?('Hide 1 note')).to be(false)
-      wait_for_selector('.task__log-top button', :css).click
+      expect(@driver.page_source.include?('<span>1</span>')).to be(false)
+      wait_for_selector('.task__log-top span', :css).click
       sleep 5
       fill_field('#cmd-input', 'This is a comment under a task')
       @driver.action.send_keys(:enter).perform
       sleep 20
-      expect(@driver.page_source.include?('Hide 1 note')).to be(true)
+      expect(@driver.page_source.include?('<span>1</span>')).to be(true)
     end
 
     it "should add, edit, answer, update answer and delete datetime task", bin3: true do
@@ -1127,14 +1127,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should linkify URLs on comments", bin1: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
-      expect(@driver.page_source.include?('Your comment was added!')).to be(false)
+      expect(@driver.page_source.include?('Your note was added!')).to be(false)
       old = wait_for_selector_list("annotation__default-content", :class).length
       fill_field('textarea[name="cmd"]', 'https://meedan.com/en/')
       el = wait_for_selector(".add-annotation button[type=submit]")
       el.click
       sleep 2 #wait for loading
       old = wait_for_size_change(old, "annotation__default-content", :class)
-      expect(@driver.page_source.include?('Your comment was added!')).to be(true)
+      expect(@driver.page_source.include?('Your note was added!')).to be(true)
       el = wait_for_selector_list("//a[contains(text(), 'https://meedan.com/en/')]", :xpath)
       expect(el.length == 1).to be(true)
     end
@@ -1797,13 +1797,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector(".source__tab-button-account")
       el = wait_for_selector(".source__tab-button-notes")
       el.click
-      expect(@driver.page_source.include?('Your comment was added!')).to be(false)
+      expect(@driver.page_source.include?('Your note was added!')).to be(false)
       old = wait_for_selector_list("annotation__default-content",:class).length
       fill_field('textarea[name="cmd"]', 'Test')
       el = wait_for_selector(".add-annotation button[type=submit]")
       el.click
       old = wait_for_size_change(old, "annotation__default-content", :class)
-      expect(@driver.page_source.include?('Your comment was added!')).to be(true)
+      expect(@driver.page_source.include?('Your note was added!')).to be(true)
       expect(@driver.page_source.include?('Comment deleted by')).to be(false)
       el = wait_for_selector('.menu-button')
       el.click
@@ -1814,14 +1814,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       #media
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
-      expect(@driver.page_source.include?('Your comment was added!')).to be(false)
+      expect(@driver.page_source.include?('Your note was added!')).to be(false)
       old = wait_for_selector_list("annotation__default-content", :class).length
       fill_field('textarea[name="cmd"]', 'Test')
       el = wait_for_selector(".add-annotation button[type=submit]")
       el.click
       old = wait_for_size_change(old, "annotation__default-content", :class)
       sleep 10
-      expect(@driver.page_source.include?('Your comment was added!')).to be(true)
+      expect(@driver.page_source.include?('Your note was added!')).to be(true)
       expect(@driver.page_source.include?('Comment deleted by')).to be(false)
       el = wait_for_selector('.menu-button')
       el.click
@@ -1973,7 +1973,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_team(team: team)
       p = Page.new(config: @config, driver: @driver)
       p.go(@config['self_url'] + '/' + team)
-      
+
       # No bots on team page
       wait_for_selector('.team-menu__edit-team-button').click
       wait_for_selector('.team button + button').click ; sleep 5

@@ -1,10 +1,9 @@
 {
   "datetimeRespondTask.ok": "OK",
   "datetimeRespondTask.cancel": "Annuler",
-  "datetimeRespondTask.timeError": "Erreur: l'horaire n'est pas valide",
+  "datetimeRespondTask.timeError": "Erreur : l'horaire n'est pas valide",
   "datetimeRespondTask.cancelTask": "Annuler",
   "datetimeRespondTask.resolveTask": "Résoudre la tâche",
   "datetimeRespondTask.pickDate": "Sélectionnez une date sur le calendrier.",
-  "datetimeRespondTask.timeOptional": "Horaire (optionnel)",
-  "datetimeRespondTask.note": "Ajouter ici des détails supplémentaires."
+  "datetimeRespondTask.timeOptional": "Horaire (optionnel)"
 }

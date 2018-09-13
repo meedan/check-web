@@ -109,7 +109,7 @@ class TeamComponent extends Component {
                     label={
                       <FormattedMessage
                         id="teamComponent.teamInformation"
-                        defaultMessage="Team Information"
+                        defaultMessage="Team information"
                       />
                     }
                     value="info"

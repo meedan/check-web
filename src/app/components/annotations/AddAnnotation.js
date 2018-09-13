@@ -44,7 +44,7 @@ const messages = defineMessages({
   },
   typeComment: {
     id: 'addAnnotation.typeComment',
-    defaultMessage: 'comment',
+    defaultMessage: 'note',
   },
   typeTag: {
     id: 'addAnnotation.typeTag',

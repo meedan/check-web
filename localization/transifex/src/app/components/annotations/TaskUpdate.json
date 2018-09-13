@@ -3,5 +3,7 @@
   "annotation.taskNoteUpdated": "Task \"{title}\" has note edited from \"{from}\" to \"{to}\" by {author}",
   "annotation.taskNoteCreated": "Task \"{title}\" has new note \"{note}\" by {author}",
   "annotation.assignmentChanged": "Task \"{title}\" assigned to \"{assigneeTo}\" by {author}",
-  "annotation.assignmentRemoved": "Task \"{title}\" unassigned from \"{assigneeFrom}\" by {author}"
+  "annotation.assignmentRemoved": "Task \"{title}\" unassigned from \"{assigneeFrom}\" by {author}",
+  "annotation.addedComment": "{author} added a note to the task \"{title}\": \"{comment}\"",
+  "annotation.removedComment": "{author} deleted a note from the task \"{title}\": \"{comment}\""
 }

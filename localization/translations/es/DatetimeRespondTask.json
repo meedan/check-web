@@ -5,6 +5,5 @@
   "datetimeRespondTask.cancelTask": "Cancelar",
   "datetimeRespondTask.resolveTask": "Resolver tarea",
   "datetimeRespondTask.pickDate": "Elige una fecha del calendario ",
-  "datetimeRespondTask.timeOptional": "Hora (opcional)",
-  "datetimeRespondTask.note": "Añade cualquier detalle adicional aquí."
+  "datetimeRespondTask.timeOptional": "Hora (opcional)"
 }
