@@ -1,5 +1,5 @@
 {
   "claimReview.claim": "Afirmación: ",
   "claimReview.claimedBy": "Afirmación de: ",
-  "claimReview.reviewedBy": "Verificación de datos de {reviewer}: "
+  "claimReview.reviewedBy": "Verificado por {reviewer}: "
 }

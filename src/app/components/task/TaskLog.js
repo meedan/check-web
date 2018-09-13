@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import styled from 'styled-components';
-import { FormattedMessage } from 'react-intl';
 import ChatBubble from 'material-ui/svg-icons/communication/chat-bubble';
 import TaskRoute from '../../relay/TaskRoute';
 import CheckContext from '../../CheckContext';
@@ -58,13 +57,6 @@ const StyledTaskLog = styled.div`
       span {
         padding: 0 ${units(1)};
       }
-    }
-
-    button {
-      border: 0;
-      background: transparent;
-      cursor: pointer;
-      outline: 0;
     }
   }
 
@@ -322,19 +314,6 @@ class TaskLog extends Component {
     return (
       <StyledTaskLog>
         <div className="task__log-top">
-          <button onClick={this.toggle.bind(this)}>
-            { this.state.collapsed ?
-              <FormattedMessage
-                id="taskLog.show"
-                defaultMessage="{count, plural, =0 {Show notes} one {Show 1 note} other {Show # notes}}"
-                values={{ count: logCount }}
-              /> :
-              <FormattedMessage
-                id="taskLog.hide"
-                defaultMessage="{count, plural, =0 {Hide notes} one {Hide 1 note} other {Hide # notes}}"
-                values={{ count: logCount }}
-              /> }
-          </button>
           <span onClick={this.toggle.bind(this)}>
             <b>{ pendingSuggestionsCount > 0 ? '•' : null }</b> <ChatBubble /> <span>{logCount}</span>
           </span>

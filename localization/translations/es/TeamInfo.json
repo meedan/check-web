@@ -1,5 +1,7 @@
 {
   "teamComponent.verificationTeam": "Equipo de verificación",
   "bridge.teamComponent.verificationTeam": "Equipo de traducción",
+  "teamComponent.private": "Privado",
+  "teamComponent.public": "Público",
   "teamComponent.upgradeButton": "Actualizar a la versión PRO"
 }

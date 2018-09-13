@@ -140,6 +140,7 @@ class BotComponent extends Component {
       mutation = new CreateTeamBotInstallationMutation({ bot, team });
     }
 
+    // eslint-disable-next-line no-alert
     if (window.confirm(this.props.intl.formatMessage(message, { teamName: team.name }))) {
       const onSuccess = () => {};
       const onFailure = () => {

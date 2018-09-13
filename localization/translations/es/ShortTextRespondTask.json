@@ -1,6 +1,5 @@
 {
   "shortTextRespondTask.cancelTask": "Cancelar",
   "shortTextRespondTask.resolveTask": "Resolver tarea",
-  "shortTextRespondTask.responseHint": "Responder aquí.",
-  "shortTextRespondTask.noteHint": "Anota detalles adicionales aquí "
+  "shortTextRespondTask.responseHint": "Responder aquí."
 }
