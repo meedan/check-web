@@ -36,7 +36,7 @@ const StyledAnnotation = styled.div`
 const StyledTaskLog = styled.div`
   .task__log-top {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     padding: ${units(2)};
 
     b {
@@ -179,6 +179,7 @@ const TaskLogContainer = Relay.createContainer(TaskLogComponent, {
         project_media {
           id
           dbid
+          pusher_channel
           team {
             id
             dbid
