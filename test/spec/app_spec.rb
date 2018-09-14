@@ -52,11 +52,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
   before :each do |example|
     $caller_name = example.metadata[:description_args]
     @driver = new_driver(webdriver_url,browser_capabilities)
-    puts "-------------------- #{example.description} STARTED --------------------"
   end
 
   after :each do |example|
-    puts "-------------------- #{example.description} ENDED --------------------"
     if example.exception
       link = save_screenshot("Test failed: #{example.description}")
       print " [Test \"#{example.description}\" failed! Check screenshot at #{link} and browser console output: #{console_logs}] "
