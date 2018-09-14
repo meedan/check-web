@@ -2,18 +2,14 @@ import React, { Component } from 'react';
 import Relay from 'react-relay';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import { Card, CardText, CardActions } from 'material-ui/Card';
-import Divider from 'material-ui/Divider';
 import FlatButton from 'material-ui/FlatButton';
 import Switch from 'material-ui-next/Switch';
-import Settings from 'material-ui/svg-icons/action/settings';
 import { Emojione } from 'react-emoji-render';
 import { Link, browserHistory } from 'react-router';
 import styled from 'styled-components';
-import { SchemaForm } from 'react-schema-form';
 import TeamRoute from '../../relay/TeamRoute';
 import { units, ContentColumn, black32 } from '../../styles/js/shared';
 import DeleteTeamBotInstallationMutation from '../../relay/mutations/DeleteTeamBotInstallationMutation';
-import UpdateTeamBotInstallationMutation from '../../relay/mutations/UpdateTeamBotInstallationMutation';
 
 const messages = defineMessages({
   confirmUninstall: {
@@ -44,87 +40,12 @@ const StyledToggle = styled.div`
     text-transform: uppercase;
     color: ${black32};
     align-self: center;
-    vertical-align: middle;
-  }
-
-  .settingsIcon {
-    vertical-align: middle;
-    cursor: pointer;
-    color: ${black32};
-    margin: 0 ${units(1)};
-  }
-`;
-
-const StyledSchemaForm = styled.div`
-  .SchemaForm {
-    margin-bottom: ${units(1)};
-  }
-  
-  .SchemaForm > div {
-    height: auto !important;
   }
 `;
 
 class TeamBotsComponent extends Component {
   static handleBotGardenClick() {
     browserHistory.push('/check/bot-garden');
-  }
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      expanded: {},
-      settings: {},
-      message: null,
-      messageBotId: null,
-    };
-  }
-
-  componentWillMount() {
-    const settings = {};
-    this.props.team.team_bot_installations.edges.forEach((installation) => {
-      const value = installation.node.json_settings || '{}';
-      settings[installation.node.id] = JSON.parse(value);
-    });
-    this.setState({ settings });
-  }
-
-  handleSettingsUpdated(installation, field, value) {
-    const fieldName = field[0];
-    const settings = Object.assign({}, this.state.settings);
-    settings[installation.id][fieldName] = value;
-    this.setState({ settings, message: null, messageBotId: null });
-  }
-
-  handleSubmitSettings(installation) {
-    const settings = JSON.stringify(this.state.settings[installation.id]);
-    const messageBotId = installation.team_bot.dbid;
-    const onSuccess = () => {
-      this.setState({
-        messageBotId,
-        message: <FormattedMessage id="teamBots.success" defaultMessage="Settings updated!" />,
-      });
-    };
-    const onFailure = () => {
-      this.setState({
-        messageBotId,
-        message: <FormattedMessage id="teamBots.fail" defaultMessage="Error! Please try again." />,
-      });
-    };
-
-    Relay.Store.commitUpdate(
-      new UpdateTeamBotInstallationMutation({
-        id: installation.id,
-        json_settings: settings,
-      }),
-      { onSuccess, onFailure },
-    );
-  }
-
-  handleToggleSettings(botId) {
-    const expanded = Object.assign({}, this.state.expanded);
-    expanded[botId] = !this.state.expanded[botId];
-    this.setState({ expanded, message: null, messageBotId: null });
   }
 
   handleToggle(id, teamId) {
@@ -160,11 +81,7 @@ class TeamBotsComponent extends Component {
           const bot = installation.node.team_bot;
 
           return (
-            <Card
-              style={{ marginBottom: units(5) }}
-              key={`bot-${bot.dbid}`}
-              expanded={this.state.expanded[bot.dbid]}
-            >
+            <Card style={{ marginBottom: units(5) }} key={`bot-${bot.dbid}`}>
               <StyledCardText direction={direction}>
                 <img src={bot.avatar} alt={bot.name} />
                 <div>
@@ -186,48 +103,8 @@ class TeamBotsComponent extends Component {
                     checked
                     onClick={this.handleToggle.bind(this, installation.node.id, team.id)}
                   />
-                  <Settings
-                    onClick={this.handleToggleSettings.bind(this, bot.dbid)}
-                    className="settingsIcon"
-                  />
                 </StyledToggle>
               </CardActions>
-              <Divider />
-              <CardText expandable>
-                <h3><FormattedMessage id="teamBots.settings" defaultMessage="Settings" /></h3>
-                { bot.settings_as_json_schema ?
-                  <StyledSchemaForm>
-                    <SchemaForm
-                      schema={JSON.parse(bot.settings_as_json_schema)}
-                      model={this.state.settings[installation.node.id]}
-                      onModelChange={this.handleSettingsUpdated.bind(this, installation.node)}
-                    />
-                    <p>
-                      <FlatButton
-                        primary
-                        onClick={this.handleSubmitSettings.bind(this, installation.node)}
-                        label={
-                          <FormattedMessage
-                            id="teamBots.save"
-                            defaultMessage="Save"
-                          />
-                        }
-                      />
-                    </p>
-                    <p>
-                      <small>
-                        { this.state.message && this.state.messageBotId === bot.dbid ?
-                          this.state.message : null
-                        }
-                      </small>
-                    </p>
-                  </StyledSchemaForm> :
-                  <FormattedMessage
-                    id="teamBots.noSettings"
-                    defaultMessage="There are no settings for this bot."
-                  />
-                }
-              </CardText>
             </Card>
           );
         })}
@@ -266,13 +143,11 @@ const TeamBotsContainer = Relay.createContainer(injectIntl(TeamBotsComponent), {
           edges {
             node {
               id
-              json_settings
               team_bot {
                 id
                 dbid
                 avatar
                 name
-                settings_as_json_schema
                 description
               }
             }
