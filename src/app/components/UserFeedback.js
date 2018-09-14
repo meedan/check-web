@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import Button from 'material-ui-next/Button';
-import Divider from 'material-ui-next/Divider';
-import { CardContent, CardHeader } from 'material-ui-next/Card';
-import IconButton from 'material-ui-next/IconButton';
-import Tooltip from 'material-ui-next/Tooltip';
+import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
 import Dismiss from 'material-ui/svg-icons/content/clear';
 import styled from 'styled-components';
 import FaceFrown from '../../assets/images/feedback/face-frown';

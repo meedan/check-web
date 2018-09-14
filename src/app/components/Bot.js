@@ -7,7 +7,7 @@ import Divider from 'material-ui/Divider';
 import { Link } from 'react-router';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
-import Switch from 'material-ui-next/Switch';
+import Switch from '@material-ui/core/Switch';
 import BotRoute from '../relay/BotRoute';
 import { units, ContentColumn, black32, black87 } from '../styles/js/shared';
 import UserUtil from './user/UserUtil';

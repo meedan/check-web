@@ -3,7 +3,7 @@ import Relay from 'react-relay/classic';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import { Card, CardText, CardActions } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
-import Switch from 'material-ui-next/Switch';
+import Switch from '@material-ui/core/Switch';
 import { Emojione } from 'react-emoji-render';
 import { Link, browserHistory } from 'react-router';
 import styled from 'styled-components';
