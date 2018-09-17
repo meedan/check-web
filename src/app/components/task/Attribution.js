@@ -192,6 +192,7 @@ const Attribution = (props, context) => {
   return (
     <Relay.RootContainer
       Component={AttributionContainer}
+      forceFetch
       renderFetched={data => <AttributionContainer {...props} {...data} />}
       route={route}
     />
