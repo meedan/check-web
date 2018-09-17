@@ -1,3 +1,4 @@
+import React from 'react';
 import styled, { css, keyframes } from 'styled-components';
 import { CardTitle } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
@@ -366,7 +367,15 @@ export const HiddenOnMobile = styled.div`
 // The prop `containsEllipsis` adds overflow to flex-items in case any descendant uses ellipsis
 // See: https://codepen.io/unthinkingly/pen/XMwJLG
 //
-export const Row = styled.div`
+
+export const Row = styled(({
+  active,
+  alignTop,
+  containsEllipsis,
+  isRtl,
+  wrap,
+  ...rest
+}) => <div {...rest} />)`
   display: flex;
   ${props => props.wrap ? 'flex-wrap: wrap;' : 'flex-wrap: nowrap;'}
   ${props => props.alignTop ? 'align-items: top;' : 'align-items: center;'}
