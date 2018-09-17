@@ -4,11 +4,10 @@ import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import Favicon from 'react-favicon';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import { MuiThemeProvider as MuiThemeProviderNext, createMuiTheme } from 'material-ui-next/styles';
+import { MuiThemeProvider as MuiThemeProviderNext, createMuiTheme } from '@material-ui/core/styles';
 import rtlDetect from 'rtl-detect';
 import merge from 'lodash.merge';
 import styled, { injectGlobal } from 'styled-components';
-import injectTapEventPlugin from 'react-tap-event-plugin';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import Header from './Header';
 import LoginContainer from './LoginContainer';
@@ -23,8 +22,6 @@ import {
   gutterMedium,
 } from '../styles/js/shared';
 import { layout, typography, localeAr, removeYellowAutocomplete } from '../styles/js/global';
-
-injectTapEventPlugin();
 
 // Global styles
 injectGlobal([`

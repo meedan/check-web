@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Relay from 'react-relay';
+import Relay from 'react-relay/classic';
 import CheckContext from '../../CheckContext';
 import SourceRoute from '../../relay/SourceRoute';
 import SourceComponent from './SourceComponent';

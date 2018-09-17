@@ -65,7 +65,7 @@ const StyledHeaderTextSecondary = styled.div`
   white-space: nowrap;
 `;
 
-const StyledCardHeader = styled(CardHeader)`
+const StyledCardHeader = styled(({ inMediaPage, ...rest }) => <CardHeader {...rest} />)`
   cursor: ${props => props.inMediaPage ? null : 'pointer'};
   > div {
     padding: 0!important;

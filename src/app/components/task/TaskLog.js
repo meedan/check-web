@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Relay from 'react-relay';
+import Relay from 'react-relay/classic';
 import styled from 'styled-components';
 import ChatBubble from 'material-ui/svg-icons/communication/chat-bubble';
 import TaskRoute from '../../relay/TaskRoute';

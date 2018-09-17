@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Relay from 'react-relay';
+import Relay from 'react-relay/classic';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';

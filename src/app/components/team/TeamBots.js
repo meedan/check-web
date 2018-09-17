@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import Relay from 'react-relay';
+import Relay from 'react-relay/classic';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import { Card, CardText, CardActions } from 'material-ui/Card';
 import Divider from 'material-ui/Divider';
 import FlatButton from 'material-ui/FlatButton';
-import Switch from 'material-ui-next/Switch';
 import Settings from 'material-ui/svg-icons/action/settings';
+import Switch from '@material-ui/core/Switch';
 import { Emojione } from 'react-emoji-render';
 import { Link, browserHistory } from 'react-router';
 import styled from 'styled-components';
@@ -59,7 +59,7 @@ const StyledSchemaForm = styled.div`
   .SchemaForm {
     margin-bottom: ${units(1)};
   }
-  
+
   .SchemaForm > div {
     height: auto !important;
   }

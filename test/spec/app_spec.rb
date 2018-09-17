@@ -688,8 +688,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       element =  wait_for_selector("source__edit-save-button", :class)
       element.click
       wait_for_selector("source__tab-button-account", :class, 60)
-      expect(@driver.page_source.include?('TAG1')).to be(true)
-      expect(@driver.page_source.include?('TAG2')).to be(false)
+      list = wait_for_selector_list("div.source-tags__tag")
+      expect(list.length == 1).to be(true)
     end
 
     it "should add and remove source languages", bin6: true  do
@@ -705,8 +705,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       element.click
       sleep 2
       fill_field("sourceLanguageInput", "Acoli", :id)
-      @driver.action.send_keys(:down).perform
-      @driver.action.send_keys(:return).perform
+      element = wait_for_selector('span[role="menuitem"]');
+      element.click
       sleep 1
       wait_for_size_change(0, "sourceLanguageInput",:id)
       element = wait_for_selector("source__edit-save-button",:class)
@@ -1529,11 +1529,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should search by project", bin2: true do
       api_create_claim_and_go_to_search_page
       expect((@driver.current_url.to_s.match(/project/)).nil?).to be(true)
-      @driver.find_element(:xpath, "//div[contains(text(), 'Project')]").click
+      el = wait_for_selector('.search-filter__project-chip')
+      el.click
       sleep 10
       expect((@driver.current_url.to_s.match(/project/)).nil?).to be(false)
       expect((@driver.title =~ /Project/).nil?).to be(false)
-      @driver.find_element(:xpath, "//div[contains(text(), 'Project')]").click
+      el = wait_for_selector('.search-filter__project-chip')
+      el.click
       sleep 10
       expect((@driver.title =~ /Project/).nil?).to be(true)
     end
@@ -1773,15 +1775,15 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(imgsrc.match(/test\.png$/).nil?).to be(false)
 
       # Zoom image
-      expect(@driver.find_elements(:css, '.image-current').empty?).to be(true)
+      expect(@driver.find_elements(:css, '.ril-image-current').empty?).to be(true)
       el = wait_for_selector('.annotation__card-thumbnail')
       el.click
 
-      wait_for_selector('.close')
-      expect(@driver.find_elements(:css, '.image-current').empty?).to be(false)
+      wait_for_selector('.ril-close')
+      expect(@driver.find_elements(:css, '.ril-image-current').empty?).to be(false)
       @driver.action.send_keys(:escape).perform
-      @wait.until {@driver.find_elements(:css, '.close').length == 0 }
-      expect(@driver.find_elements(:css, '.image-current').empty?).to be(true)
+      @wait.until {@driver.find_elements(:css, '.ril-close').length == 0 }
+      expect(@driver.find_elements(:css, '.ril-image-current').empty?).to be(true)
 
       # Reload the page and verify that comment is still there
       @driver.navigate.refresh

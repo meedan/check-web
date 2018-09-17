@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { FormGroup, FormControlLabel } from 'material-ui-next/Form';
-import CheckboxNext from 'material-ui-next/Checkbox';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import CheckboxNext from '@material-ui/core/Checkbox';
 import styled from 'styled-components';
 import difference from 'lodash.difference';
 import intersection from 'lodash.intersection';

@@ -1,5 +1,5 @@
 import React from 'react';
-import Relay from 'react-relay';
+import Relay from 'react-relay/classic';
 import MeRoute from '../../relay/MeRoute';
 import UserComponent from './UserComponent';
 import userFragment from '../../relay/userFragment';

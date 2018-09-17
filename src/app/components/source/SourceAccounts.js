@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Relay from 'react-relay';
+import Relay from 'react-relay/classic';
 import SourceRoute from '../../relay/SourceRoute';
 import AccountCard from './AccountCard';
 

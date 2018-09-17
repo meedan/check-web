@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage, defineMessages } from 'react-intl';
-import Button from 'material-ui-next/Button';
+import Button from '@material-ui/core/Button';
 import MdLock from 'material-ui/svg-icons/action/lock';
 import MdPublic from 'material-ui/svg-icons/social/public';
 import MdLink from 'material-ui/svg-icons/content/link';

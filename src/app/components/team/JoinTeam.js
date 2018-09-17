@@ -1,5 +1,5 @@
 import React from 'react';
-import Relay from 'react-relay';
+import Relay from 'react-relay/classic';
 import teamPublicFragment from '../../relay/teamPublicFragment';
 import PublicTeamRoute from '../../relay/PublicTeamRoute';
 import JoinTeamComponent from './JoinTeamComponent';

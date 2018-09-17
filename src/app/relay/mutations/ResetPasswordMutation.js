@@ -1,4 +1,4 @@
-import Relay from 'react-relay';
+import Relay from 'react-relay/classic';
 
 class ResetPasswordMutation extends Relay.Mutation {
   getMutation() {

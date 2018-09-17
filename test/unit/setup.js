@@ -1,4 +1,5 @@
 require('babel-register')();
+require('ignore-styles').default(['.css']);
 
 var jsdom = require('jsdom').jsdom;
 
@@ -19,3 +20,8 @@ global.navigator = {
 };
 
 documentRef = document;
+
+var enzyme = require('enzyme');
+var Adapter = require('enzyme-adapter-react-16');
+
+enzyme.configure({ adapter: new Adapter() });

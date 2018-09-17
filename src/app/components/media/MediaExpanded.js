@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
+import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
-import Relay from 'react-relay';
 import { CardText, CardActions } from 'material-ui/Card';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import MediaRoute from '../../relay/MediaRoute';

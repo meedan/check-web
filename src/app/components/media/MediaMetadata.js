@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, defineMessages, FormattedMessage } from 'react-intl';
-import Relay from 'react-relay';
+import Relay from 'react-relay/classic';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -301,17 +301,12 @@ class MediaMetadata extends Component {
     const onSuccess = () => {
       if (/^\/[^/]+\/search\//.test(window.location.pathname)) {
         this.props.parentComponent.props.relay.forceFetch();
-      } else if (
-        /^\/[^/]+\/project\/[0-9]+\/media\/[0-9]+$/.test(window.location.pathname)
-      ) {
+      } else if (/^\/[^/]+\/project\/[0-9]+$/.test(window.location.pathname)) {
+        history.push(path);
+      } else if (/^\/[^/]+\/project\/[0-9]+\/media\/[0-9]+$/.test(window.location.pathname)) {
         history.push(`${path}/media/${media.dbid}`);
       }
     };
-
-    // Optimistic-redirect to target project
-    if (/^\/[^/]+\/project\/[0-9]+$/.test(window.location.pathname)) {
-      history.push(path);
-    }
 
     Relay.Store.commitUpdate(
       new UpdateProjectMediaMutation({
