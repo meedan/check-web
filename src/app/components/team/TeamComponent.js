@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { injectIntl, intlShape } from 'react-intl';
+import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import rtlDetect from 'rtl-detect';
+import { Tabs, Tab } from 'material-ui/Tabs';
 import styled from 'styled-components';
+import TeamBots from './TeamBots';
 import TeamInfo from './TeamInfo';
 import TeamInfoEdit from './TeamInfoEdit';
 import TeamMembers from './TeamMembers';
@@ -43,6 +45,7 @@ class TeamComponent extends Component {
     super(props);
 
     this.state = {
+      showTab: 'info',
       message: null,
     };
   }
@@ -67,6 +70,12 @@ class TeamComponent extends Component {
     }
   }
 
+  handleTabChange(value) {
+    this.setState({
+      showTab: value,
+    });
+  }
+
   render() {
     const { team } = this.props;
     const isEditing = this.props.route.isEditing && can(team.permissions, 'update Team');
@@ -89,12 +98,42 @@ class TeamComponent extends Component {
           >
             <ContentColumn>
               <Message message={this.state.message} />
-              { isEditing ?
-                <TeamInfoEdit team={team} /> :
-                <TeamInfo team={team} context={context} />
+              { !isEditing ?
+                null :
+                <Tabs
+                  value={this.state.showTab}
+                  onChange={this.handleTabChange.bind(this)}
+                  style={{ marginBottom: units(5) }}
+                >
+                  <Tab
+                    label={
+                      <FormattedMessage
+                        id="teamComponent.teamInformation"
+                        defaultMessage="Team information"
+                      />
+                    }
+                    value="info"
+                  />
+                  <Tab
+                    label={
+                      <FormattedMessage
+                        id="teamComponent.teamBots"
+                        defaultMessage="Team bots"
+                      />
+                    }
+                    value="bots"
+                  />
+                </Tabs>
               }
+              { isEditing && this.state.showTab === 'info' ? (
+                <TeamInfoEdit team={team} />
+              ) : null }
+              { isEditing ? null : <TeamInfo team={team} context={context} /> }
             </ContentColumn>
           </HeaderCard>
+          { isEditing && this.state.showTab === 'bots' ? (
+            <TeamBots team={team} direction={direction} />
+          ) : null }
           { isEditing ?
             null :
             <StyledTwoColumnLayout>

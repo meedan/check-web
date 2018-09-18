@@ -1,5 +1,5 @@
 import React from 'react';
-import Relay from 'react-relay';
+import Relay from 'react-relay/classic';
 import styled from 'styled-components';
 import MeRoute from '../MeRoute';
 import UserMenu from '../../components/user/UserMenu';

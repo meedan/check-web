@@ -1,4 +1,4 @@
-import Relay from 'react-relay';
+import Relay from 'react-relay/classic';
 
 class CreateTagMutation extends Relay.Mutation {
   getMutation() {

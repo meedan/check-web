@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
-import Relay from 'react-relay';
+import Relay from 'react-relay/classic';
 import { Link } from 'react-router';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';

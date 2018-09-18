@@ -34,6 +34,8 @@ import MediaEmbed from './media/MediaEmbed';
 import Project from './project/Project';
 import ProjectEdit from './project/ProjectEdit';
 import Search from './Search';
+import BotGarden from './BotGarden';
+import Bot from './Bot';
 import CheckContext from '../CheckContext';
 import translations from '../../../localization/translations/translations';
 
@@ -145,6 +147,8 @@ class Root extends Component {
                 <Route path="check/teams/new" component={AddTeamPage} />
                 <Route path="check/teams/find(/:slug)" component={AddTeamPage} />
                 <Route path="check/teams" component={Teams} />
+                <Route path="check/bot-garden" component={BotGarden} />
+                <Route path="check/bot/:botId" component={Bot} />
 
                 <Route path=":team/medias/new" component={CreateProjectMedia} />
                 <Route path=":team/project/:projectId/media/:mediaId" component={ProjectMedia} public />

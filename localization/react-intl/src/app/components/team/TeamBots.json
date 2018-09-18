@@ -1,0 +1,42 @@
+[
+  {
+    "id": "teamBots.confirmUninstall",
+    "defaultMessage": "Are you sure you want to uninstall this bot?"
+  },
+  {
+    "id": "teamBots.success",
+    "defaultMessage": "Settings updated!"
+  },
+  {
+    "id": "teamBots.fail",
+    "defaultMessage": "Error! Please try again."
+  },
+  {
+    "id": "teamBots.noBots",
+    "defaultMessage": "No bots installed."
+  },
+  {
+    "id": "teamBots.moreInfo",
+    "defaultMessage": "More info"
+  },
+  {
+    "id": "teamBots.inUse",
+    "defaultMessage": "In Use"
+  },
+  {
+    "id": "teamBots.settings",
+    "defaultMessage": "Settings"
+  },
+  {
+    "id": "teamBots.save",
+    "defaultMessage": "Save"
+  },
+  {
+    "id": "teamBots.noSettings",
+    "defaultMessage": "There are no settings for this bot."
+  },
+  {
+    "id": "teamBots.botGarden",
+    "defaultMessage": "Browse the Bot Garden"
+  }
+]

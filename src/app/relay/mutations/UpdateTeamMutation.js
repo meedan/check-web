@@ -1,4 +1,4 @@
-import Relay from 'react-relay';
+import Relay from 'react-relay/classic';
 
 class UpdateTeamMutation extends Relay.Mutation {
   getMutation() {
@@ -50,7 +50,7 @@ class UpdateTeamMutation extends Relay.Mutation {
   }
 
   getConfigs() {
-    return [
+    const configs = [
       {
         type: 'REQUIRED_CHILDREN',
         children: [Relay.QL`
@@ -69,14 +69,19 @@ class UpdateTeamMutation extends Relay.Mutation {
         type: 'FIELDS_CHANGE',
         fieldIDs: { team: this.props.id, public_team: this.props.public_id },
       },
-      {
+    ];
+
+    if (this.props.search_id) {
+      configs.push({
         type: 'NODE_DELETE',
         parentName: 'check_search_team',
         parentID: this.props.search_id,
         connectionName: 'medias',
         deletedIDFieldName: 'affectedIds',
-      },
-    ];
+      });
+    }
+
+    return configs;
   }
 }
 export default UpdateTeamMutation;

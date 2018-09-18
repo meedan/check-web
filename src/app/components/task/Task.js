@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Relay from 'react-relay';
+import Relay from 'react-relay/classic';
 import { Card, CardHeader, CardActions, CardText } from 'material-ui/Card';
 import Checkbox from 'material-ui/Checkbox';
 import TextField from 'material-ui/TextField';
@@ -93,7 +93,7 @@ class Task extends Component {
       });
       const fields = JSON.parse(task.first_response.content);
       fields.forEach((field) => {
-        if (/^response_/.test(field.field_name)) {
+        if (/^response_/.test(field.field_name) && field.value && field.value !== '') {
           data.response = field.value;
         }
         if (/^note_/.test(field.field_name)) {
@@ -356,7 +356,7 @@ class Task extends Component {
       />,
     ];
 
-    const taskAssignment = task.assigned_to && !task.first_response ? (
+    const taskAssignment = task.assigned_to && !task.first_response && response ? (
       <div className="task__assigned" style={{ display: 'flex', alignItems: 'center' }}>
         <small style={{ display: 'flex' }}>
           <UserAvatar
@@ -378,7 +378,7 @@ class Task extends Component {
     const taskActions = !media.archived ? (
       <div>
         {taskAssignment}
-        {data.by ?
+        {data.by && task.status === 'Resolved' ?
           <div className="task__resolver" style={{ display: 'flex', alignItems: 'center', marginTop: units(1) }}>
             <small style={{ display: 'flex' }}>
               <span style={{ position: 'relative', width: 24 + ((byPictures.length - 1) * 10) }}>
@@ -411,7 +411,7 @@ class Task extends Component {
                 </IconButton>
               }
             >
-              {task.first_response ?
+              {response ?
                 <Can permissions={task.first_response.permissions} permission="update Dynamic">
                   <MenuItem className="task-actions__edit-response" onClick={this.handleEditResponse.bind(this)}>
                     <FormattedMessage id="task.editResponse" defaultMessage="Edit response" />
@@ -469,7 +469,7 @@ class Task extends Component {
     );
 
     let taskBody = null;
-    if (!task.first_response && !media.archived) {
+    if (!response && !media.archived) {
       taskBody = (
         <Can permissions={media.permissions} permission="create Dynamic">
           <div>
@@ -612,6 +612,8 @@ class Task extends Component {
 
     const required = this.state.required !== null ? this.state.required : task.required;
 
+    task.project_media = this.props.media;
+
     return (
       <StyledWordBreakDiv>
         <Card
@@ -693,6 +695,7 @@ class Task extends Component {
               selectedUsers={assignedUsers}
               onChange={this.assignmentChanged.bind(this)}
               id={task.dbid}
+              taskType={task.type}
             />
           </form>
         </Dialog>

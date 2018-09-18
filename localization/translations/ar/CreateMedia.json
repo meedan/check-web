@@ -1,6 +1,6 @@
 {
   "createMedia.submitting": "جاري الإرسال ...",
-  "createMedia.error": "حدث خطأ ما! أرجع الخادم رسالة خطأ {code}. الرجاء اﻹتصال بفريق الدعم.",
+  "createMedia.error": "عذراً ، لقد واجهنا خطأ ما. أرجع الخادم رسالة خطأ {code}. الرجاء اﻹتصال بفريق الدعم.",
   "createMedia.mediaInput": "الصق أو اكتب",
   "createMedia.quoteInput": "الصق أو اكتب إدعائاً",
   "createMedia.quoteAttributionSourceInput": "اسم المصدر",

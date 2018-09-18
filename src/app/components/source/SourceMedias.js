@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Relay from 'react-relay';
+import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import MediaDetail from '../media/MediaDetail';

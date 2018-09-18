@@ -1,28 +1,52 @@
 import React, { Component } from 'react';
-import Relay from 'react-relay';
+import PropTypes from 'prop-types';
+import Relay from 'react-relay/classic';
 import styled from 'styled-components';
-import { FormattedMessage } from 'react-intl';
 import ChatBubble from 'material-ui/svg-icons/communication/chat-bubble';
 import TaskRoute from '../../relay/TaskRoute';
+import CheckContext from '../../CheckContext';
 import Annotation from '../annotations/Annotation';
 import MediasLoading from '../media/MediasLoading';
 import AddAnnotation from '../annotations/AddAnnotation';
-import { black16, units, opaqueBlack54 } from '../../styles/js/shared';
+import { black16, units, opaqueBlack54, checkBlue } from '../../styles/js/shared';
 
 const StyledAnnotation = styled.div`
   div {
     box-shadow: none !important;
+  }
+
+  .annotation__card-content {
+    display: block;
+  }
+
+  .annotation__avatar-col {
+    display: flex;
+  }
+
+  .avatar {
+    align-self: flex-end;
+  }
+
+  .annotation__card-footer {
+    align-self: flex-end;
+    line-height: 32px;
   }
 `;
 
 const StyledTaskLog = styled.div`
   .task__log-top {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     padding: ${units(2)};
+
+    b {
+      color: ${checkBlue};
+      font-size: 36px;
+    }
 
     & > span {
       display: flex;
+      cursor: pointer;
     }
 
     span {
@@ -33,13 +57,6 @@ const StyledTaskLog = styled.div`
       span {
         padding: 0 ${units(1)};
       }
-    }
-
-    button {
-      border: 0;
-      background: transparent;
-      cursor: pointer;
-      outline: 0;
     }
   }
 
@@ -59,32 +76,95 @@ const StyledTaskLog = styled.div`
   }
 `;
 
-const TaskLogComponent = (props) => {
-  const task = Object.assign(props.cachedTask, props.task);
-  const log = task.log.edges;
-  return (
-    <div>
-      <ul>
-        {log.map((node) => {
-          const item = node.node;
-          if (item.event_type !== 'create_comment') {
-            return null;
-          }
-          return (
-            <li key={item.id}>
-              <StyledAnnotation>
-                <Annotation
-                  annotation={item}
-                  annotated={task}
-                  annotatedType="Task"
-                />
-              </StyledAnnotation>
-            </li>
-          );
-        })}
-      </ul>
-    </div>
-  );
+/* eslint react/no-multi-comp: 0 */
+
+class TaskLogComponent extends Component {
+  static scrollToAnnotation() {
+    if (window.location.hash !== '') {
+      const id = window.location.hash.replace(/^#/, '');
+      const element = document.getElementById(id);
+      if (element && element.scrollIntoView !== undefined) {
+        element.scrollIntoView();
+      }
+    }
+  }
+
+  componentDidMount() {
+    TaskLogComponent.scrollToAnnotation();
+    this.subscribe();
+  }
+
+  componentDidUpdate() {
+    const container = document.getElementById(`task-log-${this.props.task.dbid}`);
+    if (container) {
+      container.scrollTop = container.scrollHeight + 600;
+    }
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
+  getContext() {
+    return new CheckContext(this).getContextStore();
+  }
+
+  subscribe() {
+    const { pusher } = this.getContext();
+    if (pusher) {
+      pusher.subscribe(this.props.cachedTask.project_media.pusher_channel).bind('media_updated', (data) => {
+        const annotation = JSON.parse(data.message);
+        if (annotation.annotation_type === 'task' &&
+          parseInt(annotation.id, 10) === parseInt(this.props.task.dbid, 10) &&
+          this.getContext().clientSessionId !== data.actor_session_id
+        ) {
+          this.props.relay.forceFetch();
+        }
+      });
+    }
+  }
+
+  unsubscribe() {
+    const { pusher } = this.getContext();
+    if (pusher) {
+      pusher.unsubscribe(this.props.cachedTask.project_media.pusher_channel);
+    }
+  }
+
+  render() {
+    const { props } = this;
+    const task = Object.assign(props.cachedTask, props.task);
+    const log = task.log.edges;
+    return (
+      <div>
+        <ul id={`task-log-${task.dbid}`}>
+          {log.map((node) => {
+            const item = node.node;
+            if (item.event_type !== 'create_comment' &&
+              item.event_type !== 'create_dynamicannotationfield' &&
+              item.event_type !== 'update_dynamicannotationfield') {
+              return null;
+            }
+            return (
+              <li key={item.id}>
+                <StyledAnnotation>
+                  <Annotation
+                    annotation={item}
+                    annotated={task}
+                    annotatedType="Task"
+                  />
+                </StyledAnnotation>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    );
+  }
+}
+
+TaskLogComponent.contextTypes = {
+  store: PropTypes.object,
 };
 
 const TaskLogContainer = Relay.createContainer(TaskLogComponent, {
@@ -94,6 +174,18 @@ const TaskLogContainer = Relay.createContainer(TaskLogComponent, {
         id
         dbid
         log_count
+        suggestions_count
+        pending_suggestions_count
+        project_media {
+          id
+          dbid
+          pusher_channel
+          team {
+            id
+            dbid
+            slug
+          }
+        }
         log(first: 10000) {
           edges {
             node {
@@ -115,6 +207,9 @@ const TaskLogContainer = Relay.createContainer(TaskLogComponent, {
                   id,
                   dbid,
                   image,
+                },
+                bot {
+                  dbid
                 }
               }
               annotation {
@@ -196,12 +291,13 @@ const TaskLogContainer = Relay.createContainer(TaskLogComponent, {
   },
 });
 
+/* eslint jsx-a11y/click-events-have-key-events: 0 */
 class TaskLog extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      collapsed: true,
+      collapsed: (window.location.hash === ''),
     };
   }
 
@@ -212,25 +308,15 @@ class TaskLog extends Component {
   render() {
     const id = this.props.task.dbid;
     const route = new TaskRoute({ id });
+    const suggestionsCount = this.props.task.suggestions_count || 0;
+    const pendingSuggestionsCount = this.props.task.pending_suggestions_count || 0;
+    const logCount = this.props.task.log_count + suggestionsCount;
 
     return (
       <StyledTaskLog>
         <div className="task__log-top">
-          <button onClick={this.toggle.bind(this)}>
-            { this.state.collapsed ?
-              <FormattedMessage
-                id="taskLog.show"
-                defaultMessage="{count, plural, =0 {Show notes} one {Show 1 note} other {Show # notes}}"
-                values={{ count: this.props.task.log_count }}
-              /> :
-              <FormattedMessage
-                id="taskLog.hide"
-                defaultMessage="{count, plural, =0 {Hide notes} one {Hide 1 note} other {Hide # notes}}"
-                values={{ count: this.props.task.log_count }}
-              /> }
-          </button>
-          <span>
-            <ChatBubble /> <span>{this.props.task.log_count}</span>
+          <span onClick={this.toggle.bind(this)}>
+            <b>{ pendingSuggestionsCount > 0 ? '•' : null }</b> <ChatBubble /> <span>{logCount}</span>
           </span>
         </div>
         { !this.state.collapsed ? <Relay.RootContainer

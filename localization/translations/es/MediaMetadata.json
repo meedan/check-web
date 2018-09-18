@@ -18,7 +18,7 @@
   "mediaDetail.assignedTo": "Asignado a {name}",
   "mediaDetail.dialogHeader": "Mover esto  {mediaType} a otro proyecto",
   "mediaDetail.dialogMediaPath": "Actualmente archivado bajo  {teamName} > {projectTitle}",
-  "mediaDetail.deleteForeverConfirmationText": "¿Estás seguro? Esto eliminará de forma permanente este ítem y {notesCount, plural, =0 {Sin anotaciones} one {1 anotación} other {# anotaciones}}. \nEscribe \"confirm\" si deseas continuar.",
+  "mediaDetail.deleteForeverConfirmationText": "¿Seguro? Esto eliminará de forma permanente este ítem y {notesCount, plural, =0 {Sin anotaciones} one {1 anotación} other {# anotaciones}}. \nEscribe \"confirm\" si deseas continuar.",
   "mediaDetail.confirmationError": "No coincide",
   "mediaDetail.typeHere": "Escribe aquí",
   "mediaDetail.assignDialogHeader": "Asignación"

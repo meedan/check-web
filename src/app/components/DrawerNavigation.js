@@ -1,5 +1,5 @@
 import React from 'react';
-import Relay from 'react-relay';
+import Relay from 'react-relay/classic';
 import PublicTeamRoute from '../relay/PublicTeamRoute';
 import teamPublicFragment from '../relay/teamPublicFragment';
 import DrawerNavigationComponent from './DrawerNavigationComponent';

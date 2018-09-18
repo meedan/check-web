@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Relay from 'react-relay';
+import Relay from 'react-relay/classic';
 import Dropzone from 'react-dropzone';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import MdHighlightRemove from 'react-icons/lib/md/highlight-remove';

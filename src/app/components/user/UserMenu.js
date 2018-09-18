@@ -4,7 +4,7 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import { Link } from 'react-router';
 import IconButton from 'material-ui/IconButton';
 import MenuItem from 'material-ui/MenuItem';
-import Menu from 'material-ui-next/Menu';
+import Menu from '@material-ui/core/Menu';
 import IconEdit from 'material-ui/svg-icons/image/edit';
 import UserUtil from './UserUtil';
 import CheckContext from '../../CheckContext';

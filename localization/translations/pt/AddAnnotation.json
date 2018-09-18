@@ -1,10 +1,10 @@
 {
   "addAnnotation.invalidCommand": "Comando inválido",
   "addAnnotation.annotationAdded": "{type} foi adicionado(a)!",
-  "addAnnotation.error": "Algo deu errado! O servidor retornou o erro {code}. Por favor entre em contato com o suporte.",
+  "addAnnotation.error": "Houve um erro. O servidor retornou o erro {code}. Por favor entre em contato com o suporte.",
   "addAnnotation.inputHint": "Adicione uma nota sobre isso",
   "addAnnotation.submitButton": "Enviar",
-  "addAnnotation.typeComment": "comentário",
+  "addAnnotation.typeComment": "nota",
   "addAnnotation.typeTag": "tag",
   "addAnnotation.typeStatus": "status",
   "addAnnotation.typeFlag": "Indicador",

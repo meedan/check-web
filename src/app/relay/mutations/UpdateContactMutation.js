@@ -1,4 +1,4 @@
-import Relay from 'react-relay';
+import Relay from 'react-relay/classic';
 
 class UpdateContactMutation extends Relay.Mutation {
   getMutation() {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
-import Relay from 'react-relay';
+import Relay from 'react-relay/classic';
 import { Card, CardActions, CardText, CardHeader } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
@@ -85,6 +85,9 @@ class CreateProject extends Component {
       const { createProject: { project } } = response;
       const path = `/${team.slug}/project/${project.dbid}`;
       history.push(path);
+      if (this.props.onCreate) {
+        this.props.onCreate();
+      }
     };
 
     if (!this.state.submitDisabled) {

@@ -1,5 +1,5 @@
 import React from 'react';
-import Relay from 'react-relay';
+import Relay from 'react-relay/classic';
 import { injectIntl, defineMessages } from 'react-intl';
 import AutoComplete from 'material-ui/AutoComplete';
 import Chip from 'material-ui/Chip';

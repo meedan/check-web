@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
-import Relay from 'react-relay';
+import Relay from 'react-relay/classic';
 import { Card, CardText } from 'material-ui/Card';
 import IconMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import IconButton from 'material-ui/IconButton';

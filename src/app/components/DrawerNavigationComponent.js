@@ -202,6 +202,7 @@ class DrawerNavigation extends Component {
                   userIsOwner={userIsOwner}
                   showAddProj={this.state.showAddProj}
                   handleAddProj={this.handleAddProj.bind(this)}
+                  toggleDrawerCallback={drawerToggle}
                 />
                 : null}
             </div>

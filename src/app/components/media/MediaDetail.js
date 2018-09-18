@@ -65,7 +65,8 @@ const StyledHeaderTextSecondary = styled.div`
   white-space: nowrap;
 `;
 
-const StyledCardHeader = styled(CardHeader)`
+const StyledCardHeader = styled(({ inMediaPage, ...rest }) => <CardHeader {...rest} />)`
+  cursor: ${props => props.inMediaPage ? null : 'pointer'};
   > div {
     padding: 0!important;
   }
@@ -113,6 +114,13 @@ class MediaDetail extends Component {
 
   handleReduce = () => {
     this.setState({ expanded: false });
+  };
+
+  handleClickHeader = (event, mediaUrl) => {
+    // Prevent navigation if click was on a child element
+    if (event.target === event.currentTarget) {
+      this.getContext().history.push(mediaUrl);
+    }
   };
 
   render() {
@@ -168,6 +176,7 @@ class MediaDetail extends Component {
 
     const projectPage = /^\/.*\/project\//.test(path);
     const sourcePage = /^\/.*\/project\/.*\/source\//.test(path);
+    const mediaPage = /^\/.*\/project\/.*\/media\//.test(path);
 
     media.url = media.media.url;
     media.quote = media.media.quote;
@@ -281,10 +290,14 @@ class MediaDetail extends Component {
           style={{ borderColor }}
         >
           <StyledCardHeader
+            className="media-detail__card-header"
             title={cardHeaderStatus}
             subtitle={cardHeaderText}
             showExpandableButton={this.props.media.dbid > 0}
+            inMediaPage={mediaPage}
             style={{ paddingRight: units(5) }}
+            // TODO: dont be clickable on optimistic items
+            onClick={mediaPage ? null : (event) => { this.handleClickHeader(event, mediaUrl); }}
           />
 
           { this.state.expanded ?
@@ -293,6 +306,7 @@ class MediaDetail extends Component {
               title={title}
               mediaUrl={mediaUrl}
               isRtl={isRtl}
+              inMediaPage={mediaPage}
               sourceName={sourceName}
               sourceUrl={sourceUrl}
             /> : null }

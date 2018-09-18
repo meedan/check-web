@@ -3,5 +3,7 @@
   "annotation.taskNoteUpdated": "تم تعديل التعليق للمهمة \"{title}\" من \"{from}\" إلى \"{to}\" من قِبَل {author}",
   "annotation.taskNoteCreated": "تمت إضافة تعليق جديد \"{note}\" للمهمة \"{title}\" من قِبَل {author}",
   "annotation.assignmentChanged": "تم تكليف المهمة \"{title}\" إلى {assigneeTo} بواسطة {author}",
-  "annotation.assignmentRemoved": "تم إلغاء تكليف المهمة \"{title}\" من {assigneeFrom} بواسطة {author}"
+  "annotation.assignmentRemoved": "تم إلغاء تكليف المهمة \"{title}\" من {assigneeFrom} بواسطة {author}",
+  "annotation.addedComment": "اضاف {author} ملاحظة للمهمة \"{title}\": \"{comment}\"",
+  "annotation.removedComment": "حذف {author} ملاحظة من المهمة \"{title}\": \"{comment}\""
 }
