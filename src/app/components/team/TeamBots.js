@@ -9,7 +9,7 @@ import Switch from '@material-ui/core/Switch';
 import { Emojione } from 'react-emoji-render';
 import { Link, browserHistory } from 'react-router';
 import styled from 'styled-components';
-import { SchemaForm } from 'react-schema-form';
+import Form from 'react-jsonschema-form-material-ui';
 import TeamRoute from '../../relay/TeamRoute';
 import { units, ContentColumn, black32 } from '../../styles/js/shared';
 import DeleteTeamBotInstallationMutation from '../../relay/mutations/DeleteTeamBotInstallationMutation';
@@ -56,12 +56,18 @@ const StyledToggle = styled.div`
 `;
 
 const StyledSchemaForm = styled.div`
-  .SchemaForm {
-    margin-bottom: ${units(1)};
+  div {
+    padding: 0 !important;
+    box-shadow: none !important;
   }
 
-  .SchemaForm > div {
-    height: auto !important;
+  fieldset {
+    border: 0;
+    padding: 0;
+  }
+
+  button {
+    display: none;
   }
 `;
 
@@ -89,10 +95,9 @@ class TeamBotsComponent extends Component {
     this.setState({ settings });
   }
 
-  handleSettingsUpdated(installation, field, value) {
-    const fieldName = field[0];
+  handleSettingsUpdated(installation, data) {
     const settings = Object.assign({}, this.state.settings);
-    settings[installation.id][fieldName] = value;
+    settings[installation.id] = data.formData;
     this.setState({ settings, message: null, messageBotId: null });
   }
 
@@ -197,10 +202,10 @@ class TeamBotsComponent extends Component {
                 <h3><FormattedMessage id="teamBots.settings" defaultMessage="Settings" /></h3>
                 { bot.settings_as_json_schema ?
                   <StyledSchemaForm>
-                    <SchemaForm
+                    <Form
                       schema={JSON.parse(bot.settings_as_json_schema)}
-                      model={this.state.settings[installation.node.id]}
-                      onModelChange={this.handleSettingsUpdated.bind(this, installation.node)}
+                      formData={this.state.settings[installation.node.id]}
+                      onChange={this.handleSettingsUpdated.bind(this, installation.node)}
                     />
                     <p>
                       <FlatButton
