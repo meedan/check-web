@@ -1,7 +1,12 @@
 {
   "teamBots.confirmUninstall": "Voulez-vous vraiment désinstaller ce robot ?",
+  "teamBots.success": "Paramètres sauvegardés. ",
+  "teamBots.fail": "Une erreur s'est produite. Veuillez réessayer.",
   "teamBots.noBots": "Aucun robot installé.",
   "teamBots.moreInfo": "Plus d'informations",
   "teamBots.inUse": "Utilisé",
+  "teamBots.settings": "Paramètres",
+  "teamBots.save": "Sauvegarder",
+  "teamBots.noSettings": "Il n'y a pas de paramètre pour ce robot.",
   "teamBots.botGarden": "Parcourir le Bot Garden"
 }

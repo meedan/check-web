@@ -3,7 +3,6 @@
   "createRelatedMedia.cancelAdd": "إلغاء",
   "createRelatedMedia.submit": "إرسال",
   "createRelatedMedia.addClaim": "أضف إدعائاً",
-  "createRelatedMedia.dialog": "ذو صلة مع \"{claim}\"",
   "createRelatedMedia.claimText": "نص الإدعاء",
   "createRelatedMedia.source": "مصدر"
 }

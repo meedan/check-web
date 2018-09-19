@@ -368,7 +368,7 @@ export const HiddenOnMobile = styled.div`
 //
 export const Row = styled.div`
   display: flex;
-  ${props => props.wrap ? 'flex-wrap: wrap;' : 'flex-wrap: nowrap;'}
+  ${props => props.flexWrap ? 'flex-wrap: wrap;' : 'flex-wrap: nowrap;'}
   ${props => props.alignTop ? 'align-items: top;' : 'align-items: center;'}
   ${props => props.containsEllipsis ? '& > * {overflow: hidden; }' : ''}
 `;

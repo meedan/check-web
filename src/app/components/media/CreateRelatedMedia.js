@@ -141,14 +141,6 @@ class CreateRelatedMedia extends Component {
           open={this.state.dialogOpen}
           onRequestClose={this.handleCloseDialog.bind(this)}
         >
-          <h4 className="media-detail__dialog-header">
-            <FormattedMessage
-              id="createRelatedMedia.dialog"
-              defaultMessage='Related to "{claim}"'
-              values={{ claim: media.media.quote }}
-            />
-          </h4>
-
           <Message message={this.state.message} />
 
           <TextField

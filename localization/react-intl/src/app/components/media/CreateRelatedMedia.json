@@ -16,10 +16,6 @@
     "defaultMessage": "Add claim"
   },
   {
-    "id": "createRelatedMedia.dialog",
-    "defaultMessage": "Related to \"{claim}\""
-  },
-  {
     "id": "createRelatedMedia.claimText",
     "defaultMessage": "Claim text"
   },
