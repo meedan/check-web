@@ -103,7 +103,11 @@ class TeamMembersComponent extends Component {
           >
             <List
               className="team-members__list"
-              style={{ maxHeight: '500px' }}
+              style={{
+                maxHeight: '500px',
+                overflowY: 'auto',
+                overflowX: 'hidden',
+              }}
             >
               { teamUsersMembers.map(teamUser => (
                 <TeamMembersListItem
