@@ -356,7 +356,7 @@ class Task extends Component {
       />,
     ];
 
-    const taskAssignment = task.assigned_to && !task.first_response && response ? (
+    const taskAssignment = task.assigned_to && !response ? (
       <div className="task__assigned" style={{ display: 'flex', alignItems: 'center' }}>
         <small style={{ display: 'flex' }}>
           <UserAvatar
