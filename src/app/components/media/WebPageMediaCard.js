@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { injectIntl } from 'react-intl';
 import { Link } from 'react-router';
-import deepEqual from 'deep-equal';
+// import deepEqual from 'deep-equal';
 import styled from 'styled-components';
 import MediaUtil from './MediaUtil';
 import ParsedText from '../ParsedText';
@@ -46,7 +46,14 @@ const StyledHeading = styled.h3`
 
 class WebPageMediaCard extends Component {
   shouldComponentUpdate(nextProps, nextState) {
-    return !deepEqual(nextProps, this.props) || !deepEqual(nextState, this.state);
+    console.log('nextProps', nextProps);
+    console.log('this.props', this.props);
+
+    console.log('nextState', nextState);
+    console.log('this.state', this.state);
+
+    // return !deepEqual(nextProps, this.props) || !deepEqual(nextState, this.state);
+    return false;
   }
 
   canEmbedHtml() {
