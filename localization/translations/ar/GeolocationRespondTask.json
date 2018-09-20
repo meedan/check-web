@@ -1,6 +1,10 @@
 {
+  "geoLocationRespondTask.searching": "البحث جارٍ...",
+  "geoLocationRespondTask.notFound": "عذراً ، هذا المكان غير موجود.",
+  "geoLocationRespondTask.error": "عذراً، لقد واجهنا خطأ ما أثناء التواصل مع الخادم.",
   "geolocationRespondTask.cancelTask": "إلغاء",
   "geolocationRespondTask.resolveTask": "إنجاز المهمة",
-  "geolocationRespondTask.placeName": "أكتب اسم الموقع",
+  "geolocationRespondTask.searchMap": "بحث في الخريطة",
+  "geolocationRespondTask.placeName": "تصحيح اسم المكان",
   "geolocationRespondTask.coordinates": "خطوط العرض والطول"
 }

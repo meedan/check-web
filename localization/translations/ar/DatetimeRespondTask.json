@@ -5,6 +5,5 @@
   "datetimeRespondTask.cancelTask": "إلغاء",
   "datetimeRespondTask.resolveTask": "إنجاز المهمة",
   "datetimeRespondTask.pickDate": "إختر التاريخ على التقويم المتاح",
-  "datetimeRespondTask.timeOptional": "الزمن (اختياري)",
-  "datetimeRespondTask.note": "اكتب هنا التعليقات الإضافية."
+  "datetimeRespondTask.timeOptional": "الزمن (اختياري)"
 }

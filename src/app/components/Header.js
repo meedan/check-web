@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Link } from 'react-router';
-import Relay from 'react-relay';
+import Relay from 'react-relay/classic';
 import IconSearch from 'material-ui/svg-icons/action/search';
 import { FormattedMessage } from 'react-intl';
 import RaisedButton from 'material-ui/RaisedButton';

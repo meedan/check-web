@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Relay from 'react-relay';
+import Relay from 'react-relay/classic';
 import styled from 'styled-components';
 import ProjectRoute from '../../relay/ProjectRoute';
 import CreateProjectMedia from '../media/CreateMedia';

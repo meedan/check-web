@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Relay from 'react-relay';
+import Relay from 'react-relay/classic';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
@@ -141,14 +141,6 @@ class CreateRelatedMedia extends Component {
           open={this.state.dialogOpen}
           onRequestClose={this.handleCloseDialog.bind(this)}
         >
-          <h4 className="media-detail__dialog-header">
-            <FormattedMessage
-              id="createRelatedMedia.dialog"
-              defaultMessage='Related to "{claim}"'
-              values={{ claim: media.media.quote }}
-            />
-          </h4>
-
           <Message message={this.state.message} />
 
           <TextField

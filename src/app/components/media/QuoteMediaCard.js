@@ -24,6 +24,7 @@ const StyledQuoteText = styled.div`
     props.quoteIsRtl ? 'direction: rtl; text-align: right;' : 'direction: ltr; text-align: left;'};
 `;
 
+/* eslint jsx-a11y/click-events-have-key-events: 0 */
 const QuoteMediaCard = (props) => {
   const {
     quote, sourceName, sourceUrl, languageCode,
@@ -49,7 +50,7 @@ const QuoteMediaCard = (props) => {
         <Row>
           <StyledQuoteAttribution>
             {sourceName ?
-              <div>
+              <div onClick={(e) => { e.stopPropagation(); }}>
                 {'— '}
                 <Link to={sourceUrl}>
                   {sourceName}

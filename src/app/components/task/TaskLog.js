@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Relay from 'react-relay';
+import Relay from 'react-relay/classic';
 import styled from 'styled-components';
-import { FormattedMessage } from 'react-intl';
 import ChatBubble from 'material-ui/svg-icons/communication/chat-bubble';
 import TaskRoute from '../../relay/TaskRoute';
 import CheckContext from '../../CheckContext';
 import Annotation from '../annotations/Annotation';
 import MediasLoading from '../media/MediasLoading';
 import AddAnnotation from '../annotations/AddAnnotation';
-import { black16, units, opaqueBlack54 } from '../../styles/js/shared';
+import { black16, units, opaqueBlack54, checkBlue } from '../../styles/js/shared';
 
 const StyledAnnotation = styled.div`
   div {
@@ -37,8 +36,13 @@ const StyledAnnotation = styled.div`
 const StyledTaskLog = styled.div`
   .task__log-top {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     padding: ${units(2)};
+
+    b {
+      color: ${checkBlue};
+      font-size: 36px;
+    }
 
     & > span {
       display: flex;
@@ -53,13 +57,6 @@ const StyledTaskLog = styled.div`
       span {
         padding: 0 ${units(1)};
       }
-    }
-
-    button {
-      border: 0;
-      background: transparent;
-      cursor: pointer;
-      outline: 0;
     }
   }
 
@@ -143,7 +140,9 @@ class TaskLogComponent extends Component {
         <ul id={`task-log-${task.dbid}`}>
           {log.map((node) => {
             const item = node.node;
-            if (item.event_type !== 'create_comment') {
+            if (item.event_type !== 'create_comment' &&
+              item.event_type !== 'create_dynamicannotationfield' &&
+              item.event_type !== 'update_dynamicannotationfield') {
               return null;
             }
             return (
@@ -175,6 +174,18 @@ const TaskLogContainer = Relay.createContainer(TaskLogComponent, {
         id
         dbid
         log_count
+        suggestions_count
+        pending_suggestions_count
+        project_media {
+          id
+          dbid
+          pusher_channel
+          team {
+            id
+            dbid
+            slug
+          }
+        }
         log(first: 10000) {
           edges {
             node {
@@ -196,6 +207,9 @@ const TaskLogContainer = Relay.createContainer(TaskLogComponent, {
                   id,
                   dbid,
                   image,
+                },
+                bot {
+                  dbid
                 }
               }
               annotation {
@@ -294,25 +308,15 @@ class TaskLog extends Component {
   render() {
     const id = this.props.task.dbid;
     const route = new TaskRoute({ id });
+    const suggestionsCount = this.props.task.suggestions_count || 0;
+    const pendingSuggestionsCount = this.props.task.pending_suggestions_count || 0;
+    const logCount = this.props.task.log_count + suggestionsCount;
 
     return (
       <StyledTaskLog>
         <div className="task__log-top">
-          <button onClick={this.toggle.bind(this)}>
-            { this.state.collapsed ?
-              <FormattedMessage
-                id="taskLog.show"
-                defaultMessage="{count, plural, =0 {Show notes} one {Show 1 note} other {Show # notes}}"
-                values={{ count: this.props.task.log_count }}
-              /> :
-              <FormattedMessage
-                id="taskLog.hide"
-                defaultMessage="{count, plural, =0 {Hide notes} one {Hide 1 note} other {Hide # notes}}"
-                values={{ count: this.props.task.log_count }}
-              /> }
-          </button>
           <span onClick={this.toggle.bind(this)}>
-            <ChatBubble /> <span>{this.props.task.log_count}</span>
+            <b>{ pendingSuggestionsCount > 0 ? '•' : null }</b> <ChatBubble /> <span>{logCount}</span>
           </span>
         </div>
         { !this.state.collapsed ? <Relay.RootContainer

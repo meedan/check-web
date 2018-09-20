@@ -77,7 +77,7 @@ describe('<HeaderComponent />', () => {
         params={params}
       />,
     );
-    expect(header.find('.header__signin-button')).to.have.length(1);
+    expect(header.find('.header__signin-button').at(0)).to.have.length(1);
     expect(header.find('.header__user-menu')).to.have.length(0);
   });
 });

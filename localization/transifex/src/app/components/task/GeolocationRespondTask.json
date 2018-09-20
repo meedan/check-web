@@ -1,6 +1,10 @@
 {
+  "geoLocationRespondTask.searching": "Searching...",
+  "geoLocationRespondTask.notFound": "Sorry, place not found!",
+  "geoLocationRespondTask.error": "Error communicating with server!",
   "geolocationRespondTask.cancelTask": "Cancel",
   "geolocationRespondTask.resolveTask": "Resolve task",
-  "geolocationRespondTask.placeName": "Type the name of the location",
+  "geolocationRespondTask.searchMap": "Search the map",
+  "geolocationRespondTask.placeName": "Customize place name",
   "geolocationRespondTask.coordinates": "Latitude, Longitude"
 }

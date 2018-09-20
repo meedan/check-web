@@ -31,6 +31,6 @@ describe('<MediaDetail />', () => {
 
   it('renders', () => {
     const mediaDetail = mountWithIntl(<MediaDetail media={media} />);
-    expect(mediaDetail.find('.media-detail')).to.have.length(1);
+    expect(mediaDetail.find('.media-detail').at(0)).to.have.length(1);
   });
 });

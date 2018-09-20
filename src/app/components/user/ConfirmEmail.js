@@ -1,5 +1,5 @@
 import React from 'react';
-import Relay from 'react-relay';
+import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import MdInfoOutline from 'material-ui/svg-icons/action/info-outline';
 import styled from 'styled-components';

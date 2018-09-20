@@ -1,0 +1,13 @@
+{
+  "bot.confirmInstall": "هل أنت متأكد أنك تود تثبيت هذا البوت في الفريق {teamName} ؟",
+  "bot.confirmUninstall": "هل أنت متأكد أنك تود الغاء تثبيت هذا البوت من الفريق {teamName} ؟",
+  "bot.cantChange": "عذراً ، ليس مسموح لك تنفيذ هذه العملية.",
+  "bot.inUse": "قيد الاستخدام",
+  "bot.madeBy": "صنع {teamLink}",
+  "bot.permissions": "أذونات",
+  "bot.permissionsText": "يتمتع هذا البوت بمستوى وصول ال{role}.",
+  "bot.sourceCode": "فحص كود المصدر",
+  "bot.updatedAt": "آخر تحديث",
+  "bot.version": "الإصدار",
+  "bot.installs": "التثبيتات"
+}

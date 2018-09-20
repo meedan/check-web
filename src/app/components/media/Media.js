@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Relay from 'react-relay';
+import Relay from 'react-relay/classic';
 import CheckContext from '../../CheckContext';
 import MediaRoute from '../../relay/MediaRoute';
 import MediaParentComponent from './MediaParentComponent';
@@ -119,10 +119,13 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
               dbid,
               label,
               type,
+              status,
               required,
               description,
               permissions,
               jsonoptions,
+              pending_suggestions_count,
+              suggestions_count,
               log_count,
               assigned_to {
                 name

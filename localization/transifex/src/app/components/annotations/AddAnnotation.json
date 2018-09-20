@@ -4,7 +4,7 @@
   "addAnnotation.error": "Something went wrong! The server returned an error code {code}. Please contact a system administrator.",
   "addAnnotation.inputHint": "Add a note about this",
   "addAnnotation.submitButton": "Submit",
-  "addAnnotation.typeComment": "comment",
+  "addAnnotation.typeComment": "note",
   "addAnnotation.typeTag": "tag",
   "addAnnotation.typeStatus": "status",
   "addAnnotation.typeFlag": "flag",

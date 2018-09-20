@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
-import Relay from 'react-relay';
+import Relay from 'react-relay/classic';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import MdInsertPhoto from 'react-icons/lib/md/insert-photo';
@@ -44,7 +44,7 @@ const messages = defineMessages({
   },
   typeComment: {
     id: 'addAnnotation.typeComment',
-    defaultMessage: 'comment',
+    defaultMessage: 'note',
   },
   typeTag: {
     id: 'addAnnotation.typeTag',

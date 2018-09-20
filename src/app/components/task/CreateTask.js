@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Relay from 'react-relay';
+import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import Checkbox from 'material-ui/Checkbox';
@@ -415,7 +415,12 @@ class CreateTask extends Component {
             </label>
 
             { this.state.showAssignmentField ?
-              <Attribution multi={false} selectedUsers={[]} id="new" /> :
+              <Attribution
+                multi={false}
+                selectedUsers={[]}
+                id="new"
+                taskType={this.state.type}
+              /> :
               <button
                 className="create-task__add-assignment-button"
                 onClick={this.toggleAssignmentField.bind(this)}

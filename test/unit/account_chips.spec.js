@@ -17,10 +17,11 @@ describe('<AccountChips />', () => {
 
   it('renders chips with their correct social network icons', () => {
     const accountChips = mountWithIntl(<AccountChips accounts={accounts} />);
-    expect(accountChips.find('.media-tags__tag')).to.have.length(3);
+    expect(accountChips.find('.media-tags__tag')).to.have.length(6);
     expect(accountChips.find(FaFacebookSquare)).to.have.length(1);
     expect(accountChips.find(FaTwitter)).to.have.length(1);
     expect(accountChips.find(MdLink)).to.have.length(1);
     expect(accountChips.find(FaInstagram)).to.have.length(0);
+    expect(accountChips.find(FaYoutubePlay)).to.have.length(0);
   });
 });

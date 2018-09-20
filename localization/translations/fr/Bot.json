@@ -1,0 +1,13 @@
+{
+  "bot.confirmInstall": "Voulez-vous vraiment installer le robot dans l'équipe {teamName} ?",
+  "bot.confirmUninstall": "Voulez-vous vraiment désinstaller ce robot de l'équipe {teamName} ?",
+  "bot.cantChange": "Désolé, vous n'êtes pas autorisé à effectuer cette opération.",
+  "bot.inUse": "Utilisé",
+  "bot.madeBy": "Fait par {teamLink}",
+  "bot.permissions": "Permissions",
+  "bot.permissionsText": "Ce robot privilégie d'un niveau d'accès de {role}.",
+  "bot.sourceCode": "Voir le code source",
+  "bot.updatedAt": "Mis à jour",
+  "bot.version": "Version",
+  "bot.installs": "Installations"
+}

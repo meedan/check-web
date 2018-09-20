@@ -1,5 +1,4 @@
 {
   "tasks.cancelEdit": "Cancel",
-  "tasks.submit": "Resolve Task",
-  "task.noteLabel": "Note any additional details here."
+  "tasks.submit": "Resolve Task"
 }

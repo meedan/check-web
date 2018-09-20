@@ -1,10 +1,10 @@
 {
   "addAnnotation.invalidCommand": "Comando inválido ",
   "addAnnotation.annotationAdded": "Tu {type} fue añadido!",
-  "addAnnotation.error": "¡Algo salió mal! El servidor devolvió un código de error  {code}. Por favor contacta al administrador del sistema. ",
+  "addAnnotation.error": "Hubo un error. El servidor devolvió un código {code}. Por favor contacta al administrador del sistema. ",
   "addAnnotation.inputHint": "Añade una nota acerca de esto ",
   "addAnnotation.submitButton": "Subir",
-  "addAnnotation.typeComment": "comentario",
+  "addAnnotation.typeComment": "nota",
   "addAnnotation.typeTag": "etiqueta",
   "addAnnotation.typeStatus": "estado",
   "addAnnotation.typeFlag": "marca",

@@ -1,9 +1,4 @@
 {
-  "teamComponent.editError": "Lo sentimos, no pudimos editar el equipo",
-  "teamComponent.editSuccess": "¡La información del equipo fue actualizada con éxito!",
-  "teamComponent.teamName": "Nombre del equipo",
-  "teamComponent.teamDescription": "Descripción del equipo",
-  "teamComponent.location": "Ubicación",
-  "teamComponent.phone": "Teléfono",
-  "teamComponent.website": "Sitio web"
+  "teamComponent.teamInformation": "Informacíon del equipo",
+  "teamComponent.teamBots": "Equipo de bots"
 }

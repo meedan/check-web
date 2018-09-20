@@ -66,6 +66,9 @@ export default {
     }, {
       test: /\.css?$/,
       loaders: ['style', 'raw']
+    }, {
+      test: /\.json$/,
+      loader: 'json'
     }]
   },
   externals: {

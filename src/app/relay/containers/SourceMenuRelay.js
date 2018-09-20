@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
-import Relay from 'react-relay';
+import Relay from 'react-relay/classic';
 import IconEdit from 'material-ui/svg-icons/image/edit';
 import SourceRoute from '../SourceRoute';
 import Can from '../../components/Can';
