@@ -1,10 +1,10 @@
 [
   {
-    "id": "teamComponent.teamInformation",
-    "defaultMessage": "Team information"
+    "id": "teamSettings.integrations",
+    "defaultMessage": "Integrations"
   },
   {
-    "id": "teamComponent.teamBots",
-    "defaultMessage": "Team bots"
+    "id": "teamSettings.bots",
+    "defaultMessage": "Bots"
   }
 ]

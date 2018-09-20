@@ -45,7 +45,7 @@ class TeamComponent extends Component {
     super(props);
 
     this.state = {
-      showTab: 'info',
+      showTab: 'bots',
       message: null,
     };
   }
@@ -70,15 +70,14 @@ class TeamComponent extends Component {
     }
   }
 
-  handleTabChange(value) {
-    this.setState({
-      showTab: value,
-    });
-  }
+  handleTabChange = value => this.setState({ showTab: value });
 
   render() {
     const { team } = this.props;
-    const isEditing = this.props.route.isEditing && can(team.permissions, 'update Team');
+    const { action } = this.props.route;
+
+    const isEditing = (action === 'edit') && can(team.permissions, 'update Team');
+    const isSettings = (action === 'settings') && can(team.permissions, 'update Team');
 
     const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
 
@@ -89,62 +88,75 @@ class TeamComponent extends Component {
 
     const context = new CheckContext(this).getContextStore();
 
+    const TeamPageContent = () => (
+      <StyledTwoColumnLayout>
+        <ContentColumn>
+          <TeamMembers {...this.props} />
+        </ContentColumn>
+        <ContentColumn className="team__secondary-column">
+          <TeamProjects team={team} relay={this.props.relay} />
+        </ContentColumn>
+      </StyledTwoColumnLayout>
+    );
+
+    const HeaderContent = () => {
+      if (isEditing) {
+        return <TeamInfoEdit team={team} />;
+      }
+
+      return <TeamInfo team={team} context={context} />;
+    };
+
+    const TeamSettingsTabs = () => {
+      if (isSettings) {
+        return (
+          <Tabs value={this.state.showTab} onChange={this.handleTabChange}>
+            <Tab
+              label={
+                <FormattedMessage
+                  id="teamSettings.integrations"
+                  defaultMessage="Integrations"
+                />
+              }
+              value="integrations"
+            />
+            <Tab
+              label={
+                <FormattedMessage
+                  id="teamSettings.bots"
+                  defaultMessage="Bots"
+                />
+              }
+              value="bots"
+            />
+          </Tabs>
+        );
+      }
+
+      return null;
+    };
+
     return (
       <PageTitle prefix={false} skipTeam={false} team={team}>
         <div className="team">
-          <HeaderCard
-            direction={direction}
-            isEditing={isEditing}
-          >
+          <HeaderCard direction={direction} isEditing={isEditing}>
             <ContentColumn>
               <Message message={this.state.message} />
-              { !isEditing ?
-                null :
-                <Tabs
-                  value={this.state.showTab}
-                  onChange={this.handleTabChange.bind(this)}
-                  style={{ marginBottom: units(5) }}
-                >
-                  <Tab
-                    label={
-                      <FormattedMessage
-                        id="teamComponent.teamInformation"
-                        defaultMessage="Team information"
-                      />
-                    }
-                    value="info"
-                  />
-                  <Tab
-                    label={
-                      <FormattedMessage
-                        id="teamComponent.teamBots"
-                        defaultMessage="Team bots"
-                      />
-                    }
-                    value="bots"
-                  />
-                </Tabs>
-              }
-              { isEditing && this.state.showTab === 'info' ? (
-                <TeamInfoEdit team={team} />
-              ) : null }
-              { isEditing ? null : <TeamInfo team={team} context={context} /> }
+              <HeaderContent />
+              <TeamSettingsTabs />
             </ContentColumn>
           </HeaderCard>
-          { isEditing && this.state.showTab === 'bots' ? (
-            <TeamBots team={team} direction={direction} />
-          ) : null }
-          { isEditing ?
-            null :
-            <StyledTwoColumnLayout>
+          { !isEditing && !isSettings ? <TeamPageContent /> : null }
+          { isSettings && this.state.showTab === 'bots'
+            ? <TeamBots team={team} direction={direction} />
+            : null
+          }
+          { isSettings && this.state.showTab === 'integrations'
+            ? (
               <ContentColumn>
-                <TeamMembers {...this.props} />
-              </ContentColumn>
-              <ContentColumn className="team__secondary-column">
-                <TeamProjects team={team} relay={this.props.relay} />
                 <SlackConfig team={team} />
               </ContentColumn>
-            </StyledTwoColumnLayout>
+            ) : null
           }
         </div>
       </PageTitle>
