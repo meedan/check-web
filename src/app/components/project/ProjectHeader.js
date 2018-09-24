@@ -12,8 +12,9 @@ const ProjectHeaderComponent = (props) => {
   const path = props.location ? props.location.pathname : window.location.pathname;
   const regexProject = /(.*\/project\/[0-9]+)/;
   const regexMedia = /\/media\/[0-9]/;
-  const backUrl = (regexMedia.test(path)) ? path.match(regexProject)[1] : null;
-  const isProjectSubpage = regexMedia.test(path);
+  const regexSource = /\/source\/[0-9]/;
+  const isProjectSubpage = regexMedia.test(path) || regexSource.test(path);
+  const backUrl = isProjectSubpage ? path.match(regexProject)[1] : null;
 
   return (
     <div style={{ display: 'flex', alignItems: 'center', overflow: 'hidden' }}>

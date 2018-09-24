@@ -64,11 +64,15 @@ class Home extends Component {
     if (!(children && children.props.route)) {
       return null;
     }
+    // TODO Other pages as needed
     if (/\/media\/:mediaId/.test(children.props.route.path)) {
-      return 'media'; // TODO Other pages as needed
+      return 'media';
     }
     if (/\/source\/:sourceId/.test(children.props.route.path)) {
-      return 'source'; // TODO Other pages as needed
+      return 'source';
+    }
+    if (/^:team$/.test(children.props.route.path)) {
+      return 'team';
     }
     return null;
   }
@@ -170,13 +174,6 @@ class Home extends Component {
     const inTeamContext = !!this.props.params.team;
     const loggedIn = !!this.state.token;
 
-    const inTeamPage = !!(this.props.params.team &&
-      !(this.props.params.mediaId ||
-        this.props.params.projectId ||
-        this.props.params.sourceId));
-
-    const pageType = routeSlug || (inTeamPage ? 'team' : null);
-
     const currentUserIsMember = (() => {
       if (inTeamContext && loggedIn) {
         const user = this.getContext().currentUser;
@@ -201,7 +198,7 @@ class Home extends Component {
                 drawerToggle={this.handleDrawerToggle.bind(this)}
                 loggedIn={loggedIn}
                 inTeamContext={inTeamContext}
-                pageType={pageType}
+                pageType={routeSlug}
                 currentUserIsMember={currentUserIsMember}
                 {...this.props}
               />
