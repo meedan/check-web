@@ -3,7 +3,6 @@
   "createRelatedMedia.cancelAdd": "Cancelar",
   "createRelatedMedia.submit": "Subir",
   "createRelatedMedia.addClaim": "Añadir afirmación",
-  "createRelatedMedia.dialog": "Relacionado con \"{claim\"}",
   "createRelatedMedia.claimText": "Texto de afirmación",
   "createRelatedMedia.source": "Fuente"
 }

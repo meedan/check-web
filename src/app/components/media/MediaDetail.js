@@ -224,9 +224,9 @@ class MediaDetail extends Component {
           <StyledHeadingContainer>{heading}</StyledHeadingContainer> : null
         }
         <StyledHeaderTextSecondary>
-          <Row wrap>
+          <Row flexWrap>
             {createdAt ?
-              <Row wrap>
+              <Row flexWrap>
                 <Row>
                   <StyledMediaIconContainer>
                     {mediaIcon}

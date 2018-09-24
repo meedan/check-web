@@ -356,7 +356,7 @@ class Task extends Component {
       />,
     ];
 
-    const taskAssignment = task.assigned_to && !task.first_response && response ? (
+    const taskAssignment = task.assigned_to && !response ? (
       <div className="task__assigned" style={{ display: 'flex', alignItems: 'center' }}>
         <small style={{ display: 'flex' }}>
           <UserAvatar
@@ -612,7 +612,8 @@ class Task extends Component {
 
     const required = this.state.required !== null ? this.state.required : task.required;
 
-    task.project_media = this.props.media;
+    task.project_media = Object.assign({}, this.props.media);
+    delete task.project_media.tasks;
 
     return (
       <StyledWordBreakDiv>

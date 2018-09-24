@@ -1,7 +1,12 @@
 {
   "teamBots.confirmUninstall": "Tem certeza que deseja desinstalar este bot?",
+  "teamBots.success": "Configurações salvas.",
+  "teamBots.fail": "Houve um erro. Por favor tente novamente depois.",
   "teamBots.noBots": "Sem bots instalados",
   "teamBots.moreInfo": "Mais informações",
   "teamBots.inUse": "Em Uso",
+  "teamBots.settings": "Configurações",
+  "teamBots.save": "Salvar",
+  "teamBots.noSettings": "Não há configurações para este bot.",
   "teamBots.botGarden": "Navegar no Bot Garden"
 }

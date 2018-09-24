@@ -1,6 +1,6 @@
 {
   "createMedia.submitting": "Subiendo....",
-  "createMedia.error": "¡Algo salió mal! El servidor devolvió un código de error {code}. Por favor contacta al administrador del sistema. ",
+  "createMedia.error": "Hubo un error. El servidor devolvió un código de error {code}. Por favor contacta al administrador del sistema. ",
   "createMedia.mediaInput": "Pegar o escribir",
   "createMedia.quoteInput": "Pegar o escribir una afirmación",
   "createMedia.quoteAttributionSourceInput": "Nombre de la fuente",
