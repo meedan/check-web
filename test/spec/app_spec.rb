@@ -1977,7 +1977,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       p.go(@config['self_url'] + '/' + team)
 
       # No bots on team page
-      wait_for_selector('.team-menu__edit-team-button').click
+      wait_for_selector('.team-menu__team-settings-button').click
       wait_for_selector('.team button + button').click ; sleep 5
       expect(@driver.page_source.include?('No bots installed')).to be(true)
       expect(@driver.page_source.include?('Testing Bot')).to be(false)
@@ -1994,7 +1994,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('a[role="menuitem"]').click
       wait_for_selector('#teams-tab').click ; sleep 5
       wait_for_selector('.teams > div > div > a').click ; sleep 5
-      wait_for_selector('.team-menu__edit-team-button').click ; sleep 5
+      wait_for_selector('.team-menu__team-settings-button').click ; sleep 5
       wait_for_selector('.team button + button').click ; sleep 5
       expect(@driver.page_source.include?('No bots installed')).to be(false)
       expect(@driver.page_source.include?('Testing Bot')).to be(true)
