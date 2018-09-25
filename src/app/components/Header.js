@@ -68,6 +68,7 @@ class HeaderComponent extends React.Component {
 
   render() {
     const {
+      children,
       team,
       loggedIn,
       drawerToggle,
@@ -128,7 +129,7 @@ class HeaderComponent extends React.Component {
     const teamPublicContentShouldShow =
       inTeamContext && !currentUserIsMember && this.props.team.private;
 
-    const backUrl = this.props.children.props.route.path === ':team/settings'
+    const backUrl = (children && children.props.route.path === ':team/settings')
       ? `/${this.props.team.slug}`
       : null;
     const backLabel = <FormattedMessage defaultMessage="Team info" id="headerActions.teamInfo" />;
