@@ -14,6 +14,7 @@ class TeamPage < Page
   end
 
   def create_project(options = {})
+    sleep 3
     name = options[:name] || "Project #{Time.now.to_i}"
     element('#create-project-title').click
     fill_input('#create-project-title', name)
