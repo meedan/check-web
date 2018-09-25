@@ -14,13 +14,18 @@ const ProjectHeaderComponent = (props) => {
   const regexMedia = /\/media\/[0-9]/;
   const regexSource = /\/source\/[0-9]/;
   const isProjectSubpage = regexMedia.test(path) || regexSource.test(path);
-  const backUrl = isProjectSubpage ? path.match(regexProject)[1] : null;
+  const backUrl = () => {
+    if (isProjectSubpage) {
+      return path.match(regexProject)[1];
+    }
+    return null;
+  };
 
   return (
     <div style={{ display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
       {isProjectSubpage ?
         <IconButton
-          containerElement={<Link to={backUrl} />}
+          containerElement={<Link to={backUrl()} />}
           className="project-header__back-button"
         >
           <FadeIn>
