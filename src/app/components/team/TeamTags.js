@@ -139,6 +139,7 @@ class TeamTagsComponent extends Component {
 
   handleUpdate(e) {
     if (e.key === 'Enter' && !e.shiftKey) {
+      this.setState({ search: '' });
       const text = document.getElementById('tag__edit').value;
       const tag = this.state.editing;
       if (text.length > 0 && tag.text !== text) {
@@ -299,12 +300,93 @@ class TeamTagsComponent extends Component {
     );
   }
 
+  tagsList(list, showMove) {
+    return (
+      <List style={{ maxHeight: 400, overflowY: 'auto', overflowX: 'hidden' }}>
+        { list.map((tag) => {
+          const menu = can(tag.permissions, 'update TagText') ? (
+            <IconMenu
+              style={{ margin: '0 12px' }}
+              iconButtonElement={
+                <IconButton style={{ padding: 0 }}>
+                  <IconMoreHoriz />
+                </IconButton>
+              }
+            >
+              <MenuItem
+                className="tag__edit"
+                onClick={this.handleEdit.bind(this, tag)}
+              >
+                <FormattedMessage id="teamTags.editTag" defaultMessage="Edit tag" />
+              </MenuItem>
+              <MenuItem
+                className="tag__delete"
+                onClick={this.handleDelete.bind(this, tag)}
+              >
+                <FormattedMessage id="teamTags.deleteTag" defaultMessage="Delete tag" />
+              </MenuItem>
+              { showMove ? (
+                <MenuItem
+                  className="tag__move"
+                  onClick={this.handleMove.bind(this, tag)}
+                >
+                  <FormattedMessage id="teamTags.moveTag" defaultMessage="Move to teamwide tags" />
+                </MenuItem>) : null }
+            </IconMenu>) : null;
+
+          if (this.state.editing && this.state.editing.dbid === tag.dbid) {
+            return (
+              <ListItem disabled key={tag.dbid} style={{ paddingTop: 0, paddingBottom: 0 }}>
+                <TextField
+                  style={{ paddingTop: 0, paddingBottom: 0 }}
+                  id="tag__edit"
+                  autoFocus
+                  onKeyPress={this.handleUpdate.bind(this)}
+                  defaultValue={tag.text}
+                />
+                {' '}
+                <IconClose
+                  style={{ cursor: 'pointer', verticalAlign: 'sub' }}
+                  onClick={this.handleCancelUpdate.bind(this)}
+                />
+              </ListItem>
+            );
+          }
+
+          return (
+            <ListItem
+              disabled
+              primaryText={
+                <span>
+                  {tag.text}
+                  <br />
+                  <small style={{ color: black32 }}>
+                    <FormattedMessage
+                      id="teamTags.itemsCount"
+                      defaultMessage="{count, plural, =0 {no items} one {1 item} other {# items}}"
+                      values={{ count: tag.tags_count }}
+                    />
+                  </small>
+                </span>
+              }
+              rightIcon={menu}
+              key={tag.dbid}
+              id={`tag__text-${tag.text}`}
+            />
+          );
+        })}
+      </List>
+    );
+  }
+
   render() {
     const sortFunctions = {
       az: (a, b) => (a.text.localeCompare(b.text)),
       za: (a, b) => (a.text.localeCompare(b.text) * -1),
       of: (a, b) => (a.created_at > b.created_at ? 1 : -1),
       nf: (a, b) => (a.created_at < b.created_at ? 1 : -1),
+      mu: (a, b) => (a.tags_count < b.tags_count ? 1 : -1),
+      lu: (a, b) => (a.tags_count > b.tags_count ? 1 : -1),
     };
     const teamwideTags = this.state.teamwideTags.slice(0).sort(sortFunctions[this.state.sort]);
     const customTags = this.state.customTags.slice(0).sort(sortFunctions[this.state.sort]);
@@ -405,6 +487,14 @@ class TeamTagsComponent extends Component {
                   value="nf"
                   primaryText={<FormattedMessage id="teamTags.nf" defaultMessage="Newest first" />}
                 />
+                <MenuItem
+                  value="mu"
+                  primaryText={<FormattedMessage id="teamTags.mu" defaultMessage="Most used" />}
+                />
+                <MenuItem
+                  value="lu"
+                  primaryText={<FormattedMessage id="teamTags.lu" defaultMessage="Least used" />}
+                />
               </SelectField>
             </MenuItem>
           </IconMenu>
@@ -424,61 +514,7 @@ class TeamTagsComponent extends Component {
                 />
               </p>
               : null }
-            <List style={{ maxHeight: 400, overflowY: 'auto', overflowX: 'hidden' }}>
-              { teamwideTags.map((tag) => {
-                const menu = can(tag.permissions, 'update TagText') ? (
-                  <IconMenu
-                    style={{ margin: '0 12px' }}
-                    iconButtonElement={
-                      <IconButton style={{ padding: 0 }}>
-                        <IconMoreHoriz />
-                      </IconButton>
-                    }
-                  >
-                    <MenuItem
-                      className="tag__edit"
-                      onClick={this.handleEdit.bind(this, tag)}
-                    >
-                      <FormattedMessage id="teamTags.editTag" defaultMessage="Edit tag" />
-                    </MenuItem>
-                    <MenuItem
-                      className="tag__delete"
-                      onClick={this.handleDelete.bind(this, tag)}
-                    >
-                      <FormattedMessage id="teamTags.deleteTag" defaultMessage="Delete tag" />
-                    </MenuItem>
-                  </IconMenu>) : null;
-
-                if (this.state.editing && this.state.editing.dbid === tag.dbid) {
-                  return (
-                    <ListItem disabled key={tag.dbid} style={{ paddingTop: 0, paddingBottom: 0 }}>
-                      <TextField
-                        style={{ paddingTop: 0, paddingBottom: 0 }}
-                        id="tag__edit"
-                        autoFocus
-                        onKeyPress={this.handleUpdate.bind(this)}
-                        defaultValue={tag.text}
-                      />
-                      {' '}
-                      <IconClose
-                        style={{ cursor: 'pointer', verticalAlign: 'sub' }}
-                        onClick={this.handleCancelUpdate.bind(this)}
-                      />
-                    </ListItem>
-                  );
-                }
-
-                return (
-                  <ListItem
-                    disabled
-                    primaryText={tag.text}
-                    rightIcon={menu}
-                    key={tag.dbid}
-                    id={`tag__text-${tag.text}`}
-                  />
-                );
-              })}
-            </List>
+            {this.tagsList(teamwideTags, false)}
             <TextField
               id="tag__new"
               onKeyUp={this.handleKeyUp.bind(this)}
@@ -516,61 +552,7 @@ class TeamTagsComponent extends Component {
                 />
               </p>
               : null }
-            <List style={{ maxHeight: 400, overflowY: 'auto', overflowX: 'hidden' }}>
-              { customTags.map((tag) => {
-                const menu = can(tag.permissions, 'update TagText') ? (
-                  <IconMenu
-                    style={{ margin: '0 12px' }}
-                    iconButtonElement={
-                      <IconButton style={{ padding: 0 }}>
-                        <IconMoreHoriz />
-                      </IconButton>
-                    }
-                  >
-                    <MenuItem
-                      className="tag__edit"
-                      onClick={this.handleEdit.bind(this, tag)}
-                    >
-                      <FormattedMessage id="teamTags.editTag" defaultMessage="Edit tag" />
-                    </MenuItem>
-                    <MenuItem
-                      className="tag__delete"
-                      onClick={this.handleDelete.bind(this, tag)}
-                    >
-                      <FormattedMessage id="teamTags.deleteTag" defaultMessage="Delete tag" />
-                    </MenuItem>
-                    <MenuItem
-                      className="tag__move"
-                      onClick={this.handleMove.bind(this, tag)}
-                    >
-                      <FormattedMessage id="teamTags.moveTag" defaultMessage="Move to teamwide tags" />
-                    </MenuItem>
-                  </IconMenu>) : null;
-
-                if (this.state.editing && this.state.editing.dbid === tag.dbid) {
-                  return (
-                    <ListItem disabled key={tag.dbid} style={{ paddingTop: 0, paddingBottom: 0 }}>
-                      <TextField
-                        style={{ paddingTop: 0, paddingBottom: 0 }}
-                        id="tag__edit"
-                        autoFocus
-                        onKeyPress={this.handleUpdate.bind(this)}
-                        defaultValue={tag.text}
-                      />
-                      {' '}
-                      <IconClose
-                        style={{ cursor: 'pointer', verticalAlign: 'sub' }}
-                        onClick={this.handleCancelUpdate.bind(this)}
-                      />
-                    </ListItem>
-                  );
-                }
-
-                return (
-                  <ListItem primaryText={tag.text} rightIcon={menu} key={tag.dbid} disabled />
-                );
-              })}
-            </List>
+            {this.tagsList(customTags, true)}
           </CardText>
         </Card>
 
@@ -622,6 +604,7 @@ const TeamTagsContainer = Relay.createContainer(TeamTagsComponent, {
               dbid
               text
               teamwide
+              tags_count
               permissions
               created_at
             }
@@ -634,6 +617,7 @@ const TeamTagsContainer = Relay.createContainer(TeamTagsComponent, {
               dbid
               text
               teamwide
+              tags_count
               permissions
               created_at
             }
