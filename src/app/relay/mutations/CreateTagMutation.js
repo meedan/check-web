@@ -28,7 +28,7 @@ class CreateTagMutation extends Relay.Mutation {
   getOptimisticResponse() {
     const media = this.props.media || {};
     const tags = media.tags ? media.tags.edges : [];
-    tags.push({ node: { id: 'VGFnLzA=\n', tag: this.props.annotation.tag } });
+    tags.push({ node: { id: 'VGFnLzA=\n', tag_text: this.props.annotation.tag } });
     const tag = {
       id: this.props.id,
       updated_at: new Date().toString(),
@@ -36,6 +36,7 @@ class CreateTagMutation extends Relay.Mutation {
       permissions: '{"destroy Annotation":true,"destroy Tag":true}',
       content: JSON.stringify({ tag: this.props.annotation.tag }),
       tag: this.props.annotation.tag,
+      tag_text: this.props.annotation.tag,
       annotated_id: this.props.annotation.annotated_id,
       annotator: {
         name: this.props.annotator.name,

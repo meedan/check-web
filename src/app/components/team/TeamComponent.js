@@ -5,6 +5,7 @@ import rtlDetect from 'rtl-detect';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import styled from 'styled-components';
 import TeamBots from './TeamBots';
+import TeamTags from './TeamTags';
 import TeamInfo from './TeamInfo';
 import TeamInfoEdit from './TeamInfoEdit';
 import TeamMembers from './TeamMembers';
@@ -123,6 +124,15 @@ class TeamComponent extends Component {
                     }
                     value="bots"
                   />
+                  <Tab
+                    label={
+                      <FormattedMessage
+                        id="teamComponent.teamTags"
+                        defaultMessage="Team tags"
+                      />
+                    }
+                    value="tags"
+                  />
                 </Tabs>
               }
               { isEditing && this.state.showTab === 'info' ? (
@@ -133,6 +143,9 @@ class TeamComponent extends Component {
           </HeaderCard>
           { isEditing && this.state.showTab === 'bots' ? (
             <TeamBots team={team} direction={direction} />
+          ) : null }
+          { isEditing && this.state.showTab === 'tags' ? (
+            <TeamTags team={team} direction={direction} />
           ) : null }
           { isEditing ?
             null :

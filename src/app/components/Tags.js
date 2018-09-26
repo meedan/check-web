@@ -90,17 +90,22 @@ class Tags extends React.Component {
 
     return (
       <StyledTagsWrapper className="source-tags__tags">
-        {this.props.tags.map(tag => (
-          <Chip
-            key={tag.node.id}
-            className="source-tags__tag"
-            onRequestDelete={this.props.isEditing ?
-              () => { deleteCallback(tag.node.id); } : null
-            }
-          >
-            {tag.node.tag.replace(/^#/, '')}
-          </Chip>
-        ))}
+        {this.props.tags.map((tag) => {
+          if (tag.node.tag_text) {
+            return (
+              <Chip
+                key={tag.node.id}
+                className="source-tags__tag"
+                onRequestDelete={this.props.isEditing ?
+                  () => { deleteCallback(tag.node.id); } : null
+                }
+              >
+                {tag.node.tag_text.replace(/^#/, '')}
+              </Chip>
+            );
+          }
+          return null;
+        })}
       </StyledTagsWrapper>
     );
   }

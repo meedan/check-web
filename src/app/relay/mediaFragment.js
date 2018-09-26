@@ -87,6 +87,7 @@ const mediaFragment = Relay.QL`
       edges {
         node {
           tag,
+          tag_text,
           id
         }
       }

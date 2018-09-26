@@ -96,6 +96,56 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('<span>1</span>')).to be(true)
     end
 
+    it "should manage team tags", bin6: true do
+      # Create team and go to team page that should not contain any tag
+      team = "tag-team-#{Time.now.to_i}"
+      api_create_team(team: team)
+      p = Page.new(config: @config, driver: @driver)
+      p.go(@config['self_url'] + '/' + team)
+      wait_for_selector('.team-menu__edit-team-button').click
+      wait_for_selector('.team button + button + button').click ; sleep 5
+      expect(@driver.page_source.include?('No teamwide tags')).to be(true)
+      expect(@driver.page_source.include?('No custom tags')).to be(true)
+      expect(@driver.page_source.include?('No results')).to be(true)
+      expect(@driver.page_source.include?('newteamwidetag')).to be(false)
+
+      # Create tag
+      fill_field('#tag__new', 'newteamwidetag')
+      @driver.action.send_keys(:enter).perform
+      sleep 10
+      expect(@driver.page_source.include?('No teamwide tags')).to be(false)
+      expect(@driver.page_source.include?('No custom tags')).to be(true)
+      expect(@driver.page_source.include?('1 result')).to be(true)
+      expect(@driver.page_source.include?('newteamwidetag')).to be(true)
+      expect(@driver.page_source.include?('newteamwidetagedited')).to be(false)
+
+      # Edit tag
+      wait_for_selector('#tag__text-newteamwidetag button').click
+      sleep 5
+      wait_for_selector('.tag__edit').click
+      sleep 1
+      fill_field('#tag__edit', 'edited')
+      @driver.action.send_keys(:enter).perform
+      sleep 10
+      expect(@driver.page_source.include?('No teamwide tags')).to be(false)
+      expect(@driver.page_source.include?('No custom tags')).to be(true)
+      expect(@driver.page_source.include?('1 result')).to be(true)
+      expect(@driver.page_source.include?('newteamwidetagedited')).to be(true)
+
+      # Delete tag
+      wait_for_selector('#tag__text-newteamwidetagedited button').click
+      sleep 5
+      wait_for_selector('.tag__delete').click
+      sleep 1
+      fill_field('#tag__confirm', 'newteamwidetagedited')
+      wait_for_selector('#tag__confirm-delete').click
+      sleep 10
+      expect(@driver.page_source.include?('No teamwide tags')).to be(true)
+      expect(@driver.page_source.include?('No custom tags')).to be(true)
+      expect(@driver.page_source.include?('No results')).to be(true)
+      expect(@driver.page_source.include?('newteamwidetagedited')).to be(false)
+    end
+
     it "should add, edit, answer, update answer and delete datetime task", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       wait_for_selector('.create-task__add-button')

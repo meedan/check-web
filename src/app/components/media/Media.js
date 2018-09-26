@@ -108,6 +108,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
           edges {
             node {
               tag,
+              tag_text,
               id
             }
           }
@@ -224,6 +225,12 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
                 dbid,
                 label,
                 type
+              }
+              tag {
+                id
+                dbid
+                tag
+                tag_text
               }
               annotation {
                 id,
