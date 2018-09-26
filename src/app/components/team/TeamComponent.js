@@ -113,6 +113,7 @@ class TeamComponent extends Component {
         return (
           <Tabs value={this.state.showTab} onChange={this.handleTabChange}>
             <Tab
+              className="team-settings__tags-tab"
               label={
                 <FormattedMessage
                   id="teamSettings.Tags"
@@ -122,6 +123,7 @@ class TeamComponent extends Component {
               value="tags"
             />
             <Tab
+              className="team-settings__integrations-tab"
               label={
                 <FormattedMessage
                   id="teamSettings.integrations"
@@ -131,6 +133,7 @@ class TeamComponent extends Component {
               value="integrations"
             />
             <Tab
+              className="team-settings__bots-tab"
               label={
                 <FormattedMessage
                   id="teamSettings.bots"
