@@ -1,0 +1,106 @@
+[
+  {
+    "id": "teamTags.failUpdate",
+    "defaultMessage": "Sorry, could not update tag"
+  },
+  {
+    "id": "teamTags.failDelete",
+    "defaultMessage": "Sorry, could not delete tag"
+  },
+  {
+    "id": "teamTags.failMove",
+    "defaultMessage": "Sorry, could not move tag"
+  },
+  {
+    "id": "teamTags.fail",
+    "defaultMessage": "Sorry, could not add tag"
+  },
+  {
+    "id": "teamTags.cancelDelete",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "teamTags.confirmDelete",
+    "defaultMessage": "Delete"
+  },
+  {
+    "id": "teamTags.tags",
+    "defaultMessage": "Tags"
+  },
+  {
+    "id": "teamTags.counter",
+    "defaultMessage": "{total, plural, =0 {No results} one {1 result ({hidden} hidden by filters)} other {# results ({hidden} hidden by filters)}}"
+  },
+  {
+    "id": "teamTags.searchTip",
+    "defaultMessage": "Type search term and press ENTER"
+  },
+  {
+    "id": "teamTags.search",
+    "defaultMessage": "Search"
+  },
+  {
+    "id": "teamTags.sort",
+    "defaultMessage": "Sort"
+  },
+  {
+    "id": "teamTags.az",
+    "defaultMessage": "A to Z"
+  },
+  {
+    "id": "teamTags.za",
+    "defaultMessage": "Z to A"
+  },
+  {
+    "id": "teamTags.of",
+    "defaultMessage": "Oldest first"
+  },
+  {
+    "id": "teamTags.nf",
+    "defaultMessage": "Newest first"
+  },
+  {
+    "id": "teamTags.teamwideTags",
+    "defaultMessage": "Teamwide tags"
+  },
+  {
+    "id": "teamTags.noTeamwideTags",
+    "defaultMessage": "No teamwide tags."
+  },
+  {
+    "id": "teamTags.editTag",
+    "defaultMessage": "Edit tag"
+  },
+  {
+    "id": "teamTags.deleteTag",
+    "defaultMessage": "Delete tag"
+  },
+  {
+    "id": "teamTags.new",
+    "defaultMessage": "New tag"
+  },
+  {
+    "id": "teamTags.addTag",
+    "defaultMessage": "Add tag"
+  },
+  {
+    "id": "teamTags.customTags",
+    "defaultMessage": "Custom tags"
+  },
+  {
+    "id": "teamTags.noCustomTags",
+    "defaultMessage": "No custom tags."
+  },
+  {
+    "id": "teamTags.moveTag",
+    "defaultMessage": "Move to teamwide tags"
+  },
+  {
+    "id": "teamTags.confirmDeleteTitle",
+    "defaultMessage": "Are you sure you want to delete this tag?"
+  },
+  {
+    "id": "teamTags.typeToConfirm",
+    "defaultMessage": "Type '{value}' if you want to continue."
+  }
+]

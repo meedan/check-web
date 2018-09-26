@@ -5,6 +5,7 @@ import rtlDetect from 'rtl-detect';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import styled from 'styled-components';
 import TeamBots from './TeamBots';
+import TeamTags from './TeamTags';
 import TeamInfo from './TeamInfo';
 import TeamInfoEdit from './TeamInfoEdit';
 import TeamMembers from './TeamMembers';
@@ -114,6 +115,15 @@ class TeamComponent extends Component {
             <Tab
               label={
                 <FormattedMessage
+                  id="teamSettings.Tags"
+                  defaultMessage="Tags"
+                />
+              }
+              value="tags"
+            />
+            <Tab
+              label={
+                <FormattedMessage
                   id="teamSettings.integrations"
                   defaultMessage="Integrations"
                 />
@@ -149,15 +159,16 @@ class TeamComponent extends Component {
           { !isEditing && !isSettings ? <TeamPageContent /> : null }
           { isSettings && this.state.showTab === 'bots'
             ? <TeamBots team={team} direction={direction} />
-            : null
-          }
+            : null }
           { isSettings && this.state.showTab === 'integrations'
             ? (
               <ContentColumn>
                 <SlackConfig team={team} />
               </ContentColumn>
-            ) : null
-          }
+            ) : null }
+          { isSettings && this.state.showTab === 'tags'
+            ? <TeamTags team={team} direction={direction} />
+            : null }
         </div>
       </PageTitle>
     );

@@ -457,15 +457,17 @@ class Annotation extends Component {
       break;
     }
     case 'create_tag':
-      contentTemplate = (
-        <span>
-          <FormattedMessage
-            id="annotation.taggedHeader"
-            defaultMessage="Tagged #{tag} by {author}"
-            values={{ tag: content.tag.replace(/^#/, ''), author: authorName }}
-          />
-        </span>
-      );
+      if (activity.tag && activity.tag.tag_text) {
+        contentTemplate = (
+          <span>
+            <FormattedMessage
+              id="annotation.taggedHeader"
+              defaultMessage="Tagged #{tag} by {author}"
+              values={{ tag: activity.tag.tag_text.replace(/^#/, ''), author: authorName }}
+            />
+          </span>
+        );
+      }
       break;
     case 'destroy_comment':
       contentTemplate = (

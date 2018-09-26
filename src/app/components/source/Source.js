@@ -100,6 +100,7 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
             edges {
               node {
                 tag,
+                tag_text,
                 id
               }
             }

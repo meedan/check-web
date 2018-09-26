@@ -1,5 +1,9 @@
 [
   {
+    "id": "teamSettings.Tags",
+    "defaultMessage": "Tags"
+  },
+  {
     "id": "teamSettings.integrations",
     "defaultMessage": "Integrations"
   },

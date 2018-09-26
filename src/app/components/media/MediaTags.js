@@ -96,7 +96,7 @@ class MediaTags extends Component {
   }
 
   findTag(tagString) {
-    return this.props.tags.find(tag => tag.node && tag.node.tag === tagString);
+    return this.props.tags.find(tag => tag.node && tag.node.tag_text === tagString);
   }
 
   handleSuggestedTagEditClick(tagString) {
@@ -192,8 +192,8 @@ class MediaTags extends Component {
     const suggestedTags = media.team && media.team.get_suggested_tags
       ? media.team.get_suggested_tags.split(',')
       : [];
-    const activeSuggestedTags = tags.filter(tag => suggestedTags.includes(tag.node.tag));
-    const remainingTags = tags.filter(tag => !suggestedTags.includes(tag.node.tag));
+    const activeSuggestedTags = tags.filter(tag => suggestedTags.includes(tag.node.tag_text));
+    const remainingTags = tags.filter(tag => !suggestedTags.includes(tag.node.tag_text));
     const searchQuery = searchQueryFromUrl();
     const activeRegularTags = searchQuery.tags || [];
     const updateCallback = (text) => {
@@ -211,14 +211,14 @@ class MediaTags extends Component {
                 {activeSuggestedTags.map(tag => (
                   <li
                     key={tag.node.id}
-                    onClick={this.handleTagViewClick.bind(this, tag.node.tag)}
+                    onClick={this.handleTagViewClick.bind(this, tag.node.tag_text)}
                     className={bemClass(
                       'media-tags__suggestion',
-                      activeRegularTags.indexOf(tag.node.tag) > -1,
+                      activeRegularTags.indexOf(tag.node.tag_text) > -1,
                       '--selected',
                     )}
                   >
-                    {tag.node.tag}
+                    {tag.node.tag_text}
                   </li>))}
               </ul>
               : null}
@@ -228,18 +228,24 @@ class MediaTags extends Component {
                   {this.props.intl.formatMessage(messages.language, { language: media.language })}
                 </li>
                 : null}
-              {remainingTags.map(tag => (
-                <li
-                  key={tag.node.id}
-                  onClick={this.handleTagViewClick.bind(this, tag.node.tag)}
-                  className={bemClass(
-                    'media-tags__tag',
-                    activeRegularTags.indexOf(tag.node.tag) > -1,
-                    '--selected',
-                  )}
-                >
-                  {tag.node.tag.replace(/^#/, '')}
-                </li>))}
+              {remainingTags.map((tag) => {
+                if (tag.node.tag_text) {
+                  return (
+                    <li
+                      key={tag.node.id}
+                      onClick={this.handleTagViewClick.bind(this, tag.node.tag_text)}
+                      className={bemClass(
+                        'media-tags__tag',
+                        activeRegularTags.indexOf(tag.node.tag_text) > -1,
+                        '--selected',
+                      )}
+                    >
+                      {tag.node.tag_text.replace(/^#/, '')}
+                    </li>
+                  );
+                }
+                return null;
+              })}
             </ul>
           </div>
         </StyledMediaTagsContainer>

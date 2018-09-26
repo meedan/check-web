@@ -57,6 +57,11 @@ const SourceAnnotationsContainer = Relay.createContainer(SourceAnnotationsCompon
                   label,
                   type
                 }
+                tag {
+                  id,
+                  tag,
+                  tag_text
+                }
                 annotation {
                   id,
                   dbid,
