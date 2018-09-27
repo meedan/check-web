@@ -102,7 +102,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_team(team: team)
       p = Page.new(config: @config, driver: @driver)
       p.go(@config['self_url'] + '/' + team)
-      wait_for_selector('.team-menu__team-settings-button').click
+      wait_for_selector('.team-menu__team-settings-button').click ; sleep 5
       wait_for_selector('.team-settings__tags-tab').click ; sleep 5
       expect(@driver.page_source.include?('No teamwide tags')).to be(true)
       expect(@driver.page_source.include?('No custom tags')).to be(true)

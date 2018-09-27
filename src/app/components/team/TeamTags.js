@@ -14,7 +14,6 @@ import SelectField from 'material-ui/SelectField';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import Checkbox from 'material-ui/Checkbox';
-import Tooltip from 'rc-tooltip';
 import deepEqual from 'deep-equal';
 import styled from 'styled-components';
 import TagTextCount from './TagTextCount';
@@ -451,16 +450,13 @@ class TeamTagsComponent extends Component {
             clickCloseDelay={0}
             anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
             iconButtonElement={
-              <Tooltip
-                placement="top"
-                overlay={
+              <IconButton
+                tooltip={
                   <FormattedMessage id="teamTags.tooltip" defaultMessage="Filter and sort list" />
                 }
               >
-                <IconButton>
-                  <IconFilter />
-                </IconButton>
-              </Tooltip>
+                <IconFilter />
+              </IconButton>
             }
           >
             <MenuItem disabled>
