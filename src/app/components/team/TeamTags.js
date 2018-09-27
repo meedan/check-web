@@ -5,7 +5,6 @@ import { List, ListItem } from 'material-ui/List';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 import IconFilter from 'material-ui/svg-icons/content/filter-list';
 import IconMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
-import IconSearch from 'material-ui/svg-icons/action/search';
 import IconClose from 'material-ui/svg-icons/navigation/close';
 import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
@@ -365,7 +364,7 @@ class TeamTagsComponent extends Component {
           return (
             <ListItem
               disabled
-              style={{ padding: `${units(1)} 0` }}
+              style={{ padding: `${units(2)} 0` }}
               primaryText={
                 <span>
                   {tag.text}
@@ -464,16 +463,7 @@ class TeamTagsComponent extends Component {
               </Tooltip>
             }
           >
-            <MenuItem disabled style={{ display: 'flex' }}>
-              <IconSearch
-                style={{
-                  color: black87,
-                  display: 'block',
-                  height: units(3),
-                  width: units(3),
-                  margin: `${units(1.5)} ${units(1)} 0 0`,
-                }}
-              />
+            <MenuItem disabled>
               <TextField
                 id="tag__search"
                 fullWidth
@@ -485,14 +475,14 @@ class TeamTagsComponent extends Component {
                     defaultMessage="Type search term and press ENTER"
                   />
                 }
-                hintStyle={{ color: black87 }}
                 errorStyle={{ color: black87 }}
-                hintText={
+                floatingLabelText={
                   <FormattedMessage
                     id="teamTags.search"
                     defaultMessage="Search"
                   />
                 }
+                floatingLabelStyle={{ color: black87 }}
               />
             </MenuItem>
             <MenuItem disabled>

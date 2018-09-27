@@ -8,9 +8,11 @@
   "teamTags.moveTag": "Move to teamwide tags",
   "teamTags.itemsCount": "{count, plural, =0 {no items} one {1 item} other {# items}}",
   "teamTags.cancelDelete": "Cancel",
-  "teamTags.confirmDelete": "Delete",
+  "teamTags.continue": "Continue",
   "teamTags.tags": "Tags",
   "teamTags.counter": "{total, plural, =0 {No results} one {1 result ({hidden} hidden by filters)} other {# results ({hidden} hidden by filters)}}",
+  "teamTags.counterNoHidden": "{total, plural, =0 {No results} one {1 result} other {# results}}",
+  "teamTags.tooltip": "Filter and sort list",
   "teamTags.searchTip": "Type search term and press ENTER",
   "teamTags.search": "Search",
   "teamTags.sort": "Sort",
@@ -26,6 +28,5 @@
   "teamTags.addTag": "Add tag",
   "teamTags.customTags": "Custom tags",
   "teamTags.noCustomTags": "No custom tags.",
-  "teamTags.confirmDeleteTitle": "Are you sure you want to delete this tag?",
-  "teamTags.typeToConfirm": "Type '{value}' if you want to continue."
+  "teamTags.confirmDeleteTitle": "Are you sure you want to delete this tag?"
 }
