@@ -96,7 +96,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('<span>1</span>')).to be(true)
     end
 
-    it "should manage team tags bli", bin6: true do
+    it "should manage team tags", bin6: true do
       # Create team and go to team page that should not contain any tag
       team = "tag-team-#{Time.now.to_i}"
       api_create_team(team: team)
