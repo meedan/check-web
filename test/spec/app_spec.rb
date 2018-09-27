@@ -137,7 +137,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 5
       wait_for_selector('.tag__delete').click
       sleep 1
-      fill_field('#tag__confirm', 'newteamwidetagedited')
+      wait_for_selector('#tag__confirm').click
+      sleep 2
       wait_for_selector('#tag__confirm-delete').click
       sleep 10
       expect(@driver.page_source.include?('No teamwide tags')).to be(true)
