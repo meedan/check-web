@@ -23,7 +23,7 @@ class TagTextCountComponent extends Component {
     return (
       <FormattedMessage
         id="tagTextCount.acknowledge"
-        defaultMessage="{count, plural, =0 {I understand that this tag is not in use for any media items.} one {I understand that by deleting this tag, it will be removed from one media item.} other {I understand that by deleting this tag, it will be removed from # media items.}}"
+        defaultMessage="{count, plural, =0 {Yes} one {I understand that by deleting this tag, it will be removed from one media item.} other {I understand that by deleting this tag, it will be removed from # media items.}}"
         values={{
           count: tag_text.tags_count || 0,
         }}
