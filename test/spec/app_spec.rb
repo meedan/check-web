@@ -579,7 +579,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       fill_field('#cmd-input', '/tag foo, bar')
       @driver.action.send_keys(:enter).perform
-      sleep 5
+      sleep 10
 
       expect(@driver.page_source.include?('Tagged #foo')).to be(true)
       expect(@driver.page_source.include?('Tagged #bar')).to be(true)
