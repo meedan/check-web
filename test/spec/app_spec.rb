@@ -96,7 +96,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('<span>1</span>')).to be(true)
     end
 
-    it "should manage team tags", bin6: true do
+    it "should manage team tags bli", bin6: true do
       # Create team and go to team page that should not contain any tag
       team = "tag-team-#{Time.now.to_i}"
       api_create_team(team: team)
@@ -137,7 +137,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 5
       wait_for_selector('.tag__delete').click
       sleep 1
-      fill_field('#tag__confirm', 'newteamwidetagedited')
+      wait_for_selector('#tag__confirm').click
+      sleep 2
       wait_for_selector('#tag__confirm-delete').click
       sleep 10
       expect(@driver.page_source.include?('No teamwide tags')).to be(true)

@@ -36,8 +36,8 @@
     "defaultMessage": "Cancel"
   },
   {
-    "id": "teamTags.confirmDelete",
-    "defaultMessage": "Delete"
+    "id": "teamTags.continue",
+    "defaultMessage": "Continue"
   },
   {
     "id": "teamTags.tags",
@@ -46,6 +46,14 @@
   {
     "id": "teamTags.counter",
     "defaultMessage": "{total, plural, =0 {No results} one {1 result ({hidden} hidden by filters)} other {# results ({hidden} hidden by filters)}}"
+  },
+  {
+    "id": "teamTags.counterNoHidden",
+    "defaultMessage": "{total, plural, =0 {No results} one {1 result} other {# results}}"
+  },
+  {
+    "id": "teamTags.tooltip",
+    "defaultMessage": "Filter and sort list"
   },
   {
     "id": "teamTags.searchTip",
@@ -110,9 +118,5 @@
   {
     "id": "teamTags.confirmDeleteTitle",
     "defaultMessage": "Are you sure you want to delete this tag?"
-  },
-  {
-    "id": "teamTags.typeToConfirm",
-    "defaultMessage": "Type '{value}' if you want to continue."
   }
 ]
