@@ -2,8 +2,8 @@
   "TeamMembersListItem.contributor": "Contributeur",
   "TeamMembersListItem.journalist": "Journaliste",
   "TeamMembersListItem.editor": "Rédacteur",
-  "TeamMembersListItem.owner": "Administrateur",
+  "TeamMembersListItem.owner": "Propriétaire",
   "TeamMembershipRequestsListItem.approve": "Approuver",
   "TeamMembershipRequestsListItem.deny": "Refuser",
-  "TeamMembersListItem.deleteMember": "Effacer le membre"
+  "TeamMembersListItem.deleteMember": "Supprimer le membre"
 }

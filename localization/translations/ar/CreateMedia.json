@@ -11,7 +11,7 @@
   "createMedia.sourceUrlInput": "رابط المصدر",
   "createMedia.uploadImage": "ارفع صورة",
   "createMedia.submitButton": "نشر",
-  "createMedia.errorTitle": "لم نتمكن من إرسال \"{title}\"",
+  "createMedia.errorTitle": "عذراً ، لم نتمكن من إرسال \"{title}\"",
   "createMedia.imageTitle": "ارفع صورة",
   "createMedia.sourceTitle": "أضف مصدراً",
   "createMedia.linkTitle": "أضف رابطاً",

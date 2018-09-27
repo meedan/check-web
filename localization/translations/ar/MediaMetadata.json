@@ -2,7 +2,7 @@
   "mediaDetail.mediaTitle": "العنوان",
   "mediaDetail.mediaDescription": "وصف",
   "mediaDetail.editReport": "تحرير التقرير",
-  "mediaDetail.editReportError": "عذراً، لم نستطع تحرير هذا التقرير",
+  "mediaDetail.editReportError": "عذراً ، لم نتمكن من تحرير التقرير",
   "mediaDetail.trash": "سلة المهملات",
   "mediaMetadata.movedToTrash": "تم الارسال إلى {trash}",
   "mediaMetadata.movedBack": "تمت اﻹستعادة إلى مشروع {project}",
