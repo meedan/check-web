@@ -2028,7 +2028,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       p.go(@config['self_url'] + '/' + team)
 
       # No bots on team page
-      wait_for_selector('.team-menu__team-settings-button').click
+      wait_for_selector('.team-menu__team-settings-button').click ; sleep 5
       wait_for_selector('.team-settings__bots-tab').click ; sleep 5
       expect(@driver.page_source.include?('No bots installed')).to be(true)
       expect(@driver.page_source.include?('Testing Bot')).to be(false)
