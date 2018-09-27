@@ -161,7 +161,8 @@ class Root extends Component {
                 <Route path=":team/search(/:query)" component={Search} public />
                 <Route path=":team/trash(/:query)" component={Trash} />
                 <Route path=":team" component={Team} public />
-                <Route path=":team/edit" isEditing component={Team} />
+                <Route path=":team/edit" action="edit" component={Team} />
+                <Route path=":team/settings" action="settings" component={Team} />
 
                 <Route path="*" component={NotFound} public />
               </Route>

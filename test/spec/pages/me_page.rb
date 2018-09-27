@@ -16,6 +16,7 @@ class MePage < SourcePage
     team = @wait.until { @driver.find_element(:xpath, "//*[contains(text(), '#{options[:name]}')]") }
     team.click
     wait_for_element('.team')
+    sleep 3
     TeamPage.new(config: @config, driver: @driver)
   end
 

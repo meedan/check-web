@@ -10,6 +10,7 @@ import rtlDetect from 'rtl-detect';
 import TeamHeader from './team/TeamHeader';
 import TeamPublicHeader from './team/TeamPublicHeader';
 import ProjectHeader from './project/ProjectHeader';
+import BackArrow from './layout/BackArrow';
 import CheckContext from '../CheckContext';
 import { stringHelper } from '../customHelpers';
 import PublicTeamRoute from '../relay/PublicTeamRoute';
@@ -67,6 +68,7 @@ class HeaderComponent extends React.Component {
 
   render() {
     const {
+      children,
       team,
       loggedIn,
       drawerToggle,
@@ -127,12 +129,18 @@ class HeaderComponent extends React.Component {
     const teamPublicContentShouldShow =
       inTeamContext && !currentUserIsMember && this.props.team.private;
 
+    const backUrl = (children && children.props.route.path === ':team/settings')
+      ? `/${this.props.team.slug}`
+      : null;
+    const backLabel = <FormattedMessage defaultMessage="Team info" id="headerActions.teamInfo" />;
+
     const primary = (() => {
       if (teamPrivateContentShouldShow) {
         return (
           <Row containsEllipsis>
             <div><TeamHeader {...this.props} /></div>
             <div><ProjectHeader isRtl {...this.props} /></div>
+            <div><BackArrow url={backUrl} label={backLabel} /></div>
           </Row>
         );
       } else if (teamPublicContentShouldShow) {
