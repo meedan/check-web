@@ -16,6 +16,22 @@
     "defaultMessage": "Sorry, could not add tag"
   },
   {
+    "id": "teamTags.editTag",
+    "defaultMessage": "Edit tag"
+  },
+  {
+    "id": "teamTags.deleteTag",
+    "defaultMessage": "Delete tag"
+  },
+  {
+    "id": "teamTags.moveTag",
+    "defaultMessage": "Move to teamwide tags"
+  },
+  {
+    "id": "teamTags.itemsCount",
+    "defaultMessage": "{count, plural, =0 {no items} one {1 item} other {# items}}"
+  },
+  {
     "id": "teamTags.cancelDelete",
     "defaultMessage": "Cancel"
   },
@@ -60,20 +76,20 @@
     "defaultMessage": "Newest first"
   },
   {
+    "id": "teamTags.mu",
+    "defaultMessage": "Most used"
+  },
+  {
+    "id": "teamTags.lu",
+    "defaultMessage": "Least used"
+  },
+  {
     "id": "teamTags.teamwideTags",
     "defaultMessage": "Teamwide tags"
   },
   {
     "id": "teamTags.noTeamwideTags",
     "defaultMessage": "No teamwide tags."
-  },
-  {
-    "id": "teamTags.editTag",
-    "defaultMessage": "Edit tag"
-  },
-  {
-    "id": "teamTags.deleteTag",
-    "defaultMessage": "Delete tag"
   },
   {
     "id": "teamTags.new",
@@ -90,10 +106,6 @@
   {
     "id": "teamTags.noCustomTags",
     "defaultMessage": "No custom tags."
-  },
-  {
-    "id": "teamTags.moveTag",
-    "defaultMessage": "Move to teamwide tags"
   },
   {
     "id": "teamTags.confirmDeleteTitle",

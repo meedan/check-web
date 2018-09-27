@@ -1,0 +1,3 @@
+{
+  "tagTextCount.sentence": "{count, plural, =0 {Not being used by any media item.} one {It will be removed from one media item.} other {It will be removed from # media items.}}"
+}
