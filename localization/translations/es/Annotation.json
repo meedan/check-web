@@ -28,6 +28,7 @@
   "annotation.machineTranslation": "Traducción automática de \"{lang}\" es: {text}",
   "annotation.translationStatus": "Estado de la traducción establecido como {status} por {author}",
   "annotation.translationPublished": "Traducción publicada en {link}",
+  "annotation.publishTranslation": "Publish this translation to {link}",
   "annotation.archiverSuccess": "En caso de que este enlace se desconecte, puedes <a href=\"{link}\" target=\"_blank\" rel=\"noopener noreferrer\">acceder a una copia de respaldo a través de <b>{name}</b> via Keep</a>.",
   "annotation.archiverError": "Hubo un error cuando Keep intentó archivar este ítem en <b>{name}</b>. Actualiza este media para intentar de nuevo.",
   "annotation.archiverWait": "Este ítem está siendo archivado en <b>{name}</b> via Keep. Vuelve en unos minutos para recibir un enlace de confirmación.",
