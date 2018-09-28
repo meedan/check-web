@@ -1,7 +1,7 @@
 {
   "translation.inputHint": "من فضلك أضف ترجمة ",
   "translation.translationAdded": "تمت إضافة ترجمة",
-  "translation.translationFailed": "عذراً ، لم نستطع إضافة الترجمة",
+  "translation.translationFailed": "عذراً ، لم نتمكن من إضافة الترجمة",
   "translation.submitBlank": "ليس مسموح إضافة ترجمة خالية",
   "translation.title": "أضف ترجمة ",
   "translation.selectLanguage": "إختر اللغة",

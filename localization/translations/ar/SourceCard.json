@@ -1,5 +1,5 @@
 {
-  "sourceCard.error": "عذراً ، لم نستطع تحديث هذا المصدر",
+  "sourceCard.error": "عذراً ، لم نتمكن من تحديث المصدر",
   "mediaDetail.byUser": "بواسطة {username}",
   "mediaDetail.added": "أضيف {byUser}"
 }

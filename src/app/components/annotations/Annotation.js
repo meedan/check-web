@@ -874,25 +874,35 @@ class Annotation extends Component {
         Object.getOwnPropertyNames(published).forEach((provider) => {
           const name = provider.charAt(0).toUpperCase() + provider.slice(1);
           const color = colors[provider] || '#333';
-          contentTemplate.push((
-            <span>
+          const values = {
+            link: (
+              <a
+                style={{ color, fontWeight: 'bold' }}
+                href={published[provider]}
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                {name}
+              </a>
+            ),
+          };
+          let message = (
+            <FormattedMessage
+              id="annotation.translationPublished"
+              defaultMessage="Translation published to {link}"
+              values={values}
+            />
+          );
+          if (provider === 'facebook') {
+            message = (
               <FormattedMessage
-                id="annotation.translationPublished"
-                defaultMessage="Translation published to {link}"
-                values={{
-                  link: (
-                    <a
-                      style={{ color, fontWeight: 'bold' }}
-                      href={published[provider]}
-                      target="_blank"
-                      rel="noreferrer noopener"
-                    >
-                      {name}
-                    </a>
-                  ),
-                }}
+                id="annotation.publishTranslation"
+                defaultMessage="Publish this translation to {link}"
+                values={values}
               />
-            </span>));
+            );
+          }
+          contentTemplate.push(message);
         });
       }
 

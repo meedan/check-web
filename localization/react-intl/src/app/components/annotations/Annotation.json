@@ -116,6 +116,10 @@
     "defaultMessage": "Translation published to {link}"
   },
   {
+    "id": "annotation.publishTranslation",
+    "defaultMessage": "Publish this translation to {link}"
+  },
+  {
     "id": "annotation.archiverSuccess",
     "defaultMessage": "In case this link goes offline, you can <a href=\"{link}\" target=\"_blank\" rel=\"noopener noreferrer\">access a backup on <b>{name}</b> via Keep</a>"
   },
