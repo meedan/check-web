@@ -1,5 +1,5 @@
 {
-  "teamComponent.teamInformation": "Team information",
-  "teamComponent.teamBots": "Team bots",
-  "teamComponent.teamTags": "Team tags"
+  "teamSettings.Tags": "Tags",
+  "teamSettings.integrations": "Integrations",
+  "teamSettings.bots": "Bots"
 }
