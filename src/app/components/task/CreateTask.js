@@ -4,23 +4,14 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import Checkbox from 'material-ui/Checkbox';
 import FlatButton from 'material-ui/FlatButton';
-import MdShortText from 'react-icons/lib/md/short-text';
-import MdRadioButtonChecked from 'react-icons/lib/md/radio-button-checked';
-import MdCheckBox from 'react-icons/lib/md/check-box';
-import MdLocationOn from 'react-icons/lib/md/location-on';
-import MdDateRange from 'react-icons/lib/md/date-range';
-import MdGrade from 'react-icons/lib/md/grade';
-import Popover from 'material-ui/Popover';
-import Menu from 'material-ui/Menu';
-import MenuItem from 'material-ui/MenuItem';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
-import styled from 'styled-components';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import Can from '../Can';
 import CreateTaskMutation from '../../relay/mutations/CreateTaskMutation';
 import Message from '../Message';
 import CheckContext from '../../CheckContext';
+import CreateTaskMenu from './CreateTaskMenu';
 import SingleChoiceTask from './SingleChoiceTask';
 import MultiSelectTask from './MultiSelectTask';
 import Attribution from './Attribution';
@@ -28,15 +19,7 @@ import ConfirmRequired from './ConfirmRequired';
 import TeamwideTasksNudgeDialog from './TeamwideTasksNudgeDialog';
 import { safelyParseJSON, getStatus } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
-import { caption, units, StyledTaskDescription, black05, black54 } from '../../styles/js/shared';
-
-const StyledCreateTaskButton = styled(FlatButton)`
-  margin-bottom: ${units(2)} !important;
-
-  &:hover {
-    background-color: ${black05} !important;
-  }
-`;
+import { StyledTaskDescription } from '../../styles/js/shared';
 
 const messages = defineMessages({
   newTask: {
@@ -50,7 +33,6 @@ class CreateTask extends Component {
     super(props);
 
     this.state = {
-      menuOpen: false,
       dialogOpen: false,
       type: null,
       label: null,
@@ -78,24 +60,9 @@ class CreateTask extends Component {
     return new CheckContext(this).getContextStore();
   }
 
-  handleClick(event) {
-    this.setState({
-      menuOpen: true,
-      required: false,
-      anchorEl: event.currentTarget,
-    });
-  }
-
-  handleRequestClose() {
-    this.setState({
-      menuOpen: false,
-    });
-  }
-
   handleOpenDialog(type) {
     this.setState({
       dialogOpen: true,
-      menuOpen: false,
       type,
       submitDisabled: true,
     });
@@ -104,10 +71,10 @@ class CreateTask extends Component {
   handleTeamwideNudgeDialog() {
     const { team } = this.getContext();
     if (team.plan === 'pro') {
-      this.setState({ nudgeDialogOpen: false, menuOpen: false });
+      this.setState({ nudgeDialogOpen: false });
       window.open(config.restBaseUrl.replace('/api/', `/admin/team/${team.dbid}/edit`), '_blank');
     } else {
-      this.setState({ nudgeDialogOpen: true, menuOpen: false });
+      this.setState({ nudgeDialogOpen: true });
     }
   }
 
@@ -219,6 +186,14 @@ class CreateTask extends Component {
     }
   }
 
+  handleSelectType = (type) => {
+    if (type === 'teamwide') {
+      this.handleTeamwideNudgeDialog();
+    } else {
+      this.handleOpenDialog(type);
+    }
+  };
+
   toggleAssignmentField() {
     this.setState({ showAssignmentField: !this.state.showAssignmentField });
   }
@@ -282,66 +257,8 @@ class CreateTask extends Component {
       <div>
 
         <Can permissions={media.permissions} permission="create Task">
-          <StyledCreateTaskButton
-            className="create-task__add-button create-task__add-button--default"
-            onClick={this.handleClick.bind(this)}
-            label={<FormattedMessage id="tasks.addTask" defaultMessage="Add task" />}
-          />
+          <CreateTaskMenu onSelect={this.handleSelectType} />
         </Can>
-
-        <Popover
-          open={this.state.menuOpen}
-          anchorEl={this.state.anchorEl}
-          anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
-          targetOrigin={{ horizontal: 'left', vertical: 'top' }}
-          onRequestClose={this.handleRequestClose.bind(this)}
-        >
-          <Menu>
-            <MenuItem
-              className="create-task__add-short-answer"
-              onClick={this.handleOpenDialog.bind(this, 'free_text')}
-              leftIcon={<MdShortText />}
-              primaryText={
-                <FormattedMessage id="tasks.shortAnswer" defaultMessage="Short answer" />
-              }
-            />
-            <MenuItem
-              className="create-task__add-choose-one"
-              onClick={this.handleOpenDialog.bind(this, 'single_choice')}
-              leftIcon={<MdRadioButtonChecked />}
-              primaryText={<FormattedMessage id="tasks.chooseOne" defaultMessage="Choose one" />}
-            />
-            <MenuItem
-              className="create-task__add-choose-multiple"
-              onClick={this.handleOpenDialog.bind(this, 'multiple_choice')}
-              leftIcon={<MdCheckBox />}
-              primaryText={
-                <FormattedMessage id="tasks.chooseMultiple" defaultMessage="Choose multiple" />
-              }
-            />
-            <MenuItem
-              className="create-task__add-geolocation"
-              onClick={this.handleOpenDialog.bind(this, 'geolocation')}
-              leftIcon={<MdLocationOn />}
-              primaryText={<FormattedMessage id="tasks.geolocation" defaultMessage="Location" />}
-            />
-            <MenuItem
-              className="create-task__add-datetime"
-              onClick={this.handleOpenDialog.bind(this, 'datetime')}
-              leftIcon={<MdDateRange />}
-              primaryText={<FormattedMessage id="tasks.datetime" defaultMessage="Date and time" />}
-            />
-            {config.appName === 'check' ?
-              <MenuItem
-                className="create-task__teamwide-nudge"
-                leftIcon={<MdGrade />}
-                onClick={this.handleTeamwideNudgeDialog.bind(this)}
-                primaryText={<FormattedMessage id="tasks.teamwideNudge" defaultMessage="Teamwide tasks" />}
-                secondaryText={<span style={{ color: black54, font: caption, lineHeight: '48px' }}>PRO</span>}
-              /> : null
-            }
-          </Menu>
-        </Popover>
 
         <TeamwideTasksNudgeDialog
           open={this.state.nudgeDialogOpen}

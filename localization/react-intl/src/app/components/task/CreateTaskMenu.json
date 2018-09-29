@@ -1,0 +1,30 @@
+[
+  {
+    "id": "tasks.addTask",
+    "defaultMessage": "Add task"
+  },
+  {
+    "id": "tasks.shortAnswer",
+    "defaultMessage": "Short answer"
+  },
+  {
+    "id": "tasks.chooseOne",
+    "defaultMessage": "Choose one"
+  },
+  {
+    "id": "tasks.chooseMultiple",
+    "defaultMessage": "Choose multiple"
+  },
+  {
+    "id": "tasks.geolocation",
+    "defaultMessage": "Location"
+  },
+  {
+    "id": "tasks.datetime",
+    "defaultMessage": "Date and time"
+  },
+  {
+    "id": "tasks.teamwideNudge",
+    "defaultMessage": "Teamwide tasks"
+  }
+]
