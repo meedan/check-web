@@ -12,6 +12,19 @@ class LoginPage < Page
     login_with_email(options)
   end
 
+  def agree_to_tos(should_submit = true)
+    if @driver.find_elements(:css, '#tos__tos-agree').size > 0
+      @driver.find_element(:css, '#tos__tos-agree').click
+      sleep 1
+      @driver.find_element(:css, '#tos__pp-agree').click
+      sleep 1
+      if should_submit
+        @driver.find_element(:css, '#tos__save').click
+        sleep 20
+      end
+    end
+  end
+
   def register_with_email(options)
     load
     toggle_form_mode unless form_mode == 'register'
@@ -21,11 +34,14 @@ class LoginPage < Page
     fill_input('.login__password input', options[:password])
     fill_input('.login__password-confirmation input', options[:password])
     fill_input('input[type=file]', options[:file], { hidden: true }) if options[:file]
+    agree_to_tos(false)
     # TODO: fix or remove click_button() for mobile browsers
     (@wait.until { @driver.find_element(:xpath, "//button[@id='submit-register-or-login']") }).click
     sleep 3
     @wait.until { @driver.page_source.include?("You have to confirm your email address before continuing.") }
+    sleep 3
     confirm_email(options[:email])
+    sleep 3
   end
 
   def reset_password(email)
@@ -64,6 +80,8 @@ class LoginPage < Page
 
     window = @driver.window_handles.first
     @driver.switch_to.window(window)
+    sleep 20
+    agree_to_tos
     wait_for_element('.home')
   end
 
