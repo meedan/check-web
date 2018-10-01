@@ -33,6 +33,7 @@ class Page
 
     wait.until {
       element = @driver.find_element(:css, selector)
+      sleep 1
       element if element.displayed? || options[:hidden]
     }
   end
