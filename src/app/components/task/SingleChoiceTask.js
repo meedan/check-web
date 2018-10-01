@@ -223,6 +223,7 @@ class SingleChoiceTask extends Component {
             media={media}
             onDismiss={this.props.onDismiss.bind(this)}
             onSubmit={this.props.onSubmit.bind(this)}
+            allowAssignment
           />
           : null
         }

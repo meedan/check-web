@@ -6,6 +6,7 @@ import { Tabs, Tab } from 'material-ui/Tabs';
 import styled from 'styled-components';
 import TeamBots from './TeamBots';
 import TeamTags from './TeamTags';
+import TeamTasks from './TeamTasks';
 import TeamInfo from './TeamInfo';
 import TeamInfoEdit from './TeamInfoEdit';
 import TeamMembers from './TeamMembers';
@@ -113,6 +114,16 @@ class TeamComponent extends Component {
         return (
           <Tabs value={this.state.showTab} onChange={this.handleTabChange}>
             <Tab
+              className="team-settings__tasks-tab"
+              label={
+                <FormattedMessage
+                  id="teamSettings.Tasks"
+                  defaultMessage="Tasks"
+                />
+              }
+              value="tasks"
+            />
+            <Tab
               className="team-settings__tags-tab"
               label={
                 <FormattedMessage
@@ -160,6 +171,9 @@ class TeamComponent extends Component {
             </ContentColumn>
           </HeaderCard>
           { !isEditing && !isSettings ? <TeamPageContent /> : null }
+          { isSettings && this.state.showTab === 'tasks'
+            ? <TeamTasks team={team} />
+            : null }
           { isSettings && this.state.showTab === 'bots'
             ? <TeamBots team={team} direction={direction} />
             : null }

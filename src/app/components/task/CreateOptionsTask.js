@@ -196,17 +196,19 @@ class CreateOptionsTask extends React.Component {
             multiLine
             fullWidth
           />
-
-          <Checkbox
-            label={
-              <FormattedMessage
-                id="tasks.requiredCheckbox"
-                defaultMessage="Required"
-              />
-            }
-            checked={this.state.required}
-            onCheck={this.handleSelectRequired.bind(this)}
-          />
+          { this.props.media ?
+            <Checkbox
+              label={
+                <FormattedMessage
+                  id="tasks.requiredCheckbox"
+                  defaultMessage="Required"
+                />
+              }
+              checked={this.state.required}
+              onCheck={this.handleSelectRequired.bind(this)}
+            />
+            : null
+          }
           <ConfirmRequired
             open={this.state.confirmRequired}
             status={this.state.status}
@@ -282,14 +284,15 @@ class CreateOptionsTask extends React.Component {
                 selectedUsers={[]}
                 id="new"
                 taskType={this.props.taskType}
-              /> :
+              /> : null }
+            { this.props.allowAssignment ?
               <button
                 className="create-task__add-assignment-button"
                 onClick={this.toggleAssignmentField.bind(this)}
               >
                 {'+ '}
                 <FormattedMessage id="tasks.assign" defaultMessage="Assign" />
-              </button>
+              </button> : null
             }
           </StyledTaskDescription>
         </Dialog>
