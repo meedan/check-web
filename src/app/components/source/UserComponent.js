@@ -6,6 +6,7 @@ import { Tabs, Tab } from 'material-ui/Tabs';
 import UserEmail from '../user/UserEmail';
 import UserInfo from './UserInfo';
 import UserAssignments from './UserAssignments';
+import UserPrivacy from './UserPrivacy';
 import UserInfoEdit from './UserInfoEdit';
 import { can } from '../Can';
 import HeaderCard from '../HeaderCard';
@@ -68,6 +69,16 @@ class UserComponent extends React.Component {
                       }
                       value="assignments"
                     />
+                    <Tab
+                      id="privacy-tab"
+                      label={
+                        <FormattedMessage
+                          id="userComponents.privacy"
+                          defaultMessage="Privacy"
+                        />
+                      }
+                      value="privacy"
+                    />
                   </Tabs>
                 </div>
               }
@@ -80,6 +91,7 @@ class UserComponent extends React.Component {
                 <UserEmail user={user} />
                 { this.state.showTab === 'teams' ? <SwitchTeamsComponent user={user} isRtl={isRtl} /> : null}
                 { this.state.showTab === 'assignments' ? <UserAssignments user={user} /> : null}
+                { this.state.showTab === 'privacy' ? <UserPrivacy user={user} /> : null}
               </div>
             }
           </ContentColumn>

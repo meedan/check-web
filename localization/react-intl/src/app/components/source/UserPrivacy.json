@@ -1,0 +1,42 @@
+[
+  {
+    "id": "userPrivacy.ppLink",
+    "defaultMessage": "Privacy Policy"
+  },
+  {
+    "id": "userPrivacy.title",
+    "defaultMessage": "Your information"
+  },
+  {
+    "id": "userPrivacy.description",
+    "defaultMessage": "Please review our {ppLink} to learn how {appName} uses and stores your information."
+  },
+  {
+    "id": "userPrivacy.seeInformationText",
+    "defaultMessage": "We will send you a file with the content and data you created and generated on {appName}. This can be kept for your records or transferred to another service."
+  },
+  {
+    "id": "userPrivacy.seeInformationButton",
+    "defaultMessage": "See my information"
+  },
+  {
+    "id": "userPrivacy.stopProcessingText",
+    "defaultMessage": "You can request {appName} to stop processing your information under certain conditions."
+  },
+  {
+    "id": "userPrivacy.stopProcessingButton",
+    "defaultMessage": "Request to stop processing"
+  },
+  {
+    "id": "userPrivacy.delete",
+    "defaultMessage": "Delete your account"
+  },
+  {
+    "id": "userPrivacy.deleteAccountText",
+    "defaultMessage": "If you delete your account, your personal information will be erased. Comments, annotations, and team activity will become pseudonymous and remain on {appName}."
+  },
+  {
+    "id": "userPrivacy.deleteAccountButton",
+    "defaultMessage": "Delete my account"
+  }
+]
