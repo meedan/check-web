@@ -64,9 +64,9 @@ class ProjectPage < Page
 
   def click_team_link
     sleep 5
-    wait_for_element('.header-actions__drawer-toggle').click
+    element('.header-actions__drawer-toggle').click
     sleep 3
-    wait_for_element('.team-header__drawer-team-link').click
+    element('.team-header__drawer-team-link').click
     TeamPage.new(config: @config, driver: @driver)
   end
 

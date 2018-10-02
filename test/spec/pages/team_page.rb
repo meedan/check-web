@@ -13,14 +13,28 @@ class TeamPage < Page
     elements('.team__project').map(&:text)
   end
 
-  def create_project(options = {})
-    sleep 20
-    name = options[:name] || "Project #{Time.now.to_i}"
-    wait_for_element('#create-project-title').click
-    fill_input('#create-project-title', name)
-    wait_for_element('#create-project-title').submit
+  def fill_field(selector, value, type = :css, visible = true)
+    wait = Selenium::WebDriver::Wait.new(timeout: 50)
+    input = wait.until {
+      element = @driver.find_element(type, selector)
+      if visible
+        element if element.displayed?
+      else
+        element
+      end
+    }
+    sleep 1
+    input.send_keys(value)
+  end
 
-    wait_for_element('.project')
+  def create_project(options = {})
+    sleep 10
+    name = options[:name] || "Project #{Time.now.to_i}"
+    fill_field('#create-project-title', name)
+    sleep 1
+    element('#create-project-submit-button').click
+    sleep 5
+    element('.project')
     ProjectPage.new(config: @config, driver: @driver)
   end
 end
