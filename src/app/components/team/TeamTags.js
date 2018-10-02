@@ -387,6 +387,11 @@ class TeamTagsComponent extends Component {
     );
   }
 
+  handleBlur() {
+    const search = document.getElementById('tag__search').value;
+    this.setState({ search });
+  }
+
   render() {
     const sortFunctions = {
       az: (a, b) => (a.text.localeCompare(b.text)),
@@ -463,6 +468,7 @@ class TeamTagsComponent extends Component {
               <TextField
                 id="tag__search"
                 fullWidth
+                onBlur={this.handleBlur.bind(this)}
                 onKeyPress={this.handleSearch.bind(this)}
                 defaultValue={this.state.search}
                 errorText={
