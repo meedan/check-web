@@ -243,6 +243,10 @@ class Login extends Component {
 
     if (this.state.checkedTos && this.state.checkedPp) {
       request('post', 'users', failureCallback, successCallback, params);
+    } else {
+      this.setState({
+        message: <FormattedMessage id="login.tosMissing" defaultMessage="You must agree to the Terms of Service and Privacy Policy" />,
+      });
     }
   }
 
