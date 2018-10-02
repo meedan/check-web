@@ -32,7 +32,6 @@ class UserTos extends Component {
 
   handleSubmit() {
     const currentUser = this.getCurrentUser();
-    console.log(currentUser);
 
     const onSubmit = () => {
       window.location.assign(window.location.origin);
