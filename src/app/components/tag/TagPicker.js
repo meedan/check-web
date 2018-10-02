@@ -111,7 +111,12 @@ class TagPicker extends React.Component {
   render() {
     const { media, tags, value } = this.props;
 
-    const compareString = (tag, val) => tag.toLowerCase().includes(val.toLowerCase());
+    const compareString = (tag, val) => {
+      if (!tag) {
+        return false;
+      }
+      return tag.toLowerCase().includes(val.toLowerCase());
+    };
 
     const plainMediaTags = tags.map(tag => tag.node.tag_text);
 
