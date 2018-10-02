@@ -1,4 +1,5 @@
 {
+  "userTos.validation": "You must agree to the terms of service and privacy policy",
   "userTos.save": "Save",
   "userTos.commGuidelinesLink": "Community Guidelines",
   "userTos.commGuidelines": "We ask that you also read our {communityGuidelinesLink} for using {appName}."

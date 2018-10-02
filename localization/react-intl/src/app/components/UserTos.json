@@ -1,5 +1,9 @@
 [
   {
+    "id": "userTos.validation",
+    "defaultMessage": "You must agree to the terms of service and privacy policy"
+  },
+  {
     "id": "userTos.save",
     "defaultMessage": "Save"
   },

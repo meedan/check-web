@@ -8,6 +8,7 @@ import UpdateUserMutation from '../relay/mutations/UpdateUserMutation';
 import CheckContext from '../CheckContext';
 import { mapGlobalMessage } from './MappedMessage';
 import UserTosForm from './UserTosForm';
+import Message from './Message';
 
 class UserTos extends Component {
   constructor(props) {
@@ -48,16 +49,27 @@ class UserTos extends Component {
     }
   }
 
+  handleValidate() {
+    if (!this.state.checkedTos || !this.state.checkedPp) {
+      this.setState({
+        message: <FormattedMessage id="userTos.validation" defaultMessage="You must agree to the terms of service and privacy policy" />,
+      });
+    }
+  }
+
   render() {
     const actions = [
-      <FlatButton
-        id="tos__save"
-        label={<FormattedMessage id="userTos.save" defaultMessage="Save" />}
-        primary
-        keyboardFocused
-        onClick={this.handleSubmit.bind(this)}
-        disabled={!this.state.checkedTos || !this.state.checkedPp}
-      />,
+      // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+      <div onClick={this.handleValidate.bind(this)} style={{ cursor: 'pointer' }}>
+        <FlatButton
+          id="tos__save"
+          label={<FormattedMessage id="userTos.save" defaultMessage="Save" />}
+          primary
+          keyboardFocused
+          onClick={this.handleSubmit.bind(this)}
+          disabled={!this.state.checkedTos || !this.state.checkedPp}
+        />
+      </div>,
     ];
 
     const linkStyle = {
@@ -84,6 +96,7 @@ class UserTos extends Component {
           modal={false}
           open
         >
+          <Message message={this.state.message} />
           <UserTosForm
             user={user}
             showTitle
