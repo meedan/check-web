@@ -41,7 +41,7 @@ class TeamMenu extends Component {
             <IconEdit />
           </SmallerStyledIconButton> : null
         }
-        { pageType === 'team' && can(team.permissions, 'update Team') ?
+        { currentUserIsMember ?
           <SmallerStyledIconButton
             className="team-menu__team-settings-button"
             onClick={this.handleClickTeamSettings.bind(this)}
