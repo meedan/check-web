@@ -52,7 +52,7 @@ class UserTos extends Component {
   handleValidate() {
     if (!this.state.checkedTos || !this.state.checkedPp) {
       this.setState({
-        message: <FormattedMessage id="userTos.validation" defaultMessage="You must agree to the terms of service and privacy policy" />,
+        message: <FormattedMessage id="userTos.validation" defaultMessage="You must agree to the Terms of Service and Privacy Policy" />,
       });
     }
   }
