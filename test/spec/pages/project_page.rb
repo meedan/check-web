@@ -63,6 +63,7 @@ class ProjectPage < Page
   end
 
   def click_team_link
+    sleep 5
     element('.header-actions__drawer-toggle').click
     sleep 3
     element('.team-header__drawer-team-link').click
