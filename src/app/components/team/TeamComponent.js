@@ -15,6 +15,7 @@ import HeaderCard from '../HeaderCard';
 import PageTitle from '../PageTitle';
 import Message from '../Message';
 import { can } from '../Can';
+import UserUtil from '../user/UserUtil';
 import CheckContext from '../../CheckContext';
 import {
   ContentColumn,
@@ -73,6 +74,10 @@ class TeamComponent extends Component {
     }
   }
 
+  getCurrentUser() {
+    return new CheckContext(this).getContextStore().currentUser;
+  }
+
   handleTabChange = value => this.setState({ showTab: value });
 
   render() {
@@ -125,16 +130,18 @@ class TeamComponent extends Component {
               }
               value="tags"
             /> : null }
-            { isSettings ? <Tab
-              className="team-settings__integrations-tab"
-              label={
-                <FormattedMessage
-                  id="teamSettings.integrations"
-                  defaultMessage="Integrations"
-                />
-              }
-              value="integrations"
-            /> : null }
+            {UserUtil.myRole(this.getCurrentUser(), team.slug) === 'owner' ?
+              <Tab
+                className="team-settings__integrations-tab"
+                label={
+                  <FormattedMessage
+                    id="teamSettings.integrations"
+                    defaultMessage="Integrations"
+                  />
+                }
+                value="integrations"
+              />
+              : null }
             { isSettings ? <Tab
               className="team-settings__bots-tab"
               label={
