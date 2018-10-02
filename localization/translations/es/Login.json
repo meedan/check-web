@@ -1,5 +1,6 @@
 {
   "login.passwordInputHint": "Contraseña",
+  "login.tosMissing": "Debe aceptar los Términos de Servicio y la Política de Privacidad",
   "login.disclaimer": "No haremos publicaciones sin tu permio",
   "login.title": "Iniciar sesión",
   "login.registerTitle": "Registrarse",

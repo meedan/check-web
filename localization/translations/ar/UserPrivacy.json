@@ -1,0 +1,12 @@
+{
+  "userPrivacy.ppLink": "سياسة الخصوصية",
+  "userPrivacy.title": "المعلومات الخاصة بك",
+  "userPrivacy.description": "من فضلك راجع {ppLink} لمعرفة كيفية استخدام {appName} لمعلوماتك وتخزينها.",
+  "userPrivacy.seeInformationText": "سنرسل لك ملفًا يتضمن المحتوى والبيانات التي أنشأتها وولدتها على {appName}. يمكن الاحتفاظ بها لسجلاتك أو نقلها إلى خدمة أخرى.",
+  "userPrivacy.seeInformationButton": "المعلومات الخاصة بي",
+  "userPrivacy.stopProcessingText": "يمكنك طلب {appName} لإيقاف معالجة معلوماتك في ظل ظروف معينة.",
+  "userPrivacy.stopProcessingButton": "طلب لوقف المعالجة",
+  "userPrivacy.delete": "حذف حسابك",
+  "userPrivacy.deleteAccountText": "إذا قمت بحذف حسابك ، فسيتم مسح معلوماتك الشخصية. ستُنسب تعليقاتك وسجل نشاطك الى اسم مستعار وستظل على {appName}.",
+  "userPrivacy.deleteAccountButton": "حذف حسابي"
+}
