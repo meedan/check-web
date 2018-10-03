@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -92,7 +91,7 @@ const StyledPopper = styled(Popper)`
     color: ${black54};
     float: right;
   }
-`
+`;
 
 const StyledSearchFiltersSection = styled.section`
   padding: ${units(1)};
@@ -240,8 +239,8 @@ class SearchQueryComponent extends Component {
       popper: {
         open: false,
         allowed: true,
-        anchorEl: null
-      }
+        anchorEl: null,
+      },
     };
   }
 
@@ -450,11 +449,13 @@ class SearchQueryComponent extends Component {
     // - user has not explicitly closed the help
     // - user has reset the keywords
     const input = document.getElementById('search-input');
-    this.setState({ popper: {
-      open: input.value.length > 0 && this.state.popper.allowed,
-      anchorEl: input,
-      allowed: this.state.popper.allowed || !input.value.length
-    } });
+    this.setState({
+      popper: {
+        open: input.value.length > 0 && this.state.popper.allowed,
+        anchorEl: input,
+        allowed: this.state.popper.allowed || !input.value.length,
+      },
+    });
   }
 
   handlePopperClick() {
