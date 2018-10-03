@@ -6,6 +6,8 @@ import { FormattedMessage, FormattedHTMLMessage, defineMessages, injectIntl, int
 import InfiniteScroll from 'react-infinite-scroller';
 import Popper from '@material-ui/core/Popper';
 import Paper from '@material-ui/core/Paper';
+import IconButton from 'material-ui/IconButton';
+import MdClear from 'react-icons/lib/md/clear';
 import isEqual from 'lodash.isequal';
 import sortby from 'lodash.sortby';
 import styled from 'styled-components';
@@ -29,6 +31,7 @@ import {
   black38,
   black16,
   black05,
+  black54,
   boxShadow,
   Row,
   ContentColumn,
@@ -39,6 +42,7 @@ import {
   transitionSpeedDefault,
   mediaQuery,
   ellipsisStyles,
+  columnWidthMedium,
 } from '../styles/js/shared';
 
 // TODO Make this a config
@@ -64,6 +68,31 @@ const StyledSearchInput = styled.input`
   }
   padding-${props => (props.isRtl ? 'right' : 'left')}: ${units(6)};
 `;
+
+const StyledPopper = styled(Popper)`
+  width: 100%;
+  max-width: ${columnWidthMedium};
+  padding: 0 ${units(1)};
+
+  table {
+    width: 100%;
+    display: block;
+  }
+
+  td {
+    padding: ${units(1)};
+  }
+
+  a {
+    font: ${caption};
+    padding-left: ${units(1)};
+  }
+
+  button {
+    color: ${black54};
+    float: right;
+  }
+`
 
 const StyledSearchFiltersSection = styled.section`
   padding: ${units(1)};
@@ -455,6 +484,7 @@ class SearchQueryComponent extends Component {
               id="search-form"
               className="search__form"
               onSubmit={this.handleSubmit.bind(this)}
+              autoComplete="off"
             >
               <StyledSearchInput
                 placeholder={this.props.intl.formatMessage(messages.searchInputHint)}
@@ -465,13 +495,15 @@ class SearchQueryComponent extends Component {
                 onChange={this.handleInputChange.bind(this)}
                 autofocus
               />
-              <Popper
+              <StyledPopper
                 id="search-help"
                 open={this.state.popper.open}
                 anchorEl={this.state.popper.anchorEl}
-                onClick={this.handlePopperClick.bind(this)}
               >
                 <Paper>
+                  <IconButton style={{ fontSize: '20px' }} onClick={this.handlePopperClick.bind(this)}>
+                    <MdClear />
+                  </IconButton>
                   <FormattedHTMLMessage
                     id="search.help"
                     defaultMessage='
@@ -489,7 +521,7 @@ class SearchQueryComponent extends Component {
                       </div>'
                   />
                 </Paper>
-              </Popper>
+              </StyledPopper>
             </form>
             : null}
 
