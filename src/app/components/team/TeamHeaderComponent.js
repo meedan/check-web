@@ -54,7 +54,9 @@ class TeamHeaderComponent extends Component {
   }
 
   render() {
-    const isProjectUrl = /(.*\/project\/[0-9]+)/.test(window.location.pathname);
+    const settingsPage = this.props.children.props.route.path === ':team/settings';
+    const hideTeamName = /(.*\/project\/[0-9]+)/.test(window.location.pathname) || settingsPage;
+
     const { team, isRtl } = this.props;
 
     if (this.state.willRedirect) {
@@ -68,12 +70,14 @@ class TeamHeaderComponent extends Component {
           className="header-actions__drawer-toggle"
           onClick={this.props.drawerToggle}
         >
-          {isProjectUrl ?
-            <OffsetBothSides>
-              <TeamAvatar
-                team={team}
-              />
-            </OffsetBothSides>
+          {hideTeamName ?
+            <div>
+              <OffsetBothSides>
+                <TeamAvatar
+                  team={team}
+                />
+              </OffsetBothSides>
+            </div>
             :
             <Row>
               <OffsetBothSides>

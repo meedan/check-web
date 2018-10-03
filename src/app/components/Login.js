@@ -23,6 +23,7 @@ import styled from 'styled-components';
 import merge from 'lodash.merge';
 import Message from './Message';
 import UploadImage from './UploadImage';
+import UserTosForm from './UserTosForm';
 import CheckContext from '../CheckContext';
 import { login, request } from '../redux/actions';
 import { mapGlobalMessage } from './MappedMessage';
@@ -161,6 +162,8 @@ class Login extends Component {
       email: '',
       password: '',
       password_confirmation: '',
+      checkedTos: false,
+      checkedPp: false,
     };
   }
 
@@ -180,6 +183,14 @@ class Login extends Component {
 
   getHistory() {
     return new CheckContext(this).getContextStore().history;
+  }
+
+  handleCheckTos() {
+    this.setState({ checkedTos: !this.state.checkedTos });
+  }
+
+  handleCheckPp() {
+    this.setState({ checkedPp: !this.state.checkedPp });
   }
 
   handleSwitchType() {
@@ -230,7 +241,13 @@ class Login extends Component {
       history.push(window.location.pathname);
     };
 
-    request('post', 'users', failureCallback, successCallback, params);
+    if (this.state.checkedTos && this.state.checkedPp) {
+      request('post', 'users', failureCallback, successCallback, params);
+    } else {
+      this.setState({
+        message: <FormattedMessage id="login.tosMissing" defaultMessage="You must agree to the Terms of Service and Privacy Policy" />,
+      });
+    }
   }
 
   oAuthLogin(provider) {
@@ -385,7 +402,17 @@ class Login extends Component {
 
               {this.state.type === 'login' ?
                 null :
-                <UploadImage onImage={Login.onImage} />}
+                <div>
+                  <UploadImage onImage={Login.onImage} />
+                  <UserTosForm
+                    user={{}}
+                    showTitle={false}
+                    handleCheckTos={this.handleCheckTos.bind(this)}
+                    handleCheckPp={this.handleCheckPp.bind(this)}
+                    checkedTos={this.state.checkedTos}
+                    checkedPp={this.state.checkedPp}
+                  />
+                </div> }
 
               <div className="login__actions" style={styles.buttonGroup}>
                 <RaisedButton

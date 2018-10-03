@@ -4,6 +4,10 @@
     "defaultMessage": "Password"
   },
   {
+    "id": "login.tosMissing",
+    "defaultMessage": "You must agree to the Terms of Service and Privacy Policy"
+  },
+  {
     "id": "login.disclaimer",
     "defaultMessage": "We won’t publish without your permission"
   },

@@ -1,8 +1,8 @@
 {
-  "createTeam.slugChecking": "جار التحقق من توافر المسار...",
+  "createTeam.slugChecking": "جارٍ التحقق من توافر المسار...",
   "createTeam.slugAvailable": "متاح",
   "createTeam.slugUnavailable": "هذا الرابط غير متاح.",
-  "createTeam.createTeamError": "عذراً ، لم نستطع إضافة الفريق",
+  "createTeam.createTeamError": "عذراً ، لم نتمكن من إضافة الفريق",
   "createTeam.title": "أضف فريقاً",
   "createTeam.teamNameHint": "اسم الفريق",
   "createTeam.teamSlugHint": "مسار الفريق",

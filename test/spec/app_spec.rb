@@ -96,6 +96,57 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('<span>1</span>')).to be(true)
     end
 
+    it "should manage team tags", bin6: true do
+      # Create team and go to team page that should not contain any tag
+      team = "tag-team-#{Time.now.to_i}"
+      api_create_team(team: team)
+      p = Page.new(config: @config, driver: @driver)
+      p.go(@config['self_url'] + '/' + team)
+      wait_for_selector('.team-menu__team-settings-button').click ; sleep 5
+      wait_for_selector('.team-settings__tags-tab').click ; sleep 5
+      expect(@driver.page_source.include?('No teamwide tags')).to be(true)
+      expect(@driver.page_source.include?('No custom tags')).to be(true)
+      expect(@driver.page_source.include?('No results')).to be(true)
+      expect(@driver.page_source.include?('newteamwidetag')).to be(false)
+
+      # Create tag
+      fill_field('#tag__new', 'newteamwidetag')
+      @driver.action.send_keys(:enter).perform
+      sleep 10
+      expect(@driver.page_source.include?('No teamwide tags')).to be(false)
+      expect(@driver.page_source.include?('No custom tags')).to be(true)
+      expect(@driver.page_source.include?('1 result')).to be(true)
+      expect(@driver.page_source.include?('newteamwidetag')).to be(true)
+      expect(@driver.page_source.include?('newteamwidetagedited')).to be(false)
+
+      # Edit tag
+      wait_for_selector('#tag__text-newteamwidetag button').click
+      sleep 5
+      wait_for_selector('.tag__edit').click
+      sleep 1
+      fill_field('#tag__edit', 'edited')
+      @driver.action.send_keys(:enter).perform
+      sleep 10
+      expect(@driver.page_source.include?('No teamwide tags')).to be(false)
+      expect(@driver.page_source.include?('No custom tags')).to be(true)
+      expect(@driver.page_source.include?('1 result')).to be(true)
+      expect(@driver.page_source.include?('newteamwidetagedited')).to be(true)
+
+      # Delete tag
+      wait_for_selector('#tag__text-newteamwidetagedited button').click
+      sleep 5
+      wait_for_selector('.tag__delete').click
+      sleep 1
+      wait_for_selector('#tag__confirm').click
+      sleep 2
+      wait_for_selector('#tag__confirm-delete').click
+      sleep 10
+      expect(@driver.page_source.include?('No teamwide tags')).to be(true)
+      expect(@driver.page_source.include?('No custom tags')).to be(true)
+      expect(@driver.page_source.include?('No results')).to be(true)
+      expect(@driver.page_source.include?('newteamwidetagedited')).to be(false)
+    end
+
     it "should add, edit, answer, update answer and delete datetime task", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       wait_for_selector('.create-task__add-button')
@@ -528,7 +579,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       fill_field('#cmd-input', '/tag foo, bar')
       @driver.action.send_keys(:enter).perform
-      sleep 5
+      sleep 10
 
       expect(@driver.page_source.include?('Tagged #foo')).to be(true)
       expect(@driver.page_source.include?('Tagged #bar')).to be(true)
@@ -1870,9 +1921,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.navigate.to(@config['self_url'] + '/check/me')
       button = wait_for_selector('#teams-tab')
       button.click
+      sleep 3
       link = wait_for_selector_list('.teams a').first
       link.click
       link = wait_for_selector('.projects a')
+      sleep 2
       link.click
       sleep 5
 
@@ -1880,6 +1933,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       button = wait_for_selector('#teams-tab')
       button.click
       link = wait_for_selector_list('.teams a').last
+      sleep 2
       link.click
       sleep 5
 
@@ -1977,8 +2031,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       p.go(@config['self_url'] + '/' + team)
 
       # No bots on team page
-      wait_for_selector('.team-menu__edit-team-button').click
-      wait_for_selector('.team button + button').click ; sleep 5
+      wait_for_selector('.team-menu__team-settings-button').click ; sleep 5
+      wait_for_selector('.team-settings__bots-tab').click ; sleep 5
       expect(@driver.page_source.include?('No bots installed')).to be(true)
       expect(@driver.page_source.include?('Testing Bot')).to be(false)
 
@@ -1994,8 +2048,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('a[role="menuitem"]').click
       wait_for_selector('#teams-tab').click ; sleep 5
       wait_for_selector('.teams > div > div > a').click ; sleep 5
-      wait_for_selector('.team-menu__edit-team-button').click ; sleep 5
-      wait_for_selector('.team button + button').click ; sleep 5
+      wait_for_selector('.team-menu__team-settings-button').click ; sleep 5
+      wait_for_selector('.team-settings__bots-tab').click ; sleep 5
       expect(@driver.page_source.include?('No bots installed')).to be(false)
       expect(@driver.page_source.include?('Testing Bot')).to be(true)
 

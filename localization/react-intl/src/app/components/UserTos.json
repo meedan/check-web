@@ -1,0 +1,18 @@
+[
+  {
+    "id": "userTos.validation",
+    "defaultMessage": "You must agree to the Terms of Service and Privacy Policy"
+  },
+  {
+    "id": "userTos.save",
+    "defaultMessage": "Save"
+  },
+  {
+    "id": "userTos.commGuidelinesLink",
+    "defaultMessage": "Community Guidelines"
+  },
+  {
+    "id": "userTos.commGuidelines",
+    "defaultMessage": "We ask that you also read our {communityGuidelinesLink} for using {appName}."
+  }
+]

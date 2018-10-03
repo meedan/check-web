@@ -63,7 +63,7 @@ class TagPicker extends React.Component {
   handleRemoveTag = (value) => {
     const { media } = this.props;
 
-    const removedTag = this.props.tags.find(tag => tag.node.tag === value);
+    const removedTag = this.props.tags.find(tag => tag.node.tag_text === value);
 
     const onSuccess = () => {};
     const onFailure = () => {};
@@ -111,9 +111,14 @@ class TagPicker extends React.Component {
   render() {
     const { media, tags, value } = this.props;
 
-    const compareString = (tag, val) => tag.toLowerCase().includes(val.toLowerCase());
+    const compareString = (tag, val) => {
+      if (!tag) {
+        return false;
+      }
+      return tag.toLowerCase().includes(val.toLowerCase());
+    };
 
-    const plainMediaTags = tags.map(tag => tag.node.tag);
+    const plainMediaTags = tags.map(tag => tag.node.tag_text);
 
     const suggestedTags = media.team && media.team.get_suggested_tags
       ? media.team.get_suggested_tags.split(',').filter(tag => compareString(tag, value))

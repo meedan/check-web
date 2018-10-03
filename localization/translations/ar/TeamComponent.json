@@ -1,4 +1,5 @@
 {
-  "teamComponent.teamInformation": "معلومات الفريق",
-  "teamComponent.teamBots": "بوتات الفريق"
+  "teamSettings.Tags": "الوسوم",
+  "teamSettings.integrations": "التكاملات",
+  "teamSettings.bots": "البوتات"
 }

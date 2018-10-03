@@ -1162,7 +1162,7 @@ class SourceComponent extends Component {
     }
 
     const tags = this.getSource().tags.edges;
-    const tagLabels = tags.map(tag => tag.node.tag);
+    const tagLabels = tags.map(tag => tag.node.tag_text);
     const suggestedTags =
       this.props.source.team && this.props.source.team.get_suggested_tags
         ? this.props.source.team.get_suggested_tags.split(',')

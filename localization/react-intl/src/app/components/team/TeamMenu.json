@@ -4,6 +4,10 @@
     "defaultMessage": "Edit team"
   },
   {
+    "id": "teamMenu.teamSettings",
+    "defaultMessage": "Team settings"
+  },
+  {
     "id": "teamMenu.trash",
     "defaultMessage": "View trash"
   }

@@ -59,6 +59,7 @@ const checkSearchResultFragment = Relay.QL`
             edges {
               node {
                 tag,
+                tag_text,
                 id
               }
             }

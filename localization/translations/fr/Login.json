@@ -1,5 +1,6 @@
 {
   "login.passwordInputHint": "Mot de passe",
+  "login.tosMissing": "Vous devez accepter les conditions d'utilisation et la politique de confidentialité",
   "login.disclaimer": "Nous ne publierons rien sans votre permission",
   "login.title": "Connexion",
   "login.registerTitle": "Enregistrement",

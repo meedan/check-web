@@ -173,6 +173,7 @@ const SourceMediasContainer = Relay.createContainer(SourceMediasComponent, {
                   edges {
                     node {
                       tag,
+                      tag_text,
                       id
                     }
                   }

@@ -28,6 +28,7 @@
   "annotation.machineTranslation": "Machine translation for \"{lang}\" is: {text}",
   "annotation.translationStatus": "Translation status set to {status} by {author}",
   "annotation.translationPublished": "Translation published to {link}",
+  "annotation.publishTranslation": "Publish this translation to {link}",
   "annotation.archiverSuccess": "In case this link goes offline, you can <a href=\"{link}\" target=\"_blank\" rel=\"noopener noreferrer\">access a backup on <b>{name}</b> via Keep</a>",
   "annotation.archiverError": "There was an error when Keep tried to archive this item to <b>{name}</b>. Refresh this media to try again.",
   "annotation.archiverWait": "This item is being archived to <b>{name}</b> by Keep. Come back in a few minutes to receive a confirmation link.",

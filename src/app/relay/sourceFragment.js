@@ -39,6 +39,7 @@ const sourceFragment = Relay.QL`
       edges {
         node {
           tag,
+          tag_text,
           id
         }
       }
@@ -143,6 +144,7 @@ const sourceFragment = Relay.QL`
             edges {
               node {
                 tag,
+                tag_text,
                 id
               }
             }

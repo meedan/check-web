@@ -100,6 +100,7 @@ const TagMenuContainer = Relay.createContainer(TagMenuComponent, {
           edges {
             node {
               tag,
+              tag_text,
               id
             }
           }

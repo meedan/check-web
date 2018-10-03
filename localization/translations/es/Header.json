@@ -1,4 +1,5 @@
 {
   "headerActions.search": "Buscar",
-  "headerActions.signIn": "Iniciar sesión"
+  "headerActions.signIn": "Iniciar sesión",
+  "headerActions.teamInfo": "Información del equipo"
 }

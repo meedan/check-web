@@ -20,6 +20,7 @@ import UserConfirmed from './UserConfirmed';
 import UserUnconfirmed from './UserUnconfirmed';
 import UserPasswordChange from './UserPasswordChange';
 import UserPasswordReset from './UserPasswordReset';
+import UserTos from './UserTos';
 import Source from './source/Source';
 import User from './source/User';
 import Me from './source/Me';
@@ -138,6 +139,7 @@ class Root extends Component {
                 <Route path="check/user/unconfirmed" component={UserUnconfirmed} public />
                 <Route path="check/user/password-reset" component={UserPasswordReset} public />
                 <Route path="check/user/password-change" component={UserPasswordChange} public />
+                <Route path="check/user/tos" component={UserTos} public />
                 <Route path="check/forbidden" component={AccessDenied} public />
                 <Route path="check/404" component={NotFound} public />
 
@@ -161,7 +163,8 @@ class Root extends Component {
                 <Route path=":team/search(/:query)" component={Search} public />
                 <Route path=":team/trash(/:query)" component={Trash} />
                 <Route path=":team" component={Team} public />
-                <Route path=":team/edit" isEditing component={Team} />
+                <Route path=":team/edit" action="edit" component={Team} />
+                <Route path=":team/settings" action="settings" component={Team} />
 
                 <Route path="*" component={NotFound} public />
               </Route>

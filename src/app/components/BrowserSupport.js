@@ -59,7 +59,7 @@ class BrowserSupport extends Component {
       return (
         <Message>
           <ContentColumn>
-            <IconButton style={{ fontSize: 20, color: black54 }} onClick={this.close.bind(this)}>
+            <IconButton style={{ fontSize: '20px', color: black54 }} onClick={this.close.bind(this)}>
               <MdClear />
             </IconButton>
             <div>
