@@ -50,8 +50,10 @@ const pageSize = 20;
 const statusKey = config.appName === 'bridge' ? 'translation_status' : 'verification_status';
 
 const StyledSearchInput = styled.input`
-  background: ${units(2)} 50% url('/images/search.svg') ${white} no-repeat;
-  background-size: ${units(2)};
+  background-repeat: no-repeat;
+  background-color: ${white};
+  background-image: url('/images/search.svg');
+  background-position: ${props => (props.isRtl ? `calc(100% - ${units(2)})` : units(2))} center;
   border: ${borderWidthSmall} solid ${black16};
   border-radius: ${units(0.5)};
   height: ${units(6)};
@@ -84,12 +86,12 @@ const StyledPopper = styled(Popper)`
 
   a {
     font: ${caption};
-    padding-left: ${units(1)};
+    padding-${props => (props.isRtl ? 'right' : 'left')}: ${units(1)};
   }
 
   button {
     color: ${black54};
-    float: right;
+    float: ${props => (props.isRtl ? 'left' : 'right')};
   }
 `;
 
@@ -498,6 +500,7 @@ class SearchQueryComponent extends Component {
               />
               <StyledPopper
                 id="search-help"
+                isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
                 open={this.state.popper.open}
                 anchorEl={this.state.popper.anchorEl}
               >
