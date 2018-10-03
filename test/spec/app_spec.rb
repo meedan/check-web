@@ -1925,6 +1925,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       link = wait_for_selector_list('.teams a').first
       link.click
       link = wait_for_selector('.projects a')
+      sleep 2
       link.click
       sleep 5
 
@@ -1932,6 +1933,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       button = wait_for_selector('#teams-tab')
       button.click
       link = wait_for_selector_list('.teams a').last
+      sleep 2
       link.click
       sleep 5
 
