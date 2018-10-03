@@ -46,12 +46,16 @@ class TeamComponent extends Component {
   constructor(props) {
     super(props);
 
-    const showTab = can(props.team.permissions, 'update Team') ? 'bots' : 'tags';
-
     this.state = {
-      showTab,
+      showTab: null,
       message: null,
     };
+  }
+
+  componentWillMount() {
+    const showTab = UserUtil.myRole(this.getCurrentUser(), this.props.team.slug) === 'owner' ?
+      'bots' : 'tags';
+    this.setState({ showTab });
   }
 
   componentDidMount() {
@@ -142,16 +146,18 @@ class TeamComponent extends Component {
                 value="integrations"
               />
               : null }
-            { isSettings ? <Tab
-              className="team-settings__bots-tab"
-              label={
-                <FormattedMessage
-                  id="teamSettings.bots"
-                  defaultMessage="Bots"
-                />
-              }
-              value="bots"
-            /> : null }
+            {UserUtil.myRole(this.getCurrentUser(), team.slug) === 'owner' ?
+              <Tab
+                className="team-settings__bots-tab"
+                label={
+                  <FormattedMessage
+                    id="teamSettings.bots"
+                    defaultMessage="Bots"
+                  />
+                }
+                value="bots"
+              />
+              : null }
           </Tabs>
         );
       }
