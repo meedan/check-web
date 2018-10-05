@@ -1,0 +1,10 @@
+[
+  {
+    "id": "teamTasks.title",
+    "defaultMessage": "Teamwide tasks"
+  },
+  {
+    "id": "teamTasks.blank",
+    "defaultMessage": "No teamwide tasks yet"
+  }
+]

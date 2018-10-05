@@ -20,12 +20,16 @@
     "defaultMessage": "New task"
   },
   {
+    "id": "singleChoiceTask.editTask",
+    "defaultMessage": "Edit task"
+  },
+  {
     "id": "tasks.cancelAdd",
     "defaultMessage": "Cancel"
   },
   {
     "id": "tasks.add",
-    "defaultMessage": "Create Task"
+    "defaultMessage": "Save"
   },
   {
     "id": "tasks.taskPrompt",

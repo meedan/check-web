@@ -1,0 +1,26 @@
+[
+  {
+    "id": "teamTasks.cancelDelete",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "teamTasks.continue",
+    "defaultMessage": "Continue"
+  },
+  {
+    "id": "teamTasks.edit",
+    "defaultMessage": "Edit task"
+  },
+  {
+    "id": "teamTasks.delete",
+    "defaultMessage": "Delete task"
+  },
+  {
+    "id": "teamTasks.confirmDeleteTitle",
+    "defaultMessage": "Are you sure you want to delete this task?"
+  },
+  {
+    "id": "teamTasks.confirmDelete",
+    "defaultMessage": "Yes"
+  }
+]

@@ -35,26 +35,33 @@ const messages = defineMessages({
     id: 'singleChoiceTask.newTask',
     defaultMessage: 'New task',
   },
+  editTask: {
+    id: 'singleChoiceTask.editTask',
+    defaultMessage: 'Edit task',
+  },
 });
 
 class CreateOptionsTask extends React.Component {
   constructor(props) {
     super(props);
 
+    const { task } = props;
+
     this.state = {
-      label: null,
-      description: null,
+      label: task ? task.label : null,
+      description: task ? task.label : null,
       message: null,
-      options: [{ label: '' }, { label: '' }],
+      options: task ? task.options : [{ label: '' }, { label: '' }],
       submitDisabled: true,
       showAssignmentField: false,
-      required: false,
+      required: task ? task.required : false,
       confirmRequired: false,
     };
   }
 
   handleDescriptionChange(e) {
     this.setState({ description: e.target.value });
+    this.validateTask(this.state.label, this.state.options);
   }
 
   handleAddValue() {
@@ -109,9 +116,16 @@ class CreateOptionsTask extends React.Component {
   }
 
   validateTask(label, options) {
-    const valid = !!(label && label.trim()) && options.filter(item => item.label !== '').length > 1;
+    let valid = false;
+
+    if (this.props.taskType === 'single_choice' ||
+        this.props.taskType === 'multiple_choice') {
+      valid = !!(label && label.trim()) && options.filter(item => item.label !== '').length > 1;
+    } else {
+      valid = !!(label && label.trim());
+    }
+
     this.setState({ submitDisabled: !valid });
-    return valid;
   }
 
   handleLabelChange(e) {
@@ -121,25 +135,33 @@ class CreateOptionsTask extends React.Component {
 
   handleSelectRequired(e, inputChecked) {
     const { media } = this.props;
-    const status = getStatus(mediaStatuses(media), mediaLastStatus(media));
 
-    if (inputChecked && status.completed && !media.last_status_obj.locked) {
-      this.setState({ required: inputChecked, confirmRequired: true, status });
-    } else {
-      this.setState({ required: inputChecked });
+    if (media) {
+      const status = getStatus(mediaStatuses(media), mediaLastStatus(media));
+
+      if (inputChecked && status.completed && !media.last_status_obj.locked) {
+        this.setState({ required: inputChecked, confirmRequired: true, status });
+        return;
+      }
     }
+
+    this.setState({ required: inputChecked });
+    this.validateTask(this.state.label, this.state.options);
   }
 
   handleSubmitTask() {
     const jsonoptions = JSON.stringify(this.state.options.filter(item => item.label !== ''));
 
+    const task = {
+      label: this.state.label,
+      description: this.state.description,
+      required: this.state.required,
+    };
+
+    task.jsonoptions = jsonoptions;
+
     if (!this.state.submitDisabled) {
-      this.props.onSubmit(
-        this.state.label,
-        this.state.description,
-        this.state.required,
-        jsonoptions,
-      );
+      this.props.onSubmit(task);
       this.setState({ submitDisabled: true });
     }
   }
@@ -148,15 +170,66 @@ class CreateOptionsTask extends React.Component {
     this.setState({ showAssignmentField: !this.state.showAssignmentField });
   }
 
-  render() {
-    const canRemove = this.state.options.length > 2;
+  renderOptions() {
+    if (this.props.taskType !== 'single_choice' &&
+        this.props.taskType !== 'multiple_choice') {
+      return null;
+    }
 
     const { formatMessage } = this.props.intl;
+
+    const canRemove = this.state.options.length > 2;
 
     const taskIcon = {
       single_choice: <MdRadioButtonUnchecked />,
       multiple_choice: <MdCheckBoxOutlineBlank />,
     };
+
+    return (
+      <div style={{ marginTop: units(2) }}>
+        {this.state.options.map((item, index) => (
+          <div key={`create-task__add-options-radiobutton-${index.toString()}`}>
+            <StyledIconButton>
+              { taskIcon[this.props.taskType] }
+            </StyledIconButton>
+            <TextField
+              key="create-task__add-option-input"
+              className="create-task__add-option-input"
+              id={index.toString()}
+              onChange={this.handleEditOption.bind(this)}
+              placeholder={`${formatMessage(messages.value)} ${index + 1}`}
+              value={item.label}
+              disabled={item.other}
+              style={{ padding: `${units(0.5)} ${units(1)}`, width: '75%' }}
+            />
+            {canRemove ?
+              <StyledIconButton>
+                <MdCancel
+                  key="create-task__remove-option-button"
+                  className="create-task__remove-option-button create-task__md-icon"
+                  onClick={this.handleRemoveOption.bind(this, index)}
+                />
+              </StyledIconButton>
+              : null}
+          </div>
+        ))}
+        <div style={{ marginTop: units(1) }}>
+          <FlatButton
+            label={this.props.intl.formatMessage(messages.addValue)}
+            onClick={this.handleAddValue.bind(this)}
+          />
+          <FlatButton
+            label={this.props.intl.formatMessage(messages.addOther)}
+            onClick={this.handleAddOther.bind(this)}
+            disabled={this.state.hasOther}
+          />
+        </div>
+      </div>
+    );
+  }
+
+  render() {
+    const dialogTitle = this.props.task ? messages.editTask : messages.newTask;
 
     const actions = [
       <FlatButton
@@ -167,7 +240,7 @@ class CreateOptionsTask extends React.Component {
       <FlatButton
         key="create-task__dialog-submit-button"
         className="create-task__dialog-submit-button"
-        label={<FormattedMessage id="tasks.add" defaultMessage="Create Task" />}
+        label={<FormattedMessage id="tasks.add" defaultMessage="Save" />}
         primary
         keyboardFocused
         onClick={this.handleSubmitTask.bind(this)}
@@ -178,7 +251,7 @@ class CreateOptionsTask extends React.Component {
     return (
       <div>
         <Dialog
-          title={this.props.intl.formatMessage(messages.newTask)}
+          title={this.props.intl.formatMessage(dialogTitle)}
           className="create-task__dialog"
           actions={actions}
           modal={false}
@@ -192,23 +265,21 @@ class CreateOptionsTask extends React.Component {
             id="task-label-input"
             className="tasks__task-label-input"
             floatingLabelText={<FormattedMessage id="tasks.taskPrompt" defaultMessage="Prompt" />}
+            defaultValue={this.state.label}
             onChange={this.handleLabelChange.bind(this)}
             multiLine
             fullWidth
           />
-          { this.props.media ?
-            <Checkbox
-              label={
-                <FormattedMessage
-                  id="tasks.requiredCheckbox"
-                  defaultMessage="Required"
-                />
-              }
-              checked={this.state.required}
-              onCheck={this.handleSelectRequired.bind(this)}
-            />
-            : null
-          }
+          <Checkbox
+            label={
+              <FormattedMessage
+                id="tasks.requiredCheckbox"
+                defaultMessage="Required"
+              />
+            }
+            checked={Boolean(this.state.required)}
+            onCheck={this.handleSelectRequired.bind(this)}
+          />
           <ConfirmRequired
             open={this.state.confirmRequired}
             status={this.state.status}
@@ -216,45 +287,8 @@ class CreateOptionsTask extends React.Component {
             handleConfirm={() => { this.setState({ confirmRequired: false }); }}
           />
 
-          <div style={{ marginTop: units(2) }}>
-            {this.state.options.map((item, index) => (
-              <div key={`create-task__add-options-radiobutton-${index.toString()}`}>
-                <StyledIconButton>
-                  { taskIcon[this.props.taskType] }
-                </StyledIconButton>
-                <TextField
-                  key="create-task__add-option-input"
-                  className="create-task__add-option-input"
-                  id={index.toString()}
-                  onChange={this.handleEditOption.bind(this)}
-                  placeholder={`${formatMessage(messages.value)} ${index + 1}`}
-                  value={item.label}
-                  disabled={item.other}
-                  style={{ padding: `${units(0.5)} ${units(1)}`, width: '75%' }}
-                />
-                {canRemove ?
-                  <StyledIconButton>
-                    <MdCancel
-                      key="create-task__remove-option-button"
-                      className="create-task__remove-option-button create-task__md-icon"
-                      onClick={this.handleRemoveOption.bind(this, index)}
-                    />
-                  </StyledIconButton>
-                  : null}
-              </div>
-            ))}
-            <div style={{ marginTop: units(1) }}>
-              <FlatButton
-                label={this.props.intl.formatMessage(messages.addValue)}
-                onClick={this.handleAddValue.bind(this)}
-              />
-              <FlatButton
-                label={this.props.intl.formatMessage(messages.addOther)}
-                onClick={this.handleAddOther.bind(this)}
-                disabled={this.state.hasOther}
-              />
-            </div>
-          </div>
+          {this.renderOptions()}
+
           <StyledTaskDescription>
             <input
               className="create-task__add-task-description"
@@ -267,6 +301,7 @@ class CreateOptionsTask extends React.Component {
               floatingLabelText={
                 <FormattedMessage id="tasks.description" defaultMessage="Description" />
               }
+              defaultValue={this.props.description}
               onChange={this.handleDescriptionChange.bind(this)}
               multiLine
             />

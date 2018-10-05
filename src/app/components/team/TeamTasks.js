@@ -3,6 +3,7 @@ import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import TeamTasksProject from './TeamTasksProject';
 import CreateTeamTask from './CreateTeamTask';
+import BlankState from '../layout/BlankState';
 import TeamRoute from '../../relay/TeamRoute';
 import { ContentColumn } from '../../styles/js/shared';
 
@@ -12,15 +13,17 @@ const TeamTasksComponent = (props) => {
   const taskList = (projectId) => {
     const tasksForProject = [];
 
-    props.team.checklist.forEach((t) => {
-      if (t.projects.length === 0 || t.projects.indexOf(projectId) > -1) {
-        tasksForProject.push(t);
+    props.team.checklist.forEach((task, index) => {
+      if (task.projects.length === 0 || task.projects.indexOf(projectId) > -1) {
+        const checklistIndex = { task, index };
+        tasksForProject.push(checklistIndex);
       }
     });
 
     return tasksForProject;
   };
 
+  // TODO: optimization: make only one iteration loop (map) instead of two (forEach and map)
   projects.forEach((p, index) => {
     projects[index].node.teamTasks = taskList(p.node.dbid);
   });
@@ -29,7 +32,18 @@ const TeamTasksComponent = (props) => {
     <div>
       <ContentColumn>
         <h2><FormattedMessage id="teamTasks.title" defaultMessage="Teamwide tasks" /></h2>
-        { projects.map(p => <TeamTasksProject key={p.node.dbid} project={p.node} />)}
+        { props.team.checklist.length ? projects.map(p =>
+          (<TeamTasksProject
+            key={p.node.dbid}
+            project={p.node}
+            team={props.team}
+          />))
+          : (
+            <BlankState>
+              <FormattedMessage id="teamTasks.blank" defaultMessage="No teamwide tasks yet" />
+            </BlankState>
+          )
+        }
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
           <CreateTeamTask team={props.team} />
         </div>
