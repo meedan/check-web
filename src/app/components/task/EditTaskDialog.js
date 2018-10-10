@@ -41,7 +41,7 @@ const messages = defineMessages({
   },
 });
 
-class CreateOptionsTask extends React.Component {
+class EditTaskDialog extends React.Component {
   constructor(props) {
     super(props);
 
@@ -336,4 +336,4 @@ class CreateOptionsTask extends React.Component {
   }
 }
 
-export default injectIntl(CreateOptionsTask);
+export default injectIntl(EditTaskDialog);

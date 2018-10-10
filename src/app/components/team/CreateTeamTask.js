@@ -1,7 +1,7 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
 import CreateTaskMenu from '../task/CreateTaskMenu';
-import CreateOptionsTask from '../task/CreateOptionsTask';
+import EditTaskDialog from '../task/EditTaskDialog';
 import UpdateTeamMutation from '../../relay/mutations/UpdateTeamMutation';
 
 class CreateTeamTask extends React.Component {
@@ -74,7 +74,7 @@ class CreateTeamTask extends React.Component {
       <div>
         <CreateTaskMenu onSelect={this.handleSelectType} hideTeamwideOption />
         { this.state.createType ?
-          <CreateOptionsTask
+          <EditTaskDialog
             taskType={this.state.createType}
             onDismiss={this.handleClose}
             onSubmit={this.handleSubmitTask}

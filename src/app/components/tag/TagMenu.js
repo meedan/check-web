@@ -5,7 +5,6 @@ import isEqual from 'lodash.isequal';
 import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
-// import IconLocalOffer from 'material-ui/svg-icons/maps/local-offer';
 import styled from 'styled-components';
 import TagInput from './TagInput';
 import TagPicker from './TagPicker';

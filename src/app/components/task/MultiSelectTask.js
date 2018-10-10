@@ -4,7 +4,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FlatButton from 'material-ui/FlatButton';
 import { FormattedMessage } from 'react-intl';
-import CreateOptionsTask from './CreateOptionsTask';
+import EditTaskDialog from './EditTaskDialog';
 import { safelyParseJSON } from '../../helpers';
 import { StyledSmallTextField } from '../../styles/js/shared';
 
@@ -249,7 +249,7 @@ class MultiSelectTask extends Component {
     return (
       <div>
         {this.props.mode === 'create' ?
-          <CreateOptionsTask
+          <EditTaskDialog
             taskType="multiple_choice"
             media={media}
             onDismiss={this.props.onDismiss.bind(this)}

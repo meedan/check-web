@@ -18,7 +18,7 @@ import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import Message from '../Message';
-import CreateOptionsTask from '../task/CreateOptionsTask';
+import EditTaskDialog from '../task/EditTaskDialog';
 import { RequiredIndicator } from '../task/Task';
 import { units } from '../../styles/js/shared';
 import UpdateTeamMutation from '../../relay/mutations/UpdateTeamMutation';
@@ -31,7 +31,7 @@ class TeamTasksListItem extends React.Component {
     editedTask: null,
   };
 
-  handleClick = (event) => {
+  handleMenuClick = (event) => {
     this.setState({ anchorEl: event.currentTarget });
   };
 
@@ -39,16 +39,38 @@ class TeamTasksListItem extends React.Component {
     this.setState({ anchorEl: null });
   };
 
-  handleEdit = (index) => {
+  handleMenuEdit = (index) => {
     this.setState({
-      editedTask: this.props.team.checklist[index],
+      dialogOpen: true,
+      action: 'edit',
+      editTaskIndex: index,
     });
     this.handleCloseMenu();
   };
 
-  handleDelete = (index) => {
-    this.setState({ dialogOpen: true, deleteTaskIndex: index });
+  handleMenuDelete = (index) => {
+    this.setState({
+      dialogOpen: true,
+      action: 'delete',
+      deleteTaskIndex: index,
+    });
     this.handleCloseMenu();
+  };
+
+  handleConfirmDialog = () => {
+    if (this.state.action === 'delete') {
+      this.handleDestroy();
+    } else if (this.state.action === 'edit') {
+      this.handleEdit();
+    }
+  }
+
+  handleEdit = () => {
+    const index = this.state.editTaskIndex;
+    this.setState({
+      editedTask: this.props.team.checklist[index],
+    });
+    this.handleCloseDialog();
   };
 
   handleDestroy = () => {
@@ -166,7 +188,7 @@ class TeamTasksListItem extends React.Component {
         label={<FormattedMessage id="teamTasks.continue" defaultMessage="Continue" />}
         primary
         keyboardFocused
-        onClick={this.handleDestroy}
+        onClick={this.handleConfirmDialog}
         disabled={!this.state.confirmed}
       />,
     ];
@@ -179,7 +201,7 @@ class TeamTasksListItem extends React.Component {
           </ListItemIcon>
           <ListItemText primary={label} />
           <ListItemSecondaryAction>
-            <IconButton onClick={this.handleClick}>
+            <IconButton onClick={this.handleMenuClick}>
               <MoreHorizIcon />
             </IconButton>
             <Menu
@@ -188,10 +210,10 @@ class TeamTasksListItem extends React.Component {
               open={Boolean(anchorEl)}
               onClose={this.handleCloseMenu}
             >
-              <MenuItem onClick={() => this.handleEdit(index)}>
+              <MenuItem onClick={() => this.handleMenuEdit(index)}>
                 <FormattedMessage id="teamTasks.edit" defaultMessage="Edit task" />
               </MenuItem>
-              <MenuItem onClick={() => this.handleDelete(index)}>
+              <MenuItem onClick={() => this.handleMenuDelete(index)}>
                 <FormattedMessage id="teamTasks.delete" defaultMessage="Delete task" />
               </MenuItem>
             </Menu>
@@ -206,10 +228,18 @@ class TeamTasksListItem extends React.Component {
         >
           <Message message={this.state.message} />
           <h2>
-            <FormattedMessage
-              id="teamTasks.confirmDeleteTitle"
-              defaultMessage="Are you sure you want to delete this task?"
-            />
+            { this.state.action === 'edit' ?
+              <FormattedMessage
+                id="teamTasks.confirmEditTitle"
+                defaultMessage="Are you sure you want to edit this task?"
+              /> : null
+            }
+            { this.state.action === 'delete' ?
+              <FormattedMessage
+                id="teamTasks.confirmDeleteTitle"
+                defaultMessage="Are you sure you want to delete this task?"
+              /> : null
+            }
           </h2>
           <div style={{ margin: `${units(4)} 0` }}>
             <Checkbox
@@ -222,7 +252,7 @@ class TeamTasksListItem extends React.Component {
         </Dialog>
 
         { editedTask ?
-          <CreateOptionsTask
+          <EditTaskDialog
             task={editedTask}
             taskType={editedTask.type}
             onDismiss={this.handleCloseEdit}
