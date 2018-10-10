@@ -659,6 +659,7 @@ class Task extends Component {
           modal={false}
           open={!!this.state.editingQuestion}
           onRequestClose={this.handleCancelQuestionEdit.bind(this)}
+          bodyStyle={{ overflowY: 'unset' }}
         >
           <Message message={this.state.message} />
           <form name={`edit-task-${task.dbid}`}>
@@ -694,7 +695,7 @@ class Task extends Component {
               fullWidth
               multiLine
             />
-            <h2 style={{ marginTop: units(2) }}><FormattedMessage id="tasks.assignment" defaultMessage="Assignment" /></h2>
+            <h3 style={{ marginTop: units(2) }}><FormattedMessage id="tasks.assignment" defaultMessage="Assignment" /></h3>
             <Attribution
               multi={false}
               selectedUsers={assignedUsers}
@@ -713,7 +714,7 @@ class Task extends Component {
           autoScrollBodyContent
         >
           <Message message={this.state.message} />
-          <h2><FormattedMessage id="tasks.editAttribution" defaultMessage="Edit attribution" /></h2>
+          <h3><FormattedMessage id="tasks.editAttribution" defaultMessage="Edit attribution" /></h3>
           <p style={{ marginBottom: units(2), marginTop: units(2) }}>
             <FormattedMessage id="tasks.attributionSlogan" defaultMessage='For the task, "{label}"' values={{ label: task.label }} />
           </p>

@@ -18,7 +18,7 @@ const ClaimReview = (props) => {
 
   // Bail early with bad data.
   if (
-    !data.author || !data.author.url ||
+    !data.author ||
     !data.reviewRating || (!data.reviewRating.alternateName && !data.reviewRating.ratingValue) ||
     !data.claimReviewed ||
     !data.itemReviewed || !data.itemReviewed.author
@@ -26,11 +26,13 @@ const ClaimReview = (props) => {
     return null;
   }
 
-  const reviewer = (
-    <a href={data.author.url} target="_blank" rel="noopener noreferrer">
-      {data.author.name || (new URL(data.author.url)).hostname}
-    </a>
-  );
+  const reviewer = data.author.url ?
+    (
+      <a href={data.author.url} target="_blank" rel="noopener noreferrer">
+        {data.author.name || (new URL(data.author.url)).hostname}
+      </a>
+    ) :
+    data.author.name;
   const rating = data.reviewRating.alternateName ||
     `${data.reviewRating.ratingValue} (${data.reviewRating.worstRating}-${data.reviewRating.bestRating})`;
   return (

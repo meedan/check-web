@@ -16,6 +16,7 @@ import HeaderCard from '../HeaderCard';
 import PageTitle from '../PageTitle';
 import Message from '../Message';
 import { can } from '../Can';
+import UserUtil from '../user/UserUtil';
 import CheckContext from '../../CheckContext';
 import {
   ContentColumn,
@@ -47,9 +48,15 @@ class TeamComponent extends Component {
     super(props);
 
     this.state = {
-      showTab: 'bots',
+      showTab: null,
       message: null,
     };
+  }
+
+  componentWillMount() {
+    const showTab = UserUtil.myRole(this.getCurrentUser(), this.props.team.slug) === 'owner' ?
+      'bots' : 'tags';
+    this.setState({ showTab });
   }
 
   componentDidMount() {
@@ -72,6 +79,10 @@ class TeamComponent extends Component {
     }
   }
 
+  getCurrentUser() {
+    return new CheckContext(this).getContextStore().currentUser;
+  }
+
   handleTabChange = value => this.setState({ showTab: value });
 
   render() {
@@ -80,6 +91,7 @@ class TeamComponent extends Component {
 
     const isEditing = (action === 'edit') && can(team.permissions, 'update Team');
     const isSettings = (action === 'settings') && can(team.permissions, 'update Team');
+    const isReadOnly = (action === 'settings') && can(team.permissions, 'read Team');
 
     const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
 
@@ -110,7 +122,7 @@ class TeamComponent extends Component {
     };
 
     const TeamSettingsTabs = () => {
-      if (isSettings) {
+      if (isSettings || isReadOnly) {
         return (
           <Tabs value={this.state.showTab} onChange={this.handleTabChange}>
             <Tab
@@ -123,7 +135,7 @@ class TeamComponent extends Component {
               }
               value="tasks"
             />
-            <Tab
+            { isSettings || isReadOnly ? <Tab
               className="team-settings__tags-tab"
               label={
                 <FormattedMessage
@@ -132,27 +144,31 @@ class TeamComponent extends Component {
                 />
               }
               value="tags"
-            />
-            <Tab
-              className="team-settings__integrations-tab"
-              label={
-                <FormattedMessage
-                  id="teamSettings.integrations"
-                  defaultMessage="Integrations"
-                />
-              }
-              value="integrations"
-            />
-            <Tab
-              className="team-settings__bots-tab"
-              label={
-                <FormattedMessage
-                  id="teamSettings.bots"
-                  defaultMessage="Bots"
-                />
-              }
-              value="bots"
-            />
+            /> : null }
+            {UserUtil.myRole(this.getCurrentUser(), team.slug) === 'owner' ?
+              <Tab
+                className="team-settings__integrations-tab"
+                label={
+                  <FormattedMessage
+                    id="teamSettings.integrations"
+                    defaultMessage="Integrations"
+                  />
+                }
+                value="integrations"
+              />
+              : null }
+            {UserUtil.myRole(this.getCurrentUser(), team.slug) === 'owner' ?
+              <Tab
+                className="team-settings__bots-tab"
+                label={
+                  <FormattedMessage
+                    id="teamSettings.bots"
+                    defaultMessage="Bots"
+                  />
+                }
+                value="bots"
+              />
+              : null }
           </Tabs>
         );
       }
@@ -170,7 +186,7 @@ class TeamComponent extends Component {
               <TeamSettingsTabs />
             </ContentColumn>
           </HeaderCard>
-          { !isEditing && !isSettings ? <TeamPageContent /> : null }
+          { !isEditing && !isSettings && !isReadOnly ? <TeamPageContent /> : null }
           { isSettings && this.state.showTab === 'tasks'
             ? <TeamTasks team={team} />
             : null }
@@ -183,7 +199,7 @@ class TeamComponent extends Component {
                 <SlackConfig team={team} />
               </ContentColumn>
             ) : null }
-          { isSettings && this.state.showTab === 'tags'
+          { isReadOnly && this.state.showTab === 'tags'
             ? <TeamTags team={team} direction={direction} />
             : null }
         </div>

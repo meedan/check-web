@@ -1,5 +1,6 @@
 {
   "login.passwordInputHint": "Password",
+  "login.tosMissing": "You must agree to the Terms of Service and Privacy Policy",
   "login.disclaimer": "We won’t publish without your permission",
   "login.title": "Sign in",
   "login.registerTitle": "Register",

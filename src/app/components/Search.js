@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
-import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import InfiniteScroll from 'react-infinite-scroller';
+import Popper from '@material-ui/core/Popper';
+import Paper from '@material-ui/core/Paper';
+import IconButton from 'material-ui/IconButton';
+import MdClear from 'react-icons/lib/md/clear';
 import isEqual from 'lodash.isequal';
 import sortby from 'lodash.sortby';
 import styled from 'styled-components';
@@ -26,6 +30,7 @@ import {
   black38,
   black16,
   black05,
+  black54,
   boxShadow,
   Row,
   ContentColumn,
@@ -36,6 +41,7 @@ import {
   transitionSpeedDefault,
   mediaQuery,
   ellipsisStyles,
+  columnWidthMedium,
 } from '../styles/js/shared';
 
 // TODO Make this a config
@@ -44,8 +50,10 @@ const pageSize = 20;
 const statusKey = config.appName === 'bridge' ? 'translation_status' : 'verification_status';
 
 const StyledSearchInput = styled.input`
-  background: ${units(2)} 50% url('/images/search.svg') ${white} no-repeat;
-  background-size: ${units(2)};
+  background-repeat: no-repeat;
+  background-color: ${white};
+  background-image: url('/images/search.svg');
+  background-position: ${props => (props.isRtl ? `calc(100% - ${units(2)})` : units(2))} center;
   border: ${borderWidthSmall} solid ${black16};
   border-radius: ${units(0.5)};
   height: ${units(6)};
@@ -60,6 +68,31 @@ const StyledSearchInput = styled.input`
     transition: box-shadow ${transitionSpeedDefault};
   }
   padding-${props => (props.isRtl ? 'right' : 'left')}: ${units(6)};
+`;
+
+const StyledPopper = styled(Popper)`
+  width: 100%;
+  max-width: ${columnWidthMedium};
+  padding: 0 ${units(1)};
+
+  table {
+    width: 100%;
+    display: block;
+  }
+
+  td {
+    padding: ${units(1)};
+  }
+
+  a {
+    font: ${caption};
+    padding-${props => (props.isRtl ? 'right' : 'left')}: ${units(1)};
+  }
+
+  button {
+    color: ${black54};
+    float: ${props => (props.isRtl ? 'left' : 'right')};
+  }
 `;
 
 const StyledSearchFiltersSection = styled.section`
@@ -205,6 +238,11 @@ class SearchQueryComponent extends Component {
 
     this.state = {
       query: {},
+      popper: {
+        open: false,
+        allowed: true,
+        anchorEl: null,
+      },
     };
   }
 
@@ -227,7 +265,9 @@ class SearchQueryComponent extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     const query = searchQueryFromUrl();
-    return !isEqual(this.state.query, nextState.query) || !isEqual(this.state.query, query);
+    return !isEqual(this.state.query, nextState.query) ||
+           !isEqual(this.state.query, query) ||
+           !isEqual(this.state.popper, nextState.popper);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -402,11 +442,26 @@ class SearchQueryComponent extends Component {
   }
 
   showField(field) {
-    if (!this.props.fields) {
-      return true;
-    }
+    return this.props.fields ? this.props.fields.indexOf(field) > -1 : true;
+  }
 
-    return this.props.fields.indexOf(field) > -1;
+  handleInputChange() {
+    // Open the search help when
+    // - user has typed something
+    // - user has not explicitly closed the help
+    // - user has reset the keywords
+    const input = document.getElementById('search-input');
+    this.setState({
+      popper: {
+        open: input.value.length > 0 && this.state.popper.allowed,
+        anchorEl: input,
+        allowed: this.state.popper.allowed || !input.value.length,
+      },
+    });
+  }
+
+  handlePopperClick() {
+    this.setState({ popper: { open: false, allowed: false } });
   }
 
   render() {
@@ -432,16 +487,45 @@ class SearchQueryComponent extends Component {
               id="search-form"
               className="search__form"
               onSubmit={this.handleSubmit.bind(this)}
+              autoComplete="off"
             >
               <StyledSearchInput
                 placeholder={this.props.intl.formatMessage(messages.searchInputHint)}
                 name="search-input"
                 id="search-input"
                 defaultValue={this.state.query.keyword || ''}
-                ref={(input) => { this.searchQueryInput = input; }}
                 isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
+                onChange={this.handleInputChange.bind(this)}
                 autofocus
               />
+              <StyledPopper
+                id="search-help"
+                isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
+                open={this.state.popper.open}
+                anchorEl={this.state.popper.anchorEl}
+              >
+                <Paper>
+                  <IconButton style={{ fontSize: '20px' }} onClick={this.handlePopperClick.bind(this)}>
+                    <MdClear />
+                  </IconButton>
+                  <FormattedHTMLMessage
+                    id="search.help"
+                    defaultMessage='
+                      <table>
+                        <tbody>
+                          <tr><td>+</td><td>Tree + Leaf</td><td>Items with both Tree AND Leaf</td></tr>
+                          <tr><td>|</td><td>Tree | Leaf</td><td>Items with either Tree OR Leaf</td></tr>
+                          <tr><td>()</td><td>Tree + (Leaf | Branch)</td><td>Items with Tree AND Leaf OR items with Tree AND Branch</td></tr>
+                        </tbody>
+                      </table>
+                      <div>
+                        <a href="https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1" target="_blank" >
+                          Learn more about search techniques
+                        </a>
+                      </div>'
+                  />
+                </Paper>
+              </StyledPopper>
             </form>
             : null}
 

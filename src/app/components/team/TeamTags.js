@@ -19,7 +19,7 @@ import styled from 'styled-components';
 import TagTextCount from './TagTextCount';
 import TeamRoute from '../../relay/TeamRoute';
 import { units, ContentColumn, black32, black87 } from '../../styles/js/shared';
-import { can } from '../Can';
+import Can, { can } from '../Can';
 import Message from '../Message';
 import CreateTagTextMutation from '../../relay/mutations/CreateTagTextMutation';
 import UpdateTagTextMutation from '../../relay/mutations/UpdateTagTextMutation';
@@ -387,6 +387,11 @@ class TeamTagsComponent extends Component {
     );
   }
 
+  handleBlur() {
+    const search = document.getElementById('tag__search').value;
+    this.setState({ search });
+  }
+
   render() {
     const sortFunctions = {
       az: (a, b) => (a.text.localeCompare(b.text)),
@@ -463,6 +468,7 @@ class TeamTagsComponent extends Component {
               <TextField
                 id="tag__search"
                 fullWidth
+                onBlur={this.handleBlur.bind(this)}
                 onKeyPress={this.handleSearch.bind(this)}
                 defaultValue={this.state.search}
                 errorText={
@@ -536,28 +542,30 @@ class TeamTagsComponent extends Component {
               </p>
               : null }
             {this.tagsList(teamwideTags, false)}
-            <div style={{ padding: units(2) }}>
-              <TextField
-                id="tag__new"
-                onKeyUp={this.handleKeyUp.bind(this)}
-                onKeyPress={this.handleKeyPress.bind(this)}
-                floatingLabelText={<FormattedMessage id="teamTags.new" defaultMessage="New tag" />}
-                style={{ width: '50%' }}
-              />
-              <p>
-                <FlatButton
-                  onClick={this.handleAddTag.bind(this)}
-                  disabled={this.state.newTag.length === 0}
-                  primary={this.state.newTag.length > 0}
-                  label={
-                    <FormattedMessage
-                      id="teamTags.addTag"
-                      defaultMessage="Add tag"
-                    />
-                  }
+            <Can permissions={this.props.team.permissions} permission="create TagText">
+              <div style={{ padding: units(2) }}>
+                <TextField
+                  id="tag__new"
+                  onKeyUp={this.handleKeyUp.bind(this)}
+                  onKeyPress={this.handleKeyPress.bind(this)}
+                  floatingLabelText={<FormattedMessage id="teamTags.new" defaultMessage="New tag" />}
+                  style={{ width: '50%' }}
                 />
-              </p>
-            </div>
+                <p>
+                  <FlatButton
+                    onClick={this.handleAddTag.bind(this)}
+                    disabled={this.state.newTag.length === 0}
+                    primary={this.state.newTag.length > 0}
+                    label={
+                      <FormattedMessage
+                        id="teamTags.addTag"
+                        defaultMessage="Add tag"
+                      />
+                    }
+                  />
+                </p>
+              </div>
+            </Can>
           </CardText>
         </Card>
         <Card style={{ marginTop: units(5) }}>
@@ -613,6 +621,7 @@ const TeamTagsContainer = Relay.createContainer(TeamTagsComponent, {
         id
         dbid
         slug
+        permissions
         teamwide_tags(first: 10000) {
           edges {
             node {

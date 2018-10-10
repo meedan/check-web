@@ -105,6 +105,7 @@ module AppSpecHelpers
     @driver.navigate.to @config['self_url']
     sleep 1
     twitter_auth
+    agree_to_tos
     create_team
   end
 
@@ -117,8 +118,18 @@ module AppSpecHelpers
   end
 
   def wait_for_selector(selector, type = :css, timeout = 40)
-    @wait = Selenium::WebDriver::Wait.new(timeout: timeout)
-    element = @wait.until { @driver.find_element(type, selector) }
+    element = nil
+    attempts = 0
+    while element.nil? && attempts < 30 do
+      attempts += 1
+      sleep 5
+      begin
+        element = @driver.find_element(type, selector)
+        element.displayed?
+      rescue
+        element = nil
+      end
+    end
     element
   end
 
@@ -148,7 +159,6 @@ module AppSpecHelpers
     el.size
   end
 
-
   def slack_auth
     wait_for_selector("//button[@id='slack-login']", :xpath).click
     sleep 5
@@ -167,6 +177,7 @@ module AppSpecHelpers
     @driver.navigate.to @config['self_url']
     sleep 1
     slack_auth
+    agree_to_tos
     create_team
   end
 
@@ -215,7 +226,21 @@ module AppSpecHelpers
     @driver.navigate.to @config['self_url']
     sleep 1
     facebook_auth
+    agree_to_tos
     create_team
+  end
+
+  def agree_to_tos(should_submit = true)
+    if @driver.find_elements(:css, '#tos__tos-agree').size > 0
+      @driver.find_element(:css, '#tos__tos-agree').click
+      sleep 1
+      @driver.find_element(:css, '#tos__pp-agree').click
+      sleep 1
+      if should_submit
+        @driver.find_element(:css, '#tos__save').click
+        sleep 20
+      end
+    end
   end
 
   def create_team
@@ -247,6 +272,7 @@ module AppSpecHelpers
     fill_field('.login__email input', email)
     fill_field('.login__password input', '12345678')
     fill_field('.login__password-confirmation input', '12345678')
+    agree_to_tos(false)
     press_button('#submit-register-or-login')
     sleep 3
     confirm_email(email)

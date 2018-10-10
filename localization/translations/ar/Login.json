@@ -1,5 +1,6 @@
 {
   "login.passwordInputHint": "كلمة المرور",
+  "login.tosMissing": "يجب أن توافق على شروط الاستخدام وسياسة الخصوصية",
   "login.disclaimer": "لن يتم أي نشر بدون موافقتك",
   "login.title": "تسجيل الدخول",
   "login.registerTitle": "تسجيل حساب جديد",
