@@ -1,0 +1,10 @@
+[
+  {
+    "id": "teamTasks.selectProject",
+    "defaultMessage": "Select projects"
+  },
+  {
+    "id": "teamTasks.save",
+    "defaultMessage": "Save"
+  }
+]

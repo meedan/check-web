@@ -120,13 +120,8 @@ class TeamTasksListItem extends React.Component {
     const newTeamTask = {
       label,
       description,
-      required: required ? '1' : '0',
+      required: required ? 1 : 0,
       type: this.state.editedTask.type,
-      // mapping: {
-      //   type: 'text',
-      //   match: '',
-      //   prefix: '',
-      // },
       projects: [],
       options: JSON.parse(jsonoptions),
     };

@@ -34,11 +34,6 @@ class CreateTeamTask extends React.Component {
       description,
       required: required ? 1 : 0,
       type: this.state.createType,
-      // mapping: {
-      //   type: 'text',
-      //   match: '',
-      //   prefix: '',
-      // },
       projects: [],
       options: JSON.parse(jsonoptions),
     };

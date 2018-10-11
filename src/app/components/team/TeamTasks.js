@@ -3,7 +3,9 @@ import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import TeamTasksProject from './TeamTasksProject';
 import CreateTeamTask from './CreateTeamTask';
+import ProjectSelector from '../project/ProjectSelector';
 import BlankState from '../layout/BlankState';
+// import FilterPopup from '../layout/FilterPopup';
 import TeamRoute from '../../relay/TeamRoute';
 import { ContentColumn } from '../../styles/js/shared';
 
@@ -32,6 +34,13 @@ const TeamTasksComponent = (props) => {
     <div>
       <ContentColumn>
         <h2><FormattedMessage id="teamTasks.title" defaultMessage="Teamwide tasks" /></h2>
+        {/*
+          // <FilterPopup>
+
+          // </FilterPopup>
+        */}
+        <ProjectSelector projects={projects} />
+
         { props.team.checklist.length ? projects.map(p =>
           (<TeamTasksProject
             key={p.node.dbid}
