@@ -35,6 +35,7 @@ class ProjectSelector extends React.Component {
         >
           <div>
             <MultiSelector
+              allowSearch
               options={this.props.projects.map(p => ({
                 label: p.node.title,
                 value: `${p.node.dbid}`,

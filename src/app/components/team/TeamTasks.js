@@ -4,6 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import TeamTasksProject from './TeamTasksProject';
 import CreateTeamTask from './CreateTeamTask';
 import ProjectSelector from '../project/ProjectSelector';
+import TaskTypeSelector from '../task/TaskTypeSelector';
 import BlankState from '../layout/BlankState';
 // import FilterPopup from '../layout/FilterPopup';
 import TeamRoute from '../../relay/TeamRoute';
@@ -40,6 +41,7 @@ const TeamTasksComponent = (props) => {
           // </FilterPopup>
         */}
         <ProjectSelector projects={projects} />
+        <TaskTypeSelector />
 
         { props.team.checklist.length ? projects.map(p =>
           (<TeamTasksProject

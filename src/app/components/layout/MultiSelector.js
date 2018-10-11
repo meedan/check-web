@@ -17,7 +17,7 @@ const messages = defineMessages({
 
 const StyledMultiSelectorArea = styled.div`
   padding: ${units(2)};
-  height: ${units(32)};
+  min-height: ${units(36)};
   min-width: ${units(32)};
   overflow-y: auto;
   border: 1px solid ${opaqueBlack05};
@@ -67,7 +67,7 @@ class MultiSelector extends React.Component {
   filter = (options) => {
     const { filter } = this.state;
     if (filter) {
-      return options.filter(o => o.node.title.toLowerCase().includes(filter.toLowerCase()));
+      return options.filter(o => o.label.toLowerCase().includes(filter.toLowerCase()));
     }
     return options;
   };
@@ -83,12 +83,15 @@ class MultiSelector extends React.Component {
 
     return (
       <div>
-        <div style={{ padding: units(2) }}>
-          <TextField
-            onChange={this.handleChange}
-            placeholder={formatMessage(messages.search)}
-          />
-        </div>
+        { this.props.allowSearch ?
+          <div style={{ padding: units(2) }}>
+            <TextField
+              onChange={this.handleChange}
+              placeholder={formatMessage(messages.search)}
+            />
+          </div>
+          : null
+        }
         <StyledMultiSelectorArea>
           <FormGroup>
             {
@@ -97,8 +100,11 @@ class MultiSelector extends React.Component {
                   key={`multiselector-option-${index.toString()}`}
                   control={
                     <Checkbox
+                      checked={this.state.selected.indexOf(o.value) > -1}
                       onChange={this.handleSelectCheckbox}
                       id={o.value}
+                      icon={o.icon}
+                      checkedIcon={o.checkedIcon}
                     />
                   }
                   label={o.label}
