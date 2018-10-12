@@ -1,13 +1,5 @@
 [
   {
-    "id": "teamTasks.cancelDelete",
-    "defaultMessage": "Cancel"
-  },
-  {
-    "id": "teamTasks.continue",
-    "defaultMessage": "Continue"
-  },
-  {
     "id": "teamTasks.edit",
     "defaultMessage": "Edit task"
   },
@@ -26,5 +18,13 @@
   {
     "id": "teamTasks.confirmDelete",
     "defaultMessage": "Yes"
+  },
+  {
+    "id": "teamTasks.cancelDelete",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "teamTasks.continue",
+    "defaultMessage": "Continue"
   }
 ]

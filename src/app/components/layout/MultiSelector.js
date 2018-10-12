@@ -32,10 +32,13 @@ const StyledActions = styled.div`
 `;
 
 class MultiSelector extends React.Component {
-  state = {
-    selected: [],
-    filter: '',
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      selected: props.selected ? props.selected : [],
+      filter: '',
+    };
+  }
 
   handleChange = (e) => {
     this.setState({ filter: e.target.value });

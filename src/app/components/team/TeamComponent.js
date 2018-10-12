@@ -55,7 +55,7 @@ class TeamComponent extends Component {
 
   componentWillMount() {
     const showTab = UserUtil.myRole(this.getCurrentUser(), this.props.team.slug) === 'owner' ?
-      'bots' : 'tags';
+      'tasks' : 'tags';
     this.setState({ showTab });
   }
 

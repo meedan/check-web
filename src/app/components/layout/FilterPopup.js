@@ -10,7 +10,7 @@ import styled from 'styled-components';
 import { units } from '../../styles/js/shared';
 
 const StyledPaper = styled(Paper)`
-  padding: ${units(4)} ${units(2)};
+  padding: ${units(2)};
 `;
 
 class FilterPopup extends React.Component {
@@ -52,7 +52,7 @@ class FilterPopup extends React.Component {
         >
           <StyledPaper>
             {this.props.children}
-            <Button onClick={this.handleClose}>
+            <Button onClick={this.handleClose} style={{ marginTop: units(2) }}>
               <FormattedMessage id="FilterPopup.close" defaultMessage="Done" />
             </Button>
           </StyledPaper>

@@ -61,6 +61,7 @@ class EditTaskDialog extends React.Component {
       description: task ? task.label : null,
       message: null,
       options: task ? task.options : [{ label: '' }, { label: '' }],
+      projects: task ? task.projects : [],
       submitDisabled: true,
       showAssignmentField: false,
       required: task ? task.required : false,
@@ -161,6 +162,7 @@ class EditTaskDialog extends React.Component {
   handleSelectProjects = (projectsIds) => {
     const projects = projectsIds.map(id => parseInt(id, 10));
     this.setState({ projects });
+    this.validateTask(this.state.label, this.state.options);
   };
 
   handleSubmitTask() {
@@ -282,7 +284,7 @@ class EditTaskDialog extends React.Component {
             <StyledProjectsArea>
               <ProjectSelector
                 projects={this.props.projects}
-                selected={this.state.projects}
+                selected={this.state.projects.map(id => `${id}`)}
                 onSelect={this.handleSelectProjects}
               />
             </StyledProjectsArea>

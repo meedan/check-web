@@ -2,7 +2,9 @@ import React from 'react';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import Checkbox from 'material-ui/Checkbox';
-import Dialog from 'material-ui/Dialog';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
 import FlatButton from 'material-ui/FlatButton';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -174,21 +176,6 @@ class TeamTasksListItem extends React.Component {
       </span>
     );
 
-    const actions = [
-      <FlatButton
-        label={<FormattedMessage id="teamTasks.cancelDelete" defaultMessage="Cancel" />}
-        onClick={this.handleCloseDialog}
-      />,
-      <FlatButton
-        id="team-tasks__confirm-delete-button"
-        label={<FormattedMessage id="teamTasks.continue" defaultMessage="Continue" />}
-        primary
-        keyboardFocused
-        onClick={this.handleConfirmDialog}
-        disabled={!this.state.confirmed}
-      />,
-    ];
-
     return (
       <div>
         <ListItem>
@@ -217,34 +204,48 @@ class TeamTasksListItem extends React.Component {
         </ListItem>
 
         <Dialog
-          actions={actions}
-          modal={false}
           open={this.state.dialogOpen}
-          onRequestClose={this.handleCloseDialog}
+          onClose={this.handleCloseDialog}
         >
-          <Message message={this.state.message} />
-          <h2>
-            { this.state.action === 'edit' ?
-              <FormattedMessage
-                id="teamTasks.confirmEditTitle"
-                defaultMessage="Are you sure you want to edit this task?"
-              /> : null
-            }
-            { this.state.action === 'delete' ?
-              <FormattedMessage
-                id="teamTasks.confirmDeleteTitle"
-                defaultMessage="Are you sure you want to delete this task?"
-              /> : null
-            }
-          </h2>
-          <div style={{ margin: `${units(4)} 0` }}>
-            <Checkbox
-              id="team-tasks__confirm-delete-checkbox"
-              onCheck={this.handleConfirmation.bind(this)}
-              checked={this.state.confirmed}
-              label={<FormattedMessage id="teamTasks.confirmDelete" defaultMessage="Yes" />}
+          <DialogContent>
+            <Message message={this.state.message} />
+            <h2>
+              { this.state.action === 'edit' ?
+                <FormattedMessage
+                  id="teamTasks.confirmEditTitle"
+                  defaultMessage="Are you sure you want to edit this task?"
+                /> : null
+              }
+              { this.state.action === 'delete' ?
+                <FormattedMessage
+                  id="teamTasks.confirmDeleteTitle"
+                  defaultMessage="Are you sure you want to delete this task?"
+                /> : null
+              }
+            </h2>
+            <div style={{ margin: `${units(4)} 0` }}>
+              <Checkbox
+                id="team-tasks__confirm-delete-checkbox"
+                onCheck={this.handleConfirmation.bind(this)}
+                checked={this.state.confirmed}
+                label={<FormattedMessage id="teamTasks.confirmDelete" defaultMessage="Yes" />}
+              />
+            </div>
+          </DialogContent>
+          <DialogActions>
+            <FlatButton
+              label={<FormattedMessage id="teamTasks.cancelDelete" defaultMessage="Cancel" />}
+              onClick={this.handleCloseDialog}
             />
-          </div>
+            <FlatButton
+              id="team-tasks__confirm-delete-button"
+              label={<FormattedMessage id="teamTasks.continue" defaultMessage="Continue" />}
+              primary
+              keyboardFocused
+              onClick={this.handleConfirmDialog}
+              disabled={!this.state.confirmed}
+            />
+          </DialogActions>
         </Dialog>
 
         { editedTask ?

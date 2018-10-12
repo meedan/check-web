@@ -1,6 +1,10 @@
 [
   {
-    "id": "teamTasks.selectProject",
-    "defaultMessage": "Select projects"
+    "id": "projectSelector.numProjs",
+    "defaultMessage": "{length, number} selected"
+  },
+  {
+    "id": "projectSelector.allProjs",
+    "defaultMessage": "All projects"
   }
 ]

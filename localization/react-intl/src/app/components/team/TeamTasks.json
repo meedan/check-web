@@ -4,6 +4,14 @@
     "defaultMessage": "Teamwide tasks"
   },
   {
+    "id": "teamTasks.projFilter",
+    "defaultMessage": "Show tasks in"
+  },
+  {
+    "id": "teamTasks.typeFilter",
+    "defaultMessage": "Task type"
+  },
+  {
     "id": "teamTasks.blank",
     "defaultMessage": "No teamwide tasks to display"
   }

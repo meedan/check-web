@@ -60,21 +60,27 @@ class TaskTypeSelector extends React.Component {
     return (
       <div>
         <Button onClick={this.handleClick} variant="outlined">
-          <FormattedMessage id="taskTypeSelector.taskType" defaultMessage="Task type" />
+          {this.props.selected.length ?
+            <FormattedMessage
+              id="taskTypeSelector.numTypes"
+              defaultMessage="{length, number} selected"
+              values={{ length: this.props.selected.length }}
+            /> :
+            <FormattedMessage id="taskTypeSelector.allTypes" defaultMessage="All tasks" />
+          }
         </Button>
         <Menu
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
         >
-          <div>
-            <MultiSelector
-              allowSearch={false}
-              options={options}
-              onDismiss={this.handleClose}
-              onSubmit={this.handleSelect}
-            />
-          </div>
+          <MultiSelector
+            allowSearch={false}
+            options={options}
+            selected={this.props.selected}
+            onDismiss={this.handleClose}
+            onSubmit={this.handleSelect}
+          />
         </Menu>
       </div>
     );

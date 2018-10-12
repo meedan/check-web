@@ -28,9 +28,13 @@ class ProjectSelector extends React.Component {
     return (
       <div>
         <Button onClick={this.handleClick} variant="outlined">
-          { this.props.label ?
-            this.props.label :
-            <FormattedMessage id="teamTasks.selectProject" defaultMessage="Select projects" />
+          {this.props.selected.length ?
+            <FormattedMessage
+              id="projectSelector.numProjs"
+              defaultMessage="{length, number} selected"
+              values={{ length: this.props.selected.length }}
+            /> :
+            <FormattedMessage id="projectSelector.allProjs" defaultMessage="All projects" />
           }
         </Button>
         <Menu
@@ -44,6 +48,7 @@ class ProjectSelector extends React.Component {
               label: p.node.title,
               value: `${p.node.dbid}`,
             }))}
+            selected={this.props.selected}
             onDismiss={this.handleClose}
             onSubmit={this.handleSelect}
           />

@@ -8,7 +8,7 @@ import TaskTypeSelector from '../task/TaskTypeSelector';
 import BlankState from '../layout/BlankState';
 import FilterPopup from '../layout/FilterPopup';
 import TeamRoute from '../../relay/TeamRoute';
-import { ContentColumn } from '../../styles/js/shared';
+import { ContentColumn, units } from '../../styles/js/shared';
 
 class TeamTasksComponent extends React.Component {
   state = {
@@ -68,15 +68,21 @@ class TeamTasksComponent extends React.Component {
           <h2><FormattedMessage id="teamTasks.title" defaultMessage="Teamwide tasks" /></h2>
 
           <FilterPopup>
-            <ProjectSelector
-              projects={this.props.team.projects.edges}
-              selected={this.state.projFilter}
-              onSelect={this.handleSelectProjects}
-            />
-            <TaskTypeSelector
-              selected={this.state.typeFilter}
-              onSelect={this.handleSelectTaskTypes}
-            />
+            <div>
+              <FormattedMessage id="teamTasks.projFilter" defaultMessage="Show tasks in" />
+              <ProjectSelector
+                projects={this.props.team.projects.edges}
+                selected={this.state.projFilter}
+                onSelect={this.handleSelectProjects}
+              />
+            </div>
+            <div style={{ marginTop: units(1) }}>
+              <FormattedMessage id="teamTasks.typeFilter" defaultMessage="Task type" />
+              <TaskTypeSelector
+                selected={this.state.typeFilter}
+                onSelect={this.handleSelectTaskTypes}
+              />
+            </div>
           </FilterPopup>
 
           { checklist.length && projects.length ? projects.map(p =>
