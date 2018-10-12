@@ -30,7 +30,7 @@ class TeamTasksComponent extends React.Component {
 
   filterChecklist = (checklist) => {
     const { typeFilter, search } = this.state;
-    let filteredChecklist = checklist;
+    let filteredChecklist = checklist || [];
 
     if (search) {
       filteredChecklist = checklist.filter(t =>

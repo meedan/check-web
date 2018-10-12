@@ -32,6 +32,10 @@
     "defaultMessage": "Required"
   },
   {
+    "id": "tasks.showInProj",
+    "defaultMessage": "Show tasks in"
+  },
+  {
     "id": "tasks.description",
     "defaultMessage": "Description"
   },

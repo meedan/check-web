@@ -282,6 +282,7 @@ class EditTaskDialog extends React.Component {
           />
           { this.props.projects ?
             <StyledProjectsArea>
+              <FormattedMessage id="tasks.showInProj" defaultMessage="Show tasks in" />
               <ProjectSelector
                 projects={this.props.projects}
                 selected={this.state.projects.map(id => `${id}`)}
