@@ -18,6 +18,9 @@ class ProjectSelector extends React.Component {
   handleSelect = (selected) => {
     console.log('selected', selected);
     this.handleClose();
+    if (this.props.onSelect) {
+      this.props.onSelect(selected);
+    }
   };
 
   render() {
@@ -25,7 +28,7 @@ class ProjectSelector extends React.Component {
 
     return (
       <div>
-        <Button onClick={this.handleClick}>
+        <Button onClick={this.handleClick} variant="outlined">
           <FormattedMessage id="teamTasks.selectProject" defaultMessage="Show projects" />
         </Button>
         <Menu

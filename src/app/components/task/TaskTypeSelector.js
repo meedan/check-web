@@ -23,6 +23,9 @@ class TaskTypeSelector extends React.Component {
   handleSelect = (selected) => {
     console.log('selected', selected);
     this.handleClose();
+    if (this.props.onSelect) {
+      this.props.onSelect(selected);
+    }
   };
 
   render() {
@@ -57,7 +60,7 @@ class TaskTypeSelector extends React.Component {
 
     return (
       <div>
-        <Button onClick={this.handleClick}>
+        <Button onClick={this.handleClick} variant="outlined">
           <FormattedMessage id="taskTypeSelector.taskType" defaultMessage="Task type" />
         </Button>
         <Menu

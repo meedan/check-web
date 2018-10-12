@@ -6,63 +6,99 @@ import CreateTeamTask from './CreateTeamTask';
 import ProjectSelector from '../project/ProjectSelector';
 import TaskTypeSelector from '../task/TaskTypeSelector';
 import BlankState from '../layout/BlankState';
-// import FilterPopup from '../layout/FilterPopup';
+import FilterPopup from '../layout/FilterPopup';
 import TeamRoute from '../../relay/TeamRoute';
 import { ContentColumn } from '../../styles/js/shared';
 
-const TeamTasksComponent = (props) => {
-  const projects = [...props.team.projects.edges];
-
-  const taskList = (projectId) => {
-    const tasksForProject = [];
-
-    props.team.checklist.forEach((task, index) => {
-      if (task.projects.length === 0 || task.projects.indexOf(projectId) > -1) {
-        const checklistIndex = { task, index };
-        tasksForProject.push(checklistIndex);
-      }
-    });
-
-    return tasksForProject;
+class TeamTasksComponent extends React.Component {
+  state = {
+    projFilter: [],
+    typeFilter: [],
   };
 
-  // TODO: optimization: make only one iteration loop (map) instead of two (forEach and map)
-  projects.forEach((p, index) => {
-    projects[index].node.teamTasks = taskList(p.node.dbid);
-  });
+  handleSelectProjects = (projFilter) => {
+    this.setState({ projFilter });
+  };
 
-  return (
-    <div>
-      <ContentColumn>
-        <h2><FormattedMessage id="teamTasks.title" defaultMessage="Teamwide tasks" /></h2>
-        {/*
-          // <FilterPopup>
+  handleSelectTaskTypes = (typeFilter) => {
+    this.setState({ typeFilter });
+  };
 
-          // </FilterPopup>
-        */}
-        <ProjectSelector projects={projects} />
-        <TaskTypeSelector />
+  filterChecklist = (checklist) => {
+    const { typeFilter } = this.state;
+    if (typeFilter.length) {
+      return checklist.filter(t => typeFilter.indexOf(t.type) > -1);
+    }
+    return checklist;
+  };
 
-        { props.team.checklist.length ? projects.map(p =>
-          (<TeamTasksProject
-            key={p.node.dbid}
-            project={p.node}
-            team={props.team}
-          />))
-          : (
-            <BlankState>
-              <FormattedMessage id="teamTasks.blank" defaultMessage="No teamwide tasks yet" />
-            </BlankState>
-          )
+  filterProjects = (projects) => {
+    const { projFilter } = this.state;
+    if (projFilter.length) {
+      return projects.filter(p => projFilter.indexOf(`${p.node.dbid}`) > -1);
+    }
+    return projects;
+  };
+
+  render() {
+    const projects = this.filterProjects(this.props.team.projects.edges);
+    const checklist = this.filterChecklist(this.props.team.checklist);
+
+    const taskList = (projectId) => {
+      const tasksForProject = [];
+
+      checklist.forEach((task, index) => {
+        if (task.projects.length === 0 || task.projects.indexOf(projectId) > -1) {
+          const checklistIndex = { task, index };
+          tasksForProject.push(checklistIndex);
         }
-        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <CreateTeamTask team={props.team} />
-        </div>
-      </ContentColumn>
-    </div>
-  );
-};
+      });
 
+      return tasksForProject;
+    };
+
+    // TODO: optimization: make only one iteration loop (map) instead of two (forEach and map)
+    projects.forEach((p, index) => {
+      projects[index].node.teamTasks = taskList(p.node.dbid);
+    });
+
+    return (
+      <div>
+        <ContentColumn>
+          <h2><FormattedMessage id="teamTasks.title" defaultMessage="Teamwide tasks" /></h2>
+
+          <FilterPopup>
+            <ProjectSelector
+              projects={this.props.team.projects.edges}
+              selected={this.state.projFilter}
+              onSelect={this.handleSelectProjects}
+            />
+            <TaskTypeSelector
+              selected={this.state.typeFilter}
+              onSelect={this.handleSelectTaskTypes}
+            />
+          </FilterPopup>
+
+          { checklist.length && projects.length ? projects.map(p =>
+            (<TeamTasksProject
+              key={p.node.dbid}
+              project={p.node}
+              team={this.props.team}
+            />))
+            : (
+              <BlankState>
+                <FormattedMessage id="teamTasks.blank" defaultMessage="No teamwide tasks to display" />
+              </BlankState>
+            )
+          }
+          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <CreateTeamTask team={this.props.team} />
+          </div>
+        </ContentColumn>
+      </div>
+    );
+  }
+}
 
 const TeamTasksContainer = Relay.createContainer(TeamTasksComponent, {
   fragments: {
