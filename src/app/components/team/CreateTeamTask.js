@@ -27,6 +27,7 @@ class CreateTeamTask extends React.Component {
       description,
       required,
       jsonoptions,
+      projects,
     } = task;
 
     const newTeamTask = {
@@ -34,7 +35,7 @@ class CreateTeamTask extends React.Component {
       description,
       required: required ? 1 : 0,
       type: this.state.createType,
-      projects: [],
+      projects,
       options: JSON.parse(jsonoptions),
     };
 
@@ -73,6 +74,7 @@ class CreateTeamTask extends React.Component {
             taskType={this.state.createType}
             onDismiss={this.handleClose}
             onSubmit={this.handleSubmitTask}
+            projects={this.props.team.projects.edges}
             noAssign
           />
           : null

@@ -16,7 +16,6 @@ class ProjectSelector extends React.Component {
   };
 
   handleSelect = (selected) => {
-    console.log('selected', selected);
     this.handleClose();
     if (this.props.onSelect) {
       this.props.onSelect(selected);
@@ -29,24 +28,25 @@ class ProjectSelector extends React.Component {
     return (
       <div>
         <Button onClick={this.handleClick} variant="outlined">
-          <FormattedMessage id="teamTasks.selectProject" defaultMessage="Show projects" />
+          { this.props.label ?
+            this.props.label :
+            <FormattedMessage id="teamTasks.selectProject" defaultMessage="Select projects" />
+          }
         </Button>
         <Menu
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
         >
-          <div>
-            <MultiSelector
-              allowSearch
-              options={this.props.projects.map(p => ({
-                label: p.node.title,
-                value: `${p.node.dbid}`,
-              }))}
-              onDismiss={this.handleClose}
-              onSubmit={this.handleSelect}
-            />
-          </div>
+          <MultiSelector
+            allowSearch
+            options={this.props.projects.map(p => ({
+              label: p.node.title,
+              value: `${p.node.dbid}`,
+            }))}
+            onDismiss={this.handleClose}
+            onSubmit={this.handleSelect}
+          />
         </Menu>
       </div>
     );

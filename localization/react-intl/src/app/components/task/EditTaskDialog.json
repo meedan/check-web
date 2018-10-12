@@ -24,14 +24,6 @@
     "defaultMessage": "Edit task"
   },
   {
-    "id": "tasks.cancelAdd",
-    "defaultMessage": "Cancel"
-  },
-  {
-    "id": "tasks.add",
-    "defaultMessage": "Save"
-  },
-  {
     "id": "tasks.taskPrompt",
     "defaultMessage": "Prompt"
   },
@@ -50,5 +42,13 @@
   {
     "id": "tasks.assign",
     "defaultMessage": "Assign"
+  },
+  {
+    "id": "tasks.cancelAdd",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "tasks.add",
+    "defaultMessage": "Save"
   }
 ]

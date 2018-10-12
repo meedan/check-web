@@ -1,18 +1,27 @@
 import React from 'react';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import Checkbox from 'material-ui/Checkbox';
-import Dialog from 'material-ui/Dialog';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import MdCancel from 'react-icons/lib/md/cancel';
 import MdCheckBoxOutlineBlank from 'react-icons/lib/md/check-box-outline-blank';
 import MdRadioButtonUnchecked from 'react-icons/lib/md/radio-button-unchecked';
+import styled from 'styled-components';
 import Attribution from './Attribution';
 import ConfirmRequired from './ConfirmRequired';
 import Message from '../Message';
+import ProjectSelector from '../project/ProjectSelector';
 import { getStatus } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
 import { units, StyledIconButton, StyledTaskDescription } from '../../styles/js/shared';
+
+const StyledProjectsArea = styled.div`
+  margin-top: ${units(2)};
+`;
 
 const messages = defineMessages({
   addValue: {
@@ -149,6 +158,11 @@ class EditTaskDialog extends React.Component {
     this.validateTask(this.state.label, this.state.options);
   }
 
+  handleSelectProjects = (projectsIds) => {
+    const projects = projectsIds.map(id => parseInt(id, 10));
+    this.setState({ projects });
+  };
+
   handleSubmitTask() {
     const jsonoptions = JSON.stringify(this.state.options.filter(item => item.label !== ''));
 
@@ -156,6 +170,7 @@ class EditTaskDialog extends React.Component {
       label: this.state.label,
       description: this.state.description,
       required: this.state.required,
+      projects: this.state.projects,
     };
 
     task.jsonoptions = jsonoptions;
@@ -231,34 +246,17 @@ class EditTaskDialog extends React.Component {
   render() {
     const dialogTitle = this.props.task ? messages.editTask : messages.newTask;
 
-    const actions = [
-      <FlatButton
-        key="create-task__dialog-cancel-button"
-        label={<FormattedMessage id="tasks.cancelAdd" defaultMessage="Cancel" />}
-        onClick={this.props.onDismiss}
-      />,
-      <FlatButton
-        key="create-task__dialog-submit-button"
-        className="create-task__dialog-submit-button"
-        label={<FormattedMessage id="tasks.add" defaultMessage="Save" />}
-        primary
-        keyboardFocused
-        onClick={this.handleSubmitTask.bind(this)}
-        disabled={this.state.submitDisabled}
-      />,
-    ];
-
     return (
-      <div>
-        <Dialog
-          title={this.props.intl.formatMessage(dialogTitle)}
-          className="create-task__dialog"
-          actions={actions}
-          modal={false}
-          open
-          onRequestClose={this.props.onDismiss}
-          autoScrollBodyContent
-        >
+      <Dialog
+        className="create-task__dialog"
+        open
+        onClose={this.props.onDismiss}
+        scroll="paper"
+        maxWidth="md"
+        fullWidth
+      >
+        <DialogTitle>{this.props.intl.formatMessage(dialogTitle)}</DialogTitle>
+        <DialogContent>
           <Message message={this.state.message} />
 
           <TextField
@@ -280,6 +278,16 @@ class EditTaskDialog extends React.Component {
             checked={Boolean(this.state.required)}
             onCheck={this.handleSelectRequired.bind(this)}
           />
+          { this.props.projects ?
+            <StyledProjectsArea>
+              <ProjectSelector
+                projects={this.props.projects}
+                selected={this.state.projects}
+                onSelect={this.handleSelectProjects}
+              />
+            </StyledProjectsArea>
+            : null
+          }
           <ConfirmRequired
             open={this.state.confirmRequired}
             status={this.state.status}
@@ -330,8 +338,24 @@ class EditTaskDialog extends React.Component {
               </button> : null
             }
           </StyledTaskDescription>
-        </Dialog>
-      </div>
+        </DialogContent>
+        <DialogActions>
+          <FlatButton
+            key="create-task__dialog-cancel-button"
+            label={<FormattedMessage id="tasks.cancelAdd" defaultMessage="Cancel" />}
+            onClick={this.props.onDismiss}
+          />
+          <FlatButton
+            key="create-task__dialog-submit-button"
+            className="create-task__dialog-submit-button"
+            label={<FormattedMessage id="tasks.add" defaultMessage="Save" />}
+            primary
+            keyboardFocused
+            onClick={this.handleSubmitTask.bind(this)}
+            disabled={this.state.submitDisabled}
+          />
+        </DialogActions>
+      </Dialog>
     );
   }
 }

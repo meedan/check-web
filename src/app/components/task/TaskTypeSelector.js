@@ -21,7 +21,6 @@ class TaskTypeSelector extends React.Component {
   };
 
   handleSelect = (selected) => {
-    console.log('selected', selected);
     this.handleClose();
     if (this.props.onSelect) {
       this.props.onSelect(selected);

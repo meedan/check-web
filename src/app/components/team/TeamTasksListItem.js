@@ -115,6 +115,7 @@ class TeamTasksListItem extends React.Component {
       description,
       required,
       jsonoptions,
+      projects,
     } = task;
 
     const newTeamTask = {
@@ -122,7 +123,7 @@ class TeamTasksListItem extends React.Component {
       description,
       required: required ? 1 : 0,
       type: this.state.editedTask.type,
-      projects: [],
+      projects,
       options: JSON.parse(jsonoptions),
     };
 
@@ -252,6 +253,7 @@ class TeamTasksListItem extends React.Component {
             taskType={editedTask.type}
             onDismiss={this.handleCloseEdit}
             onSubmit={this.handleSubmitTask}
+            projects={this.props.team.projects.edges}
             noAssign
           /> : null
         }
