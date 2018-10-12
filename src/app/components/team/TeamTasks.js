@@ -24,12 +24,25 @@ class TeamTasksComponent extends React.Component {
     this.setState({ typeFilter });
   };
 
+  handleSearchChange = (e) => {
+    this.setState({ search: e.target.value });
+  };
+
   filterChecklist = (checklist) => {
-    const { typeFilter } = this.state;
-    if (typeFilter.length) {
-      return checklist.filter(t => typeFilter.indexOf(t.type) > -1);
+    const { typeFilter, search } = this.state;
+    let filteredChecklist = checklist;
+
+    if (search) {
+      filteredChecklist = checklist.filter(t =>
+        t.label.toLowerCase().includes(search.toLowerCase()));
     }
-    return checklist;
+
+    if (typeFilter.length) {
+      filteredChecklist = checklist.filter(t =>
+        typeFilter.indexOf(t.type) > -1);
+    }
+
+    return filteredChecklist;
   };
 
   filterProjects = (projects) => {
@@ -66,9 +79,19 @@ class TeamTasksComponent extends React.Component {
       <div>
         <ContentColumn>
           <h2><FormattedMessage id="teamTasks.title" defaultMessage="Teamwide tasks" /></h2>
-
-          <FilterPopup>
-            <div>
+          <FilterPopup
+            search={this.state.search}
+            onSearchChange={this.handleSearchChange}
+            label={
+              <FormattedMessage
+                id="teamTasks.filterLabel"
+                defaultMessage="{length, number} tasks"
+                values={{ length: checklist.length }}
+              />
+            }
+            tooltip={<FormattedMessage id="teamTasks.filter" defaultMessage="Filter tasks" />}
+          >
+            <div style={{ marginTop: units(4) }}>
               <FormattedMessage id="teamTasks.projFilter" defaultMessage="Show tasks in" />
               <ProjectSelector
                 projects={this.props.team.projects.edges}
@@ -76,7 +99,7 @@ class TeamTasksComponent extends React.Component {
                 onSelect={this.handleSelectProjects}
               />
             </div>
-            <div style={{ marginTop: units(1) }}>
+            <div style={{ marginTop: units(2) }}>
               <FormattedMessage id="teamTasks.typeFilter" defaultMessage="Task type" />
               <TaskTypeSelector
                 selected={this.state.typeFilter}

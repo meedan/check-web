@@ -1,13 +1,21 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Paper from '@material-ui/core/Paper';
 import Popper from '@material-ui/core/Popper';
+import TextField from '@material-ui/core/TextField';
 import Tooltip from '@material-ui/core/Tooltip';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import styled from 'styled-components';
-import { units } from '../../styles/js/shared';
+import { units, Row } from '../../styles/js/shared';
+
+const messages = defineMessages({
+  search: {
+    id: 'MultiSelector.search',
+    defaultMessage: 'Search...',
+  },
+});
 
 const StyledPaper = styled(Paper)`
   padding: ${units(2)};
@@ -32,10 +40,14 @@ class FilterPopup extends React.Component {
 
   render() {
     const iconButton = (
-      <IconButton onClick={this.handleMenuClick}>
-        <FilterListIcon />
-      </IconButton>
+      <Row>
+        <IconButton onClick={this.handleMenuClick}>
+          <FilterListIcon />
+        </IconButton>
+        { this.props.label ? this.props.label : null }
+      </Row>
     );
+    const { formatMessage } = this.props.intl;
     return (
       <div>
         { this.props.tooltip ?
@@ -51,6 +63,14 @@ class FilterPopup extends React.Component {
           placement="bottom-start"
         >
           <StyledPaper>
+            { this.props.onSearchChange ?
+              <TextField
+                defaultValue={this.props.search}
+                onChange={this.props.onSearchChange}
+                placeholder={formatMessage(messages.search)}
+              />
+              : null
+            }
             {this.props.children}
             <Button onClick={this.handleClose} style={{ marginTop: units(2) }}>
               <FormattedMessage id="FilterPopup.close" defaultMessage="Done" />
@@ -62,4 +82,4 @@ class FilterPopup extends React.Component {
   }
 }
 
-export default FilterPopup;
+export default injectIntl(FilterPopup);

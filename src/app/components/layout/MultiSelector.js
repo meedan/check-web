@@ -52,6 +52,16 @@ class MultiSelector extends React.Component {
     }
   };
 
+  handleSelectAll = () => {
+    this.setState({
+      selected: this.props.options.map(o => o.value),
+    });
+  };
+
+  handleUnselectAll = () => {
+    this.setState({ selected: [] });
+  };
+
   addItem = (value) => {
     const selected = [...this.state.selected];
     selected.push(value);
@@ -96,6 +106,18 @@ class MultiSelector extends React.Component {
           : null
         }
         <StyledMultiSelectorArea>
+          { this.props.allowSelectAll ?
+            <Button color="primary" onClick={this.handleSelectAll}>
+              <FormattedMessage id="multiSelector.all" defaultMessage="Select all" />
+            </Button>
+            : null
+          }
+          { this.props.allowUnselectAll ?
+            <Button color="primary" onClick={this.handleUnselectAll}>
+              <FormattedMessage id="multiSelector.none" defaultMessage="Unselect all" />
+            </Button>
+            : null
+          }
           <FormGroup>
             {
               options.map((o, index) => (
@@ -118,10 +140,16 @@ class MultiSelector extends React.Component {
         </StyledMultiSelectorArea>
         <StyledActions>
           <Button onClick={onDismiss}>
-            <FormattedMessage id="teamTasks.cancel" defaultMessage="Cancel" />
+            { this.props.cancelLabel ?
+              this.props.cancelLabel
+              : <FormattedMessage id="multiSelector.cancel" defaultMessage="Cancel" />
+            }
           </Button>
           <Button color="primary" onClick={() => onSubmit(this.state.selected)}>
-            <FormattedMessage id="teamTasks.save" defaultMessage="Save" />
+            { this.props.submitLabel ?
+              this.props.submitLabel
+              : <FormattedMessage id="multiSelector.save" defaultMessage="Save" />
+            }
           </Button>
         </StyledActions>
       </div>

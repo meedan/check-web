@@ -29,33 +29,12 @@ class TaskTypeSelector extends React.Component {
 
   render() {
     const { anchorEl } = this.state;
-    const options = [
-      {
-        label: 'Short Text',
-        value: 'free_text',
-        icon: <ShortTextIcon />,
-      },
-      {
-        label: 'Location',
-        value: 'geolocation',
-        icon: <LocationIcon />,
-      },
-      {
-        label: 'Datetime',
-        value: 'datetime',
-        icon: <DateRangeIcon />,
-      },
-      {
-        label: 'Single Choice',
-        value: 'single_choice',
-        icon: <RadioButtonCheckedIcon />,
-      },
-      {
-        label: 'Choose multiple',
-        value: 'multiple_choice',
-        icon: <CheckBoxIcon />,
-      },
-    ];
+    const options = [];
+    options.push({ label: 'Short Text', value: 'free_text', icon: <ShortTextIcon /> });
+    options.push({ label: 'Location', value: 'geolocation', icon: <LocationIcon /> });
+    options.push({ label: 'Datetime', value: 'datetime', icon: <DateRangeIcon /> });
+    options.push({ label: 'Single Choice', value: 'single_choice', icon: <RadioButtonCheckedIcon /> });
+    options.push({ label: 'Choose multiple', value: 'multiple_choice', icon: <CheckBoxIcon /> });
 
     return (
       <div>
@@ -75,7 +54,8 @@ class TaskTypeSelector extends React.Component {
           onClose={this.handleClose}
         >
           <MultiSelector
-            allowSearch={false}
+            allowSelectAll
+            allowUnselectAll
             options={options}
             selected={this.props.selected}
             onDismiss={this.handleClose}

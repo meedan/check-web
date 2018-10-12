@@ -4,11 +4,19 @@
     "defaultMessage": "Search..."
   },
   {
-    "id": "teamTasks.cancel",
+    "id": "multiSelector.all",
+    "defaultMessage": "Select all"
+  },
+  {
+    "id": "multiSelector.none",
+    "defaultMessage": "Unselect all"
+  },
+  {
+    "id": "multiSelector.cancel",
     "defaultMessage": "Cancel"
   },
   {
-    "id": "teamTasks.save",
+    "id": "multiSelector.save",
     "defaultMessage": "Save"
   }
 ]

@@ -1,5 +1,9 @@
 [
   {
+    "id": "MultiSelector.search",
+    "defaultMessage": "Search..."
+  },
+  {
     "id": "FilterPopup.close",
     "defaultMessage": "Done"
   }

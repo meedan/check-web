@@ -4,6 +4,14 @@
     "defaultMessage": "Teamwide tasks"
   },
   {
+    "id": "teamTasks.filterLabel",
+    "defaultMessage": "{length, number} tasks"
+  },
+  {
+    "id": "teamTasks.filter",
+    "defaultMessage": "Filter tasks"
+  },
+  {
     "id": "teamTasks.projFilter",
     "defaultMessage": "Show tasks in"
   },
