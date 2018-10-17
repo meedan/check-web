@@ -58,7 +58,6 @@ class CreateTeamTask extends React.Component {
             onDismiss={this.handleClose}
             onSubmit={this.handleSubmitTask}
             projects={this.props.team.projects.edges}
-            noAssign
           />
           : null
         }

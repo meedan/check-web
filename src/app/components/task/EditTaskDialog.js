@@ -1,10 +1,10 @@
 import React from 'react';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
-import Checkbox from 'material-ui/Checkbox';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Switch from '@material-ui/core/Switch';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import MdCancel from 'react-icons/lib/md/cancel';
@@ -17,10 +17,27 @@ import Message from '../Message';
 import ProjectSelector from '../project/ProjectSelector';
 import { getStatus } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
-import { units, StyledIconButton, StyledTaskDescription } from '../../styles/js/shared';
+import { units, StyledIconButton, caption, black54 } from '../../styles/js/shared';
 
 const StyledProjectsArea = styled.div`
   margin-top: ${units(2)};
+`;
+
+const StyledTaskAssignment = styled.div`
+  margin-top ${units(2)};
+
+  .create-task__add-task-description-label, .create-task__add-assignment-button {
+    bottom: ${units(2)};
+    font: ${caption};
+    padding: 0 ${units(1)};
+    color: ${black54};
+    cursor: pointer;
+  }
+
+  .create-task__add-assignment-button {
+    border: 0;
+    background: transparent;
+  }
 `;
 
 const messages = defineMessages({
@@ -270,15 +287,26 @@ class EditTaskDialog extends React.Component {
             multiLine
             fullWidth
           />
-          <Checkbox
-            label={
-              <FormattedMessage
-                id="tasks.requiredCheckbox"
-                defaultMessage="Required"
-              />
+          <TextField
+            id="task-description-input"
+            className="create-task__task-description-input"
+            floatingLabelText={
+              <FormattedMessage id="tasks.description" defaultMessage="Description (optional)" />
             }
+            defaultValue={this.state.description}
+            onChange={this.handleDescriptionChange.bind(this)}
+            multiLine
+            fullWidth
+          />
+          <FormattedMessage
+            id="tasks.requiredCheckbox"
+            defaultMessage="Required"
+          />
+          <Switch
             checked={Boolean(this.state.required)}
-            onCheck={this.handleSelectRequired.bind(this)}
+            onChange={this.handleSelectRequired.bind(this)}
+            value="required"
+            color="primary"
           />
           { this.props.projects ?
             <StyledProjectsArea>
@@ -300,30 +328,7 @@ class EditTaskDialog extends React.Component {
 
           {this.renderOptions()}
 
-          <StyledTaskDescription>
-            <input
-              className="create-task__add-task-description"
-              id="create-task__add-task-description"
-              type="checkbox"
-            />
-            <TextField
-              id="task-description-input"
-              className="create-task__task-description-input"
-              floatingLabelText={
-                <FormattedMessage id="tasks.description" defaultMessage="Description" />
-              }
-              defaultValue={this.props.description}
-              onChange={this.handleDescriptionChange.bind(this)}
-              multiLine
-            />
-            <label
-              className="create-task__add-task-description-label"
-              htmlFor="create-task__add-task-description"
-            >
-              <span className="create-task__add-task-description-icon">+</span>{' '}
-              <FormattedMessage id="tasks.addDescription" defaultMessage="Add a description" />
-            </label>
-
+          <StyledTaskAssignment>
             { this.state.showAssignmentField ?
               <Attribution
                 multi={false}
@@ -340,7 +345,7 @@ class EditTaskDialog extends React.Component {
                 <FormattedMessage id="tasks.assign" defaultMessage="Assign" />
               </button> : null
             }
-          </StyledTaskDescription>
+          </StyledTaskAssignment>
         </DialogContent>
         <DialogActions>
           <FlatButton

@@ -4,7 +4,6 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FlatButton from 'material-ui/FlatButton';
 import { FormattedMessage } from 'react-intl';
-import EditTaskDialog from './EditTaskDialog';
 import { safelyParseJSON } from '../../helpers';
 import { StyledSmallTextField } from '../../styles/js/shared';
 
@@ -240,7 +239,6 @@ class MultiSelectTask extends Component {
 
   render() {
     const {
-      media,
       jsonresponse,
       note,
       jsonoptions,
@@ -248,16 +246,6 @@ class MultiSelectTask extends Component {
 
     return (
       <div>
-        {this.props.mode === 'create' ?
-          <EditTaskDialog
-            taskType="multiple_choice"
-            media={media}
-            onDismiss={this.props.onDismiss.bind(this)}
-            onSubmit={this.props.onSubmit.bind(this)}
-            allowAssignment
-          />
-          : null
-        }
         {this.props.mode === 'respond' ? this.renderOptions(jsonresponse, note, jsonoptions) : null}
         {this.props.mode === 'show_response' && jsonresponse
           ? this.renderOptions(jsonresponse, note, jsonoptions)

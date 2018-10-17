@@ -235,7 +235,6 @@ class TeamTasksListItem extends React.Component {
             onDismiss={this.handleCloseEdit}
             onSubmit={this.handleSubmitTask}
             projects={this.props.team.projects.edges}
-            noAssign
           /> : null
         }
       </div>
