@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
+import { browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
-import config from 'config'; // eslint-disable-line require-path-exists/exists
 import Can from '../Can';
 import CreateTaskMutation from '../../relay/mutations/CreateTaskMutation';
 import CheckContext from '../../CheckContext';
@@ -42,8 +42,7 @@ class CreateTask extends Component {
   handleTeamwideNudgeDialog() {
     const { team } = this.getContext();
     if (team.plan === 'pro') {
-      this.setState({ nudgeDialogOpen: false });
-      window.open(config.restBaseUrl.replace('/api/', `/admin/team/${team.dbid}/edit`), '_blank');
+      browserHistory.push(`/${team.slug}/settings`);
     } else {
       this.setState({ nudgeDialogOpen: true });
     }

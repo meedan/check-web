@@ -39,24 +39,23 @@ class FilterPopup extends React.Component {
   };
 
   render() {
-    const iconButton = (
-      <Row>
-        <IconButton onClick={this.handleMenuClick}>
-          <FilterListIcon />
-        </IconButton>
-        { this.props.label ? this.props.label : null }
-      </Row>
-    );
     const { formatMessage } = this.props.intl;
     return (
       <div>
-        { this.props.tooltip ?
-          <Tooltip title={this.props.tooltip}>
-            {iconButton}
-          </Tooltip>
-          :
-          iconButton
-        }
+        <Row>
+          { this.props.tooltip ?
+            <Tooltip title={this.props.tooltip}>
+              <IconButton onClick={this.handleMenuClick}>
+                <FilterListIcon />
+              </IconButton>
+            </Tooltip>
+            :
+            <IconButton onClick={this.handleMenuClick}>
+              <FilterListIcon />
+            </IconButton>
+          }
+          { this.props.label ? this.props.label : null }
+        </Row>
         <Popper
           open={this.state.popper.open}
           anchorEl={this.state.popper.anchorEl}
