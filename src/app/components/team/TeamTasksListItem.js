@@ -1,6 +1,6 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import Checkbox from 'material-ui/Checkbox';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -25,14 +25,31 @@ import { RequiredIndicator } from '../task/Task';
 import { units } from '../../styles/js/shared';
 import UpdateTeamTaskMutation from '../../relay/mutations/UpdateTeamTaskMutation';
 import DeleteTeamTaskMutation from '../../relay/mutations/DeleteTeamTaskMutation';
+import { safelyParseJSON } from '../../helpers';
+
+const messages = defineMessages({
+  editError: {
+    id: 'createTeamTask.editError',
+    defaultMessage: 'Failed to edit teamwide task',
+  },
+  deleteError: {
+    id: 'createTeamTask.deleteError',
+    defaultMessage: 'Failed to delete teamwide task',
+  },
+});
 
 class TeamTasksListItem extends React.Component {
-  state = {
-    anchorEl: null,
-    confirmed: false,
-    dialogOpen: false,
-    editedTask: null,
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      message: null,
+      anchorEl: null,
+      confirmed: false,
+      dialogOpen: false,
+      editedTask: null,
+    };
+  }
 
   handleMenuClick = (event) => {
     this.setState({ anchorEl: event.currentTarget });
@@ -80,12 +97,14 @@ class TeamTasksListItem extends React.Component {
     const team_tasks = this.props.team.team_tasks.edges;
     const task = team_tasks[this.state.deleteTaskIndex];
 
-    const onSuccess = () => {
-      this.handleCloseDialog();
-    };
-
-    const onFailure = () => {
-      // TODO: handle error
+    const onFailure = (transaction) => {
+      const error = transaction.getError();
+      let message = this.props.intl.formatMessage(messages.deleteError);
+      const json = safelyParseJSON(error.source);
+      if (json && json.error) {
+        message = json.error;
+      }
+      this.setState({ message });
     };
 
     Relay.Store.commitUpdate(
@@ -93,12 +112,12 @@ class TeamTasksListItem extends React.Component {
         teamId: this.props.team.id,
         id: task.node.id,
       }),
-      { onSuccess, onFailure },
+      { onFailure },
     );
   };
 
   handleCloseDialog = () => {
-    this.setState({ dialogOpen: false, confirmed: false });
+    this.setState({ dialogOpen: false, confirmed: false, message: null });
   };
 
   handleConfirmation = () => {
@@ -106,7 +125,7 @@ class TeamTasksListItem extends React.Component {
   };
 
   handleCloseEdit = () => {
-    this.setState({ editedTask: null });
+    this.setState({ editedTask: null, message: null });
   };
 
   handleSubmitTask = (task) => {
@@ -124,8 +143,14 @@ class TeamTasksListItem extends React.Component {
       this.handleCloseEdit();
     };
 
-    const onFailure = () => {
-      // TODO: handle error
+    const onFailure = (transaction) => {
+      const error = transaction.getError();
+      let message = this.props.intl.formatMessage(messages.editError);
+      const json = safelyParseJSON(error.source);
+      if (json && json.error) {
+        message = json.error;
+      }
+      this.setState({ message });
     };
 
     Relay.Store.commitUpdate(
@@ -168,7 +193,6 @@ class TeamTasksListItem extends React.Component {
               <MoreHorizIcon />
             </IconButton>
             <Menu
-              id="simple-menu"
               anchorEl={anchorEl}
               open={Boolean(anchorEl)}
               onClose={this.handleCloseMenu}
@@ -188,7 +212,6 @@ class TeamTasksListItem extends React.Component {
           onClose={this.handleCloseDialog}
         >
           <DialogContent>
-            <Message message={this.state.message} />
             <h2>
               { this.state.action === 'edit' ?
                 <FormattedMessage
@@ -203,6 +226,7 @@ class TeamTasksListItem extends React.Component {
                 /> : null
               }
             </h2>
+            <Message message={this.state.message} />
             <div style={{ margin: `${units(4)} 0` }}>
               <Checkbox
                 id="team-tasks__confirm-delete-checkbox"
@@ -231,6 +255,7 @@ class TeamTasksListItem extends React.Component {
         { editedTask ?
           <EditTaskDialog
             task={editedTask}
+            message={this.state.message}
             taskType={editedTask.node.task_type}
             onDismiss={this.handleCloseEdit}
             onSubmit={this.handleSubmitTask}
@@ -242,4 +267,4 @@ class TeamTasksListItem extends React.Component {
   }
 }
 
-export default TeamTasksListItem;
+export default injectIntl(TeamTasksListItem);

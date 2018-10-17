@@ -1,8 +1,17 @@
 import React from 'react';
+import { defineMessages, injectIntl } from 'react-intl';
 import Relay from 'react-relay/classic';
 import CreateTaskMenu from '../task/CreateTaskMenu';
 import EditTaskDialog from '../task/EditTaskDialog';
 import CreateTeamTaskMutation from '../../relay/mutations/CreateTeamTaskMutation';
+import { safelyParseJSON } from '../../helpers';
+
+const messages = defineMessages({
+  error: {
+    id: 'createTeamTask.error',
+    defaultMessage: 'Failed to create teamwide task',
+  },
+});
 
 class CreateTeamTask extends React.Component {
   constructor(props) {
@@ -10,6 +19,7 @@ class CreateTeamTask extends React.Component {
 
     this.state = {
       createType: null,
+      message: null,
     };
   }
 
@@ -32,11 +42,18 @@ class CreateTeamTask extends React.Component {
     };
 
     const onSuccess = () => {
+      this.setState({ message: null });
       this.handleClose();
     };
 
-    const onFailure = () => {
-      // TODO: handle error
+    const onFailure = (transaction) => {
+      const error = transaction.getError();
+      let message = this.props.intl.formatMessage(messages.error);
+      const json = safelyParseJSON(error.source);
+      if (json && json.error) {
+        message = json.error;
+      }
+      this.setState({ message });
     };
 
     Relay.Store.commitUpdate(
@@ -54,6 +71,7 @@ class CreateTeamTask extends React.Component {
         <CreateTaskMenu onSelect={this.handleSelectType} hideTeamwideOption />
         { this.state.createType ?
           <EditTaskDialog
+            message={this.state.message}
             taskType={this.state.createType}
             onDismiss={this.handleClose}
             onSubmit={this.handleSubmitTask}
@@ -66,4 +84,4 @@ class CreateTeamTask extends React.Component {
   }
 }
 
-export default CreateTeamTask;
+export default injectIntl(CreateTeamTask);

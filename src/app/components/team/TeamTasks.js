@@ -56,23 +56,25 @@ class TeamTasksComponent extends React.Component {
   render() {
     const projects = this.filterProjects(this.props.team.projects.edges);
     const team_tasks = this.filterTeamTasks(this.props.team.team_tasks.edges);
+    const projects_with_tasks = [];
 
     const taskList = (projectId) => {
       const tasksForProject = [];
-
       team_tasks.forEach((task, index) => {
         if (task.node.project_ids.length === 0 || task.node.project_ids.indexOf(projectId) > -1) {
           const taskWithIndex = { task: task.node, index };
           tasksForProject.push(taskWithIndex);
         }
       });
-
       return tasksForProject;
     };
 
-    // TODO: optimization: make only one iteration loop (map) instead of two (forEach and map)
     projects.forEach((p, index) => {
-      projects[index].node.teamTasks = taskList(p.node.dbid);
+      const projectTasks = taskList(p.node.dbid);
+      if (projectTasks.length > 0) {
+        projects[index].node.teamTasks = projectTasks;
+        projects_with_tasks.push(projects[index]);
+      }
     });
 
     return (
@@ -108,7 +110,7 @@ class TeamTasksComponent extends React.Component {
             </div>
           </FilterPopup>
 
-          { team_tasks.length && projects.length ? projects.map(p =>
+          { projects_with_tasks.length ? projects_with_tasks.map(p =>
             (<TeamTasksProject
               key={p.node.dbid}
               project={p.node}

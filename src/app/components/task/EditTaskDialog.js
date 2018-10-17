@@ -76,7 +76,6 @@ class EditTaskDialog extends React.Component {
     this.state = {
       label: task ? task.node.label : null,
       description: task ? task.node.description : null,
-      message: null,
       options: task ? task.node.options : [{ label: '' }, { label: '' }],
       project_ids: task ? task.node.project_ids : [],
       submitDisabled: true,
@@ -276,7 +275,7 @@ class EditTaskDialog extends React.Component {
       >
         <DialogTitle>{this.props.intl.formatMessage(dialogTitle)}</DialogTitle>
         <DialogContent>
-          <Message message={this.state.message} />
+          <Message message={this.props.message} />
 
           <TextField
             id="task-label-input"
