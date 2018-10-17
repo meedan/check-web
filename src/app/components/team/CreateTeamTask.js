@@ -2,7 +2,7 @@ import React from 'react';
 import Relay from 'react-relay/classic';
 import CreateTaskMenu from '../task/CreateTaskMenu';
 import EditTaskDialog from '../task/EditTaskDialog';
-import UpdateTeamMutation from '../../relay/mutations/UpdateTeamMutation';
+import CreateTeamTaskMutation from '../../relay/mutations/CreateTeamTaskMutation';
 
 class CreateTeamTask extends React.Component {
   constructor(props) {
@@ -22,31 +22,14 @@ class CreateTeamTask extends React.Component {
   }
 
   handleSubmitTask = (task) => {
-    const {
-      label,
-      description,
-      required,
-      jsonoptions,
-      projects,
-    } = task;
-
-    const newTeamTask = {
-      label,
-      description,
-      required: required ? 1 : 0,
-      type: this.state.createType,
-      projects,
-      options: JSON.parse(jsonoptions),
+    const teamTask = {
+      label: task.label,
+      description: task.description,
+      required: Boolean(task.required),
+      task_type: this.state.createType,
+      json_options: task.jsonoptions,
+      json_project_ids: task.json_project_ids,
     };
-
-    const checklist = [...this.props.team.checklist];
-    checklist.push(newTeamTask);
-
-    this.submitChecklist(checklist);
-  };
-
-  submitChecklist = (checklist) => {
-    const team_tasks = JSON.stringify(checklist);
 
     const onSuccess = () => {
       this.handleClose();
@@ -57,9 +40,9 @@ class CreateTeamTask extends React.Component {
     };
 
     Relay.Store.commitUpdate(
-      new UpdateTeamMutation({
-        id: this.props.team.id,
-        team_tasks,
+      new CreateTeamTaskMutation({
+        team: this.props.team,
+        teamTask,
       }),
       { onSuccess, onFailure },
     );

@@ -57,14 +57,14 @@ class EditTaskDialog extends React.Component {
     const { task } = props;
 
     this.state = {
-      label: task ? task.label : null,
-      description: task ? task.label : null,
+      label: task ? task.node.label : null,
+      description: task ? task.node.description : null,
       message: null,
-      options: task ? task.options : [{ label: '' }, { label: '' }],
-      projects: task ? task.projects : [],
+      options: task ? task.node.options : [{ label: '' }, { label: '' }],
+      project_ids: task ? task.node.project_ids : [],
       submitDisabled: true,
       showAssignmentField: false,
-      required: task ? task.required : false,
+      required: task ? task.node.required : false,
       confirmRequired: false,
     };
   }
@@ -160,8 +160,8 @@ class EditTaskDialog extends React.Component {
   }
 
   handleSelectProjects = (projectsIds) => {
-    const projects = projectsIds.map(id => parseInt(id, 10));
-    this.setState({ projects });
+    const project_ids = projectsIds.map(id => parseInt(id, 10));
+    this.setState({ project_ids });
     this.validateTask(this.state.label, this.state.options);
   };
 
@@ -172,10 +172,10 @@ class EditTaskDialog extends React.Component {
       label: this.state.label,
       description: this.state.description,
       required: this.state.required,
-      projects: this.state.projects,
+      jsonoptions,
+      json_project_ids: JSON.stringify(this.state.project_ids),
     };
 
-    task.jsonoptions = jsonoptions;
 
     if (!this.state.submitDisabled) {
       this.props.onSubmit(task);
@@ -285,7 +285,7 @@ class EditTaskDialog extends React.Component {
               <FormattedMessage id="tasks.showInProj" defaultMessage="Show tasks in" />
               <ProjectSelector
                 projects={this.props.projects}
-                selected={this.state.projects.map(id => `${id}`)}
+                selected={this.state.project_ids.map(id => `${id}`)}
                 onSelect={this.handleSelectProjects}
               />
             </StyledProjectsArea>

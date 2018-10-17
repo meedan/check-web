@@ -12,6 +12,10 @@
     "defaultMessage": "Unselect all"
   },
   {
+    "id": "multiSelector.empty",
+    "defaultMessage": "No items found"
+  },
+  {
     "id": "multiSelector.cancel",
     "defaultMessage": "Cancel"
   },

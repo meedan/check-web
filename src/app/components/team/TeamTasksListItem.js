@@ -23,7 +23,8 @@ import Message from '../Message';
 import EditTaskDialog from '../task/EditTaskDialog';
 import { RequiredIndicator } from '../task/Task';
 import { units } from '../../styles/js/shared';
-import UpdateTeamMutation from '../../relay/mutations/UpdateTeamMutation';
+import UpdateTeamTaskMutation from '../../relay/mutations/UpdateTeamTaskMutation';
+import DeleteTeamTaskMutation from '../../relay/mutations/DeleteTeamTaskMutation';
 
 class TeamTasksListItem extends React.Component {
   state = {
@@ -70,17 +71,14 @@ class TeamTasksListItem extends React.Component {
   handleEdit = () => {
     const index = this.state.editTaskIndex;
     this.setState({
-      editedTask: this.props.team.checklist[index],
+      editedTask: this.props.team.team_tasks.edges[index],
     });
     this.handleCloseDialog();
   };
 
   handleDestroy = () => {
-    const newChecklist = [...this.props.team.checklist];
-
-    newChecklist.splice(this.state.deleteTaskIndex, 1);
-
-    const team_tasks = JSON.stringify(newChecklist);
+    const team_tasks = this.props.team.team_tasks.edges;
+    const task = team_tasks[this.state.deleteTaskIndex];
 
     const onSuccess = () => {
       this.handleCloseDialog();
@@ -91,9 +89,9 @@ class TeamTasksListItem extends React.Component {
     };
 
     Relay.Store.commitUpdate(
-      new UpdateTeamMutation({
-        id: this.props.team.id,
-        team_tasks,
+      new DeleteTeamTaskMutation({
+        teamId: this.props.team.id,
+        id: task.node.id,
       }),
       { onSuccess, onFailure },
     );
@@ -112,33 +110,15 @@ class TeamTasksListItem extends React.Component {
   };
 
   handleSubmitTask = (task) => {
-    const {
-      label,
-      description,
-      required,
-      jsonoptions,
-      projects,
-    } = task;
-
-    const newTeamTask = {
-      label,
-      description,
-      required: required ? 1 : 0,
-      type: this.state.editedTask.type,
-      projects,
-      options: JSON.parse(jsonoptions),
+    const teamTask = {
+      id: this.state.editedTask.node.id,
+      label: task.label,
+      description: task.description,
+      required: Boolean(task.required),
+      task_type: this.state.editedTask.node.task_type,
+      json_options: task.jsonoptions,
+      json_project_ids: task.json_project_ids,
     };
-
-    const checklist = [...this.props.team.checklist];
-    const { index } = this.props.taskContainer;
-
-    checklist.splice(index, 1, newTeamTask);
-
-    this.submitChecklist(checklist);
-  };
-
-  submitChecklist = (checklist) => {
-    const team_tasks = JSON.stringify(checklist);
 
     const onSuccess = () => {
       this.handleCloseEdit();
@@ -149,9 +129,9 @@ class TeamTasksListItem extends React.Component {
     };
 
     Relay.Store.commitUpdate(
-      new UpdateTeamMutation({
-        id: this.props.team.id,
-        team_tasks,
+      new UpdateTeamTaskMutation({
+        team: this.props.team,
+        teamTask,
       }),
       { onSuccess, onFailure },
     );
@@ -180,7 +160,7 @@ class TeamTasksListItem extends React.Component {
       <div>
         <ListItem>
           <ListItemIcon>
-            {icon[task.type]}
+            {icon[task.task_type]}
           </ListItemIcon>
           <ListItemText primary={label} />
           <ListItemSecondaryAction>
@@ -251,7 +231,7 @@ class TeamTasksListItem extends React.Component {
         { editedTask ?
           <EditTaskDialog
             task={editedTask}
-            taskType={editedTask.type}
+            taskType={editedTask.node.task_type}
             onDismiss={this.handleCloseEdit}
             onSubmit={this.handleSubmitTask}
             projects={this.props.team.projects.edges}

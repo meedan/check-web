@@ -6,7 +6,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import styled from 'styled-components';
-import { units, opaqueBlack02, opaqueBlack05 } from '../../styles/js/shared';
+import { units, opaqueBlack02, opaqueBlack05, black54 } from '../../styles/js/shared';
 
 const messages = defineMessages({
   search: {
@@ -17,7 +17,7 @@ const messages = defineMessages({
 
 const StyledMultiSelectorArea = styled.div`
   padding: ${units(2)};
-  min-height: ${units(36)};
+  max-height: ${units(40)};
   min-width: ${units(32)};
   overflow-y: auto;
   border: 1px solid ${opaqueBlack05};
@@ -29,6 +29,14 @@ const StyledActions = styled.div`
   align-items: flex-end;
   flex-direction: row;
   display: flex;
+`;
+
+const StyledNotFound = styled.div`
+  color: ${black54};
+  padding-top: ${units(14)};
+  padding-bottom: ${units(14)};
+  display: flex;
+  justify-content: center;
 `;
 
 class MultiSelector extends React.Component {
@@ -101,11 +109,12 @@ class MultiSelector extends React.Component {
             <TextField
               onChange={this.handleChange}
               placeholder={formatMessage(messages.search)}
+              fullWidth
             />
           </div>
           : null
         }
-        <StyledMultiSelectorArea>
+        <div style={{ padding: units(2) }}>
           { this.props.allowSelectAll ?
             <Button color="primary" onClick={this.handleSelectAll}>
               <FormattedMessage id="multiSelector.all" defaultMessage="Select all" />
@@ -118,6 +127,8 @@ class MultiSelector extends React.Component {
             </Button>
             : null
           }
+        </div>
+        <StyledMultiSelectorArea>
           <FormGroup>
             {
               options.map((o, index) => (
@@ -135,6 +146,12 @@ class MultiSelector extends React.Component {
                   label={o.label}
                 />
               ))
+            }
+            { options.length < 1 ?
+              <StyledNotFound>
+                <FormattedMessage id="multiSelector.empty" defaultMessage="No items found" />
+              </StyledNotFound>
+              : null
             }
           </FormGroup>
         </StyledMultiSelectorArea>

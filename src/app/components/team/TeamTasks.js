@@ -28,21 +28,21 @@ class TeamTasksComponent extends React.Component {
     this.setState({ search: e.target.value });
   };
 
-  filterChecklist = (checklist) => {
+  filterTeamTasks = (team_tasks) => {
     const { typeFilter, search } = this.state;
-    let filteredChecklist = checklist || [];
+    let filteredTeamTasks = team_tasks || [];
 
     if (search) {
-      filteredChecklist = checklist.filter(t =>
-        t.label.toLowerCase().includes(search.toLowerCase()));
+      filteredTeamTasks = team_tasks.filter(t =>
+        t.node.label.toLowerCase().includes(search.toLowerCase()));
     }
 
     if (typeFilter.length) {
-      filteredChecklist = checklist.filter(t =>
-        typeFilter.indexOf(t.type) > -1);
+      filteredTeamTasks = team_tasks.filter(t =>
+        typeFilter.indexOf(t.node.task_type) > -1);
     }
 
-    return filteredChecklist;
+    return filteredTeamTasks;
   };
 
   filterProjects = (projects) => {
@@ -55,15 +55,15 @@ class TeamTasksComponent extends React.Component {
 
   render() {
     const projects = this.filterProjects(this.props.team.projects.edges);
-    const checklist = this.filterChecklist(this.props.team.checklist);
+    const team_tasks = this.filterTeamTasks(this.props.team.team_tasks.edges);
 
     const taskList = (projectId) => {
       const tasksForProject = [];
 
-      checklist.forEach((task, index) => {
-        if (task.projects.length === 0 || task.projects.indexOf(projectId) > -1) {
-          const checklistIndex = { task, index };
-          tasksForProject.push(checklistIndex);
+      team_tasks.forEach((task, index) => {
+        if (task.node.project_ids.length === 0 || task.node.project_ids.indexOf(projectId) > -1) {
+          const taskWithIndex = { task: task.node, index };
+          tasksForProject.push(taskWithIndex);
         }
       });
 
@@ -86,7 +86,7 @@ class TeamTasksComponent extends React.Component {
               <FormattedMessage
                 id="teamTasks.filterLabel"
                 defaultMessage="{length, number} tasks"
-                values={{ length: checklist.length }}
+                values={{ length: team_tasks.length }}
               />
             }
             tooltip={<FormattedMessage id="teamTasks.filter" defaultMessage="Filter tasks" />}
@@ -108,7 +108,7 @@ class TeamTasksComponent extends React.Component {
             </div>
           </FilterPopup>
 
-          { checklist.length && projects.length ? projects.map(p =>
+          { team_tasks.length && projects.length ? projects.map(p =>
             (<TeamTasksProject
               key={p.node.dbid}
               project={p.node}
@@ -135,7 +135,20 @@ const TeamTasksContainer = Relay.createContainer(TeamTasksComponent, {
       fragment on Team {
         id
         dbid
-        checklist
+        team_tasks(first: 10000) {
+          edges {
+            node {
+              id
+              dbid
+              label
+              description
+              options
+              task_type
+              project_ids
+              required
+            }
+          }
+        }
         projects(first: 10000) {
           edges {
             node {

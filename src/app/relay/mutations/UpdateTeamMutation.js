@@ -17,7 +17,6 @@ class UpdateTeamMutation extends Relay.Mutation {
           description
           contacts
           avatar
-          checklist
           get_slack_notifications_enabled
           get_slack_webhook
           get_slack_channel
