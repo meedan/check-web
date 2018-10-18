@@ -74,13 +74,13 @@ class EditTaskDialog extends React.Component {
     const { task } = props;
 
     this.state = {
-      label: task ? task.node.label : null,
-      description: task ? task.node.description : null,
-      options: task ? task.node.options : [{ label: '' }, { label: '' }],
-      project_ids: task ? task.node.project_ids : [],
+      label: task ? task.label : null,
+      description: task ? task.description : null,
+      options: task ? task.options : [{ label: '' }, { label: '' }],
+      project_ids: task ? task.project_ids : [],
       submitDisabled: true,
       showAssignmentField: false,
-      required: task ? task.node.required : false,
+      required: task ? task.required : false,
       confirmRequired: false,
     };
   }

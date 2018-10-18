@@ -43,11 +43,11 @@ class TeamTasksListItem extends React.Component {
     super(props);
 
     this.state = {
+      action: null,
       message: null,
       anchorEl: null,
       confirmed: false,
       dialogOpen: false,
-      editedTask: null,
     };
   }
 
@@ -59,21 +59,13 @@ class TeamTasksListItem extends React.Component {
     this.setState({ anchorEl: null });
   };
 
-  handleMenuEdit = (index) => {
-    this.setState({
-      dialogOpen: true,
-      action: 'edit',
-      editTaskIndex: index,
-    });
+  handleMenuEdit = () => {
+    this.setState({ dialogOpen: true, action: 'edit' });
     this.handleCloseMenu();
   };
 
-  handleMenuDelete = (index) => {
-    this.setState({
-      dialogOpen: true,
-      action: 'delete',
-      deleteTaskIndex: index,
-    });
+  handleMenuDelete = () => {
+    this.setState({ dialogOpen: true, action: 'delete' });
     this.handleCloseMenu();
   };
 
@@ -86,16 +78,12 @@ class TeamTasksListItem extends React.Component {
   }
 
   handleEdit = () => {
-    const index = this.state.editTaskIndex;
-    this.setState({
-      editedTask: this.props.team.team_tasks.edges[index],
-    });
+    this.setState({ isEditing: true });
     this.handleCloseDialog();
   };
 
   handleDestroy = () => {
-    const team_tasks = this.props.team.team_tasks.edges;
-    const task = team_tasks[this.state.deleteTaskIndex];
+    const { task } = this.props;
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
@@ -110,7 +98,7 @@ class TeamTasksListItem extends React.Component {
     Relay.Store.commitUpdate(
       new DeleteTeamTaskMutation({
         teamId: this.props.team.id,
-        id: task.node.id,
+        id: task.id,
       }),
       { onFailure },
     );
@@ -125,16 +113,17 @@ class TeamTasksListItem extends React.Component {
   };
 
   handleCloseEdit = () => {
-    this.setState({ editedTask: null, message: null });
+    this.setState({ action: null, isEditing: false, message: null });
   };
 
   handleSubmitTask = (task) => {
+    const { id, task_type } = this.props.task;
     const teamTask = {
-      id: this.state.editedTask.node.id,
+      id,
+      task_type,
       label: task.label,
       description: task.description,
       required: Boolean(task.required),
-      task_type: this.state.editedTask.node.task_type,
       json_options: task.jsonoptions,
       json_project_ids: task.json_project_ids,
     };
@@ -163,8 +152,8 @@ class TeamTasksListItem extends React.Component {
   };
 
   render() {
-    const { task, index } = this.props.taskContainer;
-    const { anchorEl, editedTask } = this.state;
+    const { task } = this.props;
+    const { anchorEl } = this.state;
 
     const icon = {
       free_text: <ShortTextIcon />,
@@ -197,10 +186,10 @@ class TeamTasksListItem extends React.Component {
               open={Boolean(anchorEl)}
               onClose={this.handleCloseMenu}
             >
-              <MenuItem onClick={() => this.handleMenuEdit(index)}>
+              <MenuItem onClick={this.handleMenuEdit}>
                 <FormattedMessage id="teamTasks.edit" defaultMessage="Edit task" />
               </MenuItem>
-              <MenuItem onClick={() => this.handleMenuDelete(index)}>
+              <MenuItem onClick={this.handleMenuDelete}>
                 <FormattedMessage id="teamTasks.delete" defaultMessage="Delete task" />
               </MenuItem>
             </Menu>
@@ -252,11 +241,11 @@ class TeamTasksListItem extends React.Component {
           </DialogActions>
         </Dialog>
 
-        { editedTask ?
+        { this.state.isEditing ?
           <EditTaskDialog
-            task={editedTask}
+            task={task}
             message={this.state.message}
-            taskType={editedTask.node.task_type}
+            taskType={task.task_type}
             onDismiss={this.handleCloseEdit}
             onSubmit={this.handleSubmitTask}
             projects={this.props.team.projects.edges}

@@ -1,5 +1,9 @@
 [
   {
+    "id": "teamTasks.blank",
+    "defaultMessage": "No teamwide tasks to display"
+  },
+  {
     "id": "teamTasks.title",
     "defaultMessage": "Teamwide tasks"
   },
@@ -18,9 +22,5 @@
   {
     "id": "teamTasks.typeFilter",
     "defaultMessage": "Task type"
-  },
-  {
-    "id": "teamTasks.blank",
-    "defaultMessage": "No teamwide tasks to display"
   }
 ]

@@ -1,6 +1,7 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
+import intersection from 'lodash.intersection';
 import TeamTasksProject from './TeamTasksProject';
 import CreateTeamTask from './CreateTeamTask';
 import ProjectSelector from '../project/ProjectSelector';
@@ -29,17 +30,24 @@ class TeamTasksComponent extends React.Component {
   };
 
   filterTeamTasks = (team_tasks) => {
-    const { typeFilter, search } = this.state;
+    const { projFilter, typeFilter, search } = this.state;
     let filteredTeamTasks = team_tasks || [];
 
     if (search) {
-      filteredTeamTasks = team_tasks.filter(t =>
+      filteredTeamTasks = filteredTeamTasks.filter(t =>
         t.node.label.toLowerCase().includes(search.toLowerCase()));
     }
 
     if (typeFilter.length) {
-      filteredTeamTasks = team_tasks.filter(t =>
+      filteredTeamTasks = filteredTeamTasks.filter(t =>
         typeFilter.indexOf(t.node.task_type) > -1);
+    }
+
+    if (projFilter.length) {
+      const projFilterInt = projFilter.map(f => parseInt(f, 10));
+      filteredTeamTasks = filteredTeamTasks.filter(t =>
+        intersection(t.node.project_ids, projFilterInt).length > 0 ||
+        !t.node.project_ids.length);
     }
 
     return filteredTeamTasks;
@@ -53,29 +61,45 @@ class TeamTasksComponent extends React.Component {
     return projects;
   };
 
+  renderTeamTaskProject(projectsWithTasks) {
+    return projectsWithTasks.length ?
+      projectsWithTasks.map(p =>
+        <TeamTasksProject key={p.node.dbid} project={p.node} team={this.props.team} />)
+      : (
+        <BlankState>
+          <FormattedMessage id="teamTasks.blank" defaultMessage="No teamwide tasks to display" />
+        </BlankState>
+      );
+  }
+
+  renderTeamTaskList(teamTasks) {
+    return teamTasks.length ?
+      <TeamTasksProject project={{ teamTasks }} team={this.props.team} />
+      : (
+        <BlankState>
+          <FormattedMessage id="teamTasks.blank" defaultMessage="No teamwide tasks to display" />
+        </BlankState>
+      );
+  }
+
   render() {
-    const projects = this.filterProjects(this.props.team.projects.edges);
-    const team_tasks = this.filterTeamTasks(this.props.team.team_tasks.edges);
-    const projects_with_tasks = [];
+    const filteredTasks = this.filterTeamTasks(this.props.team.team_tasks.edges);
 
-    const taskList = (projectId) => {
-      const tasksForProject = [];
-      team_tasks.forEach((task, index) => {
-        if (task.node.project_ids.length === 0 || task.node.project_ids.indexOf(projectId) > -1) {
-          const taskWithIndex = { task: task.node, index };
-          tasksForProject.push(taskWithIndex);
-        }
-      });
-      return tasksForProject;
-    };
+    const getTasksForProjectId = projectId => filteredTasks.filter(task =>
+      task.node.project_ids.length === 0 ||
+      task.node.project_ids.indexOf(projectId) > -1 ||
+      projectId === null).map(task => task.node);
 
-    projects.forEach((p, index) => {
-      const projectTasks = taskList(p.node.dbid);
-      if (projectTasks.length > 0) {
-        projects[index].node.teamTasks = projectTasks;
-        projects_with_tasks.push(projects[index]);
-      }
-    });
+    // const projects = this.filterProjects(this.props.team.projects.edges);
+
+    // const projectsWithTasks = [];
+    // projects.forEach((p, index) => {
+    //   const projectTasks = getTasksForProjectId(p.node.dbid);
+    //   if (projectTasks.length > 0) {
+    //     projects[index].node.teamTasks = projectTasks;
+    //     projectsWithTasks.push(projects[index]);
+    //   }
+    // });
 
     return (
       <div>
@@ -88,7 +112,7 @@ class TeamTasksComponent extends React.Component {
               <FormattedMessage
                 id="teamTasks.filterLabel"
                 defaultMessage="{length, number} tasks"
-                values={{ length: team_tasks.length }}
+                values={{ length: filteredTasks.length }}
               />
             }
             tooltip={<FormattedMessage id="teamTasks.filter" defaultMessage="Filter tasks" />}
@@ -99,6 +123,7 @@ class TeamTasksComponent extends React.Component {
                 projects={this.props.team.projects.edges}
                 selected={this.state.projFilter}
                 onSelect={this.handleSelectProjects}
+                fullWidth
               />
             </div>
             <div style={{ marginTop: units(2) }}>
@@ -106,22 +131,12 @@ class TeamTasksComponent extends React.Component {
               <TaskTypeSelector
                 selected={this.state.typeFilter}
                 onSelect={this.handleSelectTaskTypes}
+                fullWidth
               />
             </div>
           </FilterPopup>
-
-          { projects_with_tasks.length ? projects_with_tasks.map(p =>
-            (<TeamTasksProject
-              key={p.node.dbid}
-              project={p.node}
-              team={this.props.team}
-            />))
-            : (
-              <BlankState>
-                <FormattedMessage id="teamTasks.blank" defaultMessage="No teamwide tasks to display" />
-              </BlankState>
-            )
-          }
+          { this.renderTeamTaskList(getTasksForProjectId(null)) }
+          { /* this.renderTeamTaskProject(projectsWithTasks) */ }
           <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
             <CreateTeamTask team={this.props.team} />
           </div>

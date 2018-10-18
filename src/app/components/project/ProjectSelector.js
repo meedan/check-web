@@ -27,7 +27,7 @@ class ProjectSelector extends React.Component {
 
     return (
       <div>
-        <Button onClick={this.handleClick} variant="outlined">
+        <Button onClick={this.handleClick} variant="outlined" fullWidth={this.props.fullWidth}>
           {this.props.selected.length ?
             <FormattedMessage
               id="projectSelector.numProjs"
