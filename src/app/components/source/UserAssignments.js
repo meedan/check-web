@@ -49,11 +49,14 @@ class UserAssignmentsComponent extends Component {
           a.activeTasks.push(task);
         }
       });
-      const assignee = a.last_status_obj.assigned_to;
-      if (active || (assignee && assignee.dbid === user.dbid)) {
-        assignments[team].push(a);
-        hasAssignment = true;
-      }
+      const assignees = a.last_status_obj.assignments.edges;
+      assignees.forEach((assignee) => {
+        if (active || (assignee.node.dbid === user.dbid)) {
+          a.assigned_to_user = true;
+          assignments[team].push(a);
+          hasAssignment = true;
+        }
+      });
     });
 
     const icons = {
@@ -90,8 +93,7 @@ class UserAssignmentsComponent extends Component {
                   <ListItem
                     key={`media-${assignment.dbid}`}
                     containerElement={
-                      assignment.last_status_obj.assigned_to &&
-                      assignment.last_status_obj.assigned_to.dbid === user.dbid ?
+                      assignment.assigned_to_user ?
                         <Link to={assignment.path} /> : <span />}
                     primaryText={MediaUtil.title(assignment, assignment.embed, this.props.intl)}
                     secondaryText={
@@ -163,8 +165,12 @@ const UserAssignmentsContainer = Relay.createContainer(injectIntl(UserAssignment
                 name
               }
               last_status_obj {
-                assigned_to {
-                  dbid
+                assignments(first: 10000) {
+                  edges {
+                    node {
+                      dbid
+                    }
+                  }
                 }
               }
               assignments(first: 10000, user_id: $userId, annotation_type: "task") {

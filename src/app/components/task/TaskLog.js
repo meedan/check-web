@@ -234,14 +234,18 @@ const TaskLogContainer = Relay.createContainer(TaskLogComponent, {
                       last_status_obj {
                         id
                         dbid
-                        assigned_to {
-                          id
-                          dbid
-                          name
-                          source {
-                            id
-                            dbid
-                            image
+                        assignments(first: 10000) {
+                          edges {
+                            node {
+                              id
+                              dbid
+                              name
+                              source {
+                                id
+                                dbid
+                                image
+                              }
+                            }
                           }
                         }
                       }

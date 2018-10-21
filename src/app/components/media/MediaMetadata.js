@@ -25,6 +25,7 @@ import TagMenu from '../tag/TagMenu';
 import Attribution from '../task/Attribution';
 import UserAvatar from '../UserAvatar';
 import ProfileLink from '../layout/ProfileLink';
+import Sentence from '../Sentence';
 import { nested, safelyParseJSON } from '../../helpers';
 import globalStrings from '../../globalStrings';
 import {
@@ -341,19 +342,14 @@ class MediaMetadata extends Component {
 
     const status_id = media.last_status_obj ? media.last_status_obj.id : '';
 
-    let assignment = document.getElementById(`attribution-media-${media.dbid}`);
-    if (assignment) {
-      assignment = parseInt(assignment.value, 10);
-    } else {
-      assignment = 0;
-    }
+    const assignment = document.getElementById(`attribution-media-${media.dbid}`).value;
 
     const statusAttr = {
       parent_type: 'project_media',
       annotated: media,
       annotation: {
         status_id,
-        assigned_to_id: assignment,
+        assigned_to_ids: assignment,
       },
     };
 
@@ -645,7 +641,11 @@ class MediaMetadata extends Component {
 
     const claimReview = data.schema && data.schema.ClaimReview ? data.schema.ClaimReview[0] : null;
     const url = MediaUtil.url(media, data);
-    const assignment = media.last_status_obj.assigned_to;
+    const assignments = media.last_status_obj.assignments.edges;
+    const assignmentComponents = [];
+    assignments.forEach((assignment) => {
+      assignmentComponents.push(<ProfileLink user={assignment.node} team={media.team} />);
+    });
 
     return (
       <StyledMetadata
@@ -704,23 +704,26 @@ class MediaMetadata extends Component {
               />}
           </div>
         </Row>
-        {assignment && !this.isStatusFinal(media.last_status) ?
+        {assignments && !this.isStatusFinal(media.last_status) ?
           <Row>
             <div className="media-detail__assignment" style={{ display: 'flex', alignItems: 'center' }}>
-              <UserAvatar
-                user={media.last_status_obj.assigned_to}
-                size="extraSmall"
-                style={{ display: 'inline-block', border: `1px solid ${black10}` }}
-              />
-              <span style={{ lineHeight: '24px', paddingLeft: units(1), paddingRight: units(1) }}>
-                <FormattedMessage
-                  id="mediaDetail.assignedTo"
-                  defaultMessage="Assigned to {name}"
-                  values={{
-                    name: <ProfileLink user={assignment} team={media.team} />,
-                  }}
+              {assignments.map(assignment => (
+                <UserAvatar
+                  user={assignment.node}
+                  size="extraSmall"
+                  style={{ display: 'inline-block', border: `1px solid ${black10}` }}
                 />
-              </span>
+              ))}
+              {assignments.length > 0 ?
+                <span style={{ lineHeight: '24px', paddingLeft: units(1), paddingRight: units(1) }}>
+                  <FormattedMessage
+                    id="mediaDetail.assignedTo"
+                    defaultMessage="Assigned to {name}"
+                    values={{
+                      name: <Sentence list={assignmentComponents} />,
+                    }}
+                  />
+                </span> : null}
             </div>
           </Row> : null}
 
@@ -813,11 +816,8 @@ class MediaMetadata extends Component {
             />
           </h4>
           <Attribution
-            multi={false}
-            selectedUsers={
-              media.last_status_obj.assigned_to ?
-                [{ node: media.last_status_obj.assigned_to }] : []
-            }
+            multi
+            selectedUsers={assignments}
             id={`media-${media.dbid}`}
           />
         </Dialog>

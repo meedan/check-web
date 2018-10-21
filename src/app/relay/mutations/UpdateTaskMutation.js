@@ -40,7 +40,7 @@ class UpdateTaskMutation extends Relay.Mutation {
       params.label = task.label;
       params.description = task.description;
       params.required = task.required;
-      params.assigned_to_id = task.assigned_to_id;
+      params.assigned_to_ids = task.assigned_to_ids;
     }
     return params;
   }

@@ -126,14 +126,18 @@ const MediaExpandedContainer = Relay.createContainer(MediaExpandedComponent, {
           id
           dbid
           locked
-          assigned_to {
-            id
-            dbid
-            name
-            source {
-              id
-              dbid
-              image
+          assignments(first: 10000) {
+            edges {
+              node {
+                id
+                dbid
+                name
+                source {
+                  id
+                  dbid
+                  image
+                }
+              }
             }
           }
         }
