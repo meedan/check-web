@@ -28,12 +28,8 @@
     "defaultMessage": "Delete forever"
   },
   {
-    "id": "mediaActions.unassign",
-    "defaultMessage": "Unassign"
-  },
-  {
-    "id": "mediaActions.assign",
-    "defaultMessage": "Assign"
+    "id": "mediaActions.assignOrUnassign",
+    "defaultMessage": "Assign / Unassign"
   },
   {
     "id": "mediaActions.unlockStatus",

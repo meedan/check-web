@@ -534,6 +534,74 @@ class Annotation extends Component {
       }
       break;
     }
+    case 'create_assignment': {
+      const meta = JSON.parse(activity.meta);
+      if (meta) {
+        const { type, title, user_name } = meta;
+        const values = {
+          title,
+          name: user_name,
+          author: authorName,
+        };
+        if (type === 'task') {
+          contentTemplate = (
+            <span>
+              <FormattedMessage
+                id="annotation.taskAssignmentCreated"
+                defaultMessage='Task "{title}" assigned to {name} by {author}'
+                values={values}
+              />
+            </span>
+          );
+        }
+        if (type === 'media') {
+          contentTemplate = (
+            <span>
+              <FormattedMessage
+                id="annotation.mediaAssignmentCreated"
+                defaultMessage="Assigned to {name} by {author}"
+                values={values}
+              />
+            </span>
+          );
+        }
+      }
+      break;
+    }
+    case 'destroy_assignment': {
+      const meta = JSON.parse(activity.meta);
+      if (meta) {
+        const { type, title, user_name } = meta;
+        const values = {
+          title,
+          name: user_name,
+          author: authorName,
+        };
+        if (type === 'task') {
+          contentTemplate = (
+            <span>
+              <FormattedMessage
+                id="annotation.taskAssignmentDeleted"
+                defaultMessage='Task "{title}" unassigned from {name} by {author}'
+                values={values}
+              />
+            </span>
+          );
+        }
+        if (type === 'media') {
+          contentTemplate = (
+            <span>
+              <FormattedMessage
+                id="annotation.mediaAssignmentDeleted"
+                defaultMessage="Unassigned from {name} by {author}"
+                values={values}
+              />
+            </span>
+          );
+        }
+      }
+      break;
+    }
     case 'create_dynamic':
     case 'update_dynamic':
       if (object.annotation_type === 'verification_status' || object.annotation_type === 'translation_status') {

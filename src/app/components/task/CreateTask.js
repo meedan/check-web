@@ -65,13 +65,11 @@ class CreateTask extends Component {
   }
 
   static getAssignment() {
-    let assignment = document.getElementById('attribution-new');
+    const assignment = document.getElementById('attribution-new');
     if (assignment) {
-      assignment = parseInt(assignment.value, 10);
-    } else {
-      assignment = 0;
+      return assignment.value;
     }
-    return assignment;
+    return null;
   }
 
   getContext() {
@@ -152,7 +150,7 @@ class CreateTask extends Component {
           annotated_type: 'ProjectMedia',
           annotated_id: this.props.media.id,
           annotated_dbid: `${this.props.media.dbid}`,
-          assigned_to_id: CreateTask.getAssignment(),
+          assigned_to_ids: CreateTask.getAssignment(),
         }),
         { onSuccess, onFailure },
       );
@@ -190,7 +188,7 @@ class CreateTask extends Component {
         annotated_type: 'ProjectMedia',
         annotated_id: this.props.media.id,
         annotated_dbid: `${this.props.media.dbid}`,
-        assigned_to_id: CreateTask.getAssignment(),
+        assigned_to_ids: CreateTask.getAssignment(),
       }),
       { onSuccess, onFailure },
     );
@@ -416,7 +414,7 @@ class CreateTask extends Component {
 
             { this.state.showAssignmentField ?
               <Attribution
-                multi={false}
+                multi
                 selectedUsers={[]}
                 id="new"
                 taskType={this.state.type}
