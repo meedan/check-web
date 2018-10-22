@@ -1,0 +1,10 @@
+[
+  {
+    "id": "userInvalidInvitation.heading",
+    "defaultMessage": "Failed to accept your invitation"
+  },
+  {
+    "id": "userInvalidInvitation.message",
+    "defaultMessage": "Sorry could not accept your invitation, may be your invitaion expired or team not exists."
+  }
+]
