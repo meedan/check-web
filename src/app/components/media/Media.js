@@ -74,14 +74,18 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
           id
           dbid
           locked
-          assigned_to {
-            id
-            dbid
-            name
-            source {
-              id
-              dbid
-              image
+          assignments(first: 10000) {
+            edges {
+              node {
+                id
+                dbid
+                name
+                source {
+                  id
+                  dbid
+                  image
+                }
+              }
             }
           }
         }
@@ -128,14 +132,18 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
               pending_suggestions_count,
               suggestions_count,
               log_count,
-              assigned_to {
-                name
-                id
-                dbid
-                source {
-                  id
-                  dbid
-                  image
+              assignments(first: 10000) {
+                edges {
+                  node {
+                    name
+                    id
+                    dbid
+                    source {
+                      id
+                      dbid
+                      image
+                    }
+                  }
                 }
               }
               first_response {
@@ -254,14 +262,18 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
                       last_status_obj {
                         id
                         dbid
-                        assigned_to {
-                          id
-                          dbid
-                          name
-                          source {
-                            id
-                            dbid
-                            image
+                        assignments(first: 10000) {
+                          edges {
+                            node {
+                              id
+                              dbid
+                              name
+                              source {
+                                id
+                                dbid
+                                image
+                              }
+                            }
                           }
                         }
                       }

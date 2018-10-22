@@ -32,12 +32,8 @@
     "defaultMessage": "Edit question"
   },
   {
-    "id": "task.unassign",
-    "defaultMessage": "Unassign"
-  },
-  {
-    "id": "task.assign",
-    "defaultMessage": "Assign"
+    "id": "task.assignOrUnassign",
+    "defaultMessage": "Assign / Unassign"
   },
   {
     "id": "task.editAttribution",

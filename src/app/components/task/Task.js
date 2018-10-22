@@ -73,13 +73,11 @@ class Task extends Component {
   }
 
   getAssignment() {
-    let assignment = document.getElementById(`attribution-${this.props.task.dbid}`);
+    const assignment = document.getElementById(`attribution-${this.props.task.dbid}`);
     if (assignment) {
-      assignment = parseInt(assignment.value, 10);
-    } else {
-      assignment = 0;
+      return assignment.value;
     }
-    return assignment;
+    return null;
   }
 
   getResponseData() {
@@ -118,18 +116,15 @@ class Task extends Component {
     return data;
   }
 
-  assignmentChanged(option) {
-    const assignee = this.props.task.assigned_to;
-    if ((assignee && option.value !== assignee.dbid) || (!assignee && option.value > 0)) {
-      this.setState({ submitDisabled: false });
-    }
-  }
-
   canSubmit() {
     const label = typeof this.state.label !== 'undefined' && this.state.label !== null
       ? this.state.label : this.props.task.label || '';
 
     this.setState({ submitDisabled: !label });
+  }
+
+  handleChangeAssignments() {
+    this.setState({ submitDisabled: false });
   }
 
   handleSubmitWithArgs(response, note) {
@@ -245,7 +240,7 @@ class Task extends Component {
       id: task.id,
       label: form.label.value,
       required: this.state.required !== null ? this.state.required : task.required,
-      assigned_to_id: this.getAssignment(),
+      assigned_to_ids: this.getAssignment(),
     };
 
     if (form.description) {
@@ -336,6 +331,12 @@ class Task extends Component {
       response, note, by, byPictures,
     } = data;
 
+    const assignments = task.assignments.edges;
+    const assignmentComponents = [];
+    assignments.forEach((assignment) => {
+      assignmentComponents.push(<ProfileLink user={assignment.node} team={media.team} />);
+    });
+
     const editQuestionActions = [
       <FlatButton
         key="tasks__cancel"
@@ -369,19 +370,23 @@ class Task extends Component {
       />,
     ];
 
-    const taskAssignment = task.assigned_to && !response ? (
+    const taskAssignment = task.assignments.edges.length > 0 && !response ? (
       <div className="task__assigned" style={{ display: 'flex', alignItems: 'center' }}>
         <small style={{ display: 'flex' }}>
-          <UserAvatar
-            user={task.assigned_to}
-            size="extraSmall"
-            style={{ display: 'inline-block', border: `1px solid ${black10}` }}
-          />
+          {assignments.map(assignment => (
+            <UserAvatar
+              user={assignment.node}
+              size="extraSmall"
+              style={{ display: 'inline-block', border: `1px solid ${black10}` }}
+            />
+          ))}
           <span style={{ lineHeight: '24px', paddingLeft: units(1), paddingRight: units(1) }}>
             <FormattedMessage
               id="task.assignedTo"
               defaultMessage="Assigned to {name}"
-              values={{ name: <ProfileLink user={task.assigned_to} team={media.team} /> }}
+              values={{
+                name: <Sentence list={assignmentComponents} />,
+              }}
             />
           </span>
         </small>
@@ -437,9 +442,7 @@ class Task extends Component {
               </MenuItem>
 
               <MenuItem className="task-actions__assign" onClick={this.handleEditQuestion.bind(this)}>
-                {task.assigned_to ?
-                  <FormattedMessage id="task.unassign" defaultMessage="Unassign" /> :
-                  <FormattedMessage id="task.assign" defaultMessage="Assign" />}
+                <FormattedMessage id="task.assignOrUnassign" defaultMessage="Assign / Unassign" />
               </MenuItem>
 
               {(response && can(task.first_response.permissions, 'update Dynamic')) ?
@@ -612,8 +615,6 @@ class Task extends Component {
       );
     }
 
-    const assignedUsers = task.assigned_to ? [{ node: task.assigned_to }] : [];
-
     const required = this.state.required !== null ? this.state.required : task.required;
 
     task.project_media = Object.assign({}, this.props.media);
@@ -697,9 +698,9 @@ class Task extends Component {
             />
             <h3 style={{ marginTop: units(2) }}><FormattedMessage id="tasks.assignment" defaultMessage="Assignment" /></h3>
             <Attribution
-              multi={false}
-              selectedUsers={assignedUsers}
-              onChange={this.assignmentChanged.bind(this)}
+              multi
+              selectedUsers={assignments}
+              onChange={this.handleChangeAssignments.bind(this)}
               id={task.dbid}
               taskType={task.type}
             />

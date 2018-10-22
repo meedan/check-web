@@ -24,8 +24,8 @@ class UpdateStatusMutation extends Relay.Mutation {
     if (status.status) {
       vars.set_fields = JSON.stringify({ verification_status_status: status.status });
     }
-    if ('assigned_to_id' in status) {
-      vars.assigned_to_id = status.assigned_to_id;
+    if ('assigned_to_ids' in status) {
+      vars.assigned_to_ids = status.assigned_to_ids;
     }
     return vars;
   }

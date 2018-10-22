@@ -20,7 +20,7 @@ class CreateTaskMutation extends Relay.Mutation {
       jsonoptions,
       annotated_type,
       annotated_dbid,
-      assigned_to_id,
+      assigned_to_ids,
     } = this.props;
 
     return {
@@ -31,7 +31,7 @@ class CreateTaskMutation extends Relay.Mutation {
       jsonoptions,
       annotated_type,
       annotated_id: annotated_dbid,
-      assigned_to_id,
+      assigned_to_ids,
     };
   }
 
