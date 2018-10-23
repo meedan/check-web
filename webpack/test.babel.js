@@ -5,14 +5,22 @@ export default {
   target: 'node',
   externals: [nodeExternals()],
   module: {
-    loaders: [{
-      test: /\.js$/,
-      loader: ['babel'],
-      exclude: /node_modules/,
-      query: { presets: ['es2015', 'stage-0', 'react'], plugins: [path.join(__dirname, './babelRelayPlugin.js')]}
-    }, {
-      test: /\.css?$/,
-      loaders: ['style', 'raw']
-    }]
+    loaders: [
+      {
+        test: /\.js/,
+        include: path.resolve('src'),
+        loader: 'istanbul-instrumenter-loader'
+      },
+      {
+        test: /\.js$/,
+        loader: 'babel',
+        exclude: /node_modules/,
+        query: { presets: ['es2015', 'stage-0', 'react'], plugins: [path.join(__dirname, './babelRelayPlugin.js')]}
+      },
+      {
+        test: /\.css?$/,
+        loaders: ['style', 'raw']
+      }
+    ]
   }
 };
