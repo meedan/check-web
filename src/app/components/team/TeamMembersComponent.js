@@ -6,6 +6,7 @@ import { Card } from 'material-ui/Card';
 import { List } from 'material-ui/List';
 import TeamInviteCard from './TeamInviteCard';
 import TeamMembersListItem from './TeamMembersListItem';
+import TeamInvitedMemberItem from './TeamInvitedMemberItem';
 import Can from '../Can';
 import LoadMore from '../layout/LoadMore';
 import {
@@ -38,6 +39,7 @@ class TeamMembersComponent extends Component {
     const { isEditing } = this.state;
     const { team, team: { team_users: teamUsers } } = this.props;
     const teamUsersRequestingMembership = team.join_requests.edges;
+    const teamInvitedMails = team.invited_mails;
     const teamUsersMembers = [];
 
     teamUsers.edges.map((teamUser_) => {
@@ -52,7 +54,8 @@ class TeamMembersComponent extends Component {
     });
 
     const requestingMembership = !!teamUsersRequestingMembership.length;
-
+    const invitedMails = !!teamInvitedMails.length;
+    
     return (
       <div>
         <TeamInviteCard team={team} />
@@ -72,6 +75,27 @@ class TeamMembersComponent extends Component {
                     teamUser={teamUser}
                     key={teamUser.node.id}
                     requestingMembership
+                  />
+                ))}
+              </List>
+            </Card>
+          </Can>
+        }
+
+        { invitedMails &&
+          <Can permissions={team.permissions} permission="update Team">
+            <Card style={cardInCardGroupStyle}>
+              <StyledMdCardTitle
+                title={<FormattedMessage
+                  id="teamMembersComponent.pendingInvitations"
+                  defaultMessage="Pending Invitations"
+                />}
+              />
+              <List>
+                { teamInvitedMails.map(invitedMail => (
+                  <TeamInvitedMemberItem
+                    invitedMail={invitedMail}
+                    key={invitedMail}
                   />
                 ))}
               </List>

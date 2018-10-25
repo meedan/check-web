@@ -4,6 +4,10 @@
     "defaultMessage": "Requests to join"
   },
   {
+    "id": "teamMembersComponent.pendingInvitations",
+    "defaultMessage": "Pending Invitations"
+  },
+  {
     "id": "teamMembersComponent.mainHeading",
     "defaultMessage": "Members"
   },
