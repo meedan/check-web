@@ -61,6 +61,27 @@ class TeamTasksComponent extends React.Component {
     return projects;
   };
 
+  // eslint-disable-next-line class-methods-use-this
+  renderFilterLabel(filtered, raw) {
+    if (filtered.length !== raw.length) {
+      return (
+        <FormattedMessage
+          id="teamTasks.filterLabelHidden"
+          defaultMessage="{length, number} tasks ({hidden, number} hidden by filters)"
+          values={{ length: filtered.length, hidden: raw.length - filtered.length }}
+        />
+      );
+    }
+
+    return (
+      <FormattedMessage
+        id="teamTasks.filterLabel"
+        defaultMessage="{length, number} tasks"
+        values={{ length: filtered.length }}
+      />
+    );
+  }
+
   renderTeamTaskProject(projectsWithTasks) {
     return projectsWithTasks.length ?
       projectsWithTasks.map(p =>
@@ -83,7 +104,9 @@ class TeamTasksComponent extends React.Component {
   }
 
   render() {
-    const filteredTasks = this.filterTeamTasks(this.props.team.team_tasks.edges);
+    const { team_tasks } = this.props.team;
+    const filteredTasks = this.filterTeamTasks(team_tasks.edges);
+    const filterLabel = this.renderFilterLabel(filteredTasks, team_tasks.edges);
 
     const getTasksForProjectId = projectId => filteredTasks.filter(task =>
       task.node.project_ids.length === 0 ||
@@ -108,13 +131,7 @@ class TeamTasksComponent extends React.Component {
           <FilterPopup
             search={this.state.search}
             onSearchChange={this.handleSearchChange}
-            label={
-              <FormattedMessage
-                id="teamTasks.filterLabel"
-                defaultMessage="{length, number} tasks"
-                values={{ length: filteredTasks.length }}
-              />
-            }
+            label={filterLabel}
             tooltip={<FormattedMessage id="teamTasks.filter" defaultMessage="Filter tasks" />}
           >
             <div style={{ marginTop: units(4) }}>
