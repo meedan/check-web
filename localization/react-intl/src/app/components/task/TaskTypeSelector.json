@@ -1,0 +1,10 @@
+[
+  {
+    "id": "taskTypeSelector.numTypes",
+    "defaultMessage": "{length, number} selected"
+  },
+  {
+    "id": "taskTypeSelector.allTypes",
+    "defaultMessage": "All tasks"
+  }
+]

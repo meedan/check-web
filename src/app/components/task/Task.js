@@ -45,6 +45,19 @@ const messages = defineMessages({
   },
 });
 
+const StyledRequiredIndicator = styled.span`
+  color: red;
+  font-weight: normal;
+  font: ${title1};
+  line-height: 20px;
+`;
+
+const RequiredIndicator = props => (
+  <StyledRequiredIndicator className="task__required">
+    { props.required ? '*' : null}
+  </StyledRequiredIndicator>
+);
+
 class Task extends Component {
   constructor(props) {
     super(props);
@@ -449,13 +462,6 @@ class Task extends Component {
       </div>
     ) : null;
 
-    const RequiredIndicator = styled.div`
-      color: red;
-      font-weight: normal;
-      font: ${title1};
-      line-height: 20px;
-    `;
-
     const taskQuestion = (
       <div className="task__question">
         <div className="task__label-container">
@@ -463,9 +469,7 @@ class Task extends Component {
             <span className="task__label">
               {task.label}
             </span>
-            <RequiredIndicator className="task__required">
-              {task.required ? '*' : null}
-            </RequiredIndicator>
+            <RequiredIndicator required={task.required} />
           </Row>
         </div>
       </div>
@@ -735,3 +739,5 @@ Task.propTypes = {
 };
 
 export default injectIntl(Task);
+
+export { RequiredIndicator };

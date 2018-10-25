@@ -1,16 +1,8 @@
 import React from 'react';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
-import styled from 'styled-components';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
+import BlankState from '../layout/BlankState';
 import { can } from '../Can';
-import { units, headline, black38 } from '../../styles/js/shared';
-
-const StyledBlankState = styled.div`
-  margin-top: ${units(5)};
-  font: ${headline};
-  color: ${black38};
-  text-align: center;
-`;
 
 const ProjectBlankState = (props) => {
   const checkMessage = (
@@ -30,13 +22,13 @@ const ProjectBlankState = (props) => {
   const message = config.appName === 'bridge' ? bridgeMessage : checkMessage;
 
   return (
-    <StyledBlankState>
+    <BlankState>
       {
         can(props.project.permissions, 'create Media')
           ? message
           : <FormattedMessage id="userAssignments.blank" defaultMessage="No activity yet" />
       }
-    </StyledBlankState>
+    </BlankState>
   );
 };
 
