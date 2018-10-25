@@ -172,13 +172,13 @@ class TeamTasksListItem extends React.Component {
 
     return (
       <div>
-        <ListItem>
-          <ListItemIcon>
+        <ListItem className="team-tasks__list-item">
+          <ListItemIcon className="team-tasks__task-icon">
             {icon[task.task_type]}
           </ListItemIcon>
-          <ListItemText primary={label} />
+          <ListItemText className="team-tasks__task-label" primary={label} />
           <ListItemSecondaryAction>
-            <IconButton onClick={this.handleMenuClick}>
+            <IconButton className="team-tasks__menu-item-button" onClick={this.handleMenuClick}>
               <MoreHorizIcon />
             </IconButton>
             <Menu
@@ -186,10 +186,10 @@ class TeamTasksListItem extends React.Component {
               open={Boolean(anchorEl)}
               onClose={this.handleCloseMenu}
             >
-              <MenuItem onClick={this.handleMenuEdit}>
+              <MenuItem className="team-tasks__edit-button" onClick={this.handleMenuEdit}>
                 <FormattedMessage id="teamTasks.edit" defaultMessage="Edit task" />
               </MenuItem>
-              <MenuItem onClick={this.handleMenuDelete}>
+              <MenuItem className="team-tasks__delete-button" onClick={this.handleMenuDelete}>
                 <FormattedMessage id="teamTasks.delete" defaultMessage="Delete task" />
               </MenuItem>
             </Menu>
@@ -218,20 +218,21 @@ class TeamTasksListItem extends React.Component {
             <Message message={this.state.message} />
             <div style={{ margin: `${units(4)} 0` }}>
               <Checkbox
-                id="team-tasks__confirm-delete-checkbox"
+                id="team-tasks__confirm-action-checkbox"
                 onCheck={this.handleConfirmation.bind(this)}
                 checked={this.state.confirmed}
-                label={<FormattedMessage id="teamTasks.confirmDelete" defaultMessage="Yes" />}
+                label={<FormattedMessage id="teamTasks.confirmAction" defaultMessage="Yes" />}
               />
             </div>
           </DialogContent>
           <DialogActions>
             <FlatButton
-              label={<FormattedMessage id="teamTasks.cancelDelete" defaultMessage="Cancel" />}
+              id="team-tasks__cancel-action-button"
+              label={<FormattedMessage id="teamTasks.cancelAction" defaultMessage="Cancel" />}
               onClick={this.handleCloseDialog}
             />
             <FlatButton
-              id="team-tasks__confirm-delete-button"
+              id="team-tasks__confirm-action-button"
               label={<FormattedMessage id="teamTasks.continue" defaultMessage="Continue" />}
               primary
               keyboardFocused

@@ -24,11 +24,11 @@
     "defaultMessage": "Are you sure you want to delete this task?"
   },
   {
-    "id": "teamTasks.confirmDelete",
+    "id": "teamTasks.confirmAction",
     "defaultMessage": "Yes"
   },
   {
-    "id": "teamTasks.cancelDelete",
+    "id": "teamTasks.cancelAction",
     "defaultMessage": "Cancel"
   },
   {

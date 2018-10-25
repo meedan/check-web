@@ -302,6 +302,7 @@ class EditTaskDialog extends React.Component {
             defaultMessage="Required"
           />
           <Switch
+            id="edit-task__required-switch"
             checked={Boolean(this.state.required)}
             onChange={this.handleSelectRequired.bind(this)}
             value="required"
@@ -348,6 +349,7 @@ class EditTaskDialog extends React.Component {
         </DialogContent>
         <DialogActions>
           <FlatButton
+            className="create-task__dialog-cancel-button"
             key="create-task__dialog-cancel-button"
             label={<FormattedMessage id="tasks.cancelAdd" defaultMessage="Cancel" />}
             onClick={this.props.onDismiss}
