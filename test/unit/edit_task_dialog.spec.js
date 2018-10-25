@@ -6,7 +6,9 @@ import EditTaskDialog from '../../src/app/components/task/EditTaskDialog';
 
 const task = {};
 
-describe('<EditTaskDialog />', () => {
+describe('<EditTaskDialog />', function() {
+  this.timeout(5000);
+
   it('should render dialog', function() {
     const wrapper = mountWithIntl(
       <EditTaskDialog

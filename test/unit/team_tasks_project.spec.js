@@ -11,9 +11,11 @@ const project = {
 const projectWithTasks = {
   teamTasks: [
     {
+      label: 'Free text task',
       task_type: 'free_text',
     },
     {
+      label: 'Datetime task',
       task_type: 'datetime',
     }
   ],

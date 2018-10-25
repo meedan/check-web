@@ -5,8 +5,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Switch from '@material-ui/core/Switch';
-import FlatButton from 'material-ui/FlatButton';
-import TextField from 'material-ui/TextField';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 import MdCancel from 'react-icons/lib/md/cancel';
 import MdCheckBoxOutlineBlank from 'react-icons/lib/md/check-box-outline-blank';
 import MdRadioButtonUnchecked from 'react-icons/lib/md/radio-button-unchecked';
@@ -247,15 +247,15 @@ class EditTaskDialog extends React.Component {
           </div>
         ))}
         <div style={{ marginTop: units(1) }}>
-          <FlatButton
-            label={this.props.intl.formatMessage(messages.addValue)}
-            onClick={this.handleAddValue.bind(this)}
-          />
-          <FlatButton
-            label={this.props.intl.formatMessage(messages.addOther)}
+          <Button onClick={this.handleAddValue.bind(this)}>
+            {this.props.intl.formatMessage(messages.addValue)}
+          </Button>
+          <Button
             onClick={this.handleAddOther.bind(this)}
             disabled={this.state.hasOther}
-          />
+          >
+            {this.props.intl.formatMessage(messages.addOther)}
+          </Button>
         </div>
       </div>
     );
@@ -280,21 +280,23 @@ class EditTaskDialog extends React.Component {
           <TextField
             id="task-label-input"
             className="tasks__task-label-input"
-            floatingLabelText={<FormattedMessage id="tasks.taskPrompt" defaultMessage="Prompt" />}
+            label={<FormattedMessage id="tasks.taskPrompt" defaultMessage="Prompt" />}
             defaultValue={this.state.label}
             onChange={this.handleLabelChange.bind(this)}
-            multiLine
+            margin="normal"
+            multiline
             fullWidth
           />
           <TextField
             id="task-description-input"
             className="create-task__task-description-input"
-            floatingLabelText={
+            label={
               <FormattedMessage id="tasks.description" defaultMessage="Description (optional)" />
             }
             defaultValue={this.state.description}
             onChange={this.handleDescriptionChange.bind(this)}
-            multiLine
+            margin="normal"
+            multiline
             fullWidth
           />
           <FormattedMessage
@@ -348,21 +350,20 @@ class EditTaskDialog extends React.Component {
           </StyledTaskAssignment>
         </DialogContent>
         <DialogActions>
-          <FlatButton
+          <Button
             className="create-task__dialog-cancel-button"
-            key="create-task__dialog-cancel-button"
-            label={<FormattedMessage id="tasks.cancelAdd" defaultMessage="Cancel" />}
             onClick={this.props.onDismiss}
-          />
-          <FlatButton
-            key="create-task__dialog-submit-button"
+          >
+            <FormattedMessage id="tasks.cancelAdd" defaultMessage="Cancel" />
+          </Button>
+          <Button
             className="create-task__dialog-submit-button"
-            label={<FormattedMessage id="tasks.add" defaultMessage="Save" />}
-            primary
-            keyboardFocused
             onClick={this.handleSubmitTask.bind(this)}
+            color="primary"
             disabled={this.state.submitDisabled}
-          />
+          >
+            <FormattedMessage id="tasks.add" defaultMessage="Save" />
+          </Button>
         </DialogActions>
       </Dialog>
     );

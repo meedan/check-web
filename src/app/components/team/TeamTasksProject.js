@@ -12,7 +12,7 @@ const TeamTasksProject = props => props.project.teamTasks.length ? (
         <List>
           {props.project.teamTasks.map(task =>
             (<TeamTasksListItem
-              key={`${task.label}-${task.type}`}
+              key={`${task.label}-${task.task_type}`}
               task={task}
               team={props.team}
             />))}
