@@ -193,3 +193,4 @@ const TeamTasks = (props) => {
 };
 
 export default TeamTasks;
+export { TeamTasksComponent };

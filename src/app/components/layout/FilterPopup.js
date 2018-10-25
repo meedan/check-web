@@ -41,7 +41,7 @@ class FilterPopup extends React.Component {
   render() {
     const { formatMessage } = this.props.intl;
     return (
-      <div>
+      <div className="filter-popup">
         <Row>
           { this.props.tooltip ?
             <Tooltip title={this.props.tooltip}>

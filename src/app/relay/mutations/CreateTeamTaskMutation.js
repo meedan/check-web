@@ -16,8 +16,6 @@ class CreateTeamTaskMutation extends Relay.Mutation {
   }
 
   getVariables() {
-    console.log('this.props');
-    console.log(this.props);
     return { team_id: this.props.team.dbid, ...this.props.teamTask };
   }
 
