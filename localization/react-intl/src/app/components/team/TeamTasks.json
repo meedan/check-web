@@ -1,15 +1,19 @@
 [
   {
+    "id": "teamTasks.filterLabelHidden",
+    "defaultMessage": "{length, number} tasks ({hidden, number} hidden by filters)"
+  },
+  {
+    "id": "teamTasks.filterLabel",
+    "defaultMessage": "{length, number} tasks"
+  },
+  {
     "id": "teamTasks.blank",
     "defaultMessage": "No teamwide tasks to display"
   },
   {
     "id": "teamTasks.title",
     "defaultMessage": "Teamwide tasks"
-  },
-  {
-    "id": "teamTasks.filterLabel",
-    "defaultMessage": "{length, number} tasks"
   },
   {
     "id": "teamTasks.filter",
