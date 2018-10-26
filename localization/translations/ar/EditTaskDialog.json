@@ -1,15 +1,15 @@
 {
-  "singleChoiceTask.addValue": "Add Option",
-  "singleChoiceTask.value": "Value",
-  "singleChoiceTask.addOther": "Add \"Other\"",
-  "singleChoiceTask.other": "Other",
-  "singleChoiceTask.newTask": "New task",
-  "singleChoiceTask.editTask": "Edit task",
-  "tasks.taskPrompt": "Prompt",
-  "tasks.description": "Description (optional)",
-  "tasks.requiredCheckbox": "Required",
-  "tasks.showInProj": "Show tasks in",
-  "tasks.assign": "Assign",
-  "tasks.cancelAdd": "Cancel",
-  "tasks.add": "Save"
+  "singleChoiceTask.addValue": "أضف خياراً",
+  "singleChoiceTask.value": "القيمة",
+  "singleChoiceTask.addOther": "أضف \"آخر\"",
+  "singleChoiceTask.other": "آخر",
+  "singleChoiceTask.newTask": "مهمة جديدة",
+  "singleChoiceTask.editTask": "تحرير المهمة",
+  "tasks.taskPrompt": "السؤال",
+  "tasks.description": "الوصف (اختياري)",
+  "tasks.requiredCheckbox": "إجباري",
+  "tasks.showInProj": "عرض المهام في",
+  "tasks.assign": "تكليف",
+  "tasks.cancelAdd": "إلغاء",
+  "tasks.add": "حفظ"
 }

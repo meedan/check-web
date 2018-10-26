@@ -1,11 +1,11 @@
 {
-  "createTeamTask.editError": "Failed to edit teamwide task",
-  "createTeamTask.deleteError": "Failed to delete teamwide task",
-  "teamTasks.edit": "Edit task",
-  "teamTasks.delete": "Delete task",
-  "teamTasks.confirmEditTitle": "Are you sure you want to edit this task?",
-  "teamTasks.confirmDeleteTitle": "Are you sure you want to delete this task?",
-  "teamTasks.confirmAction": "Yes",
-  "teamTasks.cancelAction": "Cancel",
-  "teamTasks.continue": "Continue"
+  "createTeamTask.editError": "عذراً ، لقد واجهنا خطأ ما اثناء تحرير المهمة. من فضلك أعد المحاولة وتواصل مع فريق الدعم إن استمر الخطأ.",
+  "createTeamTask.deleteError": "عذراً ، لقد واجهنا خطأ ما اثناء حذف المهمة. من فضلك أعد المحاولة وتواصل مع فريق الدعم إن استمر الخطأ.",
+  "teamTasks.edit": "تحرير",
+  "teamTasks.delete": "حذف",
+  "teamTasks.confirmEditTitle": "هل أنت متأكد أنك تود تحرير هذه المهمة ؟",
+  "teamTasks.confirmDeleteTitle": "هل أنت متأكد أنك تود حذف هذه المهمة ؟",
+  "teamTasks.confirmAction": "نعم",
+  "teamTasks.cancelAction": "إلغاء",
+  "teamTasks.continue": "المتابعة"
 }

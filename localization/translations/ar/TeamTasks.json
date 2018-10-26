@@ -1,8 +1,8 @@
 {
-  "teamTasks.blank": "No teamwide tasks to display",
-  "teamTasks.title": "Teamwide tasks",
-  "teamTasks.filterLabel": "{length, number} tasks",
-  "teamTasks.filter": "Filter tasks",
-  "teamTasks.projFilter": "Show tasks in",
-  "teamTasks.typeFilter": "Task type"
+  "teamTasks.blank": "لا توجد اي مهمة",
+  "teamTasks.title": "مهام الفريق",
+  "teamTasks.filterLabel": "{length, number} مهمة",
+  "teamTasks.filter": "تصفية المهام",
+  "teamTasks.projFilter": "عرض المهام في",
+  "teamTasks.typeFilter": "نوع المهمة"
 }
