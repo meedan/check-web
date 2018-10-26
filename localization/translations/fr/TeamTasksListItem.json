@@ -1,0 +1,11 @@
+{
+  "createTeamTask.editError": "La modification de la tâche a échoué",
+  "createTeamTask.deleteError": "La suppression de la tâche a échoué",
+  "teamTasks.edit": "Modifier",
+  "teamTasks.delete": "Supprimer",
+  "teamTasks.confirmEditTitle": "Voulez-vous vraiment modifier cette tâche ?",
+  "teamTasks.confirmDeleteTitle": "Voulez-vous vraiment supprimer cette tâche ?",
+  "teamTasks.confirmAction": "Oui",
+  "teamTasks.cancelAction": "Annuler",
+  "teamTasks.continue": "Continuer"
+}

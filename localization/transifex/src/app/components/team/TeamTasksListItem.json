@@ -1,0 +1,11 @@
+{
+  "createTeamTask.editError": "Failed to edit teamwide task",
+  "createTeamTask.deleteError": "Failed to delete teamwide task",
+  "teamTasks.edit": "Edit task",
+  "teamTasks.delete": "Delete task",
+  "teamTasks.confirmEditTitle": "Are you sure you want to edit this task?",
+  "teamTasks.confirmDeleteTitle": "Are you sure you want to delete this task?",
+  "teamTasks.confirmAction": "Yes",
+  "teamTasks.cancelAction": "Cancel",
+  "teamTasks.continue": "Continue"
+}

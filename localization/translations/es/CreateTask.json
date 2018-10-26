@@ -1,17 +1,3 @@
 {
-  "createTask.newTask": "Nueva tarea",
-  "tasks.cancelAdd": "Cancelar",
-  "tasks.add": "Crear tarea ",
-  "tasks.addTask": "Añadir tarea",
-  "tasks.shortAnswer": "Respuesta corta",
-  "tasks.chooseOne": "Selecciona una ",
-  "tasks.chooseMultiple": "Selecciona varias",
-  "tasks.geolocation": "Localización ",
-  "tasks.datetime": "Fecha y hora",
-  "tasks.teamwideNudge": "Tareas de todo el equipo",
-  "tasks.taskLabel": "Adelante",
-  "tasks.requiredCheckbox": "Requerido",
-  "tasks.description": "Descripción",
-  "tasks.addDescription": "Añadir descripción",
-  "tasks.assign": "Asignar"
+  "createTask.newTask": "Nueva tarea"
 }

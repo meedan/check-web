@@ -6,8 +6,7 @@
   "mediaActions.sendToTrash": "ارسل إلى سلة المهملات",
   "mediaActions.embed": "تضمين...",
   "mediaActions.deleteForever": "حذف نهائي",
-  "mediaActions.unassign": "إلغاء التكليف",
-  "mediaActions.assign": "تكليف",
+  "mediaActions.assignOrUnassign": "Assign / Unassign",
   "mediaActions.unlockStatus": "إلغاء تأمين الحالة",
   "mediaActions.lockStatus": "تأمين الحالة"
 }

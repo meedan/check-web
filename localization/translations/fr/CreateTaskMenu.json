@@ -1,0 +1,9 @@
+{
+  "tasks.addTask": "Ajouter une tâche",
+  "tasks.shortAnswer": "Réponse courte",
+  "tasks.chooseOne": "Choix unique",
+  "tasks.chooseMultiple": "Choix multiples",
+  "tasks.geolocation": "Emplacement",
+  "tasks.datetime": "Date et heure",
+  "tasks.teamwideNudge": "Tâches de l'équipe"
+}

@@ -6,8 +6,7 @@
   "mediaActions.sendToTrash": "Enviar para lixeira",
   "mediaActions.embed": "Incorporar...",
   "mediaActions.deleteForever": "Excluir permanentemente",
-  "mediaActions.unassign": "Remover atribuição",
-  "mediaActions.assign": "Atribuir",
+  "mediaActions.assignOrUnassign": "Assign / Unassign",
   "mediaActions.unlockStatus": "Desbloquear status",
   "mediaActions.lockStatus": "Bloquear status"
 }

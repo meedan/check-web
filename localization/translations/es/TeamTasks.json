@@ -1,0 +1,8 @@
+{
+  "teamTasks.blank": "No teamwide tasks to display",
+  "teamTasks.title": "Teamwide tasks",
+  "teamTasks.filterLabel": "{length, number} tasks",
+  "teamTasks.filter": "Filter tasks",
+  "teamTasks.projFilter": "Show tasks in",
+  "teamTasks.typeFilter": "Task type"
+}

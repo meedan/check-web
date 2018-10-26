@@ -18,7 +18,7 @@
   "mediaDetail.assignedTo": "Assigné.e à {name}",
   "mediaDetail.dialogHeader": "Transférer ce(tte) {mediaType} à un projet différent",
   "mediaDetail.dialogMediaPath": "Actuellement classé dans {teamName} > {projectTitle}",
-  "mediaDetail.deleteForeverConfirmationText": "Êtes-vous sûr ? Ceci supprimera {notesCount, plural, =0 {aucune note} one {une note} other {# notes}}. Tapez \"confirm\" si vous voulez continuer.",
+  "mediaDetail.deleteForeverConfirmationText": "Ceci supprimera {notesCount, plural, =0 {aucune note} one {une note} other {# notes}}. Tapez \"confirm\" si vous désirez continuer.",
   "mediaDetail.confirmationError": "No correspond pas",
   "mediaDetail.typeHere": "Tapez ici",
   "mediaDetail.assignDialogHeader": "Mission"
