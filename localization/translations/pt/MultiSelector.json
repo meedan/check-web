@@ -1,8 +1,8 @@
 {
-  "MultiSelector.search": "Search...",
-  "multiSelector.all": "Select all",
-  "multiSelector.none": "Unselect all",
-  "multiSelector.empty": "No items found",
-  "multiSelector.cancel": "Cancel",
-  "multiSelector.save": "Save"
+  "MultiSelector.search": "Buscar...",
+  "multiSelector.all": "Selecionar todos",
+  "multiSelector.none": "Desmarcar todos",
+  "multiSelector.empty": "Nenhum item encontrado ",
+  "multiSelector.cancel": "Cancelar",
+  "multiSelector.save": "Salvar"
 }

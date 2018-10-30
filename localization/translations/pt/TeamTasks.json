@@ -1,8 +1,8 @@
 {
-  "teamTasks.blank": "No teamwide tasks to display",
-  "teamTasks.title": "Teamwide tasks",
-  "teamTasks.filterLabel": "{length, number} tasks",
-  "teamTasks.filter": "Filter tasks",
-  "teamTasks.projFilter": "Show tasks in",
-  "teamTasks.typeFilter": "Task type"
+  "teamTasks.blank": "Nenhuma tarefa da equipe",
+  "teamTasks.title": "Tarefas da equipe",
+  "teamTasks.filterLabel": "{length, number} tarefas",
+  "teamTasks.filter": "Filtrar tarefas",
+  "teamTasks.projFilter": "Mostrar tarefas em",
+  "teamTasks.typeFilter": "Tipo da tarefa"
 }

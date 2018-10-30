@@ -1,4 +1,4 @@
 {
-  "taskTypeSelector.numTypes": "{length, number} selected",
-  "taskTypeSelector.allTypes": "All tasks"
+  "taskTypeSelector.numTypes": "{length, number} seleccionado",
+  "taskTypeSelector.allTypes": "Todas las tareas"
 }
