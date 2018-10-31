@@ -37,7 +37,6 @@ const StyledTaskLog = styled.div`
   .task__log-top {
     display: flex;
     justify-content: flex-end;
-    padding: ${units(2)};
 
     b {
       color: ${checkBlue};
@@ -57,6 +56,14 @@ const StyledTaskLog = styled.div`
       span {
         padding: 0 ${units(1)};
       }
+    }
+    
+    .task__log-icon {
+      margin-top: -35px;
+      margin-right: 50px;
+      margin-left: 50px;
+      position: relative;
+      z-index: 2;
     }
   }
 
@@ -319,7 +326,7 @@ class TaskLog extends Component {
     return (
       <StyledTaskLog>
         <div className="task__log-top">
-          <span onClick={this.toggle.bind(this)}>
+          <span className="task__log-icon" onClick={this.toggle.bind(this)}>
             <b>{ pendingSuggestionsCount > 0 ? '•' : null }</b> <ChatBubble /> <span>{logCount}</span>
           </span>
         </div>

@@ -1,0 +1,8 @@
+{
+  "teamTasks.blank": "Aucune tâche d'équipe",
+  "teamTasks.title": "Tâches de l'équipe",
+  "teamTasks.filterLabel": "{length, number} tâches",
+  "teamTasks.filter": "Filtrer",
+  "teamTasks.projFilter": "Afficher les tâches dans",
+  "teamTasks.typeFilter": "Type de la tâche"
+}

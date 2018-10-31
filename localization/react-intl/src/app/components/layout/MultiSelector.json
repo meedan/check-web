@@ -1,0 +1,26 @@
+[
+  {
+    "id": "MultiSelector.search",
+    "defaultMessage": "Search..."
+  },
+  {
+    "id": "multiSelector.all",
+    "defaultMessage": "Select all"
+  },
+  {
+    "id": "multiSelector.none",
+    "defaultMessage": "Unselect all"
+  },
+  {
+    "id": "multiSelector.empty",
+    "defaultMessage": "No items found"
+  },
+  {
+    "id": "multiSelector.cancel",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "multiSelector.save",
+    "defaultMessage": "Save"
+  }
+]

@@ -1,0 +1,15 @@
+{
+  "singleChoiceTask.addValue": "Ajouter une option",
+  "singleChoiceTask.value": "Valeur",
+  "singleChoiceTask.addOther": "Ajouter \"Autre\"",
+  "singleChoiceTask.other": "Autre",
+  "singleChoiceTask.newTask": "Nouvelle tâche",
+  "singleChoiceTask.editTask": "Modifier",
+  "tasks.taskPrompt": "Saisie",
+  "tasks.description": "Description (optionnelle)",
+  "tasks.requiredCheckbox": "Requise",
+  "tasks.showInProj": "Afficher les tâches dans",
+  "tasks.assign": "Assigner",
+  "tasks.cancelAdd": "Annuler",
+  "tasks.add": "Sauvegarder"
+}

@@ -1,0 +1,38 @@
+[
+  {
+    "id": "createTeamTask.editError",
+    "defaultMessage": "Failed to edit teamwide task"
+  },
+  {
+    "id": "createTeamTask.deleteError",
+    "defaultMessage": "Failed to delete teamwide task"
+  },
+  {
+    "id": "teamTasks.edit",
+    "defaultMessage": "Edit task"
+  },
+  {
+    "id": "teamTasks.delete",
+    "defaultMessage": "Delete task"
+  },
+  {
+    "id": "teamTasks.confirmEditTitle",
+    "defaultMessage": "Are you sure you want to edit this task?"
+  },
+  {
+    "id": "teamTasks.confirmDeleteTitle",
+    "defaultMessage": "Are you sure you want to delete this task?"
+  },
+  {
+    "id": "teamTasks.confirmAction",
+    "defaultMessage": "Yes"
+  },
+  {
+    "id": "teamTasks.cancelAction",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "teamTasks.continue",
+    "defaultMessage": "Continue"
+  }
+]

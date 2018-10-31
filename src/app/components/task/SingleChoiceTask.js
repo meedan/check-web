@@ -5,7 +5,6 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FlatButton from 'material-ui/FlatButton';
 import { FormattedMessage } from 'react-intl';
-import CreateOptionsTask from './CreateOptionsTask';
 import { safelyParseJSON } from '../../helpers';
 import { StyledSmallTextField } from '../../styles/js/shared';
 
@@ -209,7 +208,6 @@ class SingleChoiceTask extends Component {
 
   render() {
     const {
-      media,
       response,
       note,
       jsonoptions,
@@ -217,15 +215,6 @@ class SingleChoiceTask extends Component {
 
     return (
       <div>
-        {this.props.mode === 'create' ?
-          <CreateOptionsTask
-            taskType="single_choice"
-            media={media}
-            onDismiss={this.props.onDismiss.bind(this)}
-            onSubmit={this.props.onSubmit.bind(this)}
-          />
-          : null
-        }
         {this.props.mode === 'respond' ? this.renderOptions(response, note, jsonoptions) : null}
         {this.props.mode === 'show_response' && response
           ? this.renderOptions(response, note, jsonoptions)

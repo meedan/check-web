@@ -1,5 +1,9 @@
 [
   {
+    "id": "UserUtil.annotator",
+    "defaultMessage": "Annotator"
+  },
+  {
     "id": "UserUtil.contributor",
     "defaultMessage": "Contributor"
   },

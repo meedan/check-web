@@ -4,7 +4,7 @@
   "userInfoEdit.userEmail": "البريد الإلكتروني",
   "userInfoEdit.userSendEmailNotification": "استلام تنبيهات عبر البريد اﻹلكتروني",
   "userInfoEdit.addLink": "أضف رابطاً",
-  "userInfoEdit.editError": "عذراً ، لم نتمكن من تحرير المصدر",
+  "userInfoEdit.editError": "عذراً ، لقد واجهنا خطأ ما اثناء تحرير المصدر. من فضلك أعد المحاولة وتواصل مع فريق الدعم إن استمر الخطأ.",
   "userInfoEdit.addLinkLabel": "أضف رابطاً",
   "userInfoEdit.addLinkHelper": "أضف رابطاً لصفحة ويب أو لملف تعريف. لن يغير ذلك طريقة تسجيل الدخول الخاصة بك.",
   "userInfoEdit.emailConfirmed": "✔ عنوان مؤكد",

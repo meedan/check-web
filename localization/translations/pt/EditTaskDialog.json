@@ -4,11 +4,12 @@
   "singleChoiceTask.addOther": "Adicionar \"Outro\"",
   "singleChoiceTask.other": "Outro",
   "singleChoiceTask.newTask": "Nova tarefa",
-  "tasks.cancelAdd": "Cancelar",
-  "tasks.add": "Criar Tarefa",
+  "singleChoiceTask.editTask": "Editar tarefa",
   "tasks.taskPrompt": "Questão",
+  "tasks.description": "Descrição (opcional)",
   "tasks.requiredCheckbox": "Requerido",
-  "tasks.description": "Descrição",
-  "tasks.addDescription": "Adicione uma descrição",
-  "tasks.assign": "Atribuir"
+  "tasks.showInProj": "Mostrar tarefas em",
+  "tasks.assign": "Atribuir",
+  "tasks.cancelAdd": "Cancelar",
+  "tasks.add": "Salvar"
 }

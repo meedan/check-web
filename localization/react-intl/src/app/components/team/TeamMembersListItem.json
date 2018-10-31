@@ -1,5 +1,9 @@
 [
   {
+    "id": "TeamMembersListItem.annotator",
+    "defaultMessage": "Annotator"
+  },
+  {
     "id": "TeamMembersListItem.contributor",
     "defaultMessage": "Contributor"
   },

@@ -1,5 +1,9 @@
 [
   {
+    "id": "teamSettings.Tasks",
+    "defaultMessage": "Tasks"
+  },
+  {
     "id": "teamSettings.Tags",
     "defaultMessage": "Tags"
   },

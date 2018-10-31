@@ -24,6 +24,10 @@ import {
 } from '../../styles/js/shared';
 
 const messages = defineMessages({
+  annotator: {
+    id: 'TeamMembersListItem.annotator',
+    defaultMessage: 'Annotator',
+  },
   contributor: {
     id: 'TeamMembersListItem.contributor',
     defaultMessage: 'Contributor',
@@ -70,6 +74,7 @@ class TeamMembersListItem extends Component {
     const { teamUser, isEditing } = this.props;
 
     const roles = [
+      { value: 'annotator', label: this.props.intl.formatMessage(messages.annotator) },
       { value: 'contributor', label: this.props.intl.formatMessage(messages.contributor) },
       { value: 'journalist', label: this.props.intl.formatMessage(messages.journalist) },
       { value: 'editor', label: this.props.intl.formatMessage(messages.editor) },

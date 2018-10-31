@@ -20,31 +20,35 @@
     "defaultMessage": "New task"
   },
   {
-    "id": "tasks.cancelAdd",
-    "defaultMessage": "Cancel"
-  },
-  {
-    "id": "tasks.add",
-    "defaultMessage": "Create Task"
+    "id": "singleChoiceTask.editTask",
+    "defaultMessage": "Edit task"
   },
   {
     "id": "tasks.taskPrompt",
     "defaultMessage": "Prompt"
   },
   {
+    "id": "tasks.description",
+    "defaultMessage": "Description (optional)"
+  },
+  {
     "id": "tasks.requiredCheckbox",
     "defaultMessage": "Required"
   },
   {
-    "id": "tasks.description",
-    "defaultMessage": "Description"
-  },
-  {
-    "id": "tasks.addDescription",
-    "defaultMessage": "Add a description"
+    "id": "tasks.showInProj",
+    "defaultMessage": "Show tasks in"
   },
   {
     "id": "tasks.assign",
     "defaultMessage": "Assign"
+  },
+  {
+    "id": "tasks.cancelAdd",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "tasks.add",
+    "defaultMessage": "Save"
   }
 ]

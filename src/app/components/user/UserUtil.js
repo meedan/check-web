@@ -2,6 +2,10 @@ import { defineMessages } from 'react-intl';
 import { safelyParseJSON } from '../../helpers';
 
 const messages = defineMessages({
+  annotator: {
+    id: 'UserUtil.annotator',
+    defaultMessage: 'Annotator',
+  },
   contributor: {
     id: 'UserUtil.contributor',
     defaultMessage: 'Contributor',
