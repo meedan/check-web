@@ -132,6 +132,43 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
               pending_suggestions_count,
               suggestions_count,
               log_count,
+              responses(first: 10000) {
+                edges {
+                  node {
+                    id,
+                    dbid,
+                    content,
+                    attribution(first: 10000) {
+                      edges {
+                        node {
+                          id
+                          dbid
+                          name
+                          source {
+                            id
+                            dbid
+                            image
+                          }
+                        }
+                      }
+                    }
+                    annotator {
+                      name,
+                      profile_image,
+                      user {
+                        id,
+                        dbid,
+                        name,
+                        source {
+                          id,
+                          dbid,
+                          image,
+                        }
+                      }
+                    }
+                  }
+                }
+              }
               assignments(first: 10000) {
                 edges {
                   node {
