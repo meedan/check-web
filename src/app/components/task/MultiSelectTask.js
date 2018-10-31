@@ -158,7 +158,7 @@ class MultiSelectTask extends Component {
         />
         <FlatButton
           className="task__submit"
-          label={<FormattedMessage id="tasks.submit" defaultMessage="Resolve Task" />}
+          label={<FormattedMessage id="tasks.answer" defaultMessage="Answer Task" />}
           primary
           onClick={submitCallback}
           disabled={this.state.taskAnswerDisabled}

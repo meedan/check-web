@@ -15,6 +15,7 @@ import MediaExpanded from './MediaExpanded';
 import MediaUtil from './MediaUtil';
 import MediaRelatedComponent from './MediaRelatedComponent';
 import CheckContext from '../../CheckContext';
+import UserUtil from '../user/UserUtil';
 import { getStatus, getStatusStyle, bemClassFromMediaStatus } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
 import {
@@ -134,7 +135,9 @@ class MediaDetail extends Component {
     const data = typeof media.embed === 'string' ? JSON.parse(media.embed) : media.embed;
     const isRtl = rtlDetect.isRtlLang(locale);
     const fromDirection = isRtl ? 'right' : 'left';
-    const annotationsCount = MediaUtil.notesCount(media, data, this.props.intl);
+    const { currentUser } = this.getContext();
+    const annotationsCount = UserUtil.myRole(currentUser, media.team.slug) === 'annotator' ?
+      null : MediaUtil.notesCount(media, data, this.props.intl);
     const status = getStatus(mediaStatuses(media), mediaLastStatus(media));
     const cardHeaderStatus = (
       <MediaStatus

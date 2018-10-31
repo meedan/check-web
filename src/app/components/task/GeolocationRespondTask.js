@@ -260,8 +260,8 @@ class GeolocationRespondTask extends Component {
           className="task__save"
           label={
             <FormattedMessage
-              id="geolocationRespondTask.resolveTask"
-              defaultMessage="Resolve task"
+              id="geolocationRespondTask.answerTask"
+              defaultMessage="Answer task"
             />
           }
           primary

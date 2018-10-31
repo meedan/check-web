@@ -16,8 +16,8 @@
     "defaultMessage": "Cancel"
   },
   {
-    "id": "datetimeRespondTask.resolveTask",
-    "defaultMessage": "Resolve task"
+    "id": "datetimeRespondTask.answerTask",
+    "defaultMessage": "Answer task"
   },
   {
     "id": "datetimeRespondTask.pickDate",
