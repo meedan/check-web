@@ -13,13 +13,18 @@ const team = {
   },
 };
 
+const direction = {
+  from: 'left',
+  to: 'right',
+};
+
 describe('<TeamTasksComponent />', () => {
   it('should render filter and create task button', function() {
     const wrapper = mountWithIntl(
-      <TeamTasksComponent team={team} />
+      <TeamTasksComponent team={team} direction={direction} />
     );
     expect(wrapper.find('.filter-popup').hostNodes()).to.have.length(1);
     expect(wrapper.find('.create-task__add-button').hostNodes()).to.have.length(1);
-    expect(wrapper.html()).to.contain('Teamwide tasks');
+    expect(wrapper.html()).to.contain('Tasks');
   });
 });

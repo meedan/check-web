@@ -43,6 +43,7 @@ class FilterPopup extends React.Component {
     return (
       <div className="filter-popup">
         <Row>
+          { this.props.label ? this.props.label : null }
           { this.props.tooltip ?
             <Tooltip title={this.props.tooltip}>
               <IconButton onClick={this.handleMenuClick}>
@@ -54,7 +55,6 @@ class FilterPopup extends React.Component {
               <FilterListIcon />
             </IconButton>
           }
-          { this.props.label ? this.props.label : null }
         </Row>
         <Popper
           open={this.state.popper.open}
