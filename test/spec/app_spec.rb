@@ -99,7 +99,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should manage team tasks", bin6: true do
       # Create team and go to team page that should not contain any task
       team = "task-team-#{Time.now.to_i}"
-      api_create_team(team: team)
+      api_create_team(team: team, limits: '{ "custom_tasks_list": true }')
       p = Page.new(config: @config, driver: @driver)
       p.go(@config['self_url'] + '/' + team)
       wait_for_selector('.team-menu__team-settings-button').click
@@ -119,11 +119,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Edit task
       wait_for_selector('.team-tasks__menu-item-button').click
       wait_for_selector('.team-tasks__edit-button').click
-      wait_for_selector('#team-tasks__confirm-action-checkbox').click
-      wait_for_selector('#team-tasks__confirm-action-button').click
       fill_field('#task-label-input', '-EDITED')
       wait_for_selector('#edit-task__required-switch').click ; sleep 5
       wait_for_selector('.create-task__dialog-submit-button').click
+      wait_for_selector('#confirm-dialog__checkbox').click
+      wait_for_selector('#confirm-dialog__confirm-action-button').click
       sleep 5
       expect(@driver.page_source.include?('New teamwide task-EDITED')).to be(true)
       expect(@driver.find_element(:css, '.task__required').text == '*').to be(true)
@@ -131,8 +131,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Delete tag
       wait_for_selector('.team-tasks__menu-item-button').click
       wait_for_selector('.team-tasks__delete-button').click
-      wait_for_selector('#team-tasks__confirm-action-checkbox').click
-      wait_for_selector('#team-tasks__confirm-action-button').click
+      wait_for_selector('#confirm-dialog__checkbox').click
+      wait_for_selector('#confirm-dialog__confirm-action-button').click
       sleep 5
       expect(@driver.page_source.include?('New teamwide task')).to be(false)
     end
