@@ -22,6 +22,13 @@ class ConfirmDialog extends React.Component {
     this.setState({ confirmed: !this.state.confirmed });
   };
 
+  handleCancel = () => {
+    this.setState({ confirmed: false });
+    if (this.props.handleClose) {
+      this.props.handleClose();
+    }
+  }
+
   render() {
     return (
       <Dialog
@@ -48,7 +55,7 @@ class ConfirmDialog extends React.Component {
         <DialogActions>
           <Button
             id="confirm-dialog__cancel-action-button"
-            onClick={this.props.handleClose}
+            onClick={this.handleCancel}
           >
             <FormattedMessage id="teamTasks.cancelAction" defaultMessage="Cancel" />
           </Button>
