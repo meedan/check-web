@@ -1,9 +1,9 @@
 {
   "geoLocationRespondTask.searching": "البحث جارٍ...",
   "geoLocationRespondTask.notFound": "عذراً ، هذا المكان غير موجود.",
-  "geoLocationRespondTask.error": "عذراً، لقد واجهنا خطأ ما أثناء التواصل مع الخادم.",
+  "geoLocationRespondTask.error": "عذراً ، لقد واجهنا خطأ ما اثناء التواصل مع الخادم. من فضلك أعد المحاولة وتواصل مع فريق الدعم إن استمر الخطأ.",
   "geolocationRespondTask.cancelTask": "إلغاء",
-  "geolocationRespondTask.resolveTask": "إنجاز المهمة",
+  "geolocationRespondTask.answerTask": "إجابة",
   "geolocationRespondTask.searchMap": "بحث في الخريطة",
   "geolocationRespondTask.placeName": "تصحيح اسم المكان",
   "geolocationRespondTask.coordinates": "خطوط العرض والطول"

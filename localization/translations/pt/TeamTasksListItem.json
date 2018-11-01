@@ -1,0 +1,11 @@
+{
+  "createTeamTask.editError": "Desculpe, não foi possível editar a tarefa da equipe",
+  "createTeamTask.deleteError": "Desculpe, não foi possível excluir a tarefa da equipe",
+  "teamTasks.edit": "Editar tarefa",
+  "teamTasks.delete": "Excluir tarefa",
+  "teamTasks.confirmEditTitle": "Tem certeza que deseja editar esta tarefa?",
+  "teamTasks.confirmDeleteTitle": "Tem certeza que deseja apagar esta tarefa?",
+  "teamTasks.confirmAction": "Sim",
+  "teamTasks.cancelAction": "Cancelar",
+  "teamTasks.continue": "Continuar"
+}

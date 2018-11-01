@@ -4,11 +4,12 @@
   "singleChoiceTask.addOther": "أضف \"آخر\"",
   "singleChoiceTask.other": "آخر",
   "singleChoiceTask.newTask": "مهمة جديدة",
-  "tasks.cancelAdd": "إلغاء",
-  "tasks.add": "أضف مهمة",
+  "singleChoiceTask.editTask": "تحرير المهمة",
   "tasks.taskPrompt": "السؤال",
+  "tasks.description": "الوصف (اختياري)",
   "tasks.requiredCheckbox": "إجباري",
-  "tasks.description": "وصف",
-  "tasks.addDescription": "أضف وصفاً",
-  "tasks.assign": "تكليف"
+  "tasks.showInProj": "عرض المهام في",
+  "tasks.assign": "تكليف",
+  "tasks.cancelAdd": "إلغاء",
+  "tasks.add": "حفظ"
 }

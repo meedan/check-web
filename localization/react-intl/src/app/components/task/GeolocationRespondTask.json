@@ -16,8 +16,8 @@
     "defaultMessage": "Cancel"
   },
   {
-    "id": "geolocationRespondTask.resolveTask",
-    "defaultMessage": "Resolve task"
+    "id": "geolocationRespondTask.answerTask",
+    "defaultMessage": "Answer task"
   },
   {
     "id": "geolocationRespondTask.searchMap",

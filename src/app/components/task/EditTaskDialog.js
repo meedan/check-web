@@ -337,7 +337,7 @@ class EditTaskDialog extends React.Component {
           <StyledTaskAssignment>
             { this.state.showAssignmentField ?
               <Attribution
-                multi={false}
+                multi
                 selectedUsers={[]}
                 id="new"
                 taskType={this.props.taskType}

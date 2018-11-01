@@ -4,8 +4,8 @@
     "defaultMessage": "Cancel"
   },
   {
-    "id": "shortTextRespondTask.resolveTask",
-    "defaultMessage": "Resolve task"
+    "id": "shortTextRespondTask.answerTask",
+    "defaultMessage": "Answer task"
   },
   {
     "id": "shortTextRespondTask.responseHint",

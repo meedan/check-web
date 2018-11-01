@@ -1,0 +1,9 @@
+{
+  "tasks.addTask": "أضف مهمة",
+  "tasks.shortAnswer": "سؤال ذو إجابة قصيرة",
+  "tasks.chooseOne": "سؤال أحادي الاختيارات",
+  "tasks.chooseMultiple": "سؤال متعدد الاختيارات",
+  "tasks.geolocation": "الموقع",
+  "tasks.datetime": "التاريخ والزمن",
+  "tasks.teamwideNudge": "مهام الفريق"
+}

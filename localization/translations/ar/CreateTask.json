@@ -1,17 +1,3 @@
 {
-  "createTask.newTask": "مهمة جديدة",
-  "tasks.cancelAdd": "إلغاء",
-  "tasks.add": "أضف مهمة",
-  "tasks.addTask": "أضف مهمة",
-  "tasks.shortAnswer": "إجابة قصيرة",
-  "tasks.chooseOne": "سؤال أحادي الاختيارات",
-  "tasks.chooseMultiple": "سؤال متعدد الاختيارات",
-  "tasks.geolocation": "الموقع",
-  "tasks.datetime": "التاريخ والزمن",
-  "tasks.teamwideNudge": "مهام الفريق",
-  "tasks.taskLabel": "السؤال",
-  "tasks.requiredCheckbox": "إجباري",
-  "tasks.description": "وصف",
-  "tasks.addDescription": "أضف وصفاً",
-  "tasks.assign": "تكليف"
+  "createTask.newTask": "مهمة جديدة"
 }

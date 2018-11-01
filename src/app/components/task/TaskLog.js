@@ -8,6 +8,7 @@ import CheckContext from '../../CheckContext';
 import Annotation from '../annotations/Annotation';
 import MediasLoading from '../media/MediasLoading';
 import AddAnnotation from '../annotations/AddAnnotation';
+import UserUtil from '../user/UserUtil';
 import { black16, units, opaqueBlack54, checkBlue } from '../../styles/js/shared';
 
 const StyledAnnotation = styled.div`
@@ -37,7 +38,6 @@ const StyledTaskLog = styled.div`
   .task__log-top {
     display: flex;
     justify-content: flex-end;
-    padding: ${units(2)};
 
     b {
       color: ${checkBlue};
@@ -57,6 +57,14 @@ const StyledTaskLog = styled.div`
       span {
         padding: 0 ${units(1)};
       }
+    }
+    
+    .task__log-icon {
+      margin-top: -35px;
+      margin-right: 50px;
+      margin-left: 50px;
+      position: relative;
+      z-index: 2;
     }
   }
 
@@ -309,17 +317,23 @@ class TaskLog extends Component {
     this.setState({ collapsed: !this.state.collapsed });
   }
 
+  currentContext() {
+    return new CheckContext(this).getContextStore();
+  }
+
   render() {
     const id = this.props.task.dbid;
     const route = new TaskRoute({ id });
     const suggestionsCount = this.props.task.suggestions_count || 0;
     const pendingSuggestionsCount = this.props.task.pending_suggestions_count || 0;
-    const logCount = this.props.task.log_count + suggestionsCount;
+    const { currentUser, team } = this.currentContext();
+    const logCount = UserUtil.myRole(currentUser, team.slug) === 'annotator' ?
+      null : (this.props.task.log_count + suggestionsCount);
 
     return (
       <StyledTaskLog>
         <div className="task__log-top">
-          <span onClick={this.toggle.bind(this)}>
+          <span className="task__log-icon" onClick={this.toggle.bind(this)}>
             <b>{ pendingSuggestionsCount > 0 ? '•' : null }</b> <ChatBubble /> <span>{logCount}</span>
           </span>
         </div>
@@ -338,5 +352,9 @@ class TaskLog extends Component {
     );
   }
 }
+
+TaskLog.contextTypes = {
+  store: PropTypes.object,
+};
 
 export default TaskLog;

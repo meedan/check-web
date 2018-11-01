@@ -1,7 +1,7 @@
 {
-  "annotation.embedLabelUpdated": "تم تعديل العنوان إلى \"{title}\" من قِبَل {author}",
-  "annotation.embedLabelRemoved": "تم حذف العنوان \"{title}\" بواسطة {author}",
-  "annotation.embedNoteUpdated": "تم تعديل الوصف من \"{from}\" إلى \"{to}\" من قِبَل {author}",
-  "annotation.embedNoteCreated": "تمت إضافة وصف من قِبَل {author} : {note}",
-  "annotation.embedNoteRemoved": "تم حذف الوصف \"{note}\" بواسطة {author}"
+  "annotation.embedLabelUpdated": "قام {author} بتعديل العنوان إلى \"{title}\"",
+  "annotation.embedLabelRemoved": "قام {author} بحذف العنوان \"{title}\"",
+  "annotation.embedNoteUpdated": "قام {author} بتعديل الوصف من \"{from}\" إلى \"{to}\"",
+  "annotation.embedNoteCreated": "قام {author} بإضافة وصف \"{note}\"",
+  "annotation.embedNoteRemoved": "قام {author} بحذف الوصف \"{note}\""
 }

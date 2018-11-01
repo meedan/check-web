@@ -3,7 +3,7 @@
   "geoLocationRespondTask.notFound": "Sorry, place not found!",
   "geoLocationRespondTask.error": "Error communicating with server!",
   "geolocationRespondTask.cancelTask": "Cancel",
-  "geolocationRespondTask.resolveTask": "Resolve task",
+  "geolocationRespondTask.answerTask": "Answer task",
   "geolocationRespondTask.searchMap": "Search the map",
   "geolocationRespondTask.placeName": "Customize place name",
   "geolocationRespondTask.coordinates": "Latitude, Longitude"
