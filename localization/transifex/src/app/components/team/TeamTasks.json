@@ -1,7 +1,8 @@
 {
+  "teamTasks.filterLabelHidden": "{length, number} tasks ({hidden, number} hidden by filters)",
+  "teamTasks.filterLabel": "{length, number} tasks",
   "teamTasks.blank": "No teamwide tasks to display",
   "teamTasks.title": "Teamwide tasks",
-  "teamTasks.filterLabel": "{length, number} tasks",
   "teamTasks.filter": "Filter tasks",
   "teamTasks.projFilter": "Show tasks in",
   "teamTasks.typeFilter": "Task type"

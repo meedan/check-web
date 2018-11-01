@@ -7,7 +7,7 @@
   "mediaMetadata.movedToTrash": "تم الارسال إلى {trash}",
   "mediaMetadata.movedBack": "تمت اﻹستعادة إلى مشروع {project}",
   "mediaMetadata.deletedForever": "تم الحذف",
-  "mediaDetail.byUser": "بواسطة {username}",
+  "mediaDetail.byUser": "من {username}",
   "mediaDetail.cancelButton": "إلغاء",
   "mediaDetail.move": "نقل",
   "mediaDetail.done": "إتمام",

@@ -1,10 +1,11 @@
 {
   "task.confirmDelete": "هل أنت متأكد أنك تود حذف هذه المهمة؟",
+  "task.answeredBy": "أجابها {byName}",
   "tasks.cancelEdit": "إلغاء",
   "tasks.save": "حفظ",
   "tasks.done": "إتمام",
   "task.assignedTo": "تم تكليف الميديا إلى {name}",
-  "task.resolvedBy": "تم إنجازها بواسطة  {byName}",
+  "task.resolvedBy": "أجابها {byName}",
   "task.editResponse": "تحرير اﻹجابة",
   "task.edit": "تحرير المهمة",
   "task.assignOrUnassign": "تكليف \\ إلغاء التكليف",

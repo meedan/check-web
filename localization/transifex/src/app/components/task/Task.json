@@ -1,5 +1,6 @@
 {
   "task.confirmDelete": "Are you sure you want to delete this task?",
+  "task.answeredBy": "Answered by {byName}",
   "tasks.cancelEdit": "Cancel",
   "tasks.save": "Save",
   "tasks.done": "Done",

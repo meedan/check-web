@@ -3,7 +3,7 @@
   "datetimeRespondTask.cancel": "إلغاء",
   "datetimeRespondTask.timeError": "توقيت غير صحيح",
   "datetimeRespondTask.cancelTask": "إلغاء",
-  "datetimeRespondTask.resolveTask": "إنجاز المهمة",
+  "datetimeRespondTask.answerTask": "إجابة",
   "datetimeRespondTask.pickDate": "إختر التاريخ على التقويم المتاح",
   "datetimeRespondTask.timeOptional": "الزمن (اختياري)"
 }
