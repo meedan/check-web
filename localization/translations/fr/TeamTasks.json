@@ -2,7 +2,7 @@
   "teamTasks.filterLabelHidden": "{length, number} tâches ({hidden, number} caché.es par les filtres)",
   "teamTasks.filterLabel": "{length, number} tâches",
   "teamTasks.blank": "Aucune tâche d'équipe",
-  "teamTasks.title": "Tâches de l'équipe",
+  "teamTasks.title": "Tâches",
   "teamTasks.filter": "Filtrer",
   "teamTasks.projFilter": "Afficher les tâches dans",
   "teamTasks.typeFilter": "Type de la tâche"

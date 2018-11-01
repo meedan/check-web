@@ -8,6 +8,7 @@
   "tasks.taskPrompt": "Saisie",
   "tasks.description": "Description (optionnelle)",
   "tasks.requiredCheckbox": "Requise",
+  "tasks.requiredHelper": "Les éléments ne peuvent pas être marqués comme complétés tant qu'une de leurs tâches requises n'est encore résolue.",
   "tasks.showInProj": "Afficher les tâches dans",
   "tasks.assign": "Assigner",
   "tasks.cancelAdd": "Annuler",

@@ -229,7 +229,7 @@ const messages = defineMessages({
   },
   newTranslationNotificationBody: {
     id: 'search.newTranslationNotificationBody',
-    defaultMessage: 'A report was just marked as "translated"',
+    defaultMessage: 'An item was just marked as "translated"',
   },
 });
 
