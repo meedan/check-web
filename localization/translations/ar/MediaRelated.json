@@ -1,4 +1,4 @@
 {
-  "mediaRelated.relatedClaims": "الادعائات ذات صلة",
-  "mediaRelated.counter": "{total} ادعائات ذات صلة ({hidden} مخفية من عوامل التصفية)"
+  "mediaRelated.relatedItems": "العناصر ذات صلة",
+  "mediaRelated.counter": "{total, number} عناصر ذات صلة ({hidden, number} مخفية من عوامل التصفية)"
 }

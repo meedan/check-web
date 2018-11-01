@@ -1,4 +1,4 @@
 {
-  "mediaRelated.relatedClaims": "Related claims",
-  "mediaRelated.counter": "{total} related claims ({hidden} hidden by filters)"
+  "mediaRelated.relatedItems": "Related items",
+  "mediaRelated.counter": "{total, number} related items ({hidden, number} hidden by filters)"
 }

@@ -56,8 +56,7 @@ const ConfirmEmail = (props) => {
         <div>
           <FormattedMessage
             id="ConfirmEmail.content"
-            defaultMessage="A confirmation email was sent to {email} — please check your inbox to confirm your new email address. You can edit your profile if you need to change the address."
-            values={{ email: props.user.unconfirmed_email }}
+            defaultMessage="Please check your email to verify your account."
           />
           <StyledUserConfirmation
             className="confirm-email__resend-confirmation"

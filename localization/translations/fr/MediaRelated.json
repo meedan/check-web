@@ -1,4 +1,4 @@
 {
-  "mediaRelated.relatedClaims": "Déclarations connexes",
-  "mediaRelated.counter": "{total} déclarations connexes ({hidden} cachées par les filtres)"
+  "mediaRelated.relatedItems": "Éléments associés",
+  "mediaRelated.counter": "{total, number} éléments associés ({hidden, number} cachés par les filtres)"
 }

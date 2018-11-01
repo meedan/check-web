@@ -111,8 +111,8 @@ class MediaRelatedComponent extends Component {
             <FlexRow>
               <h2>
                 <FormattedMessage
-                  id="mediaRelated.relatedClaims"
-                  defaultMessage="Related claims"
+                  id="mediaRelated.relatedItems"
+                  defaultMessage="Related items"
                 />
               </h2>
             </FlexRow>
@@ -124,7 +124,7 @@ class MediaRelatedComponent extends Component {
             <FlexRow>
               <FormattedMessage
                 id="mediaRelated.counter"
-                defaultMessage="{total} related claims ({hidden} hidden by filters)"
+                defaultMessage="{total, number} related items ({hidden, number} hidden by filters)"
                 values={{ total: targets_count, hidden: filtered_count }}
               />
             </FlexRow>
@@ -217,7 +217,7 @@ const MediaRelatedContainer = Relay.createContainer(MediaRelatedComponent, {
                 }
               }
             }
-          } 
+          }
         }
       }
     `,

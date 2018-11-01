@@ -1,4 +1,4 @@
 {
-  "mediaRelated.relatedClaims": "Afirmaciones relacionadas",
-  "mediaRelated.counter": "{total} afirmaciones relacionadas ({hidden} ocultas por los filtros)"
+  "mediaRelated.relatedItems": "Ítems relacionados",
+  "mediaRelated.counter": "{total, number} ítems relacionados ({hidden, number} ocultos por los filtros)"
 }
