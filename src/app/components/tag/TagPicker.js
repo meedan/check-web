@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import CheckboxNext from '@material-ui/core/Checkbox';
+import rtlDetect from 'rtl-detect';
 import styled from 'styled-components';
 import difference from 'lodash.difference';
 import intersection from 'lodash.intersection';
@@ -39,6 +40,11 @@ const StyledTagPickerArea = styled.div`
   overflow-y: auto;
   border: 1px solid ${opaqueBlack05};
   background-color: ${opaqueBlack02};
+`;
+
+const StyledFormControlLabel = styled(FormControlLabel)`
+  margin-${props => props.direction.from}: -14px !important;
+  margin-${props => props.direction.to}: 16px !important;
 `;
 
 class TagPicker extends React.Component {
@@ -140,6 +146,12 @@ class TagPicker extends React.Component {
     const shownTagsCount = shownSuggestedCount + shownUsedCount;
     const totalTagsCount = suggestedTags.length + tags.length + media.team.used_tags.length;
 
+    const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
+    const direction = {
+      from: isRtl ? 'right' : 'left',
+      to: isRtl ? 'left' : 'right',
+    };
+
     return (shownTagsCount === 0 ?
       <StyledTagPickerArea>
         { this.renderNotFound(shownTagsCount, totalTagsCount) }
@@ -161,7 +173,8 @@ class TagPicker extends React.Component {
               </StyledNone>
               :
               checkedSuggestedTags.concat(uncheckedSuggestedTags).map((tag, index) => (
-                <FormControlLabel
+                <StyledFormControlLabel
+                  direction={direction}
                   key={`team-suggested-tag-${index.toString()}`}
                   control={
                     <CheckboxNext
@@ -184,7 +197,8 @@ class TagPicker extends React.Component {
               </StyledNone>
               :
               checkedUsedTags.concat(uncheckedUsedTags).map((tag, index) => (
-                <FormControlLabel
+                <StyledFormControlLabel
+                  direction={direction}
                   key={`team-used-tag-${index.toString()}`}
                   control={
                     <CheckboxNext
@@ -203,8 +217,14 @@ class TagPicker extends React.Component {
   }
 }
 
+TagPicker.propTypes = {
+  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
+  // eslint-disable-next-line react/no-typos
+  intl: intlShape.isRequired,
+};
+
 TagPicker.contextTypes = {
   store: PropTypes.object,
 };
 
-export default TagPicker;
+export default injectIntl(TagPicker);
