@@ -705,6 +705,10 @@ class Task extends Component {
     task.project_media = Object.assign({}, this.props.media);
     delete task.project_media.tasks;
 
+    const taskDescription = task.description ?
+      <ParsedText text={task.description} />
+      : null;
+
     return (
       <StyledWordBreakDiv>
         <Card
@@ -714,7 +718,7 @@ class Task extends Component {
         >
           <CardHeader
             title={taskQuestion}
-            subtitle={task.description ? task.description : null}
+            subtitle={taskDescription}
             id={`task__label-${task.id}`}
             showExpandableButton
           />
