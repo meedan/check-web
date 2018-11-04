@@ -1,0 +1,54 @@
+[
+  {
+    "id": "TeamInviteMembers.newInvite",
+    "defaultMessage": "Invite Members"
+  },
+  {
+    "id": "TeamInviteMembers.emailInput",
+    "defaultMessage": "Email address"
+  },
+  {
+    "id": "TeamInviteMembers.emailMultipleInput",
+    "defaultMessage": "Separate by comma"
+  },
+  {
+    "id": "TeamMembersListItem.contributor",
+    "defaultMessage": "Contributor"
+  },
+  {
+    "id": "TeamMembersListItem.journalist",
+    "defaultMessage": "Journalist"
+  },
+  {
+    "id": "TeamMembersListItem.editor",
+    "defaultMessage": "Editor"
+  },
+  {
+    "id": "TeamMembersListItem.owner",
+    "defaultMessage": "Owner"
+  },
+  {
+    "id": "teamInviteMembers.cancelAdd",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "teamInviteMembers.send",
+    "defaultMessage": "Send"
+  },
+  {
+    "id": "teamInviteMembers.inviteMember",
+    "defaultMessage": "Invite"
+  },
+  {
+    "id": "teamInviteMembers.customInvitation",
+    "defaultMessage": "Add custom invitation (optional)"
+  },
+  {
+    "id": "teamInviteMembers.addAnother",
+    "defaultMessage": "Add another"
+  },
+  {
+    "id": "teamInviteMembers.addMany",
+    "defaultMessage": "Add many"
+  }
+]

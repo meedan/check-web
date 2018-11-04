@@ -7,6 +7,7 @@ import { List } from 'material-ui/List';
 import TeamInviteCard from './TeamInviteCard';
 import TeamMembersListItem from './TeamMembersListItem';
 import TeamInvitedMemberItem from './TeamInvitedMemberItem';
+import TeamInviteMembers from './TeamInviteMembers';
 import Can from '../Can';
 import LoadMore from '../layout/LoadMore';
 import {
@@ -55,7 +56,7 @@ class TeamMembersComponent extends Component {
 
     const requestingMembership = !!teamUsersRequestingMembership.length;
     const invitedMails = !!teamInvitedMails.length;
-    
+
     return (
       <div>
         <TeamInviteCard team={team} />
@@ -119,6 +120,9 @@ class TeamMembersComponent extends Component {
                   />
                   : <FormattedMessage id="teamMembersComponent.editButton" defaultMessage="Edit" />}
               />
+            </Can>
+            <Can permissions={team.permissions} permission="update Team">
+              <TeamInviteMembers team={team} />
             </Can>
           </FlexRow>
           <LoadMore
