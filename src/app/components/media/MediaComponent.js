@@ -7,6 +7,7 @@ import PageTitle from '../PageTitle';
 import MediaDetail from './MediaDetail';
 import MediaRelated from './MediaRelated';
 import MediaUtil from './MediaUtil';
+import UserUtil from '../user/UserUtil';
 import Annotations from '../annotations/Annotations';
 import CheckContext from '../../CheckContext';
 import Tasks from '../task/Tasks';
@@ -155,6 +156,10 @@ class MediaComponent extends Component {
     media.quote = media.media.quote;
     media.embed_path = media.media.embed_path;
     const status = getStatus(mediaStatuses(media), mediaLastStatus(media));
+    const currentUserRole = UserUtil.myRole(
+      this.getContext().currentUser,
+      this.getContext().team.slug,
+    );
 
     return (
       <PageTitle
@@ -183,13 +188,15 @@ class MediaComponent extends Component {
                       />
                     </h2>
                       &nbsp;
-                    <FlexRow>
-                      {media.tasks.edges.filter(t =>
-                        !!t.node.first_response).length}/{media.tasks.edges.length
-                      }
-                      &nbsp;
-                      <FormattedMessage id="mediaComponent.resolved" defaultMessage="resolved" />
-                    </FlexRow>
+                    {currentUserRole !== 'annotator' ?
+                      <FlexRow>
+                        {media.tasks.edges.filter(t =>
+                          !!t.node.first_response).length}/{media.tasks.edges.length
+                        }
+                        &nbsp;
+                        <FormattedMessage id="mediaComponent.resolved" defaultMessage="resolved" />
+                      </FlexRow> : null
+                    }
                   </FlexRow> : null}
                 <CreateTask style={{ marginLeft: 'auto' }} media={media} />
               </StyledTaskHeaderRow>
