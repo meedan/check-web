@@ -137,6 +137,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
                   node {
                     id,
                     dbid,
+                    permissions,
                     content,
                     attribution(first: 10000) {
                       edges {

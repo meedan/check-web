@@ -8,6 +8,7 @@
   "tasks.taskPrompt": "Prompt",
   "tasks.description": "Description (optional)",
   "tasks.requiredCheckbox": "Required",
+  "tasks.requiredHelper": "Items cannot be marked as completed while any of their required tasks remains unresolved",
   "tasks.showInProj": "Show tasks in",
   "tasks.assign": "Assign",
   "tasks.cancelAdd": "Cancel",

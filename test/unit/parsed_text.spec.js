@@ -15,4 +15,8 @@ describe('<ParsedText />', () => {
     const wrapper = render(<ParsedText text="Please visit http://meedan.com" />);
     expect(wrapper.html()).to.contain("<a href");
   });
+
+  it('does not crash on empty prop', function() {
+    const wrapper = render(<ParsedText />);
+  });
 });

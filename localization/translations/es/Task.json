@@ -1,5 +1,6 @@
 {
   "task.confirmDelete": "¿Seguro que quieres eliminar esta tarea?",
+  "task.answeredBy": "Respondida por {byName}",
   "tasks.cancelEdit": "Cancelar",
   "tasks.save": "Guardar",
   "tasks.done": "Listo",

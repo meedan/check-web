@@ -3,7 +3,7 @@
   "datetimeRespondTask.cancel": "Cancelar",
   "datetimeRespondTask.timeError": "Error: hora no válida",
   "datetimeRespondTask.cancelTask": "Cancelar",
-  "datetimeRespondTask.resolveTask": "Resolver tarea",
+  "datetimeRespondTask.answerTask": "Responder",
   "datetimeRespondTask.pickDate": "Elige una fecha del calendario ",
   "datetimeRespondTask.timeOptional": "Hora (opcional)"
 }

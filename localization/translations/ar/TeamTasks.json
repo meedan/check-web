@@ -1,7 +1,8 @@
 {
-  "teamTasks.blank": "لا توجد اي مهمة",
-  "teamTasks.title": "مهام الفريق",
+  "teamTasks.filterLabelHidden": "{length, number} مهمة ({hidden, number} مخفية من عوامل التصفية)",
   "teamTasks.filterLabel": "{length, number} مهمة",
+  "teamTasks.blank": "لا توجد اي مهمة",
+  "teamTasks.title": "المهام",
   "teamTasks.filter": "تصفية المهام",
   "teamTasks.projFilter": "عرض المهام في",
   "teamTasks.typeFilter": "نوع المهمة"

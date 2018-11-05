@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
   FormattedMessage,
-  defineMessages,
   injectIntl,
   intlShape,
 } from 'react-intl';
@@ -35,8 +34,10 @@ import {
   caption,
   body2,
   title1,
+  subheading2,
   black54,
   black38,
+  black32,
   checkBlue,
   twitterBlue,
   facebookBlue,
@@ -48,11 +49,17 @@ import {
 } from '../styles/js/shared';
 
 const StyledSubHeader = styled.h2`
-    font: ${title1};
-    font-weight: 600;
-    color: ${black54};
-    text-align: center;
-    margin-top: ${units(2)};
+  font: ${title1};
+  font-weight: 600;
+  color: ${black54};
+  text-align: center;
+  margin-top: ${units(2)};
+`;
+
+const StyledLabel = styled.div`
+  font: ${subheading2};
+  color: ${black32};
+  margin-top: ${units(2)};
 `;
 
 const StyledEnhancedButton = styled(EnhancedButton)`
@@ -133,13 +140,6 @@ const styles = {
   },
 };
 
-const messages = defineMessages({
-  passwordInputHint: {
-    id: 'login.passwordInputHint',
-    defaultMessage: 'Password',
-  },
-});
-
 const Row = styled.div`
   display: flex;
   flex-flow: row nowrap;
@@ -151,7 +151,6 @@ const Column = styled.div`
   margin: ${units(0.5)} ${units(1)};
 `;
 
-
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -161,7 +160,7 @@ class Login extends Component {
       name: '',
       email: '',
       password: '',
-      password_confirmation: '',
+      passwordConfirmation: '',
       checkedTos: false,
       checkedPp: false,
     };
@@ -229,7 +228,7 @@ class Login extends Component {
       'api_user[email]': this.state.email,
       'api_user[name]': this.state.name,
       'api_user[password]': this.state.password,
-      'api_user[password_confirmation]': this.state.password_confirmation,
+      'api_user[password_confirmation]': this.state.passwordConfirmation,
       'api_user[image]': form.image,
     };
 
@@ -372,7 +371,11 @@ class Login extends Component {
                   className="login__password-input"
                   onChange={this.handleFieldChange.bind(this)}
                   floatingLabelText={this.state.type === 'login' ?
-                    this.props.intl.formatMessage(messages.passwordInputHint) :
+                    <FormattedMessage
+                      id="login.passwordInputHint"
+                      defaultMessage="Password"
+                    />
+                    :
                     <FormattedMessage
                       id="login.passwordLabel"
                       defaultMessage="Password (minimum 8 characters)"
@@ -387,8 +390,8 @@ class Login extends Component {
                   <TextField
                     fullWidth
                     type="password"
-                    name="password_confirmation"
-                    value={this.state.password_confirmation}
+                    name="passwordConfirmation"
+                    value={this.state.passwordConfirmation}
                     className="login__password-confirmation-input"
                     onChange={this.handleFieldChange.bind(this)}
                     floatingLabelText={
@@ -403,6 +406,12 @@ class Login extends Component {
               {this.state.type === 'login' ?
                 null :
                 <div>
+                  <StyledLabel>
+                    <FormattedMessage
+                      id="login.profilePicture"
+                      defaultMessage="Profile picture"
+                    />
+                  </StyledLabel>
                   <UploadImage onImage={Login.onImage} />
                   <UserTosForm
                     user={{}}

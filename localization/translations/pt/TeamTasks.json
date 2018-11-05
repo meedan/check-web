@@ -1,7 +1,8 @@
 {
-  "teamTasks.blank": "Nenhuma tarefa da equipe",
-  "teamTasks.title": "Tarefas da equipe",
+  "teamTasks.filterLabelHidden": "{length, number} tarefas ({hidden, number} ocultas por filtros)",
   "teamTasks.filterLabel": "{length, number} tarefas",
+  "teamTasks.blank": "Nenhuma tarefa da equipe",
+  "teamTasks.title": "Tarefas",
   "teamTasks.filter": "Filtrar tarefas",
   "teamTasks.projFilter": "Mostrar tarefas em",
   "teamTasks.typeFilter": "Tipo da tarefa"

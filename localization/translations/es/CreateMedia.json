@@ -6,7 +6,7 @@
   "createMedia.quoteAttributionSourceInput": "Nombre de la fuente",
   "createMedia.quoteAttributionContext": "URL o contexto",
   "createMedia.quoteAttributionSourceInputHelper": "¿Quién dijo esto?",
-  "createMedia.quoteAttributionContextHelper": "Añade la URL o describe el contexto",
+  "createMedia.quoteAttributionContextHelper": "Añade la URL o describe el contenido del ítem",
   "createMedia.sourceInput": "Nombre de la fuente",
   "createMedia.sourceUrlInput": "Enlace a la fuente",
   "createMedia.uploadImage": "Subir una imagen",

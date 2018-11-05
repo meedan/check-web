@@ -1,9 +1,5 @@
 [
   {
-    "id": "login.passwordInputHint",
-    "defaultMessage": "Password"
-  },
-  {
     "id": "login.tosMissing",
     "defaultMessage": "You must agree to the Terms of Service and Privacy Policy"
   },
@@ -28,12 +24,20 @@
     "defaultMessage": "Email address"
   },
   {
+    "id": "login.passwordInputHint",
+    "defaultMessage": "Password"
+  },
+  {
     "id": "login.passwordLabel",
     "defaultMessage": "Password (minimum 8 characters)"
   },
   {
     "id": "login.passwordConfirmLabel",
     "defaultMessage": "Password confirmation"
+  },
+  {
+    "id": "login.profilePicture",
+    "defaultMessage": "Profile picture"
   },
   {
     "id": "login.signIn",

@@ -8,8 +8,7 @@ import Switch from '@material-ui/core/Switch';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import MdCancel from 'react-icons/lib/md/cancel';
-import MdCheckBoxOutlineBlank from 'react-icons/lib/md/check-box-outline-blank';
-import MdRadioButtonUnchecked from 'react-icons/lib/md/radio-button-unchecked';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import styled from 'styled-components';
 import Attribution from './Attribution';
 import ConfirmRequired from './ConfirmRequired';
@@ -17,7 +16,7 @@ import Message from '../Message';
 import ProjectSelector from '../project/ProjectSelector';
 import { getStatus } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
-import { units, StyledIconButton, caption, black54 } from '../../styles/js/shared';
+import { units, StyledIconButton, caption, black54, Row } from '../../styles/js/shared';
 
 const StyledProjectsArea = styled.div`
   margin-top: ${units(2)};
@@ -38,6 +37,10 @@ const StyledTaskAssignment = styled.div`
     border: 0;
     background: transparent;
   }
+`;
+
+const HelperText = styled.div`
+  font: ${caption};
 `;
 
 const messages = defineMessages({
@@ -213,37 +216,32 @@ class EditTaskDialog extends React.Component {
 
     const canRemove = this.state.options.length > 2;
 
-    const taskIcon = {
-      single_choice: <MdRadioButtonUnchecked />,
-      multiple_choice: <MdCheckBoxOutlineBlank />,
-    };
-
     return (
       <div style={{ marginTop: units(2) }}>
         {this.state.options.map((item, index) => (
           <div key={`create-task__add-options-radiobutton-${index.toString()}`}>
-            <StyledIconButton>
-              { taskIcon[this.props.taskType] }
-            </StyledIconButton>
-            <TextField
-              key="create-task__add-option-input"
-              className="create-task__add-option-input"
-              id={index.toString()}
-              onChange={this.handleEditOption.bind(this)}
-              placeholder={`${formatMessage(messages.value)} ${index + 1}`}
-              value={item.label}
-              disabled={item.other}
-              style={{ padding: `${units(0.5)} ${units(1)}`, width: '75%' }}
-            />
-            {canRemove ?
-              <StyledIconButton>
-                <MdCancel
-                  key="create-task__remove-option-button"
-                  className="create-task__remove-option-button create-task__md-icon"
-                  onClick={this.handleRemoveOption.bind(this, index)}
-                />
-              </StyledIconButton>
-              : null}
+            <Row>
+              <ChevronRightIcon />
+              <TextField
+                key="create-task__add-option-input"
+                className="create-task__add-option-input"
+                id={index.toString()}
+                onChange={this.handleEditOption.bind(this)}
+                placeholder={`${formatMessage(messages.value)} ${index + 1}`}
+                value={item.label}
+                disabled={item.other}
+                style={{ padding: `${units(0.5)} ${units(1)}`, width: '75%' }}
+              />
+              {canRemove ?
+                <StyledIconButton>
+                  <MdCancel
+                    key="create-task__remove-option-button"
+                    className="create-task__remove-option-button create-task__md-icon"
+                    onClick={this.handleRemoveOption.bind(this, index)}
+                  />
+                </StyledIconButton>
+                : null}
+            </Row>
           </div>
         ))}
         <div style={{ marginTop: units(1) }}>
@@ -310,6 +308,12 @@ class EditTaskDialog extends React.Component {
             value="required"
             color="primary"
           />
+          <HelperText>
+            <FormattedMessage
+              id="tasks.requiredHelper"
+              defaultMessage="Items cannot be marked as completed while any of their required tasks remains unresolved"
+            />
+          </HelperText>
           { this.props.projects ?
             <StyledProjectsArea>
               <FormattedMessage id="tasks.showInProj" defaultMessage="Show tasks in" />

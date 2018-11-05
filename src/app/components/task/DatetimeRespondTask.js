@@ -217,8 +217,8 @@ class DatetimeRespondTask extends Component {
           className="task__save"
           label={
             <FormattedMessage
-              id="datetimeRespondTask.resolveTask"
-              defaultMessage="Resolve task"
+              id="datetimeRespondTask.answerTask"
+              defaultMessage="Answer task"
             />
           }
           primary

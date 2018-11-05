@@ -7,6 +7,7 @@ import CreateTeamTask from './CreateTeamTask';
 import ProjectSelector from '../project/ProjectSelector';
 import TaskTypeSelector from '../task/TaskTypeSelector';
 import BlankState from '../layout/BlankState';
+import CardHeaderOutside from '../layout/CardHeaderOutside';
 import FilterPopup from '../layout/FilterPopup';
 import TeamRoute from '../../relay/TeamRoute';
 import { ContentColumn, units } from '../../styles/js/shared';
@@ -104,6 +105,7 @@ class TeamTasksComponent extends React.Component {
   }
 
   render() {
+    const { direction } = this.props;
     const { team_tasks } = this.props.team;
     const filteredTasks = this.filterTeamTasks(team_tasks.edges);
     const filterLabel = this.renderFilterLabel(filteredTasks, team_tasks.edges);
@@ -127,31 +129,36 @@ class TeamTasksComponent extends React.Component {
     return (
       <div>
         <ContentColumn>
-          <h2><FormattedMessage id="teamTasks.title" defaultMessage="Teamwide tasks" /></h2>
-          <FilterPopup
-            search={this.state.search}
-            onSearchChange={this.handleSearchChange}
-            label={filterLabel}
-            tooltip={<FormattedMessage id="teamTasks.filter" defaultMessage="Filter tasks" />}
-          >
-            <div style={{ marginTop: units(4) }}>
-              <FormattedMessage id="teamTasks.projFilter" defaultMessage="Show tasks in" />
-              <ProjectSelector
-                projects={this.props.team.projects.edges}
-                selected={this.state.projFilter}
-                onSelect={this.handleSelectProjects}
-                fullWidth
-              />
-            </div>
-            <div style={{ marginTop: units(2) }}>
-              <FormattedMessage id="teamTasks.typeFilter" defaultMessage="Task type" />
-              <TaskTypeSelector
-                selected={this.state.typeFilter}
-                onSelect={this.handleSelectTaskTypes}
-                fullWidth
-              />
-            </div>
-          </FilterPopup>
+          <CardHeaderOutside
+            direction={direction}
+            title={<FormattedMessage id="teamTasks.title" defaultMessage="Tasks" />}
+            actions={
+              <FilterPopup
+                search={this.state.search}
+                onSearchChange={this.handleSearchChange}
+                label={filterLabel}
+                tooltip={<FormattedMessage id="teamTasks.filter" defaultMessage="Filter tasks" />}
+              >
+                <div style={{ marginTop: units(4) }}>
+                  <FormattedMessage id="teamTasks.projFilter" defaultMessage="Show tasks in" />
+                  <ProjectSelector
+                    projects={this.props.team.projects.edges}
+                    selected={this.state.projFilter}
+                    onSelect={this.handleSelectProjects}
+                    fullWidth
+                  />
+                </div>
+                <div style={{ marginTop: units(2) }}>
+                  <FormattedMessage id="teamTasks.typeFilter" defaultMessage="Task type" />
+                  <TaskTypeSelector
+                    selected={this.state.typeFilter}
+                    onSelect={this.handleSelectTaskTypes}
+                    fullWidth
+                  />
+                </div>
+              </FilterPopup>
+            }
+          />
           { this.renderTeamTaskList(getTasksForProjectId(null)) }
           { /* this.renderTeamTaskProject(projectsWithTasks) */ }
           <div style={{ display: 'flex', justifyContent: 'flex-end' }}>

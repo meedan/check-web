@@ -33,7 +33,6 @@ const StyledUploader = styled.div`
       display: flex;
       height: auto;
       justify-content: center;
-      margin-top: ${units(2)};
       padding: ${units(3)};
       text-align: center;
       width: 100%;

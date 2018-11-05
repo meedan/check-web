@@ -80,11 +80,11 @@ const messages = defineMessages({
   },
   editReport: {
     id: 'mediaDetail.editReport',
-    defaultMessage: 'Edit report',
+    defaultMessage: 'Edit',
   },
   editReportError: {
     id: 'mediaDetail.editReportError',
-    defaultMessage: 'Sorry, we could not edit this report',
+    defaultMessage: 'Sorry, we could not edit this item',
   },
   trash: {
     id: 'mediaDetail.trash',

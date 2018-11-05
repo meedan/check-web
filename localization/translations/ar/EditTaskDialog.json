@@ -8,6 +8,7 @@
   "tasks.taskPrompt": "السؤال",
   "tasks.description": "الوصف (اختياري)",
   "tasks.requiredCheckbox": "إجباري",
+  "tasks.requiredHelper": "لا يمكن تعديل العناصر على أنها مكتملة في حين أن أي مهمة من المهام المطلوبة لا تزال دون حل",
   "tasks.showInProj": "عرض المهام في",
   "tasks.assign": "تكليف",
   "tasks.cancelAdd": "إلغاء",

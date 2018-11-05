@@ -510,6 +510,16 @@ export const StyledIconButton = styled(IconButton)`
   }
 `;
 
+// It seems that this component is not centered in Material UI 0.x
+// So we must always use this wrapper, or similar.
+export const StyledIcon = styled.span`
+  font-size: 20px !important;
+  svg {
+    color: ${black38} !important;
+    margin: 0!important;
+  }
+`;
+
 // In the Header, the search icon is visually smaller than the
 // rest of the icons, so we make the rest of the icons smaller to match.
 // (the difference is ~ 2px)

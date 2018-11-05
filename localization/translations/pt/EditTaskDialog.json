@@ -8,6 +8,7 @@
   "tasks.taskPrompt": "Questão",
   "tasks.description": "Descrição (opcional)",
   "tasks.requiredCheckbox": "Requerido",
+  "tasks.requiredHelper": "Itens não podem ser marcados como concluídos enquanto qualquer uma das tarefas requeridas não está resolvida",
   "tasks.showInProj": "Mostrar tarefas em",
   "tasks.assign": "Atribuir",
   "tasks.cancelAdd": "Cancelar",
