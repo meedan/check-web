@@ -6,7 +6,7 @@ class ResendCancelInvitationMutation extends Relay.Mutation {
   }
 
   getFatQuery() {
-    return Relay.QL`fragment on ResendCancelInvitationPayload { success }`;
+    return Relay.QL`fragment on ResendCancelInvitationPayload { success, team {id, invited_mails}}`;
   }
 
   getConfigs() {
@@ -15,6 +15,7 @@ class ResendCancelInvitationMutation extends Relay.Mutation {
       children: [Relay.QL`
         fragment on ResendCancelInvitationPayload {
           success
+          team {id, invited_mails}
         }
       `],
     }];

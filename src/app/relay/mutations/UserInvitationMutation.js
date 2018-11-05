@@ -6,7 +6,7 @@ class UserInvitationMutation extends Relay.Mutation {
   }
 
   getFatQuery() {
-    return Relay.QL`fragment on UserInvitationPayload { success }`;
+    return Relay.QL`fragment on UserInvitationPayload { success, team {id, invited_mails} }`;
   }
 
   getConfigs() {
@@ -15,6 +15,7 @@ class UserInvitationMutation extends Relay.Mutation {
       children: [Relay.QL`
         fragment on UserInvitationPayload {
           success
+          team {id, invited_mails}
         }
       `],
     }];
