@@ -191,7 +191,7 @@ class MediaComponent extends Component {
                     {currentUserRole !== 'annotator' ?
                       <FlexRow>
                         {media.tasks.edges.filter(t =>
-                          !!t.node.first_response).length}/{media.tasks.edges.length
+                          t.node.status === 'Resolved').length}/{media.tasks.edges.length
                         }
                         &nbsp;
                         <FormattedMessage id="mediaComponent.resolved" defaultMessage="resolved" />
