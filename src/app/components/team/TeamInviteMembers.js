@@ -94,7 +94,13 @@ class TeamInviteMembers extends Component {
   }
 
   handleSubmit() {
-    const onFailure = () => {
+    const onFailure = (transaction) => {
+      const error = transaction.getError();
+      if (error.json) {
+        error.json().then(this.handleError);
+      } else {
+        this.handleError(JSON.stringify(error));
+      }
     };
 
     const onSuccess = () => {
@@ -122,7 +128,6 @@ class TeamInviteMembers extends Component {
       { value: 'contributor', label: this.props.intl.formatMessage(messages.contributor) },
       { value: 'journalist', label: this.props.intl.formatMessage(messages.journalist) },
       { value: 'editor', label: this.props.intl.formatMessage(messages.editor) },
-      { value: 'owner', label: this.props.intl.formatMessage(messages.owner) },
     ];
     const actions = [
       <FlatButton
@@ -144,17 +149,19 @@ class TeamInviteMembers extends Component {
       inviteBody = (
         this.state.membersToInvite.map((member, index) => (
           <div key={`invite-team-memeber-new-${index.toString()}`}>
-            <Select
-              style={selectStyle}
-              className="invite-member-email-role"
-              onChange={e => this.handleRoleChange(e, index)}
-              searchable={false}
-              backspaceRemoves={false}
-              clearable={false}
-              options={roles}
-              label="I am here"
-              value={member.role}
-            />
+            <Row>
+              <span>{<FormattedMessage id="teamInviteMembers.inviteMembers" defaultMessage="Members will invited as " />}</span>
+              <Select
+                style={selectStyle}
+                className="invite-member-email-role"
+                onChange={e => this.handleRoleChange(e, index)}
+                searchable={false}
+                backspaceRemoves={false}
+                clearable={false}
+                options={roles}
+                value={member.role}
+              />
+            </Row>
             <TextField
               key="invite-member-email-input"
               id={index.toString()}

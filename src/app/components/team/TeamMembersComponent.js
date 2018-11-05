@@ -61,6 +61,27 @@ class TeamMembersComponent extends Component {
       <div>
         <TeamInviteCard team={team} />
 
+        { invitedMails &&
+          <Can permissions={team.permissions} permission="invite Members">
+            <Card style={cardInCardGroupStyle}>
+              <StyledMdCardTitle
+                title={<FormattedMessage
+                  id="teamMembersComponent.pendingInvitations"
+                  defaultMessage="Pending Invitations"
+                />}
+              />
+              <List>
+                { teamInvitedMails.map(invitedMail => (
+                  <TeamInvitedMemberItem
+                    invitedMail={invitedMail}
+                    key={invitedMail}
+                  />
+                ))}
+              </List>
+            </Card>
+          </Can>
+        }
+
         { requestingMembership &&
           <Can permissions={team.permissions} permission="update Team">
             <Card style={cardInCardGroupStyle}>
@@ -76,27 +97,6 @@ class TeamMembersComponent extends Component {
                     teamUser={teamUser}
                     key={teamUser.node.id}
                     requestingMembership
-                  />
-                ))}
-              </List>
-            </Card>
-          </Can>
-        }
-
-        { invitedMails &&
-          <Can permissions={team.permissions} permission="update Team">
-            <Card style={cardInCardGroupStyle}>
-              <StyledMdCardTitle
-                title={<FormattedMessage
-                  id="teamMembersComponent.pendingInvitations"
-                  defaultMessage="Pending Invitations"
-                />}
-              />
-              <List>
-                { teamInvitedMails.map(invitedMail => (
-                  <TeamInvitedMemberItem
-                    invitedMail={invitedMail}
-                    key={invitedMail}
                   />
                 ))}
               </List>
@@ -121,8 +121,8 @@ class TeamMembersComponent extends Component {
                   : <FormattedMessage id="teamMembersComponent.editButton" defaultMessage="Edit" />}
               />
             </Can>
-            <Can permissions={team.permissions} permission="update Team">
-              <TeamInviteMembers team={team} />
+            <Can permissions={team.permissions} permission="invite Members">
+              <TeamInviteMembers />
             </Can>
           </FlexRow>
           <LoadMore

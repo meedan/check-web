@@ -36,6 +36,10 @@
     "defaultMessage": "Send"
   },
   {
+    "id": "teamInviteMembers.inviteMembers",
+    "defaultMessage": "Members will invited as"
+  },
+  {
     "id": "teamInviteMembers.inviteMember",
     "defaultMessage": "Invite"
   },

@@ -1,11 +1,11 @@
 [
   {
-    "id": "teamMembershipRequests.requestsToJoin",
-    "defaultMessage": "Requests to join"
-  },
-  {
     "id": "teamMembersComponent.pendingInvitations",
     "defaultMessage": "Pending Invitations"
+  },
+  {
+    "id": "teamMembershipRequests.requestsToJoin",
+    "defaultMessage": "Requests to join"
   },
   {
     "id": "teamMembersComponent.mainHeading",

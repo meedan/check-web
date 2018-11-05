@@ -14,10 +14,25 @@ import {
 
 class TeamInvitedMemberItem extends Component {
   handleTeamMemberInvites(action) {
-    Relay.Store.commitUpdate(new ResendCancelInvitationMutation({
-      email: this.props.invitedMail,
-      action,
-    }));
+    const onFailure = (transaction) => {
+      const error = transaction.getError();
+      if (error.json) {
+        error.json().then(this.handleError);
+      } else {
+        this.handleError(JSON.stringify(error));
+      }
+    };
+
+    const onSuccess = () => {
+    };
+
+    Relay.Store.commitUpdate(
+      new ResendCancelInvitationMutation({
+        email: this.props.invitedMail,
+        action,
+      }),
+      { onSuccess, onFailure },
+    );
   }
 
   render() {
@@ -27,10 +42,10 @@ class TeamInvitedMemberItem extends Component {
         key={this.props.invitedMail}
         disabled
       >
-        <Text ellipsis>
-          {this.props.invitedMail}
-        </Text>
         <FlexRow>
+          <Text ellipsis>
+            {this.props.invitedMail}
+          </Text>
           <RaisedButton
             style={buttonInButtonGroupStyle}
             onClick={this.handleTeamMemberInvites.bind(this, 'cancel')}
@@ -43,6 +58,7 @@ class TeamInvitedMemberItem extends Component {
             }
           />
           <RaisedButton
+            style={buttonInButtonGroupStyle}
             onClick={this.handleTeamMemberInvites.bind(this, 'resend')}
             className="team-member-invited__user-button--resend"
             label={
