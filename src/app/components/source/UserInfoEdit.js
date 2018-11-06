@@ -141,7 +141,7 @@ class UserInfoEdit extends React.Component {
       this.updateUser();
       this.updateLinks();
 
-      this.setState({ submitDisabled: true, hasFailure: false, message: null });
+      this.setState({ hasFailure: false, message: null }, this.manageEditingState);
     }
   }
 
@@ -190,25 +190,26 @@ class UserInfoEdit extends React.Component {
   }
 
   success(response, mutation) {
-    const manageEditingState = () => {
-      const submitDisabled = this.state.pendingMutations.length > 0;
-      const isEditing = submitDisabled || this.state.hasFailure;
-      const message = isEditing ? this.state.message : null;
-
-      this.setState({ submitDisabled, message });
-      if (!isEditing) {
-        this.handleLeaveEditMode();
-      }
-    };
-
     const pendingMutations = this.state.pendingMutations
       ? this.state.pendingMutations.slice(0)
       : [];
     this.setState(
       { pendingMutations: pendingMutations.filter(m => m !== mutation) },
-      manageEditingState,
+      this.manageEditingState,
     );
   }
+
+  manageEditingState = () => {
+    const { pendingMutations } = this.state;
+    const submitDisabled = pendingMutations ? pendingMutations.length > 0 : false;
+    const isEditing = submitDisabled || this.state.hasFailure;
+    const message = isEditing ? this.state.message : null;
+
+    this.setState({ submitDisabled, message });
+    if (!isEditing) {
+      this.handleLeaveEditMode();
+    }
+  };
 
   registerPendingMutation(mutation) {
     const pendingMutations = this.state.pendingMutations
