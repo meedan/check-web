@@ -638,7 +638,7 @@ class Task extends Component {
     );
 
     let taskBody = null;
-    if (!response && !media.archived) {
+    if ((!response || task.responses.edges.length > 1) && !media.archived) {
       taskBody = (
         <div>
           <StyledTaskResponses>
