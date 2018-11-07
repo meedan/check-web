@@ -82,7 +82,7 @@ class CreateTaskMenu extends React.Component {
             <MenuItem
               className="create-task__add-choose-multiple"
               onClick={() => this.handleSelectType('multiple_choice')}
-              leftIcon={<MdCheckBox />}
+              leftIcon={<MdCheckBox style={{ transform: 'scale(1,1)' }} />}
               primaryText={
                 <FormattedMessage id="tasks.chooseMultiple" defaultMessage="Choose multiple" />
               }

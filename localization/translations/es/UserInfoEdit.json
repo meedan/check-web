@@ -5,6 +5,7 @@
   "userInfoEdit.userSendEmailNotification": "Recibir notificaciones por correo electrónico",
   "userInfoEdit.addLink": "Añadir enlace",
   "userInfoEdit.editError": "Lo sentimos, no se pudo editar la fuente",
+  "userInfoEdit.nameError": "Name can't be blank",
   "userInfoEdit.addLinkLabel": "Añadir enlace",
   "userInfoEdit.addLinkHelper": "Añade un enlace a una página web o perfil de redes sociales. Nota: Esto no afectará tu método de inicio de sesión.",
   "userInfoEdit.emailConfirmed": "✔ Dirección confirmada",
