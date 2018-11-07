@@ -34,7 +34,7 @@ class TaskTypeSelector extends React.Component {
     options.push({ label: 'Location', value: 'geolocation', icon: <LocationIcon /> });
     options.push({ label: 'Datetime', value: 'datetime', icon: <DateRangeIcon /> });
     options.push({ label: 'Single Choice', value: 'single_choice', icon: <RadioButtonCheckedIcon /> });
-    options.push({ label: 'Choose multiple', value: 'multiple_choice', icon: <CheckBoxIcon /> });
+    options.push({ label: 'Choose multiple', value: 'multiple_choice', icon: <CheckBoxIcon style={{ transform: 'scale(1,1)' }} /> });
 
     return (
       <div>
