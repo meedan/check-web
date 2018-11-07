@@ -44,7 +44,7 @@ class UserAssignmentsComponent extends Component {
         const task = node.node;
         const data = JSON.parse(task.content);
         task.data = data;
-        if (data.status === 'Unresolved') {
+        if (data.status === 'unresolved') {
           active = true;
           a.activeTasks.push(task);
         }

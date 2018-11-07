@@ -554,7 +554,7 @@ class Task extends Component {
     const taskActions = !media.archived ? (
       <div>
         {taskAssignment}
-        {data.by && task.status === 'Resolved' ?
+        {data.by && task.status === 'resolved' ?
           <div className="task__resolver" style={{ display: 'flex', alignItems: 'center', marginTop: units(1) }}>
             <small style={{ display: 'flex' }}>
               <span style={{ position: 'relative', width: 24 + ((byPictures.length - 1) * 10) }}>
@@ -654,7 +654,7 @@ class Task extends Component {
               );
             })}
           </StyledTaskResponses>
-          {task.status === 'Unresolved' ?
+          {task.status === 'unresolved' ?
             <Can permissions={media.permissions} permission="create Dynamic">
               <div>
                 <form name={`task-response-${task.id}`}>
