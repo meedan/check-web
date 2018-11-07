@@ -38,7 +38,7 @@ class LoginPage < Page
     # TODO: fix or remove click_button() for mobile browsers
     (@wait.until { @driver.find_element(:xpath, "//button[@id='submit-register-or-login']") }).click
     sleep 3
-    @wait.until { @driver.page_source.include?("You have to confirm your email address before continuing.") }
+    @wait.until { @driver.page_source.include?("Please check your email to verify your account.") }
     sleep 3
     confirm_email(options[:email])
     sleep 3
