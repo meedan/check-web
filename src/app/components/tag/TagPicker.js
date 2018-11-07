@@ -3,13 +3,12 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import CheckboxNext from '@material-ui/core/Checkbox';
 import rtlDetect from 'rtl-detect';
 import styled from 'styled-components';
 import difference from 'lodash.difference';
 import intersection from 'lodash.intersection';
 import CheckContext from '../../CheckContext';
-import { black54, black87, caption, units, opaqueBlack02, opaqueBlack05 } from '../../styles/js/shared';
+import { black54, black87, caption, units, opaqueBlack02, opaqueBlack05, StyledCheckboxNext } from '../../styles/js/shared';
 import { createTag } from '../../relay/mutations/CreateTagMutation';
 import { deleteTag } from '../../relay/mutations/DeleteTagMutation';
 
@@ -177,7 +176,7 @@ class TagPicker extends React.Component {
                   direction={direction}
                   key={`team-suggested-tag-${index.toString()}`}
                   control={
-                    <CheckboxNext
+                    <StyledCheckboxNext
                       checked={plainMediaTags.includes(tag)}
                       onChange={this.handleSelectCheckbox}
                       id={tag}
@@ -201,7 +200,7 @@ class TagPicker extends React.Component {
                   direction={direction}
                   key={`team-used-tag-${index.toString()}`}
                   control={
-                    <CheckboxNext
+                    <StyledCheckboxNext
                       checked={plainMediaTags.includes(tag)}
                       onChange={this.handleSelectCheckbox}
                       id={tag}
