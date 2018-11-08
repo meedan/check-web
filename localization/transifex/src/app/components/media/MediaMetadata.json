@@ -1,8 +1,8 @@
 {
   "mediaDetail.mediaTitle": "Title",
   "mediaDetail.mediaDescription": "Description",
-  "mediaDetail.editReport": "Edit report",
-  "mediaDetail.editReportError": "Sorry, we could not edit this report",
+  "mediaDetail.editReport": "Edit",
+  "mediaDetail.editReportError": "Sorry, we could not edit this item",
   "mediaDetail.trash": "Trash",
   "mediaMetadata.movedToTrash": "Sent to {trash}",
   "mediaMetadata.movedBack": "Moved back to project: {project}",

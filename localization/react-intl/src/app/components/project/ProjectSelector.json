@@ -1,0 +1,10 @@
+[
+  {
+    "id": "projectSelector.numProjs",
+    "defaultMessage": "{length, number} selected"
+  },
+  {
+    "id": "projectSelector.allProjs",
+    "defaultMessage": "All projects"
+  }
+]

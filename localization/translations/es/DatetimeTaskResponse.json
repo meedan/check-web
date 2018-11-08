@@ -1,5 +1,5 @@
 {
   "datetimeTaskResponse.timeIs": "Ver esta zona horaria en time.is",
-  "datetimeTaskResponse.invalidTimestamp": "Error: hora no válida",
+  "datetimeTaskResponse.invalidTimestamp": "Error: hora inválida",
   "datetimeTaskResponse.taskResponse": "{date} a las {timeLink}"
 }

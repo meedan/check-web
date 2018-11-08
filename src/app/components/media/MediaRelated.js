@@ -83,10 +83,11 @@ class MediaRelatedComponent extends Component {
 
     let medias = [];
     const { relationships } = this.props.media;
-    const { targets_count } = relationships;
+    const { targets_count, sources_count } = relationships;
     const targets = relationships.targets.edges;
     const sources = relationships.sources.edges;
     let filtered_count = 0;
+    const total = targets_count + sources_count;
 
     if (filters !== previousFilters[dbid]) {
       previousFilters[dbid] = filters;
@@ -94,7 +95,7 @@ class MediaRelatedComponent extends Component {
       this.props.relay.forceFetch();
     } else if (targets.length > 0) {
       medias = targets[0].node.targets.edges;
-      filtered_count = targets_count - medias.length;
+      filtered_count = total - medias.length;
     } else if (sources.length > 0) {
       medias.push({ node: sources[0].node.source });
       sources[0].node.siblings.edges.forEach((sibling) => {
@@ -111,8 +112,8 @@ class MediaRelatedComponent extends Component {
             <FlexRow>
               <h2>
                 <FormattedMessage
-                  id="mediaRelated.relatedClaims"
-                  defaultMessage="Related claims"
+                  id="mediaRelated.relatedItems"
+                  defaultMessage="Related items"
                 />
               </h2>
             </FlexRow>
@@ -124,8 +125,8 @@ class MediaRelatedComponent extends Component {
             <FlexRow>
               <FormattedMessage
                 id="mediaRelated.counter"
-                defaultMessage="{total} related claims ({hidden} hidden by filters)"
-                values={{ total: targets_count, hidden: filtered_count }}
+                defaultMessage="{total, number} related items ({hidden, number} hidden by filters)"
+                values={{ total, hidden: filtered_count }}
               />
             </FlexRow>
           </StyledHeaderRow> : null }
@@ -217,7 +218,7 @@ const MediaRelatedContainer = Relay.createContainer(MediaRelatedComponent, {
                 }
               }
             }
-          } 
+          }
         }
       }
     `,

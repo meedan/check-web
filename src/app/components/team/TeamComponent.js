@@ -6,6 +6,7 @@ import { Tabs, Tab } from 'material-ui/Tabs';
 import styled from 'styled-components';
 import TeamBots from './TeamBots';
 import TeamTags from './TeamTags';
+import TeamTasks from './TeamTasks';
 import TeamInfo from './TeamInfo';
 import TeamInfoEdit from './TeamInfoEdit';
 import TeamMembers from './TeamMembers';
@@ -53,8 +54,8 @@ class TeamComponent extends Component {
   }
 
   componentWillMount() {
-    const showTab = UserUtil.myRole(this.getCurrentUser(), this.props.team.slug) === 'owner' ?
-      'bots' : 'tags';
+    const showTab = UserUtil.myRole(this.getCurrentUser(), this.props.team.slug) === 'owner' &&
+      this.props.team.limits.custom_tasks_list ? 'tasks' : 'tags';
     this.setState({ showTab });
   }
 
@@ -124,6 +125,18 @@ class TeamComponent extends Component {
       if (isSettings || isReadOnly) {
         return (
           <Tabs value={this.state.showTab} onChange={this.handleTabChange}>
+            { team.limits.custom_tasks_list ?
+              <Tab
+                className="team-settings__tasks-tab"
+                label={
+                  <FormattedMessage
+                    id="teamSettings.Tasks"
+                    defaultMessage="Tasks"
+                  />
+                }
+                value="tasks"
+              /> : null
+            }
             { isSettings || isReadOnly ? <Tab
               className="team-settings__tags-tab"
               label={
@@ -176,6 +189,9 @@ class TeamComponent extends Component {
             </ContentColumn>
           </HeaderCard>
           { !isEditing && !isSettings && !isReadOnly ? <TeamPageContent /> : null }
+          { isSettings && this.state.showTab === 'tasks'
+            ? <TeamTasks team={team} direction={direction} />
+            : null }
           { isSettings && this.state.showTab === 'bots'
             ? <TeamBots team={team} direction={direction} />
             : null }

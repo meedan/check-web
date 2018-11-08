@@ -1,12 +1,12 @@
 {
   "addAnnotation.invalidCommand": " أمر غير صحيح",
   "addAnnotation.annotationAdded": "تم إضافة {type}",
-  "addAnnotation.error": "عذراً ، لقد واجهنا خطأ ما. أرجع الخادم رسالة خطأ {code}. الرجاء اﻹتصال بفريق الدعم.",
+  "addAnnotation.error": "عذراً ، لقد واجهنا خطأ ما اثناء التواصل مع الخادم الذى أرجع رسالة خطأ {code}. من فضلك أعد المحاولة وتواصل مع فريق الدعم إن استمر الخطأ.",
   "addAnnotation.inputHint": "أضف تعليقاً",
   "addAnnotation.submitButton": "إرسال",
   "addAnnotation.typeComment": "ملحوظة",
   "addAnnotation.typeTag": "وسم",
-  "addAnnotation.typeStatus": "حالة التقرير",
+  "addAnnotation.typeStatus": "الحالة",
   "addAnnotation.typeFlag": "إبلاغ",
   "addAnnotation.addImage": "أضف صورة"
 }

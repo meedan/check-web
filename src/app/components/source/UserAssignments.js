@@ -44,22 +44,25 @@ class UserAssignmentsComponent extends Component {
         const task = node.node;
         const data = JSON.parse(task.content);
         task.data = data;
-        if (data.status === 'Unresolved') {
+        if (data.status === 'unresolved') {
           active = true;
           a.activeTasks.push(task);
         }
       });
-      const assignee = a.last_status_obj.assigned_to;
-      if (active || (assignee && assignee.dbid === user.dbid)) {
-        assignments[team].push(a);
-        hasAssignment = true;
-      }
+      const assignees = a.last_status_obj.assignments.edges;
+      assignees.forEach((assignee) => {
+        if (active || (assignee.node.dbid === user.dbid)) {
+          a.assigned_to_user = true;
+          assignments[team].push(a);
+          hasAssignment = true;
+        }
+      });
     });
 
     const icons = {
       free_text: <MdShortText />,
       single_choice: <MdRadioButtonChecked />,
-      multiple_choice: <MdCheckBox />,
+      multiple_choice: <MdCheckBox style={{ transform: 'scale(1,1)' }} />,
       geolocation: <MdLocationOn />,
       datetime: <MdDateRange />,
       claim: <MdFormatQuote />,
@@ -90,8 +93,7 @@ class UserAssignmentsComponent extends Component {
                   <ListItem
                     key={`media-${assignment.dbid}`}
                     containerElement={
-                      assignment.last_status_obj.assigned_to &&
-                      assignment.last_status_obj.assigned_to.dbid === user.dbid ?
+                      assignment.assigned_to_user ?
                         <Link to={assignment.path} /> : <span />}
                     primaryText={MediaUtil.title(assignment, assignment.embed, this.props.intl)}
                     secondaryText={
@@ -163,8 +165,12 @@ const UserAssignmentsContainer = Relay.createContainer(injectIntl(UserAssignment
                 name
               }
               last_status_obj {
-                assigned_to {
-                  dbid
+                assignments(first: 10000) {
+                  edges {
+                    node {
+                      dbid
+                    }
+                  }
                 }
               }
               assignments(first: 10000, user_id: $userId, annotation_type: "task") {

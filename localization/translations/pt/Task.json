@@ -1,5 +1,6 @@
 {
   "task.confirmDelete": "Tem certeza que deseja apagar esta tarefa?",
+  "task.answeredBy": "Respondida por {byName}",
   "tasks.cancelEdit": "Cancelar",
   "tasks.save": "Salvar",
   "tasks.done": "Feito",
@@ -7,8 +8,7 @@
   "task.resolvedBy": "Resolvido por {byName}",
   "task.editResponse": "Editar resposta",
   "task.edit": "Editar questão",
-  "task.unassign": "Remover atribuição",
-  "task.assign": "Atribuir",
+  "task.assignOrUnassign": "Atribuir / Remover atribuição",
   "task.editAttribution": "Editar atribuição",
   "task.delete": "Remover tarefa",
   "tasks.taskLabel": "Título da tarefa",

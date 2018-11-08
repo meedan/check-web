@@ -1,8 +1,8 @@
 {
   "mediaDetail.mediaTitle": "Titre",
   "mediaDetail.mediaDescription": "Description",
-  "mediaDetail.editReport": "Éditer le rapport",
-  "mediaDetail.editReportError": "Désolé, il n'a pas été possible de modifier ce rapport",
+  "mediaDetail.editReport": "Modifier",
+  "mediaDetail.editReportError": "Désolé, il n'a pas été possible de modifier cet élément",
   "mediaDetail.trash": "Corbeille",
   "mediaMetadata.movedToTrash": "Mis à la {trash}",
   "mediaMetadata.movedBack": "Restauré au projet {project}",
@@ -18,7 +18,7 @@
   "mediaDetail.assignedTo": "Assigné.e à {name}",
   "mediaDetail.dialogHeader": "Transférer ce(tte) {mediaType} à un projet différent",
   "mediaDetail.dialogMediaPath": "Actuellement classé dans {teamName} > {projectTitle}",
-  "mediaDetail.deleteForeverConfirmationText": "Êtes-vous sûr ? Ceci supprimera {notesCount, plural, =0 {aucune note} one {une note} other {# notes}}. Tapez \"confirm\" si vous voulez continuer.",
+  "mediaDetail.deleteForeverConfirmationText": "Ceci supprimera {notesCount, plural, =0 {aucune note} one {une note} other {# notes}}. Tapez \"confirm\" si vous désirez continuer.",
   "mediaDetail.confirmationError": "No correspond pas",
   "mediaDetail.typeHere": "Tapez ici",
   "mediaDetail.assignDialogHeader": "Mission"

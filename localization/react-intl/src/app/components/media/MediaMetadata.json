@@ -9,11 +9,11 @@
   },
   {
     "id": "mediaDetail.editReport",
-    "defaultMessage": "Edit report"
+    "defaultMessage": "Edit"
   },
   {
     "id": "mediaDetail.editReportError",
-    "defaultMessage": "Sorry, we could not edit this report"
+    "defaultMessage": "Sorry, we could not edit this item"
   },
   {
     "id": "mediaDetail.trash",

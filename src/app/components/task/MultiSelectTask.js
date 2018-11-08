@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import CheckboxNext from '@material-ui/core/Checkbox';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FlatButton from 'material-ui/FlatButton';
 import { FormattedMessage } from 'react-intl';
-import CreateOptionsTask from './CreateOptionsTask';
 import { safelyParseJSON } from '../../helpers';
-import { StyledSmallTextField } from '../../styles/js/shared';
+import { StyledSmallTextField, StyledCheckboxNext } from '../../styles/js/shared';
 
 class MultiSelectTask extends Component {
   constructor(props) {
@@ -159,7 +157,7 @@ class MultiSelectTask extends Component {
         />
         <FlatButton
           className="task__submit"
-          label={<FormattedMessage id="tasks.submit" defaultMessage="Resolve Task" />}
+          label={<FormattedMessage id="tasks.answer" defaultMessage="Answer Task" />}
           primary
           onClick={submitCallback}
           disabled={this.state.taskAnswerDisabled}
@@ -183,7 +181,7 @@ class MultiSelectTask extends Component {
               <FormControlLabel
                 key={`task__options-multiselect-${index.toString()}`}
                 control={
-                  <CheckboxNext
+                  <StyledCheckboxNext
                     checked={this.isChecked(item.label, index)}
                     onChange={this.handleSelectCheckbox.bind(this)}
                     id={item.label}
@@ -202,7 +200,7 @@ class MultiSelectTask extends Component {
                 <div key="task__option_other_checkbox">
                   <FormControlLabel
                     control={
-                      <CheckboxNext
+                      <StyledCheckboxNext
                         className="task__option_other_checkbox"
                         checked={this.state.otherSelected || !!responseOther}
                         onChange={this.handleSelectCheckboxOther.bind(this)}
@@ -240,7 +238,6 @@ class MultiSelectTask extends Component {
 
   render() {
     const {
-      media,
       jsonresponse,
       note,
       jsonoptions,
@@ -248,15 +245,6 @@ class MultiSelectTask extends Component {
 
     return (
       <div>
-        {this.props.mode === 'create' ?
-          <CreateOptionsTask
-            taskType="multiple_choice"
-            media={media}
-            onDismiss={this.props.onDismiss.bind(this)}
-            onSubmit={this.props.onSubmit.bind(this)}
-          />
-          : null
-        }
         {this.props.mode === 'respond' ? this.renderOptions(jsonresponse, note, jsonoptions) : null}
         {this.props.mode === 'show_response' && jsonresponse
           ? this.renderOptions(jsonresponse, note, jsonoptions)

@@ -24,6 +24,10 @@
     "defaultMessage": "Sorry, could not edit the source"
   },
   {
+    "id": "userInfoEdit.nameError",
+    "defaultMessage": "Name can't be blank"
+  },
+  {
     "id": "userInfoEdit.addLinkLabel",
     "defaultMessage": "Add a link"
   },

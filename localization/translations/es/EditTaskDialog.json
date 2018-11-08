@@ -1,0 +1,16 @@
+{
+  "singleChoiceTask.addValue": "Añade una opción",
+  "singleChoiceTask.value": "Entrada",
+  "singleChoiceTask.addOther": "Añadir \"Otro\"",
+  "singleChoiceTask.other": "Otro",
+  "singleChoiceTask.newTask": "Nueva tarea ",
+  "singleChoiceTask.editTask": "Editar tarea",
+  "tasks.taskPrompt": "Pregunta",
+  "tasks.description": "Descripción (opcional)",
+  "tasks.requiredCheckbox": "Requerido",
+  "tasks.requiredHelper": "Los elementos no pueden marcarse como completados mientras no se resuelva alguna de las tareas requeridas",
+  "tasks.showInProj": "Mostrar tareas en",
+  "tasks.assign": "Asignar",
+  "tasks.cancelAdd": "Cancelar",
+  "tasks.add": "Guardar"
+}

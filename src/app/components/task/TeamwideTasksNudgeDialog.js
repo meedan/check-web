@@ -14,6 +14,9 @@ const messages = defineMessages({
 const TeamwideTasksNudgeDialog = (props) => {
   const handleClickUpgrade = () => {
     window.open(stringHelper('UPGRADE_URL'));
+    if (props.onDismiss) {
+      props.onDismiss();
+    }
   };
 
   const actions = [

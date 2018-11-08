@@ -18,3 +18,5 @@ config-build.js
 relay.json
 .tmp
 config-server.js
+.nyc_output
+coverage

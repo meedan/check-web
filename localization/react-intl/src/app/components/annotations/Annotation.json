@@ -48,6 +48,22 @@
     "defaultMessage": "Related {type} \"{title}\" deleted by {author}"
   },
   {
+    "id": "annotation.taskAssignmentCreated",
+    "defaultMessage": "Task \"{title}\" assigned to {name} by {author}"
+  },
+  {
+    "id": "annotation.mediaAssignmentCreated",
+    "defaultMessage": "Assigned to {name} by {author}"
+  },
+  {
+    "id": "annotation.taskAssignmentDeleted",
+    "defaultMessage": "Task \"{title}\" unassigned from {name} by {author}"
+  },
+  {
+    "id": "annotation.mediaAssignmentDeleted",
+    "defaultMessage": "Unassigned from {name} by {author}"
+  },
+  {
     "id": "annotation.statusLocked",
     "defaultMessage": "Status locked by {author}"
   },

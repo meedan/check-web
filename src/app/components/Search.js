@@ -24,6 +24,7 @@ import MediaDetail from './media/MediaDetail';
 import CheckContext from '../CheckContext';
 import MediasLoading from './media/MediasLoading';
 import SourceCard from './source/SourceCard';
+import UserUtil from './user/UserUtil';
 import {
   white,
   black87,
@@ -228,7 +229,7 @@ const messages = defineMessages({
   },
   newTranslationNotificationBody: {
     id: 'search.newTranslationNotificationBody',
-    defaultMessage: 'A report was just marked as "translated"',
+    defaultMessage: 'An item was just marked as "translated"',
   },
 });
 
@@ -829,10 +830,17 @@ class SearchResultsComponent extends Component {
       resultsCount: count,
     });
 
+    const { currentUser } = this.currentContext();
+
     const isProject = /\/project\//.test(window.location.pathname);
-    const title = (isProject && count === 0)
-      ? <ProjectBlankState project={this.currentContext().project} />
-      : <h3 className="search__results-heading">{mediasCount}</h3>;
+    let title = null;
+    if (isProject && count === 0) {
+      title = (<ProjectBlankState project={this.currentContext().project} />);
+    } else if (UserUtil.myRole(currentUser, this.currentContext().team.slug) === 'annotator') {
+      title = null;
+    } else {
+      title = (<h3 className="search__results-heading">{mediasCount}</h3>);
+    }
 
     return (
       <StyledSearchResultsWrapper className="search__results results">

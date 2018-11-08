@@ -139,14 +139,18 @@ const SourceMediasContainer = Relay.createContainer(SourceMediasComponent, {
                   id
                   dbid
                   locked
-                  assigned_to {
-                    id
-                    dbid
-                    name
-                    source {
-                      id
-                      dbid
-                      image
+                  assignments(first: 10000) {
+                    edges {
+                      node {
+                        id
+                        dbid
+                        name
+                        source {
+                          id
+                          dbid
+                          image
+                        }
+                      }
                     }
                   }
                 }
@@ -315,7 +319,10 @@ const SourceMediasContainer = Relay.createContainer(SourceMediasComponent, {
 
 class SourceMedias extends Component {
   // eslint-disable-next-line class-methods-use-this
-  shouldComponentUpdate() {
+  shouldComponentUpdate(nextProps) {
+    if (nextProps.source.source_id !== this.props.source.source_id) {
+      return true;
+    }
     return false;
   }
 

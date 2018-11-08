@@ -7,6 +7,13 @@
     "type": "git",
     "url": "git://github.com/meedan/check-web.git"
   },
+  "nyc": {
+    "include": [
+      "src/**/*.js"
+    ],
+    "instrument": false,
+    "sourceMap": false
+  },
   "scripts": {
     "build": "rm -rf build/web && npm run build:gulp",
     "build:gulp": "BABEL_ENV=production gulp build:web",
@@ -17,7 +24,7 @@
     "transifex:ls": "scripts/tx-ls.sh",
     "publish": "babel-node -- scripts/server.js",
     "test": "npm run test:unit && npm run test:integration && npm run test:quick",
-    "test:unit": "cp test/unit/config.js node_modules/config.webpack-node.js && NODE_PATH=$NODE_PATH:. BABEL_ENV=production mocha-webpack --webpack-config webpack/test.babel.js --require test/unit/setup.js \"test/unit/*.spec.js\"",
+    "test:unit": "cp test/unit/config.js node_modules/config.webpack-node.js && cross-env NODE_PATH=$NODE_PATH:. BABEL_ENV=production NODE_ENV=coverage nyc --reporter=lcov --reporter=text mocha-webpack --webpack-config webpack/test.babel.js --require test/unit/setup.js \"test/unit/*.js\"",
     "test:integration": "cd test && rspec spec/integration_spec.rb && cd ..",
     "test:bin1": "cd test && rspec spec/integration_spec.rb  --tag bin1 && cd ..",
     "test:bin2": "cd test && rspec spec/integration_spec.rb  --tag bin2 && cd ..",
@@ -87,7 +94,7 @@
     "legit-tests": "^1.1.2",
     "lint-staged": "^4.0.0",
     "mocha": "^3.2.0",
-    "mocha-webpack": "^0.7.0",
+    "mocha-webpack": "1.0.0-beta.1",
     "polished": "^1.2.1",
     "raw-loader": "^0.5.1",
     "react": "^16.4.1",
@@ -113,12 +120,16 @@
     "webpack-node-externals": "^1.5.4"
   },
   "dependencies": {
-    "@material-ui/core": "^3.0.3",
+    "@material-ui/core": "3.2.2",
+    "babel-plugin-istanbul": "^5.1.0",
+    "cross-env": "^5.2.0",
     "crossmessaging": "0.2.2",
     "deep-equal": "^1.0.1",
     "express": "^4.14.0",
     "intl": "^1.2.5",
     "intl-locales-supported": "^1.0.0",
+    "istanbul": "^0.4.5",
+    "istanbul-instrumenter-loader": "^3.0.1",
     "leaflet": "^1.2.0",
     "lodash.capitalize": "^4.2.1",
     "lodash.difference": "^4.5.0",
@@ -136,6 +147,7 @@
     "material-ui-persian-date-picker-utils": "^0.1.2",
     "node-fetch": "^1.7.1",
     "node-window": "^1.0.1",
+    "nyc": "^13.1.0",
     "polished": "^1.2.1",
     "prop-types": "^15.6.2",
     "rc-tooltip": "^3.5.0",
@@ -156,7 +168,6 @@
     "react-jsonschema-form-material-ui": "^1.0.30",
     "react-leaflet": "^1.5.0",
     "react-linkify": "^0.2.2",
-    "react-nl2br": "^0.2.0",
     "react-redux": "^5.0.1",
     "react-relay": "^1.0.0",
     "react-router": "^3.0.0",

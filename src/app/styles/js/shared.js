@@ -2,6 +2,7 @@ import styled, { css, keyframes } from 'styled-components';
 import { CardTitle } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import IconButton from 'material-ui/IconButton';
+import CheckboxNext from '@material-ui/core/Checkbox';
 import { stripUnit, rgba } from 'polished';
 
 // Styles for overriding material UI
@@ -510,6 +511,16 @@ export const StyledIconButton = styled(IconButton)`
   }
 `;
 
+// It seems that this component is not centered in Material UI 0.x
+// So we must always use this wrapper, or similar.
+export const StyledIcon = styled.span`
+  font-size: 20px !important;
+  svg {
+    color: ${black38} !important;
+    margin: 0!important;
+  }
+`;
+
 // In the Header, the search icon is visually smaller than the
 // rest of the icons, so we make the rest of the icons smaller to match.
 // (the difference is ~ 2px)
@@ -536,42 +547,8 @@ export const StyledSmallTextField = styled(TextField)`
   }
 `;
 
-// Hide descriptions with CSS checkbox technique
-//
-// DEPRECATED
-// TODO Replace this with a conditional based on state
-export const StyledTaskDescription = styled.div`
-  margin-top ${units(2)};
-
-  .create-task__task-description-input {
-    display: none !important;
-    width: 100% !important;
-  }
-
-  .create-task__add-task-description-label, .create-task__add-assignment-button {
-    bottom: ${units(2)};
-    font: ${caption};
-    padding: 0 ${units(1)};
-    color: ${black54};
-    cursor: pointer;
-  }
-
-  .create-task__add-task-description {
-    display: none; // hidden checkbox
-
-    &:checked {
-      & ~ .create-task__task-description-input {
-        display: block !important;
-      }
-
-      & ~ .create-task__add-task-description-label {
-        display: none !important;
-      }
-    }
-  }
-
-  .create-task__add-assignment-button {
-    border: 0;
-    background: transparent;
+export const StyledCheckboxNext = styled(CheckboxNext)`
+  svg {
+    transform: scale(1,1) !important;
   }
 `;
