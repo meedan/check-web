@@ -53,21 +53,22 @@ shared_examples 'custom' do
   it "should set status to media as a command", bin4: true do
     media = api_create_team_project_and_claim
     @driver.navigate.to media.full_url
-    sleep 2
 
+    wait_for_selector('.annotations__list-item')
     expect(@driver.page_source.include?('Status')).to be(false)
 
     # Add a status as a command
+    wait_for_selector('#cmd-input')
     fill_field('#cmd-input', '/status In Progress')
     @driver.action.send_keys(:enter).perform
-    sleep 5
 
     # Verify that status was added to annotations list
+    wait_for_selector('.annotation--verification_status')
     expect(@driver.page_source.include?('Status')).to be(true)
 
     # Reload the page and verify that status is still there
     @driver.navigate.refresh
-    sleep 5
+    wait_for_selector('.annotation--verification_status')
     expect(@driver.page_source.include?('Status')).to be(true)
   end
 
