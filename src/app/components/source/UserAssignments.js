@@ -44,7 +44,7 @@ class UserAssignmentsComponent extends Component {
         const task = node.node;
         const data = JSON.parse(task.content);
         task.data = data;
-        if (data.status === 'Unresolved') {
+        if (data.status === 'unresolved') {
           active = true;
           a.activeTasks.push(task);
         }
@@ -62,7 +62,7 @@ class UserAssignmentsComponent extends Component {
     const icons = {
       free_text: <MdShortText />,
       single_choice: <MdRadioButtonChecked />,
-      multiple_choice: <MdCheckBox />,
+      multiple_choice: <MdCheckBox style={{ transform: 'scale(1,1)' }} />,
       geolocation: <MdLocationOn />,
       datetime: <MdDateRange />,
       claim: <MdFormatQuote />,

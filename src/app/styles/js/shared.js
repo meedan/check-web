@@ -2,6 +2,7 @@ import styled, { css, keyframes } from 'styled-components';
 import { CardTitle } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import IconButton from 'material-ui/IconButton';
+import CheckboxNext from '@material-ui/core/Checkbox';
 import { stripUnit, rgba } from 'polished';
 
 // Styles for overriding material UI
@@ -543,5 +544,11 @@ export const StyledSmallTextField = styled(TextField)`
   }
   textarea {
     margin: 0!important;
+  }
+`;
+
+export const StyledCheckboxNext = styled(CheckboxNext)`
+  svg {
+    transform: scale(1,1) !important;
   }
 `;

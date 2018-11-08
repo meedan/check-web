@@ -319,7 +319,10 @@ const SourceMediasContainer = Relay.createContainer(SourceMediasComponent, {
 
 class SourceMedias extends Component {
   // eslint-disable-next-line class-methods-use-this
-  shouldComponentUpdate() {
+  shouldComponentUpdate(nextProps) {
+    if (nextProps.source.source_id !== this.props.source.source_id) {
+      return true;
+    }
     return false;
   }
 

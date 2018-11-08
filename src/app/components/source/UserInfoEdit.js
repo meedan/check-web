@@ -59,6 +59,10 @@ const messages = defineMessages({
     id: 'userInfoEdit.editError',
     defaultMessage: 'Sorry, could not edit the source',
   },
+  nameError: {
+    id: 'userInfoEdit.nameError',
+    defaultMessage: 'Name can\'t be blank',
+  },
   addLinkLabel: {
     id: 'userInfoEdit.addLinkLabel',
     defaultMessage: 'Add a link',
@@ -136,12 +140,11 @@ class UserInfoEdit extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
 
-    if (this.validateLinks() && !this.state.submitDisabled) {
+    if (this.validateUser() && this.validateLinks() && !this.state.submitDisabled) {
       this.updateSource();
       this.updateUser();
       this.updateLinks();
-
-      this.setState({ submitDisabled: true, hasFailure: false, message: null });
+      this.setState({ hasFailure: false, message: null }, this.manageEditingState);
     }
   }
 
@@ -179,36 +182,32 @@ class UserInfoEdit extends React.Component {
     this.setState({ sendEmail: inputChecked });
   }
 
-  fail(transaction) {
+  fail(transaction, mutation) {
     const error = transaction.getError();
     let message = this.props.intl.formatMessage(messages.editError);
     const json = safelyParseJSON(error.source);
     if (json && json.error) {
       message = json.error;
     }
-    this.setState({ message, hasFailure: true, submitDisabled: false });
+    this.setState({ message, hasFailure: true });
+    this.removePendingMutation(mutation);
   }
 
   success(response, mutation) {
-    const manageEditingState = () => {
-      const submitDisabled = this.state.pendingMutations.length > 0;
-      const isEditing = submitDisabled || this.state.hasFailure;
-      const message = isEditing ? this.state.message : null;
-
-      this.setState({ submitDisabled, message });
-      if (!isEditing) {
-        this.handleLeaveEditMode();
-      }
-    };
-
-    const pendingMutations = this.state.pendingMutations
-      ? this.state.pendingMutations.slice(0)
-      : [];
-    this.setState(
-      { pendingMutations: pendingMutations.filter(m => m !== mutation) },
-      manageEditingState,
-    );
+    this.removePendingMutation(mutation);
   }
+
+  manageEditingState = () => {
+    const { pendingMutations } = this.state;
+    const submitDisabled = pendingMutations ? pendingMutations.length > 0 : false;
+    const isEditing = submitDisabled || this.state.hasFailure;
+    const message = isEditing ? this.state.message : null;
+
+    this.setState({ submitDisabled, message });
+    if (!isEditing) {
+      this.handleLeaveEditMode();
+    }
+  };
 
   registerPendingMutation(mutation) {
     const pendingMutations = this.state.pendingMutations
@@ -218,17 +217,21 @@ class UserInfoEdit extends React.Component {
     this.setState({ pendingMutations });
   }
 
+  removePendingMutation(mutation) {
+    const pendingMutations = this.state.pendingMutations
+      ? this.state.pendingMutations.slice(0)
+      : [];
+    this.setState(
+      { pendingMutations: pendingMutations.filter(m => m !== mutation) },
+      this.manageEditingState,
+    );
+  }
+
   updateSource() {
     const { source } = this.props.user;
 
     const onFailure = (transaction) => {
-      const error = transaction.getError();
-      let message = this.props.intl.formatMessage(messages.editError);
-      const json = safelyParseJSON(error.source);
-      if (json && json.error) {
-        message = json.error;
-      }
-      this.setState({ message, submitDisabled: false });
+      this.fail(transaction, 'updateSource');
     };
 
     const onSuccess = (response) => {
@@ -261,13 +264,7 @@ class UserInfoEdit extends React.Component {
     const { user } = this.props;
 
     const onFailure = (transaction) => {
-      const error = transaction.getError();
-      let message = this.props.intl.formatMessage(messages.editError);
-      const json = safelyParseJSON(error.source);
-      if (json && json.error) {
-        message = json.error;
-      }
-      this.setState({ message, submitDisabled: false });
+      this.fail(transaction, 'updateUser');
     };
 
     const onSuccess = (response) => {
@@ -282,6 +279,7 @@ class UserInfoEdit extends React.Component {
     }
 
     this.registerPendingMutation('updateUser');
+
     updateUserNameEmail(
       user.id,
       form.name.value,
@@ -332,9 +330,13 @@ class UserInfoEdit extends React.Component {
       }
 
       this.setState({ hasFailure: true, submitDisabled: false });
+      this.removePendingMutation('createAccount');
     };
 
     const onSuccess = (response) => {
+      const links = this.state.links ? this.state.links.slice(0) : [];
+      const index = links.findIndex(link => link.url === url);
+      this.handleRemoveNewLink(index);
       this.success(response, 'createAccount');
     };
 
@@ -357,7 +359,7 @@ class UserInfoEdit extends React.Component {
   deleteAccountSource(asId) {
     const { source } = this.props.user;
     const onFailure = (transaction) => {
-      this.fail(transaction);
+      this.fail(transaction, 'deleteAccount');
     };
     const onSuccess = (response) => {
       this.success(response, 'deleteAccount');
@@ -372,6 +374,18 @@ class UserInfoEdit extends React.Component {
       }),
       { onSuccess, onFailure },
     );
+  }
+
+  validateUser() {
+    const form = document.forms['edit-source-form'];
+    if (!form.name.value.trim()) {
+      this.setState({
+        hasFailure: true,
+        message: this.props.intl.formatMessage(messages.nameError),
+      }, this.manageEditingState);
+      return false;
+    }
+    return true;
   }
 
   validateLinks() {

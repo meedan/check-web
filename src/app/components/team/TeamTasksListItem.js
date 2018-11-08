@@ -152,7 +152,7 @@ class TeamTasksListItem extends React.Component {
       geolocation: <LocationIcon />,
       datetime: <DateRangeIcon />,
       single_choice: <RadioButtonCheckedIcon />,
-      multiple_choice: <CheckBoxIcon />,
+      multiple_choice: <CheckBoxIcon style={{ transform: 'scale(1,1)' }} />,
     };
 
     const label = (
