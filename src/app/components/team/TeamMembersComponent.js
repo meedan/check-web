@@ -67,7 +67,7 @@ class TeamMembersComponent extends Component {
               <StyledMdCardTitle
                 title={<FormattedMessage
                   id="teamMembersComponent.pendingInvitations"
-                  defaultMessage="Pending Invitations"
+                  defaultMessage="Pending invitations"
                 />}
               />
               <List>

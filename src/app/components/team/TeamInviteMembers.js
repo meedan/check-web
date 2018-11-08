@@ -6,6 +6,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Select from 'react-select';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
+import ListItem from '@material-ui/core/ListItem';
+import * as EmailValidator from 'email-validator';
 import UserInvitationMutation from '../../relay/mutations/UserInvitationMutation';
 import {
   units,
@@ -16,7 +18,7 @@ import {
 const messages = defineMessages({
   inviteMembers: {
     id: 'TeamInviteMembers.newInvite',
-    defaultMessage: 'Invite Members',
+    defaultMessage: 'Invite members',
   },
   inviteEmailInput: {
     id: 'TeamInviteMembers.emailInput',
@@ -38,10 +40,6 @@ const messages = defineMessages({
     id: 'TeamMembersListItem.editor',
     defaultMessage: 'Editor',
   },
-  owner: {
-    id: 'TeamMembersListItem.owner',
-    defaultMessage: 'Owner',
-  },
 });
 
 class TeamInviteMembers extends Component {
@@ -49,8 +47,8 @@ class TeamInviteMembers extends Component {
     super(props);
     this.state = {
       dialogOpen: false,
-      submitDisabled: true,
-      membersToInvite: [{ email: '', role: '' }],
+      membersToInvite: [{ email: '', role: 'contributor' }],
+      errors: [],
       addMany: false,
     };
   }
@@ -58,7 +56,6 @@ class TeamInviteMembers extends Component {
   handleOpenDialog() {
     this.setState({
       dialogOpen: true,
-      submitDisabled: false,
     });
   }
 
@@ -66,20 +63,20 @@ class TeamInviteMembers extends Component {
     this.setState({
       dialogOpen: false,
       addMany: false,
-      membersToInvite: [{ email: '', role: '' }],
+      membersToInvite: [{ email: '', role: 'contributor' }],
     });
   }
 
   handleAddAnother() {
     this.setState({
-      membersToInvite: [...this.state.membersToInvite, { email: '', role: '' }],
+      membersToInvite: [...this.state.membersToInvite, { email: '', role: 'contributor' }],
     });
   }
 
   handleAddMany() {
     this.setState({
       addMany: true,
-      membersToInvite: [{ email: '', role: '' }],
+      membersToInvite: [{ email: '', role: 'contributor' }],
     });
   }
 
@@ -93,14 +90,32 @@ class TeamInviteMembers extends Component {
     this.setState({ membersToInvite: this.state.membersToInvite });
   }
 
+  validateMembers(members) {
+    const errors = [];
+    const emptyEmails = members.every(obj => obj.email === '');
+    if (emptyEmails === true) {
+      errors.push({ key: 'empty' });
+    } else {
+      members.forEach((item) => {
+        if (item.email !== '') {
+          if (this.state.addMany) {
+            const emails = item.email.split(',');
+            emails.forEach((x) => {
+              if (EmailValidator.validate(x) === false) {
+                errors.push({ key: 'invalid', email: x });
+              }
+            });
+          } else if (EmailValidator.validate(item.email) === false) {
+            errors.push({ key: 'invalid', email: item.email });
+          }
+        }
+      });
+    }
+    return errors;
+  }
+
   handleSubmit() {
-    const onFailure = (transaction) => {
-      const error = transaction.getError();
-      if (error.json) {
-        error.json().then(this.handleError);
-      } else {
-        this.handleError(JSON.stringify(error));
-      }
+    const onFailure = () => {
     };
 
     const onSuccess = () => {
@@ -108,18 +123,35 @@ class TeamInviteMembers extends Component {
         dialogOpen: false,
       });
     };
-
-    if (!this.state.submitDisabled) {
+    const members = this.state.membersToInvite;
+    const errors = this.validateMembers(members);
+    if (errors.length > 0) {
+      this.setState({ errors: errors });
+      return;
+    }
+    if (errors.length === 0) {
+      console.log('Members', members);
       const invitation = document.getElementById('invite-msg-input').value.trim();
-      const members = JSON.stringify(this.state.membersToInvite);
+      const membersJson = JSON.stringify(members);
+      console.log('membersJson', membersJson);
       Relay.Store.commitUpdate(
         new UserInvitationMutation({
           invitation,
-          members,
+          membersJson,
         }),
         { onSuccess, onFailure },
       );
-      this.setState({ submitDisabled: true });
+    }
+  }
+
+  renderError(item) {
+    switch (item.key) {
+    case 'invalid':
+      return <FormattedMessage id="teamInviteMembers.invalidEmail" defaultMessage="{email} not a valis email address" values={{ email: item.email }} />;
+    case 'empty':
+      return <FormattedMessage id="teamInviteMembers.noEmail" defaultMessage="Should invite at least one eamil" />;
+    default:
+      return null;
     }
   }
 
@@ -140,7 +172,6 @@ class TeamInviteMembers extends Component {
         primary
         keyboardFocused
         onClick={this.handleSubmit.bind(this)}
-        disabled={this.state.submitDisabled}
       />,
     ];
 
@@ -225,12 +256,17 @@ class TeamInviteMembers extends Component {
           open={this.state.dialogOpen}
           onRequestClose={this.handleCloseDialog.bind(this)}
         >
+          {
+            this.state.errors.map(error => (
+              <ListItem className="team-inivite-members__list-item-error">{this.renderError(error)}</ListItem>
+            ))
+          }
           <TextField
             id="invite-msg-input"
             className="team-invite-members__input"
             fullWidth
             floatingLabelText={
-              <FormattedMessage id="teamInviteMembers.customInvitation" defaultMessage="Add custom invitation (optional)" />
+              <FormattedMessage id="teamInviteMembers.customInvitation" defaultMessage="Add invitation note (optional)" />
             }
             multiLine
             margin="normal"

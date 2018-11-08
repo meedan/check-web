@@ -1,7 +1,7 @@
 [
   {
     "id": "TeamInviteMembers.newInvite",
-    "defaultMessage": "Invite Members"
+    "defaultMessage": "Invite members"
   },
   {
     "id": "TeamInviteMembers.emailInput",
@@ -24,8 +24,12 @@
     "defaultMessage": "Editor"
   },
   {
-    "id": "TeamMembersListItem.owner",
-    "defaultMessage": "Owner"
+    "id": "teamInviteMembers.invalidEmail",
+    "defaultMessage": "{email} not a valis email address"
+  },
+  {
+    "id": "teamInviteMembers.noEmail",
+    "defaultMessage": "Should invite at least one eamil"
   },
   {
     "id": "teamInviteMembers.cancelAdd",
@@ -45,7 +49,7 @@
   },
   {
     "id": "teamInviteMembers.customInvitation",
-    "defaultMessage": "Add custom invitation (optional)"
+    "defaultMessage": "Add invitation note (optional)"
   },
   {
     "id": "teamInviteMembers.addAnother",

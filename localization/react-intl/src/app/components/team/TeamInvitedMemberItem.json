@@ -1,10 +1,10 @@
 [
   {
     "id": "TeamMembersInvitedListItem.cancel",
-    "defaultMessage": "Cancel Invite"
+    "defaultMessage": "Cancel invitation"
   },
   {
     "id": "TeamMembersInvitedListItem.resend",
-    "defaultMessage": "Resend"
+    "defaultMessage": "Resend invitation"
   }
 ]

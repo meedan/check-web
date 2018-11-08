@@ -4,11 +4,11 @@ import { ContentColumn } from '../styles/js/shared';
 
 const UserInvalidInvitation = () => (
   <ContentColumn className="card">
-    <h2 className="main-title"><FormattedMessage id="userInvalidInvitation.heading" defaultMessage="Failed to accept your invitation" /></h2>
+    <h2 className="main-title"><FormattedMessage id="userInvalidInvitation.heading" defaultMessage="An error occurred while processing your invitation. Please try again and contact the support team if the issue persists" /></h2>
     <p>
       <FormattedMessage
         id="userInvalidInvitation.message"
-        defaultMessage="Sorry could not accept your invitation, may be your invitaion expired or team not exists."
+        defaultMessage="An error occurred while processing your invitation. Please make sure the invitation has not expired and that the team still exists. Contact the support team if the issue persists."
       />
     </p>
   </ContentColumn>);
