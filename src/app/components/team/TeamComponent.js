@@ -125,7 +125,8 @@ class TeamComponent extends Component {
       if (isSettings || isReadOnly) {
         return (
           <Tabs value={this.state.showTab} onChange={this.handleTabChange}>
-            { team.limits.custom_tasks_list ?
+            { team.limits.custom_tasks_list &&
+            UserUtil.myRole(this.getCurrentUser(), team.slug) === 'owner' ?
               <Tab
                 className="team-settings__tasks-tab"
                 label={
