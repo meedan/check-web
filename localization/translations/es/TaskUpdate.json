@@ -1,9 +1,9 @@
 {
-  "annotation.taskLabelUpdated": "Task edited by {author}: {title}",
-  "annotation.taskNoteUpdated": "Task note edited by {author}: {title}{note}",
-  "annotation.taskNoteCreated": "Task note added by {author}: {title}{note}",
-  "annotation.assignmentChanged": "Task assigned to {assigneeTo} by {author}: {title}",
-  "annotation.assignmentRemoved": "Task unassigned from {assigneeFrom} by {author}: {title}",
-  "annotation.addedComment": "Task note added by {author}: {title}{note}",
-  "annotation.removedComment": "Task note deleted by {author}: {title}{note}"
+  "annotation.taskLabelUpdated": "Tarea editada por {author}: {title}",
+  "annotation.taskNoteUpdated": "Nota de la tarea editada por {author}: {title}{note}",
+  "annotation.taskNoteCreated": "Nota de la tarea añadida por {author}: {title}{note}",
+  "annotation.assignmentChanged": "Tarea asignada a {assigneeTo} por {author}: {title}",
+  "annotation.assignmentRemoved": "Tarea desasignada de {assigneeFrom} por {author}: {title}",
+  "annotation.addedComment": "Nota de la tarea añadida por {author}: {title}{note}",
+  "annotation.removedComment": "Nota de la tarea eliminada por {author}: {title}{note}"
 }
