@@ -6,7 +6,7 @@ import FaYoutubePlay from 'react-icons/lib/fa/youtube-play';
 import MdLink from 'react-icons/lib/md/link';
 import { defineMessages } from 'react-intl';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
-import { nested, truncateLength } from '../../helpers';
+import { nested, truncateLength, emojify } from '../../helpers';
 
 const messages = defineMessages({
   notesCount: {
@@ -147,7 +147,7 @@ const MediaUtil = {
 
   title(media, data, intl) {
     if (this.hasCustomTitle(media, data)) {
-      return truncateLength(data.title);
+      return emojify(truncateLength(data.title));
     }
 
     const type = this.mediaType(media, data);
@@ -182,7 +182,7 @@ const MediaUtil = {
       displayTitle = media.media.quote || data.title || byAttribution || '';
     }
 
-    return truncateLength(displayTitle);
+    return emojify(truncateLength(displayTitle));
   },
 
   // Return a text fragment "X notes" with proper pluralization.

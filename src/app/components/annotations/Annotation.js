@@ -37,7 +37,7 @@ import UpdateTaskMutation from '../../relay/mutations/UpdateTaskMutation';
 import DatetimeTaskResponse from '../task/DatetimeTaskResponse';
 import Can, { can } from '../Can';
 import TimeBefore from '../TimeBefore';
-import { safelyParseJSON, getStatus, getStatusStyle } from '../../helpers';
+import { safelyParseJSON, getStatus, getStatusStyle, emojify } from '../../helpers';
 import UserTooltip from '../user/UserTooltip';
 import { mapGlobalMessage } from '../MappedMessage';
 import {
@@ -533,7 +533,6 @@ class Annotation extends Component {
       const meta = JSON.parse(activity.meta);
       if (meta) {
         const { target } = meta;
-        const targetUrl = target.url.replace(/https?:\/\/[^/]+/, '');
         contentTemplate = (
           <span>
             <FormattedMessage
@@ -541,7 +540,7 @@ class Annotation extends Component {
               defaultMessage="Related {type} added by {author}: {title}"
               values={{
                 type: meta.target.type,
-                title: <Link to={targetUrl}>{target.title}</Link>,
+                title: emojify(target.title),
                 author: authorName,
               }}
             />
@@ -561,7 +560,7 @@ class Annotation extends Component {
               defaultMessage="Related {type} removed by {author}: {title}"
               values={{
                 type: meta.target.type,
-                title: target.title,
+                title: emojify(target.title),
                 author: authorName,
               }}
             />
