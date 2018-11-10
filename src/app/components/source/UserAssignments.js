@@ -81,7 +81,7 @@ class UserAssignmentsComponent extends Component {
         <StyledBlankState>
           {hasAssignment
             ? null
-            : <FormattedMessage id="userAssignments.blank" defaultMessage="No activity yet" />
+            : <FormattedMessage id="userAssignments.blank" defaultMessage="No activity" />
           }
         </StyledBlankState>
         {Object.keys(assignments).map(team => assignments[team].length ? (

@@ -1,9 +1,9 @@
 {
-  "annotation.taskLabelUpdated": "Tâche \"{from}\" modifiée à \"{to}\" par {author}",
-  "annotation.taskNoteUpdated": "Commentaire de la tâche \"{title}\" modifié de \"{from}\" à \"{to}\" par {author}",
-  "annotation.taskNoteCreated": "Tâche \"{title}\" a un nouveau commentaire par {author} : {note}",
-  "annotation.assignmentChanged": "La tâche \"{title}\" a été assignée à {assigneeTo} par {author}",
-  "annotation.assignmentRemoved": "La tâche \"{title}\" a été désassignée de {assigneeFrom} par {author}",
-  "annotation.addedComment": "{author} a ajouté une note à la tâche \"{title}\" : \"{comment}\"",
-  "annotation.removedComment": "{author} a supprimé une note de la tâche \"{title}\" : \"{comment}\""
+  "annotation.taskLabelUpdated": "Tâche modifiée par {author} : {title}",
+  "annotation.taskNoteUpdated": "Commentaire de tâche modifié par {author} : {title}{note}",
+  "annotation.taskNoteCreated": "Commentaire de tâche ajouté par {author} : {title}{note}",
+  "annotation.assignmentChanged": "Tâche assignée à {assigneeTo} par {author} : {title}",
+  "annotation.assignmentRemoved": "Tâche désassignée de {assigneeFrom} par {author} : {title}",
+  "annotation.addedComment": "Commentaire de tâche ajouté par {author} : {title}{note}",
+  "annotation.removedComment": "Commentaire de tâche supprimé par {author} : {title}{note}"
 }

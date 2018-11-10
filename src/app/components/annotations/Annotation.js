@@ -537,9 +537,8 @@ class Annotation extends Component {
           <span>
             <FormattedMessage
               id="annotation.relationshipCreated"
-              defaultMessage="Related {type} added by {author}: {title}"
+              defaultMessage="Related item added by {author}: {title}"
               values={{
-                type: meta.target.type,
                 title: emojify(target.title),
                 author: authorName,
               }}
@@ -557,9 +556,8 @@ class Annotation extends Component {
           <span>
             <FormattedMessage
               id="annotation.relationshipDeleted"
-              defaultMessage="Related {type} removed by {author}: {title}"
+              defaultMessage="Related item removed by {author}: {title}"
               values={{
-                type: meta.target.type,
                 title: emojify(target.title),
                 author: authorName,
               }}

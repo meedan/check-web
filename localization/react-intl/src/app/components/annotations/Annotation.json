@@ -41,11 +41,11 @@
   },
   {
     "id": "annotation.relationshipCreated",
-    "defaultMessage": "Related {type} added by {author}: {title}"
+    "defaultMessage": "Related item added by {author}: {title}"
   },
   {
     "id": "annotation.relationshipDeleted",
-    "defaultMessage": "Related {type} removed by {author}: {title}"
+    "defaultMessage": "Related item removed by {author}: {title}"
   },
   {
     "id": "annotation.taskAssignmentCreated",

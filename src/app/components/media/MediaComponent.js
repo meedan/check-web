@@ -184,7 +184,7 @@ class MediaComponent extends Component {
                     <h2>
                       <FormattedMessage
                         id="mediaComponent.verificationTasks"
-                        defaultMessage="Verification tasks"
+                        defaultMessage="Item tasks"
                       />
                     </h2>
                       &nbsp;

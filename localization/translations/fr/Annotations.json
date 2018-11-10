@@ -1,5 +1,4 @@
 {
-  "mediaComponent.verificationTimeline": "Chronologie de vérification",
-  "bridge.mediaComponent.verificationTimeline": "Chronologie de traduction",
-  "annotation.noAnnotationsYet": "Aucune note"
+  "annotation.timelineTitle": "Chronologie d’activités",
+  "annotation.noAnnotationsYet": "Aucune activité"
 }
