@@ -33,51 +33,51 @@
   },
   {
     "id": "annotation.deletedComment",
-    "defaultMessage": "Comment deleted by {author}: \"{comment}\""
+    "defaultMessage": "Comment deleted by {author}{comment}"
   },
   {
     "id": "annotation.taskCreated",
-    "defaultMessage": "Task \"{task}\" created by {author}"
+    "defaultMessage": "Task created by {author}: {task}"
   },
   {
     "id": "annotation.relationshipCreated",
-    "defaultMessage": "Related {type} \"{title}\" added by {author}"
+    "defaultMessage": "Related {type} added by {author}: {title}"
   },
   {
     "id": "annotation.relationshipDeleted",
-    "defaultMessage": "Related {type} \"{title}\" deleted by {author}"
+    "defaultMessage": "Related {type} removed by {author}: {title}"
   },
   {
     "id": "annotation.taskAssignmentCreated",
-    "defaultMessage": "Task \"{title}\" assigned to {name} by {author}"
+    "defaultMessage": "Task assigned to {name} by {author}: {title}"
   },
   {
     "id": "annotation.mediaAssignmentCreated",
-    "defaultMessage": "Assigned to {name} by {author}"
+    "defaultMessage": "Item assigned to {name} by {author}"
   },
   {
     "id": "annotation.taskAssignmentDeleted",
-    "defaultMessage": "Task \"{title}\" unassigned from {name} by {author}"
+    "defaultMessage": "Task unassigned from {name} by {author}: {title}"
   },
   {
     "id": "annotation.mediaAssignmentDeleted",
-    "defaultMessage": "Unassigned from {name} by {author}"
+    "defaultMessage": "Item unassigned from {name} by {author}"
   },
   {
     "id": "annotation.statusLocked",
-    "defaultMessage": "Status locked by {author}"
+    "defaultMessage": "Item status locked by {author}"
   },
   {
     "id": "annotation.statusUnlocked",
-    "defaultMessage": "Status unlocked by {author}"
+    "defaultMessage": "Item status unlocked by {author}"
   },
   {
     "id": "annotation.mediaAssigned",
-    "defaultMessage": "Assigned to {name} by {author}"
+    "defaultMessage": "Item assigned to {name} by {author}"
   },
   {
     "id": "annotation.mediaUnassigned",
-    "defaultMessage": "Unassigned from {name} by {author}"
+    "defaultMessage": "Item unassigned from {name} by {author}"
   },
   {
     "id": "annotation.statusSetHeader",
@@ -105,7 +105,7 @@
   },
   {
     "id": "annotation.taskResolve",
-    "defaultMessage": "Task \"{task}\" answered by {author}: \"{response}\""
+    "defaultMessage": "Task answered by {author}: {task}{response}"
   },
   {
     "id": "annotation.reverseImageSearch",
@@ -113,7 +113,7 @@
   },
   {
     "id": "annotation.translation",
-    "defaultMessage": "Translated to {language} by {author}: \"{translation}\""
+    "defaultMessage": "Translated to {language} by {author}{translation}"
   },
   {
     "id": "annotation.emptyMachineTranslation",
@@ -121,7 +121,7 @@
   },
   {
     "id": "annotation.machineTranslation",
-    "defaultMessage": "Machine translation for \"{lang}\" is: {text}"
+    "defaultMessage": "Machine translated to {language}{text}"
   },
   {
     "id": "annotation.translationStatus",

@@ -1,25 +1,13 @@
 import React from 'react';
-import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
-import { Card, CardActions } from 'material-ui/Card';
+import { FormattedMessage, injectIntl } from 'react-intl';
+import { Card, CardActions, CardHeader } from 'material-ui/Card';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
-import TimelineHeader from './TimelineHeader';
 import AddAnnotation from './AddAnnotation';
 import Annotation from './Annotation';
 import { units, black16, black38, white, opaqueBlack16, borderWidthMedium, Text } from '../../styles/js/shared';
 
-const messages = defineMessages({
-  timelineTitle: {
-    id: 'mediaComponent.verificationTimeline',
-    defaultMessage: 'Verification Timeline',
-  },
-  bridge_timelineTitle: {
-    id: 'bridge.mediaComponent.verificationTimeline',
-    defaultMessage: 'Translation Timeline',
-  },
-});
-
-const StyledAnnotation = styled.div`
+const StyledAnnotations = styled.div`
   display: flex;
   flex-direction: column;
   .annotations__list {
@@ -70,18 +58,23 @@ const StyledAnnotationCardActions = styled(CardActions)`
 `;
 
 const Annotations = props => (
-  <StyledAnnotation
+  <StyledAnnotations
     className="annotations"
     isRtl={rtlDetect.isRtlLang(props.intl.locale)}
     height={props.height}
     annotationCount={props.annotations.length}
   >
-    <Card>
-      <TimelineHeader msgObj={messages} msgKey="timelineTitle" />
+    <Card initiallyExpanded>
+      <CardHeader
+        title={
+          <FormattedMessage id="annotation.timelineTitle" defaultMessage="Activity timeline" />
+        }
+        className="media__notes-heading"
+      />
       <div className="annotations__list">
         {!props.annotations.length ?
           <Text style={{ margin: 'auto', color: black38 }}>
-            <FormattedMessage id="annotation.noAnnotationsYet" defaultMessage="No annotations yet" />
+            <FormattedMessage id="annotation.noAnnotationsYet" defaultMessage="No activity" />
           </Text> :
           props.annotations.map(annotation => (
             <div key={annotation.node.dbid} className="annotations__list-item">
@@ -100,6 +93,6 @@ const Annotations = props => (
         />
       </StyledAnnotationCardActions>
     </Card>
-  </StyledAnnotation>);
+  </StyledAnnotations>);
 
 export default injectIntl(Annotations);

@@ -99,7 +99,7 @@ class UserMenu extends React.Component {
               containerElement={<Link to="/check/me" />}
             >
               <div>
-                {user && user.name}
+                {user ? user.name : null}
                 {localizedRoleText}
               </div>
             </MenuItem>

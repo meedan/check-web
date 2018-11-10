@@ -281,7 +281,7 @@ class TeamInfoEdit extends React.Component {
 
                 <Button
                   className="source__edit-save-button"
-                  variant="raised"
+                  variant="contained"
                   color="primary"
                   onClick={this.handleSubmit.bind(this)}
                 >

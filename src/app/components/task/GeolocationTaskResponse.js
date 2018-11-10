@@ -3,6 +3,7 @@ import Dialog from 'material-ui/Dialog';
 import { Map, Marker, TileLayer } from 'react-leaflet';
 import styled from 'styled-components';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
+import ParsedText from '../ParsedText';
 import { safelyParseJSON } from '../../helpers';
 import { units, black05, black38, FlexRow } from '../../styles/js/shared';
 
@@ -49,7 +50,7 @@ class GeolocationTaskResponse extends Component {
 
     return (
       <FlexRow className="task__geolocation-response">
-        <span className="task__response">{name}</span>
+        <span className="task__response"><ParsedText text={name} /></span>
         {coordinatesString ?
           <span
             className="task__note"

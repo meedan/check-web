@@ -1,78 +1,71 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-
-// TODO Remove those global variables
-let from = null;
-let to = null;
-let assignment = null;
-let editedTitle = false;
-let editedNote = false;
-let createdNote = false;
-let changedAssignment = false;
-let removedAssignment = false;
-let addedComment = false;
-let removedComment = false;
-
-function shouldLogChange(activity) {
-  const changes = JSON.parse(activity.object_changes_json);
-
-  if (changes.data) {
-    ([from, to] = changes.data);
-
-    if (from.label && to.label && from.label !== to.label) {
-      editedTitle = true;
-    }
-    if (to.description && from.description !== to.description) {
-      editedNote = true;
-    }
-    if (!from.description && to.description) {
-      editedNote = false;
-      createdNote = true;
-    }
-    if (from.log_count < to.log_count || (!from.log_count && to.log_count)) {
-      addedComment = true;
-    }
-    if (from.log_count > to.log_count) {
-      removedComment = true;
-    }
-  }
-  if (changes.assigned_to_id) {
-    assignment = changes.assigned_to_id;
-    if (assignment[1]) {
-      changedAssignment = true;
-    } else {
-      removedAssignment = true;
-    }
-  }
-  if (editedTitle || editedNote || createdNote || changedAssignment || removedAssignment
-    || addedComment || removedComment) {
-    return true;
-  }
-  return false;
-}
+import ParsedText from '../ParsedText';
 
 class TaskUpdate extends React.Component {
-  // TODO When removing global variables you can remove this eslint command
-  // eslint-disable-next-line class-methods-use-this
   componentWillUpdate() {
-    editedTitle = false;
-    editedNote = false;
-    createdNote = false;
-    changedAssignment = false;
-    removedAssignment = false;
-    addedComment = false;
-    removedComment = false;
+    this.editedTitle = false;
+    this.editedNote = false;
+    this.createdNote = false;
+    this.changedAssignment = false;
+    this.removedAssignment = false;
+    this.addedComment = false;
+    this.removedComment = false;
+  }
+
+  shouldLogChange(activity) {
+    const changes = JSON.parse(activity.object_changes_json);
+
+    if (changes.data) {
+      ([this.from, this.to] = changes.data);
+
+      if (this.from.label && this.to.label && this.from.label !== this.to.label) {
+        this.editedTitle = true;
+      }
+      if (this.to.description && this.from.description !== this.to.description) {
+        this.editedNote = true;
+      }
+      if (!this.from.description && this.to.description) {
+        this.editedNote = false;
+        this.createdNote = true;
+      }
+      if (this.from.log_count < this.to.log_count || (!this.from.log_count && this.to.log_count)) {
+        this.addedComment = true;
+      }
+      if (this.from.log_count > this.to.log_count) {
+        this.removedComment = true;
+      }
+    }
+    if (changes.assigned_to_id) {
+      if (changes.assigned_to_id[1]) {
+        this.changedAssignment = true;
+      } else {
+        this.removedAssignment = true;
+      }
+    }
+    return this.editedTitle ||
+      this.editedNote ||
+      this.createdNote ||
+      this.changedAssignment ||
+      this.removedAssignment ||
+      this.addedComment ||
+      this.removedComment;
   }
 
   render() {
     const { authorName: author, activity } = this.props;
 
-    if (shouldLogChange(activity)) {
+    if (this.shouldLogChange(activity)) {
       let title = '';
       let comment = '';
       let assigneeFrom = null;
       let assigneeTo = null;
-      if (changedAssignment || removedAssignment || addedComment || removedComment) {
+      if (
+        this.changedAssignment ||
+        this.removedAssignment ||
+        this.addedComment ||
+        this.removedComment
+      ) {
         title = JSON.parse(activity.object_after).data.label;
         if (activity.meta) {
           const meta = JSON.parse(activity.meta);
@@ -87,76 +80,92 @@ class TaskUpdate extends React.Component {
       const contentTemplate = (
         <span>
           <span className="annotation__update-task" />
-          {editedTitle ?
+          {this.editedTitle ?
             <FormattedMessage
               id="annotation.taskLabelUpdated"
-              defaultMessage='Task "{from}" edited to "{to}" by {author}'
-              values={{ from: from.label, to: to.label, author }}
-            />
-            : null}
-          {editedTitle && editedNote ? <br /> : null}
-          {editedNote ?
-            <FormattedMessage
-              id="annotation.taskNoteUpdated"
-              defaultMessage='Task "{title}" has note edited from "{from}" to "{to}" by {author}'
+              defaultMessage="Task edited by {author}: {title}"
               values={{
-                title: to.label, from: from.description, to: to.description, author,
+                title: this.to.label,
+                author,
               }}
             />
             : null}
-          {editedTitle && createdNote ? <br /> : null}
-          {createdNote ?
+          {this.editedTitle && this.editedNote ? <br /> : null}
+          {this.editedNote ?
+            <FormattedMessage
+              id="annotation.taskNoteUpdated"
+              defaultMessage="Task note edited by {author}: {title}{note}"
+              values={{
+                title: this.to.label,
+                author,
+                note: <ParsedText text={this.to.description} block />,
+              }}
+            />
+            : null}
+          {this.editedTitle && this.createdNote ? <br /> : null}
+          {this.createdNote ?
             <FormattedMessage
               id="annotation.taskNoteCreated"
-              defaultMessage='Task "{title}" has new note "{note}" by {author}'
-              values={{ title: to.label, note: to.description, author }}
+              defaultMessage="Task note added by {author}: {title}{note}"
+              values={{
+                title: this.to.label,
+                author,
+                note: <ParsedText text={this.to.description} block />,
+              }}
             />
             : null}
-          {((editedTitle || editedNote || createdNote) &&
-            (changedAssignment || removedAssignment)) ? <br /> : null}
-          {changedAssignment ?
+          {((this.editedTitle || this.editedNote || this.createdNote) &&
+            (this.changedAssignment || this.removedAssignment)) ? <br /> : null}
+          {this.changedAssignment ?
             <FormattedMessage
               id="annotation.assignmentChanged"
-              defaultMessage='Task "{title}" assigned to "{assigneeTo}" by {author}'
-              values={{ title, assigneeTo, author }}
+              defaultMessage="Task assigned to {assigneeTo} by {author}: {title}"
+              values={{
+                title,
+                assigneeTo,
+                author,
+              }}
             />
             : null}
-          {removedAssignment ?
+          {this.removedAssignment ?
             <FormattedMessage
               id="annotation.assignmentRemoved"
-              defaultMessage='Task "{title}" unassigned from "{assigneeFrom}" by {author}'
-              values={{ title, assigneeFrom, author }}
+              defaultMessage="Task unassigned from {assigneeFrom} by {author}: {title}"
+              values={{
+                title,
+                assigneeFrom,
+                author,
+              }}
             />
             : null}
-          {addedComment ?
+          {this.addedComment ?
             <FormattedMessage
               id="annotation.addedComment"
-              defaultMessage='{author} added a note to the task "{title}": "{comment}"'
-              values={{ author, title, comment }}
+              defaultMessage="Task note added by {author}: {title}{note}"
+              values={{
+                title,
+                author,
+                note: <ParsedText text={comment} block />,
+              }}
             />
             : null}
-          {removedComment ?
+          {this.removedComment ?
             <FormattedMessage
               id="annotation.removedComment"
-              defaultMessage='{author} deleted a note from the task "{title}": "{comment}"'
-              values={{ author, title, comment }}
+              defaultMessage="Task note deleted by {author}: {title}{note}"
+              values={{
+                title,
+                author,
+                note: <ParsedText text={comment} block />,
+              }}
             />
             : null}
         </span>
       );
-
-      editedTitle = false;
-      editedNote = false;
-      createdNote = false;
-      changedAssignment = false;
-      removedAssignment = false;
-      addedComment = false;
-      removedComment = false;
-
       return contentTemplate;
     }
     return null;
   }
 }
 
-export { TaskUpdate as default, shouldLogChange };
+export default TaskUpdate;

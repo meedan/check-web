@@ -28,16 +28,16 @@ describe('<EmbedUpdate />', () => {
 
   it('should render edited title entry', function() {
     const wrapper = mountWithIntl(<EmbedUpdate activity={activity_edited_title} authorName={authorName} />);
-    expect(wrapper.html()).to.contain('Title changed to "New edited title" by Felis Catus');
+    expect(wrapper.html()).to.contain('Item title edited by Felis Catus: New edited title');
   });
 
   it('should render edited note entry', function() {
     const wrapper = mountWithIntl(<EmbedUpdate activity={activity_edited_description} authorName={authorName} />);
-    expect(wrapper.html()).to.contain('Description edited from "This is a tweet." to "This is an edited description." by Felis Catus');
+    expect(wrapper.html()).to.contain('Item description edited by Felis Catus');
   });
 
   it('should render created note entry', function() {
     const wrapper = mountWithIntl(<EmbedUpdate activity={activity_created_description} authorName={authorName} />);
-    expect(wrapper.html()).to.contain('Description "This is a new description." was added by Felis Catus');
+    expect(wrapper.html()).to.contain('Item description added by Felis Catus');
   });
 });

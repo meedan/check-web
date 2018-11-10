@@ -139,9 +139,10 @@ const MediaUtil = {
 
   hasCustomDescription(media, data) {
     const description = data && data.description && data.description.trim();
-    return nested(['overridden', 'description'], media) || // Link type report
+    return description && (
+      nested(['overridden', 'description'], media) || // Link type report
       (media.quote && (description !== media.quote)) || // Quote type report
-      (media.embed_path && description); // Image type report
+      (media.embed_path && description)); // Image type report
   },
 
   title(media, data, intl) {

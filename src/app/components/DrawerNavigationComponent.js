@@ -181,7 +181,9 @@ class DrawerNavigation extends Component {
                     team={this.props.team}
                   />
                   <OffsetBothSides>
-                    <HeaderTitle>{this.props.team.name}</HeaderTitle>
+                    <HeaderTitle>
+                      {this.props.team.name}
+                    </HeaderTitle>
                   </OffsetBothSides>
                 </Row>
               </Link>

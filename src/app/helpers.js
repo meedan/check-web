@@ -1,16 +1,25 @@
 import truncate from 'lodash.truncate';
 import LinkifyIt from 'linkify-it';
 import rtlDetect from 'rtl-detect';
+import { toArray } from 'react-emoji-render';
 
-// Functionally-pure sort: keeps the given array unchanged and returns sorted one.
+/**
+ * Functionally-pure sort: keeps the given array unchanged and returns sorted one.
+ */
 Array.prototype.sortp = function sortp(fn) {
   return [].concat(this).sort(fn);
 };
 
+/**
+ * TODO
+ */
 function bemClass(baseClass, modifierBoolean, modifierSuffix) {
   return modifierBoolean ? [baseClass, baseClass + modifierSuffix].join(' ') : baseClass;
 }
 
+/**
+ * TODO
+ */
 function bemClassFromMediaStatus(baseClass, mediaStatus) {
   return bemClass(
     baseClass,
@@ -19,6 +28,9 @@ function bemClassFromMediaStatus(baseClass, mediaStatus) {
   );
 }
 
+/**
+ * Parse a JSON string without throwing an exception.
+ */
 function safelyParseJSON(jsonString, invalid = null) {
   try {
     return JSON.parse(jsonString);
@@ -27,9 +39,16 @@ function safelyParseJSON(jsonString, invalid = null) {
   }
 }
 
-const nested = (path, obj) => path.reduce((parent, child) =>
-  (parent && parent[child]) ? parent[child] : null, obj);
+/**
+ * Safely traverse an object to return a nested property.
+ */
+function nested(path, obj) {
+  return path.reduce((parent, child) => (parent && parent[child]) ? parent[child] : null, obj);
+}
 
+/**
+ * Find a status given its id.
+ */
 function getStatus(statusesParam, id) {
   let statusesJson = statusesParam;
   if (typeof statusesJson === 'string') {
@@ -45,6 +64,10 @@ function getStatus(statusesParam, id) {
   return status;
 }
 
+/**
+ * Safely get a status style.
+ * TODO Deprecate in favour of `nested`.
+ */
 function getStatusStyle(status, property) {
   try {
     return status.style[property];
@@ -53,17 +76,24 @@ function getStatusStyle(status, property) {
   }
 }
 
+/**
+ * Truncate a string and append ellipsis.
+ */
 function truncateLength(text, length = 70) {
   return truncate(text, { length, separator: /,? +/, ellipsis: '…' });
 }
 
-// TODO DEPRECATED
-// Apply styles conditionally with style components
-// Pass in `isRtl` as a prop
+/**
+ * Apply styles conditionally with style components.
+ * TODO Deprecate in terms of `isRtl` as a prop
+ */
 function rtlClass(language_code) {
   return (rtlDetect.isRtlLang(language_code)) ? 'translation__rtl' : 'translation__ltr';
 }
 
+/**
+ * Send a web browser notification.
+ */
 function notify(title, body, url, icon, name) {
   if (!Notification) {
     return false;
@@ -83,8 +113,10 @@ function notify(title, body, url, icon, name) {
   return true;
 }
 
-// Convert human-readable file size to bytes
-// https://stackoverflow.com/a/6974728/209184
+/**
+ * Convert human-readable file size to bytes
+ * https://stackoverflow.com/a/6974728/209184
+ */
 function unhumanizeSize(text) {
   const powers = {
     k: 1, m: 2, g: 3, t: 4,
@@ -94,33 +126,38 @@ function unhumanizeSize(text) {
   return res[1] * (1024 ** powers[res[2].toLowerCase()]);
 }
 
-// Convert Arabic/Persian numbers to English
-// https://codereview.stackexchange.com/questions/166750/convert-persian-and-arabic-digits-to-english
+/**
+ * Convert Arabic/Persian numbers to English
+ * https://codereview.stackexchange.com/questions/166750/convert-persian-and-arabic-digits-to-english
+ */
 function convertNumbers2English(string) {
   return string
     .replace(/[\u0660-\u0669]/g, c => c.charCodeAt(0) - 0x0660)
     .replace(/[\u06f0-\u06f9]/g, c => c.charCodeAt(0) - 0x06f0);
 }
 
-// Encode SVG for use as CSS background
-// via https://codepen.io/tigt/post/optimizing-svgs-in-data-uris
+/**
+ * Encode SVG for use as CSS background.
+ * via https://codepen.io/tigt/post/optimizing-svgs-in-data-uris
+ */
 function encodeSvgDataUri(svgString) {
   const parsedString = svgString.replace(/\n+/g, '');
   const uriPayload = encodeURIComponent(parsedString);
   return `data:image/svg+xml,${uriPayload}`;
 }
 
+/**
+ * Check if the argument is a valid URL.
+ */
 function validateURL(value) {
   const linkify = new LinkifyIt();
   const url = linkify.match(value);
-
-  if ((Array.isArray(url) && url[0] && url[0].url)) {
-    return true;
-  }
-
-  return false;
+  return (Array.isArray(url) && url[0] && url[0].url);
 }
 
+/**
+ * Extract filter values from the current URL path.
+ */
 function getFilters() {
   let filters = '{}';
   const urlParts = document.location.pathname.split('/');
@@ -137,10 +174,9 @@ function getFilters() {
   return filters;
 }
 
-function hasFilters() {
-  return getFilters() !== '{}';
-}
-
+/**
+ * Safely extract an error message from a transaction, with default fallback.
+ */
 function getErrorMessage(transaction, defaultMessage) {
   const error = transaction.getError();
   let errorMessage = defaultMessage;
@@ -149,6 +185,17 @@ function getErrorMessage(transaction, defaultMessage) {
     errorMessage = json.error;
   }
   return errorMessage;
+}
+
+/**
+ * Safely convert emojis to Unicode characters.
+ */
+function emojify(text) {
+  try {
+    return toArray(text).map(e => typeof e === 'string' ? e : e.props.children).join('');
+  } catch (e) {
+    return text;
+  }
 }
 
 export {
@@ -166,6 +213,6 @@ export {
   encodeSvgDataUri,
   validateURL,
   getFilters,
-  hasFilters,
   getErrorMessage,
+  emojify,
 };

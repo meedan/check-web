@@ -1,13 +1,5 @@
 [
   {
-    "id": "teamComponent.verificationTeam",
-    "defaultMessage": "Verification Team"
-  },
-  {
-    "id": "bridge.teamComponent.verificationTeam",
-    "defaultMessage": "Translation Team"
-  },
-  {
     "id": "teamComponent.private",
     "defaultMessage": "Private"
   },
