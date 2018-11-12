@@ -123,28 +123,26 @@ class TeamInviteMembers extends Component {
         dialogOpen: false,
       });
     };
-    const members = this.state.membersToInvite;
-    const errors = this.validateMembers(members);
-    if (errors.length > 0) {
-      this.setState({ errors: errors });
+    const membersList = this.state.membersToInvite;
+    const valitationErrors = this.validateMembers(membersList);
+    if (valitationErrors.length > 0) {
+      this.setState({ errors: valitationErrors });
       return;
     }
-    if (errors.length === 0) {
-      console.log('Members', members);
+    if (valitationErrors.length === 0) {
       const invitation = document.getElementById('invite-msg-input').value.trim();
-      const membersJson = JSON.stringify(members);
-      console.log('membersJson', membersJson);
+      const members = JSON.stringify(membersList);
       Relay.Store.commitUpdate(
         new UserInvitationMutation({
           invitation,
-          membersJson,
+          members,
         }),
         { onSuccess, onFailure },
       );
     }
   }
 
-  renderError(item) {
+  static renderError(item) {
     switch (item.key) {
     case 'invalid':
       return <FormattedMessage id="teamInviteMembers.invalidEmail" defaultMessage="{email} not a valis email address" values={{ email: item.email }} />;
@@ -258,7 +256,7 @@ class TeamInviteMembers extends Component {
         >
           {
             this.state.errors.map(error => (
-              <ListItem className="team-inivite-members__list-item-error">{this.renderError(error)}</ListItem>
+              <ListItem className="team-inivite-members__list-item-error">{this.renderError(error).bind(this)}</ListItem>
             ))
           }
           <TextField
