@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
 import Select from 'react-select';
-import Dialog from 'material-ui/Dialog';
-import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import TextField from '@material-ui/core/TextField';
 import ListItem from '@material-ui/core/ListItem';
 import * as EmailValidator from 'email-validator';
 import UserInvitationMutation from '../../relay/mutations/UserInvitationMutation';
@@ -160,19 +163,6 @@ class TeamInviteMembers extends Component {
       { value: 'journalist', label: this.props.intl.formatMessage(messages.journalist) },
       { value: 'editor', label: this.props.intl.formatMessage(messages.editor) },
     ];
-    const actions = [
-      <FlatButton
-        label={<FormattedMessage id="teamInviteMembers.cancelAdd" defaultMessage="Cancel" />}
-        onClick={this.handleCloseDialog.bind(this)}
-      />,
-      <FlatButton
-        className="team-invite-members__dialog-submit-button"
-        label={<FormattedMessage id="teamInviteMembers.send" defaultMessage="Send" />}
-        primary
-        keyboardFocused
-        onClick={this.handleSubmit.bind(this)}
-      />,
-    ];
 
     let inviteBody = null;
     if (this.state.addMany) {
@@ -198,7 +188,7 @@ class TeamInviteMembers extends Component {
               className="invite-member-email-input"
               label={this.props.intl.formatMessage(messages.inviteEmailMultipleInput)}
               placeholder={this.props.intl.formatMessage(messages.inviteEmailMultipleInput)}
-              multiLine
+              multiline
               fullWidth
               margin="normal"
               variant="outlined"
@@ -221,10 +211,11 @@ class TeamInviteMembers extends Component {
                 placeholder={this.props.intl.formatMessage(messages.inviteEmailInput)}
                 onChange={e => this.handleEmailChange(e, index)}
                 value={member.email}
+                margin="normal"
               />
               <Select
                 style={selectStyle}
-                className="invimultilinete-member-email-role"
+                className="invite-member-email-role"
                 onChange={e => this.handleRoleChange(e, index)}
                 searchable={false}
                 backspaceRemoves={false}
@@ -244,53 +235,70 @@ class TeamInviteMembers extends Component {
           style={{ marginLeft: 'auto', marginRight: units(2) }}
           onClick={this.handleOpenDialog.bind(this)}
           className="team-invite-member__invite-button"
-          label={<FormattedMessage id="teamInviteMembers.inviteMember" defaultMessage="Invite" />}
+          label={
+            <FormattedMessage id="teamInviteMembers.inviteMember" defaultMessage="Invite" />
+          }
         />
         <Dialog
-          title={this.props.intl.formatMessage(messages.inviteMembers)}
           className="team-invite-members__dialog"
           actionsContainerClassName="team-invite-members__action-container"
-          actions={actions}
-          modal={false}
           open={this.state.dialogOpen}
-          onRequestClose={this.handleCloseDialog.bind(this)}
-          bodyStyle={{ minHeight: '200px' }}
-          autoScrollBodyContent
+          onClose={this.handleCloseDialog.bind(this)}
+          scroll="paper"
+          fullWidth
         >
-          {
-            this.state.errors.map(error => (
-              <ListItem className="team-inivite-members__list-item-error">{this.renderError(error).bind(this)}</ListItem>
-            ))
-          }
-          <TextField
-            id="invite-msg-input"
-            className="team-invite-members__input"
-            fullWidth
-            floatingLabelText={
-              <FormattedMessage id="teamInviteMembers.customInvitation" defaultMessage="Add invitation note (optional)" />
+          <DialogTitle>{this.props.intl.formatMessage(messages.inviteMembers)}</DialogTitle>
+          <DialogContent>
+            {
+              this.state.errors.map(error => (
+                <ListItem className="team-inivite-members__list-item-error">{this.renderError(error).bind(this)}</ListItem>
+              ))
             }
-            multiLine
-            margin="normal"
-            variant="outlined"
-          />
-          { inviteBody }
-          { this.state.addMany ?
-            null :
-            <div style={{ height: units(10) }}>
-              <Row>
-                <FlatButton
-                  className="team-invite-members__dialog-add-another-button"
-                  label={<FormattedMessage id="teamInviteMembers.addAnother" defaultMessage="Add another" />}
-                  onClick={this.handleAddAnother.bind(this)}
-                />
-                <FlatButton
-                  className="team-invite-members__dialog-add-many-button"
-                  label={<FormattedMessage id="teamInviteMembers.addMany" defaultMessage="Add many" />}
-                  onClick={this.handleAddMany.bind(this)}
-                />
-              </Row>
-            </div>
-          }
+            <TextField
+              id="invite-msg-input"
+              className="team-invite-members__input"
+              label={
+                <FormattedMessage id="teamInviteMembers.customInvitation" defaultMessage="Add invitation note (optional)" />
+              }
+              fullWidth
+              multiline
+              margin="normal"
+              variant="outlined"
+            />
+            { inviteBody }
+            { this.state.addMany ?
+              null :
+              <div style={{ height: units(12) }}>
+                <Row>
+                  <Button
+                    className="team-invite-members__dialog-add-another-button"
+                    onClick={this.handleAddAnother.bind(this)}
+                  >
+                    <FormattedMessage id="teamInviteMembers.addAnother" defaultMessage="Add another" />
+                  </Button>
+                  <Button
+                    className="team-invite-members__dialog-add-many-button"
+                    onClick={this.handleAddMany.bind(this)}
+                  >
+                    <FormattedMessage id="teamInviteMembers.addMany" defaultMessage="Add many" />
+                  </Button>
+                </Row>
+              </div>
+            }
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleCloseDialog.bind(this)}>
+              <FormattedMessage id="teamInviteMembers.cancelAdd" defaultMessage="Cancel" />
+            </Button>
+            <Button
+              className="team-invite-members__dialog-submit-button"
+              onClick={this.handleSubmit.bind(this)}
+              color="primary"
+              keyboardFocused
+            >
+              <FormattedMessage id="teamInviteMembers.send" defaultMessage="Send" />
+            </Button>
+          </DialogActions>
         </Dialog>
       </div>
     );
