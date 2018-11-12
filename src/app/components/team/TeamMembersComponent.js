@@ -109,7 +109,7 @@ class TeamMembersComponent extends Component {
             <StyledMdCardTitle title={<FormattedMessage id="teamMembersComponent.mainHeading" defaultMessage="Members" />} />
             <Can permissions={team.permissions} permission="update Team">
               <RaisedButton
-                style={{ marginLeft: 'auto', marginRight: units(2) }}
+                style={{ marginLeft: 'auto', marginRight: units(1) }}
                 onClick={this.handleEditMembers.bind(this)}
                 className="team-members__edit-button"
                 icon={<MdCreate className="team-members__edit-icon" />}

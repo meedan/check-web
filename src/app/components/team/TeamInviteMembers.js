@@ -13,6 +13,7 @@ import {
   units,
   selectStyle,
   Row,
+  FlexRow,
 } from '../../styles/js/shared';
 
 const messages = defineMessages({
@@ -178,7 +179,7 @@ class TeamInviteMembers extends Component {
       inviteBody = (
         this.state.membersToInvite.map((member, index) => (
           <div key={`invite-team-memeber-new-${index.toString()}`}>
-            <Row>
+            <FlexRow>
               <span>{<FormattedMessage id="teamInviteMembers.inviteMembers" defaultMessage="Members will invited as " />}</span>
               <Select
                 style={selectStyle}
@@ -190,17 +191,18 @@ class TeamInviteMembers extends Component {
                 options={roles}
                 value={member.role}
               />
-            </Row>
+            </FlexRow>
             <TextField
               key="invite-member-email-input"
               id={index.toString()}
               className="invite-member-email-input"
               label={this.props.intl.formatMessage(messages.inviteEmailMultipleInput)}
               placeholder={this.props.intl.formatMessage(messages.inviteEmailMultipleInput)}
-              multiline
+              multiLine
               fullWidth
               margin="normal"
               variant="outlined"
+              rows={4}
               onChange={e => this.handleEmailChange(e, index)}
               value={member.email}
             />
@@ -211,7 +213,7 @@ class TeamInviteMembers extends Component {
       inviteBody = (
         this.state.membersToInvite.map((member, index) => (
           <div key={`invite-team-memeber-new-${index.toString()}`}>
-            <Row>
+            <FlexRow>
               <TextField
                 key="invite-member-email-input"
                 className="invite-member-email-input"
@@ -230,7 +232,7 @@ class TeamInviteMembers extends Component {
                 options={roles}
                 value={member.role}
               />
-            </Row>
+            </FlexRow>
           </div>
         ))
       );
@@ -250,9 +252,10 @@ class TeamInviteMembers extends Component {
           actionsContainerClassName="team-invite-members__action-container"
           actions={actions}
           modal={false}
-          scroll="paper"
           open={this.state.dialogOpen}
           onRequestClose={this.handleCloseDialog.bind(this)}
+          bodyStyle={{ minHeight: '200px' }}
+          autoScrollBodyContent
         >
           {
             this.state.errors.map(error => (
@@ -273,18 +276,20 @@ class TeamInviteMembers extends Component {
           { inviteBody }
           { this.state.addMany ?
             null :
-            <Row>
-              <FlatButton
-                className="team-invite-members__dialog-add-another-button"
-                label={<FormattedMessage id="teamInviteMembers.addAnother" defaultMessage="Add another" />}
-                onClick={this.handleAddAnother.bind(this)}
-              />
-              <FlatButton
-                className="team-invite-members__dialog-add-many-button"
-                label={<FormattedMessage id="teamInviteMembers.addMany" defaultMessage="Add many" />}
-                onClick={this.handleAddMany.bind(this)}
-              />
-            </Row>
+            <div style={{ height: units(10) }}>
+              <Row>
+                <FlatButton
+                  className="team-invite-members__dialog-add-another-button"
+                  label={<FormattedMessage id="teamInviteMembers.addAnother" defaultMessage="Add another" />}
+                  onClick={this.handleAddAnother.bind(this)}
+                />
+                <FlatButton
+                  className="team-invite-members__dialog-add-many-button"
+                  label={<FormattedMessage id="teamInviteMembers.addMany" defaultMessage="Add many" />}
+                  onClick={this.handleAddMany.bind(this)}
+                />
+              </Row>
+            </div>
           }
         </Dialog>
       </div>

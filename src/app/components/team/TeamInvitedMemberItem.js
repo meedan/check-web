@@ -9,7 +9,7 @@ import ResendCancelInvitationMutation from '../../relay/mutations/ResendCancelIn
 import {
   FlexRow,
   Text,
-  buttonInButtonGroupStyle,
+  units,
 } from '../../styles/js/shared';
 
 class TeamInvitedMemberItem extends Component {
@@ -47,7 +47,7 @@ class TeamInvitedMemberItem extends Component {
             {this.props.invitedMail}
           </Text>
           <RaisedButton
-            style={buttonInButtonGroupStyle}
+            style={{ marginLeft: 'auto', marginRight: units(1) }}
             onClick={this.handleTeamMemberInvites.bind(this, 'cancel')}
             className="team-member-invited__user-button--cancel"
             label={
@@ -58,7 +58,6 @@ class TeamInvitedMemberItem extends Component {
             }
           />
           <RaisedButton
-            style={buttonInButtonGroupStyle}
             onClick={this.handleTeamMemberInvites.bind(this, 'resend')}
             className="team-member-invited__user-button--resend"
             label={
