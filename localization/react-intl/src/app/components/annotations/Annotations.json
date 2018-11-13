@@ -1,14 +1,10 @@
 [
   {
-    "id": "mediaComponent.verificationTimeline",
-    "defaultMessage": "Verification Timeline"
-  },
-  {
-    "id": "bridge.mediaComponent.verificationTimeline",
-    "defaultMessage": "Translation Timeline"
+    "id": "annotation.timelineTitle",
+    "defaultMessage": "Activity timeline"
   },
   {
     "id": "annotation.noAnnotationsYet",
-    "defaultMessage": "No annotations yet"
+    "defaultMessage": "No activity"
   }
 ]

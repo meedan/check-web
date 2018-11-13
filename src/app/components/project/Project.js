@@ -7,6 +7,7 @@ import CreateProjectMedia from '../media/CreateMedia';
 import Can from '../Can';
 import PageTitle from '../PageTitle';
 import CheckContext from '../../CheckContext';
+import ParsedText from '../ParsedText';
 import MediasLoading from '../media/MediasLoading';
 import Search from '../Search';
 import { ContentColumn, units } from '../../styles/js/shared';
@@ -82,7 +83,7 @@ class ProjectComponent extends Component {
         <ProjectWrapper className="project">
           {project.description && project.description.trim().length ?
             <div style={{ margin: `0 ${units(1)} ${units(1)}` }} className="project__description">
-              <p>{project.description}</p>
+              <ParsedText text={project.description} />
             </div>
             : null}
           <Can permissions={project.permissions} permission="create Media">

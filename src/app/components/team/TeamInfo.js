@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage, defineMessages } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import Button from '@material-ui/core/Button';
 import MdLock from 'material-ui/svg-icons/action/lock';
 import MdPublic from 'material-ui/svg-icons/social/public';
@@ -9,7 +9,6 @@ import MdPhone from 'material-ui/svg-icons/communication/phone';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import TeamAvatar from './TeamAvatar';
 import ParsedText from '../ParsedText';
-import MappedMessage from '../MappedMessage';
 import { stringHelper } from '../../customHelpers';
 import UserUtil from '../user/UserUtil';
 import {
@@ -24,17 +23,6 @@ import {
   units,
   Row,
 } from '../../styles/js/shared';
-
-const messages = defineMessages({
-  verificationTeam: {
-    id: 'teamComponent.verificationTeam',
-    defaultMessage: 'Verification Team',
-  },
-  bridge_verificationTeam: {
-    id: 'bridge.teamComponent.verificationTeam',
-    defaultMessage: 'Translation Team',
-  },
-});
 
 const TeamInfo = (props) => {
   const { team, context } = props;
@@ -113,8 +101,7 @@ const TeamInfo = (props) => {
             {team.name}
           </StyledName>
           <StyledDescription>
-            {<ParsedText text={team.description} /> ||
-              <MappedMessage msgObj={messages} msgKey="verificationTeam" />}
+            <ParsedText text={team.description} />
           </StyledDescription>
         </div>
 

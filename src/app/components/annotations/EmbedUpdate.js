@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import ParsedText from '../ParsedText';
 
 const EmbedUpdate = (props) => {
   const changes = JSON.parse(props.activity.object_changes_json);
@@ -38,39 +39,54 @@ const EmbedUpdate = (props) => {
           {editedTitle ?
             <FormattedMessage
               id="annotation.embedLabelUpdated"
-              defaultMessage='Title changed to "{title}" by {author}'
-              values={{ title: to.title, author }}
+              defaultMessage="Item title edited by {author}: {title}"
+              values={{
+                title: to.title,
+                author,
+              }}
             />
             : null}
           {removedTitle ?
             <FormattedMessage
               id="annotation.embedLabelRemoved"
-              defaultMessage='Title "{title}" removed by {author}'
-              values={{ title: from.title, author }}
+              defaultMessage="Item title removed by {author}: {title}"
+              values={{
+                title: from.title,
+                author,
+              }}
             />
             : null}
           {(editedTitle || removedTitle) && editedNote ? <br /> : null}
           {editedNote ?
             <FormattedMessage
               id="annotation.embedNoteUpdated"
-              defaultMessage='Description edited from "{from}" to "{to}" by {author}'
-              values={{ from: from.description, to: to.description, author }}
+              defaultMessage="Item description edited by {author}{description}"
+              values={{
+                author,
+                description: <ParsedText test={to.description} block />,
+              }}
             />
             : null}
           {(editedTitle || removedTitle) && createdNote ? <br /> : null}
           {createdNote ?
             <FormattedMessage
               id="annotation.embedNoteCreated"
-              defaultMessage='Description "{note}" was added by {author}'
-              values={{ note: to.description, author }}
+              defaultMessage="Item description added by {author}{description}"
+              values={{
+                author,
+                description: <ParsedText test={to.description} block />,
+              }}
             />
             : null}
           {(editedTitle || removedTitle) && removedNote ? <br /> : null}
           {removedNote ?
             <FormattedMessage
               id="annotation.embedNoteRemoved"
-              defaultMessage='Description "{note}" was removed by {author}'
-              values={{ note: from.description, author }}
+              defaultMessage="Item description removed by {author}{description}"
+              values={{
+                author,
+                description: <ParsedText test={to.description} block />,
+              }}
             />
             : null}
         </span>

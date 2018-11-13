@@ -1199,7 +1199,9 @@ class SourceComponent extends Component {
 
           <StyledBigColumn>
             <div className="source__primary-info">
-              <StyledName className="source__name">{source.name}</StyledName>
+              <StyledName className="source__name">
+                {source.name}
+              </StyledName>
               <StyledDescription>
                 <p>
                   <ParsedText text={truncateLength(source.description, 600)} />

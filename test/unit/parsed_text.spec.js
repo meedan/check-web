@@ -16,7 +16,8 @@ describe('<ParsedText />', () => {
     expect(wrapper.html()).to.contain("<a href");
   });
 
-  it('does not crash on empty prop', function() {
-    const wrapper = render(<ParsedText />);
+  it('converts emojis', function() {
+    const wrapper = render(<ParsedText text="I :heart: U" />);
+    expect(wrapper.html()).to.contain("<img");
   });
 });

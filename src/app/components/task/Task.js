@@ -413,19 +413,19 @@ class Task extends Component {
     return (
       <StyledWordBreakDiv className="task__resolved">
         {task.type === 'free_text' ?
-          <p className="task__response">
+          <div className="task__response">
             <ParsedText text={response} />
-          </p>
+          </div>
           : null}
         {task.type === 'geolocation' ?
-          <p className="task__response">
+          <div className="task__response">
             <GeolocationTaskResponse response={response} />
-          </p>
+          </div>
           : null}
         {task.type === 'datetime' ?
-          <p className="task__response">
+          <div className="task__response">
             <DatetimeTaskResponse response={response} />
-          </p>
+          </div>
           : null}
         {task.type === 'single_choice' ?
           <SingleChoiceTask
@@ -443,7 +443,7 @@ class Task extends Component {
             jsonoptions={task.jsonoptions}
           />
           : null}
-        <p
+        <div
           style={{
             display: note ? 'block' : 'none',
             marginTop: units(2),
@@ -451,7 +451,7 @@ class Task extends Component {
           className="task__note"
         >
           <ParsedText text={note} />
-        </p>
+        </div>
         { (by && byPictures) ?
           <div className="task__resolver" style={resolverStyle}>
             <small style={{ display: 'flex' }}>
@@ -587,18 +587,18 @@ class Task extends Component {
                 </IconButton>
               }
             >
+              {(can(media.permissions, 'create Task')) ?
+                <MenuItem className="task-actions__edit" onClick={this.handleEditQuestion.bind(this)}>
+                  <FormattedMessage id="task.edit" defaultMessage="Edit task" />
+                </MenuItem>
+                : null}
+
               {response ?
                 <Can permissions={task.first_response.permissions} permission="update Dynamic">
                   <MenuItem className="task-actions__edit-response" onClick={this.handleEditResponse.bind(this, task.first_response)}>
-                    <FormattedMessage id="task.editResponse" defaultMessage="Edit response" />
+                    <FormattedMessage id="task.editResponse" defaultMessage="Edit answer" />
                   </MenuItem>
                 </Can>
-                : null}
-
-              {(can(media.permissions, 'create Task')) ?
-                <MenuItem className="task-actions__edit" onClick={this.handleEditQuestion.bind(this)}>
-                  <FormattedMessage id="task.edit" defaultMessage="Edit question" />
-                </MenuItem>
                 : null}
 
               {(can(media.permissions, 'create Task')) ?
@@ -805,9 +805,9 @@ class Task extends Component {
         >
           <Message message={this.state.message} />
           <h3><FormattedMessage id="tasks.editAttribution" defaultMessage="Edit attribution" /></h3>
-          <p style={{ marginBottom: units(2), marginTop: units(2) }}>
+          <div style={{ marginBottom: units(2), marginTop: units(2) }}>
             <FormattedMessage id="tasks.attributionSlogan" defaultMessage='For the task, "{label}"' values={{ label: task.label }} />
-          </p>
+          </div>
           { this.state.editingAttribution ?
             <Attribution
               id={task.dbid}

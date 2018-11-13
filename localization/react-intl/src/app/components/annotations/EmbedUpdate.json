@@ -1,22 +1,22 @@
 [
   {
     "id": "annotation.embedLabelUpdated",
-    "defaultMessage": "Title changed to \"{title}\" by {author}"
+    "defaultMessage": "Item title edited by {author}: {title}"
   },
   {
     "id": "annotation.embedLabelRemoved",
-    "defaultMessage": "Title \"{title}\" removed by {author}"
+    "defaultMessage": "Item title removed by {author}: {title}"
   },
   {
     "id": "annotation.embedNoteUpdated",
-    "defaultMessage": "Description edited from \"{from}\" to \"{to}\" by {author}"
+    "defaultMessage": "Item description edited by {author}{description}"
   },
   {
     "id": "annotation.embedNoteCreated",
-    "defaultMessage": "Description \"{note}\" was added by {author}"
+    "defaultMessage": "Item description added by {author}{description}"
   },
   {
     "id": "annotation.embedNoteRemoved",
-    "defaultMessage": "Description \"{note}\" was removed by {author}"
+    "defaultMessage": "Item description removed by {author}{description}"
   }
 ]

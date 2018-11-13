@@ -1,7 +1,7 @@
 {
-  "annotation.embedLabelUpdated": "El título fue cambiado a \"{title}\" por {author}",
-  "annotation.embedLabelRemoved": "El título \"{title}\" fue eliminado por {author}",
-  "annotation.embedNoteUpdated": "La descripción fue editada de \"{from}\" a \"{to}\" por {author}",
-  "annotation.embedNoteCreated": "La descripción \"{note}\" fue añadida por {author}",
-  "annotation.embedNoteRemoved": "La descripción \"{note}\" fue eliminada por {author}"
+  "annotation.embedLabelUpdated": "Título del ítem editado por {author}: {title}",
+  "annotation.embedLabelRemoved": "Título del ítem eliminado por {author}: {title}",
+  "annotation.embedNoteUpdated": "Descripción del ítem editada por {author}{description}",
+  "annotation.embedNoteCreated": "Descripción del ítem añadida por {author}{description}",
+  "annotation.embedNoteRemoved": "Descripción del ítem eliminada por {author}{description}"
 }

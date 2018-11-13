@@ -560,7 +560,6 @@ class SearchQueryComponent extends Component {
                   <StyledFilterButton
                     active={this.projectIsSelected(project.node.dbid)}
                     key={project.node.dbid}
-                    title={project.node.description}
                     onClick={this.handleProjectClick.bind(this, project.node.dbid)}
                     className={bemClass(
                       'search-filter__project-chip',

@@ -590,6 +590,7 @@ class MediaMetadata extends Component {
             defaultValue={description}
             onChange={this.handleChangeDescription.bind(this)}
             style={{ width: '100%' }}
+            multiLine
           />
         </form>
 

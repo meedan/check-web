@@ -26,7 +26,7 @@ const ProjectBlankState = (props) => {
       {
         can(props.project.permissions, 'create Media')
           ? message
-          : <FormattedMessage id="userAssignments.blank" defaultMessage="No activity yet" />
+          : <FormattedMessage id="userAssignments.blank" defaultMessage="No activity" />
       }
     </BlankState>
   );

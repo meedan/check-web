@@ -80,7 +80,11 @@ class SourceCard extends React.Component {
     const sourceUrl = `/${team.slug}/project/${project_id}/source/${source.dbid}`;
 
     const byUser = (source.user && source.user.source && source.user.source.dbid && source.user.name !== 'Pender') ?
-      (<FormattedMessage id="mediaDetail.byUser" defaultMessage="by {username}" values={{ username: <ProfileLink user={source.user} /> }} />) : '';
+      (<FormattedMessage
+        id="mediaDetail.byUser"
+        defaultMessage="by {username}"
+        values={{ username: <ProfileLink user={source.user} /> }}
+      />) : '';
 
     return (
       <Card className="source-card">

@@ -7,6 +7,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import styled from 'styled-components';
 import { units, opaqueBlack02, opaqueBlack05, black54 } from '../../styles/js/shared';
+import { emojify } from '../../helpers';
 
 const messages = defineMessages({
   search: {
@@ -100,7 +101,7 @@ class MultiSelector extends React.Component {
     } = this.props;
 
     const { formatMessage } = this.props.intl;
-    const options = this.filter(this.props.options);
+    const options = this.filter(this.props.options).map(emojify);
 
     return (
       <div>

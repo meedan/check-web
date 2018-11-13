@@ -148,7 +148,6 @@ class MediaDetail extends Component {
     const sourceName = MediaUtil.sourceName(media, data);
     const createdAt = MediaUtil.createdAt(media);
     const isImage = !!media.media.embed_path;
-    const isWebPage = media.media.url && data.provider === 'page';
 
     let projectId = media.project_id;
 
@@ -197,9 +196,7 @@ class MediaDetail extends Component {
       return MediaUtil.socialIcon(media.domain);
     })();
 
-    const title = isWebPage
-      ? MediaUtil.title(media, data, this.props.intl)
-      : MediaUtil.title(media, data, this.props.intl);
+    const title = MediaUtil.title(media, data, this.props.intl);
 
     const heading = (
       <StyledHeading className="media__heading">

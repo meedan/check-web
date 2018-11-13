@@ -35,7 +35,9 @@ const ProjectHeaderComponent = (props) => {
           </FadeIn>
         </IconButton>
         : null}
-      <HeaderTitle>{currentProject.title}</HeaderTitle>
+      <HeaderTitle>
+        {currentProject.title}
+      </HeaderTitle>
     </div>
   );
 };

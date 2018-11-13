@@ -5,6 +5,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FlatButton from 'material-ui/FlatButton';
 import { FormattedMessage } from 'react-intl';
+import ParsedText from '../ParsedText';
 import { safelyParseJSON } from '../../helpers';
 import { StyledSmallTextField } from '../../styles/js/shared';
 
@@ -152,7 +153,9 @@ class SingleChoiceTask extends Component {
                   key={`task__options--radiobutton-${index.toString()}`}
                   id={index.toString()}
                   value={item.label}
-                  label={item.label}
+                  label={
+                    <ParsedText text={item.label} />
+                  }
                   control={
                     <Radio disabled={!editable} />
                   }
@@ -177,7 +180,7 @@ class SingleChoiceTask extends Component {
                     control={
                       <Radio disabled={!editable} />
                     }
-                    label={
+                    label={editable ?
                       <StyledSmallTextField
                         key="task__option_other_text_input"
                         className="task__option_other_text_input"
@@ -186,9 +189,9 @@ class SingleChoiceTask extends Component {
                         name="response"
                         onKeyPress={keyPressCallback}
                         onChange={this.handleEditOther.bind(this)}
-                        disabled={!editable}
                         multiLine
-                      />
+                      /> :
+                      <ParsedText text={responseOther} />
                     }
                   />
                 </RadioGroup>

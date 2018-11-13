@@ -2,6 +2,7 @@ import React from 'react';
 import DocumentTitle from 'react-document-title';
 import { injectIntl } from 'react-intl';
 import { mapGlobalMessage } from './MappedMessage';
+import { emojify } from '../helpers';
 
 const PageTitle = (props) => {
   let { title } = props;
@@ -22,7 +23,7 @@ const PageTitle = (props) => {
   }
 
   return (
-    <DocumentTitle title={title}>
+    <DocumentTitle title={emojify(title)}>
       {props.children}
     </DocumentTitle>
   );

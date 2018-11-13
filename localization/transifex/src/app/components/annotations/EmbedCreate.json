@@ -1,5 +1,5 @@
 {
-  "annotation.newReport": "New {reportType} added by {author}",
-  "annotation.titleChanged": "Title changed to \"{title}\" by {author}",
-  "annotation.embedNoteCreated": "Description \"{note}\" was added by {author}"
+  "annotation.newReport": "Item added by {author}",
+  "annotation.titleChanged": "Item title edited by {author}: {title}",
+  "annotation.embedNoteCreated": "Item description added by {author}{description}"
 }

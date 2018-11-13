@@ -6,6 +6,7 @@ import config from 'config'; // eslint-disable-line require-path-exists/exists
 import MediaRoute from '../../relay/MediaRoute';
 import MediaMetadata from './MediaMetadata';
 import MediaUtil from './MediaUtil';
+import ParsedText from '../ParsedText';
 import QuoteMediaCard from './QuoteMediaCard';
 import WebPageMediaCard from './WebPageMediaCard';
 import ImageMediaCard from './ImageMediaCard';
@@ -96,7 +97,7 @@ class MediaExpandedComponent extends Component {
           <FadeIn className={bemClassFromMediaStatus('media-detail__media', mediaLastStatus(media))}>
             {shouldShowDescription ?
               <Text font={caption} style={{ color: black54 }}>
-                {media.embed.description}
+                <ParsedText text={data.description} />
               </Text> : null}
             {embedCard}
           </FadeIn>

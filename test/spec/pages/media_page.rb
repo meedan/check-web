@@ -19,10 +19,10 @@ class MediaPage < Page
 
   def set_description(string)
     edit
-    fill_input('.media-detail__description-input > input', string, {clear: true})
+    fill_input('.media-detail__description-input textarea:last-child', string)
     click('.media-detail__save-edits') # Done
     sleep 2 #reload
-    wait_for_selector("//div[contains(text(), '#{string}')]", :xpath)
+    wait_for_selector("//span[contains(@class, 'Linkify') and contains(text(), '#{string}')]", :xpath)
   end
 
   def set_title(string)

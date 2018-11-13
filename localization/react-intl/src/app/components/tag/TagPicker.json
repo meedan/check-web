@@ -9,7 +9,7 @@
   },
   {
     "id": "tagPicker.teamTags",
-    "defaultMessage": "{team} team tags"
+    "defaultMessage": "Teamwide tags"
   },
   {
     "id": "tagPicker.none",

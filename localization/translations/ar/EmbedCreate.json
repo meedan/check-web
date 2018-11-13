@@ -1,5 +1,5 @@
 {
-  "annotation.newReport": "قام {author} بإضافة {reportType} جديد",
-  "annotation.titleChanged": "قام {author} بتعديل العنوان إلى \"{title}\"",
-  "annotation.embedNoteCreated": "قام {author} بإضافة وصف \"{note}\""
+  "annotation.newReport": "قام {author} بإضافة العنصر",
+  "annotation.titleChanged": "قام {author} بتعديل عنوان العنصر : {title}",
+  "annotation.embedNoteCreated": "قام {author} بإضافة وصف العنصر{note}"
 }

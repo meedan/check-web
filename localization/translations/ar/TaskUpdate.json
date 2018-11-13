@@ -1,9 +1,9 @@
 {
-  "annotation.taskLabelUpdated": "قام {author} بتعديل المهمة من \"{from}\" إلى \"{to}\"",
-  "annotation.taskNoteUpdated": "قام {author} بتعديل التعليق للمهمة \"{title}\" من \"{from}\" إلى \"{to}\"",
-  "annotation.taskNoteCreated": "قام {author} بإضافة تعليق جديد \"{note}\" للمهمة \"{title}\"",
-  "annotation.assignmentChanged": "قام {author} بتكليف المهمة \"{title}\" إلى {assigneeTo}",
-  "annotation.assignmentRemoved": "قام {author} بإلغاء تكليف المهمة \"{title}\" من {assigneeFrom}",
-  "annotation.addedComment": "اضاف {author} ملاحظة للمهمة \"{title}\": \"{comment}\"",
-  "annotation.removedComment": "حذف {author} ملاحظة من المهمة \"{title}\": \"{comment}\""
+  "annotation.taskLabelUpdated": "قام {author} بتعديل مهمة : {title}",
+  "annotation.taskNoteUpdated": "قام {author} بتعديل تعليق على مهمة : {title}{note}",
+  "annotation.taskNoteCreated": "قام {author} بإضافة تعليق على مهمة : {title}{note}",
+  "annotation.assignmentChanged": "قام {author} بتكليف مهمة إلى {assigneeTo} : {title}",
+  "annotation.assignmentRemoved": "قام {author} بإلغاء تكليف مهمة عن {assigneeFrom} : {title}",
+  "annotation.addedComment": "قام {author} بإضافة تعليق على مهمة : {title}{note}",
+  "annotation.removedComment": "قام {author} بحذف تعليق على مهمة : {title}{note}"
 }
