@@ -207,7 +207,7 @@ class Home extends Component {
                 onClick={this.resetMessage.bind(this)}
                 className="home__message"
                 style={{
-                  position: 'absolute',
+                  position: 'fixed',
                   width: '100%',
                   zIndex: '1000',
                 }}

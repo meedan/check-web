@@ -117,13 +117,13 @@ module AppSpecHelpers
     sleep 3
   end
 
-  def wait_for_selector(selector, type = :css, timeout = 40)
+  def wait_for_selector(selector, type = :css, timeout = 29)
     element = nil
     attempts = 0
     wait = Selenium::WebDriver::Wait.new(timeout: timeout)
-    while element.nil? && attempts < 30 do
+    while element.nil? && attempts < 10 do
       attempts += 1
-      sleep 5
+      sleep 2
       begin
         element = wait.until { @driver.find_element(type, selector) }
         element.displayed?
@@ -131,6 +131,7 @@ module AppSpecHelpers
         element = nil
       end
     end
+    puts "Could not find element with selector #{type.upcase} '#{selector}'!" if element.nil?
     element
   end
 
