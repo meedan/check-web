@@ -24,22 +24,6 @@
     "defaultMessage": "Editor"
   },
   {
-    "id": "teamInviteMembers.invalidEmail",
-    "defaultMessage": "{email} not a valis email address"
-  },
-  {
-    "id": "teamInviteMembers.noEmail",
-    "defaultMessage": "Should invite at least one eamil"
-  },
-  {
-    "id": "teamInviteMembers.cancelAdd",
-    "defaultMessage": "Cancel"
-  },
-  {
-    "id": "teamInviteMembers.send",
-    "defaultMessage": "Send"
-  },
-  {
     "id": "teamInviteMembers.inviteMembers",
     "defaultMessage": "Members will invited as"
   },
@@ -58,5 +42,21 @@
   {
     "id": "teamInviteMembers.addMany",
     "defaultMessage": "Add many"
+  },
+  {
+    "id": "teamInviteMembers.cancelAdd",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "teamInviteMembers.send",
+    "defaultMessage": "Send"
+  },
+  {
+    "id": "teamInviteMembers.invalidEmail",
+    "defaultMessage": "{email} not a valid email address"
+  },
+  {
+    "id": "teamInviteMembers.noEmail",
+    "defaultMessage": "Should invite at least one eamil"
   }
 ]

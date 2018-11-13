@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import Relay from 'react-relay/classic';
 import 'react-select/dist/react-select.css';
@@ -24,6 +25,13 @@ class TeamInvitedMemberItem extends Component {
     };
 
     const onSuccess = () => {
+      const message = (
+        <FormattedMessage
+          id="teamInviteMembers.resendEmailSuccess"
+          defaultMessage="Invitation was sent successfully"
+        />
+      );
+      this.context.setMessage(message);
     };
 
     Relay.Store.commitUpdate(
@@ -53,7 +61,7 @@ class TeamInvitedMemberItem extends Component {
             label={
               <FormattedMessage
                 id="TeamMembersInvitedListItem.cancel"
-                defaultMessage="Cancel Invite"
+                defaultMessage="Cancel invite"
               />
             }
           />
@@ -70,4 +78,8 @@ class TeamInvitedMemberItem extends Component {
   }
 }
 
+TeamInvitedMemberItem.contextTypes = {
+  store: PropTypes.object,
+  setMessage: PropTypes.func,
+};
 export default injectIntl(TeamInvitedMemberItem);

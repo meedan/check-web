@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import Select from 'react-select';
@@ -68,6 +69,7 @@ class TeamInviteMembers extends Component {
       dialogOpen: false,
       addMany: false,
       membersToInvite: [{ email: '', role: 'contributor' }],
+      errors: [],
     });
   }
 
@@ -122,10 +124,14 @@ class TeamInviteMembers extends Component {
     const onFailure = () => {
     };
 
-    const onSuccess = () => {
+    const onSuccess = (response) => {
+      const { userInvitation: { success } } = response;
       this.setState({
         dialogOpen: false,
       });
+      if (success.length > 0) {
+        this.context.setMessage('Invitations sent successfully');
+      }
     };
     const membersList = this.state.membersToInvite;
     const valitationErrors = this.validateMembers(membersList);
@@ -149,7 +155,7 @@ class TeamInviteMembers extends Component {
   static renderError(item) {
     switch (item.key) {
     case 'invalid':
-      return <FormattedMessage id="teamInviteMembers.invalidEmail" defaultMessage="{email} not a valis email address" values={{ email: item.email }} />;
+      return <FormattedMessage id="teamInviteMembers.invalidEmail" defaultMessage="{email} not a valid email address" values={{ email: item.email }} />;
     case 'empty':
       return <FormattedMessage id="teamInviteMembers.noEmail" defaultMessage="Should invite at least one eamil" />;
     default:
@@ -163,6 +169,12 @@ class TeamInviteMembers extends Component {
       { value: 'journalist', label: this.props.intl.formatMessage(messages.journalist) },
       { value: 'editor', label: this.props.intl.formatMessage(messages.editor) },
     ];
+
+    const errosList = (
+      this.state.errors.map((error, index) => (
+        <ListItem key={`email-error-${index.toString()}`} style={{ color: 'red' }} className="team-inivite-members__list-item-error">{TeamInviteMembers.renderError(error)}</ListItem>
+      ))
+    );
 
     let inviteBody = null;
     if (this.state.addMany) {
@@ -249,11 +261,7 @@ class TeamInviteMembers extends Component {
         >
           <DialogTitle>{this.props.intl.formatMessage(messages.inviteMembers)}</DialogTitle>
           <DialogContent>
-            {
-              this.state.errors.map(error => (
-                <ListItem className="team-inivite-members__list-item-error">{this.renderError(error).bind(this)}</ListItem>
-              ))
-            }
+            { errosList }
             <TextField
               id="invite-msg-input"
               className="team-invite-members__input"
@@ -305,4 +313,8 @@ class TeamInviteMembers extends Component {
   }
 }
 
+TeamInviteMembers.contextTypes = {
+  store: PropTypes.object,
+  setMessage: PropTypes.func,
+};
 export default injectIntl(TeamInviteMembers);
