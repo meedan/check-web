@@ -1,5 +1,6 @@
 {
   "teamComponent.title": "Proyectos de verificación",
   "bridge.teamComponent.title": "Proyectos de traducción",
-  "teamComponent.noProjects": "No hay proyectos aún"
+  "teamComponent.noProjects": "No hay proyectos aún",
+  "teamComponent.projectAssignmentsCount": "{count, plural, =0 {Not assigned to any user} one {Assigned to one user} other {Assigned to # users}}"
 }

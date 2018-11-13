@@ -23,7 +23,7 @@
   "sourceComponent.other": "آخر (تحديد)",
   "sourceNoAccounts": "بدون أي شبكة",
   "sourceNoMedia": "بدون أي ميديا",
-  "sourceComponent.conflictError": "تم تعديل هذا العنصر من قِبَل مستخدم آخر أثناء عملك. برجاء حفظ تعديلاتك أولاً ثم {reloadLink}.",
+  "sourceComponent.conflictError": "تم تعديل هذا العنصر من قِبَل عضو آخر أثناء عملك. برجاء حفظ تعديلاتك أولاً ثم {reloadLink}.",
   "sourceComponent.clickToReload": "أضغط هنا ﻹعادة التحميل",
   "sourceComponent.dateAdded": "تمت اﻹضافة {date} • {number} روابط",
   "sourceComponent.medias": "التقارير",
