@@ -9,7 +9,19 @@
   },
   {
     "id": "TeamInviteMembers.emailMultipleInput",
-    "defaultMessage": "Separate by comma"
+    "defaultMessage": "Separate by commas"
+  },
+  {
+    "id": "TeamInviteMembers.invalidEmail",
+    "defaultMessage": "Not a valid email address."
+  },
+  {
+    "id": "TeamInviteMembers.existsEmail",
+    "defaultMessage": "Already a team member."
+  },
+  {
+    "id": "TeamInviteMembers.invitedEmail",
+    "defaultMessage": "Already invited to this team."
   },
   {
     "id": "TeamMembersListItem.contributor",
@@ -22,6 +34,14 @@
   {
     "id": "TeamMembersListItem.editor",
     "defaultMessage": "Editor"
+  },
+  {
+    "id": "TeamMembersListItem.annotator",
+    "defaultMessage": "Annotator"
+  },
+  {
+    "id": "teamInviteMembers.limits",
+    "defaultMessage": "The maximum number of users for this team has been reached, allowed to invite {count} members."
   },
   {
     "id": "teamInviteMembers.inviteMembers",
@@ -50,13 +70,5 @@
   {
     "id": "teamInviteMembers.send",
     "defaultMessage": "Send"
-  },
-  {
-    "id": "teamInviteMembers.invalidEmail",
-    "defaultMessage": "{email} not a valid email address"
-  },
-  {
-    "id": "teamInviteMembers.noEmail",
-    "defaultMessage": "Should invite at least one eamil"
   }
 ]

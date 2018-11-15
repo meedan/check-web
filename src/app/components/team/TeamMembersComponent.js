@@ -70,6 +70,9 @@ class TeamMembersComponent extends Component {
                   defaultMessage="Pending invitations"
                 />}
               />
+              <FlexRow>
+                <TeamInviteMembers team={team} />
+              </FlexRow>
               <List>
                 { teamInvitedMails.map(invitedMail => (
                   <TeamInvitedMemberItem
@@ -105,8 +108,8 @@ class TeamMembersComponent extends Component {
         }
 
         <Card style={{ marginTop: units(2), marginBottom: units(2) }}>
+          <StyledMdCardTitle title={<FormattedMessage id="teamMembersComponent.mainHeading" defaultMessage="Members" />} />
           <FlexRow>
-            <StyledMdCardTitle title={<FormattedMessage id="teamMembersComponent.mainHeading" defaultMessage="Members" />} />
             <Can permissions={team.permissions} permission="update Team">
               <RaisedButton
                 style={{ marginLeft: 'auto', marginRight: units(1) }}
@@ -122,7 +125,7 @@ class TeamMembersComponent extends Component {
               />
             </Can>
             <Can permissions={team.permissions} permission="invite Members">
-              <TeamInviteMembers />
+              <TeamInviteMembers team={team} />
             </Can>
           </FlexRow>
           <LoadMore
