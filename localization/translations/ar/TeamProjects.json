@@ -1,6 +1,5 @@
 {
-  "teamComponent.title": "مشاريع التحقق",
-  "bridge.teamComponent.title": "مشاريع الترجمة",
+  "teamComponent.projects": "المشاريع",
   "teamComponent.noProjects": "بدون أي مشروع",
   "teamComponent.projectAssignmentsCount": "{count, plural, =0 {غير مُكَلَّف} one {مُكَلَّف لعضو واحد} other {مُكَلَّف الى # أعضاء}}"
 }
