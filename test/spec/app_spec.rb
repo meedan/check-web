@@ -2106,14 +2106,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('#teams-tab').click
       wait_for_selector('.teams a').click
       wait_for_selector('.team__project-title')
-      expect(@driver.page_source.include?('Not assigned to any user')).to be(true)
-      expect(@driver.page_source.include?('Assigned to one user')).to be(false)
+      expect(@driver.page_source.include?('Not assigned to any member')).to be(true)
+      expect(@driver.page_source.include?('Assigned to one member')).to be(false)
       ['.team__project button', '.project__assignment-button', '.project__assignment-menu input[type=checkbox]', '.multi__selector-save'].each do |selector|
         wait_for_selector(selector).click
       end
       sleep 10
-      expect(@driver.page_source.include?('Not assigned to any user')).to be(false)
-      expect(@driver.page_source.include?('Assigned to one user')).to be(true)
+      expect(@driver.page_source.include?('Not assigned to any member')).to be(false)
+      expect(@driver.page_source.include?('Assigned to one member')).to be(true)
     end
 
     # Postponed due Alexandre's developement
