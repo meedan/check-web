@@ -91,7 +91,7 @@ class TeamProjects extends React.Component {
                             { UserUtil.myRole(currentUser, team.slug) !== 'annotator' ?
                               <FormattedMessage
                                 id="teamComponent.projectAssignmentsCount"
-                                defaultMessage="{count, plural, =0 {Not assigned to any user} one {Assigned to one user} other {Assigned to # users}}"
+                                defaultMessage="{count, plural, =0 {Not assigned to any member} one {Assigned to one member} other {Assigned to # members}}"
                                 values={{ count: p.node.assignments_count }}
                               /> : null }
                           </small>

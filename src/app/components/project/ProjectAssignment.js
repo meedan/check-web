@@ -100,8 +100,8 @@ class ProjectAssignmentComponent extends Component {
                 defaultMessage="Assigned to"
               /> :
               <FormattedMessage
-                id="projectAssignment.unassigned"
-                defaultMessage="Unassigned"
+                id="projectAssignment.notAssigned"
+                defaultMessage="Not assigned"
               /> }
             <IconArrowDropDown color={black54} />
           </Button>

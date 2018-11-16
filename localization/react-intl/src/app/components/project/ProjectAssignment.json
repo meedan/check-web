@@ -8,7 +8,7 @@
     "defaultMessage": "Assigned to"
   },
   {
-    "id": "projectAssignment.unassigned",
-    "defaultMessage": "Unassigned"
+    "id": "projectAssignment.notAssigned",
+    "defaultMessage": "Not assigned"
   }
 ]

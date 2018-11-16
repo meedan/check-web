@@ -1,5 +1,5 @@
 {
-  "projectAssignment.processing": "Done! The assignments are now propagating to items and tasks. You will receive an e-mail when it's ready.",
+  "projectAssignment.processing": "Feito! As atribuições estão agora propagando para itens e tarefas. Você receberá um e-mail quando concluído.",
   "projectAssignment.assignedTo": "Atribuído a",
-  "projectAssignment.unassigned": "Não atribuído"
+  "projectAssignment.notAssigned": "Não atribuído"
 }
