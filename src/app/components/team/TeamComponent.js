@@ -102,7 +102,7 @@ class TeamComponent extends Component {
 
     const context = new CheckContext(this).getContextStore();
 
-    const TeamPageContent = () => (
+    const TeamPageContent = (
       <StyledTwoColumnLayout>
         <ContentColumn>
           <TeamMembers {...this.props} />
@@ -189,7 +189,7 @@ class TeamComponent extends Component {
               <TeamSettingsTabs />
             </ContentColumn>
           </HeaderCard>
-          { !isEditing && !isSettings && !isReadOnly ? <TeamPageContent /> : null }
+          { !isEditing && !isSettings && !isReadOnly ? TeamPageContent : null }
           { isSettings && this.state.showTab === 'tasks'
             ? <TeamTasks team={team} direction={direction} />
             : null }

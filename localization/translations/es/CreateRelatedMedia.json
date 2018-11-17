@@ -2,7 +2,7 @@
   "createRelatedMedia.newClaim": "Añadir afirmación relacionada",
   "createRelatedMedia.cancelAdd": "Cancelar",
   "createRelatedMedia.submit": "Subir",
-  "createRelatedMedia.addClaim": "Añadir afirmación",
+  "createRelatedMedia.addRelatedItem": "Añadir ítem relacionado",
   "createRelatedMedia.claimText": "Texto de afirmación",
   "createRelatedMedia.source": "Fuente"
 }

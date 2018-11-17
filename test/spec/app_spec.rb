@@ -452,9 +452,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       expect(project_pg.driver.current_url.to_s.match(/\/project\/[0-9]+$/).nil?).to be(false)
       team_pg = project_pg.click_team_link
-      sleep 10
-      element = @driver.find_element(:partial_link_text, project_name)
-      expect(element.displayed?).to be(true)
+      sleep 5
+      element = wait_for_selector('.team__project-title')
+      expect(element.text == project_name).to be(true)
     end
 
     it "should create project media", bin1: true do
@@ -1963,7 +1963,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 3
       link = wait_for_selector_list('.teams a').first
       link.click
-      link = wait_for_selector('.projects a')
+      link = wait_for_selector('.team__project-title')
       sleep 2
       link.click
       sleep 5
@@ -2097,6 +2097,23 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.switch_to.alert.accept ; sleep 5
       expect(@driver.page_source.include?('No bots installed')).to be(true)
       expect(@driver.page_source.include?('Testing Bot')).to be(false)
+    end
+
+    it "should assign project", bin3: true do
+      user = api_register_and_login_with_email
+      api_create_team_and_project(user: user)
+      @driver.navigate.to(@config['self_url'] + '/check/me')
+      wait_for_selector('#teams-tab').click
+      wait_for_selector('.teams a').click
+      wait_for_selector('.team__project-title')
+      expect(@driver.page_source.include?('Not assigned to any member')).to be(true)
+      expect(@driver.page_source.include?('Assigned to one member')).to be(false)
+      ['.team__project button', '.project__assignment-button', '.project__assignment-menu input[type=checkbox]', '.multi__selector-save'].each do |selector|
+        wait_for_selector(selector).click
+      end
+      sleep 10
+      expect(@driver.page_source.include?('Not assigned to any member')).to be(false)
+      expect(@driver.page_source.include?('Assigned to one member')).to be(true)
     end
 
     # Postponed due Alexandre's developement

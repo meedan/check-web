@@ -12,6 +12,7 @@ import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import styled from 'styled-components';
+import rtlDetect from 'rtl-detect';
 import SingleChoiceTask from './SingleChoiceTask';
 import MultiSelectTask from './MultiSelectTask';
 import Message from '../Message';
@@ -25,9 +26,9 @@ import GeolocationRespondTask from './GeolocationRespondTask';
 import GeolocationTaskResponse from './GeolocationTaskResponse';
 import DatetimeRespondTask from './DatetimeRespondTask';
 import DatetimeTaskResponse from './DatetimeTaskResponse';
-import { Row, units, black10, black16, title1 } from '../../styles/js/shared';
+import { Row, units, black16, title1 } from '../../styles/js/shared';
 import ProfileLink from '../layout/ProfileLink';
-import UserAvatar from '../UserAvatar';
+import UserAvatars from '../UserAvatars';
 import Attribution from './Attribution';
 import Sentence from '../Sentence';
 import { safelyParseJSON } from '../../helpers';
@@ -50,14 +51,6 @@ const messages = defineMessages({
     defaultMessage: 'Are you sure you want to delete this task?',
   },
 });
-
-const StyledAvatars = styled.div`
-  position: relative;
-
-  .avatar {
-    position: absolute;
-  }
-`;
 
 const StyledTaskResponses = styled.div`
   .task__resolved {
@@ -109,20 +102,10 @@ class Task extends Component {
     if (response) {
       data.by = [];
       data.byPictures = [];
-      let i = 0;
       response.attribution.edges.forEach((user) => {
         const u = user.node;
         data.by.push(<ProfileLink user={u} team={media.team} />);
-        const style = {
-          zIndex: i,
-          display: 'inline-block',
-          border: `1px solid ${black10}`,
-          position: 'absolute',
-          top: 0,
-          left: i * 10,
-        };
-        data.byPictures.push(<UserAvatar user={u} key={u.dbid} size="extraSmall" style={style} />);
-        i += 1;
+        data.byPictures.push(u);
       });
       const fields = JSON.parse(response.content);
       fields.forEach((field) => {
@@ -455,9 +438,7 @@ class Task extends Component {
         { (by && byPictures) ?
           <div className="task__resolver" style={resolverStyle}>
             <small style={{ display: 'flex' }}>
-              <span style={{ position: 'relative', width: 24 + ((byPictures.length - 1) * 10) }}>
-                {byPictures}
-              </span>
+              <UserAvatars users={byPictures} />
               <span style={{ lineHeight: '24px', paddingLeft: units(1), paddingRight: units(1) }}>
                 <FormattedMessage
                   id="task.answeredBy"
@@ -488,6 +469,13 @@ class Task extends Component {
     assignments.forEach((assignment) => {
       assignmentComponents.push(<ProfileLink user={assignment.node} team={media.team} />);
     });
+
+    const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
+
+    const direction = {
+      from: isRtl ? 'right' : 'left',
+      to: isRtl ? 'left' : 'right',
+    };
 
     const editQuestionActions = [
       <FlatButton
@@ -525,19 +513,7 @@ class Task extends Component {
     const taskAssignment = task.assignments.edges.length > 0 && !response ? (
       <div className="task__assigned" style={{ display: 'flex', alignItems: 'center', width: 420 }}>
         <small style={{ display: 'flex' }}>
-          <StyledAvatars style={{ minWidth: 24 + (10 * (task.assignments.edges.length - 1)) }}>
-            {assignments.map((assignment, index) => (
-              <UserAvatar
-                user={assignment.node}
-                size="extraSmall"
-                style={{
-                  display: 'inline-block',
-                  border: `1px solid ${black10}`,
-                  left: 10 * index,
-                }}
-              />
-            ))}
-          </StyledAvatars>
+          <UserAvatars users={assignments} />
           <span style={{ lineHeight: '24px', paddingLeft: units(1), paddingRight: units(1) }}>
             <FormattedMessage
               id="task.assignedTo"
@@ -551,15 +527,20 @@ class Task extends Component {
       </div>
     ) : null;
 
+    const taskActionsStyle = {
+      marginLeft: 'auto',
+      position: 'absolute',
+      bottom: '0',
+    };
+    taskActionsStyle[direction.to] = units(0.5);
+
     const taskActions = !media.archived ? (
       <div>
         {taskAssignment}
         {data.by && task.status === 'resolved' ?
           <div className="task__resolver" style={{ display: 'flex', alignItems: 'center', marginTop: units(1) }}>
             <small style={{ display: 'flex' }}>
-              <span style={{ position: 'relative', width: 24 + ((byPictures.length - 1) * 10) }}>
-                {byPictures}
-              </span>
+              <UserAvatars users={byPictures} />
               <span style={{ lineHeight: '24px', paddingLeft: units(1), paddingRight: units(1) }}>
                 <FormattedMessage
                   id="task.resolvedBy"
@@ -570,14 +551,7 @@ class Task extends Component {
             </small>
           </div>
           : null}
-        <div
-          style={{
-            marginLeft: 'auto',
-            position: 'absolute',
-            bottom: '0',
-            right: units(0.5),
-          }}
-        >
+        <div style={taskActionsStyle}>
           <Can permissions={task.permissions} permission="update Task">
             <IconMenu
               className="task-actions"

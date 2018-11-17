@@ -6,7 +6,7 @@
   "mediaActions.sendToTrash": "Mettre à la corbeille",
   "mediaActions.embed": "Insérer...",
   "mediaActions.deleteForever": "Supprimer définitivement",
-  "mediaActions.assignOrUnassign": "Assigner / Désassigner",
+  "mediaActions.assignOrUnassign": "Affecter / annuler",
   "mediaActions.unlockStatus": "Déverouiller le statut",
   "mediaActions.lockStatus": "Verouiller le statut"
 }

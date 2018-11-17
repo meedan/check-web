@@ -163,7 +163,7 @@ class MultiSelector extends React.Component {
               : <FormattedMessage id="multiSelector.cancel" defaultMessage="Cancel" />
             }
           </Button>
-          <Button color="primary" onClick={() => onSubmit(this.state.selected)}>
+          <Button className="multi__selector-save" color="primary" onClick={() => onSubmit(this.state.selected)}>
             { this.props.submitLabel ?
               this.props.submitLabel
               : <FormattedMessage id="multiSelector.save" defaultMessage="Save" />
