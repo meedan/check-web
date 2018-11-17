@@ -69,12 +69,14 @@ const messages = defineMessages({
 });
 
 class TeamInviteMembers extends Component {
-  static validateEmail(email, invitedEmails) {
+  static validateEmail(email, invitedEmails, membersEmails) {
     let error = null;
     if (EmailValidator.validate(email) === false) {
       error = 'invalid';
     } else if (invitedEmails.includes(email) === true) {
       error = 'invited';
+    } else if (membersEmails.includes(email) === true) {
+      error = 'member';
     }
     return error;
   }
@@ -115,6 +117,8 @@ class TeamInviteMembers extends Component {
   handleAddMany() {
     this.setState({
       addMany: true,
+      sendDisabled: true,
+      errors: [],
       membersToInvite: [{ email: '', role: 'contributor', error: [] }],
     });
   }
@@ -144,10 +148,10 @@ class TeamInviteMembers extends Component {
     let invitedCount = 0;
     const membersEmails = [];
     teamUsers.edges.map((teamUser) => {
-      if (teamUser.node.email !== null) {
-        return null;
+      if (teamUser.node.user.email !== null) {
+        return membersEmails.push(teamUser.node.user.email);
       }
-      return membersEmails.push(teamUser.node.email);
+      return null;
     });
     let emailError = null;
     members.forEach((item, index) => {
@@ -174,8 +178,11 @@ class TeamInviteMembers extends Component {
     });
     this.setState({ membersToInvite: this.state.membersToInvite });
     const allMembers = invitedEmails.length + membersCount + invitedCount;
-    if (limits !== 0 && limits < allMembers) {
-      this.setState({ errors: [{ key: 'limits', limit: 5 }] });
+    if (limits.max_number_of_members !== 0 && limits.max_number_of_members < allMembers) {
+      const maxMembers = limits.max_number_of_members - (invitedEmails.length + membersCount);
+      this.setState({ errors: [{ key: 'limits', maxMembers }] });
+    } else {
+      this.setState({ errors: [] });
     }
   }
 
@@ -195,7 +202,7 @@ class TeamInviteMembers extends Component {
     this.validateMembers(this.state.membersToInvite);
     const membersList = this.state.membersToInvite;
     const isValid = membersList.every(obj => obj.error.length === 0);
-    if (!isValid) {
+    if (!isValid || this.state.errors.length > 0) {
       return;
     }
     if (isValid && !this.state.sendDisabled) {
@@ -215,12 +222,18 @@ class TeamInviteMembers extends Component {
     switch (item.key) {
     case 'invalid':
       return this.props.intl.formatMessage(messages.invalidEmail);
-    case 'exists':
+    case 'member':
       return this.props.intl.formatMessage(messages.memberEmail);
     case 'invited':
       return this.props.intl.formatMessage(messages.invitedEmail);
     case 'limits':
-      return <FormattedMessage id="teamInviteMembers.limits" defaultMessage="The maximum number of users for this team has been reached, allowed to invite {count} members." values={{ count: item.limits }} />;
+      return (
+        <FormattedMessage
+          id="teamInviteMembers.limits"
+          defaultMessage="The maximum number of users for this team has been reached, allowed to invite {count, plural, =0 {0 members} one {1 member} other {# members}}."
+          values={{ count: item.maxMembers }}
+        />
+      );
     default:
       return null;
     }
@@ -274,8 +287,12 @@ class TeamInviteMembers extends Component {
             />
             {member.error.length === 0 ?
               null :
-              <StyledHelper>
-                {this.renderError(member.error[0])}
+              <StyledHelper style={{ color: 'red' }}>
+                {
+                  member.error.map(errorItem => (
+                    ` "${errorItem.email}": ${this.renderError(errorItem)}`
+                  ))
+                }
               </StyledHelper>}
           </div>
         ))
@@ -314,7 +331,7 @@ class TeamInviteMembers extends Component {
             </FlexRow>
             {member.error.length === 0 ?
               null :
-              <StyledHelper>
+              <StyledHelper style={{ color: 'red' }}>
                 {this.renderError(member.error[0])}
               </StyledHelper>}
           </div>
@@ -323,11 +340,11 @@ class TeamInviteMembers extends Component {
     }
 
     return (
-      <div>
+      <FlexRow>
         <RaisedButton
-          style={{ marginLeft: 'auto', marginRight: units(2) }}
+          style={{ marginLeft: 'auto', marginRight: units(1) }}
           onClick={this.handleOpenDialog.bind(this)}
-          className="team-invite-member__invite-button"
+          className="team-members__edit-button"
           label={
             <FormattedMessage id="teamInviteMembers.inviteMember" defaultMessage="Invite" />
           }
@@ -391,7 +408,7 @@ class TeamInviteMembers extends Component {
             </Button>
           </DialogActions>
         </Dialog>
-      </div>
+      </FlexRow>
     );
   }
 }

@@ -25,13 +25,15 @@ class TeamInvitedMemberItem extends Component {
     };
 
     const onSuccess = () => {
-      const message = (
-        <FormattedMessage
-          id="teamInviteMembers.resendEmailSuccess"
-          defaultMessage="Invitation was sent successfully"
-        />
-      );
-      this.context.setMessage(message);
+      if (action === 'resend') {
+        const message = (
+          <FormattedMessage
+            id="teamInviteMembers.resendEmailSuccess"
+            defaultMessage="Invitation was sent successfully"
+          />
+        );
+        this.context.setMessage(message);
+      }
     };
 
     Relay.Store.commitUpdate(

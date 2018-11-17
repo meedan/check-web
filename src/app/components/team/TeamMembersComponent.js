@@ -63,16 +63,13 @@ class TeamMembersComponent extends Component {
 
         { invitedMails &&
           <Can permissions={team.permissions} permission="invite Members">
-            <Card style={cardInCardGroupStyle}>
-              <StyledMdCardTitle
-                title={<FormattedMessage
-                  id="teamMembersComponent.pendingInvitations"
-                  defaultMessage="Pending invitations"
-                />}
+            <Card style={{ marginTop: units(2), marginBottom: units(2) }}>
+              <StyledMdCardTitle title={<FormattedMessage
+                id="teamMembersComponent.pendingInvitations"
+                defaultMessage="Pending invitations"
+              />}
               />
-              <FlexRow>
-                <TeamInviteMembers team={team} />
-              </FlexRow>
+              <TeamInviteMembers team={team} />
               <List>
                 { teamInvitedMails.map(invitedMail => (
                   <TeamInvitedMemberItem
