@@ -1,0 +1,10 @@
+[
+  {
+    "id": "userInvalidInvitation.heading",
+    "defaultMessage": "An error occurred while processing your invitation. Please try again and contact the support team if the issue persists"
+  },
+  {
+    "id": "userInvalidInvitation.message",
+    "defaultMessage": "An error occurred while processing your invitation. Please make sure the invitation has not expired and that the team still exists. Contact the support team if the issue persists."
+  }
+]

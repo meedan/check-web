@@ -18,6 +18,7 @@ const TeamMembersContainer = Relay.createContainer(TeamMembersComponent, {
         limits,
         plan,
         members_count,
+        invited_mails,
         join_requests(first: 100) {
           edges {
             node {
@@ -42,6 +43,7 @@ const TeamMembersContainer = Relay.createContainer(TeamMembersComponent, {
                 id,
                 dbid,
                 name,
+                email,
                 source {
                   id,
                   dbid,
