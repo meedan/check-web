@@ -95,6 +95,9 @@ class TeamInviteMembers extends Component {
     this.setState({
       dialogOpen: true,
       sendDisabled: true,
+      addMany: false,
+      membersToInvite: [{ email: '', role: 'contributor', error: [] }],
+      errors: [],
     });
   }
 
@@ -196,7 +199,20 @@ class TeamInviteMembers extends Component {
         dialogOpen: false,
       });
       if (success.length > 0) {
-        this.context.setMessage('Invitations sent successfully');
+        const errorMessage = (
+          success.map((message, index) => (
+            <p key={`email-error-${index.toString()}`}>{message.email} : {message.error}</p>
+          ))
+        );
+        this.context.setMessage(errorMessage);
+      } else {
+        const message = (
+          <FormattedMessage
+            id="teamInviteMembers.resendEmailSuccess"
+            defaultMessage="Invitation was sent successfully"
+          />
+        );
+        this.context.setMessage(message);
       }
     };
     this.validateMembers(this.state.membersToInvite);
@@ -351,7 +367,6 @@ class TeamInviteMembers extends Component {
         />
         <Dialog
           className="team-invite-members__dialog"
-          actionsContainerClassName="team-invite-members__action-container"
           open={this.state.dialogOpen}
           onClose={this.handleCloseDialog.bind(this)}
           scroll="paper"
@@ -402,7 +417,6 @@ class TeamInviteMembers extends Component {
               onClick={this.handleSubmit.bind(this)}
               color="primary"
               disabled={this.state.sendDisabled}
-              keyboardFocused
             >
               <FormattedMessage id="teamInviteMembers.send" defaultMessage="Send" />
             </Button>
