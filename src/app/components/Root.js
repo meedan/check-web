@@ -39,7 +39,6 @@ import BotGarden from './BotGarden';
 import Bot from './Bot';
 import CheckContext from '../CheckContext';
 import translations from '../../../localization/translations/translations';
-import UserInvalidInvitation from './UserInvalidInvitation';
 
 // Localization
 let locale = config.locale || navigator.languages || navigator.language || navigator.userLanguage || 'en';
@@ -141,7 +140,6 @@ class Root extends Component {
                 <Route path="check/user/password-reset" component={UserPasswordReset} public />
                 <Route path="check/user/password-change" component={UserPasswordChange} public />
                 <Route path="check/user/tos" component={UserTos} public />
-                <Route path="check/user/invalid-invitation" component={UserInvalidInvitation} public />
                 <Route path="check/forbidden" component={AccessDenied} public />
                 <Route path="check/404" component={NotFound} public />
 

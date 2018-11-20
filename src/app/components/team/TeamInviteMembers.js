@@ -146,6 +146,7 @@ class TeamInviteMembers extends Component {
   }
 
   validateMembers(members) {
+    let validateMaxError = true;
     const { limits, members_count: membersCount } = this.props.team;
     const { invited_mails: invitedEmails, team_users: teamUsers } = this.props.team;
     let invitedCount = 0;
@@ -184,9 +185,11 @@ class TeamInviteMembers extends Component {
     if (limits.max_number_of_members !== 0 && limits.max_number_of_members < allMembers) {
       const maxMembers = limits.max_number_of_members - (invitedEmails.length + membersCount);
       this.setState({ errors: [{ key: 'limits', maxMembers }] });
+      validateMaxError = false;
     } else {
       this.setState({ errors: [] });
     }
+    return validateMaxError;
   }
 
   handleSubmit() {
@@ -215,13 +218,10 @@ class TeamInviteMembers extends Component {
         this.context.setMessage(message);
       }
     };
-    this.validateMembers(this.state.membersToInvite);
+    const validateMaxError = this.validateMembers(this.state.membersToInvite);
     const membersList = this.state.membersToInvite;
     const isValid = membersList.every(obj => obj.error.length === 0);
-    if (!isValid || this.state.errors.length > 0) {
-      return;
-    }
-    if (isValid && !this.state.sendDisabled) {
+    if (isValid && validateMaxError === true && !this.state.sendDisabled) {
       const invitation = document.getElementById('invite-msg-input').value.trim();
       const members = JSON.stringify(membersList);
       Relay.Store.commitUpdate(
@@ -260,7 +260,7 @@ class TeamInviteMembers extends Component {
       { value: 'contributor', label: this.props.intl.formatMessage(messages.contributor) },
       { value: 'journalist', label: this.props.intl.formatMessage(messages.journalist) },
       { value: 'editor', label: this.props.intl.formatMessage(messages.editor) },
-      { value: 'Annotator', label: this.props.intl.formatMessage(messages.annotator) },
+      { value: 'annotator', label: this.props.intl.formatMessage(messages.annotator) },
     ];
     const errosList = (
       this.state.errors.map((error, index) => (
