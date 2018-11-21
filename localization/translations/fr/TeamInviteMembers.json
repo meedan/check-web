@@ -1,0 +1,22 @@
+{
+  "TeamInviteMembers.newInvite": "Inviter des membres",
+  "TeamInviteMembers.emailInput": "Courriel",
+  "TeamInviteMembers.emailMultipleInput": "Séparez les courriels par des virgules",
+  "TeamInviteMembers.invalidEmail": "Courriel non valide.",
+  "TeamInviteMembers.existsEmail": "Cette personne est déjà membre de cette équipe.",
+  "TeamInviteMembers.invitedEmail": "Cette personne a déjà été invitée à cette équipe.",
+  "TeamMembersListItem.contributor": "Contributeur",
+  "TeamMembersListItem.journalist": "Journaliste",
+  "TeamMembersListItem.editor": "Rédacteur",
+  "TeamMembersListItem.annotator": "Annotateur",
+  "teamInviteMembers.resendEmailSuccess": "L'invitation a été envoyée avec succès",
+  "teamInviteMembers.limits": "Le nombre maximal de membres a été atteint ({count, plural, =0 {aucun membre} one {un membre} other {# membres}}).",
+  "teamInviteMembers.inviteMembers": "Les membres seront invités comme",
+  "teamInviteMembers.inviteMember": "Inviter",
+  "teamInviteMembers.customInvitation": "Message d'invitation (optionnel)",
+  "teamInviteMembers.addSeparate": "Ajouter séparément",
+  "teamInviteMembers.addAnother": "Ajouter un autre",
+  "teamInviteMembers.addMany": "Ajouter plusieurs",
+  "teamInviteMembers.cancelAdd": "Annuler",
+  "teamInviteMembers.send": "Envoyer"
+}

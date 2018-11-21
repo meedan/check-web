@@ -1,4 +1,8 @@
 {
   "home.needRegister": "Primero debes registrarte. Ya registrado, puedes solicitar unirte al equipo.",
-  "home.somethingWrong": "Algo salió mal – por favor actualiza el navegador o intenta de nuevo más tarde."
+  "home.somethingWrong": "Algo salió mal – por favor actualiza el navegador o intenta de nuevo más tarde.",
+  "home.invalidInvitation": "An error occurred while processing your invitation. The server returned the error: \"{server_error}\". Please try again and contact the support team if the issue persists.",
+  "home.invalidTeamInvitation": "Team not found",
+  "home.invalidNoInvitation": "No invitation exists",
+  "home.invalidTokenInvitation": "Invitation token is invalid"
 }
