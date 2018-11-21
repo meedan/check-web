@@ -71,11 +71,12 @@ const messages = defineMessages({
 class TeamInviteMembers extends Component {
   static validateEmail(email, invitedEmails, membersEmails) {
     let error = null;
-    if (EmailValidator.validate(email) === false) {
+    const inputEmail = email.trim();
+    if (EmailValidator.validate(inputEmail) === false) {
       error = 'invalid';
-    } else if (invitedEmails.includes(email) === true) {
+    } else if (invitedEmails.includes(inputEmail) === true) {
       error = 'invited';
-    } else if (membersEmails.includes(email) === true) {
+    } else if (membersEmails.includes(inputEmail) === true) {
       error = 'member';
     }
     return error;
