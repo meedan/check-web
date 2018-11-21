@@ -1,50 +1,25 @@
 import React, { Component } from 'react';
-import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay/classic';
 import { Link } from 'react-router';
-import Select from 'react-select';
-import 'react-select/dist/react-select.css';
 import { ListItem } from 'material-ui/List';
 import MdClear from 'react-icons/lib/md/clear';
 import IconButton from 'material-ui/IconButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import rtlDetect from 'rtl-detect';
 import Tooltip from 'rc-tooltip';
+import RoleSelect from './RoleSelect';
 import '../../styles/css/tooltip.css';
 import SourcePicture from '../source/SourcePicture';
 import UpdateTeamUserMutation from '../../relay/mutations/UpdateTeamUserMutation';
 import UserTooltip from '../user/UserTooltip';
 import {
-  selectStyle,
   checkBlue,
   FlexRow,
   Text,
   buttonInButtonGroupStyle,
   Offset,
 } from '../../styles/js/shared';
-
-const messages = defineMessages({
-  annotator: {
-    id: 'TeamMembersListItem.annotator',
-    defaultMessage: 'Annotator',
-  },
-  contributor: {
-    id: 'TeamMembersListItem.contributor',
-    defaultMessage: 'Contributor',
-  },
-  journalist: {
-    id: 'TeamMembersListItem.journalist',
-    defaultMessage: 'Journalist',
-  },
-  editor: {
-    id: 'TeamMembersListItem.editor',
-    defaultMessage: 'Editor',
-  },
-  owner: {
-    id: 'TeamMembersListItem.owner',
-    defaultMessage: 'Owner',
-  },
-});
 
 class TeamMembersListItem extends Component {
   handleDeleteTeamUser(e) {
@@ -56,10 +31,10 @@ class TeamMembersListItem extends Component {
     }));
   }
 
-  handleRoleChange(val) {
+  handleRoleChange(e) {
     Relay.Store.commitUpdate(new UpdateTeamUserMutation({
       id: this.props.teamUser.node.id,
-      role: val,
+      role: e.target.value,
     }));
   }
 
@@ -72,14 +47,6 @@ class TeamMembersListItem extends Component {
 
   render() {
     const { teamUser, isEditing } = this.props;
-
-    const roles = [
-      { value: 'annotator', label: this.props.intl.formatMessage(messages.annotator) },
-      { value: 'contributor', label: this.props.intl.formatMessage(messages.contributor) },
-      { value: 'journalist', label: this.props.intl.formatMessage(messages.journalist) },
-      { value: 'editor', label: this.props.intl.formatMessage(messages.editor) },
-      { value: 'owner', label: this.props.intl.formatMessage(messages.owner) },
-    ];
 
     return (
       <ListItem
@@ -104,7 +71,7 @@ class TeamMembersListItem extends Component {
                       type="user"
                     />
                   </Offset>
-                  <Text ellipsis>
+                  <Text breakWord>
                     {teamUser.node.user.name}
                   </Text>
                 </FlexRow>
@@ -139,18 +106,12 @@ class TeamMembersListItem extends Component {
             }
             return (
               <FlexRow>
-                <Select
-                  style={selectStyle}
-                  className="team-members__member-role"
+                <RoleSelect
                   onChange={this.handleRoleChange.bind(this)}
-                  autosize
-                  searchable={false}
-                  backspaceRemoves={false}
-                  clearable={false}
-                  disabled={!isEditing || teamUser.node.status === 'banned'}
-                  options={roles}
                   value={teamUser.node.role}
+                  disabled={!isEditing || teamUser.node.status === 'banned'}
                 />
+
                 {isEditing && teamUser.node.status !== 'banned' ?
                   <IconButton
                     className="team-members__delete-member"
