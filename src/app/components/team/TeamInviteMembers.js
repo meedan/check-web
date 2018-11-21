@@ -36,7 +36,7 @@ const messages = defineMessages({
   },
   inviteEmailMultipleInput: {
     id: 'TeamInviteMembers.emailMultipleInput',
-    defaultMessage: 'Separate by commas',
+    defaultMessage: 'Separate emails by commas',
   },
   invalidEmail: {
     id: 'TeamInviteMembers.invalidEmail',
@@ -121,6 +121,15 @@ class TeamInviteMembers extends Component {
   handleAddMany() {
     this.setState({
       addMany: true,
+      sendDisabled: true,
+      errors: [],
+      membersToInvite: [{ email: '', role: 'contributor', error: [] }],
+    });
+  }
+
+  handleAddSeparate() {
+    this.setState({
+      addMany: false,
       sendDisabled: true,
       errors: [],
       membersToInvite: [{ email: '', role: 'contributor', error: [] }],
@@ -247,7 +256,7 @@ class TeamInviteMembers extends Component {
       return (
         <FormattedMessage
           id="teamInviteMembers.limits"
-          defaultMessage="The maximum number of users for this team has been reached, allowed to invite {count, plural, =0 {0 members} one {1 member} other {# members}}."
+          defaultMessage="The maximum number of members for this team has been reached ({count, plural, =0 {0 members} one {1 member} other {# members}})."
           values={{ count: item.maxMembers }}
         />
       );
@@ -265,7 +274,7 @@ class TeamInviteMembers extends Component {
     ];
     const errosList = (
       this.state.errors.map((error, index) => (
-        <ListItem key={`email-error-${index.toString()}`} style={{ color: 'red' }} className="team-inivite-members__list-item-error">
+        <ListItem key={`email-error-${index.toString()}`} style={{ color: 'red' }} className="team-invite-members__list-item-error">
           {this.renderError(error)}
         </ListItem>
       ))
@@ -274,9 +283,9 @@ class TeamInviteMembers extends Component {
     if (this.state.addMany) {
       inviteBody = (
         this.state.membersToInvite.map((member, index) => (
-          <div key={`invite-team-memeber-new-${index.toString()}`}>
+          <div key={`invite-team-member-new-${index.toString()}`}>
             <FlexRow>
-              <span>{<FormattedMessage id="teamInviteMembers.inviteMembers" defaultMessage="Members will invited as " />}</span>
+              <span>{<FormattedMessage id="teamInviteMembers.inviteMembers" defaultMessage="Members will invited as" />}</span>
               <Select
                 style={selectStyle}
                 className="invite-member-email-role"
@@ -293,7 +302,6 @@ class TeamInviteMembers extends Component {
               id={index.toString()}
               className="invite-member-email-input"
               label={this.props.intl.formatMessage(messages.inviteEmailMultipleInput)}
-              placeholder={this.props.intl.formatMessage(messages.inviteEmailMultipleInput)}
               multiline
               fullWidth
               margin="normal"
@@ -317,7 +325,7 @@ class TeamInviteMembers extends Component {
     } else {
       inviteBody = (
         this.state.membersToInvite.map((member, index) => (
-          <div key={`invite-team-memeber-new-${index.toString()}`}>
+          <div key={`invite-team-member-new-${index.toString()}`}>
             <FlexRow>
               <TextField
                 key="invite-member-email-input"
@@ -380,7 +388,7 @@ class TeamInviteMembers extends Component {
               id="invite-msg-input"
               className="team-invite-members__input"
               label={
-                <FormattedMessage id="teamInviteMembers.customInvitation" defaultMessage="Add invitation note (optional)" />
+                <FormattedMessage id="teamInviteMembers.customInvitation" defaultMessage="Invitation note (optional)" />
               }
               fullWidth
               multiline
@@ -390,7 +398,16 @@ class TeamInviteMembers extends Component {
             />
             { inviteBody }
             { this.state.addMany ?
-              null :
+              <div style={{ height: units(6) }}>
+                <Row>
+                  <Button
+                    className="team-invite-members__dialog-add-separate-button"
+                    onClick={this.handleAddSeparate.bind(this)}
+                  >
+                    <FormattedMessage id="teamInviteMembers.addSeparate" defaultMessage="Add separate" />
+                  </Button>
+                </Row>
+              </div> :
               <div style={{ height: units(12) }}>
                 <Row>
                   <Button

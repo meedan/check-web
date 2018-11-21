@@ -1,4 +1,5 @@
 {
+  "teamMembersComponent.pendingInvitations": "Invitations en cours",
   "teamMembershipRequests.requestsToJoin": "Demandes d'accès",
   "teamMembersComponent.mainHeading": "Membres",
   "teamMembersComponent.editDoneButton": "Terminé",
