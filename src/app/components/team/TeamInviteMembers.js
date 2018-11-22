@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
-import Select from 'react-select';
 import RaisedButton from 'material-ui/RaisedButton';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -13,10 +12,10 @@ import TextField from '@material-ui/core/TextField';
 import ListItem from '@material-ui/core/ListItem';
 import MdCancel from 'react-icons/lib/md/cancel';
 import * as EmailValidator from 'email-validator';
+import RoleSelect from './RoleSelect';
 import UserInvitationMutation from '../../relay/mutations/UserInvitationMutation';
 import {
   units,
-  selectStyle,
   StyledIconButton,
   Row,
   FlexRow,
@@ -151,7 +150,7 @@ class TeamInviteMembers extends Component {
   }
 
   handleRoleChange(e, index) {
-    this.state.membersToInvite[index].role = e.value;
+    this.state.membersToInvite[index].role = e.target.value;
     this.setState({ membersToInvite: this.state.membersToInvite });
   }
 
@@ -266,12 +265,6 @@ class TeamInviteMembers extends Component {
   }
 
   render() {
-    const roles = [
-      { value: 'contributor', label: this.props.intl.formatMessage(messages.contributor) },
-      { value: 'journalist', label: this.props.intl.formatMessage(messages.journalist) },
-      { value: 'editor', label: this.props.intl.formatMessage(messages.editor) },
-      { value: 'annotator', label: this.props.intl.formatMessage(messages.annotator) },
-    ];
     const errosList = (
       this.state.errors.map((error, index) => (
         <ListItem key={`email-error-${index.toString()}`} style={{ color: 'red' }} className="team-invite-members__list-item-error">
@@ -286,14 +279,9 @@ class TeamInviteMembers extends Component {
           <div key={`invite-team-member-new-${index.toString()}`}>
             <FlexRow>
               <span>{<FormattedMessage id="teamInviteMembers.inviteMembers" defaultMessage="Members will invited as" />}</span>
-              <Select
-                style={selectStyle}
+              <RoleSelect
                 className="invite-member-email-role"
                 onChange={e => this.handleRoleChange(e, index)}
-                searchable={false}
-                backspaceRemoves={false}
-                clearable={false}
-                options={roles}
                 value={member.role}
               />
             </FlexRow>
@@ -326,7 +314,7 @@ class TeamInviteMembers extends Component {
       inviteBody = (
         this.state.membersToInvite.map((member, index) => (
           <div key={`invite-team-member-new-${index.toString()}`}>
-            <FlexRow>
+            <Row>
               <TextField
                 key="invite-member-email-input"
                 className="invite-member-email-input"
@@ -336,24 +324,28 @@ class TeamInviteMembers extends Component {
                 value={member.email}
                 error={member.error.length > 0}
                 margin="normal"
+                fullWidth
               />
-              <StyledIconButton
-                className="invite-member-email-remove-button"
-                onClick={() => this.handleRemoveEmail(index)}
-              >
-                <MdCancel />
-              </StyledIconButton>
-              <Select
-                style={selectStyle}
-                className="invite-member-email-role"
-                onChange={e => this.handleRoleChange(e, index)}
-                searchable={false}
-                backspaceRemoves={false}
-                clearable={false}
-                options={roles}
-                value={member.role}
-              />
-            </FlexRow>
+              <Row>
+                <RoleSelect
+                  className="invite-member-email-role"
+                  style={{
+                    marginLeft: units(2),
+                    marginTop: units(1),
+                    marginBottom: units(1),
+                    minWidth: units(20),
+                  }}
+                  onChange={e => this.handleRoleChange(e, index)}
+                  value={member.role}
+                />
+                <StyledIconButton
+                  className="invite-member-email-remove-button"
+                  onClick={() => this.handleRemoveEmail(index)}
+                >
+                  <MdCancel />
+                </StyledIconButton>
+              </Row>
+            </Row>
             {member.error.length === 0 ?
               null :
               <StyledHelper style={{ color: 'red' }}>
@@ -367,7 +359,7 @@ class TeamInviteMembers extends Component {
     return (
       <FlexRow>
         <RaisedButton
-          style={{ marginLeft: 'auto', marginRight: units(1) }}
+          style={{ marginLeft: 'auto', marginRight: units(2) }}
           onClick={this.handleOpenDialog.bind(this)}
           className="team-members__edit-button"
           label={
