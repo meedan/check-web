@@ -1,0 +1,82 @@
+[
+  {
+    "id": "TeamInviteMembers.newInvite",
+    "defaultMessage": "Invite members"
+  },
+  {
+    "id": "TeamInviteMembers.emailInput",
+    "defaultMessage": "Email address"
+  },
+  {
+    "id": "TeamInviteMembers.emailMultipleInput",
+    "defaultMessage": "Separate emails by commas"
+  },
+  {
+    "id": "TeamInviteMembers.invalidEmail",
+    "defaultMessage": "Not a valid email address."
+  },
+  {
+    "id": "TeamInviteMembers.existsEmail",
+    "defaultMessage": "Already a team member."
+  },
+  {
+    "id": "TeamInviteMembers.invitedEmail",
+    "defaultMessage": "Already invited to this team."
+  },
+  {
+    "id": "TeamMembersListItem.contributor",
+    "defaultMessage": "Contributor"
+  },
+  {
+    "id": "TeamMembersListItem.journalist",
+    "defaultMessage": "Journalist"
+  },
+  {
+    "id": "TeamMembersListItem.editor",
+    "defaultMessage": "Editor"
+  },
+  {
+    "id": "TeamMembersListItem.annotator",
+    "defaultMessage": "Annotator"
+  },
+  {
+    "id": "teamInviteMembers.resendEmailSuccess",
+    "defaultMessage": "Invitation was sent successfully"
+  },
+  {
+    "id": "teamInviteMembers.limits",
+    "defaultMessage": "The maximum number of members for this team has been reached ({count, plural, =0 {0 members} one {1 member} other {# members}})."
+  },
+  {
+    "id": "teamInviteMembers.inviteMembers",
+    "defaultMessage": "Members will invited as"
+  },
+  {
+    "id": "teamInviteMembers.inviteMember",
+    "defaultMessage": "Invite"
+  },
+  {
+    "id": "teamInviteMembers.customInvitation",
+    "defaultMessage": "Invitation note (optional)"
+  },
+  {
+    "id": "teamInviteMembers.addSeparate",
+    "defaultMessage": "Add separate"
+  },
+  {
+    "id": "teamInviteMembers.addAnother",
+    "defaultMessage": "Add another"
+  },
+  {
+    "id": "teamInviteMembers.addMany",
+    "defaultMessage": "Add many"
+  },
+  {
+    "id": "teamInviteMembers.cancelAdd",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "teamInviteMembers.send",
+    "defaultMessage": "Send"
+  }
+]

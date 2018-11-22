@@ -1,4 +1,8 @@
 {
   "home.needRegister": "Vous devez d'abord vous inscrire. Une fois inscrit, vous pouvez demander à rejoindre l'équipe.",
-  "home.somethingWrong": "Quelque chose s'est mal passé! Veuillez actualiser votre navigateur ou réessayer plus tard."
+  "home.somethingWrong": "Quelque chose s'est mal passé! Veuillez actualiser votre navigateur ou réessayer plus tard.",
+  "home.invalidInvitation": "Une erreur s'est produite durant le traitement de votre invitation. Le serveur a renvoyé l'erreur suivante : \"{server_error}\". Veuillez réessayer et contactez l'équipe de support si l'erreur persiste.",
+  "home.invalidTeamInvitation": "Équipe introuvable",
+  "home.invalidNoInvitation": "Invitation introuvable",
+  "home.invalidTokenInvitation": "Code d'invitation non valide"
 }

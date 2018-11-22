@@ -72,8 +72,11 @@ class ProjectAssignmentComponent extends Component {
     };
 
     const options = [];
-    this.props.project.team.users.edges.forEach((user) => {
-      options.push({ label: user.node.name, value: user.node.dbid.toString() });
+    this.props.project.team.team_users.edges.forEach((teamUser) => {
+      if (teamUser.node.status === 'member') {
+        const { user } = teamUser.node;
+        options.push({ label: user.name, value: user.dbid.toString() });
+      }
     });
     const selected = [];
     const assignments = this.props.project.assigned_users.edges;
@@ -97,8 +100,8 @@ class ProjectAssignmentComponent extends Component {
                 defaultMessage="Assigned to"
               /> :
               <FormattedMessage
-                id="projectAssignment.unassigned"
-                defaultMessage="Unassigned"
+                id="projectAssignment.notAssigned"
+                defaultMessage="Not assigned"
               /> }
             <IconArrowDropDown color={black54} />
           </Button>
@@ -156,16 +159,20 @@ const ProjectAssignmentContainer = Relay.createContainer(ProjectAssignmentCompon
         team {
           id
           dbid
-          users(first: 10000) {
+          team_users(first: 10000) {
             edges {
               node {
                 id
-                dbid
-                name
-                source {
+                status
+                user {
                   id
                   dbid
-                  image
+                  name
+                  source {
+                    id
+                    dbid
+                    image
+                  }
                 }
               }
             }

@@ -6,5 +6,21 @@
   {
     "id": "home.somethingWrong",
     "defaultMessage": "Something went wrong – please refresh your browser or try again later."
+  },
+  {
+    "id": "home.invalidInvitation",
+    "defaultMessage": "An error occurred while processing your invitation. The server returned the error: \"{server_error}\". Please try again and contact the support team if the issue persists."
+  },
+  {
+    "id": "home.invalidTeamInvitation",
+    "defaultMessage": "Team not found"
+  },
+  {
+    "id": "home.invalidNoInvitation",
+    "defaultMessage": "No invitation exists"
+  },
+  {
+    "id": "home.invalidTokenInvitation",
+    "defaultMessage": "Invitation token is invalid"
   }
 ]

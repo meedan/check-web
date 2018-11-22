@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import { browserHistory } from 'react-router';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 import { List, ListItem } from 'material-ui/List';
@@ -9,7 +9,6 @@ import CreateProject from '../project/CreateProject';
 import ProjectAssignment from '../project/ProjectAssignment';
 import CheckContext from '../../CheckContext';
 import Can from '../Can';
-import MappedMessage from '../MappedMessage';
 import UserUtil from '../user/UserUtil';
 import LoadMore from '../layout/LoadMore';
 import {
@@ -19,17 +18,6 @@ import {
   units,
   black54,
 } from '../../styles/js/shared';
-
-const messages = defineMessages({
-  verificationProjects: {
-    id: 'teamComponent.title',
-    defaultMessage: 'Verification Projects',
-  },
-  bridge_verificationProjects: {
-    id: 'bridge.teamComponent.title',
-    defaultMessage: 'Translation Projects',
-  },
-});
 
 const pageSize = 20;
 
@@ -67,12 +55,12 @@ class TeamProjects extends React.Component {
         </Can>
         <Card style={{ marginBottom: units(2) }}>
           <StyledCardHeader
-            title={<MappedMessage msgObj={messages} msgKey="verificationProjects" />}
+            title={<FormattedMessage id="teamComponent.projects" defaultMessage="Projects" />}
           />
 
           {!team.projects.edges.length ?
             <CardText style={{ color: black54 }}>
-              <FormattedMessage id="teamComponent.noProjects" defaultMessage="No projects yet" />
+              <FormattedMessage id="teamComponent.noProjects" defaultMessage="No projects" />
             </CardText>
             :
             <LoadMore
@@ -103,7 +91,7 @@ class TeamProjects extends React.Component {
                             { UserUtil.myRole(currentUser, team.slug) !== 'annotator' ?
                               <FormattedMessage
                                 id="teamComponent.projectAssignmentsCount"
-                                defaultMessage="{count, plural, =0 {Not assigned to any user} one {Assigned to one user} other {Assigned to # users}}"
+                                defaultMessage="{count, plural, =0 {Not assigned to any member} one {Assigned to one member} other {Assigned to # members}}"
                                 values={{ count: p.node.assignments_count }}
                               /> : null }
                           </small>

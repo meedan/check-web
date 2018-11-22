@@ -128,7 +128,7 @@ class CreateRelatedMedia extends Component {
             <StyledCreateRelatedClaimButton
               className="create-related-media__add-button create-related-media__add-button--default"
               onClick={this.handleOpenDialog.bind(this)}
-              label={<FormattedMessage id="createRelatedMedia.addClaim" defaultMessage="Add claim" />}
+              label={<FormattedMessage id="createRelatedMedia.addRelatedItem" defaultMessage="Add related item" />}
             />
           </Can> : null}
 

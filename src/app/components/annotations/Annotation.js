@@ -385,11 +385,11 @@ class Annotation extends Component {
             target="_blank"
             rel="noreferrer noopener"
           >
-            {name}
+            <ParsedText text={name} block />
           </a>
         );
       }
-      return name;
+      return <ParsedText text={name} block />;
     } else if (type === 'datetime') {
       return <DatetimeTaskResponse response={object.value} />;
     }
