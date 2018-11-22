@@ -67,6 +67,47 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     include_examples "custom"
 
+    it "should manage team members roles", bin4: true do
+      # setup
+      @user_mail = "test" +Time.now.to_i.to_s+rand(9999).to_s + @user_mail
+      @team1_slug = 'team1'+Time.now.to_i.to_s+rand(9999).to_s
+      user = api_register_and_login_with_email(email: @user_mail, password: @password)
+      team = request_api 'team', { name: 'Team 1', email: user.email, slug: @team1_slug }
+
+      #As a different user, request to join one team and be accepted.
+      user = api_register_and_login_with_email(email: "new"+@user_mail, password: @password)
+      page = MePage.new(config: @config, driver: @driver).load
+      page.ask_join_team(subdomain: @team1_slug)
+      @wait.until {
+        expect(@driver.find_element(:class, "message").nil?).to be(false)
+      }
+      api_logout
+      @driver.quit
+
+      @driver = new_driver(webdriver_url,browser_capabilities)
+      page = Page.new(config: @config, driver: @driver)
+      page.go(@config['api_path'] + '/test/session?email='+@user_mail)
+
+      #As the group creator, go to the members page and approve the joining request.
+      page = MePage.new(config: @config, driver: @driver).load
+      page.go(@config['self_url'] + '/check/me')
+      page.approve_join_team(subdomain: @team1_slug)
+      @wait.until {
+        elems = @driver.find_elements(:css => ".team-members__list > div")
+        expect(elems.size).to be > 1
+      }
+
+      #edit team member role
+      wait_for_selector('.team-members__edit-button', :css).click
+      wait_for_selector('.role-select', :css, 29, 1).click
+
+      wait_for_selector('li.role-journalist').click
+      wait_for_selector('.team-members__edit-button', :css).click
+
+      el = wait_for_selector('input[name="role-select"]', :css, 29, 1)
+      expect(el.value).to eq 'journalist'
+    end
+
     it "should add a comment to a task", bin5: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       wait_for_selector('.create-task__add-button')

@@ -117,7 +117,7 @@ module AppSpecHelpers
     sleep 3
   end
 
-  def wait_for_selector(selector, type = :css, timeout = 29)
+  def wait_for_selector(selector, type = :css, timeout = 29, index = 0)
     element = nil
     attempts = 0
     wait = Selenium::WebDriver::Wait.new(timeout: timeout)
@@ -125,7 +125,8 @@ module AppSpecHelpers
       attempts += 1
       sleep 2
       begin
-        element = wait.until { @driver.find_element(type, selector) }
+        elements = wait.until { @driver.find_elements(type, selector) }
+        element = elements[index]
         element.displayed?
       rescue
         element = nil

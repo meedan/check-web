@@ -40,11 +40,18 @@ const RoleSelect = (props) => {
   return (
     <FormControl variant="outlined">
       <Select
+        className="role-select"
         style={{ width: '150px' }}
-        input={<OutlinedInput name="role-select" id="role-select" labelWidth={0} />}
+        input={<OutlinedInput name="role-select" labelWidth={0} />}
         {...props}
       >
-        {roles.map(r => <MenuItem key={r.value} value={r.value}>{r.label}</MenuItem>)}
+        {
+          roles.map(r => (
+            <MenuItem className={`role-${r.value}`} key={r.value} value={r.value}>
+              {r.label}
+            </MenuItem>
+          ))
+        }
       </Select>
     </FormControl>
   );
