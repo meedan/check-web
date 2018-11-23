@@ -326,15 +326,15 @@ class TeamInviteMembers extends Component {
                 margin="normal"
                 fullWidth
               />
-              <Row>
+              <Row
+                style={{
+                  marginLeft: units(2),
+                  marginTop: units(1),
+                  marginBottom: units(1),
+                }}
+              >
                 <RoleSelect
                   className="invite-member-email-role"
-                  style={{
-                    marginLeft: units(2),
-                    marginTop: units(1),
-                    marginBottom: units(1),
-                    minWidth: units(20),
-                  }}
                   onChange={e => this.handleRoleChange(e, index)}
                   value={member.role}
                 />

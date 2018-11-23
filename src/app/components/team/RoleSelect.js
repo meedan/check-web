@@ -4,6 +4,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
+import { units } from '../../styles/js/shared';
 
 const messages = defineMessages({
   annotator: {
@@ -42,6 +43,7 @@ const RoleSelect = (props) => {
       <Select
         className="role-select"
         input={<OutlinedInput name="role-select" labelWidth={0} />}
+        style={{ minWidth: units(20), ...props.style }}
         {...props}
       >
         {
