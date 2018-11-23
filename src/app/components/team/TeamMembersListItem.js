@@ -48,14 +48,6 @@ class TeamMembersListItem extends Component {
   render() {
     const { teamUser, isEditing } = this.props;
 
-    const roles = [
-      { value: 'annotator', label: this.props.intl.formatMessage(messages.annotator) },
-      { value: 'contributor', label: this.props.intl.formatMessage(messages.contributor) },
-      { value: 'journalist', label: this.props.intl.formatMessage(messages.journalist) },
-      { value: 'editor', label: this.props.intl.formatMessage(messages.editor) },
-      { value: 'owner', label: this.props.intl.formatMessage(messages.owner) },
-    ];
-
     const assignmentsProgress = teamUser.node.assignments_progress;
 
     return (
