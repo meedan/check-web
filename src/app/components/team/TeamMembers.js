@@ -22,7 +22,8 @@ const TeamMembersContainer = Relay.createContainer(TeamMembersComponent, {
         join_requests(first: 100) {
           edges {
             node {
-              id
+              id,
+              assignments_progress,
               user {
                 id,
                 dbid,
@@ -57,7 +58,8 @@ const TeamMembersContainer = Relay.createContainer(TeamMembersComponent, {
               team_id,
               user_id,
               id,
-              role
+              role,
+              assignments_progress
             }
           }
         },
