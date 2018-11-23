@@ -41,7 +41,6 @@ const RoleSelect = (props) => {
     <FormControl variant="outlined">
       <Select
         className="role-select"
-        style={{ width: '150px' }}
         input={<OutlinedInput name="role-select" labelWidth={0} />}
         {...props}
       >
