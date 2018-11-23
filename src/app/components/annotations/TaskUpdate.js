@@ -11,6 +11,8 @@ class TaskUpdate extends React.Component {
     this.removedAssignment = false;
     this.addedComment = false;
     this.removedComment = false;
+    this.isNowRequired = false;
+    this.isNotRequired = false;
   }
 
   shouldLogChange(activity) {
@@ -35,6 +37,10 @@ class TaskUpdate extends React.Component {
       if (this.from.log_count > this.to.log_count) {
         this.removedComment = true;
       }
+      if (this.from.required !== this.to.required) {
+        this.isNowRequired = this.to.required;
+        this.isNowNotRequired = !this.to.required;
+      }
     }
     if (changes.assigned_to_id) {
       if (changes.assigned_to_id[1]) {
@@ -49,6 +55,8 @@ class TaskUpdate extends React.Component {
       this.changedAssignment ||
       this.removedAssignment ||
       this.addedComment ||
+      this.isNowRequired ||
+      this.isNowNotRequired ||
       this.removedComment;
   }
 
@@ -64,6 +72,8 @@ class TaskUpdate extends React.Component {
         this.changedAssignment ||
         this.removedAssignment ||
         this.addedComment ||
+        this.isNowRequired ||
+        this.isNowNotRequired ||
         this.removedComment
       ) {
         title = JSON.parse(activity.object_after).data.label;
@@ -157,6 +167,26 @@ class TaskUpdate extends React.Component {
                 title,
                 author,
                 note: <ParsedText text={comment} block />,
+              }}
+            />
+            : null}
+          {this.isNowRequired ?
+            <FormattedMessage
+              id="annotation.nowRequired"
+              defaultMessage="{author} marked task as required: {title}"
+              values={{
+                title,
+                author,
+              }}
+            />
+            : null}
+          {this.isNowNotRequired ?
+            <FormattedMessage
+              id="annotation.nowNotRequired"
+              defaultMessage="{author} marked task as not required: {title}"
+              values={{
+                title,
+                author,
               }}
             />
             : null}

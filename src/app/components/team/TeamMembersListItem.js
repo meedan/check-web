@@ -48,6 +48,16 @@ class TeamMembersListItem extends Component {
   render() {
     const { teamUser, isEditing } = this.props;
 
+    const roles = [
+      { value: 'annotator', label: this.props.intl.formatMessage(messages.annotator) },
+      { value: 'contributor', label: this.props.intl.formatMessage(messages.contributor) },
+      { value: 'journalist', label: this.props.intl.formatMessage(messages.journalist) },
+      { value: 'editor', label: this.props.intl.formatMessage(messages.editor) },
+      { value: 'owner', label: this.props.intl.formatMessage(messages.owner) },
+    ];
+
+    const assignmentsProgress = teamUser.node.assignments_progress;
+
     return (
       <ListItem
         className="team-members__member"
@@ -72,7 +82,22 @@ class TeamMembersListItem extends Component {
                     />
                   </Offset>
                   <Text breakWord>
-                    {teamUser.node.user.name}
+                    {teamUser.node.user.name}<br />
+                    { assignmentsProgress.completed === 0 &&
+                      assignmentsProgress.in_progress === 0 &&
+                      assignmentsProgress.unstarted === 0 ? null :
+                      <span style={{ fontSize: 11 }}>
+                        <FormattedMessage
+                          id="teamMembersListItem.assignmentsProgress"
+                          defaultMessage="{completedCount} completed, {inProgressCount} in progress, {unstartedCount} unstarted"
+                          values={{
+                            completedCount: assignmentsProgress.completed,
+                            inProgressCount: assignmentsProgress.in_progress,
+                            unstartedCount: assignmentsProgress.unstarted,
+                          }}
+                        />
+                      </span>
+                    }
                   </Text>
                 </FlexRow>
               </Link>
