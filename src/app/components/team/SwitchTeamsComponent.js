@@ -94,7 +94,7 @@ class SwitchTeamsComponent extends Component {
     const { user, user: { team_users: { edges: teamUsers } } } = this.props;
     const { currentUser } = this.getContext().getContextStore();
     const isUserSelf = (user.id === currentUser.id);
-    const otherTeams = [];
+    const joinedTeams = [];
     const pendingTeams = [];
 
     const ListItemContainer = styled.div`
@@ -120,39 +120,17 @@ class SwitchTeamsComponent extends Component {
       backgroundColor: white,
     };
 
-    const teamButton = (team) => {
-      if (team.status === 'requested') {
-        return (
-          <FlatButton
-            style={listItemButtonStyle}
-            hoverColor={alertRed}
-            onClick={this.cancelRequest.bind(this, team)}
-          >
-            <FormattedMessage id="switchTeams.cancelJoinRequest" defaultMessage="Cancel" />
-          </FlatButton>
-        );
-      } else if (team.status === 'banned') {
-        return (
-          <FlatButton style={listItemButtonStyle} disabled>
-            <FormattedMessage id="switchTeams.bannedJoinRequest" defaultMessage="Cancelled" />
-          </FlatButton>
-        );
-      }
-      return '';
-    };
-
     teamUsers.forEach((teamUser) => {
       const { team, status } = teamUser.node;
-      const visible = can(team.permissions, 'read Team');
 
-      if (!isUserSelf && !visible) { return; }
-
-      if (status === 'requested' || status === 'banned') {
-        team.status = status;
-        team.teamUser_id = teamUser.node.id;
-        pendingTeams.push(team);
-      } else {
-        otherTeams.push(team);
+      if (can(team.permissions, 'read Team')) {
+        if (status === 'member') {
+          joinedTeams.push(team);
+        } else if (isUserSelf && status === 'requested') {
+          team.status = status;
+          team.teamUser_id = teamUser.node.id;
+          pendingTeams.push(team);
+        }
       }
     });
 
@@ -166,12 +144,13 @@ class SwitchTeamsComponent extends Component {
           titleStyle={titleStyle}
           title={cardTitle}
         />
-        { (otherTeams.length + pendingTeams.length) ?
+        { (joinedTeams.length + pendingTeams.length) ?
           <List className="teams" style={listStyle}>
-            {otherTeams.map(team => (
-              <ListItemContainer key={team.dbid} isRtl={this.props.isRtl}>
+            {joinedTeams.map(team => (
+              <ListItemContainer key={`team-${team.dbid}`} isRtl={this.props.isRtl}>
                 {team.plan === 'pro' ? <span className="team__badge">PRO</span> : null}
                 <ListItem
+                  className="switch-teams__joined-team"
                   hoverColor={highlightBlue}
                   focusRippleColor={checkBlue}
                   touchRippleColor={checkBlue}
@@ -189,14 +168,24 @@ class SwitchTeamsComponent extends Component {
 
             {pendingTeams.map(team => (
               <ListItem
-                key={team.dbid}
+                className="switch-teams__pending-team"
+                key={`team-${team.dbid}`}
                 hoverColor={highlightBlue}
                 focusRippleColor={checkBlue}
                 touchRippleColor={checkBlue}
                 containerElement={<Link to={`/${team.slug}`} />}
                 leftAvatar={<Avatar style={teamAvatarStyle} src={team.avatar} />}
                 primaryText={team.name}
-                rightIconButton={teamButton(team)}
+                rightIconButton={
+                  <FlatButton
+                    className="switch-team__cancel-request"
+                    style={listItemButtonStyle}
+                    hoverColor={alertRed}
+                    onClick={this.cancelRequest.bind(this, team)}
+                  >
+                    <FormattedMessage id="switchTeams.cancelJoinRequest" defaultMessage="Cancel" />
+                  </FlatButton>
+                }
                 secondaryText={this.props.intl.formatMessage(messages.joinTeam)}
               />
             ))}
