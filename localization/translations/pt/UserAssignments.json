@@ -1,4 +1,5 @@
 {
-  "userAssignments.blank": "Nenhuma atividade",
-  "userAssignments.inProject": "Em projeto {link}"
+  "userAssignments.filterByTeam": "Filtrar por equipe",
+  "userAssignments.progress": "{answered} tarefas requeridas respondidas, de um total de {total}\n",
+  "userAssignments.blank": "Nenhuma atividade"
 }

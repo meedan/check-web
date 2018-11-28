@@ -1,9 +1,5 @@
 {
-  "TeamMembersListItem.annotator": "Annotateur",
-  "TeamMembersListItem.contributor": "Contributeur",
-  "TeamMembersListItem.journalist": "Journaliste",
-  "TeamMembersListItem.editor": "Rédacteur",
-  "TeamMembersListItem.owner": "Propriétaire",
+  "teamMembersListItem.assignmentsProgress": "{completedCount} complété.es, {inProgressCount} en cours, {unstartedCount} non commencé.es",
   "TeamMembershipRequestsListItem.approve": "Approuver",
   "TeamMembershipRequestsListItem.deny": "Refuser",
   "TeamMembersListItem.deleteMember": "Supprimer le membre"

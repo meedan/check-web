@@ -5,5 +5,7 @@
   "annotation.assignmentChanged": "Tâche affectée à {assigneeTo} par {author} : {title}",
   "annotation.assignmentRemoved": "Affectation d'une tâche à {assigneeFrom} annulée par {author} : {title}",
   "annotation.addedComment": "Commentaire de tâche ajouté par {author} : {title}{note}",
-  "annotation.removedComment": "Commentaire de tâche supprimé par {author} : {title}{note}"
+  "annotation.removedComment": "Commentaire de tâche supprimé par {author} : {title}{note}",
+  "annotation.nowRequired": "Tâche marquée comme requise par {author} : {title}",
+  "annotation.nowNotRequired": "Tâche marquée comme non requise par {author} : {title}"
 }
