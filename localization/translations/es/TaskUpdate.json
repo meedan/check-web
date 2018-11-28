@@ -1,9 +1,11 @@
 {
-  "annotation.taskLabelUpdated": "La tarea \"{from}\" fue editada a \"{to}\" por {author}",
-  "annotation.taskNoteUpdated": "La tarea \"{title}\" tiene una nota editada de  \"{from}\" a \"{to}\" por {author}",
-  "annotation.taskNoteCreated": "La tarea \"{title}\" tiene una nueva nota \"{note}\" por {author}",
-  "annotation.assignmentChanged": "Tarea \"{title}\" asignada a {assigneeTo} por {author}",
-  "annotation.assignmentRemoved": "Tarea \"{title}\" desasignada de {assigneeFrom} por {author}",
-  "annotation.addedComment": "{author} añadió una nota a la tarea \"{title}\": \"{comment}\"",
-  "annotation.removedComment": "{author} eliminó una nota de la tarea \"{title}\": \"{comment}\""
+  "annotation.taskLabelUpdated": "Tarea editada por {author}: {title}",
+  "annotation.taskNoteUpdated": "Nota de la tarea editada por {author}: {title}{note}",
+  "annotation.taskNoteCreated": "Nota de la tarea añadida por {author}: {title}{note}",
+  "annotation.assignmentChanged": "Tarea asignada a {assigneeTo} por {author}: {title}",
+  "annotation.assignmentRemoved": "Tarea desasignada de {assigneeFrom} por {author}: {title}",
+  "annotation.addedComment": "Nota de la tarea añadida por {author}: {title}{note}",
+  "annotation.removedComment": "Nota de la tarea eliminada por {author}: {title}{note}",
+  "annotation.nowRequired": "Tarea marcada como requerida por {author}: {title}",
+  "annotation.nowNotRequired": "Tarea marcada como no requerida por {author}: {title}"
 }

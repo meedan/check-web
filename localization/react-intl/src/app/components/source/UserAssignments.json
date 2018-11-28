@@ -1,10 +1,14 @@
 [
   {
-    "id": "userAssignments.blank",
-    "defaultMessage": "No activity yet"
+    "id": "userAssignments.filterByTeam",
+    "defaultMessage": "Filter by team"
   },
   {
-    "id": "userAssignments.inProject",
-    "defaultMessage": "In project {link}"
+    "id": "userAssignments.progress",
+    "defaultMessage": "{answered} required tasks answered, out of {total}"
+  },
+  {
+    "id": "userAssignments.blank",
+    "defaultMessage": "No activity"
   }
 ]

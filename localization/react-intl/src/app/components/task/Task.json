@@ -28,12 +28,12 @@
     "defaultMessage": "Resolved by {byName}"
   },
   {
-    "id": "task.editResponse",
-    "defaultMessage": "Edit response"
+    "id": "task.edit",
+    "defaultMessage": "Edit task"
   },
   {
-    "id": "task.edit",
-    "defaultMessage": "Edit question"
+    "id": "task.editResponse",
+    "defaultMessage": "Edit answer"
   },
   {
     "id": "task.assignOrUnassign",

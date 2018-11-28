@@ -12,8 +12,8 @@
     "defaultMessage": "Submit"
   },
   {
-    "id": "createRelatedMedia.addClaim",
-    "defaultMessage": "Add claim"
+    "id": "createRelatedMedia.addRelatedItem",
+    "defaultMessage": "Add related item"
   },
   {
     "id": "createRelatedMedia.claimText",

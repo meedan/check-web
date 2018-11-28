@@ -57,6 +57,22 @@ const messages = defineMessages({
     id: 'home.somethingWrong',
     defaultMessage: 'Something went wrong – please refresh your browser or try again later.',
   },
+  invalidInvitation: {
+    id: 'home.invalidInvitation',
+    defaultMessage: 'An error occurred while processing your invitation. The server returned the error: "{server_error}". Please try again and contact the support team if the issue persists.',
+  },
+  invalidTeamInvitation: {
+    id: 'home.invalidTeamInvitation',
+    defaultMessage: 'Team not found',
+  },
+  invalidNoInvitation: {
+    id: 'home.invalidNoInvitation',
+    defaultMessage: 'No invitation exists',
+  },
+  invalidTokenInvitation: {
+    id: 'home.invalidTokenInvitation',
+    defaultMessage: 'Invitation token is invalid',
+  },
 });
 
 class Home extends Component {
@@ -158,6 +174,27 @@ class Home extends Component {
       }
     }
 
+    if ('invitation_error' in this.props.location.query) {
+      let invitationError = null;
+      switch (this.props.location.query.invitation_error) {
+      case 'invalid_team':
+        invitationError = this.props.intl.formatMessage(messages.invalidTeamInvitation);
+        break;
+      case 'no_invitation':
+        invitationError = this.props.intl.formatMessage(messages.invalidNoInvitation);
+        break;
+      case 'invalid_invitation':
+        invitationError = this.props.intl.formatMessage(messages.invalidTokenInvitation);
+        break;
+      default:
+        invitationError = null;
+      }
+      message = this.props.intl.formatMessage(
+        messages.invalidInvitation,
+        { server_error: invitationError },
+      );
+    }
+
     const routeIsPublic = children && children.props.route.public;
     if (!routeIsPublic && !this.state.token) {
       if (this.state.error) {
@@ -207,7 +244,7 @@ class Home extends Component {
                 onClick={this.resetMessage.bind(this)}
                 className="home__message"
                 style={{
-                  position: 'absolute',
+                  position: 'fixed',
                   width: '100%',
                   zIndex: '1000',
                 }}

@@ -21,7 +21,7 @@ import CreateProjectSourceMutation from '../../relay/mutations/CreateProjectSour
 import Message from '../Message';
 import CheckContext from '../../CheckContext';
 import HttpStatus from '../../HttpStatus';
-import { safelyParseJSON, hasFilters } from '../../helpers';
+import { safelyParseJSON, getFilters } from '../../helpers';
 import {
   FadeIn,
   Row,
@@ -295,7 +295,7 @@ class CreateProjectMedia extends Component {
     };
 
     const onSuccess = (response) => {
-      if (hasFilters()) {
+      if (getFilters() !== '{}') {
         const rid = response.createProjectMedia.project_media.dbid;
         context.history.push(prefix + rid);
       }

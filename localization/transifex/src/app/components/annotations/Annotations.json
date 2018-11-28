@@ -1,5 +1,4 @@
 {
-  "mediaComponent.verificationTimeline": "Verification Timeline",
-  "bridge.mediaComponent.verificationTimeline": "Translation Timeline",
-  "annotation.noAnnotationsYet": "No annotations yet"
+  "annotation.timelineTitle": "Activity timeline",
+  "annotation.noAnnotationsYet": "No activity"
 }

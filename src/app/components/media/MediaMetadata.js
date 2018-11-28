@@ -24,6 +24,7 @@ import Message from '../Message';
 import TagMenu from '../tag/TagMenu';
 import Attribution from '../task/Attribution';
 import UserAvatar from '../UserAvatar';
+import UserAvatars from '../UserAvatars';
 import ProfileLink from '../layout/ProfileLink';
 import Sentence from '../Sentence';
 import { nested, safelyParseJSON } from '../../helpers';
@@ -590,6 +591,7 @@ class MediaMetadata extends Component {
             defaultValue={description}
             onChange={this.handleChangeDescription.bind(this)}
             style={{ width: '100%' }}
+            multiLine
           />
         </form>
 
@@ -707,13 +709,7 @@ class MediaMetadata extends Component {
         {assignments && !this.isStatusFinal(media.last_status) ?
           <Row>
             <div className="media-detail__assignment" style={{ display: 'flex', alignItems: 'center' }}>
-              {assignments.map(assignment => (
-                <UserAvatar
-                  user={assignment.node}
-                  size="extraSmall"
-                  style={{ display: 'inline-block', border: `1px solid ${black10}` }}
-                />
-              ))}
+              <UserAvatars users={assignments} />
               {assignments.length > 0 ?
                 <span style={{ lineHeight: '24px', paddingLeft: units(1), paddingRight: units(1) }}>
                   <FormattedMessage

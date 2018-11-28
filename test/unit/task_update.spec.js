@@ -28,16 +28,16 @@ describe('<TaskUpdate />', () => {
 
   it('should render edited title entry', function() {
     const wrapper = mountWithIntl(<TaskUpdate activity={activity_edited_title} authorName={authorName} />);
-    expect(wrapper.html()).to.contain('Task "Old title" edited to "New edited title" by Felis Catus');
+    expect(wrapper.html()).to.contain('Task edited by Felis Catus: New edited title');
   });
 
   it('should render edited note entry', function() {
     const wrapper = mountWithIntl(<TaskUpdate activity={activity_edited_description} authorName={authorName} />);
-    expect(wrapper.html()).to.contain('Task "Same old title" has note edited from "This is a task" to "This is an edited description." by Felis Catus');
+    expect(wrapper.html()).to.contain('Task note edited by Felis Catus: Same old title');
   });
 
   it('should render created note entry', function() {
     const wrapper = mountWithIntl(<TaskUpdate activity={activity_created_description} authorName={authorName} />);
-    expect(wrapper.html()).to.contain('Task "Same old title" has new note "This is a new description." by Felis Catus');
+    expect(wrapper.html()).to.contain('Task note added by Felis Catus: Same old title');
   });
 });

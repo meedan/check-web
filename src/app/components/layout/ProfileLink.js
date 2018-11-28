@@ -10,9 +10,13 @@ const ProfileLink = (props) => {
 
   return url ?
     <Tooltip placement="top" overlay={<UserTooltip user={props.user} team={props.team} />}>
-      <Link to={url} className={props.className}>{props.user.name}</Link>
+      <Link to={url} className={props.className}>
+        {props.user.name}
+      </Link>
     </Tooltip> :
-    <span className={props.className}>{props.user.name}</span>;
+    <span className={props.className}>
+      {props.user.name}
+    </span>;
 };
 
 export default ProfileLink;

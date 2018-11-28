@@ -1,9 +1,11 @@
 {
-  "annotation.taskLabelUpdated": "Task \"{from}\" edited to \"{to}\" by {author}",
-  "annotation.taskNoteUpdated": "Task \"{title}\" has note edited from \"{from}\" to \"{to}\" by {author}",
-  "annotation.taskNoteCreated": "Task \"{title}\" has new note \"{note}\" by {author}",
-  "annotation.assignmentChanged": "Task \"{title}\" assigned to \"{assigneeTo}\" by {author}",
-  "annotation.assignmentRemoved": "Task \"{title}\" unassigned from \"{assigneeFrom}\" by {author}",
-  "annotation.addedComment": "{author} added a note to the task \"{title}\": \"{comment}\"",
-  "annotation.removedComment": "{author} deleted a note from the task \"{title}\": \"{comment}\""
+  "annotation.taskLabelUpdated": "Task edited by {author}: {title}",
+  "annotation.taskNoteUpdated": "Task note edited by {author}: {title}{note}",
+  "annotation.taskNoteCreated": "Task note added by {author}: {title}{note}",
+  "annotation.assignmentChanged": "Task assigned to {assigneeTo} by {author}: {title}",
+  "annotation.assignmentRemoved": "Task unassigned from {assigneeFrom} by {author}: {title}",
+  "annotation.addedComment": "Task note added by {author}: {title}{note}",
+  "annotation.removedComment": "Task note deleted by {author}: {title}{note}",
+  "annotation.nowRequired": "Task marked as required by {author}: {title}",
+  "annotation.nowNotRequired": "Task marked as not required by {author}: {title}"
 }

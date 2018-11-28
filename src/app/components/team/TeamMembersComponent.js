@@ -6,6 +6,8 @@ import { Card } from 'material-ui/Card';
 import { List } from 'material-ui/List';
 import TeamInviteCard from './TeamInviteCard';
 import TeamMembersListItem from './TeamMembersListItem';
+import TeamInvitedMemberItem from './TeamInvitedMemberItem';
+import TeamInviteMembers from './TeamInviteMembers';
 import Can from '../Can';
 import LoadMore from '../layout/LoadMore';
 import {
@@ -38,24 +40,35 @@ class TeamMembersComponent extends Component {
     const { isEditing } = this.state;
     const { team, team: { team_users: teamUsers } } = this.props;
     const teamUsersRequestingMembership = team.join_requests.edges;
-    const teamUsersMembers = [];
-
-    teamUsers.edges.map((teamUser_) => {
-      const teamUser = teamUser_;
-      if (teamUser.node.status === 'requested') {
-        return null;
-      }
-      if (teamUser.node.status === 'banned') {
-        teamUser.node.role = 'Rejected';
-      }
-      return teamUsersMembers.push(teamUser);
-    });
-
+    const teamUsersMembers = teamUsers.edges.filter(tu => tu.node.status === 'member');
+    const teamInvitedMails = team.invited_mails;
     const requestingMembership = !!teamUsersRequestingMembership.length;
+    const invitedMails = !!teamInvitedMails.length;
 
     return (
       <div>
         <TeamInviteCard team={team} />
+
+        { invitedMails &&
+          <Can permissions={team.permissions} permission="invite Members">
+            <Card style={{ marginTop: units(2), marginBottom: units(2) }}>
+              <StyledMdCardTitle title={<FormattedMessage
+                id="teamMembersComponent.pendingInvitations"
+                defaultMessage="Pending invitations"
+              />}
+              />
+              <TeamInviteMembers team={team} />
+              <List>
+                { teamInvitedMails.map(invitedMail => (
+                  <TeamInvitedMemberItem
+                    invitedMail={invitedMail}
+                    key={invitedMail}
+                  />
+                ))}
+              </List>
+            </Card>
+          </Can>
+        }
 
         { requestingMembership &&
           <Can permissions={team.permissions} permission="update Team">
@@ -80,11 +93,11 @@ class TeamMembersComponent extends Component {
         }
 
         <Card style={{ marginTop: units(2), marginBottom: units(2) }}>
+          <StyledMdCardTitle title={<FormattedMessage id="teamMembersComponent.mainHeading" defaultMessage="Members" />} />
           <FlexRow>
-            <StyledMdCardTitle title={<FormattedMessage id="teamMembersComponent.mainHeading" defaultMessage="Members" />} />
             <Can permissions={team.permissions} permission="update Team">
               <RaisedButton
-                style={{ marginLeft: 'auto', marginRight: units(2) }}
+                style={{ marginLeft: 'auto', marginRight: units(1) }}
                 onClick={this.handleEditMembers.bind(this)}
                 className="team-members__edit-button"
                 icon={<MdCreate className="team-members__edit-icon" />}
@@ -95,6 +108,9 @@ class TeamMembersComponent extends Component {
                   />
                   : <FormattedMessage id="teamMembersComponent.editButton" defaultMessage="Edit" />}
               />
+            </Can>
+            <Can permissions={team.permissions} permission="invite Members">
+              <TeamInviteMembers team={team} />
             </Can>
           </FlexRow>
           <LoadMore

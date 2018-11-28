@@ -11,20 +11,26 @@ class UpdateProjectMutation extends Relay.Mutation {
     return Relay.QL`
       fragment on UpdateProjectPayload {
         project {
-          id,
-          title,
+          id
+          title
           description
+          assignments_count
+          assigned_users
         }
       }
     `;
   }
 
   getVariables() {
-    return {
-      title: this.props.title,
-      description: this.props.description,
-      id: this.props.id,
-    };
+    const vars = { id: this.props.id };
+    if (this.props.title && this.props.description) {
+      vars.title = this.props.title;
+      vars.description = this.props.description;
+    }
+    if (this.props.assigned_to_ids !== undefined) {
+      vars.assigned_to_ids = this.props.assigned_to_ids;
+    }
+    return vars;
   }
 
   getConfigs() {

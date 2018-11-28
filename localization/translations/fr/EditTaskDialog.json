@@ -10,7 +10,7 @@
   "tasks.requiredCheckbox": "Requise",
   "tasks.requiredHelper": "Les éléments ne peuvent pas être marqués comme complétés tant qu'une de leurs tâches requises n'est encore résolue.",
   "tasks.showInProj": "Afficher les tâches dans",
-  "tasks.assign": "Assigner",
+  "tasks.assign": "Affecter",
   "tasks.cancelAdd": "Annuler",
   "tasks.add": "Sauvegarder"
 }

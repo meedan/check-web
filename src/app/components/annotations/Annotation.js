@@ -24,20 +24,20 @@ import MdImage from 'react-icons/lib/md/image';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import EmbedUpdate from './EmbedUpdate';
 import EmbedCreate from './EmbedCreate';
-import TaskUpdate, { shouldLogChange } from './TaskUpdate';
+import TaskUpdate from './TaskUpdate';
 import SourcePicture from '../source/SourcePicture';
 import MediaDetail from '../media/MediaDetail';
 import MediaUtil from '../media/MediaUtil';
 import ProfileLink from '../layout/ProfileLink';
+import ParsedText from '../ParsedText';
 import DeleteAnnotationMutation from '../../relay/mutations/DeleteAnnotationMutation';
 import DeleteVersionMutation from '../../relay/mutations/DeleteVersionMutation';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
 import UpdateTaskMutation from '../../relay/mutations/UpdateTaskMutation';
+import DatetimeTaskResponse from '../task/DatetimeTaskResponse';
 import Can, { can } from '../Can';
 import TimeBefore from '../TimeBefore';
-import { safelyParseJSON, getStatus, getStatusStyle } from '../../helpers';
-import ParsedText from '../ParsedText';
-import DatetimeTaskResponse from '../task/DatetimeTaskResponse';
+import { safelyParseJSON, getStatus, getStatusStyle, emojify } from '../../helpers';
 import UserTooltip from '../user/UserTooltip';
 import { mapGlobalMessage } from '../MappedMessage';
 import {
@@ -366,6 +366,36 @@ class Annotation extends Component {
     );
   }
 
+  static renderTaskResponse(type, object) {
+    if (type === 'multiple_choice') {
+      const response = JSON.parse(object.value);
+      const selected = response.selected || [];
+      if (response.other) {
+        selected.push(response.other);
+      }
+      return <ul>{selected.map(s => <li><ParsedText text={s} /></li>)}</ul>;
+    } else if (type === 'geolocation') {
+      const geojson = JSON.parse(object.value);
+      const { geometry: { coordinates }, properties: { name } } = geojson;
+      if (!coordinates[0] || !coordinates[1]) {
+        return (
+          <a
+            style={{ textDecoration: 'underline' }}
+            href={`http://www.openstreetmap.org/?mlat=${coordinates[0]}&mlon=${coordinates[1]}&zoom=12#map=12/${coordinates[0]}/${coordinates[1]}`}
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            <ParsedText text={name} block />
+          </a>
+        );
+      }
+      return <ParsedText text={name} block />;
+    } else if (type === 'datetime') {
+      return <DatetimeTaskResponse response={object.value} />;
+    }
+    return <ParsedText text={object.value} block />;
+  }
+
   render() {
     const { annotation: activity, annotated, annotation: { annotation } } = this.props;
     const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
@@ -463,7 +493,10 @@ class Annotation extends Component {
             <FormattedMessage
               id="annotation.taggedHeader"
               defaultMessage="Tagged #{tag} by {author}"
-              values={{ tag: activity.tag.tag_text.replace(/^#/, ''), author: authorName }}
+              values={{
+                tag: activity.tag.tag_text.replace(/^#/, ''),
+                author: authorName,
+              }}
             />
           </span>
         );
@@ -474,10 +507,10 @@ class Annotation extends Component {
         <em className="annotation__deleted">
           <FormattedMessage
             id="annotation.deletedComment"
-            defaultMessage='Comment deleted by {author}: "{comment}"'
+            defaultMessage="Comment deleted by {author}{comment}"
             values={{
               author: authorName,
-              comment: content.text,
+              comment: <ParsedText text={content.text} block />,
             }}
           />
         </em>);
@@ -487,8 +520,11 @@ class Annotation extends Component {
         <span>
           <FormattedMessage
             id="annotation.taskCreated"
-            defaultMessage='Task "{task}" created by {author}'
-            values={{ task: content.label, author: authorName }}
+            defaultMessage="Task created by {author}: {task}"
+            values={{
+              task: content.label,
+              author: authorName,
+            }}
           />
         </span>
       );
@@ -497,15 +533,13 @@ class Annotation extends Component {
       const meta = JSON.parse(activity.meta);
       if (meta) {
         const { target } = meta;
-        const targetUrl = target.url.replace(/https?:\/\/[^/]+/, '');
         contentTemplate = (
           <span>
             <FormattedMessage
               id="annotation.relationshipCreated"
-              defaultMessage='Related {type} "{title}" added by {author}'
+              defaultMessage="Related item added by {author}: {title}"
               values={{
-                type: meta.target.type,
-                title: <Link to={targetUrl}>{target.title}</Link>,
+                title: emojify(target.title),
                 author: authorName,
               }}
             />
@@ -522,10 +556,9 @@ class Annotation extends Component {
           <span>
             <FormattedMessage
               id="annotation.relationshipDeleted"
-              defaultMessage='Related {type} "{title}" deleted by {author}'
+              defaultMessage="Related item removed by {author}: {title}"
               values={{
-                type: meta.target.type,
-                title: target.title,
+                title: emojify(target.title),
                 author: authorName,
               }}
             />
@@ -548,7 +581,7 @@ class Annotation extends Component {
             <span>
               <FormattedMessage
                 id="annotation.taskAssignmentCreated"
-                defaultMessage='Task "{title}" assigned to {name} by {author}'
+                defaultMessage="Task assigned to {name} by {author}: {title}"
                 values={values}
               />
             </span>
@@ -559,7 +592,7 @@ class Annotation extends Component {
             <span>
               <FormattedMessage
                 id="annotation.mediaAssignmentCreated"
-                defaultMessage="Assigned to {name} by {author}"
+                defaultMessage="Item assigned to {name} by {author}"
                 values={values}
               />
             </span>
@@ -582,7 +615,7 @@ class Annotation extends Component {
             <span>
               <FormattedMessage
                 id="annotation.taskAssignmentDeleted"
-                defaultMessage='Task "{title}" unassigned from {name} by {author}'
+                defaultMessage="Task unassigned from {name} by {author}: {title}"
                 values={values}
               />
             </span>
@@ -593,7 +626,7 @@ class Annotation extends Component {
             <span>
               <FormattedMessage
                 id="annotation.mediaAssignmentDeleted"
-                defaultMessage="Unassigned from {name} by {author}"
+                defaultMessage="Item unassigned from {name} by {author}"
                 values={values}
               />
             </span>
@@ -611,7 +644,7 @@ class Annotation extends Component {
             contentTemplate = (
               <FormattedMessage
                 id="annotation.statusLocked"
-                defaultMessage="Status locked by {author}"
+                defaultMessage="Item status locked by {author}"
                 values={{ author: authorName }}
               />
             );
@@ -619,7 +652,7 @@ class Annotation extends Component {
             contentTemplate = (
               <FormattedMessage
                 id="annotation.statusUnlocked"
-                defaultMessage="Status unlocked by {author}"
+                defaultMessage="Item status unlocked by {author}"
                 values={{ author: authorName }}
               />
             );
@@ -630,16 +663,22 @@ class Annotation extends Component {
             contentTemplate = (
               <FormattedMessage
                 id="annotation.mediaAssigned"
-                defaultMessage="Assigned to {name} by {author}"
-                values={{ name: assignment.assigned_to_name, author: authorName }}
+                defaultMessage="Item assigned to {name} by {author}"
+                values={{
+                  name: assignment.assigned_to_name,
+                  author: authorName,
+                }}
               />
             );
           } else {
             contentTemplate = (
               <FormattedMessage
                 id="annotation.mediaUnassigned"
-                defaultMessage="Unassigned from {name} by {author}"
-                values={{ name: assignment.assigned_from_name, author: authorName }}
+                defaultMessage="Item unassigned from {name} by {author}"
+                values={{
+                  name: assignment.assigned_from_name,
+                  author: authorName,
+                }}
               />
             );
           }
@@ -783,48 +822,15 @@ class Annotation extends Component {
       }
 
       if (/^response_/.test(object.field_name) && activity.task) {
-        const format_response = (type) => {
-          if (type === 'multiple_choice') {
-            const response_obj = JSON.parse(object.value);
-            const selected_array = response_obj.selected || [];
-            if (response_obj.other) {
-              selected_array.push(response_obj.other);
-            }
-            const last_item = selected_array.length > 1
-              ? ` ${this.props.intl.formatMessage(messages.and)} ${selected_array.splice(-1, 1)}`
-              : '';
-            return selected_array.join(', ') + last_item;
-          } else if (type === 'geolocation') {
-            const geojson = JSON.parse(object.value);
-            const { geometry: { coordinates }, properties: { name } } = geojson;
-            if (!coordinates[0] || !coordinates[1]) {
-              return (
-                <a
-                  style={{ textDecoration: 'underline' }}
-                  href={`http://www.openstreetmap.org/?mlat=${coordinates[0]}&mlon=${coordinates[1]}&zoom=12#map=12/${coordinates[0]}/${coordinates[1]}`}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                >
-                  {name}
-                </a>
-              );
-            }
-
-            return name;
-          } else if (type === 'datetime') {
-            return <DatetimeTaskResponse response={object.value} />;
-          }
-          return <ParsedText text={object.value} />;
-        };
         contentTemplate = (
-          <span className="// annotation__task-resolved">
+          <span className="annotation__task-resolved">
             <FormattedMessage
               id="annotation.taskResolve"
-              defaultMessage='Task "{task}" answered by {author}: "{response}"'
+              defaultMessage="Task answered by {author}: {task}{response}"
               values={{
                 task: activity.task.label,
                 author: authorName,
-                response: format_response(activity.task.type),
+                response: Annotation.renderTaskResponse(activity.task.type, object),
               }}
             />
           </span>
@@ -861,11 +867,11 @@ class Annotation extends Component {
           <span className="annotation__translation-text">
             <FormattedMessage
               id="annotation.translation"
-              defaultMessage='Translated to {language} by {author}: "{translation}"'
+              defaultMessage="Translated to {language} by {author}{translation}"
               values={{
                 language,
                 author: authorName,
-                translation: <ParsedText text={object.value} />,
+                translation: <ParsedText text={object.value} block />,
               }}
             />
           </span>
@@ -898,8 +904,11 @@ class Annotation extends Component {
                   <li className="mt__list-item">
                     <FormattedMessage
                       id="annotation.machineTranslation"
-                      defaultMessage='Machine translation for "{lang}" is: {text}'
-                      values={{ lang: mt.lang_name, text: mt.text }}
+                      defaultMessage="Machine translated to {language}{text}"
+                      values={{
+                        language: mt.lang_name,
+                        text: <ParsedText text={mt.text} block />,
+                      }}
                     />
                   </li>))}
               </ul>
@@ -1166,12 +1175,12 @@ class Annotation extends Component {
               values={{
                 previousProject: (
                   <Link to={urlPrefix + previousProject.dbid}>
-                    <span>{previousProject.title}</span>
+                    {previousProject.title}
                   </Link>
                 ),
                 currentProject: (
                   <Link to={urlPrefix + currentProject.dbid}>
-                    <span>{currentProject.title}</span>
+                    {currentProject.title}
                   </Link>
                 ),
                 author: authorName,
@@ -1219,12 +1228,12 @@ class Annotation extends Component {
               values={{
                 previousProject: (
                   <Link to={previousProjectUrl + previousTeam.dbid}>
-                    <span>{previousProject.title}</span>
+                    {previousProject.title}
                   </Link>
                 ),
                 previousTeam: (
                   <Link to={previousTeamUrl}>
-                    <span>{previousTeam.name}</span>
+                    {previousTeam.name}
                   </Link>
                 ),
                 author: authorName,
@@ -1235,8 +1244,7 @@ class Annotation extends Component {
       }
       break;
     case 'update_task':
-      contentTemplate = shouldLogChange(activity) ?
-        <TaskUpdate activity={activity} authorName={authorName} /> : null;
+      contentTemplate = <TaskUpdate activity={activity} authorName={authorName} />;
       break;
     default:
       contentTemplate = null;

@@ -1,4 +1,5 @@
 {
-  "userAssignments.blank": "بدون أي تحديثات",
-  "userAssignments.inProject": "في مشروع {link}"
+  "userAssignments.filterByTeam": "تصفية الفرق",
+  "userAssignments.progress": "تمت إجابة {answered} من {total} مهام مطلوبة",
+  "userAssignments.blank": "بدون أنشطة"
 }

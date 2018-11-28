@@ -81,7 +81,9 @@ class JoinTeamComponent extends Component {
       const { createTeamUser: { team_user: { status } } } = response;
       const message = status === 'member' ? messages.autoApprove : messages.success;
       this.setState({
-        message: this.props.intl.formatMessage(message, { team: this.props.team.name, appName }),
+        message: this.props.intl.formatMessage(message, {
+          team: this.props.team.name, appName,
+        }),
         requestStatus: status,
       });
     };

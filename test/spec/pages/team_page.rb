@@ -10,7 +10,7 @@ class TeamPage < Page
   end
 
   def project_titles
-    elements('.team__project').map(&:text)
+    elements('.team__project-title').map(&:text)
   end
 
   def fill_field(selector, value, type = :css, visible = true)

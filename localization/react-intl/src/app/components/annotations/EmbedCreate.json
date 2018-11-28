@@ -1,14 +1,14 @@
 [
   {
     "id": "annotation.newReport",
-    "defaultMessage": "New {reportType} added by {author}"
+    "defaultMessage": "Item added by {author}"
   },
   {
     "id": "annotation.titleChanged",
-    "defaultMessage": "Title changed to \"{title}\" by {author}"
+    "defaultMessage": "Item title edited by {author}: {title}"
   },
   {
     "id": "annotation.embedNoteCreated",
-    "defaultMessage": "Description \"{note}\" was added by {author}"
+    "defaultMessage": "Item description added by {author}{description}"
   }
 ]

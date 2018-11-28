@@ -97,9 +97,10 @@ class UserMenu extends React.Component {
           >
             <MenuItem
               containerElement={<Link to="/check/me" />}
+              style={{ maxWidth: '350px', whiteSpace: 'normal' }}
             >
               <div>
-                {user && user.name}
+                {user ? user.name : null}
                 {localizedRoleText}
               </div>
             </MenuItem>

@@ -1,30 +1,38 @@
 [
   {
     "id": "annotation.taskLabelUpdated",
-    "defaultMessage": "Task \"{from}\" edited to \"{to}\" by {author}"
+    "defaultMessage": "Task edited by {author}: {title}"
   },
   {
     "id": "annotation.taskNoteUpdated",
-    "defaultMessage": "Task \"{title}\" has note edited from \"{from}\" to \"{to}\" by {author}"
+    "defaultMessage": "Task note edited by {author}: {title}{note}"
   },
   {
     "id": "annotation.taskNoteCreated",
-    "defaultMessage": "Task \"{title}\" has new note \"{note}\" by {author}"
+    "defaultMessage": "Task note added by {author}: {title}{note}"
   },
   {
     "id": "annotation.assignmentChanged",
-    "defaultMessage": "Task \"{title}\" assigned to \"{assigneeTo}\" by {author}"
+    "defaultMessage": "Task assigned to {assigneeTo} by {author}: {title}"
   },
   {
     "id": "annotation.assignmentRemoved",
-    "defaultMessage": "Task \"{title}\" unassigned from \"{assigneeFrom}\" by {author}"
+    "defaultMessage": "Task unassigned from {assigneeFrom} by {author}: {title}"
   },
   {
     "id": "annotation.addedComment",
-    "defaultMessage": "{author} added a note to the task \"{title}\": \"{comment}\""
+    "defaultMessage": "Task note added by {author}: {title}{note}"
   },
   {
     "id": "annotation.removedComment",
-    "defaultMessage": "{author} deleted a note from the task \"{title}\": \"{comment}\""
+    "defaultMessage": "Task note deleted by {author}: {title}{note}"
+  },
+  {
+    "id": "annotation.nowRequired",
+    "defaultMessage": "Task marked as required by {author}: {title}"
+  },
+  {
+    "id": "annotation.nowNotRequired",
+    "defaultMessage": "Task marked as not required by {author}: {title}"
   }
 ]

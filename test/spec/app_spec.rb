@@ -67,6 +67,47 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     include_examples "custom"
 
+    it "should manage team members roles", bin4: true do
+      # setup
+      @user_mail = "test" +Time.now.to_i.to_s+rand(9999).to_s + @user_mail
+      @team1_slug = 'team1'+Time.now.to_i.to_s+rand(9999).to_s
+      user = api_register_and_login_with_email(email: @user_mail, password: @password)
+      team = request_api 'team', { name: 'Team 1', email: user.email, slug: @team1_slug }
+
+      #As a different user, request to join one team and be accepted.
+      user = api_register_and_login_with_email(email: "new"+@user_mail, password: @password)
+      page = MePage.new(config: @config, driver: @driver).load
+      page.ask_join_team(subdomain: @team1_slug)
+      @wait.until {
+        expect(@driver.find_element(:class, "message").nil?).to be(false)
+      }
+      api_logout
+      @driver.quit
+
+      @driver = new_driver(webdriver_url,browser_capabilities)
+      page = Page.new(config: @config, driver: @driver)
+      page.go(@config['api_path'] + '/test/session?email='+@user_mail)
+
+      #As the group creator, go to the members page and approve the joining request.
+      page = MePage.new(config: @config, driver: @driver).load
+      page.go(@config['self_url'] + '/check/me')
+      page.approve_join_team(subdomain: @team1_slug)
+      @wait.until {
+        elems = @driver.find_elements(:css => ".team-members__list > div")
+        expect(elems.size).to be > 1
+      }
+
+      #edit team member role
+      wait_for_selector('.team-members__edit-button', :css).click
+      wait_for_selector('.role-select', :css, 29, 1).click
+
+      wait_for_selector('li.role-journalist').click
+      wait_for_selector('.team-members__edit-button', :css).click
+
+      el = wait_for_selector('input[name="role-select"]', :css, 29, 1)
+      expect(el.value).to eq 'journalist'
+    end
+
     it "should add a comment to a task", bin5: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       wait_for_selector('.create-task__add-button')
@@ -194,7 +235,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Create a task
       expect(@driver.page_source.include?('When?')).to be(false)
-      expect(@driver.page_source.include?('Task "When?" created by')).to be(false)
+      expect(@driver.page_source.include?('Task created by')).to be(false)
       old = wait_for_selector_list("annotation__default-content",:class).length
       el = wait_for_selector('.create-task__add-button')
       el.click
@@ -207,10 +248,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       old = wait_for_size_change(old, "annotation__default-content", :class)
       expect(@driver.page_source.include?('When?')).to be(true)
-      expect(@driver.page_source.include?('Task "When?" created by')).to be(true)
+      expect(@driver.page_source.include?('Task created by')).to be(true)
 
       # Answer task
-      expect(@driver.page_source.include?('Task "When?" answered by')).to be(false)
+      expect(@driver.page_source.include?('Task answered by')).to be(false)
       fill_field('input[name="hour"]', '23')
       fill_field('input[name="minute"]', '59')
       el = wait_for_selector('#task__response-date')
@@ -221,10 +262,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el = wait_for_selector('.task__save')
       el.click
       old = wait_for_size_change(old, "annotation__default-content", :class)
-      expect(@driver.page_source.include?('Task "When?" answered by')).to be(true)
+      expect(@driver.page_source.include?('Task answered by')).to be(true)
 
       # Edit task
-      expect(@driver.page_source.include?('Task "When?" edited to "When was it?" by')).to be(false)
+      expect(@driver.page_source.include?('When was it?')).to be(false)
       el = wait_for_selector('.task-actions > button')
       el.click
       el = wait_for_selector(".task-actions__edit")
@@ -236,7 +277,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el = wait_for_selector('.task__save')
       el.click
       old = wait_for_size_change(old, "annotation__default-content", :class)
-      expect(@driver.page_source.include?('Task "When?" edited to "When was it?" by')).to be(true)
+      expect(@driver.page_source.include?('When was it?')).to be(true)
 
       # Edit task response
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('12:34')).to be(false)
@@ -452,9 +493,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       expect(project_pg.driver.current_url.to_s.match(/\/project\/[0-9]+$/).nil?).to be(false)
       team_pg = project_pg.click_team_link
-      sleep 10
-      element = @driver.find_element(:partial_link_text, project_name)
-      expect(element.displayed?).to be(true)
+      sleep 5
+      element = wait_for_selector('.team__project-title')
+      expect(element.text == project_name).to be(true)
     end
 
     it "should create project media", bin1: true do
@@ -1382,7 +1423,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Create a task
       expect(@driver.page_source.include?('Foo or bar?')).to be(false)
-      expect(@driver.page_source.include?('Task "Foo or bar?" created by')).to be(false)
+      expect(@driver.page_source.include?('Task created by User With Email: Foo or bar?')).to be(false)
 
       el = wait_for_selector('.create-task__add-button', :css)
       el.click
@@ -1395,17 +1436,17 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       media_pg.wait_all_elements(2, "annotations__list-item", :class) #Wait for refresh page
       expect(@driver.page_source.include?('Foo or bar?')).to be(true)
-      expect(@driver.page_source.include?('Task "Foo or bar?" created by')).to be(true)
+      expect(@driver.page_source.include?('Task created by')).to be(true)
 
       # Answer task
-      expect(@driver.page_source.include?('Task "Foo or bar?" answered by')).to be(false)
+      expect(@driver.page_source.include?('Task answered by')).to be(false)
       fill_field('textarea[name="response"]', 'Foo')
       @driver.find_element(:css, '.task__save').click
       media_pg.wait_all_elements(4, "annotations__list-item", :class)
-      expect(@driver.page_source.include?('Task "Foo or bar?" answered by')).to be(true)
+      expect(@driver.page_source.include?('Task answered by')).to be(true)
 
       # Edit task
-      expect(@driver.page_source.include?('Task "Foo or bar?" edited to "Foo or bar???" by')).to be(false)
+      expect(@driver.page_source.include?('Foo or bar???')).to be(false)
       el = wait_for_selector('.task-actions > button', :css)
       el.click
       media_pg.wait_all_elements(6, "annotations__list-item", :class)
@@ -1419,10 +1460,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       editbutton.click
       media_pg.wait_all_elements(8, "annotations__list-item", :class)
       sleep 10
-      expect(@driver.page_source.include?('Task "Foo or bar?" edited to "Foo or bar???" by')).to be(true)
+      expect(@driver.page_source.include?('Foo or bar???')).to be(true)
 
       # Edit task answer
-      expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo or bar???" answered by User With Email: "Foo edited"')).to be(false)
+      expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Foo edited')).to be(false)
       sleep 5
       el = wait_for_selector('.task-actions > button', :css).click
 
@@ -1437,7 +1478,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.find_element(:css, '.task__save').click
       media_pg.wait_all_elements(9, 'annotations__list-item', :class)
       sleep 5
-      expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo or bar???" answered by User With Email: "Foo edited"')).to be(true)
+      expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Foo edited')).to be(true)
 
       # Delete task
       delete_task('Foo')
@@ -1448,7 +1489,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.create-task__add-button')
       # Create a task
       expect(@driver.page_source.include?('Foo or bar?')).to be(false)
-      expect(@driver.page_source.include?('Task "Foo or bar?" created by')).to be(false)
+      expect(@driver.page_source.include?('Task created by')).to be(false)
       el = wait_for_selector('.create-task__add-button', :css)
       el.click
       sleep 5
@@ -1463,17 +1504,17 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       media_pg.wait_all_elements(2, "annotations__list-item", :class) #Wait for refresh page
       expect(@driver.page_source.include?('Foo or bar?')).to be(true)
-      expect(@driver.page_source.include?('Task "Foo or bar?" created by')).to be(true)
+      expect(@driver.page_source.include?('Task created by')).to be(true)
       # Answer task
-      expect(@driver.page_source.include?('Task "Foo or bar?" answered by')).to be(false)
+      expect(@driver.page_source.include?('Task answered by')).to be(false)
       el = wait_for_selector('0', :id)
       el.click
       el = wait_for_selector('task__submit', :class)
       el.click
       media_pg.wait_all_elements(4, "annotations__list-item", :class)
-      expect(@driver.page_source.include?('Task "Foo or bar?" answered by')).to be(true)
+      expect(@driver.page_source.include?('Task answered by')).to be(true)
       # Edit task
-      expect(@driver.page_source.include?('Task "Foo or bar?" edited to "Foo or bar???" by')).to be(false)
+      expect(@driver.page_source.include?('Task edited by')).to be(false)
       el = wait_for_selector('.task-actions > button', :css)
       el.click
       media_pg.wait_all_elements(6, "annotations__list-item", :class)
@@ -1486,9 +1527,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       editbutton.click
       media_pg.wait_all_elements(9, "annotations__list-item", :class)
       sleep 10
-      expect(@driver.page_source.include?('Task "Foo or bar?" edited to "Foo or bar???" by')).to be(true)
+      expect(@driver.page_source.include?('Task edited by')).to be(true)
       # Edit task answer
-      expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo or bar???" answered by User With Email: "Foo edited"')).to be(false)
       sleep 5
       el = wait_for_selector('.task-actions > button', :css).click
       el = wait_for_selector('.task-actions__edit-response', :css)
@@ -1498,7 +1538,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el = wait_for_selector('task__submit', :class)
       el.click
       media_pg.wait_all_elements(10, "annotations__list-item", :class) #Wait for refresh page
-      expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo or bar???" answered by User With Email: "Bar"')).to be(true)
       # Delete task
       delete_task('Foo')
     end
@@ -1508,7 +1547,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.create-task__add-button')
       # Create a task
       expect(@driver.page_source.include?('Foo, Doo or bar?')).to be(false)
-      expect(@driver.page_source.include?('Task "Foo, Doo or bar?" created by')).to be(false)
+      expect(@driver.page_source.include?('Task created by')).to be(false)
       el = wait_for_selector('.create-task__add-button', :css)
       el.click
       sleep 5
@@ -1528,9 +1567,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       media_pg.wait_all_elements(2, "annotations__list-item", :class)
       expect(@driver.page_source.include?('Foo, Doo or bar?')).to be(true)
-      expect(@driver.page_source.include?('Task "Foo, Doo or bar?" created by')).to be(true)
+      expect(@driver.page_source.include?('Task created by')).to be(true)
       # Answer task
-      expect(@driver.page_source.include?('Task "Foo, Doo or bar?" answered by')).to be(false)
+      expect(@driver.page_source.include?('Task answered by')).to be(false)
       el = wait_for_selector('Foo', :id)
       el.click
       el = wait_for_selector('Doo', :id)
@@ -1538,9 +1577,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el = wait_for_selector('task__submit', :class)
       el.click
       media_pg.wait_all_elements(4, "annotations__list-item", :class)
-      expect(@driver.page_source.include?('Task "Foo, Doo or bar?" answered by')).to be(true)
+      expect(@driver.page_source.include?('Task answered by')).to be(true)
       # Edit task
-      expect(@driver.page_source.include?('Task "Foo, Doo or bar?" edited to "Foo or bar???" by')).to be(false)
+      expect(@driver.page_source.include?('Task edited by')).to be(false)
       el = wait_for_selector('.task-actions > button', :css)
       el.click
       media_pg.wait_all_elements(7, "annotations__list-item", :class)
@@ -1553,9 +1592,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       editbutton.click
       media_pg.wait_all_elements(8, "annotations__list-item", :class)
       sleep 10
-      expect(@driver.page_source.include?('Task "Foo, Doo or bar?" edited to "Foo, Doo or bar???" by')).to be(true)
+      expect(@driver.page_source.include?('Task edited by')).to be(true)
       # Edit task answer
-      expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo, Doo or bar???" answered by User With Email: "Foo and Boo"')).to be(false)
+      expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('BooYaTribe')).to be(false)
       sleep 5
       el = wait_for_selector('.task-actions > button', :css).click
       el = wait_for_selector('.task-actions__edit-response', :css)
@@ -1564,11 +1603,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       el = wait_for_selector('.task__option_other_text_input')
       el.click
-      fill_field('textarea[name="response"]', 'Boo')
+      fill_field('textarea[name="response"]', 'BooYaTribe')
       el = wait_for_selector('task__submit', :class)
       el.click
       media_pg.wait_all_elements(10, "annotations__list-item", :class) #Wait for refresh page
-      expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo, Doo or bar???" answered by User With Email: "Foo and Boo"')).to be(true)
+      expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('BooYaTribe')).to be(true)
       # Delete task
       delete_task('Foo')
     end
@@ -1609,13 +1648,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 1
       @driver.find_element(:css, '.media-actions__lock-status').click
       sleep 10 #Needs to wait the refresh
-      expect(@driver.page_source.include?('Status locked by')).to be(true)
+      expect(@driver.page_source.include?('Item status locked by')).to be(true)
       el = wait_for_selector('.media-actions__icon')
       el.click
       sleep 1
       @driver.find_element(:css, '.media-actions__lock-status').click
       sleep 10 #Needs to wait the refresh
-      expect(@driver.page_source.include?('Status unlocked by')).to be(true)
+      expect(@driver.page_source.include?('Item status unlocked by')).to be(true)
     end
 
     it "should search by project", bin2: true do
@@ -1787,7 +1826,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Create a task
       old = @driver.find_elements(:class, "annotations__list-item").length
       expect(@driver.page_source.include?('Where?')).to be(false)
-      expect(@driver.page_source.include?('Task "Where?" created by')).to be(false)
+      expect(@driver.page_source.include?('Task created by')).to be(false)
       el = wait_for_selector('.create-task__add-button')
       el.click
       sleep 5
@@ -1799,20 +1838,20 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       old = wait_for_size_change(old, "annotations__list-item", :class)
       expect(@driver.page_source.include?('Where?')).to be(true)
-      expect(@driver.page_source.include?('Task "Where?" created by')).to be(true)
+      expect(@driver.page_source.include?('Task created by')).to be(true)
 
       # Answer task
-      expect(@driver.page_source.include?('Task "Where?" answered by')).to be(false)
+      expect(@driver.page_source.include?('Task answered by')).to be(false)
       fill_field('textarea[name="response"]', 'Salvador')
       fill_field('#task__response-geolocation-coordinates', '-12.9015866, -38.560239')
       el = wait_for_selector('.task__save')
       el.click
       wait_for_selector('.annotation--task_response_geolocation')
       old = wait_for_size_change(old, "annotations__list-item", :class)
-      expect(@driver.page_source.include?('Task "Where?" answered by')).to be(true)
+      expect(@driver.page_source.include?('Task answered by')).to be(true)
 
       # Edit task
-      expect(@driver.page_source.include?('Task "Where?" edited to "Where was it?" by')).to be(false)
+      expect(@driver.page_source.include?('Where was it?')).to be(false)
       el = wait_for_selector('.task-actions > button')
       el.click
       sleep 1
@@ -1823,10 +1862,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el = wait_for_selector( '.task__save')
       el.click
       old = wait_for_size_change(old, "annotations__list-item", :class)
-      expect(@driver.page_source.include?('Task "Where?" edited to "Where was it?" by')).to be(true)
+      expect(@driver.page_source.include?('Where was it?')).to be(true)
 
       # Edit task answer
-      expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Where was it?" answered by User With Email: "Vancouver"')).to be(false)
+      expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Vancouver')).to be(false)
       el = wait_for_selector('.task-actions > button')
       el.click
       sleep 1
@@ -1838,7 +1877,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el = wait_for_selector('.task__save')
       el.click
       old = wait_for_size_change(old, "annotations__list-item", :class)
-      expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Where was it?" answered by User With Email: "Vancouver"')).to be(true)
+      expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Vancouver')).to be(true)
 
       # Delete task
       delete_task('Where was it')
@@ -1965,7 +2004,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 3
       link = wait_for_selector_list('.teams a').first
       link.click
-      link = wait_for_selector('.projects a')
+      link = wait_for_selector('.team__project-title')
       sleep 2
       link.click
       sleep 5
@@ -2099,6 +2138,23 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.switch_to.alert.accept ; sleep 5
       expect(@driver.page_source.include?('No bots installed')).to be(true)
       expect(@driver.page_source.include?('Testing Bot')).to be(false)
+    end
+
+    it "should assign project", bin3: true do
+      user = api_register_and_login_with_email
+      api_create_team_and_project(user: user)
+      @driver.navigate.to(@config['self_url'] + '/check/me')
+      wait_for_selector('#teams-tab').click
+      wait_for_selector('.teams a').click
+      wait_for_selector('.team__project-title')
+      expect(@driver.page_source.include?('Not assigned to any member')).to be(true)
+      expect(@driver.page_source.include?('Assigned to one member')).to be(false)
+      ['.team__project button', '.project__assignment-button', '.project__assignment-menu input[type=checkbox]', '.multi__selector-save'].each do |selector|
+        wait_for_selector(selector).click
+      end
+      sleep 10
+      expect(@driver.page_source.include?('Not assigned to any member')).to be(false)
+      expect(@driver.page_source.include?('Assigned to one member')).to be(true)
     end
 
     # Postponed due Alexandre's developement

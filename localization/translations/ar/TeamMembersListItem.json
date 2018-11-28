@@ -1,9 +1,5 @@
 {
-  "TeamMembersListItem.annotator": "مُفَسِّر",
-  "TeamMembersListItem.contributor": "مشارك",
-  "TeamMembersListItem.journalist": "صحفي",
-  "TeamMembersListItem.editor": "محرر",
-  "TeamMembersListItem.owner": "مدير",
+  "teamMembersListItem.assignmentsProgress": "{completedCount} مكتملة ، {inProgressCount} قيد التقدم ، {unstartedCount} لم تبدأ بعد",
   "TeamMembershipRequestsListItem.approve": "موافقة",
   "TeamMembershipRequestsListItem.deny": "رفض",
   "TeamMembersListItem.deleteMember": "حذف العضو"

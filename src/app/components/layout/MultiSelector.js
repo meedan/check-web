@@ -5,8 +5,10 @@ import TextField from '@material-ui/core/TextField';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import Radio from '@material-ui/core/Radio';
 import styled from 'styled-components';
 import { units, opaqueBlack02, opaqueBlack05, black54 } from '../../styles/js/shared';
+import { emojify } from '../../helpers';
 
 const messages = defineMessages({
   search: {
@@ -42,8 +44,9 @@ const StyledNotFound = styled.div`
 class MultiSelector extends React.Component {
   constructor(props) {
     super(props);
+    const defaultSelected = props.single ? null : [];
     this.state = {
-      selected: props.selected ? props.selected : [],
+      selected: props.selected ? props.selected : defaultSelected,
       filter: '',
     };
   }
@@ -58,6 +61,16 @@ class MultiSelector extends React.Component {
     } else {
       this.removeItem(e.target.id);
     }
+  };
+
+  handleSelectRadio = (e, inputChecked) => {
+    let selected = null;
+    if (inputChecked) {
+      selected = e.target.id;
+    } else {
+      selected = null;
+    }
+    this.setState({ selected });
   };
 
   handleSelectAll = () => {
@@ -100,7 +113,7 @@ class MultiSelector extends React.Component {
     } = this.props;
 
     const { formatMessage } = this.props.intl;
-    const options = this.filter(this.props.options);
+    const options = this.filter(this.props.options).map(emojify);
 
     return (
       <div>
@@ -114,27 +127,37 @@ class MultiSelector extends React.Component {
           </div>
           : null
         }
-        <div style={{ padding: units(2) }}>
-          { this.props.allowSelectAll ?
-            <Button color="primary" onClick={this.handleSelectAll}>
-              <FormattedMessage id="multiSelector.all" defaultMessage="Select all" />
-            </Button>
-            : null
-          }
-          { this.props.allowUnselectAll ?
-            <Button color="primary" onClick={this.handleUnselectAll}>
-              <FormattedMessage id="multiSelector.none" defaultMessage="Unselect all" />
-            </Button>
-            : null
-          }
-        </div>
+        { (this.props.allowSelectAll || this.props.allowUnselectAll) ?
+          <div style={{ padding: units(2) }}>
+            { this.props.allowSelectAll ?
+              <Button color="primary" onClick={this.handleSelectAll}>
+                <FormattedMessage id="multiSelector.all" defaultMessage="Select all" />
+              </Button>
+              : null
+            }
+            { this.props.allowUnselectAll ?
+              <Button color="primary" onClick={this.handleUnselectAll}>
+                <FormattedMessage id="multiSelector.none" defaultMessage="Unselect all" />
+              </Button>
+              : null
+            }
+          </div>
+          : null
+        }
         <StyledMultiSelectorArea>
           <FormGroup>
             {
               options.map((o, index) => (
                 <FormControlLabel
                   key={`multiselector-option-${index.toString()}`}
-                  control={
+                  control={this.props.single ?
+                    <Radio
+                      checked={this.state.selected === o.value}
+                      onChange={this.handleSelectRadio}
+                      id={o.value}
+                      icon={o.icon}
+                      checkedIcon={o.checkedIcon}
+                    /> :
                     <Checkbox
                       checked={this.state.selected.indexOf(o.value) > -1}
                       onChange={this.handleSelectCheckbox}
@@ -162,7 +185,7 @@ class MultiSelector extends React.Component {
               : <FormattedMessage id="multiSelector.cancel" defaultMessage="Cancel" />
             }
           </Button>
-          <Button color="primary" onClick={() => onSubmit(this.state.selected)}>
+          <Button className="multi__selector-save" color="primary" onClick={() => onSubmit(this.state.selected)}>
             { this.props.submitLabel ?
               this.props.submitLabel
               : <FormattedMessage id="multiSelector.save" defaultMessage="Save" />

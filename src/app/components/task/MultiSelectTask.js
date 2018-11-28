@@ -3,6 +3,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FlatButton from 'material-ui/FlatButton';
 import { FormattedMessage } from 'react-intl';
+import ParsedText from '../ParsedText';
 import { safelyParseJSON } from '../../helpers';
 import { StyledSmallTextField, StyledCheckboxNext } from '../../styles/js/shared';
 
@@ -188,7 +189,9 @@ class MultiSelectTask extends Component {
                     disabled={!editable}
                   />
                 }
-                label={item.label}
+                label={
+                  <ParsedText text={item.label} />
+                }
               />
             ))}
 
@@ -207,7 +210,7 @@ class MultiSelectTask extends Component {
                         disabled={!editable}
                       />
                     }
-                    label={
+                    label={editable ?
                       <StyledSmallTextField
                         key="task__option_other_text_input"
                         className="task__option_other_text_input"
@@ -216,9 +219,9 @@ class MultiSelectTask extends Component {
                         name="response"
                         onKeyPress={keyPressCallback}
                         onChange={this.handleEditOther.bind(this)}
-                        disabled={!editable}
                         multiLine
-                      />
+                      /> :
+                      <ParsedText text={responseOther} />
                     }
                   />
                 </div>

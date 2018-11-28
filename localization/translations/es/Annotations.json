@@ -1,5 +1,4 @@
 {
-  "mediaComponent.verificationTimeline": "Historial de verificación",
-  "bridge.mediaComponent.verificationTimeline": "Línea de tiempo de traducción ",
-  "annotation.noAnnotationsYet": "Aún no hay anotaciones "
+  "annotation.timelineTitle": "Escala de tiempo de actividad",
+  "annotation.noAnnotationsYet": "No hay actividades "
 }

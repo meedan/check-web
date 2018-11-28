@@ -15,11 +15,11 @@
   "mediaDetail.cancel": "Annuler",
   "mediaDetail.deleteForever": "Supprimer définitivement",
   "mediaDetail.addedBy": "Rajouté {byUser}",
-  "mediaDetail.assignedTo": "Assigné.e à {name}",
+  "mediaDetail.assignedTo": "Affecté à {name}",
   "mediaDetail.dialogHeader": "Transférer ce(tte) {mediaType} à un projet différent",
   "mediaDetail.dialogMediaPath": "Actuellement classé dans {teamName} > {projectTitle}",
   "mediaDetail.deleteForeverConfirmationText": "Ceci supprimera {notesCount, plural, =0 {aucune note} one {une note} other {# notes}}. Tapez \"confirm\" si vous désirez continuer.",
   "mediaDetail.confirmationError": "No correspond pas",
   "mediaDetail.typeHere": "Tapez ici",
-  "mediaDetail.assignDialogHeader": "Mission"
+  "mediaDetail.assignDialogHeader": "Affectation"
 }

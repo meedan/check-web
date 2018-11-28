@@ -1,5 +1,9 @@
 [
   {
+    "id": "teamMembersComponent.pendingInvitations",
+    "defaultMessage": "Pending invitations"
+  },
+  {
     "id": "teamMembershipRequests.requestsToJoin",
     "defaultMessage": "Requests to join"
   },

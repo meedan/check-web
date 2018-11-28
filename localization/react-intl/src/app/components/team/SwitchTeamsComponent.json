@@ -12,20 +12,16 @@
     "defaultMessage": "You requested to join"
   },
   {
-    "id": "switchTeams.cancelJoinRequest",
-    "defaultMessage": "Cancel"
-  },
-  {
-    "id": "switchTeams.bannedJoinRequest",
-    "defaultMessage": "Cancelled"
-  },
-  {
     "id": "teams.yourTeams",
     "defaultMessage": "Your teams"
   },
   {
     "id": "teams.userTeams",
     "defaultMessage": "{name}'s teams"
+  },
+  {
+    "id": "switchTeams.cancelJoinRequest",
+    "defaultMessage": "Cancel"
   },
   {
     "id": "switchTeams.noTeams",

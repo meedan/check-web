@@ -1,0 +1,14 @@
+[
+  {
+    "id": "projectAssignment.processing",
+    "defaultMessage": "Done! The assignments are now propagating to items and tasks. You will receive an e-mail when it's ready."
+  },
+  {
+    "id": "projectAssignment.assignedTo",
+    "defaultMessage": "Assigned to"
+  },
+  {
+    "id": "projectAssignment.notAssigned",
+    "defaultMessage": "Not assigned"
+  }
+]
