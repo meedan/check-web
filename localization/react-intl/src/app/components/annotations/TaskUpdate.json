@@ -26,5 +26,13 @@
   {
     "id": "annotation.removedComment",
     "defaultMessage": "Task note deleted by {author}: {title}{note}"
+  },
+  {
+    "id": "annotation.nowRequired",
+    "defaultMessage": "{author} marked task as required: {title}"
+  },
+  {
+    "id": "annotation.nowNotRequired",
+    "defaultMessage": "{author} marked task as not required: {title}"
   }
 ]

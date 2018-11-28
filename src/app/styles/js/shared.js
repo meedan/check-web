@@ -552,3 +552,7 @@ export const StyledCheckboxNext = styled(CheckboxNext)`
     transform: scale(1,1) !important;
   }
 `;
+
+export const inProgressYellow = '#efac51';
+export const unstartedRed = '#f04747';
+export const completedGreen = '#5cae73';

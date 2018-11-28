@@ -1,5 +1,9 @@
 [
   {
+    "id": "teamMembersListItem.assignmentsProgress",
+    "defaultMessage": "{completedCount} completed, {inProgressCount} in progress, {unstartedCount} unstarted"
+  },
+  {
     "id": "TeamMembershipRequestsListItem.approve",
     "defaultMessage": "Approve"
   },
