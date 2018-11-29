@@ -1,5 +1,5 @@
 {
-  "teamInviteMembers.resendEmailSuccess": "Invitation was sent successfully",
-  "TeamMembersInvitedListItem.cancel": "Cancel invite",
-  "TeamMembersInvitedListItem.resend": "Resend"
+  "teamInviteMembers.resendEmailSuccess": "La invitación fue enviada con éxito. ",
+  "TeamMembersInvitedListItem.cancel": "Cancelar invitación",
+  "TeamMembersInvitedListItem.resend": "Reenviar"
 }
