@@ -29,6 +29,10 @@ const messages = defineMessages({
     id: 'UserPrivacy.typeHere',
     defaultMessage: 'Type here',
   },
+  confirmError: {
+    id: 'UserPrivacy.confirmError',
+    defaultMessage: 'You should type "confirm"',
+  },
 });
 
 class UserPrivacy extends Component {
@@ -99,7 +103,7 @@ class UserPrivacy extends Component {
 
     Relay.Store.commitUpdate(
       new DeleteCheckUserMutation({
-        id: user.id,
+        id: user.dbid,
       }),
       { onSuccess, onFailure },
     );
@@ -243,6 +247,7 @@ class UserPrivacy extends Component {
                   className="delete-account-confirm-input"
                   placeholder={this.props.intl.formatMessage(messages.typeHere)}
                   error={this.state.confirmationError}
+                  helperText={this.state.confirmationError ? this.props.intl.formatMessage(messages.confirmError) : ''}
                   margin="normal"
                 />
               </DialogContent>

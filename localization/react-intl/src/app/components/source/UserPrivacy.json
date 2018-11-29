@@ -8,6 +8,10 @@
     "defaultMessage": "Type here"
   },
   {
+    "id": "UserPrivacy.confirmError",
+    "defaultMessage": "You should type \"confirm\""
+  },
+  {
     "id": "userPrivacy.ppLink",
     "defaultMessage": "Privacy Policy"
   },
