@@ -5,8 +5,12 @@ import TeamTasksListItem from './TeamTasksListItem';
 import { units } from '../../styles/js/shared';
 
 const TeamTasksProject = props => props.project.teamTasks.length ? (
-  <div style={{ marginTop: units(2), marginBottom: units(2) }}>
-    <div style={{ paddingBottom: units(2) }}>{props.project.title}</div>
+  <div className="team-tasks-project" style={{ marginTop: units(2), marginBottom: units(2) }}>
+    {
+      props.project.title ?
+        <div style={{ paddingBottom: units(2) }}>{props.project.title}</div>
+        : null
+    }
     <div>
       <Card>
         <List>
