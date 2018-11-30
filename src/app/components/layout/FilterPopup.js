@@ -67,13 +67,16 @@ class FilterPopup extends React.Component {
                 defaultValue={this.props.search}
                 onChange={this.props.onSearchChange}
                 placeholder={formatMessage(messages.search)}
+                fullWidth
               />
               : null
             }
             {this.props.children}
-            <Button onClick={this.handleClose} style={{ marginTop: units(2) }}>
-              <FormattedMessage id="FilterPopup.close" defaultMessage="Done" />
-            </Button>
+            <div>
+              <Button onClick={this.handleClose} style={{ marginTop: units(2) }}>
+                <FormattedMessage id="FilterPopup.close" defaultMessage="Done" />
+              </Button>
+            </div>
           </StyledPaper>
         </Popper>
       </div>
