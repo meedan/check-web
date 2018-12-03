@@ -20,9 +20,6 @@ import {
   Row,
   FlexRow,
 } from '../../styles/js/shared';
-import {
-  StyledHelper,
-} from '../../styles/js/HeaderCard';
 
 const messages = defineMessages({
   inviteMembers: {
@@ -297,16 +294,13 @@ class TeamInviteMembers extends Component {
               rows={4}
               onChange={e => this.handleEmailChange(e, index)}
               value={member.email}
+              error={member.error.length > 0}
+              helperText={
+                member.error.map(errorItem => (
+                  ` "${errorItem.email}": ${this.renderError(errorItem)}`
+                ))
+              }
             />
-            {member.error.length === 0 ?
-              null :
-              <StyledHelper style={{ color: 'red' }}>
-                {
-                  member.error.map(errorItem => (
-                    ` "${errorItem.email}": ${this.renderError(errorItem)}`
-                  ))
-                }
-              </StyledHelper>}
           </div>
         ))
       );
@@ -323,6 +317,7 @@ class TeamInviteMembers extends Component {
                 onChange={e => this.handleEmailChange(e, index)}
                 value={member.email}
                 error={member.error.length > 0}
+                helperText={member.error.length === 0 ? null : this.renderError(member.error[0])}
                 margin="normal"
                 fullWidth
               />
@@ -346,11 +341,6 @@ class TeamInviteMembers extends Component {
                 </StyledIconButton>
               </Row>
             </Row>
-            {member.error.length === 0 ?
-              null :
-              <StyledHelper style={{ color: 'red' }}>
-                {this.renderError(member.error[0])}
-              </StyledHelper>}
           </div>
         ))
       );
