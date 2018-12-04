@@ -13,6 +13,8 @@ import ListItem from '@material-ui/core/ListItem';
 import MdCancel from 'react-icons/lib/md/cancel';
 import * as EmailValidator from 'email-validator';
 import RoleSelect from './RoleSelect';
+import UserUtil from '../user/UserUtil';
+import CheckContext from '../../CheckContext';
 import UserInvitationMutation from '../../relay/mutations/UserInvitationMutation';
 import {
   units,
@@ -86,6 +88,10 @@ class TeamInviteMembers extends Component {
       addMany: false,
       errors: [],
     };
+  }
+
+  getCurrentUser() {
+    return new CheckContext(this).getContextStore().currentUser;
   }
 
   handleOpenDialog() {
@@ -269,6 +275,7 @@ class TeamInviteMembers extends Component {
         </ListItem>
       ))
     );
+    const excludeRoles = UserUtil.myRole(this.getCurrentUser(), this.props.team.slug) === 'owner' ? [] : ['owner'];
     let inviteBody = null;
     if (this.state.addMany) {
       inviteBody = (
@@ -280,6 +287,7 @@ class TeamInviteMembers extends Component {
                 className="invite-member-email-role"
                 onChange={e => this.handleRoleChange(e, index)}
                 value={member.role}
+                excludeRoles={excludeRoles}
               />
             </FlexRow>
             <TextField
@@ -332,6 +340,7 @@ class TeamInviteMembers extends Component {
                   className="invite-member-email-role"
                   onChange={e => this.handleRoleChange(e, index)}
                   value={member.role}
+                  excludeRoles={excludeRoles}
                 />
                 <StyledIconButton
                   className="invite-member-email-remove-button"
