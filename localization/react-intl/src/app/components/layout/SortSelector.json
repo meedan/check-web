@@ -1,0 +1,26 @@
+[
+  {
+    "id": "sortSelect.az",
+    "defaultMessage": "A to Z"
+  },
+  {
+    "id": "sortSelect.za",
+    "defaultMessage": "Z to A"
+  },
+  {
+    "id": "sortSelect.of",
+    "defaultMessage": "Oldest first"
+  },
+  {
+    "id": "sortSelect.nf",
+    "defaultMessage": "Newest first"
+  },
+  {
+    "id": "sortSelect.mu",
+    "defaultMessage": "Most used"
+  },
+  {
+    "id": "sortSelect.lu",
+    "defaultMessage": "Least used"
+  }
+]
