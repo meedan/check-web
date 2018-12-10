@@ -34,6 +34,10 @@ const TeamMembersContainer = Relay.createContainer(TeamMembersComponent, {
                   image,
                 }
               }
+              team {
+                id
+                slug
+              },
             }
           }
         },

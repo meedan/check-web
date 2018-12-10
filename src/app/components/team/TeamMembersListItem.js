@@ -24,7 +24,6 @@ import {
 class TeamMembersListItem extends Component {
   handleDeleteTeamUser(e) {
     e.preventDefault();
-
     Relay.Store.commitUpdate(new UpdateTeamUserMutation({
       id: this.props.teamUser.node.id,
       status: 'banned',
@@ -41,6 +40,7 @@ class TeamMembersListItem extends Component {
   handleTeamMembershipRequest(status) {
     Relay.Store.commitUpdate(new UpdateTeamUserMutation({
       id: this.props.teamUser.node.id,
+      team: this.props.teamUser.node.team,
       status,
     }));
   }
