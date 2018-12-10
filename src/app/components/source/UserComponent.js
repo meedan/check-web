@@ -11,6 +11,7 @@ import UserInfoEdit from './UserInfoEdit';
 import { can } from '../Can';
 import HeaderCard from '../HeaderCard';
 import PageTitle from '../PageTitle';
+import CheckContext from '../../CheckContext';
 import SwitchTeamsComponent from '../team/SwitchTeamsComponent';
 import { ContentColumn } from '../../styles/js/shared';
 
@@ -21,6 +22,17 @@ class UserComponent extends React.Component {
     this.state = {
       showTab: 'assignments',
     };
+  }
+
+  componentWillMount() {
+    const { user } = this.props;
+    if (!user.is_active) {
+      this.getContext().history.push('/check/forbidden');
+    }
+  }
+
+  getContext() {
+    return new CheckContext(this).getContextStore();
   }
 
   handleTabChange = (value) => {
