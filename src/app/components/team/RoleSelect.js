@@ -30,6 +30,8 @@ const messages = defineMessages({
 });
 
 const RoleSelect = (props) => {
+  const { excludeRoles, ...other } = props;
+
   const roles = [
     { value: 'annotator', label: props.intl.formatMessage(messages.annotator) },
     { value: 'contributor', label: props.intl.formatMessage(messages.contributor) },
@@ -38,16 +40,20 @@ const RoleSelect = (props) => {
     { value: 'owner', label: props.intl.formatMessage(messages.owner) },
   ];
 
+  const filteredRoles = excludeRoles
+    ? roles.filter(r => !excludeRoles.includes(r.value))
+    : roles;
+
   return (
     <FormControl variant="outlined">
       <Select
         className="role-select"
         input={<OutlinedInput name="role-select" labelWidth={0} />}
         style={{ minWidth: units(20), ...props.style }}
-        {...props}
+        {...other}
       >
         {
-          roles.map(r => (
+          filteredRoles.map(r => (
             <MenuItem className={`role-${r.value}`} key={r.value} value={r.value}>
               {r.label}
             </MenuItem>
