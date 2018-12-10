@@ -58,7 +58,7 @@ const StyledTaskLog = styled.div`
         padding: 0 ${units(1)};
       }
     }
-    
+
     .task__log-icon {
       margin-top: -35px;
       margin-right: 50px;
@@ -211,6 +211,7 @@ const TaskLogContainer = Relay.createContainer(TaskLogComponent, {
                 id,
                 dbid,
                 name,
+                is_active,
                 source {
                   id,
                   dbid,
@@ -277,6 +278,7 @@ const TaskLogContainer = Relay.createContainer(TaskLogComponent, {
                       user {
                         dbid
                         name
+                        is_active
                         source {
                           dbid
                           image

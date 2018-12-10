@@ -57,12 +57,14 @@ class UserPrivacy extends Component {
   handleOpenDialog() {
     this.setState({
       dialogOpen: true,
+      confirmationError: false,
     });
   }
 
   handleCloseDialog() {
     this.setState({
       dialogOpen: false,
+      confirmationError: false,
     });
   }
 

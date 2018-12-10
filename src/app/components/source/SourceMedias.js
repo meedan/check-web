@@ -123,6 +123,7 @@ const SourceMediasContainer = Relay.createContainer(SourceMediasComponent, {
                   dbid,
                   name,
                   email,
+                  is_active,
                   source {
                     dbid,
                     image,
@@ -231,6 +232,7 @@ const SourceMediasContainer = Relay.createContainer(SourceMediasComponent, {
                         name,
                         profile_image,
                         email,
+                        is_active,
                         source {
                           dbid,
                           accounts(first: 10000) {
