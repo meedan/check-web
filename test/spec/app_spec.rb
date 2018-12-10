@@ -1133,7 +1133,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page.go(@config['api_path'] + '/test/session?email=new'+@user_mail)
       #page = MePage.new(config: @config, driver: @driver).load
       @driver.navigate.to @config['self_url'] + "/"+@team1_slug+"/join"
-      sleep 3
+
+      wait_for_selector('team__primary-info',:class)
       @wait.until {
         expect(@driver.current_url.eql? @config['self_url']+"/"+@team1_slug ).to be(true)
       }

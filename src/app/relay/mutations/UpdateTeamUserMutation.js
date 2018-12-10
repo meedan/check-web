@@ -24,13 +24,17 @@ class UpdateTeamUserMutation extends Relay.Mutation {
   getFatQuery() {
     return Relay.QL`
       fragment on UpdateTeamUserPayload {
-        team_user
+        team,
+        team_user {
+          id, team_id, user_id, status, role,
+        },
+        team_userEdge,
       }
     `;
   }
 
   getConfigs() {
-    return [{
+    const configs = [{
       type: 'REQUIRED_CHILDREN',
       children: [Relay.QL`
         fragment on UpdateTeamUserPayload {
@@ -43,6 +47,21 @@ class UpdateTeamUserMutation extends Relay.Mutation {
         }`,
       ],
     }];
+
+    if (this.props.team) {
+      configs.push({
+        type: 'RANGE_ADD',
+        parentName: 'team',
+        parentID: this.props.team.id,
+        connectionName: 'team_users',
+        edgeName: 'team_userEdge',
+        rangeBehaviors: {
+          '': 'prepend',
+        },
+      });
+    }
+
+    return configs;
   }
 }
 
