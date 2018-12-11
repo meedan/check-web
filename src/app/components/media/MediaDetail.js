@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { injectIntl, intlShape } from 'react-intl';
+import { injectIntl, intlShape, defineMessages } from 'react-intl';
 import { Link } from 'react-router';
 import { Card, CardHeader } from 'material-ui/Card';
 import styled from 'styled-components';
@@ -27,7 +27,25 @@ import {
   Offset,
   subheading1,
   Text,
+  inProgressYellow,
+  unstartedRed,
+  completedGreen,
 } from '../../styles/js/shared';
+
+const messages = defineMessages({
+  progress: {
+    id: 'mediaDetail.progress',
+    defaultMessage: '{answered} required tasks answered, out of {total}',
+  },
+});
+
+const StyledProgress = styled.span`
+  padding: 1px 3px;
+  display: inline-block;
+  color: white;
+  border-radius: ${defaultBorderRadius};
+  background: ${props => props.bgColor};
+`;
 
 const StyledHeading = styled.h3`
   font: ${subheading1};
@@ -218,6 +236,18 @@ class MediaDetail extends Component {
 
     const shouldShowProjectName = projectTitle && (sourcePage || !projectPage);
 
+    const progress = media.assignments_progress;
+    let progressColor = null;
+    if (progress && progress.total > 0) {
+      progressColor = inProgressYellow;
+      if (progress.answered === progress.total) {
+        progressColor = completedGreen;
+      }
+      if (progress.answered === 0) {
+        progressColor = unstartedRed;
+      }
+    }
+
     const cardHeaderText = (
       <div style={{ cursor: media.dbid === 0 ? 'wait' : 'default' }}>
         {shouldDisplayHeading ?
@@ -268,6 +298,20 @@ class MediaDetail extends Component {
                   </Row>
                 </Link>
               </Offset> : null}
+
+            {progress && progress.total > 0 ?
+              <StyledProgress
+                bgColor={progressColor}
+                title={
+                  this.props.intl.formatMessage(messages.progress, {
+                    answered: progress.answered,
+                    total: progress.total,
+                  })
+                }
+              >
+                {progress.answered} / {progress.total}
+              </StyledProgress>
+              : null}
           </Row>
         </StyledHeaderTextSecondary>
       </div>

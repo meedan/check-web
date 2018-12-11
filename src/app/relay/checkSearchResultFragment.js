@@ -16,6 +16,7 @@ const checkSearchResultFragment = Relay.QL`
           embed,
           archived,
           relationships { sources_count, targets_count },
+          assignments_progress,
           log_count,
           verification_statuses,
           overridden,
