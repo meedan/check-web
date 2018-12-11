@@ -175,6 +175,7 @@ const AttributionContainer = Relay.createContainer(injectIntl(AttributionCompone
                 id
                 dbid
                 name
+                is_active
                 is_bot
                 bot_events
               }

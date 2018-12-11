@@ -69,6 +69,10 @@ const messages = defineMessages({
     id: 'home.invalidNoInvitation',
     defaultMessage: 'No invitation exists',
   },
+  successInvitation: {
+    id: 'home.successInvitation',
+    defaultMessage: 'Welcome to {appName}. Please login with the password that you received in the welcome email',
+  },
   invalidTokenInvitation: {
     id: 'home.invalidTokenInvitation',
     defaultMessage: 'Invitation token is invalid',
@@ -174,25 +178,32 @@ class Home extends Component {
       }
     }
 
-    if ('invitation_error' in this.props.location.query) {
-      let invitationError = null;
-      switch (this.props.location.query.invitation_error) {
-      case 'invalid_team':
-        invitationError = this.props.intl.formatMessage(messages.invalidTeamInvitation);
-        break;
-      case 'no_invitation':
-        invitationError = this.props.intl.formatMessage(messages.invalidNoInvitation);
-        break;
-      case 'invalid_invitation':
-        invitationError = this.props.intl.formatMessage(messages.invalidTokenInvitation);
-        break;
-      default:
-        invitationError = null;
+    if ('invitation_response' in this.props.location.query) {
+      if (this.props.location.query.invitation_response === 'success') {
+        message = this.props.intl.formatMessage(
+          messages.successInvitation,
+          { appName: `${config.appName}` },
+        );
+      } else {
+        let invitationError = null;
+        switch (this.props.location.query.invitation_response) {
+        case 'invalid_team':
+          invitationError = this.props.intl.formatMessage(messages.invalidTeamInvitation);
+          break;
+        case 'no_invitation':
+          invitationError = this.props.intl.formatMessage(messages.invalidNoInvitation);
+          break;
+        case 'invalid_invitation':
+          invitationError = this.props.intl.formatMessage(messages.invalidTokenInvitation);
+          break;
+        default:
+          invitationError = null;
+        }
+        message = this.props.intl.formatMessage(
+          messages.invalidInvitation,
+          { server_error: invitationError },
+        );
       }
-      message = this.props.intl.formatMessage(
-        messages.invalidInvitation,
-        { server_error: invitationError },
-      );
     }
 
     const routeIsPublic = children && children.props.route.public;

@@ -2,10 +2,9 @@
   "switchTeams.error": "Lo sentimos, no puedes cambiar de equipo",
   "switchTeams.member": "{membersCount, plural, =0 {Sin miembros} one {1 miembro} other {# membros}} ",
   "switchTeams.joinRequestMessage": "Solicitaste unirte",
-  "switchTeams.cancelJoinRequest": "Cancelar",
-  "switchTeams.bannedJoinRequest": "Cancelado",
   "teams.yourTeams": "Tus términos",
   "teams.userTeams": "{name}'s equipos",
+  "switchTeams.cancelJoinRequest": "Cancelar",
   "switchTeams.noTeams": "Sin equipos",
   "switchTeams.newTeamLink": "Crear un equipo"
 }

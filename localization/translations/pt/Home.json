@@ -1,8 +1,8 @@
 {
   "home.needRegister": "Primeiro você precisa se registrar. Uma vez registrado, você pode pedir para participar da equipe.",
   "home.somethingWrong": "Algo deu errado - por favor recarregue a página ou tente novamente mais tarde.",
-  "home.invalidInvitation": "An error occurred while processing your invitation. The server returned the error: \"{server_error}\". Please try again and contact the support team if the issue persists.",
-  "home.invalidTeamInvitation": "Team not found",
-  "home.invalidNoInvitation": "No invitation exists",
-  "home.invalidTokenInvitation": "Invitation token is invalid"
+  "home.invalidInvitation": "Um erro ocorreu ao processar o seu convite. O servidor retornou o erro: \"{server_error}\". Por favor tente novamente e entre em contato com o time de suporte se o problema persistir.",
+  "home.invalidTeamInvitation": "Equipe não encontrada.",
+  "home.invalidNoInvitation": "Não há convite",
+  "home.invalidTokenInvitation": "Código de convite é inválido."
 }

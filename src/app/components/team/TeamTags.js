@@ -3,22 +3,23 @@ import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import { List, ListItem } from 'material-ui/List';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
-import IconFilter from 'material-ui/svg-icons/content/filter-list';
 import IconMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import IconClose from 'material-ui/svg-icons/navigation/close';
 import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
-import SelectField from 'material-ui/SelectField';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import Checkbox from 'material-ui/Checkbox';
 import deepEqual from 'deep-equal';
 import styled from 'styled-components';
 import TagTextCount from './TagTextCount';
+import CardHeaderOutside from '../layout/CardHeaderOutside';
+import SortSelector from '../layout/SortSelector';
+import FilterPopup from '../layout/FilterPopup';
 import TeamRoute from '../../relay/TeamRoute';
-import { units, ContentColumn, black32, black87 } from '../../styles/js/shared';
+import { units, ContentColumn, black32 } from '../../styles/js/shared';
 import Can, { can } from '../Can';
 import Message from '../Message';
 import CreateTagTextMutation from '../../relay/mutations/CreateTagTextMutation';
@@ -35,12 +36,6 @@ const StyledContentColumn = styled(ContentColumn)`
 `;
 
 class TeamTagsComponent extends Component {
-  static handleClick() {
-    setTimeout(() => {
-      document.body.lastChild.style.zIndex = 9999;
-    }, 100);
-  }
-
   constructor(props) {
     super(props);
     this.state = {
@@ -177,8 +172,8 @@ class TeamTagsComponent extends Component {
     this.setState({ editing: null });
   }
 
-  handleChange(event, index, value) {
-    this.setState({ sort: value });
+  handleChange(e) {
+    this.setState({ sort: e.target.value });
   }
 
   handleKeyUp() {
@@ -267,12 +262,9 @@ class TeamTagsComponent extends Component {
     );
   }
 
-  handleSearch(e) {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      const search = document.getElementById('tag__search').value;
-      this.setState({ search });
-    }
-  }
+  handleSearchChange = (e) => {
+    this.setState({ search: e.target.value });
+  };
 
   handleAddTag() {
     const text = document.getElementById('tag__new').value;
@@ -423,110 +415,50 @@ class TeamTagsComponent extends Component {
       />,
     ];
 
+    const filterLabel = this.state.countHidden > 0 ? (
+      <FormattedMessage
+        id="teamTags.counter"
+        defaultMessage="{total, plural, =0 {No results} one {1 result ({hidden} hidden by filters)} other {# results ({hidden} hidden by filters)}}"
+        values={{
+          total: this.state.countTotal,
+          hidden: this.state.countHidden,
+        }}
+      />
+    ) : (
+      <FormattedMessage
+        id="teamTags.counterNoHidden"
+        defaultMessage="{total, plural, =0 {No results} one {1 result} other {# results}}"
+        values={{
+          total: this.state.countTotal,
+          hidden: this.state.countHidden,
+        }}
+      />
+    );
+
     return (
       <StyledContentColumn>
         <Message message={this.state.message} />
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <div>
-            <h2><FormattedMessage id="teamTags.tags" defaultMessage="Tags" /></h2>
-            <p style={{ margin: `${units(1)} 0` }}>
-              <small>
-                { this.state.countHidden > 0 ?
-                  <FormattedMessage
-                    id="teamTags.counter"
-                    defaultMessage="{total, plural, =0 {No results} one {1 result ({hidden} hidden by filters)} other {# results ({hidden} hidden by filters)}}"
-                    values={{
-                      total: this.state.countTotal,
-                      hidden: this.state.countHidden,
-                    }}
-                  /> :
-                  <FormattedMessage
-                    id="teamTags.counterNoHidden"
-                    defaultMessage="{total, plural, =0 {No results} one {1 result} other {# results}}"
-                    values={{
-                      total: this.state.countTotal,
-                      hidden: this.state.countHidden,
-                    }}
-                  /> }
-              </small>
-            </p>
-          </div>
-          <IconMenu
-            clickCloseDelay={0}
-            anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-            iconButtonElement={
-              <IconButton
-                tooltip={
-                  <FormattedMessage id="teamTags.tooltip" defaultMessage="Filter and sort list" />
-                }
-              >
-                <IconFilter />
-              </IconButton>
-            }
-          >
-            <MenuItem disabled>
-              <TextField
-                id="tag__search"
-                fullWidth
-                onBlur={this.handleBlur.bind(this)}
-                onKeyPress={this.handleSearch.bind(this)}
-                defaultValue={this.state.search}
-                errorText={
-                  <FormattedMessage
-                    id="teamTags.searchTip"
-                    defaultMessage="Type search term and press ENTER"
-                  />
-                }
-                errorStyle={{ color: black87 }}
-                floatingLabelText={
-                  <FormattedMessage
-                    id="teamTags.search"
-                    defaultMessage="Search"
-                  />
-                }
-                floatingLabelStyle={{ color: black87 }}
-              />
-            </MenuItem>
-            <MenuItem disabled>
-              <SelectField
-                onClick={TeamTagsComponent.handleClick}
-                fullWidth
-                onChange={this.handleChange.bind(this)}
-                value={this.state.sort}
-                floatingLabelText={<FormattedMessage id="teamTags.sort" defaultMessage="Sort" />}
-                floatingLabelFocusStyle={{ color: black87 }}
-                floatingLabelStyle={{ color: black87 }}
-                underlineStyle={{ borderColor: black87 }}
-              >
-                <MenuItem
-                  value="az"
-                  primaryText={<FormattedMessage id="teamTags.az" defaultMessage="A to Z" />}
+        <CardHeaderOutside
+          title={<FormattedMessage id="teamTags.tags" defaultMessage="Tags" />}
+          direction={this.props.direction}
+          actions={
+            <FilterPopup
+              search={this.state.search}
+              onSearchChange={this.handleSearchChange}
+              label={filterLabel}
+              tooltip={<FormattedMessage id="teamTags.tooltip" defaultMessage="Filter and sort list" />}
+            >
+              <div style={{ marginTop: units(2) }}>
+                <SortSelector
+                  value={this.state.sort}
+                  onChange={this.handleChange.bind(this)}
+                  fullWidth
                 />
-                <MenuItem
-                  value="za"
-                  primaryText={<FormattedMessage id="teamTags.za" defaultMessage="Z to A" />}
-                />
-                <MenuItem
-                  value="of"
-                  primaryText={<FormattedMessage id="teamTags.of" defaultMessage="Oldest first" />}
-                />
-                <MenuItem
-                  value="nf"
-                  primaryText={<FormattedMessage id="teamTags.nf" defaultMessage="Newest first" />}
-                />
-                <MenuItem
-                  value="mu"
-                  primaryText={<FormattedMessage id="teamTags.mu" defaultMessage="Most used" />}
-                />
-                <MenuItem
-                  value="lu"
-                  primaryText={<FormattedMessage id="teamTags.lu" defaultMessage="Least used" />}
-                />
-              </SelectField>
-            </MenuItem>
-          </IconMenu>
-        </div>
-        <Card>
+              </div>
+            </FilterPopup>
+          }
+        />
+        <Card style={{ marginTop: units(2) }}>
           <CardHeader
             title={
               <FormattedMessage id="teamTags.teamwideTags" defaultMessage="Teamwide tags" />

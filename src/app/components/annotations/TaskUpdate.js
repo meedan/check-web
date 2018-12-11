@@ -173,7 +173,7 @@ class TaskUpdate extends React.Component {
           {this.isNowRequired ?
             <FormattedMessage
               id="annotation.nowRequired"
-              defaultMessage="{author} marked task as required: {title}"
+              defaultMessage="Task marked as required by {author}: {title}"
               values={{
                 title,
                 author,
@@ -183,7 +183,7 @@ class TaskUpdate extends React.Component {
           {this.isNowNotRequired ?
             <FormattedMessage
               id="annotation.nowNotRequired"
-              defaultMessage="{author} marked task as not required: {title}"
+              defaultMessage="Task marked as not required by {author}: {title}"
               values={{
                 title,
                 author,
