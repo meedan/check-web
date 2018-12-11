@@ -149,31 +149,32 @@ class UserAssignmentsComponent extends Component {
     return (
       <div id="assignments">
         <StyledBlankState>
+          <div style={{ textAlign: this.props.isRtl ? 'left' : 'right' }}>
+            <Button
+              onClick={this.handleClick.bind(this)}
+              title={
+                this.props.intl.formatMessage(messages.filterByTeam)
+              }
+            >
+              <IconFilter />
+            </Button>
+            <Menu
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={this.handleClose.bind(this)}
+            >
+              <MultiSelector
+                single
+                allowSearch
+                options={options}
+                selected={this.props.relay.variables.teamId.toString()}
+                onDismiss={this.handleClose.bind(this)}
+                onSubmit={this.handleSelect.bind(this)}
+              />
+            </Menu>
+          </div>
           { hasAssignment ?
-            <div style={{ textAlign: this.props.isRtl ? 'left' : 'right' }}>
-              <Button
-                onClick={this.handleClick.bind(this)}
-                title={
-                  this.props.intl.formatMessage(messages.filterByTeam)
-                }
-              >
-                <IconFilter />
-              </Button>
-              <Menu
-                anchorEl={anchorEl}
-                open={Boolean(anchorEl)}
-                onClose={this.handleClose.bind(this)}
-              >
-                <MultiSelector
-                  single
-                  allowSearch
-                  options={options}
-                  selected={this.props.relay.variables.teamId.toString()}
-                  onDismiss={this.handleClose.bind(this)}
-                  onSubmit={this.handleSelect.bind(this)}
-                />
-              </Menu>
-            </div>
+            null
             : <FormattedMessage id="userAssignments.blank" defaultMessage="No activity" />
           }
         </StyledBlankState>
