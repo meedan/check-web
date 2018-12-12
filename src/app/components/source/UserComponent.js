@@ -102,7 +102,13 @@ class UserComponent extends React.Component {
               <div>
                 <UserEmail user={user} />
                 { this.state.showTab === 'teams' ? <SwitchTeamsComponent user={user} isRtl={isRtl} /> : null}
-                { this.state.showTab === 'assignments' ? <UserAssignments user={user} isRtl={isRtl} /> : null}
+                { this.state.showTab === 'assignments' ?
+                  <UserAssignments
+                    direction={direction}
+                    user={user}
+                    isRtl={isRtl}
+                  /> : null
+                }
                 { this.state.showTab === 'privacy' ? <UserPrivacy user={user} /> : null}
               </div>
             }
