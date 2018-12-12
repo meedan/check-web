@@ -150,7 +150,7 @@ class UserAssignmentsComponent extends Component {
             >
               <TeamSelect
                 teams={user.teams.edges}
-                value={this.props.relay.variables.teamId.toString()}
+                value={this.state.teamId.toString()}
                 onChange={this.handleSelect.bind(this)}
               />
             </FilterPopup>
