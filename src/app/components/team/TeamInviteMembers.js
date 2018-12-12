@@ -164,7 +164,7 @@ class TeamInviteMembers extends Component {
     let invitedCount = 0;
     const membersEmails = [];
     teamUsers.edges.map((teamUser) => {
-      if (teamUser.node.user.email !== null) {
+      if (teamUser.node.status === 'member' && teamUser.node.user.email !== null) {
         return membersEmails.push(teamUser.node.user.email);
       }
       return null;
