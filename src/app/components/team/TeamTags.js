@@ -418,7 +418,7 @@ class TeamTagsComponent extends Component {
     const filterLabel = this.state.countHidden > 0 ? (
       <FormattedMessage
         id="teamTags.counter"
-        defaultMessage="{total, plural, =0 {No results} one {1 result ({hidden} hidden by filters)} other {# results ({hidden} hidden by filters)}}"
+        defaultMessage="{total, plural, =0 {No tags} one {1 tag ({hidden} hidden by filters)} other {# tags ({hidden} hidden by filters)}}"
         values={{
           total: this.state.countTotal,
           hidden: this.state.countHidden,
@@ -427,10 +427,9 @@ class TeamTagsComponent extends Component {
     ) : (
       <FormattedMessage
         id="teamTags.counterNoHidden"
-        defaultMessage="{total, plural, =0 {No results} one {1 result} other {# results}}"
+        defaultMessage="{total, plural, =0 {No tags} one {1 tag} other {# tags}}"
         values={{
           total: this.state.countTotal,
-          hidden: this.state.countHidden,
         }}
       />
     );
