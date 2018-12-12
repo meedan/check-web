@@ -1,5 +1,5 @@
 {
   "userAlreadyConfirmed.heading": "Compte déjà confirmé",
-  "userAlreadyConfirmed.message": "Votre compte est déjà confirmé. Prière de {login} pour démarrer.",
+  "userAlreadyConfirmed.message": "Votre compte est déjà confirmé. Veuillez {login} pour démarrer.",
   "userAlreadyConfirmed.login": "vous connecter"
 }

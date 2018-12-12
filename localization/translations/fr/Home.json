@@ -4,5 +4,6 @@
   "home.invalidInvitation": "Une erreur s'est produite durant le traitement de votre invitation. Le serveur a renvoyé l'erreur suivante : \"{server_error}\". Veuillez réessayer et contactez l'équipe de support si l'erreur persiste.",
   "home.invalidTeamInvitation": "Équipe introuvable",
   "home.invalidNoInvitation": "Invitation introuvable",
+  "home.successInvitation": "Bienvenue sur {appName}. Veuillez vous connecter avec le mot de passe que vous avez reçu dans le courriel de bienvenue.",
   "home.invalidTokenInvitation": "Code d'invitation non valide"
 }
