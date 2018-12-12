@@ -22,6 +22,7 @@ import FilterPopup from '../layout/FilterPopup';
 import TeamSelect from '../team/TeamSelect';
 import UserRoute from '../../relay/UserRoute';
 import MediaUtil from '../media/MediaUtil';
+import MediasLoading from '../media/MediasLoading';
 import {
   units,
   inProgressYellow,
@@ -82,7 +83,7 @@ class UserAssignmentsComponent extends Component {
 
   refresh() {
     if (this.props.relay.variables.teamId !== this.state.teamId) {
-      this.props.relay.setVariables({ teamId: this.state.teamId });
+      this.props.relay.setVariables({ teamId: this.state.teamId, userId: this.props.userId });
     }
   }
 
@@ -244,7 +245,7 @@ const UserAssignmentsContainer = Relay.createContainer(injectIntl(UserAssignment
               id
               dbid
               embed
-              assignments_progress
+              assignments_progress(user_id: $userId)
               media {
                 embed
                 embed_path
@@ -279,6 +280,8 @@ const UserAssignments = (props) => {
     <Relay.RootContainer
       Component={UserAssignmentsContainer}
       route={route}
+      renderLoading={() => <MediasLoading />}
+      renderFetched={data => <UserAssignmentsContainer {...data} userId={userId} />}
       forceFetch
     />
   );

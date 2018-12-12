@@ -19,6 +19,9 @@ import {
   Text,
   buttonInButtonGroupStyle,
   Offset,
+  inProgressYellow,
+  unstartedRed,
+  completedGreen,
 } from '../../styles/js/shared';
 
 class TeamMembersListItem extends Component {
@@ -49,6 +52,20 @@ class TeamMembersListItem extends Component {
     const { teamUser, isEditing } = this.props;
 
     const assignmentsProgress = teamUser.node.assignments_progress;
+    let assignmentsProgressColor = null;
+    if (assignmentsProgress) {
+      assignmentsProgressColor = inProgressYellow;
+      if (assignmentsProgress.in_progress === 0 &&
+          assignmentsProgress.completed === 0 &&
+          assignmentsProgress.unstarted > 0) {
+        assignmentsProgressColor = unstartedRed;
+      }
+      if (assignmentsProgress.in_progress === 0 &&
+          assignmentsProgress.completed > 0 &&
+          assignmentsProgress.unstarted === 0) {
+        assignmentsProgressColor = completedGreen;
+      }
+    }
 
     return (
       <ListItem
@@ -78,7 +95,7 @@ class TeamMembersListItem extends Component {
                     { assignmentsProgress.completed === 0 &&
                       assignmentsProgress.in_progress === 0 &&
                       assignmentsProgress.unstarted === 0 ? null :
-                      <span style={{ fontSize: 11 }}>
+                      <span style={{ fontSize: 11, color: assignmentsProgressColor }}>
                         <FormattedMessage
                           id="teamMembersListItem.assignmentsProgress"
                           defaultMessage="{completedCount} completed, {inProgressCount} in progress, {unstartedCount} unstarted"
