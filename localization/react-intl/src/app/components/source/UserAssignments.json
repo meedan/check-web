@@ -8,8 +8,12 @@
     "defaultMessage": "{answered} required tasks answered, out of {total}"
   },
   {
-    "id": "userAssignments.title",
+    "id": "userAssignments.yourAssignments",
     "defaultMessage": "Your assignments"
+  },
+  {
+    "id": "userAssignments.userAssignments",
+    "defaultMessage": "{name}'s assignments"
   },
   {
     "id": "userAssignments.blank",
