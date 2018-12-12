@@ -146,7 +146,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.team-menu__team-settings-button').click
       wait_for_selector('.team-settings__tasks-tab').click
       expect(@driver.page_source.include?('No teamwide tasks to display')).to be(true)
-      expect(@driver.page_source.include?('0 tasks')).to be(true)
+      expect(@driver.page_source.include?('No tasks')).to be(true)
       expect(@driver.page_source.include?('New teamwide task')).to be(false)
 
       # Create task
@@ -155,6 +155,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       fill_field('#task-label-input', 'New teamwide task')
       wait_for_selector('.create-task__dialog-submit-button').click
       sleep 5
+      expect(@driver.page_source.include?('No teamwide tasks to display')).to be(false)
+      expect(@driver.page_source.include?('1 task')).to be(true)
       expect(@driver.page_source.include?('New teamwide task')).to be(true)
 
       # Edit task
@@ -175,6 +177,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('#confirm-dialog__checkbox').click
       wait_for_selector('#confirm-dialog__confirm-action-button').click
       sleep 5
+      expect(@driver.page_source.include?('No tasks')).to be(true)
       expect(@driver.page_source.include?('New teamwide task')).to be(false)
     end
 
@@ -188,7 +191,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.team-settings__tags-tab').click ; sleep 5
       expect(@driver.page_source.include?('No teamwide tags')).to be(true)
       expect(@driver.page_source.include?('No custom tags')).to be(true)
-      expect(@driver.page_source.include?('No results')).to be(true)
+      expect(@driver.page_source.include?('No tags')).to be(true)
       expect(@driver.page_source.include?('newteamwidetag')).to be(false)
 
       # Create tag
@@ -197,7 +200,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 10
       expect(@driver.page_source.include?('No teamwide tags')).to be(false)
       expect(@driver.page_source.include?('No custom tags')).to be(true)
-      expect(@driver.page_source.include?('1 result')).to be(true)
+      expect(@driver.page_source.include?('1 tag')).to be(true)
       expect(@driver.page_source.include?('newteamwidetag')).to be(true)
       expect(@driver.page_source.include?('newteamwidetagedited')).to be(false)
 
@@ -211,7 +214,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 10
       expect(@driver.page_source.include?('No teamwide tags')).to be(false)
       expect(@driver.page_source.include?('No custom tags')).to be(true)
-      expect(@driver.page_source.include?('1 result')).to be(true)
+      expect(@driver.page_source.include?('1 tag')).to be(true)
       expect(@driver.page_source.include?('newteamwidetagedited')).to be(true)
 
       # Delete tag
@@ -225,7 +228,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 10
       expect(@driver.page_source.include?('No teamwide tags')).to be(true)
       expect(@driver.page_source.include?('No custom tags')).to be(true)
-      expect(@driver.page_source.include?('No results')).to be(true)
+      expect(@driver.page_source.include?('No tags')).to be(true)
       expect(@driver.page_source.include?('newteamwidetagedited')).to be(false)
     end
 

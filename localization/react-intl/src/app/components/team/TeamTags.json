@@ -41,11 +41,11 @@
   },
   {
     "id": "teamTags.counter",
-    "defaultMessage": "{total, plural, =0 {No results} one {1 result ({hidden} hidden by filters)} other {# results ({hidden} hidden by filters)}}"
+    "defaultMessage": "{total, plural, =0 {No tags} one {1 tag ({hidden} hidden by filters)} other {# tags ({hidden} hidden by filters)}}"
   },
   {
     "id": "teamTags.counterNoHidden",
-    "defaultMessage": "{total, plural, =0 {No results} one {1 result} other {# results}}"
+    "defaultMessage": "{total, plural, =0 {No tags} one {1 tag} other {# tags}}"
   },
   {
     "id": "teamTags.tags",
