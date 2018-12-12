@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { injectIntl, FormattedMessage, defineMessages } from 'react-intl';
 import rtlDetect from 'rtl-detect';
@@ -22,6 +23,7 @@ import FilterPopup from '../layout/FilterPopup';
 import TeamSelect from '../team/TeamSelect';
 import UserRoute from '../../relay/UserRoute';
 import MediaUtil from '../media/MediaUtil';
+import CheckContext from '../../CheckContext';
 import {
   units,
   inProgressYellow,
@@ -80,6 +82,10 @@ class UserAssignmentsComponent extends Component {
     this.refresh();
   }
 
+  getContext() {
+    return new CheckContext(this);
+  }
+
   refresh() {
     if (this.props.relay.variables.teamId !== this.state.teamId) {
       this.props.relay.setVariables({ teamId: this.state.teamId });
@@ -92,6 +98,8 @@ class UserAssignmentsComponent extends Component {
 
   render() {
     const { user } = this.props;
+    const { currentUser } = this.getContext().getContextStore();
+    const isUserSelf = (user.id === currentUser.id);
 
     if (this.props.relay.variables.teamId === null) {
       return null;
@@ -137,10 +145,23 @@ class UserAssignmentsComponent extends Component {
     const filterLabel = this.state.teamId ?
       options.find(o => o.value === this.state.teamId.toString()).label : null;
 
+    const cardTitle = isUserSelf ? (
+      <FormattedMessage
+        id="userAssignments.yourAssignments"
+        defaultMessage="Your assignments"
+      />
+    ) : (
+      <FormattedMessage
+        id="userAssignments.userAssignments"
+        defaultMessage="{name}'s assignments"
+        values={{ name: user.name }}
+      />
+    );
+
     return (
       <div id="assignments">
         <CardHeaderOutside
-          title={<FormattedMessage id="userAssignments.title" defaultMessage="Your assignments" />}
+          title={cardTitle}
           direction={direction}
           actions={
             <FilterPopup
@@ -215,6 +236,10 @@ class UserAssignmentsComponent extends Component {
   }
 }
 
+UserAssignmentsComponent.contextTypes = {
+  store: PropTypes.object,
+};
+
 const UserAssignmentsContainer = Relay.createContainer(injectIntl(UserAssignmentsComponent), {
   initialVariables: {
     userId: null,
@@ -226,6 +251,7 @@ const UserAssignmentsContainer = Relay.createContainer(injectIntl(UserAssignment
         id
         dbid
         current_team_id
+        name
         teams(first: 10000) {
           edges {
             node {
