@@ -80,7 +80,7 @@ class UserPrivacy extends Component {
   }
 
   handleError(json) {
-    let message = this.props.intl.formatMessage(globalStrings.unknownError);
+    let message = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
     if (json && json.error) {
       message = json.error;
     }

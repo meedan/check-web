@@ -1,5 +1,7 @@
 {
   "userAssignments.filterByTeam": "Filtrer par équipe",
   "userAssignments.progress": "{answered} sur {total} tâches requises ont été répondues",
+  "userAssignments.yourAssignments": "Vos affectations",
+  "userAssignments.userAssignments": "Les affectations de {name}",
   "userAssignments.blank": "Aucune activité"
 }

@@ -29,6 +29,7 @@ import ProfileLink from '../layout/ProfileLink';
 import Sentence from '../Sentence';
 import { nested, safelyParseJSON } from '../../helpers';
 import globalStrings from '../../globalStrings';
+import { stringHelper } from '../../customHelpers';
 import {
   Row,
   black10,
@@ -112,7 +113,7 @@ class MediaMetadata extends Component {
   }
 
   handleError(json) {
-    let message = this.props.intl.formatMessage(globalStrings.unknownError);
+    let message = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
     if (json && json.error) {
       message = json.error;
     }
