@@ -18,7 +18,7 @@
   "mediaDetail.assignedTo": "مُكَلَّف إلى {name}",
   "mediaDetail.dialogHeader": "انقل {mediaType} إلى مشروع آخر",
   "mediaDetail.dialogMediaPath": "مضاف حالياً إلى {teamName} > {projectTitle}",
-  "mediaDetail.deleteForeverConfirmationText": "هل أنت متأكد؟ سوف يتم حذف نهائي {notesCount, plural, =0 {٠ تعليق} one {تعليق واحد} other {# تعليقات}}. أكتب \"confirm\" للمتابعة.",
+  "mediaDetail.deleteForeverConfirmationText": "هل أنت متأكد؟ سوف يتم حذف نهائي {notesCount, plural, =0 {٠ تعليق} one {تعليق واحد} other {# تعليقات}}. أكتب كلمة (confirm) للمتابعة.",
   "mediaDetail.confirmationError": "ليس مطابق",
   "mediaDetail.typeHere": "أكتب هنا",
   "mediaDetail.assignDialogHeader": "التكليف"

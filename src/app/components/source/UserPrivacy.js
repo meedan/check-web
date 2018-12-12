@@ -240,7 +240,7 @@ class UserPrivacy extends Component {
                 <p>
                   <FormattedMessage
                     id="userPrivacy.deleteAccountConfirmationText"
-                    defaultMessage='Are you sure? This will remove your account and logout of the app. Type "confirm" if you want to proceed.'
+                    defaultMessage='Are you sure? This will remove your account and log you out of the app. Type "confirm" if you want to proceed.'
                   />
                 </p>
                 <TextField

@@ -4,5 +4,6 @@
   "home.invalidInvitation": "Se produjo un error al procesar tu invitación. El servidor devolvió el error: \"{server_error}\". Inténtalo de nuevo y si el problema persiste ponte en contacto con el equipo de soporte técnico.",
   "home.invalidTeamInvitation": "Equipo no encontrado",
   "home.invalidNoInvitation": "No hay invitaciones  ",
+  "home.successInvitation": "Bienvenido a {appName}. Por favor ingrese con la contraseña que recibió en el correo electrónico de bienvenida.",
   "home.invalidTokenInvitation": "token de invitación inválido "
 }
