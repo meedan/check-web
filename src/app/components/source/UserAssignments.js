@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
 import { injectIntl, FormattedMessage, defineMessages } from 'react-intl';
+import rtlDetect from 'rtl-detect';
 import { Card, CardHeader } from 'material-ui/Card';
 import { List, ListItem } from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
-import Button from '@material-ui/core/Button';
-import Menu from '@material-ui/core/Menu';
-import IconFilter from 'material-ui/svg-icons/content/filter-list';
 import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import RadioButtonIcon from '@material-ui/icons/RadioButtonUnchecked';
 import { Link } from 'react-router';
@@ -18,17 +16,18 @@ import MdDateRange from 'react-icons/lib/md/date-range';
 import MdFormatQuote from 'react-icons/lib/md/format-quote';
 import MdLink from 'react-icons/lib/md/link';
 import MdImage from 'react-icons/lib/md/image';
-import styled from 'styled-components';
+import BlankState from '../layout/BlankState';
+import CardHeaderOutside from '../layout/CardHeaderOutside';
+import FilterPopup from '../layout/FilterPopup';
+import TeamSelect from '../team/TeamSelect';
 import UserRoute from '../../relay/UserRoute';
 import MediaUtil from '../media/MediaUtil';
 import {
-  headline,
-  black38,
+  units,
   inProgressYellow,
   unstartedRed,
   completedGreen,
 } from '../../styles/js/shared';
-import MultiSelector from '../layout/MultiSelector';
 
 const messages = defineMessages({
   filterByTeam: {
@@ -52,12 +51,6 @@ const icons = {
   uploadedimage: <MdImage />,
 };
 
-const StyledBlankState = styled.div`
-  font: ${headline};
-  color: ${black38};
-  text-align: center;
-`;
-
 class UserAssignmentsComponent extends Component {
   constructor(props) {
     super(props);
@@ -75,7 +68,6 @@ class UserAssignmentsComponent extends Component {
       }
     }
     this.state = {
-      anchorEl: null,
       teamId,
     };
   }
@@ -94,22 +86,12 @@ class UserAssignmentsComponent extends Component {
     }
   }
 
-  handleClick(event) {
-    this.setState({ anchorEl: event.currentTarget });
-  }
-
-  handleClose() {
-    this.setState({ anchorEl: null });
-  }
-
-  handleSelect(selected) {
-    const teamId = parseInt(selected[0], 10);
-    this.setState({ anchorEl: null, teamId });
+  handleSelect(e) {
+    this.setState({ teamId: e.target.value });
   }
 
   render() {
     const { user } = this.props;
-    const { anchorEl } = this.state;
 
     if (this.props.relay.variables.teamId === null) {
       return null;
@@ -146,40 +128,40 @@ class UserAssignmentsComponent extends Component {
       });
     });
 
+    const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
+    const direction = {
+      from: isRtl ? 'right' : 'left',
+      to: isRtl ? 'left' : 'right',
+    };
+
+    const filterLabel = this.state.teamId ?
+      options.find(o => o.value === this.state.teamId.toString()).label : null;
+
     return (
       <div id="assignments">
-        <StyledBlankState>
-          <div style={{ textAlign: this.props.isRtl ? 'left' : 'right' }}>
-            <Button
-              onClick={this.handleClick.bind(this)}
-              title={
-                this.props.intl.formatMessage(messages.filterByTeam)
-              }
+        <CardHeaderOutside
+          title={<FormattedMessage id="userAssignments.title" defaultMessage="Your assignments" />}
+          direction={direction}
+          actions={
+            <FilterPopup
+              label={filterLabel}
+              tooltip={this.props.intl.formatMessage(messages.filterByTeam)}
             >
-              <IconFilter />
-            </Button>
-            <Menu
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={this.handleClose.bind(this)}
-            >
-              <MultiSelector
-                single
-                allowSearch
-                options={options}
-                selected={this.props.relay.variables.teamId.toString()}
-                onDismiss={this.handleClose.bind(this)}
-                onSubmit={this.handleSelect.bind(this)}
+              <TeamSelect
+                teams={user.teams.edges}
+                value={this.props.relay.variables.teamId.toString()}
+                onChange={this.handleSelect.bind(this)}
               />
-            </Menu>
-          </div>
-          { hasAssignment ?
-            null
-            : <FormattedMessage id="userAssignments.blank" defaultMessage="No activity" />
+            </FilterPopup>
           }
-        </StyledBlankState>
+        />
+        { hasAssignment ? null : (
+          <BlankState>
+            <FormattedMessage id="userAssignments.blank" defaultMessage="No activity" />
+          </BlankState>
+        )}
         {Object.keys(assignments).map(project => (
-          <Card key={project}>
+          <Card key={project} style={{ marginTop: units(2), marginBottom: units(2) }}>
             <CardHeader title={
               <Link to={projectPaths[project]}>
                 {project}
@@ -251,6 +233,8 @@ const UserAssignmentsContainer = Relay.createContainer(injectIntl(UserAssignment
               dbid
               slug
               name
+              avatar
+              plan
             }
           }
         }
