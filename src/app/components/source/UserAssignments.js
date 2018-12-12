@@ -22,7 +22,6 @@ import CardHeaderOutside from '../layout/CardHeaderOutside';
 import FilterPopup from '../layout/FilterPopup';
 import TeamSelect from '../team/TeamSelect';
 import MediaUtil from '../media/MediaUtil';
-// import MediasLoading from '../media/MediasLoading';
 import UserRoute from '../../relay/UserRoute';
 import CheckContext from '../../CheckContext';
 import {
@@ -57,22 +56,29 @@ const icons = {
 class UserAssignmentsComponent extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      teamId: null,
+    };
+  }
+
+  componentWillMount() {
     let teamId = null;
-    props.user.teams.edges.forEach((team) => {
+    const { currentUser } = this.getContext().getContextStore();
+    const { user } = this.props;
+    user.teams.edges.forEach((team) => {
       const tid = parseInt(team.node.dbid, 10);
-      if (tid === parseInt(props.user.current_team_id, 10)) {
+      if (tid === parseInt(currentUser.current_team_id, 10)) {
         teamId = tid;
       }
     });
     if (!teamId) {
-      const team = props.user.teams.edges[0];
+      const team = user.teams.edges[0];
       if (team) {
         teamId = team.node.dbid;
       }
     }
-    this.state = {
-      teamId,
-    };
+    this.setState({ teamId });
   }
 
   componentDidMount() {
