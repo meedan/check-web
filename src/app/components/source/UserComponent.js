@@ -45,6 +45,8 @@ class UserComponent extends React.Component {
     const { user } = this.props;
     const isEditing = this.props.route.isEditing && can(user.permissions, 'update User');
     const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
+    const { currentUser } = this.getContext();
+    const isUserSelf = (user.id === currentUser.id);
 
     const direction = {
       from: isRtl ? 'right' : 'left',
@@ -81,16 +83,18 @@ class UserComponent extends React.Component {
                       }
                       value="assignments"
                     />
-                    <Tab
-                      id="privacy-tab"
-                      label={
-                        <FormattedMessage
-                          id="userComponents.privacy"
-                          defaultMessage="Privacy"
-                        />
-                      }
-                      value="privacy"
-                    />
+                    { isUserSelf ?
+                      <Tab
+                        id="privacy-tab"
+                        label={
+                          <FormattedMessage
+                            id="userComponents.privacy"
+                            defaultMessage="Privacy"
+                          />
+                        }
+                        value="privacy"
+                      /> : null
+                    }
                   </Tabs>
                 </div>
               }
