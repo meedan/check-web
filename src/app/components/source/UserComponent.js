@@ -11,6 +11,7 @@ import UserInfoEdit from './UserInfoEdit';
 import { can } from '../Can';
 import HeaderCard from '../HeaderCard';
 import PageTitle from '../PageTitle';
+import CheckContext from '../../CheckContext';
 import SwitchTeamsComponent from '../team/SwitchTeamsComponent';
 import { ContentColumn } from '../../styles/js/shared';
 
@@ -23,6 +24,17 @@ class UserComponent extends React.Component {
     };
   }
 
+  componentWillMount() {
+    const { user } = this.props;
+    if (!user.is_active) {
+      this.getContext().history.push('/check/forbidden');
+    }
+  }
+
+  getContext() {
+    return new CheckContext(this).getContextStore();
+  }
+
   handleTabChange = (value) => {
     this.setState({
       showTab: value,
@@ -33,6 +45,8 @@ class UserComponent extends React.Component {
     const { user } = this.props;
     const isEditing = this.props.route.isEditing && can(user.permissions, 'update User');
     const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
+    const { currentUser } = this.getContext();
+    const isUserSelf = (user.id === currentUser.id);
 
     const direction = {
       from: isRtl ? 'right' : 'left',
@@ -69,16 +83,18 @@ class UserComponent extends React.Component {
                       }
                       value="assignments"
                     />
-                    <Tab
-                      id="privacy-tab"
-                      label={
-                        <FormattedMessage
-                          id="userComponents.privacy"
-                          defaultMessage="Privacy"
-                        />
-                      }
-                      value="privacy"
-                    />
+                    { isUserSelf ?
+                      <Tab
+                        id="privacy-tab"
+                        label={
+                          <FormattedMessage
+                            id="userComponents.privacy"
+                            defaultMessage="Privacy"
+                          />
+                        }
+                        value="privacy"
+                      /> : null
+                    }
                   </Tabs>
                 </div>
               }
@@ -90,7 +106,13 @@ class UserComponent extends React.Component {
               <div>
                 <UserEmail user={user} />
                 { this.state.showTab === 'teams' ? <SwitchTeamsComponent user={user} isRtl={isRtl} /> : null}
-                { this.state.showTab === 'assignments' ? <UserAssignments user={user} isRtl={isRtl} /> : null}
+                { this.state.showTab === 'assignments' ?
+                  <UserAssignments
+                    direction={direction}
+                    user={user}
+                    isRtl={isRtl}
+                  /> : null
+                }
                 { this.state.showTab === 'privacy' ? <UserPrivacy user={user} /> : null}
               </div>
             }

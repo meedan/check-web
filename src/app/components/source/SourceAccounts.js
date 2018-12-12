@@ -41,6 +41,7 @@ const SourceAccountsContainer = Relay.createContainer(SourceAccountsComponent, {
                   dbid,
                   name,
                   email,
+                  is_active,
                   source {
                     accounts(first: 10000) {
                       edges {

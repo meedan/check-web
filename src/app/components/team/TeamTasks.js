@@ -68,8 +68,8 @@ class TeamTasksComponent extends React.Component {
       return (
         <FormattedMessage
           id="teamTasks.filterLabelHidden"
-          defaultMessage="{length, number} tasks ({hidden, number} hidden by filters)"
-          values={{ length: filtered.length, hidden: raw.length - filtered.length }}
+          defaultMessage="{total, plural, =0 {No tasks} one {1 task ({hidden} hidden by filters)} other {# tasks ({hidden} hidden by filters)}}"
+          values={{ total: raw.length, hidden: raw.length - filtered.length }}
         />
       );
     }
@@ -77,8 +77,8 @@ class TeamTasksComponent extends React.Component {
     return (
       <FormattedMessage
         id="teamTasks.filterLabel"
-        defaultMessage="{length, number} tasks"
-        values={{ length: filtered.length }}
+        defaultMessage="{total, plural, =0 {No tasks} one {1 task} other {# tasks}}"
+        values={{ total: raw.length }}
       />
     );
   }

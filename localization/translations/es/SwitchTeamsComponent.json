@@ -3,7 +3,7 @@
   "switchTeams.member": "{membersCount, plural, =0 {Sin miembros} one {1 miembro} other {# membros}} ",
   "switchTeams.joinRequestMessage": "Solicitaste unirte",
   "teams.yourTeams": "Tus términos",
-  "teams.userTeams": "{name}'s equipos",
+  "teams.userTeams": "Equipos de {name}",
   "switchTeams.cancelJoinRequest": "Cancelar",
   "switchTeams.noTeams": "Sin equipos",
   "switchTeams.newTeamLink": "Crear un equipo"

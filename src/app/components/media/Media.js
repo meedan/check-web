@@ -58,6 +58,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
           dbid,
           name,
           email,
+          is_active,
           source {
             dbid,
             image,
@@ -160,6 +161,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
                         id,
                         dbid,
                         name,
+                        is_active
                         source {
                           id,
                           dbid,
@@ -210,6 +212,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
                     id,
                     dbid,
                     name,
+                    is_active
                     source {
                       id,
                       dbid,
@@ -260,6 +263,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
                 id,
                 dbid,
                 name,
+                is_active,
                 source {
                   id,
                   dbid,
@@ -335,6 +339,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
                       user {
                         dbid
                         name
+                        is_active
                         source {
                           dbid
                           image

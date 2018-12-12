@@ -145,6 +145,7 @@ const MediaExpandedContainer = Relay.createContainer(MediaExpandedComponent, {
         user {
           dbid,
           name,
+          is_active
           source {
             dbid,
             image,

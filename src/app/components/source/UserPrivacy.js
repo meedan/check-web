@@ -1,13 +1,39 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
+import Relay from 'react-relay/classic';
 import { Card, CardText } from 'material-ui/Card';
 import rtlDetect from 'rtl-detect';
 import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import TextField from '@material-ui/core/TextField';
+import { logout } from '../../redux/actions';
+import DeleteCheckUserMutation from '../../relay/mutations/DeleteCheckUserMutation';
 import CheckContext from '../../CheckContext';
 import { mapGlobalMessage } from '../MappedMessage';
+import Message from '../Message';
 import { stringHelper } from '../../customHelpers';
 import { units } from '../../styles/js/shared';
+import globalStrings from '../../globalStrings';
+
+const messages = defineMessages({
+  deleteAccount: {
+    id: 'UserPrivacy.deleteAccount',
+    defaultMessage: 'Delete Account',
+  },
+  typeHere: {
+    id: 'UserPrivacy.typeHere',
+    defaultMessage: 'Type here',
+  },
+  confirmError: {
+    id: 'UserPrivacy.confirmError',
+    defaultMessage: 'You should type "confirm"',
+  },
+});
 
 class UserPrivacy extends Component {
   static handleSubmit(subject) {
@@ -17,11 +43,72 @@ class UserPrivacy extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      dialogOpen: false,
+      confirmationError: false,
+      message: null,
+    };
   }
 
   getCurrentUser() {
     return new CheckContext(this).getContextStore().currentUser;
+  }
+
+  handleOpenDialog() {
+    this.setState({
+      dialogOpen: true,
+      confirmationError: false,
+    });
+  }
+
+  handleCloseDialog() {
+    this.setState({
+      dialogOpen: false,
+      confirmationError: false,
+    });
+  }
+
+  handleDeleteAccount() {
+    const { value: confirmValue } = document.getElementById('delete-user-account_confirm');
+    if (confirmValue && confirmValue.toUpperCase() === 'CONFIRM') {
+      this.setState({ confirmationError: false });
+      this.handleCloseDialog();
+      this.handleRequestDeleteAccount();
+    } else {
+      this.setState({ confirmationError: true });
+    }
+  }
+
+  handleError(json) {
+    let message = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+    if (json && json.error) {
+      message = json.error;
+    }
+    this.setState({ message });
+  }
+
+  handleRequestDeleteAccount() {
+    const { user } = this.props;
+
+    const onFailure = (transaction) => {
+      const error = transaction.getError();
+      if (error.json) {
+        error.json().then(this.handleError);
+      } else {
+        this.handleError(JSON.stringify(error));
+      }
+    };
+
+    const onSuccess = () => {
+      logout();
+    };
+
+    Relay.Store.commitUpdate(
+      new DeleteCheckUserMutation({
+        id: user.dbid,
+      }),
+      { onSuccess, onFailure },
+    );
   }
 
   render() {
@@ -139,8 +226,53 @@ class UserPrivacy extends Component {
               style={buttonStyle}
               label={<FormattedMessage id="userPrivacy.deleteAccountButton" defaultMessage="Delete my account" />}
               primary
-              onClick={UserPrivacy.handleSubmit.bind(this, 'Delete account')}
+              onClick={this.handleOpenDialog.bind(this)}
             />
+            <Dialog
+              className="delete-account__dialog"
+              open={this.state.dialogOpen}
+              onClose={this.handleCloseDialog.bind(this)}
+              fullWidth
+            >
+              <DialogTitle>{this.props.intl.formatMessage(messages.deleteAccount)}</DialogTitle>
+              <DialogContent>
+                <Message message={this.state.message} />
+                <p>
+                  <FormattedMessage
+                    id="userPrivacy.deleteAccountConfirmationText"
+                    defaultMessage='Are you sure? This will remove your account and log you out of the app. Type "confirm" if you want to proceed.'
+                  />
+                </p>
+                <TextField
+                  id="delete-user-account_confirm"
+                  key="delete-account-confirm-input"
+                  className="delete-account-confirm-input"
+                  placeholder={this.props.intl.formatMessage(messages.typeHere)}
+                  error={this.state.confirmationError}
+                  helperText={this.state.confirmationError ? this.props.intl.formatMessage(messages.confirmError) : ''}
+                  margin="normal"
+                />
+              </DialogContent>
+              <DialogActions>
+                <FlatButton
+                  label={
+                    <FormattedMessage id="deleteAccount.cancel" defaultMessage="Cancel" />
+                  }
+                  primary
+                  onClick={this.handleCloseDialog.bind(this)}
+                />,
+                <RaisedButton
+                  label={
+                    <FormattedMessage
+                      id="deleteAccount.delete"
+                      defaultMessage="Delete"
+                    />
+                  }
+                  primary
+                  onClick={this.handleDeleteAccount.bind(this)}
+                />
+              </DialogActions>
+            </Dialog>
           </CardText>
         </Card>
       </div>

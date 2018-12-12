@@ -40,56 +40,20 @@
     "defaultMessage": "Continue"
   },
   {
+    "id": "teamTags.counter",
+    "defaultMessage": "{total, plural, =0 {No tags} one {1 tag ({hidden} hidden by filters)} other {# tags ({hidden} hidden by filters)}}"
+  },
+  {
+    "id": "teamTags.counterNoHidden",
+    "defaultMessage": "{total, plural, =0 {No tags} one {1 tag} other {# tags}}"
+  },
+  {
     "id": "teamTags.tags",
     "defaultMessage": "Tags"
   },
   {
-    "id": "teamTags.counter",
-    "defaultMessage": "{total, plural, =0 {No results} one {1 result ({hidden} hidden by filters)} other {# results ({hidden} hidden by filters)}}"
-  },
-  {
-    "id": "teamTags.counterNoHidden",
-    "defaultMessage": "{total, plural, =0 {No results} one {1 result} other {# results}}"
-  },
-  {
     "id": "teamTags.tooltip",
     "defaultMessage": "Filter and sort list"
-  },
-  {
-    "id": "teamTags.searchTip",
-    "defaultMessage": "Type search term and press ENTER"
-  },
-  {
-    "id": "teamTags.search",
-    "defaultMessage": "Search"
-  },
-  {
-    "id": "teamTags.sort",
-    "defaultMessage": "Sort"
-  },
-  {
-    "id": "teamTags.az",
-    "defaultMessage": "A to Z"
-  },
-  {
-    "id": "teamTags.za",
-    "defaultMessage": "Z to A"
-  },
-  {
-    "id": "teamTags.of",
-    "defaultMessage": "Oldest first"
-  },
-  {
-    "id": "teamTags.nf",
-    "defaultMessage": "Newest first"
-  },
-  {
-    "id": "teamTags.mu",
-    "defaultMessage": "Most used"
-  },
-  {
-    "id": "teamTags.lu",
-    "defaultMessage": "Least used"
   },
   {
     "id": "teamTags.teamwideTags",

@@ -28,12 +28,17 @@ const TeamMembersContainer = Relay.createContainer(TeamMembersComponent, {
                 id,
                 dbid,
                 name,
+                is_active,
                 source {
                   id,
                   dbid,
                   image,
                 }
               }
+              team {
+                id
+                slug
+              },
             }
           }
         },
@@ -45,6 +50,7 @@ const TeamMembersContainer = Relay.createContainer(TeamMembersComponent, {
                 dbid,
                 name,
                 email,
+                is_active,
                 source {
                   id,
                   dbid,

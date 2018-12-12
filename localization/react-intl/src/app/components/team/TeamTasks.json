@@ -1,11 +1,11 @@
 [
   {
     "id": "teamTasks.filterLabelHidden",
-    "defaultMessage": "{length, number} tasks ({hidden, number} hidden by filters)"
+    "defaultMessage": "{total, plural, =0 {No tasks} one {1 task ({hidden} hidden by filters)} other {# tasks ({hidden} hidden by filters)}}"
   },
   {
     "id": "teamTasks.filterLabel",
-    "defaultMessage": "{length, number} tasks"
+    "defaultMessage": "{total, plural, =0 {No tasks} one {1 task} other {# tasks}}"
   },
   {
     "id": "teamTasks.blank",

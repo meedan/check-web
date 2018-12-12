@@ -6,7 +6,10 @@ import UserTooltip from '../user/UserTooltip';
 const ProfileLink = (props) => {
   if (!props.user) return null;
 
-  const url = props.user.dbid ? `/check/user/${props.user.dbid}` : '';
+  let url = '';
+  if (props.user.dbid && props.user.is_active) {
+    url = `/check/user/${props.user.dbid}`;
+  }
 
   return url ?
     <Tooltip placement="top" overlay={<UserTooltip user={props.user} team={props.team} />}>

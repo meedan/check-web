@@ -168,6 +168,7 @@ const ProjectAssignmentContainer = Relay.createContainer(ProjectAssignmentCompon
                   id
                   dbid
                   name
+                  is_active
                   source {
                     id
                     dbid

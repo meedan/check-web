@@ -4,5 +4,6 @@
   "home.invalidInvitation": "Um erro ocorreu ao processar o seu convite. O servidor retornou o erro: \"{server_error}\". Por favor tente novamente e entre em contato com o time de suporte se o problema persistir.",
   "home.invalidTeamInvitation": "Equipe não encontrada.",
   "home.invalidNoInvitation": "Não há convite",
+  "home.successInvitation": "Bem-vindo ao {appName}. Por favor, faça o login com a senha que você recebeu no e-mail de boas-vindas.",
   "home.invalidTokenInvitation": "Código de convite é inválido."
 }

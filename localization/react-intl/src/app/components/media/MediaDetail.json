@@ -1,6 +1,6 @@
 [
   {
-    "id": "mediaDetail.added",
-    "defaultMessage": "Added"
+    "id": "mediaDetail.progress",
+    "defaultMessage": "{answered} required tasks answered, out of {total}"
   }
 ]
