@@ -22,15 +22,12 @@ class UpdateProjectMutation extends Relay.Mutation {
   }
 
   getVariables() {
-    const vars = { id: this.props.id };
-    if (this.props.title && this.props.description) {
-      vars.title = this.props.title;
-      vars.description = this.props.description;
-    }
-    if (this.props.assigned_to_ids !== undefined) {
-      vars.assigned_to_ids = this.props.assigned_to_ids;
-    }
-    return vars;
+    return {
+      id: this.props.id,
+      title: this.props.title,
+      description: this.props.description,
+      assigned_to_ids: this.props.assigned_to_ids,
+    };
   }
 
   getConfigs() {
