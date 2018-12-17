@@ -87,8 +87,6 @@ class ProjectEditComponent extends Component {
     const { project: { id } } = this.props;
     const { title, description } = this.state;
 
-    this.setState({ title, description });
-
     const onFailure = (transaction) => {
       const error = transaction.getError();
       let message = this.props.intl.formatMessage(messages.error);
@@ -100,7 +98,7 @@ class ProjectEditComponent extends Component {
     };
 
     const onSuccess = () => {
-      this.setState({ message: null });
+      this.currentContext().history.push(window.location.pathname.match(/.*\/project\/\d+/)[0]);
     };
 
     Relay.Store.commitUpdate(
@@ -113,7 +111,6 @@ class ProjectEditComponent extends Component {
     );
 
     e.preventDefault();
-    this.currentContext().history.push(window.location.pathname.match(/.*\/project\/\d+/)[0]);
   }
 
   render() {
