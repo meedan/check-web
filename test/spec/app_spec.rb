@@ -966,9 +966,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(project_pg.contains_string?(new_title)).to be(false)
       expect(project_pg.contains_string?(new_description)).to be(false)
       #7204 edit title and description separately
-      project_pg.edit(title: new_title)
+      project_pg.edit(title: new_title, description: "")
       expect(@driver.page_source.include?(new_title)).to be(true)
       expect(@driver.page_source.include?(new_description)).to be(false)
+      wait_for_selector('.project-menu', :css)
       #7204 edit title and description separately
       project_pg.edit(description: new_description)
       expect(@driver.page_source.include?(new_title)).to be(true)
