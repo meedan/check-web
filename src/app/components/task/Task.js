@@ -7,13 +7,10 @@ import TextField from 'material-ui/TextField';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import IconMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import IconEdit from 'material-ui/svg-icons/image/edit';
-import IconButton from 'material-ui/IconButton';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
+import TaskActions from './TaskActions';
 import SingleChoiceTask from './SingleChoiceTask';
 import MultiSelectTask from './MultiSelectTask';
 import Message from '../Message';
@@ -126,6 +123,27 @@ class Task extends Component {
 
     return data;
   }
+
+  handleAction = (action) => {
+    switch (action) {
+    case 'edit_question':
+      this.handleEditQuestion();
+      break;
+    case 'edit_response':
+      this.handleEditResponse(this.props.task.first_response);
+      break;
+    case 'edit_assignment':
+      this.handleEditQuestion();
+      break;
+    case 'edit_attribution':
+      this.handleEditAttribution();
+      break;
+    case 'delete':
+      this.handleDelete();
+      break;
+    default:
+    }
+  };
 
   handleChangeAssignments() {
     this.setState({ submitDisabled: false });
@@ -565,48 +583,7 @@ class Task extends Component {
           </div>
           : null}
         <div style={taskActionsStyle}>
-          <Can permissions={task.permissions} permission="update Task">
-            <IconMenu
-              className="task-actions"
-              iconButtonElement={
-                <IconButton>
-                  <IconMoreHoriz className="task-actions__icon" />
-                </IconButton>
-              }
-            >
-              {(can(media.permissions, 'create Task')) ?
-                <MenuItem className="task-actions__edit" onClick={this.handleEditQuestion.bind(this)}>
-                  <FormattedMessage id="task.edit" defaultMessage="Edit task" />
-                </MenuItem>
-                : null}
-
-              {response ?
-                <Can permissions={task.first_response.permissions} permission="update Dynamic">
-                  <MenuItem className="task-actions__edit-response" onClick={this.handleEditResponse.bind(this, task.first_response)}>
-                    <FormattedMessage id="task.editResponse" defaultMessage="Edit answer" />
-                  </MenuItem>
-                </Can>
-                : null}
-
-              {(can(media.permissions, 'create Task')) ?
-                <MenuItem className="task-actions__assign" onClick={this.handleEditQuestion.bind(this)}>
-                  <FormattedMessage id="task.assignOrUnassign" defaultMessage="Assign / Unassign" />
-                </MenuItem>
-                : null}
-
-              {(response && can(task.first_response.permissions, 'update Dynamic')) ?
-                <MenuItem className="task-actions__edit-attribution" onClick={this.handleEditAttribution.bind(this)}>
-                  <FormattedMessage id="task.editAttribution" defaultMessage="Edit attribution" />
-                </MenuItem>
-                : null}
-
-              <Can permissions={task.permissions} permission="destroy Task">
-                <MenuItem className="task-actions__delete" onClick={this.handleDelete.bind(this)}>
-                  <FormattedMessage id="task.delete" defaultMessage="Delete task" />
-                </MenuItem>
-              </Can>
-            </IconMenu>
-          </Can>
+          <TaskActions task={task} media={media} response={response} onSelect={this.handleAction} />
         </div>
       </div>
     ) : null;
