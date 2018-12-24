@@ -32,10 +32,6 @@ class TeamMembersComponent extends Component {
     this.setState({ isEditing: !this.state.isEditing });
   }
 
-  loadMore() {
-    this.props.relay.setVariables({ pageSize: this.props.team.team_users.edges.length + pageSize });
-  }
-
   render() {
     const { isEditing } = this.state;
     const { team, team: { team_users: teamUsers } } = this.props;
@@ -113,17 +109,12 @@ class TeamMembersComponent extends Component {
               <TeamInviteMembers team={team} />
             </Can>
           </FlexRow>
-          <LoadMore
-            hasMore={teamUsers.edges.length < team.members_count}
-            loadMore={this.loadMore.bind(this)}
-          >
-            <List
-              className="team-members__list"
-              style={{
-                maxHeight: '500px',
-                overflowY: 'auto',
-                overflowX: 'hidden',
-              }}
+          <List className="team-members__list">
+            <LoadMore
+              relay={this.props.relay}
+              pageSize={pageSize}
+              currentSize={teamUsers.edges.length}
+              total={team.members_count}
             >
               { teamUsersMembers.map(teamUser => (
                 <TeamMembersListItem
@@ -132,8 +123,8 @@ class TeamMembersComponent extends Component {
                   isEditing={isEditing}
                 />
               ))}
-            </List>
-          </LoadMore>
+            </LoadMore>
+          </List>
         </Card>
       </div>
     );

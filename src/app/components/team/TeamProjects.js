@@ -22,10 +22,6 @@ import {
 const pageSize = 20;
 
 class TeamProjects extends React.Component {
-  loadMore() {
-    this.props.relay.setVariables({ pageSize: this.props.team.projects.edges.length + pageSize });
-  }
-
   goToProject(pdbid) {
     browserHistory.push(`/${this.props.team.slug}/project/${pdbid}`);
   }
@@ -63,13 +59,12 @@ class TeamProjects extends React.Component {
               <FormattedMessage id="teamComponent.noProjects" defaultMessage="No projects" />
             </CardText>
             :
-            <LoadMore
-              hasMore={team.projects.edges.length < team.projects_count}
-              loadMore={this.loadMore.bind(this)}
-            >
-              <List
-                className="projects"
-                style={{ maxHeight: '500px', overflow: 'auto' }}
+            <List className="projects">
+              <LoadMore
+                relay={this.props.relay}
+                pageSize={pageSize}
+                currentSize={team.projects.edges.length}
+                total={team.projects_count}
               >
                 {team.projects.edges
                   .sortp((a, b) => a.node.title.localeCompare(b.node.title))
@@ -104,8 +99,8 @@ class TeamProjects extends React.Component {
                     />
                   ))
                 }
-              </List>
-            </LoadMore>
+              </LoadMore>
+            </List>
           }
         </Card>
       </div>

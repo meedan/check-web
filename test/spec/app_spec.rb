@@ -93,7 +93,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page.go(@config['self_url'] + '/check/me')
       page.approve_join_team(subdomain: @team1_slug)
       @wait.until {
-        elems = @driver.find_elements(:css => ".team-members__list > div")
+        elems = @driver.find_elements(:css => ".team-members__list > div > div > div > div")
         expect(elems.size).to be > 1
       }
 
@@ -1133,7 +1133,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page.go(@config['self_url'] + '/check/me')
       page.approve_join_team(subdomain: @team1_slug)
       @wait.until {
-        elems = @driver.find_elements(:css => ".team-members__list > div")
+        elems = @driver.find_elements(:css => ".team-members__list > div > div > div > div")
         expect(elems.size).to be > 1
       }
 
@@ -2134,10 +2134,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.switch_to.alert.accept ; sleep 5
 
       # Bot on team page
-      wait_for_selector('.header__user-menu button').click ; sleep 1
-      wait_for_selector('a[role="menuitem"]').click
-      wait_for_selector('#teams-tab').click ; sleep 5
-      wait_for_selector('.teams > div > div > a').click ; sleep 5
+      p.go(@config['self_url'] + '/' + team)
       wait_for_selector('.team-menu__team-settings-button').click ; sleep 5
       wait_for_selector('.team-settings__bots-tab').click ; sleep 5
       expect(@driver.page_source.include?('No bots installed')).to be(false)

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { Card, CardHeader, CardActions, CardText } from 'material-ui/Card';
 import Checkbox from 'material-ui/Checkbox';
@@ -16,6 +17,7 @@ import rtlDetect from 'rtl-detect';
 import SingleChoiceTask from './SingleChoiceTask';
 import MultiSelectTask from './MultiSelectTask';
 import Message from '../Message';
+import CheckContext from '../../CheckContext';
 import UpdateTaskMutation from '../../relay/mutations/UpdateTaskMutation';
 import UpdateDynamicMutation from '../../relay/mutations/UpdateDynamicMutation';
 import DeleteAnnotationMutation from '../../relay/mutations/DeleteAnnotationMutation';
@@ -95,6 +97,10 @@ class Task extends Component {
     return null;
   }
 
+  getCurrentUser() {
+    return new CheckContext(this).getContextStore().currentUser;
+  }
+
   getResponseData(response) {
     const data = {};
     const { media } = this.props;
@@ -119,13 +125,6 @@ class Task extends Component {
     }
 
     return data;
-  }
-
-  canSubmit() {
-    const label = typeof this.state.label !== 'undefined' && this.state.label !== null
-      ? this.state.label : this.props.task.label || '';
-
-    this.setState({ submitDisabled: !label });
   }
 
   handleChangeAssignments() {
@@ -291,6 +290,13 @@ class Task extends Component {
 
   handleEditAttribution() {
     this.setState({ editingAttribution: true });
+  }
+
+  canSubmit() {
+    const label = typeof this.state.label !== 'undefined' && this.state.label !== null
+      ? this.state.label : this.props.task.label || '';
+
+    this.setState({ submitDisabled: !label });
   }
 
   handleSubmitUpdateWithArgs(edited_response, edited_note) {
@@ -463,11 +469,18 @@ class Task extends Component {
     const {
       response, note, by, byPictures,
     } = data;
+    const currentUser = this.getCurrentUser();
+
+    let taskAssigned = false;
+    const taskAnswered = !!response;
 
     const assignments = task.assignments.edges;
     const assignmentComponents = [];
     assignments.forEach((assignment) => {
       assignmentComponents.push(<ProfileLink user={assignment.node} team={media.team} />);
+      if (currentUser && assignment.node.dbid === currentUser.dbid) {
+        taskAssigned = true;
+      }
     });
 
     const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
@@ -683,10 +696,21 @@ class Task extends Component {
       <ParsedText text={task.description} />
       : null;
 
+    const className = ['task'];
+    if (taskAnswered) {
+      className.push('task__answered-by-current-user');
+    }
+    if (taskAssigned) {
+      className.push('task__assigned-to-current-user');
+    }
+    if (task.required) {
+      className.push('task__required');
+    }
+
     return (
       <StyledWordBreakDiv>
         <Card
-          className="task"
+          className={className.join(' ')}
           style={{ marginBottom: units(1) }}
           initiallyExpanded
         >
@@ -799,6 +823,10 @@ Task.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
+};
+
+Task.contextTypes = {
+  store: PropTypes.object,
 };
 
 export default injectIntl(Task);
