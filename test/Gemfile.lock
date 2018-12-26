@@ -21,7 +21,7 @@ GEM
       multipart-post (>= 1.2, < 3)
     faraday_middleware (0.12.2)
       faraday (>= 0.7.4, < 1.0)
-    ffi (1.9.23)
+    ffi (1.9.25)
     gh (0.15.1)
       addressable (~> 2.4.0)
       backports
@@ -46,7 +46,7 @@ GEM
     multi_json (1.13.1)
     multi_xml (0.6.0)
     multipart-post (2.0.0)
-    mustermann (1.0.2)
+    mustermann (1.0.3)
     net-http-persistent (2.9.4)
     net-http-pipeline (1.0.1)
     netrc (0.11.0)
@@ -59,8 +59,8 @@ GEM
     pusher-client (0.6.2)
       json
       websocket (~> 1.0)
-    rack (2.0.4)
-    rack-protection (2.0.1)
+    rack (2.0.6)
+    rack-protection (2.0.5)
       rack
     rest-client (2.0.2)
       http-cookie (>= 1.0.2, < 2.0)
@@ -81,19 +81,19 @@ GEM
     rspec-retry (0.5.7)
       rspec-core (> 3.3)
     rspec-support (3.7.1)
-    rubyzip (1.2.1)
+    rubyzip (1.2.2)
     sauce_whisk (0.1.0)
       json
       rest-client (~> 2.0)
     selenium-webdriver (3.11.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.2)
-    sinatra (2.0.1)
+    sinatra (2.0.5)
       mustermann (~> 1.0)
       rack (~> 2.0)
-      rack-protection (= 2.0.1)
+      rack-protection (= 2.0.5)
       tilt (~> 2.0)
-    tilt (2.0.8)
+    tilt (2.0.9)
     tomlrb (1.2.6)
     travis (1.8.8)
       backports
@@ -116,18 +116,20 @@ PLATFORMS
 
 DEPENDENCIES
   appium_lib
+  ffi (>= 1.9.24)
   httparty
   imgur-api
   json
   parallel_split_test
+  rack (>= 2.0.6)
   rest-client
   rspec
   rspec-retry
-  rubyzip (= 1.2.1)
+  rubyzip (>= 1.2.2)
   sauce_whisk
   selenium-webdriver
-  sinatra
+  sinatra (>= 2.0.2)
   travis
 
 BUNDLED WITH
-   1.16.0
+   1.17.1
