@@ -1,0 +1,22 @@
+[
+  {
+    "id": "task.edit",
+    "defaultMessage": "Edit task"
+  },
+  {
+    "id": "task.editResponse",
+    "defaultMessage": "Edit answer"
+  },
+  {
+    "id": "task.assignOrUnassign",
+    "defaultMessage": "Assign / Unassign"
+  },
+  {
+    "id": "task.editAttribution",
+    "defaultMessage": "Edit attribution"
+  },
+  {
+    "id": "task.delete",
+    "defaultMessage": "Delete task"
+  }
+]
