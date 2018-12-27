@@ -29,8 +29,8 @@ class TaskActions extends React.Component {
 
     return (
       <Can permissions={task.permissions} permission="update Task">
-        <IconButton onClick={this.handleMenuClick}>
-          <IconMoreHoriz className="task-actions__icon" />
+        <IconButton className="task-actions__icon" onClick={this.handleMenuClick}>
+          <IconMoreHoriz />
         </IconButton>
         <Menu
           className="task-actions"
