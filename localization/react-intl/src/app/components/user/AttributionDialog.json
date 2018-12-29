@@ -1,0 +1,10 @@
+[
+  {
+    "id": "tasks.cancelEdit",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "tasks.done",
+    "defaultMessage": "Done"
+  }
+]

@@ -15,6 +15,8 @@ class TaskActions extends React.Component {
     this.setState({ anchorEl: event.currentTarget });
   };
 
+  handleClose = () => { this.setState({ anchorEl: null }); };
+
   handleAction = (action) => {
     this.setState({ anchorEl: null }, () => {
       if (this.props.onSelect) {
@@ -36,6 +38,7 @@ class TaskActions extends React.Component {
           className="task-actions"
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}
+          onClose={this.handleClose}
         >
           {(can(media.permissions, 'create Task')) ?
             <MenuItem className="task-actions__edit" onClick={() => this.handleAction('edit_question')}>
