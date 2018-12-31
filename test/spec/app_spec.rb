@@ -276,8 +276,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       sleep 1
       wait_for_selector("//textarea[contains(text(), 'When?')]", :xpath)
-      update_field('textarea[name="label"]', 'When was it?')
-      el = wait_for_selector('.task__save')
+      update_field('#task-label-input', 'When was it?')
+      el = wait_for_selector('.create-task__dialog-submit-button')
       el.click
       old = wait_for_size_change(old, "annotation__default-content", :class)
       expect(@driver.page_source.include?('When was it?')).to be(true)
@@ -1464,9 +1464,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       editbutton = wait_for_selector('.task-actions__edit', :css)
       editbutton.location_once_scrolled_into_view
       editbutton.click
-      fill_field('textarea[name="label"]', '??')
+      fill_field('#task-label-input', '??')
       sleep 5
-      editbutton = wait_for_selector('.task__save', :css)
+      editbutton = wait_for_selector('.create-task__dialog-submit-button', :css)
       editbutton.click
       media_pg.wait_all_elements(8, "annotations__list-item", :class)
       sleep 10
@@ -1531,9 +1531,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       editbutton = wait_for_selector('.task-actions__edit', :css)
       editbutton.location_once_scrolled_into_view
       editbutton.click
-      fill_field('textarea[name="label"]', '??')
+      fill_field('#task-label-input', '??')
       sleep 5
-      editbutton = wait_for_selector('.task__save', :css)
+      editbutton = wait_for_selector('.create-task__dialog-submit-button', :css)
       editbutton.click
       media_pg.wait_all_elements(9, "annotations__list-item", :class)
       sleep 10
@@ -1596,9 +1596,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       editbutton = wait_for_selector('.task-actions__edit', :css)
       editbutton.location_once_scrolled_into_view
       editbutton.click
-      fill_field('textarea[name="label"]', '??')
+      fill_field('#task-label-input', '??')
       sleep 5
-      editbutton = wait_for_selector('.task__save', :css)
+      editbutton = wait_for_selector('.create-task__dialog-submit-button', :css)
       editbutton.click
       media_pg.wait_all_elements(8, "annotations__list-item", :class)
       sleep 10
@@ -1868,8 +1868,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el = wait_for_selector('.task-actions__edit')
       el.click
       sleep 1
-      update_field('textarea[name="label"]', 'Where was it?')
-      el = wait_for_selector( '.task__save')
+      update_field('#task-label-input', 'Where was it?')
+      el = wait_for_selector( '.create-task__dialog-submit-button')
       el.click
       old = wait_for_size_change(old, "annotations__list-item", :class)
       expect(@driver.page_source.include?('Where was it?')).to be(true)

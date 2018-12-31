@@ -110,7 +110,7 @@ class TeamTasksListItem extends React.Component {
     const { id, type } = this.props.task;
     const teamTask = {
       id,
-      type,
+      task_type: type,
       label: task.label,
       description: task.description,
       required: Boolean(task.required),
