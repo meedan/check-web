@@ -1,10 +1,11 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { injectIntl } from 'react-intl';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import globalStrings from '../../globalStrings';
 import Message from '../Message';
 import Attribution from '../task/Attribution';
 import { units } from '../../styles/js/shared';
@@ -44,14 +45,14 @@ class AttributionDialog extends React.Component {
             className="attribution-dialog__cancel"
             onClick={this.props.onDismiss}
           >
-            <FormattedMessage id="tasks.cancelEdit" defaultMessage="Cancel" />
+            {this.props.intl.formatMessage(globalStrings.cancel)}
           </Button>
           <Button
             color="primary"
             className="attribution-dialog__save"
             onClick={this.handleSubmit}
           >
-            <FormattedMessage id="tasks.done" defaultMessage="Done" />
+            {this.props.intl.formatMessage(globalStrings.submit)}
           </Button>
         </DialogActions>
       </Dialog>
@@ -59,4 +60,4 @@ class AttributionDialog extends React.Component {
   }
 }
 
-export default AttributionDialog;
+export default injectIntl(AttributionDialog);
