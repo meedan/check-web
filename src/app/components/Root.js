@@ -29,7 +29,6 @@ import AddTeamPage from './team/AddTeamPage';
 import JoinTeam from './team/JoinTeam';
 import Teams from './team/Teams';
 import Trash from './team/Trash';
-import CreateProjectMedia from './media/CreateMedia';
 import ProjectMedia from './media/Media';
 import MediaEmbed from './media/MediaEmbed';
 import Project from './project/Project';
@@ -152,7 +151,6 @@ class Root extends Component {
                 <Route path="check/bot-garden" component={BotGarden} />
                 <Route path="check/bot/:botId" component={Bot} />
 
-                <Route path=":team/medias/new" component={CreateProjectMedia} />
                 <Route path=":team/project/:projectId/media/:mediaId" component={ProjectMedia} public />
                 <Route path=":team/project/:projectId/media/:mediaId/embed" component={MediaEmbed} public />
                 <Route path=":team/project/:projectId/source/:sourceId" component={Source} public />
