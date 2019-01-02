@@ -152,7 +152,6 @@ class Root extends Component {
                 <Route path="check/bot-garden" component={BotGarden} />
                 <Route path="check/bot/:botId" component={Bot} />
 
-                <Route path=":team/medias/new" component={CreateProjectMedia} />
                 <Route path=":team/project/:projectId/media/:mediaId" component={ProjectMedia} public />
                 <Route path=":team/project/:projectId/media/:mediaId/embed" component={MediaEmbed} public />
                 <Route path=":team/project/:projectId/source/:sourceId" component={Source} public />
