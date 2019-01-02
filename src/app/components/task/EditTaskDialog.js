@@ -185,7 +185,9 @@ class EditTaskDialog extends React.Component {
   };
 
   handleSubmitTask() {
-    const jsonoptions = JSON.stringify(this.state.options.filter(item => item.label !== ''));
+    const jsonoptions = this.state.options
+      ? JSON.stringify(this.state.options.filter(item => item.label !== ''))
+      : undefined;
 
     const task = {
       label: this.state.label,
@@ -194,7 +196,6 @@ class EditTaskDialog extends React.Component {
       jsonoptions,
       json_project_ids: JSON.stringify(this.state.project_ids),
     };
-
 
     if (!this.state.submitDisabled) {
       this.props.onSubmit(task);
@@ -207,6 +208,10 @@ class EditTaskDialog extends React.Component {
   }
 
   renderOptions() {
+    if (this.props.noOptions) {
+      return null;
+    }
+
     if (this.props.taskType !== 'single_choice' &&
         this.props.taskType !== 'multiple_choice') {
       return null;

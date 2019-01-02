@@ -107,10 +107,10 @@ class TeamTasksListItem extends React.Component {
 
   handleSubmitTask = () => {
     const task = this.state.editedTask;
-    const { id, task_type } = this.props.task;
+    const { id, type } = this.props.task;
     const teamTask = {
       id,
-      task_type,
+      task_type: type,
       label: task.label,
       description: task.description,
       required: Boolean(task.required),
@@ -188,7 +188,7 @@ class TeamTasksListItem extends React.Component {
       <div>
         <ListItem className="team-tasks__list-item">
           <ListItemIcon className="team-tasks__task-icon">
-            {icon[task.task_type]}
+            {icon[task.type]}
           </ListItemIcon>
           <ListItemText className="team-tasks__task-label" primary={label} />
           <ListItemSecondaryAction>
@@ -221,7 +221,7 @@ class TeamTasksListItem extends React.Component {
           <EditTaskDialog
             task={task}
             message={this.state.message}
-            taskType={task.task_type}
+            taskType={task.type}
             onDismiss={this.handleCloseEdit}
             onSubmit={this.handleEdit}
             projects={projects}

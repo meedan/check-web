@@ -105,10 +105,6 @@ export const localeAr = `
       text-align: unset !important;
     }
 
-    .create-task__action-container {
-      text-align: left !important;
-    }
-
     // Flip all icons except logos
     svg:not(.logo) {
       transform: scale(-1, 1);

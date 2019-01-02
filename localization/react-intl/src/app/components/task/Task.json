@@ -8,18 +8,6 @@
     "defaultMessage": "Answered by {byName}"
   },
   {
-    "id": "tasks.cancelEdit",
-    "defaultMessage": "Cancel"
-  },
-  {
-    "id": "tasks.save",
-    "defaultMessage": "Save"
-  },
-  {
-    "id": "tasks.done",
-    "defaultMessage": "Done"
-  },
-  {
     "id": "task.assignedTo",
     "defaultMessage": "Assigned to {name}"
   },
@@ -28,27 +16,15 @@
     "defaultMessage": "Resolved by {byName}"
   },
   {
-    "id": "tasks.taskLabel",
-    "defaultMessage": "Task label"
-  },
-  {
-    "id": "tasks.requiredCheckbox",
-    "defaultMessage": "Required"
-  },
-  {
-    "id": "tasks.description",
-    "defaultMessage": "Description"
-  },
-  {
-    "id": "tasks.assignment",
-    "defaultMessage": "Assignment"
-  },
-  {
-    "id": "tasks.editAttribution",
-    "defaultMessage": "Edit attribution"
+    "id": "tasks.editAssignment",
+    "defaultMessage": "Edit assignment"
   },
   {
     "id": "tasks.attributionSlogan",
     "defaultMessage": "For the task, \"{label}\""
+  },
+  {
+    "id": "tasks.editAttribution",
+    "defaultMessage": "Edit attribution"
   }
 ]
