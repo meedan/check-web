@@ -30,10 +30,10 @@ class CreateMediaDialog extends React.Component {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={this.props.onDismiss}>
+          <Button id="create-media-dialog__dismiss-button" onClick={this.props.onDismiss}>
             {this.props.intl.formatMessage(globalStrings.cancel)}
           </Button>
-          <Button onClick={this.handleSubmit} color="primary">
+          <Button id="create-media-dialog__submit-button" onClick={this.handleSubmit} color="primary">
             {this.props.intl.formatMessage(globalStrings.submit)}
           </Button>
         </DialogActions>

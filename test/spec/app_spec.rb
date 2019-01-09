@@ -2066,12 +2066,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.create-related-media__add-button')
       expect(@driver.page_source.include?('Child Claim')).to be(false)
       press_button('.create-related-media__add-button')
-      sleep 3
-      fill_field('#claim-input', 'Child Claim')
+      wait_for_selector('#create-media__quote').click
+      fill_field('#create-media-quote-input', 'Child Claim')
       sleep 1
-      fill_field('#source-input', 'Child Claim Source')
+      fill_field('#create-media-quote-attribution-source-input', 'Child Claim Source')
       sleep 1
-      press_button('.create-related-media__dialog-submit-button')
+      press_button('#create-media-dialog__submit-button')
       sleep 5
       expect(@driver.page_source.include?('Child Claim')).to be(true)
       wait_for_selector('.project-header__back-button').click
