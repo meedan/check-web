@@ -109,15 +109,15 @@ class MediaRelatedComponent extends Component {
       <div>
         { this.props.showHeader ?
           <StyledHeaderRow>
-            <FlexRow>
+            <FlexRow style={{ marginBottom: units(2) }}>
               <h2>
                 <FormattedMessage
                   id="mediaRelated.relatedItems"
                   defaultMessage="Related items"
                 />
               </h2>
+              <CreateRelatedMedia style={{ marginLeft: 'auto' }} media={this.props.media} />
             </FlexRow>
-            <CreateRelatedMedia style={{ marginLeft: 'auto' }} media={this.props.media} />
           </StyledHeaderRow> : null }
 
         { (this.props.showNumbers && medias.length > 0) ?

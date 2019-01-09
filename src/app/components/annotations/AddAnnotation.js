@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay/classic';
-import TextField from 'material-ui/TextField';
-import FlatButton from 'material-ui/FlatButton';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 import MdInsertPhoto from 'react-icons/lib/md/insert-photo';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
@@ -16,7 +16,7 @@ import CreateDynamicMutation from '../../relay/mutations/CreateDynamicMutation';
 import { can } from '../Can';
 import CheckContext from '../../CheckContext';
 import UploadImage from '../UploadImage';
-import { ContentColumn, Row, black38, black87, alertRed, units } from '../../styles/js/shared';
+import { ContentColumn, Row, black38, black87, units } from '../../styles/js/shared';
 import HttpStatus from '../../HttpStatus';
 import { safelyParseJSON } from '../../helpers';
 
@@ -63,15 +63,6 @@ const messages = defineMessages({
     defaultMessage: 'Add an image',
   },
 });
-
-const styles = {
-  errorStyle: {
-    color: alertRed,
-  },
-  successStyle: {
-    color: black87,
-  },
-};
 
 class AddAnnotation extends Component {
   static parseCommand(input) {
@@ -123,7 +114,6 @@ class AddAnnotation extends Component {
       message,
       isSubmitting: false,
       fileMode: false,
-      messageStyle: styles.successStyle,
     });
   }
 
@@ -139,7 +129,6 @@ class AddAnnotation extends Component {
     this.setState({
       message: message.replace(/<br\s*\/?>/gm, '; '),
       isSubmitting: false,
-      messageStyle: styles.errorStyle,
     });
   }
 
@@ -448,16 +437,14 @@ class AddAnnotation extends Component {
       >
         <ContentColumn flex>
           <TextField
-            hintText={this.props.intl.formatMessage(messages.inputHint)}
-            fullWidth={false}
-            style={{ width: '100%' }}
-            errorStyle={this.state.messageStyle}
+            placeholder={this.props.intl.formatMessage(messages.inputHint)}
             onFocus={this.handleFocus.bind(this)}
             ref={(i) => { this.cmd = i; }}
-            errorText={this.state.message}
+            error={Boolean(this.state.message)}
+            helperText={this.state.message}
             name="cmd"
             id="cmd-input"
-            multiLine
+            multiline
             onKeyPress={this.handleKeyPress.bind(this)}
             value={this.state.cmd}
             onChange={this.handleChange.bind(this)}
@@ -485,11 +472,9 @@ class AddAnnotation extends Component {
                 onClick={this.switchMode.bind(this)}
               />
             </div>
-            <FlatButton
-              label={this.props.intl.formatMessage(messages.submitButton)}
-              primary
-              type="submit"
-            />
+            <Button color="primary" type="submit">
+              {this.props.intl.formatMessage(messages.submitButton)}
+            </Button>
           </AddAnnotationButtonGroup>
         </ContentColumn>
       </form>
