@@ -1,0 +1,62 @@
+[
+  {
+    "id": "createMedia.mediaInput",
+    "defaultMessage": "Paste or type"
+  },
+  {
+    "id": "createMedia.quoteInput",
+    "defaultMessage": "Paste or type a claim"
+  },
+  {
+    "id": "createMedia.quoteAttributionSourceInput",
+    "defaultMessage": "Source name"
+  },
+  {
+    "id": "createMedia.quoteAttributionContext",
+    "defaultMessage": "URL or context"
+  },
+  {
+    "id": "createMedia.quoteAttributionSourceInputHelper",
+    "defaultMessage": "Who said this?"
+  },
+  {
+    "id": "createMedia.quoteAttributionContextHelper",
+    "defaultMessage": "Add URL or describe the content"
+  },
+  {
+    "id": "createMedia.sourceInput",
+    "defaultMessage": "Source name"
+  },
+  {
+    "id": "createMedia.sourceUrlInput",
+    "defaultMessage": "Link to source"
+  },
+  {
+    "id": "createMedia.uploadImage",
+    "defaultMessage": "Upload an image"
+  },
+  {
+    "id": "createMedia.submitButton",
+    "defaultMessage": "Post"
+  },
+  {
+    "id": "createMedia.invalidUrl",
+    "defaultMessage": "Please enter a valid URL"
+  },
+  {
+    "id": "createMedia.link",
+    "defaultMessage": "Link"
+  },
+  {
+    "id": "createMedia.quote",
+    "defaultMessage": "Claim"
+  },
+  {
+    "id": "createMedia.source",
+    "defaultMessage": "Source"
+  },
+  {
+    "id": "createMedia.image",
+    "defaultMessage": "Photo"
+  }
+]
