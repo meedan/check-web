@@ -1,23 +1,9 @@
 {
   "createMedia.submitting": "Enviando...",
   "createMedia.error": "Houve um erro. O servidor retornou o erro {code}. Por favor entre em contato com o suporte.",
-  "createMedia.mediaInput": "Cole ou digite",
-  "createMedia.quoteInput": "Cole ou digite uma afirmação",
-  "createMedia.quoteAttributionSourceInput": "Nome da fonte",
-  "createMedia.quoteAttributionContext": "URL ou contexto",
-  "createMedia.quoteAttributionSourceInputHelper": "Quém disse isso?",
-  "createMedia.quoteAttributionContextHelper": "Adicione uma URL ou descreve o conteúdo do ítem",
-  "createMedia.sourceInput": "Nome da fonte",
-  "createMedia.sourceUrlInput": "URL da fonte",
-  "createMedia.uploadImage": "Enviar uma imagem",
-  "createMedia.submitButton": "Enviar",
   "createMedia.errorTitle": "Não foi possível enviar \"{title}\"",
   "createMedia.imageTitle": "Enviar uma imagem",
   "createMedia.sourceTitle": "Insira uma fonte",
   "createMedia.linkTitle": "Insira um link",
-  "createMedia.quoteTitle": "Insira uma afirmação",
-  "createMedia.link": "Link",
-  "createMedia.quote": "Afirmação",
-  "createMedia.source": "Fonte",
-  "createMedia.image": "Foto"
+  "createMedia.quoteTitle": "Insira uma afirmação"
 }

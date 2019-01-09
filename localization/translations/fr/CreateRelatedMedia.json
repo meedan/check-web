@@ -1,8 +1,3 @@
 {
-  "createRelatedMedia.newClaim": "Ajouter une déclaration associée",
-  "createRelatedMedia.cancelAdd": "Annuler",
-  "createRelatedMedia.submit": "Envoyer",
-  "createRelatedMedia.addRelatedItem": "Ajouter un élément associé",
-  "createRelatedMedia.claimText": "Texte de la déclaration",
-  "createRelatedMedia.source": "Source"
+  "createRelatedMedia.addRelatedItem": "Ajouter un élément associé"
 }

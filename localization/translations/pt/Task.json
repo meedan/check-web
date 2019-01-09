@@ -1,20 +1,9 @@
 {
   "task.confirmDelete": "Tem certeza que deseja apagar esta tarefa?",
   "task.answeredBy": "Respondida por {byName}",
-  "tasks.cancelEdit": "Cancelar",
-  "tasks.save": "Salvar",
-  "tasks.done": "Feito",
   "task.assignedTo": "Atribuído(a) a {name}",
   "task.resolvedBy": "Resolvido por {byName}",
-  "task.edit": "Editar tarefa",
-  "task.editResponse": "Editar resposta",
-  "task.assignOrUnassign": "Atribuir / Remover atribuição",
-  "task.editAttribution": "Editar atribuição",
-  "task.delete": "Remover tarefa",
-  "tasks.taskLabel": "Título da tarefa",
-  "tasks.requiredCheckbox": "Requerido",
-  "tasks.description": "Descrição",
-  "tasks.assignment": "Atribuição",
-  "tasks.editAttribution": "Editar atribuição",
-  "tasks.attributionSlogan": "Para a tarefa \"{label}\""
+  "tasks.editAssignment": "Editar atribuição",
+  "tasks.attributionSlogan": "Para a tarefa \"{label}\"",
+  "tasks.editAttribution": "Editar autoria da resposta"
 }

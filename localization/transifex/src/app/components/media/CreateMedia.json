@@ -1,23 +1,9 @@
 {
   "createMedia.submitting": "Submitting...",
   "createMedia.error": "Something went wrong! The server returned an error code {code}. Please contact a system administrator.",
-  "createMedia.mediaInput": "Paste or type",
-  "createMedia.quoteInput": "Paste or type a claim",
-  "createMedia.quoteAttributionSourceInput": "Source name",
-  "createMedia.quoteAttributionContext": "URL or context",
-  "createMedia.quoteAttributionSourceInputHelper": "Who said this?",
-  "createMedia.quoteAttributionContextHelper": "Add URL or describe the content",
-  "createMedia.sourceInput": "Source name",
-  "createMedia.sourceUrlInput": "Link to source",
-  "createMedia.uploadImage": "Upload an image",
-  "createMedia.submitButton": "Post",
   "createMedia.errorTitle": "Could not submit \"{title}\"",
   "createMedia.imageTitle": "Upload a photo",
   "createMedia.sourceTitle": "Add a source",
   "createMedia.linkTitle": "Add a link",
-  "createMedia.quoteTitle": "Add a claim",
-  "createMedia.link": "Link",
-  "createMedia.quote": "Claim",
-  "createMedia.source": "Source",
-  "createMedia.image": "Photo"
+  "createMedia.quoteTitle": "Add a claim"
 }

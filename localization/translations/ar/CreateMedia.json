@@ -1,23 +1,9 @@
 {
   "createMedia.submitting": "جاري الإرسال ...",
   "createMedia.error": "عذراً ، لقد واجهنا خطأ ما اثناء التواصل مع الخادم الذى أرجع رسالة خطأ {code}. من فضلك أعد المحاولة وتواصل مع فريق الدعم إن استمر الخطأ.",
-  "createMedia.mediaInput": "الصق أو اكتب",
-  "createMedia.quoteInput": "الصق أو اكتب إدعائاً",
-  "createMedia.quoteAttributionSourceInput": "اسم المصدر",
-  "createMedia.quoteAttributionContext": "رابط أو سياق",
-  "createMedia.quoteAttributionSourceInputHelper": "من أدعى ذلك ؟",
-  "createMedia.quoteAttributionContextHelper": "أضف رابطاً أو شرحاً للإدعاء",
-  "createMedia.sourceInput": "اسم المصدر",
-  "createMedia.sourceUrlInput": "رابط المصدر",
-  "createMedia.uploadImage": "ارفع صورة",
-  "createMedia.submitButton": "نشر",
   "createMedia.errorTitle": "عذراً ، لقد واجهنا خطأ ما اثناء إرسال العنصر. من فضلك أعد المحاولة وتواصل مع فريق الدعم إن استمر الخطأ.",
   "createMedia.imageTitle": "ارفع صورة",
   "createMedia.sourceTitle": "أضف مصدراً",
   "createMedia.linkTitle": "أضف رابطاً",
-  "createMedia.quoteTitle": "أضف إدعائاً",
-  "createMedia.link": "رابط",
-  "createMedia.quote": "إدعاء",
-  "createMedia.source": "مصدر",
-  "createMedia.image": "صورة"
+  "createMedia.quoteTitle": "أضف إدعائاً"
 }

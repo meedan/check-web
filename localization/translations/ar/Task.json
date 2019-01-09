@@ -1,20 +1,9 @@
 {
-  "task.confirmDelete": "هل أنت متأكد أنك تود حذف هذه المهمة؟",
+  "task.confirmDelete": "هل أنت متأكد أنك تود حذف هذه المهمة ؟",
   "task.answeredBy": "أجابها {byName}",
-  "tasks.cancelEdit": "إلغاء",
-  "tasks.save": "حفظ",
-  "tasks.done": "إتمام",
   "task.assignedTo": "تم تكليف الميديا إلى {name}",
   "task.resolvedBy": "أجابها {byName}",
-  "task.edit": "تحرير المهمة",
-  "task.editResponse": "تحرير اﻹجابة",
-  "task.assignOrUnassign": "تكليف \\ إلغاء التكليف",
-  "task.editAttribution": "تحرير اﻹسناد",
-  "task.delete": "حذف المهمة",
-  "tasks.taskLabel": "عنوان المهمة",
-  "tasks.requiredCheckbox": "إجباري",
-  "tasks.description": "وصف",
-  "tasks.assignment": "التكليف",
-  "tasks.editAttribution": "تحرير اﻹسناد",
-  "tasks.attributionSlogan": "للمهمة \"{label}\""
+  "tasks.editAssignment": "تحرير التكليف",
+  "tasks.attributionSlogan": "للمهمة \"{label}\"",
+  "tasks.editAttribution": "تحرير اﻹسناد"
 }

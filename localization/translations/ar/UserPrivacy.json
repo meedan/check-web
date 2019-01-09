@@ -12,7 +12,7 @@
   "userPrivacy.delete": "حذف حسابك",
   "userPrivacy.deleteAccountText": "إذا قمت بحذف حسابك ، فسيتم مسح معلوماتك الشخصية. ستُنسب تعليقاتك وسجل نشاطك الى اسم مستعار وستظل على {appName}.",
   "userPrivacy.deleteAccountButton": "حذف حسابي",
-  "userPrivacy.deleteAccountConfirmationText": "هل أنت متأكد؟ سوف يتم حذف حسابك وخروجك من التطبيق. أكتب كلمة (confirm) للمتابعة.",
+  "userPrivacy.deleteAccountConfirmationText": "هل أنت متأكد ؟ سوف يتم حذف حسابك وخروجك من التطبيق. أكتب كلمة (confirm) للمتابعة.",
   "deleteAccount.cancel": "إلغاء",
   "deleteAccount.delete": "حذف"
 }

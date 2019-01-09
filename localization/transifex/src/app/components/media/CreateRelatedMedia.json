@@ -1,8 +1,3 @@
 {
-  "createRelatedMedia.newClaim": "Add a related claim",
-  "createRelatedMedia.cancelAdd": "Cancel",
-  "createRelatedMedia.submit": "Submit",
-  "createRelatedMedia.addRelatedItem": "Add related item",
-  "createRelatedMedia.claimText": "Claim text",
-  "createRelatedMedia.source": "Source"
+  "createRelatedMedia.addRelatedItem": "Add related item"
 }
