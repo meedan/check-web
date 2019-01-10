@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router';
 import { defineMessages, injectIntl } from 'react-intl';
 import Relay from 'react-relay/classic';
 import CheckContext from '../../CheckContext';
@@ -385,7 +384,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
 
 class ProjectMedia extends Component {
   componentWillMount() {
-    this.props.router.setRouteLeaveHook(
+    this.context.router.setRouteLeaveHook(
       this.props.route,
       () => {
         const assigned = document.getElementsByClassName('task__required task__assigned-to-current-user').length;
@@ -425,6 +424,7 @@ class ProjectMedia extends Component {
 
 ProjectMedia.contextTypes = {
   store: PropTypes.object,
+  router: PropTypes.object,
 };
 
-export default withRouter(injectIntl(ProjectMedia));
+export default injectIntl(ProjectMedia);
