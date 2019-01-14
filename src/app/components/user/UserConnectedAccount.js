@@ -32,7 +32,7 @@ class UserConnectedAccount extends Component {
 
   handleUserClick(userAction) {
     if (userAction === 'connect') {
-      login(this.props.provider, this.props.loginCallback);
+      login(this.props.provider.key, this.props.loginCallback);
     } else if (userAction === 'disconnect') {
       const onFailure = () => {
       };
@@ -50,7 +50,7 @@ class UserConnectedAccount extends Component {
   }
 
   socialIcon() {
-    switch (this.props.provider) {
+    switch (this.props.provider.key) {
     case 'twitter':
       return <FATwitter style={{ color: twitterBlue }} className="logo" />;
     case 'slack':
@@ -63,11 +63,10 @@ class UserConnectedAccount extends Component {
   }
 
   render() {
-    const userProviders = this.props.user.providers;
-    let userAction = 'connect';
-    if (userProviders.includes(this.props.provider) === true) {
-      userAction = 'disconnect';
-    }
+    const { provider } = this.props;
+
+    const userAction = (provider.connected === true) ? 'disconnect' : 'connect';
+
     const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
 
     const direction = {
@@ -76,21 +75,21 @@ class UserConnectedAccount extends Component {
     };
 
     const buttonStyle = {
-      minWidth: 400,
+      minWidth: 350,
       textAlign: direction.to,
     };
 
     return (
       <ListItem
         className="team-connected_accounts"
-        key={this.props.provider}
+        key={provider.key}
         disabled
         leftIcon={this.socialIcon()}
         style={{ padding: '8px 61px' }}
       >
         <FlexRow>
           <Text ellipsis>
-            {this.props.provider}
+            {provider.key} {provider.info}
           </Text>
           <FlatButton
             hoverColor="transparent"

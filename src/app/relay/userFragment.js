@@ -8,7 +8,6 @@ const userFragment = Relay.QL`
     name,
     email,
     providers,
-    allowed_providers,
     is_active,
     confirmed,
     unconfirmed_email,

@@ -163,7 +163,7 @@ class UserPrivacy extends Component {
       </a>
     );
 
-    const { allowed_providers: allowedProviders } = this.props.user;
+    const { providers } = this.props.user;
 
     return (
       <div id="user__privacy">
@@ -220,11 +220,11 @@ class UserPrivacy extends Component {
         <Card style={cardStyle}>
           <CardText style={cardTextStyle}>
             <List>
-              { allowedProviders.map(provider => (
+              { providers.map(provider => (
                 <UserConnectedAccount
                   provider={provider}
                   user={user}
-                  key={provider}
+                  key={provider.key}
                 />
               ))}
             </List>

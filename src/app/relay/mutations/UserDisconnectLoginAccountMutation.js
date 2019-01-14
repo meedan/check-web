@@ -6,7 +6,7 @@ class UserDisconnectLoginAccountMutation extends Relay.Mutation {
   }
 
   getFatQuery() {
-    return Relay.QL`fragment on UserDisconnectLoginAccountPayload { success, user {id, allowed_providers}}`;
+    return Relay.QL`fragment on UserDisconnectLoginAccountPayload { success, user {id, providers}}`;
   }
 
   getConfigs() {
@@ -15,7 +15,7 @@ class UserDisconnectLoginAccountMutation extends Relay.Mutation {
       children: [Relay.QL`
         fragment on UserDisconnectLoginAccountPayload {
           success,
-          user {id, allowed_providers}
+          user {id, providers}
         }
       `],
     }];
@@ -24,7 +24,7 @@ class UserDisconnectLoginAccountMutation extends Relay.Mutation {
   getVariables() {
     return {
       id: this.props.user.dbid,
-      provider: this.props.provider,
+      provider: this.props.provider.key,
     };
   }
 }
