@@ -11,6 +11,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
+import { List } from 'material-ui/List';
+import TeamConnectedAccount from '../team/TeamConnectedAccount';
 import { logout } from '../../redux/actions';
 import DeleteCheckUserMutation from '../../relay/mutations/DeleteCheckUserMutation';
 import CheckContext from '../../CheckContext';
@@ -161,6 +163,8 @@ class UserPrivacy extends Component {
       </a>
     );
 
+    const providers = ['slack', 'twitter', 'facebook'];
+
     return (
       <div id="user__privacy">
         <h2 style={style}>
@@ -208,6 +212,22 @@ class UserPrivacy extends Component {
               primary
               onClick={UserPrivacy.handleSubmit.bind(this, 'Stop processing')}
             />
+          </CardText>
+        </Card>
+        <h2 style={style}>
+          <FormattedMessage id="userPrivacy.connected_accounts" defaultMessage="Connected accounts" />
+        </h2>
+        <Card style={cardStyle}>
+          <CardText style={cardTextStyle}>
+            <List>
+              { providers.map(provider => (
+                <TeamConnectedAccount
+                  provider={provider}
+                  user={user}
+                  key={provider}
+                />
+              ))}
+            </List>
           </CardText>
         </Card>
         <h2 style={Object.assign({}, style, { marginTop: units(6) })}>
