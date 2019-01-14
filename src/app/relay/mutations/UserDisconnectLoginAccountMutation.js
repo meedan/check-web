@@ -6,7 +6,7 @@ class UserDisconnectLoginAccountMutation extends Relay.Mutation {
   }
 
   getFatQuery() {
-    return Relay.QL`fragment on UserDisconnectLoginAccountPayload { success }`;
+    return Relay.QL`fragment on UserDisconnectLoginAccountPayload { success, user {id, allowed_providers}}`;
   }
 
   getConfigs() {
@@ -14,7 +14,8 @@ class UserDisconnectLoginAccountMutation extends Relay.Mutation {
       type: 'REQUIRED_CHILDREN',
       children: [Relay.QL`
         fragment on UserDisconnectLoginAccountPayload {
-          success
+          success,
+          user {id, allowed_providers}
         }
       `],
     }];

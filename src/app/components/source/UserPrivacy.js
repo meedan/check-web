@@ -12,7 +12,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import { List } from 'material-ui/List';
-import TeamConnectedAccount from '../team/TeamConnectedAccount';
+import UserConnectedAccount from '../user/UserConnectedAccount';
 import { logout } from '../../redux/actions';
 import DeleteCheckUserMutation from '../../relay/mutations/DeleteCheckUserMutation';
 import CheckContext from '../../CheckContext';
@@ -163,7 +163,7 @@ class UserPrivacy extends Component {
       </a>
     );
 
-    const providers = ['slack', 'twitter', 'facebook'];
+    const { allowed_providers: allowedProviders } = this.props.user;
 
     return (
       <div id="user__privacy">
@@ -220,8 +220,8 @@ class UserPrivacy extends Component {
         <Card style={cardStyle}>
           <CardText style={cardTextStyle}>
             <List>
-              { providers.map(provider => (
-                <TeamConnectedAccount
+              { allowedProviders.map(provider => (
+                <UserConnectedAccount
                   provider={provider}
                   user={user}
                   key={provider}

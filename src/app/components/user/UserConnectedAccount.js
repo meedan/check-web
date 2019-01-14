@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Relay from 'react-relay/classic';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { ListItem } from 'material-ui/List';
 import FlatButton from 'material-ui/FlatButton';
@@ -7,6 +8,7 @@ import FASlack from 'react-icons/lib/fa/slack';
 import FAFacebook from 'react-icons/lib/fa/facebook-official';
 import FATwitter from 'react-icons/lib/fa/twitter';
 import rtlDetect from 'rtl-detect';
+import UserDisconnectLoginAccountMutation from '../../relay/mutations/UserDisconnectLoginAccountMutation';
 import { login } from '../../redux/actions';
 import {
   FlexRow,
@@ -16,7 +18,7 @@ import {
   facebookBlue,
 } from '../../styles/js/shared';
 
-class TeamConnectedAccount extends Component {
+class UserConnectedAccount extends Component {
   static renderLabel(userAction) {
     switch (userAction) {
     case 'connect':
@@ -31,6 +33,19 @@ class TeamConnectedAccount extends Component {
   handleUserClick(userAction) {
     if (userAction === 'connect') {
       login(this.props.provider, this.props.loginCallback);
+    } else if (userAction === 'disconnect') {
+      const onFailure = () => {
+      };
+      const onSuccess = () => {
+      };
+      const { user, provider } = this.props;
+      Relay.Store.commitUpdate(
+        new UserDisconnectLoginAccountMutation({
+          user,
+          provider,
+        }),
+        { onSuccess, onFailure },
+      );
     }
   }
 
@@ -80,7 +95,7 @@ class TeamConnectedAccount extends Component {
           <FlatButton
             hoverColor="transparent"
             style={buttonStyle}
-            label={TeamConnectedAccount.renderLabel(userAction)}
+            label={UserConnectedAccount.renderLabel(userAction)}
             primary
             onClick={this.handleUserClick.bind(this, userAction)}
             className="team-connect-account-button--disconnect"
@@ -90,8 +105,7 @@ class TeamConnectedAccount extends Component {
     );
   }
 }
-TeamConnectedAccount.contextTypes = {
+UserConnectedAccount.contextTypes = {
   store: PropTypes.object,
-  setMessage: PropTypes.func,
 };
-export default injectIntl(TeamConnectedAccount);
+export default injectIntl(UserConnectedAccount);
