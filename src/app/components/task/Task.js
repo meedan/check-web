@@ -1,38 +1,35 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
-import { Card, CardHeader, CardActions, CardText } from 'material-ui/Card';
-import Checkbox from 'material-ui/Checkbox';
-import TextField from 'material-ui/TextField';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
-import IconMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
-import IconEdit from 'material-ui/svg-icons/image/edit';
-import IconButton from 'material-ui/IconButton';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
+import { Card, CardHeader, CardActions, CardText } from 'material-ui/Card';
+import EditIcon from '@material-ui/icons/Edit';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
+import EditTaskDialog from './EditTaskDialog';
+import TaskActions from './TaskActions';
+import TaskLog from './TaskLog';
 import SingleChoiceTask from './SingleChoiceTask';
 import MultiSelectTask from './MultiSelectTask';
-import Message from '../Message';
-import UpdateTaskMutation from '../../relay/mutations/UpdateTaskMutation';
-import UpdateDynamicMutation from '../../relay/mutations/UpdateDynamicMutation';
-import DeleteAnnotationMutation from '../../relay/mutations/DeleteAnnotationMutation';
-import Can, { can } from '../Can';
-import ParsedText from '../ParsedText';
 import ShortTextRespondTask from './ShortTextRespondTask';
 import GeolocationRespondTask from './GeolocationRespondTask';
 import GeolocationTaskResponse from './GeolocationTaskResponse';
 import DatetimeRespondTask from './DatetimeRespondTask';
 import DatetimeTaskResponse from './DatetimeTaskResponse';
-import { Row, units, black16, title1 } from '../../styles/js/shared';
-import ProfileLink from '../layout/ProfileLink';
+import Message from '../Message';
+import Can, { can } from '../Can';
+import ParsedText from '../ParsedText';
 import UserAvatars from '../UserAvatars';
-import Attribution from './Attribution';
 import Sentence from '../Sentence';
+import ProfileLink from '../layout/ProfileLink';
+import AttributionDialog from '../user/AttributionDialog';
+import CheckContext from '../../CheckContext';
 import { safelyParseJSON } from '../../helpers';
-import TaskLog from './TaskLog';
+import UpdateTaskMutation from '../../relay/mutations/UpdateTaskMutation';
+import UpdateDynamicMutation from '../../relay/mutations/UpdateDynamicMutation';
+import DeleteAnnotationMutation from '../../relay/mutations/DeleteAnnotationMutation';
+import { Row, units, black16, title1 } from '../../styles/js/shared';
+
 
 const StyledWordBreakDiv = styled.div`
   hyphens: auto;
@@ -81,9 +78,7 @@ class Task extends Component {
       editingQuestion: false,
       message: null,
       editingResponse: false,
-      submitDisabled: true,
       editingAttribution: false,
-      required: null,
     };
   }
 
@@ -93,6 +88,10 @@ class Task extends Component {
       return assignment.value;
     }
     return null;
+  }
+
+  getCurrentUser() {
+    return new CheckContext(this).getContextStore().currentUser;
   }
 
   getResponseData(response) {
@@ -121,29 +120,41 @@ class Task extends Component {
     return data;
   }
 
-  canSubmit() {
-    const label = typeof this.state.label !== 'undefined' && this.state.label !== null
-      ? this.state.label : this.props.task.label || '';
+  fail = (transaction) => {
+    const error = transaction.getError();
+    let message = error.source;
+    const json = safelyParseJSON(error.source);
+    if (json && json.error) {
+      message = json.error;
+    }
+    this.setState({ message });
+  };
 
-    this.setState({ submitDisabled: !label });
-  }
+  handleAction = (action) => {
+    switch (action) {
+    case 'edit_question':
+      this.setState({ editingQuestion: true });
+      break;
+    case 'edit_response':
+      this.setState({ editingResponse: this.props.task.first_response });
+      break;
+    case 'edit_assignment':
+      this.setState({ editingAssignment: true });
+      break;
+    case 'edit_attribution':
+      this.setState({ editingAttribution: true });
+      break;
+    case 'delete':
+      this.handleDelete();
+      break;
+    default:
+    }
+  };
 
-  handleChangeAssignments() {
-    this.setState({ submitDisabled: false });
-  }
+  handleCancelEditResponse = () => this.setState({ editingResponse: false });
 
-  handleSubmitWithArgs(response, note) {
+  handleSubmitResponse = (response, note) => {
     const { media, task } = this.props;
-
-    const onFailure = (transaction) => {
-      const error = transaction.getError();
-      let message = error.source;
-      const json = safelyParseJSON(error.source);
-      if (json && json.error) {
-        message = json.error;
-      }
-      this.setState({ message });
-    };
 
     const onSuccess = () => {
       this.setState({ message: null });
@@ -165,150 +176,14 @@ class Task extends Component {
           annotation_type: `task_response_${task.type}`,
         },
       }),
-      { onSuccess, onFailure },
+      { onSuccess, onFailure: this.fail },
     );
-  }
+  };
 
-  handleEditQuestion() {
-    this.setState({ editingQuestion: true });
-  }
-
-  handleCancelQuestionEdit() {
-    this.setState({ editingQuestion: false, submitDisabled: true, required: null });
-  }
-
-  handleCancelAttributionEdit() {
-    this.setState({ editingAttribution: false });
-  }
-
-  handleQuestionEdit(e) {
-    const state = {};
-    state[e.target.name] = e.target.value;
-    this.setState(state, this.canSubmit);
-  }
-
-  handleSelectRequired(e, inputChecked) {
-    this.setState({ required: inputChecked, submitDisabled: false });
-  }
-
-  handleUpdateAttribution() {
-    const { media, task } = this.props;
-    // TODO Use React ref
-    const { value } = document.getElementById(`attribution-${task.dbid}`);
-
-    const onFailure = (transaction) => {
-      const error = transaction.getError();
-      let { message } = error;
-      const json = safelyParseJSON(error.source);
-      if (json && json.error) {
-        message = json.error;
-      }
-      this.setState({ message });
-    };
-
-    const onSuccess = () => {
-      this.setState({ message: null, editingAttribution: false });
-    };
-
-    Relay.Store.commitUpdate(
-      new UpdateDynamicMutation({
-        annotated: media,
-        parent_type: 'project_media',
-        dynamic: {
-          id: task.first_response.id,
-          set_attribution: value,
-        },
-      }),
-      { onSuccess, onFailure },
-    );
-  }
-
-  handleUpdateTask(e) {
-    const { media, task } = this.props;
-    const form = document.forms[`edit-task-${task.dbid}`];
-
-    const onFailure = (transaction) => {
-      const error = transaction.getError();
-      let message = error.source;
-      const json = safelyParseJSON(error.source);
-      if (json && json.error) {
-        message = json.error;
-      }
-      this.setState({ message });
-    };
-
-    const onSuccess = () => {
-      this.setState({ message: null, editingQuestion: false, required: null });
-    };
-
-    const taskObj = {
-      id: task.id,
-      label: form.label.value,
-      required: this.state.required !== null ? this.state.required : task.required,
-      assigned_to_ids: this.getAssignment(),
-    };
-
-    if (form.description) {
-      taskObj.description = form.description.value || null;
-    }
-
-    if (!this.state.submitDisabled) {
-      Relay.Store.commitUpdate(
-        new UpdateTaskMutation({
-          annotated: media,
-          task: taskObj,
-        }),
-        { onSuccess, onFailure },
-      );
-    }
-    this.setState({ submitDisabled: true });
-
-    e.preventDefault();
-  }
-
-  handleDelete() {
-    const { task, media } = this.props;
-
-    // eslint-disable-next-line no-alert
-    if (window.confirm(this.props.intl.formatMessage(messages.confirmDelete))) {
-      Relay.Store.commitUpdate(new DeleteAnnotationMutation({
-        parent_type: 'project_media',
-        annotated: media,
-        id: task.id,
-      }));
-    }
-  }
-
-  handleCancelEditResponse() {
-    this.setState({
-      editingResponse: false,
-    });
-  }
-
-  handleEditResponse(editingResponse) {
-    this.setState({ editingResponse });
-  }
-
-  handleEditAttribution() {
-    this.setState({ editingAttribution: true });
-  }
-
-  handleSubmitUpdateWithArgs(edited_response, edited_note) {
+  handleUpdateResponse = (edited_response, edited_note) => {
     const { media, task } = this.props;
 
-    const onFailure = (transaction) => {
-      const error = transaction.getError();
-      let message = error.source;
-      const json = safelyParseJSON(error.source);
-      if (json && json.error) {
-        message = json.error;
-      }
-      this.setState({ message });
-    };
-
-    const onSuccess = () => {
-      this.setState({ message: null, editingResponse: false });
-    };
+    const onSuccess = () => this.setState({ message: null, editingResponse: false });
 
     const fields = {};
     fields[`response_${task.type}`] = edited_response;
@@ -325,8 +200,76 @@ class Task extends Component {
           fields,
         },
       }),
-      { onSuccess, onFailure },
+      { onSuccess, onFailure: this.fail },
     );
+  };
+
+  handleUpdateTask = (editedTask) => {
+    const { media, task } = this.props;
+
+    const onSuccess = () => {
+      this.setState({ message: null, editingQuestion: false });
+    };
+
+    const taskObj = {
+      id: task.id,
+      label: editedTask.label,
+      required: editedTask.required,
+      description: editedTask.description,
+      assigned_to_ids: this.getAssignment(),
+    };
+
+    Relay.Store.commitUpdate(
+      new UpdateTaskMutation({
+        annotated: media,
+        task: taskObj,
+      }),
+      { onSuccess, onFailure: this.fail },
+    );
+  };
+
+  handleUpdateAssignment = (value) => {
+    const { task } = this.props;
+    task.assigned_to_ids = value;
+
+    const onSuccess = () => this.setState({ message: null, editingAssignment: false });
+
+    Relay.Store.commitUpdate(
+      new UpdateTaskMutation({
+        annotated: this.props.media,
+        task,
+      }),
+      { onSuccess, onFailure: this.fail },
+    );
+  };
+
+  handleUpdateAttribution = (value) => {
+    const onSuccess = () => this.setState({ message: null, editingAttribution: false });
+
+    Relay.Store.commitUpdate(
+      new UpdateDynamicMutation({
+        annotated: this.props.media,
+        parent_type: 'project_media',
+        dynamic: {
+          id: this.props.task.first_response.id,
+          set_attribution: value,
+        },
+      }),
+      { onSuccess, onFailure: this.fail },
+    );
+  };
+
+  handleDelete() {
+    const { task, media } = this.props;
+
+    // eslint-disable-next-line no-alert
+    if (window.confirm(this.props.intl.formatMessage(messages.confirmDelete))) {
+      Relay.Store.commitUpdate(new DeleteAnnotationMutation({
+        parent_type: 'project_media',
+        annotated: media,
+        id: task.id,
+      }));
+    }
   }
 
   renderTaskResponse(responseObj, response, note, by, byPictures, showEditIcon) {
@@ -343,24 +286,24 @@ class Task extends Component {
               <ShortTextRespondTask
                 response={editingResponseText}
                 note={editingResponseNote}
-                onSubmit={this.handleSubmitUpdateWithArgs.bind(this)}
-                onDismiss={this.handleCancelEditResponse.bind(this)}
+                onSubmit={this.handleUpdateResponse}
+                onDismiss={this.handleCancelEditResponse}
               />
               : null}
             {task.type === 'geolocation' ?
               <GeolocationRespondTask
                 response={editingResponseText}
                 note={editingResponseNote}
-                onSubmit={this.handleSubmitUpdateWithArgs.bind(this)}
-                onDismiss={this.handleCancelEditResponse.bind(this)}
+                onSubmit={this.handleUpdateResponse}
+                onDismiss={this.handleCancelEditResponse}
               />
               : null}
             {task.type === 'datetime' ?
               <DatetimeRespondTask
                 response={editingResponseText}
                 note={editingResponseNote}
-                onSubmit={this.handleSubmitUpdateWithArgs.bind(this)}
-                onDismiss={this.handleCancelEditResponse.bind(this)}
+                onSubmit={this.handleUpdateResponse}
+                onDismiss={this.handleCancelEditResponse}
               />
               : null}
             {task.type === 'single_choice' ?
@@ -369,8 +312,8 @@ class Task extends Component {
                 response={editingResponseText}
                 note={editingResponseNote}
                 jsonoptions={task.jsonoptions}
-                onDismiss={this.handleCancelEditResponse.bind(this)}
-                onSubmit={this.handleSubmitUpdateWithArgs.bind(this)}
+                onDismiss={this.handleCancelEditResponse}
+                onSubmit={this.handleUpdateResponse}
               />
               : null}
             {task.type === 'multiple_choice' ?
@@ -379,8 +322,8 @@ class Task extends Component {
                 jsonresponse={editingResponseText}
                 note={editingResponseNote}
                 jsonoptions={task.jsonoptions}
-                onDismiss={this.handleCancelEditResponse.bind(this)}
-                onSubmit={this.handleSubmitUpdateWithArgs.bind(this)}
+                onDismiss={this.handleCancelEditResponse}
+                onSubmit={this.handleUpdateResponse}
               />
               : null}
           </form>
@@ -448,7 +391,7 @@ class Task extends Component {
               </span>
             </small>
             { showEditIcon && can(responseObj.permissions, 'update Dynamic') ?
-              <IconEdit
+              <EditIcon
                 style={{ width: 16, height: 16, cursor: 'pointer' }}
                 onClick={this.handleEditResponse.bind(this, responseObj)}
               /> : null }
@@ -463,11 +406,18 @@ class Task extends Component {
     const {
       response, note, by, byPictures,
     } = data;
+    const currentUser = this.getCurrentUser();
+
+    let taskAssigned = false;
+    const taskAnswered = !!response;
 
     const assignments = task.assignments.edges;
     const assignmentComponents = [];
     assignments.forEach((assignment) => {
       assignmentComponents.push(<ProfileLink user={assignment.node} team={media.team} />);
+      if (currentUser && assignment.node.dbid === currentUser.dbid) {
+        taskAssigned = true;
+      }
     });
 
     const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
@@ -476,39 +426,6 @@ class Task extends Component {
       from: isRtl ? 'right' : 'left',
       to: isRtl ? 'left' : 'right',
     };
-
-    const editQuestionActions = [
-      <FlatButton
-        key="tasks__cancel"
-        label={<FormattedMessage id="tasks.cancelEdit" defaultMessage="Cancel" />}
-        onClick={this.handleCancelQuestionEdit.bind(this)}
-      />,
-      <FlatButton
-        key="task__save"
-        className="task__save"
-        label={<FormattedMessage id="tasks.save" defaultMessage="Save" />}
-        primary
-        keyboardFocused
-        onClick={this.handleUpdateTask.bind(this)}
-        disabled={this.state.submitDisabled}
-      />,
-    ];
-
-    const editAttributionActions = [
-      <FlatButton
-        key="tasks__cancel"
-        label={<FormattedMessage id="tasks.cancelEdit" defaultMessage="Cancel" />}
-        onClick={this.handleCancelAttributionEdit.bind(this)}
-      />,
-      <FlatButton
-        key="task__save"
-        className="task__save"
-        label={<FormattedMessage id="tasks.done" defaultMessage="Done" />}
-        primary
-        keyboardFocused
-        onClick={this.handleUpdateAttribution.bind(this)}
-      />,
-    ];
 
     const taskAssignment = task.assignments.edges.length > 0 && !response ? (
       <div className="task__assigned" style={{ display: 'flex', alignItems: 'center', width: 420 }}>
@@ -552,48 +469,7 @@ class Task extends Component {
           </div>
           : null}
         <div style={taskActionsStyle}>
-          <Can permissions={task.permissions} permission="update Task">
-            <IconMenu
-              className="task-actions"
-              iconButtonElement={
-                <IconButton>
-                  <IconMoreHoriz className="task-actions__icon" />
-                </IconButton>
-              }
-            >
-              {(can(media.permissions, 'create Task')) ?
-                <MenuItem className="task-actions__edit" onClick={this.handleEditQuestion.bind(this)}>
-                  <FormattedMessage id="task.edit" defaultMessage="Edit task" />
-                </MenuItem>
-                : null}
-
-              {response ?
-                <Can permissions={task.first_response.permissions} permission="update Dynamic">
-                  <MenuItem className="task-actions__edit-response" onClick={this.handleEditResponse.bind(this, task.first_response)}>
-                    <FormattedMessage id="task.editResponse" defaultMessage="Edit answer" />
-                  </MenuItem>
-                </Can>
-                : null}
-
-              {(can(media.permissions, 'create Task')) ?
-                <MenuItem className="task-actions__assign" onClick={this.handleEditQuestion.bind(this)}>
-                  <FormattedMessage id="task.assignOrUnassign" defaultMessage="Assign / Unassign" />
-                </MenuItem>
-                : null}
-
-              {(response && can(task.first_response.permissions, 'update Dynamic')) ?
-                <MenuItem className="task-actions__edit-attribution" onClick={this.handleEditAttribution.bind(this)}>
-                  <FormattedMessage id="task.editAttribution" defaultMessage="Edit attribution" />
-                </MenuItem>
-                : null}
-
-              <Can permissions={task.permissions} permission="destroy Task">
-                <MenuItem className="task-actions__delete" onClick={this.handleDelete.bind(this)}>
-                  <FormattedMessage id="task.delete" defaultMessage="Delete task" />
-                </MenuItem>
-              </Can>
-            </IconMenu>
-          </Can>
+          <TaskActions task={task} media={media} response={response} onSelect={this.handleAction} />
         </div>
       </div>
     ) : null;
@@ -636,15 +512,15 @@ class Task extends Component {
                   <div className="task__response-inputs">
                     {task.type === 'free_text' ?
                       <ShortTextRespondTask
-                        onSubmit={this.handleSubmitWithArgs.bind(this)}
+                        onSubmit={this.handleSubmitResponse}
                       />
                       : null}
                     {task.type === 'geolocation' ?
                       <GeolocationRespondTask
-                        onSubmit={this.handleSubmitWithArgs.bind(this)}
+                        onSubmit={this.handleSubmitResponse}
                       /> : null}
                     {task.type === 'datetime' ?
-                      <DatetimeRespondTask onSubmit={this.handleSubmitWithArgs.bind(this)} note="" />
+                      <DatetimeRespondTask onSubmit={this.handleSubmitResponse} note="" />
                       : null}
                     {task.type === 'single_choice' ?
                       <SingleChoiceTask
@@ -652,7 +528,7 @@ class Task extends Component {
                         response={response}
                         note={note}
                         jsonoptions={task.jsonoptions}
-                        onSubmit={this.handleSubmitWithArgs.bind(this)}
+                        onSubmit={this.handleSubmitResponse}
                       />
                       : null}
                     {task.type === 'multiple_choice' ?
@@ -661,7 +537,7 @@ class Task extends Component {
                         jsonresponse={response}
                         note={note}
                         jsonoptions={task.jsonoptions}
-                        onSubmit={this.handleSubmitWithArgs.bind(this)}
+                        onSubmit={this.handleSubmitResponse}
                       />
                       : null}
                   </div>
@@ -674,8 +550,6 @@ class Task extends Component {
       taskBody = this.renderTaskResponse(task.first_response, response, note, false, false, false);
     }
 
-    const required = this.state.required !== null ? this.state.required : task.required;
-
     task.project_media = Object.assign({}, this.props.media);
     delete task.project_media.tasks;
 
@@ -683,10 +557,21 @@ class Task extends Component {
       <ParsedText text={task.description} />
       : null;
 
+    const className = ['task'];
+    if (taskAnswered) {
+      className.push('task__answered-by-current-user');
+    }
+    if (taskAssigned) {
+      className.push('task__assigned-to-current-user');
+    }
+    if (task.required) {
+      className.push('task__required');
+    }
+
     return (
       <StyledWordBreakDiv>
         <Card
-          className="task"
+          className={className.join(' ')}
           style={{ marginBottom: units(1) }}
           initiallyExpanded
         >
@@ -696,12 +581,10 @@ class Task extends Component {
             id={`task__label-${task.id}`}
             showExpandableButton
           />
-
           <CardText expandable className="task__card-text">
             <Message message={this.state.message} />
             {taskBody}
           </CardText>
-
           <CardActions
             expandable
             style={
@@ -718,78 +601,55 @@ class Task extends Component {
           <TaskLog task={task} />
         </Card>
 
-        <Dialog
-          actions={editQuestionActions}
-          modal={false}
-          open={!!this.state.editingQuestion}
-          onRequestClose={this.handleCancelQuestionEdit.bind(this)}
-          bodyStyle={{ overflowY: 'unset' }}
-        >
-          <Message message={this.state.message} />
-          <form name={`edit-task-${task.dbid}`}>
-            <TextField
-              name="label"
-              floatingLabelText={
-                <FormattedMessage id="tasks.taskLabel" defaultMessage="Task label" />
-              }
-              defaultValue={task.label}
-              onChange={this.handleQuestionEdit.bind(this)}
-              fullWidth
-              multiLine
-            />
+        { this.state.editingQuestion ?
+          <EditTaskDialog
+            task={task}
+            message={this.state.message}
+            taskType={task.type}
+            onDismiss={() => this.setState({ editingQuestion: false })}
+            onSubmit={this.handleUpdateTask}
+            noOptions
+          />
+          : null
+        }
 
-            <Checkbox
-              label={
-                <FormattedMessage
-                  id="tasks.requiredCheckbox"
-                  defaultMessage="Required"
-                />
-              }
-              checked={required}
-              onCheck={this.handleSelectRequired.bind(this)}
-            />
+        { this.state.editingAssignment ?
+          <AttributionDialog
+            open={this.state.editingAssignment}
+            title={
+              <FormattedMessage id="tasks.editAssignment" defaultMessage="Edit assignment" />
+            }
+            blurb={
+              <FormattedMessage
+                id="tasks.attributionSlogan"
+                defaultMessage='For the task, "{label}"'
+                values={{ label: task.label }}
+              />
+            }
+            selectedUsers={assignments}
+            onDismiss={() => this.setState({ editingAssignment: false })}
+            onSubmit={this.handleUpdateAssignment}
+          /> : null
+        }
 
-            <TextField
-              name="description"
-              floatingLabelText={
-                <FormattedMessage id="tasks.description" defaultMessage="Description" />
-              }
-              defaultValue={task.description}
-              onChange={this.handleQuestionEdit.bind(this)}
-              fullWidth
-              multiLine
-            />
-            <h3 style={{ marginTop: units(2) }}><FormattedMessage id="tasks.assignment" defaultMessage="Assignment" /></h3>
-            <Attribution
-              multi
-              selectedUsers={assignments}
-              onChange={this.handleChangeAssignments.bind(this)}
-              id={task.dbid}
-              taskType={task.type}
-            />
-          </form>
-        </Dialog>
-
-        <Dialog
-          actions={editAttributionActions}
-          modal={false}
-          open={!!this.state.editingAttribution}
-          onRequestClose={this.handleCancelAttributionEdit.bind(this)}
-          autoScrollBodyContent
-        >
-          <Message message={this.state.message} />
-          <h3><FormattedMessage id="tasks.editAttribution" defaultMessage="Edit attribution" /></h3>
-          <div style={{ marginBottom: units(2), marginTop: units(2) }}>
-            <FormattedMessage id="tasks.attributionSlogan" defaultMessage='For the task, "{label}"' values={{ label: task.label }} />
-          </div>
-          { this.state.editingAttribution ?
-            <Attribution
-              id={task.dbid}
-              multi
-              selectedUsers={task.first_response.attribution.edges}
-            />
-            : null }
-        </Dialog>
+        { this.state.editingAttribution ?
+          <AttributionDialog
+            open={this.state.editingAttribution}
+            title={
+              <FormattedMessage id="tasks.editAttribution" defaultMessage="Edit attribution" />
+            }
+            blurb={
+              <FormattedMessage
+                id="tasks.attributionSlogan"
+                defaultMessage='For the task, "{label}"'
+                values={{ label: task.label }}
+              />
+            }
+            selectedUsers={task.first_response.attribution.edges}
+            onDismiss={() => this.setState({ editingAttribution: false })}
+            onSubmit={this.handleUpdateAttribution}
+          /> : null
+        }
       </StyledWordBreakDiv>
     );
   }
@@ -801,6 +661,9 @@ Task.propTypes = {
   intl: intlShape.isRequired,
 };
 
-export default injectIntl(Task);
+Task.contextTypes = {
+  store: PropTypes.object,
+};
 
+export default injectIntl(Task);
 export { RequiredIndicator };

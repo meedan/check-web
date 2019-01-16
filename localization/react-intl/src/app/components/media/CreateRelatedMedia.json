@@ -1,26 +1,6 @@
 [
   {
-    "id": "createRelatedMedia.newClaim",
-    "defaultMessage": "Add a related claim"
-  },
-  {
-    "id": "createRelatedMedia.cancelAdd",
-    "defaultMessage": "Cancel"
-  },
-  {
-    "id": "createRelatedMedia.submit",
-    "defaultMessage": "Submit"
-  },
-  {
     "id": "createRelatedMedia.addRelatedItem",
     "defaultMessage": "Add related item"
-  },
-  {
-    "id": "createRelatedMedia.claimText",
-    "defaultMessage": "Claim text"
-  },
-  {
-    "id": "createRelatedMedia.source",
-    "defaultMessage": "Source"
   }
 ]

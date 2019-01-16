@@ -41,7 +41,7 @@ class TeamTasksComponent extends React.Component {
 
     if (typeFilter.length) {
       filteredTeamTasks = filteredTeamTasks.filter(t =>
-        typeFilter.indexOf(t.node.task_type) > -1);
+        typeFilter.indexOf(t.node.type) > -1);
     }
 
     if (projFilter.length) {
@@ -184,7 +184,7 @@ const TeamTasksContainer = Relay.createContainer(TeamTasksComponent, {
               label
               description
               options
-              task_type
+              type
               project_ids
               required
             }

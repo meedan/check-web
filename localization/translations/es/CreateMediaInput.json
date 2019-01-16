@@ -1,0 +1,17 @@
+{
+  "createMedia.mediaInput": "Pegar o escribir",
+  "createMedia.quoteInput": "Pegar o escribir una afirmación",
+  "createMedia.quoteAttributionSourceInput": "Nombre de la fuente",
+  "createMedia.quoteAttributionContext": "URL o contexto",
+  "createMedia.quoteAttributionSourceInputHelper": "¿Quién dijo esto?",
+  "createMedia.quoteAttributionContextHelper": "Añade la URL o describe el contenido del ítem",
+  "createMedia.sourceInput": "Nombre de la fuente",
+  "createMedia.sourceUrlInput": "Enlace a la fuente",
+  "createMedia.uploadImage": "Subir una imagen",
+  "createMedia.submitButton": "Publicar",
+  "createMedia.invalidUrl": "Por favor introduce un URL válido",
+  "createMedia.link": "Enlace",
+  "createMedia.quote": "Afirmación",
+  "createMedia.source": "Fuente",
+  "createMedia.image": "Foto"
+}

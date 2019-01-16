@@ -93,7 +93,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page.go(@config['self_url'] + '/check/me')
       page.approve_join_team(subdomain: @team1_slug)
       @wait.until {
-        elems = @driver.find_elements(:css => ".team-members__list > div")
+        elems = @driver.find_elements(:css => ".team-members__list > div > div > div > div")
         expect(elems.size).to be > 1
       }
 
@@ -269,22 +269,22 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Edit task
       expect(@driver.page_source.include?('When was it?')).to be(false)
-      el = wait_for_selector('.task-actions > button')
+      el = wait_for_selector('.task-actions__icon')
       el.click
       el = wait_for_selector(".task-actions__edit")
       @driver.action.move_to(el).perform
       el.click
       sleep 1
       wait_for_selector("//textarea[contains(text(), 'When?')]", :xpath)
-      update_field('textarea[name="label"]', 'When was it?')
-      el = wait_for_selector('.task__save')
+      update_field('#task-label-input', 'When was it?')
+      el = wait_for_selector('.create-task__dialog-submit-button')
       el.click
       old = wait_for_size_change(old, "annotation__default-content", :class)
       expect(@driver.page_source.include?('When was it?')).to be(true)
 
       # Edit task response
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('12:34')).to be(false)
-      el = wait_for_selector('.task-actions > button')
+      el = wait_for_selector('.task-actions__icon')
       el.click
       el = wait_for_selector('.task-actions__edit-response')
       el.click
@@ -965,7 +965,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       new_description = "Set description #{Time.now.to_i}"
       expect(project_pg.contains_string?(new_title)).to be(false)
       expect(project_pg.contains_string?(new_description)).to be(false)
-      project_pg.edit(title: new_title, description: new_description)
+      #7204 edit title and description separately
+      project_pg.edit(title: new_title, description: "")
+      expect(@driver.page_source.include?(new_title)).to be(true)
+      expect(@driver.page_source.include?(new_description)).to be(false)
+      wait_for_selector('.project-menu', :css)
+      #7204 edit title and description separately
+      project_pg.edit(description: new_description)
       expect(@driver.page_source.include?(new_title)).to be(true)
       expect(@driver.page_source.include?(new_description)).to be(true)
     end
@@ -1127,7 +1133,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page.go(@config['self_url'] + '/check/me')
       page.approve_join_team(subdomain: @team1_slug)
       @wait.until {
-        elems = @driver.find_elements(:css => ".team-members__list > div")
+        elems = @driver.find_elements(:css => ".team-members__list > div > div > div > div")
         expect(elems.size).to be > 1
       }
 
@@ -1451,16 +1457,16 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Edit task
       expect(@driver.page_source.include?('Foo or bar???')).to be(false)
-      el = wait_for_selector('.task-actions > button', :css)
+      el = wait_for_selector('.task-actions__icon', :css)
       el.click
       media_pg.wait_all_elements(6, "annotations__list-item", :class)
 
       editbutton = wait_for_selector('.task-actions__edit', :css)
       editbutton.location_once_scrolled_into_view
       editbutton.click
-      fill_field('textarea[name="label"]', '??')
+      fill_field('#task-label-input', '??')
       sleep 5
-      editbutton = wait_for_selector('.task__save', :css)
+      editbutton = wait_for_selector('.create-task__dialog-submit-button', :css)
       editbutton.click
       media_pg.wait_all_elements(8, "annotations__list-item", :class)
       sleep 10
@@ -1469,7 +1475,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Edit task answer
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Foo edited')).to be(false)
       sleep 5
-      el = wait_for_selector('.task-actions > button', :css).click
+      el = wait_for_selector('.task-actions__icon', :css).click
 
       el = wait_for_selector('.task-actions__edit-response', :css)
       el.click
@@ -1519,22 +1525,22 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Task answered by')).to be(true)
       # Edit task
       expect(@driver.page_source.include?('Task edited by')).to be(false)
-      el = wait_for_selector('.task-actions > button', :css)
+      el = wait_for_selector('.task-actions__icon', :css)
       el.click
       media_pg.wait_all_elements(6, "annotations__list-item", :class)
       editbutton = wait_for_selector('.task-actions__edit', :css)
       editbutton.location_once_scrolled_into_view
       editbutton.click
-      fill_field('textarea[name="label"]', '??')
+      fill_field('#task-label-input', '??')
       sleep 5
-      editbutton = wait_for_selector('.task__save', :css)
+      editbutton = wait_for_selector('.create-task__dialog-submit-button', :css)
       editbutton.click
       media_pg.wait_all_elements(9, "annotations__list-item", :class)
       sleep 10
       expect(@driver.page_source.include?('Task edited by')).to be(true)
       # Edit task answer
       sleep 5
-      el = wait_for_selector('.task-actions > button', :css).click
+      el = wait_for_selector('.task-actions__icon', :css).click
       el = wait_for_selector('.task-actions__edit-response', :css)
       el.click
       el = wait_for_selector('1', :id)
@@ -1584,15 +1590,15 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Task answered by')).to be(true)
       # Edit task
       expect(@driver.page_source.include?('Task edited by')).to be(false)
-      el = wait_for_selector('.task-actions > button', :css)
+      el = wait_for_selector('.task-actions__icon', :css)
       el.click
       media_pg.wait_all_elements(7, "annotations__list-item", :class)
       editbutton = wait_for_selector('.task-actions__edit', :css)
       editbutton.location_once_scrolled_into_view
       editbutton.click
-      fill_field('textarea[name="label"]', '??')
+      fill_field('#task-label-input', '??')
       sleep 5
-      editbutton = wait_for_selector('.task__save', :css)
+      editbutton = wait_for_selector('.create-task__dialog-submit-button', :css)
       editbutton.click
       media_pg.wait_all_elements(8, "annotations__list-item", :class)
       sleep 10
@@ -1600,7 +1606,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Edit task answer
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('BooYaTribe')).to be(false)
       sleep 5
-      el = wait_for_selector('.task-actions > button', :css).click
+      el = wait_for_selector('.task-actions__icon', :css).click
       el = wait_for_selector('.task-actions__edit-response', :css)
       el.click
       el = wait_for_selector('Doo', :id)
@@ -1856,21 +1862,21 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Edit task
       expect(@driver.page_source.include?('Where was it?')).to be(false)
-      el = wait_for_selector('.task-actions > button')
+      el = wait_for_selector('.task-actions__icon')
       el.click
       sleep 1
       el = wait_for_selector('.task-actions__edit')
       el.click
       sleep 1
-      update_field('textarea[name="label"]', 'Where was it?')
-      el = wait_for_selector( '.task__save')
+      update_field('#task-label-input', 'Where was it?')
+      el = wait_for_selector( '.create-task__dialog-submit-button')
       el.click
       old = wait_for_size_change(old, "annotations__list-item", :class)
       expect(@driver.page_source.include?('Where was it?')).to be(true)
 
       # Edit task answer
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Vancouver')).to be(false)
-      el = wait_for_selector('.task-actions > button')
+      el = wait_for_selector('.task-actions__icon')
       el.click
       sleep 1
       el = wait_for_selector('.task-actions__edit-response')
@@ -2060,12 +2066,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.create-related-media__add-button')
       expect(@driver.page_source.include?('Child Claim')).to be(false)
       press_button('.create-related-media__add-button')
-      sleep 3
-      fill_field('#claim-input', 'Child Claim')
+      wait_for_selector('#create-media__quote').click
+      fill_field('#create-media-quote-input', 'Child Claim')
       sleep 1
-      fill_field('#source-input', 'Child Claim Source')
+      fill_field('#create-media-quote-attribution-source-input', 'Child Claim Source')
       sleep 1
-      press_button('.create-related-media__dialog-submit-button')
+      press_button('#create-media-dialog__submit-button')
       sleep 5
       expect(@driver.page_source.include?('Child Claim')).to be(true)
       wait_for_selector('.project-header__back-button').click
@@ -2128,10 +2134,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.switch_to.alert.accept ; sleep 5
 
       # Bot on team page
-      wait_for_selector('.header__user-menu button').click ; sleep 1
-      wait_for_selector('a[role="menuitem"]').click
-      wait_for_selector('#teams-tab').click ; sleep 5
-      wait_for_selector('.teams > div > div > a').click ; sleep 5
+      p.go(@config['self_url'] + '/' + team)
       wait_for_selector('.team-menu__team-settings-button').click ; sleep 5
       wait_for_selector('.team-settings__bots-tab').click ; sleep 5
       expect(@driver.page_source.include?('No bots installed')).to be(false)

@@ -3,7 +3,7 @@
   "teamTags.failDelete": "Désolé, il n'a pas été possible de supprimer ce tag",
   "teamTags.failMove": "Désolé, il n'a pas été possible de transférer ce tag",
   "teamTags.fail": "Désolé, il n'a pas été possible de rajouter ce tag",
-  "teamTags.editTag": "Éditer le tag",
+  "teamTags.editTag": "Modifier le tag",
   "teamTags.deleteTag": "Supprimer le tag",
   "teamTags.moveTag": "Transférer aux tags d'équipe",
   "teamTags.itemsCount": "{count, plural, =0 {aucun élément} one {1 élément} other {# éléments}}",

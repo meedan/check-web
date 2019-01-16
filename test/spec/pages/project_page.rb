@@ -47,18 +47,23 @@ class ProjectPage < Page
   def edit(options)
     element = wait_for_selector('.project-menu', :css, 60)
     element.click
-    sleep 1
-    element = wait_for_selector('.project-edit__title-field input')
-    element.clear
-    fill_input('.project-edit__title-field input', options[:title])
+    if (options[:title])
+      #puts "options title"
+      element = wait_for_selector('.project-edit__title-field input')
+      element.clear
+      fill_input('.project-edit__title-field input', options[:title])
+    end
     sleep 1 #(time for insert info in other field)
-    element = wait_for_selector('.project-edit__description-field textarea:last-child')
-    element.clear
-    fill_input('.project-edit__description-field textarea:last-child', options[:description])
+    if (options[:description] != nil)
+      element = wait_for_selector('.project-edit__description-field textarea:last-child')
+      element.clear
+      @driver.action.send_keys(" \b").perform
+      sleep 1
+      fill_input('.project-edit__description-field textarea:last-child', options[:description])
+    end
     sleep 1 #(time for click button
     element = wait_for_selector('.project-edit__editing-button--save button span')
     element.click
-    @wait.until { @driver.page_source.include?(options[:title]) }
     self
   end
 

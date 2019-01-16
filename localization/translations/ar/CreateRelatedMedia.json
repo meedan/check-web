@@ -1,8 +1,3 @@
 {
-  "createRelatedMedia.newClaim": "أضف إدعائاً ذو صلة",
-  "createRelatedMedia.cancelAdd": "إلغاء",
-  "createRelatedMedia.submit": "إرسال",
-  "createRelatedMedia.addRelatedItem": "أضف عنصراً  ذو صلة",
-  "createRelatedMedia.claimText": "نص الإدعاء",
-  "createRelatedMedia.source": "مصدر"
+  "createRelatedMedia.addRelatedItem": "أضف عنصراً  ذو صلة"
 }

@@ -24,7 +24,6 @@ import MediaDetail from './media/MediaDetail';
 import CheckContext from '../CheckContext';
 import MediasLoading from './media/MediasLoading';
 import SourceCard from './source/SourceCard';
-import UserUtil from './user/UserUtil';
 import {
   white,
   black87,
@@ -829,14 +828,10 @@ class SearchResultsComponent extends Component {
       resultsCount: count,
     });
 
-    const { currentUser } = this.currentContext();
-
     const isProject = /\/project\//.test(window.location.pathname);
     let title = null;
     if (isProject && count === 0) {
       title = (<ProjectBlankState project={this.currentContext().project} />);
-    } else if (UserUtil.myRole(currentUser, this.currentContext().team.slug) === 'annotator') {
-      title = null;
     } else {
       title = (<h3 className="search__results-heading">{mediasCount}</h3>);
     }

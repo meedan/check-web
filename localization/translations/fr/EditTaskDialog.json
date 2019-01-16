@@ -4,7 +4,7 @@
   "singleChoiceTask.addOther": "Ajouter \"Autre\"",
   "singleChoiceTask.other": "Autre",
   "singleChoiceTask.newTask": "Nouvelle tâche",
-  "singleChoiceTask.editTask": "Modifier",
+  "singleChoiceTask.editTask": "Modifier la tâche",
   "tasks.taskPrompt": "Saisie",
   "tasks.description": "Description (optionnelle)",
   "tasks.requiredCheckbox": "Requise",

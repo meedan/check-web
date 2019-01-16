@@ -6,5 +6,5 @@
   "teamTasks.confirmEditBlurb": "سيتم تعديل مهام العناصر المتصلة كنتيجة لهذا التغيير ، باستثناء اللاتي تم الرد عليها بالفعل",
   "teamTasks.confirmDeleteBlurb": "سيتم حذف مهام العناصر المتصلة كنتيجة لهذا التغيير ، باستثناء اللاتي تم الرد عليها بالفعل",
   "teamTasks.edit": "تحرير",
-  "teamTasks.delete": "حذف"
+  "teamTasks.delete": "حذف المهمة"
 }
