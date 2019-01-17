@@ -130,13 +130,13 @@ class Task extends Component {
     this.setState({ message });
   };
 
-  handleAction = (action) => {
+  handleAction = (action, value) => {
     switch (action) {
     case 'edit_question':
       this.setState({ editingQuestion: true });
       break;
     case 'edit_response':
-      this.setState({ editingResponse: this.props.task.first_response });
+      this.setState({ editingResponse: value });
       break;
     case 'edit_assignment':
       this.setState({ editingAssignment: true });
@@ -393,7 +393,7 @@ class Task extends Component {
             { showEditIcon && can(responseObj.permissions, 'update Dynamic') ?
               <EditIcon
                 style={{ width: 16, height: 16, cursor: 'pointer' }}
-                onClick={this.handleEditResponse.bind(this, responseObj)}
+                onClick={() => this.handleAction('edit_response', responseObj)}
               /> : null }
           </div> : null }
       </StyledWordBreakDiv>
