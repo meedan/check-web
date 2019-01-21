@@ -1,10 +1,34 @@
 [
   {
-    "id": "userPrivacy.connectButton",
+    "id": "UserConnectedAccount.disconnectAccount",
+    "defaultMessage": "Disconnect Account"
+  },
+  {
+    "id": "UserConnectedAccount.typeHere",
+    "defaultMessage": "Type here"
+  },
+  {
+    "id": "UserConnectedAccount.confirmError",
+    "defaultMessage": "You should type \"confirm\""
+  },
+  {
+    "id": "UserConnectedAccount.connectButton",
     "defaultMessage": "Connect"
   },
   {
-    "id": "userPrivacy.disconnectButton",
+    "id": "UserConnectedAccount.disconnectButton",
     "defaultMessage": "Disconnect"
+  },
+  {
+    "id": "UserConnectedAccount.disconnectAccountConfirmationText",
+    "defaultMessage": "Are you sure? This will disconnect login account. Type \"confirm\" if you want to proceed."
+  },
+  {
+    "id": "disconnectAccount.cancel",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "disconnectAccount.delete",
+    "defaultMessage": "Delete"
   }
 ]
