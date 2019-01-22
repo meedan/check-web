@@ -24,7 +24,6 @@ class UserDisconnectLoginAccountMutation extends Relay.Mutation {
 
   getVariables() {
     return {
-      id: this.props.user.dbid,
       provider: this.props.provider.key,
     };
   }

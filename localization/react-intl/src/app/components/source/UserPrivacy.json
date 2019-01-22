@@ -40,7 +40,7 @@
     "defaultMessage": "Request to stop processing"
   },
   {
-    "id": "userPrivacy.connected_accounts",
+    "id": "userPrivacy.connectedAccounts",
     "defaultMessage": "Connected accounts"
   },
   {

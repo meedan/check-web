@@ -215,7 +215,7 @@ class UserPrivacy extends Component {
           </CardText>
         </Card>
         <h2 style={style}>
-          <FormattedMessage id="userPrivacy.connected_accounts" defaultMessage="Connected accounts" />
+          <FormattedMessage id="userPrivacy.connectedAccounts" defaultMessage="Connected accounts" />
         </h2>
         <Card style={cardStyle}>
           <CardText style={cardTextStyle}>

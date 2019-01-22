@@ -1,19 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
-import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import { ListItem } from 'material-ui/List';
 import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import TextField from '@material-ui/core/TextField';
 import FASlack from 'react-icons/lib/fa/slack';
 import FAFacebook from 'react-icons/lib/fa/facebook-official';
 import FATwitter from 'react-icons/lib/fa/twitter';
 import rtlDetect from 'rtl-detect';
+import ConfirmDialog from '../layout/ConfirmDialog';
 import UserDisconnectLoginAccountMutation from '../../relay/mutations/UserDisconnectLoginAccountMutation';
 import { login } from '../../redux/actions';
 import {
@@ -23,21 +18,6 @@ import {
   twitterBlue,
   facebookBlue,
 } from '../../styles/js/shared';
-
-const messages = defineMessages({
-  disconnectAccount: {
-    id: 'UserConnectedAccount.disconnectAccount',
-    defaultMessage: 'Disconnect Account',
-  },
-  typeHere: {
-    id: 'UserConnectedAccount.typeHere',
-    defaultMessage: 'Type here',
-  },
-  confirmError: {
-    id: 'UserConnectedAccount.confirmError',
-    defaultMessage: 'You should type "confirm"',
-  },
-});
 
 class UserConnectedAccount extends Component {
   static renderLabel(userAction) {
@@ -53,38 +33,23 @@ class UserConnectedAccount extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      dialogOpen: false,
-      confirmationError: false,
-    };
+    this.state = { dialogOpen: false };
   }
 
   handleOpenDialog() {
-    this.setState({
-      dialogOpen: true,
-      confirmationError: false,
-    });
+    this.setState({ dialogOpen: true });
   }
 
   handleCloseDialog() {
-    this.setState({
-      dialogOpen: false,
-      confirmationError: false,
-    });
+    this.setState({ dialogOpen: false });
   }
 
   handleUserClick(userAction) {
     if (userAction === 'connect') {
       login(this.props.provider.key, this.props.loginCallback);
     } else if (userAction === 'disconnect') {
-      const { value: confirmValue } = document.getElementById('disconnect-user-account_confirm');
-      if (confirmValue && confirmValue.toUpperCase() === 'CONFIRM') {
-        this.setState({ confirmationError: false });
-        this.handleCloseDialog();
-        this.handleRequestDisconnectAccount();
-      } else {
-        this.setState({ confirmationError: true });
-      }
+      this.handleRequestDisconnectAccount();
+      this.setState({ dialogOpen: false });
     }
   }
 
@@ -93,10 +58,9 @@ class UserConnectedAccount extends Component {
     };
     const onSuccess = () => {
     };
-    const { user, provider } = this.props;
+    const { provider } = this.props;
     Relay.Store.commitUpdate(
       new UserDisconnectLoginAccountMutation({
-        user,
         provider,
       }),
       { onSuccess, onFailure },
@@ -138,6 +102,17 @@ class UserConnectedAccount extends Component {
       textAlign: direction.to,
     };
 
+    const confirmDialog = {
+      title: <FormattedMessage
+        id="UserConnectedAccount.disconnectAccountTitle"
+        defaultMessage="Disconnect account"
+      />,
+      blurb: <FormattedMessage
+        id="UserConnectedAccount.disconnectAccountConfirmationText"
+        defaultMessage="Are you sure? This will disconnect login account."
+      />,
+    };
+
     return (
       <ListItem
         className="team-connected_accounts"
@@ -159,50 +134,13 @@ class UserConnectedAccount extends Component {
             className="team-connect-account-button--disconnect"
             disabled={disableDisconnect}
           />
-          <Dialog
-            className="disconnect-account__dialog"
+          <ConfirmDialog
             open={this.state.dialogOpen}
-            onClose={this.handleCloseDialog.bind(this)}
-            fullWidth
-          >
-            <DialogTitle>{this.props.intl.formatMessage(messages.disconnectAccount)}</DialogTitle>
-            <DialogContent>
-              <p>
-                <FormattedMessage
-                  id="UserConnectedAccount.disconnectAccountConfirmationText"
-                  defaultMessage='Are you sure? This will disconnect login account. Type "confirm" if you want to proceed.'
-                />
-              </p>
-              <TextField
-                id="disconnect-user-account_confirm"
-                key="disconnect-account-confirm-input"
-                className="disconnect-account-confirm-input"
-                placeholder={this.props.intl.formatMessage(messages.typeHere)}
-                error={this.state.confirmationError}
-                helperText={this.state.confirmationError ? this.props.intl.formatMessage(messages.confirmError) : ''}
-                margin="normal"
-              />
-            </DialogContent>
-            <DialogActions>
-              <FlatButton
-                label={
-                  <FormattedMessage id="disconnectAccount.cancel" defaultMessage="Cancel" />
-                }
-                primary
-                onClick={this.handleCloseDialog.bind(this)}
-              />,
-              <RaisedButton
-                label={
-                  <FormattedMessage
-                    id="disconnectAccount.delete"
-                    defaultMessage="Delete"
-                  />
-                }
-                primary
-                onClick={this.handleUserClick.bind(this, userAction)}
-              />
-            </DialogActions>
-          </Dialog>
+            title={confirmDialog.title}
+            blurb={confirmDialog.blurb}
+            handleClose={this.handleCloseDialog.bind(this)}
+            handleConfirm={this.handleUserClick.bind(this, userAction)}
+          />
         </FlexRow>
       </ListItem>
     );
