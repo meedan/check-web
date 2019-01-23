@@ -115,8 +115,6 @@ class UserConnectedAccount extends Component {
                 <ListItemSecondaryAction>
                   <Button
                     style={buttonStyle}
-                    hoverColor="transparent"
-                    primary
                     onClick={userAction === 'connect' ? this.handleUserClick.bind(this, userAction) : this.handleOpenDialog.bind(this)}
                     className="team-connect-account-button--disconnect"
                     disabled={disableDisconnect}
@@ -139,8 +137,6 @@ class UserConnectedAccount extends Component {
           <FlexRow style={{ padding: '0px 10px' }} >
             <Button
               style={buttonStyle}
-              hoverColor="transparent"
-              primary
               onClick={this.handleUserClick.bind(this, 'connect')}
               className="team-connect-account-button--disconnect"
             >

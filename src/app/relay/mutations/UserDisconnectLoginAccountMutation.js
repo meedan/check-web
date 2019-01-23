@@ -1,5 +1,4 @@
 import Relay from 'react-relay/classic';
-import sourceFragment from '../sourceFragment';
 
 class UserDisconnectLoginAccountMutation extends Relay.Mutation {
   getMutation() {
@@ -7,7 +6,31 @@ class UserDisconnectLoginAccountMutation extends Relay.Mutation {
   }
 
   getFatQuery() {
-    return Relay.QL`fragment on UserDisconnectLoginAccountPayload { success, user {id, providers, source {${sourceFragment}}}}`;
+    return Relay.QL`fragment on UserDisconnectLoginAccountPayload {
+      success, user
+      {
+        id,
+        providers,
+        source {
+          image,
+          account_sources(first: 10000) {
+            edges {
+              node {
+                id,
+                account {
+                  id,
+                  created_at,
+                  updated_at,
+                  embed,
+                  url,
+                  provider,
+                }
+              }
+            }
+          },
+        }
+      }
+    }`;
   }
 
   getConfigs() {
@@ -16,7 +39,28 @@ class UserDisconnectLoginAccountMutation extends Relay.Mutation {
       children: [Relay.QL`
         fragment on UserDisconnectLoginAccountPayload {
           success,
-          user {id, providers, source {${sourceFragment}}}
+          user {
+            id,
+            providers,
+            source {
+              image,
+              account_sources(first: 10000) {
+                edges {
+                  node {
+                    id,
+                    account {
+                      id,
+                      created_at,
+                      updated_at,
+                      embed,
+                      url,
+                      provider,
+                    }
+                  }
+                }
+              },
+            }
+          }
         }
       `],
     }];

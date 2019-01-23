@@ -420,9 +420,11 @@ class UserInfoEdit extends React.Component {
     const showAccounts =
       source.account_sources.edges.filter(as => deleteLinks.indexOf(as.node.id) < 0);
 
+    const showNonLoginAccount = showAccounts.filter(as => as.node.account.uid === null);
+
     return (
       <div key="renderAccountsEdit">
-        {showAccounts.map((as, index) => (
+        {showNonLoginAccount.map((as, index) => (
           <div key={as.node.id} className="source__url">
             <Row>
               <TextField
