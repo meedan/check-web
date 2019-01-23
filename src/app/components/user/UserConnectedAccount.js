@@ -83,13 +83,6 @@ class UserConnectedAccount extends Component {
   render() {
     const { provider } = this.props;
 
-    const userAction = (provider.connected === true) ? 'disconnect' : 'connect';
-
-    let disableDisconnect = false;
-    if (userAction === 'disconnect' && provider.allow_disconnect === false) {
-      disableDisconnect = true;
-    }
-
     const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
 
     const direction = {
@@ -114,35 +107,57 @@ class UserConnectedAccount extends Component {
     };
 
     return (
-      <ListItem
-        className="team-connected_accounts"
-        key={provider.key}
-        disabled
-        leftIcon={this.socialIcon()}
-        style={{ padding: '8px 61px' }}
-      >
-        <FlexRow>
-          <Text ellipsis>
-            {provider.key} {provider.info}
-          </Text>
-          <FlatButton
-            hoverColor="transparent"
-            style={buttonStyle}
-            label={UserConnectedAccount.renderLabel(userAction)}
-            primary
-            onClick={userAction === 'connect' ? this.handleUserClick.bind(this, userAction) : this.handleOpenDialog.bind(this)}
-            className="team-connect-account-button--disconnect"
-            disabled={disableDisconnect}
-          />
-          <ConfirmDialog
-            open={this.state.dialogOpen}
-            title={confirmDialog.title}
-            blurb={confirmDialog.blurb}
-            handleClose={this.handleCloseDialog.bind(this)}
-            handleConfirm={this.handleUserClick.bind(this, userAction)}
-          />
-        </FlexRow>
-      </ListItem>
+      <div>
+        <ListItem
+          className="team-connected_accounts"
+          key={provider.key}
+          disabled
+          leftIcon={this.socialIcon()}
+          style={{ padding: '8px 61px' }}
+        >
+          { provider.values.map((socialAccount, index) => {
+            const userAction = (socialAccount.connected === true) ? 'disconnect' : 'connect';
+            let disableDisconnect = false;
+            if (userAction === 'disconnect' && socialAccount.allow_disconnect === false) {
+              disableDisconnect = true;
+            }
+            return (
+              <FlexRow key={`account-connect-disconnect-raw-${index.toString()}`}>
+                <Text ellipsis >
+                  {socialAccount.info}
+                </Text>
+                <FlatButton
+                  hoverColor="transparent"
+                  style={buttonStyle}
+                  label={UserConnectedAccount.renderLabel(userAction)}
+                  primary
+                  onClick={userAction === 'connect' ? this.handleUserClick.bind(this, userAction) : this.handleOpenDialog.bind(this)}
+                  className="team-connect-account-button--disconnect"
+                  disabled={disableDisconnect}
+                />
+                <ConfirmDialog
+                  open={this.state.dialogOpen}
+                  title={confirmDialog.title}
+                  blurb={confirmDialog.blurb}
+                  handleClose={this.handleCloseDialog.bind(this)}
+                  handleConfirm={this.handleUserClick.bind(this, userAction)}
+                />
+              </FlexRow>
+            );
+          })}
+          { provider.add_another === true ?
+            <FlexRow>
+              <FlatButton
+                hoverColor="transparent"
+                label={<FormattedMessage id="UserConnectedAccount.addAnother" defaultMessage="Add another account" />}
+                primary
+                onClick={this.handleUserClick.bind(this, 'connect')}
+                className="team-connect-account-button--disconnect"
+              />
+            </FlexRow>
+            : null}
+        </ListItem>
+      </div>
     );
   }
 }
