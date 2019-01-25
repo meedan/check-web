@@ -24,6 +24,10 @@
     "defaultMessage": "Embed"
   },
   {
+    "id": "mediaActions.memebuster",
+    "defaultMessage": "Memebuster"
+  },
+  {
     "id": "mediaActions.deleteForever",
     "defaultMessage": "Delete forever"
   },

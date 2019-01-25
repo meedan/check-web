@@ -702,6 +702,7 @@ class MediaMetadata extends Component {
                 handleDeleteForever={this.handleDeleteForever.bind(this)}
                 handleAssign={this.handleAssign.bind(this)}
                 handleStatusLock={this.handleStatusLock.bind(this)}
+                handleMemebuster={() => {}}
                 style={{ display: 'flex' }}
                 locale={locale}
               />}
