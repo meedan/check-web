@@ -17,10 +17,10 @@ class TaskActions extends React.Component {
 
   handleClose = () => { this.setState({ anchorEl: null }); };
 
-  handleAction = (action) => {
+  handleAction = (action, value) => {
     this.setState({ anchorEl: null }, () => {
       if (this.props.onSelect) {
-        this.props.onSelect(action);
+        this.props.onSelect(action, value);
       }
     });
   };
@@ -48,7 +48,7 @@ class TaskActions extends React.Component {
 
           {response ?
             <Can permissions={task.first_response.permissions} permission="update Dynamic">
-              <MenuItem className="task-actions__edit-response" onClick={() => this.handleAction('edit_response')}>
+              <MenuItem className="task-actions__edit-response" onClick={() => this.handleAction('edit_response', task.first_response)}>
                 <FormattedMessage id="task.editResponse" defaultMessage="Edit answer" />
               </MenuItem>
             </Can>
