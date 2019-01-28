@@ -116,7 +116,7 @@ class UserConnectedAccount extends Component {
               <ListItemText style={{ minWidth: '500px', padding: '0px' }} primary={socialAccount.info} />
               <ListItemSecondaryAction>
                 <Button
-                  style={buttonStyle}
+                  style={disableDisconnect === false ? buttonStyle : {}}
                   onClick={userAction === 'connect' ? this.handleUserClick.bind(this, userAction) : this.handleOpenDialog.bind(this)}
                   className="team-connect-account-button--disconnect"
                   disabled={disableDisconnect}
