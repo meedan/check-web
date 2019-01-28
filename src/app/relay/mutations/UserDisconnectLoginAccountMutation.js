@@ -69,6 +69,7 @@ class UserDisconnectLoginAccountMutation extends Relay.Mutation {
   getVariables() {
     return {
       provider: this.props.provider.key,
+      uid: this.props.uid,
     };
   }
 }

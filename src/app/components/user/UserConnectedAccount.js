@@ -45,16 +45,16 @@ class UserConnectedAccount extends Component {
     this.setState({ dialogOpen: false });
   }
 
-  handleUserClick(userAction) {
+  handleUserClick(userAction, uid = '') {
     if (userAction === 'connect') {
       login(this.props.provider.key, this.props.loginCallback);
     } else if (userAction === 'disconnect') {
-      this.handleRequestDisconnectAccount();
+      this.handleRequestDisconnectAccount(uid);
       this.setState({ dialogOpen: false });
     }
   }
 
-  handleRequestDisconnectAccount() {
+  handleRequestDisconnectAccount(uid) {
     const onFailure = () => {
     };
     const onSuccess = () => {
@@ -63,6 +63,7 @@ class UserConnectedAccount extends Component {
     Relay.Store.commitUpdate(
       new UserDisconnectLoginAccountMutation({
         provider,
+        uid,
       }),
       { onSuccess, onFailure },
     );
@@ -97,42 +98,42 @@ class UserConnectedAccount extends Component {
       />,
     };
 
+    const listIcon = this.socialIcon();
+
     return (
-      <div>
-        <ListItem className="user-connect__list-item">
-          <ListItemIcon className="user-connect__list-icon">
-            {this.socialIcon()}
-          </ListItemIcon>
-          { provider.values.map((socialAccount, index) => {
-            const userAction = (socialAccount.connected === true) ? 'disconnect' : 'connect';
-            let disableDisconnect = false;
-            if (userAction === 'disconnect' && socialAccount.allow_disconnect === false) {
-              disableDisconnect = true;
-            }
-            return (
-              <div key={`account-connect-disconnect-raw-${index.toString()}`}>
-                <ListItemText style={{ minWidth: '500px' }} primary={socialAccount.info} />
-                <ListItemSecondaryAction>
-                  <Button
-                    style={buttonStyle}
-                    onClick={userAction === 'connect' ? this.handleUserClick.bind(this, userAction) : this.handleOpenDialog.bind(this)}
-                    className="team-connect-account-button--disconnect"
-                    disabled={disableDisconnect}
-                  >
-                    {UserConnectedAccount.renderLabel(userAction)}
-                  </Button>
-                  <ConfirmDialog
-                    open={this.state.dialogOpen}
-                    title={confirmDialog.title}
-                    blurb={confirmDialog.blurb}
-                    handleClose={this.handleCloseDialog.bind(this)}
-                    handleConfirm={this.handleUserClick.bind(this, userAction)}
-                  />
-                </ListItemSecondaryAction>
-              </div>
-            );
-          })}
-        </ListItem>
+      <div style={{ listStyleType: 'none' }} >
+        { provider.values.map((socialAccount, index) => {
+          const userAction = (socialAccount.connected === true) ? 'disconnect' : 'connect';
+          let disableDisconnect = false;
+          if (userAction === 'disconnect' && socialAccount.allow_disconnect === false) {
+            disableDisconnect = true;
+          }
+          return (
+            <ListItem className="user-connect__list-item" key={`account-connect-disconnect-raw-${index.toString()}`}>
+              <ListItemIcon className="user-connect__list-icon">
+                {listIcon}
+              </ListItemIcon>
+              <ListItemText style={{ minWidth: '500px', padding: '0px' }} primary={socialAccount.info} />
+              <ListItemSecondaryAction>
+                <Button
+                  style={buttonStyle}
+                  onClick={userAction === 'connect' ? this.handleUserClick.bind(this, userAction) : this.handleOpenDialog.bind(this)}
+                  className="team-connect-account-button--disconnect"
+                  disabled={disableDisconnect}
+                >
+                  {UserConnectedAccount.renderLabel(userAction)}
+                </Button>
+                <ConfirmDialog
+                  open={this.state.dialogOpen}
+                  title={confirmDialog.title}
+                  blurb={confirmDialog.blurb}
+                  handleClose={this.handleCloseDialog.bind(this)}
+                  handleConfirm={this.handleUserClick.bind(this, userAction, socialAccount.uid)}
+                />
+              </ListItemSecondaryAction>
+            </ListItem>
+          );
+        })}
         { provider.add_another === true ?
           <FlexRow style={{ padding: '0px 10px' }} >
             <Button
