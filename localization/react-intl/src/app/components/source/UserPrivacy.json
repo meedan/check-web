@@ -40,6 +40,10 @@
     "defaultMessage": "Request to stop processing"
   },
   {
+    "id": "userPrivacy.connectedAccounts",
+    "defaultMessage": "Connected accounts"
+  },
+  {
     "id": "userPrivacy.delete",
     "defaultMessage": "Delete your account"
   },
