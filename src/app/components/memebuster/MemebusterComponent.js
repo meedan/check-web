@@ -1,7 +1,11 @@
 import React from 'react';
+import { injectIntl } from 'react-intl';
 import styled from 'styled-components';
 import MemeEditor from './MemeEditor';
 import SVGViewport from './SVGViewport';
+import MediaUtil from '../media/MediaUtil';
+import { getStatus, getStatusStyle } from '../../helpers';
+import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
 import { ContentColumn, mediaQuery, units } from '../../styles/js/shared';
 
 const StyledTwoColumnLayout = styled(ContentColumn)`
@@ -26,17 +30,20 @@ const StyledTwoColumnLayout = styled(ContentColumn)`
 class MemebusterComponent extends React.Component {
   constructor(props) {
     super(props);
+
+    const status = getStatus(mediaStatuses(props.media), mediaLastStatus(props.media));
+
     this.state = {
       params: {
-        headline: 'ATTRACTIVE HEADLINE',
-        // eslint-disable-next-line no-multi-str
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. \
-        Sed mollis mollis mi ut ultricies. \
-        Nullam magna ipsum, porta vel dui convallis, rutrum imperdiet eros. \
-        Aliquam erat volutpat.',
-        overlayColor: '#ff000077',
-        statusText: 'FALSE',
-        statusColor: '#ff0000',
+        headline: MediaUtil.title(props.media, props.media.embed, props.intl),
+        image: props.media.embed.picture || props.media.media.embed_path,
+        description: props.media.embed.description,
+        overlayColor: getStatusStyle(status, 'backgroundColor'),
+        statusText: status.label,
+        statusColor: getStatusStyle(status, 'color'),
+        teamName: props.media.team.name,
+        teamAvatar: props.media.team.avatar,
+        teamUrl: props.media.team.contacts.edges[0] ? props.media.team.contacts.edges[0].node.web : '',
       },
     };
   }
@@ -60,4 +67,4 @@ class MemebusterComponent extends React.Component {
   }
 }
 
-export default MemebusterComponent;
+export default injectIntl(MemebusterComponent);

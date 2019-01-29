@@ -53,7 +53,7 @@ const SVGViewport = props => (
         height="250"
         width="500"
         id="overlay"
-        style={{ fill: props.params.overlayColor }}
+        style={{ fill: props.params.overlayColor, fillOpacity: 0.5 }}
       />
       <text
         id="statusText"
@@ -69,7 +69,6 @@ const SVGViewport = props => (
           lineHeight: 1.25,
           fontFamily: 'sans-serif',
           letterSpacing: '2px',
-          wordSpacing: '0px',
           fill: props.params.statusColor,
           fillOpacity: 1,
           stroke: '#ffffff',
@@ -78,12 +77,22 @@ const SVGViewport = props => (
       >
         {props.params.statusText}
       </text>
-      <foreignObject x="20" y="340" width="460" height="160">
+      <foreignObject x="20" y="340" width="460">
         <div style={{ color: '#000000' }} xmlns="http://www.w3.org/1999/xhtml">
           {props.params.description}
         </div>
       </foreignObject>
-      <text x="20" y="480" id="teamName">Meedan</text>
+      <image
+        id="image"
+        x="20"
+        y="440"
+        height="40"
+        width="40"
+        alignmentBaseline="bottom"
+        href={props.params.teamAvatar}
+      />
+      <text x="70" y="455" id="teamName">{props.params.teamName}</text>
+      <text x="70" y="473" id="teamName">{props.params.teamUrl}</text>
     </g>
   </svg>
 );

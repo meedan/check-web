@@ -21,6 +21,12 @@ class MediaActions extends Component {
     history.push(`/${media.team.slug}/project/${media.project_id}/media/${media.dbid}/embed`);
   }
 
+  handleMemebuster = () => {
+    const { media } = this.props;
+    const { history } = new CheckContext(this).getContextStore();
+    history.push(`/${media.team.slug}/project/${media.project_id}/media/${media.dbid}/memebuster`);
+  };
+
   render() {
     const {
       media,
@@ -31,7 +37,6 @@ class MediaActions extends Component {
       handleRestore,
       handleDeleteForever,
       handleAssign,
-      handleMemebuster,
       handleStatusLock,
     } = this.props;
     const menuItems = [];
@@ -113,7 +118,7 @@ class MediaActions extends Component {
         key="mediaActions.memebuster"
         className="media-actions__memebuster"
         id="media-actions__memebuster"
-        onClick={handleMemebuster}
+        onClick={this.handleMemebuster}
       >
         <FormattedMessage id="mediaActions.memebuster" defaultMessage="Memebuster" />
       </MenuItem>
