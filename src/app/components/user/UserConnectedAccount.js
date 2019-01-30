@@ -32,6 +32,10 @@ class UserConnectedAccount extends Component {
     }
   }
 
+  static loginCallback() {
+    window.location.assign(window.location.href);
+  }
+
   constructor(props) {
     super(props);
     this.state = { dialogOpen: false };
@@ -47,7 +51,7 @@ class UserConnectedAccount extends Component {
 
   handleUserClick(userAction, uid = '') {
     if (userAction === 'connect') {
-      login(this.props.provider.key, this.props.loginCallback);
+      login(this.props.provider.key, UserConnectedAccount.loginCallback.bind(this));
     } else if (userAction === 'disconnect') {
       this.handleRequestDisconnectAccount(uid);
       this.setState({ dialogOpen: false });
