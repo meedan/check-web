@@ -1,0 +1,7 @@
+{
+  "UserConnectedAccount.connectButton": "Conectar",
+  "UserConnectedAccount.disconnectButton": "Desconectar",
+  "UserConnectedAccount.disconnectAccountTitle": "Desconectar conta",
+  "UserConnectedAccount.disconnectAccountConfirmationText": "Tem certeza que deseja desconectar a conta?",
+  "UserConnectedAccount.addAnother": "Adicionar outra conta"
+}
