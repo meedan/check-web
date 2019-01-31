@@ -2129,7 +2129,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Install bot
       wait_for_selector('.team > div + div button').click ; sleep 5
       expect(@driver.page_source.include?('Bot Garden')).to be(true)
-      wait_for_selector('h2 + div > div + div .bot-garden__bot-name').click ; sleep 5
+      wait_for_selector('h2 + div > div + div + div .bot-garden__bot-name').click ; sleep 5
       wait_for_selector('input').click ; sleep 1
       @driver.switch_to.alert.accept ; sleep 5
 
