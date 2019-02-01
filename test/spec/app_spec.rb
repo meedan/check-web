@@ -108,6 +108,15 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(el.value).to eq 'journalist'
     end
 
+    it "should login using Twitter", bin5: true, quick: true do
+      login_with_twitter
+      @driver.navigate.to @config['self_url'] + '/check/me'
+      sleep 5
+      displayed_name = get_element('h1.source__name').text.upcase
+      expected_name = @config['twitter_name'].upcase
+      expect(displayed_name == expected_name).to be(true)
+    end
+
     it "should add a comment to a task", bin5: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       wait_for_selector('.create-task__add-button')
@@ -539,14 +548,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.navigate.to @config['self_url'] + '/check/teams'
       title = get_element('.login__heading')
       expect(title.text == 'Sign in').to be(true)
-    end
-
-    it "should login using Twitter", bin5: true, quick:true do
-      login_with_twitter
-      @driver.navigate.to @config['self_url'] + '/check/me'
-      displayed_name = get_element('h1.source__name').text.upcase
-      expected_name = @config['twitter_name'].upcase
-      expect(displayed_name == expected_name).to be(true)
     end
 
     it "should go to source page through user/:id", bin6: true do
