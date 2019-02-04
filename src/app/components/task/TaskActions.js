@@ -29,6 +29,10 @@ class TaskActions extends React.Component {
     const { task, media, response } = this.props;
     const { anchorEl } = this.state;
 
+    if (task.cannotAct) {
+      return null;
+    }
+
     return (
       <Can permissions={task.permissions} permission="update Task">
         <IconButton className="task-actions__icon" onClick={this.handleMenuClick}>
