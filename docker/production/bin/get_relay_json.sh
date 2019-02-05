@@ -3,7 +3,7 @@
 cd ${DEPLOYDIR}/new
 
 BRANCH=${VERSION}
-echo $BRANCH
+echo "Found branch: ${BRANCH}"
 
 STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://raw.githubusercontent.com/meedan/check-api/${BRANCH}/public/relay.json)
 
