@@ -2,7 +2,7 @@
 
 cd ${DEPLOYDIR}/new
 
-BRANCH=$(git rev-parse --abbrev-ref HEAD)
+BRANCH=${VERSION}
 STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://raw.githubusercontent.com/meedan/check-api/${BRANCH}/public/relay.json)
 
 # if it's 404, then grab the one from `develop` branch
