@@ -1,6 +1,7 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
 import styled from 'styled-components';
+import Button from '@material-ui/core/Button';
 import MemeEditor from './MemeEditor';
 import SVGViewport from './SVGViewport';
 import MediaUtil from '../media/MediaUtil';
@@ -36,7 +37,7 @@ class MemebusterComponent extends React.Component {
     this.state = {
       params: {
         headline: MediaUtil.title(props.media, props.media.embed, props.intl),
-        image: props.media.embed.picture || props.media.media.embed_path,
+        image: props.media.media.picture,
         description: props.media.embed.description,
         overlayColor: getStatusStyle(status, 'backgroundColor'),
         statusText: status.label,
@@ -53,16 +54,31 @@ class MemebusterComponent extends React.Component {
     this.setState({ params });
   };
 
+  handleSaveImage = () => {
+    console.log('saving image!');
+    const node = document.getElementById('svg-viewport');
+    const serializer = new XMLSerializer();
+    const svgString = serializer.serializeToString(node);
+    const svgData = `data:image/svg+xml;base64,${btoa(unescape(encodeURIComponent(svgString)))}`;
+    console.log('svgData', svgData);
+    window.open(svgData, '_blank');
+  };
+
   render() {
     return (
-      <StyledTwoColumnLayout>
-        <ContentColumn className="memebuster__editor-column">
-          <MemeEditor params={this.state.params} onParamChange={this.handleParamChange} />
-        </ContentColumn>
-        <ContentColumn className="memebuster__viewport-column">
-          <SVGViewport params={this.state.params} />
-        </ContentColumn>
-      </StyledTwoColumnLayout>
+      <div>
+        <StyledTwoColumnLayout>
+          <ContentColumn className="memebuster__editor-column">
+            <MemeEditor params={this.state.params} onParamChange={this.handleParamChange} />
+          </ContentColumn>
+          <ContentColumn className="memebuster__viewport-column">
+            <SVGViewport params={this.state.params} />
+          </ContentColumn>
+        </StyledTwoColumnLayout>
+        <Button variant="contained" color="primary" onClick={this.handleSaveImage}>
+          Save
+        </Button>
+      </div>
     );
   }
 }
