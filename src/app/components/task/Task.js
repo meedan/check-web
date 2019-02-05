@@ -617,6 +617,7 @@ class Task extends Component {
 
         { this.state.editingAssignment ?
           <AttributionDialog
+            taskType={task.type}
             open={this.state.editingAssignment}
             title={
               <FormattedMessage id="tasks.editAssignment" defaultMessage="Edit assignment" />
@@ -636,6 +637,7 @@ class Task extends Component {
 
         { this.state.editingAttribution ?
           <AttributionDialog
+            taskType={task.type}
             open={this.state.editingAttribution}
             title={
               <FormattedMessage id="tasks.editAttribution" defaultMessage="Edit attribution" />

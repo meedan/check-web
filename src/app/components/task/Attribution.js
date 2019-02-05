@@ -38,6 +38,8 @@ class AttributionComponent extends React.Component {
           shouldDisplay = false;
         }
 
+        console.log(props.taskType);
+
         if (props.taskType && user.is_bot) {
           shouldDisplay = false;
           const regexp = new RegExp(props.taskType);
