@@ -18,6 +18,8 @@ ENV DEPLOYUSER=checkdeploy \
     MIN_INSTANCES=4 \
     MAX_POOL_SIZE=12
 
+ARG check_api_branch=develop
+
 # user config
 RUN useradd ${DEPLOYUSER} -s /bin/bash -m \
     && chown -R ${DEPLOYUSER}:${DEPLOYUSER} /home/${DEPLOYUSER}
