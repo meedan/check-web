@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -36,6 +37,7 @@ class AttributionDialog extends React.Component {
           </div>
           <Attribution
             id="attribution-dialog"
+            taskType={this.props.taskType}
             multi
             selectedUsers={this.props.selectedUsers}
           />
@@ -59,5 +61,9 @@ class AttributionDialog extends React.Component {
     );
   }
 }
+
+AttributionDialog.propTypes = {
+  taskType: PropTypes.string.isRequired,
+};
 
 export default injectIntl(AttributionDialog);
