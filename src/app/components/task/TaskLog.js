@@ -61,8 +61,6 @@ const StyledTaskLog = styled.div`
 
     .task__log-icon {
       margin-top: -35px;
-      margin-right: 50px;
-      margin-left: 50px;
       position: relative;
       z-index: 2;
     }
@@ -335,7 +333,13 @@ class TaskLog extends Component {
     return (
       <StyledTaskLog>
         <div className="task__log-top">
-          <span className="task__log-icon" onClick={this.toggle.bind(this)}>
+          <span
+            className="task__log-icon"
+            onClick={this.toggle.bind(this)}
+            style={
+              this.props.task.cannotAct ? {} : { marginLeft: 50, marginRight: 50 }
+            }
+          >
             <b>{ pendingSuggestionsCount > 0 ? '•' : null }</b> <ChatBubble /> <span>{logCount}</span>
           </span>
         </div>
