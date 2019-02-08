@@ -108,6 +108,15 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(el.value).to eq 'journalist'
     end
 
+    it "should login using Twitter", bin5: true, quick: true do
+      login_with_twitter
+      @driver.navigate.to @config['self_url'] + '/check/me'
+      sleep 5
+      displayed_name = get_element('h1.source__name').text.upcase
+      expected_name = @config['twitter_name'].upcase
+      expect(displayed_name == expected_name).to be(true)
+    end
+
     it "should add a comment to a task", bin5: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       wait_for_selector('.create-task__add-button')
@@ -539,14 +548,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.navigate.to @config['self_url'] + '/check/teams'
       title = get_element('.login__heading')
       expect(title.text == 'Sign in').to be(true)
-    end
-
-    it "should login using Twitter", bin5: true, quick:true do
-      login_with_twitter
-      @driver.navigate.to @config['self_url'] + '/check/me'
-      displayed_name = get_element('h1.source__name').text.upcase
-      expected_name = @config['twitter_name'].upcase
-      expect(displayed_name == expected_name).to be(true)
     end
 
     it "should go to source page through user/:id", bin6: true do
@@ -1132,10 +1133,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page = MePage.new(config: @config, driver: @driver).load
       page.go(@config['self_url'] + '/check/me')
       page.approve_join_team(subdomain: @team1_slug)
-      @wait.until {
+      count = 0
+      elems = @driver.find_elements(:css => ".team-members__list > div > div > div > div")
+      while elems.size <= 1 && count < 15
+        sleep 5
+        count += 1
         elems = @driver.find_elements(:css => ".team-members__list > div > div > div > div")
-        expect(elems.size).to be > 1
-      }
+      end
+      expect(elems.size).to be > 1
 
       # "should redirect to team page if user asking to join a team is already a member"
       page = Page.new(config: @config, driver: @driver)
@@ -1163,9 +1168,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page.go(@config['api_path'] + '/test/session?email='+@user_mail)
       page = MePage.new(config: @config, driver: @driver).load
           .disapprove_join_team(subdomain: @team1_slug)
-      @wait.until {
-        expect(@driver.page_source.include?('Requests to join')).to be(false)
-      }
+      count = 0
+      while @driver.page_source.include?('Requests to join') && count < 15
+        sleep 5
+        count += 1
+      end
+      expect(@driver.page_source.include?('Requests to join')).to be(false)
 
       # "should delete member from team"
       page = Page.new(config: @config, driver: @driver)
@@ -1779,11 +1787,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       @driver.navigate.refresh
       sleep 5
-      @driver.find_element(:css, '.media-actions__icon').click
+      wait_for_selector('.media-actions__icon').click
       sleep 1
       expect(@driver.page_source.include?('Embed')).to be(true)
       url = @driver.current_url.to_s
-      @driver.find_element(:css, '.media-actions__embed').click
+      wait_for_selector('.media-actions__embed').click
       sleep 2
       expect(@driver.current_url.to_s == "#{url}/embed").to be(true)
       expect(@driver.page_source.include?('Not available')).to be(false)
@@ -2129,7 +2137,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Install bot
       wait_for_selector('.team > div + div button').click ; sleep 5
       expect(@driver.page_source.include?('Bot Garden')).to be(true)
-      wait_for_selector('h2 + div > div + div .bot-garden__bot-name').click ; sleep 5
+      wait_for_selector('h2 + div > div + div + div + div .bot-garden__bot-name').click ; sleep 5
       wait_for_selector('input').click ; sleep 1
       @driver.switch_to.alert.accept ; sleep 5
 

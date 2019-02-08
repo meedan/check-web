@@ -9,6 +9,7 @@
   "userPrivacy.seeInformationButton": "Ver minhas informações",
   "userPrivacy.stopProcessingText": "Você pode fazer um pedido ao {appName} para parar de processar suas informações de acordo com certas condições.",
   "userPrivacy.stopProcessingButton": "Pedido de fim de processamento",
+  "userPrivacy.connectedAccounts": "Contas conectadas",
   "userPrivacy.delete": "Excluir sua conta",
   "userPrivacy.deleteAccountText": "Se você excluir sua conta, suas informações pessoais serão excluídas. Comentários, anotações, e atividades de equipe se tornarão pseudônimas e permanecerão no {appName}.",
   "userPrivacy.deleteAccountButton": "Excluir minha conta",
