@@ -1,13 +1,4 @@
 module AppSpecHelpers
-  def get_element(selector, type = :css)
-    sleep 3
-    wait = Selenium::WebDriver::Wait.new(timeout: 5)
-    return wait.until {
-      element = @driver.find_element(type, selector)
-      element if element.displayed?
-    }
-  end
-
   def update_field(selector, value, type = :css, visible = true)
     wait = Selenium::WebDriver::Wait.new(timeout: 50)
     input = wait.until {
