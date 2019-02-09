@@ -112,7 +112,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       login_with_twitter
       @driver.navigate.to @config['self_url'] + '/check/me'
       sleep 5
-      displayed_name = get_element('h1.source__name').text.upcase
+      displayed_name = wait_for_selector('h1.source__name').text.upcase
       expected_name = @config['twitter_name'].upcase
       expect(displayed_name == expected_name).to be(true)
     end
@@ -436,7 +436,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should login using Slack", bin4: true, quick:true do
       login_with_slack
       @driver.navigate.to @config['self_url'] + '/check/me'
-      displayed_name = get_element('h1.source__name').text.upcase
+      displayed_name = wait_for_selector('h1.source__name').text.upcase
       expected_name = @config['slack_name'].upcase
       expect(displayed_name == expected_name).to be(true)
     end
@@ -461,19 +461,19 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should access user confirmed page", bin5: true do
       @driver.navigate.to @config['self_url'] + '/check/user/confirmed'
-      title = get_element('.main-title')
+      title = wait_for_selector('.main-title')
       expect(title.text == 'Account Confirmed').to be(true)
     end
 
     it "should access user unconfirmed page", bin5: true do
       @driver.navigate.to @config['self_url'] + '/check/user/unconfirmed'
-      title = get_element('.main-title')
+      title = wait_for_selector('.main-title')
       expect(title.text == 'Error').to be(true)
     end
 
     it "should access user already confirmed page", bin5: true do
       @driver.navigate.to @config['self_url'] + '/check/user/already-confirmed'
-      title = get_element('.main-title')
+      title = wait_for_selector('.main-title')
       expect(title.text == 'Account Already Confirmed').to be(true)
     end
 
@@ -540,13 +540,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should redirect to 404 page", bin4: true do
       @driver.navigate.to @config['self_url'] + '/something-that/does-not-exist'
-      title = get_element('.main-title')
+      title = wait_for_selector('.main-title')
       expect(title.text == 'Not Found').to be(true)
     end
 
     it "should redirect to login screen if not logged in", bin5: true do
       @driver.navigate.to @config['self_url'] + '/check/teams'
-      title = get_element('.login__heading')
+      title = wait_for_selector('.login__heading')
       expect(title.text == 'Sign in').to be(true)
     end
 
@@ -554,7 +554,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       user = api_register_and_login_with_email
       @driver.navigate.to @config['self_url'] + '/check/user/' + user.dbid.to_s
       sleep 1
-      title = get_element('.source__name')
+      title = wait_for_selector('.source__name')
       expect(title.text == 'User With Email').to be(true)
     end
 
@@ -581,7 +581,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       press_button('#create-media-submit')
       sleep 45
       expect(@driver.current_url.to_s.match(/\/source\/[0-9]+$/).nil?).to be(false)
-      title = get_element('.source__name').text
+      title = wait_for_selector('.source__name').text
       expect(title == @source_name).to be(true)
     end
 
@@ -654,7 +654,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       press_button('#create-media-submit')
       sleep 15
       expect(@driver.current_url.to_s.match(/\/source\/[0-9]+$/).nil?).to be(true)
-      message = get_element('.message').text
+      message = wait_for_selector('.message').text
       expect(message.match(/Sorry, this is not a profile/).nil?).to be(false)
     end
 
@@ -687,7 +687,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 1
       @driver.find_element(:class, 'source__edit-save-button').click
       sleep 5
-      displayed_name = get_element('h1.source__name').text
+      displayed_name = wait_for_selector('h1.source__name').text
       expect(displayed_name.include? "EDIT").to be(true)
     end
 
@@ -983,7 +983,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 3
       url = @driver.current_url.to_s
       @driver.navigate.to url.gsub(/project\/([0-9]+).*/, 'project/999')
-      title = get_element('.main-title')
+      title = wait_for_selector('.main-title')
       expect(title.text == 'Not Found').to be(true)
       expect((@driver.current_url.to_s =~ /\/404$/).nil?).to be(false)
     end
@@ -1133,10 +1133,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page = MePage.new(config: @config, driver: @driver).load
       page.go(@config['self_url'] + '/check/me')
       page.approve_join_team(subdomain: @team1_slug)
-      @wait.until {
+      count = 0
+      elems = @driver.find_elements(:css => ".team-members__list > div > div > div > div")
+      while elems.size <= 1 && count < 15
+        sleep 5
+        count += 1
         elems = @driver.find_elements(:css => ".team-members__list > div > div > div > div")
-        expect(elems.size).to be > 1
-      }
+      end
+      expect(elems.size).to be > 1
 
       # "should redirect to team page if user asking to join a team is already a member"
       page = Page.new(config: @config, driver: @driver)
@@ -1164,9 +1168,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page.go(@config['api_path'] + '/test/session?email='+@user_mail)
       page = MePage.new(config: @config, driver: @driver).load
           .disapprove_join_team(subdomain: @team1_slug)
-      @wait.until {
-        expect(@driver.page_source.include?('Requests to join')).to be(false)
-      }
+      count = 0
+      while @driver.page_source.include?('Requests to join') && count < 15
+        sleep 5
+        count += 1
+      end
+      expect(@driver.page_source.include?('Requests to join')).to be(false)
 
       # "should delete member from team"
       page = Page.new(config: @config, driver: @driver)
@@ -1192,13 +1199,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       media_pg.fill_input('#cmd-input', 'Test')
       media_pg.element('#cmd-input').submit
       sleep 5
-      notes_count_before = get_element('.media-detail__check-notes-count').text.gsub(/ .*/, '').to_i
+      notes_count_before = wait_for_selector('.media-detail__check-notes-count').text.gsub(/ .*/, '').to_i
       expect(notes_count_before > 0).to be(true)
       expect(@driver.page_source.include?('Comment deleted')).to be(false)
       media_pg.delete_annotation
       wait_for_selector('.annotation__deleted')
       sleep 5
-      notes_count_after = get_element('.media-detail__check-notes-count').text.gsub(/ .*/, '').to_i
+      notes_count_after = wait_for_selector('.media-detail__check-notes-count').text.gsub(/ .*/, '').to_i
       expect(notes_count_after > 0).to be(true)
       expect(notes_count_after == notes_count_before).to be(true) # Count should be the same because the comment is replaced by the "comment deleted" annotation
       expect(@driver.page_source.include?('Comment deleted')).to be(true)
@@ -1251,7 +1258,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       url = url[0..data.full_url.index("project")+7]+t1[:project].dbid.to_s + url[url.index("/media")..url.length-1]
       @driver.navigate.to url
       wait_for_selector("main-title",:class)
-      title = get_element('.main-title')
+      title = wait_for_selector('.main-title')
       expect(title.text == 'Not Found').to be(true)
     end
 
@@ -1780,11 +1787,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       @driver.navigate.refresh
       sleep 5
-      @driver.find_element(:css, '.media-actions__icon').click
+      wait_for_selector('.media-actions__icon').click
       sleep 1
       expect(@driver.page_source.include?('Embed')).to be(true)
       url = @driver.current_url.to_s
-      @driver.find_element(:css, '.media-actions__embed').click
+      wait_for_selector('.media-actions__embed').click
       sleep 2
       expect(@driver.current_url.to_s == "#{url}/embed").to be(true)
       expect(@driver.page_source.include?('Not available')).to be(false)
@@ -2130,7 +2137,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Install bot
       wait_for_selector('.team > div + div button').click ; sleep 5
       expect(@driver.page_source.include?('Bot Garden')).to be(true)
-      wait_for_selector('h2 + div > div + div + div .bot-garden__bot-name').click ; sleep 5
+      wait_for_selector('h2 + div > div + div + div + div .bot-garden__bot-name').click ; sleep 5
       wait_for_selector('input').click ; sleep 1
       @driver.switch_to.alert.accept ; sleep 5
 
