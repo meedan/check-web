@@ -2,6 +2,7 @@ import React from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
+import { browserHistory } from 'react-router';
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 import MemeEditor from './MemeEditor';
@@ -90,6 +91,10 @@ class MemebusterComponent extends React.Component {
     return {};
   };
 
+  returnToMedia = () => {
+    browserHistory.push(window.location.pathname.replace('/memebuster', ''));
+  };
+
   handleParamChange = (param) => {
     const params = Object.assign(this.state.params, param);
     this.setState({ params });
@@ -131,7 +136,11 @@ class MemebusterComponent extends React.Component {
       <div>
         <StyledTwoColumnLayout>
           <ContentColumn className="memebuster__editor-column">
-            <MemeEditor params={this.state.params} onParamChange={this.handleParamChange} />
+            <MemeEditor
+              media={this.props.media}
+              params={this.state.params}
+              onParamChange={this.handleParamChange}
+            />
           </ContentColumn>
           <ContentColumn className="memebuster__viewport-column">
             <SVGViewport params={this.state.params} />
@@ -167,7 +176,7 @@ class MemebusterComponent extends React.Component {
             </div>
             <Row>
               <div style={{ marginLeft: '250px', marginTop: '20px' }}>
-                <Button onClick={this.handleCancel}>
+                <Button onClick={this.returnToMedia}>
                   {this.props.intl.formatMessage(globalStrings.cancel)}
                 </Button>
                 <Button onClick={this.handleSaveParams}>

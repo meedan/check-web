@@ -13,7 +13,7 @@ class SVGViewport extends React.Component {
   applyParams() {
     const statusText = document.getElementById('statusText');
     if (statusText) {
-      statusText.style.fill = this.props.params.statusColor;
+      statusText.style.fill = this.props.params.overlayColor;
       statusText.innerHTML = this.props.params.statusText;
     }
 
@@ -39,7 +39,7 @@ class SVGViewport extends React.Component {
 
     const description = document.getElementById('description');
     if (description) {
-      description.innerHTML = this.props.params.description;
+      description.innerHTML = this.props.params.description || '';
     }
 
     const teamName = document.getElementById('teamName');

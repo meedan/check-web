@@ -120,7 +120,7 @@ class MediaActions extends Component {
         id="media-actions__memebuster"
         onClick={this.handleMemebuster}
       >
-        <FormattedMessage id="mediaActions.memebuster" defaultMessage="Memebuster" />
+        <FormattedMessage id="mediaActions.memebuster" defaultMessage="Meme Generator" />
       </MenuItem>
     ));
 

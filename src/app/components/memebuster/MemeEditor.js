@@ -1,6 +1,7 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import { CirclePicker } from 'react-color';
+import { mediaStatuses } from '../../customHelpers';
 import UploadImage from '../UploadImage';
 
 class MemeEditor extends React.Component {
@@ -31,6 +32,8 @@ class MemeEditor extends React.Component {
   };
 
   render() {
+    const colors = mediaStatuses(this.props.media).statuses.map(s => s.style.color);
+
     return (
       <div>
         <UploadImage onImage={this.handleImage} />
@@ -65,7 +68,7 @@ class MemeEditor extends React.Component {
           value={this.props.params.overlayColor}
           margin="normal"
         />
-        <CirclePicker onChangeComplete={this.handleColorSelect} />
+        <CirclePicker onChangeComplete={this.handleColorSelect} colors={colors} />
       </div>
     );
   }
