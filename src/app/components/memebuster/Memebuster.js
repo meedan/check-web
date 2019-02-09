@@ -23,6 +23,20 @@ const MemebusterContainer = Relay.createContainer(MemebusterComponent, {
         overridden,
         language,
         language_code,
+        annotations(first: 1, annotation_type: "memebuster") {
+          edges {
+            node {
+              annotated_id
+              annotated_type
+              annotation_type
+              content
+              annotator {
+                name
+              }
+              created_at
+            }
+          }
+        }
         media {
           url,
           quote,

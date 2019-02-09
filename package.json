@@ -154,6 +154,7 @@
     "rc-tooltip": "^3.5.0",
     "react": "^16.4.1",
     "react-chatview": "^0.2.4",
+    "react-color": "^2.17.0",
     "react-copy-to-clipboard": "^5.0.0",
     "react-document-title": "^2.0.2",
     "react-dom": "^16.4.1",

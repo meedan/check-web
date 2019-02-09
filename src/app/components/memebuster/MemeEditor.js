@@ -1,5 +1,6 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
+import { CirclePicker } from 'react-color';
 import UploadImage from '../UploadImage';
 
 class MemeEditor extends React.Component {
@@ -13,6 +14,12 @@ class MemeEditor extends React.Component {
       const param = {};
       param[e.target.name] = e.target.value;
       this.props.onParamChange(param);
+    }
+  };
+
+  handleColorSelect = (color) => {
+    if (this.props.onParamChange) {
+      this.props.onParamChange({ overlayColor: color.hex });
     }
   };
 
@@ -58,6 +65,7 @@ class MemeEditor extends React.Component {
           value={this.props.params.overlayColor}
           margin="normal"
         />
+        <CirclePicker onChangeComplete={this.handleColorSelect} />
       </div>
     );
   }
