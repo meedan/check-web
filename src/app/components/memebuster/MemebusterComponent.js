@@ -109,6 +109,7 @@ class MemebusterComponent extends React.Component {
 
     Relay.Store.commitUpdate(
       new CreateDynamicMutation({
+        image: this.state.params.image,
         parent_type: 'project_media',
         annotator: this.getContext().currentUser,
         annotated: this.props.media,
