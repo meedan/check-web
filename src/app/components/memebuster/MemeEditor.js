@@ -26,7 +26,7 @@ class MemeEditor extends React.Component {
 
   handleImage = (image) => {
     if (this.props.onParamChange) {
-      const param = { image: image.preview };
+      const param = { image };
       this.props.onParamChange(param);
     }
   };
