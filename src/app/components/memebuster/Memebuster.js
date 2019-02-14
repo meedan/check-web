@@ -26,6 +26,7 @@ const MemebusterContainer = Relay.createContainer(MemebusterComponent, {
         annotations(first: 1, annotation_type: "memebuster") {
           edges {
             node {
+              id
               annotated_id
               annotated_type
               annotation_type
@@ -34,6 +35,7 @@ const MemebusterContainer = Relay.createContainer(MemebusterComponent, {
                 name
               }
               created_at
+              updated_at
             }
           }
         }

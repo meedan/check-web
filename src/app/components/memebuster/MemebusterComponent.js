@@ -14,7 +14,8 @@ import CheckContext from '../../CheckContext';
 import { safelyParseJSON, getStatus, getStatusStyle } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
 import { Row, ContentColumn, mediaQuery, units } from '../../styles/js/shared';
-import CreateDynamicMutation from '../../relay/mutations/CreateDynamicMutation';
+import CreateMemebusterMutation from '../../relay/mutations/CreateMemebusterMutation';
+import UpdateMemebusterMutation from '../../relay/mutations/UpdateMemebusterMutation';
 
 const StyledTwoColumnLayout = styled(ContentColumn)`
   flex-direction: column;
@@ -67,6 +68,17 @@ class MemebusterComponent extends React.Component {
     return field ? field.value : null;
   };
 
+  getFieldFromAnnotation = (field_name) => {
+    const annotation = this.getLastSaveAnnotation();
+
+    if (annotation) {
+      const content = safelyParseJSON(annotation.content);
+      return this.getField(content, field_name);
+    }
+
+    return null;
+  }
+
   getLastSaveAnnotation = () => {
     if (this.props.media.annotations.edges[0]) {
       return this.props.media.annotations.edges[0].node;
@@ -84,6 +96,7 @@ class MemebusterComponent extends React.Component {
         headline: this.getField(content, 'memebuster_headline'),
         description: this.getField(content, 'memebuster_body'),
         statusText: this.getField(content, 'memebuster_status'),
+        image: this.getField(content, 'memebuster_image'),
         overlayColor: this.getField(content, 'memebuster_overlay'),
       });
     }
@@ -100,38 +113,57 @@ class MemebusterComponent extends React.Component {
     this.setState({ params });
   };
 
-  handleSaveParams = () => {
+  handleSubmit = (action) => {
     const fields = {
-      memebuster_operation: 'save',
-      memebuster_image: 'bli.png',
+      memebuster_operation: action,
+      memebuster_image: this.state.params.image,
       memebuster_headline: this.state.params.headline,
       memebuster_body: this.state.params.description,
       memebuster_status: this.state.params.statusText,
       memebuster_overlay: this.state.params.overlayColor,
     };
 
-    const onFailure = () => { console.log('failure'); };
+    const onFailure = () => { console.log('failure'); //TODO handle failure };
 
-    Relay.Store.commitUpdate(
-      new CreateDynamicMutation({
-        image: this.state.params.image,
-        parent_type: 'project_media',
-        annotator: this.getContext().currentUser,
-        annotated: this.props.media,
-        annotation: {
-          fields,
-          annotation_type: 'memebuster',
-          annotated_type: 'ProjectMedia',
-          annotated_id: this.props.media.dbid,
-        },
-      }),
-      { onFailure },
-    );
+    const saved = this.getLastSaveAnnotation();
+
+    if (!saved) {
+      Relay.Store.commitUpdate(
+        new CreateMemebusterMutation({
+          image: this.state.params.image,
+          parent_type: 'project_media',
+          annotator: this.getContext().currentUser,
+          annotated: this.props.media,
+          annotation: {
+            fields,
+            annotated_type: 'ProjectMedia',
+            annotated_id: this.props.media.dbid,
+          },
+        }),
+        { onFailure },
+      );
+    } else {
+      Relay.Store.commitUpdate(
+        new UpdateMemebusterMutation({
+          id: saved.id,
+          image: this.state.params.image,
+          parent_type: 'project_media',
+          annotator: this.getContext().currentUser,
+          annotated: this.props.media,
+          annotation: {
+            fields,
+            annotated_type: 'ProjectMedia',
+            annotated_id: this.props.media.dbid,
+          },
+        }),
+        { onFailure },
+      );
+    }
   };
 
   render() {
     const saved = this.getLastSaveAnnotation();
-    const published = null;
+    const published = this.getFieldFromAnnotation('memebuster_published_at');
 
     return (
       <div>
@@ -153,7 +185,7 @@ class MemebusterComponent extends React.Component {
                     defaultMessage="Last saved {time} by {name}"
                     values={{
                       time: <TimeBefore
-                        date={MediaUtil.createdAt({ published: saved.created_at })}
+                        date={MediaUtil.createdAt({ published: saved.updated_at })}
                       />,
                       name: saved.annotator.name,
                     }}
@@ -167,9 +199,9 @@ class MemebusterComponent extends React.Component {
                     defaultMessage="Last published {time} by {name}"
                     values={{
                       time: <TimeBefore
-                        date={MediaUtil.createdAt({ published: published.created_at })}
+                        date={MediaUtil.createdAt({ published })}
                       />,
-                      name: published.annotator.name,
+                      name: saved.annotator.name,
                     }}
                   />
                 </div> : null
@@ -180,10 +212,10 @@ class MemebusterComponent extends React.Component {
                 <Button onClick={this.returnToMedia}>
                   {this.props.intl.formatMessage(globalStrings.cancel)}
                 </Button>
-                <Button onClick={this.handleSaveParams}>
+                <Button onClick={() => this.handleSubmit('save')}>
                   {this.props.intl.formatMessage(globalStrings.save)}
                 </Button>
-                <Button variant="contained" color="primary">
+                <Button variant="contained" color="primary" onClick={() => this.handleSubmit('publish')}>
                   <FormattedMessage id="MemebusterComponent.publish" defaultMessage="Publish" />
                 </Button>
               </div>

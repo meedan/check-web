@@ -4,7 +4,7 @@ const template = `
   <text id="headline" y="38" x="250" text-anchor="middle" alignment-baseline="middle" style="font-style: normal;       font-weight: normal;       font-size: 30px;       line-height: 1.25;       font-family: sans-serif;       letter-spacing: '0px',       word-spacing: '0px',       fill: '#000000',       fill-opacity: 1,       stroke: 'none',       stroke-width: 0.26458332,">
     HEADLINE
   </text>
-  <image id="image" y="70" x="0" height="250" width="500" href="https://pbs.twimg.com/media/DyMypugUwAIFFIF.jpg"/>
+  <image id="image" y="70" x="0" height="250" width="500" />
   <rect xmlns="http://www.w3.org/2000/svg" y="70" x="0" height="250" width="500" id="overlay" style="fill: rgb(154, 255, 142); fill-opacity: 0.5;"/>
   <text id="statusText" y="300" x="480" width="500" text-anchor="end" alignment-baseline="bottom" style="font-style: normal; font-weight: bold; font-size: 50px; line-height: 1.25; font-family: sans-serif; letter-spacing: 2px; word-spacing: 0px; fill: rgb(154, 255, 142); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-width: 1.25;">
     STATUS
