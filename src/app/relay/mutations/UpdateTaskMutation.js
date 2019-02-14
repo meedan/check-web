@@ -8,13 +8,30 @@ class UpdateTaskMutation extends Relay.Mutation {
   }
 
   getFatQuery() {
+    if (this.props.operation === 'answer') {
+      return Relay.QL`fragment on UpdateTaskPayload {
+        task {
+          status
+          responses
+          first_response
+        },
+        project_media {
+          translation_statuses,
+          verification_statuses,
+          last_status,
+          id,
+          log_count,
+          field_value(annotation_type_field_name: "translation_status:translation_status_status"),
+          translation_status: annotation(annotation_type: "translation_status")
+        },
+      }`;
+    }
     return Relay.QL`fragment on UpdateTaskPayload {
       task,
       project_media {
         translation_statuses,
         verification_statuses,
         last_status,
-        last_status_obj,
         log,
         id,
         log_count,
