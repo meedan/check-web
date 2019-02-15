@@ -146,7 +146,7 @@ class MemebusterComponent extends React.Component {
   };
 
   handleSubmit = (action) => {
-    let imagePath = null;
+    let imagePath = '';
     let imageFile = null;
 
     if (this.state.params.image && typeof (this.state.params.image) === 'string') {
@@ -159,7 +159,7 @@ class MemebusterComponent extends React.Component {
 
     const fields = {
       memebuster_operation: action,
-      memebuster_image: imagePath || '-',
+      memebuster_image: imagePath,
       memebuster_headline: this.state.params.headline,
       memebuster_body: this.state.params.description,
       memebuster_status: this.state.params.statusText,
