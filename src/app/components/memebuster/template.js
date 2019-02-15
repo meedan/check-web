@@ -11,22 +11,22 @@ const template = `
     </filter>
   </defs>
   <rect xmlns="http://www.w3.org/2000/svg" style="fill:none;stroke:#000000;stroke-width:0.2436776" y="0" x="0" height="500" width="500" id="frame"/>
-  <text id="headline" y="38" x="250" text-anchor="middle" alignment-baseline="middle" style="font-style: normal; font-weight: normal; font-size: 30px; line-height: 1.25; font-family: sans-serif;       letter-spacing: '0px', word-spacing: '0px',       fill: '#000000',       fill-opacity: 1,       stroke: 'none', stroke-width: 0.26458332,">
+  <text id="headline" y="38" x="250" text-anchor="middle" alignment-baseline="middle" style="font-style: normal; font-weight: normal; font-size: 30px; font-family: arial; fill: '#000000'; fill-opacity: 1;">
     HEADLINE
   </text>
   <image id="image" y="70" x="0" height="250" width="500" />
   <rect xmlns="http://www.w3.org/2000/svg" y="70" x="0" height="250" width="500" id="overlay" style="fill: rgb(154, 255, 142); fill-opacity: 0.5;"/>
-  <text id="statusText" y="300" x="480" width="500" text-anchor="end" alignment-baseline="bottom"  filter="url(#whiteOutlineEffect)" style="font-size: 50px; fill: rgb(154, 255, 142); fill-opacity: 1;">
+  <text id="statusText" y="300" x="480" width="500" text-anchor="end" alignment-baseline="bottom" filter="url(#whiteOutlineEffect)" style="font-size: 50px; font-family: arial; fill: rgb(154, 255, 142); fill-opacity: 1;">
     STATUS
   </text>
   <foreignObject x="20" y="330" width="460" height="100">
-    <div id="description" xmlns="http://www.w3.org/1999/xhtml" style="color: #000000; font-family: sans-serif;">
+    <div id="description" xmlns="http://www.w3.org/1999/xhtml" style="color: #000000; font-family: arial;">
       Description
     </div>
   </foreignObject>
   <image id="teamAvatar" x="20" y="440" height="40" width="40" alignment-baseline="bottom" />
-  <text x="70" y="455" id="teamName" style="font-family: sans-serif;">Team</text>
-  <text x="70" y="473" id="teamUrl" style="font-family: sans-serif;">Team Url</text>
+  <text x="70" y="455" id="teamName" style="font-family: arial;">Team</text>
+  <text x="70" y="473" id="teamUrl" style="font-family: arial;">Team Url</text>
 </svg>
 `;
 
