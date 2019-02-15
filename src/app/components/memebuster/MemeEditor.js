@@ -59,20 +59,24 @@ class MemeEditor extends React.Component {
           fullWidth
           multiline
         />
-        <TextField
-          name="statusText"
-          label="Status Text"
-          onChange={this.handleChange}
-          value={this.props.params.statusText}
-          margin="normal"
-        />
-        <TextField
-          name="overlayColor"
-          label="Overlay color"
-          onChange={this.handleChange}
-          value={this.props.params.overlayColor}
-          margin="normal"
-        />
+        <div>
+          <TextField
+            name="statusText"
+            label="Status Text"
+            onChange={this.handleChange}
+            value={this.props.params.statusText}
+            margin="normal"
+          />
+        </div>
+        <div>
+          <TextField
+            name="overlayColor"
+            label="Overlay color"
+            onChange={this.handleChange}
+            value={this.props.params.overlayColor}
+            margin="normal"
+          />
+        </div>
         <div style={{ marginBottom: units(2) }}>
           <CirclePicker onChangeComplete={this.handleColorSelect} colors={colors} />
         </div>

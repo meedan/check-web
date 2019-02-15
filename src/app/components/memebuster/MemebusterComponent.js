@@ -228,8 +228,6 @@ class MemebusterComponent extends React.Component {
     const saveDisabled = !can(media.permissions, 'create Dynamic') || !this.validate();
     const publishDisabled = !can(media.permissions, 'update Status') || !this.validate();
 
-    console.log('params', this.state.params);
-
     return (
       <PageTitle
         prefix={MediaUtil.title(media, data, this.props.intl)}
