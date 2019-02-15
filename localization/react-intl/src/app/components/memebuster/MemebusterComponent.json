@@ -1,0 +1,18 @@
+[
+  {
+    "id": "MemebusterComponent.publishing",
+    "defaultMessage": "Publishing..."
+  },
+  {
+    "id": "MemebusterComponent.lastPublished",
+    "defaultMessage": "Last published {time} by {name}"
+  },
+  {
+    "id": "MemebusterComponent.lastSaved",
+    "defaultMessage": "Last saved {time} by {name}"
+  },
+  {
+    "id": "MemebusterComponent.publish",
+    "defaultMessage": "Publish"
+  }
+]
