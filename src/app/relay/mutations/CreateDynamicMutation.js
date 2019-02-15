@@ -45,6 +45,13 @@ class CreateDynamicMutation extends Relay.Mutation {
     }
   }
 
+  getFiles() {
+    if (this.props.image) {
+      return { 'file[]': this.props.image };
+    }
+    return {};
+  }
+
   getVariables() {
     const dynamic = this.props.annotation;
     return {
