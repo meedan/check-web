@@ -169,6 +169,7 @@ class Task extends Component {
 
     Relay.Store.commitUpdate(
       new UpdateTaskMutation({
+        operation: 'answer',
         annotated: media,
         task: {
           id: task.id,
@@ -221,6 +222,7 @@ class Task extends Component {
 
     Relay.Store.commitUpdate(
       new UpdateTaskMutation({
+        operation: 'update',
         annotated: media,
         task: taskObj,
       }),
@@ -236,6 +238,7 @@ class Task extends Component {
 
     Relay.Store.commitUpdate(
       new UpdateTaskMutation({
+        operation: 'assign',
         annotated: this.props.media,
         task,
       }),

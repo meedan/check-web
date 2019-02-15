@@ -18,7 +18,7 @@ class LoadMore extends React.Component {
         this.props.relay.setVariables(
           { pageSize: newSize },
           (state) => {
-            if (state.done) {
+            if (state.done || state.aborted) {
               this.setState({ loadingMore: false });
             }
           },

@@ -32,7 +32,7 @@ const messages = defineMessages({
   },
   language: {
     id: 'mediaTags.language',
-    defaultMessage: 'language: {language}',
+    defaultMessage: 'Language: {language}',
   },
   error: {
     id: 'mediaTags.error',
