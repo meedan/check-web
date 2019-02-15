@@ -31,12 +31,16 @@ class MemeEditor extends React.Component {
     }
   };
 
+  handleClearImage = () => {
+    this.handleImage(null);
+  };
+
   render() {
     const colors = mediaStatuses(this.props.media).statuses.map(s => s.style.color);
 
     return (
       <div>
-        <UploadImage onImage={this.handleImage} />
+        <UploadImage onImage={this.handleImage} onClear={this.handleClearImage} />
         <TextField
           name="headline"
           label="Headline"

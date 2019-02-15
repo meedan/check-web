@@ -29,6 +29,8 @@ class SVGViewport extends React.Component {
       } else {
         image.setAttribute('href', this.props.params.image.preview);
       }
+    } else {
+      image.removeAttribute('href');
     }
 
     const teamAvatar = document.getElementById('teamAvatar');

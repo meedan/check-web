@@ -35,7 +35,15 @@ class UpdateMemebusterMutation extends Relay.Mutation {
   }
 
   getConfigs() {
-    return [];
+    const fieldIds = {};
+    fieldIds[this.props.parent_type] = this.props.annotated.id;
+
+    return [
+      {
+        type: 'FIELDS_CHANGE',
+        fieldIDs: fieldIds,
+      },
+    ];
   }
 }
 

@@ -7,6 +7,8 @@ import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 import MemeEditor from './MemeEditor';
 import SVGViewport from './SVGViewport';
+import { can } from '../Can';
+import PageTitle from '../PageTitle';
 import TimeBefore from '../TimeBefore';
 import MediaUtil from '../media/MediaUtil';
 import globalStrings from '../../globalStrings';
@@ -88,10 +90,10 @@ class MemebusterComponent extends React.Component {
   };
 
   getSavedParams = () => {
-    const saved = this.getLastSaveAnnotation();
+    const annotation = this.getLastSaveAnnotation();
 
-    if (saved) {
-      const content = safelyParseJSON(saved.content);
+    if (annotation) {
+      const content = safelyParseJSON(annotation.content);
       return ({
         headline: this.getField(content, 'memebuster_headline'),
         description: this.getField(content, 'memebuster_body'),
@@ -104,6 +106,36 @@ class MemebusterComponent extends React.Component {
     return {};
   };
 
+  getPublishedText = () => {
+    const annotation = this.getLastSaveAnnotation();
+    const publish_sent = this.getFieldFromAnnotation('memebuster_operation') === 'publish';
+    const publish_done = this.getFieldFromAnnotation('memebuster_published_at');
+
+    let text = null;
+
+    if (publish_sent) {
+      text = (<FormattedMessage
+        id="MemebusterComponent.publishing"
+        defaultMessage="Publishing..."
+      />);
+    }
+
+    if (publish_done) {
+      text = (<FormattedMessage
+        id="MemebusterComponent.lastPublished"
+        defaultMessage="Last published {time} by {name}"
+        values={{
+          time: <TimeBefore
+            date={MediaUtil.createdAt({ published: annotation.updated_at })}
+          />,
+          name: annotation.annotator.name,
+        }}
+      />);
+    }
+
+    return text;
+  }
+
   returnToMedia = () => {
     browserHistory.push(window.location.pathname.replace('/memebuster', ''));
   };
@@ -114,23 +146,34 @@ class MemebusterComponent extends React.Component {
   };
 
   handleSubmit = (action) => {
+    let imagePath = null;
+    let imageFile = null;
+
+    if (this.state.params.image && typeof (this.state.params.image) === 'string') {
+      imagePath = this.state.params.image;
+    }
+
+    if (this.state.params.image && typeof (this.state.params.image) === 'object') {
+      imageFile = this.state.params.image;
+    }
+
     const fields = {
       memebuster_operation: action,
-      memebuster_image: this.state.params.image,
+      memebuster_image: imagePath || '-',
       memebuster_headline: this.state.params.headline,
       memebuster_body: this.state.params.description,
       memebuster_status: this.state.params.statusText,
       memebuster_overlay: this.state.params.overlayColor,
     };
 
-    const onFailure = () => { console.log('failure'); //TODO handle failure };
+    const onFailure = () => { console.log('failure'); }; // TODO handle failure
 
-    const saved = this.getLastSaveAnnotation();
+    const annotation = this.getLastSaveAnnotation();
 
-    if (!saved) {
+    if (!annotation) {
       Relay.Store.commitUpdate(
         new CreateMemebusterMutation({
-          image: this.state.params.image,
+          image: imageFile,
           parent_type: 'project_media',
           annotator: this.getContext().currentUser,
           annotated: this.props.media,
@@ -145,8 +188,8 @@ class MemebusterComponent extends React.Component {
     } else {
       Relay.Store.commitUpdate(
         new UpdateMemebusterMutation({
-          id: saved.id,
-          image: this.state.params.image,
+          id: annotation.id,
+          image: imageFile,
           parent_type: 'project_media',
           annotator: this.getContext().currentUser,
           annotated: this.props.media,
@@ -161,12 +204,38 @@ class MemebusterComponent extends React.Component {
     }
   };
 
+  validate = () => {
+    const {
+      headline,
+      image,
+      statusText,
+      description,
+      overlayColor,
+    } = this.state.params;
+
+    if (headline && image && statusText && description && overlayColor) {
+      return true;
+    }
+
+    return false;
+  };
+
   render() {
-    const saved = this.getLastSaveAnnotation();
-    const published = this.getFieldFromAnnotation('memebuster_published_at');
+    const { media } = this.props;
+    const data = media.embed;
+    const annotation = this.getLastSaveAnnotation();
+
+    const saveDisabled = !can(media.permissions, 'create Dynamic') || !this.validate();
+    const publishDisabled = !can(media.permissions, 'update Status') || !this.validate();
+
+    console.log('params', this.state.params);
 
     return (
-      <div>
+      <PageTitle
+        prefix={MediaUtil.title(media, data, this.props.intl)}
+        team={this.getContext().team}
+        data-id={media.dbid}
+      >
         <StyledTwoColumnLayout>
           <ContentColumn className="memebuster__editor-column">
             <MemeEditor
@@ -178,51 +247,45 @@ class MemebusterComponent extends React.Component {
           <ContentColumn className="memebuster__viewport-column">
             <SVGViewport params={this.state.params} />
             <div>
-              { saved ?
+              { annotation ?
                 <div>
                   <FormattedMessage
                     id="MemebusterComponent.lastSaved"
                     defaultMessage="Last saved {time} by {name}"
                     values={{
                       time: <TimeBefore
-                        date={MediaUtil.createdAt({ published: saved.updated_at })}
+                        date={MediaUtil.createdAt({ published: annotation.updated_at })}
                       />,
-                      name: saved.annotator.name,
+                      name: annotation.annotator.name,
                     }}
                   />
                 </div> : null
               }
-              { published ?
-                <div>
-                  <FormattedMessage
-                    id="MemebusterComponent.lastPublished"
-                    defaultMessage="Last published {time} by {name}"
-                    values={{
-                      time: <TimeBefore
-                        date={MediaUtil.createdAt({ published })}
-                      />,
-                      name: saved.annotator.name,
-                    }}
-                  />
-                </div> : null
-              }
+              <div>
+                { this.getPublishedText() }
+              </div>
             </div>
             <Row>
               <div style={{ marginLeft: '250px', marginTop: '20px' }}>
                 <Button onClick={this.returnToMedia}>
                   {this.props.intl.formatMessage(globalStrings.cancel)}
                 </Button>
-                <Button onClick={() => this.handleSubmit('save')}>
+                <Button onClick={() => this.handleSubmit('save')} disabled={saveDisabled}>
                   {this.props.intl.formatMessage(globalStrings.save)}
                 </Button>
-                <Button variant="contained" color="primary" onClick={() => this.handleSubmit('publish')}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => this.handleSubmit('publish')}
+                  disabled={publishDisabled}
+                >
                   <FormattedMessage id="MemebusterComponent.publish" defaultMessage="Publish" />
                 </Button>
               </div>
             </Row>
           </ContentColumn>
         </StyledTwoColumnLayout>
-      </div>
+      </PageTitle>
     );
   }
 }

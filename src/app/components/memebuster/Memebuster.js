@@ -36,6 +36,7 @@ const MemebusterContainer = Relay.createContainer(MemebusterComponent, {
               }
               created_at
               updated_at
+              permissions
             }
           }
         }
