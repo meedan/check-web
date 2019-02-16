@@ -113,7 +113,10 @@ class Root extends Component {
       // eslint-disable-next-line no-undef
       Pusher.logToConsole = !!config.pusherDebug;
       // eslint-disable-next-line no-undef
-      const pusher = new Pusher(config.pusherKey, { encrypted: true });
+      const pusher = new Pusher(config.pusherKey, {
+        cluster: config.pusherCluster,
+        encrypted: true,
+      });
       data.pusher = pusher;
     }
 
