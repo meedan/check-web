@@ -263,7 +263,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Task created by')).to be(true)
 
       # Answer task
-      expect(@driver.page_source.include?('Resolved by')).to be(false)
+      expect(@driver.page_source.include?('class="task task__answered-by-current-user"')).to be(false)
       fill_field('input[name="hour"]', '23')
       fill_field('input[name="minute"]', '59')
       el = wait_for_selector('#task__response-date')
@@ -274,7 +274,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el = wait_for_selector('.task__save')
       el.click
       old = wait_for_size_change(old, "annotation__default-content", :class)
-      expect(@driver.page_source.include?('Resolved by')).to be(true)
+      expect(@driver.page_source.include?('class="task task__answered-by-current-user"')).to be(true)
 
       # Edit task
       expect(@driver.page_source.include?('When was it?')).to be(false)
@@ -1457,11 +1457,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Task created by')).to be(true)
 
       # Answer task
-      expect(@driver.page_source.include?('Resolved by')).to be(false)
+      expect(@driver.page_source.include?('class="task task__answered-by-current-user"')).to be(false)
       fill_field('textarea[name="response"]', 'Foo')
       @driver.find_element(:css, '.task__save').click
       media_pg.wait_all_elements(4, "annotations__list-item", :class)
-      expect(@driver.page_source.include?('Resolved by')).to be(true)
+      expect(@driver.page_source.include?('class="task task__answered-by-current-user"')).to be(true)
 
       # Edit task
       expect(@driver.page_source.include?('Foo or bar???')).to be(false)
@@ -1524,13 +1524,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Foo or bar?')).to be(true)
       expect(@driver.page_source.include?('Task created by')).to be(true)
       # Answer task
-      expect(@driver.page_source.include?('Resolved by')).to be(false)
+      expect(@driver.page_source.include?('class="task task__answered-by-current-user"')).to be(false)
       el = wait_for_selector('0', :id)
       el.click
       el = wait_for_selector('task__submit', :class)
       el.click
       media_pg.wait_all_elements(4, "annotations__list-item", :class)
-      expect(@driver.page_source.include?('Resolved by')).to be(true)
+      expect(@driver.page_source.include?('class="task task__answered-by-current-user"')).to be(true)
       # Edit task
       expect(@driver.page_source.include?('Task edited by')).to be(false)
       el = wait_for_selector('.task-actions__icon', :css)
@@ -1587,7 +1587,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Foo, Doo or bar?')).to be(true)
       expect(@driver.page_source.include?('Task created by')).to be(true)
       # Answer task
-      expect(@driver.page_source.include?('Resolved by')).to be(false)
+      expect(@driver.page_source.include?('class="task task__answered-by-current-user"')).to be(false)
       el = wait_for_selector('Foo', :id)
       el.click
       el = wait_for_selector('Doo', :id)
@@ -1595,7 +1595,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el = wait_for_selector('task__submit', :class)
       el.click
       media_pg.wait_all_elements(4, "annotations__list-item", :class)
-      expect(@driver.page_source.include?('Resolved by')).to be(true)
+      expect(@driver.page_source.include?('class="task task__answered-by-current-user"')).to be(true)
       # Edit task
       expect(@driver.page_source.include?('Task edited by')).to be(false)
       el = wait_for_selector('.task-actions__icon', :css)
@@ -1859,14 +1859,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Task created by')).to be(true)
 
       # Answer task
-      expect(@driver.page_source.include?('Resolved by')).to be(false)
+      expect(@driver.page_source.include?('class="task task__answered-by-current-user"')).to be(false)
       fill_field('textarea[name="response"]', 'Salvador')
       fill_field('#task__response-geolocation-coordinates', '-12.9015866, -38.560239')
       el = wait_for_selector('.task__save')
       el.click
       wait_for_selector('.annotation--task_response_geolocation')
       old = wait_for_size_change(old, "annotations__list-item", :class)
-      expect(@driver.page_source.include?('Resolved by')).to be(true)
+      expect(@driver.page_source.include?('class="task task__answered-by-current-user"')).to be(true)
 
       # Edit task
       expect(@driver.page_source.include?('Where was it?')).to be(false)

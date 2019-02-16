@@ -10,6 +10,7 @@ class UpdateTaskMutation extends Relay.Mutation {
   getFatQuery() {
     if (this.props.operation === 'answer') {
       return Relay.QL`fragment on UpdateTaskPayload {
+        first_response_versionEdge
         task {
           status
           responses
@@ -67,12 +68,25 @@ class UpdateTaskMutation extends Relay.Mutation {
     if (this.props.annotated) {
       fieldIDs.project_media = this.props.annotated.id;
     }
-    return [
+    const configs = [
       {
         type: 'FIELDS_CHANGE',
         fieldIDs,
       },
     ];
+    if (this.props.operation === 'answer') {
+      configs.push({
+        type: 'RANGE_ADD',
+        parentName: 'project_media',
+        parentID: this.props.annotated.id,
+        connectionName: 'log',
+        edgeName: 'first_response_versionEdge',
+        rangeBehaviors: {
+          '': 'prepend',
+        },
+      });
+    }
+    return configs;
   }
 }
 

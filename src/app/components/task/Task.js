@@ -459,16 +459,23 @@ class Task extends Component {
     const taskActions = !media.archived ? (
       <div>
         {taskAssignment}
-        {data.by && task.status === 'resolved' ?
+        {data.by ?
           <div className="task__resolver" style={{ display: 'flex', alignItems: 'center', marginTop: units(1) }}>
             <small style={{ display: 'flex' }}>
               <UserAvatars users={byPictures} />
               <span style={{ lineHeight: '24px', paddingLeft: units(1), paddingRight: units(1) }}>
-                <FormattedMessage
-                  id="task.resolvedBy"
-                  defaultMessage="Resolved by {byName}"
-                  values={{ byName: <Sentence list={by} /> }}
-                />
+                { task.status === 'resolved' ?
+                  <FormattedMessage
+                    id="task.resolvedBy"
+                    defaultMessage="Resolved by {byName}"
+                    values={{ byName: <Sentence list={by} /> }}
+                  /> : null }
+                { task.status === 'unresolved' && response ?
+                  <FormattedMessage
+                    id="task.answeredBy"
+                    defaultMessage="Answered by {byName}"
+                    values={{ byName: <Sentence list={by} /> }}
+                  /> : null }
               </span>
             </small>
           </div>
