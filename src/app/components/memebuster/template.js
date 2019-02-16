@@ -20,7 +20,7 @@ const template = `
     STATUS
   </text>
   <foreignObject x="20" y="330" width="460" height="100">
-    <div id="description" xmlns="http://www.w3.org/1999/xhtml" style="color: #000000; font-family: arial;">
+    <div id="description" xmlns="http://www.w3.org/1999/xhtml" style="color: #000000; font-family: arial; font-size: 14px;">
       Description
     </div>
   </foreignObject>
