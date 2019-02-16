@@ -11,7 +11,7 @@ const template = `
     </filter>
   </defs>
   <rect xmlns="http://www.w3.org/2000/svg" style="fill:none;stroke:#000000;stroke-width:0.2436776" y="0" x="0" height="500" width="500" id="frame"/>
-  <text id="headline" y="38" x="250" text-anchor="middle" alignment-baseline="middle" style="font-style: normal; font-weight: normal; font-size: 30px; font-family: arial; fill: '#000000'; fill-opacity: 1;">
+  <text id="headline" y="38" x="250" text-anchor="middle" dominant-baseline="middle" style="font-style: normal; font-weight: normal; font-size: 30px; font-family: arial; fill: '#000000'; fill-opacity: 1;">
     HEADLINE
   </text>
   <image id="image" y="70" x="0" height="250" width="500" />
