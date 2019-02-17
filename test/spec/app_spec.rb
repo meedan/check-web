@@ -1211,43 +1211,38 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Comment deleted')).to be(true)
     end
 
-    it "should auto refresh project when media is created", bin1: true do
+    it "should autorefresh project when media is created", bin1: true do
       api_create_team_and_project
       @driver.navigate.to @config['self_url']
-
       url = @driver.current_url
-      sleep 3
+      wait_for_selector('#create-media-input')
       expect(@driver.page_source.include?('Auto-Refresh')).to be(false)
-
       current_window = @driver.window_handles.last
       @driver.execute_script("window.open('#{url}')")
       @driver.switch_to.window(@driver.window_handles.last)
       fill_field('#create-media-input', 'Auto-Refresh')
       press_button('#create-media-submit')
-      sleep 5
+      wait_for_selector('.medias__item')
       @driver.execute_script('window.close()')
       @driver.switch_to.window(current_window)
-
-      sleep 5
+      wait_for_selector('.medias__item')
       expect(@driver.page_source.include?('Auto-Refresh')).to be(true)
     end
 
-    it "should auto refresh media when annotation is created", bin3: true do
+    it "should autorefresh media when annotation is created", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       url = media_pg.driver.current_url
-      sleep 3
+      wait_for_selector('#cmd-input')
       expect(@driver.page_source.include?('Auto-Refresh')).to be(false)
-
       current_window = @driver.window_handles.last
       @driver.execute_script("window.open('#{url}')")
       @driver.switch_to.window(@driver.window_handles.last)
       media_pg.fill_input('#cmd-input', 'Auto-Refresh')
       media_pg.element('#cmd-input').submit
-      sleep 5
+      wait_for_selector('.annotation__card-activity-create-comment')
       @driver.execute_script('window.close()')
       @driver.switch_to.window(current_window)
-
-      sleep 5
+      wait_for_selector('.annotation__card-activity-create-comment')
       expect(@driver.page_source.include?('Auto-Refresh')).to be(true)
     end
 
