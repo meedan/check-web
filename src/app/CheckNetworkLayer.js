@@ -50,7 +50,7 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
   constructor(path, options) {
     super(path, options);
     this.caller = options.caller;
-    this.startPoll();
+    // this.startPoll();
   }
 
   messageCallback(message) {
