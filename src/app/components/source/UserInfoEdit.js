@@ -411,6 +411,11 @@ class UserInfoEdit extends React.Component {
     return success;
   }
 
+  filterNonLoginAccount(as) {
+    const { account } = as.node;
+    return account.uid === null || account.user_id !== this.props.user.dbid;
+  }
+
   renderAccountsEdit() {
     const { source } = this.props.user;
     const links = this.state.links ? this.state.links.slice(0) : [];
@@ -420,7 +425,7 @@ class UserInfoEdit extends React.Component {
     const showAccounts =
       source.account_sources.edges.filter(as => deleteLinks.indexOf(as.node.id) < 0);
 
-    const showNonLoginAccount = showAccounts.filter(as => as.node.account.uid === null);
+    const showNonLoginAccount = showAccounts.filter(as => this.filterNonLoginAccount(as));
 
     return (
       <div key="renderAccountsEdit">
