@@ -1,5 +1,4 @@
 import React from 'react';
-import template from './template';
 
 class SVGViewport extends React.Component {
   componentDidMount() {
@@ -59,8 +58,8 @@ class SVGViewport extends React.Component {
     }
   }
 
-  // eslint-disable-next-line class-methods-use-this
   render() {
+    const { template } = this.props;
     return (
       <div id="svg-container" dangerouslySetInnerHTML={{ __html: template }} />
     );

@@ -224,6 +224,7 @@ class MemebusterComponent extends React.Component {
     const { media } = this.props;
     const data = media.embed;
     const annotation = this.getLastSaveAnnotation();
+    const template = media.team.get_memebuster_template;
 
     const saveDisabled = !can(media.permissions, 'create Dynamic') || !this.validate();
     const publishDisabled = !can(media.permissions, 'update Status') || !this.validate();
@@ -243,7 +244,7 @@ class MemebusterComponent extends React.Component {
             />
           </ContentColumn>
           <ContentColumn className="memebuster__viewport-column">
-            <SVGViewport params={this.state.params} />
+            <SVGViewport params={this.state.params} template={template} />
             <div>
               { annotation ?
                 <div>

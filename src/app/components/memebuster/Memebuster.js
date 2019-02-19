@@ -51,6 +51,7 @@ const MemebusterContainer = Relay.createContainer(MemebusterComponent, {
         team {
           name
           avatar
+          get_memebuster_template
           contacts(first: 1) {
             edges {
               node {
