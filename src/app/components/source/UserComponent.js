@@ -18,9 +18,10 @@ import { ContentColumn } from '../../styles/js/shared';
 class UserComponent extends React.Component {
   constructor(props) {
     super(props);
-
+    const { tab } = this.props.params;
+    const showTab = (typeof tab === 'undefined') ? 'assignments' : tab;
     this.state = {
-      showTab: 'assignments',
+      showTab,
     };
   }
 
