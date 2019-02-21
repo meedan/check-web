@@ -67,8 +67,8 @@ class UserMenu extends React.Component {
       </span>;
 
     const { anchorEl } = this.state;
-    const { tab } = this.props.params;
     const { pathname } = window.location;
+    const { tab } = this.props.params || {};
 
     return (
       <div className="header__user-menu">
