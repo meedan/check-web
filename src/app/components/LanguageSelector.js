@@ -14,13 +14,17 @@ class LanguageSelectorComponent extends Component {
     const projectLanguages = project.get_languages
       ? JSON.parse(project.get_languages)
       : null;
-    if (!projectLanguages) {
-      return null;
-    }
     return (
       <select onChange={this.props.onChange} defaultValue={this.props.selected}>
-        {projectLanguages.map(code =>
-          (<option key={code} value={code}>{supportedLanguages[code]}</option>))}
+        {(projectLanguages ?
+          (projectLanguages.map(code =>
+            (<option key={code} value={code}>{supportedLanguages[code]}</option>))
+            .concat(<option key="disabled" disabled>──────────</option>))
+          : [])
+          .concat(Object.keys(supportedLanguages)
+            .filter(code => !projectLanguages || !projectLanguages.includes(code))
+            .map(code =>
+              (<option key={code} value={code}>{supportedLanguages[code]}</option>)))}
       </select>
     );
   }
