@@ -37,7 +37,9 @@ before_install:
 - until curl --silent -XGET --fail http://localhost:9200; do printf '.'; sleep 1; done
 - curl --silent -XPUT http://localhost:9200/check_api_tests0
 - sudo service elasticsearch status
-- git clone --branch master https://github.com/meedan/check-api.git
+- export CHECK_API_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/check-api.git $TRAVIS_BRANCH >/dev/null && echo $TRAVIS_BRANCH) || echo 'develop')
+- echo "Using branch $CHECK_API_BRANCH for Check API"
+- git clone --branch=$CHECK_API_BRANCH https://github.com/meedan/check-api.git
 - d=configurator/$APP/travis/check-api/; for f in $(find $d -type f); do cp "$f" "check-api/${f/$d/}"; done
 - cd check-api
 - bundle install --path=/tmp/bundler

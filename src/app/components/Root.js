@@ -113,7 +113,10 @@ class Root extends Component {
       // eslint-disable-next-line no-undef
       Pusher.logToConsole = !!config.pusherDebug;
       // eslint-disable-next-line no-undef
-      const pusher = new Pusher(config.pusherKey, { encrypted: true });
+      const pusher = new Pusher(config.pusherKey, {
+        cluster: config.pusherCluster,
+        encrypted: true,
+      });
       data.pusher = pusher;
     }
 
@@ -143,8 +146,8 @@ class Root extends Component {
                 <Route path="check/404" component={NotFound} public />
 
                 <Route path="check/user/:userId" component={User} />
-                <Route path="check/me" component={Me} />
                 <Route path="check/me/edit" isEditing component={Me} />
+                <Route path="check/me(/:tab)" component={Me} />
                 <Route path="check/teams/new" component={AddTeamPage} />
                 <Route path="check/teams/find(/:slug)" component={AddTeamPage} />
                 <Route path="check/teams" component={Teams} />

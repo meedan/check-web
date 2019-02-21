@@ -17,6 +17,7 @@ const optimisticProjectMedia = (title, project, context) => {
       node: {
         dbid: 0,
         language: null,
+        dynamic_annotation_language: null,
         url: '',
         quote: '',
         published: parseInt((new Date().getTime() / 1000), 10).toString(),

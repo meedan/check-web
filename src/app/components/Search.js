@@ -329,6 +329,12 @@ class SearchQueryComponent extends Component {
     return selected.includes(show);
   }
 
+  dynamicIsSelected(field, value, state = this.state) {
+    const dynamic = state.query.dynamic || {};
+    const selected = dynamic[field] || [];
+    return selected.includes(value);
+  }
+
   handleStatusClick(statusCode) {
     this.setState((prevState) => {
       const state = Object.assign({}, prevState);
@@ -408,6 +414,25 @@ class SearchQueryComponent extends Component {
     });
   }
 
+  handleDynamicClick(field, value) {
+    this.setState((prevState) => {
+      const state = Object.assign({}, prevState);
+      if (!state.query.dynamic) {
+        state.query.dynamic = {};
+      }
+      if (!state.query.dynamic[field]) {
+        state.query.dynamic[field] = [];
+      }
+      const i = state.query.dynamic[field].indexOf(value);
+      if (i === -1) {
+        state.query.dynamic[field].push(value);
+      } else {
+        state.query.dynamic[field].splice(i, 1);
+      }
+      return { query: state.query };
+    });
+  }
+
   // Create title out of query parameters
   title(statuses, projects) {
     const { query } = this.state;
@@ -465,14 +490,15 @@ class SearchQueryComponent extends Component {
   }
 
   render() {
-    const { statuses } = teamStatuses(this.props.team);
+    const { team } = this.props;
+    const { statuses } = teamStatuses(team);
     let projects = [];
-    if (this.props.team.projects) {
-      projects = this.props.team.projects.edges.sortp((a, b) =>
+    if (team.projects) {
+      projects = team.projects.edges.sortp((a, b) =>
         a.node.title.localeCompare(b.node.title));
     }
-    const suggestedTags = this.props.team.get_suggested_tags
-      ? this.props.team.get_suggested_tags.split(',').map(tag => tag.trim())
+    const suggestedTags = team.get_suggested_tags
+      ? team.get_suggested_tags.split(',').map(tag => tag.trim())
       : [];
     const title =
       this.props.title ||
@@ -673,6 +699,42 @@ class SearchQueryComponent extends Component {
                   <FormattedMessage id="search.showSources" defaultMessage="Sources" />
                 </StyledFilterButton>
               </StyledFilterRow>
+              : null}
+
+            {this.showField('dynamic') ?
+              (Object.keys(team.dynamic_search_fields_json_schema.properties).map((key) => {
+                const annotationType = team.dynamic_search_fields_json_schema.properties[key];
+
+                const fields = [];
+
+                if (annotationType.type === 'array') {
+                  annotationType.items.enum.forEach((value, i) => {
+                    const label = annotationType.items.enumNames[i];
+                    const option = (
+                      <StyledFilterButton
+                        key={`dynamic-field-${key}-option-${value}`}
+                        active={this.dynamicIsSelected(key, value)}
+                        onClick={this.handleDynamicClick.bind(this, key, value)}
+                        className={bemClass(
+                          'media-tags__suggestion',
+                          this.dynamicIsSelected(key, value),
+                          '--selected',
+                        )}
+                      >
+                        <span>{label}</span>
+                      </StyledFilterButton>
+                    );
+                    fields.push(option);
+                  });
+                }
+
+                return (
+                  <StyledFilterRow key={`dynamic-field-${key}`} className="search-query__dynamic media-tags__suggestions-list">
+                    <h4>{annotationType.title}</h4>
+                    {fields}
+                  </StyledFilterRow>
+                );
+              }))
               : null}
 
           </StyledSearchFiltersSection>
@@ -937,6 +999,7 @@ class Search extends Component {
         media_verification_statuses,
         translation_statuses,
         get_suggested_tags,
+        dynamic_search_fields_json_schema,
         name,
         slug,
       }
@@ -949,6 +1012,7 @@ class Search extends Component {
         media_verification_statuses,
         translation_statuses,
         get_suggested_tags,
+        dynamic_search_fields_json_schema,
         name,
         slug,
         projects(first: 10000) {

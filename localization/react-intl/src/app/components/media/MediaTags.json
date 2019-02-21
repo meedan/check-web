@@ -5,7 +5,7 @@
   },
   {
     "id": "mediaTags.language",
-    "defaultMessage": "language: {language}"
+    "defaultMessage": "Language: {language}"
   },
   {
     "id": "mediaTags.error",

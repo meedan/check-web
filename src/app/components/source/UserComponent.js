@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { browserHistory } from 'react-router';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import rtlDetect from 'rtl-detect';
 import { Tabs, Tab } from 'material-ui/Tabs';
@@ -18,9 +19,10 @@ import { ContentColumn } from '../../styles/js/shared';
 class UserComponent extends React.Component {
   constructor(props) {
     super(props);
-
+    const { tab } = this.props.params;
+    const showTab = (typeof tab === 'undefined') ? 'assignments' : tab;
     this.state = {
-      showTab: 'assignments',
+      showTab,
     };
   }
 
@@ -36,6 +38,7 @@ class UserComponent extends React.Component {
   }
 
   handleTabChange = (value) => {
+    browserHistory.push(`/check/me/${value}`);
     this.setState({
       showTab: value,
     });

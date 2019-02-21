@@ -30,6 +30,8 @@ const sourceFragment = Relay.QL`
             updated_at,
             embed,
             url,
+            uid,
+            user_id,
             provider,
           }
         }

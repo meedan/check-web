@@ -6,8 +6,13 @@ import mergeWith from 'lodash.mergewith';
 import xor from 'lodash.xor';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
+import EditIcon from '@material-ui/icons/Edit';
+import CancelIcon from '@material-ui/icons/Cancel';
+import Can from '../Can';
 import CreateTagMutation from '../../relay/mutations/CreateTagMutation';
 import DeleteTagMutation from '../../relay/mutations/DeleteTagMutation';
+import UpdateLanguageMutation from '../../relay/mutations/UpdateLanguageMutation';
+import LanguageSelector from '../LanguageSelector';
 import Tags from '../Tags';
 import CheckContext from '../../CheckContext';
 import { searchQueryFromUrl, urlFromSearchQuery } from '../Search';
@@ -16,6 +21,7 @@ import {
   units,
   caption,
   opaqueBlack54,
+  opaqueBlack05,
   chipStyles,
 } from '../../styles/js/shared';
 
@@ -26,13 +32,34 @@ const messages = defineMessages({
   },
   language: {
     id: 'mediaTags.language',
-    defaultMessage: 'language: {language}',
+    defaultMessage: 'Language: {language}',
   },
   error: {
     id: 'mediaTags.error',
     defaultMessage: 'Sorry – we had trouble adding that tag.',
   },
 });
+
+const StyledLanguageSelect = styled.span`
+  select {
+    background: ${opaqueBlack05};
+    color: ${opaqueBlack54};
+    border: 1px solid ${opaqueBlack54};
+    padding: 1px;
+    outline: 0;
+    font-size: 14px;
+  }
+`;
+
+const StyledLanguageIcon = styled.span`
+  svg {
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+    margin-${props => (props.isRtl ? 'left' : 'right')}: 0 !important;
+    margin-${props => (props.isRtl ? 'right' : 'left')}: ${units(1)};
+  }
+`;
 
 const StyledMediaTagsContainer = styled.div`
   .media-tags {
@@ -92,6 +119,7 @@ class MediaTags extends Component {
     super(props);
     this.state = {
       message: null,
+      correctingLanguage: false,
     };
   }
 
@@ -181,6 +209,37 @@ class MediaTags extends Component {
     return urlFromSearchQuery(query, `/${media.team.slug}/search`);
   }
 
+  handleCorrectLanguageCancel() {
+    this.setState({ correctingLanguage: false });
+  }
+
+  handleCorrectLanguage() {
+    this.setState({ correctingLanguage: true });
+  }
+
+  handleLanguageChange(e) {
+    this.handleLanguageSubmit(e);
+  }
+
+  handleLanguageSubmit(e) {
+    const { media } = this.props;
+    const onSuccess = () => {
+      this.setState({ correctingLanguage: false });
+      this.success();
+    };
+    const onFailure = transaction => this.fail(transaction);
+
+    Relay.Store.commitUpdate(
+      new UpdateLanguageMutation({
+        id: media.dynamic_annotation_language.id,
+        projectMediaId: media.id,
+        languageCode: e.target.value,
+        languageName: e.target.selectedOptions[0].innerText,
+      }),
+      { onSuccess, onFailure },
+    );
+  }
+
   handleTagViewClick(tagString) {
     const url = this.searchTagUrl(tagString);
     const { history } = new CheckContext(this).getContextStore();
@@ -225,7 +284,38 @@ class MediaTags extends Component {
             <ul className="media-tags__list">
               {media.language ?
                 <li className="media-tags__tag media-tags__language">
-                  {this.props.intl.formatMessage(messages.language, { language: media.language })}
+                  {this.state.correctingLanguage ?
+                    <span>
+                      {this.props.intl.formatMessage(messages.language, { language: '' })}
+                      {' '}
+                      <StyledLanguageSelect>
+                        <LanguageSelector
+                          onChange={this.handleLanguageChange.bind(this)}
+                          project={media.project}
+                          selected={media.language_code}
+                        />
+                      </StyledLanguageSelect>
+                      {' '}
+                      <StyledLanguageIcon>
+                        <CancelIcon
+                          onClick={this.handleCorrectLanguageCancel.bind(this)}
+                        />
+                      </StyledLanguageIcon>
+                    </span> :
+                    <span>
+                      {this.props.intl.formatMessage(
+                        messages.language,
+                        { language: media.language },
+                      )}
+                      <Can permissions={media.permissions} permission="create Dynamic">
+                        <StyledLanguageIcon>
+                          <EditIcon
+                            onClick={this.handleCorrectLanguage.bind(this)}
+                          />
+                        </StyledLanguageIcon>
+                      </Can>
+                    </span>
+                  }
                 </li>
                 : null}
               {remainingTags.map((tag) => {

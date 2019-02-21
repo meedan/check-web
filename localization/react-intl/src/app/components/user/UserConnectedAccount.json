@@ -1,0 +1,22 @@
+[
+  {
+    "id": "UserConnectedAccount.connectButton",
+    "defaultMessage": "Connect"
+  },
+  {
+    "id": "UserConnectedAccount.disconnectButton",
+    "defaultMessage": "Disconnect"
+  },
+  {
+    "id": "UserConnectedAccount.disconnectAccountTitle",
+    "defaultMessage": "Disconnect account"
+  },
+  {
+    "id": "UserConnectedAccount.disconnectAccountConfirmationText",
+    "defaultMessage": "Are you sure? This will disconnect login account."
+  },
+  {
+    "id": "UserConnectedAccount.addAnother",
+    "defaultMessage": "Add another account"
+  }
+]

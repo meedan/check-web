@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import deepEqual from 'deep-equal';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import rtlDetect from 'rtl-detect';
 import { Tabs, Tab } from 'material-ui/Tabs';
@@ -61,6 +62,10 @@ class TeamComponent extends Component {
 
   componentDidMount() {
     this.setContextTeam();
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return !deepEqual(nextProps, this.props) || !deepEqual(nextState, this.state);
   }
 
   componentDidUpdate() {

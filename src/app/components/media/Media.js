@@ -55,6 +55,9 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
         overridden,
         language,
         language_code,
+        dynamic_annotation_language {
+          id
+        }
         media {
           url,
           quote,

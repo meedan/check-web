@@ -1,6 +1,6 @@
 {
   "mediaTags.loading": "Carregando...",
-  "mediaTags.language": "idioma: {language}",
+  "mediaTags.language": "Idioma: {language}",
   "mediaTags.error": "Desculpe – tivemos problemas para inserir essa tag",
   "mediaTags.heading": "Tags"
 }

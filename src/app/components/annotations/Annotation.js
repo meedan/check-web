@@ -359,6 +359,7 @@ class Annotation extends Component {
 
     Relay.Store.commitUpdate(
       new UpdateTaskMutation({
+        operation: 'suggest',
         annotated: this.props.annotated.project_media,
         task,
       }),

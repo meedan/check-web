@@ -169,6 +169,7 @@ class Task extends Component {
 
     Relay.Store.commitUpdate(
       new UpdateTaskMutation({
+        operation: 'answer',
         annotated: media,
         task: {
           id: task.id,
@@ -221,6 +222,7 @@ class Task extends Component {
 
     Relay.Store.commitUpdate(
       new UpdateTaskMutation({
+        operation: 'update',
         annotated: media,
         task: taskObj,
       }),
@@ -236,6 +238,7 @@ class Task extends Component {
 
     Relay.Store.commitUpdate(
       new UpdateTaskMutation({
+        operation: 'assign',
         annotated: this.props.media,
         task,
       }),
@@ -408,6 +411,8 @@ class Task extends Component {
     } = data;
     const currentUser = this.getCurrentUser();
 
+    task.cannotAct = (!response && !can(media.permissions, 'create Task') && !can(task.permissions, 'destroy Task'));
+
     let taskAssigned = false;
     const taskAnswered = !!response;
 
@@ -454,16 +459,23 @@ class Task extends Component {
     const taskActions = !media.archived ? (
       <div>
         {taskAssignment}
-        {data.by && task.status === 'resolved' ?
+        {data.by ?
           <div className="task__resolver" style={{ display: 'flex', alignItems: 'center', marginTop: units(1) }}>
             <small style={{ display: 'flex' }}>
               <UserAvatars users={byPictures} />
               <span style={{ lineHeight: '24px', paddingLeft: units(1), paddingRight: units(1) }}>
-                <FormattedMessage
-                  id="task.resolvedBy"
-                  defaultMessage="Resolved by {byName}"
-                  values={{ byName: <Sentence list={by} /> }}
-                />
+                { task.status === 'resolved' ?
+                  <FormattedMessage
+                    id="task.resolvedBy"
+                    defaultMessage="Resolved by {byName}"
+                    values={{ byName: <Sentence list={by} /> }}
+                  /> : null }
+                { task.status === 'unresolved' && response ?
+                  <FormattedMessage
+                    id="task.answeredBy"
+                    defaultMessage="Answered by {byName}"
+                    values={{ byName: <Sentence list={by} /> }}
+                  /> : null }
               </span>
             </small>
           </div>
