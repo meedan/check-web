@@ -67,11 +67,13 @@ class UserMenu extends React.Component {
       </span>;
 
     const { anchorEl } = this.state;
+    const { pathname } = window.location;
+    const { tab } = this.props.params || {};
 
     return (
       <div className="header__user-menu">
         <Row>
-          { window.location.pathname === '/check/me' ?
+          { pathname === '/check/me' || (pathname.startsWith('/check/me') && typeof tab !== 'undefined') ?
             <SmallerStyledIconButton
               className="user-menu__edit-profile-button"
               onClick={this.handleClickEdit.bind(this)}
