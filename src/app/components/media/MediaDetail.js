@@ -91,18 +91,13 @@ const StyledCardHeader = styled(({ inMediaPage, ...rest }) => <CardHeader {...re
   }
 `;
 
-const StyledMediaDetail = styled.div`
+const CardWithBorder = styled.div`
   .card-with-border {
     border-${props => props.fromDirection}: ${units(1)} solid;
     border-color: ${props => props.borderColor};
     border-radius: ${defaultBorderRadius};
     // Disable border in some views
     ${props => (props.hideBorder ? 'border: none;' : null)}
-  }
-
-  .media-detail__description {
-    margin-top: ${units(1)};
-    max-width: ${units(80)};
   }
 `;
 
@@ -320,7 +315,7 @@ class MediaDetail extends Component {
     const borderColor = this.props.borderColor || getStatusStyle(status, 'backgroundColor');
 
     return (
-      <StyledMediaDetail
+      <CardWithBorder
         className={cardClassName}
         borderColor={borderColor}
         fromDirection={fromDirection}
@@ -357,7 +352,7 @@ class MediaDetail extends Component {
         </Card>
         { this.state.expanded && !this.props.hideRelated ?
           <MediaRelatedComponent media={this.props.media} /> : null }
-      </StyledMediaDetail>
+      </CardWithBorder>
     );
   }
 }
@@ -373,3 +368,4 @@ MediaDetail.contextTypes = {
 };
 
 export default injectIntl(MediaDetail);
+export { CardWithBorder };
