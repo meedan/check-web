@@ -10,7 +10,7 @@ import TeamRoute from '../../relay/TeamRoute';
 import UpdateTeamMutation from '../../relay/mutations/UpdateTeamMutation';
 import Can from '../Can';
 import CheckContext from '../../CheckContext';
-import Search from '../Search';
+import Search from '../search/Search';
 
 const messages = defineMessages({
   title: {

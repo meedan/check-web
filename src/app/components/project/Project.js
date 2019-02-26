@@ -9,8 +9,9 @@ import PageTitle from '../PageTitle';
 import CheckContext from '../../CheckContext';
 import ParsedText from '../ParsedText';
 import MediasLoading from '../media/MediasLoading';
-import Search from '../Search';
-import { ContentColumn, units } from '../../styles/js/shared';
+import Search from '../search/Search';
+import { units } from '../../styles/js/shared';
+// import { ContentColumn, units } from '../../styles/js/shared';
 import UpdateUserMutation from '../../relay/mutations/UpdateUserMutation';
 
 const ProjectWrapper = styled.div`
@@ -90,9 +91,7 @@ class ProjectComponent extends Component {
             <CreateProjectMedia projectComponent={this} />
           </Can>
 
-          <ContentColumn noPadding>
-            <Search team={project.team.slug} project={project} query={this.props.params.query || '{}'} fields={['status', 'sort', 'tags', 'show', 'dynamic']} />
-          </ContentColumn>
+          <Search team={project.team.slug} project={project} query={this.props.params.query || '{}'} fields={['status', 'sort', 'tags', 'show', 'dynamic']} />
 
         </ProjectWrapper>
       </PageTitle>
