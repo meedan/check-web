@@ -34,7 +34,7 @@ import MediaEmbed from './media/MediaEmbed';
 import Memebuster from './memebuster/Memebuster';
 import Project from './project/Project';
 import ProjectEdit from './project/ProjectEdit';
-import Search from './Search';
+import Search from './search/Search';
 import BotGarden from './BotGarden';
 import Bot from './Bot';
 import CheckContext from '../CheckContext';
@@ -162,6 +162,7 @@ class Root extends Component {
                 <Route path=":team/project/:projectId/source/:sourceId/edit" isEditing component={Source} />
                 <Route path=":team/join" component={JoinTeam} />
                 <Route path=":team/project/:projectId/edit" component={ProjectEdit} />
+                <Route path=":team/project/:projectId/dense(/:query)" view="dense" component={Project} public />
                 <Route path=":team/project/:projectId(/:query)" component={Project} public />
                 <Route path=":team/search(/:query)" component={Search} public />
                 <Route path=":team/trash(/:query)" component={Trash} />
