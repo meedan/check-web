@@ -7,11 +7,11 @@ import config from 'config'; // eslint-disable-line require-path-exists/exists
 import sortby from 'lodash.sortby';
 import styled from 'styled-components';
 import SmallMediaCard from '../media/SmallMediaCard';
-// import MediaDetail from '../media/MediaDetail';
-// import SourceCard from '../source/SourceCard';
+import MediaDetail from '../media/MediaDetail';
+import SourceCard from '../source/SourceCard';
 import ProjectBlankState from '../project/ProjectBlankState';
 import { notify, safelyParseJSON } from '../../helpers';
-import { black87, units } from '../../styles/js/shared';
+import { black87, units, ContentColumn } from '../../styles/js/shared';
 import CheckContext from '../../CheckContext';
 import { searchQueryFromUrl } from './Search';
 import checkSearchResultFragment from '../../relay/checkSearchResultFragment';
@@ -53,7 +53,7 @@ const StyledSearchResultsWrapper = styled.div`
     text-align: center;
   }
 
-  .results {
+  .dense {
     display: flex;
     flex-wrap: wrap;
   }
@@ -204,34 +204,33 @@ class SearchResultsComponent extends React.Component {
       title = (<h3 className="search__results-heading">{mediasCount}</h3>);
     }
 
+    const viewMode = window.location.pathname.match(/dense\/*$/) ? 'dense' : 'list';
+    const view = {
+      dense: item => (
+        <SmallMediaCard style={{ margin: units(3) }} media={item} />
+      ),
+      list: item => (
+        item.media
+          ? <MediaDetail media={item} condensed parentComponent={this} />
+          : <SourceCard source={item} />
+      ),
+    };
+
     return (
-      <StyledSearchResultsWrapper className="search__results results">
-        {title}
-        <InfiniteScroll hasMore={hasMore} loadMore={this.loadMore.bind(this)} threshold={500}>
-          <div className="search__results-list results medias-list">
-            {searchResults.map(item => (
-              <li key={item.node.id} className="medias__item">
-                <SmallMediaCard style={{ margin: units(3) }} media={item.node} />
-              </li>))}
-          </div>
-        </InfiniteScroll>
-      </StyledSearchResultsWrapper>
+      <ContentColumn wide={(viewMode === 'dense')}>
+        <StyledSearchResultsWrapper className="search__results results">
+          {title}
+          <InfiniteScroll hasMore={hasMore} loadMore={this.loadMore.bind(this)} threshold={500}>
+            <div className={`search__results-list results medias-list ${viewMode}`}>
+              {searchResults.map(item => (
+                <li key={item.node.id} className="medias__item">
+                  { view[viewMode](item.node) }
+                </li>))}
+            </div>
+          </InfiniteScroll>
+        </StyledSearchResultsWrapper>
+      </ContentColumn>
     );
-    // return (
-    //   <StyledSearchResultsWrapper className="search__results results">
-    //     {title}
-    //     <InfiniteScroll hasMore={hasMore} loadMore={this.loadMore.bind(this)} threshold={500}>
-    //       <div className="search__results-list results medias-list">
-    //         {searchResults.map(item => (
-    //           <li key={item.node.id} className="medias__item">
-    //             {item.node.media
-    //               ? <MediaDetail media={item.node} condensed parentComponent={this} />
-    //               : <SourceCard source={item.node} />}
-    //           </li>))}
-    //       </div>
-    //     </InfiniteScroll>
-    //   </StyledSearchResultsWrapper>
-    // );
   }
 }
 

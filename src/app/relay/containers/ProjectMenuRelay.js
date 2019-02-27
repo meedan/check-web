@@ -21,7 +21,7 @@ class ProjectMenu extends Component {
     if (this.props.children.props.route.view === 'dense') {
       history.push(window.location.pathname.replace('/dense', ''));
     } else {
-      history.push(`${window.location.pathname}/dense`);
+      history.push(`${window.location.pathname.match(/.*\/project\/\d+/)[0]}/dense`);
     }
   }
 

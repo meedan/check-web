@@ -11,7 +11,6 @@ import ParsedText from '../ParsedText';
 import MediasLoading from '../media/MediasLoading';
 import Search from '../search/Search';
 import { units } from '../../styles/js/shared';
-// import { ContentColumn, units } from '../../styles/js/shared';
 import UpdateUserMutation from '../../relay/mutations/UpdateUserMutation';
 
 const ProjectWrapper = styled.div`
@@ -78,6 +77,7 @@ class ProjectComponent extends Component {
 
   render() {
     const { project } = this.props;
+    const view = this.props.route.view || 'list';
 
     return (
       <PageTitle prefix={project.title} skipTeam={false} team={this.currentContext().team}>
@@ -91,8 +91,13 @@ class ProjectComponent extends Component {
             <CreateProjectMedia projectComponent={this} />
           </Can>
 
-          <Search team={project.team.slug} project={project} query={this.props.params.query || '{}'} fields={['status', 'sort', 'tags', 'show', 'dynamic']} />
-
+          <Search
+            team={project.team.slug}
+            project={project}
+            query={this.props.params.query || '{}'}
+            fields={['status', 'sort', 'tags', 'show', 'dynamic']}
+            view={view}
+          />
         </ProjectWrapper>
       </PageTitle>
     );
