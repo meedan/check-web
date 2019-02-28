@@ -7,16 +7,16 @@ class DeleteProjectMediaMutation extends Relay.Mutation {
     }`;
   }
 
-  static fragments = {
-    project_media: () => Relay.QL`fragment on ProjectMedia { id }`,
-  };
-
   getVariables() {
     return { id: this.props.id };
   }
 
   getFatQuery() {
     return Relay.QL`fragment on DestroyProjectMediaPayload { deletedId, check_search_team { id } }`;
+  }
+
+  getOptimisticResponse() {
+    return { deletedId: this.props.id };
   }
 
   getConfigs() {
