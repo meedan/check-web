@@ -25,6 +25,7 @@ import CheckContext from '../CheckContext';
 import MediasLoading from './media/MediasLoading';
 import SourceCard from './source/SourceCard';
 import BulkActions from './media/BulkActions';
+import { can } from './Can';
 import {
   white,
   black87,
@@ -933,13 +934,14 @@ class SearchResultsComponent extends Component {
       title = (
         <h3 className="search__results-heading">
           <span style={{ verticalAlign: 'top', lineHeight: '24px' }}>{mediasCount}</span>
-          <BulkActions
-            team={team}
-            project={this.currentContext().project}
-            selectedMedia={this.state.selectedMedia}
-            onSelectAll={this.onSelectAll.bind(this)}
-            onUnselectAll={this.onUnselectAll.bind(this)}
-          />
+          {medias.length && can(medias[0].node.permissions, 'administer Content') ?
+            <BulkActions
+              team={team}
+              project={this.currentContext().project}
+              selectedMedia={this.state.selectedMedia}
+              onSelectAll={this.onSelectAll.bind(this)}
+              onUnselectAll={this.onUnselectAll.bind(this)}
+            /> : null}
         </h3>
       );
     }
