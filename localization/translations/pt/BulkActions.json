@@ -1,0 +1,14 @@
+{
+  "bulkActions.move": "Mover itens selecionados para um projeto diferente",
+  "bulkActions.delete": "Excluir itens selecionados",
+  "bulkActions.selectAll": "Selecionar todos os itens nesta página",
+  "bulkActions.movedSuccessfully": "Pronto! Por favor, note que pode demorar um tempo até que os itens sejam realmente movidos",
+  "bulkActions.deletedSuccessfully": "Pronto! Por favor, note que pode demorar um tempo até que os itens sejam realmente excluídos",
+  "bulkActions.cancelButton": "Cancelar",
+  "bulkActions.moveTitle": "Mover",
+  "bulkActions.deleteForever": "Excluir permanentemente",
+  "bulkActions.moveDialogHeader": "Mover para um projeto diferente",
+  "bulkActions.deleteForeverConfirmationText": "Você tem certeza? Isso excluirá permanentemente {count, plural, =0 {0 item} one {1 item} other {# itens}}. Digite o número de itens ({count}) se deseja prosseguir.",
+  "bulkActions.confirmationError": "Valor errado",
+  "bulkActions.typeHere": "Digite aqui"
+}

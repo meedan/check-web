@@ -69,7 +69,7 @@
   },
   {
     "id": "mediaDetail.dialogHeader",
-    "defaultMessage": "Move this {mediaType} to a different project"
+    "defaultMessage": "Move this item to a different project"
   },
   {
     "id": "mediaDetail.dialogMediaPath",

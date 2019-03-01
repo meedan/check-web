@@ -2,7 +2,7 @@
   "sourceComponent.addInfo": "أضف معلومات",
   "sourceComponent.editError": "عذراً ، لقد واجهنا خطأ ما اثناء تحرير المصدر. من فضلك أعد المحاولة وتواصل مع فريق الدعم إن استمر الخطأ.",
   "sourceComponent.createTagError": "عذراً ، لقد واجهنا خطأ ما اثناء إدخال الوسم. من فضلك أعد المحاولة وتواصل مع فريق الدعم إن استمر الخطأ.",
-  "sourceComponent.selectLanguageError": "إختر اللغة من اللائحة المتاحة",
+  "sourceComponent.selectLanguageError": "من فضلك حدد اللغة من اللائحة المتاحة",
   "sourceComponent.editSuccess": "تم تحديث معلومات المصدر بنجاح!",
   "sourceComponent.mergeSource": "دمج المصدر",
   "sourceComponent.sourceName": "اسم المصدر",
