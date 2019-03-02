@@ -23,6 +23,7 @@ import {
   units,
   black87,
   black38,
+  black05,
   defaultBorderRadius,
   Offset,
   subheading1,
@@ -99,6 +100,18 @@ const CardWithBorder = styled.div`
     // Disable border in some views
     ${props => (props.hideBorder ? 'border: none;' : null)}
   }
+<<<<<<< HEAD
+=======
+
+  .media-detail__description {
+    margin-top: ${units(1)};
+    max-width: ${units(80)};
+  }
+  
+  .media-detail__card-header-selected {
+    background: ${black05};
+  }
+>>>>>>> develop
 `;
 
 class MediaDetail extends Component {
@@ -130,9 +143,11 @@ class MediaDetail extends Component {
     this.setState({ expanded: false });
   };
 
-  handleClickHeader = (event, mediaUrl) => {
-    // Prevent navigation if click was on a child element
-    if (event.target === event.currentTarget) {
+  handleClickHeader = (event, mediaUrl, mediaId) => {
+    if (this.props.onSelect && event.target === event.currentTarget) {
+      this.props.onSelect(mediaId);
+    } else if (event.target === event.currentTarget) {
+      // Prevent navigation if click was on a child element
       this.getContext().history.push(mediaUrl);
     }
   };
@@ -329,14 +344,15 @@ class MediaDetail extends Component {
           style={{ borderColor }}
         >
           <StyledCardHeader
-            className="media-detail__card-header"
+            className={this.props.selected ? 'media-detail__card-header-selected' : 'media-detail__card-header'}
             title={cardHeaderStatus}
             subtitle={cardHeaderText}
             showExpandableButton={this.props.media.dbid > 0}
             inMediaPage={mediaPage}
             style={{ paddingRight: units(5) }}
             // TODO: dont be clickable on optimistic items
-            onClick={mediaPage ? null : (event) => { this.handleClickHeader(event, mediaUrl); }}
+            onClick={mediaPage ? null :
+              (event) => { this.handleClickHeader(event, mediaUrl, media.id); }}
           />
 
           { this.state.expanded ?

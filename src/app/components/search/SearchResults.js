@@ -6,6 +6,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import sortby from 'lodash.sortby';
 import styled from 'styled-components';
+import BulkActions from '../media/BulkActions';
 import SmallMediaCard from '../media/SmallMediaCard';
 import MediaDetail from '../media/MediaDetail';
 import SourceCard from '../source/SourceCard';
@@ -36,6 +37,10 @@ const messages = defineMessages({
   newTranslationNotificationBody: {
     id: 'search.newTranslationNotificationBody',
     defaultMessage: 'An item was just marked as "translated"',
+  },
+  searchResultsWithSelection: {
+    id: 'search.resultsWithSelection',
+    defaultMessage: '{resultsCount, plural, =0 {No results} one {1 result} other {# results}} ({selectedCount, plural, =0 {None selected} one {1 selected} other {# selected}})',
   },
 });
 
@@ -79,6 +84,7 @@ class SearchResultsComponent extends React.Component {
 
     this.state = {
       pusherSubscribed: false,
+      selectedMedia: [],
     };
   }
 
@@ -88,6 +94,27 @@ class SearchResultsComponent extends React.Component {
 
   componentWillUnmount() {
     this.unsubscribe();
+  }
+
+  onSelect(id) {
+    const selectedMedia = this.state.selectedMedia.slice(0);
+    const index = selectedMedia.indexOf(id);
+    if (index === -1) {
+      selectedMedia.push(id);
+    } else {
+      selectedMedia.splice(index, 1);
+    }
+    this.setState({ selectedMedia });
+  }
+
+  onSelectAll() {
+    const { search } = this.props;
+    const selectedMedia = search ? search.medias.edges.map(item => item.node.id) : [];
+    this.setState({ selectedMedia });
+  }
+
+  onUnselectAll() {
+    this.setState({ selectedMedia: [] });
   }
 
   getContext() {
@@ -192,16 +219,35 @@ class SearchResultsComponent extends React.Component {
 
     const hasMore = (searchResults.length < count);
 
-    const mediasCount = this.props.intl.formatMessage(messages.searchResults, {
-      resultsCount: count,
-    });
+    const mediasCount =
+      this.state.selectedMedia.length ?
+        this.props.intl.formatMessage(messages.searchResultsWithSelection, {
+          resultsCount: count,
+          selectedCount: this.state.selectedMedia.length,
+        }) :
+        this.props.intl.formatMessage(messages.searchResults, {
+          resultsCount: count,
+        });
+
+    const team = medias.length > 0 ? medias[0].node.team : this.currentContext().team;
 
     const isProject = /\/project\//.test(window.location.pathname);
     let title = null;
     if (isProject && count === 0) {
       title = (<ProjectBlankState project={this.currentContext().project} />);
     } else {
-      title = (<h3 className="search__results-heading">{mediasCount}</h3>);
+      title = (
+        <h3 className="search__results-heading">
+          <span style={{ verticalAlign: 'top', lineHeight: '24px' }}>{mediasCount}</span>
+          <BulkActions
+            team={team}
+            project={this.currentContext().project}
+            selectedMedia={this.state.selectedMedia}
+            onSelectAll={this.onSelectAll.bind(this)}
+            onUnselectAll={this.onUnselectAll.bind(this)}
+          />
+        </h3>
+      );
     }
 
     const viewMode = window.location.pathname.match(/dense\/*$/) ? 'dense' : 'list';
@@ -210,9 +256,14 @@ class SearchResultsComponent extends React.Component {
         <SmallMediaCard style={{ margin: units(3) }} media={item} />
       ),
       list: item => (
-        item.media
-          ? <MediaDetail media={item} condensed parentComponent={this} />
-          : <SourceCard source={item} />
+        item.media ?
+          <MediaDetail
+            media={item}
+            condensed
+            selected={this.state.selectedMedia.indexOf(item.id) > -1}
+            onSelect={this.onSelect.bind(this)}
+            parentComponent={this}
+          /> : <SourceCard source={item} />
       ),
     };
 
