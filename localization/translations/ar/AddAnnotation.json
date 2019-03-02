@@ -1,5 +1,5 @@
 {
-  "addAnnotation.invalidCommand": " أمر غير صحيح",
+  "addAnnotation.invalidCommand": " أمر غير صالح",
   "addAnnotation.annotationAdded": "تم إضافة {type}",
   "addAnnotation.error": "عذراً ، لقد واجهنا خطأ ما اثناء التواصل مع الخادم الذى أرجع رسالة خطأ {code}. من فضلك أعد المحاولة وتواصل مع فريق الدعم إن استمر الخطأ.",
   "addAnnotation.inputHint": "أضف تعليقاً",

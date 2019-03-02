@@ -735,7 +735,7 @@ class MediaMetadata extends Component {
           <h4 className="media-detail__dialog-header">
             <FormattedMessage
               id="mediaDetail.dialogHeader"
-              defaultMessage="Move this {mediaType} to a different project"
+              defaultMessage="Move this item to a different project"
               values={{
                 mediaType: MediaUtil.typeLabel(
                   media,

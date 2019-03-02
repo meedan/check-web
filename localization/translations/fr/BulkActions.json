@@ -1,0 +1,14 @@
+{
+  "bulkActions.move": "Transférer les éléments sélectionnés à un projet différent",
+  "bulkActions.delete": "Supprimer les éléments sélectionnés",
+  "bulkActions.selectAll": "Sélectionner tous les éléments sur cette page",
+  "bulkActions.movedSuccessfully": "Terminé ! Veuillez noter que le transfert des éléments peut durer quelques minutes.",
+  "bulkActions.deletedSuccessfully": "Terminé ! Veuillez noter que la suppression des éléments peut durer quelques minutes.",
+  "bulkActions.cancelButton": "Annuler",
+  "bulkActions.moveTitle": "Transférer",
+  "bulkActions.deleteForever": "Supprimer définitivement",
+  "bulkActions.moveDialogHeader": "Transférer à un projet différent",
+  "bulkActions.deleteForeverConfirmationText": "Voulez-vous vraiment supprimer {notesCount, plural, =0 {aucun élément} one {un élément} other {# éléments}} ? Tapez le nombre d'éléments ({count}) si vous désirez continuer.",
+  "bulkActions.confirmationError": "Mauvaise valeur",
+  "bulkActions.typeHere": "Tapez ici"
+}

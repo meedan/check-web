@@ -1,0 +1,14 @@
+{
+  "bulkActions.move": "Move selected items to another project",
+  "bulkActions.delete": "Delete selected items",
+  "bulkActions.selectAll": "Select all items on this page",
+  "bulkActions.movedSuccessfully": "Done! Please note that it can take a while until the items are actually moved.",
+  "bulkActions.deletedSuccessfully": "Done! Please note that it can take a while until the items are actually deleted.",
+  "bulkActions.cancelButton": "Cancel",
+  "bulkActions.moveTitle": "Move",
+  "bulkActions.deleteForever": "Delete forever",
+  "bulkActions.moveDialogHeader": "Move to a different project",
+  "bulkActions.deleteForeverConfirmationText": "Are you sure? This will permanently delete {count, plural, =0 {0 items} one {1 item} other {# items}}. Type the number of items ({count}) if you want to proceed.",
+  "bulkActions.confirmationError": "Wrong value",
+  "bulkActions.typeHere": "Type here"
+}

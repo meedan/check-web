@@ -222,7 +222,7 @@ const messages = defineMessages({
   },
   searchResultsWithSelection: {
     id: 'search.resultsWithSelection',
-    defaultMessage: '{resultsCount, plural, =0 {No results} one {1 result} other {# results}} ({selectedCount, plural, =0 {None selected} one {1 selected} other {# selected}})',
+    defaultMessage: '{resultsCount, plural, =0 {No results} one {1 result} other {# results}} ({selectedCount, plural, =0 {} one {1 selected} other {# selected}})',
   },
   newTranslationRequestNotification: {
     id: 'search.newTranslationRequestNotification',
