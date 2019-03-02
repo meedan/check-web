@@ -24,6 +24,7 @@ const checkSearchResultFragment = Relay.QL`
           pusher_channel,
           domain,
           permissions,
+          deadline: field_value(annotation_type_field_name: "verification_status:deadline"),
           last_status,
           last_status_obj {
             id,
@@ -55,6 +56,7 @@ const checkSearchResultFragment = Relay.QL`
             search_id,
             get_embed_whitelist
             get_suggested_tags
+            get_status_target_turnaround
           }
           tags(first: 10000) {
             edges {
