@@ -91,7 +91,7 @@ class ProjectComponent extends Component {
           </Can>
 
           <ContentColumn noPadding>
-            <Search team={project.team.slug} project={project} query={this.props.params.query || '{}'} fields={['status', 'sort', 'tags', 'show', 'dynamic']} />
+            <Search team={project.team.slug} project={project} query={this.props.params.query || '{}'} fields={['status', 'sort', 'tags', 'show', 'dynamic', 'bulk']} />
           </ContentColumn>
 
         </ProjectWrapper>

@@ -977,10 +977,14 @@ class SearchResultsComponent extends Component {
     if (isProject && count === 0) {
       title = (<ProjectBlankState project={this.currentContext().project} />);
     } else {
+      let bulkActionsAllowed = false;
+      if (medias.length) {
+        bulkActionsAllowed = !medias[0].node.archived && can(medias[0].node.permissions, 'administer Content');
+      }
       title = (
         <h3 className="search__results-heading">
           <span style={{ verticalAlign: 'top', lineHeight: '24px' }}>{mediasCount}</span>
-          {medias.length && can(medias[0].node.permissions, 'administer Content') ?
+          {medias.length && bulkActionsAllowed ?
             <BulkActions
               team={team}
               project={this.currentContext().project}
@@ -1008,7 +1012,8 @@ class SearchResultsComponent extends Component {
                     parentComponent={this}
                   />
                   : <SourceCard source={item.node} />}
-              </li>))}
+              </li>
+            ))}
           </div>
         </InfiniteScroll>
       </StyledSearchResultsWrapper>
