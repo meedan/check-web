@@ -23,7 +23,7 @@ class SingleChoiceTask extends Component {
     if (!this.state.taskAnswerDisabled) {
       const response = this.state.response ? this.state.response.trim() : this.props.response;
 
-      this.props.onSubmit(response, this.state.note);
+      this.props.onSubmit(response);
       this.setState({ taskAnswerDisabled: true });
     }
   }
@@ -36,16 +36,11 @@ class SingleChoiceTask extends Component {
     return can_submit;
   }
 
-  handleChange(e) {
-    this.setState({ note: e.target.value }, this.canSubmit);
-  }
-
   handleCancelResponse() {
     this.setState({
       response: null,
       responseOther: null,
       otherSelected: false,
-      note: '',
       focus: false,
     }, this.canSubmit);
 
@@ -101,7 +96,7 @@ class SingleChoiceTask extends Component {
     }
   }
 
-  renderOptions(response, note, jsonoptions) {
+  renderOptions(response, jsonoptions) {
     const options = safelyParseJSON(jsonoptions);
     const editable = !response || this.props.mode === 'edit_response';
     const submitCallback = this.handleSubmitResponse.bind(this);
@@ -212,18 +207,17 @@ class SingleChoiceTask extends Component {
   render() {
     const {
       response,
-      note,
       jsonoptions,
     } = this.props;
 
     return (
       <div>
-        {this.props.mode === 'respond' ? this.renderOptions(response, note, jsonoptions) : null}
+        {this.props.mode === 'respond' ? this.renderOptions(response, jsonoptions) : null}
         {this.props.mode === 'show_response' && response
-          ? this.renderOptions(response, note, jsonoptions)
+          ? this.renderOptions(response, jsonoptions)
           : null}
         {this.props.mode === 'edit_response'
-          ? this.renderOptions(response, note, jsonoptions)
+          ? this.renderOptions(response, jsonoptions)
           : null}
       </div>
     );

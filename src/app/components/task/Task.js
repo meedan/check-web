@@ -107,14 +107,13 @@ class Task extends Component {
         data.byPictures.push(u);
       });
       const fields = JSON.parse(response.content);
-      fields.forEach((field) => {
-        if (/^response_/.test(field.field_name) && field.value && field.value !== '') {
-          data.response = field.value;
-        }
-        if (/^note_/.test(field.field_name)) {
-          data.note = field.value;
-        }
-      });
+      if (Array.isArray(fields)) {
+        fields.forEach((field) => {
+          if (/^response_/.test(field.field_name) && field.value && field.value !== '') {
+            data.response = field.value;
+          }
+        });
+      }
     }
 
     return data;
@@ -153,7 +152,7 @@ class Task extends Component {
 
   handleCancelEditResponse = () => this.setState({ editingResponse: false });
 
-  handleSubmitResponse = (response, note) => {
+  handleSubmitResponse = (response) => {
     const { media, task } = this.props;
 
     const onSuccess = () => {
@@ -162,10 +161,6 @@ class Task extends Component {
 
     const fields = {};
     fields[`response_${task.type}`] = response;
-    if (note !== false) {
-      fields[`note_${task.type}`] = note || '';
-    }
-    fields[`task_${task.type}`] = task.dbid;
 
     Relay.Store.commitUpdate(
       new UpdateTaskMutation({
@@ -181,16 +176,13 @@ class Task extends Component {
     );
   };
 
-  handleUpdateResponse = (edited_response, edited_note) => {
+  handleUpdateResponse = (edited_response) => {
     const { media, task } = this.props;
 
     const onSuccess = () => this.setState({ message: null, editingResponse: false });
 
     const fields = {};
     fields[`response_${task.type}`] = edited_response;
-    if (edited_note !== false) {
-      fields[`note_${task.type}`] = edited_note;
-    }
 
     Relay.Store.commitUpdate(
       new UpdateDynamicMutation({
@@ -275,20 +267,18 @@ class Task extends Component {
     }
   }
 
-  renderTaskResponse(responseObj, response, note, by, byPictures, showEditIcon) {
+  renderTaskResponse(responseObj, response, by, byPictures, showEditIcon) {
     const { task } = this.props;
 
     if (this.state.editingResponse && this.state.editingResponse.id === responseObj.id) {
       const editingResponseData = this.getResponseData(this.state.editingResponse);
       const editingResponseText = editingResponseData.response;
-      const editingResponseNote = editingResponseData.note;
       return (
         <div className="task__editing">
           <form name={`edit-response-${this.state.editingResponse.id}`}>
             {task.type === 'free_text' ?
               <ShortTextRespondTask
                 response={editingResponseText}
-                note={editingResponseNote}
                 onSubmit={this.handleUpdateResponse}
                 onDismiss={this.handleCancelEditResponse}
               />
@@ -296,7 +286,6 @@ class Task extends Component {
             {task.type === 'geolocation' ?
               <GeolocationRespondTask
                 response={editingResponseText}
-                note={editingResponseNote}
                 onSubmit={this.handleUpdateResponse}
                 onDismiss={this.handleCancelEditResponse}
               />
@@ -304,7 +293,6 @@ class Task extends Component {
             {task.type === 'datetime' ?
               <DatetimeRespondTask
                 response={editingResponseText}
-                note={editingResponseNote}
                 onSubmit={this.handleUpdateResponse}
                 onDismiss={this.handleCancelEditResponse}
               />
@@ -313,7 +301,6 @@ class Task extends Component {
               <SingleChoiceTask
                 mode="edit_response"
                 response={editingResponseText}
-                note={editingResponseNote}
                 jsonoptions={task.jsonoptions}
                 onDismiss={this.handleCancelEditResponse}
                 onSubmit={this.handleUpdateResponse}
@@ -323,7 +310,6 @@ class Task extends Component {
               <MultiSelectTask
                 mode="edit_response"
                 jsonresponse={editingResponseText}
-                note={editingResponseNote}
                 jsonoptions={task.jsonoptions}
                 onDismiss={this.handleCancelEditResponse}
                 onSubmit={this.handleUpdateResponse}
@@ -360,7 +346,6 @@ class Task extends Component {
           <SingleChoiceTask
             mode="show_response"
             response={response}
-            note={note}
             jsonoptions={task.jsonoptions}
           />
           : null}
@@ -368,19 +353,9 @@ class Task extends Component {
           <MultiSelectTask
             mode="show_response"
             jsonresponse={response}
-            note={note}
             jsonoptions={task.jsonoptions}
           />
           : null}
-        <div
-          style={{
-            display: note ? 'block' : 'none',
-            marginTop: units(2),
-          }}
-          className="task__note"
-        >
-          <ParsedText text={note} />
-        </div>
         { (by && byPictures) ?
           <div className="task__resolver" style={resolverStyle}>
             <small style={{ display: 'flex' }}>
@@ -407,7 +382,7 @@ class Task extends Component {
     const { task, media } = this.props;
     const data = this.getResponseData(task.first_response);
     const {
-      response, note, by, byPictures,
+      response, by, byPictures,
     } = data;
     const currentUser = this.getCurrentUser();
 
@@ -509,7 +484,6 @@ class Task extends Component {
               return this.renderTaskResponse(
                 singleResponse.node,
                 singleResponseData.response,
-                singleResponseData.note,
                 singleResponseData.by,
                 singleResponseData.byPictures,
                 true,
@@ -532,13 +506,12 @@ class Task extends Component {
                         onSubmit={this.handleSubmitResponse}
                       /> : null}
                     {task.type === 'datetime' ?
-                      <DatetimeRespondTask onSubmit={this.handleSubmitResponse} note="" />
+                      <DatetimeRespondTask onSubmit={this.handleSubmitResponse} />
                       : null}
                     {task.type === 'single_choice' ?
                       <SingleChoiceTask
                         mode="respond"
                         response={response}
-                        note={note}
                         jsonoptions={task.jsonoptions}
                         onSubmit={this.handleSubmitResponse}
                       />
@@ -547,7 +520,6 @@ class Task extends Component {
                       <MultiSelectTask
                         mode="respond"
                         jsonresponse={response}
-                        note={note}
                         jsonoptions={task.jsonoptions}
                         onSubmit={this.handleSubmitResponse}
                       />
@@ -559,7 +531,7 @@ class Task extends Component {
         </div>
       );
     } else {
-      taskBody = this.renderTaskResponse(task.first_response, response, note, false, false, false);
+      taskBody = this.renderTaskResponse(task.first_response, response, false, false, false);
     }
 
     task.project_media = Object.assign({}, this.props.media);
