@@ -16,9 +16,9 @@
   "mediaDetail.deleteForever": "Eliminar para siempre",
   "mediaDetail.addedBy": "Añadido {byUser}",
   "mediaDetail.assignedTo": "Asignado a {name}",
-  "mediaDetail.dialogHeader": "Move this item to a different project",
+  "mediaDetail.dialogHeader": "Mover este ítem a otro proyecto",
   "mediaDetail.dialogMediaPath": "Actualmente archivado bajo  {teamName} > {projectTitle}",
-  "mediaDetail.deleteForeverConfirmationText": "¿Seguro? Esto eliminará de forma permanente este ítem y {notesCount, plural, =0 {Sin anotaciones} one {1 anotación} other {# anotaciones}}. \nEscribe \"confirm\" si deseas continuar.",
+  "mediaDetail.deleteForeverConfirmationText": "¿Estás segura o seguro? Esto eliminará de forma permanente este ítem y {notesCount, plural, =0 {Sin anotaciones} one {1 anotación} other {# anotaciones}}. \nEscribe \"confirm\" si deseas continuar.",
   "mediaDetail.confirmationError": "No coincide",
   "mediaDetail.typeHere": "Escribe aquí",
   "mediaDetail.assignDialogHeader": "Asignación"
