@@ -41,7 +41,7 @@ class MultiSelectTask extends Component {
         ? this.state.responseOther
         : props_response.other || null;
 
-      this.props.onSubmit(JSON.stringify(response_obj), this.state.note);
+      this.props.onSubmit(JSON.stringify(response_obj));
       this.setState({ taskAnswerDisabled: true });
     }
   }
@@ -64,16 +64,11 @@ class MultiSelectTask extends Component {
     return can_submit;
   }
 
-  handleChange(e) {
-    this.setState({ note: e.target.value }, this.canSubmit);
-  }
-
   handleCancelResponse() {
     this.setState({
       response: null,
       responseOther: null,
       otherSelected: false,
-      note: '',
       focus: false,
     }, this.canSubmit);
 
@@ -143,7 +138,7 @@ class MultiSelectTask extends Component {
     }
   }
 
-  renderOptions(jsonresponse, note, jsonoptions) {
+  renderOptions(jsonresponse, jsonoptions) {
     const options = safelyParseJSON(jsonoptions);
     const editable = jsonresponse == null || this.props.mode === 'edit_response';
     const submitCallback = this.handleSubmitResponse.bind(this);
@@ -242,18 +237,17 @@ class MultiSelectTask extends Component {
   render() {
     const {
       jsonresponse,
-      note,
       jsonoptions,
     } = this.props;
 
     return (
       <div>
-        {this.props.mode === 'respond' ? this.renderOptions(jsonresponse, note, jsonoptions) : null}
+        {this.props.mode === 'respond' ? this.renderOptions(jsonresponse, jsonoptions) : null}
         {this.props.mode === 'show_response' && jsonresponse
-          ? this.renderOptions(jsonresponse, note, jsonoptions)
+          ? this.renderOptions(jsonresponse, jsonoptions)
           : null}
         {this.props.mode === 'edit_response'
-          ? this.renderOptions(jsonresponse, note, jsonoptions)
+          ? this.renderOptions(jsonresponse, jsonoptions)
           : null}
       </div>
     );

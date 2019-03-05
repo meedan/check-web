@@ -3,6 +3,7 @@
   "search.loading": "En chargement...",
   "search.inputHint": "Recherche",
   "search.results": "{resultsCount, plural, =0 {Aucun résultat} one {1 résultat} other {# résultats}}",
+  "search.resultsWithSelection": "{resultsCount, plural, =0 {Aucun résultat} one {1 résultat} other {# résultats}} ({selectedCount, plural, =0 {} one {1 sélection} other {# sélections}})",
   "search.newTranslationRequestNotification": "Nouvelle demande de traduction",
   "search.newTranslationNotification": "Nouvelle traduction",
   "search.newTranslationNotificationBody": "Un élément vient d'être marqué comme \"traduit\"",

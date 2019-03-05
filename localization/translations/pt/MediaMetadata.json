@@ -16,7 +16,7 @@
   "mediaDetail.deleteForever": "Apagar permanentemente",
   "mediaDetail.addedBy": "Adicionado {byUser}",
   "mediaDetail.assignedTo": "Atribuído(a) a {name}",
-  "mediaDetail.dialogHeader": "Mover {mediaType} para um projeto diferente",
+  "mediaDetail.dialogHeader": "Mover esse item para um projeto diferente",
   "mediaDetail.dialogMediaPath": "Atualmente em {teamName} > {projectTitle}",
   "mediaDetail.deleteForeverConfirmationText": "Você tem certeza? Isso irá apagar definitivamente este item e {notesCount, plural, =0 {0 anotações} one {1 anotação} other {# anotações}}. Digite \"confirma\" se deseja prosseguir.",
   "mediaDetail.confirmationError": "Inválido",

@@ -11,6 +11,7 @@ import SmallMediaCard from '../media/SmallMediaCard';
 import MediaDetail from '../media/MediaDetail';
 import SourceCard from '../source/SourceCard';
 import ProjectBlankState from '../project/ProjectBlankState';
+import { can } from '../Can';
 import { notify, safelyParseJSON } from '../../helpers';
 import { black87, units, ContentColumn } from '../../styles/js/shared';
 import CheckContext from '../../CheckContext';
@@ -70,6 +71,15 @@ const StyledSearchResultsWrapper = styled.div`
 
 class SearchResultsComponent extends React.Component {
   static mergeResults(medias, sources) {
+    if (medias.length === 0 && sources.length === 0) {
+      return [];
+    }
+    if (sources.length === 0) {
+      return medias;
+    }
+    if (medias.length === 0) {
+      return sources;
+    }
     const query = searchQueryFromUrl();
     const comparisonField = query.sort === 'recent_activity'
       ? o => o.node.updated_at
@@ -236,16 +246,21 @@ class SearchResultsComponent extends React.Component {
     if (isProject && count === 0) {
       title = (<ProjectBlankState project={this.currentContext().project} />);
     } else {
+      let bulkActionsAllowed = false;
+      if (medias.length) {
+        bulkActionsAllowed = !medias[0].node.archived && can(medias[0].node.permissions, 'administer Content');
+      }
       title = (
         <h3 className="search__results-heading">
           <span style={{ verticalAlign: 'top', lineHeight: '24px' }}>{mediasCount}</span>
-          <BulkActions
-            team={team}
-            project={this.currentContext().project}
-            selectedMedia={this.state.selectedMedia}
-            onSelectAll={this.onSelectAll.bind(this)}
-            onUnselectAll={this.onUnselectAll.bind(this)}
-          />
+          {medias.length && bulkActionsAllowed ?
+            <BulkActions
+              team={team}
+              project={this.currentContext().project}
+              selectedMedia={this.state.selectedMedia}
+              onSelectAll={this.onSelectAll.bind(this)}
+              onUnselectAll={this.onUnselectAll.bind(this)}
+            /> : null }
         </h3>
       );
     }

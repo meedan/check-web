@@ -20,10 +20,15 @@ class BulkUpdateProjectMediaMutation extends Relay.Mutation {
     const vars = {
       id: this.props.id,
       ids: this.props.ids,
-      project_id: this.props.dstProject.dbid,
     };
+    if (this.props.dstProject) {
+      vars.project_id = this.props.dstProject.dbid;
+    }
     if (this.props.srcProject) {
       vars.previous_project_id = this.props.srcProject.dbid;
+    }
+    if (this.props.archived) {
+      vars.archived = 1;
     }
     return vars;
   }

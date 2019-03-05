@@ -330,7 +330,7 @@ class GeolocationRespondTask extends Component {
         />
         <TextField
           id="task__response-geolocation-coordinates"
-          className="task__response-note-input"
+          className="task__response-coordinates-input"
           floatingLabelText={
             <FormattedMessage
               id="geolocationRespondTask.coordinates"

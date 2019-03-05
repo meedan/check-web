@@ -4,7 +4,6 @@ import { injectIntl, defineMessages, FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import { Link } from 'react-router';
 import Tooltip from 'rc-tooltip';
@@ -17,7 +16,6 @@ import ClaimReview from './ClaimReview';
 import DestinationProjects from './DestinationProjects';
 import UserTooltip from '../user/UserTooltip';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
-import DeleteProjectMediaMutation from '../../relay/mutations/DeleteProjectMediaMutation';
 import UpdateStatusMutation from '../../relay/mutations/UpdateStatusMutation';
 import CheckContext from '../../CheckContext';
 import Message from '../Message';
@@ -101,8 +99,6 @@ class MediaMetadata extends Component {
     this.state = {
       isEditing: false,
       openMoveDialog: false,
-      openDeleteDialog: false,
-      confirmationError: false,
       message: null,
       openAssignDialog: false,
     };
@@ -217,57 +213,6 @@ class MediaMetadata extends Component {
         check_search_project: this.props.media.project.search_id,
         relationship_sources_count: this.props.media.relationships.sources_count,
         id: this.props.media.id,
-      }),
-      { onSuccess, onFailure },
-    );
-  }
-
-  handleConfirmDeleteForever() {
-    // TODO Use React ref
-    const { value: confirmValue } = document.getElementById('delete-forever__confirm');
-    if (confirmValue && confirmValue.toUpperCase() === 'CONFIRM') {
-      this.setState({ confirmationError: false });
-      this.handleCloseDialogs();
-      this.handleRequestDeleteForever();
-    } else {
-      this.setState({ confirmationError: true });
-    }
-  }
-
-  handleDeleteForever() {
-    this.setState({ openDeleteDialog: true });
-  }
-
-  handleRequestDeleteForever() {
-    const { media } = this.props;
-
-    const onFailure = (transaction) => {
-      const error = transaction.getError();
-      if (error.json) {
-        error.json().then(this.handleError);
-      } else {
-        this.handleError(JSON.stringify(error));
-      }
-    };
-
-    const onSuccess = () => {
-      const message = (
-        <FormattedMessage
-          id="mediaMetadata.deletedForever"
-          defaultMessage="Deleted"
-        />
-      );
-      const { history } = this.getContext();
-      if (!media.relationships || media.relationships.sources_count === 0) {
-        history.push(`/${media.team.slug}/project/${media.project_id}`);
-      }
-      this.context.setMessage(message);
-    };
-
-    Relay.Store.commitUpdate(
-      new DeleteProjectMediaMutation({
-        id: media.id,
-        check_search_team: media.team.search_id,
       }),
       { onSuccess, onFailure },
     );
@@ -474,7 +419,6 @@ class MediaMetadata extends Component {
       isEditing: false,
       openMoveDialog: false,
       dstProj: null,
-      openDeleteDialog: false,
       openAssignDialog: false,
     });
   }
@@ -622,26 +566,6 @@ class MediaMetadata extends Component {
       </Dialog>
     );
 
-    const deleteDialogActions = [
-      <FlatButton
-        label={
-          <FormattedMessage id="mediaDetail.cancel" defaultMessage="Cancel" />
-        }
-        primary
-        onClick={this.handleCloseDialogs.bind(this)}
-      />,
-      <RaisedButton
-        label={
-          <FormattedMessage
-            id="mediaDetail.deleteForever"
-            defaultMessage="Delete forever"
-          />
-        }
-        primary
-        onClick={this.handleConfirmDeleteForever.bind(this)}
-      />,
-    ];
-
     const claimReview = data.schema && data.schema.ClaimReview ? data.schema.ClaimReview[0] : null;
     const url = MediaUtil.url(media, data);
     const assignments = media.last_status_obj.assignments.edges;
@@ -699,7 +623,6 @@ class MediaMetadata extends Component {
                 handleRefresh={this.handleRefresh.bind(this)}
                 handleSendToTrash={this.handleSendToTrash.bind(this)}
                 handleRestore={this.handleRestore.bind(this)}
-                handleDeleteForever={this.handleDeleteForever.bind(this)}
                 handleAssign={this.handleAssign.bind(this)}
                 handleStatusLock={this.handleStatusLock.bind(this)}
                 handleMemebuster={() => {}}
@@ -735,7 +658,7 @@ class MediaMetadata extends Component {
           <h4 className="media-detail__dialog-header">
             <FormattedMessage
               id="mediaDetail.dialogHeader"
-              defaultMessage="Move this {mediaType} to a different project"
+              defaultMessage="Move this item to a different project"
               values={{
                 mediaType: MediaUtil.typeLabel(
                   media,
@@ -759,44 +682,6 @@ class MediaMetadata extends Component {
             team={context.team}
             projectId={nested(['project', 'dbid'], media)}
             onChange={this.handleSelectDestProject.bind(this)}
-          />
-        </Dialog>
-
-        <Dialog
-          actions={deleteDialogActions}
-          modal={false}
-          open={this.state.openDeleteDialog}
-          onRequestClose={this.handleCloseDialogs.bind(this)}
-        >
-          <h2>
-            <FormattedMessage
-              id="mediaDetail.deleteForever"
-              defaultMessage="Delete forever"
-            />
-          </h2>
-          <p>
-            <FormattedMessage
-              id="mediaDetail.deleteForeverConfirmationText"
-              defaultMessage='Are you sure? This will permanently delete this item and its {notesCount, plural, =0 {0 annotations} one {1 annotation} other {# annotations}}. Type "confirm" if you want to proceed.'
-              values={{ notesCount: media.log_count.toString() }}
-            />
-          </p>
-          <TextField
-            id="delete-forever__confirm"
-            fullWidth
-            errorText={this.state.confirmationError ?
-              <FormattedMessage
-                id="mediaDetail.confirmationError"
-                defaultMessage="Did not match"
-              />
-              : null
-            }
-            hintText={
-              <FormattedMessage
-                id="mediaDetail.typeHere"
-                defaultMessage="Type here"
-              />
-            }
           />
         </Dialog>
 

@@ -28,10 +28,6 @@
     "defaultMessage": "Meme Generator"
   },
   {
-    "id": "mediaActions.deleteForever",
-    "defaultMessage": "Delete forever"
-  },
-  {
     "id": "mediaActions.assignOrUnassign",
     "defaultMessage": "Assign / Unassign"
   },

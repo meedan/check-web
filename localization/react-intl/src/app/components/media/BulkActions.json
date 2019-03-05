@@ -4,8 +4,8 @@
     "defaultMessage": "Move selected items to another project"
   },
   {
-    "id": "bulkActions.delete",
-    "defaultMessage": "Delete selected items"
+    "id": "bulkActions.sendItemsToTrash",
+    "defaultMessage": "Send selected items to trash"
   },
   {
     "id": "bulkActions.selectAll",
@@ -16,8 +16,8 @@
     "defaultMessage": "Done! Please note that it can take a while until the items are actually moved."
   },
   {
-    "id": "bulkActions.deletedSuccessfully",
-    "defaultMessage": "Done! Please note that it can take a while until the items are actually deleted."
+    "id": "bulkActions.moveToTrashSuccessfully",
+    "defaultMessage": "Done! Please note that it can take a while until the items are actually moved to the trash."
   },
   {
     "id": "bulkActions.cancelButton",
@@ -28,23 +28,7 @@
     "defaultMessage": "Move"
   },
   {
-    "id": "bulkActions.deleteForever",
-    "defaultMessage": "Delete forever"
-  },
-  {
     "id": "bulkActions.moveDialogHeader",
     "defaultMessage": "Move to a different project"
-  },
-  {
-    "id": "bulkActions.deleteForeverConfirmationText",
-    "defaultMessage": "Are you sure? This will permanently delete {count, plural, =0 {0 items} one {1 item} other {# items}}. Type the number of items ({count}) if you want to proceed."
-  },
-  {
-    "id": "bulkActions.confirmationError",
-    "defaultMessage": "Wrong value"
-  },
-  {
-    "id": "bulkActions.typeHere",
-    "defaultMessage": "Type here"
   }
 ]

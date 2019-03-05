@@ -256,14 +256,24 @@ class SearchQueryComponent extends React.Component {
   }
 
   sortIsSelected(sortParam, state = this.state) {
-    if (['recent_added', 'recent_activity'].includes(sortParam)) {
-      return state.query.sort === sortParam || (!state.query.sort && sortParam === 'recent_added');
-    } else if (['ASC', 'DESC'].includes(sortParam)) {
+    if (['ASC', 'DESC'].includes(sortParam)) {
       return (
         state.query.sort_type === sortParam || (!state.query.sort_type && sortParam === 'DESC')
       );
     }
-    return null;
+    return state.query.sort === sortParam || (!state.query.sort && sortParam === 'recent_added');
+  }
+
+  sortLabel(sortParam, state = this.state) {
+    const { sort } = state.query || {};
+    if (!sort || sort === 'recent_added' || sort === 'recent_activity') {
+      return sortParam === 'ASC' ?
+        (<FormattedMessage id="search.sortByOldest" defaultMessage="Oldest first" />) :
+        (<FormattedMessage id="search.sortByNewest" defaultMessage="Newest first" />);
+    }
+    const schema = this.props.team.dynamic_search_fields_json_schema;
+    const labels = schema.properties.sort.properties[sort].items.enum;
+    return sortParam === 'ASC' ? labels[0] : labels[1];
   }
 
   showIsSelected(show, state = this.state) {
@@ -329,13 +339,11 @@ class SearchQueryComponent extends React.Component {
   handleSortClick(sortParam) {
     this.setState((prevState) => {
       const state = Object.assign({}, prevState);
-      if (['recent_added', 'recent_activity'].includes(sortParam)) {
-        state.query.sort = sortParam;
-        return { query: state.query };
-      } else if (['ASC', 'DESC'].includes(sortParam)) {
+      if (['ASC', 'DESC'].includes(sortParam)) {
         state.query.sort_type = sortParam;
         return { query: state.query };
       }
+      state.query.sort = sortParam;
       return { query: state.query };
     });
   }
@@ -454,6 +462,8 @@ class SearchQueryComponent extends React.Component {
       this.props.title ||
       (this.props.project ? this.props.project.title : this.title(statuses, projects));
 
+    const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
+
     return (
       <div>
         <IconButton onClick={this.handleDialogOpen}>
@@ -475,13 +485,13 @@ class SearchQueryComponent extends React.Component {
                       name="search-input"
                       id="search-input"
                       defaultValue={this.state.query.keyword || ''}
-                      isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
+                      isRtl={isRtl}
                       onChange={this.handleInputChange.bind(this)}
                       autofocus
                     />
                     <StyledPopper
                       id="search-help"
-                      isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
+                      isRtl={isRtl}
                       open={this.state.popper.open}
                       anchorEl={this.state.popper.anchorEl}
                     >
@@ -512,7 +522,7 @@ class SearchQueryComponent extends React.Component {
 
                 <StyledSearchFiltersSection>
                   {this.showField('status') ?
-                    <StyledFilterRow isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
+                    <StyledFilterRow isRtl={isRtl}>
                       <h4><FormattedMessage id="search.statusHeading" defaultMessage="Status" /></h4>
                       {statuses.map(status => (
                         <StyledFilterButton
@@ -603,7 +613,31 @@ class SearchQueryComponent extends React.Component {
                           defaultMessage="Recent activity"
                         />
                       </StyledFilterButton>
+
+                      {Object
+                        .keys(team.dynamic_search_fields_json_schema.properties.sort.properties)
+                        .map((id) => {
+                          const { sort } = team.dynamic_search_fields_json_schema.properties;
+                          const label = sort.properties[id].title;
+                          return (
+                            <StyledFilterButton
+                              key={`dynamic-sort-${id}`}
+                              active={this.sortIsSelected(id)}
+                              onClick={this.handleSortClick.bind(this, id)}
+                              className={bemClass(
+                                'media-tags__suggestion',
+                                this.sortIsSelected(id),
+                                '--selected',
+                              )}
+                            >
+                              <span>{label}</span>
+                            </StyledFilterButton>
+                          );
+                        })
+                      }
+
                       <StyledFilterButton
+                        style={isRtl ? { marginRight: units(3) } : { marginLeft: units(3) }}
                         active={this.sortIsSelected('DESC')}
                         onClick={this.handleSortClick.bind(this, 'DESC')}
                         className={bemClass(
@@ -612,7 +646,7 @@ class SearchQueryComponent extends React.Component {
                           '--selected',
                         )}
                       >
-                        <FormattedMessage id="search.sortByNewest" defaultMessage="Newest first" />
+                        {this.sortLabel('DESC')}
                       </StyledFilterButton>
                       <StyledFilterButton
                         active={this.sortIsSelected('ASC')}
@@ -623,7 +657,7 @@ class SearchQueryComponent extends React.Component {
                           '--selected',
                         )}
                       >
-                        <FormattedMessage id="search.sortByOldest" defaultMessage="Oldest first" />
+                        {this.sortLabel('ASC')}
                       </StyledFilterButton>
                     </StyledFilterRow>
                     : null}
@@ -658,6 +692,10 @@ class SearchQueryComponent extends React.Component {
 
                   {this.showField('dynamic') ?
                     (Object.keys(team.dynamic_search_fields_json_schema.properties).map((key) => {
+                      if (key === 'sort') {
+                        return null;
+                      }
+
                       const annotationType = team.dynamic_search_fields_json_schema.properties[key];
 
                       const fields = [];

@@ -35,7 +35,6 @@ class MediaActions extends Component {
       handleRefresh,
       handleSendToTrash,
       handleRestore,
-      handleDeleteForever,
       handleAssign,
       handleStatusLock,
     } = this.props;
@@ -123,18 +122,6 @@ class MediaActions extends Component {
         <FormattedMessage id="mediaActions.memebuster" defaultMessage="Meme Generator" />
       </MenuItem>
     ));
-
-    if (can(media.permissions, 'destroy ProjectMedia')) {
-      menuItems.push((
-        <MenuItem
-          key="mediaActions.deleteForever"
-          className="media-actions__delete-forever"
-          id="media-actions__delete-forever"
-          onClick={handleDeleteForever}
-        >
-          <FormattedMessage id="mediaActions.deleteForever" defaultMessage="Delete forever" />
-        </MenuItem>));
-    }
 
     if (can(media.permissions, 'update Status') && !media.archived) {
       menuItems.push((

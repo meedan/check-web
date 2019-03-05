@@ -3,6 +3,7 @@
   "search.loading": "تحميل...",
   "search.inputHint": "بحث",
   "search.results": "{resultsCount, plural, =0 {بدون نتيجة} one {نتيجة واحدة} other {# نتائج}}",
+  "search.resultsWithSelection": "{resultsCount, plural, =0 {بدون نتيجة} one {نتيجة واحدة} other {# نتيجة}} ({selectedCount, plural, =0 {} one {1 محدد} other {# محدد}})",
   "search.newTranslationRequestNotification": "طلب جديد للترجمة",
   "search.newTranslationNotification": "ترجمة جديدة",
   "search.newTranslationNotificationBody": "تمت ترجمة عنصر ما",

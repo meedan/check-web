@@ -15,7 +15,7 @@ class ShortTextRespondTask extends React.Component {
     if (!this.state.taskAnswerDisabled) {
       const response = this.state.response ? this.state.response.trim() : this.props.response;
 
-      this.props.onSubmit(response, this.state.note);
+      this.props.onSubmit(response);
       this.setState({ taskAnswerDisabled: true });
     }
   }
@@ -36,7 +36,7 @@ class ShortTextRespondTask extends React.Component {
 
   handleCancel() {
     this.setState(
-      { response: null, note: '', focus: false },
+      { response: null, focus: false },
       this.canSubmit,
     );
     if (this.props.onDismiss) {

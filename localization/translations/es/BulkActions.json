@@ -1,0 +1,14 @@
+{
+  "bulkActions.move": "Mover los ítems seleccionados a otro proyecto",
+  "bulkActions.delete": "Eliminar los ítems seleccionados ",
+  "bulkActions.selectAll": "Seleccionar todos los ítems de esta página",
+  "bulkActions.movedSuccessfully": "¡Listo!  Ten en cuenta que tomá un poco de tiempo para que los ítems se muevan completamente.",
+  "bulkActions.deletedSuccessfully": "¡Listo! Ten en cuenta que tomá un poco de tiempo para que los ítems se eliminen completamente.",
+  "bulkActions.cancelButton": "Cancelar",
+  "bulkActions.moveTitle": "Mover",
+  "bulkActions.deleteForever": "Eliminar para siempre ",
+  "bulkActions.moveDialogHeader": "Mover a otro proyecto",
+  "bulkActions.deleteForeverConfirmationText": "¿Estás segura o seguro? Esto eliminará de forma permanente {count, plural, =0 {0 items} one {1 item} other {# items}}. Escribe el número de ítems ({count}) si  quieres continuar.",
+  "bulkActions.confirmationError": "Valor incorrecto ",
+  "bulkActions.typeHere": "Escribe aquí"
+}
