@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
 import isEqual from 'lodash.isequal';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
-import SearchQuery from './SearchQuery';
+// import SearchQuery from './SearchQuery';
 import SearchResultsContainer from './SearchResults';
 import { safelyParseJSON } from '../../helpers';
 import SearchRoute from '../../relay/SearchRoute';
@@ -78,10 +78,11 @@ class Search extends Component {
 
     return (
       <div className="search">
-        <SearchQuery teamSlug={teamSlug} {...this.props} />
+        {/* <SearchQuery teamSlug={teamSlug} {...this.props} /> */}
         <Relay.RootContainer
           Component={SearchResultsContainer}
           route={resultsRoute}
+          renderFetched={data => <SearchResultsContainer {...this.props} {...data} />}
           renderLoading={() => <MediasLoading />}
         />
       </div>

@@ -5,6 +5,7 @@ import LayersIcon from '@material-ui/icons/Layers';
 import TimerIcon from '@material-ui/icons/Timer';
 import styled from 'styled-components';
 import { CardWithBorder } from './MediaDetail';
+import MediaSelectable from './MediaSelectable';
 import { getStatus, getStatusStyle } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
 import { units, Row, black38 } from '../../styles/js/shared';
@@ -55,45 +56,50 @@ const SmallMediaCard = (props) => {
     : null;
 
   return (
-    <CardWithBorder
-      fromDirection="left"
-      borderColor={getStatusStyle(status, 'backgroundColor')}
-    >
-      <Card
-        className="card-with-border"
-        style={{ height: units(12), width: units(35) }}
+    <MediaSelectable media={media} onSelect={props.onSelect}>
+      <CardWithBorder
+        fromDirection="left"
+        borderColor={getStatusStyle(status, 'backgroundColor')}
       >
-        <div style={{ padding: units(1), height: units(12) }}>
-          <Row>
-            { props.media.embed.picture ?
-              <div style={{ marginRight: units(1) }}>
-                <Link to={mediaUrl}>
-                  <img src={props.media.embed.picture} alt="item thumbnail" width={units(10)} height={units(10)} />
-                </Link>
-              </div>
-              : null
-            }
-            <Content>
-              <UpperRow>
-                <div style={{ overflow: 'hidden', maxHeight: units(5) }}>
+        <Card
+          className="card-with-border"
+          style={{ height: units(12), width: units(35) }}
+        >
+          <div
+            className={props.selected ? 'media-detail__card-header-selected' : 'media-detail__card-header'}
+            style={{ padding: units(1), height: units(12) }}
+          >
+            <Row>
+              { props.media.embed.picture ?
+                <div style={{ marginRight: units(1) }}>
                   <Link to={mediaUrl}>
-                    {props.media.embed.title}
+                    <img src={props.media.embed.picture} alt="item thumbnail" width={units(10)} height={units(10)} />
                   </Link>
                 </div>
-                { hasRelationships ?
-                  <RelationIcon>
-                    <LayersIcon />
-                  </RelationIcon> : null
-                }
-              </UpperRow>
-              <BottomRow>
-                <Row><TimerIcon style={{ maxHeight: units(1.5) }} /><span>1 hour left</span></Row>
-              </BottomRow>
-            </Content>
-          </Row>
-        </div>
-      </Card>
-    </CardWithBorder>
+                : null
+              }
+              <Content>
+                <UpperRow>
+                  <div style={{ overflow: 'hidden', maxHeight: units(5) }}>
+                    <Link to={mediaUrl}>
+                      {props.media.embed.title}
+                    </Link>
+                  </div>
+                  { hasRelationships ?
+                    <RelationIcon>
+                      <LayersIcon />
+                    </RelationIcon> : null
+                  }
+                </UpperRow>
+                <BottomRow>
+                  <Row><TimerIcon style={{ maxHeight: units(1.5) }} /><span>1 hour left</span></Row>
+                </BottomRow>
+              </Content>
+            </Row>
+          </div>
+        </Card>
+      </CardWithBorder>
+    </MediaSelectable>
   );
 };
 

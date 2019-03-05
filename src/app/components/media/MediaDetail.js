@@ -105,18 +105,15 @@ const CardWithBorder = styled.div`
     // Disable border in some views
     ${props => (props.hideBorder ? 'border: none;' : null)}
   }
-<<<<<<< HEAD
-=======
-
+  
   .media-detail__description {
     margin-top: ${units(1)};
     max-width: ${units(80)};
   }
-  
+
   .media-detail__card-header-selected {
     background: ${black05};
   }
->>>>>>> develop
 `;
 
 class MediaDetail extends Component {

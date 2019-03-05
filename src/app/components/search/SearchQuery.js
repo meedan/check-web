@@ -1,9 +1,8 @@
 import React from 'react';
-import { defineMessages, injectIntl } from 'react-intl';
+import { injectIntl } from 'react-intl';
 import Relay from 'react-relay/classic';
-import SearchQueryComponent, { StyledSearchInput } from './SearchQueryComponent';
+import SearchQueryComponent from './SearchQueryComponent';
 import TeamRoute from '../../relay/TeamRoute';
-import { ContentColumn } from '../../styles/js/shared';
 
 const queryWithoutProjects = Relay.QL`
   fragment on Team {
@@ -41,13 +40,6 @@ const queryWithProjects = Relay.QL`
   }
 `;
 
-const messages = defineMessages({
-  loading: {
-    id: 'search.loading',
-    defaultMessage: 'Loading...',
-  },
-});
-
 const SearchQuery = (props) => {
   const gqlquery = props.project ? queryWithoutProjects : queryWithProjects;
 
@@ -57,7 +49,7 @@ const SearchQuery = (props) => {
     },
   });
 
-  const { fields, teamSlug, intl } = props;
+  const { teamSlug } = props;
   const queryRoute = new TeamRoute({ teamSlug });
 
   return (
@@ -65,22 +57,8 @@ const SearchQuery = (props) => {
       Component={SearchQueryContainer}
       route={queryRoute}
       renderFetched={data => <SearchQueryContainer {...props} {...data} />}
-      renderLoading={() => (
-        <ContentColumn>
-          {!fields || fields.indexOf('keyword') > -1 ?
-            <div className="search__form search__form--loading">
-              <StyledSearchInput
-                disabled
-                placeholder={intl.formatMessage(messages.loading)}
-                name="search-input"
-                id="search-input"
-              />
-            </div>
-            : null}
-        </ContentColumn>)
-      }
     />
   );
 };
 
-export default injectIntl(SearchQuery);
+export default SearchQuery;

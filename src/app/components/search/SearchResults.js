@@ -6,6 +6,9 @@ import InfiniteScroll from 'react-infinite-scroller';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import sortby from 'lodash.sortby';
 import styled from 'styled-components';
+import { searchQueryFromUrl } from './Search';
+import SearchQuery from './SearchQuery';
+import Toolbar from './Toolbar';
 import BulkActions from '../media/BulkActions';
 import SmallMediaCard from '../media/SmallMediaCard';
 import MediaDetail from '../media/MediaDetail';
@@ -15,7 +18,6 @@ import { can } from '../Can';
 import { notify, safelyParseJSON } from '../../helpers';
 import { black87, units, ContentColumn } from '../../styles/js/shared';
 import CheckContext from '../../CheckContext';
-import { searchQueryFromUrl } from './Search';
 import checkSearchResultFragment from '../../relay/checkSearchResultFragment';
 import bridgeSearchResultFragment from '../../relay/bridgeSearchResultFragment';
 
@@ -55,6 +57,8 @@ const StyledSearchResultsWrapper = styled.div`
 
   .search__results-heading {
     color: ${black87};
+    font-size: larger;
+    font-weight: bolder;
     margin-top: ${units(3)};
     text-align: center;
   }
@@ -242,6 +246,7 @@ class SearchResultsComponent extends React.Component {
     const team = medias.length > 0 ? medias[0].node.team : this.currentContext().team;
 
     const isProject = /\/project\//.test(window.location.pathname);
+
     let title = null;
     if (isProject && count === 0) {
       title = (<ProjectBlankState project={this.currentContext().project} />);
@@ -251,24 +256,37 @@ class SearchResultsComponent extends React.Component {
         bulkActionsAllowed = !medias[0].node.archived && can(medias[0].node.permissions, 'administer Content');
       }
       title = (
-        <h3 className="search__results-heading">
-          <span style={{ verticalAlign: 'top', lineHeight: '24px' }}>{mediasCount}</span>
-          {medias.length && bulkActionsAllowed ?
+        <Toolbar
+          filter={
+            <SearchQuery
+              teamSlug={team.slug}
+              project={this.currentContext().project}
+              {...this.props}
+            />
+          }
+          actions={medias.length && bulkActionsAllowed ?
             <BulkActions
               team={team}
               project={this.currentContext().project}
               selectedMedia={this.state.selectedMedia}
               onSelectAll={this.onSelectAll.bind(this)}
               onUnselectAll={this.onUnselectAll.bind(this)}
-            /> : null }
-        </h3>
+            /> : null}
+          title={<span className="search__results-heading">{mediasCount}</span>}
+        />
       );
     }
 
-    const viewMode = window.location.pathname.match(/dense\/*$/) ? 'dense' : 'list';
+    const viewMode = window.location.pathname.match(/dense\/*.*$/) ? 'dense' : 'list';
+
     const view = {
       dense: item => (
-        <SmallMediaCard style={{ margin: units(3) }} media={item} />
+        <SmallMediaCard
+          media={item}
+          selected={this.state.selectedMedia.indexOf(item.id) > -1}
+          onSelect={this.onSelect.bind(this)}
+          style={{ margin: units(3) }}
+        />
       ),
       list: item => (
         item.media ?
@@ -285,7 +303,7 @@ class SearchResultsComponent extends React.Component {
     return (
       <ContentColumn wide={(viewMode === 'dense')}>
         <StyledSearchResultsWrapper className="search__results results">
-          {title}
+          <div style={{ margin: `${units(2)} 0` }}>{title}</div>
           <InfiniteScroll hasMore={hasMore} loadMore={this.loadMore.bind(this)} threshold={500}>
             <div className={`search__results-list results medias-list ${viewMode}`}>
               {searchResults.map(item => (
