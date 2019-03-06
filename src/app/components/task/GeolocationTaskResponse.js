@@ -53,7 +53,7 @@ class GeolocationTaskResponse extends Component {
         <span className="task__response"><ParsedText text={name} /></span>
         {coordinatesString ?
           <span
-            className="task__note"
+            className="task__geolocation"
             style={{ color: black38, paddingLeft: units(1), paddingRight: units(1) }}
           >
             <a

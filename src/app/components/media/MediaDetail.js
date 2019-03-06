@@ -8,6 +8,7 @@ import MdAccessTime from 'react-icons/lib/md/access-time';
 import MdFormatQuote from 'react-icons/lib/md/format-quote';
 import FaFeed from 'react-icons/lib/fa/feed';
 import IconInsertPhoto from 'material-ui/svg-icons/editor/insert-photo';
+import IconDeadline from 'material-ui/svg-icons/image/timer';
 import rtlDetect from 'rtl-detect';
 import TimeBefore from '../TimeBefore';
 import MediaStatus from './MediaStatus';
@@ -23,6 +24,7 @@ import {
   units,
   black87,
   black38,
+  black05,
   defaultBorderRadius,
   Offset,
   subheading1,
@@ -36,6 +38,10 @@ const messages = defineMessages({
   progress: {
     id: 'mediaDetail.progress',
     defaultMessage: '{answered} required tasks answered, out of {total}',
+  },
+  deadline: {
+    id: 'mediaDetail.deadline',
+    defaultMessage: 'Deadline',
   },
 });
 
@@ -104,6 +110,10 @@ const StyledMediaDetail = styled.div`
     margin-top: ${units(1)};
     max-width: ${units(80)};
   }
+  
+  .media-detail__card-header-selected {
+    background: ${black05};
+  }
 `;
 
 class MediaDetail extends Component {
@@ -135,9 +145,11 @@ class MediaDetail extends Component {
     this.setState({ expanded: false });
   };
 
-  handleClickHeader = (event, mediaUrl) => {
-    // Prevent navigation if click was on a child element
-    if (event.target === event.currentTarget) {
+  handleClickHeader = (event, mediaUrl, mediaId) => {
+    if (this.props.onSelect && event.target === event.currentTarget) {
+      this.props.onSelect(mediaId);
+    } else if (event.target === event.currentTarget) {
+      // Prevent navigation if click was on a child element
       this.getContext().history.push(mediaUrl);
     }
   };
@@ -248,6 +260,14 @@ class MediaDetail extends Component {
       }
     }
 
+    let deadlineSoon = null;
+    if (media.deadline) {
+      const now = new Date().getTime() / 1000;
+      const deadline = parseInt(media.deadline, 10);
+      const hoursLeft = (deadline - now) / 3600;
+      deadlineSoon = hoursLeft < 0.1 * media.team.get_status_target_turnaround;
+    }
+
     const cardHeaderText = (
       <div style={{ cursor: media.dbid === 0 ? 'wait' : 'default' }}>
         {shouldDisplayHeading ?
@@ -312,6 +332,24 @@ class MediaDetail extends Component {
                 {progress.answered} / {progress.total}
               </StyledProgress>
               : null}
+
+            {media.deadline ?
+              <Row
+                style={{ color: deadlineSoon ? unstartedRed : black38 }}
+                title={this.props.intl.formatMessage(messages.deadline)}
+              >
+                <IconDeadline
+                  style={{
+                    color: deadlineSoon ? unstartedRed : black38,
+                    height: units(2),
+                    width: units(2),
+                  }}
+                />
+                <Offset isRtl={isRtl}>
+                  <TimeBefore date={new Date(parseInt(media.deadline, 10) * 1000)} />
+                </Offset>
+              </Row>
+              : null}
           </Row>
         </StyledHeaderTextSecondary>
       </div>
@@ -334,14 +372,15 @@ class MediaDetail extends Component {
           style={{ borderColor }}
         >
           <StyledCardHeader
-            className="media-detail__card-header"
+            className={this.props.selected ? 'media-detail__card-header-selected' : 'media-detail__card-header'}
             title={cardHeaderStatus}
             subtitle={cardHeaderText}
             showExpandableButton={this.props.media.dbid > 0}
             inMediaPage={mediaPage}
             style={{ paddingRight: units(5) }}
             // TODO: dont be clickable on optimistic items
-            onClick={mediaPage ? null : (event) => { this.handleClickHeader(event, mediaUrl); }}
+            onClick={mediaPage ? null :
+              (event) => { this.handleClickHeader(event, mediaUrl, media.id); }}
           />
 
           { this.state.expanded ?

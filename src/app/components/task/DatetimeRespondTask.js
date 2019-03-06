@@ -65,7 +65,6 @@ class DatetimeRespondTask extends Component {
     let date = null;
     let hour = '';
     let minute = '';
-    const note = this.props.note || '';
     let timezone = 'GMT';
     const response = this.props.response ? convertNumbers2English(this.props.response) : null;
     if (response) {
@@ -85,13 +84,11 @@ class DatetimeRespondTask extends Component {
       date,
       hour,
       minute,
-      note,
       original: {
         timezone,
         date,
         hour,
         minute,
-        note,
       },
     };
   }
@@ -124,10 +121,6 @@ class DatetimeRespondTask extends Component {
     this.setState({ focus: true, timezone: value, taskAnswerDisabled: !this.canSubmit() });
   }
 
-  handleChangeNote(e) {
-    this.setState({ note: e.target.value, taskAnswerDisabled: !this.canSubmit() });
-  }
-
   handleChangeTime(part, e) {
     const value = convertNumbers2English(e.target.value);
 
@@ -153,7 +146,7 @@ class DatetimeRespondTask extends Component {
 
   handleSubmit() {
     if (!this.state.taskAnswerDisabled && !this.state.timeError) {
-      const { date, note, timezone } = this.state;
+      const { date, timezone } = this.state;
 
       const format = (val, size, char) => `${val}`.padStart(size, char);
 
@@ -185,7 +178,7 @@ class DatetimeRespondTask extends Component {
       const response = `${year}-${month}-${day} ${hour}:${minute} ${offset} ${timezone} ${notime}`;
 
       this.setState({ taskAnswerDisabled: true });
-      this.props.onSubmit(response, note);
+      this.props.onSubmit(response);
     }
   }
 
@@ -198,7 +191,6 @@ class DatetimeRespondTask extends Component {
       date: original.date,
       hour: original.hour,
       minute: original.minute,
-      note: original.note,
     });
     if (this.props.onDismiss) {
       this.props.onDismiss();

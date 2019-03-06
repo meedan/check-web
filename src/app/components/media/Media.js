@@ -31,6 +31,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
         embed,
         last_status,
         field_value(annotation_type_field_name: "translation_status:translation_status_status"),
+        deadline: field_value(annotation_type_field_name: "verification_status:deadline"),
         log_count,
         domain,
         permissions,
@@ -376,6 +377,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
         team {
           get_suggested_tags
           get_embed_whitelist
+          get_status_target_turnaround
           private
           slug
           search_id

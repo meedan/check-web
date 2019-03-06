@@ -7,7 +7,7 @@ const optimisticProjectMedia = (title, project, context) => {
     team.verification_statuses.default : team.translation_statuses.default;
 
   let mediasCount = 0;
-  const counter = document.getElementsByClassName('search__results-heading')[0];
+  const counter = document.getElementsByClassName('search__results-heading span')[0];
   if (counter) {
     mediasCount = parseInt(counter.innerHTML.replace(/[^0-9]/, ''), 10);
   }
@@ -25,6 +25,7 @@ const optimisticProjectMedia = (title, project, context) => {
         log_count: 1,
         verification_statuses: JSON.stringify(team.verification_statuses),
         translation_statuses: JSON.stringify(team.translation_statuses),
+        deadline: null,
         last_status: ls,
         last_status_obj: {
           locked: true,

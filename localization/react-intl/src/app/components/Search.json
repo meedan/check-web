@@ -16,6 +16,10 @@
     "defaultMessage": "{resultsCount, plural, =0 {No results} one {1 result} other {# results}}"
   },
   {
+    "id": "search.resultsWithSelection",
+    "defaultMessage": "{resultsCount, plural, =0 {No results} one {1 result} other {# results}} ({selectedCount, plural, =0 {} one {1 selected} other {# selected}})"
+  },
+  {
     "id": "search.newTranslationRequestNotification",
     "defaultMessage": "New translation request"
   },
@@ -26,6 +30,14 @@
   {
     "id": "search.newTranslationNotificationBody",
     "defaultMessage": "An item was just marked as \"translated\""
+  },
+  {
+    "id": "search.sortByOldest",
+    "defaultMessage": "Oldest first"
+  },
+  {
+    "id": "search.sortByNewest",
+    "defaultMessage": "Newest first"
   },
   {
     "id": "search.help",
@@ -54,14 +66,6 @@
   {
     "id": "search.sortByRecentActivity",
     "defaultMessage": "Recent activity"
-  },
-  {
-    "id": "search.sortByNewest",
-    "defaultMessage": "Newest first"
-  },
-  {
-    "id": "search.sortByOldest",
-    "defaultMessage": "Oldest first"
   },
   {
     "id": "search.show",

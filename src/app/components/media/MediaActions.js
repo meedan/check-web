@@ -21,6 +21,12 @@ class MediaActions extends Component {
     history.push(`/${media.team.slug}/project/${media.project_id}/media/${media.dbid}/embed`);
   }
 
+  handleMemebuster = () => {
+    const { media } = this.props;
+    const { history } = new CheckContext(this).getContextStore();
+    history.push(`/${media.team.slug}/project/${media.project_id}/media/${media.dbid}/memebuster`);
+  };
+
   render() {
     const {
       media,
@@ -29,7 +35,6 @@ class MediaActions extends Component {
       handleRefresh,
       handleSendToTrash,
       handleRestore,
-      handleDeleteForever,
       handleAssign,
       handleStatusLock,
     } = this.props;
@@ -107,17 +112,16 @@ class MediaActions extends Component {
         </MenuItem>));
     }
 
-    if (can(media.permissions, 'destroy ProjectMedia')) {
-      menuItems.push((
-        <MenuItem
-          key="mediaActions.deleteForever"
-          className="media-actions__delete-forever"
-          id="media-actions__delete-forever"
-          onClick={handleDeleteForever}
-        >
-          <FormattedMessage id="mediaActions.deleteForever" defaultMessage="Delete forever" />
-        </MenuItem>));
-    }
+    menuItems.push((
+      <MenuItem
+        key="mediaActions.memebuster"
+        className="media-actions__memebuster"
+        id="media-actions__memebuster"
+        onClick={this.handleMemebuster}
+      >
+        <FormattedMessage id="mediaActions.memebuster" defaultMessage="Meme Generator" />
+      </MenuItem>
+    ));
 
     if (can(media.permissions, 'update Status') && !media.archived) {
       menuItems.push((

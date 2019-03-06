@@ -13,7 +13,7 @@
   "userPrivacy.delete": "Borrar tu cuenta",
   "userPrivacy.deleteAccountText": "Si borra su cuenta, su información personal será borrada. Los comentarios, las anotaciones y la actividad del equipo se convertirán en seudónimos y permanecerán en {appName}.",
   "userPrivacy.deleteAccountButton": "Borrar mi cuenta",
-  "userPrivacy.deleteAccountConfirmationText": "¿Seguro? Esto eliminará tu cuenta y te desconectará de la aplicación. Escribe \"confirm\" si deseas continuar.",
+  "userPrivacy.deleteAccountConfirmationText": "¿Estás segura o seguro? Esto eliminará tu cuenta y te desconectará de la aplicación. Escribe \"confirm\" si deseas continuar.",
   "deleteAccount.cancel": "Cancelar",
   "deleteAccount.delete": "Eliminar "
 }

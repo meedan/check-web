@@ -5,5 +5,5 @@
   "home.invalidTeamInvitation": "هذا الفريق غير موجود",
   "home.invalidNoInvitation": "لا توجد دعوة",
   "home.successInvitation": "مرحبًا بك في {appName}. الرجاء تسجيل الدخول بكلمة المرور التي تلقيتها في البريد الإلكتروني الترحيبي.",
-  "home.invalidTokenInvitation": "رمز الدعوة غير صحيح."
+  "home.invalidTokenInvitation": "رمز الدعوة غير صالح"
 }

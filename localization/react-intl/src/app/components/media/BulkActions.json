@@ -1,0 +1,30 @@
+[
+  {
+    "id": "bulkActions.move",
+    "defaultMessage": "Move selected items to another project"
+  },
+  {
+    "id": "bulkActions.sendItemsToTrash",
+    "defaultMessage": "Send selected items to trash"
+  },
+  {
+    "id": "bulkActions.selectAll",
+    "defaultMessage": "Select all items on this page"
+  },
+  {
+    "id": "bulkActions.movedSuccessfully",
+    "defaultMessage": "Done! Please note that it can take a while until the items are actually moved."
+  },
+  {
+    "id": "bulkActions.moveToTrashSuccessfully",
+    "defaultMessage": "Done! Please note that it can take a while until the items are actually moved to the trash."
+  },
+  {
+    "id": "bulkActions.cancelButton",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "bulkActions.moveTitle",
+    "defaultMessage": "Move"
+  }
+]
