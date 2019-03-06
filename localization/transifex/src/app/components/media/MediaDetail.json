@@ -1,3 +1,4 @@
 {
-  "mediaDetail.progress": "{answered} required tasks answered, out of {total}"
+  "mediaDetail.progress": "{answered} required tasks answered, out of {total}",
+  "mediaDetail.deadline": "Deadline"
 }
