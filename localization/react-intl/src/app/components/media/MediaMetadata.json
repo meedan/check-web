@@ -56,14 +56,6 @@
     "defaultMessage": "Assigned to {name}"
   },
   {
-    "id": "mediaDetail.dialogHeader",
-    "defaultMessage": "Move this item to a different project"
-  },
-  {
-    "id": "mediaDetail.dialogMediaPath",
-    "defaultMessage": "Currently filed under {teamName} > {projectTitle}"
-  },
-  {
     "id": "mediaDetail.assignDialogHeader",
     "defaultMessage": "Assignment"
   }
