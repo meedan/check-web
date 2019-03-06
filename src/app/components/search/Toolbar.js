@@ -18,7 +18,7 @@ class Toolbar extends React.PureComponent {
     const { filter, actions, title } = this.props;
     return (
       <StyledToolbar className="toolbar">
-        <Row>{filter} | {actions} |<span className="toolbar__title">{title}</span></Row>
+        <Row>{filter} | {actions} {actions ? '|' : null} <span className="toolbar__title">{title}</span></Row>
       </StyledToolbar>
     );
   }

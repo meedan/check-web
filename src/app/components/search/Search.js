@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
 import isEqual from 'lodash.isequal';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
-// import SearchQuery from './SearchQuery';
 import SearchResultsContainer from './SearchResults';
 import { safelyParseJSON } from '../../helpers';
 import SearchRoute from '../../relay/SearchRoute';
@@ -15,7 +14,7 @@ export function searchQueryFromUrlQuery(urlQuery) {
 }
 
 export function searchQueryFromUrl() {
-  const queryString = window.location.pathname.match(/.*\/(search|project\/[0-9]+)\/(.*)/);
+  const queryString = window.location.pathname.match(/.*\/(search|project\/[0-9]+(?:\/[a-z]+)?)\/(.*)/);
   return queryString ? searchQueryFromUrlQuery(queryString[2]) : {};
 }
 

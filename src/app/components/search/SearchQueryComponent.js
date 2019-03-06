@@ -216,12 +216,15 @@ class SearchQueryComponent extends React.Component {
     const query = searchQueryFromUrl();
     if (isEqual(this.state.query, query)) return;
 
+    const viewMode = this.props.view ? `/${this.props.view}` : '';
+
     const url = urlFromSearchQuery(
       prevState.query,
       this.props.project
-        ? `/${this.props.team.slug}/project/${this.props.project.dbid}`
+        ? `/${this.props.team.slug}/project/${this.props.project.dbid}${viewMode}`
         : `/${this.props.team.slug}/search`,
     );
+
     this.getContext().getContextStore().history.push(url);
   }
 

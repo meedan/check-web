@@ -254,34 +254,30 @@ class SearchResultsComponent extends React.Component {
     const isProject = /\/project\//.test(window.location.pathname);
 
     let title = null;
-    if (isProject && count === 0) {
-      title = (<ProjectBlankState project={this.currentContext().project} />);
-    } else {
-      let bulkActionsAllowed = false;
-      if (medias.length) {
-        bulkActionsAllowed = !medias[0].node.archived && can(medias[0].node.permissions, 'administer Content');
-      }
-      title = (
-        <Toolbar
-          filter={
-            <SearchQuery
-              teamSlug={team.slug}
-              project={this.currentContext().project}
-              {...this.props}
-            />
-          }
-          actions={medias.length && bulkActionsAllowed ?
-            <BulkActions
-              team={team}
-              project={this.currentContext().project}
-              selectedMedia={this.state.selectedMedia}
-              onSelectAll={this.onSelectAll.bind(this)}
-              onUnselectAll={this.onUnselectAll.bind(this)}
-            /> : null}
-          title={<span className="search__results-heading">{mediasCount}</span>}
-        />
-      );
+    let bulkActionsAllowed = false;
+    if (medias.length) {
+      bulkActionsAllowed = !medias[0].node.archived && can(medias[0].node.permissions, 'administer Content');
     }
+    title = (
+      <Toolbar
+        filter={
+          <SearchQuery
+            teamSlug={team.slug}
+            project={this.currentContext().project}
+            {...this.props}
+          />
+        }
+        actions={medias.length && bulkActionsAllowed ?
+          <BulkActions
+            team={team}
+            project={this.currentContext().project}
+            selectedMedia={this.state.selectedMedia}
+            onSelectAll={this.onSelectAll.bind(this)}
+            onUnselectAll={this.onUnselectAll.bind(this)}
+          /> : null}
+        title={<span className="search__results-heading">{mediasCount}</span>}
+      />
+    );
 
     const viewMode = window.location.pathname.match(/dense\/*.*$/) ? 'dense' : 'list';
 
@@ -306,18 +302,27 @@ class SearchResultsComponent extends React.Component {
       ),
     };
 
+    let content = null;
+    if (isProject && count === 0) {
+      content = <ProjectBlankState project={this.currentContext().project} />;
+    } else {
+      content = (
+        <InfiniteScroll hasMore={hasMore} loadMore={this.loadMore.bind(this)} threshold={500}>
+          <div className={`search__results-list results medias-list ${viewMode}`}>
+            {searchResults.map(item => (
+              <li key={item.node.id} className="medias__item">
+                { view[viewMode](item.node) }
+              </li>))}
+          </div>
+        </InfiniteScroll>
+      );
+    }
+
     return (
       <ContentColumn wide={(viewMode === 'dense')}>
         <StyledSearchResultsWrapper className="search__results results">
           <div style={{ margin: `${units(2)} 0` }}>{title}</div>
-          <InfiniteScroll hasMore={hasMore} loadMore={this.loadMore.bind(this)} threshold={500}>
-            <div className={`search__results-list results medias-list ${viewMode}`}>
-              {searchResults.map(item => (
-                <li key={item.node.id} className="medias__item">
-                  { view[viewMode](item.node) }
-                </li>))}
-            </div>
-          </InfiniteScroll>
+          {content}
         </StyledSearchResultsWrapper>
       </ContentColumn>
     );
