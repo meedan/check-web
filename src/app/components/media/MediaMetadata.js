@@ -678,11 +678,13 @@ class MediaMetadata extends Component {
               }}
             />
           </small>
-          <DestinationProjects
-            team={context.team}
-            projectId={nested(['project', 'dbid'], media)}
-            onChange={this.handleSelectDestProject.bind(this)}
-          />
+          <div style={{ maxHeight: 400, overflow: 'auto' }}>
+            <DestinationProjects
+              team={context.team}
+              projectId={nested(['project', 'dbid'], media)}
+              onChange={this.handleSelectDestProject.bind(this)}
+            />
+          </div>
         </Dialog>
 
         <Dialog

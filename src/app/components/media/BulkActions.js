@@ -169,7 +169,6 @@ class BulkActions extends Component {
           modal
           open={this.state.openMoveDialog}
           onRequestClose={this.handleCloseDialogs.bind(this)}
-          autoScrollBodyContent
         >
           <h4 className="media-bulk-actions__move-dialog-header">
             <FormattedMessage
@@ -177,11 +176,13 @@ class BulkActions extends Component {
               defaultMessage="Move to a different project"
             />
           </h4>
-          <DestinationProjects
-            team={this.props.team}
-            projectId={this.props.project ? this.props.project.dbid : null}
-            onChange={this.handleSelectDestProject.bind(this)}
-          />
+          <div style={{ maxHeight: 400, overflow: 'auto' }}>
+            <DestinationProjects
+              team={this.props.team}
+              projectId={this.props.project ? this.props.project.dbid : null}
+              onChange={this.handleSelectDestProject.bind(this)}
+            />
+          </div>
         </Dialog>
       </span>
     );
