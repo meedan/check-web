@@ -117,7 +117,14 @@ class JoinTeamComponent extends Component {
   }
 
   alreadyMember() {
-    return this.getContext().currentUser.team_ids.indexOf(this.props.team.dbid) > -1;
+    const teams = [];
+    const userTeams = JSON.parse(this.getContext().currentUser.teams);
+    Object.keys(userTeams).forEach((teamName) => {
+      if (userTeams[teamName].status !== 'invited') {
+        teams.push(userTeams[teamName].id);
+      }
+    });
+    return teams.indexOf(this.props.team.dbid) > -1;
   }
 
   render() {

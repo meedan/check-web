@@ -180,10 +180,12 @@ class Home extends Component {
 
     if ('invitation_response' in this.props.location.query) {
       if (this.props.location.query.invitation_response === 'success') {
-        message = this.props.intl.formatMessage(
-          messages.successInvitation,
-          { appName: `${config.appName}` },
-        );
+        if (this.props.location.query.msg === 'yes') {
+          message = this.props.intl.formatMessage(
+            messages.successInvitation,
+            { appName: `${config.appName}` },
+          );
+        }
       } else {
         let invitationError = null;
         switch (this.props.location.query.invitation_response) {
