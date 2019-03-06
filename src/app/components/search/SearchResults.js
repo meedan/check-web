@@ -5,6 +5,7 @@ import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import InfiniteScroll from 'react-infinite-scroller';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import sortby from 'lodash.sortby';
+import isEqual from 'lodash.isequal';
 import styled from 'styled-components';
 import { searchQueryFromUrl } from './Search';
 import SearchQuery from './SearchQuery';
@@ -104,6 +105,11 @@ class SearchResultsComponent extends React.Component {
 
   componentDidMount() {
     this.subscribe();
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return !isEqual(this.state, nextState) ||
+           !isEqual(this.props, nextProps);
   }
 
   componentWillUnmount() {
