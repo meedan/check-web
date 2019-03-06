@@ -26,9 +26,5 @@
   {
     "id": "bulkActions.moveTitle",
     "defaultMessage": "Move"
-  },
-  {
-    "id": "bulkActions.moveDialogHeader",
-    "defaultMessage": "Move to a different project"
   }
 ]

@@ -13,7 +13,7 @@ import MediaTags from './MediaTags';
 import MediaActions from './MediaActions';
 import MediaUtil from './MediaUtil';
 import ClaimReview from './ClaimReview';
-import DestinationProjects from './DestinationProjects';
+import MoveDialog from './MoveDialog';
 import UserTooltip from '../user/UserTooltip';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
 import UpdateStatusMutation from '../../relay/mutations/UpdateStatusMutation';
@@ -648,42 +648,14 @@ class MediaMetadata extends Component {
             </div>
           </Row> : null}
 
-        <Dialog
+        <MoveDialog
           actions={moveDialogActions}
-          modal
           open={this.state.openMoveDialog}
-          onRequestClose={this.handleCloseDialogs.bind(this)}
-          autoScrollBodyContent
-        >
-          <h4 className="media-detail__dialog-header">
-            <FormattedMessage
-              id="mediaDetail.dialogHeader"
-              defaultMessage="Move this item to a different project"
-              values={{
-                mediaType: MediaUtil.typeLabel(
-                  media,
-                  this.props.data,
-                  this.props.intl,
-                ),
-              }}
-            />
-          </h4>
-          <small className="media-detail__dialog-media-path">
-            <FormattedMessage
-              id="mediaDetail.dialogMediaPath"
-              defaultMessage="Currently filed under {teamName} > {projectTitle}"
-              values={{
-                teamName: context.team.name,
-                projectTitle: nested(['project', 'title'], media),
-              }}
-            />
-          </small>
-          <DestinationProjects
-            team={context.team}
-            projectId={nested(['project', 'dbid'], media)}
-            onChange={this.handleSelectDestProject.bind(this)}
-          />
-        </Dialog>
+          handleClose={this.handleCloseDialogs.bind(this)}
+          team={context.team}
+          projectId={nested(['project', 'dbid'], media)}
+          onChange={this.handleSelectDestProject.bind(this)}
+        />
 
         <Dialog
           actions={assignDialogActions}

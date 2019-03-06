@@ -14,6 +14,16 @@ class DestinationProjectsComponent extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.props.onLoad();
+  }
+
+  componentWillUpdate(nextProps) {
+    if (nextProps.team.projects.length > this.props.team.projects.length || !this.props.team) {
+      this.props.onLoad();
+    }
+  }
+
   destinationProjects = (team, projectId) => {
     if (team.projects) {
       const projects = team.projects.edges.sortp((a, b) =>

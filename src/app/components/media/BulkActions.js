@@ -6,10 +6,9 @@ import IconSelectAll from 'material-ui/svg-icons/toggle/check-box-outline-blank'
 import IconUnselectAll from 'material-ui/svg-icons/toggle/check-box';
 import IconMove from 'material-ui/svg-icons/action/input';
 import IconDelete from 'material-ui/svg-icons/action/delete';
-import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import styled from 'styled-components';
-import DestinationProjects from './DestinationProjects';
+import MoveDialog from './MoveDialog';
 import BulkUpdateProjectMediaMutation from '../../relay/mutations/BulkUpdateProjectMediaMutation';
 import { units } from '../../styles/js/shared';
 
@@ -164,25 +163,14 @@ class BulkActions extends React.Component {
         </StyledIcon>
         {this.props.selectedMedia && this.props.selectedMedia.length > 0 ? actions : null}
 
-        <Dialog
+        <MoveDialog
           actions={moveDialogActions}
-          modal
           open={this.state.openMoveDialog}
-          onRequestClose={this.handleCloseDialogs.bind(this)}
-          autoScrollBodyContent
-        >
-          <h4 className="media-bulk-actions__move-dialog-header">
-            <FormattedMessage
-              id="bulkActions.moveDialogHeader"
-              defaultMessage="Move to a different project"
-            />
-          </h4>
-          <DestinationProjects
-            team={this.props.team}
-            projectId={this.props.project ? this.props.project.dbid : null}
-            onChange={this.handleSelectDestProject.bind(this)}
-          />
-        </Dialog>
+          handleClose={this.handleCloseDialogs.bind(this)}
+          team={this.props.team}
+          projectId={this.props.project ? this.props.project.dbid : null}
+          onChange={this.handleSelectDestProject.bind(this)}
+        />
       </span>
     );
   }
