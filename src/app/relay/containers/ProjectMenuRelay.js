@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
-import IconEdit from 'material-ui/svg-icons/image/edit';
+import IconEdit from '@material-ui/icons/Edit';
 import ViewListIcon from '@material-ui/icons/ViewList';
 import ViewComfyIcon from '@material-ui/icons/ViewComfy';
+import { searchQueryFromUrl, urlFromSearchQuery } from '../../components/search/Search';
 import ProjectRoute from '../ProjectRoute';
 import Can from '../../components/Can';
 import CheckContext from '../../CheckContext';
@@ -18,11 +19,12 @@ class ProjectMenu extends Component {
 
   handleToggleViewClick() {
     const { history } = new CheckContext(this).getContextStore();
-    if (this.props.children.props.route.view === 'dense') {
-      history.push(window.location.pathname.replace('/dense', ''));
-    } else {
-      history.push(`${window.location.pathname.match(/.*\/project\/\d+/)[0]}/dense`);
-    }
+    const searchQuery = searchQueryFromUrl();
+    const targetView = this.props.children.props.route.view === 'dense' ?
+      'list' : 'dense';
+    const prefix = window.location.pathname.match(/.*\/project\/\d+/)[0];
+
+    history.push(urlFromSearchQuery(searchQuery, `${prefix}/${targetView}`));
   }
 
   render() {

@@ -1,11 +1,13 @@
 import React from 'react';
+import { injectIntl } from 'react-intl';
 import { Link } from 'react-router';
 import Card from '@material-ui/core/Card';
 import LayersIcon from '@material-ui/icons/Layers';
-import TimerIcon from '@material-ui/icons/Timer';
+import rtlDetect from 'rtl-detect';
 import styled from 'styled-components';
 import { CardWithBorder } from './MediaDetail';
 import MediaSelectable from './MediaSelectable';
+import ItemDeadline from './ItemDeadline';
 import { getStatus, getStatusStyle } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
 import { units, Row, black38 } from '../../styles/js/shared';
@@ -41,15 +43,17 @@ const BottomRow = styled.div`
 `;
 
 const SmallMediaCard = (props) => {
-  const { media } = props;
+  const { media, intl: { locale } } = props;
   const status = getStatus(mediaStatuses(media), mediaLastStatus(media));
 
   let hasRelationships = false;
 
-  if (props.media.relationships) {
-    const { sources_count, targets_count } = props.media.relationships;
+  if (media.relationships) {
+    const { sources_count, targets_count } = media.relationships;
     hasRelationships = Boolean(sources_count || targets_count);
   }
+
+  const isRtl = rtlDetect.isRtlLang(locale);
 
   const mediaUrl = media.team && media.dbid > 0
     ? `/${media.team.slug}/project/${media.project_id}/media/${media.dbid}`
@@ -70,10 +74,10 @@ const SmallMediaCard = (props) => {
             style={{ padding: units(1), height: units(12) }}
           >
             <Row>
-              { props.media.embed.picture ?
+              { media.embed.picture ?
                 <div style={{ marginRight: units(1) }}>
                   <Link to={mediaUrl}>
-                    <img src={props.media.embed.picture} alt="item thumbnail" width={units(10)} height={units(10)} />
+                    <img src={media.embed.picture} alt="item thumbnail" width={units(10)} height={units(10)} />
                   </Link>
                 </div>
                 : null
@@ -82,7 +86,7 @@ const SmallMediaCard = (props) => {
                 <UpperRow>
                   <div style={{ overflow: 'hidden', maxHeight: units(5) }}>
                     <Link to={mediaUrl}>
-                      {props.media.embed.title}
+                      {media.embed.title}
                     </Link>
                   </div>
                   { hasRelationships ?
@@ -92,7 +96,7 @@ const SmallMediaCard = (props) => {
                   }
                 </UpperRow>
                 <BottomRow>
-                  <Row><TimerIcon style={{ maxHeight: units(1.5) }} /><span>1 hour left</span></Row>
+                  <ItemDeadline media={media} isRtl={isRtl} />
                 </BottomRow>
               </Content>
             </Row>
@@ -104,4 +108,4 @@ const SmallMediaCard = (props) => {
 };
 
 
-export default SmallMediaCard;
+export default injectIntl(SmallMediaCard);

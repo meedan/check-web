@@ -2,9 +2,5 @@
   {
     "id": "mediaDetail.progress",
     "defaultMessage": "{answered} required tasks answered, out of {total}"
-  },
-  {
-    "id": "mediaDetail.deadline",
-    "defaultMessage": "Deadline"
   }
 ]

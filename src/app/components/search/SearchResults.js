@@ -276,6 +276,7 @@ class SearchResultsComponent extends React.Component {
             onUnselectAll={this.onUnselectAll.bind(this)}
           /> : null}
         title={<span className="search__results-heading">{mediasCount}</span>}
+        project={isProject ? this.currentContext().project : null}
       />
     );
 

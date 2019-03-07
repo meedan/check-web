@@ -8,13 +8,13 @@ import MdAccessTime from 'react-icons/lib/md/access-time';
 import MdFormatQuote from 'react-icons/lib/md/format-quote';
 import FaFeed from 'react-icons/lib/fa/feed';
 import IconInsertPhoto from 'material-ui/svg-icons/editor/insert-photo';
-import IconDeadline from 'material-ui/svg-icons/image/timer';
 import rtlDetect from 'rtl-detect';
 import TimeBefore from '../TimeBefore';
 import MediaStatus from './MediaStatus';
 import MediaExpanded from './MediaExpanded';
 import MediaUtil from './MediaUtil';
 import MediaRelatedComponent from './MediaRelatedComponent';
+import ItemDeadline from './ItemDeadline';
 import CheckContext from '../../CheckContext';
 import UserUtil from '../user/UserUtil';
 import { getStatus, getStatusStyle, bemClassFromMediaStatus } from '../../helpers';
@@ -38,10 +38,6 @@ const messages = defineMessages({
   progress: {
     id: 'mediaDetail.progress',
     defaultMessage: '{answered} required tasks answered, out of {total}',
-  },
-  deadline: {
-    id: 'mediaDetail.deadline',
-    defaultMessage: 'Deadline',
   },
 });
 
@@ -105,7 +101,7 @@ const CardWithBorder = styled.div`
     // Disable border in some views
     ${props => (props.hideBorder ? 'border: none;' : null)}
   }
-  
+
   .media-detail__description {
     margin-top: ${units(1)};
     max-width: ${units(80)};
@@ -260,14 +256,6 @@ class MediaDetail extends Component {
       }
     }
 
-    let deadlineSoon = null;
-    if (media.deadline) {
-      const now = new Date().getTime() / 1000;
-      const deadline = parseInt(media.deadline, 10);
-      const hoursLeft = (deadline - now) / 3600;
-      deadlineSoon = hoursLeft < 0.1 * media.team.get_status_target_turnaround;
-    }
-
     const cardHeaderText = (
       <div style={{ cursor: media.dbid === 0 ? 'wait' : 'default' }}>
         {shouldDisplayHeading ?
@@ -333,23 +321,7 @@ class MediaDetail extends Component {
               </StyledProgress>
               : null}
 
-            {media.deadline ?
-              <Row
-                style={{ color: deadlineSoon ? unstartedRed : black38 }}
-                title={this.props.intl.formatMessage(messages.deadline)}
-              >
-                <IconDeadline
-                  style={{
-                    color: deadlineSoon ? unstartedRed : black38,
-                    height: units(2),
-                    width: units(2),
-                  }}
-                />
-                <Offset isRtl={isRtl}>
-                  <TimeBefore date={new Date(parseInt(media.deadline, 10) * 1000)} />
-                </Offset>
-              </Row>
-              : null}
+            <ItemDeadline media={media} isRtl={isRtl} />
           </Row>
         </StyledHeaderTextSecondary>
       </div>

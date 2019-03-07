@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import styled from 'styled-components';
 import ProjectRoute from '../../relay/ProjectRoute';
-import CreateProjectMedia from '../media/CreateMedia';
-import Can from '../Can';
 import PageTitle from '../PageTitle';
 import CheckContext from '../../CheckContext';
 import ParsedText from '../ParsedText';
@@ -87,10 +85,6 @@ class ProjectComponent extends Component {
               <ParsedText text={project.description} />
             </div>
             : null}
-          <Can permissions={project.permissions} permission="create Media">
-            <CreateProjectMedia projectComponent={this} />
-          </Can>
-
           <Search
             team={project.team.slug}
             project={project}
