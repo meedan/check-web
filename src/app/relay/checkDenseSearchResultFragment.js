@@ -17,6 +17,9 @@ const checkSearchResultFragment = Relay.QL`
           permissions,
           deadline: field_value(annotation_type_field_name: "verification_status:deadline"),
           last_status,
+          media {
+            picture
+          }
           team {
             slug
             search_id,
