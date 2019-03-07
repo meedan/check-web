@@ -23,6 +23,7 @@ class Toolbar extends React.PureComponent {
       actions,
       title,
       project,
+      addons,
     } = this.props;
 
     return (
@@ -37,6 +38,7 @@ class Toolbar extends React.PureComponent {
             </Can>
             : null
           }
+          {addons}
         </FlexRow>
       </StyledToolbar>
     );

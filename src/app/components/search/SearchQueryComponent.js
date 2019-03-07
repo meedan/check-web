@@ -473,7 +473,7 @@ class SearchQueryComponent extends React.Component {
           <FilterListIcon />
         </IconButton>
         <PageTitle prefix={title} skipTeam={false} team={this.props.team}>
-          <Dialog open={this.state.dialogOpen} onClose={this.handleDialogClose}>
+          <Dialog maxWidth="md" open={this.state.dialogOpen} onClose={this.handleDialogClose}>
             <DialogContent>
               <ContentColumn>
                 {this.showField('keyword') ?

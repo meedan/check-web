@@ -6,6 +6,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
+import isEqual from 'lodash.isequal';
 import TeamRoute from '../../relay/TeamRoute';
 import UpdateTeamMutation from '../../relay/mutations/UpdateTeamMutation';
 import Can from '../Can';
@@ -36,6 +37,11 @@ class TrashComponent extends Component {
 
   componentDidMount() {
     this.setContextTeam();
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return !isEqual(this.state, nextState) ||
+    !isEqual(this.props, nextProps);
   }
 
   componentDidUpdate() {
@@ -192,7 +198,7 @@ class TrashComponent extends Component {
           team={team.slug}
           query={JSON.stringify(query)}
           fields={['status', 'sort', 'tags']}
-          addons={
+          toolbarAddons={
             <Can permissions={team.permissions} permission="empty Trash">
               <RaisedButton
                 label={<FormattedMessage id="trash.emptyTrash" defaultMessage="Empty trash" />}

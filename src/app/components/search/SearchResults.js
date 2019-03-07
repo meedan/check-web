@@ -277,6 +277,7 @@ class SearchResultsComponent extends React.Component {
           /> : null}
         title={<span className="search__results-heading">{mediasCount}</span>}
         project={isProject ? this.currentContext().project : null}
+        addons={this.props.toolbarAddons}
       />
     );
 
