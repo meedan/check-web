@@ -5,30 +5,26 @@ import {
 } from '../../styles/js/shared';
 
 const StyledSelectable = styled.div`
+  cursor: pointer;
+
   .media-selectable__selected .media-detail__card-header {
     background: ${black38};
   }
 `;
 
 class MediaSelectable extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selected: false,
-    };
-  }
-
-  handleSelect = (event) => {
-    event.stopPropagation();
-    this.setState({ selected: true });
+  handleSelect = () => {
+    if (this.props.onSelect) {
+      this.props.onSelect(this.props.media.id);
+    }
   };
 
   render() {
     return (
       <StyledSelectable
         id="media-selectable"
-        className={this.state.selected ? 'media-selectable__selected' : 'media-selectable__not-selected'}
-        onClickCapture={(event) => { this.handleSelect(event); }}
+        className={this.props.selected ? 'media-selectable__selected' : 'media-selectable__not-selected'}
+        onClick={(event) => { this.handleSelect(event); }}
       >
         {this.props.children}
       </StyledSelectable>

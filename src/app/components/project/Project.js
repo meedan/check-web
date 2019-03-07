@@ -3,14 +3,12 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import styled from 'styled-components';
 import ProjectRoute from '../../relay/ProjectRoute';
-import CreateProjectMedia from '../media/CreateMedia';
-import Can from '../Can';
 import PageTitle from '../PageTitle';
 import CheckContext from '../../CheckContext';
 import ParsedText from '../ParsedText';
 import MediasLoading from '../media/MediasLoading';
-import Search from '../Search';
-import { ContentColumn, units } from '../../styles/js/shared';
+import Search from '../search/Search';
+import { units } from '../../styles/js/shared';
 import UpdateUserMutation from '../../relay/mutations/UpdateUserMutation';
 
 const ProjectWrapper = styled.div`
@@ -77,6 +75,7 @@ class ProjectComponent extends Component {
 
   render() {
     const { project } = this.props;
+    const view = this.props.route.view || 'list';
 
     return (
       <PageTitle prefix={project.title} skipTeam={false} team={this.currentContext().team}>
@@ -86,14 +85,13 @@ class ProjectComponent extends Component {
               <ParsedText text={project.description} />
             </div>
             : null}
-          <Can permissions={project.permissions} permission="create Media">
-            <CreateProjectMedia projectComponent={this} />
-          </Can>
-
-          <ContentColumn noPadding>
-            <Search team={project.team.slug} project={project} query={this.props.params.query || '{}'} fields={['status', 'sort', 'tags', 'show', 'dynamic', 'bulk']} />
-          </ContentColumn>
-
+          <Search
+            team={project.team.slug}
+            project={project}
+            query={this.props.params.query || '{}'}
+            fields={['status', 'sort', 'tags', 'show', 'dynamic', 'bulk']}
+            view={view}
+          />
         </ProjectWrapper>
       </PageTitle>
     );

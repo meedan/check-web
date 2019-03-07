@@ -12,19 +12,11 @@
     "defaultMessage": "Could not submit \"{title}\""
   },
   {
-    "id": "createMedia.imageTitle",
-    "defaultMessage": "Upload a photo"
+    "id": "createMedia.addItem",
+    "defaultMessage": "Add Item"
   },
   {
-    "id": "createMedia.sourceTitle",
-    "defaultMessage": "Add a source"
-  },
-  {
-    "id": "createMedia.linkTitle",
-    "defaultMessage": "Add a link"
-  },
-  {
-    "id": "createMedia.quoteTitle",
-    "defaultMessage": "Add a claim"
+    "id": "createMedia.addNewItem",
+    "defaultMessage": "Add new item"
   }
 ]
