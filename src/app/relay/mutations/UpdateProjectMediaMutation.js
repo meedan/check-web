@@ -102,7 +102,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
     ];
 
     if (this.props.srcProj) {
-      console.log('this.props.srcProj', this.props.srcProj);
       configs.push({
         type: 'NODE_DELETE',
         parentName: 'check_search_project',

@@ -20,6 +20,7 @@ import { notify, safelyParseJSON } from '../../helpers';
 import { black87, units, ContentColumn } from '../../styles/js/shared';
 import CheckContext from '../../CheckContext';
 import checkSearchResultFragment from '../../relay/checkSearchResultFragment';
+import checkDenseSearchResultFragment from '../../relay/checkDenseSearchResultFragment';
 import bridgeSearchResultFragment from '../../relay/bridgeSearchResultFragment';
 
 // TODO Make this a config
@@ -231,8 +232,8 @@ class SearchResultsComponent extends React.Component {
   }
 
   render() {
-    const medias = this.props.search ? this.props.search.medias.edges : [];
-    const sources = this.props.search ? this.props.search.sources.edges : [];
+    const medias = this.props.search.medias ? this.props.search.medias.edges : [];
+    const sources = this.props.search.sources ? this.props.search.sources.edges : [];
 
     const searchResults = SearchResultsComponent.mergeResults(medias, sources);
     const count = this.props.search ? this.props.search.number_of_results : 0;
@@ -346,7 +347,13 @@ const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsCom
     pageSize,
   },
   fragments: {
-    search: () => config.appName === 'bridge' ? bridgeSearchResultFragment : checkSearchResultFragment,
+    search: () => {
+      const dense = window.location.pathname.match(/.*\/project\/\d+\/dense(.*)/);
+      if (dense) {
+        return checkDenseSearchResultFragment;
+      }
+      return config.appName === 'bridge' ? bridgeSearchResultFragment : checkSearchResultFragment;
+    },
   },
 });
 
