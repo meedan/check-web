@@ -561,12 +561,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should go back and forward in the history", bin4: true do
       @driver.navigate.to @config['self_url']
       expect((@driver.current_url.to_s =~ /\/$/).nil?).to be(false)
-      @driver.navigate.to @config['self_url'] + '/check/tos'
-      expect((@driver.current_url.to_s =~ /\/tos$/).nil?).to be(false)
+      @driver.navigate.to @config['self_url'] + '/check/terms-of-service'
+      expect((@driver.current_url.to_s =~ /\/terms-of-service$/).nil?).to be(false)
       @driver.navigate.back
       expect((@driver.current_url.to_s =~ /\/$/).nil?).to be(false)
       @driver.navigate.forward
-      expect((@driver.current_url.to_s =~ /\/tos$/).nil?).to be(false)
+      expect((@driver.current_url.to_s =~ /\/terms-of-service$/).nil?).to be(false)
     end
 
     it "should create source and redirect to newly created source", bin6: true do
@@ -985,7 +985,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.navigate.to url.gsub(/project\/([0-9]+).*/, 'project/999')
       title = wait_for_selector('.main-title')
       expect(title.text == 'Not Found').to be(true)
-      expect((@driver.current_url.to_s =~ /\/404$/).nil?).to be(false)
+      expect((@driver.current_url.to_s =~ /\/not-found$/).nil?).to be(false)
     end
 
     it "should logout", bin5: true do

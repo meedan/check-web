@@ -142,7 +142,7 @@ class Root extends Component {
                 <Route path="check/user/unconfirmed" component={UserUnconfirmed} public />
                 <Route path="check/user/password-reset" component={UserPasswordReset} public />
                 <Route path="check/user/password-change" component={UserPasswordChange} public />
-                <Route path="check/user/tos" component={UserTos} public />
+                <Route path="check/user/terms-of-service" component={UserTos} public />
                 <Route path="check/forbidden" component={AccessDenied} public />
                 <Route path="check/not-found" component={NotFound} public />
 
