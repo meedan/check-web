@@ -77,7 +77,6 @@ class Search extends Component {
 
     return (
       <div className="search">
-        {/* <SearchQuery teamSlug={teamSlug} {...this.props} /> */}
         <Relay.RootContainer
           Component={SearchResultsContainer}
           route={resultsRoute}
