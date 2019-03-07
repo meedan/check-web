@@ -38,7 +38,7 @@ class UserComponent extends React.Component {
   }
 
   handleTabChange = (value) => {
-    browserHistory.push(`/check/me/${value}`);
+    browserHistory.push(`/check/user/${this.props.user.dbid}/${value}`);
     this.setState({
       showTab: value,
     });

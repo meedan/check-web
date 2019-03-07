@@ -144,9 +144,9 @@ class Root extends Component {
                 <Route path="check/user/password-change" component={UserPasswordChange} public />
                 <Route path="check/user/tos" component={UserTos} public />
                 <Route path="check/forbidden" component={AccessDenied} public />
-                <Route path="check/404" component={NotFound} public />
+                <Route path="check/not-found" component={NotFound} public />
 
-                <Route path="check/user/:userId" component={User} />
+                <Route path="check/user/:userId(/:tab)" component={User} />
                 <Route path="check/me/edit" isEditing component={Me} />
                 <Route path="check/me(/:tab)" component={Me} />
                 <Route path="check/teams/new" component={AddTeamPage} />

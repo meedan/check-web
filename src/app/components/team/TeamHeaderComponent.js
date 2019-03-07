@@ -37,7 +37,7 @@ class TeamHeaderComponent extends Component {
     const { team } = this.props;
 
     if (!team) {
-      this.getContext().history.push('/check/404');
+      this.getContext().history.push('/check/not-found');
       this.setState({ willRedirect: true });
       return;
     }
