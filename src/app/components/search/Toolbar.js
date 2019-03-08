@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import isEqual from 'lodash.isequal';
 import CreateProjectMedia from '../media/CreateMedia';
 import Can from '../Can';
 import { black05, black87, units, Row, FlexRow } from '../../styles/js/shared';
@@ -16,7 +17,12 @@ const StyledToolbar = styled.div`
   }
 `;
 
-class Toolbar extends React.PureComponent {
+class Toolbar extends React.Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    return !isEqual(this.state, nextState) ||
+           !isEqual(this.props, nextProps);
+  }
+
   render() {
     const {
       filter,

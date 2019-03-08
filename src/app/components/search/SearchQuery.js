@@ -1,6 +1,7 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
 import Relay from 'react-relay/classic';
+import isEqual from 'lodash.isequal';
 import SearchQueryComponent from './SearchQueryComponent';
 import TeamRoute from '../../relay/TeamRoute';
 
@@ -40,25 +41,32 @@ const queryWithProjects = Relay.QL`
   }
 `;
 
-const SearchQuery = (props) => {
-  const gqlquery = props.project ? queryWithoutProjects : queryWithProjects;
+class SearchQuery extends React.Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    return !isEqual(this.state, nextState) ||
+           !isEqual(this.props, nextProps);
+  }
 
-  const SearchQueryContainer = Relay.createContainer(injectIntl(SearchQueryComponent), {
-    fragments: {
-      team: () => gqlquery,
-    },
-  });
+  render() {
+    const gqlquery = this.props.project ? queryWithoutProjects : queryWithProjects;
 
-  const { teamSlug } = props;
-  const queryRoute = new TeamRoute({ teamSlug });
+    const SearchQueryContainer = Relay.createContainer(injectIntl(SearchQueryComponent), {
+      fragments: {
+        team: () => gqlquery,
+      },
+    });
 
-  return (
-    <Relay.RootContainer
-      Component={SearchQueryContainer}
-      route={queryRoute}
-      renderFetched={data => <SearchQueryContainer {...props} {...data} />}
-    />
-  );
-};
+    const { teamSlug } = this.props;
+    const queryRoute = new TeamRoute({ teamSlug });
+
+    return (
+      <Relay.RootContainer
+        Component={SearchQueryContainer}
+        route={queryRoute}
+        renderFetched={data => <SearchQueryContainer {...this.props} {...data} />}
+      />
+    );
+  }
+}
 
 export default SearchQuery;

@@ -59,6 +59,8 @@ const SmallMediaCard = (props) => {
     ? `/${media.team.slug}/project/${media.project_id}/media/${media.dbid}`
     : null;
 
+  const image = media.media.picture || media.embed.picture;
+
   return (
     <MediaSelectable media={media} onSelect={props.onSelect}>
       <CardWithBorder
@@ -74,10 +76,10 @@ const SmallMediaCard = (props) => {
             style={{ padding: units(1), height: units(12) }}
           >
             <Row>
-              { media.embed.picture ?
+              { image ?
                 <div style={{ marginRight: units(1) }}>
                   <Link to={mediaUrl}>
-                    <img src={media.embed.picture} alt="item thumbnail" width={units(10)} height={units(10)} />
+                    <img src={image} alt="item thumbnail" width={units(10)} height={units(10)} />
                   </Link>
                 </div>
                 : null
