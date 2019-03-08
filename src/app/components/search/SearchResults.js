@@ -110,7 +110,8 @@ class SearchResultsComponent extends React.Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     return !isEqual(this.state, nextState) ||
-           !isEqual(this.props, nextProps);
+           !isEqual(this.props.view, nextProps.view) ||
+           !isEqual(this.props.search, nextProps.search);
   }
 
   componentWillUnmount() {
@@ -225,9 +226,11 @@ class SearchResultsComponent extends React.Component {
   }
 
   loadMore() {
+    const { medias, sources } = this.props.search;
+
     this.props.relay.setVariables({
-      pageSize: this.props.search.medias.edges.length +
-        this.props.search.sources.edges.length + pageSize,
+      pageSize: (medias ? medias.edges.length : 0) +
+      (sources ? sources.edges.length : 0) + pageSize,
     });
   }
 
@@ -254,6 +257,15 @@ class SearchResultsComponent extends React.Component {
 
     const isProject = /\/project\//.test(window.location.pathname);
 
+    const searchQueryProps = {
+      view: this.props.view,
+      project: this.props.project,
+      team: this.props.team,
+      fields: this.props.fields,
+      title: this.props.title,
+      addons: this.props.addons,
+    };
+
     let title = null;
     let bulkActionsAllowed = false;
     if (medias.length) {
@@ -265,7 +277,7 @@ class SearchResultsComponent extends React.Component {
           <SearchQuery
             teamSlug={team.slug}
             project={this.currentContext().project}
-            {...this.props}
+            {...searchQueryProps}
           />
         }
         actions={medias.length && bulkActionsAllowed ?
