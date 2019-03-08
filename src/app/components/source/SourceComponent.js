@@ -195,8 +195,13 @@ class SourceComponent extends Component {
     this.subscribe();
   }
 
+  componentWillUpdate() {
+    this.unsubscribe();
+  }
+
   componentDidUpdate() {
     this.setContextSource();
+    this.subscribe();
   }
 
   componentWillUnmount() {

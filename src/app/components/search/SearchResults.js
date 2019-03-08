@@ -99,7 +99,6 @@ class SearchResultsComponent extends React.Component {
     super(props);
 
     this.state = {
-      pusherSubscribed: false,
       selectedMedia: [],
     };
   }
@@ -112,6 +111,14 @@ class SearchResultsComponent extends React.Component {
     return !isEqual(this.state, nextState) ||
            !isEqual(this.props.view, nextProps.view) ||
            !isEqual(this.props.search, nextProps.search);
+  }
+
+  componentWillUpdate() {
+    this.unsubscribe();
+  }
+
+  componentDidUpdate() {
+    this.subscribe();
   }
 
   componentWillUnmount() {
@@ -149,7 +156,7 @@ class SearchResultsComponent extends React.Component {
 
   subscribe() {
     const { pusher } = this.currentContext();
-    if (pusher && this.props.search.pusher_channel && !this.state.pusherSubscribed) {
+    if (pusher && this.props.search.pusher_channel) {
       const { search: { pusher_channel: channel } } = this.props;
 
       pusher.unsubscribe(channel);
@@ -216,7 +223,6 @@ class SearchResultsComponent extends React.Component {
         }
         return false;
       });
-      this.setState({ pusherSubscribed: true });
     }
   }
 

@@ -47,6 +47,14 @@ class MediaRelatedComponent extends Component {
     this.subscribe();
   }
 
+  componentWillUpdate() {
+    this.unsubscribe();
+  }
+
+  componentDidUpdate() {
+    this.subscribe();
+  }
+
   componentWillUnmount() {
     this.unsubscribe();
   }

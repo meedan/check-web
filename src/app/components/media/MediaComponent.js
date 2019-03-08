@@ -94,9 +94,14 @@ class MediaComponent extends Component {
     this.subscribe();
   }
 
+  componentWillUpdate() {
+    this.unsubscribe();
+  }
+
   componentDidUpdate() {
     this.setCurrentContext();
     MediaComponent.scrollToAnnotation();
+    this.subscribe();
   }
 
   componentWillUnmount() {

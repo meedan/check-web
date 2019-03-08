@@ -100,11 +100,16 @@ class TaskLogComponent extends Component {
     this.subscribe();
   }
 
+  componentWillUpdate() {
+    this.unsubscribe();
+  }
+
   componentDidUpdate() {
     const container = document.getElementById(`task-log-${this.props.task.dbid}`);
     if (container) {
       container.scrollTop = container.scrollHeight + 600;
     }
+    this.subscribe();
   }
 
   componentWillUnmount() {
