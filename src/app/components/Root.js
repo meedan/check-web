@@ -39,6 +39,7 @@ import BotGarden from './BotGarden';
 import Bot from './Bot';
 import CheckContext from '../CheckContext';
 import translations from '../../../localization/translations/translations';
+import { safelyParseJSON } from '../helpers';
 
 // Localization
 let locale = config.locale || navigator.languages || navigator.language || navigator.userLanguage || 'en';
@@ -77,6 +78,91 @@ class Root extends Component {
       ReactGA.set({ page: window.location.pathname });
       ReactGA.pageview(window.location.pathname);
     }
+  }
+
+  static pusherLog(message) {
+    if (config.pusherDebug) {
+      console.log(`[Pusher] ${message}`);
+    }
+  }
+
+  static setPusher(pusher) {
+    window.CheckPusher = window.CheckPusher || {
+      queue: {},
+      currentChannels: {},
+      subscribedChannels: {},
+    };
+    const checkPusher = window.CheckPusher;
+
+    pusher.unsubscribe('check-api-global-channel');
+    pusher.subscribe('check-api-global-channel').bind('update', (data) => {
+      Root.pusherLog(`Received global event: ${JSON.stringify(data)}`);
+      const message = safelyParseJSON(data.message, {});
+      const eventName = message.pusherEvent;
+      message.pusherChannels.forEach((channel) => {
+        if (checkPusher.currentChannels[channel] &&
+          checkPusher.currentChannels[channel][eventName]) {
+          Object.keys(checkPusher.currentChannels[channel][eventName]).forEach((component) => {
+            checkPusher.currentChannels[channel][eventName][component](data);
+          });
+          Root.pusherLog(`Calling callback for channel ${channel} and event ${eventName}, which is currently mounted`);
+        } else if (checkPusher.subscribedChannels[channel]) {
+          if (!checkPusher.queue[channel]) {
+            checkPusher.queue[channel] = {};
+          }
+          if (!checkPusher.queue[channel][eventName]) {
+            checkPusher.queue[channel][eventName] = [];
+          }
+          checkPusher.subscribedChannels[channel].forEach((component) => {
+            const eventData = Object.assign({ component }, data);
+            checkPusher.queue[channel][eventName].push(eventData);
+          });
+          Root.pusherLog(`Adding event ${eventName} to queue of channel ${channel}`);
+        } else {
+          Root.pusherLog(`Ignoring event ${eventName} for channel ${channel}`);
+        }
+      });
+    });
+
+    return {
+      unsubscribe: (channel) => {
+        if (checkPusher.currentChannels[channel]) {
+          checkPusher.currentChannels[channel] = null;
+          Root.pusherLog(`Channel ${channel} is not a current channel anymore`);
+        }
+      },
+
+      subscribe: (channel) => {
+        if (!checkPusher.subscribedChannels[channel]) {
+          checkPusher.subscribedChannels[channel] = [];
+          Root.pusherLog(`Subscribing to channel ${channel}`);
+        }
+        if (!checkPusher.currentChannels[channel]) {
+          checkPusher.currentChannels[channel] = {}; // event: callback
+          Root.pusherLog(`Channel ${channel} is now a current channel`);
+        }
+        return {
+          bind: (eventName, component, callback) => {
+            if (checkPusher.queue[channel] && checkPusher.queue[channel][eventName]) {
+              checkPusher.queue[channel][eventName].forEach((data, j) => {
+                if (callback(data) && data.component === component) {
+                  checkPusher.queue[channel][eventName].splice(j, 1);
+                  Root.pusherLog('Removing from the queue because it was applicable for the callback');
+                }
+              });
+            }
+            if (!checkPusher.currentChannels[channel][eventName]) {
+              checkPusher.currentChannels[channel][eventName] = {};
+            }
+            if (checkPusher.subscribedChannels[channel].indexOf(component) === -1) {
+              checkPusher.subscribedChannels[channel].push(component);
+            }
+            checkPusher.currentChannels[channel][eventName][component] = callback;
+            Root.pusherLog(`Event ${eventName} is now a current event of channel ${channel}`);
+          },
+        };
+      },
+    };
   }
 
   static propTypes = {
@@ -118,7 +204,7 @@ class Root extends Component {
         cluster: config.pusherCluster,
         encrypted: true,
       });
-      data.pusher = pusher;
+      data.pusher = Root.setPusher(pusher);
     }
 
     context.setContextStore(data, store);

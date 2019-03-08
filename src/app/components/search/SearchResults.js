@@ -154,7 +154,7 @@ class SearchResultsComponent extends React.Component {
 
       pusher.unsubscribe(channel);
 
-      pusher.subscribe(channel).bind('media_updated', (data) => {
+      pusher.subscribe(channel).bind('media_updated', 'Search', (data) => {
         const message = safelyParseJSON(data.message, {});
         const { currentUser } = this.currentContext();
         const currentUserId = currentUser ? currentUser.dbid : 0;
@@ -212,7 +212,9 @@ class SearchResultsComponent extends React.Component {
 
         if (this.currentContext().clientSessionId !== data.actor_session_id) {
           this.props.relay.forceFetch();
+          return true;
         }
+        return false;
       });
       this.setState({ pusherSubscribed: true });
     }
