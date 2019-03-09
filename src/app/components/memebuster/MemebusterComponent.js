@@ -240,6 +240,12 @@ class MemebusterComponent extends React.Component {
     }
   };
 
+  handleBrokenImage() {
+    const params = Object.assign({}, this.state.params);
+    params.image = '';
+    this.setState({ params });
+  }
+
   validate = () => {
     const {
       headline,
@@ -272,6 +278,13 @@ class MemebusterComponent extends React.Component {
         data-id={media.dbid}
       >
         <StyledTwoColumnLayout>
+          {this.state.params.image && typeof (this.state.params.image) === 'string' ?
+            <img
+              alt=""
+              src={this.state.params.image}
+              style={{ display: 'none' }}
+              onError={this.handleBrokenImage.bind(this)}
+            /> : null }
           <ContentColumn className="memebuster__editor-column">
             <MemeEditor
               media={this.props.media}
