@@ -61,6 +61,14 @@ class MemebusterComponent extends React.Component {
     this.state = { params: Object.assign(defaultParams, savedParams) };
   }
 
+  componentDidMount() {
+    this.subscribe();
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
   getContext() {
     return new CheckContext(this).getContextStore();
   }
@@ -126,14 +134,42 @@ class MemebusterComponent extends React.Component {
         defaultMessage="Last published {time} by {name}"
         values={{
           time: <TimeBefore
-            date={MediaUtil.createdAt({ published: annotation.updated_at })}
+            date={new Date(publish_done)}
           />,
           name: annotation.annotator.name,
         }}
       />);
     }
 
-    return text;
+    return (
+      <div style={{ fontFamily: 'Roboto', fontSize: 12 }}>
+        {text}
+      </div>
+    );
+  }
+
+  subscribe() {
+    const { pusher } = this.getContext();
+    if (pusher) {
+      pusher.subscribe(this.props.media.pusher_channel).bind('media_updated', 'MemebusterComponent', (data) => {
+        const message = JSON.parse(data.message);
+        if (
+          message.annotation_type === 'memebuster' &&
+          message.annotated_id === this.props.media.dbid
+        ) {
+          this.props.relay.forceFetch();
+          return true;
+        }
+        return false;
+      });
+    }
+  }
+
+  unsubscribe() {
+    const { pusher } = this.getContext();
+    if (pusher) {
+      pusher.unsubscribe(this.props.media.pusher_channel);
+    }
   }
 
   returnToMedia = () => {
@@ -204,6 +240,12 @@ class MemebusterComponent extends React.Component {
     }
   };
 
+  handleBrokenImage() {
+    const params = Object.assign({}, this.state.params);
+    params.image = '';
+    this.setState({ params });
+  }
+
   validate = () => {
     const {
       headline,
@@ -236,6 +278,13 @@ class MemebusterComponent extends React.Component {
         data-id={media.dbid}
       >
         <StyledTwoColumnLayout>
+          {this.state.params.image && typeof (this.state.params.image) === 'string' ?
+            <img
+              alt=""
+              src={this.state.params.image}
+              style={{ display: 'none' }}
+              onError={this.handleBrokenImage.bind(this)}
+            /> : null }
           <ContentColumn className="memebuster__editor-column">
             <MemeEditor
               media={this.props.media}
@@ -247,7 +296,7 @@ class MemebusterComponent extends React.Component {
             <SVGViewport params={this.state.params} template={template} />
             <div>
               { annotation ?
-                <div>
+                <div style={{ fontFamily: 'Roboto', fontSize: 12 }}>
                   <FormattedMessage
                     id="MemebusterComponent.lastSaved"
                     defaultMessage="Last saved {time} by {name}"

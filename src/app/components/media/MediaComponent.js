@@ -94,9 +94,14 @@ class MediaComponent extends Component {
     this.subscribe();
   }
 
+  componentWillUpdate() {
+    this.unsubscribe();
+  }
+
   componentDidUpdate() {
     this.setCurrentContext();
     MediaComponent.scrollToAnnotation();
+    this.subscribe();
   }
 
   componentWillUnmount() {
@@ -117,23 +122,27 @@ class MediaComponent extends Component {
   subscribe() {
     const { pusher } = this.getContext();
     if (pusher) {
-      pusher.subscribe(this.props.media.pusher_channel).bind('relationship_change', (data) => {
+      pusher.subscribe(this.props.media.pusher_channel).bind('relationship_change', 'MediaComponent', (data) => {
         const relationship = JSON.parse(data.message);
         if (
           (!relationship.id || this.getContext().clientSessionId !== data.actor_session_id) &&
           (relationship.source_id === this.props.media.dbid)
         ) {
           this.props.relay.forceFetch();
+          return true;
         }
+        return false;
       });
 
-      pusher.subscribe(this.props.media.pusher_channel).bind('media_updated', (data) => {
+      pusher.subscribe(this.props.media.pusher_channel).bind('media_updated', 'MediaComponent', (data) => {
         const annotation = JSON.parse(data.message);
         if (annotation.annotated_id === this.props.media.dbid &&
           this.getContext().clientSessionId !== data.actor_session_id
         ) {
           this.props.relay.forceFetch();
+          return true;
         }
+        return false;
       });
     }
   }

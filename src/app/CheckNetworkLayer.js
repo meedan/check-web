@@ -106,7 +106,7 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
       this._sendQuery(request).then((result) => {
         const { history } = this._init;
         if (result.status === 404 && window.location.pathname !== '/check/404') {
-          history.push('/check/404');
+          history.push('/check/not-found');
         } else if (result.status === 401 || result.status === 403) {
           const team = this._init.team();
           if (team !== '') {

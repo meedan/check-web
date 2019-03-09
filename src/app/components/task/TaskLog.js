@@ -100,11 +100,16 @@ class TaskLogComponent extends Component {
     this.subscribe();
   }
 
+  componentWillUpdate() {
+    this.unsubscribe();
+  }
+
   componentDidUpdate() {
     const container = document.getElementById(`task-log-${this.props.task.dbid}`);
     if (container) {
       container.scrollTop = container.scrollHeight + 600;
     }
+    this.subscribe();
   }
 
   componentWillUnmount() {
@@ -118,14 +123,16 @@ class TaskLogComponent extends Component {
   subscribe() {
     const { pusher } = this.getContext();
     if (pusher) {
-      pusher.subscribe(this.props.cachedTask.project_media.pusher_channel).bind('media_updated', (data) => {
+      pusher.subscribe(this.props.cachedTask.project_media.pusher_channel).bind('media_updated', 'TaskLog', (data) => {
         const annotation = JSON.parse(data.message);
         if (annotation.annotation_type === 'task' &&
           parseInt(annotation.id, 10) === parseInt(this.props.task.dbid, 10) &&
           this.getContext().clientSessionId !== data.actor_session_id
         ) {
           this.props.relay.forceFetch();
+          return true;
         }
+        return false;
       });
     }
   }

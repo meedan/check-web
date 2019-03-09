@@ -47,6 +47,14 @@ class MediaRelatedComponent extends Component {
     this.subscribe();
   }
 
+  componentWillUpdate() {
+    this.unsubscribe();
+  }
+
+  componentDidUpdate() {
+    this.subscribe();
+  }
+
   componentWillUnmount() {
     this.unsubscribe();
   }
@@ -58,14 +66,16 @@ class MediaRelatedComponent extends Component {
   subscribe() {
     const { pusher } = this.getContext();
     if (pusher) {
-      pusher.subscribe(this.props.media.pusher_channel).bind('relationship_change', (data) => {
+      pusher.subscribe(this.props.media.pusher_channel).bind('relationship_change', 'MediaRelated', (data) => {
         const relationship = JSON.parse(data.message);
         if (
           (this.getContext().clientSessionId !== data.actor_session_id) &&
           (relationship.source_id === this.props.media.dbid)
         ) {
           this.props.relay.forceFetch();
+          return true;
         }
+        return false;
       });
     }
   }

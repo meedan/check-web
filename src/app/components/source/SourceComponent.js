@@ -195,8 +195,13 @@ class SourceComponent extends Component {
     this.subscribe();
   }
 
+  componentWillUpdate() {
+    this.unsubscribe();
+  }
+
   componentDidUpdate() {
     this.setContextSource();
+    this.subscribe();
   }
 
   componentWillUnmount() {
@@ -807,7 +812,7 @@ class SourceComponent extends Component {
     const { pusher } = this.getContext();
     const { source: { source: { pusher_channel: pusherChannel } } } = this.props;
     if (pusher && pusherChannel) {
-      pusher.subscribe(pusherChannel).bind('source_updated', (data) => {
+      pusher.subscribe(pusherChannel).bind('source_updated', 'Source', (data) => {
         const source = this.getSource() || {};
         const metadata = this.getMetadataAnnotation() || {};
         const obj = JSON.parse(data.message);
@@ -827,6 +832,7 @@ class SourceComponent extends Component {
         }
 
         this.setState({ shouldUpdate: true });
+        return true;
       });
     }
   }
