@@ -247,7 +247,7 @@ class MemebusterComponent extends React.Component {
             <SVGViewport params={this.state.params} template={template} />
             <div>
               { annotation ?
-                <div>
+                <div style={{ fontFamily: 'Roboto', fontSize: 12 }}>
                   <FormattedMessage
                     id="MemebusterComponent.lastSaved"
                     defaultMessage="Last saved {time} by {name}"

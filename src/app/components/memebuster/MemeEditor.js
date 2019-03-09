@@ -1,5 +1,7 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import { FormattedMessage } from 'react-intl';
 import { CirclePicker } from 'react-color';
 import UploadImage from '../UploadImage';
 import { mediaStatuses } from '../../customHelpers';
@@ -36,12 +38,25 @@ class MemeEditor extends React.Component {
     this.handleImage(null);
   };
 
+  handleDefaultImage() {
+    const image = this.props.media.media.picture;
+    this.props.onParamChange({ image });
+  }
+
   render() {
     const colors = mediaStatuses(this.props.media).statuses.map(s => s.style.color);
 
     return (
-      <div>
+      <div style={{ fontFamily: 'Roboto', fontSize: 14, lineHeight: '1.5em' }}>
         <UploadImage onImage={this.handleImage} onClear={this.handleClearImage} />
+        <p>
+          <Button onClick={this.handleDefaultImage.bind(this)}>
+            <FormattedMessage
+              id="memeEditor.useDefaultImage"
+              defaultMessage="Use default image"
+            />
+          </Button>
+        </p>
         <TextField
           name="headline"
           label="Headline"
