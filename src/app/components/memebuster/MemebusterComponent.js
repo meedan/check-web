@@ -61,6 +61,14 @@ class MemebusterComponent extends React.Component {
     this.state = { params: Object.assign(defaultParams, savedParams) };
   }
 
+  componentDidMount() {
+    this.subscribe();
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
   getContext() {
     return new CheckContext(this).getContextStore();
   }
@@ -126,14 +134,42 @@ class MemebusterComponent extends React.Component {
         defaultMessage="Last published {time} by {name}"
         values={{
           time: <TimeBefore
-            date={MediaUtil.createdAt({ published: annotation.updated_at })}
+            date={new Date(publish_done)}
           />,
           name: annotation.annotator.name,
         }}
       />);
     }
 
-    return text;
+    return (
+      <div style={{ fontFamily: 'Roboto', fontSize: 12 }}>
+        {text}
+      </div>
+    );
+  }
+
+  subscribe() {
+    const { pusher } = this.getContext();
+    if (pusher) {
+      pusher.subscribe(this.props.media.pusher_channel).bind('media_updated', 'MemebusterComponent', (data) => {
+        const message = JSON.parse(data.message);
+        if (
+          message.annotation_type === 'memebuster' &&
+          message.annotated_id === this.props.media.dbid
+        ) {
+          this.props.relay.forceFetch();
+          return true;
+        }
+        return false;
+      });
+    }
+  }
+
+  unsubscribe() {
+    const { pusher } = this.getContext();
+    if (pusher) {
+      pusher.unsubscribe(this.props.media.pusher_channel);
+    }
   }
 
   returnToMedia = () => {
