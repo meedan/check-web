@@ -298,12 +298,13 @@ class SearchResultsComponent extends React.Component {
 
     const view = {
       dense: item => (
-        <SmallMediaCard
-          media={item}
-          selected={this.state.selectedMedia.indexOf(item.id) > -1}
-          onSelect={this.onSelect.bind(this)}
-          style={{ margin: units(3) }}
-        />
+        item.media ?
+          <SmallMediaCard
+            media={item}
+            selected={this.state.selectedMedia.indexOf(item.id) > -1}
+            onSelect={this.onSelect.bind(this)}
+            style={{ margin: units(3) }}
+          /> : null
       ),
       list: item => (
         item.media ?

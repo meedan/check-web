@@ -33,13 +33,8 @@ class CreateProjectMedia extends Component {
     this.state = {
       dialogOpen: false,
       message: null,
-      mode: 'link',
       isSubmitting: false,
     };
-  }
-
-  handleTabChange = (mode) => {
-    this.setState({ mode });
   }
 
   fail(context, prefix, transactionError, title) {
@@ -137,7 +132,7 @@ class CreateProjectMedia extends Component {
   };
 
   handleSubmit = (value) => {
-    if (this.state.mode === 'source') {
+    if (value.mode === 'source') {
       this.submitSource(value);
     } else {
       this.submitMedia(value);
@@ -147,7 +142,7 @@ class CreateProjectMedia extends Component {
   render() {
     return (
       <div>
-        <Button onClick={this.handleOpenDialog} color="primary" variant="contained">
+        <Button id="create-media__add-item" onClick={this.handleOpenDialog} color="primary" variant="contained">
           <FormattedMessage id="createMedia.addItem" defaultMessage="Add Item" />
         </Button>
         <CreateMediaDialog

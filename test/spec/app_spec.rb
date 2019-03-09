@@ -573,12 +573,15 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_team_and_project
       @driver.navigate.to @config['self_url']
       sleep 15
-      @driver.find_element(:css, '#create-media__source').click
+      wait_for_selector("create-media__add-item", :id).click
+      wait_for_selector("create-media__source", :id).click
+      # @driver.find_element(:css, '#').click
       sleep 1
       fill_field('#create-media-source-name-input', @source_name)
       fill_field('#create-media-source-url-input', @source_url)
       sleep 1
-      press_button('#create-media-submit')
+      # wait_for_selector('create-media-dialog__submit-button', :id).click
+      wait_for_selector('create-media-dialog__submit-button', :id).click
       sleep 45
       expect(@driver.current_url.to_s.match(/\/source\/[0-9]+$/).nil?).to be(false)
       title = wait_for_selector('.source__name').text
@@ -590,6 +593,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       id1 = @driver.current_url.to_s.gsub(/^.*\/source\//, '').to_i
       expect(id1 > 0).to be(true)
       @driver.navigate.to @driver.current_url.to_s.gsub(/\/source\/[0-9]+$/, '')
+      wait_for_selector("create-media__add-item", :id).click
       wait_for_selector("create-media-submit", :id)
       el = wait_for_selector('#create-media__source')
       el.click
@@ -597,7 +601,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       fill_field('#create-media-source-name-input', 'Megadeth')
       fill_field('#create-media-source-url-input', 'https://twitter.com/megadeth')
       sleep 1
-      press_button('#create-media-submit')
+      wait_for_selector('create-media-dialog__submit-button', :id).click
       wait_for_selector("source__tab-button-account", :class)
       id2 = @driver.current_url.to_s.gsub(/^.*\/source\//, '').to_i
       expect(id2 > 0).to be(true)
@@ -647,11 +651,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_team_and_project
       @driver.navigate.to @config['self_url']
       sleep 5
+      wait_for_selector("create-media__add-item", :id).click
       @driver.find_element(:css, '#create-media__source').click
       sleep 1
       fill_field('#create-media-source-url-input', 'https://twitter.com/IronMaiden/status/832726327459446784')
       sleep 1
-      press_button('#create-media-submit')
+      wait_for_selector('create-media-dialog__submit-button', :id).click
       sleep 15
       expect(@driver.current_url.to_s.match(/\/source\/[0-9]+$/).nil?).to be(true)
       message = wait_for_selector('.message').text
@@ -893,9 +898,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.navigate.to @driver.current_url.to_s.gsub(/\/media\/[0-9]+$/, '')
       sleep 3
       wait_for_selector("medias__item",:class)
+      wait_for_selector("create-media__add-item", :id).click
       fill_field('#create-media-input', @media_url)
       sleep 2
-      press_button('#create-media-submit')
+      wait_for_selector('create-media-dialog__submit-button', :id).click
       wait_for_selector("add-annotation__insert-photo",:class)
       id2 = @driver.current_url.to_s.gsub(/^.*\/media\//, '').to_i
       expect(id1 == id2).to be(true)
@@ -1220,8 +1226,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       current_window = @driver.window_handles.last
       @driver.execute_script("window.open('#{url}')")
       @driver.switch_to.window(@driver.window_handles.last)
+      wait_for_selector("create-media__add-item", :id).click
+      wait_for_selector("create-media-input", :id).click
       fill_field('#create-media-input', 'Auto-Refresh')
-      press_button('#create-media-submit')
+      wait_for_selector('create-media-dialog__submit-button', :id).click
       wait_for_selector('.medias__item')
       @driver.execute_script('window.close()')
       @driver.switch_to.window(current_window)
@@ -1993,13 +2001,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_team_and_project
       page = ProjectPage.new(config: @config, driver: @driver).load
       sleep 5
+      wait_for_selector("create-media__add-item", :id).click
       claimbutton = wait_for_selector('create-media__quote', :id)
       claimbutton.click
       sleep 1
       @driver.action.send_keys('Test').perform
       expect((@driver.current_url.to_s =~ /media/).nil?).to be(true)
       @driver.action.send_keys(:enter).perform
-      press_button('#create-media-submit')
+      # press_button('#create-media-submit')
       sleep 5
       wait_for_selector('.media-detail__check-timestamp').click
       expect((@driver.current_url.to_s =~ /media/).nil?).to be(false)
