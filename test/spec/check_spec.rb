@@ -17,21 +17,22 @@ shared_examples 'custom' do
   it "should find medias when searching by status", bin2: true do
     api_create_media_and_go_to_search_page
     sleep 3 #waiting load
-    wait_for_selector("//h3[contains(text(), '1 result')]",:xpath)
+    wait_for_selector("//span[contains(text(), '1 result')]",:xpath)
     old = wait_for_selector_list("medias__item", :class).length
+    wait_for_selector("search__open-dialog-button", :id).click
     el = wait_for_selector("//div[contains(text(), 'False')]",:xpath)
     el.click
     sleep 3 #due the reload
-    wait_for_selector("//h3[contains(text(), 'No results')]",:xpath)
+    wait_for_selector("//span[contains(text(), 'No results')]",:xpath)
     current = wait_for_selector_list("medias__item", :class).length
     expect(old > current).to be(true)
     expect(current == 0).to be(true)
     old = wait_for_selector_list("medias__item", :class).length
+    wait_for_selector("search__open-dialog-button", :id).click
     el = wait_for_selector("//div[contains(text(), 'Unstarted')]",:xpath)
     el.click
     sleep 3 #due the reload
-    wait_for_selector("//h3[contains(text(), '1 result')]",:xpath)
-    wait_for_selector("search-input", :id)
+    wait_for_selector("//span[contains(text(), '1 result')]",:xpath)
     current = wait_for_selector_list("medias__item", :class).length
     expect(old < current).to be(true)
     expect(current == 1).to be(true)
@@ -87,6 +88,7 @@ shared_examples 'custom' do
     api_create_claim_and_go_to_search_page
     before = wait_for_selector("search__results-heading", :class)
     txt = before.text
+    wait_for_selector("search__open-dialog-button", :id).click
     el = wait_for_selector("//*[contains(text(), 'Inconclusive')]", :xpath)
     el.click
     x = wait_for_selector("search__results-heading", :class)
@@ -94,6 +96,7 @@ shared_examples 'custom' do
     expect((@driver.title =~ /Inconclusive/).nil?).to be(false)
     expect((@driver.current_url.to_s.match(/not_applicable/)).nil?).to be(false)
     expect(@driver.page_source.include?('My search result')).to be(false)
+    wait_for_selector("search__open-dialog-button", :id).click
     el = wait_for_selector("//*[contains(text(), 'Unstarted')]", :xpath)
     el.click
     wait_for_text_change(txt, "search__results-heading", :class)
@@ -110,6 +113,8 @@ shared_examples 'custom' do
     txt = wait_for_text_change(txt, "search__results-heading", :class)
     expect((@driver.title =~ /False/).nil?).to be(false)
     expect(@driver.page_source.include?('My search result')).to be(false)
+    wait_for_selector("search__open-dialog-button", :id).click
+    wait_for_selector("search-form", :id)
     selected = @driver.find_elements(:css, '.media-tags__suggestion--selected').map(&:text).sort
     expect(selected == ['False', 'Created', 'Newest first', 'Media'].sort).to be(true)
   end

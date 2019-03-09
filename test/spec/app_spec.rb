@@ -1296,11 +1296,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should find all medias with an empty search", bin1: true do
       api_create_media_and_go_to_search_page
       old = wait_for_selector_list("medias__item", :class).length
+      wait_for_selector("search__open-dialog-button", :id).click
       el = wait_for_selector("search-input", :id)
       el.click
       @driver.action.send_keys(:enter).perform
       sleep 3 #due the reload
-      wait_for_selector("search-input", :id)
+      # wait_for_selector("search__open-dialog-button", :id)
       current = wait_for_selector_list("medias__item", :class).length
       expect(old == current).to be(true)
       expect(current > 0).to be(true)
@@ -1312,30 +1313,30 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       media = api_create_media(data: data, url: "https://twitter.com/TwitterVideo/status/931930009450795009")
       @driver.navigate.to @config['self_url'] + '/' + data[:team].slug + '/search'
       sleep 15 # because ES works on the background
-      wait_for_selector("//h3[contains(text(), '2 results')]",:xpath)
+      wait_for_selector("//span[contains(text(), '2 results')]",:xpath)
       old = wait_for_selector_list("medias__item", :class).length
       expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
       expect(@driver.page_source.include?('Meedan on Facebook')).to be(true)
-
+      wait_for_selector("search__open-dialog-button", :id).click
       el = wait_for_selector("search-input", :id)
       el.click
       el.send_keys "video"
       @driver.action.send_keys(:enter).perform
       sleep 3 # due the load
-      wait_for_selector("//h3[contains(text(), '1 result')]",:xpath)
+      wait_for_selector("//span[contains(text(), '1 result')]",:xpath)
       current = wait_for_selector_list("medias__item", :class).length
       expect(old > current).to be(true)
       expect(current > 0).to be(true)
       expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
       expect(@driver.page_source.include?('Meedan on Facebook')).to be(false)
-
+      wait_for_selector("search__open-dialog-button", :id).click
       el = wait_for_selector("search-input", :id)
       el.clear
       el.click
       el.send_keys "meedan"
       @driver.action.send_keys(:enter).perform
       sleep 3 # due the load
-      wait_for_selector("//h3[contains(text(), '1 result')]",:xpath)
+      wait_for_selector("//span[contains(text(), '1 result')]",:xpath)
       current = wait_for_selector_list("medias__item", :class).length
       expect(old > current).to be(true)
       expect(current > 0).to be(true)
@@ -1681,13 +1682,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should search by project", bin2: true do
       api_create_claim_and_go_to_search_page
       expect((@driver.current_url.to_s.match(/project/)).nil?).to be(true)
-      el = wait_for_selector('.search-filter__project-chip')
-      el.click
+      wait_for_selector("search__open-dialog-button", :id).click
+      wait_for_selector('.search-filter__project-chip').click
       sleep 10
       expect((@driver.current_url.to_s.match(/project/)).nil?).to be(false)
       expect((@driver.title =~ /Project/).nil?).to be(false)
-      el = wait_for_selector('.search-filter__project-chip')
-      el.click
+      wait_for_selector("search__open-dialog-button", :id).click
+      wait_for_selector('.search-filter__project-chip').click
       sleep 10
       expect((@driver.title =~ /Project/).nil?).to be(true)
     end
@@ -1696,12 +1697,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_claim_and_go_to_search_page
       expect((@driver.current_url.to_s.match(/recent_activity/)).nil?).to be(true)
 
+      wait_for_selector("search__open-dialog-button", :id).click
       @driver.find_element(:xpath, "//span[contains(text(), 'Recent activity')]").click
       sleep 10
       expect((@driver.current_url.to_s.match(/recent_activity/)).nil?).to be(false)
       expect((@driver.current_url.to_s.match(/recent_added/)).nil?).to be(true)
       expect(@driver.page_source.include?('My search result')).to be(true)
 
+      wait_for_selector("search__open-dialog-button", :id).click
       @driver.find_element(:xpath, "//span[contains(text(), 'Created')]").click
       sleep 10
       expect((@driver.current_url.to_s.match(/recent_activity/)).nil?).to be(true)
@@ -1713,6 +1716,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_claim_and_go_to_search_page
       expect((@driver.current_url.to_s.match(/ASC|DESC/)).nil?).to be(true)
 
+      wait_for_selector("search__open-dialog-button", :id).click
       @driver.find_element(:xpath, "//span[contains(text(), 'Newest')]").click
       sleep 10
       expect((@driver.current_url.to_s.match(/DESC/)).nil?).to be(false)
@@ -1731,6 +1735,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/search/%7B"projects"%3A%5B0%5D%7D'
       sleep 10
       expect(@driver.page_source.include?('My search result')).to be(false)
+      wait_for_selector("search__open-dialog-button", :id).click
       selected = @driver.find_elements(:css, '.media-tags__suggestion--selected')
       expect(selected.size == 3).to be(true)
     end
@@ -1740,6 +1745,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/search/%7B"sort"%3A"recent_activity"%7D'
       sleep 10
       expect(@driver.page_source.include?('My search result')).to be(true)
+      wait_for_selector("search__open-dialog-button", :id).click
       selected = @driver.find_elements(:css, '.media-tags__suggestion--selected').map(&:text).sort
       expect(selected == ['Recent activity', 'Newest first', 'Media'].sort).to be(true)
     end
@@ -1749,6 +1755,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/search/%7B"sort_type"%3A"ASC"%7D'
       sleep 10
       expect(@driver.page_source.include?('My search result')).to be(true)
+      wait_for_selector("search__open-dialog-button", :id).click
       selected = @driver.find_elements(:css, '.media-tags__suggestion--selected').map(&:text).sort
       expect(selected == ['Created', 'Oldest first', 'Media'].sort).to be(true)
     end

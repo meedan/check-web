@@ -469,7 +469,7 @@ class SearchQueryComponent extends React.Component {
 
     return (
       <div>
-        <IconButton onClick={this.handleDialogOpen}>
+        <IconButton id="search__open-dialog-button" onClick={this.handleDialogOpen}>
           <FilterListIcon />
         </IconButton>
         <PageTitle prefix={title} skipTeam={false} team={this.props.team}>
