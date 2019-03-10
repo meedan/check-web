@@ -666,7 +666,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should tag source multiple times with commas with command", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('Motorhead', 'https://twitter.com/mymotorhead')
       sleep 5
-      @driver.find_element(:css, '.source__tab-button-notes').click
+      wait_for_selector('.source__tab-button-notes').click
 
       fill_field('#cmd-input', '/tag foo, bar')
       @driver.action.send_keys(:enter).perform
