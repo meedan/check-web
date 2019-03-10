@@ -1,5 +1,5 @@
 import React from 'react';
-import { injectIntl } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 import { Link } from 'react-router';
 import Card from '@material-ui/core/Card';
 import LayersIcon from '@material-ui/icons/Layers';
@@ -12,6 +12,13 @@ import MediaUtil from './MediaUtil';
 import { getStatus, getStatusStyle } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
 import { units, Row, black38 } from '../../styles/js/shared';
+
+const messages = defineMessages({
+  relatedCount: {
+    id: 'smallMediaCard.relatedCount',
+    defaultMessage: '{relatedCount} related items',
+  },
+});
 
 const RelationIcon = styled.div`
   svg {
@@ -47,11 +54,11 @@ const SmallMediaCard = (props) => {
   const { media, intl: { locale } } = props;
   const status = getStatus(mediaStatuses(media), mediaLastStatus(media));
 
-  let hasRelationships = false;
+  let relatedCount = 0;
 
   if (media.relationships) {
     const { sources_count, targets_count } = media.relationships;
-    hasRelationships = Boolean(sources_count || targets_count);
+    relatedCount = sources_count + targets_count;
   }
 
   const isRtl = rtlDetect.isRtlLang(locale);
@@ -60,7 +67,7 @@ const SmallMediaCard = (props) => {
     ? `/${media.team.slug}/project/${media.project_id}/media/${media.dbid}`
     : null;
 
-  const image = media.media.picture;
+  const image = media.media.thumbnail_path || media.media.picture;
   const data = typeof media.embed === 'string' ? JSON.parse(media.embed) : media.embed;
 
   return (
@@ -93,9 +100,13 @@ const SmallMediaCard = (props) => {
                       {MediaUtil.title(media, data, props.intl)}
                     </Link>
                   </div>
-                  { hasRelationships ?
+                  { relatedCount ?
                     <RelationIcon>
-                      <LayersIcon />
+                      <LayersIcon
+                        titleAccess={
+                          props.intl.formatMessage(messages.relatedCount, { relatedCount })
+                        }
+                      />
                     </RelationIcon> : null
                   }
                 </UpperRow>

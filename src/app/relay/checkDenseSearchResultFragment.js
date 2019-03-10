@@ -25,6 +25,7 @@ const checkSearchResultFragment = Relay.QL`
           }
           media {
             picture
+            thumbnail_path
           }
           team {
             slug
