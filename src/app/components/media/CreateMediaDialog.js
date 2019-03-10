@@ -26,7 +26,6 @@ class CreateMediaDialog extends React.Component {
             isSubmitting={this.props.isSubmitting}
             onSubmit={this.props.onSubmit}
             submitHidden
-            noSource
           />
         </DialogContent>
         <DialogActions>

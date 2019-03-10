@@ -166,6 +166,7 @@ class CreateMediaInput extends React.Component {
         quoteAttributions,
         image,
         title,
+        mode: this.state.mode,
       });
     }
 
@@ -185,6 +186,7 @@ class CreateMediaInput extends React.Component {
       return ({
         source_name: inputValue,
         source_url: url,
+        mode: 'source',
       });
     }
 

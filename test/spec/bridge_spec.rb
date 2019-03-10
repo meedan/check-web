@@ -31,16 +31,16 @@ shared_examples 'custom' do
     sleep 3 #wait for ES to settle
     wait_for_selector("//h3[contains(text(), '1 result')]",:xpath)
     old = wait_for_selector_list("medias__item", :class).length
-    el = wait_for_selector("//div[contains(text(), 'Translated')]",:xpath)
-    el.click
+    wait_for_selector("search__open-dialog-button", :id).click
+    wait_for_selector("//div[contains(text(), 'Translated')]",:xpath).click
     sleep 3 #due the reload
     wait_for_selector("//h3[contains(text(), 'No results')]",:xpath)
     current = wait_for_selector_list("medias__item", :class).length
     expect(old > current).to be(true)
     expect(current == 0).to be(true)
     old = wait_for_selector_list("medias__item", :class).length
-    el = wait_for_selector("//div[contains(text(), 'Pending')]",:xpath)
-    el.click
+    wait_for_selector("search__open-dialog-button", :id).click
+    wait_for_selector("//div[contains(text(), 'Pending')]",:xpath).click
     sleep 3 #due the reload
     wait_for_selector("//h3[contains(text(), '1 result')]",:xpath)
     wait_for_selector("search-input", :id)
