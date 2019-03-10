@@ -670,7 +670,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       fill_field('#cmd-input', '/tag foo, bar')
       @driver.action.send_keys(:enter).perform
-      wait_for_selector('.annotation__default-content')
+      sleep 10
+      wait_all_elements(2, 'annotation__default-content', :class)
 
       expect(@driver.page_source.include?('Tagged #foo')).to be(true)
       expect(@driver.page_source.include?('Tagged #bar')).to be(true)

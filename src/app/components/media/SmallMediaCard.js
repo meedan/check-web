@@ -8,6 +8,7 @@ import styled from 'styled-components';
 import { CardWithBorder } from './MediaDetail';
 import MediaSelectable from './MediaSelectable';
 import ItemDeadline from './ItemDeadline';
+import MediaUtil from './MediaUtil';
 import { getStatus, getStatusStyle } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
 import { units, Row, black38 } from '../../styles/js/shared';
@@ -59,7 +60,8 @@ const SmallMediaCard = (props) => {
     ? `/${media.team.slug}/project/${media.project_id}/media/${media.dbid}`
     : null;
 
-  const image = media.media.picture || media.embed.picture;
+  const image = media.media.picture;
+  const data = typeof media.embed === 'string' ? JSON.parse(media.embed) : media.embed;
 
   return (
     <MediaSelectable media={media} onSelect={props.onSelect}>
@@ -88,7 +90,7 @@ const SmallMediaCard = (props) => {
                 <UpperRow>
                   <div style={{ overflow: 'hidden', maxHeight: units(5) }}>
                     <Link to={mediaUrl}>
-                      {media.embed.title}
+                      {MediaUtil.title(media, data, props.intl)}
                     </Link>
                   </div>
                   { hasRelationships ?

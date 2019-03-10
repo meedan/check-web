@@ -9,6 +9,7 @@ const checkSearchResultFragment = Relay.QL`
         node {
           id,
           dbid,
+          domain,
           embed,
           relationships { sources_count, targets_count },
           verification_statuses,
