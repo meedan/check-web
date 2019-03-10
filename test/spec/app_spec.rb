@@ -314,14 +314,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector("card-with-border", :class)
       expect(@driver.page_source.include?("The Who's official Twitter page")).to be(false)
       expect(@driver.page_source.include?('Happy birthday Mick')).to be(true)
-      el = wait_for_selector("//span[contains(text(), 'Sources')]", :xpath)
-      el.click
+      wait_for_selector("search__open-dialog-button", :id).click
+      wait_for_selector("//span[contains(text(), 'Sources')]", :xpath).click
       wait_for_selector("source-card", :class)
       expect(@driver.page_source.include?("The Who's official Twitter page")).to be(true)
       expect(@driver.page_source.include?('Happy birthday Mick')).to be(true)
       old = @driver.find_elements(:class, "medias__item").length
-      el = wait_for_selector("//span[contains(text(), 'Media')]", :xpath)
-      el.click
+      wait_for_selector("search__open-dialog-button", :id).click
+      wait_for_selector("//span[contains(text(), 'Media')]", :xpath).click
       wait_for_size_change(old, "medias__item", :class)
       @wait.until { @driver.page_source.include?('@thewho') }
       expect(@driver.page_source.include?("The Who's official Twitter page")).to be(true)
@@ -1376,8 +1376,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(true)
 
       # Create a claim under project 2
-      claimbutton = wait_for_selector('create-media__quote', :id)
-      claimbutton.click
+      wait_for_selector("create-media__add-item", :id).click
+      wait_for_selector('create-media__quote', :id).click
       sleep 1
       @driver.action.send_keys(claim).perform
       @driver.action.send_keys(:enter).perform
@@ -1829,8 +1829,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page = api_create_team_project_claims_sources_and_redirect_to_project_page 21
       page.load
       sleep 3
-      el = wait_for_selector("//span[contains(text(), 'Sources')]", :xpath, 100)
-      el.click
+      wait_for_selector("search__open-dialog-button", :id).click
+      wait_for_selector("//span[contains(text(), 'Sources')]", :xpath, 100).click
       wait_for_selector("source-card", :class)
       results = @driver.find_elements(:css, '.medias__item')
       expect(results.size == 40).to be(true)
@@ -2009,8 +2009,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page = ProjectPage.new(config: @config, driver: @driver).load
       sleep 5
       wait_for_selector("create-media__add-item", :id).click
-      claimbutton = wait_for_selector('create-media__quote', :id)
-      claimbutton.click
+      wait_for_selector('create-media__quote', :id).click
       sleep 1
       @driver.action.send_keys('Test').perform
       expect((@driver.current_url.to_s =~ /media/).nil?).to be(true)
