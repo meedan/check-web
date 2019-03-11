@@ -64,6 +64,7 @@ const StyledPopper = styled(Popper)`
   width: 100%;
   max-width: ${columnWidthMedium};
   padding: 0 ${units(1)};
+  z-index: 10000;
 
   table {
     width: 100%;
@@ -387,11 +388,25 @@ class SearchQueryComponent extends React.Component {
   }
 
   handleDialogOpen = () => {
-    this.setState({ dialogOpen: true });
+    this.setState({
+      dialogOpen: true,
+      popper: {
+        open: false,
+        allowed: this.state.popper.allowed,
+        anchorEl: null,
+      },
+    });
   };
 
   handleDialogClose = () => {
-    this.setState({ dialogOpen: false });
+    this.setState({
+      dialogOpen: false,
+      popper: {
+        open: false,
+        allowed: this.state.popper.allowed,
+        anchorEl: null,
+      },
+    });
   };
 
   // Create title out of query parameters
