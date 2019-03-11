@@ -82,7 +82,7 @@ const SmallMediaCard = (props) => {
         >
           <div
             className={props.selected ? 'media-detail__card-header-selected' : 'media-detail__card-header'}
-            style={{ padding: units(1), height: units(12) }}
+            style={{ padding: units(1), height: units(12), cursor: media.dbid === 0 ? 'wait' : 'default' }}
           >
             <Row>
               { image ?
