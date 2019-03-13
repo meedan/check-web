@@ -28,7 +28,7 @@
   "annotation.taskResolve": "قام {author} بإجابة مهمة : {task}{response}",
   "annotation.reverseImageSearch": "بحث",
   "annotation.translation": "قام {author} بترجمة العنصر إلى {language}{translation}",
-  "annotation.emptyMachineTranslation": "أضف ترجمة مميكنة",
+  "annotation.emptyMachineTranslation": "إضافة ترجمة مميكنة",
   "annotation.machineTranslation": "الترجمة المميكنة إلى {language}{text}",
   "annotation.translationStatus": "قام {author} بتغيير حالة الترجمة إلى {status}",
   "annotation.translationPublished": "تم نشر الترجمة على {link}",

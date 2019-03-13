@@ -7,6 +7,8 @@
   "search.newTranslationRequestNotification": "Nova solicitação de tradução",
   "search.newTranslationNotification": "Nova tradução",
   "search.newTranslationNotificationBody": "Um ítem foi marcado como \"traduzido\"",
+  "search.sortByOldest": "Mais antigos primeiro",
+  "search.sortByNewest": "Mais recentes primeiro",
   "search.help": "<table>\n                        <tbody>\n                          <tr><td>+</td><td>Árvore + Folha</td><td>Itens com ambos \"Árvore\" e \"Folha\"</td></tr>\n                          <tr><td>|</td><td>Árvore | Folha</td><td>Itens com alguma de \"Árvore\" ou \"Folha\"</td></tr>\n                          <tr><td>()</td><td>Árvore + (Folha | Ramo)</td><td>Itens com \"Árvore\" e \"Folha\" ou itens com \"Árvore\" e \"Ramo\"</td></tr>\n                        </tbody>\n                      </table>\n                      <div>\n                        <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                          Saiba mais sobre as técnicas de pesquisa\n                        </a>\n                      </div>",
   "search.statusHeading": "Status",
   "search.projectHeading": "Projeto",
@@ -14,8 +16,6 @@
   "search.sort": "Ordenar",
   "search.sortByCreated": "Criado",
   "search.sortByRecentActivity": "Atividade recente",
-  "search.sortByNewest": "Mais recentes primeiro",
-  "search.sortByOldest": "Mais antigos primeiro",
   "search.show": "Mostrar",
   "search.showMedia": "Mídia",
   "search.showSources": "Fontes"
