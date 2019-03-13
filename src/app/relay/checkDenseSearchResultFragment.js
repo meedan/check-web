@@ -11,6 +11,8 @@ const checkSearchResultFragment = Relay.QL`
           dbid,
           domain,
           embed,
+          quote,
+          overridden,
           relationships { sources_count, targets_count },
           verification_statuses,
           translation_statuses,
@@ -24,6 +26,9 @@ const checkSearchResultFragment = Relay.QL`
             locked
           }
           media {
+            url,
+            embed,
+            quote,
             picture
             thumbnail_path
           }
