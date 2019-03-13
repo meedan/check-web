@@ -175,7 +175,7 @@ class UserFeedback extends React.Component {
           { this.state.value ?
             <Button
               className="user-feedback__save-button"
-              variant="raised"
+              variant="contained"
               color="primary"
               fullWidth
               onClick={this.handleSubmitRating.bind(this)}

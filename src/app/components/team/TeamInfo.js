@@ -110,7 +110,7 @@ const TeamInfo = (props) => {
         </Row>
         {showUpgradeButton ?
           <Button
-            variant="raised"
+            variant="contained"
             color="primary"
             onClick={handleClickUpgrade}
           >
