@@ -113,12 +113,16 @@ class SearchResultsComponent extends React.Component {
            !isEqual(this.props.search, nextProps.search);
   }
 
-  componentWillUpdate() {
-    this.unsubscribe();
+  componentWillUpdate(nextProps) {
+    if (this.props.search.pusher_channel !== nextProps.search.pusher_channel) {
+      this.unsubscribe();
+    }
   }
 
-  componentDidUpdate() {
-    this.subscribe();
+  componentDidUpdate(prevProps) {
+    if (this.props.search.pusher_channel !== prevProps.search.pusher_channel) {
+      this.subscribe();
+    }
   }
 
   componentWillUnmount() {
