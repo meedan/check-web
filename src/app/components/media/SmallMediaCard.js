@@ -70,6 +70,9 @@ const SmallMediaCard = (props) => {
   const image = media.media.thumbnail_path || media.media.picture;
   const data = typeof media.embed === 'string' ? JSON.parse(media.embed) : media.embed;
 
+  media.url = media.media.url;
+  media.quote = media.media.quote;
+
   return (
     <MediaSelectable media={media} onSelect={props.onSelect}>
       <CardWithBorder
