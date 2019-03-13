@@ -47,12 +47,16 @@ class MediaRelatedComponent extends Component {
     this.subscribe();
   }
 
-  componentWillUpdate() {
-    this.unsubscribe();
+  componentWillUpdate(nextProps) {
+    if (this.props.media.dbid !== nextProps.media.dbid) {
+      this.unsubscribe();
+    }
   }
 
-  componentDidUpdate() {
-    this.subscribe();
+  componentDidUpdate(prevProps) {
+    if (this.props.media.dbid !== prevProps.media.dbid) {
+      this.subscribe();
+    }
   }
 
   componentWillUnmount() {
