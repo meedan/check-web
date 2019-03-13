@@ -12,6 +12,7 @@ class BulkUpdateProjectMediaMutation extends Relay.Mutation {
       fragment on UpdateProjectMediaPayload {
         affectedIds
         check_search_project_was { id, number_of_results }
+        check_search_project { id, medias, number_of_results }
       }
     `;
   }
@@ -43,6 +44,12 @@ class BulkUpdateProjectMediaMutation extends Relay.Mutation {
   getConfigs() {
     let configs = [];
     if (this.props.srcProject) {
+      const fieldIDs = {
+        check_search_project_was: this.props.srcProject.search_id,
+      };
+      if (this.props.dstProject) {
+        fieldIDs.check_search_project = this.props.dstProject.search_id;
+      }
       configs = [
         {
           type: 'NODE_DELETE',
@@ -53,7 +60,7 @@ class BulkUpdateProjectMediaMutation extends Relay.Mutation {
         },
         {
           type: 'FIELDS_CHANGE',
-          fieldIDs: { check_search_project_was: this.props.srcProject.search_id },
+          fieldIDs,
         },
       ];
     }
