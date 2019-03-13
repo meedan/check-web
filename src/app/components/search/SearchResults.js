@@ -29,7 +29,7 @@ const pageSize = 20;
 const messages = defineMessages({
   searchResults: {
     id: 'search.results',
-    defaultMessage: '{resultsCount, plural, =0 {No results} one {1 result} other {# results}}',
+    defaultMessage: '{resultsCount, plural, =0 {No results} one {1 result} other {{loadedCount} of # results}}',
   },
   newTranslationRequestNotification: {
     id: 'search.newTranslationRequestNotification',
@@ -45,7 +45,7 @@ const messages = defineMessages({
   },
   searchResultsWithSelection: {
     id: 'search.resultsWithSelection',
-    defaultMessage: '{resultsCount, plural, =0 {No results} one {1 result} other {# results}} ({selectedCount, plural, =0 {None selected} one {1 selected} other {# selected}})',
+    defaultMessage: '{resultsCount, plural, =0 {No results} one {1 result} other {{loadedCount} of # results}} ({selectedCount, plural, =0 {None selected} one {1 selected} other {# selected}})',
   },
 });
 
@@ -254,10 +254,12 @@ class SearchResultsComponent extends React.Component {
     const mediasCount =
       this.state.selectedMedia.length ?
         this.props.intl.formatMessage(messages.searchResultsWithSelection, {
+          loadedCount: searchResults.length,
           resultsCount: count,
           selectedCount: this.state.selectedMedia.length,
         }) :
         this.props.intl.formatMessage(messages.searchResults, {
+          loadedCount: searchResults.length,
           resultsCount: count,
         });
 
