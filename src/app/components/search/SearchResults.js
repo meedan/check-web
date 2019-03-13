@@ -29,7 +29,7 @@ const pageSize = 20;
 const messages = defineMessages({
   searchResults: {
     id: 'search.results',
-    defaultMessage: '{resultsCount, plural, =0 {No results} one {1 result} other {{loadedCount} of # results}}',
+    defaultMessage: '{resultsCount, plural, =0 {No items} one {1 item} other {{loadedCount} of # items}}',
   },
   newTranslationRequestNotification: {
     id: 'search.newTranslationRequestNotification',
@@ -45,7 +45,7 @@ const messages = defineMessages({
   },
   searchResultsWithSelection: {
     id: 'search.resultsWithSelection',
-    defaultMessage: '{resultsCount, plural, =0 {No results} one {1 result} other {{loadedCount} of # results}} ({selectedCount, plural, =0 {None selected} one {1 selected} other {# selected}})',
+    defaultMessage: '{resultsCount, plural, =0 {No items} one {1 item} other {{loadedCount} of # items}} {selectedCount, plural, =0 {} one {(1 selected)} other {(# selected)}}',
   },
 });
 

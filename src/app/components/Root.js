@@ -82,6 +82,7 @@ class Root extends Component {
 
   static pusherLog(message) {
     if (config.pusherDebug) {
+      // eslint-disable-next-line no-console
       console.log(`[Pusher] ${message}`);
     }
   }

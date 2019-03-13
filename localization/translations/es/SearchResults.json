@@ -1,7 +1,7 @@
 {
-  "search.results": "{resultsCount, plural, =0 {Sin resultados} one {1 resultado} other {# resultados}}",
+  "search.results": "{resultsCount, plural, =0 {Sin ítems} one {1 ítem} other {{loadedCount} de # ítem}}",
   "search.newTranslationRequestNotification": "Nueva solicitud de traducción",
   "search.newTranslationNotification": "Nueva traducción",
-  "search.newTranslationNotificationBody": "Un ítem fue marcado como “traducido” ",
-  "search.resultsWithSelection": "{resultsCount, plural, =0 {No results} one {1 result} other {# results}} ({selectedCount, plural, =0 {None selected} one {1 selected} other {# selected}})"
+  "search.newTranslationNotificationBody": "Un ítem fue marcado como traducido",
+  "search.resultsWithSelection": "{resultsCount, plural, =0 {Sin ítems} one {1 ítem} other {{loadedCount} de # ítems}} {selectedCount, plural, =0 {} one {(1 seleccionado)} other {(# seleccionados)}}"
 }
