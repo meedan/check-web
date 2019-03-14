@@ -11,14 +11,16 @@ import { searchQueryFromUrl } from './Search';
 import SearchQuery from './SearchQuery';
 import Toolbar from './Toolbar';
 import BulkActions from '../media/BulkActions';
-import SmallMediaCard from '../media/SmallMediaCard';
 import MediaDetail from '../media/MediaDetail';
+import MediasLoading from '../media/MediasLoading';
+import SmallMediaCard from '../media/SmallMediaCard';
 import SourceCard from '../source/SourceCard';
 import ProjectBlankState from '../project/ProjectBlankState';
 import { can } from '../Can';
 import { notify, safelyParseJSON } from '../../helpers';
 import { black87, units, ContentColumn } from '../../styles/js/shared';
 import CheckContext from '../../CheckContext';
+import SearchRoute from '../../relay/SearchRoute';
 import checkSearchResultFragment from '../../relay/checkSearchResultFragment';
 import checkDenseSearchResultFragment from '../../relay/checkDenseSearchResultFragment';
 import bridgeSearchResultFragment from '../../relay/bridgeSearchResultFragment';
@@ -369,19 +371,31 @@ SearchResultsComponent.propTypes = {
   intl: intlShape.isRequired,
 };
 
-const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsComponent), {
-  initialVariables: {
-    pageSize,
-  },
-  fragments: {
-    search: () => {
-      const dense = window.location.pathname.match(/.*\/project\/\d+\/dense(.*)/);
-      if (dense) {
-        return checkDenseSearchResultFragment;
-      }
-      return config.appName === 'bridge' ? bridgeSearchResultFragment : checkSearchResultFragment;
+const SearchResults = (props) => {
+  const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsComponent), {
+    initialVariables: {
+      pageSize,
     },
-  },
-});
+    fragments: {
+      search: () => {
+        if (props.view === 'dense') {
+          return checkDenseSearchResultFragment;
+        }
+        return config.appName === 'bridge' ? bridgeSearchResultFragment : checkSearchResultFragment;
+      },
+    },
+  });
 
-export default SearchResultsContainer;
+  const resultsRoute = new SearchRoute({ query: JSON.stringify(props.query) });
+
+  return (
+    <Relay.RootContainer
+      Component={SearchResultsContainer}
+      route={resultsRoute}
+      renderFetched={data => <SearchResultsContainer {...props} {...data} />}
+      renderLoading={() => <MediasLoading />}
+    />
+  );
+};
+
+export default SearchResults;
