@@ -1313,7 +1313,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       media = api_create_media(data: data, url: "https://twitter.com/TwitterVideo/status/931930009450795009")
       @driver.navigate.to @config['self_url'] + '/' + data[:team].slug + '/search'
       sleep 15 # because ES works on the background
-      wait_for_selector("//span[contains(text(), '2 results')]",:xpath)
+      wait_for_selector("//span[contains(text(), '2 items')]",:xpath)
       old = wait_for_selector_list("medias__item", :class).length
       expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
       expect(@driver.page_source.include?('Meedan on Facebook')).to be(true)
@@ -1323,7 +1323,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.send_keys "video"
       @driver.action.send_keys(:enter).perform
       sleep 3 # due the load
-      wait_for_selector("//span[contains(text(), '1 result')]",:xpath)
+      wait_for_selector("//span[contains(text(), '1 item')]",:xpath)
       current = wait_for_selector_list("medias__item", :class).length
       expect(old > current).to be(true)
       expect(current > 0).to be(true)
@@ -1336,7 +1336,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.send_keys "meedan"
       @driver.action.send_keys(:enter).perform
       sleep 3 # due the load
-      wait_for_selector("//span[contains(text(), '1 result')]",:xpath)
+      wait_for_selector("//span[contains(text(), '1 item')]",:xpath)
       current = wait_for_selector_list("medias__item", :class).length
       expect(old > current).to be(true)
       expect(current > 0).to be(true)
@@ -1363,7 +1363,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.navigate.to p1url
       sleep 10
       expect(@driver.page_source.include?(claim)).to be(false)
-      expect(@driver.page_source.include?('1 result')).to be(false)
+      expect(@driver.page_source.include?('1 item')).to be(false)
       expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(true)
 
       # Go to the second project, make sure that there is no claim, and thus store the data in local Relay store
@@ -1372,7 +1372,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.project-list__link + .project-list__link', :css).click
       sleep 10
       expect(@driver.page_source.include?(claim)).to be(false)
-      expect(@driver.page_source.include?('1 result')).to be(false)
+      expect(@driver.page_source.include?('1 item')).to be(false)
       expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(true)
 
       # Create a claim under project 2
@@ -1389,7 +1389,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.project-list__link + .project-list__link', :css).click
       sleep 10
       expect(@driver.page_source.include?(claim)).to be(true)
-      expect(@driver.page_source.include?('1 result')).to be(true)
+      expect(@driver.page_source.include?('1 item')).to be(true)
       expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(false)
 
       # Move the claim to another project
@@ -1413,7 +1413,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Check if the claim is under the first project, which we should have been redirected to
       expect(@driver.current_url.to_s == p1url).to be(true)
       expect(@driver.page_source.include?(claim)).to be(true)
-      expect(@driver.page_source.include?('1 result')).to be(true)
+      expect(@driver.page_source.include?('1 item')).to be(true)
       expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(false)
 
       # Go back to the second project and make sure that the claim is not there anymore
@@ -1421,21 +1421,21 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 2
       wait_for_selector('.project-list__link + .project-list__link', :css).click
       sleep 15
-      expect(@driver.page_source.include?('1 result')).to be(false)
+      expect(@driver.page_source.include?('1 item')).to be(false)
       expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(true)
 
       # Reload the first project page and make sure that the claim is there
       @driver.navigate.to p1url
       sleep 10
       expect(@driver.page_source.include?(claim)).to be(true)
-      expect(@driver.page_source.include?('1 result')).to be(true)
+      expect(@driver.page_source.include?('1 item')).to be(true)
       expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(false)
 
       # Reload the second project page and make sure that the claim is not there
       @driver.navigate.to p2url
       sleep 10
       expect(@driver.page_source.include?(claim)).to be(false)
-      expect(@driver.page_source.include?('1 result')).to be(false)
+      expect(@driver.page_source.include?('1 item')).to be(false)
       expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(true)
     end
 
