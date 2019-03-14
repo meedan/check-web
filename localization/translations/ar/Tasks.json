@@ -1,9 +1,9 @@
 {
   "tasks.cancelAdd": "إلغاء",
   "tasks.add": "إضافة",
-  "tasks.addTask": "أضف مهمة",
+  "tasks.addTask": "إضافة مهمة",
   "tasks.shortAnswer": "إجابة قصيرة",
   "tasks.taskLabel": "عنوان المهمة",
   "tasks.description": "وصف",
-  "tasks.addDescription": "أضف وصف"
+  "tasks.addDescription": "إضافة وصف"
 }

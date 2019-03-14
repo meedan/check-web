@@ -1,14 +1,9 @@
 {
   "bulkActions.move": "نقل ‏‏العناصر المحددة إلى مشروع آخر",
-  "bulkActions.delete": "حذف ‏‏العناصر المحددة ",
+  "bulkActions.sendItemsToTrash": "ارسال العناصر المحددة إلى سلة المهملات",
   "bulkActions.selectAll": "‏‏تحديد كافة العناصر في الصفحة",
   "bulkActions.movedSuccessfully": "تم ! يرجى ملاحظة أن الأمر قد يستغرق بعض الوقت حتى يتم نقل العناصر بالفعل.",
-  "bulkActions.deletedSuccessfully": "تم ! يرجى ملاحظة أن الأمر قد يستغرق بعض الوقت حتى يتم حذف العناصر بالفعل.",
+  "bulkActions.moveToTrashSuccessfully": "تم ! يرجى ملاحظة أن الأمر قد يستغرق بعض الوقت حتى يتم نقل العناصر إلى سلة المهملات بالفعل.",
   "bulkActions.cancelButton": "إلغاء",
-  "bulkActions.moveTitle": "نقل",
-  "bulkActions.deleteForever": "حذف نهائي",
-  "bulkActions.moveDialogHeader": "نقل إلى مشروع آخر",
-  "bulkActions.deleteForeverConfirmationText": "هل أنت متأكد ؟ سوف يتم حذف نهائي {count, plural, =0 {٠ عنصر} one {عنصر واحد} other {# عناصر}}. أكتب عدد العناصر ({count}) للمتابعة.",
-  "bulkActions.confirmationError": "قيمة خاطئة",
-  "bulkActions.typeHere": "أكتب هنا"
+  "bulkActions.moveTitle": "نقل"
 }

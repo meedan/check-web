@@ -2,8 +2,6 @@
   "createMedia.submitting": "جاري الإرسال ...",
   "createMedia.error": "عذراً ، لقد واجهنا خطأ ما اثناء التواصل مع الخادم الذى أرجع رسالة خطأ {code}. من فضلك أعد المحاولة وتواصل مع فريق الدعم إن استمر الخطأ.",
   "createMedia.errorTitle": "عذراً ، لقد واجهنا خطأ ما اثناء إرسال العنصر. من فضلك أعد المحاولة وتواصل مع فريق الدعم إن استمر الخطأ.",
-  "createMedia.imageTitle": "ارفع صورة",
-  "createMedia.sourceTitle": "أضف مصدراً",
-  "createMedia.linkTitle": "أضف رابطاً",
-  "createMedia.quoteTitle": "أضف إدعائاً"
+  "createMedia.addItem": "إضافة عنصر",
+  "createMedia.addNewItem": "إضافة عنصر جديد"
 }

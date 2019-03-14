@@ -77,7 +77,7 @@ class MemeEditor extends React.Component {
         <div>
           <TextField
             name="statusText"
-            label="Status Text"
+            label="Status text"
             onChange={this.handleChange}
             value={this.props.params.statusText}
             margin="normal"

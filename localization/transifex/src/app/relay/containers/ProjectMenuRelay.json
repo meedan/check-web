@@ -1,3 +1,5 @@
 {
-  "projectMenuRelay.editProject": "Edit project"
+  "projectMenuRelay.editProject": "Edit project",
+  "projectMenuRelay.listView": "List view",
+  "projectMenuRelay.denseView": "Compact view"
 }
