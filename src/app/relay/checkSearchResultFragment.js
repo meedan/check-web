@@ -50,6 +50,7 @@ const checkSearchResultFragment = Relay.QL`
             quote,
             embed_path,
             thumbnail_path
+            picture
           }
           team {
             slug

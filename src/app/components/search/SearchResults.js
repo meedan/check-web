@@ -24,6 +24,7 @@ import SearchRoute from '../../relay/SearchRoute';
 import checkSearchResultFragment from '../../relay/checkSearchResultFragment';
 import checkDenseSearchResultFragment from '../../relay/checkDenseSearchResultFragment';
 import bridgeSearchResultFragment from '../../relay/bridgeSearchResultFragment';
+import bridgeDenseSearchResultFragment from '../../relay/bridgeDenseSearchResultFragment';
 
 // TODO Make this a config
 const pageSize = 20;
@@ -379,7 +380,7 @@ const SearchResults = (props) => {
     fragments: {
       search: () => {
         if (props.view === 'dense') {
-          return checkDenseSearchResultFragment;
+          return config.appName === 'bridge' ? bridgeDenseSearchResultFragment : checkDenseSearchResultFragment;
         }
         return config.appName === 'bridge' ? bridgeSearchResultFragment : checkSearchResultFragment;
       },
