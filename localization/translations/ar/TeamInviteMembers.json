@@ -14,9 +14,9 @@
   "teamInviteMembers.inviteMembers": "إضافة اﻷعضاء الى دور",
   "teamInviteMembers.inviteMember": "دعوة",
   "teamInviteMembers.customInvitation": "رسالة الدعوة (اختيارية)",
-  "teamInviteMembers.addSeparate": "أضف أعضاء بشكل منفصل",
-  "teamInviteMembers.addAnother": "أضف آخراً",
-  "teamInviteMembers.addMany": "أضف أعضاء بالجملة",
+  "teamInviteMembers.addSeparate": "إضافة أعضاء بشكل منفصل",
+  "teamInviteMembers.addAnother": "إضافة اخرى",
+  "teamInviteMembers.addMany": "إضافة بالجملة",
   "teamInviteMembers.cancelAdd": "إلغاء",
   "teamInviteMembers.send": "إرسال"
 }

@@ -202,7 +202,11 @@ class MemebusterComponent extends React.Component {
       memebuster_overlay: this.state.params.overlayColor,
     };
 
-    const onFailure = () => { console.log('failure'); }; // TODO handle failure
+    const onFailure = (transaction) => {
+      const error = transaction.getError();
+      // eslint-disable-next-line no-console
+      console.error(`Error performing Memebuster mutation: ${error}`);
+    };
 
     const annotation = this.getLastSaveAnnotation();
 

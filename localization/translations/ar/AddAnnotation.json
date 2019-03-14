@@ -2,11 +2,11 @@
   "addAnnotation.invalidCommand": " أمر غير صالح",
   "addAnnotation.annotationAdded": "تم إضافة {type}",
   "addAnnotation.error": "عذراً ، لقد واجهنا خطأ ما اثناء التواصل مع الخادم الذى أرجع رسالة خطأ {code}. من فضلك أعد المحاولة وتواصل مع فريق الدعم إن استمر الخطأ.",
-  "addAnnotation.inputHint": "أضف تعليقاً",
+  "addAnnotation.inputHint": "إضافة تعليق",
   "addAnnotation.submitButton": "إرسال",
   "addAnnotation.typeComment": "ملحوظة",
   "addAnnotation.typeTag": "وسم",
   "addAnnotation.typeStatus": "الحالة",
   "addAnnotation.typeFlag": "إبلاغ",
-  "addAnnotation.addImage": "أضف صورة"
+  "addAnnotation.addImage": "إضافة صورة"
 }

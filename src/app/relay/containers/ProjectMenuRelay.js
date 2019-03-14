@@ -44,7 +44,7 @@ class ProjectMenu extends Component {
 
     const viewTooltip = this.props.children.props.route.view === 'dense'
       ? <FormattedMessage id="projectMenuRelay.listView" defaultMessage="List view" />
-      : <FormattedMessage id="projectMenuRelay.denseView" defaultMessage="Dense view" />;
+      : <FormattedMessage id="projectMenuRelay.denseView" defaultMessage="Compact view" />;
 
     const toggleViewButton = (
       <SmallerStyledIconButton

@@ -1,7 +1,7 @@
 {
-  "singleChoiceTask.addValue": "أضف خياراً",
+  "singleChoiceTask.addValue": "إضافة خيار",
   "singleChoiceTask.value": "القيمة",
-  "singleChoiceTask.addOther": "أضف \"آخر\"",
+  "singleChoiceTask.addOther": "إضافة خيار (آخر)",
   "singleChoiceTask.other": "آخر",
   "singleChoiceTask.newTask": "مهمة جديدة",
   "singleChoiceTask.editTask": "تحرير المهمة",

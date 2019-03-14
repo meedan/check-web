@@ -5,6 +5,5 @@
   "bulkActions.movedSuccessfully": "Done! Please note that it can take a while until the items are actually moved.",
   "bulkActions.moveToTrashSuccessfully": "Done! Please note that it can take a while until the items are actually moved to the trash.",
   "bulkActions.cancelButton": "Cancel",
-  "bulkActions.moveTitle": "Move",
-  "bulkActions.moveDialogHeader": "Move to a different project"
+  "bulkActions.moveTitle": "Move"
 }

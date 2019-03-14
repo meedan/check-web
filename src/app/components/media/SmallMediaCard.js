@@ -11,7 +11,7 @@ import ItemDeadline from './ItemDeadline';
 import MediaUtil from './MediaUtil';
 import { getStatus, getStatusStyle } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
-import { units, Row, black38 } from '../../styles/js/shared';
+import { black38, units, Offset, Row } from '../../styles/js/shared';
 
 const messages = defineMessages({
   relatedCount: {
@@ -76,7 +76,7 @@ const SmallMediaCard = (props) => {
   return (
     <MediaSelectable media={media} onSelect={props.onSelect}>
       <CardWithBorder
-        fromDirection="left"
+        fromDirection={isRtl ? 'right' : 'left'}
         borderColor={getStatusStyle(status, 'backgroundColor')}
       >
         <Card
@@ -89,11 +89,11 @@ const SmallMediaCard = (props) => {
           >
             <Row>
               { image ?
-                <div style={{ marginRight: units(1) }}>
+                <Offset isRtl={isRtl}>
                   <Link to={mediaUrl}>
                     <img src={image} alt="item thumbnail" width={units(10)} height={units(10)} />
                   </Link>
-                </div>
+                </Offset>
                 : null
               }
               <Content>

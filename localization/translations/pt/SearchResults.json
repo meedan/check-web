@@ -1,0 +1,7 @@
+{
+  "search.results": "{resultsCount, plural, =0 {Nenhum item} one {1 item} other {{loadedCount} de # itens}}",
+  "search.newTranslationRequestNotification": "Novo pedido de tradução",
+  "search.newTranslationNotification": "Nova tradução",
+  "search.newTranslationNotificationBody": "Um ítem foi marcado como \"traduzido\"",
+  "search.resultsWithSelection": "{resultsCount, plural, =0 {Nenhum item} one {1 item} other {{loadedCount} de # itens}} {selectedCount, plural, =0 {} one {(1 selecionado)} other {(# selecionados)}}"
+}
