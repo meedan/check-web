@@ -12,10 +12,39 @@ class UpdateStatusMutation extends Relay.Mutation {
     case 'source':
       return Relay.QL`fragment on UpdateDynamicPayload { dynamicEdge, source { log, log_count, id } }`;
     case 'project_media':
-      return Relay.QL`fragment on UpdateDynamicPayload { dynamicEdge, project_media { log, id, last_status, last_status_obj, log_count } }`;
+      return Relay.QL`fragment on UpdateDynamicPayload { dynamicEdge, project_media { targets, log, id, last_status, last_status_obj, log_count } }`;
     default:
       return '';
     }
+  }
+
+  getOptimisticResponse() {
+    if (this.props.parent_type === 'project_media') {
+      const media = this.props.annotated;
+      const targets = [];
+      if (media.targets && media.targets.edges.length > 0) {
+        media.targets.edges.forEach((target) => {
+          const node = {
+            id: target.node.id,
+            last_status: this.props.annotation.status,
+          };
+          targets.push({ node });
+        });
+      }
+      return {
+        project_media: {
+          id: media.id,
+          last_status: this.props.annotation.status,
+          last_status_obj: {
+            id: this.props.annotation.status_id,
+          },
+          targets: {
+            edges: targets,
+          },
+        },
+      };
+    }
+    return {};
   }
 
   getVariables() {

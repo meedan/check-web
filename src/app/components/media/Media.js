@@ -27,6 +27,14 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
         published,
         archived,
         relationships { sources_count, targets_count },
+        targets(first: 10000) {
+          edges {
+            node {
+              id
+              last_status
+            }
+          }
+        },
         url,
         embed,
         last_status,
