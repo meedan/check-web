@@ -389,6 +389,15 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
           private
           slug
           search_id
+          team_bot_installations(first: 10000) {
+            edges {
+              node {
+                team_bot {
+                  identifier
+                }
+              }
+            }
+          }
         }
       }
 `,
