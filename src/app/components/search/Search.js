@@ -19,7 +19,11 @@ export function urlFromSearchQuery(query, prefix) {
   return isEqual(query, {}) ? prefix : `${prefix}/${encodeURIComponent(JSON.stringify(query))}`;
 }
 
-class Search extends React.PureComponent {
+class Search extends React.Component {
+  shouldComponentUpdate(nextProps) {
+    return !isEqual(this.props, nextProps);
+  }
+
   noFilters(query_) {
     const query = query_;
     delete query.timestamp;
