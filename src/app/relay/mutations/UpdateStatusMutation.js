@@ -21,8 +21,25 @@ class UpdateStatusMutation extends Relay.Mutation {
   getOptimisticResponse() {
     if (this.props.parent_type === 'project_media') {
       const media = this.props.annotated;
-      const targets = [];
-      if (media.targets && media.targets.edges.length > 0) {
+      let smoochBotInstalled = false;
+      if (media.team && media.team.team_bot_installations) {
+        media.team.team_bot_installations.edges.forEach((edge) => {
+          if (edge.node.team_bot.identifier === 'smooch') {
+            smoochBotInstalled = true;
+          }
+        });
+      }
+      const obj = {
+        project_media: {
+          id: media.id,
+          last_status: this.props.annotation.status,
+          last_status_obj: {
+            id: this.props.annotation.status_id,
+          },
+        },
+      };
+      if (smoochBotInstalled && media.targets && media.targets.edges.length > 0) {
+        const targets = [];
         media.targets.edges.forEach((target) => {
           const node = {
             id: target.node.id,
@@ -30,19 +47,9 @@ class UpdateStatusMutation extends Relay.Mutation {
           };
           targets.push({ node });
         });
+        obj.project_media.targets = { edges: targets };
       }
-      return {
-        project_media: {
-          id: media.id,
-          last_status: this.props.annotation.status,
-          last_status_obj: {
-            id: this.props.annotation.status_id,
-          },
-          targets: {
-            edges: targets,
-          },
-        },
-      };
+      return obj;
     }
     return {};
   }
