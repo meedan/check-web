@@ -1,11 +1,8 @@
-import React, { Component } from 'react';
-import Relay from 'react-relay/classic';
+import React from 'react';
 import isEqual from 'lodash.isequal';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
-import SearchResultsContainer from './SearchResults';
+import SearchResults from './SearchResults';
 import { safelyParseJSON } from '../../helpers';
-import SearchRoute from '../../relay/SearchRoute';
-import MediasLoading from '../media/MediasLoading';
 
 const statusKey = config.appName === 'bridge' ? 'translation_status' : 'verification_status';
 
@@ -22,12 +19,9 @@ export function urlFromSearchQuery(query, prefix) {
   return isEqual(query, {}) ? prefix : `${prefix}/${encodeURIComponent(JSON.stringify(query))}`;
 }
 
-class Search extends Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    if (isEqual(this.props, nextProps) && isEqual(this.state, nextState)) {
-      return false;
-    }
-    return true;
+class Search extends React.Component {
+  shouldComponentUpdate(nextProps) {
+    return !isEqual(this.props, nextProps);
   }
 
   noFilters(query_) {
@@ -73,16 +67,9 @@ class Search extends Component {
       query.parent = { type: 'team', slug: teamSlug };
     }
 
-    const resultsRoute = new SearchRoute({ query: JSON.stringify(query) });
-
     return (
       <div className="search">
-        <Relay.RootContainer
-          Component={SearchResultsContainer}
-          route={resultsRoute}
-          renderFetched={data => <SearchResultsContainer {...this.props} {...data} />}
-          renderLoading={() => <MediasLoading />}
-        />
+        <SearchResults {...this.props} query={query} />
       </div>
     );
   }

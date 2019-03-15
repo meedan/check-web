@@ -11,17 +11,20 @@ import { searchQueryFromUrl } from './Search';
 import SearchQuery from './SearchQuery';
 import Toolbar from './Toolbar';
 import BulkActions from '../media/BulkActions';
-import SmallMediaCard from '../media/SmallMediaCard';
 import MediaDetail from '../media/MediaDetail';
+import MediasLoading from '../media/MediasLoading';
+import SmallMediaCard from '../media/SmallMediaCard';
 import SourceCard from '../source/SourceCard';
 import ProjectBlankState from '../project/ProjectBlankState';
 import { can } from '../Can';
 import { notify, safelyParseJSON } from '../../helpers';
 import { black87, units, ContentColumn } from '../../styles/js/shared';
 import CheckContext from '../../CheckContext';
+import SearchRoute from '../../relay/SearchRoute';
 import checkSearchResultFragment from '../../relay/checkSearchResultFragment';
 import checkDenseSearchResultFragment from '../../relay/checkDenseSearchResultFragment';
 import bridgeSearchResultFragment from '../../relay/bridgeSearchResultFragment';
+import bridgeDenseSearchResultFragment from '../../relay/bridgeDenseSearchResultFragment';
 
 // TODO Make this a config
 const pageSize = 20;
@@ -369,19 +372,34 @@ SearchResultsComponent.propTypes = {
   intl: intlShape.isRequired,
 };
 
-const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsComponent), {
-  initialVariables: {
-    pageSize,
-  },
-  fragments: {
-    search: () => {
-      const dense = window.location.pathname.match(/.*\/project\/\d+\/dense(.*)/);
-      if (dense) {
-        return checkDenseSearchResultFragment;
-      }
-      return config.appName === 'bridge' ? bridgeSearchResultFragment : checkSearchResultFragment;
-    },
-  },
-});
+// eslint-disable-next-line react/no-multi-comp
+class SearchResults extends React.PureComponent {
+  render() {
+    const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsComponent), {
+      initialVariables: {
+        pageSize,
+      },
+      fragments: {
+        search: () => {
+          if (this.props.view === 'dense') {
+            return config.appName === 'bridge' ? bridgeDenseSearchResultFragment : checkDenseSearchResultFragment;
+          }
+          return config.appName === 'bridge' ? bridgeSearchResultFragment : checkSearchResultFragment;
+        },
+      },
+    });
 
-export default SearchResultsContainer;
+    const resultsRoute = new SearchRoute({ query: JSON.stringify(this.props.query) });
+
+    return (
+      <Relay.RootContainer
+        Component={SearchResultsContainer}
+        route={resultsRoute}
+        renderFetched={data => <SearchResultsContainer {...this.props} {...data} />}
+        renderLoading={() => <MediasLoading />}
+      />
+    );
+  }
+}
+
+export default SearchResults;

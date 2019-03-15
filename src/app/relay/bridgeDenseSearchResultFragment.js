@@ -1,6 +1,6 @@
 import Relay from 'react-relay/classic';
 
-const checkDenseSearchResultFragment = Relay.QL`
+const bridgeDenseSearchResultFragment = Relay.QL`
   fragment on CheckSearch {
     id,
     pusher_channel,
@@ -15,6 +15,7 @@ const checkDenseSearchResultFragment = Relay.QL`
           overridden,
           relationships { sources_count, targets_count },
           verification_statuses,
+          translation_statuses,
           project_id,
           permissions,
           deadline: field_value(annotation_type_field_name: "verification_status:deadline"),
@@ -30,6 +31,7 @@ const checkDenseSearchResultFragment = Relay.QL`
             quote,
             picture
             thumbnail_path
+            picture
           }
           team {
             slug
@@ -43,4 +45,4 @@ const checkDenseSearchResultFragment = Relay.QL`
   }
 `;
 
-module.exports = checkDenseSearchResultFragment;
+module.exports = bridgeDenseSearchResultFragment;
