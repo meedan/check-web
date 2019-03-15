@@ -17,13 +17,13 @@ shared_examples 'custom' do
   it "should find medias when searching by status", bin2: true do
     api_create_media_and_go_to_search_page
     sleep 3 #waiting load
-    wait_for_selector("//span[contains(text(), '1 result')]",:xpath)
+    wait_for_selector("//span[contains(text(), '1 item')]",:xpath)
     old = wait_for_selector_list("medias__item", :class).length
     wait_for_selector("search__open-dialog-button", :id).click
     el = wait_for_selector("//div[contains(text(), 'False')]",:xpath)
     el.click
     sleep 3 #due the reload
-    wait_for_selector("//span[contains(text(), 'No results')]",:xpath)
+    wait_for_selector("//span[contains(text(), 'No items')]",:xpath)
     current = wait_for_selector_list("medias__item", :class).length
     expect(old > current).to be(true)
     expect(current == 0).to be(true)
@@ -32,7 +32,7 @@ shared_examples 'custom' do
     el = wait_for_selector("//div[contains(text(), 'Unstarted')]",:xpath)
     el.click
     sleep 3 #due the reload
-    wait_for_selector("//span[contains(text(), '1 result')]",:xpath)
+    wait_for_selector("//span[contains(text(), '1 item')]",:xpath)
     current = wait_for_selector_list("medias__item", :class).length
     expect(old < current).to be(true)
     expect(current == 1).to be(true)

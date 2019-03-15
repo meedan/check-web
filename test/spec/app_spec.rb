@@ -1723,6 +1723,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect((@driver.current_url.to_s.match(/ASC/)).nil?).to be(true)
       expect(@driver.page_source.include?('My search result')).to be(true)
 
+      wait_for_selector("search__open-dialog-button", :id).click
       @driver.find_element(:xpath, "//span[contains(text(), 'Oldest')]").click
       sleep 20
       expect((@driver.current_url.to_s.match(/DESC/)).nil?).to be(true)
