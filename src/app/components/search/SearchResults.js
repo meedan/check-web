@@ -103,7 +103,6 @@ class SearchResultsComponent extends React.Component {
 
     this.state = {
       selectedMedia: [],
-      subscribed: false,
     };
   }
 
@@ -130,9 +129,7 @@ class SearchResultsComponent extends React.Component {
   }
 
   componentWillUnmount() {
-    if (this.state.subscribed) {
-      this.unsubscribe();
-    }
+    this.unsubscribe();
   }
 
   onSelect(id) {
@@ -170,16 +167,6 @@ class SearchResultsComponent extends React.Component {
       const { search: { pusher_channel: channel } } = this.props;
 
       pusher.unsubscribe(channel);
-
-      pusher.subscribe(channel).bind('bulk_update_start', 'Search', () => {
-        this.props.relay.forceFetch();
-        return true;
-      });
-
-      pusher.subscribe(channel).bind('bulk_update_end', 'Search', () => {
-        this.props.relay.forceFetch();
-        return true;
-      });
 
       pusher.subscribe(channel).bind('media_updated', 'Search', (data) => {
         const message = safelyParseJSON(data.message, {});
@@ -243,8 +230,6 @@ class SearchResultsComponent extends React.Component {
         }
         return false;
       });
-
-      this.setState({ subscribed: true });
     }
   }
 
@@ -252,7 +237,6 @@ class SearchResultsComponent extends React.Component {
     const { pusher } = this.currentContext();
     if (pusher && this.props.search.pusher_channel) {
       pusher.unsubscribe(this.props.search.pusher_channel);
-      this.setState({ subscribed: false });
     }
   }
 
