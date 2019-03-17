@@ -217,7 +217,10 @@ class MediaComponent extends Component {
             </ContentColumn>
             <ContentColumn className="media__annotations-column">
               <div style={{ paddingBottom: units(5) }}>
-                <MediaRelated media={media} showHeader />
+                <MediaRelated
+                  media={media}
+                  showHeader
+                />
               </div>
               <Annotations
                 annotations={media.log.edges}

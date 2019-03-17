@@ -27,6 +27,14 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
         published,
         archived,
         relationships { sources_count, targets_count },
+        targets(first: 10000) {
+          edges {
+            node {
+              id
+              last_status
+            }
+          }
+        },
         url,
         embed,
         last_status,
@@ -381,6 +389,15 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
           private
           slug
           search_id
+          team_bot_installations(first: 10000) {
+            edges {
+              node {
+                team_bot {
+                  identifier
+                }
+              }
+            }
+          }
         }
       }
 `,
