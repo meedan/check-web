@@ -1,5 +1,9 @@
 [
   {
+    "id": "memeEditor.image",
+    "defaultMessage": "Image"
+  },
+  {
     "id": "memeEditor.useDefaultImage",
     "defaultMessage": "Use default image"
   }

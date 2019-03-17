@@ -24,6 +24,7 @@ import MdImage from 'react-icons/lib/md/image';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import EmbedUpdate from './EmbedUpdate';
 import EmbedCreate from './EmbedCreate';
+import Memebuster from './Memebuster';
 import TaskUpdate from './TaskUpdate';
 import SourcePicture from '../source/SourcePicture';
 import MediaDetail from '../media/MediaDetail';
@@ -684,6 +685,13 @@ class Annotation extends Component {
             );
           }
         }
+      } else if (object.annotation_type === 'memebuster') {
+        contentTemplate = (
+          <Memebuster
+            activity={activity}
+            object={object}
+            authorName={authorName}
+          />);
       }
       break;
     case 'create_dynamicannotationfield':
