@@ -10,6 +10,7 @@ import en from 'react-intl/locale-data/en';
 import fr from 'react-intl/locale-data/fr';
 import pt from 'react-intl/locale-data/pt';
 import es from 'react-intl/locale-data/es';
+import deepEqual from 'deep-equal';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import App from './App';
 import RootLocale from './RootLocale';
@@ -116,9 +117,14 @@ class Root extends Component {
           }
           checkPusher.subscribedChannels[channel].forEach((component) => {
             const eventData = Object.assign({ component }, data);
-            checkPusher.queue[channel][eventName].push(eventData);
+            const eventFinder = x => (deepEqual(x, eventData));
+            if (checkPusher.queue[channel][eventName].find(eventFinder)) {
+              Root.pusherLog(`Not adding event ${eventName} to the queue of channel ${channel} because it is already there`);
+            } else {
+              checkPusher.queue[channel][eventName].push(eventData);
+              Root.pusherLog(`Adding event ${eventName} to queue of channel ${channel} for component ${component}`);
+            }
           });
-          Root.pusherLog(`Adding event ${eventName} to queue of channel ${channel}`);
         } else {
           Root.pusherLog(`Ignoring event ${eventName} for channel ${channel}`);
         }

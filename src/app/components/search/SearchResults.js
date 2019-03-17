@@ -103,6 +103,7 @@ class SearchResultsComponent extends React.Component {
 
     this.state = {
       selectedMedia: [],
+      subscribed: false,
     };
   }
 
@@ -129,7 +130,9 @@ class SearchResultsComponent extends React.Component {
   }
 
   componentWillUnmount() {
-    this.unsubscribe();
+    if (this.state.subscribed) {
+      this.unsubscribe();
+    }
   }
 
   onSelect(id) {
@@ -168,22 +171,24 @@ class SearchResultsComponent extends React.Component {
 
       pusher.unsubscribe(channel);
 
+      pusher.subscribe(channel).bind('bulk_update_start', 'Search', () => {
+        this.props.relay.forceFetch();
+        return true;
+      });
+
+      pusher.subscribe(channel).bind('bulk_update_end', 'Search', () => {
+        this.props.relay.forceFetch();
+        return true;
+      });
+
       pusher.subscribe(channel).bind('media_updated', 'Search', (data) => {
         const message = safelyParseJSON(data.message, {});
         const { currentUser } = this.currentContext();
         const currentUserId = currentUser ? currentUser.dbid : 0;
         const avatar = config.restBaseUrl.replace(/\/api.*/, '/images/bridge.png');
 
-        let content = null;
-        try {
-          content = message.quote || message.url || message.file.url;
-        } catch (e) {
-          content = null;
-        }
-
         // Notify other users that there is a new translation request
         if (
-          content &&
           message.class_name === 'translation_request' &&
           currentUserId !== message.user_id
         ) {
@@ -193,35 +198,11 @@ class SearchResultsComponent extends React.Component {
           );
           notify(
             this.props.intl.formatMessage(messages.newTranslationRequestNotification),
-            content,
+            '',
             url,
             avatar,
             '_self',
           );
-        } else if (
-          message.annotation_type === 'translation_status' &&
-          currentUserId !== message.annotator_id
-        ) {
-          // Notify other users that there is a new translation
-          let translated = false;
-          message.data.fields.forEach((field) => {
-            if (field.field_name === 'translation_status_status' && field.value === 'translated') {
-              translated = true;
-            }
-          });
-          if (translated) {
-            const url = window.location.pathname.replace(
-              /(^\/[^/]+\/project\/[0-9]+).*/,
-              `$1/media/${message.annotated_id}`,
-            );
-            notify(
-              this.props.intl.formatMessage(messages.newTranslationNotification),
-              this.props.intl.formatMessage(messages.newTranslationNotificationBody),
-              url,
-              avatar,
-              '_self',
-            );
-          }
         }
 
         if (this.currentContext().clientSessionId !== data.actor_session_id) {
@@ -230,6 +211,8 @@ class SearchResultsComponent extends React.Component {
         }
         return false;
       });
+
+      this.setState({ subscribed: true });
     }
   }
 
@@ -237,6 +220,7 @@ class SearchResultsComponent extends React.Component {
     const { pusher } = this.currentContext();
     if (pusher && this.props.search.pusher_channel) {
       pusher.unsubscribe(this.props.search.pusher_channel);
+      this.setState({ subscribed: false });
     }
   }
 
