@@ -2,20 +2,7 @@ import React from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 
 const Memebuster = (props) => {
-  const { activity, authorName } = props;
-
-  const content =
-    activity.annotation.content ? JSON.parse(activity.annotation.content) : null;
-
-  if (!content) {
-    return null;
-  }
-
-  const operation = content.find(it => it.field_name === 'memebuster_operation');
-
-  if (!operation) {
-    return null;
-  }
+  const { object, authorName } = props;
 
   const operation_log = {
     save: (
@@ -40,7 +27,7 @@ const Memebuster = (props) => {
 
   return (
     <span className="annotation__update-embed">
-      {operation_log[operation.value]}
+      {operation_log[object.value]}
     </span>
   );
 };

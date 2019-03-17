@@ -685,13 +685,6 @@ class Annotation extends Component {
             );
           }
         }
-      } else if (object.annotation_type === 'memebuster') {
-        contentTemplate = (
-          <Memebuster
-            activity={activity}
-            object={object}
-            authorName={authorName}
-          />);
       }
       break;
     case 'create_dynamicannotationfield':
@@ -1071,6 +1064,16 @@ class Annotation extends Component {
             </span>
           );
         }
+      }
+
+      if (object.field_name === 'memebuster_operation') {
+        contentTemplate = (
+          <Memebuster
+            activity={activity}
+            object={object}
+            authorName={authorName}
+          />
+        );
       }
 
       if (object.field_name === 'embed_code_copied') {
