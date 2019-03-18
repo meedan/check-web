@@ -152,6 +152,22 @@ class DrawerNavigation extends Component {
       </a>
     );
 
+    const releaseNotesMenuItem = (
+      <a
+        key="drawer.releaseNotesMenuItem"
+        style={styles.drawerFooterLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        href="https://docs.google.com/document/d/1xihUAGdHRgbCdLejqD9cjVMIEekYisObFGCdDcZGkZI"
+      >
+        <MenuItem
+          primaryText={
+            <FormattedMessage id="headerActions.releaseNotes" defaultMessage="Release Notes" />
+          }
+        />
+      </a>
+    );
+
     const checkLogo = <img width={units(8)} alt="Team Logo" src={stringHelper('LOGO_URL')} />;
 
     const userIsOwner =
@@ -212,6 +228,8 @@ class DrawerNavigation extends Component {
               {loggedIn ? <div><UserMenuItems hideContactMenuItem {...this.props} /></div> : null}
 
               {productGuidesMenuItem}
+
+              {releaseNotesMenuItem}
 
               {showUpgradeButton ?
                 <FlatButton
