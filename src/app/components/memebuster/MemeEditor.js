@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import { CirclePicker } from 'react-color';
 import UploadImage from '../UploadImage';
 import { mediaStatuses } from '../../customHelpers';
-import { units } from '../../styles/js/shared';
+import { black54, caption, units } from '../../styles/js/shared';
 
 class MemeEditor extends React.Component {
   constructor(props) {
@@ -39,6 +39,7 @@ class MemeEditor extends React.Component {
   };
 
   handleDefaultImage() {
+    document.getElementById('remove-image').click();
     const image = this.props.media.media.picture;
     this.props.onParamChange({ image });
   }
@@ -48,6 +49,7 @@ class MemeEditor extends React.Component {
 
     return (
       <div style={{ fontFamily: 'Roboto', fontSize: 14, lineHeight: '1.5em' }}>
+        <span style={{ font: caption, color: black54 }}><FormattedMessage id="memeEditor.image" defaultMessage="Image" /> *</span>
         <UploadImage onImage={this.handleImage} onClear={this.handleClearImage} />
         <p>
           <Button onClick={this.handleDefaultImage.bind(this)}>
@@ -64,6 +66,7 @@ class MemeEditor extends React.Component {
           value={this.props.params.headline}
           margin="normal"
           fullWidth
+          required
         />
         <TextField
           name="description"
@@ -73,6 +76,7 @@ class MemeEditor extends React.Component {
           margin="normal"
           fullWidth
           multiline
+          required
         />
         <div>
           <TextField
@@ -81,6 +85,7 @@ class MemeEditor extends React.Component {
             onChange={this.handleChange}
             value={this.props.params.statusText}
             margin="normal"
+            required
           />
         </div>
         <div>
@@ -90,6 +95,7 @@ class MemeEditor extends React.Component {
             onChange={this.handleChange}
             value={this.props.params.overlayColor}
             margin="normal"
+            required
           />
         </div>
         <div style={{ marginBottom: units(2) }}>

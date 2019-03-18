@@ -1,0 +1,10 @@
+[
+  {
+    "id": "annotation.memeSaved",
+    "defaultMessage": "Meme saved by {author}"
+  },
+  {
+    "id": "annotation.memePublished",
+    "defaultMessage": "Meme published by {author}"
+  }
+]
