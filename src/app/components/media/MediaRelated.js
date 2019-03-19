@@ -153,7 +153,13 @@ class MediaRelatedComponent extends Component {
               }
               return (
                 <li key={item.node.dbid} className="medias__item" style={{ paddingBottom: units(1) }}>
-                  {<MediaDetail media={item.node} condensed parentComponent={this} hideRelated />}
+                  {<MediaDetail
+                    media={item.node}
+                    condensed
+                    parentComponent={this}
+                    parentComponentName="MediaRelated"
+                    hideRelated
+                  />}
                   {<ul className="empty" />}
                 </li>
               );
