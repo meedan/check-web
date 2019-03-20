@@ -1,6 +1,6 @@
 {
   "createMedia.submitting": "En chargement...",
-  "createMedia.error": "Une erreur s'est produite. Le serveur a répondu avec une erreur {code}. Prière de contacter notre support technique.",
+  "createMedia.error": "Une erreur s'est produite. Le serveur a répondu avec une erreur {code}. Veuillez contacter notre support technique.",
   "createMedia.errorTitle": "Il n'a pas été possible d'envoyer \"{title}\"",
   "createMedia.addItem": "Ajouter un élément",
   "createMedia.addNewItem": "Ajouter un nouvel élément"

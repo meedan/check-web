@@ -1,0 +1,7 @@
+{
+  "createMedia.submitting": "Submitting...",
+  "createMedia.error": "Something went wrong! The server returned an error code {code}. Please contact a system administrator.",
+  "createMedia.errorTitle": "Could not submit \"{title}\"",
+  "createMedia.addItem": "Add Item",
+  "createMedia.addNewItem": "Add new item"
+}

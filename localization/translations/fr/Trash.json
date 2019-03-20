@@ -1,7 +1,7 @@
 {
   "trash.title": "Corbeille",
   "trash.refresh": "Rafraîchir",
-  "trash.emptyInProgress": "Vidange de la corbeille en cours. Veuillez revérifier plus tard. {refresh}",
+  "trash.emptyInProgress": "Vidange de la corbeille en cours. Veuillez réessayer plus tard. {refresh}",
   "trash.cancel": "Annuler",
   "trash.deleteAll": "Tout supprimer",
   "trash.emptyTrash": "Vider la corbeille",
