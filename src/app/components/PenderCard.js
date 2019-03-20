@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import config from 'config'; // eslint-disable-line require-path-exists/exists
 import CircularProgress from './CircularProgress';
 import { units } from '../styles/js/shared';
 
@@ -49,7 +50,7 @@ class PenderCard extends Component {
   addTag() {
     const script = document.createElement('script');
     const version = this.props.mediaVersion || 0;
-    script.src = `${this.props.penderUrl}/api/medias.js?version=${version}&url=${encodeURIComponent(this.props.url)}`;
+    script.src = `${config.penderUrl}/api/medias.js?version=${version}&url=${encodeURIComponent(this.props.url)}`;
     script.async = true;
     script.type = 'text/javascript';
     const card = document.getElementById(this.props.domId);
@@ -102,6 +103,5 @@ class PenderCard extends Component {
 PenderCard.defaultProps = {
   domId: '0',
 };
-
 
 export default PenderCard;
