@@ -165,10 +165,16 @@ class MediaDetail extends Component {
   subscribe() {
     const { pusher } = this.getContext();
     if (pusher) {
-      pusher.subscribe(this.props.media.pusher_channel).bind('media_updated', 'MediaDetail', () => {
+      pusher.subscribe(this.props.media.pusher_channel).bind('media_updated', 'MediaDetail', (data, run) => {
         if (this.props.parentComponentName === 'MediaRelated') {
-          this.props.parentComponent.props.relay.forceFetch();
-          return true;
+          if (run) {
+            this.props.parentComponent.props.relay.forceFetch();
+            return true;
+          }
+          return {
+            id: `parent-media-${this.props.parentComponent.props.media.dbid}`,
+            callback: this.props.parentComponent.props.relay.forceFetch,
+          };
         }
         return false;
       });

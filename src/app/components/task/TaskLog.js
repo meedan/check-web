@@ -127,14 +127,20 @@ class TaskLogComponent extends Component {
   subscribe() {
     const { pusher } = this.getContext();
     if (pusher) {
-      pusher.subscribe(this.props.cachedTask.project_media.pusher_channel).bind('media_updated', 'TaskLog', (data) => {
+      pusher.subscribe(this.props.cachedTask.project_media.pusher_channel).bind('media_updated', 'TaskLog', (data, run) => {
         const annotation = JSON.parse(data.message);
         if (annotation.annotation_type === 'task' &&
           parseInt(annotation.id, 10) === parseInt(this.props.task.dbid, 10) &&
           this.getContext().clientSessionId !== data.actor_session_id
         ) {
-          this.props.relay.forceFetch();
-          return true;
+          if (run) {
+            this.props.relay.forceFetch();
+            return true;
+          }
+          return {
+            id: `task-log-${this.props.task.dbid}`,
+            callback: this.props.relay.forceFetch,
+          };
         }
         return false;
       });

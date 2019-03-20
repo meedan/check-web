@@ -171,17 +171,29 @@ class SearchResultsComponent extends React.Component {
 
       pusher.unsubscribe(channel);
 
-      pusher.subscribe(channel).bind('bulk_update_start', 'Search', () => {
-        this.props.relay.forceFetch();
-        return true;
+      pusher.subscribe(channel).bind('bulk_update_start', 'Search', (data, run) => {
+        if (run) {
+          this.props.relay.forceFetch();
+          return true;
+        }
+        return {
+          id: `search-${channel}`,
+          callback: this.props.relay.forceFetch,
+        };
       });
 
-      pusher.subscribe(channel).bind('bulk_update_end', 'Search', () => {
-        this.props.relay.forceFetch();
-        return true;
+      pusher.subscribe(channel).bind('bulk_update_end', 'Search', (data, run) => {
+        if (run) {
+          this.props.relay.forceFetch();
+          return true;
+        }
+        return {
+          id: `search-${channel}`,
+          callback: this.props.relay.forceFetch,
+        };
       });
 
-      pusher.subscribe(channel).bind('media_updated', 'Search', (data) => {
+      pusher.subscribe(channel).bind('media_updated', 'Search', (data, run) => {
         const message = safelyParseJSON(data.message, {});
         const { currentUser } = this.currentContext();
         const currentUserId = currentUser ? currentUser.dbid : 0;
@@ -206,8 +218,14 @@ class SearchResultsComponent extends React.Component {
         }
 
         if (this.currentContext().clientSessionId !== data.actor_session_id) {
-          this.props.relay.forceFetch();
-          return true;
+          if (run) {
+            this.props.relay.forceFetch();
+            return true;
+          }
+          return {
+            id: `search-${channel}`,
+            callback: this.props.relay.forceFetch,
+          };
         }
         return false;
       });
