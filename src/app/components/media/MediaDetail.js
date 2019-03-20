@@ -121,6 +121,18 @@ class MediaDetail extends Component {
     };
   }
 
+  componentDidMount() {
+    if (this.props.parentComponentName === 'MediaRelated') {
+      this.subscribe();
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.props.parentComponentName === 'MediaRelated') {
+      this.unsubscribe();
+    }
+  }
+
   getContext() {
     return new CheckContext(this).getContextStore();
   }
@@ -149,6 +161,32 @@ class MediaDetail extends Component {
       this.getContext().history.push(mediaUrl);
     }
   };
+
+  subscribe() {
+    const { pusher } = this.getContext();
+    if (pusher) {
+      pusher.subscribe(this.props.media.pusher_channel).bind('media_updated', 'MediaDetail', (data, run) => {
+        if (this.props.parentComponentName === 'MediaRelated') {
+          if (run) {
+            this.props.parentComponent.props.relay.forceFetch();
+            return true;
+          }
+          return {
+            id: `parent-media-${this.props.parentComponent.props.media.dbid}`,
+            callback: this.props.parentComponent.props.relay.forceFetch,
+          };
+        }
+        return false;
+      });
+    }
+  }
+
+  unsubscribe() {
+    const { pusher } = this.getContext();
+    if (pusher) {
+      pusher.unsubscribe(this.props.media.pusher_channel);
+    }
+  }
 
   render() {
     const {

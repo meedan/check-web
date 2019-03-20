@@ -31,6 +31,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
           edges {
             node {
               id
+              dbid
               last_status
             }
           }

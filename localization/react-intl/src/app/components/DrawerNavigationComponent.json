@@ -20,6 +20,10 @@
     "defaultMessage": "Product Guides"
   },
   {
+    "id": "headerActions.releaseNotes",
+    "defaultMessage": "Release Notes"
+  },
+  {
     "id": "drawer.upgradeButton",
     "defaultMessage": "Upgrade to PRO"
   }

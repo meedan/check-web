@@ -43,6 +43,7 @@ class UpdateStatusMutation extends Relay.Mutation {
         media.targets.edges.forEach((target) => {
           const node = {
             id: target.node.id,
+            dbid: 0,
             last_status: this.props.annotation.status,
           };
           targets.push({ node });
