@@ -54,7 +54,8 @@ class CreateProjectMedia extends Component {
       message = [this.props.intl.formatMessage(messages.errorTitle, { title }), message];
       message = message.join('<br />');
     }
-    this.setState({ message, isSubmitting: false });
+    this.context.setMessage(message);
+    this.setState({ isSubmitting: false });
   }
 
   submitSource(value) {
@@ -166,6 +167,7 @@ CreateProjectMedia.propTypes = {
 
 CreateProjectMedia.contextTypes = {
   store: PropTypes.object,
+  setMessage: PropTypes.func,
 };
 
 export default injectIntl(CreateProjectMedia);
