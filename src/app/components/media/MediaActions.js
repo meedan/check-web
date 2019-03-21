@@ -112,16 +112,18 @@ class MediaActions extends Component {
         </MenuItem>));
     }
 
-    menuItems.push((
-      <MenuItem
-        key="mediaActions.memebuster"
-        className="media-actions__memebuster"
-        id="media-actions__memebuster"
-        onClick={this.handleMemebuster}
-      >
-        <FormattedMessage id="mediaActions.memebuster" defaultMessage="Meme Generator" />
-      </MenuItem>
-    ));
+    if (can(media.permissions, 'update ProjectMedia') && !media.archived) {
+      menuItems.push((
+        <MenuItem
+          key="mediaActions.memebuster"
+          className="media-actions__memebuster"
+          id="media-actions__memebuster"
+          onClick={this.handleMemebuster}
+        >
+          <FormattedMessage id="mediaActions.memebuster" defaultMessage="Meme Generator" />
+        </MenuItem>
+      ));
+    }
 
     if (can(media.permissions, 'update Status') && !media.archived) {
       menuItems.push((
