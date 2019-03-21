@@ -105,6 +105,7 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
     return Promise.all(requests.map(request => (
       this._sendQuery(request).then((result) => {
         if (config.pusherDebug) {
+          // eslint-disable-next-line no-console
           console.log('%cSending request to backend ', 'font-weight: bold');
         }
         const { history } = this._init;

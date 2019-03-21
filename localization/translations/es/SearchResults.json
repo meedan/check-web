@@ -1,5 +1,5 @@
 {
-  "search.results": "{resultsCount, plural, =0 {Sin ítems} one {1 ítem} other {{loadedCount} de # ítem}}",
+  "search.results": "{resultsCount, plural, =0 {Sin ítems} one {1 ítem} other {{loadedCount} de # ítems}}",
   "search.newTranslationRequestNotification": "Nueva solicitud de traducción",
   "search.newTranslationNotification": "Nueva traducción",
   "search.newTranslationNotificationBody": "Un ítem fue marcado como traducido",

@@ -1,0 +1,12 @@
+{
+  "teamBots.confirmUninstall": "Are you sure you want to uninstall this bot?",
+  "teamBots.success": "Settings updated!",
+  "teamBots.fail": "Error! Please try again.",
+  "teamBots.noBots": "No bots installed.",
+  "teamBots.moreInfo": "More info",
+  "teamBots.inUse": "In Use",
+  "teamBots.settings": "Settings",
+  "teamBots.save": "Save",
+  "teamBots.noSettings": "There are no settings for this bot.",
+  "teamBots.botGarden": "Browse the Bot Garden"
+}
