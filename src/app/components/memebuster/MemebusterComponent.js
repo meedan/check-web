@@ -278,8 +278,8 @@ class MemebusterComponent extends React.Component {
     const annotation = this.getLastSaveAnnotation();
     const template = media.team.get_memebuster_template;
 
-    const saveDisabled = !can(media.permissions, 'create Dynamic') || !this.validate();
-    const publishDisabled = !can(media.permissions, 'update Status') || !this.validate();
+    const saveDisabled = !can(media.permissions, 'update ProjectMedia') || !this.validate();
+    const publishDisabled = !can(media.permissions, 'lock Annotation') || !this.validate();
 
     return (
       <PageTitle
