@@ -51,14 +51,16 @@ class MemeEditor extends React.Component {
       <div style={{ fontFamily: 'Roboto', fontSize: 14, lineHeight: '1.5em' }}>
         <span style={{ font: caption, color: black54 }}><FormattedMessage id="memeEditor.image" defaultMessage="Image" /> *</span>
         <UploadImage onImage={this.handleImage} onClear={this.handleClearImage} />
-        <p>
-          <Button onClick={this.handleDefaultImage.bind(this)}>
-            <FormattedMessage
-              id="memeEditor.useDefaultImage"
-              defaultMessage="Use default image"
-            />
-          </Button>
-        </p>
+        { this.props.media.media.picture ?
+          <p>
+            <Button onClick={this.handleDefaultImage.bind(this)}>
+              <FormattedMessage
+                id="memeEditor.useDefaultImage"
+                defaultMessage="Use default image"
+              />
+            </Button>
+          </p> : null
+        }
         <TextField
           name="headline"
           label="Headline"
