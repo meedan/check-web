@@ -33,6 +33,7 @@ import Teams from './team/Teams';
 import Trash from './team/Trash';
 import ProjectMedia from './media/Media';
 import MediaEmbed from './media/MediaEmbed';
+import Memebuster from './memebuster/Memebuster';
 import Project from './project/Project';
 import ProjectEdit from './project/ProjectEdit';
 import Search from './search/Search';
@@ -319,6 +320,7 @@ class Root extends Component {
 
                 <Route path=":team/project/:projectId/media/:mediaId" component={ProjectMedia} public />
                 <Route path=":team/project/:projectId/media/:mediaId/embed" component={MediaEmbed} public />
+                <Route path=":team/project/:projectId/media/:mediaId/memebuster" component={Memebuster} />
                 <Route path=":team/project/:projectId/source/:sourceId" component={Source} public />
                 <Route path=":team/project/:projectId/source/:sourceId/edit" isEditing component={Source} />
                 <Route path=":team/join" component={JoinTeam} />

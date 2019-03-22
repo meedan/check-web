@@ -21,6 +21,12 @@ class MediaActions extends Component {
     history.push(`/${media.team.slug}/project/${media.project_id}/media/${media.dbid}/embed`);
   }
 
+  handleMemebuster = () => {
+    const { media } = this.props;
+    const { history } = new CheckContext(this).getContextStore();
+    history.push(`/${media.team.slug}/project/${media.project_id}/media/${media.dbid}/memebuster`);
+  };
+
   render() {
     const {
       media,
