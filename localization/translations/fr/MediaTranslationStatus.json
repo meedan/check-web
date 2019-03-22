@@ -1,5 +1,5 @@
 {
   "mediaStatus.cancelMessage": "Annuler",
-  "mediaStatus.messageDescription": "Prière de rajouter un commentaire. Celui-ci sera transmis à l'usager pour l'informer que leur requête sera annulée.",
+  "mediaStatus.messageDescription": "Veuillez rajouter un commentaire. Celui-ci sera transmis à l'usager pour l'informer que leur requête sera annulée.",
   "mediaStatus.noteHint": "Appuyez sur Entrée pour envoyer"
 }

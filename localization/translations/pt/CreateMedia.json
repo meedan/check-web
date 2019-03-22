@@ -2,8 +2,6 @@
   "createMedia.submitting": "Enviando...",
   "createMedia.error": "Houve um erro. O servidor retornou o erro {code}. Por favor entre em contato com o suporte.",
   "createMedia.errorTitle": "Não foi possível enviar \"{title}\"",
-  "createMedia.imageTitle": "Enviar uma imagem",
-  "createMedia.sourceTitle": "Insira uma fonte",
-  "createMedia.linkTitle": "Insira um link",
-  "createMedia.quoteTitle": "Insira uma afirmação"
+  "createMedia.addItem": "Adicionar item",
+  "createMedia.addNewItem": "Adicionar novo item"
 }

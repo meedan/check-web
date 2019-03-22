@@ -78,7 +78,7 @@ class CheckContext {
       this.setContextStore({ currentUser: userData });
 
       if (userData && !userData.accepted_terms) {
-        this.getContextStore().history.push('/check/user/tos');
+        this.getContextStore().history.push('/check/user/terms-of-service');
       } else {
         this.maybeRedirect(this.caller.props.location.pathname, userData);
         this.setContext();

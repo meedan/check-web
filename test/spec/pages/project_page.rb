@@ -16,6 +16,7 @@ class ProjectPage < Page
 
   def create_media(options = {})
     sleep 2
+    wait_for_selector("create-media__add-item", :id).click
     wait_for_selector("create-media-submit", :id)
     fill_input('#create-media-input', options[:input])
     press(:enter)
@@ -27,10 +28,11 @@ class ProjectPage < Page
 
   def create_image_media(file)
     sleep 5
-    @driver.find_element(:css, '#create-media__image').click
+    wait_for_selector("create-media__add-item", :id).click
+    wait_for_selector('create-media__image', :id).click
     fill_input('input[type=file]', file, { hidden: true })
     sleep 3
-    @driver.find_element(:css, '#create-media-submit').click
+    wait_for_selector('create-media-dialog__submit-button', :id).click
     sleep 10
     wait_for_selector('.media-detail__check-timestamp').click
     wait_for_selector('.image-media-card')

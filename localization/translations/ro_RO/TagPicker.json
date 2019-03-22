@@ -1,0 +1,7 @@
+{
+  "tagPicker.emptyTags": "There are currently no tags for this team.",
+  "tagPicker.tagNotFound": "Tag #{tag} not found.",
+  "tagPicker.teamTags": "Teamwide tags",
+  "tagPicker.none": "None",
+  "tagPicker.teamOtherTags": "Custom tags"
+}

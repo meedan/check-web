@@ -2,8 +2,6 @@
   "createMedia.submitting": "Subiendo....",
   "createMedia.error": "Hubo un error. El servidor devolvió un código de error {code}. Por favor contacta al administrador del sistema. ",
   "createMedia.errorTitle": "No se pudo enviar \"{title}\"",
-  "createMedia.imageTitle": "Subir una foto",
-  "createMedia.sourceTitle": "Añadir una fuente",
-  "createMedia.linkTitle": "Añadir un enlace",
-  "createMedia.quoteTitle": "Añadir afirmación"
+  "createMedia.addItem": "Añadir ítem",
+  "createMedia.addNewItem": "Añadir un nuevo ítem"
 }

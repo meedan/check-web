@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { injectIntl, intlShape, defineMessages, FormattedMessage } from 'react-intl';
@@ -32,7 +32,7 @@ const messages = defineMessages({
   },
 });
 
-class BulkActions extends Component {
+class BulkActions extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

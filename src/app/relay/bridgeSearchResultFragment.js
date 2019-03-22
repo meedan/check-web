@@ -57,6 +57,7 @@ const bridgeSearchResultFragment = Relay.QL`
             quote,
             embed_path,
             thumbnail_path
+            picture
           }
           user {
             dbid,

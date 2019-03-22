@@ -47,6 +47,18 @@ class MediaRelatedComponent extends Component {
     this.subscribe();
   }
 
+  componentWillUpdate(nextProps) {
+    if (this.props.media.dbid !== nextProps.media.dbid) {
+      this.unsubscribe();
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.media.dbid !== prevProps.media.dbid) {
+      this.subscribe();
+    }
+  }
+
   componentWillUnmount() {
     this.unsubscribe();
   }
@@ -58,14 +70,22 @@ class MediaRelatedComponent extends Component {
   subscribe() {
     const { pusher } = this.getContext();
     if (pusher) {
-      pusher.subscribe(this.props.media.pusher_channel).bind('relationship_change', (data) => {
+      pusher.subscribe(this.props.media.pusher_channel).bind('relationship_change', 'MediaRelated', (data, run) => {
         const relationship = JSON.parse(data.message);
         if (
           (this.getContext().clientSessionId !== data.actor_session_id) &&
           (relationship.source_id === this.props.media.dbid)
         ) {
-          this.props.relay.forceFetch();
+          if (run) {
+            this.props.relay.forceFetch();
+            return true;
+          }
+          return {
+            id: `media-relationships-${this.props.media.dbid}`,
+            callback: this.props.relay.forceFetch,
+          };
         }
+        return false;
       });
     }
   }
@@ -99,7 +119,7 @@ class MediaRelatedComponent extends Component {
     } else if (sources.length > 0) {
       medias.push({ node: sources[0].node.source });
       sources[0].node.siblings.edges.forEach((sibling) => {
-        if (sibling.node.dbid !== this.props.media.dbid) {
+        if (sibling.node.id !== this.props.media.id) {
           medias.push(sibling);
         }
       });
@@ -138,8 +158,14 @@ class MediaRelatedComponent extends Component {
                 return null;
               }
               return (
-                <li key={item.node.dbid} className="medias__item" style={{ paddingBottom: units(1) }}>
-                  {<MediaDetail media={item.node} condensed parentComponent={this} hideRelated />}
+                <li key={item.node.id} className="medias__item" style={{ paddingBottom: units(1) }}>
+                  {<MediaDetail
+                    media={item.node}
+                    condensed
+                    parentComponent={this}
+                    parentComponentName="MediaRelated"
+                    hideRelated
+                  />}
                   {<ul className="empty" />}
                 </li>
               );

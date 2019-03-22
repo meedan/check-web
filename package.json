@@ -127,6 +127,7 @@
     "deep-equal": "^1.0.1",
     "email-validator": "^2.0.4",
     "express": "^4.14.0",
+    "ifvisible.js": "^1.0.6",
     "intl": "^1.2.5",
     "intl-locales-supported": "^1.0.0",
     "istanbul": "^0.4.5",

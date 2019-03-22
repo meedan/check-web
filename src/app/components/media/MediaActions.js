@@ -106,6 +106,28 @@ class MediaActions extends Component {
         </MenuItem>));
     }
 
+    let smoochBotInstalled = false;
+    if (media.team && media.team.team_bot_installations) {
+      media.team.team_bot_installations.edges.forEach((edge) => {
+        if (edge.node.team_bot.identifier === 'smooch') {
+          smoochBotInstalled = true;
+        }
+      });
+    }
+
+    if (smoochBotInstalled && can(media.permissions, 'update ProjectMedia') && !media.archived) {
+      menuItems.push((
+        <MenuItem
+          key="mediaActions.memebuster"
+          className="media-actions__memebuster"
+          id="media-actions__memebuster"
+          onClick={this.handleMemebuster}
+        >
+          <FormattedMessage id="mediaActions.memebuster" defaultMessage="Meme Generator" />
+        </MenuItem>
+      ));
+    }
+
     if (can(media.permissions, 'update Status') && !media.archived) {
       menuItems.push((
         <MenuItem

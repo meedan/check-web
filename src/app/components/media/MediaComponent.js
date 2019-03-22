@@ -94,9 +94,18 @@ class MediaComponent extends Component {
     this.subscribe();
   }
 
-  componentDidUpdate() {
+  componentWillUpdate(nextProps) {
+    if (this.props.media.dbid !== nextProps.media.dbid) {
+      this.unsubscribe();
+    }
+  }
+
+  componentDidUpdate(prevProps) {
     this.setCurrentContext();
     MediaComponent.scrollToAnnotation();
+    if (this.props.media.dbid !== prevProps.media.dbid) {
+      this.subscribe();
+    }
   }
 
   componentWillUnmount() {
@@ -117,23 +126,39 @@ class MediaComponent extends Component {
   subscribe() {
     const { pusher } = this.getContext();
     if (pusher) {
-      pusher.subscribe(this.props.media.pusher_channel).bind('relationship_change', (data) => {
+      pusher.subscribe(this.props.media.pusher_channel).bind('relationship_change', 'MediaComponent', (data, run) => {
         const relationship = JSON.parse(data.message);
         if (
           (!relationship.id || this.getContext().clientSessionId !== data.actor_session_id) &&
           (relationship.source_id === this.props.media.dbid)
         ) {
-          this.props.relay.forceFetch();
+          if (run) {
+            this.props.relay.forceFetch();
+            return true;
+          }
+          return {
+            id: `media-${this.props.media.dbid}`,
+            callback: this.props.relay.forceFetch,
+          };
         }
+        return false;
       });
 
-      pusher.subscribe(this.props.media.pusher_channel).bind('media_updated', (data) => {
+      pusher.subscribe(this.props.media.pusher_channel).bind('media_updated', 'MediaComponent', (data, run) => {
         const annotation = JSON.parse(data.message);
         if (annotation.annotated_id === this.props.media.dbid &&
           this.getContext().clientSessionId !== data.actor_session_id
         ) {
-          this.props.relay.forceFetch();
+          if (run) {
+            this.props.relay.forceFetch();
+            return true;
+          }
+          return {
+            id: `media-${this.props.media.dbid}`,
+            callback: this.props.relay.forceFetch,
+          };
         }
+        return false;
       });
     }
   }
@@ -204,7 +229,10 @@ class MediaComponent extends Component {
             </ContentColumn>
             <ContentColumn className="media__annotations-column">
               <div style={{ paddingBottom: units(5) }}>
-                <MediaRelated media={media} showHeader />
+                <MediaRelated
+                  media={media}
+                  showHeader
+                />
               </div>
               <Annotations
                 annotations={media.log.edges}

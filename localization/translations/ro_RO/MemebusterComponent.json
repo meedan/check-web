@@ -1,0 +1,6 @@
+{
+  "MemebusterComponent.publishing": "Publishing...",
+  "MemebusterComponent.lastPublished": "Last published {time} by {name}",
+  "MemebusterComponent.lastSaved": "Last saved {time} by {name}",
+  "MemebusterComponent.publish": "Publish"
+}

@@ -1,9 +1,11 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import { FormattedMessage } from 'react-intl';
 import { CirclePicker } from 'react-color';
 import UploadImage from '../UploadImage';
 import { mediaStatuses } from '../../customHelpers';
-import { units } from '../../styles/js/shared';
+import { black54, caption, units } from '../../styles/js/shared';
 
 class MemeEditor extends React.Component {
   constructor(props) {
@@ -36,12 +38,29 @@ class MemeEditor extends React.Component {
     this.handleImage(null);
   };
 
+  handleDefaultImage() {
+    document.getElementById('remove-image').click();
+    const image = this.props.media.media.picture;
+    this.props.onParamChange({ image });
+  }
+
   render() {
     const colors = mediaStatuses(this.props.media).statuses.map(s => s.style.color);
 
     return (
-      <div>
+      <div style={{ fontFamily: 'Roboto', fontSize: 14, lineHeight: '1.5em' }}>
+        <span style={{ font: caption, color: black54 }}><FormattedMessage id="memeEditor.image" defaultMessage="Image" /> *</span>
         <UploadImage onImage={this.handleImage} onClear={this.handleClearImage} />
+        { this.props.media.media.picture ?
+          <p>
+            <Button onClick={this.handleDefaultImage.bind(this)}>
+              <FormattedMessage
+                id="memeEditor.useDefaultImage"
+                defaultMessage="Use default image"
+              />
+            </Button>
+          </p> : null
+        }
         <TextField
           name="headline"
           label="Headline"
@@ -49,6 +68,7 @@ class MemeEditor extends React.Component {
           value={this.props.params.headline}
           margin="normal"
           fullWidth
+          required
         />
         <TextField
           name="description"
@@ -58,14 +78,16 @@ class MemeEditor extends React.Component {
           margin="normal"
           fullWidth
           multiline
+          required
         />
         <div>
           <TextField
             name="statusText"
-            label="Status Text"
+            label="Status text"
             onChange={this.handleChange}
             value={this.props.params.statusText}
             margin="normal"
+            required
           />
         </div>
         <div>
@@ -75,6 +97,7 @@ class MemeEditor extends React.Component {
             onChange={this.handleChange}
             value={this.props.params.overlayColor}
             margin="normal"
+            required
           />
         </div>
         <div style={{ marginBottom: units(2) }}>

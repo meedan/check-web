@@ -62,7 +62,7 @@ class HeaderComponent extends React.Component {
     const { team, teamSlug } = this.props;
 
     if (!team && teamSlug) {
-      this.getContext().history.push('/check/404');
+      this.getContext().history.push('/check/not-found');
     }
   };
 

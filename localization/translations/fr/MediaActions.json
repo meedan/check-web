@@ -3,10 +3,9 @@
   "mediaActions.restore": "Restaurer au projet",
   "mediaActions.move": "Transférer",
   "mediaActions.refresh": "Rafraîchir",
-  "mediaActions.sendToTrash": "Mettre à la corbeille",
+  "mediaActions.sendToTrash": "Envoyer à la corbeille",
   "mediaActions.embed": "Insérer...",
   "mediaActions.memebuster": "Generateur de mèmes",
-  "mediaActions.deleteForever": "Supprimer définitivement",
   "mediaActions.assignOrUnassign": "Affecter / annuler",
   "mediaActions.unlockStatus": "Déverouiller le statut",
   "mediaActions.lockStatus": "Verouiller le statut"

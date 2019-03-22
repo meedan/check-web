@@ -2,16 +2,29 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
-import IconEdit from 'material-ui/svg-icons/image/edit';
+import IconEdit from '@material-ui/icons/Edit';
+import ViewListIcon from '@material-ui/icons/ViewList';
+import ViewComfyIcon from '@material-ui/icons/ViewComfy';
+import { searchQueryFromUrl, urlFromSearchQuery } from '../../components/search/Search';
 import ProjectRoute from '../ProjectRoute';
 import Can from '../../components/Can';
 import CheckContext from '../../CheckContext';
-import { SmallerStyledIconButton } from '../../styles/js/shared';
+import { Row, SmallerStyledIconButton } from '../../styles/js/shared';
 
 class ProjectMenu extends Component {
   handleEditClick() {
     const { history } = new CheckContext(this).getContextStore();
     history.push(`${window.location.pathname.match(/.*\/project\/\d+/)[0]}/edit`);
+  }
+
+  handleToggleViewClick() {
+    const { history } = new CheckContext(this).getContextStore();
+    const searchQuery = searchQueryFromUrl();
+    const targetView = this.props.children.props.route.view === 'dense' ?
+      'list' : 'dense';
+    const prefix = window.location.pathname.match(/.*\/project\/\d+/)[0];
+
+    history.push(urlFromSearchQuery(searchQuery, `${prefix}/${targetView}`));
   }
 
   render() {
@@ -26,15 +39,34 @@ class ProjectMenu extends Component {
       </SmallerStyledIconButton>
     );
 
+    const viewIcon = this.props.children.props.route.view === 'dense' ?
+      <ViewListIcon /> : <ViewComfyIcon />;
+
+    const viewTooltip = this.props.children.props.route.view === 'dense'
+      ? <FormattedMessage id="projectMenuRelay.listView" defaultMessage="List view" />
+      : <FormattedMessage id="projectMenuRelay.denseView" defaultMessage="Compact view" />;
+
+    const toggleViewButton = (
+      <SmallerStyledIconButton
+        onClick={this.handleToggleViewClick.bind(this)}
+        tooltip={viewTooltip}
+      >
+        {viewIcon}
+      </SmallerStyledIconButton>
+    );
+
     return (
-      <Can permissions={project.permissions} permission="update Project">
-        <div
-          key="projectMenuRelay.editProject"
-          className="project-menu"
-        >
-          {editProjectButton}
-        </div>
-      </Can>
+      <Row>
+        {toggleViewButton}
+        <Can permissions={project.permissions} permission="update Project">
+          <div
+            key="projectMenuRelay.editProject"
+            className="project-menu"
+          >
+            {editProjectButton}
+          </div>
+        </Can>
+      </Row>
     );
   }
 }
@@ -71,7 +103,13 @@ const ProjectMenuRelay = (props) => {
   }
   if (props.params && props.params.projectId) {
     const route = new ProjectRoute({ contextId: props.params.projectId });
-    return <Relay.RootContainer Component={ProjectMenuContainer} route={route} />;
+    return (
+      <Relay.RootContainer
+        Component={ProjectMenuContainer}
+        route={route}
+        renderFetched={data => <ProjectMenuContainer {...props} {...data} />}
+      />
+    );
   }
   return null;
 };

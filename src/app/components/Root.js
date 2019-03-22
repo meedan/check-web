@@ -10,6 +10,8 @@ import en from 'react-intl/locale-data/en';
 import fr from 'react-intl/locale-data/fr';
 import pt from 'react-intl/locale-data/pt';
 import es from 'react-intl/locale-data/es';
+import deepEqual from 'deep-equal';
+import ifvisible from 'ifvisible.js';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import App from './App';
 import RootLocale from './RootLocale';
@@ -33,11 +35,12 @@ import ProjectMedia from './media/Media';
 import MediaEmbed from './media/MediaEmbed';
 import Project from './project/Project';
 import ProjectEdit from './project/ProjectEdit';
-import Search from './Search';
+import Search from './search/Search';
 import BotGarden from './BotGarden';
 import Bot from './Bot';
 import CheckContext from '../CheckContext';
 import translations from '../../../localization/translations/translations';
+import { safelyParseJSON } from '../helpers';
 
 // Localization
 let locale = config.locale || navigator.languages || navigator.language || navigator.userLanguage || 'en';
@@ -76,6 +79,166 @@ class Root extends Component {
       ReactGA.set({ page: window.location.pathname });
       ReactGA.pageview(window.location.pathname);
     }
+  }
+
+  static pusherLog(message) {
+    if (config.pusherDebug) {
+      // eslint-disable-next-line no-console
+      console.log(`[Pusher] ${message}`);
+    }
+  }
+
+  static processPusherMessage(data, run) {
+    const checkPusher = window.CheckPusher;
+    const message = safelyParseJSON(data.message, {});
+    const eventName = message.pusherEvent;
+    const callbacks = {};
+    message.pusherChannels.forEach((channel) => {
+      if (checkPusher.currentChannels[channel] &&
+        checkPusher.currentChannels[channel][eventName]) {
+        Object.keys(checkPusher.currentChannels[channel][eventName]).forEach((component) => {
+          const { id, callback } =
+            checkPusher.currentChannels[channel][eventName][component](data, false);
+          if (id && callback) {
+            if (run) {
+              checkPusher.callbacksToRun[id] = callback;
+            } else {
+              callbacks[id] = callback;
+            }
+          }
+        });
+        Root.pusherLog(`Calling callback for channel ${channel} and event ${eventName}, which is currently mounted and focused`);
+      } else if (checkPusher.subscribedChannels[channel]) {
+        if (!checkPusher.queue[channel]) {
+          checkPusher.queue[channel] = {};
+        }
+        if (!checkPusher.queue[channel][eventName]) {
+          checkPusher.queue[channel][eventName] = [];
+        }
+        checkPusher.subscribedChannels[channel].forEach((component) => {
+          const eventData = Object.assign({ component }, data);
+          const eventFinder = x => (deepEqual(x, eventData));
+          if (checkPusher.queue[channel][eventName].find(eventFinder)) {
+            Root.pusherLog(`Not adding event ${eventName} to the queue of channel ${channel} because it is already there`);
+          } else {
+            checkPusher.queue[channel][eventName].push(eventData);
+            Root.pusherLog(`Adding event ${eventName} to queue of channel ${channel} for component ${component}`);
+          }
+        });
+      } else {
+        Root.pusherLog(`Ignoring event ${eventName} for channel ${channel}`);
+      }
+    });
+    return callbacks;
+  }
+
+  static setPusher(pusher) {
+    if (window.CheckPusher) {
+      return false;
+    }
+    window.CheckPusher = {
+      messagesQueue: [],
+      queue: {},
+      currentChannels: {},
+      subscribedChannels: {},
+      callbacksToRun: {},
+    };
+    const checkPusher = window.CheckPusher;
+
+    window.setInterval(() => {
+      Root.pusherLog('Running throttle');
+      const callbacks = Object.assign({}, checkPusher.callbacksToRun);
+      checkPusher.callbacksToRun = {};
+      Object.values(callbacks).forEach((callback) => {
+        callback();
+      });
+    }, 10000);
+
+    ifvisible.on('blur', () => {
+      Root.pusherLog('Page is not focused anymore');
+    });
+
+    ifvisible.on('focus', () => {
+      Root.pusherLog('Page is focused now');
+      const messages = checkPusher.messagesQueue.slice(0);
+      checkPusher.messagesQueue = [];
+      const callbacks = {};
+      messages.forEach((rawMessage) => {
+        Object.assign(callbacks, Root.processPusherMessage(JSON.parse(rawMessage), false));
+      });
+      Object.values(callbacks).forEach((callback) => {
+        callback();
+      });
+    });
+
+    pusher.unsubscribe('check-api-global-channel');
+    pusher.subscribe('check-api-global-channel').bind('update', (data) => {
+      const rawMessage = JSON.stringify(data);
+      Root.pusherLog(`Received global event: ${rawMessage}`);
+      if (!ifvisible.now('hidden')) {
+        Root.processPusherMessage(data, true);
+      } else {
+        Root.pusherLog(`Page is not focused, so message ${rawMessage} will go to the queue`);
+        if (checkPusher.messagesQueue.indexOf(rawMessage) === -1) {
+          checkPusher.messagesQueue.push(rawMessage);
+          Root.pusherLog(`Adding ${rawMessage} to queue because page is not focused and message is not in the queue yet`);
+        } else {
+          Root.pusherLog(`Message ${rawMessage} is already in the queue, so just ignore it`);
+        }
+      }
+    });
+
+    return {
+      unsubscribe: (channel) => {
+        if (checkPusher.currentChannels[channel]) {
+          checkPusher.currentChannels[channel] = null;
+          Root.pusherLog(`Channel ${channel} is not a current channel anymore`);
+        }
+      },
+
+      subscribe: (channel) => {
+        if (!checkPusher.subscribedChannels[channel]) {
+          checkPusher.subscribedChannels[channel] = [];
+          Root.pusherLog(`Subscribing to channel ${channel}`);
+        }
+        if (!checkPusher.currentChannels[channel]) {
+          checkPusher.currentChannels[channel] = {}; // event: callback
+          Root.pusherLog(`Channel ${channel} is now a current channel`);
+        }
+        return {
+          bind: (eventName, component, callback) => {
+            if (checkPusher.queue[channel] && checkPusher.queue[channel][eventName]) {
+              const updates = {};
+              const indexes = [];
+              checkPusher.queue[channel][eventName].forEach((data, j) => {
+                const callbackMatch = callback(data, false);
+                if (callbackMatch && data.component === component) {
+                  const { id } = callbackMatch;
+                  const update = callbackMatch.callback;
+                  updates[id] = update;
+                  indexes.push(j);
+                }
+              });
+              indexes.forEach((index) => {
+                checkPusher.queue[channel][eventName].splice(index, 1);
+                Root.pusherLog('Removing from the queue because it was applicable for the callback');
+              });
+              Object.values(updates).forEach((update) => {
+                update();
+              });
+            }
+            if (!checkPusher.currentChannels[channel][eventName]) {
+              checkPusher.currentChannels[channel][eventName] = {};
+            }
+            if (checkPusher.subscribedChannels[channel].indexOf(component) === -1) {
+              checkPusher.subscribedChannels[channel].push(component);
+            }
+            checkPusher.currentChannels[channel][eventName][component] = callback;
+            Root.pusherLog(`Event ${eventName} is now a current event of channel ${channel}`);
+          },
+        };
+      },
+    };
   }
 
   static propTypes = {
@@ -117,7 +280,7 @@ class Root extends Component {
         cluster: config.pusherCluster,
         encrypted: true,
       });
-      data.pusher = pusher;
+      data.pusher = Root.setPusher(pusher);
     }
 
     context.setContextStore(data, store);
@@ -141,11 +304,11 @@ class Root extends Component {
                 <Route path="check/user/unconfirmed" component={UserUnconfirmed} public />
                 <Route path="check/user/password-reset" component={UserPasswordReset} public />
                 <Route path="check/user/password-change" component={UserPasswordChange} public />
-                <Route path="check/user/tos" component={UserTos} public />
+                <Route path="check/user/terms-of-service" component={UserTos} public />
                 <Route path="check/forbidden" component={AccessDenied} public />
-                <Route path="check/404" component={NotFound} public />
+                <Route path="check/not-found" component={NotFound} public />
 
-                <Route path="check/user/:userId" component={User} />
+                <Route path="check/user/:userId(/:tab)" component={User} />
                 <Route path="check/me/edit" isEditing component={Me} />
                 <Route path="check/me(/:tab)" component={Me} />
                 <Route path="check/teams/new" component={AddTeamPage} />
@@ -160,6 +323,8 @@ class Root extends Component {
                 <Route path=":team/project/:projectId/source/:sourceId/edit" isEditing component={Source} />
                 <Route path=":team/join" component={JoinTeam} />
                 <Route path=":team/project/:projectId/edit" component={ProjectEdit} />
+                <Route path=":team/project/:projectId/dense(/:query)" view="dense" component={Project} public />
+                <Route path=":team/project/:projectId/list(/:query)" view="list" component={Project} public />
                 <Route path=":team/project/:projectId(/:query)" component={Project} public />
                 <Route path=":team/search(/:query)" component={Search} public />
                 <Route path=":team/trash(/:query)" component={Trash} />

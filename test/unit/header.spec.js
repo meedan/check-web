@@ -52,7 +52,7 @@ describe('<HeaderComponent />', () => {
   });
 
   it('renders the Check logo and not TeamHeader or TeamPublicHeader on 404 page', () => {
-    const location = { pathname: '/check/404' };
+    const location = { pathname: '/check/not-found' };
     const params = { team: 'team' };
     const header = mountWithIntl(
       <HeaderComponent
@@ -68,7 +68,7 @@ describe('<HeaderComponent />', () => {
   });
 
   it('renders the sign in button when not logged in', () => {
-    const location = { pathname: '/check/404' };
+    const location = { pathname: '/check/not-found' };
     const params = { team: 'team' };
     const header = mountWithIntl(
       <HeaderComponent

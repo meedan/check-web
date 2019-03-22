@@ -15,7 +15,7 @@ import UpdateLanguageMutation from '../../relay/mutations/UpdateLanguageMutation
 import LanguageSelector from '../LanguageSelector';
 import Tags from '../Tags';
 import CheckContext from '../../CheckContext';
-import { searchQueryFromUrl, urlFromSearchQuery } from '../Search';
+import { searchQueryFromUrl, urlFromSearchQuery } from '../search/Search';
 import { getErrorMessage, bemClass } from '../../helpers';
 import {
   units,

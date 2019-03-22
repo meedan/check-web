@@ -67,7 +67,7 @@ class ProjectEditComponent extends Component {
     context.setContextStore(newContext);
 
     if (notFound) {
-      currentContext.history.push('/check/404');
+      currentContext.history.push('/check/not-found');
     }
   }
 

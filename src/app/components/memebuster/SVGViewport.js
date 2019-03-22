@@ -61,7 +61,12 @@ class SVGViewport extends React.Component {
   render() {
     const { template } = this.props;
     return (
-      <div id="svg-container" dangerouslySetInnerHTML={{ __html: template }} />
+      <div
+        id="svg-container"
+        dangerouslySetInnerHTML={{ // eslint-disable-line react/no-danger
+          __html: template,
+        }}
+      />
     );
   }
 }

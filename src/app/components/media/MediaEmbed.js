@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import Relay from 'react-relay/classic';
 import Popover from 'material-ui/Popover';
 import Checkbox from 'material-ui/Checkbox';
 import FlatButton from 'material-ui/FlatButton';
@@ -8,6 +9,8 @@ import styled from 'styled-components';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import PageTitle from '../PageTitle';
 import PenderCard from '../PenderCard';
+import MediaRoute from '../../relay/MediaRoute';
+import RelayContainer from '../../relay/RelayContainer';
 import { FlexRow, units, black87, black54, alertRed } from '../../styles/js/shared';
 
 const StyledPopover = styled(Popover)`
@@ -60,7 +63,7 @@ const messages = defineMessages({
   },
 });
 
-class MediaEmbed extends Component {
+class MediaEmbedComponent extends Component {
   constructor(props) {
     super(props);
 
@@ -166,7 +169,8 @@ class MediaEmbed extends Component {
     }
 
     const embedTag = `<script src="${config.penderUrl}/api/medias.js?url=${encodeURIComponent(url)}"></script>`;
-    const shareUrl = url;
+    const metadata = JSON.parse(this.props.media.metadata);
+    const shareUrl = metadata.embed_url;
 
     return (
       <PageTitle title={this.props.intl.formatMessage(messages.preview)}>
@@ -327,7 +331,6 @@ class MediaEmbed extends Component {
           <PenderCard
             url={url}
             domId="embed-id"
-            penderUrl={config.penderUrl}
             fallback={null}
             mediaVersion={this.state.version}
           />
@@ -336,6 +339,34 @@ class MediaEmbed extends Component {
     );
   }
 }
+
+const MediaEmbedContainer = Relay.createContainer(MediaEmbedComponent, {
+  initialVariables: {
+    contextId: null,
+  },
+  fragments: {
+    media: () => Relay.QL`
+      fragment on ProjectMedia {
+        id,
+        dbid,
+        metadata
+      }
+`,
+  },
+});
+
+const MediaEmbed = (props) => {
+  const ids = `${props.params.mediaId},${props.params.projectId}`;
+  const route = new MediaRoute({ ids });
+
+  return (
+    <RelayContainer
+      Component={MediaEmbedContainer}
+      route={route}
+      renderFetched={data => <MediaEmbedContainer {...props} {...data} />}
+    />
+  );
+};
 
 MediaEmbed.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
