@@ -257,6 +257,7 @@ class SearchResultsComponent extends React.Component {
 
     const searchResults = SearchResultsComponent.mergeResults(medias, sources);
     const count = this.props.search ? this.props.search.number_of_results : 0;
+    const team = this.props.search.team || this.currentContext().team;
 
     const hasMore = (searchResults.length < count);
 
@@ -272,7 +273,6 @@ class SearchResultsComponent extends React.Component {
           resultsCount: count,
         });
 
-    const team = medias.length > 0 ? medias[0].node.team : this.currentContext().team;
 
     const isProject = /\/project\//.test(window.location.pathname);
 
@@ -319,7 +319,7 @@ class SearchResultsComponent extends React.Component {
       dense: item => (
         item.media ?
           <SmallMediaCard
-            media={item}
+            media={{ ...item, team }}
             selected={this.state.selectedMedia.indexOf(item.id) > -1}
             onSelect={this.onSelect.bind(this)}
             style={{ margin: units(3) }}
@@ -328,7 +328,7 @@ class SearchResultsComponent extends React.Component {
       list: item => (
         item.media ?
           <MediaDetail
-            media={item}
+            media={{ ...item, team }}
             condensed
             selected={this.state.selectedMedia.indexOf(item.id) > -1}
             onSelect={this.onSelect.bind(this)}

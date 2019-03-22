@@ -4,6 +4,22 @@ const checkSearchResultFragment = Relay.QL`
   fragment on CheckSearch {
     id,
     pusher_channel,
+    team {
+      slug
+      search_id,
+      get_embed_whitelist
+      get_suggested_tags
+      get_status_target_turnaround
+      team_bot_installations(first: 10000) {
+        edges {
+          node {
+            team_bot {
+              identifier
+            }
+          }
+        }
+      }
+    }
     medias(first: $pageSize) {
       edges {
         node {
@@ -51,13 +67,6 @@ const checkSearchResultFragment = Relay.QL`
             embed_path,
             thumbnail_path
             picture
-          }
-          team {
-            slug
-            search_id,
-            get_embed_whitelist
-            get_suggested_tags
-            get_status_target_turnaround
           }
           tags(first: 10000) {
             edges {
