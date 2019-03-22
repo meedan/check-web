@@ -6,5 +6,21 @@
   {
     "id": "memeEditor.useDefaultImage",
     "defaultMessage": "Use default image"
+  },
+  {
+    "id": "memeEditor.headline",
+    "defaultMessage": "Headline"
+  },
+  {
+    "id": "memeEditor.description",
+    "defaultMessage": "Description"
+  },
+  {
+    "id": "memeEditor.statusText",
+    "defaultMessage": "Status text"
+  },
+  {
+    "id": "memeEditor.overlayColor",
+    "defaultMessage": "Overlay color"
   }
 ]
