@@ -63,7 +63,7 @@ class MemeEditor extends React.Component {
         }
         <TextField
           name="headline"
-          label="Headline"
+          label={<FormattedMessage id="memeEditor.headline" defaultMessage="Headline" />}
           onChange={this.handleChange}
           value={this.props.params.headline}
           margin="normal"
@@ -72,7 +72,7 @@ class MemeEditor extends React.Component {
         />
         <TextField
           name="description"
-          label="Description"
+          label={<FormattedMessage id="memeEditor.description" defaultMessage="Description" />}
           onChange={this.handleChange}
           value={this.props.params.description}
           margin="normal"
@@ -83,7 +83,7 @@ class MemeEditor extends React.Component {
         <div>
           <TextField
             name="statusText"
-            label="Status text"
+            label={<FormattedMessage id="memeEditor.statusText" defaultMessage="Status text" />}
             onChange={this.handleChange}
             value={this.props.params.statusText}
             margin="normal"
@@ -93,7 +93,7 @@ class MemeEditor extends React.Component {
         <div>
           <TextField
             name="overlayColor"
-            label="Overlay color"
+            label={<FormattedMessage id="memeEditor.overlayColor" defaultMessage="Overlay color" />}
             onChange={this.handleChange}
             value={this.props.params.overlayColor}
             margin="normal"
