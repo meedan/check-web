@@ -1,4 +1,5 @@
 import Relay from 'react-relay/classic';
+import { getStatus } from '../../helpers';
 
 class UpdateStatusMutation extends Relay.Mutation {
   getMutation() {
@@ -10,9 +11,27 @@ class UpdateStatusMutation extends Relay.Mutation {
   getFatQuery() {
     switch (this.props.parent_type) {
     case 'source':
-      return Relay.QL`fragment on UpdateDynamicPayload { dynamicEdge, source { log, log_count, id } }`;
+      return Relay.QL`fragment on UpdateDynamicPayload {
+        dynamicEdge,
+        source {
+          log,
+          log_count,
+          id
+        }
+      }`;
     case 'project_media':
-      return Relay.QL`fragment on UpdateDynamicPayload { dynamicEdge, project_media { targets, log, id, last_status, last_status_obj, log_count } }`;
+      return Relay.QL`fragment on UpdateDynamicPayload {
+        dynamicEdge,
+        project_media {
+          targets,
+          log,
+          id,
+          last_status,
+          last_status_obj,
+          log_count,
+          deadline: field_value(annotation_type_field_name: "verification_status:deadline"),
+        }
+      }`;
     default:
       return '';
     }
@@ -29,6 +48,8 @@ class UpdateStatusMutation extends Relay.Mutation {
           }
         });
       }
+      const status = getStatus(media.verification_statuses, this.props.annotation.status);
+      const deadline = status.completed === '1' ? null : (media.published + media.team.get_status_target_turnaround);
       const obj = {
         project_media: {
           id: media.id,
@@ -36,6 +57,7 @@ class UpdateStatusMutation extends Relay.Mutation {
           last_status_obj: {
             id: this.props.annotation.status_id,
           },
+          deadline,
         },
       };
       if (smoochBotInstalled && media.targets && media.targets.edges.length > 0) {

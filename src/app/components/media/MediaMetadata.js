@@ -427,6 +427,7 @@ class MediaMetadata extends Component {
     this.setState({ dstProj });
   }
 
+  // FIXME replace with helper getStatus().completed
   isStatusFinal(id) {
     let isFinal = false;
     try {

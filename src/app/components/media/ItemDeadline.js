@@ -19,8 +19,7 @@ const messages = defineMessages({
 
 const ItemDeadline = (props) => {
   const { media, isRtl } = props;
-  let deadlineSoon = null;
-
+  let deadlineSoon = false;
   if (media.deadline) {
     const now = new Date().getTime() / 1000;
     const deadline = parseInt(media.deadline, 10);
@@ -42,7 +41,10 @@ const ItemDeadline = (props) => {
           }}
         />
         <Offset isRtl={isRtl}>
-          <TimeBefore date={new Date(parseInt(media.deadline, 10) * 1000)} />
+          <TimeBefore
+            date={new Date(parseInt(media.deadline, 10) * 1000)}
+            titlePrefix={props.intl.formatMessage(messages.deadline)}
+          />
         </Offset>
       </Row>
       : null
