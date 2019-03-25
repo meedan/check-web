@@ -29,7 +29,6 @@ class UpdateStatusMutation extends Relay.Mutation {
           last_status,
           last_status_obj,
           log_count,
-          deadline: field_value(annotation_type_field_name: "verification_status:deadline"),
         }
       }`;
     default:
@@ -49,13 +48,27 @@ class UpdateStatusMutation extends Relay.Mutation {
         });
       }
       const status = getStatus(media.verification_statuses, this.props.annotation.status);
-      const deadline = status.completed === '1' ? null : (media.published + media.team.get_status_target_turnaround);
+      const deadline = status.completed === '1' ? null : (parseInt(media.published, 10) + (media.team.get_status_target_turnaround * 3600));
+      const content = JSON.parse(media.last_status_obj.content);
+      const optimisticContent = [];
+      content.forEach((field) => {
+        if (field.field_name !== 'deadline') {
+          optimisticContent.push(field);
+        }
+      });
+      if (deadline) {
+        optimisticContent.push({
+          field_name: 'deadline',
+          value: deadline,
+        });
+      }
       const obj = {
         project_media: {
           id: media.id,
           last_status: this.props.annotation.status,
           last_status_obj: {
             id: this.props.annotation.status_id,
+            content: JSON.stringify(optimisticContent),
           },
           deadline,
         },

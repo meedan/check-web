@@ -20,15 +20,21 @@ const messages = defineMessages({
 const ItemDeadline = (props) => {
   const { media, isRtl } = props;
   let deadlineSoon = false;
-  if (media.deadline) {
+  let deadline = null;
+  if (media.last_status_obj && media.last_status_obj.content) {
     const now = new Date().getTime() / 1000;
-    const deadline = parseInt(media.deadline, 10);
+    const content = JSON.parse(media.last_status_obj.content);
+    content.forEach((field) => {
+      if (field.field_name === 'deadline') {
+        deadline = parseInt(field.value, 10);
+      }
+    });
     const hoursLeft = (deadline - now) / 3600;
     deadlineSoon = hoursLeft < 0.1 * media.team.get_status_target_turnaround;
   }
 
   return (
-    media.deadline ?
+    deadline ?
       <Row
         style={{ color: deadlineSoon ? unstartedRed : black38 }}
         title={props.intl.formatMessage(messages.deadline)}
@@ -42,7 +48,7 @@ const ItemDeadline = (props) => {
         />
         <Offset isRtl={isRtl}>
           <TimeBefore
-            date={new Date(parseInt(media.deadline, 10) * 1000)}
+            date={new Date(deadline * 1000)}
             titlePrefix={props.intl.formatMessage(messages.deadline)}
           />
         </Offset>

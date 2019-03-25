@@ -258,6 +258,7 @@ const TaskLogContainer = Relay.createContainer(TaskLogComponent, {
                       last_status_obj {
                         id
                         dbid
+                        content
                         assignments(first: 10000) {
                           edges {
                             node {

@@ -140,6 +140,7 @@ const SourceMediasContainer = Relay.createContainer(SourceMediasComponent, {
                   id
                   dbid
                   locked
+                  content
                   assignments(first: 10000) {
                     edges {
                       node {

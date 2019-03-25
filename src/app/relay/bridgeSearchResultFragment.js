@@ -36,6 +36,7 @@ const bridgeSearchResultFragment = Relay.QL`
           last_status_obj {
             id,
             dbid,
+            content,
             locked
           }
           project {
