@@ -28,10 +28,6 @@
     "defaultMessage": "Copy"
   },
   {
-    "id": "mediaEmbed.customize",
-    "defaultMessage": "Customize"
-  },
-  {
     "id": "mediaEmbed.copyEmbedCode",
     "defaultMessage": "Copy embed code"
   },

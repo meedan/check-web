@@ -1791,7 +1791,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(twitter_title == 'This is a test').to be(true)
     end
 
-    it "should embed", bin1: true do
+    it "should embed bli", bin1: true do
       api_create_team_project_and_claim_and_redirect_to_media_page
       sleep 2
       request_api('make_team_public', { slug: get_team })
@@ -1806,23 +1806,17 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 2
       expect(@driver.current_url.to_s == "#{url}/embed").to be(true)
       expect(@driver.page_source.include?('Not available')).to be(false)
-      el = wait_for_selector('#media-embed__actions-customize')
-      el.click
-      sleep 1
-      @driver.find_elements(:css, '#media-embed__customization-menu input[type=checkbox]').map(&:click)
-      sleep 1
       @driver.find_elements(:css, 'body').map(&:click)
       sleep 1
       el = wait_for_selector('#media-embed__actions-copy')
       el.click
-
       sleep 1
       @driver.navigate.to 'https://paste.ubuntu.com/'
       el = wait_for_selector('#id_content')
       el.send_keys(' ')
       @driver.action.send_keys(:control, 'v').perform
       sleep 1
-      expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /hide_open_tasks%3D1%26hide_tasks%3D1%26hide_notes%3D1/).nil?).to be(false)
+      expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
       sleep 5
     end
 

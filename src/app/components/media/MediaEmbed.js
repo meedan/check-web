@@ -153,20 +153,7 @@ class MediaEmbedComponent extends Component {
   }
 
   render() {
-    let url = window.location.href.replace(/\/embed$/, '');
-    const parts = [];
-    if (!this.state.customizationOptions.showOpenTasks) {
-      parts.push('hide_open_tasks=1');
-    }
-    if (!this.state.customizationOptions.showTasks) {
-      parts.push('hide_tasks=1');
-    }
-    if (!this.state.customizationOptions.showNotes) {
-      parts.push('hide_notes=1');
-    }
-    if (parts.length > 0) {
-      url = `${url}?${parts.join('&')}`;
-    }
+    const url = window.location.href.replace(/\/embed$/, '');
 
     const embedTag = `<script src="${config.penderUrl}/api/medias.js?url=${encodeURIComponent(url)}"></script>`;
     const metadata = JSON.parse(this.props.media.metadata);
@@ -297,11 +284,6 @@ class MediaEmbedComponent extends Component {
           </StyledPopover>
 
           <p id="media-embed__actions">
-            <FlatButton
-              id="media-embed__actions-customize"
-              onClick={this.handleCustomizationMenuOpen.bind(this)}
-              label={<FormattedMessage id="mediaEmbed.customize" defaultMessage="Customize" />}
-            />
             <CopyToClipboard text={embedTag} onCopy={this.handleCopyEmbedCode.bind(this)}>
               <FlatButton
                 id="media-embed__actions-copy"
