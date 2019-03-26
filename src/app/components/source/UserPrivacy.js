@@ -5,19 +5,13 @@ import Relay from 'react-relay/classic';
 import { Card, CardText } from 'material-ui/Card';
 import rtlDetect from 'rtl-detect';
 import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import TextField from '@material-ui/core/TextField';
 import { List } from 'material-ui/List';
+import ConfirmDialog from '../layout/ConfirmDialog';
 import UserConnectedAccount from '../user/UserConnectedAccount';
 import { logout } from '../../redux/actions';
 import DeleteCheckUserMutation from '../../relay/mutations/DeleteCheckUserMutation';
 import CheckContext from '../../CheckContext';
 import { mapGlobalMessage } from '../MappedMessage';
-import Message from '../Message';
 import { stringHelper } from '../../customHelpers';
 import { units } from '../../styles/js/shared';
 import globalStrings from '../../globalStrings';
@@ -26,14 +20,6 @@ const messages = defineMessages({
   deleteAccount: {
     id: 'UserPrivacy.deleteAccount',
     defaultMessage: 'Delete Account',
-  },
-  typeHere: {
-    id: 'UserPrivacy.typeHere',
-    defaultMessage: 'Type here',
-  },
-  confirmError: {
-    id: 'UserPrivacy.confirmError',
-    defaultMessage: 'You should type "confirm"',
   },
 });
 
@@ -47,7 +33,6 @@ class UserPrivacy extends Component {
     super(props);
     this.state = {
       dialogOpen: false,
-      confirmationError: false,
       message: null,
     };
   }
@@ -57,28 +42,16 @@ class UserPrivacy extends Component {
   }
 
   handleOpenDialog() {
-    this.setState({
-      dialogOpen: true,
-      confirmationError: false,
-    });
+    this.setState({ dialogOpen: true });
   }
 
   handleCloseDialog() {
-    this.setState({
-      dialogOpen: false,
-      confirmationError: false,
-    });
+    this.setState({ dialogOpen: false });
   }
 
   handleDeleteAccount() {
-    const { value: confirmValue } = document.getElementById('delete-user-account_confirm');
-    if (confirmValue && confirmValue.toUpperCase() === 'CONFIRM') {
-      this.setState({ confirmationError: false });
-      this.handleCloseDialog();
-      this.handleRequestDeleteAccount();
-    } else {
-      this.setState({ confirmationError: true });
-    }
+    this.handleRequestDeleteAccount();
+    this.handleCloseDialog();
   }
 
   handleError(json) {
@@ -148,6 +121,13 @@ class UserPrivacy extends Component {
     const buttonStyle = {
       minWidth: 300,
       textAlign: direction.to,
+    };
+
+    const confirmDialog = {
+      blurb: <FormattedMessage
+        id="userPrivacy.deleteAccountConfirmationText"
+        defaultMessage="Are you sure? This will remove your account and log you out of the app."
+      />,
     };
 
     const appName = mapGlobalMessage(this.props.intl, 'appNameHuman');
@@ -248,51 +228,14 @@ class UserPrivacy extends Component {
               primary
               onClick={this.handleOpenDialog.bind(this)}
             />
-            <Dialog
-              className="delete-account__dialog"
+            <ConfirmDialog
+              message={this.state.message}
               open={this.state.dialogOpen}
-              onClose={this.handleCloseDialog.bind(this)}
-              fullWidth
-            >
-              <DialogTitle>{this.props.intl.formatMessage(messages.deleteAccount)}</DialogTitle>
-              <DialogContent>
-                <Message message={this.state.message} />
-                <p>
-                  <FormattedMessage
-                    id="userPrivacy.deleteAccountConfirmationText"
-                    defaultMessage='Are you sure? This will remove your account and log you out of the app. Type "confirm" if you want to proceed.'
-                  />
-                </p>
-                <TextField
-                  id="delete-user-account_confirm"
-                  key="delete-account-confirm-input"
-                  className="delete-account-confirm-input"
-                  placeholder={this.props.intl.formatMessage(messages.typeHere)}
-                  error={this.state.confirmationError}
-                  helperText={this.state.confirmationError ? this.props.intl.formatMessage(messages.confirmError) : ''}
-                  margin="normal"
-                />
-              </DialogContent>
-              <DialogActions>
-                <FlatButton
-                  label={
-                    <FormattedMessage id="deleteAccount.cancel" defaultMessage="Cancel" />
-                  }
-                  primary
-                  onClick={this.handleCloseDialog.bind(this)}
-                />,
-                <RaisedButton
-                  label={
-                    <FormattedMessage
-                      id="deleteAccount.delete"
-                      defaultMessage="Delete"
-                    />
-                  }
-                  primary
-                  onClick={this.handleDeleteAccount.bind(this)}
-                />
-              </DialogActions>
-            </Dialog>
+              title={this.props.intl.formatMessage(messages.deleteAccount)}
+              blurb={confirmDialog.blurb}
+              handleClose={this.handleCloseDialog.bind(this)}
+              handleConfirm={this.handleDeleteAccount.bind(this)}
+            />
           </CardText>
         </Card>
       </div>
