@@ -58,11 +58,7 @@ class MemebusterComponent extends React.Component {
 
     const savedParams = this.getSavedParams();
 
-    this.state = {
-      params: Object.assign(defaultParams, savedParams),
-      readyToPublish: savedParams.action === 'save',
-      pending: false,
-    };
+    this.state = { params: Object.assign(defaultParams, savedParams) };
   }
 
   componentDidMount() {
@@ -111,7 +107,6 @@ class MemebusterComponent extends React.Component {
         description: this.getField(content, 'memebuster_body'),
         statusText: this.getField(content, 'memebuster_status'),
         image: this.getField(content, 'memebuster_image'),
-        action: this.getField(content, 'memebuster_operation'),
         overlayColor: this.getField(content, 'memebuster_overlay'),
       });
     }
@@ -193,7 +188,6 @@ class MemebusterComponent extends React.Component {
   };
 
   handleSubmit = (action) => {
-    this.setState({ pending: true });
     let imagePath = '';
     let imageFile = null;
 
@@ -218,17 +212,6 @@ class MemebusterComponent extends React.Component {
       const error = transaction.getError();
       // eslint-disable-next-line no-console
       console.error(`Error performing Memebuster mutation: ${error}`);
-      this.setState({ pending: false });
-    };
-
-    const onSuccess = () => {
-      let readyToPublish = null;
-      if (action === 'save') {
-        readyToPublish = true;
-      } else if (action === 'publish') {
-        readyToPublish = false;
-      }
-      this.setState({ readyToPublish, pending: false });
     };
 
     const annotation = this.getLastSaveAnnotation();
@@ -246,7 +229,7 @@ class MemebusterComponent extends React.Component {
             annotated_id: this.props.media.dbid,
           },
         }),
-        { onFailure, onSuccess },
+        { onFailure },
       );
     } else {
       Relay.Store.commitUpdate(
@@ -262,7 +245,7 @@ class MemebusterComponent extends React.Component {
             annotated_id: this.props.media.dbid,
           },
         }),
-        { onFailure, onSuccess },
+        { onFailure },
       );
     }
   };
@@ -295,8 +278,8 @@ class MemebusterComponent extends React.Component {
     const annotation = this.getLastSaveAnnotation();
     const template = media.team.get_memebuster_template;
 
-    const saveDisabled = !can(media.permissions, 'update ProjectMedia') || !this.validate() || this.state.pending;
-    const publishDisabled = !can(media.permissions, 'lock Annotation') || !this.validate() || !this.state.readyToPublish || this.state.pending;
+    const saveDisabled = !can(media.permissions, 'update ProjectMedia') || !this.validate();
+    const publishDisabled = !can(media.permissions, 'lock Annotation') || !this.validate();
 
     return (
       <PageTitle
