@@ -1,6 +1,7 @@
 {
   "teamSettings.Tasks": "Tâches",
   "teamSettings.Tags": "Tags",
+  "teamSettings.embed": "Intégrer",
   "teamSettings.integrations": "Intégrations",
   "teamSettings.bots": "Bots"
 }

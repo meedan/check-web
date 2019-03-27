@@ -18,7 +18,7 @@ import CheckContext from '../../CheckContext';
 import UploadImage from '../UploadImage';
 import { ContentColumn, Row, black38, black87, units } from '../../styles/js/shared';
 import HttpStatus from '../../HttpStatus';
-import { safelyParseJSON } from '../../helpers';
+import { safelyParseJSON, capitalize } from '../../helpers';
 
 const messages = defineMessages({
   invalidCommand: {
@@ -27,7 +27,7 @@ const messages = defineMessages({
   },
   annotationAdded: {
     id: 'addAnnotation.annotationAdded',
-    defaultMessage: 'Your {type} was added!',
+    defaultMessage: '{type} added',
   },
   error: {
     id: 'addAnnotation.error',
@@ -146,7 +146,7 @@ class AddAnnotation extends Component {
 
     const onSuccess = () => {
       this.success(formatMessage(messages.annotationAdded, {
-        type: formatMessage(messages.typeComment),
+        type: capitalize(formatMessage(messages.typeComment)),
       }));
     };
 
@@ -184,7 +184,7 @@ class AddAnnotation extends Component {
 
     const onSuccess = () => {
       this.success(formatMessage(messages.annotationAdded, {
-        type: formatMessage(messages.typeTag),
+        type: capitalize(formatMessage(messages.typeTag)),
       }));
     };
 

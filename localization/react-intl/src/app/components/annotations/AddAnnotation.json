@@ -5,7 +5,7 @@
   },
   {
     "id": "addAnnotation.annotationAdded",
-    "defaultMessage": "Your {type} was added!"
+    "defaultMessage": "{type} added"
   },
   {
     "id": "addAnnotation.error",

@@ -1,7 +1,6 @@
 {
   "UserPrivacy.deleteAccount": "Excluir conta",
-  "UserPrivacy.typeHere": "Digite aqui",
-  "UserPrivacy.confirmError": "Digite \"confirma\" se quiser prosseguir.",
+  "userPrivacy.deleteAccountConfirmationText": "Are you sure? This will remove your account and log you out of the app.",
   "userPrivacy.ppLink": "Política de Privacidade",
   "userPrivacy.title": "Suas informações",
   "userPrivacy.description": "Por favor revise nossa {ppLink} e aprenda como {appName} utiliza e armazena suas informações.",
@@ -12,8 +11,5 @@
   "userPrivacy.connectedAccounts": "Contas conectadas",
   "userPrivacy.delete": "Excluir sua conta",
   "userPrivacy.deleteAccountText": "Se você excluir sua conta, suas informações pessoais serão excluídas. Comentários, anotações, e atividades de equipe se tornarão pseudônimas e permanecerão no {appName}.",
-  "userPrivacy.deleteAccountButton": "Excluir minha conta",
-  "userPrivacy.deleteAccountConfirmationText": "Você tem certeza? Isso removerá sua conta e desconectará você do aplicativo. Digite \"confirma\" se deseja prosseguir.",
-  "deleteAccount.cancel": "Cancelar",
-  "deleteAccount.delete": "Excluir"
+  "userPrivacy.deleteAccountButton": "Excluir minha conta"
 }

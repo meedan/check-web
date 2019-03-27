@@ -1,4 +1,8 @@
 {
   "memeEditor.image": "Image",
-  "memeEditor.useDefaultImage": "Use default image"
+  "memeEditor.useDefaultImage": "Use default image",
+  "memeEditor.headline": "Headline",
+  "memeEditor.description": "Description",
+  "memeEditor.statusText": "Status text",
+  "memeEditor.overlayColor": "Overlay color"
 }
