@@ -153,7 +153,7 @@ class MediaEmbedComponent extends Component {
   }
 
   render() {
-    const url = window.location.href.replace(/\/embed$/, '');
+    const url = window.location.href.replace(/\/embed$/, `?t=${new Date().getTime()}`);
 
     const embedTag = `<script src="${config.penderUrl}/api/medias.js?url=${encodeURIComponent(url)}"></script>`;
     const metadata = JSON.parse(this.props.media.metadata);

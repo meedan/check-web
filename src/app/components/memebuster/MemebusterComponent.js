@@ -58,7 +58,7 @@ class MemebusterComponent extends React.Component {
 
     const savedParams = this.getSavedParams();
 
-    this.state = { params: Object.assign(defaultParams, savedParams) };
+    this.state = { params: Object.assign(defaultParams, savedParams), pending: false };
   }
 
   componentDidMount() {
@@ -188,6 +188,7 @@ class MemebusterComponent extends React.Component {
   };
 
   handleSubmit = (action) => {
+    this.setState({ pending: true });
     let imagePath = '';
     let imageFile = null;
 
@@ -212,6 +213,11 @@ class MemebusterComponent extends React.Component {
       const error = transaction.getError();
       // eslint-disable-next-line no-console
       console.error(`Error performing Memebuster mutation: ${error}`);
+      this.setState({ pending: false });
+    };
+
+    const onSuccess = () => {
+      this.setState({ pending: false });
     };
 
     const annotation = this.getLastSaveAnnotation();
@@ -224,12 +230,13 @@ class MemebusterComponent extends React.Component {
           annotator: this.getContext().currentUser,
           annotated: this.props.media,
           annotation: {
+            action,
             fields,
             annotated_type: 'ProjectMedia',
             annotated_id: this.props.media.dbid,
           },
         }),
-        { onFailure },
+        { onFailure, onSuccess },
       );
     } else {
       Relay.Store.commitUpdate(
@@ -240,12 +247,13 @@ class MemebusterComponent extends React.Component {
           annotator: this.getContext().currentUser,
           annotated: this.props.media,
           annotation: {
+            action,
             fields,
             annotated_type: 'ProjectMedia',
             annotated_id: this.props.media.dbid,
           },
         }),
-        { onFailure },
+        { onFailure, onSuccess },
       );
     }
   };
@@ -278,8 +286,8 @@ class MemebusterComponent extends React.Component {
     const annotation = this.getLastSaveAnnotation();
     const template = media.team.get_memebuster_template;
 
-    const saveDisabled = !can(media.permissions, 'update ProjectMedia') || !this.validate();
-    const publishDisabled = !can(media.permissions, 'lock Annotation') || !this.validate();
+    const saveDisabled = !can(media.permissions, 'update ProjectMedia') || !this.validate() || this.state.pending;
+    const publishDisabled = !can(media.permissions, 'lock Annotation') || !this.validate() || this.state.pending;
 
     return (
       <PageTitle
