@@ -1,0 +1,11 @@
+{
+  "mediaEmbed.embedPreview": "Embed preview",
+  "mediaEmbed.customizationOptionShowCompleteTasks": "Show complete tasks",
+  "mediaEmbed.customizationOptionShowIncompleteTasks": "Show incomplete tasks",
+  "mediaEmbed.customizationOptionShowNotes": "Show notes",
+  "mediaEmbed.warning": "Warning — sharing this will expose information to people outside your private team. Proceed with caution.",
+  "mediaEmbed.copyButtonInactive": "Copied",
+  "mediaEmbed.copyButton": "Copy",
+  "mediaEmbed.copyEmbedCode": "Copy embed code",
+  "mediaEmbed.copyShareUrl": "Copy share URL"
+}

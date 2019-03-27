@@ -1,0 +1,10 @@
+{
+  "teamEmbed.updateFail": "عذراً ، لقد واجهنا خطأ ما اثناء حفظ إعدادات التضمين",
+  "teamEmbed.updateSuccess": "تم حفظ إعدادات التضمين بنجاح",
+  "teamEmbed.title": "إعدادات التضمين",
+  "teamEmbed.tasks": "المهام",
+  "teamEmbed.tasksSub": "المهام المحددة لن تُعرَض في التضمين إلا إذا اكتملت.",
+  "teamEmbed.disclaimer": "إخلاء المسؤولية",
+  "teamEmbed.disclaimerSub": "إشعار يُعرَض أسفل التضمين بجوار شعار الفريق.",
+  "teamEmbed.save": "حفظ"
+}

@@ -1,0 +1,12 @@
+{
+  "addAnnotation.invalidCommand": "Comandă nevalidă",
+  "addAnnotation.annotationAdded": "{type} added",
+  "addAnnotation.error": "Ceva nu a funcționat corect! Serverul a returnat eroare cu codul {code}. Contactați un administrator de sistem.",
+  "addAnnotation.inputHint": "Adaugă o notă despre aceasta",
+  "addAnnotation.submitButton": "Trimite",
+  "addAnnotation.typeComment": "note",
+  "addAnnotation.typeTag": "tag",
+  "addAnnotation.typeStatus": "status",
+  "addAnnotation.typeFlag": "flag",
+  "addAnnotation.addImage": "Adaugă o imagine"
+}

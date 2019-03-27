@@ -1,0 +1,3 @@
+{
+  "media.confirmLeave": "{count, plural, one {Are you sure you want to leave? You still have one required task assigned to you that is not answered} other {Are you sure you want to leave? You still have # required tasks assigned to you that are not answered}}"
+}

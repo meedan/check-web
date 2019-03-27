@@ -1281,14 +1281,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should linkify URLs on comments", bin1: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
-      expect(@driver.page_source.include?('Your note was added!')).to be(false)
+      expect(@driver.page_source.include?('Note added')).to be(false)
       old = wait_for_selector_list("annotation__default-content", :class).length
       fill_field('textarea[name="cmd"]', 'https://meedan.com/en/')
       el = wait_for_selector(".add-annotation button[type=submit]")
       el.click
       sleep 2 #wait for loading
       old = wait_for_size_change(old, "annotation__default-content", :class)
-      expect(@driver.page_source.include?('Your note was added!')).to be(true)
+      expect(@driver.page_source.include?('Note added')).to be(true)
       el = wait_for_selector_list("//a[contains(text(), 'https://meedan.com/en/')]", :xpath)
       expect(el.length == 1).to be(true)
     end
@@ -1953,13 +1953,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector(".source__tab-button-account")
       el = wait_for_selector(".source__tab-button-notes")
       el.click
-      expect(@driver.page_source.include?('Your note was added!')).to be(false)
+      expect(@driver.page_source.include?('Note added')).to be(false)
       old = wait_for_selector_list("annotation__default-content",:class).length
       fill_field('textarea[name="cmd"]', 'Test')
       el = wait_for_selector(".add-annotation button[type=submit]")
       el.click
       old = wait_for_size_change(old, "annotation__default-content", :class)
-      expect(@driver.page_source.include?('Your note was added!')).to be(true)
+      expect(@driver.page_source.include?('Note added')).to be(true)
       expect(@driver.page_source.include?('Comment deleted by')).to be(false)
       el = wait_for_selector('.menu-button')
       el.click
@@ -1970,14 +1970,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       #media
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
-      expect(@driver.page_source.include?('Your note was added!')).to be(false)
+      expect(@driver.page_source.include?('Note added')).to be(false)
       old = wait_for_selector_list("annotation__default-content", :class).length
       fill_field('textarea[name="cmd"]', 'Test')
       el = wait_for_selector(".add-annotation button[type=submit]")
       el.click
       old = wait_for_size_change(old, "annotation__default-content", :class)
       sleep 10
-      expect(@driver.page_source.include?('Your note was added!')).to be(true)
+      expect(@driver.page_source.include?('Note added')).to be(true)
       expect(@driver.page_source.include?('Comment deleted by')).to be(false)
       el = wait_for_selector('.menu-button')
       el.click
