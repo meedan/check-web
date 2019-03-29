@@ -118,6 +118,7 @@ class MemebusterComponent extends React.Component {
     const annotation = this.getLastSaveAnnotation();
     const publish_sent = this.getFieldFromAnnotation('memebuster_operation') === 'publish';
     const publish_done = this.getFieldFromAnnotation('memebuster_published_at');
+    const publish_fail = this.getFieldFromAnnotation('memebuster_last_error');
 
     let text = null;
 
@@ -138,6 +139,13 @@ class MemebusterComponent extends React.Component {
           />,
           name: annotation.annotator.name,
         }}
+      />);
+    }
+
+    if (publish_fail) {
+      text = (<FormattedMessage
+        id="MemebusterComponent.fail"
+        defaultMessage="Sorry, there was a problem when publishing your meme. Our team is aware of the error and will work to fix it. On the meanwhile, please try again."
       />);
     }
 
@@ -207,6 +215,7 @@ class MemebusterComponent extends React.Component {
       memebuster_body: this.state.params.description,
       memebuster_status: this.state.params.statusText,
       memebuster_overlay: this.state.params.overlayColor,
+      memebuster_last_error: '',
     };
 
     const onFailure = (transaction) => {
