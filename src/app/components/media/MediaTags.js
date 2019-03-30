@@ -24,6 +24,7 @@ import {
   opaqueBlack05,
   chipStyles,
 } from '../../styles/js/shared';
+import { stringHelper } from '../../customHelpers';
 
 const messages = defineMessages({
   loading: {
@@ -36,7 +37,7 @@ const messages = defineMessages({
   },
   error: {
     id: 'mediaTags.error',
-    defaultMessage: 'Sorry – we had trouble adding that tag.',
+    defaultMessage: 'Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists.',
   },
 });
 
@@ -142,7 +143,7 @@ class MediaTags extends Component {
     this.setState({
       errorMessage: getErrorMessage(
         transaction,
-        this.props.intl.formatMessage(messages.error),
+        this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') }),
       ),
     });
   };

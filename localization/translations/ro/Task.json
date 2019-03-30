@@ -1,0 +1,9 @@
+{
+  "task.confirmDelete": "Sigur doriți să ștergeți această sarcină?",
+  "task.answeredBy": "Answered by {byName}",
+  "task.assignedTo": "Assigned to {name}",
+  "task.resolvedBy": "Resolved by {byName}",
+  "tasks.editAssignment": "Edit assignment",
+  "tasks.attributionSlogan": "For the task, \"{label}\"",
+  "tasks.editAttribution": "Edit attribution"
+}

@@ -1,7 +1,7 @@
 {
   "bot.confirmInstall": "¿Seguro que quieres instalar un bot en el equipo {teamName}?",
   "bot.confirmUninstall": "¿Seguro que quieres desinstalar este bot del equipo {teamName}?",
-  "bot.cantChange": "Lo sentimos, no tienes autorización para hacer eso.",
+  "bot.cantChange": "Lo sentimos, se produjo un error al actualizar el bot. Vuelva a intentarlo y avise a {supportEmail} si la condición persiste.",
   "bot.inUse": "En uso",
   "bot.madeBy": "Hecho por {teamLink}",
   "bot.permissions": "Permisos",

@@ -198,7 +198,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       p.go(@config['self_url'] + '/' + team)
       wait_for_selector('.team-menu__team-settings-button').click ; sleep 5
       wait_for_selector('.team-settings__tags-tab').click ; sleep 5
-      expect(@driver.page_source.include?('No teamwide tags')).to be(true)
+      expect(@driver.page_source.include?('No team tags')).to be(true)
       expect(@driver.page_source.include?('No custom tags')).to be(true)
       expect(@driver.page_source.include?('No tags')).to be(true)
       expect(@driver.page_source.include?('newteamwidetag')).to be(false)
@@ -207,7 +207,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       fill_field('#tag__new', 'newteamwidetag')
       @driver.action.send_keys(:enter).perform
       sleep 10
-      expect(@driver.page_source.include?('No teamwide tags')).to be(false)
+      expect(@driver.page_source.include?('No team tags')).to be(false)
       expect(@driver.page_source.include?('No custom tags')).to be(true)
       expect(@driver.page_source.include?('1 tag')).to be(true)
       expect(@driver.page_source.include?('newteamwidetag')).to be(true)
@@ -221,7 +221,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       fill_field('#tag__edit', 'edited')
       @driver.action.send_keys(:enter).perform
       sleep 10
-      expect(@driver.page_source.include?('No teamwide tags')).to be(false)
+      expect(@driver.page_source.include?('No team tags')).to be(false)
       expect(@driver.page_source.include?('No custom tags')).to be(true)
       expect(@driver.page_source.include?('1 tag')).to be(true)
       expect(@driver.page_source.include?('newteamwidetagedited')).to be(true)
@@ -235,7 +235,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 2
       wait_for_selector('#tag__confirm-delete').click
       sleep 10
-      expect(@driver.page_source.include?('No teamwide tags')).to be(true)
+      expect(@driver.page_source.include?('No team tags')).to be(true)
       expect(@driver.page_source.include?('No custom tags')).to be(true)
       expect(@driver.page_source.include?('No tags')).to be(true)
       expect(@driver.page_source.include?('newteamwidetagedited')).to be(false)
@@ -1054,7 +1054,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       p = Page.new(config: @config, driver: @driver)
       p.go(@config['self_url'] + '/' + team)
       wait_for_selector("team-menu__edit-team-button", :class)
-      expect(@driver.page_source.include?('Team information updated successfully!')).to be(false)
       expect(@driver.page_source.include?('Rome')).to be(false)
       expect(@driver.page_source.include?('www.meedan.com')).to be(false)
       expect(@driver.page_source.include?('EDIT DESCRIPTION')).to be(false)
@@ -1281,14 +1280,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should linkify URLs on comments", bin1: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
-      expect(@driver.page_source.include?('Your note was added!')).to be(false)
+      expect(@driver.page_source.include?('Note added')).to be(false)
       old = wait_for_selector_list("annotation__default-content", :class).length
       fill_field('textarea[name="cmd"]', 'https://meedan.com/en/')
       el = wait_for_selector(".add-annotation button[type=submit]")
       el.click
       sleep 2 #wait for loading
       old = wait_for_size_change(old, "annotation__default-content", :class)
-      expect(@driver.page_source.include?('Your note was added!')).to be(true)
+      expect(@driver.page_source.include?('Note added')).to be(true)
       el = wait_for_selector_list("//a[contains(text(), 'https://meedan.com/en/')]", :xpath)
       expect(el.length == 1).to be(true)
     end
@@ -1765,7 +1764,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page = LoginPage.new(config: @config, driver: @driver)
       page.reset_password('test@meedan.com')
       sleep 2
-      expect(@driver.page_source.include?('Email not found')).to be(true)
+      expect(@driver.page_source.include?('email was not found')).to be(true)
       expect(@driver.page_source.include?('Password reset sent')).to be(false)
     end
 
@@ -1774,7 +1773,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page = LoginPage.new(config: @config, driver: @driver)
       page.reset_password(user.email)
       sleep 2
-      expect(@driver.page_source.include?('Email not found')).to be(false)
+      expect(@driver.page_source.include?('email was not found')).to be(false)
       expect(@driver.page_source.include?('Password reset sent')).to be(true)
     end
 
@@ -1791,7 +1790,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(twitter_title == 'This is a test').to be(true)
     end
 
-    it "should embed", bin1: true do
+    it "should embed bli", bin1: true do
       api_create_team_project_and_claim_and_redirect_to_media_page
       sleep 2
       request_api('make_team_public', { slug: get_team })
@@ -1806,23 +1805,17 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 2
       expect(@driver.current_url.to_s == "#{url}/embed").to be(true)
       expect(@driver.page_source.include?('Not available')).to be(false)
-      el = wait_for_selector('#media-embed__actions-customize')
-      el.click
-      sleep 1
-      @driver.find_elements(:css, '#media-embed__customization-menu input[type=checkbox]').map(&:click)
-      sleep 1
       @driver.find_elements(:css, 'body').map(&:click)
       sleep 1
       el = wait_for_selector('#media-embed__actions-copy')
       el.click
-
       sleep 1
       @driver.navigate.to 'https://paste.ubuntu.com/'
       el = wait_for_selector('#id_content')
       el.send_keys(' ')
       @driver.action.send_keys(:control, 'v').perform
       sleep 1
-      expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /hide_open_tasks%3D1%26hide_tasks%3D1%26hide_notes%3D1/).nil?).to be(false)
+      expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
       sleep 5
     end
 
@@ -1959,13 +1952,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector(".source__tab-button-account")
       el = wait_for_selector(".source__tab-button-notes")
       el.click
-      expect(@driver.page_source.include?('Your note was added!')).to be(false)
+      expect(@driver.page_source.include?('Note added')).to be(false)
       old = wait_for_selector_list("annotation__default-content",:class).length
       fill_field('textarea[name="cmd"]', 'Test')
       el = wait_for_selector(".add-annotation button[type=submit]")
       el.click
       old = wait_for_size_change(old, "annotation__default-content", :class)
-      expect(@driver.page_source.include?('Your note was added!')).to be(true)
+      expect(@driver.page_source.include?('Note added')).to be(true)
       expect(@driver.page_source.include?('Comment deleted by')).to be(false)
       el = wait_for_selector('.menu-button')
       el.click
@@ -1976,14 +1969,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       #media
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
-      expect(@driver.page_source.include?('Your note was added!')).to be(false)
+      expect(@driver.page_source.include?('Note added')).to be(false)
       old = wait_for_selector_list("annotation__default-content", :class).length
       fill_field('textarea[name="cmd"]', 'Test')
       el = wait_for_selector(".add-annotation button[type=submit]")
       el.click
       old = wait_for_size_change(old, "annotation__default-content", :class)
       sleep 10
-      expect(@driver.page_source.include?('Your note was added!')).to be(true)
+      expect(@driver.page_source.include?('Note added')).to be(true)
       expect(@driver.page_source.include?('Comment deleted by')).to be(false)
       el = wait_for_selector('.menu-button')
       el.click

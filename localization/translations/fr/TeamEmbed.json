@@ -1,0 +1,10 @@
+{
+  "teamEmbed.updateFail": "Désolé, une erreur s'est produite durant la mise à jour des paramètres. Veuillez réessayer et prévenir {supportEmail} si le problème persiste.",
+  "teamEmbed.updateSuccess": "Les paramètres de l'intégration ont été sauvegardées avec succès.",
+  "teamEmbed.title": "Paramètres d'intégration",
+  "teamEmbed.tasks": "Tâches",
+  "teamEmbed.tasksSub": "Les tâches sélectionnées seront affichées dans l'intégration si elles résolues. ",
+  "teamEmbed.disclaimer": "Exclusion",
+  "teamEmbed.disclaimerSub": "Notice affichée au bas de l'intégration auprès du logo de l'équipe.",
+  "teamEmbed.save": "Sauvegarder"
+}

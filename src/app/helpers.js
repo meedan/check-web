@@ -198,6 +198,14 @@ function emojify(text) {
   }
 }
 
+/**
+ * Capitalize word
+ * https://stackoverflow.com/a/7592235/209184
+ */
+function capitalize(text) {
+  return text.replace(/(?:^|\s)\S/g, a => a.toUpperCase());
+}
+
 export {
   bemClass,
   bemClassFromMediaStatus,
@@ -215,4 +223,5 @@ export {
   getFilters,
   getErrorMessage,
   emojify,
+  capitalize,
 };

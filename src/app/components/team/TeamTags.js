@@ -25,6 +25,7 @@ import Message from '../Message';
 import CreateTagTextMutation from '../../relay/mutations/CreateTagTextMutation';
 import UpdateTagTextMutation from '../../relay/mutations/UpdateTagTextMutation';
 import DeleteTagTextMutation from '../../relay/mutations/DeleteTagTextMutation';
+import { stringHelper } from '../../customHelpers';
 
 const StyledContentColumn = styled(ContentColumn)`
   .highlight {
@@ -149,7 +150,8 @@ class TeamTagsComponent extends Component {
           this.setState({
             message: <FormattedMessage
               id="teamTags.failUpdate"
-              defaultMessage="Sorry, could not update tag"
+              defaultMessage="Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists."
+              values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
             />,
           });
         };
@@ -217,7 +219,8 @@ class TeamTagsComponent extends Component {
         deleting: false,
         message: <FormattedMessage
           id="teamTags.failDelete"
-          defaultMessage="Sorry, could not delete tag"
+          defaultMessage="Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists."
+          values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
         />,
       });
     };
@@ -245,7 +248,8 @@ class TeamTagsComponent extends Component {
       this.setState({
         message: <FormattedMessage
           id="teamTags.failMove"
-          defaultMessage="Sorry, could not move tag"
+          defaultMessage="Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists."
+          values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
         />,
       });
     };
@@ -279,7 +283,11 @@ class TeamTagsComponent extends Component {
     };
     const onFailure = () => {
       this.setState({
-        message: <FormattedMessage id="teamTags.fail" defaultMessage="Sorry, could not add tag" />,
+        message: <FormattedMessage
+          id="teamTags.fail"
+          defaultMessage="Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists."
+          values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
+        />,
       });
     };
 
@@ -460,7 +468,7 @@ class TeamTagsComponent extends Component {
         <Card style={{ marginTop: units(2) }}>
           <CardHeader
             title={
-              <FormattedMessage id="teamTags.teamwideTags" defaultMessage="Teamwide tags" />
+              <FormattedMessage id="teamTags.teamwideTags" defaultMessage="Team tags" />
             }
           />
           <CardText style={{ padding: 0 }}>
@@ -468,7 +476,7 @@ class TeamTagsComponent extends Component {
               <p style={{ paddingBottom: units(5), textAlign: 'center' }}>
                 <FormattedMessage
                   id="teamTags.noTeamwideTags"
-                  defaultMessage="No teamwide tags."
+                  defaultMessage="No team tags."
                 />
               </p>
               : null }

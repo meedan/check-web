@@ -1,6 +1,7 @@
 {
   "MemebusterComponent.publishing": "قيد النشر...",
   "MemebusterComponent.lastPublished": "آخر نشر {time} من {name}",
+  "MemebusterComponent.fail": "عذراً ، لقد واجهنا خطأ ما اثناء نشر الميم. من فضلك أعد المحاولة وتواصل مع {supportEmail} إن استمرت المشكلة.",
   "MemebusterComponent.lastSaved": "آخر حفظ {time} من {name}",
   "MemebusterComponent.publish": "نشر"
 }

@@ -1,7 +1,7 @@
 [
   {
     "id": "switchTeams.error",
-    "defaultMessage": "Sorry, could not switch teams"
+    "defaultMessage": "Sorry, an error occurred while updating the team. Please try again and contact {supportEmail} if the condition persists."
   },
   {
     "id": "switchTeams.member",

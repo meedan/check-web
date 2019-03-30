@@ -9,7 +9,7 @@
   },
   {
     "id": "bot.cantChange",
-    "defaultMessage": "Sorry, you are not allowed to do that."
+    "defaultMessage": "Sorry, an error occurred while updating the bot. Please try again and contact {supportEmail} if the condition persists."
   },
   {
     "id": "bot.inUse",

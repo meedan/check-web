@@ -112,6 +112,7 @@ const sourceFragment = Relay.QL`
           last_status_obj {
             id
             dbid
+            content
             assignments(first: 10000) {
               edges {
                 node {

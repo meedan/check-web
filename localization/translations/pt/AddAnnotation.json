@@ -1,6 +1,6 @@
 {
   "addAnnotation.invalidCommand": "Comando inválido",
-  "addAnnotation.annotationAdded": "{type} foi adicionado(a)!",
+  "addAnnotation.annotationAdded": "{type} adicionado(a)",
   "addAnnotation.error": "Houve um erro. O servidor retornou o erro {code}. Por favor entre em contato com o suporte.",
   "addAnnotation.inputHint": "Adicione uma nota sobre isso",
   "addAnnotation.submitButton": "Enviar",

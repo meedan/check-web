@@ -15,6 +15,7 @@ import CreateDynamicMutation from '../../relay/mutations/CreateDynamicMutation';
 import AboutRoute from '../../relay/AboutRoute';
 import { safelyParseJSON } from '../../helpers';
 import { units } from '../../styles/js/shared';
+import { stringHelper } from '../../customHelpers';
 
 const messages = defineMessages({
   inputHint: {
@@ -27,11 +28,11 @@ const messages = defineMessages({
   },
   translationFailed: {
     id: 'translation.translationFailed',
-    defaultMessage: 'Sorry, could not create the translation',
+    defaultMessage: 'Sorry, an error occurred while updating the translation. Please try again and contact {supportEmail} if the condition persists.',
   },
   submitBlank: {
     id: 'translation.submitBlank',
-    defaultMessage: "Can't submit a blank translation",
+    defaultMessage: "The translation can't be blank. Please write a translation and try again.",
   },
 });
 
@@ -74,7 +75,7 @@ class TranslationComponent extends Component {
 
   fail(transaction) {
     const error = transaction.getError();
-    let message = this.props.intl.formatMessage(messages.createTagFailed);
+    let message = this.props.intl.formatMessage(messages.translationFailed, { supportEmail: stringHelper('SUPPORT_EMAIL') });
     const json = safelyParseJSON(error.source);
     if (json && json.error) {
       message = json.error;

@@ -1,0 +1,15 @@
+{
+  "UserPrivacy.deleteAccount": "Delete Account",
+  "userPrivacy.deleteAccountConfirmationText": "Are you sure? This will remove your account and log you out of the app.",
+  "userPrivacy.ppLink": "Privacy Policy",
+  "userPrivacy.title": "Informațiile dvs.",
+  "userPrivacy.description": "Please review our {ppLink} to learn how {appName} uses and stores your information.",
+  "userPrivacy.seeInformationText": "We will send you a file with the content and data you created and generated on {appName}. This can be kept for your records or transferred to another service.",
+  "userPrivacy.seeInformationButton": "See my information",
+  "userPrivacy.stopProcessingText": "You can request {appName} to stop processing your information under certain conditions.",
+  "userPrivacy.stopProcessingButton": "Request to stop processing",
+  "userPrivacy.connectedAccounts": "Connected accounts",
+  "userPrivacy.delete": "Delete your account",
+  "userPrivacy.deleteAccountText": "If you delete your account, your personal information will be erased. Comments, annotations, and team activity will become pseudonymous and remain on {appName}.",
+  "userPrivacy.deleteAccountButton": "Ștergeți contul"
+}

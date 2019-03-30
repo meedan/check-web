@@ -1,6 +1,6 @@
 [
   {
     "id": "mediaStatus.error",
-    "defaultMessage": "We're sorry, but we encountered an error trying to update the status."
+    "defaultMessage": "Sorry, an error occurred while updating the status. Please try again and contact {supportEmail} if the condition persists."
   }
 ]

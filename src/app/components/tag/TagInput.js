@@ -7,11 +7,12 @@ import { getErrorMessage } from '../../helpers';
 import CheckContext from '../../CheckContext';
 import { units, Row } from '../../styles/js/shared';
 import { createTag } from '../../relay/mutations/CreateTagMutation';
+import { stringHelper } from '../../customHelpers';
 
 const messages = defineMessages({
   error: {
     id: 'tagInput.error',
-    defaultMessage: 'Sorry – we had trouble adding that tag.',
+    defaultMessage: 'Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists.',
   },
 });
 
@@ -64,7 +65,7 @@ class TagInput extends React.Component {
       this.setState({
         message: getErrorMessage(
           transaction,
-          this.props.intl.formatMessage(messages.error),
+          this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') }),
         ),
       });
     };

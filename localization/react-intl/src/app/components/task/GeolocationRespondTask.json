@@ -5,11 +5,11 @@
   },
   {
     "id": "geoLocationRespondTask.notFound",
-    "defaultMessage": "Sorry, place not found!"
+    "defaultMessage": "Sorry, this place was not found. Please try another search."
   },
   {
     "id": "geoLocationRespondTask.error",
-    "defaultMessage": "Error communicating with server!"
+    "defaultMessage": "Sorry, an error occurred while updating the task. Please try again and contact {supportEmail} if the condition persists."
   },
   {
     "id": "geolocationRespondTask.cancelTask",

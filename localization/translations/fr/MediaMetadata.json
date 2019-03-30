@@ -2,7 +2,7 @@
   "mediaDetail.mediaTitle": "Titre",
   "mediaDetail.mediaDescription": "Description",
   "mediaDetail.editReport": "Modifier",
-  "mediaDetail.editReportError": "Désolé, il n'a pas été possible de modifier cet élément",
+  "mediaDetail.editReportError": "Désolé, une erreur s'est produite durant la mise à jour de l'élément. Veuillez réessayer et prévenir {supportEmail} si le problème persiste.",
   "mediaDetail.trash": "Corbeille",
   "mediaMetadata.movedToTrash": "Mis à la {trash}",
   "mediaMetadata.movedBack": "Restauré au projet {project}",

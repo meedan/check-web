@@ -8,6 +8,7 @@ import styled from 'styled-components';
 import TeamBots from './TeamBots';
 import TeamTags from './TeamTags';
 import TeamTasks from './TeamTasks';
+import TeamEmbed from './TeamEmbed';
 import TeamInfo from './TeamInfo';
 import TeamInfoEdit from './TeamInfoEdit';
 import TeamMembers from './TeamMembers';
@@ -155,6 +156,18 @@ class TeamComponent extends Component {
             /> : null }
             {UserUtil.myRole(this.getCurrentUser(), team.slug) === 'owner' ?
               <Tab
+                className="team-settings__embed-tab"
+                label={
+                  <FormattedMessage
+                    id="teamSettings.embed"
+                    defaultMessage="Embed"
+                  />
+                }
+                value="embed"
+              />
+              : null }
+            {UserUtil.myRole(this.getCurrentUser(), team.slug) === 'owner' ?
+              <Tab
                 className="team-settings__integrations-tab"
                 label={
                   <FormattedMessage
@@ -200,6 +213,9 @@ class TeamComponent extends Component {
             : null }
           { isSettings && this.state.showTab === 'bots'
             ? <TeamBots team={team} direction={direction} />
+            : null }
+          { isSettings && this.state.showTab === 'embed'
+            ? <TeamEmbed team={team} direction={direction} />
             : null }
           { isSettings && this.state.showTab === 'integrations'
             ? (

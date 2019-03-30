@@ -1,5 +1,5 @@
 {
-  "switchTeams.error": "Lo sentimos, no puedes cambiar de equipo",
+  "switchTeams.error": "Lo sentimos, se produjo un error al actualizar el equipo. Vuelva a intentarlo y avise a {supportEmail} si la condición persiste.",
   "switchTeams.member": "{membersCount, plural, =0 {Sin miembros} one {1 miembro} other {# membros}} ",
   "switchTeams.joinRequestMessage": "Solicitaste unirte",
   "teams.yourTeams": "Tus términos",

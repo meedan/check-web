@@ -1,5 +1,5 @@
 {
-  "teamComponent.editError": "عذراً ، لقد واجهنا خطأ ما اثناء تحرير الفريق. من فضلك أعد المحاولة وتواصل مع فريق الدعم إن استمر الخطأ.",
+  "teamComponent.editError": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث الفريق. من فضلك أعد المحاولة وتواصل مع {supportEmail} إن استمرت المشكلة.",
   "teamComponent.editSuccess": "تم تحديث معلومات الفريق بنجاح!",
   "teamComponent.teamName": "اسم الفريق",
   "teamComponent.teamDescription": "وصف الفريق",

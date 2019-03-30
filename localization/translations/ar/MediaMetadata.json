@@ -2,7 +2,7 @@
   "mediaDetail.mediaTitle": "العنوان",
   "mediaDetail.mediaDescription": "وصف",
   "mediaDetail.editReport": "تحرير",
-  "mediaDetail.editReportError": "عذراً ، لقد واجهنا خطأ ما اثناء تحرير العنصر. من فضلك أعد المحاولة وتواصل مع فريق الدعم إن استمر الخطأ.",
+  "mediaDetail.editReportError": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث العنصر. من فضلك أعد المحاولة وتواصل مع {supportEmail} إن استمرت المشكلة.",
   "mediaDetail.trash": "سلة المهملات",
   "mediaMetadata.movedToTrash": "تم الارسال إلى {trash}",
   "mediaMetadata.movedBack": "تمت اﻹستعادة إلى مشروع {project}",

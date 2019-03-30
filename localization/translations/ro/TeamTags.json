@@ -1,0 +1,23 @@
+{
+  "teamTags.failUpdate": "Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists.",
+  "teamTags.failDelete": "Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists.",
+  "teamTags.failMove": "Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists.",
+  "teamTags.fail": "Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists.",
+  "teamTags.editTag": "Editează eticheta",
+  "teamTags.deleteTag": "Șterge eticheta",
+  "teamTags.moveTag": "Move to teamwide tags",
+  "teamTags.itemsCount": "{count, plural, =0 {no items} one {1 item} other {# items}}",
+  "teamTags.cancelDelete": "Anulează",
+  "teamTags.continue": "Continuă",
+  "teamTags.counter": "{total, plural, =0 {No tags} one {1 tag ({hidden} hidden by filters)} other {# tags ({hidden} hidden by filters)}}",
+  "teamTags.counterNoHidden": "{total, plural, =0 {No tags} one {1 tag} other {# tags}}",
+  "teamTags.tags": "Etichete",
+  "teamTags.tooltip": "Filtrează și sortează lista",
+  "teamTags.teamwideTags": "Team tags",
+  "teamTags.noTeamwideTags": "No team tags.",
+  "teamTags.new": "Etichetă nouă",
+  "teamTags.addTag": "Adaugă etichetă",
+  "teamTags.customTags": "Custom tags",
+  "teamTags.noCustomTags": "No custom tags.",
+  "teamTags.confirmDeleteTitle": "Are you sure you want to delete this tag?"
+}

@@ -1,0 +1,12 @@
+{
+  "mediaActions.edit": "Editează",
+  "mediaActions.restore": "Restore to project",
+  "mediaActions.move": "Move",
+  "mediaActions.refresh": "Refresh",
+  "mediaActions.sendToTrash": "Send to trash",
+  "mediaActions.embed": "Embed",
+  "mediaActions.memebuster": "Meme Generator",
+  "mediaActions.assignOrUnassign": "Assign / Unassign",
+  "mediaActions.unlockStatus": "Unlock status",
+  "mediaActions.lockStatus": "Lock status"
+}

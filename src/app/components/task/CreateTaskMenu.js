@@ -104,7 +104,7 @@ class CreateTaskMenu extends React.Component {
                 className="create-task__teamwide-nudge"
                 leftIcon={<MdGrade />}
                 onClick={() => this.handleSelectType('teamwide')}
-                primaryText={<FormattedMessage id="tasks.teamwideNudge" defaultMessage="Teamwide tasks" />}
+                primaryText={<FormattedMessage id="tasks.teamwideNudge" defaultMessage="Team tasks" />}
                 secondaryText={<span style={{ color: black54, font: caption, lineHeight: '48px' }}>PRO</span>}
               /> : null
             }

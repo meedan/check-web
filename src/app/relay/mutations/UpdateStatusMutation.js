@@ -1,4 +1,5 @@
 import Relay from 'react-relay/classic';
+import { getStatus } from '../../helpers';
 
 class UpdateStatusMutation extends Relay.Mutation {
   getMutation() {
@@ -10,9 +11,26 @@ class UpdateStatusMutation extends Relay.Mutation {
   getFatQuery() {
     switch (this.props.parent_type) {
     case 'source':
-      return Relay.QL`fragment on UpdateDynamicPayload { dynamicEdge, source { log, log_count, id } }`;
+      return Relay.QL`fragment on UpdateDynamicPayload {
+        dynamicEdge,
+        source {
+          log,
+          log_count,
+          id
+        }
+      }`;
     case 'project_media':
-      return Relay.QL`fragment on UpdateDynamicPayload { dynamicEdge, project_media { targets, log, id, last_status, last_status_obj, log_count } }`;
+      return Relay.QL`fragment on UpdateDynamicPayload {
+        dynamicEdge,
+        project_media {
+          targets,
+          log,
+          id,
+          last_status,
+          last_status_obj,
+          log_count,
+        }
+      }`;
     default:
       return '';
     }
@@ -29,13 +47,30 @@ class UpdateStatusMutation extends Relay.Mutation {
           }
         });
       }
+      const status = getStatus(media.verification_statuses, this.props.annotation.status);
+      const deadline = status.completed === '1' ? null : (parseInt(media.published, 10) + (media.team.get_status_target_turnaround * 3600));
+      const content = JSON.parse(media.last_status_obj.content);
+      const optimisticContent = [];
+      content.forEach((field) => {
+        if (field.field_name !== 'deadline') {
+          optimisticContent.push(field);
+        }
+      });
+      if (deadline) {
+        optimisticContent.push({
+          field_name: 'deadline',
+          value: deadline,
+        });
+      }
       const obj = {
         project_media: {
           id: media.id,
           last_status: this.props.annotation.status,
           last_status_obj: {
             id: this.props.annotation.status_id,
+            content: JSON.stringify(optimisticContent),
           },
+          deadline,
         },
       };
       if (smoochBotInstalled && media.targets && media.targets.edges.length > 0) {

@@ -1,5 +1,5 @@
 {
-  "projectEdit.error": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث المشروع. من فضلك أعد المحاولة وتواصل مع فريق الدعم إن استمر الخطأ.",
+  "projectEdit.error": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث المشروع. من فضلك أعد المحاولة وتواصل مع {supportEmail} إن استمرت المشكلة.",
   "projectEdit.titleField": "عنوان المشروع",
   "projectEdit.descriptionField": "وصف المشروع",
   "projectEdit.saveButton": "حفظ"

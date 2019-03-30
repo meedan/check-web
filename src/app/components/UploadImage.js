@@ -73,11 +73,11 @@ const messages = defineMessages({
   },
   invalidExtension: {
     id: 'uploadImage.invalidExtension',
-    defaultMessage: 'Validation failed: File cannot have type "{extension}", allowed types: {allowed_types}',
+    defaultMessage: 'The file cannot have type "{extension}". Please try with the following file types: {allowed_types}.',
   },
   fileTooLarge: {
     id: 'uploadImage.fileTooLarge',
-    defaultMessage: 'Validation failed: File size should be less than {size}',
+    defaultMessage: 'The file size should be less than {size}. Please try with a smaller file.',
   },
 });
 

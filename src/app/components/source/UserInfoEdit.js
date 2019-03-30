@@ -33,6 +33,7 @@ import {
   StyledAvatarEditButton,
   StyledHelper,
 } from '../../styles/js/HeaderCard';
+import { stringHelper } from '../../customHelpers';
 
 const messages = defineMessages({
   sourceName: {
@@ -57,7 +58,7 @@ const messages = defineMessages({
   },
   editError: {
     id: 'userInfoEdit.editError',
-    defaultMessage: 'Sorry, could not edit the source',
+    defaultMessage: 'Sorry, an error occurred while updating your profile. Please try again and contact {supportEmail} if the condition persists.',
   },
   nameError: {
     id: 'userInfoEdit.nameError',
@@ -184,7 +185,7 @@ class UserInfoEdit extends React.Component {
 
   fail(transaction, mutation) {
     const error = transaction.getError();
-    let message = this.props.intl.formatMessage(messages.editError);
+    let message = this.props.intl.formatMessage(messages.editError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
     const json = safelyParseJSON(error.source);
     if (json && json.error) {
       message = json.error;

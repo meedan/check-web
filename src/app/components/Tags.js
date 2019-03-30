@@ -10,6 +10,7 @@ import CheckContext from '../CheckContext';
 import globalStrings from '../globalStrings';
 import { caption, StyledTagsWrapper } from '../styles/js/shared';
 import { safelyParseJSON } from '../helpers';
+import { stringHelper } from '../customHelpers';
 
 const messages = defineMessages({
   addTagHelper: {
@@ -18,7 +19,7 @@ const messages = defineMessages({
   },
   error: {
     id: 'tags.error',
-    defaultMessage: 'Sorry, could not create the tag',
+    defaultMessage: 'Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists.',
   },
 });
 
@@ -40,7 +41,7 @@ class Tags extends React.Component {
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
-      let message = this.props.intl.formatMessage(messages.error);
+      let message = this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') });
       const json = safelyParseJSON(error.source);
       if (json && json.error) {
         message = json.error;

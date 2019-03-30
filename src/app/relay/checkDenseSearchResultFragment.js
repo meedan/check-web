@@ -17,11 +17,11 @@ const checkDenseSearchResultFragment = Relay.QL`
           verification_statuses,
           project_id,
           permissions,
-          deadline: field_value(annotation_type_field_name: "verification_status:deadline"),
           last_status,
           last_status_obj {
             id,
             dbid,
+            content,
             locked
           }
           media {

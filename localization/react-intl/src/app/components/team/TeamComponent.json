@@ -8,6 +8,10 @@
     "defaultMessage": "Tags"
   },
   {
+    "id": "teamSettings.embed",
+    "defaultMessage": "Embed"
+  },
+  {
     "id": "teamSettings.integrations",
     "defaultMessage": "Integrations"
   },

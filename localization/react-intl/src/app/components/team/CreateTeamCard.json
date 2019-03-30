@@ -9,11 +9,11 @@
   },
   {
     "id": "createTeam.slugUnavailable",
-    "defaultMessage": "That URL is unavailable."
+    "defaultMessage": "Sorry, this slug is unavailable. Please try another one."
   },
   {
     "id": "createTeam.createTeamError",
-    "defaultMessage": "Sorry, could not create the team"
+    "defaultMessage": "Sorry, an error occurred while updating the team. Please try again and contact {supportEmail} if the condition persists."
   },
   {
     "id": "createTeam.title",

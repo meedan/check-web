@@ -20,6 +20,8 @@ class UpdateTeamMutation extends Relay.Mutation {
           get_slack_notifications_enabled
           get_slack_webhook
           get_slack_channel
+          get_disclaimer
+          get_embed_tasks
         }
         public_team {
           avatar
@@ -31,7 +33,8 @@ class UpdateTeamMutation extends Relay.Mutation {
   }
 
   getVariables() {
-    return {
+    const vars = {};
+    const options = {
       id: this.props.id,
       name: this.props.name,
       description: this.props.description,
@@ -41,7 +44,15 @@ class UpdateTeamMutation extends Relay.Mutation {
       slack_notifications_enabled: this.props.slack_notifications_enabled,
       slack_webhook: this.props.slack_webhook,
       slack_channel: this.props.slack_channel,
+      disclaimer: this.props.disclaimer,
+      embed_tasks: this.props.embed_tasks,
     };
+    Object.keys(options).forEach((key) => {
+      if (options[key]) {
+        vars[key] = options[key];
+      }
+    });
+    return vars;
   }
 
   getFiles() {
@@ -61,6 +72,8 @@ class UpdateTeamMutation extends Relay.Mutation {
               get_slack_notifications_enabled,
               get_slack_webhook,
               get_slack_channel,
+              get_disclaimer,
+              get_embed_tasks,
               contacts(first: 1) { edges { node { web, location, phone } } }
             }
           }`,

@@ -22,11 +22,12 @@ import {
 import {
   units,
 } from '../../styles/js/shared';
+import { stringHelper } from '../../customHelpers';
 
 const messages = defineMessages({
   editError: {
     id: 'teamComponent.editError',
-    defaultMessage: 'Sorry, could not edit the team',
+    defaultMessage: 'Sorry, an error occurred while updating the team. Please try again and contact {supportEmail} if the condition persists.',
   },
   editSuccess: {
     id: 'teamComponent.editSuccess',
@@ -119,7 +120,7 @@ class TeamInfoEdit extends React.Component {
   handleSubmit() {
     const onFailure = (transaction) => {
       const error = transaction.getError();
-      let message = this.props.intl.formatMessage(messages.editError);
+      let message = this.props.intl.formatMessage(messages.editError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
       const json = safelyParseJSON(error.source);
       if (json && json.error) {
         message = json.error;

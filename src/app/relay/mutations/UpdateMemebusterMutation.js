@@ -31,6 +31,7 @@ class UpdateMemebusterMutation extends Relay.Mutation {
       annotation_type: dynamic.annotation_type,
       annotated_id: `${dynamic.annotated_id}`,
       annotated_type: dynamic.annotated_type,
+      action: dynamic.action,
     };
   }
 

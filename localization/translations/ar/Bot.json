@@ -1,7 +1,7 @@
 {
   "bot.confirmInstall": "هل أنت متأكد أنك تود تثبيت هذا البوت في الفريق {teamName} ؟",
   "bot.confirmUninstall": "هل أنت متأكد أنك تود الغاء تثبيت هذا البوت من الفريق {teamName} ؟",
-  "bot.cantChange": "عذراً ، ليس مسموح لك تنفيذ هذه العملية.",
+  "bot.cantChange": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث البوت. من فضلك أعد المحاولة وتواصل مع {supportEmail} إن استمرت المشكلة.",
   "bot.inUse": "قيد الاستخدام",
   "bot.madeBy": "صنعه {teamLink}",
   "bot.permissions": "أذونات",

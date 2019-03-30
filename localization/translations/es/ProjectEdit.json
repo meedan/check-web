@@ -1,5 +1,5 @@
 {
-  "projectEdit.error": "Lo sentimos, no se pudo actualizar el proyecto",
+  "projectEdit.error": "Lo sentimos, se produjo un error al actualizar el proyecto. Vuelva a intentarlo y avise a {supportEmail} si la condición persiste.",
   "projectEdit.titleField": "Título del proyecto",
   "projectEdit.descriptionField": "Descripción del proyecto",
   "projectEdit.saveButton": "Guardar"

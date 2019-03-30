@@ -1,7 +1,7 @@
 [
   {
     "id": "sourceCard.error",
-    "defaultMessage": "Sorry, could not refresh source"
+    "defaultMessage": "Sorry, an error occurred while updating the source. Please try again and contact {supportEmail} if the condition persists."
   },
   {
     "id": "mediaDetail.byUser",

@@ -1,5 +1,5 @@
 {
-  "projectEdit.error": "Désolé, il n'a pas été possible de mettre le projet à jour",
+  "projectEdit.error": "Désolé, une erreur s'est produite durant la mise à jour du projet. Veuillez réessayer et contactez {supportEmail} si le problème persiste.",
   "projectEdit.titleField": "Titre du projet",
   "projectEdit.descriptionField": "Description du projet",
   "projectEdit.saveButton": "Sauvegarder"

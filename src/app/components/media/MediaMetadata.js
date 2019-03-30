@@ -84,7 +84,7 @@ const messages = defineMessages({
   },
   editReportError: {
     id: 'mediaDetail.editReportError',
-    defaultMessage: 'Sorry, we could not edit this item',
+    defaultMessage: 'Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists.',
   },
   trash: {
     id: 'mediaDetail.trash',
@@ -392,7 +392,7 @@ class MediaMetadata extends Component {
 
   fail(transaction) {
     const error = transaction.getError();
-    let message = this.props.intl.formatMessage(messages.editReportError);
+    let message = this.props.intl.formatMessage(messages.editReportError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
     const json = safelyParseJSON(error.source);
     if (json && json.error) {
       message = json.error;
@@ -427,6 +427,7 @@ class MediaMetadata extends Component {
     this.setState({ dstProj });
   }
 
+  // FIXME replace with helper getStatus().completed
   isStatusFinal(id) {
     let isFinal = false;
     try {

@@ -1,6 +1,7 @@
 {
   "MemebusterComponent.publishing": "En cours de publication...",
   "MemebusterComponent.lastPublished": "Dernière publication le {time} pas {name}",
+  "MemebusterComponent.fail": "Désolé, une erreur s'est produite durant la publication du mème. Veuillez réessayer et prévenir {supportEmail} si le problème persiste.",
   "MemebusterComponent.lastSaved": "Dernier sauvegarde le {time} par {name}",
   "MemebusterComponent.publish": "Publier"
 }

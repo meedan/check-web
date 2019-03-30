@@ -14,7 +14,7 @@ import MediaUtil from '../media/MediaUtil';
 import globalStrings from '../../globalStrings';
 import CheckContext from '../../CheckContext';
 import { safelyParseJSON, getStatus, getStatusStyle } from '../../helpers';
-import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
+import { mediaStatuses, mediaLastStatus, stringHelper } from '../../customHelpers';
 import { Row, ContentColumn, mediaQuery, units } from '../../styles/js/shared';
 import CreateMemebusterMutation from '../../relay/mutations/CreateMemebusterMutation';
 import UpdateMemebusterMutation from '../../relay/mutations/UpdateMemebusterMutation';
@@ -58,7 +58,7 @@ class MemebusterComponent extends React.Component {
 
     const savedParams = this.getSavedParams();
 
-    this.state = { params: Object.assign(defaultParams, savedParams) };
+    this.state = { params: Object.assign(defaultParams, savedParams), pending: false };
   }
 
   componentDidMount() {
@@ -118,6 +118,7 @@ class MemebusterComponent extends React.Component {
     const annotation = this.getLastSaveAnnotation();
     const publish_sent = this.getFieldFromAnnotation('memebuster_operation') === 'publish';
     const publish_done = this.getFieldFromAnnotation('memebuster_published_at');
+    const publish_fail = this.getFieldFromAnnotation('memebuster_last_error');
 
     let text = null;
 
@@ -138,6 +139,14 @@ class MemebusterComponent extends React.Component {
           />,
           name: annotation.annotator.name,
         }}
+      />);
+    }
+
+    if (publish_fail) {
+      text = (<FormattedMessage
+        id="MemebusterComponent.fail"
+        defaultMessage="Sorry, an error occurred while publishing the meme. Please try again and contact {supportEmail} if the condition persists."
+        values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
       />);
     }
 
@@ -188,6 +197,7 @@ class MemebusterComponent extends React.Component {
   };
 
   handleSubmit = (action) => {
+    this.setState({ pending: true });
     let imagePath = '';
     let imageFile = null;
 
@@ -206,12 +216,18 @@ class MemebusterComponent extends React.Component {
       memebuster_body: this.state.params.description,
       memebuster_status: this.state.params.statusText,
       memebuster_overlay: this.state.params.overlayColor,
+      memebuster_last_error: '',
     };
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
       // eslint-disable-next-line no-console
       console.error(`Error performing Memebuster mutation: ${error}`);
+      this.setState({ pending: false });
+    };
+
+    const onSuccess = () => {
+      this.setState({ pending: false });
     };
 
     const annotation = this.getLastSaveAnnotation();
@@ -224,12 +240,13 @@ class MemebusterComponent extends React.Component {
           annotator: this.getContext().currentUser,
           annotated: this.props.media,
           annotation: {
+            action,
             fields,
             annotated_type: 'ProjectMedia',
             annotated_id: this.props.media.dbid,
           },
         }),
-        { onFailure },
+        { onFailure, onSuccess },
       );
     } else {
       Relay.Store.commitUpdate(
@@ -240,12 +257,13 @@ class MemebusterComponent extends React.Component {
           annotator: this.getContext().currentUser,
           annotated: this.props.media,
           annotation: {
+            action,
             fields,
             annotated_type: 'ProjectMedia',
             annotated_id: this.props.media.dbid,
           },
         }),
-        { onFailure },
+        { onFailure, onSuccess },
       );
     }
   };
@@ -278,8 +296,8 @@ class MemebusterComponent extends React.Component {
     const annotation = this.getLastSaveAnnotation();
     const template = media.team.get_memebuster_template;
 
-    const saveDisabled = !can(media.permissions, 'update ProjectMedia') || !this.validate();
-    const publishDisabled = !can(media.permissions, 'lock Annotation') || !this.validate();
+    const saveDisabled = !can(media.permissions, 'update ProjectMedia') || !this.validate() || this.state.pending;
+    const publishDisabled = !can(media.permissions, 'lock Annotation') || !this.validate() || this.state.pending;
 
     return (
       <PageTitle

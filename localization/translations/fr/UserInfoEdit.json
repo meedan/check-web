@@ -4,7 +4,7 @@
   "userInfoEdit.userEmail": "Courriel",
   "userInfoEdit.userSendEmailNotification": "Recevoir des notifications par courrier électronique",
   "userInfoEdit.addLink": "Ajouter un lien",
-  "userInfoEdit.editError": "Désolé, il n'a pas été possible de modifier la source",
+  "userInfoEdit.editError": "Désolé, une erreur s'est produite durant la mise à jour de votre profil. Veuillez réessayer et prévenir {supportEmail} si le problème persiste.",
   "userInfoEdit.nameError": "Un nom vide est non valide.",
   "userInfoEdit.addLinkLabel": "Ajouter un lien",
   "userInfoEdit.addLinkHelper": "Ajouter un lien vers une page Web ou un profil de réseau social. Ceci n'affectera pas votre méthode de connexion.",

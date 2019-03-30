@@ -7,5 +7,5 @@
   "global.save": "Sauvegarder",
   "global.submit": "Envoyer",
   "global.tags": "Tags",
-  "global.unknownError": "Une erreur s'est produite. Veuillez réessayer et contactez {supportEmail} si l'erreur persiste."
+  "global.unknownError": "Désolé, une erreur s'est produite. Veuillez réessayer et prévenir {supportEmail} si le problème persiste."
 }

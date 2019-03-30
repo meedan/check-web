@@ -24,6 +24,7 @@ import {
   units,
 } from '../../styles/js/shared';
 import CreateTeamMutation from '../../relay/mutations/CreateTeamMutation';
+import { stringHelper } from '../../customHelpers';
 
 const messages = defineMessages({
   slugChecking: {
@@ -36,11 +37,11 @@ const messages = defineMessages({
   },
   slugUnavailable: {
     id: 'createTeam.slugUnavailable',
-    defaultMessage: 'That URL is unavailable.',
+    defaultMessage: 'Sorry, this slug is unavailable. Please try another one.',
   },
   createTeamError: {
     id: 'createTeam.createTeamError',
-    defaultMessage: 'Sorry, could not create the team',
+    defaultMessage: 'Sorry, an error occurred while updating the team. Please try again and contact {supportEmail} if the condition persists.',
   },
   title: {
     id: 'createTeam.title',
@@ -108,7 +109,7 @@ class CreateTeamCard extends React.Component {
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
-      let message = this.props.intl.formatMessage(messages.createTeamError);
+      let message = this.props.intl.formatMessage(messages.createTeamError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
       const json = safelyParseJSON(error.source);
       if (json && json.error) {
         message = json.error;

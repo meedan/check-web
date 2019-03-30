@@ -30,11 +30,12 @@ import DeleteTeamUserMutation from '../../relay/mutations/DeleteTeamUserMutation
 import CheckContext from '../../CheckContext';
 import { can } from '../Can';
 import { safelyParseJSON } from '../../helpers';
+import { stringHelper } from '../../customHelpers';
 
 const messages = defineMessages({
   switchTeamsError: {
     id: 'switchTeams.error',
-    defaultMessage: 'Sorry, could not switch teams',
+    defaultMessage: 'Sorry, an error occurred while updating the team. Please try again and contact {supportEmail} if the condition persists.',
   },
   switchTeamsMember: {
     id: 'switchTeams.member',
@@ -60,7 +61,7 @@ class SwitchTeamsComponent extends Component {
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
-      let message = this.props.intl.formatMessage(messages.switchTeamsError);
+      let message = this.props.intl.formatMessage(messages.switchTeamsError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
       const json = safelyParseJSON(error.source);
       if (json && json.error) {
         message = json.error;

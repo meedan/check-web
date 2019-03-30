@@ -29,7 +29,7 @@ const messages = defineMessages({
   },
   cantChange: {
     id: 'bot.cantChange',
-    defaultMessage: 'Sorry, you are not allowed to do that.',
+    defaultMessage: 'Sorry, an error occurred while updating the bot. Please try again and contact {supportEmail} if the condition persists.',
   },
 });
 
@@ -144,7 +144,7 @@ class BotComponent extends Component {
     if (window.confirm(this.props.intl.formatMessage(message, { teamName: team.name }))) {
       const onSuccess = () => {};
       const onFailure = () => {
-        const errorMessage = this.props.intl.formatMessage(messages.cantChange);
+        const errorMessage = this.props.intl.formatMessage(messages.cantChange, { supportEmail: stringHelper('SUPPORT_EMAIL') });
         this.setState({ message: errorMessage });
       };
 

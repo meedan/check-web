@@ -12,6 +12,7 @@ import TeamProjectsNudge from '../team/TeamProjectsNudge';
 import CreateProjectMutation from '../../relay/mutations/CreateProjectMutation';
 import CheckContext from '../../CheckContext';
 import { safelyParseJSON } from '../../helpers';
+import { stringHelper } from '../../customHelpers';
 import {
   title1,
   units,
@@ -36,7 +37,7 @@ const messages = defineMessages({
   },
   error: {
     id: 'createProject.error',
-    defaultMessage: 'Sorry, could not create the project',
+    defaultMessage: 'Sorry, an error occurred while updating the project. Please try again and contact {supportEmail} if the condition persists.',
   },
 });
 
@@ -73,7 +74,7 @@ class CreateProject extends Component {
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
-      let message = this.props.intl.formatMessage(messages.error);
+      let message = this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') });
       const json = safelyParseJSON(error.source);
       if (json && json.error) {
         message = json.error;

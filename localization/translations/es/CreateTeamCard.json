@@ -1,8 +1,8 @@
 {
   "createTeam.slugChecking": "Comprobando disponibilidad... ",
   "createTeam.slugAvailable": "Disponible",
-  "createTeam.slugUnavailable": "Esa URL no está disponible.",
-  "createTeam.createTeamError": "Lo sentimos, no puedes crear el equipo",
+  "createTeam.slugUnavailable": "Lo sentimos, esta URL no está disponible. Por favor, intente otro.",
+  "createTeam.createTeamError": "Lo sentimos, se produjo un error al actualizar el equipo. Vuelva a intentarlo y avise a {supportEmail} si la condición persiste.",
   "createTeam.title": "Crea un equipo",
   "createTeam.teamNameHint": "Nombre del equipo ",
   "createTeam.teamSlugHint": "slug del equipo",

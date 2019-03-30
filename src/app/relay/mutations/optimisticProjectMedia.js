@@ -25,7 +25,6 @@ const optimisticProjectMedia = (title, project, context) => {
         log_count: 1,
         verification_statuses: JSON.stringify(team.verification_statuses),
         translation_statuses: JSON.stringify(team.translation_statuses),
-        deadline: null,
         last_status: ls,
         last_status_obj: {
           locked: true,

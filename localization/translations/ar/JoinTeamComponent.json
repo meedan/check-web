@@ -1,5 +1,5 @@
 {
-  "joinTeamComponent.error": "عذراً ، لقد واجهنا خطأ ما اثناء إرسال طلبك. من فضلك أعد المحاولة وتواصل مع فريق الدعم إن استمر الخطأ.",
+  "joinTeamComponent.error": "عذراً ، لقد واجهنا خطأ ما اثناء إرسال طلبك. من فضلك أعد المحاولة وتواصل مع {supportEmail} إن استمرت المشكلة.",
   "joinTeamComponent.success": "شكراً على رغبتك في الانضمام لفريق {team} على {appName}! سوف يراجع مدير الفريق طلبك بأسرع وقت.",
   "joinTeamComponent.autoApprove": "شكراً على انضمامك لفريق {team} على {appName}! يمكنك بدء المشاركة على الفور.",
   "joinTeamComponent.title": "انضم لفريق",

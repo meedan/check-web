@@ -1,7 +1,6 @@
 {
   "UserPrivacy.deleteAccount": "Borrar cuenta",
-  "UserPrivacy.typeHere": "Escribe aquí",
-  "UserPrivacy.confirmError": "Escribe \"confirm\" si deseas continuar.",
+  "userPrivacy.deleteAccountConfirmationText": "¿Estás segura o seguro? Esto eliminará tu cuenta y te desconectará de la aplicación. ",
   "userPrivacy.ppLink": "Política de Privacidad",
   "userPrivacy.title": "Tus datos",
   "userPrivacy.description": "Revise nuestro {ppLink} para saber cómo {appName} usa y almacena su información.",
@@ -12,8 +11,5 @@
   "userPrivacy.connectedAccounts": "Cuentas conectadas",
   "userPrivacy.delete": "Borrar tu cuenta",
   "userPrivacy.deleteAccountText": "Si borra su cuenta, su información personal será borrada. Los comentarios, las anotaciones y la actividad del equipo se convertirán en seudónimos y permanecerán en {appName}.",
-  "userPrivacy.deleteAccountButton": "Borrar mi cuenta",
-  "userPrivacy.deleteAccountConfirmationText": "¿Estás segura o seguro? Esto eliminará tu cuenta y te desconectará de la aplicación. Escribe \"confirm\" si deseas continuar.",
-  "deleteAccount.cancel": "Cancelar",
-  "deleteAccount.delete": "Eliminar "
+  "userPrivacy.deleteAccountButton": "Borrar mi cuenta"
 }

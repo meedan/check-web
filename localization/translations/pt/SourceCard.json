@@ -1,5 +1,5 @@
 {
-  "sourceCard.error": "Desculpe, não foi possível recarregar a fonte",
+  "sourceCard.error": "Desculpe, ocorreu um erro ao atualizar a fonte. Por favor, tente novamente e avise {supportEmail} se a condição persistir.",
   "mediaDetail.byUser": "por {username}",
   "mediaDetail.added": "Adicionado {byUser}"
 }

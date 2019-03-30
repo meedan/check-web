@@ -1,7 +1,6 @@
 {
   "UserPrivacy.deleteAccount": "Supprimer le compte",
-  "UserPrivacy.typeHere": "Tapez ici",
-  "UserPrivacy.confirmError": "Tapez \"confirm\" si vous désirez continuer.",
+  "userPrivacy.deleteAccountConfirmationText": "Voulez-vous vraiment supprimer votre compte et vous déconnecter de l'application ?",
   "userPrivacy.ppLink": "Politique de confidentialité",
   "userPrivacy.title": "Vos données",
   "userPrivacy.description": "Veuillez revoir notre {ppLink} pour apprendre comment {appName} traite et store vos données.",
@@ -12,8 +11,5 @@
   "userPrivacy.connectedAccounts": "Comptes connectés",
   "userPrivacy.delete": "Supprimer votre compte",
   "userPrivacy.deleteAccountText": "Si vous supprimez votre compte, vos données personnelles seront effacées. Les commentaires, annotations et activités d'équipe deviendront pseudonymes et resteront sur {appName}.",
-  "userPrivacy.deleteAccountButton": "Supprimer mon compte",
-  "userPrivacy.deleteAccountConfirmationText": "Voulez-vous vraiment supprimer votre compte et vous déconnecter de l'application ? Tapez \"confirm\" si vous désirez continuer.",
-  "deleteAccount.cancel": "Annuler",
-  "deleteAccount.delete": "Effacer"
+  "userPrivacy.deleteAccountButton": "Supprimer mon compte"
 }

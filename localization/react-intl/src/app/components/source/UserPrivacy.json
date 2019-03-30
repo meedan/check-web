@@ -4,12 +4,8 @@
     "defaultMessage": "Delete Account"
   },
   {
-    "id": "UserPrivacy.typeHere",
-    "defaultMessage": "Type here"
-  },
-  {
-    "id": "UserPrivacy.confirmError",
-    "defaultMessage": "You should type \"confirm\""
+    "id": "userPrivacy.deleteAccountConfirmationText",
+    "defaultMessage": "Are you sure? This will remove your account and log you out of the app."
   },
   {
     "id": "userPrivacy.ppLink",
@@ -54,17 +50,5 @@
   {
     "id": "userPrivacy.deleteAccountButton",
     "defaultMessage": "Delete my account"
-  },
-  {
-    "id": "userPrivacy.deleteAccountConfirmationText",
-    "defaultMessage": "Are you sure? This will remove your account and log you out of the app. Type \"confirm\" if you want to proceed."
-  },
-  {
-    "id": "deleteAccount.cancel",
-    "defaultMessage": "Cancel"
-  },
-  {
-    "id": "deleteAccount.delete",
-    "defaultMessage": "Delete"
   }
 ]

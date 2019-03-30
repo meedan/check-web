@@ -40,7 +40,6 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
         embed,
         last_status,
         field_value(annotation_type_field_name: "translation_status:translation_status_status"),
-        deadline: field_value(annotation_type_field_name: "verification_status:deadline"),
         log_count,
         domain,
         permissions,
@@ -96,6 +95,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
           id
           dbid
           locked
+          content
           assignments(first: 10000) {
             edges {
               node {
@@ -326,6 +326,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
                       last_status_obj {
                         id
                         dbid
+                        content
                         assignments(first: 10000) {
                           edges {
                             node {

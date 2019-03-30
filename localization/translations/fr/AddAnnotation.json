@@ -1,6 +1,6 @@
 {
   "addAnnotation.invalidCommand": "Commande non valide",
-  "addAnnotation.annotationAdded": "Votre {type} a été ajouté!",
+  "addAnnotation.annotationAdded": "{type} ajouté.e",
   "addAnnotation.error": "Une erreur s'est produite. Le serveur a répondu par un code {code}. veuillez contacter notre support technique.",
   "addAnnotation.inputHint": "Taper un commentaire ici",
   "addAnnotation.submitButton": "Envoyer",

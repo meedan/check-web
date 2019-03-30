@@ -1,8 +1,8 @@
 {
-  "teamTags.failUpdate": "Désolé, il n'a pas été possible d'éditer ce tag",
-  "teamTags.failDelete": "Désolé, il n'a pas été possible de supprimer ce tag",
-  "teamTags.failMove": "Désolé, il n'a pas été possible de transférer ce tag",
-  "teamTags.fail": "Désolé, il n'a pas été possible de rajouter ce tag",
+  "teamTags.failUpdate": "Désolé, une erreur s'est produite durant la mise à jour du tag. Veuillez réessayer et prévenir {supportEmail} si le problème persiste.",
+  "teamTags.failDelete": "Désolé, une erreur s'est produite durant la mise à jour du tag. Veuillez réessayer et prévenir {supportEmail} si le problème persiste.",
+  "teamTags.failMove": "Désolé, une erreur s'est produite durant la mise à jour du tag. Veuillez réessayer et prévenir {supportEmail} si le problème persiste.",
+  "teamTags.fail": "Désolé, une erreur s'est produite durant la mise à jour du tag. Veuillez réessayer et prévenir {supportEmail} si le problème persiste.",
   "teamTags.editTag": "Modifier le tag",
   "teamTags.deleteTag": "Supprimer le tag",
   "teamTags.moveTag": "Transférer aux tags d'équipe",

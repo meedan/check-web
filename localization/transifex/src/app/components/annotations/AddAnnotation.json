@@ -1,6 +1,6 @@
 {
   "addAnnotation.invalidCommand": "Invalid command",
-  "addAnnotation.annotationAdded": "Your {type} was added!",
+  "addAnnotation.annotationAdded": "{type} added",
   "addAnnotation.error": "Something went wrong! The server returned an error code {code}. Please contact a system administrator.",
   "addAnnotation.inputHint": "Add a note about this",
   "addAnnotation.submitButton": "Submit",

@@ -14,6 +14,7 @@ import SourcePicture from './SourcePicture';
 import { truncateLength, safelyParseJSON } from '../../helpers';
 import { units, opaqueBlack54, subheading1, black87 } from '../../styles/js/shared';
 import { refreshSource } from '../../relay/mutations/UpdateSourceMutation';
+import { stringHelper } from '../../customHelpers';
 
 const StyledSourceCardBody = styled.div`
   width: 100%;
@@ -36,7 +37,7 @@ const cardTextStyle = {
 const messages = defineMessages({
   error: {
     id: 'sourceCard.error',
-    defaultMessage: 'Sorry, could not refresh source',
+    defaultMessage: 'Sorry, an error occurred while updating the source. Please try again and contact {supportEmail} if the condition persists.',
   },
 });
 
@@ -53,7 +54,7 @@ class SourceCard extends React.Component {
     const { id } = this.props.source.source;
 
     const onFailure = (transaction) => {
-      let message = `${this.props.intl.formatMessage(messages.error)}`;
+      let message = `${this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') })}`;
       const transactionError = transaction.getError();
 
       if (transactionError.source) {

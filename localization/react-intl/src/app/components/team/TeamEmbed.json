@@ -1,0 +1,34 @@
+[
+  {
+    "id": "teamEmbed.updateFail",
+    "defaultMessage": "Sorry, an error occurred while updating the settings. Please try again and contact {supportEmail} if the condition persists."
+  },
+  {
+    "id": "teamEmbed.updateSuccess",
+    "defaultMessage": "Embed settings updated successfully!"
+  },
+  {
+    "id": "teamEmbed.title",
+    "defaultMessage": "Embed settings"
+  },
+  {
+    "id": "teamEmbed.tasks",
+    "defaultMessage": "Tasks"
+  },
+  {
+    "id": "teamEmbed.tasksSub",
+    "defaultMessage": "The selected tasks will be included in the embed if they are resolved."
+  },
+  {
+    "id": "teamEmbed.disclaimer",
+    "defaultMessage": "Disclaimer"
+  },
+  {
+    "id": "teamEmbed.disclaimerSub",
+    "defaultMessage": "Disclaimer that will be shown at the bottom of the embed with the team logo."
+  },
+  {
+    "id": "teamEmbed.save",
+    "defaultMessage": "Save"
+  }
+]

@@ -9,7 +9,7 @@
   },
   {
     "id": "mediaTags.error",
-    "defaultMessage": "Sorry – we had trouble adding that tag."
+    "defaultMessage": "Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists."
   },
   {
     "id": "mediaTags.heading",

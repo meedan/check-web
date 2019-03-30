@@ -77,7 +77,7 @@ try {
 class Root extends Component {
   static logPageView() {
     if (config.googleAnalyticsCode) {
-      ReactGA.set({ page: window.location.pathname });
+      ReactGA.set({ page: window.location.pathname, anonymizeIp: true });
       ReactGA.pageview(window.location.pathname);
     }
   }

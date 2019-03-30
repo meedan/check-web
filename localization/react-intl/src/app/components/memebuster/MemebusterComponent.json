@@ -8,6 +8,10 @@
     "defaultMessage": "Last published {time} by {name}"
   },
   {
+    "id": "MemebusterComponent.fail",
+    "defaultMessage": "Sorry, an error occurred while publishing the meme. Please try again and contact {supportEmail} if the condition persists."
+  },
+  {
     "id": "MemebusterComponent.lastSaved",
     "defaultMessage": "Last saved {time} by {name}"
   },

@@ -22,7 +22,6 @@ const mediaFragment = Relay.QL`
     language,
     language_code,
     field_value(annotation_type_field_name: "translation_status:translation_status_status"),
-    deadline: field_value(annotation_type_field_name: "verification_status:deadline"),
     translation_status: annotation(annotation_type: "translation_status") {
       id
       dbid
@@ -31,7 +30,8 @@ const mediaFragment = Relay.QL`
     last_status_obj {
       id,
       dbid,
-      locked
+      locked,
+      content,
       assignments(first: 10000) {
         edges {
           node {

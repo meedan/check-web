@@ -37,7 +37,11 @@ const LoginContainer = props => (
       </p>
 
       <p style={{ textAlign: 'center' }}>
-        <FormattedHTMLMessage id="login.contactSupport" defaultMessage='For support contact <a href="mailto:{supportEmail}">{supportEmail}</a>.' values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }} />
+        <FormattedHTMLMessage
+          id="login.contactSupport"
+          defaultMessage='For support contact <a href="mailto:{supportEmail}">{supportEmail}</a>.'
+          values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
+        />
       </p>
       <FooterRelay {...props} />
     </ContentColumn>

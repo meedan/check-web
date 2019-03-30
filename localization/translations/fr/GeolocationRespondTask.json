@@ -1,7 +1,7 @@
 {
   "geoLocationRespondTask.searching": "Recherche en cours...",
-  "geoLocationRespondTask.notFound": "Lieu introuvable",
-  "geoLocationRespondTask.error": "Une erreur s'est produite durint la communication avec le serveur.",
+  "geoLocationRespondTask.notFound": "Désolé, ce lieu est introuvable. Veuillez essayer une recherche différente.",
+  "geoLocationRespondTask.error": "Désolé, une erreur s'est produite durant la mise à jour de la tâche. Veuillez réessayer et prévenir {supportEmail} si le problème persiste.",
   "geolocationRespondTask.cancelTask": "Annuler",
   "geolocationRespondTask.answerTask": "Répondre",
   "geolocationRespondTask.searchMap": "Rechercher la carte",
