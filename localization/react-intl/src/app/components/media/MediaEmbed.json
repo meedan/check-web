@@ -1,9 +1,5 @@
 [
   {
-    "id": "mediaEmbed.embedPreview",
-    "defaultMessage": "Embed preview"
-  },
-  {
     "id": "mediaEmbed.customizationOptionShowCompleteTasks",
     "defaultMessage": "Show complete tasks"
   },

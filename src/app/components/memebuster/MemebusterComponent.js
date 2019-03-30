@@ -301,7 +301,7 @@ class MemebusterComponent extends React.Component {
 
     return (
       <PageTitle
-        prefix={MediaUtil.title(media, data, this.props.intl)}
+        prefix={MediaUtil.title({ media }, data, this.props.intl)}
         team={this.getContext().team}
         data-id={media.dbid}
       >
