@@ -5,19 +5,15 @@
   },
   {
     "id": "sourceComponent.editError",
-    "defaultMessage": "Sorry, could not edit the source"
+    "defaultMessage": "Sorry, an error occurred while updating the source. Please try again and contact {supportEmail} if the condition persists."
   },
   {
     "id": "sourceComponent.createTagError",
-    "defaultMessage": "Failed to create tag"
+    "defaultMessage": "Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists."
   },
   {
     "id": "sourceComponent.selectLanguageError",
     "defaultMessage": "Please select a language from the list"
-  },
-  {
-    "id": "sourceComponent.editSuccess",
-    "defaultMessage": "Source information updated successfully!"
   },
   {
     "id": "sourceComponent.mergeSource",
@@ -89,11 +85,11 @@
   },
   {
     "id": "sourceNoAccounts",
-    "defaultMessage": "No networks associated with this source yet"
+    "defaultMessage": "No networks associated with this source"
   },
   {
     "id": "sourceNoMedia",
-    "defaultMessage": "No media attributed to this source yet"
+    "defaultMessage": "No media attributed to this source"
   },
   {
     "id": "sourceComponent.conflictError",

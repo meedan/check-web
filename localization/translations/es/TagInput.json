@@ -1,5 +1,5 @@
 {
-  "tagInput.error": "Lo sentimos, tuvimos problemas añadiendo esta etiqueta. ",
+  "tagInput.error": "Lo sentimos, se produjo un error al actualizar la etiqueta. Vuelva a intentarlo y avise a {supportEmail} si la condición persiste.",
   "tagInput.search": "Buscar o añadir una nueva etiqueta",
   "tagInput.addTag": "Añadir etiqueta"
 }

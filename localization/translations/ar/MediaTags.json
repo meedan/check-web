@@ -1,6 +1,6 @@
 {
   "mediaTags.loading": "تحميل...",
   "mediaTags.language": "اللغة : {language}",
-  "mediaTags.error": "عذراً ، لم نستطع إضافة هذا الوسم",
+  "mediaTags.error": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث الوسم. من فضلك أعد المحاولة وتواصل مع {supportEmail} إن استمرت المشكلة.",
   "mediaTags.heading": "وسوم"
 }

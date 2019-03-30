@@ -14,7 +14,7 @@ import MediaUtil from '../media/MediaUtil';
 import globalStrings from '../../globalStrings';
 import CheckContext from '../../CheckContext';
 import { safelyParseJSON, getStatus, getStatusStyle } from '../../helpers';
-import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
+import { mediaStatuses, mediaLastStatus, stringHelper } from '../../customHelpers';
 import { Row, ContentColumn, mediaQuery, units } from '../../styles/js/shared';
 import CreateMemebusterMutation from '../../relay/mutations/CreateMemebusterMutation';
 import UpdateMemebusterMutation from '../../relay/mutations/UpdateMemebusterMutation';
@@ -145,7 +145,8 @@ class MemebusterComponent extends React.Component {
     if (publish_fail) {
       text = (<FormattedMessage
         id="MemebusterComponent.fail"
-        defaultMessage="Sorry, there was a problem when publishing your meme. Our team is aware of the error and will work to fix it. On the meanwhile, please try again."
+        defaultMessage="Sorry, an error occurred while publishing the meme. Please try again and contact {supportEmail} if the condition persists."
+        values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
       />);
     }
 

@@ -1,7 +1,7 @@
 {
   "geoLocationRespondTask.searching": "Searching...",
-  "geoLocationRespondTask.notFound": "Sorry, place not found!",
-  "geoLocationRespondTask.error": "Error communicating with server!",
+  "geoLocationRespondTask.notFound": "Sorry, this place was not found. Please try another search.",
+  "geoLocationRespondTask.error": "Sorry, an error occurred while updating the task. Please try again and contact {supportEmail} if the condition persists.",
   "geolocationRespondTask.cancelTask": "Cancel",
   "geolocationRespondTask.answerTask": "Answer task",
   "geolocationRespondTask.searchMap": "Search the map",

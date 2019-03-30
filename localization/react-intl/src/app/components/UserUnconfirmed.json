@@ -5,6 +5,6 @@
   },
   {
     "id": "userUnconfirmed.message",
-    "defaultMessage": "Your account could not be confirmed. Please contact the support."
+    "defaultMessage": "Sorry, an error occurred while confirming your account. Please try again and contact {supportEmail} if the condition persists."
   }
 ]

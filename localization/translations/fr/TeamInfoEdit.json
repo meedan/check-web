@@ -1,5 +1,5 @@
 {
-  "teamComponent.editError": "Désolé, il n'a pas été possible de modifier l'équipe",
+  "teamComponent.editError": "Désolé, une erreur s'est produite durant la mise à jour de l'équipe. Veuillez réessayer et prévenir {supportEmail} si le problème persiste.",
   "teamComponent.editSuccess": "L'information d'équipe a été mise à jour avec succès",
   "teamComponent.teamName": "Nom de l'équipe ",
   "teamComponent.teamDescription": "Description de l'équipe ",

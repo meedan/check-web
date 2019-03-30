@@ -14,7 +14,7 @@ import { ContentColumn } from '../styles/js/shared';
 const messages = defineMessages({
   emailNotFoundContactSupport: {
     id: 'passwordReset.emailNotFoundContactSupport',
-    defaultMessage: 'Email not found. Please contact {supportEmail} for support.',
+    defaultMessage: 'Sorry, this email was not found. Please contact {supportEmail} if you think this is an error.',
   },
   emailNotValid: {
     id: 'passwordReset.emailNotValid',

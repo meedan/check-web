@@ -4,7 +4,7 @@
   "userInfoEdit.userEmail": "Correo electrónico",
   "userInfoEdit.userSendEmailNotification": "Recibir notificaciones por correo electrónico",
   "userInfoEdit.addLink": "Añadir enlace",
-  "userInfoEdit.editError": "Lo sentimos, no se pudo editar la fuente",
+  "userInfoEdit.editError": "Lo sentimos, se produjo un error al actualizar tu perfil. Vuelva a intentarlo y avise a {supportEmail} si la condición persiste.",
   "userInfoEdit.nameError": "Nombre en blanco inválido",
   "userInfoEdit.addLinkLabel": "Añadir enlace",
   "userInfoEdit.addLinkHelper": "Añade un enlace a una página web o perfil de redes sociales. Nota: Esto no afectará tu método de inicio de sesión.",

@@ -1,8 +1,8 @@
 {
-  "joinTeamComponent.error": "Sorry, could not send your request",
+  "joinTeamComponent.error": "Sorry, an error occurred while sending your request. Please try again and contact {supportEmail} if the condition persists.",
   "joinTeamComponent.success": "Thanks for your interest in joining {team} {appName}! A team leader will review your application soon.",
   "joinTeamComponent.autoApprove": "Thanks for joining {team} {appName}! You can start contributing right away.",
-  "joinTeamComponent.title": "Join Team",
+  "joinTeamComponent.title": "Alătură-te echipei",
   "joinTeamComponent.mainHeading": "Request to Join",
   "joinTeamComponent.alreadyRequested": "You already requested to join {team} {appName}.",
   "joinTeamComponent.requestHasBeenSent": "Your request has been sent to the project admins for approval.",

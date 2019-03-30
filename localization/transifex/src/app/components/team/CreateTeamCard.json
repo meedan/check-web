@@ -1,8 +1,8 @@
 {
   "createTeam.slugChecking": "Checking availability...",
   "createTeam.slugAvailable": "Available!",
-  "createTeam.slugUnavailable": "That URL is unavailable.",
-  "createTeam.createTeamError": "Sorry, could not create the team",
+  "createTeam.slugUnavailable": "Sorry, this slug is unavailable. Please try another one.",
+  "createTeam.createTeamError": "Sorry, an error occurred while updating the team. Please try again and contact {supportEmail} if the condition persists.",
   "createTeam.title": "Create a Team",
   "createTeam.teamNameHint": "Team Name",
   "createTeam.teamSlugHint": "team-slug",

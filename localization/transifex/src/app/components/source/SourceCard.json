@@ -1,5 +1,5 @@
 {
-  "sourceCard.error": "Sorry, could not refresh source",
+  "sourceCard.error": "Sorry, an error occurred while updating the source. Please try again and contact {supportEmail} if the condition persists.",
   "mediaDetail.byUser": "by {username}",
   "mediaDetail.added": "Added {byUser}"
 }

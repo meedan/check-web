@@ -3,5 +3,5 @@
   "createProject.title": "Añadir un proyecto",
   "createProject.titleBlank": "Añade tu primer proyecto",
   "createProject.newProjectName": "Nombre del proyecto",
-  "createProject.error": "Lo sentimos, no se pudo crear el proyecto "
+  "createProject.error": "Lo sentimos, se produjo un error al actualizar el proyecto. Vuelva a intentarlo y avise a {supportEmail} si la condición persiste."
 }

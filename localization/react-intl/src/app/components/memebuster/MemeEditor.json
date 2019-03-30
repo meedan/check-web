@@ -17,7 +17,7 @@
   },
   {
     "id": "memeEditor.statusText",
-    "defaultMessage": "Status text"
+    "defaultMessage": "Status label"
   },
   {
     "id": "memeEditor.overlayColor",

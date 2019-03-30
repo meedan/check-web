@@ -7,13 +7,13 @@ import MdLockOutline from 'material-ui/svg-icons/action/lock-outline';
 import { can } from '../Can';
 import CheckContext from '../../CheckContext';
 import { getStatus, getStatusStyle, safelyParseJSON, bemClass } from '../../helpers';
-import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
+import { mediaStatuses, mediaLastStatus, stringHelper } from '../../customHelpers';
 import { black16, units } from '../../styles/js/shared';
 
 const messages = defineMessages({
   error: {
     id: 'mediaStatus.error',
-    defaultMessage: "We're sorry, but we encountered an error trying to update the status.",
+    defaultMessage: 'Sorry, an error occurred while updating the status. Please try again and contact {supportEmail} if the condition persists.',
   },
 });
 
@@ -46,7 +46,7 @@ class MediaStatusCommon extends Component {
 
   fail(transaction) {
     const error = transaction.getError();
-    let message = this.props.intl.formatMessage(messages.error);
+    let message = this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') });
     const json = safelyParseJSON(error.source);
     if (json && json.error) {
       message = json.error;

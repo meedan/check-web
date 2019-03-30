@@ -4,7 +4,7 @@
   "userInfoEdit.userEmail": "Email",
   "userInfoEdit.userSendEmailNotification": "Receive email notifications",
   "userInfoEdit.addLink": "Add Link",
-  "userInfoEdit.editError": "Sorry, could not edit the source",
+  "userInfoEdit.editError": "Sorry, an error occurred while updating your profile. Please try again and contact {supportEmail} if the condition persists.",
   "userInfoEdit.nameError": "Name can't be blank",
   "userInfoEdit.addLinkLabel": "Add a link",
   "userInfoEdit.addLinkHelper": "Add a link to a web page or social media profile. Note: this does not affect your login method.",

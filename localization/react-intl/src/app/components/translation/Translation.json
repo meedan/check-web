@@ -9,11 +9,11 @@
   },
   {
     "id": "translation.translationFailed",
-    "defaultMessage": "Sorry, could not create the translation"
+    "defaultMessage": "Sorry, an error occurred while updating the translation. Please try again and contact {supportEmail} if the condition persists."
   },
   {
     "id": "translation.submitBlank",
-    "defaultMessage": "Can't submit a blank translation"
+    "defaultMessage": "The translation can't be blank. Please write a translation and try again."
   },
   {
     "id": "translation.title",

@@ -161,7 +161,7 @@ class TagPicker extends React.Component {
           <StyledHeadingFirst>
             <FormattedMessage
               id="tagPicker.teamTags"
-              defaultMessage="Teamwide tags"
+              defaultMessage="Team tags"
             />
           </StyledHeadingFirst>
           {

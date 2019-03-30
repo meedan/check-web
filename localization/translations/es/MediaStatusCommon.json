@@ -1,3 +1,3 @@
 {
-  "mediaStatus.error": "Hubo un error cuando tratamos actualizar el estado."
+  "mediaStatus.error": "Lo sentimos, se produjo un error al actualizar el estado. Vuelva a intentarlo y avise a {supportEmail} si la condición persiste."
 }

@@ -1,6 +1,6 @@
 {
-  "createMedia.submitting": "Submitting...",
-  "createMedia.error": "Something went wrong! The server returned an error code {code}. Please contact a system administrator.",
+  "createMedia.submitting": "Se trimite...",
+  "createMedia.error": "Ceva nu a funcționat corect! Serverul a returnat eroare cu codul {code}. Contactați un administrator de sistem.",
   "createMedia.errorTitle": "Could not submit \"{title}\"",
   "createMedia.addItem": "Add Item",
   "createMedia.addNewItem": "Add new item"

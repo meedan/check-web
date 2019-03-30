@@ -1,5 +1,5 @@
 {
-  "teamEmbed.updateFail": "عذراً ، لقد واجهنا خطأ ما اثناء حفظ إعدادات التضمين",
+  "teamEmbed.updateFail": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث الاعدادات. من فضلك أعد المحاولة وتواصل مع {supportEmail} إن استمرت المشكلة.",
   "teamEmbed.updateSuccess": "تم حفظ إعدادات التضمين بنجاح",
   "teamEmbed.title": "إعدادات التضمين",
   "teamEmbed.tasks": "المهام",

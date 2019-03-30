@@ -1,19 +1,19 @@
 [
   {
     "id": "teamTags.failUpdate",
-    "defaultMessage": "Sorry, could not update tag"
+    "defaultMessage": "Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists."
   },
   {
     "id": "teamTags.failDelete",
-    "defaultMessage": "Sorry, could not delete tag"
+    "defaultMessage": "Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists."
   },
   {
     "id": "teamTags.failMove",
-    "defaultMessage": "Sorry, could not move tag"
+    "defaultMessage": "Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists."
   },
   {
     "id": "teamTags.fail",
-    "defaultMessage": "Sorry, could not add tag"
+    "defaultMessage": "Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists."
   },
   {
     "id": "teamTags.editTag",
@@ -57,11 +57,11 @@
   },
   {
     "id": "teamTags.teamwideTags",
-    "defaultMessage": "Teamwide tags"
+    "defaultMessage": "Team tags"
   },
   {
     "id": "teamTags.noTeamwideTags",
-    "defaultMessage": "No teamwide tags."
+    "defaultMessage": "No team tags."
   },
   {
     "id": "teamTags.new",

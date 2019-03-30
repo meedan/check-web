@@ -1,5 +1,5 @@
 {
-  "teamEmbed.updateFail": "Désolé, il n'a pas été possible de sauvegarder les paramètres de l'intégration",
+  "teamEmbed.updateFail": "Désolé, une erreur s'est produite durant la mise à jour des paramètres. Veuillez réessayer et prévenir {supportEmail} si le problème persiste.",
   "teamEmbed.updateSuccess": "Les paramètres de l'intégration ont été sauvegardées avec succès.",
   "teamEmbed.title": "Paramètres d'intégration",
   "teamEmbed.tasks": "Tâches",

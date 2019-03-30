@@ -1,10 +1,10 @@
 {
-  "teamEmbed.updateFail": "Sorry, could not save embed settings",
-  "teamEmbed.updateSuccess": "Embed settings updated successfully!",
-  "teamEmbed.title": "Embed settings",
-  "teamEmbed.tasks": "Tasks",
-  "teamEmbed.tasksSub": "The selected tasks will be included in the embed if they are resolved.",
-  "teamEmbed.disclaimer": "Disclaimer",
-  "teamEmbed.disclaimerSub": "Disclaimer that will be shown at the bottom of the embed with the team logo.",
-  "teamEmbed.save": "Save"
+  "teamEmbed.updateFail": "Lo sentimos, se produjo un error al actualizar las configuraciones. Vuelva a intentarlo y avise a {supportEmail} si la condición persiste.",
+  "teamEmbed.updateSuccess": "¡Los ajustes de incrustación se han actualizado con éxito!",
+  "teamEmbed.title": "Ajustes de incrustación  ",
+  "teamEmbed.tasks": "Tareas",
+  "teamEmbed.tasksSub": "Solo las tareas resueltas se incluirán en la inserción.",
+  "teamEmbed.disclaimer": "Declinación de responsabilidades",
+  "teamEmbed.disclaimerSub": "El aviso de declinación de responsabilidades, se mostrará al final de la incrustación junto al logo del equipo.",
+  "teamEmbed.save": "Guardar"
 }

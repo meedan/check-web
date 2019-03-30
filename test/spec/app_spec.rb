@@ -198,7 +198,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       p.go(@config['self_url'] + '/' + team)
       wait_for_selector('.team-menu__team-settings-button').click ; sleep 5
       wait_for_selector('.team-settings__tags-tab').click ; sleep 5
-      expect(@driver.page_source.include?('No teamwide tags')).to be(true)
+      expect(@driver.page_source.include?('No team tags')).to be(true)
       expect(@driver.page_source.include?('No custom tags')).to be(true)
       expect(@driver.page_source.include?('No tags')).to be(true)
       expect(@driver.page_source.include?('newteamwidetag')).to be(false)
@@ -207,7 +207,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       fill_field('#tag__new', 'newteamwidetag')
       @driver.action.send_keys(:enter).perform
       sleep 10
-      expect(@driver.page_source.include?('No teamwide tags')).to be(false)
+      expect(@driver.page_source.include?('No team tags')).to be(false)
       expect(@driver.page_source.include?('No custom tags')).to be(true)
       expect(@driver.page_source.include?('1 tag')).to be(true)
       expect(@driver.page_source.include?('newteamwidetag')).to be(true)
@@ -221,7 +221,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       fill_field('#tag__edit', 'edited')
       @driver.action.send_keys(:enter).perform
       sleep 10
-      expect(@driver.page_source.include?('No teamwide tags')).to be(false)
+      expect(@driver.page_source.include?('No team tags')).to be(false)
       expect(@driver.page_source.include?('No custom tags')).to be(true)
       expect(@driver.page_source.include?('1 tag')).to be(true)
       expect(@driver.page_source.include?('newteamwidetagedited')).to be(true)
@@ -235,7 +235,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 2
       wait_for_selector('#tag__confirm-delete').click
       sleep 10
-      expect(@driver.page_source.include?('No teamwide tags')).to be(true)
+      expect(@driver.page_source.include?('No team tags')).to be(true)
       expect(@driver.page_source.include?('No custom tags')).to be(true)
       expect(@driver.page_source.include?('No tags')).to be(true)
       expect(@driver.page_source.include?('newteamwidetagedited')).to be(false)
@@ -1054,7 +1054,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       p = Page.new(config: @config, driver: @driver)
       p.go(@config['self_url'] + '/' + team)
       wait_for_selector("team-menu__edit-team-button", :class)
-      expect(@driver.page_source.include?('Team information updated successfully!')).to be(false)
       expect(@driver.page_source.include?('Rome')).to be(false)
       expect(@driver.page_source.include?('www.meedan.com')).to be(false)
       expect(@driver.page_source.include?('EDIT DESCRIPTION')).to be(false)
@@ -1765,7 +1764,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page = LoginPage.new(config: @config, driver: @driver)
       page.reset_password('test@meedan.com')
       sleep 2
-      expect(@driver.page_source.include?('Email not found')).to be(true)
+      expect(@driver.page_source.include?('email was not found')).to be(true)
       expect(@driver.page_source.include?('Password reset sent')).to be(false)
     end
 
@@ -1774,7 +1773,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page = LoginPage.new(config: @config, driver: @driver)
       page.reset_password(user.email)
       sleep 2
-      expect(@driver.page_source.include?('Email not found')).to be(false)
+      expect(@driver.page_source.include?('email was not found')).to be(false)
       expect(@driver.page_source.include?('Password reset sent')).to be(true)
     end
 

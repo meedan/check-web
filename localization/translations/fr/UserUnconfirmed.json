@@ -1,4 +1,4 @@
 {
   "userUnconfirmed.heading": "Erreur",
-  "userUnconfirmed.message": "Votre compte ne peut pas être confirmé.  Veuillez contacter le support."
+  "userUnconfirmed.message": "Désolé, une erreur s'est produite durant le traitement de votre invitation. Veuillez réessayer et contactez {supportEmail} si le problème persiste."
 }

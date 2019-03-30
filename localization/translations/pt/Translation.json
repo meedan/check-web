@@ -1,8 +1,8 @@
 {
   "translation.inputHint": "Por favor adicione uma tradução",
   "translation.translationAdded": "Uma tradução foi inserida!",
-  "translation.translationFailed": "Desculpe, não foi possível criar a tradução",
-  "translation.submitBlank": "Não é possível enviar uma tradução em branco",
+  "translation.translationFailed": "Desculpe, ocorreu um erro ao atualizar a tradução. Por favor, tente novamente e avise {supportEmail} se a condição persistir.",
+  "translation.submitBlank": "A tradução não pode ficar em branco. Por favor, escreva uma tradução e tente novamente.",
   "translation.title": "Adicionar uma tradução",
   "translation.selectLanguage": "Selecione idioma",
   "translation.noteLabel": "Insira quaisquer detalhes adicionais aqui.",

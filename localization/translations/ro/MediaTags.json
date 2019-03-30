@@ -1,6 +1,6 @@
 {
-  "mediaTags.loading": "Loading...",
+  "mediaTags.loading": "Se încarcă...",
   "mediaTags.language": "Language: {language}",
-  "mediaTags.error": "Sorry – we had trouble adding that tag.",
-  "mediaTags.heading": "Tags"
+  "mediaTags.error": "Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists.",
+  "mediaTags.heading": "Etichete"
 }

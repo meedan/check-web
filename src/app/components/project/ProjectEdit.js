@@ -12,11 +12,12 @@ import ProjectRoute from '../../relay/ProjectRoute';
 import CheckContext from '../../CheckContext';
 import { safelyParseJSON } from '../../helpers';
 import { ContentColumn } from '../../styles/js/shared';
+import { stringHelper } from '../../customHelpers';
 
 const messages = defineMessages({
   error: {
     id: 'projectEdit.error',
-    defaultMessage: 'Sorry, could not update the project',
+    defaultMessage: 'Sorry, an error occurred while updating the project. Please try again and contact {supportEmail} if the condition persists.',
   },
   titleField: {
     id: 'projectEdit.titleField',
@@ -89,7 +90,7 @@ class ProjectEditComponent extends Component {
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
-      let message = this.props.intl.formatMessage(messages.error);
+      let message = this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') });
       const json = safelyParseJSON(error.source);
       if (json && json.error) {
         message = json.error;

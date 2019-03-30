@@ -1,5 +1,5 @@
 {
-  "switchTeams.error": "Désolé, il n'a pas été possible de changer d'équipe",
+  "switchTeams.error": "Désolé, une erreur s'est produite durant la mise à jour de l'équipe. Veuillez réessayer et prévenir {supportEmail} si le problème persiste.",
   "switchTeams.member": "{membersCount, plural, =0 {Aucun membre} one {1 membre} other {# membres}}",
   "switchTeams.joinRequestMessage": "Vous avez demandé à rejoindre",
   "teams.yourTeams": "Vos équipes",

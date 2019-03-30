@@ -13,7 +13,7 @@
   },
   {
     "id": "mediaDetail.editReportError",
-    "defaultMessage": "Sorry, we could not edit this item"
+    "defaultMessage": "Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists."
   },
   {
     "id": "mediaDetail.trash",

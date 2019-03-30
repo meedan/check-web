@@ -17,6 +17,6 @@
   },
   {
     "id": "createProject.error",
-    "defaultMessage": "Sorry, could not create the project"
+    "defaultMessage": "Sorry, an error occurred while updating the project. Please try again and contact {supportEmail} if the condition persists."
   }
 ]

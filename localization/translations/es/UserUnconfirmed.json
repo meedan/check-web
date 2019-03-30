@@ -1,4 +1,4 @@
 {
   "userUnconfirmed.heading": "Error",
-  "userUnconfirmed.message": "Tu cuenta no pudo ser confirmada. Por favor comunícate con el soporte técnico."
+  "userUnconfirmed.message": "Lo sentimos, se produjo un error al confirmar tu cuenta. Vuelva a intentarlo y avise a {supportEmail} si la condición persiste."
 }

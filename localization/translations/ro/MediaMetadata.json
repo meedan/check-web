@@ -2,7 +2,7 @@
   "mediaDetail.mediaTitle": "Title",
   "mediaDetail.mediaDescription": "Description",
   "mediaDetail.editReport": "Edit",
-  "mediaDetail.editReportError": "Sorry, we could not edit this item",
+  "mediaDetail.editReportError": "Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists.",
   "mediaDetail.trash": "Trash",
   "mediaMetadata.movedToTrash": "Sent to {trash}",
   "mediaMetadata.movedBack": "Moved back to project: {project}",

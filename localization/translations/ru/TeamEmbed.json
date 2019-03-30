@@ -1,5 +1,5 @@
 {
-  "teamEmbed.updateFail": "Sorry, could not save embed settings",
+  "teamEmbed.updateFail": "Sorry, an error occurred while updating the settings. Please try again and contact {supportEmail} if the condition persists.",
   "teamEmbed.updateSuccess": "Embed settings updated successfully!",
   "teamEmbed.title": "Embed settings",
   "teamEmbed.tasks": "Tasks",

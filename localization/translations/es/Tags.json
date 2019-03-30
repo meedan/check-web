@@ -1,4 +1,4 @@
 {
   "tags.addTagHelper": "Crear una etiqueta o usar una existente ",
-  "tags.error": "Lo sentimos, no se pudo crear la etiqueta "
+  "tags.error": "Lo sentimos, se produjo un error al actualizar la etiqueta. Vuelva a intentarlo y avise a {supportEmail} si la condición persiste."
 }

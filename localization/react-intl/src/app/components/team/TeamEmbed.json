@@ -1,7 +1,7 @@
 [
   {
     "id": "teamEmbed.updateFail",
-    "defaultMessage": "Sorry, could not save embed settings"
+    "defaultMessage": "Sorry, an error occurred while updating the settings. Please try again and contact {supportEmail} if the condition persists."
   },
   {
     "id": "teamEmbed.updateSuccess",

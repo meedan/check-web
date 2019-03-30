@@ -1,9 +1,9 @@
 {
-  "tasks.cancelAdd": "Cancel",
-  "tasks.add": "Add",
-  "tasks.addTask": "Add task",
-  "tasks.shortAnswer": "Short answer",
+  "tasks.cancelAdd": "Anulează",
+  "tasks.add": "Adaugă",
+  "tasks.addTask": "Adaugă sarcină",
+  "tasks.shortAnswer": "Răspuns scurt",
   "tasks.taskLabel": "Task label",
-  "tasks.description": "Description",
-  "tasks.addDescription": "Add a description"
+  "tasks.description": "Descriere",
+  "tasks.addDescription": "Adaugă o descriere"
 }

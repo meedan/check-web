@@ -11,6 +11,6 @@
   "media.onDomain": "{typeLabel} on {domain}",
   "media.byAttribution": "{typeLabel} by {attribution}",
   "media.withText": "{typeLabel}: {text}",
-  "media.favoritesCount": "{favoritesCount, plural, one {1 favorite} other {# favorites}}",
-  "media.retweetsCount": "{retweetsCount, plural, one {1 retweet} other {# retweets}}"
+  "media.favoritesCount": "{favoritesCount, plural, one {1 favorită} few {# favorite} other {# de favorite}}",
+  "media.retweetsCount": "{retweetsCount, plural, one {1 redistribuire} few {# redistribuiri} other {# de redistribuiri}}"
 }

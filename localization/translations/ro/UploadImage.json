@@ -1,6 +1,6 @@
 {
   "uploadImage.changeFile": "{filename} (click or drop to change)",
-  "uploadImage.invalidExtension": "Validation failed: File cannot have type \"{extension}\", allowed types: {allowed_types}",
-  "uploadImage.fileTooLarge": "Validation failed: File size should be less than {size}",
+  "uploadImage.invalidExtension": "The file cannot have type \"{extension}\". Please try with the following file types: {allowed_types}.",
+  "uploadImage.fileTooLarge": "The file size should be less than {size}. Please try with a smaller file.",
   "uploadImage.message": "Drop an image file here, or click to upload a file (max size: {upload_max_size}, allowed extensions: {upload_extensions}, allowed dimensions between {upload_min_dimensions} and {upload_max_dimensions} pixels)"
 }

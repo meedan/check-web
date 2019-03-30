@@ -6,6 +6,7 @@ import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
 import { Map, Marker, TileLayer } from 'react-leaflet';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { black54, caption } from '../../styles/js/shared';
+import { stringHelper } from '../../customHelpers';
 
 const messages = defineMessages({
   searching: {
@@ -14,11 +15,11 @@ const messages = defineMessages({
   },
   notFound: {
     id: 'geoLocationRespondTask.notFound',
-    defaultMessage: 'Sorry, place not found!',
+    defaultMessage: 'Sorry, this place was not found. Please try another search.',
   },
   error: {
     id: 'geoLocationRespondTask.error',
-    defaultMessage: 'Error communicating with server!',
+    defaultMessage: 'Sorry, an error occurred while updating the task. Please try again and contact {supportEmail} if the condition persists.',
   },
 });
 
@@ -228,7 +229,7 @@ class GeolocationRespondTask extends Component {
     fetch(providerUrl)
       .then((response) => {
         if (!response.ok) {
-          throw Error(this.props.intl.formatMessage(messages.error));
+          throw Error(this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') }));
         }
         return response.json();
       })

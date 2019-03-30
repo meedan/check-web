@@ -77,19 +77,15 @@ const messages = defineMessages({
   },
   editError: {
     id: 'sourceComponent.editError',
-    defaultMessage: 'Sorry, could not edit the source',
+    defaultMessage: 'Sorry, an error occurred while updating the source. Please try again and contact {supportEmail} if the condition persists.',
   },
   createTagError: {
     id: 'sourceComponent.createTagError',
-    defaultMessage: 'Failed to create tag',
+    defaultMessage: 'Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists.',
   },
   selectLanguageError: {
     id: 'sourceComponent.selectLanguageError',
     defaultMessage: 'Please select a language from the list',
-  },
-  editSuccess: {
-    id: 'sourceComponent.editSuccess',
-    defaultMessage: 'Source information updated successfully!',
   },
   mergeSource: {
     id: 'sourceComponent.mergeSource',
@@ -161,11 +157,11 @@ const messages = defineMessages({
   },
   noAccounts: {
     id: 'sourceNoAccounts',
-    defaultMessage: 'No networks associated with this source yet',
+    defaultMessage: 'No networks associated with this source',
   },
   noMedia: {
     id: 'sourceNoMedia',
-    defaultMessage: 'No media attributed to this source yet',
+    defaultMessage: 'No media attributed to this source',
   },
 });
 
@@ -312,7 +308,7 @@ class SourceComponent extends Component {
   };
 
   fail = (transaction) => {
-    let message = this.props.intl.formatMessage(messages.editError);
+    let message = this.props.intl.formatMessage(messages.editError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
 
     const error = transaction.getError();
 
@@ -418,7 +414,7 @@ class SourceComponent extends Component {
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
-      let message = this.props.intl.formatMessage(messages.createTagError);
+      let message = this.props.intl.formatMessage(messages.createTagError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
 
       const json = safelyParseJSON(error.source);
       if (json && json.error) {
@@ -587,7 +583,7 @@ class SourceComponent extends Component {
   updateSource() {
     const source = this.getSource();
     const onFailure = (transaction) => {
-      let message = this.props.intl.formatMessage(messages.editError);
+      let message = this.props.intl.formatMessage(messages.editError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
 
       const error = transaction.getError();
 
@@ -1072,7 +1068,7 @@ class SourceComponent extends Component {
 
       const onFailure = (transaction) => {
         const error = transaction.getError();
-        let message = this.props.intl.formatMessage(messages.createTagError);
+        let message = this.props.intl.formatMessage(messages.createTagError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
 
         const json = safelyParseJSON(error.source);
         if (json && json.error) {

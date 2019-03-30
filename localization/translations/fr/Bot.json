@@ -1,7 +1,7 @@
 {
   "bot.confirmInstall": "Voulez-vous vraiment installer le robot dans l'équipe {teamName} ?",
   "bot.confirmUninstall": "Voulez-vous vraiment désinstaller ce robot de l'équipe {teamName} ?",
-  "bot.cantChange": "Désolé, vous n'êtes pas autorisé à effectuer cette opération.",
+  "bot.cantChange": "Désolé, une erreur s'est produite durant la mise à jour du bot. Veuillez réessayer et prévenir {supportEmail} si le problème persiste.",
   "bot.inUse": "Utilisé",
   "bot.madeBy": "Fait par {teamLink}",
   "bot.permissions": "Permissions",

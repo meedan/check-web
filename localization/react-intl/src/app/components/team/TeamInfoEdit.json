@@ -1,7 +1,7 @@
 [
   {
     "id": "teamComponent.editError",
-    "defaultMessage": "Sorry, could not edit the team"
+    "defaultMessage": "Sorry, an error occurred while updating the team. Please try again and contact {supportEmail} if the condition persists."
   },
   {
     "id": "teamComponent.editSuccess",

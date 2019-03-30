@@ -4,9 +4,9 @@
   "addAnnotation.error": "Ceva nu a funcționat corect! Serverul a returnat eroare cu codul {code}. Contactați un administrator de sistem.",
   "addAnnotation.inputHint": "Adaugă o notă despre aceasta",
   "addAnnotation.submitButton": "Trimite",
-  "addAnnotation.typeComment": "note",
-  "addAnnotation.typeTag": "tag",
+  "addAnnotation.typeComment": "notă",
+  "addAnnotation.typeTag": "etichetă",
   "addAnnotation.typeStatus": "status",
-  "addAnnotation.typeFlag": "flag",
+  "addAnnotation.typeFlag": "steag",
   "addAnnotation.addImage": "Adaugă o imagine"
 }

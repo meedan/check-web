@@ -11,6 +11,7 @@ import CardHeaderOutside from '../layout/CardHeaderOutside';
 import TeamRoute from '../../relay/TeamRoute';
 import Message from '../Message';
 import UpdateTeamMutation from '../../relay/mutations/UpdateTeamMutation';
+import { stringHelper } from '../../customHelpers';
 
 class TeamEmbedComponent extends React.Component {
   constructor(props) {
@@ -41,7 +42,8 @@ class TeamEmbedComponent extends React.Component {
       this.setState({
         message: <FormattedMessage
           id="teamEmbed.updateFail"
-          defaultMessage="Sorry, could not save embed settings"
+          defaultMessage="Sorry, an error occurred while updating the settings. Please try again and contact {supportEmail} if the condition persists."
+          values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
         />,
       });
     };

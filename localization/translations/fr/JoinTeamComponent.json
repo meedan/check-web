@@ -1,5 +1,5 @@
 {
-  "joinTeamComponent.error": "Désolé, il n'a pas été possible d'envoyer votre demande",
+  "joinTeamComponent.error": "Désolé, une erreur s'est produite durant l'envoi de votre demande. Veuillez réessayer et contactez {supportEmail} si le problème persiste.",
   "joinTeamComponent.success": "Merci de votre intérêt à rejoindre {team} {appName} ! Un chef d'équipe examinera bientôt votre demande.",
   "joinTeamComponent.autoApprove": "Merci d'avoir rejoint l'équipe {team} {appName} ! Vous pouvez commencer à contribuer dès maintenant.",
   "joinTeamComponent.title": "Joindre l'équipe",

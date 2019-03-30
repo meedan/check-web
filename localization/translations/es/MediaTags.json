@@ -1,6 +1,6 @@
 {
   "mediaTags.loading": "Cargando…",
   "mediaTags.language": "Idioma: {language}",
-  "mediaTags.error": "Lo sentimos, tuvimos problemas al tratar de añadir esta etiqueta. ",
+  "mediaTags.error": "Lo sentimos, se produjo un error al actualizar la etiqueta. Vuelva a intentarlo y avise a {supportEmail} si la condición persiste.",
   "mediaTags.heading": "Etiquetas"
 }

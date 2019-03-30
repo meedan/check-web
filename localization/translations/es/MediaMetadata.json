@@ -2,7 +2,7 @@
   "mediaDetail.mediaTitle": "Título",
   "mediaDetail.mediaDescription": "Descripción ",
   "mediaDetail.editReport": "Editar",
-  "mediaDetail.editReportError": "Lo sentimos, no podemos editar este ítem",
+  "mediaDetail.editReportError": "Lo sentimos, se produjo un error al actualizar el ítem. Vuelva a intentarlo y avise a {supportEmail} si la condición persiste.",
   "mediaDetail.trash": "Papelera",
   "mediaMetadata.movedToTrash": "Enviar a  {trash}",
   "mediaMetadata.movedBack": "Devuelto al proyecto: {project}",

@@ -83,7 +83,7 @@ class MemeEditor extends React.Component {
         <div>
           <TextField
             name="statusText"
-            label={<FormattedMessage id="memeEditor.statusText" defaultMessage="Status text" />}
+            label={<FormattedMessage id="memeEditor.statusText" defaultMessage="Status label" />}
             onChange={this.handleChange}
             value={this.props.params.statusText}
             margin="normal"

@@ -1,6 +1,6 @@
 {
   "UserPrivacy.deleteAccount": "Borrar cuenta",
-  "userPrivacy.deleteAccountConfirmationText": "Are you sure? This will remove your account and log you out of the app.",
+  "userPrivacy.deleteAccountConfirmationText": "¿Estás segura o seguro? Esto eliminará tu cuenta y te desconectará de la aplicación. ",
   "userPrivacy.ppLink": "Política de Privacidad",
   "userPrivacy.title": "Tus datos",
   "userPrivacy.description": "Revise nuestro {ppLink} para saber cómo {appName} usa y almacena su información.",

@@ -1,9 +1,8 @@
 {
   "sourceComponent.addInfo": "Ajouter des renseignements",
-  "sourceComponent.editError": "Désolé, il n'a pas été possible de modifier la source",
-  "sourceComponent.createTagError": "La création du tag a échoué",
+  "sourceComponent.editError": "Désolé, une erreur s'est produite durant la mise à jour de la source. Veuillez réessayer et prévenir {supportEmail} si le problème persiste.",
+  "sourceComponent.createTagError": "Désolé, une erreur s'est produite durant la mise à jour du tag. Veuillez réessayer et prévenir {supportEmail} si le problème persiste.",
   "sourceComponent.selectLanguageError": "Veuillez sélectionnez un langage parmi la liste.",
-  "sourceComponent.editSuccess": "L'information de la source a été mise à jour avec succès",
   "sourceComponent.mergeSource": "Fusionner la source",
   "sourceComponent.sourceName": "Nom de la source",
   "sourceComponent.sourceBio": "Biographie",

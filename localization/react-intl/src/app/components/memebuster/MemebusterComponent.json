@@ -9,7 +9,7 @@
   },
   {
     "id": "MemebusterComponent.fail",
-    "defaultMessage": "Sorry, there was a problem when publishing your meme. Our team is aware of the error and will work to fix it. On the meanwhile, please try again."
+    "defaultMessage": "Sorry, an error occurred while publishing the meme. Please try again and contact {supportEmail} if the condition persists."
   },
   {
     "id": "MemebusterComponent.lastSaved",

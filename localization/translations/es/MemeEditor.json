@@ -1,8 +1,8 @@
 {
   "memeEditor.image": "Imagen",
   "memeEditor.useDefaultImage": "Usar imagen preestablecida ",
-  "memeEditor.headline": "Headline",
-  "memeEditor.description": "Description",
-  "memeEditor.statusText": "Status text",
-  "memeEditor.overlayColor": "Overlay color"
+  "memeEditor.headline": "Título",
+  "memeEditor.description": "Descripción ",
+  "memeEditor.statusText": "Etiqueta del estado",
+  "memeEditor.overlayColor": "Color de la transparencia "
 }
