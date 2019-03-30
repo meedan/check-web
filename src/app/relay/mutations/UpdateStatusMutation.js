@@ -48,7 +48,7 @@ class UpdateStatusMutation extends Relay.Mutation {
         });
       }
       const status = getStatus(media.verification_statuses, this.props.annotation.status);
-      const deadline = status.completed === '1' ? null : (parseInt(media.published, 10) + (media.team.get_status_target_turnaround * 3600));
+      const deadline = !media.team.get_status_target_turnaround || status.completed === '1' ? null : (parseInt(media.published, 10) + (media.team.get_status_target_turnaround * 3600));
       const content = JSON.parse(media.last_status_obj.content);
       const optimisticContent = [];
       content.forEach((field) => {
