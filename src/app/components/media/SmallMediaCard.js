@@ -29,7 +29,7 @@ const RelationIcon = styled.div`
 `;
 
 const Content = styled.div`
-  width: 100%;
+  width: ${props => (props.withImage ? units(21) : units(32))};
   height: ${units(10)};
   display: flex;
   flex-direction: column;
@@ -96,9 +96,9 @@ const SmallMediaCard = (props) => {
                 </Offset>
                 : null
               }
-              <Content>
+              <Content withImage={image}>
                 <UpperRow>
-                  <div style={{ overflow: 'hidden', maxHeight: units(5) }}>
+                  <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', maxHeight: units(5) }}>
                     <Link to={mediaUrl}>
                       {MediaUtil.title(media, data, props.intl)}
                     </Link>
