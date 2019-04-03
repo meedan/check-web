@@ -55,6 +55,9 @@ class TaskActions extends React.Component {
               <MenuItem className="task-actions__edit-response" onClick={() => this.handleAction('edit_response', task.first_response)}>
                 <FormattedMessage id="task.editResponse" defaultMessage="Edit answer" />
               </MenuItem>
+              <MenuItem className="task-actions__delete-response" onClick={() => this.handleAction('delete_response', task.first_response)}>
+                <FormattedMessage id="task.deleteResponse" defaultMessage="Delete answer" />
+              </MenuItem>
             </Can>
             : null}
 

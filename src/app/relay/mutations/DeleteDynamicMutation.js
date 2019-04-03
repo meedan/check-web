@@ -19,8 +19,10 @@ class DeleteDynamicMutation extends Relay.Mutation {
     switch (this.props.parent_type) {
     case 'project_source':
       return Relay.QL`fragment on DestroyDynamicPayload { deletedId, project_source { source { log, log_count } } }`;
+    case 'task':
+      return Relay.QL`fragment on DestroyDynamicPayload { deletedId, task { id, status, first_response, responses } }`;
     default:
-      return '';
+      return Relay.QL`fragment on DestroyDynamicPayload { deletedId }`;
     }
   }
 
@@ -28,19 +30,24 @@ class DeleteDynamicMutation extends Relay.Mutation {
     const fieldIds = {};
     fieldIds[this.props.parent_type] = this.props.annotated.id;
 
-    return [
+    const config = [
       {
         type: 'FIELDS_CHANGE',
         fieldIDs: fieldIds,
       },
-      {
+    ];
+
+    if (this.props.parent_type === 'project_source' || this.props.parent_type === 'project_media') {
+      config.push({
         type: 'NODE_DELETE',
         parentName: this.props.parent_type,
         parentID: this.props.annotated.id,
         connectionName: 'annotations',
         deletedIDFieldName: 'deletedId',
-      },
-    ];
+      });
+    }
+
+    return config;
   }
 }
 

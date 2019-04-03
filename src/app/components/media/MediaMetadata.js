@@ -18,7 +18,6 @@ import UserTooltip from '../user/UserTooltip';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
 import UpdateStatusMutation from '../../relay/mutations/UpdateStatusMutation';
 import CheckContext from '../../CheckContext';
-import Message from '../Message';
 import TagMenu from '../tag/TagMenu';
 import Attribution from '../task/Attribution';
 import UserAvatar from '../UserAvatar';
@@ -98,9 +97,10 @@ class MediaMetadata extends Component {
 
     this.state = {
       isEditing: false,
-      openMoveDialog: false,
-      message: null,
+      description: null,
+      title: null,
       openAssignDialog: false,
+      openMoveDialog: false,
     };
   }
 
@@ -108,12 +108,26 @@ class MediaMetadata extends Component {
     return new CheckContext(this).getContextStore();
   }
 
+  getDescription() {
+    const { media } = this.props;
+
+    const defaultDescription = MediaUtil.hasCustomDescription(media, media.embed)
+      ? media.embed.description
+      : null;
+
+    return this.state.description ? this.state.description.trim() : defaultDescription;
+  }
+
+  getTitle() {
+    return this.state.title ? this.state.title.trim() : this.props.title;
+  }
+
   handleError(json) {
     let message = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
     if (json && json.error) {
       message = json.error;
     }
-    this.setState({ message });
+    this.context.setMessage(message);
   }
 
   handleRefresh() {
@@ -126,16 +140,12 @@ class MediaMetadata extends Component {
       }
     };
 
-    const onSuccess = () => {
-      // Do nothing.
-    };
-
     Relay.Store.commitUpdate(
       new UpdateProjectMediaMutation({
         refresh_media: 1,
         id: this.props.media.id,
       }),
-      { onSuccess, onFailure },
+      { onFailure },
     );
   }
 
@@ -339,6 +349,11 @@ class MediaMetadata extends Component {
     return this.props.media.project;
   }
 
+  canSubmit = () => {
+    const { title, description } = this.state;
+    return (typeof title === 'string' || typeof description === 'string');
+  };
+
   handleChangeTitle(e) {
     this.setState({ title: e.target.value });
   }
@@ -352,42 +367,26 @@ class MediaMetadata extends Component {
       event.preventDefault();
     }
 
-    const title = this.state.title && this.state.title.trim();
-    const description = this.state.description && this.state.description.trim();
-
     const embed = {
-      title,
-      description,
+      title: this.getTitle(),
+      description: this.getDescription(),
     };
 
     const onFailure = (transaction) => {
       this.fail(transaction);
     };
 
-    const onSuccess = () => {
-      this.success();
-    };
-
-    if ((typeof title !== 'undefined' && title !== null) ||
-      (typeof description !== 'undefined' && description !== null)) {
-      if (!title) {
-        embed.title = media.media.embed_path
-          ? media.media.embed_path.split('/').pop().replace('embed_', '')
-          : title;
-      }
-
+    if (this.canSubmit()) {
       Relay.Store.commitUpdate(
         new UpdateProjectMediaMutation({
           embed: JSON.stringify(embed),
           id: media.id,
         }),
-        { onSuccess, onFailure },
+        { onFailure },
       );
     }
 
-    this.setState({
-      message: null,
-    });
+    this.handleCancel();
   }
 
   fail(transaction) {
@@ -397,18 +396,12 @@ class MediaMetadata extends Component {
     if (json && json.error) {
       message = json.error;
     }
-
-    this.setState({ message });
-  }
-
-  success() {
-    this.setState({ isEditing: false, message: null });
+    this.context.setMessage(message);
   }
 
   handleCancel() {
     this.setState({
       isEditing: false,
-      message: null,
       title: null,
       description: null,
     });
@@ -505,10 +498,6 @@ class MediaMetadata extends Component {
       />,
     ];
 
-    const description = MediaUtil.hasCustomDescription(media, data)
-      ? data.description
-      : null;
-
     const editDialog = (
       <Dialog
         modal
@@ -518,13 +507,12 @@ class MediaMetadata extends Component {
         autoScrollBodyContent
       >
         <form onSubmit={this.handleSave.bind(this, media)} name="edit-media-form">
-          <Message message={this.state.message} />
           <TextField
             type="text"
             id={`media-detail-title-input-${media.dbid}`}
             className="media-detail__title-input"
             floatingLabelText={this.props.intl.formatMessage(messages.mediaTitle)}
-            defaultValue={this.props.heading}
+            defaultValue={this.getTitle()}
             onChange={this.handleChangeTitle.bind(this)}
             style={{ width: '100%' }}
           />
@@ -534,7 +522,7 @@ class MediaMetadata extends Component {
             id={`media-detail-description-input-${media.dbid}`}
             className="media-detail__description-input"
             floatingLabelText={this.props.intl.formatMessage(messages.mediaDescription)}
-            defaultValue={description}
+            defaultValue={this.getDescription()}
             onChange={this.handleChangeDescription.bind(this)}
             style={{ width: '100%' }}
             multiLine
@@ -561,6 +549,7 @@ class MediaMetadata extends Component {
                 defaultMessage="Done"
               />
             }
+            disabled={!this.canSubmit()}
             primary
           />
         </span>
