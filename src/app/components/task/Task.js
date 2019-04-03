@@ -166,6 +166,7 @@ class Task extends Component {
       new UpdateTaskMutation({
         operation: 'answer',
         annotated: media,
+        user: this.getCurrentUser(),
         task: {
           id: task.id,
           fields,
@@ -216,6 +217,7 @@ class Task extends Component {
       new UpdateTaskMutation({
         operation: 'update',
         annotated: media,
+        user: this.getCurrentUser(),
         task: taskObj,
       }),
       { onSuccess, onFailure: this.fail },
@@ -231,6 +233,7 @@ class Task extends Component {
     Relay.Store.commitUpdate(
       new UpdateTaskMutation({
         operation: 'assign',
+        user: this.getCurrentUser(),
         annotated: this.props.media,
         task,
       }),
