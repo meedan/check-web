@@ -367,10 +367,21 @@ class MediaMetadata extends Component {
       event.preventDefault();
     }
 
-    const embed = {
-      title: this.getTitle(),
-      description: this.getDescription(),
-    };
+    const embed = {};
+
+    const { title, description } = this.state;
+
+    if (typeof title === 'string') {
+      embed.title = title.trim();
+    }
+
+    if (typeof description === 'string') {
+      embed.description = description.trim();
+    }
+
+    if (!embed.title && media.media.embed_path) {
+      embed.title = media.media.embed_path.split('/').pop().replace('embed_', '');
+    }
 
     const onFailure = (transaction) => {
       this.fail(transaction);
