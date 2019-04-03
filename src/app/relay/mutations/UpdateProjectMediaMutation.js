@@ -67,15 +67,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
     return vars;
   }
 
-  getOptimisticResponse() {
-    return {
-      project_media: {
-        id: this.props.id,
-        embed: this.props.embed,
-      },
-    };
-  }
-
   getConfigs() {
     const ids = { project_media: this.props.id };
 
