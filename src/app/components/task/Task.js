@@ -28,6 +28,7 @@ import { safelyParseJSON } from '../../helpers';
 import UpdateTaskMutation from '../../relay/mutations/UpdateTaskMutation';
 import UpdateDynamicMutation from '../../relay/mutations/UpdateDynamicMutation';
 import DeleteAnnotationMutation from '../../relay/mutations/DeleteAnnotationMutation';
+import DeleteDynamicMutation from '../../relay/mutations/DeleteDynamicMutation';
 import { Row, units, black16, title1 } from '../../styles/js/shared';
 
 
@@ -46,6 +47,10 @@ const messages = defineMessages({
   confirmDelete: {
     id: 'task.confirmDelete',
     defaultMessage: 'Are you sure you want to delete this task?',
+  },
+  confirmDeleteResponse: {
+    id: 'task.confirmDeleteResponse',
+    defaultMessage: 'Are you sure you want to delete this task answer?',
   },
 });
 
@@ -145,6 +150,9 @@ class Task extends Component {
       break;
     case 'delete':
       this.handleDelete();
+      break;
+    case 'delete_response':
+      this.handleDeleteResponse(value);
       break;
     default:
     }
@@ -266,6 +274,19 @@ class Task extends Component {
         parent_type: 'project_media',
         annotated: media,
         id: task.id,
+      }));
+    }
+  }
+
+  handleDeleteResponse(response) {
+    const { task } = this.props;
+
+    // eslint-disable-next-line no-alert
+    if (window.confirm(this.props.intl.formatMessage(messages.confirmDeleteResponse))) {
+      Relay.Store.commitUpdate(new DeleteDynamicMutation({
+        parent_type: 'task',
+        annotated: task,
+        id: response.id,
       }));
     }
   }

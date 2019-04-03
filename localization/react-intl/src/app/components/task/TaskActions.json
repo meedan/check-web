@@ -8,6 +8,10 @@
     "defaultMessage": "Edit answer"
   },
   {
+    "id": "task.deleteResponse",
+    "defaultMessage": "Delete answer"
+  },
+  {
     "id": "task.assignOrUnassign",
     "defaultMessage": "Assign / Unassign"
   },
