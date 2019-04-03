@@ -115,11 +115,11 @@ class MediaMetadata extends Component {
       ? media.embed.description
       : null;
 
-    return this.state.description ? this.state.description.trim() : defaultDescription;
+    return (typeof this.state.description === 'string') ? this.state.description.trim() : defaultDescription;
   }
 
   getTitle() {
-    return this.state.title ? this.state.title.trim() : this.props.title;
+    return (typeof this.state.title === 'string') ? this.state.title.trim() : this.props.title;
   }
 
   handleError(json) {
