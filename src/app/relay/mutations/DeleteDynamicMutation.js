@@ -26,21 +26,6 @@ class DeleteDynamicMutation extends Relay.Mutation {
     }
   }
 
-  getOptimisticResponse() {
-    if (this.props.parent_type === 'task') {
-      return {
-        task: {
-          status: 'unresolved',
-          id: this.props.annotated.id,
-          assignments: { edges: [] },
-          first_response: null,
-          responses: { edges: [] },
-        },
-      };
-    }
-    return {};
-  }
-
   getConfigs() {
     const fieldIds = {};
     fieldIds[this.props.parent_type] = this.props.annotated.id;
