@@ -379,7 +379,7 @@ class MediaMetadata extends Component {
       embed.description = description.trim();
     }
 
-    if (!embed.title && media.media.embed_path) {
+    if (embed.title === '' && media.media.embed_path) {
       embed.title = media.media.embed_path.split('/').pop().replace('embed_', '');
     }
 
