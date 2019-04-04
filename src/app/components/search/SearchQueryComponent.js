@@ -299,7 +299,9 @@ class SearchQueryComponent extends React.Component {
 
       if (statusIsSelected) {
         selectedStatuses.splice(selectedStatuses.indexOf(statusCode), 1); // remove from array
-        if (!selectedStatuses.length) delete state.query[statusKey];
+        if (!selectedStatuses.length) {
+          delete state.query[statusKey];
+        }
       } else {
         state.query[statusKey] = selectedStatuses.concat(statusCode);
       }
@@ -316,7 +318,9 @@ class SearchQueryComponent extends React.Component {
 
       if (projectIsSelected) {
         selectedProjects.splice(selectedProjects.indexOf(projectId), 1);
-        if (!selectedProjects.length) delete state.query.projects;
+        if (!selectedProjects.length) {
+          delete state.query.projects;
+        }
       } else {
         state.query.projects = selectedProjects.concat(projectId);
       }
@@ -332,7 +336,9 @@ class SearchQueryComponent extends React.Component {
 
       if (tagIsSelected) {
         selectedTags.splice(selectedTags.indexOf(tag), 1); // remove from array
-        if (!selectedTags.length) delete state.query.tags;
+        if (!selectedTags.length) {
+          delete state.query.tags;
+        }
       } else {
         state.query.tags = selectedTags.concat(tag);
       }
@@ -382,6 +388,12 @@ class SearchQueryComponent extends React.Component {
         state.query.dynamic[field].push(value);
       } else {
         state.query.dynamic[field].splice(i, 1);
+      }
+      if (!state.query.dynamic[field].length) {
+        delete state.query.dynamic[field];
+      }
+      if (!Object.keys(state.query.dynamic).length) {
+        delete state.query.dynamic;
       }
       return { query: state.query };
     });
