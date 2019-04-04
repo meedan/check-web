@@ -115,11 +115,11 @@ class MediaMetadata extends Component {
       ? media.embed.description
       : null;
 
-    return this.state.description ? this.state.description.trim() : defaultDescription;
+    return (typeof this.state.description === 'string') ? this.state.description.trim() : defaultDescription;
   }
 
   getTitle() {
-    return this.state.title ? this.state.title.trim() : this.props.title;
+    return (typeof this.state.title === 'string') ? this.state.title.trim() : this.props.title;
   }
 
   handleError(json) {
@@ -367,10 +367,21 @@ class MediaMetadata extends Component {
       event.preventDefault();
     }
 
-    const embed = {
-      title: this.getTitle(),
-      description: this.getDescription(),
-    };
+    const embed = {};
+
+    const { title, description } = this.state;
+
+    if (typeof title === 'string') {
+      embed.title = title.trim();
+    }
+
+    if (typeof description === 'string') {
+      embed.description = description.trim();
+    }
+
+    if (!embed.title && media.media.embed_path) {
+      embed.title = media.media.embed_path.split('/').pop().replace('embed_', '');
+    }
 
     const onFailure = (transaction) => {
       this.fail(transaction);
