@@ -403,7 +403,7 @@ class Annotation extends Component {
     const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
 
     let annotationActions = null;
-    if (annotation) {
+    if (annotation && annotation.annotation_type) {
       const permission = `destroy ${annotation.annotation_type
         .charAt(0)
         .toUpperCase()}${annotation.annotation_type.slice(1)}`;
