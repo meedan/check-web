@@ -390,6 +390,7 @@ class MediaMetadata extends Component {
     if (this.canSubmit()) {
       Relay.Store.commitUpdate(
         new UpdateProjectMediaMutation({
+          media,
           embed: JSON.stringify(embed),
           id: media.id,
         }),
