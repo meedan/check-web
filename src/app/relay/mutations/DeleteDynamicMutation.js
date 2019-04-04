@@ -26,6 +26,21 @@ class DeleteDynamicMutation extends Relay.Mutation {
     }
   }
 
+  getOptimisticResponse() {
+    if (this.props.parent_type === 'task') {
+      return {
+        deletedId: this.props.id,
+        task: {
+          status: 'unresolved',
+          id: this.props.annotated.id,
+          assignments: { edges: [] },
+          first_response: null,
+        },
+      };
+    }
+    return {};
+  }
+
   getConfigs() {
     const fieldIds = {};
     fieldIds[this.props.parent_type] = this.props.annotated.id;
@@ -36,6 +51,16 @@ class DeleteDynamicMutation extends Relay.Mutation {
         fieldIDs: fieldIds,
       },
     ];
+
+    if (this.props.parent_type === 'task') {
+      config.push({
+        type: 'NODE_DELETE',
+        parentName: 'task',
+        parentID: this.props.annotated.id,
+        connectionName: 'responses',
+        deletedIDFieldName: 'deletedId',
+      });
+    }
 
     if (this.props.parent_type === 'project_source' || this.props.parent_type === 'project_media') {
       config.push({

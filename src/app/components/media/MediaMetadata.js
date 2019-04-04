@@ -379,7 +379,7 @@ class MediaMetadata extends Component {
       embed.description = description.trim();
     }
 
-    if (!embed.title && media.media.embed_path) {
+    if (embed.title === '' && media.media.embed_path) {
       embed.title = media.media.embed_path.split('/').pop().replace('embed_', '');
     }
 
@@ -390,6 +390,7 @@ class MediaMetadata extends Component {
     if (this.canSubmit()) {
       Relay.Store.commitUpdate(
         new UpdateProjectMediaMutation({
+          media,
           embed: JSON.stringify(embed),
           id: media.id,
         }),

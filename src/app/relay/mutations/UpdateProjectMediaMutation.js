@@ -8,6 +8,17 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
   }
 
   getFatQuery() {
+    if (this.props.embed) {
+      return Relay.QL`
+        fragment on UpdateProjectMediaPayload {
+          project_media {
+            id,
+            overridden,
+            embed,
+          }
+        }
+      `;
+    }
     return Relay.QL`
       fragment on UpdateProjectMediaPayload {
         project_mediaEdge,
@@ -50,6 +61,25 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         }
       }
     `;
+  }
+
+  getOptimisticResponse() {
+    if (this.props.embed) {
+      const newEmbed = JSON.parse(this.props.embed);
+      const embed = Object.assign(this.props.media.embed, newEmbed);
+      const { overridden } = this.props.media;
+      Object.keys(newEmbed).forEach((attribute) => {
+        overridden[attribute] = true;
+      });
+      return {
+        project_media: {
+          id: this.props.media.id,
+          embed: JSON.stringify(embed),
+          overridden: JSON.stringify(overridden),
+        },
+      };
+    }
+    return {};
   }
 
   getVariables() {
