@@ -190,20 +190,28 @@ class Task extends Component {
 
     const onSuccess = () => this.setState({ message: null, editingResponse: false });
 
+    const onFailure = (transaction) => {
+      this.setState({ editingResponse: true });
+      this.fail(transaction);
+    };
+
     const fields = {};
     fields[`response_${task.type}`] = edited_response;
 
     Relay.Store.commitUpdate(
       new UpdateDynamicMutation({
         annotated: media,
-        parent_type: 'project_media',
+        task,
+        parent_type: 'task',
         dynamic: {
           id: this.state.editingResponse.id,
           fields,
         },
       }),
-      { onSuccess, onFailure: this.fail },
+      { onSuccess, onFailure },
     );
+
+    this.setState({ message: null, editingResponse: false });
   };
 
   handleUpdateTask = (editedTask) => {
@@ -213,10 +221,16 @@ class Task extends Component {
       this.setState({ message: null, editingQuestion: false });
     };
 
+    const onFailure = (transaction) => {
+      this.setState({ editingQuestion: true });
+      this.fail(transaction);
+    };
+
     const taskObj = {
       id: task.id,
       label: editedTask.label,
       required: editedTask.required,
+      status: editedTask.status,
       description: editedTask.description,
       assigned_to_ids: this.getAssignment(),
     };
@@ -228,8 +242,10 @@ class Task extends Component {
         user: this.getCurrentUser(),
         task: taskObj,
       }),
-      { onSuccess, onFailure: this.fail },
+      { onSuccess, onFailure },
     );
+
+    this.setState({ message: null, editingQuestion: false });
   };
 
   handleUpdateAssignment = (value) => {

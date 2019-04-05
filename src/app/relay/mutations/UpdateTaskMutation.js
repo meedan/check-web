@@ -78,6 +78,10 @@ class UpdateTaskMutation extends Relay.Mutation {
         },
       };
     }
+    if (this.props.operation === 'update') {
+      const { task } = this.props;
+      return { task };
+    }
     return {};
   }
 
@@ -97,6 +101,7 @@ class UpdateTaskMutation extends Relay.Mutation {
       params.label = task.label;
       params.description = task.description;
       params.required = task.required;
+      params.status = task.status;
       params.assigned_to_ids = task.assigned_to_ids;
     }
     return params;

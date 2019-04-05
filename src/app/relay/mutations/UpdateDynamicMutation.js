@@ -31,9 +31,47 @@ class UpdateDynamicMutation extends Relay.Mutation {
           translation_status: annotation(annotation_type: "translation_status")
         }
       }`;
+    case 'task':
+      return Relay.QL`fragment on UpdateDynamicPayload {
+        task {
+          id
+          status
+          first_response
+          responses
+        }
+        project_media {
+          id
+          log
+          log_count
+        }
+      }`;
     default:
       return '';
     }
+  }
+
+  getOptimisticResponse() {
+    if (this.props.parent_type === 'task') {
+      const { task, dynamic } = this.props;
+      const content = [];
+      Object.keys(dynamic.fields).forEach((field) => {
+        content.push({
+          field_name: field,
+          value: dynamic.fields[field],
+        });
+      });
+
+      return {
+        task: {
+          id: task.id,
+          first_response: {
+            permissions: '{}',
+            content: JSON.stringify(content),
+          },
+        },
+      };
+    }
+    return {};
   }
 
   getVariables() {
@@ -53,7 +91,13 @@ class UpdateDynamicMutation extends Relay.Mutation {
 
   getConfigs() {
     const fieldIds = {};
-    fieldIds[this.props.parent_type] = this.props.annotated.id;
+
+    if (this.props.parent_type === 'task') {
+      fieldIds.task = this.props.task.id;
+      fieldIds.project_media = this.props.annotated.id;
+    } else {
+      fieldIds[this.props.parent_type] = this.props.annotated.id;
+    }
 
     return [
       {

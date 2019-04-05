@@ -84,6 +84,8 @@ class EditTaskDialog extends React.Component {
       submitDisabled: true,
       showAssignmentField: false,
       required: task ? task.required : false,
+      status: task ? task.status : 'unresolved',
+      resolvable: task && task.responses && task.responses.edges.length > 0,
       confirmRequired: false,
     };
   }
@@ -178,6 +180,15 @@ class EditTaskDialog extends React.Component {
     this.validateTask(this.state.label, this.state.options);
   }
 
+  handleSelectResolved(e, inputChecked) {
+    if (this.state.resolvable && inputChecked) {
+      this.setState({ status: 'resolved' });
+    } else if (!inputChecked) {
+      this.setState({ status: 'unresolved' });
+    }
+    this.validateTask(this.state.label, this.state.options);
+  }
+
   handleSelectProjects = (projectsIds) => {
     const project_ids = projectsIds.map(id => parseInt(id, 10));
     this.setState({ project_ids });
@@ -193,6 +204,7 @@ class EditTaskDialog extends React.Component {
       label: this.state.label,
       description: this.state.description,
       required: this.state.required,
+      status: this.state.status,
       jsonoptions,
       json_project_ids: JSON.stringify(this.state.project_ids),
     };
@@ -317,6 +329,25 @@ class EditTaskDialog extends React.Component {
             <FormattedMessage
               id="tasks.requiredHelper"
               defaultMessage="Items cannot be marked as completed while any of their required tasks remains unresolved"
+            />
+          </HelperText>
+          <p />
+          <FormattedMessage
+            id="tasks.resolvedCheckbox"
+            defaultMessage="Resolved"
+          />
+          <Switch
+            id="edit-task__resolved-switch"
+            checked={this.state.status === 'resolved'}
+            disabled={!this.state.resolvable}
+            onChange={this.handleSelectResolved.bind(this)}
+            value="resolved"
+            color="primary"
+          />
+          <HelperText>
+            <FormattedMessage
+              id="tasks.resolvedHelper"
+              defaultMessage="The task can only be resolved if it has been answered"
             />
           </HelperText>
           { this.props.projects ?
