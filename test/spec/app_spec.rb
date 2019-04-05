@@ -953,16 +953,16 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should flag media as a command", bin4: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
 
-      expect(media_pg.contains_string?('Flag')).to be(false)
+      expect(@driver.page_source.include?('Flag')).to be(false)
 
       media_pg.fill_input('#cmd-input', '/flag Spam')
       media_pg.element('#cmd-input').submit
       sleep 5
 
-      expect(media_pg.contains_string?('Flag')).to be(true)
+      expect(@driver.page_source.include?('Flag')).to be(true)
       media_pg.driver.navigate.refresh
-      media_pg.wait_for_element('.media')
-      expect(media_pg.contains_string?('Flag')).to be(true)
+      media_pg.wait_for_element('.annotations')
+      expect(@driver.page_source.include?('Flag')).to be(true)
     end
 
     it "should edit project", bin1: true do
@@ -1790,7 +1790,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(twitter_title == 'This is a test').to be(true)
     end
 
-    it "should embed bli", bin1: true do
+    it "should embed", bin1: true do
       api_create_team_project_and_claim_and_redirect_to_media_page
       sleep 2
       request_api('make_team_public', { slug: get_team })
