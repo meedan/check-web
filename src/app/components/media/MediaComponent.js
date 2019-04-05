@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
+import { injectIntl, intlShape } from 'react-intl';
 import styled from 'styled-components';
 import { stripUnit } from 'polished';
 import PageTitle from '../PageTitle';
 import MediaDetail from './MediaDetail';
 import MediaRelated from './MediaRelated';
+import MediaTasks from './MediaTasks';
+import MediaLog from './MediaLog';
 import MediaUtil from './MediaUtil';
-import UserUtil from '../user/UserUtil';
-import Annotations from '../annotations/Annotations';
 import CheckContext from '../../CheckContext';
-import Tasks from '../task/Tasks';
-import CreateTask from '../task/CreateTask';
 import { getStatus, getStatusStyle } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
 import {
@@ -20,35 +18,8 @@ import {
   transitionSpeedSlow,
   gutterMedium,
   units,
-  FlexRow,
-  subheading2,
-  body1,
-  black87,
-  black54,
-  black16,
   mediaQuery,
 } from '../../styles/js/shared';
-
-const StyledTaskHeaderRow = styled.div`
-  justify-content: space-between;
-  padding-top: ${units(5)};
-  display: flex;
-  color: ${black54};
-  font: ${body1};
-
-  h2 {
-    color: ${black87};
-    flex: 1;
-    font: ${subheading2};
-    margin: 0;
-  }
-
-  .create-task {
-    align-self: center;
-    color: ${black16};
-    cursor: pointer;
-  }
-`;
 
 const StyledTwoColumnLayout = styled(ContentColumn)`
   flex-direction: column;
@@ -181,10 +152,6 @@ class MediaComponent extends Component {
     media.quote = media.media.quote;
     media.embed_path = media.media.embed_path;
     const status = getStatus(mediaStatuses(media), mediaLastStatus(media));
-    const currentUserRole = UserUtil.myRole(
-      this.getContext().currentUser,
-      this.getContext().team.slug,
-    );
 
     return (
       <PageTitle
@@ -203,29 +170,7 @@ class MediaComponent extends Component {
             <ContentColumn>
               <MediaDetail hideBorder initiallyExpanded hideRelated media={media} />
               {this.props.extras}
-              <StyledTaskHeaderRow>
-                {media.tasks.edges.length ?
-                  <FlexRow>
-                    <h2>
-                      <FormattedMessage
-                        id="mediaComponent.verificationTasks"
-                        defaultMessage="Item tasks"
-                      />
-                    </h2>
-                      &nbsp;
-                    {currentUserRole !== 'annotator' ?
-                      <FlexRow>
-                        {media.tasks.edges.filter(t =>
-                          t.node.status === 'resolved').length}/{media.tasks.edges.length
-                        }
-                        &nbsp;
-                        <FormattedMessage id="mediaComponent.resolved" defaultMessage="resolved" />
-                      </FlexRow> : null
-                    }
-                  </FlexRow> : null}
-                <CreateTask style={{ marginLeft: 'auto' }} media={media} />
-              </StyledTaskHeaderRow>
-              <Tasks tasks={media.tasks.edges} media={media} />
+              <MediaTasks media={media} />
             </ContentColumn>
             <ContentColumn className="media__annotations-column">
               <div style={{ paddingBottom: units(5) }}>
@@ -234,11 +179,7 @@ class MediaComponent extends Component {
                   showHeader
                 />
               </div>
-              <Annotations
-                annotations={media.log.edges}
-                annotated={media}
-                annotatedType="ProjectMedia"
-              />
+              <MediaLog media={media} />
             </ContentColumn>
           </StyledTwoColumnLayout>
         </StyledBackgroundColor>
