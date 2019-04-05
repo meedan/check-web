@@ -16,6 +16,10 @@
     "defaultMessage": "Last saved {time} by {name}"
   },
   {
+    "id": "MemebusterComponent.saveDraft",
+    "defaultMessage": "Save Draft"
+  },
+  {
     "id": "MemebusterComponent.publish",
     "defaultMessage": "Publish"
   }

@@ -1,5 +1,6 @@
 {
   "task.confirmDelete": "Are you sure you want to delete this task?",
+  "task.confirmDeleteResponse": "Are you sure you want to delete this task answer?",
   "task.answeredBy": "Answered by {byName}",
   "task.assignedTo": "Assigned to {name}",
   "task.resolvedBy": "Resolved by {byName}",

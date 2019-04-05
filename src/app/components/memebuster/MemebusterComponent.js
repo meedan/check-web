@@ -43,22 +43,21 @@ class MemebusterComponent extends React.Component {
     super(props);
 
     const status = getStatus(mediaStatuses(props.media), mediaLastStatus(props.media));
-
-    const defaultParams = {
-      headline: MediaUtil.title(props.media, props.media.embed, props.intl),
-      image: props.media.media.picture,
-      description: props.media.embed.description,
-      overlayColor: getStatusStyle(status, 'backgroundColor'),
-      statusText: status.label,
-      statusColor: getStatusStyle(status, 'color'),
-      teamName: props.media.team.name,
-      teamAvatar: props.media.team.avatar,
-      teamUrl: props.media.team.contacts.edges[0] ? props.media.team.contacts.edges[0].node.web : '',
+    this.state = {
+      params: Object.assign({
+        headline: MediaUtil.title(props.media, props.media.embed, props.intl),
+        image: props.media.media.picture,
+        description: props.media.embed.description,
+        overlayColor: getStatusStyle(status, 'backgroundColor'),
+        statusText: status.label,
+        statusColor: getStatusStyle(status, 'color'),
+        teamName: props.media.team.name,
+        teamAvatar: props.media.team.avatar,
+        teamUrl: props.media.team.contacts.edges[0] ? props.media.team.contacts.edges[0].node.web : '',
+      }, this.getSavedParams()),
+      pending: false,
     };
-
-    const savedParams = this.getSavedParams();
-
-    this.state = { params: Object.assign(defaultParams, savedParams), pending: false };
+    console.log(this.state.params);
   }
 
   componentDidMount() {
@@ -347,7 +346,7 @@ class MemebusterComponent extends React.Component {
                   {this.props.intl.formatMessage(globalStrings.cancel)}
                 </Button>
                 <Button onClick={() => this.handleSubmit('save')} disabled={saveDisabled}>
-                  {this.props.intl.formatMessage(globalStrings.save)}
+                  <FormattedMessage id="MemebusterComponent.saveDraft" defaultMessage="Save Draft" />
                 </Button>
                 <Button
                   variant="contained"
