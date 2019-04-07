@@ -9,7 +9,7 @@
   },
   {
     "id": "addAnnotation.error",
-    "defaultMessage": "Something went wrong! The server returned an error code {code}. Please contact a system administrator."
+    "defaultMessage": "Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists."
   },
   {
     "id": "addAnnotation.inputHint",

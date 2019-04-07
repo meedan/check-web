@@ -1,9 +1,9 @@
 {
-  "tasks.addTask": "Add task",
-  "tasks.shortAnswer": "Short answer",
-  "tasks.chooseOne": "Choose one",
-  "tasks.chooseMultiple": "Choose multiple",
-  "tasks.geolocation": "Location",
-  "tasks.datetime": "Date and time",
-  "tasks.teamwideNudge": "Team tasks"
+  "tasks.addTask": "Добавить задачу",
+  "tasks.shortAnswer": "Короткий ответ",
+  "tasks.chooseOne": "Выбор (один вариант)",
+  "tasks.chooseMultiple": "Выбор (несколько вариантов)",
+  "tasks.geolocation": "Местонахождение",
+  "tasks.datetime": "Дата и время",
+  "tasks.teamwideNudge": "Задачи группы"
 }

@@ -1,10 +1,10 @@
 {
-  "userTos.tosLink": "Terms of Service",
-  "userTos.ppLink": "Privacy Policy",
-  "userTos.title": "Terms of Service and Privacy Policy",
-  "userTos.disclaimer": "Please review our {tosLink} and our {ppLink} and consent to the following:",
-  "userTos.titleUpdated": "Updated Terms and Privacy Policy",
-  "userTos.disclaimerUpdate": "We've updated our {tosLink} and our {ppLink}. Please review and consent to the following:",
-  "userTos.agreeTos": "I agree to the Terms of Service.",
-  "userTos.agreePp": "I agree that Meedan may process personal information I choose to share, including information revealing my racial or ethnic origin, political opinions, religious or philosophical beliefs, trade-union membership, photographs, or information on my sexual orientation. Such information will be deleted if I delete my account as stated in the Privacy Policy."
+  "userTos.tosLink": "условия предоставления услуг",
+  "userTos.ppLink": "политику конфиденциальности",
+  "userTos.title": "Условия предоставления услуг и политика конфиденциальности",
+  "userTos.disclaimer": "Пожалуйста, прочтите {tosLink} и {ppLink} и дайте своё согласие:",
+  "userTos.titleUpdated": "Обновленные политики",
+  "userTos.disclaimerUpdate": "Мы обновили {tosLink} и {ppLink}. Пожалуйста, прочтите их и дайте своё согласие:",
+  "userTos.agreeTos": "Я согласен/согласна с условиями предоставления услуг",
+  "userTos.agreePp": "Я даю Meedan разрешение обрабатывать данные, которые я публикую в системе, включая персональные данные, которые могут содержать информацию о моей расовой или этнической принадлежности, политических взглядах, членстве в союзах и организациях, вероисповедании и сексуальной ориентации, а также фотографии и видеозаписи. Согласно политике конфиденциальности, у меня есть право запросить удаление аккаунта; при этом данная информация также будет удалена."
 }

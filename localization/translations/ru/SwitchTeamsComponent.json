@@ -1,10 +1,10 @@
 {
-  "switchTeams.error": "Sorry, an error occurred while updating the team. Please try again and contact {supportEmail} if the condition persists.",
-  "switchTeams.member": "{membersCount, plural, =0 {No members} one {1 member} other {# members}}",
-  "switchTeams.joinRequestMessage": "You requested to join",
-  "teams.yourTeams": "Your teams",
-  "teams.userTeams": "{name}'s teams",
-  "switchTeams.cancelJoinRequest": "Cancel",
-  "switchTeams.noTeams": "Not a member of any team.",
-  "switchTeams.newTeamLink": "Create Team"
+  "switchTeams.error": "В процессе редактирования группы произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}.",
+  "switchTeams.member": "{membersCount, plural, =0 {Нет участников} one {1 участник} other {Участников: #}}",
+  "switchTeams.joinRequestMessage": "Вы подали заявку",
+  "teams.yourTeams": "Ваши группы",
+  "teams.userTeams": "Группы {name}",
+  "switchTeams.cancelJoinRequest": "Отменить",
+  "switchTeams.noTeams": "Не является участником какой-либо группы.",
+  "switchTeams.newTeamLink": "Создать группу"
 }

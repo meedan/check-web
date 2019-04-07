@@ -39,6 +39,7 @@ import DatetimeTaskResponse from '../task/DatetimeTaskResponse';
 import Can, { can } from '../Can';
 import TimeBefore from '../TimeBefore';
 import { safelyParseJSON, getStatus, getStatusStyle, emojify } from '../../helpers';
+import { stringHelper } from '../../customHelpers';
 import UserTooltip from '../user/UserTooltip';
 import { mapGlobalMessage } from '../MappedMessage';
 import {
@@ -224,7 +225,7 @@ const StyledAnnotationActionsWrapper = styled.div`
 const messages = defineMessages({
   error: {
     id: 'annotation.error',
-    defaultMessage: 'Could not delete annotation',
+    defaultMessage: 'Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists.',
   },
   deleteButton: {
     id: 'annotation.deleteButton',
@@ -304,7 +305,7 @@ class Annotation extends Component {
   }
 
   handleError(json) {
-    let message = this.props.intl.formatMessage(messages.error);
+    let message = this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') });
     if (json && json.error) {
       message = json.error;
     }
@@ -689,6 +690,7 @@ class Annotation extends Component {
       break;
     case 'create_dynamicannotationfield':
     case 'update_dynamicannotationfield':
+    {
       if (object.field_name === 'verification_status_status' && config.appName === 'check' && activityType === 'update_dynamicannotationfield') {
         const statusValue = object.value;
         const statusCode = statusValue.toLowerCase().replace(/[ _]/g, '-');
@@ -984,30 +986,36 @@ class Annotation extends Component {
           contentTemplate.push(message);
         });
       }
-
-      if (object.field_name === 'keep_backup_response' && activityType === 'create_dynamicannotationfield') {
-        const annotation_content = JSON.parse(annotation.content);
-        const keep = JSON.parse(annotation_content[0].value);
-        const keepLink = keep.location;
-        const keepStatus = parseInt(keep.status, 10);
+      // TODO Replace with Pender-supplied names.
+      const archivers = {
+        archive_is_response: 'Archive.is',
+        archive_org_response: 'Archive.org',
+        keep_backup_response: 'Video Vault',
+      };
+      if (Object.keys(archivers).includes(object.field_name) && activityType === 'create_dynamicannotationfield') {
+        const archiveContent = JSON.parse(annotation.content);
+        const archiveResponse = JSON.parse(archiveContent[0].value);
+        const archiveLink = archiveResponse.location;
+        const archiveStatus = parseInt(archiveResponse.status, 10);
+        const archiveName = archivers[object.field_name];
         contentTemplate = null;
-        if (keepLink) {
+        if (archiveLink) {
           contentTemplate = (
             <span className="annotation__keep">
               <FormattedHTMLMessage
                 id="annotation.archiverSuccess"
-                defaultMessage='In case this link goes offline, you can <a href="{link}" target="_blank" rel="noopener noreferrer">access a backup on <b>{name}</b> via Keep</a>'
-                values={{ link: keepLink, name: 'Video Vault' }}
+                defaultMessage='In case this item goes offline, you can <a href="{link}" target="_blank" rel="noopener noreferrer">access a backup at {name}</a>.'
+                values={{ link: archiveLink, name: archiveName }}
               />
             </span>
           );
-        } else if (keepStatus === 418 || keep.error) {
+        } else if (archiveResponse.error || archiveStatus >= 400) {
           contentTemplate = (
             <span className="annotation__keep">
               <FormattedHTMLMessage
                 id="annotation.archiverError"
-                defaultMessage="There was an error when Keep tried to archive this item to <b>{name}</b>. Refresh this media to try again."
-                values={{ name: 'Video Vault' }}
+                defaultMessage="Sorry, an error occurred while archiving the item at {name}. Please refresh the item to try again and contact {supportEmail} if the condition persists."
+                values={{ name: archiveName, supportEmail: stringHelper('SUPPORT_EMAIL') }}
               />
             </span>
           );
@@ -1016,50 +1024,8 @@ class Annotation extends Component {
             <span className="annotation__keep">
               <FormattedHTMLMessage
                 id="annotation.archiverWait"
-                defaultMessage="This item is being archived to <b>{name}</b> by Keep. Come back in a few minutes to receive a confirmation link."
-                values={{ name: 'Video Vault' }}
-              />
-            </span>
-          );
-        }
-      }
-
-      if ((object.field_name === 'archive_is_response' || object.field_name === 'archive_org_response') && activityType === 'create_dynamicannotationfield') {
-        const archiveIsAnnotationContent = JSON.parse(annotation.content);
-        const archiveIsResponse = JSON.parse(archiveIsAnnotationContent[0].value);
-        const archiveIsLink = archiveIsResponse.location;
-        let archiverName = 'Archive.is';
-        if (object.field_name === 'archive_org_response') {
-          archiverName = 'Archive.org';
-        }
-        contentTemplate = null;
-        if (archiveIsLink) {
-          contentTemplate = (
-            <span className="annotation__keep">
-              <FormattedHTMLMessage
-                id="annotation.archiverSuccess"
-                defaultMessage='In case this link goes offline, you can <a href="{link}" target="_blank" rel="noopener noreferrer">access a backup on <b>{name}</b> via Keep</a>'
-                values={{ link: archiveIsLink, name: archiverName }}
-              />
-            </span>
-          );
-        } else if (archiveIsResponse.error) {
-          contentTemplate = (
-            <span className="annotation__keep">
-              <FormattedHTMLMessage
-                id="annotation.archiverError"
-                defaultMessage="There was an error when Keep tried to archive this item to <b>{name}</b>. Refresh this media to try again."
-                values={{ name: archiverName }}
-              />
-            </span>
-          );
-        } else {
-          contentTemplate = (
-            <span className="annotation__keep">
-              <FormattedHTMLMessage
-                id="annotation.archiverWait"
-                defaultMessage="This item is being archived to <b>{name}</b> by Keep. Come back in a few minutes to receive a confirmation link."
-                values={{ name: archiverName }}
+                defaultMessage="This item is being archived at {name}. The archive link will be displayed here when it's ready."
+                values={{ name: archiveName }}
               />
             </span>
           );
@@ -1081,7 +1047,7 @@ class Annotation extends Component {
           <span className="annotation__embed-code-copied">
             <FormattedMessage
               id="annotation.embedCodeCopied"
-              defaultMessage="An embed code of the item has been generated and copied, so the item may now be publicly viewable."
+              defaultMessage="An embed code of the item has been generated and copied. The item may now be publicly viewable."
             />
           </span>
         );
@@ -1095,7 +1061,8 @@ class Annotation extends Component {
             <span className="annotation__pender-archive">
               <FormattedHTMLMessage
                 id="annotation.penderArchiveResponseError"
-                defaultMessage="There was an error when Keep tried to take a screenshot of this item. Refresh this media to try again."
+                defaultMessage="Sorry, an error occurred while taking a screenshot of the item. Please refresh the item to try again and contact {supportEmail} if the condition persists."
+                values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
               />
             </span>
           );
@@ -1148,6 +1115,7 @@ class Annotation extends Component {
       }
 
       break;
+    }
     case 'create_flag':
       contentTemplate = (
         <span>

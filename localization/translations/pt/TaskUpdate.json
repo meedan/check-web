@@ -5,7 +5,7 @@
   "annotation.assignmentChanged": "Tarefa atribuída a {assigneeTo} por {author}: {title}",
   "annotation.assignmentRemoved": "Atribuição da tarefa removida de {assigneeFrom} por {author}: {title}",
   "annotation.addedComment": "Nota da tarefa inserida por {author}: {title}{note}",
-  "annotation.removedComment": "Nota da tarefa removida por {author}: {title}{note}",
+  "annotation.removedComment": "Nota da tarefa excluída por {author}: {title}{note}",
   "annotation.nowRequired": "Tarefa marcada como requerida por {author}: {title}",
   "annotation.nowNotRequired": "Tarefa marcada como não requerida por {author}: {title}"
 }

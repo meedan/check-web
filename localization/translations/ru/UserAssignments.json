@@ -1,7 +1,7 @@
 {
-  "userAssignments.filterByTeam": "Filter by team",
+  "userAssignments.filterByTeam": "Фильтр по группе",
   "userAssignments.progress": "{answered} required tasks answered, out of {total}",
-  "userAssignments.yourAssignments": "Your assignments",
-  "userAssignments.userAssignments": "{name}'s assignments",
-  "userAssignments.blank": "No activity"
+  "userAssignments.yourAssignments": "Назначено на вас",
+  "userAssignments.userAssignments": "Назначено на {name}",
+  "userAssignments.blank": "Нет активности"
 }

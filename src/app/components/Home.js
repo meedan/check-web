@@ -22,6 +22,8 @@ import {
   gutterMedium,
 } from '../styles/js/shared';
 import { layout, typography, localeAr, removeYellowAutocomplete } from '../styles/js/global';
+import { stringHelper } from '../customHelpers';
+import { mapGlobalMessage } from './MappedMessage';
 
 // Global styles
 injectGlobal([`
@@ -55,27 +57,27 @@ const messages = defineMessages({
   },
   somethingWrong: {
     id: 'home.somethingWrong',
-    defaultMessage: 'Something went wrong – please refresh your browser or try again later.',
-  },
-  invalidInvitation: {
-    id: 'home.invalidInvitation',
-    defaultMessage: 'An error occurred while processing your invitation. The server returned the error: "{server_error}". Please try again and contact the support team if the issue persists.',
-  },
-  invalidTeamInvitation: {
-    id: 'home.invalidTeamInvitation',
-    defaultMessage: 'Team not found',
-  },
-  invalidNoInvitation: {
-    id: 'home.invalidNoInvitation',
-    defaultMessage: 'No invitation exists',
+    defaultMessage: 'Sorry, an error occurred. Please refresh your browser and contact {supportEmail} if the condition persists.',
   },
   successInvitation: {
     id: 'home.successInvitation',
-    defaultMessage: 'Welcome to {appName}. Please login with the password that you received in the welcome email',
+    defaultMessage: 'Welcome to {appName}. Please login with the password that you received in the welcome email.',
+  },
+  invalidInvitation: {
+    id: 'home.invalidInvitation',
+    defaultMessage: 'Sorry, an error occurred while processing your invitation. Please contact {supportEmail}.',
+  },
+  invalidTeamInvitation: {
+    id: 'home.invalidTeamInvitation',
+    defaultMessage: 'Sorry, the team to which you were invited was not found. Please contact {supportEmail} if you think this is an error.',
+  },
+  invalidNoInvitation: {
+    id: 'home.invalidNoInvitation',
+    defaultMessage: 'Sorry, the invitation you received was not found. Please contact {supportEmail} if you think this is an error.',
   },
   invalidTokenInvitation: {
     id: 'home.invalidTokenInvitation',
-    defaultMessage: 'Invitation token is invalid',
+    defaultMessage: 'Sorry, the invitation you received is invalid. Please contact {supportEmail} if you think this is an error.',
   },
 });
 
@@ -174,7 +176,7 @@ class Home extends Component {
 
       // TODO Don't parse error messages because they may be l10n'd - use error codes instead.
       if (this.state.error && message && message.match(/\{ \[Error: Request has been terminated/)) {
-        message = this.props.intl.formatMessage(messages.somethingWrong);
+        message = this.props.intl.formatMessage(messages.somethingWrong, { supportEmail: stringHelper('SUPPORT_EMAIL') });
       }
     }
 
@@ -183,27 +185,20 @@ class Home extends Component {
         if (this.props.location.query.msg === 'yes') {
           message = this.props.intl.formatMessage(
             messages.successInvitation,
-            { appName: `${config.appName}` },
+            { appName: mapGlobalMessage(this.props.intl, 'appNameHuman') },
           );
         }
       } else {
-        let invitationError = null;
-        switch (this.props.location.query.invitation_response) {
-        case 'invalid_team':
-          invitationError = this.props.intl.formatMessage(messages.invalidTeamInvitation);
-          break;
-        case 'no_invitation':
-          invitationError = this.props.intl.formatMessage(messages.invalidNoInvitation);
-          break;
-        case 'invalid_invitation':
-          invitationError = this.props.intl.formatMessage(messages.invalidTokenInvitation);
-          break;
-        default:
-          invitationError = null;
-        }
+        const invitationErrors = {
+          invalid_team: messages.invalidTeamInvitation,
+          no_invitation: messages.invalidNoInvitation,
+          invalid_invitation: messages.invalidTokenInvitation,
+        };
         message = this.props.intl.formatMessage(
-          messages.invalidInvitation,
-          { server_error: invitationError },
+          Object.keys(invitationErrors).includes(this.props.location.query.invitation_response) ?
+            invitationErrors[this.props.location.query.invitation_response] :
+            messages.invalidInvitation,
+          { supportEmail: stringHelper('SUPPORT_EMAIL') },
         );
       }
     }

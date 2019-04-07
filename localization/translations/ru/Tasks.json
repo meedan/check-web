@@ -1,9 +1,9 @@
 {
-  "tasks.cancelAdd": "Cancel",
-  "tasks.add": "Add",
-  "tasks.addTask": "Add task",
-  "tasks.shortAnswer": "Short answer",
+  "tasks.cancelAdd": "Отменить",
+  "tasks.add": "Добавить",
+  "tasks.addTask": "Добавить задачу",
+  "tasks.shortAnswer": "Короткий ответ",
   "tasks.taskLabel": "Task label",
-  "tasks.description": "Description",
-  "tasks.addDescription": "Add a description"
+  "tasks.description": "Описание",
+  "tasks.addDescription": "Добавить описание"
 }

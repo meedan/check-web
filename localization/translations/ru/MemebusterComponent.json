@@ -1,7 +1,8 @@
 {
-  "MemebusterComponent.publishing": "Publishing...",
-  "MemebusterComponent.lastPublished": "Last published {time} by {name}",
-  "MemebusterComponent.fail": "Sorry, an error occurred while publishing the meme. Please try again and contact {supportEmail} if the condition persists.",
-  "MemebusterComponent.lastSaved": "Last saved {time} by {name}",
-  "MemebusterComponent.publish": "Publish"
+  "MemebusterComponent.publishing": "Публикация...",
+  "MemebusterComponent.lastPublished": "Опубликовано {time} ({name})",
+  "MemebusterComponent.fail": "В процессе публикации мема произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}.",
+  "MemebusterComponent.lastSaved": "Сохранено {time} ({name})",
+  "MemebusterComponent.saveDraft": "Save Draft",
+  "MemebusterComponent.publish": "Опубликовать"
 }

@@ -1,5 +1,5 @@
 {
-  "network.stillWorking": "Still working...",
-  "network.offline": "Can't connect to {app}, please make sure you're connected to the internet. Trying to reconnect...",
-  "network.noResponse": "Couldn't connect to {app}, please make sure you're connected to the internet"
+  "network.stillWorking": "Încă lucrăm...",
+  "network.offline": "Conectarea la {app} nu a fost posibilă, asigurați-vă că sunteți conectat la Internet. Încercăm să ne conectăm repetat...",
+  "network.noResponse": "Conectarea la {app} nu a fost posibilă, asigurați-vă că sunteți conectat la Internet"
 }

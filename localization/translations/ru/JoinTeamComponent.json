@@ -1,12 +1,12 @@
 {
-  "joinTeamComponent.error": "Sorry, an error occurred while sending your request. Please try again and contact {supportEmail} if the condition persists.",
-  "joinTeamComponent.success": "Thanks for your interest in joining {team} {appName}! A team leader will review your application soon.",
-  "joinTeamComponent.autoApprove": "Thanks for joining {team} {appName}! You can start contributing right away.",
-  "joinTeamComponent.title": "Join Team",
-  "joinTeamComponent.mainHeading": "Request to Join",
-  "joinTeamComponent.alreadyRequested": "You already requested to join {team} {appName}.",
-  "joinTeamComponent.requestHasBeenSent": "Your request has been sent to the project admins for approval.",
-  "joinTeamComponent.blurbGraf": "To request access to the {link} {appName}, click below:",
-  "joinTeamComponent.buttonSubmitted": "Request Sent",
-  "joinTeamComponent.buttonSubmit": "Request to Join"
+  "joinTeamComponent.error": "В процессе отправки запроса произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}.",
+  "joinTeamComponent.success": "Спасибо за ваш интерес к группе {team} {appName}! Администратор группы скоро проверит вашу заявку.",
+  "joinTeamComponent.autoApprove": "Спасибо, что вступили в {team} {appName}! Теперь вы можете начать работу.",
+  "joinTeamComponent.title": "Присоединиться к группе",
+  "joinTeamComponent.mainHeading": "Запрос на вступление",
+  "joinTeamComponent.alreadyRequested": "Вы уже запросили доступ к {team} {appName}.",
+  "joinTeamComponent.requestHasBeenSent": "Ваш запрос был отправлен на одобрение к администраторам проекта.",
+  "joinTeamComponent.blurbGraf": "Чтобы запросить доступ к {link} {appName}, нажмите: ",
+  "joinTeamComponent.buttonSubmitted": "Запрос отправлен",
+  "joinTeamComponent.buttonSubmit": "Отправить запрос"
 }

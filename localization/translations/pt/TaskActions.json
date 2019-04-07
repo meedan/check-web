@@ -1,7 +1,8 @@
 {
   "task.edit": "Editar tarefa",
   "task.editResponse": "Editar resposta",
+  "task.deleteResponse": "Excluir resposta",
   "task.assignOrUnassign": "Atribuir / Remover atribuição",
   "task.editAttribution": "Editar autoria da resposta",
-  "task.delete": "Remover tarefa"
+  "task.delete": "Excluir tarefa"
 }

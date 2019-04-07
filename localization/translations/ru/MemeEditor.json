@@ -1,8 +1,8 @@
 {
-  "memeEditor.image": "Image",
-  "memeEditor.useDefaultImage": "Use default image",
-  "memeEditor.headline": "Headline",
-  "memeEditor.description": "Description",
+  "memeEditor.image": "Изображение",
+  "memeEditor.useDefaultImage": "Использовать изображение по умолчанию",
+  "memeEditor.headline": "Заголовок",
+  "memeEditor.description": "Описание",
   "memeEditor.statusText": "Status label",
   "memeEditor.overlayColor": "Overlay color"
 }

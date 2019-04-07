@@ -1,7 +1,7 @@
 {
-  "teamSettings.Tasks": "Tasks",
-  "teamSettings.Tags": "Tags",
-  "teamSettings.embed": "Embed",
-  "teamSettings.integrations": "Integrations",
-  "teamSettings.bots": "Bots"
+  "teamSettings.Tasks": "Задачи",
+  "teamSettings.Tags": "Тэги",
+  "teamSettings.embed": "Карточки",
+  "teamSettings.integrations": "Интеграция",
+  "teamSettings.bots": "Боты"
 }

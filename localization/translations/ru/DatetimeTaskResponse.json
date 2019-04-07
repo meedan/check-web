@@ -1,5 +1,5 @@
 {
-  "datetimeTaskResponse.timeIs": "View this timezone on time.is",
-  "datetimeTaskResponse.invalidTimestamp": "Error: Invalid timestamp",
-  "datetimeTaskResponse.taskResponse": "{date} at {timeLink}"
+  "datetimeTaskResponse.timeIs": "Посмотреть на time.is",
+  "datetimeTaskResponse.invalidTimestamp": "Ошибка: некорректное время",
+  "datetimeTaskResponse.taskResponse": "{date} в {timeLink}"
 }

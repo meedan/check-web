@@ -1,3 +1,3 @@
 {
-  "mediaStatus.error": "Sorry, an error occurred while updating the status. Please try again and contact {supportEmail} if the condition persists."
+  "mediaStatus.error": "В процессе редактирования статуса произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
 }

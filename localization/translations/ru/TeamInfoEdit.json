@@ -1,12 +1,12 @@
 {
-  "teamComponent.editError": "Sorry, an error occurred while updating the team. Please try again and contact {supportEmail} if the condition persists.",
-  "teamComponent.editSuccess": "Team information updated successfully!",
-  "teamComponent.teamName": "Team name",
-  "teamComponent.teamDescription": "Team description",
-  "teamComponent.location": "Location",
-  "teamComponent.phone": "Phone number",
-  "teamComponent.website": "Website",
-  "teamComponent.invalidLink": "Please enter a valid URL",
-  "teamComponent.cancelButton": "Cancel",
-  "teamComponent.saveButton": "Save"
+  "teamComponent.editError": "В процессе редактирования группы произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}.",
+  "teamComponent.editSuccess": "Информация о группе успешно обновлена!",
+  "teamComponent.teamName": "Название группы",
+  "teamComponent.teamDescription": "Описание группы",
+  "teamComponent.location": "Местонахождение",
+  "teamComponent.phone": "Номер телефона",
+  "teamComponent.website": "Сайт",
+  "teamComponent.invalidLink": "Пожалуйста, введите корректный URL",
+  "teamComponent.cancelButton": "Отменить",
+  "teamComponent.saveButton": "Сохранить"
 }

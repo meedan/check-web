@@ -1,5 +1,6 @@
 {
-  "task.confirmDelete": "Tem certeza que deseja apagar esta tarefa?",
+  "task.confirmDelete": "Tem certeza que deseja excluir esta tarefa?",
+  "task.confirmDeleteResponse": "Tem certeza que deseja excluir esta resposta?",
   "task.answeredBy": "Respondida por {byName}",
   "task.assignedTo": "Atribuído(a) a {name}",
   "task.resolvedBy": "Resolvido por {byName}",

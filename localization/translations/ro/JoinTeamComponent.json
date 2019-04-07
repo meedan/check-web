@@ -7,6 +7,6 @@
   "joinTeamComponent.alreadyRequested": "You already requested to join {team} {appName}.",
   "joinTeamComponent.requestHasBeenSent": "Your request has been sent to the project admins for approval.",
   "joinTeamComponent.blurbGraf": "To request access to the {link} {appName}, click below:",
-  "joinTeamComponent.buttonSubmitted": "Request Sent",
+  "joinTeamComponent.buttonSubmitted": "Cerere trimisă",
   "joinTeamComponent.buttonSubmit": "Request to Join"
 }

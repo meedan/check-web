@@ -5,7 +5,7 @@
   "trash.cancel": "Cancelar",
   "trash.deleteAll": "Excluir todos",
   "trash.emptyTrash": "Esvaziar lixeira",
-  "trash.emptyTrashConfirmationText": "Você tem certeza? Isso irá apagar definitivamente {itemsCount, plural, =0 {0 items} one {1 item} other {# items}} e {notesCount, plural, =0 {0 anotações} one {1 anotação} other {# anotações}}. Digite \"confirme\" se quiser prosseguir.",
+  "trash.emptyTrashConfirmationText": "Você tem certeza? Isso irá excluir definitivamente {itemsCount, plural, =0 {0 items} one {1 item} other {# items}} e {notesCount, plural, =0 {0 anotações} one {1 anotação} other {# anotações}}. Digite \"confirm\" se quiser prosseguir.",
   "trash.confirmationError": "Inválido",
   "trash.typeHere": "Digite aqui"
 }

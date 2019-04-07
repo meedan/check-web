@@ -1,8 +1,8 @@
 {
-  "mediaDetail.byUser": "by {username}",
-  "accountCard.providerAccount": "{provider} account",
-  "mediaDetail.added": "Added {byUser}",
-  "accountCard.fbStats": "{likes, number} likes",
-  "accountCard.twitterStats": "{tweets, number} Tweets • {followers, number} Followers • {following, number} Following",
-  "accountCard.youtubeStats": "{videos, number} Videos • {subscribers, number} Subscribers"
+  "mediaDetail.byUser": "от {username}",
+  "accountCard.providerAccount": "{provider} аккаунт",
+  "mediaDetail.added": "Добавлено {byUser}",
+  "accountCard.fbStats": "Лайков: {likes, number}",
+  "accountCard.twitterStats": "Твитов: {tweets, number} • Читателей: {followers, number} • Читаемых: {following, number}",
+  "accountCard.youtubeStats": "Видео: {videos, number} • Подписчиков: {subscribers, number}"
 }

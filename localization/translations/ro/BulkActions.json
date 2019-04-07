@@ -1,9 +1,9 @@
 {
-  "bulkActions.move": "Move selected items to another project",
-  "bulkActions.sendItemsToTrash": "Send selected items to trash",
-  "bulkActions.selectAll": "Select all items on this page",
-  "bulkActions.movedSuccessfully": "Done! Please note that it can take a while until the items are actually moved.",
-  "bulkActions.moveToTrashSuccessfully": "Done! Please note that it can take a while until the items are actually moved to the trash.",
-  "bulkActions.cancelButton": "Cancel",
-  "bulkActions.moveTitle": "Move"
+  "bulkActions.move": "Mută elementele selectate în alt proiect",
+  "bulkActions.sendItemsToTrash": "Trimite elementele selectate în coș",
+  "bulkActions.selectAll": "Selectează toate elementele pe această pagină",
+  "bulkActions.movedSuccessfully": "Făcut! Atenționăm că mutarea propriu-zisă a elementelor poate să dureze puțin.",
+  "bulkActions.moveToTrashSuccessfully": "Făcut! Atenționăm că mutarea propriu-zisă a elementelor în coș poate să dureze puțin.",
+  "bulkActions.cancelButton": "Anulare",
+  "bulkActions.moveTitle": "Mutare"
 }

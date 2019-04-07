@@ -1,5 +1,5 @@
 {
-  "teamBots.confirmUninstall": "¿Seguro que quieres desinstalar este bot?",
+  "teamBots.confirmUninstall": "¿Estás segura o seguro que quieres desinstalar este bot?",
   "teamBots.success": "La configuración se guardó",
   "teamBots.fail": "Hubo un error. Por favor intenta de nuevo.",
   "teamBots.noBots": "No hay bots instalados.",

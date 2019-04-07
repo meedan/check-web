@@ -1,6 +1,6 @@
 {
-  "teamMembersListItem.assignmentsProgress": "{completedCount} completed, {inProgressCount} in progress, {unstartedCount} unstarted",
-  "TeamMembershipRequestsListItem.approve": "Approve",
-  "TeamMembershipRequestsListItem.deny": "Reject",
-  "TeamMembersListItem.deleteMember": "Delete Member"
+  "teamMembersListItem.assignmentsProgress": "Завершенных: {completedCount}, в работе: {inProgressCount}, неначатых: {unstartedCount}",
+  "TeamMembershipRequestsListItem.approve": "Одобрить",
+  "TeamMembershipRequestsListItem.deny": "Отклонить",
+  "TeamMembersListItem.deleteMember": "Удалить участника"
 }

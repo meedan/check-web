@@ -57,7 +57,6 @@ class MemebusterComponent extends React.Component {
       }, this.getSavedParams()),
       pending: false,
     };
-    console.log(this.state.params);
   }
 
   componentDidMount() {

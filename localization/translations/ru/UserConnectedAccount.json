@@ -1,7 +1,7 @@
 {
-  "UserConnectedAccount.connectButton": "Connect",
-  "UserConnectedAccount.disconnectButton": "Disconnect",
-  "UserConnectedAccount.disconnectAccountTitle": "Disconnect account",
-  "UserConnectedAccount.disconnectAccountConfirmationText": "Are you sure? This will disconnect login account.",
-  "UserConnectedAccount.addAnother": "Add another account"
+  "UserConnectedAccount.connectButton": "Привязать",
+  "UserConnectedAccount.disconnectButton": "Отвязать",
+  "UserConnectedAccount.disconnectAccountTitle": "Отвязать аккаунт",
+  "UserConnectedAccount.disconnectAccountConfirmationText": "Вы уверены? Это отвяжет аккаунт, используемый для входа.",
+  "UserConnectedAccount.addAnother": "Привязать ещё один аккаунт"
 }

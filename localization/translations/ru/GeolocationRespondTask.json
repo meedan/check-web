@@ -1,10 +1,10 @@
 {
-  "geoLocationRespondTask.searching": "Searching...",
+  "geoLocationRespondTask.searching": "Поиск...",
   "geoLocationRespondTask.notFound": "Sorry, this place was not found. Please try another search.",
-  "geoLocationRespondTask.error": "Sorry, an error occurred while updating the task. Please try again and contact {supportEmail} if the condition persists.",
-  "geolocationRespondTask.cancelTask": "Cancel",
+  "geoLocationRespondTask.error": "В процессе редактирования задачи произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}.",
+  "geolocationRespondTask.cancelTask": "Отменить",
   "geolocationRespondTask.answerTask": "Answer task",
-  "geolocationRespondTask.searchMap": "Search the map",
-  "geolocationRespondTask.placeName": "Customize place name",
-  "geolocationRespondTask.coordinates": "Latitude, Longitude"
+  "geolocationRespondTask.searchMap": "Искать на карте",
+  "geolocationRespondTask.placeName": "Редактировать название места",
+  "geolocationRespondTask.coordinates": "Широта, долгота"
 }

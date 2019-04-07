@@ -1,7 +1,7 @@
 {
   "addAnnotation.invalidCommand": "Comandă nevalidă",
   "addAnnotation.annotationAdded": "{type} added",
-  "addAnnotation.error": "Ceva nu a funcționat corect! Serverul a returnat eroare cu codul {code}. Contactați un administrator de sistem.",
+  "addAnnotation.error": "Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists.",
   "addAnnotation.inputHint": "Adaugă o notă despre aceasta",
   "addAnnotation.submitButton": "Trimite",
   "addAnnotation.typeComment": "notă",

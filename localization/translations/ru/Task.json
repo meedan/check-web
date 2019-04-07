@@ -1,9 +1,10 @@
 {
-  "task.confirmDelete": "Are you sure you want to delete this task?",
+  "task.confirmDelete": "Вы уверены, что хотите удалить задачу?",
+  "task.confirmDeleteResponse": "Are you sure you want to delete this task answer?",
   "task.answeredBy": "Answered by {byName}",
-  "task.assignedTo": "Assigned to {name}",
+  "task.assignedTo": "Назначено {name}",
   "task.resolvedBy": "Resolved by {byName}",
-  "tasks.editAssignment": "Edit assignment",
+  "tasks.editAssignment": "Редактировать назначение",
   "tasks.attributionSlogan": "For the task, \"{label}\"",
   "tasks.editAttribution": "Edit attribution"
 }

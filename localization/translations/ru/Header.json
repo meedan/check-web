@@ -1,5 +1,5 @@
 {
-  "headerActions.search": "Search",
-  "headerActions.signIn": "Sign In",
-  "headerActions.teamInfo": "Team info"
+  "headerActions.search": "Искать",
+  "headerActions.signIn": "Войти",
+  "headerActions.teamInfo": "Информация о группе"
 }

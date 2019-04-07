@@ -17,8 +17,8 @@ import { can } from '../Can';
 import CheckContext from '../../CheckContext';
 import UploadImage from '../UploadImage';
 import { ContentColumn, Row, black38, black87, units } from '../../styles/js/shared';
-import HttpStatus from '../../HttpStatus';
 import { safelyParseJSON, capitalize } from '../../helpers';
+import { stringHelper } from '../../customHelpers';
 
 const messages = defineMessages({
   invalidCommand: {
@@ -31,8 +31,7 @@ const messages = defineMessages({
   },
   error: {
     id: 'addAnnotation.error',
-    defaultMessage:
-      'Something went wrong! The server returned an error code {code}. Please contact a system administrator.',
+    defaultMessage: 'Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists.',
   },
   inputHint: {
     id: 'addAnnotation.inputHint',
@@ -119,9 +118,7 @@ class AddAnnotation extends Component {
 
   fail(transaction) {
     const error = transaction.getError();
-    let message = this.props.intl.formatMessage(messages.error, {
-      code: `${error.status} ${HttpStatus.getMessage(error.status)}`,
-    });
+    let message = this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') });
     const json = safelyParseJSON(error.source);
     if (json && json.error) {
       message = json.error;

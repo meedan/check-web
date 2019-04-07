@@ -1,9 +1,9 @@
 {
-  "headerActions.tos": "Terms",
-  "headerActions.privacyPolicy": "Privacy",
-  "headerActions.about": "About",
-  "headerActions.contactHuman": "Contact",
-  "headerActions.productGuides": "Product Guides",
-  "headerActions.releaseNotes": "Release Notes",
-  "drawer.upgradeButton": "Upgrade to PRO"
+  "headerActions.tos": "Условия",
+  "headerActions.privacyPolicy": "Политики",
+  "headerActions.about": "О проекте",
+  "headerActions.contactHuman": "Контакты",
+  "headerActions.productGuides": "Руководство",
+  "headerActions.releaseNotes": "Примечания к выпуску",
+  "drawer.upgradeButton": "Стать PRO"
 }

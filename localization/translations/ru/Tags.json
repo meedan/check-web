@@ -1,4 +1,4 @@
 {
-  "tags.addTagHelper": "Create a tag or choose from existing",
-  "tags.error": "Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists."
+  "tags.addTagHelper": "Создайте или выберите тэг",
+  "tags.error": "В процессе редактирования тэга произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
 }

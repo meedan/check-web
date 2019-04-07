@@ -1,11 +1,11 @@
 {
-  "annotation.taskLabelUpdated": "Task edited by {author}: {title}",
-  "annotation.taskNoteUpdated": "Task note edited by {author}: {title}{note}",
-  "annotation.taskNoteCreated": "Task note added by {author}: {title}{note}",
-  "annotation.assignmentChanged": "Task assigned to {assigneeTo} by {author}: {title}",
-  "annotation.assignmentRemoved": "Task unassigned from {assigneeFrom} by {author}: {title}",
-  "annotation.addedComment": "Task note added by {author}: {title}{note}",
-  "annotation.removedComment": "Task note deleted by {author}: {title}{note}",
-  "annotation.nowRequired": "Task marked as required by {author}: {title}",
-  "annotation.nowNotRequired": "Task marked as not required by {author}: {title}"
+  "annotation.taskLabelUpdated": "Задача изменена ({author}): {title}",
+  "annotation.taskNoteUpdated": "Заметка к задаче изменена ({author}): {title}{note}",
+  "annotation.taskNoteCreated": "Заметка к задаче добавлена ({author}): {title}{note}",
+  "annotation.assignmentChanged": "Задача назначена {assigneeTo} ({author}): {title}",
+  "annotation.assignmentRemoved": "Задача снята с {assigneeFrom} ({author}): {title}",
+  "annotation.addedComment": "Заметка к задаче добавлена ({author}): {title}{note}",
+  "annotation.removedComment": "Заметка к задаче удалена ({author}): {title}{note}",
+  "annotation.nowRequired": "Задача помечена как обязательная ({author}): {title}",
+  "annotation.nowNotRequired": "Задача помечена как необязательная ({author}): {title}"
 }

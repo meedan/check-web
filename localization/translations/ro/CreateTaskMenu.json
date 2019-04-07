@@ -1,9 +1,9 @@
 {
-  "tasks.addTask": "Add task",
-  "tasks.shortAnswer": "Short answer",
-  "tasks.chooseOne": "Choose one",
-  "tasks.chooseMultiple": "Choose multiple",
-  "tasks.geolocation": "Location",
-  "tasks.datetime": "Date and time",
-  "tasks.teamwideNudge": "Team tasks"
+  "tasks.addTask": "Adaugă sarcină",
+  "tasks.shortAnswer": "Răspuns scurt",
+  "tasks.chooseOne": "Alegeți unul",
+  "tasks.chooseMultiple": "Alegeți mai multe",
+  "tasks.geolocation": "Locul",
+  "tasks.datetime": "Data și ora",
+  "tasks.teamwideNudge": "Sarcinile echipei"
 }

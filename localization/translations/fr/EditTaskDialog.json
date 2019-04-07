@@ -9,6 +9,8 @@
   "tasks.description": "Description (optionnelle)",
   "tasks.requiredCheckbox": "Requise",
   "tasks.requiredHelper": "Les éléments ne peuvent pas être marqués comme complétés tant qu'une de leurs tâches requises n'est encore résolue.",
+  "tasks.resolvedCheckbox": "Résolue",
+  "tasks.resolvedHelper": "La tâche ne peut être résolue que si elle a obtenu une réponse",
   "tasks.showInProj": "Afficher les tâches dans",
   "tasks.assign": "Affecter",
   "tasks.cancelAdd": "Annuler",

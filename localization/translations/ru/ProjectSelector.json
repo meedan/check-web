@@ -1,4 +1,4 @@
 {
-  "projectSelector.numProjs": "{length, number} selected",
-  "projectSelector.allProjs": "All projects"
+  "projectSelector.numProjs": "Выбрано: {length, number}",
+  "projectSelector.allProjs": "Все проекты"
 }

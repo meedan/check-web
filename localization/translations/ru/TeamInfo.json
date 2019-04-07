@@ -1,5 +1,5 @@
 {
-  "teamComponent.private": "Private",
-  "teamComponent.public": "Public",
-  "teamComponent.upgradeButton": "Upgrade to PRO"
+  "teamComponent.private": "Закрытая",
+  "teamComponent.public": "Публичная",
+  "teamComponent.upgradeButton": "Стать PRO"
 }

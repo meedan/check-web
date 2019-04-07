@@ -1,17 +1,17 @@
 {
   "createMedia.mediaInput": "Paste or type",
   "createMedia.quoteInput": "Paste or type a claim",
-  "createMedia.quoteAttributionSourceInput": "Source name",
-  "createMedia.quoteAttributionContext": "URL or context",
+  "createMedia.quoteAttributionSourceInput": "Имя источника",
+  "createMedia.quoteAttributionContext": "Ссылка или контекст",
   "createMedia.quoteAttributionSourceInputHelper": "Who said this?",
-  "createMedia.quoteAttributionContextHelper": "Add URL or describe the content",
-  "createMedia.sourceInput": "Source name",
-  "createMedia.sourceUrlInput": "Link to source",
-  "createMedia.uploadImage": "Upload an image",
-  "createMedia.submitButton": "Post",
-  "createMedia.invalidUrl": "Please enter a valid URL",
-  "createMedia.link": "Link",
+  "createMedia.quoteAttributionContextHelper": "Добавьте ссылку или опишите контент",
+  "createMedia.sourceInput": "Имя источника",
+  "createMedia.sourceUrlInput": "Ссылка на источник",
+  "createMedia.uploadImage": "Загрузить изображение",
+  "createMedia.submitButton": "Создать",
+  "createMedia.invalidUrl": "Пожалуйста, введите корректный URL",
+  "createMedia.link": "Ссылка",
   "createMedia.quote": "Claim",
-  "createMedia.source": "Source",
-  "createMedia.image": "Photo"
+  "createMedia.source": "Источник",
+  "createMedia.image": "Фотография"
 }

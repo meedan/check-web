@@ -1,15 +1,15 @@
 {
-  "createTeam.slugChecking": "Checking availability...",
-  "createTeam.slugAvailable": "Available!",
-  "createTeam.slugUnavailable": "Sorry, this slug is unavailable. Please try another one.",
-  "createTeam.createTeamError": "Sorry, an error occurred while updating the team. Please try again and contact {supportEmail} if the condition persists.",
-  "createTeam.title": "Create a Team",
-  "createTeam.teamNameHint": "Team Name",
-  "createTeam.teamSlugHint": "team-slug",
-  "createTeam.mainHeading": "Create a Team",
-  "createTeam.blurb": "Create a team for your organization, or just for yourself:",
-  "createTeam.displayName": "Team Name",
-  "createTeam.url": "Team URL",
-  "createTeam.submitButton": "Create",
-  "createTeam.requestToJoin": "You can also request to join an existing team."
+  "createTeam.slugChecking": "Проверка доступности...",
+  "createTeam.slugAvailable": "Доступно!",
+  "createTeam.slugUnavailable": "Это краткое имя недоступно. Пожалуйста, попробуйте выбрать другое.",
+  "createTeam.createTeamError": "В процессе создания группы произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}.",
+  "createTeam.title": "Новая группа",
+  "createTeam.teamNameHint": "Название группы",
+  "createTeam.teamSlugHint": "группа",
+  "createTeam.mainHeading": "Новая группа",
+  "createTeam.blurb": "Создайте группу для своей организации или для себя:",
+  "createTeam.displayName": "Название группы",
+  "createTeam.url": "URL группы",
+  "createTeam.submitButton": "Создать",
+  "createTeam.requestToJoin": "Вы также можете отправить запрос на вступление в уже существующую группу."
 }

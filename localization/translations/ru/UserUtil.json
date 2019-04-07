@@ -1,7 +1,7 @@
 {
-  "UserUtil.annotator": "Annotator",
-  "UserUtil.contributor": "Contributor",
-  "UserUtil.journalist": "Journalist",
-  "UserUtil.editor": "Editor",
-  "UserUtil.owner": "Owner"
+  "UserUtil.annotator": "Аннотатор",
+  "UserUtil.contributor": "Участник",
+  "UserUtil.journalist": "Журналист",
+  "UserUtil.editor": "Редактор",
+  "UserUtil.owner": "Администратор"
 }

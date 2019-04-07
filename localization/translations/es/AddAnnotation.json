@@ -1,7 +1,7 @@
 {
   "addAnnotation.invalidCommand": "Comando inválido ",
   "addAnnotation.annotationAdded": "{type} añadido(a)",
-  "addAnnotation.error": "Hubo un error. El servidor devolvió un código {code}. Por favor contacta al administrador del sistema. ",
+  "addAnnotation.error": "Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists.",
   "addAnnotation.inputHint": "Añade una nota acerca de esto ",
   "addAnnotation.submitButton": "Subir",
   "addAnnotation.typeComment": "nota",

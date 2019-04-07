@@ -1,4 +1,4 @@
 {
-  "userUnconfirmed.heading": "Error",
-  "userUnconfirmed.message": "Sorry, an error occurred while confirming your account. Please try again and contact {supportEmail} if the condition persists."
+  "userUnconfirmed.heading": "Ошибка",
+  "userUnconfirmed.message": "В процессе подтверждения аккаунта произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
 }

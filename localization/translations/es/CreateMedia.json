@@ -1,7 +1,6 @@
 {
   "createMedia.submitting": "Subiendo....",
-  "createMedia.error": "Hubo un error. El servidor devolvió un código de error {code}. Por favor contacta al administrador del sistema. ",
-  "createMedia.errorTitle": "No se pudo enviar \"{title}\"",
+  "createMedia.error": "Sorry, an error occurred while submitting the item. Please try again and contact {supportEmail} if the condition persists.",
   "createMedia.addItem": "Añadir ítem",
   "createMedia.addNewItem": "Añadir un nuevo ítem"
 }

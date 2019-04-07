@@ -1,4 +1,4 @@
 {
   "userUnconfirmed.heading": "Erreur",
-  "userUnconfirmed.message": "Désolé, une erreur s'est produite durant le traitement de votre invitation. Veuillez réessayer et contactez {supportEmail} si le problème persiste."
+  "userUnconfirmed.message": "Désolé, une erreur s'est produite durant le traitement de votre invitation. Veuillez réessayer et prévenir {supportEmail} si le problème persiste."
 }

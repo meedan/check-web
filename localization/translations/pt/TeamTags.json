@@ -19,5 +19,5 @@
   "teamTags.addTag": "Adicionar tag",
   "teamTags.customTags": "Tags personalizadas",
   "teamTags.noCustomTags": "Nenhuma tag personalizada.",
-  "teamTags.confirmDeleteTitle": "Tem certeza que deseja apagar esta tag?"
+  "teamTags.confirmDeleteTitle": "Tem certeza que deseja excluir esta tag?"
 }

@@ -1,5 +1,5 @@
 {
-  "ConfirmEmail.title": "Confirm your email",
-  "ConfirmEmail.content": "Please check your email to verify your account.",
-  "ConfirmEmail.resendConfirmation": "Resend"
+  "ConfirmEmail.title": "Подтвердите e-mail",
+  "ConfirmEmail.content": "Проверьте почту, чтобы подтвердить аккаунт.",
+  "ConfirmEmail.resendConfirmation": "Повторить"
 }

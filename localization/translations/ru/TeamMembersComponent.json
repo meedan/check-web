@@ -1,7 +1,7 @@
 {
-  "teamMembersComponent.pendingInvitations": "Pending invitations",
-  "teamMembershipRequests.requestsToJoin": "Requests to join",
-  "teamMembersComponent.mainHeading": "Members",
-  "teamMembersComponent.editDoneButton": "Done",
-  "teamMembersComponent.editButton": "Edit"
+  "teamMembersComponent.pendingInvitations": "Отправленные приглашения",
+  "teamMembershipRequests.requestsToJoin": "Заявки на вступление",
+  "teamMembersComponent.mainHeading": "Участники",
+  "teamMembersComponent.editDoneButton": "Ок",
+  "teamMembersComponent.editButton": "Редактировать"
 }

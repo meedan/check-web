@@ -1,3 +1,3 @@
 {
-  "UserInfo.dateJoined": "Joined {date} • {teamsCount, plural, =0 {No teams} one {1 team} other {# teams}}"
+  "UserInfo.dateJoined": "С нами с {date} • {teamsCount, plural, =0 {Нет групп} one {1 группа} other {Групп: #}}"
 }

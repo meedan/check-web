@@ -1,5 +1,5 @@
 {
-  "claimReview.claim": "Claim:",
-  "claimReview.claimedBy": "Claimed by:",
-  "claimReview.reviewedBy": "Fact-checked by {reviewer}:"
+  "claimReview.claim": "Declarația:",
+  "claimReview.claimedBy": "A declarat:",
+  "claimReview.reviewedBy": "Fapte verificate de {reviewer}:"
 }

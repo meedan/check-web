@@ -1,4 +1,4 @@
 {
-  "taskTypeSelector.numTypes": "{length, number} selected",
-  "taskTypeSelector.allTypes": "All tasks"
+  "taskTypeSelector.numTypes": "Выбрано: {length, number}",
+  "taskTypeSelector.allTypes": "Все задачи"
 }

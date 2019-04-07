@@ -1,8 +1,8 @@
 {
-  "userEmail.title": "Add your email",
-  "userEmail.submit": "Submit",
-  "userEmail.skip": "Skip",
-  "userEmail.text": "To send you notifications, we need your email address. If you'd like to receive notifications, please enter your email address. Otherwise, click \"Skip\"",
-  "userEmail.emailInputLabel": "Email",
+  "userEmail.title": "Добавить e-mail адрес",
+  "userEmail.submit": "Отправить",
+  "userEmail.skip": "Пропустить",
+  "userEmail.text": "Чтобы получать уведомления, вам нужно указать e-mail адрес. Если вы не хотите получать уведомления, нажмите «Пропустить».",
+  "userEmail.emailInputLabel": "E-mail",
   "userEmail.emailInputHint": "email@example.com"
 }

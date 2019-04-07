@@ -1,7 +1,7 @@
 [
   {
     "id": "annotation.error",
-    "defaultMessage": "Could not delete annotation"
+    "defaultMessage": "Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists."
   },
   {
     "id": "annotation.deleteButton",
@@ -137,23 +137,23 @@
   },
   {
     "id": "annotation.archiverSuccess",
-    "defaultMessage": "In case this link goes offline, you can <a href=\"{link}\" target=\"_blank\" rel=\"noopener noreferrer\">access a backup on <b>{name}</b> via Keep</a>"
+    "defaultMessage": "In case this item goes offline, you can <a href=\"{link}\" target=\"_blank\" rel=\"noopener noreferrer\">access a backup at {name}</a>."
   },
   {
     "id": "annotation.archiverError",
-    "defaultMessage": "There was an error when Keep tried to archive this item to <b>{name}</b>. Refresh this media to try again."
+    "defaultMessage": "Sorry, an error occurred while archiving the item at {name}. Please refresh the item to try again and contact {supportEmail} if the condition persists."
   },
   {
     "id": "annotation.archiverWait",
-    "defaultMessage": "This item is being archived to <b>{name}</b> by Keep. Come back in a few minutes to receive a confirmation link."
+    "defaultMessage": "This item is being archived at {name}. The archive link will be displayed here when it's ready."
   },
   {
     "id": "annotation.embedCodeCopied",
-    "defaultMessage": "An embed code of the item has been generated and copied, so the item may now be publicly viewable."
+    "defaultMessage": "An embed code of the item has been generated and copied. The item may now be publicly viewable."
   },
   {
     "id": "annotation.penderArchiveResponseError",
-    "defaultMessage": "There was an error when Keep tried to take a screenshot of this item. Refresh this media to try again."
+    "defaultMessage": "Sorry, an error occurred while taking a screenshot of the item. Please refresh the item to try again and contact {supportEmail} if the condition persists."
   },
   {
     "id": "annotation.penderArchiveResponse",

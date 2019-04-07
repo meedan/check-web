@@ -1,9 +1,9 @@
 {
-  "findTeamCard.teamSlugHint": "team-slug",
-  "findTeamCard.teamNotFound": "Team not found!",
-  "findTeamCard.mainHeading": "Find an existing team",
-  "findTeamCard.blurb": "Request to join an existing team by adding their name here, or get started by creating your own.",
-  "findTeamCard.url": "Team URL",
-  "findTeamCard.submitButton": "Find team",
-  "findTeamCard.createYourOwn": "You can also create your own team."
+  "findTeamCard.teamSlugHint": "группа",
+  "findTeamCard.teamNotFound": "Группа не найдена!",
+  "findTeamCard.mainHeading": "Найти существующую группу",
+  "findTeamCard.blurb": "Введите имя существующей группы, чтобы подать заявку на вступление, или создайте свою.",
+  "findTeamCard.url": "URL группы",
+  "findTeamCard.submitButton": "Найти группу",
+  "findTeamCard.createYourOwn": "Вы также можете создать свою собственную группу."
 }

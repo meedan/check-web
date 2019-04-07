@@ -1,9 +1,9 @@
 {
-  "datetimeRespondTask.ok": "OK",
-  "datetimeRespondTask.cancel": "Cancel",
-  "datetimeRespondTask.timeError": "Error: invalid time",
-  "datetimeRespondTask.cancelTask": "Cancel",
+  "datetimeRespondTask.ok": "Ок",
+  "datetimeRespondTask.cancel": "Отменить",
+  "datetimeRespondTask.timeError": "Ошибка: некорректное время",
+  "datetimeRespondTask.cancelTask": "Отменить",
   "datetimeRespondTask.answerTask": "Answer task",
-  "datetimeRespondTask.pickDate": "Pick a date from the calendar",
-  "datetimeRespondTask.timeOptional": "Time (optional)"
+  "datetimeRespondTask.pickDate": "Выберите дату в календаре",
+  "datetimeRespondTask.timeOptional": "Время (необязательно)"
 }

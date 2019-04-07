@@ -1,11 +1,11 @@
 {
   "global.appNameHuman": "Check",
   "bridge.global.appNameHuman": "Bridge",
-  "global.edit": "Edit",
-  "global.cancel": "Cancel",
-  "global.confirm": "Confirm",
-  "global.save": "Save",
-  "global.submit": "Submit",
-  "global.tags": "Tags",
-  "global.unknownError": "Sorry, an error occurred. Please try again and contact {supportEmail} if the condition persists."
+  "global.edit": "Редактировать",
+  "global.cancel": "Отменить",
+  "global.confirm": "Подтвердить",
+  "global.save": "Сохранить",
+  "global.submit": "Отправить",
+  "global.tags": "Тэги",
+  "global.unknownError": "Произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
 }

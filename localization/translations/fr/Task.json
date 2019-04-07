@@ -1,5 +1,6 @@
 {
   "task.confirmDelete": "Voulez-vous vraiment supprimer cette tâche ?",
+  "task.confirmDeleteResponse": "Voulez-vous vraiment supprimer cette réponse ?",
   "task.answeredBy": "Répondu.e par {byName}",
   "task.assignedTo": "Affectée à {name}",
   "task.resolvedBy": "Résolu.e par {byName}",

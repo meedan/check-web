@@ -1,5 +1,5 @@
 {
-  "userAlreadyConfirmed.heading": "Account Already Confirmed",
-  "userAlreadyConfirmed.message": "Oops! Your account is already confirmed. Please {login} to get started.",
-  "userAlreadyConfirmed.login": "login"
+  "userAlreadyConfirmed.heading": "Аккаунт уже подтверждён",
+  "userAlreadyConfirmed.message": "Ой! Ваш аккаунт уже подтверждён. Пожалуйста, {login}, чтобы начать.",
+  "userAlreadyConfirmed.login": "войдите"
 }

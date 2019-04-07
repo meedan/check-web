@@ -1,14 +1,14 @@
 {
-  "userInfoEdit.sourceName": "Name",
-  "userInfoEdit.sourceBio": "Bio",
-  "userInfoEdit.userEmail": "Email",
-  "userInfoEdit.userSendEmailNotification": "Receive email notifications",
-  "userInfoEdit.addLink": "Add Link",
-  "userInfoEdit.editError": "Sorry, an error occurred while updating your profile. Please try again and contact {supportEmail} if the condition persists.",
-  "userInfoEdit.nameError": "Name can't be blank",
-  "userInfoEdit.addLinkLabel": "Add a link",
-  "userInfoEdit.addLinkHelper": "Add a link to a web page or social media profile. Note: this does not affect your login method.",
-  "userInfoEdit.emailConfirmed": "✔ Address confirmed",
-  "userInfoEdit.emailPendingConfirm": "⚠ Confirmation pending",
-  "userInfoEdit.invalidLink": "Please enter a valid URL"
+  "userInfoEdit.sourceName": "Имя",
+  "userInfoEdit.sourceBio": "Биография",
+  "userInfoEdit.userEmail": "E-mail",
+  "userInfoEdit.userSendEmailNotification": "Получать уведомления на e-mail",
+  "userInfoEdit.addLink": "Добавить ссылку",
+  "userInfoEdit.editError": "В процессе редактирования профиля произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}.",
+  "userInfoEdit.nameError": "Имя не может быть пустым",
+  "userInfoEdit.addLinkLabel": "Добавить ссылку",
+  "userInfoEdit.addLinkHelper": "Добавьте ссылку на веб-страницу или профиль в социальных сетях. Это не повлияет на способ входа в ваш аккаунт.",
+  "userInfoEdit.emailConfirmed": "✔ Адрес подтвержден",
+  "userInfoEdit.emailPendingConfirm": "⚠ Подтверждение в процессе",
+  "userInfoEdit.invalidLink": "Пожалуйста, введите корректный URL"
 }

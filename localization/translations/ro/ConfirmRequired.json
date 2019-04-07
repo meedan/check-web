@@ -1,4 +1,4 @@
 {
-  "task.confirmRequiredTitle": "Confirm required task",
-  "task.confirmRequiredText": "You are adding a required task to an item marked <strong>{status}</strong>. By doing so, the item will automatically be reverted to its original status."
+  "task.confirmRequiredTitle": "Confirmați sarcina obligatorie",
+  "task.confirmRequiredText": "Dvs adăugați o sarcină obligatorie la un element marcat <strong>{status}</strong>. Ca urmare, elementul va reveni la starea lui inițială în mod automat."
 }

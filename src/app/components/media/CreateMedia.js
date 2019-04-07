@@ -7,7 +7,7 @@ import CreateMediaDialog from './CreateMediaDialog';
 import CreateProjectMediaMutation from '../../relay/mutations/CreateProjectMediaMutation';
 import CreateProjectSourceMutation from '../../relay/mutations/CreateProjectSourceMutation';
 import CheckContext from '../../CheckContext';
-import HttpStatus from '../../HttpStatus';
+import { stringHelper } from '../../customHelpers';
 import { safelyParseJSON, getFilters } from '../../helpers';
 
 const messages = defineMessages({
@@ -18,11 +18,7 @@ const messages = defineMessages({
   error: {
     id: 'createMedia.error',
     defaultMessage:
-      'Something went wrong! The server returned an error code {code}. Please contact a system administrator.',
-  },
-  errorTitle: {
-    id: 'createMedia.errorTitle',
-    defaultMessage: 'Could not submit "{title}"',
+      'Sorry, an error occurred while submitting the item. Please try again and contact {supportEmail} if the condition persists.',
   },
 });
 
@@ -37,10 +33,8 @@ class CreateProjectMedia extends Component {
     };
   }
 
-  fail(context, prefix, transactionError, title) {
-    let message = this.props.intl.formatMessage(messages.error, {
-      code: `${transactionError.status} ${HttpStatus.getMessage(transactionError.status)}`,
-    });
+  fail(context, prefix, transactionError) {
+    let message = this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') });
     const json = safelyParseJSON(transactionError.source);
     if (json) {
       if (json.error_info && json.error_info.code === 'ERR_OBJECT_EXISTS') {
@@ -49,10 +43,6 @@ class CreateProjectMedia extends Component {
       } else {
         message = json.error;
       }
-    }
-    if (title) {
-      message = [this.props.intl.formatMessage(messages.errorTitle, { title }), message];
-      message = message.join('<br />');
     }
     this.context.setMessage(message);
     this.setState({ isSubmitting: false });
@@ -101,7 +91,7 @@ class CreateProjectMedia extends Component {
     this.setState({ isSubmitting: true });
 
     const onFailure = (transaction) => {
-      this.fail(context, prefix, transaction.getError(), value.title);
+      this.fail(context, prefix, transaction.getError());
     };
 
     const onSuccess = (response) => {

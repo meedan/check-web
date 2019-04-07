@@ -1,4 +1,4 @@
 {
   "tags.addTagHelper": "Ajouter un nouveau tag ou en choisir un existant",
-  "tags.error": "Désolé, une erreur s'est produite durant la mise à jour du tag. Veuillez réessayer et contactez {supportEmail} si le problème persiste."
+  "tags.error": "Désolé, une erreur s'est produite durant la mise à jour du tag. Veuillez réessayer et prévenir {supportEmail} si le problème persiste."
 }

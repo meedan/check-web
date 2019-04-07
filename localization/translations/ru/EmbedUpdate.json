@@ -1,7 +1,7 @@
 {
-  "annotation.embedLabelUpdated": "Item title edited by {author}: {title}",
-  "annotation.embedLabelRemoved": "Item title removed by {author}: {title}",
-  "annotation.embedNoteUpdated": "Item description edited by {author}{description}",
-  "annotation.embedNoteCreated": "Item description added by {author}{description}",
-  "annotation.embedNoteRemoved": "Item description removed by {author}{description}"
+  "annotation.embedLabelUpdated": "Заголовок материала изменён ({author}): {title}",
+  "annotation.embedLabelRemoved": "Заголовок материала удалён ({author}): {title}",
+  "annotation.embedNoteUpdated": "Описание материала изменено ({author}){description}",
+  "annotation.embedNoteCreated": "Описание материала добавлено ({author}){description}",
+  "annotation.embedNoteRemoved": "Описание материала удалено ({author}){description}"
 }

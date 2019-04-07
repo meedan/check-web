@@ -1,13 +1,13 @@
 {
-  "bot.confirmInstall": "Are you sure you want to install bot on team {teamName}?",
-  "bot.confirmUninstall": "Are you sure you want to uninstall this bot from team {teamName}?",
-  "bot.cantChange": "Sorry, an error occurred while updating the bot. Please try again and contact {supportEmail} if the condition persists.",
-  "bot.inUse": "In Use",
-  "bot.madeBy": "Made by {teamLink}",
-  "bot.permissions": "Permissions",
-  "bot.permissionsText": "This bot has an access level of {role}.",
-  "bot.sourceCode": "View source code",
-  "bot.updatedAt": "Updated",
-  "bot.version": "Version",
-  "bot.installs": "Installs"
+  "bot.confirmInstall": "Вы уверены, что хотите добавить этого бота в группу {teamName}?",
+  "bot.confirmUninstall": "Вы уверены, что хотите убрать этого бота из группы {teamName}?",
+  "bot.cantChange": "В процессе редактирования бота произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}.",
+  "bot.inUse": "Используется",
+  "bot.madeBy": "Сделан {teamLink}",
+  "bot.permissions": "Права доступа",
+  "bot.permissionsText": "Уровень доступа этого бота: {role}.",
+  "bot.sourceCode": "Посмотреть исходный код",
+  "bot.updatedAt": "Обновлён",
+  "bot.version": "Версия",
+  "bot.installs": "Установок"
 }

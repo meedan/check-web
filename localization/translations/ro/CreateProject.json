@@ -1,7 +1,7 @@
 {
   "createProject.addProject": "Adaugă proiect",
-  "createProject.title": "Add a project",
-  "createProject.titleBlank": "Add your first project",
-  "createProject.newProjectName": "Project name",
-  "createProject.error": "Sorry, an error occurred while updating the project. Please try again and contact {supportEmail} if the condition persists."
+  "createProject.title": "Adaugă un proiect",
+  "createProject.titleBlank": "Adăugați-vă primul proiect",
+  "createProject.newProjectName": "Denumirea proiectului",
+  "createProject.error": "Ne pare rău, în timpul actualizării proiectului s-a produs o eroare. Vă rugăm să mai încercați odată și să contactați {supportEmail} dacă situația persistă."
 }

@@ -5,26 +5,26 @@
   },
   {
     "id": "home.somethingWrong",
-    "defaultMessage": "Something went wrong – please refresh your browser or try again later."
-  },
-  {
-    "id": "home.invalidInvitation",
-    "defaultMessage": "An error occurred while processing your invitation. The server returned the error: \"{server_error}\". Please try again and contact the support team if the issue persists."
-  },
-  {
-    "id": "home.invalidTeamInvitation",
-    "defaultMessage": "Team not found"
-  },
-  {
-    "id": "home.invalidNoInvitation",
-    "defaultMessage": "No invitation exists"
+    "defaultMessage": "Sorry, an error occurred. Please refresh your browser and contact {supportEmail} if the condition persists."
   },
   {
     "id": "home.successInvitation",
-    "defaultMessage": "Welcome to {appName}. Please login with the password that you received in the welcome email"
+    "defaultMessage": "Welcome to {appName}. Please login with the password that you received in the welcome email."
+  },
+  {
+    "id": "home.invalidInvitation",
+    "defaultMessage": "Sorry, an error occurred while processing your invitation. Please contact {supportEmail}."
+  },
+  {
+    "id": "home.invalidTeamInvitation",
+    "defaultMessage": "Sorry, the team to which you were invited was not found. Please contact {supportEmail} if you think this is an error."
+  },
+  {
+    "id": "home.invalidNoInvitation",
+    "defaultMessage": "Sorry, the invitation you received was not found. Please contact {supportEmail} if you think this is an error."
   },
   {
     "id": "home.invalidTokenInvitation",
-    "defaultMessage": "Invitation token is invalid"
+    "defaultMessage": "Sorry, the invitation you received is invalid. Please contact {supportEmail} if you think this is an error."
   }
 ]

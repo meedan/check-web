@@ -1,12 +1,12 @@
 {
-  "teamBots.confirmUninstall": "Are you sure you want to uninstall this bot?",
-  "teamBots.success": "Settings updated!",
-  "teamBots.fail": "Error! Please try again.",
-  "teamBots.noBots": "No bots installed.",
-  "teamBots.moreInfo": "More info",
-  "teamBots.inUse": "In Use",
-  "teamBots.settings": "Settings",
-  "teamBots.save": "Save",
-  "teamBots.noSettings": "There are no settings for this bot.",
-  "teamBots.botGarden": "Browse the Bot Garden"
+  "teamBots.confirmUninstall": "Вы уверены, что хотите убрать этого бота?",
+  "teamBots.success": "Настройки обновлены!",
+  "teamBots.fail": "Ошибка! Пожалуйста, попробуйте ещё раз.",
+  "teamBots.noBots": "Нет добавленных ботов.",
+  "teamBots.moreInfo": "Информация",
+  "teamBots.inUse": "Используется",
+  "teamBots.settings": "Настройки",
+  "teamBots.save": "Сохранить",
+  "teamBots.noSettings": "У этого бота нет настроек.",
+  "teamBots.botGarden": "Посмотреть всех ботов"
 }
