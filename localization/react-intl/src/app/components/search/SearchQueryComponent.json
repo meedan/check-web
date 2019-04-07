@@ -16,6 +16,10 @@
     "defaultMessage": "Cancel"
   },
   {
+    "id": "search.reset",
+    "defaultMessage": "Reset"
+  },
+  {
     "id": "search.sortByOldest",
     "defaultMessage": "Oldest first"
   },

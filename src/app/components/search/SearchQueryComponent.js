@@ -182,6 +182,10 @@ const messages = defineMessages({
     id: 'search.cancel',
     defaultMessage: 'Cancel',
   },
+  reset: {
+    id: 'search.reset',
+    defaultMessage: 'Reset',
+  },
 });
 
 class SearchQueryComponent extends React.Component {
@@ -490,6 +494,10 @@ class SearchQueryComponent extends React.Component {
     this.setState({ dialogOpen: false, query });
   }
 
+  resetFilters() {
+    this.setState({ query: {} });
+  }
+
   render() {
     const { team } = this.props;
     const { statuses } = teamStatuses(team);
@@ -779,6 +787,12 @@ class SearchQueryComponent extends React.Component {
                       id="search-query__cancel-button"
                       label={this.props.intl.formatMessage(messages.cancel)}
                       onClick={this.cancelFilters.bind(this)}
+                    />
+
+                    <FlatButton
+                      id="search-query__reset-button"
+                      label={this.props.intl.formatMessage(messages.reset)}
+                      onClick={this.resetFilters.bind(this)}
                     />
 
                     <FlatButton
