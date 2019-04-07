@@ -7,5 +7,5 @@
   "global.save": "Salvar",
   "global.submit": "Enviar",
   "global.tags": "Tags",
-  "global.unknownError": "Desculpe, ocorreu um erro. Por favor, tente novamente e avise {supportEmail} se a condição persistir."
+  "global.unknownError": "Desculpe, ocorreu um erro. Por favor, tente novamente e entre em contato com {supportEmail} se a condição persistir."
 }

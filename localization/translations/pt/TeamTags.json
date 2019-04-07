@@ -1,8 +1,8 @@
 {
-  "teamTags.failUpdate": "Desculpe, ocorreu um erro ao atualizar a tag. Por favor, tente novamente e avise {supportEmail} se a condição persistir.",
-  "teamTags.failDelete": "Desculpe, ocorreu um erro ao atualizar a tag. Por favor, tente novamente e avise {supportEmail} se a condição persistir.",
-  "teamTags.failMove": "Desculpe, ocorreu um erro ao atualizar a tag. Por favor, tente novamente e avise {supportEmail} se a condição persistir.",
-  "teamTags.fail": "Desculpe, ocorreu um erro ao atualizar a tag. Por favor, tente novamente e avise {supportEmail} se a condição persistir.",
+  "teamTags.failUpdate": "Desculpe, ocorreu um erro ao atualizar a tag. Por favor, tente novamente e entre em contato com {supportEmail} se a condição persistir.",
+  "teamTags.failDelete": "Desculpe, ocorreu um erro ao atualizar a tag. Por favor, tente novamente e entre em contato com {supportEmail} se a condição persistir.",
+  "teamTags.failMove": "Desculpe, ocorreu um erro ao atualizar a tag. Por favor, tente novamente e entre em contato com {supportEmail} se a condição persistir.",
+  "teamTags.fail": "Desculpe, ocorreu um erro ao atualizar a tag. Por favor, tente novamente e entre em contato com {supportEmail} se a condição persistir.",
   "teamTags.editTag": "Editar tag",
   "teamTags.deleteTag": "Excluir tag",
   "teamTags.moveTag": "Mover para tags da equipe",

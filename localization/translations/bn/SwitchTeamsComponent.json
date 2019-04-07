@@ -1,0 +1,10 @@
+{
+  "switchTeams.error": "Sorry, an error occurred while updating the team. Please try again and contact {supportEmail} if the condition persists.",
+  "switchTeams.member": "{membersCount, plural, =0 {No members} one {1 member} other {# members}}",
+  "switchTeams.joinRequestMessage": "You requested to join",
+  "teams.yourTeams": "Your teams",
+  "teams.userTeams": "{name}'s teams",
+  "switchTeams.cancelJoinRequest": "Cancel",
+  "switchTeams.noTeams": "Not a member of any team.",
+  "switchTeams.newTeamLink": "Create Team"
+}

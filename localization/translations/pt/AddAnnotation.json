@@ -1,7 +1,7 @@
 {
   "addAnnotation.invalidCommand": "Comando inválido",
   "addAnnotation.annotationAdded": "{type} adicionado(a)",
-  "addAnnotation.error": "Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists.",
+  "addAnnotation.error": "Desculpe, ocorreu um erro ao atualizar o item. Por favor, tente novamente e entre em contato com {supportEmail} se a condição persistir.",
   "addAnnotation.inputHint": "Adicione uma nota sobre isso",
   "addAnnotation.submitButton": "Enviar",
   "addAnnotation.typeComment": "nota",

@@ -5,11 +5,11 @@
   "createTeam.createTeamError": "Ne pare rău, în timpul actualizării echipei s-a produs o eroare. Vă rugăm să mai încercați odată și să contactați {supportEmail} dacă situația persistă.",
   "createTeam.title": "Creează o echipă",
   "createTeam.teamNameHint": "Denumirea echipei",
-  "createTeam.teamSlugHint": "team-slug",
-  "createTeam.mainHeading": "Create a Team",
-  "createTeam.blurb": "Create a team for your organization, or just for yourself:",
-  "createTeam.displayName": "Team Name",
-  "createTeam.url": "Team URL",
-  "createTeam.submitButton": "Create",
-  "createTeam.requestToJoin": "You can also request to join an existing team."
+  "createTeam.teamSlugHint": "slug-ul echipei",
+  "createTeam.mainHeading": "Creează o echipă",
+  "createTeam.blurb": "Creați o echipă pentru organizația Dvs sau doar pentru Dvs:",
+  "createTeam.displayName": "Denumirea echipei",
+  "createTeam.url": "URL-ul echipei",
+  "createTeam.submitButton": "Creare",
+  "createTeam.requestToJoin": "De asemenea, puteți solicita permisiunea de a vă alătura unei echipe existente."
 }

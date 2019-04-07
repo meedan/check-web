@@ -1,4 +1,4 @@
 {
   "mediaRelated.relatedItems": "Связанные материалы",
-  "mediaRelated.counter": "{total, number} related items ({hidden, number} hidden by filters)"
+  "mediaRelated.counter": "Связанных материалов: {total, number} (скрыто фильтрами: {hidden, number})"
 }

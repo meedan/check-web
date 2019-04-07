@@ -2,7 +2,7 @@
   "mediaDetail.mediaTitle": "Título",
   "mediaDetail.mediaDescription": "Descrição",
   "mediaDetail.editReport": "Editar",
-  "mediaDetail.editReportError": "Desculpe, ocorreu um erro ao atualizar o item. Por favor, tente novamente e avise {supportEmail} se a condição persistir.",
+  "mediaDetail.editReportError": "Desculpe, ocorreu um erro ao atualizar o item. Por favor, tente novamente e entre em contato com {supportEmail} se a condição persistir.",
   "mediaDetail.trash": "Lixeira",
   "mediaMetadata.movedToTrash": "Enviar para {trash} ",
   "mediaMetadata.movedBack": "Voltou ao projeto: {project}",

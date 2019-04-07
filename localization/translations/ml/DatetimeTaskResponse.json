@@ -1,0 +1,5 @@
+{
+  "datetimeTaskResponse.timeIs": "View this timezone on time.is",
+  "datetimeTaskResponse.invalidTimestamp": "Error: Invalid timestamp",
+  "datetimeTaskResponse.taskResponse": "{date} at {timeLink}"
+}

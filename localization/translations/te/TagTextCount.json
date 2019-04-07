@@ -1,0 +1,3 @@
+{
+  "tagTextCount.acknowledge": "{count, plural, =0 {Yes} one {I understand that by deleting this tag, it will be removed from one media item.} other {I understand that by deleting this tag, it will be removed from # media items.}}"
+}

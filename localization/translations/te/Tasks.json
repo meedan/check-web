@@ -1,0 +1,9 @@
+{
+  "tasks.cancelAdd": "Cancel",
+  "tasks.add": "Add",
+  "tasks.addTask": "Add task",
+  "tasks.shortAnswer": "Short answer",
+  "tasks.taskLabel": "Task label",
+  "tasks.description": "Description",
+  "tasks.addDescription": "Add a description"
+}

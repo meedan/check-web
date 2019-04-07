@@ -1,0 +1,9 @@
+{
+  "home.needRegister": "First you need to register. Once registered, you can request to join the team.",
+  "home.somethingWrong": "Sorry, an error occurred. Please refresh your browser and contact {supportEmail} if the condition persists.",
+  "home.successInvitation": "Welcome to {appName}. Please login with the password that you received in the welcome email.",
+  "home.invalidInvitation": "Sorry, an error occurred while processing your invitation. Please contact {supportEmail}.",
+  "home.invalidTeamInvitation": "Sorry, the team to which you were invited was not found. Please contact {supportEmail} if you think this is an error.",
+  "home.invalidNoInvitation": "Sorry, the invitation you received was not found. Please contact {supportEmail} if you think this is an error.",
+  "home.invalidTokenInvitation": "Sorry, the invitation you received is invalid. Please contact {supportEmail} if you think this is an error."
+}

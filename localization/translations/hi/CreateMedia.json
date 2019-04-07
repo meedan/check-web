@@ -1,0 +1,6 @@
+{
+  "createMedia.submitting": "Submitting...",
+  "createMedia.error": "Sorry, an error occurred while submitting the item. Please try again and contact {supportEmail} if the condition persists.",
+  "createMedia.addItem": "Add Item",
+  "createMedia.addNewItem": "Add new item"
+}

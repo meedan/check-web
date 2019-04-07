@@ -1,0 +1,10 @@
+{
+  "translation.inputHint": "Please add a translation",
+  "translation.translationAdded": "A translation has been added!",
+  "translation.translationFailed": "Sorry, an error occurred while updating the translation. Please try again and contact {supportEmail} if the condition persists.",
+  "translation.submitBlank": "The translation can't be blank. Please write a translation and try again.",
+  "translation.title": "Add a translation",
+  "translation.selectLanguage": "Select language",
+  "translation.noteLabel": "Note any additional details here.",
+  "translation.submit": "Submit"
+}

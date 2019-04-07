@@ -8,7 +8,7 @@
   "tasks.taskPrompt": "Prompt",
   "tasks.description": "Описание (необязательно)",
   "tasks.requiredCheckbox": "Обязательно",
-  "tasks.requiredHelper": "Items cannot be marked as completed while any of their required tasks remains unresolved",
+  "tasks.requiredHelper": "Работа над материалом не может быть завершена, пока есть невыполненные задачи",
   "tasks.resolvedCheckbox": "Resolved",
   "tasks.resolvedHelper": "The task can only be resolved if it has been answered",
   "tasks.showInProj": "Показать задачи в",

@@ -1,5 +1,5 @@
 {
-  "teamEmbed.updateFail": "Desculpe, ocorreu um erro ao atualizar as configurações. Por favor, tente novamente e avise {supportEmail} se a condição persistir.",
+  "teamEmbed.updateFail": "Desculpe, ocorreu um erro ao atualizar as configurações. Por favor, tente novamente e entre em contato com {supportEmail} se a condição persistir.",
   "teamEmbed.updateSuccess": "As configurações de incorporação foram atualizadas com sucesso!",
   "teamEmbed.title": "Configurações de incorporação",
   "teamEmbed.tasks": "Tarefas",

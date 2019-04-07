@@ -1,0 +1,7 @@
+{
+  "createProject.addProject": "Add project",
+  "createProject.title": "Add a project",
+  "createProject.titleBlank": "Add your first project",
+  "createProject.newProjectName": "Project name",
+  "createProject.error": "Sorry, an error occurred while updating the project. Please try again and contact {supportEmail} if the condition persists."
+}

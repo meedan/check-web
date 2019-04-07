@@ -1,7 +1,7 @@
 {
-  "annotation.embedLabelUpdated": "Item title edited by {author}: {title}",
-  "annotation.embedLabelRemoved": "Item title removed by {author}: {title}",
-  "annotation.embedNoteUpdated": "Item description edited by {author}{description}",
-  "annotation.embedNoteCreated": "Item description added by {author}{description}",
-  "annotation.embedNoteRemoved": "Item description removed by {author}{description}"
+  "annotation.embedLabelUpdated": "Titlul elementului redactat de {author}: {title}",
+  "annotation.embedLabelRemoved": "Titlul elementului șters de {author}: {title}",
+  "annotation.embedNoteUpdated": "Descrierea elementului redactată de {author}{description}",
+  "annotation.embedNoteCreated": "Descrierea elementului adăugată de {author}{description}",
+  "annotation.embedNoteRemoved": "Descrierea elementului ștearsă de {author}{description}"
 }

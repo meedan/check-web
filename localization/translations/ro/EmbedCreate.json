@@ -1,5 +1,5 @@
 {
-  "annotation.newReport": "Item added by {author}",
-  "annotation.titleChanged": "Item title edited by {author}: {title}",
-  "annotation.embedNoteCreated": "Item description added by {author}{description}"
+  "annotation.newReport": "Element adăugat de {author}",
+  "annotation.titleChanged": "Titlul elementului redactat de {author}: {title}",
+  "annotation.embedNoteCreated": "Descrierea elementului adăugată de {author}{description}"
 }

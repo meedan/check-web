@@ -1,5 +1,5 @@
 {
-  "datetimeTaskResponse.timeIs": "View this timezone on time.is",
-  "datetimeTaskResponse.invalidTimestamp": "Error: Invalid timestamp",
-  "datetimeTaskResponse.taskResponse": "{date} at {timeLink}"
+  "datetimeTaskResponse.timeIs": "Vezi acest fus orar pe time.is",
+  "datetimeTaskResponse.invalidTimestamp": "Eroare: Marca de timp nevalidă",
+  "datetimeTaskResponse.taskResponse": "{date} la {timeLink}"
 }

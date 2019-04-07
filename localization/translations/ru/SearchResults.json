@@ -1,7 +1,7 @@
 {
-  "search.results": "{resultsCount, plural, =0 {No items} one {1 item} other {{loadedCount} of # items}}",
+  "search.results": "{resultsCount, plural, =0 {Нет материалов} one {1 материал} other {Материалов: {loadedCount} из #}}",
   "search.newTranslationRequestNotification": "New translation request",
   "search.newTranslationNotification": "Новый перевод",
-  "search.newTranslationNotificationBody": "An item was just marked as \"translated\"",
-  "search.resultsWithSelection": "{resultsCount, plural, =0 {No items} one {1 item} other {{loadedCount} of # items}} {selectedCount, plural, =0 {} one {(1 selected)} other {(# selected)}}"
+  "search.newTranslationNotificationBody": "Материал был отмечен как переведённый",
+  "search.resultsWithSelection": "{resultsCount, plural, =0 {Нет материалов} one {1 материал} other {Материалов: {loadedCount} из #}} {selectedCount, plural, =0 {} one {(1 выбран)} other {(выбрано: #)}}"
 }

@@ -1,0 +1,13 @@
+{
+  "bot.confirmInstall": "Are you sure you want to install bot on team {teamName}?",
+  "bot.confirmUninstall": "Are you sure you want to uninstall this bot from team {teamName}?",
+  "bot.cantChange": "Sorry, an error occurred while updating the bot. Please try again and contact {supportEmail} if the condition persists.",
+  "bot.inUse": "In Use",
+  "bot.madeBy": "Made by {teamLink}",
+  "bot.permissions": "Permissions",
+  "bot.permissionsText": "This bot has an access level of {role}.",
+  "bot.sourceCode": "View source code",
+  "bot.updatedAt": "Updated",
+  "bot.version": "Version",
+  "bot.installs": "Installs"
+}

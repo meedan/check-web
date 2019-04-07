@@ -1,8 +1,8 @@
 {
   "MemebusterComponent.publishing": "Publicando...",
   "MemebusterComponent.lastPublished": "Publicado pela última vez em {time} por {name}",
-  "MemebusterComponent.fail": "Desculpe, ocorreu um erro ao publicar o meme. Por favor, tente novamente e avise {supportEmail} se a condição persistir.",
+  "MemebusterComponent.fail": "Desculpe, ocorreu um erro ao publicar o meme. Por favor, tente novamente e entre em contato com {supportEmail} se a condição persistir.",
   "MemebusterComponent.lastSaved": "Salvo pela última vez em {time} por {name}",
-  "MemebusterComponent.saveDraft": "Save Draft",
+  "MemebusterComponent.saveDraft": "Salvar Rascunho",
   "MemebusterComponent.publish": "Publicar"
 }

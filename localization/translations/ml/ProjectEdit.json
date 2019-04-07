@@ -1,0 +1,6 @@
+{
+  "projectEdit.error": "Sorry, an error occurred while updating the project. Please try again and contact {supportEmail} if the condition persists.",
+  "projectEdit.titleField": "Project Title",
+  "projectEdit.descriptionField": "Project Description",
+  "projectEdit.saveButton": "Save"
+}

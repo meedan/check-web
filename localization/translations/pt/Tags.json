@@ -1,4 +1,4 @@
 {
   "tags.addTagHelper": "Criar uma tag ou escolher dentre as existentes",
-  "tags.error": "Desculpe, ocorreu um erro ao atualizar a tag. Por favor, tente novamente e avise {supportEmail} se a condição persistir."
+  "tags.error": "Desculpe, ocorreu um erro ao atualizar a tag. Por favor, tente novamente e entre em contato com {supportEmail} se a condição persistir."
 }
