@@ -387,28 +387,26 @@ class SearchQueryComponent extends React.Component {
   }
 
   handleDynamicClick(field, value) {
-    this.setState((prevState) => {
-      const state = Object.assign({}, prevState);
-      if (!state.query.dynamic) {
-        state.query.dynamic = {};
-      }
-      if (!state.query.dynamic[field]) {
-        state.query.dynamic[field] = [];
-      }
-      const i = state.query.dynamic[field].indexOf(value);
-      if (i === -1) {
-        state.query.dynamic[field].push(value);
-      } else {
-        state.query.dynamic[field].splice(i, 1);
-      }
-      if (!state.query.dynamic[field].length) {
-        delete state.query.dynamic[field];
-      }
-      if (!Object.keys(state.query.dynamic).length) {
-        delete state.query.dynamic;
-      }
-      return { query: state.query };
-    });
+    const query = Object.assign({}, this.state.query);
+    if (!query.dynamic) {
+      query.dynamic = {};
+    }
+    if (!query.dynamic[field]) {
+      query.dynamic[field] = [];
+    }
+    const i = query.dynamic[field].indexOf(value);
+    if (i === -1) {
+      query.dynamic[field].push(value);
+    } else {
+      query.dynamic[field].splice(i, 1);
+    }
+    if (!query.dynamic[field].length) {
+      delete query.dynamic[field];
+    }
+    if (!Object.keys(query.dynamic).length) {
+      delete query.dynamic;
+    }
+    this.setState({ query });
   }
 
   handleDialogOpen = () => {
