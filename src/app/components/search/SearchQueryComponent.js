@@ -486,7 +486,8 @@ class SearchQueryComponent extends React.Component {
   }
 
   cancelFilters() {
-    this.setState({ dialogOpen: false });
+    const query = searchQueryFromUrl();
+    this.setState({ dialogOpen: false, query });
   }
 
   render() {
