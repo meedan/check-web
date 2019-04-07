@@ -95,7 +95,7 @@ class HeaderComponent extends React.Component {
       <StyledIconButton
         key="header.searchButton"
         className="header-actions__search-icon"
-        containerElement={<Link to={`/${this.props.params.team}/search`} />}
+        containerElement={<Link to={`/${this.props.params.team}/search/list`} />}
         name="search"
         tooltip={<FormattedMessage defaultMessage="Search" id="headerActions.search" />}
       >

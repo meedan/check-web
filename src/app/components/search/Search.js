@@ -11,7 +11,7 @@ export function searchQueryFromUrlQuery(urlQuery) {
 }
 
 export function searchQueryFromUrl() {
-  const queryString = window.location.pathname.match(/.*\/(search|project\/[0-9]+(?:\/[a-z]+)?)\/(.*)/);
+  const queryString = window.location.pathname.match(/.*\/(search|project\/[0-9]+)(?:\/[a-z]+)?\/(.*)/);
   return queryString ? searchQueryFromUrlQuery(queryString[2]) : {};
 }
 
@@ -55,6 +55,7 @@ class Search extends React.Component {
   render() {
     const searchQuery = this.props.query || this.props.params.query;
     const teamSlug = this.props.team || this.props.params.team;
+    const view = this.props.view || this.props.route.view || 'list';
 
     const query = searchQueryFromUrlQuery(searchQuery);
     if (!this.noFilters(query)) {
@@ -69,7 +70,7 @@ class Search extends React.Component {
 
     return (
       <div className="search">
-        <SearchResults {...this.props} query={query} />
+        <SearchResults {...this.props} view={view} query={query} />
       </div>
     );
   }

@@ -1,5 +1,13 @@
 [
   {
+    "id": "teamMenu.listView",
+    "defaultMessage": "List view"
+  },
+  {
+    "id": "teamMenu.denseView",
+    "defaultMessage": "Compact view"
+  },
+  {
     "id": "teamMenu.editTeam",
     "defaultMessage": "Edit team"
   },

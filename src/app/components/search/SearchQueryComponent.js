@@ -8,6 +8,7 @@ import Popper from '@material-ui/core/Popper';
 import IconButton from '@material-ui/core/IconButton';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import ClearIcon from '@material-ui/icons/Clear';
+import FlatButton from 'material-ui/FlatButton';
 import isEqual from 'lodash.isequal';
 import rtlDetect from 'rtl-detect';
 import styled from 'styled-components';
@@ -173,6 +174,14 @@ const messages = defineMessages({
     id: 'search.inputHint',
     defaultMessage: 'Search',
   },
+  applyFilters: {
+    id: 'search.applyFilters',
+    defaultMessage: 'Done',
+  },
+  cancel: {
+    id: 'search.cancel',
+    defaultMessage: 'Cancel',
+  },
 });
 
 class SearchQueryComponent extends React.Component {
@@ -213,34 +222,33 @@ class SearchQueryComponent extends React.Component {
            !isEqual(this.state.query, query);
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    const query = searchQueryFromUrl();
-    if (isEqual(this.state.query, query)) return;
+  getContext() {
+    return new CheckContext(this);
+  }
 
+  handleApplyFilters() {
     const viewMode = this.props.view ? `/${this.props.view}` : '';
 
     const url = urlFromSearchQuery(
-      prevState.query,
+      this.state.query,
       this.props.project
         ? `/${this.props.team.slug}/project/${this.props.project.dbid}${viewMode}`
-        : `/${this.props.team.slug}/search`,
+        : `/${this.props.team.slug}/search${viewMode}`,
     );
 
     this.getContext().getContextStore().history.push(url);
   }
 
-  getContext() {
-    return new CheckContext(this);
-  }
-
   handleSubmit(e) {
     e.preventDefault();
-    const keywordInput = document.getElementById('search-input').value;
+    const field = document.getElementById('search-input');
+    field.blur();
+    const keywordInput = field.value;
 
     this.setState((prevState) => {
       const state = Object.assign({}, prevState);
       state.query.keyword = keywordInput;
-      return { query: state.query };
+      return { query: state.query, popper: { open: false } };
     });
   }
 
@@ -477,6 +485,10 @@ class SearchQueryComponent extends React.Component {
     this.setState({ popper: { open: false, allowed: false } });
   }
 
+  cancelFilters() {
+    this.setState({ dialogOpen: false });
+  }
+
   render() {
     const { team } = this.props;
     const { statuses } = teamStatuses(team);
@@ -517,6 +529,7 @@ class SearchQueryComponent extends React.Component {
                       defaultValue={this.state.query.keyword || ''}
                       isRtl={isRtl}
                       onChange={this.handleInputChange.bind(this)}
+                      onBlur={this.handleSubmit.bind(this)}
                       autofocus
                     />
                     <StyledPopper
@@ -759,6 +772,21 @@ class SearchQueryComponent extends React.Component {
                       );
                     }))
                     : null}
+
+                  <p style={{ textAlign: 'right' }}>
+                    <FlatButton
+                      id="search-query__cancel-button"
+                      label={this.props.intl.formatMessage(messages.cancel)}
+                      onClick={this.cancelFilters.bind(this)}
+                    />
+
+                    <FlatButton
+                      id="search-query__submit-button"
+                      label={this.props.intl.formatMessage(messages.applyFilters)}
+                      onClick={this.handleApplyFilters.bind(this)}
+                      primary
+                    />
+                  </p>
                 </StyledSearchFiltersSection>
 
                 {this.props.addons}

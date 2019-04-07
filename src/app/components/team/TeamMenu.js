@@ -4,9 +4,12 @@ import { FormattedMessage } from 'react-intl';
 import IconDelete from 'material-ui/svg-icons/action/delete';
 import IconEdit from 'material-ui/svg-icons/image/edit';
 import IconSettings from 'material-ui/svg-icons/action/settings';
+import ViewListIcon from '@material-ui/icons/ViewList';
+import ViewComfyIcon from '@material-ui/icons/ViewComfy';
 import { can } from '../Can';
 import CheckContext from '../../CheckContext';
 import { SmallerStyledIconButton } from '../../styles/js/shared';
+import { searchQueryFromUrl, urlFromSearchQuery } from '../../components/search/Search';
 
 class TeamMenu extends Component {
   getHistory() {
@@ -25,11 +28,40 @@ class TeamMenu extends Component {
     this.getHistory().push(`/${this.props.team.slug}/trash`);
   }
 
+  handleClickView() {
+    const searchQuery = searchQueryFromUrl();
+    const targetView = this.props.children.props.route.view === 'dense' ?
+      'list' : 'dense';
+    const prefix = window.location.pathname.match(/.*\/search/)[0];
+
+    this.getHistory().push(urlFromSearchQuery(searchQuery, `${prefix}/${targetView}`));
+  }
+
   render() {
     const { team, currentUserIsMember, pageType } = this.props;
 
+    let toggleViewButton = null;
+    if (/\/search\//.test(window.location.pathname)) {
+      const viewIcon = this.props.children.props.route.view === 'dense' ?
+        <ViewListIcon /> : <ViewComfyIcon />;
+
+      const viewTooltip = this.props.children.props.route.view === 'dense'
+        ? <FormattedMessage id="teamMenu.listView" defaultMessage="List view" />
+        : <FormattedMessage id="teamMenu.denseView" defaultMessage="Compact view" />;
+
+      toggleViewButton = (
+        <SmallerStyledIconButton
+          onClick={this.handleClickView.bind(this)}
+          tooltip={viewTooltip}
+        >
+          {viewIcon}
+        </SmallerStyledIconButton>
+      );
+    }
+
     return (
       <div>
+        {toggleViewButton}
         { pageType === 'team' && can(team.permissions, 'update Team') ?
           <SmallerStyledIconButton
             className="team-menu__edit-team-button"

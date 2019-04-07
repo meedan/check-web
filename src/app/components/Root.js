@@ -328,6 +328,8 @@ class Root extends Component {
                 <Route path=":team/project/:projectId/dense(/:query)" view="dense" component={Project} public />
                 <Route path=":team/project/:projectId/list(/:query)" view="list" component={Project} public />
                 <Route path=":team/project/:projectId(/:query)" component={Project} public />
+                <Route path=":team/search/dense(/:query)" view="dense" component={Search} public />
+                <Route path=":team/search/list(/:query)" view="list" component={Search} public />
                 <Route path=":team/search(/:query)" component={Search} public />
                 <Route path=":team/trash(/:query)" component={Trash} />
                 <Route path=":team" component={Team} public />
