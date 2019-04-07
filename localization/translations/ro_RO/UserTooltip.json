@@ -1,3 +1,0 @@
-{
-  "userTooltip.dateJoined": "Joined {date} • {teamsCount, plural, =0 {No teams} one {1 team} other {# teams}}"
-}

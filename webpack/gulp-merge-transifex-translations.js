@@ -26,9 +26,11 @@ module.exports = function (config) {
     // Language
     else if (file.isDirectory()) {
       const lang = file.relative;
-      languages.push(lang);
-      if (translations[lang] == undefined) {
-        translations[lang] = {};
+      if (!config.transifex.languages || config.transifex.languages.indexOf(lang) !== -1) {
+        languages.push(lang);
+        if (translations[lang] == undefined) {
+          translations[lang] = {};
+        }
       }
     }
 
@@ -36,7 +38,9 @@ module.exports = function (config) {
     else if (file.isBuffer()) {
       const parts = file.relative.split('/');
       const lang = parts[0];
-      translations[lang] = Object.assign(translations[lang], JSON.parse(file.contents.toString()))
+      if (!config.transifex.languages || config.transifex.languages.indexOf(lang) !== -1) {
+        translations[lang] = Object.assign(translations[lang], JSON.parse(file.contents.toString()))
+      }
     }
 
     return callback();

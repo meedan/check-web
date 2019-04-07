@@ -1,9 +1,0 @@
-{
-  "findTeamCard.teamSlugHint": "team-slug",
-  "findTeamCard.teamNotFound": "Team not found!",
-  "findTeamCard.mainHeading": "Find an existing team",
-  "findTeamCard.blurb": "Request to join an existing team by adding their name here, or get started by creating your own.",
-  "findTeamCard.url": "Team URL",
-  "findTeamCard.submitButton": "Find team",
-  "findTeamCard.createYourOwn": "You can also create your own team."
-}

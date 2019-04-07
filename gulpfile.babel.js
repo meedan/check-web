@@ -88,7 +88,7 @@ gulp.task('transifex:download', () => {
 
 gulp.task('transifex:translations', () => {
   if (transifexClient) {
-    return gulp.src('./localization/translations/**/*').pipe(mergeTransifex()).pipe(gulp.dest('./localization/translations/'));
+    return gulp.src('./localization/translations/**/*').pipe(mergeTransifex(buildConfig)).pipe(gulp.dest('./localization/translations/'));
   }
 });
 
