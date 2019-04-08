@@ -67,6 +67,8 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
     if (this.props.embed) {
       const newEmbed = JSON.parse(this.props.embed);
       const embed = Object.assign(this.props.media.embed, newEmbed);
+      const permissions = JSON.parse(this.props.media.permissions);
+      permissions['update Embed'] = false;
       const { overridden } = this.props.media;
       Object.keys(newEmbed).forEach((attribute) => {
         overridden[attribute] = true;
@@ -76,6 +78,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
           id: this.props.media.id,
           embed: JSON.stringify(embed),
           overridden: JSON.stringify(overridden),
+          permissions: JSON.stringify(permissions),
         },
       };
     }

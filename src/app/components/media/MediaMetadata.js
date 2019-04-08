@@ -111,8 +111,9 @@ class MediaMetadata extends Component {
   getDescription() {
     const { media } = this.props;
 
-    const defaultDescription = MediaUtil.hasCustomDescription(media, media.embed)
-      ? media.embed.description
+    const embed = (typeof media.embed === 'string') ? JSON.parse(media.embed) : media.embed;
+    const defaultDescription = MediaUtil.hasCustomDescription(media, embed)
+      ? embed.description
       : null;
 
     return (typeof this.state.description === 'string') ? this.state.description.trim() : defaultDescription;
@@ -351,7 +352,8 @@ class MediaMetadata extends Component {
 
   canSubmit = () => {
     const { title, description } = this.state;
-    return (typeof title === 'string' || typeof description === 'string');
+    const permissions = JSON.parse(this.props.media.permissions);
+    return (permissions['update Embed'] !== false && (typeof title === 'string' || typeof description === 'string'));
   };
 
   handleChangeTitle(e) {
