@@ -304,58 +304,51 @@ class SearchQueryComponent extends React.Component {
   }
 
   handleStatusClick(statusCode) {
-    this.setState((prevState) => {
-      const state = Object.assign({}, prevState);
-      const statusIsSelected = this.statusIsSelected(statusCode, state);
-      const selectedStatuses = state.query[statusKey] || []; // TODO Avoid ambiguous reference
+    const query = Object.assign({}, this.state.query);
+    const statusIsSelected = this.statusIsSelected(statusCode, this.state);
+    const selectedStatuses = query[statusKey] || []; // TODO Avoid ambiguous reference
 
-      if (statusIsSelected) {
-        selectedStatuses.splice(selectedStatuses.indexOf(statusCode), 1); // remove from array
-        if (!selectedStatuses.length) {
-          delete state.query[statusKey];
-        }
-      } else {
-        state.query[statusKey] = selectedStatuses.concat(statusCode);
+    if (statusIsSelected) {
+      selectedStatuses.splice(selectedStatuses.indexOf(statusCode), 1); // remove from array
+      if (!selectedStatuses.length) {
+        delete query[statusKey];
       }
-
-      return { query: state.query };
-    });
+    } else {
+      query[statusKey] = selectedStatuses.concat(statusCode);
+    }
+    this.setState({ query });
   }
 
   handleProjectClick(projectId) {
-    this.setState((prevState) => {
-      const state = Object.assign({}, prevState);
-      const projectIsSelected = this.projectIsSelected(projectId, state);
-      const selectedProjects = state.query.projects || [];
+    const query = Object.assign({}, this.state.query);
+    const projectIsSelected = this.projectIsSelected(projectId, this.state);
+    const selectedProjects = query.projects || [];
 
-      if (projectIsSelected) {
-        selectedProjects.splice(selectedProjects.indexOf(projectId), 1);
-        if (!selectedProjects.length) {
-          delete state.query.projects;
-        }
-      } else {
-        state.query.projects = selectedProjects.concat(projectId);
+    if (projectIsSelected) {
+      selectedProjects.splice(selectedProjects.indexOf(projectId), 1);
+      if (!selectedProjects.length) {
+        delete query.projects;
       }
-      return { query: state.query };
-    });
+    } else {
+      query.projects = selectedProjects.concat(projectId);
+    }
+    this.setState({ query });
   }
 
   handleTagClick(tag) {
-    this.setState((prevState) => {
-      const state = Object.assign({}, prevState);
-      const tagIsSelected = this.tagIsSelected(tag, state);
-      const selectedTags = state.query.tags || [];
+    const query = Object.assign({}, this.state.query);
+    const tagIsSelected = this.tagIsSelected(tag, this.state);
+    const selectedTags = query.tags || [];
 
-      if (tagIsSelected) {
-        selectedTags.splice(selectedTags.indexOf(tag), 1); // remove from array
-        if (!selectedTags.length) {
-          delete state.query.tags;
-        }
-      } else {
-        state.query.tags = selectedTags.concat(tag);
+    if (tagIsSelected) {
+      selectedTags.splice(selectedTags.indexOf(tag), 1); // remove from array
+      if (!selectedTags.length) {
+        delete query.tags;
       }
-      return { query: state.query };
-    });
+    } else {
+      query.tags = selectedTags.concat(tag);
+    }
+    this.setState({ query });
   }
 
   handleSortClick(sortParam) {
@@ -421,7 +414,9 @@ class SearchQueryComponent extends React.Component {
   };
 
   handleDialogClose = () => {
+    const query = searchQueryFromUrl();
     this.setState({
+      query,
       dialogOpen: false,
       popper: {
         open: false,
@@ -496,6 +491,11 @@ class SearchQueryComponent extends React.Component {
     this.setState({ query: {} });
   }
 
+  doneButtonDisabled() {
+    const query = searchQueryFromUrl();
+    return isEqual(this.state.query, query);
+  }
+
   render() {
     const { team } = this.props;
     const { statuses } = teamStatuses(team);
@@ -519,7 +519,11 @@ class SearchQueryComponent extends React.Component {
           <FilterListIcon />
         </IconButton>
         <PageTitle prefix={title} skipTeam={false} team={this.props.team}>
-          <Dialog maxWidth="md" open={this.state.dialogOpen} onClose={this.handleDialogClose}>
+          <Dialog
+            maxWidth="md"
+            open={this.state.dialogOpen}
+            onClose={this.handleDialogClose}
+          >
             <DialogContent>
               <ContentColumn>
                 {this.showField('keyword') ?
@@ -797,6 +801,7 @@ class SearchQueryComponent extends React.Component {
                       id="search-query__submit-button"
                       label={this.props.intl.formatMessage(messages.applyFilters)}
                       onClick={this.handleApplyFilters.bind(this)}
+                      disabled={this.doneButtonDisabled()}
                       primary
                     />
                   </p>
