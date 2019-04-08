@@ -9,7 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import ClearIcon from '@material-ui/icons/Clear';
 import FlatButton from 'material-ui/FlatButton';
-import isEqual from 'lodash.isequal';
+import deepEqual from 'deep-equal';
 import rtlDetect from 'rtl-detect';
 import styled from 'styled-components';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
@@ -215,15 +215,9 @@ class SearchQueryComponent extends React.Component {
 
   componentWillReceiveProps() {
     const query = searchQueryFromUrl();
-    if (!isEqual(this.state.query, query)) {
+    if (!deepEqual(this.state.query, query)) {
       this.setState({ query });
     }
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    const query = searchQueryFromUrl();
-    return !isEqual(this.state, nextState) ||
-           !isEqual(this.state.query, query);
   }
 
   getContext() {
@@ -493,7 +487,7 @@ class SearchQueryComponent extends React.Component {
 
   doneButtonDisabled() {
     const query = searchQueryFromUrl();
-    return isEqual(this.state.query, query);
+    return deepEqual(this.state.query, query);
   }
 
   render() {
