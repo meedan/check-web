@@ -1,4 +1,6 @@
 {
+  "teamMenu.listView": "Vista de lista",
+  "teamMenu.denseView": "Vista compacta",
   "teamMenu.editTeam": "Editar equipo",
   "teamMenu.teamSettings": "Ajustes del equipo",
   "teamMenu.trash": "Ver la papelera"

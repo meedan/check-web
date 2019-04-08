@@ -1,5 +1,5 @@
 {
-  "task.confirmDelete": "Вы уверены, что хотите удалить задачу?",
+  "task.confirmDelete": "Вы уверены, что хотите удалить вопрос?",
   "task.confirmDeleteResponse": "Are you sure you want to delete this task answer?",
   "task.answeredBy": "Answered by {byName}",
   "task.assignedTo": "Назначено {name}",

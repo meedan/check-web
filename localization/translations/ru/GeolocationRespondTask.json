@@ -1,7 +1,7 @@
 {
   "geoLocationRespondTask.searching": "Поиск...",
   "geoLocationRespondTask.notFound": "Sorry, this place was not found. Please try another search.",
-  "geoLocationRespondTask.error": "В процессе редактирования задачи произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}.",
+  "geoLocationRespondTask.error": "В процессе редактирования вопроса произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}.",
   "geolocationRespondTask.cancelTask": "Отменить",
   "geolocationRespondTask.answerTask": "Answer task",
   "geolocationRespondTask.searchMap": "Искать на карте",

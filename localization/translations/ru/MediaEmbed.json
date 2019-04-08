@@ -1,6 +1,6 @@
 {
-  "mediaEmbed.customizationOptionShowCompleteTasks": "Показать выполненные задачи",
-  "mediaEmbed.customizationOptionShowIncompleteTasks": "Показать невыполненные задачи",
+  "mediaEmbed.customizationOptionShowCompleteTasks": "Показать вопросы с ответами",
+  "mediaEmbed.customizationOptionShowIncompleteTasks": "Показать вопросы без ответов",
   "mediaEmbed.customizationOptionShowNotes": "Показать заметки",
   "mediaEmbed.warning": "Внимание! Распространение URL или кода для вставки сделает материал публичным. Вы уверены?",
   "mediaEmbed.copyButtonInactive": "Скопировано",

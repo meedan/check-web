@@ -1,11 +1,11 @@
 {
-  "annotation.taskLabelUpdated": "Задача изменена ({author}): {title}",
-  "annotation.taskNoteUpdated": "Заметка к задаче изменена ({author}): {title}{note}",
-  "annotation.taskNoteCreated": "Заметка к задаче добавлена ({author}): {title}{note}",
-  "annotation.assignmentChanged": "Задача назначена {assigneeTo} ({author}): {title}",
-  "annotation.assignmentRemoved": "Задача снята с {assigneeFrom} ({author}): {title}",
-  "annotation.addedComment": "Заметка к задаче добавлена ({author}): {title}{note}",
-  "annotation.removedComment": "Заметка к задаче удалена ({author}): {title}{note}",
+  "annotation.taskLabelUpdated": "Вопрос изменен ({author}): {title}",
+  "annotation.taskNoteUpdated": "Заметка к вопросу изменена ({author}): {title}{note}",
+  "annotation.taskNoteCreated": "Заметка к вопросу добавлена ({author}): {title}{note}",
+  "annotation.assignmentChanged": "Вопрос назначен {assigneeTo} ({author}): {title}",
+  "annotation.assignmentRemoved": "Вопрос снят с {assigneeFrom} ({author}): {title}",
+  "annotation.addedComment": "Заметка к вопросу добавлена ({author}): {title}{note}",
+  "annotation.removedComment": "Заметка к вопросу удалена ({author}): {title}{note}",
   "annotation.nowRequired": "Задача помечена как обязательная ({author}): {title}",
   "annotation.nowNotRequired": "Задача помечена как необязательная ({author}): {title}"
 }

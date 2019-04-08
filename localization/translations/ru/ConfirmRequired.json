@@ -1,4 +1,4 @@
 {
-  "task.confirmRequiredTitle": "Подтвердить обязательную задачу",
-  "task.confirmRequiredText": "You are adding a required task to an item marked <strong>{status}</strong>. By doing so, the item will automatically be reverted to its original status."
+  "task.confirmRequiredTitle": "Подтвердить обязательный вопрос",
+  "task.confirmRequiredText": "При добавлении нового обязательного вопроса статус материала вернется к первоначальному. Текущий статус: <strong>{status}</strong>"
 }

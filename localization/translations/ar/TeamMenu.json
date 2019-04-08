@@ -1,4 +1,6 @@
 {
+  "teamMenu.listView": "طريقة عرض القائمة",
+  "teamMenu.denseView": "طريقة عرض مدمجة",
   "teamMenu.editTeam": "تحرير الفريق",
   "teamMenu.teamSettings": "إعدادات الفريق",
   "teamMenu.trash": "عرض سلة المهملات"
