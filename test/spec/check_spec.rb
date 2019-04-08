@@ -22,6 +22,7 @@ shared_examples 'custom' do
     wait_for_selector("search__open-dialog-button", :id).click
     el = wait_for_selector("//div[contains(text(), 'False')]",:xpath)
     el.click
+    wait_for_selector("search-query__submit-button", :id).click
     sleep 3 #due the reload
     wait_for_selector("//span[contains(text(), 'No items')]",:xpath)
     current = wait_for_selector_list("medias__item", :class).length
@@ -31,6 +32,7 @@ shared_examples 'custom' do
     wait_for_selector("search__open-dialog-button", :id).click
     el = wait_for_selector("//div[contains(text(), 'Unstarted')]",:xpath)
     el.click
+    wait_for_selector("search-query__submit-button", :id).click
     sleep 3 #due the reload
     wait_for_selector("//span[contains(text(), '1 item')]",:xpath)
     current = wait_for_selector_list("medias__item", :class).length
@@ -91,6 +93,7 @@ shared_examples 'custom' do
     wait_for_selector("search__open-dialog-button", :id).click
     el = wait_for_selector("//*[contains(text(), 'Inconclusive')]", :xpath)
     el.click
+    wait_for_selector("search-query__submit-button", :id).click
     x = wait_for_selector("search__results-heading", :class)
     txt = wait_for_text_change(txt, "search__results-heading", :class)
     expect((@driver.title =~ /Inconclusive/).nil?).to be(false)
@@ -99,6 +102,7 @@ shared_examples 'custom' do
     wait_for_selector("search__open-dialog-button", :id).click
     el = wait_for_selector("//*[contains(text(), 'Unstarted')]", :xpath)
     el.click
+    wait_for_selector("search-query__submit-button", :id).click
     wait_for_text_change(txt, "search__results-heading", :class)
     expect((@driver.title =~ /Unstarted/).nil?).to be(false)
     expect((@driver.current_url.to_s.match(/undetermined/)).nil?).to be(false)

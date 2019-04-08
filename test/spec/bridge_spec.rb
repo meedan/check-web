@@ -33,6 +33,7 @@ shared_examples 'custom' do
     old = wait_for_selector_list("medias__item", :class).length
     wait_for_selector("search__open-dialog-button", :id).click
     wait_for_selector("//div[contains(text(), 'Translated')]",:xpath).click
+    wait_for_selector("search-query__submit-button", :id).click
     sleep 3 #due the reload
     wait_for_selector("//h3[contains(text(), 'No results')]",:xpath)
     current = wait_for_selector_list("medias__item", :class).length
@@ -41,6 +42,7 @@ shared_examples 'custom' do
     old = wait_for_selector_list("medias__item", :class).length
     wait_for_selector("search__open-dialog-button", :id).click
     wait_for_selector("//div[contains(text(), 'Pending')]",:xpath).click
+    wait_for_selector("search-query__submit-button", :id).click
     sleep 3 #due the reload
     wait_for_selector("//h3[contains(text(), '1 result')]",:xpath)
     wait_for_selector("search-input", :id)
