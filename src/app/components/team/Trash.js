@@ -198,6 +198,7 @@ class TrashComponent extends Component {
           team={team.slug}
           query={JSON.stringify(query)}
           fields={['status', 'sort', 'tags']}
+          view="list"
           toolbarAddons={
             <Can permissions={team.permissions} permission="empty Trash">
               <RaisedButton
