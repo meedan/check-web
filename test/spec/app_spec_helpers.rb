@@ -50,16 +50,9 @@ module AppSpecHelpers
 
   def delete_task(task_text)
     expect(@driver.page_source.include?(task_text)).to be(true)
-    el = wait_for_selector('.task__label')
-    el.click
-
-    sleep 1
-    # Open the menu
-    el = wait_for_selector('.task-actions__icon')
-    el.click
-    sleep 2
-    el = wait_for_selector('.task-actions__delete')
-    el.click
+    wait_for_selector('.task__label').click
+    wait_for_selector('.task-actions__icon').click
+    wait_for_selector('.task-actions__delete').click
 
     n = 0
     ret = false
@@ -68,7 +61,8 @@ module AppSpecHelpers
       n = n + 1
     end while (!ret and n < 10)
 
-    sleep 3
+    wait = Selenium::WebDriver::Wait.new(timeout: 5)
+    wait.until { !@driver.page_source.include?(task_text) }
     expect(@driver.page_source.include?(task_text)).to be(false)
   end
 
