@@ -1,8 +1,8 @@
 {
-  "userEmail.title": "Add your email",
-  "userEmail.submit": "Submit",
-  "userEmail.skip": "Skip",
-  "userEmail.text": "To send you notifications, we need your email address. If you'd like to receive notifications, please enter your email address. Otherwise, click \"Skip\"",
+  "userEmail.title": "Adăugați adresa Dvs de e-mail",
+  "userEmail.submit": "Trimite",
+  "userEmail.skip": "Omite",
+  "userEmail.text": "Pentru a vă trimite notificări avem nevoie de adresa Dvs de e-mail. Dacă doriți să primiți notificări, vă rugăm să introduceți adresa Dvs de e-mail. Altfel, dați click pe ”Omite”",
   "userEmail.emailInputLabel": "Email",
   "userEmail.emailInputHint": "email@example.com"
 }

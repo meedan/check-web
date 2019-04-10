@@ -1,7 +1,7 @@
 {
-  "UserConnectedAccount.connectButton": "Connect",
-  "UserConnectedAccount.disconnectButton": "Disconnect",
-  "UserConnectedAccount.disconnectAccountTitle": "Disconnect account",
-  "UserConnectedAccount.disconnectAccountConfirmationText": "Are you sure? This will disconnect login account.",
-  "UserConnectedAccount.addAnother": "Add another account"
+  "UserConnectedAccount.connectButton": "Conectează",
+  "UserConnectedAccount.disconnectButton": "Deconectează",
+  "UserConnectedAccount.disconnectAccountTitle": "Deconectează contul",
+  "UserConnectedAccount.disconnectAccountConfirmationText": "Sigur? Această acțiune va deconecta contul de accesare a sistemului.",
+  "UserConnectedAccount.addAnother": "Adaugă alt cont"
 }

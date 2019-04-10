@@ -2,9 +2,9 @@
   "teamEmbed.updateFail": "В процессе изменения настроек произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}.",
   "teamEmbed.updateSuccess": "Настройки карточек обновлены!",
   "teamEmbed.title": "Настройки карточек",
-  "teamEmbed.tasks": "Задачи",
-  "teamEmbed.tasksSub": "The selected tasks will be included in the embed if they are resolved.",
-  "teamEmbed.disclaimer": "Disclaimer",
+  "teamEmbed.tasks": "Вопросы",
+  "teamEmbed.tasksSub": "Выбранные вопросы будут включены в карточку при условии, что они закрыты.",
+  "teamEmbed.disclaimer": "Отказ от ответственности",
   "teamEmbed.disclaimerSub": "Заявление об отказе от ответственности (дисклеймер), которое будет отображено рядом с логотипом группы в нижней части карточки.",
   "teamEmbed.save": "Сохранить"
 }

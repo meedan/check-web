@@ -1,6 +1,6 @@
 {
   "browser.support.message": "Para un mejor funcionamiento usa <a href=\"https://www.google.com/chrome/browser/desktop/\"> Chrome para escritorio</a>.",
-  "loginContainer.agreeTerms": "Para iniciar sesión, está de acuerdo con {appName} {tosLink} y {ppLink}.",
+  "loginContainer.agreeTerms": "Para iniciar sesión, estás de acuerdo con {appName} {tosLink} y {ppLink}.",
   "tos.title": "Términos de Servicio",
   "privacy.policy.title": "Política de Privacidad",
   "login.contactSupport": "Para soporte contacta con <a href=\"mailto:{supportEmail}\">{supportEmail}</a>."

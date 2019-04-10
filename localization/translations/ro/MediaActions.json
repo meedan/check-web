@@ -1,12 +1,12 @@
 {
   "mediaActions.edit": "Editează",
-  "mediaActions.restore": "Restore to project",
-  "mediaActions.move": "Move",
-  "mediaActions.refresh": "Refresh",
-  "mediaActions.sendToTrash": "Send to trash",
-  "mediaActions.embed": "Embed",
-  "mediaActions.memebuster": "Meme Generator",
-  "mediaActions.assignOrUnassign": "Assign / Unassign",
-  "mediaActions.unlockStatus": "Unlock status",
-  "mediaActions.lockStatus": "Lock status"
+  "mediaActions.restore": "Restabilește în proiect",
+  "mediaActions.move": "Mutare",
+  "mediaActions.refresh": "Actualizare",
+  "mediaActions.sendToTrash": "Trimite în coș",
+  "mediaActions.embed": "Incorporare",
+  "mediaActions.memebuster": "Generator de meme",
+  "mediaActions.assignOrUnassign": "Atribuie/transferă",
+  "mediaActions.unlockStatus": "Deblochează starea",
+  "mediaActions.lockStatus": "Blochează starea"
 }

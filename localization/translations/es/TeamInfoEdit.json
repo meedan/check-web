@@ -1,5 +1,5 @@
 {
-  "teamComponent.editError": "Lo sentimos, se produjo un error al actualizar el equipo. Vuelva a intentarlo y avise a {supportEmail} si la condición persiste.",
+  "teamComponent.editError": "Lo sentimos, se produjo un error al actualizar el equipo. Vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}.",
   "teamComponent.editSuccess": "¡La información del equipo fue actualizada con éxito!",
   "teamComponent.teamName": "Nombre del equipo",
   "teamComponent.teamDescription": "Descripción del equipo",

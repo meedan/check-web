@@ -1,5 +1,5 @@
 {
-  "sourceCard.error": "Lo sentimos, se produjo un error al actualizar la fuente. Vuelva a intentarlo y avise a {supportEmail} si la condición persiste.",
+  "sourceCard.error": "Lo sentimos, se produjo un error al actualizar la fuente. Vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}.",
   "mediaDetail.byUser": "por {username}",
   "mediaDetail.added": "Añadido {byUser}"
 }

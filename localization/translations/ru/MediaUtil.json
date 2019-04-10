@@ -4,13 +4,13 @@
   "media.typeFacebook": "Пост в Facebook",
   "media.typeInstagram": "Instagram",
   "media.typeVideo": "Видео",
-  "media.typeClaim": "Claim",
+  "media.typeClaim": "Высказывание",
   "bridge.media.typeClaim": "Цитата",
   "media.typeImage": "Изображение",
   "media.typePage": "Страница",
-  "media.onDomain": "{typeLabel} on {domain}",
-  "media.byAttribution": "{typeLabel} by {attribution}",
+  "media.onDomain": "{typeLabel} на {domain}",
+  "media.byAttribution": "{typeLabel} ({attribution})",
   "media.withText": "{typeLabel}: {text}",
-  "media.favoritesCount": "{favoritesCount, plural, one {1 favorite} other {# favorites}}",
+  "media.favoritesCount": "{favoritesCount, plural, one {В избранном: у 1} few {В избранном: у #} many {В избранном: у #} other {В избранном: у #}}",
   "media.retweetsCount": "{retweetsCount, plural, one {1 ретвит} few {ретвитов: #} many {ретвитов: #} other {ретвитов: #}}"
 }

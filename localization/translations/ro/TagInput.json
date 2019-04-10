@@ -1,5 +1,5 @@
 {
-  "tagInput.error": "Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists.",
-  "tagInput.search": "Search or add new tag",
-  "tagInput.addTag": "Add Tag"
+  "tagInput.error": "Ne pare rău, în timpul actualizării etichetei s-a produs o eroare. Vă rugăm să mai încercați odată și să contactați {supportEmail} dacă situația persistă.",
+  "tagInput.search": "Caută sau adaugă o etichetă nouă",
+  "tagInput.addTag": "Adaugă etichetă"
 }

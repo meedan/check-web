@@ -1,9 +1,9 @@
 {
-  "home.needRegister": "Primero debes registrarte. Ya registrado, puedes solicitar unirte al equipo.",
-  "home.somethingWrong": "Sorry, an error occurred. Please refresh your browser and contact {supportEmail} if the condition persists.",
-  "home.successInvitation": "Bienvenido a {appName}. Por favor ingrese con la contraseña que recibió en el correo electrónico de bienvenida.",
-  "home.invalidInvitation": "Sorry, an error occurred while processing your invitation. Please contact {supportEmail}.",
-  "home.invalidTeamInvitation": "Sorry, the team to which you were invited was not found. Please contact {supportEmail} if you think this is an error.",
-  "home.invalidNoInvitation": "Sorry, the invitation you received was not found. Please contact {supportEmail} if you think this is an error.",
-  "home.invalidTokenInvitation": "Sorry, the invitation you received is invalid. Please contact {supportEmail} if you think this is an error."
+  "home.needRegister": "Primero debes registrarte. Una vez registrada o registrado, puedes solicitar unirte al equipo.",
+  "home.somethingWrong": "Lo sentimos, se produjo un error.  Actualiza tu navegador y si el problema persiste ponte en contacto con {supportEmail}.",
+  "home.successInvitation": "Bienvenida o bienvenido a {appName}. Por favor ingresa con la contraseña que recibiste en el correo electrónico de bienvenida.",
+  "home.invalidInvitation": "Lo sentimos, se produjo un error al procesar tu invitación. por favor ponte en contacto con {supportEmail}.",
+  "home.invalidTeamInvitation": "Lo sentimos, no encontramos el equipo al que has sido invitada o invitado. Si piensas que ha sido un error, por favor ponte en contacto con {supportEmail}.",
+  "home.invalidNoInvitation": "Lo sentimos, no encontramos la invitación que recibiste. Si piensas que ha sido un error, por favor ponte en contacto con {supportEmail}.",
+  "home.invalidTokenInvitation": "Lo sentimos, la invitación que recibiste es inválida. Si piensas que ha sido un error, por favor ponte en contacto con {supportEmail}."
 }

@@ -1,6 +1,6 @@
 {
   "uploadImage.changeFile": "{filename} (нажмите для изменения)",
-  "uploadImage.invalidExtension": "Файлы \"{extension}\" не разрешены. Разрешенные типы: {allowed_types}.",
+  "uploadImage.invalidExtension": "Файлы \"{extension}\" не разрешены. Разрешенные форматы: {allowed_types}.",
   "uploadImage.fileTooLarge": "Размер файла должен быть меньше {size}. Пожалуйста, попробуйте файл меньшего размера.",
-  "uploadImage.message": "Drop an image file here, or click to upload a file (max size: {upload_max_size}, allowed extensions: {upload_extensions}, allowed dimensions between {upload_min_dimensions} and {upload_max_dimensions} pixels)"
+  "uploadImage.message": "Перетащите файл или кликните сюда для загрузки изображения (максимальный размер: {upload_max_size}, допустимые форматы: {upload_extensions}, допустимый размер: между {upload_min_dimensions} и {upload_max_dimensions})"
 }

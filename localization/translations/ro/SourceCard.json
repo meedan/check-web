@@ -1,5 +1,5 @@
 {
-  "sourceCard.error": "Sorry, an error occurred while updating the source. Please try again and contact {supportEmail} if the condition persists.",
-  "mediaDetail.byUser": "by {username}",
-  "mediaDetail.added": "Added {byUser}"
+  "sourceCard.error": "Ne pare rău, în timpul actualizării sursei s-a produs o eroare. Vă rugăm să mai încercați odată și să contactați {supportEmail} dacă situația persistă.",
+  "mediaDetail.byUser": "de {username}",
+  "mediaDetail.added": "Adăugat de {byUser}"
 }

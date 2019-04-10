@@ -1,8 +1,8 @@
 {
-  "sortSelect.az": "A to Z",
-  "sortSelect.za": "Z to A",
-  "sortSelect.of": "Oldest first",
-  "sortSelect.nf": "Newest first",
-  "sortSelect.mu": "Most used",
-  "sortSelect.lu": "Least used"
+  "sortSelect.az": "A la Z",
+  "sortSelect.za": "Z la A",
+  "sortSelect.of": "Rezultatele mai vechi întâi",
+  "sortSelect.nf": "Rezultatele mai noi întâi",
+  "sortSelect.mu": "Cele mai utilizate",
+  "sortSelect.lu": "Cele mai puțin utilizate"
 }

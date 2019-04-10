@@ -1,4 +1,4 @@
 {
-  "tags.addTagHelper": "Create a tag or choose from existing",
-  "tags.error": "Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists."
+  "tags.addTagHelper": "Creați o etichetă sau alegeți din cele existente",
+  "tags.error": "Ne pare rău, în timpul actualizării etichetei s-a produs o eroare. Vă rugăm să mai încercați odată și să contactați {supportEmail} dacă situația persistă."
 }

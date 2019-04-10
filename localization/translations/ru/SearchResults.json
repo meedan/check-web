@@ -1,6 +1,6 @@
 {
   "search.results": "{resultsCount, plural, =0 {Нет материалов} one {1 материал} other {Материалов: {loadedCount} из #}}",
-  "search.newTranslationRequestNotification": "New translation request",
+  "search.newTranslationRequestNotification": "Новый запрос на перевод",
   "search.newTranslationNotification": "Новый перевод",
   "search.newTranslationNotificationBody": "Материал был отмечен как переведённый",
   "search.resultsWithSelection": "{resultsCount, plural, =0 {Нет материалов} one {1 материал} other {Материалов: {loadedCount} из #}} {selectedCount, plural, =0 {} one {(1 выбран)} other {(выбрано: #)}}"

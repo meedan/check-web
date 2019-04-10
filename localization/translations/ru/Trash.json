@@ -5,7 +5,7 @@
   "trash.cancel": "Отменить",
   "trash.deleteAll": "Удалить всё",
   "trash.emptyTrash": "Очистить корзину",
-  "trash.emptyTrashConfirmationText": "Are you sure? This will permanently delete {itemsCount, plural, =0 {0 items} one {1 item} other {# items}} and {notesCount, plural, =0 {0 annotations} one {1 annotation} other {# annotations}}. Type \"confirm\" if you want to proceed.",
-  "trash.confirmationError": "Did not match",
-  "trash.typeHere": "Type here"
+  "trash.emptyTrashConfirmationText": "Вы уверены? Это действие навсегда удалит {itemsCount, plural, =0 {0 материалов} one {1 материал} other {материалы (#)}} и {notesCount, plural, =0 {0 заметок} one {1 заметку} other {заметки (#)}}. Введите \"confirm\", если хотите продолжить.",
+  "trash.confirmationError": "Неверный ввод",
+  "trash.typeHere": "Введите \"confirm\""
 }

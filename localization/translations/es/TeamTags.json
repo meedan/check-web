@@ -1,8 +1,8 @@
 {
-  "teamTags.failUpdate": "Lo sentimos, se produjo un error al actualizar la etiqueta. Vuelva a intentarlo y avise a {supportEmail} si la condición persiste.",
-  "teamTags.failDelete": "Lo sentimos, se produjo un error al actualizar la etiqueta. Vuelva a intentarlo y avise a {supportEmail} si la condición persiste.",
-  "teamTags.failMove": "Lo sentimos, se produjo un error al actualizar la etiqueta. Vuelva a intentarlo y avise a {supportEmail} si la condición persiste.",
-  "teamTags.fail": "Lo sentimos, se produjo un error al actualizar la etiqueta. Vuelva a intentarlo y avise a {supportEmail} si la condición persiste.",
+  "teamTags.failUpdate": "Lo sentimos, se produjo un error al actualizar la etiqueta. Vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}.",
+  "teamTags.failDelete": "Lo sentimos, se produjo un error al actualizar la etiqueta. Vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}.",
+  "teamTags.failMove": "Lo sentimos, se produjo un error al actualizar la etiqueta. Vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}.",
+  "teamTags.fail": "Lo sentimos, se produjo un error al actualizar la etiqueta. Vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}.",
   "teamTags.editTag": "Editar etiqueta",
   "teamTags.deleteTag": "Eliminar etiqueta",
   "teamTags.moveTag": "Mover a las etiquetas de todo el equipo",

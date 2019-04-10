@@ -1,8 +1,8 @@
 {
-  "memeEditor.image": "Image",
-  "memeEditor.useDefaultImage": "Use default image",
-  "memeEditor.headline": "Headline",
-  "memeEditor.description": "Description",
-  "memeEditor.statusText": "Status label",
-  "memeEditor.overlayColor": "Overlay color"
+  "memeEditor.image": "Imagine",
+  "memeEditor.useDefaultImage": "Folosește imaginea implicită",
+  "memeEditor.headline": "Subtitlu",
+  "memeEditor.description": "Descriere",
+  "memeEditor.statusText": "Eticheta de stare",
+  "memeEditor.overlayColor": "Suprapunere culori"
 }

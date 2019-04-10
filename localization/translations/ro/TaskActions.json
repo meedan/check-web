@@ -1,8 +1,8 @@
 {
-  "task.edit": "Edit task",
-  "task.editResponse": "Edit answer",
-  "task.deleteResponse": "Delete answer",
-  "task.assignOrUnassign": "Assign / Unassign",
-  "task.editAttribution": "Edit attribution",
-  "task.delete": "Delete task"
+  "task.edit": "Redactare sarcină",
+  "task.editResponse": "Redactare răspuns",
+  "task.deleteResponse": "Sterge răspunsul",
+  "task.assignOrUnassign": "Atribuie/transferă",
+  "task.editAttribution": "Redactează atribuirea",
+  "task.delete": "Ștergere sarcină"
 }

@@ -3,8 +3,8 @@
   "createTeamTask.deleteError": "Error al eliminar la tarea de todo el equipo",
   "teamTasks.confirmEditTitle": "¿Estás segura o seguro que quieres editar esta tarea?",
   "teamTasks.confirmDeleteTitle": "¿Estás segura o seguro que quieres eliminar esta tarea?",
-  "teamTasks.confirmEditBlurb": "Las tareas relacionadas con los elementos se modificarán como consecuencia de la aplicación de este cambio, a excepción de aquellas que ya han sido respondidas o anotadas.",
-  "teamTasks.confirmDeleteBlurb": "Las tareas relacionadas con los elementos se eliminarán como consecuencia de la aplicación de este cambio, a excepción de aquellas que ya han sido respondidas o anotadas.",
+  "teamTasks.confirmEditBlurb": "Las tareas relacionadas con los ítems se modificarán como consecuencia de la aplicación de este cambio, a excepción de aquellas que ya han sido respondidas o anotadas.",
+  "teamTasks.confirmDeleteBlurb": "Las tareas relacionadas con los ítems se eliminarán como consecuencia de la aplicación de este cambio, a excepción de aquellas que ya han sido respondidas o anotadas.",
   "teamTasks.edit": "Editar tarea",
   "teamTasks.delete": "Eliminar tarea"
 }

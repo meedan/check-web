@@ -1,10 +1,10 @@
 {
-  "geoLocationRespondTask.searching": "Searching...",
-  "geoLocationRespondTask.notFound": "Sorry, this place was not found. Please try another search.",
-  "geoLocationRespondTask.error": "Sorry, an error occurred while updating the task. Please try again and contact {supportEmail} if the condition persists.",
-  "geolocationRespondTask.cancelTask": "Cancel",
-  "geolocationRespondTask.answerTask": "Answer task",
-  "geolocationRespondTask.searchMap": "Search the map",
-  "geolocationRespondTask.placeName": "Customize place name",
-  "geolocationRespondTask.coordinates": "Latitude, Longitude"
+  "geoLocationRespondTask.searching": "Se efectuează căutarea...",
+  "geoLocationRespondTask.notFound": "Ne pare rău, acest loc nu a fost identificat. Vă rugăm să încercați o altă căutare.",
+  "geoLocationRespondTask.error": "Ne pare rău, în timpul actualizării sarcinii s-a produs o eroare. Vă rugăm să mai încercați odată și să contactați {supportEmail} dacă situația persistă.",
+  "geolocationRespondTask.cancelTask": "Anulare",
+  "geolocationRespondTask.answerTask": "Răspunde la sarcină",
+  "geolocationRespondTask.searchMap": "Caută pe hartă",
+  "geolocationRespondTask.placeName": "Individualizarea denumirii locului",
+  "geolocationRespondTask.coordinates": "Latitudine, Longitudine"
 }

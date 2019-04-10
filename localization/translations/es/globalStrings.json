@@ -7,5 +7,5 @@
   "global.save": "Guardar",
   "global.submit": "Subir",
   "global.tags": "Etiquetas",
-  "global.unknownError": "Lo sentimos, se produjo un error. Vuelva a intentarlo y avise a {supportEmail} si la condición persiste."
+  "global.unknownError": "Lo sentimos, se produjo un error. Vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}."
 }

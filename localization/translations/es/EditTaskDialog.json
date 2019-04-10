@@ -10,7 +10,7 @@
   "tasks.requiredCheckbox": "Requerido",
   "tasks.requiredHelper": "Los elementos no pueden marcarse como completados mientras no se resuelva alguna de las tareas requeridas",
   "tasks.resolvedCheckbox": "Resuelta",
-  "tasks.resolvedHelper": "La tarea solo puede resolverse si ha sido contestada",
+  "tasks.resolvedHelper": "La tarea solo puede resolverse si ha sido respondida",
   "tasks.showInProj": "Mostrar tareas en",
   "tasks.assign": "Asignar",
   "tasks.cancelAdd": "Cancelar",

@@ -1,5 +1,5 @@
 {
-  "teamEmbed.updateFail": "Lo sentimos, se produjo un error al actualizar las configuraciones. Vuelva a intentarlo y avise a {supportEmail} si la condición persiste.",
+  "teamEmbed.updateFail": "Lo sentimos, se produjo un error al actualizar las configuraciones. Vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}.",
   "teamEmbed.updateSuccess": "¡Los ajustes de incrustación se han actualizado con éxito!",
   "teamEmbed.title": "Ajustes de incrustación  ",
   "teamEmbed.tasks": "Tareas",

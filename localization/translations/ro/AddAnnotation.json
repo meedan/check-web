@@ -1,12 +1,12 @@
 {
   "addAnnotation.invalidCommand": "Comandă nevalidă",
-  "addAnnotation.annotationAdded": "{type} added",
-  "addAnnotation.error": "Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists.",
+  "addAnnotation.annotationAdded": "s-a adăugat {type}",
+  "addAnnotation.error": "Ne pare rău, în timpul actualizării elementului s-a produs o eroare. Vă rugăm să mai încercați odată și să contactați {supportEmail} dacă situația persistă.",
   "addAnnotation.inputHint": "Adaugă o notă despre aceasta",
   "addAnnotation.submitButton": "Trimite",
   "addAnnotation.typeComment": "notă",
   "addAnnotation.typeTag": "etichetă",
-  "addAnnotation.typeStatus": "status",
+  "addAnnotation.typeStatus": "stare",
   "addAnnotation.typeFlag": "steag",
   "addAnnotation.addImage": "Adaugă o imagine"
 }

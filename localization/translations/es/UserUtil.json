@@ -1,6 +1,6 @@
 {
-  "UserUtil.annotator": "Anotador(a)",
-  "UserUtil.contributor": "Contribuidor",
+  "UserUtil.annotator": "Anotadora/Anotador",
+  "UserUtil.contributor": "Colaboradora / Colaborador",
   "UserUtil.journalist": "Periodista",
   "UserUtil.editor": "Editor",
   "UserUtil.owner": "Propietario"

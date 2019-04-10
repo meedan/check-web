@@ -1,15 +1,15 @@
 {
-  "UserPrivacy.deleteAccount": "Borrar cuenta",
+  "UserPrivacy.deleteAccount": "Eliminar cuenta",
   "userPrivacy.deleteAccountConfirmationText": "¿Estás segura o seguro? Esto eliminará tu cuenta y te desconectará de la aplicación. ",
   "userPrivacy.ppLink": "Política de Privacidad",
   "userPrivacy.title": "Tus datos",
-  "userPrivacy.description": "Revise nuestro {ppLink} para saber cómo {appName} usa y almacena su información.",
+  "userPrivacy.description": "Revisa nuestro {ppLink} para saber cómo {appName} usa y almacena tu información.",
   "userPrivacy.seeInformationText": "Le enviaremos un archivo con el contenido y los datos que creó y generó en {appName}. Esto puede guardarse para sus registros o transferirse a otro servicio.",
   "userPrivacy.seeInformationButton": "Ver mis datos",
   "userPrivacy.stopProcessingText": "Puede solicitar {appName} para dejar de procesar su información bajo ciertas condiciones.",
   "userPrivacy.stopProcessingButton": "Solicitar dejar de procesar",
   "userPrivacy.connectedAccounts": "Cuentas conectadas",
-  "userPrivacy.delete": "Borrar tu cuenta",
-  "userPrivacy.deleteAccountText": "Si borra su cuenta, su información personal será borrada. Los comentarios, las anotaciones y la actividad del equipo se convertirán en seudónimos y permanecerán en {appName}.",
-  "userPrivacy.deleteAccountButton": "Borrar mi cuenta"
+  "userPrivacy.delete": "Eliminar tu cuenta",
+  "userPrivacy.deleteAccountText": "Si eliminas tu cuenta, tu información personal será eliminada. Los comentarios, las anotaciones y la actividad del equipo se convertirán en seudónimos y permanecerán en {appName}.",
+  "userPrivacy.deleteAccountButton": "Eliminar mi cuenta"
 }

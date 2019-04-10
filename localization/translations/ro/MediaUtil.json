@@ -1,16 +1,16 @@
 {
   "media.notesCount": "{notesCount, plural, =0 {No notes} one {1 note} other {# notes}}",
-  "media.typeTwitter": "Tweet",
-  "media.typeFacebook": "Facebook post",
+  "media.typeTwitter": "Postare pe Twitter",
+  "media.typeFacebook": "Postare pe Facebook",
   "media.typeInstagram": "Instagram",
   "media.typeVideo": "Video",
-  "media.typeClaim": "Claim",
-  "bridge.media.typeClaim": "Quote",
-  "media.typeImage": "Image",
-  "media.typePage": "Page",
-  "media.onDomain": "{typeLabel} on {domain}",
-  "media.byAttribution": "{typeLabel} by {attribution}",
+  "media.typeClaim": "Declarația",
+  "bridge.media.typeClaim": "Citat",
+  "media.typeImage": "Imagine",
+  "media.typePage": "Pagina",
+  "media.onDomain": "{typeLabel} pe {domain}",
+  "media.byAttribution": "{typeLabel} de {attribution}",
   "media.withText": "{typeLabel}: {text}",
   "media.favoritesCount": "{favoritesCount, plural, one {1 favorită} few {# favorite} other {# de favorite}}",
-  "media.retweetsCount": "{retweetsCount, plural, one {1 redistribuire} few {# redistribuiri} other {# de redistribuiri}}"
+  "media.retweetsCount": "{retweetsCount, plural, one {1 redistribuire} few {# redistribuiri} other {# de ReTweet}}"
 }
