@@ -1,6 +1,6 @@
 {
   "uploadImage.changeFile": "{filename} (clic o arrastrar para cambiar)",
   "uploadImage.invalidExtension": "El archivo no puede ser de tipo \"{extension}\". Por favor intente con los tipos de archivos: {allowed_types}",
-  "uploadImage.fileTooLarge": "El tamaño del archivo debe ser menor a {size}. Por favor intente con un archivo más pequeño.",
+  "uploadImage.fileTooLarge": "El tamaño del archivo debe ser menor a {size}. Por favor intenta con un archivo más pequeño.",
   "uploadImage.message": "Arrastra la imagen o haz clic aquí para subir un archivo (tamaño máximo permitido: {upload_max_size}, extensiones permitidas: {upload_extensions}, dimensiones permitidas entre {upload_min_dimensions} y {upload_max_dimensions} pixeles)"
 }

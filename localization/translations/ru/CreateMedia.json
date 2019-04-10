@@ -1,6 +1,6 @@
 {
   "createMedia.submitting": "Отправка...",
-  "createMedia.error": "Sorry, an error occurred while submitting the item. Please try again and contact {supportEmail} if the condition persists.",
+  "createMedia.error": "В процессе добавления материала произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}.",
   "createMedia.addItem": "Добавить материал",
   "createMedia.addNewItem": "Добавить материал"
 }

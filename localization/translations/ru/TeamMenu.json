@@ -1,6 +1,6 @@
 {
-  "teamMenu.listView": "List view",
-  "teamMenu.denseView": "Compact view",
+  "teamMenu.listView": "Вид",
+  "teamMenu.denseView": "Компактно",
   "teamMenu.editTeam": "Редактировать группу",
   "teamMenu.teamSettings": "Настройки группы",
   "teamMenu.trash": "Открыть корзину"

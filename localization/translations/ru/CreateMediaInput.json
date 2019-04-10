@@ -1,9 +1,9 @@
 {
-  "createMedia.mediaInput": "Paste or type",
-  "createMedia.quoteInput": "Paste or type a claim",
+  "createMedia.mediaInput": "Высказывание",
+  "createMedia.quoteInput": "Высказывание",
   "createMedia.quoteAttributionSourceInput": "Имя источника",
   "createMedia.quoteAttributionContext": "Ссылка или контекст",
-  "createMedia.quoteAttributionSourceInputHelper": "Who said this?",
+  "createMedia.quoteAttributionSourceInputHelper": "Автор высказывания",
   "createMedia.quoteAttributionContextHelper": "Добавьте ссылку или опишите контент",
   "createMedia.sourceInput": "Имя источника",
   "createMedia.sourceUrlInput": "Ссылка на источник",
@@ -11,7 +11,7 @@
   "createMedia.submitButton": "Создать",
   "createMedia.invalidUrl": "Пожалуйста, введите корректный URL",
   "createMedia.link": "Ссылка",
-  "createMedia.quote": "Claim",
+  "createMedia.quote": "Высказывание",
   "createMedia.source": "Источник",
   "createMedia.image": "Фотография"
 }

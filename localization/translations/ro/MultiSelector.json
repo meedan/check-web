@@ -1,8 +1,8 @@
 {
-  "MultiSelector.search": "Search...",
-  "multiSelector.all": "Select all",
-  "multiSelector.none": "Unselect all",
-  "multiSelector.empty": "No items found",
-  "multiSelector.cancel": "Cancel",
-  "multiSelector.save": "Save"
+  "MultiSelector.search": "Căutare...",
+  "multiSelector.all": "Selectați tot",
+  "multiSelector.none": "Deselectați tot",
+  "multiSelector.empty": "Nu a fost găsit nici un element",
+  "multiSelector.cancel": "Anulare",
+  "multiSelector.save": "Salvează"
 }

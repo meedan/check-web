@@ -1,9 +1,9 @@
 {
-  "teamEmbed.updateFail": "Sorry, an error occurred while updating the settings. Please try again and contact {supportEmail} if the condition persists.",
-  "teamEmbed.updateSuccess": "Embed settings updated successfully!",
-  "teamEmbed.title": "Embed settings",
-  "teamEmbed.tasks": "Tasks",
-  "teamEmbed.tasksSub": "The selected tasks will be included in the embed if they are resolved.",
+  "teamEmbed.updateFail": "Ne pare rău, în timpul actualizării setărilor s-a produs o eroare. Vă rugăm să mai încercați odată și să contactați {supportEmail} dacă situația persistă.",
+  "teamEmbed.updateSuccess": "Setările incorporării au fost actualizate cu succes!",
+  "teamEmbed.title": "Setările incorporării",
+  "teamEmbed.tasks": "Sarcini",
+  "teamEmbed.tasksSub": "Sarcinile selectate vor fi trecute în incorporare dacă sunt rezolvate.",
   "teamEmbed.disclaimer": "Disclaimer",
   "teamEmbed.disclaimerSub": "Disclaimer that will be shown at the bottom of the embed with the team logo.",
   "teamEmbed.save": "Save"

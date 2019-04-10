@@ -1,7 +1,7 @@
 {
-  "RoleSelect.annotator": "Annotator",
-  "RoleSelect.contributor": "Contributor",
-  "RoleSelect.journalist": "Journalist",
-  "RoleSelect.editor": "Editor",
-  "RoleSelect.owner": "Owner"
+  "RoleSelect.annotator": "Adnotator",
+  "RoleSelect.contributor": "Contribuitor",
+  "RoleSelect.journalist": "Jurnalist",
+  "RoleSelect.editor": "Redactor",
+  "RoleSelect.owner": "Proprietar"
 }

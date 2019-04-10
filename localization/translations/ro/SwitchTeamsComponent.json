@@ -1,10 +1,10 @@
 {
-  "switchTeams.error": "Sorry, an error occurred while updating the team. Please try again and contact {supportEmail} if the condition persists.",
+  "switchTeams.error": "Ne pare rău, în timpul actualizării echipei s-a produs o eroare. Vă rugăm să mai încercați odată și să contactați {supportEmail} dacă situația persistă.",
   "switchTeams.member": "{membersCount, plural, =0 {No members} one {1 member} other {# members}}",
-  "switchTeams.joinRequestMessage": "You requested to join",
-  "teams.yourTeams": "Your teams",
-  "teams.userTeams": "{name}'s teams",
-  "switchTeams.cancelJoinRequest": "Cancel",
-  "switchTeams.noTeams": "Not a member of any team.",
-  "switchTeams.newTeamLink": "Create Team"
+  "switchTeams.joinRequestMessage": "Ați cerut să vă alăturați",
+  "teams.yourTeams": "Echipele dvs",
+  "teams.userTeams": "Echipele lui {name}",
+  "switchTeams.cancelJoinRequest": "Anulare",
+  "switchTeams.noTeams": "Nu face parte din nicio echipă.",
+  "switchTeams.newTeamLink": "Creează o echipă"
 }

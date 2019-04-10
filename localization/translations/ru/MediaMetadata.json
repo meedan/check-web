@@ -2,7 +2,7 @@
   "mediaDetail.mediaTitle": "Заголовок",
   "mediaDetail.mediaDescription": "Описание",
   "mediaDetail.editReport": "Редактировать",
-  "mediaDetail.editReportError": "Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists.",
+  "mediaDetail.editReportError": "В процессе редактирования материала произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}.",
   "mediaDetail.trash": "В корзину",
   "mediaMetadata.movedToTrash": "Отправлено в корзину",
   "mediaMetadata.movedBack": "Возвращено в проект: {project}",

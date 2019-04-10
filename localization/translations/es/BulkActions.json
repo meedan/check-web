@@ -3,7 +3,7 @@
   "bulkActions.sendItemsToTrash": "Mover los ítems seleccionados a la papelera.",
   "bulkActions.selectAll": "Seleccionar todos los ítems de esta página",
   "bulkActions.movedSuccessfully": "¡Listo!  Ten en cuenta que tomá un poco de tiempo para que los ítems se muevan completamente.",
-  "bulkActions.moveToTrashSuccessfully": "¡Listo!  Ten en cuenta que tomá un poco de tiempo para que los ítems se muevan completamente a la papelera.",
+  "bulkActions.moveToTrashSuccessfully": "¡Listo! Ten en cuenta que va a tardar tiempo mover todos los ítems a la papelera. ",
   "bulkActions.cancelButton": "Cancelar",
   "bulkActions.moveTitle": "Mover"
 }

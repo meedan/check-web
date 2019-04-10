@@ -3,6 +3,6 @@
   "MemebusterComponent.lastPublished": "Опубликовано {time} ({name})",
   "MemebusterComponent.fail": "В процессе публикации мема произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}.",
   "MemebusterComponent.lastSaved": "Сохранено {time} ({name})",
-  "MemebusterComponent.saveDraft": "Save Draft",
+  "MemebusterComponent.saveDraft": "Сохранить черновик",
   "MemebusterComponent.publish": "Опубликовать"
 }

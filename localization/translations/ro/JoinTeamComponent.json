@@ -1,12 +1,12 @@
 {
-  "joinTeamComponent.error": "Sorry, an error occurred while sending your request. Please try again and contact {supportEmail} if the condition persists.",
-  "joinTeamComponent.success": "Thanks for your interest in joining {team} {appName}! A team leader will review your application soon.",
-  "joinTeamComponent.autoApprove": "Thanks for joining {team} {appName}! You can start contributing right away.",
+  "joinTeamComponent.error": "Ne pare rău, în timpul transmiterii solicitării Dvs s-a produs o eroare. Vă rugăm să mai încercați odată și să contactați {supportEmail} dacă situația persistă.",
+  "joinTeamComponent.success": "Vă mulțumim pentru interesul de a se alătura echipei {team} {appName}! În curând cererea Dvs va fi analizată de un lider de echipă.",
+  "joinTeamComponent.autoApprove": "Vă mulțumim pentru că v-ați alăturat echipei {team} {appName}! Puteți începe să contribuiți imediat.",
   "joinTeamComponent.title": "Alătură-te echipei",
-  "joinTeamComponent.mainHeading": "Request to Join",
-  "joinTeamComponent.alreadyRequested": "You already requested to join {team} {appName}.",
-  "joinTeamComponent.requestHasBeenSent": "Your request has been sent to the project admins for approval.",
-  "joinTeamComponent.blurbGraf": "To request access to the {link} {appName}, click below:",
+  "joinTeamComponent.mainHeading": "Solicitarea permisiunii de a se alătura",
+  "joinTeamComponent.alreadyRequested": "Ați solicitat deja permisiunea de a se alătura echipei {team} {appName}.",
+  "joinTeamComponent.requestHasBeenSent": "Solicitarea Dvs a fost transmisă administratorilor proiectului pentru aprobare.",
+  "joinTeamComponent.blurbGraf": "Pentru a solicita acces la {link} {appName}, dați click mai jos:",
   "joinTeamComponent.buttonSubmitted": "Cerere trimisă",
-  "joinTeamComponent.buttonSubmit": "Request to Join"
+  "joinTeamComponent.buttonSubmit": "Solicitarea permisiunii de a se alătura"
 }

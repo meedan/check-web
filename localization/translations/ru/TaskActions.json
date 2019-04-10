@@ -1,8 +1,8 @@
 {
-  "task.edit": "Редактировать задачу",
+  "task.edit": "Редактировать вопрос",
   "task.editResponse": "Редактировать ответ",
-  "task.deleteResponse": "Delete answer",
+  "task.deleteResponse": "Удалить ответ",
   "task.assignOrUnassign": "Назначить / Снять",
-  "task.editAttribution": "Edit attribution",
-  "task.delete": "Удалить задачу"
+  "task.editAttribution": "Авторство ответа",
+  "task.delete": "Удалить вопрос"
 }

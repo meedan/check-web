@@ -1,7 +1,7 @@
 {
   "addAnnotation.invalidCommand": "Неправильная команда",
   "addAnnotation.annotationAdded": "Добавлено: {type}",
-  "addAnnotation.error": "Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists.",
+  "addAnnotation.error": "В процессе редактирования материала произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}.",
   "addAnnotation.inputHint": "Добавить заметку",
   "addAnnotation.submitButton": "Отправить",
   "addAnnotation.typeComment": "заметка",

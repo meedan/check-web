@@ -3,5 +3,5 @@
   "tagPicker.tagNotFound": "Тэг #{tag} не найден.",
   "tagPicker.teamTags": "Тэги группы",
   "tagPicker.none": "Нет тэгов",
-  "tagPicker.teamOtherTags": "Custom tags"
+  "tagPicker.teamOtherTags": "Дополнительные тэги"
 }

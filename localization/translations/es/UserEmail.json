@@ -2,7 +2,7 @@
   "userEmail.title": "Añade tu correo electrónico",
   "userEmail.submit": "Subir",
   "userEmail.skip": "Salir",
-  "userEmail.text": "Si deseas recibir notificaciones en tu correo electrónico por favor escribe tu dirección. De lo contrario “Salir”.",
+  "userEmail.text": "Si deseas recibir notificaciones en tu correo electrónico por favor escribe tu dirección. De lo contrario has clic en “Salir”.",
   "userEmail.emailInputLabel": "Correo electrónico",
   "userEmail.emailInputHint": "email@example.com"
 }

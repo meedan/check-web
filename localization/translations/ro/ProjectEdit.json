@@ -1,5 +1,5 @@
 {
-  "projectEdit.error": "Sorry, an error occurred while updating the project. Please try again and contact {supportEmail} if the condition persists.",
+  "projectEdit.error": "Ne pare rău, în timpul actualizării proiectului s-a produs o eroare. Vă rugăm să mai încercați odată și să contactați {supportEmail} dacă situația persistă.",
   "projectEdit.titleField": "Titlul proiectului",
   "projectEdit.descriptionField": "Descrierea proiectului",
   "projectEdit.saveButton": "Salvează"

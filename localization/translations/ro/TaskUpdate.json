@@ -1,11 +1,11 @@
 {
-  "annotation.taskLabelUpdated": "Task edited by {author}: {title}",
-  "annotation.taskNoteUpdated": "Task note edited by {author}: {title}{note}",
-  "annotation.taskNoteCreated": "Task note added by {author}: {title}{note}",
-  "annotation.assignmentChanged": "Task assigned to {assigneeTo} by {author}: {title}",
-  "annotation.assignmentRemoved": "Task unassigned from {assigneeFrom} by {author}: {title}",
-  "annotation.addedComment": "Task note added by {author}: {title}{note}",
-  "annotation.removedComment": "Task note deleted by {author}: {title}{note}",
-  "annotation.nowRequired": "Task marked as required by {author}: {title}",
-  "annotation.nowNotRequired": "Task marked as not required by {author}: {title}"
+  "annotation.taskLabelUpdated": " Sarcină redactată de {author}: {title}",
+  "annotation.taskNoteUpdated": "Nota la sarcină redactată de {author}: {title}{note}",
+  "annotation.taskNoteCreated": "Nota la sarcină adăugată de {author}: {title}{note}",
+  "annotation.assignmentChanged": "Sarcină atribuită lui {assigneeTo} de {author}: {title}",
+  "annotation.assignmentRemoved": "Sarcină transferată de la {assigneeFrom} de {author}: {title}",
+  "annotation.addedComment": "Nota la sarcină adăugată de {author}: {title}{note}",
+  "annotation.removedComment": "Nota la sarcină ștearsă de {author}: {title}{note}",
+  "annotation.nowRequired": "Sarcina marcată ca obligatorie de {author}: {title}",
+  "annotation.nowNotRequired": "Sarcina marcată ca neobligatorie de {author}: {title}"
 }

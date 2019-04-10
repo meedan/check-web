@@ -1,10 +1,10 @@
 {
-  "createTeamTask.editError": "Failed to edit teamwide task",
-  "createTeamTask.deleteError": "Failed to delete teamwide task",
-  "teamTasks.confirmEditTitle": "Вы уверены, что хотите редактировать задачу?",
-  "teamTasks.confirmDeleteTitle": "Вы уверены, что хотите удалить задачу?",
-  "teamTasks.confirmEditBlurb": "Related item tasks will be modified as a consequence of applying this change, except for those that have already been answered or annotated",
-  "teamTasks.confirmDeleteBlurb": "Related item tasks will be deleted as a consequence of applying this change, except for those that have already been answered or annotated",
-  "teamTasks.edit": "Редактировать задачу",
-  "teamTasks.delete": "Удалить задачу"
+  "createTeamTask.editError": "Не удалось отредактировать общий вопрос",
+  "createTeamTask.deleteError": "Не удалось удалить общий вопрос",
+  "teamTasks.confirmEditTitle": "Вы уверены, что хотите редактировать вопрос?",
+  "teamTasks.confirmDeleteTitle": "Вы уверены, что хотите удалить вопрос?",
+  "teamTasks.confirmEditBlurb": "Это действие изменит вопросы в связанных материалах, кроме вопросов, на которые уже есть ответы",
+  "teamTasks.confirmDeleteBlurb": "Это действие удалит вопросы в связанных материалах, кроме вопросов, на которые уже есть ответы",
+  "teamTasks.edit": "Редактировать вопрос",
+  "teamTasks.delete": "Удалить вопрос"
 }

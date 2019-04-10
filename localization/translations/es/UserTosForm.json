@@ -2,9 +2,9 @@
   "userTos.tosLink": "Términos de Servicio",
   "userTos.ppLink": "Política de Privacidad",
   "userTos.title": "Términos de Servicio y Política de Privacidad",
-  "userTos.disclaimer": "Por favor revise nuestros {tosLink} y nuestra {ppLink} y consienta lo siguiente:",
+  "userTos.disclaimer": "Por favor revisa nuestros {tosLink} y nuestra {ppLink} y autoriza lo siguiente:",
   "userTos.titleUpdated": "Términos de Servicio y Política de Privacidad actualizados",
-  "userTos.disclaimerUpdate": "Hemos actualizado nuestros {tosLink} y nuestra {ppLink}. Por favor revise y consienta lo siguiente:",
+  "userTos.disclaimerUpdate": "Hemos actualizado nuestros {tosLink} y nuestra {ppLink}. Por favor revisa y aprueba lo siguiente:",
   "userTos.agreeTos": "Estoy de acuerdo con los Términos de Servicio.",
-  "userTos.agreePp": "Estoy de acuerdo en que Meedan procesa la información personal que elijo compartir, incluida la información que revela mi origen racial o étnico, las opiniones políticas, las creencias religiosas o filosóficas, la afiliación sindical, las fotografías o la información sobre mi orientación sexual. Dicha información se eliminará si elimino mi cuenta como se indica en la Política de Privacidad."
+  "userTos.agreePp": "Estoy de acuerdo en que Meedan procese la información personal que elijo compartir, incluida la información que revela mi origen racial o étnico, las opiniones políticas, las creencias religiosas o filosóficas, la afiliación sindical, las fotografías o la información sobre mi orientación sexual. Dicha información se eliminará si elimino mi cuenta como se indica en la Política de Privacidad."
 }

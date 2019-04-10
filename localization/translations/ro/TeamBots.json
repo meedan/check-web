@@ -1,12 +1,12 @@
 {
-  "teamBots.confirmUninstall": "Are you sure you want to uninstall this bot?",
-  "teamBots.success": "Settings updated!",
-  "teamBots.fail": "Error! Please try again.",
-  "teamBots.noBots": "No bots installed.",
-  "teamBots.moreInfo": "More info",
-  "teamBots.inUse": "In Use",
-  "teamBots.settings": "Settings",
-  "teamBots.save": "Save",
-  "teamBots.noSettings": "There are no settings for this bot.",
-  "teamBots.botGarden": "Browse the Bot Garden"
+  "teamBots.confirmUninstall": "Sigur doriți să dezinstalați acest robot?",
+  "teamBots.success": "Setările au fost actualizate!",
+  "teamBots.fail": "Eroare! Mai încercați odată.",
+  "teamBots.noBots": "Nu există roboți instalați.",
+  "teamBots.moreInfo": "Mai multe informații",
+  "teamBots.inUse": "În uz",
+  "teamBots.settings": "Setări",
+  "teamBots.save": "Salvează",
+  "teamBots.noSettings": "Nu există setări pentru acest robot.",
+  "teamBots.botGarden": "Navigare în Depozit de roboți"
 }

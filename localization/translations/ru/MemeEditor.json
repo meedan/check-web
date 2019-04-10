@@ -3,6 +3,6 @@
   "memeEditor.useDefaultImage": "Использовать изображение по умолчанию",
   "memeEditor.headline": "Заголовок",
   "memeEditor.description": "Описание",
-  "memeEditor.statusText": "Status label",
-  "memeEditor.overlayColor": "Overlay color"
+  "memeEditor.statusText": "Статус",
+  "memeEditor.overlayColor": "Цвет"
 }

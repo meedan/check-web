@@ -1,9 +1,9 @@
 {
   "UserPrivacy.deleteAccount": "Удалить аккаунт",
   "userPrivacy.deleteAccountConfirmationText": "Вы уверены? Ваш аккаунт будет удалён, и вы потеряете доступ к приложению.",
-  "userPrivacy.ppLink": "политикой конфиденциальности",
+  "userPrivacy.ppLink": "политику конфиденциальности",
   "userPrivacy.title": "Персональные данные",
-  "userPrivacy.description": "Пожалуйста, ознакомьтесь с нашей {ppLink}, чтобы узнать, как {appName} хранит и обрабатывает ваши персональные данные.",
+  "userPrivacy.description": "Пожалуйста, прочтите нашу {ppLink}, чтобы узнать, как {appName} хранит и обрабатывает ваши персональные данные.",
   "userPrivacy.seeInformationText": "Мы отправим вам файл со всеми данными, которые вы добавили, создали или сгенерировали в {appName}. Вы можете сохранить этот файл для дальнейшего использования или перенести данные в другой сервис.",
   "userPrivacy.seeInformationButton": "Просмотреть мои данные",
   "userPrivacy.stopProcessingText": "Вы можете запросить прекращение обработки ваших персональных данных {appName}.",

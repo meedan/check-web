@@ -1,5 +1,5 @@
 {
-  "claimReview.claim": "Claim:",
-  "claimReview.claimedBy": "Claimed by:",
+  "claimReview.claim": "Высказывание:",
+  "claimReview.claimedBy": "Автор высказывания:",
   "claimReview.reviewedBy": "Факт-чек ({reviewer}):"
 }

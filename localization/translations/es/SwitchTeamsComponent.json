@@ -1,8 +1,8 @@
 {
-  "switchTeams.error": "Lo sentimos, se produjo un error al actualizar el equipo. Vuelva a intentarlo y avise a {supportEmail} si la condición persiste.",
+  "switchTeams.error": "Lo sentimos, se produjo un error al actualizar el equipo. Vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}.",
   "switchTeams.member": "{membersCount, plural, =0 {Sin miembros} one {1 miembro} other {# membros}} ",
   "switchTeams.joinRequestMessage": "Solicitaste unirte",
-  "teams.yourTeams": "Tus términos",
+  "teams.yourTeams": "Tus equipos",
   "teams.userTeams": "Equipos de {name}",
   "switchTeams.cancelJoinRequest": "Cancelar",
   "switchTeams.noTeams": "Sin equipos",

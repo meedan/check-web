@@ -1,5 +1,5 @@
 {
-  "annotation.error": "Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists.",
+  "annotation.error": "Lo sentimos, se produjo un error al actualizar el ítem. Vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}.",
   "annotation.deleteButton": "Eliminar ",
   "annotation.reverseImage": "Este ítem contiene al menos una imagen. Haz clic en buscar para ver posibles duplicados en Google.",
   "annotation.reverseImageFacebook": "Este ítem contiene una o más imágenes. Como están contenidos en una publicación de Facebook, no podemos enviarlos directamente al motor de búsqueda. Considere realizar una búsqueda manual con Google o TinEye.",
@@ -25,7 +25,7 @@
   "annotation.suggestionRejected": "Rechazado por {user}",
   "annotation.acceptSuggestion": "Aceptar",
   "annotation.rejectSuggestion": "Rechazar",
-  "annotation.taskResolve": "Tarea respondida por {author}: {task}{response}",
+  "annotation.taskResolve": "Tarea resuelta por {author}: {task}{response}",
   "annotation.reverseImageSearch": "Buscar ",
   "annotation.translation": "Traducido a {language} por {author}{translation}",
   "annotation.emptyMachineTranslation": "Añadir traducción automática",
@@ -34,15 +34,15 @@
   "annotation.translationPublished": "Traducción publicada en {link}",
   "annotation.publishTranslation": "Publicar esta traducción en {link}",
   "annotation.archiverSuccess": "En caso de que este ítem se desconecte, puedes <a href=\"{link}\" target=\"_blank\" rel=\"noopener noreferrer\">acceder a una copia de respaldo a través de {name}</a>.",
-  "annotation.archiverError": "Sorry, an error occurred while archiving the item at {name}. Please refresh the item to try again and contact {supportEmail} if the condition persists.",
-  "annotation.archiverWait": "This item is being archived at {name}. The archive link will be displayed here when it's ready.",
+  "annotation.archiverError": "Lo sentimos, se produjo un error al archivar el ítem. Actualiza el ítem y si el problema persiste ponte en contacto con {supportEmail}.",
+  "annotation.archiverWait": "Este ítem está siendo archivado en {nombre}. El enlace del archivo se mostrará aquí {name} cuando esté listo.",
   "annotation.embedCodeCopied": "Se ha generado y copiado un código de inserción del ítem. El ítem ahora puede ser visible públicamente.",
-  "annotation.penderArchiveResponseError": "Sorry, an error occurred while taking a screenshot of the item. Please refresh the item to try again and contact {supportEmail} if the condition persists.",
+  "annotation.penderArchiveResponseError": "Lo sentimos, se produjo un error al tomar la captura de pantalla del ítem. Actualiza el ítem y si el problema persiste ponte en contacto con {supportEmail}.",
   "annotation.penderArchiveResponse": "Keep ha tomado una captura de pantalla de este URL ",
   "annotation.penderArchiveWait": "En este momento Keep está tomando la captura de pantalla de este ítem. Regresa en unos minutos para verlo.",
   "annotation.flaggedHeader": "Marcado como  {flag} por {author}",
   "annotation.projectMoved": "Movido del proyecto {previousProject} a {currentProject} por {author}",
   "annotation.movedToTrash": "Enviado a la papelera por {author}",
   "annotation.movedFromTrash": "Sacado de la papelera por {author}",
-  "annotation.teamCopied": "Movido del proyecto {previousProject} al equipe {previousTeam} por {author}"
+  "annotation.teamCopied": "Movido del proyecto {previousProject} al equipo {previousTeam} por {author}"
 }

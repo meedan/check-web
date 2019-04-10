@@ -1,7 +1,7 @@
 {
   "translation.inputHint": "Por favor, añade una traducción",
   "translation.translationAdded": "¡La traducción ha sido añadida!",
-  "translation.translationFailed": "Lo sentimos, se produjo un error al actualizar la traducción. Vuelva a intentarlo y avise a {supportEmail} si la condición persiste.",
+  "translation.translationFailed": "Lo sentimos, se produjo un error al actualizar la traducción. Vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}.",
   "translation.submitBlank": "La traducción no puede estar en blanco. Por favor escribe una traducción y vuelve a intentarlo.",
   "translation.title": "Añadir traducción",
   "translation.selectLanguage": "Selecciona el idioma",

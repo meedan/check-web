@@ -1,7 +1,7 @@
 {
   "geoLocationRespondTask.searching": "Buscando...",
-  "geoLocationRespondTask.notFound": "Lo sentimos, este lugar no fue encontrado. Por favor, intente otra búsqueda.",
-  "geoLocationRespondTask.error": "Lo sentimos, se produjo un error al actualizar la tarea. Vuelva a intentarlo y avise a {supportEmail} si la condición persiste.",
+  "geoLocationRespondTask.notFound": "Lo sentimos, este lugar no fue encontrado. Por favor, intenta otra búsqueda.",
+  "geoLocationRespondTask.error": "Lo sentimos, se produjo un error al actualizar la tarea. Vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}.",
   "geolocationRespondTask.cancelTask": "Cancelar",
   "geolocationRespondTask.answerTask": "Responder",
   "geolocationRespondTask.searchMap": "Buscar el mapa",

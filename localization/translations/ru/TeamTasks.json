@@ -1,9 +1,9 @@
 {
-  "teamTasks.filterLabelHidden": "{total, plural, =0 {Нет задач} one {1 задача (скрыто фильтрами: {hidden})} other {Задач: # (скрыто фильтрами: {hidden})}}",
-  "teamTasks.filterLabel": "{total, plural, =0 {Нет задач} one {1 задача} other {Задач: #}}",
-  "teamTasks.blank": "No teamwide tasks to display",
-  "teamTasks.title": "Задачи",
-  "teamTasks.filter": "Фильтр задач",
-  "teamTasks.projFilter": "Показать задачи в",
-  "teamTasks.typeFilter": "Task type"
+  "teamTasks.filterLabelHidden": "{total, plural, =0 {Нет вопросов} one {1 вопрос (скрыто фильтрами: {hidden})} other {Вопросов: # (скрыто фильтрами: {hidden})}}",
+  "teamTasks.filterLabel": "{total, plural, =0 {Нет вопросов} one {1 вопрос} other {Вопросов: #}}",
+  "teamTasks.blank": "Нет общих вопросов к отображению",
+  "teamTasks.title": "Вопросы",
+  "teamTasks.filter": "Фильтр вопросов",
+  "teamTasks.projFilter": "Показать вопросы в",
+  "teamTasks.typeFilter": "Тип вопроса"
 }
