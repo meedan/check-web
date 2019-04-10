@@ -1,0 +1,18 @@
+[
+  {
+    "id": "autoCompleteMediaItem.searching",
+    "defaultMessage": "Searching..."
+  },
+  {
+    "id": "autoCompleteMediaItem.notFound",
+    "defaultMessage": "No matches found"
+  },
+  {
+    "id": "autoCompleteMediaItem.error",
+    "defaultMessage": "An error has ocurred while performing search"
+  },
+  {
+    "id": "autoCompleteMediaItem.searchItem",
+    "defaultMessage": "Search item"
+  }
+]

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import MediaRelated from './MediaRelated';
 import {
@@ -22,11 +22,11 @@ const StyledTree = styled.div`
   li.medias__item {
     padding-left: 1em;
     border: 1px dashed #979797;
-    border-width: 0 0 1px 1px; 
+    border-width: 0 0 1px 1px;
     border-bottom: 0px;
     margin-top: 0;
   }
-  
+
   li.medias__item:last-child {
     padding-bottom: 0 !important;
   }
@@ -40,7 +40,7 @@ const StyledTree = styled.div`
     margin: 0;
     background: white;
     position: relative;
-    top: 0.5em; 
+    top: 0.5em;
   }
 
   li.medias__item ul.empty {
@@ -58,22 +58,12 @@ const StyledTree = styled.div`
   }
 `;
 
-class MediaRelatedComponent extends Component {
-  constructor(props) {
-    super(props);
+const MediaRelatedTree = props => (
+  <FlexRow>
+    <StyledTree>
+      <MediaRelated media={props.media} showNumbers />
+    </StyledTree>
+  </FlexRow>
+);
 
-    this.state = {};
-  }
-
-  render() {
-    return (
-      <FlexRow>
-        <StyledTree>
-          <MediaRelated media={this.props.media} showNumbers />
-        </StyledTree>
-      </FlexRow>
-    );
-  }
-}
-
-export default MediaRelatedComponent;
+export default MediaRelatedTree;

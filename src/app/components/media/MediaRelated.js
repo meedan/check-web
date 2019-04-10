@@ -162,8 +162,10 @@ class MediaRelatedComponent extends Component {
                   {<MediaDetail
                     media={item.node}
                     condensed
+                    currentRelatedMedia={this.props.media}
                     parentComponent={this}
                     parentComponentName="MediaRelated"
+                    smoochBotInstalled={this.props.smoochBotInstalled}
                     hideRelated
                   />}
                   {<ul className="empty" />}
@@ -208,6 +210,7 @@ const MediaRelatedContainer = Relay.createContainer(MediaRelatedComponent, {
           }
         }
         relationships {
+          id
           target_id
           source_id
           targets_count
@@ -220,6 +223,7 @@ const MediaRelatedContainer = Relay.createContainer(MediaRelatedComponent, {
                 targets(first: 10000) {
                   edges {
                     node {
+                      __typename
                       ${mediaFragment}
                     }
                   }

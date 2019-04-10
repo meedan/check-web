@@ -153,6 +153,15 @@ class MediaComponent extends Component {
     media.embed_path = media.media.embed_path;
     const status = getStatus(mediaStatuses(media), mediaLastStatus(media));
 
+    let smoochBotInstalled = false;
+    if (media.team && media.team.team_bot_installations) {
+      media.team.team_bot_installations.edges.forEach((edge) => {
+        if (edge.node.team_bot.identifier === 'smooch') {
+          smoochBotInstalled = true;
+        }
+      });
+    }
+
     return (
       <PageTitle
         prefix={MediaUtil.title(media, data, this.props.intl)}
@@ -168,7 +177,13 @@ class MediaComponent extends Component {
         >
           <StyledTwoColumnLayout>
             <ContentColumn>
-              <MediaDetail hideBorder initiallyExpanded hideRelated media={media} />
+              <MediaDetail
+                smoochBotInstalled={smoochBotInstalled}
+                media={media}
+                initiallyExpanded
+                hideBorder
+                hideRelated
+              />
               {this.props.extras}
               <MediaTasks media={media} />
             </ContentColumn>
@@ -177,6 +192,7 @@ class MediaComponent extends Component {
                 <MediaRelated
                   media={media}
                   showHeader
+                  smoochBotInstalled={smoochBotInstalled}
                 />
               </div>
               <MediaLog media={media} />

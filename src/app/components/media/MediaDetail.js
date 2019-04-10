@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { injectIntl, intlShape, defineMessages } from 'react-intl';
 import { Link } from 'react-router';
 import { Card, CardHeader } from 'material-ui/Card';
+import LayersIcon from '@material-ui/icons/Layers';
 import styled from 'styled-components';
 import MdAccessTime from 'react-icons/lib/md/access-time';
 import MdFormatQuote from 'react-icons/lib/md/format-quote';
@@ -13,7 +14,7 @@ import TimeBefore from '../TimeBefore';
 import MediaStatus from './MediaStatus';
 import MediaExpanded from './MediaExpanded';
 import MediaUtil from './MediaUtil';
-import MediaRelatedComponent from './MediaRelatedComponent';
+import MediaRelatedTree from './MediaRelatedTree';
 import ItemDeadline from './ItemDeadline';
 import CheckContext from '../../CheckContext';
 import UserUtil from '../user/UserUtil';
@@ -21,6 +22,7 @@ import { getStatus, getStatusStyle, bemClassFromMediaStatus } from '../../helper
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
 import {
   Row,
+  FlexRow,
   units,
   black87,
   black38,
@@ -38,6 +40,10 @@ const messages = defineMessages({
   progress: {
     id: 'mediaDetail.progress',
     defaultMessage: '{answered} required tasks answered, out of {total}',
+  },
+  relatedCount: {
+    id: 'mediaDetail.relatedCount',
+    defaultMessage: '{relatedCount} related items',
   },
 });
 
@@ -112,6 +118,17 @@ const CardWithBorder = styled.div`
   }
 `;
 
+const RelationIcon = styled.div`
+  svg {
+    min-width: 20px !important;
+    min-height: 20px !important;
+    color: ${black38};
+    position: absolute;
+    top: ${units(1)};
+    ${props => props.toDirection}: ${units(1)};
+  }
+`;
+
 class MediaDetail extends Component {
   constructor(props) {
     super(props);
@@ -154,11 +171,12 @@ class MediaDetail extends Component {
   };
 
   handleClickHeader = (event, mediaUrl, mediaId) => {
-    if (this.props.onSelect && event.target === event.currentTarget) {
-      this.props.onSelect(mediaId);
-    } else if (event.target === event.currentTarget) {
-      // Prevent navigation if click was on a child element
-      this.getContext().history.push(mediaUrl);
+    if (event.target === event.currentTarget) {
+      if (this.props.onSelect) {
+        this.props.onSelect(mediaId);
+      } else {
+        this.getContext().history.push(mediaUrl);
+      }
     }
   };
 
@@ -194,19 +212,33 @@ class MediaDetail extends Component {
       annotated,
       annotatedType,
       intl: { locale },
+      smoochBotInstalled,
     } = this.props;
+
+    let isChild = false;
+    let isParent = false;
+
+    if (media.relationships) {
+      const { sources_count, targets_count } = media.relationships;
+      // isChild = sources_count > 0 && targets_count === 0;
+      isChild = sources_count > 0;
+      isParent = targets_count > 0 && sources_count === 0;
+    }
+
     // TODO drop data variable, use media.embed directly
     const data = typeof media.embed === 'string' ? JSON.parse(media.embed) : media.embed;
     const isRtl = rtlDetect.isRtlLang(locale);
     const fromDirection = isRtl ? 'right' : 'left';
+    const toDirection = isRtl ? 'left' : 'right';
     const { currentUser } = this.getContext();
     const annotationsCount = UserUtil.myRole(currentUser, media.team.slug) === 'annotator' ?
       null : MediaUtil.notesCount(media, data, this.props.intl);
     const status = getStatus(mediaStatuses(media), mediaLastStatus(media));
+    const readonlyStatus = this.props.parentComponentName === 'MediaRelated' && smoochBotInstalled && isChild;
     const cardHeaderStatus = (
       <MediaStatus
         media={media}
-        readonly={this.props.readonly || media.last_status_obj.locked}
+        readonly={this.props.readonly || media.last_status_obj.locked || readonlyStatus}
       />
     );
     const sourceName = MediaUtil.sourceName(media, data);
@@ -294,11 +326,33 @@ class MediaDetail extends Component {
       }
     }
 
+    const AlignOpposite = styled.div`
+      margin-${fromDirection}: auto;
+    `;
+
     const cardHeaderText = (
-      <div style={{ cursor: media.dbid === 0 ? 'wait' : 'default' }}>
-        {shouldDisplayHeading ?
-          <StyledHeadingContainer>{heading}</StyledHeadingContainer> : null
-        }
+      <div className="media-detail__clickable-header" style={{ cursor: media.dbid === 0 ? 'wait' : 'default' }}>
+        <FlexRow>
+          {shouldDisplayHeading ?
+            <StyledHeadingContainer>{heading}</StyledHeadingContainer> : null
+          }
+          <AlignOpposite>
+            { isParent ?
+              (
+                <RelationIcon toDirection={toDirection}>
+                  <LayersIcon
+                    titleAccess={
+                      this.props.intl.formatMessage(
+                        messages.relatedCount,
+                        { relatedCount: media.relationships.targets_count },
+                      )
+                    }
+                  />
+                </RelationIcon>
+              ) : null
+            }
+          </AlignOpposite>
+        </FlexRow>
         <StyledHeaderTextSecondary>
           <Row flexWrap>
             {createdAt ?
@@ -396,6 +450,7 @@ class MediaDetail extends Component {
           { this.state.expanded ?
             <MediaExpanded
               currentMedia={this.props.media}
+              currentRelatedMedia={this.props.currentRelatedMedia}
               title={title}
               mediaUrl={mediaUrl}
               isRtl={isRtl}
@@ -405,7 +460,7 @@ class MediaDetail extends Component {
             /> : null }
         </Card>
         { this.state.expanded && !this.props.hideRelated ?
-          <MediaRelatedComponent media={this.props.media} /> : null }
+          <MediaRelatedTree media={this.props.media} /> : null }
       </CardWithBorder>
     );
   }
