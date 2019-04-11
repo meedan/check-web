@@ -26,7 +26,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
         quote,
         published,
         archived,
-        relationships { sources_count, targets_count },
+        relationships { id, sources_count, targets_count },
         relationship {
           id
           source { id, dbid }

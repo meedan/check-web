@@ -38,7 +38,11 @@ class AutoCompleteMediaItem extends React.Component {
     }
   }
 
-  handleSearchText(query) {
+  handleSearchText(query, dataSource, params) {
+    if (params.source === 'click') {
+      return;
+    }
+
     const keystrokeWait = 2000;
     this.setState({ message: '' });
     clearTimeout(this.timer);

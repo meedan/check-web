@@ -2083,7 +2083,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Existing Team')).to be(true)
     end
 
-    it "should manage related items", bin5: true do
+    it "should manage related items bli", bin5: true do
       api_create_team_project_and_claim_and_redirect_to_media_page
       wait_for_selector('.create-related-media__add-button')
       expect(@driver.page_source.include?('Child Claim')).to be(false)

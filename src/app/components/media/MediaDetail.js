@@ -125,7 +125,7 @@ const RelationIcon = styled.div`
     color: ${black38};
     position: absolute;
     top: ${units(1)};
-    ${props => props.toDirection}: ${units(1)};
+    ${props => props.toDirection}: ${units(2)};
   }
 `;
 

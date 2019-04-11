@@ -83,10 +83,13 @@ class CreateRelatedMedia extends Component {
 
     Relay.Store.commitUpdate(
       new UpdateProjectMediaMutation({
+        obj,
         id: obj.id,
+        project: this.props.media.project,
         related_to: this.props.media,
         related_to_id: this.props.media.dbid,
         relationships_target_id: this.props.media.relationships.target_id,
+        relationships_source_id: this.props.media.relationships.source_id,
       }),
       { onSuccess, onFailure },
     );

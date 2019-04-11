@@ -101,7 +101,7 @@ class MediaRelatedComponent extends Component {
     const filters = getFilters();
     const { dbid } = this.props.media;
 
-    let medias = [];
+    const medias = [];
     const { relationships } = this.props.media;
     const { targets_count, sources_count } = relationships;
     const targets = relationships.targets.edges;
@@ -114,13 +114,15 @@ class MediaRelatedComponent extends Component {
       this.props.relay.setVariables({ filters });
       this.props.relay.forceFetch();
     } else if (targets.length > 0) {
-      medias = targets[0].node.targets.edges;
+      targets[0].node.targets.edges.forEach((child) => {
+        medias.push({ node: Object.assign(child.node, { target_id: targets[0].node.id }) });
+      });
       filtered_count = total - medias.length;
     } else if (sources.length > 0) {
       medias.push({ node: sources[0].node.source });
       sources[0].node.siblings.edges.forEach((sibling) => {
         if (sibling.node.id !== this.props.media.id) {
-          medias.push(sibling);
+          medias.push({ node: Object.assign(sibling.node, { source_id: sources[0].node.id }) });
         }
       });
     }
@@ -152,27 +154,30 @@ class MediaRelatedComponent extends Component {
           </StyledHeaderRow> : null }
 
         <FlexRow>
-          <ul style={{ width: '100%' }}>
-            {medias.map((item) => {
-              if (item.node.archived) {
-                return null;
-              }
-              return (
-                <li key={item.node.id} className="medias__item" style={{ paddingBottom: units(1) }}>
-                  {<MediaDetail
-                    media={item.node}
-                    condensed
-                    currentRelatedMedia={this.props.media}
-                    parentComponent={this}
-                    parentComponentName="MediaRelated"
-                    smoochBotInstalled={this.props.smoochBotInstalled}
-                    hideRelated
-                  />}
-                  {<ul className="empty" />}
-                </li>
-              );
-            })}
-          </ul>
+          { (sources_count === 0 && targets_count === 0) ?
+            null :
+            <ul style={{ width: '100%' }}>
+              {medias.map((item) => {
+                if (item.node.archived) {
+                  return null;
+                }
+                return (
+                  <li key={item.node.id} className="medias__item" style={{ paddingBottom: units(1) }}>
+                    {<MediaDetail
+                      media={item.node}
+                      condensed
+                      currentRelatedMedia={this.props.media}
+                      parentComponent={this}
+                      parentComponentName="MediaRelated"
+                      smoochBotInstalled={this.props.smoochBotInstalled}
+                      hideRelated
+                    />}
+                    {<ul className="empty" />}
+                  </li>
+                );
+              })}
+            </ul>
+          }
         </FlexRow>
       </div>
     );

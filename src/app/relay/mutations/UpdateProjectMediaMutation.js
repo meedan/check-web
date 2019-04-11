@@ -1,4 +1,5 @@
 import Relay from 'react-relay/classic';
+import optimisticProjectMedia from './optimisticProjectMedia';
 
 class UpdateProjectMediaMutation extends Relay.Mutation {
   getMutation() {
@@ -85,6 +86,13 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         },
       };
     }
+    if (this.props.related_to_id && this.props.obj) {
+      return optimisticProjectMedia(
+        this.props.obj.text,
+        this.props.project,
+        {},
+      );
+    }
     return {};
   }
 
@@ -149,6 +157,17 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         parentName: 'relationships_target',
         parentID: this.props.relationships_target_id,
         connectionName: 'targets',
+        edgeName: 'project_mediaEdge',
+        rangeBehaviors: {
+          '': 'prepend',
+        },
+      });
+
+      configs.push({
+        type: 'RANGE_ADD',
+        parentName: 'relationships_source',
+        parentID: this.props.relationships_source_id,
+        connectionName: 'siblings',
         edgeName: 'project_mediaEdge',
         rangeBehaviors: {
           '': 'prepend',

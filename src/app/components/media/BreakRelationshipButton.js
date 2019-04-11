@@ -24,6 +24,7 @@ class BreakRelationshipButton extends React.Component {
         id,
         source,
         target,
+        media: this.props.media,
         current: this.props.currentRelatedMedia,
       }),
       { onFailure },
