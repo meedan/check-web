@@ -109,7 +109,7 @@ class MediaRelatedComponent extends Component {
     let filtered_count = 0;
     const total = targets_count + sources_count;
 
-    if (filters !== previousFilters[dbid]) {
+    if (dbid in previousFilters && filters !== previousFilters[dbid]) {
       previousFilters[dbid] = filters;
       this.props.relay.setVariables({ filters });
       this.props.relay.forceFetch();
