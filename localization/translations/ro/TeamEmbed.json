@@ -4,7 +4,7 @@
   "teamEmbed.title": "Setările incorporării",
   "teamEmbed.tasks": "Sarcini",
   "teamEmbed.tasksSub": "Sarcinile selectate vor fi trecute în incorporare dacă sunt rezolvate.",
-  "teamEmbed.disclaimer": "Disclaimer",
-  "teamEmbed.disclaimerSub": "Disclaimer that will be shown at the bottom of the embed with the team logo.",
-  "teamEmbed.save": "Save"
+  "teamEmbed.disclaimer": "Exonerare de răspundere",
+  "teamEmbed.disclaimerSub": "Declarația de exonerare de răspundere, care va fi arătată în partea de jos a incorporării cu emblema echipei.",
+  "teamEmbed.save": "Salvează"
 }

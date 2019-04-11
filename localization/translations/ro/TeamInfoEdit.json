@@ -1,12 +1,12 @@
 {
-  "teamComponent.editError": "Sorry, an error occurred while updating the team. Please try again and contact {supportEmail} if the condition persists.",
-  "teamComponent.editSuccess": "Team information updated successfully!",
-  "teamComponent.teamName": "Team name",
-  "teamComponent.teamDescription": "Team description",
-  "teamComponent.location": "Location",
-  "teamComponent.phone": "Phone number",
-  "teamComponent.website": "Website",
-  "teamComponent.invalidLink": "Please enter a valid URL",
-  "teamComponent.cancelButton": "Cancel",
-  "teamComponent.saveButton": "Save"
+  "teamComponent.editError": "Ne pare rău, în timpul actualizării echipei s-a produs o eroare. Vă rugăm să mai încercați odată și să contactați {supportEmail} dacă situația persistă.",
+  "teamComponent.editSuccess": "Informațiile echipei au fost actualizate cu succes!",
+  "teamComponent.teamName": "Denumirea echipei",
+  "teamComponent.teamDescription": "Descrierea echipei",
+  "teamComponent.location": "Locul",
+  "teamComponent.phone": "Tel.",
+  "teamComponent.website": "Pagina web",
+  "teamComponent.invalidLink": "Introduceți un URL valid",
+  "teamComponent.cancelButton": "Anulare",
+  "teamComponent.saveButton": "Salvează"
 }

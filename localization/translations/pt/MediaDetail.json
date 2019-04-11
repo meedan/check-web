@@ -1,3 +1,4 @@
 {
-  "mediaDetail.progress": "{answered} tarefas requeridas respondidas, de um total de {total}"
+  "mediaDetail.progress": "{answered} tarefas requeridas respondidas, de um total de {total}",
+  "mediaDetail.relatedCount": "{relatedCount} itens relacionados"
 }

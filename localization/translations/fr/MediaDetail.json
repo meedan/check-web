@@ -1,3 +1,4 @@
 {
-  "mediaDetail.progress": "{answered} sur {total} tâches requises ont été répondues"
+  "mediaDetail.progress": "{answered} sur {total} tâches requises ont été répondues",
+  "mediaDetail.relatedCount": "{relatedCount} éléments associés"
 }

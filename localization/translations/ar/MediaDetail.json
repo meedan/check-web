@@ -1,3 +1,4 @@
 {
-  "mediaDetail.progress": "تمت إجابة {answered} من {total} مهام مطلوبة"
+  "mediaDetail.progress": "تمت إجابة {answered} من {total} مهام مطلوبة",
+  "mediaDetail.relatedCount": "{relatedCount} عناصر مرتبطة"
 }

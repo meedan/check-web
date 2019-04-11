@@ -2,8 +2,8 @@ import React from 'react';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import AutoComplete from 'material-ui/AutoComplete';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
-// import MediaUtil from './MediaUtil';
 import { nested } from '../../helpers';
+import { stringHelper } from '../../customHelpers';
 
 const messages = defineMessages({
   searching: {
@@ -16,7 +16,7 @@ const messages = defineMessages({
   },
   error: {
     id: 'autoCompleteMediaItem.error',
-    defaultMessage: 'An error has ocurred while performing search',
+    defaultMessage: 'Sorry, an error occurred while searching. Please try again and contact {supportEmail} if the condition persists.',
   },
 });
 
@@ -97,7 +97,7 @@ class AutoCompleteMediaItem extends React.Component {
     fetch(config.relayPath, init)
       .then((response) => {
         if (!response.ok) {
-          throw Error(this.props.intl.formatMessage(messages.error));
+          throw Error(this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') }));
         }
         return response.json();
       })
@@ -137,7 +137,7 @@ class AutoCompleteMediaItem extends React.Component {
           floatingLabelText={
             <FormattedMessage
               id="autoCompleteMediaItem.searchItem"
-              defaultMessage="Search item"
+              defaultMessage="Search"
             />
           }
           name="autocomplete-media-item"

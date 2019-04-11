@@ -1,6 +1,6 @@
 {
-  "tasksNudge.nudgeTitle": "Upgrade to Check Pro",
-  "tasksNudge.cancelButton": "No thanks",
-  "tasksNudge.upgradeButton": "Upgrade now",
-  "tasks.nudgeText": "To help you make consistent investigations, Check Pro allows you to create tasks that automatically appear for every item in a team or project."
+  "tasksNudge.nudgeTitle": "Upgrade la versiunea Check Pro",
+  "tasksNudge.cancelButton": "Nu, mulțumesc",
+  "tasksNudge.upgradeButton": "Efectuează upgrade acum",
+  "tasks.nudgeText": "Pentru a vă ajuta să faceți investigații consecvente, Check Pro vă permite să creați sarcii, care apar în mod automat la fiecare element într-o echipă sau într-un proiect."
 }

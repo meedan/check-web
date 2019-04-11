@@ -1,10 +1,10 @@
 {
-  "translation.inputHint": "Please add a translation",
-  "translation.translationAdded": "A translation has been added!",
-  "translation.translationFailed": "Sorry, an error occurred while updating the translation. Please try again and contact {supportEmail} if the condition persists.",
-  "translation.submitBlank": "The translation can't be blank. Please write a translation and try again.",
-  "translation.title": "Add a translation",
-  "translation.selectLanguage": "Select language",
-  "translation.noteLabel": "Note any additional details here.",
-  "translation.submit": "Submit"
+  "translation.inputHint": "Vă rugăm să adăugați o traducere",
+  "translation.translationAdded": "A fost adăugată o traducere!",
+  "translation.translationFailed": "Ne pare rău, în timpul actualizării traducerii s-a produs o eroare. Vă rugăm să mai încercați odată și să contactați {supportEmail} dacă situația persistă.",
+  "translation.submitBlank": "Traducerea nu poate să conțină nimic. Vă rugăm să scrieți o traducere și să mai faceți o încercare.",
+  "translation.title": "Adaugă o traducere",
+  "translation.selectLanguage": "Selectați limba",
+  "translation.noteLabel": "Notați aici orice detalii suplimentare.",
+  "translation.submit": "Trimite"
 }

@@ -9,10 +9,10 @@
   },
   {
     "id": "autoCompleteMediaItem.error",
-    "defaultMessage": "An error has ocurred while performing search"
+    "defaultMessage": "Sorry, an error occurred while searching. Please try again and contact {supportEmail} if the condition persists."
   },
   {
     "id": "autoCompleteMediaItem.searchItem",
-    "defaultMessage": "Search item"
+    "defaultMessage": "Search"
   }
 ]

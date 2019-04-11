@@ -1,0 +1,6 @@
+{
+  "autoCompleteMediaItem.searching": "Searching...",
+  "autoCompleteMediaItem.notFound": "No matches found",
+  "autoCompleteMediaItem.error": "Sorry, an error occurred while searching. Please try again and contact {supportEmail} if the condition persists.",
+  "autoCompleteMediaItem.searchItem": "Search"
+}

@@ -1,3 +1,4 @@
 {
-  "mediaDetail.progress": "Обязательных вопросов с ответами: {answered} из {total}"
+  "mediaDetail.progress": "Обязательных вопросов с ответами: {answered} из {total}",
+  "mediaDetail.relatedCount": "{relatedCount} related items"
 }
