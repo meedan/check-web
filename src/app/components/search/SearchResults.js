@@ -313,7 +313,7 @@ class SearchResultsComponent extends React.Component {
       />
     );
 
-    const viewMode = window.location.pathname.match(/dense\/*.*$/) ? 'dense' : 'list';
+    const viewMode = window.storage.getValue('view-mode');
 
     const view = {
       dense: item => (

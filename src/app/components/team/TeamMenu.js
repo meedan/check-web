@@ -30,7 +30,7 @@ class TeamMenu extends Component {
 
   handleClickView() {
     const searchQuery = searchQueryFromUrl();
-    const targetView = this.props.children.props.route.view === 'dense' ?
+    const targetView = window.storage.getValue('view-mode') === 'dense' ?
       'list' : 'dense';
     const prefix = window.location.pathname.match(/.*\/search/)[0];
 
@@ -41,11 +41,11 @@ class TeamMenu extends Component {
     const { team, currentUserIsMember, pageType } = this.props;
 
     let toggleViewButton = null;
-    if (/\/search\//.test(window.location.pathname)) {
-      const viewIcon = this.props.children.props.route.view === 'dense' ?
+    if (/\/search/.test(window.location.pathname)) {
+      const viewIcon = window.storage.getValue('view-mode') === 'dense' ?
         <ViewListIcon /> : <ViewComfyIcon />;
 
-      const viewTooltip = this.props.children.props.route.view === 'dense'
+      const viewTooltip = window.storage.getValue('view-mode') === 'dense'
         ? <FormattedMessage id="teamMenu.listView" defaultMessage="List view" />
         : <FormattedMessage id="teamMenu.denseView" defaultMessage="Compact view" />;
 

@@ -40,6 +40,18 @@ import {
 
 const statusKey = config.appName === 'bridge' ? 'translation_status' : 'verification_status';
 
+// https://github.com/styled-components/styled-components/issues/305#issuecomment-298680960
+const swallowingStyled = (WrappedComponent, { swallowProps = [] } = {}) => {
+  const Wrapper = ({ children, ...props }) => {
+    const remainingProps = props;
+    swallowProps.forEach((propName) => {
+      delete remainingProps[propName];
+    });
+    return <WrappedComponent {...remainingProps}>{children}</WrappedComponent>;
+  };
+  return styled(Wrapper);
+};
+
 export const StyledSearchInput = styled.input`
   background-repeat: no-repeat;
   background-color: ${white};
@@ -61,7 +73,7 @@ export const StyledSearchInput = styled.input`
   padding-${props => (props.isRtl ? 'right' : 'left')}: ${units(6)};
 `;
 
-const StyledPopper = styled(Popper)`
+const StyledPopper = swallowingStyled(Popper, { swallowProps: ['isRtl'] })`
   width: 100%;
   max-width: ${columnWidthMedium};
   padding: 0 ${units(1)};
@@ -101,7 +113,7 @@ const StyledSearchFiltersSection = styled.section`
   }
 `;
 
-const StyledFilterRow = styled(Row)`
+const StyledFilterRow = swallowingStyled(Row, { swallowProps: ['isRtl'] })`
   max-height: ${units(20)};
   overflow-y: auto;
   flex-wrap: wrap;
@@ -239,13 +251,10 @@ class SearchQueryComponent extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const field = document.getElementById('search-input');
-    field.blur();
-    const keywordInput = field.value;
-
+    this.searchInput.blur();
     this.setState((prevState) => {
       const state = Object.assign({}, prevState);
-      state.query.keyword = keywordInput;
+      state.query.keyword = this.searchInput.value;
       return { query: state.query, popper: { open: false } };
     });
   }
@@ -462,12 +471,11 @@ class SearchQueryComponent extends React.Component {
     // - user has typed something
     // - user has not explicitly closed the help
     // - user has reset the keywords
-    const input = document.getElementById('search-input');
     this.setState({
       popper: {
-        open: input.value.length > 0 && this.state.popper.allowed,
-        anchorEl: input,
-        allowed: this.state.popper.allowed || !input.value.length,
+        open: this.searchInput.value.length > 0 && this.state.popper.allowed,
+        anchorEl: this.searchInput,
+        allowed: this.state.popper.allowed || !this.searchInput.value.length,
       },
     });
   }
@@ -482,6 +490,7 @@ class SearchQueryComponent extends React.Component {
   }
 
   resetFilters() {
+    this.searchInput.value = '';
     this.setState({ query: {} });
   }
 
@@ -535,6 +544,7 @@ class SearchQueryComponent extends React.Component {
                       isRtl={isRtl}
                       onChange={this.handleInputChange.bind(this)}
                       onBlur={this.handleSubmit.bind(this)}
+                      innerRef={(i) => { this.searchInput = i; }}
                       autofocus
                     />
                     <StyledPopper

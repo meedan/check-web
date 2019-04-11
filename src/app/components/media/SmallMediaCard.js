@@ -91,7 +91,11 @@ const SmallMediaCard = (props) => {
               { image ?
                 <Offset isRtl={isRtl}>
                   <Link to={mediaUrl}>
-                    <img src={image} alt="item thumbnail" width={units(10)} height={units(10)} />
+                    <img
+                      alt=""
+                      style={{ width: units(10), height: units(10), objectFit: 'cover' }}
+                      src={image}
+                    />
                   </Link>
                 </Offset>
                 : null

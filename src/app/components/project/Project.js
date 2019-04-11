@@ -65,7 +65,7 @@ class ProjectComponent extends Component {
     context.setContextStore(newContext);
 
     if (notFound) {
-      currentContext.history.push('/check/404');
+      currentContext.history.push('/check/not-found');
     }
   }
 
@@ -75,7 +75,8 @@ class ProjectComponent extends Component {
 
   render() {
     const { project } = this.props;
-    const view = this.props.route.view || 'list';
+    const view = this.props.route.view || window.storage.getValue('view-mode') || 'list';
+    window.storage.set('view-mode', view);
 
     return (
       <PageTitle prefix={project.title} skipTeam={false} team={this.currentContext().team}>
@@ -89,7 +90,7 @@ class ProjectComponent extends Component {
             team={project.team.slug}
             project={project}
             query={this.props.params.query || '{}'}
-            fields={['status', 'sort', 'tags', 'show', 'dynamic', 'bulk']}
+            fields={['keyword', 'status', 'sort', 'tags', 'show', 'dynamic', 'bulk']}
             view={view}
           />
         </ProjectWrapper>
