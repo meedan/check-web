@@ -24,6 +24,8 @@ class PromoteItemButton extends React.Component {
         id,
         source,
         target,
+        current: this.props.currentRelatedMedia || this.props.media,
+        media: this.props.media,
       }),
       { onFailure },
     );

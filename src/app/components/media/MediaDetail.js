@@ -218,11 +218,12 @@ class MediaDetail extends Component {
     let isChild = false;
     let isParent = false;
 
-    if (media.relationships) {
-      const { sources_count, targets_count } = media.relationships;
-      // isChild = sources_count > 0 && targets_count === 0;
-      isChild = sources_count > 0;
-      isParent = targets_count > 0 && sources_count === 0;
+    if (media.relationships && media.relationship) {
+      if (media.relationship.target_id === media.dbid) {
+        isChild = true;
+      } else if (media.relationship.source_id === media.dbid) {
+        isParent = true;
+      }
     }
 
     // TODO drop data variable, use media.embed directly

@@ -586,9 +586,8 @@ class MediaMetadata extends Component {
     });
 
     let isChild = false;
-    if (media.relationships) {
-      const { sources_count } = media.relationships;
-      isChild = sources_count > 0;
+    if (media.relationships && media.relationship && media.relationship.target_id === media.dbid) {
+      isChild = true;
     }
 
     return (
@@ -630,7 +629,11 @@ class MediaMetadata extends Component {
 
           {/* TODO: extract to media detail controls component */}
           <div className="media-detail__buttons">
-            <PromoteItemButton hidden={!isChild} media={media} />
+            <PromoteItemButton
+              hidden={!isChild}
+              media={media}
+              currentRelatedMedia={this.props.currentRelatedMedia}
+            />
 
             <BreakRelationshipButton
               hidden={!isChild}

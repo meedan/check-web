@@ -10,6 +10,7 @@ class UpdateRelationshipMutation extends Relay.Mutation {
   getVariables() {
     return {
       id: this.props.id,
+      current_id: this.props.current.dbid,
       source_id: this.props.target.dbid,
       target_id: this.props.source.dbid,
     };
@@ -17,20 +18,33 @@ class UpdateRelationshipMutation extends Relay.Mutation {
 
   getFatQuery() {
     return Relay.QL`fragment on UpdateRelationshipPayload {
-      relationship { id, dbid, source, target, source_id, target_id }
-      relationshipEdge
-      source_project_media { dbid, relationship, relationships { sources, targets, targets_count, sources_count } }
-      target_project_media { dbid, relationship, relationships { sources, targets, targets_count, sources_count } }
+      relationship {
+        id
+        source { id, dbid }
+        target { id, dbid }
+      }
+      current_project_media {
+        id
+        dbid
+        relationships
+      }
     }`;
   }
 
   getOptimisticResponse() {
     return {
-      source_project_media: {
-        id: this.props.target.id, relationships: { targets_count: 1, sources_count: 0 },
-      },
-      target_project_media: {
-        id: this.props.source.id, relationships: { targets_count: 0, sources_count: 1 },
+      relationship: {
+        id: this.props.id,
+        source_id: this.props.target.dbid,
+        target_id: this.props.source.dbid,
+        source: {
+          id: this.props.target.id,
+          dbid: this.props.target.dbid,
+        },
+        target: {
+          id: this.props.source.id,
+          dbid: this.props.source.dbid,
+        },
       },
     };
   }
@@ -38,8 +52,7 @@ class UpdateRelationshipMutation extends Relay.Mutation {
   getConfigs() {
     const ids = {
       relationship: this.props.id,
-      source_project_media: this.props.target.id,
-      target_project_media: this.props.source.id,
+      current_project_media: this.props.current.id,
     };
 
     return [
