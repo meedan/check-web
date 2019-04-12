@@ -26,6 +26,7 @@ class AutoCompleteMediaItem extends React.Component {
 
     this.state = {
       searchResult: [],
+      searching: false,
     };
 
     this.timer = null;
@@ -54,6 +55,11 @@ class AutoCompleteMediaItem extends React.Component {
   }
 
   search = (query) => {
+    if (query.length < 3 || this.state.searching) {
+      return;
+    }
+    this.setState({ searching: true });
+
     const { projectId } = this.props;
     // eslint-disable-next-line no-useless-escape
     const queryString = `{ \\"keyword\\":\\"${query}\\", \\"projects\\":[${projectId}] }`;
@@ -96,6 +102,7 @@ class AutoCompleteMediaItem extends React.Component {
 
     fetch(config.relayPath, init)
       .then((response) => {
+        this.setState({ searching: false });
         if (!response.ok) {
           throw Error(this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') }));
         }
@@ -120,7 +127,7 @@ class AutoCompleteMediaItem extends React.Component {
         }
         this.setState({ searchResult, message });
       })
-      .catch(error => this.setState({ message: error.message }));
+      .catch(error => this.setState({ message: error.message, searching: false }));
   };
 
   render() {
