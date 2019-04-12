@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
 import IconButton from 'material-ui/IconButton';
-import SwapVertIcon from '@material-ui/icons/SwapVert';
+import TransformIcon from '@material-ui/icons/Transform';
 import UpdateRelationshipMutation from '../../relay/mutations/UpdateRelationshipMutation';
 
 class PromoteItemButton extends React.Component {
@@ -43,7 +43,7 @@ class PromoteItemButton extends React.Component {
         }
         onClick={this.handleClick}
       >
-        <SwapVertIcon />
+        <TransformIcon />
       </IconButton>
     );
   }

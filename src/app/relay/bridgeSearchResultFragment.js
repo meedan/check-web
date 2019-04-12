@@ -16,6 +16,7 @@ const bridgeSearchResultFragment = Relay.QL`
           embed,
           archived,
           relationships { sources_count, targets_count },
+          relationship { id, dbid, source_id, target_id },
           assignments_progress,
           log_count,
           verification_statuses,
