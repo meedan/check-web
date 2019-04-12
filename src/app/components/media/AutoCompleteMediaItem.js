@@ -62,7 +62,7 @@ class AutoCompleteMediaItem extends React.Component {
 
     const { projectId } = this.props;
     // eslint-disable-next-line no-useless-escape
-    const queryString = `{ \\"keyword\\":\\"${query}\\", \\"projects\\":[${projectId}] }`;
+    const queryString = `{ \\"keyword\\":\\"${query}\\", \\"projects\\":[${projectId}], \\"eslimit\\":10 }`;
 
     const init = {
       body: JSON.stringify({
