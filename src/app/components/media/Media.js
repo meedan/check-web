@@ -34,7 +34,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
           target { id, dbid }
           target_id
         }
-        targets(first: 50) {
+        targets_by_users(first: 50) {
           edges {
             node {
               id
