@@ -2083,7 +2083,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Existing Team')).to be(true)
     end
 
-    it "should manage related items", bin5: true do
+    it "should manage related items bli", bin5: true do
       api_create_team_project_and_claim_and_redirect_to_media_page
       wait_for_selector('.create-related-media__add-button')
       expect(@driver.page_source.include?('Child Claim')).to be(false)
@@ -2097,14 +2097,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 5
       expect(@driver.page_source.include?('Child Claim')).to be(true)
       wait_for_selector('.project-header__back-button').click
-      expand = wait_for_selector('.card-with-border > div > div > div + button')
       expect(@driver.page_source.include?('Child Claim')).to be(false)
-      expect(@driver.page_source.include?('1 related')).to be(false)
+      expand = wait_for_selector('.card-with-border > div > div > div + button')
       expand.click
       sleep 5
       expect(@driver.page_source.include?('Child Claim')).to be(true)
-      expect(@driver.page_source.include?('1 related')).to be(true)
-      sleep 5
     end
 
     it "should search map in geolocation task", bin3: true do

@@ -1,7 +1,7 @@
 {
   "findTeamCard.teamSlugHint": "en-tête de l'équipe",
   "findTeamCard.teamNotFound": "Équipe introuvable",
-  "findTeamCard.mainHeading": "Trouver une équipe actuelle",
+  "findTeamCard.mainHeading": "Trouver une équipe existante",
   "findTeamCard.blurb": "Demandez de rejoindre une équipe existante en ajoutant son nom ici, ou commencez en créant la vôtre.",
   "findTeamCard.url": "URL de l'équipe",
   "findTeamCard.submitButton": "Trouver une équipe",

@@ -1,7 +1,7 @@
 {
-  "teamMenu.listView": "List view",
-  "teamMenu.denseView": "Compact view",
-  "teamMenu.editTeam": "Edit team",
+  "teamMenu.listView": "Vizualizare listă",
+  "teamMenu.denseView": "Vizualizare compactă",
+  "teamMenu.editTeam": "Redactează echipa",
   "teamMenu.teamSettings": "Setările echipei",
-  "teamMenu.trash": "View trash"
+  "teamMenu.trash": "Vezi coșul"
 }

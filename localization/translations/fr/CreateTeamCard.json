@@ -11,5 +11,5 @@
   "createTeam.displayName": "Nom de l'équipe",
   "createTeam.url": "URL de l'équipe",
   "createTeam.submitButton": "Créer",
-  "createTeam.requestToJoin": "Vous pouvez aussi joindre une équipe actuelle."
+  "createTeam.requestToJoin": "Vous pouvez aussi joindre une équipe existante."
 }

@@ -1,11 +1,11 @@
 {
-  "teamTags.failUpdate": "Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists.",
-  "teamTags.failDelete": "Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists.",
-  "teamTags.failMove": "Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists.",
-  "teamTags.fail": "Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists.",
+  "teamTags.failUpdate": "Ne pare rău, în timpul actualizării etichetei s-a produs o eroare. Vă rugăm să mai încercați odată și să contactați {supportEmail} dacă situația persistă.",
+  "teamTags.failDelete": "Ne pare rău, în timpul actualizării etichetei s-a produs o eroare. Vă rugăm să mai încercați odată și să contactați {supportEmail} dacă situația persistă.",
+  "teamTags.failMove": "Ne pare rău, în timpul actualizării etichetei s-a produs o eroare. Vă rugăm să mai încercați odată și să contactați {supportEmail} dacă situația persistă.",
+  "teamTags.fail": "Ne pare rău, în timpul actualizării etichetei s-a produs o eroare. Vă rugăm să mai încercați odată și să contactați {supportEmail} dacă situația persistă.",
   "teamTags.editTag": "Editează eticheta",
   "teamTags.deleteTag": "Șterge eticheta",
-  "teamTags.moveTag": "Move to teamwide tags",
+  "teamTags.moveTag": "Mută în etichetele echipei",
   "teamTags.itemsCount": "{count, plural, =0 {no items} one {1 item} other {# items}}",
   "teamTags.cancelDelete": "Anulează",
   "teamTags.continue": "Continuă",
@@ -13,11 +13,11 @@
   "teamTags.counterNoHidden": "{total, plural, =0 {No tags} one {1 tag} other {# tags}}",
   "teamTags.tags": "Etichete",
   "teamTags.tooltip": "Filtrează și sortează lista",
-  "teamTags.teamwideTags": "Team tags",
-  "teamTags.noTeamwideTags": "No team tags.",
+  "teamTags.teamwideTags": "Etichetele echipei",
+  "teamTags.noTeamwideTags": "Nu există etichete ale echipei.",
   "teamTags.new": "Etichetă nouă",
   "teamTags.addTag": "Adaugă etichetă",
-  "teamTags.customTags": "Custom tags",
-  "teamTags.noCustomTags": "No custom tags.",
-  "teamTags.confirmDeleteTitle": "Are you sure you want to delete this tag?"
+  "teamTags.customTags": "Etichete individualizate",
+  "teamTags.noCustomTags": "Nu există etichete individualizate.",
+  "teamTags.confirmDeleteTitle": "Sigur doriți să ștergeți această etichetă?"
 }

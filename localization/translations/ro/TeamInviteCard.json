@@ -1,6 +1,6 @@
 {
-  "teamInviteCard.title": "Build Your Team",
-  "teamMembersComponent.inviteLink": "To invite colleagues to join {teamName}, send them this link:",
-  "teamInviteCard.copy": "COPIED!",
-  "teamInviteCard.copied": "COPY"
+  "teamInviteCard.title": "Formați echipa dvs",
+  "teamMembersComponent.inviteLink": "Pentru a invita colegii să se alăture echipei {teamName}, trimiteți-le acest link:",
+  "teamInviteCard.copy": "COPIAT!",
+  "teamInviteCard.copied": "COPIE"
 }

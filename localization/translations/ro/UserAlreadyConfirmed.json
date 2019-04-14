@@ -1,5 +1,5 @@
 {
-  "userAlreadyConfirmed.heading": "Account Already Confirmed",
-  "userAlreadyConfirmed.message": "Oops! Your account is already confirmed. Please {login} to get started.",
-  "userAlreadyConfirmed.login": "login"
+  "userAlreadyConfirmed.heading": "Cont deja confirmat",
+  "userAlreadyConfirmed.message": "Oops! Contul dvs. a fost deja confirmat. Vă rugăm {login} pentru a începe.",
+  "userAlreadyConfirmed.login": "conectați-vă"
 }

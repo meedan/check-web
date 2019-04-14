@@ -20,7 +20,7 @@ class ProjectMenu extends Component {
   handleToggleViewClick() {
     const { history } = new CheckContext(this).getContextStore();
     const searchQuery = searchQueryFromUrl();
-    const targetView = this.props.children.props.route.view === 'dense' ?
+    const targetView = window.storage.getValue('view-mode') === 'dense' ?
       'list' : 'dense';
     const prefix = window.location.pathname.match(/.*\/project\/\d+/)[0];
 
@@ -39,10 +39,10 @@ class ProjectMenu extends Component {
       </SmallerStyledIconButton>
     );
 
-    const viewIcon = this.props.children.props.route.view === 'dense' ?
+    const viewIcon = window.storage.getValue('view-mode') === 'dense' ?
       <ViewListIcon /> : <ViewComfyIcon />;
 
-    const viewTooltip = this.props.children.props.route.view === 'dense'
+    const viewTooltip = window.storage.getValue('view-mode') === 'dense'
       ? <FormattedMessage id="projectMenuRelay.listView" defaultMessage="List view" />
       : <FormattedMessage id="projectMenuRelay.denseView" defaultMessage="Compact view" />;
 

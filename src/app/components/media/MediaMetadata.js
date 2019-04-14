@@ -9,6 +9,8 @@ import { Link } from 'react-router';
 import Tooltip from 'rc-tooltip';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
+import BreakRelationshipButton from './BreakRelationshipButton';
+import PromoteItemButton from './PromoteItemButton';
 import MediaTags from './MediaTags';
 import MediaActions from './MediaActions';
 import MediaUtil from './MediaUtil';
@@ -30,6 +32,7 @@ import { stringHelper } from '../../customHelpers';
 import {
   Row,
   black10,
+  black54,
   black87,
   title1,
   units,
@@ -65,6 +68,10 @@ const StyledMetadata = styled.div`
     display: flex;
     alignItems: center;
     margin-${props => props.fromDirection}: auto;
+  }
+
+  svg {
+    color: ${black54};
   }
 `;
 
@@ -578,6 +585,11 @@ class MediaMetadata extends Component {
       assignmentComponents.push(<ProfileLink user={assignment.node} team={media.team} />);
     });
 
+    let isChild = false;
+    if (media.relationships && media.relationship && media.relationship.target_id === media.dbid) {
+      isChild = true;
+    }
+
     return (
       <StyledMetadata
         fromDirection={fromDirection}
@@ -615,7 +627,20 @@ class MediaMetadata extends Component {
             </span>
             : null}
 
+          {/* TODO: extract to media detail controls component */}
           <div className="media-detail__buttons">
+            <PromoteItemButton
+              hidden={!isChild}
+              media={media}
+              currentRelatedMedia={this.props.currentRelatedMedia}
+            />
+
+            <BreakRelationshipButton
+              hidden={!isChild}
+              media={media}
+              currentRelatedMedia={this.props.currentRelatedMedia}
+            />
+
             <TagMenu media={media} />
 
             {this.props.readonly || this.state.isEditing ?

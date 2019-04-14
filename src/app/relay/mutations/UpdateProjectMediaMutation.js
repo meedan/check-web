@@ -1,4 +1,5 @@
 import Relay from 'react-relay/classic';
+import optimisticProjectMedia from './optimisticProjectMedia';
 
 class UpdateProjectMediaMutation extends Relay.Mutation {
   getMutation() {
@@ -25,6 +26,9 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         check_search_team { id },
         check_search_project { id, number_of_results },
         check_search_project_was { id, number_of_results },
+        related_to { id, relationships, log, log_count },
+        relationships_target { id },
+        relationships_source { id },
         project_media {
           project_id,
           overridden,
@@ -82,6 +86,13 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         },
       };
     }
+    if (this.props.related_to_id && this.props.obj) {
+      return optimisticProjectMedia(
+        this.props.obj.text,
+        this.props.project,
+        {},
+      );
+    }
     return {};
   }
 
@@ -90,6 +101,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
       id: this.props.id,
       embed: this.props.embed,
       project_id: this.props.project_id,
+      related_to_id: this.props.related_to_id,
       refresh_media: this.props.refresh_media,
       update_mt: this.props.update_mt,
       archived: this.props.archived,
@@ -133,6 +145,35 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         ],
       },
     ];
+
+    if (this.props.related_to_id) {
+      configs.push({
+        type: 'FIELDS_CHANGE',
+        fieldIDs: { related_to: this.props.related_to.id },
+      });
+
+      configs.push({
+        type: 'RANGE_ADD',
+        parentName: 'relationships_target',
+        parentID: this.props.relationships_target_id,
+        connectionName: 'targets',
+        edgeName: 'project_mediaEdge',
+        rangeBehaviors: {
+          '': 'prepend',
+        },
+      });
+
+      configs.push({
+        type: 'RANGE_ADD',
+        parentName: 'relationships_source',
+        parentID: this.props.relationships_source_id,
+        connectionName: 'siblings',
+        edgeName: 'project_mediaEdge',
+        rangeBehaviors: {
+          '': 'prepend',
+        },
+      });
+    }
 
     if (this.props.srcProj) {
       configs.push({

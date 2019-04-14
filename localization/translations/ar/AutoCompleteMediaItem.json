@@ -1,0 +1,6 @@
+{
+  "autoCompleteMediaItem.searching": "البحث جارٍ...",
+  "autoCompleteMediaItem.notFound": "‏‏لم يتم العثور على عناصر مطابقة",
+  "autoCompleteMediaItem.error": "عذراً ، لقد واجهنا خطأ ما اثناء البحث. من فضلك أعد المحاولة وتواصل مع {supportEmail} إن استمرت المشكلة.",
+  "autoCompleteMediaItem.searchItem": "بحث"
+}

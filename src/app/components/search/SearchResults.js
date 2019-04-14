@@ -56,7 +56,7 @@ const StyledSearchResultsWrapper = styled.div`
     padding-bottom: 0 0 ${units(2)};
 
     .results li {
-      margin-top: ${units(1)};
+      margin-top: 0;
       list-style-type: none;
     }
 
@@ -313,7 +313,7 @@ class SearchResultsComponent extends React.Component {
       />
     );
 
-    const viewMode = window.location.pathname.match(/dense\/*.*$/) ? 'dense' : 'list';
+    const viewMode = window.storage.getValue('view-mode');
 
     const view = {
       dense: item => (

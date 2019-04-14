@@ -1,6 +1,6 @@
 {
-  "teamMembersComponent.pendingInvitations": "Pending invitations",
-  "teamMembershipRequests.requestsToJoin": "Requests to join",
+  "teamMembersComponent.pendingInvitations": "Invitații în așteptare",
+  "teamMembershipRequests.requestsToJoin": "Solicitările de a se alătura",
   "teamMembersComponent.mainHeading": "Membrii",
   "teamMembersComponent.editDoneButton": "Terminat",
   "teamMembersComponent.editButton": "Editează"

@@ -1,7 +1,7 @@
 {
-  "userAssignments.filterByTeam": "Filter by team",
-  "userAssignments.progress": "{answered} required tasks answered, out of {total}",
-  "userAssignments.yourAssignments": "Your assignments",
-  "userAssignments.userAssignments": "{name}'s assignments",
-  "userAssignments.blank": "No activity"
+  "userAssignments.filterByTeam": "Filtrați după echipă",
+  "userAssignments.progress": "{answered} sarcini obligatorii cu răspuns, din {total}",
+  "userAssignments.yourAssignments": "Sarcinile atribuite dvs",
+  "userAssignments.userAssignments": "Sarcinile atribuite lui {name}",
+  "userAssignments.blank": "Nicio activitate"
 }

@@ -1,8 +1,8 @@
 {
-  "mediaTags.language": "language: {language}",
-  "translation.translationText": "Translation text",
-  "translation.translationNote": "Note",
-  "translation.cancelEdit": "Cancel",
-  "translation.submit": "Submit",
-  "translation.edit": "Edit translation"
+  "mediaTags.language": "limba: {language}",
+  "translation.translationText": "Textul traducerii",
+  "translation.translationNote": "Not",
+  "translation.cancelEdit": "Anulare",
+  "translation.submit": "Trimite",
+  "translation.edit": "Redactează traducerea"
 }

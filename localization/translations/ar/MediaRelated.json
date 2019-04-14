@@ -1,4 +1,4 @@
 {
-  "mediaRelated.relatedItems": "العناصر ذات صلة",
-  "mediaRelated.counter": "{total, number} عناصر ذات صلة ({hidden, number} مخفية من عوامل التصفية)"
+  "mediaRelated.relatedItems": "العناصر المرتبطة",
+  "mediaRelated.counter": "{total, number} عناصر مرتبطة ({hidden, number} مخفية من عوامل التصفية)"
 }

@@ -1,5 +1,5 @@
 {
-  "teamInviteMembers.resendEmailSuccess": "Invitation was sent successfully",
-  "TeamMembersInvitedListItem.cancel": "Cancel invite",
-  "TeamMembersInvitedListItem.resend": "Resend"
+  "teamInviteMembers.resendEmailSuccess": "Invitația s-a trimis cu succes",
+  "TeamMembersInvitedListItem.cancel": "Anulează invitația",
+  "TeamMembersInvitedListItem.resend": "Transmite repetat"
 }

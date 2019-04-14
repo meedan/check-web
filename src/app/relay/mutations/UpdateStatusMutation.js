@@ -23,7 +23,7 @@ class UpdateStatusMutation extends Relay.Mutation {
       return Relay.QL`fragment on UpdateDynamicPayload {
         dynamicEdge,
         project_media {
-          targets,
+          targets_by_users,
           log,
           id,
           last_status,
@@ -73,9 +73,9 @@ class UpdateStatusMutation extends Relay.Mutation {
           deadline,
         },
       };
-      if (smoochBotInstalled && media.targets && media.targets.edges.length > 0) {
+      if (smoochBotInstalled && media.targets_by_users && media.targets_by_users.edges.length > 0) {
         const targets = [];
-        media.targets.edges.forEach((target) => {
+        media.targets_by_users.edges.forEach((target) => {
           const node = {
             id: target.node.id,
             dbid: 0,
@@ -83,7 +83,7 @@ class UpdateStatusMutation extends Relay.Mutation {
           };
           targets.push({ node });
         });
-        obj.project_media.targets = { edges: targets };
+        obj.project_media.targets_by_users = { edges: targets };
       }
       return obj;
     }
