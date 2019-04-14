@@ -29,6 +29,14 @@ class PromoteItemButton extends React.Component {
       }),
       { onFailure },
     );
+
+    if (/\/project\/[0-9-]+\/media\/[0-9]+$/.test(window.location.pathname)) {
+      const currentMediaId = window.location.pathname.match(/[0-9]+$/)[0];
+      if (target.dbid !== parseInt(currentMediaId, 10)) {
+        const path = window.location.pathname.replace(/[0-9]+$/, target.dbid);
+        window.setTimeout(() => { this.context.router.push(path); }, 1000);
+      }
+    }
   };
 
   render() {
@@ -51,6 +59,7 @@ class PromoteItemButton extends React.Component {
 
 PromoteItemButton.contextTypes = {
   setMessage: PropTypes.func,
+  router: PropTypes.object,
 };
 
 export default PromoteItemButton;
