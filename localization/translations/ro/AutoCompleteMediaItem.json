@@ -1,6 +1,6 @@
 {
-  "autoCompleteMediaItem.searching": "Searching...",
-  "autoCompleteMediaItem.notFound": "No matches found",
-  "autoCompleteMediaItem.error": "Sorry, an error occurred while searching. Please try again and contact {supportEmail} if the condition persists.",
-  "autoCompleteMediaItem.searchItem": "Search"
+  "autoCompleteMediaItem.searching": "Se efectuează căutarea...",
+  "autoCompleteMediaItem.notFound": "Nu am găsit nicio potrivire",
+  "autoCompleteMediaItem.error": "Ne pare rău, în timpul căutării s-a produs o eroare. Vă rugăm să mai încercați odată și să contactați {supportEmail} dacă situația persistă.",
+  "autoCompleteMediaItem.searchItem": "Căutare"
 }

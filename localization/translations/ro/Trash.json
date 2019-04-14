@@ -1,11 +1,11 @@
 {
-  "trash.title": "Coș de gunoi",
+  "trash.title": "Coș",
   "trash.refresh": "Actualizați acum",
-  "trash.emptyInProgress": "Empty trash operation is in progress. Please check back later. {refresh}",
+  "trash.emptyInProgress": "Se realizează operațiunea de golire a coșului. Vă rugăm să reveniți mai târziu. {refresh}",
   "trash.cancel": "Anulează",
   "trash.deleteAll": "Ștergeți tot",
-  "trash.emptyTrash": "Golește coșul de gunoi",
-  "trash.emptyTrashConfirmationText": "Are you sure? This will permanently delete {itemsCount, plural, =0 {0 items} one {1 item} other {# items}} and {notesCount, plural, =0 {0 annotations} one {1 annotation} other {# annotations}}. Type \"confirm\" if you want to proceed.",
-  "trash.confirmationError": "Did not match",
+  "trash.emptyTrash": "Golire coș",
+  "trash.emptyTrashConfirmationText": "Sigur? Aceasta va șterge definitiv {itemsCount, plural, =0 {0 items} one {1 item} other {# items}} and {notesCount, plural, =0 {0 annotations} one {1 annotation} other {# annotations}}. Tastați \"confirm\" dacă doriți să continuați.",
+  "trash.confirmationError": "Nu a corespuns",
   "trash.typeHere": "Scrie aici"
 }

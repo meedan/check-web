@@ -1,10 +1,10 @@
 {
-  "userTos.tosLink": "Termenii serviciului",
+  "userTos.tosLink": "Termeni de utilizare",
   "userTos.ppLink": "Politica de confidențialitate",
-  "userTos.title": "Terms of Service and Privacy Policy",
-  "userTos.disclaimer": "Please review our {tosLink} and our {ppLink} and consent to the following:",
-  "userTos.titleUpdated": "Updated Terms and Privacy Policy",
-  "userTos.disclaimerUpdate": "We've updated our {tosLink} and our {ppLink}. Please review and consent to the following:",
+  "userTos.title": "Termenii de utilizare și politica de confidențialitate",
+  "userTos.disclaimer": "Vă rugăm să analizați {tosLink} și {ppLink} și dați acordul pentru următoarele:",
+  "userTos.titleUpdated": "Termenii de utilizare și politica de confidențialitate actualizate",
+  "userTos.disclaimerUpdate": "Am actualizat {tosLink} și {ppLink}. Vă rugăm să le analizați și să dați acordul pentru următoarele:",
   "userTos.agreeTos": "Sunt de acord cu Termenii serviciului.",
-  "userTos.agreePp": "I agree that Meedan may process personal information I choose to share, including information revealing my racial or ethnic origin, political opinions, religious or philosophical beliefs, trade-union membership, photographs, or information on my sexual orientation. Such information will be deleted if I delete my account as stated in the Privacy Policy."
+  "userTos.agreePp": "Sunt de acord că Meedan poate procesa informațiile personale pe care eu aleg să le partajez, inclusiv informații ce dezvăluie originea mea rasială sau etnică, opiniile politice, religioase sau filosofice, calitatea de membru de sindicate, fotografiile sau informațiile privind orientarea mea sexuală. Aceste informații vor fi șterse dacă eu șterg contul meu, așa cum este stipulat în Politica de confidențialitate."
 }
