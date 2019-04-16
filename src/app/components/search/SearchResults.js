@@ -259,6 +259,15 @@ class SearchResultsComponent extends React.Component {
     const count = this.props.search ? this.props.search.number_of_results : 0;
     const team = this.props.search.team || this.currentContext().team;
 
+    let smoochBotInstalled = false;
+    if (team && team.team_bot_installations) {
+      team.team_bot_installations.edges.forEach((edge) => {
+        if (edge.node.team_bot.identifier === 'smooch') {
+          smoochBotInstalled = true;
+        }
+      });
+    }
+
     const hasMore = (searchResults.length < count);
 
     const mediasCount =
@@ -333,6 +342,7 @@ class SearchResultsComponent extends React.Component {
             selected={this.state.selectedMedia.indexOf(item.id) > -1}
             onSelect={this.onSelect.bind(this)}
             parentComponent={this}
+            smoochBotInstalled={smoochBotInstalled}
           /> : <SourceCard source={item} />
       ),
     };
