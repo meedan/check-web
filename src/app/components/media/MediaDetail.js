@@ -235,7 +235,7 @@ class MediaDetail extends Component {
     const annotationsCount = UserUtil.myRole(currentUser, media.team.slug) === 'annotator' ?
       null : MediaUtil.notesCount(media, data, this.props.intl);
     const status = getStatus(mediaStatuses(media), mediaLastStatus(media));
-    const readonlyStatus = this.props.parentComponentName === 'MediaRelated' && smoochBotInstalled && isChild;
+    const readonlyStatus = smoochBotInstalled && isChild;
     const cardHeaderStatus = (
       <MediaStatus
         media={media}
@@ -461,7 +461,10 @@ class MediaDetail extends Component {
             /> : null }
         </Card>
         { this.state.expanded && !this.props.hideRelated ?
-          <MediaRelatedTree media={this.props.media} /> : null }
+          <MediaRelatedTree
+            media={this.props.media}
+            smoochBotInstalled={smoochBotInstalled}
+          /> : null }
       </CardWithBorder>
     );
   }

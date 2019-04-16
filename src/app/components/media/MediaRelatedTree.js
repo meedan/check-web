@@ -61,7 +61,11 @@ const StyledTree = styled.div`
 const MediaRelatedTree = props => (
   <FlexRow>
     <StyledTree>
-      <MediaRelated media={props.media} showNumbers />
+      <MediaRelated
+        media={props.media}
+        smoochBotInstalled={props.smoochBotInstalled}
+        showNumbers
+      />
     </StyledTree>
   </FlexRow>
 );
