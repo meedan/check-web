@@ -297,6 +297,13 @@ class SearchResultsComponent extends React.Component {
 
     const query = Object.assign({}, searchQueryFromUrl());
     const offset = query.esoffset ? parseInt(query.esoffset, 10) : 0;
+    let to = searchResults.length;
+    if (to < offset + pageSize) {
+      to = offset + pageSize;
+    }
+    if (to > count) {
+      to = count;
+    }
     const mediasCount =
       this.state.selectedMedia.length ?
         (
@@ -305,7 +312,7 @@ class SearchResultsComponent extends React.Component {
             defaultMessage="{total, plural, =0 {No items} one {1 item} other {{from} - {to} of # items}} {selectedCount, plural, =0 {} one {(1 selected)} other {(# selected)}}"
             values={{
               from: offset + 1,
-              to: offset + searchResults.length,
+              to,
               total: count,
               selectedCount: this.state.selectedMedia.length,
             }}
@@ -318,7 +325,7 @@ class SearchResultsComponent extends React.Component {
               defaultMessage="{total, plural, =0 {No items} one {1 item} other {{from} - {to} of # items}}"
               values={{
                 from: offset + 1,
-                to: offset + searchResults.length,
+                to,
                 total: count,
               }}
             />
