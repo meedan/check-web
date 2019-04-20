@@ -1234,6 +1234,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.medias__item')
       @driver.execute_script('window.close()')
       @driver.switch_to.window(current_window)
+      sleep 30
       wait_for_selector('.medias__item')
       expect(@driver.page_source.include?('Auto-Refresh')).to be(true)
     end
@@ -1371,7 +1372,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Go to the second project, make sure that there is no claim, and thus store the data in local Relay store
       wait_for_selector('.header-actions__drawer-toggle', :css).click
-      sleep 2
       wait_for_selector('.project-list__link + .project-list__link', :css).click
       sleep 10
       expect(@driver.page_source.include?(claim)).to be(false)
@@ -1381,37 +1381,30 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Create a claim under project 2
       wait_for_selector("create-media__add-item", :id).click
       wait_for_selector('create-media__quote', :id).click
-      sleep 1
       @driver.action.send_keys(claim).perform
       @driver.action.send_keys(:enter).perform
-      sleep 10
+      sleep 20
 
       # Go to the second project, make sure that the claim is there
       wait_for_selector('.header-actions__drawer-toggle', :css).click
-      sleep 2
       wait_for_selector('.project-list__link + .project-list__link', :css).click
-      sleep 10
       expect(@driver.page_source.include?(claim)).to be(true)
       expect(@driver.page_source.include?('1 item')).to be(true)
       expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(false)
 
       # Move the claim to another project
       wait_for_selector('.card-with-border > div > div > div + button svg', :css).click
-      sleep 2
       wait_for_selector('.media-actions__icon', :css).click
-      sleep 2
       move = wait_for_selector('.media-actions__move', :css)
       move.location_once_scrolled_into_view
       move.click
-      sleep 2
       move = wait_for_selector('input[name=moveMedia]', :css)
       move.location_once_scrolled_into_view
       move.click
-      sleep 2
       move = wait_for_selector('.media-detail__move-button', :css)
       move.location_once_scrolled_into_view
       move.click
-      sleep 10
+      sleep 30
 
       # Check if the claim is under the first project, which we should have been redirected to
       expect(@driver.current_url.to_s == p1url).to be(true)
@@ -1421,9 +1414,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Go back to the second project and make sure that the claim is not there anymore
       wait_for_selector('.header-actions__drawer-toggle', :css).click
-      sleep 2
       wait_for_selector('.project-list__link + .project-list__link', :css).click
-      sleep 15
+      sleep 10
       expect(@driver.page_source.include?('1 item')).to be(false)
       expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(true)
 
@@ -1839,9 +1831,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       results = @driver.find_elements(:css, '.medias__item')
       expect(results.size == 40).to be(true)
       old = results.size
-      results.last.location_once_scrolled_into_view
+      wait_for_selector(".search__next-page").click
+      sleep 2
       size = wait_for_size_change(old, '.medias__item')
-      expect(size == 42).to be(true)
+      expect(size == 2).to be(true)
     end
 
     it "should show teams at /check/teams", bin1: true do
@@ -2072,18 +2065,18 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # redirect to /team-slug/join if team exists
       # /team-slug/join in turn redirects to team page because already member
       page = CreateTeamPage.new(config: @config, driver: @driver).load
-      page.create_team({ name: 'Existing Team', slug: 'existing-slug' })
+      page.create_team({ name: 'Existing Team', slug: 'slug-exists' })
 
       @driver.navigate.to @config['self_url'] + '/check/teams/find'
       el = wait_for_selector('.find-team__submit-button', :css)
-      fill_field('#team-slug-container', 'existing-slug')
+      fill_field('#team-slug-container', 'slug-exists')
       el.click
       sleep 1
       wait_for_selector('.team__primary-info')
       expect(@driver.page_source.include?('Existing Team')).to be(true)
     end
 
-    it "should manage related items bli", bin5: true do
+    it "should manage related items", bin5: true do
       api_create_team_project_and_claim_and_redirect_to_media_page
       wait_for_selector('.create-related-media__add-button')
       expect(@driver.page_source.include?('Child Claim')).to be(false)

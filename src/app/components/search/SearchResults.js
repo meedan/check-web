@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
-import InfiniteScroll from 'react-infinite-scroller';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import sortby from 'lodash.sortby';
 import isEqual from 'lodash.isequal';
 import styled from 'styled-components';
-import { searchQueryFromUrl } from './Search';
+import NextIcon from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
+import PrevIcon from 'material-ui/svg-icons/hardware/keyboard-arrow-left';
+import { searchQueryFromUrl, urlFromSearchQuery } from './Search';
 import SearchQuery from './SearchQuery';
 import Toolbar from './Toolbar';
 import BulkActions from '../media/BulkActions';
@@ -32,7 +33,7 @@ const pageSize = 20;
 const messages = defineMessages({
   searchResults: {
     id: 'search.results',
-    defaultMessage: '{resultsCount, plural, =0 {No items} one {1 item} other {{loadedCount} of # items}}',
+    defaultMessage: '{total, plural, =0 {No items} one {1 item} other {{from} - {to} of # items}}',
   },
   newTranslationRequestNotification: {
     id: 'search.newTranslationRequestNotification',
@@ -48,7 +49,7 @@ const messages = defineMessages({
   },
   searchResultsWithSelection: {
     id: 'search.resultsWithSelection',
-    defaultMessage: '{resultsCount, plural, =0 {No items} one {1 item} other {{loadedCount} of # items}} {selectedCount, plural, =0 {} one {(1 selected)} other {(# selected)}}',
+    defaultMessage: '{total, plural, =0 {No items} one {1 item} other {{from} - {to} of # items}} {selectedCount, plural, =0 {} one {(1 selected)} other {(# selected)}}',
   },
 });
 
@@ -64,8 +65,16 @@ const StyledSearchResultsWrapper = styled.div`
     color: ${black87};
     font-size: larger;
     font-weight: bolder;
-    margin-top: ${units(3)};
     text-align: center;
+    display: flex;
+    align-items: center;
+
+    .search__nav {
+      margin: 0 ${units(1)};
+      display: flex;
+      cursor: pointer;
+      color: ${black87};
+    }
   }
 
   .dense {
@@ -78,6 +87,7 @@ const StyledSearchResultsWrapper = styled.div`
   }
 `;
 
+/* eslint jsx-a11y/click-events-have-key-events: 0 */
 class SearchResultsComponent extends React.Component {
   static mergeResults(medias, sources) {
     if (medias.length === 0 && sources.length === 0) {
@@ -158,6 +168,40 @@ class SearchResultsComponent extends React.Component {
 
   getContext() {
     return new CheckContext(this);
+  }
+
+  setOffset(offset) {
+    const team = this.props.search.team || this.currentContext().team;
+    const project = this.props.project || this.currentContext().project;
+    const viewMode = window.storage.getValue('view-mode');
+    const query = Object.assign({}, searchQueryFromUrl());
+    query.esoffset = offset;
+
+    const url = urlFromSearchQuery(
+      query,
+      project
+        ? `/${team.slug}/project/${project.dbid}/${viewMode}`
+        : `/${team.slug}/search/${viewMode}`,
+    );
+
+    this.getContext().getContextStore().history.push(url);
+  }
+
+  previousPage() {
+    const query = Object.assign({}, searchQueryFromUrl());
+    const offset = query.esoffset ? parseInt(query.esoffset, 10) : 0;
+    if (offset > 0) {
+      this.setOffset(offset - pageSize);
+    }
+  }
+
+  nextPage() {
+    const count = this.props.search ? this.props.search.number_of_results : 0;
+    const query = Object.assign({}, searchQueryFromUrl());
+    const offset = query.esoffset ? parseInt(query.esoffset, 10) : 0;
+    if (offset + pageSize < count) {
+      this.setOffset(offset + pageSize);
+    }
   }
 
   currentContext() {
@@ -242,15 +286,6 @@ class SearchResultsComponent extends React.Component {
     }
   }
 
-  loadMore() {
-    const { medias, sources } = this.props.search;
-
-    this.props.relay.setVariables({
-      pageSize: (medias ? medias.edges.length : 0) +
-      (sources ? sources.edges.length : 0) + pageSize,
-    });
-  }
-
   render() {
     const medias = this.props.search.medias ? this.props.search.medias.edges : [];
     const sources = this.props.search.sources ? this.props.search.sources.edges : [];
@@ -268,18 +303,20 @@ class SearchResultsComponent extends React.Component {
       });
     }
 
-    const hasMore = (searchResults.length < count);
-
+    const query = Object.assign({}, searchQueryFromUrl());
+    const offset = query.esoffset ? parseInt(query.esoffset, 10) : 0;
     const mediasCount =
       this.state.selectedMedia.length ?
         this.props.intl.formatMessage(messages.searchResultsWithSelection, {
-          loadedCount: searchResults.length,
-          resultsCount: count,
+          from: offset + 1,
+          to: offset + searchResults.length,
+          total: count,
           selectedCount: this.state.selectedMedia.length,
         }) :
         this.props.intl.formatMessage(messages.searchResults, {
-          loadedCount: searchResults.length,
-          resultsCount: count,
+          from: offset + 1,
+          to: offset + searchResults.length,
+          total: count,
         });
 
 
@@ -316,7 +353,17 @@ class SearchResultsComponent extends React.Component {
             onSelectAll={this.onSelectAll.bind(this)}
             onUnselectAll={this.onUnselectAll.bind(this)}
           /> : null}
-        title={<span className="search__results-heading">{mediasCount}</span>}
+        title={
+          <span className="search__results-heading">
+            <span className="search__count">{mediasCount}</span>
+            <span className="search__previous-page search__nav" onClick={this.previousPage.bind(this)}>
+              <PrevIcon />
+            </span>
+            <span className="search__next-page search__nav" onClick={this.nextPage.bind(this)}>
+              <NextIcon />
+            </span>
+          </span>
+        }
         project={isProject ? this.currentContext().project : null}
         addons={this.props.toolbarAddons}
       />
@@ -352,14 +399,12 @@ class SearchResultsComponent extends React.Component {
       content = <ProjectBlankState project={this.currentContext().project} />;
     } else {
       content = (
-        <InfiniteScroll hasMore={hasMore} loadMore={this.loadMore.bind(this)} threshold={500}>
-          <div className={`search__results-list results medias-list ${viewMode}`}>
-            {searchResults.map(item => (
-              <li key={item.node.id} className="medias__item">
-                { view[viewMode](item.node) }
-              </li>))}
-          </div>
-        </InfiniteScroll>
+        <div className={`search__results-list results medias-list ${viewMode}`}>
+          {searchResults.map(item => (
+            <li key={item.node.id} className="medias__item">
+              { view[viewMode](item.node) }
+            </li>))}
+        </div>
       );
     }
 

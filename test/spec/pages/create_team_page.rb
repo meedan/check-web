@@ -16,14 +16,12 @@ class CreateTeamPage < Page
     end
     name = options[:name] || "Team #{Time.now}"
     slug = options[:slug] || "team#{Time.now.to_i}#{Process.pid}"
-    element('#team-name-container').click
-    fill_input('#team-name-container', name)
-    sleep 1 # TODO: better soft keyboard strategies
-    element('#team-slug-container').click
-    sleep 1 # TODO: better soft keyboard strategies
-    element('#team-slug-container').clear
-    sleep 1 # TODO: better soft keyboard strategies
-    fill_input('#team-slug-container', slug)
+    fill_field('#team-name-container', name)
+    input = element('#team-slug-container')
+    input.click
+    sleep 5
+    input.clear
+    fill_field('#team-slug-container', slug)
     sleep 1
     click_button('.create-team__submit-button > button')
     wait_for_selector('.team',:css,60)

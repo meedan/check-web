@@ -238,9 +238,11 @@ class SearchQueryComponent extends React.Component {
 
   handleApplyFilters() {
     const viewMode = this.props.view ? `/${this.props.view}` : '';
+    const { query } = this.state;
+    query.esoffset = 0;
 
     const url = urlFromSearchQuery(
-      this.state.query,
+      query,
       this.props.project
         ? `/${this.props.team.slug}/project/${this.props.project.dbid}${viewMode}`
         : `/${this.props.team.slug}/search${viewMode}`,
