@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
-import { defineMessages, injectIntl, intlShape } from 'react-intl';
+import { defineMessages, injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import sortby from 'lodash.sortby';
 import isEqual from 'lodash.isequal';
@@ -31,10 +31,6 @@ import bridgeDenseSearchResultFragment from '../../relay/bridgeDenseSearchResult
 const pageSize = 20;
 
 const messages = defineMessages({
-  searchResults: {
-    id: 'search.results',
-    defaultMessage: '{total, plural, =0 {No items} one {1 item} other {{from} - {to} of # items}}',
-  },
   newTranslationRequestNotification: {
     id: 'search.newTranslationRequestNotification',
     defaultMessage: 'New translation request',
@@ -46,10 +42,6 @@ const messages = defineMessages({
   newTranslationNotificationBody: {
     id: 'search.newTranslationNotificationBody',
     defaultMessage: 'An item was just marked as "translated"',
-  },
-  searchResultsWithSelection: {
-    id: 'search.resultsWithSelection',
-    defaultMessage: '{total, plural, =0 {No items} one {1 item} other {{from} - {to} of # items}} {selectedCount, plural, =0 {} one {(1 selected)} other {(# selected)}}',
   },
 });
 
@@ -307,18 +299,38 @@ class SearchResultsComponent extends React.Component {
     const offset = query.esoffset ? parseInt(query.esoffset, 10) : 0;
     const mediasCount =
       this.state.selectedMedia.length ?
-        this.props.intl.formatMessage(messages.searchResultsWithSelection, {
-          from: offset + 1,
-          to: offset + searchResults.length,
-          total: count,
-          selectedCount: this.state.selectedMedia.length,
-        }) :
-        this.props.intl.formatMessage(messages.searchResults, {
-          from: offset + 1,
-          to: offset + searchResults.length,
-          total: count,
-        });
-
+        (
+          <FormattedMessage
+            id="searchResults.withSelection"
+            defaultMessage="{total, plural, =0 {No items} one {1 item} other {{from} - {to} of # items}} {selectedCount, plural, =0 {} one {(1 selected)} other {(# selected)}}"
+            values={{
+              from: offset + 1,
+              to: offset + searchResults.length,
+              total: count,
+              selectedCount: this.state.selectedMedia.length,
+            }}
+          />
+        ) :
+        (
+          <span>
+            <FormattedMessage
+              id="searchResults.heading"
+              defaultMessage="{total, plural, =0 {No items} one {1 item} other {{from} - {to} of # items}}"
+              values={{
+                from: offset + 1,
+                to: offset + searchResults.length,
+                total: count,
+              }}
+            />
+            {' '}
+            <small style={{ fontWeight: 'normal' }}>
+              <FormattedMessage
+                id="searchResults.includingRelated"
+                defaultMessage="(including related items)"
+              />
+            </small>
+          </span>
+        );
 
     const isProject = /\/project\//.test(window.location.pathname);
 
