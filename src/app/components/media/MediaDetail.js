@@ -17,6 +17,7 @@ import MediaUtil from './MediaUtil';
 import ItemDeadline from './ItemDeadline';
 import CheckContext from '../../CheckContext';
 import UserUtil from '../user/UserUtil';
+import LayerIcon from '../icons/Layer';
 import { getStatus, getStatusStyle, bemClassFromMediaStatus } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
 import {
@@ -43,6 +44,10 @@ const messages = defineMessages({
   relatedCount: {
     id: 'mediaDetail.relatedCount',
     defaultMessage: '{relatedCount} related items',
+  },
+  child: {
+    id: 'mediaDetail.child',
+    defaultMessage: 'Related to another item',
   },
 });
 
@@ -339,16 +344,27 @@ class MediaDetail extends Component {
           <AlignOpposite>
             { isParent ?
               (
-                <RelationIcon toDirection={toDirection}>
-                  <LayersIcon
-                    titleAccess={
-                      this.props.intl.formatMessage(
-                        messages.relatedCount,
-                        { relatedCount: media.relationships.targets_count },
-                      )
-                    }
-                  />
-                </RelationIcon>
+                <span
+                  title={
+                    this.props.intl.formatMessage(
+                      messages.relatedCount,
+                      { relatedCount: media.relationships.targets_count },
+                    )
+                  }
+                >
+                  <RelationIcon toDirection={toDirection}>
+                    <LayersIcon />
+                  </RelationIcon>
+                </span>
+              ) : null
+            }
+            { isChild ?
+              (
+                <span title={this.props.intl.formatMessage(messages.child)}>
+                  <RelationIcon toDirection={toDirection}>
+                    <LayerIcon />
+                  </RelationIcon>
+                </span>
               ) : null
             }
           </AlignOpposite>

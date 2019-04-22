@@ -30,6 +30,7 @@ const checkDenseSearchResultFragment = Relay.QL`
           quote,
           overridden,
           relationships { sources_count, targets_count },
+          relationship { id, dbid, source_id, target_id },
           verification_statuses,
           project_id,
           permissions,

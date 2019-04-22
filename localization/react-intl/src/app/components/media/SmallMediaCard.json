@@ -2,5 +2,9 @@
   {
     "id": "smallMediaCard.relatedCount",
     "defaultMessage": "{relatedCount} related items"
+  },
+  {
+    "id": "smallMediaCard.child",
+    "defaultMessage": "Related to another item"
   }
 ]
