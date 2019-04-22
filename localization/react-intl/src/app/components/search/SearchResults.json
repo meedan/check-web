@@ -18,9 +18,5 @@
   {
     "id": "searchResults.heading",
     "defaultMessage": "{total, plural, =0 {No items} one {1 item} other {{from} - {to} of # items}}"
-  },
-  {
-    "id": "searchResults.includingRelated",
-    "defaultMessage": "(including related items)"
   }
 ]

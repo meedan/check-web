@@ -14,7 +14,6 @@ import TimeBefore from '../TimeBefore';
 import MediaStatus from './MediaStatus';
 import MediaExpanded from './MediaExpanded';
 import MediaUtil from './MediaUtil';
-import MediaRelatedTree from './MediaRelatedTree';
 import ItemDeadline from './ItemDeadline';
 import CheckContext from '../../CheckContext';
 import UserUtil from '../user/UserUtil';
@@ -460,11 +459,6 @@ class MediaDetail extends Component {
               sourceUrl={sourceUrl}
             /> : null }
         </Card>
-        { this.state.expanded && !this.props.hideRelated ?
-          <MediaRelatedTree
-            media={this.props.media}
-            smoochBotInstalled={smoochBotInstalled}
-          /> : null }
       </CardWithBorder>
     );
   }

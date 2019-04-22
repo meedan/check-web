@@ -329,13 +329,6 @@ class SearchResultsComponent extends React.Component {
                 total: count,
               }}
             />
-            {' '}
-            <small style={{ fontWeight: 'normal' }}>
-              <FormattedMessage
-                id="searchResults.includingRelated"
-                defaultMessage="(including related items)"
-              />
-            </small>
           </span>
         );
 
