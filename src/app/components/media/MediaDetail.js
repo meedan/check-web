@@ -39,11 +39,11 @@ import {
 const messages = defineMessages({
   progress: {
     id: 'mediaDetail.progress',
-    defaultMessage: '{answered} required tasks answered, out of {total}',
+    defaultMessage: '{answered, plural, =0 {No required task answered} one {1 required task answered} other {# required tasks answered}}, out of {total}',
   },
   relatedCount: {
     id: 'mediaDetail.relatedCount',
-    defaultMessage: '{relatedCount} related items',
+    defaultMessage: '{relatedCount, plural, =0 {} one {1 related item} other {# related items}}',
   },
   child: {
     id: 'mediaDetail.child',
