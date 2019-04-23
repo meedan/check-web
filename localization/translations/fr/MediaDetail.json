@@ -1,4 +1,5 @@
 {
   "mediaDetail.progress": "{answered, plural, =0 {Aucun tâche requise répondue} one {1 tâche requise répondue} other {# tâches requises répondues}}, sur {total}",
-  "mediaDetail.relatedCount": "{relatedCount, plural, =0 {} one {1 élément associé} other {# éléments associés}}"
+  "mediaDetail.relatedCount": "{relatedCount, plural, =0 {} one {1 élément associé} other {# éléments associés}}",
+  "mediaDetail.child": "Associé à un autre élément"
 }

@@ -1,3 +1,4 @@
 {
-  "smallMediaCard.relatedCount": "Связанных материалов: {relatedCount}"
+  "smallMediaCard.relatedCount": "Связанных материалов: {relatedCount}",
+  "smallMediaCard.child": "Related to another item"
 }

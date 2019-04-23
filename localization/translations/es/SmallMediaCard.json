@@ -1,3 +1,4 @@
 {
-  "smallMediaCard.relatedCount": "{relatedCount} ítems relacionados"
+  "smallMediaCard.relatedCount": "{relatedCount} ítems relacionados",
+  "smallMediaCard.child": "Relacionado con otro ítem "
 }

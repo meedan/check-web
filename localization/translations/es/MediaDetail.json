@@ -1,4 +1,5 @@
 {
   "mediaDetail.progress": "{answered, plural, =0 {Ninguna tarea requerida respondida} one {1 tarea requerida respondida} other {# tareas requeridas respondidas}}, de {total}",
-  "mediaDetail.relatedCount": "{relatedCount, plural, =0 {} one {1 ítem relacionado} other {# ítems relacionados}}"
+  "mediaDetail.relatedCount": "{relatedCount, plural, =0 {} one {1 ítem relacionado} other {# ítems relacionados}}",
+  "mediaDetail.child": "Relacionado con otro ítem "
 }
