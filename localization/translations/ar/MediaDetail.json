@@ -1,4 +1,5 @@
 {
-  "mediaDetail.progress": "تمت إجابة {answered} من {total} مهام مطلوبة",
-  "mediaDetail.relatedCount": "{relatedCount} عناصر مرتبطة"
+  "mediaDetail.progress": "{answered, plural, =0 {} one {مهمة إجبارية واحدة غير مجابة} other {# مهام إجبارية غير مجابة}} من أصل {total}",
+  "mediaDetail.relatedCount": "{relatedCount, plural, =0 {} one {عنصر واحد مرتبط} other {# عناصر مرتبطة}}",
+  "mediaDetail.child": "مرتبط مع عنصر آخر"
 }

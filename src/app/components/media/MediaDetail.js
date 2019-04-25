@@ -14,10 +14,10 @@ import TimeBefore from '../TimeBefore';
 import MediaStatus from './MediaStatus';
 import MediaExpanded from './MediaExpanded';
 import MediaUtil from './MediaUtil';
-import MediaRelatedTree from './MediaRelatedTree';
 import ItemDeadline from './ItemDeadline';
 import CheckContext from '../../CheckContext';
 import UserUtil from '../user/UserUtil';
+import LayerIcon from '../icons/Layer';
 import { getStatus, getStatusStyle, bemClassFromMediaStatus } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
 import {
@@ -39,11 +39,15 @@ import {
 const messages = defineMessages({
   progress: {
     id: 'mediaDetail.progress',
-    defaultMessage: '{answered} required tasks answered, out of {total}',
+    defaultMessage: '{answered, plural, =0 {No required task answered} one {1 required task answered} other {# required tasks answered}}, out of {total}',
   },
   relatedCount: {
     id: 'mediaDetail.relatedCount',
-    defaultMessage: '{relatedCount} related items',
+    defaultMessage: '{relatedCount, plural, =0 {} one {1 related item} other {# related items}}',
+  },
+  child: {
+    id: 'mediaDetail.child',
+    defaultMessage: 'Related to another item',
   },
 });
 
@@ -340,16 +344,27 @@ class MediaDetail extends Component {
           <AlignOpposite>
             { isParent ?
               (
-                <RelationIcon toDirection={toDirection}>
-                  <LayersIcon
-                    titleAccess={
-                      this.props.intl.formatMessage(
-                        messages.relatedCount,
-                        { relatedCount: media.relationships.targets_count },
-                      )
-                    }
-                  />
-                </RelationIcon>
+                <span
+                  title={
+                    this.props.intl.formatMessage(
+                      messages.relatedCount,
+                      { relatedCount: media.relationships.targets_count },
+                    )
+                  }
+                >
+                  <RelationIcon toDirection={toDirection}>
+                    <LayersIcon />
+                  </RelationIcon>
+                </span>
+              ) : null
+            }
+            { isChild ?
+              (
+                <span title={this.props.intl.formatMessage(messages.child)}>
+                  <RelationIcon toDirection={toDirection}>
+                    <LayerIcon />
+                  </RelationIcon>
+                </span>
               ) : null
             }
           </AlignOpposite>
@@ -460,11 +475,6 @@ class MediaDetail extends Component {
               sourceUrl={sourceUrl}
             /> : null }
         </Card>
-        { this.state.expanded && !this.props.hideRelated ?
-          <MediaRelatedTree
-            media={this.props.media}
-            smoochBotInstalled={smoochBotInstalled}
-          /> : null }
       </CardWithBorder>
     );
   }

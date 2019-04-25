@@ -24,7 +24,15 @@ class UpdateUserMutation extends Relay.Mutation {
   getFatQuery() {
     return Relay.QL`
       fragment on UpdateUserPayload {
-        user
+        user {
+          id
+          dbid
+          current_team_id
+          current_team {
+            id
+            dbid
+          }
+        }
       }
     `;
   }

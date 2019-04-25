@@ -1,6 +1,6 @@
 {
   "userAssignments.filterByTeam": "تصفية الفرق",
-  "userAssignments.progress": "تمت إجابة {answered} من {total} مهام مطلوبة",
+  "userAssignments.progress": "{answered, plural, =0 {} one {مهمة إجبارية واحدة غير مجابة} other {# مهام إجبارية غير مجابة}} من أصل {total}",
   "userAssignments.yourAssignments": "تكليفاتك",
   "userAssignments.userAssignments": "تكليفات {name}",
   "userAssignments.blank": "بدون أنشطة"

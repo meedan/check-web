@@ -1,7 +1,7 @@
 {
-  "search.results": "{resultsCount, plural, =0 {بدون عناصر} one {عنصر واحد} other {{loadedCount} من # عناصر}}",
   "search.newTranslationRequestNotification": "طلب جديد للترجمة",
   "search.newTranslationNotification": "ترجمة جديدة",
   "search.newTranslationNotificationBody": "تمت ترجمة عنصر",
-  "search.resultsWithSelection": "{resultsCount, plural, =0 {بدون عناصر} one {عنصر واحد} other {{loadedCount} من # عناصر}} {selectedCount, plural, =0 {} one {(1 محدد)} other {(# محدد)}}"
+  "searchResults.withSelection": "{total, plural, =0 {بدون عناصر} one {عنصر واحد} other {{from} - {to} من # عناصر}} {selectedCount, plural, =0 {} one {(1 محدد)} other {(# محدد)}}",
+  "searchResults.heading": "{total, plural, =0 {بدون عناصر} one {عنصر واحد} other {{from} - {to} من # عناصر}}"
 }

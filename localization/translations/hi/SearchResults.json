@@ -1,7 +1,7 @@
 {
-  "search.results": "{resultsCount, plural, =0 {No items} one {1 item} other {{loadedCount} of # items}}",
   "search.newTranslationRequestNotification": "New translation request",
   "search.newTranslationNotification": "New translation",
   "search.newTranslationNotificationBody": "An item was just marked as \"translated\"",
-  "search.resultsWithSelection": "{resultsCount, plural, =0 {No items} one {1 item} other {{loadedCount} of # items}} {selectedCount, plural, =0 {} one {(1 selected)} other {(# selected)}}"
+  "searchResults.withSelection": "{total, plural, =0 {No items} one {1 item} other {{from} - {to} of # items}} {selectedCount, plural, =0 {} one {(1 selected)} other {(# selected)}}",
+  "searchResults.heading": "{total, plural, =0 {No items} one {1 item} other {{from} - {to} of # items}}"
 }

@@ -1,3 +1,4 @@
 {
-  "smallMediaCard.relatedCount": "{relatedCount} عناصر مرتبطة"
+  "smallMediaCard.relatedCount": "{relatedCount} عناصر مرتبطة",
+  "smallMediaCard.child": "مرتبط مع عنصر آخر"
 }

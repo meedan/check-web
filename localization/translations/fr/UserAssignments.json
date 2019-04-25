@@ -1,6 +1,6 @@
 {
   "userAssignments.filterByTeam": "Filtrer par équipe",
-  "userAssignments.progress": "{answered} sur {total} tâches requises ont été répondues",
+  "userAssignments.progress": "{answered, plural, =0 {Aucun tâche requise répondue} one {1 tâche requise répondue} other {# tâches requises répondues}}, sur {total}",
   "userAssignments.yourAssignments": "Vos affectations",
   "userAssignments.userAssignments": "Les affectations de {name}",
   "userAssignments.blank": "Aucune activité"
