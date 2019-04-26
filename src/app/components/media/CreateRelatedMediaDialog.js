@@ -79,7 +79,7 @@ class CreateRelatedMediaDialog extends React.Component {
           }
           { mode === 'existing' &&
             <AutoCompleteMediaItem
-              projectId={media.project.dbid}
+              media={media}
               onSelect={this.handleSelectExisting}
             />
           }
