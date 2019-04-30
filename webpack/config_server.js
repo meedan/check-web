@@ -25,12 +25,12 @@ module.exports = {
   module: {
     loaders: [{
       test: /\.js$/,
-      loader: ['babel'],
+      loader: 'babel-loader',
       exclude: /node_modules/,
       query: { presets: ['es2015', 'stage-0', 'react'], plugins: [path.join(__dirname, './babelRelayPlugin.js')] },
     }, {
       test: /\.css?$/,
-      loaders: ['style', 'raw'],
+      loaders: ['style-loader', 'raw-loader'],
     }],
   },
 
