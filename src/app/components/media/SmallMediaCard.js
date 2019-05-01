@@ -9,6 +9,7 @@ import { CardWithBorder } from './MediaDetail';
 import MediaSelectable from './MediaSelectable';
 import ItemDeadline from './ItemDeadline';
 import MediaUtil from './MediaUtil';
+import LayerIcon from '../icons/Layer';
 import { getStatus, getStatusStyle } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
 import { black38, units, Offset, Row } from '../../styles/js/shared';
@@ -17,6 +18,10 @@ const messages = defineMessages({
   relatedCount: {
     id: 'smallMediaCard.relatedCount',
     defaultMessage: '{relatedCount} related items',
+  },
+  child: {
+    id: 'smallMediaCard.child',
+    defaultMessage: 'Related to another item',
   },
 });
 
@@ -59,6 +64,17 @@ const SmallMediaCard = (props) => {
   if (media.relationships) {
     const { sources_count, targets_count } = media.relationships;
     relatedCount = sources_count + targets_count;
+  }
+
+  let isChild = false;
+  let isParent = false;
+
+  if (media.relationships && media.relationship) {
+    if (media.relationship.target_id === media.dbid) {
+      isChild = true;
+    } else if (media.relationship.source_id === media.dbid) {
+      isParent = true;
+    }
   }
 
   const isRtl = rtlDetect.isRtlLang(locale);
@@ -107,14 +123,25 @@ const SmallMediaCard = (props) => {
                       {MediaUtil.title(media, data, props.intl)}
                     </Link>
                   </div>
-                  { relatedCount ?
-                    <RelationIcon>
-                      <LayersIcon
-                        titleAccess={
-                          props.intl.formatMessage(messages.relatedCount, { relatedCount })
-                        }
-                      />
-                    </RelationIcon> : null
+                  { isParent ?
+                    <span
+                      title={
+                        props.intl.formatMessage(messages.relatedCount, { relatedCount })
+                      }
+                    >
+                      <RelationIcon>
+                        <LayersIcon />
+                      </RelationIcon>
+                    </span> : null
+                  }
+                  { isChild ?
+                    (
+                      <span title={props.intl.formatMessage(messages.child)}>
+                        <RelationIcon>
+                          <LayerIcon />
+                        </RelationIcon>
+                      </span>
+                    ) : null
                   }
                 </UpperRow>
                 <BottomRow>

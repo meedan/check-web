@@ -45,7 +45,7 @@ class CreateProjectMediaMutation extends Relay.Mutation {
   }
 
   getConfigs() {
-    let configs = [
+    const configs = [
       {
         type: 'RANGE_ADD',
         parentName: 'check_search_team',
@@ -93,30 +93,26 @@ class CreateProjectMediaMutation extends Relay.Mutation {
 
     if (this.props.related_to_id) {
       if (this.props.targets_count > 0) {
-        configs = [
-          {
-            type: 'RANGE_ADD',
-            parentName: 'relationships_target',
-            parentID: this.props.relationships_target_id,
-            connectionName: 'targets',
-            edgeName: 'project_mediaEdge',
-            rangeBehaviors: {
-              '': 'prepend',
-            },
+        configs.push({
+          type: 'RANGE_ADD',
+          parentName: 'relationships_target',
+          parentID: this.props.relationships_target_id,
+          connectionName: 'targets',
+          edgeName: 'project_mediaEdge',
+          rangeBehaviors: {
+            '': 'prepend',
           },
-          {
-            type: 'RANGE_ADD',
-            parentName: 'relationships_source',
-            parentID: this.props.relationships_source_id,
-            connectionName: 'siblings',
-            edgeName: 'project_mediaEdge',
-            rangeBehaviors: {
-              '': 'prepend',
-            },
+        });
+        configs.push({
+          type: 'RANGE_ADD',
+          parentName: 'relationships_source',
+          parentID: this.props.relationships_source_id,
+          connectionName: 'siblings',
+          edgeName: 'project_mediaEdge',
+          rangeBehaviors: {
+            '': 'prepend',
           },
-        ];
-      } else {
-        configs = [];
+        });
       }
       configs.push({
         type: 'FIELDS_CHANGE',

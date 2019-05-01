@@ -1,5 +1,5 @@
 {
-  "home.needRegister": "Primeiro você precisa se registrar. Uma vez registrado, você pode pedir para participar da equipe.",
+  "home.needRegister": "Primeiro você precisa se registrar. Uma vez registrado, você pode solicitar para participar da equipe.",
   "home.somethingWrong": "Desculpe, ocorreu um erro. Por favor, atualize seu navegador e entre em contato com {supportEmail} se a condição persistir.",
   "home.successInvitation": "Bem-vindo ao {appName}. Por favor, faça o login com a senha que você recebeu no e-mail de boas-vindas.",
   "home.invalidInvitation": "Desculpe, ocorreu um erro ao processar o seu convite. Por favor, entre em contato com {supportEmail}.",

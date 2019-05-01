@@ -60,7 +60,7 @@ class AutoCompleteMediaItem extends React.Component {
     }
     this.setState({ searching: true });
 
-    const { projectId } = this.props;
+    const { media: { project: { dbid: projectId } } } = this.props;
     // eslint-disable-next-line no-useless-escape
     const queryString = `{ \\"keyword\\":\\"${query}\\", \\"projects\\":[${projectId}], \\"eslimit\\":10 }`;
 
@@ -112,7 +112,8 @@ class AutoCompleteMediaItem extends React.Component {
         const items = nested(['data', 'search', 'medias', 'edges'], response);
 
         const unrelatedItems = items.filter(item =>
-          item.node.relationships.targets_count + item.node.relationships.targets_count === 0);
+          (item.node.relationships.targets_count + item.node.relationships.targets_count === 0) &&
+          (item.node.dbid !== this.props.media.dbid));
 
         const searchResult = unrelatedItems.map(item => ({
           // text: MediaUtil.title(item.node, item.node.embed, this.props.intl),

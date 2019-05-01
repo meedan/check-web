@@ -1,7 +1,7 @@
 {
-  "search.results": "{resultsCount, plural, =0 {No items} one {1 item} other {{loadedCount} of # items}}",
   "search.newTranslationRequestNotification": "Solicitare de traducere nouă",
   "search.newTranslationNotification": "Traducere nouă",
   "search.newTranslationNotificationBody": "Un element numai ce a fost marcat ca ”tradus”",
-  "search.resultsWithSelection": "{resultsCount, plural, =0 {No items} one {1 item} other {{loadedCount} of # items}} {selectedCount, plural, =0 {} one {(1 selected)} other {(# selected)}}"
+  "searchResults.withSelection": "{total, plural, =0 {No items} one {1 item} other {{from} - {to} of # items}} {selectedCount, plural, =0 {} one {(1 selected)} other {(# selected)}}",
+  "searchResults.heading": "{total, plural, =0 {No items} one {1 item} other {{from} - {to} of # items}}"
 }

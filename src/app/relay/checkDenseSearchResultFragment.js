@@ -4,6 +4,22 @@ const checkDenseSearchResultFragment = Relay.QL`
   fragment on CheckSearch {
     id,
     pusher_channel,
+    team {
+      slug
+      search_id,
+      get_embed_whitelist
+      get_suggested_tags
+      get_status_target_turnaround
+      team_bot_installations(first: 10000) {
+        edges {
+          node {
+            team_bot {
+              identifier
+            }
+          }
+        }
+      }
+    }
     medias(first: $pageSize) {
       edges {
         node {
@@ -14,6 +30,7 @@ const checkDenseSearchResultFragment = Relay.QL`
           quote,
           overridden,
           relationships { sources_count, targets_count },
+          relationship { id, dbid, source_id, target_id },
           verification_statuses,
           project_id,
           permissions,
@@ -30,11 +47,6 @@ const checkDenseSearchResultFragment = Relay.QL`
             quote,
             picture
             thumbnail_path
-          }
-          team {
-            slug
-            search_id,
-            get_status_target_turnaround
           }
         }
       }

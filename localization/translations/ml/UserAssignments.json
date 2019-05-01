@@ -1,6 +1,6 @@
 {
   "userAssignments.filterByTeam": "Filter by team",
-  "userAssignments.progress": "{answered} required tasks answered, out of {total}",
+  "userAssignments.progress": "{answered, plural, =0 {No required task answered} one {1 required task answered} other {# required tasks answered}}, out of {total}",
   "userAssignments.yourAssignments": "Your assignments",
   "userAssignments.userAssignments": "{name}'s assignments",
   "userAssignments.blank": "No activity"

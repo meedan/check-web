@@ -38,7 +38,7 @@ const messages = defineMessages({
   },
   progress: {
     id: 'userAssignments.progress',
-    defaultMessage: '{answered} required tasks answered, out of {total}',
+    defaultMessage: '{answered, plural, =0 {No required task answered} one {1 required task answered} other {# required tasks answered}}, out of {total}',
   },
 });
 

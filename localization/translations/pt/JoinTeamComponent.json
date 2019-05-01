@@ -3,10 +3,10 @@
   "joinTeamComponent.success": "Obrigado pelo seu interesse em participar do {appName} da equipe {team}! Um líder da equipe irá revisar sua solicitação em breve.",
   "joinTeamComponent.autoApprove": "Obrigado por participar da equipe {team} do {appName}! Você pode começar a contribuir imediatamente.",
   "joinTeamComponent.title": "Participar da Equipe",
-  "joinTeamComponent.mainHeading": "Pedir para Participar",
-  "joinTeamComponent.alreadyRequested": "Você já pediu para participar da equipe {team} no {appName}",
-  "joinTeamComponent.requestHasBeenSent": "Seu pedido foi enviado aos administradores do projeto para aprovação.",
+  "joinTeamComponent.mainHeading": "Solicitar para participar",
+  "joinTeamComponent.alreadyRequested": "Você já solicitou para participar da equipe {team} no {appName}",
+  "joinTeamComponent.requestHasBeenSent": "Sua solicitação foi enviada aos administradores do projeto para aprovação.",
   "joinTeamComponent.blurbGraf": "Para solicitar acesso ao {link} no {appName}, clique abaixo:",
-  "joinTeamComponent.buttonSubmitted": "Solicitação Enviada",
-  "joinTeamComponent.buttonSubmit": "Pedir para Participar"
+  "joinTeamComponent.buttonSubmitted": "Solicitação enviada",
+  "joinTeamComponent.buttonSubmit": "Solicitar para participar"
 }

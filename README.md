@@ -58,12 +58,13 @@ Translations are managed in [Transifex](https://www.transifex.com/meedan/check-2
 
 * `localization/react-intl`: Contains the files extracted by `babel-plugin-react-intl` (localizable strings)
 * `localization/transifex`: Contains the files above, but converted to Transifex JSON format
-* `localization/translations`: Contains the translations files downloaded from Transifex plus a `translations.js` file which concatenates all of them in a single JSON file used by `react-intl`
+* `localization/translations`: Contains the translations files downloaded from Transifex in JavaScript format
 
-By default, the application is displayed in the browser's language using the files from `localization` directory. If you want to work with other language or you want to exchange files with Transifex, you need to:
+By default, the application is displayed in the browser's language using the files from `localization` directory.
 
-* Add a `locale` entry to your `config.js`. This is the locale for Check. If not present, falls back to browser locale.
-* Copy `config-build.js.example` to `config-build.js` (if you don't have it yet) and add your Transifex user and password. If not present, instead of getting translations from Transifex and sending strings to it, it will use the static files at `localization`.
+### Adding a new language
+
+Copy `config-build.js.example` to `config-build.js` (if you don't have it yet) and add your Transifex user and password.
 
 Then you can use `npm run transifex:upload` and `npm run transifex:download` to upload and download translations, respectively.
 
