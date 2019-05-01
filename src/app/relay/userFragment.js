@@ -14,6 +14,8 @@ const userFragment = Relay.QL`
     permissions,
     profile_image,
     get_send_email_notifications,
+    get_send_successful_login_notifications,
+    get_send_failed_login_notifications,
     current_team {
       id,
       dbid,
