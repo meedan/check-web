@@ -445,11 +445,7 @@ SearchResultsComponent.propTypes = {
 };
 
 // eslint-disable-next-line react/no-multi-comp
-class SearchResults extends React.Component {
-  shouldComponentUpdate(nextProps) {
-    return !isEqual(this.props, nextProps);
-  }
-
+class SearchResults extends React.PureComponent {
   render() {
     const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsComponent), {
       initialVariables: {
