@@ -17,7 +17,7 @@ const messages = defineMessages({
   },
 });
 
-class TrashComponent extends Component {
+class EmptyTrashComponent extends Component {
   constructor(props) {
     super(props);
 
@@ -162,18 +162,18 @@ class TrashComponent extends Component {
   }
 }
 
-TrashComponent.contextTypes = {
+EmptyTrashComponent.contextTypes = {
   store: PropTypes.object,
   setMessage: PropTypes.func,
 };
 
-TrashComponent.propTypes = {
+EmptyTrashComponent.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
 };
 
-const TrashContainer = Relay.createContainer(TrashComponent, {
+const EmptyTrashContainer = Relay.createContainer(EmptyTrashComponent, {
   fragments: {
     team: () => Relay.QL`
       fragment on Team {
@@ -187,17 +187,17 @@ const TrashContainer = Relay.createContainer(TrashComponent, {
   },
 });
 
-const Trash = (props) => {
+const EmptyTrashButton = (props) => {
   const slug = props.teamSlug || '';
   const route = new TeamRoute({ teamSlug: slug });
   return (
     <Relay.RootContainer
-      Component={TrashContainer}
+      Component={EmptyTrashContainer}
       route={route}
-      renderFetched={data => <TrashContainer {...props} {...data} />}
+      renderFetched={data => <EmptyTrashContainer {...props} {...data} />}
       forceFetch
     />
   );
 };
 
-export default injectIntl(Trash);
+export default injectIntl(EmptyTrashButton);
