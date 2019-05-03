@@ -1,11 +1,3 @@
 {
-  "trash.title": "Papelera",
-  "trash.refresh": "Actualizar ahora",
-  "trash.emptyInProgress": "Estamos vaciando la papelera. Por favor vuelve más tarde. {refresh}",
-  "trash.cancel": "Cancelar",
-  "trash.deleteAll": "Eliminar todo",
-  "trash.emptyTrash": "Vaciar la papelera",
-  "trash.emptyTrashConfirmationText": "¿Estás segura o seguro? Esto será eliminado de forma permanente: {itemsCount, plural, =0 {0 ítems} one {1 ítem} other {# ítems}} y {notesCount, plural, =0 {Sin anotaciones} one {1 anotación} other {# anotaciones}}. Escribe \"confirm\" si deseas continuar.",
-  "trash.confirmationError": "No coincide",
-  "trash.typeHere": "Escribe aquí "
+  "trash.title": "Papelera"
 }

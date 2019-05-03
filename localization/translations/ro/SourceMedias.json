@@ -1,3 +1,3 @@
 {
-  "sourceMedias.items": "{resultsCount, plural, =0 {No results} one {1 result} other {# results}}"
+  "sourceMedias.items": "{resultsCount, plural, =0 {Nu sunt rezultate} one {1 rezultat} other {# rezultate}}"
 }

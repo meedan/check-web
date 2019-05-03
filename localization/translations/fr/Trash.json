@@ -1,11 +1,3 @@
 {
-  "trash.title": "Corbeille",
-  "trash.refresh": "Rafraîchir",
-  "trash.emptyInProgress": "Vidange de la corbeille en cours. Veuillez réessayer plus tard. {refresh}",
-  "trash.cancel": "Annuler",
-  "trash.deleteAll": "Tout supprimer",
-  "trash.emptyTrash": "Vider la corbeille",
-  "trash.emptyTrashConfirmationText": "Voulez-vous vraiment supprimer {itemsCount, plural, =0 {aucun élément} one {un élément} other {# éléments}} et {notesCount, plural, =0 {aucune note} one {une note} other {# notes}} ? Tapez \"confirm\" si vous désirez continuer.",
-  "trash.confirmationError": "No correspond pas",
-  "trash.typeHere": "Tapez ici"
+  "trash.title": "Corbeille"
 }

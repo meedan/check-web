@@ -10,7 +10,6 @@ import UserUtil from './UserUtil';
 import CheckContext from '../../CheckContext';
 import UserMenuItems from '../UserMenuItems';
 import UserAvatar from '../UserAvatar';
-import UserFeedback from '../UserFeedback';
 import {
   black54,
   units,
@@ -107,7 +106,6 @@ class UserMenu extends React.Component {
               </div>
             </MenuItem>
             <UserMenuItems {...this.props} />
-            <UserFeedback />
           </Menu>
         </Row>
       </div>
