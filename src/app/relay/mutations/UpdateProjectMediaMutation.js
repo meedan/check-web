@@ -132,6 +132,11 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         type: 'REQUIRED_CHILDREN',
         children: [Relay.QL`
           fragment on UpdateProjectMediaPayload {
+            project_media {
+              team {
+                slug
+              }
+            }
             project {
               project_medias(first: 20) {
                 edges {
