@@ -9,6 +9,9 @@
   "userPrivacy.stopProcessingText": "يمكنك طلب {appName} لإيقاف معالجة معلوماتك في ظل ظروف معينة.",
   "userPrivacy.stopProcessingButton": "طلب لوقف المعالجة",
   "userPrivacy.connectedAccounts": "الحسابات المتصلة",
+  "userPrivacy.security": "الأمان",
+  "userPrivacy.successfulLoginText": "استلام تنبيه بعد كل تسجيل الدخول",
+  "userPrivacy.failedfulLoginText": "استلام تنبيه بعد {loginTrial} محاولات فاشلة متتالية لتسجيل الدخول",
   "userPrivacy.delete": "حذف حسابك",
   "userPrivacy.deleteAccountText": "إذا قمت بحذف حسابك ، فسيتم مسح معلوماتك الشخصية. ستُنسب تعليقاتك وسجل نشاطك الى اسم مستعار وستظل على {appName}.",
   "userPrivacy.deleteAccountButton": "حذف حسابي"

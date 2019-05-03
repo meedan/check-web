@@ -2,6 +2,6 @@
   "search.newTranslationRequestNotification": "Новый запрос на перевод",
   "search.newTranslationNotification": "Новый перевод",
   "search.newTranslationNotificationBody": "Материал был отмечен как переведённый",
-  "searchResults.withSelection": "{total, plural, =0 {No items} one {1 item} other {{from} - {to} of # items}} {selectedCount, plural, =0 {} one {(1 selected)} other {(# selected)}}",
-  "searchResults.heading": "{total, plural, =0 {No items} one {1 item} other {{from} - {to} of # items}}"
+  "searchResults.withSelection": "{total, plural, =0 {Нет материалов} one {1 материал} other {Материалов: {from} – {to} из #}} {selectedCount, plural, =0 {} one {(1 выбран)} other {(выбрано: #)}}",
+  "searchResults.heading": "{total, plural, =0 {Нет материалов} one {1 материал} other {Материалов: {from} – {to} из #}}"
 }

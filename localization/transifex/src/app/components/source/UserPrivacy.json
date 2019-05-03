@@ -10,8 +10,8 @@
   "userPrivacy.stopProcessingButton": "Request to stop processing",
   "userPrivacy.connectedAccounts": "Connected accounts",
   "userPrivacy.security": "Security",
-  "userPrivacy.successfulLoginText": "Send a notification when a successful login happens",
-  "userPrivacy.failedfulLoginText": "Send a notification when {loginTrial} failed login attempts happen",
+  "userPrivacy.successfulLoginText": "Receive a notification for every login",
+  "userPrivacy.failedfulLoginText": "Receive a notification for {loginTrial} consecutive failed login attempts",
   "userPrivacy.delete": "Delete your account",
   "userPrivacy.deleteAccountText": "If you delete your account, your personal information will be erased. Comments, annotations, and team activity will become pseudonymous and remain on {appName}.",
   "userPrivacy.deleteAccountButton": "Delete my account"

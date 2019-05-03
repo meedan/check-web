@@ -9,6 +9,9 @@
   "userPrivacy.stopProcessingText": "Вы можете запросить прекращение обработки ваших персональных данных {appName}.",
   "userPrivacy.stopProcessingButton": "Прекратить обработку данных",
   "userPrivacy.connectedAccounts": "Привязанные аккаунты",
+  "userPrivacy.security": "Безопасность",
+  "userPrivacy.successfulLoginText": "Receive a notification for every login",
+  "userPrivacy.failedfulLoginText": "Receive a notification for {loginTrial} consecutive failed login attempts",
   "userPrivacy.delete": "Удалить аккаунт",
   "userPrivacy.deleteAccountText": "Если вы удалите свой аккаунт, ваши персональные данные будут удалены. Комментарии, аннотации и групповая активность останутся в {appName} без упоминания вашего имени (под псевдонимом).",
   "userPrivacy.deleteAccountButton": "Удалить мой аккаунт"

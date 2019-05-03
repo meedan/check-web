@@ -1,5 +1,5 @@
 {
-  "media.notesCount": "{notesCount, plural, =0 {No notes} one {1 note} other {# notes}}",
+  "media.notesCount": "{notesCount, plural, =0 {Fără note} one {1 notă} other {# note}}",
   "media.typeTwitter": "Postare pe Twitter",
   "media.typeFacebook": "Postare pe Facebook",
   "media.typeInstagram": "Instagram",

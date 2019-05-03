@@ -9,6 +9,9 @@
   "userPrivacy.stopProcessingText": "Você pode fazer uma solicitação ao {appName} para parar de processar suas informações de acordo com certas condições.",
   "userPrivacy.stopProcessingButton": "Solicitação de fim de processamento",
   "userPrivacy.connectedAccounts": "Contas conectadas",
+  "userPrivacy.security": "Segurança",
+  "userPrivacy.successfulLoginText": "Receber uma notificação para cada login",
+  "userPrivacy.failedfulLoginText": "Receber uma notificação para {loginTrial} tentativas consecutivas de login com falha",
   "userPrivacy.delete": "Excluir sua conta",
   "userPrivacy.deleteAccountText": "Se você excluir sua conta, suas informações pessoais serão excluídas. Comentários, anotações, e atividades de equipe se tornarão pseudônimas e permanecerão no {appName}.",
   "userPrivacy.deleteAccountButton": "Excluir minha conta"

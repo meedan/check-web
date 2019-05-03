@@ -260,7 +260,7 @@ class UserPrivacy extends Component {
             <span style={{ minWidth: '500px', padding: '0px' }}>
               <FormattedMessage
                 id="userPrivacy.successfulLoginText"
-                defaultMessage="Send a notification when a successful login happens"
+                defaultMessage="Receive a notification for every login"
               />
             </span>
             <Switch
@@ -274,7 +274,7 @@ class UserPrivacy extends Component {
             <span style={{ minWidth: '500px', padding: '0px' }}>
               <FormattedMessage
                 id="userPrivacy.failedfulLoginText"
-                defaultMessage="Send a notification when {loginTrial} failed login attempts happen"
+                defaultMessage="Receive a notification for {loginTrial} consecutive failed login attempts"
                 values={{ loginTrial }}
                 style={{ minWidth: '500px', padding: '0px' }}
               />
