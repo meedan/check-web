@@ -10,7 +10,7 @@ class UpdateTeamMutation extends Relay.Mutation {
   getFatQuery() {
     return Relay.QL`
       fragment on UpdateTeamPayload {
-        check_search_team { id },
+        check_search_team { id, number_of_results },
         team {
           name
           id
@@ -61,6 +61,15 @@ class UpdateTeamMutation extends Relay.Mutation {
     };
   }
 
+  getOptimisticResponse() {
+    if (this.props.empty_trash) {
+      return {
+        check_search_team: { id: this.props.search_id, number_of_results: 0 },
+      };
+    }
+    return {};
+  }
+
   getConfigs() {
     const configs = [
       {
@@ -81,7 +90,11 @@ class UpdateTeamMutation extends Relay.Mutation {
       },
       {
         type: 'FIELDS_CHANGE',
-        fieldIDs: { team: this.props.id, public_team: this.props.public_id },
+        fieldIDs: {
+          team: this.props.id,
+          public_team: this.props.public_id,
+          check_search_team: this.props.search_id,
+        },
       },
     ];
 

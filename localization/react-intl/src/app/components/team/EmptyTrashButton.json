@@ -1,0 +1,18 @@
+[
+  {
+    "id": "trash.refresh",
+    "defaultMessage": "Refresh now"
+  },
+  {
+    "id": "trash.emptyInProgress",
+    "defaultMessage": "Empty trash operation is in progress. Please check back later. {refresh}"
+  },
+  {
+    "id": "trash.emptyTrash",
+    "defaultMessage": "Empty trash"
+  },
+  {
+    "id": "trash.emptyTrashConfirmationText",
+    "defaultMessage": "Are you sure? This will permanently delete {itemsCount, plural, =0 {0 items} one {1 item} other {# items}} and {notesCount, plural, =0 {0 annotations} one {1 annotation} other {# annotations}}."
+  }
+]

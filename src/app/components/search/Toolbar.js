@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import isEqual from 'lodash.isequal';
 import rtlDetect from 'rtl-detect';
 import CreateProjectMedia from '../media/CreateMedia';
+import EmptyTrashButton from '../team/EmptyTrashButton';
 import Can from '../Can';
 import { black05, black87, units, Row, FlexRow, Offset } from '../../styles/js/shared';
 
@@ -31,6 +32,8 @@ class Toolbar extends React.Component {
       title,
       project,
       addons,
+      page,
+      search,
     } = this.props;
 
     const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
@@ -47,6 +50,9 @@ class Toolbar extends React.Component {
                 <CreateProjectMedia />
               </Can>
               : null
+            }
+            { page === 'trash' ?
+              <EmptyTrashButton teamSlug={filter.props.teamSlug} search={search} /> : null
             }
             {addons}
           </Offset>

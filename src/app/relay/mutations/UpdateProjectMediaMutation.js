@@ -217,7 +217,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
       });
     }
 
-    if (this.props.archived === 0 && this.props.relationship_sources_count === 0) {
+    if (this.props.archived === 0) {
       configs.push({
         type: 'RANGE_ADD',
         parentName: 'check_search_team',
