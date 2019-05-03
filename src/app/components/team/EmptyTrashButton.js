@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
-import { defineMessages, injectIntl, intlShape, FormattedMessage } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import RaisedButton from 'material-ui/RaisedButton';
 import isEqual from 'lodash.isequal';
 import ConfirmDialog from '../layout/ConfirmDialog';
@@ -9,13 +9,6 @@ import TeamRoute from '../../relay/TeamRoute';
 import UpdateTeamMutation from '../../relay/mutations/UpdateTeamMutation';
 import Can from '../Can';
 import CheckContext from '../../CheckContext';
-
-const messages = defineMessages({
-  refresh: {
-    id: 'trash.refresh',
-    defaultMessage: 'Refresh now',
-  },
-});
 
 class EmptyTrashComponent extends Component {
   constructor(props) {
@@ -61,10 +54,6 @@ class EmptyTrashComponent extends Component {
     this.context.setMessage(message);
   }
 
-  handleRefresh() {
-    this.props.relay.forceFetch();
-  }
-
   handleClose() {
     this.setState({ open: false });
   }
@@ -79,27 +68,7 @@ class EmptyTrashComponent extends Component {
   }
 
   handleEmptyTrash() {
-    const message = (
-      <FormattedMessage
-        id="trash.emptyInProgress"
-        defaultMessage="Empty trash operation is in progress. Please check back later. {refresh}"
-        values={{
-          refresh: (
-            // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-            <span
-              onClick={this.handleRefresh.bind(this)}
-              style={{ textDecoration: 'underline', cursor: 'pointer' }}
-            >
-              {this.props.intl.formatMessage(messages.refresh)}
-            </span>
-          ),
-        }}
-      />
-    );
-
-    if (this.state.emptyTrashDisabled) {
-      this.handleMessage(message);
-    } else {
+    if (!this.state.emptyTrashDisabled) {
       this.setState({ emptyTrashDisabled: true });
 
       const onFailure = (transaction) => {
@@ -113,7 +82,6 @@ class EmptyTrashComponent extends Component {
       };
 
       const onSuccess = () => {
-        this.handleMessage(message);
       };
 
       Relay.Store.commitUpdate(
@@ -165,12 +133,6 @@ class EmptyTrashComponent extends Component {
 EmptyTrashComponent.contextTypes = {
   store: PropTypes.object,
   setMessage: PropTypes.func,
-};
-
-EmptyTrashComponent.propTypes = {
-  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
-  // eslint-disable-next-line react/no-typos
-  intl: intlShape.isRequired,
 };
 
 const EmptyTrashContainer = Relay.createContainer(EmptyTrashComponent, {
