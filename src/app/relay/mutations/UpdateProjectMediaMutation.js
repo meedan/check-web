@@ -24,6 +24,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
       fragment on UpdateProjectMediaPayload {
         project_mediaEdge,
         check_search_team { id },
+        check_search_trash { id, number_of_results },
         check_search_project { id, number_of_results },
         check_search_project_was { id, number_of_results },
         related_to { id, relationships, log, log_count },
@@ -93,6 +94,15 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         {},
       );
     }
+    if (this.props.archived === 0 && this.props.check_search_trash) {
+      return {
+        check_search_trash: {
+          id: this.props.check_search_trash.id,
+          number_of_results: this.props.check_search_trash.number_of_results - 1,
+        },
+        affectedId: this.props.id,
+      };
+    }
     return {};
   }
 
@@ -132,6 +142,11 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         type: 'REQUIRED_CHILDREN',
         children: [Relay.QL`
           fragment on UpdateProjectMediaPayload {
+            project_media {
+              team {
+                slug
+              }
+            }
             project {
               project_medias(first: 20) {
                 edges {
@@ -238,6 +253,16 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
           '': 'prepend',
         },
       });
+      if (this.props.check_search_trash) {
+        configs.push({
+          type: 'RANGE_DELETE',
+          parentName: 'check_search_trash',
+          parentID: this.props.check_search_trash.id,
+          connectionName: 'medias',
+          deletedIDFieldName: 'affectedId',
+          pathToConnection: ['check_search_trash', 'medias'],
+        });
+      }
     }
 
     return configs;

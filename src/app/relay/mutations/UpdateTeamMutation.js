@@ -11,6 +11,7 @@ class UpdateTeamMutation extends Relay.Mutation {
     return Relay.QL`
       fragment on UpdateTeamPayload {
         check_search_team { id, number_of_results },
+        check_search_trash { id, number_of_results },
         team {
           name
           id
@@ -94,6 +95,7 @@ class UpdateTeamMutation extends Relay.Mutation {
           team: this.props.id,
           public_team: this.props.public_id,
           check_search_team: this.props.search_id,
+          check_search_trash: this.props.search_id,
         },
       },
     ];

@@ -229,6 +229,7 @@ class MediaMetadata extends Component {
         archived: 0,
         check_search_team: this.props.media.team.search_id,
         check_search_project: this.props.media.project.search_id,
+        check_search_trash: this.props.media.team.check_search_trash,
         relationship_sources_count: this.props.media.relationships.sources_count,
         id: this.props.media.id,
       }),
