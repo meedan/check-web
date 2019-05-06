@@ -94,10 +94,11 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         {},
       );
     }
-    if (this.props.archived === 0) {
+    if (this.props.archived === 0 && this.props.check_search_trash) {
       return {
         check_search_trash: {
-          id: this.props.check_search_trash,
+          id: this.props.check_search_trash.id,
+          number_of_results: this.props.check_search_trash.number_of_results - 1,
         },
         affectedId: this.props.id,
       };
@@ -252,14 +253,16 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
           '': 'prepend',
         },
       });
-      configs.push({
-        type: 'RANGE_DELETE',
-        parentName: 'check_search_trash',
-        parentID: this.props.check_search_trash,
-        connectionName: 'medias',
-        deletedIDFieldName: 'affectedId',
-        pathToConnection: ['check_search_trash', 'medias'],
-      });
+      if (this.props.check_search_trash) {
+        configs.push({
+          type: 'RANGE_DELETE',
+          parentName: 'check_search_trash',
+          parentID: this.props.check_search_trash.id,
+          connectionName: 'medias',
+          deletedIDFieldName: 'affectedId',
+          pathToConnection: ['check_search_trash', 'medias'],
+        });
+      }
     }
 
     return configs;
