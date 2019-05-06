@@ -24,7 +24,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
       fragment on UpdateProjectMediaPayload {
         project_mediaEdge,
         check_search_team { id },
-        check_search_trash { id },
+        check_search_trash { id, number_of_results },
         check_search_project { id, number_of_results },
         check_search_project_was { id, number_of_results },
         related_to { id, relationships, log, log_count },
@@ -93,6 +93,14 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         this.props.project,
         {},
       );
+    }
+    if (this.props.archived === 0) {
+      return {
+        check_search_trash: {
+          id: this.props.check_search_trash,
+        },
+        affectedId: this.props.id,
+      };
     }
     return {};
   }
