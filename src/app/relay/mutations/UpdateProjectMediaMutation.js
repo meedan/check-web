@@ -24,6 +24,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
       fragment on UpdateProjectMediaPayload {
         project_mediaEdge,
         check_search_team { id },
+        check_search_trash { id },
         check_search_project { id, number_of_results },
         check_search_project_was { id, number_of_results },
         related_to { id, relationships, log, log_count },
@@ -242,6 +243,14 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         rangeBehaviors: {
           '': 'prepend',
         },
+      });
+      configs.push({
+        type: 'RANGE_DELETE',
+        parentName: 'check_search_trash',
+        parentID: this.props.check_search_trash,
+        connectionName: 'medias',
+        deletedIDFieldName: 'affectedId',
+        pathToConnection: ['check_search_trash', 'medias'],
       });
     }
 
