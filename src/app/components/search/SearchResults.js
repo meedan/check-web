@@ -359,6 +359,7 @@ class SearchResultsComponent extends React.Component {
         }
         actions={medias.length && bulkActionsAllowed ?
           <BulkActions
+            count={this.props.search ? this.props.search.number_of_results : 0}
             team={team}
             project={this.currentContext().project}
             selectedMedia={this.state.selectedMedia}
