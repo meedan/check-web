@@ -4,7 +4,7 @@
   "login.title": "Connexion",
   "login.registerTitle": "Enregistrement",
   "login.nameLabel": "Votre nom",
-  "login.emailLabel": "Courriel",
+  "login.emailLabel": "E-mail",
   "login.passwordInputHint": "Mot de passe",
   "login.passwordLabel": "Mot de passe (au moins 8 caractères)",
   "login.passwordConfirmLabel": "Confirmation du mot de passe",
@@ -13,6 +13,6 @@
   "login.signUp": "ENREGISTREMENT",
   "loginEmail.lostPassword": "Mot de passe oublié",
   "login.with": "Connexion par {provider}",
-  "login.newAccount": "Créer un nouveau compte par courriel",
+  "login.newAccount": "Créer un nouveau compte par e-mail",
   "login.alreadyHasAccount": "J'ai déjà un compte"
 }

@@ -1,8 +1,8 @@
 {
   "userInfoEdit.sourceName": "Nom",
   "userInfoEdit.sourceBio": "Bio",
-  "userInfoEdit.userEmail": "Courriel",
-  "userInfoEdit.userSendEmailNotification": "Recevoir des notifications par courrier électronique",
+  "userInfoEdit.userEmail": "E-mail",
+  "userInfoEdit.userSendEmailNotification": "Recevoir des notifications par e-mail",
   "userInfoEdit.addLink": "Ajouter un lien",
   "userInfoEdit.editError": "Désolé, une erreur s'est produite durant la mise à jour de votre profil. Veuillez réessayer et prévenir {supportEmail} si le problème persiste.",
   "userInfoEdit.nameError": "Un nom vide est non valide.",
