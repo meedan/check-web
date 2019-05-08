@@ -1,0 +1,4 @@
+{
+  "trash.emptyTrash": "Vider la corbeille",
+  "trash.emptyTrashConfirmationText": "Voulez-vous vraiment supprimer {itemsCount, plural, =0 {aucun élément} one {un élément} other {# éléments}} et {notesCount, plural, =0 {aucune note} one {une note} other {# notes}} ?"
+}

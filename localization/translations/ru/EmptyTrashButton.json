@@ -1,0 +1,4 @@
+{
+  "trash.emptyTrash": "Очистить корзину",
+  "trash.emptyTrashConfirmationText": "Вы уверены? Это действие навсегда удалит {itemsCount, plural, =0 {0 материалов} one {1 материал} other {материалы (#)}} и {notesCount, plural, =0 {0 заметок} one {1 заметку} other {заметки (#)}}."
+}

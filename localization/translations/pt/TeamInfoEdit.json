@@ -3,7 +3,7 @@
   "teamComponent.editSuccess": "Informações da equipe atualizadas com sucesso!",
   "teamComponent.teamName": "Nome da Equipe",
   "teamComponent.teamDescription": "Descrição da Equipe",
-  "teamComponent.location": "Local",
+  "teamComponent.location": "Localização",
   "teamComponent.phone": "Telefone",
   "teamComponent.website": "Website",
   "teamComponent.invalidLink": "Por favor insira uma URL válida",

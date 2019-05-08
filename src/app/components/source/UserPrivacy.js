@@ -260,7 +260,7 @@ class UserPrivacy extends Component {
             <span style={{ minWidth: '500px', padding: '0px' }}>
               <FormattedMessage
                 id="userPrivacy.successfulLoginText"
-                defaultMessage="Receive a notification for every login"
+                defaultMessage="Receive a notification for logins from a new location or device"
               />
             </span>
             <Switch

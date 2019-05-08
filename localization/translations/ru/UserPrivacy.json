@@ -10,7 +10,7 @@
   "userPrivacy.stopProcessingButton": "Прекратить обработку данных",
   "userPrivacy.connectedAccounts": "Привязанные аккаунты",
   "userPrivacy.security": "Безопасность",
-  "userPrivacy.successfulLoginText": "Receive a notification for every login",
+  "userPrivacy.successfulLoginText": "Receive a notification for logins from a new location or device",
   "userPrivacy.failedfulLoginText": "Receive a notification for {loginTrial} consecutive failed login attempts",
   "userPrivacy.delete": "Удалить аккаунт",
   "userPrivacy.deleteAccountText": "Если вы удалите свой аккаунт, ваши персональные данные будут удалены. Комментарии, аннотации и групповая активность останутся в {appName} без упоминания вашего имени (под псевдонимом).",
