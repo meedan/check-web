@@ -230,6 +230,18 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         pathToConnection: ['check_search_project', 'medias'],
         deletedIDFieldName: 'affectedId',
       });
+      if (this.props.check_search_trash) {
+        configs.push({
+          type: 'RANGE_ADD',
+          parentName: 'check_search_trash',
+          parentID: this.props.check_search_trash.id,
+          connectionName: 'medias',
+          edgeName: 'project_mediaEdge',
+          rangeBehaviors: {
+            '': 'prepend',
+          },
+        });
+      }
     }
 
     if (this.props.archived === 0) {
