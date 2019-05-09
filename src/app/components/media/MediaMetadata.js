@@ -635,7 +635,6 @@ class MediaMetadata extends Component {
               media={media}
               currentRelatedMedia={this.props.currentRelatedMedia}
             />
-
             <BreakRelationshipButton
               hidden={!isChild}
               media={media}

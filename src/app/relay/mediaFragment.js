@@ -13,6 +13,7 @@ const mediaFragment = Relay.QL`
     relationships { sources_count, targets_count },
     relationship {
       id
+      permissions
       source { id, dbid }
       source_id
       target { id, dbid }
