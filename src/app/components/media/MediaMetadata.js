@@ -9,7 +9,6 @@ import { Link } from 'react-router';
 import Tooltip from 'rc-tooltip';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
-import Can from '../Can';
 import BreakRelationshipButton from './BreakRelationshipButton';
 import PromoteItemButton from './PromoteItemButton';
 import MediaTags from './MediaTags';
@@ -636,13 +635,11 @@ class MediaMetadata extends Component {
               media={media}
               currentRelatedMedia={this.props.currentRelatedMedia}
             />
-            <Can permissions={media.relationship.permissions} permission="destroy Relationship">
-              <BreakRelationshipButton
-                hidden={!isChild}
-                media={media}
-                currentRelatedMedia={this.props.currentRelatedMedia}
-              />
-            </Can>
+            <BreakRelationshipButton
+              hidden={!isChild}
+              media={media}
+              currentRelatedMedia={this.props.currentRelatedMedia}
+            />
 
             <TagMenu media={media} />
 
