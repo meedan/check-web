@@ -1,5 +1,6 @@
 import Relay from 'react-relay/classic';
 import optimisticProjectMedia from './optimisticProjectMedia';
+import optimisticProjectMediaFromExisting from './optimisticProjectMediaFromExisting';
 
 class UpdateProjectMediaMutation extends Relay.Mutation {
   getMutation() {
@@ -102,6 +103,20 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         },
         affectedId: this.props.id,
       };
+    }
+    if (this.props.archived === 1 && this.props.check_search_trash) {
+      const response = optimisticProjectMediaFromExisting(
+        this.props.media,
+        this.props.context.project,
+        this.props.context,
+      );
+
+      response.check_search_trash = {
+        id: this.props.check_search_trash.id,
+        number_of_results: this.props.check_search_trash.number_of_results + 1,
+      };
+
+      return response;
     }
     return {};
   }
