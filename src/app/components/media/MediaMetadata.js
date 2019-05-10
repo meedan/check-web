@@ -229,6 +229,8 @@ class MediaMetadata extends Component {
       this.context.setMessage(message);
     };
 
+    const context = this.getContext();
+
     Relay.Store.commitUpdate(
       new UpdateProjectMediaMutation({
         archived: 0,
@@ -236,6 +238,8 @@ class MediaMetadata extends Component {
         check_search_project: this.props.media.project.search_id,
         check_search_trash: this.props.media.team.check_search_trash,
         relationship_sources_count: this.props.media.relationships.sources_count,
+        media: this.props.media,
+        context,
         id: this.props.media.id,
       }),
       { onSuccess, onFailure },

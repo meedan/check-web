@@ -95,13 +95,28 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
       );
     }
     if (this.props.archived === 0 && this.props.check_search_trash) {
-      return {
-        check_search_trash: {
-          id: this.props.check_search_trash.id,
-          number_of_results: this.props.check_search_trash.number_of_results - 1,
-        },
-        affectedId: this.props.id,
+      const response = optimisticProjectMedia(
+        this.props.media,
+        this.props.context.project,
+        this.props.context,
+      );
+
+      response.check_search_trash = {
+        id: this.props.check_search_trash.id,
+        number_of_results: this.props.check_search_trash.number_of_results - 1,
       };
+
+      response.check_search_team = {
+        id: this.props.check_search_team,
+      };
+
+      response.check_search_project = {
+        id: this.props.check_search_project,
+      };
+
+      response.affectedId = this.props.id;
+
+      return response;
     }
     if (this.props.archived === 1 && this.props.check_search_trash) {
       const response = optimisticProjectMedia(
@@ -115,6 +130,15 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         number_of_results: this.props.check_search_trash.number_of_results + 1,
       };
 
+      response.check_search_team = {
+        id: this.props.check_search_team,
+      };
+
+      response.check_search_project = {
+        id: this.props.check_search_project,
+      };
+
+      response.affectedId = this.props.id;
       return response;
     }
     return {};
