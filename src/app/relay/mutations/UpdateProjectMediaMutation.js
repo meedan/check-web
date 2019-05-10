@@ -1,6 +1,5 @@
 import Relay from 'react-relay/classic';
 import optimisticProjectMedia from './optimisticProjectMedia';
-import optimisticProjectMediaFromExisting from './optimisticProjectMediaFromExisting';
 
 class UpdateProjectMediaMutation extends Relay.Mutation {
   getMutation() {
@@ -105,7 +104,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
       };
     }
     if (this.props.archived === 1 && this.props.check_search_trash) {
-      const response = optimisticProjectMediaFromExisting(
+      const response = optimisticProjectMedia(
         this.props.media,
         this.props.context.project,
         this.props.context,
