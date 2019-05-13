@@ -1,12 +1,13 @@
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 
-const optimisticProjectMedia = (media, project, context) => {
-  const { team } = project;
+const optimisticProjectMedia = (media, proj, context) => {
+  const { team } = context;
 
   let title = null;
   let published = null;
   let log_count = null;
   let last_status = null;
+  let project = null;
 
   /* eslint-disable prefer-destructuring */
   if (typeof media === 'object') {
@@ -14,12 +15,14 @@ const optimisticProjectMedia = (media, project, context) => {
     published = media.published;
     log_count = media.log_count;
     last_status = media.last_status;
+    project = media.project;
   } else {
     title = media;
     published = parseInt((new Date().getTime() / 1000), 10).toString();
     log_count = 1;
     last_status = config.appName === 'check' ?
       team.verification_statuses.default : team.translation_statuses.default;
+    project = proj || context.project;
   }
 
   const user = context && context.currentUser ? context.currentUser : {};
