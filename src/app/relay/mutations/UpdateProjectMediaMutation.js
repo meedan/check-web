@@ -91,7 +91,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
       return optimisticProjectMedia(
         this.props.obj.text,
         this.props.project,
-        {},
+        this.props.context,
       );
     }
     if (this.props.archived === 0 && this.props.check_search_trash) {
