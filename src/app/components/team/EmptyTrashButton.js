@@ -8,7 +8,6 @@ import ConfirmDialog from '../layout/ConfirmDialog';
 import TeamRoute from '../../relay/TeamRoute';
 import UpdateTeamMutation from '../../relay/mutations/UpdateTeamMutation';
 import Can from '../Can';
-import CheckContext from '../../CheckContext';
 
 class EmptyTrashComponent extends Component {
   constructor(props) {
@@ -20,34 +19,9 @@ class EmptyTrashComponent extends Component {
     };
   }
 
-  componentDidMount() {
-    this.setContextTeam();
-  }
-
   shouldComponentUpdate(nextProps, nextState) {
     return !isEqual(this.state, nextState) ||
     !isEqual(this.props, nextProps);
-  }
-
-  componentDidUpdate() {
-    this.setContextTeam();
-  }
-
-  getContext() {
-    return new CheckContext(this);
-  }
-
-  setContextTeam() {
-    const context = this.getContext();
-    const currentContext = this.currentContext();
-
-    if (!currentContext.team || currentContext.team.slug !== this.props.team.slug) {
-      context.setContextStore({ team: this.props.team });
-    }
-  }
-
-  currentContext() {
-    return this.getContext().getContextStore();
   }
 
   handleMessage(message) {
