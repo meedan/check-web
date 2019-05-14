@@ -56,6 +56,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
           dbid,
           title,
           search_id,
+          search { id, number_of_results },
           get_languages
         },
         project_id,
@@ -154,6 +155,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
           private
           slug
           search_id
+          search { id, number_of_results }
           team_bot_installations(first: 10000) {
             edges {
               node {
