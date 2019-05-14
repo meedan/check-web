@@ -29,6 +29,7 @@ class DeleteRelationshipMutation extends Relay.Mutation {
             targets: { edges: [] },
             sources: { edges: [] },
           },
+          relationship: null,
         },
       };
     } else if (this.props.media.target_id) {
@@ -56,7 +57,7 @@ class DeleteRelationshipMutation extends Relay.Mutation {
       deletedId
       relationships_target { id, targets }
       source_project_media { dbid, id, __typename, relationships }
-      target_project_media { dbid, id, __typename, relationships }
+      target_project_media { dbid, id, __typename, relationships, relationship }
       current_project_media { dbid, id, __typename, relationships }
     }`;
   }
