@@ -23,7 +23,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
     return Relay.QL`
       fragment on UpdateProjectMediaPayload {
         project_mediaEdge,
-        check_search_team { id },
+        check_search_team { id, number_of_results },
         check_search_trash { id, number_of_results },
         check_search_project { id, number_of_results },
         check_search_project_was { id, number_of_results },
