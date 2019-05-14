@@ -107,11 +107,13 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
       };
 
       response.check_search_team = {
-        id: this.props.check_search_team,
+        id: this.props.check_search_team.id,
+        number_of_results: this.props.check_search_team.number_of_results + 1,
       };
 
       response.check_search_project = {
-        id: this.props.check_search_project,
+        id: this.props.check_search_project.id,
+        number_of_results: this.props.check_search_project.number_of_results + 1,
       };
 
       response.affectedId = this.props.id;
@@ -131,11 +133,13 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
       };
 
       response.check_search_team = {
-        id: this.props.check_search_team,
+        id: this.props.check_search_team.id,
+        number_of_results: this.props.check_search_team.number_of_results - 1,
       };
 
       response.check_search_project = {
-        id: this.props.check_search_project,
+        id: this.props.check_search_project.id,
+        number_of_results: this.props.check_search_project.number_of_results - 1,
       };
 
       response.affectedId = this.props.id;
@@ -255,7 +259,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
       configs.push({
         type: 'RANGE_DELETE',
         parentName: 'check_search_team',
-        parentID: this.props.check_search_team,
+        parentID: this.props.check_search_team.id,
         connectionName: 'medias',
         pathToConnection: ['check_search_team', 'medias'],
         deletedIDFieldName: 'affectedId',
@@ -263,7 +267,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
       configs.push({
         type: 'RANGE_DELETE',
         parentName: 'check_search_project',
-        parentID: this.props.check_search_project,
+        parentID: this.props.check_search_project.id,
         connectionName: 'medias',
         pathToConnection: ['check_search_project', 'medias'],
         deletedIDFieldName: 'affectedId',
@@ -286,7 +290,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
       configs.push({
         type: 'RANGE_ADD',
         parentName: 'check_search_team',
-        parentID: this.props.check_search_team,
+        parentID: this.props.check_search_team.id,
         connectionName: 'medias',
         edgeName: 'project_mediaEdge',
         rangeBehaviors: {
@@ -296,7 +300,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
       configs.push({
         type: 'RANGE_ADD',
         parentName: 'check_search_project',
-        parentID: this.props.check_search_project,
+        parentID: this.props.check_search_project.id,
         connectionName: 'medias',
         edgeName: 'project_mediaEdge',
         rangeBehaviors: {
