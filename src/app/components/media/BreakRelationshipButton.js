@@ -4,6 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
 import IconButton from 'material-ui/IconButton';
 import LayersClearIcon from '@material-ui/icons/LayersClear';
+import Can from '../Can';
 import DeleteRelationshipMutation from '../../relay/mutations/DeleteRelationshipMutation';
 
 class BreakRelationshipButton extends React.Component {
@@ -37,14 +38,16 @@ class BreakRelationshipButton extends React.Component {
     }
 
     return (
-      <IconButton
-        tooltip={
-          <FormattedMessage id="mediaDetail.breakRelationship" defaultMessage="Break relationship" />
-        }
-        onClick={this.handleClick}
-      >
-        <LayersClearIcon />
-      </IconButton>
+      <Can permissions={this.props.media.relationship.permissions} permission="destroy Relationship">
+        <IconButton
+          tooltip={
+            <FormattedMessage id="mediaDetail.breakRelationship" defaultMessage="Break relationship" />
+          }
+          onClick={this.handleClick}
+        >
+          <LayersClearIcon />
+        </IconButton>
+      </Can>
     );
   }
 }
