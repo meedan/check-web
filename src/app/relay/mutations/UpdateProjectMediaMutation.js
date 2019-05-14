@@ -91,17 +91,55 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
       return optimisticProjectMedia(
         this.props.obj.text,
         this.props.project,
-        {},
+        this.props.context,
       );
     }
     if (this.props.archived === 0 && this.props.check_search_trash) {
-      return {
-        check_search_trash: {
-          id: this.props.check_search_trash.id,
-          number_of_results: this.props.check_search_trash.number_of_results - 1,
-        },
-        affectedId: this.props.id,
+      const response = optimisticProjectMedia(
+        this.props.media,
+        this.props.context.project,
+        this.props.context,
+      );
+
+      response.check_search_trash = {
+        id: this.props.check_search_trash.id,
+        number_of_results: this.props.check_search_trash.number_of_results - 1,
       };
+
+      response.check_search_team = {
+        id: this.props.check_search_team,
+      };
+
+      response.check_search_project = {
+        id: this.props.check_search_project,
+      };
+
+      response.affectedId = this.props.id;
+
+      return response;
+    }
+    if (this.props.archived === 1 && this.props.check_search_trash) {
+      const response = optimisticProjectMedia(
+        this.props.media,
+        this.props.context.project,
+        this.props.context,
+      );
+
+      response.check_search_trash = {
+        id: this.props.check_search_trash.id,
+        number_of_results: this.props.check_search_trash.number_of_results + 1,
+      };
+
+      response.check_search_team = {
+        id: this.props.check_search_team,
+      };
+
+      response.check_search_project = {
+        id: this.props.check_search_project,
+      };
+
+      response.affectedId = this.props.id;
+      return response;
     }
     return {};
   }
@@ -230,6 +268,18 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         pathToConnection: ['check_search_project', 'medias'],
         deletedIDFieldName: 'affectedId',
       });
+      if (this.props.check_search_trash) {
+        configs.push({
+          type: 'RANGE_ADD',
+          parentName: 'check_search_trash',
+          parentID: this.props.check_search_trash.id,
+          connectionName: 'medias',
+          edgeName: 'project_mediaEdge',
+          rangeBehaviors: {
+            '': 'prepend',
+          },
+        });
+      }
     }
 
     if (this.props.archived === 0) {

@@ -31,6 +31,7 @@ const checkSearchResultFragment = Relay.QL`
           published,
           updated_at,
           embed,
+          title,
           archived,
           relationships { sources_count, targets_count },
           relationship { id, dbid, source_id, target_id },

@@ -1,10 +1,31 @@
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 
-const optimisticProjectMedia = (title, project, context) => {
+const optimisticProjectMedia = (media, proj, context) => {
+  const { team } = context;
+
+  let title = null;
+  let published = null;
+  let log_count = null;
+  let last_status = null;
+  let project = null;
+
+  /* eslint-disable prefer-destructuring */
+  if (typeof media === 'object') {
+    title = media.title;
+    published = media.published;
+    log_count = media.log_count;
+    last_status = media.last_status;
+    project = media.project;
+  } else {
+    title = media;
+    published = parseInt((new Date().getTime() / 1000), 10).toString();
+    log_count = 1;
+    last_status = config.appName === 'check' ?
+      team.verification_statuses.default : team.translation_statuses.default;
+    project = proj || context.project;
+  }
+
   const user = context && context.currentUser ? context.currentUser : {};
-  const { team } = project;
-  const ls = config.appName === 'check' ?
-    team.verification_statuses.default : team.translation_statuses.default;
 
   let mediasCount = 0;
   const counter = document.getElementsByClassName('search__results-heading span')[0];
@@ -20,12 +41,12 @@ const optimisticProjectMedia = (title, project, context) => {
         dynamic_annotation_language: null,
         url: '',
         quote: '',
-        published: parseInt((new Date().getTime() / 1000), 10).toString(),
+        published,
         embed: JSON.stringify({ title }),
-        log_count: 1,
+        log_count,
         verification_statuses: JSON.stringify(team.verification_statuses),
         translation_statuses: JSON.stringify(team.translation_statuses),
-        last_status: ls,
+        last_status,
         last_status_obj: {
           locked: true,
         },

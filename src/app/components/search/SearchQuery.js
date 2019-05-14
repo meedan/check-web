@@ -9,7 +9,7 @@ const queryWithoutProjects = Relay.QL`
   fragment on Team {
     id,
     dbid,
-    media_verification_statuses,
+    verification_statuses,
     translation_statuses,
     get_suggested_tags,
     dynamic_search_fields_json_schema,
@@ -22,7 +22,7 @@ const queryWithProjects = Relay.QL`
   fragment on Team {
     id,
     dbid,
-    media_verification_statuses,
+    verification_statuses,
     translation_statuses,
     get_suggested_tags,
     dynamic_search_fields_json_schema,
