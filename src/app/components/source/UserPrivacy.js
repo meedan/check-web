@@ -6,10 +6,12 @@ import { Card, CardText } from 'material-ui/Card';
 import rtlDetect from 'rtl-detect';
 import FlatButton from 'material-ui/FlatButton';
 import { List } from 'material-ui/List';
+import Switch from '@material-ui/core/Switch';
 import ConfirmDialog from '../layout/ConfirmDialog';
 import UserConnectedAccount from '../user/UserConnectedAccount';
 import { logout } from '../../redux/actions';
 import DeleteCheckUserMutation from '../../relay/mutations/DeleteCheckUserMutation';
+import SetUserSecuritySettingsMutation from '../../relay/mutations/SetUserSecuritySettingsMutation';
 import CheckContext from '../../CheckContext';
 import { mapGlobalMessage } from '../MappedMessage';
 import { stringHelper } from '../../customHelpers';
@@ -31,9 +33,19 @@ class UserPrivacy extends Component {
 
   constructor(props) {
     super(props);
+    let sendSuccessfulLogin = props.user.get_send_successful_login_notifications;
+    if (props.user.get_send_successful_login_notifications == null) {
+      sendSuccessfulLogin = true;
+    }
+    let sendFailedLogin = props.user.get_send_failed_login_notifications;
+    if (props.user.get_send_failed_login_notifications == null) {
+      sendFailedLogin = true;
+    }
     this.state = {
       dialogOpen: false,
       message: null,
+      sendSuccessfulLogin,
+      sendFailedLogin,
     };
   }
 
@@ -86,6 +98,33 @@ class UserPrivacy extends Component {
     );
   }
 
+  handleSecuritySettings(type, e, inputChecked) {
+    const { id } = this.props.user;
+
+    const onFailure = () => {
+    };
+    const onSuccess = () => {
+    };
+    let { sendSuccessfulLogin, sendFailedLogin } = this.state;
+    if (type === 'successfulLogin') {
+      sendSuccessfulLogin = inputChecked;
+    } else {
+      sendFailedLogin = inputChecked;
+    }
+    this.setState({
+      sendSuccessfulLogin,
+      sendFailedLogin,
+    });
+    Relay.Store.commitUpdate(
+      new SetUserSecuritySettingsMutation({
+        id,
+        sendSuccessfulLogin,
+        sendFailedLogin,
+      }),
+      { onSuccess, onFailure },
+    );
+  }
+
   render() {
     const { user } = this.props;
     const currentUser = this.getCurrentUser();
@@ -131,6 +170,8 @@ class UserPrivacy extends Component {
     };
 
     const appName = mapGlobalMessage(this.props.intl, 'appNameHuman');
+    // TODO: Read loginTrail from config
+    const loginTrial = 4;
 
     const ppLink = (
       <a
@@ -144,6 +185,7 @@ class UserPrivacy extends Component {
     );
 
     const { providers } = this.props.user;
+    providers.splice(providers.indexOf('google_oauth2'), 1);
 
     return (
       <div id="user__privacy">
@@ -208,6 +250,41 @@ class UserPrivacy extends Component {
                 />
               ))}
             </List>
+          </CardText>
+        </Card>
+        <h2 style={style}>
+          <FormattedMessage id="userPrivacy.security" defaultMessage="Security" />
+        </h2>
+        <Card style={cardStyle}>
+          <CardText style={cardTextStyle}>
+            <span style={{ minWidth: '500px', padding: '0px' }}>
+              <FormattedMessage
+                id="userPrivacy.successfulLoginText"
+                defaultMessage="Receive a notification for logins from a new location or device"
+              />
+            </span>
+            <Switch
+              id="edit-security__successfull-login-switch"
+              checked={Boolean(this.state.sendSuccessfulLogin)}
+              onChange={this.handleSecuritySettings.bind(this, 'successfulLogin')}
+              color="primary"
+            />
+          </CardText>
+          <CardText style={cardTextStyle}>
+            <span style={{ minWidth: '500px', padding: '0px' }}>
+              <FormattedMessage
+                id="userPrivacy.failedfulLoginText"
+                defaultMessage="Receive a notification for {loginTrial} consecutive failed login attempts"
+                values={{ loginTrial }}
+                style={{ minWidth: '500px', padding: '0px' }}
+              />
+            </span>
+            <Switch
+              id="edit-security__failed-login-switch"
+              checked={Boolean(this.state.sendFailedLogin)}
+              onChange={this.handleSecuritySettings.bind(this, 'failedLogin')}
+              color="primary"
+            />
           </CardText>
         </Card>
         <h2 style={Object.assign({}, style, { marginTop: units(6) })}>

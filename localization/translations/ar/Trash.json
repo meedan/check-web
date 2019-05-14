@@ -1,11 +1,3 @@
 {
-  "trash.title": "سلة المهملات",
-  "trash.refresh": "تحديث",
-  "trash.emptyInProgress": "عملية إفراغ سلة المهملات جارية. من فضلك تابع هنا لاحقاً. {refresh}",
-  "trash.cancel": "إلغاء",
-  "trash.deleteAll": "حذف الكل",
-  "trash.emptyTrash": "إفراغ سلة المهملات",
-  "trash.emptyTrashConfirmationText": "هل أنت متأكد ؟ سوف يتم حذف نهائي {itemsCount, plural, =0 {٠ عنصر} one {عنصر واحد} other {# عناصر}} و {notesCount, plural, =0 {٠ تعليق} one {تعليق واحد} other {# تعليقات}}. أكتب كلمة (confirm) للمتابعة.",
-  "trash.confirmationError": "ليس مطابق",
-  "trash.typeHere": "أكتب هنا"
+  "trash.title": "سلة المهملات"
 }

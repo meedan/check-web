@@ -24,6 +24,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
       fragment on UpdateProjectMediaPayload {
         project_mediaEdge,
         check_search_team { id },
+        check_search_trash { id, number_of_results },
         check_search_project { id, number_of_results },
         check_search_project_was { id, number_of_results },
         related_to { id, relationships, log, log_count },
@@ -90,8 +91,55 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
       return optimisticProjectMedia(
         this.props.obj.text,
         this.props.project,
-        {},
+        this.props.context,
       );
+    }
+    if (this.props.archived === 0 && this.props.check_search_trash) {
+      const response = optimisticProjectMedia(
+        this.props.media,
+        this.props.context.project,
+        this.props.context,
+      );
+
+      response.check_search_trash = {
+        id: this.props.check_search_trash.id,
+        number_of_results: this.props.check_search_trash.number_of_results - 1,
+      };
+
+      response.check_search_team = {
+        id: this.props.check_search_team,
+      };
+
+      response.check_search_project = {
+        id: this.props.check_search_project,
+      };
+
+      response.affectedId = this.props.id;
+
+      return response;
+    }
+    if (this.props.archived === 1 && this.props.check_search_trash) {
+      const response = optimisticProjectMedia(
+        this.props.media,
+        this.props.context.project,
+        this.props.context,
+      );
+
+      response.check_search_trash = {
+        id: this.props.check_search_trash.id,
+        number_of_results: this.props.check_search_trash.number_of_results + 1,
+      };
+
+      response.check_search_team = {
+        id: this.props.check_search_team,
+      };
+
+      response.check_search_project = {
+        id: this.props.check_search_project,
+      };
+
+      response.affectedId = this.props.id;
+      return response;
     }
     return {};
   }
@@ -132,6 +180,11 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         type: 'REQUIRED_CHILDREN',
         children: [Relay.QL`
           fragment on UpdateProjectMediaPayload {
+            project_media {
+              team {
+                slug
+              }
+            }
             project {
               project_medias(first: 20) {
                 edges {
@@ -215,9 +268,21 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         pathToConnection: ['check_search_project', 'medias'],
         deletedIDFieldName: 'affectedId',
       });
+      if (this.props.check_search_trash) {
+        configs.push({
+          type: 'RANGE_ADD',
+          parentName: 'check_search_trash',
+          parentID: this.props.check_search_trash.id,
+          connectionName: 'medias',
+          edgeName: 'project_mediaEdge',
+          rangeBehaviors: {
+            '': 'prepend',
+          },
+        });
+      }
     }
 
-    if (this.props.archived === 0 && this.props.relationship_sources_count === 0) {
+    if (this.props.archived === 0) {
       configs.push({
         type: 'RANGE_ADD',
         parentName: 'check_search_team',
@@ -238,6 +303,16 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
           '': 'prepend',
         },
       });
+      if (this.props.check_search_trash) {
+        configs.push({
+          type: 'RANGE_DELETE',
+          parentName: 'check_search_trash',
+          parentID: this.props.check_search_trash.id,
+          connectionName: 'medias',
+          deletedIDFieldName: 'affectedId',
+          pathToConnection: ['check_search_trash', 'medias'],
+        });
+      }
     }
 
     return configs;

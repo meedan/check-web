@@ -7,6 +7,7 @@ const checkSearchResultFragment = Relay.QL`
     team {
       slug
       search_id,
+      check_search_trash { id, number_of_results },
       get_embed_whitelist
       get_suggested_tags
       get_status_target_turnaround
@@ -30,6 +31,7 @@ const checkSearchResultFragment = Relay.QL`
           published,
           updated_at,
           embed,
+          title,
           archived,
           relationships { sources_count, targets_count },
           relationship { id, dbid, source_id, target_id },

@@ -1,11 +1,3 @@
 {
-  "trash.title": "Корзина",
-  "trash.refresh": "Обновить",
-  "trash.emptyInProgress": "Выполняется очистка корзины. Попробуйте чуть позже. {refresh}",
-  "trash.cancel": "Отменить",
-  "trash.deleteAll": "Удалить всё",
-  "trash.emptyTrash": "Очистить корзину",
-  "trash.emptyTrashConfirmationText": "Вы уверены? Это действие навсегда удалит {itemsCount, plural, =0 {0 материалов} one {1 материал} other {материалы (#)}} и {notesCount, plural, =0 {0 заметок} one {1 заметку} other {заметки (#)}}. Введите \"confirm\", если хотите продолжить.",
-  "trash.confirmationError": "Неверный ввод",
-  "trash.typeHere": "Введите \"confirm\""
+  "trash.title": "Корзина"
 }

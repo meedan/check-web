@@ -1,5 +1,5 @@
 {
-  "search.newTranslationRequestNotification": "Novo pedido de tradução",
+  "search.newTranslationRequestNotification": "Nova solicitação de tradução",
   "search.newTranslationNotification": "Nova tradução",
   "search.newTranslationNotificationBody": "Um ítem foi marcado como \"traduzido\"",
   "searchResults.withSelection": "{total, plural, =0 {Nenhum item} one {1 item} other {{from} - {to} de # itens}} {selectedCount, plural, =0 {} one {(1 selecionado)} other {(# selecionados)}}",

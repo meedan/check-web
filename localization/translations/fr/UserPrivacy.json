@@ -9,6 +9,9 @@
   "userPrivacy.stopProcessingText": "Vous pouvez demander à {appName} de cesser de traiter vos informations dans certaines conditions.",
   "userPrivacy.stopProcessingButton": "Arrêter le traitement",
   "userPrivacy.connectedAccounts": "Comptes connectés",
+  "userPrivacy.security": "Sécurité",
+  "userPrivacy.successfulLoginText": "Recevoir une notification après chaque connexion à partir d'un nouvel emplacement ou appareil",
+  "userPrivacy.failedfulLoginText": "Recevoir une notification après {loginTrial} échecs consécutifs de tentative de connexion ",
   "userPrivacy.delete": "Supprimer votre compte",
   "userPrivacy.deleteAccountText": "Si vous supprimez votre compte, vos données personnelles seront effacées. Les commentaires, annotations et activités d'équipe deviendront pseudonymes et resteront sur {appName}.",
   "userPrivacy.deleteAccountButton": "Supprimer mon compte"

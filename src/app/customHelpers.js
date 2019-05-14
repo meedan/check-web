@@ -14,7 +14,7 @@ const customHelpers = {
   },
   check: {
     teamStatuses(team) {
-      return team.media_verification_statuses;
+      return team.verification_statuses;
     },
     mediaStatuses(media) {
       return media.verification_statuses;

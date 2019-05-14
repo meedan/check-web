@@ -359,6 +359,7 @@ class SearchResultsComponent extends React.Component {
         }
         actions={medias.length && bulkActionsAllowed ?
           <BulkActions
+            count={this.props.search ? this.props.search.number_of_results : 0}
             team={team}
             project={this.currentContext().project}
             selectedMedia={this.state.selectedMedia}
@@ -377,7 +378,8 @@ class SearchResultsComponent extends React.Component {
           </span>
         }
         project={isProject ? this.currentContext().project : null}
-        addons={this.props.toolbarAddons}
+        page={this.props.page}
+        search={this.props.search}
       />
     );
 
@@ -407,8 +409,10 @@ class SearchResultsComponent extends React.Component {
     };
 
     let content = null;
-    if (isProject && count === 0) {
-      content = <ProjectBlankState project={this.currentContext().project} />;
+    if (count === 0) {
+      if (isProject) {
+        content = <ProjectBlankState project={this.currentContext().project} />;
+      }
     } else {
       content = (
         <div className={`search__results-list results medias-list ${viewMode}`}>

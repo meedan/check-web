@@ -2,14 +2,17 @@ import path from 'path';
 import webpack from 'webpack';
 var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 var CompressionPlugin = require('compression-webpack-plugin');
+var locales = require(path.join(__dirname, '../localization/translations/locales.js'));
+
+const localesRegExp = new RegExp('\/(' + locales.join('|') + ')\.js$');
 
 export default {
   bail: true, // exit 1 on build failure
-  entryWeb: {
+  entry: {
     index: [ 'babel-polyfill', 'whatwg-fetch', path.join(__dirname, '../src/web/index/index') ]
   },
   output: {
-    pathWeb: path.join(__dirname, '../build/web/js'),
+    path: path.join(__dirname, '../build/web/js'),
     filename: '[name].bundle.js',
     chunkFilename: '[id].chunk.js'
   },
@@ -21,19 +24,27 @@ export default {
       },
       __DEVELOPMENT__: false
     }),
-    new webpack.optimize.DedupePlugin(),
+    new webpack.ContextReplacementPlugin(
+      /react-intl\/locale-data/,
+      localesRegExp,
+    ),
+    new webpack.ContextReplacementPlugin(
+      /localization\/translations/,
+      localesRegExp,
+    ),
     new webpack.optimize.AggressiveMergingPlugin(),
-    new webpack.optimize.OccurrenceOrderPlugin(),
     new CompressionPlugin({
       asset: '[path].gz[query]',
       algorithm: 'gzip',
       test: /\.js$|\.css$|\.html$/,
-      threshold: 10240,
+      threshold: 5000,
       minRatio: 0.8
     }),
     // Uncomment to see at localhost:8888 a treemap of modules included in the bundle
     // new BundleAnalyzerPlugin(),
     new webpack.optimize.UglifyJsPlugin({
+      minimize: true,
+      sourceMap: true,
       comments: false,
       compressor: {
         screw_ie8: true,
@@ -47,28 +58,28 @@ export default {
   ],
   resolve: {
     alias: {app: path.join(__dirname, '../src/app')},
-    extensions: ['', '.js']
+    extensions: ['.js']
   },
   module: {
     loaders: [{
       test: /\.js$/,
-      loader: 'babel',
+      loader: 'babel-loader',
       exclude: /node_modules/,
       query: { presets: ['es2015', 'stage-0', 'react'], plugins: [path.join(__dirname, './babelRelayPlugin.js')]}
     }, {
       enforce: 'pre',
       test: /\.js$/,
-      loader: 'eslint',
+      loader: 'eslint-loader',
       exclude: /node_modules/,
       include: [
         path.join(__dirname, '../src/app')
       ]
     }, {
       test: /\.css?$/,
-      loaders: ['style', 'raw']
+      use: ['style-loader', 'raw-loader']
     }, {
       test: /\.json$/,
-      loader: 'json'
+      loader: 'ignore-loader'
     }]
   },
   externals: {

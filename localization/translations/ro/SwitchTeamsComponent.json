@@ -1,6 +1,6 @@
 {
   "switchTeams.error": "Ne pare rău, în timpul actualizării echipei s-a produs o eroare. Vă rugăm să mai încercați odată și să contactați {supportEmail} dacă situația persistă.",
-  "switchTeams.member": "{membersCount, plural, =0 {No members} one {1 member} other {# members}}",
+  "switchTeams.member": "{membersCount, plural, =0 {Nu sunt membri} one {1 membru} other {# membri}}",
   "switchTeams.joinRequestMessage": "Ați cerut să vă alăturați",
   "teams.yourTeams": "Echipele dvs",
   "teams.userTeams": "Echipele lui {name}",

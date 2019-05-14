@@ -1,11 +1,3 @@
 {
-  "trash.title": "Trash",
-  "trash.refresh": "Refresh now",
-  "trash.emptyInProgress": "Empty trash operation is in progress. Please check back later. {refresh}",
-  "trash.cancel": "Cancel",
-  "trash.deleteAll": "Delete all",
-  "trash.emptyTrash": "Empty trash",
-  "trash.emptyTrashConfirmationText": "Are you sure? This will permanently delete {itemsCount, plural, =0 {0 items} one {1 item} other {# items}} and {notesCount, plural, =0 {0 annotations} one {1 annotation} other {# annotations}}. Type \"confirm\" if you want to proceed.",
-  "trash.confirmationError": "Did not match",
-  "trash.typeHere": "Type here"
+  "trash.title": "Trash"
 }

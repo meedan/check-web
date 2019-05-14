@@ -1,0 +1,4 @@
+{
+  "trash.emptyTrash": "Golire coș",
+  "trash.emptyTrashConfirmationText": "Sigur? Aceasta va șterge definitiv {itemsCount, plural, =0 {0 elemente} one {1 element} other {# elemente}} și {notesCount, plural, =0 {0 adnotări} one {1 adnotare} other {# adnotări}}."
+}

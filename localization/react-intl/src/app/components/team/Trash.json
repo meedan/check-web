@@ -2,37 +2,5 @@
   {
     "id": "trash.title",
     "defaultMessage": "Trash"
-  },
-  {
-    "id": "trash.refresh",
-    "defaultMessage": "Refresh now"
-  },
-  {
-    "id": "trash.emptyInProgress",
-    "defaultMessage": "Empty trash operation is in progress. Please check back later. {refresh}"
-  },
-  {
-    "id": "trash.cancel",
-    "defaultMessage": "Cancel"
-  },
-  {
-    "id": "trash.deleteAll",
-    "defaultMessage": "Delete all"
-  },
-  {
-    "id": "trash.emptyTrash",
-    "defaultMessage": "Empty trash"
-  },
-  {
-    "id": "trash.emptyTrashConfirmationText",
-    "defaultMessage": "Are you sure? This will permanently delete {itemsCount, plural, =0 {0 items} one {1 item} other {# items}} and {notesCount, plural, =0 {0 annotations} one {1 annotation} other {# annotations}}. Type \"confirm\" if you want to proceed."
-  },
-  {
-    "id": "trash.confirmationError",
-    "defaultMessage": "Did not match"
-  },
-  {
-    "id": "trash.typeHere",
-    "defaultMessage": "Type here"
   }
 ]

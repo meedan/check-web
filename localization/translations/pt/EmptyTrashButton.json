@@ -1,0 +1,4 @@
+{
+  "trash.emptyTrash": "Esvaziar lixeira",
+  "trash.emptyTrashConfirmationText": "Você tem certeza? Isso irá excluir definitivamente {itemsCount, plural, =0 {0 items} one {1 item} other {# items}} e {notesCount, plural, =0 {0 anotações} one {1 anotação} other {# anotações}}."
+}

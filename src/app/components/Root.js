@@ -4,12 +4,7 @@ import { Provider } from 'react-redux';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import ReactGA from 'react-ga';
-import { IntlProvider, addLocaleData } from 'react-intl';
-import ar from 'react-intl/locale-data/ar';
-import en from 'react-intl/locale-data/en';
-import fr from 'react-intl/locale-data/fr';
-import pt from 'react-intl/locale-data/pt';
-import es from 'react-intl/locale-data/es';
+import { IntlProvider } from 'react-intl';
 import deepEqual from 'deep-equal';
 import ifvisible from 'ifvisible.js';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
@@ -40,39 +35,7 @@ import Search from './search/Search';
 import BotGarden from './BotGarden';
 import Bot from './Bot';
 import CheckContext from '../CheckContext';
-import translations from '../../../localization/translations/translations';
 import { safelyParseJSON } from '../helpers';
-
-// Localization
-let locale = config.locale || navigator.languages || navigator.language || navigator.userLanguage || 'en';
-if (locale.constructor === Array) {
-  ([locale] = locale);
-}
-locale = locale.replace(/[-_].*$/, '');
-
-if (!global.Intl) {
-  // eslint-disable-next-line max-len
-  // eslint-disable-next-line import/no-dynamic-require, global-require, require-path-exists/tooManyArguments
-  require(['intl'], (intl) => {
-    global.Intl = intl;
-    // TODO Commented out while build is not optimized for this!
-    // eslint-disable-next-line global-require
-    // require(`intl/locale-data/jsonp/${locale}.js`);
-  });
-}
-
-try {
-  const localeData = {
-    en,
-    fr,
-    ar,
-    pt,
-    es,
-  };
-  addLocaleData([...localeData[locale]]);
-} catch (e) {
-  locale = 'en';
-}
 
 class Root extends Component {
   static logPageView() {
@@ -270,7 +233,7 @@ class Root extends Component {
     const context = this.getContext();
     const store = context.store || this.props.store;
 
-    const data = { history, locale };
+    const data = { history, locale: this.props.locale };
 
     if (config.pusherKey) {
       // Pusher is imported at runtime from a <script file> tag.
@@ -289,13 +252,13 @@ class Root extends Component {
   }
 
   render() {
-    const { store } = this.props;
+    const { store, translations, locale } = this.props;
     window.Check = { store };
 
     return (
       <div>
         <RootLocale locale={locale} />
-        <IntlProvider locale={locale} messages={translations[locale]}>
+        <IntlProvider locale={locale} messages={translations}>
           <Provider store={store}>
             <Router history={this.state.history} onUpdate={Root.logPageView}>
               <Route path="/" component={App}>

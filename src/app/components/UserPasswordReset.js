@@ -22,7 +22,7 @@ const messages = defineMessages({
   },
   title: {
     id: 'passwordReset.title',
-    defaultMessage: 'Forgot password',
+    defaultMessage: 'Reset password',
   },
 });
 
@@ -103,10 +103,10 @@ class UserPasswordReset extends Component {
                 <FlatButton label={<FormattedMessage id="passwordReset.signIn" defaultMessage="Sign In" />} primary disabled={this.state.submitDisabled} onClick={this.handleSignIn.bind(this)} />
               </CardActions>,
             ] : [
-              <CardTitle key="usr-1" title={<FormattedMessage id="passwordReset.title" defaultMessage="Forgot password" />} />,
+              <CardTitle key="usr-1" title={<FormattedMessage id="passwordReset.title" defaultMessage="Reset password" />} />,
               <CardText key="usr-2">
                 {previousErrorMsg}
-                <FormattedMessage id="passwordReset.text" defaultMessage="Happens to everybody! Add your address and an email will be sent with further instructions." />
+                <FormattedMessage id="passwordReset.text" defaultMessage="Add your address and an email will be sent with further instructions." />
                 <div className="user-password-reset__email-input">
                   <TextField
                     id="password-reset-email-input"

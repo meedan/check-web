@@ -58,8 +58,6 @@ gulp.task('webpack:build:server', (callback) => {
 });
 
 gulp.task('webpack:build:web', (callback) => {
-  webpackConfig.entry = webpackConfig.entryWeb;
-  webpackConfig.output.path = webpackConfig.output.pathWeb;
   webpack(Object.create(webpackConfig), (err, stats) => {
     if (err) {
       gutil.log(err.message);
@@ -88,7 +86,7 @@ gulp.task('transifex:download', () => {
 
 gulp.task('transifex:translations', () => {
   if (transifexClient) {
-    return gulp.src('./localization/translations/**/*').pipe(mergeTransifex(buildConfig)).pipe(gulp.dest('./localization/translations/'));
+    return gulp.src('./localization/translations/**/*.json').pipe(mergeTransifex(buildConfig)).pipe(gulp.dest('./localization/translations/'));
   }
 });
 
@@ -127,10 +125,6 @@ gulp.task('build:server', ['webpack:build:server']);
 const devConfig = Object.create(webpackConfig);
 
 gulp.task('webpack:build:web:dev', () => {
-  // Duplicated from the regular build
-  devConfig.entry = devConfig.entryWeb;
-  devConfig.output.path = devConfig.output.pathWeb;
-
   // Enable watcher to monitor for changes
   devConfig.watch = true;
 

@@ -59,7 +59,7 @@ class Search extends React.Component {
     window.storage.set('view-mode', view);
 
     const query = searchQueryFromUrlQuery(searchQuery);
-    if (!this.noFilters(query)) {
+    if (!this.noFilters(query) && Object.keys(query).join('') !== 'archived') {
       query.timestamp = new Date().getTime();
     }
     if (this.props.project) {

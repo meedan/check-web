@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import Button from '@material-ui/core/Button';
 import styled from 'styled-components';
 import CreateRelatedMediaDialog from './CreateRelatedMediaDialog';
 import Can from '../Can';
+import CheckContext from '../../CheckContext';
 import { safelyParseJSON } from '../../helpers';
 import { black05 } from '../../styles/js/shared';
 import CreateProjectMediaMutation from '../../relay/mutations/CreateProjectMediaMutation';
@@ -50,9 +52,12 @@ class CreateRelatedMedia extends Component {
       this.setState({ message: null, isSubmitting: false });
     };
 
+    const context = new CheckContext(this).getContextStore();
+
     Relay.Store.commitUpdate(
       new CreateProjectMediaMutation({
         ...value,
+        context,
         project: this.props.media.project,
         related: this.props.media,
         related_to_id: this.props.media.dbid,
@@ -81,9 +86,12 @@ class CreateRelatedMedia extends Component {
       this.setState({ message: null, isSubmitting: false });
     };
 
+    const context = new CheckContext(this).getContextStore();
+
     Relay.Store.commitUpdate(
       new UpdateProjectMediaMutation({
         obj,
+        context,
         id: obj.id,
         project: this.props.media.project,
         related_to: this.props.media,
@@ -130,5 +138,9 @@ class CreateRelatedMedia extends Component {
     );
   }
 }
+
+CreateRelatedMedia.contextTypes = {
+  store: PropTypes.object,
+};
 
 export default injectIntl(CreateRelatedMedia);

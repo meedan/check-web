@@ -9,8 +9,7 @@ module.exports = function (config) {
   'use strict';
 
   config = config || {};
-  var origin = '/translations.js',
-      firstFile,
+  var firstFile,
       languages = [],
       translations = {};
 
@@ -19,26 +18,17 @@ module.exports = function (config) {
       firstFile = file;
     }
 
-    if (file.relative === 'translations.js') {
-      // Do nothing if the file is the merged one
-    }
-
-    // Language
-    else if (file.isDirectory()) {
-      const lang = file.relative;
-      if (!config.transifex.languages || config.transifex.languages.indexOf(lang) !== -1) {
-        languages.push(lang);
-        if (translations[lang] == undefined) {
-          translations[lang] = {};
-        }
-      }
-    }
-
     // Translation file
     else if (file.isBuffer()) {
       const parts = file.relative.split('/');
       const lang = parts[0];
       if (!config.transifex.languages || config.transifex.languages.indexOf(lang) !== -1) {
+        if (!translations[lang]) {
+          translations[lang] = {};
+        }
+        if (languages.indexOf(lang) === -1) {
+          languages.push(lang);
+        }
         translations[lang] = Object.assign(translations[lang], JSON.parse(file.contents.toString()))
       }
     }
@@ -49,15 +39,27 @@ module.exports = function (config) {
   return through.obj(directoryMap,
     function (cb) {
       if (!isEmpty(translations)) {
-        const contents = JSON.stringify(translations);
+        const langs = [];
+        for (const lang in translations) {
+          langs.push(lang);
+          const contents = JSON.stringify(translations[lang]);
+          this.push(new gutil.File({
+            cwd: firstFile.cwd,
+            base: firstFile.cwd,
+            path: path.join(firstFile.cwd, `${lang}.js`),
+            contents: new Buffer('const translations = ' + contents + ";\n\nmodule.exports = translations;")
+          }));
+          gutil.log('Generated', gutil.colors.blue(`${lang}.js`));
+        }
+        
+        const contents = JSON.stringify(langs);
         this.push(new gutil.File({
           cwd: firstFile.cwd,
           base: firstFile.cwd,
-          path: path.join(firstFile.cwd, origin),
-          contents: new Buffer('const translations = ' + contents + ";\n\nmodule.exports = translations;")
+          path: path.join(firstFile.cwd, 'locales.js'),
+          contents: new Buffer('const locales = ' + contents + ";\n\nmodule.exports = locales;")
         }));
-
-        gutil.log('Generated', gutil.colors.blue(origin));
+        gutil.log('Generated', gutil.colors.blue('locales.js'));
       }
       return cb();
     }

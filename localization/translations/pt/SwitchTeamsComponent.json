@@ -1,7 +1,7 @@
 {
   "switchTeams.error": "Desculpe, ocorreu um erro ao atualizar a equipe. Por favor, tente novamente e entre em contato com {supportEmail} se a condição persistir.",
   "switchTeams.member": "{membersCount, plural, =0 {Nenhum membro} one {1 membro} other {# membros}}",
-  "switchTeams.joinRequestMessage": "Você pediu para participar",
+  "switchTeams.joinRequestMessage": "Você solicitou para participar",
   "teams.yourTeams": "Suas equipes",
   "teams.userTeams": "Equipes de {name}",
   "switchTeams.cancelJoinRequest": "Cancelar",

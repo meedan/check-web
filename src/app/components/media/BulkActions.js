@@ -74,7 +74,9 @@ class BulkActions extends React.Component {
       this.setState({ openMoveDialog: false, dstProj: null, allSelected: false });
       this.props.onUnselectAll();
     };
-    const onFailure = () => {};
+    const onDone = () => {};
+
+    onSuccess();
 
     if (this.props.selectedMedia.length && this.state.dstProj) {
       Relay.Store.commitUpdate(
@@ -84,8 +86,9 @@ class BulkActions extends React.Component {
           dstProject: this.state.dstProj,
           srcProject: this.props.project,
           teamSearchId: this.props.team.search_id,
+          count: this.props.count,
         }),
-        { onSuccess, onFailure },
+        { onSuccess: onDone, onFailure: onDone },
       );
     }
   }
@@ -102,7 +105,9 @@ class BulkActions extends React.Component {
       this.setState({ allSelected: false });
       this.props.onUnselectAll();
     };
-    const onFailure = () => {};
+    const onDone = () => {};
+
+    onSuccess();
 
     if (this.props.selectedMedia.length && !this.state.confirmationError) {
       Relay.Store.commitUpdate(
@@ -112,8 +117,9 @@ class BulkActions extends React.Component {
           srcProject: this.props.project,
           archived: 1,
           teamSearchId: this.props.team.search_id,
+          count: this.props.count,
         }),
-        { onSuccess, onFailure },
+        { onSuccess: onDone, onFailure: onDone },
       );
     }
   }

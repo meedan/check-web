@@ -1,8 +1,8 @@
 {
   "TeamInviteMembers.newInvite": "Inviter des membres",
-  "TeamInviteMembers.emailInput": "Courriel",
-  "TeamInviteMembers.emailMultipleInput": "Séparez les courriels par des virgules",
-  "TeamInviteMembers.invalidEmail": "Courriel non valide.",
+  "TeamInviteMembers.emailInput": "Adresse e-mail",
+  "TeamInviteMembers.emailMultipleInput": "Séparez les e-mails par des virgules",
+  "TeamInviteMembers.invalidEmail": "E-mail non valide.",
   "TeamInviteMembers.existsEmail": "Cette personne est déjà membre de cette équipe.",
   "TeamInviteMembers.invitedEmail": "Cette personne a déjà été invitée à cette équipe.",
   "TeamMembersListItem.contributor": "Contributeur",

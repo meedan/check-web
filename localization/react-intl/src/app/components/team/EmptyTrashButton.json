@@ -1,0 +1,10 @@
+[
+  {
+    "id": "trash.emptyTrash",
+    "defaultMessage": "Empty trash"
+  },
+  {
+    "id": "trash.emptyTrashConfirmationText",
+    "defaultMessage": "Are you sure? This will permanently delete {itemsCount, plural, =0 {0 items} one {1 item} other {# items}} and {notesCount, plural, =0 {0 annotations} one {1 annotation} other {# annotations}}."
+  }
+]

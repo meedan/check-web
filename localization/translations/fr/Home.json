@@ -1,7 +1,7 @@
 {
   "home.needRegister": "Vous devez d'abord vous inscrire. Une fois inscrit, vous pouvez demander à rejoindre l'équipe.",
   "home.somethingWrong": "Désolé, une erreur s'est produite. Veuillez actualiser le navigateur et prévenir {supportEmail} si le problème persiste.",
-  "home.successInvitation": "Bienvenue sur {appName}. Veuillez vous connecter avec le mot de passe que vous avez reçu dans le courriel de bienvenue.",
+  "home.successInvitation": "Bienvenue sur {appName}. Veuillez vous connecter avec le mot de passe que vous avez reçu dans le message de bienvenue.",
   "home.invalidInvitation": "Désolé, une erreur s'est produite durant le traitement de votre invitation. Veuillez prévenir {supportEmail}.",
   "home.invalidTeamInvitation": "Désolé, l'équipe à laquelle vous avez été invité.e est introuvable. Veuillez prévenir {supportEmail} si vous pensez qu'il s'agit d'une erreur.",
   "home.invalidNoInvitation": "Désolé, l'invitation que vous avez reçue est introuvable. Veuillez prévenir {supportEmail} si vous pensez qu'il s'agit d'une erreur.",
