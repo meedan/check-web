@@ -121,6 +121,14 @@ const MediaExpandedContainer = Relay.createContainer(MediaExpandedComponent, {
       fragment on ProjectMedia {
         id
         dbid
+        relationship {
+          id
+          permissions
+          source { id, dbid }
+          source_id
+          target { id, dbid }
+          target_id
+        }
         last_status_obj {
           id
           dbid
