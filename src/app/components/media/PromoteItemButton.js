@@ -4,17 +4,21 @@ import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
 import IconButton from 'material-ui/IconButton';
 import TransformIcon from '@material-ui/icons/Transform';
+import Can from '../Can';
+import { stringHelper } from '../../customHelpers';
 import UpdateRelationshipMutation from '../../relay/mutations/UpdateRelationshipMutation';
 
 class PromoteItemButton extends React.Component {
   handleClick = () => {
-    const onFailure = (transaction) => {
-      const error = transaction.getError();
-      if (error.json) {
-        error.json().then(this.context.setMessage);
-      } else {
-        this.context.setMessage(JSON.stringify(error));
-      }
+    const onFailure = () => {
+      const message = (
+        <FormattedMessage
+          id="promoteItemButton.error"
+          defaultMessage="Sorry, an error occurred while updating the relationship. Please try again and contact {supportEmail} if the condition persists."
+          values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
+        />
+      );
+      this.context.setMessage(message);
     };
 
     const { id, source, target } = this.props.media.relationship;
@@ -45,14 +49,16 @@ class PromoteItemButton extends React.Component {
     }
 
     return (
-      <IconButton
-        tooltip={
-          <FormattedMessage id="mediaDetail.makeParent" defaultMessage="Promote to principal item" />
-        }
-        onClick={this.handleClick}
-      >
-        <TransformIcon />
-      </IconButton>
+      <Can permissions={this.props.media.relationship.permissions} permission="update Relationship">
+        <IconButton
+          tooltip={
+            <FormattedMessage id="mediaDetail.makeParent" defaultMessage="Promote to principal item" />
+          }
+          onClick={this.handleClick}
+        >
+          <TransformIcon />
+        </IconButton>
+      </Can>
     );
   }
 }
