@@ -1,5 +1,9 @@
 [
   {
+    "id": "promoteItemButton.error",
+    "defaultMessage": "Sorry, an error occurred while updating the relationship. Please try again and contact {supportEmail} if the condition persists."
+  },
+  {
     "id": "mediaDetail.makeParent",
     "defaultMessage": "Promote to principal item"
   }
