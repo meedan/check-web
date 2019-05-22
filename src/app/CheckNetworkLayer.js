@@ -149,6 +149,7 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
         Accept: '*/*',
         'Content-Type': 'application/json',
         'X-Check-Team': encodeURIComponent(this._init.team()),
+        'X-Timezone': Intl.DateTimeFormat().resolvedOptions().timeZone,
       },
       method: 'POST',
     });
@@ -190,6 +191,7 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
           Accept: '*/*',
           'Content-Type': 'application/json',
           'X-Check-Team': encodeURIComponent(this._init.team()),
+          'X-Timezone': Intl.DateTimeFormat().resolvedOptions().timeZone,
         }),
         method: 'POST',
       });
