@@ -56,7 +56,7 @@ class DeleteRelationshipMutation extends Relay.Mutation {
     return Relay.QL`fragment on DestroyRelationshipPayload {
       deletedId
       relationships_target { id, targets }
-      source_project_media { dbid, id, __typename, relationships }
+      source_project_media { dbid, id, __typename, relationships, relationship }
       target_project_media { dbid, id, __typename, relationships, relationship }
       current_project_media { dbid, id, __typename, relationships }
     }`;
