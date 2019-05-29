@@ -1,6 +1,6 @@
 {
   "geoLocationRespondTask.searching": "Поиск...",
-  "geoLocationRespondTask.notFound": "Запрашиваемое место не найдено. Попробуйте изменить условия поиска.",
+  "geoLocationRespondTask.notFound": "Извините, запрашиваемое место не найдено. Пожалуйста, попробуйте изменить условия поиска.",
   "geoLocationRespondTask.error": "В процессе редактирования вопроса произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}.",
   "geolocationRespondTask.cancelTask": "Отменить",
   "geolocationRespondTask.answerTask": "Ответить на вопрос",

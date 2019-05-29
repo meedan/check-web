@@ -2,8 +2,8 @@
   "bulkActions.move": "Переместить выбранное в другой проект",
   "bulkActions.sendItemsToTrash": "Отправить выбранное в корзину",
   "bulkActions.selectAll": "Выбрать все материалы на странице",
-  "bulkActions.movedSuccessfully": "Готово! Обратите внимание, что может пройти какое-то время, прежде чем все материалы будут перемещены.",
-  "bulkActions.moveToTrashSuccessfully": "Готово! Обратите внимание, что может пройти какое-то время, прежде чем все материалы будут перемещены в корзину.",
+  "bulkActions.movedSuccessfully": "Готово! Обратите внимание, что перемещение материалов может занять некоторое время.",
+  "bulkActions.moveToTrashSuccessfully": "Готово! Обратите внимание, что перемещение материалов в корзину может занять некоторое время.",
   "bulkActions.cancelButton": "Отменить",
   "bulkActions.moveTitle": "Переместить"
 }

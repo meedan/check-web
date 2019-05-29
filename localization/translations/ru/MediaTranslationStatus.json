@@ -1,5 +1,5 @@
 {
   "mediaStatus.cancelMessage": "Отменить",
-  "mediaStatus.messageDescription": "Комментарий для отправителя. Комментарий будет добавлен к сообщению о закрытии запроса.",
+  "mediaStatus.messageDescription": "Пожалуйста, добавьте комментарий для отправителя. Комментарий будет добавлен к сообщению о закрытии запроса.",
   "mediaStatus.noteHint": "Нажмите ENTER для отправки"
 }
