@@ -71,13 +71,13 @@ app.use((req, res, next) => {
   const mediaDetailUrl = url.match(/\/([^\/]+)\/project\/([0-9]+)\/media\/([0-9]+)/);
   if (mediaDetailUrl != null) {
     try {
-      const query = `query { project_media(ids: "${mediaDetailUrl[3]},${mediaDetailUrl[2]}") { metadata } }`;
+      const query = `query { project_media(ids: "${mediaDetailUrl[3]},${mediaDetailUrl[2]}") { oembed_metadata } }`;
       fetch(relayPath, { headers, method: 'post', body: `team=${mediaDetailUrl[1]}&query=${query}` }).then(response => response.json()).catch((e) => {
         console.log(util.inspect(e));
         res.send(template({ config, metadata: null, url }));
       }).then((json) => {
         try {
-          const metadata = JSON.parse(json.data.project_media.metadata);
+          const metadata = JSON.parse(json.data.project_media.oembed_metadata);
           res.send(template({ config, metadata, url }));
         } catch (e) {
           console.log(util.inspect(json));

@@ -156,9 +156,9 @@ class MediaEmbedComponent extends Component {
     const url = window.location.href.replace(/\/embed$/, `?t=${new Date().getTime()}`);
 
     const { media } = this.props;
-    const data = media.embed;
+    const data = media.metadata;
     const embedTag = `<script src="${config.penderUrl}/api/medias.js?url=${encodeURIComponent(url)}"></script>`;
-    const metadata = JSON.parse(media.metadata);
+    const metadata = JSON.parse(media.oembed_metadata);
     const shareUrl = metadata.embed_url;
 
     return (
@@ -338,8 +338,8 @@ const MediaEmbedContainer = Relay.createContainer(MediaEmbedComponent, {
       fragment on ProjectMedia {
         id,
         dbid,
+        oembed_metadata,
         metadata,
-        embed
       }
 `,
   },

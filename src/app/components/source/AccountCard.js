@@ -25,11 +25,11 @@ class AccountCard extends React.Component {
   static accountStats(account) {
     switch (account.provider) {
     case 'facebook':
-      return account.embed.likes ? <FormattedMessage id="accountCard.fbStats" defaultMessage="{likes, number} likes" values={{ likes: account.embed.likes }} /> : null;
+      return account.metadata.likes ? <FormattedMessage id="accountCard.fbStats" defaultMessage="{likes, number} likes" values={{ likes: account.metadata.likes }} /> : null;
     case 'twitter':
-      return account.embed.raw ? <FormattedHTMLMessage id="accountCard.twitterStats" defaultMessage="{tweets, number} Tweets &bull; {followers, number} Followers &bull; {following, number} Following" values={{ tweets: account.embed.raw.api.statuses_count, followers: account.embed.raw.api.followers_count, following: account.embed.raw.api.friends_count }} /> : null;
+      return account.metadata.raw ? <FormattedHTMLMessage id="accountCard.twitterStats" defaultMessage="{tweets, number} Tweets &bull; {followers, number} Followers &bull; {following, number} Following" values={{ tweets: account.metadata.raw.api.statuses_count, followers: account.metadata.raw.api.followers_count, following: account.metadata.raw.api.friends_count }} /> : null;
     case 'youtube':
-      return account.embed.raw ? <FormattedHTMLMessage id="accountCard.youtubeStats" defaultMessage="{videos, number} Videos &bull; {subscribers, number} Subscribers" values={{ videos: account.embed.raw.api.video_count, subscribers: account.embed.raw.api.subscriber_count }} /> : null;
+      return account.metadata.raw ? <FormattedHTMLMessage id="accountCard.youtubeStats" defaultMessage="{videos, number} Videos &bull; {subscribers, number} Subscribers" values={{ videos: account.metadata.raw.api.video_count, subscribers: account.metadata.raw.api.subscriber_count }} /> : null;
     default:
       return null;
     }
@@ -57,15 +57,15 @@ class AccountCard extends React.Component {
             </div>
 
             <div className="source-card__name">
-              <a href={account.embed.url} target="_blank" rel="noopener noreferrer">{ account.embed.name }</a>
+              <a href={account.metadata.url} target="_blank" rel="noopener noreferrer">{ account.metadata.name }</a>
             </div>
 
             <div className="source-card__description" style={{ paddingTop: units(1.5) }}>
-              <ParsedText text={truncateLength(account.embed.description, 300)} />
+              <ParsedText text={truncateLength(account.metadata.description, 300)} />
             </div>
 
             <div className="source-card__url" style={{ paddingTop: units(1.5) }}>
-              <a href={account.embed.url} target="_blank" rel="noopener noreferrer">{ account.embed.url }</a>
+              <a href={account.metadata.url} target="_blank" rel="noopener noreferrer">{ account.metadata.url }</a>
             </div>
 
             <div className="source-card__account-stats">

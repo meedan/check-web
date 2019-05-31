@@ -84,7 +84,7 @@ const SmallMediaCard = (props) => {
     : null;
 
   const image = media.media.thumbnail_path || media.media.picture;
-  const data = typeof media.embed === 'string' ? JSON.parse(media.embed) : media.embed;
+  const data = typeof media.metadata === 'string' ? JSON.parse(media.metadata) : media.metadata;
 
   media.url = media.media.url;
   media.quote = media.media.quote;

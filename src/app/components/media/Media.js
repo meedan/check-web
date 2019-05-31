@@ -45,7 +45,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
           }
         },
         url,
-        embed,
+        metadata,
         last_status,
         field_value(annotation_type_field_name: "translation_status:translation_status_status"),
         log_count,
@@ -79,7 +79,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
         media {
           url,
           quote,
-          embed,
+          metadata,
           embed_path,
           thumbnail_path
         }

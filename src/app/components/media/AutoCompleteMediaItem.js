@@ -80,7 +80,7 @@ class AutoCompleteMediaItem extends React.Component {
                     title
                     relationships { sources_count, targets_count }
                     domain
-                    embed
+                    metadata
                     overridden
                     media {
                       quote
@@ -116,7 +116,6 @@ class AutoCompleteMediaItem extends React.Component {
           (item.node.dbid !== this.props.media.dbid));
 
         const searchResult = unrelatedItems.map(item => ({
-          // text: MediaUtil.title(item.node, item.node.embed, this.props.intl),
           text: item.node.title,
           value: item.node.dbid,
           id: item.node.id,

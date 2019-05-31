@@ -164,7 +164,7 @@ const MediaLogContainer = Relay.createContainer(MediaLogComponent, {
                       quote,
                       published,
                       url,
-                      embed,
+                      metadata,
                       project_id,
                       last_status,
                       last_status_obj {
@@ -197,7 +197,7 @@ const MediaLogContainer = Relay.createContainer(MediaLogComponent, {
                         get_embed_whitelist
                       }
                       media {
-                        embed
+                        metadata
                         embed_path,
                         thumbnail_path,
                         url,

@@ -118,7 +118,7 @@ class MediaMetadata extends Component {
   getDescription() {
     const { media } = this.props;
 
-    const embed = (typeof media.embed === 'string') ? JSON.parse(media.embed) : media.embed;
+    const embed = (typeof media.metadata === 'string') ? JSON.parse(media.metadata) : media.metadata;
     const defaultDescription = MediaUtil.hasCustomDescription(media, embed)
       ? embed.description
       : null;
@@ -370,7 +370,7 @@ class MediaMetadata extends Component {
   canSubmit = () => {
     const { title, description } = this.state;
     const permissions = JSON.parse(this.props.media.permissions);
-    return (permissions['update Embed'] !== false && (typeof title === 'string' || typeof description === 'string'));
+    return (permissions['update Dynamic'] !== false && (typeof title === 'string' || typeof description === 'string'));
   };
 
   handleChangeTitle(e) {
@@ -410,7 +410,7 @@ class MediaMetadata extends Component {
       Relay.Store.commitUpdate(
         new UpdateProjectMediaMutation({
           media,
-          embed: JSON.stringify(embed),
+          metadata: JSON.stringify(embed),
           id: media.id,
         }),
         { onFailure },
@@ -468,7 +468,7 @@ class MediaMetadata extends Component {
 
   render() {
     const { media, intl: { locale } } = this.props;
-    const data = media.embed;
+    const data = media.metadata;
     const context = this.getContext();
     const isRtl = rtlDetect.isRtlLang(locale);
     const fromDirection = isRtl ? 'right' : 'left';

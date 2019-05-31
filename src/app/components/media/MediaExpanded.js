@@ -36,7 +36,7 @@ class MediaExpandedComponent extends Component {
 
   render() {
     const media = Object.assign(this.props.currentMedia, this.props.media);
-    const data = typeof media.embed === 'string' ? JSON.parse(media.embed) : media.embed;
+    const data = typeof media.metadata === 'string' ? JSON.parse(media.metadata) : media.metadata;
     const isImage = !!media.media.embed_path;
     const isQuote = media.media.quote && media.media.quote.length;
     const isWebPage = media.media.url && data.provider === 'page';

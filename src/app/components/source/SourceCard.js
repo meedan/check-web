@@ -109,7 +109,7 @@ class SourceCard extends React.Component {
                   <li key={account.node.id} className="source-card__account-link">
                     { MediaUtil.socialIcon(`${account.node.provider}.com`) /* TODO Remove tld assumption */ }
                     <a href={account.node.url} target="_blank" rel="noopener noreferrer">
-                      { account.node.embed.username || account.node.embed.url }
+                      { account.node.metadata.username || account.node.metadata.url }
                     </a>
                   </li>))}
               </ul>

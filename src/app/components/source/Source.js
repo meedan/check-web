@@ -77,7 +77,7 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
                   id,
                   created_at,
                   updated_at,
-                  embed,
+                  metadata,
                   image,
                   url,
                   provider,
@@ -90,7 +90,7 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
               node {
                 id,
                 dbid,
-                embed,
+                metadata,
                 url,
                 provider,
               }

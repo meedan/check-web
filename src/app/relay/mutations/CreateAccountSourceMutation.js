@@ -19,7 +19,7 @@ class CreateAccountSourceMutation extends Relay.Mutation {
     const account_source = {
       account: {
         url: this.props.url,
-        embed: '',
+        metadata: '',
       },
     };
 

@@ -42,7 +42,7 @@ const optimisticProjectMedia = (media, proj, context) => {
         url: '',
         quote: '',
         published,
-        embed: JSON.stringify({ title }),
+        metadata: JSON.stringify({ title }),
         log_count,
         verification_statuses: JSON.stringify(team.verification_statuses),
         translation_statuses: JSON.stringify(team.translation_statuses),

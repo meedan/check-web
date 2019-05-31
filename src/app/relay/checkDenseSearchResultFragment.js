@@ -26,7 +26,7 @@ const checkDenseSearchResultFragment = Relay.QL`
           id,
           dbid,
           domain,
-          embed,
+          metadata,
           quote,
           overridden,
           relationships { sources_count, targets_count },
@@ -43,7 +43,7 @@ const checkDenseSearchResultFragment = Relay.QL`
           }
           media {
             url,
-            embed,
+            metadata,
             quote,
             picture
             thumbnail_path

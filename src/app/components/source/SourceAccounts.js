@@ -33,7 +33,7 @@ const SourceAccountsContainer = Relay.createContainer(SourceAccountsComponent, {
                 dbid,
                 created_at,
                 updated_at,
-                embed,
+                metadata,
                 image,
                 url,
                 provider,

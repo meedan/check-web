@@ -21,7 +21,7 @@ class UserDisconnectLoginAccountMutation extends Relay.Mutation {
                   id,
                   created_at,
                   updated_at,
-                  embed,
+                  metadata,
                   url,
                   provider,
                 }
@@ -52,7 +52,7 @@ class UserDisconnectLoginAccountMutation extends Relay.Mutation {
                       id,
                       created_at,
                       updated_at,
-                      embed,
+                      metadata,
                       url,
                       provider,
                     }
