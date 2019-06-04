@@ -11,7 +11,7 @@ import DeleteRelationshipMutation from '../../relay/mutations/DeleteRelationship
 const messages = defineMessages({
   error: {
     id: 'breakRelationship.error',
-    defaultMessage: 'Sorry, an error occurred while removing the relationship. Please try again and contact {supportEmail} if the condition persists.',
+    defaultMessage: 'Sorry, an error occurred while updating the relationship. Please try again and contact {supportEmail} if the condition persists.',
   },
 });
 
