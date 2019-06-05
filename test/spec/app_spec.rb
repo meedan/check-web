@@ -1694,7 +1694,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect((@driver.current_url.to_s.match(/recent_activity/)).nil?).to be(true)
 
       wait_for_selector("search__open-dialog-button", :id).click
-      @driver.find_element(:xpath, "//span[contains(text(), 'Recent activity')]").click
+      wait_for_selector(".search-query__recent-activity-button").click
       wait_for_selector("search-query__submit-button", :id).click
       sleep 10
       expect((@driver.current_url.to_s.match(/recent_activity/)).nil?).to be(false)
@@ -1702,7 +1702,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('My search result')).to be(true)
 
       wait_for_selector("search__open-dialog-button", :id).click
-      @driver.find_element(:xpath, "//span[contains(text(), 'Created')]").click
+      wait_for_selector(".search-query__recent-added-button").click
       wait_for_selector("search-query__submit-button", :id).click
       sleep 10
       expect((@driver.current_url.to_s.match(/recent_activity/)).nil?).to be(true)
@@ -1737,7 +1737,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 10
       expect(@driver.page_source.include?('My search result')).to be(false)
       wait_for_selector("search__open-dialog-button", :id).click
-      selected = @driver.find_elements(:css, '.media-tags__suggestion--selected')
+      selected = @driver.find_elements(:css, '.search-query__filter-button--selected')
       expect(selected.size == 3).to be(true)
     end
 
@@ -1747,7 +1747,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 10
       expect(@driver.page_source.include?('My search result')).to be(true)
       wait_for_selector("search__open-dialog-button", :id).click
-      selected = @driver.find_elements(:css, '.media-tags__suggestion--selected').map(&:text).sort
+      selected = @driver.find_elements(:css, '.search-query__filter-button--selected').map(&:text).sort
       expect(selected == ['Recent activity', 'Newest first', 'Media'].sort).to be(true)
     end
 
@@ -1757,7 +1757,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 10
       expect(@driver.page_source.include?('My search result')).to be(true)
       wait_for_selector("search__open-dialog-button", :id).click
-      selected = @driver.find_elements(:css, '.media-tags__suggestion--selected').map(&:text).sort
+      selected = @driver.find_elements(:css, '.search-query__filter-button--selected').map(&:text).sort
       expect(selected == ['Created', 'Oldest first', 'Media'].sort).to be(true)
     end
 
