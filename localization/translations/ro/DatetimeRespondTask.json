@@ -3,7 +3,7 @@
   "datetimeRespondTask.cancel": "Anulare",
   "datetimeRespondTask.timeError": "Eroare: ora nu este validă",
   "datetimeRespondTask.cancelTask": "Anulare",
-  "datetimeRespondTask.answerTask": "Răspunde la sarcină",
+  "datetimeRespondTask.answerTask": "Rezolvă sarcina",
   "datetimeRespondTask.pickDate": "Alegeți o dată din calendar",
   "datetimeRespondTask.timeOptional": "Timp (opțional)"
 }

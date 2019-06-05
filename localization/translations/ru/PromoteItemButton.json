@@ -1,3 +1,4 @@
 {
+  "promoteItemButton.error": "Sorry, an error occurred while updating the relationship. Please try again and contact {supportEmail} if the condition persists.",
   "mediaDetail.makeParent": "Сделать основным материалом"
 }

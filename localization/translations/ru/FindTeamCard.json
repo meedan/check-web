@@ -1,5 +1,5 @@
 {
-  "findTeamCard.teamSlugHint": "группа",
+  "findTeamCard.teamSlugHint": "идентификатор группы",
   "findTeamCard.teamNotFound": "Группа не найдена!",
   "findTeamCard.mainHeading": "Найти существующую группу",
   "findTeamCard.blurb": "Введите имя существующей группы, чтобы подать заявку на вступление, или создайте свою.",

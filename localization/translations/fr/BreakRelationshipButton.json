@@ -1,3 +1,4 @@
 {
+  "breakRelationship.error": "Désolé, une erreur s'est produite durant la mise à jour de la relation. Veuillez réessayer et prévenir {supportEmail} si le problème persiste.",
   "mediaDetail.breakRelationship": "Supprimer la liaison"
 }

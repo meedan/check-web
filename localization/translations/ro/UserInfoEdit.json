@@ -6,7 +6,7 @@
   "userInfoEdit.addLink": "Adaugă link",
   "userInfoEdit.editError": "Ne pare rău, în timpul actualizării profilului Dvs s-a produs o eroare. Vă rugăm să mai încercați odată și să contactați {supportEmail} dacă situația persistă.",
   "userInfoEdit.nameError": "Câmpul ”Nume” nu poate rămâne necompletat",
-  "userInfoEdit.addLinkLabel": "Adaugă link",
+  "userInfoEdit.addLinkLabel": "Adaugă un link",
   "userInfoEdit.addLinkHelper": "Adăugați un link la pagina web sau profil pe rețele de socializare. Notă: aceasta nu afectează metoda Dvs de conectare.",
   "userInfoEdit.emailConfirmed": "✔ Adresa a fost confirmată",
   "userInfoEdit.emailPendingConfirm": "⚠ În așteptarea confirmării",
