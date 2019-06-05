@@ -14,6 +14,7 @@ import rtlDetect from 'rtl-detect';
 import styled from 'styled-components';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { searchQueryFromUrl, urlFromSearchQuery } from './Search';
+import DateRangeFilter from './DateRangeFilter';
 import PageTitle from '../PageTitle';
 import CheckContext from '../../CheckContext';
 import { bemClass } from '../../helpers';
@@ -114,7 +115,7 @@ const StyledSearchFiltersSection = styled.section`
 `;
 
 const StyledFilterRow = swallowingStyled(Row, { swallowProps: ['isRtl'] })`
-  max-height: ${units(20)};
+  height: ${props => (props.doubleHeight ? units(14) : units(5))};
   overflow-y: auto;
   flex-wrap: wrap;
 
@@ -307,6 +308,12 @@ class SearchQueryComponent extends React.Component {
     const selected = dynamic[field] || [];
     return selected.includes(value);
   }
+
+  handleDateChange = (value) => {
+    const query = Object.assign({}, this.state.query);
+    query.range = value;
+    this.setState({ query });
+  };
 
   handleStatusClick(statusCode) {
     const query = Object.assign({}, this.state.query);
@@ -526,6 +533,7 @@ class SearchQueryComponent extends React.Component {
         <PageTitle prefix={title} skipTeam={false} team={this.props.team}>
           <Dialog
             maxWidth="md"
+            fullWidth
             open={this.state.dialogOpen}
             onClose={this.handleDialogClose}
           >
@@ -581,6 +589,11 @@ class SearchQueryComponent extends React.Component {
                   : null}
 
                 <StyledSearchFiltersSection>
+                  <DateRangeFilter
+                    hidden={!this.showField('date')}
+                    onChange={this.handleDateChange}
+                    value={this.state.query.range}
+                  />
                   {this.showField('status') ?
                     <StyledFilterRow isRtl={isRtl}>
                       <h4><FormattedMessage id="search.statusHeading" defaultMessage="Status" /></h4>
@@ -834,3 +847,4 @@ SearchQueryComponent.contextTypes = {
 };
 
 export default injectIntl(SearchQueryComponent);
+export { StyledFilterRow };

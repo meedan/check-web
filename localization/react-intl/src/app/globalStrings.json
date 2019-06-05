@@ -20,6 +20,10 @@
     "defaultMessage": "Confirm"
   },
   {
+    "id": "global.ok",
+    "defaultMessage": "OK"
+  },
+  {
     "id": "global.save",
     "defaultMessage": "Save"
   },
