@@ -520,7 +520,7 @@ class Annotation extends Component {
       break;
     case 'create_task':
       contentTemplate = (
-        <span>
+        <span className="annotation__task-created">
           <FormattedMessage
             id="annotation.taskCreated"
             defaultMessage="Task created by {author}: {task}"

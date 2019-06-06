@@ -1519,7 +1519,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       fill_field('1', 'Bar', :id)
       el = wait_for_selector('.create-task__dialog-submit-button', :css)
       el.click
-      media_pg.wait_all_elements(2, "annotations__list-item", :class) #Wait for refresh page
+      wait_for_selector('.annotation__task-created')
       expect(@driver.page_source.include?('Foo or bar?')).to be(true)
       expect(@driver.page_source.include?('Task created by')).to be(true)
       # Answer task
@@ -1528,13 +1528,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       el = wait_for_selector('task__submit', :class)
       el.click
-      media_pg.wait_all_elements(4, "annotations__list-item", :class)
+      wait_for_selector('.annotation__task-resolved')
       expect(@driver.page_source.include?('class="task task__answered-by-current-user"')).to be(true)
       # Edit task
       expect(@driver.page_source.include?('Task edited by')).to be(false)
       el = wait_for_selector('.task-actions__icon', :css)
       el.click
-      media_pg.wait_all_elements(6, "annotations__list-item", :class)
       editbutton = wait_for_selector('.task-actions__edit', :css)
       editbutton.location_once_scrolled_into_view
       editbutton.click
@@ -1542,7 +1541,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 5
       editbutton = wait_for_selector('.create-task__dialog-submit-button', :css)
       editbutton.click
-      media_pg.wait_all_elements(9, "annotations__list-item", :class)
+      wait_for_selector('.annotation__update-task')
       sleep 10
       expect(@driver.page_source.include?('Task edited by')).to be(true)
       # Edit task answer
@@ -1554,7 +1553,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       el = wait_for_selector('task__submit', :class)
       el.click
-      media_pg.wait_all_elements(10, "annotations__list-item", :class) #Wait for refresh page
+      wait_for_selector('.annotation--task_response_single_choice')
       # Delete task
       delete_task('Foo')
     end
@@ -1582,7 +1581,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       el = wait_for_selector('.create-task__dialog-submit-button', :css)
       el.click
-      media_pg.wait_all_elements(2, "annotations__list-item", :class)
+      wait_for_selector('.annotation__task-created')
       expect(@driver.page_source.include?('Foo, Doo or bar?')).to be(true)
       expect(@driver.page_source.include?('Task created by')).to be(true)
       # Answer task
@@ -1593,13 +1592,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       el = wait_for_selector('task__submit', :class)
       el.click
-      media_pg.wait_all_elements(4, "annotations__list-item", :class)
+      wait_for_selector('.annotation__task-resolved')
       expect(@driver.page_source.include?('class="task task__answered-by-current-user"')).to be(true)
       # Edit task
       expect(@driver.page_source.include?('Task edited by')).to be(false)
       el = wait_for_selector('.task-actions__icon', :css)
       el.click
-      media_pg.wait_all_elements(7, "annotations__list-item", :class)
       editbutton = wait_for_selector('.task-actions__edit', :css)
       editbutton.location_once_scrolled_into_view
       editbutton.click
@@ -1607,7 +1605,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 5
       editbutton = wait_for_selector('.create-task__dialog-submit-button', :css)
       editbutton.click
-      media_pg.wait_all_elements(8, "annotations__list-item", :class)
+      wait_for_selector('.annotation__update-task')
       sleep 10
       expect(@driver.page_source.include?('Task edited by')).to be(true)
       # Edit task answer
@@ -1623,7 +1621,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       fill_field('textarea[name="response"]', 'BooYaTribe')
       el = wait_for_selector('task__submit', :class)
       el.click
-      media_pg.wait_all_elements(10, "annotations__list-item", :class) #Wait for refresh page
+      wait_for_selector('.annotation--task_response_multiple_choice')
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('BooYaTribe')).to be(true)
       # Delete task
       delete_task('Foo')
