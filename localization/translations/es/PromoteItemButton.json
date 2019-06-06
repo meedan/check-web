@@ -1,4 +1,4 @@
 {
-  "promoteItemButton.error": "Sorry, an error occurred while updating the relationship. Please try again and contact {supportEmail} if the condition persists.",
+  "promoteItemButton.error": "Lo sentimos, se produjo un error al actualizar la relación. Vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}.",
   "mediaDetail.makeParent": "Promover a ítem principal"
 }
