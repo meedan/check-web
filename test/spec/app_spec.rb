@@ -154,6 +154,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       p.go(@config['self_url'] + '/' + team)
       wait_for_selector('.team-menu__team-settings-button').click
       wait_for_selector('.team-settings__tasks-tab').click
+      wait_for_selector('.team-tasks')
       expect(@driver.page_source.include?('No teamwide tasks to display')).to be(true)
       expect(@driver.page_source.include?('No tasks')).to be(true)
       expect(@driver.page_source.include?('New teamwide task')).to be(false)
@@ -163,7 +164,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.create-task__add-short-answer').click
       fill_field('#task-label-input', 'New teamwide task')
       wait_for_selector('.create-task__dialog-submit-button').click
-      sleep 5
+      wait_for_selector('.team-tasks-project')
       expect(@driver.page_source.include?('No teamwide tasks to display')).to be(false)
       expect(@driver.page_source.include?('1 task')).to be(true)
       expect(@driver.page_source.include?('New teamwide task')).to be(true)
@@ -1519,7 +1520,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       fill_field('1', 'Bar', :id)
       el = wait_for_selector('.create-task__dialog-submit-button', :css)
       el.click
-      media_pg.wait_all_elements(2, "annotations__list-item", :class) #Wait for refresh page
+      wait_for_selector('.annotation__task-created')
       expect(@driver.page_source.include?('Foo or bar?')).to be(true)
       expect(@driver.page_source.include?('Task created by')).to be(true)
       # Answer task
@@ -1528,13 +1529,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       el = wait_for_selector('task__submit', :class)
       el.click
-      media_pg.wait_all_elements(4, "annotations__list-item", :class)
+      wait_for_selector('.annotation__task-resolved')
       expect(@driver.page_source.include?('class="task task__answered-by-current-user"')).to be(true)
       # Edit task
       expect(@driver.page_source.include?('Task edited by')).to be(false)
       el = wait_for_selector('.task-actions__icon', :css)
       el.click
-      media_pg.wait_all_elements(6, "annotations__list-item", :class)
       editbutton = wait_for_selector('.task-actions__edit', :css)
       editbutton.location_once_scrolled_into_view
       editbutton.click
@@ -1542,7 +1542,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 5
       editbutton = wait_for_selector('.create-task__dialog-submit-button', :css)
       editbutton.click
-      media_pg.wait_all_elements(9, "annotations__list-item", :class)
+      wait_for_selector('.annotation__update-task')
       sleep 10
       expect(@driver.page_source.include?('Task edited by')).to be(true)
       # Edit task answer
@@ -1554,7 +1554,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       el = wait_for_selector('task__submit', :class)
       el.click
-      media_pg.wait_all_elements(10, "annotations__list-item", :class) #Wait for refresh page
+      wait_for_selector('.annotation--task_response_single_choice')
       # Delete task
       delete_task('Foo')
     end
@@ -1582,7 +1582,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       el = wait_for_selector('.create-task__dialog-submit-button', :css)
       el.click
-      media_pg.wait_all_elements(2, "annotations__list-item", :class)
+      wait_for_selector('.annotation__task-created')
       expect(@driver.page_source.include?('Foo, Doo or bar?')).to be(true)
       expect(@driver.page_source.include?('Task created by')).to be(true)
       # Answer task
@@ -1593,13 +1593,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       el = wait_for_selector('task__submit', :class)
       el.click
-      media_pg.wait_all_elements(4, "annotations__list-item", :class)
+      wait_for_selector('.annotation__task-resolved')
       expect(@driver.page_source.include?('class="task task__answered-by-current-user"')).to be(true)
       # Edit task
       expect(@driver.page_source.include?('Task edited by')).to be(false)
       el = wait_for_selector('.task-actions__icon', :css)
       el.click
-      media_pg.wait_all_elements(7, "annotations__list-item", :class)
       editbutton = wait_for_selector('.task-actions__edit', :css)
       editbutton.location_once_scrolled_into_view
       editbutton.click
@@ -1607,7 +1606,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 5
       editbutton = wait_for_selector('.create-task__dialog-submit-button', :css)
       editbutton.click
-      media_pg.wait_all_elements(8, "annotations__list-item", :class)
+      wait_for_selector('.annotation__update-task')
       sleep 10
       expect(@driver.page_source.include?('Task edited by')).to be(true)
       # Edit task answer
@@ -1623,7 +1622,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       fill_field('textarea[name="response"]', 'BooYaTribe')
       el = wait_for_selector('task__submit', :class)
       el.click
-      media_pg.wait_all_elements(10, "annotations__list-item", :class) #Wait for refresh page
+      wait_for_selector('.annotation--task_response_multiple_choice')
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('BooYaTribe')).to be(true)
       # Delete task
       delete_task('Foo')
@@ -1694,7 +1693,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect((@driver.current_url.to_s.match(/recent_activity/)).nil?).to be(true)
 
       wait_for_selector("search__open-dialog-button", :id).click
-      @driver.find_element(:xpath, "//span[contains(text(), 'Recent activity')]").click
+      wait_for_selector(".search-query__recent-activity-button").click
       wait_for_selector("search-query__submit-button", :id).click
       sleep 10
       expect((@driver.current_url.to_s.match(/recent_activity/)).nil?).to be(false)
@@ -1702,7 +1701,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('My search result')).to be(true)
 
       wait_for_selector("search__open-dialog-button", :id).click
-      @driver.find_element(:xpath, "//span[contains(text(), 'Created')]").click
+      wait_for_selector(".search-query__recent-added-button").click
       wait_for_selector("search-query__submit-button", :id).click
       sleep 10
       expect((@driver.current_url.to_s.match(/recent_activity/)).nil?).to be(true)
@@ -1737,7 +1736,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 10
       expect(@driver.page_source.include?('My search result')).to be(false)
       wait_for_selector("search__open-dialog-button", :id).click
-      selected = @driver.find_elements(:css, '.media-tags__suggestion--selected')
+      selected = @driver.find_elements(:css, '.search-query__filter-button--selected')
       expect(selected.size == 3).to be(true)
     end
 
@@ -1747,7 +1746,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 10
       expect(@driver.page_source.include?('My search result')).to be(true)
       wait_for_selector("search__open-dialog-button", :id).click
-      selected = @driver.find_elements(:css, '.media-tags__suggestion--selected').map(&:text).sort
+      selected = @driver.find_elements(:css, '.search-query__filter-button--selected').map(&:text).sort
       expect(selected == ['Recent activity', 'Newest first', 'Media'].sort).to be(true)
     end
 
@@ -1757,7 +1756,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 10
       expect(@driver.page_source.include?('My search result')).to be(true)
       wait_for_selector("search__open-dialog-button", :id).click
-      selected = @driver.find_elements(:css, '.media-tags__suggestion--selected').map(&:text).sort
+      selected = @driver.find_elements(:css, '.search-query__filter-button--selected').map(&:text).sort
       expect(selected == ['Created', 'Oldest first', 'Media'].sort).to be(true)
     end
 

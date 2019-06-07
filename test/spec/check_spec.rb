@@ -119,7 +119,7 @@ shared_examples 'custom' do
     expect(@driver.page_source.include?('My search result')).to be(false)
     wait_for_selector("search__open-dialog-button", :id).click
     wait_for_selector("search-form", :id)
-    selected = @driver.find_elements(:css, '.media-tags__suggestion--selected').map(&:text).sort
+    selected = @driver.find_elements(:css, '.search-query__filter-button--selected').map(&:text).sort
     expect(selected == ['False', 'Created', 'Newest first', 'Media'].sort).to be(true)
   end
 end
