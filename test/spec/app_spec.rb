@@ -154,6 +154,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       p.go(@config['self_url'] + '/' + team)
       wait_for_selector('.team-menu__team-settings-button').click
       wait_for_selector('.team-settings__tasks-tab').click
+      wait_for_selector('.team-tasks')
       expect(@driver.page_source.include?('No teamwide tasks to display')).to be(true)
       expect(@driver.page_source.include?('No tasks')).to be(true)
       expect(@driver.page_source.include?('New teamwide task')).to be(false)
@@ -163,7 +164,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.create-task__add-short-answer').click
       fill_field('#task-label-input', 'New teamwide task')
       wait_for_selector('.create-task__dialog-submit-button').click
-      sleep 5
+      wait_for_selector('.team-tasks-project')
       expect(@driver.page_source.include?('No teamwide tasks to display')).to be(false)
       expect(@driver.page_source.include?('1 task')).to be(true)
       expect(@driver.page_source.include?('New teamwide task')).to be(true)
