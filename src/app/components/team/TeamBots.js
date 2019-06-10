@@ -70,7 +70,7 @@ const StyledSchemaForm = styled.div`
     display: none;
   }
 
-  label + .MuiInput-formControl-60 {
+  label + div {
     margin-top: 36px;
   }
 `;
@@ -109,9 +109,15 @@ class TeamBotsComponent extends Component {
     const settings = JSON.stringify(this.state.settings[installation.id]);
     const messageBotId = installation.team_bot.dbid;
     const onSuccess = () => {
+      const expanded = Object.assign({}, this.state.expanded);
+      expanded[messageBotId] = false;
       this.setState({
+        expanded,
         messageBotId,
         message: <FormattedMessage id="teamBots.success" defaultMessage="Settings updated!" />,
+      }, () => {
+        expanded[messageBotId] = true;
+        this.setState({ expanded });
       });
     };
     const onFailure = () => {
