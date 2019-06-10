@@ -69,6 +69,10 @@ const StyledSchemaForm = styled.div`
   button {
     display: none;
   }
+
+  label + .MuiInput-formControl-60 {
+    margin-top: 36px;
+  }
 `;
 
 class TeamBotsComponent extends Component {
@@ -204,6 +208,7 @@ class TeamBotsComponent extends Component {
                   <StyledSchemaForm>
                     <Form
                       schema={JSON.parse(bot.settings_as_json_schema)}
+                      uiSchema={JSON.parse(bot.settings_ui_schema)}
                       formData={this.state.settings[installation.node.id]}
                       onChange={this.handleSettingsUpdated.bind(this, installation.node)}
                     />
@@ -278,6 +283,7 @@ const TeamBotsContainer = Relay.createContainer(injectIntl(TeamBotsComponent), {
                 avatar
                 name
                 settings_as_json_schema
+                settings_ui_schema
                 description
               }
             }
