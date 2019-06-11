@@ -69,6 +69,10 @@ const StyledSchemaForm = styled.div`
   button {
     display: none;
   }
+
+  label + div {
+    margin-top: 36px;
+  }
 `;
 
 class TeamBotsComponent extends Component {
@@ -105,9 +109,15 @@ class TeamBotsComponent extends Component {
     const settings = JSON.stringify(this.state.settings[installation.id]);
     const messageBotId = installation.team_bot.dbid;
     const onSuccess = () => {
+      const expanded = Object.assign({}, this.state.expanded);
+      expanded[messageBotId] = false;
       this.setState({
+        expanded,
         messageBotId,
         message: <FormattedMessage id="teamBots.success" defaultMessage="Settings updated!" />,
+      }, () => {
+        expanded[messageBotId] = true;
+        this.setState({ expanded });
       });
     };
     const onFailure = () => {
@@ -204,6 +214,7 @@ class TeamBotsComponent extends Component {
                   <StyledSchemaForm>
                     <Form
                       schema={JSON.parse(bot.settings_as_json_schema)}
+                      uiSchema={JSON.parse(bot.settings_ui_schema)}
                       formData={this.state.settings[installation.node.id]}
                       onChange={this.handleSettingsUpdated.bind(this, installation.node)}
                     />
@@ -278,6 +289,7 @@ const TeamBotsContainer = Relay.createContainer(injectIntl(TeamBotsComponent), {
                 avatar
                 name
                 settings_as_json_schema
+                settings_ui_schema
                 description
               }
             }
