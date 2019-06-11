@@ -1741,6 +1741,26 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(selected.size == 3).to be(true)
     end
 
+    it "should search by date range", bin4: true do
+      api_create_claim_and_go_to_search_page
+      wait_for_selector(".medias__item")
+      expect(@driver.page_source.include?('My search result')).to be(true)
+
+      @driver.navigate.to @config['self_url'] + '/' + get_team + '/search/%7B%20%22range%22%3A%20%7B%22created_at%22%3A%7B%22start_time%22%3A%222016-01-01%22%2C%22end_time%22%3A%222016-02-28%22%7D%7D%7D'
+      wait_for_selector(".medias__item")
+      expect(@driver.page_source.include?('My search result')).to be(false)
+
+      wait_for_selector("search__open-dialog-button", :id).click
+      wait_for_selector("#search-query__reset-button").click
+      wait_for_selector(".date-range__start-date input").click
+      wait_for_selector("//span[contains(text(), 'OK')]", :xpath).click
+      wait_for_selector(".date-range__end-date input").click
+      wait_for_selector("//span[contains(text(), 'OK')]", :xpath).click
+      wait_for_selector("#search-query__submit-button").click
+      wait_for_selector(".medias__item")
+      expect(@driver.page_source.include?('My search result')).to be(true)
+    end
+
     it "should change search sort criteria through URL", bin2: true do
       api_create_claim_and_go_to_search_page
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/search/%7B"sort"%3A"recent_activity"%7D'

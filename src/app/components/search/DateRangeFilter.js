@@ -74,8 +74,8 @@ class DateRangeFilter extends React.Component {
 
     const label = {
       date: <FormattedMessage id="search.dateHeading" defaultMessage="Date" />,
-      created_at: <FormattedMessage id="search.dateCreatedHeading" defaultMessage="Created At" />,
-      updated_at: <FormattedMessage id="search.dateUpdatedHeading" defaultMessage="Updated At" />,
+      created_at: <FormattedMessage id="search.dateCreatedHeading" defaultMessage="Created" />,
+      updated_at: <FormattedMessage id="search.dateUpdatedHeading" defaultMessage="Updated" />,
     };
 
     return (
@@ -84,16 +84,17 @@ class DateRangeFilter extends React.Component {
         <div style={{ width: units(60) }}>
           <FlexRow>
             <Select
+              className="date-range__select"
               input={<OutlinedInput />}
               onChange={this.handleChangeType}
               value={this.state.type}
               style={{ minWidth: units(18) }}
               labelWidth={0}
             >
-              <MenuItem value="created_at">
+              <MenuItem className="date-range__created" value="created_at">
                 {label.created_at}
               </MenuItem>
-              <MenuItem value="updated_at">
+              <MenuItem className="date-range__updated" value="updated_at">
                 {label.updated_at}
               </MenuItem>
             </Select>
@@ -104,6 +105,7 @@ class DateRangeFilter extends React.Component {
                   defaultMessage="Starting date"
                 />
               }
+              className="date-range__start-date"
               onChange={(e, date) => this.handleChangeDate(date, 'start_time')}
               shouldDisableDate={date => this.shouldDisableDate(date, 'start_time')}
               okLabel={this.props.intl.formatMessage(globalStrings.ok)}
@@ -119,6 +121,7 @@ class DateRangeFilter extends React.Component {
                   defaultMessage="Ending date"
                 />
               }
+              className="date-range__end-date"
               onChange={(e, date) => this.handleChangeDate(date, 'end_time')}
               shouldDisableDate={date => this.shouldDisableDate(date, 'end_time')}
               okLabel={this.props.intl.formatMessage(globalStrings.ok)}
