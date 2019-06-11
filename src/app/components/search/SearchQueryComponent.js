@@ -115,8 +115,10 @@ const StyledSearchFiltersSection = styled.section`
 `;
 
 const StyledFilterRow = swallowingStyled(Row, { swallowProps: ['isRtl'] })`
-  height: ${props => (props.doubleHeight ? units(14) : units(5))};
-  overflow-y: auto;
+  height: ${props => (props.height ? props.height : units(5))};
+
+  overflow-y: ${props => (props.overflowY ? props.overflowY : 'auto')};
+
   flex-wrap: wrap;
 
   h4 {
