@@ -60,6 +60,6 @@ describe('<ClaimReview />', () => {
     delete data.author;
     delete data.itemReviewed;
     const claimReview = mountWithIntl(<ClaimReview data={data} />);
-    expect(claimReview.html()).to.equal(null);
+    expect(claimReview.html()).to.equal('');
   });
 });

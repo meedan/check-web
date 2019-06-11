@@ -37,6 +37,6 @@ describe('<SlackConfig />', () => {
         team={team}
       />
     );
-    expect(wrapper.html()).to.equal(null);
+    expect(wrapper.html()).to.equal('');
   });
 });
