@@ -216,7 +216,8 @@ module AppSpecHelpers
   end
 
   def agree_to_tos(should_submit = true)
-    if @driver.find_elements(:css, '#tos__tos-agree').size > 0
+    element = wait_for_selector('#tos__tos-agree', :css, 10)
+    if element != nil
       @driver.find_element(:css, '#tos__tos-agree').click
       sleep 1
       @driver.find_element(:css, '#tos__pp-agree').click

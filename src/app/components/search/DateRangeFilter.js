@@ -74,26 +74,43 @@ class DateRangeFilter extends React.Component {
 
     const label = {
       date: <FormattedMessage id="search.dateHeading" defaultMessage="Date" />,
-      created_at: <FormattedMessage id="search.dateCreatedHeading" defaultMessage="Created At" />,
-      updated_at: <FormattedMessage id="search.dateUpdatedHeading" defaultMessage="Updated At" />,
+      created_at: <FormattedMessage id="search.dateCreatedHeading" defaultMessage="Created" />,
+      updated_at: <FormattedMessage id="search.dateUpdatedHeading" defaultMessage="Updated" />,
     };
 
     return (
-      <StyledFilterRow doubleHeight isRtl={this.props.isRtl}>
+      <StyledFilterRow height={units(9)} overflowY="hidden" isRtl={this.props.isRtl}>
         <h4>{ label.date }</h4>
         <div style={{ width: units(60) }}>
           <FlexRow>
             <Select
+              className="date-range__select-root"
               input={<OutlinedInput />}
               onChange={this.handleChangeType}
               value={this.state.type}
-              style={{ minWidth: units(18) }}
+              style={{ minWidth: units(18), fontSize: 'small' }}
               labelWidth={0}
+              classes={{ select: 'date-range__select-menu', selectMenu: 'bloody-roots' }}
+              margin="dense"
             >
-              <MenuItem value="created_at">
+              <MenuItem
+                className="date-range__created"
+                value="created_at"
+                style={{
+                  fontSize: 'small',
+                  padding: units(0.5),
+                }}
+              >
                 {label.created_at}
               </MenuItem>
-              <MenuItem value="updated_at">
+              <MenuItem
+                className="date-range__updated"
+                value="updated_at"
+                style={{
+                  fontSize: 'small',
+                  padding: units(0.5),
+                }}
+              >
                 {label.updated_at}
               </MenuItem>
             </Select>
@@ -104,12 +121,13 @@ class DateRangeFilter extends React.Component {
                   defaultMessage="Starting date"
                 />
               }
+              className="date-range__start-date"
               onChange={(e, date) => this.handleChangeDate(date, 'start_time')}
               shouldDisableDate={date => this.shouldDisableDate(date, 'start_time')}
               okLabel={this.props.intl.formatMessage(globalStrings.ok)}
               cancelLabel={this.props.intl.formatMessage(globalStrings.cancel)}
               mode="landscape"
-              textFieldStyle={{ width: units(18) }}
+              textFieldStyle={{ width: units(18), fontSize: 'small' }}
               value={start_time && new Date(start_time)}
             />
             <DatePicker
@@ -119,12 +137,13 @@ class DateRangeFilter extends React.Component {
                   defaultMessage="Ending date"
                 />
               }
+              className="date-range__end-date"
               onChange={(e, date) => this.handleChangeDate(date, 'end_time')}
               shouldDisableDate={date => this.shouldDisableDate(date, 'end_time')}
               okLabel={this.props.intl.formatMessage(globalStrings.ok)}
               cancelLabel={this.props.intl.formatMessage(globalStrings.cancel)}
               mode="landscape"
-              textFieldStyle={{ width: units(18) }}
+              textFieldStyle={{ width: units(18), fontSize: 'small' }}
               value={end_time && new Date(end_time)}
             />
           </FlexRow>

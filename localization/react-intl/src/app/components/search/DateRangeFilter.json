@@ -5,11 +5,11 @@
   },
   {
     "id": "search.dateCreatedHeading",
-    "defaultMessage": "Created At"
+    "defaultMessage": "Created"
   },
   {
     "id": "search.dateUpdatedHeading",
-    "defaultMessage": "Updated At"
+    "defaultMessage": "Updated"
   },
   {
     "id": "search.pickDateFrom",
