@@ -61,7 +61,7 @@ module AppSpecHelpers
       n = n + 1
     end while (!ret and n < 10)
 
-    wait = Selenium::WebDriver::Wait.new(timeout: 5)
+    wait = Selenium::WebDriver::Wait.new(timeout: 10)
     wait.until { !@driver.page_source.include?(task_text) }
     expect(@driver.page_source.include?(task_text)).to be(false)
   end
