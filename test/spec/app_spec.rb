@@ -1408,6 +1408,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       move = wait_for_selector('.media-detail__move-button', :css)
       move.location_once_scrolled_into_view
       move.click
+      sleep 2
       wait_for_selector('.search__results')
 
       # Check if the claim is under the first project, which we should have been redirected to
@@ -1417,7 +1418,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(false)
 
       # Go back to the second project and make sure that the claim is not there anymore
-      wait_for_selector('.header-actions__drawer-toggle', :css).click
+      sleep 2
+      el = wait_for_selector('.header-actions__drawer-toggle', :css)
+      el.location_once_scrolled_into_view
+      el.click
       wait_for_selector('.project-list__link + .project-list__link', :css).click
       wait_for_selector('.search__results')
       expect(@driver.page_source.include?('1 item')).to be(false)
