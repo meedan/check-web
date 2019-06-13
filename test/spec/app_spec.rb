@@ -1408,11 +1408,19 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       move = wait_for_selector('.media-detail__move-button', :css)
       move.location_once_scrolled_into_view
       move.click
-      sleep 2
-      wait_for_selector('.search__results')
+
+      project_title = wait_for_selector('.project-header__title').attribute("innerHTML")
+      count = 0
+      while project_title != p1[:project].title && count < 10
+        sleep 5
+        project_title = wait_for_selector('.project-header__title').attribute("innerHTML")
+        count += 1
+      end
 
       # Check if the claim is under the first project, which we should have been redirected to
-      expect(@driver.current_url.to_s == p1url).to be(true)
+      @wait.until {
+        expect(@driver.current_url.to_s == p1url).to be(true)
+      }
       expect(@driver.page_source.include?(claim)).to be(true)
       expect(@driver.page_source.include?('1 item')).to be(true)
       expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(false)

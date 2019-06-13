@@ -35,7 +35,7 @@ const ProjectHeaderComponent = (props) => {
           </FadeIn>
         </IconButton>
         : null}
-      <HeaderTitle>
+      <HeaderTitle className="project-header__title">
         {currentProject.title}
       </HeaderTitle>
     </div>
