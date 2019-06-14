@@ -1368,7 +1368,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Go to the first project, make sure that there is no claim, and thus store the data in local Relay store
       @driver.navigate.to p1url
-      sleep 10
+      wait_for_selector('.search__results')
       expect(@driver.page_source.include?(claim)).to be(false)
       expect(@driver.page_source.include?('1 item')).to be(false)
       expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(true)
@@ -1376,7 +1376,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Go to the second project, make sure that there is no claim, and thus store the data in local Relay store
       wait_for_selector('.header-actions__drawer-toggle', :css).click
       wait_for_selector('.project-list__link + .project-list__link', :css).click
-      sleep 10
+      wait_for_selector('.search__results')
       expect(@driver.page_source.include?(claim)).to be(false)
       expect(@driver.page_source.include?('1 item')).to be(false)
       expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(true)
@@ -1386,11 +1386,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('create-media__quote', :id).click
       @driver.action.send_keys(claim).perform
       @driver.action.send_keys(:enter).perform
-      sleep 20
+      wait_for_selector('.search__results')
 
       # Go to the second project, make sure that the claim is there
       wait_for_selector('.header-actions__drawer-toggle', :css).click
       wait_for_selector('.project-list__link + .project-list__link', :css).click
+      wait_for_selector('.search__results')
       expect(@driver.page_source.include?(claim)).to be(true)
       expect(@driver.page_source.include?('1 item')).to be(true)
       expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(false)
@@ -1407,31 +1408,43 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       move = wait_for_selector('.media-detail__move-button', :css)
       move.location_once_scrolled_into_view
       move.click
-      sleep 30
+
+      project_title = wait_for_selector('.project-header__title').attribute("innerHTML")
+      count = 0
+      while project_title != p1[:project].title && count < 10
+        sleep 5
+        project_title = wait_for_selector('.project-header__title').attribute("innerHTML")
+        count += 1
+      end
 
       # Check if the claim is under the first project, which we should have been redirected to
-      expect(@driver.current_url.to_s == p1url).to be(true)
+      @wait.until {
+        expect(@driver.current_url.to_s == p1url).to be(true)
+      }
       expect(@driver.page_source.include?(claim)).to be(true)
       expect(@driver.page_source.include?('1 item')).to be(true)
       expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(false)
 
       # Go back to the second project and make sure that the claim is not there anymore
-      wait_for_selector('.header-actions__drawer-toggle', :css).click
+      sleep 2
+      el = wait_for_selector('.header-actions__drawer-toggle', :css)
+      el.location_once_scrolled_into_view
+      el.click
       wait_for_selector('.project-list__link + .project-list__link', :css).click
-      sleep 10
+      wait_for_selector('.search__results')
       expect(@driver.page_source.include?('1 item')).to be(false)
       expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(true)
 
       # Reload the first project page and make sure that the claim is there
       @driver.navigate.to p1url
-      sleep 10
+      wait_for_selector('.search__results')
       expect(@driver.page_source.include?(claim)).to be(true)
       expect(@driver.page_source.include?('1 item')).to be(true)
       expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(false)
 
       # Reload the second project page and make sure that the claim is not there
       @driver.navigate.to p2url
-      sleep 10
+      wait_for_selector('.search__results')
       expect(@driver.page_source.include?(claim)).to be(false)
       expect(@driver.page_source.include?('1 item')).to be(false)
       expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(true)
