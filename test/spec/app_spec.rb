@@ -92,10 +92,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page = MePage.new(config: @config, driver: @driver).load
       page.go(@config['self_url'] + '/check/me')
       page.approve_join_team(subdomain: @team1_slug)
-      @wait.until {
+      count = 0
+      elems = @driver.find_elements(:css => ".team-members__list > div > div > div > div")
+      while elems.size <= 1 && count < 15
+        sleep 5
+        count += 1
         elems = @driver.find_elements(:css => ".team-members__list > div > div > div > div")
-        expect(elems.size).to be > 1
-      }
+      end
+      expect(elems.size).to be > 1
 
       #edit team member role
       wait_for_selector('.team-members__edit-button', :css).click
