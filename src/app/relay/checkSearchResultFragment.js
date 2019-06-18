@@ -31,7 +31,7 @@ const checkSearchResultFragment = Relay.QL`
           quote,
           published,
           updated_at,
-          embed,
+          metadata,
           title,
           archived,
           relationships { sources_count, targets_count },
@@ -66,7 +66,7 @@ const checkSearchResultFragment = Relay.QL`
             }
           },
           media {
-            embed,
+            metadata,
             url,
             quote,
             embed_path,
@@ -110,7 +110,7 @@ const checkSearchResultFragment = Relay.QL`
                 node {
                   id,
                   data,
-                  embed,
+                  metadata,
                   provider,
                   url
                 }

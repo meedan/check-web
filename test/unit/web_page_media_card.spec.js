@@ -13,7 +13,7 @@ describe('<WebPageMediaCard />', () => {
       published: '1506728130',
       archived: false,
       url: 'https://meedan.com/en/',
-      embed: {
+      metadata: {
         published_at: "",
         username: "",
         title: "Meedan",
@@ -24,7 +24,7 @@ describe('<WebPageMediaCard />', () => {
         author_name: "Meedan",
       },
       media: {
-        embed: {
+        metadata: {
           title: "Web Page with a Good Picture",
         }
       }
@@ -77,7 +77,7 @@ describe('<WebPageMediaCard />', () => {
       team: {},
       embed_path: '',
       media: {
-        embed: {
+        metadata: {
           title: "Web Page with a Screenshot Picture",
         },
       },
@@ -114,7 +114,7 @@ describe('<WebPageMediaCard />', () => {
       team: {
         get_embed_whitelist: "meedan.com, checkmedia.org"
       },
-      embed: {
+      metadata: {
         published_at: "",
         username: "",
         title: "Meedan",
@@ -125,7 +125,7 @@ describe('<WebPageMediaCard />', () => {
         author_name: "Meedan",
       },
       media: {
-        embed: {
+        metadata: {
           title: "Web Page with a Good Picture",
           url: "https://meedan.com/en/",
           html: "hello!",

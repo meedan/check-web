@@ -520,7 +520,7 @@ class Annotation extends Component {
       break;
     case 'create_task':
       contentTemplate = (
-        <span>
+        <span className="annotation__task-created">
           <FormattedMessage
             id="annotation.taskCreated"
             defaultMessage="Task created by {author}: {task}"
@@ -691,6 +691,14 @@ class Annotation extends Component {
     case 'create_dynamicannotationfield':
     case 'update_dynamicannotationfield':
     {
+      if (object.field_name === 'metadata_value' && activityType === 'update_dynamicannotationfield') {
+        contentTemplate = (
+          <EmbedUpdate
+            activity={activity}
+            authorName={authorName}
+          />);
+      }
+
       if (object.field_name === 'verification_status_status' && config.appName === 'check' && activityType === 'update_dynamicannotationfield') {
         const statusValue = object.value;
         const statusCode = statusValue.toLowerCase().replace(/[ _]/g, '-');

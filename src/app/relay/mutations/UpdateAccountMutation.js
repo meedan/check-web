@@ -11,7 +11,7 @@ class UpdateAccountMutation extends Relay.Mutation {
     return Relay.QL`fragment on UpdateAccountPayload {
       account {
         image,
-        embed
+        metadata
       }
     }`;
   }

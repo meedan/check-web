@@ -14,7 +14,7 @@ const MemebusterContainer = Relay.createContainer(MemebusterComponent, {
         published,
         archived,
         url,
-        embed,
+        metadata,
         last_status,
         permissions,
         project_id,
@@ -45,7 +45,7 @@ const MemebusterContainer = Relay.createContainer(MemebusterComponent, {
           url,
           quote,
           picture,
-          embed,
+          metadata,
           embed_path,
           thumbnail_path
         }

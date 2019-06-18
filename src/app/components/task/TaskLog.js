@@ -252,7 +252,7 @@ const TaskLogContainer = Relay.createContainer(TaskLogComponent, {
                       quote,
                       published,
                       url,
-                      embed,
+                      metadata,
                       project_id,
                       last_status,
                       last_status_obj {
@@ -285,7 +285,7 @@ const TaskLogContainer = Relay.createContainer(TaskLogComponent, {
                         get_embed_whitelist
                       }
                       media {
-                        embed
+                        metadata
                         embed_path,
                         thumbnail_path,
                         url,

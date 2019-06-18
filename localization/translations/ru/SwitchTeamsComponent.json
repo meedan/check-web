@@ -5,6 +5,6 @@
   "teams.yourTeams": "Ваши группы",
   "teams.userTeams": "Группы {name}",
   "switchTeams.cancelJoinRequest": "Отменить",
-  "switchTeams.noTeams": "Не является участником какой-либо группы.",
+  "switchTeams.noTeams": "Не состоит ни в каких группах.",
   "switchTeams.newTeamLink": "Создать группу"
 }

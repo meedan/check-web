@@ -9,13 +9,13 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
   }
 
   getFatQuery() {
-    if (this.props.embed) {
+    if (this.props.metadata) {
       return Relay.QL`
         fragment on UpdateProjectMediaPayload {
           project_media {
             id,
             overridden,
-            embed,
+            metadata,
           }
         }
       `;
@@ -33,14 +33,14 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         project_media {
           project_id,
           overridden,
-          embed,
+          metadata,
           dbid,
           log,
           log_count,
           archived,
           permissions,
           media {
-            embed,
+            metadata,
             url,
             quote,
             embed_path,
@@ -69,11 +69,11 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
   }
 
   getOptimisticResponse() {
-    if (this.props.embed) {
-      const newEmbed = JSON.parse(this.props.embed);
-      const embed = Object.assign(this.props.media.embed, newEmbed);
+    if (this.props.metadata) {
+      const newEmbed = JSON.parse(this.props.metadata);
+      const embed = Object.assign(this.props.media.metadata, newEmbed);
       const permissions = JSON.parse(this.props.media.permissions);
-      permissions['update Embed'] = false;
+      permissions['update Dynamic'] = false;
       const { overridden } = this.props.media;
       Object.keys(newEmbed).forEach((attribute) => {
         overridden[attribute] = true;
@@ -81,7 +81,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
       return {
         project_media: {
           id: this.props.media.id,
-          embed: JSON.stringify(embed),
+          metadata: JSON.stringify(embed),
           overridden: JSON.stringify(overridden),
           permissions: JSON.stringify(permissions),
         },
@@ -151,7 +151,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
   getVariables() {
     const vars = {
       id: this.props.id,
-      embed: this.props.embed,
+      metadata: this.props.metadata,
       project_id: this.props.project_id,
       related_to_id: this.props.related_to_id,
       refresh_media: this.props.refresh_media,

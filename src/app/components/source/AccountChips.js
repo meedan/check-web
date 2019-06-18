@@ -17,7 +17,7 @@ const AccountChips = (props) => {
           <StyledTag key={account.id} className="media-tags__tag">
             { MediaUtil.socialIcon(`${account.provider}.com`) /* TODO Remove tld assumption */ }
             <a href={account.url} style={{ margin: `0 ${units(1)}` }} target="_blank" rel="noopener noreferrer">
-              { account.embed.username || account.embed.url }
+              { account.metadata.username || account.metadata.url }
             </a>
           </StyledTag>))}
       </ul>

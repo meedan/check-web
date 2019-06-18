@@ -5,7 +5,7 @@ import MediaDetail from '../../src/app/components/media/MediaDetail';
 
 describe('<MediaDetail />', () => {
   const media = {
-    embed: {
+    metadata: {
       title: 'Title'
     },
     overridden: {},
@@ -21,7 +21,7 @@ describe('<MediaDetail />', () => {
     media: {
       url: 'http://meedan.com',
       quote: '',
-      embed: { title: 'Title' },
+      metadata: { title: 'Title' },
     },
     team: { private: false },
     data: {

@@ -162,7 +162,7 @@ const MediaUtil = {
 
     switch (type) {
     case messages.typePage:
-      displayTitle = nested(['media', 'embed', 'title'], media) ||
+      displayTitle = nested(['media', 'metadata', 'title'], media) ||
       intl.formatMessage(messages.onDomain, { typeLabel, domain: media.domain });
       break;
     case messages.typeClaim:
@@ -176,7 +176,7 @@ const MediaUtil = {
     case messages.typeTwitter:
     case messages.typeInstagram:
     case messages.typeVideo:
-      displayTitle = nested(['media', 'embed', 'title'], media) || byAttribution;
+      displayTitle = nested(['media', 'metadata', 'title'], media) || byAttribution;
       break;
     default:
       displayTitle = media.media.quote || data.title || byAttribution || '';

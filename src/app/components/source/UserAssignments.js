@@ -212,7 +212,9 @@ class UserAssignmentsComponent extends Component {
                     <ListItem
                       key={`media-${assignment.dbid}`}
                       containerElement={<Link to={assignment.path} />}
-                      primaryText={MediaUtil.title(assignment, assignment.embed, this.props.intl)}
+                      primaryText={
+                        MediaUtil.title(assignment, assignment.metadata, this.props.intl)
+                      }
                       rightAvatar={
                         (progress && (answered > 0 || total > 0)) ?
                           <Avatar
@@ -276,10 +278,10 @@ const UserAssignmentsContainer = Relay.createContainer(injectIntl(UserAssignment
             node {
               id
               dbid
-              embed
+              metadata
               assignments_progress(user_id: $userId)
               media {
-                embed
+                metadata
                 embed_path
                 quote
               }

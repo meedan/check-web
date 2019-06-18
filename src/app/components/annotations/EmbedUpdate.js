@@ -4,6 +4,9 @@ import ParsedText from '../ParsedText';
 
 const EmbedUpdate = (props) => {
   const changes = JSON.parse(props.activity.object_changes_json);
+  if (!changes.data && changes.value_json) {
+    changes.data = [JSON.parse(changes.value_json[0]), JSON.parse(changes.value_json[1])];
+  }
   if (changes.data) {
     const from = changes.data[0];
     const to = changes.data[1];

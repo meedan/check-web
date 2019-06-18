@@ -8,7 +8,7 @@ const mediaFragment = Relay.QL`
     quote,
     published,
     updated_at,
-    embed,
+    metadata,
     archived,
     relationships { sources_count, targets_count },
     relationship {
@@ -69,7 +69,7 @@ const mediaFragment = Relay.QL`
       }
     },
     media {
-      embed,
+      metadata,
       url,
       quote,
       embed_path,

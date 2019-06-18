@@ -10,7 +10,7 @@
   "tasks.requiredCheckbox": "Обязательно",
   "tasks.requiredHelper": "Работа над материалом не может быть завершена, пока есть открытые вопросы",
   "tasks.resolvedCheckbox": "Закрыт",
-  "tasks.resolvedHelper": "Вопрос может быть закрыт только если на него был получен ответ.",
+  "tasks.resolvedHelper": "Вопрос может быть закрыт, только если на него был получен ответ.",
   "tasks.showInProj": "Показать вопросы в",
   "tasks.assign": "Назначить",
   "tasks.cancelAdd": "Отменить",

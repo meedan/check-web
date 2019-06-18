@@ -1,3 +1,4 @@
 {
+  "promoteItemButton.error": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث الارتباط. من فضلك أعد المحاولة وتواصل مع {supportEmail} إن استمرت المشكلة.",
   "mediaDetail.makeParent": "ترقية إلى عنصر أساسي"
 }
