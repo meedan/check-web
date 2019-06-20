@@ -11,7 +11,7 @@
   "userPrivacy.connectedAccounts": "Conturile conectate",
   "userPrivacy.security": "Securitate",
   "userPrivacy.successfulLoginText": "Primește notificări despre conectări din locație nouăsau de pe dispozitiv nou",
-  "userPrivacy.failedfulLoginText": "Receive a notification for {loginTrial} consecutive failed login attempts",
+  "userPrivacy.failedfulLoginText": "Primește notificări pentru {loginTrial} despre câteva încercări de conectare nereușite consecutive",
   "userPrivacy.delete": "Ștergeți contul dvs",
   "userPrivacy.deleteAccountText": "Dacă ștergeți contul dvs, informațiile dvs personale vor fi șterse. Comentariile, adnotările și activitatea echipei vor deveni pseudonime și vor rămâne pe {appName}.",
   "userPrivacy.deleteAccountButton": "Șterge contul meu"

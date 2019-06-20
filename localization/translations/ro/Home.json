@@ -1,5 +1,5 @@
 {
-  "home.needRegister": "Mai întâii trebuie să vă înregistrați. După aceasta puteți solicita permisiunea de a vă alătura unei echipe.",
+  "home.needRegister": "Mai întâi trebuie să vă înregistrați. După aceasta puteți solicita permisiunea de a vă alătura unei echipe.",
   "home.somethingWrong": "Ne pare rău, s-a produs o eroare. Vă rugăm să actualizați browser-ul și să contactați {supportEmail} dacă situația persistă.",
   "home.successInvitation": "Bine ați venit în {appName}. Vă rugăm să vă conectați cu ajutorul parolei, pe care ați primit-o în mesajul de bun venit pe e-mail.",
   "home.invalidInvitation": "Ne pare rău, în timpul procesării invitației Dvs s-a produs o eroare. Vă rugăm să contactați {supportEmail}.",
