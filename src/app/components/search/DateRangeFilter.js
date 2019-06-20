@@ -30,7 +30,15 @@ class DateRangeFilter extends React.Component {
 
   handleChangeDate = (date, field) => {
     const value = Object.assign({}, this.state.value);
-    value[field] = new Date(date.getFullYear(), date.getMonth(), date.getDate()).toISOString();
+
+    if (field === 'start_time') {
+      value[field] =
+        new Date(date.getFullYear(), date.getMonth(), date.getDate()).toISOString();
+    } else if (field === 'end_time') {
+      value[field] =
+        new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59).toISOString();
+    }
+
     this.setState({ value });
 
     if (this.props.onChange) {
