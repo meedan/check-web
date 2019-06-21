@@ -15,7 +15,7 @@ class DeleteTeamBotInstallationMutation extends Relay.Mutation {
     return Relay.QL`fragment on DestroyTeamBotInstallationPayload {
       deletedId
       team { id }
-      team_bot {
+      team_bot: bot_user {
         id
         installed
       }

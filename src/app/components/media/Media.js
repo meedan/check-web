@@ -159,7 +159,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
           team_bot_installations(first: 10000) {
             edges {
               node {
-                team_bot {
+                team_bot: bot_user {
                   identifier
                 }
               }
