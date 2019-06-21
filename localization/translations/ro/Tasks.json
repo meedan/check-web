@@ -1,9 +1,9 @@
 {
   "tasks.cancelAdd": "Anulează",
   "tasks.add": "Adaugă",
-  "tasks.addTask": "Adaugă sarcină",
+  "tasks.addTask": "Adaugă o întrebare",
   "tasks.shortAnswer": "Răspuns scurt",
   "tasks.taskLabel": "Eticheta sarcinii",
-  "tasks.description": "Descriere",
+  "tasks.description": "Descrierea sarcinii (opțional)",
   "tasks.addDescription": "Adaugă o descriere"
 }

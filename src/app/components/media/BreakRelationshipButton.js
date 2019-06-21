@@ -1,21 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { injectIntl, defineMessages, FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
 import IconButton from 'material-ui/IconButton';
 import LayersClearIcon from '@material-ui/icons/LayersClear';
 import Can from '../Can';
+import { stringHelper } from '../../customHelpers';
 import DeleteRelationshipMutation from '../../relay/mutations/DeleteRelationshipMutation';
+
+const messages = defineMessages({
+  error: {
+    id: 'breakRelationship.error',
+    defaultMessage: 'Sorry, an error occurred while updating the relationship. Please try again and contact {supportEmail} if the condition persists.',
+  },
+});
 
 class BreakRelationshipButton extends React.Component {
   handleClick = () => {
-    const onFailure = (transaction) => {
-      const error = transaction.getError();
-      if (error.json) {
-        error.json().then(this.context.setMessage);
-      } else {
-        this.context.setMessage(JSON.stringify(error));
-      }
+    const onFailure = () => {
+      const message = this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+      this.context.setMessage(message);
     };
 
     const { id, source, target } = this.props.media.relationship;
@@ -56,4 +60,4 @@ BreakRelationshipButton.contextTypes = {
   setMessage: PropTypes.func,
 };
 
-export default BreakRelationshipButton;
+export default injectIntl(BreakRelationshipButton);

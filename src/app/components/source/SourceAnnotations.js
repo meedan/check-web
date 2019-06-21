@@ -78,7 +78,7 @@ const SourceAnnotationsContainer = Relay.createContainer(SourceAnnotationsCompon
                         quote,
                         published,
                         url,
-                        embed,
+                        metadata,
                         project_id,
                         last_status,
                         field_value(annotation_type_field_name: "translation_status:translation_status_status"),

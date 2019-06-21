@@ -127,7 +127,7 @@ class TeamTasksComponent extends React.Component {
     // });
 
     return (
-      <div>
+      <div className="team-tasks">
         <ContentColumn>
           <CardHeaderOutside
             direction={direction}

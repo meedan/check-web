@@ -61,7 +61,7 @@ module AppSpecHelpers
       n = n + 1
     end while (!ret and n < 10)
 
-    wait = Selenium::WebDriver::Wait.new(timeout: 5)
+    wait = Selenium::WebDriver::Wait.new(timeout: 10)
     wait.until { !@driver.page_source.include?(task_text) }
     expect(@driver.page_source.include?(task_text)).to be(false)
   end
@@ -216,7 +216,8 @@ module AppSpecHelpers
   end
 
   def agree_to_tos(should_submit = true)
-    if @driver.find_elements(:css, '#tos__tos-agree').size > 0
+    element = wait_for_selector('#tos__tos-agree', :css, 10)
+    if element != nil
       @driver.find_element(:css, '#tos__tos-agree').click
       sleep 1
       @driver.find_element(:css, '#tos__pp-agree').click

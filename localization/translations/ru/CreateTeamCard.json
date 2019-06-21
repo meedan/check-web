@@ -1,11 +1,11 @@
 {
   "createTeam.slugChecking": "Проверка доступности...",
   "createTeam.slugAvailable": "Доступно!",
-  "createTeam.slugUnavailable": "Это краткое имя недоступно. Пожалуйста, попробуйте выбрать другое.",
+  "createTeam.slugUnavailable": "Этот идентификатор недоступен. Пожалуйста, попробуйте выбрать другой.",
   "createTeam.createTeamError": "В процессе создания группы произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}.",
   "createTeam.title": "Новая группа",
   "createTeam.teamNameHint": "Название группы",
-  "createTeam.teamSlugHint": "группа",
+  "createTeam.teamSlugHint": "идентификатор группы",
   "createTeam.mainHeading": "Новая группа",
   "createTeam.blurb": "Создайте группу для своей организации или для себя:",
   "createTeam.displayName": "Название группы",

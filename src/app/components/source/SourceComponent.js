@@ -293,7 +293,7 @@ class SourceComponent extends Component {
     return this.props.intl.formatMessage(
       messages.extractedHelper,
       {
-        accountName: account.node.embed.username,
+        accountName: account.node.metadata.username,
         provider: capitalize(account.node.provider),
       },
     );

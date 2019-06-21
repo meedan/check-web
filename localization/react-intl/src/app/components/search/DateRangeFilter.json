@@ -1,0 +1,22 @@
+[
+  {
+    "id": "search.dateHeading",
+    "defaultMessage": "Date"
+  },
+  {
+    "id": "search.dateCreatedHeading",
+    "defaultMessage": "Created"
+  },
+  {
+    "id": "search.dateUpdatedHeading",
+    "defaultMessage": "Updated"
+  },
+  {
+    "id": "search.pickDateFrom",
+    "defaultMessage": "Starting date"
+  },
+  {
+    "id": "search.pickDateTo",
+    "defaultMessage": "Ending date"
+  }
+]

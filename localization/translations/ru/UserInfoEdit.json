@@ -1,6 +1,6 @@
 {
   "userInfoEdit.sourceName": "Имя",
-  "userInfoEdit.sourceBio": "Биография",
+  "userInfoEdit.sourceBio": "О себе",
   "userInfoEdit.userEmail": "E-mail",
   "userInfoEdit.userSendEmailNotification": "Получать уведомления на e-mail",
   "userInfoEdit.addLink": "Добавить ссылку",
@@ -9,6 +9,6 @@
   "userInfoEdit.addLinkLabel": "Добавить ссылку",
   "userInfoEdit.addLinkHelper": "Добавьте ссылку на веб-страницу или профиль в социальных сетях. Это не повлияет на способ входа в ваш аккаунт.",
   "userInfoEdit.emailConfirmed": "✔ Адрес подтвержден",
-  "userInfoEdit.emailPendingConfirm": "⚠ Подтверждение в процессе",
+  "userInfoEdit.emailPendingConfirm": "⚠ В ожидании подтверждения",
   "userInfoEdit.invalidLink": "Пожалуйста, введите корректный URL"
 }

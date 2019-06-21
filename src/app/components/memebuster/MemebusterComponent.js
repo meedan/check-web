@@ -45,9 +45,9 @@ class MemebusterComponent extends React.Component {
     const status = getStatus(mediaStatuses(props.media), mediaLastStatus(props.media));
     this.state = {
       params: Object.assign({
-        headline: MediaUtil.title(props.media, props.media.embed, props.intl),
+        headline: MediaUtil.title(props.media, props.media.metadata, props.intl),
         image: props.media.media.picture,
-        description: props.media.embed.description,
+        description: props.media.metadata.description,
         overlayColor: getStatusStyle(status, 'backgroundColor'),
         statusText: status.label,
         statusColor: getStatusStyle(status, 'color'),
@@ -290,7 +290,7 @@ class MemebusterComponent extends React.Component {
 
   render() {
     const { media } = this.props;
-    const data = media.embed;
+    const data = media.metadata;
     const annotation = this.getLastSaveAnnotation();
     const template = media.team.get_memebuster_template;
 

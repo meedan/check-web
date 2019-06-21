@@ -101,7 +101,8 @@ class MediaComponent extends Component {
         const relationship = JSON.parse(data.message);
         if (
           (!relationship.id || this.getContext().clientSessionId !== data.actor_session_id) &&
-          (relationship.source_id === this.props.media.dbid)
+          (relationship.source_id === this.props.media.dbid ||
+          relationship.target_id === this.props.media.dbid)
         ) {
           if (run) {
             this.props.relay.forceFetch();
@@ -147,7 +148,7 @@ class MediaComponent extends Component {
     }
 
     const { media } = this.props;
-    const data = media.embed;
+    const data = media.metadata;
     media.url = media.media.url;
     media.quote = media.media.quote;
     media.embed_path = media.media.embed_path;

@@ -231,7 +231,7 @@ class MediaDetail extends Component {
     }
 
     // TODO drop data variable, use media.embed directly
-    const data = typeof media.embed === 'string' ? JSON.parse(media.embed) : media.embed;
+    const data = typeof media.metadata === 'string' ? JSON.parse(media.metadata) : media.metadata;
     const isRtl = rtlDetect.isRtlLang(locale);
     const fromDirection = isRtl ? 'right' : 'left';
     const toDirection = isRtl ? 'left' : 'right';

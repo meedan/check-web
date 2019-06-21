@@ -36,7 +36,7 @@ class MediaExpandedComponent extends Component {
 
   render() {
     const media = Object.assign(this.props.currentMedia, this.props.media);
-    const data = typeof media.embed === 'string' ? JSON.parse(media.embed) : media.embed;
+    const data = typeof media.metadata === 'string' ? JSON.parse(media.metadata) : media.metadata;
     const isImage = !!media.media.embed_path;
     const isQuote = media.media.quote && media.media.quote.length;
     const isWebPage = media.media.url && data.provider === 'page';
@@ -121,6 +121,33 @@ const MediaExpandedContainer = Relay.createContainer(MediaExpandedComponent, {
       fragment on ProjectMedia {
         id
         dbid
+        relationships {
+          id
+          sources_count
+          targets_count
+          source_id
+          target_id
+        }
+        relationship {
+          id
+          permissions
+          source_id
+          source {
+            id
+            dbid
+            relationships {
+              targets(first: 1) {
+                edges {
+                  node {
+                    id
+                  }
+                }
+              }
+            }
+          }
+          target_id
+          target { id, dbid }
+        }
         last_status_obj {
           id
           dbid

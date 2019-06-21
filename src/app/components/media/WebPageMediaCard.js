@@ -50,7 +50,8 @@ class WebPageMediaCard extends Component {
   }
 
   canEmbedHtml() {
-    const { media: { team }, media: { media: { embed } } } = this.props;
+    const { media: { team }, media: { media: { metadata } } } = this.props;
+    const embed = metadata;
     if (!embed.html) return false;
     if (!team.get_embed_whitelist) return false;
     return team.get_embed_whitelist.split(',').some((domain) => {
@@ -96,7 +97,7 @@ class WebPageMediaCard extends Component {
       }
       return (null);
     })();
-    const media_embed = media.media.embed;
+    const media_embed = media.media.metadata;
     const heading = (
       <StyledHeading className="media__heading">
         <Link to={mediaUrl}>

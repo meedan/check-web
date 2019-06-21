@@ -1,11 +1,11 @@
 {
-  "singleChoiceTask.addValue": "Adaugă opțiune",
+  "singleChoiceTask.addValue": "Adaugă o opțiune",
   "singleChoiceTask.value": "Valoarea",
   "singleChoiceTask.addOther": "Adaugă ”Altceva”",
   "singleChoiceTask.other": "Altceva",
   "singleChoiceTask.newTask": "Sarcină nouă",
   "singleChoiceTask.editTask": "Redactare sarcină",
-  "tasks.taskPrompt": "Sugestie",
+  "tasks.taskPrompt": "Prompt",
   "tasks.description": "Descriere (opțional)",
   "tasks.requiredCheckbox": "Obligatoriu",
   "tasks.requiredHelper": "Elementul nu poate fi marcat ca finalizat dacă rămân nerezolvate oricare din sarcini obigatorii pe el",

@@ -6,6 +6,6 @@
   "annotation.assignmentRemoved": "قام {author} بإلغاء تكليف مهمة عن {assigneeFrom} : {title}",
   "annotation.addedComment": "قام {author} بإضافة تعليق على مهمة : {title}{note}",
   "annotation.removedComment": "قام {author} بحذف تعليق على مهمة : {title}{note}",
-  "annotation.nowRequired": "قام {author} بوصف المهمة بأنها إجبارية : {title}",
-  "annotation.nowNotRequired": "قام {author} بوصف المهمة بأنها غير إجبارية : {title}"
+  "annotation.nowRequired": "قام {author} بتعديل المهمة بأنها إجبارية : {title}",
+  "annotation.nowNotRequired": "قام {author} بتعديل المهمة بأنها غير إجبارية : {title}"
 }

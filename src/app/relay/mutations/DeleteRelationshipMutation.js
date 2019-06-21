@@ -18,7 +18,14 @@ class DeleteRelationshipMutation extends Relay.Mutation {
   getOptimisticResponse() {
     if (!this.props.current) {
       const target = this.props.media;
-      return {
+      let targetId = null;
+      try {
+        targetId = target.relationship.source.relationships.targets.edges[0].node.id;
+      } catch (e) {
+        targetId = null;
+      }
+      const response = {
+        deletedId: this.props.media.id,
         target_project_media: {
           id: target.id,
           __typename: 'ProjectMedia',
@@ -29,34 +36,46 @@ class DeleteRelationshipMutation extends Relay.Mutation {
             targets: { edges: [] },
             sources: { edges: [] },
           },
+          relationship: null,
+        },
+        relationships_target: {
+          id: targetId,
+        },
+        relationships_source: {
+          id: this.props.media.relationships.source_id,
         },
       };
+      return response;
     } else if (this.props.media.target_id) {
-      return {
+      const response = {
         deletedId: this.props.media.id,
         relationships_target: {
           id: this.props.media.target_id,
         },
       };
+      return response;
     } else if (this.props.media.source_id) {
-      return {
+      const response = {
         deletedId: this.props.media.id,
         relationships_source: {
           id: this.props.media.source_id,
         },
       };
+      return response;
     }
-    return {
+    const response = {
       deletedId: this.props.media.id,
     };
+    return response;
   }
 
   getFatQuery() {
     return Relay.QL`fragment on DestroyRelationshipPayload {
       deletedId
       relationships_target { id, targets }
-      source_project_media { dbid, id, __typename, relationships }
-      target_project_media { dbid, id, __typename, relationships }
+      relationships_source { id, siblings }
+      source_project_media { dbid, id, __typename, relationships, relationship }
+      target_project_media { dbid, id, __typename, relationships, relationship }
       current_project_media { dbid, id, __typename, relationships }
     }`;
   }
@@ -78,22 +97,22 @@ class DeleteRelationshipMutation extends Relay.Mutation {
       },
     ];
 
-    if (this.props.media.target_id) {
+    if (this.props.media.relationships.target_id) {
       configs.push({
         type: 'RANGE_DELETE',
         parentName: 'relationships_target',
-        parentID: this.props.media.target_id,
+        parentID: this.props.media.relationships.target_id,
         connectionName: 'targets',
         pathToConnection: ['relationships_target', 'targets'],
         deletedIDFieldName: 'deletedId',
       });
     }
 
-    if (this.props.media.source_id) {
+    if (this.props.media.relationships.source_id) {
       configs.push({
         type: 'RANGE_DELETE',
         parentName: 'relationships_source',
-        parentID: this.props.media.source_id,
+        parentID: this.props.media.relationships.source_id,
         connectionName: 'siblings',
         pathToConnection: ['relationships_source', 'siblings'],
         deletedIDFieldName: 'deletedId',

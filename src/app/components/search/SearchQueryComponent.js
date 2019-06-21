@@ -14,6 +14,7 @@ import rtlDetect from 'rtl-detect';
 import styled from 'styled-components';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { searchQueryFromUrl, urlFromSearchQuery } from './Search';
+import DateRangeFilter from './DateRangeFilter';
 import PageTitle from '../PageTitle';
 import CheckContext from '../../CheckContext';
 import { bemClass } from '../../helpers';
@@ -114,8 +115,10 @@ const StyledSearchFiltersSection = styled.section`
 `;
 
 const StyledFilterRow = swallowingStyled(Row, { swallowProps: ['isRtl'] })`
-  max-height: ${units(20)};
-  overflow-y: auto;
+  height: ${props => (props.height ? props.height : units(5))};
+
+  overflow-y: ${props => (props.overflowY ? props.overflowY : 'auto')};
+
   flex-wrap: wrap;
 
   h4 {
@@ -307,6 +310,12 @@ class SearchQueryComponent extends React.Component {
     const selected = dynamic[field] || [];
     return selected.includes(value);
   }
+
+  handleDateChange = (value) => {
+    const query = Object.assign({}, this.state.query);
+    query.range = value;
+    this.setState({ query });
+  };
 
   handleStatusClick(statusCode) {
     const query = Object.assign({}, this.state.query);
@@ -526,6 +535,7 @@ class SearchQueryComponent extends React.Component {
         <PageTitle prefix={title} skipTeam={false} team={this.props.team}>
           <Dialog
             maxWidth="md"
+            fullWidth
             open={this.state.dialogOpen}
             onClose={this.handleDialogClose}
           >
@@ -581,6 +591,11 @@ class SearchQueryComponent extends React.Component {
                   : null}
 
                 <StyledSearchFiltersSection>
+                  <DateRangeFilter
+                    hidden={!this.showField('date')}
+                    onChange={this.handleDateChange}
+                    value={this.state.query.range}
+                  />
                   {this.showField('status') ?
                     <StyledFilterRow isRtl={isRtl}>
                       <h4><FormattedMessage id="search.statusHeading" defaultMessage="Status" /></h4>
@@ -591,7 +606,7 @@ class SearchQueryComponent extends React.Component {
                           title={status.description}
                           onClick={this.handleStatusClick.bind(this, status.id)}
                           className={bemClass(
-                            'media-tags__suggestion',
+                            'search-query__filter-button',
                             this.statusIsSelected(status.id),
                             '--selected',
                           )}
@@ -634,7 +649,7 @@ class SearchQueryComponent extends React.Component {
                           title={null}
                           onClick={this.handleTagClick.bind(this, tag)}
                           className={bemClass(
-                            'media-tags__suggestion',
+                            'search-query__filter-button',
                             this.tagIsSelected(tag),
                             '--selected',
                           )}
@@ -645,28 +660,28 @@ class SearchQueryComponent extends React.Component {
                     : null}
 
                   {this.showField('sort') ?
-                    <StyledFilterRow className="search-query__sort-actions media-tags__suggestions-list">
+                    <StyledFilterRow className="search-query__sort-actions">
                       <h4><FormattedMessage id="search.sort" defaultMessage="Sort" /></h4>
 
                       <StyledFilterButton
                         active={this.sortIsSelected('recent_added')}
                         onClick={this.handleSortClick.bind(this, 'recent_added')}
-                        className={bemClass(
-                          'media-tags__suggestion',
+                        className={['search-query__recent-added-button', bemClass(
+                          'search-query__filter-button',
                           this.sortIsSelected('recent_added'),
                           '--selected',
-                        )}
+                        )].join(' ')}
                       >
                         <FormattedMessage id="search.sortByCreated" defaultMessage="Created" />
                       </StyledFilterButton>
                       <StyledFilterButton
                         active={this.sortIsSelected('recent_activity')}
                         onClick={this.handleSortClick.bind(this, 'recent_activity')}
-                        className={bemClass(
-                          'media-tags__suggestion',
+                        className={['search-query__recent-activity-button', bemClass(
+                          'search-query__filter-button',
                           this.sortIsSelected('recent_activity'),
                           '--selected',
-                        )}
+                        )].join(' ')}
                       >
                         <FormattedMessage
                           id="search.sortByRecentActivity"
@@ -685,7 +700,7 @@ class SearchQueryComponent extends React.Component {
                               active={this.sortIsSelected(id)}
                               onClick={this.handleSortClick.bind(this, id)}
                               className={bemClass(
-                                'media-tags__suggestion',
+                                'search-query__filter-button',
                                 this.sortIsSelected(id),
                                 '--selected',
                               )}
@@ -701,7 +716,7 @@ class SearchQueryComponent extends React.Component {
                         active={this.sortIsSelected('DESC')}
                         onClick={this.handleSortClick.bind(this, 'DESC')}
                         className={bemClass(
-                          'media-tags__suggestion',
+                          'search-query__filter-button',
                           this.sortIsSelected('DESC'),
                           '--selected',
                         )}
@@ -712,7 +727,7 @@ class SearchQueryComponent extends React.Component {
                         active={this.sortIsSelected('ASC')}
                         onClick={this.handleSortClick.bind(this, 'ASC')}
                         className={bemClass(
-                          'media-tags__suggestion',
+                          'search-query__filter-button',
                           this.sortIsSelected('ASC'),
                           '--selected',
                         )}
@@ -723,13 +738,13 @@ class SearchQueryComponent extends React.Component {
                     : null}
 
                   {this.showField('show') ?
-                    <StyledFilterRow className="search-query__sort-actions media-tags__suggestions-list">
+                    <StyledFilterRow className="search-query__sort-actions">
                       <h4><FormattedMessage id="search.show" defaultMessage="Show" /></h4>
                       <StyledFilterButton
                         active={this.showIsSelected('medias')}
                         onClick={this.handleShowClick.bind(this, 'medias')}
                         className={bemClass(
-                          'media-tags__suggestion',
+                          'search-query__filter-button',
                           this.showIsSelected('medias'),
                           '--selected',
                         )}
@@ -740,7 +755,7 @@ class SearchQueryComponent extends React.Component {
                         active={this.showIsSelected('sources')}
                         onClick={this.handleShowClick.bind(this, 'sources')}
                         className={bemClass(
-                          'media-tags__suggestion',
+                          'search-query__filter-button',
                           this.showIsSelected('sources'),
                           '--selected',
                         )}
@@ -769,7 +784,7 @@ class SearchQueryComponent extends React.Component {
                               active={this.dynamicIsSelected(key, value)}
                               onClick={this.handleDynamicClick.bind(this, key, value)}
                               className={bemClass(
-                                'media-tags__suggestion',
+                                'search-query__filter-button',
                                 this.dynamicIsSelected(key, value),
                                 '--selected',
                               )}
@@ -782,7 +797,7 @@ class SearchQueryComponent extends React.Component {
                       }
 
                       return (
-                        <StyledFilterRow key={`dynamic-field-${key}`} className="search-query__dynamic media-tags__suggestions-list">
+                        <StyledFilterRow key={`dynamic-field-${key}`} className="search-query__dynamic">
                           <h4>{annotationType.title}</h4>
                           {fields}
                         </StyledFilterRow>
@@ -834,3 +849,4 @@ SearchQueryComponent.contextTypes = {
 };
 
 export default injectIntl(SearchQueryComponent);
+export { StyledFilterRow };

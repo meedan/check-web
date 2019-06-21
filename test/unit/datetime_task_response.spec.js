@@ -26,6 +26,6 @@ describe('<DatetimeTaskResponse />', () => {
 
   it('Returns null if no response', () => {
     const taskResponse = mountWithIntl(<DatetimeTaskResponse />);
-    expect(taskResponse.html()).to.equal(null);
+    expect(taskResponse.html()).to.equal('');
   });
 });

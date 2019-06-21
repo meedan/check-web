@@ -13,7 +13,7 @@ const bridgeSearchResultFragment = Relay.QL`
           quote,
           published,
           updated_at,
-          embed,
+          metadata,
           archived,
           relationships { sources_count, targets_count },
           relationship { id, dbid, source_id, target_id },
@@ -54,7 +54,7 @@ const bridgeSearchResultFragment = Relay.QL`
             }
           },
           media {
-            embed,
+            metadata,
             url,
             quote,
             embed_path,
@@ -118,7 +118,7 @@ const bridgeSearchResultFragment = Relay.QL`
                 node {
                   id,
                   data,
-                  embed,
+                  metadata,
                   provider,
                   url
                 }

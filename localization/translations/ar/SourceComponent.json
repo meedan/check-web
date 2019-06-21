@@ -25,7 +25,7 @@
   "sourceComponent.conflictError": "تم تعديل هذا العنصر من قِبَل عضو آخر أثناء عملك. برجاء حفظ تعديلاتك أولاً ثم {reloadLink}.",
   "sourceComponent.clickToReload": "أضغط هنا ﻹعادة التحميل",
   "sourceComponent.dateAdded": "تمت اﻹضافة {date} • {number} روابط",
-  "sourceComponent.medias": "العناصر",
+  "sourceComponent.medias": "الميديا",
   "sourceComponent.notes": "ملحوظات",
   "sourceComponent.network": "الشبكات",
   "sourceComponent.add": "أضف حقلاً"

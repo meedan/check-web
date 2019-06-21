@@ -21,6 +21,10 @@ const globalStrings = defineMessages({
     id: 'global.confirm',
     defaultMessage: 'Confirm',
   },
+  ok: {
+    id: 'global.ok',
+    defaultMessage: 'OK',
+  },
   save: {
     id: 'global.save',
     defaultMessage: 'Save',

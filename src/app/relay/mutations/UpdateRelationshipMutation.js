@@ -21,7 +21,9 @@ class UpdateRelationshipMutation extends Relay.Mutation {
       relationship {
         id
         source { id, dbid }
+        source_id
         target { id, dbid }
+        target_id
       }
       current_project_media {
         id
