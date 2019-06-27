@@ -13,7 +13,7 @@ import deepEqual from 'deep-equal';
 import rtlDetect from 'rtl-detect';
 import styled from 'styled-components';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
-import { searchQueryFromUrl, urlFromSearchQuery } from './Search';
+import { searchPrefixFromUrl, searchQueryFromUrl, urlFromSearchQuery } from './Search';
 import DateRangeFilter from './DateRangeFilter';
 import PageTitle from '../PageTitle';
 import CheckContext from '../../CheckContext';
@@ -240,16 +240,11 @@ class SearchQueryComponent extends React.Component {
   }
 
   handleApplyFilters() {
-    const viewMode = this.props.view ? `/${this.props.view}` : '';
     const { query } = this.state;
     query.esoffset = 0;
 
-    const url = urlFromSearchQuery(
-      query,
-      this.props.project
-        ? `/${this.props.team.slug}/project/${this.props.project.dbid}${viewMode}`
-        : `/${this.props.team.slug}/search${viewMode}`,
-    );
+    const prefix = searchPrefixFromUrl();
+    const url = urlFromSearchQuery(query, prefix);
 
     this.getContext().getContextStore().history.push(url);
   }
