@@ -112,7 +112,7 @@ class AutoCompleteMediaItem extends React.Component {
         const items = nested(['data', 'search', 'medias', 'edges'], response);
 
         const unrelatedItems = items.filter(item =>
-          (item.node.relationships.targets_count + item.node.relationships.targets_count === 0) &&
+          (item.node.relationships.sources_count + item.node.relationships.targets_count === 0) &&
           (item.node.dbid !== this.props.media.dbid));
 
         const searchResult = unrelatedItems.map(item => ({
