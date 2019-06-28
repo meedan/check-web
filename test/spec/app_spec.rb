@@ -1316,6 +1316,24 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(current > 0).to be(true)
     end
 
+    it "should search in trash page", bin4: true do
+      api_create_claim_and_go_to_search_page
+      # Send item to trash
+      wait_for_selector('.card-with-border > div > div > div + button svg', :css).click
+      wait_for_selector('.media-actions__icon', :css).click
+      wait_for_selector('.media-actions__send-to-trash', :css).click
+      @driver.navigate.to @config['self_url'] + '/' + get_team + '/trash'
+      wait_for_selector('.medias__item')
+      trash_button = wait_for_selector('.trash__empty-trash-button')
+      expect(trash_button.nil?).to be(false)
+      expect(@driver.page_source.include?('My search result')).to be(true)
+      wait_for_selector("search__open-dialog-button", :id).click
+      wait_for_selector("//div[contains(text(), 'False')]",:xpath).click
+      wait_for_selector("search-query__submit-button", :id).click
+      sleep 3
+      expect(@driver.page_source.include?('My search result')).to be(false)
+    end
+
     it "should find medias when searching by keyword", bin2: true do
       data = api_create_team_and_project
       api_create_media(data: data, url: "https://www.facebook.com/permalink.php?story_fbid=10155901893214439&id=54421674438")
