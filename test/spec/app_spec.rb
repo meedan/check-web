@@ -1328,7 +1328,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(trash_button.nil?).to be(false)
       expect(@driver.page_source.include?('My search result')).to be(true)
       wait_for_selector("search__open-dialog-button", :id).click
-      wait_for_selector("//div[contains(text(), 'False')]",:xpath).click
+      wait_for_selector("//div[contains(text(), 'In Progress')]",:xpath).click
       wait_for_selector("search-query__submit-button", :id).click
       sleep 3
       expect(@driver.page_source.include?('My search result')).to be(false)

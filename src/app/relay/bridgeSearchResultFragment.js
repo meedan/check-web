@@ -4,6 +4,24 @@ const bridgeSearchResultFragment = Relay.QL`
   fragment on CheckSearch {
     id,
     pusher_channel,
+    team {
+      slug
+      search_id,
+      search { id, number_of_results },
+      check_search_trash { id, number_of_results },
+      get_embed_whitelist
+      get_suggested_tags
+      get_status_target_turnaround
+      team_bot_installations(first: 10000) {
+        edges {
+          node {
+            team_bot: bot_user {
+              identifier
+            }
+          }
+        }
+      }
+    }
     medias(first: $pageSize) {
       edges {
         node {
@@ -14,6 +32,7 @@ const bridgeSearchResultFragment = Relay.QL`
           published,
           updated_at,
           metadata,
+          title,
           archived,
           relationships { sources_count, targets_count },
           relationship { id, dbid, source_id, target_id },
@@ -44,6 +63,7 @@ const bridgeSearchResultFragment = Relay.QL`
             id,
             dbid,
             search_id,
+            search { id, number_of_results },
             title
           },
           project_source {
