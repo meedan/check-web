@@ -32,6 +32,10 @@
     "defaultMessage": "Password (minimum 8 characters)"
   },
   {
+    "id": "login.otpAttemptLabel",
+    "defaultMessage": "otp_attempt"
+  },
+  {
     "id": "login.passwordConfirmLabel",
     "defaultMessage": "Password confirmation"
   },

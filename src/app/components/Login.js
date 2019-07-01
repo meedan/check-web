@@ -160,6 +160,7 @@ class Login extends Component {
       name: '',
       email: '',
       password: '',
+      otp_attempt: '',
       passwordConfirmation: '',
       checkedTos: false,
       checkedPp: false,
@@ -208,6 +209,7 @@ class Login extends Component {
     const params = {
       'api_user[email]': this.state.email,
       'api_user[password]': this.state.password,
+      'api_user[otp_attempt]': this.state.otp_attempt,
     };
 
     const failureCallback = message => this.setState({ message });
@@ -381,6 +383,23 @@ class Login extends Component {
                       defaultMessage="Password (minimum 8 characters)"
                     />
                   }
+                />
+              </div>
+
+              <div className="login__otp_attempt">
+                <TextField
+                  fullWidth
+                  name="otp_attempt"
+                  value={this.state.otp_attempt}
+                  className="login__otp_attempt-input"
+                  onChange={this.handleFieldChange.bind(this)}
+                  floatingLabelText={
+                    <FormattedMessage
+                      id="login.otpAttemptLabel"
+                      defaultMessage="otp_attempt"
+                    />
+                  }
+                  autoFocus
                 />
               </div>
 
