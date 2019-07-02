@@ -127,7 +127,10 @@ class AutoCompleteMediaItem extends React.Component {
         }
         this.setState({ searchResult, message });
       })
-      .catch(error => this.setState({ message: error.message, searching: false }));
+      .catch(() => this.setState({
+        message: this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') }),
+        searching: false,
+      }));
   };
 
   render() {
