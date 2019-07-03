@@ -1,5 +1,5 @@
 {
-  "bulkActions.move": "Mută elementele selectate în alt proiect",
+  "bulkActions.move": "Mută elementele selectate în alt dosar",
   "bulkActions.sendItemsToTrash": "Trimite elementele selectate în coș",
   "bulkActions.selectAll": "Selectează toate elementele pe această pagină",
   "bulkActions.movedSuccessfully": "Făcut! Atenționăm că mutarea propriu-zisă a elementelor poate să dureze puțin.",

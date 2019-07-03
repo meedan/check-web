@@ -1,4 +1,4 @@
 {
-  "breakRelationship.error": "Sorry, an error occurred while updating the relationship. Please try again and contact {supportEmail} if the condition persists.",
+  "breakRelationship.error": "Ne pare rău, în timpul actualizării relației s-a produs o eroare. Vă rugăm să mai încercați odată și să contactați {supportEmail} dacă situația persistă.",
   "mediaDetail.breakRelationship": "Rupe relația"
 }

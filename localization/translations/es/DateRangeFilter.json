@@ -1,7 +1,7 @@
 {
-  "search.dateHeading": "Date",
-  "search.dateCreatedHeading": "Created",
-  "search.dateUpdatedHeading": "Updated",
-  "search.pickDateFrom": "Starting date",
-  "search.pickDateTo": "Ending date"
+  "search.dateHeading": "Fecha",
+  "search.dateCreatedHeading": "Creado",
+  "search.dateUpdatedHeading": "Actualizado",
+  "search.pickDateFrom": "Fecha de inicio",
+  "search.pickDateTo": "Fecha de finalización"
 }
