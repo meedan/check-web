@@ -1,0 +1,34 @@
+[
+  {
+    "id": "userSecurity.security",
+    "defaultMessage": "Security"
+  },
+  {
+    "id": "userSecurity.successfulLoginText",
+    "defaultMessage": "Receive a notification for logins from a new location or device"
+  },
+  {
+    "id": "userSecurity.failedfulLoginText",
+    "defaultMessage": "Receive a notification for {loginTrial} consecutive failed login attempts"
+  },
+  {
+    "id": "userSecurity.twoFactorAuthentication",
+    "defaultMessage": "TWO-FACTOR AUTHENTICATION"
+  },
+  {
+    "id": "userSecurity.requireTwoFactorAuth",
+    "defaultMessage": "Require two-factor authentication"
+  },
+  {
+    "id": "login.passwordInputHint",
+    "defaultMessage": "Password"
+  },
+  {
+    "id": "userSecurity.backupCode",
+    "defaultMessage": "Download Backup Codes"
+  },
+  {
+    "id": "userSecurity.verifyInputHint",
+    "defaultMessage": "Validation Code"
+  }
+]

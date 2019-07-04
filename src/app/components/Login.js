@@ -386,22 +386,23 @@ class Login extends Component {
                 />
               </div>
 
-              <div className="login__otp_attempt">
-                <TextField
-                  fullWidth
-                  name="otp_attempt"
-                  value={this.state.otp_attempt}
-                  className="login__otp_attempt-input"
-                  onChange={this.handleFieldChange.bind(this)}
-                  floatingLabelText={
-                    <FormattedMessage
-                      id="login.otpAttemptLabel"
-                      defaultMessage="otp_attempt"
-                    />
-                  }
-                  autoFocus
-                />
-              </div>
+              {this.state.type === 'login' ?
+                <div className="login__otp_attempt">
+                  <TextField
+                    fullWidth
+                    name="otp_attempt"
+                    value={this.state.otp_attempt}
+                    className="login__otp_attempt-input"
+                    ref={(i) => { this.inputName = i; }}
+                    onChange={this.handleFieldChange.bind(this)}
+                    floatingLabelText={
+                      <FormattedMessage
+                        id="login.otpAttemptLabel"
+                        defaultMessage="Two-Factor Authentication Token"
+                      />
+                    }
+                  />
+                </div> : null}
 
               {this.state.type === 'login' ?
                 null :

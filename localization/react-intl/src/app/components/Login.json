@@ -33,7 +33,7 @@
   },
   {
     "id": "login.otpAttemptLabel",
-    "defaultMessage": "otp_attempt"
+    "defaultMessage": "Two-Factor Authentication Token"
   },
   {
     "id": "login.passwordConfirmLabel",
