@@ -5,7 +5,7 @@
   "singleChoiceTask.other": "Altceva",
   "singleChoiceTask.newTask": "Sarcină nouă",
   "singleChoiceTask.editTask": "Redactare sarcină",
-  "tasks.taskPrompt": "Prompt",
+  "tasks.taskPrompt": "Formuleaza pe scurt aici",
   "tasks.description": "Descriere (opțional)",
   "tasks.requiredCheckbox": "Obligatoriu",
   "tasks.requiredHelper": "Elementul nu poate fi marcat ca finalizat dacă rămân nerezolvate oricare din sarcini obigatorii pe el",

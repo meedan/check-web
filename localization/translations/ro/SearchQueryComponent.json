@@ -8,7 +8,7 @@
   "search.sortByNewest": "Rezultatele mai noi întâi",
   "search.help": "<table>\n                              <tbody>\n                                <tr><td>+</td><td>Arbore + Frunză</td><td>Elemente ce conțin și Arbore ȘI Frunză</td></tr>\n                                <tr><td>|</td><td>Arbore | Frunză</td><td>Elemente ce conțin sau Arbore SAU Frunză</td></tr>\n                                <tr><td>()</td><td>Arbore + (Frunză | Ramură)</td><td>Elemente ce conțin Arbore ȘI Frunză SAU elemente ce conțin Arbore ȘI Ramură</td></tr>\n                              </tbody>\n                            </table>\n                            <div>\n                              <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                                Aflați mai multe despre tehnici de căutare\n                              </a>\n                            </div>",
   "search.statusHeading": "Starea",
-  "search.projectHeading": "Proiect",
+  "search.projectHeading": "Dosar",
   "status.categoriesHeading": "Categoriile",
   "search.sort": "Sortare",
   "search.sortByCreated": "Creat",
