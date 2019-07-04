@@ -15,7 +15,7 @@ class CreateTeamBotInstallationMutation extends Relay.Mutation {
         team {
           id
         }
-        team_bot {
+        bot_user {
           id
           installed
         }
@@ -24,7 +24,7 @@ class CreateTeamBotInstallationMutation extends Relay.Mutation {
   }
 
   getVariables() {
-    return { team_id: this.props.team.dbid, team_bot_id: this.props.bot.dbid };
+    return { team_id: this.props.team.dbid, user_id: this.props.bot.dbid };
   }
 
   getConfigs() {
@@ -52,7 +52,7 @@ class CreateTeamBotInstallationMutation extends Relay.Mutation {
       {
         type: 'FIELDS_CHANGE',
         fieldIDs: {
-          team_bot: this.props.bot.id,
+          bot_user: this.props.bot.id,
         },
       },
     ];

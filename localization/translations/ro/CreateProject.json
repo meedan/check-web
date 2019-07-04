@@ -1,7 +1,7 @@
 {
-  "createProject.addProject": "Adaugă un proiect",
-  "createProject.title": "Adaugă un proiect",
-  "createProject.titleBlank": "Adăugați primul proiect al Dvs",
-  "createProject.newProjectName": "Denumirea proiectului",
-  "createProject.error": "Ne pare rău, în timpul actualizării proiectului s-a produs o eroare. Vă rugăm să mai încercați odată și să contactați {supportEmail} dacă situația persistă."
+  "createProject.addProject": "Adaugă un dosar",
+  "createProject.title": "Adaugă un dosar",
+  "createProject.titleBlank": "Adăugați primul dosar al Dvs",
+  "createProject.newProjectName": "Denumirea dosarului",
+  "createProject.error": "Ne pare rău, în timpul actualizării dosarului s-a produs o eroare. Vă rugăm să mai încercați odată și să contactați {supportEmail} dacă situația persistă."
 }

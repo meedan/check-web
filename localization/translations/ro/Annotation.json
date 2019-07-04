@@ -41,8 +41,8 @@
   "annotation.penderArchiveResponse": "Keep a făcut o captură de ecran de pe acest URL.",
   "annotation.penderArchiveWait": "Keep face acum o captură de ecran cu acest element. Reveniți peste câteva minute pentru a o vedea.",
   "annotation.flaggedHeader": "Marcat ca {flag} de către {author}",
-  "annotation.projectMoved": "Mutat de la proiectul {previousProject} la {currentProject} de {author}",
+  "annotation.projectMoved": "Mutat de la dosarul {previousProject} la {currentProject} de {author}",
   "annotation.movedToTrash": "Mutat în coș de {author}",
   "annotation.movedFromTrash": "Scos din coș de {author}",
-  "annotation.teamCopied": "Copiat din proiectul {previousProject} pe echipa {previousTeam} de {author}"
+  "annotation.teamCopied": "Copiat din dosarul {previousProject} pe echipa {previousTeam} de {author}"
 }

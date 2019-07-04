@@ -11,11 +11,17 @@ export function searchQueryFromUrlQuery(urlQuery) {
 }
 
 export function searchQueryFromUrl() {
-  const queryString = window.location.pathname.match(/.*\/(search|project\/[0-9]+)(?:\/[a-z]+)?\/(.*)/);
+  const queryString = window.location.pathname.match(/.*\/(search|trash|project\/[0-9]+)(?:\/[a-z]+)?\/(.*)/);
   return queryString ? searchQueryFromUrlQuery(queryString[2]) : {};
 }
 
-export function urlFromSearchQuery(query, prefix) {
+export function searchPrefixFromUrl() {
+  const queryString = window.location.pathname.match(/.*\/(search|trash|project\/[0-9]+)/);
+  return queryString ? queryString[0] : null;
+}
+
+export function urlFromSearchQuery(query, path) {
+  const prefix = path || searchPrefixFromUrl();
   return isEqual(query, {}) ? prefix : `${prefix}/${encodeURIComponent(JSON.stringify(query))}`;
 }
 

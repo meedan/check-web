@@ -5,7 +5,7 @@
   "joinTeamComponent.title": "Alătură-te echipei",
   "joinTeamComponent.mainHeading": "Solicitarea permisiunii de a se alătura",
   "joinTeamComponent.alreadyRequested": "Ați solicitat deja permisiunea de a se alătura echipei {team} {appName}.",
-  "joinTeamComponent.requestHasBeenSent": "Solicitarea Dvs a fost transmisă administratorilor proiectului pentru aprobare.",
+  "joinTeamComponent.requestHasBeenSent": "Solicitarea Dvs a fost transmisă administratorilor dosarului pentru aprobare.",
   "joinTeamComponent.blurbGraf": "Pentru a solicita acces la {link} {appName}, dați click mai jos:",
   "joinTeamComponent.buttonSubmitted": "Cerere trimisă",
   "joinTeamComponent.buttonSubmit": "Solicitarea permisiunii de a se alătura"

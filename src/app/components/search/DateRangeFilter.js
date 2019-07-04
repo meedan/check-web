@@ -10,57 +10,44 @@ import { FlexRow, units } from '../../styles/js/shared';
 import globalStrings from '../../globalStrings';
 
 class DateRangeFilter extends React.Component {
-  constructor(props) {
-    super(props);
-
-    const { value } = this.props;
-    const type = (value && Object.keys(value)[0]) || null;
-
-    this.state = {
-      type: type || 'created_at',
-      value: value && type ? { ...value[type] } : {},
-    };
-  }
-
-  componentWillUpdate = (nextProps) => {
-    if (this.props.value !== nextProps.value && nextProps.value === undefined) {
-      this.setState({ type: 'created_at', value: {} });
-    }
+  getRange = () => {
+    const type = this.props.value ? Object.keys(this.props.value)[0] : 'created_at';
+    const value = this.props.value ? this.props.value[type] : {};
+    return { type, value };
   };
 
   handleChangeDate = (date, field) => {
-    const value = Object.assign({}, this.state.value);
+    const range = this.getRange();
 
     if (field === 'start_time') {
-      value[field] =
+      range.value[field] =
         new Date(date.getFullYear(), date.getMonth(), date.getDate()).toISOString();
     } else if (field === 'end_time') {
-      value[field] =
+      range.value[field] =
         new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59).toISOString();
     }
 
-    this.setState({ value });
-
     if (this.props.onChange) {
       const result = {};
-      result[this.state.type] = value;
+      result[range.type] = range.value;
       this.props.onChange(result);
     }
   };
 
   handleChangeType = (e) => {
-    const type = e.target.value;
-    this.setState({ type });
+    const newType = e.target.value;
+    const range = this.getRange();
 
     if (this.props.onChange) {
       const result = {};
-      result[type] = this.state.value;
+      result[newType] = range.value;
       this.props.onChange(result);
     }
   };
 
   shouldDisableDate = (date, field) => {
-    const { start_time, end_time } = this.state.value;
+    const range = this.getRange();
+    const { start_time, end_time } = range.value;
 
     if (field === 'start_time') {
       return (end_time && date > new Date(end_time));
@@ -78,7 +65,8 @@ class DateRangeFilter extends React.Component {
       return null;
     }
 
-    const { start_time, end_time } = this.state.value;
+    const range = this.getRange();
+    const { start_time, end_time } = range.value;
 
     const label = {
       date: <FormattedMessage id="search.dateHeading" defaultMessage="Date" />,
@@ -95,7 +83,7 @@ class DateRangeFilter extends React.Component {
               className="date-range__select-root"
               input={<OutlinedInput />}
               onChange={this.handleChangeType}
-              value={this.state.type}
+              value={range.type}
               style={{ minWidth: units(18), fontSize: 'small' }}
               labelWidth={0}
               classes={{ select: 'date-range__select-menu', selectMenu: 'bloody-roots' }}

@@ -5,7 +5,7 @@
   "mediaDetail.editReportError": "Ne pare rău, în timpul actualizării elementului s-a produs o eroare. Vă rugăm să mai încercați odată și să contactați {supportEmail} dacă situația persistă.",
   "mediaDetail.trash": "Coș",
   "mediaMetadata.movedToTrash": "Trimis în {trash}",
-  "mediaMetadata.movedBack": "Mutat înapoi în proiect: {project}",
+  "mediaMetadata.movedBack": "Mutat înapoi în dosar: {project}",
   "mediaDetail.byUser": "de {username}",
   "mediaDetail.cancelButton": "Anulare",
   "mediaDetail.move": "Mutare",

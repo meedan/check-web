@@ -1,6 +1,6 @@
 {
-  "projectEdit.error": "Ne pare rău, în timpul actualizării proiectului s-a produs o eroare. Vă rugăm să mai încercați odată și să contactați {supportEmail} dacă situația persistă.",
-  "projectEdit.titleField": "Titlul proiectului",
-  "projectEdit.descriptionField": "Descrierea proiectului",
+  "projectEdit.error": "Ne pare rău, în timpul actualizării dosarului s-a produs o eroare. Vă rugăm să mai încercați odată și să contactați {supportEmail} dacă situația persistă.",
+  "projectEdit.titleField": "Titlul dosarului",
+  "projectEdit.descriptionField": "Descrierea dosarului",
   "projectEdit.saveButton": "Salvează"
 }

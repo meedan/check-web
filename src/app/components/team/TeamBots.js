@@ -283,14 +283,14 @@ const TeamBotsContainer = Relay.createContainer(injectIntl(TeamBotsComponent), {
             node {
               id
               json_settings
-              team_bot {
+              team_bot: bot_user {
                 id
                 dbid
                 avatar
                 name
                 settings_as_json_schema
                 settings_ui_schema
-                description
+                description: get_description
               }
             }
           }

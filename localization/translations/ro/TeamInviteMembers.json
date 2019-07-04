@@ -15,8 +15,8 @@
   "teamInviteMembers.inviteMember": "Invită",
   "teamInviteMembers.customInvitation": "Notă la invitație (opțional)",
   "teamInviteMembers.addSeparate": "Adaugă separat",
-  "teamInviteMembers.addAnother": "Adaugă încă unul",
-  "teamInviteMembers.addMany": "Adaugă mai mulți",
+  "teamInviteMembers.addAnother": "Invită încă unul",
+  "teamInviteMembers.addMany": "Invită mai mulți",
   "teamInviteMembers.cancelAdd": "Anulare",
   "teamInviteMembers.send": "Trimite"
 }

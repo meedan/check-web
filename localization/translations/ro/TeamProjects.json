@@ -1,5 +1,5 @@
 {
-  "teamComponent.projects": "Proiectele",
-  "teamComponent.noProjects": "Nu sunt proiecte",
+  "teamComponent.projects": "Dosarele",
+  "teamComponent.noProjects": "Nu sunt dosare",
   "teamComponent.projectAssignmentsCount": "{count, plural, =0 {Nu este desemnat niciunui membru} one {Desemnat unui membru} other {Desemnat # membri}}"
 }

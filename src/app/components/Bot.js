@@ -258,13 +258,13 @@ BotComponent.contextTypes = {
 const BotContainer = Relay.createContainer(injectIntl(BotComponent), {
   fragments: {
     bot: () => Relay.QL`
-      fragment on TeamBot {
+      fragment on BotUser {
         id
         dbid
         name
         avatar
-        description
-        limited
+        description: get_description
+        limited: get_limited
         installation {
           id
           team {
@@ -275,10 +275,10 @@ const BotContainer = Relay.createContainer(injectIntl(BotComponent), {
           }
         }
         installed
-        source_code_url
+        source_code_url: get_source_code_url
         updated_at
-        version
-        role
+        version: get_version
+        role: get_role
         installations_count
         team_author {
           name
