@@ -90,10 +90,6 @@ const StyledToggle = styled.div`
 `;
 
 class BotComponent extends Component {
-  static handleClickUpgrade() {
-    window.open(stringHelper('UPGRADE_URL'));
-  }
-
   constructor(props) {
     super(props);
 

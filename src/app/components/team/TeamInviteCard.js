@@ -89,7 +89,8 @@ class TeamInviteCard extends Component {
       team.get_max_number_of_members > 0 &&
       team.team_users.edges.length >= team.get_max_number_of_members
     ) {
-      return role === 'owner' ? <TeamSizeNudge renderCard /> : null;
+      return role === 'owner' ?
+        <TeamSizeNudge maxNumberOfMembers={team.get_max_number_of_members} renderCard /> : null;
     }
     return (
       <StyledMdCard>

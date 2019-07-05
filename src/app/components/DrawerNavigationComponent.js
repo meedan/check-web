@@ -42,10 +42,6 @@ class DrawerNavigation extends Component {
     e.stopPropagation();
   }
 
-  handleClickUpgrade = () => {
-    window.open(stringHelper('UPGRADE_URL'));
-  };
-
   render() {
     const { inTeamContext, loggedIn, drawerToggle } = this.props;
 

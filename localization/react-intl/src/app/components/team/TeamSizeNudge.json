@@ -1,14 +1,10 @@
 [
   {
     "id": "teamSizeNudge.nudge",
-    "defaultMessage": "Want to add more members? Free accounts can host up to 5 members at a time, and Check Pro allows you to add an unlimited number of members."
-  },
-  {
-    "id": "teamSizeNudge.upgradeButton",
-    "defaultMessage": "Upgrade now"
+    "defaultMessage": "{max, plural, =0 {Your team is currently limited to 0 users. To upgrade, please contact {supportEmail}.} one {Your team is currently limited to one user. To upgrade, please contact {supportEmail}.} other {Your team is currently limited to # users. To upgrade, please contact {supportEmail}.}}"
   },
   {
     "id": "teamSizeNudge.title",
-    "defaultMessage": "Upgrade to Check Pro"
+    "defaultMessage": "Upgrade"
   }
 ]
