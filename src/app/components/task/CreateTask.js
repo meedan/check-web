@@ -39,11 +39,7 @@ class CreateTask extends Component {
 
   handleTeamwideNudgeDialog() {
     const { team } = this.getContext();
-    if (team.plan === 'pro') {
-      browserHistory.push(`/${team.slug}/settings`);
-    } else {
-      this.setState({ nudgeDialogOpen: true });
-    }
+    browserHistory.push(`/${team.slug}/settings`);
   }
 
   handleCloseTeamwideNudgeDialog() {

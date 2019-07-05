@@ -105,8 +105,6 @@ class DrawerProjectsComponent extends Component {
       },
     };
 
-    const { team } = props;
-
     return (
       <div>
         <SubHeading>
@@ -115,10 +113,7 @@ class DrawerProjectsComponent extends Component {
               id="projects.projectsSubheading"
               defaultMessage="Projects"
             />
-            { props.handleAddProj &&
-            (props.userIsOwner ||
-            team.plan === 'pro' ||
-            team.projects.edges.length < team.limits.max_number_of_projects) ?
+            { props.handleAddProj ?
               <Can permissions={props.team.permissions} permission="create Project">
                 <StyledAddProj
                   style={{ cursor: 'pointer' }}
@@ -126,10 +121,6 @@ class DrawerProjectsComponent extends Component {
                   isRtl={rtlDetect.isRtlLang(props.intl.locale)}
                   className="drawer__create-project-button"
                 >
-                  { props.team.projects.edges.length > 0 && team.plan === 'free' ?
-                    <span style={{ color: black54, font: caption }}>PRO</span>
-                    : null
-                  }
                   { props.showAddProj ? <MdHighlightOff /> : <MdAddCircleOutline /> }
                 </StyledAddProj>
               </Can> : null
@@ -162,8 +153,6 @@ const DrawerProjectsContainer = Relay.createContainer(injectIntl(DrawerProjectsC
         id,
         dbid,
         slug,
-        plan,
-        limits,
         permissions,
         projects(first: $pageSize) {
           edges {

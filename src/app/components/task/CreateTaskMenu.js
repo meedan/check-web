@@ -12,7 +12,7 @@ import MdDateRange from 'react-icons/lib/md/date-range';
 import MdGrade from 'react-icons/lib/md/grade';
 import styled from 'styled-components';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
-import { caption, units, black05, black54 } from '../../styles/js/shared';
+import { units, black05 } from '../../styles/js/shared';
 
 const StyledCreateTaskButton = styled(FlatButton)`
   margin-bottom: ${units(2)} !important;
@@ -105,7 +105,6 @@ class CreateTaskMenu extends React.Component {
                 leftIcon={<MdGrade />}
                 onClick={() => this.handleSelectType('teamwide')}
                 primaryText={<FormattedMessage id="tasks.teamwideNudge" defaultMessage="Team tasks" />}
-                secondaryText={<span style={{ color: black54, font: caption, lineHeight: '48px' }}>PRO</span>}
               /> : null
             }
           </Menu>

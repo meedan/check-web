@@ -3,10 +3,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
-import FlatButton from 'material-ui/FlatButton';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
-import config from 'config'; // eslint-disable-line require-path-exists/exists
 import DrawerProjects from './drawer/Projects';
 import TeamAvatar from './team/TeamAvatar';
 import { stringHelper } from '../customHelpers';
@@ -175,11 +173,6 @@ class DrawerNavigation extends Component {
       inTeamContext &&
       UserUtil.myRole(this.getCurrentUser(), this.props.team.slug) === 'owner';
 
-    const showUpgradeButton =
-      userIsOwner &&
-      config.appName === 'check' &&
-      this.props.team.plan === 'free';
-
     return (
       <Drawer {...this.props}>
         <div onClick={drawerToggle}>
@@ -230,20 +223,6 @@ class DrawerNavigation extends Component {
               {productGuidesMenuItem}
 
               {releaseNotesMenuItem}
-
-              {showUpgradeButton ?
-                <FlatButton
-                  label={
-                    <FormattedMessage
-                      id="drawer.upgradeButton"
-                      defaultMessage="Upgrade to PRO"
-                    />
-                  }
-                  onClick={this.handleClickUpgrade}
-                  primary
-                  fullWidth
-                /> : null
-              }
 
               <div style={styles.drawerFooter}>
                 {TosMenuItem}

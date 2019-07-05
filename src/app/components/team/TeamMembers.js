@@ -15,8 +15,7 @@ const TeamMembersContainer = Relay.createContainer(TeamMembersComponent, {
         name,
         slug,
         permissions,
-        limits,
-        plan,
+        get_max_number_of_members,
         members_count,
         invited_mails,
         join_requests(first: 100) {

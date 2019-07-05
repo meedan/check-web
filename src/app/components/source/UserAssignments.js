@@ -269,7 +269,6 @@ const UserAssignmentsContainer = Relay.createContainer(injectIntl(UserAssignment
               slug
               name
               avatar
-              plan
             }
           }
         }

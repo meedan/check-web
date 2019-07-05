@@ -1,16 +1,12 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import Button from '@material-ui/core/Button';
 import MdLock from 'material-ui/svg-icons/action/lock';
 import MdPublic from 'material-ui/svg-icons/social/public';
 import MdLink from 'material-ui/svg-icons/content/link';
 import MdLocation from 'material-ui/svg-icons/communication/location-on';
 import MdPhone from 'material-ui/svg-icons/communication/phone';
-import config from 'config'; // eslint-disable-line require-path-exists/exists
 import TeamAvatar from './TeamAvatar';
 import ParsedText from '../ParsedText';
-import { stringHelper } from '../../customHelpers';
-import UserUtil from '../user/UserUtil';
 import {
   StyledTwoColumns,
   StyledSmallColumn,
@@ -25,20 +21,9 @@ import {
 } from '../../styles/js/shared';
 
 const TeamInfo = (props) => {
-  const { team, context } = props;
+  const { team } = props;
   const contact = team.contacts.edges[0];
   const contactInfo = [];
-
-  const handleClickUpgrade = () => {
-    window.open(stringHelper('UPGRADE_URL'));
-  };
-
-  const showUpgradeButton =
-    team.plan === 'free' &&
-    config.appName === 'check' &&
-    UserUtil.myRole(context.currentUser, team.slug) === 'owner' &&
-    team.projects.edges.length &&
-    team.projects.edges.find(p => p.node.medias_count > 0);
 
   contactInfo.push((
     <StyledContactInfo key="contactInfo.privacy" className="team__privacy">
@@ -108,18 +93,6 @@ const TeamInfo = (props) => {
         <Row>
           {contactInfo}
         </Row>
-        {showUpgradeButton ?
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleClickUpgrade}
-          >
-            <FormattedMessage
-              id="teamComponent.upgradeButton"
-              defaultMessage="Upgrade to PRO"
-            />
-          </Button> : null
-        }
       </StyledBigColumn>
     </StyledTwoColumns>
   );
