@@ -3,7 +3,8 @@ const config = {
     appName: 'check',
     relayPath: 'http://api:3000/api/graphql',
     // The "access_token" attribute of an "ApiKey" created on Check API
-    checkApiToken: 'dev'
+    checkApiToken: 'dev',
+    httpAuth: 'user:password:realm',
   },
   test: {
     appName: 'check',
