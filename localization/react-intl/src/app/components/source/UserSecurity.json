@@ -1,7 +1,7 @@
 [
   {
-    "id": "userSecurity.security",
-    "defaultMessage": "Security"
+    "id": "userSecurity.notification",
+    "defaultMessage": "Notification"
   },
   {
     "id": "userSecurity.successfulLoginText",
@@ -20,15 +20,71 @@
     "defaultMessage": "Require two-factor authentication"
   },
   {
-    "id": "login.passwordInputHint",
-    "defaultMessage": "Password"
+    "id": "userSecurity.authenticateHeader",
+    "defaultMessage": "Step 1: Authenticate"
   },
   {
-    "id": "userSecurity.backupCode",
-    "defaultMessage": "Download Backup Codes"
+    "id": "userSecurity.authenticateDescription",
+    "defaultMessage": "Enter your current password to confirm your identity:"
+  },
+  {
+    "id": "userSecurity.currentPasswordInputHint",
+    "defaultMessage": "Current Password"
+  },
+  {
+    "id": "userSecurity.downloadHeader",
+    "defaultMessage": "Step 2: Download"
+  },
+  {
+    "id": "userSecurity.downloadDescription",
+    "defaultMessage": "You'll need a two-factor app, like Google Authenticator, on your smartphone to proceed:"
+  },
+  {
+    "id": "userSecurity.qrcodeHeader",
+    "defaultMessage": "Step 3: Scan"
+  },
+  {
+    "id": "userSecurity.qrcodeDescription",
+    "defaultMessage": "Using your two-factor app, scan this QR code:"
+  },
+  {
+    "id": "userSecurity.backupHeader",
+    "defaultMessage": "Step 4: Backup codes"
+  },
+  {
+    "id": "userSecurity.backupDescription",
+    "defaultMessage": "We strongly suggest that you generate and print backup codes using the button below. These are single-use tokens to be used instead of your two-factor token in the event that you lose access to your two-factor device."
+  },
+  {
+    "id": "userSecurity.backupNote",
+    "defaultMessage": "Note: any existing backup codes will be invalidated by clicking the button."
+  },
+  {
+    "id": "userSecurity.generateGackup",
+    "defaultMessage": "Generate backup code"
+  },
+  {
+    "id": "userSecurity.verifyHeader",
+    "defaultMessage": "Step 5: Verify"
+  },
+  {
+    "id": "userSecurity.verifyDescription",
+    "defaultMessage": "To enable two-factor authentication, enter the 6-digit token from your two-factor app:"
   },
   {
     "id": "userSecurity.verifyInputHint",
     "defaultMessage": "Validation Code"
+  },
+  {
+    "id": "userSecurity.enableTwofactor",
+    "defaultMessage": "Enable"
+  },
+  {
+    "id": "userSecurity.disableTwoFactorDescription",
+    "defaultMessage": "Enter your password to disable two-factor authentication:"
+  },
+  {
+    "id": "userSecurity.disableTwofactor",
+    "defaultMessage": "Disable"
   }
 ]
