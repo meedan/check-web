@@ -18,9 +18,6 @@ class UpdateUserMutation extends Relay.Mutation {
     if (this.props.accept_terms) {
       vars.accept_terms = this.props.accept_terms;
     }
-    if (this.props.two_factor) {
-      vars.two_factor = this.props.two_factor;
-    }
     return vars;
   }
 

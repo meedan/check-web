@@ -13,7 +13,7 @@
   },
   {
     "id": "userSecurity.twoFactorAuthentication",
-    "defaultMessage": "TWO-FACTOR AUTHENTICATION"
+    "defaultMessage": "Two factor authntication"
   },
   {
     "id": "userSecurity.requireTwoFactorAuth",
@@ -28,8 +28,16 @@
     "defaultMessage": "Enter your current password to confirm your identity:"
   },
   {
+    "id": "userSecurity.disableAuthenticateDescription",
+    "defaultMessage": "Enter your password to disable two-factor authentication:"
+  },
+  {
     "id": "userSecurity.currentPasswordInputHint",
     "defaultMessage": "Current Password"
+  },
+  {
+    "id": "userSecurity.disableTwofactor",
+    "defaultMessage": "Disable"
   },
   {
     "id": "userSecurity.downloadHeader",
@@ -78,13 +86,5 @@
   {
     "id": "userSecurity.enableTwofactor",
     "defaultMessage": "Enable"
-  },
-  {
-    "id": "userSecurity.disableTwoFactorDescription",
-    "defaultMessage": "Enter your password to disable two-factor authentication:"
-  },
-  {
-    "id": "userSecurity.disableTwofactor",
-    "defaultMessage": "Disable"
   }
 ]
