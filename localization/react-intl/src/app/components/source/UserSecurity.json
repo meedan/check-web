@@ -13,7 +13,7 @@
   },
   {
     "id": "userSecurity.twoFactorAuthentication",
-    "defaultMessage": "Two factor authntication"
+    "defaultMessage": "Two factor authentication"
   },
   {
     "id": "userSecurity.requireTwoFactorAuth",
