@@ -21,3 +21,4 @@ config-server.js
 .nyc_output
 coverage
 dist
+.idea/

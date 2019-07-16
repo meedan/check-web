@@ -89,7 +89,6 @@ const ProjectMenuContainer = Relay.createContainer(ProjectMenu, {
           dbid,
           slug,
           permissions,
-          limits
         }
       }
     `,

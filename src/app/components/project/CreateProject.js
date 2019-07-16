@@ -6,9 +6,6 @@ import { Card, CardActions, CardText, CardHeader } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import styled from 'styled-components';
-import config from 'config'; // eslint-disable-line require-path-exists/exists
-import UserUtil from '../user/UserUtil';
-import TeamProjectsNudge from '../team/TeamProjectsNudge';
 import CreateProjectMutation from '../../relay/mutations/CreateProjectMutation';
 import CheckContext from '../../CheckContext';
 import { safelyParseJSON } from '../../helpers';
@@ -145,43 +142,33 @@ class CreateProject extends Component {
 
     const { team } = this.props;
 
-    if (team.plan === 'pro' ||
-      team.projects.edges.length < team.limits.max_number_of_projects) {
-      if (this.props.renderCard) {
-        const cardTitle = team.projects.edges.length
-          ? messages.cardTitle
-          : messages.cardTitleBlank;
+    if (this.props.renderCard) {
+      const cardTitle = team.projects.edges.length
+        ? messages.cardTitle
+        : messages.cardTitleBlank;
 
-        return (
-          <Card
-            style={{ marginBottom: units(2) }}
-            initiallyExpanded
-          >
-            <StyledCardHeader
-              title={this.props.intl.formatMessage(cardTitle)}
-              showExpandableButton
-            />
-            <CardText expandable>
-              <form onSubmit={this.handleSubmit.bind(this)} className="create-project">
-                {textInput}
-              </form>
-            </CardText>
-            <CardActions expandable>
-              {submitButton}
-            </CardActions>
-          </Card>
-        );
-      }
-
-      return form;
+      return (
+        <Card
+          style={{ marginBottom: units(2) }}
+          initiallyExpanded
+        >
+          <StyledCardHeader
+            title={this.props.intl.formatMessage(cardTitle)}
+            showExpandableButton
+          />
+          <CardText expandable>
+            <form onSubmit={this.handleSubmit.bind(this)} className="create-project">
+              {textInput}
+            </form>
+          </CardText>
+          <CardActions expandable>
+            {submitButton}
+          </CardActions>
+        </Card>
+      );
     }
 
-    if (config.appName === 'check' &&
-      UserUtil.myRole(this.getCurrentUser(), team.slug) === 'owner') {
-      return <TeamProjectsNudge renderCard={this.props.renderCard} />;
-    }
-
-    return null;
+    return form;
   }
 }
 

@@ -40,7 +40,7 @@ describe('<TeamInviteCard />', () => {
     getStore().currentUser = currentUser;
     const team = {
       slug: 'alex',
-      limits: { max_number_of_members: 1 },
+      get_max_number_of_members: 1,
       team_users: { edges: [ 1 ] },
     };
     const teamCard = mountWithIntl(<TeamInviteCard team={team} />);
@@ -51,14 +51,14 @@ describe('<TeamInviteCard />', () => {
     getStore().currentUser = currentUser;
     const team1 = {
       slug: 'alex',
-      limits: { max_number_of_members: 0 },
+      get_max_number_of_members: 0,
       team_users: { edges: [ 1, 2 ] },
     };
     const teamCard1 = mountWithIntl(<TeamInviteCard team={team1} />);
     expect(teamCard1.find(TeamSizeNudge)).to.have.length(0);
     const team2 = {
       slug: 'alex',
-      limits: { max_number_of_members: 2 },
+      get_max_number_of_members: 2,
       team_users: { edges: [ 1 ] },
     };
     const teamCard2 = mountWithIntl(<TeamInviteCard team={team2} />);
@@ -69,14 +69,14 @@ describe('<TeamInviteCard />', () => {
     getStore().currentUser = currentUser;
     const team1 = {
       slug: 'new-team',
-      limits: { max_number_of_members: 0 },
+      get_max_number_of_members: 0,
       team_users: { edges: [ 1, 2 ] },
     };
     const teamCard1 = mountWithIntl(<TeamInviteCard team={team1} />);
     expect(teamCard1.find(TeamSizeNudge)).to.have.length(0);
     const team2 = {
       slug: 'brand-new-team',
-      limits: { max_number_of_members: 1 },
+      get_max_number_of_members: 1,
       team_users: { edges: [ 1 ] },
     };
     const teamCard2 = mountWithIntl(<TeamInviteCard team={team2} />);
@@ -87,21 +87,21 @@ describe('<TeamInviteCard />', () => {
     getStore().currentUser = currentUser;
     const team1 = {
       slug: 'new-team',
-      limits: { max_number_of_members: 0 },
+      get_max_number_of_members: 0,
       team_users: { edges: [ 1, 2 ] },
     };
     const teamCard1 = mountWithIntl(<TeamInviteCard team={team1} />);
     expect(teamCard1.html()).to.contain('Build Your Team');
     const team2 = {
       slug: 'brand-new-team',
-      limits: { max_number_of_members: 2 },
+      get_max_number_of_members: 2,
       team_users: { edges: [ 1 ] },
     };
     const teamCard2 = mountWithIntl(<TeamInviteCard team={team2} />);
     expect(teamCard2.html()).to.contain('Build Your Team');
     const team3 = {
       slug: 'brand-new-team',
-      limits: { max_number_of_members: 1 },
+      get_max_number_of_members: 1,
       team_users: { edges: [ 1 ] },
     };
     const teamCard3 = mountWithIntl(<TeamInviteCard team={team3} />);
@@ -112,21 +112,21 @@ describe('<TeamInviteCard />', () => {
     getStore().currentUser = null;
     const team1 = {
       slug: 'new-team',
-      limits: { max_number_of_members: 0 },
+      get_max_number_of_members: 0,
       team_users: { edges: [ 1, 2 ] },
     };
     const teamCard1 = mountWithIntl(<TeamInviteCard team={team1} />);
     expect(teamCard1.html()).to.equal('');
     const team2 = {
       slug: 'brand-new-team',
-      limits: { max_number_of_members: 2 },
+      get_max_number_of_members: 2,
       team_users: { edges: [ 1 ] },
     };
     const teamCard2 = mountWithIntl(<TeamInviteCard team={team2} />);
     expect(teamCard2.html()).to.equal('');
     const team3 = {
       slug: 'brand-new-team',
-      limits: { max_number_of_members: 1 },
+      get_max_number_of_members: 1,
       team_users: { edges: [ 1 ] },
     };
     const teamCard3 = mountWithIntl(<TeamInviteCard team={team3} />);

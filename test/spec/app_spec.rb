@@ -153,7 +153,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should manage team tasks", bin6: true do
       # Create team and go to team page that should not contain any task
       team = "task-team-#{Time.now.to_i}"
-      api_create_team(team: team, limits: '{ "custom_tasks_list": true }')
+      api_create_team(team: team)
       p = Page.new(config: @config, driver: @driver)
       p.go(@config['self_url'] + '/' + team)
       wait_for_selector('.team-menu__team-settings-button').click

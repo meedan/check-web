@@ -90,10 +90,6 @@ const StyledToggle = styled.div`
 `;
 
 class BotComponent extends Component {
-  static handleClickUpgrade() {
-    window.open(stringHelper('UPGRADE_URL'));
-  }
-
   constructor(props) {
     super(props);
 
@@ -174,7 +170,6 @@ class BotComponent extends Component {
           <Card key={`bot-${bot.dbid}`}>
             <CardActions style={{ padding: 0 }}>
               <StyledToggle direction={direction} style={{ marginRight: 0 }}>
-                { bot.limited ? <span className="label proLabel">PRO</span> : null }
                 <span className="label">
                   <FormattedMessage id="bot.inUse" defaultMessage="In Use" />
                 </span>
@@ -264,7 +259,6 @@ const BotContainer = Relay.createContainer(injectIntl(BotComponent), {
         name
         avatar
         description: get_description
-        limited: get_limited
         installation {
           id
           team {
