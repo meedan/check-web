@@ -13,6 +13,9 @@ cache:
     - "/tmp/bundler"
 addons:
   postgresql: "9.5"
+  hosts:
+    - minio
+    - redis
 before_install:
 # extract configs
 - git clone https://${TOKEN}:x-oauth-basic@github.com/meedan/configurator ./configurator

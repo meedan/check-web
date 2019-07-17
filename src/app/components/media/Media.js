@@ -173,7 +173,8 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
 
 class ProjectMedia extends Component {
   componentWillMount() {
-    this.context.router.setRouteLeaveHook(
+    const router = this.context.router || this.props.router;
+    router.setRouteLeaveHook(
       this.props.route,
       () => {
         const assigned = document.getElementsByClassName('task__required task__assigned-to-current-user').length;

@@ -256,9 +256,12 @@ class MediaDetail extends Component {
       projectId = annotated.dbid;
     }
 
-    const mediaUrl = projectId && media.team && media.dbid > 0
+    let mediaUrl = projectId && media.team && media.dbid > 0
       ? `/${media.team.slug}/project/${projectId}/media/${media.dbid}`
       : null;
+    if (mediaUrl && this.props.query) {
+      mediaUrl = `${mediaUrl}/${JSON.stringify(this.props.query)}`;
+    }
 
     const sourceUrl = media.team &&
       media.project &&
