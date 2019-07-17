@@ -1,11 +1,11 @@
 // Check app webserver with SSR for the <head> section
 
-
 import util from 'util';
 import fetch from 'node-fetch';
 import window from 'node-window';
 import express from 'express';
 import serveStatic from 'serve-static';
+import basicAuth from 'express-basic-auth';
 
 import configs from '../config-server';
 import template from '../src/web/views/index';
@@ -57,6 +57,15 @@ app.get('/*.chunk.js', (req, res, next) => {
 
 // static assets first
 app.use(serveStatic('build/web', { index: ['index.html'] }));
+
+// http auth
+const { httpAuth } = config;
+if (httpAuth) {
+  const users = {};
+  const httpCredentials = httpAuth.split(':');
+  users[httpCredentials[0]] = httpCredentials[1];
+  app.use(basicAuth({ users, challenge: true, realm: httpCredentials[2] }));
+}
 
 const headers = {
   'X-Check-Token': config.checkApiToken,
