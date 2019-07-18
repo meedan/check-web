@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import Relay from 'react-relay/classic';
-import { Link } from 'react-router';
 import { Card, CardText } from 'material-ui/Card';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -13,8 +12,8 @@ import SetUserSecuritySettingsMutation from '../../relay/mutations/SetUserSecuri
 import GenerateTwoFactorBackupCodesMutation from '../../relay/mutations/GenerateTwoFactorBackupCodesMutation';
 import UserTwoFactorAuthenticationMutation from '../../relay/mutations/UserTwoFactorAuthenticationMutation';
 import CheckContext from '../../CheckContext';
-import { units } from '../../styles/js/shared';
 import { safelyParseJSON } from '../../helpers';
+import { units, opaqueBlack10 } from '../../styles/js/shared';
 
 const messages = defineMessages({
   passwordInput: {
@@ -78,7 +77,7 @@ class UserSecurity extends Component {
   }
 
   validateInputs() {
-    const errors = { password: false, qrcode: true };
+    const errors = { password: true, qrcode: true };
     errors.password = this.state.password.length > 0;
     let isValid = errors.password;
     if (this.state.twoFactorAuthentication === false) {
@@ -197,10 +196,6 @@ class UserSecurity extends Component {
       margin: `${units(2)} 0`,
     };
 
-    const cardStyle = {
-      margin: `${units(2)} 0`,
-    };
-
     const cardTextStyle = {
       display: 'flex',
       alignItems: 'center',
@@ -217,10 +212,10 @@ class UserSecurity extends Component {
     };
 
     const divBackupStyle = {
-      lineHeight: '25px',
+      lineHeight: units(3),
       fontWeight: 'bold',
-      fontSize: '12px',
-      backgroundColor: '#dfdfe6',
+      fontSize: units(2),
+      backgroundColor: opaqueBlack10,
       margin: '5px',
       textAlign: 'center',
     };
@@ -240,9 +235,9 @@ class UserSecurity extends Component {
         <h2 style={style}>
           <FormattedMessage id="userSecurity.notification" defaultMessage="Notification" />
         </h2>
-        <Card style={cardStyle}>
+        <Card style={style}>
           <CardText style={cardTextStyle}>
-            <span style={{ minWidth: '500px', padding: '0px' }}>
+            <span style={{ minWidth: units(64), padding: '0px' }}>
               <FormattedMessage
                 id="userSecurity.successfulLoginText"
                 defaultMessage="Receive a notification for logins from a new location or device"
@@ -256,12 +251,12 @@ class UserSecurity extends Component {
             />
           </CardText>
           <CardText style={cardTextStyle}>
-            <span style={{ minWidth: '500px', padding: '0px' }}>
+            <span style={{ minWidth: units(64), padding: '0px' }}>
               <FormattedMessage
                 id="userSecurity.failedfulLoginText"
                 defaultMessage="Receive a notification for {loginTrial} consecutive failed login attempts"
                 values={{ loginTrial }}
-                style={{ minWidth: '500px', padding: '0px' }}
+                style={{ minWidth: units(64), padding: '0px' }}
               />
             </span>
             <Switch
@@ -278,7 +273,7 @@ class UserSecurity extends Component {
             <h2 style={style}>
               <FormattedMessage id="userSecurity.twoFactorAuthentication" defaultMessage="Two factor authentication" />
             </h2>
-            <Card style={cardStyle}>
+            <Card style={style}>
               <CardText style={cardTextStyle}>
                 <FormControlLabel
                   control={
@@ -303,31 +298,25 @@ class UserSecurity extends Component {
                     null :
                     <div>
                       <h3 style={subTitleStyle}>
-                        {
-                          <FormattedMessage
-                            id="userSecurity.authenticateHeader"
-                            defaultMessage="Step 1: Authenticate"
-                          />
-                        }
+                        <FormattedMessage
+                          id="userSecurity.authenticateHeader"
+                          defaultMessage="Step 1: Authenticate"
+                        />
                       </h3>
-                      <span style={{ lineHeight: '25px' }}>
-                        {
-                          <FormattedMessage
-                            id="userSecurity.authenticateDescription"
-                            defaultMessage="Enter your current password to confirm your identity:"
-                          />
-                        }
+                      <span style={{ lineHeight: units(3) }}>
+                        <FormattedMessage
+                          id="userSecurity.authenticateDescription"
+                          defaultMessage="Enter your current password to confirm your identity:"
+                        />
                       </span>
                     </div>
                   }
                   {this.state.twoFactorAuthentication ?
-                    <span style={{ lineHeight: '25px' }}>
-                      {
-                        <FormattedMessage
-                          id="userSecurity.disableAuthenticateDescription"
-                          defaultMessage="Enter your password to disable two-factor authentication:"
-                        />
-                      }
+                    <span style={{ lineHeight: units(3) }}>
+                      <FormattedMessage
+                        id="userSecurity.disableAuthenticateDescription"
+                        defaultMessage="Enter your password to disable two-factor authentication:"
+                      />
                     </span>
                     : null }
                   {this.state.showFactorCommonFields ?
@@ -363,44 +352,36 @@ class UserSecurity extends Component {
                   <div>
                     <CardText style={cardTextAuthStyle}>
                       <h3 style={subTitleStyle}>
-                        {
-                          <FormattedMessage
-                            id="userSecurity.downloadHeader"
-                            defaultMessage="Step 2: Download"
-                          />
-                        }
+                        <FormattedMessage
+                          id="userSecurity.downloadHeader"
+                          defaultMessage="Step 2: Download"
+                        />
                       </h3>
-                      <span style={{ lineHeight: '25px' }}>
-                        {
-                          <FormattedMessage
-                            id="userSecurity.downloadDescription"
-                            defaultMessage="You'll need a two-factor app, like Google Authenticator, on your smartphone to proceed:"
-                          />
-                        }
+                      <span style={{ lineHeight: units(3) }}>
+                        <FormattedMessage
+                          id="userSecurity.downloadDescription"
+                          defaultMessage="You'll need a two-factor app, like Google Authenticator, on your smartphone to proceed:"
+                        />
                       </span>
-                      <Link to={appsUrls.apple} target="_blank" style={{ padding: '5px' }} >
+                      <a href={appsUrls.apple} rel="noopener noreferrer" target="_blank" style={{ padding: '5px' }} >
                         <img src={appsUrls.appleImage} alt="" />
-                      </Link>
-                      <Link to={appsUrls.play} target="_blank" style={{ padding: '5px' }}>
+                      </a>
+                      <a href={appsUrls.play} rel="noopener noreferrer" target="_blank" style={{ padding: '5px' }}>
                         <img src={appsUrls.playImage} alt="" />
-                      </Link>
+                      </a>
                     </CardText>
                     <CardText style={cardTextAuthStyle}>
                       <h3 style={subTitleStyle}>
-                        {
-                          <FormattedMessage
-                            id="userSecurity.qrcodeHeader"
-                            defaultMessage="Step 3: Scan"
-                          />
-                        }
+                        <FormattedMessage
+                          id="userSecurity.qrcodeHeader"
+                          defaultMessage="Step 3: Scan"
+                        />
                       </h3>
-                      <span style={{ lineHeight: '25px' }}>
-                        {
-                          <FormattedMessage
-                            id="userSecurity.qrcodeDescription"
-                            defaultMessage="Using your two-factor app, scan this QR code:"
-                          />
-                        }
+                      <span style={{ lineHeight: units(3) }}>
+                        <FormattedMessage
+                          id="userSecurity.qrcodeDescription"
+                          defaultMessage="Using your two-factor app, scan this QR code:"
+                        />
                       </span>
                       <div
                         id="svg-container"
@@ -415,32 +396,26 @@ class UserSecurity extends Component {
                 <CardText style={cardTextAuthStyle}>
                   {this.state.showFactorAuthForm ?
                     <h3 style={subTitleStyle}>
-                      {
-                        <FormattedMessage
-                          id="userSecurity.backupHeader"
-                          defaultMessage="Step 4: Backup codes"
-                        />
-                      }
+                      <FormattedMessage
+                        id="userSecurity.backupHeader"
+                        defaultMessage="Step 4: Backup codes"
+                      />
                     </h3>
                     : null
                   }
                   {this.state.showFactorCommonFields ?
                     <div>
-                      <span style={{ lineHeight: '25px' }}>
-                        {
-                          <FormattedMessage
-                            id="userSecurity.backupDescription"
-                            defaultMessage="We strongly suggest that you generate and print backup codes using the button below. These are single-use tokens to be used instead of your two-factor token in the event that you lose access to your two-factor device."
-                          />
-                        }
+                      <span style={{ lineHeight: units(3) }}>
+                        <FormattedMessage
+                          id="userSecurity.backupDescription"
+                          defaultMessage="We strongly suggest that you generate and print backup codes using the button below. These are single-use tokens to be used instead of your two-factor token in the event that you lose access to your two-factor device."
+                        />
                       </span>
                       <p>
-                        {
-                          <FormattedMessage
-                            id="userSecurity.backupNote"
-                            defaultMessage="Note: any existing backup codes will be invalidated by clicking the button."
-                          />
-                        }
+                        <FormattedMessage
+                          id="userSecurity.backupNote"
+                          defaultMessage="Note: any existing backup codes will be invalidated by clicking the button."
+                        />
                       </p>
                       <RaisedButton
                         style={{ marginLeft: 'auto', marginRight: units(2) }}
@@ -456,7 +431,6 @@ class UserSecurity extends Component {
                         <div style={divBackupStyle}>
                           {this.state.backupCodes.join(' - ')}
                         </div>
-
                       }
                     </div>
                     : null
@@ -466,20 +440,16 @@ class UserSecurity extends Component {
                   <div>
                     <CardText style={cardTextAuthStyle}>
                       <h3 style={subTitleStyle}>
-                        {
-                          <FormattedMessage
-                            id="userSecurity.verifyHeader"
-                            defaultMessage="Step 5: Verify"
-                          />
-                        }
+                        <FormattedMessage
+                          id="userSecurity.verifyHeader"
+                          defaultMessage="Step 5: Verify"
+                        />
                       </h3>
-                      <span style={{ lineHeight: '25px' }}>
-                        {
-                          <FormattedMessage
-                            id="userSecurity.verifyDescription"
-                            defaultMessage="To enable two-factor authentication, enter the 6-digit token from your two-factor app:"
-                          />
-                        }
+                      <span style={{ lineHeight: units(3) }}>
+                        <FormattedMessage
+                          id="userSecurity.verifyDescription"
+                          defaultMessage="To enable two-factor authentication, enter the 6-digit token from your two-factor app:"
+                        />
                       </span>
                       <TextField
                         fullWidth

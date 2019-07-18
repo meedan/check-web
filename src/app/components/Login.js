@@ -393,7 +393,6 @@ class Login extends Component {
                     name="otp_attempt"
                     value={this.state.otp_attempt}
                     className="login__otp_attempt-input"
-                    ref={(i) => { this.inputName = i; }}
                     onChange={this.handleFieldChange.bind(this)}
                     floatingLabelText={
                       <FormattedMessage
