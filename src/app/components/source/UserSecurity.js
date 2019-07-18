@@ -1,18 +1,39 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import Relay from 'react-relay/classic';
 import { Link } from 'react-router';
 import { Card, CardText } from 'material-ui/Card';
 import Switch from '@material-ui/core/Switch';
-import Checkbox from 'material-ui/Checkbox';
-import TextField from 'material-ui/TextField';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import TextField from '@material-ui/core/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import SetUserSecuritySettingsMutation from '../../relay/mutations/SetUserSecuritySettingsMutation';
 import GenerateTwoFactorBackupCodesMutation from '../../relay/mutations/GenerateTwoFactorBackupCodesMutation';
 import UserTwoFactorAuthenticationMutation from '../../relay/mutations/UserTwoFactorAuthenticationMutation';
 import CheckContext from '../../CheckContext';
 import { units } from '../../styles/js/shared';
+import { safelyParseJSON } from '../../helpers';
+
+const messages = defineMessages({
+  passwordInput: {
+    id: 'UserSecurity.passwordInput',
+    defaultMessage: 'Current Password',
+  },
+  passwordError: {
+    id: 'UserSecurity.passwordError',
+    defaultMessage: 'Incorrect password',
+  },
+  verifyInput: {
+    id: 'UserSecurity.verifyInput',
+    defaultMessage: 'Validation Code',
+  },
+  verifyError: {
+    id: 'UserSecurity.verifyError',
+    defaultMessage: 'Incorrect validation code',
+  },
+});
 
 class UserSecurity extends Component {
   constructor(props) {
@@ -34,6 +55,7 @@ class UserSecurity extends Component {
       password: '',
       qrcode: '',
       backupCodes: [],
+      errors: { password: true, qrcode: true },
     };
   }
 
@@ -55,28 +77,51 @@ class UserSecurity extends Component {
     });
   }
 
-  handleSubmitTwoFactorAuthentication(enabled) {
-    const { dbid } = this.props.user;
+  validateInputs() {
+    const errors = { password: false, qrcode: true };
+    errors.password = this.state.password.length > 0;
+    let isValid = errors.password;
+    if (this.state.twoFactorAuthentication === false) {
+      errors.qrcode = this.state.qrcode.length > 0;
+      isValid = isValid && this.state.qrcode.length > 0;
+    }
+    this.setState({ errors });
+    return isValid;
+  }
 
-    const onFailure = () => {};
+  handleSubmitTwoFactorAuthentication(enabled) {
+    const onFailure = (transaction) => {
+      const error = transaction.getError();
+      const json = safelyParseJSON(error.source);
+      if (json && json.error) {
+        const defaultErrors = { password: true, qrcode: true };
+        const returnErrors = safelyParseJSON(json.error);
+        const errors = { ...defaultErrors, ...returnErrors };
+        this.setState({ errors });
+      }
+    };
     const onSuccess = (response) => {
       const { userTwoFactorAuthentication: { user: { two_factor } } } = response;
       this.setState({
         twoFactorAuthentication: two_factor.otp_required,
         showFactorCommonFields: two_factor.otp_required,
         showFactorAuthForm: false,
+        backupCodes: [],
       });
     };
-
-    Relay.Store.commitUpdate(
-      new UserTwoFactorAuthenticationMutation({
-        id: dbid,
-        password: this.state.password,
-        opt_required: enabled,
-        qrcode: this.state.qrcode,
-      }),
-      { onSuccess, onFailure },
-    );
+    const isValid = this.validateInputs();
+    if (isValid) {
+      const { dbid } = this.props.user;
+      Relay.Store.commitUpdate(
+        new UserTwoFactorAuthenticationMutation({
+          id: dbid,
+          password: this.state.password,
+          otp_required: enabled,
+          qrcode: this.state.qrcode,
+        }),
+        { onSuccess, onFailure },
+      );
+    }
   }
 
   handleSecuritySettings(type, e, inputChecked) {
@@ -124,9 +169,24 @@ class UserSecurity extends Component {
     );
   }
 
+  renderMessage(item) {
+    switch (item) {
+    case 'passwordInput':
+      return this.props.intl.formatMessage(messages.passwordInput);
+    case 'passwordError':
+      return this.props.intl.formatMessage(messages.passwordError);
+    case 'verifyInput':
+      return this.props.intl.formatMessage(messages.verifyInput);
+    case 'verifyError':
+      return this.props.intl.formatMessage(messages.verifyError);
+    default:
+      return null;
+    }
+  }
+
   render() {
     const { user } = this.props;
-    const { has_otp, qrcode_svg } = user.two_factor;
+    const { can_enable_otp, qrcode_svg } = user.two_factor;
     const currentUser = this.getCurrentUser();
 
     if (!currentUser || !user || currentUser.dbid !== user.dbid) {
@@ -212,7 +272,7 @@ class UserSecurity extends Component {
             />
           </CardText>
         </Card>
-        {has_otp === false ?
+        {can_enable_otp === false ?
           null :
           <div>
             <h2 style={style}>
@@ -220,11 +280,15 @@ class UserSecurity extends Component {
             </h2>
             <Card style={cardStyle}>
               <CardText style={cardTextStyle}>
-                <Checkbox
-                  id="userSecurity-require"
-                  checked={this.state.twoFactorAuthentication || this.state.showFactorAuthForm}
-                  onCheck={this.handleTwoFactorAuthenticationForm.bind(this)}
-                  disabled={this.state.twoFactorAuthentication}
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      id="userSecurity-require"
+                      checked={this.state.twoFactorAuthentication || this.state.showFactorAuthForm}
+                      onChange={this.handleTwoFactorAuthenticationForm.bind(this)}
+                      disabled={this.state.twoFactorAuthentication}
+                    />
+                  }
                   label={
                     <FormattedMessage
                       id="userSecurity.requireTwoFactorAuth"
@@ -272,15 +336,11 @@ class UserSecurity extends Component {
                       type="password"
                       name="password"
                       required
-                      label="Should add lable here"
                       className="login__password-input"
                       onChange={this.handleFieldChange.bind(this)}
-                      floatingLabelText={
-                        <FormattedMessage
-                          id="userSecurity.currentPasswordInputHint"
-                          defaultMessage="Current Password"
-                        />
-                      }
+                      error={!this.state.errors.password}
+                      helperText={this.state.errors.password ? null : this.renderMessage('passwordError')}
+                      placeholder={this.renderMessage('passwordInput')}
                     />
                     : null
                   }
@@ -290,6 +350,7 @@ class UserSecurity extends Component {
                         style={{ marginLeft: 'auto', marginRight: units(2) }}
                         onClick={this.handleSubmitTwoFactorAuthentication.bind(this, false)}
                         className="user-two-factor__enable-button"
+                        disabled={this.state.submitDisabled}
                         label={
                           <FormattedMessage id="userSecurity.disableTwofactor" defaultMessage="Disable" />
                         }
@@ -385,6 +446,7 @@ class UserSecurity extends Component {
                         style={{ marginLeft: 'auto', marginRight: units(2) }}
                         onClick={this.handleGenerateBackupCodes.bind(this)}
                         className="user-two-factor__backup-button"
+                        disabled={this.state.submitDisabled}
                         label={
                           <FormattedMessage id="userSecurity.generateGackup" defaultMessage="Generate backup code" />
                         }
@@ -426,12 +488,9 @@ class UserSecurity extends Component {
                         required
                         className="2fa__verify-code-input"
                         onChange={this.handleFieldChange.bind(this)}
-                        floatingLabelText={
-                          <FormattedMessage
-                            id="userSecurity.verifyInputHint"
-                            defaultMessage="Validation Code"
-                          />
-                        }
+                        error={!this.state.errors.qrcode}
+                        helperText={this.state.errors.qrcode ? null : this.renderMessage('verifyError')}
+                        placeholder={this.renderMessage('verifyInput')}
                       />
                     </CardText>
                     <CardText style={cardTextAuthStyle}>

@@ -25,7 +25,7 @@ class UserTwoFactorAuthenticationMutation extends Relay.Mutation {
     return {
       id: this.props.id,
       password: this.props.password,
-      opt_required: this.props.opt_required,
+      otp_required: this.props.otp_required,
       qrcode: this.props.qrcode,
     };
   }

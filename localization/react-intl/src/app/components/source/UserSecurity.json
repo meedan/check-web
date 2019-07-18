@@ -1,5 +1,21 @@
 [
   {
+    "id": "UserSecurity.passwordInput",
+    "defaultMessage": "Current Password"
+  },
+  {
+    "id": "UserSecurity.passwordError",
+    "defaultMessage": "Incorrect password"
+  },
+  {
+    "id": "UserSecurity.verifyInput",
+    "defaultMessage": "Validation Code"
+  },
+  {
+    "id": "UserSecurity.verifyError",
+    "defaultMessage": "Incorrect validation code"
+  },
+  {
     "id": "userSecurity.notification",
     "defaultMessage": "Notification"
   },
@@ -30,10 +46,6 @@
   {
     "id": "userSecurity.disableAuthenticateDescription",
     "defaultMessage": "Enter your password to disable two-factor authentication:"
-  },
-  {
-    "id": "userSecurity.currentPasswordInputHint",
-    "defaultMessage": "Current Password"
   },
   {
     "id": "userSecurity.disableTwofactor",
@@ -78,10 +90,6 @@
   {
     "id": "userSecurity.verifyDescription",
     "defaultMessage": "To enable two-factor authentication, enter the 6-digit token from your two-factor app:"
-  },
-  {
-    "id": "userSecurity.verifyInputHint",
-    "defaultMessage": "Validation Code"
   },
   {
     "id": "userSecurity.enableTwofactor",
