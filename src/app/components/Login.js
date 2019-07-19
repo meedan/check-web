@@ -164,6 +164,7 @@ class Login extends Component {
       passwordConfirmation: '',
       checkedTos: false,
       checkedPp: false,
+      showOtp: false,
     };
   }
 
@@ -212,7 +213,10 @@ class Login extends Component {
       'api_user[otp_attempt]': this.state.otp_attempt,
     };
 
-    const failureCallback = message => this.setState({ message });
+    const failureCallback = (message) => {
+      const showOtp = message.includes('authentication code');
+      this.setState({ message, showOtp });
+    };
 
     const successCallback = () => {
       this.setState({ message: null });
@@ -386,7 +390,7 @@ class Login extends Component {
                 />
               </div>
 
-              {this.state.type === 'login' ?
+              {this.state.type === 'login' && this.state.showOtp ?
                 <div className="login__otp_attempt">
                   <TextField
                     fullWidth

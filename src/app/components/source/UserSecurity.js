@@ -214,7 +214,7 @@ class UserSecurity extends Component {
     const divBackupStyle = {
       lineHeight: units(3),
       fontWeight: 'bold',
-      fontSize: units(2),
+      fontSize: units(1.5),
       backgroundColor: opaqueBlack10,
       margin: '5px',
       textAlign: 'center',
