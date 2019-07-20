@@ -160,9 +160,11 @@ class Login extends Component {
       name: '',
       email: '',
       password: '',
+      otp_attempt: '',
       passwordConfirmation: '',
       checkedTos: false,
       checkedPp: false,
+      showOtp: false,
     };
   }
 
@@ -208,9 +210,13 @@ class Login extends Component {
     const params = {
       'api_user[email]': this.state.email,
       'api_user[password]': this.state.password,
+      'api_user[otp_attempt]': this.state.otp_attempt,
     };
 
-    const failureCallback = message => this.setState({ message });
+    const failureCallback = (message) => {
+      const showOtp = message.includes('authentication code');
+      this.setState({ message, showOtp });
+    };
 
     const successCallback = () => {
       this.setState({ message: null });
@@ -383,6 +389,23 @@ class Login extends Component {
                   }
                 />
               </div>
+
+              {this.state.type === 'login' && this.state.showOtp ?
+                <div className="login__otp_attempt">
+                  <TextField
+                    fullWidth
+                    name="otp_attempt"
+                    value={this.state.otp_attempt}
+                    className="login__otp_attempt-input"
+                    onChange={this.handleFieldChange.bind(this)}
+                    floatingLabelText={
+                      <FormattedMessage
+                        id="login.otpAttemptLabel"
+                        defaultMessage="Two-Factor Authentication Token"
+                      />
+                    }
+                  />
+                </div> : null}
 
               {this.state.type === 'login' ?
                 null :

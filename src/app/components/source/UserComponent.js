@@ -8,6 +8,7 @@ import UserEmail from '../user/UserEmail';
 import UserInfo from './UserInfo';
 import UserAssignments from './UserAssignments';
 import UserPrivacy from './UserPrivacy';
+import UserSecurity from './UserSecurity';
 import UserInfoEdit from './UserInfoEdit';
 import { can } from '../Can';
 import HeaderCard from '../HeaderCard';
@@ -98,6 +99,18 @@ class UserComponent extends React.Component {
                         value="privacy"
                       /> : null
                     }
+                    { isUserSelf ?
+                      <Tab
+                        id="security-tab"
+                        label={
+                          <FormattedMessage
+                            id="userComponents.security"
+                            defaultMessage="Security"
+                          />
+                        }
+                        value="security"
+                      /> : null
+                    }
                   </Tabs>
                 </div>
               }
@@ -117,6 +130,7 @@ class UserComponent extends React.Component {
                   /> : null
                 }
                 { this.state.showTab === 'privacy' ? <UserPrivacy user={user} /> : null}
+                { this.state.showTab === 'security' ? <UserSecurity user={user} /> : null}
               </div>
             }
           </ContentColumn>
