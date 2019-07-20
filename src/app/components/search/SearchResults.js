@@ -425,11 +425,14 @@ class SearchResultsComponent extends React.Component {
       if (isProject) {
         itemBaseQuery.parent = { type: 'project', id: this.currentContext().project.dbid };
         itemBaseQuery.projects = [this.currentContext().project.dbid];
+        itemBaseQuery.referer = 'project';
       } else {
         itemBaseQuery.parent = { type: 'team', slug: team.slug };
+        itemBaseQuery.referer = 'search';
       }
       if (isTrash) {
         itemBaseQuery.archived = 1;
+        itemBaseQuery.referer = 'trash';
       }
       itemBaseQuery.timestamp = new Date().getTime();
 

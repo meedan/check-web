@@ -12,6 +12,7 @@ const ProjectHeaderComponent = (props) => {
   const currentProject = props.project;
   const path = props.location ? props.location.pathname : window.location.pathname;
   const regexProject = /(.*\/project\/[0-9]+)/;
+  const regexTeam = /^(\/[^/]+)/;
   const regexMedia = /\/media\/[0-9]/;
   const regexSource = /\/source\/[0-9]/;
   const regexFilteredMedia = /^\/[^/]+\/project\/[0-9]+\/media\/[0-9]+\/(.+)/;
@@ -20,7 +21,19 @@ const ProjectHeaderComponent = (props) => {
     if (regexFilteredMedia.test(path)) {
       const query = searchQueryFromUrlQuery(path.match(regexFilteredMedia)[1]);
       delete query.esoffset;
-      return urlFromSearchQuery(query, path.match(regexProject)[1]);
+      let basePath = '';
+      switch (query.referer) {
+      case 'search':
+        basePath = `${path.match(regexTeam)[1]}/search`;
+        break;
+      case 'trash':
+        basePath = `${path.match(regexTeam)[1]}/trash`;
+        break;
+      default:
+        basePath = `${path.match(regexProject)[1]}`;
+        break;
+      }
+      return urlFromSearchQuery(query, basePath);
     } else if (isProjectSubpage) {
       return path.match(regexProject)[1];
     }
