@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
 import { List, ListItem } from 'material-ui/List';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 import IconMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
@@ -12,6 +12,7 @@ import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import Checkbox from 'material-ui/Checkbox';
+import Tooltip from '@material-ui/core/Tooltip';
 import deepEqual from 'deep-equal';
 import styled from 'styled-components';
 import TagTextCount from './TagTextCount';
@@ -26,6 +27,7 @@ import CreateTagTextMutation from '../../relay/mutations/CreateTagTextMutation';
 import UpdateTagTextMutation from '../../relay/mutations/UpdateTagTextMutation';
 import DeleteTagTextMutation from '../../relay/mutations/DeleteTagTextMutation';
 import { stringHelper } from '../../customHelpers';
+import globalStrings from '../../globalStrings';
 
 const StyledContentColumn = styled(ContentColumn)`
   .highlight {
@@ -35,6 +37,13 @@ const StyledContentColumn = styled(ContentColumn)`
     transition: background-color 1000ms linear !important;
   }
 `;
+
+const messages = defineMessages({
+  menuTooltip: {
+    id: 'teamTags.menuTooltip',
+    defaultMessage: 'Tag actions',
+  },
+});
 
 class TeamTagsComponent extends Component {
   constructor(props) {
@@ -315,7 +324,10 @@ class TeamTagsComponent extends Component {
             <IconMenu
               style={{ margin: '0 12px' }}
               iconButtonElement={
-                <IconButton style={{ padding: 0 }}>
+                <IconButton
+                  style={{ padding: 0 }}
+                  tooltip={this.props.intl.formatMessage(messages.menuTooltip)}
+                >
                   <IconMoreHoriz />
                 </IconButton>
               }
@@ -352,10 +364,12 @@ class TeamTagsComponent extends Component {
                   defaultValue={tag.text}
                 />
                 {' '}
-                <IconClose
-                  style={{ cursor: 'pointer', verticalAlign: 'sub' }}
-                  onClick={this.handleCancelUpdate.bind(this)}
-                />
+                <Tooltip title={this.props.intl.formatMessage(globalStrings.cancel)}>
+                  <IconClose
+                    style={{ cursor: 'pointer', verticalAlign: 'sub' }}
+                    onClick={this.handleCancelUpdate.bind(this)}
+                  />
+                </Tooltip>
               </ListItem>
             );
           }
@@ -553,7 +567,7 @@ class TeamTagsComponent extends Component {
   }
 }
 
-const TeamTagsContainer = Relay.createContainer(TeamTagsComponent, {
+const TeamTagsContainer = Relay.createContainer(injectIntl(TeamTagsComponent), {
   fragments: {
     team: () => Relay.QL`
       fragment on Team {

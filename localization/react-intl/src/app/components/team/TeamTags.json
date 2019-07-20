@@ -1,5 +1,9 @@
 [
   {
+    "id": "teamTags.menuTooltip",
+    "defaultMessage": "Tag actions"
+  },
+  {
     "id": "teamTags.failUpdate",
     "defaultMessage": "Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists."
   },

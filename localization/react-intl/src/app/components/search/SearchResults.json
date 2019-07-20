@@ -12,6 +12,14 @@
     "defaultMessage": "An item was just marked as \"translated\""
   },
   {
+    "id": "search.previousPage",
+    "defaultMessage": "Previous page"
+  },
+  {
+    "id": "search.nextPage",
+    "defaultMessage": "Next page"
+  },
+  {
     "id": "searchResults.withSelection",
     "defaultMessage": "{total, plural, =0 {No items} one {1 item} other {{from} - {to} of # items}} {selectedCount, plural, =0 {} one {(1 selected)} other {(# selected)}}"
   },

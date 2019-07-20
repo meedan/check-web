@@ -8,6 +8,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Dialog from 'material-ui/Dialog';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
 import Switch from '@material-ui/core/Switch';
 import TextField from '@material-ui/core/TextField';
 import IconMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
@@ -28,6 +29,10 @@ const messages = defineMessages({
   title: {
     id: 'slackConfig.title',
     defaultMessage: 'Slack integration',
+  },
+  menuTooltip: {
+    id: 'slackConfig.menuTooltip',
+    defaultMessage: 'Configure integration',
   },
 });
 
@@ -142,11 +147,13 @@ class SlackConfig extends React.Component {
               </span>
             }
             action={
-              <IconButton
-                onClick={this.handleOpenDialog.bind(this)}
-              >
-                <IconMoreHoriz />
-              </IconButton>
+              <Tooltip title={this.props.intl.formatMessage(messages.menuTooltip)}>
+                <IconButton
+                  onClick={this.handleOpenDialog.bind(this)}
+                >
+                  <IconMoreHoriz />
+                </IconButton>
+              </Tooltip>
             }
           />
           <CardContent>

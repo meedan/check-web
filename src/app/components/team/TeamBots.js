@@ -6,6 +6,7 @@ import Divider from 'material-ui/Divider';
 import FlatButton from 'material-ui/FlatButton';
 import Settings from 'material-ui/svg-icons/action/settings';
 import Switch from '@material-ui/core/Switch';
+import Tooltip from '@material-ui/core/Tooltip';
 import { Emojione } from 'react-emoji-render';
 import { Link, browserHistory } from 'react-router';
 import styled from 'styled-components';
@@ -19,6 +20,10 @@ const messages = defineMessages({
   confirmUninstall: {
     id: 'teamBots.confirmUninstall',
     defaultMessage: 'Are you sure you want to uninstall this bot?',
+  },
+  settingsTooltip: {
+    id: 'teamBots.settingsTooltip',
+    defaultMessage: 'Bot settings',
   },
 });
 
@@ -201,10 +206,12 @@ class TeamBotsComponent extends Component {
                     checked
                     onClick={this.handleToggle.bind(this, installation.node.id, team.id)}
                   />
-                  <Settings
-                    onClick={this.handleToggleSettings.bind(this, bot.dbid)}
-                    className="settingsIcon"
-                  />
+                  <Tooltip title={this.props.intl.formatMessage(messages.settingsTooltip)}>
+                    <Settings
+                      onClick={this.handleToggleSettings.bind(this, bot.dbid)}
+                      className="settingsIcon"
+                    />
+                  </Tooltip>
                 </StyledToggle>
               </CardActions>
               <Divider />

@@ -20,6 +20,10 @@
     "defaultMessage": "Reset"
   },
   {
+    "id": "search.filterItems",
+    "defaultMessage": "Filter items"
+  },
+  {
     "id": "search.sortByOldest",
     "defaultMessage": "Oldest first"
   },

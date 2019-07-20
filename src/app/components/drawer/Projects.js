@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
 import Relay from 'react-relay/classic';
 import { Link } from 'react-router';
 import MenuItem from 'material-ui/MenuItem';
+import Tooltip from '@material-ui/core/Tooltip';
 import MdAddCircleOutline from 'material-ui/svg-icons/content/add-circle-outline';
 import MdHighlightOff from 'material-ui/svg-icons/action/highlight-off';
 import styled from 'styled-components';
@@ -20,6 +21,17 @@ import {
   units,
   caption,
 } from '../../styles/js/shared';
+
+const messages = defineMessages({
+  addProject: {
+    id: 'projects.addProject',
+    defaultMessage: 'Add project',
+  },
+  dismiss: {
+    id: 'projects.dismiss',
+    defaultMessage: 'Dismiss',
+  },
+});
 
 const SubHeading = styled.div`
   font: ${caption};
@@ -115,14 +127,19 @@ class DrawerProjectsComponent extends Component {
             />
             { props.handleAddProj ?
               <Can permissions={props.team.permissions} permission="create Project">
-                <StyledAddProj
-                  style={{ cursor: 'pointer' }}
-                  onClick={props.handleAddProj}
-                  isRtl={rtlDetect.isRtlLang(props.intl.locale)}
-                  className="drawer__create-project-button"
+                <Tooltip
+                  title={this.props.intl.formatMessage(props.showAddProj ?
+                    messages.dismiss : messages.addProject)}
                 >
-                  { props.showAddProj ? <MdHighlightOff /> : <MdAddCircleOutline /> }
-                </StyledAddProj>
+                  <StyledAddProj
+                    style={{ cursor: 'pointer' }}
+                    onClick={props.handleAddProj}
+                    isRtl={rtlDetect.isRtlLang(props.intl.locale)}
+                    className="drawer__create-project-button"
+                  >
+                    { props.showAddProj ? <MdHighlightOff /> : <MdAddCircleOutline /> }
+                  </StyledAddProj>
+                </Tooltip>
               </Can> : null
             }
           </Row>

@@ -1,5 +1,13 @@
 [
   {
+    "id": "projects.addProject",
+    "defaultMessage": "Add project"
+  },
+  {
+    "id": "projects.dismiss",
+    "defaultMessage": "Dismiss"
+  },
+  {
     "id": "projects.noProjects",
     "defaultMessage": "No projects yet."
   },
