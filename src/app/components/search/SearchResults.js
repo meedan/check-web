@@ -333,6 +333,7 @@ class SearchResultsComponent extends React.Component {
         );
 
     const isProject = /\/project\//.test(window.location.pathname);
+    const isTrash = /\/trash/.test(window.location.pathname);
 
     const searchQueryProps = {
       view: this.props.view,
@@ -386,18 +387,20 @@ class SearchResultsComponent extends React.Component {
     const viewMode = window.storage.getValue('view-mode');
 
     const view = {
-      dense: item => (
+      dense: (item, itemQuery) => (
         item.media ?
           <SmallMediaCard
+            query={itemQuery}
             media={{ ...item, team }}
             selected={this.state.selectedMedia.indexOf(item.id) > -1}
             onSelect={this.onSelect.bind(this)}
             style={{ margin: units(3) }}
           /> : null
       ),
-      list: item => (
+      list: (item, itemQuery) => (
         item.media ?
           <MediaDetail
+            query={itemQuery}
             media={{ ...item, team }}
             condensed
             selected={this.state.selectedMedia.indexOf(item.id) > -1}
@@ -414,12 +417,41 @@ class SearchResultsComponent extends React.Component {
         content = <ProjectBlankState project={this.currentContext().project} />;
       }
     } else {
+      let itemOffset = query.esoffset ? parseInt(query.esoffset, 10) : 0;
+      itemOffset -= 1;
+
+      const itemBaseQuery = Object.assign({}, query);
+      delete itemBaseQuery.show;
+      if (isProject) {
+        itemBaseQuery.parent = { type: 'project', id: this.currentContext().project.dbid };
+        itemBaseQuery.projects = [this.currentContext().project.dbid];
+        itemBaseQuery.referer = 'project';
+      } else {
+        itemBaseQuery.parent = { type: 'team', slug: team.slug };
+        itemBaseQuery.referer = 'search';
+      }
+      if (isTrash) {
+        itemBaseQuery.archived = 1;
+        itemBaseQuery.referer = 'trash';
+      }
+      itemBaseQuery.timestamp = new Date().getTime();
+
       content = (
         <div className={`search__results-list results medias-list ${viewMode}`}>
-          {searchResults.map(item => (
-            <li key={item.node.id} className="medias__item">
-              { view[viewMode](item.node) }
-            </li>))}
+          {searchResults.map((item) => {
+            let itemQuery = {};
+            if (item.node.media) {
+              itemOffset += 1;
+              itemQuery = Object.assign({}, itemBaseQuery);
+              itemQuery.esoffset = itemOffset;
+            }
+            const listItem = (
+              <li key={item.node.id} className="medias__item">
+                { view[viewMode](item.node, itemQuery) }
+              </li>
+            );
+            return listItem;
+          })}
         </div>
       );
     }

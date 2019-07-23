@@ -10,5 +10,9 @@
   {
     "id": "userComponents.privacy",
     "defaultMessage": "Privacy"
+  },
+  {
+    "id": "userComponents.security",
+    "defaultMessage": "Security"
   }
 ]

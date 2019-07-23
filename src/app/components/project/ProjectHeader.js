@@ -5,17 +5,36 @@ import { Link } from 'react-router';
 import IconArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 import IconButton from 'material-ui/IconButton';
 import ProjectRoute from '../../relay/ProjectRoute';
+import { searchQueryFromUrlQuery, urlFromSearchQuery } from '../search/Search';
 import { HeaderTitle, FadeIn, SlideIn, black54 } from '../../styles/js/shared';
 
 const ProjectHeaderComponent = (props) => {
   const currentProject = props.project;
   const path = props.location ? props.location.pathname : window.location.pathname;
   const regexProject = /(.*\/project\/[0-9]+)/;
+  const regexTeam = /^(\/[^/]+)/;
   const regexMedia = /\/media\/[0-9]/;
   const regexSource = /\/source\/[0-9]/;
+  const regexFilteredMedia = /^\/[^/]+\/project\/[0-9]+\/media\/[0-9]+\/(.+)/;
   const isProjectSubpage = regexMedia.test(path) || regexSource.test(path);
   const backUrl = () => {
-    if (isProjectSubpage) {
+    if (regexFilteredMedia.test(path)) {
+      const query = searchQueryFromUrlQuery(path.match(regexFilteredMedia)[1]);
+      delete query.esoffset;
+      let basePath = '';
+      switch (query.referer) {
+      case 'search':
+        basePath = `${path.match(regexTeam)[1]}/search`;
+        break;
+      case 'trash':
+        basePath = `${path.match(regexTeam)[1]}/trash`;
+        break;
+      default:
+        basePath = `${path.match(regexProject)[1]}`;
+        break;
+      }
+      return urlFromSearchQuery(query, basePath);
+    } else if (isProjectSubpage) {
       return path.match(regexProject)[1];
     }
     return null;
