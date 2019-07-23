@@ -214,7 +214,7 @@ class Login extends Component {
     };
 
     const failureCallback = (message) => {
-      const showOtp = message.includes('authentication code');
+      const showOtp = message.includes('authentication code') || this.state.showOtp;
       this.setState({ message, showOtp });
     };
 

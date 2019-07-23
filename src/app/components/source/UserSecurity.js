@@ -106,6 +106,7 @@ class UserSecurity extends Component {
         showFactorCommonFields: two_factor.otp_required,
         showFactorAuthForm: false,
         backupCodes: [],
+        password: '',
       });
     };
     const isValid = this.validateInputs();
