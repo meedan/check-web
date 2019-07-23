@@ -92,9 +92,9 @@ class UserSecurity extends Component {
     const onFailure = (transaction) => {
       const error = transaction.getError();
       const json = safelyParseJSON(error.source);
-      if (json && json.error) {
+      if (json && json.errors) {
         const defaultErrors = { password: true, qrcode: true };
-        const returnErrors = safelyParseJSON(json.error);
+        const returnErrors = safelyParseJSON(json.errors[0].message);
         const errors = { ...defaultErrors, ...returnErrors };
         this.setState({ errors });
       }
