@@ -248,6 +248,10 @@ const messages = defineMessages({
     id: 'annotation.newClaim',
     defaultMessage: 'New claim added by {author}',
   },
+  menuTooltip: {
+    id: 'annotation.menuTooltip',
+    defaultMessage: 'Annotation actions',
+  },
 });
 
 // TODO Fix a11y issues
@@ -411,7 +415,10 @@ class Annotation extends Component {
       annotationActions = can(annotation.permissions, permission) ? (
         <IconMenu
           iconButtonElement={
-            <IconButton className="menu-button">
+            <IconButton
+              className="menu-button"
+              tooltip={this.props.intl.formatMessage(messages.menuTooltip)}
+            >
               <IconMoreHoriz />
             </IconButton>
           }

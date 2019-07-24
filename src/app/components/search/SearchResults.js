@@ -8,6 +8,7 @@ import isEqual from 'lodash.isequal';
 import styled from 'styled-components';
 import NextIcon from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import PrevIcon from 'material-ui/svg-icons/hardware/keyboard-arrow-left';
+import Tooltip from '@material-ui/core/Tooltip';
 import { searchQueryFromUrl, urlFromSearchQuery } from './Search';
 import SearchQuery from './SearchQuery';
 import Toolbar from './Toolbar';
@@ -42,6 +43,14 @@ const messages = defineMessages({
   newTranslationNotificationBody: {
     id: 'search.newTranslationNotificationBody',
     defaultMessage: 'An item was just marked as "translated"',
+  },
+  previousPage: {
+    id: 'search.previousPage',
+    defaultMessage: 'Previous page',
+  },
+  nextPage: {
+    id: 'search.nextPage',
+    defaultMessage: 'Next page',
   },
 });
 
@@ -370,12 +379,22 @@ class SearchResultsComponent extends React.Component {
         title={
           <span className="search__results-heading">
             <span className="search__count">{mediasCount}</span>
-            <span className="search__previous-page search__nav" onClick={this.previousPage.bind(this)}>
-              <PrevIcon />
-            </span>
-            <span className="search__next-page search__nav" onClick={this.nextPage.bind(this)}>
-              <NextIcon />
-            </span>
+            <Tooltip title={this.props.intl.formatMessage(messages.previousPage)}>
+              <span
+                className="search__previous-page search__nav"
+                onClick={this.previousPage.bind(this)}
+              >
+                <PrevIcon />
+              </span>
+            </Tooltip>
+            <Tooltip title={this.props.intl.formatMessage(messages.nextPage)}>
+              <span
+                className="search__next-page search__nav"
+                onClick={this.nextPage.bind(this)}
+              >
+                <NextIcon />
+              </span>
+            </Tooltip>
           </span>
         }
         project={isProject ? this.currentContext().project : null}

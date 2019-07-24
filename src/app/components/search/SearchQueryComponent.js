@@ -6,6 +6,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import Paper from '@material-ui/core/Paper';
 import Popper from '@material-ui/core/Popper';
 import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import ClearIcon from '@material-ui/icons/Clear';
 import FlatButton from 'material-ui/FlatButton';
@@ -200,6 +201,10 @@ const messages = defineMessages({
   reset: {
     id: 'search.reset',
     defaultMessage: 'Reset',
+  },
+  filterItems: {
+    id: 'search.filterItems',
+    defaultMessage: 'Filter items',
   },
 });
 
@@ -524,9 +529,11 @@ class SearchQueryComponent extends React.Component {
 
     return (
       <div>
-        <IconButton id="search__open-dialog-button" onClick={this.handleDialogOpen}>
-          <FilterListIcon />
-        </IconButton>
+        <Tooltip title={this.props.intl.formatMessage(messages.filterItems)}>
+          <IconButton id="search__open-dialog-button" onClick={this.handleDialogOpen}>
+            <FilterListIcon />
+          </IconButton>
+        </Tooltip>
         <PageTitle prefix={title} skipTeam={false} team={this.props.team}>
           <Dialog
             maxWidth="md"

@@ -1,10 +1,18 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import IconMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Can, { can } from '../Can';
+
+const messages = defineMessages({
+  menuTooltip: {
+    id: 'taskActions.menuTooltip',
+    defaultMessage: 'Task actions',
+  },
+});
 
 class TaskActions extends React.Component {
   state = {
@@ -35,9 +43,11 @@ class TaskActions extends React.Component {
 
     return (
       <Can permissions={task.permissions} permission="update Task">
-        <IconButton className="task-actions__icon" onClick={this.handleMenuClick}>
-          <IconMoreHoriz />
-        </IconButton>
+        <Tooltip title={this.props.intl.formatMessage(messages.menuTooltip)}>
+          <IconButton className="task-actions__icon" onClick={this.handleMenuClick}>
+            <IconMoreHoriz />
+          </IconButton>
+        </Tooltip>
         <Menu
           className="task-actions"
           anchorEl={anchorEl}
@@ -84,4 +94,4 @@ class TaskActions extends React.Component {
   }
 }
 
-export default TaskActions;
+export default injectIntl(TaskActions);

@@ -1,5 +1,9 @@
 [
   {
+    "id": "taskActions.menuTooltip",
+    "defaultMessage": "Task actions"
+  },
+  {
     "id": "task.edit",
     "defaultMessage": "Edit task"
   },

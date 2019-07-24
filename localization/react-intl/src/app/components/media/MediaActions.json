@@ -38,5 +38,9 @@
   {
     "id": "mediaActions.lockStatus",
     "defaultMessage": "Lock status"
+  },
+  {
+    "id": "mediaActions.tooltip",
+    "defaultMessage": "Item actions"
   }
 ]

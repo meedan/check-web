@@ -24,6 +24,10 @@
     "defaultMessage": "New claim added by {author}"
   },
   {
+    "id": "annotation.menuTooltip",
+    "defaultMessage": "Annotation actions"
+  },
+  {
     "id": "annotation.permalink",
     "defaultMessage": "Permalink"
   },

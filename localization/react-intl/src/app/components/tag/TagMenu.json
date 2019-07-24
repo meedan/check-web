@@ -1,5 +1,9 @@
 [
   {
+    "id": "tagMenu.tooltip",
+    "defaultMessage": "Edit tags"
+  },
+  {
     "id": "tagMenu.done",
     "defaultMessage": "Done"
   }
