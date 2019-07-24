@@ -14,7 +14,7 @@ const StyledMessage = styled(FadeIn)`
   background: ${black54};
   border-radius: ${borderRadiusDefault};
   color: ${white};
-  margin: 0 auto ${gutterMedium};
+  margin: ${gutterMedium} auto;
   padding: ${gutterSmall} ${gutterLarge};
   position: relative;
   text-align: center;
