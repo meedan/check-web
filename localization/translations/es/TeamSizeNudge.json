@@ -1,5 +1,4 @@
 {
-  "teamSizeNudge.nudge": "¿Quieres añadir más miembros? Las cuentas gratuitas solo te permiten agregar 5 miembros, actualízate a la versión Pro de Check para poder añadir todos los miembros que quieras.",
-  "teamSizeNudge.upgradeButton": "Actualizar ahora",
-  "teamSizeNudge.title": "Actualizar a Check Pro "
+  "teamSizeNudge.nudge": "{max, plural, =0 {Your team is currently limited to 0 users. To upgrade, please contact {supportEmail}.} one {Your team is currently limited to one user. To upgrade, please contact {supportEmail}.} other {Your team is currently limited to # users. To upgrade, please contact {supportEmail}.}}",
+  "teamSizeNudge.title": "Actualizar"
 }

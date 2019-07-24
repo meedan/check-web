@@ -7,6 +7,7 @@
   "login.emailLabel": "بريدك الإلكتروني",
   "login.passwordInputHint": "كلمة المرور",
   "login.passwordLabel": "كلمة المرور (الحد الأدنى ٨ حروف)",
+  "login.otpAttemptLabel": "رمز المصادقة الثنائية",
   "login.passwordConfirmLabel": "تأكيد كلمة المرور",
   "login.profilePicture": "صورة ملف التعريف",
   "login.signIn": "تسجيل الدخول",

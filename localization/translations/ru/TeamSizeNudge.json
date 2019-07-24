@@ -1,5 +1,4 @@
 {
-  "teamSizeNudge.nudge": "Хотите пригласить больше участников? Бесплатные аккаунты могут приглашать в группу до 5 человек. В Check Pro это ограничение снято.",
-  "teamSizeNudge.upgradeButton": "Перейти",
-  "teamSizeNudge.title": "Перейти на Check Pro"
+  "teamSizeNudge.nudge": "{max, plural, =0 {Your team is currently limited to 0 users. To upgrade, please contact {supportEmail}.} one {Your team is currently limited to one user. To upgrade, please contact {supportEmail}.} other {Your team is currently limited to # users. To upgrade, please contact {supportEmail}.}}",
+  "teamSizeNudge.title": "Upgrade"
 }

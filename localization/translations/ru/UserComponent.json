@@ -1,5 +1,6 @@
 {
   "userComponent.teams": "Группы",
   "userComponents.assignments": "Задачи",
-  "userComponents.privacy": "Политики"
+  "userComponents.privacy": "Политики",
+  "userComponents.security": "Security"
 }

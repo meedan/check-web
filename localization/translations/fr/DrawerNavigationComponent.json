@@ -4,6 +4,5 @@
   "headerActions.about": "A propos",
   "headerActions.contactHuman": "Contact",
   "headerActions.productGuides": "Guides des produits",
-  "headerActions.releaseNotes": "Notes de publication",
-  "drawer.upgradeButton": "Abonnement à Pro"
+  "headerActions.releaseNotes": "Notes de publication"
 }

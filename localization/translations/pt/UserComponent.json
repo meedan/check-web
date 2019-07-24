@@ -1,5 +1,6 @@
 {
   "userComponent.teams": "Equipes",
   "userComponents.assignments": "Atribuições",
-  "userComponents.privacy": "Privacidade"
+  "userComponents.privacy": "Privacidade",
+  "userComponents.security": "Segurança"
 }

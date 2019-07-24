@@ -1,5 +1,4 @@
 {
-  "teamSizeNudge.nudge": "Doriți să adăugați mai mulți membri? Conturile gratuite pot găzdui până la 5 membri concomitent. Check Pro vă permite să adăugați un număr nelimitat de membri.",
-  "teamSizeNudge.upgradeButton": "Efectuează upgrade acum",
-  "teamSizeNudge.title": "Upgrade la versiunea Check Pro"
+  "teamSizeNudge.nudge": "{max, plural, =0 {Pentru moment echipa dvs este limitată la 0 utilizatori. Pentru a efectua upgrade vă rugăm să contactați {supportEmail}.} one {Pentru moment echipa dvs este limitată la un utilizator. Pentru a efectua upgrade vă rugăm să contactați {supportEmail}.} other {Pentru moment echipa dvs este limitată la # utilizatori. Pentru a efectua upgrade vă rugăm să contactați {supportEmail}.}}",
+  "teamSizeNudge.title": "Upgrade"
 }

@@ -7,6 +7,7 @@
   "login.emailLabel": "Correo electrónico",
   "login.passwordInputHint": "Contraseña",
   "login.passwordLabel": "Contraseña (mínimo 8 caracteres)",
+  "login.otpAttemptLabel": "Token de dos factores de autenticación",
   "login.passwordConfirmLabel": "Confirmar contraseña",
   "login.profilePicture": "Imagen del perfil",
   "login.signIn": "INICIAR SESIÓN ",

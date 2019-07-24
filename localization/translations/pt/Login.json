@@ -7,6 +7,7 @@
   "login.emailLabel": "Endereço de e-mail",
   "login.passwordInputHint": "Senha",
   "login.passwordLabel": "Senha (mínimo de 8 caracteres)",
+  "login.otpAttemptLabel": "Código de Autenticação de Dois Fatores",
   "login.passwordConfirmLabel": "Confirmar senha",
   "login.profilePicture": "Imagem do perfil",
   "login.signIn": "ENTRAR",

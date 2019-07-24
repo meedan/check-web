@@ -1,5 +1,4 @@
 {
-  "teamSizeNudge.nudge": "Vous voulez plus de membres ? L'abonnement gratuit n'admet que 5 membres à la fois, mais l'abonnement Pro vous permet d'en ajouter un nombre illimité.",
-  "teamSizeNudge.upgradeButton": "Abonnement",
-  "teamSizeNudge.title": "Abonnement à Check Pro"
+  "teamSizeNudge.nudge": "{max, plural, =0 {Your team is currently limited to 0 users. To upgrade, please contact {supportEmail}.} one {Your team is currently limited to one user. To upgrade, please contact {supportEmail}.} other {Your team is currently limited to # users. To upgrade, please contact {supportEmail}.}}",
+  "teamSizeNudge.title": "Upgrade"
 }
