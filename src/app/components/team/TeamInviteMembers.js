@@ -160,7 +160,7 @@ class TeamInviteMembers extends Component {
   validateMembers(members) {
     let validateMaxError = true;
     const { members_count: membersCount } = this.props.team;
-    const maxMembers = this.props.team.get_max_number_of_members;
+    const maxMembers = parseInt(this.props.team.get_max_number_of_members, 10);
     const { invited_mails: invitedEmails, team_users: teamUsers } = this.props.team;
     let invitedCount = 0;
     const membersEmails = [];
