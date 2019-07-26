@@ -1,15 +1,28 @@
 import React from 'react';
+import { defineMessages, injectIntl } from 'react-intl';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import styled from 'styled-components';
 import NextIcon from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import PrevIcon from 'material-ui/svg-icons/hardware/keyboard-arrow-left';
+import Tooltip from '@material-ui/core/Tooltip';
 import MediasLoading from './MediasLoading';
 import Media from './Media';
 import SearchRoute from '../../relay/SearchRoute';
 import CheckContext from '../../CheckContext';
 import { searchQueryFromUrlQuery, urlFromSearchQuery } from '../search/Search';
 import { units, black54 } from '../../styles/js/shared';
+
+const messages = defineMessages({
+  previousItem: {
+    id: 'mediaSearch.previousItem',
+    defaultMessage: 'Previous item',
+  },
+  nextItem: {
+    id: 'mediaSearch.nextItem',
+    defaultMessage: 'Next item',
+  },
+});
 
 const StyledPager = styled.div`
   position: absolute;
@@ -89,13 +102,17 @@ class MediaSearchComponent extends React.Component {
     return (
       <div>
         <StyledPager>
-          <button onClick={this.previousItem.bind(this)} id="media-search__previous-item">
-            <PrevIcon style={{ opacity: offset === 0 ? '0.25' : '1' }} />
-          </button>
+          <Tooltip title={this.props.intl.formatMessage(messages.previousItem)}>
+            <button onClick={this.previousItem.bind(this)} id="media-search__previous-item">
+              <PrevIcon style={{ opacity: offset === 0 ? '0.25' : '1' }} />
+            </button>
+          </Tooltip>
           <span id="media-search__current-item">{offset + 1} / {numberOfResults}</span>
-          <button onClick={this.nextItem.bind(this)} id="media-search__next-item">
-            <NextIcon style={{ opacity: offset + 1 === numberOfResults ? '0.25' : '1' }} />
-          </button>
+          <Tooltip title={this.props.intl.formatMessage(messages.nextItem)}>
+            <button onClick={this.nextItem.bind(this)} id="media-search__next-item">
+              <NextIcon style={{ opacity: offset + 1 === numberOfResults ? '0.25' : '1' }} />
+            </button>
+          </Tooltip>
         </StyledPager>
 
         <Media
@@ -118,7 +135,7 @@ MediaSearchComponent.contextTypes = {
 // eslint-disable-next-line react/no-multi-comp
 class MediaSearch extends React.PureComponent {
   render() {
-    const MediaSearchContainer = Relay.createContainer(MediaSearchComponent, {
+    const MediaSearchContainer = Relay.createContainer(injectIntl(MediaSearchComponent), {
       initialVariables: {
         pageSize: 1,
       },
