@@ -1,0 +1,10 @@
+[
+  {
+    "id": "mediaSearch.previousItem",
+    "defaultMessage": "Previous item"
+  },
+  {
+    "id": "mediaSearch.nextItem",
+    "defaultMessage": "Next item"
+  }
+]
