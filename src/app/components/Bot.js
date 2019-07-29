@@ -186,13 +186,14 @@ class BotComponent extends Component {
                   style={{ padding: 0, paddingTop: units(2) }}
                   title={bot.name}
                   subtitle={
-                    <FormattedMessage
-                      id="bot.madeBy"
-                      defaultMessage="Made by {teamLink}"
-                      values={{
-                        teamLink: <Link to={`/${bot.team_author.slug}`}>{bot.team_author.name}</Link>,
-                      }}
-                    />
+                    bot.team_author ?
+                      <FormattedMessage
+                        id="bot.madeBy"
+                        defaultMessage="Made by {teamLink}"
+                        values={{
+                          teamLink: <Link to={`/${bot.team_author.slug}`}>{bot.team_author.name}</Link>,
+                        }}
+                      /> : null
                   }
                 />
                 <p>{bot.description}</p>

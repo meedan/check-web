@@ -37,7 +37,12 @@ class BotGardenComponent extends Component {
                   </CardMedia>
                   <CardText><b className="bot-garden__bot-name">{bot.name}</b></CardText>
                 </Link>
-                <CardTitle subtitle={<Link to={`/${bot.team_author.slug}`}>{bot.team_author.name}</Link>} />
+                <CardTitle
+                  subtitle={
+                    bot.team_author ?
+                      <Link to={`/${bot.team_author.slug}`}>{bot.team_author.name}</Link> : null
+                  }
+                />
               </Card>
             );
           })}
