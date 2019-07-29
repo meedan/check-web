@@ -1,5 +1,4 @@
 {
   "teamComponent.private": "Private",
-  "teamComponent.public": "Public",
-  "teamComponent.upgradeButton": "Upgrade to PRO"
+  "teamComponent.public": "Public"
 }

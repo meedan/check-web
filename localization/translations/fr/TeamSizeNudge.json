@@ -1,4 +1,4 @@
 {
-  "teamSizeNudge.nudge": "{max, plural, =0 {Your team is currently limited to 0 users. To upgrade, please contact {supportEmail}.} one {Your team is currently limited to one user. To upgrade, please contact {supportEmail}.} other {Your team is currently limited to # users. To upgrade, please contact {supportEmail}.}}",
-  "teamSizeNudge.title": "Upgrade"
+  "teamSizeNudge.nudge": "{max, plural, =0 {Votre équipe est actuellement limitée à 0 usagers. Pour une mise à niveau, veuillez contacter {supportEmail}.} one {Votre équipe est actuellement limitée à un seul usager. Pour une mise à niveau, veuillez contacter {supportEmail}.} other {Votre équipe est actuellement limitée à # usagers. Pour une mise à niveau, veuillez contacter {supportEmail}.}}",
+  "teamSizeNudge.title": "Mise à niveau"
 }
