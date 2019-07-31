@@ -10,7 +10,6 @@ import MediasLoading from './MediasLoading';
 import Media from './Media';
 import SearchRoute from '../../relay/SearchRoute';
 import CheckContext from '../../CheckContext';
-import { searchQueryFromUrlQuery, urlFromSearchQuery } from '../search/Search';
 import { units, black54 } from '../../styles/js/shared';
 
 const messages = defineMessages({
@@ -54,11 +53,6 @@ const StyledPager = styled.div`
 `;
 
 class MediaSearchComponent extends React.Component {
-  static searchQueryFromUrl() {
-    const queryString = window.location.pathname.match(/^\/[^/]+\/project\/[0-9]+\/media\/[0-9]+\/(.*)/)[1];
-    return Object.assign({}, searchQueryFromUrlQuery(queryString));
-  }
-
   constructor(props) {
     super(props);
     this.state = {};
@@ -69,15 +63,27 @@ class MediaSearchComponent extends React.Component {
   }
 
   setOffset(offset) {
-    const query = MediaSearchComponent.searchQueryFromUrl();
+    const query = this.searchQueryFromUrl();
     query.esoffset = offset;
-    const path = window.location.pathname.match(/^(\/[^/]+\/project\/[0-9]+\/media\/[0-9]+)/)[1];
-    const url = urlFromSearchQuery(query, path);
-    this.getContext().getContextStore().history.push(url);
+    const pathname = window.location.pathname.match(/^(\/[^/]+\/project\/[0-9]+\/media\/[0-9]+)/)[1];
+    this.currentContext().history.push({ pathname, state: { query } });
+  }
+
+  searchQueryFromUrl() {
+    const { state } = this.context.router.location;
+    let searchQuery = {};
+    if (state && state.query) {
+      searchQuery = state.query;
+    }
+    return Object.assign({}, searchQuery);
+  }
+
+  currentContext() {
+    return this.getContext().getContextStore();
   }
 
   previousItem() {
-    const query = MediaSearchComponent.searchQueryFromUrl();
+    const query = this.searchQueryFromUrl();
     const offset = query.esoffset ? parseInt(query.esoffset, 10) : 0;
     if (offset > 0) {
       this.setOffset(offset - 1);
@@ -85,7 +91,7 @@ class MediaSearchComponent extends React.Component {
   }
 
   nextItem() {
-    const query = MediaSearchComponent.searchQueryFromUrl();
+    const query = this.searchQueryFromUrl();
     const count = this.props.search ? this.props.search.number_of_results : 0;
     const offset = query.esoffset ? parseInt(query.esoffset, 10) : 0;
     if (offset + 1 < count) {
@@ -94,7 +100,7 @@ class MediaSearchComponent extends React.Component {
   }
 
   render() {
-    const query = MediaSearchComponent.searchQueryFromUrl();
+    const query = this.searchQueryFromUrl();
     const offset = query.esoffset || 0;
     const media = this.props.search.medias.edges[0].node;
     const numberOfResults = this.props.search.number_of_results;
@@ -130,44 +136,60 @@ class MediaSearchComponent extends React.Component {
 
 MediaSearchComponent.contextTypes = {
   store: PropTypes.object,
+  router: PropTypes.object,
 };
 
 // eslint-disable-next-line react/no-multi-comp
 class MediaSearch extends React.PureComponent {
   render() {
-    const MediaSearchContainer = Relay.createContainer(injectIntl(MediaSearchComponent), {
-      initialVariables: {
-        pageSize: 1,
-      },
-      fragments: {
-        search: () => Relay.QL`
-          fragment on CheckSearch {
-            number_of_results
-            medias(first: $pageSize) {
-              edges {
-                node {
-                  id,
-                  dbid,
-                  project_id,
+    const { state } = this.context.router.location;
+    let mediaQuery = null;
+    if (state && state.query) {
+      mediaQuery = state.query;
+    }
+
+    if (mediaQuery) {
+      const MediaSearchContainer = Relay.createContainer(injectIntl(MediaSearchComponent), {
+        initialVariables: {
+          pageSize: 1,
+        },
+        fragments: {
+          search: () => Relay.QL`
+            fragment on CheckSearch {
+              number_of_results
+              medias(first: $pageSize) {
+                edges {
+                  node {
+                    id,
+                    dbid,
+                    project_id,
+                  }
                 }
               }
             }
-          }
-        `,
-      },
-    });
+          `,
+        },
+      });
 
-    const query = MediaSearchComponent.searchQueryFromUrl();
-    const route = new SearchRoute({ query: JSON.stringify(query) });
+      const route = new SearchRoute({ query: JSON.stringify(mediaQuery) });
+
+      return (
+        <Relay.RootContainer
+          Component={MediaSearchContainer}
+          route={route}
+          renderFetched={
+            data => <MediaSearchContainer context={this.context} {...this.props} {...data} />
+          }
+          renderLoading={() => <MediasLoading />}
+        />
+      );
+    }
 
     return (
-      <Relay.RootContainer
-        Component={MediaSearchContainer}
-        route={route}
-        renderFetched={
-          data => <MediaSearchContainer context={this.context} {...this.props} {...data} />
-        }
-        renderLoading={() => <MediasLoading />}
+      <Media
+        router={this.context.router}
+        route={this.props.route}
+        params={this.props.params}
       />
     );
   }

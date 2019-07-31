@@ -20,9 +20,10 @@ export function searchPrefixFromUrl() {
   return queryString ? queryString[0] : null;
 }
 
-export function urlFromSearchQuery(query, path) {
+export function urlFromSearchQuery(query, path, shouldBeQueryString) {
+  const connector = shouldBeQueryString ? '?query=' : '/';
   const prefix = path || searchPrefixFromUrl();
-  return isEqual(query, {}) ? prefix : `${prefix}/${encodeURIComponent(JSON.stringify(query))}`;
+  return isEqual(query, {}) ? prefix : `${prefix}${connector}${encodeURIComponent(JSON.stringify(query))}`;
 }
 
 export function noFilters(query_, project) {

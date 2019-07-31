@@ -62,7 +62,7 @@ class WebPageMediaCard extends Component {
 
   render() {
     const {
-      media, mediaUrl, data, isRtl, authorName, authorUsername,
+      media, mediaUrl, mediaQuery, data, isRtl, authorName, authorUsername,
     } = this.props;
 
     const url = MediaUtil.url(media, data);
@@ -100,7 +100,7 @@ class WebPageMediaCard extends Component {
     const media_embed = media.media.metadata;
     const heading = (
       <StyledHeading className="media__heading">
-        <Link to={mediaUrl}>
+        <Link to={{ pathname: mediaUrl, state: { query: mediaQuery } }}>
           {media_embed.title}
         </Link>
       </StyledHeading>

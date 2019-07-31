@@ -45,7 +45,7 @@ class MediaExpandedComponent extends Component {
     const isPender = media.media.url && data.provider !== 'page';
     const randomNumber = Math.floor(Math.random() * 1000000);
     const shouldShowDescription = MediaUtil.hasCustomDescription(media, data);
-    const { inMediaPage, mediaUrl } = this.props;
+    const { inMediaPage, mediaUrl, mediaQuery } = this.props;
 
     const embedCard = (() => {
       if (isImage) {
@@ -63,7 +63,8 @@ class MediaExpandedComponent extends Component {
         return (
           <WebPageMediaCard
             media={media}
-            mediaUrl={this.props.mediaUrl}
+            mediaUrl={mediaUrl}
+            mediaQuery={mediaQuery}
             data={data}
             isRtl={this.props.isRtl}
             authorName={authorName}
@@ -89,7 +90,7 @@ class MediaExpandedComponent extends Component {
         <CardText
           style={{ cursor: inMediaPage ? null : 'pointer' }}
           onClick={inMediaPage ? null : () => {
-            this.getContext().history.push(mediaUrl);
+            this.getContext().history.push({ pathname: mediaUrl, state: { query: mediaQuery } });
           }}
         >
           <FadeIn className={bemClassFromMediaStatus('media-detail__media', mediaLastStatus(media))}>

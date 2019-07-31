@@ -179,7 +179,7 @@ class MediaDetail extends Component {
       if (this.props.onSelect) {
         this.props.onSelect(mediaId);
       } else {
-        this.getContext().history.push(mediaUrl);
+        this.getContext().history.push({ pathname: mediaUrl, state: { query: this.props.query } });
       }
     }
   };
@@ -256,12 +256,9 @@ class MediaDetail extends Component {
       projectId = annotated.dbid;
     }
 
-    let mediaUrl = projectId && media.team && media.dbid > 0
+    const mediaUrl = projectId && media.team && media.dbid > 0
       ? `/${media.team.slug}/project/${projectId}/media/${media.dbid}`
       : null;
-    if (mediaUrl && this.props.query) {
-      mediaUrl = `${mediaUrl}/${JSON.stringify(this.props.query)}`;
-    }
 
     const sourceUrl = media.team &&
       media.project &&
@@ -304,7 +301,7 @@ class MediaDetail extends Component {
 
     const heading = (
       <StyledHeading className="media__heading">
-        <Link to={mediaUrl}>
+        <Link to={{ pathname: mediaUrl, state: { query: this.props.query } }}>
           {title}
         </Link>
       </StyledHeading>
@@ -381,7 +378,10 @@ class MediaDetail extends Component {
                     {mediaIcon}
                   </StyledMediaIconContainer>
                   <Offset isRtl={isRtl}>
-                    <Link className="media-detail__check-timestamp" to={mediaUrl}>
+                    <Link
+                      className="media-detail__check-timestamp"
+                      to={{ pathname: mediaUrl, state: { query: this.props.query } }}
+                    >
                       <TimeBefore date={createdAt} />
                     </Link>
                   </Offset>
@@ -398,7 +398,7 @@ class MediaDetail extends Component {
                   </Offset> : null}
 
                 <Offset isRtl={isRtl}>
-                  <Link to={mediaUrl}>
+                  <Link to={{ pathname: mediaUrl, state: { query: this.props.query } }}>
                     <span className="media-detail__check-notes-count">
                       {annotationsCount}
                     </span>
@@ -472,6 +472,7 @@ class MediaDetail extends Component {
               currentRelatedMedia={this.props.currentRelatedMedia}
               title={title}
               mediaUrl={mediaUrl}
+              mediaQuery={this.props.query}
               isRtl={isRtl}
               inMediaPage={mediaPage}
               sourceName={sourceName}
