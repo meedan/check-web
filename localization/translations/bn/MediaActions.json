@@ -8,5 +8,6 @@
   "mediaActions.memebuster": "Meme Generator",
   "mediaActions.assignOrUnassign": "Assign / Unassign",
   "mediaActions.unlockStatus": "Unlock status",
-  "mediaActions.lockStatus": "Lock status"
+  "mediaActions.lockStatus": "Lock status",
+  "mediaActions.tooltip": "Item actions"
 }

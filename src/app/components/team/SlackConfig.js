@@ -32,7 +32,7 @@ const messages = defineMessages({
   },
   menuTooltip: {
     id: 'slackConfig.menuTooltip',
-    defaultMessage: 'Configure integration',
+    defaultMessage: 'Integration settings',
   },
 });
 

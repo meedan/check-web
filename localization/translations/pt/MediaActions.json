@@ -8,5 +8,6 @@
   "mediaActions.memebuster": "Gerador de memes",
   "mediaActions.assignOrUnassign": "Atribuir / Remover atribuição",
   "mediaActions.unlockStatus": "Desbloquear status",
-  "mediaActions.lockStatus": "Bloquear status"
+  "mediaActions.lockStatus": "Bloquear status",
+  "mediaActions.tooltip": "Ações dos items"
 }

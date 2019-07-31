@@ -5,6 +5,7 @@
   "annotation.reverseImageFacebook": "This item contains at least one image. However, the image is contained in a Facebook post, and {appName} cannot send that image directly to reverse image search. Consider conducting a manual search using tools like Google or TinEye.",
   "annotation.and": "and",
   "annotation.newClaim": "New claim added by {author}",
+  "annotation.menuTooltip": "Annotation actions",
   "annotation.permalink": "Permalink",
   "annotation.taggedHeader": "Tagged #{tag} by {author}",
   "annotation.deletedComment": "Comment deleted by {author}{comment}",

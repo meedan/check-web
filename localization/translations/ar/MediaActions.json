@@ -8,5 +8,6 @@
   "mediaActions.memebuster": "مُنشئ الأشكال الإيمائية",
   "mediaActions.assignOrUnassign": "تكليف \\ إلغاء التكليف",
   "mediaActions.unlockStatus": "إلغاء تأمين الحالة",
-  "mediaActions.lockStatus": "تأمين الحالة"
+  "mediaActions.lockStatus": "تأمين الحالة",
+  "mediaActions.tooltip": "إجراءات العناصر"
 }

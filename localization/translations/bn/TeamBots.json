@@ -1,5 +1,6 @@
 {
   "teamBots.confirmUninstall": "Are you sure you want to uninstall this bot?",
+  "teamBots.settingsTooltip": "Bot settings",
   "teamBots.success": "Settings updated!",
   "teamBots.fail": "Error! Please try again.",
   "teamBots.noBots": "No bots installed.",

@@ -5,7 +5,7 @@
   },
   {
     "id": "slackConfig.menuTooltip",
-    "defaultMessage": "Configure integration"
+    "defaultMessage": "Integration settings"
   },
   {
     "id": "slackConfig.text",

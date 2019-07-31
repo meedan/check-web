@@ -1,5 +1,6 @@
 {
   "teamBots.confirmUninstall": "هل أنت متأكد أنك تود الغاء تثبيت هذا البوت ؟",
+  "teamBots.settingsTooltip": "إعدادات البوت",
   "teamBots.success": "تم حفظ الإعدادات",
   "teamBots.fail": "عذراً ، لقد واجهنا خطأ ما. من فضلك أعد المحاولة وتواصل مع فريق الدعم إن استمر الخطأ.",
   "teamBots.noBots": "لا يوجد بوتات مثبتة.",

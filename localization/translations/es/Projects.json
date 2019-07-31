@@ -1,4 +1,6 @@
 {
+  "projects.addProject": "Añadir proyecto",
+  "projects.dismiss": "Descartar",
   "projects.noProjects": "No hay proyectos aún",
   "projects.projectsSubheading": "Proyectos"
 }

@@ -5,6 +5,7 @@
   "annotation.reverseImageFacebook": "В этом материале есть изображения из Facebook. {appName} не может искать по таким изображениям, поэтому мы рекомендуем самостоятельно проверить их на дубликаты через поисковики по картинкам, например Google или TinEye.",
   "annotation.and": "и",
   "annotation.newClaim": "Высказывание добавлено ({author})",
+  "annotation.menuTooltip": "Annotation actions",
   "annotation.permalink": "Ссылка",
   "annotation.taggedHeader": "Отмечено как #{tag} ({author})",
   "annotation.deletedComment": "Комментарий удален ({author}){comment}",

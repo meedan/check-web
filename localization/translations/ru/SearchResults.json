@@ -2,6 +2,8 @@
   "search.newTranslationRequestNotification": "Новый запрос на перевод",
   "search.newTranslationNotification": "Новый перевод",
   "search.newTranslationNotificationBody": "Материал был отмечен как переведённый",
+  "search.previousPage": "Previous page",
+  "search.nextPage": "Next page",
   "searchResults.withSelection": "{total, plural, =0 {Нет материалов} one {1 материал} other {Материалов: {from} – {to} из #}} {selectedCount, plural, =0 {} one {(1 выбран)} other {(выбрано: #)}}",
   "searchResults.heading": "{total, plural, =0 {Нет материалов} one {1 материал} other {Материалов: {from} – {to} из #}}"
 }

@@ -1,4 +1,6 @@
 {
+  "projects.addProject": "إضافة مشروع",
+  "projects.dismiss": "تجاهل",
   "projects.noProjects": "بدون أي مشروع",
   "projects.projectsSubheading": "مشاريع"
 }

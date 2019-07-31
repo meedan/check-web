@@ -1,6 +1,7 @@
 {
   "createTeamTask.editError": "Не удалось отредактировать общий вопрос",
   "createTeamTask.deleteError": "Не удалось удалить общий вопрос",
+  "createTeamTask.menuTooltip": "Task actions",
   "teamTasks.confirmEditTitle": "Вы уверены, что хотите редактировать вопрос?",
   "teamTasks.confirmDeleteTitle": "Вы уверены, что хотите удалить вопрос?",
   "teamTasks.confirmEditBlurb": "Это действие изменит вопросы в связанных материалах, кроме вопросов, на которые уже есть ответы",

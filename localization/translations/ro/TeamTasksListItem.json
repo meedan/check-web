@@ -1,6 +1,7 @@
 {
   "createTeamTask.editError": "Redactarea sarcinii la nivel de echipă nu a reușit",
   "createTeamTask.deleteError": "Nu am reușit să ștergem sarcina la nivel de echipă",
+  "createTeamTask.menuTooltip": "Task actions",
   "teamTasks.confirmEditTitle": "Sigur doriți să redactați această sarcină?",
   "teamTasks.confirmDeleteTitle": "Sigur doriți să ștergeți această sarcină?",
   "teamTasks.confirmEditBlurb": "Ca urmare a aplicării acestei schimbări vor fi modificate sarcinile pe elemente asociate, cu excepția celora la care deja s-a dat răspuns sau a celor adnotate",
