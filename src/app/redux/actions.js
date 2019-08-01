@@ -44,7 +44,8 @@ export function request(method_, endpoint, failureCallback, successCallback, dat
       if (err.response) {
         const json = JSON.parse(err.response.text);
         const message = json.data ? json.data.message : json.error;
-        failureCallback(message, err.response.status);
+        const errorCode = json.data ? json.data.code : null;
+        failureCallback(message, err.response.status, errorCode);
       } else {
         failureCallback(util.inspect(err));
       }
@@ -54,7 +55,8 @@ export function request(method_, endpoint, failureCallback, successCallback, dat
         successCallback(json.data);
       } else {
         const message = json.data ? json.data.message : json.error;
-        failureCallback(message, response.status);
+        const errorCode = json.data ? json.data.code : null;
+        failureCallback(message, response.status, errorCode);
       }
     }
   });

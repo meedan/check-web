@@ -213,8 +213,8 @@ class Login extends Component {
       'api_user[otp_attempt]': this.state.otp_attempt,
     };
 
-    const failureCallback = (message) => {
-      const showOtp = message.includes('authentication code') || this.state.showOtp;
+    const failureCallback = (message, status, errorCode) => {
+      const showOtp = (errorCode === 10) || this.state.showOtp;
       this.setState({ message, showOtp });
     };
 
