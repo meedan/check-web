@@ -21,6 +21,7 @@ before_install:
 - git clone https://${TOKEN}:x-oauth-basic@github.com/meedan/configurator ./configurator
 # apt dependencies
 - sudo rm /etc/apt/sources.list.d/mongodb*
+- sudo rm /etc/apt/sources.list.d/google*
 - sudo apt-get -qq update
 - sudo apt-get install wget python-setuptools lsof unzip imagemagick ruby ruby-dev libnss3 libnss3-dev xvfb libnss3-1d libexif-dev curl build-essential libssl-dev libappindicator1 fonts-liberation redis-server -y
 - rvm --default use 2.3.4
