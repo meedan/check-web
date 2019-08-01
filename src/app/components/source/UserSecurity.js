@@ -386,7 +386,7 @@ class UserSecurity extends Component {
                       </span>
                       <div
                         id="svg-container"
-                        dangerouslySetInnerHTML={{
+                        dangerouslySetInnerHTML={{ // eslint-disable-line react/no-danger
                           __html: qrcode_svg,
                         }}
                       />
