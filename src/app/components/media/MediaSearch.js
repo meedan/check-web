@@ -58,6 +58,14 @@ class MediaSearchComponent extends React.Component {
     this.state = {};
   }
 
+  componentWillMount() {
+    this.updateUrl();
+  }
+
+  componentWillUpdate() {
+    this.updateUrl();
+  }
+
   getContext() {
     return new CheckContext(this);
   }
@@ -67,6 +75,17 @@ class MediaSearchComponent extends React.Component {
     query.esoffset = offset;
     const pathname = window.location.pathname.match(/^(\/[^/]+\/project\/[0-9]+\/media\/[0-9]+)/)[1];
     this.currentContext().history.push({ pathname, state: { query } });
+  }
+
+  updateUrl() {
+    const currId = parseInt(window.location.pathname.match(/^\/[^/]+\/project\/[0-9]+\/media\/([0-9]+)/)[1], 10);
+    const newId = parseInt(this.props.search.medias.edges[0].node.dbid, 10);
+    if (currId !== newId) {
+      const query = this.searchQueryFromUrl();
+      const pathBase = window.location.pathname.match(/(^\/[^/]+\/project\/[0-9]+\/media\/)[0-9]+.*/)[1];
+      const pathname = `${pathBase}${newId}`;
+      this.currentContext().history.push({ pathname, state: { query } });
+    }
   }
 
   searchQueryFromUrl() {
