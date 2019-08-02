@@ -340,8 +340,9 @@ class TaskLog extends Component {
     };
   }
 
-  toggle() {
+  toggle(e) {
     this.setState({ collapsed: !this.state.collapsed });
+    e.stopPropagation();
   }
 
   currentContext() {
@@ -378,11 +379,15 @@ class TaskLog extends Component {
           route={route}
           renderLoading={() => <MediasLoading count={1} />}
         /> : null }
-        { !this.state.collapsed ? <AddAnnotation
-          annotated={this.props.task}
-          annotatedType="Task"
-          types={['comment']}
-        /> : null }
+        { !this.state.collapsed ?
+          <div id={`task-${this.props.task.dbid}-log`}>
+            <AddAnnotation
+              annotated={this.props.task}
+              annotatedType="Task"
+              taskResponse={this.props.response}
+              types={['comment']}
+            />
+          </div> : null }
       </StyledTaskLog>
     );
   }

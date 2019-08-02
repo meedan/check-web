@@ -11,6 +11,24 @@ class ShortTextRespondTask extends React.Component {
     };
   }
 
+  componentDidMount() {
+    // This code only applies if this page is embedded in the browser extension
+    if (window.parent !== window) {
+      // Receive the selected text from the page and use it to fill a task answer
+      const receiveMessage = (event) => {
+        const data = JSON.parse(event.data);
+        if (data.selectedText &&
+          parseInt(data.task, 10) === parseInt(this.props.task.dbid, 10) &&
+          !this.props.response) {
+          this.setState({ response: data.selectedText, taskAnswerDisabled: false }, () => {
+            this.input.focus();
+          });
+        }
+      };
+      window.addEventListener('message', receiveMessage, false);
+    }
+  }
+
   handleSubmit() {
     if (!this.state.taskAnswerDisabled) {
       const response = this.state.response ? this.state.response.trim() : this.props.response;
@@ -90,6 +108,7 @@ class ShortTextRespondTask extends React.Component {
           onChange={this.handleChange.bind(this)}
           onKeyPress={this.handleKeyPress.bind(this)}
           onFocus={() => { this.setState({ focus: true }); }}
+          ref={(input) => { this.input = input; }}
           fullWidth
           multiLine
         />

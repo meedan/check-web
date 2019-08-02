@@ -145,6 +145,9 @@ class Home extends Component {
 
   loginCallback() {
     this.setState({ error: false });
+    if (window.opener) {
+      window.opener.postMessage('loggedIn', '*');
+    }
     window.location.assign(window.location.origin);
   }
 
