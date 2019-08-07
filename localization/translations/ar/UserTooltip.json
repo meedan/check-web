@@ -1,3 +1,3 @@
 {
-  "userTooltip.dateJoined": "انضم {date} • {teamsCount, plural, =0 {بدون فريق} one {فريق واحد} other {# فرق}}"
+  "userTooltip.dateJoined": "انضم {date} • {teamsCount, plural, =0 {لا توجد فرق} one {فريق واحد} other {# فرق}}"
 }

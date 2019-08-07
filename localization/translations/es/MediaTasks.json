@@ -1,4 +1,5 @@
 {
   "mediaComponent.verificationTasks": "Ítems de las tareas ",
-  "mediaComponent.resolved": "resuelta "
+  "mediaComponent.resolved": "resuelta ",
+  "mediaComponent.noTasks": "No hay tareas que mostrar."
 }

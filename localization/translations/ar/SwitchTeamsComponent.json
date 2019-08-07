@@ -1,6 +1,6 @@
 {
   "switchTeams.error": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث الفريق. من فضلك أعد المحاولة وتواصل مع {supportEmail} إن استمرت المشكلة.",
-  "switchTeams.member": "{membersCount, plural, =0 {بدون أعضاء} one {عضو واحد} other {# أعضاء}}",
+  "switchTeams.member": "{membersCount, plural, =0 {لا يوجد أعضاء} one {عضو واحد} other {# أعضاء}}",
   "switchTeams.joinRequestMessage": "لقد أرسلت طلب انضمام للفريق",
   "teams.yourTeams": "الفرق المُنضم إليها",
   "teams.userTeams": "الفرق {name} مُنضم إليها",

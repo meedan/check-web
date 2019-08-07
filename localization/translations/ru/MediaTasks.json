@@ -1,4 +1,5 @@
 {
   "mediaComponent.verificationTasks": "Вопросы по материалу",
-  "mediaComponent.resolved": "закрыт"
+  "mediaComponent.resolved": "закрыт",
+  "mediaComponent.noTasks": "No tasks to show."
 }

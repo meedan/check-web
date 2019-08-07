@@ -7,7 +7,7 @@
   "annotation.newClaim": "قام {author} بإضافة إدعاء جديد",
   "annotation.menuTooltip": "إجراءات التعليقات",
   "annotation.permalink": "الرابط الثابت",
-  "annotation.taggedHeader": "قام {author} باضافة علامة #{tag}",
+  "annotation.taggedHeader": "قام {author} بإضافة علامة #{tag}",
   "annotation.deletedComment": "قام {author} بحذف تعليق{comment}",
   "annotation.taskCreated": "قام {author} بإضافة مهمة : {task}",
   "annotation.relationshipCreated": "قام {author} بإضافة عنصر مرتبط : {title}",
