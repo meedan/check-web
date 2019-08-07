@@ -1,4 +1,5 @@
 {
   "mediaComponent.verificationTasks": "Tâches de l'élément",
-  "mediaComponent.resolved": "résolu.e.s"
+  "mediaComponent.resolved": "résolu.e.s",
+  "mediaComponent.noTasks": "Aucune tâche à afficher."
 }

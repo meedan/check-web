@@ -10,7 +10,7 @@
   "TeamMembersListItem.editor": "محرر",
   "TeamMembersListItem.annotator": "مُفَسِّر",
   "teamInviteMembers.resendEmailSuccess": "تم إرسال الدعوة بنجاح",
-  "teamInviteMembers.limits": "تم الوصول إلى الحد الأقصى لعدد أعضاء هذا الفريق ({count, plural, =0 {بدون أعضاء} one {عضو واحد} other {# أعضاء}}).",
+  "teamInviteMembers.limits": "تم الوصول إلى الحد الأقصى لعدد أعضاء هذا الفريق ({count, plural, =0 {لا يوجد أعضاء} one {عضو واحد} other {# أعضاء}}).",
   "teamInviteMembers.inviteMembers": "إضافة اﻷعضاء الى دور",
   "teamInviteMembers.inviteMember": "دعوة",
   "teamInviteMembers.customInvitation": "رسالة الدعوة (اختيارية)",
