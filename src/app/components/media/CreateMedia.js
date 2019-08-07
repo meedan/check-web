@@ -36,12 +36,13 @@ class CreateProjectMedia extends Component {
   fail(context, prefix, transactionError) {
     let message = this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') });
     const json = safelyParseJSON(transactionError.source);
-    if (json) {
-      if (json.error_info && json.error_info.code === 'ERR_OBJECT_EXISTS') {
+    const error = json && json.errors.length > 0 ? json.errors[0] : {};
+    if (error) {
+      if (error.code === 9) {
         message = null;
-        context.history.push(`/${context.team.slug}/project/${json.error_info.project_id}/${json.error_info.type}/${json.error_info.id}`);
+        context.history.push(error.data.url);
       } else {
-        message = json.error;
+        message = error.message; // eslint-disable-line prefer-destructuring
       }
     }
     this.context.setMessage(message);
