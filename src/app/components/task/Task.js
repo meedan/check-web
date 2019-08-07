@@ -318,6 +318,7 @@ class Task extends Component {
           <form name={`edit-response-${this.state.editingResponse.id}`}>
             {task.type === 'free_text' ?
               <ShortTextRespondTask
+                task={task}
                 response={editingResponseText}
                 onSubmit={this.handleUpdateResponse}
                 onDismiss={this.handleCancelEditResponse}
@@ -538,6 +539,7 @@ class Task extends Component {
                   <div className="task__response-inputs">
                     {task.type === 'free_text' ?
                       <ShortTextRespondTask
+                        task={task}
                         onSubmit={this.handleSubmitResponse}
                       />
                       : null}
@@ -581,7 +583,7 @@ class Task extends Component {
       <ParsedText text={task.description} />
       : null;
 
-    const className = ['task'];
+    const className = ['task', `task-type__${task.type}`];
     if (taskAnswered) {
       className.push('task__answered-by-current-user');
     }
@@ -595,6 +597,7 @@ class Task extends Component {
     return (
       <StyledWordBreakDiv>
         <Card
+          id={`task-${task.dbid}`}
           className={className.join(' ')}
           style={{ marginBottom: units(1) }}
           initiallyExpanded
@@ -622,7 +625,7 @@ class Task extends Component {
           >
             {taskActions}
           </CardActions>
-          <TaskLog task={task} />
+          <TaskLog task={task} response={response} />
         </Card>
 
         { this.state.editingQuestion ?

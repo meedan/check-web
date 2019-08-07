@@ -7,6 +7,7 @@ import IconUnselectAll from 'material-ui/svg-icons/toggle/check-box';
 import IconMove from 'material-ui/svg-icons/action/input';
 import IconDelete from 'material-ui/svg-icons/action/delete';
 import FlatButton from 'material-ui/FlatButton';
+import Tooltip from '@material-ui/core/Tooltip';
 import styled from 'styled-components';
 import MoveDialog from './MoveDialog';
 import BulkUpdateProjectMediaMutation from '../../relay/mutations/BulkUpdateProjectMediaMutation';
@@ -131,12 +132,16 @@ class BulkActions extends React.Component {
   render() {
     const actions = (
       <span id="media-bulk-actions__actions">
-        <StyledIcon title={this.props.intl.formatMessage(messages.move)}>
-          <IconMove onClick={this.moveSelected.bind(this)} />
-        </StyledIcon>
-        <StyledIcon title={this.props.intl.formatMessage(messages.delete)}>
-          <IconDelete onClick={this.handleDelete.bind(this)} />
-        </StyledIcon>
+        <Tooltip title={this.props.intl.formatMessage(messages.move)}>
+          <StyledIcon>
+            <IconMove onClick={this.moveSelected.bind(this)} />
+          </StyledIcon>
+        </Tooltip>
+        <Tooltip title={this.props.intl.formatMessage(messages.delete)}>
+          <StyledIcon>
+            <IconDelete onClick={this.handleDelete.bind(this)} />
+          </StyledIcon>
+        </Tooltip>
       </span>
     );
 
@@ -162,11 +167,13 @@ class BulkActions extends React.Component {
 
     return (
       <span id="media-bulk-actions">
-        <StyledIcon title={this.props.intl.formatMessage(messages.selectAll)}>
-          {this.state.allSelected ?
-            <IconUnselectAll onClick={this.unselectAll.bind(this)} /> :
-            <IconSelectAll onClick={this.selectAll.bind(this)} /> }
-        </StyledIcon>
+        <Tooltip title={this.props.intl.formatMessage(messages.selectAll)}>
+          <StyledIcon>
+            {this.state.allSelected ?
+              <IconUnselectAll onClick={this.unselectAll.bind(this)} /> :
+              <IconSelectAll onClick={this.selectAll.bind(this)} /> }
+          </StyledIcon>
+        </Tooltip>
         {this.props.selectedMedia && this.props.selectedMedia.length > 0 ? actions : null}
 
         <MoveDialog

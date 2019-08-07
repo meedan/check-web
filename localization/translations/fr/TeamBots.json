@@ -1,5 +1,6 @@
 {
   "teamBots.confirmUninstall": "Voulez-vous vraiment désinstaller ce robot ?",
+  "teamBots.settingsTooltip": "Paramètres du bot",
   "teamBots.success": "Paramètres sauvegardés. ",
   "teamBots.fail": "Une erreur s'est produite. Veuillez réessayer.",
   "teamBots.noBots": "Aucun robot installé.",

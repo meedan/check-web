@@ -1,5 +1,5 @@
 {
   "teamComponent.projects": "المشاريع",
-  "teamComponent.noProjects": "بدون أي مشروع",
+  "teamComponent.noProjects": "لا توجد مشاريع",
   "teamComponent.projectAssignmentsCount": "{count, plural, =0 {غير مُكَلَّف} one {مُكَلَّف لعضو واحد} other {مُكَلَّف الى # أعضاء}}"
 }

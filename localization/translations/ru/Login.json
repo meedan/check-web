@@ -7,6 +7,7 @@
   "login.emailLabel": "E-mail",
   "login.passwordInputHint": "Пароль",
   "login.passwordLabel": "Пароль (8+ символов)",
+  "login.otpAttemptLabel": "Two-Factor Authentication Token",
   "login.passwordConfirmLabel": "Новый пароль (повторно)",
   "login.profilePicture": "Аватар",
   "login.signIn": "ВОЙТИ",

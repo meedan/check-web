@@ -4,6 +4,5 @@
   "headerActions.about": "О проекте",
   "headerActions.contactHuman": "Контакты",
   "headerActions.productGuides": "Руководство",
-  "headerActions.releaseNotes": "Примечания к выпуску",
-  "drawer.upgradeButton": "Перейти на PRO"
+  "headerActions.releaseNotes": "Примечания к выпуску"
 }

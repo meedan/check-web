@@ -20,9 +20,38 @@ export function searchPrefixFromUrl() {
   return queryString ? queryString[0] : null;
 }
 
-export function urlFromSearchQuery(query, path) {
+export function urlFromSearchQuery(query, path, shouldBeQueryString) {
+  const connector = shouldBeQueryString ? '?query=' : '/';
   const prefix = path || searchPrefixFromUrl();
-  return isEqual(query, {}) ? prefix : `${prefix}/${encodeURIComponent(JSON.stringify(query))}`;
+  return isEqual(query, {}) ? prefix : `${prefix}${connector}${encodeURIComponent(JSON.stringify(query))}`;
+}
+
+export function noFilters(query_, project) {
+  const query = query_;
+  delete query.timestamp;
+  delete query.parent;
+  if (
+    query.projects &&
+    (query.projects.length === 0 ||
+      (project &&
+        query.projects.length === 1 &&
+        query.projects[0] === project.dbid))
+  ) {
+    delete query.projects;
+  }
+  if (query[statusKey] && query[statusKey].length === 0) {
+    delete query[statusKey];
+  }
+  if (query.sort && query.sort === 'recent_added') {
+    delete query.sort;
+  }
+  if (query.sort_type && query.sort_type === 'DESC') {
+    delete query.sort_type;
+  }
+  if (Object.keys(query).length === 0 && query.constructor === Object) {
+    return true;
+  }
+  return false;
 }
 
 class Search extends React.Component {
@@ -31,31 +60,7 @@ class Search extends React.Component {
   }
 
   noFilters(query_) {
-    const query = query_;
-    delete query.timestamp;
-    delete query.parent;
-    if (
-      query.projects &&
-      (query.projects.length === 0 ||
-        (this.props.project &&
-          query.projects.length === 1 &&
-          query.projects[0] === this.props.project.dbid))
-    ) {
-      delete query.projects;
-    }
-    if (query[statusKey] && query[statusKey].length === 0) {
-      delete query[statusKey];
-    }
-    if (query.sort && query.sort === 'recent_added') {
-      delete query.sort;
-    }
-    if (query.sort_type && query.sort_type === 'DESC') {
-      delete query.sort_type;
-    }
-    if (Object.keys(query).length === 0 && query.constructor === Object) {
-      return true;
-    }
-    return false;
+    return noFilters(query_, this.props.project);
   }
 
   render() {

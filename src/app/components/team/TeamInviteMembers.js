@@ -159,7 +159,8 @@ class TeamInviteMembers extends Component {
 
   validateMembers(members) {
     let validateMaxError = true;
-    const { limits, members_count: membersCount } = this.props.team;
+    const { members_count: membersCount } = this.props.team;
+    const maxMembers = parseInt(this.props.team.get_max_number_of_members, 10);
     const { invited_mails: invitedEmails, team_users: teamUsers } = this.props.team;
     let invitedCount = 0;
     const membersEmails = [];
@@ -194,9 +195,9 @@ class TeamInviteMembers extends Component {
     });
     this.setState({ membersToInvite: this.state.membersToInvite });
     const allMembers = invitedEmails.length + membersCount + invitedCount;
-    if (limits.max_number_of_members !== 0 && limits.max_number_of_members < allMembers) {
-      const maxMembers = limits.max_number_of_members - (invitedEmails.length + membersCount);
-      this.setState({ errors: [{ key: 'limits', maxMembers }] });
+    if (maxMembers !== 0 && maxMembers < allMembers) {
+      const limit = maxMembers - (invitedEmails.length + membersCount);
+      this.setState({ errors: [{ key: 'limits', maxMembers: limit }] });
       validateMaxError = false;
     } else {
       this.setState({ errors: [] });

@@ -1,5 +1,6 @@
 {
   "teamBots.confirmUninstall": "Sigur doriți să dezinstalați acest robot?",
+  "teamBots.settingsTooltip": "Bot settings",
   "teamBots.success": "Setările au fost actualizate!",
   "teamBots.fail": "Eroare! Mai încercați odată.",
   "teamBots.noBots": "Nu există roboți instalați.",

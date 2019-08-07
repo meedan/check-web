@@ -1,6 +1,7 @@
 {
   "createTeamTask.editError": "La modification de la tâche a échoué",
   "createTeamTask.deleteError": "La suppression de la tâche a échoué",
+  "createTeamTask.menuTooltip": "Actions des tâches",
   "teamTasks.confirmEditTitle": "Voulez-vous vraiment modifier cette tâche ?",
   "teamTasks.confirmDeleteTitle": "Voulez-vous vraiment supprimer cette tâche ?",
   "teamTasks.confirmEditBlurb": "Les tâches d'éléments associés seront modifiées à la suite de cette modification, à l'exception de celles qui ont déjà été répondues ou annotées.",

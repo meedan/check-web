@@ -8,5 +8,6 @@
   "mediaActions.memebuster": "Generateur de mèmes",
   "mediaActions.assignOrUnassign": "Affecter / annuler",
   "mediaActions.unlockStatus": "Déverouiller le statut",
-  "mediaActions.lockStatus": "Verouiller le statut"
+  "mediaActions.lockStatus": "Verouiller le statut",
+  "mediaActions.tooltip": "Actions des éléments"
 }

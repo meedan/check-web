@@ -2,6 +2,8 @@
   "search.newTranslationRequestNotification": "Nouvelle demande de traduction",
   "search.newTranslationNotification": "Nouvelle traduction",
   "search.newTranslationNotificationBody": "Un élément vient d'être marqué comme traduit",
+  "search.previousPage": "Page précédente",
+  "search.nextPage": "Page suivante",
   "searchResults.withSelection": "{total, plural, =0 {Aucun élément} one {1 élément} other {{from} - {to} sur # éléments}} {selectedCount, plural, =0 {} one {(1 sélectionné)} other {(# sélectionnés)}}",
   "searchResults.heading": "{total, plural, =0 {Aucun élément} one {1 élément} other {{from} - {to} sur # éléments}}"
 }

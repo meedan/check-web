@@ -160,9 +160,11 @@ class Login extends Component {
       name: '',
       email: '',
       password: '',
+      otp_attempt: '',
       passwordConfirmation: '',
       checkedTos: false,
       checkedPp: false,
+      showOtp: false,
     };
   }
 
@@ -194,7 +196,7 @@ class Login extends Component {
 
   handleSwitchType() {
     const type = this.state.type === 'login' ? 'register' : 'login';
-    this.setState({ type }, () => {
+    this.setState({ type, registrationSubmitted: false, message: null }, () => {
       if (type === 'login') {
         this.inputEmail.focus();
       } else {
@@ -208,9 +210,13 @@ class Login extends Component {
     const params = {
       'api_user[email]': this.state.email,
       'api_user[password]': this.state.password,
+      'api_user[otp_attempt]': this.state.otp_attempt,
     };
 
-    const failureCallback = message => this.setState({ message });
+    const failureCallback = (message, status, errorCode) => {
+      const showOtp = (errorCode === 10) || this.state.showOtp;
+      this.setState({ message, showOtp });
+    };
 
     const successCallback = () => {
       this.setState({ message: null });
@@ -232,7 +238,13 @@ class Login extends Component {
       'api_user[image]': form.image,
     };
 
-    const failureCallback = message => this.setState({ message });
+    const failureCallback = (message, status) => {
+      if (status === 401) {
+        this.setState({ registrationSubmitted: true });
+      }
+      this.setState({ message });
+      window.scroll(0, 0);
+    };
 
     const successCallback = () => {
       this.setState({ message: null });
@@ -246,6 +258,7 @@ class Login extends Component {
       this.setState({
         message: <FormattedMessage id="login.tosMissing" defaultMessage="You must agree to the Terms of Service and Privacy Policy" />,
       });
+      window.scroll(0, 0);
     }
   }
 
@@ -324,139 +337,160 @@ class Login extends Component {
                   />}
               </StyledSubHeader>
               <Message message={this.state.message} />
-              {this.state.type === 'login' ?
-                null :
-                <div className="login__name">
-                  <TextField
-                    fullWidth
-                    name="name"
-                    value={this.state.name}
-                    className="login__name-input"
-                    ref={(i) => { this.inputName = i; }}
-                    onChange={this.handleFieldChange.bind(this)}
-                    floatingLabelText={
-                      <FormattedMessage
-                        id="login.nameLabel"
-                        defaultMessage="Your name"
-                      />
-                    }
-                  />
-                </div>}
-
-              <div className="login__email">
-                <TextField
-                  fullWidth
-                  type="email"
-                  name="email"
-                  value={this.state.email}
-                  className="login__email-input"
-                  ref={(i) => { this.inputEmail = i; }}
-                  onChange={this.handleFieldChange.bind(this)}
-                  floatingLabelText={
-                    <FormattedMessage
-                      id="login.emailLabel"
-                      defaultMessage="Email address"
-                    />
-                  }
-                  autoFocus
-                />
-              </div>
-
-              <div className="login__password">
-                <TextField
-                  fullWidth
-                  type="password"
-                  name="password"
-                  value={this.state.password}
-                  className="login__password-input"
-                  onChange={this.handleFieldChange.bind(this)}
-                  floatingLabelText={this.state.type === 'login' ?
-                    <FormattedMessage
-                      id="login.passwordInputHint"
-                      defaultMessage="Password"
-                    />
-                    :
-                    <FormattedMessage
-                      id="login.passwordLabel"
-                      defaultMessage="Password (minimum 8 characters)"
-                    />
-                  }
-                />
-              </div>
-
-              {this.state.type === 'login' ?
-                null :
-                <div className="login__password-confirmation">
-                  <TextField
-                    fullWidth
-                    type="password"
-                    name="passwordConfirmation"
-                    value={this.state.passwordConfirmation}
-                    className="login__password-confirmation-input"
-                    onChange={this.handleFieldChange.bind(this)}
-                    floatingLabelText={
-                      <FormattedMessage
-                        id="login.passwordConfirmLabel"
-                        defaultMessage="Password confirmation"
-                      />
-                    }
-                  />
-                </div>}
-
-              {this.state.type === 'login' ?
+              {this.state.registrationSubmitted ?
                 null :
                 <div>
-                  <StyledLabel>
-                    <FormattedMessage
-                      id="login.profilePicture"
-                      defaultMessage="Profile picture"
-                    />
-                  </StyledLabel>
-                  <UploadImage onImage={Login.onImage} />
-                  <UserTosForm
-                    user={{}}
-                    showTitle={false}
-                    handleCheckTos={this.handleCheckTos.bind(this)}
-                    handleCheckPp={this.handleCheckPp.bind(this)}
-                    checkedTos={this.state.checkedTos}
-                    checkedPp={this.state.checkedPp}
-                  />
-                </div> }
-
-              <div className="login__actions" style={styles.buttonGroup}>
-                <RaisedButton
-                  primary
-                  style={styles.primaryButton}
-                  type="submit"
-                  id="submit-register-or-login"
-                  className={`login__submit login__submit--${this.state.type}`}
-                  label={this.state.type === 'login' ?
-                    <FormattedMessage
-                      id="login.signIn"
-                      defaultMessage="SIGN IN"
-                    /> :
-                    <FormattedMessage
-                      id="login.signUp"
-                      defaultMessage="REGISTER"
-                    />
-                  }
-                />
-                {this.state.type === 'login' ?
-                  <span className="login__forgot-password">
-                    <Link to="/check/user/password-reset">
-                      <FlatButton
-                        style={styles.secondaryButton}
-                        label={
+                  {this.state.type === 'login' ?
+                    null :
+                    <div className="login__name">
+                      <TextField
+                        fullWidth
+                        name="name"
+                        value={this.state.name}
+                        className="login__name-input"
+                        ref={(i) => { this.inputName = i; }}
+                        onChange={this.handleFieldChange.bind(this)}
+                        floatingLabelText={
                           <FormattedMessage
-                            id="loginEmail.lostPassword"
-                            defaultMessage="Forgot password"
+                            id="login.nameLabel"
+                            defaultMessage="Your name"
                           />
                         }
                       />
-                    </Link>
-                  </span>
-                  : null}
-              </div>
+                    </div>}
+
+                  <div className="login__email">
+                    <TextField
+                      fullWidth
+                      type="email"
+                      name="email"
+                      value={this.state.email}
+                      className="login__email-input"
+                      ref={(i) => { this.inputEmail = i; }}
+                      onChange={this.handleFieldChange.bind(this)}
+                      floatingLabelText={
+                        <FormattedMessage
+                          id="login.emailLabel"
+                          defaultMessage="Email address"
+                        />
+                      }
+                      autoFocus
+                    />
+                  </div>
+
+                  <div className="login__password">
+                    <TextField
+                      fullWidth
+                      type="password"
+                      name="password"
+                      value={this.state.password}
+                      className="login__password-input"
+                      onChange={this.handleFieldChange.bind(this)}
+                      floatingLabelText={this.state.type === 'login' ?
+                        <FormattedMessage
+                          id="login.passwordInputHint"
+                          defaultMessage="Password"
+                        />
+                        :
+                        <FormattedMessage
+                          id="login.passwordLabel"
+                          defaultMessage="Password (minimum 8 characters)"
+                        />
+                      }
+                    />
+                  </div>
+
+                  {this.state.type === 'login' && this.state.showOtp ?
+                    <div className="login__otp_attempt">
+                      <TextField
+                        fullWidth
+                        name="otp_attempt"
+                        value={this.state.otp_attempt}
+                        className="login__otp_attempt-input"
+                        onChange={this.handleFieldChange.bind(this)}
+                        floatingLabelText={
+                          <FormattedMessage
+                            id="login.otpAttemptLabel"
+                            defaultMessage="Two-Factor Authentication Token"
+                          />
+                        }
+                      />
+                    </div> : null}
+
+                  {this.state.type === 'login' ?
+                    null :
+                    <div className="login__password-confirmation">
+                      <TextField
+                        fullWidth
+                        type="password"
+                        name="passwordConfirmation"
+                        value={this.state.passwordConfirmation}
+                        className="login__password-confirmation-input"
+                        onChange={this.handleFieldChange.bind(this)}
+                        floatingLabelText={
+                          <FormattedMessage
+                            id="login.passwordConfirmLabel"
+                            defaultMessage="Password confirmation"
+                          />
+                        }
+                      />
+                    </div>}
+
+                  {this.state.type === 'login' ?
+                    null :
+                    <div>
+                      <StyledLabel>
+                        <FormattedMessage
+                          id="login.profilePicture"
+                          defaultMessage="Profile picture"
+                        />
+                      </StyledLabel>
+                      <UploadImage onImage={Login.onImage} />
+                      <UserTosForm
+                        user={{}}
+                        showTitle={false}
+                        handleCheckTos={this.handleCheckTos.bind(this)}
+                        handleCheckPp={this.handleCheckPp.bind(this)}
+                        checkedTos={this.state.checkedTos}
+                        checkedPp={this.state.checkedPp}
+                      />
+                    </div> }
+
+                  <div className="login__actions" style={styles.buttonGroup}>
+                    <RaisedButton
+                      primary
+                      style={styles.primaryButton}
+                      type="submit"
+                      id="submit-register-or-login"
+                      className={`login__submit login__submit--${this.state.type}`}
+                      label={this.state.type === 'login' ?
+                        <FormattedMessage
+                          id="login.signIn"
+                          defaultMessage="SIGN IN"
+                        /> :
+                        <FormattedMessage
+                          id="login.signUp"
+                          defaultMessage="REGISTER"
+                        />
+                      }
+                    />
+                    {this.state.type === 'login' ?
+                      <span className="login__forgot-password">
+                        <Link to="/check/user/password-reset">
+                          <FlatButton
+                            style={styles.secondaryButton}
+                            label={
+                              <FormattedMessage
+                                id="loginEmail.lostPassword"
+                                defaultMessage="Forgot password"
+                              />
+                            }
+                          />
+                        </Link>
+                      </span>
+                      : null}
+                  </div>
+                </div>}
             </form>
           </StyledCard>
 

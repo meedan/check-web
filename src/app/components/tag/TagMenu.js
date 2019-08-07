@@ -61,7 +61,11 @@ class TagMenuComponent extends Component {
         open={this.state.menuOpen}
         onRequestChange={this.handlePopup}
         iconButtonElement={
-          <IconButton>
+          <IconButton
+            tooltip={
+              <FormattedMessage id="tagMenu.tooltip" defaultMessage="Edit tags" />
+            }
+          >
             <TagOutline />
           </IconButton>
         }

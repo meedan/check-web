@@ -40,18 +40,6 @@
     "defaultMessage": "Connected accounts"
   },
   {
-    "id": "userPrivacy.security",
-    "defaultMessage": "Security"
-  },
-  {
-    "id": "userPrivacy.successfulLoginText",
-    "defaultMessage": "Receive a notification for logins from a new location or device"
-  },
-  {
-    "id": "userPrivacy.failedfulLoginText",
-    "defaultMessage": "Receive a notification for {loginTrial} consecutive failed login attempts"
-  },
-  {
     "id": "userPrivacy.delete",
     "defaultMessage": "Delete your account"
   },

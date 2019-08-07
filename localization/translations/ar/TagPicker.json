@@ -1,7 +1,7 @@
 {
-  "tagPicker.emptyTags": "لا يوجد وسوم في هذا الفريق.",
-  "tagPicker.tagNotFound": "الوسم {tag}# غير موجود.",
-  "tagPicker.teamTags": "وسوم الفريق",
+  "tagPicker.emptyTags": "لا توجد علامات في هذا الفريق.",
+  "tagPicker.tagNotFound": "العلامة {tag}# غير موجودة.",
+  "tagPicker.teamTags": "علامات الفريق",
   "tagPicker.none": "خالٍ",
-  "tagPicker.teamOtherTags": "وسوم إضافية"
+  "tagPicker.teamOtherTags": "علامات إضافية"
 }

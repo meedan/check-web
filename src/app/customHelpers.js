@@ -43,7 +43,6 @@ const customStrings = {
     SUPPORT_EMAIL: 'check@meedan.com',
     TOS_URL: 'https://meedan.com/en/check/check_tos.html',
     LOGO_URL: '/images/logo/check.svg',
-    UPGRADE_URL: 'https://meedan.typeform.com/to/F9L2cY',
   },
 };
 

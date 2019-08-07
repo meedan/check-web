@@ -37,10 +37,9 @@ module ApiHelpers
   end
 
   def api_create_team(params = {})
-    limits = params[:limits]
     team_name = params[:team] || "TestTeam#{Time.now.to_i}-#{rand(99999)}"
     user = params[:user] || api_register_and_login_with_email
-    team = request_api 'team', { name: team_name, email: user.email, limits: limits }
+    team = request_api 'team', { name: team_name, email: user.email }
     team
   end
 
@@ -64,6 +63,7 @@ module ApiHelpers
     count.times do |i|
       request_api 'claim', { quote: "Claim #{i}", email: data[:user].email, team_id: data[:team].dbid, project_id: data[:project].dbid }
       request_api 'source', { url: '', name: "Source #{i}", email: data[:user].email, team_id: data[:team].dbid, project_id: data[:project].dbid }
+      sleep 1
     end
     ProjectPage.new(config: @config, driver: @driver)
   end

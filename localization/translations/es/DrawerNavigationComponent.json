@@ -4,6 +4,5 @@
   "headerActions.about": "Acerca de",
   "headerActions.contactHuman": "Contactar",
   "headerActions.productGuides": "Guías del producto",
-  "headerActions.releaseNotes": "Notas de la versión",
-  "drawer.upgradeButton": "Actualizar a la versión PRO"
+  "headerActions.releaseNotes": "Notas de la versión"
 }

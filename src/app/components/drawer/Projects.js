@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
 import Relay from 'react-relay/classic';
 import { Link } from 'react-router';
 import MenuItem from 'material-ui/MenuItem';
+import Tooltip from '@material-ui/core/Tooltip';
 import MdAddCircleOutline from 'material-ui/svg-icons/content/add-circle-outline';
 import MdHighlightOff from 'material-ui/svg-icons/action/highlight-off';
 import styled from 'styled-components';
@@ -20,6 +21,17 @@ import {
   units,
   caption,
 } from '../../styles/js/shared';
+
+const messages = defineMessages({
+  addProject: {
+    id: 'projects.addProject',
+    defaultMessage: 'Add project',
+  },
+  dismiss: {
+    id: 'projects.dismiss',
+    defaultMessage: 'Dismiss',
+  },
+});
 
 const SubHeading = styled.div`
   font: ${caption};
@@ -105,8 +117,6 @@ class DrawerProjectsComponent extends Component {
       },
     };
 
-    const { team } = props;
-
     return (
       <div>
         <SubHeading>
@@ -115,23 +125,21 @@ class DrawerProjectsComponent extends Component {
               id="projects.projectsSubheading"
               defaultMessage="Projects"
             />
-            { props.handleAddProj &&
-            (props.userIsOwner ||
-            team.plan === 'pro' ||
-            team.projects.edges.length < team.limits.max_number_of_projects) ?
+            { props.handleAddProj ?
               <Can permissions={props.team.permissions} permission="create Project">
-                <StyledAddProj
-                  style={{ cursor: 'pointer' }}
-                  onClick={props.handleAddProj}
-                  isRtl={rtlDetect.isRtlLang(props.intl.locale)}
-                  className="drawer__create-project-button"
+                <Tooltip
+                  title={this.props.intl.formatMessage(props.showAddProj ?
+                    messages.dismiss : messages.addProject)}
                 >
-                  { props.team.projects.edges.length > 0 && team.plan === 'free' ?
-                    <span style={{ color: black54, font: caption }}>PRO</span>
-                    : null
-                  }
-                  { props.showAddProj ? <MdHighlightOff /> : <MdAddCircleOutline /> }
-                </StyledAddProj>
+                  <StyledAddProj
+                    style={{ cursor: 'pointer' }}
+                    onClick={props.handleAddProj}
+                    isRtl={rtlDetect.isRtlLang(props.intl.locale)}
+                    className="drawer__create-project-button"
+                  >
+                    { props.showAddProj ? <MdHighlightOff /> : <MdAddCircleOutline /> }
+                  </StyledAddProj>
+                </Tooltip>
               </Can> : null
             }
           </Row>
@@ -162,8 +170,6 @@ const DrawerProjectsContainer = Relay.createContainer(injectIntl(DrawerProjectsC
         id,
         dbid,
         slug,
-        plan,
-        limits,
         permissions,
         projects(first: $pageSize) {
           edges {

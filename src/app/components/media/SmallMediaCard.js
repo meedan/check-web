@@ -106,7 +106,7 @@ const SmallMediaCard = (props) => {
             <Row>
               { image ?
                 <Offset isRtl={isRtl}>
-                  <Link to={mediaUrl}>
+                  <Link to={{ pathname: mediaUrl, state: { query: props.query } }}>
                     <img
                       alt=""
                       style={{ width: units(10), height: units(10), objectFit: 'cover' }}
@@ -119,7 +119,7 @@ const SmallMediaCard = (props) => {
               <Content withImage={image}>
                 <UpperRow>
                   <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', maxHeight: units(5) }}>
-                    <Link to={mediaUrl}>
+                    <Link to={{ pathname: mediaUrl, state: { query: props.query } }}>
                       {MediaUtil.title(media, data, props.intl)}
                     </Link>
                   </div>

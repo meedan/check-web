@@ -86,6 +86,23 @@ class AddAnnotation extends Component {
     };
   }
 
+  componentDidMount() {
+    // This code only applies if this page is embedded in the browser extension
+    if (window.parent !== window && this.props.annotatedType === 'Task') {
+      // Receive the selected text from the page and use it to fill a task note
+      const task = this.props.annotated;
+      const receiveMessage = (event) => {
+        const data = JSON.parse(event.data);
+        if (data.selectedText &&
+          (this.props.taskResponse || task.type !== 'free_text') &&
+          parseInt(data.task, 10) === parseInt(this.props.annotated.dbid, 10)) {
+          this.setState({ cmd: data.selectedText });
+        }
+      };
+      window.addEventListener('message', receiveMessage, false);
+    }
+  }
+
   static onImage(file) {
     document.forms.addannotation.image = file;
   }

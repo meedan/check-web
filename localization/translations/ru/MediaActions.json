@@ -8,5 +8,6 @@
   "mediaActions.memebuster": "Генератор мемов",
   "mediaActions.assignOrUnassign": "Назначить / Снять",
   "mediaActions.unlockStatus": "Разблокировать статус",
-  "mediaActions.lockStatus": "Заблокировать статус"
+  "mediaActions.lockStatus": "Заблокировать статус",
+  "mediaActions.tooltip": "Item actions"
 }

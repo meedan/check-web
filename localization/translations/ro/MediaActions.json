@@ -8,5 +8,6 @@
   "mediaActions.memebuster": "Generator de meme",
   "mediaActions.assignOrUnassign": "Atribuie/Retrage",
   "mediaActions.unlockStatus": "Deblochează starea",
-  "mediaActions.lockStatus": "Blochează starea"
+  "mediaActions.lockStatus": "Blochează starea",
+  "mediaActions.tooltip": "Item actions"
 }

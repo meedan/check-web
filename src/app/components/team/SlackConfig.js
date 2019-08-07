@@ -8,11 +8,11 @@ import CardContent from '@material-ui/core/CardContent';
 import Dialog from 'material-ui/Dialog';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
 import Switch from '@material-ui/core/Switch';
 import TextField from '@material-ui/core/TextField';
 import IconMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import styled from 'styled-components';
-import TeamSlackNudge from './TeamSlackNudge';
 import UserUtil from '../user/UserUtil';
 import Message from '../Message';
 import CheckContext from '../../CheckContext';
@@ -29,6 +29,10 @@ const messages = defineMessages({
   title: {
     id: 'slackConfig.title',
     defaultMessage: 'Slack integration',
+  },
+  menuTooltip: {
+    id: 'slackConfig.menuTooltip',
+    defaultMessage: 'Integration settings',
   },
 });
 
@@ -129,10 +133,6 @@ class SlackConfig extends React.Component {
       return null;
     }
 
-    if (team.limits.slack_integration === false) {
-      return <TeamSlackNudge renderCard />;
-    }
-
     return (
       <div>
         <Card>
@@ -147,11 +147,13 @@ class SlackConfig extends React.Component {
               </span>
             }
             action={
-              <IconButton
-                onClick={this.handleOpenDialog.bind(this)}
-              >
-                <IconMoreHoriz />
-              </IconButton>
+              <Tooltip title={this.props.intl.formatMessage(messages.menuTooltip)}>
+                <IconButton
+                  onClick={this.handleOpenDialog.bind(this)}
+                >
+                  <IconMoreHoriz />
+                </IconButton>
+              </Tooltip>
             }
           />
           <CardContent>

@@ -56,8 +56,8 @@ class TeamComponent extends Component {
   }
 
   componentWillMount() {
-    const showTab = UserUtil.myRole(this.getCurrentUser(), this.props.team.slug) === 'owner' &&
-      this.props.team.limits.custom_tasks_list ? 'tasks' : 'tags';
+    const showTab = UserUtil.myRole(this.getCurrentUser(), this.props.team.slug) === 'owner'
+      ? 'tasks' : 'tags';
     this.setState({ showTab });
   }
 
@@ -131,8 +131,7 @@ class TeamComponent extends Component {
       if (isSettings || isReadOnly) {
         return (
           <Tabs value={this.state.showTab} onChange={this.handleTabChange}>
-            { team.limits.custom_tasks_list &&
-            UserUtil.myRole(this.getCurrentUser(), team.slug) === 'owner' ?
+            { UserUtil.myRole(this.getCurrentUser(), team.slug) === 'owner' ?
               <Tab
                 className="team-settings__tasks-tab"
                 label={

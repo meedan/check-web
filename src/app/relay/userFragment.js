@@ -8,6 +8,7 @@ const userFragment = Relay.QL`
     name,
     email,
     providers,
+    two_factor,
     is_active,
     confirmed,
     unconfirmed_email,
@@ -36,7 +37,6 @@ const userFragment = Relay.QL`
             private,
             members_count,
             permissions,
-            plan
           }
           id,
           status,

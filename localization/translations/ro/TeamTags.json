@@ -1,4 +1,5 @@
 {
+  "teamTags.menuTooltip": "Tag actions",
   "teamTags.failUpdate": "Ne pare rău, în timpul actualizării etichetei s-a produs o eroare. Vă rugăm să mai încercați odată și să contactați {supportEmail} dacă situația persistă.",
   "teamTags.failDelete": "Ne pare rău, în timpul actualizării etichetei s-a produs o eroare. Vă rugăm să mai încercați odată și să contactați {supportEmail} dacă situația persistă.",
   "teamTags.failMove": "Ne pare rău, în timpul actualizării etichetei s-a produs o eroare. Vă rugăm să mai încercați odată și să contactați {supportEmail} dacă situația persistă.",

@@ -10,7 +10,7 @@ shared_examples 'custom' do
     expect(page.contains_string?('User With Email')).to be(true)
     expect(page.status_label == 'UNSTARTED').to be(true)
 
-    $media_id = page.driver.current_url.to_s.match(/\/media\/([0-9]+)$/)[1]
+    $media_id = page.driver.current_url.to_s.match(/\/media\/([0-9]+)/)[1]
     expect($media_id.nil?).to be(false)
   end
 
@@ -49,7 +49,7 @@ shared_examples 'custom' do
     expect(page.contains_string?('User With Email')).to be(true)
     expect(page.status_label == 'UNSTARTED').to be(true)
 
-    $media_id = page.driver.current_url.to_s.match(/\/media\/([0-9]+)$/)[1]
+    $media_id = page.driver.current_url.to_s.match(/\/media\/([0-9]+)/)[1]
     expect($media_id.nil?).to be(false)
   end
 

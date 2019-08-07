@@ -8,6 +8,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
 import ShortTextIcon from '@material-ui/icons/ShortText';
 import LocationIcon from '@material-ui/icons/LocationOn';
 import DateRangeIcon from '@material-ui/icons/DateRange';
@@ -29,6 +30,10 @@ const messages = defineMessages({
   deleteError: {
     id: 'createTeamTask.deleteError',
     defaultMessage: 'Failed to delete teamwide task',
+  },
+  menuTooltip: {
+    id: 'createTeamTask.menuTooltip',
+    defaultMessage: 'Task actions',
   },
 });
 
@@ -192,9 +197,11 @@ class TeamTasksListItem extends React.Component {
           </ListItemIcon>
           <ListItemText className="team-tasks__task-label" primary={label} />
           <ListItemSecondaryAction>
-            <IconButton className="team-tasks__menu-item-button" onClick={this.handleMenuClick}>
-              <MoreHorizIcon />
-            </IconButton>
+            <Tooltip title={this.props.intl.formatMessage(messages.menuTooltip)}>
+              <IconButton className="team-tasks__menu-item-button" onClick={this.handleMenuClick}>
+                <MoreHorizIcon />
+              </IconButton>
+            </Tooltip>
             <Menu
               anchorEl={anchorEl}
               open={Boolean(anchorEl)}

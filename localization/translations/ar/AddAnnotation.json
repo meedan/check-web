@@ -5,8 +5,8 @@
   "addAnnotation.inputHint": "إضافة تعليق",
   "addAnnotation.submitButton": "إرسال",
   "addAnnotation.typeComment": "ملحوظة",
-  "addAnnotation.typeTag": "وسم",
-  "addAnnotation.typeStatus": "الحالة",
+  "addAnnotation.typeTag": "علامة",
+  "addAnnotation.typeStatus": "حالة",
   "addAnnotation.typeFlag": "إبلاغ",
   "addAnnotation.addImage": "إضافة صورة"
 }

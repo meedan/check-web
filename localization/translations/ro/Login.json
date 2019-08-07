@@ -7,6 +7,7 @@
   "login.emailLabel": "Adresa de e-mail",
   "login.passwordInputHint": "Parola",
   "login.passwordLabel": "Parola (cel puțin 8 caractere)",
+  "login.otpAttemptLabel": "Two-Factor Authentication Token",
   "login.passwordConfirmLabel": "Confirmarea parolei",
   "login.profilePicture": "Imaginea de profil",
   "login.signIn": "CONECTARE",

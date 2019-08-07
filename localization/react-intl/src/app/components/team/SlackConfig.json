@@ -4,6 +4,10 @@
     "defaultMessage": "Slack integration"
   },
   {
+    "id": "slackConfig.menuTooltip",
+    "defaultMessage": "Integration settings"
+  },
+  {
     "id": "slackConfig.text",
     "defaultMessage": "Notify a Slack channel every time someone adds to one of your projects."
   }

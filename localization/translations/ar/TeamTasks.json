@@ -1,6 +1,6 @@
 {
-  "teamTasks.filterLabelHidden": "{total, plural, =0 {بدون مهام} one {مهمة واحدة ({hidden} مُصفاة)} other {# مهام ({hidden} مُصفاة)}}",
-  "teamTasks.filterLabel": "{total, plural, =0 {بدون مهام} one {مهمة واحدة} other {# مهام}}",
+  "teamTasks.filterLabelHidden": "{total, plural, =0 {لا توجد مهام} one {مهمة واحدة ({hidden} مُصفاة)} other {# مهام ({hidden} مُصفاة)}}",
+  "teamTasks.filterLabel": "{total, plural, =0 {لا توجد مهام} one {مهمة واحدة} other {# مهام}}",
   "teamTasks.blank": "لا توجد اي مهمة",
   "teamTasks.title": "المهام",
   "teamTasks.filter": "تصفية المهام",

@@ -1,4 +1,5 @@
 {
+  "teamTags.menuTooltip": "Actions des tags",
   "teamTags.failUpdate": "Désolé, une erreur s'est produite durant la mise à jour du tag. Veuillez réessayer et prévenir {supportEmail} si le problème persiste.",
   "teamTags.failDelete": "Désolé, une erreur s'est produite durant la mise à jour du tag. Veuillez réessayer et prévenir {supportEmail} si le problème persiste.",
   "teamTags.failMove": "Désolé, une erreur s'est produite durant la mise à jour du tag. Veuillez réessayer et prévenir {supportEmail} si le problème persiste.",

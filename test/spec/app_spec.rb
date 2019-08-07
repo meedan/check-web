@@ -153,7 +153,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should manage team tasks", bin6: true do
       # Create team and go to team page that should not contain any task
       team = "task-team-#{Time.now.to_i}"
-      api_create_team(team: team, limits: '{ "custom_tasks_list": true }')
+      api_create_team(team: team)
       p = Page.new(config: @config, driver: @driver)
       p.go(@config['self_url'] + '/' + team)
       wait_for_selector('.team-menu__team-settings-button').click
@@ -268,7 +268,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Task created by')).to be(true)
 
       # Answer task
-      expect(@driver.page_source.include?('class="task task__answered-by-current-user"')).to be(false)
+      expect(@driver.page_source.include?('task__answered-by-current-user')).to be(false)
       fill_field('input[name="hour"]', '23')
       fill_field('input[name="minute"]', '59')
       el = wait_for_selector('#task__response-date')
@@ -279,7 +279,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el = wait_for_selector('.task__save')
       el.click
       old = wait_for_size_change(old, "annotation__default-content", :class)
-      expect(@driver.page_source.include?('class="task task__answered-by-current-user"')).to be(true)
+      expect(@driver.page_source.include?('task__answered-by-current-user')).to be(true)
 
       # Edit task
       expect(@driver.page_source.include?('When was it?')).to be(false)
@@ -1494,11 +1494,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Task created by')).to be(true)
 
       # Answer task
-      expect(@driver.page_source.include?('class="task task__answered-by-current-user"')).to be(false)
+      expect(@driver.page_source.include?('task__answered-by-current-user')).to be(false)
       fill_field('textarea[name="response"]', 'Foo')
       @driver.find_element(:css, '.task__save').click
       wait_for_selector('.annotation__task-resolved')
-      expect(@driver.page_source.include?('class="task task__answered-by-current-user"')).to be(true)
+      expect(@driver.page_source.include?('task__answered-by-current-user')).to be(true)
 
       # Edit task
       expect(@driver.page_source.include?('Foo or bar???')).to be(false)
@@ -1560,13 +1560,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Foo or bar?')).to be(true)
       expect(@driver.page_source.include?('Task created by')).to be(true)
       # Answer task
-      expect(@driver.page_source.include?('class="task task__answered-by-current-user"')).to be(false)
+      expect(@driver.page_source.include?('task__answered-by-current-user')).to be(false)
       el = wait_for_selector('0', :id)
       el.click
       el = wait_for_selector('task__submit', :class)
       el.click
       wait_for_selector('.annotation__task-resolved')
-      expect(@driver.page_source.include?('class="task task__answered-by-current-user"')).to be(true)
+      expect(@driver.page_source.include?('task__answered-by-current-user')).to be(true)
       # Edit task
       expect(@driver.page_source.include?('Task edited by')).to be(false)
       el = wait_for_selector('.task-actions__icon', :css)
@@ -1622,7 +1622,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Foo, Doo or bar?')).to be(true)
       expect(@driver.page_source.include?('Task created by')).to be(true)
       # Answer task
-      expect(@driver.page_source.include?('class="task task__answered-by-current-user"')).to be(false)
+      expect(@driver.page_source.include?('task__answered-by-current-user')).to be(false)
       el = wait_for_selector('Foo', :id)
       el.click
       el = wait_for_selector('Doo', :id)
@@ -1630,7 +1630,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el = wait_for_selector('task__submit', :class)
       el.click
       wait_for_selector('.annotation__task-resolved')
-      expect(@driver.page_source.include?('class="task task__answered-by-current-user"')).to be(true)
+      expect(@driver.page_source.include?('task__answered-by-current-user')).to be(true)
       # Edit task
       expect(@driver.page_source.include?('Task edited by')).to be(false)
       el = wait_for_selector('.task-actions__icon', :css)
@@ -1921,14 +1921,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Task created by')).to be(true)
 
       # Answer task
-      expect(@driver.page_source.include?('class="task task__answered-by-current-user"')).to be(false)
+      expect(@driver.page_source.include?('task__answered-by-current-user')).to be(false)
       fill_field('textarea[name="response"]', 'Salvador')
       fill_field('#task__response-geolocation-coordinates', '-12.9015866, -38.560239')
       el = wait_for_selector('.task__save')
       el.click
       wait_for_selector('.annotation--task_response_geolocation')
       old = wait_for_size_change(old, "annotations__list-item", :class)
-      expect(@driver.page_source.include?('class="task task__answered-by-current-user"')).to be(true)
+      expect(@driver.page_source.include?('task__answered-by-current-user')).to be(true)
 
       # Edit task
       expect(@driver.page_source.include?('Where was it?')).to be(false)
@@ -2229,6 +2229,61 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 10
       expect(@driver.page_source.include?('Not assigned to any member')).to be(false)
       expect(@driver.page_source.include?('Assigned to one member')).to be(true)
+    end
+
+    it "should go from one item to another", bin2: true do
+      page = api_create_team_project_claims_sources_and_redirect_to_project_page 3
+      page.load
+      wait_for_selector('.media__heading a').click
+      sleep 3
+
+      # First item
+      expect(@driver.page_source.include?('1 / 3')).to be(true)
+      expect(@driver.page_source.include?('2 / 3')).to be(false)
+      expect(@driver.page_source.include?('3 / 3')).to be(false)
+      expect(@driver.page_source.include?('Claim 2')).to be(true)
+      expect(@driver.page_source.include?('Claim 1')).to be(false)
+      expect(@driver.page_source.include?('Claim 0')).to be(false)
+
+      # Second item
+      wait_for_selector('#media-search__next-item').click
+      sleep 5
+      expect(@driver.page_source.include?('1 / 3')).to be(false)
+      expect(@driver.page_source.include?('2 / 3')).to be(true)
+      expect(@driver.page_source.include?('3 / 3')).to be(false)
+      expect(@driver.page_source.include?('Claim 2')).to be(false)
+      expect(@driver.page_source.include?('Claim 1')).to be(true)
+      expect(@driver.page_source.include?('Claim 0')).to be(false)
+
+      # Third item
+      wait_for_selector('#media-search__next-item').click
+      sleep 5
+      expect(@driver.page_source.include?('1 / 3')).to be(false)
+      expect(@driver.page_source.include?('2 / 3')).to be(false)
+      expect(@driver.page_source.include?('3 / 3')).to be(true)
+      expect(@driver.page_source.include?('Claim 2')).to be(false)
+      expect(@driver.page_source.include?('Claim 1')).to be(false)
+      expect(@driver.page_source.include?('Claim 0')).to be(true)
+
+      # Second item
+      wait_for_selector('#media-search__previous-item').click
+      sleep 5
+      expect(@driver.page_source.include?('1 / 3')).to be(false)
+      expect(@driver.page_source.include?('2 / 3')).to be(true)
+      expect(@driver.page_source.include?('3 / 3')).to be(false)
+      expect(@driver.page_source.include?('Claim 2')).to be(false)
+      expect(@driver.page_source.include?('Claim 1')).to be(true)
+      expect(@driver.page_source.include?('Claim 0')).to be(false)
+
+      # First item
+      wait_for_selector('#media-search__previous-item').click
+      sleep 5
+      expect(@driver.page_source.include?('1 / 3')).to be(true)
+      expect(@driver.page_source.include?('2 / 3')).to be(false)
+      expect(@driver.page_source.include?('3 / 3')).to be(false)
+      expect(@driver.page_source.include?('Claim 2')).to be(true)
+      expect(@driver.page_source.include?('Claim 1')).to be(false)
+      expect(@driver.page_source.include?('Claim 0')).to be(false)
     end
 
     # Postponed due Alexandre's developement

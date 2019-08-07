@@ -5,6 +5,7 @@
   "annotation.reverseImageFacebook": "Esse item contém uma ou mais imagens. Como estão contidas em uma postagem do Facebook, não podemos as enviar diretamente para o mecanismo de pesquisa. Considere realizar uma busca manual usando Google ou TinEye.",
   "annotation.and": "e",
   "annotation.newClaim": "Nova afirmação inserida por {author}",
+  "annotation.menuTooltip": "Ações das anotações",
   "annotation.permalink": "Permalink",
   "annotation.taggedHeader": "Marcado #{tag} por {author}",
   "annotation.deletedComment": "Comentário excluído por {author}{comment}",

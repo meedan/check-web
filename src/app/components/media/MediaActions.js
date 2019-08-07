@@ -154,7 +154,11 @@ class MediaActions extends Component {
         <IconMenu
           className="media-actions"
           iconButtonElement={
-            <IconButton>
+            <IconButton
+              tooltip={
+                <FormattedMessage id="mediaActions.tooltip" defaultMessage="Item actions" />
+              }
+            >
               <IconMoreHoriz className="media-actions__icon" />
             </IconButton>}
         >

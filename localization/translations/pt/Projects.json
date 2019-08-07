@@ -1,4 +1,6 @@
 {
+  "projects.addProject": "Novo projeto",
+  "projects.dismiss": "Descartar",
   "projects.noProjects": "Nenhum projeto ainda",
   "projects.projectsSubheading": "Projetos"
 }

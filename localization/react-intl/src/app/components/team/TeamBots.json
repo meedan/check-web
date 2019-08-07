@@ -4,6 +4,10 @@
     "defaultMessage": "Are you sure you want to uninstall this bot?"
   },
   {
+    "id": "teamBots.settingsTooltip",
+    "defaultMessage": "Bot settings"
+  },
+  {
     "id": "teamBots.success",
     "defaultMessage": "Settings updated!"
   },

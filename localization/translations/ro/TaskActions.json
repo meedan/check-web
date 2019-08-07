@@ -1,4 +1,5 @@
 {
+  "taskActions.menuTooltip": "Task actions",
   "task.edit": "Redactare sarcină",
   "task.editResponse": "Redactare răspuns",
   "task.deleteResponse": "Sterge răspunsul",

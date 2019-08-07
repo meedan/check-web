@@ -1,4 +1,5 @@
 {
   "slackConfig.title": "Slack integration",
+  "slackConfig.menuTooltip": "Integration settings",
   "slackConfig.text": "Notify a Slack channel every time someone adds to one of your projects."
 }

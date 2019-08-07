@@ -7,6 +7,7 @@
   "login.emailLabel": "Email address",
   "login.passwordInputHint": "Password",
   "login.passwordLabel": "Password (minimum 8 characters)",
+  "login.otpAttemptLabel": "Two-Factor Authentication Token",
   "login.passwordConfirmLabel": "Password confirmation",
   "login.profilePicture": "Profile picture",
   "login.signIn": "SIGN IN",

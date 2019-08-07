@@ -1,4 +1,5 @@
 {
   "mediaComponent.verificationTasks": "مهام العنصر",
-  "mediaComponent.resolved": "تم إنجازها"
+  "mediaComponent.resolved": "تم إنجازها",
+  "mediaComponent.noTasks": "لا توجد مهام."
 }

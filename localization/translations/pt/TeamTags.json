@@ -1,4 +1,5 @@
 {
+  "teamTags.menuTooltip": "Ações das tags",
   "teamTags.failUpdate": "Desculpe, ocorreu um erro ao atualizar a tag. Por favor, tente novamente e entre em contato com {supportEmail} se a condição persistir.",
   "teamTags.failDelete": "Desculpe, ocorreu um erro ao atualizar a tag. Por favor, tente novamente e entre em contato com {supportEmail} se a condição persistir.",
   "teamTags.failMove": "Desculpe, ocorreu um erro ao atualizar a tag. Por favor, tente novamente e entre em contato com {supportEmail} se a condição persistir.",

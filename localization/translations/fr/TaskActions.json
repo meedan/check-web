@@ -1,4 +1,5 @@
 {
+  "taskActions.menuTooltip": "Actions des tâches",
   "task.edit": "Modifier la tâche",
   "task.editResponse": "Modifier la réponse",
   "task.deleteResponse": "Supprimer la réponse",

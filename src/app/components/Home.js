@@ -145,6 +145,9 @@ class Home extends Component {
 
   loginCallback() {
     this.setState({ error: false });
+    if (window.opener) {
+      window.opener.postMessage('loggedIn', '*');
+    }
     window.location.assign(window.location.origin);
   }
 
@@ -252,6 +255,7 @@ class Home extends Component {
                 onClick={this.resetMessage.bind(this)}
                 className="home__message"
                 style={{
+                  marginTop: '0',
                   position: 'fixed',
                   width: '100%',
                   zIndex: '1000',

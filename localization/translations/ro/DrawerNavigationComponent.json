@@ -4,6 +4,5 @@
   "headerActions.about": "Informații",
   "headerActions.contactHuman": "Contacte",
   "headerActions.productGuides": "Ghiduri pentru produse",
-  "headerActions.releaseNotes": "Note privind versiunea",
-  "drawer.upgradeButton": "Upgrade la versiunea PRO"
+  "headerActions.releaseNotes": "Note privind versiunea"
 }

@@ -8,6 +8,10 @@
     "defaultMessage": "Failed to delete teamwide task"
   },
   {
+    "id": "createTeamTask.menuTooltip",
+    "defaultMessage": "Task actions"
+  },
+  {
     "id": "teamTasks.confirmEditTitle",
     "defaultMessage": "Are you sure you want to edit this task?"
   },

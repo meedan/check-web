@@ -1,4 +1,5 @@
 {
   "mediaComponent.verificationTasks": "Sarcinile elementului",
-  "mediaComponent.resolved": "rezolvate"
+  "mediaComponent.resolved": "rezolvate",
+  "mediaComponent.noTasks": "No tasks to show."
 }

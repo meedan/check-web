@@ -5,6 +5,7 @@
   "annotation.reverseImageFacebook": "Acest element conține cel puțin o imagine. Imaginea, însă, se conține într-o postare pe Facebook și {appName} nu poate trimite această imagine direct pentru căutare inversă. Luați în considerare efectuarea căutării manual, cu instrumente de gen Google sau TinEye.",
   "annotation.and": "și",
   "annotation.newClaim": "Declarație nouă adăugată de {author}",
+  "annotation.menuTooltip": "Annotation actions",
   "annotation.permalink": "Link permanent",
   "annotation.taggedHeader": "Eticheta #{tag} adăugată de {author}",
   "annotation.deletedComment": "Comentariu șters de {author}{comment}",

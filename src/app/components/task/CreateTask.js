@@ -7,7 +7,6 @@ import CreateTaskMutation from '../../relay/mutations/CreateTaskMutation';
 import CheckContext from '../../CheckContext';
 import CreateTaskMenu from './CreateTaskMenu';
 import EditTaskDialog from './EditTaskDialog';
-import TeamwideTasksNudgeDialog from './TeamwideTasksNudgeDialog';
 import { safelyParseJSON } from '../../helpers';
 
 class CreateTask extends Component {
@@ -17,7 +16,6 @@ class CreateTask extends Component {
     this.state = {
       type: null,
       message: null,
-      nudgeDialogOpen: false,
     };
   }
 
@@ -37,17 +35,9 @@ class CreateTask extends Component {
     this.setState({ type });
   }
 
-  handleTeamwideNudgeDialog() {
+  handleTeamwideTasks() {
     const { team } = this.getContext();
-    if (team.plan === 'pro') {
-      browserHistory.push(`/${team.slug}/settings`);
-    } else {
-      this.setState({ nudgeDialogOpen: true });
-    }
-  }
-
-  handleCloseTeamwideNudgeDialog() {
-    this.setState({ nudgeDialogOpen: false });
+    browserHistory.push(`/${team.slug}/settings`);
   }
 
   handleCloseDialog() {
@@ -97,7 +87,7 @@ class CreateTask extends Component {
 
   handleSelectType = (type) => {
     if (type === 'teamwide') {
-      this.handleTeamwideNudgeDialog();
+      this.handleTeamwideTasks();
     } else {
       this.handleOpenDialog(type);
     }
@@ -115,10 +105,6 @@ class CreateTask extends Component {
         <Can permissions={media.permissions} permission="create Task">
           <CreateTaskMenu onSelect={this.handleSelectType} />
         </Can>
-        <TeamwideTasksNudgeDialog
-          open={this.state.nudgeDialogOpen}
-          onDismiss={this.handleCloseTeamwideNudgeDialog.bind(this)}
-        />
         { this.state.type ?
           <EditTaskDialog
             media={media}

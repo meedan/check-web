@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { injectIntl, defineMessages } from 'react-intl';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import styled from 'styled-components';
 import ChatBubble from 'material-ui/svg-icons/communication/chat-bubble';
+import Tooltip from '@material-ui/core/Tooltip';
 import TaskRoute from '../../relay/TaskRoute';
 import CheckContext from '../../CheckContext';
 import Annotation from '../annotations/Annotation';
@@ -83,6 +85,13 @@ const StyledTaskLog = styled.div`
 `;
 
 /* eslint react/no-multi-comp: 0 */
+
+const messages = defineMessages({
+  bubbleTooltip: {
+    id: 'taskLog.bubbleTooltip',
+    defaultMessage: 'Toggle log',
+  },
+});
 
 class TaskLogComponent extends Component {
   static scrollToAnnotation() {
@@ -331,8 +340,9 @@ class TaskLog extends Component {
     };
   }
 
-  toggle() {
+  toggle(e) {
     this.setState({ collapsed: !this.state.collapsed });
+    e.stopPropagation();
   }
 
   currentContext() {
@@ -351,15 +361,17 @@ class TaskLog extends Component {
     return (
       <StyledTaskLog>
         <div className="task__log-top">
-          <span
-            className="task__log-icon"
-            onClick={this.toggle.bind(this)}
-            style={
-              this.props.task.cannotAct ? {} : { marginLeft: 50, marginRight: 50 }
-            }
-          >
-            <b>{ pendingSuggestionsCount > 0 ? '•' : null }</b> <ChatBubble /> <span>{logCount}</span>
-          </span>
+          <Tooltip title={this.props.intl.formatMessage(messages.bubbleTooltip)}>
+            <span
+              className="task__log-icon"
+              onClick={this.toggle.bind(this)}
+              style={
+                this.props.task.cannotAct ? {} : { marginLeft: 50, marginRight: 50 }
+              }
+            >
+              <b>{ pendingSuggestionsCount > 0 ? '•' : null }</b> <ChatBubble /> <span>{logCount}</span>
+            </span>
+          </Tooltip>
         </div>
         { !this.state.collapsed ? <Relay.RootContainer
           Component={TaskLogContainer}
@@ -367,11 +379,15 @@ class TaskLog extends Component {
           route={route}
           renderLoading={() => <MediasLoading count={1} />}
         /> : null }
-        { !this.state.collapsed ? <AddAnnotation
-          annotated={this.props.task}
-          annotatedType="Task"
-          types={['comment']}
-        /> : null }
+        { !this.state.collapsed ?
+          <div id={`task-${this.props.task.dbid}-log`}>
+            <AddAnnotation
+              annotated={this.props.task}
+              annotatedType="Task"
+              taskResponse={this.props.response}
+              types={['comment']}
+            />
+          </div> : null }
       </StyledTaskLog>
     );
   }
@@ -381,4 +397,4 @@ TaskLog.contextTypes = {
   store: PropTypes.object,
 };
 
-export default TaskLog;
+export default injectIntl(TaskLog);

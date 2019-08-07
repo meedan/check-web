@@ -9,9 +9,6 @@
   "userPrivacy.stopProcessingText": "Puteți cere {appName} să nu mai proceseze informațiile dvs în anumite condiții.",
   "userPrivacy.stopProcessingButton": "Solicită stoparea procesării",
   "userPrivacy.connectedAccounts": "Conturile conectate",
-  "userPrivacy.security": "Securitate",
-  "userPrivacy.successfulLoginText": "Primește notificări despre conectări din locație nouăsau de pe dispozitiv nou",
-  "userPrivacy.failedfulLoginText": "Primește notificări pentru {loginTrial} despre câteva încercări de conectare nereușite consecutive",
   "userPrivacy.delete": "Ștergeți contul dvs",
   "userPrivacy.deleteAccountText": "Dacă ștergeți contul dvs, informațiile dvs personale vor fi șterse. Comentariile, adnotările și activitatea echipei vor deveni pseudonime și vor rămâne pe {appName}.",
   "userPrivacy.deleteAccountButton": "Șterge contul meu"

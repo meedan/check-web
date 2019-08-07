@@ -76,6 +76,11 @@ class HeaderComponent extends React.Component {
       intl: { locale },
     } = this.props;
 
+    const path = window.location.pathname;
+    if (/^\/[^/]+\/project\/[0-9]+\/media\/[0-9]+\/tasks$/.test(path)) {
+      return null;
+    }
+
     const inTeamContext = team ? this.props.inTeamContext : false;
 
     const isRtl = rtlDetect.isRtlLang(locale);
@@ -106,7 +111,6 @@ class HeaderComponent extends React.Component {
     const checkLogo = <img width={units(8)} alt="Team Logo" src={stringHelper('LOGO_URL')} />;
 
     const saveCurrentPage = () => {
-      const path = window.location.pathname;
       if (path !== '/') {
         window.storage.set('previousPage', path);
       }

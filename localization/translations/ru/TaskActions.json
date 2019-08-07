@@ -1,4 +1,5 @@
 {
+  "taskActions.menuTooltip": "Task actions",
   "task.edit": "Редактировать вопрос",
   "task.editResponse": "Редактировать ответ",
   "task.deleteResponse": "Удалить ответ",
