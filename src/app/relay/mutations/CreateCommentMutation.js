@@ -21,37 +21,71 @@ class CreateCommentMutation extends Relay.Mutation {
   }
 
   getOptimisticResponse() {
+    const { text } = this.props.annotation;
+    const annotated_id = this.props.annotated.dbid;
+    const annotator_id = this.props.annotator.dbid;
+    const { annotator } = this.props;
+
+    const object_after = {
+      data: {
+        text,
+      },
+      annotated_id,
+      annotated_type: 'ProjectMedia',
+      annotation_type: 'comment',
+      annotator_type: 'User',
+      annotator_id,
+    };
+
+    const object_changes_json = {
+      data: [null, { text }],
+      annotated_id: [null, annotated_id],
+      annotated_type: [null, 'ProjectMedia'],
+      annotation_type: [null, 'comment'],
+      annotator_type: [null, 'User'],
+      annotator_id: [null, annotator_id],
+    };
+
     const comment_versionEdge = {
       node: {
+        id: 'VmVyc2lvbi8w',
+        dbid: 0,
+        item_type: 'Comment',
+        item_id: '0',
+        event: 'create',
+        event_type: 'create_comment',
+        created_at: new Date(),
+        object_after: JSON.stringify(object_after),
+        object_changes_json: JSON.stringify(object_changes_json),
+        meta: null,
+        user: {
+          id: 'VXNlci8w',
+          dbid: annotator.dbid,
+          name: annotator.name,
+          is_active: true,
+          source: {
+            id: 'U291cmNlLzA=',
+            dbid: annotator.source_id,
+            image: annotator.profile_image,
+          },
+        },
         annotation: {
+          id: 'QW5ub3RhdGlvbi8w',
+          dbid: 0,
+          content: JSON.stringify({ text }),
           annotation_type: 'comment',
-          content: '{"text":"bora"}',
-          created_at: '1562190302',
-          updated_at: '1562190302',
-          permissions: '{"read Comment":true,"update Comment":true,"destroy Comment":true}',
+          updated_at: new Date(),
+          created_at: new Date(),
           medias: {
             edges: [],
           },
+          permissions: '{"read Comment":true,"update Comment":false,"destroy Comment":false}',
           annotator: {
-            name: 'Alexandre',
-            profile_image: 'https://pbs.twimg.com/profile_images/951114838775881728/qaRuGC5J_normal.jpg',
+            name: annotator.name,
+            profile_image: annotator.profile_image,
+            id: 'QW5ub3RhdG9yLzA=',
           },
           version: null,
-        },
-        created_at: '1561659613',
-        dbid: 0,
-        event: 'create',
-        event_type: 'create_dynamic',
-        item_id: '0',
-        item_type: 'Dynamic',
-        object_after: '{"annotation_type":"metadata","annotated_type":"ProjectMedia","annotated_id":77,"annotator_type":"User","annotator_id":4}',
-        object_changes_json: '{"annotation_type":[null,"metadata"],"annotated_type":[null,"ProjectMedia"],"annotated_id":[null,77],"annotator_type":[null,"User"],"annotator_id":[null,4]}',
-        user: {
-          name: 'Alexandre',
-          is_active: true,
-          source: {
-            image: 'https://pbs.twimg.com/profile_images/951114838775881728/qaRuGC5J_normal.jpg',
-          },
         },
       },
     };
@@ -74,8 +108,6 @@ class CreateCommentMutation extends Relay.Mutation {
   }
 
   getConfigs() {
-    console.log('this.props', this.props);
-
     const fieldIds = {};
     fieldIds[this.props.parent_type] = this.props.annotated.id;
 
@@ -91,7 +123,7 @@ class CreateCommentMutation extends Relay.Mutation {
       {
         type: 'RANGE_ADD',
         parentName: 'project_media',
-        parentID: this.props.annotated_id,
+        parentID: this.props.annotated.id,
         connectionName: 'log',
         edgeName: 'comment_versionEdge',
         rangeBehaviors: {
