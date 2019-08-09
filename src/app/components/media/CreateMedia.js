@@ -9,6 +9,7 @@ import CreateProjectSourceMutation from '../../relay/mutations/CreateProjectSour
 import CheckContext from '../../CheckContext';
 import { stringHelper } from '../../customHelpers';
 import { safelyParseJSON, getFilters } from '../../helpers';
+import CheckError from '../../CheckError';
 
 const messages = defineMessages({
   submitting: {
@@ -38,7 +39,7 @@ class CreateProjectMedia extends Component {
     const json = safelyParseJSON(transactionError.source);
     const error = json && json.errors.length > 0 ? json.errors[0] : {};
     if (error) {
-      if (error.code === 9) {
+      if (error.code === CheckError.codes.DUPLICATED) {
         message = null;
         context.history.push(error.data.url);
       } else {
