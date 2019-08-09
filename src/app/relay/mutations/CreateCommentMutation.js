@@ -46,6 +46,8 @@ class CreateCommentMutation extends Relay.Mutation {
       annotator_id: [null, annotator_id],
     };
 
+    const now = new Date().getTime() / 1000;
+
     const comment_versionEdge = {
       node: {
         id: 'VmVyc2lvbi8w',
@@ -54,7 +56,7 @@ class CreateCommentMutation extends Relay.Mutation {
         item_id: '0',
         event: 'create',
         event_type: 'create_comment',
-        created_at: new Date(),
+        created_at: now,
         object_after: JSON.stringify(object_after),
         object_changes_json: JSON.stringify(object_changes_json),
         meta: null,
@@ -74,8 +76,8 @@ class CreateCommentMutation extends Relay.Mutation {
           dbid: 0,
           content: JSON.stringify({ text }),
           annotation_type: 'comment',
-          updated_at: new Date(),
-          created_at: new Date(),
+          updated_at: now,
+          created_at: now,
           medias: {
             edges: [],
           },
