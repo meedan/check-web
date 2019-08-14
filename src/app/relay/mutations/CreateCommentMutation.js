@@ -10,18 +10,18 @@ class CreateCommentMutation extends Relay.Mutation {
   getFatQuery() {
     switch (this.props.parent_type) {
     case 'project_source':
-      return Relay.QL`fragment on CreateCommentPayload { commentEdge, project_source { source { log, log_count } } }`;
+      return Relay.QL`fragment on CreateCommentPayload { commentEdge, comment_versionEdge, source { log_count } }`;
     case 'project_media':
       return Relay.QL`fragment on CreateCommentPayload { commentEdge, comment_versionEdge, project_media { last_status, last_status_obj, log_count } }`;
     case 'task':
-      return Relay.QL`fragment on CreateCommentPayload { commentEdge, task { id, log, log_count }, project_media { last_status, last_status_obj, id, log, log_count } }`;
+      return Relay.QL`fragment on CreateCommentPayload { commentEdge, comment_versionEdge, task { id, log_count }, project_media { last_status, last_status_obj, id, log, log_count } }`;
     default:
       return '';
     }
   }
 
   getOptimisticResponse() {
-    const { text } = this.props.annotation;
+    const { text, annotated_type } = this.props.annotation;
     const annotated_id = this.props.annotated.dbid;
     const annotator_id = this.props.annotator.dbid;
     const { annotator } = this.props;
@@ -31,7 +31,7 @@ class CreateCommentMutation extends Relay.Mutation {
         text,
       },
       annotated_id,
-      annotated_type: 'ProjectMedia',
+      annotated_type,
       annotation_type: 'comment',
       annotator_type: 'User',
       annotator_id,
@@ -40,7 +40,7 @@ class CreateCommentMutation extends Relay.Mutation {
     const object_changes_json = {
       data: [null, { text }],
       annotated_id: [null, annotated_id],
-      annotated_type: [null, 'ProjectMedia'],
+      annotated_type: [null, annotated_type],
       annotation_type: [null, 'comment'],
       annotator_type: [null, 'User'],
       annotator_id: [null, annotator_id],
@@ -97,7 +97,13 @@ class CreateCommentMutation extends Relay.Mutation {
       log_count: this.props.annotated.log_count + 1,
     };
 
-    return { project_media, comment_versionEdge };
+    const response = { comment_versionEdge };
+
+    if (annotated_type !== 'ProjectSource') {
+      response.project_media = project_media;
+    }
+
+    return response;
   }
 
   getVariables() {
@@ -111,10 +117,17 @@ class CreateCommentMutation extends Relay.Mutation {
 
   getConfigs() {
     const fieldIds = {};
-    fieldIds[this.props.parent_type] = this.props.annotated.id;
+    const { parent_type } = this.props;
+    const { annotated } = this.props;
 
-    if (this.props.parent_type === 'task') {
-      fieldIds.project_media = this.props.annotated.project_media.id;
+    if (parent_type !== 'project_source') {
+      fieldIds[parent_type] = annotated.id;
+    } else {
+      fieldIds.source = annotated.source.id;
+    }
+
+    if (parent_type === 'task') {
+      fieldIds.project_media = annotated.project_media.id;
     }
 
     const configs = [
@@ -124,12 +137,12 @@ class CreateCommentMutation extends Relay.Mutation {
       },
       {
         type: 'RANGE_ADD',
-        parentName: 'project_media',
-        parentID: this.props.annotated.id,
+        parentName: parent_type === 'project_source' ? 'source' : parent_type,
+        parentID: parent_type === 'project_source' ? annotated.source.id : annotated.id,
         connectionName: 'log',
         edgeName: 'comment_versionEdge',
         rangeBehaviors: {
-          '': 'prepend',
+          '': 'append',
         },
       },
     ];
