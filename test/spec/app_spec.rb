@@ -253,7 +253,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Create a task
       expect(@driver.page_source.include?('When?')).to be(false)
       expect(@driver.page_source.include?('Task created by')).to be(false)
-      old = wait_for_selector_list("annotation__default-content",:class).length
+      old = wait_for_selector_list('annotation__default-content', :class, 25, 'datetime task 1').length
       el = wait_for_selector('.create-task__add-button')
       el.click
       sleep 5
@@ -263,7 +263,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       fill_field('#task-label-input', 'When?')
       el = wait_for_selector('.create-task__dialog-submit-button')
       el.click
-      old = wait_for_size_change(old, "annotation__default-content", :class)
+      old = wait_for_size_change(old, 'annotation__default-content', :class, 25, 'datetime task 2')
       expect(@driver.page_source.include?('When?')).to be(true)
       expect(@driver.page_source.include?('Task created by')).to be(true)
 
@@ -278,7 +278,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 5
       el = wait_for_selector('.task__save')
       el.click
-      old = wait_for_size_change(old, "annotation__default-content", :class)
+      old = wait_for_size_change(old, 'annotation__default-content', :class, 25, 'datetime task 3')
       expect(@driver.page_source.include?('task__answered-by-current-user')).to be(true)
 
       # Edit task
@@ -293,7 +293,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       update_field('#task-label-input', 'When was it?')
       el = wait_for_selector('.create-task__dialog-submit-button')
       el.click
-      old = wait_for_size_change(old, "annotation__default-content", :class)
+      old = wait_for_size_change(old, 'annotation__default-content', :class, 25, 'datetime task 4')
       expect(@driver.page_source.include?('When was it?')).to be(true)
 
       # Edit task response
@@ -308,7 +308,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       update_field('input[name="minute"]', '34')
       el = wait_for_selector('.task__save')
       el.click
-      old = wait_for_size_change(old, "annotation__default-content", :class)
+      old = wait_for_size_change(old, 'annotation__default-content', :class, 25, 'datetime task 5')
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('12:34')).to be(true)
 
       # Delete task
@@ -416,9 +416,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Tweets
       media_pg = api_create_team_project_and_link_and_redirect_to_media_page('https://twitter.com/firstdraftnews/status/835587295394869249')
       media_pg.toggle_card # Collapse card to show the title
+      wait_for_selector('.media__heading')
       expect(media_pg.primary_heading.text.include?('In a chat about getting')).to be(true)
       project_pg = media_pg.go_to_project
       sleep 1
+      wait_for_selector('.media__heading')
       @wait.until {
         element = @driver.find_element(:partial_link_text, 'In a chat about getting')
         expect(element.displayed?).to be(true)
@@ -427,19 +429,22 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # YouTube
       media_pg = api_create_team_project_and_link_and_redirect_to_media_page('https://www.youtube.com/watch?v=ykLgjhBnik0')
       media_pg.toggle_card # Collapse card to show the title
+      wait_for_selector('.media__heading')
       expect(media_pg.primary_heading.text).to eq("How To Check An Account's Authenticity")
       project_pg = media_pg.go_to_project
       sleep 5
+      wait_for_selector('.media__heading')
       expect(project_pg.elements('.media__heading').map(&:text).include?("How To Check An Account's Authenticity")).to be(true)
 
       # Facebook
       media_pg = api_create_team_project_and_link_and_redirect_to_media_page('https://www.facebook.com/FirstDraftNews/posts/1808121032783161')
       media_pg.toggle_card # Collapse card to show the title
       wait_for_selector('.media__heading')
-      expect(media_pg.primary_heading.text).to eq('First Draft on Facebook')
+      expect(media_pg.primary_heading.text.include?('Facebook')).to be(true)
       project_pg = media_pg.go_to_project
+      sleep 5
       wait_for_selector('.media__heading')
-      expect(project_pg.elements('.media__heading').map(&:text).include?('First Draft on Facebook')).to be(true)
+      expect(project_pg.elements('.media__heading').map(&:text).select{ |x| x =~ /Facebook/ }.empty?).to be(false)
     end
 
     it "should login using Slack", bin4: true, quick:true do
@@ -681,6 +686,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.action.send_keys(:enter).perform
       sleep 10
 
+      wait_for_selector('.annotation--tag')
       expect(@driver.page_source.include?('Tagged #foo')).to be(true)
       expect(@driver.page_source.include?('Tagged #bar')).to be(true)
     end
@@ -966,7 +972,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       media_pg.fill_input('#cmd-input', '/flag Spam')
       media_pg.element('#cmd-input').submit
-      sleep 5
+      sleep 20
 
       expect(@driver.page_source.include?('Flag')).to be(true)
       media_pg.driver.navigate.refresh
@@ -1212,13 +1218,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       media_pg.fill_input('#cmd-input', 'Test')
       media_pg.element('#cmd-input').submit
-      sleep 5
+      sleep 15
+      wait_for_selector('.annotation--comment')
       notes_count_before = wait_for_selector('.media-detail__check-notes-count').text.gsub(/ .*/, '').to_i
       expect(notes_count_before > 0).to be(true)
       expect(@driver.page_source.include?('Comment deleted')).to be(false)
       media_pg.delete_annotation
       wait_for_selector('.annotation__deleted')
-      sleep 5
+      sleep 15
       notes_count_after = wait_for_selector('.media-detail__check-notes-count').text.gsub(/ .*/, '').to_i
       expect(notes_count_after > 0).to be(true)
       expect(notes_count_after == notes_count_before).to be(true) # Count should be the same because the comment is replaced by the "comment deleted" annotation
@@ -1233,7 +1240,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Auto-Refresh')).to be(false)
       current_window = @driver.window_handles.last
       @driver.execute_script("window.open('#{url}')")
+      sleep 2
       @driver.switch_to.window(@driver.window_handles.last)
+      sleep 2
       wait_for_selector("create-media__add-item", :id).click
       wait_for_selector("create-media-input", :id).click
       fill_field('#create-media-input', 'Auto-Refresh')
@@ -1254,11 +1263,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       current_window = @driver.window_handles.last
       @driver.execute_script("window.open('#{url}')")
       @driver.switch_to.window(@driver.window_handles.last)
+      sleep 3
       media_pg.fill_input('#cmd-input', 'Auto-Refresh')
       media_pg.element('#cmd-input').submit
+      sleep 5
       wait_for_selector('.annotation__card-activity-create-comment')
       @driver.execute_script('window.close()')
       @driver.switch_to.window(current_window)
+      sleep 3
       wait_for_selector('.annotation__card-activity-create-comment')
       expect(@driver.page_source.include?('Auto-Refresh')).to be(true)
     end
@@ -1291,12 +1303,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should linkify URLs on comments", bin1: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       expect(@driver.page_source.include?('Note added')).to be(false)
-      old = wait_for_selector_list("annotation__default-content", :class).length
+      old = wait_for_selector_list('annotation__default-content', :class, 25, 'linkify URLs on comments 1').length
       fill_field('textarea[name="cmd"]', 'https://meedan.com/en/')
       el = wait_for_selector(".add-annotation button[type=submit]")
       el.click
       sleep 2 #wait for loading
-      old = wait_for_size_change(old, "annotation__default-content", :class)
+      old = wait_for_size_change(old, 'annotation__default-content', :class, 25, 'linkify URLs on comments 2')
       expect(@driver.page_source.include?('Note added')).to be(true)
       el = wait_for_selector_list("//a[contains(text(), 'https://meedan.com/en/')]", :xpath)
       expect(el.length == 1).to be(true)
@@ -1343,7 +1355,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector("//span[contains(text(), '2 items')]",:xpath)
       old = wait_for_selector_list("medias__item", :class).length
       expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
-      expect(@driver.page_source.include?('Meedan on Facebook')).to be(true)
+      expect(@driver.page_source.include?('on Facebook')).to be(true)
       wait_for_selector("search__open-dialog-button", :id).click
       el = wait_for_selector("search-input", :id)
       el.click
@@ -1356,7 +1368,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(old > current).to be(true)
       expect(current > 0).to be(true)
       expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
-      expect(@driver.page_source.include?('Meedan on Facebook')).to be(false)
+      expect(@driver.page_source.include?('on Facebook')).to be(false)
       wait_for_selector("search__open-dialog-button", :id).click
       el = wait_for_selector("search-input", :id)
       el.clear
@@ -1369,7 +1381,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       current = wait_for_selector_list("medias__item", :class).length
       expect(old > current).to be(true)
       expect(current > 0).to be(true)
-      expect(@driver.page_source.include?('Meedan on Facebook')).to be(true)
+      expect(@driver.page_source.include?('on Facebook')).to be(true)
       expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(false)
     end
 
@@ -1408,7 +1420,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('create-media__quote', :id).click
       @driver.action.send_keys(claim).perform
       @driver.action.send_keys(:enter).perform
-      wait_for_selector('.search__results')
+      sleep 30
 
       # Go to the second project, make sure that the claim is there
       wait_for_selector('.header-actions__drawer-toggle', :css).click
@@ -2005,42 +2017,50 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should delete annotation from annotations list (for media and source)", bin5: true do
-      #source
+      # Source
       api_create_team_project_and_source_and_redirect_to_source('Megadeth', 'https://twitter.com/megadeth')
       wait_for_selector(".source__tab-button-account")
       el = wait_for_selector(".source__tab-button-notes")
       el.click
+      sleep 2
+      wait_for_selector('.add-annotation')
       expect(@driver.page_source.include?('Note added')).to be(false)
-      old = wait_for_selector_list("annotation__default-content",:class).length
+      old = wait_for_selector_list('annotation__default-content', :class, 25, 'delete annotation from annotations list 1').length
       fill_field('textarea[name="cmd"]', 'Test')
       el = wait_for_selector(".add-annotation button[type=submit]")
       el.click
-      old = wait_for_size_change(old, "annotation__default-content", :class)
+      sleep 5
+      old = wait_for_size_change(old, 'annotation__card-content', :class, 25, 'delete annotation from annotations list 2')
       expect(@driver.page_source.include?('Note added')).to be(true)
       expect(@driver.page_source.include?('Comment deleted by')).to be(false)
       el = wait_for_selector('.menu-button')
       el.click
+      sleep 2
       el = wait_for_selector('.annotation__delete')
       el.click
-      wait_for_size_change(old, "annotation__default-content", :class)
+      sleep 2
+      wait_for_size_change(old, 'annotation__default-content', :class, 25, 'delete annotation from annotations list 3')
       expect(@driver.page_source.include?('Comment deleted by')).to be(true)
 
-      #media
+      # Media
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
+      wait_for_selector('.add-annotation')
       expect(@driver.page_source.include?('Note added')).to be(false)
-      old = wait_for_selector_list("annotation__default-content", :class).length
+      old = wait_for_selector_list('annotation__default-content', :class, 25, 'delete annotation from annotations list 4').length
       fill_field('textarea[name="cmd"]', 'Test')
       el = wait_for_selector(".add-annotation button[type=submit]")
       el.click
-      old = wait_for_size_change(old, "annotation__default-content", :class)
-      sleep 10
+      sleep 3
+      old = wait_for_size_change(old, 'annotation__default-content', :class, 25, 'delete annotation from annotations list 5')
       expect(@driver.page_source.include?('Note added')).to be(true)
       expect(@driver.page_source.include?('Comment deleted by')).to be(false)
       el = wait_for_selector('.menu-button')
       el.click
+      sleep 2
       el = wait_for_selector('.annotation__delete')
       el.click
-      wait_for_size_change(old, "annotation__default-content", :class)
+      sleep 2
+      wait_for_size_change(old, 'annotation__default-content', :class, 25, 'delete annotation from annotations list 6')
       expect(@driver.page_source.include?('Comment deleted by')).to be(true)
     end
 
