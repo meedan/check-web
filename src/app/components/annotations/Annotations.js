@@ -25,8 +25,7 @@ const StyledAnnotations = styled.div`
     min-height: 250px;
     overflow: auto;
     display: flex;
-    // Scroll the log to the bottom
-    flex-direction: column-reverse;
+    flex-direction: column;
     border-top: 1px solid ${black16};
     border-bottom: 1px solid ${black16};
 
@@ -57,42 +56,62 @@ const StyledAnnotationCardActions = styled(CardActions)`
   background-color: ${white};
 `;
 
-const Annotations = props => (
-  <StyledAnnotations
-    className="annotations"
-    isRtl={rtlDetect.isRtlLang(props.intl.locale)}
-    height={props.height}
-    annotationCount={props.annotations.length}
-  >
-    <Card initiallyExpanded>
-      <CardHeader
-        title={
-          <FormattedMessage id="annotation.timelineTitle" defaultMessage="Activity timeline" />
-        }
-        className="media__notes-heading"
-      />
-      <div className="annotations__list">
-        {!props.annotations.length ?
-          <Text style={{ margin: 'auto', color: black38 }}>
-            <FormattedMessage id="annotation.noAnnotationsYet" defaultMessage="No activity" />
-          </Text> :
-          props.annotations.map(annotation => (
-            <div key={annotation.node.dbid} className="annotations__list-item">
-              <Annotation
-                annotation={annotation.node}
-                annotated={props.annotated}
-                annotatedType={props.annotatedType}
-              />
-            </div>))}
-      </div>
-      <StyledAnnotationCardActions>
-        <AddAnnotation
-          annotated={props.annotated}
-          annotatedType={props.annotatedType}
-          types={props.types}
-        />
-      </StyledAnnotationCardActions>
-    </Card>
-  </StyledAnnotations>);
+class Annotations extends React.Component {
+  componentDidMount() {
+    this.scrollToBottom();
+  }
+
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
+
+  scrollToBottom = () => {
+    const container = document.getElementsByClassName('annotations__list');
+    if (container && container.length > 0) {
+      container[0].scrollTop = container[0].scrollHeight;
+    }
+  };
+
+  render() {
+    const { props } = this;
+    return (
+      <StyledAnnotations
+        className="annotations"
+        isRtl={rtlDetect.isRtlLang(props.intl.locale)}
+        height={props.height}
+        annotationCount={props.annotations.length}
+      >
+        <Card initiallyExpanded>
+          <CardHeader
+            title={
+              <FormattedMessage id="annotation.timelineTitle" defaultMessage="Activity timeline" />
+            }
+            className="media__notes-heading"
+          />
+          <div className="annotations__list">
+            {!props.annotations.length ?
+              <Text style={{ margin: 'auto', color: black38 }}>
+                <FormattedMessage id="annotation.noAnnotationsYet" defaultMessage="No activity" />
+              </Text> :
+              props.annotations.map(annotation => (
+                <div key={annotation.node.dbid} className="annotations__list-item">
+                  <Annotation
+                    annotation={annotation.node}
+                    annotated={props.annotated}
+                    annotatedType={props.annotatedType}
+                  />
+                </div>))}
+          </div>
+          <StyledAnnotationCardActions>
+            <AddAnnotation
+              annotated={props.annotated}
+              annotatedType={props.annotatedType}
+              types={props.types}
+            />
+          </StyledAnnotationCardActions>
+        </Card>
+      </StyledAnnotations>);
+  }
+}
 
 export default injectIntl(Annotations);

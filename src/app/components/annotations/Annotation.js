@@ -7,19 +7,21 @@ import {
   intlShape,
 } from 'react-intl';
 import Relay from 'react-relay/classic';
-import Tooltip from 'rc-tooltip';
+import RCTooltip from 'rc-tooltip';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
 import { stripUnit } from 'polished';
 import { Link } from 'react-router';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
-import { Card, CardText } from 'material-ui/Card';
-import IconMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
-import IconButton from 'material-ui/IconButton';
-import FlatButton from 'material-ui/FlatButton';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
+import MoreHoriz from '@material-ui/icons/MoreHoriz';
+import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 import MdImage from 'react-icons/lib/md/image';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import EmbedUpdate from './EmbedUpdate';
@@ -279,6 +281,14 @@ class Annotation extends Component {
     this.setState({ zoomedCommentImage: image });
   }
 
+  handleOpenMenu = (e) => {
+    this.setState({ anchorEl: e.currentTarget });
+  };
+
+  handleCloseMenu = () => {
+    this.setState({ anchorEl: null });
+  };
+
   handleDelete(id) {
     const onFailure = (transaction) => {
       const error = transaction.getError();
@@ -413,36 +423,43 @@ class Annotation extends Component {
         .charAt(0)
         .toUpperCase()}${annotation.annotation_type.slice(1)}`;
       annotationActions = can(annotation.permissions, permission) ? (
-        <IconMenu
-          iconButtonElement={
-            <IconButton
-              className="menu-button"
-              tooltip={this.props.intl.formatMessage(messages.menuTooltip)}
-            >
-              <IconMoreHoriz />
-            </IconButton>
-          }
-        >
-          <Can permissions={annotation.permissions} permission={permission}>
-            <MenuItem
-              className="annotation__delete"
-              onClick={this.handleDelete.bind(this, annotation.id)}
-            >
-              {this.props.intl.formatMessage(messages.deleteButton)}
+        <div>
+          <IconButton
+            className="menu-button"
+            onClick={this.handleOpenMenu}
+          >
+            <Tooltip title={this.props.intl.formatMessage(messages.menuTooltip)}>
+              <MoreHoriz />
+            </Tooltip>
+          </IconButton>
+          <Menu
+            id="customized-menu"
+            anchorEl={this.state.anchorEl}
+            keepMounted
+            open={Boolean(this.state.anchorEl)}
+            onClose={this.handleCloseMenu}
+          >
+            <Can permissions={annotation.permissions} permission={permission}>
+              <MenuItem
+                className="annotation__delete"
+                onClick={this.handleDelete.bind(this, annotation.id)}
+              >
+                {this.props.intl.formatMessage(messages.deleteButton)}
+              </MenuItem>
+            </Can>
+            <MenuItem>
+              <a
+                href={`#annotation-${activity.dbid}`}
+                style={{ textDecoration: 'none', color: black87 }}
+              >
+                <FormattedMessage
+                  id="annotation.permalink"
+                  defaultMessage="Permalink"
+                />
+              </a>
             </MenuItem>
-          </Can>
-          <MenuItem>
-            <a
-              href={`#annotation-${activity.dbid}`}
-              style={{ textDecoration: 'none', color: black87 }}
-            >
-              <FormattedMessage
-                id="annotation.permalink"
-                defaultMessage="Permalink"
-              />
-            </a>
-          </MenuItem>
-        </IconMenu>)
+          </Menu>
+        </div>)
         : null;
     }
 
@@ -811,29 +828,27 @@ class Annotation extends Component {
                 </small>
               </div> :
               <div>
-                <FlatButton
+                <Button
                   onClick={this.handleSuggestion.bind(this, activity.dbid, true)}
                   style={{ border: `1px solid ${black38}` }}
-                  primary
-                  label={
-                    <FormattedMessage
-                      id="annotation.acceptSuggestion"
-                      defaultMessage="Accept"
-                    />
-                  }
-                />
+                  color="primary"
+                >
+                  <FormattedMessage
+                    id="annotation.acceptSuggestion"
+                    defaultMessage="Accept"
+                  />
+                </Button>
                 &nbsp;
-                <FlatButton
+                <Button
                   onClick={this.handleSuggestion.bind(this, activity.dbid, false)}
                   style={{ border: `1px solid ${black38}` }}
-                  primary
-                  label={
-                    <FormattedMessage
-                      id="annotation.rejectSuggestion"
-                      defaultMessage="Reject"
-                    />
-                  }
-                />
+                  color="primary"
+                >
+                  <FormattedMessage
+                    id="annotation.rejectSuggestion"
+                    defaultMessage="Reject"
+                  />
+                </Button>
               </div>
             }
           </div>
@@ -1262,14 +1277,14 @@ class Annotation extends Component {
         {useCardTemplate ?
           <StyledAnnotationCardWrapper isRtl={isRtl}>
             <Card>
-              <CardText
+              <CardContent
                 className={`annotation__card-text annotation__card-activity-${activityType.replace(
                   /_/g,
                   '-',
                 )}`}
               >
                 {authorName ?
-                  <Tooltip placement="top" overlay={<UserTooltip user={activity.user} team={annotated.team} />}>
+                  <RCTooltip placement="top" overlay={<UserTooltip user={activity.user} team={annotated.team} />}>
                     <StyledAvatarColumn isRtl={isRtl} className="annotation__avatar-col">
                       <SourcePicture
                         className="avatar"
@@ -1278,7 +1293,7 @@ class Annotation extends Component {
                         object={activity.user.source}
                       />
                     </StyledAvatarColumn>
-                  </Tooltip> : null}
+                  </RCTooltip> : null}
 
                 <StyledPrimaryColumn isRtl={isRtl}>
                   {contentTemplate}
@@ -1301,7 +1316,7 @@ class Annotation extends Component {
                   </StyledAnnotationMetadata>
                 </StyledPrimaryColumn>
 
-              </CardText>
+              </CardContent>
             </Card>
           </StyledAnnotationCardWrapper> :
           <StyledDefaultAnnotation isRtl={isRtl} className="annotation__default">
