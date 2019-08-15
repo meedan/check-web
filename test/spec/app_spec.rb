@@ -1707,17 +1707,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should lock and unlock status", bin1: true do
       page = api_create_team_project_and_link_and_redirect_to_media_page 'http://ca.ios.ba/files/meedan/random.php'
-      el = wait_for_selector('.media-actions__icon')
-      el.click
-      sleep 1
-      @driver.find_element(:css, '.media-actions__lock-status').click
-      sleep 10 #Needs to wait the refresh
+      wait_for_selector('.media-actions__icon').click
+      wait_for_selector('.media-actions__lock-status').click
+      wait_for_selector('.annotation--verification_status')
       expect(@driver.page_source.include?('Item status locked by')).to be(true)
-      el = wait_for_selector('.media-actions__icon')
-      el.click
-      sleep 1
-      @driver.find_element(:css, '.media-actions__lock-status').click
-      sleep 10 #Needs to wait the refresh
+
+      wait_for_selector('.media-actions__icon').click
+      wait_for_selector('.media-actions__lock-status').click
+      wait_for_size_change(1, '.annotation--verification_status')
       expect(@driver.page_source.include?('Item status unlocked by')).to be(true)
     end
 
