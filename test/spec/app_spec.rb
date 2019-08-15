@@ -679,14 +679,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should tag source multiple times with commas with command", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('Motorhead', 'https://twitter.com/mymotorhead')
-      sleep 5
+
       wait_for_selector('.source__tab-button-notes').click
 
       fill_field('#cmd-input', '/tag foo, bar')
       @driver.action.send_keys(:enter).perform
-      sleep 10
 
-      wait_for_selector('.annotation--tag')
+      wait_for_selector_list_size('.annotation--tag', 2)
       expect(@driver.page_source.include?('Tagged #foo')).to be(true)
       expect(@driver.page_source.include?('Tagged #bar')).to be(true)
     end
