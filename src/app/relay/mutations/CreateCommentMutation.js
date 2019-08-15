@@ -84,7 +84,7 @@ class CreateCommentMutation extends Relay.Mutation {
           permissions: '{"read Comment":true,"update Comment":false,"destroy Comment":false}',
           annotator: {
             name: annotator.name,
-            profile_image: annotator.profile_image,
+            profile_image: annotator.source.image,
             id: 'QW5ub3RhdG9yLzA=',
           },
           version: null,
