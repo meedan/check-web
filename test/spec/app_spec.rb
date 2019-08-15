@@ -1302,14 +1302,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should linkify URLs on comments", bin1: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
-      expect(@driver.page_source.include?('Note added')).to be(false)
-      old = wait_for_selector_list('annotation__default-content', :class, 25, 'linkify URLs on comments 1').length
+      expect(@driver.page_source.include?('https://meedan.com/en/')).to be(false)
+      old = wait_for_selector_list('annotation__card-content', :class, 25, 'linkify URLs on comments 1').length
       fill_field('textarea[name="cmd"]', 'https://meedan.com/en/')
       el = wait_for_selector(".add-annotation button[type=submit]")
       el.click
       sleep 2 #wait for loading
-      old = wait_for_size_change(old, 'annotation__default-content', :class, 25, 'linkify URLs on comments 2')
-      expect(@driver.page_source.include?('Note added')).to be(true)
+      old = wait_for_size_change(old, 'annotation__card-content', :class, 25, 'linkify URLs on comments 2')
+      expect(@driver.page_source.include?('https://meedan.com/en/')).to be(true)
       el = wait_for_selector_list("//a[contains(text(), 'https://meedan.com/en/')]", :xpath)
       expect(el.length == 1).to be(true)
     end
@@ -2024,14 +2024,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       sleep 2
       wait_for_selector('.add-annotation')
-      expect(@driver.page_source.include?('Note added')).to be(false)
-      old = wait_for_selector_list('annotation__default-content', :class, 25, 'delete annotation from annotations list 1').length
-      fill_field('textarea[name="cmd"]', 'Test')
+      expect(@driver.page_source.include?('Test note')).to be(false)
+      old = wait_for_selector_list('annotation__card-content', :class, 25, 'delete annotation from annotations list 1').length
+      fill_field('textarea[name="cmd"]', 'Test note')
       el = wait_for_selector(".add-annotation button[type=submit]")
       el.click
       sleep 5
       old = wait_for_size_change(old, 'annotation__card-content', :class, 25, 'delete annotation from annotations list 2')
-      expect(@driver.page_source.include?('Note added')).to be(true)
+      expect(@driver.page_source.include?('Test note')).to be(true)
       expect(@driver.page_source.include?('Comment deleted by')).to be(false)
       el = wait_for_selector('.menu-button')
       el.click
@@ -2039,20 +2039,20 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el = wait_for_selector('.annotation__delete')
       el.click
       sleep 2
-      wait_for_size_change(old, 'annotation__default-content', :class, 25, 'delete annotation from annotations list 3')
+      wait_for_size_change(old, 'annotation__card-content', :class, 25, 'delete annotation from annotations list 3')
       expect(@driver.page_source.include?('Comment deleted by')).to be(true)
 
       # Media
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       wait_for_selector('.add-annotation')
-      expect(@driver.page_source.include?('Note added')).to be(false)
-      old = wait_for_selector_list('annotation__default-content', :class, 25, 'delete annotation from annotations list 4').length
-      fill_field('textarea[name="cmd"]', 'Test')
+      expect(@driver.page_source.include?('Test note')).to be(false)
+      old = wait_for_selector_list('annotation__card-content', :class, 25, 'delete annotation from annotations list 4').length
+      fill_field('textarea[name="cmd"]', 'Test note')
       el = wait_for_selector(".add-annotation button[type=submit]")
       el.click
       sleep 3
-      old = wait_for_size_change(old, 'annotation__default-content', :class, 25, 'delete annotation from annotations list 5')
-      expect(@driver.page_source.include?('Note added')).to be(true)
+      old = wait_for_size_change(old, 'annotation__card-content', :class, 25, 'delete annotation from annotations list 5')
+      expect(@driver.page_source.include?('Test note')).to be(true)
       expect(@driver.page_source.include?('Comment deleted by')).to be(false)
       el = wait_for_selector('.menu-button')
       el.click
@@ -2060,7 +2060,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el = wait_for_selector('.annotation__delete')
       el.click
       sleep 2
-      wait_for_size_change(old, 'annotation__default-content', :class, 25, 'delete annotation from annotations list 6')
+      wait_for_size_change(old, 'annotation__card-content', :class, 25, 'delete annotation from annotations list 6')
       expect(@driver.page_source.include?('Comment deleted by')).to be(true)
     end
 
