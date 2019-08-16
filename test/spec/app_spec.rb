@@ -1207,9 +1207,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       old = l.length
       expect(l.length > 1).to be(true)
       l.last.click
-      sleep 1
-      l = wait_for_selector_list_size('team-members__delete-member', old - 1, :class)
-      expect(l.length < old).to be(true)
+      sleep 10
+      new = wait_for_size_change(old, 'team-members__delete-member', :class)
+      expect(new < old).to be(true)
     end
 
     it "should update notes count after delete annotation", bin3: true do
