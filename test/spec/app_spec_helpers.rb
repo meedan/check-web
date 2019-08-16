@@ -129,6 +129,8 @@ module AppSpecHelpers
     attempts = 0
     wait = Selenium::WebDriver::Wait.new(timeout: 2)
     while elements.length < size && attempts < retries do
+      attempts += 1
+      sleep 2
       begin
         elements = wait.until { @driver.find_elements(type, selector) }
         elements.map(&:displayed?)
