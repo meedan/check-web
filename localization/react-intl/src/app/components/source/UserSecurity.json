@@ -16,6 +16,14 @@
     "defaultMessage": "Incorrect validation code"
   },
   {
+    "id": "passwordChange.newPassword",
+    "defaultMessage": "New password (minimum {min} characters)"
+  },
+  {
+    "id": "passwordChange.confirmPassword",
+    "defaultMessage": "Confirm password"
+  },
+  {
     "id": "userSecurity.notification",
     "defaultMessage": "Notification"
   },
@@ -30,6 +38,10 @@
   {
     "id": "userSecurity.twoFactorAuthentication",
     "defaultMessage": "Two factor authentication"
+  },
+  {
+    "id": "userSecurity.suggestTwoFactorForSocialAccounts",
+    "defaultMessage": "In order to enable 2FA, you need to create a password on Check. Please do so in the 'Change password' section below."
   },
   {
     "id": "userSecurity.requireTwoFactorAuth",
@@ -94,5 +106,9 @@
   {
     "id": "userSecurity.enableTwofactor",
     "defaultMessage": "Enable"
+  },
+  {
+    "id": "userSecurity.changePassword",
+    "defaultMessage": "Change password"
   }
 ]
