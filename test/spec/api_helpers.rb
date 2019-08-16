@@ -99,11 +99,11 @@ module ApiHelpers
     media = api_create_team_project_and_claim(false, 'My search result')
     @driver.navigate.to media.full_url
 
-    sleep 8 # wait for Sidekiq
+    sleep 10 # wait for Sidekiq
 
     @driver.navigate.to @config['self_url'] + '/' + get_team + '/search'
 
-    sleep 8 # wait for Godot
+    sleep 20
 
     expect(@driver.page_source.include?('My search result')).to be(true)
   end
