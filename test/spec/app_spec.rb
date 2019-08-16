@@ -1200,17 +1200,16 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 1
       page = MePage.new(config: @config, driver: @driver).load
       @driver.navigate.to @config['self_url'] + '/'+@team1_slug
-      sleep 2
       wait_for_selector('team-members__member',:class)
-      el = wait_for_selector('team-members__edit-button',:class)
-      el.click
-      sleep 5
-      l = wait_for_selector_list('team-members__delete-member', :class)
+      wait_for_selector('team-members__edit-button',:class).click
+
+      l = wait_for_selector_list_size('team-members__delete-member', 2, :class)
       old = l.length
       expect(l.length > 1).to be(true)
-      l[l.length-1].click
-      page.wait_all_elements(old - 1, 'team-members__delete-member', :class)
-      expect(wait_for_selector_list('team-members__delete-member', :class).length < old).to be(true)
+      l.last.click
+      sleep 1
+      l = wait_for_selector_list_size('team-members__delete-member', old - 1, :class)
+      expect(l.length < old).to be(true)
     end
 
     it "should update notes count after delete annotation", bin3: true do
