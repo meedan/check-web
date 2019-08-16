@@ -1419,11 +1419,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.action.send_keys(claim).perform
       @driver.action.send_keys(:enter).perform
       sleep 30
+      wait_for_selector_none('create-media__quote', :id)
 
       # Go to the second project, make sure that the claim is there
       wait_for_selector('.header-actions__drawer-toggle', :css).click
       wait_for_selector('.project-list__link + .project-list__link', :css).click
-      wait_for_selector('.search__results')
+      wait_for_selector('.medias__item')
       expect(@driver.page_source.include?(claim)).to be(true)
       expect(@driver.page_source.include?('1 item')).to be(true)
       expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(false)
@@ -1469,7 +1470,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Reload the first project page and make sure that the claim is there
       @driver.navigate.to p1url
-      wait_for_selector('.search__results')
+      wait_for_selector('.medias__item')
       expect(@driver.page_source.include?(claim)).to be(true)
       expect(@driver.page_source.include?('1 item')).to be(true)
       expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(false)
