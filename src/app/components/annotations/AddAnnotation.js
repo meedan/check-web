@@ -83,6 +83,7 @@ class AddAnnotation extends Component {
       message: null,
       isSubmitting: false,
       fileMode: false,
+      canBeAutoChanged: true,
     };
   }
 
@@ -94,6 +95,7 @@ class AddAnnotation extends Component {
       const receiveMessage = (event) => {
         const data = JSON.parse(event.data);
         if (data.selectedText &&
+          this.state.canBeAutoChanged &&
           (this.props.taskResponse || task.type !== 'free_text') &&
           parseInt(data.task, 10) === parseInt(this.props.annotated.dbid, 10)) {
           this.setState({ cmd: data.selectedText });
@@ -403,6 +405,15 @@ class AddAnnotation extends Component {
     e.preventDefault();
   }
 
+  handleKeyUp(e) {
+    if (e.target.value !== '' && this.state.canBeAutoChanged) {
+      this.setState({ canBeAutoChanged: false });
+    }
+    if (e.target.value === '' && !this.state.canBeAutoChanged) {
+      this.setState({ canBeAutoChanged: true });
+    }
+  }
+
   handleKeyPress(e) {
     if (e.key === 'Enter' && !e.shiftKey) {
       this.handleSubmit(e);
@@ -460,6 +471,7 @@ class AddAnnotation extends Component {
             id="cmd-input"
             multiline
             onKeyPress={this.handleKeyPress.bind(this)}
+            onKeyUp={this.handleKeyUp.bind(this)}
             value={this.state.cmd}
             onChange={this.handleChange.bind(this)}
           />
