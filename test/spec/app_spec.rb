@@ -630,7 +630,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       wait_for_selector('add-annotation__insert-photo', :class)
       expect(@driver.page_source.include?('Tagged #command')).to be(false)
-      fill_field('#cmd-input', '/tag command')
+      input = wait_for_selector('#cmd-input')
+      input.send_keys('/tag command')
       @driver.action.send_keys(:enter).perform
       sleep 5
       wait_for_size_change(0,'annotations__list-item', :class)
@@ -648,7 +649,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       expect(@driver.page_source.include?('This is my comment')).to be(false)
       old = @driver.find_elements(:class,"annotations__list-item").length
-      fill_field('#cmd-input', '/comment This is my comment')
+      input = wait_for_selector('#cmd-input')
+      input.send_keys('/comment This is my comment')
       @driver.action.send_keys(:enter).perform
       wait_for_size_change(old,'annotations__list-item', :class)
       expect(@driver.page_source.include?('This is my comment')).to be(true)
