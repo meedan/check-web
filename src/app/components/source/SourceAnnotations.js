@@ -129,7 +129,7 @@ const SourceAnnotations = (props) => {
   const ids = `${props.source.source_id},${props.source.project_id}`;
   const route = new SourceRoute({ ids });
 
-  return (<RelayContainer Component={SourceAnnotationsContainer} route={route} loaderType="item" forceFetch />);
+  return (<RelayContainer Component={SourceAnnotationsContainer} route={route} loaderType="item" />);
 };
 
 export default SourceAnnotations;
