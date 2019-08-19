@@ -4,6 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import MediaDetail from '../media/MediaDetail';
 import SourceRoute from '../../relay/SourceRoute';
+import RelayContainer from '../../relay/RelayContainer';
 import { black87, units } from '../../styles/js/shared';
 
 const SourceMediasComponent = (props) => {
@@ -333,7 +334,7 @@ class SourceMedias extends Component {
     const ids = `${this.props.source.source_id},${this.props.source.project_id}`;
     const route = new SourceRoute({ ids });
 
-    return (<Relay.RootContainer Component={SourceMediasContainer} route={route} forceFetch />);
+    return (<RelayContainer Component={SourceMediasContainer} route={route} loaderType="item" forceFetch />);
   }
 }
 

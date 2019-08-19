@@ -17,17 +17,13 @@ import { can } from '../Can';
 import CheckContext from '../../CheckContext';
 import UploadImage from '../UploadImage';
 import { ContentColumn, Row, black38, black87, units } from '../../styles/js/shared';
-import { safelyParseJSON, capitalize } from '../../helpers';
+import { safelyParseJSON } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 
 const messages = defineMessages({
   invalidCommand: {
     id: 'addAnnotation.invalidCommand',
     defaultMessage: 'Invalid command',
-  },
-  annotationAdded: {
-    id: 'addAnnotation.annotationAdded',
-    defaultMessage: '{type} added',
   },
   error: {
     id: 'addAnnotation.error',
@@ -40,22 +36,6 @@ const messages = defineMessages({
   submitButton: {
     id: 'addAnnotation.submitButton',
     defaultMessage: 'Submit',
-  },
-  typeComment: {
-    id: 'addAnnotation.typeComment',
-    defaultMessage: 'note',
-  },
-  typeTag: {
-    id: 'addAnnotation.typeTag',
-    defaultMessage: 'tag',
-  },
-  typeStatus: {
-    id: 'addAnnotation.typeStatus',
-    defaultMessage: 'status',
-  },
-  typeFlag: {
-    id: 'addAnnotation.typeFlag',
-    defaultMessage: 'flag',
   },
   addImage: {
     id: 'addAnnotation.addImage',
@@ -117,25 +97,25 @@ class AddAnnotation extends Component {
     return new CheckContext(this).getContextStore();
   }
 
-  failure() {
+  invalidCommand() {
     this.setState({
       message: this.props.intl.formatMessage(messages.invalidCommand),
       isSubmitting: false,
     });
   }
 
-  success(message) {
+  success = () => {
     document.forms.addannotation.image = null;
 
     this.setState({
       cmd: '',
-      message,
+      message: null,
       isSubmitting: false,
       fileMode: false,
     });
-  }
+  };
 
-  fail(transaction) {
+  fail = (transaction) => {
     const error = transaction.getError();
     let message = this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') });
     const json = safelyParseJSON(error.source);
@@ -146,7 +126,7 @@ class AddAnnotation extends Component {
       message: message.replace(/<br\s*\/?>/gm, '; '),
       isSubmitting: false,
     });
-  }
+  };
 
   addComment(
     annotated,
@@ -154,18 +134,6 @@ class AddAnnotation extends Component {
     annotated_type,
     comment,
   ) {
-    const { formatMessage } = this.props.intl;
-
-    const onFailure = (transaction) => {
-      this.fail(transaction);
-    };
-
-    const onSuccess = () => {
-      this.success(formatMessage(messages.annotationAdded, {
-        type: capitalize(formatMessage(messages.typeComment)),
-      }));
-    };
-
     const { currentUser: annotator } = this.getContext();
 
     const image = this.state.fileMode ? document.forms.addannotation.image : '';
@@ -185,24 +153,12 @@ class AddAnnotation extends Component {
           annotated_id,
         },
       }),
-      { onSuccess, onFailure },
+      { onFailure: this.fail, onSuccess: this.success },
     );
   }
 
   addTag(annotated, annotated_id, annotated_type, tags) {
     const tagsList = [...new Set(tags.split(','))];
-
-    const { formatMessage } = this.props.intl;
-
-    const onFailure = (transaction) => {
-      this.fail(transaction);
-    };
-
-    const onSuccess = () => {
-      this.success(formatMessage(messages.annotationAdded, {
-        type: capitalize(formatMessage(messages.typeTag)),
-      }));
-    };
 
     const annotator = this.getContext().currentUser;
 
@@ -223,24 +179,12 @@ class AddAnnotation extends Component {
             annotated_id,
           },
         }),
-        { onSuccess, onFailure },
+        { onFailure: this.fail, onSuccess: this.success },
       );
     });
   }
 
   addStatus(annotated, annotated_id, annotated_type, status) {
-    const { intl: { formatMessage } } = this.props;
-
-    const onFailure = (transaction) => {
-      this.fail(transaction);
-    };
-
-    const onSuccess = () => {
-      this.success(formatMessage(messages.annotationAdded, {
-        type: formatMessage(messages.typeStatus),
-      }));
-    };
-
     const annotator = this.getContext().currentUser;
 
     let status_id = '';
@@ -264,30 +208,16 @@ class AddAnnotation extends Component {
     // Add or Update status
     if (status_id && status_id.length) {
       Relay.Store.commitUpdate(new UpdateStatusMutation(status_attr), {
-        onSuccess,
-        onFailure,
+        onFailure: this.fail, onSuccess: this.success,
       });
     } else {
       Relay.Store.commitUpdate(new CreateStatusMutation(status_attr), {
-        onSuccess,
-        onFailure,
+        onFailure: this.fail, onSuccess: this.success,
       });
     }
   }
 
   addFlag(annotated, annotated_id, annotated_type, flag) {
-    const { formatMessage } = this.props.intl;
-
-    const onFailure = (transaction) => {
-      this.fail(transaction);
-    };
-
-    const onSuccess = () => {
-      this.success(formatMessage(messages.annotationAdded, {
-        type: formatMessage(messages.typeFlag),
-      }));
-    };
-
     const annotator = this.getContext().currentUser;
 
     Relay.Store.commitUpdate(
@@ -304,21 +234,11 @@ class AddAnnotation extends Component {
           annotated_id,
         },
       }),
-      { onSuccess, onFailure },
+      { onFailure: this.fail, onSuccess: this.success },
     );
   }
 
   addDynamic(annotated, annotated_id, annotated_type, params, annotation_type) {
-    const { formatMessage } = this.props.intl;
-
-    const onFailure = (transaction) => {
-      this.fail(transaction);
-    };
-
-    const onSuccess = () => {
-      this.success(formatMessage(messages.annotationAdded, { type: annotation_type }));
-    };
-
     const annotator = this.getContext().currentUser;
 
     // /location location_name=Salvador&location_position=-12.9016241,-38.4198075
@@ -345,7 +265,7 @@ class AddAnnotation extends Component {
           annotated_id,
         },
       }),
-      { onSuccess, onFailure },
+      { onFailure: this.fail, onSuccess: this.success },
     );
   }
 
@@ -368,7 +288,7 @@ class AddAnnotation extends Component {
     let action = null;
 
     if (this.props.types && this.props.types.indexOf(command.type) === -1) {
-      this.failure();
+      this.invalidCommand();
     } else {
       switch (command.type) {
       case 'comment':
@@ -398,7 +318,7 @@ class AddAnnotation extends Component {
           command.type,
         );
       } else {
-        this.failure();
+        this.invalidCommand();
       }
     }
 
