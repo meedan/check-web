@@ -40,7 +40,7 @@ class ChangePasswordComponent extends Component {
     super(props);
     this.state = {
       submitDisabled: true,
-      submitErrors: '',
+      errorMsg: '',
     };
   }
 
@@ -66,34 +66,46 @@ class ChangePasswordComponent extends Component {
     const bothFilled =
       password.length >= passwordLength.min && password_confirmation.length >= passwordLength.min;
     const samePass = password === password_confirmation;
-    const errorMsg = bothFilled && !samePass ?
+    const errorPasswordMsg = bothFilled && !samePass ?
       this.props.intl.formatMessage(messages.unmatchingPasswords) : '';
-    this.setState({ password_confirmation, errorMsg, submitDisabled: !(bothFilled && samePass) });
+    this.setState({ password_confirmation, errorPasswordMsg });
+    this.setState({ submitDisabled: !(bothFilled && samePass) });
   }
 
   handleSubmit(e) {
     const onFailure = (transaction) => {
+      this.setState({ errorMsg: this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') }) });
       const error = transaction.getError();
       const json = safelyParseJSON(error.source);
       if (json && json.error) {
-        this.setState({ submitErrors: json.error });
-      } else {
-        this.setState({ submitErrors: this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') }), submitDisabled: true });
+        if (this.props.type === 'reset-password') {
+          this.getHistory().push({ pathname: '/check/user/password-reset', state: { errorMsg: json.error } });
+          return;
+        }
+        this.setState({ errorMsg: json.error });
       }
     };
 
     const onSuccess = () => {
-      window.location.reload();
+      if (this.props.type === 'update-password') {
+        window.location.reload();
+      } else {
+        this.props.show_confirm();
+      }
     };
 
     if (!this.state.submitDisabled) {
-      const { dbid } = this.props.user;
+      let id = 0;
+      if (this.props.type === 'update-password') {
+        id = this.props.user.dbid;
+      }
       Relay.Store.commitUpdate(
         new ChangePasswordMutation({
+          reset_password_token: this.props.token,
           current_password: this.state.current_password,
           password: this.state.new_password,
           password_confirmation: this.state.password_confirmation,
-          id: dbid,
+          id,
         }),
         { onSuccess, onFailure },
       );
@@ -107,7 +119,7 @@ class ChangePasswordComponent extends Component {
     return (
       <div className="user-password-change__password-input">
         <div style={{ color: 'red' }}>
-          {this.state.submitErrors}
+          {this.state.errorMsg}
         </div>
         {show_current_password === true ?
           <TextField
@@ -137,7 +149,7 @@ class ChangePasswordComponent extends Component {
           type="password"
           hintText={this.props.intl.formatMessage(messages.confirmPassword)}
           onChange={this.handleChangePasswordConfirm.bind(this)}
-          errorText={this.state.errorMsg}
+          errorText={this.state.errorPasswordMsg}
         />
         <br />
         <RaisedButton

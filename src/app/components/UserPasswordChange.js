@@ -1,68 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
-import Relay from 'react-relay/classic';
 import { Card, CardText, CardActions, CardTitle } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
-import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
-import ChangePasswordMutation from '../relay/mutations/ChangePasswordMutation';
 import PageTitle from './PageTitle';
+import ChangePasswordComponent from './ChangePasswordComponent';
 import CheckContext from '../CheckContext';
-import globalStrings from '../globalStrings';
 import { stringHelper } from '../customHelpers';
-import { safelyParseJSON } from '../helpers';
-import {
-  units,
-  title1,
-  black54,
-  columnWidthMedium,
-} from '../styles/js/shared';
-
-const StyledPasswordChange = styled.div`
-  .user-password-change__card {
-    margin: ${units(9)} auto auto;
-    max-width: ${columnWidthMedium};
-    text-align: center;
-  }
-
-  .user-password-change__confirm-card {
-    margin: ${units(10)} auto auto;
-    max-width: ${columnWidthMedium};
-  }
-
-  .user-password-change__password-input-field {
-    margin-top: ${units(1)};
-    text-align: ${props => (props.isRtl ? 'right' : 'left')};
-    width: ${units(50)} !important;
-  }
-
-  .user-password-change__logo {
-    display: block;
-    margin: ${units(7)} auto 0;
-  }
-
-  .user-password-change__title {
-    color: ${black54};
-    display: block;
-    margin: ${units(1)} auto;
-    font: ${title1};
-    font-weight: 600;
-    text-align: center;
-  }
-
-  .user-password-change__submit-button {
-    margin-bottom: ${units(6)};
-    margin-top: ${units(3)};
-  }
-
-  .user-password-change__actions {
-    text-align: ${props => (props.isRtl ? 'left' : 'right')};
-  }
-
-`;
+import { StyledPasswordChange } from '../styles/js/shared';
 
 const messages = defineMessages({
   newPassword: {
@@ -83,18 +29,11 @@ const messages = defineMessages({
   },
 });
 
-// TODO Read this from the backend.
-const passwordLength = {
-  min: 8,
-  max: 128,
-};
-
 class UserPasswordChange extends Component {
   constructor(props) {
     super(props);
     this.state = {
       showConfirmDialog: false,
-      submitDisabled: true,
     };
   }
 
@@ -110,52 +49,12 @@ class UserPasswordChange extends Component {
     this.getHistory().push('/');
   }
 
-  handleChangePassword(e) {
-    this.setState({ password: e.target.value });
-  }
-
-  handleChangePasswordConfirm(e) {
-    const { password } = this.state;
-    const { value: password_confirmation } = e.target;
-    const bothFilled =
-      password.length >= passwordLength.min && password_confirmation.length >= passwordLength.min;
-    const samePass = password === password_confirmation;
-    const errorMsg = bothFilled && !samePass ?
-      this.props.intl.formatMessage(messages.unmatchingPasswords) : '';
-    this.setState({ password_confirmation, errorMsg, submitDisabled: !(bothFilled && samePass) });
-  }
-
-  handleSubmit(e) {
-    const token = UserPasswordChange.getQueryStringValue('reset_password_token');
-
-    const onFailure = (transaction) => {
-      const error = transaction.getError();
-      const json = safelyParseJSON(error.source);
-      if (json && json.error) {
-        this.getHistory().push({ pathname: '/check/user/password-reset', state: { errorMsg: json.error } });
-        return;
-      }
-      this.setState({ errorMsg: this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') }), submitDisabled: true });
-    };
-
-    const onSuccess = () => {
-      this.setState({ showConfirmDialog: true });
-    };
-
-    if (!this.state.submitDisabled) {
-      Relay.Store.commitUpdate(
-        new ChangePasswordMutation({
-          reset_password_token: token,
-          password: this.state.password,
-          password_confirmation: this.state.password_confirmation,
-        }),
-        { onSuccess, onFailure },
-      );
-    }
-    e.preventDefault();
+  showConfirm() {
+    this.setState({ showConfirmDialog: true });
   }
 
   render() {
+    const token = UserPasswordChange.getQueryStringValue('reset_password_token');
     return (
       <PageTitle skipTeam prefix={this.props.intl.formatMessage(messages.title)} >
         <StyledPasswordChange isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
@@ -184,35 +83,12 @@ class UserPasswordChange extends Component {
                   <FormattedMessage id="passwordChange.title" defaultMessage="Change password" />
                 </span>
 
-                <div className="user-password-change__password-input">
-                  <TextField
-                    className="user-password-change__password-input-field"
-                    id="password-change-password-input"
-                    type="password"
-                    hintText={this.props.intl.formatMessage(
-                      messages.newPassword,
-                      { min: passwordLength.min },
-                    )}
-                    onChange={this.handleChangePassword.bind(this)}
-                  />
-                  <br />
-                  <TextField
-                    className="user-password-change__password-input-field"
-                    id="password-change-password-input-confirm"
-                    type="password"
-                    hintText={this.props.intl.formatMessage(messages.confirmPassword)}
-                    onChange={this.handleChangePasswordConfirm.bind(this)}
-                    errorText={this.state.errorMsg}
-                  />
-                  <br />
-                  <RaisedButton
-                    className="user-password-change__submit-button"
-                    label="Change Password"
-                    onClick={this.handleSubmit.bind(this)}
-                    primary
-                    disabled={this.state.submitDisabled}
-                  />
-                </div>
+                <ChangePasswordComponent
+                  type="reset-password"
+                  show_current_password={false}
+                  token={token}
+                  show_confirm={this.showConfirm.bind(this)}
+                />
               </CardText>
             </Card>
           }

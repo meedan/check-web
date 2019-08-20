@@ -8,13 +8,14 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '@material-ui/core/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import rtlDetect from 'rtl-detect';
 import ChangePasswordComponent from '../ChangePasswordComponent';
 import SetUserSecuritySettingsMutation from '../../relay/mutations/SetUserSecuritySettingsMutation';
 import GenerateTwoFactorBackupCodesMutation from '../../relay/mutations/GenerateTwoFactorBackupCodesMutation';
 import UserTwoFactorAuthenticationMutation from '../../relay/mutations/UserTwoFactorAuthenticationMutation';
 import CheckContext from '../../CheckContext';
 import { safelyParseJSON } from '../../helpers';
-import { units, opaqueBlack10 } from '../../styles/js/shared';
+import { units, opaqueBlack10, StyledPasswordChange } from '../../styles/js/shared';
 
 const messages = defineMessages({
   passwordInput: {
@@ -490,15 +491,17 @@ class UserSecurity extends Component {
         <h2 style={style}>
           <FormattedMessage id="userSecurity.changePassword" defaultMessage="Change password" />
         </h2>
-        <Card style={style}>
-          <CardText style={cardTextAuthStyle}>
-            <ChangePasswordComponent
-              type="update-password"
-              show_current_password={can_enable_otp}
-              user={this.props.user}
-            />
-          </CardText>
-        </Card>
+        <StyledPasswordChange isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
+          <Card style={style} className="user-password-change__card">
+            <CardText>
+              <ChangePasswordComponent
+                type="update-password"
+                show_current_password={can_enable_otp}
+                user={this.props.user}
+              />
+            </CardText>
+          </Card>
+        </StyledPasswordChange>
       </div>
     );
   }
