@@ -12,8 +12,6 @@ import ChangePasswordComponent from '../ChangePasswordComponent';
 import SetUserSecuritySettingsMutation from '../../relay/mutations/SetUserSecuritySettingsMutation';
 import GenerateTwoFactorBackupCodesMutation from '../../relay/mutations/GenerateTwoFactorBackupCodesMutation';
 import UserTwoFactorAuthenticationMutation from '../../relay/mutations/UserTwoFactorAuthenticationMutation';
-import ChangePasswordMutation from '../../relay/mutations/ChangePasswordMutation';
-import { logout } from '../../redux/actions';
 import CheckContext from '../../CheckContext';
 import { safelyParseJSON } from '../../helpers';
 import { units, opaqueBlack10 } from '../../styles/js/shared';
@@ -58,9 +56,6 @@ class UserSecurity extends Component {
       qrcode: '',
       backupCodes: [],
       errors: { password: true, qrcode: true },
-      new_password: '',
-      password_confirmation: '',
-      current_password: '',
     };
   }
 

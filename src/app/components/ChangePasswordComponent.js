@@ -72,8 +72,6 @@ class ChangePasswordComponent extends Component {
   }
 
   handleSubmit(e) {
-    console.log('Props', this.props);
-
     const onFailure = (transaction) => {
       const error = transaction.getError();
       const json = safelyParseJSON(error.source);
