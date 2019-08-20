@@ -16,14 +16,6 @@
     "defaultMessage": "Incorrect validation code"
   },
   {
-    "id": "passwordChange.newPassword",
-    "defaultMessage": "New password (minimum {min} characters)"
-  },
-  {
-    "id": "passwordChange.confirmPassword",
-    "defaultMessage": "Confirm password"
-  },
-  {
     "id": "userSecurity.notification",
     "defaultMessage": "Notification"
   },

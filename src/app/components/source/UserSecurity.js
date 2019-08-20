@@ -8,6 +8,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '@material-ui/core/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import ChangePasswordComponent from '../ChangePasswordComponent';
 import SetUserSecuritySettingsMutation from '../../relay/mutations/SetUserSecuritySettingsMutation';
 import GenerateTwoFactorBackupCodesMutation from '../../relay/mutations/GenerateTwoFactorBackupCodesMutation';
 import UserTwoFactorAuthenticationMutation from '../../relay/mutations/UserTwoFactorAuthenticationMutation';
@@ -33,14 +34,6 @@ const messages = defineMessages({
   verifyError: {
     id: 'UserSecurity.verifyError',
     defaultMessage: 'Incorrect validation code',
-  },
-  newPassword: {
-    id: 'passwordChange.newPassword',
-    defaultMessage: 'New password (minimum {min} characters)',
-  },
-  confirmPassword: {
-    id: 'passwordChange.confirmPassword',
-    defaultMessage: 'Confirm password',
   },
 });
 
@@ -182,27 +175,6 @@ class UserSecurity extends Component {
     );
   }
 
-  handleChangePassword() {
-    const onFailure = (transaction) => {
-      const error = transaction.getError();
-      const json = safelyParseJSON(error.source);
-    };
-
-    const onSuccess = () => {
-      logout();
-    };
-    const { dbid } = this.props.user;
-    Relay.Store.commitUpdate(
-      new ChangePasswordMutation({
-        password: this.state.new_password,
-        password_confirmation: this.state.password_confirmation,
-        current_password: this.state.current_password,
-        id: dbid,
-      }),
-      { onSuccess, onFailure },
-    );
-  }
-
   renderMessage(item) {
     switch (item) {
     case 'passwordInput':
@@ -213,10 +185,6 @@ class UserSecurity extends Component {
       return this.props.intl.formatMessage(messages.verifyInput);
     case 'verifyError':
       return this.props.intl.formatMessage(messages.verifyError);
-    case 'newPassword':
-      return this.props.intl.formatMessage(messages.newPassword);
-    case 'confirmPassword':
-      return this.props.intl.formatMessage(messages.confirmPassword);
     default:
       return null;
     }
@@ -529,51 +497,11 @@ class UserSecurity extends Component {
         </h2>
         <Card style={style}>
           <CardText style={cardTextAuthStyle}>
-            <div className="user-password-change__password-input" style={{ padding: '0px 25px 25px 25px' }}>
-              {can_enable_otp === false ?
-                null :
-                <TextField
-                  fullWidth
-                  type="password"
-                  name="current_password"
-                  required
-                  className="login__password-input"
-                  onChange={this.handleFieldChange.bind(this)}
-                  error={!this.state.errors.password}
-                  helperText={this.state.errors.password ? null : this.renderMessage('passwordError')}
-                  placeholder={this.renderMessage('passwordInput')}
-                />
-              }
-              <TextField
-                fullWidth
-                type="password"
-                name="new_password"
-                required
-                className="login__password-input"
-                onChange={this.handleFieldChange.bind(this)}
-                error={!this.state.errors.password}
-                helperText={this.state.errors.password ? null : this.renderMessage('passwordError')}
-                placeholder={this.renderMessage('newPassword')}
-              />
-              <TextField
-                fullWidth
-                type="password"
-                name="password_confirmation"
-                required
-                className="login__password-input"
-                onChange={this.handleFieldChange.bind(this)}
-                error={!this.state.errors.password}
-                helperText={this.state.errors.password ? null : this.renderMessage('passwordError')}
-                placeholder={this.renderMessage('confirmPassword')}
-              />
-              <RaisedButton
-                style={{ marginLeft: 'auto', marginRight: units(2) }}
-                className="user-password-change__submit-button"
-                onClick={this.handleChangePassword.bind(this)}
-                label="Change Password"
-                primary
-              />
-            </div>
+            <ChangePasswordComponent
+              type="update-password"
+              show_current_password={can_enable_otp}
+              user={this.props.user}
+            />
           </CardText>
         </Card>
       </div>
