@@ -8,6 +8,7 @@ class ShortTextRespondTask extends React.Component {
     super(props);
     this.state = {
       taskAnswerDisabled: true,
+      canBeAutoChanged: true,
     };
   }
 
@@ -19,6 +20,7 @@ class ShortTextRespondTask extends React.Component {
         const data = JSON.parse(event.data);
         if (data.selectedText &&
           parseInt(data.task, 10) === parseInt(this.props.task.dbid, 10) &&
+          this.state.canBeAutoChanged &&
           !this.props.response) {
           this.setState({ response: data.selectedText, taskAnswerDisabled: false }, () => {
             this.input.focus();
@@ -59,6 +61,15 @@ class ShortTextRespondTask extends React.Component {
     );
     if (this.props.onDismiss) {
       this.props.onDismiss();
+    }
+  }
+
+  handleKeyUp(e) {
+    if (e.target.value !== '' && this.state.canBeAutoChanged) {
+      this.setState({ canBeAutoChanged: false });
+    }
+    if (e.target.value === '' && !this.state.canBeAutoChanged) {
+      this.setState({ canBeAutoChanged: true });
     }
   }
 
@@ -107,6 +118,7 @@ class ShortTextRespondTask extends React.Component {
           name="response"
           onChange={this.handleChange.bind(this)}
           onKeyPress={this.handleKeyPress.bind(this)}
+          onKeyUp={this.handleKeyUp.bind(this)}
           onFocus={() => { this.setState({ focus: true }); }}
           ref={(input) => { this.input = input; }}
           fullWidth

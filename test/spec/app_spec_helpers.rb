@@ -124,6 +124,41 @@ module AppSpecHelpers
     elements
   end
 
+  def wait_for_selector_list_size(selector, size, type = :css, retries = 10, test = 'unknown')
+    elements = []
+    attempts = 0
+    wait = Selenium::WebDriver::Wait.new(timeout: 2)
+    while elements.length < size && attempts < retries do
+      attempts += 1
+      sleep 2
+      begin
+        elements = wait.until { @driver.find_elements(type, selector) }
+        elements.map(&:displayed?)
+      rescue
+        elements = []
+      end
+    end
+    puts "Could not find element with selector #{type.upcase} '#{selector}' for test '#{test}'!" if elements.empty?
+    elements
+  end
+
+  def wait_for_selector_none(selector, type = :css, retries = 10, test = 'unknown')
+    elements = @driver.find_elements(type, selector)
+    attempts = 0
+    begin
+      attempts += 1
+      sleep 2
+      begin
+        elements = @driver.find_elements(type, selector)
+        elements.map(&:displayed?)
+      rescue
+        elements = []
+      end
+    end while elements.length > 0 && attempts < retries
+    puts "Element with selector #{type.upcase} '#{selector}' did not disappear for test '#{test}'!" if !elements.empty?
+    elements
+  end
+
   def wait_for_text_change(txt, selector, type = :css, count = 10)
     c = 0
     begin

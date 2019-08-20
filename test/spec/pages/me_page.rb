@@ -13,7 +13,7 @@ class MePage < SourcePage
   def select_team(options)
     wait_for_selector("teams-tab", :id).click
     sleep 1
-    team = @wait.until { @driver.find_element(:xpath, "//*[contains(text(), '#{options[:name]}')]") }
+    team = wait_for_selector("//*[contains(text(), '#{options[:name]}')]", :xpath)
     team.click
     wait_for_element('.team')
     sleep 3

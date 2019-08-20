@@ -3,6 +3,7 @@ import Relay from 'react-relay/classic';
 import SourceRoute from '../../relay/SourceRoute';
 import Annotations from '../annotations/Annotations';
 import userFragment from '../../relay/userFragment';
+import RelayContainer from '../../relay/RelayContainer';
 
 const SourceAnnotationsComponent = (props) => {
   const { source } = props;
@@ -128,7 +129,7 @@ const SourceAnnotations = (props) => {
   const ids = `${props.source.source_id},${props.source.project_id}`;
   const route = new SourceRoute({ ids });
 
-  return (<Relay.RootContainer Component={SourceAnnotationsContainer} route={route} forceFetch />);
+  return (<RelayContainer Component={SourceAnnotationsContainer} route={route} loaderType="item" />);
 };
 
 export default SourceAnnotations;
