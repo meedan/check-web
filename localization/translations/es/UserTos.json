@@ -1,5 +1,5 @@
 {
-  "userTos.validation": "Debe aceptar los Términos de Servicio y la Política de Privacidad",
+  "userTos.validation": "Debe aceptar los Términos del Servicio y la Política de Privacidad",
   "userTos.save": "Guardar",
   "userTos.commGuidelinesLink": "Principios de la Comunidad",
   "userTos.commGuidelines": "Te pedimos que también leas nuestro {communityGuidelinesLink} para usar {appName}."

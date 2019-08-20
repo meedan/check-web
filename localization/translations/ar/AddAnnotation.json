@@ -1,12 +1,7 @@
 {
   "addAnnotation.invalidCommand": " أمر غير صالح",
-  "addAnnotation.annotationAdded": "تم إضافة {type}",
   "addAnnotation.error": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث العنصر. من فضلك أعد المحاولة وتواصل مع {supportEmail} إن استمرت المشكلة.",
   "addAnnotation.inputHint": "إضافة تعليق",
   "addAnnotation.submitButton": "إرسال",
-  "addAnnotation.typeComment": "ملحوظة",
-  "addAnnotation.typeTag": "علامة",
-  "addAnnotation.typeStatus": "حالة",
-  "addAnnotation.typeFlag": "إبلاغ",
   "addAnnotation.addImage": "إضافة صورة"
 }

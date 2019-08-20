@@ -1,12 +1,7 @@
 {
   "addAnnotation.invalidCommand": "Invalid command",
-  "addAnnotation.annotationAdded": "{type} added",
   "addAnnotation.error": "Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists.",
   "addAnnotation.inputHint": "Add a note about this",
   "addAnnotation.submitButton": "Submit",
-  "addAnnotation.typeComment": "note",
-  "addAnnotation.typeTag": "tag",
-  "addAnnotation.typeStatus": "status",
-  "addAnnotation.typeFlag": "flag",
   "addAnnotation.addImage": "Add an image"
 }
