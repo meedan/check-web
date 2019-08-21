@@ -116,11 +116,12 @@ class AddAnnotation extends Component {
   };
 
   fail = (transaction) => {
-    const error = transaction.getError();
+    const transactionError = transaction.getError();
     let message = this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') });
-    const json = safelyParseJSON(error.source);
-    if (json && json.error) {
-      message = json.error;
+    const json = safelyParseJSON(transactionError.source);
+    const error = json && json.errors.length > 0 ? json.errors[0] : {};
+    if (error && error.message) {
+      message = error.message; // eslint-disable-line prefer-destructuring
     }
     this.setState({
       message: message.replace(/<br\s*\/?>/gm, '; '),

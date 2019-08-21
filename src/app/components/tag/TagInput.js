@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
-import { getErrorMessage } from '../../helpers';
+import { safelyParseJSON } from '../../helpers';
 import CheckContext from '../../CheckContext';
 import { units, Row } from '../../styles/js/shared';
 import { createTag } from '../../relay/mutations/CreateTagMutation';
@@ -62,12 +62,14 @@ class TagInput extends React.Component {
     };
 
     const onFailure = (transaction) => {
-      this.setState({
-        message: getErrorMessage(
-          transaction,
-          this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') }),
-        ),
-      });
+      const transactionError = transaction.getError();
+      let message = this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+      const json = safelyParseJSON(transactionError.source);
+      const error = json && json.errors.length > 0 ? json.errors[0] : {};
+      if (error && error.message) {
+        message = error.message; // eslint-disable-line prefer-destructuring
+      }
+      this.setState({ message });
     };
 
     createTag(
