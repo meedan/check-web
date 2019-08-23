@@ -1,12 +1,7 @@
 {
   "addAnnotation.invalidCommand": "Commande non valide",
-  "addAnnotation.annotationAdded": "{type} ajouté.e",
   "addAnnotation.error": "Désolé, une erreur s'est produite durant la mise à jour de l'élément. Veuillez réessayer et prévenir {supportEmail} si le problème persiste.",
   "addAnnotation.inputHint": "Taper un commentaire ici",
   "addAnnotation.submitButton": "Envoyer",
-  "addAnnotation.typeComment": "note",
-  "addAnnotation.typeTag": "tag",
-  "addAnnotation.typeStatus": "statut",
-  "addAnnotation.typeFlag": "indicateur",
   "addAnnotation.addImage": "Charger une image"
 }

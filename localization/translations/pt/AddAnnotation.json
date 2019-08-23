@@ -1,12 +1,7 @@
 {
   "addAnnotation.invalidCommand": "Comando inválido",
-  "addAnnotation.annotationAdded": "{type} adicionado(a)",
   "addAnnotation.error": "Desculpe, ocorreu um erro ao atualizar o item. Por favor, tente novamente e entre em contato com {supportEmail} se a condição persistir.",
   "addAnnotation.inputHint": "Adicione uma nota sobre isso",
   "addAnnotation.submitButton": "Enviar",
-  "addAnnotation.typeComment": "nota",
-  "addAnnotation.typeTag": "tag",
-  "addAnnotation.typeStatus": "status",
-  "addAnnotation.typeFlag": "Indicador",
   "addAnnotation.addImage": "Insira uma imagem"
 }

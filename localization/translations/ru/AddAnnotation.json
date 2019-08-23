@@ -1,12 +1,7 @@
 {
   "addAnnotation.invalidCommand": "Команда некорректна",
-  "addAnnotation.annotationAdded": "Добавлено: {type}",
   "addAnnotation.error": "В процессе редактирования материала произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}.",
   "addAnnotation.inputHint": "Добавить заметку",
   "addAnnotation.submitButton": "Отправить",
-  "addAnnotation.typeComment": "заметка",
-  "addAnnotation.typeTag": "тэг",
-  "addAnnotation.typeStatus": "статус",
-  "addAnnotation.typeFlag": "флаг",
   "addAnnotation.addImage": "Добавить изображение"
 }

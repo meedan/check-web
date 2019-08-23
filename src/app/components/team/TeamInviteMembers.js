@@ -197,7 +197,7 @@ class TeamInviteMembers extends Component {
     const allMembers = invitedEmails.length + membersCount + invitedCount;
     if (maxMembers !== 0 && maxMembers < allMembers) {
       const limit = maxMembers - (invitedEmails.length + membersCount);
-      this.setState({ errors: [{ key: 'limits', maxMembers: limit }] });
+      this.setState({ errors: [{ key: 'limits', maxMembers, limit }] });
       validateMaxError = false;
     } else {
       this.setState({ errors: [] });
