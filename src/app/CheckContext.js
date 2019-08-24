@@ -68,9 +68,9 @@ class CheckContext {
     const successCallback = (userData) => {
       const newState = { sessionStarted: true };
 
-      if (userData && userData.token) {
+      if (config.extensionUrls && userData && userData.token) {
         if (window.opener) {
-          ['chrome-extension://*', 'moz-extension://*'].forEach((uri) => {
+          config.extensionUrls.forEach((uri) => {
             window.opener.postMessage(`loggedIn:${userData.token}`, uri);
           });
         }
