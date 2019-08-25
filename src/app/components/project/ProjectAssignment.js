@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import IconArrowDropDown from 'material-ui/svg-icons/navigation/arrow-drop-down';
@@ -10,13 +10,14 @@ import MultiSelector from '../layout/MultiSelector';
 import ProjectRoute from '../../relay/ProjectRoute';
 import { black54 } from '../../styles/js/shared';
 import UpdateProjectMutation from '../../relay/mutations/UpdateProjectMutation';
-import Message from '../Message';
-import { safelyParseJSON } from '../../helpers';
 import UserAvatars from '../UserAvatars';
+import { getErrorMessage } from '../../helpers';
+import { stringHelper } from '../../customHelpers';
+import globalStrings from '../../globalStrings';
 
 class ProjectAssignmentComponent extends Component {
   state = {
-    message: null,
+    anchorEl: null,
   };
 
   handleClick = (event) => {
@@ -29,17 +30,12 @@ class ProjectAssignmentComponent extends Component {
 
   handleSelect = (selected) => {
     const onFailure = (transaction) => {
-      const error = transaction.getError();
-      let message = error.source;
-      const json = safelyParseJSON(error.source);
-      if (json && json.error) {
-        message = json.error;
-      }
-      this.setState({ message });
+      const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+      const message = getErrorMessage(transaction, fallbackMessage);
+      this.context.setMessage(message);
     };
 
     const onSuccess = () => {
-      this.setState({ message: null });
       const message = (
         <FormattedMessage
           id="projectAssignment.processing"
@@ -86,7 +82,6 @@ class ProjectAssignmentComponent extends Component {
 
     return (
       <div>
-        <Message message={this.state.message} />
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <Button
             className="project__assignment-button"
@@ -132,7 +127,7 @@ ProjectAssignmentComponent.contextTypes = {
   setMessage: PropTypes.func,
 };
 
-const ProjectAssignmentContainer = Relay.createContainer(ProjectAssignmentComponent, {
+const ProjectAssignmentContainer = Relay.createContainer(injectIntl(ProjectAssignmentComponent), {
   initialVariables: {
     contextId: null,
   },

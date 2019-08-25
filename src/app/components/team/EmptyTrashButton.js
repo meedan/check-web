@@ -8,6 +8,9 @@ import ConfirmDialog from '../layout/ConfirmDialog';
 import TeamRoute from '../../relay/TeamRoute';
 import UpdateTeamMutation from '../../relay/mutations/UpdateTeamMutation';
 import Can from '../Can';
+import { getErrorMessage } from '../../helpers';
+import { stringHelper } from '../../customHelpers';
+import globalStrings from '../../globalStrings';
 
 class EmptyTrashComponent extends Component {
   constructor(props) {
@@ -22,10 +25,6 @@ class EmptyTrashComponent extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     return !isEqual(this.state, nextState) ||
     !isEqual(this.props, nextProps);
-  }
-
-  handleMessage(message) {
-    this.context.setMessage(message);
   }
 
   handleClose() {
@@ -46,13 +45,10 @@ class EmptyTrashComponent extends Component {
       this.setState({ emptyTrashDisabled: true });
 
       const onFailure = (transaction) => {
-        const transactionError = transaction.getError();
-        if (transactionError.json) {
-          transactionError.json().then(this.handleMessage);
-        } else {
-          this.handleMessage(JSON.stringify(transactionError));
-        }
+        const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+        const message = getErrorMessage(transaction, fallbackMessage);
         this.setState({ emptyTrashDisabled: false });
+        this.context.setMessage(message);
       };
 
       const onSuccess = () => {

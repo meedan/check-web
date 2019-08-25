@@ -6,7 +6,9 @@ import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import ConfirmEmail from './ConfirmEmail';
 import CheckContext from '../../CheckContext';
-import { safelyParseJSON } from '../../helpers';
+import { getErrorMessage } from '../../helpers';
+import { stringHelper } from '../../customHelpers';
+import globalStrings from '../../globalStrings';
 import { updateUserNameEmail } from '../../relay/mutations/UpdateUserNameEmailMutation';
 import { units } from '../../styles/js/shared';
 
@@ -48,9 +50,9 @@ class UserEmail extends React.Component {
     };
 
     const onFailure = (transaction) => {
-      const error = transaction.getError();
-      const json = safelyParseJSON(error.source);
-      this.setState({ message: json.error });
+      const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+      const message = getErrorMessage(transaction, fallbackMessage);
+      this.setState({ message });
     };
 
     if (email) {

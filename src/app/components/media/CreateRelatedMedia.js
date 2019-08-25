@@ -7,7 +7,9 @@ import styled from 'styled-components';
 import CreateRelatedMediaDialog from './CreateRelatedMediaDialog';
 import Can from '../Can';
 import CheckContext from '../../CheckContext';
-import { safelyParseJSON } from '../../helpers';
+import { getErrorMessage } from '../../helpers';
+import { stringHelper } from '../../customHelpers';
+import globalStrings from '../../globalStrings';
 import { black05 } from '../../styles/js/shared';
 import CreateProjectMediaMutation from '../../relay/mutations/CreateProjectMediaMutation';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
@@ -39,12 +41,8 @@ class CreateRelatedMedia extends Component {
 
   handleSubmit = (value) => {
     const onFailure = (transaction) => {
-      const error = transaction.getError();
-      let message = error.source;
-      const json = safelyParseJSON(error.source);
-      if (json && json.error) {
-        message = json.error;
-      }
+      const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+      const message = getErrorMessage(transaction, fallbackMessage);
       this.setState({ message, isSubmitting: false, dialogOpen: true });
     };
 
@@ -73,12 +71,8 @@ class CreateRelatedMedia extends Component {
 
   handleSubmitExisting = (obj) => {
     const onFailure = (transaction) => {
-      const error = transaction.getError();
-      let message = error.source;
-      const json = safelyParseJSON(error.source);
-      if (json && json.error) {
-        message = json.error;
-      }
+      const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+      const message = getErrorMessage(transaction, fallbackMessage);
       this.setState({ message, isSubmitting: false, dialogOpen: true });
     };
 

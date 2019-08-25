@@ -140,12 +140,9 @@ class MediaTags extends Component {
   }
 
   fail = (transaction) => {
-    this.setState({
-      errorMessage: getErrorMessage(
-        transaction,
-        this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') }),
-      ),
-    });
+    const fallbackMessage = this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+    const errorMessage = getErrorMessage(transaction, fallbackMessage);
+    this.setState({ errorMessage });
   };
 
   success = () => {

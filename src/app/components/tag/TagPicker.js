@@ -7,6 +7,9 @@ import rtlDetect from 'rtl-detect';
 import styled from 'styled-components';
 import difference from 'lodash.difference';
 import intersection from 'lodash.intersection';
+import { getErrorMessage } from '../../helpers';
+import { stringHelper } from '../../customHelpers';
+import globalStrings from '../../globalStrings';
 import CheckContext from '../../CheckContext';
 import { black54, black87, caption, units, opaqueBlack02, opaqueBlack05, StyledCheckboxNext } from '../../styles/js/shared';
 import { createTag } from '../../relay/mutations/CreateTagMutation';
@@ -47,13 +50,18 @@ const StyledFormControlLabel = styled(FormControlLabel)`
 `;
 
 class TagPicker extends React.Component {
+  fail = (transaction) => {
+    const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+    const message = getErrorMessage(transaction, fallbackMessage);
+    this.context.setMessage(message);
+  };
+
   handleCreateTag(value) {
     const { media } = this.props;
 
     const context = new CheckContext(this).getContextStore();
 
     const onSuccess = () => {};
-    const onFailure = () => {};
 
     createTag(
       {
@@ -61,7 +69,7 @@ class TagPicker extends React.Component {
         value,
         annotator: context.currentUser,
       },
-      onSuccess, onFailure,
+      onSuccess, this.fail,
     );
   }
 
@@ -71,14 +79,13 @@ class TagPicker extends React.Component {
     const removedTag = this.props.tags.find(tag => tag.node.tag_text === value);
 
     const onSuccess = () => {};
-    const onFailure = () => {};
 
     deleteTag(
       {
         media,
         tagId: removedTag.node.id,
       },
-      onSuccess, onFailure,
+      onSuccess, this.fail,
     );
   };
 
@@ -223,6 +230,7 @@ TagPicker.propTypes = {
 
 TagPicker.contextTypes = {
   store: PropTypes.object,
+  setMessage: PropTypes.func,
 };
 
 export default injectIntl(TagPicker);

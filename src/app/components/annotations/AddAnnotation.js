@@ -17,7 +17,7 @@ import { can } from '../Can';
 import CheckContext from '../../CheckContext';
 import UploadImage from '../UploadImage';
 import { ContentColumn, Row, black38, black87, units } from '../../styles/js/shared';
-import { safelyParseJSON } from '../../helpers';
+import { getErrorMessage } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 
 const messages = defineMessages({
@@ -116,13 +116,8 @@ class AddAnnotation extends Component {
   };
 
   fail = (transaction) => {
-    const transactionError = transaction.getError();
-    let message = this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') });
-    const json = safelyParseJSON(transactionError.source);
-    const error = json && json.errors.length > 0 ? json.errors[0] : {};
-    if (error && error.message) {
-      message = error.message; // eslint-disable-line prefer-destructuring
-    }
+    const fallbackMessage = this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+    const message = getErrorMessage(transaction, fallbackMessage);
     this.setState({
       message: message.replace(/<br\s*\/?>/gm, '; '),
       isSubmitting: false,

@@ -12,8 +12,10 @@ import SetUserSecuritySettingsMutation from '../../relay/mutations/SetUserSecuri
 import GenerateTwoFactorBackupCodesMutation from '../../relay/mutations/GenerateTwoFactorBackupCodesMutation';
 import UserTwoFactorAuthenticationMutation from '../../relay/mutations/UserTwoFactorAuthenticationMutation';
 import CheckContext from '../../CheckContext';
-import { safelyParseJSON } from '../../helpers';
 import { units, opaqueBlack10 } from '../../styles/js/shared';
+import { getErrorMessage, safelyParseJSON } from '../../helpers';
+import { stringHelper } from '../../customHelpers';
+import globalStrings from '../../globalStrings';
 
 const messages = defineMessages({
   passwordInput: {
@@ -61,6 +63,12 @@ class UserSecurity extends Component {
   getCurrentUser() {
     return new CheckContext(this).getContextStore().currentUser;
   }
+
+  fail = (transaction) => {
+    const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+    const message = getErrorMessage(transaction, fallbackMessage);
+    this.context.setMessage(message);
+  };
 
   handleFieldChange(e) {
     const state = {};
@@ -127,8 +135,6 @@ class UserSecurity extends Component {
   handleSecuritySettings(type, e, inputChecked) {
     const { id } = this.props.user;
 
-    const onFailure = () => {
-    };
     const onSuccess = () => {
     };
     let { sendSuccessfulLogin, sendFailedLogin } = this.state;
@@ -147,14 +153,12 @@ class UserSecurity extends Component {
         sendSuccessfulLogin,
         sendFailedLogin,
       }),
-      { onSuccess, onFailure },
+      { onSuccess, onFailure: this.fail },
     );
   }
 
   handleGenerateBackupCodes() {
     const { dbid } = this.props.user;
-
-    const onFailure = () => {};
 
     const onSuccess = (response) => {
       const { generateTwoFactorBackupCodes: { codes } } = response;
@@ -165,7 +169,7 @@ class UserSecurity extends Component {
       new GenerateTwoFactorBackupCodesMutation({
         id: dbid,
       }),
-      { onSuccess, onFailure },
+      { onSuccess, onFailure: this.fail },
     );
   }
 
@@ -488,6 +492,7 @@ class UserSecurity extends Component {
 
 UserSecurity.contextTypes = {
   store: PropTypes.object,
+  setMessage: PropTypes.func,
 };
 
 export default injectIntl(UserSecurity);

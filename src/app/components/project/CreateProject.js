@@ -8,7 +8,7 @@ import FlatButton from 'material-ui/FlatButton';
 import styled from 'styled-components';
 import CreateProjectMutation from '../../relay/mutations/CreateProjectMutation';
 import CheckContext from '../../CheckContext';
-import { safelyParseJSON } from '../../helpers';
+import { getErrorMessage } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 import {
   title1,
@@ -70,12 +70,8 @@ class CreateProject extends Component {
     const { history } = context.getContextStore();
 
     const onFailure = (transaction) => {
-      const error = transaction.getError();
-      let message = this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') });
-      const json = safelyParseJSON(error.source);
-      if (json && json.error) {
-        message = json.error;
-      }
+      const fallbackMessage = this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+      const message = getErrorMessage(transaction, fallbackMessage);
       this.setState({ message, submitDisabled: false });
     };
 
