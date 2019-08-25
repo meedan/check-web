@@ -118,7 +118,7 @@ class ChangePasswordComponent extends Component {
 
     return (
       <div className="user-password-change__password-input">
-        <div style={{ color: 'red' }}>
+        <div style={{ color: 'red', textAlign: 'center' }}>
           {this.state.errorMsg}
         </div>
         {show_current_password === true ?
