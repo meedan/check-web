@@ -8,14 +8,16 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '@material-ui/core/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import rtlDetect from 'rtl-detect';
+import ChangePasswordComponent from '../ChangePasswordComponent';
 import SetUserSecuritySettingsMutation from '../../relay/mutations/SetUserSecuritySettingsMutation';
 import GenerateTwoFactorBackupCodesMutation from '../../relay/mutations/GenerateTwoFactorBackupCodesMutation';
 import UserTwoFactorAuthenticationMutation from '../../relay/mutations/UserTwoFactorAuthenticationMutation';
 import CheckContext from '../../CheckContext';
-import { units, opaqueBlack10 } from '../../styles/js/shared';
 import { getErrorMessage, safelyParseJSON } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 import globalStrings from '../../globalStrings';
+import { units, opaqueBlack10, StyledPasswordChange } from '../../styles/js/shared';
 
 const messages = defineMessages({
   passwordInput: {
@@ -272,219 +274,238 @@ class UserSecurity extends Component {
             />
           </CardText>
         </Card>
+        <h2 style={style}>
+          <FormattedMessage id="userSecurity.twoFactorAuthentication" defaultMessage="Two factor authentication" />
+        </h2>
         {can_enable_otp === false ?
-          null :
-          <div>
-            <h2 style={style}>
-              <FormattedMessage id="userSecurity.twoFactorAuthentication" defaultMessage="Two factor authentication" />
-            </h2>
-            <Card style={style}>
-              <CardText style={cardTextStyle}>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      id="userSecurity-require"
-                      checked={this.state.twoFactorAuthentication || this.state.showFactorAuthForm}
-                      onChange={this.handleTwoFactorAuthenticationForm.bind(this)}
-                      disabled={this.state.twoFactorAuthentication}
-                    />
-                  }
-                  label={
-                    <FormattedMessage
-                      id="userSecurity.requireTwoFactorAuth"
-                      defaultMessage="Require two-factor authentication"
-                    />
-                  }
-                />
-              </CardText>
-              <div className="two-f-a-container" style={{ padding: '0px 25px 25px 25px' }}>
-                <CardText style={cardTextAuthStyle}>
-                  {!this.state.showFactorAuthForm ?
-                    null :
-                    <div>
-                      <h3 style={subTitleStyle}>
-                        <FormattedMessage
-                          id="userSecurity.authenticateHeader"
-                          defaultMessage="Step 1: Authenticate"
-                        />
-                      </h3>
-                      <span style={{ lineHeight: units(3) }}>
-                        <FormattedMessage
-                          id="userSecurity.authenticateDescription"
-                          defaultMessage="Enter your current password to confirm your identity:"
-                        />
-                      </span>
-                    </div>
-                  }
-                  {this.state.twoFactorAuthentication ?
-                    <span style={{ lineHeight: units(3) }}>
-                      <FormattedMessage
-                        id="userSecurity.disableAuthenticateDescription"
-                        defaultMessage="Enter your password to disable two-factor authentication:"
-                      />
-                    </span>
-                    : null }
-                  {this.state.showFactorCommonFields ?
-                    <TextField
-                      fullWidth
-                      type="password"
-                      name="password"
-                      required
-                      className="login__password-input"
-                      onChange={this.handleFieldChange.bind(this)}
-                      error={!this.state.errors.password}
-                      helperText={this.state.errors.password ? null : this.renderMessage('passwordError')}
-                      placeholder={this.renderMessage('passwordInput')}
-                    />
-                    : null
-                  }
-                  {this.state.twoFactorAuthentication ?
-                    <CardText style={cardTextAuthStyle}>
-                      <RaisedButton
-                        style={{ marginLeft: 'auto', marginRight: units(2) }}
-                        onClick={this.handleSubmitTwoFactorAuthentication.bind(this, false)}
-                        className="user-two-factor__enable-button"
-                        disabled={this.state.submitDisabled}
-                        label={
-                          <FormattedMessage id="userSecurity.disableTwofactor" defaultMessage="Disable" />
-                        }
-                      />
-                    </CardText>
-                    : null
-                  }
-                </CardText>
-                {this.state.showFactorAuthForm ?
-                  <div>
-                    <CardText style={cardTextAuthStyle}>
-                      <h3 style={subTitleStyle}>
-                        <FormattedMessage
-                          id="userSecurity.downloadHeader"
-                          defaultMessage="Step 2: Download"
-                        />
-                      </h3>
-                      <span style={{ lineHeight: units(3) }}>
-                        <FormattedMessage
-                          id="userSecurity.downloadDescription"
-                          defaultMessage="You'll need a two-factor app, like Google Authenticator, on your smartphone to proceed:"
-                        />
-                      </span>
-                      <a href={appsUrls.apple} rel="noopener noreferrer" target="_blank" style={{ padding: '5px' }} >
-                        <img src={appsUrls.appleImage} alt="" />
-                      </a>
-                      <a href={appsUrls.play} rel="noopener noreferrer" target="_blank" style={{ padding: '5px' }}>
-                        <img src={appsUrls.playImage} alt="" />
-                      </a>
-                    </CardText>
-                    <CardText style={cardTextAuthStyle}>
-                      <h3 style={subTitleStyle}>
-                        <FormattedMessage
-                          id="userSecurity.qrcodeHeader"
-                          defaultMessage="Step 3: Scan"
-                        />
-                      </h3>
-                      <span style={{ lineHeight: units(3) }}>
-                        <FormattedMessage
-                          id="userSecurity.qrcodeDescription"
-                          defaultMessage="Using your two-factor app, scan this QR code:"
-                        />
-                      </span>
-                      <div
-                        id="svg-container"
-                        dangerouslySetInnerHTML={{ // eslint-disable-line react/no-danger
-                          __html: qrcode_svg,
-                        }}
-                      />
-                    </CardText>
-                  </div>
-                  : null
+          <Card style={style}>
+            <CardText style={cardTextStyle}>
+              <FormattedMessage
+                id="userSecurity.suggestTwoFactorForSocialAccounts"
+                defaultMessage="In order to enable 2FA, you need to create a password on Check. Please do so in the 'Change password' section below."
+                style={{ minWidth: units(64), padding: '0px' }}
+              />
+            </CardText>
+          </Card>
+          :
+          <Card style={style}>
+            <CardText style={cardTextStyle}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    id="userSecurity-require"
+                    checked={this.state.twoFactorAuthentication || this.state.showFactorAuthForm}
+                    onChange={this.handleTwoFactorAuthenticationForm.bind(this)}
+                    disabled={this.state.twoFactorAuthentication}
+                  />
                 }
-                <CardText style={cardTextAuthStyle}>
-                  {this.state.showFactorAuthForm ?
+                label={
+                  <FormattedMessage
+                    id="userSecurity.requireTwoFactorAuth"
+                    defaultMessage="Require two-factor authentication"
+                  />
+                }
+              />
+            </CardText>
+            <div className="two-f-a-container" style={{ padding: '0px 25px 25px 25px' }}>
+              <CardText style={cardTextAuthStyle}>
+                {!this.state.showFactorAuthForm ?
+                  null :
+                  <div>
                     <h3 style={subTitleStyle}>
                       <FormattedMessage
-                        id="userSecurity.backupHeader"
-                        defaultMessage="Step 4: Backup codes"
+                        id="userSecurity.authenticateHeader"
+                        defaultMessage="Step 1: Authenticate"
                       />
                     </h3>
-                    : null
-                  }
-                  {this.state.showFactorCommonFields ?
-                    <div>
-                      <span style={{ lineHeight: units(3) }}>
-                        <FormattedMessage
-                          id="userSecurity.backupDescription"
-                          defaultMessage="We strongly suggest that you generate and print backup codes using the button below. These are single-use tokens to be used instead of your two-factor token in the event that you lose access to your two-factor device."
-                        />
-                      </span>
-                      <p>
-                        <FormattedMessage
-                          id="userSecurity.backupNote"
-                          defaultMessage="Note: any existing backup codes will be invalidated by clicking the button."
-                        />
-                      </p>
-                      <RaisedButton
-                        style={{ marginLeft: 'auto', marginRight: units(2) }}
-                        onClick={this.handleGenerateBackupCodes.bind(this)}
-                        className="user-two-factor__backup-button"
-                        disabled={this.state.submitDisabled}
-                        label={
-                          <FormattedMessage id="userSecurity.generateGackup" defaultMessage="Generate backup code" />
-                        }
+                    <span style={{ lineHeight: units(3) }}>
+                      <FormattedMessage
+                        id="userSecurity.authenticateDescription"
+                        defaultMessage="Enter your current password to confirm your identity:"
                       />
-                      {this.state.backupCodes.length === 0 ?
-                        null :
-                        <div style={divBackupStyle}>
-                          {this.state.backupCodes.join(' - ')}
-                        </div>
+                    </span>
+                  </div>
+                }
+                {this.state.twoFactorAuthentication ?
+                  <span style={{ lineHeight: units(3) }}>
+                    <FormattedMessage
+                      id="userSecurity.disableAuthenticateDescription"
+                      defaultMessage="Enter your password to disable two-factor authentication:"
+                    />
+                  </span>
+                  : null }
+                {this.state.showFactorCommonFields ?
+                  <TextField
+                    fullWidth
+                    type="password"
+                    name="password"
+                    required
+                    className="login__password-input"
+                    onChange={this.handleFieldChange.bind(this)}
+                    error={!this.state.errors.password}
+                    helperText={this.state.errors.password ? null : this.renderMessage('passwordError')}
+                    placeholder={this.renderMessage('passwordInput')}
+                  />
+                  : null
+                }
+                {this.state.twoFactorAuthentication ?
+                  <CardText style={cardTextAuthStyle}>
+                    <RaisedButton
+                      style={{ marginLeft: 'auto', marginRight: units(2) }}
+                      onClick={this.handleSubmitTwoFactorAuthentication.bind(this, false)}
+                      className="user-two-factor__enable-button"
+                      label={
+                        <FormattedMessage id="userSecurity.disableTwofactor" defaultMessage="Disable" />
                       }
-                    </div>
-                    : null
-                  }
-                </CardText>
+                    />
+                  </CardText>
+                  : null
+                }
+              </CardText>
+              {this.state.showFactorAuthForm ?
+                <div>
+                  <CardText style={cardTextAuthStyle}>
+                    <h3 style={subTitleStyle}>
+                      <FormattedMessage
+                        id="userSecurity.downloadHeader"
+                        defaultMessage="Step 2: Download"
+                      />
+                    </h3>
+                    <span style={{ lineHeight: units(3) }}>
+                      <FormattedMessage
+                        id="userSecurity.downloadDescription"
+                        defaultMessage="You'll need a two-factor app, like Google Authenticator, on your smartphone to proceed:"
+                      />
+                    </span>
+                    <a href={appsUrls.apple} rel="noopener noreferrer" target="_blank" style={{ padding: '5px' }} >
+                      <img src={appsUrls.appleImage} alt="" />
+                    </a>
+                    <a href={appsUrls.play} rel="noopener noreferrer" target="_blank" style={{ padding: '5px' }}>
+                      <img src={appsUrls.playImage} alt="" />
+                    </a>
+                  </CardText>
+                  <CardText style={cardTextAuthStyle}>
+                    <h3 style={subTitleStyle}>
+                      <FormattedMessage
+                        id="userSecurity.qrcodeHeader"
+                        defaultMessage="Step 3: Scan"
+                      />
+                    </h3>
+                    <span style={{ lineHeight: units(3) }}>
+                      <FormattedMessage
+                        id="userSecurity.qrcodeDescription"
+                        defaultMessage="Using your two-factor app, scan this QR code:"
+                      />
+                    </span>
+                    <div
+                      id="svg-container"
+                      dangerouslySetInnerHTML={{ // eslint-disable-line react/no-danger
+                        __html: qrcode_svg,
+                      }}
+                    />
+                  </CardText>
+                </div>
+                : null
+              }
+              <CardText style={cardTextAuthStyle}>
                 {this.state.showFactorAuthForm ?
+                  <h3 style={subTitleStyle}>
+                    <FormattedMessage
+                      id="userSecurity.backupHeader"
+                      defaultMessage="Step 4: Backup codes"
+                    />
+                  </h3>
+                  : null
+                }
+                {this.state.showFactorCommonFields ?
                   <div>
-                    <CardText style={cardTextAuthStyle}>
-                      <h3 style={subTitleStyle}>
-                        <FormattedMessage
-                          id="userSecurity.verifyHeader"
-                          defaultMessage="Step 5: Verify"
-                        />
-                      </h3>
-                      <span style={{ lineHeight: units(3) }}>
-                        <FormattedMessage
-                          id="userSecurity.verifyDescription"
-                          defaultMessage="To enable two-factor authentication, enter the 6-digit token from your two-factor app:"
-                        />
-                      </span>
-                      <TextField
-                        fullWidth
-                        type="text"
-                        name="qrcode"
-                        required
-                        className="2fa__verify-code-input"
-                        onChange={this.handleFieldChange.bind(this)}
-                        error={!this.state.errors.qrcode}
-                        helperText={this.state.errors.qrcode ? null : this.renderMessage('verifyError')}
-                        placeholder={this.renderMessage('verifyInput')}
+                    <span style={{ lineHeight: units(3) }}>
+                      <FormattedMessage
+                        id="userSecurity.backupDescription"
+                        defaultMessage="We strongly suggest that you generate and print backup codes using the button below. These are single-use tokens to be used instead of your two-factor token in the event that you lose access to your two-factor device."
                       />
-                    </CardText>
-                    <CardText style={cardTextAuthStyle}>
-                      <RaisedButton
-                        style={{ marginLeft: 'auto', marginRight: units(2) }}
-                        onClick={this.handleSubmitTwoFactorAuthentication.bind(this, true)}
-                        className="user-two-factor__enable-button"
-                        label={
-                          <FormattedMessage id="userSecurity.enableTwofactor" defaultMessage="Enable" />
-                        }
+                    </span>
+                    <p>
+                      <FormattedMessage
+                        id="userSecurity.backupNote"
+                        defaultMessage="Note: any existing backup codes will be invalidated by clicking the button."
                       />
-                    </CardText>
+                    </p>
+                    <RaisedButton
+                      style={{ marginLeft: 'auto', marginRight: units(2) }}
+                      onClick={this.handleGenerateBackupCodes.bind(this)}
+                      className="user-two-factor__backup-button"
+                      label={
+                        <FormattedMessage id="userSecurity.generateGackup" defaultMessage="Generate backup code" />
+                      }
+                    />
+                    {this.state.backupCodes.length === 0 ?
+                      null :
+                      <div style={divBackupStyle}>
+                        {this.state.backupCodes.join(' - ')}
+                      </div>
+                    }
                   </div>
                   : null
                 }
-              </div>
-            </Card>
-          </div>
+              </CardText>
+              {this.state.showFactorAuthForm ?
+                <div>
+                  <CardText style={cardTextAuthStyle}>
+                    <h3 style={subTitleStyle}>
+                      <FormattedMessage
+                        id="userSecurity.verifyHeader"
+                        defaultMessage="Step 5: Verify"
+                      />
+                    </h3>
+                    <span style={{ lineHeight: units(3) }}>
+                      <FormattedMessage
+                        id="userSecurity.verifyDescription"
+                        defaultMessage="To enable two-factor authentication, enter the 6-digit token from your two-factor app:"
+                      />
+                    </span>
+                    <TextField
+                      fullWidth
+                      type="text"
+                      name="qrcode"
+                      required
+                      className="2fa__verify-code-input"
+                      onChange={this.handleFieldChange.bind(this)}
+                      error={!this.state.errors.qrcode}
+                      helperText={this.state.errors.qrcode ? null : this.renderMessage('verifyError')}
+                      placeholder={this.renderMessage('verifyInput')}
+                    />
+                  </CardText>
+                  <CardText style={cardTextAuthStyle}>
+                    <RaisedButton
+                      style={{ marginLeft: 'auto', marginRight: units(2) }}
+                      onClick={this.handleSubmitTwoFactorAuthentication.bind(this, true)}
+                      className="user-two-factor__enable-button"
+                      label={
+                        <FormattedMessage id="userSecurity.enableTwofactor" defaultMessage="Enable" />
+                      }
+                    />
+                  </CardText>
+                </div>
+                : null
+              }
+            </div>
+          </Card>
         }
+        <h2 style={style}>
+          <FormattedMessage id="userSecurity.changePassword" defaultMessage="Change password" />
+        </h2>
+        <StyledPasswordChange isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
+          <Card style={style} className="user-password-change__card">
+            <CardText>
+              <ChangePasswordComponent
+                type="update-password"
+                show_current_password={can_enable_otp}
+                user={this.props.user}
+              />
+            </CardText>
+          </Card>
+        </StyledPasswordChange>
       </div>
     );
   }

@@ -14,4 +14,5 @@ window.config = {
   googleAnalyticsCode: 'UA-00000000-1', // Optional
   mapboxApiKey: '' // Get one at mapbox.com
   opencageApiKey: '' // Get one at opencagedata.com,
+  extensionUrls: ['chrome-extension://mgnopppclmjnogmkgfkbclpoondpfnmf', 'moz-extension://baeeb55c-c744-4ffc-bddd-64199b73f77b'],
 }

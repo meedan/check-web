@@ -203,6 +203,49 @@ export const proBadgeStyle = `
   top: ${units(0.5)};
 `;
 
+export const StyledPasswordChange = styled.div`
+  .user-password-change__card {
+    margin: ${units(9)} auto auto;
+    max-width: ${columnWidthMedium};
+    text-align: center;
+  }
+
+  .user-password-change__confirm-card {
+    margin: ${units(10)} auto auto;
+    max-width: ${columnWidthMedium};
+  }
+
+  .user-password-change__password-input-field {
+    margin-top: ${units(1)};
+    text-align: ${props => (props.isRtl ? 'right' : 'left')};
+    width: ${units(50)} !important;
+  }
+
+  .user-password-change__logo {
+    display: block;
+    margin: ${units(7)} auto 0;
+  }
+
+  .user-password-change__title {
+    color: ${black54};
+    display: block;
+    margin: ${units(1)} auto;
+    font: ${title1};
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .user-password-change__submit-button {
+    margin-bottom: ${units(6)};
+    margin-top: ${units(3)};
+  }
+
+  .user-password-change__actions {
+    text-align: ${props => (props.isRtl ? 'left' : 'right')};
+  }
+
+`;
+
 // Material UI theme configuration
 //
 // This is passed as a prop to <MuiThemeProvider>

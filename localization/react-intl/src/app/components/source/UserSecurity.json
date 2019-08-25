@@ -32,6 +32,10 @@
     "defaultMessage": "Two factor authentication"
   },
   {
+    "id": "userSecurity.suggestTwoFactorForSocialAccounts",
+    "defaultMessage": "In order to enable 2FA, you need to create a password on Check. Please do so in the 'Change password' section below."
+  },
+  {
     "id": "userSecurity.requireTwoFactorAuth",
     "defaultMessage": "Require two-factor authentication"
   },
@@ -94,5 +98,9 @@
   {
     "id": "userSecurity.enableTwofactor",
     "defaultMessage": "Enable"
+  },
+  {
+    "id": "userSecurity.changePassword",
+    "defaultMessage": "Change password"
   }
 ]
