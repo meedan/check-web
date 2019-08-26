@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import { defineMessages, injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
@@ -8,7 +9,7 @@ import CreateProjectMediaMutation from '../../relay/mutations/CreateProjectMedia
 import CreateProjectSourceMutation from '../../relay/mutations/CreateProjectSourceMutation';
 import CheckContext from '../../CheckContext';
 import { stringHelper } from '../../customHelpers';
-import { safelyParseJSON, getFilters } from '../../helpers';
+import { getErrorObjects, getFilters } from '../../helpers';
 import CheckError from '../../CheckError';
 
 const messages = defineMessages({
@@ -34,21 +35,20 @@ class CreateProjectMedia extends Component {
     };
   }
 
-  fail(context, prefix, transactionError) {
+  fail = (transaction) => {
     let message = this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') });
-    const json = safelyParseJSON(transactionError.source);
-    const error = json && json.errors.length > 0 ? json.errors[0] : {};
-    if (error) {
-      if (error.code === CheckError.codes.DUPLICATED) {
+    const error = getErrorObjects(transaction);
+    if (Array.isArray(error) && error.length > 0) {
+      if (error[0].code === CheckError.codes.DUPLICATED) {
         message = null;
-        context.history.push(error.data.url);
+        browserHistory.push(error[0].data.url);
       } else {
-        message = error.message; // eslint-disable-line prefer-destructuring
+        message = error[0].message; // eslint-disable-line prefer-destructuring
       }
     }
     this.context.setMessage(message);
     this.setState({ isSubmitting: false });
-  }
+  };
 
   submitSource(value) {
     const context = new CheckContext(this).getContextStore();
@@ -63,10 +63,6 @@ class CreateProjectMedia extends Component {
       message: this.props.intl.formatMessage(messages.submitting),
     });
 
-    const onFailure = (transaction) => {
-      this.fail(context, prefix, transaction.getError());
-    };
-
     const onSuccess = (response) => {
       const rid = response.createProjectSource.project_source.dbid;
       context.history.push(prefix + rid);
@@ -78,7 +74,7 @@ class CreateProjectMedia extends Component {
         ...value,
         project: context.project,
       }),
-      { onSuccess, onFailure },
+      { onSuccess, onFailure: this.fail },
     );
   }
 
@@ -91,10 +87,6 @@ class CreateProjectMedia extends Component {
     }
 
     this.setState({ isSubmitting: true });
-
-    const onFailure = (transaction) => {
-      this.fail(context, prefix, transaction.getError());
-    };
 
     const onSuccess = (response) => {
       if (getFilters() !== '{}') {
@@ -112,7 +104,7 @@ class CreateProjectMedia extends Component {
         context,
         project: context.project,
       }),
-      { onSuccess, onFailure },
+      { onSuccess, onFailure: this.fail },
     );
   }
 

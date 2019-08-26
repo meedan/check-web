@@ -14,7 +14,7 @@ import SetUserSecuritySettingsMutation from '../../relay/mutations/SetUserSecuri
 import GenerateTwoFactorBackupCodesMutation from '../../relay/mutations/GenerateTwoFactorBackupCodesMutation';
 import UserTwoFactorAuthenticationMutation from '../../relay/mutations/UserTwoFactorAuthenticationMutation';
 import CheckContext from '../../CheckContext';
-import { getErrorMessage, safelyParseJSON } from '../../helpers';
+import { getErrorMessage } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 import globalStrings from '../../globalStrings';
 import { units, opaqueBlack10, StyledPasswordChange } from '../../styles/js/shared';
@@ -100,14 +100,12 @@ class UserSecurity extends Component {
 
   handleSubmitTwoFactorAuthentication(enabled) {
     const onFailure = (transaction) => {
-      const error = transaction.getError();
-      const json = safelyParseJSON(error.source);
-      if (json && json.errors) {
-        const defaultErrors = { password: true, qrcode: true };
-        const returnErrors = safelyParseJSON(json.errors[0].message);
-        const errors = { ...defaultErrors, ...returnErrors };
-        this.setState({ errors });
-      }
+      const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+      const defaultErrors = { password: true, qrcode: true };
+      const returnErrors = getErrorMessage(transaction, fallbackMessage);
+      const errors = { ...defaultErrors, ...returnErrors };
+
+      this.setState({ errors });
     };
     const onSuccess = (response) => {
       const { userTwoFactorAuthentication: { user: { two_factor } } } = response;

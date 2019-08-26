@@ -178,8 +178,6 @@ function getFilters() {
  * Safely extract an error message from a transaction, with default fallback.
  */
 function getErrorMessage(transaction, fallbackMessage) {
-  console.log('getErrorMessage', transaction, fallbackMessage);
-
   let message = fallbackMessage;
 
   const transactionError = transaction.getError();
@@ -190,6 +188,16 @@ function getErrorMessage(transaction, fallbackMessage) {
   }
 
   return message;
+}
+
+/**
+ * Safely extract an error object from a transaction
+ */
+function getErrorObjects(transaction) {
+  console.log('transaction', transaction);
+  const transactionError = transaction.getError();
+  const json = safelyParseJSON(transactionError.source);
+  return json && json.errors && json.errors.length > 0 ? json.errors : null;
 }
 
 /**
@@ -227,6 +235,7 @@ export {
   validateURL,
   getFilters,
   getErrorMessage,
+  getErrorObjects,
   emojify,
   capitalize,
 };

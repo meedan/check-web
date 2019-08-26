@@ -8,7 +8,7 @@ import ChangePasswordMutation from '../relay/mutations/ChangePasswordMutation';
 import CheckContext from '../CheckContext';
 import globalStrings from '../globalStrings';
 import { stringHelper } from '../customHelpers';
-import { safelyParseJSON } from '../helpers';
+import { getErrorMessage } from '../helpers';
 
 const messages = defineMessages({
   newPassword: {
@@ -74,17 +74,13 @@ class ChangePasswordComponent extends Component {
 
   handleSubmit(e) {
     const onFailure = (transaction) => {
-      this.setState({ errorMsg: this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') }) });
-      const transactionError = transaction.getError();
-      const json = safelyParseJSON(transactionError.source);
-      const error = json && json.errors.length > 0 ? json.errors[0] : {};
-      if (error) {
-        if (this.props.type === 'reset-password') {
-          this.getHistory().push({ pathname: '/check/user/password-reset', state: { errorMsg: error.message } });
-          return;
-        }
-        this.setState({ errorMsg: error.message });
+      const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+      const message = getErrorMessage(transaction, fallbackMessage);
+      if (this.props.type === 'reset-password') {
+        this.getHistory().push({ pathname: '/check/user/password-reset', state: { errorMsg: message } });
+        return;
       }
+      this.setState({ errorMsg: message });
     };
 
     const onSuccess = () => {
