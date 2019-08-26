@@ -75,14 +75,15 @@ class ChangePasswordComponent extends Component {
   handleSubmit(e) {
     const onFailure = (transaction) => {
       this.setState({ errorMsg: this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') }) });
-      const error = transaction.getError();
-      const json = safelyParseJSON(error.source);
-      if (json && json.error) {
+      const transactionError = transaction.getError();
+      const json = safelyParseJSON(transactionError.source);
+      const error = json && json.errors.length > 0 ? json.errors[0] : {};
+      if (error) {
         if (this.props.type === 'reset-password') {
-          this.getHistory().push({ pathname: '/check/user/password-reset', state: { errorMsg: json.error } });
+          this.getHistory().push({ pathname: '/check/user/password-reset', state: { errorMsg: error.message } });
           return;
         }
-        this.setState({ errorMsg: json.error });
+        this.setState({ errorMsg: error.message });
       }
     };
 
