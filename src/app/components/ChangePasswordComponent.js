@@ -121,7 +121,7 @@ class ChangePasswordComponent extends Component {
         {show_current_password === true ?
           <TextField
             className="user-password-change__password-input-field"
-            id="password-change-password-input"
+            id="password-change-password-input-current"
             type="password"
             hintText={this.props.intl.formatMessage(messages.currentPassword)}
             onChange={this.handleChangeCurrentPassword.bind(this)}
