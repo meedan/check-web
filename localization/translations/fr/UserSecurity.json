@@ -7,6 +7,7 @@
   "userSecurity.successfulLoginText": "Recevoir une notification après chaque connexion à partir d'un nouvel emplacement ou appareil",
   "userSecurity.failedfulLoginText": "Recevoir une notification après {loginTrial} échecs consécutifs de tentative de connexion ",
   "userSecurity.twoFactorAuthentication": "Authentification à 2 facteurs",
+  "userSecurity.suggestTwoFactorForSocialAccounts": "Pour activer l'authentification à 2 facteurs, vous devez créer un mot de passe. Veuillez le faire dans la section \"Modifier le mot de passe\" ci-dessous.",
   "userSecurity.requireTwoFactorAuth": "Requérir l'authentification à 2 facteurs",
   "userSecurity.authenticateHeader": "Étape 1 : Authentifier",
   "userSecurity.authenticateDescription": "Veuillez saisir votre mot de passe pour confirmer votre identité : ",
@@ -22,5 +23,6 @@
   "userSecurity.generateGackup": "Générer codes de sauvegarde",
   "userSecurity.verifyHeader": "Étape 5 : Vérifier",
   "userSecurity.verifyDescription": "Pour activer l'authentification à 2 facteurs, veuillez saisir le jeton à 6 chiffres de votre application d'authentification : ",
-  "userSecurity.enableTwofactor": "Activer"
+  "userSecurity.enableTwofactor": "Activer",
+  "userSecurity.changePassword": "Modifier le mot de passe"
 }

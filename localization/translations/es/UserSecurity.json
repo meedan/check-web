@@ -7,6 +7,7 @@
   "userSecurity.successfulLoginText": "Recibir una notificación cuando inicie sesión desde una nueva localización o dispositivo",
   "userSecurity.failedfulLoginText": "Recibir una notificación por {loginTrial} varios intentos fallidos de inicio de sesión.",
   "userSecurity.twoFactorAuthentication": "Autenticación de dos factores",
+  "userSecurity.suggestTwoFactorForSocialAccounts": "Para habilitar la autenticación de dos factores, debe crear una contraseña. Hágalo en la sección 'Cambiar contraseña' a continuación.",
   "userSecurity.requireTwoFactorAuth": "Requiere autenticación de dos factores",
   "userSecurity.authenticateHeader": "Paso 1: Autenticar",
   "userSecurity.authenticateDescription": "Escribe tu contraseña actual para confirmar tu identidad:",
@@ -22,5 +23,6 @@
   "userSecurity.generateGackup": "Generar código de respaldo ",
   "userSecurity.verifyHeader": "Paso 5: Verificar",
   "userSecurity.verifyDescription": "Para activar la autenticación de dos factores, ingresa el token de 6 dígitos de tu aplicación de dos factores:",
-  "userSecurity.enableTwofactor": "Activar "
+  "userSecurity.enableTwofactor": "Activar ",
+  "userSecurity.changePassword": "Cambiar contraseña"
 }
