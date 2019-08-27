@@ -194,7 +194,6 @@ function getErrorMessage(transaction, fallbackMessage) {
  * Safely extract an error object from a transaction
  */
 function getErrorObjects(transaction) {
-  console.log('transaction', transaction);
   const transactionError = transaction.getError();
   const json = safelyParseJSON(transactionError.source);
   return json && json.errors && json.errors.length > 0 ? json.errors : null;

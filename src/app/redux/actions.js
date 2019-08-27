@@ -1,6 +1,7 @@
 import superagent from 'superagent';
 import util from 'util';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
+import { safelyParseJSON } from '../helpers';
 
 // REST calls
 
@@ -42,20 +43,20 @@ export function request(method_, endpoint, failureCallback, successCallback, dat
   http.end((err, response) => {
     if (err) {
       if (err.response) {
-        const json = JSON.parse(err.response.text);
-        const message = json.data ? json.data.message : json.error;
-        const errorCode = json.data ? json.data.code : null;
+        const json = safelyParseJSON(err.response.text);
+        const message = json.errors ? json.errors[0].message : json.error;
+        const errorCode = json.errors ? json.errors[0].code : null;
         failureCallback(message, err.response.status, errorCode);
       } else {
         failureCallback(util.inspect(err));
       }
     } else {
-      const json = JSON.parse(response.text);
+      const json = safelyParseJSON(response.text);
       if (response.status === 200) {
         successCallback(json.data);
       } else {
-        const message = json.data ? json.data.message : json.error;
-        const errorCode = json.data ? json.data.code : null;
+        const message = json.errors ? json.errors[0].message : json.error;
+        const errorCode = json.errors ? json.errors[0].code : null;
         failureCallback(message, response.status, errorCode);
       }
     }
