@@ -27,6 +27,7 @@ import CheckContext from '../CheckContext';
 import { login, request } from '../redux/actions';
 import { mapGlobalMessage } from './MappedMessage';
 import { stringHelper } from '../customHelpers';
+import CheckError from '../CheckError';
 import {
   muiThemeWithoutRtl,
   units,
@@ -214,7 +215,7 @@ class Login extends Component {
     };
 
     const failureCallback = (message, status, errorCode) => {
-      const showOtp = (errorCode === 10) || this.state.showOtp;
+      const showOtp = (errorCode === CheckError.codes.LOGIN_2FA_REQUIRED) || this.state.showOtp;
       this.setState({ message, showOtp });
     };
 
