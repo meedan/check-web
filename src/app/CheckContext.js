@@ -68,7 +68,12 @@ class CheckContext {
     const successCallback = (userData) => {
       const newState = { sessionStarted: true };
 
-      if (userData) {
+      if (userData && userData.token) {
+        if (window.opener && config.extensionUrls) {
+          config.extensionUrls.forEach((uri) => {
+            window.opener.postMessage(`loggedIn:${userData.token}`, uri);
+          });
+        }
         newState.token = userData.token;
         this.startNetwork(userData.token);
       } else {
@@ -87,7 +92,15 @@ class CheckContext {
       this.caller.setState(newState);
     };
 
-    request('get', 'me', failureCallback, successCallback);
+    let headers = {};
+    if (window.parent !== window) {
+      const token = window.location.search.replace(/^\?token=/, '');
+      if (token) {
+        headers = { 'X-Check-Token': token };
+      }
+    }
+
+    request('get', 'me', failureCallback, successCallback, null, headers);
   }
 
   getTeamSlug() {

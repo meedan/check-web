@@ -111,10 +111,10 @@ shared_examples 'custom' do
 
   it "should search by status through URL", bin2: true do
     api_create_claim_and_go_to_search_page
-    before = wait_for_selector("search__results-heading", :class)
-    txt = before.text
+    expect((@driver.title =~ /False/).nil?).to be(true)
     @driver.navigate.to @config['self_url'] + '/' + get_team + '/search/%7B"verification_status"%3A%5B"false"%5D%7D'
-    txt = wait_for_text_change(txt, "search__results-heading", :class)
+    wait_for_selector("search__results-heading", :class)
+    sleep 10
     expect((@driver.title =~ /False/).nil?).to be(false)
     expect(@driver.page_source.include?('My search result')).to be(false)
     wait_for_selector("search__open-dialog-button", :id).click

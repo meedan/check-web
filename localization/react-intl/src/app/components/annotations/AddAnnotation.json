@@ -4,10 +4,6 @@
     "defaultMessage": "Invalid command"
   },
   {
-    "id": "addAnnotation.annotationAdded",
-    "defaultMessage": "{type} added"
-  },
-  {
     "id": "addAnnotation.error",
     "defaultMessage": "Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists."
   },
@@ -18,22 +14,6 @@
   {
     "id": "addAnnotation.submitButton",
     "defaultMessage": "Submit"
-  },
-  {
-    "id": "addAnnotation.typeComment",
-    "defaultMessage": "note"
-  },
-  {
-    "id": "addAnnotation.typeTag",
-    "defaultMessage": "tag"
-  },
-  {
-    "id": "addAnnotation.typeStatus",
-    "defaultMessage": "status"
-  },
-  {
-    "id": "addAnnotation.typeFlag",
-    "defaultMessage": "flag"
   },
   {
     "id": "addAnnotation.addImage",
