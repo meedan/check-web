@@ -7,6 +7,7 @@
   "userSecurity.successfulLoginText": "استلام تنبيه بعد كل تسجيل الدخول من مكان جديد او جهاز جديد",
   "userSecurity.failedfulLoginText": "استلام تنبيه بعد {loginTrial} محاولات فاشلة متتالية لتسجيل الدخول",
   "userSecurity.twoFactorAuthentication": "مصادقة ثنائية",
+  "userSecurity.suggestTwoFactorForSocialAccounts": "من أجل تمكين المصادقة الثنائية ، تحتاج إلى إنشاء كلمة مرور. يرجى القيام بذلك في قسم \"تغيير كلمة المرور\" أدناه.",
   "userSecurity.requireTwoFactorAuth": "تفعيل المصادقة الثنائية",
   "userSecurity.authenticateHeader": "خطوة ١: المصادقة",
   "userSecurity.authenticateDescription": "برجاء إدخال كلمة السر  لتأكيد هويتك:",
@@ -22,5 +23,6 @@
   "userSecurity.generateGackup": "إنشاء النُسخ الاحتياطي",
   "userSecurity.verifyHeader": "خطوة ٥: التحقق",
   "userSecurity.verifyDescription": "لتتفعيل المصادقة الثنائية ، أدخل الرمز المميز المكون من 6 أرقام من تطبيق المصادقة الثنائية:",
-  "userSecurity.enableTwofactor": "تفعيل"
+  "userSecurity.enableTwofactor": "تفعيل",
+  "userSecurity.changePassword": "تغيير كلمة المرور"
 }
