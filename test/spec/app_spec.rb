@@ -329,7 +329,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Happy birthday Mick')).to be(true)
       old = @driver.find_elements(:class, "medias__item").length
       wait_for_selector("search__open-dialog-button", :id).click
-      wait_for_selector("//span[contains(text(), 'Media')]", :xpath).click
+      wait_for_selector("//span[contains(text(), 'Links')]", :xpath).click
       wait_for_selector("search-query__submit-button", :id).click
       wait_for_size_change(old, "medias__item", :class)
       @wait.until { @driver.page_source.include?('@thewho') }
@@ -1783,7 +1783,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('My search result')).to be(false)
       wait_for_selector("search__open-dialog-button", :id).click
       selected = @driver.find_elements(:css, '.search-query__filter-button--selected')
-      expect(selected.size == 3).to be(true)
+      expect(selected.size == 5).to be(true)
     end
 
     it "should search by date range", bin4: true do
@@ -1813,7 +1813,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('My search result')).to be(true)
       wait_for_selector("search__open-dialog-button", :id).click
       selected = @driver.find_elements(:css, '.search-query__filter-button--selected').map(&:text).sort
-      expect(selected == ['Recent activity', 'Newest first', 'Media'].sort).to be(true)
+      expect(selected == ['Recent activity', 'Newest first', 'Links', 'Claims', 'Images'].sort).to be(true)
     end
 
     it "should change search sort order through URL", bin2: true do
@@ -1823,7 +1823,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('My search result')).to be(true)
       wait_for_selector("search__open-dialog-button", :id).click
       selected = @driver.find_elements(:css, '.search-query__filter-button--selected').map(&:text).sort
-      expect(selected).to eq(['Created', 'Oldest first', 'Media'].sort)
+      expect(selected).to eq(['Created', 'Oldest first', 'Links', 'Claims', 'Images'].sort)
     end
 
     it "should not reset password", bin5: true do
