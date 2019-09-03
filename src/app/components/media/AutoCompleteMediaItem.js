@@ -1,7 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import AutoComplete from 'material-ui/AutoComplete';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
+import CheckContext from '../../CheckContext';
 import { nested } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 
@@ -55,6 +57,8 @@ class AutoCompleteMediaItem extends React.Component {
   }
 
   search = (query) => {
+    const context = new CheckContext(this).getContextStore();
+
     if (query.length < 3 || this.state.searching) {
       return;
     }
@@ -94,6 +98,7 @@ class AutoCompleteMediaItem extends React.Component {
       }),
       headers: {
         Accept: '*/*',
+        'X-Check-Team': context.team.slug,
         'Content-Type': 'application/json',
         ...config.relayHeaders,
       },
@@ -164,5 +169,9 @@ class AutoCompleteMediaItem extends React.Component {
     );
   }
 }
+
+AutoCompleteMediaItem.contextTypes = {
+  store: PropTypes.object,
+};
 
 export default injectIntl(AutoCompleteMediaItem);

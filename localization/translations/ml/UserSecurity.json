@@ -7,6 +7,7 @@
   "userSecurity.successfulLoginText": "Receive a notification for logins from a new location or device",
   "userSecurity.failedfulLoginText": "Receive a notification for {loginTrial} consecutive failed login attempts",
   "userSecurity.twoFactorAuthentication": "Two factor authentication",
+  "userSecurity.suggestTwoFactorForSocialAccounts": "In order to enable 2FA, you need to create a password on Check. Please do so in the 'Change password' section below.",
   "userSecurity.requireTwoFactorAuth": "Require two-factor authentication",
   "userSecurity.authenticateHeader": "Step 1: Authenticate",
   "userSecurity.authenticateDescription": "Enter your current password to confirm your identity:",
@@ -22,5 +23,6 @@
   "userSecurity.generateGackup": "Generate backup code",
   "userSecurity.verifyHeader": "Step 5: Verify",
   "userSecurity.verifyDescription": "To enable two-factor authentication, enter the 6-digit token from your two-factor app:",
-  "userSecurity.enableTwofactor": "Enable"
+  "userSecurity.enableTwofactor": "Enable",
+  "userSecurity.changePassword": "Change password"
 }
