@@ -14,7 +14,7 @@ import SetUserSecuritySettingsMutation from '../../relay/mutations/SetUserSecuri
 import GenerateTwoFactorBackupCodesMutation from '../../relay/mutations/GenerateTwoFactorBackupCodesMutation';
 import UserTwoFactorAuthenticationMutation from '../../relay/mutations/UserTwoFactorAuthenticationMutation';
 import CheckContext from '../../CheckContext';
-import { getErrorMessage, getErrorObjects, safelyParseJSON } from '../../helpers';
+import { getErrorMessage, getErrorObjects } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 import globalStrings from '../../globalStrings';
 import { units, opaqueBlack10, StyledPasswordChange } from '../../styles/js/shared';
@@ -102,8 +102,7 @@ class UserSecurity extends Component {
     const onFailure = (transaction) => {
       const errors = { password: true, qrcode: true };
       const transactionErrors = getErrorObjects(transaction);
-      const returnErrors = safelyParseJSON(transactionErrors[0].message);
-      returnErrors.forEach((item) => { errors[item.field] = item.valid; });
+      transactionErrors.forEach((item) => { errors[item.data.field] = item.data.valid; });
       this.setState({ errors });
     };
     const onSuccess = (response) => {
