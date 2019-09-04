@@ -4,6 +4,5 @@
   "search.newTranslationNotificationBody": "Un element numai ce a fost marcat ca ”tradus”",
   "search.previousPage": "Previous page",
   "search.nextPage": "Next page",
-  "searchResults.withSelection": "{total, plural, =0 {Niciun element} one {1 element} other {{from} - {to} din # elemente}} {selectedCount, plural, =0 {} one {(1 selectat)} other {(# selectate)}}",
-  "searchResults.heading": "{total, plural, =0 {Niciun element} one {1 element} other {{from} - {to} din # elemente}}"
+  "searchResults.withSelection": "{selectedCount, plural, =0 {} one {(1 selected)} other {(# selected)}}"
 }
