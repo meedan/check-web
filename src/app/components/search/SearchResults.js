@@ -440,7 +440,9 @@ class SearchResultsComponent extends React.Component {
       itemOffset -= 1;
 
       const itemBaseQuery = Object.assign({}, query);
-      delete itemBaseQuery.show;
+      if (Array.isArray(itemBaseQuery.show)) {
+        itemBaseQuery.show = itemBaseQuery.show.filter(f => f !== 'sources');
+      }
       if (isProject) {
         itemBaseQuery.parent = { type: 'project', id: this.currentContext().project.dbid };
         itemBaseQuery.projects = [this.currentContext().project.dbid];
