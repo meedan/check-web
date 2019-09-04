@@ -43,10 +43,12 @@ export function request(method_, endpoint, failureCallback, successCallback, dat
   http.end((err, response) => {
     if (err) {
       if (err.response) {
-        const json = safelyParseJSON(err.response.text);
-        const message = json.errors ? json.errors[0].message : json.error;
-        const errorCode = json.errors ? json.errors[0].code : null;
-        failureCallback(message, err.response.status, errorCode);
+        const transaction = {
+          getError: () => ({
+            source: err.response.text,
+          }),
+        };
+        failureCallback(transaction);
       } else {
         failureCallback(util.inspect(err));
       }
@@ -55,9 +57,12 @@ export function request(method_, endpoint, failureCallback, successCallback, dat
       if (response.status === 200) {
         successCallback(json.data);
       } else {
-        const message = json.errors ? json.errors[0].message : json.error;
-        const errorCode = json.errors ? json.errors[0].code : null;
-        failureCallback(message, response.status, errorCode);
+        const transaction = {
+          getError: () => ({
+            source: response.text,
+          }),
+        };
+        failureCallback(transaction);
       }
     }
   });
