@@ -15,6 +15,8 @@
   "search.sortByCreated": "Criado",
   "search.sortByRecentActivity": "Atividade recente",
   "search.show": "Mostrar",
-  "search.showMedia": "Mídia",
+  "search.showClaims": "Afirmações",
+  "search.showLinks": "Links",
+  "search.showImages": "Imagens",
   "search.showSources": "Fontes"
 }

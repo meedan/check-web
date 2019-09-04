@@ -15,6 +15,8 @@
   "search.sortByCreated": "حسب تاريخ الإضافة",
   "search.sortByRecentActivity": "حسب تاريخ الأنشطة",
   "search.show": "عرض",
-  "search.showMedia": "الميديا",
+  "search.showClaims": "إدعاءات",
+  "search.showLinks": "روابط",
+  "search.showImages": "صور",
   "search.showSources": "المصادر"
 }
