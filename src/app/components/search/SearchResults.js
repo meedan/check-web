@@ -313,23 +313,6 @@ class SearchResultsComponent extends React.Component {
     if (to > count) {
       to = count;
     }
-    const mediasCount =
-      this.state.selectedMedia.length ?
-        (
-          <span>{offset + 1} - {to} / {count}&nbsp;
-            <FormattedMessage
-              id="searchResults.withSelection"
-              defaultMessage="{selectedCount, plural, =0 {} one {(1 selected)} other {(# selected)}}"
-              values={{
-                selectedCount: this.state.selectedMedia.length,
-              }}
-            />
-          </span>
-        ) :
-        (
-          <span>{offset + 1} - {to} / {count}</span>
-        );
-
     const isProject = /\/project\//.test(window.location.pathname);
     const isTrash = /\/trash/.test(window.location.pathname);
 
@@ -342,12 +325,11 @@ class SearchResultsComponent extends React.Component {
       addons: this.props.addons,
     };
 
-    let title = null;
     let bulkActionsAllowed = false;
     if (medias.length) {
       bulkActionsAllowed = !medias[0].node.archived && can(medias[0].node.permissions, 'administer Content');
     }
-    title = (
+    const title = (
       <Toolbar
         filter={
           <SearchQuery
@@ -375,7 +357,28 @@ class SearchResultsComponent extends React.Component {
                 <PrevIcon />
               </span>
             </Tooltip>
-            <span className="search__count">{mediasCount}</span>
+            <span className="search__count">
+              <FormattedMessage
+                id="searchResults.itemsCount"
+                defaultMessage="{count, plural, =0 {&nbsp;} one {1 / 1} other {{from} - {to} / #}}"
+                values={{
+                  from: offset + 1,
+                  to,
+                  count,
+                }}
+              />
+              {this.state.selectedMedia.length ?
+                <span>&nbsp;
+                  <FormattedMessage
+                    id="searchResults.withSelection"
+                    defaultMessage="{selectedCount, plural, =0 {} one {(1 selected)} other {(# selected)}}"
+                    values={{
+                      selectedCount: this.state.selectedMedia.length,
+                    }}
+                  />
+                </span> : null
+              }
+            </span>
             <Tooltip title={this.props.intl.formatMessage(messages.nextPage)}>
               <span
                 className="search__next-page search__nav"
