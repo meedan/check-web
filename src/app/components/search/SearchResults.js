@@ -354,7 +354,7 @@ class SearchResultsComponent extends React.Component {
                 className="search__previous-page search__nav"
                 onClick={this.previousPage.bind(this)}
               >
-                <PrevIcon />
+                <PrevIcon style={{ opacity: offset <= 0 ? '0.25' : '1' }} />
               </span>
             </Tooltip>
             <span className="search__count">
@@ -384,7 +384,7 @@ class SearchResultsComponent extends React.Component {
                 className="search__next-page search__nav"
                 onClick={this.nextPage.bind(this)}
               >
-                <NextIcon />
+                <NextIcon style={{ opacity: to >= count ? '0.25' : '1' }} />
               </span>
             </Tooltip>
           </span>
