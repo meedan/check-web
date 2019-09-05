@@ -8,6 +8,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import AutoCompleteMediaItem from './AutoCompleteMediaItem';
 import CreateMediaInput from './CreateMediaInput';
+import Message from '../Message';
 import globalStrings from '../../globalStrings';
 
 class CreateRelatedMediaDialog extends React.Component {
@@ -78,10 +79,13 @@ class CreateRelatedMediaDialog extends React.Component {
             />
           }
           { mode === 'existing' &&
-            <AutoCompleteMediaItem
-              media={media}
-              onSelect={this.handleSelectExisting}
-            />
+            <div>
+              <Message message={this.props.message} />
+              <AutoCompleteMediaItem
+                media={media}
+                onSelect={this.handleSelectExisting}
+              />
+            </div>
           }
         </DialogContent>
         <DialogActions>

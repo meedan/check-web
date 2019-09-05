@@ -27,6 +27,8 @@ import CheckContext from '../CheckContext';
 import { login, request } from '../redux/actions';
 import { mapGlobalMessage } from './MappedMessage';
 import { stringHelper } from '../customHelpers';
+import { getErrorObjects } from '../helpers';
+import CheckError from '../CheckError';
 import {
   muiThemeWithoutRtl,
   units,
@@ -213,8 +215,12 @@ class Login extends Component {
       'api_user[otp_attempt]': this.state.otp_attempt,
     };
 
-    const failureCallback = (message, status, errorCode) => {
-      const showOtp = (errorCode === 10) || this.state.showOtp;
+    const failureCallback = (transaction) => {
+      const errors = getErrorObjects(transaction);
+      const { message, code } = errors[0];
+      const showOtp =
+        (code === CheckError.codes.LOGIN_2FA_REQUIRED) ||
+        this.state.showOtp;
       this.setState({ message, showOtp });
     };
 
@@ -238,8 +244,10 @@ class Login extends Component {
       'api_user[image]': form.image,
     };
 
-    const failureCallback = (message, status) => {
-      if (status === 401) {
+    const failureCallback = (transaction) => {
+      const errors = getErrorObjects(transaction);
+      const { message, code } = errors[0];
+      if (code === CheckError.codes.UNAUTHORIZED) {
         this.setState({ registrationSubmitted: true });
       }
       this.setState({ message });

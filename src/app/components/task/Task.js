@@ -24,13 +24,14 @@ import Sentence from '../Sentence';
 import ProfileLink from '../layout/ProfileLink';
 import AttributionDialog from '../user/AttributionDialog';
 import CheckContext from '../../CheckContext';
-import { safelyParseJSON } from '../../helpers';
+import { getErrorMessage } from '../../helpers';
+import { stringHelper } from '../../customHelpers';
+import globalStrings from '../../globalStrings';
 import UpdateTaskMutation from '../../relay/mutations/UpdateTaskMutation';
 import UpdateDynamicMutation from '../../relay/mutations/UpdateDynamicMutation';
 import DeleteAnnotationMutation from '../../relay/mutations/DeleteAnnotationMutation';
 import DeleteDynamicMutation from '../../relay/mutations/DeleteDynamicMutation';
 import { Row, units, black16, title1 } from '../../styles/js/shared';
-
 
 const StyledWordBreakDiv = styled.div`
   hyphens: auto;
@@ -125,12 +126,8 @@ class Task extends Component {
   }
 
   fail = (transaction) => {
-    const error = transaction.getError();
-    let message = error.source;
-    const json = safelyParseJSON(error.source);
-    if (json && json.error) {
-      message = json.error;
-    }
+    const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+    const message = getErrorMessage(transaction, fallbackMessage);
     this.setState({ message });
   };
 

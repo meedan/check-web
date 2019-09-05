@@ -29,7 +29,7 @@ import UpdateUserMutation from '../../relay/mutations/UpdateUserMutation';
 import DeleteTeamUserMutation from '../../relay/mutations/DeleteTeamUserMutation';
 import CheckContext from '../../CheckContext';
 import { can } from '../Can';
-import { safelyParseJSON } from '../../helpers';
+import { getErrorMessage } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 
 const messages = defineMessages({
@@ -60,13 +60,9 @@ class SwitchTeamsComponent extends Component {
     context.setContextStore({ team, currentUser });
 
     const onFailure = (transaction) => {
-      const error = transaction.getError();
-      let message = this.props.intl.formatMessage(messages.switchTeamsError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
-      const json = safelyParseJSON(error.source);
-      if (json && json.error) {
-        message = json.error;
-      }
-      console.error(message); // eslint-disable-line no-console
+      const fallbackMessage = this.props.intl.formatMessage(messages.switchTeamsError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+      const message = getErrorMessage(transaction, fallbackMessage);
+      this.context.setMessage(message);
     };
 
     const onSuccess = () => {
@@ -217,6 +213,7 @@ SwitchTeamsComponent.propTypes = {
 
 SwitchTeamsComponent.contextTypes = {
   store: PropTypes.object,
+  setMessage: PropTypes.func,
 };
 
 export default injectIntl(SwitchTeamsComponent);

@@ -62,12 +62,9 @@ class TagInput extends React.Component {
     };
 
     const onFailure = (transaction) => {
-      this.setState({
-        message: getErrorMessage(
-          transaction,
-          this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') }),
-        ),
-      });
+      const fallbackMessage = this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+      const message = getErrorMessage(transaction, fallbackMessage);
+      this.setState({ message });
     };
 
     createTag(

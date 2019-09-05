@@ -9,7 +9,7 @@ import DeleteTagMutation from '../relay/mutations/DeleteTagMutation';
 import CheckContext from '../CheckContext';
 import globalStrings from '../globalStrings';
 import { caption, StyledTagsWrapper } from '../styles/js/shared';
-import { safelyParseJSON } from '../helpers';
+import { getErrorMessage } from '../helpers';
 import { stringHelper } from '../customHelpers';
 
 const messages = defineMessages({
@@ -40,12 +40,8 @@ class Tags extends React.Component {
     const tagsList = [...new Set(tags.split(','))];
 
     const onFailure = (transaction) => {
-      const error = transaction.getError();
-      let message = this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') });
-      const json = safelyParseJSON(error.source);
-      if (json && json.error) {
-        message = json.error;
-      }
+      const fallbackMessage = this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+      const message = getErrorMessage(transaction, fallbackMessage);
       this.setState({ message });
     };
 

@@ -16,10 +16,9 @@ import styled from 'styled-components';
 import UserUtil from '../user/UserUtil';
 import Message from '../Message';
 import CheckContext from '../../CheckContext';
-// import FaceFrown from '../../../assets/images/feedback/face-frown';
 import UpdateTeamMutation from '../../relay/mutations/UpdateTeamMutation';
 import globalStrings from '../../globalStrings';
-import { safelyParseJSON } from '../../helpers';
+import { getErrorMessage } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 import {
   title1,
@@ -90,15 +89,8 @@ class SlackConfig extends React.Component {
       : this.props.team.get_slack_webhook;
 
     const onFailure = (transaction) => {
-      const error = transaction.getError();
-      let message = this.props.intl.formatMessage(
-        globalStrings.unknownError,
-        { supportEmail: stringHelper('SUPPORT_EMAIL') },
-      );
-      const json = safelyParseJSON(error.source);
-      if (json && json.error) {
-        message = json.error;
-      }
+      const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+      const message = getErrorMessage(transaction, fallbackMessage);
       return this.setState({ message });
     };
 

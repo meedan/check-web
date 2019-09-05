@@ -19,7 +19,7 @@ import UpdateSourceMutation from '../../relay/mutations/UpdateSourceMutation';
 import { updateUserNameEmail } from '../../relay/mutations/UpdateUserNameEmailMutation';
 import CreateAccountSourceMutation from '../../relay/mutations/CreateAccountSourceMutation';
 import DeleteAccountSourceMutation from '../../relay/mutations/DeleteAccountSourceMutation';
-import { safelyParseJSON } from '../../helpers';
+import { getErrorMessage } from '../../helpers';
 import {
   StyledIconButton,
   Row,
@@ -184,12 +184,8 @@ class UserInfoEdit extends React.Component {
   }
 
   fail(transaction, mutation) {
-    const error = transaction.getError();
-    let message = this.props.intl.formatMessage(messages.editError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
-    const json = safelyParseJSON(error.source);
-    if (json && json.error) {
-      message = json.error;
-    }
+    const fallbackMessage = this.props.intl.formatMessage(messages.editError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+    const message = getErrorMessage(transaction, fallbackMessage);
     this.setState({ message, hasFailure: true });
     this.removePendingMutation(mutation);
   }
@@ -321,16 +317,12 @@ class UserInfoEdit extends React.Component {
       const index = links.findIndex(link => link.url === url);
 
       if (index > -1) {
-        const error = transaction.getError();
-        let message = this.props.intl.formatMessage(messages.invalidLink);
-        const json = safelyParseJSON(error.source);
-        if (json && json.error) {
-          message = json.error;
-        }
+        const fallbackMessage = this.props.intl.formatMessage(messages.invalidLink);
+        const message = getErrorMessage(transaction, fallbackMessage);
         links[index].error = message;
       }
 
-      this.setState({ hasFailure: true, submitDisabled: false });
+      this.setState({ links, hasFailure: true, submitDisabled: false });
       this.removePendingMutation('createAccount');
     };
 

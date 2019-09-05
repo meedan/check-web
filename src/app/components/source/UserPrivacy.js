@@ -12,6 +12,7 @@ import { logout } from '../../redux/actions';
 import DeleteCheckUserMutation from '../../relay/mutations/DeleteCheckUserMutation';
 import CheckContext from '../../CheckContext';
 import { mapGlobalMessage } from '../MappedMessage';
+import { getErrorMessage } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 import { units } from '../../styles/js/shared';
 import globalStrings from '../../globalStrings';
@@ -54,24 +55,13 @@ class UserPrivacy extends Component {
     this.handleCloseDialog();
   }
 
-  handleError(json) {
-    let message = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
-    if (json && json.error) {
-      message = json.error;
-    }
-    this.setState({ message });
-  }
-
   handleRequestDeleteAccount() {
     const { user } = this.props;
 
     const onFailure = (transaction) => {
-      const error = transaction.getError();
-      if (error.json) {
-        error.json().then(this.handleError);
-      } else {
-        this.handleError(JSON.stringify(error));
-      }
+      const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+      const message = getErrorMessage(transaction, fallbackMessage);
+      this.setState({ message });
     };
 
     const onSuccess = () => {

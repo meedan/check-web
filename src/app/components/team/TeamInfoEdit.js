@@ -9,7 +9,7 @@ import TeamAvatar from './TeamAvatar';
 import Message from '../Message';
 import UploadImage from '../UploadImage';
 import globalStrings from '../../globalStrings';
-import { safelyParseJSON, validateURL } from '../../helpers';
+import { getErrorMessage, validateURL } from '../../helpers';
 import CheckContext from '../../CheckContext';
 import UpdateTeamMutation from '../../relay/mutations/UpdateTeamMutation';
 import {
@@ -119,13 +119,9 @@ class TeamInfoEdit extends React.Component {
 
   handleSubmit() {
     const onFailure = (transaction) => {
-      const error = transaction.getError();
-      let message = this.props.intl.formatMessage(messages.editError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
-      const json = safelyParseJSON(error.source);
-      if (json && json.error) {
-        message = json.error;
-      }
-      return this.setState({ message, avatar: null, submitDisabled: false });
+      const fallbackMessage = this.props.intl.formatMessage(messages.editError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+      const message = getErrorMessage(transaction, fallbackMessage);
+      this.setState({ message, avatar: null, submitDisabled: false });
     };
 
     const onSuccess = () => {
