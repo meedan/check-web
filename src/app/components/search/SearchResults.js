@@ -316,29 +316,18 @@ class SearchResultsComponent extends React.Component {
     const mediasCount =
       this.state.selectedMedia.length ?
         (
-          <FormattedMessage
-            id="searchResults.withSelection"
-            defaultMessage="{total, plural, =0 {No items} one {1 item} other {{from} - {to} of # items}} {selectedCount, plural, =0 {} one {(1 selected)} other {(# selected)}}"
-            values={{
-              from: offset + 1,
-              to,
-              total: count,
-              selectedCount: this.state.selectedMedia.length,
-            }}
-          />
-        ) :
-        (
-          <span>
+          <span>{offset + 1} - {to} / {count}&nbsp;
             <FormattedMessage
-              id="searchResults.heading"
-              defaultMessage="{total, plural, =0 {No items} one {1 item} other {{from} - {to} of # items}}"
+              id="searchResults.withSelection"
+              defaultMessage="{selectedCount, plural, =0 {} one {(1 selected)} other {(# selected)}}"
               values={{
-                from: offset + 1,
-                to,
-                total: count,
+                selectedCount: this.state.selectedMedia.length,
               }}
             />
           </span>
+        ) :
+        (
+          <span>{offset + 1} - {to} / {count}</span>
         );
 
     const isProject = /\/project\//.test(window.location.pathname);
@@ -378,7 +367,6 @@ class SearchResultsComponent extends React.Component {
           /> : null}
         title={
           <span className="search__results-heading">
-            <span className="search__count">{mediasCount}</span>
             <Tooltip title={this.props.intl.formatMessage(messages.previousPage)}>
               <span
                 className="search__previous-page search__nav"
@@ -387,6 +375,7 @@ class SearchResultsComponent extends React.Component {
                 <PrevIcon />
               </span>
             </Tooltip>
+            <span className="search__count">{mediasCount}</span>
             <Tooltip title={this.props.intl.formatMessage(messages.nextPage)}>
               <span
                 className="search__next-page search__nav"
