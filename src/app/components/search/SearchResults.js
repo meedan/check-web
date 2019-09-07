@@ -431,7 +431,7 @@ class SearchResultsComponent extends React.Component {
       let itemOffset = query.esoffset ? parseInt(query.esoffset, 10) : 0;
       itemOffset -= 1;
 
-      const itemBaseQuery = Object.assign({}, query);
+      const itemBaseQuery = Object.assign({ original: query }, query);
       if (Array.isArray(itemBaseQuery.show)) {
         itemBaseQuery.show = itemBaseQuery.show.filter(f => f !== 'sources');
       }

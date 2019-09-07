@@ -35,7 +35,6 @@ class ProjectHeaderComponent extends React.PureComponent {
     const backUrl = () => {
       if (mediaQuery) {
         const query = Object.assign({}, mediaQuery);
-        delete query.esoffset;
         let basePath = '';
         switch (query.referer) {
         case 'search':
@@ -48,7 +47,9 @@ class ProjectHeaderComponent extends React.PureComponent {
           basePath = `${path.match(regexProject)[1]}`;
           break;
         }
-        return urlFromSearchQuery(query, basePath);
+        const baseQuery = query.original || query;
+        delete baseQuery.esoffset;
+        return urlFromSearchQuery(baseQuery, basePath);
       } else if (isProjectSubpage) {
         return path.match(regexProject)[1];
       }
