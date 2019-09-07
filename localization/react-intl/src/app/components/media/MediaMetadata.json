@@ -56,6 +56,10 @@
     "defaultMessage": "Assigned to {name}"
   },
   {
+    "id": "mediaDetail.dialogMoveTitle",
+    "defaultMessage": "Move to a different project"
+  },
+  {
     "id": "mediaDetail.assignDialogHeader",
     "defaultMessage": "Assignment"
   }

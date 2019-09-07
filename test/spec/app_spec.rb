@@ -1437,7 +1437,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       move = wait_for_selector('.media-actions__move', :css)
       move.location_once_scrolled_into_view
       move.click
-      move = wait_for_selector('input[name=moveMedia]', :css)
+      wait_for_selector('.Select-input input', :css)
+      fill_field('.Select-input input', 'Project')
+      move = wait_for_selector('.Select-option', :css)
       move.location_once_scrolled_into_view
       move.click
       move = wait_for_selector('.media-detail__move-button', :css)

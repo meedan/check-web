@@ -387,7 +387,7 @@ class MediaMetadata extends Component {
     });
   }
 
-  handleSelectDestProject(event, dstProj) {
+  handleSelectDestProject(dstProj) {
     this.setState({ dstProj });
   }
 
@@ -633,6 +633,15 @@ class MediaMetadata extends Component {
           team={context.team}
           projectId={nested(['project', 'dbid'], media)}
           onChange={this.handleSelectDestProject.bind(this)}
+          style={{
+            minHeight: 400,
+          }}
+          title={
+            <FormattedMessage
+              id="mediaDetail.dialogMoveTitle"
+              defaultMessage="Move to a different project"
+            />
+          }
         />
 
         <Dialog

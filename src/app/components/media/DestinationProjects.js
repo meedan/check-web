@@ -1,16 +1,26 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
-import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
-import { units } from '../../styles/js/shared';
-import TeamRoute from '../../relay/TeamRoute';
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
+import styled from 'styled-components';
+import { injectIntl, intlShape, defineMessages } from 'react-intl';
+import MeRoute from '../../relay/MeRoute';
 import RelayContainer from '../../relay/RelayContainer';
+import { units } from '../../styles/js/shared';
+
+const messages = defineMessages({
+  choose: {
+    id: 'destinationProjects.choose',
+    defaultMessage: 'Choose a project',
+  },
+});
 
 class DestinationProjectsComponent extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      valueSelected: null,
+      selectedValue: null,
     };
   }
 
@@ -19,66 +29,104 @@ class DestinationProjectsComponent extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (nextProps.team.projects.length > this.props.team.projects.length || !this.props.team) {
+    if (nextProps.user.team_users.length > this.props.user.team_users.length || !this.props.user) {
       this.props.onLoad();
     }
   }
 
-  destinationProjects = (team, projectId) => {
-    if (team.projects) {
-      const projects = team.projects.edges.sortp((a, b) =>
-        a.node.title.localeCompare(b.node.title));
-      return projects.filter(p => p.node.dbid !== projectId);
-    }
-
-    return [];
-  };
-
-  selectCallback = (event, value) => {
-    const project = this.props.team.projects.edges.find(p => p.node.dbid === value);
-    this.setState({ valueSelected: value });
+  handleChange(selectedValue) {
+    this.setState({ selectedValue });
     if (this.props.onChange) {
-      this.props.onChange(event, project.node);
+      let project = null;
+      this.props.user.team_users.edges.forEach((teamUserNode) => {
+        teamUserNode.node.team.projects.edges.forEach((projectNode) => {
+          if (selectedValue && projectNode.node.dbid === selectedValue.value) {
+            project = projectNode.node;
+          }
+        });
+      });
+      this.props.onChange(project);
     }
-  };
+  }
 
   render() {
-    const radios = [];
-    this.destinationProjects(this.props.team, this.props.projectId).forEach((proj) => {
-      radios.push(<RadioButton
-        key={proj.node.dbid}
-        label={proj.node.title}
-        value={proj.node.dbid}
-        style={{ padding: units(1) }}
-      />);
+    const StyledSelect = styled(Select)`
+      margin-top: ${units(3)};
+
+      .Select-option {
+        padding-left: ${units(2)};
+        padding-right: ${units(2)};
+      }
+      .Select-option.is-disabled {
+        cursor: default;
+        padding-left: ${units(1)};
+        padding-right: ${units(1)};
+      }
+    `;
+
+    const options = [];
+    this.props.user.team_users.edges.forEach((teamUserNode) => {
+      if (teamUserNode.node.status === 'member') {
+        const { team } = teamUserNode.node;
+        let skip = false;
+        if (
+          (this.props.include && this.props.include.indexOf(team.slug) === -1) ||
+          (this.props.exclude && this.props.exclude.indexOf(team.slug) > -1)
+        ) {
+          skip = true;
+        }
+        if (!skip) {
+          options.push({ label: team.name, value: team.slug, disabled: true });
+          team.projects.edges.forEach((projectNode) => {
+            const project = projectNode.node;
+            if (this.props.projectId !== project.dbid) {
+              options.push({ label: project.title, value: project.dbid });
+            }
+          });
+        }
+      }
     });
 
     return (
-      <RadioButtonGroup
-        name="moveMedia"
-        className="media-detail__dialog-radio-group"
-        onChange={this.selectCallback}
-        valueSelected={this.state.valueSelected}
-      >
-        {radios}
-      </RadioButtonGroup>
+      <StyledSelect
+        value={this.state.selectedValue && this.state.selectedValue.value}
+        onChange={this.handleChange.bind(this)}
+        options={options}
+        placeholder={this.props.intl.formatMessage(messages.choose)}
+        style={{
+          boxShadow: 'none',
+        }}
+      />
     );
   }
 }
 
 const DestinationProjectsContainer = Relay.createContainer(DestinationProjectsComponent, {
   fragments: {
-    team: () => Relay.QL`
-      fragment on Team {
-        id,
-        dbid,
-        projects(first: 10000) {
+    user: () => Relay.QL`
+      fragment on User {
+        id
+        team_users(first: 10000) {
           edges {
             node {
-              id,
-              dbid,
-              title,
-              search_id,
+              id
+              status
+              team {
+                id
+                dbid
+                slug
+                name
+                projects(first: 10000) {
+                  edges {
+                    node {
+                      id
+                      dbid
+                      title
+                      search_id
+                    }
+                  }
+                }
+              }
             }
           }
         }
@@ -88,9 +136,7 @@ const DestinationProjectsContainer = Relay.createContainer(DestinationProjectsCo
 });
 
 const DestinationProjects = (props) => {
-  const teamSlug = props.team.slug;
-  const route = new TeamRoute({ teamSlug });
-
+  const route = new MeRoute();
   return (
     <RelayContainer
       Component={DestinationProjectsContainer}
@@ -100,4 +146,10 @@ const DestinationProjects = (props) => {
   );
 };
 
-export default DestinationProjects;
+DestinationProjects.propTypes = {
+  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
+  // eslint-disable-next-line react/no-typos
+  intl: intlShape.isRequired,
+};
+
+export default injectIntl(DestinationProjects);
