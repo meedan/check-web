@@ -34,7 +34,7 @@ const messages = defineMessages({
   },
   clone: {
     id: 'bulkActions.clone',
-    defaultMessage: 'Copy items to another project',
+    defaultMessage: 'Copy selected items to another project',
   },
 });
 
