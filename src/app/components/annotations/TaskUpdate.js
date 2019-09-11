@@ -13,6 +13,7 @@ class TaskUpdate extends React.Component {
     this.removedComment = false;
     this.isNowRequired = false;
     this.isNotRequired = false;
+    this.changedJsonSchema = false;
   }
 
   shouldLogChange(activity) {
@@ -41,6 +42,9 @@ class TaskUpdate extends React.Component {
         this.isNowRequired = this.to.required;
         this.isNowNotRequired = !this.to.required;
       }
+      if (this.from.json_schema !== this.to.json_schema) {
+        this.changedJsonSchema = true;
+      }
     }
     if (changes.assigned_to_id) {
       if (changes.assigned_to_id[1]) {
@@ -57,7 +61,8 @@ class TaskUpdate extends React.Component {
       this.addedComment ||
       this.isNowRequired ||
       this.isNowNotRequired ||
-      this.removedComment;
+      this.removedComment ||
+      this.changedJsonSchema;
   }
 
   render() {
@@ -74,7 +79,8 @@ class TaskUpdate extends React.Component {
         this.addedComment ||
         this.isNowRequired ||
         this.isNowNotRequired ||
-        this.removedComment
+        this.removedComment ||
+        this.changedJsonSchema
       ) {
         title = JSON.parse(activity.object_after).data.label;
         if (activity.meta) {
@@ -184,6 +190,16 @@ class TaskUpdate extends React.Component {
             <FormattedMessage
               id="annotation.nowNotRequired"
               defaultMessage="Task marked as not required by {author}: {title}"
+              values={{
+                title,
+                author,
+              }}
+            />
+            : null}
+          {this.changedJsonSchema ?
+            <FormattedMessage
+              id="annotation.changedJsonSchema"
+              defaultMessage="JSON Schema of task {title} changed by {author}"
               values={{
                 title,
                 author,

@@ -53,6 +53,7 @@ class CreateTask extends Component {
       description,
       required,
       jsonoptions,
+      jsonschema,
     } = task;
 
     const onFailure = (transaction) => {
@@ -75,6 +76,7 @@ class CreateTask extends Component {
         required,
         type: this.state.type,
         jsonoptions,
+        json_schema: jsonschema,
         annotated_type: 'ProjectMedia',
         annotated_id: this.props.media.id,
         annotated_dbid: `${this.props.media.dbid}`,
