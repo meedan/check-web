@@ -97,6 +97,12 @@ class Home extends Component {
     if (/^:team$/.test(children.props.route.path)) {
       return 'team';
     }
+    if (/^check\/me\(\/:tab\)/.test(children.props.route.path)) {
+      return 'me';
+    }
+    if (/^:team\/project\/:projectId\(\/:query\)/.test(children.props.route.path)) {
+      return 'project';
+    }
     return null;
   }
 
@@ -122,7 +128,8 @@ class Home extends Component {
 
   componentWillMount() {
     const path = window.location.pathname;
-    if (path !== '/') {
+    const routeSlug = Home.routeSlug(this.props.children);
+    if (this.canRedirect(routeSlug)) {
       window.storage.set('previousPage', path);
     }
     this.setContext();
@@ -144,6 +151,19 @@ class Home extends Component {
   getContext() {
     return new CheckContext(this).getContextStore();
   }
+
+  canRedirect = (routeSlug) => {
+    switch (routeSlug) {
+    case 'media':
+    case 'source':
+    case 'team':
+    case 'project':
+    case 'me':
+      return true;
+    default:
+      return false;
+    }
+  };
 
   handleDrawerToggle = () => this.setState({ open: !this.state.open });
 
