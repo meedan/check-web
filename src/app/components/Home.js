@@ -8,6 +8,7 @@ import { MuiThemeProvider as MuiThemeProviderNext, createMuiTheme } from '@mater
 import rtlDetect from 'rtl-detect';
 import merge from 'lodash.merge';
 import styled, { injectGlobal } from 'styled-components';
+import Intercom from 'react-intercom';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import Header from './Header';
 import LoginContainer from './LoginContainer';
@@ -235,10 +236,20 @@ class Home extends Component {
       return false;
     })();
 
+    const user = this.getContext().currentUser;
+
     return (
       <MuiThemeProviderNext theme={muiThemeNext}>
         <MuiThemeProvider muiTheme={muiThemeWithRtl}>
           <span>
+            {config.intercomAppId && user ?
+              <Intercom
+                appID={config.intercomAppId}
+                user_id={user.dbid}
+                email={user.email}
+                name={user.name}
+              /> : null
+            }
             <Favicon url={`/images/logo/${config.appName}.ico`} animated={false} />
             <BrowserSupport />
             <StyledWrapper className={bemClass('home', routeSlug, `--${routeSlug}`)}>

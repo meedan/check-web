@@ -228,6 +228,7 @@ const MediaTasksContainer = Relay.createContainer(MediaTasksComponent, {
               description,
               permissions,
               jsonoptions,
+              json_schema,
               options,
               pending_suggestions_count,
               suggestions_count,

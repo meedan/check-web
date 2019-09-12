@@ -228,6 +228,7 @@ class Task extends Component {
       label: editedTask.label,
       required: editedTask.required,
       status: editedTask.status,
+      json_schema: editedTask.jsonschema,
       description: editedTask.description,
       assigned_to_ids: this.getAssignment(),
     };

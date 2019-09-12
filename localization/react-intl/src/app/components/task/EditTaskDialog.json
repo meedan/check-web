@@ -56,6 +56,10 @@
     "defaultMessage": "Assign"
   },
   {
+    "id": "tasks.taskJsonSchema",
+    "defaultMessage": "JSON Schema (optional / advanced)"
+  },
+  {
     "id": "tasks.cancelAdd",
     "defaultMessage": "Cancel"
   },

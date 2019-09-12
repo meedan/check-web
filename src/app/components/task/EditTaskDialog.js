@@ -87,6 +87,7 @@ class EditTaskDialog extends React.Component {
       status: task ? task.status : 'unresolved',
       resolvable: task && task.responses && task.responses.edges.length > 0,
       confirmRequired: false,
+      jsonschema: task ? task.json_schema : null,
     };
   }
 
@@ -164,6 +165,11 @@ class EditTaskDialog extends React.Component {
     this.validateTask(e.target.value, this.state.options);
   }
 
+  handleJsonSchemaChange(e) {
+    this.setState({ jsonschema: e.target.value });
+    this.validateTask(this.state.label, this.state.options);
+  }
+
   handleSelectRequired(e, inputChecked) {
     const { media } = this.props;
 
@@ -207,6 +213,7 @@ class EditTaskDialog extends React.Component {
       status: this.state.status,
       jsonoptions,
       json_project_ids: JSON.stringify(this.state.project_ids),
+      jsonschema: this.state.jsonschema,
     };
 
     if (!this.state.submitDisabled) {
@@ -388,6 +395,17 @@ class EditTaskDialog extends React.Component {
               </button> : null
             }
           </StyledTaskAssignment>
+          { this.props.taskType === 'free_text' ?
+            <TextField
+              id="task-jsonschema-input"
+              className="tasks__task-jsonschema-input"
+              label={<FormattedMessage id="tasks.taskJsonSchema" defaultMessage="JSON Schema (optional / advanced)" />}
+              defaultValue={this.state.jsonschema}
+              onChange={this.handleJsonSchemaChange.bind(this)}
+              margin="normal"
+              multiline
+              fullWidth
+            /> : null }
         </DialogContent>
         <DialogActions>
           <Button
