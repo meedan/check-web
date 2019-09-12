@@ -128,6 +128,11 @@ class CreateMediaInput extends React.Component {
       if (!image) {
         return null;
       }
+    } else if (this.state.mode === 'video') {
+      ({ media: { video } } = document.forms);
+      if (!video) {
+        return null;
+      }
     } else if (this.state.mode === 'quote') {
       // TODO Use React ref
       quote = document.getElementById('create-media-quote-input').value.trim();
@@ -158,13 +163,17 @@ class CreateMediaInput extends React.Component {
     if (image !== '') {
       title = image.name;
     }
+    if (video !== '') {
+      title = video.name;
+    }
 
-    if (url || quote || image) {
+    if (url || quote || image || video) {
       return ({
         url,
         quote,
         quoteAttributions,
         image,
+        video,
         title,
         mode: this.state.mode,
       });
@@ -219,6 +228,11 @@ class CreateMediaInput extends React.Component {
     }
   }
 
+  handleVideo = (file) => {
+    this.setState({ message: null, submittable: true });
+    document.forms.media.video = file;
+  };
+
   handleImage = (file) => {
     this.setState({ message: null, submittable: true });
     document.forms.media.image = file;
@@ -270,6 +284,14 @@ class CreateMediaInput extends React.Component {
         <UploadImage
           key="createMedia.image.upload"
           onImage={this.handleImage}
+          onError={this.handleImageError}
+        />,
+      ];
+    case 'video':
+      return [
+        <UploadImage
+          key="createMedia.video.upload"
+          onImage={this.handleVideo}
           onError={this.handleImageError}
         />,
       ];
@@ -381,6 +403,15 @@ class CreateMediaInput extends React.Component {
       </StyledTabLabel>
     );
 
+    const tabLabelVideo = (
+      <StyledTabLabel active={this.state.mode === 'video'}>
+        <StyledIcon><IconInsertPhoto /></StyledIcon>
+        <StyledTabLabelText>
+          <FormattedMessage id="createMedia.video" defaultMessage="Video" />
+        </StyledTabLabelText>
+      </StyledTabLabel>
+    );
+
     const defaultTabProps = {
       buttonStyle: { height: units(3) },
       style: styles.tab,
@@ -428,6 +459,12 @@ class CreateMediaInput extends React.Component {
                   id="create-media__image"
                   value="image"
                   label={tabLabelImage}
+                  {...defaultTabProps}
+                />
+                <Tab
+                  id="create-media__video"
+                  value="video"
+                  label={tabLabelVideo}
                   {...defaultTabProps}
                 />
               </Tabs>
