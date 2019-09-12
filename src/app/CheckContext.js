@@ -59,11 +59,6 @@ class CheckContext {
   }
 
   startSession() {
-    const path = window.location.pathname;
-    if (path !== '/') {
-      window.storage.set('previousPage', path);
-    }
-
     // Failed login
     const failureCallback = (errorMessage) => {
       this.caller.setState({ message: errorMessage, error: true, sessionStarted: true });
@@ -172,8 +167,8 @@ class CheckContext {
 
   redirectToPreviousPageOr(path) {
     const previousPage = window.storage.getValue('previousPage');
+    window.storage.set('previousPage', '');
     if (previousPage && previousPage !== '') {
-      window.storage.set('previousPage', '');
       this.getContextStore().history.push(previousPage);
     } else {
       this.getContextStore().history.push(path);

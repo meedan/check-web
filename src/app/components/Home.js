@@ -121,6 +121,10 @@ class Home extends Component {
   }
 
   componentWillMount() {
+    const path = window.location.pathname;
+    if (path !== '/') {
+      window.storage.set('previousPage', path);
+    }
     this.setContext();
   }
 
@@ -133,7 +137,6 @@ class Home extends Component {
     if (!this.state.token && !this.state.error) {
       context.startSession();
     }
-    context.maybeRedirect(this.props.location.pathname, context.getContextStore().userData);
     context.setContext();
     context.startNetwork(this.state.token);
   }
