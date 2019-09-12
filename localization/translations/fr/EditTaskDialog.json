@@ -13,6 +13,7 @@
   "tasks.resolvedHelper": "La tâche ne peut être résolue que si elle a obtenu une réponse",
   "tasks.showInProj": "Afficher les tâches dans",
   "tasks.assign": "Affecter",
+  "tasks.taskJsonSchema": "Schéma JSON (optionnel / avancé)",
   "tasks.cancelAdd": "Annuler",
   "tasks.add": "Sauvegarder"
 }

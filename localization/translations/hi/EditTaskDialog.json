@@ -13,6 +13,7 @@
   "tasks.resolvedHelper": "The task can only be resolved if it has been answered",
   "tasks.showInProj": "Show tasks in",
   "tasks.assign": "Assign",
+  "tasks.taskJsonSchema": "JSON Schema (optional / advanced)",
   "tasks.cancelAdd": "Cancel",
   "tasks.add": "Save"
 }

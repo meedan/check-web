@@ -13,6 +13,7 @@
   "tasks.resolvedHelper": "Вопрос может быть закрыт, только если на него был получен ответ.",
   "tasks.showInProj": "Показать вопросы в",
   "tasks.assign": "Назначить",
+  "tasks.taskJsonSchema": "JSON Schema (optional / advanced)",
   "tasks.cancelAdd": "Отменить",
   "tasks.add": "Сохранить"
 }
