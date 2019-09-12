@@ -59,6 +59,11 @@ class CheckContext {
   }
 
   startSession() {
+    const path = window.location.pathname;
+    if (path !== '/') {
+      window.storage.set('previousPage', path);
+    }
+
     // Failed login
     const failureCallback = (errorMessage) => {
       this.caller.setState({ message: errorMessage, error: true, sessionStarted: true });
