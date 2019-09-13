@@ -21,6 +21,16 @@ class UpdateProjectMutation extends Relay.Mutation {
     `;
   }
 
+  getOptimisticResponse() {
+    return {
+      project: {
+        id: this.props.id,
+        title: this.props.title,
+        description: this.props.description,
+      },
+    };
+  }
+
   getVariables() {
     return {
       id: this.props.id,
