@@ -13,5 +13,6 @@
   "mediaDetail.doneButton": "Done",
   "mediaDetail.addedBy": "Added {byUser}",
   "mediaDetail.assignedTo": "Assigned to {name}",
+  "mediaDetail.dialogMoveTitle": "Move to a different project",
   "mediaDetail.assignDialogHeader": "Assignment"
 }

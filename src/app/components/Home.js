@@ -8,6 +8,7 @@ import { MuiThemeProvider as MuiThemeProviderNext, createMuiTheme } from '@mater
 import rtlDetect from 'rtl-detect';
 import merge from 'lodash.merge';
 import styled, { injectGlobal } from 'styled-components';
+import Intercom from 'react-intercom';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import Header from './Header';
 import LoginContainer from './LoginContainer';
@@ -96,6 +97,12 @@ class Home extends Component {
     if (/^:team$/.test(children.props.route.path)) {
       return 'team';
     }
+    if (/^check\/me\(\/:tab\)/.test(children.props.route.path)) {
+      return 'me';
+    }
+    if (/^:team\/project\/:projectId\(\/:query\)/.test(children.props.route.path)) {
+      return 'project';
+    }
     return null;
   }
 
@@ -120,6 +127,11 @@ class Home extends Component {
   }
 
   componentWillMount() {
+    const path = window.location.pathname;
+    const routeSlug = Home.routeSlug(this.props.children);
+    if (this.canRedirect(routeSlug)) {
+      window.storage.set('previousPage', path);
+    }
     this.setContext();
   }
 
@@ -132,7 +144,6 @@ class Home extends Component {
     if (!this.state.token && !this.state.error) {
       context.startSession();
     }
-    context.maybeRedirect(this.props.location.pathname, context.getContextStore().userData);
     context.setContext();
     context.startNetwork(this.state.token);
   }
@@ -140,6 +151,19 @@ class Home extends Component {
   getContext() {
     return new CheckContext(this).getContextStore();
   }
+
+  canRedirect = (routeSlug) => {
+    switch (routeSlug) {
+    case 'media':
+    case 'source':
+    case 'team':
+    case 'project':
+    case 'me':
+      return true;
+    default:
+      return false;
+    }
+  };
 
   handleDrawerToggle = () => this.setState({ open: !this.state.open });
 
@@ -232,10 +256,20 @@ class Home extends Component {
       return false;
     })();
 
+    const user = this.getContext().currentUser;
+
     return (
       <MuiThemeProviderNext theme={muiThemeNext}>
         <MuiThemeProvider muiTheme={muiThemeWithRtl}>
           <span>
+            {config.intercomAppId && user ?
+              <Intercom
+                appID={config.intercomAppId}
+                user_id={user.dbid}
+                email={user.email}
+                name={user.name}
+              /> : null
+            }
             <Favicon url={`/images/logo/${config.appName}.ico`} animated={false} />
             <BrowserSupport />
             <StyledWrapper className={bemClass('home', routeSlug, `--${routeSlug}`)}>

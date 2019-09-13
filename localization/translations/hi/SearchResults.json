@@ -4,6 +4,6 @@
   "search.newTranslationNotificationBody": "An item was just marked as \"translated\"",
   "search.previousPage": "Previous page",
   "search.nextPage": "Next page",
-  "searchResults.withSelection": "{total, plural, =0 {No items} one {1 item} other {{from} - {to} of # items}} {selectedCount, plural, =0 {} one {(1 selected)} other {(# selected)}}",
-  "searchResults.heading": "{total, plural, =0 {No items} one {1 item} other {{from} - {to} of # items}}"
+  "searchResults.itemsCount": "{count, plural, =0 { } one {1 / 1} other {{from} - {to} / #}}",
+  "searchResults.withSelection": "{selectedCount, plural, =0 {} one {(1 selected)} other {(# selected)}}"
 }

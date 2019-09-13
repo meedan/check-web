@@ -2,8 +2,13 @@
   "bulkActions.move": "Mover itens selecionados para um projeto diferente",
   "bulkActions.sendItemsToTrash": "Enviar itens selecionados para a lixeira",
   "bulkActions.selectAll": "Selecionar todos os itens nesta página",
-  "bulkActions.movedSuccessfully": "Pronto! Por favor, note que pode demorar um tempo até que os itens sejam realmente movidos",
+  "bulkActions.clone": "Copiar itens selecionados para um projeto diferente",
+  "bulkActions.clonedSuccessfully": "Pronto! Por favor, note que pode demorar um tempo até que os itens sejam realmente clonados.",
+  "bulkActions.movedSuccessfully": "Pronto! Por favor, note que pode demorar um tempo até que os itens sejam realmente movidos.",
   "bulkActions.moveToTrashSuccessfully": "Pronto! Por favor, note que pode demorar um tempo até que os itens sejam realmente movidos para a lixeira",
   "bulkActions.cancelButton": "Cancelar",
-  "bulkActions.moveTitle": "Mover"
+  "bulkActions.moveTitle": "Mover",
+  "bulkActions.cloneTitle": "Copiar",
+  "bulkActions.dialogMoveTitle": "Mover para um projeto diferente",
+  "bulkActions.dialogCloneTitle": "Copiar para um projeto diferente"
 }

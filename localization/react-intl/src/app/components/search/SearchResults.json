@@ -20,11 +20,11 @@
     "defaultMessage": "Next page"
   },
   {
-    "id": "searchResults.withSelection",
-    "defaultMessage": "{total, plural, =0 {No items} one {1 item} other {{from} - {to} of # items}} {selectedCount, plural, =0 {} one {(1 selected)} other {(# selected)}}"
+    "id": "searchResults.itemsCount",
+    "defaultMessage": "{count, plural, =0 { } one {1 / 1} other {{from} - {to} / #}}"
   },
   {
-    "id": "searchResults.heading",
-    "defaultMessage": "{total, plural, =0 {No items} one {1 item} other {{from} - {to} of # items}}"
+    "id": "searchResults.withSelection",
+    "defaultMessage": "{selectedCount, plural, =0 {} one {(1 selected)} other {(# selected)}}"
   }
 ]

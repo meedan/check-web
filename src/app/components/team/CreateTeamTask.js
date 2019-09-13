@@ -4,7 +4,7 @@ import Relay from 'react-relay/classic';
 import CreateTaskMenu from '../task/CreateTaskMenu';
 import EditTaskDialog from '../task/EditTaskDialog';
 import CreateTeamTaskMutation from '../../relay/mutations/CreateTeamTaskMutation';
-import { safelyParseJSON } from '../../helpers';
+import { getErrorMessage } from '../../helpers';
 
 const messages = defineMessages({
   error: {
@@ -39,6 +39,7 @@ class CreateTeamTask extends React.Component {
       task_type: this.state.createType,
       json_options: task.jsonoptions,
       json_project_ids: task.json_project_ids,
+      json_schema: task.jsonschema,
     };
 
     const onSuccess = () => {
@@ -47,12 +48,8 @@ class CreateTeamTask extends React.Component {
     };
 
     const onFailure = (transaction) => {
-      const error = transaction.getError();
-      let message = this.props.intl.formatMessage(messages.error);
-      const json = safelyParseJSON(error.source);
-      if (json && json.error) {
-        message = json.error;
-      }
+      const fallbackMessage = this.props.intl.formatMessage(messages.error);
+      const message = getErrorMessage(transaction, fallbackMessage);
       this.setState({ message });
     };
 

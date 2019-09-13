@@ -14,7 +14,9 @@ import SetUserSecuritySettingsMutation from '../../relay/mutations/SetUserSecuri
 import GenerateTwoFactorBackupCodesMutation from '../../relay/mutations/GenerateTwoFactorBackupCodesMutation';
 import UserTwoFactorAuthenticationMutation from '../../relay/mutations/UserTwoFactorAuthenticationMutation';
 import CheckContext from '../../CheckContext';
-import { safelyParseJSON } from '../../helpers';
+import { getErrorMessage, getErrorObjects } from '../../helpers';
+import { stringHelper } from '../../customHelpers';
+import globalStrings from '../../globalStrings';
 import { units, opaqueBlack10, StyledPasswordChange } from '../../styles/js/shared';
 
 const messages = defineMessages({
@@ -64,6 +66,12 @@ class UserSecurity extends Component {
     return new CheckContext(this).getContextStore().currentUser;
   }
 
+  fail = (transaction) => {
+    const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+    const message = getErrorMessage(transaction, fallbackMessage);
+    this.context.setMessage(message);
+  };
+
   handleFieldChange(e) {
     const state = {};
     state[e.target.name] = e.target.value;
@@ -92,14 +100,10 @@ class UserSecurity extends Component {
 
   handleSubmitTwoFactorAuthentication(enabled) {
     const onFailure = (transaction) => {
-      const error = transaction.getError();
-      const json = safelyParseJSON(error.source);
-      if (json && json.errors) {
-        const defaultErrors = { password: true, qrcode: true };
-        const returnErrors = safelyParseJSON(json.errors[0].message);
-        const errors = { ...defaultErrors, ...returnErrors };
-        this.setState({ errors });
-      }
+      const errors = { password: true, qrcode: true };
+      const transactionErrors = getErrorObjects(transaction);
+      transactionErrors.forEach((item) => { errors[item.data.field] = item.data.valid; });
+      this.setState({ errors });
     };
     const onSuccess = (response) => {
       const { userTwoFactorAuthentication: { user: { two_factor } } } = response;
@@ -129,8 +133,6 @@ class UserSecurity extends Component {
   handleSecuritySettings(type, e, inputChecked) {
     const { id } = this.props.user;
 
-    const onFailure = () => {
-    };
     const onSuccess = () => {
     };
     let { sendSuccessfulLogin, sendFailedLogin } = this.state;
@@ -149,14 +151,12 @@ class UserSecurity extends Component {
         sendSuccessfulLogin,
         sendFailedLogin,
       }),
-      { onSuccess, onFailure },
+      { onSuccess, onFailure: this.fail },
     );
   }
 
   handleGenerateBackupCodes() {
     const { dbid } = this.props.user;
-
-    const onFailure = () => {};
 
     const onSuccess = (response) => {
       const { generateTwoFactorBackupCodes: { codes } } = response;
@@ -167,7 +167,7 @@ class UserSecurity extends Component {
       new GenerateTwoFactorBackupCodesMutation({
         id: dbid,
       }),
-      { onSuccess, onFailure },
+      { onSuccess, onFailure: this.fail },
     );
   }
 
@@ -509,6 +509,7 @@ class UserSecurity extends Component {
 
 UserSecurity.contextTypes = {
   store: PropTypes.object,
+  setMessage: PropTypes.func,
 };
 
 export default injectIntl(UserSecurity);

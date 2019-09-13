@@ -13,6 +13,7 @@
   "tasks.resolvedHelper": "لا يمكن انجاز المهمة إلا إذا تمت اجابتها",
   "tasks.showInProj": "عرض المهام في",
   "tasks.assign": "تكليف",
+  "tasks.taskJsonSchema": "مخطط JSON (اختياري / متقدم)",
   "tasks.cancelAdd": "إلغاء",
   "tasks.add": "حفظ"
 }

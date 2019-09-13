@@ -64,8 +64,16 @@
     "defaultMessage": "Show"
   },
   {
-    "id": "search.showMedia",
-    "defaultMessage": "Media"
+    "id": "search.showClaims",
+    "defaultMessage": "Claims"
+  },
+  {
+    "id": "search.showLinks",
+    "defaultMessage": "Links"
+  },
+  {
+    "id": "search.showImages",
+    "defaultMessage": "Images"
   },
   {
     "id": "search.showSources",

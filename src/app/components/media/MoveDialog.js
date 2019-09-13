@@ -1,5 +1,4 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
 import Dialog from 'material-ui/Dialog';
 import DestinationProjects from './DestinationProjects';
 
@@ -16,15 +15,13 @@ class MoveDialog extends React.Component {
         autoScrollBodyContent
         open={this.props.open}
         onRequestClose={this.props.handleClose}
+        bodyStyle={this.props.style}
       >
         <h4 className="move-dialog-header">
-          <FormattedMessage
-            id="moveDialog.header"
-            defaultMessage="Move to a different project"
-          />
+          {this.props.title}
         </h4>
         <DestinationProjects
-          team={this.props.team}
+          include={this.props.team ? [this.props.team.slug] : null}
           projectId={this.props.projectId}
           onChange={this.props.onChange}
           onLoad={this.handleDestinationProjectsLoaded.bind(this)}

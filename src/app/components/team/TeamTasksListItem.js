@@ -20,7 +20,7 @@ import EditTaskDialog from '../task/EditTaskDialog';
 import { RequiredIndicator } from '../task/Task';
 import UpdateTeamTaskMutation from '../../relay/mutations/UpdateTeamTaskMutation';
 import DeleteTeamTaskMutation from '../../relay/mutations/DeleteTeamTaskMutation';
-import { safelyParseJSON } from '../../helpers';
+import { getErrorMessage } from '../../helpers';
 
 const messages = defineMessages({
   editError: {
@@ -48,6 +48,12 @@ class TeamTasksListItem extends React.Component {
       dialogOpen: false,
     };
   }
+
+  fail = (transaction) => {
+    const fallbackMessage = this.props.intl.formatMessage(messages.deleteError);
+    const message = getErrorMessage(transaction, fallbackMessage);
+    this.setState({ message });
+  };
 
   handleMenuClick = (event) => {
     this.setState({ anchorEl: event.currentTarget });
@@ -83,22 +89,12 @@ class TeamTasksListItem extends React.Component {
   handleDestroy = () => {
     const { task } = this.props;
 
-    const onFailure = (transaction) => {
-      const error = transaction.getError();
-      let message = this.props.intl.formatMessage(messages.deleteError);
-      const json = safelyParseJSON(error.source);
-      if (json && json.error) {
-        message = json.error;
-      }
-      this.setState({ message });
-    };
-
     Relay.Store.commitUpdate(
       new DeleteTeamTaskMutation({
         teamId: this.props.team.id,
         id: task.id,
       }),
-      { onFailure },
+      { onFailure: this.fail },
     );
   };
 
@@ -121,6 +117,7 @@ class TeamTasksListItem extends React.Component {
       required: Boolean(task.required),
       json_options: task.jsonoptions,
       json_project_ids: task.json_project_ids,
+      json_schema: task.jsonschema,
     };
 
     const onSuccess = () => {
@@ -128,22 +125,12 @@ class TeamTasksListItem extends React.Component {
       this.setState({ editedTask: null });
     };
 
-    const onFailure = (transaction) => {
-      const error = transaction.getError();
-      let message = this.props.intl.formatMessage(messages.editError);
-      const json = safelyParseJSON(error.source);
-      if (json && json.error) {
-        message = json.error;
-      }
-      this.setState({ message });
-    };
-
     Relay.Store.commitUpdate(
       new UpdateTeamTaskMutation({
         team: this.props.team,
         teamTask,
       }),
-      { onSuccess, onFailure },
+      { onSuccess, onFailure: this.fail },
     );
   };
 

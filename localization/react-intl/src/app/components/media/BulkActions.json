@@ -12,6 +12,14 @@
     "defaultMessage": "Select all items on this page"
   },
   {
+    "id": "bulkActions.clone",
+    "defaultMessage": "Copy selected items to another project"
+  },
+  {
+    "id": "bulkActions.clonedSuccessfully",
+    "defaultMessage": "Done! Please note that it can take a while until the items are actually cloned."
+  },
+  {
     "id": "bulkActions.movedSuccessfully",
     "defaultMessage": "Done! Please note that it can take a while until the items are actually moved."
   },
@@ -26,5 +34,17 @@
   {
     "id": "bulkActions.moveTitle",
     "defaultMessage": "Move"
+  },
+  {
+    "id": "bulkActions.cloneTitle",
+    "defaultMessage": "Copy"
+  },
+  {
+    "id": "bulkActions.dialogMoveTitle",
+    "defaultMessage": "Move to a different project"
+  },
+  {
+    "id": "bulkActions.dialogCloneTitle",
+    "defaultMessage": "Copy to a different project"
   }
 ]

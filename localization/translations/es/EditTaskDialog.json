@@ -13,6 +13,7 @@
   "tasks.resolvedHelper": "La tarea solo puede resolverse si ha sido respondida",
   "tasks.showInProj": "Mostrar tareas en",
   "tasks.assign": "Asignar",
+  "tasks.taskJsonSchema": "JSON Schema (opcional / avanzado)",
   "tasks.cancelAdd": "Cancelar",
   "tasks.add": "Guardar"
 }

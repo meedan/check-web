@@ -26,6 +26,10 @@ class BulkUpdateProjectMediaMutation extends Relay.Mutation {
     if (this.props.dstProject) {
       vars.project_id = this.props.dstProject.dbid;
     }
+    if (this.props.dstProjectForClone) {
+      vars.copy_to_project_id = this.props.dstProjectForClone.dbid;
+      vars.no_freeze = true;
+    }
     if (this.props.srcProject) {
       vars.previous_project_id = this.props.srcProject.dbid;
     }

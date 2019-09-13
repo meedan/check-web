@@ -34,5 +34,9 @@
   {
     "id": "annotation.nowNotRequired",
     "defaultMessage": "Task marked as not required by {author}: {title}"
+  },
+  {
+    "id": "annotation.changedJsonSchema",
+    "defaultMessage": "JSON Schema of task {title} changed by {author}"
   }
 ]

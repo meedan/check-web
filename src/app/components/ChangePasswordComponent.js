@@ -8,7 +8,7 @@ import ChangePasswordMutation from '../relay/mutations/ChangePasswordMutation';
 import CheckContext from '../CheckContext';
 import globalStrings from '../globalStrings';
 import { stringHelper } from '../customHelpers';
-import { safelyParseJSON } from '../helpers';
+import { getErrorMessage } from '../helpers';
 
 const messages = defineMessages({
   newPassword: {
@@ -74,17 +74,13 @@ class ChangePasswordComponent extends Component {
 
   handleSubmit(e) {
     const onFailure = (transaction) => {
-      this.setState({ errorMsg: this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') }) });
-      const error = transaction.getError();
-      const json = safelyParseJSON(error.source);
-      if (json && json.errors) {
-        const msg = json.errors[0].message;
-        if (this.props.type === 'reset-password') {
-          this.getHistory().push({ pathname: '/check/user/password-reset', state: { errorMsg: msg } });
-          return;
-        }
-        this.setState({ errorMsg: msg });
+      const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+      const message = getErrorMessage(transaction, fallbackMessage);
+      if (this.props.type === 'reset-password') {
+        this.getHistory().push({ pathname: '/check/user/password-reset', state: { errorMsg: message } });
+        return;
       }
+      this.setState({ errorMsg: message });
     };
 
     const onSuccess = () => {
@@ -125,7 +121,7 @@ class ChangePasswordComponent extends Component {
         {show_current_password === true ?
           <TextField
             className="user-password-change__password-input-field"
-            id="password-change-password-input"
+            id="password-change-password-input-current"
             type="password"
             hintText={this.props.intl.formatMessage(messages.currentPassword)}
             onChange={this.handleChangeCurrentPassword.bind(this)}

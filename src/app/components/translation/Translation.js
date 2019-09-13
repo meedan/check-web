@@ -13,7 +13,7 @@ import TranslationItem from './TranslationItem';
 import CheckContext from '../../CheckContext';
 import CreateDynamicMutation from '../../relay/mutations/CreateDynamicMutation';
 import AboutRoute from '../../relay/AboutRoute';
-import { safelyParseJSON } from '../../helpers';
+import { getErrorMessage } from '../../helpers';
 import { units } from '../../styles/js/shared';
 import { stringHelper } from '../../customHelpers';
 
@@ -73,15 +73,11 @@ class TranslationComponent extends Component {
     return new CheckContext(this).getContextStore();
   }
 
-  fail(transaction) {
-    const error = transaction.getError();
-    let message = this.props.intl.formatMessage(messages.translationFailed, { supportEmail: stringHelper('SUPPORT_EMAIL') });
-    const json = safelyParseJSON(error.source);
-    if (json && json.error) {
-      message = json.error;
-    }
+  fail = (transaction) => {
+    const fallbackMessage = this.props.intl.formatMessage(messages.translationFailed, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+    const message = getErrorMessage(transaction, fallbackMessage);
     this.setState({ message, submitDisabled: false });
-  }
+  };
 
   success() {
     // TODO Use React ref
@@ -101,10 +97,6 @@ class TranslationComponent extends Component {
   }
 
   addTranslation(annotated, annotated_id, annotated_type, params) {
-    const onFailure = (transaction) => {
-      this.fail(transaction);
-    };
-
     const onSuccess = () => {
       this.success();
     };
@@ -132,7 +124,7 @@ class TranslationComponent extends Component {
           annotated_id,
         },
       }),
-      { onSuccess, onFailure },
+      { onSuccess, onFailure: this.fail },
     );
 
     this.setState({ submitDisabled: true });

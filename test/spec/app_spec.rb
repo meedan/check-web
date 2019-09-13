@@ -329,7 +329,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Happy birthday Mick')).to be(true)
       old = @driver.find_elements(:class, "medias__item").length
       wait_for_selector("search__open-dialog-button", :id).click
-      wait_for_selector("//span[contains(text(), 'Media')]", :xpath).click
+      wait_for_selector("//span[contains(text(), 'Links')]", :xpath).click
       wait_for_selector("search-query__submit-button", :id).click
       wait_for_size_change(old, "medias__item", :class)
       @wait.until { @driver.page_source.include?('@thewho') }
@@ -1352,7 +1352,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       media = api_create_media(data: data, url: "https://twitter.com/TwitterVideo/status/931930009450795009")
       @driver.navigate.to @config['self_url'] + '/' + data[:team].slug + '/search'
       sleep 15 # because ES works on the background
-      wait_for_selector("//span[contains(text(), '2 items')]",:xpath)
+      wait_for_selector("//span[contains(text(), '1 - 2 / 2')]",:xpath)
       old = wait_for_selector_list("medias__item", :class).length
       expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
       expect(@driver.page_source.include?('on Facebook')).to be(true)
@@ -1363,7 +1363,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.action.send_keys(:enter).perform
       wait_for_selector("search-query__submit-button", :id).click
       sleep 3 # due the load
-      wait_for_selector("//span[contains(text(), '1 item')]",:xpath)
+      wait_for_selector("//span[contains(text(), '1 / 1')]",:xpath)
       current = wait_for_selector_list("medias__item", :class).length
       expect(old > current).to be(true)
       expect(current > 0).to be(true)
@@ -1377,7 +1377,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.action.send_keys(:enter).perform
       wait_for_selector("search-query__submit-button", :id).click
       sleep 3 # due the load
-      wait_for_selector("//span[contains(text(), '1 item')]",:xpath)
+      wait_for_selector("//span[contains(text(), '1 / 1')]",:xpath)
       current = wait_for_selector_list("medias__item", :class).length
       expect(old > current).to be(true)
       expect(current > 0).to be(true)
@@ -1404,7 +1404,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.navigate.to p1url
       wait_for_selector('.search__results')
       expect(@driver.page_source.include?(claim)).to be(false)
-      expect(@driver.page_source.include?('1 item')).to be(false)
+      expect(@driver.page_source.include?('1 / 1')).to be(false)
       expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(true)
 
       # Go to the second project, make sure that there is no claim, and thus store the data in local Relay store
@@ -1412,7 +1412,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.project-list__link + .project-list__link', :css).click
       wait_for_selector('.search__results')
       expect(@driver.page_source.include?(claim)).to be(false)
-      expect(@driver.page_source.include?('1 item')).to be(false)
+      expect(@driver.page_source.include?('1 / 1')).to be(false)
       expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(true)
 
       # Create a claim under project 2
@@ -1428,7 +1428,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.project-list__link + .project-list__link', :css).click
       wait_for_selector('.medias__item')
       expect(@driver.page_source.include?(claim)).to be(true)
-      expect(@driver.page_source.include?('1 item')).to be(true)
+      expect(@driver.page_source.include?('1 / 1')).to be(true)
       expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(false)
 
       # Move the claim to another project
@@ -1437,7 +1437,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       move = wait_for_selector('.media-actions__move', :css)
       move.location_once_scrolled_into_view
       move.click
-      move = wait_for_selector('input[name=moveMedia]', :css)
+      wait_for_selector('.Select-input input', :css)
+      fill_field('.Select-input input', 'Project')
+      move = wait_for_selector('.Select-option', :css)
       move.location_once_scrolled_into_view
       move.click
       move = wait_for_selector('.media-detail__move-button', :css)
@@ -1457,7 +1459,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
         expect(@driver.current_url.to_s == p1url).to be(true)
       }
       expect(@driver.page_source.include?(claim)).to be(true)
-      expect(@driver.page_source.include?('1 item')).to be(true)
+      expect(@driver.page_source.include?('1 / 1')).to be(true)
       expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(false)
 
       # Go back to the second project and make sure that the claim is not there anymore
@@ -1467,21 +1469,21 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       wait_for_selector('.project-list__link + .project-list__link', :css).click
       wait_for_selector('.search__results')
-      expect(@driver.page_source.include?('1 item')).to be(false)
+      expect(@driver.page_source.include?('1 / 1')).to be(false)
       expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(true)
 
       # Reload the first project page and make sure that the claim is there
       @driver.navigate.to p1url
       wait_for_selector('.medias__item')
       expect(@driver.page_source.include?(claim)).to be(true)
-      expect(@driver.page_source.include?('1 item')).to be(true)
+      expect(@driver.page_source.include?('1 / 1')).to be(true)
       expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(false)
 
       # Reload the second project page and make sure that the claim is not there
       @driver.navigate.to p2url
       wait_for_selector('.search__results')
       expect(@driver.page_source.include?(claim)).to be(false)
-      expect(@driver.page_source.include?('1 item')).to be(false)
+      expect(@driver.page_source.include?('1 / 1')).to be(false)
       expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(true)
     end
 
@@ -1783,7 +1785,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('My search result')).to be(false)
       wait_for_selector("search__open-dialog-button", :id).click
       selected = @driver.find_elements(:css, '.search-query__filter-button--selected')
-      expect(selected.size == 3).to be(true)
+      expect(selected.size == 5).to be(true)
     end
 
     it "should search by date range", bin4: true do
@@ -1813,7 +1815,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('My search result')).to be(true)
       wait_for_selector("search__open-dialog-button", :id).click
       selected = @driver.find_elements(:css, '.search-query__filter-button--selected').map(&:text).sort
-      expect(selected == ['Recent activity', 'Newest first', 'Media'].sort).to be(true)
+      expect(selected == ['Recent activity', 'Newest first', 'Links', 'Claims', 'Images'].sort).to be(true)
     end
 
     it "should change search sort order through URL", bin2: true do
@@ -1823,7 +1825,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('My search result')).to be(true)
       wait_for_selector("search__open-dialog-button", :id).click
       selected = @driver.find_elements(:css, '.search-query__filter-button--selected').map(&:text).sort
-      expect(selected).to eq(['Created', 'Oldest first', 'Media'].sort)
+      expect(selected).to eq(['Created', 'Oldest first', 'Links', 'Claims', 'Images'].sort)
     end
 
     it "should not reset password", bin5: true do

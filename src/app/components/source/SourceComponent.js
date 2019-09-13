@@ -38,7 +38,7 @@ import Message from '../Message';
 import CheckContext from '../../CheckContext';
 import ParsedText from '../ParsedText';
 import UploadImage from '../UploadImage';
-import { truncateLength, safelyParseJSON } from '../../helpers';
+import { truncateLength, getErrorMessage } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 import globalStrings from '../../globalStrings';
 import CreateDynamicMutation from '../../relay/mutations/CreateDynamicMutation';
@@ -315,10 +315,7 @@ class SourceComponent extends Component {
     if (error.status === 409) {
       message = this.getConflictMessage();
     } else {
-      const json = safelyParseJSON(error.source);
-      if (json && json.error) {
-        message = json.error;
-      }
+      message = getErrorMessage(transaction, message);
     }
 
     this.setState({ message, hasFailure: true, submitDisabled: false });
@@ -413,14 +410,8 @@ class SourceComponent extends Component {
     const context = new CheckContext(this).getContextStore();
 
     const onFailure = (transaction) => {
-      const error = transaction.getError();
-      let message = this.props.intl.formatMessage(messages.createTagError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
-
-      const json = safelyParseJSON(error.source);
-      if (json && json.error) {
-        message = json.error;
-      }
-
+      const fallbackMessage = this.props.intl.formatMessage(messages.createTagError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+      const message = getErrorMessage(transaction, fallbackMessage);
       this.setState({
         tagErrorMessage: message,
         hasFailure: true,
@@ -460,20 +451,15 @@ class SourceComponent extends Component {
       const index = links.findIndex(link => link.url === url);
 
       if (index > -1) {
-        const error = transaction.getError();
-        let message = this.props.intl.formatMessage(
+        const fallbackMessage = this.props.intl.formatMessage(
           globalStrings.unknownError,
           { supportEmail: stringHelper('SUPPORT_EMAIL') },
         );
-        const json = safelyParseJSON(error.source);
-        if (json && json.error) {
-          message = json.error;
-        }
-
+        const message = getErrorMessage(transaction, fallbackMessage);
         links[index].error = message;
       }
 
-      this.setState({ hasFailure: true, submitDisabled: false });
+      this.setState({ links, hasFailure: true, submitDisabled: false });
     };
 
     const onSuccess = (response) => {
@@ -590,10 +576,7 @@ class SourceComponent extends Component {
       if (error.status === 409) {
         message = this.getConflictMessage();
       } else {
-        const json = safelyParseJSON(error.source);
-        if (json && json.error) {
-          message = json.error;
-        }
+        message = getErrorMessage(transaction, message);
       }
 
       this.setState({ message, hasFailure: true, submitDisabled: false });
@@ -1067,14 +1050,8 @@ class SourceComponent extends Component {
       }
 
       const onFailure = (transaction) => {
-        const error = transaction.getError();
-        let message = this.props.intl.formatMessage(messages.createTagError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
-
-        const json = safelyParseJSON(error.source);
-        if (json && json.error) {
-          message = json.error;
-        }
-
+        const fallbackMessage = this.props.intl.formatMessage(messages.createTagError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+        const message = getErrorMessage(transaction, fallbackMessage);
         this.setState({
           languageErrorMessage: message,
           hasFailure: true,

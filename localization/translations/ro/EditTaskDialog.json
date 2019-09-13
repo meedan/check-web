@@ -13,6 +13,7 @@
   "tasks.resolvedHelper": "O sarcină poate fi rezolvată doar dacă s-a răspuns la ea",
   "tasks.showInProj": "Arată sarcinile în",
   "tasks.assign": "Atribuie",
+  "tasks.taskJsonSchema": "JSON Schema (optional / advanced)",
   "tasks.cancelAdd": "Anulare",
   "tasks.add": "Salvează"
 }

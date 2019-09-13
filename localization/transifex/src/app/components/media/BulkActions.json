@@ -2,8 +2,13 @@
   "bulkActions.move": "Move selected items to another project",
   "bulkActions.sendItemsToTrash": "Send selected items to trash",
   "bulkActions.selectAll": "Select all items on this page",
+  "bulkActions.clone": "Copy selected items to another project",
+  "bulkActions.clonedSuccessfully": "Done! Please note that it can take a while until the items are actually cloned.",
   "bulkActions.movedSuccessfully": "Done! Please note that it can take a while until the items are actually moved.",
   "bulkActions.moveToTrashSuccessfully": "Done! Please note that it can take a while until the items are actually moved to the trash.",
   "bulkActions.cancelButton": "Cancel",
-  "bulkActions.moveTitle": "Move"
+  "bulkActions.moveTitle": "Move",
+  "bulkActions.cloneTitle": "Copy",
+  "bulkActions.dialogMoveTitle": "Move to a different project",
+  "bulkActions.dialogCloneTitle": "Copy to a different project"
 }

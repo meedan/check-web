@@ -11,7 +11,7 @@ import ParsedText from '../ParsedText';
 import TimeBefore from '../TimeBefore';
 import SourceActions from './SourceActions';
 import SourcePicture from './SourcePicture';
-import { truncateLength, safelyParseJSON } from '../../helpers';
+import { truncateLength, getErrorMessage } from '../../helpers';
 import { units, opaqueBlack54, subheading1, black87 } from '../../styles/js/shared';
 import { refreshSource } from '../../relay/mutations/UpdateSourceMutation';
 import { stringHelper } from '../../customHelpers';
@@ -54,17 +54,8 @@ class SourceCard extends React.Component {
     const { id } = this.props.source.source;
 
     const onFailure = (transaction) => {
-      let message = `${this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') })}`;
-      const transactionError = transaction.getError();
-
-      if (transactionError.source) {
-        const json = safelyParseJSON(transactionError.source);
-
-        if (json && json.error) {
-          message = json.error;
-        }
-      }
-
+      const fallbackMessage = `${this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') })}`;
+      const message = getErrorMessage(transaction, fallbackMessage);
       this.setState({ message });
     };
 

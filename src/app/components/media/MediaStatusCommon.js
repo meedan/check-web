@@ -6,7 +6,7 @@ import MenuItem from 'material-ui/MenuItem';
 import MdLockOutline from 'material-ui/svg-icons/action/lock-outline';
 import { can } from '../Can';
 import CheckContext from '../../CheckContext';
-import { getStatus, getStatusStyle, safelyParseJSON, bemClass } from '../../helpers';
+import { getStatus, getStatusStyle, getErrorMessage, bemClass } from '../../helpers';
 import { mediaStatuses, mediaLastStatus, stringHelper } from '../../customHelpers';
 import { black16, units } from '../../styles/js/shared';
 
@@ -23,14 +23,6 @@ class MediaStatusCommon extends Component {
     return ` media-status__current--${status.toLowerCase().replace(/[ _]/g, '-')}`;
   }
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      message: null,
-    };
-  }
-
   canUpdate() {
     return !this.props.readonly && can(this.props.media.permissions, 'update Status');
   }
@@ -44,15 +36,11 @@ class MediaStatusCommon extends Component {
     }
   }
 
-  fail(transaction) {
-    const error = transaction.getError();
-    let message = this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') });
-    const json = safelyParseJSON(error.source);
-    if (json && json.error) {
-      message = json.error;
-    }
-    this.setState({ message });
-  }
+  fail = (transaction) => {
+    const fallbackMessage = this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+    const message = getErrorMessage(transaction, fallbackMessage);
+    this.context.setMessage(message);
+  };
 
   // eslint-disable-next-line class-methods-use-this
   success() {
@@ -76,8 +64,6 @@ class MediaStatusCommon extends Component {
 
     return (
       <div className={bemClass('media-status', this.canUpdate(), '--editable')}>
-        <span className="media-status__message">{this.state.message}</span>
-
         {this.canUpdate() ?
           <DropDownMenu
             style={{ height: units(3) }}
@@ -127,6 +113,7 @@ MediaStatusCommon.propTypes = {
 
 MediaStatusCommon.contextTypes = {
   store: PropTypes.object,
+  setMessage: PropTypes.func,
 };
 
 export default injectIntl(MediaStatusCommon);

@@ -13,5 +13,6 @@
   "mediaDetail.doneButton": "إتمام",
   "mediaDetail.addedBy": "أضيف {byUser}",
   "mediaDetail.assignedTo": "مُكَلَّف إلى {name}",
+  "mediaDetail.dialogMoveTitle": "نقل إلى مشروع آخر",
   "mediaDetail.assignDialogHeader": "التكليف"
 }

@@ -26,7 +26,7 @@ import UserAvatar from '../UserAvatar';
 import UserAvatars from '../UserAvatars';
 import ProfileLink from '../layout/ProfileLink';
 import Sentence from '../Sentence';
-import { nested, safelyParseJSON } from '../../helpers';
+import { nested, getErrorMessage } from '../../helpers';
 import globalStrings from '../../globalStrings';
 import { stringHelper } from '../../customHelpers';
 import {
@@ -130,43 +130,23 @@ class MediaMetadata extends Component {
     return (typeof this.state.title === 'string') ? this.state.title.trim() : this.props.title;
   }
 
-  handleError(json) {
-    let message = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
-    if (json && json.error) {
-      message = json.error;
-    }
+  fail = (transaction) => {
+    const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+    const message = getErrorMessage(transaction, fallbackMessage);
     this.context.setMessage(message);
-  }
+  };
 
   handleRefresh() {
-    const onFailure = (transaction) => {
-      const error = transaction.getError();
-      if (error.json) {
-        error.json().then(this.handleError);
-      } else {
-        this.handleError(JSON.stringify(error));
-      }
-    };
-
     Relay.Store.commitUpdate(
       new UpdateProjectMediaMutation({
         refresh_media: 1,
         id: this.props.media.id,
       }),
-      { onFailure },
+      { onFailure: this.fail },
     );
   }
 
   handleSendToTrash() {
-    const onFailure = (transaction) => {
-      const error = transaction.getError();
-      if (error.json) {
-        error.json().then(this.handleError);
-      } else {
-        this.handleError(JSON.stringify(error));
-      }
-    };
-
     const onSuccess = (response) => {
       const pm = response.updateProjectMedia.project_media;
       const message = (
@@ -197,20 +177,11 @@ class MediaMetadata extends Component {
         context,
         id: this.props.media.id,
       }),
-      { onSuccess, onFailure },
+      { onSuccess, onFailure: this.fail },
     );
   }
 
   handleRestore() {
-    const onFailure = (transaction) => {
-      const error = transaction.getError();
-      if (error.json) {
-        error.json().then(this.handleError);
-      } else {
-        this.handleError(JSON.stringify(error));
-      }
-    };
-
     const onSuccess = (response) => {
       const pm = response.updateProjectMedia.project_media;
       const message = (
@@ -242,7 +213,7 @@ class MediaMetadata extends Component {
         context,
         id: this.props.media.id,
       }),
-      { onSuccess, onFailure },
+      { onSuccess, onFailure: this.fail },
     );
   }
 
@@ -264,12 +235,7 @@ class MediaMetadata extends Component {
       if (/^\/[^/]+\/project\/[0-9]+$/.test(window.location.pathname)) {
         history.push(`/${media.team.slug}/project/${previousProjectId}`);
       }
-      const error = transaction.getError();
-      if (error.json) {
-        error.json().then(this.handleError);
-      } else {
-        this.handleError(JSON.stringify(error));
-      }
+      this.fail(transaction);
     };
 
     const path = `/${media.team.slug}/project/${projectId}`;
@@ -304,15 +270,6 @@ class MediaMetadata extends Component {
   handleAssignProjectMedia() {
     const { media } = this.props;
 
-    const onFailure = (transaction) => {
-      const error = transaction.getError();
-      if (error.json) {
-        error.json().then(this.handleError);
-      } else {
-        this.handleError(JSON.stringify(error));
-      }
-    };
-
     const onSuccess = () => {};
 
     const status_id = media.last_status_obj ? media.last_status_obj.id : '';
@@ -330,7 +287,7 @@ class MediaMetadata extends Component {
 
     Relay.Store.commitUpdate(
       new UpdateStatusMutation(statusAttr),
-      { onSuccess, onFailure },
+      { onSuccess, onFailure: this.fail },
     );
 
     this.setState({ openAssignDialog: false });
@@ -338,15 +295,6 @@ class MediaMetadata extends Component {
 
   handleStatusLock() {
     const { media } = this.props;
-
-    const onFailure = (transaction) => {
-      const error = transaction.getError();
-      if (error.json) {
-        error.json().then(this.handleError);
-      } else {
-        this.handleError(JSON.stringify(error));
-      }
-    };
 
     const statusAttr = {
       parent_type: 'project_media',
@@ -359,7 +307,7 @@ class MediaMetadata extends Component {
 
     Relay.Store.commitUpdate(
       new UpdateStatusMutation(statusAttr),
-      { onFailure },
+      { onFailure: this.fail },
     );
   }
 
@@ -403,7 +351,9 @@ class MediaMetadata extends Component {
     }
 
     const onFailure = (transaction) => {
-      this.fail(transaction);
+      const fallbackMessage = this.props.intl.formatMessage(messages.editReportError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+      const message = getErrorMessage(transaction, fallbackMessage);
+      this.context.setMessage(message);
     };
 
     if (this.canSubmit()) {
@@ -418,16 +368,6 @@ class MediaMetadata extends Component {
     }
 
     this.handleCancel();
-  }
-
-  fail(transaction) {
-    const error = transaction.getError();
-    let message = this.props.intl.formatMessage(messages.editReportError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
-    const json = safelyParseJSON(error.source);
-    if (json && json.error) {
-      message = json.error;
-    }
-    this.context.setMessage(message);
   }
 
   handleCancel() {
@@ -447,7 +387,7 @@ class MediaMetadata extends Component {
     });
   }
 
-  handleSelectDestProject(event, dstProj) {
+  handleSelectDestProject(dstProj) {
     this.setState({ dstProj });
   }
 
@@ -693,6 +633,15 @@ class MediaMetadata extends Component {
           team={context.team}
           projectId={nested(['project', 'dbid'], media)}
           onChange={this.handleSelectDestProject.bind(this)}
+          style={{
+            minHeight: 400,
+          }}
+          title={
+            <FormattedMessage
+              id="mediaDetail.dialogMoveTitle"
+              defaultMessage="Move to a different project"
+            />
+          }
         />
 
         <Dialog

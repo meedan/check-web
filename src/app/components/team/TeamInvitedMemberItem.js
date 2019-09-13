@@ -6,6 +6,9 @@ import { ListItem } from 'material-ui/List';
 import RaisedButton from 'material-ui/RaisedButton';
 import '../../styles/css/tooltip.css';
 import ResendCancelInvitationMutation from '../../relay/mutations/ResendCancelInvitationMutation';
+import { getErrorMessage } from '../../helpers';
+import { stringHelper } from '../../customHelpers';
+import globalStrings from '../../globalStrings';
 import {
   FlexRow,
   Text,
@@ -15,12 +18,9 @@ import {
 class TeamInvitedMemberItem extends Component {
   handleTeamMemberInvites(action) {
     const onFailure = (transaction) => {
-      const error = transaction.getError();
-      if (error.json) {
-        error.json().then(this.handleError);
-      } else {
-        this.handleError(JSON.stringify(error));
-      }
+      const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+      const message = getErrorMessage(transaction, fallbackMessage);
+      this.context.setMessage(message);
     };
 
     const onSuccess = () => {

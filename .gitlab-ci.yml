@@ -76,6 +76,7 @@ build_live:
 deploy_live:
   image: python:3-alpine
   stage: deploy
+  when: manual
   tags:
     - meedan
     - meedan-labs

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   FormattedMessage,
   FormattedHTMLMessage,
@@ -40,7 +41,8 @@ import UpdateTaskMutation from '../../relay/mutations/UpdateTaskMutation';
 import DatetimeTaskResponse from '../task/DatetimeTaskResponse';
 import Can, { can } from '../Can';
 import TimeBefore from '../TimeBefore';
-import { safelyParseJSON, getStatus, getStatusStyle, emojify } from '../../helpers';
+import { getErrorMessage, getStatus, getStatusStyle, emojify } from '../../helpers';
+import globalStrings from '../../globalStrings';
 import { stringHelper } from '../../customHelpers';
 import UserTooltip from '../user/UserTooltip';
 import { mapGlobalMessage } from '../MappedMessage';
@@ -290,12 +292,6 @@ class Annotation extends Component {
   };
 
   handleDelete(id) {
-    const onFailure = (transaction) => {
-      const error = transaction.getError();
-      const json = safelyParseJSON(error.source);
-      this.handleError(json);
-    };
-
     const onSuccess = () => {};
 
     // Either to destroy versions or annotations
@@ -307,37 +303,24 @@ class Annotation extends Component {
     if (this.props.annotation.annotation.version === null) {
       Relay.Store.commitUpdate(
         new DeleteAnnotationMutation(destroy_attr),
-        { onSuccess, onFailure },
+        { onSuccess, onFailure: this.fail },
       );
     } else {
       destroy_attr.id = this.props.annotation.annotation.version.id;
       Relay.Store.commitUpdate(
         new DeleteVersionMutation(destroy_attr),
-        { onSuccess, onFailure },
+        { onSuccess, onFailure: this.fail },
       );
     }
   }
 
-  handleError(json) {
-    let message = this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') });
-    if (json && json.error) {
-      message = json.error;
-    }
-    // eslint-disable-next-line no-console
-    console.error(message);
-  }
+  fail = (transaction) => {
+    const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+    const message = getErrorMessage(transaction, fallbackMessage);
+    this.context.setMessage(message);
+  };
 
   handleUpdateMachineTranslation() {
-    const onFailure = (transaction) => {
-      // TODO Review this code to understand what it is supposed to do.
-      const error = transaction.getError();
-      if (error.json) {
-        error.json().then(this.handleError);
-      } else {
-        this.handleError(error);
-      }
-    };
-
     const onSuccess = () => {
       this.setState({ disableMachineTranslation: true });
     };
@@ -348,22 +331,13 @@ class Annotation extends Component {
           update_mt: 1,
           id: this.props.annotated.id,
         }),
-        { onSuccess, onFailure },
+        { onSuccess, onFailure: this.fail },
       );
       this.setState({ disableMachineTranslation: true });
     }
   }
 
   handleSuggestion(vid, accept) {
-    const onFailure = (transaction) => {
-      const error = transaction.getError();
-      if (error.json) {
-        error.json().then(this.handleError);
-      } else {
-        this.handleError(error);
-      }
-    };
-
     const onSuccess = () => {};
 
     const task = { id: this.props.annotated.id };
@@ -379,7 +353,7 @@ class Annotation extends Component {
         annotated: this.props.annotated.project_media,
         task,
       }),
-      { onSuccess, onFailure },
+      { onSuccess, onFailure: this.fail },
     );
   }
 
@@ -1334,6 +1308,10 @@ Annotation.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
+};
+
+Annotation.contextTypes = {
+  setMessage: PropTypes.func,
 };
 
 export default injectIntl(Annotation);

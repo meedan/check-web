@@ -6,6 +6,7 @@ import IconSelectAll from 'material-ui/svg-icons/toggle/check-box-outline-blank'
 import IconUnselectAll from 'material-ui/svg-icons/toggle/check-box';
 import IconMove from 'material-ui/svg-icons/action/input';
 import IconDelete from 'material-ui/svg-icons/action/delete';
+import IconClone from 'material-ui/svg-icons/content/content-copy';
 import FlatButton from 'material-ui/FlatButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import styled from 'styled-components';
@@ -31,6 +32,10 @@ const messages = defineMessages({
     id: 'bulkActions.selectAll',
     defaultMessage: 'Select all items on this page',
   },
+  clone: {
+    id: 'bulkActions.clone',
+    defaultMessage: 'Copy selected items to another project',
+  },
 });
 
 class BulkActions extends React.Component {
@@ -39,13 +44,21 @@ class BulkActions extends React.Component {
     this.state = {
       allSelected: false,
       openMoveDialog: false,
+      openCloneDialog: false,
       dstProj: null,
+      dstProjForClone: null,
     };
   }
 
   moveSelected() {
     if (this.props.selectedMedia.length > 0) {
       this.setState({ openMoveDialog: true });
+    }
+  }
+
+  cloneSelected() {
+    if (this.props.selectedMedia.length > 0) {
+      this.setState({ openCloneDialog: true });
     }
   }
 
@@ -60,7 +73,35 @@ class BulkActions extends React.Component {
   }
 
   handleCloseDialogs() {
-    this.setState({ openMoveDialog: false });
+    this.setState({ openMoveDialog: false, openCloneDialog: false });
+  }
+
+  handleClone() {
+    const onSuccess = () => {
+      const message = (
+        <FormattedMessage
+          id="bulkActions.clonedSuccessfully"
+          defaultMessage="Done! Please note that it can take a while until the items are actually cloned."
+        />
+      );
+      this.context.setMessage(message);
+      this.setState({ openCloneDialog: false, dstProjForClone: null, allSelected: false });
+      this.props.onUnselectAll();
+    };
+    const onDone = () => {};
+
+    onSuccess();
+
+    if (this.props.selectedMedia.length && this.state.dstProjForClone) {
+      Relay.Store.commitUpdate(
+        new BulkUpdateProjectMediaMutation({
+          id: this.props.selectedMedia[0],
+          ids: this.props.selectedMedia,
+          dstProjectForClone: this.state.dstProjForClone,
+        }),
+        { onSuccess: onDone, onFailure: onDone },
+      );
+    }
   }
 
   handleMove() {
@@ -125,8 +166,12 @@ class BulkActions extends React.Component {
     }
   }
 
-  handleSelectDestProject(event, dstProj) {
+  handleSelectDestProject(dstProj) {
     this.setState({ dstProj });
+  }
+
+  handleSelectDestProjectForClone(dstProjForClone) {
+    this.setState({ dstProjForClone });
   }
 
   render() {
@@ -140,6 +185,11 @@ class BulkActions extends React.Component {
         <Tooltip title={this.props.intl.formatMessage(messages.delete)}>
           <StyledIcon>
             <IconDelete onClick={this.handleDelete.bind(this)} />
+          </StyledIcon>
+        </Tooltip>
+        <Tooltip title={this.props.intl.formatMessage(messages.clone)}>
+          <StyledIcon>
+            <IconClone onClick={this.cloneSelected.bind(this)} />
           </StyledIcon>
         </Tooltip>
       </span>
@@ -165,6 +215,26 @@ class BulkActions extends React.Component {
       />,
     ];
 
+    const cloneDialogActions = [
+      <FlatButton
+        label={
+          <FormattedMessage
+            id="bulkActions.cancelButton"
+            defaultMessage="Cancel"
+          />
+        }
+        primary
+        onClick={this.handleCloseDialogs.bind(this)}
+      />,
+      <FlatButton
+        label={<FormattedMessage id="bulkActions.cloneTitle" defaultMessage="Copy" />}
+        primary
+        className="media-bulk-actions__clone-button"
+        onClick={this.handleClone.bind(this)}
+        disabled={!this.state.dstProjForClone}
+      />,
+    ];
+
     return (
       <span id="media-bulk-actions">
         <Tooltip title={this.props.intl.formatMessage(messages.selectAll)}>
@@ -183,6 +253,32 @@ class BulkActions extends React.Component {
           team={this.props.team}
           projectId={this.props.project ? this.props.project.dbid : null}
           onChange={this.handleSelectDestProject.bind(this)}
+          style={{
+            minHeight: 400,
+          }}
+          title={
+            <FormattedMessage
+              id="bulkActions.dialogMoveTitle"
+              defaultMessage="Move to a different project"
+            />
+          }
+        />
+
+        <MoveDialog
+          actions={cloneDialogActions}
+          open={this.state.openCloneDialog}
+          handleClose={this.handleCloseDialogs.bind(this)}
+          projectId={this.props.project ? this.props.project.dbid : null}
+          onChange={this.handleSelectDestProjectForClone.bind(this)}
+          style={{
+            minHeight: 400,
+          }}
+          title={
+            <FormattedMessage
+              id="bulkActions.dialogCloneTitle"
+              defaultMessage="Copy to a different project"
+            />
+          }
         />
       </span>
     );

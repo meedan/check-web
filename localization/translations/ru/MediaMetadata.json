@@ -13,5 +13,6 @@
   "mediaDetail.doneButton": "Ок",
   "mediaDetail.addedBy": "Добавлено {byUser}",
   "mediaDetail.assignedTo": "Назначено {name}",
+  "mediaDetail.dialogMoveTitle": "Move to a different project",
   "mediaDetail.assignDialogHeader": "Назначить"
 }

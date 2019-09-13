@@ -313,34 +313,6 @@ class SearchResultsComponent extends React.Component {
     if (to > count) {
       to = count;
     }
-    const mediasCount =
-      this.state.selectedMedia.length ?
-        (
-          <FormattedMessage
-            id="searchResults.withSelection"
-            defaultMessage="{total, plural, =0 {No items} one {1 item} other {{from} - {to} of # items}} {selectedCount, plural, =0 {} one {(1 selected)} other {(# selected)}}"
-            values={{
-              from: offset + 1,
-              to,
-              total: count,
-              selectedCount: this.state.selectedMedia.length,
-            }}
-          />
-        ) :
-        (
-          <span>
-            <FormattedMessage
-              id="searchResults.heading"
-              defaultMessage="{total, plural, =0 {No items} one {1 item} other {{from} - {to} of # items}}"
-              values={{
-                from: offset + 1,
-                to,
-                total: count,
-              }}
-            />
-          </span>
-        );
-
     const isProject = /\/project\//.test(window.location.pathname);
     const isTrash = /\/trash/.test(window.location.pathname);
 
@@ -353,12 +325,11 @@ class SearchResultsComponent extends React.Component {
       addons: this.props.addons,
     };
 
-    let title = null;
     let bulkActionsAllowed = false;
     if (medias.length) {
       bulkActionsAllowed = !medias[0].node.archived && can(medias[0].node.permissions, 'administer Content');
     }
-    title = (
+    const title = (
       <Toolbar
         filter={
           <SearchQuery
@@ -378,21 +349,42 @@ class SearchResultsComponent extends React.Component {
           /> : null}
         title={
           <span className="search__results-heading">
-            <span className="search__count">{mediasCount}</span>
             <Tooltip title={this.props.intl.formatMessage(messages.previousPage)}>
               <span
                 className="search__previous-page search__nav"
                 onClick={this.previousPage.bind(this)}
               >
-                <PrevIcon />
+                <PrevIcon style={{ opacity: offset <= 0 ? '0.25' : '1' }} />
               </span>
             </Tooltip>
+            <span className="search__count">
+              <FormattedMessage
+                id="searchResults.itemsCount"
+                defaultMessage="{count, plural, =0 {&nbsp;} one {1 / 1} other {{from} - {to} / #}}"
+                values={{
+                  from: offset + 1,
+                  to,
+                  count,
+                }}
+              />
+              {this.state.selectedMedia.length ?
+                <span>&nbsp;
+                  <FormattedMessage
+                    id="searchResults.withSelection"
+                    defaultMessage="{selectedCount, plural, =0 {} one {(1 selected)} other {(# selected)}}"
+                    values={{
+                      selectedCount: this.state.selectedMedia.length,
+                    }}
+                  />
+                </span> : null
+              }
+            </span>
             <Tooltip title={this.props.intl.formatMessage(messages.nextPage)}>
               <span
                 className="search__next-page search__nav"
                 onClick={this.nextPage.bind(this)}
               >
-                <NextIcon />
+                <NextIcon style={{ opacity: to >= count ? '0.25' : '1' }} />
               </span>
             </Tooltip>
           </span>
@@ -439,8 +431,10 @@ class SearchResultsComponent extends React.Component {
       let itemOffset = query.esoffset ? parseInt(query.esoffset, 10) : 0;
       itemOffset -= 1;
 
-      const itemBaseQuery = Object.assign({}, query);
-      delete itemBaseQuery.show;
+      const itemBaseQuery = Object.assign({ original: query }, query);
+      if (Array.isArray(itemBaseQuery.show)) {
+        itemBaseQuery.show = itemBaseQuery.show.filter(f => f !== 'sources');
+      }
       if (isProject) {
         itemBaseQuery.parent = { type: 'project', id: this.currentContext().project.dbid };
         itemBaseQuery.projects = [this.currentContext().project.dbid];

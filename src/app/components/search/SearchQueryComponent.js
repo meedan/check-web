@@ -301,7 +301,7 @@ class SearchQueryComponent extends React.Component {
   }
 
   showIsSelected(show, state = this.state) {
-    const selected = state.query.show || ['medias'];
+    const selected = state.query.show || ['claims', 'links', 'images'];
     return selected.includes(show);
   }
 
@@ -381,7 +381,7 @@ class SearchQueryComponent extends React.Component {
     this.setState((prevState) => {
       const state = Object.assign({}, prevState);
       if (!state.query.show) {
-        state.query.show = ['medias'];
+        state.query.show = ['claims', 'links', 'images'];
       }
       const i = state.query.show.indexOf(show);
       if (i === -1) {
@@ -743,15 +743,37 @@ class SearchQueryComponent extends React.Component {
                     <StyledFilterRow className="search-query__sort-actions">
                       <h4><FormattedMessage id="search.show" defaultMessage="Show" /></h4>
                       <StyledFilterButton
-                        active={this.showIsSelected('medias')}
-                        onClick={this.handleShowClick.bind(this, 'medias')}
+                        active={this.showIsSelected('claims')}
+                        onClick={this.handleShowClick.bind(this, 'claims')}
                         className={bemClass(
                           'search-query__filter-button',
-                          this.showIsSelected('medias'),
+                          this.showIsSelected('claims'),
                           '--selected',
                         )}
                       >
-                        <FormattedMessage id="search.showMedia" defaultMessage="Media" />
+                        <FormattedMessage id="search.showClaims" defaultMessage="Claims" />
+                      </StyledFilterButton>
+                      <StyledFilterButton
+                        active={this.showIsSelected('links')}
+                        onClick={this.handleShowClick.bind(this, 'links')}
+                        className={bemClass(
+                          'search-query__filter-button',
+                          this.showIsSelected('links'),
+                          '--selected',
+                        )}
+                      >
+                        <FormattedMessage id="search.showLinks" defaultMessage="Links" />
+                      </StyledFilterButton>
+                      <StyledFilterButton
+                        active={this.showIsSelected('images')}
+                        onClick={this.handleShowClick.bind(this, 'images')}
+                        className={bemClass(
+                          'search-query__filter-button',
+                          this.showIsSelected('images'),
+                          '--selected',
+                        )}
+                      >
+                        <FormattedMessage id="search.showImages" defaultMessage="Images" />
                       </StyledFilterButton>
                       <StyledFilterButton
                         active={this.showIsSelected('sources')}
