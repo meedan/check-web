@@ -4,8 +4,8 @@ import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-i
 import Relay from 'react-relay/classic';
 import TextField from 'material-ui/TextField';
 import { Card, CardText, CardActions } from 'material-ui/Card';
+import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
-import Message from '../Message';
 import UpdateProjectMutation from '../../relay/mutations/UpdateProjectMutation';
 import PageTitle from '../PageTitle';
 import ProjectRoute from '../../relay/ProjectRoute';
@@ -13,6 +13,7 @@ import CheckContext from '../../CheckContext';
 import { getErrorMessage } from '../../helpers';
 import { ContentColumn } from '../../styles/js/shared';
 import { stringHelper } from '../../customHelpers';
+import globalStrings from '../../globalStrings';
 
 const messages = defineMessages({
   error: {
@@ -34,7 +35,6 @@ class ProjectEditComponent extends Component {
     super(props);
 
     this.state = {
-      message: null,
       title: this.props.project.title,
       description: this.props.project.description,
     };
@@ -76,6 +76,8 @@ class ProjectEditComponent extends Component {
     return this.getContext().getContextStore();
   }
 
+  handleCancel = () => this.backToProject();
+
   handleTitleChange(e) {
     this.setState({ title: e.target.value });
   }
@@ -84,18 +86,25 @@ class ProjectEditComponent extends Component {
     this.setState({ description: e.target.value });
   }
 
+  backToProject = () => {
+    this.currentContext().history.push(window.location.pathname.match(/.*\/project\/\d+/)[0]);
+  };
+
+  canSubmit = () => (this.state.title && this.state.title !== this.props.project.title);
+
   updateProject(e) {
     const { project: { id } } = this.props;
     const { title, description } = this.state;
 
+    if (!this.canSubmit()) {
+      return;
+    }
+
     const onFailure = (transaction) => {
       const fallbackMessage = this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') });
       const message = getErrorMessage(transaction, fallbackMessage);
-      this.setState({ message });
-    };
-
-    const onSuccess = () => {
-      this.currentContext().history.push(window.location.pathname.match(/.*\/project\/\d+/)[0]);
+      this.context.setMessage(message);
+      this.currentContext().history.push(`${window.location.pathname}/edit`);
     };
 
     Relay.Store.commitUpdate(
@@ -104,8 +113,10 @@ class ProjectEditComponent extends Component {
         description,
         id,
       }),
-      { onSuccess, onFailure },
+      { onFailure },
     );
+
+    this.backToProject();
 
     e.preventDefault();
   }
@@ -116,7 +127,6 @@ class ProjectEditComponent extends Component {
     return (
       <PageTitle prefix={project.title} skipTeam={false} team={this.currentContext().team}>
         <section className="project-edit">
-          <Message message={this.state.message} />
           <ContentColumn>
             <Card>
               <form className="project-edit__form" onSubmit={this.updateProject.bind(this)}>
@@ -148,7 +158,17 @@ class ProjectEditComponent extends Component {
                 </CardText>
                 <CardActions>
                   <div className="project-edit__editing-buttons">
-                    <RaisedButton primary label={<FormattedMessage id="projectEdit.saveButton" defaultMessage="Save" />} type="submit" className="project-edit__editing-button project-edit__editing-button--save" />
+                    <FlatButton
+                      label={this.props.intl.formatMessage(globalStrings.cancel)}
+                      onClick={this.handleCancel}
+                    />
+                    <RaisedButton
+                      primary
+                      label={<FormattedMessage id="projectEdit.saveButton" defaultMessage="Save" />}
+                      type="submit"
+                      className="project-edit__editing-button project-edit__editing-button--save"
+                      disabled={!this.canSubmit()}
+                    />
                   </div>
                 </CardActions>
               </form>
@@ -167,6 +187,7 @@ ProjectEditComponent.propTypes = {
 };
 
 ProjectEditComponent.contextTypes = {
+  setMessage: PropTypes.func,
   store: PropTypes.object,
 };
 
