@@ -372,7 +372,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(media_pg.contains_string?('Edited media description')).to be(false)
       media_pg.toggle_card # Expand the card so the edit button is accessible
       media_pg.wait_for_element('.media-actions')
-      sleep 3 # Clicks can misfire if pender iframe moves the button position at the wrong moment
       media_pg.set_description('Edited media description')
       expect(media_pg.contains_string?('Edited media description')).to be(true)
     end
