@@ -534,14 +534,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should search for image",  bin2: true do
       api_create_team_and_project
-      sleep 2
       page = ProjectPage.new(config: @config, driver: @driver).load
              .create_image_media(File.join(File.dirname(__FILE__), 'test.png'))
-
-      sleep 2
       wait_for_selector("add-annotation__buttons", :class)
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/search'
-      sleep 5
       wait_for_selector("search__results-heading", :class)
       expect(@driver.find_element(:link_text, 'test.png').nil?).to be(false)
     end
