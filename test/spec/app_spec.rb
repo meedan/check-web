@@ -557,7 +557,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should go to source page through user/:id", bin6: true do
       user = api_register_and_login_with_email
       @driver.navigate.to @config['self_url'] + '/check/user/' + user.dbid.to_s
-      sleep 1
       title = wait_for_selector('.source__name')
       expect(title.text == 'User With Email').to be(true)
     end
