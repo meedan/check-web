@@ -90,7 +90,11 @@ class ProjectEditComponent extends Component {
     this.currentContext().history.push(window.location.pathname.match(/.*\/project\/\d+/)[0]);
   };
 
-  canSubmit = () => (this.state.title && this.state.title !== this.props.project.title);
+  canSubmit = () => (
+    (this.state.title && this.state.title !== this.props.project.title) ||
+    (this.state.description && this.state.description !== this.props.project.description)
+  );
+
 
   updateProject(e) {
     const { project: { id } } = this.props;
