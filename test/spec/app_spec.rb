@@ -384,7 +384,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(media_pg.primary_heading.text).to eq('https://t.co/i17DJNqiWX')
       media_pg.toggle_card # Expand the card so the edit button is accessible
       media_pg.wait_for_element('.media-actions')
-      sleep 3 # Clicks can misfire if pender iframe moves the button position at the wrong moment
       media_pg.set_title('Edited media title')
       expect(media_pg.primary_heading.text).to eq('Edited media title')
       project_pg = media_pg.go_to_project
@@ -418,7 +417,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.media__heading')
       expect(media_pg.primary_heading.text.include?('In a chat about getting')).to be(true)
       project_pg = media_pg.go_to_project
-      sleep 1
       wait_for_selector('.media__heading')
       @wait.until {
         element = @driver.find_element(:partial_link_text, 'In a chat about getting')
