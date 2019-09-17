@@ -91,8 +91,10 @@ class ProjectEditComponent extends Component {
   };
 
   canSubmit = () => (
-    (this.state.title && this.state.title !== this.props.project.title) ||
-    (this.state.description && this.state.description !== this.props.project.description)
+    this.state.title && (
+      this.state.title !== this.props.project.title ||
+      this.state.description !== this.props.project.description
+    )
   );
 
 
