@@ -268,11 +268,6 @@ class Home extends Component {
                 user_id={user.dbid}
                 email={user.email}
                 name={user.name}
-                company={{
-                  id: user.current_team.dbid,
-                  name: user.current_team.name,
-                  website: `${window.location.protocol}//${config.selfHost}/${user.current_team.slug}`,
-                }}
               /> : null
             }
             <Favicon url={`/images/logo/${config.appName}.ico`} animated={false} />
