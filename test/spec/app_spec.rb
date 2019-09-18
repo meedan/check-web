@@ -2144,17 +2144,15 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       press_button('.create-related-media__add-button')
       wait_for_selector('#create-media__quote').click
       fill_field('#create-media-quote-input', 'Child Claim')
-      sleep 1
       fill_field('#create-media-quote-attribution-source-input', 'Child Claim Source')
-      sleep 1
       press_button('#create-media-dialog__submit-button')
-      sleep 5
+      wait_for_selector('.medias_item')
       expect(@driver.page_source.include?('Child Claim')).to be(true)
       wait_for_selector('.project-header__back-button').click
       expect(@driver.page_source.include?('Child Claim')).to be(false)
       expand = wait_for_selector('.card-with-border > div > div > div + button')
       expand.click
-      sleep 5
+      wait_for_selector('#create-media__add-item')
       expect(@driver.page_source.include?('Child Claim')).to be(true)
     end
 
