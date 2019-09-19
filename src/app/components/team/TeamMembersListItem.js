@@ -9,6 +9,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import rtlDetect from 'rtl-detect';
 import Tooltip from 'rc-tooltip';
 import RoleSelect from './RoleSelect';
+import ConfirmDialog from '../layout/ConfirmDialog';
 import '../../styles/css/tooltip.css';
 import SourcePicture from '../source/SourcePicture';
 import UpdateTeamUserMutation from '../../relay/mutations/UpdateTeamUserMutation';
@@ -25,8 +26,23 @@ import {
 } from '../../styles/js/shared';
 
 class TeamMembersListItem extends Component {
-  handleDeleteTeamUser(e) {
-    e.preventDefault();
+  state = {
+    dialogOpen: false,
+  };
+
+  handleCloseDialog = () => {
+    this.setState({ dialogOpen: false });
+  };
+
+  handleConfirmDelete = () => {
+    this.handleDeleteTeamUser();
+  };
+
+  handleDeleteButtonClick = () => {
+    this.setState({ dialogOpen: true });
+  };
+
+  handleDeleteTeamUser() {
     Relay.Store.commitUpdate(new UpdateTeamUserMutation({
       id: this.props.teamUser.node.id,
       status: 'banned',
@@ -152,7 +168,7 @@ class TeamMembersListItem extends Component {
                     focusRippleColor={checkBlue}
                     touchRippleColor={checkBlue}
                     style={{ fontSize: '20px' }}
-                    onClick={this.handleDeleteTeamUser.bind(this)}
+                    onClick={this.handleDeleteButtonClick}
                     tooltip={<FormattedMessage id="TeamMembersListItem.deleteMember" defaultMessage="Delete Member" />}
                   >
                     <MdClear />
@@ -163,8 +179,24 @@ class TeamMembersListItem extends Component {
           })()}
 
         </FlexRow>
+        <ConfirmDialog
+          open={this.state.dialogOpen}
+          title={
+            <FormattedMessage
+              id="TeamMembersListItem.confirmDeleteMemberTitle"
+              defaultMessage="Are you sure you want to remove {user}?"
+              values={{ user: teamUser.node.user.name }}
+            />}
+          blurb={
+            <FormattedMessage
+              id="TeamMembersListItem.confirmDeleteMemberBlurb"
+              defaultMessage="User will be removed from {team}"
+              values={{ team: teamUser.node.team.name }}
+            />}
+          handleClose={this.handleCloseDialog}
+          handleConfirm={this.handleConfirmDelete}
+        />
       </ListItem>
-
     );
   }
 }
