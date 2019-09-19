@@ -1394,51 +1394,50 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(true)
 
       # Go to the second project, make sure that there is no claim, and thus store the data in local Relay store
-      wait_for_selector('.header-actions__drawer-toggle', :css).click
-      wait_for_selector('.project-list__link + .project-list__link', :css).click
+      wait_for_selector('.header-actions__drawer-toggle').click
+      wait_for_selector('.project-list__link + .project-list__link').click
       wait_for_selector('.search__results')
       expect(@driver.page_source.include?(claim)).to be(false)
       expect(@driver.page_source.include?('1 / 1')).to be(false)
       expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(true)
 
       # Create a claim under project 2
-      wait_for_selector("create-media__add-item", :id).click
-      wait_for_selector('create-media__quote', :id).click
+      wait_for_selector("#create-media__add-item").click
+      wait_for_selector('#create-media__quote').click
       @driver.action.send_keys(claim).perform
       @driver.action.send_keys(:enter).perform
-      sleep 30
-      wait_for_selector_none('create-media__quote', :id)
-
+      wait_for_selector_none('#create-media__quote')
+    
       # Go to the second project, make sure that the claim is there
-      wait_for_selector('.header-actions__drawer-toggle', :css).click
-      wait_for_selector('.project-list__link + .project-list__link', :css).click
+      wait_for_selector('.header-actions__drawer-toggle').click
+      wait_for_selector('.project-list__link + .project-list__link').click
       wait_for_selector('.medias__item')
       expect(@driver.page_source.include?(claim)).to be(true)
       expect(@driver.page_source.include?('1 / 1')).to be(true)
       expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(false)
 
       # Move the claim to another project
-      wait_for_selector('.card-with-border > div > div > div + button svg', :css).click
-      wait_for_selector('.media-actions__icon', :css).click
-      move = wait_for_selector('.media-actions__move', :css)
+      wait_for_selector('.card-with-border > div > div > div + button svg').click
+      wait_for_selector('.media-actions__icon').click
+      move = wait_for_selector('.media-actions__move')
       move.location_once_scrolled_into_view
       move.click
-      wait_for_selector('.Select-input input', :css)
+      wait_for_selector('.Select-input input')
       fill_field('.Select-input input', 'Project')
-      move = wait_for_selector('.Select-option', :css)
+      move = wait_for_selector('.Select-option')
       move.location_once_scrolled_into_view
       move.click
-      move = wait_for_selector('.media-detail__move-button', :css)
+      move = wait_for_selector('.media-detail__move-button')
       move.location_once_scrolled_into_view
       move.click
 
-      project_title = wait_for_selector('.project-header__title').attribute("innerHTML")
-      count = 0
-      while project_title != p1[:project].title && count < 10
-        sleep 5
         project_title = wait_for_selector('.project-header__title').attribute("innerHTML")
-        count += 1
-      end
+        count = 0
+        while project_title != p1[:project].title && count < 10
+          wait_for_selector('#create-media__add-item')
+          project_title = wait_for_selector('.project-header__title').attribute("innerHTML")
+          count += 1
+        end
 
       # Check if the claim is under the first project, which we should have been redirected to
       @wait.until {
@@ -1449,11 +1448,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(false)
 
       # Go back to the second project and make sure that the claim is not there anymore
-      sleep 2
-      el = wait_for_selector('.header-actions__drawer-toggle', :css)
+      el = wait_for_selector('.header-actions__drawer-toggle')
       el.location_once_scrolled_into_view
       el.click
-      wait_for_selector('.project-list__link + .project-list__link', :css).click
+      wait_for_selector('.project-list__link + .project-list__link').click
       wait_for_selector('.search__results')
       expect(@driver.page_source.include?('1 / 1')).to be(false)
       expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(true)
