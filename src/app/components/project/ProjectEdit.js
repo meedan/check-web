@@ -167,6 +167,7 @@ class ProjectEditComponent extends Component {
                     <FlatButton
                       label={this.props.intl.formatMessage(globalStrings.cancel)}
                       onClick={this.handleCancel}
+                      className="project-edit__editing-button project-edit__editing-button--cancel"
                     />
                     <RaisedButton
                       primary
@@ -197,7 +198,9 @@ ProjectEditComponent.contextTypes = {
   store: PropTypes.object,
 };
 
-const ProjectEditContainer = Relay.createContainer(injectIntl(ProjectEditComponent), {
+const ProjectEditComponentWithIntl = injectIntl(ProjectEditComponent);
+
+const ProjectEditContainer = Relay.createContainer(ProjectEditComponentWithIntl, {
   initialVariables: {
     contextId: null,
   },
@@ -230,3 +233,4 @@ const ProjectEdit = (props) => {
 };
 
 export default ProjectEdit;
+export { ProjectEditComponent, ProjectEditComponentWithIntl };
