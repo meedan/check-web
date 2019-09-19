@@ -117,6 +117,7 @@ class CreateMediaInput extends React.Component {
 
   getMediaInputValue = () => {
     let image = '';
+    let video = '';
     let inputValue = '';
     let urls = '';
     let url = '';
@@ -283,6 +284,7 @@ class CreateMediaInput extends React.Component {
       return [
         <UploadImage
           key="createMedia.image.upload"
+          type="image"
           onImage={this.handleImage}
           onError={this.handleImageError}
         />,
@@ -291,8 +293,10 @@ class CreateMediaInput extends React.Component {
       return [
         <UploadImage
           key="createMedia.video.upload"
+          type="video"
           onImage={this.handleVideo}
           onError={this.handleImageError}
+          noPreview
         />,
       ];
     case 'source':
