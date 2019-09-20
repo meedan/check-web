@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay/classic';
 import { Link } from 'react-router';
@@ -9,10 +10,14 @@ import RaisedButton from 'material-ui/RaisedButton';
 import rtlDetect from 'rtl-detect';
 import Tooltip from 'rc-tooltip';
 import RoleSelect from './RoleSelect';
+import ConfirmDialog from '../layout/ConfirmDialog';
 import '../../styles/css/tooltip.css';
 import SourcePicture from '../source/SourcePicture';
 import UpdateTeamUserMutation from '../../relay/mutations/UpdateTeamUserMutation';
 import UserTooltip from '../user/UserTooltip';
+import { getErrorMessage } from '../../helpers';
+import { stringHelper } from '../../customHelpers';
+import globalStrings from '../../globalStrings';
 import {
   checkBlue,
   FlexRow,
@@ -25,27 +30,58 @@ import {
 } from '../../styles/js/shared';
 
 class TeamMembersListItem extends Component {
-  handleDeleteTeamUser(e) {
-    e.preventDefault();
-    Relay.Store.commitUpdate(new UpdateTeamUserMutation({
-      id: this.props.teamUser.node.id,
-      status: 'banned',
-    }));
+  state = {
+    dialogOpen: false,
+  };
+
+  handleCloseDialog = () => {
+    this.setState({ dialogOpen: false });
+  };
+
+  handleConfirmDelete = () => {
+    this.handleCloseDialog();
+    this.handleDeleteTeamUser();
+  };
+
+  handleDeleteButtonClick = () => {
+    this.setState({ dialogOpen: true });
+  };
+
+  fail = (transaction) => {
+    const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+    const message = getErrorMessage(transaction, fallbackMessage);
+    this.context.setMessage(message);
+  };
+
+  handleDeleteTeamUser() {
+    Relay.Store.commitUpdate(
+      new UpdateTeamUserMutation({
+        id: this.props.teamUser.node.id,
+        status: 'banned',
+      }),
+      { onFailure: this.fail },
+    );
   }
 
   handleRoleChange(e) {
-    Relay.Store.commitUpdate(new UpdateTeamUserMutation({
-      id: this.props.teamUser.node.id,
-      role: e.target.value,
-    }));
+    Relay.Store.commitUpdate(
+      new UpdateTeamUserMutation({
+        id: this.props.teamUser.node.id,
+        role: e.target.value,
+      }),
+      { onFailure: this.fail },
+    );
   }
 
   handleTeamMembershipRequest(status) {
-    Relay.Store.commitUpdate(new UpdateTeamUserMutation({
-      id: this.props.teamUser.node.id,
-      team: this.props.teamUser.node.team,
-      status,
-    }));
+    Relay.Store.commitUpdate(
+      new UpdateTeamUserMutation({
+        id: this.props.teamUser.node.id,
+        team: this.props.teamUser.node.team,
+        status,
+      }),
+      { onFailure: this.fail },
+    );
   }
 
   render() {
@@ -152,7 +188,7 @@ class TeamMembersListItem extends Component {
                     focusRippleColor={checkBlue}
                     touchRippleColor={checkBlue}
                     style={{ fontSize: '20px' }}
-                    onClick={this.handleDeleteTeamUser.bind(this)}
+                    onClick={this.handleDeleteButtonClick}
                     tooltip={<FormattedMessage id="TeamMembersListItem.deleteMember" defaultMessage="Delete Member" />}
                   >
                     <MdClear />
@@ -163,8 +199,24 @@ class TeamMembersListItem extends Component {
           })()}
 
         </FlexRow>
+        <ConfirmDialog
+          open={this.state.dialogOpen}
+          title={
+            <FormattedMessage
+              id="TeamMembersListItem.confirmDeleteMemberTitle"
+              defaultMessage="Are you sure you want to remove {user}?"
+              values={{ user: teamUser.node.user.name }}
+            />}
+          blurb={
+            <FormattedMessage
+              id="TeamMembersListItem.confirmDeleteMemberBlurb"
+              defaultMessage="User will be removed from {team}"
+              values={{ team: teamUser.node.team.name }}
+            />}
+          handleClose={this.handleCloseDialog}
+          handleConfirm={this.handleConfirmDelete}
+        />
       </ListItem>
-
     );
   }
 }
@@ -173,6 +225,10 @@ TeamMembersListItem.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
+};
+
+TeamMembersListItem.contextTypes = {
+  setMessage: PropTypes.func,
 };
 
 export default injectIntl(TeamMembersListItem);

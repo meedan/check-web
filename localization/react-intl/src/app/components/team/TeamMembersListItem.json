@@ -14,5 +14,13 @@
   {
     "id": "TeamMembersListItem.deleteMember",
     "defaultMessage": "Delete Member"
+  },
+  {
+    "id": "TeamMembersListItem.confirmDeleteMemberTitle",
+    "defaultMessage": "Are you sure you want to remove {user}?"
+  },
+  {
+    "id": "TeamMembersListItem.confirmDeleteMemberBlurb",
+    "defaultMessage": "User will be removed from {team}"
   }
 ]
