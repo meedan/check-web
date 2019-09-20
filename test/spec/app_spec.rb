@@ -2115,24 +2115,24 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # return error for non existing team
       fill_field('#team-slug-container', 'non-existing-slug')
-      el = wait_for_selector('.find-team__submit-button', :css)
+      el = wait_for_selector('.find-team__submit-button')
       el.click
-      sleep 1
       wait_for_selector('.find-team-card')
       expect(@driver.page_source.include?('Team not found!')).to be(true)
 
-      # redirect to /team-slug/join if team exists
+      # redirect to /team-slug/join if tea deve permitirm exists
       # /team-slug/join in turn redirects to team page because already member
       page = CreateTeamPage.new(config: @config, driver: @driver).load
-      page.create_team({ name: 'Existing Team', slug: 'slug-exists' })
-
+      wait_for_selector('.create-team__submit-button')
+      team = "existing-team-#{Time.now.to_i}"
+      api_create_team(team: team)
       @driver.navigate.to @config['self_url'] + '/check/teams/find'
-      el = wait_for_selector('.find-team__submit-button', :css)
-      fill_field('#team-slug-container', 'slug-exists')
+      el = wait_for_selector('.find-team__submit-button')
+      fill_field('#team-slug-container', team )
       el.click
-      sleep 1
-      wait_for_selector('.team__primary-info')
-      expect(@driver.page_source.include?('Existing Team')).to be(true)
+      wait_for_selector('.join-team__button')
+      expect(@driver.page_source.include?(team)).to be(true)
+
     end
 
     it "should manage related items", bin5: true do
