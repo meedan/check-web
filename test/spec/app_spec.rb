@@ -2120,7 +2120,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.find-team-card')
       expect(@driver.page_source.include?('Team not found!')).to be(true)
 
-      # redirect to /team-slug/join if tea deve permitirm exists
+      # redirect to /team-slug/join if team exists
       # /team-slug/join in turn redirects to team page because already member
       page = CreateTeamPage.new(config: @config, driver: @driver).load
       wait_for_selector('.create-team__submit-button')
