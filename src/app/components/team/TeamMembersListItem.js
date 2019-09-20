@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay/classic';
 import { Link } from 'react-router';
@@ -14,6 +15,9 @@ import '../../styles/css/tooltip.css';
 import SourcePicture from '../source/SourcePicture';
 import UpdateTeamUserMutation from '../../relay/mutations/UpdateTeamUserMutation';
 import UserTooltip from '../user/UserTooltip';
+import { getErrorMessage } from '../../helpers';
+import { stringHelper } from '../../customHelpers';
+import globalStrings from '../../globalStrings';
 import {
   checkBlue,
   FlexRow,
@@ -35,6 +39,7 @@ class TeamMembersListItem extends Component {
   };
 
   handleConfirmDelete = () => {
+    this.handleCloseDialog();
     this.handleDeleteTeamUser();
   };
 
@@ -42,26 +47,41 @@ class TeamMembersListItem extends Component {
     this.setState({ dialogOpen: true });
   };
 
+  fail = (transaction) => {
+    const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+    const message = getErrorMessage(transaction, fallbackMessage);
+    this.context.setMessage(message);
+  };
+
   handleDeleteTeamUser() {
-    Relay.Store.commitUpdate(new UpdateTeamUserMutation({
-      id: this.props.teamUser.node.id,
-      status: 'banned',
-    }));
+    Relay.Store.commitUpdate(
+      new UpdateTeamUserMutation({
+        id: this.props.teamUser.node.id,
+        status: 'banned',
+      }),
+      { onFailure: this.fail },
+    );
   }
 
   handleRoleChange(e) {
-    Relay.Store.commitUpdate(new UpdateTeamUserMutation({
-      id: this.props.teamUser.node.id,
-      role: e.target.value,
-    }));
+    Relay.Store.commitUpdate(
+      new UpdateTeamUserMutation({
+        id: this.props.teamUser.node.id,
+        role: e.target.value,
+      }),
+      { onFailure: this.fail },
+    );
   }
 
   handleTeamMembershipRequest(status) {
-    Relay.Store.commitUpdate(new UpdateTeamUserMutation({
-      id: this.props.teamUser.node.id,
-      team: this.props.teamUser.node.team,
-      status,
-    }));
+    Relay.Store.commitUpdate(
+      new UpdateTeamUserMutation({
+        id: this.props.teamUser.node.id,
+        team: this.props.teamUser.node.team,
+        status,
+      }),
+      { onFailure: this.fail },
+    );
   }
 
   render() {
@@ -205,6 +225,10 @@ TeamMembersListItem.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
+};
+
+TeamMembersListItem.contextTypes = {
+  setMessage: PropTypes.func,
 };
 
 export default injectIntl(TeamMembersListItem);
