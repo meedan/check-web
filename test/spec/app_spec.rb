@@ -1209,6 +1209,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       old = l.length
       expect(l.length > 1).to be(true)
       l.last.click
+      wait_for_selector('#confirm-dialog__checkbox').click
+      wait_for_selector('#confirm-dialog__confirm-action-button').click
       sleep 10
       new = wait_for_size_change(old, 'team-members__delete-member', :class)
       expect(new < old).to be(true)
