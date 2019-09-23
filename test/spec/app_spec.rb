@@ -988,7 +988,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should redirect to 404 page if id does not exist", bin4: true do
       api_create_team_and_project
       @driver.navigate.to @config['self_url']
-      sleep 3
+      wait_for_selector('#create-media__add-item')
       url = @driver.current_url.to_s
       @driver.navigate.to url.gsub(/project\/([0-9]+).*/, 'project/999')
       title = wait_for_selector('.main-title')
