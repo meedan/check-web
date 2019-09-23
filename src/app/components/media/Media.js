@@ -77,11 +77,13 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
           id
         }
         media {
+          type,
           url,
           quote,
           metadata,
           embed_path,
-          thumbnail_path
+          thumbnail_path,
+          video_path,
         }
         user {
           dbid,

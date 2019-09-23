@@ -9,6 +9,7 @@ import ParsedText from '../ParsedText';
 import QuoteMediaCard from './QuoteMediaCard';
 import WebPageMediaCard from './WebPageMediaCard';
 import ImageMediaCard from './ImageMediaCard';
+import VideoMediaCard from './VideoMediaCard';
 import PenderCard from '../PenderCard';
 import { bemClassFromMediaStatus } from '../../helpers';
 import { mediaLastStatus } from '../../customHelpers';
@@ -38,6 +39,7 @@ class MediaExpandedComponent extends Component {
     const media = Object.assign(this.props.currentMedia, this.props.media);
     const data = typeof media.metadata === 'string' ? JSON.parse(media.metadata) : media.metadata;
     const isImage = !!media.media.embed_path;
+    const isVideo = media.media.type === 'UploadedVideo';
     const isQuote = media.media.quote && media.media.quote.length;
     const isWebPage = media.media.url && data.provider === 'page';
     const authorName = MediaUtil.authorName(media, data);
@@ -46,10 +48,13 @@ class MediaExpandedComponent extends Component {
     const randomNumber = Math.floor(Math.random() * 1000000);
     const shouldShowDescription = MediaUtil.hasCustomDescription(media, data);
     const { inMediaPage, mediaUrl, mediaQuery } = this.props;
+    const posterUrl = media.media.thumbnail_path;
 
     const embedCard = (() => {
       if (isImage) {
         return <ImageMediaCard imagePath={media.embed_path} />;
+      } else if (isVideo) {
+        return <VideoMediaCard videoPath={media.media.video_path} posterPath={posterUrl} />;
       } else if (isQuote) {
         return (
           <QuoteMediaCard
