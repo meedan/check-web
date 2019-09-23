@@ -2228,7 +2228,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       ['.team__project button', '.project__assignment-button', '.project__assignment-menu input[type=checkbox]', '.multi__selector-save'].each do |selector|
         wait_for_selector(selector).click
       end
-      sleep 10
+      wait_for_selector('.message')
       expect(@driver.page_source.include?('Not assigned to any member')).to be(false)
       expect(@driver.page_source.include?('Assigned to one member')).to be(true)
     end
