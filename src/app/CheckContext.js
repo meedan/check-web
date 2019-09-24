@@ -59,11 +59,6 @@ class CheckContext {
   }
 
   startSession() {
-    const path = window.location.pathname;
-    if (path !== '/') {
-      window.storage.set('previousPage', path);
-    }
-
     // Failed login
     const failureCallback = (errorMessage) => {
       this.caller.setState({ message: errorMessage, error: true, sessionStarted: true });
@@ -76,7 +71,9 @@ class CheckContext {
       if (userData && userData.token) {
         if (window.opener && config.extensionUrls) {
           config.extensionUrls.forEach((uri) => {
-            window.opener.postMessage(`loggedIn:${userData.token}`, uri);
+            if (!/^moz-extension/.test(uri) || navigator.userAgent.indexOf('Firefox') > -1) {
+              window.opener.postMessage(`loggedIn:${userData.token}`, uri);
+            }
           });
         }
         newState.token = userData.token;
@@ -172,8 +169,8 @@ class CheckContext {
 
   redirectToPreviousPageOr(path) {
     const previousPage = window.storage.getValue('previousPage');
+    window.storage.set('previousPage', '');
     if (previousPage && previousPage !== '') {
-      window.storage.set('previousPage', '');
       this.getContextStore().history.push(previousPage);
     } else {
       this.getContextStore().history.push(path);

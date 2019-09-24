@@ -8,17 +8,20 @@ class UpdateProjectMutation extends Relay.Mutation {
   }
 
   getFatQuery() {
-    return Relay.QL`
-      fragment on UpdateProjectPayload {
-        project {
-          id
-          title
-          description
-          assignments_count
-          assigned_users
-        }
-      }
-    `;
+    if (this.props.title || this.props.description) {
+      return Relay.QL`fragment on UpdateProjectPayload { project { id, title, description } }`;
+    }
+    return Relay.QL`fragment on UpdateProjectPayload { project { id, assignments_count, assigned_users } }`;
+  }
+
+  getOptimisticResponse() {
+    return {
+      project: {
+        id: this.props.id,
+        title: this.props.title,
+        description: this.props.description,
+      },
+    };
   }
 
   getVariables() {

@@ -7,5 +7,6 @@
   "annotation.addedComment": "Nota de la tarea añadida por {author}: {title}{note}",
   "annotation.removedComment": "Nota de la tarea eliminada por {author}: {title}{note}",
   "annotation.nowRequired": "Tarea marcada como requerida por {author}: {title}",
-  "annotation.nowNotRequired": "Tarea marcada como no requerida por {author}: {title}"
+  "annotation.nowNotRequired": "Tarea marcada como no requerida por {author}: {title}",
+  "annotation.changedJsonSchema": "JSON Schema de la tarea {title} cambiado por {author}"
 }

@@ -7,5 +7,6 @@
   "annotation.addedComment": "قام {author} بإضافة تعليق على مهمة : {title}{note}",
   "annotation.removedComment": "قام {author} بحذف تعليق على مهمة : {title}{note}",
   "annotation.nowRequired": "قام {author} بتعديل المهمة بأنها إجبارية : {title}",
-  "annotation.nowNotRequired": "قام {author} بتعديل المهمة بأنها غير إجبارية : {title}"
+  "annotation.nowNotRequired": "قام {author} بتعديل المهمة بأنها غير إجبارية : {title}",
+  "annotation.changedJsonSchema": "قام {author} بتعديل مخطط JSON الخاص بمهمة {title}"
 }

@@ -82,6 +82,7 @@ export function logout() {
   // eslint-disable-next-line no-console
   const failureCallback = (message) => { console.log(message); };
   const successCallback = () => {
+    window.storage.set('previousPage', '');
     window.location.assign(window.location.origin);
   };
   request('delete', 'users/sign_out', failureCallback, successCallback);

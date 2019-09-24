@@ -103,6 +103,7 @@ class UpdateTaskMutation extends Relay.Mutation {
       params.required = task.required;
       params.status = task.status;
       params.assigned_to_ids = task.assigned_to_ids;
+      params.json_schema = task.json_schema;
     }
     return params;
   }

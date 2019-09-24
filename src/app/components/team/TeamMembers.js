@@ -57,6 +57,7 @@ const TeamMembersContainer = Relay.createContainer(TeamMembersComponent, {
                 }
               },
               team {
+                name
                 slug
               },
               status,
