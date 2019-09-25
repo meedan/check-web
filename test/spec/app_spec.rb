@@ -961,11 +961,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       media_pg.fill_input('#cmd-input', '/flag Spam')
       media_pg.element('#cmd-input').submit
-      sleep 20
-
+      
+      wait_for_selector('.annotation__default')
+      expect(@driver.page_source.include?('In Progress')).to be(true)
       expect(@driver.page_source.include?('Flag')).to be(true)
-      media_pg.driver.navigate.refresh
-      media_pg.wait_for_element('.annotations')
+      @driver.navigate.refresh
+      wait_for_selector('.annotations')
       expect(@driver.page_source.include?('Flag')).to be(true)
     end
 
