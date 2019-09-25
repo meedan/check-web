@@ -42,7 +42,7 @@ deploy_qa:
   script:
     - apk add --no-cache curl jq python py-pip git
     - pip install ecs-deploy==1.7.0
-    - ecs deploy ecs-qa  qa-check-web --image qa-check-web-c $ECR_API_BASE_URL/qa/check/web:$CI_COMMIT_SHA --timeout -1
+    - ecs deploy ecs-qa  qa-check-web --image qa-check-web-c $ECR_API_BASE_URL/qa/check/web:$CI_COMMIT_SHA --timeout 3600
     - echo "new Image was deployed $ECR_API_BASE_URL/qa/check/web:$CI_COMMIT_SHA"
   only:
     - develop
@@ -87,7 +87,7 @@ deploy_live:
   script:
     - apk add --no-cache curl jq python py-pip git
     - pip install ecs-deploy==1.7.0
-    - ecs deploy ecs-live  live-check-web --image live-check-web-c $ECR_API_BASE_URL/live/check/web:$CI_COMMIT_SHA --timeout -1
+    - ecs deploy ecs-live  live-check-web --image live-check-web-c $ECR_API_BASE_URL/live/check/web:$CI_COMMIT_SHA --timeout 3600
     - echo "new Image was deployed $ECR_API_BASE_URL/live/check/web:$CI_COMMIT_SHA"
   only:
     - master
