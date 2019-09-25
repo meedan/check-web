@@ -37,6 +37,7 @@ class TeamMembersComponent extends Component {
     const { team, team: { team_users: teamUsers } } = this.props;
     const teamUsersRequestingMembership = team.join_requests.edges;
     const teamUsersMembers = teamUsers.edges.filter(tu => tu.node.status === 'member');
+    const ownerMembers = teamUsers.edges.filter(tu => tu.node.role === 'owner');
     const teamInvitedMails = team.invited_mails;
     const requestingMembership = !!teamUsersRequestingMembership.length;
     const invitedMails = !!teamInvitedMails.length;
@@ -121,6 +122,7 @@ class TeamMembersComponent extends Component {
                   key={teamUser.node.id}
                   teamUser={teamUser}
                   isEditing={isEditing}
+                  singleOwner={ownerMembers.length <= 1}
                 />
               ))}
             </LoadMore>

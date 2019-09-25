@@ -106,6 +106,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.role-select', :css, 29, 1).click
 
       wait_for_selector('li.role-journalist').click
+      wait_for_selector('#confirm-dialog__checkbox').click
+      wait_for_selector('#confirm-dialog__confirm-action-button').click
       wait_for_selector('.team-members__edit-button', :css).click
 
       el = wait_for_selector('input[name="role-select"]', :css, 29, 1)
