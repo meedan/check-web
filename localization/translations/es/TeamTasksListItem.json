@@ -1,9 +1,9 @@
 {
   "createTeamTask.editError": "Error al editar la tarea de todo el equipo",
   "createTeamTask.deleteError": "Error al eliminar la tarea de todo el equipo",
-  "createTeamTask.menuTooltip": "Acciones de tareas",
-  "teamTasks.confirmEditTitle": "¿Estás segura o seguro que quieres editar esta tarea?",
-  "teamTasks.confirmDeleteTitle": "¿Estás segura o seguro que quieres eliminar esta tarea?",
+  "createTeamTask.menuTooltip": "Acciones de las tareas",
+  "teamTasks.confirmEditTitle": "¿Estás seguro(a) que quieres editar esta tarea?",
+  "teamTasks.confirmDeleteTitle": "¿Estás seguro(a) que quieres eliminar esta tarea?",
   "teamTasks.confirmEditBlurb": "Las tareas relacionadas con los ítems se modificarán como consecuencia de la aplicación de este cambio, a excepción de aquellas que ya han sido respondidas o anotadas.",
   "teamTasks.confirmDeleteBlurb": "Las tareas relacionadas con los ítems se eliminarán como consecuencia de la aplicación de este cambio, a excepción de aquellas que ya han sido respondidas o anotadas.",
   "teamTasks.edit": "Editar tarea",

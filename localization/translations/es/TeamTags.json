@@ -1,5 +1,5 @@
 {
-  "teamTags.menuTooltip": "Acciones de etiquetas",
+  "teamTags.menuTooltip": "Acciones de las etiquetas",
   "teamTags.failUpdate": "Lo sentimos, se produjo un error al actualizar la etiqueta. Vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}.",
   "teamTags.failDelete": "Lo sentimos, se produjo un error al actualizar la etiqueta. Vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}.",
   "teamTags.failMove": "Lo sentimos, se produjo un error al actualizar la etiqueta. Vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}.",
@@ -20,5 +20,5 @@
   "teamTags.addTag": "Añadir etiqueta",
   "teamTags.customTags": "Editar etiqueta",
   "teamTags.noCustomTags": "No hay etiquetas personalizadas.",
-  "teamTags.confirmDeleteTitle": "¿Estás segura o seguro que quieres eliminar esta etiqueta?"
+  "teamTags.confirmDeleteTitle": "¿Estás seguro(a) que quieres eliminar esta etiqueta?"
 }
