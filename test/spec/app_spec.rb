@@ -369,11 +369,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should edit the description of a media", bin4: true do
       url = 'https://twitter.com/softlandscapes/status/834385935240462338'
       media_pg = api_create_team_project_and_link_and_redirect_to_media_page url
-      media_pg.wait_for_element('.media-detail')
+      wait_for_selector('.media-detail')
       media_pg.toggle_card # Make sure the card is closed
       expect(media_pg.contains_string?('Edited media description')).to be(false)
       media_pg.toggle_card # Expand the card so the edit button is accessible
-      media_pg.wait_for_element('.media-actions')
+      wait_for_selector('.media-actions')
       media_pg.set_description('Edited media description')
       expect(media_pg.contains_string?('Edited media description')).to be(true)
     end
