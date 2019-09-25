@@ -177,13 +177,13 @@ class TeamMembersListItem extends Component {
       }
     }
 
-    let deleteTooltip = <FormattedMessage id="TeamMembersListItem.deleteMember" defaultMessage="Delete Member" />;
+    let deleteTooltip = <FormattedMessage id="TeamMembersListItem.deleteMember" defaultMessage="Remove member" />;
 
     if (userIsSelf) {
       deleteTooltip = <FormattedMessage id="TeamMembersListItem.leaveTeam" defaultMessage="Leave team" />;
 
       if (selfIsOwner && singleOwner) {
-        deleteTooltip = <FormattedMessage id="TeamMembersListItem.singleOwner" defaultMessage="You must make another user an owner before you can leave" />;
+        deleteTooltip = <FormattedMessage id="TeamMembersListItem.singleOwner" defaultMessage="Before you can leave the team, please assign ownership to another member." />;
       }
     }
 
