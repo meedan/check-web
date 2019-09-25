@@ -1306,14 +1306,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should find all medias with an empty search", bin1: true do
       api_create_media_and_go_to_search_page
-      old = wait_for_selector_list("medias__item", :class).length
-      wait_for_selector("search__open-dialog-button", :id).click
-      el = wait_for_selector("search-input", :id)
+      old = wait_for_selector_list(".medias__item").length
+      wait_for_selector("#search__open-dialog-button").click
+      el = wait_for_selector("#search-input")
       el.click
       @driver.action.send_keys(:enter).perform
-      sleep 3 #due the reload
-      # wait_for_selector("search__open-dialog-button", :id)
-      current = wait_for_selector_list("medias__item", :class).length
+      wait_for_selector_none("#search-input")
+      current = wait_for_selector_list(".medias__item").length
       expect(old == current).to be(true)
       expect(current > 0).to be(true)
     end
