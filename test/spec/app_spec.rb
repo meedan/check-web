@@ -1397,7 +1397,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(true)
 
       # Go to the second project, make sure that there is no claim, and thus store the data in local Relay store
-      wait_for_selector('.header-actions__drawer-toggle').click
+      el = wait_for_selector('.header-actions__drawer-toggle')
+      el.location_once_scrolled_into_view
+      el.click
       wait_for_selector('.project-list__link + .project-list__link').click
       wait_for_selector('.search__results')
       expect(@driver.page_source.include?(claim)).to be(false)
@@ -1412,7 +1414,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector_none('#create-media__quote')
     
       # Go to the second project, make sure that the claim is there
-      wait_for_selector('.header-actions__drawer-toggle').click
+      el = wait_for_selector('.header-actions__drawer-toggle')
+      el.location_once_scrolled_into_view
+      el.click
       wait_for_selector('.project-list__link + .project-list__link').click
       wait_for_selector('.medias__item')
       expect(@driver.page_source.include?(claim)).to be(true)
