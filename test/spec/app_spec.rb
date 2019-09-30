@@ -354,14 +354,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_logout
       api_register_and_login_with_email
       me_pg = MePage.new(config: @config, driver: @driver).load
-      sleep 3 #for loading
-      wait_for_selector("teams-tab", :id).click; sleep 1
+      wait_for_selector("#teams-tab").click;
       wait_for_selector("//span[contains(text(), 'Create Team')]", :xpath)
       expect(@driver.page_source.include?('Access Denied')).to be(false)
       expect((@driver.current_url.to_s =~ /\/forbidden$/).nil?).to be(true)
       unauthorized_pg = SourcePage.new(id: user.dbid, config: @config, driver: @driver).load
-      sleep 3 #for loading
-      wait_for_selector("main-title", :class)
+      wait_for_selector(".main-title")
       expect(@driver.page_source.include?('Access Denied')).to be(true)
       expect((@driver.current_url.to_s =~ /\/forbidden$/).nil?).to be(false)
     end
