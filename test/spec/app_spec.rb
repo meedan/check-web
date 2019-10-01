@@ -593,16 +593,15 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       id1 = @driver.current_url.to_s.gsub(/^.*\/source\//, '').to_i
       expect(id1 > 0).to be(true)
       @driver.navigate.to @driver.current_url.to_s.gsub(/\/source\/[0-9]+$/, '')
-      wait_for_selector("create-media__add-item", :id).click
-      wait_for_selector("create-media-submit", :id)
+      wait_for_selector("#create-media__add-item").click
+      wait_for_selector("#create-media-submit")
       el = wait_for_selector('#create-media__source')
       el.click
-      sleep 1
+      wait_for_selector('#create-media-quote-input')
       fill_field('#create-media-source-name-input', 'Megadeth')
       fill_field('#create-media-source-url-input', 'https://twitter.com/megadeth')
-      sleep 1
-      wait_for_selector('create-media-dialog__submit-button', :id).click
-      wait_for_selector("source__tab-button-account", :class)
+      wait_for_selector('#create-media-dialog__submit-button').click
+      wait_for_selector(".source__tab-button-account")
       id2 = @driver.current_url.to_s.gsub(/^.*\/source\//, '').to_i
       expect(id2 > 0).to be(true)
       expect(id1 == id2).to be(true)
