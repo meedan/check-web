@@ -628,22 +628,21 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should comment source as a command", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('The Beatles', 'https://twitter.com/thebeatles')
-      wait_for_selector('source__tab-button-account', :class)
+      wait_for_selector('.source__tab-button-account')
       el = wait_for_selector('.source__tab-button-notes')
       el.click
       expect(@driver.page_source.include?('This is my comment')).to be(false)
-      old = @driver.find_elements(:class,"annotations__list-item").length
       input = wait_for_selector('#cmd-input')
       input.send_keys('/comment This is my comment')
       @driver.action.send_keys(:enter).perform
-      wait_for_size_change(old,'annotations__list-item', :class)
+      wait_for_selector('.annotation__avatar-col')
+      wait_for_size_change(0,'annotations__list-item')
       expect(@driver.page_source.include?('This is my comment')).to be(true)
       @driver.navigate.refresh
-      sleep 5
-      wait_for_selector('source__tab-button-account', :class)
+      wait_for_selector('.source__tab-button-account')
       el = wait_for_selector('.source__tab-button-notes')
       el.click
-      wait_for_selector('annotation__card-content', :class)
+      wait_for_selector('.annotation__card-content')
       expect(@driver.page_source.include?('This is my comment')).to be(true)
     end
 
