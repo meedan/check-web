@@ -610,21 +610,20 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should tag source as a command", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('ACDC', 'https://twitter.com/acdc')
-      wait_for_selector('source__tab-button-account', :class)
+      wait_for_selector('.source__tab-button-account')
       expect(@driver.page_source.include?('command')).to be(false)
       el = wait_for_selector('.source__tab-button-notes')
       el.click
-      wait_for_selector('add-annotation__insert-photo', :class)
+      wait_for_selector('.add-annotation__insert-photo')
       expect(@driver.page_source.include?('Tagged #command')).to be(false)
       input = wait_for_selector('#cmd-input')
       input.send_keys('/tag command')
       @driver.action.send_keys(:enter).perform
-      sleep 5
-      wait_for_size_change(0,'annotations__list-item', :class)
+      wait_for_selector('.annotation__author-name')
+      wait_for_size_change(0,'.annotations__list-item')
       expect(@driver.page_source.include?('Tagged #command')).to be(true)
       @driver.navigate.refresh
-      sleep 3
-      wait_for_selector('source__tab-button-account', :class)
+      wait_for_selector('.source__tab-button-account')
       expect(@driver.page_source.include?('command')).to be(true)
     end
 
