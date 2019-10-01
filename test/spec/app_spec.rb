@@ -649,14 +649,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should not create report as source", bin6: true do
       api_create_team_and_project
       @driver.navigate.to @config['self_url']
-      sleep 5
-      wait_for_selector("create-media__add-item", :id).click
-      @driver.find_element(:css, '#create-media__source').click
-      sleep 1
+      wait_for_selector("#search__open-dialog-button")
+      wait_for_selector("#create-media__add-item").click
+      wait_for_selector(".create-media__form")
+      el = @driver.find_element(:id,'create-media__source')
+      el.click
+      wait_for_selector("#create-media-source-name-input")
       fill_field('#create-media-source-url-input', 'https://twitter.com/IronMaiden/status/832726327459446784')
-      sleep 1
-      wait_for_selector('create-media-dialog__submit-button', :id).click
-      sleep 15
+      wait_for_selector('#create-media-dialog__submit-button').click
       expect(@driver.current_url.to_s.match(/\/source\/[0-9]+$/).nil?).to be(true)
       message = wait_for_selector('.message').text
       expect(message.match(/Sorry, this is not a profile/).nil?).to be(false)
