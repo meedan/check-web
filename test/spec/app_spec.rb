@@ -1221,21 +1221,20 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_team_and_project
       @driver.navigate.to @config['self_url']
       url = @driver.current_url
-      wait_for_selector('#create-media-input')
+      wait_for_selector('#search__open-dialog-button')
       expect(@driver.page_source.include?('Auto-Refresh')).to be(false)
       current_window = @driver.window_handles.last
       @driver.execute_script("window.open('#{url}')")
-      sleep 2
+      wait_for_selector(".search")
       @driver.switch_to.window(@driver.window_handles.last)
-      sleep 2
-      wait_for_selector("create-media__add-item", :id).click
-      wait_for_selector("create-media-input", :id).click
+      wait_for_selector('.avatar')
+      wait_for_selector("#create-media__add-item").click
+      wait_for_selector("#create-media-input").click
       fill_field('#create-media-input', 'Auto-Refresh')
-      wait_for_selector('create-media-dialog__submit-button', :id).click
+      wait_for_selector('#create-media-dialog__submit-button').click
       wait_for_selector('.medias__item')
       @driver.execute_script('window.close()')
       @driver.switch_to.window(current_window)
-      sleep 30
       wait_for_selector('.medias__item')
       expect(@driver.page_source.include?('Auto-Refresh')).to be(true)
     end
