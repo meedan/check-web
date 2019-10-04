@@ -2238,7 +2238,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page = api_create_team_project_claims_sources_and_redirect_to_project_page 3
       page.load
       wait_for_selector('.media__heading a').click
-      sleep 3
+      wait_for_selector('.media__notes-heading')
 
       # First item
       expect(@driver.page_source.include?('1 / 3')).to be(true)
@@ -2250,7 +2250,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Second item
       wait_for_selector('#media-search__next-item').click
-      sleep 5
+      wait_for_selector('.media__notes-heading')
       expect(@driver.page_source.include?('1 / 3')).to be(false)
       expect(@driver.page_source.include?('2 / 3')).to be(true)
       expect(@driver.page_source.include?('3 / 3')).to be(false)
@@ -2260,7 +2260,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Third item
       wait_for_selector('#media-search__next-item').click
-      sleep 5
+      wait_for_selector('.media__notes-heading')
       expect(@driver.page_source.include?('1 / 3')).to be(false)
       expect(@driver.page_source.include?('2 / 3')).to be(false)
       expect(@driver.page_source.include?('3 / 3')).to be(true)
@@ -2270,7 +2270,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Second item
       wait_for_selector('#media-search__previous-item').click
-      sleep 5
+      wait_for_selector('.media__notes-heading')
       expect(@driver.page_source.include?('1 / 3')).to be(false)
       expect(@driver.page_source.include?('2 / 3')).to be(true)
       expect(@driver.page_source.include?('3 / 3')).to be(false)
@@ -2280,7 +2280,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # First item
       wait_for_selector('#media-search__previous-item').click
-      sleep 5
+      wait_for_selector('.media__notes-heading')
       expect(@driver.page_source.include?('1 / 3')).to be(true)
       expect(@driver.page_source.include?('2 / 3')).to be(false)
       expect(@driver.page_source.include?('3 / 3')).to be(false)
