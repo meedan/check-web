@@ -29,6 +29,14 @@ const facebookTags = (metadata, config, url) => {
   ].join('\n');
 };
 
+const heapAnalytics = (config) => {
+  return config.heapAppId ?
+    `<script type="text/javascript">
+        window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var r=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(r?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(a,n);for(var o=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["addEventProperties","addUserProperties","clearEventProperties","identify","resetIdentity","removeEventProperty","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=o(p[c])};
+          heap.load("${config.heapAppId}");
+    </script>` : null;
+};
+
 const metaTags = (metadata, config, url) => {
   const params = url.replace(/^[^?]*/, '');
   return [
@@ -63,6 +71,7 @@ export default ({ config, metadata, url }) => `
         <script src="https://js.pusher.com/4.4/pusher.min.js"></script>
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Mono" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.css" />
+        ${heapAnalytics(config)}
       </head>
       <body>
         <div id="root"></div>
