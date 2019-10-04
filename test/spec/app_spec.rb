@@ -354,14 +354,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_logout
       api_register_and_login_with_email
       me_pg = MePage.new(config: @config, driver: @driver).load
-      sleep 3 #for loading
-      wait_for_selector("teams-tab", :id).click; sleep 1
+      wait_for_selector("#teams-tab").click;
       wait_for_selector("//span[contains(text(), 'Create Team')]", :xpath)
       expect(@driver.page_source.include?('Access Denied')).to be(false)
       expect((@driver.current_url.to_s =~ /\/forbidden$/).nil?).to be(true)
       unauthorized_pg = SourcePage.new(id: user.dbid, config: @config, driver: @driver).load
-      sleep 3 #for loading
-      wait_for_selector("main-title", :class)
+      wait_for_selector(".main-title")
       expect(@driver.page_source.include?('Access Denied')).to be(true)
       expect((@driver.current_url.to_s =~ /\/forbidden$/).nil?).to be(false)
     end
@@ -369,11 +367,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should edit the description of a media", bin4: true do
       url = 'https://twitter.com/softlandscapes/status/834385935240462338'
       media_pg = api_create_team_project_and_link_and_redirect_to_media_page url
-      media_pg.wait_for_element('.media-detail')
+      wait_for_selector('.media-detail')
       media_pg.toggle_card # Make sure the card is closed
       expect(media_pg.contains_string?('Edited media description')).to be(false)
       media_pg.toggle_card # Expand the card so the edit button is accessible
-      media_pg.wait_for_element('.media-actions')
+      wait_for_selector('.media-actions')
       media_pg.set_description('Edited media description')
       expect(media_pg.contains_string?('Edited media description')).to be(true)
     end
@@ -381,15 +379,15 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should edit the title of a media", bin1: true do
       url = 'https://twitter.com/softlandscapes/status/834385935240462338'
       media_pg = api_create_team_project_and_link_and_redirect_to_media_page url
-      media_pg.wait_for_element('.media-detail')
+      wait_for_selector('.media-detail')
       media_pg.toggle_card # Make sure the card is closed
       expect(media_pg.primary_heading.text).to eq('https://t.co/i17DJNqiWX')
       media_pg.toggle_card # Expand the card so the edit button is accessible
-      media_pg.wait_for_element('.media-actions')
+      wait_for_selector('.media-actions')
       media_pg.set_title('Edited media title')
       expect(media_pg.primary_heading.text).to eq('Edited media title')
       project_pg = media_pg.go_to_project
-      project_pg.wait_for_element('.media__heading')
+      wait_for_selector('.media__heading')
       expect(project_pg.elements('.media__heading').map(&:text).include?('Edited media title')).to be(true)
     end
 
@@ -595,16 +593,15 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       id1 = @driver.current_url.to_s.gsub(/^.*\/source\//, '').to_i
       expect(id1 > 0).to be(true)
       @driver.navigate.to @driver.current_url.to_s.gsub(/\/source\/[0-9]+$/, '')
-      wait_for_selector("create-media__add-item", :id).click
-      wait_for_selector("create-media-submit", :id)
+      wait_for_selector("#create-media__add-item").click
+      wait_for_selector("#create-media-submit")
       el = wait_for_selector('#create-media__source')
       el.click
-      sleep 1
+      wait_for_selector('#create-media-quote-input')
       fill_field('#create-media-source-name-input', 'Megadeth')
       fill_field('#create-media-source-url-input', 'https://twitter.com/megadeth')
-      sleep 1
-      wait_for_selector('create-media-dialog__submit-button', :id).click
-      wait_for_selector("source__tab-button-account", :class)
+      wait_for_selector('#create-media-dialog__submit-button').click
+      wait_for_selector(".source__tab-button-account")
       id2 = @driver.current_url.to_s.gsub(/^.*\/source\//, '').to_i
       expect(id2 > 0).to be(true)
       expect(id1 == id2).to be(true)
@@ -612,56 +609,54 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should tag source as a command", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('ACDC', 'https://twitter.com/acdc')
-      wait_for_selector('source__tab-button-account', :class)
+      wait_for_selector('.source__tab-button-account')
       expect(@driver.page_source.include?('command')).to be(false)
       el = wait_for_selector('.source__tab-button-notes')
       el.click
-      wait_for_selector('add-annotation__insert-photo', :class)
+      wait_for_selector('.add-annotation__insert-photo')
       expect(@driver.page_source.include?('Tagged #command')).to be(false)
       input = wait_for_selector('#cmd-input')
       input.send_keys('/tag command')
       @driver.action.send_keys(:enter).perform
-      sleep 5
-      wait_for_size_change(0,'annotations__list-item', :class)
+      wait_for_selector('.annotation__author-name')
+      wait_for_size_change(0,'.annotations__list-item')
       expect(@driver.page_source.include?('Tagged #command')).to be(true)
       @driver.navigate.refresh
-      sleep 3
-      wait_for_selector('source__tab-button-account', :class)
+      wait_for_selector('.source__tab-button-account')
       expect(@driver.page_source.include?('command')).to be(true)
     end
 
     it "should comment source as a command", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('The Beatles', 'https://twitter.com/thebeatles')
-      wait_for_selector('source__tab-button-account', :class)
+      wait_for_selector('.source__tab-button-account')
       el = wait_for_selector('.source__tab-button-notes')
       el.click
       expect(@driver.page_source.include?('This is my comment')).to be(false)
-      old = @driver.find_elements(:class,"annotations__list-item").length
       input = wait_for_selector('#cmd-input')
       input.send_keys('/comment This is my comment')
       @driver.action.send_keys(:enter).perform
-      wait_for_size_change(old,'annotations__list-item', :class)
+      wait_for_selector('.annotation__avatar-col')
+      wait_for_size_change(0,'annotations__list-item')
       expect(@driver.page_source.include?('This is my comment')).to be(true)
       @driver.navigate.refresh
-      sleep 5
-      wait_for_selector('source__tab-button-account', :class)
+      wait_for_selector('.source__tab-button-account')
       el = wait_for_selector('.source__tab-button-notes')
       el.click
-      wait_for_selector('annotation__card-content', :class)
+      wait_for_selector('.annotation__card-content')
       expect(@driver.page_source.include?('This is my comment')).to be(true)
     end
 
     it "should not create report as source", bin6: true do
       api_create_team_and_project
       @driver.navigate.to @config['self_url']
-      sleep 5
-      wait_for_selector("create-media__add-item", :id).click
-      @driver.find_element(:css, '#create-media__source').click
-      sleep 1
+      wait_for_selector("#search__open-dialog-button")
+      wait_for_selector("#create-media__add-item").click
+      wait_for_selector(".create-media__form")
+      el = @driver.find_element(:id,'create-media__source')
+      el.click
+      wait_for_selector("#create-media-source-name-input")
       fill_field('#create-media-source-url-input', 'https://twitter.com/IronMaiden/status/832726327459446784')
-      sleep 1
-      wait_for_selector('create-media-dialog__submit-button', :id).click
-      sleep 15
+      wait_for_selector('#create-media-dialog__submit-button').click
       expect(@driver.current_url.to_s.match(/\/source\/[0-9]+$/).nil?).to be(true)
       message = wait_for_selector('.message').text
       expect(message.match(/Sorry, this is not a profile/).nil?).to be(false)
@@ -961,11 +956,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       media_pg.fill_input('#cmd-input', '/flag Spam')
       media_pg.element('#cmd-input').submit
-      sleep 20
-
+      
+      wait_for_selector('.annotation__default')
       expect(@driver.page_source.include?('Flag')).to be(true)
-      media_pg.driver.navigate.refresh
-      media_pg.wait_for_element('.annotations')
+      @driver.navigate.refresh
+      wait_for_selector('.annotations')
       expect(@driver.page_source.include?('Flag')).to be(true)
     end
 
@@ -1226,21 +1221,20 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_team_and_project
       @driver.navigate.to @config['self_url']
       url = @driver.current_url
-      wait_for_selector('#create-media-input')
+      wait_for_selector('#search__open-dialog-button')
       expect(@driver.page_source.include?('Auto-Refresh')).to be(false)
       current_window = @driver.window_handles.last
       @driver.execute_script("window.open('#{url}')")
-      sleep 2
+      wait_for_selector(".search")
       @driver.switch_to.window(@driver.window_handles.last)
-      sleep 2
-      wait_for_selector("create-media__add-item", :id).click
-      wait_for_selector("create-media-input", :id).click
+      wait_for_selector('.avatar')
+      wait_for_selector("#create-media__add-item").click
+      wait_for_selector("#create-media-input").click
       fill_field('#create-media-input', 'Auto-Refresh')
-      wait_for_selector('create-media-dialog__submit-button', :id).click
+      wait_for_selector('#create-media-dialog__submit-button').click
       wait_for_selector('.medias__item')
       @driver.execute_script('window.close()')
       @driver.switch_to.window(current_window)
-      sleep 30
       wait_for_selector('.medias__item')
       expect(@driver.page_source.include?('Auto-Refresh')).to be(true)
     end
@@ -1306,14 +1300,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should find all medias with an empty search", bin1: true do
       api_create_media_and_go_to_search_page
-      old = wait_for_selector_list("medias__item", :class).length
-      wait_for_selector("search__open-dialog-button", :id).click
-      el = wait_for_selector("search-input", :id)
+      old = wait_for_selector_list(".medias__item").length
+      wait_for_selector("#search__open-dialog-button").click
+      el = wait_for_selector("#search-input")
       el.click
       @driver.action.send_keys(:enter).perform
-      sleep 3 #due the reload
-      # wait_for_selector("search__open-dialog-button", :id)
-      current = wait_for_selector_list("medias__item", :class).length
+      wait_for_selector_none("#search-input")
+      current = wait_for_selector_list(".medias__item").length
       expect(old == current).to be(true)
       expect(current > 0).to be(true)
     end
@@ -1398,7 +1391,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(true)
 
       # Go to the second project, make sure that there is no claim, and thus store the data in local Relay store
-      wait_for_selector('.header-actions__drawer-toggle').click
+      el = wait_for_selector('.header-actions__drawer-toggle')
+      el.location_once_scrolled_into_view
+      el.click
       wait_for_selector('.project-list__link + .project-list__link').click
       wait_for_selector('.search__results')
       expect(@driver.page_source.include?(claim)).to be(false)
@@ -1413,7 +1408,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector_none('#create-media__quote')
     
       # Go to the second project, make sure that the claim is there
-      wait_for_selector('.header-actions__drawer-toggle').click
+      el = wait_for_selector('.header-actions__drawer-toggle')
+      el.location_once_scrolled_into_view
+      el.click
       wait_for_selector('.project-list__link + .project-list__link').click
       wait_for_selector('.medias__item')
       expect(@driver.page_source.include?(claim)).to be(true)
@@ -2241,7 +2238,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page = api_create_team_project_claims_sources_and_redirect_to_project_page 3
       page.load
       wait_for_selector('.media__heading a').click
-      sleep 3
+      wait_for_selector('.media__notes-heading')
 
       # First item
       expect(@driver.page_source.include?('1 / 3')).to be(true)
@@ -2253,7 +2250,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Second item
       wait_for_selector('#media-search__next-item').click
-      sleep 5
+      wait_for_selector('.media__notes-heading')
       expect(@driver.page_source.include?('1 / 3')).to be(false)
       expect(@driver.page_source.include?('2 / 3')).to be(true)
       expect(@driver.page_source.include?('3 / 3')).to be(false)
@@ -2263,7 +2260,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Third item
       wait_for_selector('#media-search__next-item').click
-      sleep 5
+      wait_for_selector('.media__notes-heading')
       expect(@driver.page_source.include?('1 / 3')).to be(false)
       expect(@driver.page_source.include?('2 / 3')).to be(false)
       expect(@driver.page_source.include?('3 / 3')).to be(true)
@@ -2273,7 +2270,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Second item
       wait_for_selector('#media-search__previous-item').click
-      sleep 5
+      wait_for_selector('.media__notes-heading')
       expect(@driver.page_source.include?('1 / 3')).to be(false)
       expect(@driver.page_source.include?('2 / 3')).to be(true)
       expect(@driver.page_source.include?('3 / 3')).to be(false)
@@ -2283,7 +2280,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # First item
       wait_for_selector('#media-search__previous-item').click
-      sleep 5
+      wait_for_selector('.media__notes-heading')
       expect(@driver.page_source.include?('1 / 3')).to be(true)
       expect(@driver.page_source.include?('2 / 3')).to be(false)
       expect(@driver.page_source.include?('3 / 3')).to be(false)
