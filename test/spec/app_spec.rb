@@ -1314,9 +1314,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should search in trash page", bin4: true do
       api_create_claim_and_go_to_search_page
       # Send item to trash
-      wait_for_selector('.card-with-border > div > div > div + button svg', :css).click
-      wait_for_selector('.media-actions__icon', :css).click
-      wait_for_selector('.media-actions__send-to-trash', :css).click
+      wait_for_selector('.card-with-border > div > div > div + button svg').click
+      wait_for_selector('.media-actions__icon').click
+      wait_for_selector('.media-actions__send-to-trash').click
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/trash'
       wait_for_selector('.medias__item')
       trash_button = wait_for_selector('.trash__empty-trash-button')
@@ -1325,7 +1325,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector("search__open-dialog-button", :id).click
       wait_for_selector("//div[contains(text(), 'In Progress')]",:xpath).click
       wait_for_selector("search-query__submit-button", :id).click
-      sleep 3
+      wait_for_selector_none("#search-query__submit-button")
       expect(@driver.page_source.include?('My search result')).to be(false)
     end
 
