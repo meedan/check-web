@@ -21,7 +21,7 @@
   },
   {
     "id": "TeamMembersListItem.deleteMember",
-    "defaultMessage": "Delete Member"
+    "defaultMessage": "Remove member"
   },
   {
     "id": "TeamMembersListItem.leaveTeam",
@@ -29,7 +29,7 @@
   },
   {
     "id": "TeamMembersListItem.singleOwner",
-    "defaultMessage": "You must make another user an owner before you can leave"
+    "defaultMessage": "Before you can leave the team, please assign ownership to another member."
   },
   {
     "id": "teamMembersListItem.assignmentsProgress",

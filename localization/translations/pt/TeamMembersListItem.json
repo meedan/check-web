@@ -1,6 +1,13 @@
 {
+  "TeamMembersListItem.confirmLeaveTitle": "Tem certeza que deseja sair de {team}?",
+  "TeamMembersListItem.confirmDeleteMemberTitle": "Tem certeza que deseja excluir {user}?",
+  "TeamMembersListItem.confirmEditMemberTitle": "Tem certeza que deseja mudar o papel de {user}?",
+  "TeamMembersListItem.confirmLeaveBlurb": "Você será excluido de {team}",
+  "TeamMembersListItem.confirmDeleteMemberBlurb": "Membro será excluido de {team}",
+  "TeamMembersListItem.deleteMember": "Excluir membro",
+  "TeamMembersListItem.leaveTeam": "Sair da equipe",
+  "TeamMembersListItem.singleOwner": "Antes de deixar a equipe, atribua a propriedade a outro membro.",
   "teamMembersListItem.assignmentsProgress": "{completedCount} completadas, {inProgressCount} em andamento, {unstartedCount} não-iniciadas",
   "TeamMembershipRequestsListItem.approve": "Aprovar",
-  "TeamMembershipRequestsListItem.deny": "Recusar",
-  "TeamMembersListItem.deleteMember": "Excluir Membro"
+  "TeamMembershipRequestsListItem.deny": "Recusar"
 }

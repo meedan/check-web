@@ -1,3 +1,3 @@
 {
-  "media.confirmLeave": "{count, plural, one {¿Estás segura o seguro que quieres salir? Todavía tienes asignada una tarea requerida que no has resuelto} other {¿Estás segura o seguro que quieres  salir? Todavía tienes asignadas # tareas requeridas que no has respondido}}"
+  "media.confirmLeave": "{count, plural, one {¿Estás segura o seguro que quieres salir? Todavía tienes asignada una tarea requerida que no has resuelto} other {¿Estás seguro(a) que quieres salir? Todavía tienes asignadas # tareas requeridas que no has respondido}}"
 }

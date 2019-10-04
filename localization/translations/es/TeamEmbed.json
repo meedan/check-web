@@ -1,7 +1,7 @@
 {
   "teamEmbed.updateFail": "Lo sentimos, se produjo un error al actualizar las configuraciones. Vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}.",
-  "teamEmbed.updateSuccess": "¡Los ajustes de incrustación se han actualizado con éxito!",
-  "teamEmbed.title": "Ajustes de incrustación  ",
+  "teamEmbed.updateSuccess": "¡Las configuraciones de Incrustación se han actualizado con éxito!",
+  "teamEmbed.title": "Configuración de Incrustación  ",
   "teamEmbed.tasks": "Tareas",
   "teamEmbed.tasksSub": "Solo las tareas resueltas se incluirán en la inserción.",
   "teamEmbed.disclaimer": "Declinación de responsabilidades",
