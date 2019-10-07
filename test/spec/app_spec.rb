@@ -1726,18 +1726,18 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_claim_and_go_to_search_page
       expect((@driver.current_url.to_s.match(/recent_activity/)).nil?).to be(true)
 
-      wait_for_selector("search__open-dialog-button", :id).click
+      wait_for_selector("#search__open-dialog-button").click
       wait_for_selector(".search-query__recent-activity-button").click
-      wait_for_selector("search-query__submit-button", :id).click
-      sleep 10
+      wait_for_selector("#search-query__submit-button").click
+      wait_for_selector_none("#search-query__reset-button")
       expect((@driver.current_url.to_s.match(/recent_activity/)).nil?).to be(false)
       expect((@driver.current_url.to_s.match(/recent_added/)).nil?).to be(true)
       expect(@driver.page_source.include?('My search result')).to be(true)
 
-      wait_for_selector("search__open-dialog-button", :id).click
+      wait_for_selector("#search__open-dialog-button").click
       wait_for_selector(".search-query__recent-added-button").click
-      wait_for_selector("search-query__submit-button", :id).click
-      sleep 10
+      wait_for_selector("#search-query__submit-button").click
+      wait_for_selector_none("#search-query__reset-button")
       expect((@driver.current_url.to_s.match(/recent_activity/)).nil?).to be(true)
       expect((@driver.current_url.to_s.match(/recent_added/)).nil?).to be(false)
       expect(@driver.page_source.include?('My search result')).to be(true)
