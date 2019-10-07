@@ -1798,9 +1798,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should change search sort criteria through URL", bin2: true do
       api_create_claim_and_go_to_search_page
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/search/%7B"sort"%3A"recent_activity"%7D'
-      sleep 10
+      wait_for_selector("#create-media__add-item")
       expect(@driver.page_source.include?('My search result')).to be(true)
-      wait_for_selector("search__open-dialog-button", :id).click
+      wait_for_selector("#search__open-dialog-button").click
+      wait_for_selector("#search-input")
       selected = @driver.find_elements(:css, '.search-query__filter-button--selected').map(&:text).sort
       expect(selected == ['Recent activity', 'Newest first', 'Links', 'Claims', 'Images'].sort).to be(true)
     end
