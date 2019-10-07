@@ -1835,9 +1835,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should set metatags", bin5: true do
       api_create_team_project_and_link_and_redirect_to_media_page 'https://twitter.com/marcouza/status/875424957613920256'
-      sleep 2
+      wait_for_selector(".tasks")
       request_api('make_team_public', { slug: get_team })
-      sleep 1
+      wait_for_selector(".create-related-media__add-button")
       url = @driver.current_url.to_s
       @driver.navigate.to url
       site = @driver.find_element(:css, 'meta[name="twitter\\:site"]').attribute('content')
