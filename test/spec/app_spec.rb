@@ -1819,7 +1819,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should not reset password", bin5: true do
       page = LoginPage.new(config: @config, driver: @driver)
       page.reset_password('test@meedan.com')
-      sleep 2
+      wait_for_selector(".user-password-reset__email-input")
       expect(@driver.page_source.include?('email was not found')).to be(true)
       expect(@driver.page_source.include?('Password reset sent')).to be(false)
     end
