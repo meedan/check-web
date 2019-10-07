@@ -1767,9 +1767,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should search by project through URL", bin2: true do
       api_create_claim_and_go_to_search_page
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/search/%7B"projects"%3A%5B0%5D%7D'
-      sleep 10
+      wait_for_selector("#create-media__add-item")
       expect(@driver.page_source.include?('My search result')).to be(false)
-      wait_for_selector("search__open-dialog-button", :id).click
+      wait_for_selector("#search__open-dialog-button").click
+      wait_for_selector("#search-input")
       selected = @driver.find_elements(:css, '.search-query__filter-button--selected')
       expect(selected.size == 5).to be(true)
     end
