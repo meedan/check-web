@@ -1828,7 +1828,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       user = api_create_and_confirm_user
       page = LoginPage.new(config: @config, driver: @driver)
       page.reset_password(user.email)
-      sleep 2
+      wait_for_selector_none(".user-password-reset__email-input")
       expect(@driver.page_source.include?('email was not found')).to be(false)
       expect(@driver.page_source.include?('Password reset sent')).to be(true)
     end
