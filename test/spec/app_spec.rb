@@ -787,37 +787,32 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should add and remove source tags", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
-      element =  wait_for_selector("source-menu__edit-source-button", :class,60)
+      element =  wait_for_selector(".source-menu__edit-source-button")
       element.click
-      sleep 1
-      element =  wait_for_selector("source__edit-addinfo-button", :class)
+      element =  wait_for_selector(".source__edit-addinfo-button")
       element.click
-      sleep 1
-      element =  wait_for_selector("source__add-tags", :class)
+      element =  wait_for_selector(".source__add-tags")
       element.click
-      sleep 1
-      fill_field("sourceTagInput", "TAG1", :id)
+      wait_for_selector("#sourceTagInput")
+      fill_field("#sourceTagInput", "TAG1")
       @driver.action.send_keys("\n").perform
-      fill_field("sourceTagInput", "TAG2", :id)
+      fill_field("#sourceTagInput", "TAG2")
       @driver.action.send_keys("\n").perform
-      sleep 3
-      element =  wait_for_selector("source__edit-save-button", :class)
+      element =  wait_for_selector(".source__edit-save-button")
       element.click
-      sleep 3
-      wait_for_selector("source-menu__edit-source-button", :class, 60)
+      wait_for_selector(".source-menu__edit-source-button")
       expect(@driver.page_source.include?('TAG1')).to be(true)
       expect(@driver.page_source.include?('TAG2')).to be(true)
 
       #delete
-      element = wait_for_selector("source-menu__edit-source-button",:class)
+      element = wait_for_selector(".source-menu__edit-source-button")
       element.click
-      wait_for_selector("source__edit-buttons-add-merge", :class, 60)
+      wait_for_selector(".source__edit-buttons-add-merge")
       list = wait_for_selector_list("div.source-tags__tag svg")
       list[0].click
-      sleep 1
-      element =  wait_for_selector("source__edit-save-button", :class)
+      element =  wait_for_selector(".source__edit-save-button")
       element.click
-      wait_for_selector("source__tab-button-account", :class, 60)
+      wait_for_selector(".source__tab-button-account")
       list = wait_for_selector_list("div.source-tags__tag")
       expect(list.length == 1).to be(true)
     end
