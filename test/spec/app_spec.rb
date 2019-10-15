@@ -697,40 +697,36 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should add and remove accounts to sources", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
-      wait_for_selector("source__tab-button-account",:class)
-      element = wait_for_selector("source-menu__edit-source-button",:class)
+      wait_for_selector(".source__tab-button-account")
+      element = wait_for_selector(".source-menu__edit-source-button")
       element.click
-      sleep 1
-      element = wait_for_selector("source__edit-addinfo-button",:class)
+      element = wait_for_selector(".source__edit-addinfo-button")
       element.click
-      sleep 1
-      element = wait_for_selector("source__add-link",:class)
+      element = wait_for_selector(".source__add-link")
       element.click
-      sleep 1
-      fill_field("source__link-input0", "www.acdc.com", :id)
-      sleep 2
-      element = wait_for_selector( 'source__edit-save-button',:class)
+      wait_for_selector("#source__link-input0")
+      fill_field("#source__link-input0", "www.acdc.com")
+      element = wait_for_selector( '.source__edit-save-button')
       element.click
-      wait_for_selector('media-tags', :class)
+      wait_for_selector('.media-tags')
       expect(@driver.page_source.include?('AC/DC Official Website')).to be(true)
 
       #networks tab
       element = @driver.find_element(:class, "source__tab-button-account")
       element.click
-      wait_for_selector('source-card',:class)
+      wait_for_selector('.source-card')
       expect(@driver.page_source.include?('The Official AC/DC website and store')).to be(true)
 
       #delete
-      element = wait_for_selector("source-menu__edit-source-button",:class)
+      element = wait_for_selector(".source-menu__edit-source-button")
       element.click
-      sleep 3
+      wait_for_selector(".source__bio-input")
       list = wait_for_selector_list("svg[class='create-task__remove-option-button create-task__md-icon']")
       element = wait_for_selector_list('.source__remove-link-button')[1]
       element.click
-      element = wait_for_selector('source__edit-save-button',:class)
+      element = wait_for_selector('.source__edit-save-button')
       element.click
-      sleep 1
-      wait_for_selector( 'media-tags',:class)
+      wait_for_selector('.media-tags')
       expect(@driver.page_source.include?('AC/DC Official Website')).to be(false)
     end
 
