@@ -2074,16 +2074,17 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should create claim", bin3: true do
       api_create_team_and_project
       page = ProjectPage.new(config: @config, driver: @driver).load
-      sleep 5
-      wait_for_selector("create-media__add-item", :id).click
-      wait_for_selector('create-media__quote', :id).click
-      sleep 1
+      wait_for_selector("#search__open-dialog-button")
+      wait_for_selector("#create-media__add-item").click
+      wait_for_selector("#create-media__quote").click
+      wait_for_selector("#create-media-quote-attribution-source-input")
       @driver.action.send_keys('Test').perform
       expect((@driver.current_url.to_s =~ /media/).nil?).to be(true)
       @driver.action.send_keys(:enter).perform
       # press_button('#create-media-submit')
-      sleep 5
+      wait_for_selector(".media-detail")
       wait_for_selector('.media-detail__check-timestamp').click
+      wait_for_selector(".media-detail__card-header")
       expect((@driver.current_url.to_s =~ /media/).nil?).to be(false)
     end
 
