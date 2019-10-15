@@ -1713,16 +1713,20 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_claim_and_go_to_search_page
       expect((@driver.current_url.to_s.match(/project/)).nil?).to be(true)
       wait_for_selector("#search__open-dialog-button").click
-      wait_for_selector('.search-filter__project-chip').click
+      wait_for_selector(".search-filter__project-chip").click
+      wait_for_selector(".search-filter__project-chip--selected")
       wait_for_selector("#search-query__submit-button").click
       wait_for_selector_none("#search-query__reset-button")
       expect((@driver.current_url.to_s.match(/project/)).nil?).to be(false)
+      expect((@driver.title =~ /Search/).nil?).to be(true)
       expect((@driver.title =~ /Project/).nil?).to be(false)
       wait_for_selector("#search__open-dialog-button").click
-      wait_for_selector('.search-filter__project-chip').click
+      wait_for_selector(".search-filter__project-chip").click
+      wait_for_selector_none(".search-filter__project-chip--selected")
       wait_for_selector("#search-query__submit-button").click
       wait_for_selector_none("#search-query__reset-button")
       expect((@driver.title =~ /Project/).nil?).to be(true)
+      expect((@driver.title =~ /Search/).nil?).to be(false)
     end
 
     it "should search and change sort criteria", bin2: true do
