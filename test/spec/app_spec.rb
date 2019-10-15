@@ -732,7 +732,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should edit source metadata (contact, phone, location, organization, other)", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
-      sleep 5 #Loading
       wait_for_selector('.source__tab-button-account')
       expect(@driver.page_source.include?('label: value')).to be(false)
       expect(@driver.page_source.include?('Location 123')).to be(false)
@@ -740,42 +739,37 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('989898989')).to be(false)
       el = wait_for_selector('.source-menu__edit-source-button')
       el.click
-      sleep 1
       el = wait_for_selector('.source__edit-addinfo-button')
       el.click
-      sleep 1
       el = wait_for_selector('.source__add-phone')
       el.click
+      wait_for_selector(".source__metadata-phone-input")
       fill_field('.source__metadata-phone-input input[type="text"]', '989898989')
-      sleep 1
-      @driver.find_element(:class, "source__edit-addinfo-button").click
-      sleep 1
+      el = wait_for_selector('.source__edit-addinfo-button')
+      el.click
       el = wait_for_selector(".source__add-organization")
       el.click
+      wait_for_selector(".source__metadata-organization-input")
       fill_field('.source__metadata-organization-input input[type="text"]', 'ORGANIZATION')
       el = wait_for_selector(".source__edit-addinfo-button")
       el.click
-      sleep 1
       el = wait_for_selector(".source__add-location")
       el.click
+      wait_for_selector(".source__metadata-location-input")
       fill_field('.source__metadata-location-input input[type="text"]', 'Location 123')
-      sleep 1
       #source__add-other
       el = wait_for_selector(".source__edit-addinfo-button")
       el.click
-      sleep 1
       el = wait_for_selector(".source__add-other")
       el.click
-      sleep 1
-      fill_field("source__other-label-input", "label", :id)
-      fill_field("source__other-value-input", "value", :id)
+      wait_for_selector("#source__other-label-input")
+      fill_field("#source__other-label-input", "label")
+      fill_field("#source__other-value-input", "value")
       @driver.action.send_keys("\t").perform
       @driver.action.send_keys("\t").perform
       @driver.action.send_keys("\n").perform
-      sleep 2
       el = wait_for_selector(".source__edit-save-button")
       el.click
-      sleep 5 #reload
       wait_for_selector('.source-menu__edit-source-button')
       expect(@driver.page_source.include?('label: value')).to be(true)
       expect(@driver.page_source.include?('Location 123')).to be(true)
@@ -784,10 +778,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Now try to edit
       wait_for_selector('.source-menu__edit-source-button').click
-      sleep 1
+      wait_for_selector("#source__name-container")
       fill_field('.source__metadata-phone-input input[type="text"]', '121212121')
       wait_for_selector('.source__edit-save-button').click
-      sleep 5 #reload
       wait_for_selector('.source-menu__edit-source-button')
       expect(@driver.page_source.include?('121212121')).to be(true)
     end
