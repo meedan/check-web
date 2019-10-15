@@ -1235,7 +1235,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.medias__item')
       @driver.execute_script('window.close()')
       @driver.switch_to.window(current_window)
-      wait_for_selector('.medias__item')
+      el = wait_for_selector('.medias__item')
+      el.location_once_scrolled_into_view
+      result = @driver.find_elements(:css, '.medias__item')
+      expect(result.size == 1).to be(true)
       expect(@driver.page_source.include?('Auto-Refresh')).to be(true)
     end
 
