@@ -1694,6 +1694,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector(".search-filter__project-chip--selected")
       wait_for_selector("#search-query__submit-button").click
       wait_for_selector_none("#search-query__reset-button")
+      text = wait_for_selector("title", :css).text
       expect((@driver.current_url.to_s.match(/project/)).nil?).to be(false)
       expect((@driver.title =~ /Search/).nil?).to be(true)
       expect((@driver.title =~ /Project/).nil?).to be(false)
@@ -1702,6 +1703,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector_none(".search-filter__project-chip--selected")
       wait_for_selector("#search-query__submit-button").click
       wait_for_selector_none("#search-query__reset-button")
+      wait_for_text_change(text,"title", :css, 30)
       expect((@driver.title =~ /Project/).nil?).to be(true)
       expect((@driver.title =~ /Search/).nil?).to be(false)
     end
