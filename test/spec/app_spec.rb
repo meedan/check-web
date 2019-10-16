@@ -819,36 +819,29 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should add and remove source languages", bin6: true  do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
-      wait_for_selector("source__tab-button-account",:class)
-      element = wait_for_selector("source-menu__edit-source-button",:class)
+      wait_for_selector(".source__tab-button-account")
+      element = wait_for_selector(".source-menu__edit-source-button")
       element.click
-      wait_for_selector("source__edit-buttons-cancel-save",:class)
-      element = wait_for_selector("source__edit-addinfo-button",:class)
+      wait_for_selector(".source__edit-buttons-cancel-save")
+      element = wait_for_selector(".source__edit-addinfo-button")
       element.click
-      sleep 2
-      element = wait_for_selector("source__add-languages",:class)
+      element = wait_for_selector(".source__add-languages")
       element.click
-      sleep 2
-      fill_field("sourceLanguageInput", "Acoli", :id)
+      wait_for_selector("#sourceLanguageInput")
+      fill_field("#sourceLanguageInput", "Acoli")
       element = wait_for_selector('span[role="menuitem"]');
       element.click
-      sleep 1
-      wait_for_size_change(0, "sourceLanguageInput",:id)
-      element = wait_for_selector("source__edit-save-button",:class)
+      element = wait_for_selector(".source__edit-save-button")
       element.click
-      sleep 2
-      wait_for_selector("source-tags__tag",:class)
+      wait_for_selector(".source-tags__tag")
       expect(@driver.page_source.include?('Acoli')).to be(true)
-      element = wait_for_selector("source-menu__edit-source-button",:class)
+      element = wait_for_selector(".source-menu__edit-source-button")
       element.click
-      sleep 1
-      elements =wait_for_selector_list("div.source-tags__tag svg")
+      elements = wait_for_selector_list("div.source-tags__tag svg")
       elements[0].click
-      sleep 1
-      element = wait_for_selector("source__edit-save-button",:class)
+      element = wait_for_selector(".source__edit-save-button")
       element.click
-      sleep 2
-      wait_for_selector("source__tab-button-media",:class)
+      wait_for_selector(".source__tab-button-media")
       expect(@driver.page_source.include?('Acoli')).to be(false)
     end
 
