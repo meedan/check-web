@@ -1659,15 +1659,15 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should refresh media", bin1: true do
       page = api_create_team_project_and_link_and_redirect_to_media_page 'http://ca.ios.ba/files/meedan/random.php'
-      wait_for_selector("add-annotation", :class)
+      wait_for_selector(".add-annotation")
       title1 = @driver.title
       expect((title1 =~ /Random/).nil?).to be(false)
       el = wait_for_selector('.media-actions__icon')
       el.click
-      sleep 1
+      wait_for_selector(".media-actions__edit")
       @driver.find_element(:css, '.media-actions__refresh').click
-      sleep 10 #Needs to wait the refresh
-      wait_for_selector("add-annotation", :class)
+      wait_for_selector_none(".media-actions__edit") 
+      wait_for_selector(".add-annotation")
       title2 = @driver.title
       expect((title2 =~ /Random/).nil?).to be(false)
       expect(title1 != title2).to be(true)
