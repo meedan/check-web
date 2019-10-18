@@ -202,9 +202,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       team = "tag-team-#{Time.now.to_i}"
       api_create_team(team: team)
       p = Page.new(config: @config, driver: @driver)
-      p.go(@config['self_url'] + '/' + team)
-      wait_for_selector('.team-menu__team-settings-button').click ; sleep 5
-      wait_for_selector('.team-settings__tags-tab').click ; sleep 5
+      @driver.navigate.to @config['self_url'] + '/' + team
+      wait_for_selector('.team-menu__team-settings-button').click 
+      wait_for_selector('.team-settings__tasks-tab')
+      wait_for_selector('.team-settings__tags-tab').click 
+      wait_for_selector_none("team-tasks")
       expect(@driver.page_source.include?('No team tags')).to be(true)
       expect(@driver.page_source.include?('No custom tags')).to be(true)
       expect(@driver.page_source.include?('No tags')).to be(true)
@@ -213,7 +215,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Create tag
       fill_field('#tag__new', 'newteamwidetag')
       @driver.action.send_keys(:enter).perform
-      sleep 10
+      wait_for_selector("#tag__text-newteamwidetag")
       expect(@driver.page_source.include?('No team tags')).to be(false)
       expect(@driver.page_source.include?('No custom tags')).to be(true)
       expect(@driver.page_source.include?('1 tag')).to be(true)
@@ -222,12 +224,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Edit tag
       wait_for_selector('#tag__text-newteamwidetag button').click
-      sleep 5
+      wait_for_selector(".tag__delete")
       wait_for_selector('.tag__edit').click
-      sleep 1
+      wait_for_selector("#tag__edit")
       fill_field('#tag__edit', 'edited')
       @driver.action.send_keys(:enter).perform
-      sleep 10
+      wait_for_selector("#tag__text-newteamwidetagedited")
       expect(@driver.page_source.include?('No team tags')).to be(false)
       expect(@driver.page_source.include?('No custom tags')).to be(true)
       expect(@driver.page_source.include?('1 tag')).to be(true)
@@ -235,13 +237,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Delete tag
       wait_for_selector('#tag__text-newteamwidetagedited button').click
-      sleep 5
+      wait_for_selector('.tag__edit')
       wait_for_selector('.tag__delete').click
-      sleep 1
       wait_for_selector('#tag__confirm').click
-      sleep 2
       wait_for_selector('#tag__confirm-delete').click
-      sleep 10
+      wait_for_selector_none('#tag__confirm')
+      wait_for_selector_none("#tag__text-newteamwidetagedited")
       expect(@driver.page_source.include?('No team tags')).to be(true)
       expect(@driver.page_source.include?('No custom tags')).to be(true)
       expect(@driver.page_source.include?('No tags')).to be(true)
