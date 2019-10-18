@@ -678,20 +678,20 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should edit basic source data (name, description/bio, avatar)", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('ACDC', 'https://twitter.com/acdc')
-      el = wait_for_selector("source-menu__edit-source-button", :class)
+      el = wait_for_selector(".source-menu__edit-source-button")
       el.click
-      input = wait_for_selector('source__name-container', :id)
+      input = wait_for_selector('#source__name-container')
       input.send_keys(" - EDIT ACDC")
-      input = wait_for_selector('source__bio-container', :id)
+      input = wait_for_selector('#source__bio-container')
       input.send_keys(" - EDIT DESC")
-      el = wait_for_selector("source__edit-avatar-button", :class)
+      el = wait_for_selector(".source__edit-avatar-button")
       el.click
-      sleep 1
+      wait_for_selector(".without-file")
       input = wait_for_selector('input[type=file]')
       input.send_keys(File.join(File.dirname(__FILE__), 'test.png'))
-      sleep 1
+      wait_for_selector(".with-file")
       @driver.find_element(:class, 'source__edit-save-button').click
-      sleep 5
+      wait_for_selector(".source__tab-button-notes")
       displayed_name = wait_for_selector('h1.source__name').text
       expect(displayed_name.include? "EDIT").to be(true)
     end
