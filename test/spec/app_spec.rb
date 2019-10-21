@@ -908,20 +908,19 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.create-task__add-button')
       # First, verify that there isn't any comment
       expect(@driver.page_source.include?('This is my comment')).to be(false)
-      old = wait_for_selector_list('annotations__list-item', :class)
+      old = wait_for_selector_list('.annotations__list-item')
 
       # Add a comment as a command
       fill_field('#cmd-input', '/comment This is my comment')
       @driver.action.send_keys(:enter).perform
-      sleep 5
-      wait_for_size_change(old,'annotations__list-item', :class)
+      wait_for_selector(".annotation__card-content")
+      wait_for_size_change(old,'.annotations__list-item')
 
       # Verify that comment was added to annotations list
       expect(@driver.page_source.include?('This is my comment')).to be(true)
 
       # Reload the page and verify that comment is still there
       @driver.navigate.refresh
-      sleep 5
       wait_for_selector('.annotations__list-item')
       expect(@driver.page_source.include?('This is my comment')).to be(true)
     end
