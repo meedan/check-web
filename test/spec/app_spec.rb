@@ -1175,17 +1175,17 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should update notes count after delete annotation", bin3: true do
-      media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
-      media_pg.fill_input('#cmd-input', 'Test')
-      media_pg.element('#cmd-input').submit
-      sleep 15
+      api_create_team_project_and_claim_and_redirect_to_media_page
+      wait_for_selector(".media__annotations-column")
+      fill_field('#cmd-input', 'Test')
+      @driver.action.send_keys(:enter).perform
       wait_for_selector('.annotation--comment')
       notes_count_before = wait_for_selector('.media-detail__check-notes-count').text.gsub(/ .*/, '').to_i
       expect(notes_count_before > 0).to be(true)
       expect(@driver.page_source.include?('Comment deleted')).to be(false)
-      media_pg.delete_annotation
+      wait_for_selector('.annotation .menu-button').click
+      wait_for_selector('.annotation__delete').click
       wait_for_selector('.annotation__deleted')
-      sleep 15
       notes_count_after = wait_for_selector('.media-detail__check-notes-count').text.gsub(/ .*/, '').to_i
       expect(notes_count_after > 0).to be(true)
       expect(notes_count_after == notes_count_before).to be(true) # Count should be the same because the comment is replaced by the "comment deleted" annotation
