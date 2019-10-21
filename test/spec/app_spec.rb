@@ -251,7 +251,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should add, edit, answer, update answer and delete datetime task", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
-      wait_for_selector('.create-task__add-button')
+      wait_for_selector('.media-detail__card-header')
 
       # Create a task
       expect(@driver.page_source.include?('When?')).to be(false)
@@ -259,13 +259,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       old = wait_for_selector_list('annotation__default-content', :class, 25, 'datetime task 1').length
       el = wait_for_selector('.create-task__add-button')
       el.click
-      sleep 5
+      wait_for_selector(".create-task__add-short-answer")
       el = wait_for_selector('.create-task__add-datetime')
       el.click
-      sleep 1
+      wait_for_selector(".edit-task__required-switch")
       fill_field('#task-label-input', 'When?')
       el = wait_for_selector('.create-task__dialog-submit-button')
       el.click
+      wait_for_selector_none(".create-task__add-short-answer")
       old = wait_for_size_change(old, 'annotation__default-content', :class, 25, 'datetime task 2')
       expect(@driver.page_source.include?('When?')).to be(true)
       expect(@driver.page_source.include?('Task created by')).to be(true)
@@ -278,7 +279,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       el = wait_for_selector_list('button')
       el.last.click
-      sleep 5
       el = wait_for_selector('.task__save')
       el.click
       old = wait_for_size_change(old, 'annotation__default-content', :class, 25, 'datetime task 3')
@@ -291,7 +291,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el = wait_for_selector(".task-actions__edit")
       @driver.action.move_to(el).perform
       el.click
-      sleep 1
       wait_for_selector("//textarea[contains(text(), 'When?')]", :xpath)
       update_field('#task-label-input', 'When was it?')
       el = wait_for_selector('.create-task__dialog-submit-button')
