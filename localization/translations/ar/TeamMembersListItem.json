@@ -1,6 +1,13 @@
 {
+  "TeamMembersListItem.confirmLeaveTitle": "هل أنت متأكد أنك تود مغادرة {team} ؟",
+  "TeamMembersListItem.confirmDeleteMemberTitle": "هل أنت متأكد أنك تود إزالة {user} ؟",
+  "TeamMembersListItem.confirmEditMemberTitle": "هل أنت متأكد أنك تود تعديل دور {user} ؟",
+  "TeamMembersListItem.confirmLeaveBlurb": "سوف يتم إزالتك من {team}",
+  "TeamMembersListItem.confirmDeleteMemberBlurb": "سوف يتم إزالة العضو من {team}",
+  "TeamMembersListItem.deleteMember": "إزالة العضو",
+  "TeamMembersListItem.leaveTeam": "مغادرة الفريق",
+  "TeamMembersListItem.singleOwner": "قبل أن تتمكن من مغادرة الفريق ، يرجى تخصيص ملكيته لعضو آخر.",
   "teamMembersListItem.assignmentsProgress": "{completedCount} مكتملة ، {inProgressCount} قيد التقدم ، {unstartedCount} لم تبدأ بعد",
   "TeamMembershipRequestsListItem.approve": "موافقة",
-  "TeamMembershipRequestsListItem.deny": "رفض",
-  "TeamMembersListItem.deleteMember": "حذف العضو"
+  "TeamMembershipRequestsListItem.deny": "رفض"
 }

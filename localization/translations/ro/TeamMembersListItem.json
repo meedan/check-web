@@ -1,6 +1,13 @@
 {
+  "TeamMembersListItem.confirmLeaveTitle": "Are you sure you want to leave {team}?",
+  "TeamMembersListItem.confirmDeleteMemberTitle": "Are you sure you want to remove {user}?",
+  "TeamMembersListItem.confirmEditMemberTitle": "Are you sure you want to change {user}'s role?",
+  "TeamMembersListItem.confirmLeaveBlurb": "You will be removed from {team}",
+  "TeamMembersListItem.confirmDeleteMemberBlurb": "User will be removed from {team}",
+  "TeamMembersListItem.deleteMember": "Remove member",
+  "TeamMembersListItem.leaveTeam": "Leave team",
+  "TeamMembersListItem.singleOwner": "Before you can leave the team, please assign ownership to another member.",
   "teamMembersListItem.assignmentsProgress": "{completedCount} finalizate, {inProgressCount} în lucru, {unstartedCount} neîncepute",
   "TeamMembershipRequestsListItem.approve": "Aprobă",
-  "TeamMembershipRequestsListItem.deny": "Respinge",
-  "TeamMembersListItem.deleteMember": "Șterge membrul"
+  "TeamMembershipRequestsListItem.deny": "Respinge"
 }

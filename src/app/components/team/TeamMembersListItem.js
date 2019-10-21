@@ -5,11 +5,13 @@ import Relay from 'react-relay/classic';
 import { Link } from 'react-router';
 import { ListItem } from 'material-ui/List';
 import MdClear from 'react-icons/lib/md/clear';
-import IconButton from 'material-ui/IconButton';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
 import RaisedButton from 'material-ui/RaisedButton';
 import rtlDetect from 'rtl-detect';
-import Tooltip from 'rc-tooltip';
+import RCTooltip from 'rc-tooltip';
 import RoleSelect from './RoleSelect';
+import CheckContext from '../../CheckContext';
 import ConfirmDialog from '../layout/ConfirmDialog';
 import '../../styles/css/tooltip.css';
 import SourcePicture from '../source/SourcePicture';
@@ -19,7 +21,6 @@ import { getErrorMessage } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 import globalStrings from '../../globalStrings';
 import {
-  checkBlue,
   FlexRow,
   Text,
   buttonInButtonGroupStyle,
@@ -32,10 +33,18 @@ import {
 class TeamMembersListItem extends Component {
   state = {
     dialogOpen: false,
+    mode: null,
+  };
+
+  canEditRole = () => {
+    const { isEditing, teamUser } = this.props;
+    const context = new CheckContext(this).getContextStore();
+    const { currentUser } = context;
+    return isEditing && teamUser.node.status === 'member' && (currentUser.is_admin || teamUser.node.user_id !== currentUser.dbid);
   };
 
   handleCloseDialog = () => {
-    this.setState({ dialogOpen: false });
+    this.setState({ dialogOpen: false, mode: null });
   };
 
   handleConfirmDelete = () => {
@@ -44,7 +53,11 @@ class TeamMembersListItem extends Component {
   };
 
   handleDeleteButtonClick = () => {
-    this.setState({ dialogOpen: true });
+    const { teamUser } = this.props;
+    const context = new CheckContext(this).getContextStore();
+    const { currentUser } = context;
+    const userIsSelf = teamUser.node.user_id === currentUser.dbid;
+    this.setState({ dialogOpen: true, mode: userIsSelf ? 'leave' : 'remove' });
   };
 
   fail = (transaction) => {
@@ -63,15 +76,9 @@ class TeamMembersListItem extends Component {
     );
   }
 
-  handleRoleChange(e) {
-    Relay.Store.commitUpdate(
-      new UpdateTeamUserMutation({
-        id: this.props.teamUser.node.id,
-        role: e.target.value,
-      }),
-      { onFailure: this.fail },
-    );
-  }
+  handleRoleChange = (e) => {
+    this.setState({ dialogOpen: true, mode: 'edit_role', role: e.target.value });
+  };
 
   handleTeamMembershipRequest(status) {
     Relay.Store.commitUpdate(
@@ -84,8 +91,75 @@ class TeamMembersListItem extends Component {
     );
   }
 
+  submitRoleChange = () => {
+    Relay.Store.commitUpdate(
+      new UpdateTeamUserMutation({
+        id: this.props.teamUser.node.id,
+        role: this.state.role,
+      }),
+      { onFailure: this.fail },
+    );
+    this.setState({ role: null, dialogOpen: false });
+  };
+
+  renderConfirmDialog = () => {
+    const { teamUser } = this.props;
+
+    const titles = {
+      leave: <FormattedMessage
+        id="TeamMembersListItem.confirmLeaveTitle"
+        defaultMessage="Are you sure you want to leave {team}?"
+        values={{ team: teamUser.node.team.name }}
+      />,
+      remove: <FormattedMessage
+        id="TeamMembersListItem.confirmDeleteMemberTitle"
+        defaultMessage="Are you sure you want to remove {user}?"
+        values={{ user: teamUser.node.user.name }}
+      />,
+      edit_role: <FormattedMessage
+        id="TeamMembersListItem.confirmEditMemberTitle"
+        defaultMessage="Are you sure you want to change {user}'s role?"
+        values={{ user: teamUser.node.user.name }}
+      />,
+    };
+
+    const blurbs = {
+      leave: <FormattedMessage
+        id="TeamMembersListItem.confirmLeaveBlurb"
+        defaultMessage="You will be removed from {team}"
+        values={{ team: teamUser.node.team.name }}
+      />,
+      remove: <FormattedMessage
+        id="TeamMembersListItem.confirmDeleteMemberBlurb"
+        defaultMessage="User will be removed from {team}"
+        values={{ team: teamUser.node.team.name }}
+      />,
+    };
+
+    const callbacks = {
+      leave: this.handleConfirmDelete,
+      remove: this.handleConfirmDelete,
+      edit_role: this.submitRoleChange,
+    };
+
+    return (this.state.dialogOpen
+      ? <ConfirmDialog
+        open={this.state.dialogOpen}
+        title={titles[this.state.mode]}
+        blurb={blurbs[this.state.mode]}
+        handleClose={this.handleCloseDialog}
+        handleConfirm={callbacks[this.state.mode]}
+      />
+      : null
+    );
+  };
+
   render() {
-    const { teamUser, isEditing } = this.props;
+    const context = new CheckContext(this).getContextStore();
+    const { currentUser } = context;
+    const { teamUser, isEditing, singleOwner } = this.props;
+    const userIsSelf = teamUser.node.user_id === currentUser.dbid;
+    const selfIsOwner = userIsSelf && teamUser.node.role === 'owner';
 
     const assignmentsProgress = teamUser.node.assignments_progress;
     let assignmentsProgressColor = null;
@@ -103,6 +177,16 @@ class TeamMembersListItem extends Component {
       }
     }
 
+    let deleteTooltip = <FormattedMessage id="TeamMembersListItem.deleteMember" defaultMessage="Remove member" />;
+
+    if (userIsSelf) {
+      deleteTooltip = <FormattedMessage id="TeamMembersListItem.leaveTeam" defaultMessage="Leave team" />;
+
+      if (selfIsOwner && singleOwner) {
+        deleteTooltip = <FormattedMessage id="TeamMembersListItem.singleOwner" defaultMessage="Before you can leave the team, please assign ownership to another member." />;
+      }
+    }
+
     return (
       <ListItem
         className="team-members__member"
@@ -111,7 +195,7 @@ class TeamMembersListItem extends Component {
       >
         <FlexRow>
           <FlexRow>
-            <Tooltip
+            <RCTooltip
               placement="top"
               overlay={<UserTooltip user={teamUser.node.user} team={teamUser.node.team} />}
             >
@@ -146,7 +230,7 @@ class TeamMembersListItem extends Component {
                   </Text>
                 </FlexRow>
               </Link>
-            </Tooltip>
+            </RCTooltip>
           </FlexRow>
 
           {(() => {
@@ -177,45 +261,30 @@ class TeamMembersListItem extends Component {
             return (
               <FlexRow>
                 <RoleSelect
-                  onChange={this.handleRoleChange.bind(this)}
+                  onChange={this.handleRoleChange}
                   value={teamUser.node.role}
-                  disabled={!isEditing || teamUser.node.status === 'banned'}
+                  disabled={!this.canEditRole()}
                 />
 
                 {isEditing && teamUser.node.status !== 'banned' ?
-                  <IconButton
-                    className="team-members__delete-member"
-                    focusRippleColor={checkBlue}
-                    touchRippleColor={checkBlue}
-                    style={{ fontSize: '20px' }}
-                    onClick={this.handleDeleteButtonClick}
-                    tooltip={<FormattedMessage id="TeamMembersListItem.deleteMember" defaultMessage="Delete Member" />}
-                  >
-                    <MdClear />
-                  </IconButton>
+                  <Tooltip title={deleteTooltip}>
+                    <div>
+                      <IconButton
+                        disabled={singleOwner && userIsSelf && selfIsOwner}
+                        className="team-members__delete-member"
+                        onClick={this.handleDeleteButtonClick}
+                      >
+                        <MdClear />
+                      </IconButton>
+                    </div>
+                  </Tooltip>
                   : null}
               </FlexRow>
             );
           })()}
 
         </FlexRow>
-        <ConfirmDialog
-          open={this.state.dialogOpen}
-          title={
-            <FormattedMessage
-              id="TeamMembersListItem.confirmDeleteMemberTitle"
-              defaultMessage="Are you sure you want to remove {user}?"
-              values={{ user: teamUser.node.user.name }}
-            />}
-          blurb={
-            <FormattedMessage
-              id="TeamMembersListItem.confirmDeleteMemberBlurb"
-              defaultMessage="User will be removed from {team}"
-              values={{ team: teamUser.node.team.name }}
-            />}
-          handleClose={this.handleCloseDialog}
-          handleConfirm={this.handleConfirmDelete}
-        />
+        { this.renderConfirmDialog() }
       </ListItem>
     );
   }
@@ -229,6 +298,7 @@ TeamMembersListItem.propTypes = {
 
 TeamMembersListItem.contextTypes = {
   setMessage: PropTypes.func,
+  store: PropTypes.object,
 };
 
 export default injectIntl(TeamMembersListItem);

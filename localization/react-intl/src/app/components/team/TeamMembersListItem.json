@@ -1,5 +1,37 @@
 [
   {
+    "id": "TeamMembersListItem.confirmLeaveTitle",
+    "defaultMessage": "Are you sure you want to leave {team}?"
+  },
+  {
+    "id": "TeamMembersListItem.confirmDeleteMemberTitle",
+    "defaultMessage": "Are you sure you want to remove {user}?"
+  },
+  {
+    "id": "TeamMembersListItem.confirmEditMemberTitle",
+    "defaultMessage": "Are you sure you want to change {user}'s role?"
+  },
+  {
+    "id": "TeamMembersListItem.confirmLeaveBlurb",
+    "defaultMessage": "You will be removed from {team}"
+  },
+  {
+    "id": "TeamMembersListItem.confirmDeleteMemberBlurb",
+    "defaultMessage": "User will be removed from {team}"
+  },
+  {
+    "id": "TeamMembersListItem.deleteMember",
+    "defaultMessage": "Remove member"
+  },
+  {
+    "id": "TeamMembersListItem.leaveTeam",
+    "defaultMessage": "Leave team"
+  },
+  {
+    "id": "TeamMembersListItem.singleOwner",
+    "defaultMessage": "Before you can leave the team, please assign ownership to another member."
+  },
+  {
     "id": "teamMembersListItem.assignmentsProgress",
     "defaultMessage": "{completedCount} completed, {inProgressCount} in progress, {unstartedCount} unstarted"
   },
@@ -10,17 +42,5 @@
   {
     "id": "TeamMembershipRequestsListItem.deny",
     "defaultMessage": "Reject"
-  },
-  {
-    "id": "TeamMembersListItem.deleteMember",
-    "defaultMessage": "Delete Member"
-  },
-  {
-    "id": "TeamMembersListItem.confirmDeleteMemberTitle",
-    "defaultMessage": "Are you sure you want to remove {user}?"
-  },
-  {
-    "id": "TeamMembersListItem.confirmDeleteMemberBlurb",
-    "defaultMessage": "User will be removed from {team}"
   }
 ]

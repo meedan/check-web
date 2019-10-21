@@ -5,7 +5,7 @@
   "annotation.reverseImageFacebook": "Este ítem contiene una o más imágenes. Como están contenidos en una publicación de Facebook, no podemos enviarlos directamente al motor de búsqueda. Considere realizar una búsqueda manual con Google o TinEye.",
   "annotation.and": "y",
   "annotation.newClaim": "Nueva afirmación añadida por {author}",
-  "annotation.menuTooltip": "Acciones de anotaciones",
+  "annotation.menuTooltip": "Acciones de las anotaciones",
   "annotation.permalink": "Enlace permanente",
   "annotation.taggedHeader": "Etiquetado #{tag} por {author}",
   "annotation.deletedComment": "Comentario eliminado por {author}{comment}",

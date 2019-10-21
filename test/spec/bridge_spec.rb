@@ -6,10 +6,12 @@ shared_examples 'custom' do
         .login_with_email(email: @email, password: @password)
         .create_image_media(File.expand_path('test.png', File.dirname(__FILE__)))
 
+    wait_for_selector('.media-detail__clickable-header')
     expect(page.contains_string?('Added')).to be(true)
     expect(page.contains_string?('User With Email')).to be(true)
     expect(page.status_label == 'PENDING').to be(true)
-
+    
+    wait_for_selector('.media__annotations-column')
     $media_id = page.driver.current_url.to_s.match(/\/media\/([0-9]+)$/)[1]
     expect($media_id.nil?).to be(false)
   end
