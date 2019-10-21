@@ -1220,21 +1220,19 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should autorefresh media when annotation is created", bin3: true do
-      media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
-      url = media_pg.driver.current_url
+      api_create_team_project_and_claim_and_redirect_to_media_page
+      url = @driver.current_url
       wait_for_selector('#cmd-input')
       expect(@driver.page_source.include?('Auto-Refresh')).to be(false)
       current_window = @driver.window_handles.last
       @driver.execute_script("window.open('#{url}')")
       @driver.switch_to.window(@driver.window_handles.last)
-      sleep 3
-      media_pg.fill_input('#cmd-input', 'Auto-Refresh')
-      media_pg.element('#cmd-input').submit
-      sleep 5
-      wait_for_selector('.annotation__card-activity-create-comment')
+      wait_for_selector("#create-media__add-item")
+      fill_field('#cmd-input', 'Auto-Refresh')
+      @driver.action.send_keys(:enter).perform
+      wait_for_selector('.create-task__add-button')
       @driver.execute_script('window.close()')
       @driver.switch_to.window(current_window)
-      sleep 3
       wait_for_selector('.annotation__card-activity-create-comment')
       expect(@driver.page_source.include?('Auto-Refresh')).to be(true)
     end
