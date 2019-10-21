@@ -1263,13 +1263,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should linkify URLs on comments", bin1: true do
-      media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
+      api_create_team_project_and_claim_and_redirect_to_media_page
       expect(@driver.page_source.include?('https://meedan.com/en/')).to be(false)
       old = wait_for_selector_list('annotation__card-content', :class, 25, 'linkify URLs on comments 1').length
       fill_field('textarea[name="cmd"]', 'https://meedan.com/en/')
       el = wait_for_selector(".add-annotation button[type=submit]")
       el.click
-      sleep 2 #wait for loading
+      wait_for_selector('.annotation__avatar-col')
       old = wait_for_size_change(old, 'annotation__card-content', :class, 25, 'linkify URLs on comments 2')
       expect(@driver.page_source.include?('https://meedan.com/en/')).to be(true)
       el = wait_for_selector_list("//a[contains(text(), 'https://meedan.com/en/')]", :xpath)
