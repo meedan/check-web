@@ -872,13 +872,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       id1 = @driver.current_url.to_s.gsub(/^.*\/media\//, '').to_i
       expect(id1 > 0).to be(true)
       @driver.navigate.to @driver.current_url.to_s.gsub(/\/media\/[0-9]+$/, '')
-      sleep 3
-      wait_for_selector("medias__item",:class)
-      wait_for_selector("create-media__add-item", :id).click
+      wait_for_selector(".medias__item")
+      wait_for_selector("#create-media__add-item").click
+      wait_for_selector("#create-media__link")
       fill_field('#create-media-input', @media_url)
-      sleep 2
-      wait_for_selector('create-media-dialog__submit-button', :id).click
-      wait_for_selector("add-annotation__insert-photo",:class)
+      wait_for_selector('#create-media-dialog__submit-button').click
+      wait_for_selector(".add-annotation__insert-photo")
       id2 = @driver.current_url.to_s.gsub(/^.*\/media\//, '').to_i
       expect(id1 == id2).to be(true)
     end
