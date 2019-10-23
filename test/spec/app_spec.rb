@@ -1883,7 +1883,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should add, edit, answer, update answer and delete geolocation task", bin3: true do
-      media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
+      api_create_team_project_and_claim_and_redirect_to_media_page
       wait_for_selector('.create-task__add-button')
 
       # Create a task
@@ -1892,10 +1892,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Task created by')).to be(false)
       el = wait_for_selector('.create-task__add-button')
       el.click
-      sleep 5
       el = wait_for_selector('.create-task__add-geolocation')
       el.click
-      sleep 1
+      wait_for_selector("#task-description-input" )
       fill_field('#task-label-input', 'Where?')
       el = wait_for_selector('.create-task__dialog-submit-button')
       el.click
@@ -1917,10 +1916,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Where was it?')).to be(false)
       el = wait_for_selector('.task-actions__icon')
       el.click
-      sleep 1
       el = wait_for_selector('.task-actions__edit')
       el.click
-      sleep 1
+      wait_for_selector("#task-description-input" )
       update_field('#task-label-input', 'Where was it?')
       el = wait_for_selector( '.create-task__dialog-submit-button')
       el.click
@@ -1931,10 +1929,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Vancouver')).to be(false)
       el = wait_for_selector('.task-actions__icon')
       el.click
-      sleep 1
       el = wait_for_selector('.task-actions__edit-response')
       el.click
-      sleep 1
+      wait_for_selector(".task__cancel")
       update_field('textarea[name="response"]', 'Vancouver')
       update_field('#task__response-geolocation-coordinates', '49.2577142, -123.1941156')
       el = wait_for_selector('.task__save')
