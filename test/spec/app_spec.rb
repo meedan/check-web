@@ -2142,7 +2142,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should search map in geolocation task", bin3: true do
-      media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
+      api_create_team_project_and_claim_and_redirect_to_media_page
       wait_for_selector('.create-task__add-button')
 
       # Create a task
@@ -2151,10 +2151,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Task "Where?" created by')).to be(false)
       el = wait_for_selector('.create-task__add-button')
       el.click
-      sleep 5
       el = wait_for_selector('.create-task__add-geolocation')
       el.click
-      sleep 1
+      wait_for_selector("#task-description-input")
       fill_field('#task-label-input', 'Where?')
       el = wait_for_selector('.create-task__dialog-submit-button')
       el.click
@@ -2163,8 +2162,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Search map
       expect(@driver.page_source.include?('SSA')).to be(false)
-      fill_field("geolocationsearch", "Salvador", :id)
-      sleep 5
+      fill_field("#geolocationsearch", "Salvador")
+      wait_for_selector("menuitem")
       expect(@driver.page_source.include?('SSA')).to be(true)
     end
 
