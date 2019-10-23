@@ -88,6 +88,7 @@ const sourceFragment = Relay.QL`
           language,
           language_code,
           media {
+            type,
             url,
             quote,
             embed_path,
@@ -251,6 +252,7 @@ const sourceFragment = Relay.QL`
                           slug
                         }
                         media {
+                          type,
                           embed_path,
                           thumbnail_path,
                           url,

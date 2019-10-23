@@ -69,6 +69,7 @@ const mediaFragment = Relay.QL`
       }
     },
     media {
+      type,
       metadata,
       url,
       quote,

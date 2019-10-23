@@ -92,6 +92,7 @@ const SourceAnnotationsContainer = Relay.createContainer(SourceAnnotationsCompon
                           slug
                         }
                         media {
+                          type,
                           embed_path,
                           thumbnail_path,
                           url,

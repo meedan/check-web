@@ -1,12 +1,15 @@
 import React from 'react';
-import { Player, ControlBar, BigPlayButton } from 'video-react';
+import VideoPlayer from 'react-video-js-player';
 
 const VideoMediaCard = props => (
   <article className="video-media-card">
-    <Player autoPlay src={props.videoPath} poster={props.posterPath} >
-      <BigPlayButton position="center" />
-      <ControlBar autoHide={false} className="media-video-class" />
-    </Player>
+    <VideoPlayer
+      controls
+      src={props.videoPath}
+      poster={props.posterPath}
+      width="auto"
+      height="420"
+    />
   </article>);
 
 export default VideoMediaCard;

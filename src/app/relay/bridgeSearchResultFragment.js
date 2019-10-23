@@ -74,6 +74,7 @@ const bridgeSearchResultFragment = Relay.QL`
             }
           },
           media {
+            type,
             metadata,
             url,
             quote,

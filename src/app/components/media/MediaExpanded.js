@@ -38,7 +38,7 @@ class MediaExpandedComponent extends Component {
   render() {
     const media = Object.assign(this.props.currentMedia, this.props.media);
     const data = typeof media.metadata === 'string' ? JSON.parse(media.metadata) : media.metadata;
-    const isImage = !!media.media.embed_path;
+    const isImage = media.media.type === 'UploadedImage';
     const isVideo = media.media.type === 'UploadedVideo';
     const isQuote = media.media.quote && media.media.quote.length;
     const isWebPage = media.media.url && data.provider === 'page';
@@ -54,7 +54,7 @@ class MediaExpandedComponent extends Component {
       if (isImage) {
         return <ImageMediaCard imagePath={media.embed_path} />;
       } else if (isVideo) {
-        return <VideoMediaCard videoPath={media.media.video_path} posterPath={posterUrl} />;
+        return <VideoMediaCard videoPath={media.media.file_path} posterPath={posterUrl} />;
       } else if (isQuote) {
         return (
           <QuoteMediaCard

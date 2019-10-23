@@ -9,6 +9,7 @@ import MdAccessTime from 'react-icons/lib/md/access-time';
 import MdFormatQuote from 'react-icons/lib/md/format-quote';
 import FaFeed from 'react-icons/lib/fa/feed';
 import IconInsertPhoto from 'material-ui/svg-icons/editor/insert-photo';
+import Movie from '@material-ui/icons/Movie';
 import rtlDetect from 'rtl-detect';
 import TimeBefore from '../TimeBefore';
 import MediaStatus from './MediaStatus';
@@ -248,7 +249,8 @@ class MediaDetail extends Component {
     );
     const sourceName = MediaUtil.sourceName(media, data);
     const createdAt = MediaUtil.createdAt(media);
-    const isImage = !!media.media.embed_path;
+    const isImage = media.media.type === 'UploadedImage';
+    const isVideo = media.media.type === 'UploadedVideo';
 
     let projectId = media.project_id;
 
@@ -289,8 +291,10 @@ class MediaDetail extends Component {
     const mediaIcon = (() => {
       if (media.dbid === 0) {
         return <MdAccessTime />;
-      } else if (media.media.embed_path && media.media.embed_path !== '') {
+      } else if (isImage) {
         return <IconInsertPhoto />;
+      } else if (isVideo) {
+        return <Movie />;
       } else if (media.quote) {
         return <MdFormatQuote />;
       }

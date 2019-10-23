@@ -42,6 +42,7 @@ const MemebusterContainer = Relay.createContainer(MemebusterComponent, {
           }
         }
         media {
+          type,
           url,
           quote,
           picture,

@@ -197,6 +197,7 @@ const MediaLogContainer = Relay.createContainer(MediaLogComponent, {
                         get_embed_whitelist
                       }
                       media {
+                        type,
                         metadata
                         embed_path,
                         thumbnail_path,

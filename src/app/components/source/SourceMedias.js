@@ -80,6 +80,7 @@ const SourceMediasContainer = Relay.createContainer(SourceMediasComponent, {
                 domain,
                 last_status,
                 media {
+                  type,
                   metadata,
                   url,
                   quote,
@@ -115,6 +116,7 @@ const SourceMediasContainer = Relay.createContainer(SourceMediasComponent, {
                 language,
                 language_code,
                 media {
+                  type,
                   url,
                   quote,
                   embed_path,
@@ -281,6 +283,7 @@ const SourceMediasContainer = Relay.createContainer(SourceMediasComponent, {
                                 slug
                               }
                               media {
+                                type,
                                 embed_path,
                                 thumbnail_path,
                                 url,
