@@ -1458,14 +1458,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Foo or bar?')).to be(false)
       expect(@driver.page_source.include?('Task created by User With Email: Foo or bar?')).to be(false)
 
-      el = wait_for_selector('.create-task__add-button', :css)
+      el = wait_for_selector('.create-task__add-button')
       el.click
-      el = wait_for_selector('.create-task__add-short-answer', :css)
+      el = wait_for_selector('.create-task__add-short-answer')
       el.location_once_scrolled_into_view
       el.click
-      wait_for_selector('#task-label-input', :css)
+      wait_for_selector('#task-label-input')
       fill_field('#task-label-input', 'Foo or bar?')
-      el = wait_for_selector('.create-task__dialog-submit-button', :css)
+      el = wait_for_selector('.create-task__dialog-submit-button')
       el.click
       wait_for_selector('.annotation__task-created')
       expect(@driver.page_source.include?('Foo or bar?')).to be(true)
@@ -1480,36 +1480,34 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Edit task
       expect(@driver.page_source.include?('Foo or bar???')).to be(false)
-      el = wait_for_selector('.task-actions__icon', :css)
+      el = wait_for_selector('.task-actions__icon')
       el.click
-      editbutton = wait_for_selector('.task-actions__edit', :css)
+      editbutton = wait_for_selector('.task-actions__edit')
       editbutton.location_once_scrolled_into_view
       editbutton.click
+      wait_for_selector("#task-description-input")
       fill_field('#task-label-input', '??')
-      sleep 5
-      editbutton = wait_for_selector('.create-task__dialog-submit-button', :css)
+      editbutton = wait_for_selector('.create-task__dialog-submit-button')
       editbutton.click
       wait_for_selector('.annotation__update-task')
-      sleep 10
       expect(@driver.page_source.include?('Foo or bar???')).to be(true)
 
       # Edit task answer
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Foo edited')).to be(false)
-      sleep 5
-      el = wait_for_selector('.task-actions__icon', :css).click
+      el = wait_for_selector('.task-actions__icon').click
 
-      el = wait_for_selector('.task-actions__edit-response', :css)
+      el = wait_for_selector('.task-actions__edit-response')
       el.click
 
       # Ensure menu closes and textarea is focused...
       el = wait_for_selector('textarea[name="response"]', :css)
       el.click
-
+      wait_for_selector(".task__cancel")
       fill_field('textarea[name="response"]', ' edited')
       @driver.find_element(:css, '.task__save').click
+      wait_for_selector_none(".task__cancel")
       media_pg.wait_all_elements(9, 'annotations__list-item', :class)
       wait_for_selector('.annotation--task_response_free_text')
-      sleep 5
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Foo edited')).to be(true)
 
       # Delete task
