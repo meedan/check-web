@@ -1520,17 +1520,16 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Create a task
       expect(@driver.page_source.include?('Foo or bar?')).to be(false)
       expect(@driver.page_source.include?('Task created by')).to be(false)
-      el = wait_for_selector('.create-task__add-button', :css)
+      el = wait_for_selector('.create-task__add-button')
       el.click
-      sleep 5
-      el = wait_for_selector('create-task__add-choose-one', :class)
+      el = wait_for_selector('.create-task__add-choose-one')
       el.location_once_scrolled_into_view
       el.click
-      wait_for_selector('#task-label-input', :css)
+      wait_for_selector('#task-label-input')
       fill_field('#task-label-input', 'Foo or bar?')
       fill_field('0', 'Foo', :id)
       fill_field('1', 'Bar', :id)
-      el = wait_for_selector('.create-task__dialog-submit-button', :css)
+      el = wait_for_selector('.create-task__dialog-submit-button')
       el.click
       wait_for_selector('.annotation__task-created')
       expect(@driver.page_source.include?('Foo or bar?')).to be(true)
@@ -1539,28 +1538,26 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('task__answered-by-current-user')).to be(false)
       el = wait_for_selector('0', :id)
       el.click
-      el = wait_for_selector('task__submit', :class)
+      el = wait_for_selector('.task__submit')
       el.click
       wait_for_selector('.annotation__task-resolved')
       expect(@driver.page_source.include?('task__answered-by-current-user')).to be(true)
       # Edit task
       expect(@driver.page_source.include?('Task edited by')).to be(false)
-      el = wait_for_selector('.task-actions__icon', :css)
+      el = wait_for_selector('.task-actions__icon')
       el.click
-      editbutton = wait_for_selector('.task-actions__edit', :css)
+      editbutton = wait_for_selector('.task-actions__edit')
       editbutton.location_once_scrolled_into_view
       editbutton.click
       fill_field('#task-label-input', '??')
-      sleep 5
-      editbutton = wait_for_selector('.create-task__dialog-submit-button', :css)
+      editbutton = wait_for_selector('.create-task__dialog-submit-button')
       editbutton.click
       wait_for_selector('.annotation__update-task')
-      sleep 10
       expect(@driver.page_source.include?('Task edited by')).to be(true)
       # Edit task answer
-      sleep 5
-      el = wait_for_selector('.task-actions__icon', :css).click
-      el = wait_for_selector('.task-actions__edit-response', :css)
+
+      el = wait_for_selector('.task-actions__icon').click
+      el = wait_for_selector('.task-actions__edit-response')
       el.click
       el = wait_for_selector('1', :id)
       el.click
