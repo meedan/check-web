@@ -1643,14 +1643,15 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should search for reverse images", bin2: true do
-      page = api_create_team_project_and_link_and_redirect_to_media_page 'https://www.instagram.com/p/BRYob0dA1SC/'
+      api_create_team_project_and_link_and_redirect_to_media_page 'https://www.instagram.com/p/BRYob0dA1SC/'
       wait_for_selector('.annotation__reverse-image')
       expect(@driver.page_source.include?('This item contains at least one image. Click Search to look for potential duplicates on Google.')).to be(true)
       expect((@driver.current_url.to_s =~ /google/).nil?).to be(true)
       current_window = @driver.window_handles.last
       @driver.find_element(:css, '.annotation__reverse-image-search').click
-      sleep 3
+      wait_for_selector_none(".create-task__add-button")
       @driver.switch_to.window(@driver.window_handles.last)
+      wait_for_selector(".create-task__add-button")
       expect((@driver.current_url.to_s =~ /google/).nil?).to be(false)
       @driver.switch_to.window(current_window)
     end
