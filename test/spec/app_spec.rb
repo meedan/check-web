@@ -2037,7 +2037,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page = LoginPage.new(config: @config, driver: @driver).load
              .register_and_login_with_email(email: email, password: password, file: avatar)
       me_page = MePage.new(config: @config, driver: page.driver).load
-      sleep 2 #for load
       wait_for_selector('.user-menu__edit-profile-button')
       script = "return window.getComputedStyle(document.getElementsByClassName('source__avatar')[0]).getPropertyValue('background-image')"
       avatar = @driver.execute_script(script)
