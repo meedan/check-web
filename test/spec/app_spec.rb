@@ -1823,7 +1823,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should embed", bin1: true do
       api_create_team_project_and_claim_and_redirect_to_media_page
-      sleep 2
+      wait_for_selector(".tasks")
       request_api('make_team_public', { slug: get_team })
 
       @driver.navigate.refresh
