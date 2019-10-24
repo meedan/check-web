@@ -1851,16 +1851,15 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should paginate project page", bin2: true do
       page = api_create_team_project_claims_sources_and_redirect_to_project_page 21
       page.load
-      sleep 3
-      wait_for_selector("search__open-dialog-button", :id).click
+      wait_for_selector("#create-media__add-item")
+      wait_for_selector("#search__open-dialog-button").click
       wait_for_selector("//span[contains(text(), 'Sources')]", :xpath, 100).click
-      wait_for_selector("search-query__submit-button", :id).click
+      wait_for_selector("#search-query__submit-button").click
       wait_for_selector("source-card", :class)
       results = @driver.find_elements(:css, '.medias__item')
       expect(results.size == 40).to be(true)
       old = results.size
       wait_for_selector(".search__next-page").click
-      sleep 2
       size = wait_for_size_change(old, '.medias__item')
       expect(size == 2).to be(true)
     end
