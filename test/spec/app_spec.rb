@@ -128,27 +128,25 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.create-task__add-button')
 
       # Create a task
-      el = wait_for_selector('.create-task__add-button', :css)
+      el = wait_for_selector('.create-task__add-button')
       el.click
-      sleep 5
-      el = wait_for_selector('.create-task__add-short-answer', :css)
+      el = wait_for_selector('.create-task__add-short-answer')
       el.location_once_scrolled_into_view
-      sleep 3
       el.click
-      wait_for_selector('#task-label-input', :css)
+      wait_for_selector('#task-label-input')
       fill_field('#task-label-input', 'Test')
-      el = wait_for_selector('.create-task__dialog-submit-button', :css)
+      el = wait_for_selector('.create-task__dialog-submit-button')
       el.click
       media_pg.wait_all_elements(2, "annotations__list-item", :class)
-      sleep 10
+      wait_for_selector(".task__response-input")
 
       # Add comment to task
       expect(@driver.page_source.include?('<span>1</span>')).to be(false)
-      wait_for_selector('.task__log-top span', :css).click
-      sleep 5
+      wait_for_selector('.task__log-top span').click
+      wait_for_selector("#cmd-input")
       fill_field('#cmd-input', 'This is a comment under a task')
       @driver.action.send_keys(:enter).perform
-      sleep 20
+      wait_for_selector(".annotation--verification_status")
       expect(@driver.page_source.include?('<span>1</span>')).to be(true)
     end
 
