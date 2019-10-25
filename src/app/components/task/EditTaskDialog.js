@@ -390,7 +390,7 @@ class EditTaskDialog extends React.Component {
                 className="create-task__add-assignment-button"
                 onClick={this.toggleAssignmentField.bind(this)}
               >
-                {'+ '}
+                +{' '}
                 <FormattedMessage id="tasks.assign" defaultMessage="Assign" />
               </button> : null
             }

@@ -145,7 +145,7 @@ class UserConnectedAccount extends Component {
               onClick={this.handleUserClick.bind(this, 'connect')}
               className="team-connect-account-button--disconnect"
             >
-              {<FormattedMessage id="UserConnectedAccount.addAnother" defaultMessage="Add another account" />}
+              <FormattedMessage id="UserConnectedAccount.addAnother" defaultMessage="Add another account" />
             </Button>
           </FlexRow>
           : null}

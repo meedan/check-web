@@ -51,7 +51,7 @@ const QuoteMediaCard = (props) => {
           <StyledQuoteAttribution>
             {sourceName ?
               <div onClick={(e) => { e.stopPropagation(); }}>
-                {'— '}
+                —{' '}
                 <Link to={sourceUrl}>
                   {sourceName}
                 </Link>
