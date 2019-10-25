@@ -1125,7 +1125,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       #page = MePage.new(config: @config, driver: @driver).load
       @driver.navigate.to @config['self_url'] + "/"+@team1_slug+"/join"
 
-      wait_for_selector('team__primary-info',:class)
+      wait_for_selector('.team__primary-info')
       @wait.until {
         expect(@driver.current_url.eql? @config['self_url']+"/"+@team1_slug ).to be(true)
       }
@@ -1155,11 +1155,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # "should delete member from team"
       page = Page.new(config: @config, driver: @driver)
       page.go(@config['api_path'] + '/test/session?email='+@user_mail)
-      sleep 1
       page = MePage.new(config: @config, driver: @driver).load
       @driver.navigate.to @config['self_url'] + '/'+@team1_slug
-      wait_for_selector('team-members__member',:class)
-      wait_for_selector('team-members__edit-button',:class).click
+      wait_for_selector('.team-members__member')
+      wait_for_selector('.team-members__edit-button').click
 
       l = wait_for_selector_list_size('team-members__delete-member', 2, :class)
       old = l.length
@@ -1167,7 +1166,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       l.last.click
       wait_for_selector('#confirm-dialog__checkbox').click
       wait_for_selector('#confirm-dialog__confirm-action-button').click
-      sleep 10
+      wait_for_selector_none('#confirm-dialog__checkbox')
       new = wait_for_size_change(old, 'team-members__delete-member', :class)
       expect(new < old).to be(true)
     end
