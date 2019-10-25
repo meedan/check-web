@@ -2047,30 +2047,29 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should redirect to last visited project", bin3: true do
       user = api_register_and_login_with_email
       api_create_team_and_project(user: user)
-      sleep 1
       api_create_team_and_project(user: user)
 
       @driver.navigate.to(@config['self_url'] + '/check/me')
       button = wait_for_selector('#teams-tab')
       button.click
-      sleep 3
+      wait_for_selector(".switch-teams__joined-team")
       link = wait_for_selector_list('.teams a').first
       link.click
       link = wait_for_selector('.team__project-title')
-      sleep 2
       link.click
-      sleep 5
+      wait_for_selector_none(".team-members__edit-button")
 
       @driver.navigate.to(@config['self_url'] + '/check/me')
       button = wait_for_selector('#teams-tab')
       button.click
+      wait_for_selector(".switch-teams__joined-team")
       link = wait_for_selector_list('.teams a').last
-      sleep 2
       link.click
-      sleep 5
+      wait_for_selector(".team-members__edit-button")
+
 
       @driver.navigate.to(@config['self_url'])
-      sleep 10
+      wait_for_selector('.main-title')
       notfound = @config['self_url'] + '/check/404'
       expect(@driver.current_url.to_s == notfound).to be(false)
     end
