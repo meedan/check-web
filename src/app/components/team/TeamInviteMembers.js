@@ -283,7 +283,7 @@ class TeamInviteMembers extends Component {
         this.state.membersToInvite.map((member, index) => (
           <div key={`invite-team-member-new-${index.toString()}`}>
             <FlexRow>
-              <span>{<FormattedMessage id="teamInviteMembers.inviteMembers" defaultMessage="Members will invited as" />}</span>
+              <FormattedMessage id="teamInviteMembers.inviteMembers" defaultMessage="Members will invited as" />
               <RoleSelect
                 className="invite-member-email-role"
                 onChange={e => this.handleRoleChange(e, index)}

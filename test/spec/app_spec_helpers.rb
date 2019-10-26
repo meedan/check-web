@@ -184,8 +184,7 @@ module AppSpecHelpers
     sleep 5
     window = @driver.window_handles.last
     @driver.switch_to.window(window)
-    sleep 10
-    press_button('#oauth_authorizify')
+    wait_for_selector(".p-oauth_page__buttons button", :css).click
     sleep 5
     window = @driver.window_handles.first
     @driver.switch_to.window(window)
