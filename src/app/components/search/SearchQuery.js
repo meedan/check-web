@@ -3,7 +3,7 @@ import { injectIntl } from 'react-intl';
 import Relay from 'react-relay/classic';
 import isEqual from 'lodash.isequal';
 import SearchQueryComponent from './SearchQueryComponent';
-import TeamRoute from '../../relay/TeamRoute';
+import TeamNodeRoute from '../../relay/TeamNodeRoute';
 
 const queryWithoutProjects = Relay.QL`
   fragment on Team {
@@ -56,8 +56,8 @@ class SearchQuery extends React.Component {
       },
     });
 
-    const { teamSlug } = this.props;
-    const queryRoute = new TeamRoute({ teamSlug });
+    // eslint-disable-next-line no-underscore-dangle
+    const queryRoute = new TeamNodeRoute({ id: this.props.team.__dataID__ });
 
     return (
       <Relay.RootContainer

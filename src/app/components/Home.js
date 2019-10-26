@@ -7,6 +7,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { MuiThemeProvider as MuiThemeProviderNext, createMuiTheme } from '@material-ui/core/styles';
 import rtlDetect from 'rtl-detect';
 import merge from 'lodash.merge';
+import isEqual from 'lodash.isequal';
 import styled, { injectGlobal } from 'styled-components';
 import Intercom from 'react-intercom';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
@@ -135,6 +136,11 @@ class Home extends Component {
     this.setContext();
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return !isEqual(this.state, nextState) ||
+    !isEqual(this.props, nextProps);
+  }
+
   componentWillUpdate() {
     this.setContext();
   }
@@ -177,6 +183,10 @@ class Home extends Component {
   }
 
   render() {
+    if (!this.state.sessionStarted) {
+      return null;
+    }
+
     const { children } = this.props;
     const routeSlug = Home.routeSlug(children);
     const muiThemeWithRtl = getMuiTheme(merge(
@@ -184,10 +194,6 @@ class Home extends Component {
       { isRtl: rtlDetect.isRtlLang(this.props.intl.locale) },
     ));
     const muiThemeNext = createMuiTheme(muiThemeV1);
-
-    if (!this.state.sessionStarted) {
-      return null;
-    }
 
     let message = null;
     if (this.state.error) {

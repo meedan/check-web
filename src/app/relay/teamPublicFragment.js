@@ -7,6 +7,7 @@ const teamPublicFragment = Relay.QL`
       dbid,
       private,
       slug,
+      team_graphql_id,
     }
 `;
 
