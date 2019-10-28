@@ -305,9 +305,11 @@ class MediaDetail extends Component {
 
     const heading = (
       <StyledHeading className="media__heading">
-        <Link to={{ pathname: mediaUrl, state: { query: this.props.query } }}>
-          {title}
-        </Link>
+        { mediaUrl ? (
+          <Link to={{ pathname: mediaUrl, state: { query: this.props.query } }}>
+            {title}
+          </Link>
+        ) : title }
       </StyledHeading>
     );
 
@@ -382,12 +384,13 @@ class MediaDetail extends Component {
                     {mediaIcon}
                   </StyledMediaIconContainer>
                   <Offset isRtl={isRtl}>
-                    <Link
-                      className="media-detail__check-timestamp"
-                      to={{ pathname: mediaUrl, state: { query: this.props.query } }}
-                    >
-                      <TimeBefore date={createdAt} />
-                    </Link>
+                    <span className="media-detail__check-timestamp">
+                      { mediaUrl ? (
+                        <Link to={{ pathname: mediaUrl, state: { query: this.props.query } }}>
+                          <TimeBefore date={createdAt} />
+                        </Link>
+                      ) : <TimeBefore date={createdAt} /> }
+                    </span>
                   </Offset>
                 </Row>
 
@@ -402,11 +405,13 @@ class MediaDetail extends Component {
                   </Offset> : null}
 
                 <Offset isRtl={isRtl}>
-                  <Link to={{ pathname: mediaUrl, state: { query: this.props.query } }}>
-                    <span className="media-detail__check-notes-count">
-                      {annotationsCount}
-                    </span>
-                  </Link>
+                  <span className="media-detail__check-notes-count">
+                    { mediaUrl ? (
+                      <Link to={{ pathname: mediaUrl, state: { query: this.props.query } }}>
+                        {annotationsCount}
+                      </Link>
+                    ) : annotationsCount }
+                  </span>
                 </Offset>
               </Row> : null}
 

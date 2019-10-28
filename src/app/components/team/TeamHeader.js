@@ -1,6 +1,6 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
-import TeamRoute from '../../relay/TeamRoute';
+import TeamNodeRoute from '../../relay/TeamNodeRoute';
 import TeamHeaderComponent from './TeamHeaderComponent';
 
 const TeamHeader = (props) => {
@@ -30,8 +30,8 @@ const TeamHeader = (props) => {
     },
   });
 
-  const teamSlug = props.params && props.params.team ? props.params.team : '';
-  const route = new TeamRoute({ teamSlug });
+  const id = props.team ? props.team.team_graphql_id : '';
+  const route = new TeamNodeRoute({ id });
 
   return (
     <Relay.RootContainer
