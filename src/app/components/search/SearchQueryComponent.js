@@ -301,7 +301,7 @@ class SearchQueryComponent extends React.Component {
   }
 
   showIsSelected(show, state = this.state) {
-    const selected = state.query.show || ['claims', 'links', 'images'];
+    const selected = state.query.show || ['claims', 'links', 'images', 'videos'];
     return selected.includes(show);
   }
 
@@ -381,7 +381,7 @@ class SearchQueryComponent extends React.Component {
     this.setState((prevState) => {
       const state = Object.assign({}, prevState);
       if (!state.query.show) {
-        state.query.show = ['claims', 'links', 'images'];
+        state.query.show = ['claims', 'links', 'images', 'videos'];
       }
       const i = state.query.show.indexOf(show);
       if (i === -1) {
@@ -774,6 +774,17 @@ class SearchQueryComponent extends React.Component {
                         )}
                       >
                         <FormattedMessage id="search.showImages" defaultMessage="Images" />
+                      </StyledFilterButton>
+                      <StyledFilterButton
+                        active={this.showIsSelected('videos')}
+                        onClick={this.handleShowClick.bind(this, 'videos')}
+                        className={bemClass(
+                          'search-query__filter-button',
+                          this.showIsSelected('videos'),
+                          '--selected',
+                        )}
+                      >
+                        <FormattedMessage id="search.showVideos" defaultMessage="Videos" />
                       </StyledFilterButton>
                       <StyledFilterButton
                         active={this.showIsSelected('sources')}

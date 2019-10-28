@@ -76,6 +76,10 @@
     "defaultMessage": "Images"
   },
   {
+    "id": "search.showVideos",
+    "defaultMessage": "Videos"
+  },
+  {
     "id": "search.showSources",
     "defaultMessage": "Sources"
   }

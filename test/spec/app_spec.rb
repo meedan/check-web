@@ -1746,7 +1746,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector("#search__open-dialog-button").click
       wait_for_selector("#search-input")
       selected = @driver.find_elements(:css, '.search-query__filter-button--selected')
-      expect(selected.size == 5).to be(true)
+      expect(selected.size == 6).to be(true)
     end
 
     it "should search by date range", bin4: true do
@@ -1777,7 +1777,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector("#search__open-dialog-button").click
       wait_for_selector("#search-input")
       selected = @driver.find_elements(:css, '.search-query__filter-button--selected').map(&:text).sort
-      expect(selected == ['Recent activity', 'Newest first', 'Links', 'Claims', 'Images'].sort).to be(true)
+      expect(selected == ['Recent activity', 'Newest first', 'Links', 'Claims', 'Images', 'Videos'].sort).to be(true)
     end
 
     it "should change search sort order through URL", bin2: true do
@@ -1787,7 +1787,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('My search result')).to be(true)
       wait_for_selector("search__open-dialog-button", :id).click
       selected = @driver.find_elements(:css, '.search-query__filter-button--selected').map(&:text).sort
-      expect(selected).to eq(['Created', 'Oldest first', 'Links', 'Claims', 'Images'].sort)
+      expect(selected).to eq(['Created', 'Oldest first', 'Links', 'Claims', 'Images', 'Videos'].sort)
     end
 
     it "should not reset password", bin5: true do
