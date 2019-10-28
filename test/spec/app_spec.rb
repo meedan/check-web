@@ -117,7 +117,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should login using Twitter", bin5: true, quick: true do
       login_with_twitter
       @driver.navigate.to @config['self_url'] + '/check/me'
-      sleep 5
+      wait_for_selector("#assignments-tab")
       displayed_name = wait_for_selector('h1.source__name').text.upcase
       expected_name = @config['twitter_name'].upcase
       expect(displayed_name == expected_name).to be(true)
