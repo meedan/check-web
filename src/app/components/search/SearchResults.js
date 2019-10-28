@@ -333,9 +333,9 @@ class SearchResultsComponent extends React.Component {
       <Toolbar
         filter={
           <SearchQuery
-            teamSlug={team.slug}
             project={this.currentContext().project}
             {...searchQueryProps}
+            team={team}
           />
         }
         actions={medias.length && bulkActionsAllowed ?

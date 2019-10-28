@@ -453,7 +453,7 @@ class Login extends Component {
                           defaultMessage="Profile picture"
                         />
                       </StyledLabel>
-                      <UploadImage onImage={Login.onImage} />
+                      <UploadImage onImage={Login.onImage} type="image" />
                       <UserTosForm
                         user={{}}
                         showTitle={false}

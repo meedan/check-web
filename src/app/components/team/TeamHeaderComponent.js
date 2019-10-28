@@ -49,6 +49,10 @@ class TeamHeaderComponent extends Component {
     this.updateContext();
   }
 
+  getContext() {
+    return new CheckContext(this);
+  }
+
   updateContext() {
     new CheckContext(this).setContextStore({ team: this.props.team });
   }

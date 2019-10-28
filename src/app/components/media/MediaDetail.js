@@ -9,6 +9,7 @@ import MdAccessTime from 'react-icons/lib/md/access-time';
 import MdFormatQuote from 'react-icons/lib/md/format-quote';
 import FaFeed from 'react-icons/lib/fa/feed';
 import IconInsertPhoto from 'material-ui/svg-icons/editor/insert-photo';
+import Movie from '@material-ui/icons/Movie';
 import rtlDetect from 'rtl-detect';
 import TimeBefore from '../TimeBefore';
 import MediaStatus from './MediaStatus';
@@ -248,7 +249,8 @@ class MediaDetail extends Component {
     );
     const sourceName = MediaUtil.sourceName(media, data);
     const createdAt = MediaUtil.createdAt(media);
-    const isImage = !!media.media.embed_path;
+    const isImage = media.media.type === 'UploadedImage';
+    const isVideo = media.media.type === 'UploadedVideo';
 
     let projectId = media.project_id;
 
@@ -289,8 +291,10 @@ class MediaDetail extends Component {
     const mediaIcon = (() => {
       if (media.dbid === 0) {
         return <MdAccessTime />;
-      } else if (media.media.embed_path && media.media.embed_path !== '') {
+      } else if (isImage) {
         return <IconInsertPhoto />;
+      } else if (isVideo) {
+        return <Movie />;
       } else if (media.quote) {
         return <MdFormatQuote />;
       }
@@ -301,9 +305,11 @@ class MediaDetail extends Component {
 
     const heading = (
       <StyledHeading className="media__heading">
-        <Link to={{ pathname: mediaUrl, state: { query: this.props.query } }}>
-          {title}
-        </Link>
+        { mediaUrl ? (
+          <Link to={{ pathname: mediaUrl, state: { query: this.props.query } }}>
+            {title}
+          </Link>
+        ) : title }
       </StyledHeading>
     );
 
@@ -378,12 +384,13 @@ class MediaDetail extends Component {
                     {mediaIcon}
                   </StyledMediaIconContainer>
                   <Offset isRtl={isRtl}>
-                    <Link
-                      className="media-detail__check-timestamp"
-                      to={{ pathname: mediaUrl, state: { query: this.props.query } }}
-                    >
-                      <TimeBefore date={createdAt} />
-                    </Link>
+                    <span className="media-detail__check-timestamp">
+                      { mediaUrl ? (
+                        <Link to={{ pathname: mediaUrl, state: { query: this.props.query } }}>
+                          <TimeBefore date={createdAt} />
+                        </Link>
+                      ) : <TimeBefore date={createdAt} /> }
+                    </span>
                   </Offset>
                 </Row>
 
@@ -398,11 +405,13 @@ class MediaDetail extends Component {
                   </Offset> : null}
 
                 <Offset isRtl={isRtl}>
-                  <Link to={{ pathname: mediaUrl, state: { query: this.props.query } }}>
-                    <span className="media-detail__check-notes-count">
-                      {annotationsCount}
-                    </span>
-                  </Link>
+                  <span className="media-detail__check-notes-count">
+                    { mediaUrl ? (
+                      <Link to={{ pathname: mediaUrl, state: { query: this.props.query } }}>
+                        {annotationsCount}
+                      </Link>
+                    ) : annotationsCount }
+                  </span>
                 </Offset>
               </Row> : null}
 

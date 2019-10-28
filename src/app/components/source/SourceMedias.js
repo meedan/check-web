@@ -80,10 +80,12 @@ const SourceMediasContainer = Relay.createContainer(SourceMediasComponent, {
                 domain,
                 last_status,
                 media {
+                  type,
                   metadata,
                   url,
                   quote,
                   embed_path,
+                  file_path,
                   thumbnail_path
                 },
                 permissions,
@@ -115,9 +117,11 @@ const SourceMediasContainer = Relay.createContainer(SourceMediasComponent, {
                 language,
                 language_code,
                 media {
+                  type,
                   url,
                   quote,
                   embed_path,
+                  file_path,
                   thumbnail_path
                 }
                 user {
@@ -281,8 +285,10 @@ const SourceMediasContainer = Relay.createContainer(SourceMediasComponent, {
                                 slug
                               }
                               media {
+                                type,
                                 embed_path,
                                 thumbnail_path,
+                                file_path,
                                 url,
                                 quote
                               }

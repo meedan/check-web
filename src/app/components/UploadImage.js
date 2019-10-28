@@ -89,22 +89,25 @@ class UploadImageComponent extends Component {
 
   onDrop(files) {
     const file = files[0];
-    const valid_extensions = this.props.about.upload_extensions.toLowerCase().split(/[\s,]+/);
+    const { type } = this.props;
+    const extensions = type === 'image' ? this.props.about.upload_extensions : this.props.about.video_extensions;
+    const max_size = type === 'image' ? this.props.about.upload_max_size : this.props.about.video_max_size;
+    const valid_extensions = extensions.toLowerCase().split(/[\s,]+/);
     const extension = file.name.substr(file.name.lastIndexOf('.') + 1).toLowerCase();
     if (valid_extensions.length > 0 && valid_extensions.indexOf(extension) < 0) {
       if (this.props.onError) {
         this.props.onError(file, this.props.intl.formatMessage(
           messages.invalidExtension,
-          { extension, allowed_types: this.props.about.upload_extensions },
+          { extension, allowed_types: extensions },
         ));
       }
       return;
     }
-    if (file.size && unhumanizeSize(this.props.about.upload_max_size) < file.size) {
+    if (file.size && unhumanizeSize(max_size) < file.size) {
       if (this.props.onError) {
         this.props.onError(file, this.props.intl.formatMessage(
           messages.fileTooLarge,
-          { size: this.props.about.upload_max_size },
+          { size: max_size },
         ));
       }
       return;
@@ -143,11 +146,33 @@ class UploadImageComponent extends Component {
   }
 
   render() {
-    const { about } = this.props;
-
+    const { about, type } = this.props;
+    const uploadMessage = type === 'image' ? (
+      <FormattedMessage
+        id="uploadImage.message"
+        defaultMessage="Drop an image file here, or click to upload a file (max size: {upload_max_size}, allowed extensions: {upload_extensions}, allowed dimensions between {upload_min_dimensions} and {upload_max_dimensions} pixels)"
+        values={{
+          upload_max_size: about.upload_max_size,
+          upload_extensions: about.upload_extensions,
+          upload_max_dimensions: about.upload_max_dimensions,
+          upload_min_dimensions: about.upload_min_dimensions,
+        }}
+      />
+    )
+      :
+      (
+        <FormattedMessage
+          id="uploadImage.videoMessage"
+          defaultMessage="Drop an video file here, or click to upload a file (max size: {video_max_size}, allowed extensions: {video_extensions})"
+          values={{
+            video_max_size: about.video_max_size,
+            video_extensions: about.video_extensions,
+          }}
+        />
+      );
     return (
       <StyledUploader isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
-        { this.preview() }
+        { type === 'image' ? this.preview() : null }
         <Dropzone
           onDrop={this.onDrop.bind(this)}
           multiple={false}
@@ -157,16 +182,7 @@ class UploadImageComponent extends Component {
             { this.state.file ?
               this.props.intl.formatMessage(messages.changeFile, { filename: this.state.file.name })
               :
-              <FormattedMessage
-                id="uploadImage.message"
-                defaultMessage="Drop an image file here, or click to upload a file (max size: {upload_max_size}, allowed extensions: {upload_extensions}, allowed dimensions between {upload_min_dimensions} and {upload_max_dimensions} pixels)"
-                values={{
-                  upload_max_size: about.upload_max_size,
-                  upload_extensions: about.upload_extensions,
-                  upload_max_dimensions: about.upload_max_dimensions,
-                  upload_min_dimensions: about.upload_min_dimensions,
-                }}
-              />
+              uploadMessage
             }
           </div>
         </Dropzone>
@@ -188,6 +204,8 @@ const UploadImageContainer = Relay.createContainer(injectIntl(UploadImageCompone
       fragment on About {
         upload_max_size,
         upload_extensions,
+        video_max_size,
+        video_extensions,
         upload_max_dimensions,
         upload_min_dimensions
       }

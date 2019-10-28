@@ -69,10 +69,12 @@ const mediaFragment = Relay.QL`
       }
     },
     media {
+      type,
       metadata,
       url,
       quote,
       embed_path,
+      file_path,
       thumbnail_path
     }
     user {

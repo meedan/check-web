@@ -50,7 +50,7 @@ class MemeEditor extends React.Component {
     return (
       <div style={{ fontFamily: 'Roboto', fontSize: 14, lineHeight: '1.5em' }}>
         <span style={{ font: caption, color: black54 }}><FormattedMessage id="memeEditor.image" defaultMessage="Image" /> *</span>
-        <UploadImage onImage={this.handleImage} onClear={this.handleClearImage} />
+        <UploadImage onImage={this.handleImage} onClear={this.handleClearImage} type="image" />
         { this.props.media.media.picture ?
           <p>
             <Button onClick={this.handleDefaultImage.bind(this)}>

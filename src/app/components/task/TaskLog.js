@@ -294,9 +294,11 @@ const TaskLogContainer = Relay.createContainer(TaskLogComponent, {
                         get_embed_whitelist
                       }
                       media {
-                        metadata
+                        type,
+                        metadata,
                         embed_path,
                         thumbnail_path,
+                        file_path,
                         url,
                         quote
                       }
