@@ -1309,34 +1309,34 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_media(data: data, url: "https://www.facebook.com/permalink.php?story_fbid=10155901893214439&id=54421674438")
       media = api_create_media(data: data, url: "https://twitter.com/TwitterVideo/status/931930009450795009")
       @driver.navigate.to @config['self_url'] + '/' + data[:team].slug + '/search'
-      sleep 15 # because ES works on the background
+      wait_for_selector(".search__results")
       wait_for_selector("//span[contains(text(), '1 - 2 / 2')]",:xpath)
       old = wait_for_selector_list("medias__item", :class).length
       expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
       expect(@driver.page_source.include?('on Facebook')).to be(true)
-      wait_for_selector("search__open-dialog-button", :id).click
-      el = wait_for_selector("search-input", :id)
+      wait_for_selector("#search__open-dialog-button").click
+      el = wait_for_selector("#search-input")
       el.click
       el.send_keys "video"
       @driver.action.send_keys(:enter).perform
-      wait_for_selector("search-query__submit-button", :id).click
-      sleep 3 # due the load
+      wait_for_selector("#search-query__submit-button").click
+      wait_for_selector_none("#search-input")
       wait_for_selector("//span[contains(text(), '1 / 1')]",:xpath)
-      current = wait_for_selector_list("medias__item", :class).length
+      current = wait_for_selector_list(".medias__item").length
       expect(old > current).to be(true)
       expect(current > 0).to be(true)
       expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
       expect(@driver.page_source.include?('on Facebook')).to be(false)
-      wait_for_selector("search__open-dialog-button", :id).click
-      el = wait_for_selector("search-input", :id)
+      wait_for_selector("#search__open-dialog-button").click
+      el = wait_for_selector("#search-input")
       el.clear
       el.click
       el.send_keys "meedan"
       @driver.action.send_keys(:enter).perform
-      wait_for_selector("search-query__submit-button", :id).click
-      sleep 3 # due the load
+      wait_for_selector("#search-query__submit-button").click
+      wait_for_selector_none("#search-input")
       wait_for_selector("//span[contains(text(), '1 / 1')]",:xpath)
-      current = wait_for_selector_list("medias__item", :class).length
+      current = wait_for_selector_list(".medias__item").length
       expect(old > current).to be(true)
       expect(current > 0).to be(true)
       expect(@driver.page_source.include?('on Facebook')).to be(true)
