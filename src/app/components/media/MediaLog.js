@@ -201,6 +201,7 @@ const MediaLogContainer = Relay.createContainer(MediaLogComponent, {
                         metadata
                         embed_path,
                         thumbnail_path,
+                        file_path,
                         url,
                         quote
                       }

@@ -1,5 +1,6 @@
 import React from 'react';
 import VideoPlayer from 'react-video-js-player';
+import '../../styles/css/player.css';
 
 const VideoMediaCard = props => (
   <article className="video-media-card">
@@ -9,6 +10,7 @@ const VideoMediaCard = props => (
       poster={props.posterPath}
       width="auto"
       height="420"
+      className="video-media-player"
     />
   </article>);
 

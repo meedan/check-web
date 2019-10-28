@@ -85,6 +85,7 @@ const SourceMediasContainer = Relay.createContainer(SourceMediasComponent, {
                   url,
                   quote,
                   embed_path,
+                  file_path,
                   thumbnail_path
                 },
                 permissions,
@@ -120,6 +121,7 @@ const SourceMediasContainer = Relay.createContainer(SourceMediasComponent, {
                   url,
                   quote,
                   embed_path,
+                  file_path,
                   thumbnail_path
                 }
                 user {
@@ -286,6 +288,7 @@ const SourceMediasContainer = Relay.createContainer(SourceMediasComponent, {
                                 type,
                                 embed_path,
                                 thumbnail_path,
+                                file_path,
                                 url,
                                 quote
                               }

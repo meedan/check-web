@@ -298,6 +298,7 @@ const TaskLogContainer = Relay.createContainer(TaskLogComponent, {
                         metadata,
                         embed_path,
                         thumbnail_path,
+                        file_path,
                         url,
                         quote
                       }

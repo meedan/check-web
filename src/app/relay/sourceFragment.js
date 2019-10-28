@@ -92,6 +92,7 @@ const sourceFragment = Relay.QL`
             url,
             quote,
             embed_path,
+            file_path,
             thumbnail_path
           }
           user {
@@ -255,6 +256,7 @@ const sourceFragment = Relay.QL`
                           type,
                           embed_path,
                           thumbnail_path,
+                          file_path,
                           url,
                           quote
                         }

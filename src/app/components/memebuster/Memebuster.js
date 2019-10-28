@@ -48,6 +48,7 @@ const MemebusterContainer = Relay.createContainer(MemebusterComponent, {
           picture,
           metadata,
           embed_path,
+          file_path,
           thumbnail_path
         }
         team {

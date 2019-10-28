@@ -50,6 +50,7 @@ class MediaExpandedComponent extends Component {
     const { inMediaPage, mediaUrl, mediaQuery } = this.props;
     const posterUrl = media.media.thumbnail_path;
 
+
     const embedCard = (() => {
       if (isImage) {
         return <ImageMediaCard imagePath={media.embed_path} />;

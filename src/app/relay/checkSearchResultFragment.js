@@ -71,7 +71,8 @@ const checkSearchResultFragment = Relay.QL`
             url,
             quote,
             embed_path,
-            thumbnail_path
+            thumbnail_path,
+            file_path,
             picture
           }
           tags(first: 10000) {

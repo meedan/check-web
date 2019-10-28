@@ -95,6 +95,7 @@ const SourceAnnotationsContainer = Relay.createContainer(SourceAnnotationsCompon
                           type,
                           embed_path,
                           thumbnail_path,
+                          file_path,
                           url,
                           quote
                         }

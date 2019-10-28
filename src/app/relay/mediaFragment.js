@@ -74,6 +74,7 @@ const mediaFragment = Relay.QL`
       url,
       quote,
       embed_path,
+      file_path,
       thumbnail_path
     }
     user {

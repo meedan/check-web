@@ -6,6 +6,7 @@ import SvgIcon from 'material-ui/SvgIcon';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import TextField from 'material-ui/TextField';
 import IconInsertPhoto from 'material-ui/svg-icons/editor/insert-photo';
+import Movie from '@material-ui/icons/Movie';
 import IconLink from 'material-ui/svg-icons/content/link';
 import FaFeed from 'react-icons/lib/fa/feed';
 import MdFormatQuote from 'react-icons/lib/md/format-quote';
@@ -409,7 +410,7 @@ class CreateMediaInput extends React.Component {
 
     const tabLabelVideo = (
       <StyledTabLabel active={this.state.mode === 'video'}>
-        <StyledIcon><IconInsertPhoto /></StyledIcon>
+        <StyledIcon><Movie /></StyledIcon>
         <StyledTabLabelText>
           <FormattedMessage id="createMedia.video" defaultMessage="Video" />
         </StyledTabLabelText>
