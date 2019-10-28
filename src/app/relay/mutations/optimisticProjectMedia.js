@@ -33,6 +33,8 @@ const optimisticProjectMedia = (media, proj, context) => {
     mediasCount = parseInt(counter.innerHTML.replace(/[^0-9]/, ''), 10);
   }
 
+  const relayId = btoa(`ProjectMedia/${Math.random()}`);
+
   return {
     project_mediaEdge: {
       node: {
@@ -57,7 +59,7 @@ const optimisticProjectMedia = (media, proj, context) => {
         field_value: team.translation_statuses.default,
         overridden: '{"title":true,"description":false,"username":false}',
         project_id: project.dbid,
-        id: 'UHJvamVjdE1lZGlhLzA=\n',
+        id: relayId,
         language_code: null,
         domain: '',
         permissions: JSON.stringify({
@@ -108,7 +110,7 @@ const optimisticProjectMedia = (media, proj, context) => {
     },
     project_media: {
       dbid: 0,
-      id: 'UHJvamVjdE1lZGlhLzA=\n',
+      id: relayId,
     },
   };
 };
