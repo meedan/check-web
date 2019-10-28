@@ -172,7 +172,7 @@ class UploadImageComponent extends Component {
       );
     return (
       <StyledUploader isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
-        { this.preview() }
+        { type === 'image' ? this.preview() : null }
         <Dropzone
           onDrop={this.onDrop.bind(this)}
           multiple={false}
