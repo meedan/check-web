@@ -78,6 +78,33 @@ const StyledSchemaForm = styled.div`
   label + div {
     margin-top: 36px;
   }
+
+  fieldset fieldset {
+    padding: ${units(1)};
+    border: 1px solid ${black32};
+  }
+
+  fieldset fieldset button {
+    display: block !important;
+    width: 160px !important;
+  }
+
+  fieldset fieldset button[class*="remove"] {
+    border: 0 !important;
+    width: 32px !important;
+  }
+
+  fieldset fieldset fieldset {
+    margin-bottom: ${units(1)} !important;
+  }
+
+  fieldset fieldset fieldset fieldset div[class*="input"] {
+    max-width: 470px;
+  }
+  
+  fieldset fieldset fieldset fieldset button[class*="remove"] {
+    display: none !important;
+  }
 `;
 
 class TeamBotsComponent extends Component {

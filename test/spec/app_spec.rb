@@ -2160,7 +2160,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.team-settings__bots-tab').click 
       wait_for_selector("img")
       expect(@driver.page_source.include?('No bots installed')).to be(true)
-      expect(@driver.page_source.include?('Testing Bot')).to be(false)
+      expect(@driver.page_source.include?('More info')).to be(false)
 
       # Install bot 
       wait_for_selector('.team > div + div button').click 
@@ -2177,14 +2177,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.team-settings__bots-tab').click 
       wait_for_selector_none(".create-task__add-button")
       expect(@driver.page_source.include?('No bots installed')).to be(false)
-      expect(@driver.page_source.include?('Testing Bot')).to be(true)
+      expect(@driver.page_source.include?('More info')).to be(true)
 
       # Uninstall bot
       wait_for_selector('input').click 
       @driver.switch_to.alert.accept 
       wait_for_selector_none('input')
       expect(@driver.page_source.include?('No bots installed')).to be(true)
-      expect(@driver.page_source.include?('Testing Bot')).to be(false)
+      expect(@driver.page_source.include?('More info')).to be(false)
     end
 
     it "should assign project", bin3: true do

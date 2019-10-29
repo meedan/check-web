@@ -8,7 +8,6 @@ const VideoMediaCard = props => (
       controls
       src={props.videoPath}
       poster={props.posterPath}
-      width="auto"
       height="420"
       className="video-media-player"
     />
