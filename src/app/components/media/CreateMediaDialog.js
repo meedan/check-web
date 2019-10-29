@@ -23,7 +23,6 @@ class CreateMediaDialog extends React.Component {
         <DialogContent>
           <CreateMediaInput
             message={this.props.message}
-            isSubmitting={this.props.isSubmitting}
             onSubmit={this.props.onSubmit}
             submitHidden
           />
