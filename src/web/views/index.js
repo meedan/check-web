@@ -5,11 +5,15 @@ const capitalize = (str) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
+const escapeText = (text) => {
+  return text.replace(/"/g, '&quot;');
+};
+
 const twitterTags = (metadata, config, url) => [
   '<meta content="player" name="twitter:card" />',
-  `<meta content="${metadata.title}" name="twitter:title" />`,
-  `<meta content="${metadata.description}" name="twitter:text:description" />`,
-  `<meta content="${metadata.description}" name="twitter:description" />`,
+  `<meta content="${escapeText(metadata.title)}" name="twitter:title" />`,
+  `<meta content="${escapeText(metadata.description)}" name="twitter:text:description" />`,
+  `<meta content="${escapeText(metadata.description)}" name="twitter:description" />`,
   `<meta content="${metadata.picture}" name="twitter:image" />`,
   `<meta content="${config.appName}" name="twitter:site" />`,
   `<meta content="${metadata.embed_url}" name="twitter:player" />`,
@@ -22,10 +26,10 @@ const facebookTags = (metadata, config, url) => {
   const host = metadata.permalink.replace(/(^https?:\/\/[^\/]+).*/, '$1');
   return [
     '<meta content="article" property="og:type" />',
-    `<meta content="${metadata.title}" property="og:title" />`,
+    `<meta content="${escapeText(metadata.title)}" property="og:title" />`,
     `<meta content="${metadata.picture}" property="og:image" />`,
     `<meta content="${host}${url}" property="og:url" />`,
-    `<meta content="${metadata.description}" property="og:description" />`,
+    `<meta content="${escapeText(metadata.description)}" property="og:description" />`,
   ].join('\n');
 };
 
@@ -40,8 +44,8 @@ const heapAnalytics = (config) => {
 const metaTags = (metadata, config, url) => {
   const params = url.replace(/^[^?]*/, '');
   return [
-    `<meta name="description" content="${metadata.description}" />`,
-    `<link rel="alternate" type="application/json+oembed" href="${metadata.oembed_url}${params}" title="${metadata.title}" />`,
+    `<meta name="description" content="${escapeText(metadata.description)}" />`,
+    `<link rel="alternate" type="application/json+oembed" href="${metadata.oembed_url}${params}" title="${escapeText(metadata.title)}" />`,
   ].join('\n');
 };
 
