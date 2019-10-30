@@ -1379,7 +1379,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector("#create-media__add-item").click
       wait_for_selector('#create-media__quote').click
       @driver.action.send_keys(claim).perform
-      @driver.action.send_keys(:enter).perform
+      wait_for_selector('#create-media-dialog__submit-button').click
       wait_for_selector_none('#create-media__quote')
     
       # Go to the second project, make sure that the claim is there
@@ -1406,6 +1406,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       move = wait_for_selector('.media-detail__move-button')
       move.location_once_scrolled_into_view
       move.click
+      wait_for_selector_none(".Select-placeholder")
 
         project_title = wait_for_selector('.project-header__title').attribute("innerHTML")
         count = 0
