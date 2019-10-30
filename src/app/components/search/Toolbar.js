@@ -47,7 +47,7 @@ class Toolbar extends React.Component {
           <Offset isRtl={isRtl}>
             { project ?
               <Can permissions={project.permissions} permission="create Media">
-                <CreateProjectMedia />
+                <CreateProjectMedia search={search} />
               </Can>
               : null
             }

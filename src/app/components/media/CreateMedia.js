@@ -97,6 +97,7 @@ class CreateProjectMedia extends Component {
       new CreateProjectMediaMutation({
         ...value,
         context,
+        search: this.props.search,
         project: context.project,
       }),
       { onSuccess, onFailure: this.fail },
