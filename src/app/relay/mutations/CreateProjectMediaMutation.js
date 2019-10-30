@@ -27,10 +27,12 @@ class CreateProjectMediaMutation extends Relay.Mutation {
     const optimisticResponse =
       optimisticProjectMedia(this.props.title, this.props.project, this.props.context);
 
-    optimisticResponse.check_search_project = {
-      id: this.props.project.search_id,
-      number_of_results: this.props.search.number_of_results + 1,
-    };
+    if (this.props.search) {
+      optimisticResponse.check_search_project = {
+        id: this.props.project.search_id,
+        number_of_results: this.props.search.number_of_results + 1,
+      };
+    }
 
     return optimisticResponse;
   }
