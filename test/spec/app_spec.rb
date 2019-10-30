@@ -383,10 +383,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       media_pg.toggle_card # Expand the card so the edit button is accessible
       wait_for_selector('.media-actions')
       media_pg.set_title('Edited media title')
-      expect(media_pg.primary_heading.text).to eq('Edited media title')
-      project_pg = media_pg.go_to_project
+      expect(@driver.page_source.include?('Edited media title')).to be(true)
+      wait_for_selector(".project-header__back-button").click
       wait_for_selector('.media__heading')
-      expect(project_pg.elements('.media__heading').map(&:text).include?('Edited media title')).to be(true)
+      expect(@driver.page_source.include?('Edited media title')).to be(true)
     end
 
     it "should add a tag, reject duplicated and delete tag", bin3: true, quick: true  do
