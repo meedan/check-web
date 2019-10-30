@@ -2164,11 +2164,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Install bot 
       wait_for_selector('.team > div + div button').click 
-      wait_for_selector_none(".team-settings__embed-tab")
+      wait_for_selector(".bot-garden__bot-name")
       expect(@driver.page_source.include?('Bot Garden')).to be(true)
       wait_for_selector('h2 + div > div + div + div + div .bot-garden__bot-name').click 
       wait_for_selector('input').click 
-      @driver.switch_to.alert.accept 
+      @driver.switch_to.alert.accept
 
       # Bot on team page
       p.go(@config['self_url'] + '/' + team)
@@ -2176,13 +2176,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector(".team-settings__embed-tab")
       wait_for_selector('.team-settings__bots-tab').click 
       wait_for_selector_none(".create-task__add-button")
+      wait_for_selector('.settingsIcon')
       expect(@driver.page_source.include?('No bots installed')).to be(false)
       expect(@driver.page_source.include?('Testing Bot')).to be(true)
 
       # Uninstall bot
       wait_for_selector('input').click 
       @driver.switch_to.alert.accept 
-      wait_for_selector_none('input')
+      wait_for_selector_none('.settingsIcon')
       expect(@driver.page_source.include?('No bots installed')).to be(true)
       expect(@driver.page_source.include?('Testing Bot')).to be(false)
     end
