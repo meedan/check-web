@@ -117,7 +117,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should login using Twitter", bin5: true, quick: true do
       login_with_twitter
       @driver.navigate.to @config['self_url'] + '/check/me'
-      sleep 5
+      wait_for_selector("#assignments-tab")
       displayed_name = wait_for_selector('h1.source__name').text.upcase
       expected_name = @config['twitter_name'].upcase
       expect(displayed_name == expected_name).to be(true)
@@ -383,10 +383,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       media_pg.toggle_card # Expand the card so the edit button is accessible
       wait_for_selector('.media-actions')
       media_pg.set_title('Edited media title')
-      expect(media_pg.primary_heading.text).to eq('Edited media title')
-      project_pg = media_pg.go_to_project
+      expect(@driver.page_source.include?('Edited media title')).to be(true)
+      wait_for_selector(".project-header__back-button").click
       wait_for_selector('.media__heading')
-      expect(project_pg.elements('.media__heading').map(&:text).include?('Edited media title')).to be(true)
+      expect(@driver.page_source.include?('Edited media title')).to be(true)
     end
 
     it "should add a tag, reject duplicated and delete tag", bin3: true, quick: true  do
@@ -1309,34 +1309,34 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_media(data: data, url: "https://www.facebook.com/permalink.php?story_fbid=10155901893214439&id=54421674438")
       media = api_create_media(data: data, url: "https://twitter.com/TwitterVideo/status/931930009450795009")
       @driver.navigate.to @config['self_url'] + '/' + data[:team].slug + '/search'
-      sleep 15 # because ES works on the background
+      wait_for_selector(".search__results")
       wait_for_selector("//span[contains(text(), '1 - 2 / 2')]",:xpath)
       old = wait_for_selector_list("medias__item", :class).length
       expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
       expect(@driver.page_source.include?('on Facebook')).to be(true)
-      wait_for_selector("search__open-dialog-button", :id).click
-      el = wait_for_selector("search-input", :id)
+      wait_for_selector("#search__open-dialog-button").click
+      el = wait_for_selector("#search-input")
       el.click
       el.send_keys "video"
       @driver.action.send_keys(:enter).perform
-      wait_for_selector("search-query__submit-button", :id).click
-      sleep 3 # due the load
+      wait_for_selector("#search-query__submit-button").click
+      wait_for_selector_none("#search-input")
       wait_for_selector("//span[contains(text(), '1 / 1')]",:xpath)
-      current = wait_for_selector_list("medias__item", :class).length
+      current = wait_for_selector_list(".medias__item").length
       expect(old > current).to be(true)
       expect(current > 0).to be(true)
       expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
       expect(@driver.page_source.include?('on Facebook')).to be(false)
-      wait_for_selector("search__open-dialog-button", :id).click
-      el = wait_for_selector("search-input", :id)
+      wait_for_selector("#search__open-dialog-button").click
+      el = wait_for_selector("#search-input")
       el.clear
       el.click
       el.send_keys "meedan"
       @driver.action.send_keys(:enter).perform
-      wait_for_selector("search-query__submit-button", :id).click
-      sleep 3 # due the load
+      wait_for_selector("#search-query__submit-button").click
+      wait_for_selector_none("#search-input")
       wait_for_selector("//span[contains(text(), '1 / 1')]",:xpath)
-      current = wait_for_selector_list("medias__item", :class).length
+      current = wait_for_selector_list(".medias__item").length
       expect(old > current).to be(true)
       expect(current > 0).to be(true)
       expect(@driver.page_source.include?('on Facebook')).to be(true)
@@ -1379,7 +1379,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector("#create-media__add-item").click
       wait_for_selector('#create-media__quote').click
       @driver.action.send_keys(claim).perform
-      @driver.action.send_keys(:enter).perform
+      wait_for_selector('#create-media-dialog__submit-button').click
       wait_for_selector_none('#create-media__quote')
     
       # Go to the second project, make sure that the claim is there
@@ -1406,6 +1406,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       move = wait_for_selector('.media-detail__move-button')
       move.location_once_scrolled_into_view
       move.click
+      wait_for_selector_none(".Select-placeholder")
 
         project_title = wait_for_selector('.project-header__title').attribute("innerHTML")
         count = 0
@@ -2164,11 +2165,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Install bot 
       wait_for_selector('.team > div + div button').click 
-      wait_for_selector_none(".team-settings__embed-tab")
+      wait_for_selector(".bot-garden__bot-name")
       expect(@driver.page_source.include?('Bot Garden')).to be(true)
-      wait_for_selector('h2 + div > div + div + div + div .bot-garden__bot-name').click 
+      bot= wait_for_selector("//b[contains(text(), 'Testing Bot')]", :xpath)
+      bot.click
       wait_for_selector('input').click 
-      @driver.switch_to.alert.accept 
+      @driver.switch_to.alert.accept
 
       # Bot on team page
       p.go(@config['self_url'] + '/' + team)
@@ -2176,13 +2178,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector(".team-settings__embed-tab")
       wait_for_selector('.team-settings__bots-tab').click 
       wait_for_selector_none(".create-task__add-button")
+      wait_for_selector('.settingsIcon')
       expect(@driver.page_source.include?('No bots installed')).to be(false)
       expect(@driver.page_source.include?('More info')).to be(true)
 
       # Uninstall bot
       wait_for_selector('input').click 
       @driver.switch_to.alert.accept 
-      wait_for_selector_none('input')
+      wait_for_selector_none('.settingsIcon')
       expect(@driver.page_source.include?('No bots installed')).to be(true)
       expect(@driver.page_source.include?('More info')).to be(false)
     end
