@@ -77,9 +77,9 @@ const messages = defineMessages({
     id: 'home.invalidNoInvitation',
     defaultMessage: 'Sorry, the invitation you received was not found. Please contact {supportEmail} if you think this is an error.',
   },
-  invalidTokenInvitation: {
-    id: 'home.invalidTokenInvitation',
-    defaultMessage: 'Sorry, the invitation you received is invalid. Please contact {supportEmail} if you think this is an error.',
+  invalidExpiredInvitation: {
+    id: 'home.invalidExpiredInvitation',
+    defaultMessage: 'Sorry, the invitation you received was expired. Please contact {supportEmail} if you think this is an error.',
   },
 });
 
@@ -222,7 +222,7 @@ class Home extends Component {
         const invitationErrors = {
           invalid_team: messages.invalidTeamInvitation,
           no_invitation: messages.invalidNoInvitation,
-          invalid_invitation: messages.invalidTokenInvitation,
+          invitation_expired: messages.invalidExpiredInvitation,
         };
         message = this.props.intl.formatMessage(
           Object.keys(invitationErrors).includes(this.props.location.query.invitation_response) ?

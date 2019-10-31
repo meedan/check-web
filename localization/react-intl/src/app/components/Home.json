@@ -24,7 +24,7 @@
     "defaultMessage": "Sorry, the invitation you received was not found. Please contact {supportEmail} if you think this is an error."
   },
   {
-    "id": "home.invalidTokenInvitation",
-    "defaultMessage": "Sorry, the invitation you received is invalid. Please contact {supportEmail} if you think this is an error."
+    "id": "home.invalidExpiredInvitation",
+    "defaultMessage": "Sorry, the invitation you received was expired. Please contact {supportEmail} if you think this is an error."
   }
 ]
