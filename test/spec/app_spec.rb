@@ -2167,7 +2167,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.team > div + div button').click 
       wait_for_selector(".bot-garden__bot-name")
       expect(@driver.page_source.include?('Bot Garden')).to be(true)
-      wait_for_selector('h2 + div > div + div + div + div .bot-garden__bot-name').click 
+      bot= wait_for_selector("//b[contains(text(), 'Testing Bot')]", :xpath)
+      bot.click
       wait_for_selector('input').click 
       @driver.switch_to.alert.accept
 
