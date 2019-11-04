@@ -117,6 +117,7 @@ class CreateMediaInput extends React.Component {
   }
 
   getMediaInputValue = () => {
+    let mediaType = '';
     let image = '';
     let video = '';
     let inputValue = '';
@@ -127,11 +128,13 @@ class CreateMediaInput extends React.Component {
 
     if (this.state.mode === 'image') {
       ({ media: { image } } = document.forms);
+      mediaType = 'UploadedImage';
       if (!image) {
         return null;
       }
     } else if (this.state.mode === 'video') {
       ({ media: { video } } = document.forms);
+      mediaType = 'UploadedVideo';
       if (!video) {
         return null;
       }
@@ -141,17 +144,20 @@ class CreateMediaInput extends React.Component {
       quoteAttributions = JSON.stringify({
         name: document.getElementById('create-media-quote-attribution-source-input').value.trim(),
       });
+      mediaType = 'Claim';
     } else {
       // TODO Use React ref
       inputValue = document.getElementById('create-media-input').value.trim();
       urls = inputValue.match(urlRegex());
       url = urls && urls[0] ? urls[0] : '';
+      mediaType = 'Link';
       if (!inputValue || !inputValue.length) {
         return null;
       }
       if (!url.length || inputValue !== url) {
         // if anything other than a single url, save it as a quote
         quote = inputValue;
+        mediaType = 'Claim';
       }
     }
 
@@ -178,6 +184,7 @@ class CreateMediaInput extends React.Component {
         video,
         title,
         mode: this.state.mode,
+        mediaType,
       });
     }
 

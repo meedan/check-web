@@ -40,7 +40,7 @@ class MediaExpandedComponent extends Component {
     const data = typeof media.metadata === 'string' ? JSON.parse(media.metadata) : media.metadata;
     const isImage = media.media.type === 'UploadedImage';
     const isVideo = media.media.type === 'UploadedVideo';
-    const isQuote = media.media.quote && media.media.quote.length;
+    const isQuote = media.media.type === 'Claim';
     const isWebPage = media.media.url && data.provider === 'page';
     const authorName = MediaUtil.authorName(media, data);
     const authorUsername = MediaUtil.authorUsername(media, data);

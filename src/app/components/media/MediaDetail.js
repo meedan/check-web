@@ -251,6 +251,7 @@ class MediaDetail extends Component {
     const createdAt = MediaUtil.createdAt(media);
     const isImage = media.media.type === 'UploadedImage';
     const isVideo = media.media.type === 'UploadedVideo';
+    const isQuote = media.media.type === 'Claim';
 
     let projectId = media.project_id;
 
@@ -295,7 +296,7 @@ class MediaDetail extends Component {
         return <IconInsertPhoto />;
       } else if (isVideo) {
         return <Movie />;
-      } else if (media.quote) {
+      } else if (isQuote) {
         return <MdFormatQuote />;
       }
       return MediaUtil.socialIcon(media.domain);

@@ -39,6 +39,7 @@ class CreateProjectMediaMutation extends Relay.Mutation {
 
   getVariables() {
     const vars = {
+      media_type: this.props.mediaType,
       url: this.props.url,
       quote: this.props.quote,
       quote_attributions: this.props.quoteAttributions,
