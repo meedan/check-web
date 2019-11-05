@@ -177,7 +177,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.team-tasks__menu-item-button').click
       wait_for_selector('.team-tasks__edit-button').click
       fill_field('#task-label-input', '-EDITED')
-      wait_for_selector('#edit-task__required-switch').click ; 
+      wait_for_selector('#edit-task__required-switch').click ;
       wait_for_selector('.create-task__dialog-submit-button').click
       wait_for_selector('#confirm-dialog__checkbox').click
       wait_for_selector('#confirm-dialog__confirm-action-button').click
@@ -201,9 +201,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_team(team: team)
       p = Page.new(config: @config, driver: @driver)
       @driver.navigate.to @config['self_url'] + '/' + team
-      wait_for_selector('.team-menu__team-settings-button').click 
+      wait_for_selector('.team-menu__team-settings-button').click
       wait_for_selector('.team-settings__tasks-tab')
-      wait_for_selector('.team-settings__tags-tab').click 
+      wait_for_selector('.team-settings__tags-tab').click
       wait_for_selector_none("team-tasks")
       expect(@driver.page_source.include?('No team tags')).to be(true)
       expect(@driver.page_source.include?('No custom tags')).to be(true)
@@ -929,7 +929,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       media_pg.fill_input('#cmd-input', '/flag Spam')
       media_pg.element('#cmd-input').submit
-      
+
       wait_for_selector('.annotation__default')
       expect(@driver.page_source.include?('Flag')).to be(true)
       @driver.navigate.refresh
@@ -1276,7 +1276,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should find all medias with an empty search", bin1: true do
       api_create_media_and_go_to_search_page
       old = wait_for_selector_list(".medias__item").length
-      wait_for_selector("#search__open-dialog-button").click
+      # wait_for_selector("#search__open-dialog-button").click
       el = wait_for_selector("#search-input")
       el.click
       @driver.action.send_keys(:enter).perform
@@ -1289,6 +1289,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should search in trash page", bin4: true do
       api_create_claim_and_go_to_search_page
       # Send item to trash
+      wait_for_selector('#search-query__cancel-button').click
       wait_for_selector('.card-with-border > div > div > div + button svg').click
       wait_for_selector('.media-actions__icon').click
       wait_for_selector('.media-actions__send-to-trash').click
@@ -1314,7 +1315,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       old = wait_for_selector_list("medias__item", :class).length
       expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
       expect(@driver.page_source.include?('on Facebook')).to be(true)
-      wait_for_selector("#search__open-dialog-button").click
+      # wait_for_selector("#search__open-dialog-button").click
       el = wait_for_selector("#search-input")
       el.click
       el.send_keys "video"
@@ -1381,7 +1382,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.action.send_keys(claim).perform
       wait_for_selector('#create-media-dialog__submit-button').click
       wait_for_selector_none('#create-media__quote')
-    
+
       # Go to the second project, make sure that the claim is there
       el = wait_for_selector('.header-actions__drawer-toggle')
       el.location_once_scrolled_into_view
@@ -1655,7 +1656,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       wait_for_selector(".media-actions__edit")
       @driver.find_element(:css, '.media-actions__refresh').click
-      wait_for_selector_none(".media-actions__edit") 
+      wait_for_selector_none(".media-actions__edit")
       wait_for_text_change(title1,"title", :css, 30)
       title2 = @driver.title
       expect((title2 =~ /Random/).nil?).to be(false)
@@ -1678,7 +1679,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should search by project", bin2: true do
       api_create_claim_and_go_to_search_page
       expect((@driver.current_url.to_s.match(/project/)).nil?).to be(true)
-      wait_for_selector("#search__open-dialog-button").click
+      # wait_for_selector("#search__open-dialog-button").click
       wait_for_selector(".search-filter__project-chip").click
       wait_for_selector(".search-filter__project-chip--selected")
       wait_for_selector("#search-query__submit-button").click
@@ -1701,7 +1702,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_claim_and_go_to_search_page
       expect((@driver.current_url.to_s.match(/recent_activity/)).nil?).to be(true)
 
-      wait_for_selector("#search__open-dialog-button").click
+      # wait_for_selector("#search__open-dialog-button").click
       wait_for_selector(".search-query__recent-activity-button").click
       wait_for_selector("#search-query__submit-button").click
       wait_for_selector_none("#search-query__reset-button")
@@ -1722,7 +1723,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_claim_and_go_to_search_page
       expect((@driver.current_url.to_s.match(/ASC|DESC/)).nil?).to be(true)
 
-      wait_for_selector("#search__open-dialog-button").click
+      # wait_for_selector("#search__open-dialog-button").click
       @driver.find_element(:xpath, "//span[contains(text(), 'Newest')]").click
       wait_for_selector("#search-query__submit-button").click
       wait_for_selector_none("#search-query__reset-button")
@@ -2156,35 +2157,35 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       p.go(@config['self_url'] + '/' + team)
 
       # No bots on team page
-      wait_for_selector('.team-menu__team-settings-button').click 
+      wait_for_selector('.team-menu__team-settings-button').click
       wait_for_selector(".team-settings__embed-tab")
-      wait_for_selector('.team-settings__bots-tab').click 
+      wait_for_selector('.team-settings__bots-tab').click
       wait_for_selector("img")
       expect(@driver.page_source.include?('No bots installed')).to be(true)
       expect(@driver.page_source.include?('More info')).to be(false)
 
-      # Install bot 
-      wait_for_selector('.team > div + div button').click 
+      # Install bot
+      wait_for_selector('.team > div + div button').click
       wait_for_selector(".bot-garden__bot-name")
       expect(@driver.page_source.include?('Bot Garden')).to be(true)
       bot= wait_for_selector("//b[contains(text(), 'Testing Bot')]", :xpath)
       bot.click
-      wait_for_selector('input').click 
+      wait_for_selector('input').click
       @driver.switch_to.alert.accept
 
       # Bot on team page
       p.go(@config['self_url'] + '/' + team)
-      wait_for_selector('.team-menu__team-settings-button').click 
+      wait_for_selector('.team-menu__team-settings-button').click
       wait_for_selector(".team-settings__embed-tab")
-      wait_for_selector('.team-settings__bots-tab').click 
+      wait_for_selector('.team-settings__bots-tab').click
       wait_for_selector_none(".create-task__add-button")
       wait_for_selector('.settingsIcon')
       expect(@driver.page_source.include?('No bots installed')).to be(false)
       expect(@driver.page_source.include?('More info')).to be(true)
 
       # Uninstall bot
-      wait_for_selector('input').click 
-      @driver.switch_to.alert.accept 
+      wait_for_selector('input').click
+      @driver.switch_to.alert.accept
       wait_for_selector_none('.settingsIcon')
       expect(@driver.page_source.include?('No bots installed')).to be(true)
       expect(@driver.page_source.include?('More info')).to be(false)

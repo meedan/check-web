@@ -233,6 +233,11 @@ class SearchQueryComponent extends React.Component {
     this.setState({ query });
   }
 
+  componentDidMount() {
+    const dialogOpen = window.location.pathname === `/${this.props.team.slug}/search`;
+    this.setState({ dialogOpen });
+  }
+
   componentWillReceiveProps() {
     const query = searchQueryFromUrl();
     if (!deepEqual(this.state.query, query)) {
