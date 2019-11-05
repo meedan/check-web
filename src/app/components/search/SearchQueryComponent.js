@@ -212,6 +212,8 @@ class SearchQueryComponent extends React.Component {
   constructor(props) {
     super(props);
 
+    const dialogOpen = window.location.pathname === `/${this.props.team.slug}/search`;
+
     this.state = {
       query: {},
       popper: {
@@ -219,7 +221,7 @@ class SearchQueryComponent extends React.Component {
         allowed: true,
         anchorEl: null,
       },
-      dialogOpen: false,
+      dialogOpen,
     };
   }
 
@@ -231,11 +233,6 @@ class SearchQueryComponent extends React.Component {
 
     const query = searchQueryFromUrl();
     this.setState({ query });
-  }
-
-  componentDidMount() {
-    const dialogOpen = window.location.pathname === `/${this.props.team.slug}/search`;
-    this.setState({ dialogOpen });
   }
 
   componentWillReceiveProps() {
