@@ -48,9 +48,7 @@ class CreateTaskMutation extends Relay.Mutation {
         parentID: this.props.annotated_id,
         connectionName: 'tasks',
         edgeName: 'taskEdge',
-        rangeBehaviors: {
-          '': 'prepend',
-        },
+        rangeBehaviors: () => ('prepend'),
       },
       {
         type: 'FIELDS_CHANGE',

@@ -38,9 +38,7 @@ class CreateProjectMutation extends Relay.Mutation {
         parentID: this.props.team.id,
         connectionName: 'projects',
         edgeName: 'projectEdge',
-        rangeBehaviors: {
-          '': 'prepend',
-        },
+        rangeBehaviors: () => ('prepend'),
       },
     ];
   }

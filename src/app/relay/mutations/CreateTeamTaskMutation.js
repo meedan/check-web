@@ -27,9 +27,7 @@ class CreateTeamTaskMutation extends Relay.Mutation {
         parentID: this.props.team.id,
         connectionName: 'team_tasks',
         edgeName: 'team_taskEdge',
-        rangeBehaviors: {
-          '': 'append',
-        },
+        rangeBehaviors: () => ('append'),
       },
       {
         type: 'FIELDS_CHANGE',

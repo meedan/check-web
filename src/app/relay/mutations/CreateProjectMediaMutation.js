@@ -65,9 +65,7 @@ class CreateProjectMediaMutation extends Relay.Mutation {
         parentID: this.props.project.team.search_id,
         connectionName: 'medias',
         edgeName: 'project_mediaEdge',
-        rangeBehaviors: {
-          '': 'prepend',
-        },
+        rangeBehaviors: () => ('prepend'),
       },
       {
         type: 'RANGE_ADD',
@@ -75,9 +73,7 @@ class CreateProjectMediaMutation extends Relay.Mutation {
         parentID: this.props.project.search_id,
         connectionName: 'medias',
         edgeName: 'project_mediaEdge',
-        rangeBehaviors: {
-          '': 'prepend',
-        },
+        rangeBehaviors: () => ('prepend'),
       },
       {
         type: 'FIELDS_CHANGE',
@@ -112,9 +108,7 @@ class CreateProjectMediaMutation extends Relay.Mutation {
           parentID: this.props.relationships_target_id,
           connectionName: 'targets',
           edgeName: 'project_mediaEdge',
-          rangeBehaviors: {
-            '': 'prepend',
-          },
+          rangeBehaviors: () => ('prepend'),
         });
         configs.push({
           type: 'RANGE_ADD',
@@ -122,9 +116,7 @@ class CreateProjectMediaMutation extends Relay.Mutation {
           parentID: this.props.relationships_source_id,
           connectionName: 'siblings',
           edgeName: 'project_mediaEdge',
-          rangeBehaviors: {
-            '': 'prepend',
-          },
+          rangeBehaviors: () => ('prepend'),
         });
       }
       configs.push({

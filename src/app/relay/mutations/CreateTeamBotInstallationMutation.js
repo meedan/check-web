@@ -45,9 +45,7 @@ class CreateTeamBotInstallationMutation extends Relay.Mutation {
         parentID: this.props.team.id,
         connectionName: 'team_bot_installations',
         edgeName: 'team_bot_installationEdge',
-        rangeBehaviors: {
-          '': 'append',
-        },
+        rangeBehaviors: () => ('append'),
       },
       {
         type: 'FIELDS_CHANGE',
