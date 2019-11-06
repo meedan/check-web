@@ -16,35 +16,6 @@ class CreateProjectSourceMutation extends Relay.Mutation {
 
   getConfigs() {
     return [
-      /*
-      {
-        type: 'RANGE_ADD',
-        parentName: 'check_search_team',
-        parentID: this.props.project.team.search_id,
-        connectionName: 'sources',
-        edgeName: 'project_sourceEdge',
-        rangeBehaviors: {
-          '': 'prepend',
-        },
-      },
-      {
-        type: 'RANGE_ADD',
-        parentName: 'check_search_project',
-        parentID: this.props.project.search_id,
-        connectionName: 'sources',
-        edgeName: 'project_sourceEdge',
-        rangeBehaviors: {
-          '': 'prepend',
-        },
-      },
-      {
-        type: 'FIELDS_CHANGE',
-        fieldIDs: {
-          'check_search_team' : this.props.project.team.search_id,
-          'check_search_project' : this.props.project.search_id
-        },
-      },
-      */
       {
         type: 'REQUIRED_CHILDREN',
         children: [Relay.QL`
