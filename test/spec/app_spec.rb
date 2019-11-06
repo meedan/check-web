@@ -2143,9 +2143,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Where?')).to be(true)
 
       # Search map
+      wait_for_selector("#task__response-geolocation-name")
       expect(@driver.page_source.include?('SSA')).to be(false)
       fill_field("#geolocationsearch", "Salvador")
-      wait_for_selector("menuitem")
+      wait_for_text_change(' ',"#geolocationsearch", :css, 30)
       expect(@driver.page_source.include?('SSA')).to be(true)
     end
 
