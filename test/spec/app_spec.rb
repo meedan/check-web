@@ -7,6 +7,7 @@ require_relative './pages/login_page.rb'
 require_relative './pages/me_page.rb'
 require_relative './pages/page.rb'
 require_relative './api_helpers.rb'
+require_relative './smoke_spec.rb'
 
 CONFIG = YAML.load_file('config.yml')
 require_relative "#{CONFIG['app_name']}_spec.rb"
@@ -66,6 +67,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
   context "web" do
 
     include_examples "custom"
+    include_examples "smoke"
 
     it "should manage team members roles", bin4: true do
       # setup
