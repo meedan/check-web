@@ -13,5 +13,6 @@
   "createMedia.link": "Link",
   "createMedia.quote": "Claim",
   "createMedia.source": "Source",
-  "createMedia.image": "Photo"
+  "createMedia.image": "Photo",
+  "createMedia.video": "Video"
 }

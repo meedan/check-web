@@ -163,7 +163,7 @@ class UploadImageComponent extends Component {
       (
         <FormattedMessage
           id="uploadImage.videoMessage"
-          defaultMessage="Drop an video file here, or click to upload a file (max size: {video_max_size}, allowed extensions: {video_extensions})"
+          defaultMessage="Drop a video file here, or click to upload a file (max size: {video_max_size}, allowed extensions: {video_extensions})"
           values={{
             video_max_size: about.video_max_size,
             video_extensions: about.video_extensions,
