@@ -3,7 +3,6 @@ import Relay from 'react-relay/classic';
 import styled from 'styled-components';
 import MeRoute from '../MeRoute';
 import UserMenu from '../../components/user/UserMenu';
-import userFragment from '../userFragment';
 import { Pulse, white, avatarSize } from '../../styles/js/shared';
 
 const StyledAvatarLoader = styled(Pulse)`
@@ -17,7 +16,30 @@ const StyledAvatarLoader = styled(Pulse)`
 const UserMenuRelay = (props) => {
   const UserMenuContainer = Relay.createContainer(UserMenu, {
     fragments: {
-      user: () => userFragment,
+      user: () => Relay.QL`
+        fragment on User {
+          id
+          dbid
+          name
+          source {
+            id
+            image
+          }
+          team_users(first: 10000) {
+            edges {
+              node {
+                id
+                role
+                status
+                team {
+                  id
+                  slug
+                }
+              }
+            }
+          }
+        }
+      `,
     },
   });
 

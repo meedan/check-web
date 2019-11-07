@@ -6,6 +6,7 @@ import SvgIcon from 'material-ui/SvgIcon';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import TextField from 'material-ui/TextField';
 import IconInsertPhoto from 'material-ui/svg-icons/editor/insert-photo';
+import Movie from '@material-ui/icons/Movie';
 import IconLink from 'material-ui/svg-icons/content/link';
 import FaFeed from 'react-icons/lib/fa/feed';
 import MdFormatQuote from 'react-icons/lib/md/format-quote';
@@ -116,7 +117,9 @@ class CreateMediaInput extends React.Component {
   }
 
   getMediaInputValue = () => {
+    let mediaType = '';
     let image = '';
+    let video = '';
     let inputValue = '';
     let urls = '';
     let url = '';
@@ -125,7 +128,14 @@ class CreateMediaInput extends React.Component {
 
     if (this.state.mode === 'image') {
       ({ media: { image } } = document.forms);
+      mediaType = 'UploadedImage';
       if (!image) {
+        return null;
+      }
+    } else if (this.state.mode === 'video') {
+      ({ media: { video } } = document.forms);
+      mediaType = 'UploadedVideo';
+      if (!video) {
         return null;
       }
     } else if (this.state.mode === 'quote') {
@@ -134,17 +144,20 @@ class CreateMediaInput extends React.Component {
       quoteAttributions = JSON.stringify({
         name: document.getElementById('create-media-quote-attribution-source-input').value.trim(),
       });
+      mediaType = 'Claim';
     } else {
       // TODO Use React ref
       inputValue = document.getElementById('create-media-input').value.trim();
       urls = inputValue.match(urlRegex());
       url = urls && urls[0] ? urls[0] : '';
+      mediaType = 'Link';
       if (!inputValue || !inputValue.length) {
         return null;
       }
       if (!url.length || inputValue !== url) {
         // if anything other than a single url, save it as a quote
         quote = inputValue;
+        mediaType = 'Claim';
       }
     }
 
@@ -158,15 +171,20 @@ class CreateMediaInput extends React.Component {
     if (image !== '') {
       title = image.name;
     }
+    if (video !== '') {
+      title = video.name;
+    }
 
-    if (url || quote || image) {
+    if (url || quote || image || video) {
       return ({
         url,
         quote,
         quoteAttributions,
         image,
+        video,
         title,
         mode: this.state.mode,
+        mediaType,
       });
     }
 
@@ -219,6 +237,11 @@ class CreateMediaInput extends React.Component {
     }
   }
 
+  handleVideo = (file) => {
+    this.setState({ message: null, submittable: true });
+    document.forms.media.video = file;
+  };
+
   handleImage = (file) => {
     this.setState({ message: null, submittable: true });
     document.forms.media.image = file;
@@ -269,8 +292,19 @@ class CreateMediaInput extends React.Component {
       return [
         <UploadImage
           key="createMedia.image.upload"
+          type="image"
           onImage={this.handleImage}
           onError={this.handleImageError}
+        />,
+      ];
+    case 'video':
+      return [
+        <UploadImage
+          key="createMedia.video.upload"
+          type="video"
+          onImage={this.handleVideo}
+          onError={this.handleImageError}
+          noPreview
         />,
       ];
     case 'source':
@@ -381,6 +415,15 @@ class CreateMediaInput extends React.Component {
       </StyledTabLabel>
     );
 
+    const tabLabelVideo = (
+      <StyledTabLabel active={this.state.mode === 'video'}>
+        <StyledIcon><Movie /></StyledIcon>
+        <StyledTabLabelText>
+          <FormattedMessage id="createMedia.video" defaultMessage="Video" />
+        </StyledTabLabelText>
+      </StyledTabLabel>
+    );
+
     const defaultTabProps = {
       buttonStyle: { height: units(3) },
       style: styles.tab,
@@ -428,6 +471,12 @@ class CreateMediaInput extends React.Component {
                   id="create-media__image"
                   value="image"
                   label={tabLabelImage}
+                  {...defaultTabProps}
+                />
+                <Tab
+                  id="create-media__video"
+                  value="video"
+                  label={tabLabelVideo}
                   {...defaultTabProps}
                 />
               </Tabs>

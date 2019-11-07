@@ -7,6 +7,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { MuiThemeProvider as MuiThemeProviderNext, createMuiTheme } from '@material-ui/core/styles';
 import rtlDetect from 'rtl-detect';
 import merge from 'lodash.merge';
+import isEqual from 'lodash.isequal';
 import styled, { injectGlobal } from 'styled-components';
 import Intercom from 'react-intercom';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
@@ -76,9 +77,9 @@ const messages = defineMessages({
     id: 'home.invalidNoInvitation',
     defaultMessage: 'Sorry, the invitation you received was not found. Please contact {supportEmail} if you think this is an error.',
   },
-  invalidTokenInvitation: {
-    id: 'home.invalidTokenInvitation',
-    defaultMessage: 'Sorry, the invitation you received is invalid. Please contact {supportEmail} if you think this is an error.',
+  invalidExpiredInvitation: {
+    id: 'home.invalidExpiredInvitation',
+    defaultMessage: 'Sorry, the invitation you received was expired. Please contact {supportEmail} if you think this is an error.',
   },
 });
 
@@ -135,6 +136,11 @@ class Home extends Component {
     this.setContext();
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return !isEqual(this.state, nextState) ||
+    !isEqual(this.props, nextProps);
+  }
+
   componentWillUpdate() {
     this.setContext();
   }
@@ -177,6 +183,10 @@ class Home extends Component {
   }
 
   render() {
+    if (!this.state.sessionStarted) {
+      return null;
+    }
+
     const { children } = this.props;
     const routeSlug = Home.routeSlug(children);
     const muiThemeWithRtl = getMuiTheme(merge(
@@ -184,10 +194,6 @@ class Home extends Component {
       { isRtl: rtlDetect.isRtlLang(this.props.intl.locale) },
     ));
     const muiThemeNext = createMuiTheme(muiThemeV1);
-
-    if (!this.state.sessionStarted) {
-      return null;
-    }
 
     let message = null;
     if (this.state.error) {
@@ -216,7 +222,7 @@ class Home extends Component {
         const invitationErrors = {
           invalid_team: messages.invalidTeamInvitation,
           no_invitation: messages.invalidNoInvitation,
-          invalid_invitation: messages.invalidTokenInvitation,
+          invitation_expired: messages.invalidExpiredInvitation,
         };
         message = this.props.intl.formatMessage(
           Object.keys(invitationErrors).includes(this.props.location.query.invitation_response) ?

@@ -511,6 +511,7 @@ class UserInfoEdit extends React.Component {
             >
               {this.state.editProfileImg ?
                 <UploadImage
+                  type="image"
                   onImage={this.onImage.bind(this)}
                   onClear={this.onClear.bind(this)}
                   onError={this.onImageError.bind(this)}

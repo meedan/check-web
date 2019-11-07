@@ -1,6 +1,6 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
-import TeamRoute from '../TeamRoute';
+import TeamNodeRoute from '../TeamNodeRoute';
 import TeamMenu from '../../components/team/TeamMenu';
 
 const TeamMenuContainer = Relay.createContainer(TeamMenu, {
@@ -18,8 +18,8 @@ const TeamMenuContainer = Relay.createContainer(TeamMenu, {
 });
 
 const TeamMenuRelay = (props) => {
-  if (props.params.team) {
-    const route = new TeamRoute({ teamSlug: props.params.team });
+  if (props.team) {
+    const route = new TeamNodeRoute({ id: props.team.team_graphql_id });
     return (
       <Relay.RootContainer
         Component={TeamMenuContainer}

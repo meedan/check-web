@@ -4,5 +4,5 @@
   "mediaDetail.added": "Añadido {byUser}",
   "accountCard.fbStats": "{likes, number} Me gusta",
   "accountCard.twitterStats": "{tweets, number} Tweets • {followers, number} Seguidores • {following, number} Seguidos",
-  "accountCard.youtubeStats": "{videos, number} Videos • {subscribers, number} Suscriptores"
+  "accountCard.youtubeStats": "{videos, number} Vídeos • {subscribers, number} Suscriptores"
 }

@@ -2,5 +2,6 @@
   "uploadImage.changeFile": "{filename} (нажмите для изменения)",
   "uploadImage.invalidExtension": "Файлы \"{extension}\" не разрешены. Разрешенные форматы: {allowed_types}.",
   "uploadImage.fileTooLarge": "Размер файла должен быть меньше {size}. Пожалуйста, попробуйте файл меньшего размера.",
-  "uploadImage.message": "Перетащите файл или кликните сюда для загрузки изображения (максимальный размер: {upload_max_size}, допустимые форматы: {upload_extensions}, допустимый размер: между {upload_min_dimensions} и {upload_max_dimensions})"
+  "uploadImage.message": "Перетащите файл или кликните сюда для загрузки изображения (максимальный размер: {upload_max_size}, допустимые форматы: {upload_extensions}, допустимый размер: между {upload_min_dimensions} и {upload_max_dimensions})",
+  "uploadImage.videoMessage": "Drop a video file here, or click to upload a file (max size: {video_max_size}, allowed extensions: {video_extensions})"
 }

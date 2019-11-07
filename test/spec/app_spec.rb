@@ -7,6 +7,7 @@ require_relative './pages/login_page.rb'
 require_relative './pages/me_page.rb'
 require_relative './pages/page.rb'
 require_relative './api_helpers.rb'
+require_relative './smoke_spec.rb'
 
 CONFIG = YAML.load_file('config.yml')
 require_relative "#{CONFIG['app_name']}_spec.rb"
@@ -66,6 +67,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
   context "web" do
 
     include_examples "custom"
+    include_examples "smoke"
 
     it "should manage team members roles", bin4: true do
       # setup
@@ -117,7 +119,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should login using Twitter", bin5: true, quick: true do
       login_with_twitter
       @driver.navigate.to @config['self_url'] + '/check/me'
-      sleep 5
+      wait_for_selector("#assignments-tab")
       displayed_name = wait_for_selector('h1.source__name').text.upcase
       expected_name = @config['twitter_name'].upcase
       expect(displayed_name == expected_name).to be(true)
@@ -128,27 +130,25 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.create-task__add-button')
 
       # Create a task
-      el = wait_for_selector('.create-task__add-button', :css)
+      el = wait_for_selector('.create-task__add-button')
       el.click
-      sleep 5
-      el = wait_for_selector('.create-task__add-short-answer', :css)
+      el = wait_for_selector('.create-task__add-short-answer')
       el.location_once_scrolled_into_view
-      sleep 3
       el.click
-      wait_for_selector('#task-label-input', :css)
+      wait_for_selector('#task-label-input')
       fill_field('#task-label-input', 'Test')
-      el = wait_for_selector('.create-task__dialog-submit-button', :css)
+      el = wait_for_selector('.create-task__dialog-submit-button')
       el.click
       media_pg.wait_all_elements(2, "annotations__list-item", :class)
-      sleep 10
+      wait_for_selector(".task__response-input")
 
       # Add comment to task
       expect(@driver.page_source.include?('<span>1</span>')).to be(false)
-      wait_for_selector('.task__log-top span', :css).click
-      sleep 5
+      wait_for_selector('.task__log-top span').click
+      wait_for_selector("#cmd-input")
       fill_field('#cmd-input', 'This is a comment under a task')
       @driver.action.send_keys(:enter).perform
-      sleep 20
+      wait_for_selector(".annotation--verification_status")
       expect(@driver.page_source.include?('<span>1</span>')).to be(true)
     end
 
@@ -179,11 +179,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.team-tasks__menu-item-button').click
       wait_for_selector('.team-tasks__edit-button').click
       fill_field('#task-label-input', '-EDITED')
-      wait_for_selector('#edit-task__required-switch').click ; sleep 5
+      wait_for_selector('#edit-task__required-switch').click ;
       wait_for_selector('.create-task__dialog-submit-button').click
       wait_for_selector('#confirm-dialog__checkbox').click
       wait_for_selector('#confirm-dialog__confirm-action-button').click
-      sleep 5
+      wait_for_selector_none("#confirm-dialog__cancel-action-button")
       expect(@driver.page_source.include?('New teamwide task-EDITED')).to be(true)
       expect(@driver.find_element(:css, '.task__required').text == '*').to be(true)
 
@@ -192,7 +192,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.team-tasks__delete-button').click
       wait_for_selector('#confirm-dialog__checkbox').click
       wait_for_selector('#confirm-dialog__confirm-action-button').click
-      sleep 5
+      wait_for_selector_none("#confirm-dialog__cancel-action-button")
       expect(@driver.page_source.include?('No tasks')).to be(true)
       expect(@driver.page_source.include?('New teamwide task')).to be(false)
     end
@@ -203,9 +203,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_team(team: team)
       p = Page.new(config: @config, driver: @driver)
       @driver.navigate.to @config['self_url'] + '/' + team
-      wait_for_selector('.team-menu__team-settings-button').click 
+      wait_for_selector('.team-menu__team-settings-button').click
       wait_for_selector('.team-settings__tasks-tab')
-      wait_for_selector('.team-settings__tags-tab').click 
+      wait_for_selector('.team-settings__tags-tab').click
       wait_for_selector_none("team-tasks")
       expect(@driver.page_source.include?('No team tags')).to be(true)
       expect(@driver.page_source.include?('No custom tags')).to be(true)
@@ -251,7 +251,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should add, edit, answer, update answer and delete datetime task", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
-      wait_for_selector('.create-task__add-button')
+      wait_for_selector('.media-detail__card-header')
 
       # Create a task
       expect(@driver.page_source.include?('When?')).to be(false)
@@ -259,13 +259,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       old = wait_for_selector_list('annotation__default-content', :class, 25, 'datetime task 1').length
       el = wait_for_selector('.create-task__add-button')
       el.click
-      sleep 5
+      wait_for_selector(".create-task__add-short-answer")
       el = wait_for_selector('.create-task__add-datetime')
       el.click
-      sleep 1
+      wait_for_selector(".edit-task__required-switch")
       fill_field('#task-label-input', 'When?')
       el = wait_for_selector('.create-task__dialog-submit-button')
       el.click
+      wait_for_selector_none(".create-task__add-short-answer")
       old = wait_for_size_change(old, 'annotation__default-content', :class, 25, 'datetime task 2')
       expect(@driver.page_source.include?('When?')).to be(true)
       expect(@driver.page_source.include?('Task created by')).to be(true)
@@ -278,7 +279,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       el = wait_for_selector_list('button')
       el.last.click
-      sleep 5
       el = wait_for_selector('.task__save')
       el.click
       old = wait_for_size_change(old, 'annotation__default-content', :class, 25, 'datetime task 3')
@@ -291,7 +291,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el = wait_for_selector(".task-actions__edit")
       @driver.action.move_to(el).perform
       el.click
-      sleep 1
       wait_for_selector("//textarea[contains(text(), 'When?')]", :xpath)
       update_field('#task-label-input', 'When was it?')
       el = wait_for_selector('.create-task__dialog-submit-button')
@@ -386,10 +385,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       media_pg.toggle_card # Expand the card so the edit button is accessible
       wait_for_selector('.media-actions')
       media_pg.set_title('Edited media title')
-      expect(media_pg.primary_heading.text).to eq('Edited media title')
-      project_pg = media_pg.go_to_project
+      expect(@driver.page_source.include?('Edited media title')).to be(true)
+      wait_for_selector(".project-header__back-button").click
       wait_for_selector('.media__heading')
-      expect(project_pg.elements('.media__heading').map(&:text).include?('Edited media title')).to be(true)
+      expect(@driver.page_source.include?('Edited media title')).to be(true)
     end
 
     it "should add a tag, reject duplicated and delete tag", bin3: true, quick: true  do
@@ -873,13 +872,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       id1 = @driver.current_url.to_s.gsub(/^.*\/media\//, '').to_i
       expect(id1 > 0).to be(true)
       @driver.navigate.to @driver.current_url.to_s.gsub(/\/media\/[0-9]+$/, '')
-      sleep 3
-      wait_for_selector("medias__item",:class)
-      wait_for_selector("create-media__add-item", :id).click
+      wait_for_selector(".medias__item")
+      wait_for_selector("#create-media__add-item").click
+      wait_for_selector("#create-media__link")
       fill_field('#create-media-input', @media_url)
-      sleep 2
-      wait_for_selector('create-media-dialog__submit-button', :id).click
-      wait_for_selector("add-annotation__insert-photo",:class)
+      wait_for_selector('#create-media-dialog__submit-button').click
+      wait_for_selector(".add-annotation__insert-photo")
       id2 = @driver.current_url.to_s.gsub(/^.*\/media\//, '').to_i
       expect(id1 == id2).to be(true)
     end
@@ -909,20 +907,19 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.create-task__add-button')
       # First, verify that there isn't any comment
       expect(@driver.page_source.include?('This is my comment')).to be(false)
-      old = wait_for_selector_list('annotations__list-item', :class)
+      old = wait_for_selector_list('.annotations__list-item')
 
       # Add a comment as a command
       fill_field('#cmd-input', '/comment This is my comment')
       @driver.action.send_keys(:enter).perform
-      sleep 5
-      wait_for_size_change(old,'annotations__list-item', :class)
+      wait_for_selector(".annotation__card-content")
+      wait_for_size_change(old,'.annotations__list-item')
 
       # Verify that comment was added to annotations list
       expect(@driver.page_source.include?('This is my comment')).to be(true)
 
       # Reload the page and verify that comment is still there
       @driver.navigate.refresh
-      sleep 5
       wait_for_selector('.annotations__list-item')
       expect(@driver.page_source.include?('This is my comment')).to be(true)
     end
@@ -934,7 +931,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       media_pg.fill_input('#cmd-input', '/flag Spam')
       media_pg.element('#cmd-input').submit
-      
+
       wait_for_selector('.annotation__default')
       expect(@driver.page_source.include?('Flag')).to be(true)
       @driver.navigate.refresh
@@ -1007,21 +1004,21 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(el.length == 0).to be(true)
     end
 
-    it "should show 'edit project' link only to users with 'update project' permission", bin3: true do
+    it "should show: edit project (link only to users with update project permission)", bin3: true do
       utp = api_create_team_project_and_two_users
       page = Page.new(config: @config, driver: @driver)
       page.go(@config['api_path'] + '/test/session?email='+utp[:user1]["email"])
       page.go(@config['self_url'] + '/'+utp[:team]["slug"]+'/project/'+utp[:project]["dbid"].to_s)
-      sleep 3 #for loading
+      wait_for_selector(".search")
       wait_for_selector("//span[contains(text(), 'Sources')]", :xpath)
-      l = wait_for_selector_list('project-menu',:class)
+      l = wait_for_selector_list('.project-menu')
       expect(l.length == 1).to be(true)
 
       page.go(@config['api_path'] + '/test/session?email='+utp[:user2]["email"])
       page.go(@config['self_url'] + '/'+utp[:team]["slug"]+'/project/'+utp[:project]["dbid"].to_s)
-      sleep 3 #for loading
+      wait_for_selector(".search")
       wait_for_selector("//span[contains(text(), 'Sources')]", :xpath)
-      l = wait_for_selector_list('project-menu',:class)
+      l = wait_for_selector_list('.project-menu')
       expect(l.length == 0).to be(true)
     end
 
@@ -1130,7 +1127,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       #page = MePage.new(config: @config, driver: @driver).load
       @driver.navigate.to @config['self_url'] + "/"+@team1_slug+"/join"
 
-      wait_for_selector('team__primary-info',:class)
+      wait_for_selector('.team__primary-info')
       @wait.until {
         expect(@driver.current_url.eql? @config['self_url']+"/"+@team1_slug ).to be(true)
       }
@@ -1160,11 +1157,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # "should delete member from team"
       page = Page.new(config: @config, driver: @driver)
       page.go(@config['api_path'] + '/test/session?email='+@user_mail)
-      sleep 1
       page = MePage.new(config: @config, driver: @driver).load
       @driver.navigate.to @config['self_url'] + '/'+@team1_slug
-      wait_for_selector('team-members__member',:class)
-      wait_for_selector('team-members__edit-button',:class).click
+      wait_for_selector('.team-members__member')
+      wait_for_selector('.team-members__edit-button').click
 
       l = wait_for_selector_list_size('team-members__delete-member', 2, :class)
       old = l.length
@@ -1172,23 +1168,23 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       l.last.click
       wait_for_selector('#confirm-dialog__checkbox').click
       wait_for_selector('#confirm-dialog__confirm-action-button').click
-      sleep 10
+      wait_for_selector_none('#confirm-dialog__checkbox')
       new = wait_for_size_change(old, 'team-members__delete-member', :class)
       expect(new < old).to be(true)
     end
 
     it "should update notes count after delete annotation", bin3: true do
-      media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
-      media_pg.fill_input('#cmd-input', 'Test')
-      media_pg.element('#cmd-input').submit
-      sleep 15
+      api_create_team_project_and_claim_and_redirect_to_media_page
+      wait_for_selector(".media__annotations-column")
+      fill_field('#cmd-input', 'Test')
+      @driver.action.send_keys(:enter).perform
       wait_for_selector('.annotation--comment')
       notes_count_before = wait_for_selector('.media-detail__check-notes-count').text.gsub(/ .*/, '').to_i
       expect(notes_count_before > 0).to be(true)
       expect(@driver.page_source.include?('Comment deleted')).to be(false)
-      media_pg.delete_annotation
+      wait_for_selector('.annotation .menu-button').click
+      wait_for_selector('.annotation__delete').click
       wait_for_selector('.annotation__deleted')
-      sleep 15
       notes_count_after = wait_for_selector('.media-detail__check-notes-count').text.gsub(/ .*/, '').to_i
       expect(notes_count_after > 0).to be(true)
       expect(notes_count_after == notes_count_before).to be(true) # Count should be the same because the comment is replaced by the "comment deleted" annotation
@@ -1223,21 +1219,19 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should autorefresh media when annotation is created", bin3: true do
-      media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
-      url = media_pg.driver.current_url
+      api_create_team_project_and_claim_and_redirect_to_media_page
+      url = @driver.current_url
       wait_for_selector('#cmd-input')
       expect(@driver.page_source.include?('Auto-Refresh')).to be(false)
       current_window = @driver.window_handles.last
       @driver.execute_script("window.open('#{url}')")
       @driver.switch_to.window(@driver.window_handles.last)
-      sleep 3
-      media_pg.fill_input('#cmd-input', 'Auto-Refresh')
-      media_pg.element('#cmd-input').submit
-      sleep 5
-      wait_for_selector('.annotation__card-activity-create-comment')
+      wait_for_selector("#create-media__add-item")
+      fill_field('#cmd-input', 'Auto-Refresh')
+      @driver.action.send_keys(:enter).perform
+      wait_for_selector('.create-task__add-button')
       @driver.execute_script('window.close()')
       @driver.switch_to.window(current_window)
-      sleep 3
       wait_for_selector('.annotation__card-activity-create-comment')
       expect(@driver.page_source.include?('Auto-Refresh')).to be(true)
     end
@@ -1268,13 +1262,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should linkify URLs on comments", bin1: true do
-      media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
+      api_create_team_project_and_claim_and_redirect_to_media_page
       expect(@driver.page_source.include?('https://meedan.com/en/')).to be(false)
       old = wait_for_selector_list('annotation__card-content', :class, 25, 'linkify URLs on comments 1').length
       fill_field('textarea[name="cmd"]', 'https://meedan.com/en/')
       el = wait_for_selector(".add-annotation button[type=submit]")
       el.click
-      sleep 2 #wait for loading
+      wait_for_selector('.annotation__avatar-col')
       old = wait_for_size_change(old, 'annotation__card-content', :class, 25, 'linkify URLs on comments 2')
       expect(@driver.page_source.include?('https://meedan.com/en/')).to be(true)
       el = wait_for_selector_list("//a[contains(text(), 'https://meedan.com/en/')]", :xpath)
@@ -1284,7 +1278,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should find all medias with an empty search", bin1: true do
       api_create_media_and_go_to_search_page
       old = wait_for_selector_list(".medias__item").length
-      wait_for_selector("#search__open-dialog-button").click
+      # wait_for_selector("#search__open-dialog-button").click
       el = wait_for_selector("#search-input")
       el.click
       @driver.action.send_keys(:enter).perform
@@ -1297,6 +1291,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should search in trash page", bin4: true do
       api_create_claim_and_go_to_search_page
       # Send item to trash
+      wait_for_selector('#search-query__cancel-button').click
       wait_for_selector('.card-with-border > div > div > div + button svg').click
       wait_for_selector('.media-actions__icon').click
       wait_for_selector('.media-actions__send-to-trash').click
@@ -1317,34 +1312,34 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_media(data: data, url: "https://www.facebook.com/permalink.php?story_fbid=10155901893214439&id=54421674438")
       media = api_create_media(data: data, url: "https://twitter.com/TwitterVideo/status/931930009450795009")
       @driver.navigate.to @config['self_url'] + '/' + data[:team].slug + '/search'
-      sleep 15 # because ES works on the background
+      wait_for_selector(".search__results")
       wait_for_selector("//span[contains(text(), '1 - 2 / 2')]",:xpath)
       old = wait_for_selector_list("medias__item", :class).length
       expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
       expect(@driver.page_source.include?('on Facebook')).to be(true)
-      wait_for_selector("search__open-dialog-button", :id).click
-      el = wait_for_selector("search-input", :id)
+      # wait_for_selector("#search__open-dialog-button").click
+      el = wait_for_selector("#search-input")
       el.click
       el.send_keys "video"
       @driver.action.send_keys(:enter).perform
-      wait_for_selector("search-query__submit-button", :id).click
-      sleep 3 # due the load
+      wait_for_selector("#search-query__submit-button").click
+      wait_for_selector_none("#search-input")
       wait_for_selector("//span[contains(text(), '1 / 1')]",:xpath)
-      current = wait_for_selector_list("medias__item", :class).length
+      current = wait_for_selector_list(".medias__item").length
       expect(old > current).to be(true)
       expect(current > 0).to be(true)
       expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
       expect(@driver.page_source.include?('on Facebook')).to be(false)
-      wait_for_selector("search__open-dialog-button", :id).click
-      el = wait_for_selector("search-input", :id)
+      wait_for_selector("#search__open-dialog-button").click
+      el = wait_for_selector("#search-input")
       el.clear
       el.click
       el.send_keys "meedan"
       @driver.action.send_keys(:enter).perform
-      wait_for_selector("search-query__submit-button", :id).click
-      sleep 3 # due the load
+      wait_for_selector("#search-query__submit-button").click
+      wait_for_selector_none("#search-input")
       wait_for_selector("//span[contains(text(), '1 / 1')]",:xpath)
-      current = wait_for_selector_list("medias__item", :class).length
+      current = wait_for_selector_list(".medias__item").length
       expect(old > current).to be(true)
       expect(current > 0).to be(true)
       expect(@driver.page_source.include?('on Facebook')).to be(true)
@@ -1387,9 +1382,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector("#create-media__add-item").click
       wait_for_selector('#create-media__quote').click
       @driver.action.send_keys(claim).perform
-      @driver.action.send_keys(:enter).perform
+      wait_for_selector('#create-media-dialog__submit-button').click
       wait_for_selector_none('#create-media__quote')
-    
+
       # Go to the second project, make sure that the claim is there
       el = wait_for_selector('.header-actions__drawer-toggle')
       el.location_once_scrolled_into_view
@@ -1414,6 +1409,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       move = wait_for_selector('.media-detail__move-button')
       move.location_once_scrolled_into_view
       move.click
+      wait_for_selector_none(".Select-placeholder")
 
         project_title = wait_for_selector('.project-header__title').attribute("innerHTML")
         count = 0
@@ -1463,14 +1459,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Foo or bar?')).to be(false)
       expect(@driver.page_source.include?('Task created by User With Email: Foo or bar?')).to be(false)
 
-      el = wait_for_selector('.create-task__add-button', :css)
+      el = wait_for_selector('.create-task__add-button')
       el.click
-      el = wait_for_selector('.create-task__add-short-answer', :css)
+      el = wait_for_selector('.create-task__add-short-answer')
       el.location_once_scrolled_into_view
       el.click
-      wait_for_selector('#task-label-input', :css)
+      wait_for_selector('#task-label-input')
       fill_field('#task-label-input', 'Foo or bar?')
-      el = wait_for_selector('.create-task__dialog-submit-button', :css)
+      el = wait_for_selector('.create-task__dialog-submit-button')
       el.click
       wait_for_selector('.annotation__task-created')
       expect(@driver.page_source.include?('Foo or bar?')).to be(true)
@@ -1485,36 +1481,34 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Edit task
       expect(@driver.page_source.include?('Foo or bar???')).to be(false)
-      el = wait_for_selector('.task-actions__icon', :css)
+      el = wait_for_selector('.task-actions__icon')
       el.click
-      editbutton = wait_for_selector('.task-actions__edit', :css)
+      editbutton = wait_for_selector('.task-actions__edit')
       editbutton.location_once_scrolled_into_view
       editbutton.click
+      wait_for_selector("#task-description-input")
       fill_field('#task-label-input', '??')
-      sleep 5
-      editbutton = wait_for_selector('.create-task__dialog-submit-button', :css)
+      editbutton = wait_for_selector('.create-task__dialog-submit-button')
       editbutton.click
       wait_for_selector('.annotation__update-task')
-      sleep 10
       expect(@driver.page_source.include?('Foo or bar???')).to be(true)
 
       # Edit task answer
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Foo edited')).to be(false)
-      sleep 5
-      el = wait_for_selector('.task-actions__icon', :css).click
+      el = wait_for_selector('.task-actions__icon').click
 
-      el = wait_for_selector('.task-actions__edit-response', :css)
+      el = wait_for_selector('.task-actions__edit-response')
       el.click
 
       # Ensure menu closes and textarea is focused...
       el = wait_for_selector('textarea[name="response"]', :css)
       el.click
-
+      wait_for_selector(".task__cancel")
       fill_field('textarea[name="response"]', ' edited')
       @driver.find_element(:css, '.task__save').click
+      wait_for_selector_none(".task__cancel")
       media_pg.wait_all_elements(9, 'annotations__list-item', :class)
       wait_for_selector('.annotation--task_response_free_text')
-      sleep 5
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Foo edited')).to be(true)
 
       # Delete task
@@ -1527,17 +1521,16 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Create a task
       expect(@driver.page_source.include?('Foo or bar?')).to be(false)
       expect(@driver.page_source.include?('Task created by')).to be(false)
-      el = wait_for_selector('.create-task__add-button', :css)
+      el = wait_for_selector('.create-task__add-button')
       el.click
-      sleep 5
-      el = wait_for_selector('create-task__add-choose-one', :class)
+      el = wait_for_selector('.create-task__add-choose-one')
       el.location_once_scrolled_into_view
       el.click
-      wait_for_selector('#task-label-input', :css)
+      wait_for_selector('#task-label-input')
       fill_field('#task-label-input', 'Foo or bar?')
       fill_field('0', 'Foo', :id)
       fill_field('1', 'Bar', :id)
-      el = wait_for_selector('.create-task__dialog-submit-button', :css)
+      el = wait_for_selector('.create-task__dialog-submit-button')
       el.click
       wait_for_selector('.annotation__task-created')
       expect(@driver.page_source.include?('Foo or bar?')).to be(true)
@@ -1546,28 +1539,26 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('task__answered-by-current-user')).to be(false)
       el = wait_for_selector('0', :id)
       el.click
-      el = wait_for_selector('task__submit', :class)
+      el = wait_for_selector('.task__submit')
       el.click
       wait_for_selector('.annotation__task-resolved')
       expect(@driver.page_source.include?('task__answered-by-current-user')).to be(true)
       # Edit task
       expect(@driver.page_source.include?('Task edited by')).to be(false)
-      el = wait_for_selector('.task-actions__icon', :css)
+      el = wait_for_selector('.task-actions__icon')
       el.click
-      editbutton = wait_for_selector('.task-actions__edit', :css)
+      editbutton = wait_for_selector('.task-actions__edit')
       editbutton.location_once_scrolled_into_view
       editbutton.click
       fill_field('#task-label-input', '??')
-      sleep 5
-      editbutton = wait_for_selector('.create-task__dialog-submit-button', :css)
+      editbutton = wait_for_selector('.create-task__dialog-submit-button')
       editbutton.click
       wait_for_selector('.annotation__update-task')
-      sleep 10
       expect(@driver.page_source.include?('Task edited by')).to be(true)
       # Edit task answer
-      sleep 5
-      el = wait_for_selector('.task-actions__icon', :css).click
-      el = wait_for_selector('.task-actions__edit-response', :css)
+
+      el = wait_for_selector('.task-actions__icon').click
+      el = wait_for_selector('.task-actions__edit-response')
       el.click
       el = wait_for_selector('1', :id)
       el.click
@@ -1579,18 +1570,17 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should add, edit, answer, update answer and delete multiple_choice task", bin5: true do
-      media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
+      api_create_team_project_and_claim_and_redirect_to_media_page
       wait_for_selector('.create-task__add-button')
       # Create a task
       expect(@driver.page_source.include?('Foo, Doo or bar?')).to be(false)
       expect(@driver.page_source.include?('Task created by')).to be(false)
-      el = wait_for_selector('.create-task__add-button', :css)
+      el = wait_for_selector('.create-task__add-button')
       el.click
-      sleep 5
       el = wait_for_selector('create-task__add-choose-multiple', :class)
       el.location_once_scrolled_into_view
       el.click
-      wait_for_selector('#task-label-input', :css)
+      wait_for_selector('#task-label-input')
       fill_field('#task-label-input', 'Foo, Doo or bar?')
       fill_field('0', 'Foo', :id)
       fill_field('1', 'Bar', :id)
@@ -1599,47 +1589,45 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       fill_field('2', 'Doo', :id)
       el = wait_for_selector("//span[contains(text(), 'Add \"Other\"')]",:xpath)
       el.click
-      el = wait_for_selector('.create-task__dialog-submit-button', :css)
+      el = wait_for_selector('.create-task__dialog-submit-button')
       el.click
       wait_for_selector('.annotation__task-created')
       expect(@driver.page_source.include?('Foo, Doo or bar?')).to be(true)
       expect(@driver.page_source.include?('Task created by')).to be(true)
       # Answer task
       expect(@driver.page_source.include?('task__answered-by-current-user')).to be(false)
-      el = wait_for_selector('Foo', :id)
+      el = wait_for_selector('#Foo')
       el.click
-      el = wait_for_selector('Doo', :id)
+      el = wait_for_selector('#Doo')
       el.click
-      el = wait_for_selector('task__submit', :class)
+      el = wait_for_selector('.task__submit')
       el.click
       wait_for_selector('.annotation__task-resolved')
       expect(@driver.page_source.include?('task__answered-by-current-user')).to be(true)
       # Edit task
       expect(@driver.page_source.include?('Task edited by')).to be(false)
-      el = wait_for_selector('.task-actions__icon', :css)
+      el = wait_for_selector('.task-actions__icon')
       el.click
-      editbutton = wait_for_selector('.task-actions__edit', :css)
+      editbutton = wait_for_selector('.task-actions__edit')
       editbutton.location_once_scrolled_into_view
       editbutton.click
+      wait_for_selector('#task-label-input')
       fill_field('#task-label-input', '??')
-      sleep 5
-      editbutton = wait_for_selector('.create-task__dialog-submit-button', :css)
+      editbutton = wait_for_selector('.create-task__dialog-submit-button')
       editbutton.click
       wait_for_selector('.annotation__update-task')
-      sleep 10
       expect(@driver.page_source.include?('Task edited by')).to be(true)
       # Edit task answer
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('BooYaTribe')).to be(false)
-      sleep 5
-      el = wait_for_selector('.task-actions__icon', :css).click
-      el = wait_for_selector('.task-actions__edit-response', :css)
+      el = wait_for_selector('.task-actions__icon').click
+      el = wait_for_selector('.task-actions__edit-response')
       el.click
-      el = wait_for_selector('Doo', :id)
+      el = wait_for_selector('#Doo')
       el.click
       el = wait_for_selector('.task__option_other_text_input')
       el.click
       fill_field('textarea[name="response"]', 'BooYaTribe')
-      el = wait_for_selector('task__submit', :class)
+      el = wait_for_selector('.task__submit')
       el.click
       wait_for_selector('.annotation--task_response_multiple_choice')
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('BooYaTribe')).to be(true)
@@ -1648,14 +1636,15 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should search for reverse images", bin2: true do
-      page = api_create_team_project_and_link_and_redirect_to_media_page 'https://www.instagram.com/p/BRYob0dA1SC/'
+      api_create_team_project_and_link_and_redirect_to_media_page 'https://www.instagram.com/p/BRYob0dA1SC/'
       wait_for_selector('.annotation__reverse-image')
       expect(@driver.page_source.include?('This item contains at least one image. Click Search to look for potential duplicates on Google.')).to be(true)
       expect((@driver.current_url.to_s =~ /google/).nil?).to be(true)
       current_window = @driver.window_handles.last
       @driver.find_element(:css, '.annotation__reverse-image-search').click
-      sleep 3
+      wait_for_selector_none(".create-task__add-button")
       @driver.switch_to.window(@driver.window_handles.last)
+      wait_for_selector(".create-task__add-button")
       expect((@driver.current_url.to_s =~ /google/).nil?).to be(false)
       @driver.switch_to.window(current_window)
     end
@@ -1669,7 +1658,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       wait_for_selector(".media-actions__edit")
       @driver.find_element(:css, '.media-actions__refresh').click
-      wait_for_selector_none(".media-actions__edit") 
+      wait_for_selector_none(".media-actions__edit")
       wait_for_text_change(title1,"title", :css, 30)
       title2 = @driver.title
       expect((title2 =~ /Random/).nil?).to be(false)
@@ -1692,7 +1681,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should search by project", bin2: true do
       api_create_claim_and_go_to_search_page
       expect((@driver.current_url.to_s.match(/project/)).nil?).to be(true)
-      wait_for_selector("#search__open-dialog-button").click
+      # wait_for_selector("#search__open-dialog-button").click
       wait_for_selector(".search-filter__project-chip").click
       wait_for_selector(".search-filter__project-chip--selected")
       wait_for_selector("#search-query__submit-button").click
@@ -1715,7 +1704,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_claim_and_go_to_search_page
       expect((@driver.current_url.to_s.match(/recent_activity/)).nil?).to be(true)
 
-      wait_for_selector("#search__open-dialog-button").click
+      # wait_for_selector("#search__open-dialog-button").click
       wait_for_selector(".search-query__recent-activity-button").click
       wait_for_selector("#search-query__submit-button").click
       wait_for_selector_none("#search-query__reset-button")
@@ -1736,7 +1725,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_claim_and_go_to_search_page
       expect((@driver.current_url.to_s.match(/ASC|DESC/)).nil?).to be(true)
 
-      wait_for_selector("#search__open-dialog-button").click
+      # wait_for_selector("#search__open-dialog-button").click
       @driver.find_element(:xpath, "//span[contains(text(), 'Newest')]").click
       wait_for_selector("#search-query__submit-button").click
       wait_for_selector_none("#search-query__reset-button")
@@ -1761,7 +1750,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector("#search__open-dialog-button").click
       wait_for_selector("#search-input")
       selected = @driver.find_elements(:css, '.search-query__filter-button--selected')
-      expect(selected.size == 5).to be(true)
+      expect(selected.size == 6).to be(true)
     end
 
     it "should search by date range", bin4: true do
@@ -1792,7 +1781,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector("#search__open-dialog-button").click
       wait_for_selector("#search-input")
       selected = @driver.find_elements(:css, '.search-query__filter-button--selected').map(&:text).sort
-      expect(selected == ['Recent activity', 'Newest first', 'Links', 'Claims', 'Images'].sort).to be(true)
+      expect(selected == ['Recent activity', 'Newest first', 'Links', 'Claims', 'Images', 'Videos'].sort).to be(true)
     end
 
     it "should change search sort order through URL", bin2: true do
@@ -1802,7 +1791,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('My search result')).to be(true)
       wait_for_selector("search__open-dialog-button", :id).click
       selected = @driver.find_elements(:css, '.search-query__filter-button--selected').map(&:text).sort
-      expect(selected).to eq(['Created', 'Oldest first', 'Links', 'Claims', 'Images'].sort)
+      expect(selected).to eq(['Created', 'Oldest first', 'Links', 'Claims', 'Images', 'Videos'].sort)
     end
 
     it "should not reset password", bin5: true do
@@ -1837,7 +1826,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should embed", bin1: true do
       api_create_team_project_and_claim_and_redirect_to_media_page
-      sleep 2
+      wait_for_selector(".tasks")
       request_api('make_team_public', { slug: get_team })
 
       @driver.navigate.refresh
@@ -1865,16 +1854,15 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should paginate project page", bin2: true do
       page = api_create_team_project_claims_sources_and_redirect_to_project_page 21
       page.load
-      sleep 3
-      wait_for_selector("search__open-dialog-button", :id).click
+      wait_for_selector("#create-media__add-item")
+      wait_for_selector("#search__open-dialog-button").click
       wait_for_selector("//span[contains(text(), 'Sources')]", :xpath, 100).click
-      wait_for_selector("search-query__submit-button", :id).click
+      wait_for_selector("#search-query__submit-button").click
       wait_for_selector("source-card", :class)
       results = @driver.find_elements(:css, '.medias__item')
       expect(results.size == 40).to be(true)
       old = results.size
       wait_for_selector(".search__next-page").click
-      sleep 2
       size = wait_for_size_change(old, '.medias__item')
       expect(size == 2).to be(true)
     end
@@ -1887,7 +1875,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should add, edit, answer, update answer and delete geolocation task", bin3: true do
-      media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
+      api_create_team_project_and_claim_and_redirect_to_media_page
       wait_for_selector('.create-task__add-button')
 
       # Create a task
@@ -1896,10 +1884,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Task created by')).to be(false)
       el = wait_for_selector('.create-task__add-button')
       el.click
-      sleep 5
       el = wait_for_selector('.create-task__add-geolocation')
       el.click
-      sleep 1
+      wait_for_selector("#task-description-input" )
       fill_field('#task-label-input', 'Where?')
       el = wait_for_selector('.create-task__dialog-submit-button')
       el.click
@@ -1921,10 +1908,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Where was it?')).to be(false)
       el = wait_for_selector('.task-actions__icon')
       el.click
-      sleep 1
       el = wait_for_selector('.task-actions__edit')
       el.click
-      sleep 1
+      wait_for_selector("#task-description-input" )
       update_field('#task-label-input', 'Where was it?')
       el = wait_for_selector( '.create-task__dialog-submit-button')
       el.click
@@ -1935,10 +1921,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Vancouver')).to be(false)
       el = wait_for_selector('.task-actions__icon')
       el.click
-      sleep 1
       el = wait_for_selector('.task-actions__edit-response')
       el.click
-      sleep 1
+      wait_for_selector(".task__cancel")
       update_field('textarea[name="response"]', 'Vancouver')
       update_field('#task__response-geolocation-coordinates', '49.2577142, -123.1941156')
       el = wait_for_selector('.task__save')
@@ -1997,44 +1982,39 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector(".source__tab-button-account")
       el = wait_for_selector(".source__tab-button-notes")
       el.click
-      sleep 2
       wait_for_selector('.add-annotation')
       expect(@driver.page_source.include?('Test note')).to be(false)
       old = wait_for_selector_list('annotation__card-content', :class, 25, 'delete annotation from annotations list 1').length
       fill_field('textarea[name="cmd"]', 'Test note')
       el = wait_for_selector(".add-annotation button[type=submit]")
       el.click
-      sleep 5
       old = wait_for_size_change(old, 'annotation__card-content', :class, 25, 'delete annotation from annotations list 2')
       expect(@driver.page_source.include?('Test note')).to be(true)
       expect(@driver.page_source.include?('Comment deleted by')).to be(false)
       el = wait_for_selector('.menu-button')
       el.click
-      sleep 2
       el = wait_for_selector('.annotation__delete')
       el.click
-      sleep 2
+      wait_for_selector_none('.menu-button')
       wait_for_size_change(old, 'annotation__card-content', :class, 25, 'delete annotation from annotations list 3')
       expect(@driver.page_source.include?('Comment deleted by')).to be(true)
 
       # Media
-      media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
+      api_create_team_project_and_claim_and_redirect_to_media_page
       wait_for_selector('.add-annotation')
       expect(@driver.page_source.include?('Test note')).to be(false)
       old = wait_for_selector_list('annotation__card-content', :class, 25, 'delete annotation from annotations list 4').length
       fill_field('textarea[name="cmd"]', 'Test note')
       el = wait_for_selector(".add-annotation button[type=submit]")
       el.click
-      sleep 3
       old = wait_for_size_change(old, 'annotation__card-content', :class, 25, 'delete annotation from annotations list 5')
       expect(@driver.page_source.include?('Test note')).to be(true)
       expect(@driver.page_source.include?('Comment deleted by')).to be(false)
       el = wait_for_selector('.menu-button')
       el.click
-      sleep 2
       el = wait_for_selector('.annotation__delete')
       el.click
-      sleep 2
+      wait_for_selector_none('.menu-button')
       wait_for_size_change(old, 'annotation__card-content', :class, 25, 'delete annotation from annotations list 6')
       expect(@driver.page_source.include?('Comment deleted by')).to be(true)
     end
@@ -2044,7 +2024,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page = LoginPage.new(config: @config, driver: @driver).load
              .register_and_login_with_email(email: email, password: password, file: avatar)
       me_page = MePage.new(config: @config, driver: page.driver).load
-      sleep 2 #for load
       wait_for_selector('.user-menu__edit-profile-button')
       script = "return window.getComputedStyle(document.getElementsByClassName('source__avatar')[0]).getPropertyValue('background-image')"
       avatar = @driver.execute_script(script)
@@ -2071,30 +2050,29 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should redirect to last visited project", bin3: true do
       user = api_register_and_login_with_email
       api_create_team_and_project(user: user)
-      sleep 1
       api_create_team_and_project(user: user)
 
       @driver.navigate.to(@config['self_url'] + '/check/me')
       button = wait_for_selector('#teams-tab')
       button.click
-      sleep 3
+      wait_for_selector(".switch-teams__joined-team")
       link = wait_for_selector_list('.teams a').first
       link.click
       link = wait_for_selector('.team__project-title')
-      sleep 2
       link.click
-      sleep 5
+      wait_for_selector_none(".team-members__edit-button")
 
       @driver.navigate.to(@config['self_url'] + '/check/me')
       button = wait_for_selector('#teams-tab')
       button.click
+      wait_for_selector(".switch-teams__joined-team")
       link = wait_for_selector_list('.teams a').last
-      sleep 2
       link.click
-      sleep 5
+      wait_for_selector(".team-members__edit-button")
+
 
       @driver.navigate.to(@config['self_url'])
-      sleep 10
+      wait_for_selector('.main-title')
       notfound = @config['self_url'] + '/check/404'
       expect(@driver.current_url.to_s == notfound).to be(false)
     end
@@ -2147,7 +2125,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should search map in geolocation task", bin3: true do
-      media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
+      api_create_team_project_and_claim_and_redirect_to_media_page
       wait_for_selector('.create-task__add-button')
 
       # Create a task
@@ -2156,10 +2134,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Task "Where?" created by')).to be(false)
       el = wait_for_selector('.create-task__add-button')
       el.click
-      sleep 5
       el = wait_for_selector('.create-task__add-geolocation')
       el.click
-      sleep 1
+      wait_for_selector("#task-description-input")
       fill_field('#task-label-input', 'Where?')
       el = wait_for_selector('.create-task__dialog-submit-button')
       el.click
@@ -2167,9 +2144,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Where?')).to be(true)
 
       # Search map
+      wait_for_selector("#task__response-geolocation-name")
       expect(@driver.page_source.include?('SSA')).to be(false)
-      fill_field("geolocationsearch", "Salvador", :id)
-      sleep 5
+      fill_field("#geolocationsearch", "Salvador")
+      wait_for_text_change(' ',"#geolocationsearch", :css, 30)
       expect(@driver.page_source.include?('SSA')).to be(true)
     end
 
@@ -2182,30 +2160,38 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       p.go(@config['self_url'] + '/' + team)
 
       # No bots on team page
-      wait_for_selector('.team-menu__team-settings-button').click ; sleep 5
-      wait_for_selector('.team-settings__bots-tab').click ; sleep 5
+      wait_for_selector('.team-menu__team-settings-button').click
+      wait_for_selector(".team-settings__embed-tab")
+      wait_for_selector('.team-settings__bots-tab').click
+      wait_for_selector("img")
       expect(@driver.page_source.include?('No bots installed')).to be(true)
-      expect(@driver.page_source.include?('Testing Bot')).to be(false)
+      expect(@driver.page_source.include?('More info')).to be(false)
 
       # Install bot
-      wait_for_selector('.team > div + div button').click ; sleep 5
+      wait_for_selector('.team > div + div button').click
+      wait_for_selector(".bot-garden__bot-name")
       expect(@driver.page_source.include?('Bot Garden')).to be(true)
-      wait_for_selector('h2 + div > div + div + div + div .bot-garden__bot-name').click ; sleep 5
-      wait_for_selector('input').click ; sleep 1
-      @driver.switch_to.alert.accept ; sleep 5
+      bot= wait_for_selector("//b[contains(text(), 'Testing Bot')]", :xpath)
+      bot.click
+      wait_for_selector('input').click
+      @driver.switch_to.alert.accept
 
       # Bot on team page
       p.go(@config['self_url'] + '/' + team)
-      wait_for_selector('.team-menu__team-settings-button').click ; sleep 5
-      wait_for_selector('.team-settings__bots-tab').click ; sleep 5
+      wait_for_selector('.team-menu__team-settings-button').click
+      wait_for_selector(".team-settings__embed-tab")
+      wait_for_selector('.team-settings__bots-tab').click
+      wait_for_selector_none(".create-task__add-button")
+      wait_for_selector('.settingsIcon')
       expect(@driver.page_source.include?('No bots installed')).to be(false)
-      expect(@driver.page_source.include?('Testing Bot')).to be(true)
+      expect(@driver.page_source.include?('More info')).to be(true)
 
       # Uninstall bot
-      wait_for_selector('input').click ; sleep 1
-      @driver.switch_to.alert.accept ; sleep 5
+      wait_for_selector('input').click
+      @driver.switch_to.alert.accept
+      wait_for_selector_none('.settingsIcon')
       expect(@driver.page_source.include?('No bots installed')).to be(true)
-      expect(@driver.page_source.include?('Testing Bot')).to be(false)
+      expect(@driver.page_source.include?('More info')).to be(false)
     end
 
     it "should assign project", bin3: true do

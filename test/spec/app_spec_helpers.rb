@@ -283,7 +283,7 @@ module AppSpecHelpers
     @driver.action.send_keys(:enter).perform
   end
 
-  def register_with_email(should_create_team = true, email = @email)
+  def register_with_email(should_create_team = true, email = @email, should_login = true)
     @driver.navigate.to @config['self_url']
     sleep 1
     @driver.find_element(:xpath, "//button[@id='register-or-login']").click
@@ -297,7 +297,7 @@ module AppSpecHelpers
     sleep 3
     confirm_email(email)
     sleep 1
-    login_with_email(true, email)
+    login_with_email(true, email) if should_login
   end
 
   def get_team

@@ -74,11 +74,13 @@ const bridgeSearchResultFragment = Relay.QL`
             }
           },
           media {
+            type,
             metadata,
             url,
             quote,
             embed_path,
-            thumbnail_path
+            thumbnail_path,
+            file_path,
             picture
           }
           user {

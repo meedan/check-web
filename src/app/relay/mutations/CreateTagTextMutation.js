@@ -31,9 +31,7 @@ class CreateTagTextMutation extends Relay.Mutation {
         parentID: this.props.team.id,
         connectionName: 'teamwide_tags',
         edgeName: 'tag_textEdge',
-        rangeBehaviors: {
-          '': 'append',
-        },
+        rangeBehaviors: () => ('append'),
       },
       {
         type: 'FIELDS_CHANGE',

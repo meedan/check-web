@@ -13,5 +13,6 @@
   "createMedia.link": "Link",
   "createMedia.quote": "Declarația",
   "createMedia.source": "Sursa",
-  "createMedia.image": "Foto"
+  "createMedia.image": "Foto",
+  "createMedia.video": "Video"
 }

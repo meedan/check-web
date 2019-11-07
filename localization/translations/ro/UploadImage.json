@@ -2,5 +2,6 @@
   "uploadImage.changeFile": "{filename} (click sau fixare pentru a modifica)",
   "uploadImage.invalidExtension": "Fișierul nu poate fi de tip \"{extension}\". Încercați cu următoarele tipuri de fișiere: {allowed_types}.",
   "uploadImage.fileTooLarge": "Fișierul trebuie să fie mai mic de {size}. Vă rugăm să încercați cu un fișier mai mic.",
-  "uploadImage.message": "Glisați și fixați aici un fișier cu imagine sau dați click pentru a încărca un fișier (mărimea maximă: {upload_max_size}, extensiile permise: {upload_extensions}, dimensiuni permise între {upload_min_dimensions} și {upload_max_dimensions} pixels)"
+  "uploadImage.message": "Glisați și fixați aici un fișier cu imagine sau dați click pentru a încărca un fișier (mărimea maximă: {upload_max_size}, extensiile permise: {upload_extensions}, dimensiuni permise între {upload_min_dimensions} și {upload_max_dimensions} pixels)",
+  "uploadImage.videoMessage": "Drop a video file here, or click to upload a file (max size: {video_max_size}, allowed extensions: {video_extensions})"
 }

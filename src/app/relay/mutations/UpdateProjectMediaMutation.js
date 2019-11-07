@@ -215,9 +215,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         parentID: this.props.relationships_target_id,
         connectionName: 'targets',
         edgeName: 'project_mediaEdge',
-        rangeBehaviors: {
-          '': 'prepend',
-        },
+        rangeBehaviors: () => ('prepend'),
       });
 
       configs.push({
@@ -226,9 +224,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         parentID: this.props.relationships_source_id,
         connectionName: 'siblings',
         edgeName: 'project_mediaEdge',
-        rangeBehaviors: {
-          '': 'prepend',
-        },
+        rangeBehaviors: () => ('prepend'),
       });
     }
 
@@ -249,9 +245,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         parentID: this.props.dstProj.search_id,
         connectionName: 'medias',
         edgeName: 'project_mediaEdge',
-        rangeBehaviors: {
-          '': 'prepend',
-        },
+        rangeBehaviors: () => ('prepend'),
       });
     }
 
@@ -279,9 +273,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
           parentID: this.props.check_search_trash.id,
           connectionName: 'medias',
           edgeName: 'project_mediaEdge',
-          rangeBehaviors: {
-            '': 'prepend',
-          },
+          rangeBehaviors: () => ('prepend'),
         });
       }
     }
@@ -293,9 +285,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         parentID: this.props.check_search_team.id,
         connectionName: 'medias',
         edgeName: 'project_mediaEdge',
-        rangeBehaviors: {
-          '': 'prepend',
-        },
+        rangeBehaviors: () => ('prepend'),
       });
       configs.push({
         type: 'RANGE_ADD',
@@ -303,9 +293,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         parentID: this.props.check_search_project.id,
         connectionName: 'medias',
         edgeName: 'project_mediaEdge',
-        rangeBehaviors: {
-          '': 'prepend',
-        },
+        rangeBehaviors: () => ('prepend'),
       });
       if (this.props.check_search_trash) {
         configs.push({

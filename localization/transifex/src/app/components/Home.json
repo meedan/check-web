@@ -5,5 +5,5 @@
   "home.invalidInvitation": "Sorry, an error occurred while processing your invitation. Please contact {supportEmail}.",
   "home.invalidTeamInvitation": "Sorry, the team to which you were invited was not found. Please contact {supportEmail} if you think this is an error.",
   "home.invalidNoInvitation": "Sorry, the invitation you received was not found. Please contact {supportEmail} if you think this is an error.",
-  "home.invalidTokenInvitation": "Sorry, the invitation you received is invalid. Please contact {supportEmail} if you think this is an error."
+  "home.invalidExpiredInvitation": "Sorry, the invitation you received was expired. Please contact {supportEmail} if you think this is an error."
 }

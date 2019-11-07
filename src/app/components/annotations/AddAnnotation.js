@@ -395,6 +395,7 @@ class AddAnnotation extends Component {
             if (this.state.fileMode) {
               return (
                 <UploadImage
+                  type="image"
                   onImage={AddAnnotation.onImage}
                   onError={this.onImageError.bind(this)}
                 />

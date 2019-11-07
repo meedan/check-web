@@ -5,5 +5,5 @@
   "home.invalidInvitation": "Desculpe, ocorreu um erro ao processar o seu convite. Por favor, entre em contato com {supportEmail}.",
   "home.invalidTeamInvitation": "Desculpe, a equipe para a qual você foi convidado não foi encontrada. Por favor, entre em contato com {supportEmail} se achar que isso é um erro.",
   "home.invalidNoInvitation": "Desculpe, o convite que você recebeu não foi encontrado. Por favor, entre em contato com {supportEmail} se achar que isso é um erro.",
-  "home.invalidTokenInvitation": "Desculpe, o convite que você recebeu é inválido. Por favor, entre em contato com {supportEmail} se achar que isso é um erro."
+  "home.invalidExpiredInvitation": "Desculpe, o convite que você recebeu expirou. Por favor, entre em contato com {supportEmail} se achar que isso é um erro."
 }

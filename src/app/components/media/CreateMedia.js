@@ -31,7 +31,6 @@ class CreateProjectMedia extends Component {
     this.state = {
       dialogOpen: false,
       message: null,
-      isSubmitting: false,
     };
   }
 
@@ -47,26 +46,24 @@ class CreateProjectMedia extends Component {
       }
     }
     this.context.setMessage(message);
-    this.setState({ isSubmitting: false });
   };
 
   submitSource(value) {
     const context = new CheckContext(this).getContextStore();
     const prefix = `/${context.team.slug}/project/${context.project.dbid}/source/`;
 
-    if (!value || this.state.isSubmitting) {
+    if (!value) {
       return;
     }
 
     this.setState({
-      isSubmitting: true,
       message: this.props.intl.formatMessage(messages.submitting),
     });
 
     const onSuccess = (response) => {
       const rid = response.createProjectSource.project_source.dbid;
       context.history.push(prefix + rid);
-      this.setState({ message: null, isSubmitting: false });
+      this.setState({ message: null });
     };
 
     Relay.Store.commitUpdate(
@@ -82,18 +79,16 @@ class CreateProjectMedia extends Component {
     const context = new CheckContext(this).getContextStore();
     const prefix = `/${context.team.slug}/project/${context.project.dbid}/media/`;
 
-    if (!value || this.state.isSubmitting) {
+    if (!value) {
       return;
     }
-
-    this.setState({ isSubmitting: true });
 
     const onSuccess = (response) => {
       if (getFilters() !== '{}') {
         const rid = response.createProjectMedia.project_media.dbid;
         context.history.push(prefix + rid);
       }
-      this.setState({ message: null, isSubmitting: false });
+      this.setState({ message: null });
     };
 
     this.setState({ dialogOpen: false });
@@ -102,6 +97,7 @@ class CreateProjectMedia extends Component {
       new CreateProjectMediaMutation({
         ...value,
         context,
+        search: this.props.search,
         project: context.project,
       }),
       { onSuccess, onFailure: this.fail },
@@ -135,7 +131,6 @@ class CreateProjectMedia extends Component {
           open={this.state.dialogOpen}
           onDismiss={this.handleCloseDialog}
           message={this.state.message}
-          isSubmitting={this.state.isSubmitting}
           onSubmit={this.handleSubmit}
         />
       </div>

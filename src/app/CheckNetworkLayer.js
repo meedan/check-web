@@ -33,6 +33,22 @@ function createRequestError(request, responseStatus, payload) {
   return error;
 }
 
+function generateRandomQueryId() {
+  return `q${parseInt(Math.random() * 1000000, 10)}`;
+}
+
+function parseQueryPayload(request, payload) {
+  if (Object.prototype.hasOwnProperty.call(payload, 'errors')) {
+    const error = createRequestError(request, '200', payload);
+    request.reject(error);
+  } else if (!Object.prototype.hasOwnProperty.call(payload, 'data')) {
+    request.reject(new Error('Server response was missing for query ' +
+          `\`${request.getDebugName()}\`.`));
+  } else {
+    request.resolve({ response: payload.data });
+  }
+}
+
 function throwOnServerError(request, response) {
   if (response.status >= 200 && response.status < 300) {
     return response;
@@ -101,42 +117,81 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
     return message.defaultMessage;
   }
 
-  sendQueries(requests: Array<Relay.RelayQueryRequest>): ?Promise<any> {
+  _parseQueryResult(result) {
+    if (config.pusherDebug) {
+      // eslint-disable-next-line no-console
+      console.log('%cSending request to backend ', 'font-weight: bold');
+    }
+    const { history } = this._init;
+    if (result.status === 404 && window.location.pathname !== '/check/not-found') {
+      history.push('/check/not-found');
+    } else if (result.status === 401 || result.status === 403) {
+      const team = this._init.team();
+      if (team !== '') {
+        history.push(`/${team}/join`);
+      } else {
+        history.push('/check/forbidden');
+      }
+    }
+  }
+
+  sendQueries(requests) {
+    if (requests.length > 1) {
+      requests.map((request) => {
+        request.randomId = generateRandomQueryId();
+        return request;
+      });
+      return this._sendBatchQuery(requests).then((result) => {
+        this._parseQueryResult(result);
+        return result.json();
+      }).then((response) => {
+        response.forEach((payload) => {
+          const request = requests.find(r => r.randomId === payload.id);
+          if (request) {
+            parseQueryPayload(request, payload.payload);
+          }
+        });
+      }).catch((error) => {
+        requests.forEach(r => r.reject(error));
+      });
+    }
     return Promise.all(requests.map(request => (
       this._sendQuery(request).then((result) => {
-        if (config.pusherDebug) {
-          // eslint-disable-next-line no-console
-          console.log('%cSending request to backend ', 'font-weight: bold');
-        }
-        const { history } = this._init;
-        if (result.status === 404 && window.location.pathname !== '/check/not-found') {
-          history.push('/check/not-found');
-        } else if (result.status === 401 || result.status === 403) {
-          const team = this._init.team();
-          if (team !== '') {
-            history.push(`/${team}/join`);
-          } else {
-            history.push('/check/forbidden');
-          }
-        }
+        this._parseQueryResult(result);
         return result.json();
       }).then((payload) => {
-        if (Object.prototype.hasOwnProperty.call(payload, 'errors')) {
-          const error = createRequestError(request, '200', payload);
-          request.reject(error);
-        } else if (!Object.prototype.hasOwnProperty.call(payload, 'data')) {
-          request.reject(new Error('Server response was missing for query ' +
-                `\`${request.getDebugName()}\`.`));
-        } else {
-          request.resolve({ response: payload.data });
-        }
+        parseQueryPayload(request, payload);
       }).catch((error) => {
         request.reject(error);
       })
     )));
   }
 
-  _sendQuery(request: Relay.RelayQueryRequest): Promise<any> {
+  _queryHeaders() {
+    return {
+      ...this._init.headers,
+      Accept: '*/*',
+      'Content-Type': 'application/json',
+      'X-Check-Team': encodeURIComponent(this._init.team()),
+      'X-Timezone': Intl.DateTimeFormat().resolvedOptions().timeZone,
+    };
+  }
+
+  _sendBatchQuery(requests) {
+    return fetch(`${this._uri}/batch`, {
+      ...this._init,
+      body: JSON.stringify(requests.map(request => ({
+        id: request.randomId,
+        query: request.getQueryString(),
+        variables: request.getVariables(),
+        team: encodeURIComponent(this._init.team()),
+      }))),
+      headers: this._queryHeaders(),
+      method: 'POST',
+    });
+  }
+
+  _sendQuery(request) {
     return fetch(this._uri, {
       ...this._init,
       body: JSON.stringify({
@@ -144,13 +199,7 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
         variables: request.getVariables(),
         team: encodeURIComponent(this._init.team()),
       }),
-      headers: {
-        ...this._init.headers,
-        Accept: '*/*',
-        'Content-Type': 'application/json',
-        'X-Check-Team': encodeURIComponent(this._init.team()),
-        'X-Timezone': Intl.DateTimeFormat().resolvedOptions().timeZone,
-      },
+      headers: this._queryHeaders(),
       method: 'POST',
     });
   }

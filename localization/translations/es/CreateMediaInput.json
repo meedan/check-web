@@ -13,5 +13,6 @@
   "createMedia.link": "Enlace",
   "createMedia.quote": "Afirmación",
   "createMedia.source": "Fuente",
-  "createMedia.image": "Foto"
+  "createMedia.image": "Foto",
+  "createMedia.video": "Vídeo"
 }

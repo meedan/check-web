@@ -10,7 +10,7 @@ shared_examples 'custom' do
     expect(page.contains_string?('Added')).to be(true)
     expect(page.contains_string?('User With Email')).to be(true)
     expect(page.status_label == 'PENDING').to be(true)
-    
+
     wait_for_selector('.media__annotations-column')
     $media_id = page.driver.current_url.to_s.match(/\/media\/([0-9]+)$/)[1]
     expect($media_id.nil?).to be(false)
@@ -33,7 +33,7 @@ shared_examples 'custom' do
     sleep 3 #wait for ES to settle
     wait_for_selector("//h3[contains(text(), '1 result')]",:xpath)
     old = wait_for_selector_list("medias__item", :class).length
-    wait_for_selector("search__open-dialog-button", :id).click
+    # wait_for_selector("search__open-dialog-button", :id).click
     wait_for_selector("//div[contains(text(), 'Translated')]",:xpath).click
     wait_for_selector("search-query__submit-button", :id).click
     sleep 3 #due the reload
