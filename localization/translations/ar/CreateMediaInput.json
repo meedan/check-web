@@ -13,5 +13,6 @@
   "createMedia.link": "الرابط",
   "createMedia.quote": "إدعاء",
   "createMedia.source": "المصدر",
-  "createMedia.image": "صورة"
+  "createMedia.image": "صورة",
+  "createMedia.video": "فيديو"
 }

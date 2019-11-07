@@ -126,9 +126,7 @@ class UpdateTaskMutation extends Relay.Mutation {
         parentID: this.props.annotated.id,
         connectionName: 'log',
         edgeName: 'first_response_versionEdge',
-        rangeBehaviors: {
-          '': 'prepend',
-        },
+        rangeBehaviors: () => ('prepend'),
       });
     }
     return configs;

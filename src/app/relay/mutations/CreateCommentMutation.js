@@ -141,9 +141,7 @@ class CreateCommentMutation extends Relay.Mutation {
         parentID: parent_type === 'project_source' ? annotated.source.id : annotated.id,
         connectionName: 'log',
         edgeName: 'comment_versionEdge',
-        rangeBehaviors: {
-          '': 'append',
-        },
+        rangeBehaviors: () => ('append'),
       },
     ];
 

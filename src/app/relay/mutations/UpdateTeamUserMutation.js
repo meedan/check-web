@@ -55,9 +55,7 @@ class UpdateTeamUserMutation extends Relay.Mutation {
         parentID: this.props.team.id,
         connectionName: 'team_users',
         edgeName: 'team_userEdge',
-        rangeBehaviors: {
-          '': 'prepend',
-        },
+        rangeBehaviors: () => ('prepend'),
       });
     }
 

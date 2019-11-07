@@ -83,14 +83,43 @@ MediaLogComponent.contextTypes = {
   store: PropTypes.object,
 };
 
+const pageSize = 30;
+
+const eventTypes = [
+  'create_comment', 'create_tag', 'destroy_comment', 'create_task', 'create_relationship',
+  'destroy_relationship', 'create_assignment', 'destroy_assignment', 'create_dynamic',
+  'update_dynamic', 'create_dynamicannotationfield', 'update_dynamicannotationfield',
+  'create_flag', 'update_embed', 'create_embed', 'update_projectmedia', 'copy_projectmedia',
+  'update_task',
+];
+
+const fieldNames = [
+  'suggestion_free_text', 'suggestion_yes_no', 'suggestion_single_choice',
+  'suggestion_multiple_choice', 'suggestion_geolocation', 'suggestion_datetime',
+  'response_free_text', 'response_yes_no', 'response_single_choice', 'response_multiple_choice',
+  'response_geolocation', 'response_datetime', 'metadata_value', 'verification_status_status',
+  'team_bot_response_formatted_data', 'reverse_image_path', 'translation_text', 'mt_translations',
+  'translation_status_status', 'translation_published', 'archive_is_response',
+  'archive_org_response', 'keep_backup_response', 'memebuster_operation', 'embed_code_copied',
+  'pender_archive_response',
+];
+
+const annotationTypes = ['translation_status', 'verification_status'];
+
 const MediaLogContainer = Relay.createContainer(MediaLogComponent, {
+  initialVariables: {
+    pageSize,
+    eventTypes,
+    fieldNames,
+    annotationTypes,
+  },
   fragments: {
     media: () => Relay.QL`
       fragment on ProjectMedia {
         id
         dbid
         pusher_channel
-        log(first: 10000) {
+        log(last: $pageSize, event_types: $eventTypes, field_names: $fieldNames, annotation_types: $annotationTypes) {
           edges {
             node {
               id,

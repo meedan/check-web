@@ -19,7 +19,7 @@ shared_examples 'custom' do
     sleep 3 #waiting load
     wait_for_selector("//span[contains(text(), '1 item')]",:xpath)
     old = wait_for_selector_list("medias__item", :class).length
-    wait_for_selector("search__open-dialog-button", :id).click
+    # wait_for_selector("search__open-dialog-button", :id).click
     el = wait_for_selector("//div[contains(text(), 'False')]",:xpath)
     el.click
     wait_for_selector("search-query__submit-button", :id).click
@@ -44,7 +44,7 @@ shared_examples 'custom' do
     api_create_team_and_project
     page = ProjectPage.new(config: @config, driver: @driver).load
            .create_image_media(File.expand_path('test.png', File.dirname(__FILE__)))
-    
+
     wait_for_selector('.media-detail__clickable-header')
     expect(page.contains_string?('Added')).to be(true)
     expect(page.contains_string?('User With Email')).to be(true)
@@ -92,7 +92,7 @@ shared_examples 'custom' do
     api_create_claim_and_go_to_search_page
     before = wait_for_selector("search__results-heading", :class)
     txt = before.text
-    wait_for_selector("search__open-dialog-button", :id).click
+    # wait_for_selector("search__open-dialog-button", :id).click
     el = wait_for_selector("//*[contains(text(), 'Inconclusive')]", :xpath)
     el.click
     wait_for_selector("search-query__submit-button", :id).click

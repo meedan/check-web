@@ -13,5 +13,6 @@
   "createMedia.link": "Ссылка",
   "createMedia.quote": "Высказывание",
   "createMedia.source": "Источник",
-  "createMedia.image": "Фотография"
+  "createMedia.image": "Фотография",
+  "createMedia.video": "Video"
 }

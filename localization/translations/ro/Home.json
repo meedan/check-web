@@ -5,5 +5,5 @@
   "home.invalidInvitation": "Ne pare rău, în timpul procesării invitației Dvs s-a produs o eroare. Vă rugăm să contactați {supportEmail}.",
   "home.invalidTeamInvitation": "Ne pare rău, echipa în care ați fost invitat nu a fost găsită. Contactați {supportEmail} dacă credeți că s-a produs o eroare.",
   "home.invalidNoInvitation": "Ne pare rău, invitația pe care ați primit nu a fost găsită. Contactați {supportEmail} dacă credeți că s-a produs o eroare.",
-  "home.invalidTokenInvitation": "Ne pare rău, invitația pe care ați primit nu este validă. Contactați {supportEmail} dacă credeți că s-a produs o eroare."
+  "home.invalidExpiredInvitation": "Sorry, the invitation you received was expired. Please contact {supportEmail} if you think this is an error."
 }
