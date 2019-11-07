@@ -7,6 +7,7 @@ require_relative './pages/login_page.rb'
 require_relative './pages/me_page.rb'
 require_relative './pages/page.rb'
 require_relative './api_helpers.rb'
+require_relative './smoke_spec.rb'
 
 CONFIG = YAML.load_file('config.yml')
 require_relative "#{CONFIG['app_name']}_spec.rb"
@@ -66,6 +67,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
   context "web" do
 
     include_examples "custom"
+    include_examples "smoke"
 
     it "should manage team members roles", bin4: true do
       # setup
@@ -2142,9 +2144,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Where?')).to be(true)
 
       # Search map
+      wait_for_selector("#task__response-geolocation-name")
       expect(@driver.page_source.include?('SSA')).to be(false)
       fill_field("#geolocationsearch", "Salvador")
-      wait_for_selector("menuitem")
+      wait_for_text_change(' ',"#geolocationsearch", :css, 30)
       expect(@driver.page_source.include?('SSA')).to be(true)
     end
 
