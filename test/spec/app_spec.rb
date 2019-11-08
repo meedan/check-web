@@ -846,28 +846,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(page.contains_string?('Tagged #command')).to be(true)
     end
 
-    it "should comment media as a command", bin4: true, quick:true do
-      api_create_team_project_and_claim_and_redirect_to_media_page
-      wait_for_selector('.create-task__add-button')
-      # First, verify that there isn't any comment
-      expect(@driver.page_source.include?('This is my comment')).to be(false)
-      old = wait_for_selector_list('.annotations__list-item')
-
-      # Add a comment as a command
-      fill_field('#cmd-input', '/comment This is my comment')
-      @driver.action.send_keys(:enter).perform
-      wait_for_selector(".annotation__card-content")
-      wait_for_size_change(old,'.annotations__list-item')
-
-      # Verify that comment was added to annotations list
-      expect(@driver.page_source.include?('This is my comment')).to be(true)
-
-      # Reload the page and verify that comment is still there
-      @driver.navigate.refresh
-      wait_for_selector('.annotations__list-item')
-      expect(@driver.page_source.include?('This is my comment')).to be(true)
-    end
-
     it "should flag media as a command", bin4: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
 
@@ -1115,24 +1093,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector_none('#confirm-dialog__checkbox')
       new = wait_for_size_change(old, 'team-members__delete-member', :class)
       expect(new < old).to be(true)
-    end
-
-    it "should update notes count after delete annotation", bin3: true do
-      api_create_team_project_and_claim_and_redirect_to_media_page
-      wait_for_selector(".media__annotations-column")
-      fill_field('#cmd-input', 'Test')
-      @driver.action.send_keys(:enter).perform
-      wait_for_selector('.annotation--comment')
-      notes_count_before = wait_for_selector('.media-detail__check-notes-count').text.gsub(/ .*/, '').to_i
-      expect(notes_count_before > 0).to be(true)
-      expect(@driver.page_source.include?('Comment deleted')).to be(false)
-      wait_for_selector('.annotation .menu-button').click
-      wait_for_selector('.annotation__delete').click
-      wait_for_selector('.annotation__deleted')
-      notes_count_after = wait_for_selector('.media-detail__check-notes-count').text.gsub(/ .*/, '').to_i
-      expect(notes_count_after > 0).to be(true)
-      expect(notes_count_after == notes_count_before).to be(true) # Count should be the same because the comment is replaced by the "comment deleted" annotation
-      expect(@driver.page_source.include?('Comment deleted')).to be(true)
     end
 
     it "should autorefresh project when media is created", bin1: true do

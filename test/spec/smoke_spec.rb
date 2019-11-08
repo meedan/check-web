@@ -67,6 +67,22 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('User With Email')).to be(true) 
   end
 
+  it "should create a new media using a link from Youtube", bin2: true do
+    api_create_team_project_and_link_and_redirect_to_media_page('https://www.youtube.com/watch?v=ykLgjhBnik0')
+    wait_for_selector(".media-detail__card-header")
+    wait_for_selector("svg[alt='youtube.com']")
+    expect(@driver.page_source.include?('First Draft')).to be(true)   
+    expect(@driver.page_source.include?('User With Email')).to be(true) 
+  end
+
+  it "should create a new media using a link from Instagram", bin3: true do
+    api_create_team_project_and_link_and_redirect_to_media_page('https://www.instagram.com/p/BRYob0dA1SC/')
+    wait_for_selector(".media-detail__card-header")
+    wait_for_selector("svg[alt='instagram.com']")
+    expect(@driver.page_source.include?('ironmaiden')).to be(true)  
+    expect(@driver.page_source.include?('User With Email')).to be(true) 
+  end
+
   it "should add a tag, reject duplicated and delete tag", bin3: true, quick: true  do
     page = api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector("add-annotation__insert-photo",:class)
@@ -86,20 +102,44 @@ shared_examples 'smoke' do
     expect(page.has_tag?(new_tag)).to be(false)
   end
 
-  it "should create a new media using a link from Youtube", bin2: true do
-    api_create_team_project_and_link_and_redirect_to_media_page('https://www.youtube.com/watch?v=ykLgjhBnik0')
-    wait_for_selector(".media-detail__card-header")
-    wait_for_selector("svg[alt='youtube.com']")
-    expect(@driver.page_source.include?('https://www.youtube.com/watch?v=ykLgjhBnik0')).to be(true)  
-    expect(@driver.page_source.include?('User With Email')).to be(true) 
+  it "should comment media as a command", bin4: true, quick:true do
+    api_create_team_project_and_claim_and_redirect_to_media_page
+    wait_for_selector('.create-task__add-button')
+    # First, verify that there isn't any comment
+    expect(@driver.page_source.include?('This is my comment')).to be(false)
+    old = wait_for_selector_list('.annotations__list-item')
+
+    # Add a comment as a command
+    fill_field('#cmd-input', '/comment This is my comment')
+    @driver.action.send_keys(:enter).perform
+    wait_for_selector(".annotation__card-content")
+    wait_for_size_change(old,'.annotations__list-item')
+
+    # Verify that comment was added to annotations list
+    expect(@driver.page_source.include?('This is my comment')).to be(true)
+
+    # Reload the page and verify that comment is still there
+    @driver.navigate.refresh
+    wait_for_selector('.annotations__list-item')
+    expect(@driver.page_source.include?('This is my comment')).to be(true)
   end
 
-  it "should create a new media using a link from Instagram", bin3: true do
-    api_create_team_project_and_link_and_redirect_to_media_page('https://www.instagram.com/p/BRYob0dA1SC/')
-    wait_for_selector(".media-detail__card-header")
-    wait_for_selector("svg[alt='instagram.com']")
-    expect(@driver.page_source.include?('ironmaiden')).to be(true)  
-    expect(@driver.page_source.include?('User With Email')).to be(true) 
+  it "should update notes count after delete annotation", bin3: true do
+    api_create_team_project_and_claim_and_redirect_to_media_page
+    wait_for_selector(".media__annotations-column")
+    fill_field('#cmd-input', 'Test')
+    @driver.action.send_keys(:enter).perform
+    wait_for_selector('.annotation--comment')
+    notes_count_before = wait_for_selector('.media-detail__check-notes-count').text.gsub(/ .*/, '').to_i
+    expect(notes_count_before > 0).to be(true)
+    expect(@driver.page_source.include?('Comment deleted')).to be(false)
+    wait_for_selector('.annotation .menu-button').click
+    wait_for_selector('.annotation__delete').click
+    wait_for_selector('.annotation__deleted')
+    notes_count_after = wait_for_selector('.media-detail__check-notes-count').text.gsub(/ .*/, '').to_i
+    expect(notes_count_after > 0).to be(true)
+    expect(notes_count_after == notes_count_before).to be(true) # Count should be the same because the comment is replaced by the "comment deleted" annotation
+    expect(@driver.page_source.include?('Comment deleted')).to be(true)
   end
   
 
