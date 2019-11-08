@@ -52,7 +52,7 @@ class AccountCard extends React.Component {
 
           <StyledAccountCardBody isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
             <div className="source-card__heading">
-              { MediaUtil.socialIcon(`${account.provider}.com`) /* TODO Remove tld assumption */ }
+              { MediaUtil.socialIcon(account.provider) }
               <FormattedMessage id="accountCard.providerAccount" defaultMessage="{provider} account" values={{ provider: account.provider }} />
             </div>
 
@@ -81,7 +81,7 @@ class AccountCard extends React.Component {
             <FormattedMessage id="mediaDetail.added" defaultMessage="Added {byUser}" values={{ byUser }} />
           </span>
           {account.created_at ?
-            <span className="media-detail__check-added-at">
+            <span className="media-detail__check-added-at" style={{ padding: `0 ${units(1)}` }}>
               <TimeBefore date={MediaUtil.createdAt({ published: account.created_at })} />
             </span>
             : null

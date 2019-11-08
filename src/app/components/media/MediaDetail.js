@@ -25,16 +25,15 @@ import {
   Row,
   FlexRow,
   units,
-  black87,
   black38,
   black05,
   defaultBorderRadius,
   Offset,
-  subheading1,
   Text,
   inProgressYellow,
   unstartedRed,
   completedGreen,
+  StyledHeading,
 } from '../../styles/js/shared';
 
 const messages = defineMessages({
@@ -58,16 +57,6 @@ const StyledProgress = styled.span`
   color: white;
   border-radius: ${defaultBorderRadius};
   background: ${props => props.bgColor};
-`;
-
-const StyledHeading = styled.h3`
-  font: ${subheading1};
-  font-weight: 500;
-  &,
-  a,
-  a:visited {
-    color: ${black87} !important;
-  }
 `;
 
 const StyledHeadingContainer = styled.span`
