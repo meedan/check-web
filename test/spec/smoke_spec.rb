@@ -141,7 +141,18 @@ shared_examples 'smoke' do
     expect(notes_count_after == notes_count_before).to be(true) # Count should be the same because the comment is replaced by the "comment deleted" annotation
     expect(@driver.page_source.include?('Comment deleted')).to be(true)
   end
-  
+
+  it "should set a verification status for one media" , bin1: true do
+    api_create_team_project_and_claim_and_redirect_to_media_page
+    wait_for_selector(".media-detail__card-header")
+    expect(@driver.page_source.include?('In Progress')).to be(false)
+    wait_for_selector(".media-status__label > div button svg").click
+    wait_for_selector(".media-status__menu-item")
+    wait_for_selector(".media-status__menu-item--in-progress").click
+    wait_for_selector_none(".media-status__menu-item")
+    expect(@driver.page_source.include?('In Progress')).to be(true)
+    
+  end
 
 end
 
