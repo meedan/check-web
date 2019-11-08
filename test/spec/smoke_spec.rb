@@ -7,7 +7,7 @@ shared_examples 'smoke' do
   include AppSpecHelpers
   include ApiHelpers
   
-  it "should sign up using e-mail", bin5: true, quick:true do
+  it "should sign up using e-mail", bin2: true do
     @driver.navigate.to @config['self_url']
     expect(@driver.page_source.include?('Please check your email to verify your account')).to be(false)
     email = 'userTest+' + Time.now.to_i.to_s + '@email.com'
@@ -51,11 +51,19 @@ shared_examples 'smoke' do
     expect(displayed_name == 'User With Email').to be(true)
   end
 
-  it "should create a new media using a link from Facebook", bin5: true, quick:true do
+  it "should create a new media using a link from Facebook", bin2: true do
     api_create_team_project_and_link_and_redirect_to_media_page('https://www.facebook.com/FirstDraftNews/posts/1808121032783161')
     wait_for_selector(".media-detail__card-header")
     wait_for_selector("svg[alt='facebook.com']")
     expect(@driver.page_source.include?('First Draft')).to be(true)   
+    expect(@driver.page_source.include?('User With Email')).to be(true) 
+  end
+
+  it "should create a new media using a link from Twitter", bin1: true do
+    api_create_team_project_and_link_and_redirect_to_media_page('https://twitter.com/TheWho/status/890135323216367616')
+    wait_for_selector(".media-detail__card-header")
+    wait_for_selector("svg[alt='twitter.com']")
+    expect(@driver.page_source.include?('The Who')).to be(true)
     expect(@driver.page_source.include?('User With Email')).to be(true) 
   end
 
