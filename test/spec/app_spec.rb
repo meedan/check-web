@@ -382,25 +382,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Edited media title')).to be(true)
     end
 
-    it "should add a tag, reject duplicated and delete tag", bin3: true, quick: true  do
-      page = api_create_team_project_and_claim_and_redirect_to_media_page
-      wait_for_selector("add-annotation__insert-photo",:class)
-      new_tag = Time.now.to_i.to_s
-      # Validate assumption that tag does not exist
-      expect(page.has_tag?(new_tag)).to be(false)
-      # Add tag
-      page.add_tag(new_tag)
-      expect(page.has_tag?(new_tag)).to be(true)
-      # Try to add duplicate
-      page.add_tag(new_tag)
-      @wait.until { @driver.page_source.include?('Validation') }
-      expect(page.contains_string?('Tag already exists')).to be(true)
-      # Verify that tag is not added and that error message is displayed
-      expect(page.tags.count(new_tag)).to be(1)
-      page.delete_tag(new_tag)
-      expect(page.has_tag?(new_tag)).to be(false)
-    end
-
     it "should display a default title for new media", bin1: true, quick:true do
       # Tweets
       media_pg = api_create_team_project_and_link_and_redirect_to_media_page('https://twitter.com/firstdraftnews/status/835587295394869249')
