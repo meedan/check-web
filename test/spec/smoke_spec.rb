@@ -94,6 +94,15 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('User With Email')).to be(true) 
   end
 
+  it "should create a new media using a link from Instagram", bin3: true do
+    api_create_team_project_and_link_and_redirect_to_media_page('https://www.instagram.com/p/BRYob0dA1SC/')
+    wait_for_selector(".media-detail__card-header")
+    wait_for_selector("svg[alt='instagram.com']")
+    expect(@driver.page_source.include?('ironmaiden')).to be(true)  
+    expect(@driver.page_source.include?('User With Email')).to be(true) 
+  end
+  
+
 end
 
 
