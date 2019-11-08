@@ -116,15 +116,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(el.value).to eq 'journalist'
     end
 
-    it "should login using Twitter", bin5: true, quick: true do
-      login_with_twitter
-      @driver.navigate.to @config['self_url'] + '/check/me'
-      wait_for_selector("#assignments-tab")
-      displayed_name = wait_for_selector('h1.source__name').text.upcase
-      expected_name = @config['twitter_name'].upcase
-      expect(displayed_name == expected_name).to be(true)
-    end
-
     it "should add a comment to a task", bin5: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       wait_for_selector('.create-task__add-button')
@@ -442,15 +433,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(project_pg.elements('.media__heading').map(&:text).select{ |x| x =~ /Facebook/ }.empty?).to be(false)
     end
 
-    it "should login using Slack", bin4: true, quick:true do
-      login_with_slack
-      @driver.navigate.to @config['self_url'] + '/check/me'
-      displayed_name = wait_for_selector('h1.source__name').text.upcase
-      expected_name = @config['slack_name'].upcase
-      expect(displayed_name == expected_name).to be(true)
-    end
-
-    it "should localize interface based on browser language", bin6: true do
+      it "should localize interface based on browser language", bin6: true do
       unless browser_capabilities['appiumVersion']
         caps = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { prefs: { 'intl.accept_languages' => 'fr' } })
         driver = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: caps)
@@ -484,26 +467,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.navigate.to @config['self_url'] + '/check/user/already-confirmed'
       title = wait_for_selector('.main-title')
       expect(title.text == 'Account Already Confirmed').to be(true)
-    end
-
-    it "should login using Facebook", bin5: true, quick:true do
-      login_pg = LoginPage.new(config: @config, driver: @driver).load
-      login_pg.login_with_facebook
-
-      me_pg = MePage.new(config: @config, driver: login_pg.driver).load
-      displayed_name = me_pg.title
-      expected_name = @config['facebook_name']
-      expect(displayed_name).to eq(expected_name)
-    end
-
-    it "should register and login using e-mail", bin5: true, quick:true do
-      login_pg = LoginPage.new(config: @config, driver: @driver).load
-      email, password = ['sysops+' + Time.now.to_i.to_s + '@meedan.com', '22345678']
-      login_pg.register_and_login_with_email(email: email, password: password)
-
-      me_pg = MePage.new(config: @config, driver: login_pg.driver).load # reuse tab
-      displayed_name = me_pg.title
-      expect(displayed_name == 'User With Email').to be(true)
     end
 
     it "should create a project for a team", bin3: true do
