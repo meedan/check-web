@@ -12,7 +12,7 @@ import MediaUtil from './MediaUtil';
 import LayerIcon from '../icons/Layer';
 import { getStatus, getStatusStyle } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
-import { black38, units, Offset, Row } from '../../styles/js/shared';
+import { black38, units, Offset, Row, StyledHeading } from '../../styles/js/shared';
 
 const messages = defineMessages({
   relatedCount: {
@@ -119,9 +119,11 @@ const SmallMediaCard = (props) => {
               <Content withImage={image}>
                 <UpperRow>
                   <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', maxHeight: units(5) }}>
-                    <Link to={{ pathname: mediaUrl, state: { query: props.query } }}>
-                      {MediaUtil.title(media, data, props.intl)}
-                    </Link>
+                    <StyledHeading>
+                      <Link to={{ pathname: mediaUrl, state: { query: props.query } }}>
+                        {MediaUtil.title(media, data, props.intl)}
+                      </Link>
+                    </StyledHeading>
                   </div>
                   { isParent ?
                     <span

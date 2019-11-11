@@ -221,12 +221,16 @@ const MediaUtil = {
   socialIcon(domain) {
     switch (domain) {
     case 'twitter.com':
+    case 'twitter':
       return <FaTwitter alt={domain} key="socialIcon__Twitter" />;
     case 'youtube.com':
+    case 'youtube':
       return <FaYoutubePlay alt={domain} key="socialIcon__Youtube" />;
     case 'instagram.com':
+    case 'instagram':
       return <FaInstagram alt={domain} key="socialIcon__Instagram" />;
     case 'facebook.com':
+    case 'facebook':
       return <FaFacebookSquare alt={domain} key="socialIcon__Facebook" />;
     default:
       return <MdLink alt="link" key="socialIcon__Link" />;

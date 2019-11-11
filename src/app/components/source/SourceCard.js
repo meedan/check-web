@@ -98,7 +98,7 @@ class SourceCard extends React.Component {
               <ul>
                 {source.accounts.edges.map(account => (
                   <li key={account.node.id} className="source-card__account-link">
-                    { MediaUtil.socialIcon(`${account.node.provider}.com`) /* TODO Remove tld assumption */ }
+                    { MediaUtil.socialIcon(account.node.provider) }
                     <a href={account.node.url} target="_blank" rel="noopener noreferrer">
                       { account.node.metadata.username || account.node.metadata.url }
                     </a>

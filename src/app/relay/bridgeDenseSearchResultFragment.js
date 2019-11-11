@@ -42,6 +42,33 @@ const bridgeDenseSearchResultFragment = Relay.QL`
         }
       }
     },
+    sources(first: $pageSize) {
+      edges {
+        node {
+          id,
+          dbid,
+          team {
+            slug
+          },
+          project_id,
+          source {
+            id,
+            dbid,
+            name,
+            image,
+            accounts(first: 10000) {
+              edges {
+                node {
+                  id,
+                  provider,
+                  url
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     number_of_results
   }
 `;
