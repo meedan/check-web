@@ -33,7 +33,6 @@ const BottomRow = styled.div`
 `;
 
 const SmallSourceCard = (props) => {
-  console.log('props', props);
   const { source, intl: { locale } } = props;
 
   const isRtl = rtlDetect.isRtlLang(locale);
