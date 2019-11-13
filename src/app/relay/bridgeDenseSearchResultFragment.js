@@ -12,6 +12,8 @@ const bridgeDenseSearchResultFragment = Relay.QL`
           domain,
           metadata,
           quote,
+          published,
+          updated_at,
           overridden,
           relationships { sources_count, targets_count },
           relationship { id, dbid, source_id, target_id },
@@ -51,6 +53,8 @@ const bridgeDenseSearchResultFragment = Relay.QL`
             slug
           },
           project_id,
+          published,
+          updated_at,
           source {
             id,
             dbid,
