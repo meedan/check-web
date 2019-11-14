@@ -13,6 +13,7 @@ const queryWithoutProjects = Relay.QL`
     translation_statuses,
     get_suggested_tags,
     dynamic_search_fields_json_schema,
+    rules_search_fields_json_schema,
     name,
     slug,
   }
@@ -26,6 +27,7 @@ const queryWithProjects = Relay.QL`
     translation_statuses,
     get_suggested_tags,
     dynamic_search_fields_json_schema,
+    rules_search_fields_json_schema,
     name,
     slug,
     projects(first: 10000) {
