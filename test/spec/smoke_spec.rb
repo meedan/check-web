@@ -448,6 +448,7 @@ shared_examples 'smoke' do
 #source section end
 
 #tasks section start
+
   it "should manage team tasks", bin6: true do
     # Create team and go to team page that should not contain any task
     team = "task-team-#{Time.now.to_i}"
