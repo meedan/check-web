@@ -208,6 +208,8 @@ const messages = defineMessages({
   },
 });
 
+const mediaTypes = ['claims', 'links', 'images', 'videos'];
+
 class SearchQueryComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -303,7 +305,7 @@ class SearchQueryComponent extends React.Component {
   }
 
   showIsSelected(show, state = this.state) {
-    const selected = state.query.show || ['claims', 'links', 'images', 'videos'];
+    const selected = state.query.show || [...mediaTypes];
     return selected.includes(show);
   }
 
@@ -404,14 +406,38 @@ class SearchQueryComponent extends React.Component {
     this.setState((prevState) => {
       const state = Object.assign({}, prevState);
       if (!state.query.show) {
-        state.query.show = ['claims', 'links', 'images', 'videos'];
+        state.query.show = [...mediaTypes];
       }
-      const i = state.query.show.indexOf(show);
-      if (i === -1) {
-        state.query.show.push(show);
+
+      const toggleSources = (t) => {
+        const i = state.query.show.indexOf(t);
+        if (i === -1) {
+          state.query.show = ['sources'];
+        } else {
+          state.query.show = [...mediaTypes];
+        }
+      };
+
+      const toggleMedia = (t) => {
+        const i = state.query.show.indexOf(t);
+        if (i === -1) {
+          state.query.show.push(t);
+        } else {
+          state.query.show.splice(i, 1);
+        }
+
+        const sourcesIndex = state.query.show.indexOf('sources');
+        if (sourcesIndex >= 0) {
+          state.query.show.splice(sourcesIndex, 1);
+        }
+      };
+
+      if (show === 'sources') {
+        toggleSources(show);
       } else {
-        state.query.show.splice(i, 1);
+        toggleMedia(show);
       }
+
       return { query: state.query };
     });
   }
@@ -525,7 +551,7 @@ class SearchQueryComponent extends React.Component {
 
   resetFilters() {
     this.searchInput.value = '';
-    this.setState({ query: {} });
+    this.setState({ query: { esoffset: 0 } });
   }
 
   doneButtonDisabled() {
@@ -562,6 +588,7 @@ class SearchQueryComponent extends React.Component {
         </Tooltip>
         <PageTitle prefix={title} skipTeam={false} team={this.props.team}>
           <Dialog
+            className="search__query-dialog"
             maxWidth="md"
             fullWidth
             open={this.state.dialogOpen}
