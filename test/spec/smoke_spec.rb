@@ -6,7 +6,7 @@ shared_examples 'smoke' do
 
   include AppSpecHelpers
   include ApiHelpers
-  
+
   it "should sign up using e-mail", bin2: true do
     @driver.navigate.to @config['self_url']
     expect(@driver.page_source.include?('Please check your email to verify your account')).to be(false)
@@ -55,8 +55,9 @@ shared_examples 'smoke' do
     api_create_team_project_and_link_and_redirect_to_media_page('https://www.facebook.com/FirstDraftNews/posts/1808121032783161')
     wait_for_selector(".media-detail__card-header")
     wait_for_selector("svg[alt='facebook.com']")
-    expect(@driver.page_source.include?('First Draft')).to be(true)   
-    expect(@driver.page_source.include?('User With Email')).to be(true) 
+    expect(@driver.page_source.include?('First Draft')).to be(true)
+    wait_for_selector(".media-detail__check-added-by")
+    expect(@driver.page_source.include?('User With Email')).to be(true)
   end
 
   it "should create a new media using a link from Twitter", bin1: true do
@@ -64,23 +65,26 @@ shared_examples 'smoke' do
     wait_for_selector(".media-detail__card-header")
     wait_for_selector("svg[alt='twitter.com']")
     expect(@driver.page_source.include?('The Who')).to be(true)
-    expect(@driver.page_source.include?('User With Email')).to be(true) 
+    wait_for_selector(".media-detail__check-added-by")
+    expect(@driver.page_source.include?('User With Email')).to be(true)
   end
 
   it "should create a new media using a link from Youtube", bin2: true do
     api_create_team_project_and_link_and_redirect_to_media_page('https://www.youtube.com/watch?v=ykLgjhBnik0')
     wait_for_selector(".media-detail__card-header")
     wait_for_selector("svg[alt='youtube.com']")
-    expect(@driver.page_source.include?('First Draft')).to be(true)   
-    expect(@driver.page_source.include?('User With Email')).to be(true) 
+    expect(@driver.page_source.include?('First Draft')).to be(true)
+    wait_for_selector(".media-detail__check-added-by")
+    expect(@driver.page_source.include?('User With Email')).to be(true)
   end
 
   it "should create a new media using a link from Instagram", bin3: true do
     api_create_team_project_and_link_and_redirect_to_media_page('https://www.instagram.com/p/BRYob0dA1SC/')
     wait_for_selector(".media-detail__card-header")
     wait_for_selector("svg[alt='instagram.com']")
-    expect(@driver.page_source.include?('ironmaiden')).to be(true)  
-    expect(@driver.page_source.include?('User With Email')).to be(true) 
+    expect(@driver.page_source.include?('ironmaiden')).to be(true)
+    wait_for_selector(".media-detail__check-added-by")
+    expect(@driver.page_source.include?('User With Email')).to be(true)
   end
 
   it "should add a tag, reject duplicated and delete tag", bin3: true, quick: true  do
@@ -151,16 +155,6 @@ shared_examples 'smoke' do
     wait_for_selector(".media-status__menu-item--in-progress").click
     wait_for_selector_none(".media-status__menu-item")
     expect(@driver.page_source.include?('In Progress')).to be(true)
-    
   end
 
 end
-
-
-
-
-
-
-
-
-
