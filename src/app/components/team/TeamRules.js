@@ -45,16 +45,12 @@ const StyledSchemaForm = styled.div`
     width: 160px !important;
   }
 
-  fieldset button[class*="remove"] {
+  fieldset fieldset + div > button {
     border: 0 !important;
     width: 32px !important;
   }
 
-  fieldset fieldset fieldset div[class*="input"] {
-    max-width: 470px;
-  }
-  
-  fieldset fieldset fieldset button[class*="remove"] {
+  fieldset fieldset fieldset fieldset + div > button {
     display: none !important;
   }
 `;
@@ -108,7 +104,7 @@ class TeamRulesComponent extends Component {
           <CardText>
             <StyledSchemaForm>
               <Form
-                schema={team.rules_json_schema}
+                schema={JSON.parse(team.rules_json_schema)}
                 formData={{ rules: this.state.rules }}
                 onChange={this.handleRulesUpdated.bind(this)}
               />
