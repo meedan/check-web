@@ -10,14 +10,15 @@
   "search.help": "<table>\n                        <tbody>\n                          <tr><td>+</td><td>Arbre + Feuille</td><td>Eléments comprenant \"Arbre\" ET \"Feuille\"</td></tr>\n                          <tr><td>|</td><td>Arbre | Feuille</td><td>Eléments comprenant \"Arbre\" OU \"Feuille\"</td></tr>\n                          <tr><td>()</td><td>Arbre + (Feuille | Branche)</td><td>Eléments comprenant \"Arbre\" et \"Feuille\" OU éléments comprenant \"Arbre\" et \"Branche\"\n                        </tbody>\n                      </table>\n                      <div>\n                        <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                          En savoir plus sur les techniques de recherche\n                        </a>\n                      </div>",
   "search.statusHeading": "Statut",
   "search.projectHeading": "Projet",
-  "status.categoriesHeading": "Catégories",
+  "status.categoriesHeading": "Tags de l'équipe",
   "search.sort": "Trier",
   "search.sortByCreated": "Création",
   "search.sortByRecentActivity": "Activité",
-  "search.show": "Afficher",
+  "search.show": "Type",
   "search.showClaims": "Déclarations",
   "search.showLinks": "Liens",
   "search.showImages": "Images",
   "search.showVideos": "Vidéos",
-  "search.showSources": "Sources"
+  "search.showSources": "Sources",
+  "search.rules": "Rules"
 }

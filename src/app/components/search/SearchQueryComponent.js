@@ -695,7 +695,7 @@ class SearchQueryComponent extends React.Component {
                   {this.showField('tags') && suggestedTags.length ?
                     <StyledFilterRow>
                       <h4>
-                        <FormattedMessage id="status.categoriesHeading" defaultMessage="Categories" />
+                        <FormattedMessage id="status.categoriesHeading" defaultMessage="Team Tags" />
                       </h4>
                       {suggestedTags.map(tag => (
                         <StyledFilterButton
@@ -794,7 +794,7 @@ class SearchQueryComponent extends React.Component {
 
                   {this.showField('show') ?
                     <StyledFilterRow className="search-query__sort-actions">
-                      <h4><FormattedMessage id="search.show" defaultMessage="Show" /></h4>
+                      <h4><FormattedMessage id="search.show" defaultMessage="Type" /></h4>
                       <StyledFilterButton
                         active={this.showIsSelected('claims')}
                         onClick={this.handleShowClick.bind(this, 'claims')}

@@ -1,0 +1,6 @@
+{
+  "teamRules.success": "Rules updated successfully!",
+  "teamRules.fail": "Error when trying to update rules.",
+  "teamRules.title": "Rules",
+  "teamRules.save": "Save"
+}
