@@ -45,7 +45,7 @@
   },
   {
     "id": "status.categoriesHeading",
-    "defaultMessage": "Categories"
+    "defaultMessage": "Team Tags"
   },
   {
     "id": "search.sort",
@@ -61,7 +61,7 @@
   },
   {
     "id": "search.show",
-    "defaultMessage": "Show"
+    "defaultMessage": "Type"
   },
   {
     "id": "search.showClaims",
