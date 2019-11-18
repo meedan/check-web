@@ -217,10 +217,10 @@ shared_examples 'smoke' do
   it "should move media to another project", bin2: true do
     claim = 'This is going to be moved'
     claim_name = case @config['app_name']
-    when 'bridge'
-      'quote'
-    when 'check'
-      'claim'
+      when 'bridge'
+        'quote'
+      when 'check'
+        'claim'
     end
 
     # Create a couple projects under the same team
@@ -764,14 +764,20 @@ shared_examples 'smoke' do
 
 #related items section start 
   it "should change the status to true and add manually a new related items" , bin1: true do
+    status = case @config['app_name']
+      when 'bridge'
+        '.media-status__menu-item--ready'
+      when 'check'
+        '.media-status__menu-item--verified'
+    end
     api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector(".media-detail__card-header")
-    expect(@driver.page_source.include?('In Progress')).to be(false)
+    expect(@driver.page_source.include?('Status set to ')).to be(false)
     wait_for_selector(".media-status__label > div button svg").click
     wait_for_selector(".media-status__menu-item")
-    wait_for_selector(".media-status__menu-item--verified").click
+    wait_for_selector(status).click
     wait_for_selector_none(".media-status__menu-item")
-    expect(@driver.page_source.include?('Verified')).to be(true)
+    expect(@driver.page_source.include?('Status set to ')).to be(true)
     expect(@driver.page_source.include?('Related Claim')).to be(false)
     press_button('.create-related-media__add-button')
     wait_for_selector('#create-media__quote').click
