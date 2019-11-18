@@ -763,21 +763,22 @@ shared_examples 'smoke' do
 #team section end
 
 #related items section start 
-  it "should change the status to true and add manually a new related items" , bin1: true do
-    status = case @config['app_name']
-      when 'bridge'
-        '.media-status__menu-item--ready'
-      when 'check'
-        '.media-status__menu-item--verified'
+  it "should change the status to true and add manually a new related items" , bin1: true do 
+    if @config['app_name'] == 'bridge'
+      status = '.media-status__menu-item--ready'
+      result = 'Translation status set to'
+    else
+      status = '.media-status__menu-item--verified'
+      result = 'Status set to'
     end
     api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector(".media-detail__card-header")
-    expect(@driver.page_source.include?('Status set to ')).to be(false)
+    expect(@driver.page_source.include?(result)).to be(false)
     wait_for_selector(".media-status__label > div button svg").click
     wait_for_selector(".media-status__menu-item")
     wait_for_selector(status).click
     wait_for_selector_none(".media-status__menu-item")
-    expect(@driver.page_source.include?('Status set to ')).to be(true)
+    expect(@driver.page_source.include?(result)).to be(true)
     expect(@driver.page_source.include?('Related Claim')).to be(false)
     press_button('.create-related-media__add-button')
     wait_for_selector('#create-media__quote').click
