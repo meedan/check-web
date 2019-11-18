@@ -743,7 +743,7 @@ shared_examples 'smoke' do
       expect(@driver.find_element(:class, "message").nil?).to be(false)
     }
     api_logout
-    @driver = new_driver(webdriver_url,browser_capabilities)
+    @driver = new_driver(@webdriver_url, @browser_capabilities)
     page = Page.new(config: @config, driver: @driver)
     page.go(@config['api_path'] + '/test/session?email='+user.email)
     #As the group creator, go to the members page and approve the joining request.
@@ -753,7 +753,7 @@ shared_examples 'smoke' do
     expect(el.length > 0).to be(true)
     api_logout
 
-    @driver = new_driver(webdriver_url,browser_capabilities)
+    @driver = new_driver(@webdriver_url,@browser_capabilities)
     page = Page.new(config: @config, driver: @driver)
     page.go(@config['api_path'] + '/test/session?email='+user2.email)
     page = MePage.new(config: @config, driver: @driver).load
@@ -762,25 +762,26 @@ shared_examples 'smoke' do
   end
 #team section end
 
-#related items section start
-  
-  it "should manage related items", bin5: true do
+#related items section start 
+  it "should change the status to true and add manually a new related items" , bin1: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
-    wait_for_selector('.create-related-media__add-button')
-    expect(@driver.page_source.include?('Child Claim')).to be(false)
+    wait_for_selector(".media-detail__card-header")
+    expect(@driver.page_source.include?('In Progress')).to be(false)
+    wait_for_selector(".media-status__label > div button svg").click
+    wait_for_selector(".media-status__menu-item")
+    wait_for_selector(".media-status__menu-item--verified").click
+    wait_for_selector_none(".media-status__menu-item")
+    expect(@driver.page_source.include?('Verified')).to be(true)
+    expect(@driver.page_source.include?('Related Claim')).to be(false)
     press_button('.create-related-media__add-button')
     wait_for_selector('#create-media__quote').click
-    fill_field('#create-media-quote-input', 'Child Claim')
-    fill_field('#create-media-quote-attribution-source-input', 'Child Claim Source')
+    wait_for_selector("#create-media-quote-input")
+    fill_field('#create-media-quote-input', 'Related Claim')
+    fill_field('#create-media-quote-attribution-source-input', 'Related Item')
     press_button('#create-media-dialog__submit-button')
-    wait_for_selector('.medias_item')
-    expect(@driver.page_source.include?('Child Claim')).to be(true)
-    wait_for_selector('.project-header__back-button').click
-    expect(@driver.page_source.include?('Child Claim')).to be(false)
-    expand = wait_for_selector('.card-with-border > div > div > div + button')
-    expand.click
-    wait_for_selector('#create-media__add-item')
-    expect(@driver.page_source.include?('Child Claim')).to be(true)
+    wait_for_selector_none("#create-media-quote-input")
+    wait_for_selector('.annotation__author-name')
+    expect(@driver.page_source.include?('Related Claim')).to be(true)
   end
 
 #related items section end

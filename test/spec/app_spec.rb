@@ -31,6 +31,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     $media_id = nil
     @team1_slug = 'team1'+Time.now.to_i.to_s
     @user_mail = 'sysops_' + Time.now.to_i.to_s + '@meedan.com'
+    @webdriver_url = webdriver_url
+    @browser_capabilities = browser_capabilities
+
+
     begin
       FileUtils.cp('./config.js', '../build/web/js/config.js')
     rescue
