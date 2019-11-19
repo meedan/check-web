@@ -91,6 +91,7 @@ module ApiHelpers
   def api_create_media_and_go_to_search_page
     media = api_create_team_project_and_link
     @driver.navigate.to media.full_url
+    sleep 10
     @driver.navigate.to @config['self_url'] + '/' + get_team + '/search'
     wait_for_selector(".search__results")
   end

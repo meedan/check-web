@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import Favicon from 'react-favicon';
@@ -26,6 +27,7 @@ import {
 import { layout, typography, localeAr, removeYellowAutocomplete } from '../styles/js/global';
 import { stringHelper } from '../customHelpers';
 import { mapGlobalMessage } from './MappedMessage';
+import MeRoute from '../relay/MeRoute';
 
 // Global styles
 injectGlobal([`
@@ -83,7 +85,7 @@ const messages = defineMessages({
   },
 });
 
-class Home extends Component {
+class HomeComponent extends Component {
   static routeSlug(children) {
     if (!(children && children.props.route)) {
       return null;
@@ -129,7 +131,7 @@ class Home extends Component {
 
   componentWillMount() {
     const path = window.location.pathname;
-    const routeSlug = Home.routeSlug(this.props.children);
+    const routeSlug = HomeComponent.routeSlug(this.props.children);
     if (this.canRedirect(routeSlug)) {
       window.storage.set('previousPage', path);
     }
@@ -148,7 +150,7 @@ class Home extends Component {
   setContext() {
     const context = new CheckContext(this);
     if (!this.state.token && !this.state.error) {
-      context.startSession();
+      context.startSession(this.props.user);
     }
     context.setContext();
     context.startNetwork(this.state.token);
@@ -188,7 +190,7 @@ class Home extends Component {
     }
 
     const { children } = this.props;
-    const routeSlug = Home.routeSlug(children);
+    const routeSlug = HomeComponent.routeSlug(children);
     const muiThemeWithRtl = getMuiTheme(merge(
       muiThemeWithoutRtl,
       { isRtl: rtlDetect.isRtlLang(this.props.intl.locale) },
@@ -319,18 +321,111 @@ class Home extends Component {
   }
 }
 
-Home.propTypes = {
+HomeComponent.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
 };
 
+HomeComponent.contextTypes = {
+  store: PropTypes.object,
+};
+
+HomeComponent.childContextTypes = {
+  setMessage: PropTypes.func,
+};
+
+const HomeContainer = Relay.createContainer(injectIntl(HomeComponent), {
+  fragments: {
+    user: () => Relay.QL`
+      fragment on User {
+        id
+        dbid
+        name
+        token
+        email
+        is_admin
+        accepted_terms
+        last_accepted_terms_at
+        name
+        login
+        permissions
+        profile_image
+        settings
+        source_id
+        team_ids
+        user_teams
+        current_project {
+          dbid
+          id
+          title
+          team {
+            id
+            dbid
+            avatar
+            name
+            slug
+          }
+        }
+        current_team {
+          id
+          dbid
+          avatar
+          name
+          slug
+          projects(first: 10000) {
+            edges {
+              node {
+                id
+                dbid
+                title
+                team {
+                  id
+                  dbid
+                  avatar
+                  name
+                  slug
+                }
+              }
+            }
+          }
+        }
+      }
+    `,
+  },
+});
+
+// eslint-disable-next-line react/no-multi-comp
+class Home extends Component {
+  componentWillMount() {
+    const context = new CheckContext(this);
+    context.startNetwork(null);
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  render() {
+    const route = new MeRoute();
+
+    return (
+      <Relay.RootContainer
+        Component={HomeContainer}
+        route={route}
+        renderFetched={data => (
+          <HomeContainer
+            location={this.props.location}
+            params={this.props.params}
+            {...data}
+          >
+            {this.props.children}
+          </HomeContainer>
+        )}
+      />
+    );
+  }
+}
+
 Home.contextTypes = {
   store: PropTypes.object,
 };
 
-Home.childContextTypes = {
-  setMessage: PropTypes.func,
-};
-
-export default injectIntl(Home);
+export default Home;
