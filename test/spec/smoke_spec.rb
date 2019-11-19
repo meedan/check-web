@@ -810,8 +810,10 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('Main Item')).to be(true)
     expand_card = wait_for_selector(".medias__item > div > div > div > div > button > div svg")
     expand_card.click
-    wait_for_selector("svg[role='presentation']")
-    wait_for_selector(".media-detail__buttons button").click
+    promote_button = wait_for_selector(".media-detail__buttons button  svg[role='presentation']")
+    promote_button.click
+    wait_for_selector_none(".media-detail__buttons button  svg[role='presentation']")
+    # wait_for_selector_none(promote_button)
     wait_for_selector('.project-header__back-button').click
     wait_for_selector("#create-media__add-item")
     medias = wait_for_selector_list('.medias__item')
