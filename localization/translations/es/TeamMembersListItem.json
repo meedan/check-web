@@ -1,12 +1,12 @@
 {
-  "TeamMembersListItem.confirmLeaveTitle": "¿Estás seguro(a) que quieres abandonar {team}?",
-  "TeamMembersListItem.confirmDeleteMemberTitle": "¿Estás seguro(a) que quieres eliminar {user}?",
-  "TeamMembersListItem.confirmEditMemberTitle": "¿Estás seguro(a) que quieres alterar el rol de {user}?",
-  "TeamMembersListItem.confirmLeaveBlurb": "Usted será eliminado(a) de {team}",
+  "TeamMembersListItem.confirmLeaveTitle": "¿Estás segura(o) que quieres abandonar {team}?",
+  "TeamMembersListItem.confirmDeleteMemberTitle": "¿Estás segura(o) que quieres eliminar {user}?",
+  "TeamMembersListItem.confirmEditMemberTitle": "¿Estás segura(o) que quieres cambiar el rol de {user}?",
+  "TeamMembersListItem.confirmLeaveBlurb": " Vas a ser eliminada(o) de {team}",
   "TeamMembersListItem.confirmDeleteMemberBlurb": "El usuario será eliminado de {team}",
   "TeamMembersListItem.deleteMember": "Eliminar miembro",
   "TeamMembersListItem.leaveTeam": "Abandonar equipo",
-  "TeamMembersListItem.singleOwner": "Antes de que pueda abandonar el equipo, asigne su propiedad a otro miembro.",
+  "TeamMembersListItem.singleOwner": "Antes de que puedas abandonar el equipo, por favor designa el rol de propietario a otro miembro.",
   "teamMembersListItem.assignmentsProgress": "{completedCount} completadas, {inProgressCount} en curso, {unstartedCount} sin comenzar",
   "TeamMembershipRequestsListItem.approve": "Aprobado",
   "TeamMembershipRequestsListItem.deny": "Rechazar"

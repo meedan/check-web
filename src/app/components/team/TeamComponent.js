@@ -6,6 +6,7 @@ import rtlDetect from 'rtl-detect';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import styled from 'styled-components';
 import TeamBots from './TeamBots';
+import TeamRules from './TeamRules';
 import TeamTags from './TeamTags';
 import TeamTasks from './TeamTasks';
 import TeamEmbed from './TeamEmbed';
@@ -189,6 +190,18 @@ class TeamComponent extends Component {
                 value="bots"
               />
               : null }
+            {UserUtil.myRole(this.getCurrentUser(), team.slug) === 'owner' ?
+              <Tab
+                className="team-settings__rules-tab"
+                label={
+                  <FormattedMessage
+                    id="teamSettings.rules"
+                    defaultMessage="Rules"
+                  />
+                }
+                value="rules"
+              />
+              : null }
           </Tabs>
         );
       }
@@ -212,6 +225,9 @@ class TeamComponent extends Component {
             : null }
           { isSettings && this.state.showTab === 'bots'
             ? <TeamBots team={team} direction={direction} />
+            : null }
+          { isSettings && this.state.showTab === 'rules'
+            ? <TeamRules team={team} direction={direction} />
             : null }
           { isSettings && this.state.showTab === 'embed'
             ? <TeamEmbed team={team} direction={direction} />

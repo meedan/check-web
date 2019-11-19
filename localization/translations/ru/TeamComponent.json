@@ -3,5 +3,6 @@
   "teamSettings.Tags": "Тэги",
   "teamSettings.embed": "Карточки",
   "teamSettings.integrations": "Интеграция",
-  "teamSettings.bots": "Боты"
+  "teamSettings.bots": "Боты",
+  "teamSettings.rules": "Rules"
 }

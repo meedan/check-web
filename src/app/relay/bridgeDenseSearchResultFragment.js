@@ -12,6 +12,8 @@ const bridgeDenseSearchResultFragment = Relay.QL`
           domain,
           metadata,
           quote,
+          published,
+          updated_at,
           overridden,
           relationships { sources_count, targets_count },
           relationship { id, dbid, source_id, target_id },
@@ -38,6 +40,35 @@ const bridgeDenseSearchResultFragment = Relay.QL`
             slug
             search_id,
             get_status_target_turnaround
+          }
+        }
+      }
+    },
+    sources(first: $pageSize) {
+      edges {
+        node {
+          id,
+          dbid,
+          team {
+            slug
+          },
+          project_id,
+          published,
+          updated_at,
+          source {
+            id,
+            dbid,
+            name,
+            image,
+            accounts(first: 10000) {
+              edges {
+                node {
+                  id,
+                  provider,
+                  url
+                }
+              }
+            }
           }
         }
       }

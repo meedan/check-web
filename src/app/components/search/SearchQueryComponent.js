@@ -208,6 +208,8 @@ const messages = defineMessages({
   },
 });
 
+const mediaTypes = ['claims', 'links', 'images', 'videos'];
+
 class SearchQueryComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -303,8 +305,13 @@ class SearchQueryComponent extends React.Component {
   }
 
   showIsSelected(show, state = this.state) {
-    const selected = state.query.show || ['claims', 'links', 'images', 'videos'];
+    const selected = state.query.show || [...mediaTypes];
     return selected.includes(show);
+  }
+
+  ruleIsSelected(rule, state = this.state) {
+    const selected = state.query.rules || [];
+    return selected.includes(rule);
   }
 
   dynamicIsSelected(field, value, state = this.state) {
@@ -379,18 +386,58 @@ class SearchQueryComponent extends React.Component {
     });
   }
 
+  handleRuleClick(rule) {
+    this.setState((prevState) => {
+      const state = Object.assign({}, prevState);
+      if (!state.query.rules) {
+        state.query.rules = [];
+      }
+      const i = state.query.rules.indexOf(rule);
+      if (i === -1) {
+        state.query.rules.push(rule);
+      } else {
+        state.query.rules.splice(i, 1);
+      }
+      return { query: state.query };
+    });
+  }
+
   handleShowClick(show) {
     this.setState((prevState) => {
       const state = Object.assign({}, prevState);
       if (!state.query.show) {
-        state.query.show = ['claims', 'links', 'images', 'videos'];
+        state.query.show = [...mediaTypes];
       }
-      const i = state.query.show.indexOf(show);
-      if (i === -1) {
-        state.query.show.push(show);
+
+      const toggleSources = (t) => {
+        const i = state.query.show.indexOf(t);
+        if (i === -1) {
+          state.query.show = ['sources'];
+        } else {
+          state.query.show = [...mediaTypes];
+        }
+      };
+
+      const toggleMedia = (t) => {
+        const i = state.query.show.indexOf(t);
+        if (i === -1) {
+          state.query.show.push(t);
+        } else {
+          state.query.show.splice(i, 1);
+        }
+
+        const sourcesIndex = state.query.show.indexOf('sources');
+        if (sourcesIndex >= 0) {
+          state.query.show.splice(sourcesIndex, 1);
+        }
+      };
+
+      if (show === 'sources') {
+        toggleSources(show);
       } else {
-        state.query.show.splice(i, 1);
+        toggleMedia(show);
       }
+
       return { query: state.query };
     });
   }
@@ -504,7 +551,7 @@ class SearchQueryComponent extends React.Component {
 
   resetFilters() {
     this.searchInput.value = '';
-    this.setState({ query: {} });
+    this.setState({ query: { esoffset: 0 } });
   }
 
   doneButtonDisabled() {
@@ -529,6 +576,9 @@ class SearchQueryComponent extends React.Component {
 
     const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
 
+    const hasRules = team.rules_search_fields_json_schema &&
+      Object.keys(team.rules_search_fields_json_schema.properties.rules.properties).length > 0;
+
     return (
       <div>
         <Tooltip title={this.props.intl.formatMessage(messages.filterItems)}>
@@ -538,6 +588,7 @@ class SearchQueryComponent extends React.Component {
         </Tooltip>
         <PageTitle prefix={title} skipTeam={false} team={this.props.team}>
           <Dialog
+            className="search__query-dialog"
             maxWidth="md"
             fullWidth
             open={this.state.dialogOpen}
@@ -644,7 +695,7 @@ class SearchQueryComponent extends React.Component {
                   {this.showField('tags') && suggestedTags.length ?
                     <StyledFilterRow>
                       <h4>
-                        <FormattedMessage id="status.categoriesHeading" defaultMessage="Categories" />
+                        <FormattedMessage id="status.categoriesHeading" defaultMessage="Team Tags" />
                       </h4>
                       {suggestedTags.map(tag => (
                         <StyledFilterButton
@@ -743,7 +794,7 @@ class SearchQueryComponent extends React.Component {
 
                   {this.showField('show') ?
                     <StyledFilterRow className="search-query__sort-actions">
-                      <h4><FormattedMessage id="search.show" defaultMessage="Show" /></h4>
+                      <h4><FormattedMessage id="search.show" defaultMessage="Type" /></h4>
                       <StyledFilterButton
                         active={this.showIsSelected('claims')}
                         onClick={this.handleShowClick.bind(this, 'claims')}
@@ -841,6 +892,33 @@ class SearchQueryComponent extends React.Component {
                       );
                     }))
                     : null}
+
+                  {hasRules && this.showField('rules') ?
+                    <StyledFilterRow className="search-query__sort-actions">
+                      <h4><FormattedMessage id="search.rules" defaultMessage="Rules" /></h4>
+                      {Object
+                        .keys(team.rules_search_fields_json_schema.properties.rules.properties)
+                        .map((id) => {
+                          console.log(id);
+                          const label = team.rules_search_fields_json_schema.properties
+                            .rules.properties[id].title;
+                          return (
+                            <StyledFilterButton
+                              key={id}
+                              active={this.ruleIsSelected(id)}
+                              onClick={this.handleRuleClick.bind(this, id)}
+                              className={bemClass(
+                                'search-query__filter-button',
+                                this.ruleIsSelected(id),
+                                '--selected',
+                              )}
+                            >
+                              {label}
+                            </StyledFilterButton>
+                          );
+                        })
+                      }
+                    </StyledFilterRow> : null}
 
                   <p style={{ textAlign: 'right' }}>
                     <FlatButton

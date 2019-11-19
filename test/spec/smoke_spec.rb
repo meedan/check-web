@@ -8,6 +8,7 @@ shared_examples 'smoke' do
   include ApiHelpers
   
   #Login section Start
+
   it "should sign up using e-mail", bin2: true do
     @driver.navigate.to @config['self_url']
     expect(@driver.page_source.include?('Please check your email to verify your account')).to be(false)
@@ -70,8 +71,9 @@ shared_examples 'smoke' do
     api_create_team_project_and_link_and_redirect_to_media_page('https://www.facebook.com/FirstDraftNews/posts/1808121032783161')
     wait_for_selector(".media-detail__card-header")
     wait_for_selector("svg[alt='facebook.com']")
-    expect(@driver.page_source.include?('First Draft')).to be(true)   
-    expect(@driver.page_source.include?('User With Email')).to be(true) 
+    expect(@driver.page_source.include?('First Draft')).to be(true)
+    wait_for_selector(".media-detail__check-added-by")
+    expect(@driver.page_source.include?('User With Email')).to be(true)
   end
 
   it "should create a new media using a link from Twitter", bin1: true do
@@ -79,23 +81,26 @@ shared_examples 'smoke' do
     wait_for_selector(".media-detail__card-header")
     wait_for_selector("svg[alt='twitter.com']")
     expect(@driver.page_source.include?('The Who')).to be(true)
-    expect(@driver.page_source.include?('User With Email')).to be(true) 
+    wait_for_selector(".media-detail__check-added-by")
+    expect(@driver.page_source.include?('User With Email')).to be(true)
   end
 
   it "should create a new media using a link from Youtube", bin2: true do
     api_create_team_project_and_link_and_redirect_to_media_page('https://www.youtube.com/watch?v=ykLgjhBnik0')
     wait_for_selector(".media-detail__card-header")
     wait_for_selector("svg[alt='youtube.com']")
-    expect(@driver.page_source.include?('First Draft')).to be(true)   
-    expect(@driver.page_source.include?('User With Email')).to be(true) 
+    expect(@driver.page_source.include?('First Draft')).to be(true)
+    wait_for_selector(".media-detail__check-added-by")
+    expect(@driver.page_source.include?('User With Email')).to be(true)
   end
 
   it "should create a new media using a link from Instagram", bin3: true do
     api_create_team_project_and_link_and_redirect_to_media_page('https://www.instagram.com/p/BRYob0dA1SC/')
     wait_for_selector(".media-detail__card-header")
     wait_for_selector("svg[alt='instagram.com']")
-    expect(@driver.page_source.include?('ironmaiden')).to be(true)  
-    expect(@driver.page_source.include?('User With Email')).to be(true) 
+    expect(@driver.page_source.include?('ironmaiden')).to be(true)
+    wait_for_selector(".media-detail__check-added-by")
+    expect(@driver.page_source.include?('User With Email')).to be(true)
   end
   
     it "should register and create a claim", bin4: true do
@@ -791,15 +796,27 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('Related Claim')).to be(true)
   end
 
+  it "should promote related item to main item" , bin1: true do
+    api_create_team_project_and_claim_and_redirect_to_media_page
+    wait_for_selector(".media-detail__card-header")
+    expect(@driver.page_source.include?('Main Item')).to be(false)
+    press_button('.create-related-media__add-button')
+    wait_for_selector('#create-media__quote').click
+    wait_for_selector("#create-media-quote-input")
+    fill_field('#create-media-quote-input', 'Main Item')
+    fill_field('#create-media-quote-attribution-source-input', 'Related Item')
+    press_button('#create-media-dialog__submit-button')
+    wait_for_selector_none("#create-media-quote-input")
+    expect(@driver.page_source.include?('Main Item')).to be(true)
+    expand_card = wait_for_selector(".medias__item > div > div > div > div > button > div svg")
+    expand_card.click
+    wait_for_selector("svg[role='presentation']")
+    wait_for_selector(".media-detail__buttons button").click
+    wait_for_selector('.project-header__back-button').click
+    wait_for_selector("#create-media__add-item")
+    medias = wait_for_selector_list('.medias__item')
+    expect(medias.length == 2).to be(true)
+  end
 #related items section end
 
 end
-
-
-
-
-
-
-
-
-

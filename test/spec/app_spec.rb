@@ -184,15 +184,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector("search-query__submit-button", :id).click
       wait_for_selector("source-card", :class)
       expect(@driver.page_source.include?("The Who's official Twitter page")).to be(true)
-      expect(@driver.page_source.include?('Happy birthday Mick')).to be(true)
-      old = @driver.find_elements(:class, "medias__item").length
+      expect(@driver.page_source.include?('Happy birthday Mick')).to be(false)
       wait_for_selector("search__open-dialog-button", :id).click
       wait_for_selector("//span[contains(text(), 'Links')]", :xpath).click
       wait_for_selector("search-query__submit-button", :id).click
-      wait_for_size_change(old, "medias__item", :class)
-      @wait.until { @driver.page_source.include?('@thewho') }
-      expect(@driver.page_source.include?("The Who's official Twitter page")).to be(true)
-      expect(@driver.page_source.include?('Happy birthday Mick')).to be(false)
+      wait_for_selector("media__heading", :class)
+      expect(@driver.page_source.include?("The Who's official Twitter page")).to be(false)
+      expect(@driver.page_source.include?('Happy birthday Mick')).to be(true)
     end
 
     it "should redirect to access denied page", bin1: true do
@@ -1325,11 +1323,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector("#search-query__submit-button").click
       wait_for_selector("source-card", :class)
       results = @driver.find_elements(:css, '.medias__item')
-      expect(results.size == 40).to be(true)
+      expect(results.size == 20).to be(true)
       old = results.size
       wait_for_selector(".search__next-page").click
       size = wait_for_size_change(old, '.medias__item')
-      expect(size == 2).to be(true)
+      expect(size == 1).to be(true)
     end
 
     it "should show teams at /check/teams", bin1: true do

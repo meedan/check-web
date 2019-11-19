@@ -23,6 +23,7 @@ class UpdateTeamMutation extends Relay.Mutation {
           get_slack_channel
           get_disclaimer
           get_embed_tasks
+          get_rules
         }
         public_team {
           avatar
@@ -47,6 +48,7 @@ class UpdateTeamMutation extends Relay.Mutation {
       slack_channel: this.props.slack_channel,
       disclaimer: this.props.disclaimer,
       embed_tasks: this.props.embed_tasks,
+      rules: this.props.rules,
     };
     Object.keys(options).forEach((key) => {
       if (options[key]) {
@@ -84,6 +86,7 @@ class UpdateTeamMutation extends Relay.Mutation {
               get_slack_channel,
               get_disclaimer,
               get_embed_tasks,
+              get_rules,
               contacts(first: 1) { edges { node { web, location, phone } } }
             }
           }`,

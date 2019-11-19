@@ -399,6 +399,16 @@ export const HeaderTitle = styled.h3`
   `}
 `;
 
+export const StyledHeading = styled.h3`
+  font: ${subheading1};
+  font-weight: 500;
+  &,
+  a,
+  a:visited {
+    color: ${black87} !important;
+  }
+`;
+
 export const HiddenOnMobile = styled.div`
    ${mediaQuery.handheld`
      display: none;

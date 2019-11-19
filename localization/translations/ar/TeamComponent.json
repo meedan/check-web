@@ -3,5 +3,6 @@
   "teamSettings.Tags": "العلامات",
   "teamSettings.embed": "تضمين",
   "teamSettings.integrations": "التكاملات",
-  "teamSettings.bots": "البوتات"
+  "teamSettings.bots": "البوتات",
+  "teamSettings.rules": "Rules"
 }
