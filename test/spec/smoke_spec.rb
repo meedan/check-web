@@ -772,9 +772,12 @@ shared_examples 'smoke' do
     if @config['app_name'] == 'bridge'
       status = '.media-status__menu-item--ready'
       result = 'Translation status set to'
+      annotation_class = 'annotation--translation_status'
     else
       status = '.media-status__menu-item--verified'
       result = 'Status set to'
+      annotation_class = 'annotation--verification_status'
+
     end
     api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector(".media-detail__card-header")
@@ -783,6 +786,7 @@ shared_examples 'smoke' do
     wait_for_selector(".media-status__menu-item")
     wait_for_selector(status).click
     wait_for_selector_none(".media-status__menu-item")
+    wait_for_selector(annotation_class)
     expect(@driver.page_source.include?(result)).to be(true)
     expect(@driver.page_source.include?('Related Claim')).to be(false)
     press_button('.create-related-media__add-button')
@@ -807,13 +811,13 @@ shared_examples 'smoke' do
     fill_field('#create-media-quote-attribution-source-input', 'Related Item')
     press_button('#create-media-dialog__submit-button')
     wait_for_selector_none("#create-media-quote-input")
+    wait_for_selector_list_size(".media-detail__card-header", 2)
     expect(@driver.page_source.include?('Main Item')).to be(true)
     expand_card = wait_for_selector(".medias__item > div > div > div > div > button > div svg")
     expand_card.click
     promote_button = wait_for_selector(".media-detail__buttons button  svg[role='presentation']")
     promote_button.click
     wait_for_selector_none(".media-detail__buttons button  svg[role='presentation']")
-    # wait_for_selector_none(promote_button)
     wait_for_selector('.project-header__back-button').click
     wait_for_selector("#create-media__add-item")
     medias = wait_for_selector_list('.medias__item')
