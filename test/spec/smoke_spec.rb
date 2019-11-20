@@ -823,6 +823,24 @@ shared_examples 'smoke' do
     medias = wait_for_selector_list('.medias__item')
     expect(medias.length == 2).to be(true)
   end
+
+  it "should create a claim related" , bin1: true do
+    api_create_team_project_and_claim_and_redirect_to_media_page
+    wait_for_selector(".media-detail__card-header")
+    expect(@driver.page_source.include?('Claim Related')).to be(false)
+    press_button('.create-related-media__add-button')
+    wait_for_selector('#create-media__quote').click
+    wait_for_selector("#create-media-quote-input")
+    fill_field('#create-media-quote-input', 'Claim Related')
+    press_button('#create-media-dialog__submit-button')
+    wait_for_selector_none("#create-media-quote-input")
+    wait_for_selector_list_size(".media-detail__card-header", 2)
+    expand_card = wait_for_selector(".medias__item > div > div > div > div > button > div svg")
+    expand_card.click
+    wait_for_selector(".media-detail__buttons button  svg[role='presentation']") #promote_button
+    expect(@driver.page_source.include?('Claim Related')).to be(true)
+  end
+
 #related items section end
 
 end
