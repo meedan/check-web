@@ -812,14 +812,19 @@ shared_examples 'smoke' do
     press_button('#create-media-dialog__submit-button')
     wait_for_selector_none("#create-media-quote-input")
     wait_for_selector_list_size(".media-detail__card-header", 2)
+    wait_for_selector("span[title='Related to another item']")
     expect(@driver.page_source.include?('Main Item')).to be(true)
     expand_card = wait_for_selector(".medias__item > div > div > div > div > button > div svg")
     expand_card.click
+    wait_for_selector(".media-detail__buttons button + button svg[role='presentation']") #break relationship
     promote_button = wait_for_selector(".media-detail__buttons button  svg[role='presentation']")
     promote_button.click
     wait_for_selector_none(".media-detail__buttons button  svg[role='presentation']")
+    wait_for_selector_none(".media-detail__buttons button + button svg[role='presentation']") #break relationship
     wait_for_selector('.project-header__back-button').click
     wait_for_selector("#create-media__add-item")
+    wait_for_selector("span[title='Related to another item']")
+    wait_for_selector("span[title='1 related item']")
     medias = wait_for_selector_list('.medias__item')
     expect(medias.length == 2).to be(true)
   end
