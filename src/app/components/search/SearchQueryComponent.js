@@ -237,11 +237,19 @@ class SearchQueryComponent extends React.Component {
     this.setState({ query });
   }
 
+  componentDidMount() {
+    this.subscribe();
+  }
+
   componentWillReceiveProps() {
     const query = searchQueryFromUrl();
     if (!deepEqual(this.state.query, query)) {
       this.setState({ query });
     }
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
   }
 
   getContext() {
@@ -559,6 +567,32 @@ class SearchQueryComponent extends React.Component {
     return deepEqual(this.state.query, query);
   }
 
+  subscribe() {
+    const { pusher } = this.getContext();
+    if (pusher) {
+      pusher.subscribe(this.props.team.pusher_channel).bind('tagtext_updated', 'SearchQueryComponent', (data, run) => {
+        if (this.getContext().clientSessionId !== data.actor_session_id) {
+          if (run) {
+            this.props.relay.forceFetch();
+            return true;
+          }
+          return {
+            id: `team-${this.props.team.dbid}`,
+            callback: this.props.relay.forceFetch,
+          };
+        }
+        return false;
+      });
+    }
+  }
+
+  unsubscribe() {
+    const { pusher } = this.getContext();
+    if (pusher) {
+      pusher.unsubscribe(this.props.team.pusher_channel);
+    }
+  }
+
   render() {
     const { team } = this.props;
     const { statuses } = teamStatuses(team);
@@ -567,9 +601,9 @@ class SearchQueryComponent extends React.Component {
       projects = team.projects.edges.sortp((a, b) =>
         a.node.title.localeCompare(b.node.title));
     }
-    const suggestedTags = team.get_suggested_tags
-      ? team.get_suggested_tags.split(',').map(tag => tag.trim())
-      : [];
+
+    const suggestedTags = team.teamwide_tags.edges.map(t => t.node.text);
+
     const title =
       this.props.title ||
       (this.props.project ? this.props.project.title : this.title(statuses, projects));

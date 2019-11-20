@@ -11,7 +11,14 @@ const queryWithoutProjects = Relay.QL`
     dbid,
     verification_statuses,
     translation_statuses,
-    get_suggested_tags,
+    teamwide_tags(first: 10000) {
+      edges {
+        node {
+          text
+        }
+      }
+    },
+    pusher_channel,
     dynamic_search_fields_json_schema,
     rules_search_fields_json_schema,
     name,
@@ -25,7 +32,14 @@ const queryWithProjects = Relay.QL`
     dbid,
     verification_statuses,
     translation_statuses,
-    get_suggested_tags,
+    teamwide_tags(first: 10000) {
+      edges {
+        node {
+          text
+        }
+      }
+    },
+    pusher_channel,
     dynamic_search_fields_json_schema,
     rules_search_fields_json_schema,
     name,
