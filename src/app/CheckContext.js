@@ -1,7 +1,7 @@
 import Relay from 'react-relay/classic';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { SET_CONTEXT } from './redux/ActionTypes';
-import { request } from './redux/actions';
+// import { request } from './redux/actions';
 import CheckNetworkLayer from './CheckNetworkLayer';
 
 // Verify if user is logged in, if so, start a session
@@ -58,51 +58,40 @@ class CheckContext {
     }));
   }
 
-  startSession() {
-    // Failed login
-    const failureCallback = (errorMessage) => {
-      this.caller.setState({ message: errorMessage, error: true, sessionStarted: true });
-    };
+  startSession(user) {
+    const newState = { sessionStarted: true };
 
-    // Successful login
-    const successCallback = (userData) => {
-      const newState = { sessionStarted: true };
+    let userData = user;
 
-      if (userData && userData.token) {
-        if (window.opener && config.extensionUrls) {
-          config.extensionUrls.forEach((uri) => {
-            if (!/^moz-extension/.test(uri) || navigator.userAgent.indexOf('Firefox') > -1) {
-              window.opener.postMessage(`loggedIn:${userData.token}`, uri);
-            }
-          });
-        }
-        newState.token = userData.token;
-        this.startNetwork(userData.token);
-      } else {
-        newState.error = true;
-      }
-
-      this.setContextStore({ currentUser: userData });
-
-      if (userData && !userData.accepted_terms) {
-        this.getContextStore().history.push('/check/user/terms-of-service');
-      } else {
-        this.maybeRedirect(this.caller.props.location.pathname, userData);
-        this.setContext();
-      }
-
-      this.caller.setState(newState);
-    };
-
-    let headers = {};
-    if (window.parent !== window) {
-      const token = window.location.search.replace(/^\?token=/, '');
-      if (token) {
-        headers = { 'X-Check-Token': token };
-      }
+    if (user) {
+      userData = Object.assign({}, user);
+      userData.teams = userData.user_teams;
     }
 
-    request('get', 'me', failureCallback, successCallback, null, headers);
+    if (userData && userData.token) {
+      if (window.opener && config.extensionUrls) {
+        config.extensionUrls.forEach((uri) => {
+          if (!/^moz-extension/.test(uri) || navigator.userAgent.indexOf('Firefox') > -1) {
+            window.opener.postMessage(`loggedIn:${userData.token}`, uri);
+          }
+        });
+      }
+      newState.token = userData.token;
+      this.startNetwork(userData.token);
+    } else {
+      newState.error = true;
+    }
+
+    this.setContextStore({ currentUser: userData });
+
+    if (userData && !userData.accepted_terms) {
+      this.getContextStore().history.push('/check/user/terms-of-service');
+    } else {
+      this.maybeRedirect(this.caller.props.location.pathname, userData);
+      this.setContext();
+    }
+
+    this.caller.setState(newState);
   }
 
   getTeamSlug() {
@@ -159,7 +148,11 @@ class CheckContext {
       this.redirectToPreviousPageOr('/check/teams/find');
       return;
     }
-    const project = userData.current_project || userCurrentTeam.projects[0];
+    let projectNode = null;
+    if (userCurrentTeam.projects.edges.length > 0) {
+      projectNode = userCurrentTeam.projects.edges[0].node;
+    }
+    const project = userData.current_project || projectNode;
     if (project && project.dbid) {
       this.setContextAndRedirect(project.team, project);
     } else {

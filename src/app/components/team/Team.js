@@ -15,6 +15,9 @@ const TeamContainer = Relay.createContainer(TeamComponent, {
 
 const Team = (props) => {
   const slug = props.params.team || '';
+  if (slug === '') {
+    return null;
+  }
   const route = new TeamRoute({ teamSlug: slug });
   return (
     <Relay.RootContainer
