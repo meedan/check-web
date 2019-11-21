@@ -587,6 +587,20 @@ class SearchQueryComponent extends React.Component {
         }
         return false;
       });
+
+      pusher.subscribe(this.props.team.pusher_channel).bind('project_updated', 'SearchQueryComponent', (data, run) => {
+        if (this.currentContext().clientSessionId !== data.actor_session_id) {
+          if (run) {
+            this.props.relay.forceFetch();
+            return true;
+          }
+          return {
+            id: `team-${this.props.team.dbid}`,
+            callback: this.props.relay.forceFetch,
+          };
+        }
+        return false;
+      });
     }
   }
 
