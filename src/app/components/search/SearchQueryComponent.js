@@ -229,7 +229,7 @@ class SearchQueryComponent extends React.Component {
 
   componentWillMount() {
     const context = this.getContext();
-    if (context.project && /\/search/.test(window.location.pathname)) {
+    if (context.getContextStore().project && /\/search/.test(window.location.pathname)) {
       context.setContextStore({ project: null });
     }
 
@@ -253,7 +253,11 @@ class SearchQueryComponent extends React.Component {
   }
 
   getContext() {
-    return new CheckContext(this).getContextStore();
+    return new CheckContext(this);
+  }
+
+  currentContext() {
+    return this.getContext().getContextStore();
   }
 
   handleApplyFilters() {
@@ -263,7 +267,7 @@ class SearchQueryComponent extends React.Component {
     const prefix = searchPrefixFromUrl();
     const url = urlFromSearchQuery(query, prefix);
 
-    this.getContext().history.push(url);
+    this.getContext().getContextStore().history.push(url);
   }
 
   handleSubmit(e) {
@@ -568,10 +572,10 @@ class SearchQueryComponent extends React.Component {
   }
 
   subscribe() {
-    const { pusher } = this.getContext();
+    const { pusher } = this.currentContext();
     if (pusher) {
       pusher.subscribe(this.props.team.pusher_channel).bind('tagtext_updated', 'SearchQueryComponent', (data, run) => {
-        if (this.getContext().clientSessionId !== data.actor_session_id) {
+        if (this.currentContext().clientSessionId !== data.actor_session_id) {
           if (run) {
             this.props.relay.forceFetch();
             return true;
@@ -587,7 +591,7 @@ class SearchQueryComponent extends React.Component {
   }
 
   unsubscribe() {
-    const { pusher } = this.getContext();
+    const { pusher } = this.currentContext();
     if (pusher) {
       pusher.unsubscribe(this.props.team.pusher_channel);
     }
