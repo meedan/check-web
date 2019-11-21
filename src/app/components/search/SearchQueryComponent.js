@@ -229,7 +229,7 @@ class SearchQueryComponent extends React.Component {
 
   componentWillMount() {
     const context = this.getContext();
-    if (context.getContextStore().project && /\/search/.test(window.location.pathname)) {
+    if (context.project && /\/search/.test(window.location.pathname)) {
       context.setContextStore({ project: null });
     }
 
@@ -253,7 +253,7 @@ class SearchQueryComponent extends React.Component {
   }
 
   getContext() {
-    return new CheckContext(this);
+    return new CheckContext(this).getContextStore();
   }
 
   handleApplyFilters() {
@@ -263,7 +263,7 @@ class SearchQueryComponent extends React.Component {
     const prefix = searchPrefixFromUrl();
     const url = urlFromSearchQuery(query, prefix);
 
-    this.getContext().getContextStore().history.push(url);
+    this.getContext().history.push(url);
   }
 
   handleSubmit(e) {
