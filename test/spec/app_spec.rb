@@ -1149,6 +1149,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should search for reverse images", bin2: true do
       api_create_team_project_and_link_and_redirect_to_media_page 'https://www.instagram.com/p/BRYob0dA1SC/'
+      card = wait_for_selector_list(".media-detail__card-header").length
+      expect(list_size == 1).to be(true)
       wait_for_selector('.annotation__reverse-image')
       expect(@driver.page_source.include?('This item contains at least one image. Click Search to look for potential duplicates on Google.')).to be(true)
       expect((@driver.current_url.to_s =~ /google/).nil?).to be(true)
