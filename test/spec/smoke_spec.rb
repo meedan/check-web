@@ -796,7 +796,7 @@ shared_examples 'smoke' do
     fill_field('#create-media-quote-attribution-source-input', 'Related Item')
     press_button('#create-media-dialog__submit-button')
     wait_for_selector_none("#create-media-quote-input")
-    wait_for_selector('.annotation__author-name')
+    wait_for_selector_list_size(".media-detail__card-header", 2)
     expect(@driver.page_source.include?('Related Claim')).to be(true)
   end
 
@@ -887,7 +887,7 @@ shared_examples 'smoke' do
     list_size = wait_for_selector_list(".media-detail__card-header").length
     expect(list_size == 1).to be(true)
   end
-
+  
   #related items section end
 
 end
