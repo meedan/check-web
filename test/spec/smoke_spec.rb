@@ -888,6 +888,24 @@ shared_examples 'smoke' do
     expect(list_size == 1).to be(true)
   end
   
+  it "should create a related image" , bin3: true do
+    api_create_team_project_and_claim_and_redirect_to_media_page
+    wait_for_selector(".media-detail__card-header")
+    expect(@driver.page_source.include?('Link Related')).to be(false)
+    press_button('.create-related-media__add-button')
+    wait_for_selector('#create-media__image').click
+    wait_for_selector("#media-url-container")
+    input = wait_for_selector('input[type=file]')
+    input.send_keys(File.join(File.dirname(__FILE__), 'test.png'))
+    press_button('#create-media-dialog__submit-button')
+    wait_for_selector_none("#media-url-container")
+    wait_for_selector_list_size(".media-detail__card-header", 2)
+    expand_card = wait_for_selector(".medias__item > div > div > div > div > button > div svg")
+    expand_card.click
+    wait_for_selector(".media-detail__buttons button  svg[role='presentation']") #promote_button
+    wait_for_selector(".media-detail__buttons button + button svg[role='presentation']")#break_relationship_button
+    expect(@driver.page_source.include?('Related item added by')).to be(true)
+  end
   #related items section end
 
 end
