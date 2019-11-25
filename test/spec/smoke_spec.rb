@@ -6,7 +6,7 @@ shared_examples 'smoke' do
 
   include AppSpecHelpers
   include ApiHelpers
-  
+
   #Login section Start
 
   it "should sign up using e-mail", bin2: true do
@@ -52,7 +52,7 @@ shared_examples 'smoke' do
     displayed_name = me_pg.title
     expect(displayed_name == 'User With Email').to be(true)
   end
-# Login section end  
+# Login section end
 
 #security section start
   it "should reset password", bin5: true do
@@ -102,7 +102,7 @@ shared_examples 'smoke' do
     wait_for_selector(".media-detail__check-added-by")
     expect(@driver.page_source.include?('User With Email')).to be(true)
   end
-  
+
     it "should register and create a claim", bin4: true do
       page = LoginPage.new(config: @config, driver: @driver).load
       page = page.register_and_login_with_email(email: "sysops+#{Time.now.to_i}#{rand(1000)}@meedan.com", password: @password)
@@ -126,7 +126,7 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('Item status unlocked by')).to be(true)
   end
 
-  
+
   it "should comment media as a command", bin4: true, quick:true do
     api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector('.create-task__add-button')
@@ -767,8 +767,8 @@ shared_examples 'smoke' do
   end
 #team section end
 
-#related items section start 
-  it "should change the status to true and add manually a new related items" , bin1: true do 
+#related items section start
+  it "should change the status to true and add manually a new related items" , bin1: true do
     if @config['app_name'] == 'bridge'
       status = '.media-status__menu-item--ready'
       result = 'Translation status set to'
@@ -786,7 +786,7 @@ shared_examples 'smoke' do
     wait_for_selector(".media-status__menu-item")
     wait_for_selector(status).click
     wait_for_selector_none(".media-status__menu-item")
-    wait_for_selector(annotation_class)
+    wait_for_selector(annotation_class, :class)
     expect(@driver.page_source.include?(result)).to be(true)
     expect(@driver.page_source.include?('Related Claim')).to be(false)
     press_button('.create-related-media__add-button')
