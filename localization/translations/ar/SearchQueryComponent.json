@@ -10,14 +10,15 @@
   "search.help": "<table>\n                        <tbody>\n                          <tr><td>+</td><td>شجرة + غصن</td><td>عناصر تحتوي على كل من شجرة وغصن</td></tr>\n                          <tr><td>|</td><td>شجرة | غصن</td><td>عناصر تحتوي على أي من شجرة أوغصن </td></tr>\n                          <tr><td>()</td><td>شجرة + (غصن | جذر)</td><td>عناصر تحتوي على شجرة وغصن أو شجرة وجذر </td></tr>\n                        </tbody>\n                      </table>\n                      <div>\n                        <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                          تعرف على المزيد حول تقنيات البحث\n                        </a>\n                      </div>",
   "search.statusHeading": "الحالة",
   "search.projectHeading": "المشروع",
-  "status.categoriesHeading": "الأقسام",
+  "status.categoriesHeading": "علامات الفريق",
   "search.sort": "ترتيب",
   "search.sortByCreated": "حسب تاريخ الإضافة",
   "search.sortByRecentActivity": "حسب تاريخ الأنشطة",
-  "search.show": "عرض",
+  "search.show": "النوع",
   "search.showClaims": "إدعاءات",
   "search.showLinks": "روابط",
   "search.showImages": "صور",
   "search.showVideos": "مقاطع الفيديو",
-  "search.showSources": "المصادر"
+  "search.showSources": "المصادر",
+  "search.rules": "Rules"
 }

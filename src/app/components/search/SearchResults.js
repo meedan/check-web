@@ -17,6 +17,7 @@ import MediaDetail from '../media/MediaDetail';
 import MediasLoading from '../media/MediasLoading';
 import SmallMediaCard from '../media/SmallMediaCard';
 import SourceCard from '../source/SourceCard';
+import SmallSourceCard from '../source/SmallSourceCard';
 import ProjectBlankState from '../project/ProjectBlankState';
 import { can } from '../Can';
 import { notify, safelyParseJSON } from '../../helpers';
@@ -406,7 +407,7 @@ class SearchResultsComponent extends React.Component {
             selected={this.state.selectedMedia.indexOf(item.id) > -1}
             onSelect={this.onSelect.bind(this)}
             style={{ margin: units(3) }}
-          /> : null
+          /> : <SmallSourceCard source={item} />
       ),
       list: (item, itemQuery) => (
         item.media ?

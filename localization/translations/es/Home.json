@@ -5,5 +5,5 @@
   "home.invalidInvitation": "Lo sentimos, se produjo un error al procesar tu invitación. por favor ponte en contacto con {supportEmail}.",
   "home.invalidTeamInvitation": "Lo sentimos, no encontramos el equipo al que has sido invitada o invitado. Si piensas que ha sido un error, por favor ponte en contacto con {supportEmail}.",
   "home.invalidNoInvitation": "Lo sentimos, no encontramos la invitación que recibiste. Si piensas que ha sido un error, por favor ponte en contacto con {supportEmail}.",
-  "home.invalidExpiredInvitation": "Lo sentimos, la invitación que recibiste ha vencido. Si piensas que ha sido un error, por favor ponte en contacto con {supportEmail}."
+  "home.invalidExpiredInvitation": "Lo sentimos, la invitación que recibiste ha vencido. Si piensas que ha sido un error, por favor ponte en contacto con nosotros {supportEmail}."
 }

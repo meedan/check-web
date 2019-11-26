@@ -129,7 +129,7 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
       const team = this._init.team();
       if (team !== '') {
         history.push(`/${team}/join`);
-      } else {
+      } else if (window.location.pathname !== '/check/forbidden') {
         history.push('/check/forbidden');
       }
     }
@@ -168,13 +168,22 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
   }
 
   _queryHeaders() {
-    return {
+    const headers = {
       ...this._init.headers,
       Accept: '*/*',
       'Content-Type': 'application/json',
       'X-Check-Team': encodeURIComponent(this._init.team()),
       'X-Timezone': Intl.DateTimeFormat().resolvedOptions().timeZone,
     };
+
+    if (window.parent !== window) {
+      const token = window.location.search.replace(/^\?token=/, '');
+      if (token) {
+        headers['X-Check-Token'] = token;
+      }
+    }
+
+    return headers;
   }
 
   _sendBatchQuery(requests) {
@@ -188,6 +197,7 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
       }))),
       headers: this._queryHeaders(),
       method: 'POST',
+      credentials: 'include',
     });
   }
 
@@ -201,6 +211,7 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
       }),
       headers: this._queryHeaders(),
       method: 'POST',
+      credentials: 'include',
     });
   }
 

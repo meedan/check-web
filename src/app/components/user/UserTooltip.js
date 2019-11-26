@@ -67,7 +67,7 @@ class UserTooltipComponent extends Component {
   static accountLink(account) {
     return (
       <StyledSocialLink key={account.id} href={account.url} target="_blank" rel="noopener noreferrer" style={{ paddingRight: units(1) }}>
-        { MediaUtil.socialIcon(`${account.provider}.com`) /* TODO Remove tld assumption */ }
+        { MediaUtil.socialIcon(account.provider) }
       </StyledSocialLink>
     );
   }

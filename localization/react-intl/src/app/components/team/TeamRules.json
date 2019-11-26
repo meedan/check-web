@@ -1,0 +1,18 @@
+[
+  {
+    "id": "teamRules.success",
+    "defaultMessage": "Rules updated successfully!"
+  },
+  {
+    "id": "teamRules.fail",
+    "defaultMessage": "Error when trying to update rules."
+  },
+  {
+    "id": "teamRules.title",
+    "defaultMessage": "Rules"
+  },
+  {
+    "id": "teamRules.save",
+    "defaultMessage": "Save"
+  }
+]

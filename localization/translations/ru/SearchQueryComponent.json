@@ -10,14 +10,15 @@
   "search.help": "<table>\n                              <tbody>\n                                <tr><td>+</td><td>Альфа + Бета</td><td>Результаты, где есть И Альфа, И Бета</td></tr>\n                                <tr><td>|</td><td>Альфа | Бета</td><td>Результаты, где есть Альфа ИЛИ Бета</td></tr>\n                                <tr><td>()</td><td>Альфа + (Бета | Гамма)</td><td>Результаты, где есть ИЛИ Альфа И Бета, ИЛИ Альфа И Гамма</td></tr>\n                              </tbody>\n                            </table>\n                            <div>\n                              <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                                Узнать больше о методах поиска\n                              </a>\n                            </div>",
   "search.statusHeading": "Статус",
   "search.projectHeading": "Проект",
-  "status.categoriesHeading": "Категории",
+  "status.categoriesHeading": "Team Tags",
   "search.sort": "Сортировка",
   "search.sortByCreated": "Дата создания",
   "search.sortByRecentActivity": "Недавняя активность",
-  "search.show": "Показать",
+  "search.show": "Type",
   "search.showClaims": "Claims",
   "search.showLinks": "Links",
   "search.showImages": "Images",
   "search.showVideos": "Videos",
-  "search.showSources": "Источники"
+  "search.showSources": "Источники",
+  "search.rules": "Rules"
 }

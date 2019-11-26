@@ -3,5 +3,6 @@
   "teamSettings.Tags": "Etiquetas",
   "teamSettings.embed": "Incrustar ",
   "teamSettings.integrations": "Integraciones",
-  "teamSettings.bots": "Bots"
+  "teamSettings.bots": "Bots",
+  "teamSettings.rules": "Rules"
 }
