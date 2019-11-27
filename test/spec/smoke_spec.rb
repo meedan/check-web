@@ -906,6 +906,138 @@ shared_examples 'smoke' do
     wait_for_selector(".media-detail__buttons button + button svg[role='presentation']")#break_relationship_button
     expect(@driver.page_source.include?('Related item added by')).to be(true)
   end
-  #related items section end
 
+  it "should not show source option to add related items" , bin3: true do
+    api_create_team_project_and_claim_and_redirect_to_media_page
+    wait_for_selector(".media-detail__card-header")
+    expect(@driver.page_source.include?('Photo')).to be(false)
+    press_button('.create-related-media__add-button')
+    wait_for_selector('#create-media__quote')
+    expect(@driver.page_source.include?('Photo')).to be(true)
+    expect(@driver.page_source.include?('Source')).to be(false)
+  end
+
+#related items section end
+
+#Embed section Start
+
+  it "should generate a embed from Youtube video", bin1: true do
+    api_create_team_project_and_link_and_redirect_to_media_page('https://www.youtube.com/watch?v=ykLgjhBnik0')
+    wait_for_selector(".media-detail__card-header")
+    wait_for_selector("svg[alt='youtube.com']")
+    wait_for_selector('.media-actions__icon').click
+    wait_for_selector('.media-actions__edit')
+    url = @driver.current_url.to_s
+    wait_for_selector('.media-actions__embed').click
+    wait_for_selector("#media-embed__actions")
+    expect(@driver.current_url.to_s == "#{url}/embed").to be(true)
+    el = wait_for_selector('#media-embed__actions-copy')
+    el.click
+    wait_for_selector("#media-embed__copy-code")
+    @driver.navigate.to 'https://paste.ubuntu.com/'
+    title = 'a embed from Youtube video' + Time.now.to_i.to_s
+    fill_field('#id_poster' , title)
+    el = wait_for_selector('#id_content')
+    el.send_keys(' ')
+    @driver.action.send_keys(:control, 'v').perform
+    wait_for_text_change(' ',"#id_content", :css)
+    expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)   
+  end
+
+  it "should generate a embed from Facebook post", bin1: true do
+    api_create_team_project_and_link_and_redirect_to_media_page('https://www.facebook.com/FirstDraftNews/posts/1808121032783161')
+    wait_for_selector(".media-detail__card-header")
+    wait_for_selector("svg[alt='facebook.com']")
+    wait_for_selector('.media-actions__icon').click
+    wait_for_selector('.media-actions__edit')
+    url = @driver.current_url.to_s
+    wait_for_selector('.media-actions__embed').click
+    wait_for_selector("#media-embed__actions")
+    expect(@driver.current_url.to_s == "#{url}/embed").to be(true)
+    el = wait_for_selector('#media-embed__actions-copy')
+    el.click
+    wait_for_selector("#media-embed__copy-code")
+    @driver.navigate.to 'https://paste.ubuntu.com/'
+    title = 'a embed from Facebook' + Time.now.to_i.to_s
+    fill_field('#id_poster' , title)
+    el = wait_for_selector('#id_content')
+    el.send_keys(' ')
+    @driver.action.send_keys(:control, 'v').perform
+    wait_for_text_change(' ',"#id_content", :css)
+    expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
+  end
+
+  it "should generate a embed from Twitter post", bin1: true do
+    api_create_team_project_and_link_and_redirect_to_media_page('https://twitter.com/TheWho/status/890135323216367616')
+    wait_for_selector(".media-detail__card-header")
+    wait_for_selector("svg[alt='twitter.com']")
+    wait_for_selector('.media-actions__icon').click
+    wait_for_selector('.media-actions__edit')
+    url = @driver.current_url.to_s
+    wait_for_selector('.media-actions__embed').click
+    wait_for_selector("#media-embed__actions")
+    expect(@driver.current_url.to_s == "#{url}/embed").to be(true)
+    el = wait_for_selector('#media-embed__actions-copy')
+    el.click
+    wait_for_selector("#media-embed__copy-code")
+    @driver.navigate.to 'https://paste.ubuntu.com/'
+    title = 'a embed from Twitter' + Time.now.to_i.to_s
+    fill_field('#id_poster' , title)
+    el = wait_for_selector('#id_content')
+    el.send_keys(' ')
+    @driver.action.send_keys(:control, 'v').perform
+    wait_for_text_change(' ',"#id_content", :css)
+    expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
+  end
+
+  it "should generate a embed from Instagram post", bin1: true do
+    api_create_team_project_and_link_and_redirect_to_media_page('https://www.instagram.com/p/BRYob0dA1SC/')
+    wait_for_selector(".media-detail__card-header")
+    wait_for_selector("svg[alt='instagram.com']")
+    wait_for_selector('.media-actions__icon').click
+    wait_for_selector('.media-actions__edit')
+    url = @driver.current_url.to_s
+    wait_for_selector('.media-actions__embed').click
+    wait_for_selector("#media-embed__actions")
+    expect(@driver.current_url.to_s == "#{url}/embed").to be(true)
+    el = wait_for_selector('#media-embed__actions-copy')
+    el.click
+    wait_for_selector("#media-embed__copy-code")
+    @driver.navigate.to 'https://paste.ubuntu.com/'
+    title = 'a embed from Instagram' + Time.now.to_i.to_s
+    fill_field('#id_poster' , title)
+    el = wait_for_selector('#id_content')
+    el.send_keys(' ')
+    @driver.action.send_keys(:control, 'v').perform
+    wait_for_text_change(' ',"#id_content", :css)
+    expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
+  end
+
+  it "should generate a embed from website link", bin1: true do
+    api_create_team_project_and_link_and_redirect_to_media_page('https://meedan.com')
+    wait_for_selector(".media-detail__card-header")
+    wait_for_selector('.media-actions__icon').click
+    wait_for_selector('.media-actions__edit')
+    url = @driver.current_url.to_s
+    wait_for_selector('.media-actions__embed').click
+    wait_for_selector("#media-embed__actions")
+    expect(@driver.current_url.to_s == "#{url}/embed").to be(true)
+    el = wait_for_selector('#media-embed__actions-copy')
+    el.click
+    wait_for_selector("#media-embed__copy-code")
+    @driver.navigate.to 'https://paste.ubuntu.com/'
+    title = 'a embed from Website link' + Time.now.to_i.to_s
+    fill_field('#id_poster' , title)
+    el = wait_for_selector('#id_content')
+    el.send_keys(' ')
+    @driver.action.send_keys(:control, 'v').perform
+    wait_for_text_change(' ',"#id_content", :css)
+    expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
+  end
+
+
+#Embed section end
+
+
+  
 end
