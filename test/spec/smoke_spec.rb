@@ -1035,9 +1035,41 @@ shared_examples 'smoke' do
     expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
   end
 
+  it "should generate a embed from manually from a image the status in progress" do
+    api_create_team_and_project
+    @driver.navigate.to @config['self_url']
+    wait_for_selector('#create-media__add-item').click
+    wait_for_selector("#create-media__image").click
+    input = wait_for_selector('input[type=file]')
+    input.send_keys(File.join(File.dirname(__FILE__), 'test.png'))
+    wait_for_selector("#create-media-dialog__submit-button").click
+    wait_for_selector(".media__heading a").click
+    wait_for_selector(".media-detail__card-header")
+    expect(@driver.page_source.include?('In Progress')).to be(false)
+    wait_for_selector(".media-status__label > div button svg").click
+    wait_for_selector(".media-status__menu-item")
+    wait_for_selector(".media-status__menu-item--in-progress").click
+    wait_for_selector_none(".media-status__menu-item")
+    expect(@driver.page_source.include?('In Progress')).to be(true)
+    wait_for_selector('.media-actions__icon').click
+    wait_for_selector('.media-actions__edit')
+    url = @driver.current_url.to_s
+    wait_for_selector('.media-actions__embed').click
+    wait_for_selector("#media-embed__actions")
+    expect(@driver.current_url.to_s == "#{url}/embed").to be(true)
+    el = wait_for_selector('#media-embed__actions-copy')
+    el.click
+    wait_for_selector("#media-embed__copy-code")
+    @driver.navigate.to 'https://paste.ubuntu.com/'
+    title = 'a embed from image' + Time.now.to_i.to_s
+    fill_field('#id_poster' , title)
+    el = wait_for_selector('#id_content')
+    el.send_keys(' ')
+    @driver.action.send_keys(:control, 'v').perform
+    wait_for_text_change(' ',"#id_content", :css)
+    expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
+  end
 
 #Embed section end
-
-
   
 end
