@@ -118,6 +118,7 @@ class HomeComponent extends Component {
       error: false,
       sessionStarted: false,
       open: false,
+      path: window.location.pathname,
     };
   }
 
@@ -176,8 +177,8 @@ class HomeComponent extends Component {
   handleDrawerToggle = () => this.setState({ open: !this.state.open });
 
   loginCallback() {
-    this.setState({ error: false });
-    window.location.assign(window.location.origin);
+    window.location.assign(this.state.path);
+    this.setState({ error: false, path: null });
   }
 
   resetMessage() {
