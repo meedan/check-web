@@ -90,7 +90,6 @@ class HomeComponent extends Component {
     if (!(children && children.props.route)) {
       return null;
     }
-    // TODO Other pages as needed
     if (/\/media\/:mediaId/.test(children.props.route.path)) {
       return 'media';
     }
@@ -131,11 +130,6 @@ class HomeComponent extends Component {
   }
 
   componentWillMount() {
-    const path = window.location.pathname;
-    const routeSlug = HomeComponent.routeSlug(this.props.children);
-    if (this.canRedirect(routeSlug)) {
-      window.storage.set('previousPage', path);
-    }
     this.setContext();
   }
 
@@ -160,19 +154,6 @@ class HomeComponent extends Component {
   getContext() {
     return new CheckContext(this).getContextStore();
   }
-
-  canRedirect = (routeSlug) => {
-    switch (routeSlug) {
-    case 'media':
-    case 'source':
-    case 'team':
-    case 'project':
-    case 'me':
-      return true;
-    default:
-      return false;
-    }
-  };
 
   handleDrawerToggle = () => this.setState({ open: !this.state.open });
 
