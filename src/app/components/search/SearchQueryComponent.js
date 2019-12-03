@@ -951,7 +951,6 @@ class SearchQueryComponent extends React.Component {
                       {Object
                         .keys(team.rules_search_fields_json_schema.properties.rules.properties)
                         .map((id) => {
-                          console.log(id);
                           const label = team.rules_search_fields_json_schema.properties
                             .rules.properties[id].title;
                           return (
