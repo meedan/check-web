@@ -915,6 +915,8 @@ shared_examples 'smoke' do
     bot_name= 'Smooch'
     install_bot(team, bot_name)
     wait_for_selector(".home--team")
+    card_member =  wait_for_selector(".team-members__member")
+    card_member.location_once_scrolled_into_view
     expect(@driver.page_source.include?('Smooch')).to be(true)
     wait_for_selector(".team__project").click
     wait_for_selector("#search__open-dialog-button")
