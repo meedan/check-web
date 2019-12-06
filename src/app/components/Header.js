@@ -77,7 +77,8 @@ class HeaderComponent extends React.Component {
     } = this.props;
 
     const path = window.location.pathname;
-    if (/^\/[^/]+\/project\/[0-9]+\/media\/[0-9]+\/tasks$/.test(path)) {
+    if (/^\/[^/]+\/project\/[0-9]+\/media\/[0-9]+\/tasks$/.test(path) ||
+        /^\/[^/]+\/dashboard/.test(path)) {
       return null;
     }
 

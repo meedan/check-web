@@ -44,6 +44,7 @@ const checkDenseSearchResultFragment = Relay.QL`
             locked
           }
           media {
+            type,
             url,
             metadata,
             quote,

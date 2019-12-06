@@ -82,7 +82,8 @@ class DrawerProjectsComponent extends Component {
       return props.team.projects.edges
         .sortp((a, b) => a.node.title.localeCompare(b.node.title))
         .map((p) => {
-          const projectPath = `/${props.team.slug}/project/${p.node.dbid}`;
+          const dashboardPath = /^\/[^/]+\/dashboard/.test(window.location.pathname) ? '/dashboard' : '';
+          const projectPath = `/${props.team.slug}${dashboardPath}/project/${p.node.dbid}`;
           return (
             <Link to={projectPath} key={p.node.dbid} className="project-list__link">
               <MenuItem

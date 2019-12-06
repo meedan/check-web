@@ -116,7 +116,7 @@ class HomeComponent extends Component {
       token: null,
       error: false,
       sessionStarted: false,
-      open: false,
+      open: true,
       path: window.location.pathname,
     };
   }
@@ -248,6 +248,8 @@ class HomeComponent extends Component {
 
     const user = this.getContext().currentUser;
 
+    const drawerOpen = /^\/[^/]+\/dashboard/.test(window.location.pathname) ? true : this.state.open;
+
     return (
       <MuiThemeProviderNext theme={muiThemeNext}>
         <MuiThemeProvider muiTheme={muiThemeWithRtl}>
@@ -286,9 +288,9 @@ class HomeComponent extends Component {
                 {children}
               </StyledContent>
             </StyledWrapper>
-            { this.state.open ? <DrawerNavigation
-              docked={false}
-              open={this.state.open}
+            { drawerOpen ? <DrawerNavigation
+              docked
+              open={drawerOpen}
               drawerToggle={this.handleDrawerToggle.bind(this)}
               onRequestChange={open => this.setState({ open })}
               loggedIn={loggedIn}

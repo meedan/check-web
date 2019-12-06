@@ -26,6 +26,7 @@ import AddTeamPage from './team/AddTeamPage';
 import JoinTeam from './team/JoinTeam';
 import Teams from './team/Teams';
 import Trash from './team/Trash';
+import Dashboard from './layout/Dashboard';
 import ProjectMediaSearch from './media/MediaSearch';
 import MediaEmbed from './media/MediaEmbed';
 import MediaTasks from './media/MediaTasks';
@@ -300,6 +301,8 @@ class Root extends Component {
                 <Route path=":team" component={Team} public />
                 <Route path=":team/edit" action="edit" component={Team} />
                 <Route path=":team/settings" action="settings" component={Team} />
+                <Route path=":team/dashboard" component={Dashboard} />
+                <Route path=":team/dashboard/project/:projectId(/:query)" component={Dashboard} public />
 
                 <Route path="*" component={NotFound} public />
               </Route>

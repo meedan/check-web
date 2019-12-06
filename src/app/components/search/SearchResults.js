@@ -19,6 +19,7 @@ import SmallMediaCard from '../media/SmallMediaCard';
 import SourceCard from '../source/SourceCard';
 import SmallSourceCard from '../source/SmallSourceCard';
 import ProjectBlankState from '../project/ProjectBlankState';
+import List from '../layout/List';
 import { can } from '../Can';
 import { notify, safelyParseJSON } from '../../helpers';
 import { black87, units, ContentColumn } from '../../styles/js/shared';
@@ -468,6 +469,8 @@ class SearchResultsComponent extends React.Component {
           })}
         </div>
       );
+
+      content = (<List searchResults={searchResults} />);
     }
 
     return (
