@@ -1,17 +1,5 @@
 [
   {
-    "id": "headerActions.tos",
-    "defaultMessage": "Terms"
-  },
-  {
-    "id": "headerActions.privacyPolicy",
-    "defaultMessage": "Privacy"
-  },
-  {
-    "id": "headerActions.about",
-    "defaultMessage": "About"
-  },
-  {
     "id": "teamMenu.teamSettings",
     "defaultMessage": "Team settings"
   },

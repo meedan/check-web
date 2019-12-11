@@ -12,7 +12,6 @@ import isEqual from 'lodash.isequal';
 import styled, { injectGlobal } from 'styled-components';
 import Intercom from 'react-intercom';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
-import Header from './Header';
 import LoginContainer from './LoginContainer';
 import BrowserSupport from './BrowserSupport';
 import CheckContext from '../CheckContext';
@@ -271,14 +270,6 @@ class HomeComponent extends Component {
               {...this.props}
             />
             <StyledWrapper className={bemClass('home', routeSlug, `--${routeSlug}`)}>
-              <Header
-                drawerToggle={this.handleDrawerToggle.bind(this)}
-                loggedIn={loggedIn}
-                inTeamContext={inTeamContext}
-                pageType={routeSlug}
-                currentUserIsMember={currentUserIsMember}
-                {...this.props}
-              />
               <Message
                 message={this.state.message}
                 onClick={this.resetMessage.bind(this)}

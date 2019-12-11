@@ -18,23 +18,23 @@ import {
 const messages = defineMessages({
   addProject: {
     id: 'createProject.addProject',
-    defaultMessage: 'Add project',
+    defaultMessage: 'Create list',
   },
   cardTitle: {
     id: 'createProject.title',
-    defaultMessage: 'Add a project',
+    defaultMessage: 'Add a list',
   },
   cardTitleBlank: {
     id: 'createProject.titleBlank',
-    defaultMessage: 'Add your first project',
+    defaultMessage: 'Add your first list',
   },
   newProjectName: {
     id: 'createProject.newProjectName',
-    defaultMessage: 'Project name',
+    defaultMessage: 'List name',
   },
   error: {
     id: 'createProject.error',
-    defaultMessage: 'Sorry, an error occurred while updating the project. Please try again and contact {supportEmail} if the condition persists.',
+    defaultMessage: 'Sorry, an error occurred while updating the list. Please try again and contact {supportEmail} if the condition persists.',
   },
 });
 

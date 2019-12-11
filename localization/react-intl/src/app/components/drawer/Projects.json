@@ -1,7 +1,7 @@
 [
   {
     "id": "projects.addProject",
-    "defaultMessage": "Add project"
+    "defaultMessage": "Add list"
   },
   {
     "id": "projects.dismiss",
@@ -12,11 +12,11 @@
     "defaultMessage": "No projects yet."
   },
   {
-    "id": "projects.projectsSubheading",
-    "defaultMessage": "Projects"
-  },
-  {
     "id": "projects.allClaims",
     "defaultMessage": "All claims"
+  },
+  {
+    "id": "projects.newList",
+    "defaultMessage": "+ New list"
   }
 ]

@@ -12,7 +12,6 @@ import rtlDetect from 'rtl-detect';
 import DrawerProjects from './drawer/Projects';
 import TeamAvatar from './team/TeamAvatar';
 import { stringHelper } from '../customHelpers';
-// import UserMenuItems from './UserMenuItems';
 import UserUtil from './user/UserUtil';
 import UserMenuRelay from '../relay/containers/UserMenuRelay';
 import CheckContext from '../CheckContext';
@@ -100,39 +99,6 @@ class DrawerNavigation extends Component {
       background-color: ${black05};
       padding: ${units(2)};
     `;
-
-    const TosMenuItem = (
-      <a
-        style={styles.drawerFooterLink}
-        target="_blank"
-        rel="noopener noreferrer"
-        href={stringHelper('TOS_URL')}
-      >
-        <FormattedMessage id="headerActions.tos" defaultMessage="Terms" />
-      </a>
-    );
-
-    const privacyMenuItem = (
-      <a
-        style={styles.drawerFooterLink}
-        target="_blank"
-        rel="noopener noreferrer"
-        href={stringHelper('PP_URL')}
-      >
-        <FormattedMessage id="headerActions.privacyPolicy" defaultMessage="Privacy" />
-      </a>
-    );
-
-    const aboutMenuItem = (
-      <a
-        style={styles.drawerFooterLink}
-        target="_blank"
-        rel="noopener noreferrer"
-        href={stringHelper('ABOUT_URL')}
-      >
-        <FormattedMessage id="headerActions.about" defaultMessage="About" />
-      </a>
-    );
 
     const checkLogo = <img width={units(8)} alt="Team Logo" src={stringHelper('LOGO_URL')} />;
 
@@ -231,12 +197,6 @@ class DrawerNavigation extends Component {
                   </Button>
                 </Link>
               )}
-
-              <div style={styles.drawerFooter}>
-                {TosMenuItem}
-                {privacyMenuItem}
-                {aboutMenuItem}
-              </div>
             </div>
           </div>
         </div>
