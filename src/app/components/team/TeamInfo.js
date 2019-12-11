@@ -3,9 +3,11 @@ import { FormattedMessage } from 'react-intl';
 import MdLock from 'material-ui/svg-icons/action/lock';
 import MdPublic from 'material-ui/svg-icons/social/public';
 import MdLink from 'material-ui/svg-icons/content/link';
+import IconEdit from 'material-ui/svg-icons/image/edit';
 import MdLocation from 'material-ui/svg-icons/communication/location-on';
 import MdPhone from 'material-ui/svg-icons/communication/phone';
 import TeamAvatar from './TeamAvatar';
+import { can } from '../Can';
 import ParsedText from '../ParsedText';
 import {
   StyledTwoColumns,
@@ -18,6 +20,7 @@ import {
 import {
   units,
   Row,
+  SmallerStyledIconButton,
 } from '../../styles/js/shared';
 
 const TeamInfo = (props) => {
@@ -84,6 +87,17 @@ const TeamInfo = (props) => {
         <div className="team__primary-info">
           <StyledName className="team__name">
             {team.name}
+            { can(team.permissions, 'update Team') ?
+              <SmallerStyledIconButton
+                className="team-menu__edit-team-button"
+                onClick={() => props.context.history.push(`/${props.team.slug}/edit`)}
+                tooltip={
+                  <FormattedMessage id="teamMenu.editTeam" defaultMessage="Edit team" />
+                }
+              >
+                <IconEdit />
+              </SmallerStyledIconButton> : null
+            }
           </StyledName>
           <StyledDescription>
             <ParsedText text={team.description} />

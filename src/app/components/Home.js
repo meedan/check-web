@@ -22,6 +22,7 @@ import {
   muiThemeWithoutRtl,
   muiThemeV1,
   gutterMedium,
+  units,
 } from '../styles/js/shared';
 import { layout, typography, localeAr, removeYellowAutocomplete } from '../styles/js/global';
 import { stringHelper } from '../customHelpers';
@@ -41,6 +42,7 @@ const StyledWrapper = styled.div`
   flex-direction: column;
   min-height: 100vh;
   position: relative;
+  margin-${props => (props.isRtl ? 'right' : 'left')}: ${units(32)};
 `;
 
 const StyledContent = styled.div`
@@ -170,11 +172,13 @@ class HomeComponent extends Component {
       return null;
     }
 
+    const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
+
     const { children } = this.props;
     const routeSlug = HomeComponent.routeSlug(children);
     const muiThemeWithRtl = getMuiTheme(merge(
       muiThemeWithoutRtl,
-      { isRtl: rtlDetect.isRtlLang(this.props.intl.locale) },
+      { isRtl },
     ));
     const muiThemeNext = createMuiTheme(muiThemeV1);
 
@@ -257,6 +261,7 @@ class HomeComponent extends Component {
                 user_id={user.dbid}
                 email={user.email}
                 name={user.name}
+                alignment={isRtl ? 'left' : 'right'}
               /> : null
             }
             <Favicon url={`/images/logo/${config.appName}.ico`} animated={false} />
@@ -269,7 +274,7 @@ class HomeComponent extends Component {
               currentUserIsMember={currentUserIsMember}
               {...this.props}
             />
-            <StyledWrapper className={bemClass('home', routeSlug, `--${routeSlug}`)}>
+            <StyledWrapper isRtl={isRtl} className={bemClass('home', routeSlug, `--${routeSlug}`)}>
               <Message
                 message={this.state.message}
                 onClick={this.resetMessage.bind(this)}
