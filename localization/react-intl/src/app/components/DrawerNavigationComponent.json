@@ -12,15 +12,15 @@
     "defaultMessage": "About"
   },
   {
-    "id": "headerActions.contactHuman",
-    "defaultMessage": "Contact"
+    "id": "teamMenu.teamSettings",
+    "defaultMessage": "Team settings"
   },
   {
-    "id": "headerActions.productGuides",
-    "defaultMessage": "Product Guides"
+    "id": "projects.trash",
+    "defaultMessage": "Trash"
   },
   {
-    "id": "headerActions.releaseNotes",
-    "defaultMessage": "Release Notes"
+    "id": "headerActions.signIn",
+    "defaultMessage": "Sign In"
   }
 ]

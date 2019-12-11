@@ -1,17 +1,23 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
+import Button from '@material-ui/core/Button';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import styled from 'styled-components';
+import IconSettings from 'material-ui/svg-icons/action/settings';
+import Delete from '@material-ui/icons/Delete';
+import rtlDetect from 'rtl-detect';
 import DrawerProjects from './drawer/Projects';
 import TeamAvatar from './team/TeamAvatar';
 import { stringHelper } from '../customHelpers';
-import UserMenuItems from './UserMenuItems';
+// import UserMenuItems from './UserMenuItems';
 import UserUtil from './user/UserUtil';
+import UserMenuRelay from '../relay/containers/UserMenuRelay';
 import CheckContext from '../CheckContext';
 import {
+  AlignOpposite,
   Row,
   Offset,
   OffsetBothSides,
@@ -20,6 +26,7 @@ import {
   black05,
   units,
   caption,
+  SmallerStyledIconButton,
 } from '../styles/js/shared';
 
 // TODO Fix a11y issues
@@ -35,6 +42,14 @@ class DrawerNavigation extends Component {
 
   getCurrentUser() {
     return new CheckContext(this).getContextStore().currentUser;
+  }
+
+  getHistory() {
+    return new CheckContext(this).getContextStore().history;
+  }
+
+  handleClickTeamSettings() {
+    this.getHistory().push(`/${this.props.team.slug}/settings`);
   }
 
   handleAddProj(e) {
@@ -54,7 +69,7 @@ class DrawerNavigation extends Component {
 
     const { currentUserIsMember } = this.props;
 
-    const drawerHeaderHeight = units(14);
+    const drawerHeaderHeight = units(11);
 
     const styles = {
       drawerFooter: {
@@ -119,49 +134,6 @@ class DrawerNavigation extends Component {
       </a>
     );
 
-    const contactMenuItem = (
-      <a
-        style={styles.drawerFooterLink}
-        target="_blank"
-        rel="noopener noreferrer"
-        href={stringHelper('CONTACT_HUMAN_URL')}
-      >
-        <FormattedMessage id="headerActions.contactHuman" defaultMessage="Contact" />
-      </a>
-    );
-
-    const productGuidesMenuItem = (
-      <a
-        key="drawer.productGuidesMenuItem"
-        style={styles.drawerFooterLink}
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://medium.com/meedan-user-guides"
-      >
-        <MenuItem
-          primaryText={
-            <FormattedMessage id="headerActions.productGuides" defaultMessage="Product Guides" />
-          }
-        />
-      </a>
-    );
-
-    const releaseNotesMenuItem = (
-      <a
-        key="drawer.releaseNotesMenuItem"
-        style={styles.drawerFooterLink}
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://docs.google.com/document/d/1xihUAGdHRgbCdLejqD9cjVMIEekYisObFGCdDcZGkZI"
-      >
-        <MenuItem
-          primaryText={
-            <FormattedMessage id="headerActions.releaseNotes" defaultMessage="Release Notes" />
-          }
-        />
-      </a>
-    );
-
     const checkLogo = <img width={units(8)} alt="Team Logo" src={stringHelper('LOGO_URL')} />;
 
     const userIsOwner =
@@ -169,29 +141,53 @@ class DrawerNavigation extends Component {
       inTeamContext &&
       UserUtil.myRole(this.getCurrentUser(), this.props.team.slug) === 'owner';
 
+    const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
+    const fromDirection = isRtl ? 'right' : 'left';
+
+    const saveCurrentPage = () => {
+      if (window.location.pathname !== '/') {
+        window.storage.set('previousPage', window.location.pathname);
+      }
+    };
+
     return (
       <Drawer {...this.props}>
         <div onClick={drawerToggle}>
 
           {inTeamContext ?
             <DrawerHeader>
-              <Link
-                className="team-header__drawer-team-link"
-                style={{ cursor: 'pointer' }}
-                to={`/${this.props.team.slug}/`}
-              >
-                <Row>
-                  <TeamAvatar
-                    size={units(7)}
-                    team={this.props.team}
-                  />
-                  <OffsetBothSides>
-                    <HeaderTitle>
-                      {this.props.team.name}
-                    </HeaderTitle>
-                  </OffsetBothSides>
-                </Row>
-              </Link>
+              <Row>
+                <Link
+                  className="team-header__drawer-team-link"
+                  style={{ cursor: 'pointer' }}
+                  to={`/${this.props.team.slug}/`}
+                >
+                  <Row>
+                    <TeamAvatar
+                      size={units(7)}
+                      team={this.props.team}
+                    />
+                    <OffsetBothSides>
+                      <HeaderTitle>
+                        {this.props.team.name}
+                      </HeaderTitle>
+                    </OffsetBothSides>
+                  </Row>
+                </Link>
+                <AlignOpposite fromDirection={fromDirection}>
+                  { currentUserIsMember ?
+                    <SmallerStyledIconButton
+                      className="team-menu__team-settings-button"
+                      onClick={this.handleClickTeamSettings.bind(this)}
+                      tooltip={
+                        <FormattedMessage id="teamMenu.teamSettings" defaultMessage="Team settings" />
+                      }
+                    >
+                      <IconSettings />
+                    </SmallerStyledIconButton> : null
+                  }
+                </AlignOpposite>
+              </Row>
             </DrawerHeader> :
             <DrawerHeader>
               <Row style={{ alignItems: 'flex-start', justifyContent: 'space-between' }}>
@@ -213,18 +209,33 @@ class DrawerNavigation extends Component {
                 />
                 : null}
             </div>
+            { inTeamContext ?
+              <Link to={`/${this.props.team.slug}/trash`} className="project-list__link-trash">
+                <MenuItem
+                  className="project-list__item-trash"
+                  primaryText={<FormattedMessage id="projects.trash" defaultMessage="Trash" />}
+                  leftIcon={<Delete />}
+                />
+              </Link>
+              : null }
             <div className="drawer__footer">
-              {loggedIn ? <div><UserMenuItems hideContactMenuItem {...this.props} /></div> : null}
 
-              {productGuidesMenuItem}
-
-              {releaseNotesMenuItem}
+              {loggedIn ? <div><UserMenuRelay {...this.props} /></div> : (
+                <Link to="/">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={saveCurrentPage}
+                  >
+                    <FormattedMessage defaultMessage="Sign In" id="headerActions.signIn" />
+                  </Button>
+                </Link>
+              )}
 
               <div style={styles.drawerFooter}>
                 {TosMenuItem}
                 {privacyMenuItem}
                 {aboutMenuItem}
-                {contactMenuItem}
               </div>
             </div>
           </div>
@@ -238,4 +249,4 @@ DrawerNavigation.contextTypes = {
   store: PropTypes.object,
 };
 
-export default DrawerNavigation;
+export default injectIntl(DrawerNavigation);

@@ -88,10 +88,11 @@ class DrawerProjectsComponent extends Component {
               <MenuItem
                 className="project-list__item"
                 primaryText={
-                  <Text ellipsis>
+                  <Text maxWidth="85%" ellipsis>
                     {p.node.title}
                   </Text>
                 }
+                secondaryText={String(p.node.medias_count)}
               />
             </Link>
           );
@@ -112,7 +113,7 @@ class DrawerProjectsComponent extends Component {
 
     const styles = {
       projectsList: {
-        height: 'calc(100vh - 364px)',
+        height: 'calc(100vh - 412px)',
         overflow: 'auto',
       },
     };
@@ -150,6 +151,12 @@ class DrawerProjectsComponent extends Component {
             :
             <div style={styles.projectsList}>
               <InfiniteScroll hasMore loadMore={this.loadMore.bind(this)} useWindow={false}>
+                <Link to={`/${props.team.slug}/search`} className="project-list__link-all">
+                  <MenuItem
+                    className="project-list__item-all"
+                    primaryText={<FormattedMessage id="projects.allClaims" defaultMessage="All claims" />}
+                  />
+                </Link>
                 {projectList}
               </InfiniteScroll>
             </div>
@@ -178,6 +185,7 @@ const DrawerProjectsContainer = Relay.createContainer(injectIntl(DrawerProjectsC
               dbid,
               id,
               search_id,
+              medias_count,
             }
           }
         }

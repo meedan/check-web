@@ -14,5 +14,9 @@
   {
     "id": "projects.projectsSubheading",
     "defaultMessage": "Projects"
+  },
+  {
+    "id": "projects.allClaims",
+    "defaultMessage": "All claims"
   }
 ]

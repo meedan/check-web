@@ -8,7 +8,7 @@ import CheckContext from '../../CheckContext';
 import ParsedText from '../ParsedText';
 import MediasLoading from '../media/MediasLoading';
 import Search from '../search/Search';
-import { units } from '../../styles/js/shared';
+import { units, display1, ContentColumn } from '../../styles/js/shared';
 import UpdateUserMutation from '../../relay/mutations/UpdateUserMutation';
 
 const ProjectWrapper = styled.div`
@@ -81,11 +81,16 @@ class ProjectComponent extends Component {
     return (
       <PageTitle prefix={project.title} skipTeam={false} team={this.currentContext().team}>
         <ProjectWrapper className="project">
-          {project.description && project.description.trim().length ?
-            <div style={{ margin: `0 ${units(1)} ${units(1)}` }} className="project__description">
-              <ParsedText text={project.description} />
+          <ContentColumn wide={view === 'dense'}>
+            <div style={{ font: display1 }} className="project__title">
+              <ParsedText text={project.title} />
             </div>
-            : null}
+            {project.description && project.description.trim().length ?
+              <div style={{ margin: `0 ${units(1)} ${units(1)}` }} className="project__description">
+                <ParsedText text={project.description} />
+              </div>
+              : null}
+          </ContentColumn>
           <Search
             team={project.team.slug}
             project={project}

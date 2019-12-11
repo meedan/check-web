@@ -262,6 +262,14 @@ class HomeComponent extends Component {
             }
             <Favicon url={`/images/logo/${config.appName}.ico`} animated={false} />
             <BrowserSupport />
+            <DrawerNavigation
+              variant="persistent"
+              docked
+              loggedIn={loggedIn}
+              inTeamContext={inTeamContext}
+              currentUserIsMember={currentUserIsMember}
+              {...this.props}
+            />
             <StyledWrapper className={bemClass('home', routeSlug, `--${routeSlug}`)}>
               <Header
                 drawerToggle={this.handleDrawerToggle.bind(this)}
@@ -286,16 +294,6 @@ class HomeComponent extends Component {
                 {children}
               </StyledContent>
             </StyledWrapper>
-            { this.state.open ? <DrawerNavigation
-              docked={false}
-              open={this.state.open}
-              drawerToggle={this.handleDrawerToggle.bind(this)}
-              onRequestChange={open => this.setState({ open })}
-              loggedIn={loggedIn}
-              inTeamContext={inTeamContext}
-              currentUserIsMember={currentUserIsMember}
-              {...this.props}
-            /> : null }
           </span>
         </MuiThemeProvider>
       </MuiThemeProviderNext>
