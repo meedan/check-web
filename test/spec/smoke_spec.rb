@@ -806,7 +806,7 @@ shared_examples 'smoke' do
     wait_for_selector("span[title='Related to another item']")
     wait_for_selector("span[title='1 related item']")
     medias = wait_for_selector_list('.medias__item')
-    expect(medias.length == 2).to be(true)
+    expect(medias.length == 1).to be(true)
   end
 
   # it "should create a related claim, delete the main item and verify if the related item was deleted too" , bin1: true do
