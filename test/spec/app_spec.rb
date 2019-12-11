@@ -911,9 +911,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('#search-query__cancel-button').click
       wait_for_selector('.card-with-border > div > div > div + button svg').click
       wait_for_selector('.media-actions__icon').click
-      wait_for_selector('.media-actions__send-to-trash').click
+      el = wait_for_selector('.media-actions__send-to-trash')
+      el.location_once_scrolled_into_view
+      el.click
+      wait_for_selector_none('.media-actions__send-to-trash')
+      wait_for_selector(".message")
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/trash'
-      wait_for_selector('.medias__item')
+      wait_for_selector(".media-detail__card-header")
       trash_button = wait_for_selector('.trash__empty-trash-button')
       expect(trash_button.nil?).to be(false)
       expect(@driver.page_source.include?('My search result')).to be(true)

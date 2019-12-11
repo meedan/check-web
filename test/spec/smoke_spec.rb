@@ -568,7 +568,7 @@ shared_examples 'smoke' do
   end
 
   it "should add a comment to a task", bin5: true do
-    media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
+    api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector('.create-task__add-button')
 
     # Create a task
@@ -581,7 +581,8 @@ shared_examples 'smoke' do
     fill_field('#task-label-input', 'Test')
     el = wait_for_selector('.create-task__dialog-submit-button')
     el.click
-    media_pg.wait_all_elements(2, "annotations__list-item", :class)
+    wait_for_selector_list_size(".annotations__list-item", 2)
+
     wait_for_selector(".task__response-input")
 
     # Add comment to task
@@ -597,13 +598,13 @@ shared_examples 'smoke' do
 
 #project section start
   it "should create a project for a team", bin3: true do
-    team = api_create_team
+    api_create_team
     @driver.navigate.to @config['self_url']
     project_name = "Project #{Time.now}"
     project_pg = TeamPage.new(config: @config, driver: @driver).create_project(name: project_name)
-
+    # create_project(project_name)
     expect(project_pg.driver.current_url.to_s.match(/\/project\/[0-9]+$/).nil?).to be(false)
-    team_pg = project_pg.click_team_link
+    wait_for_selector('.team-header__drawer-team-link').click
     element = wait_for_selector('.team__project-title')
     expect(element.text == project_name).to be(true)
   end
@@ -734,6 +735,7 @@ shared_examples 'smoke' do
     #As the group creator, go to the members page and approve the joining request.
     page = MePage.new(config: @config, driver: @driver).load
         .approve_join_team(subdomain: team.slug)
+    wait_for_selector(".team-menu__team-settings-button").click
     el = wait_for_selector_list("team-menu__edit-team-button",:class)
     expect(el.length > 0).to be(true)
     api_logout
@@ -742,6 +744,7 @@ shared_examples 'smoke' do
     page = Page.new(config: @config, driver: @driver)
     page.go(@config['api_path'] + '/test/session?email='+user2.email)
     page = MePage.new(config: @config, driver: @driver).load
+    wait_for_selector(".team-menu__team-settings-button").click
     el = wait_for_selector_list("team-menu__edit-team-button",:class)
     expect(el.length == 0).to be(true)
   end
@@ -1134,7 +1137,6 @@ shared_examples 'smoke' do
     el.click
     wait_for_selector("#media-embed__copy-share-url")
     url = wait_for_selector("#media-embed__share-field").value.to_s
-    puts url
     caps = Selenium::WebDriver::Remote::Capabilities.chrome("chromeOptions" => {"args" => [ "--incognito" ]})
     driver = Selenium::WebDriver.for(:remote, url: @webdriver_url, desired_capabilities: caps)
     driver.navigate.to url
