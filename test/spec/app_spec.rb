@@ -355,7 +355,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect((@driver.current_url.to_s =~ /\/$/).nil?).to be(false)
       @driver.navigate.forward
       expect((@driver.current_url.to_s =~ /\/terms-of-service$/).nil?).to be(false)
-    end 
+    end
 
     it "should add a tag, reject duplicated and delete tag", bin3: true, quick: true  do
       page = api_create_team_project_and_claim_and_redirect_to_media_page
@@ -541,7 +541,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('121212121')).to be(true)
     end
 
-   
+
 
     it "should add and remove source languages", bin6: true  do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
@@ -668,15 +668,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page.go(@config['api_path'] + '/test/session?email='+utp[:user1]["email"])
       page.go(@config['self_url'] + '/'+utp[:team]["slug"]+'/project/'+utp[:project]["dbid"].to_s)
       wait_for_selector(".search")
-      wait_for_selector("//span[contains(text(), 'Sources')]", :xpath)
-      l = wait_for_selector_list('.project-menu')
+      l = wait_for_selector_list('.project-actions')
       expect(l.length == 1).to be(true)
 
       page.go(@config['api_path'] + '/test/session?email='+utp[:user2]["email"])
       page.go(@config['self_url'] + '/'+utp[:team]["slug"]+'/project/'+utp[:project]["dbid"].to_s)
       wait_for_selector(".search")
-      wait_for_selector("//span[contains(text(), 'Sources')]", :xpath)
-      l = wait_for_selector_list('.project-menu')
+      l = wait_for_selector_list('.project-actions')
       expect(l.length == 0).to be(true)
     end
 
@@ -830,7 +828,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_team_project_and_claim_and_redirect_to_media_page
       wait_for_selector(".tasks")
       request_api('make_team_public', { slug: get_team })
-  
+
       @driver.navigate.refresh
       wait_for_selector('.media-detail')
       wait_for_selector('.media-actions__icon').click
@@ -1404,7 +1402,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Delete task
       delete_task('Where was it')
     end
-    
+
     it "should upload image when registering", bin3: true do
       email, password, avatar = ["test-#{Time.now.to_i}@example.com", '12345678', File.join(File.dirname(__FILE__), 'test.png')]
       page = LoginPage.new(config: @config, driver: @driver).load
@@ -1491,7 +1489,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     end
 
-  
+
     it "should search map in geolocation task", bin3: true do
       api_create_team_project_and_claim_and_redirect_to_media_page
       wait_for_selector('.create-task__add-button')

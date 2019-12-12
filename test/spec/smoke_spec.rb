@@ -611,7 +611,7 @@ shared_examples 'smoke' do
     project_pg.edit(title: new_title, description: "")
     expect(@driver.page_source.include?(new_title)).to be(true)
     expect(@driver.page_source.include?(new_description)).to be(false)
-    wait_for_selector('.project-menu', :css)
+    wait_for_selector('.project-actions', :css)
     #7204 edit title and description separately
     project_pg.edit(description: new_description)
     expect(@driver.page_source.include?(new_title)).to be(true)
@@ -1136,7 +1136,7 @@ shared_examples 'smoke' do
     wait_for_selector_none("#media-embed__copy-share-url")
     wait_for_selector(".pender-container")
     expect(@driver.page_source.include?('test.png')).to be(true)
-  end 
+  end
 
 #Embed section end
 

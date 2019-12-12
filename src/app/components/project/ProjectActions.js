@@ -8,7 +8,7 @@ import MenuItem from 'material-ui/MenuItem';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
 import ProjectAssignment from './ProjectAssignment';
-import { can } from '../Can';
+import Can, { can } from '../Can';
 import CheckContext from '../../CheckContext';
 
 const StyledIconMenuWrapper = styled.div`
@@ -68,31 +68,33 @@ class ProjectActions extends Component {
     }
 
     return menuItems.length ?
-      <StyledIconMenuWrapper isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
-        <IconMenu
-          onClick={this.handleClick}
-          className="project-actions"
-          iconButtonElement={
-            <IconButton
-              tooltip={
-                <FormattedMessage id="ProjectActions.tooltip" defaultMessage="List actions" />
-              }
-            >
-              <IconMoreHoriz className="project-actions__icon" />
-            </IconButton>}
-        >
-          {menuItems}
-        </IconMenu>
-        {
-          this.state.openAssignPopup ?
-            <ProjectAssignment
-              anchorEl={this.state.anchorEl}
-              onDismiss={this.handleAssignClose}
-              project={project}
-            />
-            : null
-        }
-      </StyledIconMenuWrapper>
+      <Can permissions={project.permissions} permission="update Project">
+        <StyledIconMenuWrapper isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
+          <IconMenu
+            onClick={this.handleClick}
+            className="project-actions"
+            iconButtonElement={
+              <IconButton
+                tooltip={
+                  <FormattedMessage id="ProjectActions.tooltip" defaultMessage="List actions" />
+                }
+              >
+                <IconMoreHoriz className="project-actions__icon" />
+              </IconButton>}
+          >
+            {menuItems}
+          </IconMenu>
+          {
+            this.state.openAssignPopup ?
+              <ProjectAssignment
+                anchorEl={this.state.anchorEl}
+                onDismiss={this.handleAssignClose}
+                project={project}
+              />
+              : null
+          }
+        </StyledIconMenuWrapper>
+      </Can>
       : null;
   }
 }

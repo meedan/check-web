@@ -47,8 +47,8 @@ class ProjectPage < Page
   end
 
   def edit(options)
-    element = wait_for_selector('.project-menu', :css, 60)
-    element.click
+    wait_for_selector('.project-actions', :css, 60).click
+    wait_for_selector('.project-actions__edit', :css, 60).click
     if (options[:title])
       #puts "options title"
       element = wait_for_selector('.project-edit__title-field input')
