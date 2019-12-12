@@ -176,7 +176,7 @@ class DrawerNavigation extends Component {
                 />
                 : null}
             </div>
-            { inTeamContext ?
+            { inTeamContext && currentUserIsMember ?
               <Link to={`/${this.props.team.slug}/trash`} className="project-list__link-trash">
                 <MenuItem
                   className="project-list__item-trash"
