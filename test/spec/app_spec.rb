@@ -908,13 +908,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should search in trash page", bin4: true do
       api_create_claim_and_go_to_search_page
       # Send item to trash
+      wait_for_selector(".search__form")
       wait_for_selector('#search-query__cancel-button').click
-      wait_for_selector('.card-with-border > div > div > div + button svg').click
+      wait_for_selector_none(".search__form")
+      # wait_for_selector(".card-with-border > div > div > div + button svg").click
+      wait_for_selector(".media__heading > a").click
       wait_for_selector('.media-actions__icon').click
-      el = wait_for_selector('.media-actions__send-to-trash')
-      el.location_once_scrolled_into_view
-      el.click
-      wait_for_selector_none('.media-actions__send-to-trash')
+      wait_for_selector(".media-actions__move")
+      wait_for_selector(".media-actions__send-to-trash").click
       wait_for_selector(".message")
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/trash'
       wait_for_selector(".media-detail__card-header")

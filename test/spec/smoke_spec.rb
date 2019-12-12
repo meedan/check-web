@@ -242,9 +242,6 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(true)
 
     # Go to the second project, make sure that there is no claim, and thus store the data in local Relay store
-    el = wait_for_selector('.header-actions__drawer-toggle')
-    el.location_once_scrolled_into_view
-    el.click
     wait_for_selector('.project-list__link + .project-list__link').click
     wait_for_selector('.search__results')
     expect(@driver.page_source.include?(claim)).to be(false)
@@ -259,9 +256,6 @@ shared_examples 'smoke' do
     wait_for_selector_none('#create-media__quote')
 
     # Go to the second project, make sure that the claim is there
-    el = wait_for_selector('.header-actions__drawer-toggle')
-    el.location_once_scrolled_into_view
-    el.click
     wait_for_selector('.project-list__link + .project-list__link').click
     wait_for_selector('.medias__item')
     expect(@driver.page_source.include?(claim)).to be(true)
@@ -284,11 +278,11 @@ shared_examples 'smoke' do
     move.click
     wait_for_selector_none(".Select-placeholder")
 
-      project_title = wait_for_selector('.project-header__title').attribute("innerHTML")
+      project_title = wait_for_selector('.project__title').attribute("innerHTML")
       count = 0
       while project_title != p1[:project].title && count < 10
         wait_for_selector('#create-media__add-item')
-        project_title = wait_for_selector('.project-header__title').attribute("innerHTML")
+        project_title = wait_for_selector('.project__title').attribute("innerHTML")
         count += 1
       end
 
@@ -301,9 +295,6 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(false)
 
     # Go back to the second project and make sure that the claim is not there anymore
-    el = wait_for_selector('.header-actions__drawer-toggle')
-    el.location_once_scrolled_into_view
-    el.click
     wait_for_selector('.project-list__link + .project-list__link').click
     wait_for_selector('.search__results')
     expect(@driver.page_source.include?('1 / 1')).to be(false)
@@ -744,7 +735,7 @@ shared_examples 'smoke' do
     page = Page.new(config: @config, driver: @driver)
     page.go(@config['api_path'] + '/test/session?email='+user2.email)
     page = MePage.new(config: @config, driver: @driver).load
-    wait_for_selector(".team-menu__team-settings-button").click
+    wait_for_selector("#teams-tab").click
     el = wait_for_selector_list("team-menu__edit-team-button",:class)
     expect(el.length == 0).to be(true)
   end
@@ -844,13 +835,15 @@ shared_examples 'smoke' do
 
   it "should create a related link" , bin2: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
+    # wait_for_selector('.project-header__back-button').click
     wait_for_selector(".media-detail__card-header")
+    # wait_for_selector(".media-detail__card-header a").click
     expect(@driver.page_source.include?('Link Related')).to be(false)
     press_button('.create-related-media__add-button')
     wait_for_selector('#create-media__link').click
     wait_for_selector("#create-media-input")
     fill_field('#create-media-input', 'https://www.instagram.com/p/BRYob0dA1SC/')
-    press_button('#create-media-dialog__submit-button')
+    wait_for_selector('#create-media-dialog__submit-button').click
     wait_for_selector_none("#create-media-quote-input")
     wait_for_selector_list_size(".media-detail__card-header", 2)
     expand_card = wait_for_selector(".medias__item > div > div > div > div > button > div svg")
@@ -863,7 +856,7 @@ shared_examples 'smoke' do
   it "should create a related image" , bin3: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector(".media-detail__card-header")
-    expect(@driver.page_source.include?('Link Related')).to be(false)
+    expect(@driver.page_source.include?('Related item added by')).to be(false)
     press_button('.create-related-media__add-button')
     wait_for_selector('#create-media__image').click
     wait_for_selector("#media-url-container")
