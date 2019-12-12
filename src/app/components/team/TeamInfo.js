@@ -7,7 +7,7 @@ import IconEdit from 'material-ui/svg-icons/image/edit';
 import MdLocation from 'material-ui/svg-icons/communication/location-on';
 import MdPhone from 'material-ui/svg-icons/communication/phone';
 import TeamAvatar from './TeamAvatar';
-import { can } from '../Can';
+import Can from '../Can';
 import ParsedText from '../ParsedText';
 import {
   StyledTwoColumns,
@@ -86,18 +86,20 @@ const TeamInfo = (props) => {
       <StyledBigColumn>
         <div className="team__primary-info">
           <StyledName className="team__name">
-            {team.name}
-            { can(team.permissions, 'update Team') ?
-              <SmallerStyledIconButton
-                className="team-menu__edit-team-button"
-                onClick={() => props.context.history.push(`/${props.team.slug}/edit`)}
-                tooltip={
-                  <FormattedMessage id="teamMenu.editTeam" defaultMessage="Edit team" />
-                }
-              >
-                <IconEdit />
-              </SmallerStyledIconButton> : null
-            }
+            <Row>
+              {team.name}
+              <Can permissions={team.permissions} permission="update Team">
+                <SmallerStyledIconButton
+                  className="team-menu__edit-team-button"
+                  onClick={() => props.context.history.push(`/${props.team.slug}/edit`)}
+                  tooltip={
+                    <FormattedMessage id="teamMenu.editTeam" defaultMessage="Edit team" />
+                  }
+                >
+                  <IconEdit />
+                </SmallerStyledIconButton>
+              </Can>
+            </Row>
           </StyledName>
           <StyledDescription>
             <ParsedText text={team.description} />
