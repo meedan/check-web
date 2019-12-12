@@ -6,7 +6,7 @@ import IconArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 import IconButton from 'material-ui/IconButton';
 import ProjectRoute from '../../relay/ProjectRoute';
 import { urlFromSearchQuery } from '../search/Search';
-import { HeaderTitle, FadeIn, SlideIn, black54 } from '../../styles/js/shared';
+import { Row, HeaderTitle, FadeIn, SlideIn, black54 } from '../../styles/js/shared';
 import CheckContext from '../../CheckContext';
 
 class ProjectHeaderComponent extends React.PureComponent {
@@ -32,6 +32,7 @@ class ProjectHeaderComponent extends React.PureComponent {
       mediaQuery = state.query;
     }
     const isProjectSubpage = regexMedia.test(path) || regexSource.test(path);
+
     const backUrl = () => {
       if (mediaQuery) {
         const query = Object.assign({}, mediaQuery);
@@ -59,20 +60,22 @@ class ProjectHeaderComponent extends React.PureComponent {
     return (
       <div style={{ display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
         {isProjectSubpage ?
-          <IconButton
-            containerElement={<Link to={backUrl()} />}
-            className="project-header__back-button"
-          >
-            <FadeIn>
-              <SlideIn>
-                <IconArrowBack color={black54} />
-              </SlideIn>
-            </FadeIn>
-          </IconButton>
+          <Row>
+            <IconButton
+              containerElement={<Link to={backUrl()} />}
+              className="project-header__back-button"
+            >
+              <FadeIn>
+                <SlideIn>
+                  <IconArrowBack color={black54} />
+                </SlideIn>
+              </FadeIn>
+            </IconButton>
+            <HeaderTitle className="project-header__title">
+              {currentProject.title}
+            </HeaderTitle>
+          </Row>
           : null}
-        <HeaderTitle className="project-header__title">
-          {currentProject.title}
-        </HeaderTitle>
       </div>
     );
   }

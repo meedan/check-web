@@ -1,13 +1,5 @@
 [
   {
-    "id": "headerActions.search",
-    "defaultMessage": "Search"
-  },
-  {
-    "id": "headerActions.signIn",
-    "defaultMessage": "Sign In"
-  },
-  {
     "id": "headerActions.teamInfo",
     "defaultMessage": "Team info"
   }
