@@ -57,7 +57,8 @@ class DrawerNavigation extends Component {
   }
 
   render() {
-    const { inTeamContext, loggedIn, drawerToggle } = this.props;
+    const { loggedIn, drawerToggle } = this.props;
+    const inTeamContext = this.props.inTeamContext && this.props.team;
 
     // This component now renders based on teamPublicFragment
     // and decides whether to include <Project> which has its own team route/relay
