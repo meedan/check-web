@@ -555,7 +555,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       element.click
       wait_for_selector("#sourceLanguageInput")
       fill_field("#sourceLanguageInput", "Acoli")
-      element = wait_for_selector('span[role="menuitem"]');
+      element = wait_for_selector('div[role="menu"] > div > span[role="menuitem"]');
       element.click
       element = wait_for_selector(".source__edit-save-button")
       element.click
