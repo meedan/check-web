@@ -58,7 +58,9 @@ class DrawerNavigationComponent extends Component {
   setContextTeam() {
     const context = new CheckContext(this);
     const { team } = this.props;
-    context.setContextStore({ team });
+    if (team) {
+      context.setContextStore({ team });
+    }
   }
 
   handleClickTeamSettings() {
