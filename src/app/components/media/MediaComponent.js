@@ -92,14 +92,6 @@ class MediaComponent extends Component {
     if (project && project.dbid) {
       this.props.relay.setVariables({ contextId: project.dbid });
     }
-
-    this.setContextTeam();
-  }
-
-  setContextTeam() {
-    const context = new CheckContext(this);
-    const { team } = this.props.media;
-    context.setContextStore({ team });
   }
 
   subscribe() {
