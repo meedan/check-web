@@ -8,6 +8,8 @@ const teamPublicFragment = Relay.QL`
       private,
       slug,
       team_graphql_id,
+      verification_statuses,
+      translation_statuses,
     }
 `;
 

@@ -30,7 +30,7 @@ import {
 
 // TODO Fix a11y issues
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
-class DrawerNavigation extends Component {
+class DrawerNavigationComponent extends Component {
   constructor(props) {
     super(props);
 
@@ -39,12 +39,26 @@ class DrawerNavigation extends Component {
     };
   }
 
+  componentDidMount() {
+    this.setContextTeam();
+  }
+
+  componentDidUpdate() {
+    this.setContextTeam();
+  }
+
   getCurrentUser() {
     return new CheckContext(this).getContextStore().currentUser;
   }
 
   getHistory() {
     return new CheckContext(this).getContextStore().history;
+  }
+
+  setContextTeam() {
+    const context = new CheckContext(this);
+    const { team } = this.props;
+    context.setContextStore({ team });
   }
 
   handleClickTeamSettings() {
@@ -206,8 +220,8 @@ class DrawerNavigation extends Component {
   }
 }
 
-DrawerNavigation.contextTypes = {
+DrawerNavigationComponent.contextTypes = {
   store: PropTypes.object,
 };
 
-export default injectIntl(DrawerNavigation);
+export default injectIntl(DrawerNavigationComponent);
