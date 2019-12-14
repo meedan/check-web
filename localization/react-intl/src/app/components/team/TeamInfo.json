@@ -6,5 +6,9 @@
   {
     "id": "teamComponent.public",
     "defaultMessage": "Public"
+  },
+  {
+    "id": "teamMenu.editTeam",
+    "defaultMessage": "Edit team"
   }
 ]

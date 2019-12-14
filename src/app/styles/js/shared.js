@@ -517,6 +517,11 @@ export const OffsetBothSides = styled.div`
   padding-right: ${units(1)};
 `;
 
+// AlignOpposite
+export const AlignOpposite = styled.div`
+  ${props => (props.fromDirection ? `margin-${props.fromDirection}: auto;` : '')};
+`;
+
 // Material style Chip
 // Deprecated: use the material-ui/chip component instead
 export const chipStyles = `
