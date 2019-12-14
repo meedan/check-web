@@ -156,9 +156,6 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
           get_status_target_turnaround
           private
           slug
-          dbid
-          verification_statuses
-          translation_statuses
           search_id
           search { id, number_of_results }
           team_bot_installations(first: 10000) {
