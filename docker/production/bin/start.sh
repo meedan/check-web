@@ -21,7 +21,7 @@ function getParsedGithubToken(){
   echo $GITHUB_TOKEN | jq -r .GITHUB_TOKEN
 }
 
-if [[ -z ${GITHUB_TOKEN+x} || -z ${DEPLOY_ENV+x} || -z ${APP+x} || -z ${RAILS_ENV+x}  ]]; then
+if [[ -z ${GITHUB_TOKEN+x} || -z ${DEPLOY_ENV+x} || -z ${APP+x} ]]; then
 	echo "GITHUB_TOKEN, DEPLOY_ENV, APP and RAILS_ENV must be in the environment. Exiting."
 	exit 1
 fi
