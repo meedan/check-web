@@ -19,6 +19,8 @@ build_qa:
     - pip install docutils==0.14
     - pip install awscli==1.16.201
     - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
+    - git clone https://${GITHUB_TOKEN}:x-oauth-basic@github.com/meedan/configurator ./configurator
+    - d=configurator/check/qa/check-web/; for f in $(find $d -type f); do cp "$f" "${f/$d/}"; done
     - docker build  -f docker/production/Dockerfile.aws -t "$ECR_API_BASE_URL/qa/check/web:$CI_COMMIT_SHA"  .
     - docker push "$ECR_API_BASE_URL/qa/check/web:$CI_COMMIT_SHA"
   only:
