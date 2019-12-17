@@ -58,12 +58,9 @@ RUN /opt/bin/get_relay_json.sh
 # build all assets, js, css, transifex
 RUN npm run build && npm run build:server
 
-# config
-# RUN /opt/bin/find_and_link_config_files.sh ${DEPLOYDIR}/latest
-RUN cp ${DEPLOYDIR}/latest/config.js ${DEPLOYDIR}/latest/build/web/js/config.js
-
 WORKDIR ${DEPLOYDIR}
 RUN ln -s ./latest ./${APP}-$(date -I) && ln -s ./${APP}-$(date -I) ./current
+RUN rm -rf ./latest/configurator
 
 USER root
 RUN rm /etc/nginx/sites-enabled/default
@@ -74,5 +71,5 @@ COPY docker/production/config/nginx.conf /etc/nginx/sites-enabled/${APP}
 # expose, cmd
 #
 EXPOSE 80
-WORKDIR ${DEPLOYDIR}/current/build/web
+WORKDIR ${DEPLOYDIR}/current
 CMD ["/opt/bin/start.sh"]
