@@ -20,12 +20,13 @@ import {
   Row,
   Offset,
   OffsetBothSides,
-  HeaderTitle,
+  StyledHeading,
   white,
   black05,
   units,
   caption,
   SmallerStyledIconButton,
+  Text,
 } from '../styles/js/shared';
 
 // TODO Fix a11y issues
@@ -151,9 +152,11 @@ class DrawerNavigationComponent extends Component {
                       team={this.props.team}
                     />
                     <OffsetBothSides>
-                      <HeaderTitle>
-                        {this.props.team.name}
-                      </HeaderTitle>
+                      <StyledHeading>
+                        <Text maxWidth={units(12)} ellipsis>
+                          {this.props.team.name}
+                        </Text>
+                      </StyledHeading>
                     </OffsetBothSides>
                   </Row>
                 </Link>
