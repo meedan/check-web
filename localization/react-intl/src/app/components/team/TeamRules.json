@@ -1,5 +1,21 @@
 [
   {
+    "id": "teamRules.and",
+    "defaultMessage": "+ AND"
+  },
+  {
+    "id": "teamRules.if",
+    "defaultMessage": "IF"
+  },
+  {
+    "id": "teamRules.then",
+    "defaultMessage": "THEN"
+  },
+  {
+    "id": "teamRules.newRule",
+    "defaultMessage": "+ RULE"
+  },
+  {
     "id": "teamRules.success",
     "defaultMessage": "Rules updated successfully!"
   },
@@ -8,11 +24,23 @@
     "defaultMessage": "Error when trying to update rules."
   },
   {
+    "id": "teamRules.edit",
+    "defaultMessage": "Edit rule"
+  },
+  {
+    "id": "teamRules.delete",
+    "defaultMessage": "Delete rule"
+  },
+  {
     "id": "teamRules.title",
     "defaultMessage": "Rules"
   },
   {
     "id": "teamRules.save",
     "defaultMessage": "Save"
+  },
+  {
+    "id": "teamRules.back",
+    "defaultMessage": "Back"
   }
 ]

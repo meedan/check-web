@@ -61,7 +61,19 @@ class TagPicker extends React.Component {
 
     const context = new CheckContext(this).getContextStore();
 
-    const onSuccess = () => {};
+    const onSuccess = (data) => {
+      const pm = data.createTag.project_media;
+      let path = '';
+      let currentProjectId = window.location.pathname.match(/project\/([0-9]+)/);
+      if (currentProjectId) {
+        [path, currentProjectId] = currentProjectId;
+      }
+      if (pm.project_id && currentProjectId &&
+        parseInt(pm.project_id, 10) !== parseInt(currentProjectId, 10)) {
+        const newPath = window.location.pathname.replace(path, `project/${pm.project_id}`);
+        window.location.assign(newPath);
+      }
+    };
 
     createTag(
       {
