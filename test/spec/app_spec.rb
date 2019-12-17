@@ -868,11 +868,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       t2 = api_create_team(user: user)
       page = MePage.new(config: @config, driver: @driver).load
           .select_team(name: t1.name)
-      wait_for_selector("team-menu__edit-team-button",:class)
+      wait_for_selector(".team-menu__edit-team-button")
       expect(page.team_name).to eq(t1.name)
       page = MePage.new(config: @config, driver: @driver).load
           .select_team(name: t2.name)
-      wait_for_selector("team-menu__edit-team-button",:class)
+      wait_for_selector(".team-menu__edit-team-button")
       expect(page.team_name).to eq(t2.name)
     end
 
@@ -1438,6 +1438,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector(".switch-teams__joined-team")
       link = wait_for_selector_list('.teams a').first
       link.click
+      wait_for_selector(".team-header__drawer-team-link").click
       link = wait_for_selector('.team__project-title')
       link.click
       wait_for_selector_none(".team-members__edit-button")
@@ -1448,8 +1449,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector(".switch-teams__joined-team")
       link = wait_for_selector_list('.teams a').last
       link.click
+      wait_for_selector(".team-header__drawer-team-link").click
       wait_for_selector(".team-members__edit-button")
-
 
       @driver.navigate.to(@config['self_url'])
       wait_for_selector('.main-title')

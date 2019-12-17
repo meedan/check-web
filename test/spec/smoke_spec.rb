@@ -624,6 +624,7 @@ shared_examples 'smoke' do
     @driver.navigate.to(@config['self_url'] + '/check/me')
     wait_for_selector('#teams-tab').click
     wait_for_selector('.teams a').click
+    wait_for_selector(".team-header__drawer-team-link").click
     wait_for_selector('.team__project-title')
     expect(@driver.page_source.include?('Not assigned to any member')).to be(true)
     expect(@driver.page_source.include?('Assigned to one member')).to be(false)
