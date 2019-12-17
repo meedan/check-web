@@ -242,9 +242,6 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(true)
 
     # Go to the second project, make sure that there is no claim, and thus store the data in local Relay store
-    el = wait_for_selector('.header-actions__drawer-toggle')
-    el.location_once_scrolled_into_view
-    el.click
     wait_for_selector('.project-list__link + .project-list__link').click
     wait_for_selector('.search__results')
     expect(@driver.page_source.include?(claim)).to be(false)
@@ -259,9 +256,6 @@ shared_examples 'smoke' do
     wait_for_selector_none('#create-media__quote')
 
     # Go to the second project, make sure that the claim is there
-    el = wait_for_selector('.header-actions__drawer-toggle')
-    el.location_once_scrolled_into_view
-    el.click
     wait_for_selector('.project-list__link + .project-list__link').click
     wait_for_selector('.medias__item')
     expect(@driver.page_source.include?(claim)).to be(true)
@@ -284,11 +278,11 @@ shared_examples 'smoke' do
     move.click
     wait_for_selector_none(".Select-placeholder")
 
-      project_title = wait_for_selector('.project-header__title').attribute("innerHTML")
+      project_title = wait_for_selector('.project__title').attribute("innerHTML")
       count = 0
       while project_title != p1[:project].title && count < 10
         wait_for_selector('#create-media__add-item')
-        project_title = wait_for_selector('.project-header__title').attribute("innerHTML")
+        project_title = wait_for_selector('.project__title').attribute("innerHTML")
         count += 1
       end
 
@@ -301,9 +295,6 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(false)
 
     # Go back to the second project and make sure that the claim is not there anymore
-    el = wait_for_selector('.header-actions__drawer-toggle')
-    el.location_once_scrolled_into_view
-    el.click
     wait_for_selector('.project-list__link + .project-list__link').click
     wait_for_selector('.search__results')
     expect(@driver.page_source.include?('1 / 1')).to be(false)
@@ -568,7 +559,7 @@ shared_examples 'smoke' do
   end
 
   it "should add a comment to a task", bin5: true do
-    media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
+    api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector('.create-task__add-button')
 
     # Create a task
@@ -581,7 +572,8 @@ shared_examples 'smoke' do
     fill_field('#task-label-input', 'Test')
     el = wait_for_selector('.create-task__dialog-submit-button')
     el.click
-    media_pg.wait_all_elements(2, "annotations__list-item", :class)
+    wait_for_selector_list_size(".annotations__list-item", 2)
+
     wait_for_selector(".task__response-input")
 
     # Add comment to task
@@ -597,13 +589,13 @@ shared_examples 'smoke' do
 
 #project section start
   it "should create a project for a team", bin3: true do
-    team = api_create_team
+    api_create_team
     @driver.navigate.to @config['self_url']
     project_name = "Project #{Time.now}"
     project_pg = TeamPage.new(config: @config, driver: @driver).create_project(name: project_name)
-
+    # create_project(project_name)
     expect(project_pg.driver.current_url.to_s.match(/\/project\/[0-9]+$/).nil?).to be(false)
-    team_pg = project_pg.click_team_link
+    wait_for_selector('.team-header__drawer-team-link').click
     element = wait_for_selector('.team__project-title')
     expect(element.text == project_name).to be(true)
   end
@@ -619,7 +611,7 @@ shared_examples 'smoke' do
     project_pg.edit(title: new_title, description: "")
     expect(@driver.page_source.include?(new_title)).to be(true)
     expect(@driver.page_source.include?(new_description)).to be(false)
-    wait_for_selector('.project-menu', :css)
+    wait_for_selector('.project-actions', :css)
     #7204 edit title and description separately
     project_pg.edit(description: new_description)
     expect(@driver.page_source.include?(new_title)).to be(true)
@@ -734,6 +726,7 @@ shared_examples 'smoke' do
     #As the group creator, go to the members page and approve the joining request.
     page = MePage.new(config: @config, driver: @driver).load
         .approve_join_team(subdomain: team.slug)
+    wait_for_selector(".team-menu__team-settings-button").click
     el = wait_for_selector_list("team-menu__edit-team-button",:class)
     expect(el.length > 0).to be(true)
     api_logout
@@ -742,6 +735,7 @@ shared_examples 'smoke' do
     page = Page.new(config: @config, driver: @driver)
     page.go(@config['api_path'] + '/test/session?email='+user2.email)
     page = MePage.new(config: @config, driver: @driver).load
+    wait_for_selector("#teams-tab").click
     el = wait_for_selector_list("team-menu__edit-team-button",:class)
     expect(el.length == 0).to be(true)
   end
@@ -841,13 +835,15 @@ shared_examples 'smoke' do
 
   it "should create a related link" , bin2: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
+    # wait_for_selector('.project-header__back-button').click
     wait_for_selector(".media-detail__card-header")
+    # wait_for_selector(".media-detail__card-header a").click
     expect(@driver.page_source.include?('Link Related')).to be(false)
     press_button('.create-related-media__add-button')
     wait_for_selector('#create-media__link').click
     wait_for_selector("#create-media-input")
     fill_field('#create-media-input', 'https://www.instagram.com/p/BRYob0dA1SC/')
-    press_button('#create-media-dialog__submit-button')
+    wait_for_selector('#create-media-dialog__submit-button').click
     wait_for_selector_none("#create-media-quote-input")
     wait_for_selector_list_size(".media-detail__card-header", 2)
     expand_card = wait_for_selector(".medias__item > div > div > div > div > button > div svg")
@@ -860,7 +856,7 @@ shared_examples 'smoke' do
   it "should create a related image" , bin3: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector(".media-detail__card-header")
-    expect(@driver.page_source.include?('Link Related')).to be(false)
+    expect(@driver.page_source.include?('Related item added by')).to be(false)
     press_button('.create-related-media__add-button')
     wait_for_selector('#create-media__image').click
     wait_for_selector("#media-url-container")
@@ -1134,14 +1130,13 @@ shared_examples 'smoke' do
     el.click
     wait_for_selector("#media-embed__copy-share-url")
     url = wait_for_selector("#media-embed__share-field").value.to_s
-    puts url
     caps = Selenium::WebDriver::Remote::Capabilities.chrome("chromeOptions" => {"args" => [ "--incognito" ]})
     driver = Selenium::WebDriver.for(:remote, url: @webdriver_url, desired_capabilities: caps)
     driver.navigate.to url
     wait_for_selector_none("#media-embed__copy-share-url")
     wait_for_selector(".pender-container")
     expect(@driver.page_source.include?('test.png')).to be(true)
-  end 
+  end
 
 #Embed section end
 

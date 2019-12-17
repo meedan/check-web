@@ -1,10 +1,8 @@
 import React from 'react';
 import MenuItem from 'material-ui/MenuItem';
-import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import Divider from 'material-ui/Divider';
 import { logout } from '../redux/actions';
-import { stringHelper } from '../customHelpers';
 
 const UserMenuItems = (props) => {
   const logOutMenuItem = (
@@ -16,26 +14,10 @@ const UserMenuItems = (props) => {
     />
   );
 
-  const contactMenuItem = (
-    <MenuItem
-      key="headerActions.contactHuman"
-      target="_blank"
-      rel="noopener noreferrer"
-      containerElement={<Link to={stringHelper('CONTACT_HUMAN_URL')} />}
-      primaryText={
-        <FormattedMessage
-          id="headerActions.contactHuman"
-          defaultMessage="Contact a Human"
-        />
-      }
-    />
-  );
-
   return (
     <div>
       <Divider />
       { props.loggedIn && logOutMenuItem }
-      {props.hideContactMenuItem ? null : contactMenuItem}
     </div>
   );
 };

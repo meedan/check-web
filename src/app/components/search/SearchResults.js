@@ -470,11 +470,20 @@ class SearchResultsComponent extends React.Component {
         </div>
       );
 
-      content = (<List searchResults={searchResults} />);
+      content = (
+        <List
+          searchResults={searchResults}
+          selectedMedia={this.state.selectedMedia}
+          onSelect={this.onSelect.bind(this)}
+          onSelectAll={this.onSelectAll.bind(this)}
+          onUnselectAll={this.onUnselectAll.bind(this)}
+          team={team}
+        />
+      );
     }
 
     return (
-      <ContentColumn wide={(viewMode === 'dense')}>
+      <ContentColumn wide>
         <StyledSearchResultsWrapper className="search__results results">
           <div style={{ margin: `${units(2)} 0` }}>{title}</div>
           {content}

@@ -23,6 +23,7 @@ import {
   muiThemeWithoutRtl,
   muiThemeV1,
   gutterMedium,
+  units,
 } from '../styles/js/shared';
 import { layout, typography, localeAr, removeYellowAutocomplete } from '../styles/js/global';
 import { stringHelper } from '../customHelpers';
@@ -42,6 +43,7 @@ const StyledWrapper = styled.div`
   flex-direction: column;
   min-height: 100vh;
   position: relative;
+  margin-${props => (props.isRtl ? 'right' : 'left')}: ${units(32)};
 `;
 
 const StyledContent = styled.div`
@@ -116,7 +118,7 @@ class HomeComponent extends Component {
       token: null,
       error: false,
       sessionStarted: false,
-      open: true,
+      open: false,
       path: window.location.pathname,
     };
   }
@@ -171,11 +173,13 @@ class HomeComponent extends Component {
       return null;
     }
 
+    const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
+
     const { children } = this.props;
     const routeSlug = HomeComponent.routeSlug(children);
     const muiThemeWithRtl = getMuiTheme(merge(
       muiThemeWithoutRtl,
-      { isRtl: rtlDetect.isRtlLang(this.props.intl.locale) },
+      { isRtl },
     ));
     const muiThemeNext = createMuiTheme(muiThemeV1);
 
@@ -248,8 +252,6 @@ class HomeComponent extends Component {
 
     const user = this.getContext().currentUser;
 
-    const drawerOpen = /^\/[^/]+\/dashboard/.test(window.location.pathname) ? true : this.state.open;
-
     return (
       <MuiThemeProviderNext theme={muiThemeNext}>
         <MuiThemeProvider muiTheme={muiThemeWithRtl}>
@@ -260,11 +262,20 @@ class HomeComponent extends Component {
                 user_id={user.dbid}
                 email={user.email}
                 name={user.name}
+                alignment={isRtl ? 'left' : 'right'}
               /> : null
             }
             <Favicon url={`/images/logo/${config.appName}.ico`} animated={false} />
             <BrowserSupport />
-            <StyledWrapper className={bemClass('home', routeSlug, `--${routeSlug}`)}>
+            <DrawerNavigation
+              variant="persistent"
+              docked
+              loggedIn={loggedIn}
+              inTeamContext={inTeamContext}
+              currentUserIsMember={currentUserIsMember}
+              {...this.props}
+            />
+            <StyledWrapper isRtl={isRtl} className={bemClass('home', routeSlug, `--${routeSlug}`)}>
               <Header
                 drawerToggle={this.handleDrawerToggle.bind(this)}
                 loggedIn={loggedIn}
@@ -288,16 +299,6 @@ class HomeComponent extends Component {
                 {children}
               </StyledContent>
             </StyledWrapper>
-            { drawerOpen ? <DrawerNavigation
-              docked
-              open={drawerOpen}
-              drawerToggle={this.handleDrawerToggle.bind(this)}
-              onRequestChange={open => this.setState({ open })}
-              loggedIn={loggedIn}
-              inTeamContext={inTeamContext}
-              currentUserIsMember={currentUserIsMember}
-              {...this.props}
-            /> : null }
           </span>
         </MuiThemeProvider>
       </MuiThemeProviderNext>

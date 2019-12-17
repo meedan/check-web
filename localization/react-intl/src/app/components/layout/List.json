@@ -1,0 +1,34 @@
+[
+  {
+    "id": "list.Title",
+    "defaultMessage": "Title"
+  },
+  {
+    "id": "list.Virality",
+    "defaultMessage": "Virality"
+  },
+  {
+    "id": "list.Demand",
+    "defaultMessage": "Demand"
+  },
+  {
+    "id": "list.LinkedItems",
+    "defaultMessage": "Linked items"
+  },
+  {
+    "id": "list.Type",
+    "defaultMessage": "Type"
+  },
+  {
+    "id": "list.Status",
+    "defaultMessage": "Status"
+  },
+  {
+    "id": "list.FirstSeen",
+    "defaultMessage": "First seen"
+  },
+  {
+    "id": "list.LastSeen",
+    "defaultMessage": "Last seen"
+  }
+]

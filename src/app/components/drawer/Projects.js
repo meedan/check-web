@@ -2,12 +2,9 @@ import React, { Component } from 'react';
 import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
 import Relay from 'react-relay/classic';
 import { Link } from 'react-router';
+import Button from '@material-ui/core/Button';
 import MenuItem from 'material-ui/MenuItem';
 import Tooltip from '@material-ui/core/Tooltip';
-import MdAddCircleOutline from 'material-ui/svg-icons/content/add-circle-outline';
-import MdHighlightOff from 'material-ui/svg-icons/action/highlight-off';
-import styled from 'styled-components';
-import rtlDetect from 'rtl-detect';
 import InfiniteScroll from 'react-infinite-scroller';
 import Can from '../Can';
 import CreateProject from '../project/CreateProject';
@@ -15,9 +12,7 @@ import TeamRoute from '../../relay/TeamRoute';
 import RelayContainer from '../../relay/RelayContainer';
 
 import {
-  Row,
   Text,
-  black54,
   units,
   caption,
 } from '../../styles/js/shared';
@@ -25,30 +20,13 @@ import {
 const messages = defineMessages({
   addProject: {
     id: 'projects.addProject',
-    defaultMessage: 'Add project',
+    defaultMessage: 'Add list',
   },
   dismiss: {
     id: 'projects.dismiss',
     defaultMessage: 'Dismiss',
   },
 });
-
-const SubHeading = styled.div`
-  font: ${caption};
-  color: ${black54};
-  padding: ${units(2)} ${units(2)} ${units(1)} ${units(2)};
-`;
-
-const StyledAddProj = styled.div`
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  margin-${props => props.isRtl ? 'right' : 'left'}: auto;
-  float: ${props => props.isRtl ? 'left' : 'right'};
-  span {
-    margin-${props => props.isRtl ? 'left' : 'right'}: ${units(1)};
-  }
-`;
 
 const pageSize = 20;
 
@@ -89,10 +67,11 @@ class DrawerProjectsComponent extends Component {
               <MenuItem
                 className="project-list__item"
                 primaryText={
-                  <Text ellipsis>
+                  <Text maxWidth="85%" ellipsis>
                     {p.node.title}
                   </Text>
                 }
+                secondaryText={String(p.node.medias_count)}
               />
             </Link>
           );
@@ -113,49 +92,37 @@ class DrawerProjectsComponent extends Component {
 
     const styles = {
       projectsList: {
-        height: 'calc(100vh - 364px)',
+        height: 'calc(100vh - 412px)',
         overflow: 'auto',
       },
     };
 
     return (
       <div>
-        <SubHeading>
-          <Row>
-            <FormattedMessage
-              id="projects.projectsSubheading"
-              defaultMessage="Projects"
-            />
-            { props.handleAddProj ?
-              <Can permissions={props.team.permissions} permission="create Project">
-                <Tooltip
-                  title={this.props.intl.formatMessage(props.showAddProj ?
-                    messages.dismiss : messages.addProject)}
-                >
-                  <StyledAddProj
-                    style={{ cursor: 'pointer' }}
-                    onClick={props.handleAddProj}
-                    isRtl={rtlDetect.isRtlLang(props.intl.locale)}
-                    className="drawer__create-project-button"
-                  >
-                    { props.showAddProj ? <MdHighlightOff /> : <MdAddCircleOutline /> }
-                  </StyledAddProj>
-                </Tooltip>
-              </Can> : null
-            }
-          </Row>
-        </SubHeading>
-        <div>
-          { props.showAddProj ?
-            createProject
-            :
-            <div style={styles.projectsList}>
-              <InfiniteScroll hasMore loadMore={this.loadMore.bind(this)} useWindow={false}>
-                {projectList}
-              </InfiniteScroll>
-            </div>
-          }
+        <div style={styles.projectsList}>
+          <InfiniteScroll hasMore loadMore={this.loadMore.bind(this)} useWindow={false}>
+            <Link to={`/${props.team.slug}/search`} className="project-list__link-all">
+              <MenuItem
+                className="project-list__item-all"
+                primaryText={<FormattedMessage id="projects.allClaims" defaultMessage="All claims" />}
+              />
+            </Link>
+            {projectList}
+          </InfiniteScroll>
         </div>
+        { props.handleAddProj && !props.showAddProj ?
+          <Can permissions={props.team.permissions} permission="create Project">
+            <Tooltip
+              title={this.props.intl.formatMessage(props.showAddProj ?
+                messages.dismiss : messages.addProject)}
+            >
+              <Button onClick={props.handleAddProj} className="drawer__create-project-button">
+                <FormattedMessage id="projects.newList" defaultMessage="+ New list" />
+              </Button>
+            </Tooltip>
+          </Can> : null
+        }
+        { props.showAddProj ? createProject : null }
       </div>
     );
   }
@@ -179,6 +146,7 @@ const DrawerProjectsContainer = Relay.createContainer(injectIntl(DrawerProjectsC
               dbid,
               id,
               search_id,
+              medias_count,
             }
           }
         }

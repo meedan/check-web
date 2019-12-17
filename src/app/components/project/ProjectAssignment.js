@@ -25,6 +25,11 @@ class ProjectAssignmentComponent extends Component {
   };
 
   handleClose = () => {
+    if (this.props.onDismiss) {
+      this.props.onDismiss();
+      return;
+    }
+
     this.setState({ anchorEl: null });
   };
 
@@ -61,7 +66,7 @@ class ProjectAssignmentComponent extends Component {
       return null;
     }
 
-    const { anchorEl } = this.state;
+    const anchorEl = this.state.anchorEl || this.props.anchorEl;
     const buttonStyle = {
       border: 0,
       color: black54,
@@ -79,6 +84,29 @@ class ProjectAssignmentComponent extends Component {
     assignments.forEach((user) => {
       selected.push(user.node.dbid.toString());
     });
+
+    const assignmentPopup = (
+      <Menu
+        className="project__assignment-menu"
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={this.handleClose}
+      >
+        <MultiSelector
+          allowSelectAll
+          allowUnselectAll
+          allowSearch
+          options={options}
+          selected={selected}
+          onDismiss={this.handleClose}
+          onSubmit={this.handleSelect}
+        />
+      </Menu>
+    );
+
+    if (this.props.anchorEl) {
+      return assignmentPopup;
+    }
 
     return (
       <div>
@@ -100,22 +128,7 @@ class ProjectAssignmentComponent extends Component {
               /> }
             <IconArrowDropDown color={black54} />
           </Button>
-          <Menu
-            className="project__assignment-menu"
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={this.handleClose}
-          >
-            <MultiSelector
-              allowSelectAll
-              allowUnselectAll
-              allowSearch
-              options={options}
-              selected={selected}
-              onDismiss={this.handleClose}
-              onSubmit={this.handleSelect}
-            />
-          </Menu>
+          { assignmentPopup }
           <UserAvatars users={assignments} showMore />
         </div>
       </div>
@@ -187,6 +200,7 @@ const ProjectAssignment = (props) => {
     <Relay.RootContainer
       Component={ProjectAssignmentContainer}
       route={route}
+      renderFetched={data => <ProjectAssignmentContainer {...props} {...data} />}
     />
   );
 };

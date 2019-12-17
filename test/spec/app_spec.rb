@@ -355,7 +355,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect((@driver.current_url.to_s =~ /\/$/).nil?).to be(false)
       @driver.navigate.forward
       expect((@driver.current_url.to_s =~ /\/terms-of-service$/).nil?).to be(false)
-    end 
+    end
 
     it "should add a tag, reject duplicated and delete tag", bin3: true, quick: true  do
       page = api_create_team_project_and_claim_and_redirect_to_media_page
@@ -541,7 +541,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('121212121')).to be(true)
     end
 
-   
+
 
     it "should add and remove source languages", bin6: true  do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
@@ -555,7 +555,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       element.click
       wait_for_selector("#sourceLanguageInput")
       fill_field("#sourceLanguageInput", "Acoli")
-      element = wait_for_selector('span[role="menuitem"]');
+      element = wait_for_selector('div[role="menu"] > div > span[role="menuitem"]');
       element.click
       element = wait_for_selector(".source__edit-save-button")
       element.click
@@ -668,15 +668,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page.go(@config['api_path'] + '/test/session?email='+utp[:user1]["email"])
       page.go(@config['self_url'] + '/'+utp[:team]["slug"]+'/project/'+utp[:project]["dbid"].to_s)
       wait_for_selector(".search")
-      wait_for_selector("//span[contains(text(), 'Sources')]", :xpath)
-      l = wait_for_selector_list('.project-menu')
+      l = wait_for_selector_list('.project-actions')
       expect(l.length == 1).to be(true)
 
       page.go(@config['api_path'] + '/test/session?email='+utp[:user2]["email"])
       page.go(@config['self_url'] + '/'+utp[:team]["slug"]+'/project/'+utp[:project]["dbid"].to_s)
       wait_for_selector(".search")
-      wait_for_selector("//span[contains(text(), 'Sources')]", :xpath)
-      l = wait_for_selector_list('.project-menu')
+      l = wait_for_selector_list('.project-actions')
       expect(l.length == 0).to be(true)
     end
 
@@ -830,7 +828,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_team_project_and_claim_and_redirect_to_media_page
       wait_for_selector(".tasks")
       request_api('make_team_public', { slug: get_team })
-  
+
       @driver.navigate.refresh
       wait_for_selector('.media-detail')
       wait_for_selector('.media-actions__icon').click
@@ -908,12 +906,17 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should search in trash page", bin4: true do
       api_create_claim_and_go_to_search_page
       # Send item to trash
+      wait_for_selector(".search__form")
       wait_for_selector('#search-query__cancel-button').click
-      wait_for_selector('.card-with-border > div > div > div + button svg').click
+      wait_for_selector_none(".search__form")
+      # wait_for_selector(".card-with-border > div > div > div + button svg").click
+      wait_for_selector(".media__heading > a").click
       wait_for_selector('.media-actions__icon').click
-      wait_for_selector('.media-actions__send-to-trash').click
+      wait_for_selector(".media-actions__move")
+      wait_for_selector(".media-actions__send-to-trash").click
+      wait_for_selector(".message")
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/trash'
-      wait_for_selector('.medias__item')
+      wait_for_selector(".media-detail__card-header")
       trash_button = wait_for_selector('.trash__empty-trash-button')
       expect(trash_button.nil?).to be(false)
       expect(@driver.page_source.include?('My search result')).to be(true)
@@ -1399,7 +1402,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Delete task
       delete_task('Where was it')
     end
-    
+
     it "should upload image when registering", bin3: true do
       email, password, avatar = ["test-#{Time.now.to_i}@example.com", '12345678', File.join(File.dirname(__FILE__), 'test.png')]
       page = LoginPage.new(config: @config, driver: @driver).load
@@ -1486,7 +1489,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     end
 
-  
+
     it "should search map in geolocation task", bin3: true do
       api_create_team_project_and_claim_and_redirect_to_media_page
       wait_for_selector('.create-task__add-button')
