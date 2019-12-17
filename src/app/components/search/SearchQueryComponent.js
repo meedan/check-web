@@ -419,15 +419,6 @@ class SearchQueryComponent extends React.Component {
         state.query.show = [...mediaTypes];
       }
 
-      const toggleSources = (t) => {
-        const i = state.query.show.indexOf(t);
-        if (i === -1) {
-          state.query.show = ['sources'];
-        } else {
-          state.query.show = [...mediaTypes];
-        }
-      };
-
       const toggleMedia = (t) => {
         const i = state.query.show.indexOf(t);
         if (i === -1) {
@@ -435,18 +426,9 @@ class SearchQueryComponent extends React.Component {
         } else {
           state.query.show.splice(i, 1);
         }
-
-        const sourcesIndex = state.query.show.indexOf('sources');
-        if (sourcesIndex >= 0) {
-          state.query.show.splice(sourcesIndex, 1);
-        }
       };
 
-      if (show === 'sources') {
-        toggleSources(show);
-      } else {
-        toggleMedia(show);
-      }
+      toggleMedia(show);
 
       return { query: state.query };
     });
@@ -888,17 +870,6 @@ class SearchQueryComponent extends React.Component {
                         )}
                       >
                         <FormattedMessage id="search.showVideos" defaultMessage="Videos" />
-                      </StyledFilterButton>
-                      <StyledFilterButton
-                        active={this.showIsSelected('sources')}
-                        onClick={this.handleShowClick.bind(this, 'sources')}
-                        className={bemClass(
-                          'search-query__filter-button',
-                          this.showIsSelected('sources'),
-                          '--selected',
-                        )}
-                      >
-                        <FormattedMessage id="search.showSources" defaultMessage="Sources" />
                       </StyledFilterButton>
                     </StyledFilterRow>
                     : null}
