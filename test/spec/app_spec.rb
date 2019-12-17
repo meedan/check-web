@@ -255,7 +255,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(media_pg.primary_heading.text).to eq("How To Check An Account's Authenticity")
       project_pg = media_pg.go_to_project
       wait_for_selector('.medias__item')
-      expect(project_pg.elements('.medias__heading').map(&:text).include?("How To Check An Account's Authenticity")).to be(true)
+      expect(project_pg.elements('.media__heading').map(&:text).include?("How To Check An Account's Authenticity")).to be(true)
 
       # Facebook
       media_pg = api_create_team_project_and_link_and_redirect_to_media_page('https://www.facebook.com/FirstDraftNews/posts/1808121032783161')
