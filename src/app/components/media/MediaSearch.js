@@ -79,8 +79,9 @@ class MediaSearchComponent extends React.Component {
 
   updateUrl() {
     const currId = parseInt(window.location.pathname.match(/^\/[^/]+\/project\/[0-9]+\/media\/([0-9]+)/)[1], 10);
-    const newId = parseInt(this.props.search.medias.edges[0].node.dbid, 10);
-    if (currId !== newId) {
+    const medias = this.props.search.medias.edges;
+    const newId = medias.length > 0 ? parseInt(medias[0].node.dbid, 10) : null;
+    if (newId && currId !== newId) {
       const query = this.searchQueryFromUrl();
       const pathBase = window.location.pathname.match(/(^\/[^/]+\/project\/[0-9]+\/media\/)[0-9]+.*/)[1];
       const pathname = `${pathBase}${newId}`;
@@ -121,8 +122,13 @@ class MediaSearchComponent extends React.Component {
   render() {
     const query = this.searchQueryFromUrl();
     const offset = query.esoffset || 0;
-    const media = this.props.search.medias.edges[0].node;
+    const medias = this.props.search.medias.edges;
+    const media = medias.length > 0 ? medias[0].node : null;
     const numberOfResults = this.props.search.number_of_results;
+
+    if (media === null) {
+      window.location = `${window.location.href}?reload=true`;
+    }
 
     return (
       <div>
