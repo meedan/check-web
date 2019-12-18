@@ -624,6 +624,7 @@ shared_examples 'smoke' do
     @driver.navigate.to(@config['self_url'] + '/check/me')
     wait_for_selector('#teams-tab').click
     wait_for_selector('.teams a').click
+    wait_for_selector(".team-header__drawer-team-link").click
     wait_for_selector('.team__project-title')
     expect(@driver.page_source.include?('Not assigned to any member')).to be(true)
     expect(@driver.page_source.include?('Assigned to one member')).to be(false)
@@ -835,9 +836,7 @@ shared_examples 'smoke' do
 
   it "should create a related link" , bin2: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
-    # wait_for_selector('.project-header__back-button').click
     wait_for_selector(".media-detail__card-header")
-    # wait_for_selector(".media-detail__card-header a").click
     expect(@driver.page_source.include?('Link Related')).to be(false)
     press_button('.create-related-media__add-button')
     wait_for_selector('#create-media__link').click
@@ -921,7 +920,7 @@ shared_examples 'smoke' do
     wait_for_selector("#create-media-quote-input")
     fill_field('#create-media-quote-input', "Claim")
     wait_for_selector('#create-media-dialog__submit-button').click
-    wait_for_selector(".media-detail__card-header")
+    wait_for_selector(".medias__item")
     wait_for_selector(".media__heading > a").click
     wait_for_selector(".annotations__list")
     expect(@driver.page_source.include?('In Progress')).to be(false)

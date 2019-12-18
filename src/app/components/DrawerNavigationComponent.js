@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import Button from '@material-ui/core/Button';
 import Drawer from 'material-ui/Drawer';
+import Divider from 'material-ui/Divider';
 import MenuItem from 'material-ui/MenuItem';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import styled from 'styled-components';
@@ -20,12 +21,13 @@ import {
   Row,
   Offset,
   OffsetBothSides,
-  HeaderTitle,
+  StyledHeading,
   white,
   black05,
   units,
   caption,
   SmallerStyledIconButton,
+  Text,
 } from '../styles/js/shared';
 
 // TODO Fix a11y issues
@@ -151,9 +153,11 @@ class DrawerNavigationComponent extends Component {
                       team={this.props.team}
                     />
                     <OffsetBothSides>
-                      <HeaderTitle>
-                        {this.props.team.name}
-                      </HeaderTitle>
+                      <StyledHeading>
+                        <Text maxWidth={units(12)} ellipsis>
+                          {this.props.team.name}
+                        </Text>
+                      </StyledHeading>
                     </OffsetBothSides>
                   </Row>
                 </Link>
@@ -201,6 +205,7 @@ class DrawerNavigationComponent extends Component {
                 />
               </Link>
               : null }
+            <Divider />
             <div className="drawer__footer">
 
               {loggedIn ? <div><UserMenuRelay {...this.props} /></div> : (
