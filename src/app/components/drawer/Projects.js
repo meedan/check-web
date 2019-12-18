@@ -91,7 +91,7 @@ class DrawerProjectsComponent extends Component {
 
     const styles = {
       projectsList: {
-        height: 'calc(100vh - 412px)',
+        maxHeight: 'calc(100vh - 256px)',
         overflow: 'auto',
       },
     };
