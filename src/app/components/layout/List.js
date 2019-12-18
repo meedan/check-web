@@ -4,10 +4,17 @@ import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-material.css';
 import { browserHistory } from 'react-router';
+import styled from 'styled-components';
+import MediaCell from '../media/MediaCell';
 import MediaUtil from '../media/MediaUtil';
-import { ContentColumn } from '../../styles/js/shared';
+import { ContentColumn, units } from '../../styles/js/shared';
 import { getStatus } from '../../helpers';
 import { mediaStatuses } from '../../customHelpers';
+
+const StyledGridContainer = styled.div`
+  width: 100%;
+  height: calc(100vh - ${units(30)});
+`;
 
 const messages = defineMessages({
   title: {
@@ -55,6 +62,7 @@ class List extends React.Component {
           field: 'title',
           checkboxSelection: true,
           headerCheckboxSelection: true,
+          cellRenderer: 'mediaCellRenderer',
         },
         { headerName: fmtMsg(messages.virality), field: 'virality', width: 44 },
         { headerName: fmtMsg(messages.demand), field: 'demand', width: 48 },
@@ -69,29 +77,44 @@ class List extends React.Component {
   getRowData() {
     return this.props.searchResults.map((i) => {
       const media = i.node;
-      media.url = media.media.url;
-      media.quote = media.media.quote;
-      // const data = typeof media.metadata === 'string' ?
-      // JSON.parse(media.metadata) : media.metadata;
-      const status = getStatus(mediaStatuses(media), media.status);
-      const first_seen = this.props.intl.formatRelative(MediaUtil.createdAt({
-        published: media.first_seen,
-      }));
-      const last_seen = this.props.intl.formatRelative(MediaUtil.createdAt({
-        published: media.last_seen,
-      }));
-      return {
-        id: media.id,
-        dbid: media.dbid,
-        title: media.title,
-        type: MediaUtil.mediaTypeLabel(media.media.type, this.props.intl),
-        statusz: status.label,
-        virality: media.virality,
-        demand: media.demand,
-        linked_items_count: media.linked_items_count,
-        status: status.label,
+      const {
+        id,
+        dbid,
+        picture,
+        title,
+        description,
+        virality,
+        demand,
+        linked_items_count,
+        type,
+        status,
         first_seen,
         last_seen,
+      } = media;
+
+      const statusObj = getStatus(mediaStatuses(media), status);
+
+      const formatted_first_seen = this.props.intl.formatRelative(MediaUtil.createdAt({
+        published: first_seen,
+      }));
+
+      const formatted_last_seen = this.props.intl.formatRelative(MediaUtil.createdAt({
+        published: last_seen,
+      }));
+
+      return {
+        id,
+        dbid,
+        picture,
+        title,
+        description,
+        type: MediaUtil.mediaTypeLabel(type, this.props.intl),
+        virality,
+        demand,
+        linked_items_count,
+        status: statusObj.label,
+        first_seen: formatted_first_seen,
+        last_seen: formatted_last_seen,
         media,
       };
     });
@@ -118,29 +141,33 @@ class List extends React.Component {
     }
   };
 
-  cellRenderer = () => {
+  cellRenderer = (params) => {
+    console.log('params', params);
     const eDiv = document.createElement('div');
-    eDiv.innerHTML = '<span class="my-css-class"><button class="btn-simple">Push Me</button></span>';
+
+    eDiv.innerHTML = `<img src="${params.data.picture}" width="80" />`;
     return eDiv;
   };
 
   render() {
     return (
       <ContentColumn wide>
-        <div className="ag-theme-material" style={{ height: '500px', width: '100%' }}>
+        <StyledGridContainer className="ag-theme-material">
           <AgGridReact
-            onGridReady={this.handleGridReady}
             columnDefs={this.state.columnDefs}
+            frameworkComponents={{ mediaCellRenderer: MediaCell }}
             rowData={this.getRowData()}
-            rowClass="medias__item"
-            rowStyle={{ cursor: 'pointer' }}
-            rowSelection="multiple"
+            onGridReady={this.handleGridReady}
             onRowClicked={this.handleClickRow}
             onRowSelected={this.handleSelect}
+            rowClass="medias__item"
+            rowStyle={{ cursor: 'pointer' }}
+            rowHeight="96"
+            rowSelection="multiple"
             suppressCellSelection
             suppressRowClickSelection
           />
-        </div>
+        </StyledGridContainer>
       </ContentColumn>
     );
   }

@@ -79,15 +79,6 @@ const StyledSearchResultsWrapper = styled.div`
       color: ${black87};
     }
   }
-
-  .dense {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  .medias__item {
-    margin: ${units(1)};
-  }
 `;
 
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
