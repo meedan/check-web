@@ -189,7 +189,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       input = wait_for_selector('input[type=file]')
       input.send_keys(File.join(File.dirname(__FILE__), 'test.png'))
       wait_for_selector('#create-media-dialog__submit-button').click
-      wait_for_selector_none("#create-media__quote")
+      wait_for_selector_none("#media-url-container")
+      wait_for_selector(".medias__item")
       expect(@driver.page_source.include?("The Who's official Twitter page")).to be(false)
       expect(@driver.page_source.include?('Claim')).to be(true)
       expect(@driver.page_source.include?('test.png')).to be(true)
@@ -198,19 +199,24 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector("#search__open-dialog-button").click
       wait_for_selector("//span[contains(text(), 'Links')]", :xpath).click
       wait_for_selector("#search-query__submit-button").click
+      wait_for_selector_none("#create-media__quote")
+      wait_for_selector(".medias__item")
       expect(@driver.page_source.include?('Claim')).to be(true)
       expect(@driver.page_source.include?("The Who's official Twitter page")).to be(false)
+      expect(@driver.page_source.include?('test.png')).to be(true)
       list_size = wait_for_selector_list(".medias__item").length
       expect(list_size == 2).to be(true)
       wait_for_selector("#search__open-dialog-button").click
       wait_for_selector("//span[contains(text(), 'Links')]", :xpath).click
       wait_for_selector("//span[contains(text(), 'Claims')]", :xpath).click
       wait_for_selector("#search-query__submit-button").click
+      wait_for_selector_none("#create-media__quote")
       wait_for_selector(".medias__item")
       list_size = wait_for_selector_list(".medias__item").length
       expect(list_size == 2).to be(true)
       expect(@driver.page_source.include?("The Who's official Twitter page")).to be(true)
       expect(@driver.page_source.include?('Claim')).to be(false)
+      expect(@driver.page_source.include?('test.png')).to be(true)
     end
 
     it "should redirect to access denied page", bin1: true do
