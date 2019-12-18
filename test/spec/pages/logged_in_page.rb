@@ -4,7 +4,7 @@ module LoggedInPage
   def logout
     avatar = wait_for_selector(".avatar")
     avatar.click
-    logout = element('.header-actions__menu-item--logout')
+    logout = element('.user-menu__logout')
     logout.click
     wait_for_element('#login-container')
     LoginPage.new(config: @config, driver: @driver)

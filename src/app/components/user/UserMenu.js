@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
-import { Link } from 'react-router';
 import MenuItem from 'material-ui/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import UserUtil from './UserUtil';
@@ -66,15 +65,6 @@ class UserMenu extends React.Component {
           onClose={this.handleClose}
           anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
         >
-          <MenuItem
-            containerElement={<Link to="/check/me" />}
-            style={{ maxWidth: '350px', whiteSpace: 'normal' }}
-          >
-            <div>
-              {user ? user.name : null}
-              {localizedRoleText}
-            </div>
-          </MenuItem>
           <UserMenuItems {...this.props} />
         </Menu>
       </div>

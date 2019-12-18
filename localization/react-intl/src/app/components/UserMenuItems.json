@@ -1,6 +1,26 @@
 [
   {
-    "id": "headerActions.signOut",
+    "id": "UserMenu.userSettings",
+    "defaultMessage": "User settings"
+  },
+  {
+    "id": "UserMenu.training",
+    "defaultMessage": "Training and documentation"
+  },
+  {
+    "id": "UserMenu.tos",
+    "defaultMessage": "Terms of service"
+  },
+  {
+    "id": "UserMenu.pp",
+    "defaultMessage": "Privacy policy"
+  },
+  {
+    "id": "UserMenu.about",
+    "defaultMessage": "About"
+  },
+  {
+    "id": "UserMenu.signOut",
     "defaultMessage": "Sign Out"
   }
 ]
