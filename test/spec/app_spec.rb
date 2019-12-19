@@ -243,10 +243,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(media_pg.primary_heading.text.include?('In a chat about getting')).to be(true)
       wait_for_selector('.project-header__back-button').click
       wait_for_selector('.medias__item')
-      @wait.until {
-        element = @driver.find_element(:partial_link_text, 'In a chat about getting')
-        expect(element.displayed?).to be(true)
-      }
+      expect(@driver.page_source.include?('In a chat about getting')).to be(true)
 
       # YouTube
       media_pg = api_create_team_project_and_link_and_redirect_to_media_page('https://www.youtube.com/watch?v=ykLgjhBnik0')
@@ -255,17 +252,16 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(media_pg.primary_heading.text).to eq("How To Check An Account's Authenticity")
       wait_for_selector('.project-header__back-button').click
       wait_for_selector('.medias__item')
-      expect(project_pg.elements('.media__heading').map(&:text).include?("How To Check An Account's Authenticity")).to be(true)
+      expect(@driver.page_source.include?("How To Check An Account's Authenticity")).to be(true)
 
       # Facebook
       media_pg = api_create_team_project_and_link_and_redirect_to_media_page('https://www.facebook.com/FirstDraftNews/posts/1808121032783161')
       media_pg.toggle_card # Collapse card to show the title
       wait_for_selector('.media__heading')
       expect(media_pg.primary_heading.text.include?('Facebook')).to be(true)
-      project_pg = media_pg.go_to_project
       wait_for_selector('.project-header__back-button').click
       wait_for_selector('.medias__item')
-      expect(project_pg.elements('.media__heading').map(&:text).select{ |x| x =~ /Facebook/ }.empty?).to be(false)
+      expect(@driver.page_source.include?("First Draft")).to be(true)
     end
 
       it "should localize interface based on browser language", bin6: true do
