@@ -241,7 +241,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       media_pg.toggle_card # Collapse card to show the title
       wait_for_selector('.media__heading')
       expect(media_pg.primary_heading.text.include?('In a chat about getting')).to be(true)
-      project_pg = media_pg.go_to_project
+      wait_for_selector('.project-header__back-button').click
       wait_for_selector('.medias__item')
       @wait.until {
         element = @driver.find_element(:partial_link_text, 'In a chat about getting')
@@ -253,7 +253,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       media_pg.toggle_card # Collapse card to show the title
       wait_for_selector('.media__heading')
       expect(media_pg.primary_heading.text).to eq("How To Check An Account's Authenticity")
-      project_pg = media_pg.go_to_project
+      wait_for_selector('.project-header__back-button').click
       wait_for_selector('.medias__item')
       expect(project_pg.elements('.media__heading').map(&:text).include?("How To Check An Account's Authenticity")).to be(true)
 
@@ -263,6 +263,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.media__heading')
       expect(media_pg.primary_heading.text.include?('Facebook')).to be(true)
       project_pg = media_pg.go_to_project
+      wait_for_selector('.project-header__back-button').click
       wait_for_selector('.medias__item')
       expect(project_pg.elements('.media__heading').map(&:text).select{ |x| x =~ /Facebook/ }.empty?).to be(false)
     end
@@ -306,13 +307,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should create project media", bin1: true do
       api_create_team_and_project
       page = ProjectPage.new(config: @config, driver: @driver).load
-
+      # api_create_team_project_and_link('https://twitter.com/marcouza/status/771009514732650497?t=' + Time.now.to_i.to_s)
       expect(page.contains_string?('This is a test')).to be(false)
 
       page.create_media(input: 'https://twitter.com/marcouza/status/771009514732650497?t=' + Time.now.to_i.to_s)
 
-      page.driver.navigate.to @config['self_url']
-      page.wait_for_element('.project .medias__item')
+      @driver.navigate.to @config['self_url']
+      wait_for_selector('.medias__item')
 
       expect(page.contains_string?('This is a test')).to be(true)
     end
@@ -321,10 +322,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_team_and_project
       page = ProjectPage.new(config: @config, driver: @driver).load
              .create_image_media(File.join(File.dirname(__FILE__), 'test.png'))
-      wait_for_selector("add-annotation__buttons", :class)
+      wait_for_selector(".add-annotation__buttons")
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/search'
-      wait_for_selector("search__results-heading", :class)
-      expect(@driver.find_element(:link_text, 'test.png').nil?).to be(false)
+      wait_for_selector(".search__results-heading")
+      wait_for_selector('.medias__item')
+      expect(@driver.page_source.include?('test.png')).to be(true)
+
     end
 
     it "should redirect to 404 page", bin4: true do
@@ -906,7 +909,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should search in trash page", bin4: true do
       api_create_claim_and_go_to_search_page
       wait_for_selector(".medias__item")
-      wait_for_selector(".media__heading > a").click
+      wait_for_selector(".media__heading").click
       wait_for_selector('.media-actions__icon').click
       wait_for_selector(".media-actions__move")
       wait_for_selector(".media-actions__send-to-trash").click
@@ -1516,10 +1519,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should go from one item to another", bin2: true do
       page = api_create_team_project_claims_sources_and_redirect_to_project_page 3
       page.load
-      wait_for_selector('.media__heading a').click
+      wait_for_selector(".medias__item")
+      wait_for_selector('.media__heading').click
       wait_for_selector('.media__notes-heading')
 
       # First item
+      wait_for_selector(".media-detail__card-header")
       expect(@driver.page_source.include?('1 / 3')).to be(true)
       expect(@driver.page_source.include?('2 / 3')).to be(false)
       expect(@driver.page_source.include?('3 / 3')).to be(false)
@@ -1528,6 +1533,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Claim 0')).to be(false)
 
       # Second item
+      wait_for_selector(".media-detail__card-header")
       wait_for_selector('#media-search__next-item').click
       wait_for_selector('.media__notes-heading')
       expect(@driver.page_source.include?('1 / 3')).to be(false)
@@ -1538,6 +1544,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Claim 0')).to be(false)
 
       # Third item
+      wait_for_selector(".media-detail__card-header")
       wait_for_selector('#media-search__next-item').click
       wait_for_selector('.media__notes-heading')
       expect(@driver.page_source.include?('1 / 3')).to be(false)
@@ -1548,6 +1555,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Claim 0')).to be(true)
 
       # Second item
+      wait_for_selector(".media-detail__card-header")
       wait_for_selector('#media-search__previous-item').click
       wait_for_selector('.media__notes-heading')
       expect(@driver.page_source.include?('1 / 3')).to be(false)
@@ -1558,6 +1566,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Claim 0')).to be(false)
 
       # First item
+      wait_for_selector(".media-detail__card-header")
       wait_for_selector('#media-search__previous-item').click
       wait_for_selector('.media__notes-heading')
       expect(@driver.page_source.include?('1 / 3')).to be(true)

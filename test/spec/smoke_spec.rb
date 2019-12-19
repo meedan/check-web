@@ -796,12 +796,6 @@ shared_examples 'smoke' do
     promote_button.click
     wait_for_selector_none(".media-detail__buttons button  svg[role='presentation']")
     wait_for_selector_none(".media-detail__buttons button + button svg[role='presentation']") #break relationship
-    wait_for_selector('.project-header__back-button').click
-    wait_for_selector("#create-media__add-item")
-    wait_for_selector("span[title='Related to another item']")
-    wait_for_selector("span[title='1 related item']")
-    medias = wait_for_selector_list('.medias__item')
-    expect(medias.length == 1).to be(true)
   end
 
   # it "should create a related claim, delete the main item and verify if the related item was deleted too" , bin1: true do
@@ -921,7 +915,7 @@ shared_examples 'smoke' do
     fill_field('#create-media-quote-input', "Claim")
     wait_for_selector('#create-media-dialog__submit-button').click
     wait_for_selector(".medias__item")
-    wait_for_selector(".media__heading > a").click
+    wait_for_selector(".media__heading").click
     wait_for_selector(".annotations__list")
     expect(@driver.page_source.include?('In Progress')).to be(false)
     wait_for_selector(".media-status__label > div button svg").click
@@ -939,6 +933,7 @@ shared_examples 'smoke' do
     wait_for_selector_list_size(".media-detail__card-header", 2)
     wait_for_selector("//a[contains(text(), 'Claim Related')]", :xpath).click
     wait_for_selector(".media-detail__card-header")
+    expect(@driver.page_source.include?('Unstarted')).to be(false)
     expect(@driver.page_source.include?('In Progress')).to be(true)
   end
 
@@ -1078,7 +1073,8 @@ shared_examples 'smoke' do
     input = wait_for_selector('input[type=file]')
     input.send_keys(File.join(File.dirname(__FILE__), 'test.png'))
     wait_for_selector("#create-media-dialog__submit-button").click
-    wait_for_selector(".media__heading a").click
+    wait_for_selector(".medias__item")
+    wait_for_selector(".media__heading").click
     wait_for_selector(".media-detail__card-header")
     expect(@driver.page_source.include?('In Progress')).to be(false)
     wait_for_selector(".media-status__label > div button svg").click
@@ -1115,7 +1111,8 @@ shared_examples 'smoke' do
     input = wait_for_selector('input[type=file]')
     input.send_keys(File.join(File.dirname(__FILE__), 'test.png'))
     wait_for_selector("#create-media-dialog__submit-button").click
-    wait_for_selector(".media__heading a").click
+    wait_for_selector(".medias__item")
+    wait_for_selector(".media__heading").click
     wait_for_selector(".media-detail__card-header")
     url = @driver.current_url.to_s
     wait_for_selector('.media-actions__icon').click
