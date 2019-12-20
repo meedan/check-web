@@ -13,11 +13,7 @@ import { searchQueryFromUrl, urlFromSearchQuery } from './Search';
 import SearchQuery from './SearchQuery';
 import Toolbar from './Toolbar';
 import BulkActions from '../media/BulkActions';
-import MediaDetail from '../media/MediaDetail';
 import MediasLoading from '../media/MediasLoading';
-import SmallMediaCard from '../media/SmallMediaCard';
-import SourceCard from '../source/SourceCard';
-import SmallSourceCard from '../source/SmallSourceCard';
 import ProjectBlankState from '../project/ProjectBlankState';
 import List from '../layout/List';
 import { can } from '../Can';
@@ -288,15 +284,6 @@ class SearchResultsComponent extends React.Component {
     const count = this.props.search ? this.props.search.number_of_results : 0;
     const team = this.props.search.team || this.currentContext().team;
 
-    let smoochBotInstalled = false;
-    if (team && team.team_bot_installations) {
-      team.team_bot_installations.edges.forEach((edge) => {
-        if (edge.node.team_bot.identifier === 'smooch') {
-          smoochBotInstalled = true;
-        }
-      });
-    }
-
     const query = Object.assign({}, searchQueryFromUrl());
     const offset = query.esoffset ? parseInt(query.esoffset, 10) : 0;
     let to = searchResults.length;
@@ -388,34 +375,8 @@ class SearchResultsComponent extends React.Component {
       />
     );
 
-    const viewMode = window.storage.getValue('view-mode');
-
-    const view = {
-      dense: (item, itemQuery) => (
-        item.media ?
-          <SmallMediaCard
-            query={itemQuery}
-            media={{ ...item, team }}
-            selected={this.state.selectedMedia.indexOf(item.id) > -1}
-            onSelect={this.onSelect.bind(this)}
-            style={{ margin: units(3) }}
-          /> : <SmallSourceCard source={item} />
-      ),
-      list: (item, itemQuery) => (
-        item.media ?
-          <MediaDetail
-            query={itemQuery}
-            media={{ ...item, team }}
-            condensed
-            selected={this.state.selectedMedia.indexOf(item.id) > -1}
-            onSelect={this.onSelect.bind(this)}
-            parentComponent={this}
-            smoochBotInstalled={smoochBotInstalled}
-          /> : <SourceCard source={item} />
-      ),
-    };
-
     let content = null;
+
     if (count === 0) {
       if (isProject) {
         content = <ProjectBlankState project={this.currentContext().project} />;
@@ -442,28 +403,19 @@ class SearchResultsComponent extends React.Component {
       }
       itemBaseQuery.timestamp = new Date().getTime();
 
-      content = (
-        <div className={`search__results-list results medias-list ${viewMode}`}>
-          {searchResults.map((item) => {
-            let itemQuery = {};
-            if (item.node.media) {
-              itemOffset += 1;
-              itemQuery = Object.assign({}, itemBaseQuery);
-              itemQuery.esoffset = itemOffset;
-            }
-            const listItem = (
-              <li key={item.node.id} className="medias__item">
-                { view[viewMode](item.node, itemQuery) }
-              </li>
-            );
-            return listItem;
-          })}
-        </div>
-      );
+      const resultsWithQueries = searchResults.map((item) => {
+        let itemQuery = {};
+        if (item.node.media) {
+          itemOffset += 1;
+          itemQuery = Object.assign({}, itemBaseQuery);
+          itemQuery.esoffset = itemOffset;
+        }
+        return { ...item, itemQuery };
+      });
 
       content = (
         <List
-          searchResults={searchResults}
+          searchResults={resultsWithQueries}
           selectedMedia={this.state.selectedMedia}
           onSelect={this.onSelect.bind(this)}
           onSelectAll={this.onSelectAll.bind(this)}

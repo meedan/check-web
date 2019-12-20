@@ -1,9 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { injectIntl, defineMessages } from 'react-intl';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-material.css';
-import { browserHistory } from 'react-router';
 import styled from 'styled-components';
 import MediaCell from '../media/MediaCell';
 import MediaUtil from '../media/MediaUtil';
@@ -116,18 +116,18 @@ class List extends React.Component {
         first_seen: formatted_first_seen,
         last_seen: formatted_last_seen,
         media,
+        query: i.itemQuery,
       };
     });
   }
 
   handleClickRow = (wrapper) => {
-    const { media } = wrapper.data;
+    const { media, query } = wrapper.data;
     const { team } = this.props;
     const mediaUrl = media.project_id && team && media.dbid > 0
       ? `/${team.slug}/project/${media.project_id}/media/${media.dbid}`
       : null;
-
-    browserHistory.push(mediaUrl);
+    this.context.router.push({ pathname: mediaUrl, state: { query } });
   };
 
   handleGridReady = (params) => {
@@ -139,14 +139,6 @@ class List extends React.Component {
     if (this.props.onSelect) {
       this.props.onSelect(params.data.id);
     }
-  };
-
-  cellRenderer = (params) => {
-    console.log('params', params);
-    const eDiv = document.createElement('div');
-
-    eDiv.innerHTML = `<img src="${params.data.picture}" width="80" />`;
-    return eDiv;
   };
 
   render() {
@@ -172,5 +164,9 @@ class List extends React.Component {
     );
   }
 }
+
+List.contextTypes = {
+  router: PropTypes.object,
+};
 
 export default injectIntl(List);

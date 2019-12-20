@@ -34,7 +34,9 @@ const SmallMediaCard = (props) => {
             { media.title }
           </StyledHeading>
         </UpperRow>
-        { media.description }
+        <div className="media__description">
+          { media.description }
+        </div>
       </Content>
     </Row>
   );
