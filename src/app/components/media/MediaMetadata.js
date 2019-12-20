@@ -239,6 +239,7 @@ class MediaMetadata extends Component {
     };
 
     const path = `/${media.team.slug}/project/${projectId}`;
+    const context = this.getContext();
 
     const onSuccess = () => {
       if (/^\/[^/]+\/search\//.test(window.location.pathname)) {
@@ -256,6 +257,7 @@ class MediaMetadata extends Component {
         id: media.id,
         srcProj: this.currentProject(),
         dstProj: this.state.dstProj,
+        context,
       }),
       { onSuccess, onFailure },
     );
