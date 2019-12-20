@@ -59,6 +59,12 @@ class CreateProject extends Component {
     return new CheckContext(this).getContextStore().currentUser;
   }
 
+  handleBlur = () => {
+    if (this.props.onBlur) {
+      this.props.onBlur();
+    }
+  };
+
   handleChange = (e) => {
     this.setState({ name: e.target.value });
   };
@@ -103,12 +109,13 @@ class CreateProject extends Component {
       <TextField
         id="create-project-title"
         className={this.props.className || 'team__new-project-input'}
-        floatingLabelText={this.props.intl.formatMessage(messages.newProjectName)}
+        hintText={this.props.intl.formatMessage(messages.newProjectName)}
         ref={(i) => { this.projectInput = i; }}
         style={this.props.style}
         autoFocus={this.props.autoFocus}
         errorText={this.state.message}
         onChange={this.handleChange}
+        onBlur={this.handleBlur}
         fullWidth
       />
     );

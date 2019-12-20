@@ -123,6 +123,7 @@ const DestinationProjectsContainer = Relay.createContainer(DestinationProjectsCo
                       dbid
                       title
                       search_id
+                      medias_count
                     }
                   }
                 }

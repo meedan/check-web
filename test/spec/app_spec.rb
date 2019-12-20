@@ -257,7 +257,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       media_pg.set_title('Edited media title')
       expect(@driver.page_source.include?('Edited media title')).to be(true)
       wait_for_selector(".project-header__back-button").click
-      wait_for_selector('.media__heading')
+      wait_for_selector('.medias__item')
       expect(@driver.page_source.include?('Edited media title')).to be(true)
     end
 
@@ -268,7 +268,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.media__heading')
       expect(media_pg.primary_heading.text.include?('In a chat about getting')).to be(true)
       project_pg = media_pg.go_to_project
-      wait_for_selector('.media__heading')
+      wait_for_selector('.medias__item')
       @wait.until {
         element = @driver.find_element(:partial_link_text, 'In a chat about getting')
         expect(element.displayed?).to be(true)
@@ -280,7 +280,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.media__heading')
       expect(media_pg.primary_heading.text).to eq("How To Check An Account's Authenticity")
       project_pg = media_pg.go_to_project
-      wait_for_selector('.media__heading')
+      wait_for_selector('.medias__item')
       expect(project_pg.elements('.media__heading').map(&:text).include?("How To Check An Account's Authenticity")).to be(true)
 
       # Facebook
@@ -289,7 +289,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.media__heading')
       expect(media_pg.primary_heading.text.include?('Facebook')).to be(true)
       project_pg = media_pg.go_to_project
-      wait_for_selector('.media__heading')
+      wait_for_selector('.medias__item')
       expect(project_pg.elements('.media__heading').map(&:text).select{ |x| x =~ /Facebook/ }.empty?).to be(false)
     end
 
@@ -338,7 +338,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page.create_media(input: 'https://twitter.com/marcouza/status/771009514732650497?t=' + Time.now.to_i.to_s)
 
       page.driver.navigate.to @config['self_url']
-      page.wait_for_element('.project .media-detail')
+      page.wait_for_element('.project .medias__item')
 
       expect(page.contains_string?('This is a test')).to be(true)
     end
@@ -931,14 +931,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should search in trash page", bin4: true do
       api_create_claim_and_go_to_search_page
-      wait_for_selector(".media-detail__card-header")
+      wait_for_selector(".medias__item")
       wait_for_selector(".media__heading > a").click
       wait_for_selector('.media-actions__icon').click
       wait_for_selector(".media-actions__move")
       wait_for_selector(".media-actions__send-to-trash").click
       wait_for_selector(".message")
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/trash'
-      wait_for_selector(".media-detail__card-header")
+      wait_for_selector(".medias__item")
       trash_button = wait_for_selector('.trash__empty-trash-button')
       expect(trash_button.nil?).to be(false)
       expect(@driver.page_source.include?('My search result')).to be(true)
@@ -1435,8 +1435,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.action.send_keys('Test').perform
       expect((@driver.current_url.to_s =~ /media/).nil?).to be(true)
       @driver.action.send_keys(:enter).perform
-      # press_button('#create-media-submit')
-      wait_for_selector(".media-detail")
+      wait_for_selector(".medias__item")
       wait_for_selector('.media-detail__check-timestamp').click
       wait_for_selector(".media-detail__card-header")
       expect((@driver.current_url.to_s =~ /media/).nil?).to be(false)

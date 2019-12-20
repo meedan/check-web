@@ -995,10 +995,12 @@ class Annotation extends Component {
         archive_is_response: 'Archive.is',
         archive_org_response: 'Archive.org',
         keep_backup_response: 'Video Vault',
+        perma_cc_response: 'Perma.cc',
       };
       if (Object.keys(archivers).includes(object.field_name) && activityType === 'create_dynamicannotationfield') {
         const archiveContent = JSON.parse(annotation.content);
-        const archiveResponse = JSON.parse(archiveContent[0].value);
+        const archive = archiveContent.filter(item => item.field_name === object.field_name);
+        const archiveResponse = JSON.parse(archive[0].value);
         const archiveLink = archiveResponse.location;
         const archiveStatus = parseInt(archiveResponse.status, 10);
         const archiveName = archivers[object.field_name];

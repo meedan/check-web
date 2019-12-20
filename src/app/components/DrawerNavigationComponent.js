@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import Button from '@material-ui/core/Button';
 import Drawer from 'material-ui/Drawer';
+import Divider from 'material-ui/Divider';
 import MenuItem from 'material-ui/MenuItem';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import styled from 'styled-components';
@@ -41,11 +42,29 @@ class DrawerNavigationComponent extends Component {
   }
 
   componentDidMount() {
+    this.subscribe();
     this.setContextTeam();
   }
 
-  componentDidUpdate() {
+  componentWillUpdate(nextProps) {
+    if (this.props.team && this.props.team.dbid !== nextProps.team.dbid) {
+      this.unsubscribe();
+    }
+  }
+
+  componentDidUpdate(prevProps) {
     this.setContextTeam();
+    if (this.props.team && this.props.team.dbid !== prevProps.team.dbid) {
+      this.subscribe();
+    }
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
+  getContext() {
+    return new CheckContext(this).getContextStore();
   }
 
   getCurrentUser() {
@@ -60,7 +79,34 @@ class DrawerNavigationComponent extends Component {
     const context = new CheckContext(this);
     const { team } = this.props;
     if (team) {
+      team.id = team.team_graphql_id;
       context.setContextStore({ team });
+    }
+  }
+
+  subscribe() {
+    const { pusher } = this.getContext();
+    if (pusher && this.props.team) {
+      pusher.subscribe(this.props.team.pusher_channel).bind('media_updated', 'DrawerNavigationComponent', (data, run) => {
+        if (this.getContext().clientSessionId !== data.actor_session_id) {
+          if (run) {
+            this.props.relay.forceFetch();
+            return true;
+          }
+          return {
+            id: `drawer-navigation-component-${this.props.team.dbid}`,
+            callback: this.props.relay.forceFetch,
+          };
+        }
+        return false;
+      });
+    }
+  }
+
+  unsubscribe() {
+    const { pusher } = this.getContext();
+    if (pusher && this.props.team) {
+      pusher.unsubscribe(this.props.team.pusher_channel, 'media_updated', 'DrawerNavigationComponent');
     }
   }
 
@@ -200,10 +246,12 @@ class DrawerNavigationComponent extends Component {
                 <MenuItem
                   className="project-list__item-trash"
                   primaryText={<FormattedMessage id="projects.trash" defaultMessage="Trash" />}
+                  secondaryText={String(this.props.team.trash_count)}
                   leftIcon={<Delete />}
                 />
               </Link>
               : null }
+            <Divider />
             <div className="drawer__footer">
 
               {loggedIn ? <div><UserMenuRelay {...this.props} /></div> : (
