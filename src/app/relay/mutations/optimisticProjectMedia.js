@@ -77,6 +77,12 @@ const optimisticProjectMedia = (media, proj, context) => {
           id: project.id,
           dbid: project.dbid,
           title: project.title,
+          medias_count: project.medias_count + 1,
+          team: {
+            slug: team.slug,
+            id: team.id || 'VGVhbS8w\n',
+            medias_count: team.medias_count + 1,
+          },
         },
         media: {
           url: null,
@@ -92,10 +98,6 @@ const optimisticProjectMedia = (media, proj, context) => {
             id: 'U291cmNlLzA=\n',
           },
           id: 'VXNlci8w\n',
-        },
-        team: {
-          slug: team.slug,
-          id: 'VGVhbS8w\n',
         },
         tags: {
           edges: [],

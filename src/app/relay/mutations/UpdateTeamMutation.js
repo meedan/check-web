@@ -24,11 +24,14 @@ class UpdateTeamMutation extends Relay.Mutation {
           get_disclaimer
           get_embed_tasks
           get_rules
+          public_team
         }
         public_team {
+          id
           avatar
           name
           description
+          trash_count
         }
       }
     `;
@@ -67,7 +70,17 @@ class UpdateTeamMutation extends Relay.Mutation {
   getOptimisticResponse() {
     if (this.props.empty_trash) {
       return {
-        check_search_team: { id: this.props.search_id, number_of_results: 0 },
+        check_search_team: {
+          id: this.props.search_id,
+          number_of_results: 0,
+        },
+        team: {
+          id: this.props.id,
+        },
+        public_team: {
+          id: this.props.public_id,
+          trash_count: 0,
+        },
       };
     }
     return {};

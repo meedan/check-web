@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
-import isEqual from 'lodash.isequal';
+import merge from 'lodash.merge';
 import TeamRoute from '../../relay/TeamRoute';
 import CheckContext from '../../CheckContext';
 import Search from '../search/Search';
@@ -19,10 +19,6 @@ class TrashComponent extends React.Component {
     this.setContextTeam();
   }
 
-  shouldComponentUpdate(nextProps) {
-    return !isEqual(this.props, nextProps);
-  }
-
   componentDidUpdate() {
     this.setContextTeam();
   }
@@ -33,11 +29,8 @@ class TrashComponent extends React.Component {
 
   setContextTeam() {
     const context = this.getContext();
-    const currentContext = this.currentContext();
-
-    if (!currentContext.team || currentContext.team.slug !== this.props.team.slug) {
-      context.setContextStore({ team: this.props.team });
-    }
+    const currentTeam = this.currentContext().team || {};
+    context.setContextStore({ team: merge(currentTeam, this.props.team) });
   }
 
   currentContext() {
@@ -84,6 +77,11 @@ const TrashContainer = Relay.createContainer(TrashComponent, {
         slug
         permissions
         search_id
+        medias_count
+        public_team {
+          id
+          trash_count
+        }
       }
     `,
   },

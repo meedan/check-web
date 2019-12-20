@@ -606,7 +606,8 @@ class SearchQueryComponent extends React.Component {
   unsubscribe() {
     const { pusher } = this.currentContext();
     if (pusher) {
-      pusher.unsubscribe(this.props.team.pusher_channel);
+      pusher.unsubscribe(this.props.team.pusher_channel, 'tagtext_updated', 'SearchQueryComponent');
+      pusher.unsubscribe(this.props.team.pusher_channel, 'project_updated', 'SearchQueryComponent');
     }
   }
 

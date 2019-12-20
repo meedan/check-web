@@ -56,7 +56,8 @@ const checkSearchResultFragment = Relay.QL`
             dbid,
             search_id,
             search { id, number_of_results },
-            title
+            title,
+            medias_count,
           },
           project_source {
             dbid,
