@@ -58,6 +58,7 @@ class EmptyTrashComponent extends Component {
         new UpdateTeamMutation({
           empty_trash: 1,
           search_id: this.props.search.id,
+          public_id: this.props.team.public_team.id,
           id: this.props.team.id,
         }),
         { onSuccess, onFailure },
@@ -114,6 +115,10 @@ const EmptyTrashContainer = Relay.createContainer(EmptyTrashComponent, {
         slug
         permissions
         trash_size
+        public_team {
+          id
+          trash_count
+        }
       }
     `,
   },
@@ -127,7 +132,6 @@ const EmptyTrashButton = (props) => {
       Component={EmptyTrashContainer}
       route={route}
       renderFetched={data => <EmptyTrashContainer {...props} {...data} />}
-      forceFetch
     />
   );
 };

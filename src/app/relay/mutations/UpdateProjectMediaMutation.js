@@ -27,6 +27,9 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         check_search_trash { id, number_of_results },
         check_search_project { id, number_of_results },
         check_search_project_was { id, number_of_results },
+        project_was {
+          medias_count
+        },
         related_to { id, relationships, log, log_count },
         relationships_target { id },
         relationships_source { id },
@@ -57,11 +60,18 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
             }
           }
           team {
+            id
             slug
+            medias_count
+            public_team {
+              trash_count
+            }
           }
           project {
+            id
             title
             search_id
+            medias_count
           }
         }
       }
@@ -116,6 +126,19 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         number_of_results: this.props.check_search_project.number_of_results + 1,
       };
 
+      response.project = {
+        id: this.props.media.project.id,
+        medias_count: this.props.media.project.medias_count + 1,
+        team: {
+          id: this.props.context.team.id,
+          medias_count: this.props.context.team.medias_count + 1,
+          public_team: {
+            id: this.props.context.team.public_team.id,
+            trash_count: this.props.context.team.public_team.trash_count - 1,
+          },
+        },
+      };
+
       response.affectedId = this.props.id;
 
       return response;
@@ -142,9 +165,42 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         number_of_results: this.props.check_search_project.number_of_results - 1,
       };
 
+      response.project = {
+        id: this.props.media.project.id,
+        medias_count: this.props.context.project.medias_count - 1,
+        team: {
+          id: this.props.context.team.id,
+          medias_count: this.props.context.team.medias_count - 1,
+          public_team: {
+            id: this.props.context.team.public_team.id,
+            trash_count: this.props.context.team.public_team.trash_count + 1,
+          },
+        },
+      };
+
       response.affectedId = this.props.id;
       return response;
     }
+
+    if (this.props.srcProj && this.props.dstProj) {
+      const response = optimisticProjectMedia(
+        this.props.media,
+        this.props.dstProj,
+        this.props.context,
+      );
+      response.project_was = {
+        id: this.props.srcProj.id,
+        medias_count: this.props.srcProj.medias_count - 1,
+      };
+      response.project = {
+        id: this.props.dstProj.id,
+        medias_count: this.props.dstProj.medias_count + 1,
+      };
+      delete response.team;
+      response.affectedId = this.props.id;
+      return response;
+    }
+
     return {};
   }
 
@@ -190,6 +246,16 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
               }
             }
             project {
+              id
+              medias_count
+              team {
+                id
+                medias_count
+                public_team {
+                  id
+                  trash_count
+                }
+              }
               project_medias(first: 20) {
                 edges {
                   node {
@@ -246,6 +312,10 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         connectionName: 'medias',
         edgeName: 'project_mediaEdge',
         rangeBehaviors: () => ('prepend'),
+      });
+      configs.push({
+        type: 'FIELDS_CHANGE',
+        fieldIDs: { project_was: this.props.dstProj.id },
       });
     }
 

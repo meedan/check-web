@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
 import Relay from 'react-relay/classic';
 import { Link } from 'react-router';
@@ -10,6 +11,7 @@ import Can from '../Can';
 import CreateProject from '../project/CreateProject';
 import TeamRoute from '../../relay/TeamRoute';
 import RelayContainer from '../../relay/RelayContainer';
+import CheckContext from '../../CheckContext';
 
 import {
   Text,
@@ -33,6 +35,56 @@ const pageSize = 20;
 // TODO Fix a11y issues
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
 class DrawerProjectsComponent extends Component {
+  componentDidMount() {
+    this.subscribe();
+  }
+
+  componentWillUpdate(nextProps) {
+    if (this.props.team && this.props.team.dbid !== nextProps.team.dbid) {
+      this.unsubscribe();
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.team && this.props.team.dbid !== prevProps.team.dbid) {
+      this.subscribe();
+    }
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
+  getContext() {
+    return new CheckContext(this).getContextStore();
+  }
+
+  subscribe() {
+    const { pusher } = this.getContext();
+    if (pusher && this.props.team) {
+      pusher.subscribe(this.props.team.pusher_channel).bind('media_updated', 'Projects', (data, run) => {
+        if (this.getContext().clientSessionId !== data.actor_session_id) {
+          if (run) {
+            this.props.relay.forceFetch();
+            return true;
+          }
+          return {
+            id: `projects-drawer-${this.props.team.dbid}`,
+            callback: this.props.relay.forceFetch,
+          };
+        }
+        return false;
+      });
+    }
+  }
+
+  unsubscribe() {
+    const { pusher } = this.getContext();
+    if (pusher && this.props.team) {
+      pusher.unsubscribe(this.props.team.pusher_channel, 'media_updated', 'Projects');
+    }
+  }
+
   loadMore() {
     this.props.relay.setVariables({ pageSize: this.props.team.projects.edges.length + pageSize });
   }
@@ -106,6 +158,7 @@ class DrawerProjectsComponent extends Component {
               <MenuItem
                 className="project-list__item-all"
                 primaryText={<FormattedMessage id="projects.allClaims" defaultMessage="All claims" />}
+                secondaryText={String(props.team.medias_count)}
               />
             </Link>
             {projectList}
@@ -129,6 +182,10 @@ class DrawerProjectsComponent extends Component {
   }
 }
 
+DrawerProjectsComponent.contextTypes = {
+  store: PropTypes.object,
+};
+
 const DrawerProjectsContainer = Relay.createContainer(injectIntl(DrawerProjectsComponent), {
   initialVariables: {
     pageSize,
@@ -140,6 +197,8 @@ const DrawerProjectsContainer = Relay.createContainer(injectIntl(DrawerProjectsC
         dbid,
         slug,
         permissions,
+        medias_count,
+        pusher_channel,
         projects(first: $pageSize) {
           edges {
             node {

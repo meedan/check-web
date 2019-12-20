@@ -57,7 +57,9 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
           title,
           search_id,
           search { id, number_of_results },
-          get_languages
+          get_languages,
+          medias_count,
+          team { id, medias_count },
         },
         project_id,
         project_source {
