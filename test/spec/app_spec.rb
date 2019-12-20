@@ -799,8 +799,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector("#create-media__add-item")
       el = wait_for_selector('.medias__item')
       el.location_once_scrolled_into_view
-      result = @driver.find_elements(:css, '.medias__item')
-      wait_for_size_change(0, '.medias__item')
+      wait_for_size_change(0, '.media__heading')
+      result = @driver.find_elements(:css, '.media__heading')
       expect(result.size == 1).to be(true)
       expect(@driver.page_source.include?('Auto-Refresh')).to be(true)
     end
@@ -1420,7 +1420,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect((@driver.current_url.to_s =~ /media/).nil?).to be(true)
       @driver.action.send_keys(:enter).perform
       wait_for_selector(".medias__item")
-      wait_for_selector('.media-detail__check-timestamp').click
+      wait_for_selector(".media__heading").click
       wait_for_selector(".media-detail__card-header")
       expect((@driver.current_url.to_s =~ /media/).nil?).to be(false)
     end
