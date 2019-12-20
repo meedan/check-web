@@ -84,10 +84,6 @@
     "defaultMessage": "Videos"
   },
   {
-    "id": "search.showSources",
-    "defaultMessage": "Sources"
-  },
-  {
     "id": "search.rules",
     "defaultMessage": "Rules"
   }
