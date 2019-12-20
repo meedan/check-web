@@ -332,6 +332,7 @@ class SearchResultsComponent extends React.Component {
     }
     const title = (
       <Toolbar
+        team={team}
         actions={medias.length && bulkActionsAllowed ?
           <BulkActions
             count={this.props.search ? this.props.search.number_of_results : 0}

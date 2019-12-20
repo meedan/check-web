@@ -32,6 +32,7 @@ class Toolbar extends React.Component {
       project,
       addons,
       page,
+      team,
       search,
     } = this.props;
 
@@ -51,7 +52,7 @@ class Toolbar extends React.Component {
               : null
             }
             { page === 'trash' ?
-              <EmptyTrashButton teamSlug={filter.props.teamSlug} search={search} /> : null
+              <EmptyTrashButton teamSlug={team.slug} search={search} /> : null
             }
             {addons}
           </Offset>
