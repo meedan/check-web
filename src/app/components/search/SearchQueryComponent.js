@@ -5,6 +5,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import Paper from '@material-ui/core/Paper';
 import Popper from '@material-ui/core/Popper';
+import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import FilterListIcon from '@material-ui/icons/FilterList';
@@ -268,16 +269,6 @@ class SearchQueryComponent extends React.Component {
     const url = urlFromSearchQuery(query, prefix);
 
     this.getContext().getContextStore().history.push(url);
-  }
-
-  handleSubmit(e) {
-    e.preventDefault();
-    this.searchInput.blur();
-    this.setState((prevState) => {
-      const state = Object.assign({}, prevState);
-      state.query.keyword = this.searchInput.value;
-      return { query: state.query, popper: { open: false } };
-    });
   }
 
   statusIsSelected(statusCode, state = this.state) {
@@ -552,6 +543,16 @@ class SearchQueryComponent extends React.Component {
     });
   }
 
+  handleKeyPress(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      this.setState((prevState) => {
+        const state = Object.assign({}, prevState);
+        state.query.keyword = this.searchInput.value;
+        return { query: state.query, popper: { open: false } };
+      }, this.handleApplyFilters);
+    }
+  }
+
   handlePopperClick() {
     this.setState({ popper: { open: false, allowed: false } });
   }
@@ -633,11 +634,25 @@ class SearchQueryComponent extends React.Component {
 
     return (
       <div>
-        <Tooltip title={this.props.intl.formatMessage(messages.filterItems)}>
-          <IconButton id="search__open-dialog-button" onClick={this.handleDialogOpen}>
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
+        <Row>
+          <StyledSearchInput
+            placeholder={this.props.intl.formatMessage(messages.searchInputHint)}
+            name="search-input"
+            id="search-input"
+            defaultValue={this.state.query.keyword || ''}
+            isRtl={isRtl}
+            onKeyPress={this.handleKeyPress.bind(this)}
+            onChange={this.handleInputChange.bind(this)}
+            innerRef={(i) => { this.searchInput = i; }}
+            autofocus
+          />
+          <Tooltip title={this.props.intl.formatMessage(messages.filterItems)}>
+            <Button id="search__open-dialog-button" onClick={this.handleDialogOpen}>
+              <FilterListIcon />
+              <FormattedMessage id="search.Filter" defaultMessage="Filter" />
+            </Button>
+          </Tooltip>
+        </Row>
         <PageTitle prefix={title} skipTeam={false} team={this.props.team}>
           <Dialog
             className="search__query-dialog"
@@ -652,20 +667,8 @@ class SearchQueryComponent extends React.Component {
                   <form
                     id="search-form"
                     className="search__form"
-                    onSubmit={this.handleSubmit.bind(this)}
                     autoComplete="off"
                   >
-                    <StyledSearchInput
-                      placeholder={this.props.intl.formatMessage(messages.searchInputHint)}
-                      name="search-input"
-                      id="search-input"
-                      defaultValue={this.state.query.keyword || ''}
-                      isRtl={isRtl}
-                      onChange={this.handleInputChange.bind(this)}
-                      onBlur={this.handleSubmit.bind(this)}
-                      innerRef={(i) => { this.searchInput = i; }}
-                      autofocus
-                    />
                     <StyledPopper
                       id="search-help"
                       isRtl={isRtl}

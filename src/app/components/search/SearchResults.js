@@ -332,13 +332,6 @@ class SearchResultsComponent extends React.Component {
     }
     const title = (
       <Toolbar
-        filter={
-          <SearchQuery
-            project={this.currentContext().project}
-            {...searchQueryProps}
-            team={team}
-          />
-        }
         actions={medias.length && bulkActionsAllowed ?
           <BulkActions
             count={this.props.search ? this.props.search.number_of_results : 0}
@@ -473,6 +466,13 @@ class SearchResultsComponent extends React.Component {
     return (
       <ContentColumn wide={(viewMode === 'dense')}>
         <StyledSearchResultsWrapper className="search__results results">
+          <div>
+            <SearchQuery
+              project={this.currentContext().project}
+              {...searchQueryProps}
+              team={team}
+            />
+          </div>
           <div style={{ margin: `${units(2)} 0` }}>{title}</div>
           {content}
         </StyledSearchResultsWrapper>
