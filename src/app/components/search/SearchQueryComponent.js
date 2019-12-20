@@ -215,8 +215,6 @@ class SearchQueryComponent extends React.Component {
   constructor(props) {
     super(props);
 
-    const dialogOpen = window.location.pathname === `/${this.props.team.slug}/search`;
-
     this.state = {
       query: {},
       popper: {
@@ -224,7 +222,7 @@ class SearchQueryComponent extends React.Component {
         allowed: true,
         anchorEl: null,
       },
-      dialogOpen,
+      dialogOpen: false,
     };
   }
 

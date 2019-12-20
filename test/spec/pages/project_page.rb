@@ -20,7 +20,7 @@ class ProjectPage < Page
     wait_for_selector("create-media-submit", :id)
     fill_input('#create-media-input', options[:input])
     press(:enter)
-    sleep 10
+    wait_for_selector_none("#create-media-input")
     wait_for_selector('.media-detail__check-timestamp').click
     wait_for_selector('.media')
     MediaPage.new(config: @config, driver: @driver)
@@ -40,15 +40,14 @@ class ProjectPage < Page
   end
 
   def click_media
-    click('.media-detail .media-detail__check-timestamp')
-
+    wait_for_selector('.media-detail__check-timestamp').click
     wait_for_element('.media')
     MediaPage.new(config: @config, driver: @driver)
   end
 
   def edit(options)
-    element = wait_for_selector('.project-menu', :css, 60)
-    element.click
+    wait_for_selector('.project-actions', :css, 60).click
+    wait_for_selector('.project-actions__edit', :css, 60).click
     if (options[:title])
       #puts "options title"
       element = wait_for_selector('.project-edit__title-field input')
@@ -70,10 +69,7 @@ class ProjectPage < Page
   end
 
   def click_team_link
-    sleep 5
-    element('.header-actions__drawer-toggle').click
-    sleep 3
-    element('.team-header__drawer-team-link').click
+    wait_for_selector('.team-header__drawer-team-link').click
     TeamPage.new(config: @config, driver: @driver)
   end
 

@@ -11,7 +11,6 @@ import { black05, black87, units, Row, FlexRow, Offset } from '../../styles/js/s
 const StyledToolbar = styled.div`
   background-color: ${black05};
   min-height: ${units(5)};
-  margin: 0 ${units(1)};
 
   .toolbar__title {
     color: ${black87};

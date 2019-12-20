@@ -1,8 +1,10 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import isEqual from 'lodash.isequal';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import SearchResults from './SearchResults';
 import { safelyParseJSON } from '../../helpers';
+import { ContentColumn, display1 } from '../../styles/js/shared';
 
 const statusKey = config.appName === 'bridge' ? 'translation_status' : 'verification_status';
 
@@ -80,8 +82,23 @@ class Search extends React.Component {
       query.parent = { type: 'team', slug: teamSlug };
     }
 
+    let title = null;
+    if (/^\/.*\/search(\/)?.*/.test(window.location.pathname)) {
+      title = <FormattedMessage id="search.allClamimsTitle" defaultMessage="All claims" />;
+    }
+    if (this.props.page === 'trash') {
+      title = this.props.title; // eslint-disable-line prefer-destructuring
+    }
+
     return (
       <div className="search">
+        { title ?
+          <ContentColumn wide={view === 'dense'}>
+            <div style={{ font: display1 }} className="search__title">
+              {title}
+            </div>
+          </ContentColumn> : null
+        }
         <SearchResults {...this.props} view={view} query={query} />
       </div>
     );

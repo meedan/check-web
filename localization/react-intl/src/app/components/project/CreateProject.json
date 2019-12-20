@@ -1,22 +1,22 @@
 [
   {
     "id": "createProject.addProject",
-    "defaultMessage": "Add project"
+    "defaultMessage": "Create list"
   },
   {
     "id": "createProject.title",
-    "defaultMessage": "Add a project"
+    "defaultMessage": "Add a list"
   },
   {
     "id": "createProject.titleBlank",
-    "defaultMessage": "Add your first project"
+    "defaultMessage": "Add your first list"
   },
   {
     "id": "createProject.newProjectName",
-    "defaultMessage": "Project name"
+    "defaultMessage": "List name"
   },
   {
     "id": "createProject.error",
-    "defaultMessage": "Sorry, an error occurred while updating the project. Please try again and contact {supportEmail} if the condition persists."
+    "defaultMessage": "Sorry, an error occurred while updating the list. Please try again and contact {supportEmail} if the condition persists."
   }
 ]

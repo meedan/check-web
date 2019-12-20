@@ -12,7 +12,7 @@ class CreateTagMutation extends Relay.Mutation {
     case 'source':
       return Relay.QL`fragment on CreateTagPayload { tagEdge, source { log, tags, log_count } }`;
     case 'project_media':
-      return Relay.QL`fragment on CreateTagPayload { tagEdge, project_media { last_status, last_status_obj,log, tags, log_count } }`;
+      return Relay.QL`fragment on CreateTagPayload { tagEdge, project_media { last_status, last_status_obj,log, tags, log_count, project_id } }`;
     case 'project_source':
       return Relay.QL`fragment on CreateTagPayload { tagEdge, project_source { source { log, tags, log_count } } }`;
     default:
