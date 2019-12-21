@@ -24,6 +24,8 @@ ARG check_api_branch
 RUN useradd ${DEPLOYUSER} -s /bin/bash -m \
     && chown -R ${DEPLOYUSER}:${DEPLOYUSER} /home/${DEPLOYUSER}
 
+RUN apt-get update -qq && apt-get install -y jq
+
 # deployment scripts
 COPY docker/production/bin /opt/bin
 RUN chmod 755 /opt/bin/*
