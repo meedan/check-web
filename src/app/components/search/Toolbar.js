@@ -26,12 +26,12 @@ class Toolbar extends React.Component {
 
   render() {
     const {
-      filter,
       actions,
       title,
       project,
       addons,
       page,
+      team,
       search,
     } = this.props;
 
@@ -41,7 +41,7 @@ class Toolbar extends React.Component {
       <StyledToolbar className="toolbar">
         <FlexRow>
           <Row>
-            {filter} | {actions} {actions ? '|' : null} <span className="toolbar__title">{title}</span>
+            {actions} {actions ? '|' : null} <span className="toolbar__title">{title}</span>
           </Row>
           <Offset isRtl={isRtl}>
             { project ?
@@ -51,7 +51,7 @@ class Toolbar extends React.Component {
               : null
             }
             { page === 'trash' ?
-              <EmptyTrashButton teamSlug={filter.props.teamSlug} search={search} /> : null
+              <EmptyTrashButton teamSlug={team.slug} search={search} /> : null
             }
             {addons}
           </Offset>

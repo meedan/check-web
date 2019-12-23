@@ -16,26 +16,22 @@ shared_examples 'custom' do
 
   it "should find medias when searching by status", bin2: true do
     api_create_media_and_go_to_search_page
-    wait_for_selector(".media-detail__card-header")
-    old = wait_for_selector_list("medias__item", :class).length
+    wait_for_selector(".medias__item")
+    expect(@driver.page_source.include?('to announce')).to be(true)
     wait_for_selector("#search__open-dialog-button").click
     el = wait_for_selector("//div[contains(text(), 'False')]",:xpath)
     el.click
-    wait_for_selector("search-query__submit-button", :id).click
+    wait_for_selector("#search-query__submit-button").click
     wait_for_selector_none("#search-query__submit-button")
-    current = wait_for_selector_list("medias__item", :class).length
-    expect(old > current).to be(true)
-    expect(current == 0).to be(true)
-    old = wait_for_selector_list("medias__item", :class).length
-    wait_for_selector("search__open-dialog-button", :id).click
+    wait_for_selector_none(".medias__item")
+    expect(@driver.page_source.include?('to announce')).to be(false)
+    wait_for_selector("#search__open-dialog-button").click
     el = wait_for_selector("//div[contains(text(), 'Unstarted')]",:xpath)
     el.click
-    wait_for_selector("search-query__submit-button", :id).click
+    wait_for_selector("#search-query__submit-button").click
     wait_for_selector_none("#search-query__submit-button")
-    wait_for_selector(".media-detail__card-header")
-    current = wait_for_selector_list("medias__item", :class).length
-    expect(old < current).to be(true)
-    expect(current == 1).to be(true)
+    wait_for_selector(".medias__item")
+    expect(@driver.page_source.include?('to announce')).to be(true)
   end
 
   it "should register and redirect to newly created image media", bin4: true do
@@ -84,29 +80,6 @@ shared_examples 'custom' do
     media_pg.change_status(:verified)
     expect(media_pg.status_label).to eq('VERIFIED')
     expect(media_pg.contains_element?('.annotation__status--verified')).to be(true)
-  end
-
-  it "should search by status", bin2: true do
-    api_create_claim_and_go_to_search_page
-    before = wait_for_selector("search__results-heading", :class)
-    txt = before.text
-    wait_for_selector("search__open-dialog-button", :id).click
-    el = wait_for_selector("//*[contains(text(), 'Inconclusive')]", :xpath)
-    el.click
-    wait_for_selector("search-query__submit-button", :id).click
-    x = wait_for_selector("search__results-heading", :class)
-    txt = wait_for_text_change(txt, "search__results-heading", :class)
-    expect((@driver.title =~ /Inconclusive/).nil?).to be(false)
-    expect((@driver.current_url.to_s.match(/not_applicable/)).nil?).to be(false)
-    expect(@driver.page_source.include?('My search result')).to be(false)
-    wait_for_selector("search__open-dialog-button", :id).click
-    el = wait_for_selector("//*[contains(text(), 'Unstarted')]", :xpath)
-    el.click
-    wait_for_selector("search-query__submit-button", :id).click
-    wait_for_text_change(txt, "search__results-heading", :class)
-    expect((@driver.title =~ /Unstarted/).nil?).to be(false)
-    expect((@driver.current_url.to_s.match(/undetermined/)).nil?).to be(false)
-    expect(@driver.page_source.include?('My search result')).to be(true)
   end
 
   it "should search by status through URL", bin2: true do

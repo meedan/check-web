@@ -6,10 +6,9 @@ import ProjectActions from './ProjectActions';
 import ProjectRoute from '../../relay/ProjectRoute';
 import PageTitle from '../PageTitle';
 import CheckContext from '../../CheckContext';
-import ParsedText from '../ParsedText';
 import MediasLoading from '../media/MediasLoading';
 import Search from '../search/Search';
-import { Row, units, display1, ContentColumn } from '../../styles/js/shared';
+import { units } from '../../styles/js/shared';
 import UpdateUserMutation from '../../relay/mutations/UpdateUserMutation';
 
 const ProjectWrapper = styled.div`
@@ -82,20 +81,10 @@ class ProjectComponent extends Component {
     return (
       <PageTitle prefix={project.title} skipTeam={false} team={this.currentContext().team}>
         <ProjectWrapper className="project">
-          <ContentColumn wide>
-            <Row>
-              <div style={{ font: display1 }} className="project__title">
-                <ParsedText text={project.title} />
-              </div>
-              <ProjectActions project={project} />
-            </Row>
-            {project.description && project.description.trim().length ?
-              <div className="project__description">
-                <ParsedText text={project.description} />
-              </div>
-              : null}
-          </ContentColumn>
           <Search
+            listName={project.title}
+            listDescription={project.description}
+            listActions={<ProjectActions project={project} />}
             team={project.team.slug}
             project={project}
             query={this.props.params.query || '{}'}
