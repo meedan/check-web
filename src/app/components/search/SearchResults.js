@@ -12,6 +12,8 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { searchQueryFromUrl, urlFromSearchQuery } from './Search';
 import SearchQuery from './SearchQuery';
 import Toolbar from './Toolbar';
+import { can } from '../Can';
+import ParsedText from '../ParsedText';
 import BulkActions from '../media/BulkActions';
 import MediaDetail from '../media/MediaDetail';
 import MediasLoading from '../media/MediasLoading';
@@ -19,9 +21,8 @@ import SmallMediaCard from '../media/SmallMediaCard';
 import SourceCard from '../source/SourceCard';
 import SmallSourceCard from '../source/SmallSourceCard';
 import ProjectBlankState from '../project/ProjectBlankState';
-import { can } from '../Can';
 import { notify, safelyParseJSON } from '../../helpers';
-import { black87, units, ContentColumn } from '../../styles/js/shared';
+import { black87, headline, units, ContentColumn, Row } from '../../styles/js/shared';
 import CheckContext from '../../CheckContext';
 import SearchRoute from '../../relay/SearchRoute';
 import checkSearchResultFragment from '../../relay/checkSearchResultFragment';
@@ -54,6 +55,37 @@ const messages = defineMessages({
     defaultMessage: 'Next page',
   },
 });
+
+const StyledListHeader = styled.div`
+  .search__list-header-filter-row {
+    justify-content: space-between;
+    display: flex;
+  }
+
+  .search__list-header-title-and-filter {
+    justify-content: space-between;
+    display: flex;
+    width: 66%;
+  }
+
+  .search-query {
+    margin-left: auto;
+  }
+
+  .project__title {
+    max-width: 35%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .project__description {
+    max-width: 30%;
+    max-height: ${units(4)};
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+`;
 
 const StyledSearchResultsWrapper = styled.div`
     padding-bottom: 0 0 ${units(2)};
@@ -332,13 +364,7 @@ class SearchResultsComponent extends React.Component {
     }
     const title = (
       <Toolbar
-        filter={
-          <SearchQuery
-            project={this.currentContext().project}
-            {...searchQueryProps}
-            team={team}
-          />
-        }
+        team={team}
         actions={medias.length && bulkActionsAllowed ?
           <BulkActions
             count={this.props.search ? this.props.search.number_of_results : 0}
@@ -470,8 +496,31 @@ class SearchResultsComponent extends React.Component {
       );
     }
 
+    const { listName, listActions, listDescription } = this.props;
+
     return (
-      <ContentColumn wide={(viewMode === 'dense')}>
+      <ContentColumn wide>
+        <StyledListHeader>
+          <Row className="search__list-header-filter-row">
+            <Row className="search__list-header-title-and-filter">
+              <div style={{ font: headline }} className="project__title">
+                {listName}
+              </div>
+              <SearchQuery
+                className="search-query"
+                project={this.currentContext().project}
+                {...searchQueryProps}
+                team={team}
+              />
+            </Row>
+            {listActions}
+          </Row>
+          <Row className="project__description">
+            {listDescription && listDescription.trim().length ?
+              <ParsedText text={listDescription} />
+              : null}
+          </Row>
+        </StyledListHeader>
         <StyledSearchResultsWrapper className="search__results results">
           <div style={{ margin: `${units(2)} 0` }}>{title}</div>
           {content}

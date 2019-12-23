@@ -5,6 +5,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import Paper from '@material-ui/core/Paper';
 import Popper from '@material-ui/core/Popper';
+import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import FilterListIcon from '@material-ui/icons/FilterList';
@@ -27,13 +28,11 @@ import {
   black16,
   black05,
   black54,
-  boxShadow,
   Row,
   ContentColumn,
   units,
   caption,
   borderWidthSmall,
-  transitionSpeedFast,
   transitionSpeedDefault,
   mediaQuery,
   ellipsisStyles,
@@ -61,17 +60,10 @@ export const StyledSearchInput = styled.input`
   background-position: ${props => (props.isRtl ? `calc(100% - ${units(2)})` : units(2))} center;
   border: ${borderWidthSmall} solid ${black16};
   border-radius: ${units(0.5)};
-  height: ${units(6)};
-  margin-top: ${units(1)};
+  height: ${units(5)};
   outline: none;
-  transition: box-shadow ${transitionSpeedFast};
   width: 100%;
   font-size: 16px;
-
-  &:focus {
-    box-shadow: ${boxShadow(2)};
-    transition: box-shadow ${transitionSpeedDefault};
-  }
   padding-${props => (props.isRtl ? 'right' : 'left')}: ${units(6)};
 `;
 
@@ -268,16 +260,6 @@ class SearchQueryComponent extends React.Component {
     this.getContext().getContextStore().history.push(url);
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    this.searchInput.blur();
-    this.setState((prevState) => {
-      const state = Object.assign({}, prevState);
-      state.query.keyword = this.searchInput.value;
-      return { query: state.query, popper: { open: false } };
-    });
-  }
-
   statusIsSelected(statusCode, state = this.state) {
     const selectedStatuses = state.query[statusKey] || [];
     return selectedStatuses.length && selectedStatuses.includes(statusCode);
@@ -419,15 +401,6 @@ class SearchQueryComponent extends React.Component {
         state.query.show = [...mediaTypes];
       }
 
-      const toggleSources = (t) => {
-        const i = state.query.show.indexOf(t);
-        if (i === -1) {
-          state.query.show = ['sources'];
-        } else {
-          state.query.show = [...mediaTypes];
-        }
-      };
-
       const toggleMedia = (t) => {
         const i = state.query.show.indexOf(t);
         if (i === -1) {
@@ -435,18 +408,9 @@ class SearchQueryComponent extends React.Component {
         } else {
           state.query.show.splice(i, 1);
         }
-
-        const sourcesIndex = state.query.show.indexOf('sources');
-        if (sourcesIndex >= 0) {
-          state.query.show.splice(sourcesIndex, 1);
-        }
       };
 
-      if (show === 'sources') {
-        toggleSources(show);
-      } else {
-        toggleMedia(show);
-      }
+      toggleMedia(show);
 
       return { query: state.query };
     });
@@ -536,19 +500,40 @@ class SearchQueryComponent extends React.Component {
     return this.props.fields ? this.props.fields.indexOf(field) > -1 : true;
   }
 
-  handleInputChange() {
+  handleInputChange = () => {
     // Open the search help when
     // - user has typed something
     // - user has not explicitly closed the help
     // - user has reset the keywords
-    this.setState({
-      popper: {
-        open: this.searchInput.value.length > 0 && this.state.popper.allowed,
-        anchorEl: this.searchInput,
-        allowed: this.state.popper.allowed || !this.searchInput.value.length,
-      },
+    this.setState((prevState) => {
+      const state = Object.assign({}, prevState);
+      state.query.keyword = this.searchInput.value;
+      return {
+        query: state.query,
+        popper: {
+          open: this.searchInput.value.length > 0 && this.state.popper.allowed,
+          anchorEl: this.searchInput,
+          allowed: this.state.popper.allowed || !this.searchInput.value.length,
+        },
+      };
     });
-  }
+  };
+
+  handleKeyPress = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      this.handleApplyFilters();
+    }
+  };
+
+  handleBlur = () => {
+    const query = searchQueryFromUrl();
+    const value = this.searchInput.value.trim();
+    if (value || query.keyword) {
+      if (value !== query.keyword) {
+        this.handleApplyFilters();
+      }
+    }
+  };
 
   handlePopperClick() {
     this.setState({ popper: { open: false, allowed: false } });
@@ -632,11 +617,65 @@ class SearchQueryComponent extends React.Component {
 
     return (
       <div>
-        <Tooltip title={this.props.intl.formatMessage(messages.filterItems)}>
-          <IconButton id="search__open-dialog-button" onClick={this.handleDialogOpen}>
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
+        <Row>
+          <form
+            id="search-form"
+            className="search__form"
+            autoComplete="off"
+          >
+            <StyledSearchInput
+              placeholder={this.props.intl.formatMessage(messages.searchInputHint)}
+              name="search-input"
+              id="search-input"
+              defaultValue={this.state.query.keyword || ''}
+              isRtl={isRtl}
+              onKeyPress={this.handleKeyPress}
+              onBlur={this.handleBlur}
+              onChange={this.handleInputChange}
+              innerRef={(i) => { this.searchInput = i; }}
+              autofocus
+            />
+            <StyledPopper
+              id="search-help"
+              isRtl={isRtl}
+              open={this.state.popper.open}
+              anchorEl={this.state.popper.anchorEl}
+            >
+              <Paper>
+                <IconButton style={{ fontSize: '20px' }} onClick={this.handlePopperClick.bind(this)}>
+                  <ClearIcon />
+                </IconButton>
+                <FormattedHTMLMessage
+                  id="search.help"
+                  defaultMessage='
+                    <table>
+                      <tbody>
+                        <tr><td>+</td><td>Tree + Leaf</td><td>Items with both Tree AND Leaf</td></tr>
+                        <tr><td>|</td><td>Tree | Leaf</td><td>Items with either Tree OR Leaf</td></tr>
+                        <tr><td>()</td><td>Tree + (Leaf | Branch)</td><td>Items with Tree AND Leaf OR items with Tree AND Branch</td></tr>
+                      </tbody>
+                    </table>
+                    <div>
+                      <a href="https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1" target="_blank" >
+                        Learn more about search techniques
+                      </a>
+                    </div>'
+                />
+              </Paper>
+            </StyledPopper>
+          </form>
+          <Tooltip title={this.props.intl.formatMessage(messages.filterItems)}>
+            <Button
+              style={{ margin: `0 ${units(2)}` }}
+              variant="contained"
+              id="search__open-dialog-button"
+              onClick={this.handleDialogOpen}
+            >
+              <FilterListIcon />
+              <FormattedMessage id="search.Filter" defaultMessage="Filter" />
+            </Button>
+          </Tooltip>
+        </Row>
         <PageTitle prefix={title} skipTeam={false} team={this.props.team}>
           <Dialog
             className="search__query-dialog"
@@ -647,55 +686,6 @@ class SearchQueryComponent extends React.Component {
           >
             <DialogContent>
               <ContentColumn>
-                {this.showField('keyword') ?
-                  <form
-                    id="search-form"
-                    className="search__form"
-                    onSubmit={this.handleSubmit.bind(this)}
-                    autoComplete="off"
-                  >
-                    <StyledSearchInput
-                      placeholder={this.props.intl.formatMessage(messages.searchInputHint)}
-                      name="search-input"
-                      id="search-input"
-                      defaultValue={this.state.query.keyword || ''}
-                      isRtl={isRtl}
-                      onChange={this.handleInputChange.bind(this)}
-                      onBlur={this.handleSubmit.bind(this)}
-                      innerRef={(i) => { this.searchInput = i; }}
-                      autofocus
-                    />
-                    <StyledPopper
-                      id="search-help"
-                      isRtl={isRtl}
-                      open={this.state.popper.open}
-                      anchorEl={this.state.popper.anchorEl}
-                    >
-                      <Paper>
-                        <IconButton style={{ fontSize: '20px' }} onClick={this.handlePopperClick.bind(this)}>
-                          <ClearIcon />
-                        </IconButton>
-                        <FormattedHTMLMessage
-                          id="search.help"
-                          defaultMessage='
-                            <table>
-                              <tbody>
-                                <tr><td>+</td><td>Tree + Leaf</td><td>Items with both Tree AND Leaf</td></tr>
-                                <tr><td>|</td><td>Tree | Leaf</td><td>Items with either Tree OR Leaf</td></tr>
-                                <tr><td>()</td><td>Tree + (Leaf | Branch)</td><td>Items with Tree AND Leaf OR items with Tree AND Branch</td></tr>
-                              </tbody>
-                            </table>
-                            <div>
-                              <a href="https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1" target="_blank" >
-                                Learn more about search techniques
-                              </a>
-                            </div>'
-                        />
-                      </Paper>
-                    </StyledPopper>
-                  </form>
-                  : null}
-
                 <StyledSearchFiltersSection>
                   <DateRangeFilter
                     hidden={!this.showField('date')}
@@ -889,17 +879,6 @@ class SearchQueryComponent extends React.Component {
                         )}
                       >
                         <FormattedMessage id="search.showVideos" defaultMessage="Videos" />
-                      </StyledFilterButton>
-                      <StyledFilterButton
-                        active={this.showIsSelected('sources')}
-                        onClick={this.handleShowClick.bind(this, 'sources')}
-                        className={bemClass(
-                          'search-query__filter-button',
-                          this.showIsSelected('sources'),
-                          '--selected',
-                        )}
-                      >
-                        <FormattedMessage id="search.showSources" defaultMessage="Sources" />
                       </StyledFilterButton>
                     </StyledFilterRow>
                     : null}
