@@ -22,3 +22,4 @@ config-server.js
 coverage
 dist
 .idea/
+basic-auth.sh
