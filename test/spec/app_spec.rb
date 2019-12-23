@@ -173,25 +173,51 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
 
-    it "should filter by medias or sources", bin6: true do
-      api_create_team_project_and_link 'https://twitter.com/TheWho/status/890135323216367616'
-      @driver.navigate.to @config['self_url']
-      wait_for_selector("card-with-border", :class)
-      expect(@driver.page_source.include?("The Who's official Twitter page")).to be(false)
-      expect(@driver.page_source.include?('Happy birthday Mick')).to be(true)
-      wait_for_selector("search__open-dialog-button", :id).click
-      wait_for_selector("//span[contains(text(), 'Sources')]", :xpath).click
-      wait_for_selector("search-query__submit-button", :id).click
-      wait_for_selector("source-card", :class)
-      expect(@driver.page_source.include?("The Who's official Twitter page")).to be(true)
-      expect(@driver.page_source.include?('Happy birthday Mick')).to be(false)
-      wait_for_selector("search__open-dialog-button", :id).click
-      wait_for_selector("//span[contains(text(), 'Links')]", :xpath).click
-      wait_for_selector("search-query__submit-button", :id).click
-      wait_for_selector("media__heading", :class)
-      expect(@driver.page_source.include?("The Who's official Twitter page")).to be(false)
-      expect(@driver.page_source.include?('Happy birthday Mick')).to be(true)
-    end
+    # it "should filter medias by type", bin6: true do
+    #   api_create_team_project_and_link 'https://twitter.com/TheWho/status/890135323216367616'
+    #   @driver.navigate.to @config['self_url']
+    #   wait_for_selector(".medias__item")
+    #   wait_for_selector("#create-media__add-item").click
+    #   wait_for_selector("#create-media__quote").click
+    #   wait_for_selector("#create-media-quote-input")
+    #   fill_field('#create-media-quote-input', "Claim")
+    #   wait_for_selector('#create-media-dialog__submit-button').click
+    #   wait_for_selector_none("#create-media__quote")
+    #   wait_for_selector("#create-media__add-item").click
+    #   wait_for_selector('#create-media__image').click
+    #   wait_for_selector("#media-url-container")
+    #   input = wait_for_selector('input[type=file]')
+    #   input.send_keys(File.join(File.dirname(__FILE__), 'test.png'))
+    #   wait_for_selector('#create-media-dialog__submit-button').click
+    #   wait_for_selector_none("#media-url-container")
+    #   wait_for_selector(".medias__item")
+    #   expect(@driver.page_source.include?("The Who's official Twitter page")).to be(false)
+    #   expect(@driver.page_source.include?('Claim')).to be(true)
+    #   expect(@driver.page_source.include?('test.png')).to be(true)
+    #   list_size = wait_for_selector_list(".medias__item").length
+    #   expect(list_size == 3).to be(true)
+    #   wait_for_selector("#search__open-dialog-button").click
+    #   wait_for_selector("//span[contains(text(), 'Links')]", :xpath).click
+    #   wait_for_selector("#search-query__submit-button").click
+    #   wait_for_selector_none("#create-media__quote")
+    #   wait_for_selector(".medias__item")
+    #   expect(@driver.page_source.include?('Claim')).to be(true)
+    #   expect(@driver.page_source.include?("The Who's official Twitter page")).to be(false)
+    #   expect(@driver.page_source.include?('test.png')).to be(true)
+    #   list_size = wait_for_selector_list(".medias__item").length
+    #   expect(list_size == 2).to be(true)
+    #   wait_for_selector("#search__open-dialog-button").click
+    #   wait_for_selector("//span[contains(text(), 'Links')]", :xpath).click
+    #   wait_for_selector("//span[contains(text(), 'Claims')]", :xpath).click
+    #   wait_for_selector("#search-query__submit-button").click
+    #   wait_for_selector_none("#create-media__quote")
+    #   wait_for_selector(".medias__item")
+    #   list_size = wait_for_selector_list(".medias__item").length
+    #   expect(list_size == 2).to be(true)
+    #   expect(@driver.page_source.include?("The Who's official Twitter page")).to be(true)
+    #   expect(@driver.page_source.include?('Claim')).to be(false)
+    #   expect(@driver.page_source.include?('test.png')).to be(true)
+    # end
 
     it "should redirect to access denied page", bin1: true do
       user = api_register_and_login_with_email
@@ -231,7 +257,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       media_pg.set_title('Edited media title')
       expect(@driver.page_source.include?('Edited media title')).to be(true)
       wait_for_selector(".project-header__back-button").click
-      wait_for_selector('.media__heading')
+      wait_for_selector('.medias__item')
       expect(@driver.page_source.include?('Edited media title')).to be(true)
     end
 
@@ -242,7 +268,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.media__heading')
       expect(media_pg.primary_heading.text.include?('In a chat about getting')).to be(true)
       project_pg = media_pg.go_to_project
-      wait_for_selector('.media__heading')
+      wait_for_selector('.medias__item')
       @wait.until {
         element = @driver.find_element(:partial_link_text, 'In a chat about getting')
         expect(element.displayed?).to be(true)
@@ -254,7 +280,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.media__heading')
       expect(media_pg.primary_heading.text).to eq("How To Check An Account's Authenticity")
       project_pg = media_pg.go_to_project
-      wait_for_selector('.media__heading')
+      wait_for_selector('.medias__item')
       expect(project_pg.elements('.media__heading').map(&:text).include?("How To Check An Account's Authenticity")).to be(true)
 
       # Facebook
@@ -263,7 +289,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.media__heading')
       expect(media_pg.primary_heading.text.include?('Facebook')).to be(true)
       project_pg = media_pg.go_to_project
-      wait_for_selector('.media__heading')
+      wait_for_selector('.medias__item')
       expect(project_pg.elements('.media__heading').map(&:text).select{ |x| x =~ /Facebook/ }.empty?).to be(false)
     end
 
@@ -312,7 +338,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page.create_media(input: 'https://twitter.com/marcouza/status/771009514732650497?t=' + Time.now.to_i.to_s)
 
       page.driver.navigate.to @config['self_url']
-      page.wait_for_element('.project .media-detail')
+      page.wait_for_element('.project .medias__item')
 
       expect(page.contains_string?('This is a test')).to be(true)
     end
@@ -355,7 +381,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect((@driver.current_url.to_s =~ /\/$/).nil?).to be(false)
       @driver.navigate.forward
       expect((@driver.current_url.to_s =~ /\/terms-of-service$/).nil?).to be(false)
-    end 
+    end
 
     it "should add a tag, reject duplicated and delete tag", bin3: true, quick: true  do
       page = api_create_team_project_and_claim_and_redirect_to_media_page
@@ -541,7 +567,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('121212121')).to be(true)
     end
 
-   
+
 
     it "should add and remove source languages", bin6: true  do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
@@ -555,7 +581,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       element.click
       wait_for_selector("#sourceLanguageInput")
       fill_field("#sourceLanguageInput", "Acoli")
-      element = wait_for_selector('span[role="menuitem"]');
+      element = wait_for_selector('div[role="menu"] > div > span[role="menuitem"]');
       element.click
       element = wait_for_selector(".source__edit-save-button")
       element.click
@@ -668,15 +694,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page.go(@config['api_path'] + '/test/session?email='+utp[:user1]["email"])
       page.go(@config['self_url'] + '/'+utp[:team]["slug"]+'/project/'+utp[:project]["dbid"].to_s)
       wait_for_selector(".search")
-      wait_for_selector("//span[contains(text(), 'Sources')]", :xpath)
-      l = wait_for_selector_list('.project-menu')
+      l = wait_for_selector_list('.project-actions')
       expect(l.length == 1).to be(true)
 
       page.go(@config['api_path'] + '/test/session?email='+utp[:user2]["email"])
       page.go(@config['self_url'] + '/'+utp[:team]["slug"]+'/project/'+utp[:project]["dbid"].to_s)
       wait_for_selector(".search")
-      wait_for_selector("//span[contains(text(), 'Sources')]", :xpath)
-      l = wait_for_selector_list('.project-menu')
+      l = wait_for_selector_list('.project-actions')
       expect(l.length == 0).to be(true)
     end
 
@@ -830,7 +854,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_team_project_and_claim_and_redirect_to_media_page
       wait_for_selector(".tasks")
       request_api('make_team_public', { slug: get_team })
-  
+
       @driver.navigate.refresh
       wait_for_selector('.media-detail')
       wait_for_selector('.media-actions__icon').click
@@ -870,11 +894,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       t2 = api_create_team(user: user)
       page = MePage.new(config: @config, driver: @driver).load
           .select_team(name: t1.name)
-      wait_for_selector("team-menu__edit-team-button",:class)
+      wait_for_selector(".team-menu__edit-team-button")
       expect(page.team_name).to eq(t1.name)
       page = MePage.new(config: @config, driver: @driver).load
           .select_team(name: t2.name)
-      wait_for_selector("team-menu__edit-team-button",:class)
+      wait_for_selector(".team-menu__edit-team-button")
       expect(page.team_name).to eq(t2.name)
     end
 
@@ -894,12 +918,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should find all medias with an empty search", bin1: true do
       api_create_media_and_go_to_search_page
+      wait_for_selector("#search__open-dialog-button")
       old = wait_for_selector_list(".medias__item").length
-      # wait_for_selector("#search__open-dialog-button").click
       el = wait_for_selector("#search-input")
       el.click
       @driver.action.send_keys(:enter).perform
-      wait_for_selector_none("#search-input")
       current = wait_for_selector_list(".medias__item").length
       expect(old == current).to be(true)
       expect(current > 0).to be(true)
@@ -907,13 +930,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should search in trash page", bin4: true do
       api_create_claim_and_go_to_search_page
-      # Send item to trash
-      wait_for_selector('#search-query__cancel-button').click
-      wait_for_selector('.card-with-border > div > div > div + button svg').click
+      wait_for_selector(".medias__item")
+      wait_for_selector(".media__heading > a").click
       wait_for_selector('.media-actions__icon').click
-      wait_for_selector('.media-actions__send-to-trash').click
+      wait_for_selector(".media-actions__move")
+      wait_for_selector(".media-actions__send-to-trash").click
+      wait_for_selector(".message")
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/trash'
-      wait_for_selector('.medias__item')
+      wait_for_selector(".medias__item")
       trash_button = wait_for_selector('.trash__empty-trash-button')
       expect(trash_button.nil?).to be(false)
       expect(@driver.page_source.include?('My search result')).to be(true)
@@ -931,34 +955,23 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.navigate.to @config['self_url'] + '/' + data[:team].slug + '/search'
       wait_for_selector(".search__results")
       wait_for_selector("//span[contains(text(), '1 - 2 / 2')]",:xpath)
-      old = wait_for_selector_list("medias__item", :class).length
       expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
       expect(@driver.page_source.include?('on Facebook')).to be(true)
-      # wait_for_selector("#search__open-dialog-button").click
       el = wait_for_selector("#search-input")
       el.click
       el.send_keys "video"
       @driver.action.send_keys(:enter).perform
-      wait_for_selector("#search-query__submit-button").click
-      wait_for_selector_none("#search-input")
+      wait_for_text_change(" ","#search-input", :css)
       wait_for_selector("//span[contains(text(), '1 / 1')]",:xpath)
-      current = wait_for_selector_list(".medias__item").length
-      expect(old > current).to be(true)
-      expect(current > 0).to be(true)
       expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
       expect(@driver.page_source.include?('on Facebook')).to be(false)
-      wait_for_selector("#search__open-dialog-button").click
       el = wait_for_selector("#search-input")
       el.clear
       el.click
       el.send_keys "meedan"
       @driver.action.send_keys(:enter).perform
-      wait_for_selector("#search-query__submit-button").click
-      wait_for_selector_none("#search-input")
+      wait_for_text_change("video","#search-input", :css)
       wait_for_selector("//span[contains(text(), '1 / 1')]",:xpath)
-      current = wait_for_selector_list(".medias__item").length
-      expect(old > current).to be(true)
-      expect(current > 0).to be(true)
       expect(@driver.page_source.include?('on Facebook')).to be(true)
       expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(false)
     end
@@ -1182,7 +1195,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should search by project", bin2: true do
       api_create_claim_and_go_to_search_page
       expect((@driver.current_url.to_s.match(/project/)).nil?).to be(true)
-      # wait_for_selector("#search__open-dialog-button").click
+      wait_for_selector("#search__open-dialog-button").click
       wait_for_selector(".search-filter__project-chip").click
       wait_for_selector(".search-filter__project-chip--selected")
       wait_for_selector("#search-query__submit-button").click
@@ -1205,7 +1218,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_claim_and_go_to_search_page
       expect((@driver.current_url.to_s.match(/recent_activity/)).nil?).to be(true)
 
-      # wait_for_selector("#search__open-dialog-button").click
+      wait_for_selector("#search__open-dialog-button").click
       wait_for_selector(".search-query__recent-activity-button").click
       wait_for_selector("#search-query__submit-button").click
       wait_for_selector_none("#search-query__reset-button")
@@ -1226,7 +1239,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_claim_and_go_to_search_page
       expect((@driver.current_url.to_s.match(/ASC|DESC/)).nil?).to be(true)
 
-      # wait_for_selector("#search__open-dialog-button").click
+      wait_for_selector("#search__open-dialog-button").click
       @driver.find_element(:xpath, "//span[contains(text(), 'Newest')]").click
       wait_for_selector("#search-query__submit-button").click
       wait_for_selector_none("#search-query__reset-button")
@@ -1320,10 +1333,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page = api_create_team_project_claims_sources_and_redirect_to_project_page 21
       page.load
       wait_for_selector("#create-media__add-item")
-      wait_for_selector("#search__open-dialog-button").click
-      wait_for_selector("//span[contains(text(), 'Sources')]", :xpath, 100).click
-      wait_for_selector("#search-query__submit-button").click
-      wait_for_selector("source-card", :class)
       results = @driver.find_elements(:css, '.medias__item')
       expect(results.size == 20).to be(true)
       old = results.size
@@ -1399,7 +1408,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Delete task
       delete_task('Where was it')
     end
-    
+
     it "should upload image when registering", bin3: true do
       email, password, avatar = ["test-#{Time.now.to_i}@example.com", '12345678', File.join(File.dirname(__FILE__), 'test.png')]
       page = LoginPage.new(config: @config, driver: @driver).load
@@ -1421,8 +1430,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.action.send_keys('Test').perform
       expect((@driver.current_url.to_s =~ /media/).nil?).to be(true)
       @driver.action.send_keys(:enter).perform
-      # press_button('#create-media-submit')
-      wait_for_selector(".media-detail")
+      wait_for_selector(".medias__item")
       wait_for_selector('.media-detail__check-timestamp').click
       wait_for_selector(".media-detail__card-header")
       expect((@driver.current_url.to_s =~ /media/).nil?).to be(false)
@@ -1439,6 +1447,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector(".switch-teams__joined-team")
       link = wait_for_selector_list('.teams a').first
       link.click
+      wait_for_selector(".team-header__drawer-team-link").click
       link = wait_for_selector('.team__project-title')
       link.click
       wait_for_selector_none(".team-members__edit-button")
@@ -1449,8 +1458,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector(".switch-teams__joined-team")
       link = wait_for_selector_list('.teams a').last
       link.click
+      wait_for_selector(".team-header__drawer-team-link").click
       wait_for_selector(".team-members__edit-button")
-
 
       @driver.navigate.to(@config['self_url'])
       wait_for_selector('.main-title')
@@ -1486,7 +1495,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     end
 
-  
+
     it "should search map in geolocation task", bin3: true do
       api_create_team_project_and_claim_and_redirect_to_media_page
       wait_for_selector('.create-task__add-button')

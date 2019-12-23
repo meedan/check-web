@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import styled from 'styled-components';
+import ProjectActions from './ProjectActions';
 import ProjectRoute from '../../relay/ProjectRoute';
 import PageTitle from '../PageTitle';
 import CheckContext from '../../CheckContext';
-import ParsedText from '../ParsedText';
 import MediasLoading from '../media/MediasLoading';
 import Search from '../search/Search';
 import { units } from '../../styles/js/shared';
@@ -81,12 +81,10 @@ class ProjectComponent extends Component {
     return (
       <PageTitle prefix={project.title} skipTeam={false} team={this.currentContext().team}>
         <ProjectWrapper className="project">
-          {project.description && project.description.trim().length ?
-            <div style={{ margin: `0 ${units(1)} ${units(1)}` }} className="project__description">
-              <ParsedText text={project.description} />
-            </div>
-            : null}
           <Search
+            listName={project.title}
+            listDescription={project.description}
+            listActions={<ProjectActions project={project} />}
             team={project.team.slug}
             project={project}
             query={this.props.params.query || '{}'}
@@ -116,13 +114,19 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
         description,
         permissions,
         search_id,
+        medias_count,
         team {
           id,
           dbid,
           slug,
           search_id,
+          medias_count,
           verification_statuses,
           translation_statuses,
+          public_team {
+            id,
+            trash_count,
+          }
         }
       }
     `,

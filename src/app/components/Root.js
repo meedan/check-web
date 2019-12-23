@@ -71,8 +71,8 @@ class Root extends Component {
               callbacks[id] = callback;
             }
           }
+          Root.pusherLog(`Calling callback for channel ${channel} and event ${eventName} for component ${component}, which is currently mounted and focused`);
         });
-        Root.pusherLog(`Calling callback for channel ${channel} and event ${eventName}, which is currently mounted and focused`);
       } else if (checkPusher.subscribedChannels[channel]) {
         if (!checkPusher.queue[channel]) {
           checkPusher.queue[channel] = {};
@@ -154,10 +154,19 @@ class Root extends Component {
     });
 
     return {
-      unsubscribe: (channel) => {
+      unsubscribe: (channel, eventName, component) => {
         if (checkPusher.currentChannels[channel]) {
-          checkPusher.currentChannels[channel] = null;
-          Root.pusherLog(`Channel ${channel} is not a current channel anymore`);
+          if (eventName && component && checkPusher.currentChannels[channel][eventName] &&
+            checkPusher.currentChannels[channel][eventName][component]) {
+            delete checkPusher.currentChannels[channel][eventName][component];
+            Root.pusherLog(`Channel ${channel} is not a current channel for event ${eventName} and component ${component} anymore`);
+          } else if (eventName && checkPusher.currentChannels[channel][eventName]) {
+            delete checkPusher.currentChannels[channel][eventName];
+            Root.pusherLog(`Channel ${channel} is not a current channel for event ${eventName} anymore`);
+          } else {
+            checkPusher.currentChannels[channel] = null;
+            Root.pusherLog(`Channel ${channel} is not a current channel anymore`);
+          }
         }
       },
 

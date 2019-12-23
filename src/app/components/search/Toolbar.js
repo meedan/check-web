@@ -11,7 +11,6 @@ import { black05, black87, units, Row, FlexRow, Offset } from '../../styles/js/s
 const StyledToolbar = styled.div`
   background-color: ${black05};
   min-height: ${units(5)};
-  margin: 0 ${units(1)};
 
   .toolbar__title {
     color: ${black87};
@@ -27,12 +26,12 @@ class Toolbar extends React.Component {
 
   render() {
     const {
-      filter,
       actions,
       title,
       project,
       addons,
       page,
+      team,
       search,
     } = this.props;
 
@@ -42,7 +41,7 @@ class Toolbar extends React.Component {
       <StyledToolbar className="toolbar">
         <FlexRow>
           <Row>
-            {filter} | {actions} {actions ? '|' : null} <span className="toolbar__title">{title}</span>
+            {actions} {actions ? '|' : null} <span className="toolbar__title">{title}</span>
           </Row>
           <Offset isRtl={isRtl}>
             { project ?
@@ -52,7 +51,7 @@ class Toolbar extends React.Component {
               : null
             }
             { page === 'trash' ?
-              <EmptyTrashButton teamSlug={filter.props.teamSlug} search={search} /> : null
+              <EmptyTrashButton teamSlug={team.slug} search={search} /> : null
             }
             {addons}
           </Offset>

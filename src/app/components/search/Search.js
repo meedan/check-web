@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import isEqual from 'lodash.isequal';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import SearchResults from './SearchResults';
@@ -80,9 +81,22 @@ class Search extends React.Component {
       query.parent = { type: 'team', slug: teamSlug };
     }
 
+    let title = null;
+    if (/^\/.*\/search(\/)?.*/.test(window.location.pathname)) {
+      title = <FormattedMessage id="search.allClamimsTitle" defaultMessage="All claims" />;
+    }
+    if (this.props.page === 'trash') {
+      title = this.props.title; // eslint-disable-line prefer-destructuring
+    }
+
     return (
       <div className="search">
-        <SearchResults {...this.props} view={view} query={query} />
+        <SearchResults
+          {...this.props}
+          listName={title || this.props.listName}
+          view={view}
+          query={query}
+        />
       </div>
     );
   }

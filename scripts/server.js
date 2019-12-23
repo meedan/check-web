@@ -58,14 +58,6 @@ app.get('/*.chunk.js', (req, res, next) => {
 // static assets first
 app.use(serveStatic('build/web', { index: ['index.html'] }));
 
-// http auth
-const { httpAuth } = config;
-if (httpAuth) {
-  const users = {};
-  const httpCredentials = httpAuth.split(':');
-  users[httpCredentials[0]] = httpCredentials[1];
-  app.use(basicAuth({ users, challenge: true, realm: httpCredentials[2] }));
-}
 
 const headers = {
   'X-Check-Token': config.checkApiToken,

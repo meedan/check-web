@@ -1,0 +1,14 @@
+[
+  {
+    "id": "ProjectActions.edit",
+    "defaultMessage": "Edit"
+  },
+  {
+    "id": "projectActions.assignOrUnassign",
+    "defaultMessage": "Assign / Unassign"
+  },
+  {
+    "id": "ProjectActions.tooltip",
+    "defaultMessage": "List actions"
+  }
+]

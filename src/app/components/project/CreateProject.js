@@ -18,23 +18,23 @@ import {
 const messages = defineMessages({
   addProject: {
     id: 'createProject.addProject',
-    defaultMessage: 'Add project',
+    defaultMessage: 'Create list',
   },
   cardTitle: {
     id: 'createProject.title',
-    defaultMessage: 'Add a project',
+    defaultMessage: 'Add a list',
   },
   cardTitleBlank: {
     id: 'createProject.titleBlank',
-    defaultMessage: 'Add your first project',
+    defaultMessage: 'Add your first list',
   },
   newProjectName: {
     id: 'createProject.newProjectName',
-    defaultMessage: 'Project name',
+    defaultMessage: 'List name',
   },
   error: {
     id: 'createProject.error',
-    defaultMessage: 'Sorry, an error occurred while updating the project. Please try again and contact {supportEmail} if the condition persists.',
+    defaultMessage: 'Sorry, an error occurred while updating the list. Please try again and contact {supportEmail} if the condition persists.',
   },
 });
 
@@ -58,6 +58,12 @@ class CreateProject extends Component {
   getCurrentUser() {
     return new CheckContext(this).getContextStore().currentUser;
   }
+
+  handleBlur = () => {
+    if (this.props.onBlur) {
+      this.props.onBlur();
+    }
+  };
 
   handleChange = (e) => {
     this.setState({ name: e.target.value });
@@ -103,12 +109,13 @@ class CreateProject extends Component {
       <TextField
         id="create-project-title"
         className={this.props.className || 'team__new-project-input'}
-        floatingLabelText={this.props.intl.formatMessage(messages.newProjectName)}
+        hintText={this.props.intl.formatMessage(messages.newProjectName)}
         ref={(i) => { this.projectInput = i; }}
         style={this.props.style}
         autoFocus={this.props.autoFocus}
         errorText={this.state.message}
         onChange={this.handleChange}
+        onBlur={this.handleBlur}
         fullWidth
       />
     );
