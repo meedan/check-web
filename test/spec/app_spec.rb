@@ -1331,13 +1331,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should paginate project page", bin2: true do
       page = api_create_team_project_claims_sources_and_redirect_to_project_page 21
       page.load
-      wait_for_selector("#create-media__add-item")
-      results = @driver.find_elements(:css, '.medias__item')
-      expect(results.size == 20).to be(true)
-      old = results.size
+      wait_for_selector('.media__heading')
+      wait_for_selector(".search__results-heading")
+      expect(@driver.page_source.include?('1 - 20 / 21')).to be(true)
       wait_for_selector(".search__next-page").click
-      size = wait_for_size_change(old, '.medias__item')
-      expect(size == 1).to be(true)
+      wait_for_selector('.media__heading')
+      wait_for_selector(".search__results-heading")
+      expect(@driver.page_source.include?('21 - 21 / 21')).to be(true)
     end
 
     it "should show teams at /check/teams", bin1: true do
