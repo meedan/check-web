@@ -4,7 +4,6 @@ import isEqual from 'lodash.isequal';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import SearchResults from './SearchResults';
 import { safelyParseJSON } from '../../helpers';
-import { ContentColumn, display1 } from '../../styles/js/shared';
 
 const statusKey = config.appName === 'bridge' ? 'translation_status' : 'verification_status';
 
@@ -92,14 +91,12 @@ class Search extends React.Component {
 
     return (
       <div className="search">
-        { title ?
-          <ContentColumn wide={view === 'dense'}>
-            <div style={{ font: display1 }} className="search__title">
-              {title}
-            </div>
-          </ContentColumn> : null
-        }
-        <SearchResults {...this.props} view={view} query={query} />
+        <SearchResults
+          {...this.props}
+          listName={title || this.props.listName}
+          view={view}
+          query={query}
+        />
       </div>
     );
   }

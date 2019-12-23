@@ -26,7 +26,6 @@ class Toolbar extends React.Component {
 
   render() {
     const {
-      filter,
       actions,
       title,
       project,
@@ -42,7 +41,7 @@ class Toolbar extends React.Component {
       <StyledToolbar className="toolbar">
         <FlexRow>
           <Row>
-            {filter} | {actions} {actions ? '|' : null} <span className="toolbar__title">{title}</span>
+            {actions} {actions ? '|' : null} <span className="toolbar__title">{title}</span>
           </Row>
           <Offset isRtl={isRtl}>
             { project ?
