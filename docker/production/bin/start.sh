@@ -42,7 +42,9 @@ if [ "${NODE_ENV}" != "production" ]; then
   echo "NODE_ENV is ${NODE_ENV} - disabling caching for static assets";
   sed -i -e 's/s-maxage=900, max-age=300/no-cache/g' /etc/nginx/sites-enabled/${APP};
   sed -i -e '/NOTPRODUCTION/,+3 s/^/#/' /etc/nginx/sites-enabled/${APP}
-
+  ../basic-auth.sh
+  sed '4 a\ auth_basic           "Administrator’s Area";' /etc/nginx/sites-enabled/${APP}
+  sed '4 a\ auth_basic_user_file ~/meedan/intrnal.htpasswd;' /etc/nginx/sites-enabled/${APP}
 fi
 
 echo "starting nginx";
