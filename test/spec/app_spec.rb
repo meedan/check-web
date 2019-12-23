@@ -447,10 +447,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector("#search__open-dialog-button")
       wait_for_selector("#create-media__add-item").click
       wait_for_selector(".create-media__form")
-      el = @driver.find_element(:id,'create-media__source')
-      el.click
+      wait_for_selector("#create-media__source").click
       wait_for_selector("#create-media-source-name-input")
       fill_field('#create-media-source-url-input', 'https://twitter.com/IronMaiden/status/832726327459446784')
+      wait_for_text_change(' ',"#create-media-source-url-input", :css)
       wait_for_selector('#create-media-dialog__submit-button').click
       expect(@driver.current_url.to_s.match(/\/source\/[0-9]+$/).nil?).to be(true)
       message = wait_for_selector('.message').text

@@ -409,13 +409,16 @@ shared_examples 'smoke' do
   it "should create source and redirect to newly created source", bin6: true do
     api_create_team_and_project
     @driver.navigate.to @config['self_url']
-
+    wait_for_selector(".project-actions")
     wait_for_selector("#create-media__add-item").click
     wait_for_selector("#create-media__source").click
     wait_for_selector("#create-media-source-name-input")
     fill_field('#create-media-source-name-input', @source_name)
     fill_field('#create-media-source-url-input', @source_url)
+    wait_for_text_change(' ',"#create-media-source-url-input", :css)
     wait_for_selector('#create-media-dialog__submit-button').click
+    wait_for_selector(".message")
+    wait_for_selector_none('#create-media-dialog__dismiss-button')
     wait_for_selector(".source__name")
     expect(@driver.current_url.to_s.match(/\/source\/[0-9]+$/).nil?).to be(false)
     title = wait_for_selector('.source__name').text
