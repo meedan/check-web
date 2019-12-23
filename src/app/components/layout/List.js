@@ -7,7 +7,7 @@ import 'ag-grid-community/dist/styles/ag-theme-material.css';
 import styled from 'styled-components';
 import MediaCell from '../media/MediaCell';
 import MediaUtil from '../media/MediaUtil';
-import { ContentColumn, units } from '../../styles/js/shared';
+import { units } from '../../styles/js/shared';
 import { getStatus } from '../../helpers';
 import { mediaStatuses } from '../../customHelpers';
 
@@ -143,24 +143,22 @@ class List extends React.Component {
 
   render() {
     return (
-      <ContentColumn wide>
-        <StyledGridContainer className="ag-theme-material">
-          <AgGridReact
-            columnDefs={this.state.columnDefs}
-            frameworkComponents={{ mediaCellRenderer: MediaCell }}
-            rowData={this.getRowData()}
-            onGridReady={this.handleGridReady}
-            onRowClicked={this.handleClickRow}
-            onRowSelected={this.handleSelect}
-            rowClass="medias__item"
-            rowStyle={{ cursor: 'pointer' }}
-            rowHeight="96"
-            rowSelection="multiple"
-            suppressCellSelection
-            suppressRowClickSelection
-          />
-        </StyledGridContainer>
-      </ContentColumn>
+      <StyledGridContainer className="ag-theme-material">
+        <AgGridReact
+          columnDefs={this.state.columnDefs}
+          frameworkComponents={{ mediaCellRenderer: MediaCell }}
+          rowData={this.getRowData()}
+          onGridReady={this.handleGridReady}
+          onRowClicked={this.handleClickRow}
+          onRowSelected={this.handleSelect}
+          rowClass="medias__item"
+          rowStyle={{ cursor: 'pointer' }}
+          rowHeight="96"
+          rowSelection="multiple"
+          suppressCellSelection
+          suppressRowClickSelection
+        />
+      </StyledGridContainer>
     );
   }
 }

@@ -454,7 +454,7 @@ class SearchResultsComponent extends React.Component {
     const { listName, listActions, listDescription } = this.props;
 
     return (
-      <ContentColumn wide>
+      <ContentColumn fullWidth>
         <StyledListHeader>
           <Row className="search__list-header-filter-row">
             <Row className="search__list-header-title-and-filter">

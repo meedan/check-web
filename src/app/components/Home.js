@@ -50,8 +50,7 @@ const StyledContent = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
-  padding-top: ${gutterMedium};
-  padding-bottom: ${props => (props.inMediaPage ? '0' : gutterMedium)};
+  padding: ${gutterMedium} ${units(2)} ${props => (props.inMediaPage ? '0' : gutterMedium)};
   width: 100%;
 `;
 
