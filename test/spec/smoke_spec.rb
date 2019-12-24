@@ -251,10 +251,9 @@ shared_examples 'smoke' do
     # Create a claim under project 2
     wait_for_selector("#create-media__add-item").click
     wait_for_selector('#create-media__quote').click
-    @driver.action.send_keys(claim).perform
+    fill_field('#create-media-quote-input' , claim)
     wait_for_selector('#create-media-dialog__submit-button').click
     wait_for_selector_none('#create-media__quote')
-
     # Go to the second project, make sure that the claim is there
     wait_for_selector('.project-list__link + .project-list__link').click
     wait_for_selector('.medias__item')
@@ -262,34 +261,21 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('1 / 1')).to be(true)
     expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(false)
 
-    # Move the claim to another project
-    wait_for_selector('.card-with-border > div > div > div + button svg').click
-    wait_for_selector('.media-actions__icon').click
-    move = wait_for_selector('.media-actions__move')
-    move.location_once_scrolled_into_view
-    move.click
+    #move media to project 1
+    wait_for_selector(".ag-icon-checkbox-unchecked").click
+    wait_for_selector(".media-bulk-actions__move-icon").click
     wait_for_selector('.Select-input input')
     fill_field('.Select-input input', 'Project')
-    move = wait_for_selector('.Select-option')
-    move.location_once_scrolled_into_view
-    move.click
-    move = wait_for_selector('.media-detail__move-button')
-    move.location_once_scrolled_into_view
-    move.click
+    select_button = wait_for_selector('.Select-option')
+    select_button.location_once_scrolled_into_view
+    select_button.click
+    button_move = wait_for_selector('.media-bulk-actions__move-button')
+    button_move.location_once_scrolled_into_view
+    button_move.click
     wait_for_selector_none(".Select-placeholder")
-
-      project_title = wait_for_selector('.project__title').attribute("innerHTML")
-      count = 0
-      while project_title != p1[:project].title && count < 10
-        wait_for_selector('#create-media__add-item')
-        project_title = wait_for_selector('.project__title').attribute("innerHTML")
-        count += 1
-      end
-
-    # Check if the claim is under the first project, which we should have been redirected to
-    @wait.until {
-      expect(@driver.current_url.to_s == p1url).to be(true)
-    }
+  
+    wait_for_selector('.project-list__link').click
+    expect(@driver.current_url.to_s == p1url).to be(true)
     expect(@driver.page_source.include?(claim)).to be(true)
     expect(@driver.page_source.include?('1 / 1')).to be(true)
     expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(false)
