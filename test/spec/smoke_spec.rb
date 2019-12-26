@@ -1054,6 +1054,7 @@ shared_examples 'smoke' do
   it "should generate a embed from manually from a image the status in progress",bin4: true do
     api_create_team_and_project
     @driver.navigate.to @config['self_url']
+    wait_for_selector(".project__description")
     wait_for_selector('#create-media__add-item').click
     wait_for_selector("#create-media__image").click
     input = wait_for_selector('input[type=file]')
