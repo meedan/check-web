@@ -450,9 +450,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       wait_for_selector("#create-media-source-name-input")
       fill_field('#create-media-source-url-input', 'https://twitter.com/IronMaiden/status/832726327459446784')
+      wait_for_text_change(' ',"#create-media-source-url-input", :css)
       wait_for_selector('#create-media-dialog__submit-button').click
-      wait_for_selector('.undefined')
-      wait_for_selector_none('#create-media-dialog__submit-button')
+      wait_for_selector('.create-media__message')
       expect(@driver.current_url.to_s.match(/\/source\/[0-9]+$/).nil?).to be(true)
       message = wait_for_selector('.message').text
       expect(message.match(/Sorry, this is not a profile/).nil?).to be(false)
