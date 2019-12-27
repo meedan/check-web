@@ -73,6 +73,11 @@ const optimisticProjectMedia = (media, proj, context) => {
           'create Dynamic': false,
           'create Task': false,
         }),
+        team: {
+          slug: team.slug,
+          id: team.id || 'VGVhbS8w\n',
+          medias_count: team.medias_count + 1,
+        },
         project: {
           id: project.id,
           dbid: project.dbid,
