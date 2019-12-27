@@ -204,6 +204,10 @@ const MediaRelatedContainer = Relay.createContainer(MediaRelatedComponent, {
         media {
           quote
         }
+        team {
+          id
+          slug
+        }
         project {
           dbid
           search_id
