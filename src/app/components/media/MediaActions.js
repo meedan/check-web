@@ -18,13 +18,15 @@ class MediaActions extends Component {
   handleEmbed() {
     const { media } = this.props;
     const { history } = new CheckContext(this).getContextStore();
-    history.push(`/${media.team.slug}/project/${media.project_id}/media/${media.dbid}/embed`);
+    const projectPart = media.project_id ? `/project/${media.project_id}` : '';
+    history.push(`/${media.team.slug}${projectPart}/media/${media.dbid}/embed`);
   }
 
   handleMemebuster = () => {
     const { media } = this.props;
     const { history } = new CheckContext(this).getContextStore();
-    history.push(`/${media.team.slug}/project/${media.project_id}/media/${media.dbid}/memebuster`);
+    const projectPart = media.project_id ? `/project/${media.project_id}` : '';
+    history.push(`/${media.team.slug}${projectPart}/media/${media.dbid}/memebuster`);
   };
 
   render() {

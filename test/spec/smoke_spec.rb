@@ -103,15 +103,15 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('User With Email')).to be(true)
   end
 
-    it "should register and create a claim", bin4: true do
-      page = LoginPage.new(config: @config, driver: @driver).load
-      page = page.register_and_login_with_email(email: "sysops+#{Time.now.to_i}#{rand(1000)}@meedan.com", password: @password)
-      page
-        .create_team
-        .create_project
-        .create_media(input: 'Claim')
-        .logout
-    end
+  it "should register and create a claim", bin4: true do
+    page = LoginPage.new(config: @config, driver: @driver).load
+    page = page.register_and_login_with_email(email: "sysops+#{Time.now.to_i}#{rand(1000)}@meedan.com", password: @password)
+    page
+      .create_team
+      .create_project
+      .create_media(input: 'Claim')
+      .logout
+  end
 
   it "should lock and unlock status", bin1: true do
     page = api_create_team_project_and_link_and_redirect_to_media_page 'http://ca.ios.ba/files/meedan/random.php'
@@ -125,7 +125,6 @@ shared_examples 'smoke' do
     wait_for_size_change(1, '.annotation--verification_status')
     expect(@driver.page_source.include?('Item status unlocked by')).to be(true)
   end
-
 
   it "should comment media as a command", bin4: true, quick:true do
     api_create_team_project_and_claim_and_redirect_to_media_page

@@ -242,15 +242,25 @@ class MediaDetail extends Component {
     const isVideo = media.media.type === 'UploadedVideo';
     const isQuote = media.media.type === 'Claim';
 
+    const path = this.props.location
+      ? this.props.location.pathname
+      : window.location.pathname;
+
     let projectId = media.project_id;
+    if (/project\/([0-9]+)/.test(path)) {
+      projectId = path.match(/project\/([0-9]+)/).pop();
+    }
 
     if (!projectId && annotated && annotatedType === 'Project') {
       projectId = annotated.dbid;
     }
 
-    const mediaUrl = projectId && media.team && media.dbid > 0
+    let mediaUrl = projectId && media.team && media.dbid > 0
       ? `/${media.team.slug}/project/${projectId}/media/${media.dbid}`
       : null;
+    if (!mediaUrl && media.team && media.dbid > 0) {
+      mediaUrl = `/${media.team.slug}/media/${media.dbid}`;
+    }
 
     const sourceUrl = media.team &&
       media.project &&
@@ -264,10 +274,6 @@ class MediaDetail extends Component {
     const projectUrl = projectId && media.team
       ? `/${media.team.slug}/project/${projectId}`
       : null;
-
-    const path = this.props.location
-      ? this.props.location.pathname
-      : window.location.pathname;
 
     const projectPage = /^\/.*\/project\//.test(path);
     const sourcePage = /^\/.*\/project\/.*\/source\//.test(path);
