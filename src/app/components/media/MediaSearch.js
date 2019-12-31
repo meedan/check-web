@@ -73,18 +73,22 @@ class MediaSearchComponent extends React.Component {
   setOffset(offset) {
     const query = this.searchQueryFromUrl();
     query.esoffset = offset;
-    const pathname = window.location.pathname.match(/^(\/[^/]+\/project\/[0-9]+\/media\/[0-9]+)/)[1];
+    const pathname = window.location.pathname.match(/^(\/[^/]+\/(project\/[0-9]+\/)?media\/[0-9]+)/)[1];
     this.currentContext().history.push({ pathname, state: { query } });
   }
 
   updateUrl() {
-    const currId = parseInt(window.location.pathname.match(/^\/[^/]+\/project\/[0-9]+\/media\/([0-9]+)/)[1], 10);
+    const currId = parseInt(window.location.pathname.match(/^\/[^/]+\/(project\/[0-9]+\/)?media\/([0-9]+)/)[2], 10);
     const medias = this.props.search.medias.edges;
     const newId = medias.length > 0 ? parseInt(medias[0].node.dbid, 10) : null;
     if (newId && currId !== newId) {
       const query = this.searchQueryFromUrl();
-      const pathBase = window.location.pathname.match(/(^\/[^/]+\/project\/[0-9]+\/media\/)[0-9]+.*/)[1];
-      const pathname = `${pathBase}${newId}`;
+      const teamSlug = window.location.pathname.match(/(^\/[^/]+)\/(project\/[0-9]+\/)?media\/[0-9]+.*/)[1];
+      let projectPart = '';
+      if (medias[0].node.project_id) {
+        projectPart = `project/${medias[0].node.project_id}/`;
+      }
+      const pathname = `${teamSlug}/${projectPart}media/${newId}`;
       this.currentContext().history.push({ pathname, state: { query } });
     }
   }

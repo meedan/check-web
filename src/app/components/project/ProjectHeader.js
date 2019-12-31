@@ -4,6 +4,7 @@ import Relay from 'react-relay/classic';
 import { Link } from 'react-router';
 import IconArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 import IconButton from 'material-ui/IconButton';
+import { FormattedMessage } from 'react-intl';
 import ProjectRoute from '../../relay/ProjectRoute';
 import { urlFromSearchQuery } from '../search/Search';
 import { Row, HeaderTitle, FadeIn, SlideIn, black54 } from '../../styles/js/shared';
@@ -24,7 +25,7 @@ class ProjectHeaderComponent extends React.PureComponent {
     const path = props.location ? props.location.pathname : window.location.pathname;
     const regexProject = /(.*\/project\/[0-9]+)/;
     const regexTeam = /^(\/[^/]+)/;
-    const regexMedia = /\/media\/[0-9]/;
+    const regexMedia = /project\/[0-9]+\/media\/[0-9]/;
     const regexSource = /\/source\/[0-9]/;
     let mediaQuery = null;
     const { state } = this.currentContext().history.getCurrentLocation();
@@ -54,15 +55,17 @@ class ProjectHeaderComponent extends React.PureComponent {
       } else if (isProjectSubpage) {
         return path.match(regexProject)[1];
       }
-      return null;
+      return `${path.match(regexTeam)[1]}/search`;
     };
+
+    const url = backUrl();
 
     return (
       <div style={{ display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
-        {isProjectSubpage ?
+        {url ?
           <Row>
             <IconButton
-              containerElement={<Link to={backUrl()} />}
+              containerElement={<Link to={url} />}
               className="project-header__back-button"
             >
               <FadeIn>
@@ -72,7 +75,7 @@ class ProjectHeaderComponent extends React.PureComponent {
               </FadeIn>
             </IconButton>
             <HeaderTitle className="project-header__title">
-              {currentProject.title}
+              {currentProject ? currentProject.title : <FormattedMessage id="projectHeader.allItems" defaultMessage="All items" />}
             </HeaderTitle>
           </Row>
           : null}
@@ -103,6 +106,10 @@ const ProjectHeader = (props) => {
     return (<Relay.RootContainer
       Component={ProjectHeaderContainer}
       route={route}
+    />);
+  } else if (props.params && props.params.mediaId) {
+    return (<ProjectHeaderComponent
+      {...props}
     />);
   }
   return null;

@@ -143,7 +143,7 @@ class MediaComponent extends Component {
   }
 
   render() {
-    if (this.props.relay.variables.contextId === null) {
+    if (this.props.relay.variables.contextId === null && /\/project\//.test(window.location.pathname)) {
       return null;
     }
 

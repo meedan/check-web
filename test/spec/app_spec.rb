@@ -8,6 +8,7 @@ require_relative './pages/me_page.rb'
 require_relative './pages/page.rb'
 require_relative './api_helpers.rb'
 require_relative './smoke_spec.rb'
+require_relative './media_spec.rb'
 
 CONFIG = YAML.load_file('config.yml')
 require_relative "#{CONFIG['app_name']}_spec.rb"
@@ -33,7 +34,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     @user_mail = 'sysops_' + Time.now.to_i.to_s + '@meedan.com'
     @webdriver_url = webdriver_url
     @browser_capabilities = browser_capabilities
-
 
     begin
       FileUtils.cp('./config.js', '../build/web/js/config.js')
@@ -72,6 +72,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     include_examples "custom"
     include_examples "smoke"
+    it_behaves_like "media", 'BELONGS_TO_ONE_PROJECT'
+    it_behaves_like "media", 'DOES_NOT_BELONG_TO_ANY_PROJECT'
 
     it "should manage team members roles", bin4: true do
       # setup
@@ -234,31 +236,22 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect((@driver.current_url.to_s =~ /\/forbidden$/).nil?).to be(false)
     end
 
-    it "should edit the description of a media", bin4: true do
-      url = 'https://twitter.com/softlandscapes/status/834385935240462338'
-      media_pg = api_create_team_project_and_link_and_redirect_to_media_page url
-      wait_for_selector('.media-detail')
-      media_pg.toggle_card # Make sure the card is closed
-      expect(media_pg.contains_string?('Edited media description')).to be(false)
-      media_pg.toggle_card # Expand the card so the edit button is accessible
-      wait_for_selector('.media-actions')
-      media_pg.set_description('Edited media description')
-      expect(media_pg.contains_string?('Edited media description')).to be(true)
-    end
+    it "should localize interface based on browser language", bin6: true do
+      unless browser_capabilities['appiumVersion']
+        caps = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { prefs: { 'intl.accept_languages' => 'fr' } })
+        driver = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: caps)
+        driver.navigate.to @config['self_url']
+        @wait.until { driver.find_element(:id, "register-or-login") }
+        expect(driver.find_element(:css, '.login__heading span').text == 'Connexion').to be(true)
+        driver.quit
 
-    it "should edit the title of a media", bin1: true do
-      url = 'https://twitter.com/softlandscapes/status/834385935240462338'
-      media_pg = api_create_team_project_and_link_and_redirect_to_media_page url
-      wait_for_selector('.media-detail')
-      media_pg.toggle_card # Make sure the card is closed
-      expect(media_pg.primary_heading.text).to eq('https://t.co/i17DJNqiWX')
-      media_pg.toggle_card # Expand the card so the edit button is accessible
-      wait_for_selector('.media-actions')
-      media_pg.set_title('Edited media title')
-      expect(@driver.page_source.include?('Edited media title')).to be(true)
-      wait_for_selector(".project-header__back-button").click
-      wait_for_selector('.medias__item')
-      expect(@driver.page_source.include?('Edited media title')).to be(true)
+        caps = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { prefs: { 'intl.accept_languages' => 'pt' } })
+        driver = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: caps)
+        driver.navigate.to @config['self_url']
+        @wait.until { driver.find_element(:id, "register-or-login") }
+        expect(driver.find_element(:css, '.login__heading span').text == 'Entrar').to be(true)
+        driver.quit
+      end
     end
 
     it "should display a default title for new media", bin1: true, quick:true do
@@ -291,24 +284,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       project_pg = media_pg.go_to_project
       wait_for_selector('.medias__item')
       expect(project_pg.elements('.media__heading').map(&:text).select{ |x| x =~ /Facebook/ }.empty?).to be(false)
-    end
-
-      it "should localize interface based on browser language", bin6: true do
-      unless browser_capabilities['appiumVersion']
-        caps = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { prefs: { 'intl.accept_languages' => 'fr' } })
-        driver = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: caps)
-        driver.navigate.to @config['self_url']
-        @wait.until { driver.find_element(:id, "register-or-login") }
-        expect(driver.find_element(:css, '.login__heading span').text == 'Connexion').to be(true)
-        driver.quit
-
-        caps = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { prefs: { 'intl.accept_languages' => 'pt' } })
-        driver = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: caps)
-        driver.navigate.to @config['self_url']
-        @wait.until { driver.find_element(:id, "register-or-login") }
-        expect(driver.find_element(:css, '.login__heading span').text == 'Entrar').to be(true)
-        driver.quit
-      end
     end
 
     it "should access user confirmed page", bin5: true do
@@ -381,25 +356,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect((@driver.current_url.to_s =~ /\/$/).nil?).to be(false)
       @driver.navigate.forward
       expect((@driver.current_url.to_s =~ /\/terms-of-service$/).nil?).to be(false)
-    end
-
-    it "should add a tag, reject duplicated and delete tag", bin3: true, quick: true  do
-      page = api_create_team_project_and_claim_and_redirect_to_media_page
-      wait_for_selector("add-annotation__insert-photo",:class)
-      new_tag = Time.now.to_i.to_s
-      # Validate assumption that tag does not exist
-      expect(page.has_tag?(new_tag)).to be(false)
-      # Add tag
-      page.add_tag(new_tag)
-      expect(page.has_tag?(new_tag)).to be(true)
-      # Try to add duplicate
-      page.add_tag(new_tag)
-      @wait.until { @driver.page_source.include?('Validation') }
-      expect(page.contains_string?('Tag already exists')).to be(true)
-      # Verify that tag is not added and that error message is displayed
-      expect(page.tags.count(new_tag)).to be(1)
-      page.delete_tag(new_tag)
-      expect(page.has_tag?(new_tag)).to be(false)
     end
 
     it "should tag source as a command", bin6: true do
@@ -566,8 +522,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.source-menu__edit-source-button')
       expect(@driver.page_source.include?('121212121')).to be(true)
     end
-
-
 
     it "should add and remove source languages", bin6: true  do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
@@ -850,33 +804,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Auto-Refresh')).to be(true)
     end
 
-    it "should embed", bin1: true do
-      api_create_team_project_and_claim_and_redirect_to_media_page
-      wait_for_selector(".tasks")
-      request_api('make_team_public', { slug: get_team })
-
-      @driver.navigate.refresh
-      wait_for_selector('.media-detail')
-      wait_for_selector('.media-actions__icon').click
-      wait_for_selector('.media-actions__edit')
-      expect(@driver.page_source.include?('Embed')).to be(true)
-      url = @driver.current_url.to_s
-      wait_for_selector('.media-actions__embed').click
-      wait_for_selector("#media-embed__actions")
-      expect(@driver.current_url.to_s == "#{url}/embed").to be(true)
-      expect(@driver.page_source.include?('Not available')).to be(false)
-      @driver.find_elements(:css, 'body').map(&:click)
-      el = wait_for_selector('#media-embed__actions-copy')
-      el.click
-      wait_for_selector("#media-embed__copy-code")
-      @driver.navigate.to 'https://paste.ubuntu.com/'
-      el = wait_for_selector('#id_content')
-      el.send_keys(' ')
-      @driver.action.send_keys(:control, 'v').perform
-      wait_for_text_change(' ',"#id_content", :css)
-      expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
-    end
-
     it "should give 404 when trying to access a media that is not related to the project on the URL", bin1: true do
       t1 = api_create_team_and_project()
       data = api_create_team_project_and_link 'https://twitter.com/TheWho/status/890135323216367616'
@@ -974,190 +901,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector("//span[contains(text(), '1 / 1')]",:xpath)
       expect(@driver.page_source.include?('on Facebook')).to be(true)
       expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(false)
-    end
-
-    it "should add, edit, answer, update answer and delete short answer task", bin3: true do
-      media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
-      wait_for_selector('.create-task__add-button')
-
-      # Create a task
-      expect(@driver.page_source.include?('Foo or bar?')).to be(false)
-      expect(@driver.page_source.include?('Task created by User With Email: Foo or bar?')).to be(false)
-
-      el = wait_for_selector('.create-task__add-button')
-      el.click
-      el = wait_for_selector('.create-task__add-short-answer')
-      el.location_once_scrolled_into_view
-      el.click
-      wait_for_selector('#task-label-input')
-      fill_field('#task-label-input', 'Foo or bar?')
-      el = wait_for_selector('.create-task__dialog-submit-button')
-      el.click
-      wait_for_selector('.annotation__task-created')
-      expect(@driver.page_source.include?('Foo or bar?')).to be(true)
-      expect(@driver.page_source.include?('Task created by')).to be(true)
-
-      # Answer task
-      expect(@driver.page_source.include?('task__answered-by-current-user')).to be(false)
-      fill_field('textarea[name="response"]', 'Foo')
-      @driver.find_element(:css, '.task__save').click
-      wait_for_selector('.annotation__task-resolved')
-      expect(@driver.page_source.include?('task__answered-by-current-user')).to be(true)
-
-      # Edit task
-      expect(@driver.page_source.include?('Foo or bar???')).to be(false)
-      el = wait_for_selector('.task-actions__icon')
-      el.click
-      editbutton = wait_for_selector('.task-actions__edit')
-      editbutton.location_once_scrolled_into_view
-      editbutton.click
-      wait_for_selector("#task-description-input")
-      fill_field('#task-label-input', '??')
-      editbutton = wait_for_selector('.create-task__dialog-submit-button')
-      editbutton.click
-      wait_for_selector('.annotation__update-task')
-      expect(@driver.page_source.include?('Foo or bar???')).to be(true)
-
-      # Edit task answer
-      expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Foo edited')).to be(false)
-      el = wait_for_selector('.task-actions__icon').click
-
-      el = wait_for_selector('.task-actions__edit-response')
-      el.click
-
-      # Ensure menu closes and textarea is focused...
-      el = wait_for_selector('textarea[name="response"]', :css)
-      el.click
-      wait_for_selector(".task__cancel")
-      fill_field('textarea[name="response"]', ' edited')
-      @driver.find_element(:css, '.task__save').click
-      wait_for_selector_none(".task__cancel")
-      media_pg.wait_all_elements(9, 'annotations__list-item', :class)
-      wait_for_selector('.annotation--task_response_free_text')
-      expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Foo edited')).to be(true)
-
-      # Delete task
-      delete_task('Foo')
-    end
-
-    it "should add, edit, answer, update answer and delete single_choice task", bin2: true  do
-      media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
-      wait_for_selector('.create-task__add-button')
-      # Create a task
-      expect(@driver.page_source.include?('Foo or bar?')).to be(false)
-      expect(@driver.page_source.include?('Task created by')).to be(false)
-      el = wait_for_selector('.create-task__add-button')
-      el.click
-      el = wait_for_selector('.create-task__add-choose-one')
-      el.location_once_scrolled_into_view
-      el.click
-      wait_for_selector('#task-label-input')
-      fill_field('#task-label-input', 'Foo or bar?')
-      fill_field('0', 'Foo', :id)
-      fill_field('1', 'Bar', :id)
-      el = wait_for_selector('.create-task__dialog-submit-button')
-      el.click
-      wait_for_selector('.annotation__task-created')
-      expect(@driver.page_source.include?('Foo or bar?')).to be(true)
-      expect(@driver.page_source.include?('Task created by')).to be(true)
-      # Answer task
-      expect(@driver.page_source.include?('task__answered-by-current-user')).to be(false)
-      el = wait_for_selector('0', :id)
-      el.click
-      el = wait_for_selector('.task__submit')
-      el.click
-      wait_for_selector('.annotation__task-resolved')
-      expect(@driver.page_source.include?('task__answered-by-current-user')).to be(true)
-      # Edit task
-      expect(@driver.page_source.include?('Task edited by')).to be(false)
-      el = wait_for_selector('.task-actions__icon')
-      el.click
-      editbutton = wait_for_selector('.task-actions__edit')
-      editbutton.location_once_scrolled_into_view
-      editbutton.click
-      fill_field('#task-label-input', '??')
-      editbutton = wait_for_selector('.create-task__dialog-submit-button')
-      editbutton.click
-      wait_for_selector('.annotation__update-task')
-      expect(@driver.page_source.include?('Task edited by')).to be(true)
-      # Edit task answer
-
-      el = wait_for_selector('.task-actions__icon').click
-      el = wait_for_selector('.task-actions__edit-response')
-      el.click
-      el = wait_for_selector('1', :id)
-      el.click
-      el = wait_for_selector('task__submit', :class)
-      el.click
-      wait_for_selector('.annotation--task_response_single_choice')
-      # Delete task
-      delete_task('Foo')
-    end
-
-    it "should add, edit, answer, update answer and delete multiple_choice task", bin5: true do
-      api_create_team_project_and_claim_and_redirect_to_media_page
-      wait_for_selector('.create-task__add-button')
-      # Create a task
-      expect(@driver.page_source.include?('Foo, Doo or bar?')).to be(false)
-      expect(@driver.page_source.include?('Task created by')).to be(false)
-      el = wait_for_selector('.create-task__add-button')
-      el.click
-      el = wait_for_selector('create-task__add-choose-multiple', :class)
-      el.location_once_scrolled_into_view
-      el.click
-      wait_for_selector('#task-label-input')
-      fill_field('#task-label-input', 'Foo, Doo or bar?')
-      fill_field('0', 'Foo', :id)
-      fill_field('1', 'Bar', :id)
-      el = wait_for_selector("//span[contains(text(), 'Add Option')]",:xpath)
-      el.click
-      fill_field('2', 'Doo', :id)
-      el = wait_for_selector("//span[contains(text(), 'Add \"Other\"')]",:xpath)
-      el.click
-      el = wait_for_selector('.create-task__dialog-submit-button')
-      el.click
-      wait_for_selector('.annotation__task-created')
-      expect(@driver.page_source.include?('Foo, Doo or bar?')).to be(true)
-      expect(@driver.page_source.include?('Task created by')).to be(true)
-      # Answer task
-      expect(@driver.page_source.include?('task__answered-by-current-user')).to be(false)
-      el = wait_for_selector('#Foo')
-      el.click
-      el = wait_for_selector('#Doo')
-      el.click
-      el = wait_for_selector('.task__submit')
-      el.click
-      wait_for_selector('.annotation__task-resolved')
-      expect(@driver.page_source.include?('task__answered-by-current-user')).to be(true)
-      # Edit task
-      expect(@driver.page_source.include?('Task edited by')).to be(false)
-      el = wait_for_selector('.task-actions__icon')
-      el.click
-      editbutton = wait_for_selector('.task-actions__edit')
-      editbutton.location_once_scrolled_into_view
-      editbutton.click
-      wait_for_selector('#task-label-input')
-      fill_field('#task-label-input', '??')
-      editbutton = wait_for_selector('.create-task__dialog-submit-button')
-      editbutton.click
-      wait_for_selector('.annotation__update-task')
-      expect(@driver.page_source.include?('Task edited by')).to be(true)
-      # Edit task answer
-      expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('BooYaTribe')).to be(false)
-      el = wait_for_selector('.task-actions__icon').click
-      el = wait_for_selector('.task-actions__edit-response')
-      el.click
-      el = wait_for_selector('#Doo')
-      el.click
-      el = wait_for_selector('.task__option_other_text_input')
-      el.click
-      fill_field('textarea[name="response"]', 'BooYaTribe')
-      el = wait_for_selector('.task__submit')
-      el.click
-      wait_for_selector('.annotation--task_response_multiple_choice')
-      expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('BooYaTribe')).to be(true)
-      # Delete task
-      delete_task('Foo')
     end
 
     it "should search for reverse images", bin2: true do
@@ -1330,7 +1073,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should paginate project page", bin2: true do
-      page = api_create_team_project_claims_sources_and_redirect_to_project_page 21
+      page = api_create_team_project_claims_sources_and_redirect_to_project_page 21, 0
       page.load
       wait_for_selector("#create-media__add-item")
       results = @driver.find_elements(:css, '.medias__item')
@@ -1495,7 +1238,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     end
 
-
     it "should search map in geolocation task", bin3: true do
       api_create_team_project_and_claim_and_redirect_to_media_page
       wait_for_selector('.create-task__add-button')
@@ -1521,61 +1263,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       fill_field("#geolocationsearch", "Salvador")
       wait_for_text_change(' ',"#geolocationsearch", :css, 30)
       expect(@driver.page_source.include?('SSA')).to be(true)
-    end
-
-    it "should go from one item to another", bin2: true do
-      page = api_create_team_project_claims_sources_and_redirect_to_project_page 3
-      page.load
-      wait_for_selector('.media__heading a').click
-      wait_for_selector('.media__notes-heading')
-
-      # First item
-      expect(@driver.page_source.include?('1 / 3')).to be(true)
-      expect(@driver.page_source.include?('2 / 3')).to be(false)
-      expect(@driver.page_source.include?('3 / 3')).to be(false)
-      expect(@driver.page_source.include?('Claim 2')).to be(true)
-      expect(@driver.page_source.include?('Claim 1')).to be(false)
-      expect(@driver.page_source.include?('Claim 0')).to be(false)
-
-      # Second item
-      wait_for_selector('#media-search__next-item').click
-      wait_for_selector('.media__notes-heading')
-      expect(@driver.page_source.include?('1 / 3')).to be(false)
-      expect(@driver.page_source.include?('2 / 3')).to be(true)
-      expect(@driver.page_source.include?('3 / 3')).to be(false)
-      expect(@driver.page_source.include?('Claim 2')).to be(false)
-      expect(@driver.page_source.include?('Claim 1')).to be(true)
-      expect(@driver.page_source.include?('Claim 0')).to be(false)
-
-      # Third item
-      wait_for_selector('#media-search__next-item').click
-      wait_for_selector('.media__notes-heading')
-      expect(@driver.page_source.include?('1 / 3')).to be(false)
-      expect(@driver.page_source.include?('2 / 3')).to be(false)
-      expect(@driver.page_source.include?('3 / 3')).to be(true)
-      expect(@driver.page_source.include?('Claim 2')).to be(false)
-      expect(@driver.page_source.include?('Claim 1')).to be(false)
-      expect(@driver.page_source.include?('Claim 0')).to be(true)
-
-      # Second item
-      wait_for_selector('#media-search__previous-item').click
-      wait_for_selector('.media__notes-heading')
-      expect(@driver.page_source.include?('1 / 3')).to be(false)
-      expect(@driver.page_source.include?('2 / 3')).to be(true)
-      expect(@driver.page_source.include?('3 / 3')).to be(false)
-      expect(@driver.page_source.include?('Claim 2')).to be(false)
-      expect(@driver.page_source.include?('Claim 1')).to be(true)
-      expect(@driver.page_source.include?('Claim 0')).to be(false)
-
-      # First item
-      wait_for_selector('#media-search__previous-item').click
-      wait_for_selector('.media__notes-heading')
-      expect(@driver.page_source.include?('1 / 3')).to be(true)
-      expect(@driver.page_source.include?('2 / 3')).to be(false)
-      expect(@driver.page_source.include?('3 / 3')).to be(false)
-      expect(@driver.page_source.include?('Claim 2')).to be(true)
-      expect(@driver.page_source.include?('Claim 1')).to be(false)
-      expect(@driver.page_source.include?('Claim 0')).to be(false)
     end
 
     # Postponed due Alexandre's developement
@@ -1620,6 +1307,5 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(false)
     end
 =end
-
   end
 end
