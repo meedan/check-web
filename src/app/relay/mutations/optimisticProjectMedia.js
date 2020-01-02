@@ -52,13 +52,13 @@ const optimisticProjectMedia = (media, proj, context) => {
         last_status_obj: {
           locked: true,
         },
-        check_search_project: {
+        check_search_project: project ? {
           id: project.search_id,
           number_of_results: mediasCount + 1,
-        },
+        } : null,
         field_value: team.translation_statuses.default,
         overridden: '{"title":true,"description":false,"username":false}',
-        project_id: project.dbid,
+        project_id: project ? project.dbid : null,
         id: relayId,
         language_code: null,
         domain: '',
@@ -73,7 +73,12 @@ const optimisticProjectMedia = (media, proj, context) => {
           'create Dynamic': false,
           'create Task': false,
         }),
-        project: {
+        team: {
+          slug: team.slug,
+          id: team.id || 'VGVhbS8w\n',
+          medias_count: team.medias_count + 1,
+        },
+        project: project ? {
           id: project.id,
           dbid: project.dbid,
           title: project.title,
@@ -83,7 +88,7 @@ const optimisticProjectMedia = (media, proj, context) => {
             id: team.id || 'VGVhbS8w\n',
             medias_count: team.medias_count + 1,
           },
-        },
+        } : null,
         media: {
           url: null,
           quote: '',

@@ -292,8 +292,11 @@ class Root extends Component {
                 <Route path="check/bot-garden" component={BotGarden} />
                 <Route path="check/bot/:botId" component={Bot} />
 
+                <Route path=":team/media/:mediaId" component={ProjectMediaSearch} public />
                 <Route path=":team/project/:projectId/media/:mediaId" component={ProjectMediaSearch} public />
+                <Route path=":team/media/:mediaId/embed" component={MediaEmbed} public />
                 <Route path=":team/project/:projectId/media/:mediaId/embed" component={MediaEmbed} public />
+                <Route path=":team/media/:mediaId/memebuster" component={Memebuster} />
                 <Route path=":team/project/:projectId/media/:mediaId/memebuster" component={Memebuster} />
                 <Route path=":team/project/:projectId/media/:mediaId/tasks" component={MediaTasks} />
                 <Route path=":team/project/:projectId/source/:sourceId" component={Source} public />
