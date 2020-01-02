@@ -308,6 +308,7 @@ class GeolocationRespondTask extends Component {
           onNewRequest={selectCallback}
           ref={(a) => { this.autoComplete = a; }}
           onUpdateInput={this.handleSearchText.bind(this)}
+          menuProps={{ className: 'task__response-geolocation-search-options' }}
           fullWidth
         />
         <div style={{ font: caption, color: black54 }}>
