@@ -337,6 +337,19 @@ module AppSpecHelpers
     expect(@driver.page_source.include?('My search result')).to be(true)
   end
 
+  def create_team_project_and_image_and_redirect_to_media_page
+    api_create_team_and_project
+    @driver.navigate.to @config['self_url']
+    wait_for_selector('#create-media__add-item').click
+    wait_for_selector("#create-media__image").click
+    input = wait_for_selector('input[type=file]')
+    input.send_keys(File.join(File.dirname(__FILE__), 'test.png'))
+    wait_for_selector_none(".without-file")
+    wait_for_selector("#create-media-dialog__submit-button").click
+    wait_for_selector(".media__heading").click
+    wait_for_selector(".media__annotations-column")
+  end
+
   def save_screenshot(title)
     require 'imgur'
     path = '/tmp/' + (0...8).map{ (65 + rand(26)).chr }.join + '.png'
@@ -420,5 +433,27 @@ module AppSpecHelpers
     wait_for_selector('input').click
     @driver.switch_to.alert.accept
     @driver.navigate.to @config['self_url'] + '/' + team
+  end
+
+  def generate_a_embed_and_copy_embed_code
+    wait_for_selector(".media-detail__card-header")
+    wait_for_selector('.media-actions__icon').click
+    wait_for_selector('.media-actions__edit')
+    el = wait_for_selector('.media-actions__embed')
+    el.location_once_scrolled_into_view
+    el.click
+    wait_for_selector("#media-embed__actions")
+    el = wait_for_selector('#media-embed__actions-copy')
+    el.click
+    wait_for_selector("#media-embed__copy-code")
+  end
+
+  def change_the_status_to(status_class)
+    wait_for_selector(".media-detail__card-header")
+    wait_for_selector(".media-status__label > div button svg").click
+    wait_for_selector(".media-status__menu-item")
+    wait_for_selector(status_class).click
+    wait_for_selector_none(".media-status__menu-item")
+    wait_for_selector_none(".media-status__menu-item")
   end
 end

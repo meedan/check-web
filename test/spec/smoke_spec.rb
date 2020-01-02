@@ -211,10 +211,7 @@ shared_examples 'smoke' do
     api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector(".media-detail__card-header")
     expect(@driver.page_source.include?('In Progress')).to be(false)
-    wait_for_selector(".media-status__label > div button svg").click
-    wait_for_selector(".media-status__menu-item")
-    wait_for_selector(".media-status__menu-item--in-progress").click
-    wait_for_selector_none(".media-status__menu-item")
+    change_the_status_to(".media-status__menu-item--in-progress")
     expect(@driver.page_source.include?('In Progress')).to be(true)
   end
 
@@ -823,7 +820,7 @@ shared_examples 'smoke' do
   #   wait_for_selector(".media-detail__buttons button + button svg[role='presentation']") #break_relationship_button
   #   expect(@driver.page_source.include?('Claim Related')).to be(true)
   #   wait_for_selector('.project-header__back-button').click
-  #   wait_for_selector(".media__heading > a",:css, 25,1).click
+  #   wait_for_selector(".media__heading").click
   #   wait_for_selector(".annotations__list")
   #   wait_for_selector('.media-actions__icon').click
   #   wait_for_selector('.media-actions__edit')
@@ -926,10 +923,7 @@ shared_examples 'smoke' do
     wait_for_selector(".media__heading > a").click
     wait_for_selector(".annotations__list")
     expect(@driver.page_source.include?('In Progress')).to be(false)
-    wait_for_selector(".media-status__label > div button svg").click
-    wait_for_selector(".media-status__menu-item")
-    wait_for_selector(".media-status__menu-item--in-progress").click
-    wait_for_selector_none(".media-status__menu-item")
+    change_the_status_to(".media-status__menu-item--in-progress")
     expect(@driver.page_source.include?('In Progress')).to be(true)
     expect(@driver.page_source.include?('Claim Related')).to be(false)
     press_button('.create-related-media__add-button')
@@ -952,17 +946,7 @@ shared_examples 'smoke' do
     api_create_team_project_and_link_and_redirect_to_media_page('https://www.youtube.com/watch?v=ykLgjhBnik0')
     wait_for_selector(".media-detail__card-header")
     wait_for_selector("svg[alt='youtube.com']")
-    url = @driver.current_url.to_s
-    wait_for_selector('.media-actions__icon').click
-    wait_for_selector('.media-actions__edit')
-    el = wait_for_selector('.media-actions__embed')
-    el.location_once_scrolled_into_view
-    el.click
-    wait_for_selector("#media-embed__actions")
-    expect(@driver.current_url.to_s == "#{url}/embed").to be(true)
-    el = wait_for_selector('#media-embed__actions-copy')
-    el.click
-    wait_for_selector("#media-embed__copy-code")
+    generate_a_embed_and_copy_embed_code
     @driver.navigate.to 'https://paste.ubuntu.com/'
     title = 'a embed from Youtube video' + Time.now.to_i.to_s
     fill_field('#id_poster' , title)
@@ -977,17 +961,7 @@ shared_examples 'smoke' do
     api_create_team_project_and_link_and_redirect_to_media_page('https://www.facebook.com/FirstDraftNews/posts/1808121032783161')
     wait_for_selector(".media-detail__card-header")
     wait_for_selector("svg[alt='facebook.com']")
-    url = @driver.current_url.to_s
-    wait_for_selector('.media-actions__icon').click
-    wait_for_selector('.media-actions__edit')
-    el = wait_for_selector('.media-actions__embed')
-    el.location_once_scrolled_into_view
-    el.click
-    wait_for_selector("#media-embed__actions")
-    expect(@driver.current_url.to_s == "#{url}/embed").to be(true)
-    el = wait_for_selector('#media-embed__actions-copy')
-    el.click
-    wait_for_selector("#media-embed__copy-code")
+    generate_a_embed_and_copy_embed_code
     @driver.navigate.to 'https://paste.ubuntu.com/'
     title = 'a embed from Facebook' + Time.now.to_i.to_s
     fill_field('#id_poster' , title)
@@ -1002,17 +976,7 @@ shared_examples 'smoke' do
     api_create_team_project_and_link_and_redirect_to_media_page('https://twitter.com/TheWho/status/890135323216367616')
     wait_for_selector(".media-detail__card-header")
     wait_for_selector("svg[alt='twitter.com']")
-    url = @driver.current_url.to_s
-    wait_for_selector('.media-actions__icon').click
-    wait_for_selector('.media-actions__edit')
-    el = wait_for_selector('.media-actions__embed')
-    el.location_once_scrolled_into_view
-    el.click
-    wait_for_selector("#media-embed__actions")
-    expect(@driver.current_url.to_s == "#{url}/embed").to be(true)
-    el = wait_for_selector('#media-embed__actions-copy')
-    el.click
-    wait_for_selector("#media-embed__copy-code")
+    generate_a_embed_and_copy_embed_code
     @driver.navigate.to 'https://paste.ubuntu.com/'
     title = 'a embed from Twitter' + Time.now.to_i.to_s
     fill_field('#id_poster' , title)
@@ -1027,17 +991,7 @@ shared_examples 'smoke' do
     api_create_team_project_and_link_and_redirect_to_media_page('https://www.instagram.com/p/BRYob0dA1SC/')
     wait_for_selector(".media-detail__card-header")
     wait_for_selector("svg[alt='instagram.com']")
-    url = @driver.current_url.to_s
-    wait_for_selector('.media-actions__icon').click
-    wait_for_selector('.media-actions__edit')
-    el = wait_for_selector('.media-actions__embed')
-    el.location_once_scrolled_into_view
-    el.click
-    wait_for_selector("#media-embed__actions")
-    expect(@driver.current_url.to_s == "#{url}/embed").to be(true)
-    el = wait_for_selector('#media-embed__actions-copy')
-    el.click
-    wait_for_selector("#media-embed__copy-code")
+    generate_a_embed_and_copy_embed_code
     @driver.navigate.to 'https://paste.ubuntu.com/'
     title = 'a embed from Instagram' + Time.now.to_i.to_s
     fill_field('#id_poster' , title)
@@ -1051,17 +1005,7 @@ shared_examples 'smoke' do
   it "should generate a embed from website link", bin3: true do
     api_create_team_project_and_link_and_redirect_to_media_page('https://meedan.com')
     wait_for_selector(".media-detail__card-header")
-    url = @driver.current_url.to_s
-    wait_for_selector('.media-actions__icon').click
-    wait_for_selector('.media-actions__edit')
-    el = wait_for_selector('.media-actions__embed')
-    el.location_once_scrolled_into_view
-    el.click
-    wait_for_selector("#media-embed__actions")
-    expect(@driver.current_url.to_s == "#{url}/embed").to be(true)
-    el = wait_for_selector('#media-embed__actions-copy')
-    el.click
-    wait_for_selector("#media-embed__copy-code")
+    generate_a_embed_and_copy_embed_code
     @driver.navigate.to 'https://paste.ubuntu.com/'
     title = 'a embed from Website link' + Time.now.to_i.to_s
     fill_field('#id_poster' , title)
@@ -1083,22 +1027,9 @@ shared_examples 'smoke' do
     wait_for_selector(".media__heading a").click
     wait_for_selector(".media-detail__card-header")
     expect(@driver.page_source.include?('In Progress')).to be(false)
-    wait_for_selector(".media-status__label > div button svg").click
-    wait_for_selector(".media-status__menu-item")
-    wait_for_selector(".media-status__menu-item--in-progress").click
-    wait_for_selector_none(".media-status__menu-item")
+    change_the_status_to(".media-status__menu-item--in-progress")
     expect(@driver.page_source.include?('In Progress')).to be(true)
-    url = @driver.current_url.to_s
-    wait_for_selector('.media-actions__icon').click
-    wait_for_selector('.media-actions__edit')
-    el = wait_for_selector('.media-actions__embed')
-    el.location_once_scrolled_into_view
-    el.click
-    wait_for_selector("#media-embed__actions")
-    expect(@driver.current_url.to_s == "#{url}/embed").to be(true)
-    el = wait_for_selector('#media-embed__actions-copy')
-    el.click
-    wait_for_selector("#media-embed__copy-code")
+    generate_a_embed_and_copy_embed_code
     @driver.navigate.to 'https://paste.ubuntu.com/'
     title = 'a embed from image' + Time.now.to_i.to_s
     fill_field('#id_poster' , title)
@@ -1141,16 +1072,14 @@ shared_examples 'smoke' do
 
 #Embed section end
 
-  # it "should go to meme generator and only change the title and save" do
-  #   api_create_team_and_project
-  #   @driver.navigate.to @config['self_url']
-  #   wait_for_selector('#create-media__add-item').click
-  #   wait_for_selector("#create-media__image").click
-  #   input = wait_for_selector('input[type=file]')
-  #   input.send_keys(File.join(File.dirname(__FILE__), 'test.png'))
-  #   wait_for_selector("#create-media-dialog__submit-button").click
-  #   wait_for_selector(".media__heading a").click
-  #   wait_for_selector(".media-detail__card-header")
+#Meme Generator section start
+  # it "should go to meme generator change the title and description save and publish and generate a embed", bin1: true do
+  #   create_team_project_and_image_and_redirect_to_media_page
+  #   wait_for_selector(".media__annotations-column")
+  #   generate_a_embed_and_copy_embed_code
+  #   expect(@driver.page_source.include?('Meme')).to be(false)
+  #   @driver.navigate.back
+  #   wait_for_selector(".media__annotations-column")
   #   wait_for_selector('.media-actions__icon').click
   #   wait_for_selector('.media-actions__edit')
   #   el = wait_for_selector('.media-actions__memebuster')
@@ -1158,19 +1087,28 @@ shared_examples 'smoke' do
   #   el.click
   #   expect(@driver.page_source.include?('Last saved')).to be(false)
   #   wait_for_selector(".without-file")
-  #   fill_field('textarea[name="description"]', 'description')
+  #   fill_field('input[name="headline"]', 'Meme')
   #   save_button = wait_for_selector(".memebuster__viewport-column > div > div button + button")
+  #   expect(save_button.attribute('tabindex')== "-1" ).to be(true) #if save_button is not enable
+  #   fill_field('textarea[name="description"]', 'description')
+  #   expect(save_button.attribute('tabindex')== "0" ).to be(true) #if save_button is enable
   #   save_button.click
-  #   wait_for_selector(".memebuster__viewport-column > div > div  > div > span", :css, 50)
+  #   wait_for_selector(".memebuster__viewport-column > div > div >  span")
   #   expect(@driver.page_source.include?('Last saved')).to be(true)
   #   publish_button = wait_for_selector(".memebuster__viewport-column > div > div button + button + button")
   #   publish_button.click
-  #   wait_for_selector(".memebuster__viewport-column > div > div  > div > span", :css, 50)
+  #   wait_for_selector(".memebuster__viewport-column > div > div > div")
   #   expect(@driver.page_source.include?('Publishing')).to be(true)
-  #   wait_for_selector(".memebuster__viewport-column > div > div  > div > span")
-  #   wait_for_selector(".memebuster__viewport-column > div > div  > div > span > time", :css, 50)
+  #   wait_for_selector(".memebuster__viewport-column > div > div > div > span")
+  #   wait_for_selector(".memebuster__viewport-column > div > div > div > span > time")
   #   expect(@driver.page_source.include?('Publishing')).to be(false)
   #   expect(@driver.page_source.include?('Last published')).to be(true)
+  #   @driver.navigate.back
+  #   wait_for_selector_none(".without-file")
+  #   wait_for_selector(".media__annotations-column")
+  #   generate_a_embed_and_copy_embed_code
+  #   wait_for_selector(".oembed__meme")
+  #   expect(@driver.page_source.include?('Meme')).to be(true)
   # end
 
 end

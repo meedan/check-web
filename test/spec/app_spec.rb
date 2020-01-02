@@ -1262,6 +1262,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('SSA')).to be(false)
       fill_field("#geolocationsearch", "Salvador")
       wait_for_text_change(' ',"#geolocationsearch", :css, 30)
+      dropdown = @driver.find_element(:id,'geolocationsearch')
+      dropdown.send_keys(:arrow_down)
+      dropdown.send_keys(:arrow_down)
+      @driver.action.send_keys(:enter).perform
+      wait_for_text_change(' ',"#task__response-geolocation-name")
       expect(@driver.page_source.include?('SSA')).to be(true)
     end
 
