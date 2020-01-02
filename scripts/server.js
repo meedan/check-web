@@ -69,10 +69,10 @@ const relayPath = config.relayPath;
 app.use((req, res, next) => {
   const url = req.url;
   // media detail page
-  const mediaDetailUrl = url.match(/\/([^\/]+)\/project\/([0-9]+)\/media\/([0-9]+)/);
+  const mediaDetailUrl = url.match(/\/([^\/]+)(\/project\/([0-9]+))?\/media\/([0-9]+)/);
   if (mediaDetailUrl != null) {
     try {
-      const query = `query { project_media(ids: "${mediaDetailUrl[3]},${mediaDetailUrl[2]}") { oembed_metadata } }`;
+      const query = `query { project_media(ids: "${mediaDetailUrl[4]},${mediaDetailUrl[3]}") { oembed_metadata } }`;
       fetch(relayPath, { headers, method: 'post', body: `team=${mediaDetailUrl[1]}&query=${query}` }).then(response => response.json()).catch((e) => {
         console.log(util.inspect(e));
         res.send(template({ config, metadata: null, url }));
