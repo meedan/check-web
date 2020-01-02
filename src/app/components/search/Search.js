@@ -4,6 +4,7 @@ import isEqual from 'lodash.isequal';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import SearchResults from './SearchResults';
 import { safelyParseJSON } from '../../helpers';
+import { units } from '../../styles/js/shared';
 
 const statusKey = config.appName === 'bridge' ? 'translation_status' : 'verification_status';
 
@@ -90,7 +91,7 @@ class Search extends React.Component {
     }
 
     return (
-      <div className="search">
+      <div className="search" style={{ padding: `0 ${units(2)}` }}>
         <SearchResults
           {...this.props}
           listName={title || this.props.listName}
