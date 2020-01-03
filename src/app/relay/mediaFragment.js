@@ -23,6 +23,7 @@ const mediaFragment = Relay.QL`
     verification_statuses,
     overridden,
     project_id,
+    project_ids,
     pusher_channel,
     domain,
     permissions,

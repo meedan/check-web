@@ -42,6 +42,7 @@ const bridgeSearchResultFragment = Relay.QL`
           translation_statuses,
           overridden,
           project_id,
+          project_ids,
           pusher_channel,
           language,
           language_code,

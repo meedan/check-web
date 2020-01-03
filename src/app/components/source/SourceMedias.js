@@ -90,6 +90,7 @@ const SourceMediasContainer = Relay.createContainer(SourceMediasComponent, {
                 },
                 permissions,
                 project_id,
+                project_ids,
                 verification_statuses,
                 archived,
                 relationships { sources_count, targets_count },

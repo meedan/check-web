@@ -19,6 +19,8 @@ import MoveDialog from './MoveDialog';
 import UserTooltip from '../user/UserTooltip';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
 import UpdateStatusMutation from '../../relay/mutations/UpdateStatusMutation';
+import CreateProjectMediaProjectMutation from '../../relay/mutations/CreateProjectMediaProjectMutation';
+import DeleteProjectMediaProjectMutation from '../../relay/mutations/DeleteProjectMediaProjectMutation';
 import CheckContext from '../../CheckContext';
 import TagMenu from '../tag/TagMenu';
 import Attribution from '../task/Attribution';
@@ -108,6 +110,7 @@ class MediaMetadata extends Component {
       title: null,
       openAssignDialog: false,
       openMoveDialog: false,
+      openAddToListDialog: false,
     };
   }
 
@@ -176,6 +179,67 @@ class MediaMetadata extends Component {
         media: this.props.media,
         context,
         id: this.props.media.id,
+      }),
+      { onSuccess, onFailure: this.fail },
+    );
+  }
+
+  handleAddToList() {
+    this.setState({ openAddToListDialog: true });
+  }
+
+  handleAddItemToList() {
+    const onSuccess = (response) => {
+      const { project } = response.createProjectMediaProject;
+      const message = (
+        <FormattedMessage
+          id="mediaMetadata.addedToList"
+          defaultMessage="Added to list {listName}"
+          values={{
+            listName: (
+              <Link to={`/${project.team.slug}/project/${project.dbid}`}>
+                {project.title}
+              </Link>
+            ),
+          }}
+        />
+      );
+      this.context.setMessage(message);
+    };
+
+    const context = this.getContext();
+
+    Relay.Store.commitUpdate(
+      new CreateProjectMediaProjectMutation({
+        project: this.state.dstProj,
+        project_media: this.props.media,
+        context,
+      }),
+      { onSuccess, onFailure: this.fail },
+    );
+
+    this.setState({ openAddToListDialog: false });
+  }
+
+  handleRemoveFromList() {
+    const onSuccess = () => {
+      const message = (
+        <FormattedMessage
+          id="mediaMetadata.removedFromList"
+          defaultMessage="Removed from list"
+        />
+      );
+      this.context.setMessage(message);
+    };
+
+    const context = this.getContext();
+    console.log(context);
+
+    Relay.Store.commitUpdate(
+      new DeleteProjectMediaProjectMutation({
+        project: context.project,
+        project_media: this.props.media,
+        context,
       }),
       { onSuccess, onFailure: this.fail },
     );
@@ -384,6 +448,7 @@ class MediaMetadata extends Component {
     this.setState({
       isEditing: false,
       openMoveDialog: false,
+      openAddToListDialog: false,
       dstProj: null,
       openAssignDialog: false,
     });
@@ -449,6 +514,26 @@ class MediaMetadata extends Component {
         className="media-detail__move-button"
         keyboardFocused
         onClick={this.handleMoveProjectMedia.bind(this)}
+        disabled={!this.state.dstProj}
+      />,
+    ];
+    const addToListDialogActions = [
+      <FlatButton
+        label={
+          <FormattedMessage
+            id="mediaDetail.cancelButton"
+            defaultMessage="Cancel"
+          />
+        }
+        primary
+        onClick={this.handleCloseDialogs.bind(this)}
+      />,
+      <FlatButton
+        label={<FormattedMessage id="mediaDetail.add" defaultMessage="Add" />}
+        primary
+        className="media-detail__add-button"
+        keyboardFocused
+        onClick={this.handleAddItemToList.bind(this)}
         disabled={!this.state.dstProj}
       />,
     ];
@@ -602,6 +687,8 @@ class MediaMetadata extends Component {
                 handleMove={this.handleMove.bind(this)}
                 handleRefresh={this.handleRefresh.bind(this)}
                 handleSendToTrash={this.handleSendToTrash.bind(this)}
+                handleAddToList={this.handleAddToList.bind(this)}
+                handleRemoveFromList={this.handleRemoveFromList.bind(this)}
                 handleRestore={this.handleRestore.bind(this)}
                 handleAssign={this.handleAssign.bind(this)}
                 handleStatusLock={this.handleStatusLock.bind(this)}
@@ -642,6 +729,24 @@ class MediaMetadata extends Component {
             <FormattedMessage
               id="mediaDetail.dialogMoveTitle"
               defaultMessage="Move to a different project"
+            />
+          }
+        />
+
+        <MoveDialog
+          actions={addToListDialogActions}
+          open={this.state.openAddToListDialog}
+          handleClose={this.handleCloseDialogs.bind(this)}
+          team={context.team}
+          projectId={media.project_ids}
+          onChange={this.handleSelectDestProject.bind(this)}
+          style={{
+            minHeight: 400,
+          }}
+          title={
+            <FormattedMessage
+              id="mediaDetail.dialogAddToListTitle"
+              defaultMessage="Add to a different list"
             />
           }
         />

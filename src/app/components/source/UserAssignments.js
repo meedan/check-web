@@ -286,6 +286,7 @@ const UserAssignmentsContainer = Relay.createContainer(injectIntl(UserAssignment
               }
               overridden
               project_id
+              project_ids
               report_type
               project {
                 id
