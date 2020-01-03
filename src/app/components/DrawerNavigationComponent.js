@@ -132,7 +132,7 @@ class DrawerNavigationComponent extends Component {
 
     const { currentUserIsMember } = this.props;
 
-    const drawerHeaderHeight = units(11);
+    const drawerHeaderHeight = units(10);
 
     const styles = {
       drawerFooter: {
@@ -181,7 +181,7 @@ class DrawerNavigationComponent extends Component {
     };
 
     return (
-      <Drawer {...this.props}>
+      <Drawer {...this.props} containerStyle={{ boxShadow: 'none', borderRight: 'solid 1px #e0e0e0' }}>
         <div onClick={drawerToggle}>
 
           {inTeamContext ?
@@ -194,7 +194,7 @@ class DrawerNavigationComponent extends Component {
                 >
                   <Row>
                     <TeamAvatar
-                      size={units(7)}
+                      size={units(6)}
                       team={this.props.team}
                     />
                     <OffsetBothSides>
