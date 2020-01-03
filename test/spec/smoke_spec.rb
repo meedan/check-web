@@ -7,8 +7,7 @@ shared_examples 'smoke' do
   include AppSpecHelpers
   include ApiHelpers
 
-  #Login section Start
-
+#Login section Start
   it "should sign up using e-mail", bin2: true do
     @driver.navigate.to @config['self_url']
     expect(@driver.page_source.include?('Please check your email to verify your account')).to be(false)
@@ -313,7 +312,6 @@ shared_examples 'smoke' do
 #media items section end
 
 #source section start
-
   it "should add and remove source tags", bin6: true do
     api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
     element =  wait_for_selector(".source-menu__edit-source-button")
@@ -439,11 +437,9 @@ shared_examples 'smoke' do
     expect(id2 > 0).to be(true)
     expect(id1 == id2).to be(true)
   end
-
 #source section end
 
 #tasks section start
-
   it "should manage team tasks", bin6: true do
     # Create team and go to team page that should not contain any task
     team = "task-team-#{Time.now.to_i}"
@@ -870,7 +866,7 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('Related item added by')).to be(true)
   end
 
-  it "should break a related claim relationship" , bin1: true do
+  it "should break relationship between related items" , bin1: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector(".media-detail__card-header")
     expect(@driver.page_source.include?('Claim Related')).to be(false)
@@ -893,7 +889,7 @@ shared_examples 'smoke' do
     expect(list_size == 1).to be(true)
   end
 
-  it "should not show source option to add related items" , bin3: true do
+  it "should not show source option to be added as a related item" , bin3: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector(".media-detail__card-header")
     expect(@driver.page_source.include?('Photo')).to be(false)
@@ -937,11 +933,9 @@ shared_examples 'smoke' do
     wait_for_selector(".media-detail__card-header")
     expect(@driver.page_source.include?('In Progress')).to be(true)
   end
-
-#related items section end
+#Related items section end
 
 #Embed section Start
-
   it "should generate a embed from Youtube video", bin1: true do
     api_create_team_project_and_link_and_redirect_to_media_page('https://www.youtube.com/watch?v=ykLgjhBnik0')
     wait_for_selector(".media-detail__card-header")
@@ -1002,21 +996,21 @@ shared_examples 'smoke' do
     expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
   end
 
-  it "should generate a embed from website link", bin3: true do
+  it "should generate a embed from website link copy the code and insert in a blog", bin3: true do
     api_create_team_project_and_link_and_redirect_to_media_page('https://meedan.com')
     wait_for_selector(".media-detail__card-header")
     generate_a_embed_and_copy_embed_code
-    @driver.navigate.to 'https://paste.ubuntu.com/'
-    title = 'a embed from Website link' + Time.now.to_i.to_s
-    fill_field('#id_poster' , title)
-    el = wait_for_selector('#id_content')
+    @driver.navigate.to 'http://codemagic.gr/'
+    el = wait_for_selector('.ace_text-input')
     el.send_keys(' ')
     @driver.action.send_keys(:control, 'v').perform
-    wait_for_text_change(' ',"#id_content", :css)
-    expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
+    wait_for_text_change(' ',".ace_text-input", :css)
+    button = wait_for_selector("#update")
+    button.click
+    expect(@driver.page_source.include?('test-team')).to be(true)
   end
 
-  it "should generate a embed from manually from a image the status in progress",bin4: true do
+  it "should create a image, change the status to in progress and generate a embed",bin4: true do
     api_create_team_and_project
     @driver.navigate.to @config['self_url']
     wait_for_selector('#create-media__add-item').click
@@ -1069,7 +1063,6 @@ shared_examples 'smoke' do
     wait_for_selector(".pender-container")
     expect(@driver.page_source.include?('test.png')).to be(true)
   end
-
 #Embed section end
 
 #Meme Generator section start
@@ -1110,5 +1103,10 @@ shared_examples 'smoke' do
   #   wait_for_selector(".oembed__meme")
   #   expect(@driver.page_source.include?('Meme')).to be(true)
   # end
+
+#Bulk section start
+
+#Bulk section end 
+
 
 end
