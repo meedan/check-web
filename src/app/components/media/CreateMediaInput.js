@@ -431,7 +431,7 @@ class CreateMediaInput extends React.Component {
 
     return (
       <div>
-        <Message message={this.props.message || this.state.message} />
+        <Message className="create-media__message" message={this.props.message || this.state.message} />
 
         <form
           name="media"

@@ -15,7 +15,7 @@ const UserMenuItems = () => (
     <MenuItem
       className="user-menu__training"
       primaryText={
-        <ExternalLink url="https://intercom.help/meedan/en/">
+        <ExternalLink url="https://help.checkmedia.org/">
           <FormattedMessage id="UserMenu.training" defaultMessage="Training and documentation" />
         </ExternalLink>
       }

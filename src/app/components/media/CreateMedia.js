@@ -113,7 +113,7 @@ class CreateProjectMedia extends Component {
   };
 
   handleSubmit = (value) => {
-    if (value.mode === 'source') {
+    if (value && value.mode === 'source') {
       this.submitSource(value);
     } else {
       this.submitMedia(value);
