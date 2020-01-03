@@ -167,26 +167,9 @@ class SearchResultsComponent extends React.Component {
     }
   }
 
-  onSelect(id) {
-    const selectedMedia = this.state.selectedMedia.slice(0);
-    const index = selectedMedia.indexOf(id);
-    if (index === -1) {
-      selectedMedia.push(id);
-    } else {
-      selectedMedia.splice(index, 1);
-    }
-    this.setState({ selectedMedia });
-  }
-
-  onSelectAll() {
-    const { search } = this.props;
-    const selectedMedia = search ? search.medias.edges.map(item => item.node.id) : [];
-    this.setState({ selectedMedia });
-  }
-
-  onUnselectAll() {
+  onUnselectAll = () => {
     this.setState({ selectedMedia: [] });
-  }
+  };
 
   getContext() {
     return new CheckContext(this);
@@ -208,6 +191,20 @@ class SearchResultsComponent extends React.Component {
 
     this.getContext().getContextStore().history.push(url);
   }
+
+  handleClick = (index) => {
+    const media = this.resultsWithQueries[index].node;
+    const query = this.resultsWithQueries[index].itemQuery;
+    const team = this.props.search.team || this.currentContext().team;
+    const mediaUrl = media.project_id && team && media.dbid > 0
+      ? `/${team.slug}/project/${media.project_id}/media/${media.dbid}`
+      : null;
+    this.context.router.push({ pathname: mediaUrl, state: { query } });
+  };
+
+  handleSelect = (selectedMedia) => {
+    this.setState({ selectedMedia });
+  };
 
   previousPage() {
     const query = Object.assign({}, searchQueryFromUrl());
@@ -350,8 +347,7 @@ class SearchResultsComponent extends React.Component {
             team={team}
             project={this.currentContext().project}
             selectedMedia={this.state.selectedMedia}
-            onSelectAll={this.onSelectAll.bind(this)}
-            onUnselectAll={this.onUnselectAll.bind(this)}
+            onUnselectAll={this.onUnselectAll}
           /> : null}
         title={
           <span className="search__results-heading">
@@ -429,7 +425,7 @@ class SearchResultsComponent extends React.Component {
       }
       itemBaseQuery.timestamp = new Date().getTime();
 
-      const resultsWithQueries = searchResults.map((item) => {
+      this.resultsWithQueries = searchResults.map((item) => {
         let itemQuery = {};
         if (item.node.media) {
           itemOffset += 1;
@@ -441,11 +437,10 @@ class SearchResultsComponent extends React.Component {
 
       content = (
         <List
-          searchResults={resultsWithQueries}
+          searchResults={searchResults}
+          onSelect={this.handleSelect}
+          onClick={this.handleClick}
           selectedMedia={this.state.selectedMedia}
-          onSelect={this.onSelect.bind(this)}
-          onSelectAll={this.onSelectAll.bind(this)}
-          onUnselectAll={this.onUnselectAll.bind(this)}
           team={team}
         />
       );
@@ -486,6 +481,7 @@ class SearchResultsComponent extends React.Component {
 }
 
 SearchResultsComponent.contextTypes = {
+  router: PropTypes.object,
   store: PropTypes.object,
 };
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { injectIntl, defineMessages } from 'react-intl';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
@@ -14,6 +13,9 @@ import { mediaStatuses } from '../../customHelpers';
 const StyledGridContainer = styled.div`
   width: 100%;
   height: calc(100vh - ${units(30)});
+  .ag-cell-value {
+    line-height: 96px !important;
+  }
 `;
 
 const messages = defineMessages({
@@ -122,12 +124,9 @@ class List extends React.Component {
   }
 
   handleClickRow = (wrapper) => {
-    const { media, query } = wrapper.data;
-    const { team } = this.props;
-    const mediaUrl = media.project_id && team && media.dbid > 0
-      ? `/${team.slug}/project/${media.project_id}/media/${media.dbid}`
-      : null;
-    this.context.router.push({ pathname: mediaUrl, state: { query } });
+    if (this.props.onClick) {
+      this.props.onClick(wrapper.rowIndex);
+    }
   };
 
   handleGridReady = (params) => {
@@ -135,9 +134,10 @@ class List extends React.Component {
     this.gridApi.sizeColumnsToFit();
   };
 
-  handleSelect = (params) => {
+  handleChange = (params) => {
+    const rows = params.api.getSelectedRows();
     if (this.props.onSelect) {
-      this.props.onSelect(params.data.id);
+      this.props.onSelect(rows.map(r => r.id));
     }
   };
 
@@ -150,7 +150,7 @@ class List extends React.Component {
           rowData={this.getRowData()}
           onGridReady={this.handleGridReady}
           onRowClicked={this.handleClickRow}
-          onRowSelected={this.handleSelect}
+          onSelectionChanged={this.handleChange}
           rowClass="medias__item"
           rowStyle={{ cursor: 'pointer' }}
           rowHeight="96"
@@ -162,9 +162,5 @@ class List extends React.Component {
     );
   }
 }
-
-List.contextTypes = {
-  router: PropTypes.object,
-};
 
 export default injectIntl(List);
