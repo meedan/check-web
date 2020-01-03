@@ -174,7 +174,7 @@ class MediaMetadata extends Component {
       new UpdateProjectMediaMutation({
         archived: 1,
         check_search_team: this.props.media.team.search,
-        check_search_project: this.props.media.project.search,
+        check_search_project: this.props.media.project ? this.props.media.project.search : null,
         check_search_trash: this.props.media.team.check_search_trash,
         media: this.props.media,
         context,

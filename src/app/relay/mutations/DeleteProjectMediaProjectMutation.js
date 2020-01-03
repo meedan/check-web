@@ -52,10 +52,11 @@ class DeleteProjectMediaProjectMutation extends Relay.Mutation {
         },
       },
       {
-        type: 'NODE_DELETE',
+        type: 'RANGE_DELETE',
         parentName: 'check_search_project',
         parentID: this.props.project.search_id,
         connectionName: 'medias',
+        pathToConnection: ['check_search_project', 'medias'],
         deletedIDFieldName: 'deletedId',
       },
     ];
