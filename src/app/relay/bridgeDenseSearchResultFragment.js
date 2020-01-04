@@ -20,6 +20,7 @@ const bridgeDenseSearchResultFragment = Relay.QL`
           verification_statuses,
           translation_statuses,
           project_id,
+          project_ids,
           permissions,
           last_status,
           last_status_obj {

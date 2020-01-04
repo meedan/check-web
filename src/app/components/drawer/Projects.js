@@ -75,6 +75,19 @@ class DrawerProjectsComponent extends Component {
         }
         return false;
       });
+      pusher.subscribe(this.props.team.pusher_channel).bind('project_updated', 'Projects', (data, run) => {
+        if (this.getContext().clientSessionId !== data.actor_session_id) {
+          if (run) {
+            this.props.relay.forceFetch();
+            return true;
+          }
+          return {
+            id: `projects-drawer-${this.props.team.dbid}`,
+            callback: this.props.relay.forceFetch,
+          };
+        }
+        return false;
+      });
     }
   }
 
@@ -82,6 +95,7 @@ class DrawerProjectsComponent extends Component {
     const { pusher } = this.getContext();
     if (pusher && this.props.team) {
       pusher.unsubscribe(this.props.team.pusher_channel, 'media_updated', 'Projects');
+      pusher.unsubscribe(this.props.team.pusher_channel, 'project_updated', 'Projects');
     }
   }
 

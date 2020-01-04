@@ -62,6 +62,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
           team { id, medias_count },
         },
         project_id,
+        project_ids,
         project_source {
           dbid,
           project_id,

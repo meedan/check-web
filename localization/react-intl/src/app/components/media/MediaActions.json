@@ -20,6 +20,14 @@
     "defaultMessage": "Send to trash"
   },
   {
+    "id": "mediaActions.addToList",
+    "defaultMessage": "Add to list"
+  },
+  {
+    "id": "mediaActions.removeFromList",
+    "defaultMessage": "Remove from list"
+  },
+  {
     "id": "mediaActions.embed",
     "defaultMessage": "Embed"
   },
