@@ -14,7 +14,7 @@ const StyledGridContainer = styled.div`
   width: 100%;
   height: calc(100vh - ${units(30)});
   .ag-cell-value {
-    line-height: 96px !important;
+    line-height: ${units(12)} !important;
   }
 `;
 

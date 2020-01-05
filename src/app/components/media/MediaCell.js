@@ -3,9 +3,16 @@ import styled from 'styled-components';
 import { units, Offset, Row, StyledHeading } from '../../styles/js/shared';
 
 const Content = styled.div`
+  height: ${units(12)};
   display: flex;
   flex-direction: column;
   align-content: flex-start;
+  .media__heading {
+    line-height: ${units(6)};
+  }
+  .media__description {
+    line-height: ${units(3)};
+  }
 `;
 
 const UpperRow = styled.div`
@@ -14,17 +21,19 @@ const UpperRow = styled.div`
   justify-content: space-between;
 `;
 
-const SmallMediaCard = (props) => {
+const MediaCell = (props) => {
   const { media } = props.data;
   return (
-    <Row>
+    <Row className="media-cell">
       { media.picture ?
         <Offset>
-          <img
-            alt=""
-            style={{ width: units(10), height: units(10), objectFit: 'cover' }}
-            src={media.picture}
-          />
+          <div style={{ width: units(10), height: units(10), overflow: 'hidden' }}>
+            <img
+              alt=""
+              style={{ height: '100%', objectFit: 'cover' }}
+              src={media.picture}
+            />
+          </div>
         </Offset>
         : null
       }
@@ -43,4 +52,4 @@ const SmallMediaCard = (props) => {
 };
 
 
-export default SmallMediaCard;
+export default MediaCell;
