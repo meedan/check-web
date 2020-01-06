@@ -1089,8 +1089,8 @@ shared_examples 'smoke' do
     expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
   end
 
-  it "should generate a embed from manually from a image copy url and open in a incognito window", bin4: true do
-    api_create_team_and_project
+  it "should create a image, generate a embed, copy url and open in a incognito window", bin4: true do
+   api_create_team_and_project
     @driver.navigate.to @config['self_url']
     wait_for_selector('#create-media__add-item').click
     wait_for_selector("#create-media__image").click
@@ -1098,7 +1098,7 @@ shared_examples 'smoke' do
     input.send_keys(File.join(File.dirname(__FILE__), 'test.png'))
     wait_for_selector("#create-media-dialog__submit-button").click
     wait_for_selector(".medias__item")
-    wait_for_selector(".media__heading").click
+    wait_for_selector("img").click
     wait_for_selector(".media-detail__card-header")
     url = @driver.current_url.to_s
     wait_for_selector('.media-actions__icon').click
