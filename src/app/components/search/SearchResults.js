@@ -196,9 +196,12 @@ class SearchResultsComponent extends React.Component {
     const media = this.resultsWithQueries[index].node;
     const query = this.resultsWithQueries[index].itemQuery;
     const team = this.props.search.team || this.currentContext().team;
-    const mediaUrl = media.project_id && team && media.dbid > 0
+    let mediaUrl = media.project_id && team && media.dbid > 0
       ? `/${team.slug}/project/${media.project_id}/media/${media.dbid}`
       : null;
+    if (!mediaUrl && team && media.dbid > 0) {
+      mediaUrl = `/${team.slug}/media/${media.dbid}`;
+    }
     this.context.router.push({ pathname: mediaUrl, state: { query } });
   };
 

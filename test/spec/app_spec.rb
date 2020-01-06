@@ -1265,67 +1265,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('SSA')).to be(true)
     end
 
-    it "should go from one item to another", bin2: true do
-      page = api_create_team_project_claims_sources_and_redirect_to_project_page 3
-      page.load
-      wait_for_selector(".medias__item")
-      wait_for_selector('.media__heading').click
-      wait_for_selector('.media__notes-heading')
-
-      # First item
-      wait_for_selector(".media-detail__card-header")
-      expect(@driver.page_source.include?('1 / 3')).to be(true)
-      expect(@driver.page_source.include?('2 / 3')).to be(false)
-      expect(@driver.page_source.include?('3 / 3')).to be(false)
-      expect(@driver.page_source.include?('Claim 2')).to be(true)
-      expect(@driver.page_source.include?('Claim 1')).to be(false)
-      expect(@driver.page_source.include?('Claim 0')).to be(false)
-
-      # Second item
-      wait_for_selector(".media-detail__card-header")
-      wait_for_selector('#media-search__next-item').click
-      wait_for_selector('.media__notes-heading')
-      expect(@driver.page_source.include?('1 / 3')).to be(false)
-      expect(@driver.page_source.include?('2 / 3')).to be(true)
-      expect(@driver.page_source.include?('3 / 3')).to be(false)
-      expect(@driver.page_source.include?('Claim 2')).to be(false)
-      expect(@driver.page_source.include?('Claim 1')).to be(true)
-      expect(@driver.page_source.include?('Claim 0')).to be(false)
-
-      # Third item
-      wait_for_selector(".media-detail__card-header")
-      wait_for_selector('#media-search__next-item').click
-      wait_for_selector('.media__notes-heading')
-      expect(@driver.page_source.include?('1 / 3')).to be(false)
-      expect(@driver.page_source.include?('2 / 3')).to be(false)
-      expect(@driver.page_source.include?('3 / 3')).to be(true)
-      expect(@driver.page_source.include?('Claim 2')).to be(false)
-      expect(@driver.page_source.include?('Claim 1')).to be(false)
-      expect(@driver.page_source.include?('Claim 0')).to be(true)
-
-      # Second item
-      wait_for_selector(".media-detail__card-header")
-      wait_for_selector('#media-search__previous-item').click
-      wait_for_selector('.media__notes-heading')
-      expect(@driver.page_source.include?('1 / 3')).to be(false)
-      expect(@driver.page_source.include?('2 / 3')).to be(true)
-      expect(@driver.page_source.include?('3 / 3')).to be(false)
-      expect(@driver.page_source.include?('Claim 2')).to be(false)
-      expect(@driver.page_source.include?('Claim 1')).to be(true)
-      expect(@driver.page_source.include?('Claim 0')).to be(false)
-
-      # First item
-      wait_for_selector(".media-detail__card-header")
-      wait_for_selector('#media-search__previous-item').click
-      wait_for_selector('.media__notes-heading')
-      expect(@driver.page_source.include?('1 / 3')).to be(true)
-      expect(@driver.page_source.include?('2 / 3')).to be(false)
-      expect(@driver.page_source.include?('3 / 3')).to be(false)
-      expect(@driver.page_source.include?('Claim 2')).to be(true)
-      expect(@driver.page_source.include?('Claim 1')).to be(false)
-      expect(@driver.page_source.include?('Claim 0')).to be(false)
-    end
-
     # Postponed due Alexandre's developement
     # it "should add and remove suggested tags" do
     #   skip("Needs to be implemented")
