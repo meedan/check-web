@@ -24,6 +24,14 @@
     "defaultMessage": "Sent to {trash}"
   },
   {
+    "id": "mediaMetadata.addedToList",
+    "defaultMessage": "Added to list {listName}"
+  },
+  {
+    "id": "mediaMetadata.removedFromList",
+    "defaultMessage": "Removed from list"
+  },
+  {
     "id": "mediaMetadata.movedBack",
     "defaultMessage": "Moved back to project: {project}"
   },
@@ -38,6 +46,10 @@
   {
     "id": "mediaDetail.move",
     "defaultMessage": "Move"
+  },
+  {
+    "id": "mediaDetail.add",
+    "defaultMessage": "Add"
   },
   {
     "id": "mediaDetail.done",
@@ -58,6 +70,10 @@
   {
     "id": "mediaDetail.dialogMoveTitle",
     "defaultMessage": "Move to a different project"
+  },
+  {
+    "id": "mediaDetail.dialogAddToListTitle",
+    "defaultMessage": "Add to a different list"
   },
   {
     "id": "mediaDetail.assignDialogHeader",

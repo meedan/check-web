@@ -35,6 +35,7 @@ const checkDenseSearchResultFragment = Relay.QL`
           relationship { id, dbid, source_id, target_id },
           verification_statuses,
           project_id,
+          project_ids,
           permissions,
           last_status,
           last_status_obj {

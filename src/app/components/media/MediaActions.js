@@ -36,6 +36,8 @@ class MediaActions extends Component {
       handleMove,
       handleRefresh,
       handleSendToTrash,
+      handleAddToList,
+      handleRemoveFromList,
       handleRestore,
       handleAssign,
       handleStatusLock,
@@ -89,16 +91,39 @@ class MediaActions extends Component {
     }
 
     if (can(media.permissions, 'update ProjectMedia') && !media.archived) {
-      if (!media.archived) {
-        menuItems.push((
-          <MenuItem
-            key="mediaActions.sendToTrash"
-            className="media-actions__send-to-trash"
-            onClick={handleSendToTrash}
-          >
-            <FormattedMessage id="mediaActions.sendToTrash" defaultMessage="Send to trash" />
-          </MenuItem>));
-      }
+      menuItems.push((
+        <MenuItem
+          key="mediaActions.sendToTrash"
+          className="media-actions__send-to-trash"
+          onClick={handleSendToTrash}
+        >
+          <FormattedMessage id="mediaActions.sendToTrash" defaultMessage="Send to trash" />
+        </MenuItem>));
+    }
+
+    if (can(media.permissions, 'update ProjectMedia') && !media.archived) {
+      menuItems.push((
+        <MenuItem
+          key="mediaActions.addToList"
+          className="media-actions__add-to-list"
+          onClick={handleAddToList}
+        >
+          <FormattedMessage id="mediaActions.addToList" defaultMessage="Add to list" />
+        </MenuItem>));
+    }
+
+    if (can(media.permissions, 'update ProjectMedia') &&
+      !media.archived &&
+      /project\/[0-9]+/.test(window.location.pathname) &&
+      media.project_id) {
+      menuItems.push((
+        <MenuItem
+          key="mediaActions.removeFromList"
+          className="media-actions__remove-from-list"
+          onClick={handleRemoveFromList}
+        >
+          <FormattedMessage id="mediaActions.removeFromList" defaultMessage="Remove from list" />
+        </MenuItem>));
     }
 
     if (can(media.permissions, 'embed ProjectMedia') &&

@@ -192,6 +192,7 @@ class MediaSearch extends React.PureComponent {
                     id,
                     dbid,
                     project_id,
+                    project_ids,
                   }
                 }
               }

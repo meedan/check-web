@@ -263,8 +263,7 @@ shared_examples 'smoke' do
     move = wait_for_selector('.media-actions__move')
     move.location_once_scrolled_into_view
     move.click
-    wait_for_selector('.Select-input input')
-    fill_field('.Select-input input', 'Project')
+    wait_for_selector('.Select-input input').send_keys('Project')
     move = wait_for_selector('.Select-option')
     move.location_once_scrolled_into_view
     move.click
@@ -272,14 +271,13 @@ shared_examples 'smoke' do
     move.location_once_scrolled_into_view
     move.click
     wait_for_selector_none(".Select-placeholder")
-
+    project_title = wait_for_selector('.project__title').attribute("innerHTML")
+    count = 0
+    while project_title != p1[:project].title && count < 10
+      wait_for_selector('#create-media__add-item')
       project_title = wait_for_selector('.project__title').attribute("innerHTML")
-      count = 0
-      while project_title != p1[:project].title && count < 10
-        wait_for_selector('#create-media__add-item')
-        project_title = wait_for_selector('.project__title').attribute("innerHTML")
-        count += 1
-      end
+      count += 1
+    end
 
     # Check if the claim is under the first project, which we should have been redirected to
     @wait.until {
