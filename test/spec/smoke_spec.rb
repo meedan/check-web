@@ -1102,9 +1102,38 @@ shared_examples 'smoke' do
   #   expect(@driver.page_source.include?('Meme')).to be(true)
   # end
 
-#Bulk section start
-
-#Bulk section end 
-
+#Bulk Actions section start
+  it "should create items and copy them to another project", bin4: true do
+    project1 = api_create_team_and_project
+    api_create_project(project1[:team].dbid.to_s)
+    @driver.navigate.to @config['self_url']
+    wait_for_selector("#create-media__add-item")
+    create_media ("claim 1")
+    wait_for_selector(".medias__item")
+    create_media ("claim 2")
+    wait_for_selector_list_size(".medias__item", 2)
+    expect(@driver.page_source.include?('Add a link or claim')).to be(false)
+    wait_for_selector('.project-list__link + .project-list__link').click # Go to the second project
+    wait_for_selector_none(".medias__item")
+    expect(@driver.page_source.include?('Add a link or claim')).to be(true)
+    wait_for_selector('.project-list__link').click # Go back to the first project
+    wait_for_selector_list_size(".medias__item", 2)
+    wait_for_selector("#media-bulk-actions").click
+    wait_for_selector("span[title='Copy selected items to another project']").click
+    wait_for_selector('.Select-input input')
+    fill_field('.Select-input input', 'Project')
+    wait_for_selector('.Select-option').click
+    move = wait_for_selector('.media-bulk-actions__clone-button')
+    move.location_once_scrolled_into_view
+    move.click
+    wait_for_selector_none(".Select-placeholder")
+    wait_for_selector(".project-list__item-all").click # Go to all items page
+    wait_for_selector_list_size(".medias__item", 4)
+    wait_for_selector('.project-list__link + .project-list__link').click # Go to the second project
+    wait_for_selector_list_size(".medias__item", 2)
+    expect(@driver.page_source.include?('claim 1')).to be(true)
+    expect(@driver.page_source.include?('claim 2')).to be(true)
+  end
+#Bulk Actions section end 
 
 end
