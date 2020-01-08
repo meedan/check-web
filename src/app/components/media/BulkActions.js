@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { injectIntl, intlShape, defineMessages, FormattedMessage } from 'react-intl';
-import IconSelectAll from 'material-ui/svg-icons/toggle/check-box-outline-blank';
-import IconUnselectAll from 'material-ui/svg-icons/toggle/check-box';
 import IconMove from 'material-ui/svg-icons/action/input';
 import IconDelete from 'material-ui/svg-icons/action/delete';
 import IconClone from 'material-ui/svg-icons/content/content-copy';
@@ -42,7 +40,6 @@ class BulkActions extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      allSelected: false,
       openMoveDialog: false,
       openCloneDialog: false,
       dstProj: null,
@@ -62,16 +59,6 @@ class BulkActions extends React.Component {
     }
   }
 
-  selectAll() {
-    this.setState({ allSelected: true });
-    this.props.onSelectAll();
-  }
-
-  unselectAll() {
-    this.setState({ allSelected: false });
-    this.props.onUnselectAll();
-  }
-
   handleCloseDialogs() {
     this.setState({ openMoveDialog: false, openCloneDialog: false });
   }
@@ -85,7 +72,7 @@ class BulkActions extends React.Component {
         />
       );
       this.context.setMessage(message);
-      this.setState({ openCloneDialog: false, dstProjForClone: null, allSelected: false });
+      this.setState({ openCloneDialog: false, dstProjForClone: null });
       this.props.onUnselectAll();
     };
     const onDone = () => {};
@@ -113,7 +100,7 @@ class BulkActions extends React.Component {
         />
       );
       this.context.setMessage(message);
-      this.setState({ openMoveDialog: false, dstProj: null, allSelected: false });
+      this.setState({ openMoveDialog: false, dstProj: null });
       this.props.onUnselectAll();
     };
     const onDone = () => {};
@@ -144,12 +131,8 @@ class BulkActions extends React.Component {
         />
       );
       this.context.setMessage(message);
-      this.setState({ allSelected: false });
       this.props.onUnselectAll();
     };
-    const onDone = () => {};
-
-    onSuccess();
 
     if (this.props.selectedMedia.length && !this.state.confirmationError) {
       Relay.Store.commitUpdate(
@@ -161,7 +144,7 @@ class BulkActions extends React.Component {
           teamSearchId: this.props.team.search_id,
           count: this.props.count,
         }),
-        { onSuccess: onDone, onFailure: onDone },
+        { onSuccess },
       );
     }
   }
@@ -179,17 +162,26 @@ class BulkActions extends React.Component {
       <span id="media-bulk-actions__actions">
         <Tooltip title={this.props.intl.formatMessage(messages.move)}>
           <StyledIcon>
-            <IconMove onClick={this.moveSelected.bind(this)} />
+            <IconMove
+              className="media-bulk-actions__move-icon"
+              onClick={this.moveSelected.bind(this)}
+            />
           </StyledIcon>
         </Tooltip>
         <Tooltip title={this.props.intl.formatMessage(messages.delete)}>
           <StyledIcon>
-            <IconDelete onClick={this.handleDelete.bind(this)} />
+            <IconDelete
+              className="media-bulk-actions__delete-icon"
+              onClick={this.handleDelete.bind(this)}
+            />
           </StyledIcon>
         </Tooltip>
         <Tooltip title={this.props.intl.formatMessage(messages.clone)}>
           <StyledIcon>
-            <IconClone onClick={this.cloneSelected.bind(this)} />
+            <IconClone
+              className="media-bulk-actions__clone-icon"
+              onClick={this.cloneSelected.bind(this)}
+            />
           </StyledIcon>
         </Tooltip>
       </span>
@@ -237,14 +229,7 @@ class BulkActions extends React.Component {
 
     return (
       <span id="media-bulk-actions">
-        <Tooltip title={this.props.intl.formatMessage(messages.selectAll)}>
-          <StyledIcon>
-            {this.state.allSelected ?
-              <IconUnselectAll onClick={this.unselectAll.bind(this)} /> :
-              <IconSelectAll onClick={this.selectAll.bind(this)} /> }
-          </StyledIcon>
-        </Tooltip>
-        {this.props.selectedMedia && this.props.selectedMedia.length > 0 ? actions : null}
+        {actions}
 
         <MoveDialog
           actions={moveDialogActions}

@@ -250,10 +250,9 @@ shared_examples 'smoke' do
     # Create a claim under project 2
     wait_for_selector("#create-media__add-item").click
     wait_for_selector('#create-media__quote').click
-    @driver.action.send_keys(claim).perform
+    fill_field('#create-media-quote-input' , claim)
     wait_for_selector('#create-media-dialog__submit-button').click
     wait_for_selector_none('#create-media__quote')
-
     # Go to the second project, make sure that the claim is there
     wait_for_selector('.project-list__link + .project-list__link').click
     wait_for_selector('.medias__item')
@@ -262,32 +261,18 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(false)
 
     # Move the claim to another project
-    wait_for_selector('.card-with-border > div > div > div + button svg').click
-    wait_for_selector('.media-actions__icon').click
-    move = wait_for_selector('.media-actions__move')
-    move.location_once_scrolled_into_view
-    move.click
+    wait_for_selector(".ag-icon-checkbox-unchecked").click
+    wait_for_selector(".media-bulk-actions__move-icon").click
     wait_for_selector('.Select-input input').send_keys('Project')
-    move = wait_for_selector('.Select-option')
-    move.location_once_scrolled_into_view
-    move.click
-    move = wait_for_selector('.media-detail__move-button')
-    move.location_once_scrolled_into_view
-    move.click
+    select_button = wait_for_selector('.Select-option')
+    select_button.location_once_scrolled_into_view
+    select_button.click
+    button_move = wait_for_selector('.media-bulk-actions__move-button')
+    button_move.location_once_scrolled_into_view
+    button_move.click
     wait_for_selector_none(".Select-placeholder")
-    project_title = wait_for_selector('.project__title').attribute("innerHTML")
-    count = 0
-    while project_title != p1[:project].title && count < 10
-      wait_for_selector('#create-media__add-item')
-      project_title = wait_for_selector('.project__title').attribute("innerHTML")
-      count += 1
-    end
-
-    # Check if the claim is under the first project, which we should have been redirected to
-    @wait.until {
-      expect(@driver.current_url.to_s == p1url).to be(true)
-    }
-    expect(@driver.page_source.include?(claim)).to be(true)
+    wait_for_selector('.project-list__link').click
+    expect(@driver.current_url.to_s == p1url).to be(true)
     expect(@driver.page_source.include?('1 / 1')).to be(true)
     expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(false)
 
@@ -796,12 +781,6 @@ shared_examples 'smoke' do
     promote_button.click
     wait_for_selector_none(".media-detail__buttons button  svg[role='presentation']")
     wait_for_selector_none(".media-detail__buttons button + button svg[role='presentation']") #break relationship
-    wait_for_selector('.project-header__back-button').click
-    wait_for_selector("#create-media__add-item")
-    wait_for_selector("span[title='Related to another item']")
-    wait_for_selector("span[title='1 related item']")
-    medias = wait_for_selector_list('.medias__item')
-    expect(medias.length == 1).to be(true)
   end
 
   # it "should create a related claim, delete the main item and verify if the related item was deleted too" , bin1: true do
@@ -921,7 +900,7 @@ shared_examples 'smoke' do
     fill_field('#create-media-quote-input', "Claim")
     wait_for_selector('#create-media-dialog__submit-button').click
     wait_for_selector(".medias__item")
-    wait_for_selector(".media__heading > a").click
+    wait_for_selector(".media__heading").click
     wait_for_selector(".annotations__list")
     expect(@driver.page_source.include?('In Progress')).to be(false)
     wait_for_selector(".media-status__label > div button svg").click
@@ -939,6 +918,7 @@ shared_examples 'smoke' do
     wait_for_selector_list_size(".media-detail__card-header", 2)
     wait_for_selector("//a[contains(text(), 'Claim Related')]", :xpath).click
     wait_for_selector(".media-detail__card-header")
+    expect(@driver.page_source.include?('Unstarted')).to be(false)
     expect(@driver.page_source.include?('In Progress')).to be(true)
   end
 
@@ -1073,12 +1053,14 @@ shared_examples 'smoke' do
   it "should generate a embed from manually from a image the status in progress",bin4: true do
     api_create_team_and_project
     @driver.navigate.to @config['self_url']
+    wait_for_selector(".project__description")
     wait_for_selector('#create-media__add-item').click
     wait_for_selector("#create-media__image").click
     input = wait_for_selector('input[type=file]')
     input.send_keys(File.join(File.dirname(__FILE__), 'test.png'))
     wait_for_selector("#create-media-dialog__submit-button").click
-    wait_for_selector(".media__heading a").click
+    wait_for_selector(".medias__item")
+    wait_for_selector(".media__heading").click
     wait_for_selector(".media-detail__card-header")
     expect(@driver.page_source.include?('In Progress')).to be(false)
     wait_for_selector(".media-status__label > div button svg").click
@@ -1107,15 +1089,16 @@ shared_examples 'smoke' do
     expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
   end
 
-  it "should generate a embed from manually from a image copy url and open in a incognito window", bin4: true do
-    api_create_team_and_project
+  it "should create a image, generate a embed, copy url and open in a incognito window", bin4: true do
+   api_create_team_and_project
     @driver.navigate.to @config['self_url']
     wait_for_selector('#create-media__add-item').click
     wait_for_selector("#create-media__image").click
     input = wait_for_selector('input[type=file]')
     input.send_keys(File.join(File.dirname(__FILE__), 'test.png'))
     wait_for_selector("#create-media-dialog__submit-button").click
-    wait_for_selector(".media__heading a").click
+    wait_for_selector(".medias__item")
+    wait_for_selector("img").click
     wait_for_selector(".media-detail__card-header")
     url = @driver.current_url.to_s
     wait_for_selector('.media-actions__icon').click

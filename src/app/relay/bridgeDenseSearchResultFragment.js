@@ -30,6 +30,7 @@ const bridgeDenseSearchResultFragment = Relay.QL`
             locked
           }
           media {
+            type,
             url,
             metadata,
             quote,
