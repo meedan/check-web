@@ -16,20 +16,23 @@ const StyledGridContainer = styled.div`
   .ag-cell-value {
     line-height: ${units(12)} !important;
   }
+  .ag-header-cell-text {
+    text-transform: uppercase;
+  }
 `;
 
 const messages = defineMessages({
-  title: {
-    id: 'list.Title',
-    defaultMessage: 'Title',
+  item: {
+    id: 'list.Item',
+    defaultMessage: 'Item',
   },
   demand: {
     id: 'list.Demand',
-    defaultMessage: 'Demand',
+    defaultMessage: 'Requests',
   },
   linked_items_count: {
     id: 'list.LinkedItems',
-    defaultMessage: 'Linked items',
+    defaultMessage: 'Related',
   },
   type: {
     id: 'list.Type',
@@ -56,7 +59,7 @@ class List extends React.Component {
     this.state = {
       columnDefs: [
         {
-          headerName: fmtMsg(messages.title),
+          headerName: fmtMsg(messages.item),
           field: 'title',
           checkboxSelection: true,
           headerCheckboxSelection: true,
