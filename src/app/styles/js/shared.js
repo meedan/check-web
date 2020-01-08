@@ -13,7 +13,11 @@ export const black = '#000000';
 export const alertRed = '#d0021b';
 export const checkBlue = '#2e77fc';
 export const highlightBlue = '#f1f6ff';
+export const highlightOrange = '#f8aa6c';
 export const modalBlue = 'rgba(0, 15, 41, .8)';
+export const inProgressYellow = '#efac51';
+export const unstartedRed = '#f04747';
+export const completedGreen = '#5cae73';
 
 // Material blacks
 //
@@ -611,7 +615,3 @@ export const StyledCheckboxNext = styled(CheckboxNext)`
     transform: scale(1,1) !important;
   }
 `;
-
-export const inProgressYellow = '#efac51';
-export const unstartedRed = '#f04747';
-export const completedGreen = '#5cae73';
