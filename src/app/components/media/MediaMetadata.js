@@ -233,7 +233,6 @@ class MediaMetadata extends Component {
     };
 
     const context = this.getContext();
-    console.log(context);
 
     Relay.Store.commitUpdate(
       new DeleteProjectMediaProjectMutation({
