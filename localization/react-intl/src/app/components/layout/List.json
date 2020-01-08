@@ -1,15 +1,15 @@
 [
   {
-    "id": "list.Title",
-    "defaultMessage": "Title"
+    "id": "list.Item",
+    "defaultMessage": "Item"
   },
   {
     "id": "list.Demand",
-    "defaultMessage": "Demand"
+    "defaultMessage": "Requests"
   },
   {
     "id": "list.LinkedItems",
-    "defaultMessage": "Linked items"
+    "defaultMessage": "Related"
   },
   {
     "id": "list.Type",
