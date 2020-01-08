@@ -1,26 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
-import styled from 'styled-components';
 import ProjectActions from './ProjectActions';
 import ProjectRoute from '../../relay/ProjectRoute';
 import PageTitle from '../PageTitle';
 import CheckContext from '../../CheckContext';
 import MediasLoading from '../media/MediasLoading';
 import Search from '../search/Search';
-import { units } from '../../styles/js/shared';
 import UpdateUserMutation from '../../relay/mutations/UpdateUserMutation';
-
-const ProjectWrapper = styled.div`
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  height: 100%;
-  overflow-y: visible;
-  padding: 0 ${units(2)}};
-  position: relative;
-  width: 100%;
-`;
 
 class ProjectComponent extends Component {
   componentDidMount() {
@@ -80,7 +67,7 @@ class ProjectComponent extends Component {
 
     return (
       <PageTitle prefix={project.title} skipTeam={false} team={this.currentContext().team}>
-        <ProjectWrapper className="project">
+        <div className="project">
           <Search
             listName={project.title}
             listDescription={project.description}
@@ -91,7 +78,7 @@ class ProjectComponent extends Component {
             fields={['date', 'keyword', 'status', 'sort', 'tags', 'show', 'dynamic', 'bulk', 'rules']}
             view={view}
           />
-        </ProjectWrapper>
+        </div>
       </PageTitle>
     );
   }

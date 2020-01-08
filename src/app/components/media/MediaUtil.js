@@ -25,6 +25,10 @@ const messages = defineMessages({
     id: 'media.typeInstagram',
     defaultMessage: 'Instagram',
   },
+  typeLink: {
+    id: 'media.typeLink',
+    defaultMessage: 'Link',
+  },
   typeVideo: {
     id: 'media.typeVideo',
     defaultMessage: 'Video',
@@ -126,6 +130,17 @@ const MediaUtil = {
   typeLabel(media, data, intl) {
     const type = this.mediaType(media, data);
     return type ? intl.formatMessage(type) : '';
+  },
+
+  mediaTypeLabel(type, intl) {
+    const labels = {
+      Claim: intl.formatMessage(messages.typeClaim),
+      Link: intl.formatMessage(messages.typeLink),
+      UploadedImage: intl.formatMessage(messages.typeImage),
+      UploadedVideo: intl.formatMessage(messages.typeVideo),
+    };
+
+    return labels[type];
   },
 
   hasCustomTitle(mediaParam, data) {

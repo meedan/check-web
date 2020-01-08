@@ -5,7 +5,6 @@ shared_examples 'custom' do
     api_create_team_and_project
     page = ProjectPage.new(config: @config, driver: @driver).load
            .create_media(input: @media_url)
-    wait_for_selector(".media-detail__card-header a").click
     wait_for_selector('.add-annotation__buttons')
     expect(page.contains_string?('Added')).to be(true)
     expect(page.contains_string?('User With Email')).to be(true)
@@ -56,7 +55,7 @@ shared_examples 'custom' do
     @driver.navigate.to media.full_url
 
     wait_for_selector('.annotations__list-item')
-    expect(@driver.page_source.include?('Status')).to be(false)
+    expect(@driver.page_source.include?('Status set')).to be(false)
 
     # Add a status as a command
     wait_for_selector('#cmd-input')
@@ -65,12 +64,12 @@ shared_examples 'custom' do
 
     # Verify that status was added to annotations list
     wait_for_selector('.annotation--verification_status')
-    expect(@driver.page_source.include?('Status')).to be(true)
+    expect(@driver.page_source.include?('Status set')).to be(true)
 
     # Reload the page and verify that status is still there
     @driver.navigate.refresh
     wait_for_selector('.annotation--verification_status')
-    expect(@driver.page_source.include?('Status')).to be(true)
+    expect(@driver.page_source.include?('Status set')).to be(true)
   end
 
   it "should change a media status via the dropdown menu", bin3: true do

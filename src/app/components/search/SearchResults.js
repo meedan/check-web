@@ -15,12 +15,9 @@ import Toolbar from './Toolbar';
 import { can } from '../Can';
 import ParsedText from '../ParsedText';
 import BulkActions from '../media/BulkActions';
-import MediaDetail from '../media/MediaDetail';
 import MediasLoading from '../media/MediasLoading';
-import SmallMediaCard from '../media/SmallMediaCard';
-import SourceCard from '../source/SourceCard';
-import SmallSourceCard from '../source/SmallSourceCard';
 import ProjectBlankState from '../project/ProjectBlankState';
+import List from '../layout/List';
 import { notify, safelyParseJSON } from '../../helpers';
 import { black87, headline, units, ContentColumn, Row } from '../../styles/js/shared';
 import CheckContext from '../../CheckContext';
@@ -110,15 +107,6 @@ const StyledSearchResultsWrapper = styled.div`
       color: ${black87};
     }
   }
-
-  .dense {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  .medias__item {
-    margin: ${units(1)};
-  }
 `;
 
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
@@ -179,26 +167,9 @@ class SearchResultsComponent extends React.Component {
     }
   }
 
-  onSelect(id) {
-    const selectedMedia = this.state.selectedMedia.slice(0);
-    const index = selectedMedia.indexOf(id);
-    if (index === -1) {
-      selectedMedia.push(id);
-    } else {
-      selectedMedia.splice(index, 1);
-    }
-    this.setState({ selectedMedia });
-  }
-
-  onSelectAll() {
-    const { search } = this.props;
-    const selectedMedia = search ? search.medias.edges.map(item => item.node.id) : [];
-    this.setState({ selectedMedia });
-  }
-
-  onUnselectAll() {
+  onUnselectAll = () => {
     this.setState({ selectedMedia: [] });
-  }
+  };
 
   getContext() {
     return new CheckContext(this);
@@ -220,6 +191,23 @@ class SearchResultsComponent extends React.Component {
 
     this.getContext().getContextStore().history.push(url);
   }
+
+  handleClick = (index) => {
+    const media = this.resultsWithQueries[index].node;
+    const query = this.resultsWithQueries[index].itemQuery;
+    const team = this.props.search.team || this.currentContext().team;
+    let mediaUrl = media.project_id && team && media.dbid > 0
+      ? `/${team.slug}/project/${media.project_id}/media/${media.dbid}`
+      : null;
+    if (!mediaUrl && team && media.dbid > 0) {
+      mediaUrl = `/${team.slug}/media/${media.dbid}`;
+    }
+    this.context.router.push({ pathname: mediaUrl, state: { query } });
+  };
+
+  handleSelect = (selectedMedia) => {
+    this.setState({ selectedMedia });
+  };
 
   previousPage() {
     const query = Object.assign({}, searchQueryFromUrl());
@@ -328,15 +316,6 @@ class SearchResultsComponent extends React.Component {
     const count = this.props.search ? this.props.search.number_of_results : 0;
     const team = this.props.search.team || this.currentContext().team;
 
-    let smoochBotInstalled = false;
-    if (team && team.team_bot_installations) {
-      team.team_bot_installations.edges.forEach((edge) => {
-        if (edge.node.team_bot.identifier === 'smooch') {
-          smoochBotInstalled = true;
-        }
-      });
-    }
-
     const query = Object.assign({}, searchQueryFromUrl());
     const offset = query.esoffset ? parseInt(query.esoffset, 10) : 0;
     let to = searchResults.length;
@@ -371,8 +350,7 @@ class SearchResultsComponent extends React.Component {
             team={team}
             project={this.currentContext().project}
             selectedMedia={this.state.selectedMedia}
-            onSelectAll={this.onSelectAll.bind(this)}
-            onUnselectAll={this.onUnselectAll.bind(this)}
+            onUnselectAll={this.onUnselectAll}
           /> : null}
         title={
           <span className="search__results-heading">
@@ -422,34 +400,8 @@ class SearchResultsComponent extends React.Component {
       />
     );
 
-    const viewMode = window.storage.getValue('view-mode');
-
-    const view = {
-      dense: (item, itemQuery) => (
-        item.media ?
-          <SmallMediaCard
-            query={itemQuery}
-            media={{ ...item, team }}
-            selected={this.state.selectedMedia.indexOf(item.id) > -1}
-            onSelect={this.onSelect.bind(this)}
-            style={{ margin: units(3) }}
-          /> : <SmallSourceCard source={item} />
-      ),
-      list: (item, itemQuery) => (
-        item.media ?
-          <MediaDetail
-            query={itemQuery}
-            media={{ ...item, team }}
-            condensed
-            selected={this.state.selectedMedia.indexOf(item.id) > -1}
-            onSelect={this.onSelect.bind(this)}
-            parentComponent={this}
-            smoochBotInstalled={smoochBotInstalled}
-          /> : <SourceCard source={item} />
-      ),
-    };
-
     let content = null;
+
     if (count === 0) {
       if (isProject) {
         content = <ProjectBlankState project={this.currentContext().project} />;
@@ -476,30 +428,31 @@ class SearchResultsComponent extends React.Component {
       }
       itemBaseQuery.timestamp = new Date().getTime();
 
+      this.resultsWithQueries = searchResults.map((item) => {
+        let itemQuery = {};
+        if (item.node.media) {
+          itemOffset += 1;
+          itemQuery = Object.assign({}, itemBaseQuery);
+          itemQuery.esoffset = itemOffset;
+        }
+        return { ...item, itemQuery };
+      });
+
       content = (
-        <div className={`search__results-list results medias-list ${viewMode}`}>
-          {searchResults.map((item) => {
-            let itemQuery = {};
-            if (item.node.media) {
-              itemOffset += 1;
-              itemQuery = Object.assign({}, itemBaseQuery);
-              itemQuery.esoffset = itemOffset;
-            }
-            const listItem = (
-              <li key={item.node.id} className="medias__item">
-                { view[viewMode](item.node, itemQuery) }
-              </li>
-            );
-            return listItem;
-          })}
-        </div>
+        <List
+          searchResults={searchResults}
+          onSelect={this.handleSelect}
+          onClick={this.handleClick}
+          selectedMedia={this.state.selectedMedia}
+          team={team}
+        />
       );
     }
 
     const { listName, listActions, listDescription } = this.props;
 
     return (
-      <ContentColumn wide>
+      <ContentColumn fullWidth>
         <StyledListHeader>
           <Row className="search__list-header-filter-row">
             <Row className="search__list-header-title-and-filter">
@@ -531,6 +484,7 @@ class SearchResultsComponent extends React.Component {
 }
 
 SearchResultsComponent.contextTypes = {
+  router: PropTypes.object,
   store: PropTypes.object,
 };
 

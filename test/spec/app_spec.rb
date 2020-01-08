@@ -260,30 +260,27 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       media_pg.toggle_card # Collapse card to show the title
       wait_for_selector('.media__heading')
       expect(media_pg.primary_heading.text.include?('In a chat about getting')).to be(true)
-      project_pg = media_pg.go_to_project
+      wait_for_selector('.project-header__back-button').click
       wait_for_selector('.medias__item')
-      @wait.until {
-        element = @driver.find_element(:partial_link_text, 'In a chat about getting')
-        expect(element.displayed?).to be(true)
-      }
+      expect(@driver.page_source.include?('In a chat about getting')).to be(true)
 
       # YouTube
       media_pg = api_create_team_project_and_link_and_redirect_to_media_page('https://www.youtube.com/watch?v=ykLgjhBnik0')
       media_pg.toggle_card # Collapse card to show the title
       wait_for_selector('.media__heading')
       expect(media_pg.primary_heading.text).to eq("How To Check An Account's Authenticity")
-      project_pg = media_pg.go_to_project
+      wait_for_selector('.project-header__back-button').click
       wait_for_selector('.medias__item')
-      expect(project_pg.elements('.media__heading').map(&:text).include?("How To Check An Account's Authenticity")).to be(true)
+      expect(@driver.page_source.include?("How To Check An Account's Authenticity")).to be(true)
 
       # Facebook
       media_pg = api_create_team_project_and_link_and_redirect_to_media_page('https://www.facebook.com/FirstDraftNews/posts/1808121032783161')
       media_pg.toggle_card # Collapse card to show the title
       wait_for_selector('.media__heading')
       expect(media_pg.primary_heading.text.include?('Facebook')).to be(true)
-      project_pg = media_pg.go_to_project
+      wait_for_selector('.project-header__back-button').click
       wait_for_selector('.medias__item')
-      expect(project_pg.elements('.media__heading').map(&:text).select{ |x| x =~ /Facebook/ }.empty?).to be(false)
+      expect(@driver.page_source.include?("First Draft")).to be(true)
     end
 
     it "should access user confirmed page", bin5: true do
@@ -307,13 +304,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should create project media", bin1: true do
       api_create_team_and_project
       page = ProjectPage.new(config: @config, driver: @driver).load
-
+      # api_create_team_project_and_link('https://twitter.com/marcouza/status/771009514732650497?t=' + Time.now.to_i.to_s)
       expect(page.contains_string?('This is a test')).to be(false)
 
       page.create_media(input: 'https://twitter.com/marcouza/status/771009514732650497?t=' + Time.now.to_i.to_s)
 
-      page.driver.navigate.to @config['self_url']
-      page.wait_for_element('.project .medias__item')
+      @driver.navigate.to @config['self_url']
+      wait_for_selector('.medias__item')
 
       expect(page.contains_string?('This is a test')).to be(true)
     end
@@ -322,10 +319,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_team_and_project
       page = ProjectPage.new(config: @config, driver: @driver).load
              .create_image_media(File.join(File.dirname(__FILE__), 'test.png'))
-      wait_for_selector("add-annotation__buttons", :class)
+      wait_for_selector(".add-annotation__buttons")
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/search'
-      wait_for_selector("search__results-heading", :class)
-      expect(@driver.find_element(:link_text, 'test.png').nil?).to be(false)
+      wait_for_selector(".search__results-heading")
+      wait_for_selector('.medias__item')
+      expect(@driver.page_source.include?('test.png')).to be(true)
+
     end
 
     it "should redirect to 404 page", bin4: true do
@@ -408,6 +407,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       fill_field('#create-media-source-url-input', 'https://twitter.com/IronMaiden/status/832726327459446784')
       wait_for_text_change(' ',"#create-media-source-url-input", :css)
       wait_for_selector('#create-media-dialog__submit-button').click
+      wait_for_selector('.create-media__message')
       expect(@driver.current_url.to_s.match(/\/source\/[0-9]+$/).nil?).to be(true)
       message = wait_for_selector('.message').text
       expect(message.match(/Sorry, this is not a profile/).nil?).to be(false)
@@ -780,8 +780,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector("#create-media__add-item")
       el = wait_for_selector('.medias__item')
       el.location_once_scrolled_into_view
-      result = @driver.find_elements(:css, '.medias__item')
-      wait_for_size_change(0, '.medias__item')
+      wait_for_size_change(0, '.media__heading')
+      result = @driver.find_elements(:css, '.media__heading')
       expect(result.size == 1).to be(true)
       expect(@driver.page_source.include?('Auto-Refresh')).to be(true)
     end
@@ -858,7 +858,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should search in trash page", bin4: true do
       api_create_claim_and_go_to_search_page
       wait_for_selector(".medias__item")
-      wait_for_selector(".media__heading > a").click
+      wait_for_selector(".media__heading").click
       wait_for_selector('.media-actions__icon').click
       wait_for_selector(".media-actions__move")
       wait_for_selector(".media-actions__send-to-trash").click
@@ -1073,13 +1073,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should paginate project page", bin2: true do
       page = api_create_team_project_claims_sources_and_redirect_to_project_page 21, 0
       page.load
-      wait_for_selector("#create-media__add-item")
-      results = @driver.find_elements(:css, '.medias__item')
-      expect(results.size == 20).to be(true)
-      old = results.size
+      wait_for_selector('.media__heading')
+      wait_for_selector(".search__results-heading")
+      expect(@driver.page_source.include?('1 - 20 / 21')).to be(true)
       wait_for_selector(".search__next-page").click
-      size = wait_for_size_change(old, '.medias__item')
-      expect(size == 1).to be(true)
+      wait_for_selector('.media__heading')
+      wait_for_selector(".search__results-heading")
+      expect(@driver.page_source.include?('21 - 21 / 21')).to be(true)
     end
 
     it "should show teams at /check/teams", bin1: true do
@@ -1172,7 +1172,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect((@driver.current_url.to_s =~ /media/).nil?).to be(true)
       @driver.action.send_keys(:enter).perform
       wait_for_selector(".medias__item")
-      wait_for_selector('.media-detail__check-timestamp').click
+      wait_for_selector(".media__heading").click
       wait_for_selector(".media-detail__card-header")
       expect((@driver.current_url.to_s =~ /media/).nil?).to be(false)
     end
