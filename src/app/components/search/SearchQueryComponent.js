@@ -28,11 +28,13 @@ import {
   black16,
   black05,
   black54,
+  checkBlue,
+  highlightOrange,
   Row,
   ContentColumn,
   units,
   caption,
-  borderWidthSmall,
+  borderWidthLarge,
   transitionSpeedDefault,
   mediaQuery,
   ellipsisStyles,
@@ -57,7 +59,7 @@ export const StyledSearchInput = styled.input`
   background-color: ${white};
   background-image: url('/images/search.svg');
   background-position: ${props => (props.isRtl ? `calc(100% - ${units(2)})` : units(2))} center;
-  border: ${borderWidthSmall} solid ${black16};
+  border: ${borderWidthLarge} solid ${props => (props.active ? highlightOrange : black16)};
   border-radius: ${units(0.5)};
   height: ${units(5)};
   outline: none;
@@ -92,9 +94,6 @@ const StyledPopper = swallowingStyled(Popper, { swallowProps: ['isRtl'] })`
 `;
 
 const StyledSearchFiltersSection = styled.section`
-  padding: ${units(1)};
-  margin-top: ${units(1)};
-
   ${mediaQuery.handheld`
     padding: ${units(2)} 0;
   `}
@@ -106,13 +105,12 @@ const StyledSearchFiltersSection = styled.section`
 `;
 
 const StyledFilterRow = swallowingStyled(Row, { swallowProps: ['isRtl'] })`
-  height: ${props => (props.height ? props.height : units(5))};
-
-  overflow-y: ${props => (props.overflowY ? props.overflowY : 'auto')};
-
+  min-height: ${units(5)};
+  margin-bottom: ${units(2)};
   flex-wrap: wrap;
 
   h4 {
+    text-transform: uppercase;
     color: ${black87};
     margin: 0;
     min-width: ${units(6)};
@@ -127,9 +125,6 @@ const StyledFilterRow = swallowingStyled(Row, { swallowProps: ['isRtl'] })`
   `};
 
   ${mediaQuery.handheld`
-    // Make them a single row that scrolls horizontally.
-    // DEPRECATED: upgrade this component to use dropdowns per spec.
-    // CGB 2017-10-10
     padding: 0;
     flex-wrap: nowrap;
     justify-content: flex-start;
@@ -150,7 +145,7 @@ const StyledFilterRow = swallowingStyled(Row, { swallowProps: ['isRtl'] })`
 `;
 
 const StyledFilterButton = styled.div`
-  margin: 0 ${units(0.5)} ${units(0.5)}};
+  margin: ${units(0.5)};
   background-color: ${black05};
   border-radius: ${units(3)};
   padding: 0 ${units(1.5)};
@@ -158,6 +153,7 @@ const StyledFilterButton = styled.div`
   line-height: ${units(3.5)};
   transition: all ${transitionSpeedDefault};
   white-space: nowrap;
+  min-width: ${units(5)};
   max-width: ${units(20)};
   ${ellipsisStyles}
   &:hover {
@@ -166,8 +162,13 @@ const StyledFilterButton = styled.div`
   }
   ${props =>
     props.active
-      ? `color: ${black87}!important; font-weight: 700;`
+      ? `color: ${white}!important; font-weight: 700;`
       : `color: ${black38};
+  `}
+  ${props =>
+    props.active
+      ? `background-color: ${checkBlue};`
+      : `background-color: ${black05};
   `}
 `;
 
@@ -197,8 +198,6 @@ const messages = defineMessages({
     defaultMessage: 'Filter items',
   },
 });
-
-const mediaTypes = ['claims', 'links', 'images', 'videos'];
 
 class SearchQueryComponent extends React.Component {
   constructor(props) {
@@ -295,13 +294,8 @@ class SearchQueryComponent extends React.Component {
   }
 
   showIsSelected(show, state = this.state) {
-    const selected = state.query.show || [...mediaTypes];
-    return selected.includes(show);
-  }
-
-  ruleIsSelected(rule, state = this.state) {
-    const selected = state.query.rules || [];
-    return selected.includes(rule);
+    const selected = state.query.show;
+    return Array.isArray(selected) ? selected.includes(show) : false;
   }
 
   dynamicIsSelected(field, value, state = this.state) {
@@ -376,27 +370,11 @@ class SearchQueryComponent extends React.Component {
     });
   }
 
-  handleRuleClick(rule) {
-    this.setState((prevState) => {
-      const state = Object.assign({}, prevState);
-      if (!state.query.rules) {
-        state.query.rules = [];
-      }
-      const i = state.query.rules.indexOf(rule);
-      if (i === -1) {
-        state.query.rules.push(rule);
-      } else {
-        state.query.rules.splice(i, 1);
-      }
-      return { query: state.query };
-    });
-  }
-
   handleShowClick(show) {
     this.setState((prevState) => {
       const state = Object.assign({}, prevState);
       if (!state.query.show) {
-        state.query.show = [...mediaTypes];
+        state.query.show = [];
       }
 
       const toggleMedia = (t) => {
@@ -409,6 +387,10 @@ class SearchQueryComponent extends React.Component {
       };
 
       toggleMedia(show);
+
+      if (state.query.show.length === 0) {
+        delete state.query.show;
+      }
 
       return { query: state.query };
     });
@@ -610,9 +592,6 @@ class SearchQueryComponent extends React.Component {
 
     const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
 
-    const hasRules = team.rules_search_fields_json_schema &&
-      Object.keys(team.rules_search_fields_json_schema.properties.rules.properties).length > 0;
-
     return (
       <div>
         <Row>
@@ -679,6 +658,7 @@ class SearchQueryComponent extends React.Component {
             className="search__query-dialog"
             maxWidth="md"
             fullWidth
+            scroll="paper"
             open={this.state.dialogOpen}
             onClose={this.handleDialogClose}
           >
@@ -920,32 +900,6 @@ class SearchQueryComponent extends React.Component {
                       );
                     }))
                     : null}
-
-                  {hasRules && this.showField('rules') ?
-                    <StyledFilterRow className="search-query__sort-actions">
-                      <h4><FormattedMessage id="search.rules" defaultMessage="Rules" /></h4>
-                      {Object
-                        .keys(team.rules_search_fields_json_schema.properties.rules.properties)
-                        .map((id) => {
-                          const label = team.rules_search_fields_json_schema.properties
-                            .rules.properties[id].title;
-                          return (
-                            <StyledFilterButton
-                              key={id}
-                              active={this.ruleIsSelected(id)}
-                              onClick={this.handleRuleClick.bind(this, id)}
-                              className={bemClass(
-                                'search-query__filter-button',
-                                this.ruleIsSelected(id),
-                                '--selected',
-                              )}
-                            >
-                              {label}
-                            </StyledFilterButton>
-                          );
-                        })
-                      }
-                    </StyledFilterRow> : null}
 
                   <p style={{ textAlign: 'right' }}>
                     <FlatButton

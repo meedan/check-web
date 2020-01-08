@@ -49,7 +49,7 @@ class TrashComponent extends React.Component {
           title={this.props.intl.formatMessage(messages.title)}
           team={team.slug}
           query={JSON.stringify(query)}
-          fields={['keyword', 'date', 'status', 'sort', 'tags', 'rules']}
+          fields={['keyword', 'date', 'status', 'sort', 'tags']}
           view="list"
           page="trash"
         />
