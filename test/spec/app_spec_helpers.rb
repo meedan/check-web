@@ -319,6 +319,14 @@ module AppSpecHelpers
     press_button('#create-media-dialog__submit-button')
   end
 
+  def create_image(file)
+    wait_for_selector('#create-media__add-item').click
+    wait_for_selector("#create-media__image").click
+    input = wait_for_selector('input[type=file]')
+    input.send_keys(File.join(File.dirname(__FILE__), "#{file}"))
+    wait_for_selector("#create-media-dialog__submit-button").click
+  end
+
   def team_url(path)
     @config['self_url'] + '/' + get_team + '/' + path
   end
