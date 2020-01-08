@@ -7,8 +7,7 @@ shared_examples 'smoke' do
   include AppSpecHelpers
   include ApiHelpers
 
-  #Login section Start
-
+#Login section Start
   it "should sign up using e-mail", bin2: true do
     @driver.navigate.to @config['self_url']
     expect(@driver.page_source.include?('Please check your email to verify your account')).to be(false)
@@ -76,7 +75,7 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('User With Email')).to be(true)
   end
 
-  it "should create a new media using a link from Twitter", bin1: true do
+  it "should create a new media using a link from Twitter", bin2: true do
     api_create_team_project_and_link_and_redirect_to_media_page('https://twitter.com/TheWho/status/890135323216367616')
     wait_for_selector(".media-detail__card-header")
     wait_for_selector("svg[alt='twitter.com']")
@@ -113,7 +112,7 @@ shared_examples 'smoke' do
       .logout
   end
 
-  it "should lock and unlock status", bin1: true do
+  it "should lock and unlock status", bin2: true do
     page = api_create_team_project_and_link_and_redirect_to_media_page 'http://ca.ios.ba/files/meedan/random.php'
     wait_for_selector('.media-actions__icon').click
     wait_for_selector('.media-actions__lock-status').click
@@ -126,7 +125,7 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('Item status unlocked by')).to be(true)
   end
 
-  it "should comment media as a command", bin4: true, quick:true do
+  it "should comment media as a command", bin2: true, quick:true do
     api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector('.create-task__add-button')
     # First, verify that there isn't any comment
@@ -207,99 +206,16 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('Comment deleted')).to be(true)
   end
 
-  it "should set a verification status for one media" , bin1: true do
+  it "should set a verification status for one media" , bin4: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector(".media-detail__card-header")
     expect(@driver.page_source.include?('In Progress')).to be(false)
-    wait_for_selector(".media-status__label > div button svg").click
-    wait_for_selector(".media-status__menu-item")
-    wait_for_selector(".media-status__menu-item--in-progress").click
-    wait_for_selector_none(".media-status__menu-item")
+    change_the_status_to(".media-status__menu-item--in-progress")
     expect(@driver.page_source.include?('In Progress')).to be(true)
-  end
-
-  it "should move media to another project", bin2: true do
-    claim = 'This is going to be moved'
-    claim_name = case @config['app_name']
-      when 'bridge'
-        'quote'
-      when 'check'
-        'claim'
-    end
-
-    # Create a couple projects under the same team
-    p1 = api_create_team_and_project
-    p1url = @config['self_url'] + '/' + p1[:team].slug + '/project/' + p1[:project].dbid.to_s
-    p2 = api_create_project(p1[:team].dbid.to_s)
-    p2url = @config['self_url'] + '/' + p2.team['slug'] + '/project/' + p2.dbid.to_s
-
-    # Go to the first project, make sure that there is no claim, and thus store the data in local Relay store
-    @driver.navigate.to p1url
-    wait_for_selector('.search__results')
-    expect(@driver.page_source.include?(claim)).to be(false)
-    expect(@driver.page_source.include?('1 / 1')).to be(false)
-    expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(true)
-
-    # Go to the second project, make sure that there is no claim, and thus store the data in local Relay store
-    wait_for_selector('.project-list__link + .project-list__link').click
-    wait_for_selector('.search__results')
-    expect(@driver.page_source.include?(claim)).to be(false)
-    expect(@driver.page_source.include?('1 / 1')).to be(false)
-    expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(true)
-
-    # Create a claim under project 2
-    wait_for_selector("#create-media__add-item").click
-    wait_for_selector('#create-media__quote').click
-    fill_field('#create-media-quote-input' , claim)
-    wait_for_selector('#create-media-dialog__submit-button').click
-    wait_for_selector_none('#create-media__quote')
-    # Go to the second project, make sure that the claim is there
-    wait_for_selector('.project-list__link + .project-list__link').click
-    wait_for_selector('.medias__item')
-    expect(@driver.page_source.include?(claim)).to be(true)
-    expect(@driver.page_source.include?('1 / 1')).to be(true)
-    expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(false)
-
-    # Move the claim to another project
-    wait_for_selector(".ag-icon-checkbox-unchecked").click
-    wait_for_selector(".media-bulk-actions__move-icon").click
-    wait_for_selector('.Select-input input').send_keys('Project')
-    select_button = wait_for_selector('.Select-option')
-    select_button.location_once_scrolled_into_view
-    select_button.click
-    button_move = wait_for_selector('.media-bulk-actions__move-button')
-    button_move.location_once_scrolled_into_view
-    button_move.click
-    wait_for_selector_none(".Select-placeholder")
-    wait_for_selector('.project-list__link').click
-    expect(@driver.current_url.to_s == p1url).to be(true)
-    expect(@driver.page_source.include?('1 / 1')).to be(true)
-    expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(false)
-
-    # Go back to the second project and make sure that the claim is not there anymore
-    wait_for_selector('.project-list__link + .project-list__link').click
-    wait_for_selector('.search__results')
-    expect(@driver.page_source.include?('1 / 1')).to be(false)
-    expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(true)
-
-    # Reload the first project page and make sure that the claim is there
-    @driver.navigate.to p1url
-    wait_for_selector('.medias__item')
-    expect(@driver.page_source.include?(claim)).to be(true)
-    expect(@driver.page_source.include?('1 / 1')).to be(true)
-    expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(false)
-
-    # Reload the second project page and make sure that the claim is not there
-    @driver.navigate.to p2url
-    wait_for_selector('.search__results')
-    expect(@driver.page_source.include?(claim)).to be(false)
-    expect(@driver.page_source.include?('1 / 1')).to be(false)
-    expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(true)
   end
 #media items section end
 
 #source section start
-
   it "should add and remove source tags", bin6: true do
     api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
     element =  wait_for_selector(".source-menu__edit-source-button")
@@ -425,11 +341,9 @@ shared_examples 'smoke' do
     expect(id2 > 0).to be(true)
     expect(id1 == id2).to be(true)
   end
-
 #source section end
 
 #tasks section start
-
   it "should manage team tasks", bin6: true do
     # Create team and go to team page that should not contain any task
     team = "task-team-#{Time.now.to_i}"
@@ -585,7 +499,7 @@ shared_examples 'smoke' do
     expect(element.text == project_name).to be(true)
   end
 
-  it "should edit project", bin1: true do
+  it "should edit project", bin4: true do
     api_create_team_and_project
     project_pg = ProjectPage.new(config: @config, driver: @driver).load
     new_title = "Changed title #{Time.now.to_i}"
@@ -728,38 +642,6 @@ shared_examples 'smoke' do
 #team section end
 
 #related items section start
-  it "should change the status to true and add manually a new related items" , bin1: true do
-    if @config['app_name'] == 'bridge'
-      status = '.media-status__menu-item--ready'
-      result = 'Translation status set to'
-      annotation_class = 'annotation--translation_status'
-    else
-      status = '.media-status__menu-item--verified'
-      result = 'Status set to'
-      annotation_class = 'annotation--verification_status'
-
-    end
-    api_create_team_project_and_claim_and_redirect_to_media_page
-    wait_for_selector(".media-detail__card-header")
-    expect(@driver.page_source.include?(result)).to be(false)
-    wait_for_selector(".media-status__label > div button svg").click
-    wait_for_selector(".media-status__menu-item")
-    wait_for_selector(status).click
-    wait_for_selector_none(".media-status__menu-item")
-    wait_for_selector(annotation_class, :class)
-    expect(@driver.page_source.include?(result)).to be(true)
-    expect(@driver.page_source.include?('Related Claim')).to be(false)
-    press_button('.create-related-media__add-button')
-    wait_for_selector('#create-media__quote').click
-    wait_for_selector("#create-media-quote-input")
-    fill_field('#create-media-quote-input', 'Related Claim')
-    fill_field('#create-media-quote-attribution-source-input', 'Related Item')
-    press_button('#create-media-dialog__submit-button')
-    wait_for_selector_none("#create-media-quote-input")
-    wait_for_selector_list_size(".media-detail__card-header", 2)
-    expect(@driver.page_source.include?('Related Claim')).to be(true)
-  end
-
   it "should promote related item to main item" , bin1: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector(".media-detail__card-header")
@@ -783,35 +665,34 @@ shared_examples 'smoke' do
     wait_for_selector_none(".media-detail__buttons button + button svg[role='presentation']") #break relationship
   end
 
-  # it "should create a related claim, delete the main item and verify if the related item was deleted too" , bin1: true do
-  #   api_create_team_project_and_claim_and_redirect_to_media_page
-  #   wait_for_selector(".media-detail__card-header")
-  #   expect(@driver.page_source.include?('Claim Related')).to be(false)
-  #   press_button('.create-related-media__add-button')
-  #   wait_for_selector('#create-media__quote').click
-  #   wait_for_selector("#create-media-quote-input")
-  #   fill_field('#create-media-quote-input', 'Claim Related')
-  #   press_button('#create-media-dialog__submit-button')
-  #   wait_for_selector_none("#create-media-quote-input")
-  #   wait_for_selector_list_size(".media-detail__card-header", 2)
-  #   expand_card = wait_for_selector(".medias__item > div > div > div > div > button > div svg")
-  #   expand_card.click
-  #   wait_for_selector(".media-detail__buttons button  svg[role='presentation']") #promote_button
-  #   wait_for_selector(".media-detail__buttons button + button svg[role='presentation']") #break_relationship_button
-  #   expect(@driver.page_source.include?('Claim Related')).to be(true)
-  #   wait_for_selector('.project-header__back-button').click
-  #   wait_for_selector(".media__heading > a",:css, 25,1).click
-  #   wait_for_selector(".annotations__list")
-  #   wait_for_selector('.media-actions__icon').click
-  #   wait_for_selector('.media-actions__edit')
-  #   wait_for_selector(".media-actions__send-to-trash").click
-  #   wait_for_selector(".message").click
-  #   wait_for_selector_none(".message")
-  #   wait_for_selector('.project-header__back-button').click
-  #   wait_for_selector('.create-related-media__add-button')
-  #   wait_for_selector_list_size(".media-detail__card-header", 0)
-  #   expect(@driver.page_source.include?('Claim Related')).to be(false)
-  # end
+  it "should create a related claim, delete the main item and verify if the related item was deleted too" , bin1: true do
+    api_create_team_project_and_claim_and_redirect_to_media_page
+    wait_for_selector(".media-detail__card-header")
+    expect(@driver.page_source.include?('Claim Related')).to be(false)
+    press_button('.create-related-media__add-button')
+    wait_for_selector('#create-media__quote').click
+    wait_for_selector("#create-media-quote-input")
+    fill_field('#create-media-quote-input', 'Claim Related')
+    press_button('#create-media-dialog__submit-button')
+    wait_for_selector_none("#create-media-quote-input")
+    wait_for_selector_list_size(".media-detail__card-header", 2)
+    expand_card = wait_for_selector(".medias__item > div > div > div > div > button > div svg")
+    expand_card.click
+    wait_for_selector(".media-detail__buttons button  svg[role='presentation']") #promote_button
+    wait_for_selector(".media-detail__buttons button + button svg[role='presentation']") #break_relationship_button
+    expect(@driver.page_source.include?('Claim Related')).to be(true)
+    wait_for_selector('.media-actions__icon').click
+    wait_for_selector('.media-actions__edit')
+    wait_for_selector(".media-actions__send-to-trash").click
+    wait_for_selector(".message").click
+    wait_for_selector_none(".message")
+    wait_for_selector('.project-header__back-button').click
+    @driver.navigate.refresh
+    wait_for_selector('.create-related-media__add-button')
+    wait_for_selector_list_size(".media-detail__card-header", 0)
+    expect(@driver.page_source.include?('Add a link or claim')).to be(true)
+
+  end
 
   it "should create a related link" , bin2: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
@@ -850,7 +731,7 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('Related item added by')).to be(true)
   end
 
-  it "should break a related claim relationship" , bin1: true do
+  it "should break relationship between related items" , bin1: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector(".media-detail__card-header")
     expect(@driver.page_source.include?('Claim Related')).to be(false)
@@ -873,7 +754,7 @@ shared_examples 'smoke' do
     expect(list_size == 1).to be(true)
   end
 
-  it "should not show source option to add related items" , bin3: true do
+  it "should not show source option to be added as a related item" , bin3: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector(".media-detail__card-header")
     expect(@driver.page_source.include?('Photo')).to be(false)
@@ -883,7 +764,7 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('Source')).to be(false)
   end
 
-  it "should install Smooch bot, create a claim, change the status and add manually a new related item", bin1: true do
+  it "should install Smooch bot, create a claim, change the status and add a related item", bin1: true do
     team = "team#{Time.now.to_i}"
     api_create_team_and_project(team: team)
     bot_name= 'Smooch'
@@ -903,10 +784,7 @@ shared_examples 'smoke' do
     wait_for_selector(".media__heading").click
     wait_for_selector(".annotations__list")
     expect(@driver.page_source.include?('In Progress')).to be(false)
-    wait_for_selector(".media-status__label > div button svg").click
-    wait_for_selector(".media-status__menu-item")
-    wait_for_selector(".media-status__menu-item--in-progress").click
-    wait_for_selector_none(".media-status__menu-item")
+    change_the_status_to(".media-status__menu-item--in-progress")
     expect(@driver.page_source.include?('In Progress')).to be(true)
     expect(@driver.page_source.include?('Claim Related')).to be(false)
     press_button('.create-related-media__add-button')
@@ -921,26 +799,14 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('Unstarted')).to be(false)
     expect(@driver.page_source.include?('In Progress')).to be(true)
   end
-
-#related items section end
+#Related items section end
 
 #Embed section Start
-
   it "should generate a embed from Youtube video", bin1: true do
     api_create_team_project_and_link_and_redirect_to_media_page('https://www.youtube.com/watch?v=ykLgjhBnik0')
     wait_for_selector(".media-detail__card-header")
     wait_for_selector("svg[alt='youtube.com']")
-    url = @driver.current_url.to_s
-    wait_for_selector('.media-actions__icon').click
-    wait_for_selector('.media-actions__edit')
-    el = wait_for_selector('.media-actions__embed')
-    el.location_once_scrolled_into_view
-    el.click
-    wait_for_selector("#media-embed__actions")
-    expect(@driver.current_url.to_s == "#{url}/embed").to be(true)
-    el = wait_for_selector('#media-embed__actions-copy')
-    el.click
-    wait_for_selector("#media-embed__copy-code")
+    generate_a_embed_and_copy_embed_code
     @driver.navigate.to 'https://paste.ubuntu.com/'
     title = 'a embed from Youtube video' + Time.now.to_i.to_s
     fill_field('#id_poster' , title)
@@ -955,17 +821,7 @@ shared_examples 'smoke' do
     api_create_team_project_and_link_and_redirect_to_media_page('https://www.facebook.com/FirstDraftNews/posts/1808121032783161')
     wait_for_selector(".media-detail__card-header")
     wait_for_selector("svg[alt='facebook.com']")
-    url = @driver.current_url.to_s
-    wait_for_selector('.media-actions__icon').click
-    wait_for_selector('.media-actions__edit')
-    el = wait_for_selector('.media-actions__embed')
-    el.location_once_scrolled_into_view
-    el.click
-    wait_for_selector("#media-embed__actions")
-    expect(@driver.current_url.to_s == "#{url}/embed").to be(true)
-    el = wait_for_selector('#media-embed__actions-copy')
-    el.click
-    wait_for_selector("#media-embed__copy-code")
+    generate_a_embed_and_copy_embed_code
     @driver.navigate.to 'https://paste.ubuntu.com/'
     title = 'a embed from Facebook' + Time.now.to_i.to_s
     fill_field('#id_poster' , title)
@@ -980,17 +836,7 @@ shared_examples 'smoke' do
     api_create_team_project_and_link_and_redirect_to_media_page('https://twitter.com/TheWho/status/890135323216367616')
     wait_for_selector(".media-detail__card-header")
     wait_for_selector("svg[alt='twitter.com']")
-    url = @driver.current_url.to_s
-    wait_for_selector('.media-actions__icon').click
-    wait_for_selector('.media-actions__edit')
-    el = wait_for_selector('.media-actions__embed')
-    el.location_once_scrolled_into_view
-    el.click
-    wait_for_selector("#media-embed__actions")
-    expect(@driver.current_url.to_s == "#{url}/embed").to be(true)
-    el = wait_for_selector('#media-embed__actions-copy')
-    el.click
-    wait_for_selector("#media-embed__copy-code")
+    generate_a_embed_and_copy_embed_code
     @driver.navigate.to 'https://paste.ubuntu.com/'
     title = 'a embed from Twitter' + Time.now.to_i.to_s
     fill_field('#id_poster' , title)
@@ -1005,17 +851,7 @@ shared_examples 'smoke' do
     api_create_team_project_and_link_and_redirect_to_media_page('https://www.instagram.com/p/BRYob0dA1SC/')
     wait_for_selector(".media-detail__card-header")
     wait_for_selector("svg[alt='instagram.com']")
-    url = @driver.current_url.to_s
-    wait_for_selector('.media-actions__icon').click
-    wait_for_selector('.media-actions__edit')
-    el = wait_for_selector('.media-actions__embed')
-    el.location_once_scrolled_into_view
-    el.click
-    wait_for_selector("#media-embed__actions")
-    expect(@driver.current_url.to_s == "#{url}/embed").to be(true)
-    el = wait_for_selector('#media-embed__actions-copy')
-    el.click
-    wait_for_selector("#media-embed__copy-code")
+    generate_a_embed_and_copy_embed_code
     @driver.navigate.to 'https://paste.ubuntu.com/'
     title = 'a embed from Instagram' + Time.now.to_i.to_s
     fill_field('#id_poster' , title)
@@ -1026,59 +862,32 @@ shared_examples 'smoke' do
     expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
   end
 
-  it "should generate a embed from website link", bin3: true do
+  it "should generate a embed from website link copy the code and insert in a blog", bin3: true do
     api_create_team_project_and_link_and_redirect_to_media_page('https://meedan.com')
     wait_for_selector(".media-detail__card-header")
-    url = @driver.current_url.to_s
-    wait_for_selector('.media-actions__icon').click
-    wait_for_selector('.media-actions__edit')
-    el = wait_for_selector('.media-actions__embed')
-    el.location_once_scrolled_into_view
-    el.click
-    wait_for_selector("#media-embed__actions")
-    expect(@driver.current_url.to_s == "#{url}/embed").to be(true)
-    el = wait_for_selector('#media-embed__actions-copy')
-    el.click
-    wait_for_selector("#media-embed__copy-code")
-    @driver.navigate.to 'https://paste.ubuntu.com/'
-    title = 'a embed from Website link' + Time.now.to_i.to_s
-    fill_field('#id_poster' , title)
-    el = wait_for_selector('#id_content')
+    generate_a_embed_and_copy_embed_code
+    @driver.navigate.to 'http://codemagic.gr/'
+    el = wait_for_selector('.ace_text-input')
     el.send_keys(' ')
     @driver.action.send_keys(:control, 'v').perform
-    wait_for_text_change(' ',"#id_content", :css)
-    expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
+    wait_for_text_change(' ',".ace_text-input", :css)
+    button = wait_for_selector("#update")
+    button.click
+    expect(@driver.page_source.include?('test-team')).to be(true)
   end
 
-  it "should generate a embed from manually from a image the status in progress",bin4: true do
+  it "should create a image, change the status to in progress and generate a embed",bin4: true do
     api_create_team_and_project
     @driver.navigate.to @config['self_url']
     wait_for_selector(".project__description")
-    wait_for_selector('#create-media__add-item').click
-    wait_for_selector("#create-media__image").click
-    input = wait_for_selector('input[type=file]')
-    input.send_keys(File.join(File.dirname(__FILE__), 'test.png'))
-    wait_for_selector("#create-media-dialog__submit-button").click
+    create_image('test.png')
     wait_for_selector(".medias__item")
     wait_for_selector(".media__heading").click
     wait_for_selector(".media-detail__card-header")
     expect(@driver.page_source.include?('In Progress')).to be(false)
-    wait_for_selector(".media-status__label > div button svg").click
-    wait_for_selector(".media-status__menu-item")
-    wait_for_selector(".media-status__menu-item--in-progress").click
-    wait_for_selector_none(".media-status__menu-item")
+    change_the_status_to(".media-status__menu-item--in-progress")
     expect(@driver.page_source.include?('In Progress')).to be(true)
-    url = @driver.current_url.to_s
-    wait_for_selector('.media-actions__icon').click
-    wait_for_selector('.media-actions__edit')
-    el = wait_for_selector('.media-actions__embed')
-    el.location_once_scrolled_into_view
-    el.click
-    wait_for_selector("#media-embed__actions")
-    expect(@driver.current_url.to_s == "#{url}/embed").to be(true)
-    el = wait_for_selector('#media-embed__actions-copy')
-    el.click
-    wait_for_selector("#media-embed__copy-code")
+    generate_a_embed_and_copy_embed_code
     @driver.navigate.to 'https://paste.ubuntu.com/'
     title = 'a embed from image' + Time.now.to_i.to_s
     fill_field('#id_poster' , title)
@@ -1092,11 +901,8 @@ shared_examples 'smoke' do
   it "should create a image, generate a embed, copy url and open in a incognito window", bin4: true do
    api_create_team_and_project
     @driver.navigate.to @config['self_url']
-    wait_for_selector('#create-media__add-item').click
-    wait_for_selector("#create-media__image").click
-    input = wait_for_selector('input[type=file]')
-    input.send_keys(File.join(File.dirname(__FILE__), 'test.png'))
-    wait_for_selector("#create-media-dialog__submit-button").click
+    wait_for_selector(".project__description")
+    create_image('test.png')
     wait_for_selector(".medias__item")
     wait_for_selector("img").click
     wait_for_selector(".media-detail__card-header")
@@ -1119,19 +925,16 @@ shared_examples 'smoke' do
     wait_for_selector(".pender-container")
     expect(@driver.page_source.include?('test.png')).to be(true)
   end
-
 #Embed section end
 
-  # it "should go to meme generator and only change the title and save" do
-  #   api_create_team_and_project
-  #   @driver.navigate.to @config['self_url']
-  #   wait_for_selector('#create-media__add-item').click
-  #   wait_for_selector("#create-media__image").click
-  #   input = wait_for_selector('input[type=file]')
-  #   input.send_keys(File.join(File.dirname(__FILE__), 'test.png'))
-  #   wait_for_selector("#create-media-dialog__submit-button").click
-  #   wait_for_selector(".media__heading a").click
-  #   wait_for_selector(".media-detail__card-header")
+#Meme Generator section start
+  # it "should go to meme generator change the title and description save and publish and generate a embed", bin1: true do
+  #   create_team_project_and_image_and_redirect_to_media_page
+  #   wait_for_selector(".media__annotations-column")
+  #   generate_a_embed_and_copy_embed_code
+  #   expect(@driver.page_source.include?('Meme')).to be(false)
+  #   @driver.navigate.back
+  #   wait_for_selector(".media__annotations-column")
   #   wait_for_selector('.media-actions__icon').click
   #   wait_for_selector('.media-actions__edit')
   #   el = wait_for_selector('.media-actions__memebuster')
@@ -1139,19 +942,143 @@ shared_examples 'smoke' do
   #   el.click
   #   expect(@driver.page_source.include?('Last saved')).to be(false)
   #   wait_for_selector(".without-file")
-  #   fill_field('textarea[name="description"]', 'description')
+  #   fill_field('input[name="headline"]', 'Meme')
   #   save_button = wait_for_selector(".memebuster__viewport-column > div > div button + button")
+  #   expect(save_button.attribute('tabindex')== "-1" ).to be(true) #if save_button is not enable
+  #   fill_field('textarea[name="description"]', 'description')
+  #   expect(save_button.attribute('tabindex')== "0" ).to be(true) #if save_button is enable
   #   save_button.click
-  #   wait_for_selector(".memebuster__viewport-column > div > div  > div > span", :css, 50)
+  #   wait_for_selector(".memebuster__viewport-column > div > div >  span")
   #   expect(@driver.page_source.include?('Last saved')).to be(true)
   #   publish_button = wait_for_selector(".memebuster__viewport-column > div > div button + button + button")
   #   publish_button.click
-  #   wait_for_selector(".memebuster__viewport-column > div > div  > div > span", :css, 50)
+  #   wait_for_selector(".memebuster__viewport-column > div > div > div")
   #   expect(@driver.page_source.include?('Publishing')).to be(true)
-  #   wait_for_selector(".memebuster__viewport-column > div > div  > div > span")
-  #   wait_for_selector(".memebuster__viewport-column > div > div  > div > span > time", :css, 50)
+  #   wait_for_selector(".memebuster__viewport-column > div > div > div > span")
+  #   wait_for_selector(".memebuster__viewport-column > div > div > div > span > time")
   #   expect(@driver.page_source.include?('Publishing')).to be(false)
   #   expect(@driver.page_source.include?('Last published')).to be(true)
+  #   @driver.navigate.back
+  #   wait_for_selector_none(".without-file")
+  #   wait_for_selector(".media__annotations-column")
+  #   generate_a_embed_and_copy_embed_code
+  #   wait_for_selector(".oembed__meme")
+  #   expect(@driver.page_source.include?('Meme')).to be(true)
   # end
+#Meme Generator section end
+
+#Bulk Actions section start
+  it "should create items, copy to another project and then delete it", bin6: true do
+    project1 = api_create_team_and_project
+    api_create_project(project1[:team].dbid.to_s)
+    @driver.navigate.to @config['self_url']
+    wait_for_selector("#create-media__add-item")
+    create_media ("claim 1")
+    wait_for_selector(".medias__item")
+    create_media ("claim 2")
+    wait_for_selector_list_size(".medias__item", 2)
+    expect(@driver.page_source.include?('Add a link or claim')).to be(false)
+    wait_for_selector('.project-list__link + .project-list__link').click #Go to the second project
+    wait_for_selector_none(".medias__item")
+    expect(@driver.page_source.include?('Add a link or claim')).to be(true)
+    wait_for_selector('.project-list__link').click #Go back to the first project
+    wait_for_selector_list_size(".medias__item", 2)
+    wait_for_selector(".ag-icon-checkbox-unchecked").click
+    wait_for_selector("span[title='Copy selected items to another project']").click
+    wait_for_selector('.Select-input input').send_keys('Project')
+    wait_for_selector('.Select-option').click
+    move = wait_for_selector('.media-bulk-actions__clone-button')
+    move.location_once_scrolled_into_view
+    move.click
+    wait_for_selector_none(".Select-placeholder")
+    wait_for_selector(".project-list__item-all").click #Go to all items page
+    wait_for_selector_list_size(".medias__item", 4)
+    wait_for_selector('.project-list__link + .project-list__link').click # Go to the second project
+    wait_for_selector_list_size(".medias__item", 2)
+    expect(@driver.page_source.include?('claim 1')).to be(true)
+    expect(@driver.page_source.include?('claim 2')).to be(true)
+    wait_for_selector(".ag-icon-checkbox-unchecked").click
+    wait_for_selector("span[title='Send selected items to trash']").click #Delete items
+    wait_for_selector_none(".medias__item")
+    expect(@driver.page_source.include?('Add a link or claim')).to be(true)
+    wait_for_selector(".project-list__item-trash").click #Go to the trash page
+    wait_for_selector_list_size(".medias__item", 2)
+    expect(@driver.page_source.include?('claim 1')).to be(true)
+    expect(@driver.page_source.include?('claim 2')).to be(true)
+  end
+
+  it "should move media to another project", bin2: true do
+    claim = 'This is going to be moved'
+    claim_name = case @config['app_name']
+      when 'bridge'
+        'quote'
+      when 'check'
+        'claim'
+    end
+
+    # Create a couple projects under the same team
+    p1 = api_create_team_and_project
+    p1url = @config['self_url'] + '/' + p1[:team].slug + '/project/' + p1[:project].dbid.to_s
+    p2 = api_create_project(p1[:team].dbid.to_s)
+    p2url = @config['self_url'] + '/' + p2.team['slug'] + '/project/' + p2.dbid.to_s
+
+    # Go to the first project, make sure that there is no claim, and thus store the data in local Relay store
+    @driver.navigate.to p1url
+    wait_for_selector('.search__results')
+    expect(@driver.page_source.include?(claim)).to be(false)
+    expect(@driver.page_source.include?('1 / 1')).to be(false)
+    expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(true)
+
+    # Go to the second project, make sure that there is no claim, and thus store the data in local Relay store
+    wait_for_selector('.project-list__link + .project-list__link').click
+    wait_for_selector('.search__results')
+    expect(@driver.page_source.include?(claim)).to be(false)
+    expect(@driver.page_source.include?('1 / 1')).to be(false)
+    expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(true)
+
+    # Create a claim under project 2
+    create_media(claim)
+    # Go to the second project, make sure that the claim is there
+    wait_for_selector('.project-list__link + .project-list__link').click
+    wait_for_selector('.medias__item')
+    expect(@driver.page_source.include?(claim)).to be(true)
+    expect(@driver.page_source.include?('1 / 1')).to be(true)
+    expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(false)
+
+    # Move the claim to another project
+    wait_for_selector(".ag-icon-checkbox-unchecked").click
+    wait_for_selector(".media-bulk-actions__move-icon").click
+    wait_for_selector('.Select-input input').send_keys('Project')
+    wait_for_selector('.Select-option').click
+    button_move = wait_for_selector('.media-bulk-actions__move-button')
+    button_move.location_once_scrolled_into_view
+    button_move.click
+    wait_for_selector_none(".Select-placeholder")
+    wait_for_selector('.project-list__link').click
+    expect(@driver.current_url.to_s == p1url).to be(true)
+    expect(@driver.page_source.include?('1 / 1')).to be(true)
+    expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(false)
+
+    # Go back to the second project and make sure that the claim is not there anymore
+    wait_for_selector('.project-list__link + .project-list__link').click
+    wait_for_selector('.search__results')
+    expect(@driver.page_source.include?('1 / 1')).to be(false)
+    expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(true)
+
+    # Reload the first project page and make sure that the claim is there
+    @driver.navigate.to p1url
+    wait_for_selector('.medias__item')
+    expect(@driver.page_source.include?(claim)).to be(true)
+    expect(@driver.page_source.include?('1 / 1')).to be(true)
+    expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(false)
+
+    # Reload the second project page and make sure that the claim is not there
+    @driver.navigate.to p2url
+    wait_for_selector('.search__results')
+    expect(@driver.page_source.include?(claim)).to be(false)
+    expect(@driver.page_source.include?('1 / 1')).to be(false)
+    expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(true)
+  end
+#Bulk Actions section end 
 
 end

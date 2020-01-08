@@ -885,19 +885,17 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
       expect(@driver.page_source.include?('on Facebook')).to be(true)
       el = wait_for_selector("#search-input")
-      el.click
       el.send_keys "video"
-      @driver.action.send_keys(:enter).perform
       wait_for_text_change(" ","#search-input", :css)
+      @driver.action.send_keys(:enter).perform
+      wait_for_selector_list_size('.medias__item', 1)
       wait_for_selector("//span[contains(text(), '1 / 1')]",:xpath)
       expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
       expect(@driver.page_source.include?('on Facebook')).to be(false)
-      el = wait_for_selector("#search-input")
-      el.clear
-      el.click
-      el.send_keys "meedan"
+      wait_for_selector('#search-input').send_keys(:control, 'a', :delete)
+      wait_for_selector("#search-input").send_keys "meedan"
       @driver.action.send_keys(:enter).perform
-      wait_for_text_change("video","#search-input", :css)
+      wait_for_selector_list_size('.medias__item', 1)
       wait_for_selector("//span[contains(text(), '1 / 1')]",:xpath)
       expect(@driver.page_source.include?('on Facebook')).to be(true)
       expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(false)
@@ -1261,7 +1259,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector("#task__response-geolocation-name")
       expect(@driver.page_source.include?('SSA')).to be(false)
       fill_field("#geolocationsearch", "Salvador")
-      wait_for_text_change(' ',"#geolocationsearch", :css, 30)
+      wait_for_selector(".task__response-geolocation-search-options")
+      dropdown = @driver.find_element(:id,'geolocationsearch')
+      dropdown.send_keys(:arrow_down)
+      dropdown.send_keys(:arrow_down)
+      @driver.action.send_keys(:enter).perform
+      wait_for_text_change(' ',"#task__response-geolocation-name")
       expect(@driver.page_source.include?('SSA')).to be(true)
     end
 

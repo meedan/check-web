@@ -316,7 +316,15 @@ module AppSpecHelpers
   def create_media(url)
     wait_for_selector("#create-media__add-item").click
     fill_field('#create-media-input', url)
-    press_button('#create-media-submit')
+    press_button('#create-media-dialog__submit-button')
+  end
+
+  def create_image(file)
+    wait_for_selector('#create-media__add-item').click
+    wait_for_selector("#create-media__image").click
+    input = wait_for_selector('input[type=file]')
+    input.send_keys(File.join(File.dirname(__FILE__), "#{file}"))
+    wait_for_selector("#create-media-dialog__submit-button").click
   end
 
   def team_url(path)
@@ -335,6 +343,19 @@ module AppSpecHelpers
     sleep 8 # wait for Godot
 
     expect(@driver.page_source.include?('My search result')).to be(true)
+  end
+
+  def create_team_project_and_image_and_redirect_to_media_page
+    api_create_team_and_project
+    @driver.navigate.to @config['self_url']
+    wait_for_selector('#create-media__add-item').click
+    wait_for_selector("#create-media__image").click
+    input = wait_for_selector('input[type=file]')
+    input.send_keys(File.join(File.dirname(__FILE__), 'test.png'))
+    wait_for_selector_none(".without-file")
+    wait_for_selector("#create-media-dialog__submit-button").click
+    wait_for_selector(".media__heading").click
+    wait_for_selector(".media__annotations-column")
   end
 
   def save_screenshot(title)
@@ -420,5 +441,27 @@ module AppSpecHelpers
     wait_for_selector('input').click
     @driver.switch_to.alert.accept
     @driver.navigate.to @config['self_url'] + '/' + team
+  end
+
+  def generate_a_embed_and_copy_embed_code
+    wait_for_selector(".media-detail__card-header")
+    wait_for_selector('.media-actions__icon').click
+    wait_for_selector('.media-actions__edit')
+    el = wait_for_selector('.media-actions__embed')
+    el.location_once_scrolled_into_view
+    el.click
+    wait_for_selector("#media-embed__actions")
+    el = wait_for_selector('#media-embed__actions-copy')
+    el.click
+    wait_for_selector("#media-embed__copy-code")
+  end
+
+  def change_the_status_to(status_class)
+    wait_for_selector(".media-detail__card-header")
+    wait_for_selector(".media-status__label > div button svg").click
+    wait_for_selector(".media-status__menu-item")
+    wait_for_selector(status_class).click
+    wait_for_selector_none(".media-status__menu-item")
+    wait_for_selector_none(".media-status__menu-item")
   end
 end

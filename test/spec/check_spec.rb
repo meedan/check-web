@@ -31,6 +31,7 @@ shared_examples 'custom' do
     wait_for_selector("#search-query__submit-button").click
     wait_for_selector_none("#search-query__submit-button")
     wait_for_selector(".medias__item")
+    wait_for_selector(".media-status__current--undetermined")
     expect(@driver.page_source.include?('to announce')).to be(true)
   end
 
