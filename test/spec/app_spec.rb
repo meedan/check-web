@@ -1005,7 +1005,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector("#search__open-dialog-button").click
       wait_for_selector("#search-input")
       selected = @driver.find_elements(:css, '.search-query__filter-button--selected')
-      expect(selected.size == 6).to be(true)
+      expect(selected.size == 2).to be(true)
     end
 
     it "should search by date range", bin4: true do
@@ -1014,11 +1014,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('My search result')).to be(true)
 
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/search/%7B%20%22range%22%3A%20%7B%22created_at%22%3A%7B%22start_time%22%3A%222016-01-01%22%2C%22end_time%22%3A%222016-02-28%22%7D%7D%7D'
-      wait_for_selector(".medias__item")
       expect(@driver.page_source.include?('My search result')).to be(false)
 
-      wait_for_selector("search__open-dialog-button", :id).click
-      wait_for_selector("#search-query__reset-button").click
+      wait_for_selector("#search__open-dialog-button").click
       wait_for_selector(".date-range__start-date input").click
       wait_for_selector("//span[contains(text(), 'OK')]", :xpath).click
       wait_for_selector(".date-range__end-date input").click
@@ -1036,7 +1034,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector("#search__open-dialog-button").click
       wait_for_selector("#search-input")
       selected = @driver.find_elements(:css, '.search-query__filter-button--selected').map(&:text).sort
-      expect(selected == ['Recent activity', 'Newest first', 'Links', 'Claims', 'Images', 'Videos'].sort).to be(true)
+      expect(selected == ['Recent activity', 'Newest first'].sort).to be(true)
     end
 
     it "should change search sort order through URL", bin2: true do
@@ -1046,7 +1044,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('My search result')).to be(true)
       wait_for_selector("search__open-dialog-button", :id).click
       selected = @driver.find_elements(:css, '.search-query__filter-button--selected').map(&:text).sort
-      expect(selected).to eq(['Created', 'Oldest first', 'Links', 'Claims', 'Images', 'Videos'].sort)
+      expect(selected).to eq(['Created', 'Oldest first'].sort)
     end
 
     it "should not reset password", bin5: true do
