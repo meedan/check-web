@@ -579,14 +579,15 @@ class SearchQueryComponent extends React.Component {
     this.setState({ dialogOpen: false, query });
   }
 
-  resetFilters(apply) {
+  resetFilters = (apply) => {
+    console.log('apply', apply);
     this.searchInput.value = '';
     this.setState({ query: { esoffset: 0 } }, () => {
       if (apply) {
         this.handleApplyFilters();
       }
     });
-  }
+  };
 
   doneButtonDisabled() {
     const query = searchQueryFromUrl();
@@ -1012,7 +1013,7 @@ class SearchQueryComponent extends React.Component {
                     <FlatButton
                       id="search-query__reset-button"
                       label={this.props.intl.formatMessage(messages.reset)}
-                      onClick={this.resetFilters.bind(this)}
+                      onClick={() => { this.resetFilters(); }}
                     />
 
                     <FlatButton
