@@ -59,14 +59,14 @@ class CreateProject extends Component {
     return new CheckContext(this).getContextStore().currentUser;
   }
 
-  handleBlur = () => {
-    if (this.props.onBlur) {
-      this.props.onBlur();
-    }
-  };
-
   handleChange = (e) => {
     this.setState({ name: e.target.value });
+  };
+
+  handleKeyDown = (e) => {
+    if (e.key === 'Escape' && this.props.onBlur) {
+      this.props.onBlur();
+    }
   };
 
   handleSubmit(e) {
@@ -115,7 +115,7 @@ class CreateProject extends Component {
         autoFocus={this.props.autoFocus}
         errorText={this.state.message}
         onChange={this.handleChange}
-        onBlur={this.handleBlur}
+        onKeyDown={this.handleKeyDown}
         fullWidth
       />
     );

@@ -35,6 +35,10 @@ const pageSize = 20;
 // TODO Fix a11y issues
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
 class DrawerProjectsComponent extends Component {
+  state = {
+    showCreateProject: false,
+  };
+
   componentDidMount() {
     this.subscribe();
   }
@@ -103,10 +107,8 @@ class DrawerProjectsComponent extends Component {
     this.props.relay.setVariables({ pageSize: this.props.team.projects.edges.length + pageSize });
   }
 
-  handleToggleDrawer = () => {
-    if (this.props.toggleDrawerCallback) {
-      this.props.toggleDrawerCallback();
-    }
+  toggleShowCreateProject = () => {
+    this.setState({ showCreateProject: !this.state.showCreateProject });
   };
 
   render() {
@@ -144,19 +146,6 @@ class DrawerProjectsComponent extends Component {
         });
     })();
 
-    // avoid clicks to create project widget to close drawer
-    const createProject = (
-      <div onClick={(e) => { e.stopPropagation(); }} style={{ width: '100%', padding: '16px' }}>
-        <CreateProject
-          className="project-list__input"
-          team={props.team}
-          onCreate={this.handleToggleDrawer}
-          onBlur={props.handleAddProj}
-          autofocus
-        />
-      </div>
-    );
-
     const styles = {
       projectsList: {
         maxHeight: 'calc(100vh - 310px)',
@@ -178,19 +167,27 @@ class DrawerProjectsComponent extends Component {
             {projectList}
           </InfiniteScroll>
         </div>
-        { props.handleAddProj && !props.showAddProj ?
-          <Can permissions={props.team.permissions} permission="create Project">
-            <Tooltip
-              title={this.props.intl.formatMessage(props.showAddProj ?
-                messages.dismiss : messages.addProject)}
-            >
-              <Button onClick={props.handleAddProj} className="drawer__create-project-button">
-                <FormattedMessage id="projects.newList" defaultMessage="+ New list" />
-              </Button>
-            </Tooltip>
-          </Can> : null
-        }
-        { props.showAddProj ? createProject : null }
+        <Can permissions={props.team.permissions} permission="create Project">
+          <Tooltip
+            title={this.props.intl.formatMessage(props.showAddProj ?
+              messages.dismiss : messages.addProject)}
+          >
+            <Button onClick={this.toggleShowCreateProject} className="drawer__create-project-button">
+              <FormattedMessage id="projects.newList" defaultMessage="+ New list" />
+            </Button>
+          </Tooltip>
+        </Can>
+        { this.state.showCreateProject ?
+          <div style={{ width: '100%', padding: '16px' }}>
+            <CreateProject
+              className="project-list__input"
+              team={props.team}
+              onCreate={this.toggleShowCreateProject}
+              onBlur={this.toggleShowCreateProject}
+              autoFocus
+            />
+          </div>
+          : null }
       </div>
     );
   }
