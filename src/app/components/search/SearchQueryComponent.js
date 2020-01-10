@@ -1,6 +1,8 @@
 import React from 'react';
+import classNames from 'classnames';
 import { FormattedMessage, FormattedHTMLMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import Paper from '@material-ui/core/Paper';
@@ -144,7 +146,7 @@ const StyledFilterRow = swallowingStyled(Row, { swallowProps: ['isRtl'] })`
   `}
 `;
 
-const StyledFilterButton = styled.div`
+const StyledFilterChip = styled.div`
   margin: ${units(0.5)};
   background-color: ${black05};
   border-radius: ${units(3)};
@@ -171,6 +173,21 @@ const StyledFilterButton = styled.div`
       : `background-color: ${black05};
   `}
 `;
+
+const styles = theme => ({
+  margin: {
+    margin: theme.spacing.unit,
+    padding: `5px ${units(2)}`,
+  },
+  filterInactive: {
+    border: `${borderWidthLarge} solid ${black16}`,
+  },
+  filterActive: {
+    color: white,
+    backgroundColor: highlightOrange,
+    border: `${borderWidthLarge} solid ${highlightOrange}`,
+  },
+});
 
 const messages = defineMessages({
   title: {
@@ -256,6 +273,23 @@ class SearchQueryComponent extends React.Component {
 
     this.getContext().getContextStore().history.push(url);
   }
+
+  keywordIsActive = () => {
+    const query = searchQueryFromUrl();
+    return query.keyword && query.keyword.trim() !== '';
+  };
+
+  filterIsActive = () => {
+    const query = searchQueryFromUrl();
+    const filterFields = ['range', 'verification_status', 'projects', 'tags', 'show'];
+    let active = false;
+    filterFields.forEach((field) => {
+      if (Object.keys(query).includes(field)) {
+        active = true;
+      }
+    });
+    return active;
+  };
 
   statusIsSelected(statusCode, state = this.state) {
     const selectedStatuses = state.query[statusKey] || [];
@@ -576,7 +610,7 @@ class SearchQueryComponent extends React.Component {
   }
 
   render() {
-    const { team } = this.props;
+    const { team, classes } = this.props;
     const { statuses } = teamStatuses(team);
     let projects = [];
     if (team.projects) {
@@ -592,6 +626,11 @@ class SearchQueryComponent extends React.Component {
 
     const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
 
+    const filterButtonClasses = {};
+    filterButtonClasses[classes.margin] = true;
+    filterButtonClasses[classes.filterActive] = this.filterIsActive();
+    filterButtonClasses[classes.filterInactive] = !this.filterIsActive();
+
     return (
       <div>
         <Row>
@@ -604,6 +643,7 @@ class SearchQueryComponent extends React.Component {
               placeholder={this.props.intl.formatMessage(messages.searchInputHint)}
               name="search-input"
               id="search-input"
+              active={this.keywordIsActive()}
               defaultValue={this.state.query.keyword || ''}
               isRtl={isRtl}
               onKeyPress={this.handleKeyPress}
@@ -643,8 +683,8 @@ class SearchQueryComponent extends React.Component {
           </form>
           <Tooltip title={this.props.intl.formatMessage(messages.filterItems)}>
             <Button
-              style={{ margin: `0 ${units(2)}` }}
-              variant="contained"
+              className={classNames(filterButtonClasses)}
+              variant="outlined"
               id="search__open-dialog-button"
               onClick={this.handleDialogOpen}
             >
@@ -674,7 +714,7 @@ class SearchQueryComponent extends React.Component {
                     <StyledFilterRow isRtl={isRtl}>
                       <h4><FormattedMessage id="search.statusHeading" defaultMessage="Status" /></h4>
                       {statuses.map(status => (
-                        <StyledFilterButton
+                        <StyledFilterChip
                           active={this.statusIsSelected(status.id)}
                           key={status.id}
                           title={status.description}
@@ -686,7 +726,7 @@ class SearchQueryComponent extends React.Component {
                           )}
                         >
                           {status.label}
-                        </StyledFilterButton>))}
+                        </StyledFilterChip>))}
                     </StyledFilterRow>
                     : null}
 
@@ -696,7 +736,7 @@ class SearchQueryComponent extends React.Component {
                         <FormattedMessage id="search.projectHeading" defaultMessage="Project" />
                       </h4>
                       {projects.map(project => (
-                        <StyledFilterButton
+                        <StyledFilterChip
                           active={this.projectIsSelected(project.node.dbid)}
                           key={project.node.dbid}
                           onClick={this.handleProjectClick.bind(this, project.node.dbid)}
@@ -707,7 +747,7 @@ class SearchQueryComponent extends React.Component {
                           )}
                         >
                           {project.node.title}
-                        </StyledFilterButton>))}
+                        </StyledFilterChip>))}
                     </StyledFilterRow>
                     : null}
 
@@ -717,7 +757,7 @@ class SearchQueryComponent extends React.Component {
                         <FormattedMessage id="status.categoriesHeading" defaultMessage="Team Tags" />
                       </h4>
                       {suggestedTags.map(tag => (
-                        <StyledFilterButton
+                        <StyledFilterChip
                           active={this.tagIsSelected(tag)}
                           key={tag}
                           title={null}
@@ -729,7 +769,7 @@ class SearchQueryComponent extends React.Component {
                           )}
                         >
                           {tag}
-                        </StyledFilterButton>))}
+                        </StyledFilterChip>))}
                     </StyledFilterRow>
                     : null}
 
@@ -737,7 +777,7 @@ class SearchQueryComponent extends React.Component {
                     <StyledFilterRow className="search-query__sort-actions">
                       <h4><FormattedMessage id="search.sort" defaultMessage="Sort" /></h4>
 
-                      <StyledFilterButton
+                      <StyledFilterChip
                         active={this.sortIsSelected('recent_added')}
                         onClick={this.handleSortClick.bind(this, 'recent_added')}
                         className={['search-query__recent-added-button', bemClass(
@@ -747,8 +787,8 @@ class SearchQueryComponent extends React.Component {
                         )].join(' ')}
                       >
                         <FormattedMessage id="search.sortByCreated" defaultMessage="Created" />
-                      </StyledFilterButton>
-                      <StyledFilterButton
+                      </StyledFilterChip>
+                      <StyledFilterChip
                         active={this.sortIsSelected('recent_activity')}
                         onClick={this.handleSortClick.bind(this, 'recent_activity')}
                         className={['search-query__recent-activity-button', bemClass(
@@ -761,7 +801,7 @@ class SearchQueryComponent extends React.Component {
                           id="search.sortByRecentActivity"
                           defaultMessage="Recent activity"
                         />
-                      </StyledFilterButton>
+                      </StyledFilterChip>
 
                       {Object
                         .keys(team.dynamic_search_fields_json_schema.properties.sort.properties)
@@ -769,7 +809,7 @@ class SearchQueryComponent extends React.Component {
                           const { sort } = team.dynamic_search_fields_json_schema.properties;
                           const label = sort.properties[id].title;
                           return (
-                            <StyledFilterButton
+                            <StyledFilterChip
                               key={`dynamic-sort-${id}`}
                               active={this.sortIsSelected(id)}
                               onClick={this.handleSortClick.bind(this, id)}
@@ -780,12 +820,12 @@ class SearchQueryComponent extends React.Component {
                               )}
                             >
                               <span>{label}</span>
-                            </StyledFilterButton>
+                            </StyledFilterChip>
                           );
                         })
                       }
 
-                      <StyledFilterButton
+                      <StyledFilterChip
                         style={isRtl ? { marginRight: units(3) } : { marginLeft: units(3) }}
                         active={this.sortIsSelected('DESC')}
                         onClick={this.handleSortClick.bind(this, 'DESC')}
@@ -796,8 +836,8 @@ class SearchQueryComponent extends React.Component {
                         )}
                       >
                         {this.sortLabel('DESC')}
-                      </StyledFilterButton>
-                      <StyledFilterButton
+                      </StyledFilterChip>
+                      <StyledFilterChip
                         active={this.sortIsSelected('ASC')}
                         onClick={this.handleSortClick.bind(this, 'ASC')}
                         className={bemClass(
@@ -807,14 +847,14 @@ class SearchQueryComponent extends React.Component {
                         )}
                       >
                         {this.sortLabel('ASC')}
-                      </StyledFilterButton>
+                      </StyledFilterChip>
                     </StyledFilterRow>
                     : null}
 
                   {this.showField('show') ?
                     <StyledFilterRow className="search-query__sort-actions">
                       <h4><FormattedMessage id="search.show" defaultMessage="Type" /></h4>
-                      <StyledFilterButton
+                      <StyledFilterChip
                         active={this.showIsSelected('claims')}
                         onClick={this.handleShowClick.bind(this, 'claims')}
                         className={bemClass(
@@ -824,8 +864,8 @@ class SearchQueryComponent extends React.Component {
                         )}
                       >
                         <FormattedMessage id="search.showClaims" defaultMessage="Claims" />
-                      </StyledFilterButton>
-                      <StyledFilterButton
+                      </StyledFilterChip>
+                      <StyledFilterChip
                         active={this.showIsSelected('links')}
                         onClick={this.handleShowClick.bind(this, 'links')}
                         className={bemClass(
@@ -835,8 +875,8 @@ class SearchQueryComponent extends React.Component {
                         )}
                       >
                         <FormattedMessage id="search.showLinks" defaultMessage="Links" />
-                      </StyledFilterButton>
-                      <StyledFilterButton
+                      </StyledFilterChip>
+                      <StyledFilterChip
                         active={this.showIsSelected('images')}
                         onClick={this.handleShowClick.bind(this, 'images')}
                         className={bemClass(
@@ -846,8 +886,8 @@ class SearchQueryComponent extends React.Component {
                         )}
                       >
                         <FormattedMessage id="search.showImages" defaultMessage="Images" />
-                      </StyledFilterButton>
-                      <StyledFilterButton
+                      </StyledFilterChip>
+                      <StyledFilterChip
                         active={this.showIsSelected('videos')}
                         onClick={this.handleShowClick.bind(this, 'videos')}
                         className={bemClass(
@@ -857,7 +897,7 @@ class SearchQueryComponent extends React.Component {
                         )}
                       >
                         <FormattedMessage id="search.showVideos" defaultMessage="Videos" />
-                      </StyledFilterButton>
+                      </StyledFilterChip>
                     </StyledFilterRow>
                     : null}
 
@@ -875,7 +915,7 @@ class SearchQueryComponent extends React.Component {
                         annotationType.items.enum.forEach((value, i) => {
                           const label = annotationType.items.enumNames[i];
                           const option = (
-                            <StyledFilterButton
+                            <StyledFilterChip
                               key={`dynamic-field-${key}-option-${value}`}
                               active={this.dynamicIsSelected(key, value)}
                               onClick={this.handleDynamicClick.bind(this, key, value)}
@@ -886,7 +926,7 @@ class SearchQueryComponent extends React.Component {
                               )}
                             >
                               <span>{label}</span>
-                            </StyledFilterButton>
+                            </StyledFilterChip>
                           );
                           fields.push(option);
                         });
@@ -938,11 +978,12 @@ SearchQueryComponent.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
+  classes: PropTypes.object.isRequired,
 };
 
 SearchQueryComponent.contextTypes = {
   store: PropTypes.object,
 };
 
-export default injectIntl(SearchQueryComponent);
+export default withStyles(styles)(injectIntl(SearchQueryComponent));
 export { StyledFilterRow };
