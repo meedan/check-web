@@ -13,7 +13,6 @@ import rtlDetect from 'rtl-detect';
 import DrawerProjects from './drawer/Projects';
 import TeamAvatar from './team/TeamAvatar';
 import { stringHelper } from '../customHelpers';
-import UserUtil from './user/UserUtil';
 import UserMenuRelay from '../relay/containers/UserMenuRelay';
 import CheckContext from '../CheckContext';
 import {
@@ -33,14 +32,6 @@ import {
 // TODO Fix a11y issues
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
 class DrawerNavigationComponent extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      showAddProj: false,
-    };
-  }
-
   componentDidMount() {
     this.subscribe();
     this.setContextTeam();
@@ -114,13 +105,8 @@ class DrawerNavigationComponent extends Component {
     this.getHistory().push(`/${this.props.team.slug}/settings`);
   }
 
-  handleAddProj(e) {
-    this.setState({ showAddProj: !this.state.showAddProj });
-    e.stopPropagation();
-  }
-
   render() {
-    const { loggedIn, drawerToggle } = this.props;
+    const { loggedIn } = this.props;
     const inTeamContext = this.props.inTeamContext && this.props.team;
 
     // This component now renders based on teamPublicFragment
@@ -166,11 +152,6 @@ class DrawerNavigationComponent extends Component {
 
     const checkLogo = <img width={units(8)} alt="Team Logo" src={stringHelper('LOGO_URL')} />;
 
-    const userIsOwner =
-      loggedIn &&
-      inTeamContext &&
-      UserUtil.myRole(this.getCurrentUser(), this.props.team.slug) === 'owner';
-
     const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
     const fromDirection = isRtl ? 'right' : 'left';
 
@@ -182,7 +163,7 @@ class DrawerNavigationComponent extends Component {
 
     return (
       <Drawer {...this.props} containerStyle={{ boxShadow: 'none', borderRight: 'solid 1px #e0e0e0' }}>
-        <div onClick={drawerToggle}>
+        <div>
 
           {inTeamContext ?
             <DrawerHeader>
@@ -232,13 +213,7 @@ class DrawerNavigationComponent extends Component {
           <div style={styles.drawerProjectsAndFooter}>
             <div style={styles.drawerProjects}>
               {inTeamContext && (currentUserIsMember || !this.props.team.private)
-                ? <DrawerProjects
-                  team={this.props.team.slug}
-                  userIsOwner={userIsOwner}
-                  showAddProj={this.state.showAddProj}
-                  handleAddProj={this.handleAddProj.bind(this)}
-                  toggleDrawerCallback={drawerToggle}
-                />
+                ? <DrawerProjects team={this.props.team.slug} />
                 : null}
             </div>
             { inTeamContext && currentUserIsMember ?
@@ -253,7 +228,6 @@ class DrawerNavigationComponent extends Component {
               : null }
             <Divider />
             <div className="drawer__footer">
-
               {loggedIn ? <div><UserMenuRelay {...this.props} /></div> : (
                 <Link to="/">
                   <Button
