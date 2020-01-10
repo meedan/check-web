@@ -75,7 +75,7 @@ class ProjectComponent extends Component {
             team={project.team.slug}
             project={project}
             query={this.props.params.query || '{}'}
-            fields={['date', 'keyword', 'status', 'sort', 'tags', 'show', 'dynamic', 'bulk']}
+            fields={['date', 'keyword', 'status', 'sort', 'tags', 'show', 'dynamic', 'bulk', 'rules']}
             view={view}
           />
         </div>

@@ -82,5 +82,9 @@
   {
     "id": "search.showVideos",
     "defaultMessage": "Videos"
+  },
+  {
+    "id": "search.rules",
+    "defaultMessage": "Rules"
   }
 ]

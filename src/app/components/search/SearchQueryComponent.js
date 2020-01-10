@@ -332,6 +332,11 @@ class SearchQueryComponent extends React.Component {
     return Array.isArray(selected) ? selected.includes(show) : false;
   }
 
+  ruleIsSelected(rule, state = this.state) {
+    const selected = state.query.rules || [];
+    return selected.includes(rule);
+  }
+
   dynamicIsSelected(field, value, state = this.state) {
     const dynamic = state.query.dynamic || {};
     const selected = dynamic[field] || [];
@@ -400,6 +405,22 @@ class SearchQueryComponent extends React.Component {
         return { query: state.query };
       }
       state.query.sort = sortParam;
+      return { query: state.query };
+    });
+  }
+
+  handleRuleClick(rule) {
+    this.setState((prevState) => {
+      const state = Object.assign({}, prevState);
+      if (!state.query.rules) {
+        state.query.rules = [];
+      }
+      const i = state.query.rules.indexOf(rule);
+      if (i === -1) {
+        state.query.rules.push(rule);
+      } else {
+        state.query.rules.splice(i, 1);
+      }
       return { query: state.query };
     });
   }
@@ -622,6 +643,7 @@ class SearchQueryComponent extends React.Component {
         a.node.title.localeCompare(b.node.title));
     }
 
+    const { currentUser } = this.currentContext();
     const suggestedTags = team.teamwide_tags.edges.map(t => t.node.text);
 
     const title =
@@ -629,6 +651,9 @@ class SearchQueryComponent extends React.Component {
       (this.props.project ? this.props.project.title : this.title(statuses, projects));
 
     const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
+
+    const hasRules = team.rules_search_fields_json_schema &&
+      Object.keys(team.rules_search_fields_json_schema.properties.rules.properties).length > 0;
 
     const filterButtonClasses = {};
     filterButtonClasses[classes.margin] = true;
@@ -950,6 +975,32 @@ class SearchQueryComponent extends React.Component {
                       );
                     }))
                     : null}
+
+                  {hasRules && this.showField('rules') && currentUser.is_admin ?
+                    <StyledFilterRow className="search-query__sort-actions">
+                      <h4><FormattedMessage id="search.rules" defaultMessage="Rules" /></h4>
+                      {Object
+                        .keys(team.rules_search_fields_json_schema.properties.rules.properties)
+                        .map((id) => {
+                          const label = team.rules_search_fields_json_schema.properties
+                            .rules.properties[id].title;
+                          return (
+                            <StyledFilterChip
+                              key={id}
+                              active={this.ruleIsSelected(id)}
+                              onClick={this.handleRuleClick.bind(this, id)}
+                              className={bemClass(
+                                'search-query__filter-button',
+                                this.ruleIsSelected(id),
+                                '--selected',
+                              )}
+                            >
+                              {label}
+                            </StyledFilterChip>
+                          );
+                        })
+                      }
+                    </StyledFilterRow> : null}
 
                   <p style={{ textAlign: 'right' }}>
                     <FlatButton
