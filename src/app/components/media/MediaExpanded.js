@@ -255,6 +255,7 @@ const MediaExpandedContainer = Relay.createContainer(MediaExpandedComponent, {
           thumbnail_path
           file_path
           embed_path
+          metadata 
         }
         project_source {
           id
