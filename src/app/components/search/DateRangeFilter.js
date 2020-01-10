@@ -6,7 +6,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import { StyledFilterRow } from './SearchQueryComponent';
-import { FlexRow, units } from '../../styles/js/shared';
+import { FlexRow, units, checkBlue } from '../../styles/js/shared';
 import globalStrings from '../../globalStrings';
 
 class DateRangeFilter extends React.Component {
@@ -74,6 +74,16 @@ class DateRangeFilter extends React.Component {
       updated_at: <FormattedMessage id="search.dateUpdatedHeading" defaultMessage="Updated" />,
     };
 
+    const isActive = start_time || end_time;
+    const selectStyle = {
+      minWidth: units(18),
+      fontSize: 'small',
+    };
+    if (isActive) {
+      selectStyle.border = `${checkBlue} 3px solid`;
+      selectStyle.borderRadius = units(1);
+    }
+
     return (
       <StyledFilterRow height={units(9)} overflowY="hidden" isRtl={this.props.isRtl}>
         <h4>{ label.date }</h4>
@@ -84,7 +94,7 @@ class DateRangeFilter extends React.Component {
               input={<OutlinedInput />}
               onChange={this.handleChangeType}
               value={range.type}
-              style={{ minWidth: units(18), fontSize: 'small' }}
+              style={selectStyle}
               labelWidth={0}
               classes={{ select: 'date-range__select-menu', selectMenu: 'bloody-roots' }}
               margin="dense"
