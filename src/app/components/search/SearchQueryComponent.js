@@ -582,7 +582,6 @@ class SearchQueryComponent extends React.Component {
   }
 
   resetFilters = (apply) => {
-    console.log('apply', apply);
     this.searchInput.value = '';
     this.setState({ query: { esoffset: 0 } }, () => {
       if (apply) {
