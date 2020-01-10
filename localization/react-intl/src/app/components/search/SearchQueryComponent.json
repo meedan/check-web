@@ -20,8 +20,8 @@
     "defaultMessage": "Reset"
   },
   {
-    "id": "search.filterItems",
-    "defaultMessage": "Filter items"
+    "id": "search.clear",
+    "defaultMessage": "Clear filter"
   },
   {
     "id": "search.sortByOldest",

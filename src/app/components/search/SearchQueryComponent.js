@@ -210,9 +210,9 @@ const messages = defineMessages({
     id: 'search.reset',
     defaultMessage: 'Reset',
   },
-  filterItems: {
-    id: 'search.filterItems',
-    defaultMessage: 'Filter items',
+  clear: {
+    id: 'search.clear',
+    defaultMessage: 'Clear filter',
   },
 });
 
@@ -558,9 +558,13 @@ class SearchQueryComponent extends React.Component {
     this.setState({ dialogOpen: false, query });
   }
 
-  resetFilters() {
+  resetFilters(apply) {
     this.searchInput.value = '';
-    this.setState({ query: { esoffset: 0 } });
+    this.setState({ query: { esoffset: 0 } }, () => {
+      if (apply) {
+        this.handleApplyFilters();
+      }
+    });
   }
 
   doneButtonDisabled() {
@@ -681,17 +685,23 @@ class SearchQueryComponent extends React.Component {
               </Paper>
             </StyledPopper>
           </form>
-          <Tooltip title={this.props.intl.formatMessage(messages.filterItems)}>
-            <Button
-              className={classNames(filterButtonClasses)}
-              variant="outlined"
-              id="search__open-dialog-button"
-              onClick={this.handleDialogOpen}
-            >
-              <FilterListIcon />
-              <FormattedMessage id="search.Filter" defaultMessage="Filter" />
-            </Button>
-          </Tooltip>
+          <Button
+            className={classNames(filterButtonClasses)}
+            variant="outlined"
+            id="search__open-dialog-button"
+            onClick={this.handleDialogOpen}
+          >
+            <FilterListIcon />
+            <FormattedMessage id="search.Filter" defaultMessage="Filter" />
+          </Button>
+          { (this.filterIsActive() || this.keywordIsActive()) ?
+            <Tooltip title={this.props.intl.formatMessage(messages.clear)}>
+              <IconButton onClick={() => { this.resetFilters(true); }}>
+                <ClearIcon style={{ color: highlightOrange }} />
+              </IconButton>
+            </Tooltip>
+            : null
+          }
         </Row>
         <PageTitle prefix={title} skipTeam={false} team={this.props.team}>
           <Dialog
