@@ -1,0 +1,54 @@
+[
+  {
+    "id": "mediaCondensed.editReport",
+    "defaultMessage": "Edit"
+  },
+  {
+    "id": "mediaCondensed.editReportError",
+    "defaultMessage": "Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists."
+  },
+  {
+    "id": "mediaCondensed.breakRelationshipError",
+    "defaultMessage": "Sorry, an error occurred while breaking the relationship. Please try again and contact {supportEmail} if the condition persists."
+  },
+  {
+    "id": "mediaCondensed.updateRelationshipError",
+    "defaultMessage": "Sorry, an error occurred while updating the relationship. Please try again and contact {supportEmail} if the condition persists."
+  },
+  {
+    "id": "mediaCondensed.title",
+    "defaultMessage": "Title"
+  },
+  {
+    "id": "mediaCondensed.description",
+    "defaultMessage": "Description"
+  },
+  {
+    "id": "mediaCondensed.cancelButton",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "mediaCondensed.doneButton",
+    "defaultMessage": "Done"
+  },
+  {
+    "id": "mediaCondensed.requests",
+    "defaultMessage": "{count} requests"
+  },
+  {
+    "id": "mediaCondensed.tooltip",
+    "defaultMessage": "Item actions"
+  },
+  {
+    "id": "mediaCondensed.promote",
+    "defaultMessage": "Promote to main item"
+  },
+  {
+    "id": "mediaCondensed.break",
+    "defaultMessage": "Break relation to main item"
+  },
+  {
+    "id": "mediaCondensed.edit",
+    "defaultMessage": "Edit title and description"
+  }
+]

@@ -23,7 +23,7 @@ class ProjectHeaderComponent extends React.PureComponent {
     const { props } = this;
     const currentProject = props.project;
     const path = props.location ? props.location.pathname : window.location.pathname;
-    const regexProject = /(.*\/project\/[0-9]+)/;
+    const regexProject = /^(\/[^/]+\/project\/[0-9]+)/;
     const regexTeam = /^(\/[^/]+)/;
     const regexMedia = /project\/[0-9]+\/media\/[0-9]/;
     const regexSource = /\/source\/[0-9]/;
@@ -46,7 +46,10 @@ class ProjectHeaderComponent extends React.PureComponent {
           basePath = `${path.match(regexTeam)[1]}/trash`;
           break;
         default:
-          basePath = `${path.match(regexProject)[1]}`;
+          basePath = `${path.match(regexTeam)[1]}/search`;
+          if (regexProject.test(path)) {
+            basePath = `${path.match(regexProject)[1]}`;
+          }
           break;
         }
         const baseQuery = query.original || query;

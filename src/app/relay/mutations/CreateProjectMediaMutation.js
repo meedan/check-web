@@ -94,6 +94,7 @@ class CreateProjectMediaMutation extends Relay.Mutation {
         fragment on CreateProjectMediaPayload {
           project_media {
             dbid
+            title
           },
           project {
             id

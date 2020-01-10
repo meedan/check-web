@@ -40,6 +40,8 @@ const optimisticProjectMedia = (media, proj, context) => {
       node: {
         dbid: 0,
         language: null,
+        title,
+        type: 'Claim',
         dynamic_annotation_language: null,
         url: '',
         quote: '',
@@ -91,6 +93,7 @@ const optimisticProjectMedia = (media, proj, context) => {
         } : null,
         media: {
           url: null,
+          type: 'Claim',
           quote: '',
           embed_path: `//${config.selfHost}/images/loading.gif`,
           thumbnail_path: `//${config.selfHost}/images/loading-thumb.gif`,
@@ -117,6 +120,7 @@ const optimisticProjectMedia = (media, proj, context) => {
     },
     project_media: {
       dbid: 0,
+      title,
       id: relayId,
     },
   };

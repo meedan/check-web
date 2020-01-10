@@ -8,14 +8,6 @@
     "defaultMessage": "Delete"
   },
   {
-    "id": "annotation.reverseImage",
-    "defaultMessage": "This item contains at least one image. Click Search to look for potential duplicates on Google."
-  },
-  {
-    "id": "annotation.reverseImageFacebook",
-    "defaultMessage": "This item contains at least one image. However, the image is contained in a Facebook post, and {appName} cannot send that image directly to reverse image search. Consider conducting a manual search using tools like Google or TinEye."
-  },
-  {
     "id": "annotation.and",
     "defaultMessage": "and"
   },
@@ -110,10 +102,6 @@
   {
     "id": "annotation.taskResolve",
     "defaultMessage": "Task answered by {author}: {task}{response}"
-  },
-  {
-    "id": "annotation.reverseImageSearch",
-    "defaultMessage": "Search"
   },
   {
     "id": "annotation.translation",

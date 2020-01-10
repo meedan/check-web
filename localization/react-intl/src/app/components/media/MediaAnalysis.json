@@ -1,0 +1,18 @@
+[
+  {
+    "id": "mediaAnalysis.error",
+    "defaultMessage": "Could not save analysis."
+  },
+  {
+    "id": "mediaAnalysis.success",
+    "defaultMessage": "Analysis saved successfully!"
+  },
+  {
+    "id": "mediaAnalysis.type",
+    "defaultMessage": "Type something here..."
+  },
+  {
+    "id": "mediaAnalysis.save",
+    "defaultMessage": "Save"
+  }
+]

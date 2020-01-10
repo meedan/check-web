@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
-import { CardText, CardActions } from 'material-ui/Card';
+import { FormattedMessage } from 'react-intl';
+import { CardTitle, CardText, CardActions } from 'material-ui/Card';
+import { Link } from 'react-router';
+import styled from 'styled-components';
 import MediaRoute from '../../relay/MediaRoute';
 import MediaMetadata from './MediaMetadata';
 import MediaUtil from './MediaUtil';
 import ParsedText from '../ParsedText';
+import TimeBefore from '../TimeBefore';
 import QuoteMediaCard from './QuoteMediaCard';
 import WebPageMediaCard from './WebPageMediaCard';
 import ImageMediaCard from './ImageMediaCard';
 import VideoMediaCard from './VideoMediaCard';
 import PenderCard from '../PenderCard';
-import { bemClassFromMediaStatus } from '../../helpers';
-import { mediaLastStatus } from '../../customHelpers';
 import CheckContext from '../../CheckContext';
 import {
   FadeIn,
@@ -20,7 +22,17 @@ import {
   black54,
   units,
   Text,
+  Row,
+  checkBlue,
 } from '../../styles/js/shared';
+
+const StyledHeaderTextSecondary = styled.div`
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  font-weight: 400;
+  white-space: nowrap;
+  margin-bottom: ${units(5)};
+`;
 
 class MediaExpandedComponent extends Component {
   constructor(props) {
@@ -31,12 +43,29 @@ class MediaExpandedComponent extends Component {
     };
   }
 
+  componentDidMount() {
+    this.setContext();
+  }
+
+  componentDidUpdate() {
+    this.setContext();
+  }
+
   getContext() {
     return new CheckContext(this).getContextStore();
   }
 
+  setContext() {
+    const context = new CheckContext(this);
+    const { team, project } = this.props.media;
+    context.setContextStore({ team, project });
+  }
+
   render() {
-    const media = Object.assign(this.props.currentMedia, this.props.media);
+    const { media } = this.props;
+    media.url = media.media.url;
+    media.quote = media.media.quote;
+    media.embed_path = media.media.embed_path;
     const data = typeof media.metadata === 'string' ? JSON.parse(media.metadata) : media.metadata;
     const isImage = media.media.type === 'UploadedImage';
     const isVideo = media.media.type === 'UploadedVideo';
@@ -47,9 +76,8 @@ class MediaExpandedComponent extends Component {
     const isPender = media.media.url && data.provider !== 'page';
     const randomNumber = Math.floor(Math.random() * 1000000);
     const shouldShowDescription = MediaUtil.hasCustomDescription(media, data);
-    const { inMediaPage, mediaUrl, mediaQuery } = this.props;
+    const { isRtl, mediaUrl, mediaQuery } = this.props;
     const posterUrl = media.media.thumbnail_path;
-
 
     const embedCard = (() => {
       if (isImage) {
@@ -61,8 +89,6 @@ class MediaExpandedComponent extends Component {
           <QuoteMediaCard
             quote={media.quote}
             languageCode={media.language_code}
-            sourceUrl={this.props.sourceUrl}
-            sourceName={this.props.sourceName}
           />
         );
       } else if (isWebPage) {
@@ -72,7 +98,7 @@ class MediaExpandedComponent extends Component {
             mediaUrl={mediaUrl}
             mediaQuery={mediaQuery}
             data={data}
-            isRtl={this.props.isRtl}
+            isRtl={isRtl}
             authorName={authorName}
             authorUserName={authorUsername}
           />
@@ -91,15 +117,61 @@ class MediaExpandedComponent extends Component {
       return null;
     })();
 
+    let sourceName = MediaUtil.sourceName(media, data);
+    if (sourceName === '') {
+      sourceName = (<FormattedMessage id="mediaExpanded.unknown" defaultMessage="unknown" />);
+    }
+    const sourceUrl = media.team &&
+      media.project &&
+      media.project_source &&
+      media.project_source.dbid ?
+      `/${media.team.slug}/project/${media.project.dbid}/source/${media.project_source.dbid}` :
+      null;
+
+    const cardHeaderText = (
+      <div>
+        <StyledHeaderTextSecondary>
+          <Row flexWrap style={{ fontWeight: 'bold' }}>
+            <span>
+              <FormattedMessage id="mediaExpanded.source" defaultMessage="Source" />
+              {': '}
+              { sourceUrl ?
+                <Link to={sourceUrl} style={{ color: checkBlue }}>{sourceName}</Link> :
+                <b style={{ color: checkBlue }}>{sourceName}</b> }
+            </span>
+            <span style={{ margin: '0 16px' }}> - </span>
+            <span style={{ color: checkBlue }}>{media.media.type}</span>
+            <span style={{ margin: '0 16px' }}> - </span>
+            <span>
+              <FormattedMessage id="mediaExpanded.firstSeen" defaultMessage="First seen: " />
+              <TimeBefore date={MediaUtil.createdAt({ published: media.created_at })} />
+            </span>
+            <span style={{ margin: '0 16px' }}> - </span>
+            <span>
+              <FormattedMessage id="mediaExpanded.lastSeen" defaultMessage="Last seen: " />
+              <TimeBefore date={MediaUtil.createdAt({ published: media.last_seen })} />
+            </span>
+            <span style={{ margin: '0 16px' }}> - </span>
+            <span style={{ color: checkBlue }}>
+              <FormattedMessage
+                id="mediaExpanded.requests"
+                defaultMessage="{count} requests"
+                values={{
+                  count: media.requests_count,
+                }}
+              />
+            </span>
+          </Row>
+        </StyledHeaderTextSecondary>
+      </div>
+    );
+
     return (
       <span>
-        <CardText
-          style={{ cursor: inMediaPage ? null : 'pointer' }}
-          onClick={inMediaPage ? null : () => {
-            this.getContext().history.push({ pathname: mediaUrl, state: { query: mediaQuery } });
-          }}
-        >
-          <FadeIn className={bemClassFromMediaStatus('media-detail__media', mediaLastStatus(media))}>
+        <CardTitle title={media.title} />
+        <CardText style={{ padding: '0 16px' }}>
+          {cardHeaderText}
+          <FadeIn>
             {shouldShowDescription ?
               <Text font={caption} style={{ color: black54 }}>
                 <ParsedText text={data.description} />
@@ -128,6 +200,27 @@ const MediaExpandedContainer = Relay.createContainer(MediaExpandedComponent, {
       fragment on ProjectMedia {
         id
         dbid
+        metadata
+        permissions
+        domain
+        created_at
+        last_seen
+        requests_count
+        title
+        picture
+        description
+        language_code
+        language
+        project_id
+        project_ids
+        dynamic_annotation_language {
+          id
+        }
+        project {
+          id
+          dbid
+          title
+        }
         relationships {
           id
           sources_count
@@ -155,39 +248,37 @@ const MediaExpandedContainer = Relay.createContainer(MediaExpandedComponent, {
           target_id
           target { id, dbid }
         }
-        last_status_obj {
+        media {
+          url
+          type
+          quote
+          thumbnail_path
+          file_path
+          embed_path
+        }
+        project_source {
           id
           dbid
-          locked
-          content
-          assignments(first: 10000) {
-            edges {
-              node {
-                id
-                dbid
-                name
-                source {
-                  id
-                  dbid
-                  image
-                }
-              }
-            }
+          source {
+            id
+            dbid
+            name
           }
         }
-        user {
-          dbid,
-          name,
-          is_active
-          source {
-            dbid,
-            image,
-            accounts(first: 10000) {
-              edges {
-                node {
-                  url
-                }
-              }
+        team {
+          id
+          dbid
+          slug
+          search_id
+          verification_statuses
+          translation_statuses
+        }
+        tags(first: 10000) {
+          edges {
+            node {
+              id
+              tag
+              tag_text
             }
           }
         }
@@ -197,7 +288,7 @@ const MediaExpandedContainer = Relay.createContainer(MediaExpandedComponent, {
 });
 
 const MediaExpanded = (props) => {
-  const ids = `${props.currentMedia.dbid},${props.currentMedia.project_id}`;
+  const ids = `${props.media.dbid},${props.media.project_id}`;
   const route = new MediaRoute({ ids });
 
   return (

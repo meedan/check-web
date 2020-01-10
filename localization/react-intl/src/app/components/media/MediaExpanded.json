@@ -1,0 +1,22 @@
+[
+  {
+    "id": "mediaExpanded.unknown",
+    "defaultMessage": "unknown"
+  },
+  {
+    "id": "mediaExpanded.source",
+    "defaultMessage": "Source"
+  },
+  {
+    "id": "mediaExpanded.firstSeen",
+    "defaultMessage": "First seen:"
+  },
+  {
+    "id": "mediaExpanded.lastSeen",
+    "defaultMessage": "Last seen:"
+  },
+  {
+    "id": "mediaExpanded.requests",
+    "defaultMessage": "{count} requests"
+  }
+]

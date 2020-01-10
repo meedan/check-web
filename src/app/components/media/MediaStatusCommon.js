@@ -57,8 +57,11 @@ class MediaStatusCommon extends Component {
         height: units(3),
         lineHeight: units(3),
         paddingLeft: 0,
-        textTransform: 'uppercase',
-        color: getStatusStyle(currentStatus, 'color'),
+        color: this.props.readonly ? '#000' : '#fff',
+      },
+      readOnlyLabel: {
+        height: 36,
+        lineHeight: '36px',
       },
     };
 
@@ -66,11 +69,16 @@ class MediaStatusCommon extends Component {
       <div className={bemClass('media-status', this.canUpdate(), '--editable')}>
         {this.canUpdate() ?
           <DropDownMenu
-            style={{ height: units(3) }}
+            style={{
+              height: 'auto',
+              padding: 6,
+              borderRadius: 5,
+              backgroundColor: getStatusStyle(currentStatus, 'color'),
+            }}
             value={currentStatus.label}
             underlineStyle={{ borderWidth: 0 }}
             iconStyle={{
-              fill: black16, padding: 0, height: 0, top: 0,
+              fill: black16, padding: 0, height: 0, top: 0, right: -16,
             }}
             labelStyle={styles.label}
             selectedMenuItemStyle={{ color: getStatusStyle(currentStatus, 'color') }}
@@ -97,7 +105,7 @@ class MediaStatusCommon extends Component {
               />))}
           </DropDownMenu>
           :
-          <div style={styles.label}>
+          <div style={Object.assign(styles.label, styles.readOnlyLabel)}>
             {currentStatus.label}
           </div>}
       </div>

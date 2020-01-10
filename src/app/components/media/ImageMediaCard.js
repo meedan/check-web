@@ -1,7 +1,7 @@
 import React from 'react';
 
 const ImageMediaCard = props => (
-  <article className="image-media-card">
+  <article className="image-media-card" style={{ textAlign: 'center' }}>
     <img
       style={{
         width: 'auto',

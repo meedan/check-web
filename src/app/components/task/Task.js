@@ -598,7 +598,6 @@ class Task extends Component {
           id={`task-${task.dbid}`}
           className={className.join(' ')}
           style={{ marginBottom: units(1) }}
-          initiallyExpanded
         >
           <CardHeader
             title={taskQuestion}

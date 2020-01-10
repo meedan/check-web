@@ -128,14 +128,14 @@ class MediaRelatedComponent extends Component {
     previousFilters[dbid] = filters;
 
     return (
-      <div>
+      <div style={{ marginTop: units(5) }}>
         { this.props.showHeader ?
           <StyledHeaderRow>
             <FlexRow style={{ marginBottom: units(2) }}>
               <h2>
                 <FormattedMessage
-                  id="mediaRelated.relatedItems"
-                  defaultMessage="Related items"
+                  id="mediaRelated.secondaryItems"
+                  defaultMessage="Secondary items"
                 />
               </h2>
             </FlexRow>
@@ -169,7 +169,6 @@ class MediaRelatedComponent extends Component {
                       currentRelatedMedia={this.props.media}
                       parentComponent={this}
                       parentComponentName="MediaRelated"
-                      smoochBotInstalled={this.props.smoochBotInstalled}
                       hideRelated
                     />}
                     {<ul className="empty" />}
@@ -198,6 +197,7 @@ const MediaRelatedContainer = Relay.createContainer(MediaRelatedComponent, {
       fragment on ProjectMedia {
         id
         dbid
+        title
         archived
         permissions
         pusher_channel

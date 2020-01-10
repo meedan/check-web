@@ -252,6 +252,8 @@ class HomeComponent extends Component {
 
     const user = this.getContext().currentUser;
 
+    const showDrawer = !/\/media\/[0-9]+/.test(window.location.pathname);
+
     return (
       <MuiThemeProviderNext theme={muiThemeNext}>
         <MuiThemeProvider muiTheme={muiThemeWithRtl}>
@@ -267,15 +269,20 @@ class HomeComponent extends Component {
             }
             <Favicon url={`/images/logo/${config.appName}.ico`} animated={false} />
             <BrowserSupport />
-            <DrawerNavigation
-              variant="persistent"
-              docked
-              loggedIn={loggedIn}
-              inTeamContext={inTeamContext}
-              currentUserIsMember={currentUserIsMember}
-              {...this.props}
-            />
-            <StyledWrapper isRtl={isRtl} className={bemClass('home', routeSlug, `--${routeSlug}`)}>
+            { showDrawer ?
+              <DrawerNavigation
+                variant="persistent"
+                docked
+                loggedIn={loggedIn}
+                inTeamContext={inTeamContext}
+                currentUserIsMember={currentUserIsMember}
+                {...this.props}
+              /> : null }
+            <StyledWrapper
+              isRtl={isRtl}
+              className={bemClass('home', routeSlug, `--${routeSlug}`)}
+              style={showDrawer ? {} : { margin: 0 }}
+            >
               <Header
                 drawerToggle={this.handleDrawerToggle.bind(this)}
                 loggedIn={loggedIn}

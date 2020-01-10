@@ -16,6 +16,8 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
             id,
             overridden,
             metadata,
+            title,
+            description,
           }
         }
       `;
@@ -91,6 +93,8 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
       return {
         project_media: {
           id: this.props.media.id,
+          title: embed.title,
+          description: embed.description,
           metadata: JSON.stringify(embed),
           overridden: JSON.stringify(overridden),
           permissions: JSON.stringify(permissions),

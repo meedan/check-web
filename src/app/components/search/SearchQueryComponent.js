@@ -36,7 +36,6 @@ import {
   transitionSpeedDefault,
   mediaQuery,
   ellipsisStyles,
-  columnWidthMedium,
 } from '../../styles/js/shared';
 
 const statusKey = config.appName === 'bridge' ? 'translation_status' : 'verification_status';
@@ -69,7 +68,6 @@ export const StyledSearchInput = styled.input`
 
 const StyledPopper = swallowingStyled(Popper, { swallowProps: ['isRtl'] })`
   width: 100%;
-  max-width: ${columnWidthMedium};
   padding: 0 ${units(1)};
   z-index: 10000;
 

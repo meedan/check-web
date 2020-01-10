@@ -1,45 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { injectIntl, defineMessages, FormattedMessage } from 'react-intl';
-import Relay from 'react-relay/classic';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
-import TextField from 'material-ui/TextField';
-import { Link } from 'react-router';
-import Tooltip from 'rc-tooltip';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
-import BreakRelationshipButton from './BreakRelationshipButton';
-import PromoteItemButton from './PromoteItemButton';
+import FlatButton from 'material-ui/FlatButton';
+import Tooltip from '@material-ui/core/Tooltip';
+import DownloadIcon from 'material-ui/svg-icons/content/move-to-inbox';
 import MediaTags from './MediaTags';
-import MediaActions from './MediaActions';
-import MediaUtil from './MediaUtil';
 import ClaimReview from './ClaimReview';
-import MoveDialog from './MoveDialog';
-import UserTooltip from '../user/UserTooltip';
-import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
-import UpdateStatusMutation from '../../relay/mutations/UpdateStatusMutation';
-import CreateProjectMediaProjectMutation from '../../relay/mutations/CreateProjectMediaProjectMutation';
-import DeleteProjectMediaProjectMutation from '../../relay/mutations/DeleteProjectMediaProjectMutation';
-import CheckContext from '../../CheckContext';
 import TagMenu from '../tag/TagMenu';
-import Attribution from '../task/Attribution';
-import UserAvatar from '../UserAvatar';
-import UserAvatars from '../UserAvatars';
-import ProfileLink from '../layout/ProfileLink';
-import Sentence from '../Sentence';
-import { nested, getErrorMessage } from '../../helpers';
-import globalStrings from '../../globalStrings';
-import { stringHelper } from '../../customHelpers';
 import {
   Row,
-  black10,
   black54,
   black87,
   title1,
   units,
-  caption,
-  Text,
+  opaqueBlack05,
 } from '../../styles/js/shared';
 
 const StyledMetadata = styled.div`
@@ -77,698 +53,108 @@ const StyledMetadata = styled.div`
   }
 `;
 
-const messages = defineMessages({
-  mediaTitle: {
-    id: 'mediaDetail.mediaTitle',
-    defaultMessage: 'Title',
-  },
-  mediaDescription: {
-    id: 'mediaDetail.mediaDescription',
-    defaultMessage: 'Description',
-  },
-  editReport: {
-    id: 'mediaDetail.editReport',
-    defaultMessage: 'Edit',
-  },
-  editReportError: {
-    id: 'mediaDetail.editReportError',
-    defaultMessage: 'Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists.',
-  },
-  trash: {
-    id: 'mediaDetail.trash',
-    defaultMessage: 'Trash',
-  },
-});
-
+/* eslint jsx-a11y/click-events-have-key-events: 0 */
 class MediaMetadata extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      isEditing: false,
-      description: null,
-      title: null,
-      openAssignDialog: false,
-      openMoveDialog: false,
-      openAddToListDialog: false,
     };
   }
 
-  getContext() {
-    return new CheckContext(this).getContextStore();
+  reverseImageSearchGoogle() {
+    const imagePath = this.props.media.picture;
+    window.open(`https://www.google.com/searchbyimage?image_url=${imagePath}`);
   }
 
-  getDescription() {
-    const { media } = this.props;
-
-    const embed = (typeof media.metadata === 'string') ? JSON.parse(media.metadata) : media.metadata;
-    const defaultDescription = MediaUtil.hasCustomDescription(media, embed)
-      ? embed.description
-      : null;
-
-    return (typeof this.state.description === 'string') ? this.state.description.trim() : defaultDescription;
-  }
-
-  getTitle() {
-    return (typeof this.state.title === 'string') ? this.state.title.trim() : this.props.title;
-  }
-
-  fail = (transaction) => {
-    const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
-    const message = getErrorMessage(transaction, fallbackMessage);
-    this.context.setMessage(message);
-  };
-
-  handleRefresh() {
-    Relay.Store.commitUpdate(
-      new UpdateProjectMediaMutation({
-        refresh_media: 1,
-        id: this.props.media.id,
-      }),
-      { onFailure: this.fail },
-    );
-  }
-
-  handleSendToTrash() {
-    const onSuccess = (response) => {
-      const pm = response.updateProjectMedia.project_media;
-      const message = (
-        <FormattedMessage
-          id="mediaMetadata.movedToTrash"
-          defaultMessage="Sent to {trash}"
-          values={{
-            trash: (
-              <Link to={`/${pm.team.slug}/trash`}>
-                {this.props.intl.formatMessage(messages.trash)}
-              </Link>
-            ),
-          }}
-        />
-      );
-      this.context.setMessage(message);
-    };
-
-    const context = this.getContext();
-
-    Relay.Store.commitUpdate(
-      new UpdateProjectMediaMutation({
-        archived: 1,
-        check_search_team: this.props.media.team.search,
-        check_search_project: this.props.media.project ? this.props.media.project.search : null,
-        check_search_trash: this.props.media.team.check_search_trash,
-        media: this.props.media,
-        context,
-        id: this.props.media.id,
-      }),
-      { onSuccess, onFailure: this.fail },
-    );
-  }
-
-  handleAddToList() {
-    this.setState({ openAddToListDialog: true });
-  }
-
-  handleAddItemToList() {
-    const onSuccess = (response) => {
-      const { project } = response.createProjectMediaProject;
-      const message = (
-        <FormattedMessage
-          id="mediaMetadata.addedToList"
-          defaultMessage="Added to list {listName}"
-          values={{
-            listName: (
-              <Link to={`/${project.team.slug}/project/${project.dbid}`}>
-                {project.title}
-              </Link>
-            ),
-          }}
-        />
-      );
-      this.context.setMessage(message);
-    };
-
-    const context = this.getContext();
-
-    Relay.Store.commitUpdate(
-      new CreateProjectMediaProjectMutation({
-        project: this.state.dstProj,
-        project_media: this.props.media,
-        context,
-      }),
-      { onSuccess, onFailure: this.fail },
-    );
-
-    this.setState({ openAddToListDialog: false });
-  }
-
-  handleRemoveFromList() {
-    const onSuccess = () => {
-      const message = (
-        <FormattedMessage
-          id="mediaMetadata.removedFromList"
-          defaultMessage="Removed from list"
-        />
-      );
-      this.context.setMessage(message);
-    };
-
-    const context = this.getContext();
-
-    Relay.Store.commitUpdate(
-      new DeleteProjectMediaProjectMutation({
-        project: context.project,
-        project_media: this.props.media,
-        context,
-      }),
-      { onSuccess, onFailure: this.fail },
-    );
-  }
-
-  handleRestore() {
-    const onSuccess = (response) => {
-      const pm = response.updateProjectMedia.project_media;
-      const message = (
-        <FormattedMessage
-          id="mediaMetadata.movedBack"
-          defaultMessage="Moved back to project: {project}"
-          values={{
-            project: (
-              <Link to={`/${pm.team.slug}/project/${pm.project_id}`}>
-                {pm.project.title}
-              </Link>
-            ),
-          }}
-        />
-      );
-      this.context.setMessage(message);
-    };
-
-    const context = this.getContext();
-
-    Relay.Store.commitUpdate(
-      new UpdateProjectMediaMutation({
-        archived: 0,
-        check_search_team: this.props.media.team.search,
-        check_search_project: this.props.media.project.search,
-        check_search_trash: this.props.media.team.check_search_trash,
-        relationship_sources_count: this.props.media.relationships.sources_count,
-        media: this.props.media,
-        context,
-        id: this.props.media.id,
-      }),
-      { onSuccess, onFailure: this.fail },
-    );
-  }
-
-  handleEdit() {
-    this.setState({ isEditing: true });
-  }
-
-  handleMove() {
-    this.setState({ openMoveDialog: true });
-  }
-
-  handleMoveProjectMedia() {
-    const { media } = this.props;
-    const { dstProj: { dbid: projectId } } = this.state;
-    const { dbid: previousProjectId } = this.currentProject();
-    const { history } = this.getContext();
-
-    const onFailure = (transaction) => {
-      if (/^\/[^/]+\/project\/[0-9]+$/.test(window.location.pathname)) {
-        history.push(`/${media.team.slug}/project/${previousProjectId}`);
-      }
-      this.fail(transaction);
-    };
-
-    const path = `/${media.team.slug}/project/${projectId}`;
-    const context = this.getContext();
-
-    const onSuccess = () => {
-      if (/^\/[^/]+\/search\//.test(window.location.pathname)) {
-        this.props.parentComponent.props.relay.forceFetch();
-      } else if (/^\/[^/]+\/project\/[0-9]+$/.test(window.location.pathname)) {
-        history.push(path);
-      } else if (/^\/[^/]+\/project\/[0-9]+\/media\/[0-9]+$/.test(window.location.pathname)) {
-        history.push(`${path}/media/${media.dbid}`);
-      }
-    };
-
-    Relay.Store.commitUpdate(
-      new UpdateProjectMediaMutation({
-        project_id: projectId,
-        id: media.id,
-        srcProj: this.currentProject(),
-        dstProj: this.state.dstProj,
-        context,
-      }),
-      { onSuccess, onFailure },
-    );
-
-    this.setState({ openMoveDialog: false });
-  }
-
-  handleAssign() {
-    this.setState({ openAssignDialog: true });
-  }
-
-  handleAssignProjectMedia() {
-    const { media } = this.props;
-
-    const onSuccess = () => {};
-
-    const status_id = media.last_status_obj ? media.last_status_obj.id : '';
-
-    const assignment = document.getElementById(`attribution-media-${media.dbid}`).value;
-
-    const statusAttr = {
-      parent_type: 'project_media',
-      annotated: media,
-      annotation: {
-        status_id,
-        assigned_to_ids: assignment,
-      },
-    };
-
-    Relay.Store.commitUpdate(
-      new UpdateStatusMutation(statusAttr),
-      { onSuccess, onFailure: this.fail },
-    );
-
-    this.setState({ openAssignDialog: false });
-  }
-
-  handleStatusLock() {
-    const { media } = this.props;
-
-    const statusAttr = {
-      parent_type: 'project_media',
-      annotated: media,
-      annotation: {
-        status_id: media.last_status_obj.id,
-        locked: !media.last_status_obj.locked,
-      },
-    };
-
-    Relay.Store.commitUpdate(
-      new UpdateStatusMutation(statusAttr),
-      { onFailure: this.fail },
-    );
-  }
-
-  currentProject() {
-    return this.props.media.project;
-  }
-
-  canSubmit = () => {
-    const { title, description } = this.state;
-    const permissions = JSON.parse(this.props.media.permissions);
-    return (permissions['update Dynamic'] !== false && (typeof title === 'string' || typeof description === 'string'));
-  };
-
-  handleChangeTitle(e) {
-    this.setState({ title: e.target.value });
-  }
-
-  handleChangeDescription(e) {
-    this.setState({ description: e.target.value });
-  }
-
-  handleSave(media, event) {
-    if (event) {
-      event.preventDefault();
-    }
-
-    const embed = {};
-
-    const { title, description } = this.state;
-
-    if (typeof title === 'string') {
-      embed.title = title.trim();
-    }
-
-    if (typeof description === 'string') {
-      embed.description = description.trim();
-    }
-
-    if (embed.title === '' && media.media.embed_path) {
-      embed.title = media.media.embed_path.split('/').pop().replace('embed_', '');
-    }
-
-    const onFailure = (transaction) => {
-      const fallbackMessage = this.props.intl.formatMessage(messages.editReportError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
-      const message = getErrorMessage(transaction, fallbackMessage);
-      this.context.setMessage(message);
-    };
-
-    if (this.canSubmit()) {
-      Relay.Store.commitUpdate(
-        new UpdateProjectMediaMutation({
-          media,
-          metadata: JSON.stringify(embed),
-          id: media.id,
-        }),
-        { onFailure },
-      );
-    }
-
-    this.handleCancel();
-  }
-
-  handleCancel() {
-    this.setState({
-      isEditing: false,
-      title: null,
-      description: null,
+  handleDownload() {
+    const fileUrl = this.props.media.media.file_path;
+    const ext = fileUrl.match(/(\.[^.]+)$/)[1];
+    // window.open(fileUrl);
+    window.fetch(fileUrl).then(res => res.blob()).then((blob) => {
+      const url = window.URL.createObjectURL(new Blob([blob]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `file${ext}`);
+      link.style.display = 'none';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     });
-  }
-
-  handleCloseDialogs() {
-    this.setState({
-      isEditing: false,
-      openMoveDialog: false,
-      openAddToListDialog: false,
-      dstProj: null,
-      openAssignDialog: false,
-    });
-  }
-
-  handleSelectDestProject(dstProj) {
-    this.setState({ dstProj });
-  }
-
-  // FIXME replace with helper getStatus().completed
-  isStatusFinal(id) {
-    let isFinal = false;
-    try {
-      this.props.media.verification_statuses.statuses.forEach((status) => {
-        if (status.id === id && status.completed === '1') {
-          isFinal = true;
-        }
-      });
-    } catch (e) {
-      isFinal = false;
-    }
-    return isFinal;
   }
 
   render() {
     const { media, intl: { locale } } = this.props;
     const data = media.metadata;
-    const context = this.getContext();
     const isRtl = rtlDetect.isRtlLang(locale);
     const fromDirection = isRtl ? 'right' : 'left';
-
-    const byUser = media.user &&
-      media.user.source &&
-      media.user.source.dbid &&
-      media.user.name !== 'Pender' ? (
-        <FormattedMessage
-          id="mediaDetail.byUser"
-          defaultMessage="by {username}"
-          values={{
-            username: (
-              <Tooltip placement="top" overlay={<UserTooltip user={media.user} team={media.team} />}>
-                <Link to={`/check/user/${media.user.dbid}`}>
-                  {media.user.name}
-                </Link>
-              </Tooltip>
-            ),
-          }}
-        />) : null;
-    const moveDialogActions = [
-      <FlatButton
-        label={
-          <FormattedMessage
-            id="mediaDetail.cancelButton"
-            defaultMessage="Cancel"
-          />
-        }
-        primary
-        onClick={this.handleCloseDialogs.bind(this)}
-      />,
-      <FlatButton
-        label={<FormattedMessage id="mediaDetail.move" defaultMessage="Move" />}
-        primary
-        className="media-detail__move-button"
-        keyboardFocused
-        onClick={this.handleMoveProjectMedia.bind(this)}
-        disabled={!this.state.dstProj}
-      />,
-    ];
-    const addToListDialogActions = [
-      <FlatButton
-        label={
-          <FormattedMessage
-            id="mediaDetail.cancelButton"
-            defaultMessage="Cancel"
-          />
-        }
-        primary
-        onClick={this.handleCloseDialogs.bind(this)}
-      />,
-      <FlatButton
-        label={<FormattedMessage id="mediaDetail.add" defaultMessage="Add" />}
-        primary
-        className="media-detail__add-button"
-        keyboardFocused
-        onClick={this.handleAddItemToList.bind(this)}
-        disabled={!this.state.dstProj}
-      />,
-    ];
-    const assignDialogActions = [
-      <FlatButton
-        label={
-          <FormattedMessage
-            id="mediaDetail.cancelButton"
-            defaultMessage="Cancel"
-          />
-        }
-        primary
-        onClick={this.handleCloseDialogs.bind(this)}
-      />,
-      <FlatButton
-        label={<FormattedMessage id="mediaDetail.done" defaultMessage="Done" />}
-        primary
-        keyboardFocused
-        onClick={this.handleAssignProjectMedia.bind(this)}
-      />,
-    ];
-
-    const editDialog = (
-      <Dialog
-        modal
-        title={this.props.intl.formatMessage(messages.editReport)}
-        open={this.state.isEditing}
-        onRequestClose={this.handleCloseDialogs.bind(this)}
-        autoScrollBodyContent
-      >
-        <form onSubmit={this.handleSave.bind(this, media)} name="edit-media-form">
-          <TextField
-            type="text"
-            id={`media-detail-title-input-${media.dbid}`}
-            className="media-detail__title-input"
-            floatingLabelText={this.props.intl.formatMessage(messages.mediaTitle)}
-            defaultValue={this.getTitle()}
-            onChange={this.handleChangeTitle.bind(this)}
-            style={{ width: '100%' }}
-          />
-
-          <TextField
-            type="text"
-            id={`media-detail-description-input-${media.dbid}`}
-            className="media-detail__description-input"
-            floatingLabelText={this.props.intl.formatMessage(messages.mediaDescription)}
-            defaultValue={this.getDescription()}
-            onChange={this.handleChangeDescription.bind(this)}
-            style={{ width: '100%' }}
-            multiLine
-          />
-        </form>
-
-        <span style={{ display: 'flex' }}>
-          <FlatButton
-            onClick={this.handleCancel.bind(this)}
-            className="media-detail__cancel-edits"
-            label={
-              <FormattedMessage
-                id="mediaDetail.cancelButton"
-                defaultMessage="Cancel"
-              />
-            }
-          />
-          <FlatButton
-            onClick={this.handleSave.bind(this, media)}
-            className="media-detail__save-edits"
-            label={
-              <FormattedMessage
-                id="mediaDetail.doneButton"
-                defaultMessage="Done"
-              />
-            }
-            disabled={!this.canSubmit()}
-            primary
-          />
-        </span>
-      </Dialog>
-    );
-
     const claimReview = data.schema && data.schema.ClaimReview ? data.schema.ClaimReview[0] : null;
-    const url = MediaUtil.url(media, data);
-    const assignments = media.last_status_obj.assignments.edges;
-    const assignmentComponents = [];
-    assignments.forEach((assignment) => {
-      assignmentComponents.push(<ProfileLink user={assignment.node} team={media.team} />);
-    });
-
-    let isChild = false;
-    if (media.relationships && media.relationship && media.relationship.target_id === media.dbid) {
-      isChild = true;
-    }
 
     return (
       <StyledMetadata
         fromDirection={fromDirection}
         className="media-detail__check-metadata"
       >
-        {this.state.isEditing ? editDialog : null}
-
-        {claimReview ? <Row><ClaimReview data={claimReview} /></Row> : null}
-
-        <Row>
-          <Text font={caption} breakWord>
-            <a href={url} target="_blank" rel="noopener noreferrer">
-              {url}
-            </a>
-          </Text>
-        </Row>
-        <Row>
-          {media.tags ? <MediaTags media={media} tags={media.tags.edges} /> : null}
-        </Row>
-        <Row>
-          {byUser ?
-            <span className="media-detail__check-added-by" style={{ display: 'flex' }}>
-              <UserAvatar
-                user={media.user}
-                size="extraSmall"
-                style={{ display: 'inline-block', border: `1px solid ${black10}` }}
-              />
-              <span style={{ lineHeight: '24px', paddingLeft: units(1), paddingRight: units(1) }}>
-                <FormattedMessage
-                  id="mediaDetail.addedBy"
-                  defaultMessage="Added {byUser}"
-                  values={{ byUser }}
-                />
-              </span>
-            </span>
-            : null}
-
-          {/* TODO: extract to media detail controls component */}
-          <div className="media-detail__buttons">
-            <PromoteItemButton
-              hidden={!isChild}
-              media={media}
-              currentRelatedMedia={this.props.currentRelatedMedia}
-            />
-            <BreakRelationshipButton
-              hidden={!isChild}
-              media={media}
-              currentRelatedMedia={this.props.currentRelatedMedia}
-            />
-
-            <TagMenu media={media} />
-
-            {this.props.readonly || this.state.isEditing ?
-              null :
-              <MediaActions
-                media={media}
-                handleEdit={this.handleEdit.bind(this)}
-                handleMove={this.handleMove.bind(this)}
-                handleRefresh={this.handleRefresh.bind(this)}
-                handleSendToTrash={this.handleSendToTrash.bind(this)}
-                handleAddToList={this.handleAddToList.bind(this)}
-                handleRemoveFromList={this.handleRemoveFromList.bind(this)}
-                handleRestore={this.handleRestore.bind(this)}
-                handleAssign={this.handleAssign.bind(this)}
-                handleStatusLock={this.handleStatusLock.bind(this)}
-                handleMemebuster={() => {}}
-                style={{ display: 'flex' }}
-                locale={locale}
-              />}
-          </div>
-        </Row>
-        {assignments && !this.isStatusFinal(media.last_status) ?
-          <Row>
-            <div className="media-detail__assignment" style={{ display: 'flex', alignItems: 'center' }}>
-              <UserAvatars users={assignments} />
-              {assignments.length > 0 ?
-                <span style={{ lineHeight: '24px', paddingLeft: units(1), paddingRight: units(1) }}>
+        { claimReview ? <Row><ClaimReview data={claimReview} /></Row> : null }
+        { (media.picture || (media.media && media.media.file_path)) ?
+          <Row style={{ display: 'flex', alignItems: 'center', marginBottom: units(2) }}>
+            { media.picture ?
+              <div className="media-detail__reverse-image-search">
+                <small>
                   <FormattedMessage
-                    id="mediaDetail.assignedTo"
-                    defaultMessage="Assigned to {name}"
-                    values={{
-                      name: <Sentence list={assignmentComponents} />,
-                    }}
+                    id="mediaMetadata.reverseImageSearch"
+                    defaultMessage="Reverse image search"
                   />
-                </span> : null}
-            </div>
-          </Row> : null}
-
-        <MoveDialog
-          actions={moveDialogActions}
-          open={this.state.openMoveDialog}
-          handleClose={this.handleCloseDialogs.bind(this)}
-          team={context.team}
-          projectId={nested(['project', 'dbid'], media)}
-          onChange={this.handleSelectDestProject.bind(this)}
-          style={{
-            minHeight: 400,
-          }}
-          title={
-            <FormattedMessage
-              id="mediaDetail.dialogMoveTitle"
-              defaultMessage="Move to a different project"
-            />
-          }
-        />
-
-        <MoveDialog
-          actions={addToListDialogActions}
-          open={this.state.openAddToListDialog}
-          handleClose={this.handleCloseDialogs.bind(this)}
-          team={context.team}
-          projectId={media.project_ids}
-          onChange={this.handleSelectDestProject.bind(this)}
-          style={{
-            minHeight: 400,
-          }}
-          title={
-            <FormattedMessage
-              id="mediaDetail.dialogAddToListTitle"
-              defaultMessage="Add to a different list"
-            />
-          }
-        />
-
-        <Dialog
-          actions={assignDialogActions}
-          modal
-          open={this.state.openAssignDialog}
-          onRequestClose={this.handleCloseDialogs.bind(this)}
-          autoScrollBodyContent
-        >
-          <h4 className="media-detail__dialog-header">
-            <FormattedMessage
-              id="mediaDetail.assignDialogHeader"
-              defaultMessage="Assignment"
-            />
-          </h4>
-          <Attribution
-            multi
-            selectedUsers={assignments}
-            id={`media-${media.dbid}`}
-          />
-        </Dialog>
+                </small>
+                <br />
+                <FlatButton
+                  label="Google"
+                  style={{
+                    border: '1px solid #000',
+                    minWidth: 115,
+                    marginRight: units(2),
+                  }}
+                  onClick={this.reverseImageSearchGoogle.bind(this)}
+                />
+              </div> : null }
+            { (media.media && media.media.file_path) ?
+              <div
+                className="media-detail__download"
+                style={{
+                  alignSelf: 'flex-end',
+                  display: 'flex',
+                }}
+              >
+                <span
+                  onClick={this.handleDownload.bind(this)}
+                  style={{
+                    cursor: 'pointer',
+                    height: 36,
+                    overflow: 'hidden',
+                    borderRadius: '50%',
+                    background: opaqueBlack05,
+                    display: 'inline-block',
+                    textAlign: 'center',
+                    alignSelf: 'flex-end',
+                  }}
+                >
+                  <Tooltip
+                    title={
+                      <FormattedMessage
+                        id="mediaMetadata.download"
+                        defaultMessage="Download"
+                      />
+                    }
+                  >
+                    <DownloadIcon style={{ margin: 6 }} />
+                  </Tooltip>
+                </span>
+              </div> : null }
+          </Row> : null }
+        <Row>
+          <TagMenu media={media} />
+          { media.tags ? <MediaTags media={media} tags={media.tags.edges} /> : null }
+        </Row>
       </StyledMetadata>
     );
   }
