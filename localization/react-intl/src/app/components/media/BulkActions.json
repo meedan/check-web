@@ -1,7 +1,7 @@
 [
   {
     "id": "bulkActions.move",
-    "defaultMessage": "Move selected items to another project"
+    "defaultMessage": "Move selected items to another list"
   },
   {
     "id": "bulkActions.sendItemsToTrash",
@@ -13,7 +13,7 @@
   },
   {
     "id": "bulkActions.clone",
-    "defaultMessage": "Copy selected items to another project"
+    "defaultMessage": "Copy selected items to another list"
   },
   {
     "id": "bulkActions.clonedSuccessfully",
@@ -41,10 +41,10 @@
   },
   {
     "id": "bulkActions.dialogMoveTitle",
-    "defaultMessage": "Move to a different project"
+    "defaultMessage": "Move to a different list"
   },
   {
     "id": "bulkActions.dialogCloneTitle",
-    "defaultMessage": "Copy to a different project"
+    "defaultMessage": "Copy to a different list"
   }
 ]

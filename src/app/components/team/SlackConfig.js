@@ -151,7 +151,7 @@ class SlackConfig extends React.Component {
           <CardContent>
             <FormattedMessage
               id="slackConfig.text"
-              defaultMessage="Notify a Slack channel every time someone adds to one of your projects."
+              defaultMessage="Notify a Slack channel about workspace activity."
             />
             <Switch
               checked={enabled}
@@ -167,7 +167,7 @@ class SlackConfig extends React.Component {
           <Message message={this.state.message} />
           <FormattedMessage
             id="slackConfig.text"
-            defaultMessage="Notify a Slack channel every time someone adds to one of your projects."
+            defaultMessage="Notify a Slack channel about workspace activity."
           />
           <TextField
             className="team__slack-webhook-input"

@@ -13,7 +13,7 @@
   },
   {
     "id": "annotation.newClaim",
-    "defaultMessage": "New claim added by {author}"
+    "defaultMessage": "New text added by {author}"
   },
   {
     "id": "annotation.menuTooltip",
@@ -161,7 +161,7 @@
   },
   {
     "id": "annotation.projectMoved",
-    "defaultMessage": "Moved from project {previousProject} to {currentProject} by {author}"
+    "defaultMessage": "Moved from list {previousProject} to {currentProject} by {author}"
   },
   {
     "id": "annotation.movedToTrash",
@@ -173,6 +173,6 @@
   },
   {
     "id": "annotation.teamCopied",
-    "defaultMessage": "Copied from project {previousProject} on team {previousTeam} by {author}"
+    "defaultMessage": "Copied from list {previousProject} on workspace {previousTeam} by {author}"
   }
 ]

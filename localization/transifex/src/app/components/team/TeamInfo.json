@@ -1,4 +1,5 @@
 {
   "teamComponent.private": "Private",
-  "teamComponent.public": "Public"
+  "teamComponent.public": "Public",
+  "teamMenu.editTeam": "Edit"
 }

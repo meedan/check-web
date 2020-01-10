@@ -35,7 +35,7 @@ import { stringHelper } from '../../customHelpers';
 const messages = defineMessages({
   switchTeamsError: {
     id: 'switchTeams.error',
-    defaultMessage: 'Sorry, an error occurred while updating the team. Please try again and contact {supportEmail} if the condition persists.',
+    defaultMessage: 'Sorry, an error occurred while updating the workspace. Please try again and contact {supportEmail} if the condition persists.',
   },
   switchTeamsMember: {
     id: 'switchTeams.member',
@@ -132,8 +132,8 @@ class SwitchTeamsComponent extends Component {
     });
 
     const cardTitle = isUserSelf ?
-      <FormattedMessage id="teams.yourTeams" defaultMessage="Your teams" /> :
-      <FormattedMessage id="teams.userTeams" defaultMessage="{name}'s teams" values={{ name: user.name }} />;
+      <FormattedMessage id="teams.yourTeams" defaultMessage="Your workspaces" /> :
+      <FormattedMessage id="teams.userTeams" defaultMessage="{name}'s workspaces" values={{ name: user.name }} />;
 
     return (
       <Card>
@@ -187,14 +187,14 @@ class SwitchTeamsComponent extends Component {
             ))}
           </List> :
           <CardText>
-            <FormattedMessage id="switchTeams.noTeams" defaultMessage="Not a member of any team." />
+            <FormattedMessage id="switchTeams.noTeams" defaultMessage="Not a member of any workspace." />
           </CardText>
         }
 
         { isUserSelf ?
           <CardActions>
             <FlatButton
-              label={<FormattedMessage id="switchTeams.newTeamLink" defaultMessage="Create Team" />}
+              label={<FormattedMessage id="switchTeams.newTeamLink" defaultMessage="Create Workspace" />}
               onClick={() => this.getContext().getContextStore().history.push('/check/teams/new')}
             />
           </CardActions> : null

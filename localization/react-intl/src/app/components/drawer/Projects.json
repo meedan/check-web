@@ -9,11 +9,11 @@
   },
   {
     "id": "projects.noProjects",
-    "defaultMessage": "No projects yet."
+    "defaultMessage": "No lists yet."
   },
   {
     "id": "projects.allClaims",
-    "defaultMessage": "All claims"
+    "defaultMessage": "All items"
   },
   {
     "id": "projects.newList",

@@ -27,19 +27,15 @@ import { stringHelper } from '../../customHelpers';
 const messages = defineMessages({
   editError: {
     id: 'teamComponent.editError',
-    defaultMessage: 'Sorry, an error occurred while updating the team. Please try again and contact {supportEmail} if the condition persists.',
-  },
-  editSuccess: {
-    id: 'teamComponent.editSuccess',
-    defaultMessage: 'Team information updated successfully!',
+    defaultMessage: 'Sorry, an error occurred while updating the workspace. Please try again and contact {supportEmail} if the condition persists.',
   },
   teamName: {
     id: 'teamComponent.teamName',
-    defaultMessage: 'Team name',
+    defaultMessage: 'Name',
   },
   teamDescription: {
     id: 'teamComponent.teamDescription',
-    defaultMessage: 'Team description',
+    defaultMessage: 'Description',
   },
   location: {
     id: 'teamComponent.location',
@@ -126,7 +122,7 @@ class TeamInfoEdit extends React.Component {
 
     const onSuccess = () => {
       this.setState({
-        message: this.props.intl.formatMessage(messages.editSuccess),
+        message: null,
         avatar: null,
         submitDisabled: false,
       });

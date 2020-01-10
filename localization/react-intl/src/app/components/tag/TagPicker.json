@@ -1,7 +1,7 @@
 [
   {
     "id": "tagPicker.emptyTags",
-    "defaultMessage": "There are currently no tags for this team."
+    "defaultMessage": "There are currently no tags for this workspace."
   },
   {
     "id": "tagPicker.tagNotFound",
@@ -9,7 +9,7 @@
   },
   {
     "id": "tagPicker.teamTags",
-    "defaultMessage": "Team tags"
+    "defaultMessage": "Default tags"
   },
   {
     "id": "tagPicker.none",

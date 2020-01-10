@@ -1,6 +1,6 @@
 [
   {
     "id": "createTeamTask.error",
-    "defaultMessage": "Failed to create teamwide task"
+    "defaultMessage": "Failed to create default task"
   }
 ]

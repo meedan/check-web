@@ -29,7 +29,7 @@
   },
   {
     "id": "teamTags.moveTag",
-    "defaultMessage": "Move to teamwide tags"
+    "defaultMessage": "Move to default tags"
   },
   {
     "id": "teamTags.itemsCount",
@@ -61,11 +61,11 @@
   },
   {
     "id": "teamTags.teamwideTags",
-    "defaultMessage": "Team tags"
+    "defaultMessage": "Default tags"
   },
   {
     "id": "teamTags.noTeamwideTags",
-    "defaultMessage": "No team tags."
+    "defaultMessage": "No default tags."
   },
   {
     "id": "teamTags.new",

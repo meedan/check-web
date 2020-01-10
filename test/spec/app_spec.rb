@@ -132,7 +132,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.team-settings__tasks-tab')
       wait_for_selector('.team-settings__tags-tab').click
       wait_for_selector_none("team-tasks")
-      expect(@driver.page_source.include?('No team tags')).to be(true)
+      expect(@driver.page_source.include?('No default tags')).to be(true)
       expect(@driver.page_source.include?('No custom tags')).to be(true)
       expect(@driver.page_source.include?('No tags')).to be(true)
       expect(@driver.page_source.include?('newteamwidetag')).to be(false)
@@ -141,7 +141,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       fill_field('#tag__new', 'newteamwidetag')
       @driver.action.send_keys(:enter).perform
       wait_for_selector("#tag__text-newteamwidetag")
-      expect(@driver.page_source.include?('No team tags')).to be(false)
+      expect(@driver.page_source.include?('No default tags')).to be(false)
       expect(@driver.page_source.include?('No custom tags')).to be(true)
       expect(@driver.page_source.include?('1 tag')).to be(true)
       expect(@driver.page_source.include?('newteamwidetag')).to be(true)
@@ -155,7 +155,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       fill_field('#tag__edit', 'edited')
       @driver.action.send_keys(:enter).perform
       wait_for_selector("#tag__text-newteamwidetagedited")
-      expect(@driver.page_source.include?('No team tags')).to be(false)
+      expect(@driver.page_source.include?('No default tags')).to be(false)
       expect(@driver.page_source.include?('No custom tags')).to be(true)
       expect(@driver.page_source.include?('1 tag')).to be(true)
       expect(@driver.page_source.include?('newteamwidetagedited')).to be(true)
@@ -168,58 +168,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('#tag__confirm-delete').click
       wait_for_selector_none('#tag__confirm')
       wait_for_selector_none("#tag__text-newteamwidetagedited")
-      expect(@driver.page_source.include?('No team tags')).to be(true)
+      expect(@driver.page_source.include?('No default tags')).to be(true)
       expect(@driver.page_source.include?('No custom tags')).to be(true)
       expect(@driver.page_source.include?('No tags')).to be(true)
       expect(@driver.page_source.include?('newteamwidetagedited')).to be(false)
     end
-
-
-    # it "should filter medias by type", bin6: true do
-    #   api_create_team_project_and_link 'https://twitter.com/TheWho/status/890135323216367616'
-    #   @driver.navigate.to @config['self_url']
-    #   wait_for_selector(".medias__item")
-    #   wait_for_selector("#create-media__add-item").click
-    #   wait_for_selector("#create-media__quote").click
-    #   wait_for_selector("#create-media-quote-input")
-    #   fill_field('#create-media-quote-input', "Claim")
-    #   wait_for_selector('#create-media-dialog__submit-button').click
-    #   wait_for_selector_none("#create-media__quote")
-    #   wait_for_selector("#create-media__add-item").click
-    #   wait_for_selector('#create-media__image').click
-    #   wait_for_selector("#media-url-container")
-    #   input = wait_for_selector('input[type=file]')
-    #   input.send_keys(File.join(File.dirname(__FILE__), 'test.png'))
-    #   wait_for_selector('#create-media-dialog__submit-button').click
-    #   wait_for_selector_none("#media-url-container")
-    #   wait_for_selector(".medias__item")
-    #   expect(@driver.page_source.include?("The Who's official Twitter page")).to be(false)
-    #   expect(@driver.page_source.include?('Claim')).to be(true)
-    #   expect(@driver.page_source.include?('test.png')).to be(true)
-    #   list_size = wait_for_selector_list(".medias__item").length
-    #   expect(list_size == 3).to be(true)
-    #   wait_for_selector("#search__open-dialog-button").click
-    #   wait_for_selector("//span[contains(text(), 'Links')]", :xpath).click
-    #   wait_for_selector("#search-query__submit-button").click
-    #   wait_for_selector_none("#create-media__quote")
-    #   wait_for_selector(".medias__item")
-    #   expect(@driver.page_source.include?('Claim')).to be(true)
-    #   expect(@driver.page_source.include?("The Who's official Twitter page")).to be(false)
-    #   expect(@driver.page_source.include?('test.png')).to be(true)
-    #   list_size = wait_for_selector_list(".medias__item").length
-    #   expect(list_size == 2).to be(true)
-    #   wait_for_selector("#search__open-dialog-button").click
-    #   wait_for_selector("//span[contains(text(), 'Links')]", :xpath).click
-    #   wait_for_selector("//span[contains(text(), 'Claims')]", :xpath).click
-    #   wait_for_selector("#search-query__submit-button").click
-    #   wait_for_selector_none("#create-media__quote")
-    #   wait_for_selector(".medias__item")
-    #   list_size = wait_for_selector_list(".medias__item").length
-    #   expect(list_size == 2).to be(true)
-    #   expect(@driver.page_source.include?("The Who's official Twitter page")).to be(true)
-    #   expect(@driver.page_source.include?('Claim')).to be(false)
-    #   expect(@driver.page_source.include?('test.png')).to be(true)
-    # end
 
     it "should redirect to access denied page", bin1: true do
       user = api_register_and_login_with_email
@@ -227,7 +180,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_register_and_login_with_email
       me_pg = MePage.new(config: @config, driver: @driver).load
       wait_for_selector("#teams-tab").click;
-      wait_for_selector("//span[contains(text(), 'Create Team')]", :xpath)
+      wait_for_selector("//span[contains(text(), 'Create Workspace')]", :xpath)
       expect(@driver.page_source.include?('Access Denied')).to be(false)
       expect((@driver.current_url.to_s =~ /\/forbidden$/).nil?).to be(true)
       unauthorized_pg = SourcePage.new(id: user.dbid, config: @config, driver: @driver).load
@@ -1036,7 +989,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector("#search__open-dialog-button").click
       wait_for_selector("#search-input")
       selected = @driver.find_elements(:css, '.search-query__filter-button--selected').map(&:text).sort
-      expect(selected == ['Recent activity', 'Newest first', 'Links', 'Claims', 'Images', 'Videos'].sort).to be(true)
+      expect(selected == ['Recent activity', 'Newest first', 'Links', 'Texts', 'Images', 'Videos'].sort).to be(true)
     end
 
     it "should change search sort order through URL", bin2: true do
@@ -1046,7 +999,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('My search result')).to be(true)
       wait_for_selector("search__open-dialog-button", :id).click
       selected = @driver.find_elements(:css, '.search-query__filter-button--selected').map(&:text).sort
-      expect(selected).to eq(['Created', 'Oldest first', 'Links', 'Claims', 'Images', 'Videos'].sort)
+      expect(selected).to eq(['Created', 'Oldest first', 'Links', 'Texts', 'Images', 'Videos'].sort)
     end
 
     it "should not reset password", bin5: true do
@@ -1212,14 +1165,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       user = api_register_and_login_with_email
       @driver.navigate.to @config['self_url']
       wait_for_selector('.find-team-card')
-      expect(@driver.page_source.include?('Find an existing team')).to be(true)
+      expect(@driver.page_source.include?('Find an existing workspace')).to be(true)
 
       # return error for non existing team
       fill_field('#team-slug-container', 'non-existing-slug')
       el = wait_for_selector('.find-team__submit-button')
       el.click
       wait_for_selector('.find-team-card')
-      expect(@driver.page_source.include?('Team not found!')).to be(true)
+      expect(@driver.page_source.include?('Workspace not found!')).to be(true)
 
       # redirect to /team-slug/join if team exists
       # /team-slug/join in turn redirects to team page because already member

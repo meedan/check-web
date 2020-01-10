@@ -173,7 +173,7 @@ class ProjectActions extends Component {
           <h2>
             <FormattedMessage
               id="projectActions.confirmDeleteProject"
-              defaultMessage="Are you sure you want to delete this list? All its items will still be accessible through the 'All claims' list."
+              defaultMessage="Are you sure you want to delete this list? All its items will still be accessible through the 'All items' list."
             />
           </h2>
           <p style={{ margin: `${units(4)} 0` }}>

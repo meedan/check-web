@@ -25,11 +25,11 @@ import { getErrorMessage } from '../../helpers';
 const messages = defineMessages({
   editError: {
     id: 'createTeamTask.editError',
-    defaultMessage: 'Failed to edit teamwide task',
+    defaultMessage: 'Failed to edit default task',
   },
   deleteError: {
     id: 'createTeamTask.deleteError',
-    defaultMessage: 'Failed to delete teamwide task',
+    defaultMessage: 'Failed to delete default task',
   },
   menuTooltip: {
     id: 'createTeamTask.menuTooltip',

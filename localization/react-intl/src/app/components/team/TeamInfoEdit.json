@@ -1,19 +1,15 @@
 [
   {
     "id": "teamComponent.editError",
-    "defaultMessage": "Sorry, an error occurred while updating the team. Please try again and contact {supportEmail} if the condition persists."
-  },
-  {
-    "id": "teamComponent.editSuccess",
-    "defaultMessage": "Team information updated successfully!"
+    "defaultMessage": "Sorry, an error occurred while updating the workspace. Please try again and contact {supportEmail} if the condition persists."
   },
   {
     "id": "teamComponent.teamName",
-    "defaultMessage": "Team name"
+    "defaultMessage": "Name"
   },
   {
     "id": "teamComponent.teamDescription",
-    "defaultMessage": "Team description"
+    "defaultMessage": "Description"
   },
   {
     "id": "teamComponent.location",

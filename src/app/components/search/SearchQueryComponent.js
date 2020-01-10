@@ -713,7 +713,7 @@ class SearchQueryComponent extends React.Component {
                   {this.showField('project') ?
                     <StyledFilterRow>
                       <h4>
-                        <FormattedMessage id="search.projectHeading" defaultMessage="Project" />
+                        <FormattedMessage id="search.projectHeading" defaultMessage="List" />
                       </h4>
                       {projects.map(project => (
                         <StyledFilterButton
@@ -734,7 +734,7 @@ class SearchQueryComponent extends React.Component {
                   {this.showField('tags') && suggestedTags.length ?
                     <StyledFilterRow>
                       <h4>
-                        <FormattedMessage id="status.categoriesHeading" defaultMessage="Team Tags" />
+                        <FormattedMessage id="status.categoriesHeading" defaultMessage="Default Tags" />
                       </h4>
                       {suggestedTags.map(tag => (
                         <StyledFilterButton
@@ -843,7 +843,7 @@ class SearchQueryComponent extends React.Component {
                           '--selected',
                         )}
                       >
-                        <FormattedMessage id="search.showClaims" defaultMessage="Claims" />
+                        <FormattedMessage id="search.showClaims" defaultMessage="Texts" />
                       </StyledFilterButton>
                       <StyledFilterButton
                         active={this.showIsSelected('links')}

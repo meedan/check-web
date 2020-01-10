@@ -34,7 +34,7 @@ class ProjectSelector extends React.Component {
               defaultMessage="{length, number} selected"
               values={{ length: this.props.selected.length }}
             /> :
-            <FormattedMessage id="projectSelector.allProjs" defaultMessage="All projects" />
+            <FormattedMessage id="projectSelector.allProjs" defaultMessage="All lists" />
           }
         </Button>
         <Menu

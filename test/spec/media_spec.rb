@@ -72,7 +72,7 @@ shared_examples 'media' do |type|
     wait_for_selector('.media-detail')
     wait_for_selector('.media-actions__icon').click
     wait_for_selector('.media-actions__edit')
-    expect(@driver.page_source.include?('Embed')).to be(true)
+    expect(@driver.page_source.include?('Report')).to be(true)
     url = @driver.current_url.to_s
     wait_for_selector('.media-actions__embed').click
     wait_for_selector("#media-embed__actions")

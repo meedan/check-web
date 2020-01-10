@@ -13,7 +13,7 @@
   },
   {
     "id": "mediaEmbed.warning",
-    "defaultMessage": "Warning — sharing this will expose information to people outside your private team. Proceed with caution."
+    "defaultMessage": "Warning — sharing this will expose information to people outside your private workspace. Proceed with caution."
   },
   {
     "id": "mediaEmbed.copyButtonInactive",

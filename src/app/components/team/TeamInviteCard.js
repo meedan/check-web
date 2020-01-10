@@ -99,7 +99,7 @@ class TeamInviteCard extends Component {
             <StyledMdCardTitle>
               <FormattedMessage
                 id="teamInviteCard.title"
-                defaultMessage="Build Your Team"
+                defaultMessage="Invite members"
               />
             </StyledMdCardTitle>
 

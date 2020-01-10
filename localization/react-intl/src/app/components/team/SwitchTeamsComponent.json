@@ -1,7 +1,7 @@
 [
   {
     "id": "switchTeams.error",
-    "defaultMessage": "Sorry, an error occurred while updating the team. Please try again and contact {supportEmail} if the condition persists."
+    "defaultMessage": "Sorry, an error occurred while updating the workspace. Please try again and contact {supportEmail} if the condition persists."
   },
   {
     "id": "switchTeams.member",
@@ -13,11 +13,11 @@
   },
   {
     "id": "teams.yourTeams",
-    "defaultMessage": "Your teams"
+    "defaultMessage": "Your workspaces"
   },
   {
     "id": "teams.userTeams",
-    "defaultMessage": "{name}'s teams"
+    "defaultMessage": "{name}'s workspaces"
   },
   {
     "id": "switchTeams.cancelJoinRequest",
@@ -25,10 +25,10 @@
   },
   {
     "id": "switchTeams.noTeams",
-    "defaultMessage": "Not a member of any team."
+    "defaultMessage": "Not a member of any workspace."
   },
   {
     "id": "switchTeams.newTeamLink",
-    "defaultMessage": "Create Team"
+    "defaultMessage": "Create Workspace"
   }
 ]

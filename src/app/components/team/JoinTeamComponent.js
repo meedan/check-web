@@ -22,15 +22,15 @@ const messages = defineMessages({
   success: {
     id: 'joinTeamComponent.success',
     defaultMessage:
-      'Thanks for your interest in joining {team} {appName}! A team leader will review your application soon.',
+      'Thanks for your interest in joining {team}! A workspace administrator will review your application soon.',
   },
   autoApprove: {
     id: 'joinTeamComponent.autoApprove',
-    defaultMessage: 'Thanks for joining {team} {appName}! You can start contributing right away.',
+    defaultMessage: 'Thanks for joining {team}! You can start contributing right away.',
   },
   title: {
     id: 'joinTeamComponent.title',
-    defaultMessage: 'Join Team',
+    defaultMessage: 'Join Workspace',
   },
 });
 
@@ -126,7 +126,6 @@ class JoinTeamComponent extends Component {
 
   render() {
     const { team } = this.props;
-    const appName = mapGlobalMessage(this.props.intl, 'appNameHuman');
     const { requestStatus: isRequestSent } = this.state;
     const disableRequest = isRequestSent !== '';
 
@@ -147,7 +146,7 @@ class JoinTeamComponent extends Component {
               <CardTitle
                 title={<FormattedMessage
                   id="joinTeamComponent.mainHeading"
-                  defaultMessage="Request to Join"
+                  defaultMessage="Request to join"
                 />}
               />
               <CardText>
@@ -157,15 +156,15 @@ class JoinTeamComponent extends Component {
                     return (
                       <FormattedMessage
                         id="joinTeamComponent.alreadyRequested"
-                        defaultMessage="You already requested to join {team} {appName}."
-                        values={{ team: <Link to={`/${team.slug}`}>{team.name}</Link>, appName }}
+                        defaultMessage="You already requested to join {team}."
+                        values={{ team: <Link to={`/${team.slug}`}>{team.name}</Link> }}
                       />
                     );
                   } else if (isRequestSent === 'requested') {
                     return (
                       <FormattedMessage
                         id="joinTeamComponent.requestHasBeenSent"
-                        defaultMessage="Your request has been sent to the project admins for approval."
+                        defaultMessage="Your request has been sent to the workspace administrators for approval."
                       />
                     );
                   }
@@ -173,8 +172,8 @@ class JoinTeamComponent extends Component {
                     <div>
                       <FormattedMessage
                         id="joinTeamComponent.blurbGraf"
-                        defaultMessage="To request access to the {link} {appName}, click below:"
-                        values={{ link: <Link to={`/${team.slug}`}>{team.name}</Link>, appName }}
+                        defaultMessage="To request to join {team}, click below:"
+                        values={{ team: <Link to={`/${team.slug}`}>{team.name}</Link> }}
                       />
                     </div>
                   );

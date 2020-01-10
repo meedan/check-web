@@ -25,11 +25,11 @@
   },
   {
     "id": "TeamMembersListItem.leaveTeam",
-    "defaultMessage": "Leave team"
+    "defaultMessage": "Leave workspace"
   },
   {
     "id": "TeamMembersListItem.singleOwner",
-    "defaultMessage": "Before you can leave the team, please assign ownership to another member."
+    "defaultMessage": "Before you can leave the workspace, please assign ownership to another member."
   },
   {
     "id": "teamMembersListItem.assignmentsProgress",

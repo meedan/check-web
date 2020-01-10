@@ -23,11 +23,11 @@ import {
 const messages = defineMessages({
   teamSlugHint: {
     id: 'findTeamCard.teamSlugHint',
-    defaultMessage: 'team-slug',
+    defaultMessage: 'Workspace URL',
   },
   teamNotFound: {
     id: 'findTeamCard.teamNotFound',
-    defaultMessage: 'Team not found!',
+    defaultMessage: 'Workspace not found!',
   },
 });
 
@@ -102,13 +102,13 @@ class FindTeamCard extends React.Component {
             title={
               <FormattedMessage
                 id="findTeamCard.mainHeading"
-                defaultMessage="Find an existing team"
+                defaultMessage="Find an existing workspace"
               />
             }
             subtitle={
               <FormattedMessage
                 id="findTeamCard.blurb"
-                defaultMessage="Request to join an existing team by adding their name here, or get started by creating your own."
+                defaultMessage="Request to join an existing workspace by adding its name here, or get started by creating your own."
               />
             }
           />
@@ -119,7 +119,7 @@ class FindTeamCard extends React.Component {
                   <label htmlFor="team-slug-container">
                     <FormattedMessage
                       id="findTeamCard.url"
-                      defaultMessage="Team URL"
+                      defaultMessage="Workspace URL"
                     />
                   </label>
                   <TeamUrlDomain>
@@ -146,7 +146,7 @@ class FindTeamCard extends React.Component {
                 label={
                   <FormattedMessage
                     id="findTeamCard.submitButton"
-                    defaultMessage="Find team"
+                    defaultMessage="Find workspace"
                   />
                 }
                 primary
@@ -159,7 +159,7 @@ class FindTeamCard extends React.Component {
           <Link to="/check/teams/new" className="find-team__toggle-create">
             <FormattedMessage
               id="findTeamCard.createYourOwn"
-              defaultMessage="You can also create your own team."
+              defaultMessage="You can also create your own workspace."
             />
           </Link>
         </div>
