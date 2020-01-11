@@ -7,7 +7,7 @@ import IconButton from 'material-ui/IconButton';
 import { FormattedMessage } from 'react-intl';
 import ProjectRoute from '../../relay/ProjectRoute';
 import { urlFromSearchQuery } from '../search/Search';
-import { Row, HeaderTitle, FadeIn, SlideIn, black54 } from '../../styles/js/shared';
+import { Row, Text, HeaderTitle, FadeIn, SlideIn, black54 } from '../../styles/js/shared';
 import CheckContext from '../../CheckContext';
 
 class ProjectHeaderComponent extends React.PureComponent {
@@ -78,7 +78,9 @@ class ProjectHeaderComponent extends React.PureComponent {
               </FadeIn>
             </IconButton>
             <HeaderTitle className="project-header__title">
-              {currentProject ? currentProject.title : <FormattedMessage id="projectHeader.allItems" defaultMessage="All items" />}
+              <Text maxWidth="60%" ellipsis>
+                {currentProject ? currentProject.title : <FormattedMessage id="projectHeader.allItems" defaultMessage="All items" />}
+              </Text>
             </HeaderTitle>
           </Row>
           : null}

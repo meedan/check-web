@@ -8,6 +8,7 @@ import CheckContext from '../../CheckContext';
 import UserMenuItems from '../UserMenuItems';
 import UserAvatar from '../UserAvatar';
 import {
+  Text,
   black54,
   units,
 } from '../../styles/js/shared';
@@ -53,10 +54,16 @@ class UserMenu extends React.Component {
     return (
       <div className="header__user-menu">
         <MenuItem
+          style={{ overflow: 'hidden' }}
           onClick={this.handleClick}
           leftIcon={<UserAvatar size={units(4)} {...this.props} />}
         >
-          <div>{user ? user.name : null} {localizedRoleText}</div>
+          <div>
+            <Text maxWidth="100%" ellipsis>
+              {user ? user.name : null}
+              {localizedRoleText}
+            </Text>
+          </div>
         </MenuItem>
         <Menu
           anchorEl={anchorEl}
