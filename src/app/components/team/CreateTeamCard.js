@@ -41,19 +41,19 @@ const messages = defineMessages({
   },
   createTeamError: {
     id: 'createTeam.createTeamError',
-    defaultMessage: 'Sorry, an error occurred while updating the team. Please try again and contact {supportEmail} if the condition persists.',
+    defaultMessage: 'Sorry, an error occurred while updating the workspace. Please try again and contact {supportEmail} if the condition persists.',
   },
   title: {
     id: 'createTeam.title',
-    defaultMessage: 'Create a Team',
+    defaultMessage: 'Create a workspace',
   },
   teamNameHint: {
     id: 'createTeam.teamNameHint',
-    defaultMessage: 'Team Name',
+    defaultMessage: 'Workspace Name',
   },
   teamSlugHint: {
     id: 'createTeam.teamSlugHint',
-    defaultMessage: 'team-slug',
+    defaultMessage: 'Workspace URL',
   },
 });
 
@@ -160,13 +160,13 @@ class CreateTeamCard extends React.Component {
             title={
               <FormattedMessage
                 id="createTeam.mainHeading"
-                defaultMessage="Create a Team"
+                defaultMessage="Create a workspace"
               />
             }
             subtitle={
               <FormattedMessage
                 id="createTeam.blurb"
-                defaultMessage="Create a team for your organization, or just for yourself:"
+                defaultMessage="Create a workspace for your organization, or just for yourself:"
               />
             }
           />
@@ -183,7 +183,7 @@ class CreateTeamCard extends React.Component {
                   floatingLabelText={
                     <FormattedMessage
                       id="createTeam.displayName"
-                      defaultMessage="Team Name"
+                      defaultMessage="Workspace Name"
                     />
                   }
                   fullWidth
@@ -234,7 +234,7 @@ class CreateTeamCard extends React.Component {
           <Link to="/check/teams/find" className="create-team__toggle-find">
             <FormattedMessage
               id="createTeam.requestToJoin"
-              defaultMessage="You can also request to join an existing team."
+              defaultMessage="You can also request to join an existing workspace."
             />
           </Link>
         </div>

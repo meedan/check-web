@@ -193,7 +193,7 @@ class DrawerNavigationComponent extends Component {
                       className="team-menu__team-settings-button"
                       onClick={this.handleClickTeamSettings.bind(this)}
                       tooltip={
-                        <FormattedMessage id="teamMenu.teamSettings" defaultMessage="Team settings" />
+                        <FormattedMessage id="teamMenu.teamSettings" defaultMessage="Workspace settings" />
                       }
                     >
                       <IconSettings />

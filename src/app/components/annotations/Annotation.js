@@ -229,7 +229,7 @@ const messages = defineMessages({
   },
   newClaim: {
     id: 'annotation.newClaim',
-    defaultMessage: 'New claim added by {author}',
+    defaultMessage: 'New text added by {author}',
   },
   menuTooltip: {
     id: 'annotation.menuTooltip',
@@ -1109,7 +1109,7 @@ class Annotation extends Component {
           <span>
             <FormattedMessage
               id="annotation.projectMoved"
-              defaultMessage="Moved from project {previousProject} to {currentProject} by {author}"
+              defaultMessage="Moved from list {previousProject} to {currentProject} by {author}"
               values={{
                 previousProject: (
                   <Link to={urlPrefix + previousProject.dbid}>
@@ -1162,7 +1162,7 @@ class Annotation extends Component {
           <span>
             <FormattedMessage
               id="annotation.teamCopied"
-              defaultMessage="Copied from project {previousProject} on team {previousTeam} by {author}"
+              defaultMessage="Copied from list {previousProject} on workspace {previousTeam} by {author}"
               values={{
                 previousProject: (
                   <Link to={previousProjectUrl + previousTeam.dbid}>

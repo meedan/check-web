@@ -349,7 +349,7 @@ class TeamTagsComponent extends Component {
                   className="tag__move"
                   onClick={this.handleMove.bind(this, tag)}
                 >
-                  <FormattedMessage id="teamTags.moveTag" defaultMessage="Move to teamwide tags" />
+                  <FormattedMessage id="teamTags.moveTag" defaultMessage="Move to default tags" />
                 </MenuItem>) : null }
             </IconMenu>) : null;
 
@@ -482,7 +482,7 @@ class TeamTagsComponent extends Component {
         <Card style={{ marginTop: units(2) }}>
           <CardHeader
             title={
-              <FormattedMessage id="teamTags.teamwideTags" defaultMessage="Team tags" />
+              <FormattedMessage id="teamTags.teamwideTags" defaultMessage="Default tags" />
             }
           />
           <CardText style={{ padding: 0 }}>
@@ -490,7 +490,7 @@ class TeamTagsComponent extends Component {
               <p style={{ paddingBottom: units(5), textAlign: 'center' }}>
                 <FormattedMessage
                   id="teamTags.noTeamwideTags"
-                  defaultMessage="No team tags."
+                  defaultMessage="No default tags."
                 />
               </p>
               : null }

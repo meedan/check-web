@@ -20,7 +20,7 @@ const StyledIcon = styled.span`
 const messages = defineMessages({
   move: {
     id: 'bulkActions.move',
-    defaultMessage: 'Move selected items to another project',
+    defaultMessage: 'Move selected items to another list',
   },
   delete: {
     id: 'bulkActions.sendItemsToTrash',
@@ -32,7 +32,7 @@ const messages = defineMessages({
   },
   clone: {
     id: 'bulkActions.clone',
-    defaultMessage: 'Copy selected items to another project',
+    defaultMessage: 'Copy selected items to another list',
   },
 });
 
@@ -244,7 +244,7 @@ class BulkActions extends React.Component {
           title={
             <FormattedMessage
               id="bulkActions.dialogMoveTitle"
-              defaultMessage="Move to a different project"
+              defaultMessage="Move to a different list"
             />
           }
         />
@@ -261,7 +261,7 @@ class BulkActions extends React.Component {
           title={
             <FormattedMessage
               id="bulkActions.dialogCloneTitle"
-              defaultMessage="Copy to a different project"
+              defaultMessage="Copy to a different list"
             />
           }
         />

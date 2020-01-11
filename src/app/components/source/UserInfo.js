@@ -48,7 +48,7 @@ const UserInfo = (props) => {
         <StyledContactInfo>
           <FormattedHTMLMessage
             id="UserInfo.dateJoined"
-            defaultMessage="Joined {date} &bull; {teamsCount, plural, =0 {No teams} one {1 team} other {# teams}}"
+            defaultMessage="Joined {date} &bull; {teamsCount, plural, =0 {} one {1 workspace} other {# workspaces}}"
             values={{
               date: props.intl.formatDate(
                 MediaUtil.createdAt({ published: props.user.source.created_at }),

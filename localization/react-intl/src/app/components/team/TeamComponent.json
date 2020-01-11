@@ -4,12 +4,16 @@
     "defaultMessage": "Tasks"
   },
   {
+    "id": "teamSettings.rules",
+    "defaultMessage": "Rules"
+  },
+  {
     "id": "teamSettings.Tags",
     "defaultMessage": "Tags"
   },
   {
     "id": "teamSettings.embed",
-    "defaultMessage": "Embed"
+    "defaultMessage": "Report"
   },
   {
     "id": "teamSettings.integrations",
@@ -18,9 +22,5 @@
   {
     "id": "teamSettings.bots",
     "defaultMessage": "Bots"
-  },
-  {
-    "id": "teamSettings.rules",
-    "defaultMessage": "Rules"
   }
 ]

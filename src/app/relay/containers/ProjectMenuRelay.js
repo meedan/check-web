@@ -33,7 +33,7 @@ class ProjectMenu extends Component {
     const editProjectButton = (
       <SmallerStyledIconButton
         onClick={this.handleEditClick.bind(this)}
-        tooltip={<FormattedMessage id="projectMenuRelay.editProject" defaultMessage="Edit project" />}
+        tooltip={<FormattedMessage id="projectMenuRelay.editProject" defaultMessage="Edit list" />}
       >
         <IconEdit />
       </SmallerStyledIconButton>

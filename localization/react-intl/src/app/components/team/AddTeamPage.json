@@ -1,10 +1,10 @@
 [
   {
     "id": "addTeamPage.titleCreate",
-    "defaultMessage": "Create a Team"
+    "defaultMessage": "Create a workspace"
   },
   {
     "id": "addTeamPage.titleFind",
-    "defaultMessage": "Find an existing team"
+    "defaultMessage": "Find an existing workspace"
   }
 ]

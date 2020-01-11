@@ -67,7 +67,7 @@ const messages = defineMessages({
   },
   quoteInput: {
     id: 'createMedia.quoteInput',
-    defaultMessage: 'Paste or type a claim',
+    defaultMessage: 'Paste or type a text',
   },
   quoteAttributionSourceInput: {
     id: 'createMedia.quoteAttributionSourceInput',
@@ -392,7 +392,7 @@ class CreateMediaInput extends React.Component {
       <StyledTabLabel active={this.state.mode === 'quote'}>
         <StyledIcon><SvgIcon style={styles.svgIcon}><MdFormatQuote /></SvgIcon></StyledIcon>
         <StyledTabLabelText>
-          <FormattedMessage id="createMedia.quote" defaultMessage="Claim" />
+          <FormattedMessage id="createMedia.quote" defaultMessage="Text" />
         </StyledTabLabelText>
       </StyledTabLabel>
     );

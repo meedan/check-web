@@ -84,7 +84,7 @@ class Search extends React.Component {
 
     let title = null;
     if (/^\/.*\/search(\/)?.*/.test(window.location.pathname)) {
-      title = <FormattedMessage id="search.allClamimsTitle" defaultMessage="All claims" />;
+      title = <FormattedMessage id="search.allClaimsTitle" defaultMessage="All items" />;
     }
     if (this.props.page === 'trash') {
       title = this.props.title; // eslint-disable-line prefer-destructuring

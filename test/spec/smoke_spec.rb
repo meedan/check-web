@@ -353,7 +353,7 @@ shared_examples 'smoke' do
     wait_for_selector('.team-menu__team-settings-button').click
     wait_for_selector('.team-settings__tasks-tab').click
     wait_for_selector('.team-tasks')
-    expect(@driver.page_source.include?('No teamwide tasks to display')).to be(true)
+    expect(@driver.page_source.include?('No default tasks to display')).to be(true)
     expect(@driver.page_source.include?('No tasks')).to be(true)
     expect(@driver.page_source.include?('New teamwide task')).to be(false)
 
@@ -363,7 +363,7 @@ shared_examples 'smoke' do
     fill_field('#task-label-input', 'New teamwide task')
     wait_for_selector('.create-task__dialog-submit-button').click
     wait_for_selector('.team-tasks-project')
-    expect(@driver.page_source.include?('No teamwide tasks to display')).to be(false)
+    expect(@driver.page_source.include?('No default tasks to display')).to be(false)
     expect(@driver.page_source.include?('1 task')).to be(true)
     expect(@driver.page_source.include?('New teamwide task')).to be(true)
 
@@ -525,13 +525,11 @@ shared_examples 'smoke' do
     wait_for_selector('.teams a').click
     wait_for_selector(".team-header__drawer-team-link").click
     wait_for_selector('.team__project-title')
-    expect(@driver.page_source.include?('Not assigned to any member')).to be(true)
     expect(@driver.page_source.include?('Assigned to one member')).to be(false)
     ['.team__project button', '.project__assignment-button', '.project__assignment-menu input[type=checkbox]', '.multi__selector-save'].each do |selector|
       wait_for_selector(selector).click
     end
     wait_for_selector('.message')
-    expect(@driver.page_source.include?('Not assigned to any member')).to be(false)
     expect(@driver.page_source.include?('Assigned to one member')).to be(true)
   end
 #project section end
@@ -690,7 +688,7 @@ shared_examples 'smoke' do
     @driver.navigate.refresh
     wait_for_selector('.create-related-media__add-button')
     wait_for_selector_list_size(".media-detail__card-header", 0)
-    expect(@driver.page_source.include?('Add a link or claim')).to be(true)
+    expect(@driver.page_source.include?('Add a link or text')).to be(true)
 
   end
 
@@ -891,8 +889,7 @@ shared_examples 'smoke' do
     @driver.navigate.to 'https://paste.ubuntu.com/'
     title = 'a embed from image' + Time.now.to_i.to_s
     fill_field('#id_poster' , title)
-    el = wait_for_selector('#id_content')
-    el.send_keys(' ')
+    wait_for_selector('#id_content').send_keys(' ')
     @driver.action.send_keys(:control, 'v').perform
     wait_for_text_change(' ',"#id_content", :css)
     expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
@@ -914,8 +911,7 @@ shared_examples 'smoke' do
     el.click
     wait_for_selector("#media-embed__actions")
     expect(@driver.current_url.to_s == "#{url}/embed").to be(true)
-    el = wait_for_selector('#media-embed__actions button + button')
-    el.click
+    wait_for_selector('#media-embed__actions button + button').click
     wait_for_selector("#media-embed__copy-share-url")
     url = wait_for_selector("#media-embed__share-field").value.to_s
     caps = Selenium::WebDriver::Remote::Capabilities.chrome("chromeOptions" => {"args" => [ "--incognito" ]})
@@ -977,14 +973,14 @@ shared_examples 'smoke' do
     wait_for_selector(".medias__item")
     create_media ("claim 2")
     wait_for_selector_list_size(".medias__item", 2)
-    expect(@driver.page_source.include?('Add a link or claim')).to be(false)
+    expect(@driver.page_source.include?('Add a link or text')).to be(false)
     wait_for_selector('.project-list__link + .project-list__link').click #Go to the second project
     wait_for_selector_none(".medias__item")
-    expect(@driver.page_source.include?('Add a link or claim')).to be(true)
+    expect(@driver.page_source.include?('Add a link or text')).to be(true)
     wait_for_selector('.project-list__link').click #Go back to the first project
     wait_for_selector_list_size(".medias__item", 2)
     wait_for_selector(".ag-icon-checkbox-unchecked").click
-    wait_for_selector("span[title='Copy selected items to another project']").click
+    wait_for_selector("span[title='Copy selected items to another list']").click
     wait_for_selector('.Select-input input').send_keys('Project')
     wait_for_selector('.Select-option').click
     move = wait_for_selector('.media-bulk-actions__clone-button')
@@ -1000,7 +996,7 @@ shared_examples 'smoke' do
     wait_for_selector(".ag-icon-checkbox-unchecked").click
     wait_for_selector("span[title='Send selected items to trash']").click #Delete items
     wait_for_selector_none(".medias__item")
-    expect(@driver.page_source.include?('Add a link or claim')).to be(true)
+    expect(@driver.page_source.include?('Add a link or text')).to be(true)
     wait_for_selector(".project-list__item-trash").click #Go to the trash page
     wait_for_selector_list_size(".medias__item", 2)
     expect(@driver.page_source.include?('claim 1')).to be(true)
@@ -1009,12 +1005,6 @@ shared_examples 'smoke' do
 
   it "should move media to another project", bin2: true do
     claim = 'This is going to be moved'
-    claim_name = case @config['app_name']
-      when 'bridge'
-        'quote'
-      when 'check'
-        'claim'
-    end
 
     # Create a couple projects under the same team
     p1 = api_create_team_and_project
@@ -1027,14 +1017,14 @@ shared_examples 'smoke' do
     wait_for_selector('.search__results')
     expect(@driver.page_source.include?(claim)).to be(false)
     expect(@driver.page_source.include?('1 / 1')).to be(false)
-    expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(true)
+    expect(@driver.page_source.include?("Add a link or text")).to be(true)
 
     # Go to the second project, make sure that there is no claim, and thus store the data in local Relay store
     wait_for_selector('.project-list__link + .project-list__link').click
     wait_for_selector('.search__results')
     expect(@driver.page_source.include?(claim)).to be(false)
     expect(@driver.page_source.include?('1 / 1')).to be(false)
-    expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(true)
+    expect(@driver.page_source.include?("Add a link or text")).to be(true)
 
     # Create a claim under project 2
     create_media(claim)
@@ -1043,7 +1033,7 @@ shared_examples 'smoke' do
     wait_for_selector('.medias__item')
     expect(@driver.page_source.include?(claim)).to be(true)
     expect(@driver.page_source.include?('1 / 1')).to be(true)
-    expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(false)
+    expect(@driver.page_source.include?("Add a link or text")).to be(false)
 
     # Move the claim to another project
     wait_for_selector(".ag-icon-checkbox-unchecked").click
@@ -1057,28 +1047,28 @@ shared_examples 'smoke' do
     wait_for_selector('.project-list__link').click
     expect(@driver.current_url.to_s == p1url).to be(true)
     expect(@driver.page_source.include?('1 / 1')).to be(true)
-    expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(false)
+    expect(@driver.page_source.include?("Add a link or text")).to be(false)
 
     # Go back to the second project and make sure that the claim is not there anymore
     wait_for_selector('.project-list__link + .project-list__link').click
     wait_for_selector('.search__results')
     expect(@driver.page_source.include?('1 / 1')).to be(false)
-    expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(true)
+    expect(@driver.page_source.include?("Add a link or text")).to be(true)
 
     # Reload the first project page and make sure that the claim is there
     @driver.navigate.to p1url
     wait_for_selector('.medias__item')
     expect(@driver.page_source.include?(claim)).to be(true)
     expect(@driver.page_source.include?('1 / 1')).to be(true)
-    expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(false)
+    expect(@driver.page_source.include?("Add a link or text")).to be(false)
 
     # Reload the second project page and make sure that the claim is not there
     @driver.navigate.to p2url
     wait_for_selector('.search__results')
     expect(@driver.page_source.include?(claim)).to be(false)
     expect(@driver.page_source.include?('1 / 1')).to be(false)
-    expect(@driver.page_source.include?("Add a link or #{claim_name}")).to be(true)
+    expect(@driver.page_source.include?("Add a link or text")).to be(true)
   end
-#Bulk Actions section end 
+#Bulk Actions section end
 
 end

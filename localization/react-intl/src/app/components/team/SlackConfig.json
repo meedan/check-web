@@ -9,6 +9,6 @@
   },
   {
     "id": "slackConfig.text",
-    "defaultMessage": "Notify a Slack channel every time someone adds to one of your projects."
+    "defaultMessage": "Notify a Slack channel about workspace activity."
   }
 ]

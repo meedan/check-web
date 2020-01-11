@@ -42,7 +42,7 @@ class TeamEmbedComponent extends React.Component {
       this.setState({
         message: <FormattedMessage
           id="teamEmbed.updateFail"
-          defaultMessage="Sorry, an error occurred while updating the settings. Please try again and contact {supportEmail} if the condition persists."
+          defaultMessage="Sorry, an error occurred while updating the report settings. Please try again and contact {supportEmail} if the condition persists."
           values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
         />,
       });
@@ -52,7 +52,7 @@ class TeamEmbedComponent extends React.Component {
       this.setState({
         message: <FormattedMessage
           id="teamEmbed.updateSuccess"
-          defaultMessage="Embed settings updated successfully!"
+          defaultMessage="Report settings updated successfully!"
         />,
       });
     };
@@ -77,7 +77,7 @@ class TeamEmbedComponent extends React.Component {
           <Message message={this.state.message} />
           <CardHeaderOutside
             direction={direction}
-            title={<FormattedMessage id="teamEmbed.title" defaultMessage="Embed settings" />}
+            title={<FormattedMessage id="teamEmbed.title" defaultMessage="Report settings" />}
           />
 
           <Card style={{ marginTop: units(2) }}>
@@ -86,7 +86,7 @@ class TeamEmbedComponent extends React.Component {
                 <FormattedMessage id="teamEmbed.tasks" defaultMessage="Tasks" />
               }
               subtitle={
-                <FormattedMessage id="teamEmbed.tasksSub" defaultMessage="The selected tasks will be included in the embed if they are resolved." />
+                <FormattedMessage id="teamEmbed.tasksSub" defaultMessage="The selected tasks will be included in the report if they are resolved." />
               }
             />
             <CardText>
@@ -111,7 +111,7 @@ class TeamEmbedComponent extends React.Component {
                 <FormattedMessage id="teamEmbed.disclaimer" defaultMessage="Disclaimer" />
               }
               subtitle={
-                <FormattedMessage id="teamEmbed.disclaimerSub" defaultMessage="Disclaimer that will be shown at the bottom of the embed with the team logo." />
+                <FormattedMessage id="teamEmbed.disclaimerSub" defaultMessage="Disclaimer that will be shown at the bottom of the report with the workspace logo." />
               }
             />
             <CardText>

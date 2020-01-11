@@ -239,7 +239,7 @@ class MediaEmbedComponent extends Component {
               <p className="media-embed__warning">
                 <FormattedMessage
                   id="mediaEmbed.warning"
-                  defaultMessage="Warning — sharing this will expose information to people outside your private team. Proceed with caution."
+                  defaultMessage="Warning — sharing this will expose information to people outside your private workspace. Proceed with caution."
                 />
               </p>
               <p className="media-embed__copy-footer">
@@ -270,7 +270,7 @@ class MediaEmbedComponent extends Component {
               <p className="media-embed__warning">
                 <FormattedMessage
                   id="mediaEmbed.warning"
-                  defaultMessage="Warning — sharing this will expose information to people outside your private team. Proceed with caution."
+                  defaultMessage="Warning — sharing this will expose information to people outside your private workspace. Proceed with caution."
                 />
               </p>
               <p className="media-embed__copy-footer">

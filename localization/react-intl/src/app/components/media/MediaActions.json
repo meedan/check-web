@@ -21,11 +21,11 @@
   },
   {
     "id": "mediaActions.memebuster",
-    "defaultMessage": "Meme Generator"
+    "defaultMessage": "Meme designer"
   },
   {
     "id": "mediaActions.report",
-    "defaultMessage": "Report"
+    "defaultMessage": "Report designer"
   },
   {
     "id": "mediaActions.sendToTrash",

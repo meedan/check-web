@@ -11,7 +11,7 @@ import { units } from '../../styles/js/shared';
 const messages = defineMessages({
   choose: {
     id: 'destinationProjects.choose',
-    defaultMessage: 'Choose a project',
+    defaultMessage: 'Choose a list',
   },
 });
 

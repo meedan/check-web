@@ -69,6 +69,10 @@ const StyledSchemaForm = styled.div`
   div + fieldset {
     margin-top: ${units(1)};
   }
+
+  input[type=string] {
+    width: 100%;
+  }
   
   // All Actions fieldset and all rules fieldset
   fieldset fieldset fieldset div + fieldset > div::before,

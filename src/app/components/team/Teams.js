@@ -7,7 +7,7 @@ import { ContentColumn } from '../../styles/js/shared';
 const messages = defineMessages({
   title: {
     id: 'teams.title',
-    defaultMessage: 'Teams',
+    defaultMessage: 'Workspaces',
   },
 });
 

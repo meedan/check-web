@@ -322,8 +322,10 @@ module AppSpecHelpers
   def create_image(file)
     wait_for_selector('#create-media__add-item').click
     wait_for_selector("#create-media__image").click
-    input = wait_for_selector('input[type=file]')
-    input.send_keys(File.join(File.dirname(__FILE__), "#{file}"))
+    wait_for_selector('input[type=file]').send_keys(File.join(File.dirname(__FILE__), "#{file}"))
+
+    sleep 8
+
     wait_for_selector("#create-media-dialog__submit-button").click
   end
 
@@ -350,8 +352,7 @@ module AppSpecHelpers
     @driver.navigate.to @config['self_url']
     wait_for_selector('#create-media__add-item').click
     wait_for_selector("#create-media__image").click
-    input = wait_for_selector('input[type=file]')
-    input.send_keys(File.join(File.dirname(__FILE__), 'test.png'))
+    wait_for_selector('input[type=file]').send_keys(File.join(File.dirname(__FILE__), 'test.png'))
     wait_for_selector_none(".without-file")
     wait_for_selector("#create-media-dialog__submit-button").click
     wait_for_selector(".media__heading").click

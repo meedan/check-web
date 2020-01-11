@@ -59,7 +59,7 @@ const messages = defineMessages({
   needRegister: {
     id: 'home.needRegister',
     defaultMessage:
-      'First you need to register. Once registered, you can request to join the team.',
+      'First you need to register. Once registered, you can request to join the workspace.',
   },
   somethingWrong: {
     id: 'home.somethingWrong',
@@ -75,7 +75,7 @@ const messages = defineMessages({
   },
   invalidTeamInvitation: {
     id: 'home.invalidTeamInvitation',
-    defaultMessage: 'Sorry, the team to which you were invited was not found. Please contact {supportEmail} if you think this is an error.',
+    defaultMessage: 'Sorry, the workspace to which you were invited was not found. Please contact {supportEmail} if you think this is an error.',
   },
   invalidNoInvitation: {
     id: 'home.invalidNoInvitation',

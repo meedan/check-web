@@ -101,7 +101,7 @@ class MediaActions extends Component {
           id="media-actions__memebuster"
           onClick={this.handleMemebuster}
         >
-          <FormattedMessage id="mediaActions.memebuster" defaultMessage="Meme Generator" />
+          <FormattedMessage id="mediaActions.memebuster" defaultMessage="Meme designer" />
         </MenuItem>
       ));
     }
@@ -115,7 +115,7 @@ class MediaActions extends Component {
           id="media-actions__embed"
           onClick={this.handleEmbed.bind(this)}
         >
-          <FormattedMessage id="mediaActions.report" defaultMessage="Report" />
+          <FormattedMessage id="mediaActions.report" defaultMessage="Report designer" />
         </MenuItem>));
     }
 

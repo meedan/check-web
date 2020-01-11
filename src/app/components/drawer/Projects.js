@@ -119,7 +119,7 @@ class DrawerProjectsComponent extends Component {
           <Text style={{ margin: `0 ${units(2)}` }} font={caption}>
             <FormattedMessage
               id="projects.noProjects"
-              defaultMessage="No projects yet."
+              defaultMessage="No lists yet."
             />
           </Text>
         );
@@ -160,7 +160,7 @@ class DrawerProjectsComponent extends Component {
             <Link to={`/${props.team.slug}/search`} className="project-list__link-all">
               <MenuItem
                 className="project-list__item-all"
-                primaryText={<FormattedMessage id="projects.allClaims" defaultMessage="All claims" />}
+                primaryText={<FormattedMessage id="projects.allClaims" defaultMessage="All items" />}
                 secondaryText={String(props.team.medias_count)}
               />
             </Link>

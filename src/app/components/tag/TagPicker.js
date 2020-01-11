@@ -115,7 +115,7 @@ class TagPicker extends React.Component {
         <StyledNotFound>
           <FormattedMessage
             id="tagPicker.emptyTags"
-            defaultMessage="There are currently no tags for this team."
+            defaultMessage="There are currently no tags for this workspace."
           />
         </StyledNotFound>
       );
@@ -180,7 +180,7 @@ class TagPicker extends React.Component {
           <StyledHeadingFirst>
             <FormattedMessage
               id="tagPicker.teamTags"
-              defaultMessage="Team tags"
+              defaultMessage="Default tags"
             />
           </StyledHeadingFirst>
           {
