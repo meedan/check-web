@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import { CardTitle, CardText, CardActions } from 'material-ui/Card';
 import { Link } from 'react-router';
 import styled from 'styled-components';
@@ -140,7 +140,9 @@ class MediaExpandedComponent extends Component {
                 <b style={{ color: checkBlue }}>{sourceName}</b> }
             </span>
             <span style={{ margin: '0 16px' }}> - </span>
-            <span style={{ color: checkBlue }}>{media.media.type}</span>
+            <span style={{ color: checkBlue }}>
+              {MediaUtil.mediaTypeLabel(media.media.type, this.props.intl)}
+            </span>
             <span style={{ margin: '0 16px' }}> - </span>
             <span>
               <FormattedMessage id="mediaExpanded.firstSeen" defaultMessage="First seen: " />
@@ -255,7 +257,7 @@ const MediaExpandedContainer = Relay.createContainer(MediaExpandedComponent, {
           thumbnail_path
           file_path
           embed_path
-          metadata 
+          metadata
         }
         project_source {
           id
@@ -301,4 +303,4 @@ const MediaExpanded = (props) => {
   );
 };
 
-export default MediaExpanded;
+export default injectIntl(MediaExpanded);

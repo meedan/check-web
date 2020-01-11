@@ -1,6 +1,6 @@
 {
   "mediaAnalysis.error": "Could not save analysis.",
   "mediaAnalysis.success": "Analysis saved successfully!",
-  "mediaAnalysis.type": "Type something here...",
+  "mediaAnalysis.type": "Type an analysis of this item that will appear in the item's report...",
   "mediaAnalysis.save": "Save"
 }
