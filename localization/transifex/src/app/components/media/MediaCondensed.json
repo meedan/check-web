@@ -9,7 +9,7 @@
   "mediaCondensed.doneButton": "Done",
   "mediaCondensed.requests": "{count} requests",
   "mediaCondensed.tooltip": "Item actions",
-  "mediaCondensed.promote": "Promote to main item",
-  "mediaCondensed.break": "Break relation to main item",
+  "mediaCondensed.promote": "Promote to primary item",
+  "mediaCondensed.break": "Break relation to primary item",
   "mediaCondensed.edit": "Edit title and description"
 }
