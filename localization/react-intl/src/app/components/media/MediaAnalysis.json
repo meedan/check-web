@@ -9,7 +9,7 @@
   },
   {
     "id": "mediaAnalysis.type",
-    "defaultMessage": "Type something here..."
+    "defaultMessage": "Type an analysis of this item that will appear in the item's report..."
   },
   {
     "id": "mediaAnalysis.save",

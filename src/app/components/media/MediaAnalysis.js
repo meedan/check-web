@@ -105,7 +105,7 @@ class MediaAnalysisComponent extends Component {
             floatingLabelText={
               <FormattedMessage
                 id="mediaAnalysis.type"
-                defaultMessage="Type something here..."
+                defaultMessage="Type an analysis of this item that will appear in the item's report..."
               />
             }
             textareaStyle={{ background: '#fff', padding: units(1) }}

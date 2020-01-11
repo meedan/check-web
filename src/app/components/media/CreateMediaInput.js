@@ -144,7 +144,7 @@ class CreateMediaInput extends React.Component {
       quoteAttributions = JSON.stringify({
         name: document.getElementById('create-media-quote-attribution-source-input').value.trim(),
       });
-      mediaType = 'Claim';
+      mediaType = 'Text';
     } else {
       // TODO Use React ref
       inputValue = document.getElementById('create-media-input').value.trim();
@@ -157,7 +157,7 @@ class CreateMediaInput extends React.Component {
       if (!url.length || inputValue !== url) {
         // if anything other than a single url, save it as a quote
         quote = inputValue;
-        mediaType = 'Claim';
+        mediaType = 'Text';
       }
     }
 
