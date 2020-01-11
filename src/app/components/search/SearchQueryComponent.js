@@ -158,13 +158,9 @@ const StyledFilterChip = styled.div`
   min-width: ${units(5)};
   max-width: ${units(20)};
   ${ellipsisStyles}
-  &:hover {
-    cursor: pointer;
-    background-color: ${black16};
-  }
   ${props =>
     props.active
-      ? `color: ${white}!important; font-weight: 700;`
+      ? `color: ${white}; font-weight: 700;`
       : `color: ${black38};
   `}
   ${props =>
@@ -172,6 +168,11 @@ const StyledFilterChip = styled.div`
       ? `background-color: ${checkBlue};`
       : `background-color: ${black05};
   `}
+  &:hover {
+    color: ${black87};
+    cursor: pointer;
+    background-color: ${black16};
+  }
 `;
 
 const styles = theme => ({
