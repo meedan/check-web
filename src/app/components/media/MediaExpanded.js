@@ -137,10 +137,10 @@ class MediaExpandedComponent extends Component {
               {': '}
               { sourceUrl ?
                 <Link to={sourceUrl} style={{ color: checkBlue }}>{sourceName}</Link> :
-                <b style={{ color: checkBlue }}>{sourceName}</b> }
+                <b>{sourceName}</b> }
             </span>
             <span style={{ margin: '0 16px' }}> - </span>
-            <span style={{ color: checkBlue }}>
+            <span>
               {MediaUtil.mediaTypeLabel(media.media.type, this.props.intl)}
             </span>
             <span style={{ margin: '0 16px' }}> - </span>
@@ -154,7 +154,7 @@ class MediaExpandedComponent extends Component {
               <TimeBefore date={MediaUtil.createdAt({ published: media.last_seen })} />
             </span>
             <span style={{ margin: '0 16px' }}> - </span>
-            <span style={{ color: checkBlue }}>
+            <span>
               <FormattedMessage
                 id="mediaExpanded.requests"
                 defaultMessage="{count} requests"
