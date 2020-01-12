@@ -37,6 +37,14 @@ class Toolbar extends React.Component {
 
     const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
 
+    let perms = { permissions: {}, permission: '' };
+    if (project) {
+      perms = { permissions: project.permissions, permission: 'create Media' };
+    }
+    if (team) {
+      perms = { permissions: team.permissions, permission: 'create ProjectMedia' };
+    }
+
     return (
       <StyledToolbar className="toolbar">
         <FlexRow>
@@ -44,12 +52,9 @@ class Toolbar extends React.Component {
             {actions} {actions ? '|' : null} <span className="toolbar__title">{title}</span>
           </Row>
           <Offset isRtl={isRtl}>
-            { project ?
-              <Can permissions={project.permissions} permission="create Media">
-                <CreateProjectMedia search={search} />
-              </Can>
-              : null
-            }
+            <Can {...perms}>
+              <CreateProjectMedia search={search} team={team} />
+            </Can>
             { page === 'trash' ?
               <EmptyTrashButton teamSlug={team.slug} search={search} /> : null
             }

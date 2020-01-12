@@ -606,7 +606,7 @@ class Task extends Component {
             showExpandableButton
             actAsExpander
           />
-          <CardText expandable className="task__card-text" actAsExpander>
+          <CardText expandable className="task__card-text">
             <Message message={this.state.message} />
             {taskBody}
           </CardText>
