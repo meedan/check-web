@@ -611,7 +611,6 @@ class Task extends Component {
             {taskBody}
           </CardText>
           <CardActions
-            actAsExpander
             expandable
             style={
               {
