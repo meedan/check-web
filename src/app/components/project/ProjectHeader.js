@@ -77,8 +77,8 @@ class ProjectHeaderComponent extends React.PureComponent {
                 </SlideIn>
               </FadeIn>
             </IconButton>
-            <HeaderTitle className="project-header__title">
-              <Text maxWidth="90%" ellipsis>
+            <HeaderTitle className="project-header__title" style={{ maxWidth: '100%' }}>
+              <Text ellipsis>
                 {currentProject ? currentProject.title : <FormattedMessage id="projectHeader.allItems" defaultMessage="All items" />}
               </Text>
             </HeaderTitle>

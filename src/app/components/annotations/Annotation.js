@@ -77,7 +77,6 @@ const StyledDefaultAnnotation = styled.div`
 `;
 
 const StyledAnnotationCardWrapper = styled.div`
-  max-width: ${units(90)};
   width: 100%;
   z-index: initial !important;
 

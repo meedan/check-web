@@ -1,9 +1,5 @@
 [
   {
-    "id": "annotation.timelineTitle",
-    "defaultMessage": "Activity timeline"
-  },
-  {
     "id": "annotation.noAnnotationsYet",
     "defaultMessage": "No activity"
   }

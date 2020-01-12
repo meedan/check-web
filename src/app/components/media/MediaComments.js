@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
 import MediaRoute from '../../relay/MediaRoute';
 import MediasLoading from './MediasLoading';
 import Annotations from '../annotations/Annotations';
 import CheckContext from '../../CheckContext';
+import { FlexRow, subheading2, black87 } from '../../styles/js/shared';
 
-class MediaLogComponent extends Component {
+class MediaCommentsComponent extends Component {
   constructor(props) {
     super(props);
 
@@ -40,7 +42,7 @@ class MediaLogComponent extends Component {
   subscribe() {
     const { pusher } = this.getContext();
     if (pusher) {
-      pusher.subscribe(this.props.media.pusher_channel).bind('media_updated', 'MediaLog', (data, run) => {
+      pusher.subscribe(this.props.media.pusher_channel).bind('media_updated', 'MediaComments', (data, run) => {
         const annotation = JSON.parse(data.message);
         if (annotation.annotated_id === this.props.media.dbid &&
           this.getContext().clientSessionId !== data.actor_session_id
@@ -50,7 +52,7 @@ class MediaLogComponent extends Component {
             return true;
           }
           return {
-            id: `media-log-${this.props.media.dbid}`,
+            id: `media-comments-${this.props.media.dbid}`,
             callback: this.props.relay.forceFetch,
           };
         }
@@ -70,43 +72,48 @@ class MediaLogComponent extends Component {
     const media = Object.assign(this.props.cachedMedia, this.props.media);
 
     return (
-      <Annotations
-        annotations={media.log.edges}
-        annotated={media}
-        annotatedType="ProjectMedia"
-      />
+      <div id="media__comments" style={this.props.style}>
+        <FlexRow>
+          <h2
+            style={{
+              color: black87,
+              flex: 1,
+              font: subheading2,
+              margin: 0,
+            }}
+          >
+            <FormattedMessage
+              id="mediaComments.title"
+              defaultMessage="Comments"
+            />
+          </h2>
+        </FlexRow>
+        <Annotations
+          showAddAnnotation
+          style={{
+            background: 'transparent',
+            border: 0,
+            boxShadow: 'none',
+          }}
+          annotations={media.log.edges}
+          annotated={media}
+          annotatedType="ProjectMedia"
+        />
+      </div>
     );
   }
 }
 
-MediaLogComponent.contextTypes = {
+MediaCommentsComponent.contextTypes = {
   store: PropTypes.object,
 };
 
 const pageSize = 30;
+const eventTypes = ['create_comment'];
+const fieldNames = [];
+const annotationTypes = [];
 
-const eventTypes = [
-  'create_tag', 'destroy_comment', 'create_task', 'create_relationship',
-  'destroy_relationship', 'create_assignment', 'destroy_assignment', 'create_dynamic',
-  'update_dynamic', 'create_dynamicannotationfield', 'update_dynamicannotationfield',
-  'create_flag', 'update_embed', 'create_embed', 'update_projectmedia', 'copy_projectmedia',
-  'update_task',
-];
-
-const fieldNames = [
-  'suggestion_free_text', 'suggestion_yes_no', 'suggestion_single_choice',
-  'suggestion_multiple_choice', 'suggestion_geolocation', 'suggestion_datetime',
-  'response_free_text', 'response_yes_no', 'response_single_choice', 'response_multiple_choice',
-  'response_geolocation', 'response_datetime', 'metadata_value', 'verification_status_status',
-  'team_bot_response_formatted_data', 'reverse_image_path', 'translation_text', 'mt_translations',
-  'translation_status_status', 'translation_published', 'archive_is_response',
-  'archive_org_response', 'keep_backup_response', 'memebuster_operation', 'embed_code_copied',
-  'pender_archive_response', 'perma_cc_response',
-];
-
-const annotationTypes = ['translation_status', 'verification_status'];
-
-const MediaLogContainer = Relay.createContainer(MediaLogComponent, {
+const MediaCommentsContainer = Relay.createContainer(MediaCommentsComponent, {
   initialVariables: {
     pageSize,
     eventTypes,
@@ -132,28 +139,6 @@ const MediaLogContainer = Relay.createContainer(MediaLogComponent, {
               object_after,
               object_changes_json,
               meta,
-              teams(first: 2) {
-                edges {
-                  node {
-                    id,
-                    dbid,
-                    name,
-                    slug
-                  }
-                }
-              }
-              projects(first: 2) {
-                edges {
-                  node {
-                    id,
-                    dbid,
-                    title
-                    team {
-                      slug
-                    }
-                  }
-                }
-              }
               user {
                 id,
                 dbid,
@@ -164,18 +149,6 @@ const MediaLogContainer = Relay.createContainer(MediaLogComponent, {
                   dbid,
                   image,
                 }
-              }
-              task {
-                id,
-                dbid,
-                label,
-                type
-              }
-              tag {
-                id
-                dbid
-                tag
-                tag_text
               }
               annotation {
                 id,
@@ -264,18 +237,19 @@ const MediaLogContainer = Relay.createContainer(MediaLogComponent, {
   },
 });
 
-const MediaLog = (props) => {
+const MediaComments = (props) => {
   const ids = `${props.media.dbid},${props.media.project_id}`;
   const route = new MediaRoute({ ids });
 
   return (
     <Relay.RootContainer
-      Component={MediaLogContainer}
-      renderFetched={data => <MediaLogContainer cachedMedia={props.media} {...data} />}
+      Component={MediaCommentsContainer}
+      renderFetched={data =>
+        <MediaCommentsContainer cachedMedia={props.media} style={props.style} {...data} />}
       route={route}
       renderLoading={() => <MediasLoading count={1} />}
     />
   );
 };
 
-export default MediaLog;
+export default MediaComments;
