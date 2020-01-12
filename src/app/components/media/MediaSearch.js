@@ -81,7 +81,7 @@ const StyledPager = styled.div`
   }
  
   @media (max-width: 1300px) {
-    width: 100%;
+    width: 20%;
     right: 24px;
     left: auto;
   }
