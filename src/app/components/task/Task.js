@@ -604,12 +604,14 @@ class Task extends Component {
             subtitle={taskDescription}
             id={`task__label-${task.id}`}
             showExpandableButton
+            actAsExpander
           />
           <CardText expandable className="task__card-text">
             <Message message={this.state.message} />
             {taskBody}
           </CardText>
           <CardActions
+            actAsExpander
             expandable
             style={
               {

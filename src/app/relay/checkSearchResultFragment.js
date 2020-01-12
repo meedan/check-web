@@ -7,6 +7,7 @@ const checkSearchResultFragment = Relay.QL`
     team {
       slug
       search_id,
+      permissions,
       search { id, number_of_results },
       check_search_trash { id, number_of_results },
       get_embed_whitelist

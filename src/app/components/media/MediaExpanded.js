@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import { CardTitle, CardText, CardActions } from 'material-ui/Card';
 import { Link } from 'react-router';
 import styled from 'styled-components';
@@ -137,10 +137,12 @@ class MediaExpandedComponent extends Component {
               {': '}
               { sourceUrl ?
                 <Link to={sourceUrl} style={{ color: checkBlue }}>{sourceName}</Link> :
-                <b style={{ color: checkBlue }}>{sourceName}</b> }
+                <b>{sourceName}</b> }
             </span>
             <span style={{ margin: '0 16px' }}> - </span>
-            <span style={{ color: checkBlue }}>{media.media.type}</span>
+            <span>
+              {MediaUtil.mediaTypeLabel(media.media.type, this.props.intl)}
+            </span>
             <span style={{ margin: '0 16px' }}> - </span>
             <span>
               <FormattedMessage id="mediaExpanded.firstSeen" defaultMessage="First seen: " />
@@ -152,7 +154,7 @@ class MediaExpandedComponent extends Component {
               <TimeBefore date={MediaUtil.createdAt({ published: media.last_seen })} />
             </span>
             <span style={{ margin: '0 16px' }}> - </span>
-            <span style={{ color: checkBlue }}>
+            <span>
               <FormattedMessage
                 id="mediaExpanded.requests"
                 defaultMessage="{count} requests"
@@ -255,6 +257,7 @@ const MediaExpandedContainer = Relay.createContainer(MediaExpandedComponent, {
           thumbnail_path
           file_path
           embed_path
+          metadata
         }
         project_source {
           id
@@ -300,4 +303,4 @@ const MediaExpanded = (props) => {
   );
 };
 
-export default MediaExpanded;
+export default injectIntl(MediaExpanded);

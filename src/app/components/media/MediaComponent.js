@@ -10,6 +10,7 @@ import MediaRelated from './MediaRelated';
 import MediaTasks from './MediaTasks';
 import MediaAnalysis from './MediaAnalysis';
 import MediaLog from './MediaLog';
+import MediaComments from './MediaComments';
 import MediaUtil from './MediaUtil';
 import CheckContext from '../../CheckContext';
 import {
@@ -227,6 +228,7 @@ class MediaComponent extends Component {
               { this.state.showTab === 'tasks' ? <MediaTasks media={media} /> : null }
               { this.state.showTab === 'analysis' ? <MediaAnalysis media={media} /> : null }
               { this.state.showTab === 'activity' ? <MediaLog media={media} /> : null }
+              <MediaComments media={media} style={{ marginTop: units(5) }} />
             </ContentColumn>
           </StyledTwoColumnLayout>
         </StyledBackgroundColor>

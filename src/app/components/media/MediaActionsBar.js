@@ -546,7 +546,7 @@ class MediaActionsBarComponent extends Component {
     );
 
     return (
-      <div style={this.props.style}>
+      <div style={this.props.style} className={this.props.className}>
         { !media.archived ?
           <div>
             <RaisedButton

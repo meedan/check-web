@@ -1,22 +1,4 @@
 {
-  "mediaDetail.mediaTitle": "Title",
-  "mediaDetail.mediaDescription": "Description",
-  "mediaDetail.editReport": "Edit",
-  "mediaDetail.editReportError": "Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists.",
-  "mediaDetail.trash": "Trash",
-  "mediaMetadata.movedToTrash": "Sent to {trash}",
-  "mediaMetadata.addedToList": "Added to list {listName}",
-  "mediaMetadata.removedFromList": "Removed from list",
-  "mediaMetadata.movedBack": "Moved back to list {project}",
-  "mediaDetail.byUser": "by {username}",
-  "mediaDetail.cancelButton": "Cancel",
-  "mediaDetail.move": "Move",
-  "mediaDetail.add": "Add",
-  "mediaDetail.done": "Done",
-  "mediaDetail.doneButton": "Done",
-  "mediaDetail.addedBy": "Added {byUser}",
-  "mediaDetail.assignedTo": "Assigned to {name}",
-  "mediaDetail.dialogMoveTitle": "Move to a different list",
-  "mediaDetail.dialogAddToListTitle": "Add to a different list",
-  "mediaDetail.assignDialogHeader": "Assignment"
+  "mediaMetadata.reverseImageSearch": "Reverse image search",
+  "mediaMetadata.download": "Download"
 }

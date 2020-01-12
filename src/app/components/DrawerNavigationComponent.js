@@ -162,7 +162,14 @@ class DrawerNavigationComponent extends Component {
     };
 
     return (
-      <Drawer {...this.props} containerStyle={{ boxShadow: 'none', borderRight: 'solid 1px #e0e0e0' }}>
+      <Drawer
+        {...this.props}
+        containerStyle={{
+          boxShadow: 'none',
+          borderRight: 'solid 1px #e0e0e0',
+          overflow: 'unset',
+        }}
+      >
         <div>
 
           {inTeamContext ?

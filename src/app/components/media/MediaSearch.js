@@ -28,6 +28,32 @@ const messages = defineMessages({
   },
 });
 
+const StyledTopBar = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+
+  .media-search__actions-bar {
+    width: 50%;
+    position: absolute;
+    height: 64px;
+    right: 0;
+    top: 0;
+    display: flex;
+    align-items: center;
+    z-index: 2;
+    padding: 0 16px;
+    justify-content: space-between;
+  }
+  
+  @media (max-width: 1300px) {
+    .media-search__actions-bar {
+      width: 100%;
+      position: static;
+      margin-top: -28px;
+    }
+  }
+`;
+
 const StyledPager = styled.div`
   position: absolute;
   top: 0;
@@ -42,16 +68,22 @@ const StyledPager = styled.div`
   font-size: ${units(2)};
   color: ${black54};
 
-  @media (max-width: 650px) {
-    top: 43px;
-  }
-
   button {
     background: transparent;
     border: 0;
     color: ${black54};
     cursor: pointer;
     outline: 0;
+  }
+
+  @media (max-width: 650px) {
+    top: 43px;
+  }
+ 
+  @media (max-width: 1300px) {
+    width: 100%;
+    right: 24px;
+    left: auto;
   }
 `;
 
@@ -142,7 +174,7 @@ class MediaSearchComponent extends React.Component {
 
     return (
       <div>
-        <div style={{ display: 'flex' }}>
+        <StyledTopBar>
           <StyledPager>
             <Tooltip title={this.props.intl.formatMessage(messages.previousItem)}>
               <button onClick={this.previousItem.bind(this)} id="media-search__previous-item">
@@ -157,18 +189,7 @@ class MediaSearchComponent extends React.Component {
             </Tooltip>
           </StyledPager>
           <MediaActionsBar
-            style={{
-              width: '50%',
-              position: 'absolute',
-              height: 64,
-              right: 0,
-              top: 0,
-              display: 'flex',
-              alignItems: 'center',
-              zIndex: 2,
-              padding: '0 16px',
-              justifyContent: 'space-between',
-            }}
+            className="media-search__actions-bar"
             router={this.props.context.router}
             route={this.props.route}
             params={{
@@ -176,7 +197,7 @@ class MediaSearchComponent extends React.Component {
               mediaId: media.dbid,
             }}
           />
-        </div>
+        </StyledTopBar>
 
         <Media
           router={this.props.context.router}
