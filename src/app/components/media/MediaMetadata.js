@@ -6,6 +6,7 @@ import rtlDetect from 'rtl-detect';
 import FlatButton from 'material-ui/FlatButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import DownloadIcon from 'material-ui/svg-icons/content/move-to-inbox';
+import ExternalLink from '../ExternalLink';
 import MediaTags from './MediaTags';
 import ClaimReview from './ClaimReview';
 import TagMenu from '../tag/TagMenu';
@@ -67,22 +68,6 @@ class MediaMetadata extends Component {
     window.open(`https://www.google.com/searchbyimage?image_url=${imagePath}`);
   }
 
-  handleDownload() {
-    const fileUrl = this.props.media.media.file_path;
-    const ext = fileUrl.match(/(\.[^.]+)$/)[1];
-    // window.open(fileUrl);
-    window.fetch(fileUrl).then(res => res.blob()).then((blob) => {
-      const url = window.URL.createObjectURL(new Blob([blob]));
-      const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', `file${ext}`);
-      link.style.display = 'none';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    });
-  }
-
   render() {
     const { media, intl: { locale } } = this.props;
     const data = media.metadata;
@@ -125,8 +110,8 @@ class MediaMetadata extends Component {
                   display: 'flex',
                 }}
               >
-                <span
-                  onClick={this.handleDownload.bind(this)}
+                <ExternalLink
+                  url={this.props.media.media.file_path}
                   style={{
                     cursor: 'pointer',
                     height: 36,
@@ -148,7 +133,7 @@ class MediaMetadata extends Component {
                   >
                     <DownloadIcon style={{ margin: 6 }} />
                   </Tooltip>
-                </span>
+                </ExternalLink>
               </div> : null }
           </Row> : null }
         <Row>
