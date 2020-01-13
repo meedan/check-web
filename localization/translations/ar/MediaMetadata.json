@@ -1,18 +1,4 @@
 {
-  "mediaDetail.mediaTitle": "العنوان",
-  "mediaDetail.mediaDescription": "وصف",
-  "mediaDetail.editReport": "تحرير",
-  "mediaDetail.editReportError": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث العنصر. من فضلك أعد المحاولة وتواصل مع {supportEmail} إن استمرت المشكلة.",
-  "mediaDetail.trash": "سلة المهملات",
-  "mediaMetadata.movedToTrash": "تم الارسال إلى {trash}",
-  "mediaMetadata.movedBack": "تمت اﻹستعادة إلى مشروع {project}",
-  "mediaDetail.byUser": "من {username}",
-  "mediaDetail.cancelButton": "إلغاء",
-  "mediaDetail.move": "نقل",
-  "mediaDetail.done": "إتمام",
-  "mediaDetail.doneButton": "إتمام",
-  "mediaDetail.addedBy": "أضيف {byUser}",
-  "mediaDetail.assignedTo": "مُكَلَّف إلى {name}",
-  "mediaDetail.dialogMoveTitle": "نقل إلى مشروع آخر",
-  "mediaDetail.assignDialogHeader": "التكليف"
+  "mediaMetadata.reverseImageSearch": "Reverse image search",
+  "mediaMetadata.download": "Download"
 }

@@ -1,8 +1,5 @@
 {
-  "headerActions.tos": "شروط الاستخدام",
-  "headerActions.privacyPolicy": "سياسة الخصوصية",
-  "headerActions.about": "عن",
-  "headerActions.contactHuman": "اﻹتصال",
-  "headerActions.productGuides": "دليل المنتجات",
-  "headerActions.releaseNotes": "ملاحظات الإصدار"
+  "teamMenu.teamSettings": "Workspace settings",
+  "projects.trash": "Trash",
+  "headerActions.signIn": "Sign In"
 }

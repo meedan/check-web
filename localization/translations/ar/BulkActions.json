@@ -1,14 +1,14 @@
 {
-  "bulkActions.move": "نقل ‏‏العناصر المحددة إلى مشروع آخر",
+  "bulkActions.move": "Move selected items to another list",
   "bulkActions.sendItemsToTrash": "ارسال العناصر المحددة إلى سلة المهملات",
   "bulkActions.selectAll": "‏‏تحديد كافة العناصر في الصفحة",
-  "bulkActions.clone": "نسخ ‏‏العناصر المحددة إلى مشروع آخر",
+  "bulkActions.clone": "Copy selected items to another list",
   "bulkActions.clonedSuccessfully": "تم ! يرجى ملاحظة أن الأمر قد يستغرق بعض الوقت حتى يتم نسخ العناصر بالفعل.",
   "bulkActions.movedSuccessfully": "تم ! يرجى ملاحظة أن الأمر قد يستغرق بعض الوقت حتى يتم نقل العناصر بالفعل.",
   "bulkActions.moveToTrashSuccessfully": "تم ! يرجى ملاحظة أن الأمر قد يستغرق بعض الوقت حتى يتم نقل العناصر إلى سلة المهملات بالفعل.",
   "bulkActions.cancelButton": "إلغاء",
   "bulkActions.moveTitle": "نقل",
   "bulkActions.cloneTitle": "نسخ",
-  "bulkActions.dialogMoveTitle": "نقل إلى مشروع آخر",
-  "bulkActions.dialogCloneTitle": "نسخ إلى مشروع آخر"
+  "bulkActions.dialogMoveTitle": "Move to a different list",
+  "bulkActions.dialogCloneTitle": "Copy to a different list"
 }

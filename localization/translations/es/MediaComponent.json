@@ -1,4 +1,5 @@
 {
-  "mediaComponent.verificationTasks": "Tareas del ítem",
-  "mediaComponent.resolved": "Resuelto "
+  "mediaComponent.tasks": "Tasks",
+  "mediaComponent.analysis": "Analysis",
+  "mediaComponent.activity": "Activity"
 }

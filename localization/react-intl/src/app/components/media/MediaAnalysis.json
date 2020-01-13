@@ -1,11 +1,7 @@
 [
   {
     "id": "mediaAnalysis.error",
-    "defaultMessage": "Could not save analysis."
-  },
-  {
-    "id": "mediaAnalysis.success",
-    "defaultMessage": "Analysis saved successfully!"
+    "defaultMessage": "Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists."
   },
   {
     "id": "mediaAnalysis.type",

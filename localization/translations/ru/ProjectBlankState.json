@@ -1,5 +1,4 @@
 {
-  "ProjectBlankState.createMedia": "Добавьте ссылку или высказывание,<br>чтобы начать верификацию",
-  "ProjectBlankState.createMediaBridge": "Добавьте ссылку или цитату,<br>чтобы начать перевод",
+  "ProjectBlankState.createMedia": "Add a link or text",
   "userAssignments.blank": "Нет активности"
 }

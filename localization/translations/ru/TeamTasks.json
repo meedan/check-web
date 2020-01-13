@@ -1,7 +1,7 @@
 {
   "teamTasks.filterLabelHidden": "{total, plural, =0 {Нет вопросов} one {1 вопрос (скрыто фильтрами: {hidden})} other {Вопросов: # (скрыто фильтрами: {hidden})}}",
   "teamTasks.filterLabel": "{total, plural, =0 {Нет вопросов} one {1 вопрос} other {Вопросов: #}}",
-  "teamTasks.blank": "Нет общих вопросов к отображению",
+  "teamTasks.blank": "No default tasks to display",
   "teamTasks.title": "Вопросы",
   "teamTasks.filter": "Фильтр вопросов",
   "teamTasks.projFilter": "Показать вопросы в",

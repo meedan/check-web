@@ -1,5 +1,5 @@
 {
   "slackConfig.title": "Integrarea Slack",
   "slackConfig.menuTooltip": "Integration settings",
-  "slackConfig.text": "Notifică un canal Slack de fiecare dată când cineva adaugăceva la unul din dosarele dvs."
+  "slackConfig.text": "Notify a Slack channel about workspace activity."
 }

@@ -1,6 +1,6 @@
 {
-  "projectEdit.error": "Ne pare rău, în timpul actualizării dosarului s-a produs o eroare. Vă rugăm să mai încercați odată și să contactați {supportEmail} dacă situația persistă.",
-  "projectEdit.titleField": "Titlul dosarului",
-  "projectEdit.descriptionField": "Descrierea dosarului",
+  "projectEdit.error": "Sorry, an error occurred while updating the list. Please try again and contact {supportEmail} if the condition persists.",
+  "projectEdit.titleField": "Title",
+  "projectEdit.descriptionField": "Description",
   "projectEdit.saveButton": "Salvează"
 }

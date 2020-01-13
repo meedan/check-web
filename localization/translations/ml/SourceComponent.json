@@ -24,6 +24,7 @@
   "sourceNoMedia": "No media attributed to this source",
   "sourceComponent.conflictError": "This item was edited by another user while you were making your edits. Please save your changes and {reloadLink}.",
   "sourceComponent.clickToReload": "click here to reload",
+  "sourceMenuRelay.editSource": "Edit source",
   "sourceComponent.dateAdded": "Added {date} • Source of {number} links",
   "sourceComponent.medias": "Media",
   "sourceComponent.notes": "Notes",

@@ -1,7 +1,7 @@
 {
-  "createProject.addProject": "Novo projeto",
-  "createProject.title": "Novo projeto",
-  "createProject.titleBlank": "Adicione seu primeiro projeto",
-  "createProject.newProjectName": "Nome do Projeto",
-  "createProject.error": "Desculpe, ocorreu um erro ao atualizar o projeto. Por favor, tente novamente e entre em contato com {supportEmail} se a condição persistir."
+  "createProject.addProject": "Criar lista",
+  "createProject.title": "Adicionar uma lista",
+  "createProject.titleBlank": "Adicione sua primeira lista",
+  "createProject.newProjectName": "Nome da lista",
+  "createProject.error": "Desculpe, ocorreu um erro ao atualizar a lista. Por favor, tente novamente e entre em contato com {supportEmail} se a condição persistir."
 }

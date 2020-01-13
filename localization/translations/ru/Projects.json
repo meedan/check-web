@@ -1,6 +1,7 @@
 {
-  "projects.addProject": "Add project",
+  "projects.addProject": "Add list",
   "projects.dismiss": "Dismiss",
-  "projects.noProjects": "Проектов пока нет.",
-  "projects.projectsSubheading": "Проекты"
+  "projects.noProjects": "No lists yet.",
+  "projects.allClaims": "All items",
+  "projects.newList": "+ New list"
 }

@@ -1,3 +1,3 @@
 {
-  "createTeamTask.error": "Nu am reușit să creăm sarcina la nivel de echipă"
+  "createTeamTask.error": "Failed to create default task"
 }

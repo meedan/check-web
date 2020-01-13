@@ -1,6 +1,18 @@
 {
-  "teamRules.success": "Rules updated successfully!",
-  "teamRules.fail": "Error when trying to update rules.",
-  "teamRules.title": "Rules",
-  "teamRules.save": "Save"
+  "teamRules.add": "+ ET",
+  "teamRules.and": "ET",
+  "teamRules.if": "SI",
+  "teamRules.then": "ALORS",
+  "teamRules.newRule": "Nouvelle règle",
+  "teamRules.confirmDeleteRule": "Voulez-vous vraiment supprimer la règle \"{ruleName}\" ?",
+  "teamRules.success": "Les règles ont été sauvegardées avec succès.",
+  "teamRules.fail": "Une erreur s'est produite durant la sauvegarde des règles.",
+  "teamRules.nameMandatory": "Veuillez fournir un nom à cette règle",
+  "teamRules.deleted": "Règle supprimée",
+  "teamRules.edit": "Modifier la règle",
+  "teamRules.delete": "Supprimer la règle",
+  "teamRules.title": "Règles",
+  "teamRules.back": "Retour",
+  "teamRules.save": "Sauvegarder",
+  "teamRules.none": "Aucune règle."
 }

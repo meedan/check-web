@@ -1,7 +1,7 @@
 {
   "teamTasks.filterLabelHidden": "{total, plural, =0 {Nu sunt sarcini} one {1 sarcină ({hidden} ascunsă de filtre)} other {# sarcini ({hidden} ascunse de filtre)}}",
   "teamTasks.filterLabel": "{total, plural, =0 {Nu sunt sarcini} one {1 sarcină} other {# sarcini}}",
-  "teamTasks.blank": "Nu echistă sarcini la nivel de echipă pentru afișare",
+  "teamTasks.blank": "No default tasks to display",
   "teamTasks.title": "Sarcini",
   "teamTasks.filter": "Filtrează sarcinile",
   "teamTasks.projFilter": "Arată sarcinile în",

@@ -2,7 +2,7 @@
   "mediaEmbed.customizationOptionShowCompleteTasks": "Показать вопросы с ответами",
   "mediaEmbed.customizationOptionShowIncompleteTasks": "Показать вопросы без ответов",
   "mediaEmbed.customizationOptionShowNotes": "Показать заметки",
-  "mediaEmbed.warning": "Внимание! Распространение URL или кода для вставки сделает материал публичным. Вы уверены?",
+  "mediaEmbed.warning": "Warning — sharing this will expose information to people outside your private workspace. Proceed with caution.",
   "mediaEmbed.copyButtonInactive": "Скопировано",
   "mediaEmbed.copyButton": "Копировать",
   "mediaEmbed.copyEmbedCode": "Код для вставки",

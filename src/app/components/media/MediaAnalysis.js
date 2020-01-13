@@ -10,6 +10,7 @@ import CreateAnalysisMutation from '../../relay/mutations/CreateAnalysisMutation
 import UpdateAnalysisMutation from '../../relay/mutations/UpdateAnalysisMutation';
 import { units } from '../../styles/js/shared';
 import CheckContext from '../../CheckContext';
+import { stringHelper } from '../../customHelpers';
 
 class MediaAnalysisComponent extends Component {
   constructor(props) {
@@ -30,14 +31,18 @@ class MediaAnalysisComponent extends Component {
     const media = Object.assign(cachedMedia, this.props.media);
 
     const onFailure = () => {
-      const message = <FormattedMessage id="mediaAnalysis.error" defaultMessage="Could not save analysis." />;
+      const message = (<FormattedMessage
+        id="mediaAnalysis.error"
+        defaultMessage="Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists."
+        values={{
+          supportEmail: stringHelper('SUPPORT_EMAIL'),
+        }}
+      />);
       this.context.setMessage(message);
       this.setState({ saving: false });
     };
 
     const onSuccess = () => {
-      const message = <FormattedMessage id="mediaAnalysis.success" defaultMessage="Analysis saved successfully!" />;
-      this.context.setMessage(message);
       this.setState({ saving: false });
     };
 

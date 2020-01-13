@@ -2,14 +2,14 @@
   "createTeam.slugChecking": "Comprobando disponibilidad... ",
   "createTeam.slugAvailable": "Disponible",
   "createTeam.slugUnavailable": "Lo sentimos, esta URL no está disponible. Por favor, intente otro.",
-  "createTeam.createTeamError": "Lo sentimos, se produjo un error al actualizar el equipo. Vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}.",
-  "createTeam.title": "Crea un equipo",
-  "createTeam.teamNameHint": "Nombre del equipo ",
-  "createTeam.teamSlugHint": "slug del equipo",
-  "createTeam.mainHeading": "Crea un equipo",
-  "createTeam.blurb": "Crea un equipo para tu organización o solo para ti: ",
-  "createTeam.displayName": "Nombre del equipo ",
+  "createTeam.createTeamError": "Sorry, an error occurred while updating the workspace. Please try again and contact {supportEmail} if the condition persists.",
+  "createTeam.title": "Create a workspace",
+  "createTeam.teamNameHint": "Workspace Name",
+  "createTeam.teamSlugHint": "Workspace URL",
+  "createTeam.mainHeading": "Create a workspace",
+  "createTeam.blurb": "Create a workspace for your organization, or just for yourself:",
+  "createTeam.displayName": "Workspace Name",
   "createTeam.url": "URL del equipo",
   "createTeam.submitButton": "Crear",
-  "createTeam.requestToJoin": "También puedes solicitar para unirte a un equipo existente."
+  "createTeam.requestToJoin": "You can also request to join an existing workspace."
 }

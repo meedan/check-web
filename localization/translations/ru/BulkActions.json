@@ -1,14 +1,14 @@
 {
-  "bulkActions.move": "Переместить выбранное в другой проект",
+  "bulkActions.move": "Move selected items to another list",
   "bulkActions.sendItemsToTrash": "Отправить выбранное в корзину",
   "bulkActions.selectAll": "Выбрать все материалы на странице",
-  "bulkActions.clone": "Copy selected items to another project",
+  "bulkActions.clone": "Copy selected items to another list",
   "bulkActions.clonedSuccessfully": "Done! Please note that it can take a while until the items are actually cloned.",
   "bulkActions.movedSuccessfully": "Готово! Обратите внимание, что перемещение материалов может занять некоторое время.",
   "bulkActions.moveToTrashSuccessfully": "Готово! Обратите внимание, что перемещение материалов в корзину может занять некоторое время.",
   "bulkActions.cancelButton": "Отменить",
   "bulkActions.moveTitle": "Переместить",
   "bulkActions.cloneTitle": "Copy",
-  "bulkActions.dialogMoveTitle": "Move to a different project",
-  "bulkActions.dialogCloneTitle": "Copy to a different project"
+  "bulkActions.dialogMoveTitle": "Move to a different list",
+  "bulkActions.dialogCloneTitle": "Copy to a different list"
 }

@@ -1,10 +1,10 @@
 {
-  "switchTeams.error": "Désolé, une erreur s'est produite durant la mise à jour de l'équipe. Veuillez réessayer et prévenir {supportEmail} si le problème persiste.",
+  "switchTeams.error": "Désolé, une erreur s'est produite durant la mise à jour de l'espace de travail. Veuillez réessayer et prévenir {supportEmail} si le problème persiste.",
   "switchTeams.member": "{membersCount, plural, =0 {Aucun membre} one {1 membre} other {# membres}}",
-  "switchTeams.joinRequestMessage": "Vous avez demandé à rejoindre",
-  "teams.yourTeams": "Vos équipes",
-  "teams.userTeams": "Les équipes de {name}",
+  "switchTeams.joinRequestMessage": "Vous avez demandé à intégrer",
+  "teams.yourTeams": "Vos espaces de travail",
+  "teams.userTeams": "Espaces de travail de {name}",
   "switchTeams.cancelJoinRequest": "Annuler",
-  "switchTeams.noTeams": "Membre d'aucune équipe.",
-  "switchTeams.newTeamLink": "Créer une équipe"
+  "switchTeams.noTeams": "Membre d'aucun espace de travail.",
+  "switchTeams.newTeamLink": "Créer un espace de travail"
 }

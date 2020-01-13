@@ -1,10 +1,10 @@
 {
-  "teamEmbed.updateFail": "Lo sentimos, se produjo un error al actualizar las configuraciones. Vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}.",
-  "teamEmbed.updateSuccess": "¡Las configuraciones de Incrustación se han actualizado con éxito!",
-  "teamEmbed.title": "Configuración de Incrustación  ",
+  "teamEmbed.updateFail": "Sorry, an error occurred while updating the report settings. Please try again and contact {supportEmail} if the condition persists.",
+  "teamEmbed.updateSuccess": "Report settings updated successfully!",
+  "teamEmbed.title": "Report settings",
   "teamEmbed.tasks": "Tareas",
-  "teamEmbed.tasksSub": "Solo las tareas resueltas se incluirán en la inserción.",
+  "teamEmbed.tasksSub": "The selected tasks will be included in the report if they are resolved.",
   "teamEmbed.disclaimer": "Declinación de responsabilidades",
-  "teamEmbed.disclaimerSub": "El aviso de declinación de responsabilidades, se mostrará al final de la incrustación junto al logo del equipo.",
+  "teamEmbed.disclaimerSub": "Disclaimer that will be shown at the bottom of the report with the workspace logo.",
   "teamEmbed.save": "Guardar"
 }

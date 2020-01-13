@@ -1,14 +1,14 @@
 {
-  "bulkActions.move": "Mută elementele selectate în alt dosar",
+  "bulkActions.move": "Move selected items to another list",
   "bulkActions.sendItemsToTrash": "Trimite elementele selectate în coș",
   "bulkActions.selectAll": "Selectează toate elementele pe această pagină",
-  "bulkActions.clone": "Copy selected items to another project",
+  "bulkActions.clone": "Copy selected items to another list",
   "bulkActions.clonedSuccessfully": "Done! Please note that it can take a while until the items are actually cloned.",
   "bulkActions.movedSuccessfully": "Făcut! Atenționăm că mutarea propriu-zisă a elementelor poate să dureze puțin.",
   "bulkActions.moveToTrashSuccessfully": "Făcut! Atenționăm că mutarea propriu-zisă a elementelor în coș poate să dureze puțin.",
   "bulkActions.cancelButton": "Anulare",
   "bulkActions.moveTitle": "Mutare",
   "bulkActions.cloneTitle": "Copy",
-  "bulkActions.dialogMoveTitle": "Move to a different project",
-  "bulkActions.dialogCloneTitle": "Copy to a different project"
+  "bulkActions.dialogMoveTitle": "Move to a different list",
+  "bulkActions.dialogCloneTitle": "Copy to a different list"
 }

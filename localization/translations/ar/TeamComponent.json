@@ -1,8 +1,8 @@
 {
   "teamSettings.Tasks": "المهام",
+  "teamSettings.rules": "القواعد",
   "teamSettings.Tags": "العلامات",
-  "teamSettings.embed": "تضمين",
+  "teamSettings.embed": "Report",
   "teamSettings.integrations": "التكاملات",
-  "teamSettings.bots": "البوتات",
-  "teamSettings.rules": "Rules"
+  "teamSettings.bots": "البوتات"
 }

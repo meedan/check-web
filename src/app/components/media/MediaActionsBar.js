@@ -369,7 +369,7 @@ class MediaActionsBarComponent extends Component {
       const message = (
         <FormattedMessage
           id="mediaActionsBar.movedBack"
-          defaultMessage="Moved back to list: {project}"
+          defaultMessage="Restored to list {project}"
           values={{
             project: (
               <Link to={`/${pm.team.slug}/project/${pm.project_id}`}>

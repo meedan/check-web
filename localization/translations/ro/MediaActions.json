@@ -1,13 +1,15 @@
 {
-  "mediaActions.edit": "Editează",
-  "mediaActions.restore": "Restabilește în dosar",
-  "mediaActions.move": "Mutare",
+  "mediaActions.edit": "Edit title and description",
   "mediaActions.refresh": "Actualizare",
-  "mediaActions.sendToTrash": "Trimite în coș",
-  "mediaActions.embed": "Incorporează",
-  "mediaActions.memebuster": "Generator de meme",
-  "mediaActions.assignOrUnassign": "Atribuie/Retrage",
+  "mediaActions.assignOrUnassign": "Assignment",
   "mediaActions.unlockStatus": "Deblochează starea",
   "mediaActions.lockStatus": "Blochează starea",
+  "mediaActions.memebuster": "Meme designer",
+  "mediaActions.report": "Report designer",
+  "mediaActions.sendToTrash": "Trimite în coș",
+  "mediaActions.restore": "Restore from trash",
+  "mediaActions.move": "Mutare",
+  "mediaActions.addToList": "Add to list",
+  "mediaActions.removeFromList": "Remove from list",
   "mediaActions.tooltip": "Item actions"
 }

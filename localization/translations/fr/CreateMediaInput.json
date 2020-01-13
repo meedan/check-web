@@ -1,6 +1,6 @@
 {
   "createMedia.mediaInput": "Copiez-collez ou tapez",
-  "createMedia.quoteInput": "Copiez-collez ou tapez une déclaration",
+  "createMedia.quoteInput": "Copiez-collez ou tapez un texte",
   "createMedia.quoteAttributionSourceInput": "Nom de la source",
   "createMedia.quoteAttributionContext": "URL ou contexte",
   "createMedia.quoteAttributionSourceInputHelper": "Qui a prononcé cela ?",
@@ -11,7 +11,7 @@
   "createMedia.submitButton": "Envoyer",
   "createMedia.invalidUrl": "Veuillez saisir une URL valide.",
   "createMedia.link": "Lien",
-  "createMedia.quote": "Déclaration",
+  "createMedia.quote": "Texte",
   "createMedia.source": "Source",
   "createMedia.image": "Photo",
   "createMedia.video": "Vidéo"
