@@ -11,6 +11,7 @@ const checkSearchResultFragment = Relay.QL`
       search { id, number_of_results },
       check_search_trash { id, number_of_results },
       verification_statuses,
+      medias_count,
     }
     medias(first: $pageSize) {
       edges {

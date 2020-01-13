@@ -1,5 +1,8 @@
-const optimisticProjectMedia = (media, proj, context) => {
-  const { team } = context;
+const optimisticProjectMedia = (media, proj, context, customTeam) => {
+  let { team } = context;
+  if (customTeam) {
+    team = Object.assign(team, customTeam);
+  }
 
   let title = null;
   let project = null;
