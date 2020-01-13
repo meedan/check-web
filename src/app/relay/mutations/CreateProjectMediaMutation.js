@@ -25,7 +25,12 @@ class CreateProjectMediaMutation extends Relay.Mutation {
 
   getOptimisticResponse() {
     const optimisticResponse =
-      optimisticProjectMedia(this.props.title, this.props.project, this.props.context);
+      optimisticProjectMedia(
+        this.props.title,
+        this.props.project,
+        this.props.context,
+        this.props.team,
+      );
 
     if (this.props.search && this.props.project) {
       optimisticResponse.check_search_project = {
