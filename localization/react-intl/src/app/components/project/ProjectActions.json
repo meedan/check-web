@@ -9,11 +9,11 @@
   },
   {
     "id": "ProjectActions.edit",
-    "defaultMessage": "Edit"
+    "defaultMessage": "Edit name and description"
   },
   {
     "id": "projectActions.assignOrUnassign",
-    "defaultMessage": "Assign / Unassign"
+    "defaultMessage": "Assign list"
   },
   {
     "id": "projectActions.destroy",
