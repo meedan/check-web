@@ -1,8 +1,5 @@
 {
-  "headerActions.tos": "Условия",
-  "headerActions.privacyPolicy": "Политики",
-  "headerActions.about": "О проекте",
-  "headerActions.contactHuman": "Контакты",
-  "headerActions.productGuides": "Руководство",
-  "headerActions.releaseNotes": "Примечания к выпуску"
+  "teamMenu.teamSettings": "Workspace settings",
+  "projects.trash": "Trash",
+  "headerActions.signIn": "Sign In"
 }

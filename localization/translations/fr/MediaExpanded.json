@@ -1,0 +1,7 @@
+{
+  "mediaExpanded.unknown": "inconnu",
+  "mediaExpanded.source": "Source",
+  "mediaExpanded.firstSeen": "Première réception :",
+  "mediaExpanded.lastSeen": "Dernière réception :",
+  "mediaExpanded.requests": "{count} demandes"
+}

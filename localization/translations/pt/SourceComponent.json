@@ -24,6 +24,7 @@
   "sourceNoMedia": "Nenhuma mídia associada a esta fonte",
   "sourceComponent.conflictError": "Esse item foi editado por um outro usuario enquanto você estava fazendo suas edições. Por favor salve suas mudanças e {reloadLink}.",
   "sourceComponent.clickToReload": "clique aqui para recarregar",
+  "sourceMenuRelay.editSource": "Editar fonte",
   "sourceComponent.dateAdded": "Adicionado {date} • Fonte de {number} links",
   "sourceComponent.medias": "Mídia",
   "sourceComponent.notes": "Notas",

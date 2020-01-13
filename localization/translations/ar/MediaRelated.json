@@ -1,4 +1,4 @@
 {
-  "mediaRelated.relatedItems": "العناصر المرتبطة",
+  "mediaRelated.secondaryItems": "Secondary items",
   "mediaRelated.counter": "{total, number} عناصر مرتبطة ({hidden, number} مخفية من عوامل التصفية)"
 }

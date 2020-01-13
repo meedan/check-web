@@ -24,6 +24,7 @@
   "sourceNoMedia": "لا توجد اي ميديا ذات صلة لهذا المصدر",
   "sourceComponent.conflictError": "تم تعديل هذا العنصر من قِبَل عضو آخر أثناء عملك. برجاء حفظ تعديلاتك أولاً ثم {reloadLink}.",
   "sourceComponent.clickToReload": "أضغط هنا ﻹعادة التحميل",
+  "sourceMenuRelay.editSource": "Edit source",
   "sourceComponent.dateAdded": "تمت اﻹضافة {date} • {number} روابط",
   "sourceComponent.medias": "الميديا",
   "sourceComponent.notes": "ملحوظات",

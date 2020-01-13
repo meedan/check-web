@@ -1,6 +1,18 @@
 {
-  "teamRules.success": "Rules updated successfully!",
-  "teamRules.fail": "Error when trying to update rules.",
-  "teamRules.title": "Rules",
-  "teamRules.save": "Save"
+  "teamRules.add": "+ AND",
+  "teamRules.and": "AND",
+  "teamRules.if": "IF",
+  "teamRules.then": "THEN",
+  "teamRules.newRule": "New Rule",
+  "teamRules.confirmDeleteRule": "Are you sure you want to delete the rule \"{ruleName}\"?",
+  "teamRules.success": "تم حفظ القواعد بنجاح",
+  "teamRules.fail": "عذراً ، لقد واجهنا خطأ ما اثناء حفظ القواعد.",
+  "teamRules.nameMandatory": "Please provide a name for this rule",
+  "teamRules.deleted": "Rule deleted",
+  "teamRules.edit": "Edit rule",
+  "teamRules.delete": "Delete rule",
+  "teamRules.title": "القواعد",
+  "teamRules.back": "Back",
+  "teamRules.save": "حفظ",
+  "teamRules.none": "No rules yet."
 }

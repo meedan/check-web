@@ -1,6 +1,6 @@
 {
   "createMedia.mediaInput": "Lipiți sau tastați",
-  "createMedia.quoteInput": "Lipiți sau tastați declarația",
+  "createMedia.quoteInput": "Paste or type a text",
   "createMedia.quoteAttributionSourceInput": "Denumirea sursei",
   "createMedia.quoteAttributionContext": "URL sau context",
   "createMedia.quoteAttributionSourceInputHelper": "Cine a spus acest lucru?",
@@ -11,7 +11,7 @@
   "createMedia.submitButton": "Postare",
   "createMedia.invalidUrl": "Introduceți un URL valid",
   "createMedia.link": "Link",
-  "createMedia.quote": "Declarația",
+  "createMedia.quote": "Text",
   "createMedia.source": "Sursa",
   "createMedia.image": "Foto",
   "createMedia.video": "Video"

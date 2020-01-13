@@ -1,10 +1,10 @@
 {
-  "switchTeams.error": "В процессе редактирования группы произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}.",
+  "switchTeams.error": "Sorry, an error occurred while updating the workspace. Please try again and contact {supportEmail} if the condition persists.",
   "switchTeams.member": "{membersCount, plural, =0 {Нет участников} one {1 участник} other {Участников: #}}",
   "switchTeams.joinRequestMessage": "Вы подали заявку",
-  "teams.yourTeams": "Ваши группы",
-  "teams.userTeams": "Группы {name}",
+  "teams.yourTeams": "Your workspaces",
+  "teams.userTeams": "{name}'s workspaces",
   "switchTeams.cancelJoinRequest": "Отменить",
-  "switchTeams.noTeams": "Не состоит ни в каких группах.",
-  "switchTeams.newTeamLink": "Создать группу"
+  "switchTeams.noTeams": "Not a member of any workspace.",
+  "switchTeams.newTeamLink": "Create Workspace"
 }

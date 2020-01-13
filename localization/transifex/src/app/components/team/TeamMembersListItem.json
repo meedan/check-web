@@ -6,7 +6,7 @@
   "TeamMembersListItem.confirmDeleteMemberBlurb": "User will be removed from {team}",
   "TeamMembersListItem.deleteMember": "Remove member",
   "TeamMembersListItem.leaveTeam": "Leave workspace",
-  "TeamMembersListItem.singleOwner": "Before you can leave the workspace, please assign ownership to another member.",
+  "TeamMembersListItem.singleOwner": "Before you can leave the workspace, please transfer ownership to another member.",
   "teamMembersListItem.assignmentsProgress": "{completedCount} completed, {inProgressCount} in progress, {unstartedCount} unstarted",
   "TeamMembershipRequestsListItem.approve": "Approve",
   "TeamMembershipRequestsListItem.deny": "Reject"

@@ -1,7 +1,7 @@
 {
-  "tagPicker.emptyTags": "لا توجد علامات في هذا الفريق.",
+  "tagPicker.emptyTags": "There are currently no tags for this workspace.",
   "tagPicker.tagNotFound": "العلامة {tag}# غير موجودة.",
-  "tagPicker.teamTags": "علامات الفريق",
+  "tagPicker.teamTags": "Default tags",
   "tagPicker.none": "خالٍ",
   "tagPicker.teamOtherTags": "علامات إضافية"
 }

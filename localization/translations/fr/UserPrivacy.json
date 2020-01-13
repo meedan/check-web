@@ -5,11 +5,11 @@
   "userPrivacy.title": "Vos données",
   "userPrivacy.description": "Veuillez revoir notre {ppLink} pour apprendre comment {appName} traite et store vos données.",
   "userPrivacy.seeInformationText": "Nous vous enverrons un fichier avec le contenu et les données que vous avez créés et générés sur {appName}. Vous pourrez le conserver ou le  transférer à un autre service.",
-  "userPrivacy.seeInformationButton": "Voir mes données",
+  "userPrivacy.seeInformationButton": "Afficher mes données",
   "userPrivacy.stopProcessingText": "Vous pouvez demander à {appName} de cesser de traiter vos informations dans certaines conditions.",
   "userPrivacy.stopProcessingButton": "Arrêter le traitement",
   "userPrivacy.connectedAccounts": "Comptes connectés",
   "userPrivacy.delete": "Supprimer votre compte",
-  "userPrivacy.deleteAccountText": "Si vous supprimez votre compte, vos données personnelles seront effacées. Les commentaires, annotations et activités d'équipe deviendront pseudonymes et resteront sur {appName}.",
+  "userPrivacy.deleteAccountText": "Si vous supprimez votre compte, vos données personnelles seront effacées. Vos commentaires, annotations et activités de l'espace de travail deviendront pseudonymes et resteront sur {appName}.",
   "userPrivacy.deleteAccountButton": "Supprimer mon compte"
 }

@@ -1,8 +1,7 @@
 {
-  "teamComponent.editError": "Ne pare rău, în timpul actualizării echipei s-a produs o eroare. Vă rugăm să mai încercați odată și să contactați {supportEmail} dacă situația persistă.",
-  "teamComponent.editSuccess": "Informațiile echipei au fost actualizate cu succes!",
-  "teamComponent.teamName": "Denumirea echipei",
-  "teamComponent.teamDescription": "Descrierea echipei",
+  "teamComponent.editError": "Sorry, an error occurred while updating the workspace. Please try again and contact {supportEmail} if the condition persists.",
+  "teamComponent.teamName": "Name",
+  "teamComponent.teamDescription": "Description",
   "teamComponent.location": "Locația",
   "teamComponent.phone": "Tel.",
   "teamComponent.website": "Pagina web",

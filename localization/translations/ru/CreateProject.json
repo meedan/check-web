@@ -1,7 +1,7 @@
 {
-  "createProject.addProject": "Добавить проект",
-  "createProject.title": "Добавить проект",
-  "createProject.titleBlank": "Добавить первый проект",
-  "createProject.newProjectName": "Название проекта",
-  "createProject.error": "В процессе создания проекта произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
+  "createProject.addProject": "Create list",
+  "createProject.title": "Add a list",
+  "createProject.titleBlank": "Add your first list",
+  "createProject.newProjectName": "List name",
+  "createProject.error": "Sorry, an error occurred while updating the list. Please try again and contact {supportEmail} if the condition persists."
 }

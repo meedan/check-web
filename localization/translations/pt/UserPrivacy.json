@@ -10,6 +10,6 @@
   "userPrivacy.stopProcessingButton": "Solicitação de fim de processamento",
   "userPrivacy.connectedAccounts": "Contas conectadas",
   "userPrivacy.delete": "Excluir sua conta",
-  "userPrivacy.deleteAccountText": "Se você excluir sua conta, suas informações pessoais serão excluídas. Comentários, anotações, e atividades de equipe se tornarão pseudônimas e permanecerão no {appName}.",
+  "userPrivacy.deleteAccountText": "Se você excluir sua conta, suas informações pessoais serão excluídas. Comentários, anotações, e atividades da área de trabalho se tornarão pseudônimas e permanecerão no {appName}.",
   "userPrivacy.deleteAccountButton": "Excluir minha conta"
 }

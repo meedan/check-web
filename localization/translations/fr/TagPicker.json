@@ -1,7 +1,7 @@
 {
-  "tagPicker.emptyTags": "Il n'y a aucun tag pour cette équipe.",
+  "tagPicker.emptyTags": "Il n'existe aucun tag dans cet espace de travail.",
   "tagPicker.tagNotFound": "Tag #{tag} introuvable.",
-  "tagPicker.teamTags": "Tags de l'équipe",
+  "tagPicker.teamTags": "Tags de défaut",
   "tagPicker.none": "Aucun",
   "tagPicker.teamOtherTags": "Tags personnalisés"
 }

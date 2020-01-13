@@ -183,7 +183,7 @@ class TeamMembersListItem extends Component {
       deleteTooltip = <FormattedMessage id="TeamMembersListItem.leaveTeam" defaultMessage="Leave workspace" />;
 
       if (selfIsOwner && singleOwner) {
-        deleteTooltip = <FormattedMessage id="TeamMembersListItem.singleOwner" defaultMessage="Before you can leave the workspace, please assign ownership to another member." />;
+        deleteTooltip = <FormattedMessage id="TeamMembersListItem.singleOwner" defaultMessage="Before you can leave the workspace, please transfer ownership to another member." />;
       }
     }
 

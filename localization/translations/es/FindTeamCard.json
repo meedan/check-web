@@ -1,9 +1,9 @@
 {
-  "findTeamCard.teamSlugHint": "slug del equipo",
-  "findTeamCard.teamNotFound": "Equipo no encontrado ",
-  "findTeamCard.mainHeading": "Buscar un equipo existente",
-  "findTeamCard.blurb": "Solicita unirte a un equipo existente agregando tu nombre aquí, o comienza creando el tuyo.",
-  "findTeamCard.url": "URL del equipo",
-  "findTeamCard.submitButton": "Buscar equipo",
-  "findTeamCard.createYourOwn": "También puedes crear tu propio equipo."
+  "findTeamCard.teamSlugHint": "Workspace URL",
+  "findTeamCard.teamNotFound": "Workspace not found!",
+  "findTeamCard.mainHeading": "Find an existing workspace",
+  "findTeamCard.blurb": "Request to join an existing workspace by adding its name here, or get started by creating your own.",
+  "findTeamCard.url": "Workspace URL",
+  "findTeamCard.submitButton": "Find workspace",
+  "findTeamCard.createYourOwn": "You can also create your own workspace."
 }

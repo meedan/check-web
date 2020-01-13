@@ -1,10 +1,10 @@
 {
-  "switchTeams.error": "Sorry, an error occurred while updating the team. Please try again and contact {supportEmail} if the condition persists.",
+  "switchTeams.error": "Sorry, an error occurred while updating the workspace. Please try again and contact {supportEmail} if the condition persists.",
   "switchTeams.member": "{membersCount, plural, =0 {No members} one {1 member} other {# members}}",
   "switchTeams.joinRequestMessage": "You requested to join",
-  "teams.yourTeams": "Your teams",
-  "teams.userTeams": "{name}'s teams",
+  "teams.yourTeams": "Your workspaces",
+  "teams.userTeams": "{name}'s workspaces",
   "switchTeams.cancelJoinRequest": "Cancel",
-  "switchTeams.noTeams": "Not a member of any team.",
-  "switchTeams.newTeamLink": "Create Team"
+  "switchTeams.noTeams": "Not a member of any workspace.",
+  "switchTeams.newTeamLink": "Create Workspace"
 }

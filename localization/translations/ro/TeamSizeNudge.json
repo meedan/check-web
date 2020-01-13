@@ -1,4 +1,4 @@
 {
-  "teamSizeNudge.nudge": "{max, plural, =0 {Pentru moment echipa dvs este limitată la 0 utilizatori. Pentru a efectua upgrade vă rugăm să contactați {supportEmail}.} one {Pentru moment echipa dvs este limitată la un utilizator. Pentru a efectua upgrade vă rugăm să contactați {supportEmail}.} other {Pentru moment echipa dvs este limitată la # utilizatori. Pentru a efectua upgrade vă rugăm să contactați {supportEmail}.}}",
+  "teamSizeNudge.nudge": "{max, plural, =0 {Your workspace is currently limited to 0 users. To upgrade, please contact {supportEmail}.} one {Your workspace is currently limited to one user. To upgrade, please contact {supportEmail}.} other {Your workspace is currently limited to # users. To upgrade, please contact {supportEmail}.}}",
   "teamSizeNudge.title": "Upgrade"
 }

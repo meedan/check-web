@@ -1,10 +1,8 @@
 {
   "annotation.error": "Ne pare rău, în timpul actualizării elementului s-a produs o eroare. Vă rugăm să mai încercați odată și să contactați {supportEmail} dacă situația persistă.",
   "annotation.deleteButton": "Șterge",
-  "annotation.reverseImage": "Acest element conține cel puțin o imagine. Faceți click pe Căutare pentru a căuta eventualele duplicate pe Google.",
-  "annotation.reverseImageFacebook": "Acest element conține cel puțin o imagine. Imaginea, însă, se conține într-o postare pe Facebook și {appName} nu poate trimite această imagine direct pentru căutare inversă. Luați în considerare efectuarea căutării manual, cu instrumente de gen Google sau TinEye.",
   "annotation.and": "și",
-  "annotation.newClaim": "Declarație nouă adăugată de {author}",
+  "annotation.newClaim": "New text added by {author}",
   "annotation.menuTooltip": "Annotation actions",
   "annotation.permalink": "Link permanent",
   "annotation.taggedHeader": "Eticheta #{tag} adăugată de {author}",
@@ -27,7 +25,6 @@
   "annotation.acceptSuggestion": "Acceptă",
   "annotation.rejectSuggestion": "Respinge",
   "annotation.taskResolve": "La sarcină a răspuns {author}: {task}{response}",
-  "annotation.reverseImageSearch": "Căutare",
   "annotation.translation": "Tradus în limba {language} de {author}{translation}",
   "annotation.emptyMachineTranslation": "Adaugă traducere automată",
   "annotation.machineTranslation": "Traducere automată în limba {language}{text}",
@@ -42,8 +39,8 @@
   "annotation.penderArchiveResponse": "Keep a făcut o captură de ecran de pe acest URL.",
   "annotation.penderArchiveWait": "Keep face acum o captură de ecran cu acest element. Reveniți peste câteva minute pentru a o vedea.",
   "annotation.flaggedHeader": "Marcat ca {flag} de către {author}",
-  "annotation.projectMoved": "Mutat de la dosarul {previousProject} la {currentProject} de {author}",
+  "annotation.projectMoved": "Moved from list {previousProject} to {currentProject} by {author}",
   "annotation.movedToTrash": "Mutat în coș de {author}",
   "annotation.movedFromTrash": "Scos din coș de {author}",
-  "annotation.teamCopied": "Copiat din dosarul {previousProject} pe echipa {previousTeam} de {author}"
+  "annotation.teamCopied": "Copied from list {previousProject} on workspace {previousTeam} by {author}"
 }

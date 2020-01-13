@@ -10,6 +10,6 @@
   "userPrivacy.stopProcessingButton": "Прекратить обработку данных",
   "userPrivacy.connectedAccounts": "Привязанные аккаунты",
   "userPrivacy.delete": "Удалить аккаунт",
-  "userPrivacy.deleteAccountText": "Если вы удалите свой аккаунт, ваши персональные данные будут удалены. Комментарии, аннотации и групповая активность останутся в {appName} без упоминания вашего имени (под псевдонимом).",
+  "userPrivacy.deleteAccountText": "If you delete your account, your personal information will be erased. Comments, annotations, and workspace activity will become pseudonymous and remain on {appName}.",
   "userPrivacy.deleteAccountButton": "Удалить мой аккаунт"
 }

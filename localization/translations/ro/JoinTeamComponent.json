@@ -1,12 +1,12 @@
 {
   "joinTeamComponent.error": "Ne pare rău, în timpul transmiterii solicitării Dvs s-a produs o eroare. Vă rugăm să mai încercați odată și să contactați {supportEmail} dacă situația persistă.",
-  "joinTeamComponent.success": "Vă mulțumim pentru interesul de a se alătura echipei {team} {appName}! În curând cererea Dvs va fi analizată de un lider de echipă.",
-  "joinTeamComponent.autoApprove": "Vă mulțumim pentru că v-ați alăturat echipei {team} {appName}! Puteți începe să contribuiți imediat.",
-  "joinTeamComponent.title": "Alătură-te echipei",
-  "joinTeamComponent.mainHeading": "Solicitarea permisiunii de a se alătura",
-  "joinTeamComponent.alreadyRequested": "Ați solicitat deja permisiunea de a se alătura echipei {team} {appName}.",
-  "joinTeamComponent.requestHasBeenSent": "Solicitarea Dvs a fost transmisă administratorilor dosarului pentru aprobare.",
-  "joinTeamComponent.blurbGraf": "Pentru a solicita acces la {link} {appName}, dați click mai jos:",
+  "joinTeamComponent.success": "Thanks for your interest in joining {team}! A workspace administrator will review your application soon.",
+  "joinTeamComponent.autoApprove": "Thanks for joining {team}! You can start contributing right away.",
+  "joinTeamComponent.title": "Join Workspace",
+  "joinTeamComponent.mainHeading": "Request to join",
+  "joinTeamComponent.alreadyRequested": "You already requested to join {team}.",
+  "joinTeamComponent.requestHasBeenSent": "Your request has been sent to the workspace administrators for approval.",
+  "joinTeamComponent.blurbGraf": "To request to join {team}, click below:",
   "joinTeamComponent.buttonSubmitted": "Cerere trimisă",
   "joinTeamComponent.buttonSubmit": "Solicitarea permisiunii de a se alătura"
 }

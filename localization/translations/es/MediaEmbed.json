@@ -2,7 +2,7 @@
   "mediaEmbed.customizationOptionShowCompleteTasks": "Mostrar tareas completadas",
   "mediaEmbed.customizationOptionShowIncompleteTasks": "Mostrar tareas sin completar",
   "mediaEmbed.customizationOptionShowNotes": "Mostrar notas",
-  "mediaEmbed.warning": "Advertencia - Al compartir esto, estarás exponiendo públicamente, información confidencial de tu equipo. Procede con precaución.",
+  "mediaEmbed.warning": "Warning — sharing this will expose information to people outside your private workspace. Proceed with caution.",
   "mediaEmbed.copyButtonInactive": "Copiado ",
   "mediaEmbed.copyButton": "Copiar",
   "mediaEmbed.copyEmbedCode": "Copiar el código de incrustación ",

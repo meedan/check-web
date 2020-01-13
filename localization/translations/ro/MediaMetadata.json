@@ -1,18 +1,4 @@
 {
-  "mediaDetail.mediaTitle": "Titlu",
-  "mediaDetail.mediaDescription": "Descriere",
-  "mediaDetail.editReport": "Editează",
-  "mediaDetail.editReportError": "Ne pare rău, în timpul actualizării elementului s-a produs o eroare. Vă rugăm să mai încercați odată și să contactați {supportEmail} dacă situația persistă.",
-  "mediaDetail.trash": "Coș",
-  "mediaMetadata.movedToTrash": "Trimis în {trash}",
-  "mediaMetadata.movedBack": "Mutat înapoi în dosar: {project}",
-  "mediaDetail.byUser": "de {username}",
-  "mediaDetail.cancelButton": "Anulare",
-  "mediaDetail.move": "Mutare",
-  "mediaDetail.done": "Făcut",
-  "mediaDetail.doneButton": "Făcut",
-  "mediaDetail.addedBy": "Adăugat de {byUser}",
-  "mediaDetail.assignedTo": "Atribuit lui {name}",
-  "mediaDetail.dialogMoveTitle": "Move to a different project",
-  "mediaDetail.assignDialogHeader": "Atribuire"
+  "mediaMetadata.reverseImageSearch": "Reverse image search",
+  "mediaMetadata.download": "Download"
 }

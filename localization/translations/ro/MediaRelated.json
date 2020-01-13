@@ -1,4 +1,4 @@
 {
-  "mediaRelated.relatedItems": "Elemente asociate",
+  "mediaRelated.secondaryItems": "Secondary items",
   "mediaRelated.counter": "{total, number} elemente asociate ({hidden, number} ascunse de filters)"
 }

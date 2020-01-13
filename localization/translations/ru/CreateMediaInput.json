@@ -1,6 +1,6 @@
 {
   "createMedia.mediaInput": "Материал",
-  "createMedia.quoteInput": "Высказывание",
+  "createMedia.quoteInput": "Paste or type a text",
   "createMedia.quoteAttributionSourceInput": "Источник",
   "createMedia.quoteAttributionContext": "Ссылка или контекст",
   "createMedia.quoteAttributionSourceInputHelper": "Автор высказывания",
@@ -11,7 +11,7 @@
   "createMedia.submitButton": "Создать",
   "createMedia.invalidUrl": "Пожалуйста, введите корректный URL",
   "createMedia.link": "Ссылка",
-  "createMedia.quote": "Высказывание",
+  "createMedia.quote": "Text",
   "createMedia.source": "Источник",
   "createMedia.image": "Фотография",
   "createMedia.video": "Video"

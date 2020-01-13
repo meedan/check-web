@@ -1,5 +1,5 @@
 {
   "slackConfig.title": "تكامل مع Slack",
   "slackConfig.menuTooltip": "إعدادات التكامل",
-  "slackConfig.text": "إرسال تنبيه إلى قناة ما على Slack عند حدوث أى نشاط في مشاريعك."
+  "slackConfig.text": "Notify a Slack channel about workspace activity."
 }

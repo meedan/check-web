@@ -1,8 +1,8 @@
 {
   "teamSettings.Tasks": "Вопросы",
+  "teamSettings.rules": "Rules",
   "teamSettings.Tags": "Тэги",
-  "teamSettings.embed": "Карточки",
+  "teamSettings.embed": "Report",
   "teamSettings.integrations": "Интеграция",
-  "teamSettings.bots": "Боты",
-  "teamSettings.rules": "Rules"
+  "teamSettings.bots": "Боты"
 }

@@ -1,12 +1,12 @@
 {
   "joinTeamComponent.error": "Désolé, une erreur s'est produite durant l'envoi de votre demande. Veuillez réessayer et prévenir {supportEmail} si le problème persiste.",
-  "joinTeamComponent.success": "Merci de votre intérêt à rejoindre {team} {appName} ! Un chef d'équipe examinera bientôt votre demande.",
-  "joinTeamComponent.autoApprove": "Merci d'avoir rejoint l'équipe {team} {appName} ! Vous pouvez commencer à contribuer dès maintenant.",
-  "joinTeamComponent.title": "Joindre l'équipe",
-  "joinTeamComponent.mainHeading": "Demandez à joindre",
-  "joinTeamComponent.alreadyRequested": "Vous avez déjà demandé à rejoindre {team} {appName}.",
-  "joinTeamComponent.requestHasBeenSent": "Nous avons envoyé votre demande aux administrateurs du projet pour leur accord.",
-  "joinTeamComponent.blurbGraf": "Pour demander l'accès à {link} {appName}, cliquez ci-dessous:",
+  "joinTeamComponent.success": "Merci de votre intérêt à intégrer {team} ! Un administrateur de l'espace de travail examinera bientôt votre demande.",
+  "joinTeamComponent.autoApprove": "Merci d'avoir intégré {team} ! Vous pouvez commencer à contribuer dès maintenant.",
+  "joinTeamComponent.title": "Intégrer l'espace de travail",
+  "joinTeamComponent.mainHeading": "Demander à intégrer",
+  "joinTeamComponent.alreadyRequested": "Vous avez déjà demandé à intégrer {team}.",
+  "joinTeamComponent.requestHasBeenSent": "Nous avons envoyé votre demande aux administrateurs de l'espace de travail.",
+  "joinTeamComponent.blurbGraf": "Pour demander à intégrer {team}, cliquez ci-dessous:",
   "joinTeamComponent.buttonSubmitted": "Demande envoyée",
-  "joinTeamComponent.buttonSubmit": "Demandez à joindre"
+  "joinTeamComponent.buttonSubmit": "Demander à intégrer"
 }

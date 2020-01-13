@@ -1,8 +1,5 @@
 {
-  "headerActions.tos": "Conditions",
-  "headerActions.privacyPolicy": "Confidentialité",
-  "headerActions.about": "A propos",
-  "headerActions.contactHuman": "Contact",
-  "headerActions.productGuides": "Guides des produits",
-  "headerActions.releaseNotes": "Notes de publication"
+  "teamMenu.teamSettings": "Paramètres de l'espace de travail",
+  "projects.trash": "Corbeille",
+  "headerActions.signIn": "Connexion"
 }

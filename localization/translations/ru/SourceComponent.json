@@ -24,6 +24,7 @@
   "sourceNoMedia": "Нет материалов за авторством этого источника.",
   "sourceComponent.conflictError": "Материал был отредактирован другим пользователем. Пожалуйста, сохраните ваши изменения и {reloadLink}.",
   "sourceComponent.clickToReload": "нажмите для обновления",
+  "sourceMenuRelay.editSource": "Edit source",
   "sourceComponent.dateAdded": "Добавлен {date} • Материалов: {number}",
   "sourceComponent.medias": "Медиа",
   "sourceComponent.notes": "Заметки",
