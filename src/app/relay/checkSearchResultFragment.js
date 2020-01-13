@@ -32,6 +32,7 @@ const checkSearchResultFragment = Relay.QL`
           project_id,
           project_ids,
           pusher_channel,
+          permissions,
           project {
             id,
             dbid,

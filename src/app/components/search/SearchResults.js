@@ -328,7 +328,6 @@ class SearchResultsComponent extends React.Component {
       team: this.props.team,
       fields: this.props.fields,
       title: this.props.title,
-      addons: this.props.addons,
     };
 
     let bulkActionsAllowed = false;

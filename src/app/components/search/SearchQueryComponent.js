@@ -193,7 +193,7 @@ const styles = theme => ({
 const messages = defineMessages({
   title: {
     id: 'search.title',
-    defaultMessage: 'Search',
+    defaultMessage: 'All items',
   },
   searchInputHint: {
     id: 'search.inputHint',
@@ -647,9 +647,9 @@ class SearchQueryComponent extends React.Component {
     const { currentUser } = this.currentContext();
     const suggestedTags = team.teamwide_tags.edges.map(t => t.node.text);
 
-    const title =
-      this.props.title ||
-      (this.props.project ? this.props.project.title : this.title(statuses, projects));
+    const title = (this.filterIsActive() || this.keywordIsActive())
+      ? this.title(statuses, projects)
+      : (this.props.title || (this.props.project ? this.props.project.title : null));
 
     const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
 
@@ -1025,8 +1025,6 @@ class SearchQueryComponent extends React.Component {
                     />
                   </p>
                 </StyledSearchFiltersSection>
-
-                {this.props.addons}
               </ContentColumn>
             </DialogContent>
           </Dialog>

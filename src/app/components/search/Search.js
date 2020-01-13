@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { injectIntl, defineMessages } from 'react-intl';
 import isEqual from 'lodash.isequal';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import SearchResults from './SearchResults';
@@ -7,6 +7,13 @@ import { safelyParseJSON } from '../../helpers';
 import { units } from '../../styles/js/shared';
 
 const statusKey = config.appName === 'bridge' ? 'translation_status' : 'verification_status';
+
+const messages = defineMessages({
+  title: {
+    id: 'search.allClaimsTitle',
+    defaultMessage: 'All items',
+  },
+});
 
 export function searchQueryFromUrlQuery(urlQuery) {
   return safelyParseJSON(decodeURIComponent(urlQuery), {});
@@ -82,7 +89,7 @@ class Search extends React.Component {
 
     let title = null;
     if (/^\/.*\/search(\/)?.*/.test(window.location.pathname)) {
-      title = <FormattedMessage id="search.allClaimsTitle" defaultMessage="All items" />;
+      title = this.props.intl.formatMessage(messages.title);
     }
     if (this.props.page === 'trash') {
       title = this.props.title; // eslint-disable-line prefer-destructuring
@@ -93,6 +100,7 @@ class Search extends React.Component {
         <SearchResults
           {...this.props}
           listName={title || this.props.listName}
+          title={title}
           query={query}
         />
       </div>
@@ -100,4 +108,4 @@ class Search extends React.Component {
   }
 }
 
-export default Search;
+export default injectIntl(Search);
