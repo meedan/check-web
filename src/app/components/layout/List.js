@@ -8,7 +8,7 @@ import MediaCell from '../media/MediaCell';
 import MediaUtil from '../media/MediaUtil';
 import { units } from '../../styles/js/shared';
 import { getStatus } from '../../helpers';
-import { mediaStatuses } from '../../customHelpers';
+import { teamStatuses } from '../../customHelpers';
 
 const StyledGridContainer = styled.div`
   width: 100%;
@@ -106,7 +106,7 @@ class List extends React.Component {
         last_seen,
       } = media;
 
-      const statusObj = getStatus(mediaStatuses(media), status);
+      const statusObj = getStatus(teamStatuses(media), status);
 
       const formatted_first_seen = this.props.intl.formatRelative(MediaUtil.createdAt({
         published: first_seen,

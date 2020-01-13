@@ -128,6 +128,10 @@ const MediaUtil = {
   },
 
   mediaTypeLabel(type, intl) {
+    if (type === '-') {
+      return '-';
+    }
+
     const labels = {
       Claim: intl.formatMessage(messages.typeClaim),
       Link: intl.formatMessage(messages.typeLink),
