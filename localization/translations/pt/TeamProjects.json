@@ -1,5 +1,5 @@
 {
-  "teamComponent.projects": "Lists",
+  "teamComponent.projects": "Listas",
   "teamComponent.noProjects": "Nenhuma lista",
-  "teamComponent.projectAssignmentsCount": "{count, plural, =0 { } one {Assigned to one member} other {Assigned to # members}}"
+  "teamComponent.projectAssignmentsCount": "{count, plural, =0 { } one {Atribuído para um membro} other {Atribuído para # membros}}"
 }

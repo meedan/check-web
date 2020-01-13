@@ -1,8 +1,8 @@
 {
   "projectActions.projectDeleted": "Lista excluída com sucesso.",
   "projectActions.projectNotDeleted": "Desculpe, não foi possível excluir a lista",
-  "ProjectActions.edit": "Editar",
-  "projectActions.assignOrUnassign": "Atribuir / Remover atribuição",
+  "ProjectActions.edit": "Editar título e descrição",
+  "projectActions.assignOrUnassign": "Atribuir lista",
   "projectActions.destroy": "Excluir",
   "projectActions.cancelDelete": "Cancelar",
   "projectActions.continue": "Continuar",
