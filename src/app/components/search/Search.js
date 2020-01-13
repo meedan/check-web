@@ -68,8 +68,6 @@ class Search extends React.Component {
   render() {
     const searchQuery = this.props.query || this.props.params.query;
     const teamSlug = this.props.team || this.props.params.team;
-    const view = this.props.view || this.props.route.view || window.storage.getValue('view-mode') || 'list';
-    window.storage.set('view-mode', view);
 
     const query = searchQueryFromUrlQuery(searchQuery);
     if (!this.noFilters(query) && Object.keys(query).join('') !== 'archived') {
@@ -95,7 +93,6 @@ class Search extends React.Component {
         <SearchResults
           {...this.props}
           listName={title || this.props.listName}
-          view={view}
           query={query}
         />
       </div>
