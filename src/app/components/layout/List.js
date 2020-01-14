@@ -70,7 +70,7 @@ class List extends React.Component {
           checkboxSelection: true,
           headerCheckboxSelection: true,
           cellRenderer: 'mediaCellRenderer',
-          minWidth: 288,
+          minWidth: 400,
         },
         { headerName: fmtMsg(messages.demand), field: 'demand', minWidth: 96 },
         { headerName: fmtMsg(messages.linked_items_count), field: 'linked_items_count', minWidth: 96 },
