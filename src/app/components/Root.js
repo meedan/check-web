@@ -303,7 +303,7 @@ class Root extends Component {
                 <Route path=":team/join" component={JoinTeam} />
                 <Route path=":team/project/:projectId/edit" component={ProjectEdit} />
                 <Route path=":team/project/:projectId(/:query)" component={Project} public />
-                <Route path=":team/search(/:query)" component={Search} public />
+                <Route path=":team/all-items(/:query)" component={Search} public />
                 <Route path=":team/trash(/:query)" component={Trash} />
                 <Route path=":team" component={Team} public />
                 <Route path=":team/edit" action="edit" component={Team} />

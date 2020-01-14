@@ -66,7 +66,7 @@ class SwitchTeamsComponent extends Component {
     };
 
     const onSuccess = () => {
-      const path = `/${team.slug}/search`;
+      const path = `/${team.slug}/all-items`;
       history.push(path);
     };
 
@@ -150,7 +150,7 @@ class SwitchTeamsComponent extends Component {
                   hoverColor={highlightBlue}
                   focusRippleColor={checkBlue}
                   touchRippleColor={checkBlue}
-                  containerElement={<Link to={`/${team.slug}/search`} />}
+                  containerElement={<Link to={`/${team.slug}/all-items`} />}
                   leftAvatar={<Avatar style={teamAvatarStyle} src={team.avatar} />}
                   onClick={this.setCurrentTeam.bind(this, team, currentUser)}
                   primaryText={team.name}

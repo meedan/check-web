@@ -20,12 +20,12 @@ export function searchQueryFromUrlQuery(urlQuery) {
 }
 
 export function searchQueryFromUrl() {
-  const queryString = window.location.pathname.match(/.*\/(search|trash|project\/[0-9]+)(?:\/[a-z]+)?\/(.*)/);
+  const queryString = window.location.pathname.match(/.*\/(all-items|trash|project\/[0-9]+)(?:\/[a-z]+)?\/(.*)/);
   return queryString ? searchQueryFromUrlQuery(queryString[2]) : {};
 }
 
 export function searchPrefixFromUrl() {
-  const queryString = window.location.pathname.match(/.*\/(search|trash|project\/[0-9]+)/);
+  const queryString = window.location.pathname.match(/.*\/(all-items|trash|project\/[0-9]+)/);
   return queryString ? queryString[0] : null;
 }
 
@@ -88,7 +88,7 @@ class Search extends React.Component {
     }
 
     let title = null;
-    if (/^\/.*\/search(\/)?.*/.test(window.location.pathname)) {
+    if (/^\/.*\/all-items(\/)?.*/.test(window.location.pathname)) {
       title = this.props.intl.formatMessage(messages.title);
     }
     if (this.props.page === 'trash') {
@@ -96,7 +96,7 @@ class Search extends React.Component {
     }
 
     return (
-      <div className="search" style={{ padding: `0 ${units(2)}` }}>
+      <div className="all-items" style={{ padding: `0 ${units(2)}` }}>
         <SearchResults
           {...this.props}
           listName={title || this.props.listName}

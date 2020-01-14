@@ -40,13 +40,13 @@ class ProjectHeaderComponent extends React.PureComponent {
         let basePath = '';
         switch (query.referer) {
         case 'search':
-          basePath = `${path.match(regexTeam)[1]}/search`;
+          basePath = `${path.match(regexTeam)[1]}/all-items`;
           break;
         case 'trash':
           basePath = `${path.match(regexTeam)[1]}/trash`;
           break;
         default:
-          basePath = `${path.match(regexTeam)[1]}/search`;
+          basePath = `${path.match(regexTeam)[1]}/all-items`;
           if (regexProject.test(path)) {
             basePath = `${path.match(regexProject)[1]}`;
           }
@@ -58,7 +58,7 @@ class ProjectHeaderComponent extends React.PureComponent {
       } else if (isProjectSubpage) {
         return path.match(regexProject)[1];
       }
-      return `${path.match(regexTeam)[1]}/search`;
+      return `${path.match(regexTeam)[1]}/all-items`;
     };
 
     const url = backUrl();

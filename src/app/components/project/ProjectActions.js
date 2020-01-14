@@ -86,7 +86,7 @@ class ProjectActions extends Component {
         { onSuccess, onFailure },
       );
 
-      history.push(`/${team.slug}/search`);
+      history.push(`/${team.slug}/all-items`);
     }
   }
 

@@ -181,7 +181,7 @@ class SearchResultsComponent extends React.Component {
       query,
       project
         ? `/${team.slug}/project/${project.dbid}`
-        : `/${team.slug}/search`,
+        : `/${team.slug}/all-items`,
     );
 
     this.getContext().getContextStore().history.push(url);

@@ -234,7 +234,7 @@ class SearchQueryComponent extends React.Component {
 
   componentWillMount() {
     const context = this.getContext();
-    if (context.getContextStore().project && /\/search/.test(window.location.pathname)) {
+    if (context.getContextStore().project && /\/all-items/.test(window.location.pathname)) {
       context.setContextStore({ project: null });
     }
 
