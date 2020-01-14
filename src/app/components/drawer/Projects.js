@@ -157,7 +157,7 @@ class DrawerProjectsComponent extends Component {
       <div>
         <div style={styles.projectsList}>
           <InfiniteScroll hasMore loadMore={this.loadMore.bind(this)} useWindow={false}>
-            <Link to={`/${props.team.slug}/search`} className="project-list__link-all">
+            <Link to={`/${props.team.slug}/all-items`} className="project-list__link-all">
               <MenuItem
                 className="project-list__item-all"
                 primaryText={<FormattedMessage id="projects.allClaims" defaultMessage="All items" />}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { injectIntl, defineMessages } from 'react-intl';
 import isEqual from 'lodash.isequal';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import SearchResults from './SearchResults';
@@ -8,17 +8,24 @@ import { units } from '../../styles/js/shared';
 
 const statusKey = config.appName === 'bridge' ? 'translation_status' : 'verification_status';
 
+const messages = defineMessages({
+  title: {
+    id: 'search.allClaimsTitle',
+    defaultMessage: 'All items',
+  },
+});
+
 export function searchQueryFromUrlQuery(urlQuery) {
   return safelyParseJSON(decodeURIComponent(urlQuery), {});
 }
 
 export function searchQueryFromUrl() {
-  const queryString = window.location.pathname.match(/.*\/(search|trash|project\/[0-9]+)(?:\/[a-z]+)?\/(.*)/);
+  const queryString = window.location.pathname.match(/.*\/(all-items|trash|project\/[0-9]+)(?:\/[a-z]+)?\/(.*)/);
   return queryString ? searchQueryFromUrlQuery(queryString[2]) : {};
 }
 
 export function searchPrefixFromUrl() {
-  const queryString = window.location.pathname.match(/.*\/(search|trash|project\/[0-9]+)/);
+  const queryString = window.location.pathname.match(/.*\/(all-items|trash|project\/[0-9]+)/);
   return queryString ? queryString[0] : null;
 }
 
@@ -68,8 +75,6 @@ class Search extends React.Component {
   render() {
     const searchQuery = this.props.query || this.props.params.query;
     const teamSlug = this.props.team || this.props.params.team;
-    const view = this.props.view || this.props.route.view || window.storage.getValue('view-mode') || 'list';
-    window.storage.set('view-mode', view);
 
     const query = searchQueryFromUrlQuery(searchQuery);
     if (!this.noFilters(query) && Object.keys(query).join('') !== 'archived') {
@@ -83,19 +88,19 @@ class Search extends React.Component {
     }
 
     let title = null;
-    if (/^\/.*\/search(\/)?.*/.test(window.location.pathname)) {
-      title = <FormattedMessage id="search.allClaimsTitle" defaultMessage="All items" />;
+    if (/^\/.*\/all-items(\/)?.*/.test(window.location.pathname)) {
+      title = this.props.intl.formatMessage(messages.title);
     }
     if (this.props.page === 'trash') {
       title = this.props.title; // eslint-disable-line prefer-destructuring
     }
 
     return (
-      <div className="search" style={{ padding: `0 ${units(2)}` }}>
+      <div className="all-items" style={{ padding: `0 ${units(2)}` }}>
         <SearchResults
           {...this.props}
           listName={title || this.props.listName}
-          view={view}
+          title={title}
           query={query}
         />
       </div>
@@ -103,4 +108,4 @@ class Search extends React.Component {
   }
 }
 
-export default Search;
+export default injectIntl(Search);

@@ -62,8 +62,6 @@ class ProjectComponent extends Component {
 
   render() {
     const { project } = this.props;
-    const view = this.props.route.view || window.storage.getValue('view-mode') || 'list';
-    window.storage.set('view-mode', view);
 
     return (
       <PageTitle prefix={project.title} skipTeam={false} team={this.currentContext().team}>
@@ -76,7 +74,6 @@ class ProjectComponent extends Component {
             project={project}
             query={this.props.params.query || '{}'}
             fields={['date', 'keyword', 'status', 'sort', 'tags', 'show', 'dynamic', 'bulk', 'rules']}
-            view={view}
           />
         </div>
       </PageTitle>

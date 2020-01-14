@@ -29,7 +29,6 @@ class Toolbar extends React.Component {
       actions,
       title,
       project,
-      addons,
       page,
       team,
       search,
@@ -52,13 +51,14 @@ class Toolbar extends React.Component {
             {actions} {actions ? '|' : null} <span className="toolbar__title">{title}</span>
           </Row>
           <Offset isRtl={isRtl}>
-            <Can {...perms}>
-              <CreateProjectMedia search={search} team={team} />
-            </Can>
+            { page !== 'trash' ?
+              <Can {...perms}>
+                <CreateProjectMedia search={search} team={team} />
+              </Can> : null
+            }
             { page === 'trash' ?
               <EmptyTrashButton teamSlug={team.slug} search={search} /> : null
             }
-            {addons}
           </Offset>
         </FlexRow>
       </StyledToolbar>

@@ -81,7 +81,7 @@ class BulkUpdateProjectMediaMutation extends Relay.Mutation {
         },
       ];
     }
-    if (/^\/[^/]+\/search/.test(window.location.pathname) && this.props.archived) {
+    if (/^\/[^/]+\/all-items/.test(window.location.pathname) && this.props.archived) {
       configs.push({
         type: 'FIELDS_CHANGE',
         fieldIDs: {
