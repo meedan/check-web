@@ -116,7 +116,8 @@ class MediaEmbedComponent extends Component {
       if (team.get_embed_tasks) {
         const teamTasksIds = team.get_embed_tasks.split(',');
         props.media.tasks.edges.forEach((task) => {
-          if (teamTasksIds.indexOf(task.node.team_task_id.toString()) > -1) {
+          const id = task.node.team_task_id ? task.node.team_task_id.toString() : '';
+          if (teamTasksIds.indexOf(id) > -1) {
             customizationOptions[`task-${task.node.dbid}`] = true;
           }
         });
