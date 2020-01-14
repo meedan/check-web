@@ -48,7 +48,8 @@ class Toolbar extends React.Component {
       <StyledToolbar className="toolbar">
         <FlexRow>
           <Row>
-            {actions} {actions ? '|' : null} <span className="toolbar__title">{title}</span>
+            <span className="toolbar__title">{title}</span>
+            {actions}
           </Row>
           <Offset isRtl={isRtl}>
             { page !== 'trash' ?

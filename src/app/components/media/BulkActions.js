@@ -1,16 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
+import Button from '@material-ui/core/Button';
 import { injectIntl, intlShape, defineMessages, FormattedMessage } from 'react-intl';
-import IconMove from 'material-ui/svg-icons/action/input';
 import IconDelete from 'material-ui/svg-icons/action/delete';
-import IconClone from 'material-ui/svg-icons/content/content-copy';
 import FlatButton from 'material-ui/FlatButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import styled from 'styled-components';
 import MoveDialog from './MoveDialog';
 import BulkUpdateProjectMediaMutation from '../../relay/mutations/BulkUpdateProjectMediaMutation';
-import { units } from '../../styles/js/shared';
+import { Row, units } from '../../styles/js/shared';
 
 const StyledIcon = styled.span`
   margin: 0 ${units(1)};
@@ -159,14 +158,16 @@ class BulkActions extends React.Component {
 
   render() {
     const actions = (
-      <span id="media-bulk-actions__actions">
+      <Row id="media-bulk-actions__actions">
         <Tooltip title={this.props.intl.formatMessage(messages.move)}>
-          <StyledIcon>
-            <IconMove
-              className="media-bulk-actions__move-icon"
-              onClick={this.moveSelected.bind(this)}
-            />
-          </StyledIcon>
+          <Button
+            className="media-bulk-actions__move-icon"
+            onClick={this.moveSelected.bind(this)}
+            color="primary"
+            variant="contained"
+          >
+            <FormattedMessage id="bulkActions.moveTo" defaultMessage="Move to..." />
+          </Button>
         </Tooltip>
         <Tooltip title={this.props.intl.formatMessage(messages.delete)}>
           <StyledIcon>
@@ -176,15 +177,7 @@ class BulkActions extends React.Component {
             />
           </StyledIcon>
         </Tooltip>
-        <Tooltip title={this.props.intl.formatMessage(messages.clone)}>
-          <StyledIcon>
-            <IconClone
-              className="media-bulk-actions__clone-icon"
-              onClick={this.cloneSelected.bind(this)}
-            />
-          </StyledIcon>
-        </Tooltip>
-      </span>
+      </Row>
     );
 
     const moveDialogActions = [
