@@ -73,7 +73,7 @@ class MemebusterComponent extends React.Component {
 
   getField = (content, field_name) => {
     const field = content.find(i => i.field_name === field_name);
-    return field ? field.value : null;
+    return (field && field.value) ? field.value : null;
   };
 
   getFieldFromAnnotation = (field_name) => {
@@ -100,13 +100,21 @@ class MemebusterComponent extends React.Component {
 
     if (annotation) {
       const content = safelyParseJSON(annotation.content);
-      return ({
-        headline: this.getField(content, 'memebuster_headline'),
-        description: this.getField(content, 'memebuster_body'),
-        statusText: this.getField(content, 'memebuster_status'),
-        image: this.getField(content, 'memebuster_image'),
-        overlayColor: this.getField(content, 'memebuster_overlay'),
+      const params = {};
+      const mapping = {
+        headline: 'headline',
+        image: 'image',
+        body: 'description',
+        status: 'statusText',
+        overlay: 'overlayColor',
+      };
+      ['headline', 'body', 'status', 'image', 'overlay'].forEach((name) => {
+        const value = this.getField(content, `memebuster_${name}`);
+        if (value) {
+          params[mapping[name]] = value;
+        }
       });
+      return params;
     }
 
     return {};
@@ -300,7 +308,7 @@ class MemebusterComponent extends React.Component {
     return (
       <PageTitle
         prefix={MediaUtil.title({ media }, data, this.props.intl)}
-        team={this.getContext().team}
+        team={media.team}
         data-id={media.dbid}
       >
         <StyledTwoColumnLayout>

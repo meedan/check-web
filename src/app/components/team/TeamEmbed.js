@@ -20,6 +20,7 @@ class TeamEmbedComponent extends React.Component {
     this.state = {
       message: null,
       selectedTasks,
+      showAnalysis: !!props.team.get_embed_analysis,
     };
   }
 
@@ -32,6 +33,10 @@ class TeamEmbedComponent extends React.Component {
       tasks.push(value.toString());
     }
     this.setState({ selectedTasks: tasks });
+  }
+
+  toggleAnalysis() {
+    this.setState({ showAnalysis: !this.state.showAnalysis });
   }
 
   handleSubmit() {
@@ -61,6 +66,7 @@ class TeamEmbedComponent extends React.Component {
       new UpdateTeamMutation({
         id: this.props.team.id,
         disclaimer,
+        analysis: this.state.showAnalysis,
         embed_tasks,
       }),
       { onSuccess, onFailure },
@@ -124,6 +130,31 @@ class TeamEmbedComponent extends React.Component {
             </CardText>
           </Card>
 
+          <Card style={{ marginTop: units(2) }}>
+            <CardHeader
+              title={
+                <FormattedMessage id="teamEmbed.analysis" defaultMessage="Analysis" />
+              }
+              subtitle={
+                <FormattedMessage id="teamEmbed.analysisSub" defaultMessage="Display analysis in the report" />
+              }
+            />
+            <CardText>
+              <FlexRow style={{ justifyContent: 'flex-start' }}>
+                <Checkbox
+                  style={{ width: 'auto' }}
+                  checked={this.state.showAnalysis}
+                  onCheck={this.toggleAnalysis.bind(this)}
+                />
+                {' '}
+                <FormattedMessage
+                  id="teamEmbed.analysisYes"
+                  defaultMessage="Yes"
+                />
+              </FlexRow>
+            </CardText>
+          </Card>
+
           <Can permissions={permissions} permission="update Team">
             <p style={{ marginTop: units(2), textAlign: direction.to }}>
               <FlatButton
@@ -151,6 +182,7 @@ const TeamEmbedContainer = Relay.createContainer(TeamEmbedComponent, {
         dbid
         permissions
         get_disclaimer
+        get_embed_analysis
         get_embed_tasks
         team_tasks(first: 10000) {
           edges {

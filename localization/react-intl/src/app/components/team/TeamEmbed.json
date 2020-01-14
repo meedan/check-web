@@ -28,6 +28,18 @@
     "defaultMessage": "Disclaimer that will be shown at the bottom of the report with the workspace logo."
   },
   {
+    "id": "teamEmbed.analysis",
+    "defaultMessage": "Analysis"
+  },
+  {
+    "id": "teamEmbed.analysisSub",
+    "defaultMessage": "Display analysis in the report"
+  },
+  {
+    "id": "teamEmbed.analysisYes",
+    "defaultMessage": "Yes"
+  },
+  {
     "id": "teamEmbed.save",
     "defaultMessage": "Save"
   }
