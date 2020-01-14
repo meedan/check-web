@@ -6,6 +6,7 @@
   "bulkActions.clonedSuccessfully": "تم ! يرجى ملاحظة أن الأمر قد يستغرق بعض الوقت حتى يتم نسخ العناصر بالفعل.",
   "bulkActions.movedSuccessfully": "تم ! يرجى ملاحظة أن الأمر قد يستغرق بعض الوقت حتى يتم نقل العناصر بالفعل.",
   "bulkActions.moveToTrashSuccessfully": "تم ! يرجى ملاحظة أن الأمر قد يستغرق بعض الوقت حتى يتم نقل العناصر إلى سلة المهملات بالفعل.",
+  "bulkActions.moveTo": "Move to...",
   "bulkActions.cancelButton": "إلغاء",
   "bulkActions.moveTitle": "نقل",
   "bulkActions.cloneTitle": "نسخ",

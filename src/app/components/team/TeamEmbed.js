@@ -136,7 +136,7 @@ class TeamEmbedComponent extends React.Component {
                 <FormattedMessage id="teamEmbed.analysis" defaultMessage="Analysis" />
               }
               subtitle={
-                <FormattedMessage id="teamEmbed.analysisSub" defaultMessage="Display analysis in the report" />
+                <FormattedMessage id="teamEmbed.analysisSub" defaultMessage="Show analysis in the report" />
               }
             />
             <CardText>

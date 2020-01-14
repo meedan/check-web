@@ -6,6 +6,7 @@
   "bulkActions.clonedSuccessfully": "¡Listo! Ten en cuenta que toma un poco de tiempo duplicar completamente los ítems. ",
   "bulkActions.movedSuccessfully": "¡Listo!  Ten en cuenta que tomá un poco de tiempo para que los ítems se muevan completamente.",
   "bulkActions.moveToTrashSuccessfully": "¡Listo! Ten en cuenta que va a tardar tiempo mover todos los ítems a la papelera. ",
+  "bulkActions.moveTo": "Move to...",
   "bulkActions.cancelButton": "Cancelar",
   "bulkActions.moveTitle": "Mover",
   "bulkActions.cloneTitle": "Copiar",

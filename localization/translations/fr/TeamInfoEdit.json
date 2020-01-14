@@ -5,7 +5,7 @@
   "teamComponent.location": "Emplacement",
   "teamComponent.phone": "Numéro de téléphone",
   "teamComponent.website": "Site web",
-  "teamComponent.invalidLink": "Veuillez saisir une URL valide.",
+  "teamComponent.invalidLink": "Veuillez saisir une URL valide",
   "teamComponent.cancelButton": "Annuler",
   "teamComponent.saveButton": "Sauvegarder"
 }

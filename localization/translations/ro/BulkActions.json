@@ -6,6 +6,7 @@
   "bulkActions.clonedSuccessfully": "Done! Please note that it can take a while until the items are actually cloned.",
   "bulkActions.movedSuccessfully": "Făcut! Atenționăm că mutarea propriu-zisă a elementelor poate să dureze puțin.",
   "bulkActions.moveToTrashSuccessfully": "Făcut! Atenționăm că mutarea propriu-zisă a elementelor în coș poate să dureze puțin.",
+  "bulkActions.moveTo": "Move to...",
   "bulkActions.cancelButton": "Anulare",
   "bulkActions.moveTitle": "Mutare",
   "bulkActions.cloneTitle": "Copy",

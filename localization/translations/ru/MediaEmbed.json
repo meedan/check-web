@@ -1,10 +1,18 @@
 {
-  "mediaEmbed.customizationOptionShowCompleteTasks": "Показать вопросы с ответами",
-  "mediaEmbed.customizationOptionShowIncompleteTasks": "Показать вопросы без ответов",
-  "mediaEmbed.customizationOptionShowNotes": "Показать заметки",
+  "mediaEmbed.error": "Could not save report",
   "mediaEmbed.warning": "Warning — sharing this will expose information to people outside your private workspace. Proceed with caution.",
   "mediaEmbed.copyButtonInactive": "Скопировано",
   "mediaEmbed.copyButton": "Копировать",
   "mediaEmbed.copyEmbedCode": "Код для вставки",
-  "mediaEmbed.copyShareUrl": "Публичный URL"
+  "mediaEmbed.copyShareUrl": "Публичный URL",
+  "mediaEmbed.editorTitle": "Select the content to display in your report",
+  "mediaEmbed.analysis": "Analysis",
+  "mediaEmbed.analysisSlogan": "Show analysis in the report",
+  "mediaEmbed.tasks": "Tasks",
+  "mediaEmbed.tasksSlogan": "The selected tasks will be included in the report if they are resolved.",
+  "mediaEmbed.disclaimer": "Disclaimer",
+  "mediaEmbed.disclaimerSlogan": "Disclaimer that will be shown at the bottom of the report with the workspace logo",
+  "mediaEmbed.customUrl": "Send a custom URL instead of a report",
+  "mediaEmbed.validUrl": "Please enter a valid URL",
+  "mediaEmbed.save": "Save"
 }

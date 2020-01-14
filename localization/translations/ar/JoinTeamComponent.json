@@ -1,12 +1,12 @@
 {
   "joinTeamComponent.error": "عذراً ، لقد واجهنا خطأ ما اثناء إرسال طلبك. من فضلك أعد المحاولة وتواصل مع {supportEmail} إن استمرت المشكلة.",
-  "joinTeamComponent.success": "Thanks for your interest in joining {team}! A workspace administrator will review your application soon.",
-  "joinTeamComponent.autoApprove": "Thanks for joining {team}! You can start contributing right away.",
-  "joinTeamComponent.title": "Join Workspace",
-  "joinTeamComponent.mainHeading": "Request to join",
-  "joinTeamComponent.alreadyRequested": "You already requested to join {team}.",
-  "joinTeamComponent.requestHasBeenSent": "Your request has been sent to the workspace administrators for approval.",
-  "joinTeamComponent.blurbGraf": "To request to join {team}, click below:",
+  "joinTeamComponent.success": "شكراً على اهتمامك للانضمام إلى {team} ! سوف يراجع مسؤول الفريق طلبك.",
+  "joinTeamComponent.autoApprove": "شكراً على انضمامك إلى {team} ! يمكنك بدء المشاركة فوراّ.",
+  "joinTeamComponent.title": "الانضمام لمساحة العمل",
+  "joinTeamComponent.mainHeading": "طلب للانضمام",
+  "joinTeamComponent.alreadyRequested": "لقد طلبت بالفعل الانضمام إلى {team}.",
+  "joinTeamComponent.requestHasBeenSent": "تم إرسال طلبك إلى مسؤولي مساحة العمل للموافقة.",
+  "joinTeamComponent.blurbGraf": "لطلب الانضمام إلى {team} اضغط على الرابط التالي:",
   "joinTeamComponent.buttonSubmitted": "تم إرسال طلبك",
   "joinTeamComponent.buttonSubmit": "أرسل طلب للانضمام"
 }

@@ -6,6 +6,7 @@
   "bulkActions.clonedSuccessfully": "Done! Please note that it can take a while until the items are actually cloned.",
   "bulkActions.movedSuccessfully": "Done! Please note that it can take a while until the items are actually moved.",
   "bulkActions.moveToTrashSuccessfully": "Done! Please note that it can take a while until the items are actually moved to the trash.",
+  "bulkActions.moveTo": "Move to...",
   "bulkActions.cancelButton": "Cancel",
   "bulkActions.moveTitle": "Move",
   "bulkActions.cloneTitle": "Copy",

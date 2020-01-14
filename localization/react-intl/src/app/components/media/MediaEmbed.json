@@ -49,7 +49,7 @@
   },
   {
     "id": "mediaEmbed.disclaimerSlogan",
-    "defaultMessage": "Disclaimer that will be shown at the bottom of the report with the team logo"
+    "defaultMessage": "Disclaimer that will be shown at the bottom of the report with the workspace logo"
   },
   {
     "id": "mediaEmbed.customUrl",
@@ -57,7 +57,7 @@
   },
   {
     "id": "mediaEmbed.validUrl",
-    "defaultMessage": "Enter a valid URL"
+    "defaultMessage": "Please enter a valid URL"
   },
   {
     "id": "mediaEmbed.save",

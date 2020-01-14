@@ -1,3 +1,8 @@
 {
-  "mediaStatus.error": "Ne pare rău, în timpul actualizării stării s-a produs o eroare. Vă rugăm să mai încercați odată și să contactați {supportEmail} dacă situația persistă."
+  "mediaStatus.error": "Ne pare rău, în timpul actualizării stării s-a produs o eroare. Vă rugăm să mai încercați odată și să contactați {supportEmail} dacă situația persistă.",
+  "mediaStatusCommon.proceedAndSend": "Proceed and Send",
+  "mediaStatusCommon.title": "Final Report",
+  "mediaStatusCommon.confirmationMessageWithValue": "You are about to send a report to the {value} people who requested this item.",
+  "mediaStatusCommon.confirmationMessage": "You are about to send a report to all people who requested this item.",
+  "mediaStatusCommon.editReportBeforeSending": "Edit report before sending"
 }

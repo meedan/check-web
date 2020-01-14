@@ -500,7 +500,7 @@ class MediaEmbedComponent extends Component {
                     floatingLabelText={
                       <FormattedMessage
                         id="mediaEmbed.disclaimerSlogan"
-                        defaultMessage="Disclaimer that will be shown at the bottom of the report with the team logo"
+                        defaultMessage="Disclaimer that will be shown at the bottom of the report with the workspace logo"
                       />
                     }
                     defaultValue={this.state.customizationOptions.disclaimer}
@@ -520,7 +520,7 @@ class MediaEmbedComponent extends Component {
                     floatingLabelText={
                       <FormattedMessage
                         id="mediaEmbed.validUrl"
-                        defaultMessage="Enter a valid URL"
+                        defaultMessage="Please enter a valid URL"
                       />
                     }
                     defaultValue={this.state.customizationOptions.url}

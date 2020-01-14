@@ -5,7 +5,7 @@
   "media.typeInstagram": "انستقرام",
   "media.typeLink": "Link",
   "media.typeVideo": "فيديو",
-  "media.typeClaim": "Text",
+  "media.typeClaim": "نص",
   "media.typeImage": "صورة",
   "media.typePage": "صفحة",
   "media.onDomain": "{typeLabel} على {domain}",

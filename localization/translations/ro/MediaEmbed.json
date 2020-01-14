@@ -1,10 +1,18 @@
 {
-  "mediaEmbed.customizationOptionShowCompleteTasks": "Arată sarcini finalizate",
-  "mediaEmbed.customizationOptionShowIncompleteTasks": "Arată sarcini nefinalizate",
-  "mediaEmbed.customizationOptionShowNotes": "Arată notele",
+  "mediaEmbed.error": "Could not save report",
   "mediaEmbed.warning": "Warning — sharing this will expose information to people outside your private workspace. Proceed with caution.",
   "mediaEmbed.copyButtonInactive": "Copiat",
   "mediaEmbed.copyButton": "Copiere",
   "mediaEmbed.copyEmbedCode": "Copiere cod de incorporare",
-  "mediaEmbed.copyShareUrl": "Copiere URL pentru partajare"
+  "mediaEmbed.copyShareUrl": "Copiere URL pentru partajare",
+  "mediaEmbed.editorTitle": "Select the content to display in your report",
+  "mediaEmbed.analysis": "Analysis",
+  "mediaEmbed.analysisSlogan": "Show analysis in the report",
+  "mediaEmbed.tasks": "Tasks",
+  "mediaEmbed.tasksSlogan": "The selected tasks will be included in the report if they are resolved.",
+  "mediaEmbed.disclaimer": "Disclaimer",
+  "mediaEmbed.disclaimerSlogan": "Disclaimer that will be shown at the bottom of the report with the workspace logo",
+  "mediaEmbed.customUrl": "Send a custom URL instead of a report",
+  "mediaEmbed.validUrl": "Please enter a valid URL",
+  "mediaEmbed.save": "Save"
 }
