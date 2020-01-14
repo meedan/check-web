@@ -8,6 +8,10 @@
     "defaultMessage": "Analysis"
   },
   {
+    "id": "mediaComponent.comments",
+    "defaultMessage": "Comments"
+  },
+  {
     "id": "mediaComponent.activity",
     "defaultMessage": "Activity"
   }
