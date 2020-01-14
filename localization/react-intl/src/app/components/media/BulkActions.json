@@ -28,6 +28,10 @@
     "defaultMessage": "Done! Please note that it can take a while until the items are actually moved to the trash."
   },
   {
+    "id": "bulkActions.moveTo",
+    "defaultMessage": "Move to..."
+  },
+  {
     "id": "bulkActions.cancelButton",
     "defaultMessage": "Cancel"
   },
