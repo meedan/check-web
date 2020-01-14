@@ -698,6 +698,7 @@ const MediaActionsBarContainer = Relay.createContainer(MediaActionsBarComponent,
         project_id
         project_ids
         title
+        demand
         description
         permissions
         verification_statuses

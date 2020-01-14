@@ -11,6 +11,7 @@ import styled from 'styled-components';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import PageTitle from '../PageTitle';
 import MediaUtil from './MediaUtil';
+import MediaStatus from './MediaStatus';
 import PenderCard from '../PenderCard';
 import CheckContext from '../../CheckContext';
 import MediaRoute from '../../relay/MediaRoute';
@@ -283,6 +284,14 @@ class MediaEmbedComponent extends Component {
     }
   }
 
+  statusCallback() {
+    let { url } = this.state;
+    if (!this.state.customizationOptions.url || !/^http/.test(this.state.customizationOptions.url)) {
+      url = window.location.href.replace(/\/embed$/, `?t=${new Date().getTime()}`);
+    }
+    this.setState({ version: (this.state.version + 1), url });
+  }
+
   render() {
     const { media } = this.props;
     const data = media.metadata;
@@ -361,31 +370,45 @@ class MediaEmbedComponent extends Component {
             </div>
           </StyledPopover>
 
-          <p id="media-embed__actions">
-            <CopyToClipboard text={embedTag} onCopy={this.handleCopyEmbedCode.bind(this)}>
-              <FlatButton
-                id="media-embed__actions-copy"
-                onClick={this.handleCodeMenuOpen.bind(this)}
-                label={
-                  <FormattedMessage
-                    id="mediaEmbed.copyEmbedCode"
-                    defaultMessage="Copy embed code"
-                  />
-                }
+          <p id="media-embed__actions" style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div>
+              <CopyToClipboard text={embedTag} onCopy={this.handleCopyEmbedCode.bind(this)}>
+                <FlatButton
+                  id="media-embed__actions-copy"
+                  onClick={this.handleCodeMenuOpen.bind(this)}
+                  label={
+                    <FormattedMessage
+                      id="mediaEmbed.copyEmbedCode"
+                      defaultMessage="Copy embed code"
+                    />
+                  }
+                />
+              </CopyToClipboard>
+              <CopyToClipboard text={shareUrl} onCopy={this.handleCopyShareUrl.bind(this)}>
+                <FlatButton
+                  id="media-embed__actions-copy"
+                  onClick={this.handleShareMenuOpen.bind(this)}
+                  label={
+                    <FormattedMessage
+                      id="mediaEmbed.copyShareUrl"
+                      defaultMessage="Copy share URL"
+                    />
+                  }
+                />
+              </CopyToClipboard>
+            </div>
+            <div
+              style={{
+                marginLeft: units(2),
+                marginRight: units(2),
+              }}
+            >
+              <MediaStatus
+                media={media}
+                readonly={media.archived || media.last_status_obj.locked}
+                callback={this.statusCallback.bind(this)}
               />
-            </CopyToClipboard>
-            <CopyToClipboard text={shareUrl} onCopy={this.handleCopyShareUrl.bind(this)}>
-              <FlatButton
-                id="media-embed__actions-copy"
-                onClick={this.handleShareMenuOpen.bind(this)}
-                label={
-                  <FormattedMessage
-                    id="mediaEmbed.copyShareUrl"
-                    defaultMessage="Copy share URL"
-                  />
-                }
-              />
-            </CopyToClipboard>
+            </div>
           </p>
 
           <StyledTwoColumnLayout>
@@ -542,7 +565,19 @@ const MediaEmbedContainer = Relay.createContainer(MediaEmbedComponent, {
         dbid
         oembed_metadata
         metadata
+        demand
+        verification_statuses
         permissions
+        archived
+        project_id
+        project_ids
+        last_status
+        last_status_obj {
+          id
+          dbid
+          locked
+          content
+        }
         dynamic_annotation_memebuster {
           id
           dbid
@@ -560,6 +595,7 @@ const MediaEmbedContainer = Relay.createContainer(MediaEmbedComponent, {
         }
         team {
           name
+          slug
           get_disclaimer
           get_embed_tasks
           get_embed_analysis
