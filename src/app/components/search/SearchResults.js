@@ -197,6 +197,7 @@ class SearchResultsComponent extends React.Component {
     if (!mediaUrl && team && media.dbid > 0) {
       mediaUrl = `/${team.slug}/media/${media.dbid}`;
     }
+
     this.context.router.push({ pathname: mediaUrl, state: { query } });
   };
 
@@ -423,11 +424,9 @@ class SearchResultsComponent extends React.Component {
 
       this.resultsWithQueries = searchResults.map((item) => {
         let itemQuery = {};
-        if (item.node.media) {
-          itemOffset += 1;
-          itemQuery = Object.assign({}, itemBaseQuery);
-          itemQuery.esoffset = itemOffset;
-        }
+        itemOffset += 1;
+        itemQuery = Object.assign({}, itemBaseQuery);
+        itemQuery.esoffset = itemOffset;
         return { ...item, itemQuery };
       });
 
