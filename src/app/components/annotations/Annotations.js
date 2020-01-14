@@ -83,7 +83,7 @@ class Annotations extends React.Component {
           <div className="annotations__list">
             {!props.annotations.length ?
               <Text style={{ margin: 'auto', color: black38 }}>
-                <FormattedMessage id="annotation.noAnnotationsYet" defaultMessage="No activity" />
+                { props.noActivityMessage ? props.noActivityMessage : <FormattedMessage id="annotation.noAnnotationsYet" defaultMessage="No activity" /> }
               </Text> :
               props.annotations.map(annotation => (
                 <div key={annotation.node.dbid} className="annotations__list-item">

@@ -1,13 +1,5 @@
 [
   {
-    "id": "mediaExpanded.unknown",
-    "defaultMessage": "unknown"
-  },
-  {
-    "id": "mediaExpanded.source",
-    "defaultMessage": "Source"
-  },
-  {
     "id": "mediaExpanded.firstSeen",
     "defaultMessage": "First seen:"
   },

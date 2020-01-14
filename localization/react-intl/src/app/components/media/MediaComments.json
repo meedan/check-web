@@ -1,6 +1,6 @@
 [
   {
-    "id": "mediaComments.title",
-    "defaultMessage": "Comments"
+    "id": "mediaComments.noComment",
+    "defaultMessage": "No comment"
   }
 ]

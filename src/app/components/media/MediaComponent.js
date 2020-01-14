@@ -218,6 +218,15 @@ class MediaComponent extends Component {
                 <Tab
                   label={
                     <FormattedMessage
+                      id="mediaComponent.comments"
+                      defaultMessage="Comments"
+                    />
+                  }
+                  value="comments"
+                />
+                <Tab
+                  label={
+                    <FormattedMessage
                       id="mediaComponent.activity"
                       defaultMessage="Activity"
                     />
@@ -228,7 +237,7 @@ class MediaComponent extends Component {
               { this.state.showTab === 'tasks' ? <MediaTasks media={media} /> : null }
               { this.state.showTab === 'analysis' ? <MediaAnalysis media={media} /> : null }
               { this.state.showTab === 'activity' ? <MediaLog media={media} /> : null }
-              <MediaComments media={media} style={{ marginTop: units(5) }} />
+              { this.state.showTab === 'comments' ? <MediaComments media={media} /> : null }
             </ContentColumn>
           </StyledTwoColumnLayout>
         </StyledBackgroundColor>

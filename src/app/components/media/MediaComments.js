@@ -6,7 +6,6 @@ import MediaRoute from '../../relay/MediaRoute';
 import MediasLoading from './MediasLoading';
 import Annotations from '../annotations/Annotations';
 import CheckContext from '../../CheckContext';
-import { FlexRow, subheading2, black87 } from '../../styles/js/shared';
 
 class MediaCommentsComponent extends Component {
   constructor(props) {
@@ -73,21 +72,6 @@ class MediaCommentsComponent extends Component {
 
     return (
       <div id="media__comments" style={this.props.style}>
-        <FlexRow>
-          <h2
-            style={{
-              color: black87,
-              flex: 1,
-              font: subheading2,
-              margin: 0,
-            }}
-          >
-            <FormattedMessage
-              id="mediaComments.title"
-              defaultMessage="Comments"
-            />
-          </h2>
-        </FlexRow>
         <Annotations
           showAddAnnotation
           style={{
@@ -98,6 +82,12 @@ class MediaCommentsComponent extends Component {
           annotations={media.log.edges}
           annotated={media}
           annotatedType="ProjectMedia"
+          noActivityMessage={
+            <FormattedMessage
+              id="mediaComments.noComment"
+              defaultMessage="No comment"
+            />
+          }
         />
       </div>
     );

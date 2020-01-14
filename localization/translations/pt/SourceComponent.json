@@ -14,7 +14,7 @@
   "sourceComponent.languages": "Idiomas",
   "sourceComponent.location": "Localização",
   "sourceComponent.link": "Link",
-  "sourceComponent.addLink": "Insira um link",
+  "sourceComponent.addLink": "Adicionar um link",
   "sourceComponent.addLinkHelper": "Adicione um link para uma página web ou perfil de mídia social",
   "sourceComponent.extractedHelper": "Extraído da conta {accountName} do {provider}",
   "sourceComponent.extractedHelperPg": "Extraído de {url}",
