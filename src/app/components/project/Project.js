@@ -71,6 +71,7 @@ class ProjectComponent extends Component {
             listDescription={project.description}
             listActions={<ProjectActions project={project} />}
             team={project.team.slug}
+            page="project"
             project={project}
             query={this.props.params.query || '{}'}
             fields={['date', 'keyword', 'status', 'sort', 'tags', 'show', 'dynamic', 'bulk', 'rules']}
