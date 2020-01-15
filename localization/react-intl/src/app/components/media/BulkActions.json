@@ -40,6 +40,10 @@
     "defaultMessage": "Move to..."
   },
   {
+    "id": "bulkActions.restore",
+    "defaultMessage": "Restore from trash"
+  },
+  {
     "id": "bulkActions.cancelButton",
     "defaultMessage": "Cancel"
   },

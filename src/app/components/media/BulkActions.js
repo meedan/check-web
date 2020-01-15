@@ -4,7 +4,6 @@ import Relay from 'react-relay/classic';
 import Button from '@material-ui/core/Button';
 import { injectIntl, intlShape, defineMessages, FormattedMessage } from 'react-intl';
 import IconDelete from '@material-ui/icons/Delete';
-import IconRestore from '@material-ui/icons/Restore';
 import FlatButton from 'material-ui/FlatButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import styled from 'styled-components';
@@ -181,13 +180,16 @@ class BulkActions extends React.Component {
             <FormattedMessage id="bulkActions.moveTo" defaultMessage="Move to..." />
           </Button>
         </Tooltip>
-        { this.props.page === 'trash' ?
+        { page === 'trash' ?
           <Tooltip title={this.props.intl.formatMessage(messages.restore)}>
             <StyledIcon>
-              <IconRestore
-                className="media-bulk-actions__restore-icon"
+              <Button
+                className="media-bulk-actions__restore-button"
                 onClick={() => { this.handleDelete({ archived: 0 }); }}
-              />
+                variant="outlined"
+              >
+                <FormattedMessage id="bulkActions.restore" defaultMessage="Restore from trash" />
+              </Button>
             </StyledIcon>
           </Tooltip>
           :
