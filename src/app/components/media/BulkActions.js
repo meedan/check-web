@@ -169,17 +169,7 @@ class BulkActions extends React.Component {
     const { page } = this.props;
 
     const actions = (
-      <Row id="media-bulk-actions__actions">
-        <Tooltip title={this.props.intl.formatMessage(messages.move)}>
-          <Button
-            className="media-bulk-actions__move-icon"
-            onClick={this.moveSelected.bind(this)}
-            color="primary"
-            variant="contained"
-          >
-            <FormattedMessage id="bulkActions.moveTo" defaultMessage="Move to..." />
-          </Button>
-        </Tooltip>
+      <div id="media-bulk-actions__actions">
         { page === 'trash' ?
           <Tooltip title={this.props.intl.formatMessage(messages.restore)}>
             <StyledIcon>
@@ -193,16 +183,28 @@ class BulkActions extends React.Component {
             </StyledIcon>
           </Tooltip>
           :
-          <Tooltip title={this.props.intl.formatMessage(messages.delete)}>
-            <StyledIcon>
-              <IconDelete
-                className="media-bulk-actions__delete-icon"
-                onClick={() => { this.handleDelete({ archived: 1 }); }}
-              />
-            </StyledIcon>
-          </Tooltip>
+          <Row>
+            <Tooltip title={this.props.intl.formatMessage(messages.move)}>
+              <Button
+                className="media-bulk-actions__move-icon"
+                onClick={this.moveSelected.bind(this)}
+                color="primary"
+                variant="contained"
+              >
+                <FormattedMessage id="bulkActions.moveTo" defaultMessage="Move to..." />
+              </Button>
+            </Tooltip>
+            <Tooltip title={this.props.intl.formatMessage(messages.delete)}>
+              <StyledIcon>
+                <IconDelete
+                  className="media-bulk-actions__delete-icon"
+                  onClick={() => { this.handleDelete({ archived: 1 }); }}
+                />
+              </StyledIcon>
+            </Tooltip>
+          </Row>
         }
-      </Row>
+      </div>
     );
 
     const moveDialogActions = [

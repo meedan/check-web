@@ -333,7 +333,7 @@ class SearchResultsComponent extends React.Component {
 
     let bulkActionsAllowed = false;
     if (medias.length) {
-      bulkActionsAllowed = !medias[0].node.archived && can(medias[0].node.permissions, 'administer Content');
+      bulkActionsAllowed = can(medias[0].node.permissions, 'administer Content');
     }
     const title = (
       <Toolbar
