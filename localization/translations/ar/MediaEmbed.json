@@ -3,9 +3,11 @@
   "mediaEmbed.warning": "Warning — sharing this will expose information to people outside your private workspace. Proceed with caution.",
   "mediaEmbed.copyButtonInactive": "‏‏تم النسخ",
   "mediaEmbed.copyButton": "نسخ",
+  "mediaEmbed.back": "Back to annotation",
   "mediaEmbed.copyEmbedCode": "نسخ تعليمات التضمين",
   "mediaEmbed.copyShareUrl": "نسخ عنوان المشاركة",
   "mediaEmbed.editorTitle": "Select the content to display in your report",
+  "mediaEmbed.update": "Update",
   "mediaEmbed.analysis": "Analysis",
   "mediaEmbed.analysisSlogan": "Show analysis in the report",
   "mediaEmbed.tasks": "Tasks",
@@ -13,6 +15,5 @@
   "mediaEmbed.disclaimer": "Disclaimer",
   "mediaEmbed.disclaimerSlogan": "Disclaimer that will be shown at the bottom of the report with the workspace logo",
   "mediaEmbed.customUrl": "Send a custom URL instead of a report",
-  "mediaEmbed.validUrl": "Please enter a valid URL",
-  "mediaEmbed.save": "Save"
+  "mediaEmbed.validUrl": "Please enter a valid URL"
 }
