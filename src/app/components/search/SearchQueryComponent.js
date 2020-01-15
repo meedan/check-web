@@ -267,7 +267,6 @@ class SearchQueryComponent extends React.Component {
 
   handleApplyFilters() {
     const { query } = this.state;
-    query.esoffset = 0;
 
     const prefix = searchPrefixFromUrl();
     const url = urlFromSearchQuery(query, prefix);
@@ -582,7 +581,7 @@ class SearchQueryComponent extends React.Component {
 
   resetFilters = (apply) => {
     this.searchInput.value = '';
-    this.setState({ query: { esoffset: 0 } }, () => {
+    this.setState({ query: {} }, () => {
       if (apply) {
         this.handleApplyFilters();
       }
