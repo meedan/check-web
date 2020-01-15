@@ -342,6 +342,7 @@ class SearchResultsComponent extends React.Component {
           <BulkActions
             count={this.props.search ? this.props.search.number_of_results : 0}
             team={team}
+            page={this.props.page}
             project={this.currentContext().project}
             selectedMedia={this.state.selectedMedia}
             onUnselectAll={this.onUnselectAll}
