@@ -6,6 +6,7 @@
   "bulkActions.clonedSuccessfully": "Terminé ! Veuillez noter que le clonage des éléments peut durer quelques minutes.",
   "bulkActions.movedSuccessfully": "Terminé ! Veuillez noter que le transfert des éléments peut durer quelques minutes.",
   "bulkActions.moveToTrashSuccessfully": "Terminé ! Veuillez noter que le transfert des éléments à la corbeille peut durer quelques minutes.",
+  "bulkActions.moveTo": "Transférer vers...",
   "bulkActions.cancelButton": "Annuler",
   "bulkActions.moveTitle": "Transférer",
   "bulkActions.cloneTitle": "Copier",

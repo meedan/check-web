@@ -1,6 +1,6 @@
 {
-  "projectEdit.error": "Sorry, an error occurred while updating the list. Please try again and contact {supportEmail} if the condition persists.",
-  "projectEdit.titleField": "Title",
-  "projectEdit.descriptionField": "Description",
+  "projectEdit.error": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث القائمة. من فضلك أعد المحاولة وتواصل مع {supportEmail} إن استمرت المشكلة.",
+  "projectEdit.titleField": "العنوان",
+  "projectEdit.descriptionField": "الوصف",
   "projectEdit.saveButton": "حفظ"
 }

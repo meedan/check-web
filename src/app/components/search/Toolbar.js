@@ -39,8 +39,7 @@ class Toolbar extends React.Component {
     let perms = { permissions: {}, permission: '' };
     if (project) {
       perms = { permissions: project.permissions, permission: 'create Media' };
-    }
-    if (team) {
+    } else if (team) {
       perms = { permissions: team.permissions, permission: 'create ProjectMedia' };
     }
 

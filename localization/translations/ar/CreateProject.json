@@ -1,7 +1,7 @@
 {
-  "createProject.addProject": "Create list",
+  "createProject.addProject": "إنشاء قائمة",
   "createProject.title": "Add a list",
   "createProject.titleBlank": "Add your first list",
   "createProject.newProjectName": "List name",
-  "createProject.error": "Sorry, an error occurred while updating the list. Please try again and contact {supportEmail} if the condition persists."
+  "createProject.error": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث القائمة. من فضلك أعد المحاولة وتواصل مع {supportEmail} إن استمرت المشكلة."
 }

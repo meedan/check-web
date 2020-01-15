@@ -6,6 +6,7 @@
   "bulkActions.clonedSuccessfully": "Done! Please note that it can take a while until the items are actually cloned.",
   "bulkActions.movedSuccessfully": "Готово! Обратите внимание, что перемещение материалов может занять некоторое время.",
   "bulkActions.moveToTrashSuccessfully": "Готово! Обратите внимание, что перемещение материалов в корзину может занять некоторое время.",
+  "bulkActions.moveTo": "Move to...",
   "bulkActions.cancelButton": "Отменить",
   "bulkActions.moveTitle": "Переместить",
   "bulkActions.cloneTitle": "Copy",

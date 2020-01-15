@@ -1,10 +1,18 @@
 {
-  "mediaEmbed.customizationOptionShowCompleteTasks": "عرض المهام المكتملة",
-  "mediaEmbed.customizationOptionShowIncompleteTasks": "عرض المهام الغير مكتملة",
-  "mediaEmbed.customizationOptionShowNotes": "عرض التعليقات",
+  "mediaEmbed.error": "Could not save report",
   "mediaEmbed.warning": "Warning — sharing this will expose information to people outside your private workspace. Proceed with caution.",
   "mediaEmbed.copyButtonInactive": "‏‏تم النسخ",
   "mediaEmbed.copyButton": "نسخ",
   "mediaEmbed.copyEmbedCode": "نسخ تعليمات التضمين",
-  "mediaEmbed.copyShareUrl": "نسخ عنوان المشاركة"
+  "mediaEmbed.copyShareUrl": "نسخ عنوان المشاركة",
+  "mediaEmbed.editorTitle": "Select the content to display in your report",
+  "mediaEmbed.analysis": "Analysis",
+  "mediaEmbed.analysisSlogan": "Show analysis in the report",
+  "mediaEmbed.tasks": "Tasks",
+  "mediaEmbed.tasksSlogan": "The selected tasks will be included in the report if they are resolved.",
+  "mediaEmbed.disclaimer": "Disclaimer",
+  "mediaEmbed.disclaimerSlogan": "Disclaimer that will be shown at the bottom of the report with the workspace logo",
+  "mediaEmbed.customUrl": "Send a custom URL instead of a report",
+  "mediaEmbed.validUrl": "Please enter a valid URL",
+  "mediaEmbed.save": "Save"
 }
