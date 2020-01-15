@@ -2,11 +2,15 @@ import React, { Component } from 'react';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router';
 import Popover from 'material-ui/Popover';
 import Checkbox from 'material-ui/Checkbox';
 import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import CopyToClipboard from 'react-copy-to-clipboard';
+import IconArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
+import IconButton from 'material-ui/IconButton';
 import styled from 'styled-components';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import PageTitle from '../PageTitle';
@@ -26,6 +30,8 @@ import {
   alertRed,
   ContentColumn,
   units,
+  FadeIn,
+  SlideIn,
 } from '../../styles/js/shared';
 
 const StyledTwoColumnLayout = styled(ContentColumn)`
@@ -299,6 +305,7 @@ class MediaEmbedComponent extends Component {
     const embedTag = `<script src="${config.penderUrl}/api/medias.js?url=${encodeURIComponent(this.state.url)}"></script>`;
     const metadata = JSON.parse(media.oembed_metadata);
     const shareUrl = metadata.embed_url;
+    const itemUrl = metadata.permalink.replace(/^https?:\/\/[^/]+/, '');
     const saveDisabled = !can(media.permissions, 'update ProjectMedia');
 
     return (
@@ -371,8 +378,36 @@ class MediaEmbedComponent extends Component {
             </div>
           </StyledPopover>
 
-          <p id="media-embed__actions" style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <div>
+          <div id="media-embed__actions" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div
+              style={{
+                marginRight: units(1),
+                marginLeft: units(1),
+                display: 'flex',
+                alignItems: 'center',
+              }}
+            >
+              <div
+                style={{
+                  marginRight: units(4),
+                  display: 'flex',
+                  alignItems: 'center',
+                }}
+              >
+                <IconButton
+                  containerElement={<Link to={itemUrl} />}
+                >
+                  <FadeIn>
+                    <SlideIn>
+                      <IconArrowBack color={black54} />
+                    </SlideIn>
+                  </FadeIn>
+                </IconButton>
+                <FormattedMessage
+                  id="mediaEmbed.back"
+                  defaultMessage="Back to annotation"
+                />
+              </div>
               <CopyToClipboard text={embedTag} onCopy={this.handleCopyEmbedCode.bind(this)}>
                 <FlatButton
                   id="media-embed__actions-copy"
@@ -410,7 +445,7 @@ class MediaEmbedComponent extends Component {
                 callback={this.statusCallback.bind(this)}
               />
             </div>
-          </p>
+          </div>
 
           <StyledTwoColumnLayout>
             <ContentColumn className="column">
@@ -423,12 +458,29 @@ class MediaEmbedComponent extends Component {
             </ContentColumn>
             <ContentColumn className="column">
               <Message message={this.state.message} />
-              <h2>
-                <FormattedMessage
-                  id="mediaEmbed.editorTitle"
-                  defaultMessage="Select the content to display in your report"
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <h2>
+                  <FormattedMessage
+                    id="mediaEmbed.editorTitle"
+                    defaultMessage="Select the content to display in your report"
+                  />
+                </h2>
+                <RaisedButton
+                  label={
+                    <FormattedMessage
+                      id="mediaEmbed.update"
+                      defaultMessage="Update"
+                    />
+                  }
+                  primary
+                  disabled={this.state.pending || saveDisabled}
+                  onClick={this.handleSave.bind(this)}
+                  style={{
+                    marginRight: units(1),
+                    marginLeft: units(1),
+                  }}
                 />
-              </h2>
+              </div>
               <div id="media-embed__customization-menu">
                 <div style={{ marginTop: units(4) }}>
                   <h3>
@@ -526,20 +578,6 @@ class MediaEmbedComponent extends Component {
                     defaultValue={this.state.customizationOptions.url}
                     onChange={this.handleChangeCustomUrl.bind(this)}
                     fullWidth
-                  />
-                </div>
-
-                <div style={{ marginTop: units(4) }}>
-                  <FlatButton
-                    label={
-                      <FormattedMessage
-                        id="mediaEmbed.save"
-                        defaultMessage="Save"
-                      />
-                    }
-                    primary
-                    disabled={this.state.pending || saveDisabled}
-                    onClick={this.handleSave.bind(this)}
                   />
                 </div>
               </div>

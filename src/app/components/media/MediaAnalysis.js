@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import TextField from 'material-ui/TextField';
-import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import MediaRoute from '../../relay/MediaRoute';
 import { can } from '../Can';
 import CreateAnalysisMutation from '../../relay/mutations/CreateAnalysisMutation';
@@ -119,12 +119,12 @@ class MediaAnalysisComponent extends Component {
             onChange={this.handleChange.bind(this)}
             multiLine
             fullWidth
-            rows={20}
+            rows={10}
           />
         </div>
         { !disabled ?
           <div>
-            <FlatButton
+            <RaisedButton
               label={
                 <FormattedMessage
                   id="mediaAnalysis.save"
