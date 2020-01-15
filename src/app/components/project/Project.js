@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
+import isEqual from 'lodash.isequal';
 import ProjectActions from './ProjectActions';
 import ProjectRoute from '../../relay/ProjectRoute';
 import PageTitle from '../PageTitle';
@@ -12,6 +13,11 @@ import UpdateUserMutation from '../../relay/mutations/UpdateUserMutation';
 class ProjectComponent extends Component {
   componentDidMount() {
     this.setContextProject();
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return !isEqual(this.state, nextState) ||
+           !isEqual(this.props, nextProps);
   }
 
   componentDidUpdate() {
