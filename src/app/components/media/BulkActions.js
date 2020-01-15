@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import Button from '@material-ui/core/Button';
 import { injectIntl, intlShape, defineMessages, FormattedMessage } from 'react-intl';
-import IconDelete from 'material-ui/svg-icons/action/delete';
+import IconDelete from '@material-ui/icons/Delete';
 import FlatButton from 'material-ui/FlatButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import styled from 'styled-components';
@@ -24,6 +24,10 @@ const messages = defineMessages({
   delete: {
     id: 'bulkActions.sendItemsToTrash',
     defaultMessage: 'Send selected items to trash',
+  },
+  restore: {
+    id: 'bulkActions.restoreItemsFromTrash',
+    defaultMessage: 'Restore selected items from trash',
   },
   selectAll: {
     id: 'bulkActions.selectAll',
@@ -121,12 +125,17 @@ class BulkActions extends React.Component {
     }
   }
 
-  handleDelete() {
+  handleDelete = (params) => {
     const onSuccess = () => {
-      const message = (
+      const message = params.archived === 1 ? (
         <FormattedMessage
           id="bulkActions.moveToTrashSuccessfully"
           defaultMessage="Done! Please note that it can take a while until the items are actually moved to the trash."
+        />
+      ) : (
+        <FormattedMessage
+          id="bulkActions.restoredFromTrashSuccessfully"
+          defaultMessage="Done! Please note that it can take a while until the items are actually restored from the trash."
         />
       );
       this.context.setMessage(message);
@@ -139,14 +148,14 @@ class BulkActions extends React.Component {
           id: this.props.selectedMedia[0],
           ids: this.props.selectedMedia,
           srcProject: this.props.project,
-          archived: 1,
+          archived: params.archived,
           teamSearchId: this.props.team.search_id,
           count: this.props.count,
         }),
         { onSuccess },
       );
     }
-  }
+  };
 
   handleSelectDestProject(dstProj) {
     this.setState({ dstProj });
@@ -157,6 +166,8 @@ class BulkActions extends React.Component {
   }
 
   render() {
+    const { page } = this.props;
+
     const actions = (
       <Row id="media-bulk-actions__actions">
         <Tooltip title={this.props.intl.formatMessage(messages.move)}>
@@ -169,14 +180,28 @@ class BulkActions extends React.Component {
             <FormattedMessage id="bulkActions.moveTo" defaultMessage="Move to..." />
           </Button>
         </Tooltip>
-        <Tooltip title={this.props.intl.formatMessage(messages.delete)}>
-          <StyledIcon>
-            <IconDelete
-              className="media-bulk-actions__delete-icon"
-              onClick={this.handleDelete.bind(this)}
-            />
-          </StyledIcon>
-        </Tooltip>
+        { page === 'trash' ?
+          <Tooltip title={this.props.intl.formatMessage(messages.restore)}>
+            <StyledIcon>
+              <Button
+                className="media-bulk-actions__restore-button"
+                onClick={() => { this.handleDelete({ archived: 0 }); }}
+                variant="outlined"
+              >
+                <FormattedMessage id="bulkActions.restore" defaultMessage="Restore from trash" />
+              </Button>
+            </StyledIcon>
+          </Tooltip>
+          :
+          <Tooltip title={this.props.intl.formatMessage(messages.delete)}>
+            <StyledIcon>
+              <IconDelete
+                className="media-bulk-actions__delete-icon"
+                onClick={() => { this.handleDelete({ archived: 1 }); }}
+              />
+            </StyledIcon>
+          </Tooltip>
+        }
       </Row>
     );
 

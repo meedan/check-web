@@ -8,12 +8,24 @@
     "defaultMessage": "Send selected items to trash"
   },
   {
+    "id": "bulkActions.restoreItemsFromTrash",
+    "defaultMessage": "Restore selected items from trash"
+  },
+  {
     "id": "bulkActions.selectAll",
     "defaultMessage": "Select all items on this page"
   },
   {
     "id": "bulkActions.clone",
     "defaultMessage": "Copy selected items to another list"
+  },
+  {
+    "id": "bulkActions.moveToTrashSuccessfully",
+    "defaultMessage": "Done! Please note that it can take a while until the items are actually moved to the trash."
+  },
+  {
+    "id": "bulkActions.restoredFromTrashSuccessfully",
+    "defaultMessage": "Done! Please note that it can take a while until the items are actually restored from the trash."
   },
   {
     "id": "bulkActions.clonedSuccessfully",
@@ -24,12 +36,12 @@
     "defaultMessage": "Done! Please note that it can take a while until the items are actually moved."
   },
   {
-    "id": "bulkActions.moveToTrashSuccessfully",
-    "defaultMessage": "Done! Please note that it can take a while until the items are actually moved to the trash."
-  },
-  {
     "id": "bulkActions.moveTo",
     "defaultMessage": "Move to..."
+  },
+  {
+    "id": "bulkActions.restore",
+    "defaultMessage": "Restore from trash"
   },
   {
     "id": "bulkActions.cancelButton",
