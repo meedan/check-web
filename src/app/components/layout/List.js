@@ -13,6 +13,10 @@ import { teamStatuses } from '../../customHelpers';
 const StyledGridContainer = styled.div`
   width: 100%;
   height: calc(100vh - ${units(30)});
+  div.ag-cell-wrapper span.ag-cell-value {
+    margin: 0 !important;
+    padding: 0 ${units(1)};
+  }
   .ag-cell-value {
     line-height: ${units(12)} !important;
   }
