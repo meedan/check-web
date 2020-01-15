@@ -61,7 +61,22 @@ class ProjectHeaderComponent extends React.PureComponent {
       return `${path.match(regexTeam)[1]}/all-items`;
     };
 
+    const backLabel = () => {
+      const allItems = <FormattedMessage id="projectHeader.allItems" defaultMessage="All items" />;
+      if (mediaQuery) {
+        switch (mediaQuery.referer) {
+        case 'search':
+          return allItems;
+        case 'trash':
+          return <FormattedMessage id="projectHeader.trash" defaultMessage="Trash" />;
+        default:
+        }
+      }
+      return currentProject ? currentProject.title : '';
+    };
+
     const url = backUrl();
+    const label = backLabel();
 
     return (
       <div style={{ display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
@@ -79,7 +94,7 @@ class ProjectHeaderComponent extends React.PureComponent {
             </IconButton>
             <HeaderTitle className="project-header__title" style={{ maxWidth: '100%' }}>
               <Text ellipsis>
-                {currentProject ? currentProject.title : <FormattedMessage id="projectHeader.allItems" defaultMessage="All items" />}
+                {label}
               </Text>
             </HeaderTitle>
           </Row>
