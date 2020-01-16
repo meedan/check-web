@@ -55,7 +55,7 @@ class MediaActions extends Component {
         </MenuItem>));
     }
 
-    if (can(media.permissions, 'administer Content') && !media.archived) {
+    if (can(media.permissions, 'update ProjectMedia') && !media.archived) {
       if ((media.url || media.media.url) && handleRefresh) {
         menuItems.push((
           <MenuItem
@@ -142,7 +142,7 @@ class MediaActions extends Component {
         </MenuItem>));
     }
 
-    if (can(media.permissions, 'administer Content') && !media.archived) {
+    if (can(media.permissions, 'update ProjectMedia') && !media.archived) {
       if (handleMove) {
         menuItems.push((
           <MenuItem

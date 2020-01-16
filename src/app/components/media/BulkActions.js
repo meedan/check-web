@@ -8,6 +8,7 @@ import FlatButton from 'material-ui/FlatButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import styled from 'styled-components';
 import MoveDialog from './MoveDialog';
+import Can from '../Can';
 import BulkUpdateProjectMediaMutation from '../../relay/mutations/BulkUpdateProjectMediaMutation';
 import { Row, units } from '../../styles/js/shared';
 
@@ -166,22 +167,24 @@ class BulkActions extends React.Component {
   }
 
   render() {
-    const { page } = this.props;
+    const { page, team } = this.props;
 
     const actions = (
       <div id="media-bulk-actions__actions">
         { page === 'trash' ?
-          <Tooltip title={this.props.intl.formatMessage(messages.restore)}>
-            <StyledIcon>
-              <Button
-                className="media-bulk-actions__restore-button"
-                onClick={() => { this.handleDelete({ archived: 0 }); }}
-                variant="outlined"
-              >
-                <FormattedMessage id="bulkActions.restore" defaultMessage="Restore from trash" />
-              </Button>
-            </StyledIcon>
-          </Tooltip>
+          <Can permission="restore ProjectMedia" permissions={team.permissions}>
+            <Tooltip title={this.props.intl.formatMessage(messages.restore)}>
+              <StyledIcon>
+                <Button
+                  className="media-bulk-actions__restore-button"
+                  onClick={() => { this.handleDelete({ archived: 0 }); }}
+                  variant="outlined"
+                >
+                  <FormattedMessage id="bulkActions.restore" defaultMessage="Restore from trash" />
+                </Button>
+              </StyledIcon>
+            </Tooltip>
+          </Can>
           :
           <Row>
             <Tooltip title={this.props.intl.formatMessage(messages.move)}>

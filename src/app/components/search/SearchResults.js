@@ -12,7 +12,6 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { searchQueryFromUrl, urlFromSearchQuery } from './Search';
 import SearchQuery from './SearchQuery';
 import Toolbar from './Toolbar';
-import { can } from '../Can';
 import ParsedText from '../ParsedText';
 import BulkActions from '../media/BulkActions';
 import MediasLoading from '../media/MediasLoading';
@@ -331,14 +330,10 @@ class SearchResultsComponent extends React.Component {
       title: this.props.title,
     };
 
-    let bulkActionsAllowed = false;
-    if (medias.length) {
-      bulkActionsAllowed = can(medias[0].node.permissions, 'administer Content');
-    }
     const title = (
       <Toolbar
         team={team}
-        actions={medias.length && bulkActionsAllowed ?
+        actions={medias.length ?
           <BulkActions
             count={this.props.search ? this.props.search.number_of_results : 0}
             team={team}
