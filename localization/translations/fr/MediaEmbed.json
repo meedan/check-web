@@ -14,6 +14,6 @@
   "mediaEmbed.tasksSlogan": "Les tâches sélectionnées seront affichées dans le rapport si elles résolues. ",
   "mediaEmbed.disclaimer": "Notice",
   "mediaEmbed.disclaimerSlogan": "Notice affichée au bas du rapport auprès du logo de l'espace de travail",
-  "mediaEmbed.customUrl": "Send a custom URL instead of a report",
+  "mediaEmbed.customUrl": "Envoyer une URL personnalisée au lieu de ce rapport",
   "mediaEmbed.validUrl": "Veuillez saisir une URL valide"
 }

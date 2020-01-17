@@ -14,6 +14,6 @@
   "mediaEmbed.tasksSlogan": "As tarefas selecionadas serão incluídas no relato se elas estiverem resolvidas.",
   "mediaEmbed.disclaimer": "Aviso",
   "mediaEmbed.disclaimerSlogan": "Aviso que será exibido na parte inferior do relato com a logotipo da área de trabalho",
-  "mediaEmbed.customUrl": "Send a custom URL instead of a report",
+  "mediaEmbed.customUrl": "Envie uma URL personalizada em vez deste relato",
   "mediaEmbed.validUrl": "Por favor insira uma URL válida"
 }

@@ -565,7 +565,7 @@ class MediaEmbedComponent extends Component {
                   <h3>
                     <FormattedMessage
                       id="mediaEmbed.customUrl"
-                      defaultMessage="Send a custom URL instead of a report"
+                      defaultMessage="Send a custom URL instead of this report"
                     />
                   </h3>
                   <TextField
