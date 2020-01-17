@@ -205,6 +205,7 @@ class MediaComponent extends Component {
                     />
                   }
                   value="tasks"
+                  className="media-tab__tasks"
                 />
                 <Tab
                   label={
@@ -214,6 +215,7 @@ class MediaComponent extends Component {
                     />
                   }
                   value="analysis"
+                  className="media-tab__analysis"
                 />
                 <Tab
                   label={
@@ -223,6 +225,7 @@ class MediaComponent extends Component {
                     />
                   }
                   value="comments"
+                  className="media-tab__comments"
                 />
                 <Tab
                   label={
@@ -232,6 +235,7 @@ class MediaComponent extends Component {
                     />
                   }
                   value="activity"
+                  className="media-tab__activity"
                 />
               </Tabs>
               { this.state.showTab === 'tasks' ? <MediaTasks media={media} /> : null }
