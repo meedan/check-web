@@ -8,16 +8,26 @@ import MediaCell from '../media/MediaCell';
 import MediaUtil from '../media/MediaUtil';
 import { units } from '../../styles/js/shared';
 import { getStatus } from '../../helpers';
-import { mediaStatuses } from '../../customHelpers';
+import { teamStatuses } from '../../customHelpers';
 
 const StyledGridContainer = styled.div`
   width: 100%;
   height: calc(100vh - ${units(30)});
+  div.ag-cell-wrapper span.ag-cell-value {
+    margin: 0 !important;
+    padding: 0 ${units(1)};
+  }
   .ag-cell-value {
     line-height: ${units(12)} !important;
   }
   .ag-header-cell-text {
     text-transform: uppercase;
+  }
+  div.ag-cell {
+    padding: 0 ${units(1)};
+  }
+  div.ag-header-cell {
+    padding: 0 ${units(1)};
   }
 `;
 
@@ -64,14 +74,23 @@ class List extends React.Component {
           checkboxSelection: true,
           headerCheckboxSelection: true,
           cellRenderer: 'mediaCellRenderer',
+          minWidth: 400,
         },
-        { headerName: fmtMsg(messages.demand), field: 'demand', width: 48 },
-        { headerName: fmtMsg(messages.linked_items_count), field: 'linked_items_count', width: 48 },
-        { headerName: fmtMsg(messages.type), field: 'type', width: 64 },
-        { headerName: fmtMsg(messages.status), field: 'status', width: 64 },
-        { headerName: fmtMsg(messages.first_seen), field: 'first_seen', width: 64 },
-        { headerName: fmtMsg(messages.last_seen), field: 'last_seen', width: 64 }],
+        { headerName: fmtMsg(messages.demand), field: 'demand', minWidth: 96 },
+        { headerName: fmtMsg(messages.linked_items_count), field: 'linked_items_count', minWidth: 96 },
+        { headerName: fmtMsg(messages.type), field: 'type', minWidth: 96 },
+        { headerName: fmtMsg(messages.status), field: 'status', minWidth: 96 },
+        { headerName: fmtMsg(messages.first_seen), field: 'first_seen', minWidth: 96 },
+        { headerName: fmtMsg(messages.last_seen), field: 'last_seen', minWidth: 96 }],
     };
+  }
+
+  componentDidMount() {
+    window.addEventListener('resize', this.handleWindowResize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleWindowResize);
   }
 
   getRowData() {
@@ -91,7 +110,7 @@ class List extends React.Component {
         last_seen,
       } = media;
 
-      const statusObj = getStatus(mediaStatuses(media), status);
+      const statusObj = getStatus(teamStatuses(media), status);
 
       const formatted_first_seen = this.props.intl.formatRelative(MediaUtil.createdAt({
         published: first_seen,
@@ -101,7 +120,7 @@ class List extends React.Component {
         published: last_seen,
       }));
 
-      return {
+      const row = {
         id,
         dbid,
         picture,
@@ -116,6 +135,8 @@ class List extends React.Component {
         media,
         query: i.itemQuery,
       };
+
+      return row;
     });
   }
 
@@ -127,7 +148,7 @@ class List extends React.Component {
 
   handleGridReady = (params) => {
     this.gridApi = params.api;
-    this.gridApi.sizeColumnsToFit();
+    this.handleWindowResize();
   };
 
   handleChange = (params) => {
@@ -136,6 +157,10 @@ class List extends React.Component {
       this.props.onSelect(rows.map(r => r.id));
     }
   };
+
+  handleWindowResize = () => {
+    this.gridApi.sizeColumnsToFit(1366);
+  }
 
   render() {
     return (

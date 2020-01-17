@@ -6,7 +6,7 @@
   "TeamMembersListItem.confirmDeleteMemberBlurb": "Membro será excluido de {team}",
   "TeamMembersListItem.deleteMember": "Excluir membro",
   "TeamMembersListItem.leaveTeam": "Sair da área de trabalho",
-  "TeamMembersListItem.singleOwner": "Before you can leave the workspace, please transfer ownership to another member.",
+  "TeamMembersListItem.singleOwner": "Antes de deixar a área de trabalho, transfira a propriedade a outro membro.",
   "teamMembersListItem.assignmentsProgress": "{completedCount} completadas, {inProgressCount} em andamento, {unstartedCount} não-iniciadas",
   "TeamMembershipRequestsListItem.approve": "Aprovar",
   "TeamMembershipRequestsListItem.deny": "Recusar"

@@ -6,5 +6,8 @@
   "teamEmbed.tasksSub": "The selected tasks will be included in the report if they are resolved.",
   "teamEmbed.disclaimer": "إخلاء المسؤولية",
   "teamEmbed.disclaimerSub": "Disclaimer that will be shown at the bottom of the report with the workspace logo.",
+  "teamEmbed.analysis": "Analysis",
+  "teamEmbed.analysisSub": "Show analysis in the report",
+  "teamEmbed.analysisYes": "Yes",
   "teamEmbed.save": "حفظ"
 }

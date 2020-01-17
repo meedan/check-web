@@ -29,7 +29,6 @@ class Toolbar extends React.Component {
       actions,
       title,
       project,
-      addons,
       page,
       team,
       search,
@@ -40,8 +39,7 @@ class Toolbar extends React.Component {
     let perms = { permissions: {}, permission: '' };
     if (project) {
       perms = { permissions: project.permissions, permission: 'create Media' };
-    }
-    if (team) {
+    } else if (team) {
       perms = { permissions: team.permissions, permission: 'create ProjectMedia' };
     }
 
@@ -49,16 +47,18 @@ class Toolbar extends React.Component {
       <StyledToolbar className="toolbar">
         <FlexRow>
           <Row>
-            {actions} {actions ? '|' : null} <span className="toolbar__title">{title}</span>
+            <span className="toolbar__title">{title}</span>
+            {actions}
           </Row>
           <Offset isRtl={isRtl}>
-            <Can {...perms}>
-              <CreateProjectMedia search={search} team={team} />
-            </Can>
+            { page !== 'trash' ?
+              <Can {...perms}>
+                <CreateProjectMedia search={search} team={team} />
+              </Can> : null
+            }
             { page === 'trash' ?
               <EmptyTrashButton teamSlug={team.slug} search={search} /> : null
             }
-            {addons}
           </Offset>
         </FlexRow>
       </StyledToolbar>

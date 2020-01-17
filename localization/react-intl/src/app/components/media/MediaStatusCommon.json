@@ -2,5 +2,25 @@
   {
     "id": "mediaStatus.error",
     "defaultMessage": "Sorry, an error occurred while updating the status. Please try again and contact {supportEmail} if the condition persists."
+  },
+  {
+    "id": "mediaStatusCommon.proceedAndSend",
+    "defaultMessage": "Proceed and Send"
+  },
+  {
+    "id": "mediaStatusCommon.title",
+    "defaultMessage": "Final Report"
+  },
+  {
+    "id": "mediaStatusCommon.confirmationMessageWithValue",
+    "defaultMessage": "You are about to send a report to the {value} people who requested this item."
+  },
+  {
+    "id": "mediaStatusCommon.confirmationMessage",
+    "defaultMessage": "You are about to send a report to all people who requested this item."
+  },
+  {
+    "id": "mediaStatusCommon.editReportBeforeSending",
+    "defaultMessage": "Edit report before sending"
   }
 ]

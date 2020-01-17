@@ -4,7 +4,10 @@
   "teamEmbed.title": "Paramètres du rapport",
   "teamEmbed.tasks": "Tâches",
   "teamEmbed.tasksSub": "Les tâches sélectionnées seront affichées dans le rapport si elles résolues. ",
-  "teamEmbed.disclaimer": "Exclusion",
+  "teamEmbed.disclaimer": "Notice",
   "teamEmbed.disclaimerSub": "Notice affichée au bas du rapport auprès du logo de l'espace de travail.",
+  "teamEmbed.analysis": "Analyse",
+  "teamEmbed.analysisSub": "Afficher l'analyse dans le rapport",
+  "teamEmbed.analysisYes": "Oui",
   "teamEmbed.save": "Sauvegarder"
 }

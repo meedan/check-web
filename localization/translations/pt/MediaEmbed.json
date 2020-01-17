@@ -1,10 +1,19 @@
 {
-  "mediaEmbed.customizationOptionShowCompleteTasks": "Mostrar tarefas concluídas",
-  "mediaEmbed.customizationOptionShowIncompleteTasks": "Mostrar tarefas inconcluídas",
-  "mediaEmbed.customizationOptionShowNotes": "Mostrar notas",
+  "mediaEmbed.error": "Não foi possível salvar a relato.",
   "mediaEmbed.warning": "Aviso — compartilhar isto irá expor informação para pessoas externas à sua área de trabalho privada. Proceda com cuidado.",
   "mediaEmbed.copyButtonInactive": "Copiado",
   "mediaEmbed.copyButton": "Copiar",
+  "mediaEmbed.back": "Voltar para anotação",
   "mediaEmbed.copyEmbedCode": "Copiar código de incorporação",
-  "mediaEmbed.copyShareUrl": "Copiar URL de compartilhar"
+  "mediaEmbed.copyShareUrl": "Copiar URL de compartilhar",
+  "mediaEmbed.editorTitle": "Selecione o conteúdo a ser exibido no seu relato",
+  "mediaEmbed.update": "Atualizar",
+  "mediaEmbed.analysis": "Análise",
+  "mediaEmbed.analysisSlogan": "Mostrar análise no relato",
+  "mediaEmbed.tasks": "Tarefas",
+  "mediaEmbed.tasksSlogan": "As tarefas selecionadas serão incluídas no relato se elas estiverem resolvidas.",
+  "mediaEmbed.disclaimer": "Aviso",
+  "mediaEmbed.disclaimerSlogan": "Aviso que será exibido na parte inferior do relato com a logotipo da área de trabalho",
+  "mediaEmbed.customUrl": "Send a custom URL instead of a report",
+  "mediaEmbed.validUrl": "Por favor insira uma URL válida"
 }

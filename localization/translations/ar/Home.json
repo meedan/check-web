@@ -1,5 +1,5 @@
 {
-  "home.needRegister": "First you need to register. Once registered, you can request to join the workspace.",
+  "home.needRegister": "عليك تسجيل الدخول أولاً حتى يمكنك طلب الانضمام لمساحة العمل.",
   "home.somethingWrong": "عذراً ، لقد واجهنا خطأ ما. من فضلك أعد المحاولة بتحديث المستعرض وتواصل مع {supportEmail} إن استمرت المشكلة.",
   "home.successInvitation": "مرحبًا بك في {appName}. الرجاء تسجيل الدخول بكلمة المرور التي تلقيتها في البريد الإلكتروني الترحيبي.",
   "home.invalidInvitation": "عذراً ، لقد واجهنا خطأ ما اثناء معالجة دعوتك. من فضلك تواصل مع {supportEmail}.",

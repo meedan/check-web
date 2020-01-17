@@ -9,7 +9,7 @@
   },
   {
     "id": "addAnnotation.inputHint",
-    "defaultMessage": "Add a note about this"
+    "defaultMessage": "Add a comment"
   },
   {
     "id": "addAnnotation.submitButton",

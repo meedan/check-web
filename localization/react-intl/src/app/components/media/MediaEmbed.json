@@ -1,15 +1,7 @@
 [
   {
-    "id": "mediaEmbed.customizationOptionShowCompleteTasks",
-    "defaultMessage": "Show complete tasks"
-  },
-  {
-    "id": "mediaEmbed.customizationOptionShowIncompleteTasks",
-    "defaultMessage": "Show incomplete tasks"
-  },
-  {
-    "id": "mediaEmbed.customizationOptionShowNotes",
-    "defaultMessage": "Show notes"
+    "id": "mediaEmbed.error",
+    "defaultMessage": "Could not save report"
   },
   {
     "id": "mediaEmbed.warning",
@@ -24,11 +16,55 @@
     "defaultMessage": "Copy"
   },
   {
+    "id": "mediaEmbed.back",
+    "defaultMessage": "Back to annotation"
+  },
+  {
     "id": "mediaEmbed.copyEmbedCode",
     "defaultMessage": "Copy embed code"
   },
   {
     "id": "mediaEmbed.copyShareUrl",
     "defaultMessage": "Copy share URL"
+  },
+  {
+    "id": "mediaEmbed.editorTitle",
+    "defaultMessage": "Select the content to display in your report"
+  },
+  {
+    "id": "mediaEmbed.update",
+    "defaultMessage": "Update"
+  },
+  {
+    "id": "mediaEmbed.analysis",
+    "defaultMessage": "Analysis"
+  },
+  {
+    "id": "mediaEmbed.analysisSlogan",
+    "defaultMessage": "Show analysis in the report"
+  },
+  {
+    "id": "mediaEmbed.tasks",
+    "defaultMessage": "Tasks"
+  },
+  {
+    "id": "mediaEmbed.tasksSlogan",
+    "defaultMessage": "The selected tasks will be included in the report if they are resolved."
+  },
+  {
+    "id": "mediaEmbed.disclaimer",
+    "defaultMessage": "Disclaimer"
+  },
+  {
+    "id": "mediaEmbed.disclaimerSlogan",
+    "defaultMessage": "Disclaimer that will be shown at the bottom of the report with the workspace logo"
+  },
+  {
+    "id": "mediaEmbed.customUrl",
+    "defaultMessage": "Send a custom URL instead of a report"
+  },
+  {
+    "id": "mediaEmbed.validUrl",
+    "defaultMessage": "Please enter a valid URL"
   }
 ]

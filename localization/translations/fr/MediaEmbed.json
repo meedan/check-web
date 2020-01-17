@@ -1,10 +1,19 @@
 {
-  "mediaEmbed.customizationOptionShowCompleteTasks": "Afficher les tâches complétées",
-  "mediaEmbed.customizationOptionShowIncompleteTasks": "Afficher les tâches incomplètes",
-  "mediaEmbed.customizationOptionShowNotes": "Afficher les commentaires",
+  "mediaEmbed.error": "Désolé, il n'a pas été possible de sauvegarder ce rapport",
   "mediaEmbed.warning": "Avertissement : le partage de cette intégration exposera des renseignements à l'extérieur de votre espace de travail privé. Soyez prudent.",
   "mediaEmbed.copyButtonInactive": "Copié",
   "mediaEmbed.copyButton": "Copier",
+  "mediaEmbed.back": "Retour aux annotations",
   "mediaEmbed.copyEmbedCode": "Copier le code d'insertion",
-  "mediaEmbed.copyShareUrl": "Copier lien de partage"
+  "mediaEmbed.copyShareUrl": "Copier lien de partage",
+  "mediaEmbed.editorTitle": "Sélectionner le contenu à afficher dans le rapport",
+  "mediaEmbed.update": "Mise à jour",
+  "mediaEmbed.analysis": "Analyse",
+  "mediaEmbed.analysisSlogan": "Afficher l'analyse dans le rapport",
+  "mediaEmbed.tasks": "Tâches",
+  "mediaEmbed.tasksSlogan": "Les tâches sélectionnées seront affichées dans le rapport si elles résolues. ",
+  "mediaEmbed.disclaimer": "Notice",
+  "mediaEmbed.disclaimerSlogan": "Notice affichée au bas du rapport auprès du logo de l'espace de travail",
+  "mediaEmbed.customUrl": "Send a custom URL instead of a report",
+  "mediaEmbed.validUrl": "Veuillez saisir une URL valide"
 }

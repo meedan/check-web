@@ -204,7 +204,7 @@ class MediaTags extends Component {
     if (!query.tags.length) {
       delete query.tags;
     }
-    return urlFromSearchQuery(query, `/${media.team.slug}/search`);
+    return urlFromSearchQuery(query, `/${media.team.slug}/all-items`);
   }
 
   handleCorrectLanguageCancel() {

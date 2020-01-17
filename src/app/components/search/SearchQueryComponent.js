@@ -193,7 +193,7 @@ const styles = theme => ({
 const messages = defineMessages({
   title: {
     id: 'search.title',
-    defaultMessage: 'Search',
+    defaultMessage: 'All items',
   },
   searchInputHint: {
     id: 'search.inputHint',
@@ -234,7 +234,7 @@ class SearchQueryComponent extends React.Component {
 
   componentWillMount() {
     const context = this.getContext();
-    if (context.getContextStore().project && /\/search/.test(window.location.pathname)) {
+    if (context.getContextStore().project && /\/all-items/.test(window.location.pathname)) {
       context.setContextStore({ project: null });
     }
 
@@ -267,7 +267,6 @@ class SearchQueryComponent extends React.Component {
 
   handleApplyFilters() {
     const { query } = this.state;
-    query.esoffset = 0;
 
     const prefix = searchPrefixFromUrl();
     const url = urlFromSearchQuery(query, prefix);
@@ -582,7 +581,7 @@ class SearchQueryComponent extends React.Component {
 
   resetFilters = (apply) => {
     this.searchInput.value = '';
-    this.setState({ query: { esoffset: 0 } }, () => {
+    this.setState({ query: {} }, () => {
       if (apply) {
         this.handleApplyFilters();
       }
@@ -647,9 +646,9 @@ class SearchQueryComponent extends React.Component {
     const { currentUser } = this.currentContext();
     const suggestedTags = team.teamwide_tags.edges.map(t => t.node.text);
 
-    const title =
-      this.props.title ||
-      (this.props.project ? this.props.project.title : this.title(statuses, projects));
+    const title = (this.filterIsActive() || this.keywordIsActive())
+      ? this.title(statuses, projects)
+      : (this.props.title || (this.props.project ? this.props.project.title : null));
 
     const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
 
@@ -1025,8 +1024,6 @@ class SearchQueryComponent extends React.Component {
                     />
                   </p>
                 </StyledSearchFiltersSection>
-
-                {this.props.addons}
               </ContentColumn>
             </DialogContent>
           </Dialog>

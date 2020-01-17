@@ -1,8 +1,8 @@
 {
   "projectActions.projectDeleted": "List deleted successfully.",
   "projectActions.projectNotDeleted": "Sorry, could not delete list.",
-  "ProjectActions.edit": "Edit",
-  "projectActions.assignOrUnassign": "Assign / Unassign",
+  "ProjectActions.edit": "Edit name and description",
+  "projectActions.assignOrUnassign": "Assign list",
   "projectActions.destroy": "Delete",
   "projectActions.cancelDelete": "Cancel",
   "projectActions.continue": "Continue",

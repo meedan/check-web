@@ -31,7 +31,7 @@ const messages = defineMessages({
   },
   inputHint: {
     id: 'addAnnotation.inputHint',
-    defaultMessage: 'Add a note about this',
+    defaultMessage: 'Add a comment',
   },
   submitButton: {
     id: 'addAnnotation.submitButton',

@@ -3,7 +3,6 @@ import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { CardTitle, CardText, CardActions } from 'material-ui/Card';
-import { Link } from 'react-router';
 import styled from 'styled-components';
 import MediaRoute from '../../relay/MediaRoute';
 import MediaMetadata from './MediaMetadata';
@@ -23,7 +22,6 @@ import {
   units,
   Text,
   Row,
-  checkBlue,
 } from '../../styles/js/shared';
 
 const StyledHeaderTextSecondary = styled.div`
@@ -117,29 +115,10 @@ class MediaExpandedComponent extends Component {
       return null;
     })();
 
-    let sourceName = MediaUtil.sourceName(media, data);
-    if (sourceName === '') {
-      sourceName = (<FormattedMessage id="mediaExpanded.unknown" defaultMessage="unknown" />);
-    }
-    const sourceUrl = media.team &&
-      media.project &&
-      media.project_source &&
-      media.project_source.dbid ?
-      `/${media.team.slug}/project/${media.project.dbid}/source/${media.project_source.dbid}` :
-      null;
-
     const cardHeaderText = (
       <div>
         <StyledHeaderTextSecondary>
           <Row flexWrap style={{ fontWeight: 'bold' }}>
-            <span>
-              <FormattedMessage id="mediaExpanded.source" defaultMessage="Source" />
-              {': '}
-              { sourceUrl ?
-                <Link to={sourceUrl} style={{ color: checkBlue }}>{sourceName}</Link> :
-                <b>{sourceName}</b> }
-            </span>
-            <span style={{ margin: '0 16px' }}> - </span>
             <span>
               {MediaUtil.mediaTypeLabel(media.media.type, this.props.intl)}
             </span>
