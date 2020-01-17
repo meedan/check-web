@@ -2,7 +2,7 @@
   "mediaStatus.error": "Desculpe, ocorreu um erro ao atualizar o status. Por favor, tente novamente e entre em contato com {supportEmail} se a condição persistir.",
   "mediaStatusCommon.proceedAndSend": "Prosseguir e enviar",
   "mediaStatusCommon.title": "Relato final",
-  "mediaStatusCommon.confirmationMessageWithValue": "Você está prestes a enviar um relato às {value} pessoas que solicitaram este item.",
+  "mediaStatusCommon.confirmationMessageWithValue": "Você está prestes a enviar um relato à(s) {value} solicitante(s) deste item.",
   "mediaStatusCommon.confirmationMessage": "Você está prestes a enviar um relato à todas as pessoas que solicitaram este item.",
   "mediaStatusCommon.editReportBeforeSending": "Editar relato antes de enviar"
 }

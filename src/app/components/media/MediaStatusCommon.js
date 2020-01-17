@@ -125,6 +125,7 @@ class MediaStatusCommon extends Component {
             defaultMessage="Proceed and Send"
           />
         }
+        className="media-status__proceed-send"
         primary
         onClick={this.handleConfirm.bind(this)}
       />,

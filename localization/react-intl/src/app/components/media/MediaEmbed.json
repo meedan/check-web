@@ -61,7 +61,7 @@
   },
   {
     "id": "mediaEmbed.customUrl",
-    "defaultMessage": "Send a custom URL instead of a report"
+    "defaultMessage": "Send a custom URL instead of this report"
   },
   {
     "id": "mediaEmbed.validUrl",

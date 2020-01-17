@@ -14,6 +14,6 @@
   "mediaEmbed.tasksSlogan": "The selected tasks will be included in the report if they are resolved.",
   "mediaEmbed.disclaimer": "Disclaimer",
   "mediaEmbed.disclaimerSlogan": "Disclaimer that will be shown at the bottom of the report with the workspace logo",
-  "mediaEmbed.customUrl": "Send a custom URL instead of a report",
+  "mediaEmbed.customUrl": "Send a custom URL instead of this report",
   "mediaEmbed.validUrl": "Please enter a valid URL"
 }

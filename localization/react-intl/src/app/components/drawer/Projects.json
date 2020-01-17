@@ -8,10 +8,6 @@
     "defaultMessage": "Dismiss"
   },
   {
-    "id": "projects.noProjects",
-    "defaultMessage": "No lists yet."
-  },
-  {
     "id": "projects.allClaims",
     "defaultMessage": "All items"
   },

@@ -15,8 +15,6 @@ import CheckContext from '../../CheckContext';
 
 import {
   Text,
-  units,
-  caption,
 } from '../../styles/js/shared';
 
 const messages = defineMessages({
@@ -113,19 +111,8 @@ class DrawerProjectsComponent extends Component {
 
   render() {
     const { props } = this;
-    const projectList = (() => {
-      if (props.team.projects.edges.length === 0) {
-        return (
-          <Text style={{ margin: `0 ${units(2)}` }} font={caption}>
-            <FormattedMessage
-              id="projects.noProjects"
-              defaultMessage="No lists yet."
-            />
-          </Text>
-        );
-      }
-
-      return props.team.projects.edges
+    const projectList = (() =>
+      props.team.projects.edges
         .sortp((a, b) => a.node.title.localeCompare(b.node.title))
         .map((p) => {
           const dashboardPath = /^\/[^/]+\/dashboard/.test(window.location.pathname) ? '/dashboard' : '';
@@ -143,8 +130,8 @@ class DrawerProjectsComponent extends Component {
               />
             </Link>
           );
-        });
-    })();
+        })
+    )();
 
     const styles = {
       projectsList: {
