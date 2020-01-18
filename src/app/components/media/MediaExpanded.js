@@ -14,6 +14,7 @@ import WebPageMediaCard from './WebPageMediaCard';
 import ImageMediaCard from './ImageMediaCard';
 import VideoMediaCard from './VideoMediaCard';
 import PenderCard from '../PenderCard';
+import { truncateLength } from '../../helpers';
 import CheckContext from '../../CheckContext';
 import {
   FadeIn,
@@ -149,7 +150,7 @@ class MediaExpandedComponent extends Component {
 
     return (
       <span>
-        <CardTitle title={media.title} />
+        <CardTitle title={truncateLength(media.title)} />
         <CardText style={{ padding: '0 16px' }}>
           {cardHeaderText}
           <FadeIn>

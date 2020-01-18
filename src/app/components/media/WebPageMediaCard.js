@@ -3,6 +3,8 @@ import { injectIntl } from 'react-intl';
 import deepEqual from 'deep-equal';
 import styled from 'styled-components';
 import AspectRatio from '../layout/AspectRatio';
+import ExternalLink from '../ExternalLink';
+import { truncateLength } from '../../helpers';
 import ParsedText from '../ParsedText';
 import {
   units,
@@ -47,13 +49,20 @@ class WebPageMediaCard extends Component {
           <div>
             { media.description ?
               <StyledDescription>
-                <ParsedText text={media.description} />
+                <ParsedText text={truncateLength(media.description, 250)} />
               </StyledDescription> : null
             }
             { media.picture ?
               <AspectRatio>
                 <img src={media.picture} alt="" />
               </AspectRatio> : null
+            }
+            { media.metadata.url ?
+              <div style={{ marginTop: units(2) }}>
+                <ExternalLink url={media.metadata.url}>
+                  {media.metadata.url}
+                </ExternalLink>
+              </div> : null
             }
           </div>
         }
