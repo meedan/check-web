@@ -222,6 +222,10 @@ const StyledSchemaForm = styled.div`
     display: none;
   }
 
+  #rules > div {
+    padding: 0 !important;
+  }
+
   // Each rule div
   #rules > div > div + fieldset > div > fieldset > label + div > div > div {
     border: 0;
