@@ -4,6 +4,7 @@ import 'react-image-lightbox/style.css';
 import IconButton from '@material-ui/core/IconButton';
 import FullscreenIcon from '@material-ui/icons/Fullscreen';
 import AspectRatio from '../layout/AspectRatio';
+import { white, black32, units } from '../../styles/js/shared.js';
 
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
 /* eslint jsx-a11y/no-noninteractive-element-interactions: 0 */
@@ -27,12 +28,15 @@ class ImageMediaCard extends React.Component {
           <IconButton
             onClick={this.handleOpenLightbox}
             style={{
+              color: white,
+              backgroundColor: black32,
               position: 'absolute',
               right: '0',
               top: '0',
+              margin: units(2),
             }}
           >
-            <FullscreenIcon />
+            <FullscreenIcon style={{ width: units(4), height: units(4) }} />
           </IconButton>
           <img
             src={this.props.imagePath}
