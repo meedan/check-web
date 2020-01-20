@@ -12,10 +12,34 @@ const StyledMoreLessArea = styled.div`
 class MoreLess extends React.Component {
   state = {
     expand: false,
+    canExpand: false,
+  };
+
+  componentDidMount() {
+    const contentArea = document.querySelector('div.more-less-content');
+    window.addEventListener('resize', this.canExpand);
+    contentArea.addEventListener('resize', this.canExpand);
+    this.canExpand();
+  }
+
+  componentWillUnmount() {
+    const contentArea = document.querySelector('div.more-less-content');
+    window.removeEventListener('resize', this.canExpand);
+    contentArea.removeEventListener('resize', this.canExpand);
+  }
+
+  canExpand = () => {
+    const actualHeight = document.querySelector('div.more-less-content').clientHeight;
+    const limitHeight = document.querySelector('div.more-less-area').clientHeight;
+    const canExpand = actualHeight > limitHeight;
+    if (canExpand !== this.state.canExpand) {
+      this.setState({ canExpand });
+    }
   };
 
   toggleExpand = () => {
-    this.setState({ expand: !this.state.expand });
+    const expand = !this.state.expand;
+    this.setState({ expand, canExpand: true });
   };
 
   render() {
@@ -23,16 +47,20 @@ class MoreLess extends React.Component {
       <div className="more-less">
         <StyledMoreLessArea
           className="more-less-area"
-          maxHeight={this.state.expand ? null : units(20)}
+          maxHeight={this.state.expand ? null : units(12)}
         >
-          {this.props.children}
+          <div className="more-less-content">
+            {this.props.children}
+          </div>
         </StyledMoreLessArea>
-        <Button color="primary" onClick={this.toggleExpand}>
-          { this.state.expand ?
-            <FormattedMessage id="moreLess.less" defaultMessage="Less" /> :
-            <FormattedMessage id="moreLess.more" defaultMessage="More" />
-          }
-        </Button>
+        { this.state.canExpand ?
+          <Button color="primary" onClick={this.toggleExpand}>
+            { this.state.expand ?
+              <FormattedMessage id="moreLess.less" defaultMessage="Less" /> :
+              <FormattedMessage id="moreLess.more" defaultMessage="More" />
+            }
+          </Button> : null
+        }
       </div>
     );
   }
