@@ -123,17 +123,17 @@ class MediaExpandedComponent extends Component {
             <span>
               {MediaUtil.mediaTypeLabel(media.media.type, this.props.intl)}
             </span>
-            <span style={{ margin: '0 16px' }}> - </span>
+            <span style={{ margin: `0 ${units(1)}` }}> - </span>
             <span>
               <FormattedMessage id="mediaExpanded.firstSeen" defaultMessage="First seen: " />
               <TimeBefore date={MediaUtil.createdAt({ published: media.created_at })} />
             </span>
-            <span style={{ margin: '0 16px' }}> - </span>
+            <span style={{ margin: `0 ${units(1)}` }}> - </span>
             <span>
               <FormattedMessage id="mediaExpanded.lastSeen" defaultMessage="Last seen: " />
               <TimeBefore date={MediaUtil.createdAt({ published: media.last_seen })} />
             </span>
-            <span style={{ margin: '0 16px' }}> - </span>
+            <span style={{ margin: `0 ${units(1)}` }}> - </span>
             <span>
               <FormattedMessage
                 id="mediaExpanded.requests"
@@ -150,8 +150,11 @@ class MediaExpandedComponent extends Component {
 
     return (
       <span>
-        <CardTitle title={truncateLength(media.title)} />
-        <CardText style={{ padding: '0 16px' }}>
+        <CardTitle
+          style={{ lineHeight: units(4) }}
+          title={truncateLength(media.title, 110)}
+        />
+        <CardText style={{ padding: `0 ${units(2)}` }}>
           {cardHeaderText}
           <FadeIn>
             {shouldShowDescription ?
