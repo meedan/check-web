@@ -317,7 +317,8 @@ class SearchQueryComponent extends React.Component {
 
   sortLabel(sortParam, state = this.state) {
     const { sort } = state.query || {};
-    if (!sort || sort === 'recent_added' || sort === 'recent_activity') {
+    const sortKeys = ['recent_added', 'recent_activity', 'related', 'requests', 'last_seen'];
+    if (!sort || sortKeys.indexOf(sort) > -1) {
       return sortParam === 'ASC' ?
         (<FormattedMessage id="search.sortByOldest" defaultMessage="Oldest first" />) :
         (<FormattedMessage id="search.sortByNewest" defaultMessage="Newest first" />);
