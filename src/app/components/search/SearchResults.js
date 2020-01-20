@@ -176,12 +176,17 @@ class SearchResultsComponent extends React.Component {
     const query = Object.assign({}, searchQueryFromUrl());
     query.esoffset = offset;
 
-    const url = urlFromSearchQuery(
-      query,
-      project
+    let path = null;
+    if (/\/trash/.test(window.location.pathname)) {
+      path = `/${team.slug}/trash`;
+    }
+    if (!path) {
+      path = project
         ? `/${team.slug}/project/${project.dbid}`
-        : `/${team.slug}/all-items`,
-    );
+        : `/${team.slug}/all-items`;
+    }
+
+    const url = urlFromSearchQuery(query, path);
 
     this.getContext().getContextStore().history.push(url);
   }

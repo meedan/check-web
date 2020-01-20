@@ -10,6 +10,13 @@ import {
   units,
 } from '../../styles/js/shared';
 
+const StyledLink = styled.div`
+  margin-top: ${units(2)};
+  a {
+    text-decoration: underline;
+  }
+`;
+
 const StyledDescription = styled.div`
   padding-bottom: ${units(2)};
 `;
@@ -58,11 +65,11 @@ class WebPageMediaCard extends Component {
               </AspectRatio> : null
             }
             { media.metadata.url ?
-              <div style={{ marginTop: units(2) }}>
+              <StyledLink>
                 <ExternalLink url={media.metadata.url}>
                   {media.metadata.url}
                 </ExternalLink>
-              </div> : null
+              </StyledLink> : null
             }
           </div>
         }
