@@ -1,11 +1,11 @@
 {
-  "createTeamTask.editError": "Failed to edit default task",
-  "createTeamTask.deleteError": "Failed to delete default task",
+  "createTeamTask.editError": "Error al editar la tarea predeterminada",
+  "createTeamTask.deleteError": "Error al eliminar la tarea predeterminada",
   "createTeamTask.menuTooltip": "Acciones de las tareas",
   "teamTasks.confirmEditTitle": "¿Estás seguro(a) que quieres editar esta tarea?",
   "teamTasks.confirmDeleteTitle": "¿Estás seguro(a) que quieres eliminar esta tarea?",
-  "teamTasks.confirmEditBlurb": "Related item tasks will be modified as a consequence of applying this change, except for those that have already been answered or resolved.",
-  "teamTasks.confirmDeleteBlurb": "Related item tasks will be deleted as a consequence of applying this change, except for those that have already been answered or resolved.",
+  "teamTasks.confirmEditBlurb": "Las tareas relacionadas con los ítems se modificarán como consecuencia de la aplicación de este cambio, a excepción de aquellas que ya han sido respondidas o resueltas.",
+  "teamTasks.confirmDeleteBlurb": "Las tareas relacionadas con los ítems se eliminararán como consecuencia de la aplicación de este cambio, a excepción de aquellas que ya han sido respondidas o resueltas.",
   "teamTasks.edit": "Editar tarea",
   "teamTasks.delete": "Eliminar tarea"
 }

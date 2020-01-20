@@ -1,13 +1,13 @@
 {
-  "teamEmbed.updateFail": "Sorry, an error occurred while updating the report settings. Please try again and contact {supportEmail} if the condition persists.",
-  "teamEmbed.updateSuccess": "Report settings updated successfully!",
-  "teamEmbed.title": "Report settings",
+  "teamEmbed.updateFail": "Lo sentimos, se produjo un error al actualizar las configuraciones del informe. Vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}.",
+  "teamEmbed.updateSuccess": "¡Las configuraciones de informe se han actualizado con éxito!",
+  "teamEmbed.title": "Configuración del informe",
   "teamEmbed.tasks": "Tareas",
-  "teamEmbed.tasksSub": "The selected tasks will be included in the report if they are resolved.",
+  "teamEmbed.tasksSub": "Las tareas seleccionadas se incluirán en el informe si se resuelven.",
   "teamEmbed.disclaimer": "Declinación de responsabilidades",
-  "teamEmbed.disclaimerSub": "Disclaimer that will be shown at the bottom of the report with the workspace logo.",
-  "teamEmbed.analysis": "Analysis",
-  "teamEmbed.analysisSub": "Show analysis in the report",
-  "teamEmbed.analysisYes": "Yes",
+  "teamEmbed.disclaimerSub": "El aviso de declinación de responsabilidades, se mostrará al final del informe junto al logo del área de trabajo.",
+  "teamEmbed.analysis": "Análisis",
+  "teamEmbed.analysisSub": "Mostrar análisis en el informe",
+  "teamEmbed.analysisYes": "Sí",
   "teamEmbed.save": "Guardar"
 }

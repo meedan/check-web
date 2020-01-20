@@ -1,5 +1,5 @@
 {
-  "mediaExpanded.firstSeen": "First seen:",
-  "mediaExpanded.lastSeen": "Last seen:",
-  "mediaExpanded.requests": "{count} requests"
+  "mediaExpanded.firstSeen": "Visto por primera vez:",
+  "mediaExpanded.lastSeen": "Ultima vez visto: ",
+  "mediaExpanded.requests": "{count} solicitudes"
 }

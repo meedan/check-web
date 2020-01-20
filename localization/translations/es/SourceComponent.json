@@ -24,7 +24,7 @@
   "sourceNoMedia": "No hay medios de comunicación atribuidos a esta fuente ",
   "sourceComponent.conflictError": "Otro usuario y tú editaron este ítem al mismo tiempo. Por favor guarda los cambios que hiciste hasta el momento y {reloadLink}.",
   "sourceComponent.clickToReload": "Clic aquí para actualizar",
-  "sourceMenuRelay.editSource": "Edit source",
+  "sourceMenuRelay.editSource": "Editar fuente",
   "sourceComponent.dateAdded": "Se añadió el {date} • Fuente de {number} enlaces",
   "sourceComponent.medias": "Medios de comunicación ",
   "sourceComponent.notes": "Notas",

@@ -1,5 +1,5 @@
 {
-  "userAssignments.filterByTeam": "Filter by workspace",
+  "userAssignments.filterByTeam": "Filtrar por área de trabajo",
   "userAssignments.progress": "{answered, plural, =0 {Ninguna tarea requerida respondida} one {1 tarea requerida respondida} other {# tareas requeridas respondidas}}, de {total}",
   "userAssignments.yourAssignments": "Tus asignaciones ",
   "userAssignments.userAssignments": "Asignaciones de {name}",
