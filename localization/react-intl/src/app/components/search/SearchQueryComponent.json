@@ -1,7 +1,7 @@
 [
   {
     "id": "search.title",
-    "defaultMessage": "Search"
+    "defaultMessage": "All items"
   },
   {
     "id": "search.inputHint",
@@ -20,8 +20,8 @@
     "defaultMessage": "Reset"
   },
   {
-    "id": "search.filterItems",
-    "defaultMessage": "Filter items"
+    "id": "search.clear",
+    "defaultMessage": "Clear filter"
   },
   {
     "id": "search.sortByOldest",
@@ -33,7 +33,11 @@
   },
   {
     "id": "search.help",
-    "defaultMessage": "<table>\n                              <tbody>\n                                <tr><td>+</td><td>Tree + Leaf</td><td>Items with both Tree AND Leaf</td></tr>\n                                <tr><td>|</td><td>Tree | Leaf</td><td>Items with either Tree OR Leaf</td></tr>\n                                <tr><td>()</td><td>Tree + (Leaf | Branch)</td><td>Items with Tree AND Leaf OR items with Tree AND Branch</td></tr>\n                              </tbody>\n                            </table>\n                            <div>\n                              <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                                Learn more about search techniques\n                              </a>\n                            </div>"
+    "defaultMessage": "<table>\n                      <tbody>\n                        <tr><td>+</td><td>Tree + Leaf</td><td>Items with both Tree AND Leaf</td></tr>\n                        <tr><td>|</td><td>Tree | Leaf</td><td>Items with either Tree OR Leaf</td></tr>\n                        <tr><td>()</td><td>Tree + (Leaf | Branch)</td><td>Items with Tree AND Leaf OR items with Tree AND Branch</td></tr>\n                      </tbody>\n                    </table>\n                    <div>\n                      <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                        Learn more about search techniques\n                      </a>\n                    </div>"
+  },
+  {
+    "id": "search.Filter",
+    "defaultMessage": "Filter"
   },
   {
     "id": "search.statusHeading",
@@ -41,11 +45,11 @@
   },
   {
     "id": "search.projectHeading",
-    "defaultMessage": "Project"
+    "defaultMessage": "List"
   },
   {
     "id": "status.categoriesHeading",
-    "defaultMessage": "Team Tags"
+    "defaultMessage": "Default Tags"
   },
   {
     "id": "search.sort",
@@ -65,7 +69,7 @@
   },
   {
     "id": "search.showClaims",
-    "defaultMessage": "Claims"
+    "defaultMessage": "Texts"
   },
   {
     "id": "search.showLinks",
@@ -78,10 +82,6 @@
   {
     "id": "search.showVideos",
     "defaultMessage": "Videos"
-  },
-  {
-    "id": "search.showSources",
-    "defaultMessage": "Sources"
   },
   {
     "id": "search.rules",

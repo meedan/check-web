@@ -1,4 +1,8 @@
 {
-  "headerActions.signOut": "Sign Out",
-  "headerActions.contactHuman": "Contact a Human"
+  "UserMenu.userSettings": "User settings",
+  "UserMenu.training": "Training and documentation",
+  "UserMenu.tos": "Terms of service",
+  "UserMenu.pp": "Privacy policy",
+  "UserMenu.about": "About",
+  "UserMenu.signOut": "Sign Out"
 }

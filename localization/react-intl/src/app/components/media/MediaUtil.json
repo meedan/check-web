@@ -16,16 +16,16 @@
     "defaultMessage": "Instagram"
   },
   {
+    "id": "media.typeLink",
+    "defaultMessage": "Link"
+  },
+  {
     "id": "media.typeVideo",
     "defaultMessage": "Video"
   },
   {
     "id": "media.typeClaim",
-    "defaultMessage": "Claim"
-  },
-  {
-    "id": "bridge.media.typeClaim",
-    "defaultMessage": "Quote"
+    "defaultMessage": "Text"
   },
   {
     "id": "media.typeImage",

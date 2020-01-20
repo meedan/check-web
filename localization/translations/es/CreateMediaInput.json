@@ -1,6 +1,6 @@
 {
   "createMedia.mediaInput": "Pegar o escribir",
-  "createMedia.quoteInput": "Pegar o escribir una afirmación",
+  "createMedia.quoteInput": "Paste or type a text",
   "createMedia.quoteAttributionSourceInput": "Nombre de la fuente",
   "createMedia.quoteAttributionContext": "URL o contexto",
   "createMedia.quoteAttributionSourceInputHelper": "¿Quién dijo esto?",
@@ -11,7 +11,7 @@
   "createMedia.submitButton": "Publicar",
   "createMedia.invalidUrl": "Por favor introduce un URL válido",
   "createMedia.link": "Enlace",
-  "createMedia.quote": "Afirmación",
+  "createMedia.quote": "Text",
   "createMedia.source": "Fuente",
   "createMedia.image": "Foto",
   "createMedia.video": "Vídeo"

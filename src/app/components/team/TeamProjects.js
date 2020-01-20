@@ -51,12 +51,12 @@ class TeamProjects extends React.Component {
         </Can>
         <Card style={{ marginBottom: units(2) }}>
           <StyledCardHeader
-            title={<FormattedMessage id="teamComponent.projects" defaultMessage="Projects" />}
+            title={<FormattedMessage id="teamComponent.projects" defaultMessage="Lists" />}
           />
 
           {!team.projects.edges.length ?
             <CardText style={{ color: black54 }}>
-              <FormattedMessage id="teamComponent.noProjects" defaultMessage="No projects" />
+              <FormattedMessage id="teamComponent.noProjects" defaultMessage="No lists" />
             </CardText>
             :
             <List className="projects">
@@ -86,7 +86,7 @@ class TeamProjects extends React.Component {
                             { UserUtil.myRole(currentUser, team.slug) !== 'annotator' ?
                               <FormattedMessage
                                 id="teamComponent.projectAssignmentsCount"
-                                defaultMessage="{count, plural, =0 {Not assigned to any member} one {Assigned to one member} other {Assigned to # members}}"
+                                defaultMessage="{count, plural, =0 {&nbsp;} one {Assigned to one member} other {Assigned to # members}}"
                                 values={{ count: p.node.assignments_count }}
                               /> : null }
                           </small>

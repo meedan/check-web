@@ -1,9 +1,9 @@
 {
-  "home.needRegister": "Primeiro você precisa se registrar. Uma vez registrado, você pode solicitar para participar da equipe.",
+  "home.needRegister": "Primeiro você precisa se registrar. Uma vez registrado, você pode solicitar para participar da área de trabalho.",
   "home.somethingWrong": "Desculpe, ocorreu um erro. Por favor, atualize seu navegador e entre em contato com {supportEmail} se a condição persistir.",
   "home.successInvitation": "Bem-vindo ao {appName}. Por favor, faça o login com a senha que você recebeu no e-mail de boas-vindas.",
   "home.invalidInvitation": "Desculpe, ocorreu um erro ao processar o seu convite. Por favor, entre em contato com {supportEmail}.",
-  "home.invalidTeamInvitation": "Desculpe, a equipe para a qual você foi convidado não foi encontrada. Por favor, entre em contato com {supportEmail} se achar que isso é um erro.",
+  "home.invalidTeamInvitation": "Desculpe, a área de trabalho para a qual você foi convidado não foi encontrada. Por favor, entre em contato com {supportEmail} se achar que isso é um erro.",
   "home.invalidNoInvitation": "Desculpe, o convite que você recebeu não foi encontrado. Por favor, entre em contato com {supportEmail} se achar que isso é um erro.",
   "home.invalidExpiredInvitation": "Desculpe, o convite que você recebeu expirou. Por favor, entre em contato com {supportEmail} se achar que isso é um erro."
 }

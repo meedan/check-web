@@ -16,6 +16,8 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
             id,
             overridden,
             metadata,
+            title,
+            description,
           }
         }
       `;
@@ -27,6 +29,9 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         check_search_trash { id, number_of_results },
         check_search_project { id, number_of_results },
         check_search_project_was { id, number_of_results },
+        project_was {
+          medias_count
+        },
         related_to { id, relationships, log, log_count },
         relationships_target { id },
         relationships_source { id },
@@ -57,11 +62,18 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
             }
           }
           team {
+            id
             slug
+            medias_count
+            public_team {
+              trash_count
+            }
           }
           project {
+            id
             title
             search_id
+            medias_count
           }
         }
       }
@@ -81,6 +93,8 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
       return {
         project_media: {
           id: this.props.media.id,
+          title: embed.title,
+          description: embed.description,
           metadata: JSON.stringify(embed),
           overridden: JSON.stringify(overridden),
           permissions: JSON.stringify(permissions),
@@ -111,9 +125,24 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         number_of_results: this.props.check_search_team.number_of_results + 1,
       };
 
-      response.check_search_project = {
-        id: this.props.check_search_project.id,
-        number_of_results: this.props.check_search_project.number_of_results + 1,
+      if (this.props.check_search_project) {
+        response.check_search_project = {
+          id: this.props.check_search_project.id,
+          number_of_results: this.props.check_search_project.number_of_results + 1,
+        };
+      }
+
+      response.project = {
+        id: this.props.media.project.id,
+        medias_count: this.props.media.project.medias_count + 1,
+        team: {
+          id: this.props.context.team.id,
+          medias_count: this.props.context.team.medias_count + 1,
+          public_team: {
+            id: this.props.context.team.public_team.id,
+            trash_count: this.props.context.team.public_team.trash_count - 1,
+          },
+        },
       };
 
       response.affectedId = this.props.id;
@@ -137,14 +166,51 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         number_of_results: this.props.check_search_team.number_of_results - 1,
       };
 
-      response.check_search_project = {
-        id: this.props.check_search_project.id,
-        number_of_results: this.props.check_search_project.number_of_results - 1,
-      };
+      if (this.props.check_search_project) {
+        response.check_search_project = {
+          id: this.props.check_search_project.id,
+          number_of_results: this.props.check_search_project.number_of_results - 1,
+        };
+      }
+
+      if (this.props.context.project) {
+        response.project = {
+          id: this.props.media.project.id,
+          medias_count: this.props.context.project.medias_count - 1,
+          team: {
+            id: this.props.context.team.id,
+            medias_count: this.props.context.team.medias_count - 1,
+            public_team: {
+              id: this.props.context.team.public_team.id,
+              trash_count: this.props.context.team.public_team.trash_count + 1,
+            },
+          },
+        };
+      }
 
       response.affectedId = this.props.id;
       return response;
     }
+
+    if (this.props.srcProj && this.props.dstProj) {
+      const response = optimisticProjectMedia(
+        this.props.media,
+        this.props.dstProj,
+        this.props.context,
+      );
+      response.project_was = {
+        id: this.props.srcProj.id,
+        medias_count: this.props.srcProj.medias_count - 1,
+      };
+      response.project = {
+        id: this.props.dstProj.id,
+        medias_count: this.props.dstProj.medias_count + 1,
+      };
+      delete response.team;
+      response.affectedId = this.props.id;
+      return response;
+    }
+
     return {};
   }
 
@@ -190,6 +256,16 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
               }
             }
             project {
+              id
+              medias_count
+              team {
+                id
+                medias_count
+                public_team {
+                  id
+                  trash_count
+                }
+              }
               project_medias(first: 20) {
                 edges {
                   node {
@@ -247,6 +323,10 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         edgeName: 'project_mediaEdge',
         rangeBehaviors: () => ('prepend'),
       });
+      configs.push({
+        type: 'FIELDS_CHANGE',
+        fieldIDs: { project_was: this.props.dstProj.id },
+      });
     }
 
     if (this.props.archived === 1) {
@@ -258,14 +338,16 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         pathToConnection: ['check_search_team', 'medias'],
         deletedIDFieldName: 'affectedId',
       });
-      configs.push({
-        type: 'RANGE_DELETE',
-        parentName: 'check_search_project',
-        parentID: this.props.check_search_project.id,
-        connectionName: 'medias',
-        pathToConnection: ['check_search_project', 'medias'],
-        deletedIDFieldName: 'affectedId',
-      });
+      if (this.props.check_search_project) {
+        configs.push({
+          type: 'RANGE_DELETE',
+          parentName: 'check_search_project',
+          parentID: this.props.check_search_project.id,
+          connectionName: 'medias',
+          pathToConnection: ['check_search_project', 'medias'],
+          deletedIDFieldName: 'affectedId',
+        });
+      }
       if (this.props.check_search_trash) {
         configs.push({
           type: 'RANGE_ADD',
@@ -287,14 +369,16 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         edgeName: 'project_mediaEdge',
         rangeBehaviors: () => ('prepend'),
       });
-      configs.push({
-        type: 'RANGE_ADD',
-        parentName: 'check_search_project',
-        parentID: this.props.check_search_project.id,
-        connectionName: 'medias',
-        edgeName: 'project_mediaEdge',
-        rangeBehaviors: () => ('prepend'),
-      });
+      if (this.props.check_search_project) {
+        configs.push({
+          type: 'RANGE_ADD',
+          parentName: 'check_search_project',
+          parentID: this.props.check_search_project.id,
+          connectionName: 'medias',
+          edgeName: 'project_mediaEdge',
+          rangeBehaviors: () => ('prepend'),
+        });
+      }
       if (this.props.check_search_trash) {
         configs.push({
           type: 'RANGE_DELETE',

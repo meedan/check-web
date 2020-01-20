@@ -57,6 +57,7 @@ class CreateRelatedMedia extends Component {
         ...value,
         context,
         project: this.props.media.project,
+        team: this.props.media.team,
         related: this.props.media,
         related_to_id: this.props.media.dbid,
         targets_count: this.props.media.relationships.targets_count,
@@ -109,7 +110,7 @@ class CreateRelatedMedia extends Component {
     return (
       <div>
         {media.relationships.sources_count === 0 ?
-          <Can permissions={media.project.permissions} permission="create Media">
+          <Can permissions={media.team.permissions} permission="create ProjectMedia">
             <StyledCreateRelatedClaimButton
               className="create-related-media__add-button create-related-media__add-button--default"
               onClick={this.handleOpenDialog.bind(this)}

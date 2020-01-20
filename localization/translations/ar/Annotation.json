@@ -1,10 +1,8 @@
 {
   "annotation.error": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث العنصر. من فضلك أعد المحاولة وتواصل مع {supportEmail} إن استمرت المشكلة.",
   "annotation.deleteButton": "حذف",
-  "annotation.reverseImage": "يحتوي هذا العنصر على صورة واحدة على الأقل. اضغط بحث لإيجاد مكررات على جوجل.",
-  "annotation.reverseImageFacebook": "يحتوي هذا العنصر على صورة واحدة أو أكثر من صورة. ﻷنه نابع من فيسبوك لا يمكننا إرسال الصور مباشرةً إلى محرك البحث.  نحن نقترح بحث يدوي على جوجل أو TinEye.",
   "annotation.and": "و",
-  "annotation.newClaim": "قام {author} بإضافة إدعاء جديد",
+  "annotation.newClaim": "New text added by {author}",
   "annotation.menuTooltip": "إجراءات التعليقات",
   "annotation.permalink": "الرابط الثابت",
   "annotation.taggedHeader": "قام {author} بإضافة علامة #{tag}",
@@ -27,7 +25,6 @@
   "annotation.acceptSuggestion": "قبول",
   "annotation.rejectSuggestion": "رفض",
   "annotation.taskResolve": "قام {author} بإجابة مهمة : {task}{response}",
-  "annotation.reverseImageSearch": "بحث",
   "annotation.translation": "قام {author} بترجمة العنصر إلى {language}{translation}",
   "annotation.emptyMachineTranslation": "إضافة ترجمة مميكنة",
   "annotation.machineTranslation": "الترجمة المميكنة إلى {language}{text}",
@@ -42,8 +39,8 @@
   "annotation.penderArchiveResponse": "أتخذ Keep  لقطة شاشة الرابط.",
   "annotation.penderArchiveWait": "لقد تم إرسال هذا الرابط للحفاظ في Keep. من فضلك تابع هنا بعد دقائق للحصول على لقطة الشاشة.",
   "annotation.flaggedHeader": "قام {author} بإضافة علامة {flag}",
-  "annotation.projectMoved": "قام {author} بنقله من {previousProject} إلى {currentProject}",
+  "annotation.projectMoved": "Moved from list {previousProject} to {currentProject} by {author}",
   "annotation.movedToTrash": "قام {author} بإرساله إلى سلة المهملات",
   "annotation.movedFromTrash": "قام {author}  بإستعادته من سلة المهملات",
-  "annotation.teamCopied": "قام {author} بنقله من {previousProject} في الفريق {previousTeam}"
+  "annotation.teamCopied": "Copied from list {previousProject} on workspace {previousTeam} by {author}"
 }

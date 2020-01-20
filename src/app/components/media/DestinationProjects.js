@@ -11,7 +11,7 @@ import { units } from '../../styles/js/shared';
 const messages = defineMessages({
   choose: {
     id: 'destinationProjects.choose',
-    defaultMessage: 'Choose a project',
+    defaultMessage: 'Choose a list',
   },
 });
 
@@ -75,11 +75,15 @@ class DestinationProjectsComponent extends React.Component {
         ) {
           skip = true;
         }
+        let projectIds = this.props.projectId;
+        if (!Array.isArray(projectIds)) {
+          projectIds = [projectIds];
+        }
         if (!skip) {
           options.push({ label: team.name, value: team.slug, disabled: true });
           team.projects.edges.forEach((projectNode) => {
             const project = projectNode.node;
-            if (this.props.projectId !== project.dbid) {
+            if (projectIds.indexOf(project.dbid) === -1) {
               options.push({ label: project.title, value: project.dbid });
             }
           });
@@ -123,6 +127,7 @@ const DestinationProjectsContainer = Relay.createContainer(DestinationProjectsCo
                       dbid
                       title
                       search_id
+                      medias_count
                     }
                   }
                 }

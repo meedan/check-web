@@ -152,7 +152,7 @@ class AttributionComponent extends React.Component {
             options={this.state.unselectedUsers}
             onChange={this.handleChange.bind(this)}
             noResultsText={<FormattedMessage id="attribution.noResults" defaultMessage="No results" />}
-            placeholder={<FormattedMessage id="attribution.search" defaultMessage="Search team members" />}
+            placeholder={<FormattedMessage id="attribution.search" defaultMessage="Search members" />}
           />
         </form>
       </div>

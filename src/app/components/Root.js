@@ -71,8 +71,8 @@ class Root extends Component {
               callbacks[id] = callback;
             }
           }
+          Root.pusherLog(`Calling callback for channel ${channel} and event ${eventName} for component ${component}, which is currently mounted and focused`);
         });
-        Root.pusherLog(`Calling callback for channel ${channel} and event ${eventName}, which is currently mounted and focused`);
       } else if (checkPusher.subscribedChannels[channel]) {
         if (!checkPusher.queue[channel]) {
           checkPusher.queue[channel] = {};
@@ -154,10 +154,19 @@ class Root extends Component {
     });
 
     return {
-      unsubscribe: (channel) => {
+      unsubscribe: (channel, eventName, component) => {
         if (checkPusher.currentChannels[channel]) {
-          checkPusher.currentChannels[channel] = null;
-          Root.pusherLog(`Channel ${channel} is not a current channel anymore`);
+          if (eventName && component && checkPusher.currentChannels[channel][eventName] &&
+            checkPusher.currentChannels[channel][eventName][component]) {
+            delete checkPusher.currentChannels[channel][eventName][component];
+            Root.pusherLog(`Channel ${channel} is not a current channel for event ${eventName} and component ${component} anymore`);
+          } else if (eventName && checkPusher.currentChannels[channel][eventName]) {
+            delete checkPusher.currentChannels[channel][eventName];
+            Root.pusherLog(`Channel ${channel} is not a current channel for event ${eventName} anymore`);
+          } else {
+            checkPusher.currentChannels[channel] = null;
+            Root.pusherLog(`Channel ${channel} is not a current channel anymore`);
+          }
         }
       },
 
@@ -282,20 +291,19 @@ class Root extends Component {
                 <Route path="check/bot-garden" component={BotGarden} />
                 <Route path="check/bot/:botId" component={Bot} />
 
+                <Route path=":team/media/:mediaId" component={ProjectMediaSearch} public />
                 <Route path=":team/project/:projectId/media/:mediaId" component={ProjectMediaSearch} public />
+                <Route path=":team/media/:mediaId/embed" component={MediaEmbed} public />
                 <Route path=":team/project/:projectId/media/:mediaId/embed" component={MediaEmbed} public />
+                <Route path=":team/media/:mediaId/memebuster" component={Memebuster} />
                 <Route path=":team/project/:projectId/media/:mediaId/memebuster" component={Memebuster} />
                 <Route path=":team/project/:projectId/media/:mediaId/tasks" component={MediaTasks} />
                 <Route path=":team/project/:projectId/source/:sourceId" component={Source} public />
                 <Route path=":team/project/:projectId/source/:sourceId/edit" isEditing component={Source} />
                 <Route path=":team/join" component={JoinTeam} />
                 <Route path=":team/project/:projectId/edit" component={ProjectEdit} />
-                <Route path=":team/project/:projectId/dense(/:query)" view="dense" component={Project} public />
-                <Route path=":team/project/:projectId/list(/:query)" view="list" component={Project} public />
                 <Route path=":team/project/:projectId(/:query)" component={Project} public />
-                <Route path=":team/search/dense(/:query)" view="dense" component={Search} public />
-                <Route path=":team/search/list(/:query)" view="list" component={Search} public />
-                <Route path=":team/search(/:query)" component={Search} public />
+                <Route path=":team/all-items(/:query)" component={Search} public />
                 <Route path=":team/trash(/:query)" component={Trash} />
                 <Route path=":team" component={Team} public />
                 <Route path=":team/edit" action="edit" component={Team} />

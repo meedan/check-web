@@ -1,0 +1,9 @@
+{
+  "list.Item": "Item",
+  "list.Demand": "Requests",
+  "list.LinkedItems": "Related",
+  "list.Type": "Type",
+  "list.Status": "Status",
+  "list.FirstSeen": "First seen",
+  "list.LastSeen": "Last seen"
+}

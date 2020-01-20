@@ -72,7 +72,7 @@ class UserComponent extends React.Component {
                       label={
                         <FormattedMessage
                           id="userComponent.teams"
-                          defaultMessage="Teams"
+                          defaultMessage="Workspaces"
                         />
                       }
                       value="teams"

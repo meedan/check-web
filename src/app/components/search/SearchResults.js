@@ -12,22 +12,16 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { searchQueryFromUrl, urlFromSearchQuery } from './Search';
 import SearchQuery from './SearchQuery';
 import Toolbar from './Toolbar';
+import ParsedText from '../ParsedText';
 import BulkActions from '../media/BulkActions';
-import MediaDetail from '../media/MediaDetail';
 import MediasLoading from '../media/MediasLoading';
-import SmallMediaCard from '../media/SmallMediaCard';
-import SourceCard from '../source/SourceCard';
-import SmallSourceCard from '../source/SmallSourceCard';
 import ProjectBlankState from '../project/ProjectBlankState';
-import { can } from '../Can';
+import List from '../layout/List';
 import { notify, safelyParseJSON } from '../../helpers';
-import { black87, units, ContentColumn } from '../../styles/js/shared';
+import { black87, headline, units, ContentColumn, Row } from '../../styles/js/shared';
 import CheckContext from '../../CheckContext';
 import SearchRoute from '../../relay/SearchRoute';
 import checkSearchResultFragment from '../../relay/checkSearchResultFragment';
-import checkDenseSearchResultFragment from '../../relay/checkDenseSearchResultFragment';
-import bridgeSearchResultFragment from '../../relay/bridgeSearchResultFragment';
-import bridgeDenseSearchResultFragment from '../../relay/bridgeDenseSearchResultFragment';
 
 // TODO Make this a config
 const pageSize = 20;
@@ -55,6 +49,37 @@ const messages = defineMessages({
   },
 });
 
+const StyledListHeader = styled.div`
+  .search__list-header-filter-row {
+    justify-content: space-between;
+    display: flex;
+  }
+
+  .search__list-header-title-and-filter {
+    justify-content: space-between;
+    display: flex;
+    width: 66%;
+  }
+
+  .search-query {
+    margin-left: auto;
+  }
+
+  .project__title {
+    max-width: 35%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .project__description {
+    max-width: 30%;
+    max-height: ${units(4)};
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+`;
+
 const StyledSearchResultsWrapper = styled.div`
     padding-bottom: 0 0 ${units(2)};
 
@@ -77,15 +102,6 @@ const StyledSearchResultsWrapper = styled.div`
       cursor: pointer;
       color: ${black87};
     }
-  }
-
-  .dense {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  .medias__item {
-    margin: ${units(1)};
   }
 `;
 
@@ -125,7 +141,6 @@ class SearchResultsComponent extends React.Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     return !isEqual(this.state, nextState) ||
-           !isEqual(this.props.view, nextProps.view) ||
            !isEqual(this.props.search, nextProps.search);
   }
 
@@ -147,26 +162,9 @@ class SearchResultsComponent extends React.Component {
     }
   }
 
-  onSelect(id) {
-    const selectedMedia = this.state.selectedMedia.slice(0);
-    const index = selectedMedia.indexOf(id);
-    if (index === -1) {
-      selectedMedia.push(id);
-    } else {
-      selectedMedia.splice(index, 1);
-    }
-    this.setState({ selectedMedia });
-  }
-
-  onSelectAll() {
-    const { search } = this.props;
-    const selectedMedia = search ? search.medias.edges.map(item => item.node.id) : [];
-    this.setState({ selectedMedia });
-  }
-
-  onUnselectAll() {
+  onUnselectAll = () => {
     this.setState({ selectedMedia: [] });
-  }
+  };
 
   getContext() {
     return new CheckContext(this);
@@ -175,19 +173,44 @@ class SearchResultsComponent extends React.Component {
   setOffset(offset) {
     const team = this.props.search.team || this.currentContext().team;
     const project = this.props.project || this.currentContext().project;
-    const viewMode = window.storage.getValue('view-mode');
     const query = Object.assign({}, searchQueryFromUrl());
     query.esoffset = offset;
 
-    const url = urlFromSearchQuery(
-      query,
-      project
-        ? `/${team.slug}/project/${project.dbid}/${viewMode}`
-        : `/${team.slug}/search/${viewMode}`,
-    );
+    let path = null;
+    if (/\/trash/.test(window.location.pathname)) {
+      path = `/${team.slug}/trash`;
+    }
+    if (!path) {
+      path = project
+        ? `/${team.slug}/project/${project.dbid}`
+        : `/${team.slug}/all-items`;
+    }
+
+    const url = urlFromSearchQuery(query, path);
 
     this.getContext().getContextStore().history.push(url);
   }
+
+  handleClick = (index) => {
+    const media = this.resultsWithQueries[index].node;
+    const query = this.resultsWithQueries[index].itemQuery;
+    const team = this.props.search.team || this.currentContext().team;
+
+    let mediaUrl = media.project_id && team && media.dbid > 0
+      ? `/${team.slug}/project/${media.project_id}/media/${media.dbid}`
+      : null;
+    if (!mediaUrl && team && media.dbid > 0) {
+      mediaUrl = `/${team.slug}/media/${media.dbid}`;
+    }
+
+    if (mediaUrl) {
+      this.context.router.push({ pathname: mediaUrl, state: { query } });
+    }
+  };
+
+  handleSelect = (selectedMedia) => {
+    this.setState({ selectedMedia });
+  };
 
   previousPage() {
     const query = Object.assign({}, searchQueryFromUrl());
@@ -296,15 +319,6 @@ class SearchResultsComponent extends React.Component {
     const count = this.props.search ? this.props.search.number_of_results : 0;
     const team = this.props.search.team || this.currentContext().team;
 
-    let smoochBotInstalled = false;
-    if (team && team.team_bot_installations) {
-      team.team_bot_installations.edges.forEach((edge) => {
-        if (edge.node.team_bot.identifier === 'smooch') {
-          smoochBotInstalled = true;
-        }
-      });
-    }
-
     const query = Object.assign({}, searchQueryFromUrl());
     const offset = query.esoffset ? parseInt(query.esoffset, 10) : 0;
     let to = searchResults.length;
@@ -318,35 +332,23 @@ class SearchResultsComponent extends React.Component {
     const isTrash = /\/trash/.test(window.location.pathname);
 
     const searchQueryProps = {
-      view: this.props.view,
       project: this.props.project,
       team: this.props.team,
       fields: this.props.fields,
       title: this.props.title,
-      addons: this.props.addons,
     };
 
-    let bulkActionsAllowed = false;
-    if (medias.length) {
-      bulkActionsAllowed = !medias[0].node.archived && can(medias[0].node.permissions, 'administer Content');
-    }
     const title = (
       <Toolbar
-        filter={
-          <SearchQuery
-            project={this.currentContext().project}
-            {...searchQueryProps}
-            team={team}
-          />
-        }
-        actions={medias.length && bulkActionsAllowed ?
+        team={team}
+        actions={medias.length ?
           <BulkActions
             count={this.props.search ? this.props.search.number_of_results : 0}
             team={team}
+            page={this.props.page}
             project={this.currentContext().project}
             selectedMedia={this.state.selectedMedia}
-            onSelectAll={this.onSelectAll.bind(this)}
-            onUnselectAll={this.onUnselectAll.bind(this)}
+            onUnselectAll={this.onUnselectAll}
           /> : null}
         title={
           <span className="search__results-heading">
@@ -396,34 +398,8 @@ class SearchResultsComponent extends React.Component {
       />
     );
 
-    const viewMode = window.storage.getValue('view-mode');
-
-    const view = {
-      dense: (item, itemQuery) => (
-        item.media ?
-          <SmallMediaCard
-            query={itemQuery}
-            media={{ ...item, team }}
-            selected={this.state.selectedMedia.indexOf(item.id) > -1}
-            onSelect={this.onSelect.bind(this)}
-            style={{ margin: units(3) }}
-          /> : <SmallSourceCard source={item} />
-      ),
-      list: (item, itemQuery) => (
-        item.media ?
-          <MediaDetail
-            query={itemQuery}
-            media={{ ...item, team }}
-            condensed
-            selected={this.state.selectedMedia.indexOf(item.id) > -1}
-            onSelect={this.onSelect.bind(this)}
-            parentComponent={this}
-            smoochBotInstalled={smoochBotInstalled}
-          /> : <SourceCard source={item} />
-      ),
-    };
-
     let content = null;
+
     if (count === 0) {
       if (isProject) {
         content = <ProjectBlankState project={this.currentContext().project} />;
@@ -450,28 +426,50 @@ class SearchResultsComponent extends React.Component {
       }
       itemBaseQuery.timestamp = new Date().getTime();
 
+      this.resultsWithQueries = searchResults.map((item) => {
+        let itemQuery = {};
+        itemOffset += 1;
+        itemQuery = Object.assign({}, itemBaseQuery);
+        itemQuery.esoffset = itemOffset;
+        return { ...item, itemQuery };
+      });
+
       content = (
-        <div className={`search__results-list results medias-list ${viewMode}`}>
-          {searchResults.map((item) => {
-            let itemQuery = {};
-            if (item.node.media) {
-              itemOffset += 1;
-              itemQuery = Object.assign({}, itemBaseQuery);
-              itemQuery.esoffset = itemOffset;
-            }
-            const listItem = (
-              <li key={item.node.id} className="medias__item">
-                { view[viewMode](item.node, itemQuery) }
-              </li>
-            );
-            return listItem;
-          })}
-        </div>
+        <List
+          searchResults={searchResults}
+          onSelect={this.handleSelect}
+          onClick={this.handleClick}
+          selectedMedia={this.state.selectedMedia}
+          team={team}
+        />
       );
     }
 
+    const { listName, listActions, listDescription } = this.props;
+
     return (
-      <ContentColumn wide={(viewMode === 'dense')}>
+      <ContentColumn fullWidth>
+        <StyledListHeader>
+          <Row className="search__list-header-filter-row">
+            <Row className="search__list-header-title-and-filter">
+              <div style={{ font: headline }} className="project__title">
+                {listName}
+              </div>
+              <SearchQuery
+                className="search-query"
+                project={this.currentContext().project}
+                {...searchQueryProps}
+                team={team}
+              />
+            </Row>
+            {listActions}
+          </Row>
+          <Row className="project__description">
+            {listDescription && listDescription.trim().length ?
+              <ParsedText text={listDescription} />
+              : null}
+          </Row>
+        </StyledListHeader>
         <StyledSearchResultsWrapper className="search__results results">
           <div style={{ margin: `${units(2)} 0` }}>{title}</div>
           {content}
@@ -482,6 +480,7 @@ class SearchResultsComponent extends React.Component {
 }
 
 SearchResultsComponent.contextTypes = {
+  router: PropTypes.object,
   store: PropTypes.object,
 };
 
@@ -499,12 +498,7 @@ class SearchResults extends React.PureComponent {
         pageSize,
       },
       fragments: {
-        search: () => {
-          if (this.props.view === 'dense') {
-            return config.appName === 'bridge' ? bridgeDenseSearchResultFragment : checkDenseSearchResultFragment;
-          }
-          return config.appName === 'bridge' ? bridgeSearchResultFragment : checkSearchResultFragment;
-        },
+        search: () => checkSearchResultFragment,
       },
     });
 

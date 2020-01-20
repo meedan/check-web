@@ -1,26 +1,14 @@
 [
   {
-    "id": "headerActions.tos",
-    "defaultMessage": "Terms"
+    "id": "teamMenu.teamSettings",
+    "defaultMessage": "Workspace settings"
   },
   {
-    "id": "headerActions.privacyPolicy",
-    "defaultMessage": "Privacy"
+    "id": "projects.trash",
+    "defaultMessage": "Trash"
   },
   {
-    "id": "headerActions.about",
-    "defaultMessage": "About"
-  },
-  {
-    "id": "headerActions.contactHuman",
-    "defaultMessage": "Contact"
-  },
-  {
-    "id": "headerActions.productGuides",
-    "defaultMessage": "Product Guides"
-  },
-  {
-    "id": "headerActions.releaseNotes",
-    "defaultMessage": "Release Notes"
+    "id": "headerActions.signIn",
+    "defaultMessage": "Sign In"
   }
 ]

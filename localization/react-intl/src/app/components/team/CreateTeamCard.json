@@ -13,31 +13,31 @@
   },
   {
     "id": "createTeam.createTeamError",
-    "defaultMessage": "Sorry, an error occurred while updating the team. Please try again and contact {supportEmail} if the condition persists."
+    "defaultMessage": "Sorry, an error occurred while updating the workspace. Please try again and contact {supportEmail} if the condition persists."
   },
   {
     "id": "createTeam.title",
-    "defaultMessage": "Create a Team"
+    "defaultMessage": "Create a workspace"
   },
   {
     "id": "createTeam.teamNameHint",
-    "defaultMessage": "Team Name"
+    "defaultMessage": "Workspace Name"
   },
   {
     "id": "createTeam.teamSlugHint",
-    "defaultMessage": "team-slug"
+    "defaultMessage": "Workspace URL"
   },
   {
     "id": "createTeam.mainHeading",
-    "defaultMessage": "Create a Team"
+    "defaultMessage": "Create a workspace"
   },
   {
     "id": "createTeam.blurb",
-    "defaultMessage": "Create a team for your organization, or just for yourself:"
+    "defaultMessage": "Create a workspace for your organization, or just for yourself:"
   },
   {
     "id": "createTeam.displayName",
-    "defaultMessage": "Team Name"
+    "defaultMessage": "Workspace Name"
   },
   {
     "id": "createTeam.url",
@@ -49,6 +49,6 @@
   },
   {
     "id": "createTeam.requestToJoin",
-    "defaultMessage": "You can also request to join an existing team."
+    "defaultMessage": "You can also request to join an existing workspace."
   }
 ]

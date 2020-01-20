@@ -24,6 +24,7 @@
   "sourceNoMedia": "Nu există media atribuite acestei surse",
   "sourceComponent.conflictError": "În timp ce dvs făceați modificări acest element a fost redactat de un alt utilizator. Salvați schimbările efectuate și {reloadLink}.",
   "sourceComponent.clickToReload": "click aici pentru a reîncărca",
+  "sourceMenuRelay.editSource": "Edit source",
   "sourceComponent.dateAdded": "Adăugat {date} • Sursă la {number} link-uri",
   "sourceComponent.medias": "Media",
   "sourceComponent.notes": "Note",

@@ -4,8 +4,8 @@
   "createTeamTask.menuTooltip": "Actions des tâches",
   "teamTasks.confirmEditTitle": "Voulez-vous vraiment modifier cette tâche ?",
   "teamTasks.confirmDeleteTitle": "Voulez-vous vraiment supprimer cette tâche ?",
-  "teamTasks.confirmEditBlurb": "Les tâches d'éléments associés seront modifiées à la suite de cette modification, à l'exception de celles qui ont déjà été répondues ou annotées.",
-  "teamTasks.confirmDeleteBlurb": "Les tâches d'éléments associés seront supprimées à la suite de cette modification, à l'exception de celles qui ont déjà été répondues ou annotées.",
+  "teamTasks.confirmEditBlurb": "Les tâches d'éléments associés seront modifiées à la suite de cette modification, à l'exception de celles qui ont déjà été répondues ou résolues.",
+  "teamTasks.confirmDeleteBlurb": "Les tâches d'éléments associés seront supprimées à la suite de cette modification, à l'exception de celles qui ont déjà été répondues ou résolues.",
   "teamTasks.edit": "Modifier",
   "teamTasks.delete": "Supprimer"
 }

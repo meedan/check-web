@@ -1,10 +1,13 @@
 {
-  "teamEmbed.updateFail": "Ne pare rău, în timpul actualizării setărilor s-a produs o eroare. Vă rugăm să mai încercați odată și să contactați {supportEmail} dacă situația persistă.",
-  "teamEmbed.updateSuccess": "Setările incorporării au fost actualizate cu succes!",
-  "teamEmbed.title": "Setările incorporării",
+  "teamEmbed.updateFail": "Sorry, an error occurred while updating the report settings. Please try again and contact {supportEmail} if the condition persists.",
+  "teamEmbed.updateSuccess": "Report settings updated successfully!",
+  "teamEmbed.title": "Report settings",
   "teamEmbed.tasks": "Sarcini",
-  "teamEmbed.tasksSub": "Sarcinile selectate vor fi trecute în incorporare dacă sunt rezolvate.",
+  "teamEmbed.tasksSub": "The selected tasks will be included in the report if they are resolved.",
   "teamEmbed.disclaimer": "Exonerare de răspundere",
-  "teamEmbed.disclaimerSub": "Declarația de exonerare de răspundere, care va fi arătată în partea de jos a incorporării cu emblema echipei.",
+  "teamEmbed.disclaimerSub": "Disclaimer that will be shown at the bottom of the report with the workspace logo.",
+  "teamEmbed.analysis": "Analysis",
+  "teamEmbed.analysisSub": "Show analysis in the report",
+  "teamEmbed.analysisYes": "Yes",
   "teamEmbed.save": "Salvează"
 }

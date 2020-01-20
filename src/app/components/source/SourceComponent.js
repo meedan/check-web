@@ -15,6 +15,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { CardActions } from 'material-ui/Card';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import Popover from 'material-ui/Popover';
+import IconEdit from 'material-ui/svg-icons/image/edit';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import MdCancel from 'react-icons/lib/md/cancel';
@@ -30,7 +31,7 @@ import SourcePicture from './SourcePicture';
 import SourceMedias from './SourceMedias';
 import SourceAnnotations from './SourceAnnotations';
 import SourceAccounts from './SourceAccounts';
-import { can } from '../Can';
+import Can, { can } from '../Can';
 import Tags from '../Tags';
 import PageTitle from '../PageTitle';
 import MediaUtil from '../media/MediaUtil';
@@ -66,6 +67,7 @@ import {
   ContentColumn,
   Row,
   StyledIconButton,
+  SmallerStyledIconButton,
   Text,
   black38,
 } from '../../styles/js/shared';
@@ -775,6 +777,13 @@ class SourceComponent extends Component {
     }
   }
 
+  handleClickEditSource() {
+    const { team, projectId, sourceId } = this.props.params;
+    const { history } = this.getContext();
+
+    history.push(`/${team}/project/${projectId}/source/${sourceId}/edit`);
+  }
+
   isProjectSource() {
     return !!this.props.source.source;
   }
@@ -1174,7 +1183,23 @@ class SourceComponent extends Component {
           <StyledBigColumn>
             <div className="source__primary-info">
               <StyledName className="source__name">
-                {source.name}
+                <Row>
+                  {source.name}
+                  <Can permissions={source.permissions} permission="update Source">
+                    <div
+                      key="sourceMenuRelay.editSource"
+                      className="source-menu"
+                    >
+                      <SmallerStyledIconButton
+                        className="source-menu__edit-source-button"
+                        onClick={this.handleClickEditSource.bind(this)}
+                        tooltip={<FormattedMessage id="sourceMenuRelay.editSource" defaultMessage="Edit source" />}
+                      >
+                        <IconEdit />
+                      </SmallerStyledIconButton>
+                    </div>
+                  </Can>
+                </Row>
               </StyledName>
               <StyledDescription>
                 <p>

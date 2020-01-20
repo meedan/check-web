@@ -7,7 +7,6 @@ module ApiHelpers
     @config['api_path'] + '/test/'
   end
 
-
   def request_api(path, params)
     require 'net/http'
     uri = URI(api_path + path)
@@ -51,38 +50,53 @@ module ApiHelpers
     { project: project, user: user, team: team }
   end
 
-  def api_create_team_project_and_claim(quit = false, quote = 'Claim')
+  def api_create_team_project_and_claim(quit = false, quote = 'Claim', project_id = 0)
     data = api_create_team_and_project
-    claim = request_api 'claim', { quote: quote, email: data[:user].email, team_id: data[:team].dbid, project_id: data[:project].dbid }
+    if project_id == 0
+      project_id = data[:project].dbid
+    end
+    claim = request_api 'claim', { quote: quote, email: data[:user].email, team_id: data[:team].dbid, project_id: project_id }
     @driver.quit if quit
     claim
   end
 
-  def api_create_team_project_claims_sources_and_redirect_to_project_page(count)
+  def api_create_team_project_claims_sources_and_redirect_to_project_page(count, project_id = 0)
     data = api_create_team_and_project
+    project_id_was = project_id
+    if project_id == 0
+      project_id = data[:project].dbid
+    end
     count.times do |i|
-      request_api 'claim', { quote: "Claim #{i}", email: data[:user].email, team_id: data[:team].dbid, project_id: data[:project].dbid }
+      request_api 'claim', { quote: "Claim #{i}", email: data[:user].email, team_id: data[:team].dbid, project_id: project_id }
       request_api 'source', { url: '', name: "Source #{i}", email: data[:user].email, team_id: data[:team].dbid, project_id: data[:project].dbid }
       sleep 1
     end
-    ProjectPage.new(config: @config, driver: @driver)
+    if project_id_was == 0
+      return ProjectPage.new(config: @config, driver: @driver)
+    else
+      @driver.navigate.to @config['self_url'] + '/' + data[:team].slug + '/search'
+      return nil
+    end
   end
 
-  def api_create_team_project_and_link(url = @media_url)
+  def api_create_team_project_and_link(url = @media_url, project_id = 0)
     data = api_create_team_and_project
-    data = request_api 'link', { url: url, email: data[:user].email, team_id: data[:team].dbid, project_id: data[:project].dbid }
+    if project_id == 0
+      project_id = data[:project].dbid
+    end
+    data = request_api 'link', { url: url, email: data[:user].email, team_id: data[:team].dbid, project_id: project_id }
     data
   end
 
-  def api_create_team_project_and_link_and_redirect_to_media_page(url = @media_url)
-    media = api_create_team_project_and_link url
+  def api_create_team_project_and_link_and_redirect_to_media_page(url = @media_url, project_id = 0)
+    media = api_create_team_project_and_link url, project_id
     @driver.navigate.to media.full_url
     sleep 2
     MediaPage.new(config: @config, driver: @driver)
   end
 
-  def api_create_team_project_and_claim_and_redirect_to_media_page(quote = 'Claim')
-    media = api_create_team_project_and_claim false, quote
+  def api_create_team_project_and_claim_and_redirect_to_media_page(quote = 'Claim', project_id = 0)
+    media = api_create_team_project_and_claim false, quote, project_id
     @driver.navigate.to media.full_url
     sleep 2
     MediaPage.new(config: @config, driver: @driver)

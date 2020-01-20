@@ -1,18 +1,18 @@
 [
   {
     "id": "projects.addProject",
-    "defaultMessage": "Add project"
+    "defaultMessage": "Add list"
   },
   {
     "id": "projects.dismiss",
     "defaultMessage": "Dismiss"
   },
   {
-    "id": "projects.noProjects",
-    "defaultMessage": "No projects yet."
+    "id": "projects.allClaims",
+    "defaultMessage": "All items"
   },
   {
-    "id": "projects.projectsSubheading",
-    "defaultMessage": "Projects"
+    "id": "projects.newList",
+    "defaultMessage": "+ New list"
   }
 ]

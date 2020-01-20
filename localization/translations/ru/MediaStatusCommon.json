@@ -1,3 +1,8 @@
 {
-  "mediaStatus.error": "В процессе редактирования статуса произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
+  "mediaStatus.error": "В процессе редактирования статуса произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}.",
+  "mediaStatusCommon.proceedAndSend": "Proceed and Send",
+  "mediaStatusCommon.title": "Final Report",
+  "mediaStatusCommon.confirmationMessageWithValue": "You are about to send a report to the {value} people who requested this item.",
+  "mediaStatusCommon.confirmationMessage": "You are about to send a report to all people who requested this item.",
+  "mediaStatusCommon.editReportBeforeSending": "Edit report before sending"
 }

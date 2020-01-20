@@ -1,18 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
+import Button from '@material-ui/core/Button';
 import { injectIntl, intlShape, defineMessages, FormattedMessage } from 'react-intl';
-import IconSelectAll from 'material-ui/svg-icons/toggle/check-box-outline-blank';
-import IconUnselectAll from 'material-ui/svg-icons/toggle/check-box';
-import IconMove from 'material-ui/svg-icons/action/input';
-import IconDelete from 'material-ui/svg-icons/action/delete';
-import IconClone from 'material-ui/svg-icons/content/content-copy';
+import IconDelete from '@material-ui/icons/Delete';
 import FlatButton from 'material-ui/FlatButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import styled from 'styled-components';
 import MoveDialog from './MoveDialog';
+import Can from '../Can';
 import BulkUpdateProjectMediaMutation from '../../relay/mutations/BulkUpdateProjectMediaMutation';
-import { units } from '../../styles/js/shared';
+import { Row, units } from '../../styles/js/shared';
 
 const StyledIcon = styled.span`
   margin: 0 ${units(1)};
@@ -22,11 +20,15 @@ const StyledIcon = styled.span`
 const messages = defineMessages({
   move: {
     id: 'bulkActions.move',
-    defaultMessage: 'Move selected items to another project',
+    defaultMessage: 'Move selected items to another list',
   },
   delete: {
     id: 'bulkActions.sendItemsToTrash',
     defaultMessage: 'Send selected items to trash',
+  },
+  restore: {
+    id: 'bulkActions.restoreItemsFromTrash',
+    defaultMessage: 'Restore selected items from trash',
   },
   selectAll: {
     id: 'bulkActions.selectAll',
@@ -34,7 +36,7 @@ const messages = defineMessages({
   },
   clone: {
     id: 'bulkActions.clone',
-    defaultMessage: 'Copy selected items to another project',
+    defaultMessage: 'Copy selected items to another list',
   },
 });
 
@@ -42,7 +44,6 @@ class BulkActions extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      allSelected: false,
       openMoveDialog: false,
       openCloneDialog: false,
       dstProj: null,
@@ -62,16 +63,6 @@ class BulkActions extends React.Component {
     }
   }
 
-  selectAll() {
-    this.setState({ allSelected: true });
-    this.props.onSelectAll();
-  }
-
-  unselectAll() {
-    this.setState({ allSelected: false });
-    this.props.onUnselectAll();
-  }
-
   handleCloseDialogs() {
     this.setState({ openMoveDialog: false, openCloneDialog: false });
   }
@@ -85,7 +76,7 @@ class BulkActions extends React.Component {
         />
       );
       this.context.setMessage(message);
-      this.setState({ openCloneDialog: false, dstProjForClone: null, allSelected: false });
+      this.setState({ openCloneDialog: false, dstProjForClone: null });
       this.props.onUnselectAll();
     };
     const onDone = () => {};
@@ -113,7 +104,7 @@ class BulkActions extends React.Component {
         />
       );
       this.context.setMessage(message);
-      this.setState({ openMoveDialog: false, dstProj: null, allSelected: false });
+      this.setState({ openMoveDialog: false, dstProj: null });
       this.props.onUnselectAll();
     };
     const onDone = () => {};
@@ -135,21 +126,22 @@ class BulkActions extends React.Component {
     }
   }
 
-  handleDelete() {
+  handleDelete = (params) => {
     const onSuccess = () => {
-      const message = (
+      const message = params.archived === 1 ? (
         <FormattedMessage
           id="bulkActions.moveToTrashSuccessfully"
           defaultMessage="Done! Please note that it can take a while until the items are actually moved to the trash."
         />
+      ) : (
+        <FormattedMessage
+          id="bulkActions.restoredFromTrashSuccessfully"
+          defaultMessage="Done! Please note that it can take a while until the items are actually restored from the trash."
+        />
       );
       this.context.setMessage(message);
-      this.setState({ allSelected: false });
       this.props.onUnselectAll();
     };
-    const onDone = () => {};
-
-    onSuccess();
 
     if (this.props.selectedMedia.length && !this.state.confirmationError) {
       Relay.Store.commitUpdate(
@@ -157,14 +149,14 @@ class BulkActions extends React.Component {
           id: this.props.selectedMedia[0],
           ids: this.props.selectedMedia,
           srcProject: this.props.project,
-          archived: 1,
+          archived: params.archived,
           teamSearchId: this.props.team.search_id,
           count: this.props.count,
         }),
-        { onSuccess: onDone, onFailure: onDone },
+        { onSuccess },
       );
     }
-  }
+  };
 
   handleSelectDestProject(dstProj) {
     this.setState({ dstProj });
@@ -175,24 +167,47 @@ class BulkActions extends React.Component {
   }
 
   render() {
+    const { page, team } = this.props;
+
     const actions = (
-      <span id="media-bulk-actions__actions">
-        <Tooltip title={this.props.intl.formatMessage(messages.move)}>
-          <StyledIcon>
-            <IconMove onClick={this.moveSelected.bind(this)} />
-          </StyledIcon>
-        </Tooltip>
-        <Tooltip title={this.props.intl.formatMessage(messages.delete)}>
-          <StyledIcon>
-            <IconDelete onClick={this.handleDelete.bind(this)} />
-          </StyledIcon>
-        </Tooltip>
-        <Tooltip title={this.props.intl.formatMessage(messages.clone)}>
-          <StyledIcon>
-            <IconClone onClick={this.cloneSelected.bind(this)} />
-          </StyledIcon>
-        </Tooltip>
-      </span>
+      <div id="media-bulk-actions__actions">
+        { page === 'trash' ?
+          <Can permission="restore ProjectMedia" permissions={team.permissions}>
+            <Tooltip title={this.props.intl.formatMessage(messages.restore)}>
+              <StyledIcon>
+                <Button
+                  className="media-bulk-actions__restore-button"
+                  onClick={() => { this.handleDelete({ archived: 0 }); }}
+                  variant="outlined"
+                >
+                  <FormattedMessage id="bulkActions.restore" defaultMessage="Restore from trash" />
+                </Button>
+              </StyledIcon>
+            </Tooltip>
+          </Can>
+          :
+          <Row>
+            <Tooltip title={this.props.intl.formatMessage(messages.move)}>
+              <Button
+                className="media-bulk-actions__move-icon"
+                onClick={this.moveSelected.bind(this)}
+                color="primary"
+                variant="contained"
+              >
+                <FormattedMessage id="bulkActions.moveTo" defaultMessage="Move to..." />
+              </Button>
+            </Tooltip>
+            <Tooltip title={this.props.intl.formatMessage(messages.delete)}>
+              <StyledIcon>
+                <IconDelete
+                  className="media-bulk-actions__delete-icon"
+                  onClick={() => { this.handleDelete({ archived: 1 }); }}
+                />
+              </StyledIcon>
+            </Tooltip>
+          </Row>
+        }
+      </div>
     );
 
     const moveDialogActions = [
@@ -237,14 +252,7 @@ class BulkActions extends React.Component {
 
     return (
       <span id="media-bulk-actions">
-        <Tooltip title={this.props.intl.formatMessage(messages.selectAll)}>
-          <StyledIcon>
-            {this.state.allSelected ?
-              <IconUnselectAll onClick={this.unselectAll.bind(this)} /> :
-              <IconSelectAll onClick={this.selectAll.bind(this)} /> }
-          </StyledIcon>
-        </Tooltip>
-        {this.props.selectedMedia && this.props.selectedMedia.length > 0 ? actions : null}
+        {actions}
 
         <MoveDialog
           actions={moveDialogActions}
@@ -259,7 +267,7 @@ class BulkActions extends React.Component {
           title={
             <FormattedMessage
               id="bulkActions.dialogMoveTitle"
-              defaultMessage="Move to a different project"
+              defaultMessage="Move to a different list"
             />
           }
         />
@@ -276,7 +284,7 @@ class BulkActions extends React.Component {
           title={
             <FormattedMessage
               id="bulkActions.dialogCloneTitle"
-              defaultMessage="Copy to a different project"
+              defaultMessage="Copy to a different list"
             />
           }
         />

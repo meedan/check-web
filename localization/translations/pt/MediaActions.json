@@ -1,13 +1,15 @@
 {
-  "mediaActions.edit": "Editar",
-  "mediaActions.restore": "Restaurar para o projeto",
-  "mediaActions.move": "Mover",
+  "mediaActions.edit": "Editar título e descrição",
   "mediaActions.refresh": "Recarregar",
-  "mediaActions.sendToTrash": "Enviar para lixeira",
-  "mediaActions.embed": "Incorporar...",
-  "mediaActions.memebuster": "Gerador de memes",
-  "mediaActions.assignOrUnassign": "Atribuir / Remover atribuição",
+  "mediaActions.assignOrUnassign": "Atribuição",
   "mediaActions.unlockStatus": "Desbloquear status",
   "mediaActions.lockStatus": "Bloquear status",
+  "mediaActions.memebuster": "Designer de meme",
+  "mediaActions.report": "Designer de relato",
+  "mediaActions.sendToTrash": "Enviar para lixeira",
+  "mediaActions.restore": "Restaurar da lixeira",
+  "mediaActions.move": "Mover",
+  "mediaActions.addToList": "Adicionar à lista",
+  "mediaActions.removeFromList": "Remover da lista",
   "mediaActions.tooltip": "Ações dos items"
 }

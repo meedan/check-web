@@ -23,12 +23,14 @@ class UpdateStatusMutation extends Relay.Mutation {
       return Relay.QL`fragment on UpdateDynamicPayload {
         dynamicEdge,
         project_media {
+          dbid,
           targets_by_users,
           log,
           id,
           last_status,
           last_status_obj,
           log_count,
+          project_id,
         }
       }`;
     default:
@@ -65,6 +67,7 @@ class UpdateStatusMutation extends Relay.Mutation {
       const obj = {
         project_media: {
           id: media.id,
+          project_id: media.project_id,
           last_status: this.props.annotation.status,
           last_status_obj: {
             id: this.props.annotation.status_id,

@@ -1,10 +1,10 @@
 {
-  "switchTeams.error": "Lo sentimos, se produjo un error al actualizar el equipo. Vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}.",
+  "switchTeams.error": "Sorry, an error occurred while updating the workspace. Please try again and contact {supportEmail} if the condition persists.",
   "switchTeams.member": "{membersCount, plural, =0 {Sin miembros} one {1 miembro} other {# membros}} ",
   "switchTeams.joinRequestMessage": "Solicitaste unirte",
-  "teams.yourTeams": "Tus equipos",
-  "teams.userTeams": "Equipos de {name}",
+  "teams.yourTeams": "Your workspaces",
+  "teams.userTeams": "{name}'s workspaces",
   "switchTeams.cancelJoinRequest": "Cancelar",
-  "switchTeams.noTeams": "Sin equipos",
-  "switchTeams.newTeamLink": "Crear un equipo"
+  "switchTeams.noTeams": "Not a member of any workspace.",
+  "switchTeams.newTeamLink": "Create Workspace"
 }

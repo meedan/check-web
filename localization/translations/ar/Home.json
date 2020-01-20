@@ -1,9 +1,9 @@
 {
-  "home.needRegister": "عليك تسجيل الدخول أولاً حتى يمكنك طلب الانضمام لفريق.",
+  "home.needRegister": "عليك تسجيل الدخول أولاً حتى يمكنك طلب الانضمام لمساحة العمل.",
   "home.somethingWrong": "عذراً ، لقد واجهنا خطأ ما. من فضلك أعد المحاولة بتحديث المستعرض وتواصل مع {supportEmail} إن استمرت المشكلة.",
   "home.successInvitation": "مرحبًا بك في {appName}. الرجاء تسجيل الدخول بكلمة المرور التي تلقيتها في البريد الإلكتروني الترحيبي.",
   "home.invalidInvitation": "عذراً ، لقد واجهنا خطأ ما اثناء معالجة دعوتك. من فضلك تواصل مع {supportEmail}.",
-  "home.invalidTeamInvitation": "عذراً ، لم نستطع إيجاد الفريق الذي تلقيت الدعوة له. من فضلك تواصل مع {supportEmail} إن كنت تعتقد ان هناك خطأ ما.",
+  "home.invalidTeamInvitation": "Sorry, the workspace to which you were invited was not found. Please contact {supportEmail} if you think this is an error.",
   "home.invalidNoInvitation": "عذراً ، لم نستطع إيجاد الدعوة التي تلقيتها. من فضلك تواصل مع {supportEmail} إن كنت تعتقد ان هناك خطأ ما.",
   "home.invalidExpiredInvitation": "عذراً ، الدعوة التي تلقيتها منتهية الصلاحية. من فضلك تواصل مع {supportEmail} إن كنت تعتقد ان هناك خطأ ما."
 }

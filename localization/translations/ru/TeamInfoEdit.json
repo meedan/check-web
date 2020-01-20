@@ -1,8 +1,7 @@
 {
-  "teamComponent.editError": "В процессе редактирования группы произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}.",
-  "teamComponent.editSuccess": "Информация о группе успешно обновлена!",
-  "teamComponent.teamName": "Название группы",
-  "teamComponent.teamDescription": "Описание группы",
+  "teamComponent.editError": "Sorry, an error occurred while updating the workspace. Please try again and contact {supportEmail} if the condition persists.",
+  "teamComponent.teamName": "Name",
+  "teamComponent.teamDescription": "Description",
   "teamComponent.location": "Местонахождение",
   "teamComponent.phone": "Номер телефона",
   "teamComponent.website": "Сайт",

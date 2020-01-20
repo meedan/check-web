@@ -9,7 +9,7 @@
   },
   {
     "id": "teamTasks.blank",
-    "defaultMessage": "No teamwide tasks to display"
+    "defaultMessage": "No default tasks to display"
   },
   {
     "id": "teamTasks.title",

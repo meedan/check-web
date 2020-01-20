@@ -1,7 +1,7 @@
 [
   {
-    "id": "mediaRelated.relatedItems",
-    "defaultMessage": "Related items"
+    "id": "mediaRelated.secondaryItems",
+    "defaultMessage": "Secondary items"
   },
   {
     "id": "mediaRelated.counter",

@@ -204,7 +204,7 @@ class MediaTags extends Component {
     if (!query.tags.length) {
       delete query.tags;
     }
-    return urlFromSearchQuery(query, `/${media.team.slug}/search`);
+    return urlFromSearchQuery(query, `/${media.team.slug}/all-items`);
   }
 
   handleCorrectLanguageCancel() {
@@ -279,62 +279,73 @@ class MediaTags extends Component {
                   </li>))}
               </ul>
               : null}
-            <ul className="media-tags__list">
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <ul className="media-tags__list">
+                {remainingTags.map((tag) => {
+                  if (tag.node.tag_text) {
+                    return (
+                      <li
+                        key={tag.node.id}
+                        onClick={this.handleTagViewClick.bind(this, tag.node.tag_text)}
+                        className={bemClass(
+                          'media-tags__tag',
+                          activeRegularTags.indexOf(tag.node.tag_text) > -1,
+                          '--selected',
+                        )}
+                      >
+                        {tag.node.tag_text.replace(/^#/, '')}
+                      </li>
+                    );
+                  }
+                  return null;
+                })}
+              </ul>
               {media.language ?
-                <li className="media-tags__tag media-tags__language">
-                  {this.state.correctingLanguage ?
-                    <span>
-                      {this.props.intl.formatMessage(messages.language, { language: '' })}
-                      {' '}
-                      <StyledLanguageSelect>
-                        <LanguageSelector
-                          onChange={this.handleLanguageChange.bind(this)}
-                          project={media.project}
-                          selected={media.language_code}
-                        />
-                      </StyledLanguageSelect>
-                      {' '}
-                      <StyledLanguageIcon>
-                        <CancelIcon
-                          onClick={this.handleCorrectLanguageCancel.bind(this)}
-                        />
-                      </StyledLanguageIcon>
-                    </span> :
-                    <span>
-                      {this.props.intl.formatMessage(
-                        messages.language,
-                        { language: media.language },
-                      )}
-                      <Can permissions={media.permissions} permission="create Dynamic">
+                <ul
+                  className="media-tags__list"
+                  style={{
+                    position: 'absolute',
+                    top: 12,
+                    right: 11,
+                  }}
+                >
+                  <li className="media-tags__tag media-tags__language">
+                    {this.state.correctingLanguage ?
+                      <span>
+                        {this.props.intl.formatMessage(messages.language, { language: '' })}
+                        {' '}
+                        <StyledLanguageSelect>
+                          <LanguageSelector
+                            onChange={this.handleLanguageChange.bind(this)}
+                            project={media.project}
+                            selected={media.language_code}
+                          />
+                        </StyledLanguageSelect>
+                        {' '}
                         <StyledLanguageIcon>
-                          <EditIcon
-                            onClick={this.handleCorrectLanguage.bind(this)}
+                          <CancelIcon
+                            onClick={this.handleCorrectLanguageCancel.bind(this)}
                           />
                         </StyledLanguageIcon>
-                      </Can>
-                    </span>
-                  }
-                </li>
+                      </span> :
+                      <span>
+                        {this.props.intl.formatMessage(
+                          messages.language,
+                          { language: media.language },
+                        )}
+                        <Can permissions={media.permissions} permission="create Dynamic">
+                          <StyledLanguageIcon>
+                            <EditIcon
+                              onClick={this.handleCorrectLanguage.bind(this)}
+                            />
+                          </StyledLanguageIcon>
+                        </Can>
+                      </span>
+                    }
+                  </li>
+                </ul>
                 : null}
-              {remainingTags.map((tag) => {
-                if (tag.node.tag_text) {
-                  return (
-                    <li
-                      key={tag.node.id}
-                      onClick={this.handleTagViewClick.bind(this, tag.node.tag_text)}
-                      className={bemClass(
-                        'media-tags__tag',
-                        activeRegularTags.indexOf(tag.node.tag_text) > -1,
-                        '--selected',
-                      )}
-                    >
-                      {tag.node.tag_text.replace(/^#/, '')}
-                    </li>
-                  );
-                }
-                return null;
-              })}
-            </ul>
+            </div>
           </div>
         </StyledMediaTagsContainer>
       );

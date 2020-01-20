@@ -1,4 +1,6 @@
 {
-  "mediaComponent.verificationTasks": "Tâches de l'élément",
-  "mediaComponent.resolved": "résolu.e.s"
+  "mediaComponent.tasks": "Tâches",
+  "mediaComponent.analysis": "Analyse",
+  "mediaComponent.comments": "Commentaires",
+  "mediaComponent.activity": "Activité"
 }

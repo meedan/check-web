@@ -18,15 +18,15 @@ import globalStrings from '../../globalStrings';
 const messages = defineMessages({
   error: {
     id: 'projectEdit.error',
-    defaultMessage: 'Sorry, an error occurred while updating the project. Please try again and contact {supportEmail} if the condition persists.',
+    defaultMessage: 'Sorry, an error occurred while updating the list. Please try again and contact {supportEmail} if the condition persists.',
   },
   titleField: {
     id: 'projectEdit.titleField',
-    defaultMessage: 'Project Title',
+    defaultMessage: 'Title',
   },
   descriptionField: {
     id: 'projectEdit.descriptionField',
-    defaultMessage: 'Project Description',
+    defaultMessage: 'Description',
   },
 });
 

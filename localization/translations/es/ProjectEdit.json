@@ -1,6 +1,6 @@
 {
-  "projectEdit.error": "Lo sentimos, se produjo un error al actualizar el proyecto. Vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}.",
-  "projectEdit.titleField": "Título del proyecto",
-  "projectEdit.descriptionField": "Descripción del proyecto",
+  "projectEdit.error": "Sorry, an error occurred while updating the list. Please try again and contact {supportEmail} if the condition persists.",
+  "projectEdit.titleField": "Title",
+  "projectEdit.descriptionField": "Description",
   "projectEdit.saveButton": "Guardar"
 }

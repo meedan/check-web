@@ -1,5 +1,29 @@
 [
   {
+    "id": "teamRules.add",
+    "defaultMessage": "+ AND"
+  },
+  {
+    "id": "teamRules.and",
+    "defaultMessage": "AND"
+  },
+  {
+    "id": "teamRules.if",
+    "defaultMessage": "IF"
+  },
+  {
+    "id": "teamRules.then",
+    "defaultMessage": "THEN"
+  },
+  {
+    "id": "teamRules.newRule",
+    "defaultMessage": "New Rule"
+  },
+  {
+    "id": "teamRules.confirmDeleteRule",
+    "defaultMessage": "Are you sure you want to delete the rule \"{ruleName}\"?"
+  },
+  {
     "id": "teamRules.success",
     "defaultMessage": "Rules updated successfully!"
   },
@@ -8,11 +32,35 @@
     "defaultMessage": "Error when trying to update rules."
   },
   {
+    "id": "teamRules.nameMandatory",
+    "defaultMessage": "Please provide a name for this rule"
+  },
+  {
+    "id": "teamRules.deleted",
+    "defaultMessage": "Rule deleted"
+  },
+  {
+    "id": "teamRules.edit",
+    "defaultMessage": "Edit rule"
+  },
+  {
+    "id": "teamRules.delete",
+    "defaultMessage": "Delete rule"
+  },
+  {
     "id": "teamRules.title",
     "defaultMessage": "Rules"
   },
   {
+    "id": "teamRules.back",
+    "defaultMessage": "Back"
+  },
+  {
     "id": "teamRules.save",
     "defaultMessage": "Save"
+  },
+  {
+    "id": "teamRules.none",
+    "defaultMessage": "No rules yet."
   }
 ]

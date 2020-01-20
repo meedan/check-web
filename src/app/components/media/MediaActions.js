@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import IconMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
+import IconMoreVert from 'material-ui/svg-icons/navigation/more-vert';
 import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
@@ -18,13 +18,15 @@ class MediaActions extends Component {
   handleEmbed() {
     const { media } = this.props;
     const { history } = new CheckContext(this).getContextStore();
-    history.push(`/${media.team.slug}/project/${media.project_id}/media/${media.dbid}/embed`);
+    const projectPart = media.project_id ? `/project/${media.project_id}` : '';
+    history.push(`/${media.team.slug}${projectPart}/media/${media.dbid}/embed`);
   }
 
   handleMemebuster = () => {
     const { media } = this.props;
     const { history } = new CheckContext(this).getContextStore();
-    history.push(`/${media.team.slug}/project/${media.project_id}/media/${media.dbid}/memebuster`);
+    const projectPart = media.project_id ? `/project/${media.project_id}` : '';
+    history.push(`/${media.team.slug}${projectPart}/media/${media.dbid}/memebuster`);
   };
 
   render() {
@@ -34,46 +36,27 @@ class MediaActions extends Component {
       handleMove,
       handleRefresh,
       handleSendToTrash,
+      handleAddToList,
+      handleRemoveFromList,
       handleRestore,
       handleAssign,
       handleStatusLock,
     } = this.props;
     const menuItems = [];
 
-    if (can(media.permissions, 'update ProjectMedia') && !media.archived) {
+    if (can(media.permissions, 'update ProjectMedia') && !media.archived && handleEdit) {
       menuItems.push((
         <MenuItem
           key="mediaActions.edit"
           className="media-actions__edit"
           onClick={handleEdit}
         >
-          <FormattedMessage id="mediaActions.edit" defaultMessage="Edit" />
+          <FormattedMessage id="mediaActions.edit" defaultMessage="Edit title and description" />
         </MenuItem>));
     }
 
-    if (can(media.permissions, 'restore ProjectMedia') && media.archived) {
-      menuItems.push((
-        <MenuItem
-          key="mediaActions.restore"
-          className="media-actions__restore"
-          id="media-actions__restore"
-          onClick={handleRestore}
-        >
-          <FormattedMessage id="mediaActions.restore" defaultMessage="Restore to project" />
-        </MenuItem>));
-    }
-
-    if (can(media.permissions, 'administer Content') && !media.archived) {
-      menuItems.push((
-        <MenuItem
-          key="mediaActions.move"
-          className="media-actions__move"
-          onClick={handleMove}
-        >
-          <FormattedMessage id="mediaActions.move" defaultMessage="Move" />
-        </MenuItem>));
-
-      if (media.url) {
+    if (can(media.permissions, 'update ProjectMedia') && !media.archived) {
+      if ((media.url || media.media.url) && handleRefresh) {
         menuItems.push((
           <MenuItem
             key="mediaActions.refresh"
@@ -86,57 +69,18 @@ class MediaActions extends Component {
       }
     }
 
-    if (can(media.permissions, 'update ProjectMedia') && !media.archived) {
-      if (!media.archived) {
-        menuItems.push((
-          <MenuItem
-            key="mediaActions.sendToTrash"
-            className="media-actions__send-to-trash"
-            onClick={handleSendToTrash}
-          >
-            <FormattedMessage id="mediaActions.sendToTrash" defaultMessage="Send to trash" />
-          </MenuItem>));
-      }
-    }
-
-    if (can(media.permissions, 'embed ProjectMedia') &&
-      !media.archived) {
-      menuItems.push((
-        <MenuItem
-          key="mediaActions.embed"
-          className="media-actions__embed"
-          id="media-actions__embed"
-          onClick={this.handleEmbed.bind(this)}
-        >
-          <FormattedMessage id="mediaActions.embed" defaultMessage="Embed" />
-        </MenuItem>));
-    }
-
-    if (can(media.permissions, 'update ProjectMedia') && !media.archived) {
-      menuItems.push((
-        <MenuItem
-          key="mediaActions.memebuster"
-          className="media-actions__memebuster"
-          id="media-actions__memebuster"
-          onClick={this.handleMemebuster}
-        >
-          <FormattedMessage id="mediaActions.memebuster" defaultMessage="Meme Generator" />
-        </MenuItem>
-      ));
-    }
-
-    if (can(media.permissions, 'update Status') && !media.archived) {
+    if (can(media.permissions, 'update Status') && !media.archived && handleAssign) {
       menuItems.push((
         <MenuItem
           key="mediaActions.assign"
           className="media-actions__assign"
           onClick={handleAssign}
         >
-          <FormattedMessage id="mediaActions.assignOrUnassign" defaultMessage="Assign / Unassign" />
+          <FormattedMessage id="mediaActions.assignOrUnassign" defaultMessage="Assignment" />
         </MenuItem>));
     }
 
-    if (can(media.permissions, 'lock Annotation') && !media.archived) {
+    if (can(media.permissions, 'lock Annotation') && !media.archived && handleStatusLock) {
       menuItems.push((
         <MenuItem
           key="mediaActions.lockStatus"
@@ -149,8 +93,99 @@ class MediaActions extends Component {
         </MenuItem>));
     }
 
+    if (can(media.permissions, 'update ProjectMedia') && !media.archived) {
+      menuItems.push((
+        <MenuItem
+          key="mediaActions.memebuster"
+          className="media-actions__memebuster"
+          id="media-actions__memebuster"
+          onClick={this.handleMemebuster}
+        >
+          <FormattedMessage id="mediaActions.memebuster" defaultMessage="Meme designer" />
+        </MenuItem>
+      ));
+    }
+
+    if (can(media.permissions, 'embed ProjectMedia') &&
+      !media.archived) {
+      menuItems.push((
+        <MenuItem
+          key="mediaActions.embed"
+          className="media-actions__embed"
+          id="media-actions__embed"
+          onClick={this.handleEmbed.bind(this)}
+        >
+          <FormattedMessage id="mediaActions.report" defaultMessage="Report designer" />
+        </MenuItem>));
+    }
+
+    if (can(media.permissions, 'update ProjectMedia') && !media.archived && handleSendToTrash) {
+      menuItems.push((
+        <MenuItem
+          key="mediaActions.sendToTrash"
+          className="media-actions__send-to-trash"
+          onClick={handleSendToTrash}
+        >
+          <FormattedMessage id="mediaActions.sendToTrash" defaultMessage="Send to trash" />
+        </MenuItem>));
+    }
+
+    if (can(media.permissions, 'restore ProjectMedia') && media.archived && handleRestore) {
+      menuItems.push((
+        <MenuItem
+          key="mediaActions.restore"
+          className="media-actions__restore"
+          id="media-actions__restore"
+          onClick={handleRestore}
+        >
+          <FormattedMessage id="mediaActions.restore" defaultMessage="Restore from trash" />
+        </MenuItem>));
+    }
+
+    if (can(media.permissions, 'update ProjectMedia') && !media.archived) {
+      if (handleMove) {
+        menuItems.push((
+          <MenuItem
+            key="mediaActions.move"
+            className="media-actions__move"
+            onClick={handleMove}
+          >
+            <FormattedMessage id="mediaActions.move" defaultMessage="Move" />
+          </MenuItem>));
+      }
+    }
+
+    if (can(media.permissions, 'update ProjectMedia') && !media.archived && handleAddToList) {
+      menuItems.push((
+        <MenuItem
+          key="mediaActions.addToList"
+          className="media-actions__add-to-list"
+          onClick={handleAddToList}
+        >
+          <FormattedMessage id="mediaActions.addToList" defaultMessage="Add to list" />
+        </MenuItem>));
+    }
+
+    if (can(media.permissions, 'update ProjectMedia') &&
+      !media.archived &&
+      handleRemoveFromList &&
+      /project\/[0-9]+/.test(window.location.pathname) &&
+      media.project_id) {
+      menuItems.push((
+        <MenuItem
+          key="mediaActions.removeFromList"
+          className="media-actions__remove-from-list"
+          onClick={handleRemoveFromList}
+        >
+          <FormattedMessage id="mediaActions.removeFromList" defaultMessage="Remove from list" />
+        </MenuItem>));
+    }
+
     return menuItems.length ?
-      <StyledIconMenuWrapper isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
+      <StyledIconMenuWrapper
+        isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
+        style={this.props.style}
+      >
         <IconMenu
           className="media-actions"
           iconButtonElement={
@@ -159,7 +194,7 @@ class MediaActions extends Component {
                 <FormattedMessage id="mediaActions.tooltip" defaultMessage="Item actions" />
               }
             >
-              <IconMoreHoriz className="media-actions__icon" />
+              <IconMoreVert className="media-actions__icon" />
             </IconButton>}
         >
           {menuItems}

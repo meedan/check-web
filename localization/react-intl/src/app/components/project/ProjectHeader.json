@@ -1,6 +1,10 @@
 [
   {
-    "id": "projectHeader.description",
-    "defaultMessage": "Verification Project"
+    "id": "projectHeader.allItems",
+    "defaultMessage": "All items"
+  },
+  {
+    "id": "projectHeader.trash",
+    "defaultMessage": "Trash"
   }
 ]

@@ -2,14 +2,14 @@
   "createTeam.slugChecking": "Проверка доступности...",
   "createTeam.slugAvailable": "Доступно!",
   "createTeam.slugUnavailable": "Этот идентификатор недоступен. Пожалуйста, попробуйте выбрать другой.",
-  "createTeam.createTeamError": "В процессе создания группы произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}.",
-  "createTeam.title": "Новая группа",
-  "createTeam.teamNameHint": "Название группы",
-  "createTeam.teamSlugHint": "идентификатор группы",
-  "createTeam.mainHeading": "Новая группа",
-  "createTeam.blurb": "Создайте группу для своей организации или для себя:",
-  "createTeam.displayName": "Название группы",
+  "createTeam.createTeamError": "Sorry, an error occurred while updating the workspace. Please try again and contact {supportEmail} if the condition persists.",
+  "createTeam.title": "Create a workspace",
+  "createTeam.teamNameHint": "Workspace Name",
+  "createTeam.teamSlugHint": "Workspace URL",
+  "createTeam.mainHeading": "Create a workspace",
+  "createTeam.blurb": "Create a workspace for your organization, or just for yourself:",
+  "createTeam.displayName": "Workspace Name",
   "createTeam.url": "URL группы",
   "createTeam.submitButton": "Создать",
-  "createTeam.requestToJoin": "Вы также можете отправить запрос на вступление в уже существующую группу."
+  "createTeam.requestToJoin": "You can also request to join an existing workspace."
 }

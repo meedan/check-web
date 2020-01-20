@@ -1,11 +1,11 @@
 [
   {
     "id": "createTeamTask.editError",
-    "defaultMessage": "Failed to edit teamwide task"
+    "defaultMessage": "Failed to edit default task"
   },
   {
     "id": "createTeamTask.deleteError",
-    "defaultMessage": "Failed to delete teamwide task"
+    "defaultMessage": "Failed to delete default task"
   },
   {
     "id": "createTeamTask.menuTooltip",
@@ -21,11 +21,11 @@
   },
   {
     "id": "teamTasks.confirmEditBlurb",
-    "defaultMessage": "Related item tasks will be modified as a consequence of applying this change, except for those that have already been answered or annotated"
+    "defaultMessage": "Related item tasks will be modified as a consequence of applying this change, except for those that have already been answered or resolved."
   },
   {
     "id": "teamTasks.confirmDeleteBlurb",
-    "defaultMessage": "Related item tasks will be deleted as a consequence of applying this change, except for those that have already been answered or annotated"
+    "defaultMessage": "Related item tasks will be deleted as a consequence of applying this change, except for those that have already been answered or resolved."
   },
   {
     "id": "teamTasks.edit",

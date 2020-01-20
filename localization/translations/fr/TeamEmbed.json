@@ -1,10 +1,13 @@
 {
-  "teamEmbed.updateFail": "Désolé, une erreur s'est produite durant la mise à jour des paramètres. Veuillez réessayer et prévenir {supportEmail} si le problème persiste.",
-  "teamEmbed.updateSuccess": "Les paramètres de l'intégration ont été sauvegardées avec succès.",
-  "teamEmbed.title": "Paramètres d'intégration",
+  "teamEmbed.updateFail": "Désolé, une erreur s'est produite durant la mise à jour des paramètres du rapport. Veuillez réessayer et prévenir {supportEmail} si le problème persiste.",
+  "teamEmbed.updateSuccess": "Les paramètres du rapport ont été sauvegardées avec succès.",
+  "teamEmbed.title": "Paramètres du rapport",
   "teamEmbed.tasks": "Tâches",
-  "teamEmbed.tasksSub": "Les tâches sélectionnées seront affichées dans l'intégration si elles résolues. ",
-  "teamEmbed.disclaimer": "Exclusion",
-  "teamEmbed.disclaimerSub": "Notice affichée au bas de l'intégration auprès du logo de l'équipe.",
+  "teamEmbed.tasksSub": "Les tâches sélectionnées seront affichées dans le rapport si elles résolues. ",
+  "teamEmbed.disclaimer": "Notice",
+  "teamEmbed.disclaimerSub": "Notice affichée au bas du rapport auprès du logo de l'espace de travail.",
+  "teamEmbed.analysis": "Analyse",
+  "teamEmbed.analysisSub": "Afficher l'analyse dans le rapport",
+  "teamEmbed.analysisYes": "Oui",
   "teamEmbed.save": "Sauvegarder"
 }

@@ -12,7 +12,6 @@ import CheckContext from '../../CheckContext';
 import {
   subheading2,
   body1,
-  units,
   black87,
   black54,
   black16,
@@ -21,7 +20,6 @@ import {
 
 const StyledTaskHeaderRow = styled.div`
   justify-content: space-between;
-  padding-top: ${units(5)};
   display: flex;
   color: ${black54};
   font: ${body1};

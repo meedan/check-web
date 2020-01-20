@@ -1,14 +1,14 @@
 [
   {
     "id": "teamComponent.projects",
-    "defaultMessage": "Projects"
+    "defaultMessage": "Lists"
   },
   {
     "id": "teamComponent.noProjects",
-    "defaultMessage": "No projects"
+    "defaultMessage": "No lists"
   },
   {
     "id": "teamComponent.projectAssignmentsCount",
-    "defaultMessage": "{count, plural, =0 {Not assigned to any member} one {Assigned to one member} other {Assigned to # members}}"
+    "defaultMessage": "{count, plural, =0 { } one {Assigned to one member} other {Assigned to # members}}"
   }
 ]

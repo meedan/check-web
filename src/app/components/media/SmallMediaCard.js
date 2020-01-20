@@ -5,13 +5,10 @@ import Card from '@material-ui/core/Card';
 import LayersIcon from '@material-ui/icons/Layers';
 import rtlDetect from 'rtl-detect';
 import styled from 'styled-components';
-import { CardWithBorder } from './MediaDetail';
 import MediaSelectable from './MediaSelectable';
 import ItemDeadline from './ItemDeadline';
 import MediaUtil from './MediaUtil';
 import LayerIcon from '../icons/Layer';
-import { getStatus, getStatusStyle } from '../../helpers';
-import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
 import { black38, units, Offset, Row, StyledHeading } from '../../styles/js/shared';
 
 const messages = defineMessages({
@@ -57,7 +54,6 @@ const BottomRow = styled.div`
 
 const SmallMediaCard = (props) => {
   const { media, intl: { locale } } = props;
-  const status = getStatus(mediaStatuses(media), mediaLastStatus(media));
 
   let relatedCount = 0;
 
@@ -91,69 +87,64 @@ const SmallMediaCard = (props) => {
 
   return (
     <MediaSelectable media={media} onSelect={props.onSelect}>
-      <CardWithBorder
-        fromDirection={isRtl ? 'right' : 'left'}
-        borderColor={getStatusStyle(status, 'backgroundColor')}
+      <Card
+        className="card-with-border"
+        style={{ height: units(12), width: units(35) }}
       >
-        <Card
-          className="card-with-border"
-          style={{ height: units(12), width: units(35) }}
+        <div
+          className={props.selected ? 'media-detail__card-header-selected' : 'media-detail__card-header'}
+          style={{ padding: units(1), height: units(12), cursor: media.dbid === 0 ? 'wait' : 'default' }}
         >
-          <div
-            className={props.selected ? 'media-detail__card-header-selected' : 'media-detail__card-header'}
-            style={{ padding: units(1), height: units(12), cursor: media.dbid === 0 ? 'wait' : 'default' }}
-          >
-            <Row>
-              { image ?
-                <Offset isRtl={isRtl}>
-                  <Link to={{ pathname: mediaUrl, state: { query: props.query } }}>
-                    <img
-                      alt=""
-                      style={{ width: units(10), height: units(10), objectFit: 'cover' }}
-                      src={image}
-                    />
-                  </Link>
-                </Offset>
-                : null
-              }
-              <Content withImage={image}>
-                <UpperRow>
-                  <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', maxHeight: units(5) }}>
-                    <StyledHeading>
-                      <Link to={{ pathname: mediaUrl, state: { query: props.query } }}>
-                        {MediaUtil.title(media, data, props.intl)}
-                      </Link>
-                    </StyledHeading>
-                  </div>
-                  { isParent ?
-                    <span
-                      title={
-                        props.intl.formatMessage(messages.relatedCount, { relatedCount })
-                      }
-                    >
+          <Row>
+            { image ?
+              <Offset isRtl={isRtl}>
+                <Link to={{ pathname: mediaUrl, state: { query: props.query } }}>
+                  <img
+                    alt=""
+                    style={{ width: units(10), height: units(10), objectFit: 'cover' }}
+                    src={image}
+                  />
+                </Link>
+              </Offset>
+              : null
+            }
+            <Content withImage={image}>
+              <UpperRow>
+                <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', maxHeight: units(5) }}>
+                  <StyledHeading>
+                    <Link to={{ pathname: mediaUrl, state: { query: props.query } }}>
+                      {MediaUtil.title(media, data, props.intl)}
+                    </Link>
+                  </StyledHeading>
+                </div>
+                { isParent ?
+                  <span
+                    title={
+                      props.intl.formatMessage(messages.relatedCount, { relatedCount })
+                    }
+                  >
+                    <RelationIcon>
+                      <LayersIcon />
+                    </RelationIcon>
+                  </span> : null
+                }
+                { isChild ?
+                  (
+                    <span title={props.intl.formatMessage(messages.child)}>
                       <RelationIcon>
-                        <LayersIcon />
+                        <LayerIcon />
                       </RelationIcon>
-                    </span> : null
-                  }
-                  { isChild ?
-                    (
-                      <span title={props.intl.formatMessage(messages.child)}>
-                        <RelationIcon>
-                          <LayerIcon />
-                        </RelationIcon>
-                      </span>
-                    ) : null
-                  }
-                </UpperRow>
-                <BottomRow>
-                  <ItemDeadline media={media} isRtl={isRtl} />
-                </BottomRow>
-              </Content>
-            </Row>
-          </div>
-        </Card>
-      </CardWithBorder>
+                    </span>
+                  ) : null
+                }
+              </UpperRow>
+              <BottomRow>
+                <ItemDeadline media={media} isRtl={isRtl} />
+              </BottomRow>
+            </Content>
+          </Row>
+        </div>
+      </Card>
     </MediaSelectable>
   );
 };

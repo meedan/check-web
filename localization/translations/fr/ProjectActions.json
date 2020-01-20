@@ -1,0 +1,12 @@
+{
+  "projectActions.projectDeleted": "Liste supprimée avec succès.",
+  "projectActions.projectNotDeleted": "Désolé, il n'a pas été possible de supprimer la liste.",
+  "ProjectActions.edit": "Modifier le titre et la description",
+  "projectActions.assignOrUnassign": "Affecter la liste",
+  "projectActions.destroy": "Supprimer",
+  "projectActions.cancelDelete": "Annuler",
+  "projectActions.continue": "Continuer",
+  "ProjectActions.tooltip": "Actions de la liste",
+  "projectActions.confirmDeleteProject": "Voulez-vous vraiment supprimer cette liste ? Tous ses éléments seront encore accessibles via la liste intitulée \"Tous les éléments\".",
+  "projectActions.yes": "Oui"
+}

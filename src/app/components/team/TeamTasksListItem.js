@@ -25,11 +25,11 @@ import { getErrorMessage } from '../../helpers';
 const messages = defineMessages({
   editError: {
     id: 'createTeamTask.editError',
-    defaultMessage: 'Failed to edit teamwide task',
+    defaultMessage: 'Failed to edit default task',
   },
   deleteError: {
     id: 'createTeamTask.deleteError',
-    defaultMessage: 'Failed to delete teamwide task',
+    defaultMessage: 'Failed to delete default task',
   },
   menuTooltip: {
     id: 'createTeamTask.menuTooltip',
@@ -168,11 +168,11 @@ class TeamTasksListItem extends React.Component {
     const confirmDialogBlurb = {
       edit: <FormattedMessage
         id="teamTasks.confirmEditBlurb"
-        defaultMessage="Related item tasks will be modified as a consequence of applying this change, except for those that have already been answered or annotated"
+        defaultMessage="Related item tasks will be modified as a consequence of applying this change, except for those that have already been answered or resolved."
       />,
       delete: <FormattedMessage
         id="teamTasks.confirmDeleteBlurb"
-        defaultMessage="Related item tasks will be deleted as a consequence of applying this change, except for those that have already been answered or annotated"
+        defaultMessage="Related item tasks will be deleted as a consequence of applying this change, except for those that have already been answered or resolved."
       />,
     };
 

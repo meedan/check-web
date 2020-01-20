@@ -1,0 +1,42 @@
+[
+  {
+    "id": "projectActions.projectDeleted",
+    "defaultMessage": "List deleted successfully."
+  },
+  {
+    "id": "projectActions.projectNotDeleted",
+    "defaultMessage": "Sorry, could not delete list."
+  },
+  {
+    "id": "ProjectActions.edit",
+    "defaultMessage": "Edit name and description"
+  },
+  {
+    "id": "projectActions.assignOrUnassign",
+    "defaultMessage": "Assign list"
+  },
+  {
+    "id": "projectActions.destroy",
+    "defaultMessage": "Delete"
+  },
+  {
+    "id": "projectActions.cancelDelete",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "projectActions.continue",
+    "defaultMessage": "Continue"
+  },
+  {
+    "id": "ProjectActions.tooltip",
+    "defaultMessage": "List actions"
+  },
+  {
+    "id": "projectActions.confirmDeleteProject",
+    "defaultMessage": "Are you sure you want to delete this list? All its items will still be accessible through the 'All items' list."
+  },
+  {
+    "id": "projectActions.yes",
+    "defaultMessage": "Yes"
+  }
+]

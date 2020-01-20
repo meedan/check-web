@@ -14,7 +14,7 @@ class TeamSizeNudge extends React.Component {
     const nudge = (
       <FormattedMessage
         id="teamSizeNudge.nudge"
-        defaultMessage="{max, plural, =0 {Your team is currently limited to 0 users. To upgrade, please contact {supportEmail}.} one {Your team is currently limited to one user. To upgrade, please contact {supportEmail}.} other {Your team is currently limited to # users. To upgrade, please contact {supportEmail}.}}"
+        defaultMessage="{max, plural, =0 {Your workspace is currently limited to 0 users. To upgrade, please contact {supportEmail}.} one {Your workspace is currently limited to one user. To upgrade, please contact {supportEmail}.} other {Your workspace is currently limited to # users. To upgrade, please contact {supportEmail}.}}"
         values={{
           max: this.props.maxNumberOfMembers,
           supportEmail: stringHelper('SUPPORT_EMAIL'),

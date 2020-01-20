@@ -31,7 +31,7 @@ const messages = defineMessages({
   },
   inputHint: {
     id: 'addAnnotation.inputHint',
-    defaultMessage: 'Add a note about this',
+    defaultMessage: 'Add a comment',
   },
   submitButton: {
     id: 'addAnnotation.submitButton',
@@ -373,10 +373,10 @@ class AddAnnotation extends Component {
         name="addannotation"
         onSubmit={this.handleSubmit.bind(this)}
         style={{
-          height: '100%', padding: units(2), position: 'relative', zIndex: 0,
+          height: '100%', paddingTop: units(2), position: 'relative', zIndex: 0,
         }}
       >
-        <ContentColumn flex>
+        <ContentColumn flex style={{ maxWidth: '100%' }}>
           <TextField
             placeholder={this.props.intl.formatMessage(messages.inputHint)}
             onFocus={this.handleFocus.bind(this)}
@@ -386,6 +386,7 @@ class AddAnnotation extends Component {
             name="cmd"
             id="cmd-input"
             multiline
+            fullWidth
             onKeyPress={this.handleKeyPress.bind(this)}
             onKeyUp={this.handleKeyUp.bind(this)}
             value={this.state.cmd}

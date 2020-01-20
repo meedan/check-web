@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import isEqual from 'lodash.isequal';
@@ -13,6 +14,9 @@ import { units } from '../../styles/js/shared';
 import TagOutline from '../../../assets/images/tag/tag-outline';
 import MediaRoute from '../../relay/MediaRoute';
 import RelayContainer from '../../relay/RelayContainer';
+import CheckContext from '../../CheckContext';
+import { createTag } from '../../relay/mutations/CreateTagMutation';
+import { deleteTag } from '../../relay/mutations/DeleteTagMutation';
 
 const StyledActions = styled.div`
   padding: ${units(2)};
@@ -28,15 +32,35 @@ class TagMenuComponent extends Component {
     this.state = {
       menuOpen: false,
       value: '',
+      tagsToAdd: [],
+      tagsToRemove: [],
     };
   }
+
+  callback = () => {};
 
   handleChange = (value) => {
     this.setState({ value });
   };
 
   handleCloseMenu = () => {
-    this.setState({ menuOpen: false, value: '' });
+    const tags = this.props.media.tags.edges.map(tag => tag.node.tag_text);
+    this.state.tagsToAdd.forEach((tag) => {
+      if (tags.indexOf(tag) === -1) {
+        this.handleCreateTag(tag);
+      }
+    });
+    this.state.tagsToRemove.forEach((tag) => {
+      if (tags.indexOf(tag) > -1) {
+        this.handleRemoveTag(tag);
+      }
+    });
+    this.setState({
+      menuOpen: false,
+      value: '',
+      tagsToAdd: [],
+      tagsToRemove: [],
+    });
   };
 
   handlePopup = (open) => {
@@ -45,6 +69,61 @@ class TagMenuComponent extends Component {
     }
 
     this.setState({ menuOpen: open });
+  };
+
+  handleTagToAdd(tag) {
+    const tagsToAdd = this.state.tagsToAdd.slice();
+    tagsToAdd.push(tag);
+    const tagsToRemove = this.state.tagsToRemove.slice();
+    if (tagsToRemove.indexOf(tag) > -1) {
+      tagsToRemove.splice(tagsToRemove.indexOf(tag), 1);
+    }
+    this.setState({ tagsToRemove, tagsToAdd });
+  }
+
+  handleTagToRemove(tag) {
+    const tagsToRemove = this.state.tagsToRemove.slice();
+    tagsToRemove.push(tag);
+    const tagsToAdd = this.state.tagsToAdd.slice();
+    if (tagsToAdd.indexOf(tag) > -1) {
+      tagsToAdd.splice(tagsToAdd.indexOf(tag), 1);
+    }
+    this.setState({ tagsToRemove, tagsToAdd });
+  }
+
+  handleCreateTag(value) {
+    const { media } = this.props;
+
+    const context = new CheckContext(this).getContextStore();
+
+    createTag(
+      {
+        media,
+        value,
+        annotator: context.currentUser,
+      },
+      this.callback,
+      this.callback,
+    );
+  }
+
+  handleRemoveTag = (value) => {
+    const { media } = this.props;
+
+    const removedTag = media.tags.edges.find(tag => tag.node.tag_text === value);
+
+    if (!removedTag) {
+      return;
+    }
+
+    deleteTag(
+      {
+        media,
+        tagId: removedTag.node.id,
+      },
+      this.callback,
+      this.callback,
+    );
   };
 
   render() {
@@ -76,6 +155,8 @@ class TagMenuComponent extends Component {
             value={this.state.value}
             media={media}
             tags={media.tags.edges}
+            onAddTag={this.handleTagToAdd.bind(this)}
+            onRemoveTag={this.handleTagToRemove.bind(this)}
           />
           <StyledActions>
             <FlatButton
@@ -91,6 +172,11 @@ class TagMenuComponent extends Component {
     );
   }
 }
+
+TagMenuComponent.contextTypes = {
+  store: PropTypes.object,
+  setMessage: PropTypes.func,
+};
 
 const TagMenuContainer = Relay.createContainer(TagMenuComponent, {
   fragments: {

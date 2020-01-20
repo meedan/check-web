@@ -86,7 +86,7 @@ MediaLogComponent.contextTypes = {
 const pageSize = 30;
 
 const eventTypes = [
-  'create_comment', 'create_tag', 'destroy_comment', 'create_task', 'create_relationship',
+  'create_tag', 'destroy_comment', 'create_task', 'create_relationship',
   'destroy_relationship', 'create_assignment', 'destroy_assignment', 'create_dynamic',
   'update_dynamic', 'create_dynamicannotationfield', 'update_dynamicannotationfield',
   'create_flag', 'update_embed', 'create_embed', 'update_projectmedia', 'copy_projectmedia',
@@ -101,7 +101,7 @@ const fieldNames = [
   'team_bot_response_formatted_data', 'reverse_image_path', 'translation_text', 'mt_translations',
   'translation_status_status', 'translation_published', 'archive_is_response',
   'archive_org_response', 'keep_backup_response', 'memebuster_operation', 'embed_code_copied',
-  'pender_archive_response',
+  'pender_archive_response', 'perma_cc_response',
 ];
 
 const annotationTypes = ['translation_status', 'verification_status'];

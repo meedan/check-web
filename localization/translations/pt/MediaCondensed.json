@@ -1,0 +1,15 @@
+{
+  "mediaCondensed.editReport": "Editar",
+  "mediaCondensed.editReportError": "Desculpe, ocorreu um erro ao atualizar o item. Por favor, tente novamente e entre em contato com {supportEmail} se a condição persistir.",
+  "mediaCondensed.breakRelationshipError": "Desculpe, ocorreu um erro ao remover a relação. Por favor, tente novamente e entre em contato com {supportEmail} se a condição persistir.",
+  "mediaCondensed.updateRelationshipError": "Desculpe, ocorreu um erro ao atualizar a relação. Por favor, tente novamente e entre em contato com {supportEmail} se a condição persistir.",
+  "mediaCondensed.title": "Título",
+  "mediaCondensed.description": "Descrição",
+  "mediaCondensed.cancelButton": "Cancelar",
+  "mediaCondensed.doneButton": "Concluído",
+  "mediaCondensed.requests": "{count} solicitações",
+  "mediaCondensed.tooltip": "Ações de item",
+  "mediaCondensed.promote": "Promover como item principal",
+  "mediaCondensed.break": "Cancelar relação com o item principal",
+  "mediaCondensed.edit": "Editar título e descrição"
+}

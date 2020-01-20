@@ -144,6 +144,18 @@ class TeamComponent extends Component {
                 value="tasks"
               /> : null
             }
+            {UserUtil.myRole(this.getCurrentUser(), team.slug) === 'owner' ?
+              <Tab
+                className="team-settings__rules-tab"
+                label={
+                  <FormattedMessage
+                    id="teamSettings.rules"
+                    defaultMessage="Rules"
+                  />
+                }
+                value="rules"
+              />
+              : null }
             { isSettings || isReadOnly ? <Tab
               className="team-settings__tags-tab"
               label={
@@ -160,7 +172,7 @@ class TeamComponent extends Component {
                 label={
                   <FormattedMessage
                     id="teamSettings.embed"
-                    defaultMessage="Embed"
+                    defaultMessage="Report"
                   />
                 }
                 value="embed"
@@ -188,18 +200,6 @@ class TeamComponent extends Component {
                   />
                 }
                 value="bots"
-              />
-              : null }
-            {UserUtil.myRole(this.getCurrentUser(), team.slug) === 'owner' ?
-              <Tab
-                className="team-settings__rules-tab"
-                label={
-                  <FormattedMessage
-                    id="teamSettings.rules"
-                    defaultMessage="Rules"
-                  />
-                }
-                value="rules"
               />
               : null }
           </Tabs>

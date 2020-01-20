@@ -1,8 +1,5 @@
 {
-  "headerActions.tos": "Terms",
-  "headerActions.privacyPolicy": "Privacy",
-  "headerActions.about": "About",
-  "headerActions.contactHuman": "Contact",
-  "headerActions.productGuides": "Product Guides",
-  "headerActions.releaseNotes": "Release Notes"
+  "teamMenu.teamSettings": "Workspace settings",
+  "projects.trash": "Trash",
+  "headerActions.signIn": "Sign In"
 }

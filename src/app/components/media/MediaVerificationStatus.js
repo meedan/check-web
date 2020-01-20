@@ -5,7 +5,7 @@ import UpdateStatusMutation from '../../relay/mutations/UpdateStatusMutation';
 import MediaStatusCommon from './MediaStatusCommon';
 
 class MediaStatus extends Component {
-  static setStatus(context, store, media, status) {
+  setStatus(context, store, media, status) {
     const status_id = media.last_status_obj ? media.last_status_obj.id : '';
     const status_attr = {
       parent_type: 'project_media',
@@ -24,8 +24,16 @@ class MediaStatus extends Component {
       context.fail(transaction);
     };
 
-    const onSuccess = () => {
-      context.success('status');
+    const onSuccess = (data) => {
+      const pm = data.updateDynamic.project_media;
+      if (pm.project_id && media.project_id && pm.project_id !== media.project_id) {
+        const newPath = window.location.pathname.replace(/project\/[0-9]+/, `project/${pm.project_id}`);
+        window.location = `${newPath}?reload=true`;
+      } else if (this.props.callback) {
+        this.props.callback();
+      } else {
+        context.success('status');
+      }
     };
 
     // Add or Update status
@@ -40,7 +48,7 @@ class MediaStatus extends Component {
     return (<MediaStatusCommon
       {...this.props}
       parentComponent={this}
-      setStatus={MediaStatus.setStatus}
+      setStatus={this.setStatus.bind(this)}
     />);
   }
 }

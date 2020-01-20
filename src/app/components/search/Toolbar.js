@@ -11,7 +11,6 @@ import { black05, black87, units, Row, FlexRow, Offset } from '../../styles/js/s
 const StyledToolbar = styled.div`
   background-color: ${black05};
   min-height: ${units(5)};
-  margin: 0 ${units(1)};
 
   .toolbar__title {
     color: ${black87};
@@ -27,34 +26,39 @@ class Toolbar extends React.Component {
 
   render() {
     const {
-      filter,
       actions,
       title,
       project,
-      addons,
       page,
+      team,
       search,
     } = this.props;
 
     const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
 
+    let perms = { permissions: {}, permission: '' };
+    if (project) {
+      perms = { permissions: project.permissions, permission: 'create Media' };
+    } else if (team) {
+      perms = { permissions: team.permissions, permission: 'create ProjectMedia' };
+    }
+
     return (
       <StyledToolbar className="toolbar">
         <FlexRow>
           <Row>
-            {filter} | {actions} {actions ? '|' : null} <span className="toolbar__title">{title}</span>
+            <span className="toolbar__title">{title}</span>
+            {actions}
           </Row>
           <Offset isRtl={isRtl}>
-            { project ?
-              <Can permissions={project.permissions} permission="create Media">
-                <CreateProjectMedia search={search} />
-              </Can>
-              : null
+            { page !== 'trash' ?
+              <Can {...perms}>
+                <CreateProjectMedia search={search} team={team} />
+              </Can> : null
             }
             { page === 'trash' ?
-              <EmptyTrashButton teamSlug={filter.props.teamSlug} search={search} /> : null
+              <EmptyTrashButton teamSlug={team.slug} search={search} /> : null
             }
-            {addons}
           </Offset>
         </FlexRow>
       </StyledToolbar>

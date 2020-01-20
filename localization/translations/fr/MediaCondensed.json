@@ -1,0 +1,15 @@
+{
+  "mediaCondensed.editReport": "Modifier",
+  "mediaCondensed.editReportError": "Désolé, une erreur s'est produite durant la mise à jour de l'élément. Veuillez réessayer et prévenir {supportEmail} si le problème persiste.",
+  "mediaCondensed.breakRelationshipError": "Désolé, une erreur s'est produite durant la suppression de l'association. Veuillez réessayer et prévenir {supportEmail} si le problème persiste.",
+  "mediaCondensed.updateRelationshipError": "Désolé, une erreur s'est produite durant la mise à jour de la relation. Veuillez réessayer et prévenir {supportEmail} si le problème persiste.",
+  "mediaCondensed.title": "Titre",
+  "mediaCondensed.description": "Description",
+  "mediaCondensed.cancelButton": "Annuler",
+  "mediaCondensed.doneButton": "Terminé",
+  "mediaCondensed.requests": "{count} demandes",
+  "mediaCondensed.tooltip": "Actions des éléments",
+  "mediaCondensed.promote": "Promouvoir comme élément principal",
+  "mediaCondensed.break": "Supprimer l'association à l'élément primaire",
+  "mediaCondensed.edit": "Modifier le titre et la description"
+}

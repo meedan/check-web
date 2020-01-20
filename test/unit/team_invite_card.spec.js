@@ -91,14 +91,14 @@ describe('<TeamInviteCard />', () => {
       team_users: { edges: [ 1, 2 ] },
     };
     const teamCard1 = mountWithIntl(<TeamInviteCard team={team1} />);
-    expect(teamCard1.html()).to.contain('Build Your Team');
+    expect(teamCard1.html()).to.contain('Invite members');
     const team2 = {
       slug: 'brand-new-team',
       get_max_number_of_members: 2,
       team_users: { edges: [ 1 ] },
     };
     const teamCard2 = mountWithIntl(<TeamInviteCard team={team2} />);
-    expect(teamCard2.html()).to.contain('Build Your Team');
+    expect(teamCard2.html()).to.contain('Invite members');
     const team3 = {
       slug: 'brand-new-team',
       get_max_number_of_members: 1,
@@ -132,7 +132,4 @@ describe('<TeamInviteCard />', () => {
     const teamCard3 = mountWithIntl(<TeamInviteCard team={team3} />);
     expect(teamCard3.html()).to.equal('');
   });
-
-
-
 });

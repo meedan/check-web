@@ -120,7 +120,7 @@ class UserTooltipComponent extends Component {
             <div className="tooltip__contact-info">
               <FormattedHTMLMessage
                 id="userTooltip.dateJoined"
-                defaultMessage="Joined {date} &bull; {teamsCount, plural, =0 {No teams} one {1 team} other {# teams}}"
+                defaultMessage="Joined {date} &bull; {teamsCount, plural, =0 {No workspaces} one {1 workspace} other {# workspaces}}"
                 values={{
                   date: this.props.intl.formatDate(MediaUtil.createdAt({ published: source.created_at }), { year: 'numeric', month: 'short', day: '2-digit' }),
                   teamsCount: user.number_of_teams,

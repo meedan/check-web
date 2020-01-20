@@ -77,7 +77,12 @@ class CreateProjectMedia extends Component {
 
   submitMedia(value) {
     const context = new CheckContext(this).getContextStore();
-    const prefix = `/${context.team.slug}/project/${context.project.dbid}/media/`;
+    let prefix = null;
+    if (context.project) {
+      prefix = `/${context.team.slug}/project/${context.project.dbid}/media/`;
+    } else {
+      prefix = `/${context.team.slug}/media/`;
+    }
 
     if (!value) {
       return;
@@ -97,6 +102,7 @@ class CreateProjectMedia extends Component {
       new CreateProjectMediaMutation({
         ...value,
         context,
+        team: this.props.team,
         search: this.props.search,
         project: context.project,
       }),
@@ -113,7 +119,7 @@ class CreateProjectMedia extends Component {
   };
 
   handleSubmit = (value) => {
-    if (value.mode === 'source') {
+    if (value && value.mode === 'source') {
       this.submitSource(value);
     } else {
       this.submitMedia(value);

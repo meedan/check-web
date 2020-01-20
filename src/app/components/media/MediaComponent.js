@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { injectIntl, intlShape } from 'react-intl';
+import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import { stripUnit } from 'polished';
+import { Tabs, Tab } from 'material-ui/Tabs';
 import PageTitle from '../PageTitle';
 import MediaDetail from './MediaDetail';
 import MediaRelated from './MediaRelated';
 import MediaTasks from './MediaTasks';
+import MediaAnalysis from './MediaAnalysis';
 import MediaLog from './MediaLog';
+import MediaComments from './MediaComments';
 import MediaUtil from './MediaUtil';
 import CheckContext from '../../CheckContext';
-import { getStatus, getStatusStyle } from '../../helpers';
-import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
 import {
   ContentColumn,
   headerHeight,
-  transitionSpeedSlow,
   gutterMedium,
   units,
   mediaQuery,
@@ -26,16 +26,17 @@ const StyledTwoColumnLayout = styled(ContentColumn)`
   ${mediaQuery.desktop`
     display: flex;
     justify-content: center;
-    max-width: ${units(120)};
+    width: 100%;
+    max-width: 100%;
     padding: 0;
     flex-direction: row;
 
     .media__media-column {
-      max-width: ${units(150)} !important;
+      max-width: 100%;
     }
 
     .media__annotations-column {
-      max-width: ${units(50)};
+      max-width: 100%;
     }
   `}
 `;
@@ -44,7 +45,6 @@ const StyledBackgroundColor = styled.div`
   margin-top: -${stripUnit(headerHeight) + stripUnit(gutterMedium)}px;
   padding-bottom: ${units(6)};
   padding-top: ${stripUnit(headerHeight) + stripUnit(gutterMedium)}px;
-  transition: background-color ${transitionSpeedSlow} ease;
   min-height: 100vh;
 `;
 
@@ -57,6 +57,14 @@ class MediaComponent extends Component {
         element.scrollIntoView();
       }
     }
+  }
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      showTab: 'tasks',
+    };
   }
 
   componentDidMount() {
@@ -142,8 +150,10 @@ class MediaComponent extends Component {
     }
   }
 
+  handleTabChange = value => this.setState({ showTab: value });
+
   render() {
-    if (this.props.relay.variables.contextId === null) {
+    if (this.props.relay.variables.contextId === null && /\/project\//.test(window.location.pathname)) {
       return null;
     }
 
@@ -152,51 +162,86 @@ class MediaComponent extends Component {
     media.url = media.media.url;
     media.quote = media.media.quote;
     media.embed_path = media.media.embed_path;
-    const status = getStatus(mediaStatuses(media), mediaLastStatus(media));
-
-    let smoochBotInstalled = false;
-    if (media.team && media.team.team_bot_installations) {
-      media.team.team_bot_installations.edges.forEach((edge) => {
-        if (edge.node.team_bot.identifier === 'smooch') {
-          smoochBotInstalled = true;
-        }
-      });
-    }
 
     return (
       <PageTitle
         prefix={MediaUtil.title(media, data, this.props.intl)}
         skipTeam={false}
-        team={this.getContext().team}
+        team={media.team}
         data-id={media.dbid}
       >
         <StyledBackgroundColor
           className="media"
-          style={{
-            backgroundColor: getStatusStyle(status, 'backgroundColor'),
-          }}
         >
           <StyledTwoColumnLayout>
-            <ContentColumn>
+            <ContentColumn className="media__media-column">
               <MediaDetail
-                smoochBotInstalled={smoochBotInstalled}
                 media={media}
-                initiallyExpanded
                 hideBorder
                 hideRelated
               />
               {this.props.extras}
-              <MediaTasks media={media} />
+              <MediaRelated
+                media={media}
+                showHeader
+              />
             </ContentColumn>
             <ContentColumn className="media__annotations-column">
-              <div style={{ paddingBottom: units(5) }}>
-                <MediaRelated
-                  media={media}
-                  showHeader
-                  smoochBotInstalled={smoochBotInstalled}
+              <Tabs
+                value={this.state.showTab}
+                onChange={this.handleTabChange}
+                style={{
+                  marginBottom: units(1),
+                }}
+                tabItemContainerStyle={{
+                  backgroundColor: 'transparent',
+                }}
+              >
+                <Tab
+                  label={
+                    <FormattedMessage
+                      id="mediaComponent.tasks"
+                      defaultMessage="Tasks"
+                    />
+                  }
+                  value="tasks"
+                  className="media-tab__tasks"
                 />
-              </div>
-              <MediaLog media={media} />
+                <Tab
+                  label={
+                    <FormattedMessage
+                      id="mediaComponent.analysis"
+                      defaultMessage="Analysis"
+                    />
+                  }
+                  value="analysis"
+                  className="media-tab__analysis"
+                />
+                <Tab
+                  label={
+                    <FormattedMessage
+                      id="mediaComponent.comments"
+                      defaultMessage="Comments"
+                    />
+                  }
+                  value="comments"
+                  className="media-tab__comments"
+                />
+                <Tab
+                  label={
+                    <FormattedMessage
+                      id="mediaComponent.activity"
+                      defaultMessage="Activity"
+                    />
+                  }
+                  value="activity"
+                  className="media-tab__activity"
+                />
+              </Tabs>
+              { this.state.showTab === 'tasks' ? <MediaTasks media={media} /> : null }
+              { this.state.showTab === 'analysis' ? <MediaAnalysis media={media} /> : null }
+              { this.state.showTab === 'activity' ? <MediaLog media={media} /> : null }
+              { this.state.showTab === 'comments' ? <MediaComments media={media} /> : null }
             </ContentColumn>
           </StyledTwoColumnLayout>
         </StyledBackgroundColor>

@@ -1,6 +1,6 @@
 {
-  "projects.addProject": "Add project",
+  "projects.addProject": "Add list",
   "projects.dismiss": "Dismiss",
-  "projects.noProjects": "Deocamdată nu sunt dosar.",
-  "projects.projectsSubheading": "Dosarele"
+  "projects.allClaims": "All items",
+  "projects.newList": "+ New list"
 }

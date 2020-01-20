@@ -1,10 +1,10 @@
 {
-  "switchTeams.error": "Desculpe, ocorreu um erro ao atualizar a equipe. Por favor, tente novamente e entre em contato com {supportEmail} se a condição persistir.",
+  "switchTeams.error": "Desculpe, ocorreu um erro ao atualizar a área de trabalho. Por favor, tente novamente e entre em contato com {supportEmail} se a condição persistir.",
   "switchTeams.member": "{membersCount, plural, =0 {Nenhum membro} one {1 membro} other {# membros}}",
   "switchTeams.joinRequestMessage": "Você solicitou para participar",
-  "teams.yourTeams": "Suas equipes",
-  "teams.userTeams": "Equipes de {name}",
+  "teams.yourTeams": "Suas áreas de trabalho",
+  "teams.userTeams": "Áreas de trabalho de {name}",
   "switchTeams.cancelJoinRequest": "Cancelar",
-  "switchTeams.noTeams": "Não membro de nenhuma equipe.",
-  "switchTeams.newTeamLink": "Criar Equipe"
+  "switchTeams.noTeams": "Não é membro de área de trabalho alguma.",
+  "switchTeams.newTeamLink": "Criar uma área de trabalho"
 }

@@ -2,14 +2,14 @@
   "createTeam.slugChecking": "جارٍ التحقق من توافر المسار...",
   "createTeam.slugAvailable": "متاح",
   "createTeam.slugUnavailable": "عذراً ، هذا الرابط غير متاح. من فضلك أعد المحاولة مع رابط مختلف.",
-  "createTeam.createTeamError": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث الفريق. من فضلك أعد المحاولة وتواصل مع {supportEmail} إن استمرت المشكلة.",
-  "createTeam.title": "أضف فريقاً",
-  "createTeam.teamNameHint": "اسم الفريق",
-  "createTeam.teamSlugHint": "مسار الفريق",
-  "createTeam.mainHeading": "أضف فريقاً",
-  "createTeam.blurb": "أضف فريقاً لمؤسستك أو لك شخصياً :",
-  "createTeam.displayName": "اسم الفريق",
+  "createTeam.createTeamError": "Sorry, an error occurred while updating the workspace. Please try again and contact {supportEmail} if the condition persists.",
+  "createTeam.title": "Create a workspace",
+  "createTeam.teamNameHint": "Workspace Name",
+  "createTeam.teamSlugHint": "Workspace URL",
+  "createTeam.mainHeading": "Create a workspace",
+  "createTeam.blurb": "Create a workspace for your organization, or just for yourself:",
+  "createTeam.displayName": "Workspace Name",
   "createTeam.url": "رابط الفريق",
   "createTeam.submitButton": "أضف",
-  "createTeam.requestToJoin": "يمكنك أيضاً الانضمام الى فريق حالي."
+  "createTeam.requestToJoin": "You can also request to join an existing workspace."
 }

@@ -13,7 +13,11 @@ export const black = '#000000';
 export const alertRed = '#d0021b';
 export const checkBlue = '#2e77fc';
 export const highlightBlue = '#f1f6ff';
+export const highlightOrange = '#f8aa6c';
 export const modalBlue = 'rgba(0, 15, 41, .8)';
+export const inProgressYellow = '#efac51';
+export const unstartedRed = '#f04747';
+export const completedGreen = '#5cae73';
 
 // Material blacks
 //
@@ -497,6 +501,7 @@ export const ContentColumn = styled.div`
   max-width: ${columnWidthMedium};
   ${props => props.narrow ? `max-width: ${columnWidthSmall}` : ''}
   ${props => props.wide ? `max-width: ${columnWidthWide}` : ''}
+  ${props => props.fullWidth ? 'max-width: 100%' : ''}
   ${props => props.flex ? 'display: flex; flex-direction: column;' : ''}
 `;
 
@@ -515,6 +520,11 @@ export const Offset = styled.div`
 export const OffsetBothSides = styled.div`
   padding-left: ${units(1)};
   padding-right: ${units(1)};
+`;
+
+// AlignOpposite
+export const AlignOpposite = styled.div`
+  ${props => (props.fromDirection ? `margin-${props.fromDirection}: auto;` : '')};
 `;
 
 // Material style Chip
@@ -605,7 +615,3 @@ export const StyledCheckboxNext = styled(CheckboxNext)`
     transform: scale(1,1) !important;
   }
 `;
-
-export const inProgressYellow = '#efac51';
-export const unstartedRed = '#f04747';
-export const completedGreen = '#5cae73';

@@ -1,7 +1,7 @@
 {
-  "tagPicker.emptyTags": "No hay etiquetas para este equipo.",
+  "tagPicker.emptyTags": "There are currently no tags for this workspace.",
   "tagPicker.tagNotFound": "Etiqueta #{tag} no encontrada",
-  "tagPicker.teamTags": "Etiquetas del equipo",
+  "tagPicker.teamTags": "Default tags",
   "tagPicker.none": "Ninguna",
   "tagPicker.teamOtherTags": "Etiquetas personalizadas"
 }

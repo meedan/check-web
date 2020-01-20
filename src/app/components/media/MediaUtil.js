@@ -5,7 +5,6 @@ import FaTwitter from 'react-icons/lib/fa/twitter';
 import FaYoutubePlay from 'react-icons/lib/fa/youtube-play';
 import MdLink from 'react-icons/lib/md/link';
 import { defineMessages } from 'react-intl';
-import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { nested, truncateLength, emojify } from '../../helpers';
 
 const messages = defineMessages({
@@ -25,17 +24,17 @@ const messages = defineMessages({
     id: 'media.typeInstagram',
     defaultMessage: 'Instagram',
   },
+  typeLink: {
+    id: 'media.typeLink',
+    defaultMessage: 'Link',
+  },
   typeVideo: {
     id: 'media.typeVideo',
     defaultMessage: 'Video',
   },
   typeClaim: {
     id: 'media.typeClaim',
-    defaultMessage: 'Claim',
-  },
-  bridge_typeClaim: {
-    id: 'bridge.media.typeClaim',
-    defaultMessage: 'Quote',
+    defaultMessage: 'Text',
   },
   typeImage: {
     id: 'media.typeImage',
@@ -105,7 +104,7 @@ const MediaUtil = {
       if (socialMedia) {
         type = socialMedia;
       } else if (media.media.quote) {
-        type = config.appName === 'check' ? messages.typeClaim : messages.bridge_typeClaim;
+        type = messages.typeClaim;
       } else if (media.media.embed_path) {
         type = messages.typeImage;
       } else if (media.domain) {
@@ -126,6 +125,21 @@ const MediaUtil = {
   typeLabel(media, data, intl) {
     const type = this.mediaType(media, data);
     return type ? intl.formatMessage(type) : '';
+  },
+
+  mediaTypeLabel(type, intl) {
+    if (type === '-') {
+      return '-';
+    }
+
+    const labels = {
+      Claim: intl.formatMessage(messages.typeClaim),
+      Link: intl.formatMessage(messages.typeLink),
+      UploadedImage: intl.formatMessage(messages.typeImage),
+      UploadedVideo: intl.formatMessage(messages.typeVideo),
+    };
+
+    return labels[type];
   },
 
   hasCustomTitle(mediaParam, data) {

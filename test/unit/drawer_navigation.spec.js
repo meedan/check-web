@@ -31,6 +31,8 @@ describe('<DrawerNavigationComponent />', () => {
     const location = { pathname: '/team/members' };
     const params = { team: 'team' };
     getStore().currentUser = currentUser;
+    getStore().team = privateTeam;
+    getStore().dispatch = () => {};
     const header = mountWithIntl(
       <DrawerNavigationComponent
         inTeamContext
@@ -62,6 +64,8 @@ describe('<DrawerNavigationComponent />', () => {
     const location = { pathname: '/team/members' };
     const params = { team: 'team' };
     getStore().currentUser = currentUser;
+    getStore().team = privateTeam;
+    getStore().dispatch = () => {};
     const header = mountWithIntl(
       <DrawerNavigationComponent
         inTeamContext
@@ -79,6 +83,8 @@ describe('<DrawerNavigationComponent />', () => {
     const location = { pathname: '/team/members' };
     const params = { team: 'team' };
     getStore().currentUser = undefined;
+    getStore().team = publicTeam;
+    getStore().dispatch = () => {};
     const header = mountWithIntl(
       <DrawerNavigationComponent
         inTeamContext
@@ -97,6 +103,8 @@ describe('<DrawerNavigationComponent />', () => {
     const location = { pathname: '/team/members' };
     const params = { team: 'team' };
     getStore().currentUser = currentUser;
+    getStore().team = publicTeam;
+    getStore().dispatch = () => {};
     const header = mountWithIntl(
       <DrawerNavigationComponent
         inTeamContext
