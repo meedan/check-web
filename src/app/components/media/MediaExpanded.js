@@ -14,10 +14,10 @@ import WebPageMediaCard from './WebPageMediaCard';
 import ImageMediaCard from './ImageMediaCard';
 import VideoMediaCard from './VideoMediaCard';
 import PenderCard from '../PenderCard';
+import { truncateLength } from '../../helpers';
 import CheckContext from '../../CheckContext';
 import {
   FadeIn,
-  caption,
   black54,
   units,
   Text,
@@ -29,7 +29,7 @@ const StyledHeaderTextSecondary = styled.div`
   flex-wrap: wrap;
   font-weight: 400;
   white-space: nowrap;
-  margin-bottom: ${units(5)};
+  margin-bottom: ${units(3)};
 `;
 
 class MediaExpandedComponent extends Component {
@@ -73,7 +73,8 @@ class MediaExpandedComponent extends Component {
     const authorUsername = MediaUtil.authorUsername(media, data);
     const isPender = media.media.url && data.provider !== 'page';
     const randomNumber = Math.floor(Math.random() * 1000000);
-    const shouldShowDescription = MediaUtil.hasCustomDescription(media, data);
+    const shouldShowDescription = false;
+    MediaUtil.hasCustomDescription(media, data);
     const { isRtl, mediaUrl, mediaQuery } = this.props;
     const posterUrl = media.media.thumbnail_path;
 
@@ -118,7 +119,7 @@ class MediaExpandedComponent extends Component {
     const cardHeaderText = (
       <div>
         <StyledHeaderTextSecondary>
-          <Row flexWrap style={{ fontWeight: 'bold' }}>
+          <Row flexWrap style={{ fontWeight: '500' }}>
             <span>
               {MediaUtil.mediaTypeLabel(media.media.type, this.props.intl)}
             </span>
@@ -149,12 +150,12 @@ class MediaExpandedComponent extends Component {
 
     return (
       <span>
-        <CardTitle title={media.title} />
+        <CardTitle title={truncateLength(media.title)} />
         <CardText style={{ padding: '0 16px' }}>
           {cardHeaderText}
           <FadeIn>
             {shouldShowDescription ?
-              <Text font={caption} style={{ color: black54 }}>
+              <Text style={{ color: black54 }}>
                 <ParsedText text={data.description} />
               </Text> : null}
             {embedCard}
