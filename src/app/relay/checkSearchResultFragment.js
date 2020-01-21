@@ -28,18 +28,8 @@ const checkSearchResultFragment = Relay.QL`
           status,
           first_seen: created_at,
           last_seen,
-          verification_statuses,
           project_id,
-          project_ids,
-          pusher_channel,
-          permissions,
-          project {
-            id,
-            dbid,
-            search_id,
-            search { id, number_of_results },
-            medias_count,
-          },
+          verification_statuses,
         }
       }
     },
