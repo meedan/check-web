@@ -221,7 +221,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       media_pg = api_create_team_project_and_link_and_redirect_to_media_page('https://www.youtube.com/watch?v=ykLgjhBnik0')
       wait_for_selector(".media-detail")
       wait_for_selector("iframe")
-      expect(media_pg.primary_heading.text).to eq("How To Check An Account's Authenticity")
+      expect(@driver.page_source.include?("How To Check An Account's Authenticity")).to be(true)
       wait_for_selector('.project-header__back-button').click
       wait_for_selector('.medias__item')
       expect(@driver.page_source.include?("How To Check An Account's Authenticity")).to be(true)
@@ -230,7 +230,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       media_pg = api_create_team_project_and_link_and_redirect_to_media_page('https://www.facebook.com/FirstDraftNews/posts/1808121032783161')
       wait_for_selector(".media-detail")
       wait_for_selector("iframe")
-      expect(media_pg.primary_heading.text.include?('Facebook')).to be(true)
+      expect(@driver.page_source.include?("First Draft")).to be(true)
       wait_for_selector('.project-header__back-button').click
       wait_for_selector('.medias__item')
       expect(@driver.page_source.include?("First Draft")).to be(true)
@@ -273,7 +273,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page = ProjectPage.new(config: @config, driver: @driver).load
              .create_image_media(File.join(File.dirname(__FILE__), 'test.png'))
       wait_for_selector(".add-annotation__buttons")
-      @driver.navigate.to @config['self_url'] + '/' + get_team + '/search'
+      @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items'
       wait_for_selector(".search__results-heading")
       wait_for_selector('.medias__item')
       expect(@driver.page_source.include?('test.png')).to be(true)
@@ -303,28 +303,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect((@driver.current_url.to_s =~ /\/terms-of-service$/).nil?).to be(false)
     end
 
-    it "should not add a duplicated tag from command line", bin3: true do
-      media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
-      new_tag = Time.now.to_i.to_s
-      old = @driver.find_elements(:class,"annotations__list-item").length
-
-      # Validate assumption that tag does not exist
-      expect(media_pg.has_tag?(new_tag)).to be(false)
-
-      # Try to add from command line
-      media_pg.add_annotation("/tag #{new_tag}")
-      old = wait_for_size_change(old, "annotations__list-item", :class)
-      expect(media_pg.has_tag?(new_tag)).to be(true)
-
-      # Try to add duplicate from command line
-      media_pg.add_annotation("/tag #{new_tag}")
-
-      # Verify that tag is not added and that error message is displayed
-      expect(media_pg.tags.count(new_tag)).to be(1)
-      @wait.until { @driver.page_source.include?('Tag already exists') }
-      expect(@driver.page_source.include?('Tag already exists')).to be(true)
-    end
-
     it "should not create duplicated media", bin4: true do
       api_create_team_project_and_link_and_redirect_to_media_page @media_url
       id1 = @driver.current_url.to_s.gsub(/^.*\/media\//, '').to_i
@@ -338,42 +316,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector(".add-annotation__insert-photo")
       id2 = @driver.current_url.to_s.gsub(/^.*\/media\//, '').to_i
       expect(id1 == id2).to be(true)
-    end
-
-    it "should tag media as a command", bin4: true do
-      page = api_create_team_project_and_claim_and_redirect_to_media_page
-
-      expect(page.has_tag?('command')).to be(false)
-      expect(page.contains_string?('Tagged #command')).to be(false)
-
-      # Add a tag as a command
-      page.add_annotation('/tag command')
-
-      # Verify that tag was added to tags list and annotations list
-      expect(page.has_tag?('command')).to be(true)
-      expect(page.contains_string?('Tagged #command')).to be(true)
-
-      # Reload the page and verify that tags are still there
-      page.driver.navigate.refresh
-      page.wait_for_element('.media')
-      expect(page.has_tag?('command')).to be(true)
-      expect(page.contains_string?('Tagged #command')).to be(true)
-    end
-
-    it "should flag media as a command", bin4: true do
-      api_create_team_project_and_claim_and_redirect_to_media_page
-      wait_for_selector(".media-detail")
-      expect(@driver.page_source.include?('Flag')).to be(false)
-      wait_for_selector(".media-tab__comments").click
-      fill_field('#cmd-input', '/flag Spam')
-      @driver.action.send_keys(:enter).perform
-
-      wait_for_selector('.annotation__default')
-      expect(@driver.page_source.include?('Flag')).to be(true)
-      @driver.navigate.refresh
-      wait_for_selector(".media-tab__comments").click
-      wait_for_selector('.annotations')
-      expect(@driver.page_source.include?('Flag')).to be(true)
     end
 
     it "should redirect to 404 page if id does not exist", bin4: true do
@@ -629,9 +571,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should find medias when searching by keyword", bin2: true do
-      api_create_team_project_and_link_and_redirect_to_media_page('https://www.facebook.com/permalink.php?story_fbid=10155901893214439&id=54421674438')
-      wait_for_selector(".media-detail")
-      wait_for_selector(".project-header__back-button").click
+      api_create_team_project_and_link('https://www.facebook.com/permalink.php?story_fbid=10155901893214439&id=54421674438')
+      @driver.navigate.to @config['self_url']
       wait_for_selector_list_size('.medias__item', 1)
       create_media("https://twitter.com/TwitterVideo/status/931930009450795009")
       wait_for_selector_list_size('.medias__item', 2)
@@ -640,7 +581,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
       el = wait_for_selector("#search-input")
       el.send_keys "video"
-      wait_for_text_change(" ","#search-input", :css)
       @driver.action.send_keys(:enter).perform
       wait_for_selector_list_size('.medias__item', 1)
       wait_for_selector("//span[contains(text(), '1 / 1')]",:xpath)

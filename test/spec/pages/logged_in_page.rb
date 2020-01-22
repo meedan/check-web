@@ -2,7 +2,6 @@ require_relative './login_page.rb'
 
 module LoggedInPage
   def logout
-    wait_for_selector(".project-header__back-button").click
     avatar = wait_for_selector(".avatar")
     avatar.click
     logout = element('.user-menu__logout')
