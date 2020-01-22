@@ -229,7 +229,7 @@ class HomeComponent extends Component {
       return null;
     }
 
-    const user = this.getContext().currentUser;
+    const user = this.getContext().currentUser || {};
     const inTeamContext = !!(this.props.params.team || user.current_team);
     const loggedIn = !!this.state.token;
     const teamSlug = this.props.params.team || (user.current_team && user.current_team.slug);
@@ -252,7 +252,7 @@ class HomeComponent extends Component {
       <MuiThemeProviderNext theme={muiThemeNext}>
         <MuiThemeProvider muiTheme={muiThemeWithRtl}>
           <span>
-            {config.intercomAppId && user ?
+            {config.intercomAppId && user.dbid ?
               <Intercom
                 appID={config.intercomAppId}
                 user_id={user.dbid}

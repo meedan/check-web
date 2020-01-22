@@ -49,8 +49,8 @@ class UserComponent extends React.Component {
     const { user } = this.props;
     const isEditing = this.props.route.isEditing && can(user.permissions, 'update User');
     const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
-    const { currentUser } = this.getContext();
-    const isUserSelf = (user.id === currentUser.id);
+    const context = this.getContext();
+    const isUserSelf = (user.id === context.currentUser.id);
 
     const direction = {
       from: isRtl ? 'right' : 'left',
@@ -65,7 +65,7 @@ class UserComponent extends React.Component {
               { isEditing ?
                 <UserInfoEdit user={user} /> :
                 <div>
-                  <UserInfo user={user} />
+                  <UserInfo user={user} context={context} />
                   <Tabs value={this.state.showTab} onChange={this.handleTabChange}>
                     <Tab
                       id="teams-tab"

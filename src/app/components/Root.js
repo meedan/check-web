@@ -282,6 +282,7 @@ class Root extends Component {
                 <Route path="check/forbidden" component={AccessDenied} public />
                 <Route path="check/not-found" component={NotFound} public />
 
+                <Route path="check/user/:userId/edit" isEditing component={User} />
                 <Route path="check/user/:userId(/:tab)" component={User} />
                 <Route path="check/me/edit" isEditing component={Me} />
                 <Route path="check/me(/:tab)" component={Me} />
