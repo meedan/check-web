@@ -241,6 +241,7 @@ class DrawerNavigationComponent extends Component {
                     variant="contained"
                     color="primary"
                     onClick={saveCurrentPage}
+                    style={{ width: '100%' }}
                   >
                     <FormattedMessage defaultMessage="Sign In" id="headerActions.signIn" />
                   </Button>
