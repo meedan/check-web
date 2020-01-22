@@ -462,7 +462,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Auto-Refresh')).to be(false)
       current_window = @driver.window_handles.last
       @driver.execute_script("window.open('#{url}')")
-      wait_for_selector(".search")
+      wait_for_selector("#search-input")
       @driver.switch_to.window(@driver.window_handles.last)
       wait_for_selector('.avatar')
       wait_for_selector("#create-media__add-item").click
@@ -473,9 +473,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.execute_script('window.close()')
       @driver.switch_to.window(current_window)
       wait_for_selector("#create-media__add-item")
-      el = wait_for_selector('.medias__item')
-      el.location_once_scrolled_into_view
-      wait_for_size_change(0, '.media__heading')
+      wait_for_selector_list_size(".medias__item", 1, :css , 80)
+      @wait.until { (@driver.page_source.include?('Auto-Refresh')) }
       result = @driver.find_elements(:css, '.media__heading')
       expect(result.size == 1).to be(true)
       expect(@driver.page_source.include?('Auto-Refresh')).to be(true)

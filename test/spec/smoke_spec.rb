@@ -101,7 +101,6 @@ shared_examples 'smoke' do
       .create_team
       .create_project
       .create_media(input: 'Claim')
-      .logout
   end
 
   it "should lock and unlock status", bin2: true do
