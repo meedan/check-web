@@ -1,9 +1,9 @@
 {
-  "home.needRegister": "First you need to register. Once registered, you can request to join the workspace.",
+  "home.needRegister": "Primero debes registrarte. Una vez registrada o registrado, puedes solicitar unirte al área de trabajo.",
   "home.somethingWrong": "Lo sentimos, se produjo un error.  Actualiza tu navegador y si el problema persiste ponte en contacto con {supportEmail}.",
   "home.successInvitation": "Bienvenida/ Bienvenido a {appName}. Por favor ingresa con la contraseña que recibiste en el correo electrónico de bienvenida.",
   "home.invalidInvitation": "Lo sentimos, se produjo un error al procesar tu invitación. por favor ponte en contacto con {supportEmail}.",
-  "home.invalidTeamInvitation": "Sorry, the workspace to which you were invited was not found. Please contact {supportEmail} if you think this is an error.",
+  "home.invalidTeamInvitation": "Lo sentimos, no encontramos el área de trabajo al que has sido invitada o invitado. Si piensas que ha sido un error, por favor ponte en contacto con {supportEmail}.",
   "home.invalidNoInvitation": "Lo sentimos, no encontramos la invitación que recibiste. Si piensas que ha sido un error, por favor ponte en contacto con {supportEmail}.",
   "home.invalidExpiredInvitation": "Lo sentimos, la invitación que recibiste ha vencido. Si piensas que ha sido un error, por favor ponte en contacto con nosotros {supportEmail}."
 }

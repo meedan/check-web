@@ -6,7 +6,7 @@
   "joinTeamComponent.mainHeading": "Request to join",
   "joinTeamComponent.alreadyRequested": "You already requested to join {team}.",
   "joinTeamComponent.requestHasBeenSent": "Your request has been sent to the workspace administrators for approval.",
-  "joinTeamComponent.blurbGraf": "To request to join {team}, click below:",
+  "joinTeamComponent.blurbGraf": "Pentru solicita să vă alăturați {team}, dați click mai jos:",
   "joinTeamComponent.buttonSubmitted": "Cerere trimisă",
   "joinTeamComponent.buttonSubmit": "Solicitarea permisiunii de a se alătura"
 }

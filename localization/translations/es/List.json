@@ -1,9 +1,9 @@
 {
-  "list.Item": "Item",
-  "list.Demand": "Requests",
-  "list.LinkedItems": "Related",
-  "list.Type": "Type",
-  "list.Status": "Status",
-  "list.FirstSeen": "First seen",
-  "list.LastSeen": "Last seen"
+  "list.Item": "Ítem",
+  "list.Demand": "Solicitudes",
+  "list.LinkedItems": "Relacionado",
+  "list.Type": "Tipo",
+  "list.Status": "Estado",
+  "list.FirstSeen": "Visto por primera vez",
+  "list.LastSeen": "Ultima vez visto"
 }

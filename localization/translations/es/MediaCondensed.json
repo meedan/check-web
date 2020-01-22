@@ -1,15 +1,15 @@
 {
-  "mediaCondensed.editReport": "Edit",
-  "mediaCondensed.editReportError": "Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists.",
-  "mediaCondensed.breakRelationshipError": "Sorry, an error occurred while breaking the relationship. Please try again and contact {supportEmail} if the condition persists.",
-  "mediaCondensed.updateRelationshipError": "Sorry, an error occurred while updating the relationship. Please try again and contact {supportEmail} if the condition persists.",
-  "mediaCondensed.title": "Title",
-  "mediaCondensed.description": "Description",
-  "mediaCondensed.cancelButton": "Cancel",
-  "mediaCondensed.doneButton": "Done",
-  "mediaCondensed.requests": "{count} requests",
-  "mediaCondensed.tooltip": "Item actions",
-  "mediaCondensed.promote": "Promote to primary item",
-  "mediaCondensed.break": "Break relation to primary item",
-  "mediaCondensed.edit": "Edit title and description"
+  "mediaCondensed.editReport": "Editar",
+  "mediaCondensed.editReportError": "Lo sentimos, se produjo un error al actualizar el ítem. Vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}.",
+  "mediaCondensed.breakRelationshipError": "Lo sentimos, se produjo un error al cancelar la relación. Vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}.",
+  "mediaCondensed.updateRelationshipError": "Lo sentimos, se produjo un error al actualizar la relación. Vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}.",
+  "mediaCondensed.title": "Título",
+  "mediaCondensed.description": "Descripción ",
+  "mediaCondensed.cancelButton": "Cancelar",
+  "mediaCondensed.doneButton": "Listo",
+  "mediaCondensed.requests": "{count} solicitudes",
+  "mediaCondensed.tooltip": "Acciones de los ítems",
+  "mediaCondensed.promote": "Promover a ítem primario",
+  "mediaCondensed.break": "Cancelar la relación con el elemento primario",
+  "mediaCondensed.edit": "Editar título e descripción"
 }

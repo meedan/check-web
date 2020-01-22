@@ -34,6 +34,9 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
           id
           dbid
           title
+          search_id
+          search { id, number_of_results }
+          medias_count
         }
         media {
           url

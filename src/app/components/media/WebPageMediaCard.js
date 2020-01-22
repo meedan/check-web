@@ -3,8 +3,8 @@ import { injectIntl } from 'react-intl';
 import deepEqual from 'deep-equal';
 import styled from 'styled-components';
 import AspectRatio from '../layout/AspectRatio';
+import MoreLess from '../layout/MoreLess';
 import ExternalLink from '../ExternalLink';
-import { truncateLength } from '../../helpers';
 import ParsedText from '../ParsedText';
 import {
   units,
@@ -56,7 +56,9 @@ class WebPageMediaCard extends Component {
           <div>
             { media.description ?
               <StyledDescription>
-                <ParsedText text={truncateLength(media.description, 250)} />
+                <MoreLess>
+                  <ParsedText text={media.description} />
+                </MoreLess>
               </StyledDescription> : null
             }
             { media.picture ?
