@@ -1,7 +1,9 @@
 import React from 'react';
 import { FormattedHTMLMessage, injectIntl } from 'react-intl';
 import rtlDetect from 'rtl-detect';
+import IconEdit from 'material-ui/svg-icons/image/edit';
 import AccountChips from './AccountChips';
+import Can from '../Can';
 import ParsedText from '../ParsedText';
 import MediaUtil from '../media/MediaUtil';
 import { truncateLength } from '../../helpers';
@@ -14,6 +16,11 @@ import {
   StyledName,
   StyledDescription,
 } from '../../styles/js/HeaderCard';
+import {
+  Row,
+  SmallerStyledIconButton,
+} from '../../styles/js/shared';
+import globalStrings from '../../globalStrings';
 
 const UserInfo = (props) => {
   if (props.user.source === null) return null;
@@ -32,7 +39,24 @@ const UserInfo = (props) => {
       <StyledBigColumn>
         <div className="source__primary-info">
           <StyledName className="source__name">
-            {props.user.name}
+            <Row>
+              {props.user.name}
+              <Can permissions={props.user.permissions} permission="update User">
+                <SmallerStyledIconButton
+                  className="source__edit-source-button"
+                  onClick={() => {
+                    if (props.user.dbid === props.context.currentUser.dbid) {
+                      props.context.history.push('/check/me/edit');
+                    } else {
+                      props.context.history.push(`/check/user/${props.user.dbid}/edit`);
+                    }
+                  }}
+                  tooltip={props.intl.formatMessage(globalStrings.edit)}
+                >
+                  <IconEdit />
+                </SmallerStyledIconButton>
+              </Can>
+            </Row>
           </StyledName>
           <StyledDescription>
             <p>
