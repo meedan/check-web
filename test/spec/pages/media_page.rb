@@ -80,7 +80,6 @@ class MediaPage < Page
     fill_input('#tag-input__tag-input', string, { clear: true })
     el = wait_for_selector(string, :id)
     el.click
-    @wait.until { not has_tag?(string) }
     el = wait_for_selector("tag-menu__done", :class)
     el.click
   end
