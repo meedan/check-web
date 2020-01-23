@@ -1,5 +1,9 @@
 [
   {
+    "id": "mediaRelated.primaryItem",
+    "defaultMessage": "Primary item"
+  },
+  {
     "id": "mediaRelated.secondaryItems",
     "defaultMessage": "Secondary items"
   },

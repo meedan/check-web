@@ -183,7 +183,6 @@ class MediaComponent extends Component {
               {this.props.extras}
               <MediaRelated
                 media={media}
-                showHeader
               />
             </ContentColumn>
             <ContentColumn className="media__annotations-column">
