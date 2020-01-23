@@ -205,6 +205,7 @@ const MediaExpandedContainer = Relay.createContainer(MediaExpandedComponent, {
           id
           dbid
           title
+          search_id
         }
         relationships {
           id
