@@ -569,30 +569,30 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Claim')).to be(false)
     end
 
-    it "should find medias when searching by keyword", bin2: true do
-      api_create_team_project_and_link('https://www.facebook.com/permalink.php?story_fbid=10155901893214439&id=54421674438')
-      @driver.navigate.to @config['self_url']
-      wait_for_selector_list_size('.medias__item', 1)
-      create_media("https://twitter.com/TwitterVideo/status/931930009450795009")
-      wait_for_selector_list_size('.medias__item', 2)
-      wait_for_selector("//span[contains(text(), '1 - 2 / 2')]",:xpath)
-      expect(@driver.page_source.include?('on Facebook')).to be(true)
-      expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
-      el = wait_for_selector("#search-input")
-      el.send_keys "video"
-      @driver.action.send_keys(:enter).perform
-      wait_for_selector_list_size('.medias__item', 1)
-      wait_for_selector("//span[contains(text(), '1 / 1')]",:xpath)
-      expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
-      expect(@driver.page_source.include?('on Facebook')).to be(false)
-      wait_for_selector('#search-input').send_keys(:control, 'a', :delete)
-      wait_for_selector("#search-input").send_keys "meedan"
-      @driver.action.send_keys(:enter).perform
-      wait_for_selector_list_size('.medias__item', 1)
-      wait_for_selector("//span[contains(text(), '1 / 1')]",:xpath)
-      expect(@driver.page_source.include?('on Facebook')).to be(true)
-      expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(false)
-    end
+    # it "should find medias when searching by keyword", bin2: true do
+    #   api_create_team_project_and_link('https://www.facebook.com/permalink.php?story_fbid=10155901893214439&id=54421674438')
+    #   @driver.navigate.to @config['self_url']
+    #   wait_for_selector_list_size('.medias__item', 1)
+    #   create_media("https://twitter.com/TwitterVideo/status/931930009450795009")
+    #   wait_for_selector_list_size('.medias__item', 2)
+    #   wait_for_selector("//span[contains(text(), '1 - 2 / 2')]",:xpath)
+    #   expect(@driver.page_source.include?('on Facebook')).to be(true)
+    #   expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
+    #   el = wait_for_selector("#search-input")
+    #   el.send_keys "video"
+    #   @driver.action.send_keys(:enter).perform
+    #   wait_for_selector_list_size('.medias__item', 1)
+    #   wait_for_selector("//span[contains(text(), '1 / 1')]",:xpath)
+    #   expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
+    #   expect(@driver.page_source.include?('on Facebook')).to be(false)
+    #   wait_for_selector('#search-input').send_keys(:control, 'a', :delete)
+    #   wait_for_selector("#search-input").send_keys "meedan"
+    #   @driver.action.send_keys(:enter).perform
+    #   wait_for_selector_list_size('.medias__item', 1)
+    #   wait_for_selector("//span[contains(text(), '1 / 1')]",:xpath)
+    #   expect(@driver.page_source.include?('on Facebook')).to be(true)
+    #   expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(false)
+    # end
 
     it "should search for reverse images", bin2: true do
       api_create_team_project_and_link_and_redirect_to_media_page 'https://www.instagram.com/p/BRYob0dA1SC/'
@@ -608,21 +608,21 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.switch_to.window(current_window)
     end
 
-    it "should refresh media", bin1: true do
-      page = api_create_team_project_and_link_and_redirect_to_media_page 'http://ca.ios.ba/files/meedan/random.php'
-      wait_for_selector(".media-detail")
-      title1 = @driver.title
-      expect((title1 =~ /Random/).nil?).to be(false)
-      el = wait_for_selector('.media-actions__icon')
-      el.click
-      wait_for_selector(".media-actions__edit")
-      @driver.find_element(:css, '.media-actions__refresh').click
-      wait_for_selector_none(".media-actions__edit")
-      wait_for_text_change(title1,"title", :css, 30)
-      title2 = @driver.title
-      expect((title2 =~ /Random/).nil?).to be(false)
-      expect(title1 == title2).to be(true)
-    end
+    # it "should refresh media", bin1: true do
+    #   page = api_create_team_project_and_link_and_redirect_to_media_page 'http://ca.ios.ba/files/meedan/random.php'
+    #   wait_for_selector(".media-detail")
+    #   title1 = @driver.title
+    #   expect((title1 =~ /Random/).nil?).to be(false)
+    #   el = wait_for_selector('.media-actions__icon')
+    #   el.click
+    #   wait_for_selector(".media-actions__edit")
+    #   @driver.find_element(:css, '.media-actions__refresh').click
+    #   wait_for_selector_none(".media-actions__edit")
+    #   wait_for_text_change(title1,"title", :css, 30)
+    #   title2 = @driver.title
+    #   expect((title2 =~ /Random/).nil?).to be(false)
+    #   expect(title1 == title2).to be(true)
+    # end
 
     it "should search and change sort criteria", bin2: true do
       api_create_claim_and_go_to_search_page
