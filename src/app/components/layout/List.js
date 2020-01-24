@@ -89,6 +89,17 @@ class List extends React.Component {
     window.addEventListener('resize', this.handleWindowResize);
   }
 
+  componentDidUpdate() {
+    if (this.gridApi) {
+      this.gridApi.deselectAll();
+      this.gridApi.getModel().forEachNode((node) => {
+        if (this.props.selectedMedia.includes(node.data.id)) {
+          node.setSelected(true);
+        }
+      });
+    }
+  }
+
   componentWillUnmount() {
     window.removeEventListener('resize', this.handleWindowResize);
   }
