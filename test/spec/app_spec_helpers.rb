@@ -67,9 +67,9 @@ module AppSpecHelpers
 
   def twitter_login
     @driver.navigate.to 'https://twitter.com/login'
-    fill_field('.js-username-field', @config['twitter_user'])
-    fill_field('.js-password-field', @config['twitter_password'])
-    press_button('button.submit')
+    fill_field('input[name="session[username_or_email]"]', @config['twitter_user'])
+    fill_field('input[name="session[password]"]', @config['twitter_password'])
+    press_button('div[role="button"]')
     @wait.until {
       @driver.page_source.include?("#{@config['twitter_name']}")
     }

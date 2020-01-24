@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import MediaRoute from '../../relay/MediaRoute';
 import MediaMetadata from './MediaMetadata';
 import MediaUtil from './MediaUtil';
+import MoreLess from '../layout/MoreLess';
 import ParsedText from '../ParsedText';
 import TimeBefore from '../TimeBefore';
 import QuoteMediaCard from './QuoteMediaCard';
@@ -18,9 +19,7 @@ import { truncateLength } from '../../helpers';
 import CheckContext from '../../CheckContext';
 import {
   FadeIn,
-  black54,
   units,
-  Text,
   Row,
 } from '../../styles/js/shared';
 
@@ -73,8 +72,6 @@ class MediaExpandedComponent extends Component {
     const authorUsername = MediaUtil.authorUsername(media, data);
     const isPender = media.media.url && data.provider !== 'page';
     const randomNumber = Math.floor(Math.random() * 1000000);
-    const shouldShowDescription = false;
-    MediaUtil.hasCustomDescription(media, data);
     const { isRtl, mediaUrl, mediaQuery } = this.props;
     const posterUrl = media.media.thumbnail_path;
 
@@ -157,10 +154,9 @@ class MediaExpandedComponent extends Component {
         <CardText style={{ padding: `0 ${units(2)}` }}>
           {cardHeaderText}
           <FadeIn>
-            {shouldShowDescription ?
-              <Text style={{ color: black54 }}>
-                <ParsedText text={data.description} />
-              </Text> : null}
+            <MoreLess maxHeight="75">
+              <ParsedText text={media.description} />
+            </MoreLess>
             {embedCard}
           </FadeIn>
         </CardText>
