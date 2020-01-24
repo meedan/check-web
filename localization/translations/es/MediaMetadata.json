@@ -1,18 +1,4 @@
 {
-  "mediaDetail.mediaTitle": "Título",
-  "mediaDetail.mediaDescription": "Descripción ",
-  "mediaDetail.editReport": "Editar",
-  "mediaDetail.editReportError": "Lo sentimos, se produjo un error al actualizar el ítem. Vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}.",
-  "mediaDetail.trash": "Papelera",
-  "mediaMetadata.movedToTrash": "Enviar a  {trash}",
-  "mediaMetadata.movedBack": "Devuelto al proyecto: {project}",
-  "mediaDetail.byUser": "por {username}",
-  "mediaDetail.cancelButton": "Cancelar",
-  "mediaDetail.move": "Mover",
-  "mediaDetail.done": "Listo",
-  "mediaDetail.doneButton": "Listo",
-  "mediaDetail.addedBy": "Añadido {byUser}",
-  "mediaDetail.assignedTo": "Asignado a {name}",
-  "mediaDetail.dialogMoveTitle": "Mover a otro proyecto",
-  "mediaDetail.assignDialogHeader": "Asignación"
+  "mediaMetadata.reverseImageSearch": "Búsqueda de imagen inversa",
+  "mediaMetadata.download": "Descarga"
 }

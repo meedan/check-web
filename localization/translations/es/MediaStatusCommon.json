@@ -1,3 +1,8 @@
 {
-  "mediaStatus.error": "Lo sentimos, se produjo un error al actualizar el estado. Vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}."
+  "mediaStatus.error": "Lo sentimos, se produjo un error al actualizar el estado. Vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}.",
+  "mediaStatusCommon.proceedAndSend": "Continuar y Enviar",
+  "mediaStatusCommon.title": "Informe final",
+  "mediaStatusCommon.confirmationMessageWithValue": "Está a punto de enviar un informe a {value} personas que solicitaron este ítem.",
+  "mediaStatusCommon.confirmationMessage": "Está a punto de enviar un informe a todas las personas que solicitaron este ítem.",
+  "mediaStatusCommon.editReportBeforeSending": "Editar informe antes de enviar"
 }

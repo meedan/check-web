@@ -1,4 +1,6 @@
 {
-  "mediaComponent.verificationTasks": "Вопросы по материалу",
-  "mediaComponent.resolved": "закрыт"
+  "mediaComponent.tasks": "Tasks",
+  "mediaComponent.analysis": "Analysis",
+  "mediaComponent.comments": "Comments",
+  "mediaComponent.activity": "Activity"
 }

@@ -2,5 +2,9 @@
   {
     "id": "projectHeader.allItems",
     "defaultMessage": "All items"
+  },
+  {
+    "id": "projectHeader.trash",
+    "defaultMessage": "Trash"
   }
 ]

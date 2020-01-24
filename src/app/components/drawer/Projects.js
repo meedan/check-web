@@ -15,8 +15,6 @@ import CheckContext from '../../CheckContext';
 
 import {
   Text,
-  units,
-  caption,
 } from '../../styles/js/shared';
 
 const messages = defineMessages({
@@ -113,19 +111,8 @@ class DrawerProjectsComponent extends Component {
 
   render() {
     const { props } = this;
-    const projectList = (() => {
-      if (props.team.projects.edges.length === 0) {
-        return (
-          <Text style={{ margin: `0 ${units(2)}` }} font={caption}>
-            <FormattedMessage
-              id="projects.noProjects"
-              defaultMessage="No projects yet."
-            />
-          </Text>
-        );
-      }
-
-      return props.team.projects.edges
+    const projectList = (() =>
+      props.team.projects.edges
         .sortp((a, b) => a.node.title.localeCompare(b.node.title))
         .map((p) => {
           const dashboardPath = /^\/[^/]+\/dashboard/.test(window.location.pathname) ? '/dashboard' : '';
@@ -143,8 +130,8 @@ class DrawerProjectsComponent extends Component {
               />
             </Link>
           );
-        });
-    })();
+        })
+    )();
 
     const styles = {
       projectsList: {
@@ -157,10 +144,10 @@ class DrawerProjectsComponent extends Component {
       <div>
         <div style={styles.projectsList}>
           <InfiniteScroll hasMore loadMore={this.loadMore.bind(this)} useWindow={false}>
-            <Link to={`/${props.team.slug}/search`} className="project-list__link-all">
+            <Link to={`/${props.team.slug}/all-items`} className="project-list__link-all">
               <MenuItem
                 className="project-list__item-all"
-                primaryText={<FormattedMessage id="projects.allClaims" defaultMessage="All claims" />}
+                primaryText={<FormattedMessage id="projects.allClaims" defaultMessage="All items" />}
                 secondaryText={String(props.team.medias_count)}
               />
             </Link>

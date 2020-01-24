@@ -1,5 +1,5 @@
 {
-  "teamComponent.projects": "Проекты",
-  "teamComponent.noProjects": "Нет проектов",
-  "teamComponent.projectAssignmentsCount": "{count, plural, =0 {Не назначен} one {Назначен одному участнику} other {Назначен (участников: #)}}"
+  "teamComponent.projects": "Lists",
+  "teamComponent.noProjects": "No lists",
+  "teamComponent.projectAssignmentsCount": "{count, plural, =0 { } one {Assigned to one member} other {Assigned to # members}}"
 }

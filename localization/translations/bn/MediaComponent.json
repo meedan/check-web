@@ -1,4 +1,6 @@
 {
-  "mediaComponent.verificationTasks": "Item tasks",
-  "mediaComponent.resolved": "resolved"
+  "mediaComponent.tasks": "Tasks",
+  "mediaComponent.analysis": "Analysis",
+  "mediaComponent.comments": "Comments",
+  "mediaComponent.activity": "Activity"
 }

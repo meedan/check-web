@@ -7,7 +7,7 @@ import IconButton from 'material-ui/IconButton';
 import { FormattedMessage } from 'react-intl';
 import ProjectRoute from '../../relay/ProjectRoute';
 import { urlFromSearchQuery } from '../search/Search';
-import { Row, HeaderTitle, FadeIn, SlideIn, black54 } from '../../styles/js/shared';
+import { Row, Text, HeaderTitle, FadeIn, SlideIn, black54 } from '../../styles/js/shared';
 import CheckContext from '../../CheckContext';
 
 class ProjectHeaderComponent extends React.PureComponent {
@@ -23,7 +23,7 @@ class ProjectHeaderComponent extends React.PureComponent {
     const { props } = this;
     const currentProject = props.project;
     const path = props.location ? props.location.pathname : window.location.pathname;
-    const regexProject = /(.*\/project\/[0-9]+)/;
+    const regexProject = /^(\/[^/]+\/project\/[0-9]+)/;
     const regexTeam = /^(\/[^/]+)/;
     const regexMedia = /project\/[0-9]+\/media\/[0-9]/;
     const regexSource = /\/source\/[0-9]/;
@@ -40,13 +40,16 @@ class ProjectHeaderComponent extends React.PureComponent {
         let basePath = '';
         switch (query.referer) {
         case 'search':
-          basePath = `${path.match(regexTeam)[1]}/search`;
+          basePath = `${path.match(regexTeam)[1]}/all-items`;
           break;
         case 'trash':
           basePath = `${path.match(regexTeam)[1]}/trash`;
           break;
         default:
-          basePath = `${path.match(regexProject)[1]}`;
+          basePath = `${path.match(regexTeam)[1]}/all-items`;
+          if (regexProject.test(path)) {
+            basePath = `${path.match(regexProject)[1]}`;
+          }
           break;
         }
         const baseQuery = query.original || query;
@@ -55,10 +58,25 @@ class ProjectHeaderComponent extends React.PureComponent {
       } else if (isProjectSubpage) {
         return path.match(regexProject)[1];
       }
-      return `${path.match(regexTeam)[1]}/search`;
+      return `${path.match(regexTeam)[1]}/all-items`;
+    };
+
+    const backLabel = () => {
+      const allItems = <FormattedMessage id="projectHeader.allItems" defaultMessage="All items" />;
+      if (mediaQuery) {
+        switch (mediaQuery.referer) {
+        case 'search':
+          return allItems;
+        case 'trash':
+          return <FormattedMessage id="projectHeader.trash" defaultMessage="Trash" />;
+        default:
+        }
+      }
+      return currentProject ? currentProject.title : '';
     };
 
     const url = backUrl();
+    const label = backLabel();
 
     return (
       <div style={{ display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
@@ -74,8 +92,10 @@ class ProjectHeaderComponent extends React.PureComponent {
                 </SlideIn>
               </FadeIn>
             </IconButton>
-            <HeaderTitle className="project-header__title">
-              {currentProject ? currentProject.title : <FormattedMessage id="projectHeader.allItems" defaultMessage="All items" />}
+            <HeaderTitle className="project-header__title" style={{ maxWidth: '100%' }}>
+              <Text ellipsis>
+                {label}
+              </Text>
             </HeaderTitle>
           </Row>
           : null}

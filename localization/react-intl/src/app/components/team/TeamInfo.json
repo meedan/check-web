@@ -8,7 +8,7 @@
     "defaultMessage": "Public"
   },
   {
-    "id": "teamMenu.editTeam",
-    "defaultMessage": "Edit team"
+    "id": "teamInfo.editTeam",
+    "defaultMessage": "Edit"
   }
 ]

@@ -1,7 +1,7 @@
 {
   "addAnnotation.invalidCommand": "Comandă nevalidă",
   "addAnnotation.error": "Ne pare rău, în timpul actualizării elementului s-a produs o eroare. Vă rugăm să mai încercați odată și să contactați {supportEmail} dacă situația persistă.",
-  "addAnnotation.inputHint": "Adăugați o notă aici",
+  "addAnnotation.inputHint": "Add a comment",
   "addAnnotation.submitButton": "Trimite",
   "addAnnotation.addImage": "Adaugă o imagine"
 }

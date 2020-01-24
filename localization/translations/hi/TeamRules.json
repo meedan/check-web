@@ -1,6 +1,18 @@
 {
+  "teamRules.add": "+ AND",
+  "teamRules.and": "AND",
+  "teamRules.if": "IF",
+  "teamRules.then": "THEN",
+  "teamRules.newRule": "New Rule",
+  "teamRules.confirmDeleteRule": "Are you sure you want to delete the rule \"{ruleName}\"?",
   "teamRules.success": "Rules updated successfully!",
   "teamRules.fail": "Error when trying to update rules.",
+  "teamRules.nameMandatory": "Please provide a name for this rule",
+  "teamRules.deleted": "Rule deleted",
+  "teamRules.edit": "Edit rule",
+  "teamRules.delete": "Delete rule",
   "teamRules.title": "Rules",
-  "teamRules.save": "Save"
+  "teamRules.back": "Back",
+  "teamRules.save": "Save",
+  "teamRules.none": "No rules yet."
 }

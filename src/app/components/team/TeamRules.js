@@ -69,6 +69,10 @@ const StyledSchemaForm = styled.div`
   div + fieldset {
     margin-top: ${units(1)};
   }
+
+  input[type=string] {
+    width: 100%;
+  }
   
   // All Actions fieldset and all rules fieldset
   fieldset fieldset fieldset div + fieldset > div::before,
@@ -216,6 +220,10 @@ const StyledSchemaForm = styled.div`
   // Each Rule "rule_value" div
   fieldset fieldset fieldset div + fieldset fieldset > div > div + div {
     display: none;
+  }
+
+  #rules > div {
+    padding: 0 !important;
   }
 
   // Each rule div

@@ -1,43 +1,15 @@
 [
   {
     "id": "mediaActions.edit",
-    "defaultMessage": "Edit"
-  },
-  {
-    "id": "mediaActions.restore",
-    "defaultMessage": "Restore to project"
-  },
-  {
-    "id": "mediaActions.move",
-    "defaultMessage": "Move"
+    "defaultMessage": "Edit title and description"
   },
   {
     "id": "mediaActions.refresh",
     "defaultMessage": "Refresh"
   },
   {
-    "id": "mediaActions.sendToTrash",
-    "defaultMessage": "Send to trash"
-  },
-  {
-    "id": "mediaActions.addToList",
-    "defaultMessage": "Add to list"
-  },
-  {
-    "id": "mediaActions.removeFromList",
-    "defaultMessage": "Remove from list"
-  },
-  {
-    "id": "mediaActions.embed",
-    "defaultMessage": "Embed"
-  },
-  {
-    "id": "mediaActions.memebuster",
-    "defaultMessage": "Meme Generator"
-  },
-  {
     "id": "mediaActions.assignOrUnassign",
-    "defaultMessage": "Assign / Unassign"
+    "defaultMessage": "Assignment"
   },
   {
     "id": "mediaActions.unlockStatus",
@@ -46,6 +18,34 @@
   {
     "id": "mediaActions.lockStatus",
     "defaultMessage": "Lock status"
+  },
+  {
+    "id": "mediaActions.memebuster",
+    "defaultMessage": "Meme designer"
+  },
+  {
+    "id": "mediaActions.report",
+    "defaultMessage": "Report designer"
+  },
+  {
+    "id": "mediaActions.sendToTrash",
+    "defaultMessage": "Send to trash"
+  },
+  {
+    "id": "mediaActions.restore",
+    "defaultMessage": "Restore from trash"
+  },
+  {
+    "id": "mediaActions.move",
+    "defaultMessage": "Move"
+  },
+  {
+    "id": "mediaActions.addToList",
+    "defaultMessage": "Add to list"
+  },
+  {
+    "id": "mediaActions.removeFromList",
+    "defaultMessage": "Remove from list"
   },
   {
     "id": "mediaActions.tooltip",

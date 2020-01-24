@@ -1,4 +1,6 @@
 {
-  "mediaComponent.verificationTasks": "مهام العنصر",
-  "mediaComponent.resolved": "تم إنجازها"
+  "mediaComponent.tasks": "Tasks",
+  "mediaComponent.analysis": "Analysis",
+  "mediaComponent.comments": "Comments",
+  "mediaComponent.activity": "Activity"
 }

@@ -16,6 +16,8 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
             id,
             overridden,
             metadata,
+            title,
+            description,
           }
         }
       `;
@@ -30,10 +32,12 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         project_was {
           medias_count
         },
-        related_to { id, relationships, log, log_count },
+        related_to { id, relationships, log, log_count, demand, linked_items_count },
         relationships_target { id },
         relationships_source { id },
         project_media {
+          demand
+          linked_items_count
           project_id,
           overridden,
           metadata,
@@ -91,6 +95,8 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
       return {
         project_media: {
           id: this.props.media.id,
+          title: embed.title,
+          description: embed.description,
           metadata: JSON.stringify(embed),
           overridden: JSON.stringify(overridden),
           permissions: JSON.stringify(permissions),
@@ -298,6 +304,26 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         edgeName: 'project_mediaEdge',
         rangeBehaviors: () => ('prepend'),
       });
+
+      configs.push({
+        type: 'RANGE_DELETE',
+        parentName: 'check_search_team',
+        parentID: this.props.context.team.search_id,
+        connectionName: 'medias',
+        pathToConnection: ['check_search_team', 'medias'],
+        deletedIDFieldName: 'affectedId',
+      });
+
+      if (this.props.context.project) {
+        configs.push({
+          type: 'RANGE_DELETE',
+          parentName: 'check_search_project',
+          parentID: this.props.context.project.search_id,
+          connectionName: 'medias',
+          pathToConnection: ['check_search_project', 'medias'],
+          deletedIDFieldName: 'affectedId',
+        });
+      }
     }
 
     if (this.props.srcProj) {

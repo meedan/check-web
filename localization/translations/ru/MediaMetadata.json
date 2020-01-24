@@ -1,18 +1,4 @@
 {
-  "mediaDetail.mediaTitle": "Заголовок",
-  "mediaDetail.mediaDescription": "Описание",
-  "mediaDetail.editReport": "Редактировать",
-  "mediaDetail.editReportError": "В процессе редактирования материала произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}.",
-  "mediaDetail.trash": "В корзину",
-  "mediaMetadata.movedToTrash": "Отправлено в корзину",
-  "mediaMetadata.movedBack": "Возвращено в проект: {project}",
-  "mediaDetail.byUser": "{username}",
-  "mediaDetail.cancelButton": "Отменить",
-  "mediaDetail.move": "Переместить",
-  "mediaDetail.done": "Ок",
-  "mediaDetail.doneButton": "Ок",
-  "mediaDetail.addedBy": "Добавлено {byUser}",
-  "mediaDetail.assignedTo": "Назначено {name}",
-  "mediaDetail.dialogMoveTitle": "Move to a different project",
-  "mediaDetail.assignDialogHeader": "Назначить"
+  "mediaMetadata.reverseImageSearch": "Reverse image search",
+  "mediaMetadata.download": "Download"
 }

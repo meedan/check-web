@@ -86,7 +86,7 @@ MediaLogComponent.contextTypes = {
 const pageSize = 30;
 
 const eventTypes = [
-  'create_comment', 'create_tag', 'destroy_comment', 'create_task', 'create_relationship',
+  'create_tag', 'destroy_comment', 'create_task', 'create_relationship',
   'destroy_relationship', 'create_assignment', 'destroy_assignment', 'create_dynamic',
   'update_dynamic', 'create_dynamicannotationfield', 'update_dynamicannotationfield',
   'create_flag', 'update_embed', 'create_embed', 'update_projectmedia', 'copy_projectmedia',

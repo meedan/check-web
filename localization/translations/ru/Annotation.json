@@ -1,10 +1,8 @@
 {
   "annotation.error": "В процессе редактирования материала произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}.",
   "annotation.deleteButton": "Удалить",
-  "annotation.reverseImage": "В этом материале есть изображения. Нажмите «Искать» для поиска потенциальных дубликатов в Google.",
-  "annotation.reverseImageFacebook": "В этом материале есть изображения из Facebook. {appName} не может искать по таким изображениям, поэтому мы рекомендуем самостоятельно проверить их на дубликаты через поисковики по картинкам, например Google или TinEye.",
   "annotation.and": "и",
-  "annotation.newClaim": "Высказывание добавлено ({author})",
+  "annotation.newClaim": "New text added by {author}",
   "annotation.menuTooltip": "Annotation actions",
   "annotation.permalink": "Ссылка",
   "annotation.taggedHeader": "Отмечено как #{tag} ({author})",
@@ -27,7 +25,6 @@
   "annotation.acceptSuggestion": "Принять",
   "annotation.rejectSuggestion": "Отклонить",
   "annotation.taskResolve": "На вопрос дан ответ ({author}): {task}{response}",
-  "annotation.reverseImageSearch": "Искать",
   "annotation.translation": "Переведено на {language} ({author}){translation}",
   "annotation.emptyMachineTranslation": "Добавить машинный перевод",
   "annotation.machineTranslation": "Машинный перевод на {language}{text}",
@@ -42,8 +39,8 @@
   "annotation.penderArchiveResponse": "Keep сохранил скриншот с этого URL. ",
   "annotation.penderArchiveWait": "Keep сохраняет скриншот этого материала. Он должен быть готов через несколько минут.",
   "annotation.flaggedHeader": "Помечено как {flag} ({author})",
-  "annotation.projectMoved": "Перемещено из {previousProject} в {currentProject} ({author})",
+  "annotation.projectMoved": "Moved from list {previousProject} to {currentProject} by {author}",
   "annotation.movedToTrash": "Перемещено в корзину ({author})",
   "annotation.movedFromTrash": "Возвращено из корзины ({author})",
-  "annotation.teamCopied": "Скопировано из проекта {previousProject} группы {previousTeam} ({author})"
+  "annotation.teamCopied": "Copied from list {previousProject} on workspace {previousTeam} by {author}"
 }

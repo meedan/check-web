@@ -1,0 +1,90 @@
+[
+  {
+    "id": "mediaDetail.mediaTitle",
+    "defaultMessage": "Title"
+  },
+  {
+    "id": "mediaDetail.mediaDescription",
+    "defaultMessage": "Description"
+  },
+  {
+    "id": "mediaDetail.editReport",
+    "defaultMessage": "Edit"
+  },
+  {
+    "id": "mediaDetail.editReportError",
+    "defaultMessage": "Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists."
+  },
+  {
+    "id": "mediaDetail.trash",
+    "defaultMessage": "Trash"
+  },
+  {
+    "id": "mediaMetadata.addedToList",
+    "defaultMessage": "Added to list {listName}"
+  },
+  {
+    "id": "mediaActionsBar.removedFromList",
+    "defaultMessage": "Removed from list"
+  },
+  {
+    "id": "mediaActionsBar.movedToTrash",
+    "defaultMessage": "Sent to {trash}"
+  },
+  {
+    "id": "mediaActionsBar.assignmentsUpdated",
+    "defaultMessage": "Assignments updated successfully!"
+  },
+  {
+    "id": "mediaActionsBar.movedBack",
+    "defaultMessage": "Restored to list {project}"
+  },
+  {
+    "id": "mediaActionsBar.cancelButton",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "mediaActionsBar.add",
+    "defaultMessage": "Add"
+  },
+  {
+    "id": "mediaActionsBar.move",
+    "defaultMessage": "Move"
+  },
+  {
+    "id": "mediaActionsBar.done",
+    "defaultMessage": "Done"
+  },
+  {
+    "id": "mediaDetail.cancelButton",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "mediaDetail.doneButton",
+    "defaultMessage": "Done"
+  },
+  {
+    "id": "mediaActionsBar.addTo",
+    "defaultMessage": "Add to..."
+  },
+  {
+    "id": "mediaActionsBar.moveTo",
+    "defaultMessage": "Move to..."
+  },
+  {
+    "id": "mediaActionsBar.removeFromList",
+    "defaultMessage": "Remove from list"
+  },
+  {
+    "id": "mediaActionsBar.dialogAddToListTitle",
+    "defaultMessage": "Add to a different list"
+  },
+  {
+    "id": "mediaActionsBar.dialogMoveTitle",
+    "defaultMessage": "Move to a different list"
+  },
+  {
+    "id": "mediaActionsBar.assignDialogHeader",
+    "defaultMessage": "Assignment"
+  }
+]

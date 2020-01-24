@@ -5,31 +5,31 @@
   },
   {
     "id": "joinTeamComponent.success",
-    "defaultMessage": "Thanks for your interest in joining {team} {appName}! A team leader will review your application soon."
+    "defaultMessage": "Thanks for your interest in joining {team}! A workspace administrator will review your application soon."
   },
   {
     "id": "joinTeamComponent.autoApprove",
-    "defaultMessage": "Thanks for joining {team} {appName}! You can start contributing right away."
+    "defaultMessage": "Thanks for joining {team}! You can start contributing right away."
   },
   {
     "id": "joinTeamComponent.title",
-    "defaultMessage": "Join Team"
+    "defaultMessage": "Join Workspace"
   },
   {
     "id": "joinTeamComponent.mainHeading",
-    "defaultMessage": "Request to Join"
+    "defaultMessage": "Request to join"
   },
   {
     "id": "joinTeamComponent.alreadyRequested",
-    "defaultMessage": "You already requested to join {team} {appName}."
+    "defaultMessage": "You already requested to join {team}."
   },
   {
     "id": "joinTeamComponent.requestHasBeenSent",
-    "defaultMessage": "Your request has been sent to the project admins for approval."
+    "defaultMessage": "Your request has been sent to the workspace administrators for approval."
   },
   {
     "id": "joinTeamComponent.blurbGraf",
-    "defaultMessage": "To request access to the {link} {appName}, click below:"
+    "defaultMessage": "To request to join {team}, click below:"
   },
   {
     "id": "joinTeamComponent.buttonSubmitted",

@@ -59,7 +59,7 @@ const messages = defineMessages({
   needRegister: {
     id: 'home.needRegister',
     defaultMessage:
-      'First you need to register. Once registered, you can request to join the team.',
+      'First you need to register. Once registered, you can request to join the workspace.',
   },
   somethingWrong: {
     id: 'home.somethingWrong',
@@ -75,7 +75,7 @@ const messages = defineMessages({
   },
   invalidTeamInvitation: {
     id: 'home.invalidTeamInvitation',
-    defaultMessage: 'Sorry, the team to which you were invited was not found. Please contact {supportEmail} if you think this is an error.',
+    defaultMessage: 'Sorry, the workspace to which you were invited was not found. Please contact {supportEmail} if you think this is an error.',
   },
   invalidNoInvitation: {
     id: 'home.invalidNoInvitation',
@@ -160,7 +160,11 @@ class HomeComponent extends Component {
   handleDrawerToggle = () => this.setState({ open: !this.state.open });
 
   loginCallback() {
-    window.location.assign(this.state.path);
+    if (this.state.path !== '/check/user/password-change') {
+      window.location.assign(this.state.path);
+    } else {
+      window.location.assign('/');
+    }
     this.setState({ error: false, path: null });
   }
 
@@ -229,34 +233,30 @@ class HomeComponent extends Component {
       return null;
     }
 
-    // @chris with @alex 2017-10-3
-    //
-    // TODO Fix currentUserIsMember function.
-    // context.currentUser.teams keys are actually the team names, not slugs
-
-    const inTeamContext = !!this.props.params.team;
+    const user = this.getContext().currentUser || {};
+    const inTeamContext = !!(this.props.params.team || user.current_team);
     const loggedIn = !!this.state.token;
+    const teamSlug = this.props.params.team || (user.current_team && user.current_team.slug);
 
     const currentUserIsMember = (() => {
       if (inTeamContext && loggedIn) {
-        const user = this.getContext().currentUser;
         if (user.is_admin) {
           return true;
         }
         const teams = JSON.parse(user.teams);
-        const team = teams[this.props.params.team] || {};
+        const team = teams[teamSlug] || {};
         return team.status === 'member';
       }
       return false;
     })();
 
-    const user = this.getContext().currentUser;
+    const showDrawer = !/\/media\/[0-9]+/.test(window.location.pathname);
 
     return (
       <MuiThemeProviderNext theme={muiThemeNext}>
         <MuiThemeProvider muiTheme={muiThemeWithRtl}>
           <span>
-            {config.intercomAppId && user ?
+            {config.intercomAppId && user.dbid ?
               <Intercom
                 appID={config.intercomAppId}
                 user_id={user.dbid}
@@ -267,20 +267,26 @@ class HomeComponent extends Component {
             }
             <Favicon url={`/images/logo/${config.appName}.ico`} animated={false} />
             <BrowserSupport />
-            <DrawerNavigation
-              variant="persistent"
-              docked
-              loggedIn={loggedIn}
-              inTeamContext={inTeamContext}
-              currentUserIsMember={currentUserIsMember}
-              {...this.props}
-            />
-            <StyledWrapper isRtl={isRtl} className={bemClass('home', routeSlug, `--${routeSlug}`)}>
+            { showDrawer ?
+              <DrawerNavigation
+                variant="persistent"
+                docked
+                loggedIn={loggedIn}
+                teamSlug={teamSlug}
+                inTeamContext={inTeamContext}
+                currentUserIsMember={currentUserIsMember}
+                {...this.props}
+              /> : null }
+            <StyledWrapper
+              isRtl={isRtl}
+              className={bemClass('home', routeSlug, `--${routeSlug}`)}
+              style={showDrawer ? {} : { margin: 0 }}
+            >
               <Header
                 drawerToggle={this.handleDrawerToggle.bind(this)}
                 loggedIn={loggedIn}
-                inTeamContext={inTeamContext}
                 pageType={routeSlug}
+                inTeamContext={inTeamContext}
                 currentUserIsMember={currentUserIsMember}
                 {...this.props}
               />

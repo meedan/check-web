@@ -1,8 +1,5 @@
 {
-  "headerActions.tos": "Termos",
-  "headerActions.privacyPolicy": "Privacidade",
-  "headerActions.about": "Sobre",
-  "headerActions.contactHuman": "Contato",
-  "headerActions.productGuides": "Guias de produtos",
-  "headerActions.releaseNotes": "Notas de Versão"
+  "teamMenu.teamSettings": "Configurações da área de trabalho",
+  "projects.trash": "Lixeira",
+  "headerActions.signIn": "Entrar"
 }

@@ -12,6 +12,7 @@ class UpdateMemebusterMutation extends Relay.Mutation {
       dynamicEdge,
       project_media {
         annotations(first: 1, annotation_type: "memebuster")
+        dynamic_annotation_memebuster
       }
     }`;
   }

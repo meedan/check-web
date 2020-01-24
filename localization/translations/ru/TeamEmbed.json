@@ -1,10 +1,13 @@
 {
-  "teamEmbed.updateFail": "В процессе изменения настроек произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}.",
-  "teamEmbed.updateSuccess": "Настройки карточек успешно обновлены!",
-  "teamEmbed.title": "Настройки карточек",
+  "teamEmbed.updateFail": "Sorry, an error occurred while updating the report settings. Please try again and contact {supportEmail} if the condition persists.",
+  "teamEmbed.updateSuccess": "Report settings updated successfully!",
+  "teamEmbed.title": "Report settings",
   "teamEmbed.tasks": "Вопросы",
-  "teamEmbed.tasksSub": "Выбранные вопросы будут включены в карточку при условии, что они закрыты.",
+  "teamEmbed.tasksSub": "The selected tasks will be included in the report if they are resolved.",
   "teamEmbed.disclaimer": "Отказ от ответственности",
-  "teamEmbed.disclaimerSub": "Заявление об отказе от ответственности (дисклеймер), которое будет отображено рядом с логотипом группы в нижней части карточки.",
+  "teamEmbed.disclaimerSub": "Disclaimer that will be shown at the bottom of the report with the workspace logo.",
+  "teamEmbed.analysis": "Analysis",
+  "teamEmbed.analysisSub": "Show analysis in the report",
+  "teamEmbed.analysisYes": "Yes",
   "teamEmbed.save": "Сохранить"
 }

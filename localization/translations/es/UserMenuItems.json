@@ -1,4 +1,8 @@
 {
-  "headerActions.signOut": "Salir",
-  "headerActions.contactHuman": "Contacta a un humano "
+  "UserMenu.userSettings": "Configuración del usuario",
+  "UserMenu.training": "Entrenamiento y documentación",
+  "UserMenu.tos": "Términos del servicio",
+  "UserMenu.pp": "Políticas de privacidad",
+  "UserMenu.about": "Acerca de",
+  "UserMenu.signOut": "Salir"
 }

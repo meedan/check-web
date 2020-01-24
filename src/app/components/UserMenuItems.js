@@ -2,11 +2,20 @@ import React from 'react';
 import { Link } from 'react-router';
 import MenuItem from 'material-ui/MenuItem';
 import { FormattedMessage } from 'react-intl';
+import styled from 'styled-components';
 import ExternalLink from './ExternalLink';
 import { logout } from '../redux/actions';
+import { opaqueBlack87 } from '../styles/js/shared';
+
+const StyledUserMenuItems = styled.div`
+  a:link, a:visited, a:hover, a:active {
+    color: ${opaqueBlack87};
+    text-decoration: none;
+  }
+`;
 
 const UserMenuItems = () => (
-  <div>
+  <StyledUserMenuItems>
     <MenuItem
       className="user-menu__user-settings"
       containerElement={<Link to="/check/me" />}
@@ -49,7 +58,7 @@ const UserMenuItems = () => (
       onClick={logout}
       primaryText={<FormattedMessage id="UserMenu.signOut" defaultMessage="Sign Out" />}
     />
-  </div>
+  </StyledUserMenuItems>
 );
 
 export default UserMenuItems;

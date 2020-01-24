@@ -117,7 +117,7 @@ class Root extends Component {
       Object.values(callbacks).forEach((callback) => {
         callback();
       });
-    }, 10000);
+    }, 180000);
 
     ifvisible.on('blur', () => {
       Root.pusherLog('Page is not focused anymore');
@@ -282,6 +282,7 @@ class Root extends Component {
                 <Route path="check/forbidden" component={AccessDenied} public />
                 <Route path="check/not-found" component={NotFound} public />
 
+                <Route path="check/user/:userId/edit" isEditing component={User} />
                 <Route path="check/user/:userId(/:tab)" component={User} />
                 <Route path="check/me/edit" isEditing component={Me} />
                 <Route path="check/me(/:tab)" component={Me} />
@@ -302,12 +303,8 @@ class Root extends Component {
                 <Route path=":team/project/:projectId/source/:sourceId/edit" isEditing component={Source} />
                 <Route path=":team/join" component={JoinTeam} />
                 <Route path=":team/project/:projectId/edit" component={ProjectEdit} />
-                <Route path=":team/project/:projectId/dense(/:query)" view="dense" component={Project} public />
-                <Route path=":team/project/:projectId/list(/:query)" view="list" component={Project} public />
                 <Route path=":team/project/:projectId(/:query)" component={Project} public />
-                <Route path=":team/search/dense(/:query)" view="dense" component={Search} public />
-                <Route path=":team/search/list(/:query)" view="list" component={Search} public />
-                <Route path=":team/search(/:query)" component={Search} public />
+                <Route path=":team/all-items(/:query)" component={Search} public />
                 <Route path=":team/trash(/:query)" component={Trash} />
                 <Route path=":team" component={Team} public />
                 <Route path=":team/edit" action="edit" component={Team} />

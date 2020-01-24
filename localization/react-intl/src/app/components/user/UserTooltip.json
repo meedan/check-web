@@ -1,6 +1,6 @@
 [
   {
     "id": "userTooltip.dateJoined",
-    "defaultMessage": "Joined {date} • {teamsCount, plural, =0 {No teams} one {1 team} other {# teams}}"
+    "defaultMessage": "Joined {date} • {teamsCount, plural, =0 {No workspaces} one {1 workspace} other {# workspaces}}"
   }
 ]

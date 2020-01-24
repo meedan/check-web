@@ -1,15 +1,15 @@
 [
   {
     "id": "teamEmbed.updateFail",
-    "defaultMessage": "Sorry, an error occurred while updating the settings. Please try again and contact {supportEmail} if the condition persists."
+    "defaultMessage": "Sorry, an error occurred while updating the report settings. Please try again and contact {supportEmail} if the condition persists."
   },
   {
     "id": "teamEmbed.updateSuccess",
-    "defaultMessage": "Embed settings updated successfully!"
+    "defaultMessage": "Report settings updated successfully!"
   },
   {
     "id": "teamEmbed.title",
-    "defaultMessage": "Embed settings"
+    "defaultMessage": "Report settings"
   },
   {
     "id": "teamEmbed.tasks",
@@ -17,7 +17,7 @@
   },
   {
     "id": "teamEmbed.tasksSub",
-    "defaultMessage": "The selected tasks will be included in the embed if they are resolved."
+    "defaultMessage": "The selected tasks will be included in the report if they are resolved."
   },
   {
     "id": "teamEmbed.disclaimer",
@@ -25,7 +25,19 @@
   },
   {
     "id": "teamEmbed.disclaimerSub",
-    "defaultMessage": "Disclaimer that will be shown at the bottom of the embed with the team logo."
+    "defaultMessage": "Disclaimer that will be shown at the bottom of the report with the workspace logo."
+  },
+  {
+    "id": "teamEmbed.analysis",
+    "defaultMessage": "Analysis"
+  },
+  {
+    "id": "teamEmbed.analysisSub",
+    "defaultMessage": "Show analysis in the report"
+  },
+  {
+    "id": "teamEmbed.analysisYes",
+    "defaultMessage": "Yes"
   },
   {
     "id": "teamEmbed.save",

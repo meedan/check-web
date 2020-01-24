@@ -1,12 +1,11 @@
 {
-  "teamComponent.editError": "Désolé, une erreur s'est produite durant la mise à jour de l'équipe. Veuillez réessayer et prévenir {supportEmail} si le problème persiste.",
-  "teamComponent.editSuccess": "L'information d'équipe a été mise à jour avec succès",
-  "teamComponent.teamName": "Nom de l'équipe ",
-  "teamComponent.teamDescription": "Description de l'équipe ",
+  "teamComponent.editError": "Désolé, une erreur s'est produite durant la mise à jour de l'espace de travail. Veuillez réessayer et prévenir {supportEmail} si le problème persiste.",
+  "teamComponent.teamName": "Nom",
+  "teamComponent.teamDescription": "Description",
   "teamComponent.location": "Emplacement",
   "teamComponent.phone": "Numéro de téléphone",
   "teamComponent.website": "Site web",
-  "teamComponent.invalidLink": "Veuillez saisir une URL valide.",
+  "teamComponent.invalidLink": "Veuillez saisir une URL valide",
   "teamComponent.cancelButton": "Annuler",
   "teamComponent.saveButton": "Sauvegarder"
 }

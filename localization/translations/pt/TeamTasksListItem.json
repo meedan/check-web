@@ -1,11 +1,11 @@
 {
-  "createTeamTask.editError": "Desculpe, não foi possível editar a tarefa da equipe",
-  "createTeamTask.deleteError": "Desculpe, não foi possível excluir a tarefa da equipe",
+  "createTeamTask.editError": "Desculpe, não foi possível editar a tarefa padrão",
+  "createTeamTask.deleteError": "Desculpe, não foi possível excluir a tarefa padrão",
   "createTeamTask.menuTooltip": "Ações das tarefas",
   "teamTasks.confirmEditTitle": "Tem certeza que deseja editar esta tarefa?",
   "teamTasks.confirmDeleteTitle": "Tem certeza que deseja excluir esta tarefa?",
-  "teamTasks.confirmEditBlurb": "As tarefas relacionadas a itens serão modificadas como consequência da aplicação dessa alteração, exceto para aquelas que já foram respondidas ou anotadas",
-  "teamTasks.confirmDeleteBlurb": "As tarefas relacionadas a itens serão excluídas como consequência da aplicação dessa alteração, exceto para aquelas que já foram respondidas ou anotadas",
+  "teamTasks.confirmEditBlurb": "As tarefas relacionadas a itens serão modificadas como consequência da aplicação dessa alteração, exceto para aquelas que já foram respondidas ou resolvidas.",
+  "teamTasks.confirmDeleteBlurb": "As tarefas dos itens relacionados serão excluídas como consequência da aplicação dessa alteração, exceto para aquelas que já foram respondidas ou resolvidas.",
   "teamTasks.edit": "Editar tarefa",
   "teamTasks.delete": "Excluir tarefa"
 }

@@ -22,6 +22,7 @@ class UpdateTaskMutation extends Relay.Mutation {
           last_status,
           id,
           log_count,
+          project_id,
           field_value(annotation_type_field_name: "translation_status:translation_status_status"),
           translation_status: annotation(annotation_type: "translation_status")
         },

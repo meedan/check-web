@@ -34,7 +34,7 @@ import {
 const messages = defineMessages({
   filterByTeam: {
     id: 'userAssignments.filterByTeam',
-    defaultMessage: 'Filter by team',
+    defaultMessage: 'Filter by workspace',
   },
   progress: {
     id: 'userAssignments.progress',

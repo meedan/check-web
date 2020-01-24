@@ -3,22 +3,26 @@ import styled from 'styled-components';
 import { units, Offset, Row, StyledHeading } from '../../styles/js/shared';
 
 const Content = styled.div`
+  width: ${props => props.withImage ? 'calc(100% - 80px)' : '100%'};
   height: ${units(12)};
+  padding: ${units(1)} 0;
   display: flex;
   flex-direction: column;
   align-content: flex-start;
   .media__heading {
-    line-height: ${units(6)};
+    white-space: normal;
+    line-height: ${units(2.5)};
+    min-height: ${units(5)};
+    max-height: ${units(5)};
+    overflow: hidden;
   }
   .media__description {
-    line-height: ${units(3)};
+    white-space: normal;
+    line-height: ${units(2.5)};
+    min-height: ${units(5)};
+    max-height: ${units(5)};
+    overflow: hidden;
   }
-`;
-
-const UpperRow = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
 `;
 
 const MediaCell = (props) => {
@@ -27,7 +31,10 @@ const MediaCell = (props) => {
     <Row className="media-cell">
       { media.picture ?
         <Offset>
-          <div style={{ width: units(10), height: units(10), overflow: 'hidden' }}>
+          <div
+            className="media-cell__thumbnail"
+            style={{ width: units(10), height: units(10), overflow: 'hidden' }}
+          >
             <img
               alt=""
               style={{ height: '100%', objectFit: 'cover' }}
@@ -37,15 +44,15 @@ const MediaCell = (props) => {
         </Offset>
         : null
       }
-      <Content withImage={media.picture}>
-        <UpperRow>
-          <StyledHeading className="media__heading">
-            { media.title }
-          </StyledHeading>
-        </UpperRow>
-        <div className="media__description">
-          { media.description }
-        </div>
+      <Content withImage={media.picture} className="media-cell__content">
+        <StyledHeading className="media__heading">
+          { media.title }
+        </StyledHeading>
+        { media.description ?
+          <div className="media__description">
+            { media.description }
+          </div> : null
+        }
       </Content>
     </Row>
   );

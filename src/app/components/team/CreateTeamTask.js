@@ -9,7 +9,7 @@ import { getErrorMessage } from '../../helpers';
 const messages = defineMessages({
   error: {
     id: 'createTeamTask.error',
-    defaultMessage: 'Failed to create teamwide task',
+    defaultMessage: 'Failed to create default task',
   },
 });
 

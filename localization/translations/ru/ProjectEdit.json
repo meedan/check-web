@@ -1,6 +1,6 @@
 {
-  "projectEdit.error": "В процессе редактирования проекта произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}.",
-  "projectEdit.titleField": "Заголовок проекта",
-  "projectEdit.descriptionField": "Описание проекта",
+  "projectEdit.error": "Sorry, an error occurred while updating the list. Please try again and contact {supportEmail} if the condition persists.",
+  "projectEdit.titleField": "Title",
+  "projectEdit.descriptionField": "Description",
   "projectEdit.saveButton": "Сохранить"
 }

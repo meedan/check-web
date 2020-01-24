@@ -50,7 +50,6 @@ class TrashComponent extends React.Component {
           team={team.slug}
           query={JSON.stringify(query)}
           fields={['keyword', 'date', 'status', 'sort', 'tags', 'rules']}
-          view="list"
           page="trash"
         />
       </div>

@@ -1,8 +1,8 @@
 {
   "teamSettings.Tasks": "Tasks",
+  "teamSettings.rules": "Rules",
   "teamSettings.Tags": "Tags",
-  "teamSettings.embed": "Embed",
+  "teamSettings.embed": "Report",
   "teamSettings.integrations": "Integrations",
-  "teamSettings.bots": "Bots",
-  "teamSettings.rules": "Rules"
+  "teamSettings.bots": "Bots"
 }

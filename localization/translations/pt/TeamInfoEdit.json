@@ -1,8 +1,7 @@
 {
-  "teamComponent.editError": "Desculpe, ocorreu um erro ao atualizar a equipe. Por favor, tente novamente e entre em contato com {supportEmail} se a condição persistir.",
-  "teamComponent.editSuccess": "Informações da equipe atualizadas com sucesso!",
-  "teamComponent.teamName": "Nome da Equipe",
-  "teamComponent.teamDescription": "Descrição da Equipe",
+  "teamComponent.editError": "Desculpe, ocorreu um erro ao atualizar a área de trabalho. Por favor, tente novamente e entre em contato com {supportEmail} se a condição persistir.",
+  "teamComponent.teamName": "Nome",
+  "teamComponent.teamDescription": "Descrição",
   "teamComponent.location": "Localização",
   "teamComponent.phone": "Telefone",
   "teamComponent.website": "Website",

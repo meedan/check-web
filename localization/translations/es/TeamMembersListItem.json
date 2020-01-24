@@ -5,8 +5,8 @@
   "TeamMembersListItem.confirmLeaveBlurb": " Vas a ser eliminada(o) de {team}",
   "TeamMembersListItem.confirmDeleteMemberBlurb": "El usuario será eliminado de {team}",
   "TeamMembersListItem.deleteMember": "Eliminar miembro",
-  "TeamMembersListItem.leaveTeam": "Abandonar equipo",
-  "TeamMembersListItem.singleOwner": "Antes de que puedas abandonar el equipo, por favor designa el rol de propietario a otro miembro.",
+  "TeamMembersListItem.leaveTeam": "Salir de área de trabajo",
+  "TeamMembersListItem.singleOwner": "Antes de que puedas abandonar el área de trabajo, por favor designa el rol de propietario a otro miembro.",
   "teamMembersListItem.assignmentsProgress": "{completedCount} completadas, {inProgressCount} en curso, {unstartedCount} sin comenzar",
   "TeamMembershipRequestsListItem.approve": "Aprobado",
   "TeamMembershipRequestsListItem.deny": "Rechazar"

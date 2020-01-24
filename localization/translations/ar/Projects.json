@@ -1,6 +1,6 @@
 {
-  "projects.addProject": "إضافة مشروع",
+  "projects.addProject": "Add list",
   "projects.dismiss": "تجاهل",
-  "projects.noProjects": "لا توجد مشاريع",
-  "projects.projectsSubheading": "مشاريع"
+  "projects.allClaims": "All items",
+  "projects.newList": "+ New list"
 }

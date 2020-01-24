@@ -209,7 +209,7 @@ class UserPrivacy extends Component {
           <CardText style={cardTextStyle}>
             <FormattedMessage
               id="userPrivacy.deleteAccountText"
-              defaultMessage="If you delete your account, your personal information will be erased. Comments, annotations, and team activity will become pseudonymous and remain on {appName}."
+              defaultMessage="If you delete your account, your personal information will be erased. Comments, annotations, and workspace activity will become pseudonymous and remain on {appName}."
               values={{ appName }}
             />
             <FlatButton

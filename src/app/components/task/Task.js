@@ -598,13 +598,13 @@ class Task extends Component {
           id={`task-${task.dbid}`}
           className={className.join(' ')}
           style={{ marginBottom: units(1) }}
-          initiallyExpanded
         >
           <CardHeader
             title={taskQuestion}
             subtitle={taskDescription}
             id={`task__label-${task.id}`}
             showExpandableButton
+            actAsExpander
           />
           <CardText expandable className="task__card-text">
             <Message message={this.state.message} />

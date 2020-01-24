@@ -12,7 +12,6 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { searchQueryFromUrl, urlFromSearchQuery } from './Search';
 import SearchQuery from './SearchQuery';
 import Toolbar from './Toolbar';
-import { can } from '../Can';
 import ParsedText from '../ParsedText';
 import BulkActions from '../media/BulkActions';
 import MediasLoading from '../media/MediasLoading';
@@ -23,9 +22,6 @@ import { black87, headline, units, ContentColumn, Row } from '../../styles/js/sh
 import CheckContext from '../../CheckContext';
 import SearchRoute from '../../relay/SearchRoute';
 import checkSearchResultFragment from '../../relay/checkSearchResultFragment';
-import checkDenseSearchResultFragment from '../../relay/checkDenseSearchResultFragment';
-import bridgeSearchResultFragment from '../../relay/bridgeSearchResultFragment';
-import bridgeDenseSearchResultFragment from '../../relay/bridgeDenseSearchResultFragment';
 
 // TODO Make this a config
 const pageSize = 20;
@@ -145,7 +141,6 @@ class SearchResultsComponent extends React.Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     return !isEqual(this.state, nextState) ||
-           !isEqual(this.props.view, nextProps.view) ||
            !isEqual(this.props.search, nextProps.search);
   }
 
@@ -178,16 +173,20 @@ class SearchResultsComponent extends React.Component {
   setOffset(offset) {
     const team = this.props.search.team || this.currentContext().team;
     const project = this.props.project || this.currentContext().project;
-    const viewMode = window.storage.getValue('view-mode');
     const query = Object.assign({}, searchQueryFromUrl());
     query.esoffset = offset;
 
-    const url = urlFromSearchQuery(
-      query,
-      project
-        ? `/${team.slug}/project/${project.dbid}/${viewMode}`
-        : `/${team.slug}/search/${viewMode}`,
-    );
+    let path = null;
+    if (/\/trash/.test(window.location.pathname)) {
+      path = `/${team.slug}/trash`;
+    }
+    if (!path) {
+      path = project
+        ? `/${team.slug}/project/${project.dbid}`
+        : `/${team.slug}/all-items`;
+    }
+
+    const url = urlFromSearchQuery(query, path);
 
     this.getContext().getContextStore().history.push(url);
   }
@@ -196,13 +195,17 @@ class SearchResultsComponent extends React.Component {
     const media = this.resultsWithQueries[index].node;
     const query = this.resultsWithQueries[index].itemQuery;
     const team = this.props.search.team || this.currentContext().team;
+
     let mediaUrl = media.project_id && team && media.dbid > 0
       ? `/${team.slug}/project/${media.project_id}/media/${media.dbid}`
       : null;
     if (!mediaUrl && team && media.dbid > 0) {
       mediaUrl = `/${team.slug}/media/${media.dbid}`;
     }
-    this.context.router.push({ pathname: mediaUrl, state: { query } });
+
+    if (mediaUrl) {
+      this.context.router.push({ pathname: mediaUrl, state: { query } });
+    }
   };
 
   handleSelect = (selectedMedia) => {
@@ -329,25 +332,20 @@ class SearchResultsComponent extends React.Component {
     const isTrash = /\/trash/.test(window.location.pathname);
 
     const searchQueryProps = {
-      view: this.props.view,
       project: this.props.project,
       team: this.props.team,
       fields: this.props.fields,
       title: this.props.title,
-      addons: this.props.addons,
     };
 
-    let bulkActionsAllowed = false;
-    if (medias.length) {
-      bulkActionsAllowed = !medias[0].node.archived && can(medias[0].node.permissions, 'administer Content');
-    }
     const title = (
       <Toolbar
         team={team}
-        actions={medias.length && bulkActionsAllowed ?
+        actions={medias.length ?
           <BulkActions
             count={this.props.search ? this.props.search.number_of_results : 0}
             team={team}
+            page={this.props.page}
             project={this.currentContext().project}
             selectedMedia={this.state.selectedMedia}
             onUnselectAll={this.onUnselectAll}
@@ -430,11 +428,9 @@ class SearchResultsComponent extends React.Component {
 
       this.resultsWithQueries = searchResults.map((item) => {
         let itemQuery = {};
-        if (item.node.media) {
-          itemOffset += 1;
-          itemQuery = Object.assign({}, itemBaseQuery);
-          itemQuery.esoffset = itemOffset;
-        }
+        itemOffset += 1;
+        itemQuery = Object.assign({}, itemBaseQuery);
+        itemQuery.esoffset = itemOffset;
         return { ...item, itemQuery };
       });
 
@@ -502,12 +498,7 @@ class SearchResults extends React.PureComponent {
         pageSize,
       },
       fragments: {
-        search: () => {
-          if (this.props.view === 'dense') {
-            return config.appName === 'bridge' ? bridgeDenseSearchResultFragment : checkDenseSearchResultFragment;
-          }
-          return config.appName === 'bridge' ? bridgeSearchResultFragment : checkSearchResultFragment;
-        },
+        search: () => checkSearchResultFragment,
       },
     });
 

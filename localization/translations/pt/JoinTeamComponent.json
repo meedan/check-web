@@ -1,12 +1,12 @@
 {
   "joinTeamComponent.error": "Desculpe, ocorreu um erro ao enviar sua solicitação. Por favor, tente novamente e entre em contato com {supportEmail} se a condição persistir.",
-  "joinTeamComponent.success": "Obrigado pelo seu interesse em participar do {appName} da equipe {team}! Um líder da equipe irá revisar sua solicitação em breve.",
-  "joinTeamComponent.autoApprove": "Obrigado por participar da equipe {team} do {appName}! Você pode começar a contribuir imediatamente.",
-  "joinTeamComponent.title": "Participar da Equipe",
-  "joinTeamComponent.mainHeading": "Solicitar para participar",
-  "joinTeamComponent.alreadyRequested": "Você já solicitou para participar da equipe {team} no {appName}",
-  "joinTeamComponent.requestHasBeenSent": "Sua solicitação foi enviada aos administradores do projeto para aprovação.",
-  "joinTeamComponent.blurbGraf": "Para solicitar acesso ao {link} no {appName}, clique abaixo:",
+  "joinTeamComponent.success": "Obrigado pelo seu interesse em participar da equipe {team}! Um administrador da área de trabalho irá revisar sua solicitação em breve.",
+  "joinTeamComponent.autoApprove": "Obrigado por participar da equipe {team}! Você pode começar a contribuir imediatamente.",
+  "joinTeamComponent.title": "Ingressar na área de trabalho",
+  "joinTeamComponent.mainHeading": "Pedir para participar",
+  "joinTeamComponent.alreadyRequested": "Você já solicitou para participar da área de trabalho {team}",
+  "joinTeamComponent.requestHasBeenSent": "Sua solicitação foi enviada aos administradores da área de trabalho para aprovação.",
+  "joinTeamComponent.blurbGraf": "Para pedir para participar de {team}, clique abaixo:",
   "joinTeamComponent.buttonSubmitted": "Solicitação enviada",
   "joinTeamComponent.buttonSubmit": "Solicitar para participar"
 }

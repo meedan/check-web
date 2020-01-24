@@ -1,7 +1,7 @@
 [
   {
     "id": "userAssignments.filterByTeam",
-    "defaultMessage": "Filter by team"
+    "defaultMessage": "Filter by workspace"
   },
   {
     "id": "userAssignments.progress",

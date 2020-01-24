@@ -1,9 +1,9 @@
 {
-  "home.needRegister": "Сначала вам нужно зарегистрироваться. После регистрации вы сможете отправить заявку на вступление в группу.",
+  "home.needRegister": "First you need to register. Once registered, you can request to join the workspace.",
   "home.somethingWrong": "Произошла ошибка. Пожалуйста, перезагрузите страницу. Если проблема повторяется, свяжитесь с нами: {supportEmail}.",
   "home.successInvitation": "Добро пожаловать в {appName}. Пожалуйста, войдите с паролем, который вы получили в приветственном e-mail.",
   "home.invalidInvitation": "Извините, в процессе обработки вашего приглашения произошла ошибка. Если проблема повторяется, свяжитесь с нами: {supportEmail}.",
-  "home.invalidTeamInvitation": "Извините, но группы, в которую вы были приглашены, не существует. Если вы считаете, что это ошибка, свяжитесь с нами: {supportEmail}.",
+  "home.invalidTeamInvitation": "Sorry, the workspace to which you were invited was not found. Please contact {supportEmail} if you think this is an error.",
   "home.invalidNoInvitation": "Извините, приглашение не найдено. Если вы считаете, что это ошибка, свяжитесь с нами: {supportEmail}.",
   "home.invalidExpiredInvitation": "Sorry, the invitation you received was expired. Please contact {supportEmail} if you think this is an error."
 }

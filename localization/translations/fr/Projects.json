@@ -1,6 +1,6 @@
 {
-  "projects.addProject": "Ajouter un projet",
+  "projects.addProject": "Créer une liste",
   "projects.dismiss": "Abandonner",
-  "projects.noProjects": "Aucun projet",
-  "projects.projectsSubheading": "Projets"
+  "projects.allClaims": "Tous les éléments",
+  "projects.newList": "+ Nouvelle liste"
 }

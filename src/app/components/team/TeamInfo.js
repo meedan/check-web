@@ -93,7 +93,7 @@ const TeamInfo = (props) => {
                   className="team-menu__edit-team-button"
                   onClick={() => props.context.history.push(`/${props.team.slug}/edit`)}
                   tooltip={
-                    <FormattedMessage id="teamMenu.editTeam" defaultMessage="Edit team" />
+                    <FormattedMessage id="teamInfo.editTeam" defaultMessage="Edit" />
                   }
                 >
                   <IconEdit />

@@ -1,6 +1,6 @@
 {
-  "projectEdit.error": "Désolé, une erreur s'est produite durant la mise à jour du projet. Veuillez réessayer et prévenir {supportEmail} si le problème persiste.",
-  "projectEdit.titleField": "Titre du projet",
-  "projectEdit.descriptionField": "Description du projet",
+  "projectEdit.error": "Désolé, une erreur s'est produite durant la mise à jour de la liste. Veuillez réessayer et prévenir {supportEmail} si le problème persiste.",
+  "projectEdit.titleField": "Titre",
+  "projectEdit.descriptionField": "Description",
   "projectEdit.saveButton": "Sauvegarder"
 }

@@ -64,9 +64,14 @@ class AutoCompleteMediaItem extends React.Component {
     }
     this.setState({ searching: true });
 
-    const { media: { project: { dbid: projectId } } } = this.props;
+    const { media } = this.props;
+
     // eslint-disable-next-line no-useless-escape
-    const queryString = `{ \\"keyword\\":\\"${query}\\", \\"projects\\":[${projectId}], \\"eslimit\\":10 }`;
+    let queryString = `{ \\"keyword\\":\\"${query}\\", \\"eslimit\\":10 }`;
+    if (media.project) {
+      // eslint-disable-next-line no-useless-escape
+      queryString = `{ \\"keyword\\":\\"${query}\\", \\"projects\\":[${media.project.dbid}], \\"eslimit\\":10 }`;
+    }
 
     const init = {
       body: JSON.stringify({

@@ -23,7 +23,6 @@ import MoreHoriz from '@material-ui/icons/MoreHoriz';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import MdImage from 'react-icons/lib/md/image';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import EmbedUpdate from './EmbedUpdate';
 import EmbedCreate from './EmbedCreate';
@@ -45,7 +44,6 @@ import { getErrorMessage, getStatus, getStatusStyle, emojify } from '../../helpe
 import globalStrings from '../../globalStrings';
 import { stringHelper } from '../../customHelpers';
 import UserTooltip from '../user/UserTooltip';
-import { mapGlobalMessage } from '../MappedMessage';
 import {
   units,
   white,
@@ -56,7 +54,6 @@ import {
   checkBlue,
   borderWidthLarge,
   caption,
-  columnWidthMedium,
   breakWordStyles,
   Row,
   defaultBorderRadius,
@@ -70,7 +67,6 @@ const StyledDefaultAnnotation = styled.div`
   color: ${black87};
   display: flex;
   font: ${caption};
-  max-width: ${columnWidthMedium};
   ${props => (props.isRtl ? 'padding-right' : 'padding-left')}: ${units(10)};
 
   .annotation__default-content {
@@ -81,7 +77,6 @@ const StyledDefaultAnnotation = styled.div`
 `;
 
 const StyledAnnotationCardWrapper = styled.div`
-  max-width: ${units(90)};
   width: 100%;
   z-index: initial !important;
 
@@ -192,14 +187,6 @@ const StyledAnnotationWrapper = styled.section`
     display: block;
   }
 
-  .annotation__reverse-image-search {
-    cursor: pointer;
-    display: inline-block;
-    font-weight: 700;
-    margin: 0 ${units(1)};
-    text-transform: uppercase;
-  }
-
   .annotation__card-embedded-medias {
     clear: both;
     margin-top: ${units(0.5)};
@@ -235,22 +222,13 @@ const messages = defineMessages({
     id: 'annotation.deleteButton',
     defaultMessage: 'Delete',
   },
-  reverseImage: {
-    id: 'annotation.reverseImage',
-    defaultMessage:
-      'This item contains at least one image. Click Search to look for potential duplicates on Google.',
-  },
-  reverseImageFacebook: {
-    id: 'annotation.reverseImageFacebook',
-    defaultMessage: 'This item contains at least one image. However, the image is contained in a Facebook post, and {appName} cannot send that image directly to reverse image search. Consider conducting a manual search using tools like Google or TinEye.',
-  },
   and: {
     id: 'annotation.and',
     defaultMessage: 'and',
   },
   newClaim: {
     id: 'annotation.newClaim',
-    defaultMessage: 'New claim added by {author}',
+    defaultMessage: 'New text added by {author}',
   },
   menuTooltip: {
     id: 'annotation.menuTooltip',
@@ -261,11 +239,6 @@ const messages = defineMessages({
 // TODO Fix a11y issues
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
 class Annotation extends Component {
-  static handleReverseImageSearch(path) {
-    const imagePath = path ? `?&image_url=${path}` : '';
-    window.open(`https://www.google.com/searchbyimage${imagePath}`);
-  }
-
   constructor(props) {
     super(props);
 
@@ -845,28 +818,6 @@ class Annotation extends Component {
         );
       }
 
-      if (object.field_name === 'reverse_image_path') {
-        const [reverseImage, value] = annotated.domain === 'facebook.com'
-          ? [messages.reverseImageFacebook, null]
-          : [messages.reverseImage, object.value];
-        contentTemplate = (
-          <span className="annotation__reverse-image">
-            <MdImage />
-            <span>{this.props.intl.formatMessage(reverseImage, { appName: mapGlobalMessage(this.props.intl, 'appNameHuman') })}</span>
-            {annotated.domain === 'facebook.com' ?
-              null :
-              <span
-                className="annotation__reverse-image-search"
-                title="Google Images"
-                onClick={Annotation.handleReverseImageSearch.bind(this, value)}
-              >
-                <FormattedMessage id="annotation.reverseImageSearch" defaultMessage="Search" />
-              </span>
-            }
-          </span>
-        );
-      }
-
       if (object.field_name === 'translation_text') {
         const translationContent = JSON.parse(annotation.content);
         let language = translationContent.find(it => it.field_name === 'translation_language');
@@ -1157,7 +1108,7 @@ class Annotation extends Component {
           <span>
             <FormattedMessage
               id="annotation.projectMoved"
-              defaultMessage="Moved from project {previousProject} to {currentProject} by {author}"
+              defaultMessage="Moved from list {previousProject} to {currentProject} by {author}"
               values={{
                 previousProject: (
                   <Link to={urlPrefix + previousProject.dbid}>
@@ -1210,7 +1161,7 @@ class Annotation extends Component {
           <span>
             <FormattedMessage
               id="annotation.teamCopied"
-              defaultMessage="Copied from project {previousProject} on team {previousTeam} by {author}"
+              defaultMessage="Copied from list {previousProject} on workspace {previousTeam} by {author}"
               values={{
                 previousProject: (
                   <Link to={previousProjectUrl + previousTeam.dbid}>

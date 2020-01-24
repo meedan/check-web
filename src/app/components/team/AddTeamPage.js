@@ -17,11 +17,11 @@ import RelayContainer from '../../relay/RelayContainer';
 const messages = defineMessages({
   titleCreate: {
     id: 'addTeamPage.titleCreate',
-    defaultMessage: 'Create a Team',
+    defaultMessage: 'Create a workspace',
   },
   titleFind: {
     id: 'addTeamPage.titleFind',
-    defaultMessage: 'Find an existing team',
+    defaultMessage: 'Find an existing workspace',
   },
 });
 

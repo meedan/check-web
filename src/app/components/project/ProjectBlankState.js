@@ -1,25 +1,15 @@
 import React from 'react';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
-import config from 'config'; // eslint-disable-line require-path-exists/exists
 import BlankState from '../layout/BlankState';
 import { can } from '../Can';
 
 const ProjectBlankState = (props) => {
-  const checkMessage = (
+  const message = (
     <FormattedHTMLMessage
       id="ProjectBlankState.createMedia"
-      defaultMessage="Add a link or claim<br>to start verifying it"
+      defaultMessage="Add a link or text"
     />
   );
-
-  const bridgeMessage = (
-    <FormattedHTMLMessage
-      id="ProjectBlankState.createMediaBridge"
-      defaultMessage="Add a link or quote<br>to start translating it"
-    />
-  );
-
-  const message = config.appName === 'bridge' ? bridgeMessage : checkMessage;
 
   return (
     <BlankState>

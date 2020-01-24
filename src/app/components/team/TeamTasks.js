@@ -89,7 +89,7 @@ class TeamTasksComponent extends React.Component {
         <TeamTasksProject key={p.node.dbid} project={p.node} team={this.props.team} />)
       : (
         <BlankState>
-          <FormattedMessage id="teamTasks.blank" defaultMessage="No teamwide tasks to display" />
+          <FormattedMessage id="teamTasks.blank" defaultMessage="No default tasks to display" />
         </BlankState>
       );
   }
@@ -99,7 +99,7 @@ class TeamTasksComponent extends React.Component {
       <TeamTasksProject project={{ teamTasks }} team={this.props.team} />
       : (
         <BlankState>
-          <FormattedMessage id="teamTasks.blank" defaultMessage="No teamwide tasks to display" />
+          <FormattedMessage id="teamTasks.blank" defaultMessage="No default tasks to display" />
         </BlankState>
       );
   }

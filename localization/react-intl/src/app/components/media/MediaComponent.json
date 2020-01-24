@@ -1,10 +1,18 @@
 [
   {
-    "id": "mediaComponent.verificationTasks",
-    "defaultMessage": "Item tasks"
+    "id": "mediaComponent.tasks",
+    "defaultMessage": "Tasks"
   },
   {
-    "id": "mediaComponent.resolved",
-    "defaultMessage": "resolved"
+    "id": "mediaComponent.analysis",
+    "defaultMessage": "Analysis"
+  },
+  {
+    "id": "mediaComponent.comments",
+    "defaultMessage": "Comments"
+  },
+  {
+    "id": "mediaComponent.activity",
+    "defaultMessage": "Activity"
   }
 ]

@@ -108,6 +108,7 @@ class MediaRelatedComponent extends Component {
     const sources = relationships.sources.edges;
     let filtered_count = 0;
     const total = targets_count + sources_count;
+    let primaryItem = null;
 
     if (dbid in previousFilters && filters !== previousFilters[dbid]) {
       this.props.relay.setVariables({ filters });
@@ -118,7 +119,7 @@ class MediaRelatedComponent extends Component {
       });
       filtered_count = total - medias.length;
     } else if (sources.length > 0) {
-      medias.push({ node: sources[0].node.source });
+      primaryItem = sources[0].node.source;
       sources[0].node.siblings.edges.forEach((sibling) => {
         if (sibling.node.id !== this.props.media.id) {
           medias.push({ node: Object.assign(sibling.node, { source_id: sources[0].node.id }) });
@@ -128,19 +129,40 @@ class MediaRelatedComponent extends Component {
     previousFilters[dbid] = filters;
 
     return (
-      <div>
-        { this.props.showHeader ?
-          <StyledHeaderRow>
-            <FlexRow style={{ marginBottom: units(2) }}>
-              <h2>
-                <FormattedMessage
-                  id="mediaRelated.relatedItems"
-                  defaultMessage="Related items"
-                />
-              </h2>
-            </FlexRow>
-            <CreateRelatedMedia style={{ marginLeft: 'auto' }} media={this.props.media} />
-          </StyledHeaderRow> : null }
+      <div style={{ marginTop: units(5) }}>
+        { primaryItem ?
+          <div style={{ marginBottom: units(4) }}>
+            <StyledHeaderRow>
+              <FlexRow style={{ marginBottom: units(2) }}>
+                <h2>
+                  <FormattedMessage
+                    id="mediaRelated.primaryItem"
+                    defaultMessage="Primary item"
+                  />
+                </h2>
+              </FlexRow>
+            </StyledHeaderRow>
+            <MediaDetail
+              media={primaryItem}
+              condensed
+              currentRelatedMedia={this.props.media}
+              parentComponent={this}
+              parentComponentName="MediaRelated"
+              hideRelated
+            />
+          </div> : null }
+
+        <StyledHeaderRow>
+          <FlexRow style={{ marginBottom: units(2) }}>
+            <h2>
+              <FormattedMessage
+                id="mediaRelated.secondaryItems"
+                defaultMessage="Secondary items"
+              />
+            </h2>
+          </FlexRow>
+          <CreateRelatedMedia style={{ marginLeft: 'auto' }} media={this.props.media} />
+        </StyledHeaderRow>
 
         { (this.props.showNumbers && medias.length > 0) ?
           <StyledHeaderRow>
@@ -169,7 +191,6 @@ class MediaRelatedComponent extends Component {
                       currentRelatedMedia={this.props.media}
                       parentComponent={this}
                       parentComponentName="MediaRelated"
-                      smoochBotInstalled={this.props.smoochBotInstalled}
                       hideRelated
                     />}
                     {<ul className="empty" />}
@@ -198,6 +219,7 @@ const MediaRelatedContainer = Relay.createContainer(MediaRelatedComponent, {
       fragment on ProjectMedia {
         id
         dbid
+        title
         archived
         permissions
         pusher_channel

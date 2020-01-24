@@ -1,10 +1,8 @@
 {
   "annotation.error": "Lo sentimos, se produjo un error al actualizar el ítem. Vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}.",
   "annotation.deleteButton": "Eliminar ",
-  "annotation.reverseImage": "Este ítem contiene al menos una imagen. Haz clic en buscar para ver posibles duplicados en Google.",
-  "annotation.reverseImageFacebook": "Este ítem contiene una o más imágenes. Como están contenidos en una publicación de Facebook, no podemos enviarlos directamente al motor de búsqueda. Considere realizar una búsqueda manual con Google o TinEye.",
   "annotation.and": "y",
-  "annotation.newClaim": "Nueva afirmación añadida por {author}",
+  "annotation.newClaim": "Nuevo texto añadida por {author}",
   "annotation.menuTooltip": "Acciones de las anotaciones",
   "annotation.permalink": "Enlace permanente",
   "annotation.taggedHeader": "Etiquetado #{tag} por {author}",
@@ -27,7 +25,6 @@
   "annotation.acceptSuggestion": "Aceptar",
   "annotation.rejectSuggestion": "Rechazar",
   "annotation.taskResolve": "Tarea resuelta por {author}: {task}{response}",
-  "annotation.reverseImageSearch": "Buscar ",
   "annotation.translation": "Traducido a {language} por {author}{translation}",
   "annotation.emptyMachineTranslation": "Añadir traducción automática",
   "annotation.machineTranslation": "Traducción automática al {language}{text}",
@@ -42,8 +39,8 @@
   "annotation.penderArchiveResponse": "Keep ha tomado una captura de pantalla de este URL ",
   "annotation.penderArchiveWait": "En este momento Keep está tomando la captura de pantalla de este ítem. Regresa en unos minutos para verlo.",
   "annotation.flaggedHeader": "Marcado como  {flag} por {author}",
-  "annotation.projectMoved": "Movido del proyecto {previousProject} a {currentProject} por {author}",
+  "annotation.projectMoved": "Movido de la lista {previousProject} a {currentProject} por {author}",
   "annotation.movedToTrash": "Enviado a la papelera por {author}",
   "annotation.movedFromTrash": "Sacado de la papelera por {author}",
-  "annotation.teamCopied": "Movido del proyecto {previousProject} al equipo {previousTeam} por {author}"
+  "annotation.teamCopied": "Copiado de la lista {previousProject} al área de trabajo {previousTeam} por {author}"
 }

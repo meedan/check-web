@@ -1,12 +1,12 @@
 {
   "joinTeamComponent.error": "Lo sentimos, se produjo un error al enviar tu solicitud. Vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}.",
-  "joinTeamComponent.success": "¡Gracias por tu interés en unirte a {team} {appName}! Pronto un líder del equipo revisará tu solicitud.",
-  "joinTeamComponent.autoApprove": "¡Gracias por unirte a {team} {appName}! Ya puedes empezar a contribuir.",
-  "joinTeamComponent.title": "Unirse al equipo",
+  "joinTeamComponent.success": "¡Gracias por tu interés en unirte a  {team}! Pronto un líder del área de trabajo revisará tu solicitud.",
+  "joinTeamComponent.autoApprove": "¡Gracias por unirte a {team}! Ya puedes empezar a contribuir.",
+  "joinTeamComponent.title": "Unirse a área de trabajo",
   "joinTeamComponent.mainHeading": "Solicitar unirse",
-  "joinTeamComponent.alreadyRequested": "Ya has enviado una solicitud para unirte a {team} {appName}.",
-  "joinTeamComponent.requestHasBeenSent": "Tu solicitud ha sido enviada a los administradores del proyecto para su aprobación.",
-  "joinTeamComponent.blurbGraf": "Para solicitar acceso a {link} {appName}, haz clic a continuación:",
+  "joinTeamComponent.alreadyRequested": "Ya has enviado una solicitud para unirte a {team}.",
+  "joinTeamComponent.requestHasBeenSent": "Tu solicitud ha sido enviada a los administradores del área de trabajo para su aprobación.",
+  "joinTeamComponent.blurbGraf": "Para solicitar unirse a {team}, haz clic a continuación:",
   "joinTeamComponent.buttonSubmitted": "Solicitud enviada",
   "joinTeamComponent.buttonSubmit": "Solicitar unirse"
 }

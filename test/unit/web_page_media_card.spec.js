@@ -13,6 +13,7 @@ describe('<WebPageMediaCard />', () => {
       published: '1506728130',
       archived: false,
       url: 'https://meedan.com/en/',
+      picture: "http://meedan.com/images/logos/meedan-logo-600@2x.png",
       metadata: {
         published_at: "",
         username: "",
@@ -161,17 +162,6 @@ describe('<WebPageMediaCard />', () => {
     );
 
     expect(card.find('img').html()).to.contain(`src="${webPageWithGoodPicture.data.picture}"`);
-  });
-
-  it('renders a favicon if the picture is a screenshot', () => {
-    const card = mountWithIntl(
-      <WebPageMediaCard
-        media={webPageWithScreenshotPicture.media}
-        data={webPageWithScreenshotPicture.data}
-      />,
-    );
-
-    expect(card.find('img').html()).to.contain(`src="${webPageWithScreenshotPicture.data.favicon}"`);
   });
 
   it('displays the embed html only if the domain is whitelisted', () => {

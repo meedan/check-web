@@ -1,0 +1,14 @@
+[
+  {
+    "id": "mediaAnalysis.error",
+    "defaultMessage": "Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists."
+  },
+  {
+    "id": "mediaAnalysis.type",
+    "defaultMessage": "Type an analysis of this item that will appear in the item's report..."
+  },
+  {
+    "id": "mediaAnalysis.save",
+    "defaultMessage": "Save"
+  }
+]

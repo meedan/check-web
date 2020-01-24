@@ -1,11 +1,11 @@
 import React from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import { Card, CardActions, CardHeader } from 'material-ui/Card';
+import { Card, CardActions } from 'material-ui/Card';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
 import AddAnnotation from './AddAnnotation';
 import Annotation from './Annotation';
-import { units, black16, black38, white, opaqueBlack16, borderWidthMedium, Text } from '../../styles/js/shared';
+import { units, black16, black38, opaqueBlack16, borderWidthMedium, Text } from '../../styles/js/shared';
 
 const StyledAnnotations = styled.div`
   display: flex;
@@ -44,7 +44,6 @@ const StyledAnnotations = styled.div`
         ${props => (props.isRtl ? 'right' : 'left')}: ${units(4)};
       }
       &:first-of-type {
-        padding-bottom: ${units(6)};
         height: 100%;
       }
     }
@@ -53,7 +52,6 @@ const StyledAnnotations = styled.div`
 
 const StyledAnnotationCardActions = styled(CardActions)`
   margin-top: auto;
-  background-color: ${white};
 `;
 
 class Annotations extends React.Component {
@@ -81,17 +79,11 @@ class Annotations extends React.Component {
         height={props.height}
         annotationCount={props.annotations.length}
       >
-        <Card initiallyExpanded>
-          <CardHeader
-            title={
-              <FormattedMessage id="annotation.timelineTitle" defaultMessage="Activity timeline" />
-            }
-            className="media__notes-heading"
-          />
+        <Card initiallyExpanded style={props.style}>
           <div className="annotations__list">
             {!props.annotations.length ?
               <Text style={{ margin: 'auto', color: black38 }}>
-                <FormattedMessage id="annotation.noAnnotationsYet" defaultMessage="No activity" />
+                { props.noActivityMessage ? props.noActivityMessage : <FormattedMessage id="annotation.noAnnotationsYet" defaultMessage="No activity" /> }
               </Text> :
               props.annotations.map(annotation => (
                 <div key={annotation.node.dbid} className="annotations__list-item">
@@ -103,11 +95,12 @@ class Annotations extends React.Component {
                 </div>))}
           </div>
           <StyledAnnotationCardActions>
-            <AddAnnotation
-              annotated={props.annotated}
-              annotatedType={props.annotatedType}
-              types={props.types}
-            />
+            { props.showAddAnnotation ?
+              <AddAnnotation
+                annotated={props.annotated}
+                annotatedType={props.annotatedType}
+                types={props.types}
+              /> : null }
           </StyledAnnotationCardActions>
         </Card>
       </StyledAnnotations>);

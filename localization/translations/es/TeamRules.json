@@ -1,6 +1,18 @@
 {
-  "teamRules.success": "Rules updated successfully!",
-  "teamRules.fail": "Error when trying to update rules.",
-  "teamRules.title": "Rules",
-  "teamRules.save": "Save"
+  "teamRules.add": "+ Y",
+  "teamRules.and": "Y",
+  "teamRules.if": "SI",
+  "teamRules.then": "ENTONCES",
+  "teamRules.newRule": "Nueva Regla",
+  "teamRules.confirmDeleteRule": "¿Estás seguro(a) que quieres eliminar la regla \"{ruleName}\"?",
+  "teamRules.success": "¡Las reglas se han actualizado con éxito!",
+  "teamRules.fail": "Lo sentimos, se produjo un error al atualizar las reglas.",
+  "teamRules.nameMandatory": "Por favor proporciona un nombre para esta regla.",
+  "teamRules.deleted": "Regla eliminada",
+  "teamRules.edit": "Editar regla",
+  "teamRules.delete": "Eliminar regla",
+  "teamRules.title": "Reglas",
+  "teamRules.back": "Volver",
+  "teamRules.save": "Guardar",
+  "teamRules.none": "No hay reglas aún"
 }

@@ -1,8 +1,5 @@
 {
-  "headerActions.tos": "Termeni",
-  "headerActions.privacyPolicy": "Confidențialitatea",
-  "headerActions.about": "Informații",
-  "headerActions.contactHuman": "Contacte",
-  "headerActions.productGuides": "Ghiduri pentru produse",
-  "headerActions.releaseNotes": "Note privind versiunea"
+  "teamMenu.teamSettings": "Workspace settings",
+  "projects.trash": "Trash",
+  "headerActions.signIn": "Sign In"
 }

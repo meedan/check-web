@@ -1,8 +1,8 @@
 {
   "teamSettings.Tasks": "Tarefas",
+  "teamSettings.rules": "Regras",
   "teamSettings.Tags": "Tags",
-  "teamSettings.embed": "Incorporação",
+  "teamSettings.embed": "Relato",
   "teamSettings.integrations": "Integrações",
-  "teamSettings.bots": "Bots",
-  "teamSettings.rules": "Rules"
+  "teamSettings.bots": "Bots"
 }

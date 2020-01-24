@@ -1,3 +1,3 @@
 {
-  "UserInfo.dateJoined": "Unido {date} • {teamsCount, plural, =0 {Sin equipos} one {1 equipo} other {# equipos}}"
+  "UserInfo.dateJoined": "Unido {date} • {teamsCount, plural, =0 {} one {1 área de trabajo} other {# áreas de trabajo}}"
 }

@@ -1,10 +1,19 @@
 {
-  "mediaEmbed.customizationOptionShowCompleteTasks": "Mostrar tareas completadas",
-  "mediaEmbed.customizationOptionShowIncompleteTasks": "Mostrar tareas sin completar",
-  "mediaEmbed.customizationOptionShowNotes": "Mostrar notas",
-  "mediaEmbed.warning": "Advertencia - Al compartir esto, estarás exponiendo públicamente, información confidencial de tu equipo. Procede con precaución.",
+  "mediaEmbed.error": "No se pudo guardar el informe",
+  "mediaEmbed.warning": "Advertencia - Al compartir esto, estarás exponiendo públicamente, información confidencial de tu área de trabajo. Procede con precaución.",
   "mediaEmbed.copyButtonInactive": "Copiado ",
   "mediaEmbed.copyButton": "Copiar",
+  "mediaEmbed.back": "Volver al anotaciones",
   "mediaEmbed.copyEmbedCode": "Copiar el código de incrustación ",
-  "mediaEmbed.copyShareUrl": "Copia, comparte URL"
+  "mediaEmbed.copyShareUrl": "Copia, comparte URL",
+  "mediaEmbed.editorTitle": "Seleccione el contenido para mostrar en su informe",
+  "mediaEmbed.update": "Actualizar",
+  "mediaEmbed.analysis": "Análisis",
+  "mediaEmbed.analysisSlogan": "Mostrar análisis en el informe",
+  "mediaEmbed.tasks": "Tareas",
+  "mediaEmbed.tasksSlogan": "Las tareas seleccionadas se incluirán en el informe si se resuelven.",
+  "mediaEmbed.disclaimer": "Declinación de responsabilidades",
+  "mediaEmbed.disclaimerSlogan": "El aviso de declinación de responsabilidades, se mostrará al final del informe junto al logo del área de trabajo",
+  "mediaEmbed.customUrl": "Enviar una URL personalizada en lugar de este informe",
+  "mediaEmbed.validUrl": "Por favor introduce un URL válido"
 }

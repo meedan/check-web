@@ -21,11 +21,11 @@ import CreateTeamBotInstallationMutation from '../relay/mutations/CreateTeamBotI
 const messages = defineMessages({
   confirmInstall: {
     id: 'bot.confirmInstall',
-    defaultMessage: 'Are you sure you want to install bot on team {teamName}?',
+    defaultMessage: 'Are you sure you want to install bot in {teamName}?',
   },
   confirmUninstall: {
     id: 'bot.confirmUninstall',
-    defaultMessage: 'Are you sure you want to uninstall this bot from team {teamName}?',
+    defaultMessage: 'Are you sure you want to uninstall this bot from {teamName}?',
   },
   cantChange: {
     id: 'bot.cantChange',

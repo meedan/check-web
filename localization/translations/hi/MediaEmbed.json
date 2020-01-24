@@ -1,10 +1,19 @@
 {
-  "mediaEmbed.customizationOptionShowCompleteTasks": "Show complete tasks",
-  "mediaEmbed.customizationOptionShowIncompleteTasks": "Show incomplete tasks",
-  "mediaEmbed.customizationOptionShowNotes": "Show notes",
-  "mediaEmbed.warning": "Warning — sharing this will expose information to people outside your private team. Proceed with caution.",
+  "mediaEmbed.error": "Could not save report",
+  "mediaEmbed.warning": "Warning — sharing this will expose information to people outside your private workspace. Proceed with caution.",
   "mediaEmbed.copyButtonInactive": "Copied",
   "mediaEmbed.copyButton": "Copy",
+  "mediaEmbed.back": "Back to annotation",
   "mediaEmbed.copyEmbedCode": "Copy embed code",
-  "mediaEmbed.copyShareUrl": "Copy share URL"
+  "mediaEmbed.copyShareUrl": "Copy share URL",
+  "mediaEmbed.editorTitle": "Select the content to display in your report",
+  "mediaEmbed.update": "Update",
+  "mediaEmbed.analysis": "Analysis",
+  "mediaEmbed.analysisSlogan": "Show analysis in the report",
+  "mediaEmbed.tasks": "Tasks",
+  "mediaEmbed.tasksSlogan": "The selected tasks will be included in the report if they are resolved.",
+  "mediaEmbed.disclaimer": "Disclaimer",
+  "mediaEmbed.disclaimerSlogan": "Disclaimer that will be shown at the bottom of the report with the workspace logo",
+  "mediaEmbed.customUrl": "Send a custom URL instead of this report",
+  "mediaEmbed.validUrl": "Please enter a valid URL"
 }

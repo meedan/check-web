@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import Relay from 'react-relay/classic';
@@ -7,7 +8,6 @@ import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import ResetPasswordMutation from '../relay/mutations/ResetPasswordMutation';
 import PageTitle from './PageTitle';
-import CheckContext from '../CheckContext';
 import { stringHelper } from '../customHelpers';
 import { ContentColumn } from '../styles/js/shared';
 
@@ -36,17 +36,13 @@ class UserPasswordReset extends Component {
     };
   }
 
-  getHistory() {
-    return new CheckContext(this).getContextStore().history;
-  }
+  handleGoBack = () => {
+    browserHistory.goBack();
+  };
 
-  handleGoBack() {
-    this.getHistory().getBack();
-  }
-
-  handleSignIn() {
-    this.getHistory().push('/');
-  }
+  handleSignIn = () => {
+    browserHistory.push('/');
+  };
 
   handleChange(e) {
     const value = e.target.value.trim();
@@ -100,7 +96,7 @@ class UserPasswordReset extends Component {
                 />
               </CardText>,
               <CardActions key="usr-3" className="user-password-reset__actions">
-                <FlatButton label={<FormattedMessage id="passwordReset.signIn" defaultMessage="Sign In" />} primary disabled={this.state.submitDisabled} onClick={this.handleSignIn.bind(this)} />
+                <FlatButton label={<FormattedMessage id="passwordReset.signIn" defaultMessage="Sign In" />} primary disabled={this.state.submitDisabled} onClick={this.handleSignIn} />
               </CardActions>,
             ] : [
               <CardTitle key="usr-1" title={<FormattedMessage id="passwordReset.title" defaultMessage="Reset password" />} />,
@@ -120,7 +116,7 @@ class UserPasswordReset extends Component {
                 </div>
               </CardText>,
               <CardActions key="usr-3" className="user-password-reset__actions">
-                <FlatButton label={<FormattedMessage id="passwordReset.cancel" defaultMessage="Cancel" />} onClick={this.handleGoBack.bind(this)} />
+                <FlatButton label={<FormattedMessage id="passwordReset.cancel" defaultMessage="Cancel" />} onClick={this.handleGoBack} />
                 <FlatButton label={<FormattedMessage id="passwordReset.submit" defaultMessage="Reset Password" />} primary disabled={this.state.submitDisabled} onClick={this.handleSubmit.bind(this)} />
               </CardActions>,
             ]}

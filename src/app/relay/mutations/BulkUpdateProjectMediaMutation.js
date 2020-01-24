@@ -26,15 +26,19 @@ class BulkUpdateProjectMediaMutation extends Relay.Mutation {
     if (this.props.dstProject) {
       vars.project_id = this.props.dstProject.dbid;
     }
-    if (this.props.dstProjectForClone) {
-      vars.copy_to_project_id = this.props.dstProjectForClone.dbid;
+    if (this.props.dstProjectForAdd) {
+      vars.add_to_project_id = this.props.dstProjectForAdd.dbid;
       vars.no_freeze = true;
     }
     if (this.props.srcProject) {
       vars.previous_project_id = this.props.srcProject.dbid;
     }
-    if (this.props.archived) {
-      vars.archived = 1;
+    if (this.props.archived !== undefined) {
+      vars.archived = this.props.archived;
+    }
+    if (this.props.srcProjectForRemove) {
+      vars.remove_from_project_id = this.props.srcProjectForRemove.dbid;
+      vars.no_freeze = true;
     }
     return vars;
   }
@@ -52,6 +56,12 @@ class BulkUpdateProjectMediaMutation extends Relay.Mutation {
     if (this.props.ids && this.props.count && this.props.teamSearchId && this.props.archived) {
       response.check_search_team = {
         id: this.props.teamSearchId,
+        number_of_results: this.props.count - this.props.ids.length,
+      };
+    }
+    if (this.props.ids && this.props.count && this.props.srcProjectForRemove) {
+      response.check_search_project_was = {
+        id: this.props.srcProjectForRemove.search_id,
         number_of_results: this.props.count - this.props.ids.length,
       };
     }
@@ -81,7 +91,26 @@ class BulkUpdateProjectMediaMutation extends Relay.Mutation {
         },
       ];
     }
-    if (/^\/[^/]+\/search/.test(window.location.pathname) && this.props.archived) {
+    if (this.props.srcProjectForRemove) {
+      const fieldIDs = {
+        check_search_project_was: this.props.srcProjectForRemove.search_id,
+      };
+      configs = [
+        {
+          type: 'RANGE_DELETE',
+          parentName: 'check_search_project_was',
+          parentID: this.props.srcProjectForRemove.search_id,
+          connectionName: 'medias',
+          pathToConnection: ['check_search_project_was', 'medias'],
+          deletedIDFieldName: 'affectedIds',
+        },
+        {
+          type: 'FIELDS_CHANGE',
+          fieldIDs,
+        },
+      ];
+    }
+    if (/^\/[^/]+\/all-items/.test(window.location.pathname) && this.props.archived) {
       configs.push({
         type: 'FIELDS_CHANGE',
         fieldIDs: {

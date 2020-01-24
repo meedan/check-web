@@ -1,6 +1,6 @@
 {
   "createMedia.mediaInput": "Cole ou digite",
-  "createMedia.quoteInput": "Cole ou digite uma afirmação",
+  "createMedia.quoteInput": "Cole ou digite um texto",
   "createMedia.quoteAttributionSourceInput": "Nome da fonte",
   "createMedia.quoteAttributionContext": "URL ou contexto",
   "createMedia.quoteAttributionSourceInputHelper": "Quém disse isso?",
@@ -11,7 +11,7 @@
   "createMedia.submitButton": "Enviar",
   "createMedia.invalidUrl": "Por favor insira uma URL válida",
   "createMedia.link": "Link",
-  "createMedia.quote": "Afirmação",
+  "createMedia.quote": "Texto",
   "createMedia.source": "Fonte",
   "createMedia.image": "Foto",
   "createMedia.video": "Vídeo"

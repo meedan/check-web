@@ -1,10 +1,13 @@
 {
-  "teamEmbed.updateFail": "Desculpe, ocorreu um erro ao atualizar as configurações. Por favor, tente novamente e entre em contato com {supportEmail} se a condição persistir.",
-  "teamEmbed.updateSuccess": "As configurações de incorporação foram atualizadas com sucesso!",
-  "teamEmbed.title": "Configurações de incorporação",
+  "teamEmbed.updateFail": "Desculpe, ocorreu um erro ao atualizar as configurações do relato. Por favor, tente novamente e entre em contato com {supportEmail} se a condição persistir.",
+  "teamEmbed.updateSuccess": "As configurações do relato foram atualizadas com sucesso!",
+  "teamEmbed.title": "Configurações do relato",
   "teamEmbed.tasks": "Tarefas",
-  "teamEmbed.tasksSub": "As tarefas selecionadas serão incluídas na incorporação se elas estiverem resolvidas",
+  "teamEmbed.tasksSub": "As tarefas selecionadas serão incluídas no relato se elas estiverem resolvidas.",
   "teamEmbed.disclaimer": "Aviso",
-  "teamEmbed.disclaimerSub": "Aviso que será exibido na parte inferior da incorporação com a logotipo da equipe.",
+  "teamEmbed.disclaimerSub": "Aviso que será exibido na parte inferior do relato com a logotipo da área de trabalho.",
+  "teamEmbed.analysis": "Análise",
+  "teamEmbed.analysisSub": "Mostrar análise no relato",
+  "teamEmbed.analysisYes": "Sim",
   "teamEmbed.save": "Salvar"
 }

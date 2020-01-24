@@ -107,7 +107,7 @@ class DrawerNavigationComponent extends Component {
 
   render() {
     const { loggedIn } = this.props;
-    const inTeamContext = this.props.inTeamContext && this.props.team;
+    const inTeamContext = this.props.team;
 
     // This component now renders based on teamPublicFragment
     // and decides whether to include <Project> which has its own team route/relay
@@ -162,7 +162,14 @@ class DrawerNavigationComponent extends Component {
     };
 
     return (
-      <Drawer {...this.props} containerStyle={{ boxShadow: 'none', borderRight: 'solid 1px #e0e0e0' }}>
+      <Drawer
+        {...this.props}
+        containerStyle={{
+          boxShadow: 'none',
+          borderRight: 'solid 1px #e0e0e0',
+          overflow: 'unset',
+        }}
+      >
         <div>
 
           {inTeamContext ?
@@ -193,7 +200,7 @@ class DrawerNavigationComponent extends Component {
                       className="team-menu__team-settings-button"
                       onClick={this.handleClickTeamSettings.bind(this)}
                       tooltip={
-                        <FormattedMessage id="teamMenu.teamSettings" defaultMessage="Team settings" />
+                        <FormattedMessage id="teamMenu.teamSettings" defaultMessage="Workspace settings" />
                       }
                     >
                       <IconSettings />
@@ -234,6 +241,7 @@ class DrawerNavigationComponent extends Component {
                     variant="contained"
                     color="primary"
                     onClick={saveCurrentPage}
+                    style={{ width: '100%' }}
                   >
                     <FormattedMessage defaultMessage="Sign In" id="headerActions.signIn" />
                   </Button>

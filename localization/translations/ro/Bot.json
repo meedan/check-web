@@ -1,6 +1,6 @@
 {
-  "bot.confirmInstall": "Sigur doriți să instalați robotul pe echipa {teamName}?",
-  "bot.confirmUninstall": "Sigur doriți să dezinstalați acest robot din echipa {teamName}?",
+  "bot.confirmInstall": "Are you sure you want to install bot in {teamName}?",
+  "bot.confirmUninstall": "Are you sure you want to uninstall this bot from {teamName}?",
   "bot.cantChange": "Ne pare rău, în timpul actualizării robotului s-a produs o eroare. Vă rugăm să mai încercați odată și să contactați {supportEmail} dacă situația persistă.",
   "bot.inUse": "În uz",
   "bot.madeBy": "Făcut de {teamLink}",

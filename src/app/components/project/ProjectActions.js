@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import IconMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
+import IconMoreVert from 'material-ui/svg-icons/navigation/more-vert';
 import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
@@ -86,7 +86,7 @@ class ProjectActions extends Component {
         { onSuccess, onFailure },
       );
 
-      history.push(`/${team.slug}/search`);
+      history.push(`/${team.slug}/all-items`);
     }
   }
 
@@ -104,7 +104,7 @@ class ProjectActions extends Component {
           className="project-actions__edit"
           onClick={this.handleEdit}
         >
-          <FormattedMessage id="ProjectActions.edit" defaultMessage="Edit" />
+          <FormattedMessage id="ProjectActions.edit" defaultMessage="Edit name and description" />
         </MenuItem>));
     }
 
@@ -115,7 +115,7 @@ class ProjectActions extends Component {
           className="project-actions__assign"
           onClick={this.handleAssign}
         >
-          <FormattedMessage id="projectActions.assignOrUnassign" defaultMessage="Assign / Unassign" />
+          <FormattedMessage id="projectActions.assignOrUnassign" defaultMessage="Assign list" />
         </MenuItem>));
     }
 
@@ -158,7 +158,7 @@ class ProjectActions extends Component {
                 <FormattedMessage id="ProjectActions.tooltip" defaultMessage="List actions" />
               }
             >
-              <IconMoreHoriz className="project-actions__icon" />
+              <IconMoreVert className="project-actions__icon" />
             </IconButton>}
         >
           {menuItems}
@@ -173,7 +173,7 @@ class ProjectActions extends Component {
           <h2>
             <FormattedMessage
               id="projectActions.confirmDeleteProject"
-              defaultMessage="Are you sure you want to delete this list? All its items will still be accessible through the 'All claims' list."
+              defaultMessage="Are you sure you want to delete this list? All its items will still be accessible through the 'All items' list."
             />
           </h2>
           <p style={{ margin: `${units(4)} 0` }}>

@@ -1,7 +1,7 @@
 [
   {
     "id": "search.title",
-    "defaultMessage": "Search"
+    "defaultMessage": "All items"
   },
   {
     "id": "search.inputHint",
@@ -20,8 +20,8 @@
     "defaultMessage": "Reset"
   },
   {
-    "id": "search.filterItems",
-    "defaultMessage": "Filter items"
+    "id": "search.clear",
+    "defaultMessage": "Clear filter"
   },
   {
     "id": "search.sortByOldest",
@@ -45,11 +45,11 @@
   },
   {
     "id": "search.projectHeading",
-    "defaultMessage": "Project"
+    "defaultMessage": "List"
   },
   {
     "id": "status.categoriesHeading",
-    "defaultMessage": "Team Tags"
+    "defaultMessage": "Default Tags"
   },
   {
     "id": "search.sort",
@@ -69,7 +69,7 @@
   },
   {
     "id": "search.showClaims",
-    "defaultMessage": "Claims"
+    "defaultMessage": "Texts"
   },
   {
     "id": "search.showLinks",

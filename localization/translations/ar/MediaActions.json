@@ -1,13 +1,15 @@
 {
-  "mediaActions.edit": "تحرير",
-  "mediaActions.restore": "استعادة إلى المشروع",
-  "mediaActions.move": "نقل",
+  "mediaActions.edit": "تحرير العنوان والوصف",
   "mediaActions.refresh": "تحديث",
-  "mediaActions.sendToTrash": "ارسال إلى سلة المهملات",
-  "mediaActions.embed": "تضمين...",
-  "mediaActions.memebuster": "مُنشئ الأشكال الإيمائية",
-  "mediaActions.assignOrUnassign": "تكليف \\ إلغاء التكليف",
+  "mediaActions.assignOrUnassign": "Assignment",
   "mediaActions.unlockStatus": "إلغاء تأمين الحالة",
   "mediaActions.lockStatus": "تأمين الحالة",
+  "mediaActions.memebuster": "Meme designer",
+  "mediaActions.report": "Report designer",
+  "mediaActions.sendToTrash": "ارسال إلى سلة المهملات",
+  "mediaActions.restore": "Restore from trash",
+  "mediaActions.move": "نقل",
+  "mediaActions.addToList": "Add to list",
+  "mediaActions.removeFromList": "Remove from list",
   "mediaActions.tooltip": "إجراءات العناصر"
 }

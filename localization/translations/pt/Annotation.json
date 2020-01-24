@@ -1,10 +1,8 @@
 {
   "annotation.error": "Desculpe, ocorreu um erro ao atualizar o item. Por favor, tente novamente e entre em contato com {supportEmail} se a condição persistir.",
   "annotation.deleteButton": "Excluir",
-  "annotation.reverseImage": "Esse item contém pelo menos uma imagem. Clique em Busca para procurar possíveis duplicatas no Google.",
-  "annotation.reverseImageFacebook": "Esse item contém uma ou mais imagens. Como estão contidas em uma postagem do Facebook, não podemos as enviar diretamente para o mecanismo de pesquisa. Considere realizar uma busca manual usando Google ou TinEye.",
   "annotation.and": "e",
-  "annotation.newClaim": "Nova afirmação inserida por {author}",
+  "annotation.newClaim": "Novo texto inserido por {author}",
   "annotation.menuTooltip": "Ações das anotações",
   "annotation.permalink": "Permalink",
   "annotation.taggedHeader": "Marcado #{tag} por {author}",
@@ -27,7 +25,6 @@
   "annotation.acceptSuggestion": "Aceitar",
   "annotation.rejectSuggestion": "Recusar",
   "annotation.taskResolve": "Tarefa respondida por {author}: {task}{response}",
-  "annotation.reverseImageSearch": "Busca",
   "annotation.translation": "Traduzido para {language} por {author}{translation}",
   "annotation.emptyMachineTranslation": "Adicionar tradução automática",
   "annotation.machineTranslation": "Tradução automática para {language}{text}",
@@ -42,8 +39,8 @@
   "annotation.penderArchiveResponse": "Keep tirou um screenshot deste item.",
   "annotation.penderArchiveWait": "Este item está sendo arquivado em Keep. Volte em alguns minutos para receber um screenshot.",
   "annotation.flaggedHeader": "Marcado como {flag} por {author}",
-  "annotation.projectMoved": "Movido do projeto {previousProject} para {currentProject} por {author}",
+  "annotation.projectMoved": "Movido da lista {previousProject} para {currentProject} por {author}",
   "annotation.movedToTrash": "Movido para lixeira por {author}",
   "annotation.movedFromTrash": "Movido para fora da lixeira por {author}",
-  "annotation.teamCopied": "Copiado do projeto {previousProject} na equipe {previousTeam} por {author}"
+  "annotation.teamCopied": "Copiado da lista {previousProject} na área de trabalho {previousTeam} por {author}"
 }

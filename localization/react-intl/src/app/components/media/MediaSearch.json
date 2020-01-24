@@ -6,5 +6,9 @@
   {
     "id": "mediaSearch.nextItem",
     "defaultMessage": "Next item"
+  },
+  {
+    "id": "mediaSearch.of",
+    "defaultMessage": "of"
   }
 ]

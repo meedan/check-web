@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -7,13 +6,7 @@ import rtlDetect from 'rtl-detect';
 import styled from 'styled-components';
 import difference from 'lodash.difference';
 import intersection from 'lodash.intersection';
-import { getErrorMessage } from '../../helpers';
-import { stringHelper } from '../../customHelpers';
-import globalStrings from '../../globalStrings';
-import CheckContext from '../../CheckContext';
 import { black54, black87, caption, units, opaqueBlack02, opaqueBlack05, StyledCheckboxNext } from '../../styles/js/shared';
-import { createTag } from '../../relay/mutations/CreateTagMutation';
-import { deleteTag } from '../../relay/mutations/DeleteTagMutation';
 
 const StyledHeadingFirst = styled.div`
   color: ${black87};
@@ -50,63 +43,24 @@ const StyledFormControlLabel = styled(FormControlLabel)`
 `;
 
 class TagPicker extends React.Component {
-  fail = (transaction) => {
-    const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
-    const message = getErrorMessage(transaction, fallbackMessage);
-    this.context.setMessage(message);
-  };
-
-  handleCreateTag(value) {
-    const { media } = this.props;
-
-    const context = new CheckContext(this).getContextStore();
-
-    const onSuccess = (data) => {
-      const pm = data.createTag.project_media;
-      let path = '';
-      let currentProjectId = window.location.pathname.match(/project\/([0-9]+)/);
-      if (currentProjectId) {
-        [path, currentProjectId] = currentProjectId;
-      }
-      if (pm.project_id && currentProjectId &&
-        parseInt(pm.project_id, 10) !== parseInt(currentProjectId, 10)) {
-        const newPath = window.location.pathname.replace(path, `project/${pm.project_id}`);
-        window.location.assign(newPath);
-      }
+  constructor(props) {
+    super(props);
+    this.state = {
+      tags: props.tags.map(tag => tag.node.tag_text),
     };
-
-    createTag(
-      {
-        media,
-        value,
-        annotator: context.currentUser,
-      },
-      onSuccess, this.fail,
-    );
   }
 
-  handleRemoveTag = (value) => {
-    const { media } = this.props;
-
-    const removedTag = this.props.tags.find(tag => tag.node.tag_text === value);
-
-    const onSuccess = () => {};
-
-    deleteTag(
-      {
-        media,
-        tagId: removedTag.node.id,
-      },
-      onSuccess, this.fail,
-    );
-  };
-
   handleSelectCheckbox = (e, inputChecked) => {
+    const tags = this.state.tags.slice();
+    const tag = e.target.id;
     if (inputChecked) {
-      this.handleCreateTag(e.target.id);
+      this.props.onAddTag(tag);
+      tags.push(tag);
     } else {
-      this.handleRemoveTag(e.target.id);
+      this.props.onRemoveTag(tag);
+      tags.splice(tags.indexOf(tag), 1);
     }
+    this.setState({ tags });
   }
 
   renderNotFound(shownTagsCount, totalTagsCount) {
@@ -115,7 +69,7 @@ class TagPicker extends React.Component {
         <StyledNotFound>
           <FormattedMessage
             id="tagPicker.emptyTags"
-            defaultMessage="There are currently no tags for this team."
+            defaultMessage="There are currently no tags for this workspace."
           />
         </StyledNotFound>
       );
@@ -142,7 +96,7 @@ class TagPicker extends React.Component {
       return tag.toLowerCase().includes(val.toLowerCase());
     };
 
-    const plainMediaTags = tags.map(tag => tag.node.tag_text);
+    const plainMediaTags = this.state.tags;
 
     const suggestedTags = media.team && media.team.get_suggested_tags
       ? media.team.get_suggested_tags.split(',').filter(tag => compareString(tag, value))
@@ -180,7 +134,7 @@ class TagPicker extends React.Component {
           <StyledHeadingFirst>
             <FormattedMessage
               id="tagPicker.teamTags"
-              defaultMessage="Team tags"
+              defaultMessage="Default tags"
             />
           </StyledHeadingFirst>
           {
@@ -238,11 +192,6 @@ TagPicker.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
-};
-
-TagPicker.contextTypes = {
-  store: PropTypes.object,
-  setMessage: PropTypes.func,
 };
 
 export default injectIntl(TagPicker);

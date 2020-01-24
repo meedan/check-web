@@ -1,14 +1,18 @@
 {
-  "bulkActions.move": "Mover los ítems seleccionados a otro proyecto",
+  "bulkActions.move": "Mover los ítems seleccionados a otra lista",
   "bulkActions.sendItemsToTrash": "Mover los ítems seleccionados a la papelera.",
+  "bulkActions.restoreItemsFromTrash": "Restaurar los ítems seleccionados desde la papelera",
   "bulkActions.selectAll": "Seleccionar todos los ítems de esta página",
-  "bulkActions.clone": "Copiar los ítems seleccionados en otro proyecto",
+  "bulkActions.clone": "Copiar los ítems seleccionados en otra lista",
+  "bulkActions.moveToTrashSuccessfully": "¡Listo! Ten en cuenta que va a tardar tiempo mover todos los ítems a la papelera. ",
+  "bulkActions.restoredFromTrashSuccessfully": "¡Listo! Ten en cuenta que va a tardar tiempo restaurar los ítems desde la papelera. ",
   "bulkActions.clonedSuccessfully": "¡Listo! Ten en cuenta que toma un poco de tiempo duplicar completamente los ítems. ",
   "bulkActions.movedSuccessfully": "¡Listo!  Ten en cuenta que tomá un poco de tiempo para que los ítems se muevan completamente.",
-  "bulkActions.moveToTrashSuccessfully": "¡Listo! Ten en cuenta que va a tardar tiempo mover todos los ítems a la papelera. ",
+  "bulkActions.restore": "Restaurar desde la papelera",
+  "bulkActions.moveTo": "Mover a...",
   "bulkActions.cancelButton": "Cancelar",
   "bulkActions.moveTitle": "Mover",
   "bulkActions.cloneTitle": "Copiar",
-  "bulkActions.dialogMoveTitle": "Mover a otro proyecto",
-  "bulkActions.dialogCloneTitle": "Copiar a otro proyecto"
+  "bulkActions.dialogMoveTitle": "Mover a otra lista",
+  "bulkActions.dialogCloneTitle": "Copiar a otra lista"
 }

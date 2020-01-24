@@ -1,7 +1,7 @@
 {
   "addAnnotation.invalidCommand": "Comando inválido ",
   "addAnnotation.error": "Lo sentimos, se produjo un error al actualizar el ítem. Vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}.",
-  "addAnnotation.inputHint": "Añade una nota acerca de esto ",
+  "addAnnotation.inputHint": "Añadir comentario",
   "addAnnotation.submitButton": "Subir",
   "addAnnotation.addImage": "Añadir una imagen "
 }

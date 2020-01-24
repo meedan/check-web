@@ -50,7 +50,6 @@ module AppSpecHelpers
 
   def delete_task(task_text)
     expect(@driver.page_source.include?(task_text)).to be(true)
-    wait_for_selector('.task__label').click
     wait_for_selector('.task-actions__icon').click
     wait_for_selector('.task-actions__delete').click
 
@@ -322,8 +321,10 @@ module AppSpecHelpers
   def create_image(file)
     wait_for_selector('#create-media__add-item').click
     wait_for_selector("#create-media__image").click
-    input = wait_for_selector('input[type=file]')
-    input.send_keys(File.join(File.dirname(__FILE__), "#{file}"))
+    wait_for_selector('input[type=file]').send_keys(File.join(File.dirname(__FILE__), "#{file}"))
+
+    sleep 8
+
     wait_for_selector("#create-media-dialog__submit-button").click
   end
 
@@ -350,8 +351,7 @@ module AppSpecHelpers
     @driver.navigate.to @config['self_url']
     wait_for_selector('#create-media__add-item').click
     wait_for_selector("#create-media__image").click
-    input = wait_for_selector('input[type=file]')
-    input.send_keys(File.join(File.dirname(__FILE__), 'test.png'))
+    wait_for_selector('input[type=file]').send_keys(File.join(File.dirname(__FILE__), 'test.png'))
     wait_for_selector_none(".without-file")
     wait_for_selector("#create-media-dialog__submit-button").click
     wait_for_selector(".media__heading").click
@@ -444,7 +444,7 @@ module AppSpecHelpers
   end
 
   def generate_a_embed_and_copy_embed_code
-    wait_for_selector(".media-detail__card-header")
+    wait_for_selector(".media-detail")
     wait_for_selector('.media-actions__icon').click
     wait_for_selector('.media-actions__edit')
     el = wait_for_selector('.media-actions__embed')
@@ -456,11 +456,13 @@ module AppSpecHelpers
     wait_for_selector("#media-embed__copy-code")
   end
 
+  
   def change_the_status_to(status_class)
-    wait_for_selector(".media-detail__card-header")
+    wait_for_selector(".media-detail")
     wait_for_selector(".media-status__label > div button svg").click
     wait_for_selector(".media-status__menu-item")
-    wait_for_selector(status_class).click
+    wait_for_selector(status_class).click  
+    wait_for_selector(".media-status__proceed-send").click unless (status_class == ".media-status__menu-item--in-progress")
     wait_for_selector_none(".media-status__menu-item")
     wait_for_selector_none(".media-status__menu-item")
   end
