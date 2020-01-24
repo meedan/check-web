@@ -136,7 +136,7 @@ class MediaExpandedComponent extends Component {
                 id="mediaExpanded.requests"
                 defaultMessage="{count} requests"
                 values={{
-                  count: media.requests_count,
+                  count: media.demand,
                 }}
               />
             </span>
@@ -186,7 +186,7 @@ const MediaExpandedContainer = Relay.createContainer(MediaExpandedComponent, {
         domain
         created_at
         last_seen
-        requests_count
+        demand
         title
         picture
         description
