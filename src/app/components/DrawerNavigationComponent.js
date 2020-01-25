@@ -107,7 +107,7 @@ class DrawerNavigationComponent extends Component {
 
   render() {
     const { loggedIn } = this.props;
-    const inTeamContext = this.props.inTeamContext && this.props.team;
+    const inTeamContext = this.props.team;
 
     // This component now renders based on teamPublicFragment
     // and decides whether to include <Project> which has its own team route/relay
@@ -241,6 +241,7 @@ class DrawerNavigationComponent extends Component {
                     variant="contained"
                     color="primary"
                     onClick={saveCurrentPage}
+                    style={{ width: '100%' }}
                   >
                     <FormattedMessage defaultMessage="Sign In" id="headerActions.signIn" />
                   </Button>

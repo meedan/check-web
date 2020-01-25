@@ -50,7 +50,6 @@ module AppSpecHelpers
 
   def delete_task(task_text)
     expect(@driver.page_source.include?(task_text)).to be(true)
-    wait_for_selector('.task__label').click
     wait_for_selector('.task-actions__icon').click
     wait_for_selector('.task-actions__delete').click
 
@@ -68,9 +67,9 @@ module AppSpecHelpers
 
   def twitter_login
     @driver.navigate.to 'https://twitter.com/login'
-    fill_field('.js-username-field', @config['twitter_user'])
-    fill_field('.js-password-field', @config['twitter_password'])
-    press_button('button.submit')
+    fill_field('input[name="session[username_or_email]"]', @config['twitter_user'])
+    fill_field('input[name="session[password]"]', @config['twitter_password'])
+    press_button('div[role="button"]')
     @wait.until {
       @driver.page_source.include?("#{@config['twitter_name']}")
     }
@@ -445,7 +444,7 @@ module AppSpecHelpers
   end
 
   def generate_a_embed_and_copy_embed_code
-    wait_for_selector(".media-detail__card-header")
+    wait_for_selector(".media-detail")
     wait_for_selector('.media-actions__icon').click
     wait_for_selector('.media-actions__edit')
     el = wait_for_selector('.media-actions__embed')
@@ -457,11 +456,13 @@ module AppSpecHelpers
     wait_for_selector("#media-embed__copy-code")
   end
 
+  
   def change_the_status_to(status_class)
-    wait_for_selector(".media-detail__card-header")
+    wait_for_selector(".media-detail")
     wait_for_selector(".media-status__label > div button svg").click
     wait_for_selector(".media-status__menu-item")
-    wait_for_selector(status_class).click
+    wait_for_selector(status_class).click  
+    wait_for_selector(".media-status__proceed-send").click unless (status_class == ".media-status__menu-item--in-progress")
     wait_for_selector_none(".media-status__menu-item")
     wait_for_selector_none(".media-status__menu-item")
   end

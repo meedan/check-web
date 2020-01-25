@@ -275,7 +275,7 @@ class MediaCondensedComponent extends Component {
                   id="mediaCondensed.requests"
                   defaultMessage="{count} requests"
                   values={{
-                    count: media.requests_count,
+                    count: media.demand,
                   }}
                 />
               </span>
@@ -365,7 +365,7 @@ const MediaCondensedContainer = Relay.createContainer(MediaCondensedComponent, {
         picture
         last_seen
         permissions
-        requests_count
+        demand
         relationship {
           id
           source { id, dbid }

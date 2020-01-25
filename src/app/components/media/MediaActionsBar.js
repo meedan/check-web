@@ -199,7 +199,8 @@ class MediaActionsBarComponent extends Component {
 
     const embed = {};
 
-    const { title, description } = this.state;
+    const title = this.getTitle();
+    const description = this.getDescription();
 
     if (typeof title === 'string' && title.trim().length > 0) {
       embed.title = title.trim();

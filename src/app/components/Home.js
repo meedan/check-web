@@ -160,7 +160,11 @@ class HomeComponent extends Component {
   handleDrawerToggle = () => this.setState({ open: !this.state.open });
 
   loginCallback() {
-    window.location.assign(this.state.path);
+    if (this.state.path !== '/check/user/password-change') {
+      window.location.assign(this.state.path);
+    } else {
+      window.location.assign('/');
+    }
     this.setState({ error: false, path: null });
   }
 
@@ -229,28 +233,22 @@ class HomeComponent extends Component {
       return null;
     }
 
-    // @chris with @alex 2017-10-3
-    //
-    // TODO Fix currentUserIsMember function.
-    // context.currentUser.teams keys are actually the team names, not slugs
-
-    const inTeamContext = !!this.props.params.team;
+    const user = this.getContext().currentUser || {};
+    const inTeamContext = !!(this.props.params.team || user.current_team);
     const loggedIn = !!this.state.token;
+    const teamSlug = this.props.params.team || (user.current_team && user.current_team.slug);
 
     const currentUserIsMember = (() => {
       if (inTeamContext && loggedIn) {
-        const user = this.getContext().currentUser;
         if (user.is_admin) {
           return true;
         }
         const teams = JSON.parse(user.teams);
-        const team = teams[this.props.params.team] || {};
+        const team = teams[teamSlug] || {};
         return team.status === 'member';
       }
       return false;
     })();
-
-    const user = this.getContext().currentUser;
 
     const showDrawer = !/\/media\/[0-9]+/.test(window.location.pathname);
 
@@ -258,7 +256,7 @@ class HomeComponent extends Component {
       <MuiThemeProviderNext theme={muiThemeNext}>
         <MuiThemeProvider muiTheme={muiThemeWithRtl}>
           <span>
-            {config.intercomAppId && user ?
+            {config.intercomAppId && user.dbid ?
               <Intercom
                 appID={config.intercomAppId}
                 user_id={user.dbid}
@@ -274,6 +272,7 @@ class HomeComponent extends Component {
                 variant="persistent"
                 docked
                 loggedIn={loggedIn}
+                teamSlug={teamSlug}
                 inTeamContext={inTeamContext}
                 currentUserIsMember={currentUserIsMember}
                 {...this.props}
@@ -286,8 +285,8 @@ class HomeComponent extends Component {
               <Header
                 drawerToggle={this.handleDrawerToggle.bind(this)}
                 loggedIn={loggedIn}
-                inTeamContext={inTeamContext}
                 pageType={routeSlug}
+                inTeamContext={inTeamContext}
                 currentUserIsMember={currentUserIsMember}
                 {...this.props}
               />

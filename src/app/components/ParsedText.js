@@ -11,6 +11,10 @@ const StyledEmojiOnly = styled.span`
 `;
 
 const ParsedText = (props) => {
+  if (!props.text) {
+    return null;
+  }
+
   // Break into lines.
   const lines = props.text.split('\n');
 

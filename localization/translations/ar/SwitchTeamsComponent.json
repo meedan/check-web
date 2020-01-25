@@ -2,9 +2,9 @@
   "switchTeams.error": "Sorry, an error occurred while updating the workspace. Please try again and contact {supportEmail} if the condition persists.",
   "switchTeams.member": "{membersCount, plural, =0 {لا يوجد أعضاء} one {عضو واحد} other {# أعضاء}}",
   "switchTeams.joinRequestMessage": "لقد أرسلت طلب انضمام للفريق",
-  "teams.yourTeams": "Your workspaces",
+  "teams.yourTeams": "مساحات العمل الخاصة بك",
   "teams.userTeams": "{name}'s workspaces",
   "switchTeams.cancelJoinRequest": "إلغاء",
   "switchTeams.noTeams": "Not a member of any workspace.",
-  "switchTeams.newTeamLink": "Create Workspace"
+  "switchTeams.newTeamLink": "إنشاء مساحة عمل"
 }

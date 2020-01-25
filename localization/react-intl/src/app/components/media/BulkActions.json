@@ -16,8 +16,12 @@
     "defaultMessage": "Select all items on this page"
   },
   {
-    "id": "bulkActions.clone",
-    "defaultMessage": "Copy selected items to another list"
+    "id": "bulkActions.add",
+    "defaultMessage": "Add selected items to another list"
+  },
+  {
+    "id": "bulkActions.remove",
+    "defaultMessage": "Remove selected items from this list"
   },
   {
     "id": "bulkActions.moveToTrashSuccessfully",
@@ -28,8 +32,12 @@
     "defaultMessage": "Done! Please note that it can take a while until the items are actually restored from the trash."
   },
   {
-    "id": "bulkActions.clonedSuccessfully",
-    "defaultMessage": "Done! Please note that it can take a while until the items are actually cloned."
+    "id": "bulkActions.addedSuccessfully",
+    "defaultMessage": "Done! Please note that it can take a while until the items are actually added."
+  },
+  {
+    "id": "bulkActions.removedSuccessfully",
+    "defaultMessage": "Done! Please note that it can take a while until the items are actually removed from this list."
   },
   {
     "id": "bulkActions.movedSuccessfully",
@@ -40,8 +48,16 @@
     "defaultMessage": "Restore from trash"
   },
   {
+    "id": "bulkActions.addTo",
+    "defaultMessage": "Add to..."
+  },
+  {
     "id": "bulkActions.moveTo",
     "defaultMessage": "Move to..."
+  },
+  {
+    "id": "bulkActions.removeFromList",
+    "defaultMessage": "Remove from list"
   },
   {
     "id": "bulkActions.cancelButton",
@@ -52,15 +68,15 @@
     "defaultMessage": "Move"
   },
   {
-    "id": "bulkActions.cloneTitle",
-    "defaultMessage": "Copy"
+    "id": "bulkActions.addTitle",
+    "defaultMessage": "Add"
   },
   {
     "id": "bulkActions.dialogMoveTitle",
     "defaultMessage": "Move to a different list"
   },
   {
-    "id": "bulkActions.dialogCloneTitle",
-    "defaultMessage": "Copy to a different list"
+    "id": "bulkActions.dialogAddTitle",
+    "defaultMessage": "Add to a different list"
   }
 ]

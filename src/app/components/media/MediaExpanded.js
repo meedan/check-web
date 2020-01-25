@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import MediaRoute from '../../relay/MediaRoute';
 import MediaMetadata from './MediaMetadata';
 import MediaUtil from './MediaUtil';
+import MoreLess from '../layout/MoreLess';
 import ParsedText from '../ParsedText';
 import TimeBefore from '../TimeBefore';
 import QuoteMediaCard from './QuoteMediaCard';
@@ -18,9 +19,7 @@ import { truncateLength } from '../../helpers';
 import CheckContext from '../../CheckContext';
 import {
   FadeIn,
-  black54,
   units,
-  Text,
   Row,
 } from '../../styles/js/shared';
 
@@ -73,10 +72,10 @@ class MediaExpandedComponent extends Component {
     const authorUsername = MediaUtil.authorUsername(media, data);
     const isPender = media.media.url && data.provider !== 'page';
     const randomNumber = Math.floor(Math.random() * 1000000);
-    const shouldShowDescription = false;
-    MediaUtil.hasCustomDescription(media, data);
     const { isRtl, mediaUrl, mediaQuery } = this.props;
     const posterUrl = media.media.thumbnail_path;
+    const hasCustomDescription = MediaUtil.hasCustomDescription(media, data);
+    const hasCustomTitle = MediaUtil.hasCustomTitle(media, data);
 
     const embedCard = (() => {
       if (isImage) {
@@ -139,7 +138,7 @@ class MediaExpandedComponent extends Component {
                 id="mediaExpanded.requests"
                 defaultMessage="{count} requests"
                 values={{
-                  count: media.requests_count,
+                  count: media.demand,
                 }}
               />
             </span>
@@ -148,19 +147,21 @@ class MediaExpandedComponent extends Component {
       </div>
     );
 
+    const title = hasCustomTitle ? truncateLength(media.title, 110) : '';
+
     return (
       <span>
         <CardTitle
           style={{ lineHeight: units(4) }}
-          title={truncateLength(media.title, 110)}
+          title={title}
         />
         <CardText style={{ padding: `0 ${units(2)}` }}>
           {cardHeaderText}
           <FadeIn>
-            {shouldShowDescription ?
-              <Text style={{ color: black54 }}>
-                <ParsedText text={data.description} />
-              </Text> : null}
+            { hasCustomDescription ?
+              <MoreLess maxHeight="75">
+                <ParsedText text={media.description} />
+              </MoreLess> : null }
             {embedCard}
           </FadeIn>
         </CardText>
@@ -190,9 +191,10 @@ const MediaExpandedContainer = Relay.createContainer(MediaExpandedComponent, {
         domain
         created_at
         last_seen
-        requests_count
+        demand
         title
         picture
+        overridden
         description
         language_code
         language
@@ -205,6 +207,7 @@ const MediaExpandedContainer = Relay.createContainer(MediaExpandedComponent, {
           id
           dbid
           title
+          search_id
         }
         relationships {
           id

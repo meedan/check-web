@@ -5,14 +5,14 @@ import teamPublicFragment from '../relay/teamPublicFragment';
 import DrawerNavigationComponent from './DrawerNavigationComponent';
 
 const DrawerNavigation = (props) => {
-  if (props.inTeamContext) {
+  if (props.teamSlug) {
     const DrawerNavigationContainer = Relay.createContainer(DrawerNavigationComponent, {
       fragments: {
         team: () => teamPublicFragment,
       },
     });
 
-    const teamSlug = props.params.team;
+    const { teamSlug } = props;
 
     const route = new PublicTeamRoute({ teamSlug });
 
