@@ -74,6 +74,8 @@ class MediaExpandedComponent extends Component {
     const randomNumber = Math.floor(Math.random() * 1000000);
     const { isRtl, mediaUrl, mediaQuery } = this.props;
     const posterUrl = media.media.thumbnail_path;
+    const hasCustomDescription = MediaUtil.hasCustomDescription(media, data);
+    const hasCustomTitle = MediaUtil.hasCustomTitle(media, data);
 
     const embedCard = (() => {
       if (isImage) {
@@ -145,18 +147,21 @@ class MediaExpandedComponent extends Component {
       </div>
     );
 
+    const title = hasCustomTitle ? truncateLength(media.title, 110) : '';
+
     return (
       <span>
         <CardTitle
           style={{ lineHeight: units(4) }}
-          title={truncateLength(media.title, 110)}
+          title={title}
         />
         <CardText style={{ padding: `0 ${units(2)}` }}>
           {cardHeaderText}
           <FadeIn>
-            <MoreLess maxHeight="75">
-              <ParsedText text={media.description} />
-            </MoreLess>
+            { hasCustomDescription ?
+              <MoreLess maxHeight="75">
+                <ParsedText text={media.description} />
+              </MoreLess> : null }
             {embedCard}
           </FadeIn>
         </CardText>
@@ -189,6 +194,7 @@ const MediaExpandedContainer = Relay.createContainer(MediaExpandedComponent, {
         demand
         title
         picture
+        overridden
         description
         language_code
         language

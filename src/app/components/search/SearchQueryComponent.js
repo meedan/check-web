@@ -312,7 +312,7 @@ class SearchQueryComponent extends React.Component {
         state.query.sort_type === sortParam || (!state.query.sort_type && sortParam === 'DESC')
       );
     }
-    return state.query.sort === sortParam || (!state.query.sort && sortParam === 'recent_added');
+    return state.query.sort === sortParam || (!state.query.sort && sortParam === 'recent_activity');
   }
 
   sortLabel(sortParam, state = this.state) {

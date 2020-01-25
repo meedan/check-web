@@ -51,7 +51,7 @@ export function noFilters(query_, project) {
   if (query[statusKey] && query[statusKey].length === 0) {
     delete query[statusKey];
   }
-  if (query.sort && query.sort === 'recent_added') {
+  if (query.sort && query.sort === 'recent_activity') {
     delete query.sort;
   }
   if (query.sort_type && query.sort_type === 'DESC') {
