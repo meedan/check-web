@@ -233,10 +233,20 @@ class HomeComponent extends Component {
       return null;
     }
 
+    const context = this.getContext();
     const user = this.getContext().currentUser || {};
     const inTeamContext = !!(this.props.params.team || user.current_team);
     const loggedIn = !!this.state.token;
-    const teamSlug = this.props.params.team || (user.current_team && user.current_team.slug);
+    const teamSlug = (() => {
+      if (this.props.params.team) {
+        return this.props.params.team;
+      } else if (context.team) {
+        return context.team.slug;
+      } else if (user.current_team && user.current_team.slug) {
+        return user.current_team.slug;
+      }
+      return null;
+    })();
 
     const currentUserIsMember = (() => {
       if (inTeamContext && loggedIn) {
