@@ -713,7 +713,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('My search result')).to be(true)
       wait_for_selector("search__open-dialog-button", :id).click
       selected = @driver.find_elements(:css, '.search-query__filter-button--selected').map(&:text).sort
-      expect(selected).to eq(['Created', 'Oldest first'].sort)
+      expect(selected).to eq(['Recent activity', 'Oldest first'].sort)
     end
 
     it "should not reset password", bin5: true do

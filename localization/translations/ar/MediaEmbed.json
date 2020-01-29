@@ -1,6 +1,6 @@
 {
   "mediaEmbed.error": "Could not save report",
-  "mediaEmbed.warning": "Warning — sharing this will expose information to people outside your private workspace. Proceed with caution.",
+  "mediaEmbed.warning": "تحذير — مشاركة هذا العنصر سوف يكشف معلومات عن مساحة العمل الخاصة. الرجاء توخ الحذر.",
   "mediaEmbed.copyButtonInactive": "‏‏تم النسخ",
   "mediaEmbed.copyButton": "نسخ",
   "mediaEmbed.back": "Back to annotation",

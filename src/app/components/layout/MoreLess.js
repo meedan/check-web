@@ -2,6 +2,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import Button from '@material-ui/core/Button';
 import styled from 'styled-components';
+import isEqual from 'lodash.isequal';
 import { units } from '../../styles/js/shared';
 
 const StyledMoreLessArea = styled.div`
@@ -20,6 +21,12 @@ class MoreLess extends React.Component {
     window.addEventListener('resize', this.canExpand);
     contentArea.addEventListener('resize', this.canExpand);
     this.canExpand();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!isEqual(this.props.children, prevProps.children)) {
+      this.canExpand();
+    }
   }
 
   componentWillUnmount() {
