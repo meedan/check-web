@@ -45,8 +45,8 @@ class ListHeader extends React.Component {
 
   render() {
     const icon = {
-      ASC: <ExpandLess />,
-      DESC: <ExpandMore />,
+      ASC: <ExpandLess className="list-header__sort-asc" />,
+      DESC: <ExpandMore className="list-header__sort-desc" />,
     };
 
     const query = searchQueryFromUrl();
