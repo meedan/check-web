@@ -667,13 +667,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should search by project through URL", bin2: true do
       api_create_team_project_and_claim_and_redirect_to_media_page
-      @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"projects"%3A%5B0%5D%7D'
+      @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"projects"%3A%5B' + get_project + '%5D%7D'
       wait_for_selector(".search__results-heading")
       expect(@driver.page_source.include?('My search result')).to be(false)
       wait_for_selector("#search__open-dialog-button").click
       wait_for_selector("#search-input")
-      selected = @driver.find_elements(:css, '.search-query__filter-button--selected')
-      expect(selected.size == 2).to be(true)
+      selected = @driver.find_elements(:css, '.search-filter__project-chip--selected')
+      expect(selected.size == 1).to be(true)
     end
 
     it "should search by date range", bin4: true do
