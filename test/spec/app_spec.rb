@@ -626,22 +626,25 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should search and change sort criteria", bin2: true do
       api_create_claim_and_go_to_search_page
-      expect((@driver.current_url.to_s.match(/recent_activity/)).nil?).to be(true)
+      expect((@driver.current_url.to_s.match(/requests/)).nil?).to be(true)
+      expect((@driver.current_url.to_s.match(/related/)).nil?).to be(true)
+      expect((@driver.current_url.to_s.match(/created/)).nil?).to be(true)
+      expect((@driver.current_url.to_s.match(/last_seen/)).nil?).to be(true)
 
-      wait_for_selector("#search__open-dialog-button").click
-      wait_for_selector(".search-query__recent-activity-button").click
-      wait_for_selector("#search-query__submit-button").click
-      wait_for_selector_none("#search-query__reset-button")
-      expect((@driver.current_url.to_s.match(/recent_activity/)).nil?).to be(false)
-      expect((@driver.current_url.to_s.match(/recent_added/)).nil?).to be(true)
+      wait_for_selector("#list-header__requests").click
+      wait_for_selector(".medias__item")
+      expect((@driver.current_url.to_s.match(/requests/)).nil?).to be(false)
+      expect((@driver.current_url.to_s.match(/related/)).nil?).to be(true)
+      expect((@driver.current_url.to_s.match(/created/)).nil?).to be(true)
+      expect((@driver.current_url.to_s.match(/last_seen/)).nil?).to be(true)
       expect(@driver.page_source.include?('My search result')).to be(true)
 
-      wait_for_selector("#search__open-dialog-button").click
-      wait_for_selector(".search-query__recent-added-button").click
-      wait_for_selector("#search-query__submit-button").click
-      wait_for_selector_none("#search-query__reset-button")
-      expect((@driver.current_url.to_s.match(/recent_activity/)).nil?).to be(true)
-      expect((@driver.current_url.to_s.match(/recent_added/)).nil?).to be(false)
+      wait_for_selector("#list-header__related").click
+      wait_for_selector(".medias__item")
+      expect((@driver.current_url.to_s.match(/requests/)).nil?).to be(true)
+      expect((@driver.current_url.to_s.match(/related/)).nil?).to be(false)
+      expect((@driver.current_url.to_s.match(/created/)).nil?).to be(true)
+      expect((@driver.current_url.to_s.match(/last_seen/)).nil?).to be(true)
       expect(@driver.page_source.include?('My search result')).to be(true)
     end
 
@@ -649,18 +652,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_claim_and_go_to_search_page
       expect((@driver.current_url.to_s.match(/ASC|DESC/)).nil?).to be(true)
 
-      wait_for_selector("#search__open-dialog-button").click
-      @driver.find_element(:xpath, "//span[contains(text(), 'Newest')]").click
-      wait_for_selector("#search-query__submit-button").click
-      wait_for_selector_none("#search-query__reset-button")
+      wait_for_selector("#list-header__requests").click
+      wait_for_selector(".medias__item")
       expect((@driver.current_url.to_s.match(/DESC/)).nil?).to be(false)
       expect((@driver.current_url.to_s.match(/ASC/)).nil?).to be(true)
       expect(@driver.page_source.include?('My search result')).to be(true)
 
-      wait_for_selector("#search__open-dialog-button").click
-      @driver.find_element(:xpath, "//span[contains(text(), 'Oldest')]").click
-      wait_for_selector("#search-query__submit-button").click
-      wait_for_selector_none("#search-query__reset-button")
+      wait_for_selector("#list-header__requests").click
+      wait_for_selector(".medias__item")
       expect((@driver.current_url.to_s.match(/DESC/)).nil?).to be(true)
       expect((@driver.current_url.to_s.match(/ASC/)).nil?).to be(false)
       expect(@driver.page_source.include?('My search result')).to be(true)
@@ -668,13 +667,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should search by project through URL", bin2: true do
       api_create_team_project_and_claim_and_redirect_to_media_page
-      @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"projects"%3A%5B0%5D%7D'
+      @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"projects"%3A%5B' + get_project + '%5D%7D'
       wait_for_selector(".search__results-heading")
       expect(@driver.page_source.include?('My search result')).to be(false)
       wait_for_selector("#search__open-dialog-button").click
       wait_for_selector("#search-input")
-      selected = @driver.find_elements(:css, '.search-query__filter-button--selected')
-      expect(selected.size == 2).to be(true)
+      selected = @driver.find_elements(:css, '.search-filter__project-chip--selected')
+      expect(selected.size == 1).to be(true)
     end
 
     it "should search by date range", bin4: true do
@@ -697,23 +696,44 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should change search sort criteria through URL", bin2: true do
       api_create_claim_and_go_to_search_page
-      @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"recent_activity"%7D'
+      @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"related"%2C"sort_type"%3A"DESC"%7D'
       wait_for_selector("#create-media__add-item")
       expect(@driver.page_source.include?('My search result')).to be(true)
-      wait_for_selector("#search__open-dialog-button").click
-      wait_for_selector("#search-input")
-      selected = @driver.find_elements(:css, '.search-query__filter-button--selected').map(&:text).sort
-      expect(selected == ['Recent activity', 'Newest first'].sort).to be(true)
+      el = wait_for_selector("#list-header__related")
+      expect(el.find_element(:css, "svg.list-header__sort-desc").nil?).to be(false)
+
+      @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"requests"%2C"sort_type"%3A"DESC"%7D'
+      wait_for_selector("#create-media__add-item")
+      expect(@driver.page_source.include?('My search result')).to be(true)
+      el = wait_for_selector("#list-header__requests")
+      expect(el.find_element(:css, "svg.list-header__sort-desc").nil?).to be(false)
+
+      @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"created"%2C"sort_type"%3A"DESC"%7D'
+      wait_for_selector("#create-media__add-item")
+      expect(@driver.page_source.include?('My search result')).to be(true)
+      el = wait_for_selector("#list-header__created")
+      expect(el.find_element(:css, "svg.list-header__sort-desc").nil?).to be(false)
+
+      @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"last_seen"%2C"sort_type"%3A"DESC"%7D'
+      wait_for_selector("#create-media__add-item")
+      expect(@driver.page_source.include?('My search result')).to be(true)
+      el = wait_for_selector("#list-header__last_seen")
+      expect(el.find_element(:css, "svg.list-header__sort-desc").nil?).to be(false)
     end
 
     it "should change search sort order through URL", bin2: true do
       api_create_claim_and_go_to_search_page
-      @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort_type"%3A"ASC"%7D'
-      wait_for_selector(".medias__item")
+      @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"related"%2C"sort_type"%3A"DESC"%7D'
+      wait_for_selector("#create-media__add-item")
       expect(@driver.page_source.include?('My search result')).to be(true)
-      wait_for_selector("search__open-dialog-button", :id).click
-      selected = @driver.find_elements(:css, '.search-query__filter-button--selected').map(&:text).sort
-      expect(selected).to eq(['Recent activity', 'Oldest first'].sort)
+      el = wait_for_selector("#list-header__related")
+      expect(el.find_element(:css, "svg.list-header__sort-desc").nil?).to be(false)
+
+      @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"requests"%2C"sort_type"%3A"ASC"%7D'
+      wait_for_selector("#create-media__add-item")
+      expect(@driver.page_source.include?('My search result')).to be(true)
+      el = wait_for_selector("#list-header__requests")
+      expect(el.find_element(:css, "svg.list-header__sort-asc").nil?).to be(false)
     end
 
     it "should not reset password", bin5: true do
