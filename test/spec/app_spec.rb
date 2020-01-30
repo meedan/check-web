@@ -559,8 +559,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector(".message")
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/trash'
       wait_for_selector(".medias__item")
-      trash_button = wait_for_selector('.trash__empty-trash-button')
-      expect(trash_button.nil?).to be(false)
       expect(@driver.page_source.include?('Claim')).to be(true)
       wait_for_selector("search__open-dialog-button", :id).click
       wait_for_selector("//div[contains(text(), 'In Progress')]",:xpath).click

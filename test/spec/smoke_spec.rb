@@ -808,6 +808,7 @@ shared_examples 'smoke' do
     wait_for_selector_none(".Select-placeholder")
     wait_for_selector('.project-list__link').click
     expect(@driver.current_url.to_s == p1url).to be(true)
+    wait_for_selector_list_size(".medias__item", 1, :css , 80)
     expect(@driver.page_source.include?('1 / 1')).to be(true)
     expect(@driver.page_source.include?("Add a link or text")).to be(false)
 
