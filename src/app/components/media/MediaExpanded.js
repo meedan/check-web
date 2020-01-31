@@ -75,7 +75,6 @@ class MediaExpandedComponent extends Component {
     const { isRtl, mediaUrl, mediaQuery } = this.props;
     const posterUrl = media.media.thumbnail_path;
     const hasCustomDescription = MediaUtil.hasCustomDescription(media, data);
-    const hasCustomTitle = MediaUtil.hasCustomTitle(media, data);
 
     const embedCard = (() => {
       if (isImage) {
@@ -147,13 +146,11 @@ class MediaExpandedComponent extends Component {
       </div>
     );
 
-    const title = hasCustomTitle ? truncateLength(media.title, 110) : '';
-
     return (
       <span>
         <CardTitle
           style={{ lineHeight: units(4) }}
-          title={title}
+          title={truncateLength(media.title, 110)}
         />
         <CardText style={{ padding: `0 ${units(2)}` }}>
           {cardHeaderText}

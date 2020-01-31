@@ -54,6 +54,6 @@ shared_examples 'custom' do
     wait_for_selector("#search__open-dialog-button").click
     wait_for_selector("#search-form")
     selected = @driver.find_elements(:css, '.search-query__filter-button--selected').map(&:text).sort
-    expect(selected == ['False', 'Recent activity', 'Newest first'].sort).to be(true)
+    expect(selected == ['False'].sort).to be(true)
   end
 end
