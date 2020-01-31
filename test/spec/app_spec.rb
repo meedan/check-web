@@ -306,107 +306,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(l.length == 0).to be(true)
     end
 
-    it "should request to join, navigate between teams, accept, reject and delete member", bin5: true, quick: true do
-      # setup
-      @user_mail = "test" +Time.now.to_i.to_s+rand(9999).to_s + @user_mail
-      @team1_slug = 'team1'+Time.now.to_i.to_s+rand(9999).to_s
-      user = api_register_and_login_with_email(email: @user_mail, password: @password)
-      team = request_api 'team', { name: 'Team 1', email: user.email, slug: @team1_slug }
-      request_api 'project', { title: 'Team 1 Project', team_id: team.dbid }
-      team = request_api 'team', { name: 'Team 2', email: user.email, slug: "team-2-#{rand(9999)}#{Time.now.to_i}" }
-      request_api 'project', { title: 'Team 2 Project', team_id: team.dbid }
-
-      page = MePage.new(config: @config, driver: @driver).load.select_team(name: 'Team 1')
-
-      expect(page.team_name).to eq('Team 1')
-      expect(page.project_titles.include?('Team 1 Project')).to be(true)
-      expect(page.project_titles.include?('Team 2 Project')).to be(false)
-
-      page = MePage.new(config: @config, driver: @driver).load.select_team(name: 'Team 2')
-
-      expect(page.team_name).to eq('Team 2')
-      expect(page.project_titles.include?('Team 2 Project')).to be(true)
-      expect(page.project_titles.include?('Team 1 Project')).to be(false)
-
-      #As a different user, request to join one team and be accepted.
-      user = api_register_and_login_with_email(email: "new"+@user_mail, password: @password)
-      page = MePage.new(config: @config, driver: @driver).load
-      page.ask_join_team(subdomain: @team1_slug)
-      @wait.until {
-        expect(@driver.find_element(:class, "message").nil?).to be(false)
-      }
-      api_logout
-      @driver.quit
-
-      @driver = new_driver(webdriver_url,browser_capabilities)
-      page = Page.new(config: @config, driver: @driver)
-      page.go(@config['api_path'] + '/test/session?email='+@user_mail)
-
-      #As the group creator, go to the members page and approve the joining request.
-      page = MePage.new(config: @config, driver: @driver).load
-      page.go(@config['self_url'] + '/check/me')
-      page.approve_join_team(subdomain: @team1_slug)
-      count = 0
-      elems = @driver.find_elements(:css => ".team-members__list > div > div > div > div")
-      while elems.size <= 1 && count < 15
-        sleep 5
-        count += 1
-        elems = @driver.find_elements(:css => ".team-members__list > div > div > div > div")
-      end
-      expect(elems.size).to be > 1
-
-      # "should redirect to team page if user asking to join a team is already a member"
-      page = Page.new(config: @config, driver: @driver)
-      page.go(@config['api_path'] + '/test/session?email=new'+@user_mail)
-      #page = MePage.new(config: @config, driver: @driver).load
-      @driver.navigate.to @config['self_url'] + "/"+@team1_slug+"/join"
-
-      wait_for_selector('.team__primary-info')
-      @wait.until {
-        expect(@driver.current_url.eql? @config['self_url']+"/"+@team1_slug ).to be(true)
-      }
-
-      # "should reject member to join team"
-      user = api_register_and_login_with_email
-      page = MePage.new(config: @config, driver: @driver).load
-      page.ask_join_team(subdomain: @team1_slug)
-      @wait.until {
-        expect(@driver.find_element(:class, "message").nil?).to be(false)
-      }
-      api_logout
-      @driver.quit
-
-      @driver = new_driver(webdriver_url,browser_capabilities)
-      page = Page.new(config: @config, driver: @driver)
-      page.go(@config['api_path'] + '/test/session?email='+@user_mail)
-      page = MePage.new(config: @config, driver: @driver).load
-          .disapprove_join_team(subdomain: @team1_slug)
-      count = 0
-      while @driver.page_source.include?('Requests to join') && count < 15
-        sleep 5
-        count += 1
-      end
-      expect(@driver.page_source.include?('Requests to join')).to be(false)
-
-      # "should delete member from team"
-      page = Page.new(config: @config, driver: @driver)
-      page.go(@config['api_path'] + '/test/session?email='+@user_mail)
-      page = MePage.new(config: @config, driver: @driver).load
-      @driver.navigate.to @config['self_url'] + '/'+@team1_slug
-      wait_for_selector('.team-members__member')
-      wait_for_selector('.team-members__edit-button').click
-
-      l = wait_for_selector_list_size('team-members__delete-member', 2, :class)
-      old = l.length
-      expect(l.length > 1).to be(true)
-      l.last.click
-      wait_for_selector('#confirm-dialog__checkbox').click
-      wait_for_selector('#confirm-dialog__confirm-action-button').click
-      wait_for_selector_none('#confirm-dialog__checkbox')
-      new = wait_for_size_change(old, 'team-members__delete-member', :class)
-      expect(new < old).to be(true)
-    end
-
     it "should autorefresh project when media is created", bin1: true do
       api_create_team_and_project
       @driver.navigate.to @config['self_url']
@@ -512,6 +411,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector(".message")
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/trash'
       wait_for_selector(".medias__item")
+      trash_button = wait_for_selector('.trash__empty-trash-button')
+      expect(trash_button.nil?).to be(false)
       expect(@driver.page_source.include?('Claim')).to be(true)
       wait_for_selector("search__open-dialog-button", :id).click
       wait_for_selector("//div[contains(text(), 'In Progress')]",:xpath).click
@@ -577,25 +478,22 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should search and change sort criteria", bin2: true do
       api_create_claim_and_go_to_search_page
-      expect((@driver.current_url.to_s.match(/requests/)).nil?).to be(true)
-      expect((@driver.current_url.to_s.match(/related/)).nil?).to be(true)
-      expect((@driver.current_url.to_s.match(/created/)).nil?).to be(true)
-      expect((@driver.current_url.to_s.match(/last_seen/)).nil?).to be(true)
+      expect((@driver.current_url.to_s.match(/recent_activity/)).nil?).to be(true)
 
-      wait_for_selector("#list-header__requests").click
-      wait_for_selector(".medias__item")
-      expect((@driver.current_url.to_s.match(/requests/)).nil?).to be(false)
-      expect((@driver.current_url.to_s.match(/related/)).nil?).to be(true)
-      expect((@driver.current_url.to_s.match(/created/)).nil?).to be(true)
-      expect((@driver.current_url.to_s.match(/last_seen/)).nil?).to be(true)
+      wait_for_selector("#search__open-dialog-button").click
+      wait_for_selector(".search-query__recent-activity-button").click
+      wait_for_selector("#search-query__submit-button").click
+      wait_for_selector_none("#search-query__reset-button")
+      expect((@driver.current_url.to_s.match(/recent_activity/)).nil?).to be(false)
+      expect((@driver.current_url.to_s.match(/recent_added/)).nil?).to be(true)
       expect(@driver.page_source.include?('My search result')).to be(true)
 
-      wait_for_selector("#list-header__related").click
-      wait_for_selector(".medias__item")
-      expect((@driver.current_url.to_s.match(/requests/)).nil?).to be(true)
-      expect((@driver.current_url.to_s.match(/related/)).nil?).to be(false)
-      expect((@driver.current_url.to_s.match(/created/)).nil?).to be(true)
-      expect((@driver.current_url.to_s.match(/last_seen/)).nil?).to be(true)
+      wait_for_selector("#search__open-dialog-button").click
+      wait_for_selector(".search-query__recent-added-button").click
+      wait_for_selector("#search-query__submit-button").click
+      wait_for_selector_none("#search-query__reset-button")
+      expect((@driver.current_url.to_s.match(/recent_activity/)).nil?).to be(true)
+      expect((@driver.current_url.to_s.match(/recent_added/)).nil?).to be(false)
       expect(@driver.page_source.include?('My search result')).to be(true)
     end
 
@@ -603,14 +501,18 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_claim_and_go_to_search_page
       expect((@driver.current_url.to_s.match(/ASC|DESC/)).nil?).to be(true)
 
-      wait_for_selector("#list-header__requests").click
-      wait_for_selector(".medias__item")
+      wait_for_selector("#search__open-dialog-button").click
+      @driver.find_element(:xpath, "//span[contains(text(), 'Newest')]").click
+      wait_for_selector("#search-query__submit-button").click
+      wait_for_selector_none("#search-query__reset-button")
       expect((@driver.current_url.to_s.match(/DESC/)).nil?).to be(false)
       expect((@driver.current_url.to_s.match(/ASC/)).nil?).to be(true)
       expect(@driver.page_source.include?('My search result')).to be(true)
 
-      wait_for_selector("#list-header__requests").click
-      wait_for_selector(".medias__item")
+      wait_for_selector("#search__open-dialog-button").click
+      @driver.find_element(:xpath, "//span[contains(text(), 'Oldest')]").click
+      wait_for_selector("#search-query__submit-button").click
+      wait_for_selector_none("#search-query__reset-button")
       expect((@driver.current_url.to_s.match(/DESC/)).nil?).to be(true)
       expect((@driver.current_url.to_s.match(/ASC/)).nil?).to be(false)
       expect(@driver.page_source.include?('My search result')).to be(true)
@@ -618,13 +520,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should search by project through URL", bin2: true do
       api_create_team_project_and_claim_and_redirect_to_media_page
-      @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"projects"%3A%5B' + get_project + '%5D%7D'
+      @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"projects"%3A%5B0%5D%7D'
       wait_for_selector(".search__results-heading")
       expect(@driver.page_source.include?('My search result')).to be(false)
       wait_for_selector("#search__open-dialog-button").click
       wait_for_selector("#search-input")
-      selected = @driver.find_elements(:css, '.search-filter__project-chip--selected')
-      expect(selected.size == 1).to be(true)
+      selected = @driver.find_elements(:css, '.search-query__filter-button--selected')
+      expect(selected.size == 2).to be(true)
     end
 
     it "should search by date range", bin4: true do

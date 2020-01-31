@@ -853,13 +853,28 @@ shared_examples 'smoke' do
   end
 #Bulk Actions section end
 
-#Permissions section start
-  it "should manage team members roles", bin4: true do
+#Permissions section start 
+  it "should manage team members", bin5: true, quick: true do
     # setup
     @user_mail = "test" +Time.now.to_i.to_s+rand(9999).to_s + @user_mail
     @team1_slug = 'team1'+Time.now.to_i.to_s+rand(9999).to_s
     user = api_register_and_login_with_email(email: @user_mail, password: @password)
     team = request_api 'team', { name: 'Team 1', email: user.email, slug: @team1_slug }
+    request_api 'project', { title: 'Team 1 Project', team_id: team.dbid }
+    team = request_api 'team', { name: 'Team 2', email: user.email, slug: "team-2-#{rand(9999)}#{Time.now.to_i}" }
+    request_api 'project', { title: 'Team 2 Project', team_id: team.dbid }
+
+    page = MePage.new(config: @config, driver: @driver).load.select_team(name: 'Team 1')
+
+    expect(page.team_name).to eq('Team 1')
+    expect(page.project_titles.include?('Team 1 Project')).to be(true)
+    expect(page.project_titles.include?('Team 2 Project')).to be(false)
+
+    page = MePage.new(config: @config, driver: @driver).load.select_team(name: 'Team 2')
+
+    expect(page.team_name).to eq('Team 2')
+    expect(page.project_titles.include?('Team 2 Project')).to be(true)
+    expect(page.project_titles.include?('Team 1 Project')).to be(false)
 
     #As a different user, request to join one team and be accepted.
     user = api_register_and_login_with_email(email: "new"+@user_mail, password: @password)
@@ -870,6 +885,7 @@ shared_examples 'smoke' do
     }
     api_logout
     @driver.quit
+
     @driver = new_driver(@webdriver_url,@browser_capabilities)
     page = Page.new(config: @config, driver: @driver)
     page.go(@config['api_path'] + '/test/session?email='+@user_mail)
@@ -898,6 +914,57 @@ shared_examples 'smoke' do
 
     el = wait_for_selector('input[name="role-select"]', :css, 29, 1)
     expect(el.value).to eq 'journalist'
+
+    # "should redirect to team page if user asking to join a team is already a member"
+    page = Page.new(config: @config, driver: @driver)
+    page.go(@config['api_path'] + '/test/session?email=new'+@user_mail)
+    #page = MePage.new(config: @config, driver: @driver).load
+    @driver.navigate.to @config['self_url'] + "/"+@team1_slug+"/join"
+
+    wait_for_selector('.team__primary-info')
+    @wait.until {
+      expect(@driver.current_url.eql? @config['self_url']+"/"+@team1_slug ).to be(true)
+    }
+
+    # "should reject member to join team"
+    user = api_register_and_login_with_email
+    page = MePage.new(config: @config, driver: @driver).load
+    page.ask_join_team(subdomain: @team1_slug)
+    @wait.until {
+      expect(@driver.find_element(:class, "message").nil?).to be(false)
+    }
+    api_logout
+    @driver.quit
+
+    @driver = new_driver(@webdriver_url,@browser_capabilities)
+    page = Page.new(config: @config, driver: @driver)
+    page.go(@config['api_path'] + '/test/session?email='+@user_mail)
+    page = MePage.new(config: @config, driver: @driver).load
+        .disapprove_join_team(subdomain: @team1_slug)
+    count = 0
+    while @driver.page_source.include?('Requests to join') && count < 15
+      sleep 5
+      count += 1
+    end
+    expect(@driver.page_source.include?('Requests to join')).to be(false)
+
+    # "should delete member from team"
+    page = Page.new(config: @config, driver: @driver)
+    page.go(@config['api_path'] + '/test/session?email='+@user_mail)
+    page = MePage.new(config: @config, driver: @driver).load
+    @driver.navigate.to @config['self_url'] + '/'+@team1_slug
+    wait_for_selector('.team-members__member')
+    wait_for_selector('.team-members__edit-button').click
+
+    l = wait_for_selector_list_size('team-members__delete-member', 2, :class)
+    old = l.length
+    expect(l.length > 1).to be(true)
+    l.last.click
+    wait_for_selector('#confirm-dialog__checkbox').click
+    wait_for_selector('#confirm-dialog__confirm-action-button').click
+    wait_for_selector_none('#confirm-dialog__checkbox')
+    new = wait_for_size_change(old, 'team-members__delete-member', :class)
+    expect(new < old).to be(true)
   end
 #Permissions section end
 

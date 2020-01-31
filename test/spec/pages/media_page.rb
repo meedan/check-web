@@ -10,18 +10,11 @@ class MediaPage < Page
     wait_for_element(".media-status__current--#{status.to_s}")
   end
 
-  def toggle_card
-    toggle_button_selector=".media-detail > div > div > div > button"
-    wait_for_element(toggle_button_selector)
-    @driver.find_element(:css, toggle_button_selector).click
-    sleep 2
-  end
-
   def set_description(string)
     edit
     fill_input('.media-detail__description-input textarea:last-child', string)
     click('.media-detail__save-edits') # Done
-    sleep 2 #reload
+    wait_for_selector_none(".media-detail__save-edits")
     wait_for_selector("//span[contains(@class, 'Linkify') and contains(text(), '#{string}')]", :xpath)
   end
 
