@@ -76,53 +76,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it_behaves_like "media", 'BELONGS_TO_ONE_PROJECT'
     it_behaves_like "media", 'DOES_NOT_BELONG_TO_ANY_PROJECT'
 
-    it "should manage team members roles", bin4: true do
-      # setup
-      @user_mail = "test" +Time.now.to_i.to_s+rand(9999).to_s + @user_mail
-      @team1_slug = 'team1'+Time.now.to_i.to_s+rand(9999).to_s
-      user = api_register_and_login_with_email(email: @user_mail, password: @password)
-      team = request_api 'team', { name: 'Team 1', email: user.email, slug: @team1_slug }
-
-      #As a different user, request to join one team and be accepted.
-      user = api_register_and_login_with_email(email: "new"+@user_mail, password: @password)
-      page = MePage.new(config: @config, driver: @driver).load
-      page.ask_join_team(subdomain: @team1_slug)
-      @wait.until {
-        expect(@driver.find_element(:class, "message").nil?).to be(false)
-      }
-      api_logout
-      @driver.quit
-
-      @driver = new_driver(webdriver_url,browser_capabilities)
-      page = Page.new(config: @config, driver: @driver)
-      page.go(@config['api_path'] + '/test/session?email='+@user_mail)
-
-      #As the group creator, go to the members page and approve the joining request.
-      page = MePage.new(config: @config, driver: @driver).load
-      page.go(@config['self_url'] + '/check/me')
-      page.approve_join_team(subdomain: @team1_slug)
-      count = 0
-      elems = @driver.find_elements(:css => ".team-members__list > div > div > div > div")
-      while elems.size <= 1 && count < 15
-        sleep 5
-        count += 1
-        elems = @driver.find_elements(:css => ".team-members__list > div > div > div > div")
-      end
-      expect(elems.size).to be > 1
-
-      #edit team member role
-      wait_for_selector('.team-members__edit-button', :css).click
-      wait_for_selector('.role-select', :css, 29, 1).click
-
-      wait_for_selector('li.role-journalist').click
-      wait_for_selector('#confirm-dialog__checkbox').click
-      wait_for_selector('#confirm-dialog__confirm-action-button').click
-      wait_for_selector('.team-members__edit-button', :css).click
-
-      el = wait_for_selector('input[name="role-select"]', :css, 29, 1)
-      expect(el.value).to eq 'journalist'
-    end
-
     it "should manage team tags", bin6: true do
       # Create team and go to team page that should not contain any tag
       team = "tag-team-#{Time.now.to_i}"
