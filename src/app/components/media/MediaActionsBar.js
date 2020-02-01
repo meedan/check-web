@@ -5,7 +5,10 @@ import { injectIntl, FormattedMessage, defineMessages } from 'react-intl';
 import { Link } from 'react-router';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-import Dialog from 'material-ui/Dialog';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
 import TextField from 'material-ui/TextField';
 import MediaStatus from './MediaStatus';
 import MediaRoute from '../../relay/MediaRoute';
@@ -490,59 +493,62 @@ class MediaActionsBarComponent extends Component {
 
     const editDialog = (
       <Dialog
-        modal
-        title={this.props.intl.formatMessage(messages.editReport)}
         open={this.state.isEditing}
-        onRequestClose={this.handleCloseDialogs.bind(this)}
-        autoScrollBodyContent
+        onClose={this.handleCloseDialogs.bind(this)}
+        maxWidth="md"
+        fullWidth
       >
-        <form onSubmit={this.handleSave.bind(this, media)} name="edit-media-form">
-          <TextField
-            type="text"
-            id={`media-detail-title-input-${media.dbid}`}
-            className="media-detail__title-input"
-            floatingLabelText={this.props.intl.formatMessage(messages.mediaTitle)}
-            defaultValue={this.getTitle()}
-            onChange={this.handleChangeTitle.bind(this)}
-            style={{ width: '100%' }}
-          />
+        <DialogTitle>{this.props.intl.formatMessage(messages.editReport)}</DialogTitle>
+        <DialogContent>
+          <form onSubmit={this.handleSave.bind(this, media)} name="edit-media-form">
+            <TextField
+              type="text"
+              id={`media-detail-title-input-${media.dbid}`}
+              className="media-detail__title-input"
+              floatingLabelText={this.props.intl.formatMessage(messages.mediaTitle)}
+              defaultValue={this.getTitle()}
+              onChange={this.handleChangeTitle.bind(this)}
+              style={{ width: '100%' }}
+            />
 
-          <TextField
-            type="text"
-            id={`media-detail-description-input-${media.dbid}`}
-            className="media-detail__description-input"
-            floatingLabelText={this.props.intl.formatMessage(messages.mediaDescription)}
-            defaultValue={this.getDescription()}
-            onChange={this.handleChangeDescription.bind(this)}
-            style={{ width: '100%' }}
-            multiLine
-          />
-        </form>
-
-        <span style={{ display: 'flex' }}>
-          <FlatButton
-            onClick={this.handleCancel.bind(this)}
-            className="media-detail__cancel-edits"
-            label={
-              <FormattedMessage
-                id="mediaDetail.cancelButton"
-                defaultMessage="Cancel"
-              />
-            }
-          />
-          <FlatButton
-            onClick={this.handleSave.bind(this, media)}
-            className="media-detail__save-edits"
-            label={
-              <FormattedMessage
-                id="mediaDetail.doneButton"
-                defaultMessage="Done"
-              />
-            }
-            disabled={!this.canSubmit()}
-            primary
-          />
-        </span>
+            <TextField
+              type="text"
+              id={`media-detail-description-input-${media.dbid}`}
+              className="media-detail__description-input"
+              floatingLabelText={this.props.intl.formatMessage(messages.mediaDescription)}
+              defaultValue={this.getDescription()}
+              onChange={this.handleChangeDescription.bind(this)}
+              style={{ width: '100%' }}
+              multiLine
+            />
+          </form>
+        </DialogContent>
+        <DialogActions>
+          <span style={{ display: 'flex' }}>
+            <FlatButton
+              onClick={this.handleCancel.bind(this)}
+              className="media-detail__cancel-edits"
+              label={
+                <FormattedMessage
+                  id="mediaDetail.cancelButton"
+                  defaultMessage="Cancel"
+                />
+              }
+            />
+            <FlatButton
+              onClick={this.handleSave.bind(this, media)}
+              className="media-detail__save-edits"
+              label={
+                <FormattedMessage
+                  id="mediaDetail.doneButton"
+                  defaultMessage="Done"
+                />
+              }
+              disabled={!this.canSubmit()}
+              primary
+            />
+          </span>
+        </DialogActions>
       </Dialog>
     );
 
@@ -659,23 +665,27 @@ class MediaActionsBarComponent extends Component {
         />
 
         <Dialog
-          actions={assignDialogActions}
-          modal
           open={this.state.openAssignDialog}
-          onRequestClose={this.handleCloseDialogs.bind(this)}
-          autoScrollBodyContent
+          onClose={this.handleCloseDialogs.bind(this)}
+          maxWidth="sm"
+          fullWidth
         >
-          <h4 className="media-detail__dialog-header">
+          <DialogTitle>
             <FormattedMessage
               id="mediaActionsBar.assignDialogHeader"
               defaultMessage="Assignment"
             />
-          </h4>
-          <Attribution
-            multi
-            selectedUsers={assignments}
-            id={`media-${media.dbid}`}
-          />
+          </DialogTitle>
+          <DialogContent>
+            <Attribution
+              multi
+              selectedUsers={assignments}
+              id={`media-${media.dbid}`}
+            />
+          </DialogContent>
+          <DialogActions>
+            {assignDialogActions}
+          </DialogActions>
         </Dialog>
       </div>
     );
