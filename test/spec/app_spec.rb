@@ -706,10 +706,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el = wait_for_selector("#list-header__requests")
       expect(el.find_element(:css, "svg.list-header__sort-desc").nil?).to be(false)
 
-      @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"created"%2C"sort_type"%3A"DESC"%7D'
+      @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"recent_added"%2C"sort_type"%3A"DESC"%7D'
       wait_for_selector("#create-media__add-item")
       expect(@driver.page_source.include?('My search result')).to be(true)
-      el = wait_for_selector("#list-header__created")
+      el = wait_for_selector("#list-header__recent_added")
       expect(el.find_element(:css, "svg.list-header__sort-desc").nil?).to be(false)
 
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"last_seen"%2C"sort_type"%3A"DESC"%7D'
