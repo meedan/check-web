@@ -224,62 +224,62 @@ shared_examples 'media' do |type|
     delete_task('Foo')
   end
 
-  it "should go from one item to another", bin2: true do
-    page = create_media_depending_on_type(nil, 3)
-    page.load unless page.nil?
-    wait_for_selector(".medias__item")
-    wait_for_selector('.media__heading').click
-    wait_for_selector('.media-search__actions-bar')
+  # it "should go from one item to another", bin2: true do
+  #   page = create_media_depending_on_type(nil, 3)
+  #   page.load unless page.nil?
+  #   wait_for_selector(".medias__item")
+  #   wait_for_selector('.media__heading').click
+  #   wait_for_selector('.media-search__actions-bar')
 
-    # First item
-    expect(@driver.page_source.include?('1 of 3')).to be(true)
-    expect(@driver.page_source.include?('2 of 3')).to be(false)
-    expect(@driver.page_source.include?('3 of 3')).to be(false)
-    expect(@driver.page_source.include?('Claim 2')).to be(true)
-    expect(@driver.page_source.include?('Claim 1')).to be(false)
-    expect(@driver.page_source.include?('Claim 0')).to be(false)
+  #   # First item
+  #   expect(@driver.page_source.include?('1 of 3')).to be(true)
+  #   expect(@driver.page_source.include?('2 of 3')).to be(false)
+  #   expect(@driver.page_source.include?('3 of 3')).to be(false)
+  #   expect(@driver.page_source.include?('Claim 2')).to be(true)
+  #   expect(@driver.page_source.include?('Claim 1')).to be(false)
+  #   expect(@driver.page_source.include?('Claim 0')).to be(false)
 
-    # Second item
-    wait_for_selector('#media-search__next-item').click
-    wait_for_selector('.media-search__actions-bar')
-    expect(@driver.page_source.include?('1 of 3')).to be(false)
-    expect(@driver.page_source.include?('2 of 3')).to be(true)
-    expect(@driver.page_source.include?('3 of 3')).to be(false)
-    expect(@driver.page_source.include?('Claim 2')).to be(false)
-    expect(@driver.page_source.include?('Claim 1')).to be(true)
-    expect(@driver.page_source.include?('Claim 0')).to be(false)
+  #   # Second item
+  #   wait_for_selector('#media-search__next-item').click
+  #   wait_for_selector('.media-search__actions-bar')
+  #   expect(@driver.page_source.include?('1 of 3')).to be(false)
+  #   expect(@driver.page_source.include?('2 of 3')).to be(true)
+  #   expect(@driver.page_source.include?('3 of 3')).to be(false)
+  #   expect(@driver.page_source.include?('Claim 2')).to be(false)
+  #   expect(@driver.page_source.include?('Claim 1')).to be(true)
+  #   expect(@driver.page_source.include?('Claim 0')).to be(false)
 
-    # Third item
-    wait_for_selector('#media-search__next-item').click
-    wait_for_selector('.media-search__actions-bar')
+  #   # Third item
+  #   wait_for_selector('#media-search__next-item').click
+  #   wait_for_selector('.media-search__actions-bar')
 
-    expect(@driver.page_source.include?('1 of 3')).to be(false)
-    expect(@driver.page_source.include?('2 of 3')).to be(false)
-    expect(@driver.page_source.include?('3 of 3')).to be(true)
-    expect(@driver.page_source.include?('Claim 2')).to be(false)
-    expect(@driver.page_source.include?('Claim 1')).to be(false)
-    expect(@driver.page_source.include?('Claim 0')).to be(true)
+  #   expect(@driver.page_source.include?('1 of 3')).to be(false)
+  #   expect(@driver.page_source.include?('2 of 3')).to be(false)
+  #   expect(@driver.page_source.include?('3 of 3')).to be(true)
+  #   expect(@driver.page_source.include?('Claim 2')).to be(false)
+  #   expect(@driver.page_source.include?('Claim 1')).to be(false)
+  #   expect(@driver.page_source.include?('Claim 0')).to be(true)
 
-    # Second item
-    wait_for_selector('#media-search__previous-item').click
-    wait_for_selector('.media-search__actions-bar')
-    expect(@driver.page_source.include?('1 of 3')).to be(false)
-    expect(@driver.page_source.include?('2 of 3')).to be(true)
-    expect(@driver.page_source.include?('3 of 3')).to be(false)
-    expect(@driver.page_source.include?('Claim 2')).to be(false)
-    expect(@driver.page_source.include?('Claim 1')).to be(true)
-    expect(@driver.page_source.include?('Claim 0')).to be(false)
+  #   # Second item
+  #   wait_for_selector('#media-search__previous-item').click
+  #   wait_for_selector('.media-search__actions-bar')
+  #   expect(@driver.page_source.include?('1 of 3')).to be(false)
+  #   expect(@driver.page_source.include?('2 of 3')).to be(true)
+  #   expect(@driver.page_source.include?('3 of 3')).to be(false)
+  #   expect(@driver.page_source.include?('Claim 2')).to be(false)
+  #   expect(@driver.page_source.include?('Claim 1')).to be(true)
+  #   expect(@driver.page_source.include?('Claim 0')).to be(false)
 
-    # First item
-    wait_for_selector('#media-search__previous-item').click
-    wait_for_selector('.media-search__actions-bar')
-    expect(@driver.page_source.include?('1 of 3')).to be(true)
-    expect(@driver.page_source.include?('2 of 3')).to be(false)
-    expect(@driver.page_source.include?('3 of 3')).to be(false)
-    expect(@driver.page_source.include?('Claim 2')).to be(true)
-    expect(@driver.page_source.include?('Claim 1')).to be(false)
-    expect(@driver.page_source.include?('Claim 0')).to be(false)
-  end
+  #   # First item
+  #   wait_for_selector('#media-search__previous-item').click
+  #   wait_for_selector('.media-search__actions-bar')
+  #   expect(@driver.page_source.include?('1 of 3')).to be(true)
+  #   expect(@driver.page_source.include?('2 of 3')).to be(false)
+  #   expect(@driver.page_source.include?('3 of 3')).to be(false)
+  #   expect(@driver.page_source.include?('Claim 2')).to be(true)
+  #   expect(@driver.page_source.include?('Claim 1')).to be(false)
+  #   expect(@driver.page_source.include?('Claim 0')).to be(false)
+  # end
 
   it "should update notes count after delete annotation", bin3: true do
     create_media_depending_on_type

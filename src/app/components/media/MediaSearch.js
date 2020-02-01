@@ -226,6 +226,11 @@ class MediaSearch extends React.PureComponent {
       mediaQuery = state.query;
     }
 
+    // Disable item navigation for now
+    // When re-enabled, please re-enable the test
+    // "should go from one item to another" in test/spec/media_spec.rb
+    mediaQuery = false;
+
     if (mediaQuery) {
       const MediaSearchContainer = Relay.createContainer(injectIntl(MediaSearchComponent), {
         initialVariables: {
