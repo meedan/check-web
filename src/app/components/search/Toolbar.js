@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import isEqual from 'lodash.isequal';
 import rtlDetect from 'rtl-detect';
 import CreateProjectMedia from '../media/CreateMedia';
-import EmptyTrashButton from '../team/EmptyTrashButton';
 import Can from '../Can';
 import { black05, black87, units, Row, FlexRow, Offset } from '../../styles/js/shared';
 
@@ -55,9 +54,6 @@ class Toolbar extends React.Component {
               <Can {...perms}>
                 <CreateProjectMedia search={search} team={team} />
               </Can> : null
-            }
-            { page === 'trash' ?
-              <EmptyTrashButton teamSlug={team.slug} search={search} /> : null
             }
           </Offset>
         </FlexRow>
