@@ -107,7 +107,7 @@ class List extends React.Component {
           minWidth: 96,
           headerComponentFramework: ListHeader,
           headerComponentParams: {
-            sort: 'created',
+            sort: 'recent_added',
           },
         },
         {
