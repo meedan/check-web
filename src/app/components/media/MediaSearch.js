@@ -108,24 +108,34 @@ class MediaSearchComponent extends React.Component {
   setOffset(offset) {
     const query = this.searchQueryFromUrl();
     query.esoffset = offset;
+    delete query.id;
+    query.noid = true;
     const pathname = window.location.pathname.match(/^(\/[^/]+\/(project\/[0-9]+\/)?media\/[0-9]+)/)[1];
     this.currentContext().history.push({ pathname, state: { query } });
   }
 
   updateUrl() {
     if (/^\/[^/]+\/(project\/[0-9]+\/)?media\/([0-9]+)/.test(window.location.pathname)) {
-      const currId = parseInt(window.location.pathname.match(/^\/[^/]+\/(project\/[0-9]+\/)?media\/([0-9]+)/)[2], 10);
-      const medias = this.props.search.medias.edges;
-      const newId = medias.length > 0 ? parseInt(medias[0].node.dbid, 10) : null;
-      if (newId && currId !== newId) {
-        const query = this.searchQueryFromUrl();
-        const teamSlug = window.location.pathname.match(/(^\/[^/]+)\/(project\/[0-9]+\/)?media\/[0-9]+.*/)[1];
-        let projectPart = '';
-        if (medias[0] && medias[0].node && medias[0].node.project_id) {
-          projectPart = `project/${medias[0].node.project_id}/`;
-        }
-        const pathname = `${teamSlug}/${projectPart}media/${newId}`;
+      const query = this.searchQueryFromUrl();
+      const currentOffset = query.esoffset || 0;
+      const { item_navigation_offset } = this.props.search;
+      if (item_navigation_offset > -1 && item_navigation_offset !== currentOffset) {
+        query.esoffset = this.props.search.item_navigation_offset;
+        const pathname = window.location.pathname.match(/^(\/[^/]+\/(project\/[0-9]+\/)?media\/[0-9]+)/)[1];
         this.currentContext().history.push({ pathname, state: { query } });
+      } else {
+        const currId = parseInt(window.location.pathname.match(/^\/[^/]+\/(project\/[0-9]+\/)?media\/([0-9]+)/)[2], 10);
+        const medias = this.props.search.medias.edges;
+        const newId = medias.length > 0 ? parseInt(medias[0].node.dbid, 10) : null;
+        if (newId && currId !== newId) {
+          const teamSlug = window.location.pathname.match(/(^\/[^/]+)\/(project\/[0-9]+\/)?media\/[0-9]+.*/)[1];
+          let projectPart = '';
+          if (medias[0] && medias[0].node && medias[0].node.project_id) {
+            projectPart = `project/${medias[0].node.project_id}/`;
+          }
+          const pathname = `${teamSlug}/${projectPart}media/${newId}`;
+          this.currentContext().history.push({ pathname, state: { query } });
+        }
       }
     }
   }
@@ -224,6 +234,11 @@ class MediaSearch extends React.PureComponent {
     let mediaQuery = null;
     if (state && state.query) {
       mediaQuery = state.query;
+      if (mediaQuery.noid) {
+        delete mediaQuery.id;
+      } else {
+        mediaQuery.id = parseInt(this.props.params.mediaId, 10);
+      }
     }
 
     if (mediaQuery) {
@@ -235,6 +250,7 @@ class MediaSearch extends React.PureComponent {
           search: () => Relay.QL`
             fragment on CheckSearch {
               number_of_results
+              item_navigation_offset
               medias(first: $pageSize) {
                 edges {
                   node {

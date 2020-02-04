@@ -306,28 +306,6 @@ class SearchQueryComponent extends React.Component {
     return selectedTags.length && selectedTags.includes(tag);
   }
 
-  sortIsSelected(sortParam, state = this.state) {
-    if (['ASC', 'DESC'].includes(sortParam)) {
-      return (
-        state.query.sort_type === sortParam || (!state.query.sort_type && sortParam === 'DESC')
-      );
-    }
-    return state.query.sort === sortParam || (!state.query.sort && sortParam === 'recent_activity');
-  }
-
-  sortLabel(sortParam, state = this.state) {
-    const { sort } = state.query || {};
-    const sortKeys = ['recent_added', 'recent_activity', 'related', 'last_seen'];
-    if (!sort || sortKeys.indexOf(sort) > -1) {
-      return sortParam === 'ASC' ?
-        (<FormattedMessage id="search.sortByOldest" defaultMessage="Oldest first" />) :
-        (<FormattedMessage id="search.sortByNewest" defaultMessage="Newest first" />);
-    }
-    const schema = this.props.team.dynamic_search_fields_json_schema;
-    const labels = schema.properties.sort.properties[sort].items.enum;
-    return sortParam === 'ASC' ? labels[0] : labels[1];
-  }
-
   showIsSelected(show, state = this.state) {
     const selected = state.query.show;
     return Array.isArray(selected) ? selected.includes(show) : false;
@@ -396,18 +374,6 @@ class SearchQueryComponent extends React.Component {
       query.tags = selectedTags.concat(tag);
     }
     this.setState({ query });
-  }
-
-  handleSortClick(sortParam) {
-    this.setState((prevState) => {
-      const state = Object.assign({}, prevState);
-      if (['ASC', 'DESC'].includes(sortParam)) {
-        state.query.sort_type = sortParam;
-        return { query: state.query };
-      }
-      state.query.sort = sortParam;
-      return { query: state.query };
-    });
   }
 
   handleRuleClick(rule) {
@@ -806,84 +772,6 @@ class SearchQueryComponent extends React.Component {
                         >
                           {tag}
                         </StyledFilterChip>))}
-                    </StyledFilterRow>
-                    : null}
-
-                  {this.showField('sort') ?
-                    <StyledFilterRow className="search-query__sort-actions">
-                      <h4><FormattedMessage id="search.sort" defaultMessage="Sort" /></h4>
-
-                      <StyledFilterChip
-                        active={this.sortIsSelected('recent_added')}
-                        onClick={this.handleSortClick.bind(this, 'recent_added')}
-                        className={['search-query__recent-added-button', bemClass(
-                          'search-query__filter-button',
-                          this.sortIsSelected('recent_added'),
-                          '--selected',
-                        )].join(' ')}
-                      >
-                        <FormattedMessage id="search.sortByCreated" defaultMessage="Created" />
-                      </StyledFilterChip>
-                      <StyledFilterChip
-                        active={this.sortIsSelected('recent_activity')}
-                        onClick={this.handleSortClick.bind(this, 'recent_activity')}
-                        className={['search-query__recent-activity-button', bemClass(
-                          'search-query__filter-button',
-                          this.sortIsSelected('recent_activity'),
-                          '--selected',
-                        )].join(' ')}
-                      >
-                        <FormattedMessage
-                          id="search.sortByRecentActivity"
-                          defaultMessage="Recent activity"
-                        />
-                      </StyledFilterChip>
-
-                      {Object
-                        .keys(team.dynamic_search_fields_json_schema.properties.sort.properties)
-                        .map((id) => {
-                          const { sort } = team.dynamic_search_fields_json_schema.properties;
-                          const label = sort.properties[id].title;
-                          return (
-                            <StyledFilterChip
-                              key={`dynamic-sort-${id}`}
-                              active={this.sortIsSelected(id)}
-                              onClick={this.handleSortClick.bind(this, id)}
-                              className={bemClass(
-                                'search-query__filter-button',
-                                this.sortIsSelected(id),
-                                '--selected',
-                              )}
-                            >
-                              <span>{label}</span>
-                            </StyledFilterChip>
-                          );
-                        })
-                      }
-
-                      <StyledFilterChip
-                        style={isRtl ? { marginRight: units(3) } : { marginLeft: units(3) }}
-                        active={this.sortIsSelected('DESC')}
-                        onClick={this.handleSortClick.bind(this, 'DESC')}
-                        className={bemClass(
-                          'search-query__filter-button',
-                          this.sortIsSelected('DESC'),
-                          '--selected',
-                        )}
-                      >
-                        {this.sortLabel('DESC')}
-                      </StyledFilterChip>
-                      <StyledFilterChip
-                        active={this.sortIsSelected('ASC')}
-                        onClick={this.handleSortClick.bind(this, 'ASC')}
-                        className={bemClass(
-                          'search-query__filter-button',
-                          this.sortIsSelected('ASC'),
-                          '--selected',
-                        )}
-                      >
-                        {this.sortLabel('ASC')}
-                      </StyledFilterChip>
                     </StyledFilterRow>
                     : null}
 

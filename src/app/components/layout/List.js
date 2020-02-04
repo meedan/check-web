@@ -6,6 +6,7 @@ import 'ag-grid-community/dist/styles/ag-theme-material.css';
 import styled from 'styled-components';
 import MediaCell from '../media/MediaCell';
 import MediaUtil from '../media/MediaUtil';
+import ListHeader from './ListHeader';
 import { units } from '../../styles/js/shared';
 import { getStatus } from '../../helpers';
 import { teamStatuses } from '../../customHelpers';
@@ -28,6 +29,10 @@ const StyledGridContainer = styled.div`
   }
   div.ag-header-cell {
     padding: 0 ${units(1)};
+  }
+  div.ag-react-container {
+    width: 100%;
+    height: 100%;
   }
 `;
 
@@ -76,12 +81,44 @@ class List extends React.Component {
           cellRenderer: 'mediaCellRenderer',
           minWidth: 400,
         },
-        { headerName: fmtMsg(messages.demand), field: 'demand', minWidth: 96 },
-        { headerName: fmtMsg(messages.linked_items_count), field: 'linked_items_count', minWidth: 96 },
+        {
+          headerName: fmtMsg(messages.demand),
+          field: 'demand',
+          minWidth: 96,
+          headerComponentFramework: ListHeader,
+          headerComponentParams: {
+            sort: 'requests',
+          },
+        },
+        {
+          headerName: fmtMsg(messages.linked_items_count),
+          field: 'linked_items_count',
+          minWidth: 96,
+          headerComponentFramework: ListHeader,
+          headerComponentParams: {
+            sort: 'related',
+          },
+        },
         { headerName: fmtMsg(messages.type), field: 'type', minWidth: 96 },
         { headerName: fmtMsg(messages.status), field: 'status', minWidth: 96 },
-        { headerName: fmtMsg(messages.first_seen), field: 'first_seen', minWidth: 96 },
-        { headerName: fmtMsg(messages.last_seen), field: 'last_seen', minWidth: 96 }],
+        {
+          headerName: fmtMsg(messages.first_seen),
+          field: 'first_seen',
+          minWidth: 96,
+          headerComponentFramework: ListHeader,
+          headerComponentParams: {
+            sort: 'recent_added',
+          },
+        },
+        {
+          headerName: fmtMsg(messages.last_seen),
+          field: 'last_seen',
+          minWidth: 96,
+          headerComponentFramework: ListHeader,
+          headerComponentParams: {
+            sort: 'last_seen',
+          },
+        }],
     };
   }
 
