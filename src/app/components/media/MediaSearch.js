@@ -44,7 +44,7 @@ const StyledTopBar = styled.div`
     padding: 0 16px;
     justify-content: space-between;
   }
-  
+
   @media (max-width: 1300px) {
     .media-search__actions-bar {
       width: 100%;
@@ -79,7 +79,7 @@ const StyledPager = styled.div`
   @media (max-width: 650px) {
     top: 43px;
   }
- 
+
   @media (max-width: 1300px) {
     width: 20%;
     right: 24px;
@@ -106,7 +106,7 @@ class MediaSearchComponent extends React.Component {
   }
 
   setOffset(offset) {
-    const query = this.searchQueryFromUrl();
+    const query = this.searchQueryFromRouterState();
     query.esoffset = offset;
     delete query.id;
     query.noid = true;
@@ -116,7 +116,7 @@ class MediaSearchComponent extends React.Component {
 
   updateUrl() {
     if (/^\/[^/]+\/(project\/[0-9]+\/)?media\/([0-9]+)/.test(window.location.pathname)) {
-      const query = this.searchQueryFromUrl();
+      const query = this.searchQueryFromRouterState();
       const currentOffset = query.esoffset || 0;
       const { item_navigation_offset } = this.props.search;
       if (item_navigation_offset > -1 && item_navigation_offset !== currentOffset) {
@@ -140,7 +140,7 @@ class MediaSearchComponent extends React.Component {
     }
   }
 
-  searchQueryFromUrl() {
+  searchQueryFromRouterState() {
     const { state } = this.context.router.location;
     let searchQuery = {};
     if (state && state.query) {
@@ -154,7 +154,7 @@ class MediaSearchComponent extends React.Component {
   }
 
   previousItem() {
-    const query = this.searchQueryFromUrl();
+    const query = this.searchQueryFromRouterState();
     const offset = query.esoffset ? parseInt(query.esoffset, 10) : 0;
     if (offset > 0) {
       this.setOffset(offset - 1);
@@ -162,7 +162,7 @@ class MediaSearchComponent extends React.Component {
   }
 
   nextItem() {
-    const query = this.searchQueryFromUrl();
+    const query = this.searchQueryFromRouterState();
     const count = this.props.search ? this.props.search.number_of_results : 0;
     const offset = query.esoffset ? parseInt(query.esoffset, 10) : 0;
     if (offset + 1 < count) {
@@ -171,7 +171,7 @@ class MediaSearchComponent extends React.Component {
   }
 
   render() {
-    const query = this.searchQueryFromUrl();
+    const query = this.searchQueryFromRouterState();
     const offset = query.esoffset || 0;
     const medias = this.props.search.medias.edges;
     const media = medias.length > 0 ? medias[0].node : null;
