@@ -53,7 +53,10 @@ class ProjectHeaderComponent extends React.PureComponent {
           break;
         }
         const baseQuery = query.original || query;
-        delete baseQuery.esoffset;
+        baseQuery.esoffset = Math.floor(query.esoffset / 20) * 20;
+        if (baseQuery.esoffset === 0) {
+          delete baseQuery.esoffset;
+        }
         return urlFromSearchQuery(baseQuery, basePath);
       } else if (isProjectSubpage) {
         return path.match(regexProject)[1];
