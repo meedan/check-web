@@ -12,6 +12,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import styled from 'styled-components';
 import Form from 'react-jsonschema-form-material-ui';
+import ExternalLink from '../ExternalLink';
 import TeamRoute from '../../relay/TeamRoute';
 import { units, ContentColumn } from '../../styles/js/shared';
 import Message from '../Message';
@@ -685,6 +686,29 @@ class TeamRulesComponent extends Component {
   render() {
     const { direction } = this.props;
 
+    const regexhintMessage = (
+      <div>
+        <FormattedMessage id="teamRules.ruleRegexHint" defaultMessage="Your regex should look like ^(0?[1-9]|[12][0-9]|3[01])." />
+        <ExternalLink url="http://ruby-for-beginners.rubymonstas.org/advanced/regular_expressions.html">
+          <FormattedMessage id="teamRules.ruleRegexHintLink" defaultMessage="Click here to read more about regular expressions." />
+        </ExternalLink>
+      </div>
+    );
+
+    const uiSchema = {
+      rules: {
+        items: {
+          rules: {
+            items: {
+              rule_value_matches_regexp: {
+                'ui:help': regexhintMessage,
+              },
+            },
+          },
+        },
+      },
+    };
+
     const allRules = (
       <List>
         { this.state.rules.map((rule, i) => (
@@ -759,6 +783,7 @@ class TeamRulesComponent extends Component {
                 <div id="rules">
                   <Form
                     schema={this.state.schema}
+                    uiSchema={uiSchema}
                     formData={{ rules: this.state.rules }}
                     onChange={this.handleRulesUpdated.bind(this)}
                   />
