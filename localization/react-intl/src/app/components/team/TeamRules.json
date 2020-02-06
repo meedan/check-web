@@ -41,7 +41,7 @@
   },
   {
     "id": "teamRules.ruleRegexHint",
-    "defaultMessage": "Your regex should look like ^(0?[1-9]|[12][0-9]|3[01])."
+    "defaultMessage": "Your regex should look like ^(0?[1-9]|[12][0-9]|3[01])$."
   },
   {
     "id": "teamRules.ruleRegexHintLink",

@@ -689,7 +689,10 @@ class TeamRulesComponent extends Component {
     const regexhintMessage = (
       <div>
         <FormattedMessage id="teamRules.ruleRegexHint" defaultMessage="Your regex should look like ^(0?[1-9]|[12][0-9]|3[01])." />
-        <ExternalLink url="http://ruby-for-beginners.rubymonstas.org/advanced/regular_expressions.html">
+        <ExternalLink
+          style={{ textDecoration: 'underline' }}
+          url="http://ruby-for-beginners.rubymonstas.org/advanced/regular_expressions.html"
+        >
           <FormattedMessage id="teamRules.ruleRegexHintLink" defaultMessage="Click here to read more about regular expressions." />
         </ExternalLink>
       </div>
