@@ -6,7 +6,7 @@ class TeamPage < Page
   include LoggedInPage
 
   def team_name
-    element('.team__name').text
+    wait_for_selector('.team__name').text
   end
 
   def project_titles
@@ -28,13 +28,11 @@ class TeamPage < Page
   end
 
   def create_project(options = {})
-    sleep 10
+    wait_for_selector(".team")
     name = options[:name] || "Project #{Time.now.to_i}"
-    fill_field('#create-project-title', name)
-    sleep 1
-    element('#create-project-submit-button').click
-    sleep 5
-    element('.project')
+    wait_for_selector('#create-project-title').send_keys(name)
+    wait_for_selector('#create-project-submit-button').click
+    wait_for_selector('.project')
     ProjectPage.new(config: @config, driver: @driver)
   end
 end

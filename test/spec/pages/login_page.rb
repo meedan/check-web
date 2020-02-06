@@ -14,10 +14,8 @@ class LoginPage < Page
 
   def agree_to_tos(should_submit = true)
     if @driver.find_elements(:css, '#tos__tos-agree').size > 0
-      @driver.find_element(:css, '#tos__tos-agree').click
-      sleep 1
-      @driver.find_element(:css, '#tos__pp-agree').click
-      sleep 1
+      wait_for_selector('#tos__tos-agree').click
+      wait_for_selector('#tos__pp-agree').click
       if should_submit
         @driver.find_element(:css, '#tos__save').click
         sleep 20
@@ -35,21 +33,19 @@ class LoginPage < Page
     fill_input('.login__password-confirmation input', options[:password])
     fill_input('input[type=file]', options[:file], { hidden: true }) if options[:file]
     agree_to_tos(false)
-    # TODO: fix or remove click_button() for mobile browsers
-    (@wait.until { @driver.find_element(:xpath, "//button[@id='submit-register-or-login']") }).click
-    sleep 3
+    wait_for_selector("#submit-register-or-login").click
     @wait.until { @driver.page_source.include?("Please check your email to verify your account.") }
-    sleep 3
+    wait_for_selector_none("#submit-register-or-login")
     confirm_email(options[:email])
     sleep 3
   end
 
   def reset_password(email)
     load
-    (@wait.until { @driver.find_element(:css, '.login__forgot-password a') }).click
-    fill_input('#password-reset-email-input', email)
-    click_button('.user-password-reset__actions button + button')
-    sleep 3
+    wait_for_selector('.login__forgot-password a').click
+    wait_for_selector('#password-reset-email-input').send_keys(email)
+    wait_for_selector('.user-password-reset__actions button + button').click
+    wait_for_selector_none("#password-reset-email-input")
   end
 
   def login_with_email(options)

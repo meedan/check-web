@@ -455,7 +455,6 @@ module AppSpecHelpers
     el.click
     wait_for_selector("#media-embed__copy-code")
   end
-
   
   def change_the_status_to(status_class)
     wait_for_selector(".media-detail")
