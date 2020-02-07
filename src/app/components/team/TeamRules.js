@@ -12,6 +12,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import styled from 'styled-components';
 import Form from 'react-jsonschema-form-material-ui';
+import ExternalLink from '../ExternalLink';
 import TeamRoute from '../../relay/TeamRoute';
 import { units, ContentColumn } from '../../styles/js/shared';
 import Message from '../Message';
@@ -474,25 +475,35 @@ class TeamRulesComponent extends Component {
         rule.rules.forEach((rule2) => {
           i += 1;
           if (rule2.rule_definition === 'type_is') {
-            fields[(i * 4) - 1].style.display = 'none';
-            fields[(i * 4) - 2].style.display = 'none';
-            fields[(i * 4) - 3].style.display = 'block';
-            fields[(i * 4) - 4].style.display = 'none';
+            fields[(i * 5) - 1].style.display = 'none';
+            fields[(i * 5) - 2].style.display = 'none';
+            fields[(i * 5) - 3].style.display = 'none';
+            fields[(i * 5) - 4].style.display = 'block';
+            fields[(i * 5) - 5].style.display = 'none';
           } else if (rule2.rule_definition === 'tagged_as') {
-            fields[(i * 4) - 1].style.display = 'none';
-            fields[(i * 4) - 2].style.display = 'block';
-            fields[(i * 4) - 3].style.display = 'none';
-            fields[(i * 4) - 4].style.display = 'none';
+            fields[(i * 5) - 1].style.display = 'none';
+            fields[(i * 5) - 2].style.display = 'none';
+            fields[(i * 5) - 3].style.display = 'block';
+            fields[(i * 5) - 4].style.display = 'none';
+            fields[(i * 5) - 5].style.display = 'none';
           } else if (rule2.rule_definition === 'status_is') {
-            fields[(i * 4) - 1].style.display = 'block';
-            fields[(i * 4) - 2].style.display = 'none';
-            fields[(i * 4) - 3].style.display = 'none';
-            fields[(i * 4) - 4].style.display = 'none';
+            fields[(i * 5) - 1].style.display = 'none';
+            fields[(i * 5) - 2].style.display = 'block';
+            fields[(i * 5) - 3].style.display = 'none';
+            fields[(i * 5) - 4].style.display = 'none';
+            fields[(i * 5) - 5].style.display = 'none';
+          } else if (rule2.rule_definition === 'title_matches_regexp' || rule2.rule_definition === 'request_matches_regexp') {
+            fields[(i * 5) - 1].style.display = 'block';
+            fields[(i * 5) - 2].style.display = 'none';
+            fields[(i * 5) - 3].style.display = 'none';
+            fields[(i * 5) - 4].style.display = 'none';
+            fields[(i * 5) - 5].style.display = 'none';
           } else {
-            fields[(i * 4) - 1].style.display = 'none';
-            fields[(i * 4) - 2].style.display = 'none';
-            fields[(i * 4) - 3].style.display = 'none';
-            fields[(i * 4) - 4].style.display = 'block';
+            fields[(i * 5) - 1].style.display = 'none';
+            fields[(i * 5) - 2].style.display = 'none';
+            fields[(i * 5) - 3].style.display = 'none';
+            fields[(i * 5) - 4].style.display = 'none';
+            fields[(i * 5) - 5].style.display = 'block';
           }
         });
       }
@@ -515,6 +526,7 @@ class TeamRulesComponent extends Component {
               rule_value_type_is: '',
               rule_value_tagged_as: '',
               rule_value_status_is: '',
+              rule_value_matches_regexp: '',
             },
           ],
           actions: [
@@ -607,6 +619,8 @@ class TeamRulesComponent extends Component {
             rules[i].rules[j].rule_value = rule2.rule_value_tagged_as;
           } else if (rule2.rule_definition === 'status_is') {
             rules[i].rules[j].rule_value = rule2.rule_value_status_is;
+          } else if (rule2.rule_definition === 'title_matches_regexp' || rule2.rule_definition === 'request_matches_regexp') {
+            rules[i].rules[j].rule_value = rule2.rule_value_matches_regexp;
           }
           j += 1;
         });
@@ -671,6 +685,32 @@ class TeamRulesComponent extends Component {
 
   render() {
     const { direction } = this.props;
+
+    const regexhintMessage = (
+      <div>
+        <FormattedMessage id="teamRules.ruleRegexHint" defaultMessage="Your regex should look like ^(0?[1-9]|[12][0-9]|3[01])." />
+        <ExternalLink
+          style={{ textDecoration: 'underline' }}
+          url="http://ruby-for-beginners.rubymonstas.org/advanced/regular_expressions.html"
+        >
+          <FormattedMessage id="teamRules.ruleRegexHintLink" defaultMessage="Click here to read more about regular expressions." />
+        </ExternalLink>
+      </div>
+    );
+
+    const uiSchema = {
+      rules: {
+        items: {
+          rules: {
+            items: {
+              rule_value_matches_regexp: {
+                'ui:help': regexhintMessage,
+              },
+            },
+          },
+        },
+      },
+    };
 
     const allRules = (
       <List>
@@ -746,6 +786,7 @@ class TeamRulesComponent extends Component {
                 <div id="rules">
                   <Form
                     schema={this.state.schema}
+                    uiSchema={uiSchema}
                     formData={{ rules: this.state.rules }}
                     onChange={this.handleRulesUpdated.bind(this)}
                   />
