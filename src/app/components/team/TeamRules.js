@@ -71,10 +71,10 @@ const StyledSchemaForm = styled.div`
     margin-top: ${units(1)};
   }
 
-  input[type=string] {
+  textarea, input[type=string] {
     width: 100%;
   }
-  
+
   // All Actions fieldset and all rules fieldset
   fieldset fieldset fieldset div + fieldset > div::before,
   fieldset fieldset fieldset div + fieldset + fieldset > div::before {
@@ -112,9 +112,9 @@ const StyledSchemaForm = styled.div`
     color: #FFAE53;
     border: 0;
     cursor: pointer;
-    outline: 0; 
+    outline: 0;
   }
-  
+
   fieldset fieldset fieldset div + fieldset + fieldset > button {
     color: #3676FC;
   }
@@ -174,7 +174,7 @@ const StyledSchemaForm = styled.div`
   fieldset button span {
     display: none;
   }
-  
+
   fieldset fieldset fieldset button::before {
     content: "${props => props.intl.formatMessage(messages.labelAdd)}";
     padding-left: 10px;
@@ -186,7 +186,7 @@ const StyledSchemaForm = styled.div`
     float: right;
     margin: 0 6px 8px 0;
   }
-  
+
   fieldset fieldset fieldset fieldset + div {
     border: 0;
   }
@@ -194,7 +194,7 @@ const StyledSchemaForm = styled.div`
   fieldset fieldset fieldset fieldset + div > button span {
     display: none;
   }
-  
+
   // Button to delete an action or condition
   fieldset fieldset fieldset fieldset + div > button::before {
     content: "🗙";
@@ -212,7 +212,7 @@ const StyledSchemaForm = styled.div`
   fieldset fieldset fieldset fieldset + fieldset fieldset > div > div + div {
     display: none;
   }
-  
+
   fieldset fieldset fieldset div + fieldset fieldset > div > div + div > label + div,
   fieldset fieldset fieldset fieldset + fieldset fieldset > div > div + div > label + div {
     width: 100%;
@@ -231,7 +231,7 @@ const StyledSchemaForm = styled.div`
   #rules > div > div + fieldset > div > fieldset > label + div > div > div {
     border: 0;
   }
-  
+
   // Button to delete a whole rule
   #rules > div > div + fieldset > div > fieldset > label + div > div > div > fieldset + div {
     display: none;
@@ -261,7 +261,7 @@ const StyledRulesBar = styled.div`
   position: absolute;
   top: -10px;
   right: 7px;
-  
+
   button + button {
     background: #3676FC !important;
     color: #FFF !important;
@@ -705,6 +705,9 @@ class TeamRulesComponent extends Component {
             items: {
               rule_value_matches_regexp: {
                 'ui:help': regexhintMessage,
+              },
+              rule_value: {
+                'ui:widget': 'textarea',
               },
             },
           },
