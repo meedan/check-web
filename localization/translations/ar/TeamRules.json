@@ -9,6 +9,8 @@
   "teamRules.fail": "عذراً ، لقد واجهنا خطأ ما اثناء حفظ القواعد.",
   "teamRules.nameMandatory": "Please provide a name for this rule",
   "teamRules.deleted": "Rule deleted",
+  "teamRules.ruleRegexHint": "Your regex should look like ^(0?[1-9]|[12][0-9]|3[01])$.",
+  "teamRules.ruleRegexHintLink": "Click here to read more about regular expressions.",
   "teamRules.edit": "Edit rule",
   "teamRules.delete": "Delete rule",
   "teamRules.title": "القواعد",

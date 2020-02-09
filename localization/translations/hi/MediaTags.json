@@ -1,6 +1,5 @@
 {
   "mediaTags.loading": "Loading...",
   "mediaTags.language": "Language: {language}",
-  "mediaTags.error": "Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists.",
-  "mediaTags.heading": "Tags"
+  "mediaTags.error": "Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists."
 }

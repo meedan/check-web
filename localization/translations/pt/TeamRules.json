@@ -9,6 +9,8 @@
   "teamRules.fail": "Desculpe, ocorreu um erro ao atualizar as regras.",
   "teamRules.nameMandatory": "Por favor forneça um nome para essa regra",
   "teamRules.deleted": "Regra excluída",
+  "teamRules.ruleRegexHint": "Sua regex deve se parecer com ^(0?[1-9]|[12][0-9]|3[01])$.",
+  "teamRules.ruleRegexHintLink": "Clique aqui para ler mais sobre expressões regulares.",
   "teamRules.edit": "Editar regra",
   "teamRules.delete": "Excluir regra",
   "teamRules.title": "Regras",
