@@ -7,6 +7,7 @@ import difference from 'lodash.difference';
 import intersection from 'lodash.intersection';
 import AboutRoute from '../../relay/AboutRoute';
 import { StyledTagsWrapper } from '../../styles/js/shared';
+import { safelyParseJSON } from '../../helpers';
 
 const messages = defineMessages({
   languages: {
@@ -22,17 +23,16 @@ const messages = defineMessages({
 class LanguageComponent extends React.Component {
   getAvailableLanguages() {
     const usedLanguages = this.props.usedLanguages
-      .map(tr => JSON.parse(tr.node.content).find(it => it.field_name === 'language'))
+      .map(tr => safelyParseJSON(tr.node.content).find(it => it.field_name === 'language'))
       .map(it => it.value);
 
-    const supportedLanguages = JSON.parse(this.props.about.languages_supported);
+    const supportedLanguages = safelyParseJSON(this.props.about.languages_supported);
 
-    const projectLanguages = this.props.projectLanguages ?
-      JSON.parse(this.props.projectLanguages) : null;
+    const teamLanguages = safelyParseJSON(this.props.teamLanguages);
 
     return difference(
-      projectLanguages ?
-        intersection(Object.keys(supportedLanguages), projectLanguages) :
+      teamLanguages ?
+        intersection(Object.keys(supportedLanguages), teamLanguages) :
         Object.keys(supportedLanguages),
       usedLanguages,
     )
@@ -41,9 +41,9 @@ class LanguageComponent extends React.Component {
 
   renderLanguages() {
     const usedLanguages = this.props.usedLanguages
-      .map(tr => ({ id: tr.node.id, content: JSON.parse(tr.node.content).find(it => it.field_name === 'language') }));
+      .map(tr => ({ id: tr.node.id, content: safelyParseJSON(tr.node.content).find(it => it.field_name === 'language') }));
 
-    const supportedLanguages = JSON.parse(this.props.about.languages_supported);
+    const supportedLanguages = safelyParseJSON(this.props.about.languages_supported);
 
     return (
       <StyledTagsWrapper className="source-tags__tags">

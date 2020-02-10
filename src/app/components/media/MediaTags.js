@@ -255,7 +255,7 @@ class MediaTags extends Component {
                         <StyledLanguageSelect>
                           <LanguageSelector
                             onChange={this.handleLanguageChange.bind(this)}
-                            project={media.project}
+                            team={media.team}
                             selected={media.language_code}
                           />
                         </StyledLanguageSelect>

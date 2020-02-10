@@ -13,7 +13,7 @@ import TranslationItem from './TranslationItem';
 import CheckContext from '../../CheckContext';
 import CreateDynamicMutation from '../../relay/mutations/CreateDynamicMutation';
 import AboutRoute from '../../relay/AboutRoute';
-import { getErrorMessage } from '../../helpers';
+import { getErrorMessage, safelyParseJSON } from '../../helpers';
 import { units } from '../../styles/js/shared';
 import { stringHelper } from '../../customHelpers';
 
@@ -54,16 +54,14 @@ class TranslationComponent extends Component {
 
   getAvailableLanguages() {
     const usedLanguages = this.props.annotated.translations.edges
-      .map(tr => JSON.parse(tr.node.content).find(it => it.field_name === 'translation_language'))
+      .map(tr => safelyParseJSON(tr.node.content).find(it => it.field_name === 'translation_language'))
       .map(it => it.value)
       .concat(this.props.annotated.language_code);
-    const supportedLanguages = JSON.parse(this.props.about.languages_supported);
-    const projectLanguages = this.props.annotated.project.get_languages
-      ? JSON.parse(this.props.annotated.project.get_languages)
-      : null;
+    const supportedLanguages = safelyParseJSON(this.props.about.languages_supported);
+    const teamLanguages = safelyParseJSON(this.props.annotated.team.get_languages);
     return difference(
-      projectLanguages
-        ? intersection(Object.keys(supportedLanguages), projectLanguages)
+      teamLanguages
+        ? intersection(Object.keys(supportedLanguages), teamLanguages)
         : Object.keys(supportedLanguages),
       usedLanguages,
     ).map(l => ({ value: l, label: supportedLanguages[l] }));
