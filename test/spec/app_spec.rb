@@ -567,6 +567,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"last_seen"%2C"sort_type"%3A"DESC"%7D'
       wait_for_selector("#create-media__add-item")
       expect(@driver.page_source.include?('My search result')).to be(true)
+      @driver.execute_script("document.getElementsByClassName('ag-body-horizontal-scroll-viewport')[0].scrollLeft = 5000;")
       el = wait_for_selector("#list-header__last_seen")
       expect(el.find_element(:css, "svg.list-header__sort-desc").nil?).to be(false)
     end

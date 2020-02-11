@@ -26,5 +26,9 @@
   {
     "id": "list.LastSeen",
     "defaultMessage": "Last seen"
+  },
+  {
+    "id": "list.ShareCount",
+    "defaultMessage": "Social shares"
   }
 ]

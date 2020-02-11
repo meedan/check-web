@@ -364,6 +364,7 @@ const MediaCondensedContainer = Relay.createContainer(MediaCondensedComponent, {
         metadata
         picture
         last_seen
+        share_count
         permissions
         requests_count
         relationship {

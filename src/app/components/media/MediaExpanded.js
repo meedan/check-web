@@ -188,6 +188,7 @@ const MediaExpandedContainer = Relay.createContainer(MediaExpandedComponent, {
         domain
         created_at
         last_seen
+        share_count
         requests_count
         title
         picture
