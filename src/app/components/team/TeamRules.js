@@ -705,6 +705,7 @@ class TeamRulesComponent extends Component {
             items: {
               rule_value_matches_regexp: {
                 'ui:help': regexhintMessage,
+                'ui:widget': 'textarea',
               },
               rule_value: {
                 'ui:widget': 'textarea',
