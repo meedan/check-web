@@ -343,6 +343,7 @@ class SearchResultsComponent extends React.Component {
         team={team}
         actions={medias.length ?
           <BulkActions
+            parentComponent={this}
             count={this.props.search ? this.props.search.number_of_results : 0}
             team={team}
             page={this.props.page}

@@ -174,6 +174,9 @@ class BulkActions extends React.Component {
       );
       this.context.setMessage(message);
       this.props.onUnselectAll();
+      if (this.props.parentComponent) {
+        this.props.parentComponent.props.relay.forceFetch();
+      }
     };
 
     if (this.props.selectedMedia.length && !this.state.confirmationError) {
