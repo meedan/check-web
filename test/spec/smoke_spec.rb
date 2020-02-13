@@ -76,31 +76,34 @@ shared_examples 'smoke' do
 #security section end
 
 #media items section start
-  it "should create a new media using a link from Facebook", bin2: true do
+  it "should create new medias using links from Facebook, Twitter, Youtube and Instagram", bin2: true do
+    #from facebook
     api_create_team_project_and_link_and_redirect_to_media_page('https://www.facebook.com/FirstDraftNews/posts/1808121032783161')
     wait_for_selector(".media-detail")
     wait_for_selector("iframe")
     expect(@driver.page_source.include?('First Draft')).to be(true)
-  end
+    wait_for_selector(".project-header__back-button").click
+    wait_for_selector("#search-form")
 
-  it "should create a new media using a link from Twitter", bin2: true do
-    api_create_team_project_and_link_and_redirect_to_media_page('https://twitter.com/TheWho/status/890135323216367616')
-    wait_for_selector(".media-detail")
-    wait_for_selector("iframe")
+    #from Twitter
+    expect(@driver.page_source.include?('Happy birthday Mick')).to be(false)
+    create_media("https://twitter.com/TheWho/status/890135323216367616")
+    wait_for_selector_list_size('.media__heading',2)
+    wait_for_selector("//h3[contains(text(), 'Happy')]", :xpath)
     expect(@driver.page_source.include?('Happy birthday Mick')).to be(true)
-  end
 
-  it "should create a new media using a link from Youtube", bin2: true do
-    api_create_team_project_and_link_and_redirect_to_media_page('https://www.youtube.com/watch?v=ykLgjhBnik0')
-    wait_for_selector(".media-detail")
-    wait_for_selector("iframe")
-    expect(@driver.page_source.include?("How To Check An Account's Authenticity")).to be(true)
-  end
+    #from Youtube
+    expect(@driver.page_source.include?("How To Check An")).to be(false)
+    create_media("https://www.youtube.com/watch?v=ykLgjhBnik0")
+    wait_for_selector_list_size('.media__heading',3)
+    wait_for_selector("//h3[contains(text(), 'How')]", :xpath)
+    expect(@driver.page_source.include?("How To Check An")).to be(true)
 
-  it "should create a new media using a link from Instagram", bin3: true do
-    api_create_team_project_and_link_and_redirect_to_media_page('https://www.instagram.com/p/BRYob0dA1SC/')
-    wait_for_selector(".media-detail")
-    wait_for_selector("iframe")
+    #from Instagram 
+    expect(@driver.page_source.include?('#wEDnesday')).to be(false)
+    create_media("https://www.instagram.com/p/BRYob0dA1SC/")
+    wait_for_selector_list_size('.media__heading',4)
+    wait_for_selector("//h3[contains(text(), 'We get')]", :xpath)
     expect(@driver.page_source.include?('#wEDnesday')).to be(true)
   end
 
@@ -904,14 +907,7 @@ shared_examples 'smoke' do
     expect(elems.size).to be > 1
 
     #edit team member role
-    wait_for_selector('.team-members__edit-button', :css).click
-    wait_for_selector('.role-select', :css, 29, 1).click
-
-    wait_for_selector('li.role-journalist').click
-    wait_for_selector('#confirm-dialog__checkbox').click
-    wait_for_selector('#confirm-dialog__confirm-action-button').click
-    wait_for_selector('.team-members__edit-button', :css).click
-
+    change_the_member_role_to('li.role-journalist')
     el = wait_for_selector('input[name="role-select"]', :css, 29, 1)
     expect(el.value).to eq 'journalist'
 
