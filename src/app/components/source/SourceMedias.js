@@ -107,8 +107,7 @@ const SourceMediasContainer = Relay.createContainer(SourceMediasComponent, {
                 project {
                   id,
                   dbid,
-                  title,
-                  get_languages
+                  title
                 },
                 project_id,
                 pusher_channel,
@@ -317,6 +316,7 @@ const SourceMediasContainer = Relay.createContainer(SourceMediasComponent, {
                 }
                 team {
                   get_suggested_tags,
+                  get_languages,
                   slug
                 }
               }

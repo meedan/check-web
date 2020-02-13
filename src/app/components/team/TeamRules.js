@@ -12,6 +12,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import styled from 'styled-components';
 import Form from 'react-jsonschema-form-material-ui';
+import ExternalLink from '../ExternalLink';
 import TeamRoute from '../../relay/TeamRoute';
 import { units, ContentColumn } from '../../styles/js/shared';
 import Message from '../Message';
@@ -70,10 +71,10 @@ const StyledSchemaForm = styled.div`
     margin-top: ${units(1)};
   }
 
-  input[type=string] {
+  textarea, input[type=string] {
     width: 100%;
   }
-  
+
   // All Actions fieldset and all rules fieldset
   fieldset fieldset fieldset div + fieldset > div::before,
   fieldset fieldset fieldset div + fieldset + fieldset > div::before {
@@ -111,9 +112,9 @@ const StyledSchemaForm = styled.div`
     color: #FFAE53;
     border: 0;
     cursor: pointer;
-    outline: 0; 
+    outline: 0;
   }
-  
+
   fieldset fieldset fieldset div + fieldset + fieldset > button {
     color: #3676FC;
   }
@@ -173,7 +174,7 @@ const StyledSchemaForm = styled.div`
   fieldset button span {
     display: none;
   }
-  
+
   fieldset fieldset fieldset button::before {
     content: "${props => props.intl.formatMessage(messages.labelAdd)}";
     padding-left: 10px;
@@ -185,7 +186,7 @@ const StyledSchemaForm = styled.div`
     float: right;
     margin: 0 6px 8px 0;
   }
-  
+
   fieldset fieldset fieldset fieldset + div {
     border: 0;
   }
@@ -193,7 +194,7 @@ const StyledSchemaForm = styled.div`
   fieldset fieldset fieldset fieldset + div > button span {
     display: none;
   }
-  
+
   // Button to delete an action or condition
   fieldset fieldset fieldset fieldset + div > button::before {
     content: "🗙";
@@ -211,7 +212,7 @@ const StyledSchemaForm = styled.div`
   fieldset fieldset fieldset fieldset + fieldset fieldset > div > div + div {
     display: none;
   }
-  
+
   fieldset fieldset fieldset div + fieldset fieldset > div > div + div > label + div,
   fieldset fieldset fieldset fieldset + fieldset fieldset > div > div + div > label + div {
     width: 100%;
@@ -230,7 +231,7 @@ const StyledSchemaForm = styled.div`
   #rules > div > div + fieldset > div > fieldset > label + div > div > div {
     border: 0;
   }
-  
+
   // Button to delete a whole rule
   #rules > div > div + fieldset > div > fieldset > label + div > div > div > fieldset + div {
     display: none;
@@ -260,7 +261,7 @@ const StyledRulesBar = styled.div`
   position: absolute;
   top: -10px;
   right: 7px;
-  
+
   button + button {
     background: #3676FC !important;
     color: #FFF !important;
@@ -474,25 +475,35 @@ class TeamRulesComponent extends Component {
         rule.rules.forEach((rule2) => {
           i += 1;
           if (rule2.rule_definition === 'type_is') {
-            fields[(i * 4) - 1].style.display = 'none';
-            fields[(i * 4) - 2].style.display = 'none';
-            fields[(i * 4) - 3].style.display = 'block';
-            fields[(i * 4) - 4].style.display = 'none';
+            fields[(i * 5) - 1].style.display = 'none';
+            fields[(i * 5) - 2].style.display = 'none';
+            fields[(i * 5) - 3].style.display = 'none';
+            fields[(i * 5) - 4].style.display = 'block';
+            fields[(i * 5) - 5].style.display = 'none';
           } else if (rule2.rule_definition === 'tagged_as') {
-            fields[(i * 4) - 1].style.display = 'none';
-            fields[(i * 4) - 2].style.display = 'block';
-            fields[(i * 4) - 3].style.display = 'none';
-            fields[(i * 4) - 4].style.display = 'none';
+            fields[(i * 5) - 1].style.display = 'none';
+            fields[(i * 5) - 2].style.display = 'none';
+            fields[(i * 5) - 3].style.display = 'block';
+            fields[(i * 5) - 4].style.display = 'none';
+            fields[(i * 5) - 5].style.display = 'none';
           } else if (rule2.rule_definition === 'status_is') {
-            fields[(i * 4) - 1].style.display = 'block';
-            fields[(i * 4) - 2].style.display = 'none';
-            fields[(i * 4) - 3].style.display = 'none';
-            fields[(i * 4) - 4].style.display = 'none';
+            fields[(i * 5) - 1].style.display = 'none';
+            fields[(i * 5) - 2].style.display = 'block';
+            fields[(i * 5) - 3].style.display = 'none';
+            fields[(i * 5) - 4].style.display = 'none';
+            fields[(i * 5) - 5].style.display = 'none';
+          } else if (rule2.rule_definition === 'title_matches_regexp' || rule2.rule_definition === 'request_matches_regexp') {
+            fields[(i * 5) - 1].style.display = 'block';
+            fields[(i * 5) - 2].style.display = 'none';
+            fields[(i * 5) - 3].style.display = 'none';
+            fields[(i * 5) - 4].style.display = 'none';
+            fields[(i * 5) - 5].style.display = 'none';
           } else {
-            fields[(i * 4) - 1].style.display = 'none';
-            fields[(i * 4) - 2].style.display = 'none';
-            fields[(i * 4) - 3].style.display = 'none';
-            fields[(i * 4) - 4].style.display = 'block';
+            fields[(i * 5) - 1].style.display = 'none';
+            fields[(i * 5) - 2].style.display = 'none';
+            fields[(i * 5) - 3].style.display = 'none';
+            fields[(i * 5) - 4].style.display = 'none';
+            fields[(i * 5) - 5].style.display = 'block';
           }
         });
       }
@@ -515,6 +526,7 @@ class TeamRulesComponent extends Component {
               rule_value_type_is: '',
               rule_value_tagged_as: '',
               rule_value_status_is: '',
+              rule_value_matches_regexp: '',
             },
           ],
           actions: [
@@ -607,6 +619,8 @@ class TeamRulesComponent extends Component {
             rules[i].rules[j].rule_value = rule2.rule_value_tagged_as;
           } else if (rule2.rule_definition === 'status_is') {
             rules[i].rules[j].rule_value = rule2.rule_value_status_is;
+          } else if (rule2.rule_definition === 'title_matches_regexp' || rule2.rule_definition === 'request_matches_regexp') {
+            rules[i].rules[j].rule_value = rule2.rule_value_matches_regexp;
           }
           j += 1;
         });
@@ -671,6 +685,36 @@ class TeamRulesComponent extends Component {
 
   render() {
     const { direction } = this.props;
+
+    const regexhintMessage = (
+      <div>
+        <FormattedMessage id="teamRules.ruleRegexHint" defaultMessage="Your regex should look like ^(0?[1-9]|[12][0-9]|3[01])$." />
+        <ExternalLink
+          style={{ textDecoration: 'underline' }}
+          url="http://ruby-for-beginners.rubymonstas.org/advanced/regular_expressions.html"
+        >
+          <FormattedMessage id="teamRules.ruleRegexHintLink" defaultMessage="Click here to read more about regular expressions." />
+        </ExternalLink>
+      </div>
+    );
+
+    const uiSchema = {
+      rules: {
+        items: {
+          rules: {
+            items: {
+              rule_value_matches_regexp: {
+                'ui:help': regexhintMessage,
+                'ui:widget': 'textarea',
+              },
+              rule_value: {
+                'ui:widget': 'textarea',
+              },
+            },
+          },
+        },
+      },
+    };
 
     const allRules = (
       <List>
@@ -746,6 +790,7 @@ class TeamRulesComponent extends Component {
                 <div id="rules">
                   <Form
                     schema={this.state.schema}
+                    uiSchema={uiSchema}
                     formData={{ rules: this.state.rules }}
                     onChange={this.handleRulesUpdated.bind(this)}
                   />

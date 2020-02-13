@@ -188,6 +188,7 @@ const MediaExpandedContainer = Relay.createContainer(MediaExpandedComponent, {
         domain
         created_at
         last_seen
+        share_count
         requests_count
         title
         picture
@@ -258,6 +259,7 @@ const MediaExpandedContainer = Relay.createContainer(MediaExpandedComponent, {
           search_id
           verification_statuses
           translation_statuses
+          get_languages
         }
         tags(first: 10000) {
           edges {

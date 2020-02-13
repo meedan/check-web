@@ -15,14 +15,12 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
         updated_at,
         source_id,
         project_id,
-        project {
-          get_languages
-        },
         permissions,
         team {
           name,
           slug,
           get_suggested_tags,
+          get_languages
         },
         source {
           id,

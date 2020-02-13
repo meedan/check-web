@@ -76,8 +76,7 @@ const sourceFragment = Relay.QL`
           project {
             id,
             dbid,
-            title,
-            get_languages
+            title
           },
           project_id,
           pusher_channel,
@@ -250,6 +249,7 @@ const sourceFragment = Relay.QL`
                         domain,
                         team {
                           slug
+                          get_languages
                         }
                         media {
                           type,
@@ -283,6 +283,7 @@ const sourceFragment = Relay.QL`
           }
           team {
             get_suggested_tags,
+            get_languages,
             slug
           }
         }
