@@ -1,6 +1,6 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
-import PublicTeamRoute from '../relay/PublicTeamRoute';
+import FindPublicTeamRoute from '../relay/FindPublicTeamRoute';
 import teamPublicFragment from '../relay/teamPublicFragment';
 import DrawerNavigationComponent from './DrawerNavigationComponent';
 
@@ -14,7 +14,7 @@ const DrawerNavigation = (props) => {
 
     const { teamSlug } = props;
 
-    const route = new PublicTeamRoute({ teamSlug });
+    const route = new FindPublicTeamRoute({ teamSlug });
 
     return (
       <Relay.RootContainer
