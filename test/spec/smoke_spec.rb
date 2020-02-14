@@ -428,36 +428,6 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('No bots installed')).to be(true)
     expect(@driver.page_source.include?('More info')).to be(false)
   end
-
-  it "should show: manage team (link only to team owners)", bin3: true do
-    user = api_register_and_login_with_email
-    team = request_api 'team', { name: "team#{Time.now.to_i}", email: user.email, slug: "team#{Time.now.to_i}" }
-    user2 = api_register_and_login_with_email
-    page = MePage.new(config: @config, driver: @driver).load
-    page.ask_join_team(subdomain: team.slug)
-    @wait.until {
-      expect(@driver.find_element(:class, "message").nil?).to be(false)
-    }
-    api_logout
-    @driver = new_driver(@webdriver_url, @browser_capabilities)
-    page = Page.new(config: @config, driver: @driver)
-    page.go(@config['api_path'] + '/test/session?email='+user.email)
-    #As the group creator, go to the members page and approve the joining request.
-    page = MePage.new(config: @config, driver: @driver).load
-        .approve_join_team(subdomain: team.slug)
-    wait_for_selector(".team-menu__team-settings-button").click
-    el = wait_for_selector_list("team-menu__edit-team-button",:class)
-    expect(el.length > 0).to be(true)
-    api_logout
-
-    @driver = new_driver(@webdriver_url,@browser_capabilities)
-    page = Page.new(config: @config, driver: @driver)
-    page.go(@config['api_path'] + '/test/session?email='+user2.email)
-    page = MePage.new(config: @config, driver: @driver).load
-    wait_for_selector("#teams-tab").click
-    el = wait_for_selector_list("team-menu__edit-team-button",:class)
-    expect(el.length == 0).to be(true)
-  end
 #team section end
 
 #related items section start
@@ -484,58 +454,34 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('Claim')).to be(false)
   end
 
-  it "should create a related claim, delete the main item and verify if the related item was deleted too" , bin1: true do
+  it "should create a related image, delete the main item and verify that the both items were deleted" , bin1: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector(".media-detail")
-    expect(@driver.page_source.include?('Claim Related')).to be(false)
-    press_button('.create-related-media__add-button')
-    wait_for_selector('#create-media__quote').click
-    wait_for_selector("#create-media-quote-input")
-    fill_field('#create-media-quote-input', 'Claim Related')
-    press_button('#create-media-dialog__submit-button')
-    wait_for_selector_none("#create-media-quote-input")
-    wait_for_selector_list_size(".media-detail", 2)
-    expect(@driver.page_source.include?('Claim Related')).to be(true)
-    wait_for_selector('.media-actions__icon').click
-    wait_for_selector('.media-actions__edit')
-    wait_for_selector(".media-actions__send-to-trash").click
-    wait_for_selector(".message").click
-    wait_for_selector_none(".message")
-    wait_for_selector('.project-header__back-button').click
-    @driver.navigate.refresh
-    wait_for_selector('#create-media__add-item')
-    wait_for_selector_list_size(".medias__item", 0)
-    expect(@driver.page_source.include?('Add a link or text')).to be(true)
-
-  end
-
-  it "should create a related link" , bin2: true do
-    api_create_team_project_and_claim_and_redirect_to_media_page
-    wait_for_selector(".media-detail")
-    press_button('.create-related-media__add-button')
-    wait_for_selector('#create-media__link').click
-    wait_for_selector("#create-media-input")
-    fill_field('#create-media-input', 'https://www.instagram.com/p/BRYob0dA1SC/')
-    wait_for_selector('#create-media-dialog__submit-button').click
-    wait_for_selector_none("#create-media-quote-input")
-    wait_for_selector_list_size(".media-detail", 2)
     cards = wait_for_selector_list(".media-detail").length
-    expect(cards == 2).to be(true)
-  end
-
-  it "should create a related image" , bin3: true do
-    api_create_team_project_and_claim_and_redirect_to_media_page
-    wait_for_selector(".media-detail")
+    expect(cards == 1).to be(true)
+    #add a related image
     press_button('.create-related-media__add-button')
     wait_for_selector('#create-media__image').click
     wait_for_selector("#media-url-container")
     input = wait_for_selector('input[type=file]')
     input.send_keys(File.join(File.dirname(__FILE__), 'test.png'))
     press_button('#create-media-dialog__submit-button')
-    wait_for_selector_none("#media-url-container")
+    #verify that the image was created
     wait_for_selector_list_size(".media-detail", 2)
     cards = wait_for_selector_list(".media-detail").length
     expect(cards == 2).to be(true)
+    wait_for_selector('.media-actions__icon').click
+    wait_for_selector('.media-actions__edit')
+    #delet the main item
+    wait_for_selector(".media-actions__send-to-trash").click
+    wait_for_selector(".message").click
+    wait_for_selector_none(".message")
+    wait_for_selector('.project-header__back-button').click
+    @driver.navigate.refresh
+    wait_for_selector('#create-media__add-item')
+    #verify that both items were deleted
+    wait_for_selector_list_size(".medias__item", 0)
+    expect(@driver.page_source.include?('Add a link or text')).to be(true)
   end
 
   it "should break relationship between related items" , bin1: true do
@@ -543,13 +489,17 @@ shared_examples 'smoke' do
     wait_for_selector(".media-detail")
     expect(@driver.page_source.include?('Claim Related')).to be(false)
     press_button('.create-related-media__add-button')
-    wait_for_selector('#create-media__quote').click
-    wait_for_selector("#create-media-quote-input")
-    fill_field('#create-media-quote-input', 'Claim Related')
+    #add a related link
+    wait_for_selector('#create-media__link').click
+    wait_for_selector("#create-media-input")
+    fill_field('#create-media-input', 'https://www.instagram.com/p/BRYob0dA1SC/')
     press_button('#create-media-dialog__submit-button')
     wait_for_selector_none("#create-media-quote-input")
+    #verify that the link was created
     wait_for_selector_list_size(".media-detail", 2)
-    expect(@driver.page_source.include?('Claim Related')).to be(true)
+    cards = wait_for_selector_list(".media-detail").length
+    expect(cards == 2).to be(true)
+    #break the relationship between the items
     wait_for_selector(".media-detail > div > span > div > button").click
     wait_for_selector('div[role="menu"] > div + div > span[role="menuitem"]').click
     wait_for_selector_none('div[role="menu"]')
@@ -751,7 +701,6 @@ shared_examples 'smoke' do
 #Meme Generator section end
 
 #Bulk Actions section start
-
   it "should move media to another project", bin2: true do
     claim = 'This is going to be moved'
 
