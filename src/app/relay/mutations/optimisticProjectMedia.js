@@ -37,6 +37,7 @@ const optimisticProjectMedia = (media, proj, context, customTeam) => {
         status: 'undetermined',
         created_at: now,
         last_seen: now,
+        share_count: 0,
         verification_statuses: JSON.stringify(team.verification_statuses),
         check_search_project: project ? {
           id: project.search_id,

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, defineMessages, intlShape, injectIntl } from 'react-intl';
+import { defineMessages, intlShape, injectIntl } from 'react-intl';
 import Relay from 'react-relay/classic';
 import mergeWith from 'lodash.mergewith';
 import xor from 'lodash.xor';
@@ -9,11 +9,8 @@ import rtlDetect from 'rtl-detect';
 import EditIcon from '@material-ui/icons/Edit';
 import CancelIcon from '@material-ui/icons/Cancel';
 import Can from '../Can';
-import CreateTagMutation from '../../relay/mutations/CreateTagMutation';
-import DeleteTagMutation from '../../relay/mutations/DeleteTagMutation';
 import UpdateLanguageMutation from '../../relay/mutations/UpdateLanguageMutation';
 import LanguageSelector from '../LanguageSelector';
-import Tags from '../Tags';
 import CheckContext from '../../CheckContext';
 import { searchQueryFromUrl, urlFromSearchQuery } from '../search/Search';
 import { getErrorMessage, bemClass } from '../../helpers';
@@ -63,6 +60,8 @@ const StyledLanguageIcon = styled.span`
 `;
 
 const StyledMediaTagsContainer = styled.div`
+  width: 100%;
+
   .media-tags {
     &:empty {
       display: none;
@@ -110,6 +109,10 @@ const StyledMediaTagsContainer = styled.div`
       margin-${props => (props.isRtl ? 'left' : 'right')}: ${units(1)};
     }
   }
+
+  .media-tags__language {
+    white-space: nowrap;
+  }
 `;
 
 // TODO Fix a11y issues
@@ -119,72 +122,15 @@ class MediaTags extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      message: null,
       correctingLanguage: false,
     };
-  }
-
-  findTag(tagString) {
-    return this.props.tags.find(tag => tag.node && tag.node.tag_text === tagString);
-  }
-
-  handleSuggestedTagEditClick(tagString) {
-    this.setState({ message: this.props.intl.formatMessage(messages.loading) });
-    const tag = this.findTag(tagString);
-
-    if (tag) {
-      this.deleteTag(tag.node.id);
-    } else {
-      this.createTag(tagString);
-    }
   }
 
   fail = (transaction) => {
     const fallbackMessage = this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') });
     const errorMessage = getErrorMessage(transaction, fallbackMessage);
-    this.setState({ errorMessage });
+    this.context.setMessage(errorMessage);
   };
-
-  success = () => {
-    this.setState({ message: null, errorMessage: null });
-  };
-
-  createTag(tagString) {
-    const { media } = this.props;
-    const context = new CheckContext(this).getContextStore();
-    const onSuccess = () => this.success();
-    const onFailure = transaction => this.fail(transaction);
-
-    Relay.Store.commitUpdate(
-      new CreateTagMutation({
-        annotated: media,
-        annotator: context.currentUser,
-        parent_type: 'project_media',
-        context,
-        annotation: {
-          tag: tagString.trim(),
-          annotated_type: 'ProjectMedia',
-          annotated_id: media.dbid,
-        },
-      }),
-      { onSuccess, onFailure },
-    );
-  }
-
-  deleteTag(tagId) {
-    const { media } = this.props;
-    const onSuccess = () => this.success();
-    const onFailure = transaction => this.fail(transaction);
-
-    Relay.Store.commitUpdate(
-      new DeleteTagMutation({
-        annotated: media,
-        parent_type: 'project_media',
-        id: tagId,
-      }),
-      { onSuccess, onFailure },
-    );
-  }
 
   searchTagUrl(tagString) {
     const { media } = this.props;
@@ -223,7 +169,6 @@ class MediaTags extends Component {
     const { media } = this.props;
     const onSuccess = () => {
       this.setState({ correctingLanguage: false });
-      this.success();
     };
     const onFailure = transaction => this.fail(transaction);
 
@@ -253,33 +198,31 @@ class MediaTags extends Component {
     const remainingTags = tags.filter(tag => !suggestedTags.includes(tag.node.tag_text));
     const searchQuery = searchQueryFromUrl();
     const activeRegularTags = searchQuery.tags || [];
-    const updateCallback = (text) => {
-      if (this.props.onChange) {
-        this.props.onChange(text);
-      }
-    };
 
-    if (!this.props.isEditing) {
-      return (
-        <StyledMediaTagsContainer isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
-          <div className="media-tags">
-            {activeSuggestedTags.length ?
-              <ul className="media-tags__suggestions">
-                {activeSuggestedTags.map(tag => (
-                  <li
-                    key={tag.node.id}
-                    onClick={this.handleTagViewClick.bind(this, tag.node.tag_text)}
-                    className={bemClass(
-                      'media-tags__suggestion',
-                      activeRegularTags.indexOf(tag.node.tag_text) > -1,
-                      '--selected',
-                    )}
-                  >
-                    {tag.node.tag_text}
-                  </li>))}
-              </ul>
-              : null}
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+    return (
+      <StyledMediaTagsContainer
+        className="media-tags__container"
+        isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
+      >
+        <div className="media-tags">
+          {activeSuggestedTags.length ?
+            <ul className="media-tags__suggestions">
+              {activeSuggestedTags.map(tag => (
+                <li
+                  key={tag.node.id}
+                  onClick={this.handleTagViewClick.bind(this, tag.node.tag_text)}
+                  className={bemClass(
+                    'media-tags__suggestion',
+                    activeRegularTags.indexOf(tag.node.tag_text) > -1,
+                    '--selected',
+                  )}
+                >
+                  {tag.node.tag_text}
+                </li>))}
+            </ul>
+            : null}
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div>
               <ul className="media-tags__list">
                 {remainingTags.map((tag) => {
                   if (tag.node.tag_text) {
@@ -300,15 +243,10 @@ class MediaTags extends Component {
                   return null;
                 })}
               </ul>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'flex-end' }}>
               {media.language ?
-                <ul
-                  className="media-tags__list"
-                  style={{
-                    position: 'absolute',
-                    top: 12,
-                    right: 11,
-                  }}
-                >
+                <ul className="media-tags__list">
                   <li className="media-tags__tag media-tags__language">
                     {this.state.correctingLanguage ?
                       <span>
@@ -317,7 +255,7 @@ class MediaTags extends Component {
                         <StyledLanguageSelect>
                           <LanguageSelector
                             onChange={this.handleLanguageChange.bind(this)}
-                            project={media.project}
+                            team={media.team}
                             selected={media.language_code}
                           />
                         </StyledLanguageSelect>
@@ -347,51 +285,7 @@ class MediaTags extends Component {
                 : null}
             </div>
           </div>
-        </StyledMediaTagsContainer>
-      );
-    }
-
-    return (
-      <StyledMediaTagsContainer>
-        <div className="media-tags media-tags--editing">
-          <div className="media-tags__header">
-            <h4 className="media-tags__heading">
-              <FormattedMessage id="mediaTags.heading" defaultMessage="Tags" />
-            </h4>
-            <span className="media-tags__message">{this.state.message}</span>
-          </div>
-
-          {suggestedTags.length ?
-            <div className="media-tags__suggestions">
-              <ul className="media-tags__suggestions-list">
-                {suggestedTags.map(suggestedTag => (
-                  <li
-                    key={suggestedTag}
-                    onClick={this.handleSuggestedTagEditClick.bind(this, suggestedTag)}
-                    className={bemClass(
-                      'media-tags__suggestion',
-                      this.findTag(suggestedTag),
-                      '--selected',
-                    )}
-                  >
-                    {suggestedTag}
-                  </li>))}
-              </ul>
-            </div>
-            : null}
-
-          <Tags
-            tags={remainingTags}
-            errorText={this.state.errorMessage || this.props.errorText}
-            helperText={this.state.message}
-            options={[]}
-            annotated={media}
-            annotatedType="ProjectMedia"
-            isEditing
-            onChange={(text) => { updateCallback(text); }}
-          />
         </div>
-
       </StyledMediaTagsContainer>
     );
   }
@@ -405,6 +299,7 @@ MediaTags.propTypes = {
 
 MediaTags.contextTypes = {
   store: PropTypes.object,
+  setMessage: PropTypes.func,
 };
 
 export default injectIntl(MediaTags);

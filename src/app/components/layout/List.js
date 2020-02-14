@@ -65,6 +65,10 @@ const messages = defineMessages({
     id: 'list.LastSeen',
     defaultMessage: 'Last seen',
   },
+  share_count: {
+    id: 'list.ShareCount',
+    defaultMessage: 'Social shares',
+  },
 });
 
 class List extends React.Component {
@@ -88,6 +92,15 @@ class List extends React.Component {
           headerComponentFramework: ListHeader,
           headerComponentParams: {
             sort: 'requests',
+          },
+        },
+        {
+          headerName: fmtMsg(messages.share_count),
+          field: 'share_count',
+          minWidth: 96,
+          headerComponentFramework: ListHeader,
+          headerComponentParams: {
+            sort: 'share_count',
           },
         },
         {
@@ -156,6 +169,7 @@ class List extends React.Component {
         status,
         first_seen,
         last_seen,
+        share_count,
       } = media;
 
       const statusObj = getStatus(teamStatuses(media), status);
@@ -181,6 +195,7 @@ class List extends React.Component {
         first_seen: formatted_first_seen,
         last_seen: formatted_last_seen,
         media,
+        share_count,
         query: i.itemQuery,
       };
 

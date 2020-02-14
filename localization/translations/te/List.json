@@ -5,5 +5,6 @@
   "list.Type": "Type",
   "list.Status": "Status",
   "list.FirstSeen": "First seen",
-  "list.LastSeen": "Last seen"
+  "list.LastSeen": "Last seen",
+  "list.ShareCount": "Social shares"
 }

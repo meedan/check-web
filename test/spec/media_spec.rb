@@ -22,7 +22,7 @@ shared_examples 'media' do |type|
     end
   end
 
-  it "should edit the title and description a media", bin4: true do
+  it "should edit a media title and description", bin4: true do
     create_media_depending_on_type
     wait_for_selector('.media-detail')
     expect(@driver.page_source.include?('Edited media description')).to be(false)

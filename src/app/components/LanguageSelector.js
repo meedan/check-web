@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
 import AboutRoute from '../relay/AboutRoute';
+import { safelyParseJSON } from '../helpers';
 
 class LanguageSelectorComponent extends Component {
   constructor(props) {
@@ -9,20 +10,18 @@ class LanguageSelectorComponent extends Component {
   }
 
   render() {
-    const { project } = this.props;
-    const supportedLanguages = JSON.parse(this.props.about.languages_supported);
-    const projectLanguages = project.get_languages
-      ? JSON.parse(project.get_languages)
-      : null;
+    const { team } = this.props;
+    const supportedLanguages = safelyParseJSON(this.props.about.languages_supported);
+    const teamLanguages = safelyParseJSON(team.get_languages);
     return (
       <select onChange={this.props.onChange} defaultValue={this.props.selected}>
-        {(projectLanguages ?
-          (projectLanguages.map(code =>
+        {(teamLanguages ?
+          (teamLanguages.map(code =>
             (<option key={code} value={code}>{supportedLanguages[code]}</option>))
             .concat(<option key="disabled" disabled>──────────</option>))
           : [])
           .concat(Object.keys(supportedLanguages)
-            .filter(code => !projectLanguages || !projectLanguages.includes(code))
+            .filter(code => !teamLanguages || !teamLanguages.includes(code))
             .map(code =>
               (<option key={code} value={code}>{supportedLanguages[code]}</option>)))}
       </select>

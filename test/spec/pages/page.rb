@@ -78,8 +78,7 @@ class Page
     begin
       element(selector).click
     rescue
-      sleep 1
-      element(selector).click
+      wait_for_selector(selector).click
     end
   end
 

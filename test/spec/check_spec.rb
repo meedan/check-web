@@ -52,7 +52,7 @@ shared_examples 'custom' do
     expect((@driver.title =~ /False/).nil?).to be(false)
     expect(@driver.page_source.include?('My search result')).to be(false)
     wait_for_selector("#search__open-dialog-button").click
-    wait_for_selector("#search-form")
+    wait_for_selector("#search-query__cancel-button")
     selected = @driver.find_elements(:css, '.search-query__filter-button--selected').map(&:text).sort
     expect(selected == ['False'].sort).to be(true)
   end

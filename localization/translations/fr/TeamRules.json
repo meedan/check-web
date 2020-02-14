@@ -9,6 +9,8 @@
   "teamRules.fail": "Une erreur s'est produite durant la sauvegarde des règles.",
   "teamRules.nameMandatory": "Veuillez fournir un nom à cette règle",
   "teamRules.deleted": "Règle supprimée",
+  "teamRules.ruleRegexHint": "Votre expression régulière devrait ressembler à ^(0?[1-9]|[12][0-9]|3[01])$.",
+  "teamRules.ruleRegexHintLink": "Cliquez ici pour plus d'informations concernant les expressions régulières.",
   "teamRules.edit": "Modifier la règle",
   "teamRules.delete": "Supprimer la règle",
   "teamRules.title": "Règles",

@@ -474,20 +474,17 @@ class MediaActionsBarComponent extends Component {
 
     const assignDialogActions = [
       <FlatButton
-        label={
-          <FormattedMessage
-            id="mediaActionsBar.cancelButton"
-            defaultMessage="Cancel"
-          />
-        }
+        label={<FormattedMessage id="mediaActionsBar.cancelButton" defaultMessage="Cancel" />}
         primary
         onClick={this.handleCloseDialogs.bind(this)}
+        key="mediaActionsBar.cancelButton"
       />,
       <FlatButton
         label={<FormattedMessage id="mediaActionsBar.done" defaultMessage="Done" />}
         primary
         keyboardFocused
         onClick={this.handleAssignProjectMedia.bind(this)}
+        key="mediaActionsBar.done"
       />,
     ];
 

@@ -1,7 +1,7 @@
 {
-  "teamComponent.editError": "Sorry, an error occurred while updating the workspace. Please try again and contact {supportEmail} if the condition persists.",
-  "teamComponent.teamName": "Name",
-  "teamComponent.teamDescription": "Description",
+  "teamComponent.editError": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث مساحة العمل. من فضلك أعد المحاولة وتواصل مع {supportEmail} إن استمرت المشكلة.",
+  "teamComponent.teamName": "الاسم",
+  "teamComponent.teamDescription": "الوصف",
   "teamComponent.location": "الموقع",
   "teamComponent.phone": "رقم الهاتف",
   "teamComponent.website": "الموقع الإلكتروني",

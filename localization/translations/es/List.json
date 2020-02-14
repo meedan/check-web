@@ -5,5 +5,6 @@
   "list.Type": "Tipo",
   "list.Status": "Estado",
   "list.FirstSeen": "Visto por primera vez",
-  "list.LastSeen": "Ultima vez visto"
+  "list.LastSeen": "Ultima vez visto",
+  "list.ShareCount": "Compartidos sociales"
 }

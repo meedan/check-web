@@ -1,10 +1,10 @@
 {
-  "switchTeams.error": "Sorry, an error occurred while updating the workspace. Please try again and contact {supportEmail} if the condition persists.",
+  "switchTeams.error": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث مساحة العمل. من فضلك أعد المحاولة وتواصل مع {supportEmail} إن استمرت المشكلة.",
   "switchTeams.member": "{membersCount, plural, =0 {لا يوجد أعضاء} one {عضو واحد} other {# أعضاء}}",
   "switchTeams.joinRequestMessage": "لقد أرسلت طلب انضمام للفريق",
   "teams.yourTeams": "مساحات العمل الخاصة بك",
-  "teams.userTeams": "{name}'s workspaces",
+  "teams.userTeams": "مساحات العمل لدى {name}",
   "switchTeams.cancelJoinRequest": "إلغاء",
-  "switchTeams.noTeams": "Not a member of any workspace.",
+  "switchTeams.noTeams": "ليس عضواً في أي مساحة عمل",
   "switchTeams.newTeamLink": "إنشاء مساحة عمل"
 }

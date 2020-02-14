@@ -1122,7 +1122,7 @@ class SourceComponent extends Component {
       <SourceLanguages
         errorText={this.state.languageErrorMessage}
         usedLanguages={languages}
-        projectLanguages={this.props.source.project.get_languages}
+        teamLanguages={this.props.team.get_languages}
         onDelete={deleteLanguageAnnotation}
         onSelect={languageSelect}
         isEditing={isEditing}
