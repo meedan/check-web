@@ -463,6 +463,14 @@ module AppSpecHelpers
     wait_for_selector(status_class).click  
     wait_for_selector(".media-status__proceed-send").click unless (status_class == ".media-status__menu-item--in-progress")
     wait_for_selector_none(".media-status__menu-item")
-    wait_for_selector_none(".media-status__menu-item")
+  end
+
+  def change_the_member_role_to(rule_class)
+    wait_for_selector('.team-members__edit-button', :css).click
+    wait_for_selector('.role-select', :css, 29, 1).click
+    wait_for_selector(rule_class).click
+    wait_for_selector('#confirm-dialog__checkbox').click
+    wait_for_selector('#confirm-dialog__confirm-action-button').click
+    wait_for_selector('.team-members__edit-button', :css).click
   end
 end
