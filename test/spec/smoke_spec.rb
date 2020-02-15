@@ -556,12 +556,11 @@ shared_examples 'smoke' do
   end
 
   it "should install Smooch bot, create a claim, change the status and add a related item", bin1: true do
-    team = "team#{Time.now.to_i}"
-    api_create_team_and_project(team: team)
-    bot_name= 'Smooch'
-    install_bot(team, bot_name)
+    response = api_create_team_and_project
+    bot_name = 'Smooch'
+    install_bot(response[:team].slug, bot_name)
     wait_for_selector(".home--team")
-    card_member =  wait_for_selector(".team-members__member")
+    card_member = wait_for_selector(".team-members__member")
     card_member.location_once_scrolled_into_view
     expect(@driver.page_source.include?('Smooch')).to be(true)
     wait_for_selector(".team__project").click
@@ -853,7 +852,7 @@ shared_examples 'smoke' do
   end
 #Bulk Actions section end
 
-#Permissions section start 
+#Permissions section start
   it "should manage team members", bin5: true, quick: true do
     # setup
     @user_mail = "test" +Time.now.to_i.to_s+rand(9999).to_s + @user_mail
