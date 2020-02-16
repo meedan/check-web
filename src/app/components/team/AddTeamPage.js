@@ -11,7 +11,7 @@ import PageTitle from '../PageTitle';
 import {
   ContentColumn,
 } from '../../styles/js/shared';
-import PublicTeamRoute from '../../relay/PublicTeamRoute';
+import FindPublicTeamRoute from '../../relay/FindPublicTeamRoute';
 import RelayContainer from '../../relay/RelayContainer';
 
 const messages = defineMessages({
@@ -65,7 +65,7 @@ const AddTeamContainer = Relay.createContainer(injectIntl(AddTeamComponent), {
 });
 
 const AddTeam = (props) => {
-  const route = new PublicTeamRoute({ teamSlug: props.params.slug });
+  const route = new FindPublicTeamRoute({ teamSlug: props.params.slug });
 
   return (
     <RelayContainer
