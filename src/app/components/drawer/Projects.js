@@ -15,6 +15,7 @@ import CheckContext from '../../CheckContext';
 
 import {
   Text,
+  body1,
 } from '../../styles/js/shared';
 
 const messages = defineMessages({
@@ -141,7 +142,7 @@ class DrawerProjectsComponent extends Component {
     };
 
     return (
-      <div>
+      <div className="projects__list">
         <div style={styles.projectsList}>
           <InfiniteScroll hasMore loadMore={this.loadMore.bind(this)} useWindow={false}>
             <Link to={`/${props.team.slug}/all-items`} className="project-list__link-all">
@@ -149,6 +150,9 @@ class DrawerProjectsComponent extends Component {
                 className="project-list__item-all"
                 primaryText={<FormattedMessage id="projects.allClaims" defaultMessage="All items" />}
                 secondaryText={String(props.team.medias_count)}
+                style={{
+                  fontSize: body1,
+                }}
               />
             </Link>
             {projectList}
@@ -159,7 +163,16 @@ class DrawerProjectsComponent extends Component {
             title={this.props.intl.formatMessage(props.showAddProj ?
               messages.dismiss : messages.addProject)}
           >
-            <Button onClick={this.toggleShowCreateProject} className="drawer__create-project-button">
+            <Button
+              onClick={this.toggleShowCreateProject}
+              className="drawer__create-project-button"
+              style={{
+                fontSize: '12px',
+                marginLeft: '5px',
+                paddingLeft: '10px',
+                paddingRight: '10px',
+              }}
+            >
               <FormattedMessage id="projects.newList" defaultMessage="+ New list" />
             </Button>
           </Tooltip>
