@@ -357,6 +357,9 @@ class SearchResultsComponent extends React.Component {
               <span
                 className="search__previous-page search__nav"
                 onClick={this.previousPage.bind(this)}
+                style={{
+                  marginLeft: '0',
+                }}
               >
                 <PrevIcon style={{ opacity: offset <= 0 ? '0.25' : '1' }} />
               </span>

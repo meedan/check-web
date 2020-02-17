@@ -55,11 +55,11 @@ class UserMenu extends React.Component {
     return (
       <div className="header__user-menu">
         <MenuItem
-          style={{ overflow: 'hidden' }}
           onClick={this.handleClick}
           leftIcon={<UserAvatar size={units(4)} {...this.props} />}
           style={{
             fontSize: body1,
+            overflow: 'hidden',
           }}
         >
           <div>
