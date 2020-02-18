@@ -717,7 +717,7 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?("Add a link or text")).to be(true)
 
     # Go to the second project, make sure that there is no claim, and thus store the data in local Relay store
-    wait_for_selector('.project-list__link + .project-list__link').click
+    wait_for_selector('.project-list__link-container + .project-list__link-container .project-list__link').click
     wait_for_selector('.search__results')
     expect(@driver.page_source.include?(claim)).to be(false)
     expect(@driver.page_source.include?('1 / 1')).to be(false)
@@ -726,7 +726,7 @@ shared_examples 'smoke' do
     # Create a claim under project 2
     create_media(claim)
     # Go to the second project, make sure that the claim is there
-    wait_for_selector('.project-list__link + .project-list__link').click
+    wait_for_selector('.project-list__link-container + .project-list__link-container .project-list__link').click
     wait_for_selector('.medias__item')
     expect(@driver.page_source.include?(claim)).to be(true)
     expect(@driver.page_source.include?('1 / 1')).to be(true)
@@ -748,7 +748,7 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?("Add a link or text")).to be(false)
 
     # Go back to the second project and make sure that the claim is not there anymore
-    wait_for_selector('.project-list__link + .project-list__link').click
+    wait_for_selector('.project-list__link-container + .project-list__link-container .project-list__link').click
     wait_for_selector('.search__results')
     expect(@driver.page_source.include?('1 / 1')).to be(false)
     expect(@driver.page_source.include?("Add a link or text")).to be(true)
@@ -773,12 +773,12 @@ shared_examples 'smoke' do
     api_create_project(project1[:team].dbid.to_s)
     @driver.navigate.to @config['self_url']
     wait_for_selector("#create-media__add-item")
-    create_media ("claim 1")
+    create_media("claim 1")
     wait_for_selector(".medias__item")
-    create_media ("claim 2")
+    create_media("claim 2")
     wait_for_selector_list_size(".medias__item", 2)
     expect(@driver.page_source.include?('Add a link or text')).to be(false)
-    wait_for_selector('.project-list__link + .project-list__link').click #Go to the second project
+    wait_for_selector('.project-list__link-container + .project-list__link-container .project-list__link').click #Go to the second project
     wait_for_selector_none(".medias__item")
     expect(@driver.page_source.include?('Add a link or text')).to be(true)
     wait_for_selector('.project-list__link').click #Go back to the first project
@@ -789,7 +789,7 @@ shared_examples 'smoke' do
     wait_for_selector('.Select-option').click
     wait_for_selector('.media-bulk-actions__add-button').click
     wait_for_selector_none(".Select-placeholder")
-    wait_for_selector('.project-list__link + .project-list__link').click # Go to the second project
+    wait_for_selector('.project-list__link-container + .project-list__link-container .project-list__link').click # Go to the second project
     wait_for_selector_list_size(".medias__item", 2, :css , 80)
     expect(@driver.page_source.include?('claim 1')).to be(true)
     expect(@driver.page_source.include?('claim 2')).to be(true)
