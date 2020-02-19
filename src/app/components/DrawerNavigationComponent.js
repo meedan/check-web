@@ -22,9 +22,11 @@ import {
   OffsetBothSides,
   StyledHeading,
   white,
+  body1,
   black05,
   units,
   caption,
+  separationGray,
   SmallerStyledIconButton,
   Text,
 } from '../styles/js/shared';
@@ -173,7 +175,15 @@ class DrawerNavigationComponent extends Component {
         <div>
 
           {inTeamContext ?
-            <DrawerHeader>
+            <DrawerHeader
+              className="sc-itybZL dJsdpW"
+              style={{
+                padding: '10px',
+                height: '68px',
+                backgroundColor: 'white',
+                borderBottom: `1px solid ${separationGray}`,
+              }}
+            >
               <Row>
                 <Link
                   className="team-header__drawer-team-link"
@@ -182,12 +192,16 @@ class DrawerNavigationComponent extends Component {
                 >
                   <Row>
                     <TeamAvatar
-                      size={units(6)}
+                      size={units(5.5)}
                       team={this.props.team}
                     />
-                    <OffsetBothSides>
+                    <OffsetBothSides
+                      style={{
+                        paddingRight: '0',
+                      }}
+                    >
                       <StyledHeading>
-                        <Text maxWidth={units(12)} ellipsis>
+                        <Text maxWidth={units(20)} ellipsis>
                           {this.props.team.name}
                         </Text>
                       </StyledHeading>
@@ -198,6 +212,10 @@ class DrawerNavigationComponent extends Component {
                   { currentUserIsMember ?
                     <SmallerStyledIconButton
                       className="team-menu__team-settings-button"
+                      style={{
+                        padding: '12px 0 12px 0',
+                        width: 'none',
+                      }}
                       onClick={this.handleClickTeamSettings.bind(this)}
                       tooltip={
                         <FormattedMessage id="teamMenu.teamSettings" defaultMessage="Workspace settings" />
@@ -224,12 +242,18 @@ class DrawerNavigationComponent extends Component {
                 : null}
             </div>
             { inTeamContext && currentUserIsMember ?
-              <Link to={`/${this.props.team.slug}/trash`} className="project-list__link-trash">
+              <Link
+                to={`/${this.props.team.slug}/trash`}
+                className="project-list__link-trash"
+              >
                 <MenuItem
                   className="project-list__item-trash"
                   primaryText={<FormattedMessage id="projects.trash" defaultMessage="Trash" />}
                   secondaryText={String(this.props.team.trash_count)}
                   leftIcon={<Delete />}
+                  style={{
+                    fontSize: body1,
+                  }}
                 />
               </Link>
               : null }

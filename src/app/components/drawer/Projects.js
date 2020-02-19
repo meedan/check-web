@@ -6,6 +6,7 @@ import { Link } from 'react-router';
 import Button from '@material-ui/core/Button';
 import MenuItem from 'material-ui/MenuItem';
 import Tooltip from '@material-ui/core/Tooltip';
+import styled from 'styled-components';
 import InfiniteScroll from 'react-infinite-scroller';
 import Can from '../Can';
 import CreateProject from '../project/CreateProject';
@@ -15,6 +16,8 @@ import CheckContext from '../../CheckContext';
 
 import {
   Text,
+  body1,
+  highlightOrange,
 } from '../../styles/js/shared';
 
 const messages = defineMessages({
@@ -29,6 +32,43 @@ const messages = defineMessages({
 });
 
 const pageSize = 20;
+
+const StyledListItemAll = styled.div`
+  .project-list__link-all {
+    text-decoration: none!important;
+    .project-list__item-all {
+      font: ${body1}!important;
+      min-height: 32px!important;
+      height: 48px!important;
+      line-height: 28px!important;
+      padding-top: 16px!important;
+      &:hover {
+      background-color: white!important;
+      color: ${highlightOrange}!important;
+      }
+    }
+  }
+`;
+
+
+const StyledListItem = styled.div`
+
+  .project-list__link {
+    text-decoration: none!important;
+
+    .project-list__item {
+      font: ${body1}!important;
+      min-height: 32px!important;
+      height: 32px!important;
+      line-height: 28px!important;
+      &:hover {
+      background-color: white!important;
+      color: ${highlightOrange}!important;
+      }
+    }
+  }
+
+`;
 
 // TODO Fix a11y issues
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
@@ -118,17 +158,19 @@ class DrawerProjectsComponent extends Component {
           const dashboardPath = /^\/[^/]+\/dashboard/.test(window.location.pathname) ? '/dashboard' : '';
           const projectPath = `/${props.team.slug}${dashboardPath}/project/${p.node.dbid}`;
           return (
-            <Link to={projectPath} key={p.node.dbid} className="project-list__link">
-              <MenuItem
-                className="project-list__item"
-                primaryText={
-                  <Text maxWidth="85%" ellipsis>
-                    {p.node.title}
-                  </Text>
-                }
-                secondaryText={String(p.node.medias_count)}
-              />
-            </Link>
+            <StyledListItem className="project-list__link-container">
+              <Link to={projectPath} key={p.node.dbid} className="project-list__link">
+                <MenuItem
+                  className="project-list__item"
+                  primaryText={
+                    <Text maxWidth="85%" ellipsis>
+                      {p.node.title}
+                    </Text>
+                  }
+                  secondaryText={String(p.node.medias_count)}
+                />
+              </Link>
+            </StyledListItem>
           );
         })
     )();
@@ -141,16 +183,18 @@ class DrawerProjectsComponent extends Component {
     };
 
     return (
-      <div>
+      <div className="projects__list">
         <div style={styles.projectsList}>
           <InfiniteScroll hasMore loadMore={this.loadMore.bind(this)} useWindow={false}>
-            <Link to={`/${props.team.slug}/all-items`} className="project-list__link-all">
-              <MenuItem
-                className="project-list__item-all"
-                primaryText={<FormattedMessage id="projects.allClaims" defaultMessage="All items" />}
-                secondaryText={String(props.team.medias_count)}
-              />
-            </Link>
+            <StyledListItemAll>
+              <Link to={`/${props.team.slug}/all-items`} className="project-list__link-all">
+                <MenuItem
+                  className="project-list__item-all"
+                  primaryText={<FormattedMessage id="projects.allClaims" defaultMessage="All items" />}
+                  secondaryText={String(props.team.medias_count)}
+                />
+              </Link>
+            </StyledListItemAll>
             {projectList}
           </InfiniteScroll>
         </div>
@@ -159,7 +203,16 @@ class DrawerProjectsComponent extends Component {
             title={this.props.intl.formatMessage(props.showAddProj ?
               messages.dismiss : messages.addProject)}
           >
-            <Button onClick={this.toggleShowCreateProject} className="drawer__create-project-button">
+            <Button
+              onClick={this.toggleShowCreateProject}
+              className="drawer__create-project-button"
+              style={{
+                fontSize: '12px',
+                marginLeft: '5px',
+                paddingLeft: '10px',
+                paddingRight: '10px',
+              }}
+            >
               <FormattedMessage id="projects.newList" defaultMessage="+ New list" />
             </Button>
           </Tooltip>

@@ -52,7 +52,7 @@ before_install:
 - bundle exec rake db:migrate RAILS_ENV=test
 - bundle exec rake lapis:api_keys:create_default RAILS_ENV=test
 - bundle exec sidekiq -L log/sidekiq.log -d
-- bundle exec thin -p 3000 -e test -t 60 --threadpool-size=60 --threaded start >/dev/null &
+- RAILS_ENV=test bundle exec puma -w 3 -t 8:60 --preload -b tcp://127.0.0.1:3000 >/dev/null &
 - cd -
 - export RAILS_ENV=development
 # pender

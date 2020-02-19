@@ -161,34 +161,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       end
     end
 
-    it "should display a default title for new media", bin1: true, quick:true do
-      api_create_team_project_and_link_and_redirect_to_media_page('https://twitter.com/TheWho/status/890135323216367616')
-      wait_for_selector(".media-detail")
-      wait_for_selector("iframe")
-      expect(@driver.page_source.include?('Happy birthday Mick')).to be(true)
-      wait_for_selector('.project-header__back-button').click
-      wait_for_selector('.medias__item')
-      expect(@driver.page_source.include?('Happy birthday Mick')).to be(true)
-
-      # YouTube
-      media_pg = api_create_team_project_and_link_and_redirect_to_media_page('https://www.youtube.com/watch?v=ykLgjhBnik0')
-      wait_for_selector(".media-detail")
-      wait_for_selector("iframe")
-      expect(@driver.page_source.include?("How To Check An Account's Authenticity")).to be(true)
-      wait_for_selector('.project-header__back-button').click
-      wait_for_selector('.medias__item')
-      expect(@driver.page_source.include?("How To Check An Account's Authenticity")).to be(true)
-
-      # Facebook
-      media_pg = api_create_team_project_and_link_and_redirect_to_media_page('https://www.facebook.com/FirstDraftNews/posts/1808121032783161')
-      wait_for_selector(".media-detail")
-      wait_for_selector("iframe")
-      expect(@driver.page_source.include?("First Draft")).to be(true)
-      wait_for_selector('.project-header__back-button').click
-      wait_for_selector('.medias__item')
-      expect(@driver.page_source.include?("First Draft")).to be(true)
-    end
-
     it "should access user confirmed page", bin5: true do
       @driver.navigate.to @config['self_url'] + '/check/user/confirmed'
       title = wait_for_selector('.main-title')
