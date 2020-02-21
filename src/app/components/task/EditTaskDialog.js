@@ -203,7 +203,9 @@ class EditTaskDialog extends React.Component {
 
   handleSubmitTask() {
     const jsonoptions = this.state.options
-      ? JSON.stringify(this.state.options.filter(item => item.label !== ''))
+      ? JSON.stringify(this.state.options
+        .map(item => ({ ...item, label: item.label.trim() }))
+        .filter(item => item.label !== ''))
       : undefined;
 
     const task = {
