@@ -459,6 +459,10 @@ class TeamRulesComponent extends Component {
             fields[(i * 3) - 1].style.display = 'block';
             fields[(i * 3) - 2].style.display = 'none';
             fields[(i * 3) - 3].style.display = 'none';
+          } else if (action.action_definition === 'send_message_to_user') {
+            fields[(i * 3) - 1].style.display = 'none';
+            fields[(i * 3) - 2].style.display = 'none';
+            fields[(i * 3) - 3].style.display = 'block';
           } else {
             fields[(i * 3) - 1].style.display = 'none';
             fields[(i * 3) - 2].style.display = 'none';
