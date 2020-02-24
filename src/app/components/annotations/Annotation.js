@@ -948,8 +948,9 @@ class Annotation extends Component {
         archive_org_response: 'Archive.org',
         keep_backup_response: 'Video Vault',
         perma_cc_response: 'Perma.cc',
+        video_archiver_response: 'Video Archiver',
       };
-      if (Object.keys(archivers).includes(object.field_name) && activityType === 'create_dynamicannotationfield') {
+      if (object.annotation_type === 'archiver' && activityType === 'create_dynamicannotationfield') {
         const archiveContent = JSON.parse(annotation.content);
         const archive = archiveContent.filter(item => item.field_name === object.field_name);
         const archiveResponse = JSON.parse(archive[0].value);

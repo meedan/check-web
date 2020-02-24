@@ -158,7 +158,7 @@ class DrawerProjectsComponent extends Component {
           const dashboardPath = /^\/[^/]+\/dashboard/.test(window.location.pathname) ? '/dashboard' : '';
           const projectPath = `/${props.team.slug}${dashboardPath}/project/${p.node.dbid}`;
           return (
-            <StyledListItem>
+            <StyledListItem className="project-list__link-container">
               <Link to={projectPath} key={p.node.dbid} className="project-list__link">
                 <MenuItem
                   className="project-list__item"

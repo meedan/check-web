@@ -152,7 +152,7 @@ class EditTaskDialog extends React.Component {
 
     if (this.props.taskType === 'single_choice' ||
         this.props.taskType === 'multiple_choice') {
-      valid = !!(label && label.trim()) && options.filter(item => item.label !== '').length > 1;
+      valid = !!(label && label.trim()) && options.filter(item => item.label.trim() !== '').length > 1;
     } else {
       valid = !!(label && label.trim());
     }
@@ -203,7 +203,9 @@ class EditTaskDialog extends React.Component {
 
   handleSubmitTask() {
     const jsonoptions = this.state.options
-      ? JSON.stringify(this.state.options.filter(item => item.label !== ''))
+      ? JSON.stringify(this.state.options
+        .map(item => ({ ...item, label: item.label.trim() }))
+        .filter(item => item.label !== ''))
       : undefined;
 
     const task = {
