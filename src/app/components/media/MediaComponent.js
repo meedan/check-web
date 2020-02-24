@@ -11,7 +11,7 @@ import MediaTasks from './MediaTasks';
 import MediaAnalysis from './MediaAnalysis';
 import MediaLog from './MediaLog';
 import MediaComments from './MediaComments';
-import MediaMessages from './MediaMessages';
+import MediaRequests from './MediaRequests';
 import MediaUtil from './MediaUtil';
 import CheckContext from '../../CheckContext';
 import {
@@ -220,12 +220,12 @@ class MediaComponent extends Component {
                 <Tab
                   label={
                     <FormattedMessage
-                      id="mediaComponent.messages"
-                      defaultMessage="Messages"
+                      id="mediaComponent.requests"
+                      defaultMessage="Requests"
                     />
                   }
-                  value="messages"
-                  className="media-tab__messages"
+                  value="requests"
+                  className="media-tab__requests"
                 />
                 <Tab
                   label={
@@ -252,7 +252,7 @@ class MediaComponent extends Component {
               { this.state.showTab === 'analysis' ? <MediaAnalysis media={media} /> : null }
               { this.state.showTab === 'activity' ? <MediaLog media={media} /> : null }
               { this.state.showTab === 'comments' ? <MediaComments media={media} /> : null }
-              { this.state.showTab === 'messages' ? <MediaMessages media={media} /> : null }
+              { this.state.showTab === 'requests' ? <MediaRequests media={media} /> : null }
             </ContentColumn>
           </StyledTwoColumnLayout>
         </StyledBackgroundColor>

@@ -7,7 +7,7 @@ import MediasLoading from './MediasLoading';
 import Annotations from '../annotations/Annotations';
 import CheckContext from '../../CheckContext';
 
-class MediaMessagesComponent extends Component {
+class MediaRequestsComponent extends Component {
   constructor(props) {
     super(props);
 
@@ -41,7 +41,7 @@ class MediaMessagesComponent extends Component {
   subscribe() {
     const { pusher } = this.getContext();
     if (pusher) {
-      pusher.subscribe(this.props.media.pusher_channel).bind('media_updated', 'MediaMessages', (data, run) => {
+      pusher.subscribe(this.props.media.pusher_channel).bind('media_updated', 'MediaRequests', (data, run) => {
         const annotation = JSON.parse(data.message);
         if (annotation.annotated_id === this.props.media.dbid &&
           this.getContext().clientSessionId !== data.actor_session_id
@@ -51,7 +51,7 @@ class MediaMessagesComponent extends Component {
             return true;
           }
           return {
-            id: `media-comments-${this.props.media.dbid}`,
+            id: `media-requests-${this.props.media.dbid}`,
             callback: this.props.relay.forceFetch,
           };
         }
@@ -71,7 +71,7 @@ class MediaMessagesComponent extends Component {
     const media = Object.assign(this.props.cachedMedia, this.props.media);
 
     return (
-      <div id="media__comments" style={this.props.style}>
+      <div id="media__requests" style={this.props.style}>
         <Annotations
           style={{
             background: 'transparent',
@@ -83,8 +83,8 @@ class MediaMessagesComponent extends Component {
           annotatedType="ProjectMedia"
           noActivityMessage={
             <FormattedMessage
-              id="mediaMessages.noMessage"
-              defaultMessage="No message"
+              id="MediaRequests.noRequest"
+              defaultMessage="No request"
             />
           }
         />
@@ -93,7 +93,7 @@ class MediaMessagesComponent extends Component {
   }
 }
 
-MediaMessagesComponent.contextTypes = {
+MediaRequestsComponent.contextTypes = {
   store: PropTypes.object,
 };
 
@@ -102,7 +102,7 @@ const eventTypes = ['create_dynamicannotationfield'];
 const fieldNames = ['smooch_data'];
 const annotationTypes = [];
 
-const MediaMessagesContainer = Relay.createContainer(MediaMessagesComponent, {
+const MediaRequestsContainer = Relay.createContainer(MediaRequestsComponent, {
   initialVariables: {
     pageSize,
     eventTypes,
@@ -226,19 +226,19 @@ const MediaMessagesContainer = Relay.createContainer(MediaMessagesComponent, {
   },
 });
 
-const MediaMessages = (props) => {
+const MediaRequests = (props) => {
   const ids = `${props.media.dbid},${props.media.project_id}`;
   const route = new MediaRoute({ ids });
 
   return (
     <Relay.RootContainer
-      Component={MediaMessagesContainer}
+      Component={MediaRequestsContainer}
       renderFetched={data =>
-        <MediaMessagesContainer cachedMedia={props.media} style={props.style} {...data} />}
+        <MediaRequestsContainer cachedMedia={props.media} style={props.style} {...data} />}
       route={route}
       renderLoading={() => <MediasLoading count={1} />}
     />
   );
 };
 
-export default MediaMessages;
+export default MediaRequests;

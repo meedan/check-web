@@ -8,8 +8,8 @@
     "defaultMessage": "Analysis"
   },
   {
-    "id": "mediaComponent.messages",
-    "defaultMessage": "Messages"
+    "id": "mediaComponent.requests",
+    "defaultMessage": "Requests"
   },
   {
     "id": "mediaComponent.comments",
