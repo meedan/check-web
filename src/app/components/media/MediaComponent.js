@@ -64,7 +64,7 @@ class MediaComponent extends Component {
     super(props);
 
     this.state = {
-      showTab: 'tasks',
+      showTab: 'requests',
     };
   }
 
@@ -163,6 +163,8 @@ class MediaComponent extends Component {
     media.url = media.media.url;
     media.quote = media.media.quote;
     media.embed_path = media.media.embed_path;
+    const { team_bots: teamBots } = media.team;
+    const enabledBots = teamBots.edges.map(b => b.node.login);
 
     return (
       <PageTitle
@@ -197,6 +199,18 @@ class MediaComponent extends Component {
                   backgroundColor: 'transparent',
                 }}
               >
+                { (enabledBots.indexOf('smooch') > -1 || media.requests_count > 0) ?
+                  <Tab
+                    label={
+                      <FormattedMessage
+                        id="mediaComponent.requests"
+                        defaultMessage="Requests"
+                      />
+                    }
+                    value="requests"
+                    className="media-tab__requests"
+                  />
+                  : null }
                 <Tab
                   label={
                     <FormattedMessage
@@ -217,24 +231,15 @@ class MediaComponent extends Component {
                   value="analysis"
                   className="media-tab__analysis"
                 />
+
                 <Tab
                   label={
                     <FormattedMessage
-                      id="mediaComponent.requests"
-                      defaultMessage="Requests"
+                      id="mediaComponent.notes"
+                      defaultMessage="Notes"
                     />
                   }
-                  value="requests"
-                  className="media-tab__requests"
-                />
-                <Tab
-                  label={
-                    <FormattedMessage
-                      id="mediaComponent.comments"
-                      defaultMessage="Comments"
-                    />
-                  }
-                  value="comments"
+                  value="notes"
                   className="media-tab__comments"
                 />
                 <Tab
@@ -248,11 +253,11 @@ class MediaComponent extends Component {
                   className="media-tab__activity"
                 />
               </Tabs>
+              { this.state.showTab === 'requests' ? <MediaRequests media={media} /> : null }
               { this.state.showTab === 'tasks' ? <MediaTasks media={media} /> : null }
               { this.state.showTab === 'analysis' ? <MediaAnalysis media={media} /> : null }
+              { this.state.showTab === 'notes' ? <MediaComments media={media} /> : null }
               { this.state.showTab === 'activity' ? <MediaLog media={media} /> : null }
-              { this.state.showTab === 'comments' ? <MediaComments media={media} /> : null }
-              { this.state.showTab === 'requests' ? <MediaRequests media={media} /> : null }
             </ContentColumn>
           </StyledTwoColumnLayout>
         </StyledBackgroundColor>
