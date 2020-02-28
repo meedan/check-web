@@ -354,6 +354,7 @@ module AppSpecHelpers
     wait_for_selector('input[type=file]').send_keys(File.join(File.dirname(__FILE__), 'test.png'))
     wait_for_selector_none(".without-file")
     wait_for_selector("#create-media-dialog__submit-button").click
+    wait_for_selector('.medias__item')
     wait_for_selector(".media__heading").click
     wait_for_selector(".media__annotations-column")
   end
