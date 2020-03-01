@@ -79,7 +79,7 @@ class MediaCommentsComponent extends Component {
             border: 0,
             boxShadow: 'none',
           }}
-          annotations={media.log.edges}
+          annotations={media.comments.edges}
           annotated={media}
           annotatedType="ProjectMedia"
           noActivityMessage={
@@ -116,7 +116,7 @@ const MediaCommentsContainer = Relay.createContainer(MediaCommentsComponent, {
         id
         dbid
         pusher_channel
-        log(last: $pageSize, event_types: $eventTypes, field_names: $fieldNames, annotation_types: $annotationTypes) {
+        comments: log(last: $pageSize, event_types: $eventTypes, field_names: $fieldNames, annotation_types: $annotationTypes) {
           edges {
             node {
               id,

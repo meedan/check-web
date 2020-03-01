@@ -78,7 +78,7 @@ class MediaRequestsComponent extends Component {
             border: 0,
             boxShadow: 'none',
           }}
-          annotations={media.log.edges}
+          annotations={media.requests.edges}
           annotated={media}
           annotatedType="ProjectMedia"
           noActivityMessage={
@@ -115,7 +115,7 @@ const MediaRequestsContainer = Relay.createContainer(MediaRequestsComponent, {
         id
         dbid
         pusher_channel
-        log(last: $pageSize, event_types: $eventTypes, field_names: $fieldNames, annotation_types: $annotationTypes) {
+        requests: log(last: $pageSize, event_types: $eventTypes, field_names: $fieldNames, annotation_types: $annotationTypes) {
           edges {
             node {
               id,
