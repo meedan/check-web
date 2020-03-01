@@ -101,6 +101,7 @@ const pageSize = 30;
 const eventTypes = ['create_dynamicannotationfield'];
 const fieldNames = ['smooch_data'];
 const annotationTypes = [];
+const whoDunnit = ['smooch'];
 
 const MediaRequestsContainer = Relay.createContainer(MediaRequestsComponent, {
   initialVariables: {
@@ -108,6 +109,7 @@ const MediaRequestsContainer = Relay.createContainer(MediaRequestsComponent, {
     eventTypes,
     fieldNames,
     annotationTypes,
+    whoDunnit,
   },
   fragments: {
     media: () => Relay.QL`
@@ -115,7 +117,7 @@ const MediaRequestsContainer = Relay.createContainer(MediaRequestsComponent, {
         id
         dbid
         pusher_channel
-        requests: log(last: $pageSize, event_types: $eventTypes, field_names: $fieldNames, annotation_types: $annotationTypes) {
+        requests: log(last: $pageSize, event_types: $eventTypes, field_names: $fieldNames, annotation_types: $annotationTypes, who_dunnit: $whoDunnit) {
           edges {
             node {
               id,
