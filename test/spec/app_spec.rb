@@ -685,22 +685,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(avatar.include?('test.png')).to be(true)
     end
 
-    it "should create claim", bin3: true do
-      api_create_team_and_project
-      page = ProjectPage.new(config: @config, driver: @driver).load
-      wait_for_selector("#search__open-dialog-button")
-      wait_for_selector("#create-media__add-item").click
-      wait_for_selector("#create-media__quote").click
-      wait_for_selector("#create-media-quote-attribution-source-input")
-      @driver.action.send_keys('Test').perform
-      expect((@driver.current_url.to_s =~ /media/).nil?).to be(true)
-      @driver.action.send_keys(:enter).perform
-      wait_for_selector(".medias__item")
-      wait_for_selector(".media__heading").click
-      wait_for_selector(".media-detail")
-      expect((@driver.current_url.to_s =~ /media/).nil?).to be(false)
-    end
-
     it "should redirect to last visited project", bin3: true do
       user = api_register_and_login_with_email
       api_create_team_and_project(user: user)

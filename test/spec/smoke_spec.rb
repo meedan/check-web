@@ -107,13 +107,25 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('#wEDnesday')).to be(true)
   end
 
-  it "should register and create a claim", bin4: true do
+  it "should register, create a claim and assign it", bin4: true do
     page = LoginPage.new(config: @config, driver: @driver).load
     page = page.register_and_login_with_email(email: "sysops+#{Time.now.to_i}#{rand(1000)}@meedan.com", password: @password)
     page
       .create_team
       .create_project
       .create_media(input: 'Claim')
+    expect(@driver.page_source.include?('Assigments updated successfully!')).to be(false)
+    wait_for_selector('.media-actions__icon').click
+    wait_for_selector(".media-actions__assign").click
+    wait_for_selector(".Select-input input").send_keys("user")
+    @driver.action.send_keys(:enter).perform
+    wait_for_selector("//span[contains(text(), 'Done')]", :xpath).click
+    wait_for_selector_none("//span[contains(text(), 'Done')]", :xpath)
+    wait_for_selector(".message")
+    expect(@driver.page_source.include?('Assignments updated successfully!')).to be(true)
+    wait_for_selector(".media-tab__activity").click
+    wait_for_selector(".annotation__timestamp")
+    expect(@driver.page_source.include?('Item assigned to')).to be(true)
   end
 
   it "should lock and unlock status", bin2: true do
@@ -659,45 +671,43 @@ shared_examples 'smoke' do
   end
 #Embed section end
 
-#Meme Generator section start
-  # it "should go to meme generator change the title and description save and publish and generate a embed", bin1: true do
-  #   create_team_project_and_image_and_redirect_to_media_page
-  #   wait_for_selector(".media__annotations-column")
-  #   generate_a_embed_and_copy_embed_code
-  #   expect(@driver.page_source.include?('Meme')).to be(false)
-  #   @driver.navigate.back
-  #   wait_for_selector(".media__annotations-column")
-  #   wait_for_selector('.media-actions__icon').click
-  #   wait_for_selector('.media-actions__edit')
-  #   el = wait_for_selector('.media-actions__memebuster')
-  #   el.location_once_scrolled_into_view
-  #   el.click
-  #   expect(@driver.page_source.include?('Last saved')).to be(false)
-  #   wait_for_selector(".without-file")
-  #   fill_field('input[name="headline"]', 'Meme')
-  #   save_button = wait_for_selector(".memebuster__viewport-column > div > div button + button")
-  #   expect(save_button.attribute('tabindex')== "-1" ).to be(true) #if save_button is not enable
-  #   fill_field('textarea[name="description"]', 'description')
-  #   expect(save_button.attribute('tabindex')== "0" ).to be(true) #if save_button is enable
-  #   save_button.click
-  #   wait_for_selector(".memebuster__viewport-column > div > div >  span")
-  #   expect(@driver.page_source.include?('Last saved')).to be(true)
-  #   publish_button = wait_for_selector(".memebuster__viewport-column > div > div button + button + button")
-  #   publish_button.click
-  #   wait_for_selector(".memebuster__viewport-column > div > div > div")
-  #   expect(@driver.page_source.include?('Publishing')).to be(true)
-  #   wait_for_selector(".memebuster__viewport-column > div > div > div > span")
-  #   wait_for_selector(".memebuster__viewport-column > div > div > div > span > time")
-  #   expect(@driver.page_source.include?('Publishing')).to be(false)
-  #   expect(@driver.page_source.include?('Last published')).to be(true)
-  #   @driver.navigate.back
-  #   wait_for_selector_none(".without-file")
-  #   wait_for_selector(".media__annotations-column")
-  #   generate_a_embed_and_copy_embed_code
-  #   wait_for_selector(".oembed__meme")
-  #   expect(@driver.page_source.include?('Meme')).to be(true)
-  # end
-#Meme Generator section end
+# # Meme Generator section start
+#   it "should go to mem  e generator change the title and description publish and generate a embed", bin1: true do
+#     create_team_project_and_image_and_redirect_to_media_page
+#     wait_for_selector(".media__annotations-column")
+#     wait_for_selector('.media-actions__icon').click
+#     wait_for_selector('.media-actions__edit')
+#     sleep 5
+#     el = wait_for_selector('.media-actions__memebuster')
+#     el.location_once_scrolled_into_view
+#     el.click
+#     sleep 2
+#     expect(@driver.page_source.include?('Last saved')).to be(false)
+#     wait_for_selector(".without-file")
+#     fill_field('input[name="headline"]', 'Meme')
+#     save_button = wait_for_selector(".memebuster__viewport-column > div > div button + button")
+#     expect(save_button.attribute('tabindex')== "-1" ).to be(true) #if save_button is not enable
+#     fill_field('textarea[name="description"]', 'description')
+#     expect(save_button.attribute('tabindex')== "0" ).to be(true) #if save_button is enable
+#     save_button.click
+#     wait_for_selector(".memebuster__viewport-column > div > div >  span")
+#     expect(@driver.page_source.include?('Last saved')).to be(true)
+#     publish_button = wait_for_selector(".memebuster__viewport-column > div > div button + button + button")
+#     publish_button.click
+#     wait_for_selector(".memebuster__viewport-column > div > div > div")
+#     expect(@driver.page_source.include?('Publishing')).to be(true)
+#     wait_for_selector(".memebuster__viewport-column > div > div > div > span")
+#     wait_for_selector(".memebuster__viewport-column > div > div > div > span > time")
+#     expect(@driver.page_source.include?('Publishing')).to be(false)
+#     expect(@driver.page_source.include?('Last published')).to be(true)
+#     @driver.navigate.back
+#     wait_for_selector_none(".without-file")
+#     wait_for_selector(".media__annotations-column")
+#     generate_a_embed_and_copy_embed_code
+#     wait_for_selector(".oembed__meme")
+#     expect(@driver.page_source.include?('Meme')).to be(true)
+#   end
+# Meme Generator section end
 
 #Bulk Actions section start
   it "should move media to another project", bin2: true do
@@ -909,6 +919,171 @@ shared_examples 'smoke' do
     wait_for_selector_none('#confirm-dialog__checkbox')
     new = wait_for_size_change(old, 'team-members__delete-member', :class)
     expect(new < old).to be(true)
+  end
+
+  it "should check user permissions", bin6: true do
+    # setup
+    @user_mail = "test" +Time.now.to_i.to_s+rand(9999).to_s + @user_mail
+    @team1_slug = 'team1'+Time.now.to_i.to_s+rand(9999).to_s
+    user = api_register_and_login_with_email(email: @user_mail, password: @password)
+    team = request_api 'team', { name: 'Team', email: user.email, slug: @team1_slug }
+    request_api 'project', { title: 'Team Project', team_id: team.dbid }
+    page = MePage.new(config: @config, driver: @driver).load.select_team(name: 'Team')
+    expect(page.team_name).to eq('Team')
+    expect(page.project_titles.include?('Team Project')).to be(true)
+    #As a different user, request to join one team and be accepted.
+    user2 = api_register_and_login_with_email(email: "new"+@user_mail, password: @password)
+    page = MePage.new(config: @config, driver: @driver).load
+    page.ask_join_team(subdomain: @team1_slug)
+    @wait.until {
+      expect(@driver.find_element(:class, "message").nil?).to be(false)
+    }
+    api_logout
+    @driver.quit
+    @driver = new_driver(@webdriver_url,@browser_capabilities)
+    page = Page.new(config: @config, driver: @driver)
+    page.go(@config['api_path'] + '/test/session?email='+@user_mail)
+    #As the group creator, go to the members page and approve the joining request.
+    page = MePage.new(config: @config, driver: @driver).load
+    page.go(@config['self_url'] + '/check/me')
+    page.approve_join_team(subdomain: @team1_slug)
+    count = 0
+    elems = @driver.find_elements(:css => ".team-members__list > div > div > div > div")
+    while elems.size <= 1 && count < 15
+      sleep 5
+      count += 1
+      elems = @driver.find_elements(:css => ".team-members__list > div > div > div > div")
+    end
+    expect(elems.size).to be > 1
+    #edit team member role
+    change_the_member_role_to('li.role-journalist')
+    el = wait_for_selector('input[name="role-select"]', :css, 29, 1)
+    expect(el.value).to eq 'journalist'
+  
+    #create one media
+    wait_for_selector_list(".project-list__link")[0].click
+    create_media("one item")
+    wait_for_selector_list_size(".medias__item", 1)
+    expect(@driver.page_source.include?('one item')).to be(true)
+
+    # "should redirect to team page if user asking to join a team is already a member"
+    page = Page.new(config: @config, driver: @driver)
+    page.go(@config['api_path'] + '/test/session?email=new'+@user_mail)
+    #page = MePage.new(config: @config, driver: @driver).load
+    @driver.navigate.to @config['self_url'] + "/"+@team1_slug+"/join"
+    wait_for_selector('.team__primary-info')
+    @wait.until {
+      expect(@driver.current_url.eql? @config['self_url']+"/"+@team1_slug ).to be(true)
+    }
+    #As a different user, request to join one team 
+    user3 = api_register_and_login_with_email(email: "one_more"+@user_mail, password: @password)
+    page = MePage.new(config: @config, driver: @driver).load
+    page.ask_join_team(subdomain: @team1_slug)
+    @wait.until {
+      expect(@driver.find_element(:class, "message").nil?).to be(false)
+    }
+    api_logout
+    @driver.quit
+    #As the journalist, go to the members page and can't see the request to join the another user
+    @driver = new_driver(@webdriver_url,@browser_capabilities)
+    page = Page.new(config: @config, driver: @driver)
+    page.go(@config['api_path'] + '/test/session?email=new'+@user_mail)
+    page = MePage.new(config: @config, driver: @driver).load
+    @driver.navigate.to @config['self_url'] + "/"+@team1_slug
+    wait_for_selector("#create-project-title")
+    expect(@driver.page_source.include?('Requests to join')).to be(false)
+    
+    #go to the project that you don't own and can't see the actions icon
+    wait_for_selector_list(".project-list__link")[0].click
+    wait_for_selector_none(".project-actions__icon") #actions icon
+    expect(@driver.find_elements(:css, ".project-actions__icon").size).to eq 0
+
+    #create media in a project that you don't own
+    expect(@driver.page_source.include?('new item')).to be(false)
+    create_media("new item")
+    wait_for_selector_list_size(".medias__item", 2)
+    expect(@driver.page_source.include?('new item')).to be(true)
+
+    #see the icon 'change the status' that the media you don't own
+    wait_for_selector_list(".media__heading")[1].click
+    wait_for_selector(".create-related-media__add-button")
+    expect(@driver.find_elements(:css, ".media-status--editable").size).to eq 1
+
+    # see the input to add a comment in media you don't own
+    wait_for_selector(".media-tab__comments").click
+    wait_for_selector(".add-annotation__buttons")
+    expect(@driver.find_elements(:css, "#cmd-input").size).to eq 1
+
+    #try edit team and can't see the button 'edit team button'
+    wait_for_selector(".project-header__back-button").click
+    wait_for_selector(".team-menu__team-settings-button").click
+    wait_for_selector(".team-settings__tags-tab")
+    expect(@driver.find_elements(:css, ".team-menu__edit-team-button").size).to eq 0
+
+    api_logout
+    @driver.quit
+
+    #As the group creator, go to the members page and  edit team member role to 'editor'
+    @driver = new_driver(@webdriver_url,@browser_capabilities)
+    page = Page.new(config: @config, driver: @driver)
+    page.go(@config['api_path'] + '/test/session?email='+@user_mail)
+    page = MePage.new(config: @config, driver: @driver).load
+    @driver.navigate.to @config['self_url'] + "/"+@team1_slug
+    #edit team member role
+    change_the_member_role_to('li.role-editor')
+    el = wait_for_selector('input[name="role-select"]', :css, 29, 1)
+    expect(el.value).to eq 'editor'
+
+    api_logout
+    @driver.quit
+
+    #log in as the editor
+    @driver = new_driver(@webdriver_url,@browser_capabilities)
+    page = Page.new(config: @config, driver: @driver)
+    page.go(@config['api_path'] + '/test/session?email=new'+@user_mail)
+    page = MePage.new(config: @config, driver: @driver).load
+    @driver.navigate.to @config['self_url']
+
+    #go to the project that you don't own and can't see the actions icon
+    wait_for_selector_list(".project-list__link")[0].click
+    wait_for_selector_none(".project-actions__icon") #actions icon
+    expect(@driver.find_elements(:css, ".project-actions__icon").size).to eq 1
+
+    api_logout
+    @driver.quit
+
+    #As the group creator, go to the members page and edit team member role to 'contribuitor'
+    @driver = new_driver(@webdriver_url,@browser_capabilities)
+    page = Page.new(config: @config, driver: @driver)
+    page.go(@config['api_path'] + '/test/session?email='+@user_mail)
+    page = MePage.new(config: @config, driver: @driver).load
+    @driver.navigate.to @config['self_url'] + "/"+@team1_slug
+    #edit team member role
+    change_the_member_role_to('li.role-contributor')
+    el = wait_for_selector('input[name="role-select"]', :css, 29, 1)
+    expect(el.value).to eq 'contributor'
+
+    api_logout
+    @driver.quit
+
+    #log in as the contributor
+    @driver = new_driver(@webdriver_url,@browser_capabilities)
+    page = Page.new(config: @config, driver: @driver)
+    page.go(@config['api_path'] + '/test/session?email=new'+@user_mail)
+    page = MePage.new(config: @config, driver: @driver).load
+    @driver.navigate.to @config['self_url'] + "/"+@team1_slug
+
+    #can't see the link 'edit member rules'
+    expect(@driver.find_elements(:css, ".team-members__edit-button").size).to eq 0
+
+    #can't see the link 'create a new list'
+    expect(@driver.find_elements(:css, ".create-project-title").size).to eq 0
+
+    #go to the project and can't see the icon 'change the status' that the media you don't own
+    wait_for_selector_list(".project-list__link")[0].click
+    wait_for_selector_list(".media__heading")[1].click
+    wait_for_selector(".create-related-media__add-button")
+    expect(@driver.find_elements(:css, ".media-status--editable").size).to eq 0
   end
 #Permissions section end
 
