@@ -43,9 +43,8 @@ gulp.task('relay:copy', (callback) => {
       fs.writeFile('./relay.json', res.getBody(), callback);
     }
   } else {
-    fs.writeFileSync('./relay.json', fs.readFileSync(buildConfig.relay), callback);
+    fs.writeFile('./relay.json', fs.readFileSync(buildConfig.relay), callback);
   }
-  callback();
 });
 
 gulp.task('webpack:build:server', (callback) => {
