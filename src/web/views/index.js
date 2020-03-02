@@ -61,7 +61,7 @@ const socialTags = (metadata, config, url) => {
   ].join('\n');
 };
 
-export default ({ config, metadata, url }) => `
+module.exports = ({ config, metadata, url }) => `
     <!DOCTYPE html>
     <html>
       <head>

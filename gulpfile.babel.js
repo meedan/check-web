@@ -25,7 +25,7 @@ if (buildConfig.transifex) {
   });
 }
 
-gulp.task('replace-webpack-code', () => {
+gulp.task('replace-webpack-code', (callback) => {
   [{
     from: './webpack/replace/JsonpMainTemplate.runtime.js',
     to: './node_modules/webpack/lib/JsonpMainTemplate.runtime.js',
@@ -33,17 +33,19 @@ gulp.task('replace-webpack-code', () => {
     from: './webpack/replace/log-apply-result.js',
     to: './node_modules/webpack/hot/log-apply-result.js',
   }].forEach(task => fs.writeFileSync(task.to, fs.readFileSync(task.from)));
+  callback();
 });
 
-gulp.task('relay:copy', () => {
+gulp.task('relay:copy', (callback) => {
   if (buildConfig.relay.startsWith('http')) {
     const res = request('GET', buildConfig.relay);
     if (res.statusCode < 300) {
-      fs.writeFileSync('./relay.json', res.getBody());
+      fs.writeFile('./relay.json', res.getBody(), callback);
     }
   } else {
-    fs.writeFileSync('./relay.json', fs.readFileSync(buildConfig.relay));
+    fs.writeFileSync('./relay.json', fs.readFileSync(buildConfig.relay), callback);
   }
+  callback();
 });
 
 gulp.task('webpack:build:server', (callback) => {
@@ -68,63 +70,59 @@ gulp.task('webpack:build:web', (callback) => {
   });
 });
 
-gulp.task('copy:build:web', () => {
-  gulp.src('./src/assets/**/*').pipe(gulp.dest('./build/web'));
-  gulp.src('./config.js').pipe(gulp.dest('./build/web/js'));
-});
+function copy_build_web_assets() {
+  return gulp.src('./src/assets/**/*').pipe(gulp.dest('./build/web'));
+}
 
-gulp.task('copy:build:web:test', () => {
-  gulp.src('./src/assets/**/*').pipe(gulp.dest('./build/web'));
-  gulp.src('./test/config.js').pipe(gulp.dest('./build/web/js'));
-});
+function copy_build_web_config_js() {
+  return gulp.src('./config.js').pipe(gulp.dest('./build/web/js'));
+}
+
+function copy_build_web_config_test_js() {
+  return gulp.src('./test/config.js').pipe(gulp.dest('./build/web/js'));
+}
+
+gulp.task('copy:build:web', gulp.series(copy_build_web_assets, copy_build_web_config_js));
+gulp.task('copy:build:web:test', gulp.series(copy_build_web_assets, copy_build_web_config_test_js));
 
 gulp.task('transifex:download', () => {
-  if (transifexClient) {
-    return gulp.src('./localization/transifex/**/*.json').pipe(transifexClient.pullResource());
-  }
+  return gulp.src('./localization/transifex/**/*.json').pipe(transifexClient.pullResource());
 });
 
 gulp.task('transifex:translations', () => {
-  if (transifexClient) {
-    return gulp.src('./localization/translations/**/*.json').pipe(mergeTransifex(buildConfig)).pipe(gulp.dest('./localization/translations/'));
-  }
+  return gulp.src('./localization/translations/**/*.json').pipe(mergeTransifex(buildConfig)).pipe(gulp.dest('./localization/translations/'));
 });
 
 gulp.task('transifex:prepare', () => {
-  if (transifexClient) {
-    gulp.src('./localization/react-intl/**/*').pipe(jsonEditor((inputJson) => {
-      const outputJson = {};
-      inputJson.forEach((entry) => {
-        outputJson[entry.id] = entry.defaultMessage;
-      });
-      return outputJson;
-    })).pipe(gulp.dest('./localization/transifex/'));
-  }
+  return gulp.src('./localization/react-intl/**/*').pipe(jsonEditor((inputJson) => {
+    const outputJson = {};
+    inputJson.forEach((entry) => {
+      outputJson[entry.id] = entry.defaultMessage;
+    });
+    return outputJson;
+  })).pipe(gulp.dest('./localization/transifex/'));
 });
 
 gulp.task('transifex:upload', () => {
-  if (transifexClient) {
-    return gulp.src('./localization/transifex/**/*').pipe(transifexClient.pushResource());
-  }
+  return gulp.src('./localization/transifex/**/*').pipe(transifexClient.pushResource());
 });
 
 gulp.task('transifex:languages', () => {
-  if (transifexClient) {
-    transifexClient.languages((data) => {
-      console.log(JSON.stringify(data));
-    });
-  }
+  transifexClient.languages((data) => {
+    console.log(JSON.stringify(data));
+  });
+  return gulp.series();
 });
 
-gulp.task('build:web', ['replace-webpack-code', 'relay:copy', 'webpack:build:web', 'copy:build:web']);
-gulp.task('build:server', ['webpack:build:server']);
+gulp.task('build:web', gulp.series('replace-webpack-code', 'relay:copy', 'webpack:build:web', 'copy:build:web'));
+gulp.task('build:server', gulp.series('webpack:build:server'));
 
 // Dev mode — with 'watch' enabled for faster builds
 // Webpack only — without the rest of the web build steps.
 //
 const devConfig = Object.create(webpackConfig);
 
-gulp.task('webpack:build:web:dev', () => {
+gulp.task('webpack:build:web:dev', (callback) => {
   // Enable watcher to monitor for changes
   devConfig.watch = true;
 
@@ -156,6 +154,19 @@ gulp.task('webpack:build:web:dev', () => {
       publicPath: false,
     }));
   });
+
+  // never call callback()
 });
 
-gulp.task('build:web:dev', ['replace-webpack-code', 'relay:copy', 'webpack:build:web:dev', 'copy:build:web']);
+gulp.task('build:web:dev', gulp.series('replace-webpack-code', 'relay:copy', 'webpack:build:web:dev', 'copy:build:web'));
+
+gulp.task('serve:server', (callback) => {
+  const app = require('./scripts/server-app');
+  const port = process.env.SERVER_PORT || 8000;
+  app.listen(port, () => {
+    console.log(`Server listening on port ${port}`);
+    // never call callback()
+  });
+})
+
+gulp.task('serve:dev', gulp.parallel('build:web:dev', 'serve:server'));
