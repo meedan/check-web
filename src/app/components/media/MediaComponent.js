@@ -11,7 +11,6 @@ import MediaTasks from './MediaTasks';
 import MediaAnalysis from './MediaAnalysis';
 import MediaLog from './MediaLog';
 import MediaComments from './MediaComments';
-import MediaRequests from './MediaRequests';
 import MediaUtil from './MediaUtil';
 import CheckContext from '../../CheckContext';
 import {
@@ -63,14 +62,8 @@ class MediaComponent extends Component {
   constructor(props) {
     super(props);
 
-    const { team_bots: teamBots } = props.media.team;
-    const enabledBots = teamBots.edges.map(b => b.node.login);
-    const showRequests = (enabledBots.indexOf('smooch') > -1 || props.media.requests_count > 0);
-    const showTab = showRequests ? 'requests' : 'tasks';
-
     this.state = {
-      showTab,
-      showRequests,
+      showTab: 'tasks',
     };
   }
 
@@ -203,18 +196,6 @@ class MediaComponent extends Component {
                   backgroundColor: 'transparent',
                 }}
               >
-                { this.state.showRequests ?
-                  <Tab
-                    label={
-                      <FormattedMessage
-                        id="mediaComponent.requests"
-                        defaultMessage="Requests"
-                      />
-                    }
-                    value="requests"
-                    className="media-tab__requests"
-                  />
-                  : null }
                 <Tab
                   label={
                     <FormattedMessage
@@ -235,15 +216,14 @@ class MediaComponent extends Component {
                   value="analysis"
                   className="media-tab__analysis"
                 />
-
                 <Tab
                   label={
                     <FormattedMessage
-                      id="mediaComponent.notes"
-                      defaultMessage="Notes"
+                      id="mediaComponent.comments"
+                      defaultMessage="Comments"
                     />
                   }
-                  value="notes"
+                  value="comments"
                   className="media-tab__comments"
                 />
                 <Tab
@@ -257,11 +237,10 @@ class MediaComponent extends Component {
                   className="media-tab__activity"
                 />
               </Tabs>
-              { this.state.showTab === 'requests' ? <MediaRequests media={media} /> : null }
               { this.state.showTab === 'tasks' ? <MediaTasks media={media} /> : null }
               { this.state.showTab === 'analysis' ? <MediaAnalysis media={media} /> : null }
-              { this.state.showTab === 'notes' ? <MediaComments media={media} /> : null }
               { this.state.showTab === 'activity' ? <MediaLog media={media} /> : null }
+              { this.state.showTab === 'comments' ? <MediaComments media={media} /> : null }
             </ContentColumn>
           </StyledTwoColumnLayout>
         </StyledBackgroundColor>

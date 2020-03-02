@@ -30,7 +30,6 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
         verification_statuses
         project_id
         project_ids
-        requests_count
         project {
           id
           dbid
@@ -49,13 +48,6 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
           dbid
           slug
           name
-          team_bots(first: 10000) {
-            edges {
-              node {
-                login
-              }
-            }
-          }
         }
       }
     `,
