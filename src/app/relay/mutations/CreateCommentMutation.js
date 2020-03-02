@@ -12,7 +12,7 @@ class CreateCommentMutation extends Relay.Mutation {
     case 'project_source':
       return Relay.QL`fragment on CreateCommentPayload { commentEdge, comment_versionEdge, source { log_count } }`;
     case 'project_media':
-      return Relay.QL`fragment on CreateCommentPayload { commentEdge, comment_versionEdge, project_media { last_status, last_status_obj, log_count } }`;
+      return Relay.QL`fragment on CreateCommentPayload { commentEdge, comment_versionEdge, project_media { last_status, last_status_obj, log, log_count } }`;
     case 'task':
       return Relay.QL`fragment on CreateCommentPayload { commentEdge, comment_versionEdge, task { id, log_count }, project_media { last_status, last_status_obj, id, log, log_count } }`;
     default:
