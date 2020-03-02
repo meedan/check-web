@@ -7,7 +7,7 @@ import MediasLoading from './MediasLoading';
 import Annotations from '../annotations/Annotations';
 import CheckContext from '../../CheckContext';
 
-class MediaCommentsComponent extends Component {
+class MediaRequestsComponent extends Component {
   constructor(props) {
     super(props);
 
@@ -41,7 +41,7 @@ class MediaCommentsComponent extends Component {
   subscribe() {
     const { pusher } = this.getContext();
     if (pusher) {
-      pusher.subscribe(this.props.media.pusher_channel).bind('media_updated', 'MediaComments', (data, run) => {
+      pusher.subscribe(this.props.media.pusher_channel).bind('media_updated', 'MediaRequests', (data, run) => {
         const annotation = JSON.parse(data.message);
         if (annotation.annotated_id === this.props.media.dbid &&
           this.getContext().clientSessionId !== data.actor_session_id
@@ -51,7 +51,7 @@ class MediaCommentsComponent extends Component {
             return true;
           }
           return {
-            id: `media-comments-${this.props.media.dbid}`,
+            id: `media-requests-${this.props.media.dbid}`,
             callback: this.props.relay.forceFetch,
           };
         }
@@ -71,21 +71,20 @@ class MediaCommentsComponent extends Component {
     const media = Object.assign(this.props.cachedMedia, this.props.media);
 
     return (
-      <div id="media__comments" style={this.props.style}>
+      <div id="media__requests" style={this.props.style}>
         <Annotations
-          showAddAnnotation
           style={{
             background: 'transparent',
             border: 0,
             boxShadow: 'none',
           }}
-          annotations={media.log.edges}
+          annotations={media.requests.edges}
           annotated={media}
           annotatedType="ProjectMedia"
           noActivityMessage={
             <FormattedMessage
-              id="mediaComments.noNote"
-              defaultMessage="No note"
+              id="MediaRequests.noRequest"
+              defaultMessage="No request"
             />
           }
         />
@@ -94,21 +93,23 @@ class MediaCommentsComponent extends Component {
   }
 }
 
-MediaCommentsComponent.contextTypes = {
+MediaRequestsComponent.contextTypes = {
   store: PropTypes.object,
 };
 
 const pageSize = 30;
-const eventTypes = ['create_comment'];
-const fieldNames = [];
+const eventTypes = ['create_dynamicannotationfield'];
+const fieldNames = ['smooch_data'];
 const annotationTypes = [];
+const whoDunnit = ['smooch'];
 
-const MediaCommentsContainer = Relay.createContainer(MediaCommentsComponent, {
+const MediaRequestsContainer = Relay.createContainer(MediaRequestsComponent, {
   initialVariables: {
     pageSize,
     eventTypes,
     fieldNames,
     annotationTypes,
+    whoDunnit,
   },
   fragments: {
     media: () => Relay.QL`
@@ -116,7 +117,7 @@ const MediaCommentsContainer = Relay.createContainer(MediaCommentsComponent, {
         id
         dbid
         pusher_channel
-        log(last: $pageSize, event_types: $eventTypes, field_names: $fieldNames, annotation_types: $annotationTypes) {
+        requests: log(last: $pageSize, event_types: $eventTypes, field_names: $fieldNames, annotation_types: $annotationTypes, who_dunnit: $whoDunnit) {
           edges {
             node {
               id,
@@ -227,19 +228,19 @@ const MediaCommentsContainer = Relay.createContainer(MediaCommentsComponent, {
   },
 });
 
-const MediaComments = (props) => {
+const MediaRequests = (props) => {
   const ids = `${props.media.dbid},${props.media.project_id}`;
   const route = new MediaRoute({ ids });
 
   return (
     <Relay.RootContainer
-      Component={MediaCommentsContainer}
+      Component={MediaRequestsContainer}
       renderFetched={data =>
-        <MediaCommentsContainer cachedMedia={props.media} style={props.style} {...data} />}
+        <MediaRequestsContainer cachedMedia={props.media} style={props.style} {...data} />}
       route={route}
       renderLoading={() => <MediasLoading count={1} />}
     />
   );
 };
 
-export default MediaComments;
+export default MediaRequests;
