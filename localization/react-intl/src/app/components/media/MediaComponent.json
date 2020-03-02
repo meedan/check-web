@@ -1,9 +1,5 @@
 [
   {
-    "id": "mediaComponent.requests",
-    "defaultMessage": "Requests"
-  },
-  {
     "id": "mediaComponent.tasks",
     "defaultMessage": "Tasks"
   },
@@ -12,8 +8,8 @@
     "defaultMessage": "Analysis"
   },
   {
-    "id": "mediaComponent.notes",
-    "defaultMessage": "Notes"
+    "id": "mediaComponent.comments",
+    "defaultMessage": "Comments"
   },
   {
     "id": "mediaComponent.activity",
