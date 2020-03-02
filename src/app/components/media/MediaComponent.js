@@ -63,8 +63,14 @@ class MediaComponent extends Component {
   constructor(props) {
     super(props);
 
+    const { team_bots: teamBots } = props.media.team;
+    const enabledBots = teamBots.edges.map(b => b.node.login);
+    const showRequests = (enabledBots.indexOf('smooch') > -1 || props.media.requests_count > 0);
+    const showTab = showRequests ? 'requests' : 'tasks';
+
     this.state = {
-      showTab: 'requests',
+      showTab,
+      showRequests,
     };
   }
 
@@ -163,8 +169,6 @@ class MediaComponent extends Component {
     media.url = media.media.url;
     media.quote = media.media.quote;
     media.embed_path = media.media.embed_path;
-    const { team_bots: teamBots } = media.team;
-    const enabledBots = teamBots.edges.map(b => b.node.login);
 
     return (
       <PageTitle
@@ -199,7 +203,7 @@ class MediaComponent extends Component {
                   backgroundColor: 'transparent',
                 }}
               >
-                { (enabledBots.indexOf('smooch') > -1 || media.requests_count > 0) ?
+                { this.state.showRequests ?
                   <Tab
                     label={
                       <FormattedMessage
