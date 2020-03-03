@@ -200,6 +200,15 @@ class MediaCondensedComponent extends Component {
     const cachedMedia = this.props.cachedMedia || {};
     const media = Object.assign(cachedMedia, this.props.media);
 
+    let smoochBotInstalled = false;
+    if (media.team && media.team.team_bot_installations) {
+      media.team.team_bot_installations.edges.forEach((edge) => {
+        if (edge.node.team_bot.identifier === 'smooch') {
+          smoochBotInstalled = true;
+        }
+      });
+    }
+
     const editDialog = (
       <Dialog
         modal
@@ -269,16 +278,20 @@ class MediaCondensedComponent extends Component {
           subtitle={
             <p>
               <span>{MediaUtil.mediaTypeLabel(media.type, this.props.intl)}</span>
-              <span style={{ margin: '0 8px' }}> - </span>
-              <span>
-                <FormattedMessage
-                  id="mediaCondensed.requests"
-                  defaultMessage="{count} requests"
-                  values={{
-                    count: media.requests_count,
-                  }}
-                />
-              </span>
+              { smoochBotInstalled ?
+                <span>
+                  <span style={{ margin: '0 8px' }}> - </span>
+                  <span>
+                    <FormattedMessage
+                      id="mediaCondensed.requests"
+                      defaultMessage="{count} requests"
+                      values={{
+                        count: media.requests_count,
+                      }}
+                    />
+                  </span>
+                </span> : null
+              }
               <span style={{ margin: '0 8px' }}> - </span>
               <TimeBefore date={MediaUtil.createdAt({ published: media.last_seen })} />
             </p>
@@ -367,6 +380,19 @@ const MediaCondensedContainer = Relay.createContainer(MediaCondensedComponent, {
         share_count
         permissions
         requests_count
+        team {
+          team_bot_installations(first: 10000) {
+            edges {
+              node {
+                id
+                team_bot: bot_user {
+                  id
+                  identifier
+                }
+              }
+            }
+          }
+        }
         relationship {
           id
           source { id, dbid }
