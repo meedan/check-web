@@ -234,6 +234,10 @@ const messages = defineMessages({
     id: 'annotation.menuTooltip',
     defaultMessage: 'Annotation actions',
   },
+  smoochNoMessage: {
+    id: 'annotation.smoochNoMessage',
+    defaultMessage: 'No user message',
+  },
 });
 
 // TODO Fix a11y issues
@@ -1075,7 +1079,10 @@ class Annotation extends Component {
 
       if (object.field_name === 'smooch_data' && activityType === 'create_dynamicannotationfield') {
         showCard = true;
-        const messageText = JSON.parse(object.value).text;
+        let messageText = JSON.parse(object.value).text.trim();
+        if (!messageText) {
+          messageText = this.props.intl.formatMessage(messages.smoochNoMessage);
+        }
         contentTemplate = (
           <div className="annotation__card-content">
             <ParsedText text={messageText} />
