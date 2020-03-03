@@ -20,6 +20,10 @@
     "defaultMessage": "Annotation actions"
   },
   {
+    "id": "annotation.smoochNoMessage",
+    "defaultMessage": "No user message"
+  },
+  {
     "id": "annotation.permalink",
     "defaultMessage": "Permalink"
   },
