@@ -49,7 +49,7 @@ class Root extends Component {
   static pusherLog(message) {
     if (config.pusherDebug) {
       // eslint-disable-next-line no-console
-      console.log(`[Pusher] ${message}`);
+      console.debug(`[Pusher] ${message}`);
     }
   }
 
@@ -247,8 +247,10 @@ class Root extends Component {
 
     if (config.pusherKey) {
       // Pusher is imported at runtime from a <script file> tag.
-      // eslint-disable-next-line no-undef
-      Pusher.logToConsole = !!config.pusherDebug;
+      if (!!config.pusherDebug && console && console.debug) {
+        // eslint-disable-next-line no-undef, no-console
+        Pusher.log = console.debug;
+      }
       // eslint-disable-next-line no-undef
       const pusher = new Pusher(config.pusherKey, {
         cluster: config.pusherCluster,

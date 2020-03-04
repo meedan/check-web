@@ -120,7 +120,7 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
   _parseQueryResult(result) {
     if (config.pusherDebug) {
       // eslint-disable-next-line no-console
-      console.log('%cSending request to backend ', 'font-weight: bold');
+      console.debug('%cSending request to backend ', 'font-weight: bold');
     }
     const { history } = this._init;
     if (result.status === 404 && window.location.pathname !== '/check/not-found') {
