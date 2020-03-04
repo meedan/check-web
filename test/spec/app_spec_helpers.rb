@@ -354,6 +354,7 @@ module AppSpecHelpers
     wait_for_selector('input[type=file]').send_keys(File.join(File.dirname(__FILE__), 'test.png'))
     wait_for_selector_none(".without-file")
     wait_for_selector("#create-media-dialog__submit-button").click
+    wait_for_selector('.medias__item')
     wait_for_selector(".media__heading").click
     wait_for_selector(".media__annotations-column")
   end
@@ -455,13 +456,15 @@ module AppSpecHelpers
     el.click
     wait_for_selector("#media-embed__copy-code")
   end
-  
-  def change_the_status_to(status_class)
+
+  def change_the_status_to(status_class, confirm)
     wait_for_selector(".media-detail")
     wait_for_selector(".media-status__label > div button svg").click
     wait_for_selector(".media-status__menu-item")
-    wait_for_selector(status_class).click  
-    wait_for_selector(".media-status__proceed-send").click unless (status_class == ".media-status__menu-item--in-progress")
+    wait_for_selector(status_class).click
+    if confirm
+      wait_for_selector(".media-status__proceed-send").click unless (status_class == ".media-status__menu-item--in-progress")
+    end
     wait_for_selector_none(".media-status__menu-item")
   end
 

@@ -43,6 +43,10 @@ class UpdateTaskMutation extends Relay.Mutation {
     }`;
   }
 
+  getFiles() {
+    return { file: this.props.file };
+  }
+
   getOptimisticResponse() {
     if (this.props.operation === 'answer') {
       const { task, user } = this.props;
@@ -63,6 +67,7 @@ class UpdateTaskMutation extends Relay.Mutation {
           first_response: {
             permissions: '{}',
             content: JSON.stringify(content),
+            image_data: {},
             attribution: {
               edges: [
                 {

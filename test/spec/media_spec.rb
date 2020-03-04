@@ -306,7 +306,7 @@ shared_examples 'media' do |type|
     create_media_depending_on_type
     wait_for_selector(".media-detail")
     expect(@driver.page_source.include?('Verified')).to be(false)
-    change_the_status_to('.media-status__menu-item--verified')
+    change_the_status_to('.media-status__menu-item--verified', false)
     expect(@driver.page_source.include?('verified')).to be(true)
     expect(@driver.page_source.include?('Related Claim')).to be(false)
     press_button('.create-related-media__add-button')

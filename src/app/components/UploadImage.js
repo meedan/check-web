@@ -21,11 +21,11 @@ const previewSize = units(10);
 const StyledUploader = styled.div`
     display: flex;
     margin: ${units(1)} 0 ${units(2)};
-    align-items: flex-start;
+    align-items: center;
 
     .with-file,
     .without-file {
-      align-items: flex-start;
+      align-items: center;
       border: ${borderWidthMedium} dashed ${black38};
       border-radius: ${borderRadiusLarge};
       color: ${black38};

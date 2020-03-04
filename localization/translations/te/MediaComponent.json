@@ -1,6 +1,7 @@
 {
+  "mediaComponent.requests": "Requests",
   "mediaComponent.tasks": "Tasks",
   "mediaComponent.analysis": "Analysis",
-  "mediaComponent.comments": "Comments",
+  "mediaComponent.notes": "Notes",
   "mediaComponent.activity": "Activity"
 }
