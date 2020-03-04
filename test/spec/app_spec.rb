@@ -450,23 +450,23 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_claim_and_go_to_search_page
       expect((@driver.current_url.to_s.match(/requests/)).nil?).to be(true)
       expect((@driver.current_url.to_s.match(/related/)).nil?).to be(true)
-      expect((@driver.current_url.to_s.match(/created/)).nil?).to be(true)
+      expect((@driver.current_url.to_s.match(/recent_added/)).nil?).to be(true)
       expect((@driver.current_url.to_s.match(/last_seen/)).nil?).to be(true)
 
       wait_for_selector("#list-header__related").click
       wait_for_selector(".medias__item")
       expect((@driver.current_url.to_s.match(/requests/)).nil?).to be(true)
       expect((@driver.current_url.to_s.match(/related/)).nil?).to be(false)
-      expect((@driver.current_url.to_s.match(/created/)).nil?).to be(true)
+      expect((@driver.current_url.to_s.match(/recent_added/)).nil?).to be(true)
       expect((@driver.current_url.to_s.match(/last_seen/)).nil?).to be(true)
       expect(@driver.page_source.include?('My search result')).to be(true)
 
       @driver.execute_script("document.getElementsByClassName('ag-body-horizontal-scroll-viewport')[0].scrollLeft = 5000;")
       wait_for_selector("#list-header__recent_added").click
       wait_for_selector(".medias__item")
-      expect((@driver.current_url.to_s.match(/requests/)).nil?).to be(false)
+      expect((@driver.current_url.to_s.match(/requests/)).nil?).to be(true)
       expect((@driver.current_url.to_s.match(/related/)).nil?).to be(true)
-      expect((@driver.current_url.to_s.match(/created/)).nil?).to be(true)
+      expect((@driver.current_url.to_s.match(/recent_added/)).nil?).to be(false)
       expect((@driver.current_url.to_s.match(/last_seen/)).nil?).to be(true)
       expect(@driver.page_source.include?('My search result')).to be(true)
     end
