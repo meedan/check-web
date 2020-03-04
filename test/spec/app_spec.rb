@@ -461,7 +461,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect((@driver.current_url.to_s.match(/last_seen/)).nil?).to be(true)
       expect(@driver.page_source.include?('My search result')).to be(true)
 
-      wait_for_selector("#list-header__created").click
+      wait_for_selector("#list-header__recent_added").click
       wait_for_selector(".medias__item")
       expect((@driver.current_url.to_s.match(/requests/)).nil?).to be(false)
       expect((@driver.current_url.to_s.match(/related/)).nil?).to be(true)
