@@ -21,7 +21,7 @@
   },
   {
     "id": "annotation.smoochNoMessage",
-    "defaultMessage": "No user message"
+    "defaultMessage": "Empty request"
   },
   {
     "id": "annotation.permalink",
