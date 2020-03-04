@@ -18,11 +18,13 @@ ENV DEPLOYUSER=checkdeploy \
     MIN_INSTANCES=4 \
     MAX_POOL_SIZE=12
 
-ARG check_api_branch=develop
+ARG check_api_branch
 
 # user config
 RUN useradd ${DEPLOYUSER} -s /bin/bash -m \
     && chown -R ${DEPLOYUSER}:${DEPLOYUSER} /home/${DEPLOYUSER}
+
+RUN apt-get update -qq && apt-get install -y jq
 
 # deployment scripts
 COPY docker/production/bin /opt/bin
@@ -56,15 +58,9 @@ RUN /opt/bin/get_relay_json.sh
 # build all assets, js, css, transifex
 RUN npm run build && npm run build:server
 
-# config
-# RUN /opt/bin/find_and_link_config_files.sh ${DEPLOYDIR}/latest
-RUN rm -f ${DEPLOYDIR}/latest/build/web/js/config.js \
-    && ln -s ${DEPLOYDIR}/shared/config/config.js ${DEPLOYDIR}/latest/build/web/js/config.js \
-    && rm -f ${DEPLOYDIR}/latest/build/web/js/config-server.js \
-    && ln -s ${DEPLOYDIR}/shared/config/config-server.js ${DEPLOYDIR}/latest/config-server.js
-
 WORKDIR ${DEPLOYDIR}
 RUN ln -s ./latest ./${APP}-$(date -I) && ln -s ./${APP}-$(date -I) ./current
+RUN rm -rf ./latest/configurator
 
 USER root
 RUN rm /etc/nginx/sites-enabled/default
@@ -75,5 +71,5 @@ COPY docker/production/config/nginx.conf /etc/nginx/sites-enabled/${APP}
 # expose, cmd
 #
 EXPOSE 80
-WORKDIR ${DEPLOYDIR}/current/build/web
+WORKDIR ${DEPLOYDIR}/current
 CMD ["/opt/bin/start.sh"]
