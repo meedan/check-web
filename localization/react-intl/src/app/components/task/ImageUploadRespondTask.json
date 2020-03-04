@@ -1,0 +1,10 @@
+[
+  {
+    "id": "imageUploadRespondTask.cancelTask",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "imageUploadRespondTask.answerTask",
+    "defaultMessage": "Answer task"
+  }
+]

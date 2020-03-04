@@ -450,22 +450,23 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_claim_and_go_to_search_page
       expect((@driver.current_url.to_s.match(/requests/)).nil?).to be(true)
       expect((@driver.current_url.to_s.match(/related/)).nil?).to be(true)
-      expect((@driver.current_url.to_s.match(/created/)).nil?).to be(true)
+      expect((@driver.current_url.to_s.match(/recent_added/)).nil?).to be(true)
       expect((@driver.current_url.to_s.match(/last_seen/)).nil?).to be(true)
-
-      wait_for_selector("#list-header__requests").click
-      wait_for_selector(".medias__item")
-      expect((@driver.current_url.to_s.match(/requests/)).nil?).to be(false)
-      expect((@driver.current_url.to_s.match(/related/)).nil?).to be(true)
-      expect((@driver.current_url.to_s.match(/created/)).nil?).to be(true)
-      expect((@driver.current_url.to_s.match(/last_seen/)).nil?).to be(true)
-      expect(@driver.page_source.include?('My search result')).to be(true)
 
       wait_for_selector("#list-header__related").click
       wait_for_selector(".medias__item")
       expect((@driver.current_url.to_s.match(/requests/)).nil?).to be(true)
       expect((@driver.current_url.to_s.match(/related/)).nil?).to be(false)
-      expect((@driver.current_url.to_s.match(/created/)).nil?).to be(true)
+      expect((@driver.current_url.to_s.match(/recent_added/)).nil?).to be(true)
+      expect((@driver.current_url.to_s.match(/last_seen/)).nil?).to be(true)
+      expect(@driver.page_source.include?('My search result')).to be(true)
+
+      @driver.execute_script("document.getElementsByClassName('ag-body-horizontal-scroll-viewport')[0].scrollLeft = 5000;")
+      wait_for_selector("#list-header__recent_added").click
+      wait_for_selector(".medias__item")
+      expect((@driver.current_url.to_s.match(/requests/)).nil?).to be(true)
+      expect((@driver.current_url.to_s.match(/related/)).nil?).to be(true)
+      expect((@driver.current_url.to_s.match(/recent_added/)).nil?).to be(false)
       expect((@driver.current_url.to_s.match(/last_seen/)).nil?).to be(true)
       expect(@driver.page_source.include?('My search result')).to be(true)
     end
@@ -474,13 +475,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_claim_and_go_to_search_page
       expect((@driver.current_url.to_s.match(/ASC|DESC/)).nil?).to be(true)
 
-      wait_for_selector("#list-header__requests").click
+      wait_for_selector("#list-header__related").click
       wait_for_selector(".medias__item")
       expect((@driver.current_url.to_s.match(/DESC/)).nil?).to be(false)
       expect((@driver.current_url.to_s.match(/ASC/)).nil?).to be(true)
       expect(@driver.page_source.include?('My search result')).to be(true)
 
-      wait_for_selector("#list-header__requests").click
+      wait_for_selector("#list-header__related").click
       wait_for_selector(".medias__item")
       expect((@driver.current_url.to_s.match(/DESC/)).nil?).to be(true)
       expect((@driver.current_url.to_s.match(/ASC/)).nil?).to be(false)
@@ -524,23 +525,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el = wait_for_selector("#list-header__related")
       expect(el.find_element(:css, "svg.list-header__sort-desc").nil?).to be(false)
 
-      @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"requests"%2C"sort_type"%3A"DESC"%7D'
-      wait_for_selector("#create-media__add-item")
-      expect(@driver.page_source.include?('My search result')).to be(true)
-      el = wait_for_selector("#list-header__requests")
-      expect(el.find_element(:css, "svg.list-header__sort-desc").nil?).to be(false)
-
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"recent_added"%2C"sort_type"%3A"DESC"%7D'
       wait_for_selector("#create-media__add-item")
       expect(@driver.page_source.include?('My search result')).to be(true)
       el = wait_for_selector("#list-header__recent_added")
-      expect(el.find_element(:css, "svg.list-header__sort-desc").nil?).to be(false)
-
-      @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"last_seen"%2C"sort_type"%3A"DESC"%7D'
-      wait_for_selector("#create-media__add-item")
-      expect(@driver.page_source.include?('My search result')).to be(true)
-      @driver.execute_script("document.getElementsByClassName('ag-body-horizontal-scroll-viewport')[0].scrollLeft = 5000;")
-      el = wait_for_selector("#list-header__last_seen")
       expect(el.find_element(:css, "svg.list-header__sort-desc").nil?).to be(false)
     end
 
@@ -552,10 +540,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el = wait_for_selector("#list-header__related")
       expect(el.find_element(:css, "svg.list-header__sort-desc").nil?).to be(false)
 
-      @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"requests"%2C"sort_type"%3A"ASC"%7D'
+      @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"recent_added"%2C"sort_type"%3A"ASC"%7D'
       wait_for_selector("#create-media__add-item")
       expect(@driver.page_source.include?('My search result')).to be(true)
-      el = wait_for_selector("#list-header__requests")
+      el = wait_for_selector("#list-header__recent_added")
       expect(el.find_element(:css, "svg.list-header__sort-asc").nil?).to be(false)
     end
 
