@@ -13,7 +13,7 @@ describe('<AttributionDialog />', () => {
         throw new Error(warning);
       }
       else {
-        console.log(warning);
+        console.warn(warning);
       }
     });
 
