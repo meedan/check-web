@@ -99,7 +99,7 @@ shared_examples 'smoke' do
     wait_for_selector("//h3[contains(text(), 'How')]", :xpath)
     expect(@driver.page_source.include?("How To Check An")).to be(true)
 
-    #from Instagram 
+    #from Instagram
     expect(@driver.page_source.include?('#wEDnesday')).to be(false)
     create_media("https://www.instagram.com/p/BRYob0dA1SC/")
     wait_for_selector_list_size('.media__heading',4)
@@ -539,7 +539,7 @@ shared_examples 'smoke' do
     wait_for_selector(".media__heading").click
     wait_for_selector(".annotations__list")
     expect(@driver.page_source.include?('In Progress')).to be(false)
-    change_the_status_to(".media-status__menu-item--in-progress")
+    change_the_status_to(".media-status__menu-item--in-progress", true)
     expect(@driver.page_source.include?('In Progress')).to be(true)
     expect(@driver.page_source.include?('Claim Related')).to be(false)
     press_button('.create-related-media__add-button')
@@ -631,7 +631,7 @@ shared_examples 'smoke' do
     wait_for_selector(".media__heading").click
     wait_for_selector(".media-detail")
     expect(@driver.page_source.include?('In Progress')).to be(false)
-    change_the_status_to(".media-status__menu-item--in-progress")
+    change_the_status_to(".media-status__menu-item--in-progress", false)
     expect(@driver.page_source.include?('In Progress')).to be(true)
     generate_a_embed_and_copy_embed_code
     @driver.navigate.to 'https://paste.ubuntu.com/'
@@ -959,7 +959,7 @@ shared_examples 'smoke' do
     change_the_member_role_to('li.role-journalist')
     el = wait_for_selector('input[name="role-select"]', :css, 29, 1)
     expect(el.value).to eq 'journalist'
-  
+
     #create one media
     wait_for_selector_list(".project-list__link")[0].click
     create_media("one item")
@@ -975,7 +975,7 @@ shared_examples 'smoke' do
     @wait.until {
       expect(@driver.current_url.eql? @config['self_url']+"/"+@team1_slug ).to be(true)
     }
-    #As a different user, request to join one team 
+    #As a different user, request to join one team
     user3 = api_register_and_login_with_email(email: "one_more"+@user_mail, password: @password)
     page = MePage.new(config: @config, driver: @driver).load
     page.ask_join_team(subdomain: @team1_slug)
@@ -992,7 +992,7 @@ shared_examples 'smoke' do
     @driver.navigate.to @config['self_url'] + "/"+@team1_slug
     wait_for_selector("#create-project-title")
     expect(@driver.page_source.include?('Requests to join')).to be(false)
-    
+
     #go to the project that you don't own and can't see the actions icon
     wait_for_selector_list(".project-list__link")[0].click
     wait_for_selector_none(".project-actions__icon") #actions icon

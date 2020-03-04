@@ -12,6 +12,17 @@ const checkSearchResultFragment = Relay.QL`
       check_search_trash { id, number_of_results },
       verification_statuses,
       medias_count,
+      team_bot_installations(first: 10000) {
+        edges {
+          node {
+            id
+            team_bot: bot_user {
+              id
+              identifier
+            }
+          }
+        }
+      }
     }
     medias(first: $pageSize) {
       edges {

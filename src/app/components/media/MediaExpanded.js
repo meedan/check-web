@@ -60,6 +60,14 @@ class MediaExpandedComponent extends Component {
 
   render() {
     const { media } = this.props;
+    let smoochBotInstalled = false;
+    if (media.team && media.team.team_bot_installations) {
+      media.team.team_bot_installations.edges.forEach((edge) => {
+        if (edge.node.team_bot.identifier === 'smooch') {
+          smoochBotInstalled = true;
+        }
+      });
+    }
     media.url = media.media.url;
     media.quote = media.media.quote;
     media.embed_path = media.media.embed_path;
@@ -126,21 +134,25 @@ class MediaExpandedComponent extends Component {
               <FormattedMessage id="mediaExpanded.firstSeen" defaultMessage="First seen: " />
               <TimeBefore date={MediaUtil.createdAt({ published: media.created_at })} />
             </span>
-            <span style={{ margin: `0 ${units(1)}` }}> - </span>
-            <span>
-              <FormattedMessage id="mediaExpanded.lastSeen" defaultMessage="Last seen: " />
-              <TimeBefore date={MediaUtil.createdAt({ published: media.last_seen })} />
-            </span>
-            <span style={{ margin: `0 ${units(1)}` }}> - </span>
-            <span>
-              <FormattedMessage
-                id="mediaExpanded.requests"
-                defaultMessage="{count} requests"
-                values={{
-                  count: media.requests_count,
-                }}
-              />
-            </span>
+            { smoochBotInstalled ?
+              <span>
+                <span style={{ margin: `0 ${units(1)}` }}> - </span>
+                <span>
+                  <FormattedMessage id="mediaExpanded.lastSeen" defaultMessage="Last seen: " />
+                  <TimeBefore date={MediaUtil.createdAt({ published: media.last_seen })} />
+                </span>
+                <span style={{ margin: `0 ${units(1)}` }}> - </span>
+                <span>
+                  <FormattedMessage
+                    id="mediaExpanded.requests"
+                    defaultMessage="{count} requests"
+                    values={{
+                      count: media.requests_count,
+                    }}
+                  />
+                </span>
+              </span> : null
+            }
           </Row>
         </StyledHeaderTextSecondary>
       </div>
@@ -260,6 +272,17 @@ const MediaExpandedContainer = Relay.createContainer(MediaExpandedComponent, {
           verification_statuses
           translation_statuses
           get_languages
+          team_bot_installations(first: 10000) {
+            edges {
+              node {
+                id
+                team_bot: bot_user {
+                  id
+                  identifier
+                }
+              }
+            }
+          }
         }
         tags(first: 10000) {
           edges {

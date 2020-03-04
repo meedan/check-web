@@ -71,18 +71,18 @@ class MediaStatusCommon extends Component {
     history.push(`/${media.team.slug}${projectPart}/media/${media.dbid}/embed`);
   }
 
-  handleStatusClick(clickedStatus) {
+  handleStatusClick = (clickedStatus, smoochBotInstalled) => {
     const { media } = this.props;
     const store = new CheckContext(this).getContextStore();
 
     if (clickedStatus !== mediaLastStatus(media)) {
-      if (MediaStatusCommon.isFinalStatus(media, clickedStatus)) {
+      if (MediaStatusCommon.isFinalStatus(media, clickedStatus) && smoochBotInstalled) {
         this.askForConfirmation(clickedStatus);
       } else {
         this.props.setStatus(this, store, media, clickedStatus, this.props.parentComponent, null);
       }
     }
-  }
+  };
 
   fail = (transaction) => {
     const fallbackMessage = this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') });
@@ -131,6 +131,15 @@ class MediaStatusCommon extends Component {
       />,
     ];
 
+    let smoochBotInstalled = false;
+    if (media.team && media.team.team_bot_installations) {
+      media.team.team_bot_installations.edges.forEach((edge) => {
+        if (edge.node.team_bot.identifier === 'smooch') {
+          smoochBotInstalled = true;
+        }
+      });
+    }
+
     return (
       <div className={bemClass('media-status', this.canUpdate(), '--editable')}>
         {this.canUpdate() ?
@@ -158,7 +167,9 @@ class MediaStatusCommon extends Component {
                   mediaLastStatus(media) === status.id,
                   '--current',
                 )} media-status__menu-item--${status.id.replace('_', '-')}`}
-                onClick={status.can_change ? this.handleStatusClick.bind(this, status.id) : null}
+                onClick={status.can_change ?
+                  () => this.handleStatusClick(status.id, smoochBotInstalled) : null
+                }
                 style={{
                   textTransform: 'uppercase',
                   color: status.can_change ? getStatusStyle(status, 'color') : 'gray',
