@@ -7,6 +7,7 @@ import LocationIcon from '@material-ui/icons/LocationOn';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
+import IconImageUpload from 'material-ui/svg-icons/file/cloud-upload';
 import MultiSelector from '../layout/MultiSelector';
 
 class TaskTypeSelector extends React.Component {
@@ -35,6 +36,7 @@ class TaskTypeSelector extends React.Component {
     options.push({ label: 'Datetime', value: 'datetime', icon: <DateRangeIcon /> });
     options.push({ label: 'Single Choice', value: 'single_choice', icon: <RadioButtonCheckedIcon /> });
     options.push({ label: 'Choose multiple', value: 'multiple_choice', icon: <CheckBoxIcon style={{ transform: 'scale(1,1)' }} /> });
+    options.push({ label: 'Image Upload', value: 'image_upload', icon: <IconImageUpload /> });
 
     return (
       <div>

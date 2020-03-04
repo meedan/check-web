@@ -5,5 +5,6 @@
   "tasks.chooseMultiple": "Selectați mai multe",
   "tasks.geolocation": "Locația",
   "tasks.datetime": "Data și ora",
+  "tasks.imageUpload": "Image upload",
   "tasks.teamwideNudge": "Default tasks"
 }

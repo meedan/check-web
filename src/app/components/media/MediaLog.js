@@ -102,6 +102,7 @@ const fieldNames = [
   'translation_status_status', 'translation_published', 'archive_is_response',
   'archive_org_response', 'keep_backup_response', 'memebuster_operation', 'embed_code_copied',
   'pender_archive_response', 'perma_cc_response', 'video_archiver_response',
+  'suggestion_image_upload', 'response_image_upload',
 ];
 
 const annotationTypes = ['translation_status', 'verification_status'];

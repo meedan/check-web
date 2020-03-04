@@ -234,6 +234,10 @@ const messages = defineMessages({
     id: 'annotation.menuTooltip',
     defaultMessage: 'Annotation actions',
   },
+  smoochNoMessage: {
+    id: 'annotation.smoochNoMessage',
+    defaultMessage: 'Empty request',
+  },
 });
 
 // TODO Fix a11y issues
@@ -420,6 +424,7 @@ class Annotation extends Component {
     const content = object.data;
     let activityType = activity.event_type;
     let contentTemplate = null;
+    let showCard = false;
 
     switch (activityType) {
     case 'create_comment': {
@@ -1072,6 +1077,19 @@ class Annotation extends Component {
         contentTemplate = null;
       }
 
+      if (object.field_name === 'smooch_data' && activityType === 'create_dynamicannotationfield') {
+        showCard = true;
+        let messageText = JSON.parse(object.value).text.trim();
+        if (!messageText) {
+          messageText = this.props.intl.formatMessage(messages.smoochNoMessage);
+        }
+        contentTemplate = (
+          <div className="annotation__card-content">
+            <ParsedText text={messageText} />
+          </div>
+        );
+      }
+
       break;
     }
     case 'create_flag':
@@ -1193,7 +1211,8 @@ class Annotation extends Component {
       return null;
     }
 
-    const useCardTemplate = activityType === 'create_comment' || activityType === 'screenshot_taken' || activityType === 'bot_response' || activityType === 'task_answer_suggestion';
+    const cardActivities = ['create_comment', 'screenshot_taken', 'bot_response', 'task_answer_suggestion'];
+    const useCardTemplate = (cardActivities.indexOf(activityType) > -1 || showCard);
     const templateClass = `annotation--${useCardTemplate ? 'card' : 'default'}`;
     const typeClass = annotation ? `annotation--${annotation.annotation_type}` : '';
     return (

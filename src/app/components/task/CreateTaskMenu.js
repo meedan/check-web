@@ -10,6 +10,7 @@ import MdCheckBox from 'react-icons/lib/md/check-box';
 import MdLocationOn from 'react-icons/lib/md/location-on';
 import MdDateRange from 'react-icons/lib/md/date-range';
 import MdGrade from 'react-icons/lib/md/grade';
+import IconImageUpload from 'material-ui/svg-icons/file/cloud-upload';
 import styled from 'styled-components';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { units, black05 } from '../../styles/js/shared';
@@ -98,6 +99,12 @@ class CreateTaskMenu extends React.Component {
               onClick={() => this.handleSelectType('datetime')}
               leftIcon={<MdDateRange />}
               primaryText={<FormattedMessage id="tasks.datetime" defaultMessage="Date and time" />}
+            />
+            <MenuItem
+              className="create-task__add-image-upload"
+              onClick={() => this.handleSelectType('image_upload')}
+              leftIcon={<IconImageUpload />}
+              primaryText={<FormattedMessage id="tasks.imageUpload" defaultMessage="Image upload" />}
             />
             {config.appName === 'check' && !this.props.hideTeamwideOption ?
               <MenuItem

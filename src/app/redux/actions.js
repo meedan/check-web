@@ -80,7 +80,7 @@ export function login(provider, callback) {
 
 export function logout() {
   // eslint-disable-next-line no-console
-  const failureCallback = (message) => { console.log(message); };
+  const failureCallback = (message) => { console.warn(message); };
   const successCallback = () => {
     window.storage.set('previousPage', '');
     window.location.assign(window.location.origin);

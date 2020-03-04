@@ -84,8 +84,8 @@ class MediaCommentsComponent extends Component {
           annotatedType="ProjectMedia"
           noActivityMessage={
             <FormattedMessage
-              id="mediaComments.noComment"
-              defaultMessage="No comment"
+              id="mediaComments.noNote"
+              defaultMessage="No note"
             />
           }
         />
