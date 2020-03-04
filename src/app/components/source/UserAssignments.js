@@ -17,6 +17,7 @@ import MdDateRange from 'react-icons/lib/md/date-range';
 import MdFormatQuote from 'react-icons/lib/md/format-quote';
 import MdLink from 'react-icons/lib/md/link';
 import MdImage from 'react-icons/lib/md/image';
+import IconImageUpload from 'material-ui/svg-icons/file/cloud-upload';
 import BlankState from '../layout/BlankState';
 import CardHeaderOutside from '../layout/CardHeaderOutside';
 import FilterPopup from '../layout/FilterPopup';
@@ -51,6 +52,7 @@ const icons = {
   claim: <MdFormatQuote />,
   link: <MdLink />,
   uploadedimage: <MdImage />,
+  image_upload: <IconImageUpload />,
 };
 
 class UserAssignmentsComponent extends Component {

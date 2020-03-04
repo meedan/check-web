@@ -24,6 +24,10 @@
     "defaultMessage": "Date and time"
   },
   {
+    "id": "tasks.imageUpload",
+    "defaultMessage": "Image upload"
+  },
+  {
     "id": "tasks.teamwideNudge",
     "defaultMessage": "Default tasks"
   }

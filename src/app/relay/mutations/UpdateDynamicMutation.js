@@ -50,6 +50,13 @@ class UpdateDynamicMutation extends Relay.Mutation {
     }
   }
 
+  getFiles() {
+    if (this.props.file) {
+      return { 'file[]': this.props.file };
+    }
+    return {};
+  }
+
   getOptimisticResponse() {
     if (this.props.parent_type === 'task') {
       const { task, dynamic } = this.props;

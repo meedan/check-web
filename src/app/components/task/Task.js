@@ -6,6 +6,8 @@ import { Card, CardHeader, CardActions, CardText } from 'material-ui/Card';
 import EditIcon from '@material-ui/icons/Edit';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
+import Lightbox from 'react-image-lightbox';
+import 'react-image-lightbox/style.css';
 import EditTaskDialog from './EditTaskDialog';
 import TaskActions from './TaskActions';
 import TaskLog from './TaskLog';
@@ -16,6 +18,7 @@ import GeolocationRespondTask from './GeolocationRespondTask';
 import GeolocationTaskResponse from './GeolocationTaskResponse';
 import DatetimeRespondTask from './DatetimeRespondTask';
 import DatetimeTaskResponse from './DatetimeTaskResponse';
+import ImageUploadRespondTask from './ImageUploadRespondTask';
 import Message from '../Message';
 import Can, { can } from '../Can';
 import ParsedText from '../ParsedText';
@@ -76,6 +79,7 @@ const RequiredIndicator = props => (
   </StyledRequiredIndicator>
 );
 
+/* eslint jsx-a11y/click-events-have-key-events: 0 */
 class Task extends Component {
   constructor(props) {
     super(props);
@@ -85,6 +89,7 @@ class Task extends Component {
       message: null,
       editingResponse: false,
       editingAttribution: false,
+      zoomedImage: null,
     };
   }
 
@@ -157,7 +162,7 @@ class Task extends Component {
 
   handleCancelEditResponse = () => this.setState({ editingResponse: false });
 
-  handleSubmitResponse = (response) => {
+  handleSubmitResponse = (response, file) => {
     const { media, task } = this.props;
 
     const onSuccess = () => {
@@ -171,6 +176,7 @@ class Task extends Component {
       new UpdateTaskMutation({
         operation: 'answer',
         annotated: media,
+        file,
         user: this.getCurrentUser(),
         task: {
           id: task.id,
@@ -182,7 +188,7 @@ class Task extends Component {
     );
   };
 
-  handleUpdateResponse = (edited_response) => {
+  handleUpdateResponse = (edited_response, file) => {
     const { media, task } = this.props;
 
     const onSuccess = () => this.setState({ message: null, editingResponse: false });
@@ -200,6 +206,7 @@ class Task extends Component {
         annotated: media,
         task,
         parent_type: 'task',
+        file,
         dynamic: {
           id: this.state.editingResponse.id,
           fields,
@@ -305,6 +312,14 @@ class Task extends Component {
     }
   }
 
+  handleCloseImage() {
+    this.setState({ zoomedImage: false });
+  }
+
+  handleOpenImage(image) {
+    this.setState({ zoomedImage: image });
+  }
+
   renderTaskResponse(responseObj, response, by, byPictures, showEditIcon) {
     const { task } = this.props;
 
@@ -354,6 +369,14 @@ class Task extends Component {
                 onSubmit={this.handleUpdateResponse}
               />
               : null}
+            {task.type === 'image_upload' ?
+              <ImageUploadRespondTask
+                task={task}
+                response={editingResponseText}
+                onSubmit={this.handleUpdateResponse}
+                onDismiss={this.handleCancelEditResponse}
+              />
+              : null}
           </form>
         </div>
       );
@@ -364,6 +387,10 @@ class Task extends Component {
       marginTop: units(1),
       justifyContent: 'space-between',
     };
+    let imageUploadPath = null;
+    if (task.type === 'image_upload' && responseObj.image_data && responseObj.image_data.length) {
+      [imageUploadPath] = responseObj.image_data;
+    }
     return (
       <StyledWordBreakDiv className="task__resolved">
         {task.type === 'free_text' ?
@@ -394,6 +421,31 @@ class Task extends Component {
             jsonresponse={response}
             jsonoptions={task.jsonoptions}
           />
+          : null}
+        {task.type === 'image_upload' ?
+          <div className="task__response">
+            <div onClick={this.handleOpenImage.bind(this, imageUploadPath)}>
+              <div style={{ textAlign: 'center', cursor: 'pointer' }}>
+                <img
+                  src={imageUploadPath}
+                  className="task__response-thumbnail"
+                  alt=""
+                  style={{
+                    height: 'auto',
+                    maxWidth: 300,
+                    maxHeight: 300,
+                  }}
+                />
+                <p style={{ textAlign: 'center' }}><small>{response}</small></p>
+              </div>
+              {this.state.zoomedImage
+                ? <Lightbox
+                  onCloseRequest={this.handleCloseImage.bind(this)}
+                  mainSrc={this.state.zoomedImage}
+                />
+                : null}
+            </div>
+          </div>
           : null}
         { (by && byPictures) ?
           <div className="task__resolver" style={resolverStyle}>
@@ -561,6 +613,12 @@ class Task extends Component {
                         mode="respond"
                         jsonresponse={response}
                         jsonoptions={task.jsonoptions}
+                        onSubmit={this.handleSubmitResponse}
+                      />
+                      : null}
+                    {task.type === 'image_upload' ?
+                      <ImageUploadRespondTask
+                        task={task}
                         onSubmit={this.handleSubmitResponse}
                       />
                       : null}

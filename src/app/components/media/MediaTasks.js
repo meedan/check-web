@@ -238,6 +238,7 @@ const MediaTasksContainer = Relay.createContainer(MediaTasksComponent, {
                     dbid,
                     permissions,
                     content,
+                    image_data,
                     attribution(first: 10000) {
                       edges {
                         node {
@@ -289,6 +290,7 @@ const MediaTasksContainer = Relay.createContainer(MediaTasksComponent, {
                 dbid,
                 permissions,
                 content,
+                image_data,
                 attribution(first: 10000) {
                   edges {
                     node {
