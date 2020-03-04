@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd ${DEPLOYDIR}/new
+cd ${DEPLOYDIR}/latest
 
 BRANCH=$check_api_branch
 echo "Found branch: ${BRANCH}"

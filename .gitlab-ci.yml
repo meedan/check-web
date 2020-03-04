@@ -20,7 +20,7 @@ build_qa:
     - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
     - git clone https://${GITHUB_TOKEN}:x-oauth-basic@github.com/meedan/configurator ./configurator
     - d=configurator/check/qa/check-web/; for f in $(find $d -type f); do cp "$f" "${f/$d/}"; done
-    - docker build  -f docker/production/Dockerfile.aws -t "$ECR_API_BASE_URL/qa/check/web:$CI_COMMIT_SHA"  .
+    - docker build  -f production/Dockerfile -t "$ECR_API_BASE_URL/qa/check/web:$CI_COMMIT_SHA"  .
     - docker push "$ECR_API_BASE_URL/qa/check/web:$CI_COMMIT_SHA"
   only:
     - develop
@@ -61,7 +61,7 @@ build_live:
     - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
     - git clone https://${GITHUB_TOKEN}:x-oauth-basic@github.com/meedan/configurator ./configurator
     - d=configurator/check/live/check-web/; for f in $(find $d -type f); do cp "$f" "${f/$d/}"; done
-    - docker build  -f docker/production/Dockerfile.aws -t "$ECR_API_BASE_URL/live/check/web:$CI_COMMIT_SHA"  .
+    - docker build  -f production/Dockerfile -t "$ECR_API_BASE_URL/live/check/web:$CI_COMMIT_SHA"  .
     - docker push "$ECR_API_BASE_URL/live/check/web:$CI_COMMIT_SHA"
   only:
     - master

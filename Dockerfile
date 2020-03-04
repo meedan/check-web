@@ -8,7 +8,7 @@ RUN true \
         ruby2.5 \
         ruby2.5-dev \
         build-essential \
-        imagemagick \
+        graphicsmagick \
         tini \
     && gem install bundler:1.17.1 \
     && rm -rf /var/lib/apt/lists/*
