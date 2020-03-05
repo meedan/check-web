@@ -20,8 +20,11 @@ ENV DEPLOYUSER=checkdeploy \
 
 # user config
 RUN useradd ${DEPLOYUSER} -s /bin/bash -d ${DEPLOYDIR}/latest 
-
-RUN apt-get update -qq && apt-get install -y graphicsmagick
+RUN apt-get install -y dirmngr gnupg \
+    && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 561F9B9CAC40B2F7 \
+    && apt-get install -y apt-transport-https ca-certificates \
+    && echo 'deb https://oss-binaries.phusionpassenger.com/apt/passenger buster main' > /etc/apt/sources.list.d/passenger.list \
+    && apt-get update -qq && apt-get install -y graphicsmagick passenger
 
 # deployment scripts
 COPY production/bin /opt/bin
@@ -29,27 +32,21 @@ RUN chmod 755 /opt/bin/*
 # deployment directory
 
 WORKDIR ${DEPLOYDIR}/latest
-# RUN chown ${DEPLOYUSER}:www-data ${DEPLOYDIR}/latest
-# copy in package.json and run npm install to populate node_modules
+
+COPY package.json ${DEPLOYDIR}/latest
+COPY package-lock.json ${DEPLOYDIR}/latest
+RUN npm install
 COPY . ${DEPLOYDIR}/latest
-RUN npm install --only=prod
 
 # get the relay.json file from github.com/meedan/check-api that corresponds to the current local git branch (defaults to 'develop')
-RUN /opt/bin/get_relay_json.sh
+RUN curl --silent https://raw.githubusercontent.com/meedan/check-api/develop/public/relay.json -o ${DEPLOYDIR}/latest/relay.json \
+    && sed "s|https://raw.githubusercontent.com/meedan/check-api/develop/public/relay.json|${DEPLOYDIR}/latest/relay.json|" < config-build.js.example > ${DEPLOYDIR}/latest/config-build.js
+
 
 # build all assets, js, css, transifex
 RUN npm run build && npm run build:server
 
-WORKDIR ${DEPLOYDIR}
-RUN ln -s ./latest ./${APP}-$(date -I) && ln -s ./${APP}-$(date -I) ./current
-RUN rm -rf ./latest/configurator
-RUN rm /etc/nginx/sites-enabled/default
-COPY production/config/nginx.conf /etc/nginx/sites-enabled/${APP}
+WORKDIR ${DEPLOYDIR}/latest
 
-#
-# RUNTIME ELEMENTS
-# expose, cmd
-#
-EXPOSE 80
-WORKDIR ${DEPLOYDIR}/current
+EXPOSE 8000
 CMD ["/opt/bin/start.sh"]
