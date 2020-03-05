@@ -112,14 +112,6 @@
     "defaultMessage": "Translated to {language} by {author}{translation}"
   },
   {
-    "id": "annotation.emptyMachineTranslation",
-    "defaultMessage": "Add machine translation"
-  },
-  {
-    "id": "annotation.machineTranslation",
-    "defaultMessage": "Machine translated to {language}{text}"
-  },
-  {
     "id": "annotation.translationStatus",
     "defaultMessage": "Translation status set to {status} by {author}"
   },
