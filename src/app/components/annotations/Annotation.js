@@ -236,7 +236,7 @@ const messages = defineMessages({
   },
   smoochNoMessage: {
     id: 'annotation.smoochNoMessage',
-    defaultMessage: 'Empty request',
+    defaultMessage: 'No message was sent with the request',
   },
 });
 
