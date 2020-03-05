@@ -21,6 +21,11 @@ This is the web client of [Check](https://github.com/meedan/check).
 
 If you are just getting started, you probably want to install the full [Check](https://github.com/meedan/check) stack with [Docker](https://www.docker.com/ "Docker - Build, Ship, and Run Any App, Anywhere").
 
+The full Check environment will install Node packages into an invisible
+`node_modules/` directory. Instead of using `npm run ...`, run
+`docker-compose exec web npm run ...` to run in the Docker container: the
+Docker container can see the `node_modules/` directory.
+
 #### Using Dev mode
 
 The dev mode build (`npm run build:dev`.) is intended to be used instead of the existing "full build" (`npm run build`) during local development. The dev mode reduces build time primarily by enabling webpack's `watch` feature, which uses caching and auto-rebuilding. It also disables sourcemaps by default.
@@ -67,6 +72,15 @@ By default, the application is displayed in the browser's language using the fil
 Copy `config-build.js.example` to `config-build.js` (if you don't have it yet) and add your Transifex user and password.
 
 Then you can use `npm run transifex:upload` and `npm run transifex:download` to upload and download translations, respectively.
+
+## Developing
+
+### Maintaining `package-lock.json`
+
+If running within Docker, run
+`docker-compose exec web npm install [--save-dev] MODULE [...]`. This will
+overwrite `package-lock.json`. Commit and deploy `package-lock.json` alongside
+any change to `package.json`.
 
 ## Testing
 
