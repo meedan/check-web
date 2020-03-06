@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import Popover from 'material-ui/Popover';
 import Checkbox from 'material-ui/Checkbox';
-import FlatButton from 'material-ui/FlatButton';
+import Button from '@material-ui/core/Button';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import CopyToClipboard from 'react-copy-to-clipboard';
@@ -409,28 +409,26 @@ class MediaEmbedComponent extends Component {
                 />
               </div>
               <CopyToClipboard text={embedTag} onCopy={this.handleCopyEmbedCode.bind(this)}>
-                <FlatButton
+                <Button
                   id="media-embed__actions-copy"
                   onClick={this.handleCodeMenuOpen.bind(this)}
-                  label={
-                    <FormattedMessage
-                      id="mediaEmbed.copyEmbedCode"
-                      defaultMessage="Copy embed code"
-                    />
-                  }
-                />
+                >
+                  <FormattedMessage
+                    id="mediaEmbed.copyEmbedCode"
+                    defaultMessage="Copy embed code"
+                  />
+                </Button>
               </CopyToClipboard>
               <CopyToClipboard text={shareUrl} onCopy={this.handleCopyShareUrl.bind(this)}>
-                <FlatButton
+                <Button
                   id="media-embed__actions-copy"
                   onClick={this.handleShareMenuOpen.bind(this)}
-                  label={
-                    <FormattedMessage
-                      id="mediaEmbed.copyShareUrl"
-                      defaultMessage="Copy share URL"
-                    />
-                  }
-                />
+                >
+                  <FormattedMessage
+                    id="mediaEmbed.copyShareUrl"
+                    defaultMessage="Copy share URL"
+                  />
+                </Button>
               </CopyToClipboard>
             </div>
             <div

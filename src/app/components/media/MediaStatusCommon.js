@@ -4,7 +4,7 @@ import { defineMessages, injectIntl, intlShape, FormattedMessage } from 'react-i
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
+import Button from '@material-ui/core/Button';
 import MdLockOutline from 'material-ui/svg-icons/action/lock-outline';
 import { can } from '../Can';
 import CheckContext from '../../CheckContext';
@@ -114,21 +114,21 @@ class MediaStatusCommon extends Component {
     };
 
     const actions = [
-      <FlatButton
-        label={this.props.intl.formatMessage(globalStrings.cancel)}
+      <Button
         onClick={this.handleCancel.bind(this)}
-      />,
-      <FlatButton
-        label={
-          <FormattedMessage
-            id="mediaStatusCommon.proceedAndSend"
-            defaultMessage="Proceed and Send"
-          />
-        }
+      >
+        {this.props.intl.formatMessage(globalStrings.cancel)}
+      </Button>,
+      <Button
         className="media-status__proceed-send"
-        primary
+        color="primary"
         onClick={this.handleConfirm.bind(this)}
-      />,
+      >
+        <FormattedMessage
+          id="mediaStatusCommon.proceedAndSend"
+          defaultMessage="Proceed and Send"
+        />
+      </Button>,
     ];
 
     let smoochBotInstalled = false;
@@ -211,16 +211,15 @@ class MediaStatusCommon extends Component {
               defaultMessage="You are about to send a report to all people who requested this item."
             /> }
           <div style={{ marginTop: units(2), marginBottom: units(2) }}>
-            <FlatButton
-              label={
-                <FormattedMessage
-                  id="mediaStatusCommon.editReportBeforeSending"
-                  defaultMessage="Edit report before sending"
-                />
-              }
+            <Button
               onClick={this.handleEdit.bind(this)}
               backgroundColor="#FBAA6D"
-            />
+            >
+              <FormattedMessage
+                id="mediaStatusCommon.editReportBeforeSending"
+                defaultMessage="Edit report before sending"
+              />
+            </Button>
           </div>
         </Dialog>
       </div>

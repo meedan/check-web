@@ -4,7 +4,7 @@ import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-i
 import Relay from 'react-relay/classic';
 import TextField from 'material-ui/TextField';
 import { Card, CardText, CardActions } from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import Button from '@material-ui/core/Button';
 import RaisedButton from 'material-ui/RaisedButton';
 import UpdateProjectMutation from '../../relay/mutations/UpdateProjectMutation';
 import PageTitle from '../PageTitle';
@@ -164,11 +164,12 @@ class ProjectEditComponent extends Component {
                 </CardText>
                 <CardActions>
                   <div className="project-edit__editing-buttons">
-                    <FlatButton
-                      label={this.props.intl.formatMessage(globalStrings.cancel)}
+                    <Button
                       onClick={this.handleCancel}
                       className="project-edit__editing-button project-edit__editing-button--cancel"
-                    />
+                    >
+                      {this.props.intl.formatMessage(globalStrings.cancel)}
+                    </Button>
                     <RaisedButton
                       primary
                       label={<FormattedMessage id="projectEdit.saveButton" defaultMessage="Save" />}

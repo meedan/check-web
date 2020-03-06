@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
-import FlatButton from 'material-ui/FlatButton';
+import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 import DownloadIcon from 'material-ui/svg-icons/content/move-to-inbox';
 import ExternalLink from '../ExternalLink';
@@ -92,15 +92,16 @@ class MediaMetadata extends Component {
                   />
                 </small>
                 <br />
-                <FlatButton
-                  label="Google"
+                <Button
                   style={{
                     border: '1px solid #000',
                     minWidth: 115,
                     marginRight: units(2),
                   }}
                   onClick={this.reverseImageSearchGoogle.bind(this)}
-                />
+                >
+                  Google
+                </Button>
               </div> : null }
             { (media.media && media.media.file_path) ?
               <div

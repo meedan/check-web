@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import { Card, CardText, CardActions, CardTitle } from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import Button from '@material-ui/core/Button';
 import rtlDetect from 'rtl-detect';
 import PageTitle from './PageTitle';
 import ChangePasswordComponent from './ChangePasswordComponent';
@@ -68,11 +68,9 @@ class UserPasswordChange extends Component {
                 />
               </CardText>
               <CardActions className="user-password-change__actions">
-                <FlatButton
-                  label={<FormattedMessage id="passwordChange.signIn" defaultMessage="Got it" />}
-                  primary
-                  onClick={this.handleSignIn.bind(this)}
-                />
+                <Button color="primary" onClick={this.handleSignIn.bind(this)}>
+                  <FormattedMessage id="passwordChange.signIn" defaultMessage="Got it" />
+                </Button>
               </CardActions>
             </Card> :
             <Card className="user-password-change__card">

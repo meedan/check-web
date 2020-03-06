@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
 import { Card, CardText } from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import Button from '@material-ui/core/Button';
 import { List, ListItem } from 'material-ui/List';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -758,26 +758,19 @@ class TeamRulesComponent extends Component {
           {this.state.currentRuleIndex === this.state.rules.length ?
             null :
             <StyledRulesBar>
-              <FlatButton
-                onClick={this.showAllRules.bind(this)}
-                label={
-                  <FormattedMessage
-                    id="teamRules.back"
-                    defaultMessage="Back"
-                  />
-                }
-              />
+              <Button onClick={this.showAllRules.bind(this)}>
+                <FormattedMessage
+                  id="teamRules.back"
+                  defaultMessage="Back"
+                />
+              </Button>
               {' '}
-              <FlatButton
-                primary
-                onClick={this.handleSubmitRules.bind(this)}
-                label={
-                  <FormattedMessage
-                    id="teamRules.save"
-                    defaultMessage="Save"
-                  />
-                }
-              />
+              <Button color="primary" onClick={this.handleSubmitRules.bind(this)}>
+                <FormattedMessage
+                  id="teamRules.save"
+                  defaultMessage="Save"
+                />
+              </Button>
             </StyledRulesBar>}
           <Card style={{ marginTop: units(2), marginBottom: units(5) }}>
             <CardText>

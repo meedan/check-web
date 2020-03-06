@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
 import { Card, CardActions, CardText, CardTitle } from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import Button from '@material-ui/core/Button';
 import TextField from 'material-ui/TextField';
 import ConfirmEmail from './ConfirmEmail';
 import CheckContext from '../../CheckContext';
@@ -107,15 +107,12 @@ class UserEmail extends React.Component {
             </div>
           </CardText>
           <CardActions>
-            <FlatButton
-              label={this.props.intl.formatMessage(messages.skip)}
-              onClick={this.handleClickSkip}
-            />
-            <FlatButton
-              label={this.props.intl.formatMessage(messages.submit)}
-              onClick={this.handleSubmit}
-              primary
-            />
+            <Button onClick={this.handleClickSkip}>
+              {this.props.intl.formatMessage(messages.skip)}
+            </Button>
+            <Button onClick={this.handleSubmit} color="primary">
+              {this.props.intl.formatMessage(messages.submit)}
+            </Button>
           </CardActions>
         </Card>
       );

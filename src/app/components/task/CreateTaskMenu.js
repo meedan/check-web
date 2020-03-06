@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import FlatButton from 'material-ui/FlatButton';
+import Button from '@material-ui/core/Button';
 import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
@@ -15,7 +15,7 @@ import styled from 'styled-components';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { units, black05 } from '../../styles/js/shared';
 
-const StyledCreateTaskButton = styled(FlatButton)`
+const StyledCreateTaskButton = styled(Button)`
   margin-bottom: ${units(2)} !important;
 
   &:hover {
@@ -55,8 +55,9 @@ class CreateTaskMenu extends React.Component {
         <StyledCreateTaskButton
           className="create-task__add-button"
           onClick={this.handleClick.bind(this)}
-          label={<FormattedMessage id="tasks.addTask" defaultMessage="Add task" />}
-        />
+        >
+          <FormattedMessage id="tasks.addTask" defaultMessage="Add task" />
+        </StyledCreateTaskButton>
 
         <Popover
           open={this.state.menuOpen}

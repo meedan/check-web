@@ -4,7 +4,7 @@ import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay/classic';
 import { Card, CardActions, CardText, CardHeader } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
-import FlatButton from 'material-ui/FlatButton';
+import Button from '@material-ui/core/Button';
 import styled from 'styled-components';
 import CreateProjectMutation from '../../relay/mutations/CreateProjectMutation';
 import CheckContext from '../../CheckContext';
@@ -121,13 +121,14 @@ class CreateProject extends Component {
     );
 
     const submitButton = (
-      <FlatButton
+      <Button
         id="create-project-submit-button"
-        label={this.props.intl.formatMessage(messages.addProject)}
         onClick={this.handleSubmit.bind(this)}
-        primary
+        color="primary"
         disabled={!this.state.name}
-      />
+      >
+        {this.props.intl.formatMessage(messages.addProject)}
+      </Button>
     );
 
     const form = (

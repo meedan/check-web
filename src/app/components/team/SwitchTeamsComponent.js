@@ -5,7 +5,7 @@ import { FormattedMessage, defineMessages, intlShape, injectIntl } from 'react-i
 import KeyboardArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import { Link } from 'react-router';
 import { Card, CardActions, CardText, CardHeader } from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import Button from '@material-ui/core/Button';
 import { List, ListItem } from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
 import styled from 'styled-components';
@@ -173,14 +173,14 @@ class SwitchTeamsComponent extends Component {
                 leftAvatar={<Avatar style={teamAvatarStyle} src={team.avatar} />}
                 primaryText={team.name}
                 rightIconButton={
-                  <FlatButton
+                  <Button
                     className="switch-team__cancel-request"
                     style={listItemButtonStyle}
                     hoverColor={alertRed}
                     onClick={this.cancelRequest.bind(this, team)}
                   >
                     <FormattedMessage id="switchTeams.cancelJoinRequest" defaultMessage="Cancel" />
-                  </FlatButton>
+                  </Button>
                 }
                 secondaryText={this.props.intl.formatMessage(messages.joinTeam)}
               />
@@ -193,10 +193,11 @@ class SwitchTeamsComponent extends Component {
 
         { isUserSelf ?
           <CardActions>
-            <FlatButton
-              label={<FormattedMessage id="switchTeams.newTeamLink" defaultMessage="Create Workspace" />}
+            <Button
               onClick={() => this.getContext().getContextStore().history.push('/check/teams/new')}
-            />
+            >
+              <FormattedMessage id="switchTeams.newTeamLink" defaultMessage="Create Workspace" />
+            </Button>
           </CardActions> : null
         }
       </Card>

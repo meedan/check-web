@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import AutoComplete from 'material-ui/AutoComplete';
 import TextField from 'material-ui/TextField';
-import FlatButton from 'material-ui/FlatButton';
+import Button from '@material-ui/core/Button';
 import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
 import { Map, Marker, TileLayer } from 'react-leaflet';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
@@ -249,25 +249,23 @@ class GeolocationRespondTask extends Component {
 
     const actionBtns = (
       <p className="task__resolver">
-        <FlatButton
+        <Button
           className="task__cancel"
-          label={
-            <FormattedMessage id="geolocationRespondTask.cancelTask" defaultMessage="Cancel" />
-          }
           onClick={this.handleCancel.bind(this)}
-        />
-        <FlatButton
+        >
+          <FormattedMessage id="geolocationRespondTask.cancelTask" defaultMessage="Cancel" />
+        </Button>
+        <Button
           disabled={this.state.taskAnswerDisabled}
           className="task__save"
-          label={
-            <FormattedMessage
-              id="geolocationRespondTask.answerTask"
-              defaultMessage="Answer task"
-            />
-          }
-          primary
+          color="primary"
           onClick={this.handlePressButton.bind(this)}
-        />
+        >
+          <FormattedMessage
+            id="geolocationRespondTask.answerTask"
+            defaultMessage="Answer task"
+          />
+        </Button>
       </p>
     );
 

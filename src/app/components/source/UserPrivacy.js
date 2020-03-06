@@ -4,7 +4,7 @@ import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import Relay from 'react-relay/classic';
 import { Card, CardText } from 'material-ui/Card';
 import rtlDetect from 'rtl-detect';
-import FlatButton from 'material-ui/FlatButton';
+import Button from '@material-ui/core/Button';
 import { List } from 'material-ui/List';
 import ConfirmDialog from '../layout/ConfirmDialog';
 import UserConnectedAccount from '../user/UserConnectedAccount';
@@ -159,14 +159,15 @@ class UserPrivacy extends Component {
               defaultMessage="We will send you a file with the content and data you created and generated on {appName}. This can be kept for your records or transferred to another service."
               values={{ appName }}
             />
-            <FlatButton
+            <Button
               id="user-privacy__see-info"
               hoverColor="transparent"
               style={buttonStyle}
-              label={<FormattedMessage id="userPrivacy.seeInformationButton" defaultMessage="See my information" />}
-              primary
+              color="primary"
               onClick={UserPrivacy.handleSubmit.bind(this, 'Send information')}
-            />
+            >
+              <FormattedMessage id="userPrivacy.seeInformationButton" defaultMessage="See my information" />
+            </Button>
           </CardText>
         </Card>
         <Card style={cardStyle}>
@@ -176,14 +177,15 @@ class UserPrivacy extends Component {
               defaultMessage="You can request {appName} to stop processing your information under certain conditions."
               values={{ appName }}
             />
-            <FlatButton
+            <Button
               id="user-privacy__stop-processing"
               hoverColor="transparent"
               style={buttonStyle}
-              label={<FormattedMessage id="userPrivacy.stopProcessingButton" defaultMessage="Request to stop processing" />}
-              primary
+              color="primary"
               onClick={UserPrivacy.handleSubmit.bind(this, 'Stop processing')}
-            />
+            >
+              <FormattedMessage id="userPrivacy.stopProcessingButton" defaultMessage="Request to stop processing" />
+            </Button>
           </CardText>
         </Card>
         <h2 style={style}>
@@ -212,14 +214,15 @@ class UserPrivacy extends Component {
               defaultMessage="If you delete your account, your personal information will be erased. Comments, annotations, and workspace activity will become pseudonymous and remain on {appName}."
               values={{ appName }}
             />
-            <FlatButton
+            <Button
               id="user-privacy__delete-account"
               hoverColor="transparent"
               style={buttonStyle}
-              label={<FormattedMessage id="userPrivacy.deleteAccountButton" defaultMessage="Delete my account" />}
-              primary
+              color="primary"
               onClick={this.handleOpenDialog.bind(this)}
-            />
+            >
+              <FormattedMessage id="userPrivacy.deleteAccountButton" defaultMessage="Delete my account" />
+            </Button>
             <ConfirmDialog
               message={this.state.message}
               open={this.state.dialogOpen}

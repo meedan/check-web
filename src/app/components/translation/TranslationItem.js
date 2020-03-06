@@ -7,7 +7,7 @@ import IconMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
-import FlatButton from 'material-ui/FlatButton';
+import Button from '@material-ui/core/Button';
 import TextField from 'material-ui/TextField';
 import styled from 'styled-components';
 import ParsedText from '../ParsedText';
@@ -165,19 +165,17 @@ class TranslationItem extends Component {
                   />
                 </form>
                 <div style={{ textAlign: this.props.localeIsRtl ? 'left' : 'right' }}>
-                  <FlatButton
-                    label={
-                      <FormattedMessage id="translation.cancelEdit" defaultMessage="Cancel" />
-                    }
-                    onClick={() => this.setState({ editing: false })}
-                  />
-                  <FlatButton
+                  <Button onClick={() => this.setState({ editing: false })}>
+                    <FormattedMessage id="translation.cancelEdit" defaultMessage="Cancel" />
+                  </Button>
+                  <Button
                     className="task__submit"
-                    label={<FormattedMessage id="translation.submit" defaultMessage="Submit" />}
-                    primary
+                    color="primary"
                     onClick={this.handleSubmitUpdate.bind(this)}
                     disabled={this.state.submitDisabled}
-                  />
+                  >
+                    <FormattedMessage id="translation.submit" defaultMessage="Submit" />
+                  </Button>
                 </div>
               </div>
               :

@@ -6,7 +6,7 @@ import IconMoreVert from 'material-ui/svg-icons/navigation/more-vert';
 import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
-import FlatButton from 'material-ui/FlatButton';
+import Button from '@material-ui/core/Button';
 import Dialog from 'material-ui/Dialog';
 import Checkbox from 'material-ui/Checkbox';
 import DeleteProjectMutation from '../../relay/mutations/DeleteProjectMutation';
@@ -134,17 +134,16 @@ class ProjectActions extends Component {
     }
 
     const actions = [
-      <FlatButton
-        label={<FormattedMessage id="projectActions.cancelDelete" defaultMessage="Cancel" />}
-        onClick={this.handleCloseDialog.bind(this)}
-      />,
-      <FlatButton
-        label={<FormattedMessage id="projectActions.continue" defaultMessage="Continue" />}
-        primary
-        keyboardFocused
+      <Button onClick={this.handleCloseDialog.bind(this)}>
+        <FormattedMessage id="projectActions.cancelDelete" defaultMessage="Cancel" />
+      </Button>,
+      <Button
+        color="primary"
         onClick={this.handleDestroy.bind(this)}
         disabled={!this.state.projectDeletionConfirmed}
-      />,
+      >
+        <FormattedMessage id="projectActions.continue" defaultMessage="Continue" />
+      </Button>,
     ];
 
     return menuItems.length ?

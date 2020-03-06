@@ -9,7 +9,7 @@ import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
-import FlatButton from 'material-ui/FlatButton';
+import Button from '@material-ui/core/Button';
 import Dialog from 'material-ui/Dialog';
 import Checkbox from 'material-ui/Checkbox';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -419,14 +419,12 @@ class TeamTagsComponent extends Component {
     const customTags = this.state.customTags.slice(0).sort(sortFunctions[this.state.sort]);
 
     const actions = [
-      <FlatButton
-        label={<FormattedMessage id="teamTags.cancelDelete" defaultMessage="Cancel" />}
-        onClick={this.handleCloseDialog.bind(this)}
-      />,
-      <FlatButton
+      <Button onClick={this.handleCloseDialog.bind(this)}>
+        <FormattedMessage id="teamTags.cancelDelete" defaultMessage="Cancel" />
+      </Button>,
+      <Button
         id="tag__confirm-delete"
-        label={<FormattedMessage id="teamTags.continue" defaultMessage="Continue" />}
-        primary
+        color="primary"
         keyboardFocused
         onClick={this.handleDestroy.bind(this)}
         disabled={
@@ -434,7 +432,9 @@ class TeamTagsComponent extends Component {
           !this.state.tagToBeDeleted ||
           !this.state.confirmed
         }
-      />,
+      >
+        <FormattedMessage id="teamTags.continue" defaultMessage="Continue" />
+      </Button>,
     ];
 
     const filterLabel = this.state.countHidden > 0 ? (
@@ -505,17 +505,13 @@ class TeamTagsComponent extends Component {
                   style={{ width: '50%' }}
                 />
                 <p>
-                  <FlatButton
+                  <Button
                     onClick={this.handleAddTag.bind(this)}
                     disabled={this.state.newTag.length === 0}
                     primary={this.state.newTag.length > 0}
-                    label={
-                      <FormattedMessage
-                        id="teamTags.addTag"
-                        defaultMessage="Add tag"
-                      />
-                    }
-                  />
+                  >
+                    <FormattedMessage id="teamTags.addTag" defaultMessage="Add tag" />
+                  </Button>
                 </p>
               </div>
             </Can>

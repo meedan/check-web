@@ -2,7 +2,7 @@ import React from 'react';
 import Relay from 'react-relay/classic';
 import Checkbox from 'material-ui/Checkbox';
 import { FormattedMessage } from 'react-intl';
-import FlatButton from 'material-ui/FlatButton';
+import Button from '@material-ui/core/Button';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import { ContentColumn, FlexRow, units } from '../../styles/js/shared';
@@ -157,15 +157,9 @@ class TeamEmbedComponent extends React.Component {
 
           <Can permissions={permissions} permission="update Team">
             <p style={{ marginTop: units(2), textAlign: direction.to }}>
-              <FlatButton
-                onClick={this.handleSubmit.bind(this)}
-                label={
-                  <FormattedMessage
-                    id="teamEmbed.save"
-                    defaultMessage="Save"
-                  />
-                }
-              />
+              <Button onClick={this.handleSubmit.bind(this)}>
+                <FormattedMessage id="teamEmbed.save" defaultMessage="Save" />
+              </Button>
             </p>
           </Can>
         </ContentColumn>

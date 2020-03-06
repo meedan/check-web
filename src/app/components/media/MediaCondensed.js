@@ -5,7 +5,7 @@ import { injectIntl, defineMessages, FormattedMessage } from 'react-intl';
 import Avatar from 'material-ui/Avatar';
 import { CardHeader } from 'material-ui/Card';
 import MenuItem from 'material-ui/MenuItem';
-import FlatButton from 'material-ui/FlatButton';
+import Button from '@material-ui/core/Button';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import IconMenu from 'material-ui/IconMenu';
@@ -247,26 +247,22 @@ class MediaCondensedComponent extends Component {
         </form>
 
         <span style={{ display: 'flex' }}>
-          <FlatButton
-            onClick={this.handleCancel.bind(this)}
-            label={
-              <FormattedMessage
-                id="mediaCondensed.cancelButton"
-                defaultMessage="Cancel"
-              />
-            }
-          />
-          <FlatButton
+          <Button onClick={this.handleCancel.bind(this)}>
+            <FormattedMessage
+              id="mediaCondensed.cancelButton"
+              defaultMessage="Cancel"
+            />
+          </Button>
+          <Button
             onClick={this.handleSave.bind(this, media)}
-            label={
-              <FormattedMessage
-                id="mediaCondensed.doneButton"
-                defaultMessage="Done"
-              />
-            }
             disabled={!this.canSubmit()}
-            primary
-          />
+            color="primary"
+          >
+            <FormattedMessage
+              id="mediaCondensed.doneButton"
+              defaultMessage="Done"
+            />
+          </Button>
         </span>
       </Dialog>
     );

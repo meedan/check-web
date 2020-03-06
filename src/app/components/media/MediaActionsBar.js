@@ -4,7 +4,7 @@ import Relay from 'react-relay/classic';
 import { injectIntl, FormattedMessage, defineMessages } from 'react-intl';
 import { Link } from 'react-router';
 import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
+import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -410,45 +410,43 @@ class MediaActionsBarComponent extends Component {
     const context = this.getContext();
 
     const addToListDialogActions = [
-      <FlatButton
-        label={
-          <FormattedMessage
-            id="mediaActionsBar.cancelButton"
-            defaultMessage="Cancel"
-          />
-        }
-        primary
+      <Button
+        color="primary"
         onClick={this.handleCloseDialogs.bind(this)}
-      />,
-      <FlatButton
-        label={<FormattedMessage id="mediaActionsBar.add" defaultMessage="Add" />}
-        primary
+      >
+        <FormattedMessage
+          id="mediaActionsBar.cancelButton"
+          defaultMessage="Cancel"
+        />
+      </Button>,
+      <Button
+        color="primary"
         className="media-actions-bar__add-button"
-        keyboardFocused
         onClick={this.handleAddItemToList.bind(this)}
         disabled={!this.state.dstProj}
-      />,
+      >
+        <FormattedMessage id="mediaActionsBar.add" defaultMessage="Add" />
+      </Button>,
     ];
 
     const moveDialogActions = [
-      <FlatButton
-        label={
-          <FormattedMessage
-            id="mediaActionsBar.cancelButton"
-            defaultMessage="Cancel"
-          />
-        }
-        primary
+      <Button
+        color="primary"
         onClick={this.handleCloseDialogs.bind(this)}
-      />,
-      <FlatButton
-        label={<FormattedMessage id="mediaActionsBar.move" defaultMessage="Move" />}
-        primary
+      >
+        <FormattedMessage
+          id="mediaActionsBar.cancelButton"
+          defaultMessage="Cancel"
+        />
+      </Button>,
+      <Button
+        color="primary"
         className="media-actions-bar__move-button"
-        keyboardFocused
         onClick={this.handleMoveProjectMedia.bind(this)}
         disabled={!this.state.dstProj}
-      />,
+      >
+        <FormattedMessage id="mediaActionsBar.move" defaultMessage="Move" />
+      </Button>,
     ];
 
     let smoochBotInstalled = false;
@@ -473,19 +471,20 @@ class MediaActionsBarComponent extends Component {
     const assignments = media.last_status_obj.assignments.edges;
 
     const assignDialogActions = [
-      <FlatButton
-        label={<FormattedMessage id="mediaActionsBar.cancelButton" defaultMessage="Cancel" />}
-        primary
+      <Button
+        color="primary"
         onClick={this.handleCloseDialogs.bind(this)}
         key="mediaActionsBar.cancelButton"
-      />,
-      <FlatButton
-        label={<FormattedMessage id="mediaActionsBar.done" defaultMessage="Done" />}
-        primary
-        keyboardFocused
+      >
+        <FormattedMessage id="mediaActionsBar.cancelButton" defaultMessage="Cancel" />
+      </Button>,
+      <Button
+        color="primary"
         onClick={this.handleAssignProjectMedia.bind(this)}
         key="mediaActionsBar.done"
-      />,
+      >
+        <FormattedMessage id="mediaActionsBar.done" defaultMessage="Done" />
+      </Button>,
     ];
 
     const editDialog = (
@@ -522,28 +521,26 @@ class MediaActionsBarComponent extends Component {
         </DialogContent>
         <DialogActions>
           <span style={{ display: 'flex' }}>
-            <FlatButton
+            <Button
               onClick={this.handleCancel.bind(this)}
               className="media-detail__cancel-edits"
-              label={
-                <FormattedMessage
-                  id="mediaDetail.cancelButton"
-                  defaultMessage="Cancel"
-                />
-              }
-            />
-            <FlatButton
+            >
+              <FormattedMessage
+                id="mediaDetail.cancelButton"
+                defaultMessage="Cancel"
+              />
+            </Button>
+            <Button
               onClick={this.handleSave.bind(this, media)}
               className="media-detail__save-edits"
-              label={
-                <FormattedMessage
-                  id="mediaDetail.doneButton"
-                  defaultMessage="Done"
-                />
-              }
               disabled={!this.canSubmit()}
-              primary
-            />
+              color="primary"
+            >
+              <FormattedMessage
+                id="mediaDetail.doneButton"
+                defaultMessage="Done"
+              />
+            </Button>
           </span>
         </DialogActions>
       </Dialog>
@@ -582,19 +579,18 @@ class MediaActionsBarComponent extends Component {
             />
 
             { media.project_id ?
-              <FlatButton
-                label={
-                  <FormattedMessage
-                    id="mediaActionsBar.removeFromList"
-                    defaultMessage="Remove from list"
-                  />
-                }
+              <Button
                 style={{
                   margin: '0 8px',
                   border: '1px solid #000',
                 }}
                 onClick={this.handleRemoveFromList.bind(this)}
-              /> : null }
+              >
+                <FormattedMessage
+                  id="mediaActionsBar.removeFromList"
+                  defaultMessage="Remove from list"
+                />
+              </Button> : null }
           </div> : <div />}
 
         <div

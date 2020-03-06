@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import Relay from 'react-relay/classic';
 import { Card, CardText, CardActions, CardTitle } from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import Button from '@material-ui/core/Button';
 import TextField from 'material-ui/TextField';
 import ResetPasswordMutation from '../relay/mutations/ResetPasswordMutation';
 import PageTitle from './PageTitle';
@@ -96,7 +96,13 @@ class UserPasswordReset extends Component {
                 />
               </CardText>,
               <CardActions key="usr-3" className="user-password-reset__actions">
-                <FlatButton label={<FormattedMessage id="passwordReset.signIn" defaultMessage="Sign In" />} primary disabled={this.state.submitDisabled} onClick={this.handleSignIn} />
+                <Button
+                  color="primary"
+                  disabled={this.state.submitDisabled}
+                  onClick={this.handleSignIn}
+                >
+                  <FormattedMessage id="passwordReset.signIn" defaultMessage="Sign In" />
+                </Button>
               </CardActions>,
             ] : [
               <CardTitle key="usr-1" title={<FormattedMessage id="passwordReset.title" defaultMessage="Reset password" />} />,
@@ -116,8 +122,12 @@ class UserPasswordReset extends Component {
                 </div>
               </CardText>,
               <CardActions key="usr-3" className="user-password-reset__actions">
-                <FlatButton label={<FormattedMessage id="passwordReset.cancel" defaultMessage="Cancel" />} onClick={this.handleGoBack} />
-                <FlatButton label={<FormattedMessage id="passwordReset.submit" defaultMessage="Reset Password" />} primary disabled={this.state.submitDisabled} onClick={this.handleSubmit.bind(this)} />
+                <Button onClick={this.handleGoBack}>
+                  <FormattedMessage id="passwordReset.cancel" defaultMessage="Cancel" />
+                </Button>
+                <Button color="primary" disabled={this.state.submitDisabled} onClick={this.handleSubmit.bind(this)}>
+                  <FormattedMessage id="passwordReset.submit" defaultMessage="Reset Password" />
+                </Button>
               </CardActions>,
             ]}
           </Card>

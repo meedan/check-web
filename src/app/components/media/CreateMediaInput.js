@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
-import FlatButton from 'material-ui/FlatButton';
+import Button from '@material-ui/core/Button';
 import SvgIcon from 'material-ui/SvgIcon';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import TextField from 'material-ui/TextField';
@@ -480,15 +480,16 @@ class CreateMediaInput extends React.Component {
                   {...defaultTabProps}
                 />
               </Tabs>
-              <FlatButton
+              <Button
                 id="create-media-submit"
-                primary
+                color="primary"
                 disabled={!this.state.submittable}
                 onClick={this.handleSubmit}
-                label={this.props.intl.formatMessage(messages.submitButton)}
                 className="create-media__button create-media__button--submit"
                 style={styles.submitButton}
-              />
+              >
+                {this.props.intl.formatMessage(messages.submitButton)}
+              </Button>
             </Row>
           </div>
         </form>
