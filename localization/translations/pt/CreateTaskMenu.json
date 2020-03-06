@@ -5,5 +5,6 @@
   "tasks.chooseMultiple": "Escolha múltipla",
   "tasks.geolocation": "Localização",
   "tasks.datetime": "Data e hora",
+  "tasks.imageUpload": "Upload de imagem",
   "tasks.teamwideNudge": "Tarefas padrão"
 }

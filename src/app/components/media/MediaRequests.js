@@ -84,7 +84,7 @@ class MediaRequestsComponent extends Component {
           noActivityMessage={
             <FormattedMessage
               id="MediaRequests.noRequest"
-              defaultMessage="No request"
+              defaultMessage="No requests"
             />
           }
         />

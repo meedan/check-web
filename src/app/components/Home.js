@@ -161,7 +161,8 @@ class HomeComponent extends Component {
   handleDrawerToggle = () => this.setState({ open: !this.state.open });
 
   loginCallback() {
-    if (this.state.path !== '/check/user/password-change') {
+    if (this.state.path !== '/check/user/password-change' &&
+      this.state.path !== '/check/user/confirmed') {
       window.location.assign(this.state.path);
     } else {
       window.location.assign('/');

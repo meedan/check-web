@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd ${DEPLOYDIR}/new
+cd ${DEPLOYDIR}/latest
 
 BRANCH=$check_api_branch
 echo "Found branch: ${BRANCH}"
@@ -11,6 +11,6 @@ STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://raw.githubusercontent.co
 if [ $STATUS == "404" ]; then
     BRANCH=develop
 fi
-curl https://raw.githubusercontent.com/meedan/check-api/${BRANCH}/public/relay.json -o ${DEPLOYDIR}/latest/relay.json
+curl --silent https://raw.githubusercontent.com/meedan/check-api/${BRANCH}/public/relay.json -o ${DEPLOYDIR}/latest/relay.json
 
 sed "s|https://raw.githubusercontent.com/meedan/check-api/develop/public/relay.json|${DEPLOYDIR}/latest/relay.json|" < config-build.js.example > ${DEPLOYDIR}/latest/config-build.js
