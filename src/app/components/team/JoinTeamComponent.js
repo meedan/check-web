@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import { Link } from 'react-router';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from '@material-ui/core/Button';
 import Card, { CardTitle, CardActions, CardText } from 'material-ui/Card';
 import PageTitle from '../PageTitle';
 import CreateTeamUserMutation from '../../relay/mutations/CreateTeamUserMutation';
@@ -184,14 +184,16 @@ class JoinTeamComponent extends Component {
                 if (!this.alreadyMember()) {
                   return (
                     <CardActions>
-                      <RaisedButton
+                      <Button
+                        variant="contained"
                         primary
                         className={`join-team__button${isRequestSent === ''
                           ? ''
                           : ' join-team__button--submitted'}`}
                         onClick={this.handleRequestAccess.bind(this)}
                         disabled={disableRequest}
-                        label={(() => {
+                      >
+                        {(() => {
                           if (isRequestSent === 'requested') {
                             return (
                               <FormattedMessage
@@ -207,7 +209,7 @@ class JoinTeamComponent extends Component {
                             />
                           );
                         })()}
-                      />
+                      </Button>
                     </CardActions>
                   );
                 }

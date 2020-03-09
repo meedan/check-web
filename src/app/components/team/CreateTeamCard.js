@@ -10,7 +10,7 @@ import {
 } from 'react-intl';
 import TextField from 'material-ui/TextField';
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from '@material-ui/core/Button';
 import styled from 'styled-components';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import Message from '../Message';
@@ -215,18 +215,18 @@ class CreateTeamCard extends React.Component {
               </TeamUrlRow>
             </CardText>
             <CardActions>
-              <RaisedButton
+              <Button
+                variant="contained"
+                color="primary"
                 type="submit"
                 className="create-team__submit-button"
-                label={
-                  <FormattedMessage
-                    id="createTeam.submitButton"
-                    defaultMessage="Create"
-                  />
-                }
-                primary
                 onClick={this.handleSubmit}
-              />
+              >
+                <FormattedMessage
+                  id="createTeam.submitButton"
+                  defaultMessage="Create"
+                />
+              </Button>
             </CardActions>
           </form>
         </Card>

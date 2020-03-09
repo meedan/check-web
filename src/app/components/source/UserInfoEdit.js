@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { injectIntl, defineMessages } from 'react-intl';
 import Button from '@material-ui/core/Button';
-import RaisedButton from 'material-ui/RaisedButton';
 import Checkbox from 'material-ui/Checkbox';
 import TextField from 'material-ui/TextField';
 import MdCancel from 'react-icons/lib/md/cancel';
@@ -576,12 +575,14 @@ class UserInfoEdit extends React.Component {
                 >
                   {this.props.intl.formatMessage(globalStrings.cancel)}
                 </Button>
-                <RaisedButton
+                <Button
+                  variant="contained"
                   className="source__edit-save-button"
-                  primary
+                  color="primary"
                   onClick={this.handleSubmit.bind(this)}
-                  label={this.props.intl.formatMessage(globalStrings.save)}
-                />
+                >
+                  {this.props.intl.formatMessage(globalStrings.save)}
+                </Button>
               </div>
             </StyledButtonGroup>
           </StyledBigColumn>

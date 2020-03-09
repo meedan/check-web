@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { injectIntl, FormattedMessage, defineMessages } from 'react-intl';
 import { Link } from 'react-router';
-import RaisedButton from 'material-ui/RaisedButton';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -550,33 +549,29 @@ class MediaActionsBarComponent extends Component {
       <div style={this.props.style} className={this.props.className}>
         { !media.archived ?
           <div>
-            <RaisedButton
-              label={
-                <FormattedMessage
-                  id="mediaActionsBar.addTo"
-                  defaultMessage="Add to..."
-                />
-              }
-              style={{
-                margin: '0 8px',
-              }}
-              primary
+            <Button
+              variant="contained"
+              style={{ margin: '0 8px' }}
+              color="primary"
               onClick={this.handleAddToList.bind(this)}
-            />
+            >
+              <FormattedMessage
+                id="mediaActionsBar.addTo"
+                defaultMessage="Add to..."
+              />
+            </Button>
 
-            <RaisedButton
-              label={
-                <FormattedMessage
-                  id="mediaActionsBar.moveTo"
-                  defaultMessage="Move to..."
-                />
-              }
-              style={{
-                margin: '0 8px',
-              }}
-              primary
+            <Button
+              variant="contained"
+              style={{ margin: '0 8px' }}
+              color="primary"
               onClick={this.handleMove.bind(this)}
-            />
+            >
+              <FormattedMessage
+                id="mediaActionsBar.moveTo"
+                defaultMessage="Move to..."
+              />
+            </Button>
 
             { media.project_id ?
               <Button

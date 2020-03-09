@@ -5,7 +5,6 @@ import Relay from 'react-relay/classic';
 import TextField from 'material-ui/TextField';
 import { Card, CardText, CardActions } from 'material-ui/Card';
 import Button from '@material-ui/core/Button';
-import RaisedButton from 'material-ui/RaisedButton';
 import UpdateProjectMutation from '../../relay/mutations/UpdateProjectMutation';
 import PageTitle from '../PageTitle';
 import ProjectRoute from '../../relay/ProjectRoute';
@@ -170,13 +169,15 @@ class ProjectEditComponent extends Component {
                     >
                       {this.props.intl.formatMessage(globalStrings.cancel)}
                     </Button>
-                    <RaisedButton
-                      primary
-                      label={<FormattedMessage id="projectEdit.saveButton" defaultMessage="Save" />}
+                    <Button
+                      variant="contained"
+                      color="primary"
                       type="submit"
                       className="project-edit__editing-button project-edit__editing-button--save"
                       disabled={!this.canSubmit()}
-                    />
+                    >
+                      <FormattedMessage id="projectEdit.saveButton" defaultMessage="Save" />
+                    </Button>
                   </div>
                 </CardActions>
               </form>

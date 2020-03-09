@@ -13,8 +13,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import rtlDetect from 'rtl-detect';
 import { Link } from 'react-router';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from '@material-ui/core/Button';
 import TextField from 'material-ui/TextField';
 import EnhancedButton from 'material-ui/internal/EnhancedButton';
 import { Card } from 'material-ui/Card';
@@ -465,13 +464,15 @@ class Login extends Component {
                     </div> }
 
                   <div className="login__actions" style={styles.buttonGroup}>
-                    <RaisedButton
-                      primary
+                    <Button
+                      variant="contained"
+                      color="primary"
                       style={styles.primaryButton}
                       type="submit"
                       id="submit-register-or-login"
                       className={`login__submit login__submit--${this.state.type}`}
-                      label={this.state.type === 'login' ?
+                    >
+                      {this.state.type === 'login' ?
                         <FormattedMessage
                           id="login.signIn"
                           defaultMessage="SIGN IN"
@@ -481,19 +482,16 @@ class Login extends Component {
                           defaultMessage="REGISTER"
                         />
                       }
-                    />
+                    </Button>
                     {this.state.type === 'login' ?
                       <span className="login__forgot-password">
                         <Link to="/check/user/password-reset">
-                          <FlatButton
-                            style={styles.secondaryButton}
-                            label={
-                              <FormattedMessage
-                                id="loginEmail.lostPassword"
-                                defaultMessage="Forgot password"
-                              />
-                            }
-                          />
+                          <Button style={styles.secondaryButton}>
+                            <FormattedMessage
+                              id="loginEmail.lostPassword"
+                              defaultMessage="Forgot password"
+                            />
+                          </Button>
                         </Link>
                       </span>
                       : null}

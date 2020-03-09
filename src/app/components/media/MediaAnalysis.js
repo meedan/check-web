@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from '@material-ui/core/Button';
 import MediaRoute from '../../relay/MediaRoute';
 import { can } from '../Can';
 import CreateAnalysisMutation from '../../relay/mutations/CreateAnalysisMutation';
@@ -124,17 +124,17 @@ class MediaAnalysisComponent extends Component {
         </div>
         { !disabled ?
           <div>
-            <RaisedButton
-              label={
-                <FormattedMessage
-                  id="mediaAnalysis.save"
-                  defaultMessage="Save"
-                />
-              }
-              primary
+            <Button
+              variant="contained"
+              color="primary"
               disabled={this.state.saving || !this.state.canSave}
               onClick={this.handleSave.bind(this)}
-            />
+            >
+              <FormattedMessage
+                id="mediaAnalysis.save"
+                defaultMessage="Save"
+              />
+            </Button>
           </div> : null }
       </div>
     );

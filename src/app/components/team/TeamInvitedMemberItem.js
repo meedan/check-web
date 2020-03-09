@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import Relay from 'react-relay/classic';
 import { ListItem } from 'material-ui/List';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from '@material-ui/core/Button';
 import '../../styles/css/tooltip.css';
 import ResendCancelInvitationMutation from '../../relay/mutations/ResendCancelInvitationMutation';
 import { getErrorMessage } from '../../helpers';
@@ -55,24 +55,24 @@ class TeamInvitedMemberItem extends Component {
           <Text ellipsis>
             {this.props.invitedMail}
           </Text>
-          <RaisedButton
+          <Button
+            variant="contained"
             style={{ marginLeft: 'auto', marginRight: units(1) }}
             onClick={this.handleTeamMemberInvites.bind(this, 'cancel')}
             className="team-member-invited__user-button--cancel"
-            label={
-              <FormattedMessage
-                id="TeamMembersInvitedListItem.cancel"
-                defaultMessage="Cancel invite"
-              />
-            }
-          />
-          <RaisedButton
+          >
+            <FormattedMessage
+              id="TeamMembersInvitedListItem.cancel"
+              defaultMessage="Cancel invite"
+            />
+          </Button>
+          <Button
+            variant="contained"
             onClick={this.handleTeamMemberInvites.bind(this, 'resend')}
             className="team-member-invited__user-button--resend"
-            label={
-              <FormattedMessage id="TeamMembersInvitedListItem.resend" defaultMessage="Resend" />
-            }
-          />
+          >
+            <FormattedMessage id="TeamMembersInvitedListItem.resend" defaultMessage="Resend" />
+          </Button>
         </FlexRow>
       </ListItem>
     );

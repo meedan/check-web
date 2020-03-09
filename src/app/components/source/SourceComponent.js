@@ -11,7 +11,6 @@ import {
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import Button from '@material-ui/core/Button';
-import RaisedButton from 'material-ui/RaisedButton';
 import { CardActions } from 'material-ui/Card';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import Popover from 'material-ui/Popover';
@@ -1453,12 +1452,14 @@ class SourceComponent extends Component {
               >
                 {this.props.intl.formatMessage(globalStrings.cancel)}
               </Button>
-              <RaisedButton
+              <Button
+                variant="contained"
                 className="source__edit-save-button"
-                primary
+                color="primary"
                 onClick={this.handleSubmit.bind(this)}
-                label={this.props.intl.formatMessage(globalStrings.save)}
-              />
+              >
+                {this.props.intl.formatMessage(globalStrings.save)}
+              </Button>
             </div>
           </StyledButtonGroup>
         </StyledBigColumn>

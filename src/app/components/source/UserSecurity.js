@@ -7,7 +7,7 @@ import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '@material-ui/core/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from '@material-ui/core/Button';
 import rtlDetect from 'rtl-detect';
 import ChangePasswordComponent from '../ChangePasswordComponent';
 import SetUserSecuritySettingsMutation from '../../relay/mutations/SetUserSecuritySettingsMutation';
@@ -346,14 +346,14 @@ class UserSecurity extends Component {
                 }
                 {this.state.twoFactorAuthentication ?
                   <CardText style={cardTextAuthStyle}>
-                    <RaisedButton
+                    <Button
+                      variant="contained"
                       style={{ marginLeft: 'auto', marginRight: units(2) }}
                       onClick={this.handleSubmitTwoFactorAuthentication.bind(this, false)}
                       className="user-two-factor__enable-button"
-                      label={
-                        <FormattedMessage id="userSecurity.disableTwofactor" defaultMessage="Disable" />
-                      }
-                    />
+                    >
+                      <FormattedMessage id="userSecurity.disableTwofactor" defaultMessage="Disable" />
+                    </Button>
                   </CardText>
                   : null
                 }
@@ -427,14 +427,14 @@ class UserSecurity extends Component {
                         defaultMessage="Note: any existing backup codes will be invalidated by clicking the button."
                       />
                     </p>
-                    <RaisedButton
+                    <Button
+                      variant="contained"
                       style={{ marginLeft: 'auto', marginRight: units(2) }}
                       onClick={this.handleGenerateBackupCodes.bind(this)}
                       className="user-two-factor__backup-button"
-                      label={
-                        <FormattedMessage id="userSecurity.generateGackup" defaultMessage="Generate backup code" />
-                      }
-                    />
+                    >
+                      <FormattedMessage id="userSecurity.generateGackup" defaultMessage="Generate backup code" />
+                    </Button>
                     {this.state.backupCodes.length === 0 ?
                       null :
                       <div style={divBackupStyle}>
@@ -473,14 +473,14 @@ class UserSecurity extends Component {
                     />
                   </CardText>
                   <CardText style={cardTextAuthStyle}>
-                    <RaisedButton
+                    <Button
+                      variant="contained"
                       style={{ marginLeft: 'auto', marginRight: units(2) }}
                       onClick={this.handleSubmitTwoFactorAuthentication.bind(this, true)}
                       className="user-two-factor__enable-button"
-                      label={
-                        <FormattedMessage id="userSecurity.enableTwofactor" defaultMessage="Enable" />
-                      }
-                    />
+                    >
+                      <FormattedMessage id="userSecurity.enableTwofactor" defaultMessage="Enable" />
+                    </Button>
                   </CardText>
                 </div>
                 : null
