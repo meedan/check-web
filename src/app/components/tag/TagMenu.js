@@ -4,7 +4,7 @@ import Relay from 'react-relay/classic';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import isEqual from 'lodash.isequal';
 import Button from '@material-ui/core/Button';
-import IconButton from 'material-ui/IconButton';
+import IconButton from '@material-ui/core/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import styled from 'styled-components';
 import TagInput from './TagInput';

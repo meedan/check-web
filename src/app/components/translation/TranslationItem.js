@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
 import Relay from 'react-relay/classic';
 import { Card, CardText } from 'material-ui/Card';
-import IconMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
-import IconButton from 'material-ui/IconButton';
+import MoreHoriz from '@material-ui/icons/MoreHoriz';
+import IconButton from '@material-ui/core/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import Button from '@material-ui/core/Button';
@@ -197,7 +197,7 @@ class TranslationItem extends Component {
               <IconMenu
                 className="task-actions"
                 iconButtonElement={
-                  <IconButton className="task-actions__icon"><IconMoreHoriz /></IconButton>
+                  <IconButton className="task-actions__icon"><MoreHoriz /></IconButton>
                 }
               >
                 <MenuItem

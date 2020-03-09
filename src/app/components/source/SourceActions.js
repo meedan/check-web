@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import IconMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
-import IconButton from 'material-ui/IconButton';
+import MoreHoriz from '@material-ui/icons/MoreHoriz';
+import IconButton from '@material-ui/core/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import styled from 'styled-components';
@@ -34,7 +34,7 @@ const SourceActions = (props) => {
         className="source-actions"
         iconButtonElement={
           <IconButton>
-            <IconMoreHoriz className="source-actions__icon" />
+            <MoreHoriz className="source-actions__icon" />
           </IconButton>}
       >
         {menuItems}

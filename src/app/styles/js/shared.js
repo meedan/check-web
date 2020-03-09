@@ -1,7 +1,7 @@
 import styled, { css, keyframes } from 'styled-components';
 import { CardTitle } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
-import IconButton from 'material-ui/IconButton';
+import IconButton from '@material-ui/core/IconButton';
 import CheckboxNext from '@material-ui/core/Checkbox';
 import { stripUnit, rgba } from 'polished';
 

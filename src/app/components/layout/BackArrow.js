@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import IconArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
-import IconButton from 'material-ui/IconButton';
+import IconButton from '@material-ui/core/IconButton';
 import { HeaderTitle, FadeIn, SlideIn, black54 } from '../../styles/js/shared';
 
 const BackArrow = (props) => {

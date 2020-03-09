@@ -3,9 +3,9 @@ import Relay from 'react-relay/classic';
 import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
 import { List, ListItem } from 'material-ui/List';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
-import IconMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
+import MoreHoriz from '@material-ui/icons/MoreHoriz';
 import IconClose from 'material-ui/svg-icons/navigation/close';
-import IconButton from 'material-ui/IconButton';
+import IconButton from '@material-ui/core/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
@@ -328,7 +328,7 @@ class TeamTagsComponent extends Component {
                   style={{ padding: 0 }}
                   tooltip={this.props.intl.formatMessage(messages.menuTooltip)}
                 >
-                  <IconMoreHoriz />
+                  <MoreHoriz />
                 </IconButton>
               }
             >

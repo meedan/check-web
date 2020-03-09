@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { Link } from 'react-router';
 import IconArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
-import IconButton from 'material-ui/IconButton';
+import IconButton from '@material-ui/core/IconButton';
 import { FormattedMessage } from 'react-intl';
 import ProjectRoute from '../../relay/ProjectRoute';
 import { urlFromSearchQuery } from '../search/Search';

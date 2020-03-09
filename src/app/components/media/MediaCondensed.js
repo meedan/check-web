@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import IconMenu from 'material-ui/IconMenu';
-import IconButton from 'material-ui/IconButton';
+import IconButton from '@material-ui/core/IconButton';
 import IconMoreVert from 'material-ui/svg-icons/navigation/more-vert';
 import Can from '../Can';
 import TimeBefore from '../TimeBefore';
