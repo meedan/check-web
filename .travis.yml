@@ -6,7 +6,7 @@ services:
 node_js:
 - "12.16.1"
 rvm:
-- 2.3.4
+- 2.4
 cache:
   directories:
     - "/tmp/bundler"
@@ -23,10 +23,9 @@ before_install:
 - sudo rm /etc/apt/sources.list.d/google*
 - sudo apt-get -qq update
 - sudo apt-get install wget python-setuptools lsof unzip imagemagick ruby ruby-dev libnss3 libnss3-dev xvfb libnss3-1d libexif-dev curl build-essential libssl-dev libappindicator1 fonts-liberation redis-server -y
-- rvm --default use 2.3.4
 # environment
-- export PATH=/tmp/bundler/ruby/2.3.0/bin:$PATH
-- export GEM_PATH=/tmp/bundler/ruby/2.3.0/gems:$GEM_PATH
+- export PATH=/tmp/bundler/ruby/2.4.0/bin:$PATH
+- export GEM_PATH=/tmp/bundler/ruby/2.4.0/gems:$GEM_PATH
 # minio
 - docker run -d -p 9000:9000 -e "MINIO_ACCESS_KEY=AKIAIOSFODNN7EXAMPLE" -e "MINIO_SECRET_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY" minio/minio server /data
 # check api
