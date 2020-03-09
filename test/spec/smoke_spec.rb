@@ -61,6 +61,16 @@ shared_examples 'smoke' do
     displayed_name = me_pg.title
     expect(displayed_name == 'User With Email').to be(true)
   end
+
+  it "should invite a user by e-mail to join team", bin6: true do
+    team = "team#{Time.now.to_i}"
+    api_create_team(team: team)
+    @driver.navigate.to @config['self_url']+'/'+team
+    wait_for_selector(".team-members__invite-button").click
+    wait_for_selector(".invite-member-email-input input").send_keys("user-email@email.com")
+    wait_for_selector(".team-invite-members__dialog-submit-button").click
+    wait_for_selector_none(".invite-member-email-input")
+  end
 # Login section end
 
 #security section start
@@ -812,6 +822,36 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('claim 1')).to be(true)
     expect(@driver.page_source.include?('claim 2')).to be(true)
   end
+
+  it "should restore items from the trash", bin2: true do 
+    api_create_team_project_and_claim_and_redirect_to_media_page
+    wait_for_selector(".media")
+    expect(@driver.page_source.include?("Claim")).to be(true)
+    wait_for_selector(".media-actions__icon").click
+    wait_for_selector(".media-actions__send-to-trash").click
+    wait_for_selector(".project-list__item-trash").click #Go to the trash page
+    wait_for_selector(".media__heading")
+    wait_for_selector(".ag-icon-checkbox-unchecked").click
+    wait_for_selector("#media-bulk-actions__actions").click
+    wait_for_selector(".message")
+    wait_for_selector(".project-list__item-all").click
+    wait_for_selector_list_size(".medias__item", 1, :css , 90)
+    expect(@driver.page_source.include?("Claim")).to be(true)
+  end
+
+  it "should remove item from list", bin2: true do
+    api_create_team_project_and_claim_and_redirect_to_media_page
+    wait_for_selector(".media")
+    wait_for_selector(".project-header__back-button").click
+    expect(@driver.page_source.include?("Add a link or text")).to be(false)
+    wait_for_selector_list_size(".medias__item",1)
+    wait_for_selector(".ag-icon-checkbox-unchecked").click
+    wait_for_selector("#media-bulk-actions__actions >  div > button + button + button").click #remove_button
+    wait_for_selector(".message")
+    expect(@driver.find_elements(:css, '.medias__item').length == 0 )
+    expect(@driver.page_source.include?("Add a link or text")).to be(true)
+  end
+
 #Bulk Actions section end
 
 #Permissions section start
@@ -1086,5 +1126,34 @@ shared_examples 'smoke' do
     expect(@driver.find_elements(:css, ".media-status--editable").size).to eq 0
   end
 #Permissions section end
+
+#Filter section start
+
+# it "should find medias when searching by keyword", bin2: true do
+#   api_create_team_project_and_link('https://www.facebook.com/permalink.php?story_fbid=10155901893214439&id=54421674438')
+#   @driver.navigate.to @config['self_url']
+#   wait_for_selector_list_size('.medias__item', 1)
+#   create_media("https://twitter.com/TwitterVideo/status/931930009450795009")
+#   wait_for_selector_list_size('.medias__item', 2)
+#   wait_for_selector("//span[contains(text(), '1 - 2 / 2')]",:xpath)
+#   expect(@driver.page_source.include?('on Facebook')).to be(true)
+#   expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
+#   el = wait_for_selector("#search-input")
+#   el.send_keys "video"
+#   @driver.action.send_keys(:enter).perform
+#   wait_for_selector_list_size('.medias__item', 1)
+#   wait_for_selector("//span[contains(text(), '1 / 1')]",:xpath)
+#   expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
+#   expect(@driver.page_source.include?('on Facebook')).to be(false)
+#   wait_for_selector('#search-input').send_keys(:control, 'a', :delete)
+#   wait_for_selector("#search-input").send_keys "meedan"
+#   @driver.action.send_keys(:enter).perform
+#   wait_for_selector_list_size('.medias__item', 1)
+#   wait_for_selector("//span[contains(text(), '1 / 1')]",:xpath)
+#   expect(@driver.page_source.include?('on Facebook')).to be(true)
+#   expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(false)
+# end
+
+#Filter section end
 
 end
