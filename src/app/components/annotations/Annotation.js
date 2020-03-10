@@ -35,7 +35,6 @@ import ProfileLink from '../layout/ProfileLink';
 import ParsedText from '../ParsedText';
 import DeleteAnnotationMutation from '../../relay/mutations/DeleteAnnotationMutation';
 import DeleteVersionMutation from '../../relay/mutations/DeleteVersionMutation';
-import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
 import UpdateTaskMutation from '../../relay/mutations/UpdateTaskMutation';
 import DatetimeTaskResponse from '../task/DatetimeTaskResponse';
 import Can, { can } from '../Can';
@@ -236,7 +235,7 @@ const messages = defineMessages({
   },
   smoochNoMessage: {
     id: 'annotation.smoochNoMessage',
-    defaultMessage: 'Empty request',
+    defaultMessage: 'No message was sent with the request',
   },
 });
 
@@ -248,7 +247,6 @@ class Annotation extends Component {
 
     this.state = {
       zoomedCommentImage: false,
-      disableMachineTranslation: false,
     };
   }
 
@@ -296,23 +294,6 @@ class Annotation extends Component {
     const message = getErrorMessage(transaction, fallbackMessage);
     this.context.setMessage(message);
   };
-
-  handleUpdateMachineTranslation() {
-    const onSuccess = () => {
-      this.setState({ disableMachineTranslation: true });
-    };
-
-    if (!this.state.disableMachineTranslation) {
-      Relay.Store.commitUpdate(
-        new UpdateProjectMediaMutation({
-          update_mt: 1,
-          id: this.props.annotated.id,
-        }),
-        { onSuccess, onFailure: this.fail },
-      );
-      this.setState({ disableMachineTranslation: true });
-    }
-  }
 
   handleSuggestion(vid, accept) {
     const onSuccess = () => {};
@@ -840,45 +821,6 @@ class Annotation extends Component {
             />
           </span>
         );
-      }
-
-      if (object.field_name === 'mt_translations') {
-        const annotation_content = JSON.parse(annotation.content);
-        const { formatted_value } = annotation_content[0];
-        if (!formatted_value.length) {
-          contentTemplate = (
-            <span className="annotation__mt-translations">
-              <button
-                className="annotation__mt-translations"
-                onClick={this.handleUpdateMachineTranslation.bind(this)}
-                disabled={this.state.disableMachineTranslation}
-              >
-                <FormattedMessage
-                  id="annotation.emptyMachineTranslation"
-                  defaultMessage="Add machine translation"
-                />
-              </button>
-            </span>
-          );
-        } else {
-          contentTemplate = (
-            <span className="annotation__mt-translations">
-              <ul className="mt-list">
-                {formatted_value.map(mt => (
-                  <li className="mt__list-item">
-                    <FormattedMessage
-                      id="annotation.machineTranslation"
-                      defaultMessage="Machine translated to {language}{text}"
-                      values={{
-                        language: mt.lang_name,
-                        text: <ParsedText text={mt.text} block />,
-                      }}
-                    />
-                  </li>))}
-              </ul>
-            </span>
-          );
-        }
       }
 
       if (object.field_name === 'translation_status_status') {

@@ -21,7 +21,7 @@
   },
   {
     "id": "annotation.smoochNoMessage",
-    "defaultMessage": "Empty request"
+    "defaultMessage": "No message was sent with the request"
   },
   {
     "id": "annotation.permalink",
@@ -110,14 +110,6 @@
   {
     "id": "annotation.translation",
     "defaultMessage": "Translated to {language} by {author}{translation}"
-  },
-  {
-    "id": "annotation.emptyMachineTranslation",
-    "defaultMessage": "Add machine translation"
-  },
-  {
-    "id": "annotation.machineTranslation",
-    "defaultMessage": "Machine translated to {language}{text}"
   },
   {
     "id": "annotation.translationStatus",
