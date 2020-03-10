@@ -85,16 +85,15 @@ class ProjectHeaderComponent extends React.PureComponent {
       <div style={{ display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
         {url ?
           <Row>
-            <IconButton
-              containerElement={<Link to={url} />}
-              className="project-header__back-button"
-            >
-              <FadeIn>
-                <SlideIn>
-                  <IconArrowBack color={black54} />
-                </SlideIn>
-              </FadeIn>
-            </IconButton>
+            <Link to={url}>
+              <IconButton className="project-header__back-button">
+                <FadeIn>
+                  <SlideIn>
+                    <IconArrowBack color={black54} />
+                  </SlideIn>
+                </FadeIn>
+              </IconButton>
+            </Link>
             <HeaderTitle className="project-header__title" style={{ maxWidth: '100%' }}>
               <Text ellipsis>
                 {label}

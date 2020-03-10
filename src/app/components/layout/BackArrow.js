@@ -8,16 +8,15 @@ const BackArrow = (props) => {
   if (props.url) {
     return (
       <div style={{ display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
-        <IconButton
-          containerElement={<Link to={props.url} />}
-          className="header__back-button"
-        >
-          <FadeIn>
-            <SlideIn>
-              <IconArrowBack color={black54} />
-            </SlideIn>
-          </FadeIn>
-        </IconButton>
+        <Link to={props.url} />
+          <IconButton className="header__back-button">
+            <FadeIn>
+              <SlideIn>
+                <IconArrowBack color={black54} />
+              </SlideIn>
+            </FadeIn>
+          </IconButton>
+        </Link>
         <HeaderTitle>{props.label}</HeaderTitle>
       </div>
     );

@@ -393,15 +393,15 @@ class MediaEmbedComponent extends Component {
                   alignItems: 'center',
                 }}
               >
-                <IconButton
-                  containerElement={<Link to={itemUrl} />}
-                >
-                  <FadeIn>
-                    <SlideIn>
-                      <IconArrowBack color={black54} />
-                    </SlideIn>
-                  </FadeIn>
-                </IconButton>
+                <Link to={itemUrl}>
+                  <IconButton>
+                    <FadeIn>
+                      <SlideIn>
+                        <IconArrowBack color={black54} />
+                      </SlideIn>
+                    </FadeIn>
+                  </IconButton>
+                </Link>
                 <FormattedMessage
                   id="mediaEmbed.back"
                   defaultMessage="Back to annotation"

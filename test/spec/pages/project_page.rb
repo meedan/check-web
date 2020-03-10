@@ -70,7 +70,7 @@ class ProjectPage < Page
       fill_input('.project-edit__description-field textarea:last-child', options[:description])
     end
     sleep 1 #(time for click button
-    element = wait_for_selector('.project-edit__editing-button--save button span')
+    element = wait_for_selector('button.project-edit__editing-button--save')
     element.click
     self
   end

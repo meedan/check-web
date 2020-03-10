@@ -18,7 +18,7 @@ class CreateTeamPage < Page
     slug = options[:slug] || "team#{Time.now.to_i}#{Process.pid}"
     fill_field('#team-name-container', name)
     wait_for_selector("#team-slug-container").send_keys(slug)
-    wait_for_selector('.create-team__submit-button > button').click
+    wait_for_selector('button.create-team__submit-button').click
     wait_for_selector('.team',:css,60)
     TeamPage.new(config: @config, driver: @driver)
   end
