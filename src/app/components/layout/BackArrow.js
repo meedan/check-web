@@ -8,7 +8,7 @@ const BackArrow = (props) => {
   if (props.url) {
     return (
       <div style={{ display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
-        <Link to={props.url} />
+        <Link to={props.url}>
           <IconButton className="header__back-button">
             <FadeIn>
               <SlideIn>
