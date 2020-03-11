@@ -401,10 +401,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector(".media-actions__edit")
       @driver.find_element(:css, '.media-actions__refresh').click
       wait_for_selector_none(".media-actions__edit")
-      wait_for_text_change(title1,"title", :css, 30)
+      wait_for_text_change(title1,"title", :css)
+      @wait.until { (@driver.title != title1) }
       title2 = @driver.title
       expect((title2 =~ /Random/).nil?).to be(false)
-      expect(title1 == title2).to be(true)
+      expect(title1 != title2).to be(true)
     end
 
     it "should search and change sort criteria", bin2: true do
