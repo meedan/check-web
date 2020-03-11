@@ -13,6 +13,11 @@ RUN true \
     && gem install bundler:1.17.1 \
     && rm -rf /var/lib/apt/lists/*
 
+# node modules
+ADD package.json /tmp/package.json
+RUN cd /tmp && npm install
+RUN mkdir -p /app && cp -a /tmp/node_modules /app/
+
 # /app will be "." mounted as a volume mount from the host
 WORKDIR /app
 
@@ -24,11 +29,6 @@ RUN true \
     && BUNDLE_SILENCE_ROOT_WARNING=1 bundle install --jobs 20 --retry 5 \
     && cd /app/test \
     && BUNDLE_SILENCE_ROOT_WARNING=1 bundle install --jobs 20 --retry 5
-
-# /app/node_modules will be maintained by Docker. Treat it like a cache.
-# Restarting the container won't modify /app/node_modules/*; and the files
-# won't be visible from the host.
-VOLUME /app/node_modules
 
 # startup
 EXPOSE 3333
