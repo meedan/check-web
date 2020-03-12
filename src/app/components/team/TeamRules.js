@@ -479,35 +479,47 @@ class TeamRulesComponent extends Component {
         rule.rules.forEach((rule2) => {
           i += 1;
           if (rule2.rule_definition === 'type_is') {
-            fields[(i * 5) - 1].style.display = 'none';
-            fields[(i * 5) - 2].style.display = 'none';
-            fields[(i * 5) - 3].style.display = 'none';
-            fields[(i * 5) - 4].style.display = 'block';
-            fields[(i * 5) - 5].style.display = 'none';
+            fields[(i * 6) - 1].style.display = 'none';
+            fields[(i * 6) - 2].style.display = 'none';
+            fields[(i * 6) - 3].style.display = 'none';
+            fields[(i * 6) - 4].style.display = 'block';
+            fields[(i * 6) - 5].style.display = 'none';
+            fields[(i * 6) - 6].style.display = 'none';
           } else if (rule2.rule_definition === 'tagged_as') {
-            fields[(i * 5) - 1].style.display = 'none';
-            fields[(i * 5) - 2].style.display = 'none';
-            fields[(i * 5) - 3].style.display = 'block';
-            fields[(i * 5) - 4].style.display = 'none';
-            fields[(i * 5) - 5].style.display = 'none';
+            fields[(i * 6) - 1].style.display = 'none';
+            fields[(i * 6) - 2].style.display = 'none';
+            fields[(i * 6) - 3].style.display = 'block';
+            fields[(i * 6) - 4].style.display = 'none';
+            fields[(i * 6) - 5].style.display = 'none';
+            fields[(i * 6) - 6].style.display = 'none';
           } else if (rule2.rule_definition === 'status_is') {
-            fields[(i * 5) - 1].style.display = 'none';
-            fields[(i * 5) - 2].style.display = 'block';
-            fields[(i * 5) - 3].style.display = 'none';
-            fields[(i * 5) - 4].style.display = 'none';
-            fields[(i * 5) - 5].style.display = 'none';
+            fields[(i * 6) - 1].style.display = 'none';
+            fields[(i * 6) - 2].style.display = 'block';
+            fields[(i * 6) - 3].style.display = 'none';
+            fields[(i * 6) - 4].style.display = 'none';
+            fields[(i * 6) - 5].style.display = 'none';
+            fields[(i * 6) - 6].style.display = 'none';
           } else if (rule2.rule_definition === 'title_matches_regexp' || rule2.rule_definition === 'request_matches_regexp') {
-            fields[(i * 5) - 1].style.display = 'block';
-            fields[(i * 5) - 2].style.display = 'none';
-            fields[(i * 5) - 3].style.display = 'none';
-            fields[(i * 5) - 4].style.display = 'none';
-            fields[(i * 5) - 5].style.display = 'none';
+            fields[(i * 6) - 1].style.display = 'block';
+            fields[(i * 6) - 2].style.display = 'none';
+            fields[(i * 6) - 3].style.display = 'none';
+            fields[(i * 6) - 4].style.display = 'none';
+            fields[(i * 6) - 5].style.display = 'none';
+            fields[(i * 6) - 6].style.display = 'none';
+          } else if (rule2.rule_definition === 'has_less_than_x_words') {
+            fields[(i * 6) - 1].style.display = 'none';
+            fields[(i * 6) - 2].style.display = 'none';
+            fields[(i * 6) - 3].style.display = 'none';
+            fields[(i * 6) - 4].style.display = 'none';
+            fields[(i * 6) - 5].style.display = 'block';
+            fields[(i * 6) - 6].style.display = 'none';
           } else {
-            fields[(i * 5) - 1].style.display = 'none';
-            fields[(i * 5) - 2].style.display = 'none';
-            fields[(i * 5) - 3].style.display = 'none';
-            fields[(i * 5) - 4].style.display = 'none';
-            fields[(i * 5) - 5].style.display = 'block';
+            fields[(i * 6) - 1].style.display = 'none';
+            fields[(i * 6) - 2].style.display = 'none';
+            fields[(i * 6) - 3].style.display = 'none';
+            fields[(i * 6) - 4].style.display = 'none';
+            fields[(i * 6) - 5].style.display = 'none';
+            fields[(i * 6) - 6].style.display = 'block';
           }
         });
       }
@@ -623,6 +635,8 @@ class TeamRulesComponent extends Component {
             rules[i].rules[j].rule_value = rule2.rule_value_tagged_as;
           } else if (rule2.rule_definition === 'status_is') {
             rules[i].rules[j].rule_value = rule2.rule_value_status_is;
+          } else if (rule2.rule_definition === 'has_less_than_x_words') {
+            rules[i].rules[j].rule_value = rule2.rule_value_max_number_of_words;
           } else if (rule2.rule_definition === 'title_matches_regexp' || rule2.rule_definition === 'request_matches_regexp') {
             rules[i].rules[j].rule_value = rule2.rule_value_matches_regexp;
           }
@@ -712,6 +726,13 @@ class TeamRulesComponent extends Component {
                 'ui:widget': 'textarea',
               },
               rule_value: {
+                'ui:widget': 'textarea',
+              },
+            },
+          },
+          actions: {
+            items: {
+              action_value: {
                 'ui:widget': 'textarea',
               },
             },
