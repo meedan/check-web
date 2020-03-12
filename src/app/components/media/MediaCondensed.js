@@ -325,23 +325,23 @@ class MediaCondensedComponent extends Component {
                   <FormattedMessage id="mediaCondensed.tooltip" defaultMessage="Item actions" />
                 }
               >
-                <IconMoreVert className="media-actions__icon" />
+                <IconMoreVert className="media-codensed__actions_icon" />
               </IconButton>}
           >
             { (media.relationships && media.relationships.sources_count > 0) ?
               <Can permissions={media.relationship.permissions} permission="update Relationship">
-                <MenuItem key="promote" onClick={this.handlePromoteRelationship.bind(this)}>
+                <MenuItem key="promote" className="media-condensed__promote-relationshp" onClick={this.handlePromoteRelationship.bind(this)}>
                   <FormattedMessage id="mediaCondensed.promote" defaultMessage="Promote to primary item" />
                 </MenuItem>
               </Can> : null }
             { (media.relationships && media.relationships.sources_count > 0) ?
               <Can permissions={media.relationship.permissions} permission="destroy Relationship">
-                <MenuItem key="break" onClick={this.handleBreakRelationship.bind(this)}>
+                <MenuItem key="break" className="media-condensed__break-relationship" onClick={this.handleBreakRelationship.bind(this)} >
                   <FormattedMessage id="mediaCondensed.break" defaultMessage="Break relation to primary item" />
                 </MenuItem>
               </Can> : null }
             <Can permissions={media.permissions} permission="update ProjectMedia">
-              <MenuItem key="edit" onClick={this.handleEdit.bind(this)}>
+              <MenuItem key="edit" className="media-condensed__edit" onClick={this.handleEdit.bind(this)}>
                 <FormattedMessage id="mediaCondensed.edit" defaultMessage="Edit title and description" />
               </MenuItem>
             </Can>
