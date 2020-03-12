@@ -61,6 +61,16 @@ shared_examples 'smoke' do
     displayed_name = me_pg.title
     expect(displayed_name == 'User With Email').to be(true)
   end
+
+  it "should invite a user by e-mail to join team", bin6: true do
+    team = "team#{Time.now.to_i}"
+    api_create_team(team: team)
+    @driver.navigate.to @config['self_url']+'/'+team
+    wait_for_selector(".team-members__invite-button").click
+    wait_for_selector(".invite-member-email-input input").send_keys("user-email@email.com")
+    wait_for_selector(".team-invite-members__dialog-submit-button").click
+    wait_for_selector_none(".invite-member-email-input")
+  end
 # Login section end
 
 #security section start
@@ -218,7 +228,7 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('New teamwide task-EDITED')).to be(true)
     expect(@driver.find_element(:css, '.task__required').text == '*').to be(true)
 
-    # Delete tag
+    # Delete task
     wait_for_selector('.team-tasks__menu-item-button').click
     wait_for_selector('.team-tasks__delete-button').click
     wait_for_selector('#confirm-dialog__checkbox').click
@@ -295,7 +305,7 @@ shared_examples 'smoke' do
     delete_task('When was it')
   end
 
-  it "should add a comment to a task", bin5: true do
+  it "should assign, answer with a link and add a comment to a task", bin5: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector('.create-task__add-button')
 
@@ -311,6 +321,30 @@ shared_examples 'smoke' do
     wait_for_selector_list_size(".annotations__list-item", 2)
 
     wait_for_selector(".media__annotations-column > div > div > button").click
+
+    #assign the task
+    expect(@driver.page_source.include?("Assigned to")).to be (false)
+    wait_for_selector('.task-type__free_text > div > div > button > div > svg').click
+    wait_for_selector(".task-actions__icon").click
+    wait_for_selector(".task-actions__assign").click
+    wait_for_selector(".Select-input input").send_keys("user")
+    @driver.action.send_keys(:enter).perform
+    wait_for_selector(".attribution-dialog__save").click
+    wait_for_selector(".task__assigned")
+    expect(@driver.page_source.include?("Assigned to")).to be (true)
+
+    # # insert photo
+    # wait_for_selector(".add-annotation__insert-photo").click
+    # wait_for_selector(".without-file")
+    # input = wait_for_selector('input[type=file]')
+    # input.send_keys(File.join(File.dirname(__FILE__), 'test.png'))
+    # wait_for_selector('button[type=submit]').click
+
+    #Answer with link
+    wait_for_selector("textarea[name=response]").send_keys("https://www.youtube.com/watch?v=ykLgjhBnik0")
+    @driver.action.send_keys(:enter).perform
+    expect(@driver.find_elements(:css, ".task__response").size).to eq 1
+
     # Add comment to task
     expect(@driver.page_source.include?('This is a comment under a task')).to be(false)
     wait_for_selector('.task__log-top span').click
@@ -318,7 +352,7 @@ shared_examples 'smoke' do
     fill_field('#cmd-input', 'This is a comment under a task')
     @driver.action.send_keys(:enter).perform
     wait_for_selector(".media__annotations-column > div > div > button + button + button + button").click
-    wait_for_selector(".annotation--verification_status")
+    wait_for_selector(".annotation__author-name")
     expect(@driver.page_source.include?('This is a comment under a task')).to be(true)
   end
 #tasks section end
@@ -354,7 +388,7 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?(new_description)).to be(true)
   end
 
-  it "should assign project", bin3: true do
+  it "should assign and delete list", bin3: true do
     user = api_register_and_login_with_email
     api_create_team_and_project(user: user)
     @driver.navigate.to(@config['self_url'] + '/check/me')
@@ -368,6 +402,13 @@ shared_examples 'smoke' do
     end
     wait_for_selector('.message')
     expect(@driver.page_source.include?('Assigned to one member')).to be(true)
+    wait_for_selector(".project-list__link").click
+    wait_for_selector(".project-actions__icon").click
+    wait_for_selector(".project-actions__destroy").click
+    wait_for_selector("#project-actions__confirm-delete").click
+    wait_for_selector("//span[contains(text(), 'Continue')]",:xpath).click
+    wait_for_selector('.message')
+    expect(@driver.find_elements(:css, '.project-list__link').length == 0 )
   end
 #project section end
 
@@ -812,6 +853,39 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('claim 1')).to be(true)
     expect(@driver.page_source.include?('claim 2')).to be(true)
   end
+
+  it "should restore items from the trash", bin2: true do 
+    api_create_team_project_and_claim_and_redirect_to_media_page
+    wait_for_selector(".media")
+    expect(@driver.page_source.include?("Claim")).to be(true)
+    wait_for_selector(".media-actions__icon").click
+    wait_for_selector(".media-actions__send-to-trash").click
+    wait_for_selector(".message").click
+    wait_for_selector(".project-header__back-button").click
+    expect(@driver.find_elements(:css, '.medias__item').length == 0 )
+    wait_for_selector(".project-list__item-trash").click #Go to the trash page
+    wait_for_selector(".media__heading")
+    wait_for_selector(".ag-icon-checkbox-unchecked").click
+    wait_for_selector("#media-bulk-actions__actions").click
+    wait_for_selector(".message")
+    wait_for_selector(".project-list__item-all").click
+    wait_for_selector_list_size(".medias__item", 1, :css , 90)
+    expect(@driver.page_source.include?("Claim")).to be(true)
+  end
+
+  it "should remove item from list", bin2: true do
+    api_create_team_project_and_claim_and_redirect_to_media_page
+    wait_for_selector(".media")
+    wait_for_selector(".project-header__back-button").click
+    expect(@driver.page_source.include?("Add a link or text")).to be(false)
+    wait_for_selector_list_size(".medias__item",1)
+    wait_for_selector(".ag-icon-checkbox-unchecked").click
+    wait_for_selector("#media-bulk-actions__actions >  div > button + button + button").click #remove_button
+    wait_for_selector(".message")
+    expect(@driver.find_elements(:css, '.medias__item').length == 0 )
+    expect(@driver.page_source.include?("Add a link or text")).to be(true)
+  end
+
 #Bulk Actions section end
 
 #Permissions section start
@@ -1086,5 +1160,34 @@ shared_examples 'smoke' do
     expect(@driver.find_elements(:css, ".media-status--editable").size).to eq 0
   end
 #Permissions section end
+
+#Filter section start
+
+# it "should find medias when searching by keyword", bin2: true do
+#   api_create_team_project_and_link('https://www.facebook.com/permalink.php?story_fbid=10155901893214439&id=54421674438')
+#   @driver.navigate.to @config['self_url']
+#   wait_for_selector_list_size('.medias__item', 1)
+#   create_media("https://twitter.com/TwitterVideo/status/931930009450795009")
+#   wait_for_selector_list_size('.medias__item', 2)
+#   wait_for_selector("//span[contains(text(), '1 - 2 / 2')]",:xpath)
+#   expect(@driver.page_source.include?('on Facebook')).to be(true)
+#   expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
+#   el = wait_for_selector("#search-input")
+#   el.send_keys "video"
+#   @driver.action.send_keys(:enter).perform
+#   wait_for_selector_list_size('.medias__item', 1)
+#   wait_for_selector("//span[contains(text(), '1 / 1')]",:xpath)
+#   expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
+#   expect(@driver.page_source.include?('on Facebook')).to be(false)
+#   wait_for_selector('#search-input').send_keys(:control, 'a', :delete)
+#   wait_for_selector("#search-input").send_keys "meedan"
+#   @driver.action.send_keys(:enter).perform
+#   wait_for_selector_list_size('.medias__item', 1)
+#   wait_for_selector("//span[contains(text(), '1 / 1')]",:xpath)
+#   expect(@driver.page_source.include?('on Facebook')).to be(true)
+#   expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(false)
+# end
+
+#Filter section end
 
 end
