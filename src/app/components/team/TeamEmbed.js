@@ -3,7 +3,9 @@ import Relay from 'react-relay/classic';
 import Checkbox from 'material-ui/Checkbox';
 import { FormattedMessage } from 'react-intl';
 import Button from '@material-ui/core/Button';
-import { Card, CardHeader, CardText } from 'material-ui/Card';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
 import TextField from 'material-ui/TextField';
 import { ContentColumn, FlexRow, units } from '../../styles/js/shared';
 import Can from '../Can';
@@ -91,11 +93,11 @@ class TeamEmbedComponent extends React.Component {
               title={
                 <FormattedMessage id="teamEmbed.tasks" defaultMessage="Tasks" />
               }
-              subtitle={
+              subheader={
                 <FormattedMessage id="teamEmbed.tasksSub" defaultMessage="The selected tasks will be included in the report if they are resolved." />
               }
             />
-            <CardText>
+            <CardContent>
               {team_tasks.edges.map(task => (
                 <FlexRow key={task.node.dbid} style={{ justifyContent: 'start' }}>
                   <span>
@@ -108,7 +110,7 @@ class TeamEmbedComponent extends React.Component {
                   <span style={{ fontSize: '1rem' }}>{task.node.label}</span>
                 </FlexRow>
               ))}
-            </CardText>
+            </CardContent>
           </Card>
 
           <Card style={{ marginTop: units(2) }}>
@@ -116,18 +118,18 @@ class TeamEmbedComponent extends React.Component {
               title={
                 <FormattedMessage id="teamEmbed.disclaimer" defaultMessage="Disclaimer" />
               }
-              subtitle={
+              subheader={
                 <FormattedMessage id="teamEmbed.disclaimerSub" defaultMessage="Disclaimer that will be shown at the bottom of the report with the workspace logo." />
               }
             />
-            <CardText>
+            <CardContent>
               <TextField
                 style={{ paddingTop: 0, paddingBottom: 0 }}
                 id="disclaimer"
                 defaultValue={get_disclaimer}
                 fullWidth
               />
-            </CardText>
+            </CardContent>
           </Card>
 
           <Card style={{ marginTop: units(2) }}>
@@ -135,11 +137,11 @@ class TeamEmbedComponent extends React.Component {
               title={
                 <FormattedMessage id="teamEmbed.analysis" defaultMessage="Analysis" />
               }
-              subtitle={
+              subheader={
                 <FormattedMessage id="teamEmbed.analysisSub" defaultMessage="Show analysis in the report" />
               }
             />
-            <CardText>
+            <CardContent>
               <FlexRow style={{ justifyContent: 'flex-start' }}>
                 <Checkbox
                   style={{ width: 'auto' }}
@@ -152,7 +154,7 @@ class TeamEmbedComponent extends React.Component {
                   defaultMessage="Yes"
                 />
               </FlexRow>
-            </CardText>
+            </CardContent>
           </Card>
 
           <Can permissions={permissions} permission="update Team">

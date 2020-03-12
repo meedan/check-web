@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import Relay from 'react-relay/classic';
-import { Card, CardText } from 'material-ui/Card';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 import rtlDetect from 'rtl-detect';
 import Button from '@material-ui/core/Button';
 import { List } from 'material-ui/List';
@@ -153,7 +154,7 @@ class UserPrivacy extends Component {
           />
         </p>
         <Card style={cardStyle}>
-          <CardText style={cardTextStyle}>
+          <CardContent style={cardTextStyle}>
             <FormattedMessage
               id="userPrivacy.seeInformationText"
               defaultMessage="We will send you a file with the content and data you created and generated on {appName}. This can be kept for your records or transferred to another service."
@@ -168,10 +169,10 @@ class UserPrivacy extends Component {
             >
               <FormattedMessage id="userPrivacy.seeInformationButton" defaultMessage="See my information" />
             </Button>
-          </CardText>
+          </CardContent>
         </Card>
         <Card style={cardStyle}>
-          <CardText style={cardTextStyle}>
+          <CardContent style={cardTextStyle}>
             <FormattedMessage
               id="userPrivacy.stopProcessingText"
               defaultMessage="You can request {appName} to stop processing your information under certain conditions."
@@ -186,13 +187,13 @@ class UserPrivacy extends Component {
             >
               <FormattedMessage id="userPrivacy.stopProcessingButton" defaultMessage="Request to stop processing" />
             </Button>
-          </CardText>
+          </CardContent>
         </Card>
         <h2 style={style}>
           <FormattedMessage id="userPrivacy.connectedAccounts" defaultMessage="Connected accounts" />
         </h2>
         <Card style={cardStyle}>
-          <CardText style={cardTextStyle}>
+          <CardContent style={cardTextStyle}>
             <List>
               { providers.map(provider => (
                 <UserConnectedAccount
@@ -202,13 +203,13 @@ class UserPrivacy extends Component {
                 />
               ))}
             </List>
-          </CardText>
+          </CardContent>
         </Card>
         <h2 style={Object.assign({}, style, { marginTop: units(6) })}>
           <FormattedMessage id="userPrivacy.delete" defaultMessage="Delete your account" />
         </h2>
         <Card style={cardStyle}>
-          <CardText style={cardTextStyle}>
+          <CardContent style={cardTextStyle}>
             <FormattedMessage
               id="userPrivacy.deleteAccountText"
               defaultMessage="If you delete your account, your personal information will be erased. Comments, annotations, and workspace activity will become pseudonymous and remain on {appName}."
@@ -231,7 +232,7 @@ class UserPrivacy extends Component {
               handleClose={this.handleCloseDialog.bind(this)}
               handleConfirm={this.handleDeleteAccount.bind(this)}
             />
-          </CardText>
+          </CardContent>
         </Card>
       </div>
     );

@@ -4,7 +4,10 @@ import Relay from 'react-relay/classic';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import { Link } from 'react-router';
 import Button from '@material-ui/core/Button';
-import Card, { CardTitle, CardActions, CardText } from 'material-ui/Card';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardActions from '@material-ui/core/CardActions';
 import PageTitle from '../PageTitle';
 import CreateTeamUserMutation from '../../relay/mutations/CreateTeamUserMutation';
 import { mapGlobalMessage } from '../MappedMessage';
@@ -143,13 +146,13 @@ class JoinTeamComponent extends Component {
           <ContentColumn>
             <Message message={this.state.message} />
             <Card>
-              <CardTitle
+              <CardHeader
                 title={<FormattedMessage
                   id="joinTeamComponent.mainHeading"
                   defaultMessage="Request to join"
                 />}
               />
-              <CardText>
+              <CardContent>
 
                 {(() => {
                   if (this.alreadyMember()) {
@@ -178,7 +181,7 @@ class JoinTeamComponent extends Component {
                     </div>
                   );
                 })()}
-              </CardText>
+              </CardContent>
 
               {(() => {
                 if (!this.alreadyMember()) {

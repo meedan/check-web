@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay/classic';
 import TextField from 'material-ui/TextField';
-import { Card, CardText, CardActions } from 'material-ui/Card';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 import UpdateProjectMutation from '../../relay/mutations/UpdateProjectMutation';
 import PageTitle from '../PageTitle';
@@ -135,7 +137,7 @@ class ProjectEditComponent extends Component {
           <ContentColumn>
             <Card>
               <form className="project-edit__form" onSubmit={this.updateProject.bind(this)}>
-                <CardText>
+                <CardContent>
                   <TextField
                     name="name"
                     id="project-title-field"
@@ -160,25 +162,23 @@ class ProjectEditComponent extends Component {
                     autoComplete="off"
                     onChange={this.handleDescriptionChange.bind(this)}
                   />
-                </CardText>
+                </CardContent>
                 <CardActions>
-                  <div className="project-edit__editing-buttons">
-                    <Button
-                      onClick={this.handleCancel}
-                      className="project-edit__editing-button project-edit__editing-button--cancel"
-                    >
-                      {this.props.intl.formatMessage(globalStrings.cancel)}
-                    </Button>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      type="submit"
-                      className="project-edit__editing-button project-edit__editing-button--save"
-                      disabled={!this.canSubmit()}
-                    >
-                      <FormattedMessage id="projectEdit.saveButton" defaultMessage="Save" />
-                    </Button>
-                  </div>
+                  <Button
+                    onClick={this.handleCancel}
+                    className="project-edit__editing-button project-edit__editing-button--cancel"
+                  >
+                    {this.props.intl.formatMessage(globalStrings.cancel)}
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    type="submit"
+                    className="project-edit__editing-button project-edit__editing-button--save"
+                    disabled={!this.canSubmit()}
+                  >
+                    <FormattedMessage id="projectEdit.saveButton" defaultMessage="Save" />
+                  </Button>
                 </CardActions>
               </form>
             </Card>

@@ -131,7 +131,6 @@ class SlackConfig extends React.Component {
           <StyledCardHeader
             title={
               <span>
-                {/* Todo: Slack Icon <FaceFrown /> */}
                 <FormattedMessage
                   id="slackConfig.title"
                   defaultMessage="Slack integration"

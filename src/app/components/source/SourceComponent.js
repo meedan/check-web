@@ -11,7 +11,7 @@ import {
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import Button from '@material-ui/core/Button';
-import { CardActions } from 'material-ui/Card';
+import CardActions from '@material-ui/core/CardActions';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import Popover from 'material-ui/Popover';
 import IconEdit from 'material-ui/svg-icons/image/edit';

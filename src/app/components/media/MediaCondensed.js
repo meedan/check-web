@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { injectIntl, defineMessages, FormattedMessage } from 'react-intl';
 import Avatar from 'material-ui/Avatar';
-import { CardHeader } from 'material-ui/Card';
+import CardHeader from '@material-ui/core/CardHeader';
 import MenuItem from 'material-ui/MenuItem';
 import Button from '@material-ui/core/Button';
 import Dialog from 'material-ui/Dialog';
@@ -271,7 +271,7 @@ class MediaCondensedComponent extends Component {
       <span style={{ display: 'block', position: 'relative' }}>
         <CardHeader
           title={truncateLength(media.title, 120)}
-          subtitle={
+          subheader={
             <p>
               <span>{MediaUtil.mediaTypeLabel(media.type, this.props.intl)}</span>
               { smoochBotInstalled ?

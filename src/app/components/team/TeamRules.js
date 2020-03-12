@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
-import { Card, CardText } from 'material-ui/Card';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import { List, ListItem } from 'material-ui/List';
 import Menu from '@material-ui/core/Menu';
@@ -773,7 +774,7 @@ class TeamRulesComponent extends Component {
               </Button>
             </StyledRulesBar>}
           <Card style={{ marginTop: units(2), marginBottom: units(5) }}>
-            <CardText>
+            <CardContent>
               {this.state.currentRuleIndex === this.state.rules.length ? allRules : null}
               {this.state.rules.length > 0 ?
                 null :
@@ -793,7 +794,7 @@ class TeamRulesComponent extends Component {
                   />
                 </div>
               </StyledSchemaForm>
-            </CardText>
+            </CardContent>
           </Card>
         </ContentColumn>
       </div>

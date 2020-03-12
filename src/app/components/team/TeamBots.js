@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import { Card, CardText, CardActions } from 'material-ui/Card';
-import Divider from 'material-ui/Divider';
+import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import Settings from 'material-ui/svg-icons/action/settings';
 import Switch from '@material-ui/core/Switch';

@@ -12,12 +12,12 @@
     "defaultMessage": "Sorry, an error occurred while updating the bot. Please try again and contact {supportEmail} if the condition persists."
   },
   {
-    "id": "bot.inUse",
-    "defaultMessage": "In Use"
-  },
-  {
     "id": "bot.madeBy",
     "defaultMessage": "Made by {teamLink}"
+  },
+  {
+    "id": "bot.inUse",
+    "defaultMessage": "In Use"
   },
   {
     "id": "bot.permissions",

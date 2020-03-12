@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
 import { List, ListItem } from 'material-ui/List';
-import { Card, CardHeader, CardText } from 'material-ui/Card';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
 import MoreHoriz from '@material-ui/icons/MoreHoriz';
 import IconClose from 'material-ui/svg-icons/navigation/close';
 import IconButton from '@material-ui/core/IconButton';
@@ -485,7 +487,7 @@ class TeamTagsComponent extends Component {
               <FormattedMessage id="teamTags.teamwideTags" defaultMessage="Default tags" />
             }
           />
-          <CardText style={{ padding: 0 }}>
+          <CardContent style={{ padding: 0 }}>
             { teamwideTags.length === 0 ?
               <p style={{ paddingBottom: units(5), textAlign: 'center' }}>
                 <FormattedMessage
@@ -515,7 +517,7 @@ class TeamTagsComponent extends Component {
                 </p>
               </div>
             </Can>
-          </CardText>
+          </CardContent>
         </Card>
         <Card style={{ marginTop: units(5) }}>
           <CardHeader
@@ -523,7 +525,7 @@ class TeamTagsComponent extends Component {
               <FormattedMessage id="teamTags.customTags" defaultMessage="Custom tags" />
             }
           />
-          <CardText style={{ padding: 0 }}>
+          <CardContent style={{ padding: 0 }}>
             { customTags.length === 0 ?
               <p style={{ paddingBottom: units(5), textAlign: 'center' }}>
                 <FormattedMessage
@@ -533,7 +535,7 @@ class TeamTagsComponent extends Component {
               </p>
               : null }
             {this.tagsList(customTags, true)}
-          </CardText>
+          </CardContent>
         </Card>
 
         <Dialog

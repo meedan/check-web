@@ -1,6 +1,7 @@
 import React from 'react';
 import { FormattedMessage, FormattedHTMLMessage, injectIntl } from 'react-intl';
-import { Card, CardText } from 'material-ui/Card';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
 import ProfileLink from '../layout/ProfileLink';
@@ -47,7 +48,7 @@ class AccountCard extends React.Component {
 
     return (
       <Card className="source-card" style={{ marginBottom: units(2) }}>
-        <CardText style={{ display: 'flex', paddingBottom: 0 }}>
+        <CardContent style={{ display: 'flex', paddingBottom: 0 }}>
           <SourcePicture className="source-card__avatar" object={account} type="source" size="small" />
 
           <StyledAccountCardBody isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
@@ -72,7 +73,7 @@ class AccountCard extends React.Component {
               { AccountCard.accountStats(account) }
             </div>
           </StyledAccountCardBody>
-        </CardText>
+        </CardContent>
         <div
           className="media-detail__check-metadata source-card__footer"
           style={{ color: black54, padding: `${units(2)}` }}

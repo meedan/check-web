@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
-import { Card, CardMedia, CardText, CardTitle } from 'material-ui/Card';
+import Card from '@material-ui/core/Card';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
 import { Emojione } from 'react-emoji-render';
 import { Link } from 'react-router';
 import RootRoute from '../relay/RootRoute';
@@ -35,10 +38,10 @@ class BotGardenComponent extends Component {
                   <CardMedia>
                     <img src={bot.avatar} alt={bot.name} style={{ border: `1px solid ${black32}` }} />
                   </CardMedia>
-                  <CardText><b className="bot-garden__bot-name">{bot.name}</b></CardText>
+                  <CardContent><b className="bot-garden__bot-name">{bot.name}</b></CardContent>
                 </Link>
-                <CardTitle
-                  subtitle={
+                <CardHeader
+                  subheader={
                     bot.team_author ?
                       <Link to={`/${bot.team_author.slug}`}>{bot.team_author.name}</Link> : null
                   }

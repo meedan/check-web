@@ -9,7 +9,10 @@ import {
   injectIntl,
 } from 'react-intl';
 import TextField from 'material-ui/TextField';
-import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 import styled from 'styled-components';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
@@ -163,7 +166,7 @@ class CreateTeamCard extends React.Component {
                 defaultMessage="Create a workspace"
               />
             }
-            subtitle={
+            subheader={
               <FormattedMessage
                 id="createTeam.blurb"
                 defaultMessage="Create a workspace for your organization, or just for yourself:"
@@ -171,7 +174,7 @@ class CreateTeamCard extends React.Component {
             }
           />
           <form className="create-team__form">
-            <CardText>
+            <CardContent>
               <div className="create-team__team-display-name">
                 <TextField
                   type="text"
@@ -213,7 +216,7 @@ class CreateTeamCard extends React.Component {
                   fullWidth
                 />
               </TeamUrlRow>
-            </CardText>
+            </CardContent>
             <CardActions>
               <Button
                 variant="contained"

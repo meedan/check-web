@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
 import Relay from 'react-relay/classic';
-import { Card, CardText } from 'material-ui/Card';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 import MoreHoriz from '@material-ui/icons/MoreHoriz';
 import IconButton from '@material-ui/core/IconButton';
 import IconMenu from 'material-ui/IconMenu';
@@ -136,7 +137,7 @@ class TranslationItem extends Component {
     return (
       <div className="translation__component">
         <Card className="translation__card" style={styles.translationCard}>
-          <CardText className="translation__card-text" style={styles.cardText}>
+          <CardContent className="translation__card-text" style={styles.cardText}>
 
             {this.state.editing ?
               <div>
@@ -208,7 +209,7 @@ class TranslationItem extends Component {
                 </MenuItem>
               </IconMenu>
             </Row>
-          </CardText>
+          </CardContent>
         </Card>
       </div>
     );

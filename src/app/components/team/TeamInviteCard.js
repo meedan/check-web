@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import CopyToClipboard from 'react-copy-to-clipboard';
-import { Card, CardText } from 'material-ui/Card';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import MdPaste from 'react-icons/lib/md/content-paste';
 import MdDone from 'react-icons/lib/md/done';
@@ -94,7 +95,7 @@ class TeamInviteCard extends Component {
     }
     return (
       <StyledMdCard>
-        <CardText>
+        <CardContent>
           <BackgroundImageRow>
             <StyledMdCardTitle>
               <FormattedMessage
@@ -134,7 +135,7 @@ class TeamInviteCard extends Component {
               </FlexRow>
             </CopyToClipboard>
           </BackgroundImageRow>
-        </CardText>
+        </CardContent>
       </StyledMdCard>
     );
   }

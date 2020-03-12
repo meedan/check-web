@@ -7,7 +7,10 @@ import {
 } from 'react-intl';
 import { Link } from 'react-router';
 import TextField from 'material-ui/TextField';
-import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 import styled from 'styled-components';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
@@ -113,7 +116,7 @@ class FindTeamCard extends React.Component {
             }
           />
           <form className="find-team__form">
-            <CardText>
+            <CardContent>
               <TeamUrlRow>
                 <TeamUrlColumn>
                   <label htmlFor="team-slug-container">
@@ -138,7 +141,7 @@ class FindTeamCard extends React.Component {
                   fullWidth
                 />
               </TeamUrlRow>
-            </CardText>
+            </CardContent>
             <CardActions>
               <Button
                 variant="contained"
