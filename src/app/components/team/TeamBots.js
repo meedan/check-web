@@ -4,7 +4,7 @@ import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-i
 import { Card, CardText, CardActions } from 'material-ui/Card';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
-import Settings from 'material-ui/svg-icons/action/settings';
+import Settings from '@material-ui/icons/Settings';
 import Switch from '@material-ui/core/Switch';
 import Tooltip from '@material-ui/core/Tooltip';
 import { Emojione } from 'react-emoji-render';

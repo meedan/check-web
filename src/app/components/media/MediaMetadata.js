@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
-import DownloadIcon from 'material-ui/svg-icons/content/move-to-inbox';
+import DownloadIcon from '@material-ui/icons/MoveToInbox';
 import ExternalLink from '../ExternalLink';
 import MediaTags from './MediaTags';
 import ClaimReview from './ClaimReview';

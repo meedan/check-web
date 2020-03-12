@@ -3,9 +3,12 @@ import PropTypes from 'prop-types';
 import { defineMessages, injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
-import Dialog from 'material-ui/Dialog';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
-import MdLockOutline from 'material-ui/svg-icons/action/lock-outline';
+import MdLockOutline from '@material-ui/icons/LockOutline';
 import { can } from '../Can';
 import CheckContext from '../../CheckContext';
 import { getStatus, getStatusStyle, getErrorMessage, bemClass } from '../../helpers';
@@ -113,24 +116,6 @@ class MediaStatusCommon extends Component {
       },
     };
 
-    const actions = [
-      <Button
-        onClick={this.handleCancel.bind(this)}
-      >
-        {this.props.intl.formatMessage(globalStrings.cancel)}
-      </Button>,
-      <Button
-        className="media-status__proceed-send"
-        color="primary"
-        onClick={this.handleConfirm.bind(this)}
-      >
-        <FormattedMessage
-          id="mediaStatusCommon.proceedAndSend"
-          defaultMessage="Proceed and Send"
-        />
-      </Button>,
-    ];
-
     let smoochBotInstalled = false;
     if (media.team && media.team.team_bot_installations) {
       media.team.team_bot_installations.edges.forEach((edge) => {
@@ -186,41 +171,59 @@ class MediaStatusCommon extends Component {
             {currentStatus.label}
           </div>}
         <Dialog
-          modal
           open={this.state.showConfirmation}
-          actions={actions}
-          onRequestClose={this.handleCancel.bind(this)}
-          autoScrollBodyContent
+          onClose={this.handleCancel.bind(this)}
+          maxWidth="md"
+          fullWidth
         >
-          <h4 style={{ marginBottom: units(2) }}>
+          <DialogTitle>
             <FormattedMessage
               id="mediaStatusCommon.title"
               defaultMessage="Final Report"
             />
-          </h4>
-          { media.demand && media.demand > 0 ?
-            <FormattedMessage
-              id="mediaStatusCommon.confirmationMessageWithValue"
-              defaultMessage="You are about to send a report to the {value} people who requested this item."
-              values={{
-                value: media.demand,
-              }}
-            /> :
-            <FormattedMessage
-              id="mediaStatusCommon.confirmationMessage"
-              defaultMessage="You are about to send a report to all people who requested this item."
-            /> }
-          <div style={{ marginTop: units(2), marginBottom: units(2) }}>
+          </DialogTitle>
+          <DialogContent>
+            { media.demand && media.demand > 0 ?
+              <FormattedMessage
+                id="mediaStatusCommon.confirmationMessageWithValue"
+                defaultMessage="You are about to send a report to the {value} people who requested this item."
+                values={{
+                  value: media.demand,
+                }}
+              /> :
+              <FormattedMessage
+                id="mediaStatusCommon.confirmationMessage"
+                defaultMessage="You are about to send a report to all people who requested this item."
+              /> }
+            <div>
+              <Button
+                onClick={this.handleEdit.bind(this)}
+                backgroundColor="#FBAA6D"
+              >
+                <FormattedMessage
+                  id="mediaStatusCommon.editReportBeforeSending"
+                  defaultMessage="Edit report before sending"
+                />
+              </Button>
+            </div>
+          </DialogContent>
+          <DialogActions>
             <Button
-              onClick={this.handleEdit.bind(this)}
-              backgroundColor="#FBAA6D"
+              onClick={this.handleCancel.bind(this)}
+            >
+              {this.props.intl.formatMessage(globalStrings.cancel)}
+            </Button>
+            <Button
+              className="media-status__proceed-send"
+              color="primary"
+              onClick={this.handleConfirm.bind(this)}
             >
               <FormattedMessage
-                id="mediaStatusCommon.editReportBeforeSending"
-                defaultMessage="Edit report before sending"
+                id="mediaStatusCommon.proceedAndSend"
+                defaultMessage="Proceed and Send"
               />
             </Button>
-          </div>
+          </DialogActions>
         </Dialog>
       </div>
     );

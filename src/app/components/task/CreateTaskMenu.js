@@ -10,7 +10,7 @@ import MdCheckBox from 'react-icons/lib/md/check-box';
 import MdLocationOn from 'react-icons/lib/md/location-on';
 import MdDateRange from 'react-icons/lib/md/date-range';
 import MdGrade from 'react-icons/lib/md/grade';
-import IconImageUpload from 'material-ui/svg-icons/file/cloud-upload';
+import IconImageUpload from '@material-ui/icons/CloudUpload';
 import styled from 'styled-components';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { units, black05 } from '../../styles/js/shared';

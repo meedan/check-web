@@ -6,8 +6,8 @@ import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-i
 import DatePicker from 'material-ui/DatePicker';
 import areIntlLocalesSupported from 'intl-locales-supported';
 import IntlPolyfill from 'intl';
-import IconDateRange from 'material-ui/svg-icons/action/date-range';
-import IconSchedule from 'material-ui/svg-icons/action/schedule';
+import IconDateRange from '@material-ui/icons/DateRange';
+import IconSchedule from '@material-ui/icons/Schedule';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import CheckContext from '../../CheckContext';

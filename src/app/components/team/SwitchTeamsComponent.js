@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, defineMessages, intlShape, injectIntl } from 'react-intl';
-import KeyboardArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import { Link } from 'react-router';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';

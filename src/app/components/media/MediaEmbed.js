@@ -8,7 +8,7 @@ import Checkbox from 'material-ui/Checkbox';
 import Button from '@material-ui/core/Button';
 import TextField from 'material-ui/TextField';
 import CopyToClipboard from 'react-copy-to-clipboard';
-import IconArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
+import IconArrowBack from '@material-ui/icons/ArrowBack';
 import IconButton from '@material-ui/core/IconButton';
 import styled from 'styled-components';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
