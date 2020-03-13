@@ -4,6 +4,7 @@ import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-i
 import { Card, CardText, CardActions } from 'material-ui/Card';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
+import FlatButton from 'material-ui/FlatButton';
 import Settings from '@material-ui/icons/Settings';
 import Switch from '@material-ui/core/Switch';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -253,9 +254,16 @@ class TeamBotsComponent extends Component {
                       onChange={this.handleSettingsUpdated.bind(this, installation.node)}
                     />
                     <p>
-                      <Button color="primary" onClick={this.handleSubmitSettings.bind(this, installation.node)}>
-                        <FormattedMessage id="teamBots.save" defaultMessage="Save" />
-                      </Button>
+                      <FlatButton
+                        primary
+                        onClick={this.handleSubmitSettings.bind(this, installation.node)}
+                        label={
+                          <FormattedMessage
+                            id="teamBots.save"
+                            defaultMessage="Save"
+                          />
+                        }
+                      />
                     </p>
                     <p>
                       <small>
