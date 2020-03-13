@@ -4,7 +4,7 @@
   "annotation.and": "și",
   "annotation.newClaim": "New text added by {author}",
   "annotation.menuTooltip": "Annotation actions",
-  "annotation.smoochNoMessage": "Empty request",
+  "annotation.smoochNoMessage": "No message was sent with the request",
   "annotation.permalink": "Link permanent",
   "annotation.taggedHeader": "Eticheta #{tag} adăugată de {author}",
   "annotation.deletedComment": "Comentariu șters de {author}{comment}",
