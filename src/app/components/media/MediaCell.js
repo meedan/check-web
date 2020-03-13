@@ -31,7 +31,7 @@ const MediaCell = (props) => {
   const { media, url, query } = props.data;
 
   return (
-    <Link to={url} state={{ query }}>
+    <Link to={{ pathname: url, state: { query } }}>
       <Row className="media-cell">
         { media.picture ?
           <Offset>

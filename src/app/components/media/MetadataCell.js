@@ -12,7 +12,7 @@ const MetadataCell = (props) => {
   const { url, query } = props.data;
 
   return (
-    <Link to={url} state={{ query }}>
+    <Link to={{ pathname: url, state: { query } }}>
       <Content>
         { props.value }
       </Content>
