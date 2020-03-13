@@ -4,7 +4,7 @@
   "annotation.and": "et",
   "annotation.newClaim": "Nouveau texte ajouté par {author}",
   "annotation.menuTooltip": "Actions des annotations",
-  "annotation.smoochNoMessage": "Demande vide",
+  "annotation.smoochNoMessage": "Aucun message n'a été reçu avec cette demande",
   "annotation.permalink": "Lien permanent",
   "annotation.taggedHeader": "Classé #{tag} par {author}",
   "annotation.deletedComment": "Commentaire supprimé par {author}{comment}",

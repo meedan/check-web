@@ -1,8 +1,8 @@
 {
   "mediaStatus.error": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث الحالة. من فضلك أعد المحاولة وتواصل مع {supportEmail} إن استمرت المشكلة.",
-  "mediaStatusCommon.proceedAndSend": "Proceed and Send",
   "mediaStatusCommon.title": "Final Report",
   "mediaStatusCommon.confirmationMessageWithValue": "You are about to send a report to the {value} people who requested this item.",
   "mediaStatusCommon.confirmationMessage": "You are about to send a report to all people who requested this item.",
-  "mediaStatusCommon.editReportBeforeSending": "Edit report before sending"
+  "mediaStatusCommon.editReportBeforeSending": "Edit report before sending",
+  "mediaStatusCommon.proceedAndSend": "Proceed and Send"
 }
