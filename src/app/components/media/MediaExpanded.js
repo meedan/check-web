@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { injectIntl, FormattedMessage } from 'react-intl';
-import { CardTitle, CardText, CardActions } from 'material-ui/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardActions from '@material-ui/core/CardActions';
 import styled from 'styled-components';
 import MediaRoute from '../../relay/MediaRoute';
 import MediaMetadata from './MediaMetadata';
@@ -160,11 +162,11 @@ class MediaExpandedComponent extends Component {
 
     return (
       <span>
-        <CardTitle
+        <CardHeader
           style={{ lineHeight: units(4) }}
           title={truncateLength(media.title, 110)}
         />
-        <CardText style={{ padding: `0 ${units(2)}` }}>
+        <CardContent style={{ padding: `0 ${units(2)}` }}>
           {cardHeaderText}
           <FadeIn>
             { hasCustomDescription ?
@@ -173,7 +175,7 @@ class MediaExpandedComponent extends Component {
               </MoreLess> : null }
             {embedCard}
           </FadeIn>
-        </CardText>
+        </CardContent>
         <CardActions style={{ paddingRight: units(0.5) }}>
           <MediaMetadata data={data} {...this.props} media={media} />
         </CardActions>

@@ -1,7 +1,8 @@
 import React from 'react';
 import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
 import { Link } from 'react-router';
-import { Card, CardText } from 'material-ui/Card';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
 import Message from '../Message';
@@ -80,7 +81,7 @@ class SourceCard extends React.Component {
 
     return (
       <Card className="source-card">
-        <CardText className="source-card__content" style={cardTextStyle}>
+        <CardContent className="source-card__content" style={cardTextStyle}>
           <SourcePicture size="large" object={source} type="source" />
           <StyledSourceCardBody
             className="source-card__body"
@@ -114,7 +115,7 @@ class SourceCard extends React.Component {
               </span> : null}
           </div>
           <SourceActions source={source} handleRefresh={this.handleRefresh.bind(this)} />
-        </CardText>
+        </CardContent>
       </Card>
     );
   }

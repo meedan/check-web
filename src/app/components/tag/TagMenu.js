@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import isEqual from 'lodash.isequal';
-import FlatButton from 'material-ui/FlatButton';
-import IconButton from 'material-ui/IconButton';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import styled from 'styled-components';
 import TagInput from './TagInput';
@@ -159,13 +159,14 @@ class TagMenuComponent extends Component {
             onRemoveTag={this.handleTagToRemove.bind(this)}
           />
           <StyledActions>
-            <FlatButton
+            <Button
               style={{ marginLeft: 'auto' }}
               className="tag-menu__done"
-              label={<FormattedMessage id="tagMenu.done" defaultMessage="Done" />}
               onClick={this.handleCloseMenu}
-              primary
-            />
+              color="primary"
+            >
+              <FormattedMessage id="tagMenu.done" defaultMessage="Done" />
+            </Button>
           </StyledActions>
         </div>
       </IconMenu>

@@ -4,7 +4,6 @@ import Relay from 'react-relay/classic';
 import Button from '@material-ui/core/Button';
 import { injectIntl, intlShape, defineMessages, FormattedMessage } from 'react-intl';
 import IconDelete from '@material-ui/icons/Delete';
-import FlatButton from 'material-ui/FlatButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import styled from 'styled-components';
 import MoveDialog from './MoveDialog';
@@ -245,19 +244,15 @@ class BulkActions extends React.Component {
             </Tooltip>
             { !/all-items/.test(window.location.pathname) ?
               <Tooltip title={this.props.intl.formatMessage(messages.remove)} style={{ margin: '0 10px' }}>
-                <FlatButton
-                  label={
-                    <FormattedMessage
-                      id="bulkActions.removeFromList"
-                      defaultMessage="Remove from list"
-                    />
-                  }
-                  style={{
-                    margin: '0 8px',
-                    border: '1px solid #000',
-                  }}
+                <Button
+                  style={{ margin: '0 8px', border: '1px solid #000' }}
                   onClick={this.handleRemoveSelectedFromList.bind(this)}
-                />
+                >
+                  <FormattedMessage
+                    id="bulkActions.removeFromList"
+                    defaultMessage="Remove from list"
+                  />
+                </Button>
               </Tooltip> : null }
             <Tooltip title={this.props.intl.formatMessage(messages.delete)}>
               <StyledIcon>
@@ -273,43 +268,43 @@ class BulkActions extends React.Component {
     );
 
     const moveDialogActions = [
-      <FlatButton
-        label={
-          <FormattedMessage
-            id="bulkActions.cancelButton"
-            defaultMessage="Cancel"
-          />
-        }
-        primary
+      <Button
+        color="primary"
         onClick={this.handleCloseDialogs.bind(this)}
-      />,
-      <FlatButton
-        label={<FormattedMessage id="bulkActions.moveTitle" defaultMessage="Move" />}
-        primary
+      >
+        <FormattedMessage
+          id="bulkActions.cancelButton"
+          defaultMessage="Cancel"
+        />
+      </Button>,
+      <Button
+        color="primary"
         className="media-bulk-actions__move-button"
         onClick={this.handleMove.bind(this)}
         disabled={!this.state.dstProj}
-      />,
+      >
+        <FormattedMessage id="bulkActions.moveTitle" defaultMessage="Move" />
+      </Button>,
     ];
 
     const addDialogActions = [
-      <FlatButton
-        label={
-          <FormattedMessage
-            id="bulkActions.cancelButton"
-            defaultMessage="Cancel"
-          />
-        }
-        primary
+      <Button
+        color="primary"
         onClick={this.handleCloseDialogs.bind(this)}
-      />,
-      <FlatButton
-        label={<FormattedMessage id="bulkActions.addTitle" defaultMessage="Add" />}
-        primary
+      >
+        <FormattedMessage
+          id="bulkActions.cancelButton"
+          defaultMessage="Cancel"
+        />
+      </Button>,
+      <Button
+        color="primary"
         className="media-bulk-actions__add-button"
         onClick={this.handleAdd.bind(this)}
         disabled={!this.state.dstProjForAdd}
-      />,
+      >
+        <FormattedMessage id="bulkActions.addTitle" defaultMessage="Add" />
+      </Button>,
     ];
 
     return (

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from 'react-intl';
-import { Card } from 'material-ui/Card';
+import Card from '@material-ui/core/Card';
 import rtlDetect from 'rtl-detect';
 import MediaExpanded from './MediaExpanded';
 import MediaCondensed from './MediaCondensed';

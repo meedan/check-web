@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import styled from 'styled-components';
-import IconButton from 'material-ui/IconButton';
+import IconButton from '@material-ui/core/IconButton';
 import MdClear from 'react-icons/lib/md/clear';
 import { mapGlobalMessage } from './MappedMessage';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedHTMLMessage, defineMessages, injectIntl } from 'react-intl';
 import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
+import Button from '@material-ui/core/Button';
 import globalStrings from '../../globalStrings';
 
 const messages = defineMessages({
@@ -13,17 +13,16 @@ const messages = defineMessages({
 
 const ConfirmRequired = (props) => {
   const actions = [
-    <FlatButton
-      label={props.intl.formatMessage(globalStrings.cancel)}
-      onClick={props.handleCancel}
-    />,
-    <FlatButton
+    <Button onClick={props.handleCancel}>
+      {props.intl.formatMessage(globalStrings.cancel)}
+    </Button>,
+    <Button
       className="create-task__confirm-required-button"
-      label={props.intl.formatMessage(globalStrings.confirm)}
-      primary
-      keyboardFocused
+      color="primary"
       onClick={props.handleConfirm}
-    />,
+    >
+      {props.intl.formatMessage(globalStrings.confirm)}
+    </Button>,
   ];
 
   return (

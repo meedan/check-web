@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedHTMLMessage, injectIntl } from 'react-intl';
 import rtlDetect from 'rtl-detect';
-import IconEdit from 'material-ui/svg-icons/image/edit';
+import IconEdit from '@material-ui/icons/Edit';
 import AccountChips from './AccountChips';
 import Can from '../Can';
 import ParsedText from '../ParsedText';

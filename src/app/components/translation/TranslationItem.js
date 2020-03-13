@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
 import Relay from 'react-relay/classic';
-import { Card, CardText } from 'material-ui/Card';
-import IconMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
-import IconButton from 'material-ui/IconButton';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import MoreHoriz from '@material-ui/icons/MoreHoriz';
+import IconButton from '@material-ui/core/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
-import FlatButton from 'material-ui/FlatButton';
+import Button from '@material-ui/core/Button';
 import TextField from 'material-ui/TextField';
 import styled from 'styled-components';
 import ParsedText from '../ParsedText';
@@ -136,7 +137,7 @@ class TranslationItem extends Component {
     return (
       <div className="translation__component">
         <Card className="translation__card" style={styles.translationCard}>
-          <CardText className="translation__card-text" style={styles.cardText}>
+          <CardContent className="translation__card-text" style={styles.cardText}>
 
             {this.state.editing ?
               <div>
@@ -165,19 +166,17 @@ class TranslationItem extends Component {
                   />
                 </form>
                 <div style={{ textAlign: this.props.localeIsRtl ? 'left' : 'right' }}>
-                  <FlatButton
-                    label={
-                      <FormattedMessage id="translation.cancelEdit" defaultMessage="Cancel" />
-                    }
-                    onClick={() => this.setState({ editing: false })}
-                  />
-                  <FlatButton
+                  <Button onClick={() => this.setState({ editing: false })}>
+                    <FormattedMessage id="translation.cancelEdit" defaultMessage="Cancel" />
+                  </Button>
+                  <Button
                     className="task__submit"
-                    label={<FormattedMessage id="translation.submit" defaultMessage="Submit" />}
-                    primary
+                    color="primary"
                     onClick={this.handleSubmitUpdate.bind(this)}
                     disabled={this.state.submitDisabled}
-                  />
+                  >
+                    <FormattedMessage id="translation.submit" defaultMessage="Submit" />
+                  </Button>
                 </div>
               </div>
               :
@@ -199,7 +198,7 @@ class TranslationItem extends Component {
               <IconMenu
                 className="task-actions"
                 iconButtonElement={
-                  <IconButton className="task-actions__icon"><IconMoreHoriz /></IconButton>
+                  <IconButton className="task-actions__icon"><MoreHoriz /></IconButton>
                 }
               >
                 <MenuItem
@@ -210,7 +209,7 @@ class TranslationItem extends Component {
                 </MenuItem>
               </IconMenu>
             </Row>
-          </CardText>
+          </CardContent>
         </Card>
       </div>
     );

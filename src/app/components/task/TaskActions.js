@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
-import IconMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
+import MoreHoriz from '@material-ui/icons/MoreHoriz';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import Menu from '@material-ui/core/Menu';
@@ -45,7 +45,7 @@ class TaskActions extends React.Component {
       <Can permissions={task.permissions} permission="update Task">
         <Tooltip title={this.props.intl.formatMessage(messages.menuTooltip)}>
           <IconButton className="task-actions__icon" onClick={this.handleMenuClick}>
-            <IconMoreHoriz />
+            <MoreHoriz />
           </IconButton>
         </Tooltip>
         <Menu

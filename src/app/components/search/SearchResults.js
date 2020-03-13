@@ -6,8 +6,8 @@ import config from 'config'; // eslint-disable-line require-path-exists/exists
 import sortby from 'lodash.sortby';
 import isEqual from 'lodash.isequal';
 import styled from 'styled-components';
-import NextIcon from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
-import PrevIcon from 'material-ui/svg-icons/hardware/keyboard-arrow-left';
+import NextIcon from '@material-ui/icons/KeyboardArrowRight';
+import PrevIcon from '@material-ui/icons/KeyboardArrowLeft';
 import Tooltip from '@material-ui/core/Tooltip';
 import { searchQueryFromUrl, urlFromSearchQuery } from './Search';
 import SearchQuery from './SearchQuery';

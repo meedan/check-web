@@ -3,7 +3,7 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FlatButton from 'material-ui/FlatButton';
+import Button from '@material-ui/core/Button';
 import { FormattedMessage } from 'react-intl';
 import ParsedText from '../ParsedText';
 import { safelyParseJSON } from '../../helpers';
@@ -105,17 +105,17 @@ class SingleChoiceTask extends Component {
 
     const actionBtns = (
       <div>
-        <FlatButton
-          label={<FormattedMessage id="tasks.cancelEdit" defaultMessage="Cancel" />}
-          onClick={cancelCallback}
-        />
-        <FlatButton
+        <Button onClick={cancelCallback}>
+          <FormattedMessage id="tasks.cancelEdit" defaultMessage="Cancel" />
+        </Button>
+        <Button
           className="task__submit"
-          label={<FormattedMessage id="tasks.answer" defaultMessage="Answer Task" />}
-          primary
+          color="primary"
           onClick={submitCallback}
           disabled={this.state.taskAnswerDisabled}
-        />
+        >
+          <FormattedMessage id="tasks.answer" defaultMessage="Answer Task" />
+        </Button>
       </div>
     );
 

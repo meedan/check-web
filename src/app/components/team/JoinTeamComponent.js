@@ -3,8 +3,11 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import { Link } from 'react-router';
-import RaisedButton from 'material-ui/RaisedButton';
-import Card, { CardTitle, CardActions, CardText } from 'material-ui/Card';
+import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardActions from '@material-ui/core/CardActions';
 import PageTitle from '../PageTitle';
 import CreateTeamUserMutation from '../../relay/mutations/CreateTeamUserMutation';
 import { mapGlobalMessage } from '../MappedMessage';
@@ -143,13 +146,13 @@ class JoinTeamComponent extends Component {
           <ContentColumn>
             <Message message={this.state.message} />
             <Card>
-              <CardTitle
+              <CardHeader
                 title={<FormattedMessage
                   id="joinTeamComponent.mainHeading"
                   defaultMessage="Request to join"
                 />}
               />
-              <CardText>
+              <CardContent>
 
                 {(() => {
                   if (this.alreadyMember()) {
@@ -178,20 +181,22 @@ class JoinTeamComponent extends Component {
                     </div>
                   );
                 })()}
-              </CardText>
+              </CardContent>
 
               {(() => {
                 if (!this.alreadyMember()) {
                   return (
                     <CardActions>
-                      <RaisedButton
+                      <Button
+                        variant="contained"
                         primary
                         className={`join-team__button${isRequestSent === ''
                           ? ''
                           : ' join-team__button--submitted'}`}
                         onClick={this.handleRequestAccess.bind(this)}
                         disabled={disableRequest}
-                        label={(() => {
+                      >
+                        {(() => {
                           if (isRequestSent === 'requested') {
                             return (
                               <FormattedMessage
@@ -207,7 +212,7 @@ class JoinTeamComponent extends Component {
                             />
                           );
                         })()}
-                      />
+                      </Button>
                     </CardActions>
                   );
                 }

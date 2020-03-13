@@ -1,7 +1,7 @@
 import styled, { css, keyframes } from 'styled-components';
-import { CardTitle } from 'material-ui/Card';
+import CardHeader from '@material-ui/core/CardHeader';
 import TextField from 'material-ui/TextField';
-import IconButton from 'material-ui/IconButton';
+import IconButton from '@material-ui/core/IconButton';
 import CheckboxNext from '@material-ui/core/Checkbox';
 import { stripUnit, rgba } from 'polished';
 
@@ -438,7 +438,7 @@ export const Row = styled.div`
 // feedback welcome! WIP CGB 2017-7-12
 //
 export const StyledMdCardTitle =
-  styled(CardTitle)` > span {
+  styled(CardHeader)` > span {
       font: ${title1} !important;
     }
   `;

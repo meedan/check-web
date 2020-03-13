@@ -437,7 +437,7 @@ module AppSpecHelpers
     # Install bot
     wait_for_selector('.team > div + div button').click
     wait_for_selector(".bot-garden__bot-name")
-    bot= wait_for_selector("//b[contains(text(), '#{bot_name}')]", :xpath)
+    bot = wait_for_selector("//span[contains(text(), '#{bot_name}')]", :xpath)
     bot.click
     wait_for_selector('input').click
     @driver.switch_to.alert.accept

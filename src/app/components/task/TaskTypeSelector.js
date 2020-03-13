@@ -7,7 +7,7 @@ import LocationIcon from '@material-ui/icons/LocationOn';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
-import IconImageUpload from 'material-ui/svg-icons/file/cloud-upload';
+import IconImageUpload from '@material-ui/icons/CloudUpload';
 import MultiSelector from '../layout/MultiSelector';
 
 class TaskTypeSelector extends React.Component {

@@ -4,7 +4,7 @@
   "annotation.and": "e",
   "annotation.newClaim": "Novo texto inserido por {author}",
   "annotation.menuTooltip": "Ações das anotações",
-  "annotation.smoochNoMessage": "Solicitação vazia",
+  "annotation.smoochNoMessage": "Nenhuma mensagen foi enviada com a solicitação",
   "annotation.permalink": "Permalink",
   "annotation.taggedHeader": "Marcado #{tag} por {author}",
   "annotation.deletedComment": "Comentário excluído por {author}{comment}",

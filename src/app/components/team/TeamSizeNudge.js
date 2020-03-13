@@ -1,6 +1,8 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Card, CardText, CardHeader } from 'material-ui/Card';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
 import { stringHelper } from '../../customHelpers';
 import { Row } from '../../styles/js/shared';
 
@@ -33,9 +35,9 @@ class TeamSizeNudge extends React.Component {
               />
             }
           />
-          <CardText>
+          <CardContent>
             {nudge}
-          </CardText>
+          </CardContent>
         </Card>
       );
     }
