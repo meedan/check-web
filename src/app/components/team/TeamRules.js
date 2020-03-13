@@ -72,7 +72,7 @@ const StyledSchemaForm = styled.div`
     margin-top: ${units(1)};
   }
 
-  textarea, input[type=string] {
+  textarea, input[type=string], input[type=number] {
     width: 100%;
   }
 
@@ -270,6 +270,27 @@ const StyledRulesBar = styled.div`
 `;
 
 class TeamRulesComponent extends Component {
+  static toggleRuleField(i, j) {
+    const fields = document.querySelectorAll('fieldset fieldset fieldset div + fieldset fieldset > div > div + div');
+    const numberOfFields = 8;
+    for (let k = 1; k <= numberOfFields; k += 1) {
+      fields[(i * numberOfFields) - k].style.display = 'none';
+    }
+    fields[(i * numberOfFields) - j].style.display = 'block';
+  }
+
+  static adjustNumberFields() {
+    const fields = document.querySelectorAll('fieldset input[type=number]');
+    let i = 0;
+    fields.forEach(() => {
+      const field = fields[i];
+      field.max = 100;
+      field.min = 1;
+      field.step = 1;
+      i += 1;
+    });
+  }
+
   constructor(props) {
     super(props);
     const rules = props.team.get_rules || [];
@@ -295,6 +316,7 @@ class TeamRulesComponent extends Component {
     this.showDependentFields();
     this.toggleRulesForms();
     this.addClickEventToDeleteButtons();
+    TeamRulesComponent.adjustNumberFields();
   }
 
   componentWillUnmount() {
@@ -479,48 +501,22 @@ class TeamRulesComponent extends Component {
       if (rule.rules && rule.rules.constructor === Array) {
         rule.rules.forEach((rule2) => {
           i += 1;
-          if (rule2.rule_definition === 'type_is') {
-            fields[(i * 6) - 1].style.display = 'none';
-            fields[(i * 6) - 2].style.display = 'none';
-            fields[(i * 6) - 3].style.display = 'none';
-            fields[(i * 6) - 4].style.display = 'block';
-            fields[(i * 6) - 5].style.display = 'none';
-            fields[(i * 6) - 6].style.display = 'none';
-          } else if (rule2.rule_definition === 'tagged_as') {
-            fields[(i * 6) - 1].style.display = 'none';
-            fields[(i * 6) - 2].style.display = 'none';
-            fields[(i * 6) - 3].style.display = 'block';
-            fields[(i * 6) - 4].style.display = 'none';
-            fields[(i * 6) - 5].style.display = 'none';
-            fields[(i * 6) - 6].style.display = 'none';
+          if (rule2.rule_definition === 'title_matches_regexp' || rule2.rule_definition === 'request_matches_regexp') {
+            TeamRulesComponent.toggleRuleField(i, 1);
           } else if (rule2.rule_definition === 'status_is') {
-            fields[(i * 6) - 1].style.display = 'none';
-            fields[(i * 6) - 2].style.display = 'block';
-            fields[(i * 6) - 3].style.display = 'none';
-            fields[(i * 6) - 4].style.display = 'none';
-            fields[(i * 6) - 5].style.display = 'none';
-            fields[(i * 6) - 6].style.display = 'none';
-          } else if (rule2.rule_definition === 'title_matches_regexp' || rule2.rule_definition === 'request_matches_regexp') {
-            fields[(i * 6) - 1].style.display = 'block';
-            fields[(i * 6) - 2].style.display = 'none';
-            fields[(i * 6) - 3].style.display = 'none';
-            fields[(i * 6) - 4].style.display = 'none';
-            fields[(i * 6) - 5].style.display = 'none';
-            fields[(i * 6) - 6].style.display = 'none';
+            TeamRulesComponent.toggleRuleField(i, 2);
+          } else if (rule2.rule_definition === 'tagged_as') {
+            TeamRulesComponent.toggleRuleField(i, 3);
+          } else if (rule2.rule_definition === 'type_is') {
+            TeamRulesComponent.toggleRuleField(i, 4);
           } else if (rule2.rule_definition === 'has_less_than_x_words') {
-            fields[(i * 6) - 1].style.display = 'none';
-            fields[(i * 6) - 2].style.display = 'none';
-            fields[(i * 6) - 3].style.display = 'none';
-            fields[(i * 6) - 4].style.display = 'none';
-            fields[(i * 6) - 5].style.display = 'block';
-            fields[(i * 6) - 6].style.display = 'none';
+            TeamRulesComponent.toggleRuleField(i, 5);
+          } else if (rule2.rule_definition === 'item_images_are_similar') {
+            TeamRulesComponent.toggleRuleField(i, 6);
+          } else if (rule2.rule_definition === 'item_titles_are_similar') {
+            TeamRulesComponent.toggleRuleField(i, 7);
           } else {
-            fields[(i * 6) - 1].style.display = 'none';
-            fields[(i * 6) - 2].style.display = 'none';
-            fields[(i * 6) - 3].style.display = 'none';
-            fields[(i * 6) - 4].style.display = 'none';
-            fields[(i * 6) - 5].style.display = 'none';
-            fields[(i * 6) - 6].style.display = 'block';
+            TeamRulesComponent.toggleRuleField(i, 8);
           }
         });
       }
@@ -640,6 +636,10 @@ class TeamRulesComponent extends Component {
             rules[i].rules[j].rule_value = rule2.rule_value_max_number_of_words;
           } else if (rule2.rule_definition === 'title_matches_regexp' || rule2.rule_definition === 'request_matches_regexp') {
             rules[i].rules[j].rule_value = rule2.rule_value_matches_regexp;
+          } else if (rule2.rule_definition === 'item_images_are_similar') {
+            rules[i].rules[j].rule_value = rule2.rule_value_similar_images.toString();
+          } else if (rule2.rule_definition === 'item_titles_are_similar') {
+            rules[i].rules[j].rule_value = rule2.rule_value_similar_titles.toString();
           }
           j += 1;
         });
@@ -717,6 +717,20 @@ class TeamRulesComponent extends Component {
       </div>
     );
 
+    const similarImagesHintMessage = (
+      <FormattedMessage
+        id="teamRules.similarImagesHint"
+        defaultMessage="Enter a number between 1 and 100. A distance of 100% will only relate identical images. A distance of 1% will relate images that are not so similar."
+      />
+    );
+
+    const similarTitlesHintMessage = (
+      <FormattedMessage
+        id="teamRules.similarTitlesHint"
+        defaultMessage="Enter a number between 1 and 100. A distance of 100% will only relate items with identical text. A distance of 1% will relate items that share very few words together."
+      />
+    );
+
     const uiSchema = {
       rules: {
         items: {
@@ -725,6 +739,14 @@ class TeamRulesComponent extends Component {
               rule_value_matches_regexp: {
                 'ui:help': regexhintMessage,
                 'ui:widget': 'textarea',
+              },
+              rule_value_similar_images: {
+                'ui:help': similarImagesHintMessage,
+                'ui:widget': 'updown',
+              },
+              rule_value_similar_titles: {
+                'ui:help': similarTitlesHintMessage,
+                'ui:widget': 'updown',
               },
               rule_value: {
                 'ui:widget': 'textarea',
