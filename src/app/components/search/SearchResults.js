@@ -191,23 +191,6 @@ class SearchResultsComponent extends React.Component {
     this.getContext().getContextStore().history.push(url);
   }
 
-  handleClick = (index) => {
-    const media = this.resultsWithQueries[index].node;
-    const query = this.resultsWithQueries[index].itemQuery;
-    const team = this.props.search.team || this.currentContext().team;
-
-    let mediaUrl = media.project_id && team && media.dbid > 0
-      ? `/${team.slug}/project/${media.project_id}/media/${media.dbid}`
-      : null;
-    if (!mediaUrl && team && media.dbid > 0) {
-      mediaUrl = `/${team.slug}/media/${media.dbid}`;
-    }
-
-    if (mediaUrl) {
-      this.context.router.push({ pathname: mediaUrl, state: { query } });
-    }
-  };
-
   handleSelect = (selectedMedia) => {
     this.setState({ selectedMedia });
   };
@@ -430,19 +413,27 @@ class SearchResultsComponent extends React.Component {
       }
       itemBaseQuery.timestamp = new Date().getTime();
 
-      this.resultsWithQueries = searchResults.map((item) => {
+      const resultsWithQueries = searchResults.map((item) => {
         let itemQuery = {};
         itemOffset += 1;
         itemQuery = Object.assign({}, itemBaseQuery);
         itemQuery.esoffset = itemOffset;
-        return { ...item, itemQuery };
+
+        const media = item.node;
+        let mediaUrl = media.project_id && team && media.dbid > 0
+          ? `/${team.slug}/project/${media.project_id}/media/${media.dbid}`
+          : null;
+        if (!mediaUrl && team && media.dbid > 0) {
+          mediaUrl = `/${team.slug}/media/${media.dbid}`;
+        }
+
+        return { ...item, itemQuery, mediaUrl };
       });
 
       content = (
         <List
-          searchResults={searchResults}
+          searchResults={resultsWithQueries}
           onSelect={this.handleSelect}
-          onClick={this.handleClick}
           selectedMedia={this.state.selectedMedia}
           team={team}
         />

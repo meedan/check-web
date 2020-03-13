@@ -5,6 +5,7 @@ import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-material.css';
 import styled from 'styled-components';
 import MediaCell from '../media/MediaCell';
+import MetadataCell from '../media/MetadataCell';
 import MediaUtil from '../media/MediaUtil';
 import ListHeader from './ListHeader';
 import { units, highlightOrange, opaqueBlack54 } from '../../styles/js/shared';
@@ -20,6 +21,7 @@ const StyledGridContainer = styled.div`
   }
   .ag-cell-value {
     line-height: ${units(12)} !important;
+    width: 100%;
   }
   .ag-header-cell-text {
     text-transform: uppercase;
@@ -144,6 +146,7 @@ class List extends React.Component {
         field: 'share_count',
         minWidth: 124,
         maxWidth: 124,
+        cellRenderer: 'metadataCellRenderer',
         headerComponentFramework: ListHeader,
         headerComponentParams: {
           sort: 'share_count',
@@ -154,6 +157,7 @@ class List extends React.Component {
         field: 'linked_items_count',
         minWidth: 88,
         maxWidth: 88,
+        cellRenderer: 'metadataCellRenderer',
         headerComponentFramework: ListHeader,
         headerComponentParams: {
           sort: 'related',
@@ -164,18 +168,21 @@ class List extends React.Component {
         field: 'type',
         minWidth: 72,
         maxWidth: 72,
+        cellRenderer: 'metadataCellRenderer',
       },
       {
         headerName: fmtMsg(messages.status),
         field: 'status',
         minWidth: 96,
         maxWidth: 112,
+        cellRenderer: 'metadataCellRenderer',
       },
       {
         headerName: fmtMsg(messages.first_seen),
         field: 'first_seen',
         minWidth: 96,
         maxWidth: 112,
+        cellRenderer: 'metadataCellRenderer',
         headerComponentFramework: ListHeader,
         headerComponentParams: {
           sort: 'recent_added',
@@ -189,6 +196,7 @@ class List extends React.Component {
         field: 'demand',
         minWidth: 96,
         maxWidth: 96,
+        cellRenderer: 'metadataCellRenderer',
         headerComponentFramework: ListHeader,
         headerComponentParams: {
           sort: 'requests',
@@ -200,6 +208,7 @@ class List extends React.Component {
         field: 'last_seen',
         minWidth: 96,
         maxWidth: 112,
+        cellRenderer: 'metadataCellRenderer',
         headerComponentFramework: ListHeader,
         headerComponentParams: {
           sort: 'last_seen',
@@ -255,6 +264,7 @@ class List extends React.Component {
         media,
         share_count,
         query: i.itemQuery,
+        url: i.mediaUrl,
       };
 
       return row;
@@ -288,7 +298,10 @@ class List extends React.Component {
       <StyledGridContainer className="ag-theme-material">
         <AgGridReact
           columnDefs={this.state.columnDefs}
-          frameworkComponents={{ mediaCellRenderer: MediaCell }}
+          frameworkComponents={{
+            mediaCellRenderer: MediaCell,
+            metadataCellRenderer: MetadataCell,
+          }}
           rowData={this.getRowData()}
           onGridReady={this.handleGridReady}
           onRowClicked={this.handleClickRow}
