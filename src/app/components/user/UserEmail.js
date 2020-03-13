@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
-import { Card, CardActions, CardText, CardTitle } from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardActions from '@material-ui/core/CardActions';
+import Button from '@material-ui/core/Button';
 import TextField from 'material-ui/TextField';
 import ConfirmEmail from './ConfirmEmail';
 import CheckContext from '../../CheckContext';
@@ -78,8 +81,8 @@ class UserEmail extends React.Component {
     } else if (!this.props.user.email && window.storage.getValue('dismiss-user-email-nudge') !== '1') {
       return (
         <Card style={{ marginBottom: units(2) }}>
-          <CardTitle title={this.props.intl.formatMessage(messages.title)} />
-          <CardText>
+          <CardHeader title={this.props.intl.formatMessage(messages.title)} />
+          <CardContent>
             <FormattedMessage
               id="userEmail.text"
               defaultMessage={
@@ -105,17 +108,14 @@ class UserEmail extends React.Component {
                 fullWidth
               />
             </div>
-          </CardText>
+          </CardContent>
           <CardActions>
-            <FlatButton
-              label={this.props.intl.formatMessage(messages.skip)}
-              onClick={this.handleClickSkip}
-            />
-            <FlatButton
-              label={this.props.intl.formatMessage(messages.submit)}
-              onClick={this.handleSubmit}
-              primary
-            />
+            <Button onClick={this.handleClickSkip}>
+              {this.props.intl.formatMessage(messages.skip)}
+            </Button>
+            <Button onClick={this.handleSubmit} color="primary">
+              {this.props.intl.formatMessage(messages.submit)}
+            </Button>
           </CardActions>
         </Card>
       );

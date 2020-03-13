@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
+import Button from '@material-ui/core/Button';
 import TextField from 'material-ui/TextField';
 import CreateDynamicMutation from '../../relay/mutations/CreateDynamicMutation';
 import UpdateDynamicMutation from '../../relay/mutations/UpdateDynamicMutation';
@@ -103,11 +103,12 @@ class MediaStatus extends Component {
 
   render() {
     const actions = [
-      <FlatButton
-        label={<FormattedMessage id="mediaStatus.cancelMessage" defaultMessage="Cancel" />}
-        secondary
+      <Button
+        color="secondary"
         onClick={this.handleClose.bind(this)}
-      />,
+      >
+        <FormattedMessage id="mediaStatus.cancelMessage" defaultMessage="Cancel" />
+      </Button>,
     ];
 
     return (

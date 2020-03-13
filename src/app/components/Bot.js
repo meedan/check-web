@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { FormattedDate, FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
-import { Card, CardText, CardTitle, CardActions } from 'material-ui/Card';
-import Divider from 'material-ui/Divider';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
+import Divider from '@material-ui/core/Divider';
+import Switch from '@material-ui/core/Switch';
 import { Link } from 'react-router';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
-import Switch from '@material-ui/core/Switch';
 import BotRoute from '../relay/BotRoute';
 import { units, ContentColumn, black32, black87 } from '../styles/js/shared';
 import UserUtil from './user/UserUtil';
@@ -33,7 +35,7 @@ const messages = defineMessages({
   },
 });
 
-const StyledCardText = styled(CardText)`
+const StyledCardText = styled(CardContent)`
   display: flex;
 
   img {
@@ -69,9 +71,8 @@ const StyledCardFooter = styled.div`
 `;
 
 const StyledToggle = styled.div`
-  display: flex;
-  position: absolute;
   ${props => props.direction.to}: 0;
+  margin-${props => props.direction.from}: auto;
   margin-${props => props.direction.to}: 0;
 
   span.label {
@@ -79,13 +80,6 @@ const StyledToggle = styled.div`
     text-transform: uppercase;
     color: ${black32};
     align-self: center;
-  }
-
-  span.proLabel {
-    background-color: black;
-    color: white;
-    padding: 0 ${units(1)};
-    margin-right: ${units(3)};
   }
 `;
 
@@ -168,24 +162,13 @@ class BotComponent extends Component {
         <ContentColumn>
           <Message message={this.state.message} />
           <Card key={`bot-${bot.dbid}`}>
-            <CardActions style={{ padding: 0 }}>
-              <StyledToggle direction={direction} style={{ marginRight: 0 }}>
-                <span className="label">
-                  <FormattedMessage id="bot.inUse" defaultMessage="In Use" />
-                </span>
-                <Switch
-                  checked={bot.installed}
-                  onClick={this.handleToggle.bind(this)}
-                />
-              </StyledToggle>
-            </CardActions>
             <StyledCardText direction={direction}>
               <img src={bot.avatar} alt={bot.name} />
               <div>
-                <CardTitle
+                <CardHeader
                   style={{ padding: 0, paddingTop: units(2) }}
                   title={bot.name}
-                  subtitle={
+                  subheader={
                     bot.team_author ?
                       <FormattedMessage
                         id="bot.madeBy"
@@ -198,8 +181,17 @@ class BotComponent extends Component {
                 />
                 <p>{bot.description}</p>
               </div>
+              <StyledToggle direction={direction}>
+                <span className="label">
+                  <FormattedMessage id="bot.inUse" defaultMessage="In Use" />
+                </span>
+                <Switch
+                  checked={bot.installed}
+                  onClick={this.handleToggle.bind(this)}
+                />
+              </StyledToggle>
             </StyledCardText>
-            <CardText>
+            <CardContent>
               <p><b><FormattedMessage id="bot.permissions" defaultMessage="Permissions" /></b></p>
               <p>
                 <FormattedMessage
@@ -233,7 +225,7 @@ class BotComponent extends Component {
                   <span>{bot.installations_count}</span>
                 </div>
               </StyledCardFooter>
-            </CardText>
+            </CardContent>
           </Card>
         </ContentColumn>
       </PageTitle>

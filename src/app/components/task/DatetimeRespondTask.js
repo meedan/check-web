@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import TextField from 'material-ui/TextField';
-import FlatButton from 'material-ui/FlatButton';
+import Button from '@material-ui/core/Button';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import DatePicker from 'material-ui/DatePicker';
 import areIntlLocalesSupported from 'intl-locales-supported';
 import IntlPolyfill from 'intl';
-import IconDateRange from 'material-ui/svg-icons/action/date-range';
-import IconSchedule from 'material-ui/svg-icons/action/schedule';
+import IconDateRange from '@material-ui/icons/DateRange';
+import IconSchedule from '@material-ui/icons/Schedule';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import CheckContext from '../../CheckContext';
@@ -200,23 +200,20 @@ class DatetimeRespondTask extends Component {
   render() {
     const actionBtns = (
       <p className="task__resolver">
-        <FlatButton
-          className="task__cancel"
-          label={<FormattedMessage id="datetimeRespondTask.cancelTask" defaultMessage="Cancel" />}
-          onClick={this.handleCancel.bind(this)}
-        />
-        <FlatButton
+        <Button className="task__cancel" onClick={this.handleCancel.bind(this)}>
+          <FormattedMessage id="datetimeRespondTask.cancelTask" defaultMessage="Cancel" />
+        </Button>
+        <Button
           className="task__save"
-          label={
-            <FormattedMessage
-              id="datetimeRespondTask.answerTask"
-              defaultMessage="Answer task"
-            />
-          }
-          primary
+          color="primary"
           onClick={this.handlePressButton.bind(this)}
           disabled={this.state.taskAnswerDisabled}
-        />
+        >
+          <FormattedMessage
+            id="datetimeRespondTask.answerTask"
+            defaultMessage="Answer task"
+          />
+        </Button>
       </p>
     );
 

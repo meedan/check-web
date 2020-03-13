@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import FlatButton from 'material-ui/FlatButton';
+import Button from '@material-ui/core/Button';
 import UploadImage from '../UploadImage';
 import Message from '../Message';
 
@@ -39,18 +39,20 @@ class ImageUploadRespondTask extends React.Component {
   render() {
     const actionButtons = (
       <p className="task__resolver">
-        <FlatButton
+        <Button
           className="task__cancel"
-          label={<FormattedMessage id="imageUploadRespondTask.cancelTask" defaultMessage="Cancel" />}
           onClick={this.handleCancel.bind(this)}
-        />
-        <FlatButton
+        >
+          <FormattedMessage id="imageUploadRespondTask.cancelTask" defaultMessage="Cancel" />
+        </Button>
+        <Button
           className="task__save"
-          label={<FormattedMessage id="imageUploadRespondTask.answerTask" defaultMessage="Answer task" />}
           onClick={this.handleSubmit.bind(this)}
           disabled={!this.state.image}
-          primary
-        />
+          color="primary"
+        >
+          <FormattedMessage id="imageUploadRespondTask.answerTask" defaultMessage="Answer task" />
+        </Button>
       </p>
     );
 

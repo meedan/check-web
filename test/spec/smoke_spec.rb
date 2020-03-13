@@ -492,14 +492,13 @@ shared_examples 'smoke' do
     wait_for_selector('#create-media__quote').click
     wait_for_selector("#create-media-quote-input")
     fill_field('#create-media-quote-input', 'Main Item')
-    fill_field('#create-media-quote-attribution-source-input', 'Related Item')
     press_button('#create-media-dialog__submit-button')
     wait_for_selector_none("#create-media-quote-input")
     wait_for_selector_list_size(".media-detail", 2)
     expect(@driver.page_source.include?('Main Item')).to be(true)
-    wait_for_selector(".media-detail > div > span > div > button").click
-    wait_for_selector('div[role="menu"] > div > span[role="menuitem"]').click
-    wait_for_selector_none('div[role="menu"]')
+    wait_for_selector(".media-codensed__actions_icon").click
+    wait_for_selector('.media-condensed__promote-relationshp').click
+    wait_for_selector_none('.media-condensed__promote-relationshp')
     wait_for_selector(".project-header__back-button").click
     @driver.navigate.refresh
     wait_for_selector("#create-media__add-item")
@@ -553,9 +552,9 @@ shared_examples 'smoke' do
     cards = wait_for_selector_list(".media-detail").length
     expect(cards == 2).to be(true)
     #break the relationship between the items
-    wait_for_selector(".media-detail > div > span > div > button").click
-    wait_for_selector('div[role="menu"] > div + div > span[role="menuitem"]').click
-    wait_for_selector_none('div[role="menu"]')
+    wait_for_selector(".media-codensed__actions_icon").click
+    wait_for_selector('.media-condensed__break-relationship').click
+    wait_for_selector_none('.media-condensed__break-relationship')
     wait_for_selector_list_size(".media-detail", 1)
     list_size = wait_for_selector_list(".media-detail").length
     expect(list_size == 1).to be(true)

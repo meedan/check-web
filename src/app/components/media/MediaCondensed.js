@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { injectIntl, defineMessages, FormattedMessage } from 'react-intl';
 import Avatar from 'material-ui/Avatar';
-import { CardHeader } from 'material-ui/Card';
+import CardHeader from '@material-ui/core/CardHeader';
 import MenuItem from 'material-ui/MenuItem';
-import FlatButton from 'material-ui/FlatButton';
+import Button from '@material-ui/core/Button';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import IconMenu from 'material-ui/IconMenu';
-import IconButton from 'material-ui/IconButton';
-import IconMoreVert from 'material-ui/svg-icons/navigation/more-vert';
+import IconButton from '@material-ui/core/IconButton';
+import IconMoreVert from '@material-ui/icons/MoreVert';
 import Can from '../Can';
 import TimeBefore from '../TimeBefore';
 import MediaUtil from './MediaUtil';
@@ -247,26 +247,22 @@ class MediaCondensedComponent extends Component {
         </form>
 
         <span style={{ display: 'flex' }}>
-          <FlatButton
-            onClick={this.handleCancel.bind(this)}
-            label={
-              <FormattedMessage
-                id="mediaCondensed.cancelButton"
-                defaultMessage="Cancel"
-              />
-            }
-          />
-          <FlatButton
+          <Button onClick={this.handleCancel.bind(this)}>
+            <FormattedMessage
+              id="mediaCondensed.cancelButton"
+              defaultMessage="Cancel"
+            />
+          </Button>
+          <Button
             onClick={this.handleSave.bind(this, media)}
-            label={
-              <FormattedMessage
-                id="mediaCondensed.doneButton"
-                defaultMessage="Done"
-              />
-            }
             disabled={!this.canSubmit()}
-            primary
-          />
+            color="primary"
+          >
+            <FormattedMessage
+              id="mediaCondensed.doneButton"
+              defaultMessage="Done"
+            />
+          </Button>
         </span>
       </Dialog>
     );
@@ -275,7 +271,7 @@ class MediaCondensedComponent extends Component {
       <span style={{ display: 'block', position: 'relative' }}>
         <CardHeader
           title={truncateLength(media.title, 120)}
-          subtitle={
+          subheader={
             <p>
               <span>{MediaUtil.mediaTypeLabel(media.type, this.props.intl)}</span>
               { smoochBotInstalled ?
@@ -329,23 +325,23 @@ class MediaCondensedComponent extends Component {
                   <FormattedMessage id="mediaCondensed.tooltip" defaultMessage="Item actions" />
                 }
               >
-                <IconMoreVert className="media-actions__icon" />
+                <IconMoreVert className="media-codensed__actions_icon" />
               </IconButton>}
           >
             { (media.relationships && media.relationships.sources_count > 0) ?
               <Can permissions={media.relationship.permissions} permission="update Relationship">
-                <MenuItem key="promote" onClick={this.handlePromoteRelationship.bind(this)}>
+                <MenuItem key="promote" className="media-condensed__promote-relationshp" onClick={this.handlePromoteRelationship.bind(this)}>
                   <FormattedMessage id="mediaCondensed.promote" defaultMessage="Promote to primary item" />
                 </MenuItem>
               </Can> : null }
             { (media.relationships && media.relationships.sources_count > 0) ?
               <Can permissions={media.relationship.permissions} permission="destroy Relationship">
-                <MenuItem key="break" onClick={this.handleBreakRelationship.bind(this)}>
+                <MenuItem key="break" className="media-condensed__break-relationship" onClick={this.handleBreakRelationship.bind(this)} >
                   <FormattedMessage id="mediaCondensed.break" defaultMessage="Break relation to primary item" />
                 </MenuItem>
               </Can> : null }
             <Can permissions={media.permissions} permission="update ProjectMedia">
-              <MenuItem key="edit" onClick={this.handleEdit.bind(this)}>
+              <MenuItem key="edit" className="media-condensed__edit" onClick={this.handleEdit.bind(this)}>
                 <FormattedMessage id="mediaCondensed.edit" defaultMessage="Edit title and description" />
               </MenuItem>
             </Can>

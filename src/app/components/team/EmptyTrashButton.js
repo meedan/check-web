@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { injectIntl, FormattedMessage } from 'react-intl';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from '@material-ui/core/Button';
 import isEqual from 'lodash.isequal';
 import ConfirmDialog from '../layout/ConfirmDialog';
 import TeamRoute from '../../relay/TeamRoute';
@@ -88,13 +88,15 @@ class EmptyTrashComponent extends Component {
         />
 
         <Can permissions={team.permissions} permission="empty Trash">
-          <RaisedButton
-            label={<FormattedMessage id="trash.emptyTrash" defaultMessage="Empty trash" />}
+          <Button
+            variant="contained"
+            color="primary"
             className="trash__empty-trash-button"
-            primary
             onClick={this.handleOpen}
             disabled={this.state.emptyTrashDisabled || number_of_results === 0}
-          />
+          >
+            <FormattedMessage id="trash.emptyTrash" defaultMessage="Empty trash" />
+          </Button>
         </Can>
       </div>
     );

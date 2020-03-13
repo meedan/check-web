@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
-import IconArrowDropDown from 'material-ui/svg-icons/navigation/arrow-drop-down';
+import IconArrowDropDown from '@material-ui/icons/ArrowDropDown';
 import { can } from '../Can';
 import MultiSelector from '../layout/MultiSelector';
 import ProjectRoute from '../../relay/ProjectRoute';

@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
 import Relay from 'react-relay/classic';
 import Select from 'react-select';
-import { Card, CardText, CardActions } from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+import Button from '@material-ui/core/Button';
 import TextField from 'material-ui/TextField';
 import difference from 'lodash.difference';
 import intersection from 'lodash.intersection';
@@ -180,7 +182,7 @@ class TranslationComponent extends Component {
         ))}
         {options.length > 0 ?
           <Card className="translation__card" style={{ position: 'relative' }}>
-            <CardText className="translation__card-text" style={{ paddingBottom: '0' }}>
+            <CardContent className="translation__card-text" style={{ paddingBottom: '0' }}>
               <div
                 className="translation__card-title"
                 style={{ marginBottom: units(3), fontWeight: '700' }}
@@ -232,14 +234,15 @@ class TranslationComponent extends Component {
                   multiLine
                 />
               </form>
-            </CardText>
+            </CardContent>
             <CardActions style={{ textAlign: this.props.localeIsRtl ? 'left' : 'right' }}>
-              <FlatButton
-                label={<FormattedMessage id="translation.submit" defaultMessage="Submit" />}
-                primary
+              <Button
+                color="primary"
                 onClick={this.handleSubmit.bind(this)}
                 disabled={this.state.submitDisabled}
-              />
+              >
+                <FormattedMessage id="translation.submit" defaultMessage="Submit" />
+              </Button>
             </CardActions>
           </Card>
           : null}

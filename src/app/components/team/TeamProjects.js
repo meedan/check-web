@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { browserHistory } from 'react-router';
-import { Card, CardHeader, CardText } from 'material-ui/Card';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
 import { List, ListItem } from 'material-ui/List';
 import styled from 'styled-components';
 import CreateProject from '../project/CreateProject';
@@ -55,9 +57,9 @@ class TeamProjects extends React.Component {
           />
 
           {!team.projects.edges.length ?
-            <CardText style={{ color: black54 }}>
+            <CardContent style={{ color: black54 }}>
               <FormattedMessage id="teamComponent.noProjects" defaultMessage="No lists" />
-            </CardText>
+            </CardContent>
             :
             <List className="projects">
               <LoadMore

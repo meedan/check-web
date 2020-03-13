@@ -3,7 +3,7 @@ import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
+import Button from '@material-ui/core/Button';
 import UpdateUserMutation from '../relay/mutations/UpdateUserMutation';
 import CheckContext from '../CheckContext';
 import { mapGlobalMessage } from './MappedMessage';
@@ -61,14 +61,14 @@ class UserTos extends Component {
     const actions = [
       // eslint-disable-next-line jsx-a11y/click-events-have-key-events
       <div onClick={this.handleValidate.bind(this)} style={{ cursor: 'pointer' }}>
-        <FlatButton
+        <Button
           id="tos__save"
-          label={<FormattedMessage id="userTos.save" defaultMessage="Save" />}
-          primary
-          keyboardFocused
+          color="primary"
           onClick={this.handleSubmit.bind(this)}
           disabled={!this.state.checkedTos || !this.state.checkedPp}
-        />
+        >
+          <FormattedMessage id="userTos.save" defaultMessage="Save" />
+        </Button>
       </div>,
     ];
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
-import FlatButton from 'material-ui/FlatButton';
+import Button from '@material-ui/core/Button';
 import TextField from 'material-ui/TextField';
 import { getErrorMessage } from '../../helpers';
 import CheckContext from '../../CheckContext';
@@ -106,18 +106,17 @@ class TagInput extends React.Component {
               />
             }
           />
-          <FlatButton
+          <Button
             style={{ marginLeft: 'auto' }}
-            label={
-              <FormattedMessage
-                id="tagInput.addTag"
-                defaultMessage="Add Tag"
-              />
-            }
             onClick={this.handleSubmit.bind(this)}
-            primary
+            color="primary"
             disabled={this.state.submitDisabled}
-          />
+          >
+            <FormattedMessage
+              id="tagInput.addTag"
+              defaultMessage="Add Tag"
+            />
+          </Button>
         </Row>
       </div>
     );

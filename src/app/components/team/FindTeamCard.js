@@ -7,8 +7,11 @@ import {
 } from 'react-intl';
 import { Link } from 'react-router';
 import TextField from 'material-ui/TextField';
-import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
-import RaisedButton from 'material-ui/RaisedButton';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardActions from '@material-ui/core/CardActions';
+import Button from '@material-ui/core/Button';
 import styled from 'styled-components';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import CheckContext from '../../CheckContext';
@@ -113,7 +116,7 @@ class FindTeamCard extends React.Component {
             }
           />
           <form className="find-team__form">
-            <CardText>
+            <CardContent>
               <TeamUrlRow>
                 <TeamUrlColumn>
                   <label htmlFor="team-slug-container">
@@ -138,20 +141,20 @@ class FindTeamCard extends React.Component {
                   fullWidth
                 />
               </TeamUrlRow>
-            </CardText>
+            </CardContent>
             <CardActions>
-              <RaisedButton
+              <Button
+                variant="contained"
+                color="primary"
                 type="submit"
                 className="find-team__submit-button"
-                label={
-                  <FormattedMessage
-                    id="findTeamCard.submitButton"
-                    defaultMessage="Find workspace"
-                  />
-                }
-                primary
                 onClick={this.handleSubmit}
-              />
+              >
+                <FormattedMessage
+                  id="findTeamCard.submitButton"
+                  defaultMessage="Find workspace"
+                />
+              </Button>
             </CardActions>
           </form>
         </Card>
