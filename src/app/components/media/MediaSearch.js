@@ -184,20 +184,20 @@ class MediaSearchComponent extends React.Component {
 
     return (
       <div>
+        <StyledPager>
+          <Tooltip title={this.props.intl.formatMessage(messages.previousItem)}>
+            <button onClick={this.previousItem.bind(this)} id="media-search__previous-item">
+              <PrevIcon style={{ opacity: offset === 0 ? '0.25' : '1' }} />
+            </button>
+          </Tooltip>
+          <span id="media-search__current-item">{offset + 1} {this.props.intl.formatMessage(messages.of)} {numberOfResults}</span>
+          <Tooltip title={this.props.intl.formatMessage(messages.nextItem)}>
+            <button onClick={this.nextItem.bind(this)} id="media-search__next-item">
+              <NextIcon style={{ opacity: offset + 1 === numberOfResults ? '0.25' : '1' }} />
+            </button>
+          </Tooltip>
+        </StyledPager>
         <StyledTopBar>
-          <StyledPager>
-            <Tooltip title={this.props.intl.formatMessage(messages.previousItem)}>
-              <button onClick={this.previousItem.bind(this)} id="media-search__previous-item">
-                <PrevIcon style={{ opacity: offset === 0 ? '0.25' : '1' }} />
-              </button>
-            </Tooltip>
-            <span id="media-search__current-item">{offset + 1} {this.props.intl.formatMessage(messages.of)} {numberOfResults}</span>
-            <Tooltip title={this.props.intl.formatMessage(messages.nextItem)}>
-              <button onClick={this.nextItem.bind(this)} id="media-search__next-item">
-                <NextIcon style={{ opacity: offset + 1 === numberOfResults ? '0.25' : '1' }} />
-              </button>
-            </Tooltip>
-          </StyledPager>
           <MediaActionsBar
             className="media-search__actions-bar"
             router={this.props.context.router}
