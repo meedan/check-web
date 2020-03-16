@@ -261,6 +261,30 @@ const messages = defineMessages({
     id: 'annotation.flagSpam',
     defaultMessage: 'SPAM',
   },
+  flagLikelihood0: {
+    id: 'annotation.flagLikelihood0',
+    defaultMessage: 'Unknown',
+  },
+  flagLikelihood1: {
+    id: 'annotation.flagLikelihood1',
+    defaultMessage: 'Very unlikely',
+  },
+  flagLikelihood2: {
+    id: 'annotation.flagLikelihood2',
+    defaultMessage: 'Unlikely',
+  },
+  flagLikelihood3: {
+    id: 'annotation.flagLikelihood3',
+    defaultMessage: 'Possible',
+  },
+  flagLikelihood4: {
+    id: 'annotation.flagLikelihood4',
+    defaultMessage: 'Likely',
+  },
+  flagLikelihood5: {
+    id: 'annotation.flagLikelihood5',
+    defaultMessage: 'Very likely',
+  },
 });
 
 // TODO Fix a11y issues
@@ -627,7 +651,7 @@ class Annotation extends Component {
         const flagsContent = (
           <ul>
             { Object.keys(flags).map((flag) => {
-              const likelihood = flags[flag];
+              const likelihood = this.props.intl.formatMessage(messages[`flagLikelihood${flags[flag]}`]);
               const flagName = this.props.intl.formatMessage(messages[`${flag}Flag`]);
               return (
                 <li style={{ margin: units(1), listStyle: 'disc' }}>{flagName}: {likelihood}</li>
