@@ -65,7 +65,8 @@ class CreateProjectMediaMutation extends Relay.Mutation {
   getConfigs() {
     const configs = [];
     const fieldIDs = {};
-    if (this.props.team || this.props.project) {
+    if (!this.props.related && !this.props.related_to_id &&
+    (this.props.team || this.props.project)) {
       configs.push({
         type: 'RANGE_ADD',
         parentName: 'check_search_team',
@@ -78,7 +79,7 @@ class CreateProjectMediaMutation extends Relay.Mutation {
         this.props.team.search_id :
         this.props.project.team.search_id;
     }
-    if (this.props.project) {
+    if (!this.props.related && !this.props.related_to_id && this.props.project) {
       configs.push({
         type: 'RANGE_ADD',
         parentName: 'check_search_project',
