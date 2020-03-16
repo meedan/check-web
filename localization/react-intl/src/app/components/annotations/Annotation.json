@@ -24,6 +24,30 @@
     "defaultMessage": "No message was sent with the request"
   },
   {
+    "id": "annotation.flagAdult",
+    "defaultMessage": "Adult"
+  },
+  {
+    "id": "annotation.flagSpoof",
+    "defaultMessage": "Spoof"
+  },
+  {
+    "id": "annotation.flagMedical",
+    "defaultMessage": "Medical"
+  },
+  {
+    "id": "annotation.flagViolence",
+    "defaultMessage": "Violence"
+  },
+  {
+    "id": "annotation.flagRacy",
+    "defaultMessage": "Racy"
+  },
+  {
+    "id": "annotation.flagSpam",
+    "defaultMessage": "SPAM"
+  },
+  {
     "id": "annotation.permalink",
     "defaultMessage": "Permalink"
   },
@@ -62,6 +86,10 @@
   {
     "id": "annotation.mediaAssignmentDeleted",
     "defaultMessage": "Item unassigned from {name} by {author}"
+  },
+  {
+    "id": "annotation.flag",
+    "defaultMessage": "Classification results:"
   },
   {
     "id": "annotation.statusLocked",
@@ -150,10 +178,6 @@
   {
     "id": "annotation.penderArchiveWait",
     "defaultMessage": "The screenshot of this item is being taken by Keep. Come back in a few minutes to see it."
-  },
-  {
-    "id": "annotation.flaggedHeader",
-    "defaultMessage": "Flagged as {flag} by {author}"
   },
   {
     "id": "annotation.projectMoved",

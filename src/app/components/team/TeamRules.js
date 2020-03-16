@@ -272,11 +272,13 @@ const StyledRulesBar = styled.div`
 class TeamRulesComponent extends Component {
   static toggleRuleField(i, j) {
     const fields = document.querySelectorAll('fieldset fieldset fieldset div + fieldset fieldset > div > div + div');
-    const numberOfFields = 8;
+    const numberOfFields = 10;
     for (let k = 1; k <= numberOfFields; k += 1) {
       fields[(i * numberOfFields) - k].style.display = 'none';
     }
-    fields[(i * numberOfFields) - j].style.display = 'block';
+    [j].flat().forEach((l) => {
+      fields[(i * numberOfFields) - l].style.display = 'block';
+    });
   }
 
   static adjustNumberFields() {
@@ -284,8 +286,13 @@ class TeamRulesComponent extends Component {
     let i = 0;
     fields.forEach(() => {
       const field = fields[i];
-      field.max = 100;
-      field.min = 1;
+      if (/flag_threshold/.test(field.id)) {
+        field.max = 5;
+        field.min = 0;
+      } else {
+        field.max = 100;
+        field.min = 1;
+      }
       field.step = 1;
       i += 1;
     });
@@ -515,8 +522,10 @@ class TeamRulesComponent extends Component {
             TeamRulesComponent.toggleRuleField(i, 6);
           } else if (rule2.rule_definition === 'item_titles_are_similar') {
             TeamRulesComponent.toggleRuleField(i, 7);
+          } else if (rule2.rule_definition === 'flagged_as') {
+            TeamRulesComponent.toggleRuleField(i, [8, 9]);
           } else {
-            TeamRulesComponent.toggleRuleField(i, 8);
+            TeamRulesComponent.toggleRuleField(i, 10);
           }
         });
       }
@@ -640,6 +649,11 @@ class TeamRulesComponent extends Component {
             rules[i].rules[j].rule_value = rule2.rule_value_similar_images.toString();
           } else if (rule2.rule_definition === 'item_titles_are_similar') {
             rules[i].rules[j].rule_value = rule2.rule_value_similar_titles.toString();
+          } else if (rule2.rule_definition === 'flagged_as') {
+            rules[i].rules[j].rule_value = JSON.stringify({
+              flag: rule2.rule_value_flagged_as,
+              threshold: parseInt(rule2.rule_value_flag_threshold, 10),
+            });
           }
           j += 1;
         });
@@ -746,6 +760,9 @@ class TeamRulesComponent extends Component {
               },
               rule_value_similar_titles: {
                 'ui:help': similarTitlesHintMessage,
+                'ui:widget': 'updown',
+              },
+              rule_value_flag_threshold: {
                 'ui:widget': 'updown',
               },
               rule_value: {
