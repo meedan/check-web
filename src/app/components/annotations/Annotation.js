@@ -1021,13 +1021,41 @@ class Annotation extends Component {
 
       if (object.field_name === 'smooch_data' && activityType === 'create_dynamicannotationfield') {
         showCard = true;
-        let messageText = JSON.parse(object.value).text.trim();
+        const objectValue = JSON.parse(object.value);
+        const messageType = objectValue.source.type;
+        let messageText = objectValue.text.trim();
         if (!messageText) {
           messageText = this.props.intl.formatMessage(messages.smoochNoMessage);
         }
         contentTemplate = (
-          <div className="annotation__card-content">
-            <ParsedText text={messageText} />
+          <div>
+            <StyledAnnotationMetadata isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
+              <span className="annotation__card-header">
+                <span>
+                  {objectValue.name}
+                </span>
+                <span> - </span>
+                <span>
+                  {timestamp}
+                </span>
+                <span> - </span>
+                <span>
+                  {messageType.charAt(0).toUpperCase() + messageType.slice(1)}
+                </span>
+              </span>
+            </StyledAnnotationMetadata>
+            <div className="annotation__card-content">
+              {annotation.smooch_slack_url ?
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={annotation.smooch_slack_url}
+                >
+                  <ParsedText text={messageText} />
+                </a> :
+                <ParsedText text={messageText} />
+              }
+            </div>
           </div>
         );
       }
