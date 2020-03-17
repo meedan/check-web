@@ -286,13 +286,8 @@ class TeamRulesComponent extends Component {
     let i = 0;
     fields.forEach(() => {
       const field = fields[i];
-      if (/flag_threshold/.test(field.id)) {
-        field.max = 5;
-        field.min = 0;
-      } else {
-        field.max = 100;
-        field.min = 1;
-      }
+      field.max = 100;
+      field.min = 1;
       field.step = 1;
       i += 1;
     });
@@ -760,9 +755,6 @@ class TeamRulesComponent extends Component {
               },
               rule_value_similar_titles: {
                 'ui:help': similarTitlesHintMessage,
-                'ui:widget': 'updown',
-              },
-              rule_value_flag_threshold: {
                 'ui:widget': 'updown',
               },
               rule_value: {

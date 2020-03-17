@@ -48,6 +48,30 @@
     "defaultMessage": "Spam"
   },
   {
+    "id": "annotation.flagLikelihood0",
+    "defaultMessage": "Unknown"
+  },
+  {
+    "id": "annotation.flagLikelihood1",
+    "defaultMessage": "Very unlikely"
+  },
+  {
+    "id": "annotation.flagLikelihood2",
+    "defaultMessage": "Unlikely"
+  },
+  {
+    "id": "annotation.flagLikelihood3",
+    "defaultMessage": "Possible"
+  },
+  {
+    "id": "annotation.flagLikelihood4",
+    "defaultMessage": "Likely"
+  },
+  {
+    "id": "annotation.flagLikelihood5",
+    "defaultMessage": "Very likely"
+  },
+  {
     "id": "annotation.permalink",
     "defaultMessage": "Permalink"
   },
