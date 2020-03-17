@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
+import { Link } from 'react-router';
 import { injectIntl, defineMessages, FormattedMessage } from 'react-intl';
 import Avatar from 'material-ui/Avatar';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -21,6 +22,7 @@ import DeleteRelationshipMutation from '../../relay/mutations/DeleteRelationship
 import UpdateRelationshipMutation from '../../relay/mutations/UpdateRelationshipMutation';
 import { truncateLength, getErrorMessage } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
+import { black87 } from '../../styles/js/shared';
 
 const messages = defineMessages({
   editReport: {
@@ -60,11 +62,6 @@ class MediaCondensedComponent extends Component {
 
   getTitle() {
     return (typeof this.state.title === 'string') ? this.state.title.trim() : this.props.media.title;
-  }
-
-  handleClickHeader() {
-    const { mediaUrl, mediaQuery } = this.props;
-    this.getContext().history.push({ pathname: mediaUrl, state: { query: mediaQuery } });
   }
 
   handleEdit() {
@@ -267,41 +264,51 @@ class MediaCondensedComponent extends Component {
       </Dialog>
     );
 
+    const { mediaUrl, mediaQuery } = this.props;
+
     return (
       <span style={{ display: 'block', position: 'relative' }}>
         <CardHeader
-          title={truncateLength(media.title, 120)}
+          title={
+            <Link to={{ pathname: mediaUrl, state: { query: mediaQuery } }}>
+              <span style={{ color: black87 }}>
+                {truncateLength(media.title, 120)}
+              </span>
+            </Link>}
           subheader={
             <p>
-              <span>{MediaUtil.mediaTypeLabel(media.type, this.props.intl)}</span>
-              { smoochBotInstalled ?
-                <span>
-                  <span style={{ margin: '0 8px' }}> - </span>
+              <Link to={{ pathname: mediaUrl, state: { query: mediaQuery } }}>
+                <span>{MediaUtil.mediaTypeLabel(media.type, this.props.intl)}</span>
+                { smoochBotInstalled ?
                   <span>
-                    <FormattedMessage
-                      id="mediaCondensed.requests"
-                      defaultMessage="{count} requests"
-                      values={{
-                        count: media.requests_count,
-                      }}
-                    />
-                  </span>
-                </span> : null
-              }
-              <span style={{ margin: '0 8px' }}> - </span>
-              <TimeBefore date={MediaUtil.createdAt({ published: media.last_seen })} />
+                    <span style={{ margin: '0 8px' }}> - </span>
+                    <span>
+                      <FormattedMessage
+                        id="mediaCondensed.requests"
+                        defaultMessage="{count} requests"
+                        values={{
+                          count: media.requests_count,
+                        }}
+                      />
+                    </span>
+                  </span> : null
+                }
+                <span style={{ margin: '0 8px' }}> - </span>
+                <TimeBefore date={MediaUtil.createdAt({ published: media.last_seen })} />
+              </Link>
             </p>
           }
           avatar={
-            <Avatar
-              src={media.picture}
-              size={100}
-              style={{
-                borderRadius: 0,
-              }}
-            />
+            <Link to={{ pathname: mediaUrl, state: { query: mediaQuery } }}>
+              <Avatar
+                src={media.picture}
+                size={100}
+                style={{
+                  borderRadius: 0,
+                }}
+              />
+            </Link>
           }
-          onClick={this.handleClickHeader.bind(this)}
           style={{
             cursor: 'pointer',
             padding: 0,
