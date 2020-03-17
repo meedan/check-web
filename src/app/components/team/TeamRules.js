@@ -734,14 +734,14 @@ class TeamRulesComponent extends Component {
     const similarImagesHintMessage = (
       <FormattedMessage
         id="teamRules.similarImagesHint"
-        defaultMessage="Enter a number between 1 and 100. A distance of 100% will only relate identical images. A distance of 1% will relate images that are not so similar."
+        defaultMessage="Enter a percentage between 1 and 100. A distance of 100% will only relate identical images. A distance of 1% will relate images that are not so similar."
       />
     );
 
     const similarTitlesHintMessage = (
       <FormattedMessage
         id="teamRules.similarTitlesHint"
-        defaultMessage="Enter a number between 1 and 100. A distance of 100% will only relate items with identical text. A distance of 1% will relate items that share very few words together."
+        defaultMessage="Enter a percentage between 1 and 100. A distance of 100% will only relate items with identical titles. A distance of 1% will relate items whose titles share very few words together."
       />
     );
 

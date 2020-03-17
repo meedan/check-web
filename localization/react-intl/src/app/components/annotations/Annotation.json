@@ -45,7 +45,7 @@
   },
   {
     "id": "annotation.flagSpam",
-    "defaultMessage": "SPAM"
+    "defaultMessage": "Spam"
   },
   {
     "id": "annotation.permalink",
@@ -89,7 +89,7 @@
   },
   {
     "id": "annotation.flag",
-    "defaultMessage": "Classification results:"
+    "defaultMessage": "Classification result:"
   },
   {
     "id": "annotation.statusLocked",

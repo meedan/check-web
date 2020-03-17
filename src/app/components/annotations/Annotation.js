@@ -259,7 +259,7 @@ const messages = defineMessages({
   },
   spamFlag: {
     id: 'annotation.flagSpam',
-    defaultMessage: 'SPAM',
+    defaultMessage: 'Spam',
   },
 });
 
@@ -639,7 +639,7 @@ class Annotation extends Component {
           <div>
             <FormattedMessage
               id="annotation.flag"
-              defaultMessage="Classification results:"
+              defaultMessage="Classification result:"
             />
             {flagsContent}
           </div>
