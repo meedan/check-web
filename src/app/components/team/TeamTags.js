@@ -12,7 +12,10 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
 import Button from '@material-ui/core/Button';
-import Dialog from 'material-ui/Dialog';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import Checkbox from 'material-ui/Checkbox';
 import Tooltip from '@material-ui/core/Tooltip';
 import deepEqual from 'deep-equal';
@@ -539,26 +542,29 @@ class TeamTagsComponent extends Component {
         </Card>
 
         <Dialog
-          actions={actions}
-          modal={false}
           open={this.state.dialogOpen}
-          onRequestClose={this.handleCloseDialog.bind(this)}
+          onClose={this.handleCloseDialog.bind(this)}
         >
-          <Message message={this.state.message} />
-          <h2>
+          <DialogTitle>
             <FormattedMessage
               id="teamTags.confirmDeleteTitle"
               defaultMessage="Are you sure you want to delete this tag?"
             />
-          </h2>
-          <p style={{ margin: `${units(4)} 0` }}>
-            <Checkbox
-              id="tag__confirm"
-              onCheck={this.handleConfirmation.bind(this)}
-              checked={this.state.confirmed}
-              label={<TagTextCount tag={this.state.tagToBeDeleted} />}
-            />
-          </p>
+          </DialogTitle>
+          <DialogContent>
+            <Message message={this.state.message} />
+            <p style={{ margin: `${units(4)} 0` }}>
+              <Checkbox
+                id="tag__confirm"
+                onCheck={this.handleConfirmation.bind(this)}
+                checked={this.state.confirmed}
+                label={<TagTextCount tag={this.state.tagToBeDeleted} />}
+              />
+            </p>
+          </DialogContent>
+          <DialogActions>
+            {actions}
+          </DialogActions>
         </Dialog>
       </StyledContentColumn>
     );

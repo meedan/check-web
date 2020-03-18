@@ -1,6 +1,9 @@
 import React from 'react';
 import { FormattedHTMLMessage, defineMessages, injectIntl } from 'react-intl';
-import Dialog from 'material-ui/Dialog';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import globalStrings from '../../globalStrings';
 
@@ -27,15 +30,17 @@ const ConfirmRequired = (props) => {
 
   return (
     <Dialog
-      title={props.intl.formatMessage(messages.title)}
-      actions={actions}
       {...props}
     >
-      <FormattedHTMLMessage
-        id="task.confirmRequiredText"
-        defaultMessage="You are adding a required task to an item marked <strong>{status}</strong>. By doing so, the item will automatically be reverted to its original status."
-        values={{ status: props.status && props.status.label }}
-      />
+      <DialogTitle>{props.intl.formatMessage(messages.title)}</DialogTitle>
+      <DialogContent>
+        <FormattedHTMLMessage
+          id="task.confirmRequiredText"
+          defaultMessage="You are adding a required task to an item marked <strong>{status}</strong>. By doing so, the item will automatically be reverted to its original status."
+          values={{ status: props.status && props.status.label }}
+        />
+      </DialogContent>
+      <DialogActions>{actions}</DialogActions>
     </Dialog>
   );
 };
