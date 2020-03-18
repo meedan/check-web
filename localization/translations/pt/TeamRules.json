@@ -11,6 +11,8 @@
   "teamRules.deleted": "Regra excluída",
   "teamRules.ruleRegexHint": "Sua regex deve se parecer com ^(0?[1-9]|[12][0-9]|3[01])$.",
   "teamRules.ruleRegexHintLink": "Clique aqui para ler mais sobre expressões regulares.",
+  "teamRules.similarImagesHint": "Digite uma porcentagem entre 1 e 100. Uma distância de 100% relacionará apenas imagens idênticas. Uma distância de 1% relacionará imagens que não são tão semelhantes.",
+  "teamRules.similarTitlesHint": "Digite uma porcentagem entre 1 e 100. Uma distância de 100% relacionará apenas itens com títulos idênticos. Uma distância de 1% relacionará itens cujos títulos compartilham muito poucas palavras.",
   "teamRules.edit": "Editar regra",
   "teamRules.delete": "Excluir regra",
   "teamRules.title": "Regras",

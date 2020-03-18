@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
-import FlatButton from 'material-ui/FlatButton';
+import Button from '@material-ui/core/Button';
 import SvgIcon from 'material-ui/SvgIcon';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import TextField from 'material-ui/TextField';
-import IconInsertPhoto from 'material-ui/svg-icons/editor/insert-photo';
+import IconInsertPhoto from '@material-ui/icons/InsertPhoto';
 import Movie from '@material-ui/icons/Movie';
-import IconLink from 'material-ui/svg-icons/content/link';
+import IconLink from '@material-ui/icons/Link';
 import FaFeed from 'react-icons/lib/fa/feed';
 import MdFormatQuote from 'react-icons/lib/md/format-quote';
 import rtlDetect from 'rtl-detect';
@@ -480,15 +480,16 @@ class CreateMediaInput extends React.Component {
                   {...defaultTabProps}
                 />
               </Tabs>
-              <FlatButton
+              <Button
                 id="create-media-submit"
-                primary
+                color="primary"
                 disabled={!this.state.submittable}
                 onClick={this.handleSubmit}
-                label={this.props.intl.formatMessage(messages.submitButton)}
                 className="create-media__button create-media__button--submit"
                 style={styles.submitButton}
-              />
+              >
+                {this.props.intl.formatMessage(messages.submitButton)}
+              </Button>
             </Row>
           </div>
         </form>

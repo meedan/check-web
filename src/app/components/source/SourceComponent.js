@@ -10,12 +10,11 @@ import {
 } from 'react-intl';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
-import { CardActions } from 'material-ui/Card';
+import Button from '@material-ui/core/Button';
+import CardActions from '@material-ui/core/CardActions';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import Popover from 'material-ui/Popover';
-import IconEdit from 'material-ui/svg-icons/image/edit';
+import IconEdit from '@material-ui/icons/Edit';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import MdCancel from 'react-icons/lib/md/cancel';
@@ -1280,21 +1279,16 @@ class SourceComponent extends Component {
 
   renderSourceEdit(source) {
     const actions = [
-      <FlatButton
-        label={this.props.intl.formatMessage(globalStrings.cancel)}
-        onClick={this.handleCloseDialog.bind(this)}
-      />,
-      <FlatButton
-        label={
-          <FormattedMessage
-            id="sourceComponent.add"
-            defaultMessage="Add Field"
-          />
-        }
+      <Button onClick={this.handleCloseDialog.bind(this)}>
+        {this.props.intl.formatMessage(globalStrings.cancel)}
+      </Button>,
+      <Button
         onClick={this.handleAddCustomField.bind(this)}
-        primary
+        color="primary"
         disabled={!this.state.customFieldLabel}
-      />,
+      >
+        <FormattedMessage id="sourceComponent.add" defaultMessage="Add Field" />
+      </Button>,
     ];
 
     return (
@@ -1308,11 +1302,12 @@ class SourceComponent extends Component {
           />
           {!this.state.editProfileImg ? (
             <StyledAvatarEditButton className="source__edit-avatar-button">
-              <FlatButton
-                label={this.props.intl.formatMessage(globalStrings.edit)}
+              <Button
                 onClick={this.handleEditProfileImg.bind(this)}
-                primary
-              />
+                color="primary"
+              >
+                {this.props.intl.formatMessage(globalStrings.edit)}
+              </Button>
             </StyledAvatarEditButton>
           ) : null}
         </StyledSmallColumn>
@@ -1364,12 +1359,13 @@ class SourceComponent extends Component {
 
           <StyledButtonGroup isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
             <Row className="source__edit-buttons-add-merge">
-              <FlatButton
+              <Button
                 className="source__edit-addinfo-button"
-                primary
+                color="primary"
                 onClick={this.handleAddInfoMenu.bind(this)}
-                label={this.props.intl.formatMessage(messages.addInfo)}
-              />
+              >
+                {this.props.intl.formatMessage(messages.addInfo)}
+              </Button>
               <SourceActions source={source} handleRefresh={this.handleRefresh.bind(this)} />
             </Row>
             <Popover
@@ -1450,17 +1446,20 @@ class SourceComponent extends Component {
             </Dialog>
 
             <div className="source__edit-buttons-cancel-save">
-              <FlatButton
+              <Button
                 className="source__edit-cancel-button"
                 onClick={this.handleLeaveEditMode.bind(this)}
-                label={this.props.intl.formatMessage(globalStrings.cancel)}
-              />
-              <RaisedButton
+              >
+                {this.props.intl.formatMessage(globalStrings.cancel)}
+              </Button>
+              <Button
+                variant="contained"
                 className="source__edit-save-button"
-                primary
+                color="primary"
                 onClick={this.handleSubmit.bind(this)}
-                label={this.props.intl.formatMessage(globalStrings.save)}
-              />
+              >
+                {this.props.intl.formatMessage(globalStrings.save)}
+              </Button>
             </div>
           </StyledButtonGroup>
         </StyledBigColumn>

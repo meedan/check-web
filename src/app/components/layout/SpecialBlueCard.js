@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { injectIntl } from 'react-intl';
-import { Card, CardText } from 'material-ui/Card';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 import rtlDetect from 'rtl-detect';
 import { encodeSvgDataUri } from '../../helpers';
 
@@ -59,7 +60,7 @@ const SpecialBlueCard = (props) => {
 
   return (
     <StyledMdCard>
-      <CardText>
+      <CardContent>
         <StyledCardIcon>
           {props.icon}
         </StyledCardIcon>
@@ -71,7 +72,7 @@ const SpecialBlueCard = (props) => {
             {props.content ? props.content : null}
           </span>
         </BackgroundImageRow>
-      </CardText>
+      </CardContent>
     </StyledMdCard>
   );
 };

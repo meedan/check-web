@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import TextField from 'material-ui/TextField';
-import FlatButton from 'material-ui/FlatButton';
+import Button from '@material-ui/core/Button';
 
 class ShortTextRespondTask extends React.Component {
   constructor(props) {
@@ -86,18 +86,20 @@ class ShortTextRespondTask extends React.Component {
   render() {
     const actionBtns = (
       <p className="task__resolver">
-        <FlatButton
+        <Button
           className="task__cancel"
-          label={<FormattedMessage id="shortTextRespondTask.cancelTask" defaultMessage="Cancel" />}
           onClick={this.handleCancel.bind(this)}
-        />
-        <FlatButton
+        >
+          <FormattedMessage id="shortTextRespondTask.cancelTask" defaultMessage="Cancel" />
+        </Button>
+        <Button
           className="task__save"
-          label={<FormattedMessage id="shortTextRespondTask.answerTask" defaultMessage="Answer task" />}
           onClick={this.handleSubmit.bind(this)}
           disabled={this.state.taskAnswerDisabled}
-          primary
-        />
+          color="primary"
+        >
+          <FormattedMessage id="shortTextRespondTask.answerTask" defaultMessage="Answer task" />
+        </Button>
       </p>
     );
 

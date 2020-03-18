@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, defineMessages, intlShape, injectIntl } from 'react-intl';
-import KeyboardArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import { Link } from 'react-router';
-import { Card, CardActions, CardText, CardHeader } from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardActions from '@material-ui/core/CardActions';
+import Button from '@material-ui/core/Button';
 import { List, ListItem } from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
 import styled from 'styled-components';
@@ -173,30 +176,31 @@ class SwitchTeamsComponent extends Component {
                 leftAvatar={<Avatar style={teamAvatarStyle} src={team.avatar} />}
                 primaryText={team.name}
                 rightIconButton={
-                  <FlatButton
+                  <Button
                     className="switch-team__cancel-request"
                     style={listItemButtonStyle}
                     hoverColor={alertRed}
                     onClick={this.cancelRequest.bind(this, team)}
                   >
                     <FormattedMessage id="switchTeams.cancelJoinRequest" defaultMessage="Cancel" />
-                  </FlatButton>
+                  </Button>
                 }
                 secondaryText={this.props.intl.formatMessage(messages.joinTeam)}
               />
             ))}
           </List> :
-          <CardText>
+          <CardContent>
             <FormattedMessage id="switchTeams.noTeams" defaultMessage="Not a member of any workspace." />
-          </CardText>
+          </CardContent>
         }
 
         { isUserSelf ?
           <CardActions>
-            <FlatButton
-              label={<FormattedMessage id="switchTeams.newTeamLink" defaultMessage="Create Workspace" />}
+            <Button
               onClick={() => this.getContext().getContextStore().history.push('/check/teams/new')}
-            />
+            >
+              <FormattedMessage id="switchTeams.newTeamLink" defaultMessage="Create Workspace" />
+            </Button>
           </CardActions> : null
         }
       </Card>

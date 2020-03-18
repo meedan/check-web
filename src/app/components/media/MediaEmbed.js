@@ -5,12 +5,11 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import Popover from 'material-ui/Popover';
 import Checkbox from 'material-ui/Checkbox';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from '@material-ui/core/Button';
 import TextField from 'material-ui/TextField';
 import CopyToClipboard from 'react-copy-to-clipboard';
-import IconArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
-import IconButton from 'material-ui/IconButton';
+import IconArrowBack from '@material-ui/icons/ArrowBack';
+import IconButton from '@material-ui/core/IconButton';
 import styled from 'styled-components';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import PageTitle from '../PageTitle';
@@ -394,43 +393,41 @@ class MediaEmbedComponent extends Component {
                   alignItems: 'center',
                 }}
               >
-                <IconButton
-                  containerElement={<Link to={itemUrl} />}
-                >
-                  <FadeIn>
-                    <SlideIn>
-                      <IconArrowBack color={black54} />
-                    </SlideIn>
-                  </FadeIn>
-                </IconButton>
+                <Link to={itemUrl}>
+                  <IconButton>
+                    <FadeIn>
+                      <SlideIn>
+                        <IconArrowBack color={black54} />
+                      </SlideIn>
+                    </FadeIn>
+                  </IconButton>
+                </Link>
                 <FormattedMessage
                   id="mediaEmbed.back"
                   defaultMessage="Back to annotation"
                 />
               </div>
               <CopyToClipboard text={embedTag} onCopy={this.handleCopyEmbedCode.bind(this)}>
-                <FlatButton
+                <Button
                   id="media-embed__actions-copy"
                   onClick={this.handleCodeMenuOpen.bind(this)}
-                  label={
-                    <FormattedMessage
-                      id="mediaEmbed.copyEmbedCode"
-                      defaultMessage="Copy embed code"
-                    />
-                  }
-                />
+                >
+                  <FormattedMessage
+                    id="mediaEmbed.copyEmbedCode"
+                    defaultMessage="Copy embed code"
+                  />
+                </Button>
               </CopyToClipboard>
               <CopyToClipboard text={shareUrl} onCopy={this.handleCopyShareUrl.bind(this)}>
-                <FlatButton
+                <Button
                   id="media-embed__actions-copy"
                   onClick={this.handleShareMenuOpen.bind(this)}
-                  label={
-                    <FormattedMessage
-                      id="mediaEmbed.copyShareUrl"
-                      defaultMessage="Copy share URL"
-                    />
-                  }
-                />
+                >
+                  <FormattedMessage
+                    id="mediaEmbed.copyShareUrl"
+                    defaultMessage="Copy share URL"
+                  />
+                </Button>
               </CopyToClipboard>
             </div>
             <div
@@ -465,21 +462,21 @@ class MediaEmbedComponent extends Component {
                     defaultMessage="Select the content to display in your report"
                   />
                 </h2>
-                <RaisedButton
-                  label={
-                    <FormattedMessage
-                      id="mediaEmbed.update"
-                      defaultMessage="Update"
-                    />
-                  }
-                  primary
+                <Button
+                  variant="contained"
+                  color="primary"
                   disabled={this.state.pending || saveDisabled}
                   onClick={this.handleSave.bind(this)}
                   style={{
                     marginRight: units(1),
                     marginLeft: units(1),
                   }}
-                />
+                >
+                  <FormattedMessage
+                    id="mediaEmbed.update"
+                    defaultMessage="Update"
+                  />
+                </Button>
               </div>
               <div id="media-embed__customization-menu">
                 <div style={{ marginTop: units(4) }}>

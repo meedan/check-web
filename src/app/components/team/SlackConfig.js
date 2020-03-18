@@ -11,7 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import Switch from '@material-ui/core/Switch';
 import TextField from '@material-ui/core/TextField';
-import IconMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
+import MoreHoriz from '@material-ui/icons/MoreHoriz';
 import styled from 'styled-components';
 import UserUtil from '../user/UserUtil';
 import Message from '../Message';
@@ -131,7 +131,6 @@ class SlackConfig extends React.Component {
           <StyledCardHeader
             title={
               <span>
-                {/* Todo: Slack Icon <FaceFrown /> */}
                 <FormattedMessage
                   id="slackConfig.title"
                   defaultMessage="Slack integration"
@@ -143,7 +142,7 @@ class SlackConfig extends React.Component {
                 <IconButton
                   onClick={this.handleOpenDialog.bind(this)}
                 >
-                  <IconMoreHoriz />
+                  <MoreHoriz />
                 </IconButton>
               </Tooltip>
             }

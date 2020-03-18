@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import CopyToClipboard from 'react-copy-to-clipboard';
-import { Card, CardText } from 'material-ui/Card';
-import RaisedButton from 'material-ui/RaisedButton';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
 import MdPaste from 'react-icons/lib/md/content-paste';
 import MdDone from 'react-icons/lib/md/done';
 import rtlDetect from 'rtl-detect';
@@ -73,7 +74,7 @@ class TeamInviteCard extends Component {
       color: ${white};
     `;
 
-    const StyledMdRaisedButton = styled(RaisedButton)`
+    const StyledMdRaisedButton = styled(Button)`
       svg {
         margin-${fromDirection}: 12px!important;
         margin-${toDirection}: 0!important;
@@ -94,7 +95,7 @@ class TeamInviteCard extends Component {
     }
     return (
       <StyledMdCard>
-        <CardText>
+        <CardContent>
           <BackgroundImageRow>
             <StyledMdCardTitle>
               <FormattedMessage
@@ -115,25 +116,26 @@ class TeamInviteCard extends Component {
               onCopy={() => this.setState({ copied: true })}
             >
               <FlexRow>
-                {this.state.copied ? <StyledMdRaisedButton
-                  style={{ marginLeft: 'auto' }}
-                  icon={<MdDone />}
-                  label={<FormattedMessage
-                    id="teamInviteCard.copy"
-                    defaultMessage="COPIED!"
-                  />}
-                /> : <StyledMdRaisedButton
-                  icon={<MdPaste />}
-                  style={{ marginLeft: 'auto' }}
-                  label={<FormattedMessage
-                    id="teamInviteCard.copied"
-                    defaultMessage="COPY"
-                  />}
-                />}
+                {this.state.copied ?
+                  <StyledMdRaisedButton
+                    variant="contained"
+                    style={{ marginLeft: 'auto' }}
+                    icon={<MdDone />}
+                  >
+                    <FormattedMessage id="teamInviteCard.copy" defaultMessage="COPIED!" />
+                  </StyledMdRaisedButton> :
+                  <StyledMdRaisedButton
+                    variant="contained"
+                    icon={<MdPaste />}
+                    style={{ marginLeft: 'auto' }}
+                  >
+                    <FormattedMessage id="teamInviteCard.copied" defaultMessage="COPY" />
+                  </StyledMdRaisedButton>
+                }
               </FlexRow>
             </CopyToClipboard>
           </BackgroundImageRow>
-        </CardText>
+        </CardContent>
       </StyledMdCard>
     );
   }

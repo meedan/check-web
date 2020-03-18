@@ -1,11 +1,11 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import MdLock from 'material-ui/svg-icons/action/lock';
-import MdPublic from 'material-ui/svg-icons/social/public';
-import MdLink from 'material-ui/svg-icons/content/link';
-import IconEdit from 'material-ui/svg-icons/image/edit';
-import MdLocation from 'material-ui/svg-icons/communication/location-on';
-import MdPhone from 'material-ui/svg-icons/communication/phone';
+import MdLock from '@material-ui/icons/Lock';
+import MdPublic from '@material-ui/icons/Public';
+import MdLink from '@material-ui/icons/Link';
+import IconEdit from '@material-ui/icons/Edit';
+import MdLocation from '@material-ui/icons/LocationOn';
+import MdPhone from '@material-ui/icons/Phone';
 import TeamAvatar from './TeamAvatar';
 import Can from '../Can';
 import ParsedText from '../ParsedText';

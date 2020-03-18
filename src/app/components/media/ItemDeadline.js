@@ -1,6 +1,6 @@
 import React from 'react';
 import { defineMessages, injectIntl } from 'react-intl';
-import IconDeadline from 'material-ui/svg-icons/image/timer';
+import IconDeadline from '@material-ui/icons/Timer';
 import TimeBefore from '../TimeBefore';
 import {
   Row,

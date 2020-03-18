@@ -7,7 +7,7 @@ import { ListItem } from 'material-ui/List';
 import MdClear from 'react-icons/lib/md/clear';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from '@material-ui/core/Button';
 import rtlDetect from 'rtl-detect';
 import RCTooltip from 'rc-tooltip';
 import RoleSelect from './RoleSelect';
@@ -237,24 +237,24 @@ class TeamMembersListItem extends Component {
             if (this.props.requestingMembership) {
               return (
                 <FlexRow>
-                  <RaisedButton
+                  <Button
+                    variant="contained"
                     style={buttonInButtonGroupStyle}
                     onClick={this.handleTeamMembershipRequest.bind(this, 'member')}
                     className="team-member-requests__user-button--approve"
-                    label={
-                      <FormattedMessage
-                        id="TeamMembershipRequestsListItem.approve"
-                        defaultMessage="Approve"
-                      />
-                    }
-                  />
-                  <RaisedButton
+                  >
+                    <FormattedMessage
+                      id="TeamMembershipRequestsListItem.approve"
+                      defaultMessage="Approve"
+                    />
+                  </Button>
+                  <Button
+                    variant="contained"
                     onClick={this.handleTeamMembershipRequest.bind(this, 'banned')}
                     className="team-member-requests__user-button--deny"
-                    label={
-                      <FormattedMessage id="TeamMembershipRequestsListItem.deny" defaultMessage="Reject" />
-                    }
-                  />
+                  >
+                    <FormattedMessage id="TeamMembershipRequestsListItem.deny" defaultMessage="Reject" />
+                  </Button>
                 </FlexRow>
               );
             }

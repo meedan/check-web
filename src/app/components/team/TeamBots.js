@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import { Card, CardText, CardActions } from 'material-ui/Card';
-import Divider from 'material-ui/Divider';
+import Divider from '@material-ui/core/Divider';
+import Button from '@material-ui/core/Button';
 import FlatButton from 'material-ui/FlatButton';
-import Settings from 'material-ui/svg-icons/action/settings';
+import Settings from '@material-ui/icons/Settings';
 import Switch from '@material-ui/core/Switch';
 import Tooltip from '@material-ui/core/Tooltip';
 import { Emojione } from 'react-emoji-render';
@@ -101,7 +102,7 @@ const StyledSchemaForm = styled.div`
   fieldset fieldset fieldset fieldset div[class*="input"] {
     max-width: 470px;
   }
-  
+
   fieldset fieldset fieldset fieldset button[class*="remove"] {
     display: none !important;
   }
@@ -282,17 +283,14 @@ class TeamBotsComponent extends Component {
           );
         })}
         <p style={{ textAlign: direction.to }}>
-          <FlatButton
-            onClick={TeamBotsComponent.handleBotGardenClick}
-            label={
-              <span>
-                <FormattedMessage
-                  id="teamBots.botGarden"
-                  defaultMessage="Browse the Bot Garden"
-                /> <Emojione text="🤖 🌼" />
-              </span>
-            }
-          />
+          <Button onClick={TeamBotsComponent.handleBotGardenClick}>
+            <span>
+              <FormattedMessage
+                id="teamBots.botGarden"
+                defaultMessage="Browse the Bot Garden"
+              /> <Emojione text="🤖 🌼" />
+            </span>
+          </Button>
         </p>
       </ContentColumn>
     );
