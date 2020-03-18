@@ -24,6 +24,10 @@
     "defaultMessage": "No message was sent with the request"
   },
   {
+    "id": "annotation.slackChannel",
+    "defaultMessage": "Slack channel"
+  },
+  {
     "id": "annotation.permalink",
     "defaultMessage": "Permalink"
   },

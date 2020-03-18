@@ -146,7 +146,6 @@ const MediaRequestsContainer = Relay.createContainer(MediaRequestsComponent, {
                 dbid,
                 content,
                 annotation_type,
-                smooch_slack_url,
                 updated_at,
                 created_at,
                 permissions,

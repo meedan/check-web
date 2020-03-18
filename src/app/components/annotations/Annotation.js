@@ -208,6 +208,18 @@ const StyledAnnotationMetadata = styled(Row)`
   }
 `;
 
+const StyledRequestHeader = styled(Row)`
+  color: ${black54};
+  flex-flow: wrap row;
+  font: ${caption};
+  margin-bottom: ${units(3)};
+
+  .circle_delimeter:before {
+    content: '\\25CF';
+    font-size: ${units(1.5)};
+  }
+`;
+
 const StyledAnnotationActionsWrapper = styled.div`
   margin-${props => (props.isRtl ? 'right' : 'left')}: auto;
 `;
@@ -236,6 +248,10 @@ const messages = defineMessages({
   smoochNoMessage: {
     id: 'annotation.smoochNoMessage',
     defaultMessage: 'No message was sent with the request',
+  },
+  slackChannel: {
+    id: 'annotation.slackChannel',
+    defaultMessage: 'Slack channel',
   },
 });
 
@@ -1027,34 +1043,45 @@ class Annotation extends Component {
         if (!messageText) {
           messageText = this.props.intl.formatMessage(messages.smoochNoMessage);
         }
+        let smoochSlackUrl = '';
+        annotated.project.smooch_users_slack_channel_url.edges.forEach((smoochSlackData) => {
+          const v = JSON.parse(smoochSlackData.node.value);
+          if (objectValue.authorId === v.authorId) {
+            smoochSlackUrl = v.slack_channel_url;
+          }
+        });
         contentTemplate = (
           <div>
-            <StyledAnnotationMetadata isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
+            <StyledRequestHeader isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
               <span className="annotation__card-header">
                 <span>
                   {objectValue.name}
                 </span>
-                <span> - </span>
-                <span>
-                  {timestamp}
+                <span style={{ margin: `0 ${units(0.5)}` }} className="circle_delimeter" />
+                <span >
+                  <TimeBefore date={updatedAt} />
                 </span>
-                <span> - </span>
+                <span style={{ margin: `0 ${units(0.5)}` }} className="circle_delimeter" />
                 <span>
                   {messageType.charAt(0).toUpperCase() + messageType.slice(1)}
                 </span>
+                {smoochSlackUrl ?
+                  <span style={{ margin: `0 ${units(0.5)}` }} className="circle_delimeter">
+                    <a
+                      target="_blank"
+                      style={{ margin: `0 ${units(0.5)}`, textDecoration: 'underline' }}
+                      rel="noopener noreferrer"
+                      href={smoochSlackUrl}
+                    >
+                      {this.props.intl.formatMessage(messages.slackChannel)}
+                    </a>
+                  </span> :
+                  null
+                }
               </span>
-            </StyledAnnotationMetadata>
+            </StyledRequestHeader>
             <div className="annotation__card-content">
-              {annotation.smooch_slack_url ?
-                <a
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href={annotation.smooch_slack_url}
-                >
-                  <ParsedText text={messageText} />
-                </a> :
-                <ParsedText text={messageText} />
-              }
+              <ParsedText text={messageText} />
             </div>
           </div>
         );
