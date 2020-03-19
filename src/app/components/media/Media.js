@@ -38,7 +38,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
           search_id
           search { id, number_of_results }
           medias_count
-          smooch_users_slack_channel_url(first: 10000) {
+          smooch_user_fields(first: 10000) {
             edges {
               node {
                 value
