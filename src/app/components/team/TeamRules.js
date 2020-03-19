@@ -272,11 +272,13 @@ const StyledRulesBar = styled.div`
 class TeamRulesComponent extends Component {
   static toggleRuleField(i, j) {
     const fields = document.querySelectorAll('fieldset fieldset fieldset div + fieldset fieldset > div > div + div');
-    const numberOfFields = 8;
+    const numberOfFields = 10;
     for (let k = 1; k <= numberOfFields; k += 1) {
       fields[(i * numberOfFields) - k].style.display = 'none';
     }
-    fields[(i * numberOfFields) - j].style.display = 'block';
+    [j].flat().forEach((l) => {
+      fields[(i * numberOfFields) - l].style.display = 'block';
+    });
   }
 
   static adjustNumberFields() {
@@ -515,8 +517,10 @@ class TeamRulesComponent extends Component {
             TeamRulesComponent.toggleRuleField(i, 6);
           } else if (rule2.rule_definition === 'item_titles_are_similar') {
             TeamRulesComponent.toggleRuleField(i, 7);
+          } else if (rule2.rule_definition === 'flagged_as') {
+            TeamRulesComponent.toggleRuleField(i, [8, 9]);
           } else {
-            TeamRulesComponent.toggleRuleField(i, 8);
+            TeamRulesComponent.toggleRuleField(i, 10);
           }
         });
       }
@@ -640,6 +644,11 @@ class TeamRulesComponent extends Component {
             rules[i].rules[j].rule_value = rule2.rule_value_similar_images.toString();
           } else if (rule2.rule_definition === 'item_titles_are_similar') {
             rules[i].rules[j].rule_value = rule2.rule_value_similar_titles.toString();
+          } else if (rule2.rule_definition === 'flagged_as') {
+            rules[i].rules[j].rule_value = JSON.stringify({
+              flag: rule2.rule_value_flagged_as,
+              threshold: parseInt(rule2.rule_value_flag_threshold, 10),
+            });
           }
           j += 1;
         });
@@ -720,14 +729,14 @@ class TeamRulesComponent extends Component {
     const similarImagesHintMessage = (
       <FormattedMessage
         id="teamRules.similarImagesHint"
-        defaultMessage="Enter a number between 1 and 100. A distance of 100% will only relate identical images. A distance of 1% will relate images that are not so similar."
+        defaultMessage="Enter a percentage between 1 and 100. A distance of 100% will only relate identical images. A distance of 1% will relate images that are not so similar."
       />
     );
 
     const similarTitlesHintMessage = (
       <FormattedMessage
         id="teamRules.similarTitlesHint"
-        defaultMessage="Enter a number between 1 and 100. A distance of 100% will only relate items with identical text. A distance of 1% will relate items that share very few words together."
+        defaultMessage="Enter a percentage between 1 and 100. A distance of 100% will only relate items with identical titles. A distance of 1% will relate items whose titles share very few words together."
       />
     );
 

@@ -105,7 +105,7 @@ const fieldNames = [
   'suggestion_image_upload', 'response_image_upload',
 ];
 
-const annotationTypes = ['translation_status', 'verification_status'];
+const annotationTypes = ['translation_status', 'verification_status', 'flag'];
 
 const MediaLogContainer = Relay.createContainer(MediaLogComponent, {
   initialVariables: {

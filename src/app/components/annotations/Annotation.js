@@ -253,6 +253,54 @@ const messages = defineMessages({
     id: 'annotation.slackChannel',
     defaultMessage: 'Slack channel',
   },
+  adultFlag: {
+    id: 'annotation.flagAdult',
+    defaultMessage: 'Adult',
+  },
+  spoofFlag: {
+    id: 'annotation.flagSpoof',
+    defaultMessage: 'Spoof',
+  },
+  medicalFlag: {
+    id: 'annotation.flagMedical',
+    defaultMessage: 'Medical',
+  },
+  violenceFlag: {
+    id: 'annotation.flagViolence',
+    defaultMessage: 'Violence',
+  },
+  racyFlag: {
+    id: 'annotation.flagRacy',
+    defaultMessage: 'Racy',
+  },
+  spamFlag: {
+    id: 'annotation.flagSpam',
+    defaultMessage: 'Spam',
+  },
+  flagLikelihood0: {
+    id: 'annotation.flagLikelihood0',
+    defaultMessage: 'Unknown',
+  },
+  flagLikelihood1: {
+    id: 'annotation.flagLikelihood1',
+    defaultMessage: 'Very unlikely',
+  },
+  flagLikelihood2: {
+    id: 'annotation.flagLikelihood2',
+    defaultMessage: 'Unlikely',
+  },
+  flagLikelihood3: {
+    id: 'annotation.flagLikelihood3',
+    defaultMessage: 'Possible',
+  },
+  flagLikelihood4: {
+    id: 'annotation.flagLikelihood4',
+    defaultMessage: 'Likely',
+  },
+  flagLikelihood5: {
+    id: 'annotation.flagLikelihood5',
+    defaultMessage: 'Very likely',
+  },
 });
 
 // TODO Fix a11y issues
@@ -613,7 +661,30 @@ class Annotation extends Component {
     }
     case 'create_dynamic':
     case 'update_dynamic':
-      if (object.annotation_type === 'verification_status' || object.annotation_type === 'translation_status') {
+      if (object.annotation_type === 'flag') {
+        showCard = true;
+        const { flags } = object.data;
+        const flagsContent = (
+          <ul>
+            { Object.keys(flags).map((flag) => {
+              const likelihood = this.props.intl.formatMessage(messages[`flagLikelihood${flags[flag]}`]);
+              const flagName = this.props.intl.formatMessage(messages[`${flag}Flag`]);
+              return (
+                <li style={{ margin: units(1), listStyle: 'disc' }}>{flagName}: {likelihood}</li>
+              );
+            })}
+          </ul>
+        );
+        contentTemplate = (
+          <div>
+            <FormattedMessage
+              id="annotation.flag"
+              defaultMessage="Classification result:"
+            />
+            {flagsContent}
+          </div>
+        );
+      } else if (object.annotation_type === 'verification_status' || object.annotation_type === 'translation_status') {
         const statusChanges = JSON.parse(activity.object_changes_json);
         if (statusChanges.locked) {
           if (statusChanges.locked[1]) {
@@ -1089,17 +1160,6 @@ class Annotation extends Component {
 
       break;
     }
-    case 'create_flag':
-      contentTemplate = (
-        <span>
-          <FormattedMessage
-            id="annotation.flaggedHeader"
-            defaultMessage="Flagged as {flag} by {author}"
-            values={{ flag: content.flag, author: authorName }}
-          />
-        </span>
-      );
-      break;
     case 'update_embed':
       contentTemplate = (
         <EmbedUpdate
