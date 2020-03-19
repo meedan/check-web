@@ -17,6 +17,9 @@ export default {
     chunkFilename: '[id].chunk.js'
   },
   devtool: 'source-map',
+  watchOptions: {
+    ignore: /node_modules/,
+  },
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
