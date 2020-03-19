@@ -6,12 +6,8 @@ import IconMoreVert from '@material-ui/icons/MoreVert';
 import IconButton from '@material-ui/core/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
-import Button from '@material-ui/core/Button';
-import Dialog from 'material-ui/Dialog';
-import Checkbox from 'material-ui/Checkbox';
+import ConfirmDialog from '../layout/ConfirmDialog';
 import DeleteProjectMutation from '../../relay/mutations/DeleteProjectMutation';
-import { units } from '../../styles/js/shared';
-import Message from '../Message';
 import ProjectAssignment from './ProjectAssignment';
 import Can, { can } from '../Can';
 import CheckContext from '../../CheckContext';
@@ -55,39 +51,37 @@ class ProjectActions extends Component {
   }
 
   handleDestroy() {
-    if (this.state.projectDeletionConfirmed) {
-      const { project, team, history } = new CheckContext(this).getContextStore();
+    const { project, team, history } = new CheckContext(this).getContextStore();
 
-      const onSuccess = () => {
-        const message = (
-          <FormattedMessage
-            id="projectActions.projectDeleted"
-            defaultMessage="List deleted successfully."
-          />
-        );
-        this.context.setMessage(message);
-      };
-
-      const onFailure = () => {
-        const message = (
-          <FormattedMessage
-            id="projectActions.projectNotDeleted"
-            defaultMessage="Sorry, could not delete list."
-          />
-        );
-        this.context.setMessage(message);
-      };
-
-      Relay.Store.commitUpdate(
-        new DeleteProjectMutation({
-          project,
-          team,
-        }),
-        { onSuccess, onFailure },
+    const onSuccess = () => {
+      const message = (
+        <FormattedMessage
+          id="projectActions.projectDeleted"
+          defaultMessage="List deleted successfully."
+        />
       );
+      this.context.setMessage(message);
+    };
 
-      history.push(`/${team.slug}/all-items`);
-    }
+    const onFailure = () => {
+      const message = (
+        <FormattedMessage
+          id="projectActions.projectNotDeleted"
+          defaultMessage="Sorry, could not delete list."
+        />
+      );
+      this.context.setMessage(message);
+    };
+
+    Relay.Store.commitUpdate(
+      new DeleteProjectMutation({
+        project,
+        team,
+      }),
+      { onSuccess, onFailure },
+    );
+
+    history.push(`/${team.slug}/all-items`);
   }
 
   render() {
@@ -133,19 +127,6 @@ class ProjectActions extends Component {
       ));
     }
 
-    const actions = [
-      <Button onClick={this.handleCloseDialog.bind(this)}>
-        <FormattedMessage id="projectActions.cancelDelete" defaultMessage="Cancel" />
-      </Button>,
-      <Button
-        color="primary"
-        onClick={this.handleDestroy.bind(this)}
-        disabled={!this.state.projectDeletionConfirmed}
-      >
-        <FormattedMessage id="projectActions.continue" defaultMessage="Continue" />
-      </Button>,
-    ];
-
     return menuItems.length ?
       <Can permissions={project.permissions} permission="update Project">
         <IconMenu
@@ -162,33 +143,18 @@ class ProjectActions extends Component {
         >
           {menuItems}
         </IconMenu>
-        <Dialog
-          actions={actions}
-          modal={false}
+        <ConfirmDialog
+          message={this.state.message}
           open={this.state.showConfirmDeleteProjectDialog}
-          onRequestClose={this.handleCloseDialog.bind(this)}
-        >
-          <Message message={this.state.message} />
-          <h2>
+          title={
             <FormattedMessage
               id="projectActions.confirmDeleteProject"
               defaultMessage="Are you sure you want to delete this list? All its items will still be accessible through the 'All items' list."
             />
-          </h2>
-          <p style={{ margin: `${units(4)} 0` }}>
-            <Checkbox
-              id="project-actions__confirm-delete"
-              onCheck={this.handleConfirmation.bind(this)}
-              checked={this.state.projectDeletionConfirmed}
-              label={
-                <FormattedMessage
-                  id="projectActions.yes"
-                  defaultMessage="Yes"
-                />
-              }
-            />
-          </p>
-        </Dialog>
+          }
+          handleClose={this.handleCloseDialog.bind(this)}
+          handleConfirm={this.handleDestroy.bind(this)}
+        />
         {
           this.state.openAssignPopup ?
             <ProjectAssignment
