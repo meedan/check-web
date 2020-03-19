@@ -12,16 +12,12 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
 import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Checkbox from 'material-ui/Checkbox';
 import Tooltip from '@material-ui/core/Tooltip';
 import deepEqual from 'deep-equal';
 import styled from 'styled-components';
 import TagTextCount from './TagTextCount';
 import CardHeaderOutside from '../layout/CardHeaderOutside';
+import ConfirmDialog from '../layout/ConfirmDialog';
 import SortSelector from '../layout/SortSelector';
 import FilterPopup from '../layout/FilterPopup';
 import TeamRoute from '../../relay/TeamRoute';
@@ -63,7 +59,6 @@ class TeamTagsComponent extends Component {
       dialogOpen: false,
       tagToBeDeleted: null,
       deleting: false,
-      confirmed: false,
       countTotal: 0,
       countHidden: 0,
       teamwideTags: [],
@@ -143,10 +138,6 @@ class TeamTagsComponent extends Component {
     this.setState({ dialogOpen: false });
   }
 
-  handleConfirmation() {
-    this.setState({ confirmed: !this.state.confirmed });
-  }
-
   handleUpdate(e) {
     if (e.key === 'Enter' && !e.shiftKey) {
       this.setState({ search: '' });
@@ -211,7 +202,6 @@ class TeamTagsComponent extends Component {
     this.setState({
       dialogOpen: true,
       tagToBeDeleted: tag,
-      confirmed: false,
       message: null,
     });
   }
@@ -223,7 +213,6 @@ class TeamTagsComponent extends Component {
       this.setState({
         message: null,
         tagToBeDeleted: null,
-        confirmed: false,
         dialogOpen: false,
         deleting: false,
       });
@@ -240,15 +229,13 @@ class TeamTagsComponent extends Component {
     };
 
     const tag = this.state.tagToBeDeleted;
-    if (tag && this.state.confirmed) {
-      Relay.Store.commitUpdate(
-        new DeleteTagTextMutation({
-          teamId: this.props.team.id,
-          id: tag.id,
-        }),
-        { onSuccess, onFailure },
-      );
-    }
+    Relay.Store.commitUpdate(
+      new DeleteTagTextMutation({
+        teamId: this.props.team.id,
+        id: tag.id,
+      }),
+      { onSuccess, onFailure },
+    );
   }
 
   handleMove(tag) {
@@ -423,25 +410,6 @@ class TeamTagsComponent extends Component {
     const teamwideTags = this.state.teamwideTags.slice(0).sort(sortFunctions[this.state.sort]);
     const customTags = this.state.customTags.slice(0).sort(sortFunctions[this.state.sort]);
 
-    const actions = [
-      <Button onClick={this.handleCloseDialog.bind(this)}>
-        <FormattedMessage id="teamTags.cancelDelete" defaultMessage="Cancel" />
-      </Button>,
-      <Button
-        id="tag__confirm-delete"
-        color="primary"
-        keyboardFocused
-        onClick={this.handleDestroy.bind(this)}
-        disabled={
-          this.state.deleting ||
-          !this.state.tagToBeDeleted ||
-          !this.state.confirmed
-        }
-      >
-        <FormattedMessage id="teamTags.continue" defaultMessage="Continue" />
-      </Button>,
-    ];
-
     const filterLabel = this.state.countHidden > 0 ? (
       <FormattedMessage
         id="teamTags.counter"
@@ -541,31 +509,19 @@ class TeamTagsComponent extends Component {
           </CardContent>
         </Card>
 
-        <Dialog
+        <ConfirmDialog
           open={this.state.dialogOpen}
-          onClose={this.handleCloseDialog.bind(this)}
-        >
-          <DialogTitle>
+          title={
             <FormattedMessage
               id="teamTags.confirmDeleteTitle"
               defaultMessage="Are you sure you want to delete this tag?"
             />
-          </DialogTitle>
-          <DialogContent>
-            <Message message={this.state.message} />
-            <p style={{ margin: `${units(4)} 0` }}>
-              <Checkbox
-                id="tag__confirm"
-                onCheck={this.handleConfirmation.bind(this)}
-                checked={this.state.confirmed}
-                label={<TagTextCount tag={this.state.tagToBeDeleted} />}
-              />
-            </p>
-          </DialogContent>
-          <DialogActions>
-            {actions}
-          </DialogActions>
-        </Dialog>
+          }
+          checkBoxLabel={<TagTextCount tag={this.state.tagToBeDeleted} />}
+          disabled={this.state.deleting || !this.state.tagToBeDeleted}
+          handleClose={this.handleCloseDialog.bind(this)}
+          handleConfirm={this.handleDestroy.bind(this)}
+        />
       </StyledContentColumn>
     );
   }
