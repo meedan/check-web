@@ -11,7 +11,6 @@ import CreateCommentMutation from '../../relay/mutations/CreateCommentMutation';
 import CreateTagMutation from '../../relay/mutations/CreateTagMutation';
 import CreateStatusMutation from '../../relay/mutations/CreateStatusMutation';
 import UpdateStatusMutation from '../../relay/mutations/UpdateStatusMutation';
-import CreateFlagMutation from '../../relay/mutations/CreateFlagMutation';
 import CreateDynamicMutation from '../../relay/mutations/CreateDynamicMutation';
 import { can } from '../Can';
 import CheckContext from '../../CheckContext';
@@ -213,27 +212,6 @@ class AddAnnotation extends Component {
     }
   }
 
-  addFlag(annotated, annotated_id, annotated_type, flag) {
-    const annotator = this.getContext().currentUser;
-
-    Relay.Store.commitUpdate(
-      new CreateFlagMutation({
-        parent_type: annotated_type
-          .replace(/([a-z])([A-Z])/, '$1_$2')
-          .toLowerCase(),
-        annotated,
-        annotator,
-        context: this.getContext(),
-        annotation: {
-          flag,
-          annotated_type,
-          annotated_id,
-        },
-      }),
-      { onFailure: this.fail, onSuccess: this.success },
-    );
-  }
-
   addDynamic(annotated, annotated_id, annotated_type, params, annotation_type) {
     const annotator = this.getContext().currentUser;
 
@@ -295,9 +273,6 @@ class AddAnnotation extends Component {
         break;
       case 'status':
         action = this.addStatus.bind(this);
-        break;
-      case 'flag':
-        action = this.addFlag.bind(this);
         break;
       default:
         action = this.addDynamic.bind(this);
