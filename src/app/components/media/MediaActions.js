@@ -4,7 +4,8 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import IconMoreVert from '@material-ui/icons/MoreVert';
 import IconButton from '@material-ui/core/IconButton';
 import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
+import MenuItem from '@material-ui/core/MenuItem';
+import ListItemText from '@material-ui/core/ListItemText';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
 import { can } from '../Can';
@@ -51,7 +52,11 @@ class MediaActions extends Component {
           className="media-actions__edit"
           onClick={handleEdit}
         >
-          <FormattedMessage id="mediaActions.edit" defaultMessage="Edit title and description" />
+          <ListItemText
+            primary={
+              <FormattedMessage id="mediaActions.edit" defaultMessage="Edit title and description" />
+            }
+          />
         </MenuItem>));
     }
 
@@ -64,7 +69,11 @@ class MediaActions extends Component {
             id="media-actions__refresh"
             onClick={handleRefresh}
           >
-            <FormattedMessage id="mediaActions.refresh" defaultMessage="Refresh" />
+            <ListItemText
+              primary={
+                <FormattedMessage id="mediaActions.refresh" defaultMessage="Refresh" />
+              }
+            />
           </MenuItem>));
       }
     }
@@ -76,7 +85,11 @@ class MediaActions extends Component {
           className="media-actions__assign"
           onClick={handleAssign}
         >
-          <FormattedMessage id="mediaActions.assignOrUnassign" defaultMessage="Assignment" />
+          <ListItemText
+            primary={
+              <FormattedMessage id="mediaActions.assignOrUnassign" defaultMessage="Assignment" />
+            }
+          />
         </MenuItem>));
     }
 
@@ -87,9 +100,11 @@ class MediaActions extends Component {
           className="media-actions__lock-status"
           onClick={handleStatusLock}
         >
-          { media.last_status_obj.locked ?
-            <FormattedMessage id="mediaActions.unlockStatus" defaultMessage="Unlock status" /> :
-            <FormattedMessage id="mediaActions.lockStatus" defaultMessage="Lock status" />}
+          <ListItemText
+            primary={media.last_status_obj.locked ?
+              <FormattedMessage id="mediaActions.unlockStatus" defaultMessage="Unlock status" /> :
+              <FormattedMessage id="mediaActions.lockStatus" defaultMessage="Lock status" />}
+          />
         </MenuItem>));
     }
 
@@ -101,9 +116,10 @@ class MediaActions extends Component {
           id="media-actions__memebuster"
           onClick={this.handleMemebuster}
         >
-          <FormattedMessage id="mediaActions.memebuster" defaultMessage="Meme designer" />
-        </MenuItem>
-      ));
+          <ListItemText
+            primary={<FormattedMessage id="mediaActions.memebuster" defaultMessage="Meme designer" />}
+          />
+        </MenuItem>));
     }
 
     if (can(media.permissions, 'embed ProjectMedia') &&
@@ -115,7 +131,9 @@ class MediaActions extends Component {
           id="media-actions__embed"
           onClick={this.handleEmbed.bind(this)}
         >
-          <FormattedMessage id="mediaActions.report" defaultMessage="Report designer" />
+          <ListItemText
+            primary={<FormattedMessage id="mediaActions.report" defaultMessage="Report designer" />}
+          />
         </MenuItem>));
     }
 
@@ -126,7 +144,9 @@ class MediaActions extends Component {
           className="media-actions__send-to-trash"
           onClick={handleSendToTrash}
         >
-          <FormattedMessage id="mediaActions.sendToTrash" defaultMessage="Send to trash" />
+          <ListItemText
+            primary={<FormattedMessage id="mediaActions.sendToTrash" defaultMessage="Send to trash" />}
+          />
         </MenuItem>));
     }
 
@@ -138,7 +158,9 @@ class MediaActions extends Component {
           id="media-actions__restore"
           onClick={handleRestore}
         >
-          <FormattedMessage id="mediaActions.restore" defaultMessage="Restore from trash" />
+          <ListItemText
+            primary={<FormattedMessage id="mediaActions.restore" defaultMessage="Restore from trash" />}
+          />
         </MenuItem>));
     }
 
@@ -150,7 +172,9 @@ class MediaActions extends Component {
             className="media-actions__move"
             onClick={handleMove}
           >
-            <FormattedMessage id="mediaActions.move" defaultMessage="Move" />
+            <ListItemText
+              primary={<FormattedMessage id="mediaActions.move" defaultMessage="Move" />}
+            />
           </MenuItem>));
       }
     }
@@ -162,7 +186,9 @@ class MediaActions extends Component {
           className="media-actions__add-to-list"
           onClick={handleAddToList}
         >
-          <FormattedMessage id="mediaActions.addToList" defaultMessage="Add to list" />
+          <ListItemText
+            primary={<FormattedMessage id="mediaActions.addToList" defaultMessage="Add to list" />}
+          />
         </MenuItem>));
     }
 
@@ -177,7 +203,9 @@ class MediaActions extends Component {
           className="media-actions__remove-from-list"
           onClick={handleRemoveFromList}
         >
-          <FormattedMessage id="mediaActions.removeFromList" defaultMessage="Remove from list" />
+          <ListItemText
+            primary={<FormattedMessage id="mediaActions.removeFromList" defaultMessage="Remove from list" />}
+          />
         </MenuItem>));
     }
 

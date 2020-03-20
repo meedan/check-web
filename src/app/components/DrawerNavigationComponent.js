@@ -4,7 +4,9 @@ import { Link } from 'react-router';
 import Button from '@material-ui/core/Button';
 import Drawer from 'material-ui/Drawer';
 import Divider from '@material-ui/core/Divider';
-import MenuItem from 'material-ui/MenuItem';
+import MenuItem from '@material-ui/core/MenuItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import styled from 'styled-components';
 import IconSettings from '@material-ui/icons/Settings';
@@ -238,7 +240,7 @@ class DrawerNavigationComponent extends Component {
           <div style={styles.drawerProjectsAndFooter}>
             <div style={styles.drawerProjects}>
               {inTeamContext && (currentUserIsMember || !this.props.team.private)
-                ? <DrawerProjects team={this.props.team.slug} />
+                ? <DrawerProjects fromDirection={fromDirection} team={this.props.team.slug} />
                 : null}
             </div>
             { inTeamContext && currentUserIsMember ?
@@ -246,15 +248,21 @@ class DrawerNavigationComponent extends Component {
                 to={`/${this.props.team.slug}/trash`}
                 className="project-list__link-trash"
               >
-                <MenuItem
-                  className="project-list__item-trash"
-                  primaryText={<FormattedMessage id="projects.trash" defaultMessage="Trash" />}
-                  secondaryText={String(this.props.team.trash_count)}
-                  leftIcon={<Delete />}
-                  style={{
-                    fontSize: body1,
-                  }}
-                />
+                <MenuItem className="project-list__item-trash">
+                  <ListItemIcon>
+                    <Delete />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={
+                      <Row style={{ font: body1 }}>
+                        <FormattedMessage id="projects.trash" defaultMessage="Trash" />
+                        <AlignOpposite fromDirection={fromDirection}>
+                          {String(this.props.team.trash_count)}
+                        </AlignOpposite>
+                      </Row>
+                    }
+                  />
+                </MenuItem>
               </Link>
               : null }
             <Divider />
