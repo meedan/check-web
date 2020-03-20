@@ -8,7 +8,10 @@ import {
   injectIntl,
   intlShape,
 } from 'react-intl';
-import Dialog from 'material-ui/Dialog';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from 'material-ui/TextField';
 import Button from '@material-ui/core/Button';
 import CardActions from '@material-ui/core/CardActions';
@@ -1421,28 +1424,33 @@ class SourceComponent extends Component {
             </Popover>
 
             <Dialog
-              title={this.props.intl.formatMessage(messages.otherDialogTitle)}
-              actions={actions}
-              actionsContainerClassName="sourceComponent__action-container"
               open={this.state.dialogOpen}
-              onRequestClose={this.handleCloseDialog.bind(this)}
+              onClose={this.handleCloseDialog.bind(this)}
             >
-              <TextField
-                id="source__other-label-input"
-                floatingLabelText={this.props.intl.formatMessage(messages.label)}
-                fullWidth
-                onChange={(e) => {
-                  this.setState({ customFieldLabel: e.target.value });
-                }}
-              />
-              <TextField
-                id="source__other-value-input"
-                floatingLabelText={this.props.intl.formatMessage(messages.value)}
-                onChange={(e) => {
-                  this.setState({ customFieldValue: e.target.value });
-                }}
-                fullWidth
-              />
+              <DialogTitle>
+                {this.props.intl.formatMessage(messages.otherDialogTitle)}
+              </DialogTitle>
+              <DialogContent>
+                <TextField
+                  id="source__other-label-input"
+                  floatingLabelText={this.props.intl.formatMessage(messages.label)}
+                  fullWidth
+                  onChange={(e) => {
+                    this.setState({ customFieldLabel: e.target.value });
+                  }}
+                />
+                <TextField
+                  id="source__other-value-input"
+                  floatingLabelText={this.props.intl.formatMessage(messages.value)}
+                  onChange={(e) => {
+                    this.setState({ customFieldValue: e.target.value });
+                  }}
+                  fullWidth
+                />
+              </DialogContent>
+              <DialogActions className="sourceComponent__action-container">
+                {actions}
+              </DialogActions>
             </Dialog>
 
             <div className="source__edit-buttons-cancel-save">

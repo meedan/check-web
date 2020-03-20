@@ -36,14 +36,6 @@
     "defaultMessage": "{count, plural, =0 {no items} one {1 item} other {# items}}"
   },
   {
-    "id": "teamTags.cancelDelete",
-    "defaultMessage": "Cancel"
-  },
-  {
-    "id": "teamTags.continue",
-    "defaultMessage": "Continue"
-  },
-  {
     "id": "teamTags.counter",
     "defaultMessage": "{total, plural, =0 {No tags} one {1 tag ({hidden} hidden by filters)} other {# tags ({hidden} hidden by filters)}}"
   },

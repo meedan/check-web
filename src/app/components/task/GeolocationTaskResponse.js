@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Dialog from 'material-ui/Dialog';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
 import { Map, Marker, TileLayer } from 'react-leaflet';
 import styled from 'styled-components';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
@@ -89,19 +90,22 @@ class GeolocationTaskResponse extends Component {
           : null}
         {imgPath && !!this.state.zoomedMap ?
           <Dialog
-            modal={false}
             open={this.state.zoomedMap}
-            onRequestClose={this.handleCloseMap.bind(this)}
+            onClose={this.handleCloseMap.bind(this)}
+            maxWidth="md"
+            fullWidth
           >
-            <StyledMap>
-              <Map center={position} zoom={9}>
-                <TileLayer
-                  attribution="2017 <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a>"
-                  url="http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
-                />
-                <Marker draggable={false} position={position} />
-              </Map>
-            </StyledMap>
+            <DialogContent>
+              <StyledMap>
+                <Map center={position} zoom={9}>
+                  <TileLayer
+                    attribution="2017 <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a>"
+                    url="http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
+                  />
+                  <Marker draggable={false} position={position} />
+                </Map>
+              </StyledMap>
+            </DialogContent>
           </Dialog>
           : null}
       </FlexRow>

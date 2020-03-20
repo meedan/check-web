@@ -5,7 +5,10 @@ import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
-import Dialog from 'material-ui/Dialog';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -160,40 +163,44 @@ class SlackConfig extends React.Component {
         </Card>
         <Dialog
           open={this.state.openDialog}
-          onRequestClose={this.handleCloseDialog}
-          title={this.props.intl.formatMessage(messages.title)}
+          onClose={this.handleCloseDialog}
         >
-          <Message message={this.state.message} />
-          <FormattedMessage
-            id="slackConfig.text"
-            defaultMessage="Notify a Slack channel about workspace activity."
-          />
-          <TextField
-            className="team__slack-webhook-input"
-            label="Slack webhook"
-            name="webhook"
-            defaultValue={team.get_slack_webhook}
-            onChange={this.handleChange.bind(this)}
-            margin="normal"
-            fullWidth
-          />
-          <TextField
-            className="team__slack-channel-input"
-            label="Slack default #channel"
-            name="channel"
-            defaultValue={team.get_slack_channel}
-            onChange={this.handleChange.bind(this)}
-            margin="normal"
-            fullWidth
-          />
-          <span>
+          <DialogTitle>
+            {this.props.intl.formatMessage(messages.title)}
+          </DialogTitle>
+          <DialogContent>
+            <Message message={this.state.message} />
+            <FormattedMessage
+              id="slackConfig.text"
+              defaultMessage="Notify a Slack channel about workspace activity."
+            />
+            <TextField
+              className="team__slack-webhook-input"
+              label="Slack webhook"
+              name="webhook"
+              defaultValue={team.get_slack_webhook}
+              onChange={this.handleChange.bind(this)}
+              margin="normal"
+              fullWidth
+            />
+            <TextField
+              className="team__slack-channel-input"
+              label="Slack default #channel"
+              name="channel"
+              defaultValue={team.get_slack_channel}
+              onChange={this.handleChange.bind(this)}
+              margin="normal"
+              fullWidth
+            />
+          </DialogContent>
+          <DialogActions>
             <Button onClick={this.handleCloseDialog}>
               {this.props.intl.formatMessage(globalStrings.cancel)}
             </Button>
             <Button color="primary" onClick={this.handleSubmit.bind(this)}>
               {this.props.intl.formatMessage(globalStrings.save)}
             </Button>
-          </span>
+          </DialogActions>
         </Dialog>
       </div>
     );
