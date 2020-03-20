@@ -223,19 +223,9 @@ class SearchResultsComponent extends React.Component {
 
       pusher.unsubscribe(channel);
 
-      pusher.subscribe(channel).bind('bulk_update_start', 'Search', (data, run) => {
-        if (run) {
-          this.props.relay.forceFetch();
-          return true;
-        }
-        return {
-          id: `search-${channel}`,
-          callback: this.props.relay.forceFetch,
-        };
-      });
-
       pusher.subscribe(channel).bind('bulk_update_end', 'Search', (data, run) => {
         if (run) {
+          console.log('BULK UPDATE END');
           this.props.relay.forceFetch();
           return true;
         }
@@ -271,6 +261,7 @@ class SearchResultsComponent extends React.Component {
 
         if (this.currentContext().clientSessionId !== data.actor_session_id) {
           if (run) {
+            console.log('MEDIA UPDATED');
             this.props.relay.forceFetch();
             return true;
           }
