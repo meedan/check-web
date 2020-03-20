@@ -25,17 +25,6 @@ if (buildConfig.transifex) {
   });
 }
 
-gulp.task('replace-webpack-code', (callback) => {
-  [{
-    from: './webpack/replace/JsonpMainTemplate.runtime.js',
-    to: './node_modules/webpack/lib/JsonpMainTemplate.runtime.js',
-  }, {
-    from: './webpack/replace/log-apply-result.js',
-    to: './node_modules/webpack/hot/log-apply-result.js',
-  }].forEach(task => fs.writeFileSync(task.to, fs.readFileSync(task.from)));
-  callback();
-});
-
 gulp.task('relay:copy', (callback) => {
   if (buildConfig.relay.startsWith('http')) {
     const res = request('GET', buildConfig.relay);
@@ -113,7 +102,7 @@ gulp.task('transifex:languages', () => {
   return gulp.series();
 });
 
-gulp.task('build:web', gulp.series('replace-webpack-code', 'relay:copy', 'webpack:build:web', 'copy:build:web'));
+gulp.task('build:web', gulp.series('relay:copy', 'webpack:build:web', 'copy:build:web'));
 gulp.task('build:server', gulp.series('webpack:build:server'));
 
 // Dev mode — with 'watch' enabled for faster builds
@@ -129,8 +118,7 @@ gulp.task('webpack:build:web:dev', (callback) => {
   devConfig.bail = false;
 
   // Disable sourcemaps, for faster compile
-  // (Enable if needed, by commenting this out)
-  devConfig.devtool = 'eval';
+  //devConfig.devtool = 'eval';
 
   webpack(Object.create(devConfig), (err, stats) => {
     if (err) {
@@ -157,7 +145,7 @@ gulp.task('webpack:build:web:dev', (callback) => {
   // never call callback()
 });
 
-gulp.task('build:web:dev', gulp.series('replace-webpack-code', 'relay:copy', 'webpack:build:web:dev', 'copy:build:web'));
+gulp.task('build:web:dev', gulp.series('relay:copy', 'webpack:build:web:dev', 'copy:build:web'));
 
 gulp.task('serve:server', (callback) => {
   const app = require('./scripts/server-app');

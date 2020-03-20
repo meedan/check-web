@@ -5,18 +5,10 @@
       "plugins": [["react-intl", { "messagesDir": "./localization/react-intl/" }]]
     },
     "development": {
-      "plugins": [["./webpack/babelRelayPlugin.js", {}], ["react-intl", { "messagesDir": "./localization/react-intl/" }], [
-        "react-transform", {
-          "transforms": [{
-            "transform": "react-transform-hmr",
-            "imports": ["react"],
-            "locals": ["module"]
-          }, {
-            "transform": "react-transform-catch-errors",
-            "imports": ["react", "redbox-react"]
-          }]
-        }
-      ]]
+      "plugins": [
+        ["./webpack/babelRelayPlugin.js", {}],
+        ["react-intl", { "messagesDir": "./localization/react-intl/" }],
+      ]
     }
   }
 }

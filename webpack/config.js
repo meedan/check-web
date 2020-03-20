@@ -1,10 +1,12 @@
 import path from 'path';
 import webpack from 'webpack';
-var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-var CompressionPlugin = require('compression-webpack-plugin');
-var locales = require(path.join(__dirname, '../localization/translations/locales.js'));
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const CompressionPlugin = require('compression-webpack-plugin');
+const locales = require(path.join(__dirname, '../localization/translations/locales.js'));
 
 const localesRegExp = new RegExp('\/(' + locales.join('|') + ')\.js$');
+
+const NODE_ENV = process.env.NODE_ENV || 'production';
 
 export default {
   bail: true, // exit 1 on build failure
@@ -18,14 +20,12 @@ export default {
   },
   devtool: 'source-map',
   watchOptions: {
-    ignore: /node_modules/,
+    ignored: /node_modules/,
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'production')
-      },
-      __DEVELOPMENT__: false
+      'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
+      __DEVELOPMENT__: NODE_ENV != 'production',
     }),
     new webpack.ContextReplacementPlugin(
       /react-intl\/locale-data/,
@@ -45,6 +45,12 @@ export default {
     }),
     // Uncomment to see at localhost:8888 a treemap of modules included in the bundle
     // new BundleAnalyzerPlugin(),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: module => /node_modules/.test(module.resource)
+    }),
+  ].concat(NODE_ENV == 'production' ? [
+    // TODO upgrade to Webpack 5, which derives "minify" from mode (dev/prod)
     new webpack.optimize.UglifyJsPlugin({
       minimize: true,
       sourceMap: true,
@@ -54,11 +60,7 @@ export default {
         warnings: false
       }
     }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks: module => /node_modules/.test(module.resource)
-    })
-  ],
+  ] : []),
   resolve: {
     alias: {app: path.join(__dirname, '../src/app')},
     extensions: ['.js']
