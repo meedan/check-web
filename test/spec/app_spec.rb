@@ -118,8 +118,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('#tag__text-newteamwidetagedited button').click
       wait_for_selector('.tag__edit')
       wait_for_selector('.tag__delete').click
-      wait_for_selector('#tag__confirm').click
-      wait_for_selector('#tag__confirm-delete').click
+      wait_for_selector('#confirm-dialog__checkbox').click
+      wait_for_selector('#confirm-dialog__confirm-action-button').click
       wait_for_selector_none('#tag__confirm')
       wait_for_selector_none("#tag__text-newteamwidetagedited")
       expect(@driver.page_source.include?('No default tags')).to be(true)

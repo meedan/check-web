@@ -7,7 +7,10 @@ import Avatar from 'material-ui/Avatar';
 import CardHeader from '@material-ui/core/CardHeader';
 import MenuItem from 'material-ui/MenuItem';
 import Button from '@material-ui/core/Button';
-import Dialog from 'material-ui/Dialog';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from 'material-ui/TextField';
 import IconMenu from 'material-ui/IconMenu';
 import IconButton from '@material-ui/core/IconButton';
@@ -208,42 +211,42 @@ class MediaCondensedComponent extends Component {
 
     const editDialog = (
       <Dialog
-        modal
-        title={this.props.intl.formatMessage(messages.editReport)}
         open={this.state.isEditing}
-        onRequestClose={this.handleCloseDialogs.bind(this)}
-        autoScrollBodyContent
+        onClose={this.handleCloseDialogs.bind(this)}
       >
-        <form onSubmit={this.handleSave.bind(this, media)} name="edit-media-form">
-          <TextField
-            type="text"
-            floatingLabelText={
-              <FormattedMessage
-                id="mediaCondensed.title"
-                defaultMessage="Title"
-              />
-            }
-            defaultValue={this.getTitle()}
-            onChange={this.handleChangeTitle.bind(this)}
-            style={{ width: '100%' }}
-          />
-
-          <TextField
-            type="text"
-            floatingLabelText={
-              <FormattedMessage
-                id="mediaCondensed.description"
-                defaultMessage="Description"
-              />
-            }
-            defaultValue={this.getDescription()}
-            onChange={this.handleChangeDescription.bind(this)}
-            style={{ width: '100%' }}
-            multiLine
-          />
-        </form>
-
-        <span style={{ display: 'flex' }}>
+        <DialogTitle>
+          {this.props.intl.formatMessage(messages.editReport)}
+        </DialogTitle>
+        <DialogContent>
+          <form onSubmit={this.handleSave.bind(this, media)} name="edit-media-form">
+            <TextField
+              type="text"
+              floatingLabelText={
+                <FormattedMessage
+                  id="mediaCondensed.title"
+                  defaultMessage="Title"
+                />
+              }
+              defaultValue={this.getTitle()}
+              onChange={this.handleChangeTitle.bind(this)}
+              style={{ width: '100%' }}
+            />
+            <TextField
+              type="text"
+              floatingLabelText={
+                <FormattedMessage
+                  id="mediaCondensed.description"
+                  defaultMessage="Description"
+                />
+              }
+              defaultValue={this.getDescription()}
+              onChange={this.handleChangeDescription.bind(this)}
+              style={{ width: '100%' }}
+              multiLine
+            />
+          </form>
+        </DialogContent>
+        <DialogActions>
           <Button onClick={this.handleCancel.bind(this)}>
             <FormattedMessage
               id="mediaCondensed.cancelButton"
@@ -260,7 +263,7 @@ class MediaCondensedComponent extends Component {
               defaultMessage="Done"
             />
           </Button>
-        </span>
+        </DialogActions>
       </Dialog>
     );
 

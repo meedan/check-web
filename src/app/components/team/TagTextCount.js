@@ -43,14 +43,18 @@ const TagTextCountContainer = Relay.createContainer(TagTextCountComponent, {
 });
 
 const TagTextCount = (props) => {
-  const route = new TagTextRoute({ id: props.tag.dbid });
-  return (
-    <Relay.RootContainer
-      Component={TagTextCountContainer}
-      route={route}
-      renderFetched={data => <TagTextCountContainer {...data} />}
-    />
-  );
+  if (props.tag) {
+    const route = new TagTextRoute({ id: props.tag.dbid });
+    return (
+      <Relay.RootContainer
+        Component={TagTextCountContainer}
+        route={route}
+        renderFetched={data => <TagTextCountContainer {...data} />}
+      />
+    );
+  }
+
+  return null;
 };
 
 export default TagTextCount;
