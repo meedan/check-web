@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import IconMoreVert from '@material-ui/icons/MoreVert';
 import IconButton from '@material-ui/core/IconButton';
-import IconMenu from 'material-ui/IconMenu';
+import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import styled from 'styled-components';
@@ -16,6 +16,25 @@ const StyledIconMenuWrapper = styled.div`
 `;
 
 class MediaActions extends Component {
+  state = {
+    anchorEl: null,
+  };
+
+  handleOpenMenu = (e) => {
+    this.setState({ anchorEl: e.currentTarget });
+  };
+
+  handleCloseMenu = () => {
+    this.setState({ anchorEl: null });
+  };
+
+  handleActionAndClose = (callback) => {
+    this.handleCloseMenu();
+    if (callback) {
+      callback();
+    }
+  };
+
   handleEmbed() {
     const { media } = this.props;
     const { history } = new CheckContext(this).getContextStore();
@@ -50,7 +69,7 @@ class MediaActions extends Component {
         <MenuItem
           key="mediaActions.edit"
           className="media-actions__edit"
-          onClick={handleEdit}
+          onClick={() => this.handleActionAndClose(handleEdit)}
         >
           <ListItemText
             primary={
@@ -67,7 +86,7 @@ class MediaActions extends Component {
             key="mediaActions.refresh"
             className="media-actions__refresh"
             id="media-actions__refresh"
-            onClick={handleRefresh}
+            onClick={() => this.handleActionAndClose(handleRefresh)}
           >
             <ListItemText
               primary={
@@ -83,7 +102,7 @@ class MediaActions extends Component {
         <MenuItem
           key="mediaActions.assign"
           className="media-actions__assign"
-          onClick={handleAssign}
+          onClick={() => this.handleActionAndClose(handleAssign)}
         >
           <ListItemText
             primary={
@@ -98,7 +117,7 @@ class MediaActions extends Component {
         <MenuItem
           key="mediaActions.lockStatus"
           className="media-actions__lock-status"
-          onClick={handleStatusLock}
+          onClick={() => this.handleActionAndClose(handleStatusLock)}
         >
           <ListItemText
             primary={media.last_status_obj.locked ?
@@ -114,7 +133,7 @@ class MediaActions extends Component {
           key="mediaActions.memebuster"
           className="media-actions__memebuster"
           id="media-actions__memebuster"
-          onClick={this.handleMemebuster}
+          onClick={() => this.handleActionAndClose(this.handleMemebuster)}
         >
           <ListItemText
             primary={<FormattedMessage id="mediaActions.memebuster" defaultMessage="Meme designer" />}
@@ -129,7 +148,7 @@ class MediaActions extends Component {
           key="mediaActions.embed"
           className="media-actions__embed"
           id="media-actions__embed"
-          onClick={this.handleEmbed.bind(this)}
+          onClick={() => this.handleActionAndClose(this.handleEmbed.bind(this))}
         >
           <ListItemText
             primary={<FormattedMessage id="mediaActions.report" defaultMessage="Report designer" />}
@@ -142,7 +161,7 @@ class MediaActions extends Component {
         <MenuItem
           key="mediaActions.sendToTrash"
           className="media-actions__send-to-trash"
-          onClick={handleSendToTrash}
+          onClick={() => this.handleActionAndClose(handleSendToTrash)}
         >
           <ListItemText
             primary={<FormattedMessage id="mediaActions.sendToTrash" defaultMessage="Send to trash" />}
@@ -156,7 +175,7 @@ class MediaActions extends Component {
           key="mediaActions.restore"
           className="media-actions__restore"
           id="media-actions__restore"
-          onClick={handleRestore}
+          onClick={() => this.handleActionAndClose(handleRestore)}
         >
           <ListItemText
             primary={<FormattedMessage id="mediaActions.restore" defaultMessage="Restore from trash" />}
@@ -170,7 +189,7 @@ class MediaActions extends Component {
           <MenuItem
             key="mediaActions.move"
             className="media-actions__move"
-            onClick={handleMove}
+            onClick={() => this.handleActionAndClose(handleMove)}
           >
             <ListItemText
               primary={<FormattedMessage id="mediaActions.move" defaultMessage="Move" />}
@@ -184,7 +203,7 @@ class MediaActions extends Component {
         <MenuItem
           key="mediaActions.addToList"
           className="media-actions__add-to-list"
-          onClick={handleAddToList}
+          onClick={() => this.handleActionAndClose(handleAddToList)}
         >
           <ListItemText
             primary={<FormattedMessage id="mediaActions.addToList" defaultMessage="Add to list" />}
@@ -201,7 +220,7 @@ class MediaActions extends Component {
         <MenuItem
           key="mediaActions.removeFromList"
           className="media-actions__remove-from-list"
-          onClick={handleRemoveFromList}
+          onClick={() => this.handleActionAndClose(handleRemoveFromList)}
         >
           <ListItemText
             primary={<FormattedMessage id="mediaActions.removeFromList" defaultMessage="Remove from list" />}
@@ -214,19 +233,22 @@ class MediaActions extends Component {
         isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
         style={this.props.style}
       >
-        <IconMenu
+        <IconButton
+          tooltip={
+            <FormattedMessage id="mediaActions.tooltip" defaultMessage="Item actions" />
+          }
+          onClick={this.handleOpenMenu}
+        >
+          <IconMoreVert className="media-actions__icon" />
+        </IconButton>
+        <Menu
           className="media-actions"
-          iconButtonElement={
-            <IconButton
-              tooltip={
-                <FormattedMessage id="mediaActions.tooltip" defaultMessage="Item actions" />
-              }
-            >
-              <IconMoreVert className="media-actions__icon" />
-            </IconButton>}
+          anchorEl={this.state.anchorEl}
+          open={Boolean(this.state.anchorEl)}
+          onClose={this.handleCloseMenu}
         >
           {menuItems}
-        </IconMenu>
+        </Menu>
       </StyledIconMenuWrapper>
       : null;
   }

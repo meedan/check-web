@@ -142,7 +142,7 @@ shared_examples 'smoke' do
     page = api_create_team_project_and_link_and_redirect_to_media_page 'http://ca.ios.ba/files/meedan/random.php'
     wait_for_selector('.media-actions__icon').click
     wait_for_selector('.media-actions__lock-status').click
-    wait_for_selector(".media__annotations-column > div > div > button + button + button + button").click
+    wait_for_selector(".media-tab__activity").click
     wait_for_selector('.annotation--verification_status')
     expect(@driver.page_source.include?('Item status locked by')).to be(true)
     wait_for_selector('.media-actions__icon').click
