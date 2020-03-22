@@ -92,6 +92,8 @@ class BulkActions extends React.Component {
           id: this.props.selectedMedia[0],
           ids: this.props.selectedMedia,
           dstProjectForAdd: this.state.dstProjForAdd,
+          teamSearchId: this.props.team.search_id,
+          count: this.props.count,
         }),
         { onSuccess: onDone, onFailure: onDone },
       );

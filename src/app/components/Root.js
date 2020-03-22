@@ -117,7 +117,7 @@ class Root extends Component {
       Object.values(callbacks).forEach((callback) => {
         callback();
       });
-    }, 180000);
+    }, 30000);
 
     ifvisible.on('blur', () => {
       Root.pusherLog('Page is not focused anymore');
