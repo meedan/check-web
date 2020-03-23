@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
-import MenuItem from 'material-ui/MenuItem';
+import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import ListItemText from '@material-ui/core/ListItemText';
 import UserUtil from './UserUtil';
 import CheckContext from '../../CheckContext';
 import UserMenuItems from '../UserMenuItems';
@@ -56,18 +58,22 @@ class UserMenu extends React.Component {
       <div className="header__user-menu">
         <MenuItem
           onClick={this.handleClick}
-          leftIcon={<UserAvatar size={units(4)} {...this.props} />}
           style={{
             fontSize: body1,
             overflow: 'hidden',
           }}
         >
-          <div>
-            <Text maxWidth="100%" ellipsis>
-              {user ? user.name : null}
-              {localizedRoleText}
-            </Text>
-          </div>
+          <ListItemAvatar>
+            <UserAvatar size={units(4)} {...this.props} />
+          </ListItemAvatar>
+          <ListItemText
+            primary={
+              <Text maxWidth="100%" ellipsis>
+                {user ? user.name : null}
+                {localizedRoleText}
+              </Text>
+            }
+          />
         </MenuItem>
         <Menu
           anchorEl={anchorEl}

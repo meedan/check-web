@@ -7,7 +7,8 @@ import CardContent from '@material-ui/core/CardContent';
 import MoreHoriz from '@material-ui/icons/MoreHoriz';
 import IconButton from '@material-ui/core/IconButton';
 import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
+import MenuItem from '@material-ui/core/MenuItem';
+import ListItemText from '@material-ui/core/ListItemText';
 import Button from '@material-ui/core/Button';
 import TextField from 'material-ui/TextField';
 import styled from 'styled-components';
@@ -205,7 +206,11 @@ class TranslationItem extends Component {
                   className="task-actions__edit-translation"
                   onClick={this.handleEdit.bind(this)}
                 >
-                  <FormattedMessage id="translation.edit" defaultMessage="Edit translation" />
+                  <ListItemText
+                    primary={
+                      <FormattedMessage id="translation.edit" defaultMessage="Edit translation" />
+                    }
+                  />
                 </MenuItem>
               </IconMenu>
             </Row>

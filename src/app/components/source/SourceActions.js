@@ -3,7 +3,8 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import MoreHoriz from '@material-ui/icons/MoreHoriz';
 import IconButton from '@material-ui/core/IconButton';
 import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
+import MenuItem from '@material-ui/core/MenuItem';
+import ListItemText from '@material-ui/core/ListItemText';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
 import { can } from '../Can';
@@ -24,7 +25,11 @@ const SourceActions = (props) => {
         id="source-actions__refresh"
         onClick={handleRefresh}
       >
-        <FormattedMessage id="sourceActions.refresh" defaultMessage="Refresh" />
+        <ListItemText
+          primary={
+            <FormattedMessage id="sourceActions.refresh" defaultMessage="Refresh" />
+          }
+        />
       </MenuItem>));
   }
 

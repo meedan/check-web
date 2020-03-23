@@ -8,8 +8,9 @@ import areIntlLocalesSupported from 'intl-locales-supported';
 import IntlPolyfill from 'intl';
 import IconDateRange from '@material-ui/icons/DateRange';
 import IconSchedule from '@material-ui/icons/Schedule';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import ListItemText from '@material-ui/core/ListItemText';
 import CheckContext from '../../CheckContext';
 import { convertNumbers2English } from '../../helpers';
 import { alertRed, black38, black54, units, caption, FlexRow } from '../../styles/js/shared';
@@ -117,7 +118,8 @@ class DatetimeRespondTask extends Component {
     this.setState({ focus: true, taskAnswerDisabled: !this.canSubmit(date), date });
   }
 
-  handleChangeTimezone(e, index, value) {
+  handleChangeTimezone(e) {
+    const { value } = e.target;
     this.setState({ focus: true, timezone: value, taskAnswerDisabled: !this.canSubmit() });
   }
 
@@ -293,7 +295,7 @@ class DatetimeRespondTask extends Component {
                 onChange={this.handleChangeTime.bind(this, 'minute')}
                 onFocus={() => { this.setState({ focus: true }); }}
               />
-              <SelectField
+              <Select
                 value={this.state.timezone}
                 onChange={this.handleChangeTimezone.bind(this)}
                 autoWidth
@@ -304,9 +306,12 @@ class DatetimeRespondTask extends Component {
                   <MenuItem
                     key={tz}
                     value={timezones[tz].code}
-                    primaryText={<span dir="ltr">{timezones[tz].label}</span>}
-                  />))}
-              </SelectField>
+                  >
+                    <ListItemText
+                      primary={<span dir="ltr">{timezones[tz].label}</span>}
+                    />
+                  </MenuItem>))}
+              </Select>
             </FlexRow>
           </div>
         </FlexRow>

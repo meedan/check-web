@@ -4,7 +4,7 @@ import Relay from 'react-relay/classic';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
-import Chip from 'material-ui/Chip';
+import Chip from '@material-ui/core/Chip';
 import styled from 'styled-components';
 import TeamRoute from '../../relay/TeamRoute';
 import CheckContext from '../../CheckContext';
@@ -142,9 +142,13 @@ class AttributionComponent extends React.Component {
           <div style={{ marginTop: units(4), marginBottom: units(4) }}>
             <StyledTagsWrapper className="attribution__selected-users">
               {this.state.selectedUsers.map(user => (
-                <Chip key={user.value} className="attribution__selected-user" onRequestDelete={this.handleDelete.bind(this, user)}>
-                  {user.label}
-                </Chip>))}
+                <Chip
+                  key={user.value}
+                  className="attribution__selected-user"
+                  onDelete={() => this.handleDelete(user)}
+                  label={user.label}
+                />))
+              }
             </StyledTagsWrapper>
           </div>
 
