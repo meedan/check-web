@@ -1114,13 +1114,7 @@ class Annotation extends Component {
         if (!messageText) {
           messageText = this.props.intl.formatMessage(messages.smoochNoMessage);
         }
-        let smoochSlackUrl = '';
-        annotated.project.smooch_users_slack_channel_url.edges.forEach((smoochSlackData) => {
-          const v = JSON.parse(smoochSlackData.node.value);
-          if (objectValue.authorId === v.authorId) {
-            smoochSlackUrl = v.slack_channel_url;
-          }
-        });
+        const smoochSlackUrl = activity.smooch_user_slack_channel_url;
         contentTemplate = (
           <div>
             <StyledRequestHeader isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
