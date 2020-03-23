@@ -2,7 +2,7 @@ import React from 'react';
 import Relay from 'react-relay/classic';
 import { injectIntl, defineMessages } from 'react-intl';
 import AutoComplete from 'material-ui/AutoComplete';
-import Chip from 'material-ui/Chip';
+import Chip from '@material-ui/core/Chip';
 import difference from 'lodash.difference';
 import intersection from 'lodash.intersection';
 import AboutRoute from '../../relay/AboutRoute';
@@ -51,12 +51,11 @@ class LanguageComponent extends React.Component {
           <Chip
             key={language.id}
             className="source-tags__tag"
-            onRequestDelete={this.props.onDelete ? () => {
+            onDelete={this.props.onDelete ? () => {
               this.props.onDelete(language.id);
             } : null}
-          >
-            {supportedLanguages[language.content.value]}
-          </Chip>))}
+            label={supportedLanguages[language.content.value]}
+          />))}
       </StyledTagsWrapper>
     );
   }
