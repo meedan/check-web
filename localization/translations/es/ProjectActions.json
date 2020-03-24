@@ -4,9 +4,6 @@
   "ProjectActions.edit": "Editar nombre e descripción",
   "projectActions.assignOrUnassign": "Asignar lista",
   "projectActions.destroy": "Eliminar ",
-  "projectActions.cancelDelete": "Cancelar",
-  "projectActions.continue": "Continuar",
   "ProjectActions.tooltip": "Acciones de la lista",
-  "projectActions.confirmDeleteProject": "¿Estás seguro de que deseas eliminar esta lista? Todos sus ítems seguirán siendo accesibles a través de la lista 'Todos los ítems'.",
-  "projectActions.yes": "Sí"
+  "projectActions.confirmDeleteProject": "¿Estás seguro de que deseas eliminar esta lista? Todos sus ítems seguirán siendo accesibles a través de la lista 'Todos los ítems'."
 }

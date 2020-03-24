@@ -8,8 +8,6 @@
   "teamTags.deleteTag": "Supprimer le tag",
   "teamTags.moveTag": "Transformer en tag de défaut",
   "teamTags.itemsCount": "{count, plural, =0 {aucun élément} one {1 élément} other {# éléments}}",
-  "teamTags.cancelDelete": "Annuler",
-  "teamTags.continue": "Continuer",
   "teamTags.counter": "{total, plural, =0 {Aucun tag} one {1 tag ({hidden} filtrés)} other {# tags ({hidden} filtrés)}}",
   "teamTags.counterNoHidden": "{total, plural, =0 {Aucun tag} one {1 tag} other {# tags}}",
   "teamTags.tags": "Tags",

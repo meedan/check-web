@@ -1,3 +1,3 @@
-const locales = ["ar","es","fr","pt","ro","ru"];
+const locales = ["ar","es","fr","pt","ro","ru"]
 
 module.exports = locales;

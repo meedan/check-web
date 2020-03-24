@@ -5,6 +5,7 @@
   "annotation.newClaim": "Novo texto inserido por {author}",
   "annotation.menuTooltip": "Ações das anotações",
   "annotation.smoochNoMessage": "Nenhuma mensagen foi enviada com a solicitação",
+  "annotation.slackChannel": "Canal no Slack",
   "annotation.flagAdult": "Adulto",
   "annotation.flagSpoof": "Falsificação",
   "annotation.flagMedical": "Médico",
