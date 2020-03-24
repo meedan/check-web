@@ -8,7 +8,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 import MoreHoriz from '@material-ui/icons/MoreHoriz';
 import IconClose from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
-import IconMenu from 'material-ui/IconMenu';
+import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import TextField from 'material-ui/TextField';
@@ -195,8 +195,16 @@ class TeamTagsComponent extends Component {
     }
   }
 
+  handleOpenMenu = (e, menuOpenForTag) => {
+    this.setState({ anchorEl: e.currentTarget, menuOpenForTag });
+  };
+
+  handleCloseMenu = () => {
+    this.setState({ anchorEl: null, menuOpenForTag: null });
+  };
+
   handleEdit(tag) {
-    this.setState({ editing: tag });
+    this.setState({ editing: tag, anchorEl: null, menuOpenForTag: null });
   }
 
   handleDelete(tag) {
@@ -204,6 +212,8 @@ class TeamTagsComponent extends Component {
       dialogOpen: true,
       tagToBeDeleted: tag,
       message: null,
+      anchorEl: null,
+      menuOpenForTag: null,
     });
   }
 
@@ -314,43 +324,48 @@ class TeamTagsComponent extends Component {
       >
         { list.map((tag) => {
           const menu = can(tag.permissions, 'update TagText') ? (
-            <IconMenu
-              style={{ margin: '0 12px' }}
-              iconButtonElement={
-                <IconButton
-                  style={{ padding: 0 }}
-                  tooltip={this.props.intl.formatMessage(messages.menuTooltip)}
-                >
-                  <MoreHoriz />
-                </IconButton>
-              }
-            >
-              <MenuItem
-                className="tag__edit"
-                onClick={this.handleEdit.bind(this, tag)}
+            <div>
+              <IconButton
+                style={{ padding: 0 }}
+                tooltip={this.props.intl.formatMessage(messages.menuTooltip)}
+                onClick={e => this.handleOpenMenu(e, tag)}
               >
-                <ListItemText
-                  primary={<FormattedMessage id="teamTags.editTag" defaultMessage="Edit tag" />}
-                />
-              </MenuItem>
-              <MenuItem
-                className="tag__delete"
-                onClick={this.handleDelete.bind(this, tag)}
+                <MoreHoriz />
+              </IconButton>
+              <Menu
+                anchorEl={this.state.anchorEl}
+                open={this.state.anchorEl && (this.state.menuOpenForTag === tag)}
+                onClose={this.handleCloseMenu}
+                style={{ margin: '0 12px' }}
               >
-                <ListItemText
-                  primary={<FormattedMessage id="teamTags.deleteTag" defaultMessage="Delete tag" />}
-                />
-              </MenuItem>
-              { showMove ? (
                 <MenuItem
-                  className="tag__move"
-                  onClick={this.handleMove.bind(this, tag)}
+                  className="tag__edit"
+                  onClick={this.handleEdit.bind(this, tag)}
                 >
                   <ListItemText
-                    primary={<FormattedMessage id="teamTags.moveTag" defaultMessage="Move to default tags" />}
+                    primary={<FormattedMessage id="teamTags.editTag" defaultMessage="Edit tag" />}
                   />
-                </MenuItem>) : null }
-            </IconMenu>) : null;
+                </MenuItem>
+                <MenuItem
+                  className="tag__delete"
+                  onClick={this.handleDelete.bind(this, tag)}
+                >
+                  <ListItemText
+                    primary={<FormattedMessage id="teamTags.deleteTag" defaultMessage="Delete tag" />}
+                  />
+                </MenuItem>
+                { showMove ? (
+                  <MenuItem
+                    className="tag__move"
+                    onClick={this.handleMove.bind(this, tag)}
+                  >
+                    <ListItemText
+                      primary={<FormattedMessage id="teamTags.moveTag" defaultMessage="Move to default tags" />}
+                    />
+                  </MenuItem>) : null }
+              </Menu>
+            </div>
+          ) : null;
 
           if (this.state.editing && this.state.editing.dbid === tag.dbid) {
             return (

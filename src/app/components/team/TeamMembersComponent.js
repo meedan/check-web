@@ -3,7 +3,8 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import MdCreate from 'react-icons/lib/md/create';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
-import { List } from 'material-ui/List';
+import CardHeader from '@material-ui/core/CardHeader';
+import List from '@material-ui/core/List';
 import TeamInviteCard from './TeamInviteCard';
 import TeamMembersListItem from './TeamMembersListItem';
 import TeamInvitedMemberItem from './TeamInvitedMemberItem';
@@ -12,7 +13,6 @@ import Can from '../Can';
 import LoadMore from '../layout/LoadMore';
 import {
   FlexRow,
-  StyledMdCardTitle,
   cardInCardGroupStyle,
   units,
 } from '../../styles/js/shared';
@@ -49,7 +49,7 @@ class TeamMembersComponent extends Component {
         { invitedMails &&
           <Can permissions={team.permissions} permission="invite Members">
             <Card style={{ marginTop: units(2), marginBottom: units(2) }}>
-              <StyledMdCardTitle title={<FormattedMessage
+              <CardHeader title={<FormattedMessage
                 id="teamMembersComponent.pendingInvitations"
                 defaultMessage="Pending invitations"
               />}
@@ -70,7 +70,7 @@ class TeamMembersComponent extends Component {
         { requestingMembership &&
           <Can permissions={team.permissions} permission="update Team">
             <Card style={cardInCardGroupStyle}>
-              <StyledMdCardTitle
+              <CardHeader
                 title={<FormattedMessage
                   id="teamMembershipRequests.requestsToJoin"
                   defaultMessage="Requests to join"
@@ -90,7 +90,7 @@ class TeamMembersComponent extends Component {
         }
 
         <Card style={{ marginTop: units(2), marginBottom: units(2) }}>
-          <StyledMdCardTitle title={<FormattedMessage id="teamMembersComponent.mainHeading" defaultMessage="Members" />} />
+          <CardHeader title={<FormattedMessage id="teamMembersComponent.mainHeading" defaultMessage="Members" />} />
           <FlexRow>
             <Can permissions={team.permissions} permission="update Team">
               <Button

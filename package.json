@@ -131,7 +131,7 @@
     "lodash.xor": "^4.5.0",
     "marked": "^0.3.5",
     "material-ui": "^0.20.0",
-    "@material-ui/core": "3.2.2",
+    "@material-ui/core": "^3.2.2",
     "material-ui-persian-date-picker-utils": "^0.1.2",
     "node-fetch": "^1.7.1",
     "node-window": "^1.0.1",
