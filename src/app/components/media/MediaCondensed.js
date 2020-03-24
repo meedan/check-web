@@ -5,7 +5,8 @@ import { Link } from 'react-router';
 import { injectIntl, defineMessages, FormattedMessage } from 'react-intl';
 import Avatar from 'material-ui/Avatar';
 import CardHeader from '@material-ui/core/CardHeader';
-import MenuItem from 'material-ui/MenuItem';
+import MenuItem from '@material-ui/core/MenuItem';
+import ListItemText from '@material-ui/core/ListItemText';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -341,18 +342,30 @@ class MediaCondensedComponent extends Component {
             { (media.relationships && media.relationships.sources_count > 0) ?
               <Can permissions={media.relationship.permissions} permission="update Relationship">
                 <MenuItem key="promote" className="media-condensed__promote-relationshp" onClick={this.handlePromoteRelationship.bind(this)}>
-                  <FormattedMessage id="mediaCondensed.promote" defaultMessage="Promote to primary item" />
+                  <ListItemText
+                    primary={
+                      <FormattedMessage id="mediaCondensed.promote" defaultMessage="Promote to primary item" />
+                    }
+                  />
                 </MenuItem>
               </Can> : null }
             { (media.relationships && media.relationships.sources_count > 0) ?
               <Can permissions={media.relationship.permissions} permission="destroy Relationship">
                 <MenuItem key="break" className="media-condensed__break-relationship" onClick={this.handleBreakRelationship.bind(this)} >
-                  <FormattedMessage id="mediaCondensed.break" defaultMessage="Break relation to primary item" />
+                  <ListItemText
+                    primary={
+                      <FormattedMessage id="mediaCondensed.break" defaultMessage="Break relation to primary item" />
+                    }
+                  />
                 </MenuItem>
               </Can> : null }
             <Can permissions={media.permissions} permission="update ProjectMedia">
               <MenuItem key="edit" className="media-condensed__edit" onClick={this.handleEdit.bind(this)}>
-                <FormattedMessage id="mediaCondensed.edit" defaultMessage="Edit title and description" />
+                <ListItemText
+                  primary={
+                    <FormattedMessage id="mediaCondensed.edit" defaultMessage="Edit title and description" />
+                  }
+                />
               </MenuItem>
             </Can>
           </IconMenu> : null }

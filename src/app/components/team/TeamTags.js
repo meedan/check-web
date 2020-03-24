@@ -9,7 +9,8 @@ import MoreHoriz from '@material-ui/icons/MoreHoriz';
 import IconClose from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
+import MenuItem from '@material-ui/core/MenuItem';
+import ListItemText from '@material-ui/core/ListItemText';
 import TextField from 'material-ui/TextField';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -328,20 +329,26 @@ class TeamTagsComponent extends Component {
                 className="tag__edit"
                 onClick={this.handleEdit.bind(this, tag)}
               >
-                <FormattedMessage id="teamTags.editTag" defaultMessage="Edit tag" />
+                <ListItemText
+                  primary={<FormattedMessage id="teamTags.editTag" defaultMessage="Edit tag" />}
+                />
               </MenuItem>
               <MenuItem
                 className="tag__delete"
                 onClick={this.handleDelete.bind(this, tag)}
               >
-                <FormattedMessage id="teamTags.deleteTag" defaultMessage="Delete tag" />
+                <ListItemText
+                  primary={<FormattedMessage id="teamTags.deleteTag" defaultMessage="Delete tag" />}
+                />
               </MenuItem>
               { showMove ? (
                 <MenuItem
                   className="tag__move"
                   onClick={this.handleMove.bind(this, tag)}
                 >
-                  <FormattedMessage id="teamTags.moveTag" defaultMessage="Move to default tags" />
+                  <ListItemText
+                    primary={<FormattedMessage id="teamTags.moveTag" defaultMessage="Move to default tags" />}
+                  />
                 </MenuItem>) : null }
             </IconMenu>) : null;
 

@@ -96,7 +96,7 @@ class DateRangeFilter extends React.Component {
               value={range.type}
               style={selectStyle}
               labelWidth={0}
-              classes={{ select: 'date-range__select-menu', selectMenu: 'bloody-roots' }}
+              classes={{ select: 'date-range__select-menu' }}
               margin="dense"
             >
               <MenuItem

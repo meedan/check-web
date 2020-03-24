@@ -5,7 +5,8 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import IconMoreVert from '@material-ui/icons/MoreVert';
 import IconButton from '@material-ui/core/IconButton';
 import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
+import MenuItem from '@material-ui/core/MenuItem';
+import ListItemText from '@material-ui/core/ListItemText';
 import ConfirmDialog from '../layout/ConfirmDialog';
 import DeleteProjectMutation from '../../relay/mutations/DeleteProjectMutation';
 import ProjectAssignment from './ProjectAssignment';
@@ -98,7 +99,11 @@ class ProjectActions extends Component {
           className="project-actions__edit"
           onClick={this.handleEdit}
         >
-          <FormattedMessage id="ProjectActions.edit" defaultMessage="Edit name and description" />
+          <ListItemText
+            primary={
+              <FormattedMessage id="ProjectActions.edit" defaultMessage="Edit name and description" />
+            }
+          />
         </MenuItem>));
     }
 
@@ -109,7 +114,11 @@ class ProjectActions extends Component {
           className="project-actions__assign"
           onClick={this.handleAssign}
         >
-          <FormattedMessage id="projectActions.assignOrUnassign" defaultMessage="Assign list" />
+          <ListItemText
+            primary={
+              <FormattedMessage id="projectActions.assignOrUnassign" defaultMessage="Assign list" />
+            }
+          />
         </MenuItem>));
     }
 
@@ -121,7 +130,11 @@ class ProjectActions extends Component {
             className="project-actions__destroy"
             onClick={this.handleConfirmDestroy}
           >
-            <FormattedMessage id="projectActions.destroy" defaultMessage="Delete" />
+            <ListItemText
+              primary={
+                <FormattedMessage id="projectActions.destroy" defaultMessage="Delete" />
+              }
+            />
           </MenuItem>
         </div>
       ));
