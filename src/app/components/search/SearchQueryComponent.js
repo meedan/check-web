@@ -716,6 +716,7 @@ class SearchQueryComponent extends React.Component {
                       <h4><FormattedMessage id="search.statusHeading" defaultMessage="Status" /></h4>
                       {statuses.map(status => (
                         <StyledFilterChip
+                          id={`search-query__status-${status.id}`}
                           active={this.statusIsSelected(status.id)}
                           key={status.id}
                           title={status.description}
