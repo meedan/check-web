@@ -52,7 +52,7 @@ class TeamInvitedMemberItem extends Component {
 
     return (
       <ListItem
-        className="team-members__invited"
+        className="team-members__invited-list-item"
         key={this.props.invitedMail}
       >
         <Text ellipsis>

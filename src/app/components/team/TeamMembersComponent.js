@@ -79,6 +79,7 @@ class TeamMembersComponent extends Component {
               <List>
                 { teamUsersRequestingMembership.map(teamUser => (
                   <TeamMembersListItem
+                    className="team-members__requesting-list-item"
                     teamUser={teamUser}
                     key={teamUser.node.id}
                     requestingMembership
@@ -121,6 +122,7 @@ class TeamMembersComponent extends Component {
             >
               { teamUsersMembers.map(teamUser => (
                 <TeamMembersListItem
+                  className="team-members__member-list-item"
                   key={teamUser.node.id}
                   teamUser={teamUser}
                   isEditing={isEditing}

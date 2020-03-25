@@ -929,11 +929,11 @@ shared_examples 'smoke' do
     page.go(@config['self_url'] + '/check/me')
     page.approve_join_team(subdomain: @team1_slug)
     count = 0
-    elems = @driver.find_elements(:css => ".team-members__list > div > div > div > div")
+    elems = @driver.find_elements(:css => ".team-members__member")
     while elems.size <= 1 && count < 15
       sleep 5
       count += 1
-      elems = @driver.find_elements(:css => ".team-members__list > div > div > div > div")
+      elems = @driver.find_elements(:css => ".team-members__member")
     end
     expect(elems.size).to be > 1
 
@@ -1021,11 +1021,11 @@ shared_examples 'smoke' do
     page.go(@config['self_url'] + '/check/me')
     page.approve_join_team(subdomain: @team1_slug)
     count = 0
-    elems = @driver.find_elements(:css => ".team-members__list > div > div > div > div")
+    elems = @driver.find_elements(:css => ".team-members__member")
     while elems.size <= 1 && count < 15
       sleep 5
       count += 1
-      elems = @driver.find_elements(:css => ".team-members__list > div > div > div > div")
+      elems = @driver.find_elements(:css => ".team-members__member")
     end
     expect(elems.size).to be > 1
     #edit team member role
