@@ -5,6 +5,7 @@
   "annotation.newClaim": "Nouveau texte ajouté par {author}",
   "annotation.menuTooltip": "Actions des annotations",
   "annotation.smoochNoMessage": "Aucun message n'a été reçu avec cette demande",
+  "annotation.slackChannel": "Canal Slack ",
   "annotation.flagAdult": "Adulte",
   "annotation.flagSpoof": "Usurpation d’identité",
   "annotation.flagMedical": "Médical",

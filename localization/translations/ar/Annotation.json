@@ -5,6 +5,7 @@
   "annotation.newClaim": "قام {author} بإضافة نص جديد",
   "annotation.menuTooltip": "إجراءات التعليقات",
   "annotation.smoochNoMessage": "No message was sent with the request",
+  "annotation.slackChannel": "قناة Slack",
   "annotation.flagAdult": "Adult",
   "annotation.flagSpoof": "Spoof",
   "annotation.flagMedical": "Medical",
