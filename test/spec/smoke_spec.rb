@@ -71,6 +71,17 @@ shared_examples 'smoke' do
     wait_for_selector(".team-invite-members__dialog-submit-button").click
     wait_for_selector_none(".invite-member-email-input")
   end
+
+  it "should redirect to login screen by the join team link", bin2: true do 
+    team = "team#{Time.now.to_i}"
+    api_create_team(team: team)
+    api_logout
+    @driver.quit
+    @driver = new_driver(@webdriver_url,@browser_capabilities)
+    @driver.navigate.to @config['self_url'] + "/"+team+"/join"
+    wait_for_selector(".message")
+    expect(@driver.page_source.include?("First you need to register. Once registered, you can request to join the workspace.")).to be(true)
+  end
 # Login section end
 
 #security section start
@@ -305,25 +316,37 @@ shared_examples 'smoke' do
     delete_task('When was it')
   end
 
-  it "should assign, answer with a link and add a comment to a task", bin5: true do
-    api_create_team_project_and_claim_and_redirect_to_media_page
-    wait_for_selector('.create-task__add-button')
+  it "should assign, answer with a link and add a comment to a team-wide task", bin5: true do
+     # Create team and go to team page that should not contain any task
+     team = "team#{Time.now.to_i}"
+     api_create_team(team: team)
+     @driver.navigate.to @config['self_url']+'/'+team
+     wait_for_selector('.team-menu__team-settings-button').click
+     wait_for_selector('.team-settings__tasks-tab').click
+     wait_for_selector('.team-tasks')
+     expect(@driver.page_source.include?('No default tasks to display')).to be(true)
+     expect(@driver.page_source.include?('No tasks')).to be(true)
+     expect(@driver.page_source.include?('New teamwide task')).to be(false)
+ 
+     # Create task
+     wait_for_selector('.create-task__add-button').click
+     wait_for_selector('.create-task__add-short-answer').click
+     fill_field('#task-label-input', 'New teamwide task')
+     wait_for_selector('.create-task__dialog-submit-button').click
+     wait_for_selector('.team-tasks-project')
+     expect(@driver.page_source.include?('No default tasks to display')).to be(false)
+     expect(@driver.page_source.include?('1 task')).to be(true)
+     expect(@driver.page_source.include?('New teamwide task')).to be(true)
 
-    # Create a task
-    wait_for_selector('.create-task__add-button').click
-    el = wait_for_selector('.create-task__add-short-answer')
-    el.location_once_scrolled_into_view
-    el.click
-    wait_for_selector('#task-label-input')
-    fill_field('#task-label-input', 'Test')
-    wait_for_selector('.create-task__dialog-submit-button').click
-    wait_for_selector(".media__annotations-column > div > div > button + button + button + button").click
-    wait_for_selector_list_size(".annotations__list-item", 2)
-
-    wait_for_selector(".media__annotations-column > div > div > button").click
-
+    # Create a media
+    wait_for_selector(".project-list__link-all").click
+    create_media("media")
+    wait_for_selector(".media__heading").click
+    
     #assign the task
+    wait_for_selector(".media-tab__tasks").click
     expect(@driver.page_source.include?("Assigned to")).to be (false)
+    expect(@driver.page_source.include?("New teamwide task")).to be (true)
     wait_for_selector('.task-type__free_text > div > div > button > div > svg').click
     wait_for_selector(".task-actions__icon").click
     wait_for_selector(".task-actions__assign").click
@@ -333,12 +356,12 @@ shared_examples 'smoke' do
     wait_for_selector(".task__assigned")
     expect(@driver.page_source.include?("Assigned to")).to be (true)
 
-    # # insert photo
-    # wait_for_selector(".add-annotation__insert-photo").click
-    # wait_for_selector(".without-file")
-    # input = wait_for_selector('input[type=file]')
-    # input.send_keys(File.join(File.dirname(__FILE__), 'test.png'))
-    # wait_for_selector('button[type=submit]').click
+    # insert photo
+    wait_for_selector(".add-annotation__insert-photo").click
+    wait_for_selector(".without-file")
+    input = wait_for_selector('input[type=file]')
+    input.send_keys(File.join(File.dirname(__FILE__), 'test.png'))
+    wait_for_selector('button[type=submit]').click
 
     #Answer with link
     wait_for_selector("textarea[name=response]").send_keys("https://www.youtube.com/watch?v=ykLgjhBnik0")
@@ -481,7 +504,67 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('No bots installed')).to be(true)
     expect(@driver.page_source.include?('More info')).to be(false)
   end
+
+  it "should add a disclaimer", bin5: true do
+    team = "team#{Time.now.to_i}"
+    api_create_team(team: team)
+    @driver.navigate.to @config['self_url']+'/'+team
+    wait_for_selector('.team-menu__team-settings-button').click
+    wait_for_selector('.team-settings__embed-tab').click
+    wait_for_selector('#disclaimer')
+    expect(@driver.page_source.include?('Report settings updated successfully!')).to be(false)
+    expect(@driver.page_source.include?('Report settings')).to be(true)
+    wait_for_selector('#disclaimer').send_keys("a text")
+    wait_for_selector(".team > div> div > p > button[type='button']").click #save button
+    wait_for_selector(".message")
+    expect(@driver.page_source.include?('Report settings updated successfully!')).to be(true)
+  end
 #team section end
+
+#search section start
+  it "sort by date that the media was created", bin4: true do
+    api_create_claim_and_go_to_search_page
+    wait_for_selector(".medias__item")
+    expect(@driver.page_source.include?('My search result')).to be(true)
+    wait_for_selector("#search__open-dialog-button").click
+    wait_for_selector(".date-range__start-date input").click
+    wait_for_selector("//span[contains(text(), 'OK')]", :xpath).click
+    wait_for_selector(".date-range__end-date input").click
+    wait_for_selector("//span[contains(text(), 'OK')]", :xpath).click
+    wait_for_selector("#search-query__submit-button").click
+    wait_for_selector(".medias__item")
+    expect(@driver.page_source.include?('My search result')).to be(true)
+  end
+
+  it "should filter by status", bin2: true do
+    api_create_claim_and_go_to_search_page
+    expect(@driver.page_source.include?('My search result')).to be(true)
+    create_media("media 2")
+    create_media("media 3")
+    wait_for_selector_list(".media__heading")[0].click
+    wait_for_selector(".media__annotations-column")
+    change_the_status_to(".media-status__menu-item--false", false)
+    wait_for_selector(".project-header__back-button").click
+    wait_for_selector("#search-input")
+    wait_for_selector_list(".media__heading")[1].click
+    wait_for_selector(".media__annotations-column")
+    change_the_status_to(".media-status__menu-item--verified", false)
+    wait_for_selector(".project-header__back-button").click
+    wait_for_selector_list_size(".media__heading", 3)
+    wait_for_selector("#search__open-dialog-button").click
+    wait_for_selector("#search-query__cancel-button")
+    wait_for_selector("#search-query__status-false").click
+    wait_for_selector("#search-query__status-verified").click
+    wait_for_selector("#search-query__submit-button").click
+    wait_for_selector_list_size(".media__heading", 2)
+    expect(@driver.page_source.include?('My search result')).to be(false)
+    expect(@driver.page_source.include?('media 2')).to be(true)
+    expect(@driver.page_source.include?('media 3')).to be(true)
+    wait_for_selector("#search__open-dialog-button").click
+    selected = @driver.find_elements(:css, '.search-query__filter-button--selected')
+    expect(selected.size == 2).to be(true)
+  end
+#search section end
 
 #related items section start
   it "should promote related item to main item" , bin1: true do
@@ -786,6 +869,7 @@ shared_examples 'smoke' do
     wait_for_selector(".ag-icon-checkbox-unchecked").click
     wait_for_selector(".media-bulk-actions__move-icon").click
     wait_for_selector('.Select-input input').send_keys('Project')
+    wait_for_selector(".Select-menu-outer")
     wait_for_selector('.Select-option').click
     button_move = wait_for_selector('.media-bulk-actions__move-button')
     button_move.location_once_scrolled_into_view
@@ -836,6 +920,7 @@ shared_examples 'smoke' do
     wait_for_selector(".ag-icon-checkbox-unchecked").click
     wait_for_selector(".media-bulk-actions__add-icon").click
     wait_for_selector('.Select-input input').send_keys('Project')
+    wait_for_selector(".Select-menu-outer")
     wait_for_selector('.Select-option').click
     wait_for_selector('.media-bulk-actions__add-button').click
     wait_for_selector_none(".Select-placeholder")
