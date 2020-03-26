@@ -50,7 +50,6 @@
     "enzyme-adapter-react-16": "^1.1.1",
     "mocha": "^3.2.0",
     "mocha-webpack": "1.0.0-beta.1",
-    "react-test-renderer": "^15.5.4",
     "selenium-webdriver": "^3.0.1",
     "webpack-dev-server": "^1.12.1"
   },
@@ -169,7 +168,6 @@
     "redux-devtools": "^3.0.0-beta-3",
     "redux-devtools-dock-monitor": "^1.0.0-beta-3",
     "redux-devtools-log-monitor": "^1.0.0-beta-3",
-    "redux-form": "^6.3.2",
     "redux-immutable-state-invariant": "^1.1.0",
     "redux-logger": "^2.0.4",
     "redux-notify": "^0.2.0",
