@@ -74,7 +74,13 @@ module.exports = {
           'syntax-dynamic-import',
           'transform-class-properties',
           'transform-object-rest-spread',
-          path.join(__dirname, './babelRelayPlugin.js')
+          [
+            'relay',
+            {
+              compat: true,
+              schema: path.resolve(__dirname, '../relay.json'),
+            }
+          ],
         ],
       },
     }, {
