@@ -11,7 +11,7 @@ const NODE_ENV = process.env.NODE_ENV || 'production';
 module.exports = {
   bail: true, // exit 1 on build failure
   entry: {
-    index: [ 'babel-polyfill', 'whatwg-fetch', path.join(__dirname, '../src/web/index/index') ]
+    index: [ 'whatwg-fetch', path.join(__dirname, '../src/web/index/index') ]
   },
   output: {
     path: path.join(__dirname, '../build/web/js'),
@@ -25,7 +25,6 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
-      __DEVELOPMENT__: NODE_ENV != 'production',
     }),
     new webpack.ContextReplacementPlugin(
       /react-intl\/locale-data/,
@@ -49,18 +48,8 @@ module.exports = {
       name: 'vendor',
       minChunks: module => /node_modules/.test(module.resource)
     }),
-  ].concat(NODE_ENV == 'production' ? [
     // TODO upgrade to Webpack 5, which derives "minify" from mode (dev/prod)
-    new webpack.optimize.UglifyJsPlugin({
-      minimize: true,
-      sourceMap: true,
-      comments: false,
-      compressor: {
-        screw_ie8: true,
-        warnings: false
-      }
-    }),
-  ] : []),
+  ].concat(NODE_ENV === 'production' ? [new webpack.optimize.UglifyJsPlugin({sourceMap: true})] : []),
   resolve: {
     alias: {app: path.join(__dirname, '../src/app')},
     extensions: ['.js']
@@ -70,7 +59,24 @@ module.exports = {
       test: /\.js$/,
       loader: 'babel-loader',
       exclude: /node_modules/,
-      query: { presets: ['es2015', 'stage-0', 'react'], plugins: [path.join(__dirname, './babelRelayPlugin.js')]}
+      query: {
+        presets: [
+          [
+            'env',
+            {
+              targets: { browsers: '> 0.5%, not IE 11' },
+              useBuiltins: 'usage',
+            }
+          ],
+          'react',
+        ],
+        plugins: [
+          'syntax-dynamic-import',
+          'transform-class-properties',
+          'transform-object-rest-spread',
+          path.join(__dirname, './babelRelayPlugin.js')
+        ],
+      },
     }, {
       enforce: 'pre',
       test: /\.js$/,

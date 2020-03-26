@@ -117,4 +117,4 @@ const mediaFragment = Relay.QL`
   }
 `;
 
-module.exports = mediaFragment;
+export default mediaFragment;
