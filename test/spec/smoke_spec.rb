@@ -316,7 +316,7 @@ shared_examples 'smoke' do
     delete_task('When was it')
   end
 
-  it "should assign, answer with a link and add a comment to a team-wide task", bin5: true do
+  it "should assign, answer, insert a image, and add a comment to a team-wide task", bin5: true do
      # Create team and go to team page that should not contain any task
      team = "team#{Time.now.to_i}"
      api_create_team(team: team)
@@ -345,6 +345,7 @@ shared_examples 'smoke' do
     
     #assign the task
     wait_for_selector(".media-tab__tasks").click
+    wait_for_selector(".task-type__free_text")
     expect(@driver.page_source.include?("Assigned to")).to be (false)
     expect(@driver.page_source.include?("New teamwide task")).to be (true)
     wait_for_selector('.task-type__free_text > div > div > button > div > svg').click
@@ -356,7 +357,9 @@ shared_examples 'smoke' do
     wait_for_selector(".task__assigned")
     expect(@driver.page_source.include?("Assigned to")).to be (true)
 
-    # insert photo
+    # insert a image
+    wait_for_selector(".task__log-icon > svg").click
+    wait_for_selector(".add-annotation")
     wait_for_selector(".add-annotation__insert-photo").click
     wait_for_selector(".without-file")
     input = wait_for_selector('input[type=file]')
@@ -364,6 +367,8 @@ shared_examples 'smoke' do
     wait_for_selector('button[type=submit]').click
 
     #Answer with link
+    wait_for_selector(".task__log-icon > svg").click
+    wait_for_selector(".add-annotation")
     wait_for_selector("textarea[name=response]").send_keys("https://www.youtube.com/watch?v=ykLgjhBnik0")
     @driver.action.send_keys(:enter).perform
     expect(@driver.find_elements(:css, ".task__response").size).to eq 1
@@ -520,51 +525,6 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('Report settings updated successfully!')).to be(true)
   end
 #team section end
-
-#search section start
-  it "sort by date that the media was created", bin4: true do
-    api_create_claim_and_go_to_search_page
-    wait_for_selector(".medias__item")
-    expect(@driver.page_source.include?('My search result')).to be(true)
-    wait_for_selector("#search__open-dialog-button").click
-    wait_for_selector(".date-range__start-date input").click
-    wait_for_selector("//span[contains(text(), 'OK')]", :xpath).click
-    wait_for_selector(".date-range__end-date input").click
-    wait_for_selector("//span[contains(text(), 'OK')]", :xpath).click
-    wait_for_selector("#search-query__submit-button").click
-    wait_for_selector(".medias__item")
-    expect(@driver.page_source.include?('My search result')).to be(true)
-  end
-
-  it "should filter by status", bin2: true do
-    api_create_claim_and_go_to_search_page
-    expect(@driver.page_source.include?('My search result')).to be(true)
-    create_media("media 2")
-    create_media("media 3")
-    wait_for_selector_list(".media__heading")[0].click
-    wait_for_selector(".media__annotations-column")
-    change_the_status_to(".media-status__menu-item--false", false)
-    wait_for_selector(".project-header__back-button").click
-    wait_for_selector("#search-input")
-    wait_for_selector_list(".media__heading")[1].click
-    wait_for_selector(".media__annotations-column")
-    change_the_status_to(".media-status__menu-item--verified", false)
-    wait_for_selector(".project-header__back-button").click
-    wait_for_selector_list_size(".media__heading", 3)
-    wait_for_selector("#search__open-dialog-button").click
-    wait_for_selector("#search-query__cancel-button")
-    wait_for_selector("#search-query__status-false").click
-    wait_for_selector("#search-query__status-verified").click
-    wait_for_selector("#search-query__submit-button").click
-    wait_for_selector_list_size(".media__heading", 2)
-    expect(@driver.page_source.include?('My search result')).to be(false)
-    expect(@driver.page_source.include?('media 2')).to be(true)
-    expect(@driver.page_source.include?('media 3')).to be(true)
-    wait_for_selector("#search__open-dialog-button").click
-    selected = @driver.find_elements(:css, '.search-query__filter-button--selected')
-    expect(selected.size == 2).to be(true)
-  end
-#search section end
 
 #related items section start
   it "should promote related item to main item" , bin1: true do
@@ -794,42 +754,40 @@ shared_examples 'smoke' do
   end
 #Embed section end
 
-# # Meme Generator section start
-#   it "should go to mem  e generator change the title and description publish and generate a embed", bin1: true do
-#     create_team_project_and_image_and_redirect_to_media_page
-#     wait_for_selector(".media__annotations-column")
-#     wait_for_selector('.media-actions__icon').click
-#     wait_for_selector('.media-actions__edit')
-#     sleep 5
-#     el = wait_for_selector('.media-actions__memebuster')
-#     el.location_once_scrolled_into_view
-#     el.click
-#     sleep 2
-#     expect(@driver.page_source.include?('Last saved')).to be(false)
-#     wait_for_selector(".without-file")
-#     fill_field('input[name="headline"]', 'Meme')
-#     save_button = wait_for_selector(".memebuster__viewport-column > div > div button + button")
-#     expect(save_button.attribute('tabindex')== "-1" ).to be(true) #if save_button is not enable
-#     fill_field('textarea[name="description"]', 'description')
-#     expect(save_button.attribute('tabindex')== "0" ).to be(true) #if save_button is enable
-#     save_button.click
-#     wait_for_selector(".memebuster__viewport-column > div > div >  span")
-#     expect(@driver.page_source.include?('Last saved')).to be(true)
-#     publish_button = wait_for_selector(".memebuster__viewport-column > div > div button + button + button")
-#     publish_button.click
-#     wait_for_selector(".memebuster__viewport-column > div > div > div")
-#     expect(@driver.page_source.include?('Publishing')).to be(true)
-#     wait_for_selector(".memebuster__viewport-column > div > div > div > span")
-#     wait_for_selector(".memebuster__viewport-column > div > div > div > span > time")
-#     expect(@driver.page_source.include?('Publishing')).to be(false)
-#     expect(@driver.page_source.include?('Last published')).to be(true)
-#     @driver.navigate.back
-#     wait_for_selector_none(".without-file")
-#     wait_for_selector(".media__annotations-column")
-#     generate_a_embed_and_copy_embed_code
-#     wait_for_selector(".oembed__meme")
-#     expect(@driver.page_source.include?('Meme')).to be(true)
-#   end
+# Meme Generator section start
+  it "should generate a meme and then the embed", bin1: true do
+    create_team_project_and_image_and_redirect_to_media_page
+    wait_for_selector(".media__annotations-column")
+    wait_for_selector('.media-actions__icon').click
+    wait_for_selector('.media-actions__edit')
+    el = wait_for_selector('.media-actions__memebuster')
+    el.location_once_scrolled_into_view
+    el.click
+    expect(@driver.page_source.include?('Last saved')).to be(false)
+    wait_for_selector(".without-file")
+    fill_field('input[name="headline"]', 'Meme')
+    save_button = wait_for_selector(".memebuster__viewport-column > div > div button + button")
+    expect(save_button.attribute('tabindex')== "-1" ).to be(true) #if save_button is not enable
+    fill_field('textarea[name="description"]', 'description')
+    expect(save_button.attribute('tabindex')== "0" ).to be(true) #if save_button is enable
+    save_button.click
+    wait_for_selector(".memebuster__viewport-column > div > div >  span")
+    expect(@driver.page_source.include?('Last saved')).to be(true)
+    publish_button = wait_for_selector(".memebuster__viewport-column > div > div button + button + button")
+    publish_button.click
+    wait_for_selector(".memebuster__viewport-column > div > div > div")
+    expect(@driver.page_source.include?('Publishing')).to be(true)
+    wait_for_selector(".memebuster__viewport-column > div > div > div > span")
+    wait_for_selector(".memebuster__viewport-column > div > div > div > span > time")
+    expect(@driver.page_source.include?('Publishing')).to be(false)
+    expect(@driver.page_source.include?('Last published')).to be(true)
+    @driver.navigate.back
+    wait_for_selector_none(".without-file")
+    wait_for_selector(".media-status__label")
+    generate_a_embed_and_copy_embed_code
+    wait_for_selector(".oembed__meme")
+    expect(@driver.page_source.include?('Meme')).to be(true)
+  end
 # Meme Generator section end
 
 #Bulk Actions section start
@@ -1246,6 +1204,49 @@ shared_examples 'smoke' do
 #Permissions section end
 
 #Filter section start
+
+it "sort by date that the media was created", bin4: true do
+  api_create_claim_and_go_to_search_page
+  wait_for_selector(".medias__item")
+  expect(@driver.page_source.include?('My search result')).to be(true)
+  wait_for_selector("#search__open-dialog-button").click
+  wait_for_selector(".date-range__start-date input").click
+  wait_for_selector("//span[contains(text(), 'OK')]", :xpath).click
+  wait_for_selector(".date-range__end-date input").click
+  wait_for_selector("//span[contains(text(), 'OK')]", :xpath).click
+  wait_for_selector("#search-query__submit-button").click
+  wait_for_selector(".medias__item")
+  expect(@driver.page_source.include?('My search result')).to be(true)
+end
+
+it "should filter by status", bin2: true do
+  api_create_claim_and_go_to_search_page
+  expect(@driver.page_source.include?('My search result')).to be(true)
+  create_media("media 2")
+  create_media("media 3")
+  wait_for_selector_list(".media__heading")[0].click
+  wait_for_selector(".media__annotations-column")
+  change_the_status_to(".media-status__menu-item--false", false)
+  wait_for_selector(".project-header__back-button").click
+  wait_for_selector("#search-input")
+  wait_for_selector_list(".media__heading")[1].click
+  wait_for_selector(".media__annotations-column")
+  change_the_status_to(".media-status__menu-item--verified", false)
+  wait_for_selector(".project-header__back-button").click
+  wait_for_selector_list_size(".media__heading", 3)
+  wait_for_selector("#search__open-dialog-button").click
+  wait_for_selector("#search-query__cancel-button")
+  wait_for_selector("#search-query__status-false").click
+  wait_for_selector("#search-query__status-verified").click
+  wait_for_selector("#search-query__submit-button").click
+  wait_for_selector_list_size(".media__heading", 2)
+  expect(@driver.page_source.include?('My search result')).to be(false)
+  expect(@driver.page_source.include?('media 2')).to be(true)
+  expect(@driver.page_source.include?('media 3')).to be(true)
+  wait_for_selector("#search__open-dialog-button").click
+  selected = @driver.find_elements(:css, '.search-query__filter-button--selected')
+  expect(selected.size == 2).to be(true)
+end
 
 # it "should find medias when searching by keyword", bin2: true do
 #   api_create_team_project_and_link('https://www.facebook.com/permalink.php?story_fbid=10155901893214439&id=54421674438')
