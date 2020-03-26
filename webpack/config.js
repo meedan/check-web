@@ -1,6 +1,6 @@
-import path from 'path';
-import webpack from 'webpack';
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const path = require('path');
+const webpack = require('webpack');
+//const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const CompressionPlugin = require('compression-webpack-plugin');
 const locales = require(path.join(__dirname, '../localization/translations/locales.js'));
 
@@ -8,7 +8,7 @@ const localesRegExp = new RegExp('\/(' + locales.join('|') + ')\.js$');
 
 const NODE_ENV = process.env.NODE_ENV || 'production';
 
-export default {
+module.exports = {
   bail: true, // exit 1 on build failure
   entry: {
     index: [ 'babel-polyfill', 'whatwg-fetch', path.join(__dirname, '../src/web/index/index') ]

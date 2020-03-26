@@ -1,17 +1,15 @@
-import fs from 'fs';
-import request from 'sync-request';
-import gulp from 'gulp';
-import gutil from 'gulp-util';
-import rename from 'gulp-rename';
-import babel from 'gulp-babel';
-import concat from 'gulp-concat';
-import transifex from 'gulp-transifex';
-import jsonEditor from 'gulp-json-editor';
-import webpack from 'webpack';
-import mergeTransifex from './webpack/gulp-merge-transifex-translations';
-import webpackConfig from './webpack/config';
-import webpackServerConfig from './webpack/config_server';
-import buildConfig from './config-build';
+const fs = require('fs');
+const request = require('sync-request');
+const gulp = require('gulp');
+const gutil = require('gulp-util');
+const rename = require('gulp-rename');
+const concat = require('gulp-concat');
+const transifex = require('gulp-transifex');
+const jsonEditor = require('gulp-json-editor');
+const webpack = require('webpack');
+const mergeTransifex = require('./webpack/gulp-merge-transifex-translations');
+const webpackConfig = require('./webpack/config');
+const buildConfig = require('./config-build');
 
 let transifexClient = null;
 if (buildConfig.transifex) {
@@ -36,19 +34,8 @@ gulp.task('relay:copy', (callback) => {
   }
 });
 
-gulp.task('webpack:build:server', (callback) => {
-  webpack(Object.create(webpackServerConfig), (err, stats) => {
-    if (err) {
-      gutil.log(err.message);
-      process.exit(1);
-    }
-    gutil.log('[webpack:build:server]', stats.toString({ colors: true, chunks: false }));
-    callback();
-  });
-});
-
 gulp.task('webpack:build:web', (callback) => {
-  webpack(Object.create(webpackConfig), (err, stats) => {
+  webpack(webpackConfig, (err, stats) => {
     if (err) {
       gutil.log(err.message);
       process.exit(1);
@@ -103,24 +90,17 @@ gulp.task('transifex:languages', () => {
 });
 
 gulp.task('build:web', gulp.series('relay:copy', 'webpack:build:web', 'copy:build:web'));
-gulp.task('build:server', gulp.series('webpack:build:server'));
 
 // Dev mode — with 'watch' enabled for faster builds
 // Webpack only — without the rest of the web build steps.
-//
-const devConfig = Object.create(webpackConfig);
-
 gulp.task('webpack:build:web:dev', (callback) => {
-  // Enable watcher to monitor for changes
-  devConfig.watch = true;
+  const devConfig = {
+    ...webpackConfig,
+    bail: false, // don't stop on error
+    watch: true,
+  }
 
-  // Don't stop on error
-  devConfig.bail = false;
-
-  // Disable sourcemaps, for faster compile
-  //devConfig.devtool = 'eval';
-
-  webpack(Object.create(devConfig), (err, stats) => {
+  webpack(devConfig, (err, stats) => {
     if (err) {
       throw new gutil.PluginError('webpack:build', err);
     }
@@ -145,7 +125,7 @@ gulp.task('webpack:build:web:dev', (callback) => {
   // never call callback()
 });
 
-gulp.task('build:web:dev', gulp.series('relay:copy', 'webpack:build:web:dev', 'copy:build:web'));
+gulp.task('build:web:dev', gulp.series('relay:copy', 'copy:build:web', 'webpack:build:web:dev'));
 
 gulp.task('serve:server', (callback) => {
   const app = require('./scripts/server-app');
