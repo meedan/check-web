@@ -53,12 +53,7 @@ function copy_build_web_config_js() {
   return gulp.src('./config.js').pipe(gulp.dest('./build/web/js'));
 }
 
-function copy_build_web_config_test_js() {
-  return gulp.src('./test/config.js').pipe(gulp.dest('./build/web/js'));
-}
-
 gulp.task('copy:build:web', gulp.series(copy_build_web_assets, copy_build_web_config_js));
-gulp.task('copy:build:web:test', gulp.series(copy_build_web_assets, copy_build_web_config_test_js));
 
 gulp.task('transifex:download', () => {
   return gulp.src('./localization/transifex/**/*.json').pipe(transifexClient.pullResource());
