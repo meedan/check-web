@@ -62,18 +62,18 @@ module.exports = {
       query: {
         presets: [
           [
-            'env',
+            '@babel/preset-env',
             {
               targets: { browsers: '> 0.5%, not IE 11' },
-              useBuiltins: 'usage',
+              useBuiltIns: 'usage',
             }
           ],
-          'react',
+          '@babel/preset-react',
         ],
         plugins: [
-          'syntax-dynamic-import',
-          'transform-class-properties',
-          'transform-object-rest-spread',
+          '@babel/plugin-syntax-dynamic-import',
+          '@babel/plugin-proposal-class-properties',
+          '@babel/plugin-proposal-object-rest-spread',
           [
             'relay',
             {
