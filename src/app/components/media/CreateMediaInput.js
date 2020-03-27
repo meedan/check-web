@@ -3,14 +3,12 @@ import PropTypes from 'prop-types';
 import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
 import Button from '@material-ui/core/Button';
 import SvgIcon from 'material-ui/SvgIcon';
-import { Tabs, Tab } from 'material-ui/Tabs';
 import TextField from 'material-ui/TextField';
 import IconInsertPhoto from '@material-ui/icons/InsertPhoto';
 import Movie from '@material-ui/icons/Movie';
 import IconLink from '@material-ui/icons/Link';
 import FaFeed from 'react-icons/lib/fa/feed';
 import MdFormatQuote from 'react-icons/lib/md/format-quote';
-import rtlDetect from 'rtl-detect';
 import styled from 'styled-components';
 import urlRegex from 'url-regex';
 import AutoCompleteClaimAttribution from './AutoCompleteClaimAttribution';
@@ -39,7 +37,6 @@ const StyledTabLabelText = styled.div`
   font: ${caption};
   text-transform: none;
   color: ${black54};
-  padding: 0 ${units(0.5)};
   ${mediaQuery.handheld`
     display: none;
   `}
@@ -96,10 +93,6 @@ const messages = defineMessages({
   uploadImage: {
     id: 'createMedia.uploadImage',
     defaultMessage: 'Upload an image',
-  },
-  submitButton: {
-    id: 'createMedia.submitButton',
-    defaultMessage: 'Post',
   },
   invalidUrl: {
     id: 'createMedia.invalidUrl',
@@ -230,7 +223,7 @@ class CreateMediaInput extends React.Component {
     }
   };
 
-  handleTabChange = (mode) => {
+  handleTabChange = (e, mode) => {
     this.setState({ mode, message: null });
     if (this.props.onTabChange) {
       this.props.onTabChange(mode);
@@ -364,18 +357,9 @@ class CreateMediaInput extends React.Component {
   }
 
   render() {
-    const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
-
     const styles = {
       svgIcon: {
         fontSize: units(3),
-      },
-      tab: {
-        margin: isRtl ? `0 0 0 ${units(2)}` : `0 ${units(2)} 0 0`,
-      },
-      submitButton: {
-        margin: isRtl ? '0 auto 0 0' : '0 0 0 auto',
-        display: this.props.submitHidden ? 'none' : null,
       },
     };
 
@@ -424,11 +408,6 @@ class CreateMediaInput extends React.Component {
       </StyledTabLabel>
     );
 
-    const defaultTabProps = {
-      buttonStyle: { height: units(3) },
-      style: styles.tab,
-    };
-
     return (
       <div>
         <Message className="create-media__message" message={this.props.message || this.state.message} />
@@ -443,53 +422,48 @@ class CreateMediaInput extends React.Component {
             {this.renderFormInputs()}
           </div>
 
-          <div style={{ marginTop: units(2), width: '100%' }}>
-            <Row style={{ flexWrap: 'wrap' }}>
-              <Tabs value={this.state.mode} onChange={this.handleTabChange} inkBarStyle={{ display: 'none' }}>
-                <Tab
-                  id="create-media__link"
-                  value="link"
-                  label={tabLabelLink}
-                  {...defaultTabProps}
-                />
-                <Tab
-                  id="create-media__quote"
-                  value="quote"
-                  label={tabLabelQuote}
-                  {...defaultTabProps}
-                />
-                { this.props.noSource ?
-                  null :
-                  <Tab
-                    id="create-media__source"
-                    value="source"
-                    label={tabLabelSource}
-                    {...defaultTabProps}
-                  />
-                }
-                <Tab
-                  id="create-media__image"
-                  value="image"
-                  label={tabLabelImage}
-                  {...defaultTabProps}
-                />
-                <Tab
-                  id="create-media__video"
-                  value="video"
-                  label={tabLabelVideo}
-                  {...defaultTabProps}
-                />
-              </Tabs>
+          <div style={{ marginTop: units(2) }}>
+            <Row>
+              <Button
+                id="create-media__link"
+                onClick={e => this.handleTabChange(e, 'link')}
+              >
+                {tabLabelLink}
+              </Button>
+              <Button
+                id="create-media__quote"
+                onClick={e => this.handleTabChange(e, 'quote')}
+              >
+                {tabLabelQuote}
+              </Button>
+              { this.props.noSource ?
+                null :
+                <Button
+                  id="create-media__source"
+                  onClick={e => this.handleTabChange(e, 'source')}
+                >
+                  {tabLabelSource}
+                </Button>
+              }
+              <Button
+                id="create-media__image"
+                onClick={e => this.handleTabChange(e, 'image')}
+              >
+                {tabLabelImage}
+              </Button>
+              <Button
+                id="create-media__video"
+                onClick={e => this.handleTabChange(e, 'video')}
+              >
+                {tabLabelVideo}
+              </Button>
               <Button
                 id="create-media-submit"
-                color="primary"
                 disabled={!this.state.submittable}
                 onClick={this.handleSubmit}
                 className="create-media__button create-media__button--submit"
-                style={styles.submitButton}
-              >
-                {this.props.intl.formatMessage(messages.submitButton)}
-              </Button>
+                style={{ display: 'none' }}
+              />
             </Row>
           </div>
         </form>

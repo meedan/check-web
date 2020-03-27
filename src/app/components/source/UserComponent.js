@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import rtlDetect from 'rtl-detect';
-import { Tabs, Tab } from 'material-ui/Tabs';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 import UserEmail from '../user/UserEmail';
 import UserInfo from './UserInfo';
 import UserAssignments from './UserAssignments';
@@ -38,7 +39,7 @@ class UserComponent extends React.Component {
     return new CheckContext(this).getContextStore();
   }
 
-  handleTabChange = (value) => {
+  handleTabChange = (e, value) => {
     browserHistory.push(`/check/user/${this.props.user.dbid}/${value}`);
     this.setState({
       showTab: value,
@@ -66,7 +67,12 @@ class UserComponent extends React.Component {
                 <UserInfoEdit user={user} /> :
                 <div>
                   <UserInfo user={user} context={context} />
-                  <Tabs value={this.state.showTab} onChange={this.handleTabChange}>
+                  <Tabs
+                    indicatorColor="primary"
+                    textColor="primary"
+                    value={this.state.showTab}
+                    onChange={this.handleTabChange}
+                  >
                     <Tab
                       id="teams-tab"
                       label={

@@ -24,7 +24,6 @@ class CreateMediaDialog extends React.Component {
           <CreateMediaInput
             message={this.props.message}
             onSubmit={this.props.onSubmit}
-            submitHidden
             noSource
           />
         </DialogContent>

@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import deepEqual from 'deep-equal';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import rtlDetect from 'rtl-detect';
-import { Tabs, Tab } from 'material-ui/Tabs';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 import styled from 'styled-components';
 import TeamBots from './TeamBots';
 import TeamRules from './TeamRules';
@@ -90,7 +91,9 @@ class TeamComponent extends Component {
     return new CheckContext(this).getContextStore().currentUser;
   }
 
-  handleTabChange = value => this.setState({ showTab: value });
+  handleTabChange = (e, value) => {
+    this.setState({ showTab: value });
+  };
 
   render() {
     const { team } = this.props;
@@ -131,7 +134,12 @@ class TeamComponent extends Component {
     const TeamSettingsTabs = () => {
       if (isSettings || isReadOnly) {
         return (
-          <Tabs value={this.state.showTab} onChange={this.handleTabChange}>
+          <Tabs
+            indicatorColor="primary"
+            textColor="primary"
+            value={this.state.showTab}
+            onChange={this.handleTabChange}
+          >
             { UserUtil.myRole(this.getCurrentUser(), team.slug) === 'owner' ?
               <Tab
                 className="team-settings__tasks-tab"
