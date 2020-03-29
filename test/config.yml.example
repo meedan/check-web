@@ -7,31 +7,31 @@ chromedriver_url: http://chromedriver:4444/wd/hub
 #
 # REQUIRED to pass Twitter social login tests
 #
-twitter_user: '<TWITTER USERNAME>'
-twitter_password: '<TWITTER PASSWORD>'
-twitter_name: '<TWITTER SCREEN NAME>'
+twitter_user: # '<TWITTER USERNAME>'
+twitter_password: # '<TWITTER PASSWORD>'
+twitter_name: # '<TWITTER SCREEN NAME>'
 
 # Facebook user information to test Facebook social login
 #
 # REQUIRED to pass Facebook social login tests
 # Create a test user in the Facebook app for your local development
 #
-facebook_user: '<FACEBOOK TEST USER EMAIL>'
-facebook_password: '<FACEBOOK TEST USER PASSWORD>'
-facebook_name: '<FACEBOOK TEST USER NAME>'
+facebook_user: # '<FACEBOOK TEST USER EMAIL>'
+facebook_password: # '<FACEBOOK TEST USER PASSWORD>'
+facebook_name: # '<FACEBOOK TEST USER NAME>'
 
 # Slack user information to test Slack social login
 #
 # REQUIRED to pass Slack social login tests
 # Create a Slack user in your workspace
 #
-slack_domain: '<SLACK WORKSPACE>'
-slack_user: '<SLACK USER EMAIL>'
-slack_password: '<SLACK USER PASSWORD>'
-slack_name: '<SLACK USER NAME>'
+slack_domain: # '<SLACK WORKSPACE>'
+slack_user: # '<SLACK USER EMAIL>'
+slack_password: # '<SLACK USER PASSWORD>'
+slack_name: # '<SLACK USER NAME>'
 
 # Imgur is used to upload a screenshot of test failures https://imgur.com/
 #
 # OPTIONAL
 #
-imgur_client_id: '<IMGUR CLIENT ID>'
+imgur_client_id: # '<IMGUR CLIENT ID>'

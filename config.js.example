@@ -12,8 +12,8 @@ window.config = {
   //
   // REQUIRED
   //
-  pusherKey: '<PUSHER KEY>',
-  pusherCluster: '<PUSHER CLUSTER>',
+  pusherKey: null, // '<PUSHER KEY>',
+  pusherCluster: null, // '<PUSHER CLUSTER>',
   pusherDebug: true,
 
   // Mapbox is used to show maps on geolocation tasks https://www.mapbox.com/
@@ -21,18 +21,18 @@ window.config = {
   // OPTIONAL
   // Only needed for geolocation tasks
   //
-  mapboxApiKey: '<MAPBOX API KEY>',
+  mapboxApiKey: null, // '<MAPBOX API KEY>',
 
   // OpenCage Geocoder is used to convert get coordinates into place names https://opencagedata.com/
   //
   // OPTIONAL
   // Only needed for geolocation tasks
   //
-  opencageApiKey: '<OPENCAGE API KEY>',
+  opencageApiKey: null, // '<OPENCAGE API KEY>',
 
   // Intercom is used for user support https://www.intercom.com/
   //
   // OPTIONAL
   //
-  intercomAppId: '<INTERCOM APP ID>',
+  intercomAppId: null, // '<INTERCOM APP ID>',
 }
