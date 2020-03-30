@@ -1,3 +1,4 @@
+const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
 //const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
@@ -82,6 +83,12 @@ module.exports = {
             }
           ],
         ],
+        cacheDirectory: true,
+        cacheIdentifier: JSON.stringify({
+          NODE_ENV: NODE_ENV,
+          'package-lock.json': require('../package-lock.json'),
+          'webpack/config.js': fs.readFileSync(__filename),
+        }),
       },
     }, {
       enforce: 'pre',
