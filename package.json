@@ -104,7 +104,6 @@
     "gulp-zip": "^3.0.2",
     "html-webpack-plugin": "^2.24.1",
     "http": "0.0.0",
-    "husky": "^0.14.1",
     "ifvisible.js": "^1.0.6",
     "ignore-loader": "^0.1.2",
     "ignore-styles": "^5.0.1",
