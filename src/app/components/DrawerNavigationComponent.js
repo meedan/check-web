@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import Button from '@material-ui/core/Button';
-import Drawer from 'material-ui/Drawer';
+import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -149,6 +149,8 @@ class DrawerNavigationComponent extends Component {
     };
 
     const DrawerHeader = styled.div`
+      min-width: ${units(32)};
+      max-width: ${units(32)};
       height: ${drawerHeaderHeight};
       background-color: ${black05};
       padding: ${units(2)};
@@ -167,18 +169,12 @@ class DrawerNavigationComponent extends Component {
 
     return (
       <Drawer
-        {...this.props}
-        containerStyle={{
-          boxShadow: 'none',
-          borderRight: 'solid 1px #e0e0e0',
-          overflow: 'unset',
-        }}
+        open
+        variant="persistent"
       >
         <div>
-
           {inTeamContext ?
             <DrawerHeader
-              className="sc-itybZL dJsdpW"
               style={{
                 padding: '10px',
                 height: '68px',
