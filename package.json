@@ -24,7 +24,7 @@
     "transifex:ls": "scripts/tx-ls.sh",
     "publish": "node scripts/server.js",
     "test": "npm run test:unit && npm run test:integration && npm run test:quick",
-    "test:unit": "cp test/unit/config.js node_modules/config.js && cross-env NODE_PATH=$NODE_PATH:. NODE_ENV=coverage nyc --reporter=lcov --reporter=text mocha-webpack --webpack-config webpack/test.js --require test/unit/setup.js \"test/unit/*.js\"",
+    "test:unit": "nyc --reporter=lcov --reporter=text mocha-webpack --webpack-config webpack/test.js --require test/unit/setup.js \"test/unit/*.js\"",
     "test:integration": "cd test && rspec spec/integration_spec.rb && cd ..",
     "test:bin1": "cd test && rspec spec/integration_spec.rb --tag bin1 && cd ..",
     "test:bin2": "cd test && rspec spec/integration_spec.rb --tag bin2 && cd ..",
@@ -32,7 +32,6 @@
     "test:bin4": "cd test && rspec spec/integration_spec.rb --tag bin4 && cd ..",
     "test:bin5": "cd test && rspec spec/integration_spec.rb --tag bin5 && cd ..",
     "test:bin6": "cd test && rspec spec/integration_spec.rb --tag bin6 && cd ..",
-    "test:rebuild": "npm run build && npm run test",
     "test:browsers": "cd test && rspec spec/browser_spec.rb --tag quick && cd ..",
     "test:quick": "cd test && rspec spec/integration_spec.rb --tag quick && cd ..",
     "test:browsers:parallel": "cd test && PARALLEL_SPLIT_TEST_PROCESSES=2 parallel_split_test spec/browser_spec.rb && cd ..",
@@ -48,10 +47,12 @@
     "chai": "^3.5.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
-    "mocha": "^3.2.0",
-    "mocha-webpack": "1.0.0-beta.1",
+    "mocha": "^7.1.1",
+    "mocha-webpack": "^1.1.0",
     "selenium-webdriver": "^3.0.1",
-    "webpack-dev-server": "^1.12.1"
+    "sinon": "^9.0.1",
+    "webpack-dev-server": "^1.12.1",
+    "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
     "@babel/core": "^7.9.0",
@@ -75,7 +76,6 @@
     "babel-plugin-relay": "^1.7.0",
     "chrome-storage-local": "^0.1.1",
     "compression-webpack-plugin": "^0.3.2",
-    "cross-env": "^5.2.0",
     "crossmessaging": "0.2.2",
     "deep-equal": "^1.0.1",
     "email-validator": "^2.0.4",
@@ -175,7 +175,6 @@
     "relay-compiler": "^1.7.0",
     "rtl-detect": "^1.0.0",
     "serve-static": "^1.10.2",
-    "sinon": "^1.17.7",
     "style-loader": "^0.13.1",
     "styled-components": "^2.1.0",
     "superagent": "^3.3.0",
@@ -184,7 +183,6 @@
     "watch": "^1.0.1",
     "webpack": "^2.1.0-beta.25",
     "webpack-bundle-analyzer": "^3.3.2",
-    "webpack-node-externals": "^1.5.4",
     "whatwg-fetch": "^2.0.1",
     "xregexp": "^3.1.1"
   }

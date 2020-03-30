@@ -7,12 +7,19 @@ module.exports = {
   externals: [nodeExternals()],
   module: {
     loaders: [
+      ...devConfig.module.loaders,
       {
         test: /\.js/,
+        enforce: 'post',
         include: path.resolve(__dirname, '../src'),
-        loader: 'istanbul-instrumenter-loader'
+        loader: 'istanbul-instrumenter-loader',
+        options: { esModules: true },
       },
-      ...devConfig.module.loaders
     ]
+  },
+  resolve: {
+    alias: {
+      config$: path.resolve(__dirname, '../test/unit/config.js'),
+    },
   }
 };
