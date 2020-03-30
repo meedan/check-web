@@ -12,7 +12,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import styled from 'styled-components';
-import Form from 'react-jsonschema-form-material-ui';
+import Form from 'meedan-check-react-jsonschema-form-material-ui-v1';
 import ExternalLink from '../ExternalLink';
 import TeamRoute from '../../relay/TeamRoute';
 import { units, ContentColumn } from '../../styles/js/shared';
