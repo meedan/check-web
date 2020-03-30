@@ -1,16 +1,22 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, injectIntl, intlShape, FormattedMessage } from 'react-intl';
-import DropDownMenu from 'material-ui/DropDownMenu';
-import MenuItem from 'material-ui/MenuItem';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
-import MdLockOutline from 'material-ui/svg-icons/action/lock-outline';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import ListItemText from '@material-ui/core/ListItemText';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
+import Button from '@material-ui/core/Button';
+import MdLockOutline from '@material-ui/icons/LockOutline';
+import rtlDetect from 'rtl-detect';
 import { can } from '../Can';
 import CheckContext from '../../CheckContext';
 import { getStatus, getStatusStyle, getErrorMessage, bemClass } from '../../helpers';
 import { mediaStatuses, mediaLastStatus, stringHelper } from '../../customHelpers';
-import { black16, units } from '../../styles/js/shared';
+import { AlignOpposite, units, black87 } from '../../styles/js/shared';
 import globalStrings from '../../globalStrings';
 
 const messages = defineMessages({
@@ -100,6 +106,9 @@ class MediaStatusCommon extends Component {
     const { statuses } = mediaStatuses(media);
     const currentStatus = getStatus(mediaStatuses(media), mediaLastStatus(media));
 
+    const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
+    const fromDirection = isRtl ? 'right' : 'left';
+
     const styles = {
       label: {
         height: units(3),
@@ -113,24 +122,6 @@ class MediaStatusCommon extends Component {
       },
     };
 
-    const actions = [
-      <FlatButton
-        label={this.props.intl.formatMessage(globalStrings.cancel)}
-        onClick={this.handleCancel.bind(this)}
-      />,
-      <FlatButton
-        label={
-          <FormattedMessage
-            id="mediaStatusCommon.proceedAndSend"
-            defaultMessage="Proceed and Send"
-          />
-        }
-        className="media-status__proceed-send"
-        primary
-        onClick={this.handleConfirm.bind(this)}
-      />,
-    ];
-
     let smoochBotInstalled = false;
     if (media.team && media.team.team_bot_installations) {
       media.team.team_bot_installations.edges.forEach((edge) => {
@@ -140,24 +131,26 @@ class MediaStatusCommon extends Component {
       });
     }
 
+    const handleChange = (e) => {
+      const status = e.target.value;
+      if (status.can_change) {
+        this.handleStatusClick(status.id, smoochBotInstalled);
+      }
+    };
+
     return (
       <div className={bemClass('media-status', this.canUpdate(), '--editable')}>
         {this.canUpdate() ?
-          <DropDownMenu
-            style={{
-              height: 'auto',
-              padding: 6,
-              borderRadius: 5,
-              backgroundColor: getStatusStyle(currentStatus, 'color'),
-            }}
-            value={currentStatus.label}
-            underlineStyle={{ borderWidth: 0 }}
-            iconStyle={{
-              fill: black16, padding: 0, height: 0, top: 0, right: -16,
-            }}
-            labelStyle={styles.label}
-            selectedMenuItemStyle={{ color: getStatusStyle(currentStatus, 'color') }}
+          <Select
             className={`media-status__label media-status__current${MediaStatusCommon.currentStatusToClass(mediaLastStatus(media))}`}
+            input={<OutlinedInput style={{ border: black87 }} />}
+            onChange={handleChange}
+            value={currentStatus}
+            style={{
+              minWidth: units(18),
+              height: units(4.5),
+            }}
+            margin="dense"
           >
             {statuses.map(status => (
               <MenuItem
@@ -167,61 +160,88 @@ class MediaStatusCommon extends Component {
                   mediaLastStatus(media) === status.id,
                   '--current',
                 )} media-status__menu-item--${status.id.replace('_', '-')}`}
-                onClick={status.can_change ?
-                  () => this.handleStatusClick(status.id, smoochBotInstalled) : null
-                }
-                style={{
-                  textTransform: 'uppercase',
-                  color: status.can_change ? getStatusStyle(status, 'color') : 'gray',
-                  cursor: status.can_change ? 'pointer' : 'not-allowed',
-                }}
-                value={status.label}
-                primaryText={status.label}
-                rightIcon={status.can_change ? null : <MdLockOutline />}
+                value={status}
                 disabled={!status.can_change}
-              />))}
-          </DropDownMenu>
+                style={{ width: units(20), height: units(4.5), padding: `${units(0.5)} ${units(2)}` }}
+              >
+                <ListItemText
+                  style={{ padding: 0 }}
+                  primary={
+                    <span
+                      style={{
+                        textTransform: 'uppercase',
+                        color: status.can_change ? getStatusStyle(status, 'color') : 'gray',
+                        cursor: status.can_change ? 'pointer' : 'not-allowed',
+                        display: 'flex',
+                      }}
+                    >
+                      {status.label}
+                      <AlignOpposite fromDirection={fromDirection}>
+                        {status.can_change ? null : <MdLockOutline />}
+                      </AlignOpposite>
+                    </span>
+                  }
+                />
+              </MenuItem>))}
+          </Select>
           :
           <div style={Object.assign(styles.label, styles.readOnlyLabel)}>
             {currentStatus.label}
           </div>}
         <Dialog
-          modal
           open={this.state.showConfirmation}
-          actions={actions}
-          onRequestClose={this.handleCancel.bind(this)}
-          autoScrollBodyContent
+          onClose={this.handleCancel.bind(this)}
+          maxWidth="md"
+          fullWidth
         >
-          <h4 style={{ marginBottom: units(2) }}>
+          <DialogTitle>
             <FormattedMessage
               id="mediaStatusCommon.title"
               defaultMessage="Final Report"
             />
-          </h4>
-          { media.demand && media.demand > 0 ?
-            <FormattedMessage
-              id="mediaStatusCommon.confirmationMessageWithValue"
-              defaultMessage="You are about to send a report to the {value} people who requested this item."
-              values={{
-                value: media.demand,
-              }}
-            /> :
-            <FormattedMessage
-              id="mediaStatusCommon.confirmationMessage"
-              defaultMessage="You are about to send a report to all people who requested this item."
-            /> }
-          <div style={{ marginTop: units(2), marginBottom: units(2) }}>
-            <FlatButton
-              label={
+          </DialogTitle>
+          <DialogContent>
+            { media.demand && media.demand > 0 ?
+              <FormattedMessage
+                id="mediaStatusCommon.confirmationMessageWithValue"
+                defaultMessage="You are about to send a report to the {value} people who requested this item."
+                values={{
+                  value: media.demand,
+                }}
+              /> :
+              <FormattedMessage
+                id="mediaStatusCommon.confirmationMessage"
+                defaultMessage="You are about to send a report to all people who requested this item."
+              /> }
+            <div>
+              <Button
+                onClick={this.handleEdit.bind(this)}
+                backgroundColor="#FBAA6D"
+              >
                 <FormattedMessage
                   id="mediaStatusCommon.editReportBeforeSending"
                   defaultMessage="Edit report before sending"
                 />
-              }
-              onClick={this.handleEdit.bind(this)}
-              backgroundColor="#FBAA6D"
-            />
-          </div>
+              </Button>
+            </div>
+          </DialogContent>
+          <DialogActions>
+            <Button
+              onClick={this.handleCancel.bind(this)}
+            >
+              {this.props.intl.formatMessage(globalStrings.cancel)}
+            </Button>
+            <Button
+              className="media-status__proceed-send"
+              color="primary"
+              onClick={this.handleConfirm.bind(this)}
+            >
+              <FormattedMessage
+                id="mediaStatusCommon.proceedAndSend"
+                defaultMessage="Proceed and Send"
+              />
+            </Button>
+          </DialogActions>
         </Dialog>
       </div>
     );

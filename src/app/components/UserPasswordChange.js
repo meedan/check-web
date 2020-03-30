@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
-import { Card, CardText, CardActions, CardTitle } from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardActions from '@material-ui/core/CardActions';
+import Button from '@material-ui/core/Button';
 import rtlDetect from 'rtl-detect';
 import PageTitle from './PageTitle';
 import ChangePasswordComponent from './ChangePasswordComponent';
@@ -60,23 +63,21 @@ class UserPasswordChange extends Component {
         <StyledPasswordChange isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
           { this.state.showConfirmDialog ?
             <Card className="user-password-change__confirm-card">
-              <CardTitle title={<FormattedMessage id="passwordChange.successTitle" defaultMessage="Password updated" />} />
-              <CardText>
+              <CardHeader title={<FormattedMessage id="passwordChange.successTitle" defaultMessage="Password updated" />} />
+              <CardContent>
                 <FormattedMessage
                   id="passwordChange.successMsg"
                   defaultMessage="You're all set. Now you can log in with your new password."
                 />
-              </CardText>
+              </CardContent>
               <CardActions className="user-password-change__actions">
-                <FlatButton
-                  label={<FormattedMessage id="passwordChange.signIn" defaultMessage="Got it" />}
-                  primary
-                  onClick={this.handleSignIn.bind(this)}
-                />
+                <Button color="primary" onClick={this.handleSignIn.bind(this)}>
+                  <FormattedMessage id="passwordChange.signIn" defaultMessage="Got it" />
+                </Button>
               </CardActions>
             </Card> :
             <Card className="user-password-change__card">
-              <CardText>
+              <CardContent>
                 <img alt="" src={stringHelper('LOGO_URL')} className="user-password-change__logo" />
 
                 <span className="user-password-change__title">
@@ -89,7 +90,7 @@ class UserPasswordChange extends Component {
                   token={token}
                   show_confirm={this.showConfirm.bind(this)}
                 />
-              </CardText>
+              </CardContent>
             </Card>
           }
         </StyledPasswordChange>

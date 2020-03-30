@@ -47,17 +47,17 @@ module.exports = function (config) {
             cwd: firstFile.cwd,
             base: firstFile.cwd,
             path: path.join(firstFile.cwd, `${lang}.js`),
-            contents: new Buffer('const translations = ' + contents + ";\n\nmodule.exports = translations;")
+            contents: Buffer.from(`const translations = ${contents}\n\nmodule.exports = translations;`)
           }));
           gutil.log('Generated', gutil.colors.blue(`${lang}.js`));
         }
-        
+
         const contents = JSON.stringify(langs);
         this.push(new gutil.File({
           cwd: firstFile.cwd,
           base: firstFile.cwd,
           path: path.join(firstFile.cwd, 'locales.js'),
-          contents: new Buffer('const locales = ' + contents + ";\n\nmodule.exports = locales;")
+          contents: Buffer.from(`const locales = ${contents}\n\nmodule.exports = locales;`)
         }));
         gutil.log('Generated', gutil.colors.blue('locales.js'));
       }

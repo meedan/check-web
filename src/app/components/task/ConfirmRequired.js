@@ -1,7 +1,10 @@
 import React from 'react';
 import { FormattedHTMLMessage, defineMessages, injectIntl } from 'react-intl';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from '@material-ui/core/Button';
 import globalStrings from '../../globalStrings';
 
 const messages = defineMessages({
@@ -13,30 +16,31 @@ const messages = defineMessages({
 
 const ConfirmRequired = (props) => {
   const actions = [
-    <FlatButton
-      label={props.intl.formatMessage(globalStrings.cancel)}
-      onClick={props.handleCancel}
-    />,
-    <FlatButton
+    <Button onClick={props.handleCancel}>
+      {props.intl.formatMessage(globalStrings.cancel)}
+    </Button>,
+    <Button
       className="create-task__confirm-required-button"
-      label={props.intl.formatMessage(globalStrings.confirm)}
-      primary
-      keyboardFocused
+      color="primary"
       onClick={props.handleConfirm}
-    />,
+    >
+      {props.intl.formatMessage(globalStrings.confirm)}
+    </Button>,
   ];
 
   return (
     <Dialog
-      title={props.intl.formatMessage(messages.title)}
-      actions={actions}
       {...props}
     >
-      <FormattedHTMLMessage
-        id="task.confirmRequiredText"
-        defaultMessage="You are adding a required task to an item marked <strong>{status}</strong>. By doing so, the item will automatically be reverted to its original status."
-        values={{ status: props.status && props.status.label }}
-      />
+      <DialogTitle>{props.intl.formatMessage(messages.title)}</DialogTitle>
+      <DialogContent>
+        <FormattedHTMLMessage
+          id="task.confirmRequiredText"
+          defaultMessage="You are adding a required task to an item marked <strong>{status}</strong>. By doing so, the item will automatically be reverted to its original status."
+          values={{ status: props.status && props.status.label }}
+        />
+      </DialogContent>
+      <DialogActions>{actions}</DialogActions>
     </Dialog>
   );
 };

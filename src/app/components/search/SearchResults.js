@@ -6,8 +6,8 @@ import config from 'config'; // eslint-disable-line require-path-exists/exists
 import sortby from 'lodash.sortby';
 import isEqual from 'lodash.isequal';
 import styled from 'styled-components';
-import NextIcon from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
-import PrevIcon from 'material-ui/svg-icons/hardware/keyboard-arrow-left';
+import NextIcon from '@material-ui/icons/KeyboardArrowRight';
+import PrevIcon from '@material-ui/icons/KeyboardArrowLeft';
 import Tooltip from '@material-ui/core/Tooltip';
 import { searchQueryFromUrl, urlFromSearchQuery } from './Search';
 import SearchQuery from './SearchQuery';
@@ -191,23 +191,6 @@ class SearchResultsComponent extends React.Component {
     this.getContext().getContextStore().history.push(url);
   }
 
-  handleClick = (index) => {
-    const media = this.resultsWithQueries[index].node;
-    const query = this.resultsWithQueries[index].itemQuery;
-    const team = this.props.search.team || this.currentContext().team;
-
-    let mediaUrl = media.project_id && team && media.dbid > 0
-      ? `/${team.slug}/project/${media.project_id}/media/${media.dbid}`
-      : null;
-    if (!mediaUrl && team && media.dbid > 0) {
-      mediaUrl = `/${team.slug}/media/${media.dbid}`;
-    }
-
-    if (mediaUrl) {
-      this.context.router.push({ pathname: mediaUrl, state: { query } });
-    }
-  };
-
   handleSelect = (selectedMedia) => {
     this.setState({ selectedMedia });
   };
@@ -239,17 +222,6 @@ class SearchResultsComponent extends React.Component {
       const { search: { pusher_channel: channel } } = this.props;
 
       pusher.unsubscribe(channel);
-
-      pusher.subscribe(channel).bind('bulk_update_start', 'Search', (data, run) => {
-        if (run) {
-          this.props.relay.forceFetch();
-          return true;
-        }
-        return {
-          id: `search-${channel}`,
-          callback: this.props.relay.forceFetch,
-        };
-      });
 
       pusher.subscribe(channel).bind('bulk_update_end', 'Search', (data, run) => {
         if (run) {
@@ -430,19 +402,27 @@ class SearchResultsComponent extends React.Component {
       }
       itemBaseQuery.timestamp = new Date().getTime();
 
-      this.resultsWithQueries = searchResults.map((item) => {
+      const resultsWithQueries = searchResults.map((item) => {
         let itemQuery = {};
         itemOffset += 1;
         itemQuery = Object.assign({}, itemBaseQuery);
         itemQuery.esoffset = itemOffset;
-        return { ...item, itemQuery };
+
+        const media = item.node;
+        let mediaUrl = media.project_id && team && media.dbid > 0
+          ? `/${team.slug}/project/${media.project_id}/media/${media.dbid}`
+          : null;
+        if (!mediaUrl && team && media.dbid > 0) {
+          mediaUrl = `/${team.slug}/media/${media.dbid}`;
+        }
+
+        return { ...item, itemQuery, mediaUrl };
       });
 
       content = (
         <List
-          searchResults={searchResults}
+          searchResults={resultsWithQueries}
           onSelect={this.handleSelect}
-          onClick={this.handleClick}
           selectedMedia={this.state.selectedMedia}
           team={team}
         />

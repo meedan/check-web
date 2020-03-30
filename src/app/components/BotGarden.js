@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
-import { Card, CardMedia, CardText, CardTitle } from 'material-ui/Card';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
 import { Emojione } from 'react-emoji-render';
 import { Link } from 'react-router';
 import RootRoute from '../relay/RootRoute';
@@ -32,17 +34,17 @@ class BotGardenComponent extends Component {
             return (
               <Card style={{ margin: units(2), width: 150 }} key={`bot-${bot.id}`}>
                 <Link to={`/check/bot/${bot.dbid}`}>
-                  <CardMedia>
-                    <img src={bot.avatar} alt={bot.name} style={{ border: `1px solid ${black32}` }} />
-                  </CardMedia>
-                  <CardText><b className="bot-garden__bot-name">{bot.name}</b></CardText>
+                  <img src={bot.avatar} alt={bot.name} style={{ border: `1px solid ${black32}`, width: '100%' }} />
+                  <CardHeader
+                    className="bot-garden__bot-name"
+                    title={bot.name}
+                  />
                 </Link>
-                <CardTitle
-                  subtitle={
-                    bot.team_author ?
-                      <Link to={`/${bot.team_author.slug}`}>{bot.team_author.name}</Link> : null
+                <CardContent>
+                  {bot.team_author ?
+                    <Link to={`/${bot.team_author.slug}`}>{bot.team_author.name}</Link> : null
                   }
-                />
+                </CardContent>
               </Card>
             );
           })}

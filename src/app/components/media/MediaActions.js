@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import IconMoreVert from 'material-ui/svg-icons/navigation/more-vert';
-import IconButton from 'material-ui/IconButton';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
+import IconMoreVert from '@material-ui/icons/MoreVert';
+import IconButton from '@material-ui/core/IconButton';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import ListItemText from '@material-ui/core/ListItemText';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
 import { can } from '../Can';
@@ -15,6 +16,25 @@ const StyledIconMenuWrapper = styled.div`
 `;
 
 class MediaActions extends Component {
+  state = {
+    anchorEl: null,
+  };
+
+  handleOpenMenu = (e) => {
+    this.setState({ anchorEl: e.currentTarget });
+  };
+
+  handleCloseMenu = () => {
+    this.setState({ anchorEl: null });
+  };
+
+  handleActionAndClose = (callback) => {
+    this.handleCloseMenu();
+    if (callback) {
+      callback();
+    }
+  };
+
   handleEmbed() {
     const { media } = this.props;
     const { history } = new CheckContext(this).getContextStore();
@@ -49,9 +69,13 @@ class MediaActions extends Component {
         <MenuItem
           key="mediaActions.edit"
           className="media-actions__edit"
-          onClick={handleEdit}
+          onClick={() => this.handleActionAndClose(handleEdit)}
         >
-          <FormattedMessage id="mediaActions.edit" defaultMessage="Edit title and description" />
+          <ListItemText
+            primary={
+              <FormattedMessage id="mediaActions.edit" defaultMessage="Edit title and description" />
+            }
+          />
         </MenuItem>));
     }
 
@@ -62,9 +86,13 @@ class MediaActions extends Component {
             key="mediaActions.refresh"
             className="media-actions__refresh"
             id="media-actions__refresh"
-            onClick={handleRefresh}
+            onClick={() => this.handleActionAndClose(handleRefresh)}
           >
-            <FormattedMessage id="mediaActions.refresh" defaultMessage="Refresh" />
+            <ListItemText
+              primary={
+                <FormattedMessage id="mediaActions.refresh" defaultMessage="Refresh" />
+              }
+            />
           </MenuItem>));
       }
     }
@@ -74,9 +102,13 @@ class MediaActions extends Component {
         <MenuItem
           key="mediaActions.assign"
           className="media-actions__assign"
-          onClick={handleAssign}
+          onClick={() => this.handleActionAndClose(handleAssign)}
         >
-          <FormattedMessage id="mediaActions.assignOrUnassign" defaultMessage="Assignment" />
+          <ListItemText
+            primary={
+              <FormattedMessage id="mediaActions.assignOrUnassign" defaultMessage="Assignment" />
+            }
+          />
         </MenuItem>));
     }
 
@@ -85,11 +117,13 @@ class MediaActions extends Component {
         <MenuItem
           key="mediaActions.lockStatus"
           className="media-actions__lock-status"
-          onClick={handleStatusLock}
+          onClick={() => this.handleActionAndClose(handleStatusLock)}
         >
-          { media.last_status_obj.locked ?
-            <FormattedMessage id="mediaActions.unlockStatus" defaultMessage="Unlock status" /> :
-            <FormattedMessage id="mediaActions.lockStatus" defaultMessage="Lock status" />}
+          <ListItemText
+            primary={media.last_status_obj.locked ?
+              <FormattedMessage id="mediaActions.unlockStatus" defaultMessage="Unlock status" /> :
+              <FormattedMessage id="mediaActions.lockStatus" defaultMessage="Lock status" />}
+          />
         </MenuItem>));
     }
 
@@ -99,11 +133,12 @@ class MediaActions extends Component {
           key="mediaActions.memebuster"
           className="media-actions__memebuster"
           id="media-actions__memebuster"
-          onClick={this.handleMemebuster}
+          onClick={() => this.handleActionAndClose(this.handleMemebuster)}
         >
-          <FormattedMessage id="mediaActions.memebuster" defaultMessage="Meme designer" />
-        </MenuItem>
-      ));
+          <ListItemText
+            primary={<FormattedMessage id="mediaActions.memebuster" defaultMessage="Meme designer" />}
+          />
+        </MenuItem>));
     }
 
     if (can(media.permissions, 'embed ProjectMedia') &&
@@ -113,9 +148,11 @@ class MediaActions extends Component {
           key="mediaActions.embed"
           className="media-actions__embed"
           id="media-actions__embed"
-          onClick={this.handleEmbed.bind(this)}
+          onClick={() => this.handleActionAndClose(this.handleEmbed.bind(this))}
         >
-          <FormattedMessage id="mediaActions.report" defaultMessage="Report designer" />
+          <ListItemText
+            primary={<FormattedMessage id="mediaActions.report" defaultMessage="Report designer" />}
+          />
         </MenuItem>));
     }
 
@@ -124,9 +161,11 @@ class MediaActions extends Component {
         <MenuItem
           key="mediaActions.sendToTrash"
           className="media-actions__send-to-trash"
-          onClick={handleSendToTrash}
+          onClick={() => this.handleActionAndClose(handleSendToTrash)}
         >
-          <FormattedMessage id="mediaActions.sendToTrash" defaultMessage="Send to trash" />
+          <ListItemText
+            primary={<FormattedMessage id="mediaActions.sendToTrash" defaultMessage="Send to trash" />}
+          />
         </MenuItem>));
     }
 
@@ -136,9 +175,11 @@ class MediaActions extends Component {
           key="mediaActions.restore"
           className="media-actions__restore"
           id="media-actions__restore"
-          onClick={handleRestore}
+          onClick={() => this.handleActionAndClose(handleRestore)}
         >
-          <FormattedMessage id="mediaActions.restore" defaultMessage="Restore from trash" />
+          <ListItemText
+            primary={<FormattedMessage id="mediaActions.restore" defaultMessage="Restore from trash" />}
+          />
         </MenuItem>));
     }
 
@@ -148,9 +189,11 @@ class MediaActions extends Component {
           <MenuItem
             key="mediaActions.move"
             className="media-actions__move"
-            onClick={handleMove}
+            onClick={() => this.handleActionAndClose(handleMove)}
           >
-            <FormattedMessage id="mediaActions.move" defaultMessage="Move" />
+            <ListItemText
+              primary={<FormattedMessage id="mediaActions.move" defaultMessage="Move" />}
+            />
           </MenuItem>));
       }
     }
@@ -160,9 +203,11 @@ class MediaActions extends Component {
         <MenuItem
           key="mediaActions.addToList"
           className="media-actions__add-to-list"
-          onClick={handleAddToList}
+          onClick={() => this.handleActionAndClose(handleAddToList)}
         >
-          <FormattedMessage id="mediaActions.addToList" defaultMessage="Add to list" />
+          <ListItemText
+            primary={<FormattedMessage id="mediaActions.addToList" defaultMessage="Add to list" />}
+          />
         </MenuItem>));
     }
 
@@ -175,9 +220,11 @@ class MediaActions extends Component {
         <MenuItem
           key="mediaActions.removeFromList"
           className="media-actions__remove-from-list"
-          onClick={handleRemoveFromList}
+          onClick={() => this.handleActionAndClose(handleRemoveFromList)}
         >
-          <FormattedMessage id="mediaActions.removeFromList" defaultMessage="Remove from list" />
+          <ListItemText
+            primary={<FormattedMessage id="mediaActions.removeFromList" defaultMessage="Remove from list" />}
+          />
         </MenuItem>));
     }
 
@@ -186,19 +233,22 @@ class MediaActions extends Component {
         isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
         style={this.props.style}
       >
-        <IconMenu
+        <IconButton
+          tooltip={
+            <FormattedMessage id="mediaActions.tooltip" defaultMessage="Item actions" />
+          }
+          onClick={this.handleOpenMenu}
+        >
+          <IconMoreVert className="media-actions__icon" />
+        </IconButton>
+        <Menu
           className="media-actions"
-          iconButtonElement={
-            <IconButton
-              tooltip={
-                <FormattedMessage id="mediaActions.tooltip" defaultMessage="Item actions" />
-              }
-            >
-              <IconMoreVert className="media-actions__icon" />
-            </IconButton>}
+          anchorEl={this.state.anchorEl}
+          open={Boolean(this.state.anchorEl)}
+          onClose={this.handleCloseMenu}
         >
           {menuItems}
-        </IconMenu>
+        </Menu>
       </StyledIconMenuWrapper>
       : null;
   }

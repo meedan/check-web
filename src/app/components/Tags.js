@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { injectIntl, defineMessages } from 'react-intl';
 import Relay from 'react-relay/classic';
 import AutoComplete from 'material-ui/AutoComplete';
-import Chip from 'material-ui/Chip';
+import Chip from '@material-ui/core/Chip';
 import CreateTagMutation from '../relay/mutations/CreateTagMutation';
 import DeleteTagMutation from '../relay/mutations/DeleteTagMutation';
 import CheckContext from '../CheckContext';
@@ -104,12 +104,11 @@ class Tags extends React.Component {
               <Chip
                 key={tag.node.id}
                 className="source-tags__tag"
-                onRequestDelete={this.props.isEditing ?
+                onDelete={this.props.isEditing ?
                   () => { deleteCallback(tag.node.id); } : null
                 }
-              >
-                {tag.node.tag_text.replace(/^#/, '')}
-              </Chip>
+                label={tag.node.tag_text.replace(/^#/, '')}
+              />
             );
           }
           return null;

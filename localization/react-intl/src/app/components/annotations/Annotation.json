@@ -24,6 +24,58 @@
     "defaultMessage": "No message was sent with the request"
   },
   {
+    "id": "annotation.slackChannel",
+    "defaultMessage": "Slack channel"
+  },
+  {
+    "id": "annotation.flagAdult",
+    "defaultMessage": "Adult"
+  },
+  {
+    "id": "annotation.flagSpoof",
+    "defaultMessage": "Spoof"
+  },
+  {
+    "id": "annotation.flagMedical",
+    "defaultMessage": "Medical"
+  },
+  {
+    "id": "annotation.flagViolence",
+    "defaultMessage": "Violence"
+  },
+  {
+    "id": "annotation.flagRacy",
+    "defaultMessage": "Racy"
+  },
+  {
+    "id": "annotation.flagSpam",
+    "defaultMessage": "Spam"
+  },
+  {
+    "id": "annotation.flagLikelihood0",
+    "defaultMessage": "Unknown"
+  },
+  {
+    "id": "annotation.flagLikelihood1",
+    "defaultMessage": "Very unlikely"
+  },
+  {
+    "id": "annotation.flagLikelihood2",
+    "defaultMessage": "Unlikely"
+  },
+  {
+    "id": "annotation.flagLikelihood3",
+    "defaultMessage": "Possible"
+  },
+  {
+    "id": "annotation.flagLikelihood4",
+    "defaultMessage": "Likely"
+  },
+  {
+    "id": "annotation.flagLikelihood5",
+    "defaultMessage": "Very likely"
+  },
+  {
     "id": "annotation.permalink",
     "defaultMessage": "Permalink"
   },
@@ -62,6 +114,10 @@
   {
     "id": "annotation.mediaAssignmentDeleted",
     "defaultMessage": "Item unassigned from {name} by {author}"
+  },
+  {
+    "id": "annotation.flag",
+    "defaultMessage": "Classification result:"
   },
   {
     "id": "annotation.statusLocked",
@@ -150,10 +206,6 @@
   {
     "id": "annotation.penderArchiveWait",
     "defaultMessage": "The screenshot of this item is being taken by Keep. Come back in a few minutes to see it."
-  },
-  {
-    "id": "annotation.flaggedHeader",
-    "defaultMessage": "Flagged as {flag} by {author}"
   },
   {
     "id": "annotation.projectMoved",

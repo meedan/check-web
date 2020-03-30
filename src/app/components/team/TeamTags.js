@@ -2,21 +2,23 @@ import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
 import { List, ListItem } from 'material-ui/List';
-import { Card, CardHeader, CardText } from 'material-ui/Card';
-import IconMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
-import IconClose from 'material-ui/svg-icons/navigation/close';
-import IconButton from 'material-ui/IconButton';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
+import MoreHoriz from '@material-ui/icons/MoreHoriz';
+import IconClose from '@material-ui/icons/Close';
+import IconButton from '@material-ui/core/IconButton';
 import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
+import MenuItem from '@material-ui/core/MenuItem';
+import ListItemText from '@material-ui/core/ListItemText';
 import TextField from 'material-ui/TextField';
-import FlatButton from 'material-ui/FlatButton';
-import Dialog from 'material-ui/Dialog';
-import Checkbox from 'material-ui/Checkbox';
+import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 import deepEqual from 'deep-equal';
 import styled from 'styled-components';
 import TagTextCount from './TagTextCount';
 import CardHeaderOutside from '../layout/CardHeaderOutside';
+import ConfirmDialog from '../layout/ConfirmDialog';
 import SortSelector from '../layout/SortSelector';
 import FilterPopup from '../layout/FilterPopup';
 import TeamRoute from '../../relay/TeamRoute';
@@ -58,7 +60,6 @@ class TeamTagsComponent extends Component {
       dialogOpen: false,
       tagToBeDeleted: null,
       deleting: false,
-      confirmed: false,
       countTotal: 0,
       countHidden: 0,
       teamwideTags: [],
@@ -138,10 +139,6 @@ class TeamTagsComponent extends Component {
     this.setState({ dialogOpen: false });
   }
 
-  handleConfirmation() {
-    this.setState({ confirmed: !this.state.confirmed });
-  }
-
   handleUpdate(e) {
     if (e.key === 'Enter' && !e.shiftKey) {
       this.setState({ search: '' });
@@ -206,7 +203,6 @@ class TeamTagsComponent extends Component {
     this.setState({
       dialogOpen: true,
       tagToBeDeleted: tag,
-      confirmed: false,
       message: null,
     });
   }
@@ -218,7 +214,6 @@ class TeamTagsComponent extends Component {
       this.setState({
         message: null,
         tagToBeDeleted: null,
-        confirmed: false,
         dialogOpen: false,
         deleting: false,
       });
@@ -235,15 +230,13 @@ class TeamTagsComponent extends Component {
     };
 
     const tag = this.state.tagToBeDeleted;
-    if (tag && this.state.confirmed) {
-      Relay.Store.commitUpdate(
-        new DeleteTagTextMutation({
-          teamId: this.props.team.id,
-          id: tag.id,
-        }),
-        { onSuccess, onFailure },
-      );
-    }
+    Relay.Store.commitUpdate(
+      new DeleteTagTextMutation({
+        teamId: this.props.team.id,
+        id: tag.id,
+      }),
+      { onSuccess, onFailure },
+    );
   }
 
   handleMove(tag) {
@@ -328,7 +321,7 @@ class TeamTagsComponent extends Component {
                   style={{ padding: 0 }}
                   tooltip={this.props.intl.formatMessage(messages.menuTooltip)}
                 >
-                  <IconMoreHoriz />
+                  <MoreHoriz />
                 </IconButton>
               }
             >
@@ -336,20 +329,26 @@ class TeamTagsComponent extends Component {
                 className="tag__edit"
                 onClick={this.handleEdit.bind(this, tag)}
               >
-                <FormattedMessage id="teamTags.editTag" defaultMessage="Edit tag" />
+                <ListItemText
+                  primary={<FormattedMessage id="teamTags.editTag" defaultMessage="Edit tag" />}
+                />
               </MenuItem>
               <MenuItem
                 className="tag__delete"
                 onClick={this.handleDelete.bind(this, tag)}
               >
-                <FormattedMessage id="teamTags.deleteTag" defaultMessage="Delete tag" />
+                <ListItemText
+                  primary={<FormattedMessage id="teamTags.deleteTag" defaultMessage="Delete tag" />}
+                />
               </MenuItem>
               { showMove ? (
                 <MenuItem
                   className="tag__move"
                   onClick={this.handleMove.bind(this, tag)}
                 >
-                  <FormattedMessage id="teamTags.moveTag" defaultMessage="Move to default tags" />
+                  <ListItemText
+                    primary={<FormattedMessage id="teamTags.moveTag" defaultMessage="Move to default tags" />}
+                  />
                 </MenuItem>) : null }
             </IconMenu>) : null;
 
@@ -418,25 +417,6 @@ class TeamTagsComponent extends Component {
     const teamwideTags = this.state.teamwideTags.slice(0).sort(sortFunctions[this.state.sort]);
     const customTags = this.state.customTags.slice(0).sort(sortFunctions[this.state.sort]);
 
-    const actions = [
-      <FlatButton
-        label={<FormattedMessage id="teamTags.cancelDelete" defaultMessage="Cancel" />}
-        onClick={this.handleCloseDialog.bind(this)}
-      />,
-      <FlatButton
-        id="tag__confirm-delete"
-        label={<FormattedMessage id="teamTags.continue" defaultMessage="Continue" />}
-        primary
-        keyboardFocused
-        onClick={this.handleDestroy.bind(this)}
-        disabled={
-          this.state.deleting ||
-          !this.state.tagToBeDeleted ||
-          !this.state.confirmed
-        }
-      />,
-    ];
-
     const filterLabel = this.state.countHidden > 0 ? (
       <FormattedMessage
         id="teamTags.counter"
@@ -485,7 +465,7 @@ class TeamTagsComponent extends Component {
               <FormattedMessage id="teamTags.teamwideTags" defaultMessage="Default tags" />
             }
           />
-          <CardText style={{ padding: 0 }}>
+          <CardContent style={{ padding: 0 }}>
             { teamwideTags.length === 0 ?
               <p style={{ paddingBottom: units(5), textAlign: 'center' }}>
                 <FormattedMessage
@@ -505,21 +485,17 @@ class TeamTagsComponent extends Component {
                   style={{ width: '50%' }}
                 />
                 <p>
-                  <FlatButton
+                  <Button
                     onClick={this.handleAddTag.bind(this)}
                     disabled={this.state.newTag.length === 0}
                     primary={this.state.newTag.length > 0}
-                    label={
-                      <FormattedMessage
-                        id="teamTags.addTag"
-                        defaultMessage="Add tag"
-                      />
-                    }
-                  />
+                  >
+                    <FormattedMessage id="teamTags.addTag" defaultMessage="Add tag" />
+                  </Button>
                 </p>
               </div>
             </Can>
-          </CardText>
+          </CardContent>
         </Card>
         <Card style={{ marginTop: units(5) }}>
           <CardHeader
@@ -527,7 +503,7 @@ class TeamTagsComponent extends Component {
               <FormattedMessage id="teamTags.customTags" defaultMessage="Custom tags" />
             }
           />
-          <CardText style={{ padding: 0 }}>
+          <CardContent style={{ padding: 0 }}>
             { customTags.length === 0 ?
               <p style={{ paddingBottom: units(5), textAlign: 'center' }}>
                 <FormattedMessage
@@ -537,31 +513,22 @@ class TeamTagsComponent extends Component {
               </p>
               : null }
             {this.tagsList(customTags, true)}
-          </CardText>
+          </CardContent>
         </Card>
 
-        <Dialog
-          actions={actions}
-          modal={false}
+        <ConfirmDialog
           open={this.state.dialogOpen}
-          onRequestClose={this.handleCloseDialog.bind(this)}
-        >
-          <Message message={this.state.message} />
-          <h2>
+          title={
             <FormattedMessage
               id="teamTags.confirmDeleteTitle"
               defaultMessage="Are you sure you want to delete this tag?"
             />
-          </h2>
-          <p style={{ margin: `${units(4)} 0` }}>
-            <Checkbox
-              id="tag__confirm"
-              onCheck={this.handleConfirmation.bind(this)}
-              checked={this.state.confirmed}
-              label={<TagTextCount tag={this.state.tagToBeDeleted} />}
-            />
-          </p>
-        </Dialog>
+          }
+          checkBoxLabel={<TagTextCount tag={this.state.tagToBeDeleted} />}
+          disabled={this.state.deleting || !this.state.tagToBeDeleted}
+          handleClose={this.handleCloseDialog.bind(this)}
+          handleConfirm={this.handleDestroy.bind(this)}
+        />
       </StyledContentColumn>
     );
   }

@@ -208,6 +208,18 @@ const StyledAnnotationMetadata = styled(Row)`
   }
 `;
 
+const StyledRequestHeader = styled(Row)`
+  color: ${black54};
+  flex-flow: wrap row;
+  font: ${caption};
+  margin-bottom: ${units(3)};
+
+  .circle_delimeter:before {
+    content: '\\25CF';
+    font-size: ${units(1.5)};
+  }
+`;
+
 const StyledAnnotationActionsWrapper = styled.div`
   margin-${props => (props.isRtl ? 'right' : 'left')}: auto;
 `;
@@ -236,6 +248,58 @@ const messages = defineMessages({
   smoochNoMessage: {
     id: 'annotation.smoochNoMessage',
     defaultMessage: 'No message was sent with the request',
+  },
+  slackChannel: {
+    id: 'annotation.slackChannel',
+    defaultMessage: 'Slack channel',
+  },
+  adultFlag: {
+    id: 'annotation.flagAdult',
+    defaultMessage: 'Adult',
+  },
+  spoofFlag: {
+    id: 'annotation.flagSpoof',
+    defaultMessage: 'Spoof',
+  },
+  medicalFlag: {
+    id: 'annotation.flagMedical',
+    defaultMessage: 'Medical',
+  },
+  violenceFlag: {
+    id: 'annotation.flagViolence',
+    defaultMessage: 'Violence',
+  },
+  racyFlag: {
+    id: 'annotation.flagRacy',
+    defaultMessage: 'Racy',
+  },
+  spamFlag: {
+    id: 'annotation.flagSpam',
+    defaultMessage: 'Spam',
+  },
+  flagLikelihood0: {
+    id: 'annotation.flagLikelihood0',
+    defaultMessage: 'Unknown',
+  },
+  flagLikelihood1: {
+    id: 'annotation.flagLikelihood1',
+    defaultMessage: 'Very unlikely',
+  },
+  flagLikelihood2: {
+    id: 'annotation.flagLikelihood2',
+    defaultMessage: 'Unlikely',
+  },
+  flagLikelihood3: {
+    id: 'annotation.flagLikelihood3',
+    defaultMessage: 'Possible',
+  },
+  flagLikelihood4: {
+    id: 'annotation.flagLikelihood4',
+    defaultMessage: 'Likely',
+  },
+  flagLikelihood5: {
+    id: 'annotation.flagLikelihood5',
+    defaultMessage: 'Very likely',
   },
 });
 
@@ -597,7 +661,30 @@ class Annotation extends Component {
     }
     case 'create_dynamic':
     case 'update_dynamic':
-      if (object.annotation_type === 'verification_status' || object.annotation_type === 'translation_status') {
+      if (object.annotation_type === 'flag') {
+        showCard = true;
+        const { flags } = object.data;
+        const flagsContent = (
+          <ul>
+            { Object.keys(flags).map((flag) => {
+              const likelihood = this.props.intl.formatMessage(messages[`flagLikelihood${flags[flag]}`]);
+              const flagName = this.props.intl.formatMessage(messages[`${flag}Flag`]);
+              return (
+                <li style={{ margin: units(1), listStyle: 'disc' }}>{flagName}: {likelihood}</li>
+              );
+            })}
+          </ul>
+        );
+        contentTemplate = (
+          <div>
+            <FormattedMessage
+              id="annotation.flag"
+              defaultMessage="Classification result:"
+            />
+            {flagsContent}
+          </div>
+        );
+      } else if (object.annotation_type === 'verification_status' || object.annotation_type === 'translation_status') {
         const statusChanges = JSON.parse(activity.object_changes_json);
         if (statusChanges.locked) {
           if (statusChanges.locked[1]) {
@@ -1021,30 +1108,52 @@ class Annotation extends Component {
 
       if (object.field_name === 'smooch_data' && activityType === 'create_dynamicannotationfield') {
         showCard = true;
-        let messageText = JSON.parse(object.value).text.trim();
+        const objectValue = JSON.parse(object.value);
+        const messageType = objectValue.source.type;
+        let messageText = objectValue.text.trim();
         if (!messageText) {
           messageText = this.props.intl.formatMessage(messages.smoochNoMessage);
         }
+        const smoochSlackUrl = activity.smooch_user_slack_channel_url;
         contentTemplate = (
-          <div className="annotation__card-content">
-            <ParsedText text={messageText} />
+          <div>
+            <StyledRequestHeader isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
+              <span className="annotation__card-header">
+                <span>
+                  {emojify(objectValue.name)}
+                </span>
+                <span style={{ margin: `0 ${units(0.5)}` }} className="circle_delimeter" />
+                <span >
+                  <TimeBefore date={updatedAt} />
+                </span>
+                <span style={{ margin: `0 ${units(0.5)}` }} className="circle_delimeter" />
+                <span>
+                  {messageType.charAt(0).toUpperCase() + messageType.slice(1)}
+                </span>
+                {smoochSlackUrl ?
+                  <span style={{ margin: `0 ${units(0.5)}` }} className="circle_delimeter">
+                    <a
+                      target="_blank"
+                      style={{ margin: `0 ${units(0.5)}`, textDecoration: 'underline' }}
+                      rel="noopener noreferrer"
+                      href={smoochSlackUrl}
+                    >
+                      {this.props.intl.formatMessage(messages.slackChannel)}
+                    </a>
+                  </span> :
+                  null
+                }
+              </span>
+            </StyledRequestHeader>
+            <div className="annotation__card-content">
+              <ParsedText text={emojify(messageText)} />
+            </div>
           </div>
         );
       }
 
       break;
     }
-    case 'create_flag':
-      contentTemplate = (
-        <span>
-          <FormattedMessage
-            id="annotation.flaggedHeader"
-            defaultMessage="Flagged as {flag} by {author}"
-            values={{ flag: content.flag, author: authorName }}
-          />
-        </span>
-      );
-      break;
     case 'update_embed':
       contentTemplate = (
         <EmbedUpdate

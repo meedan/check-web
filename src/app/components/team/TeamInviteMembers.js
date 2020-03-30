@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
-import RaisedButton from 'material-ui/RaisedButton';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -358,14 +357,14 @@ class TeamInviteMembers extends Component {
 
     return (
       <FlexRow>
-        <RaisedButton
+        <Button
+          variant="contained"
           style={{ marginLeft: 'auto', marginRight: units(2) }}
           onClick={this.handleOpenDialog.bind(this)}
-          className="team-members__edit-button"
-          label={
-            <FormattedMessage id="teamInviteMembers.inviteMember" defaultMessage="Invite" />
-          }
-        />
+          className="team-members__invite-button"
+        >
+          <FormattedMessage id="teamInviteMembers.inviteMember" defaultMessage="Invite" />
+        </Button>
         <Dialog
           className="team-invite-members__dialog"
           open={this.state.dialogOpen}

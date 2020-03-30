@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import MdCreate from 'react-icons/lib/md/create';
-import RaisedButton from 'material-ui/RaisedButton';
-import { Card } from 'material-ui/Card';
+import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
 import { List } from 'material-ui/List';
 import TeamInviteCard from './TeamInviteCard';
 import TeamMembersListItem from './TeamMembersListItem';
@@ -93,18 +93,20 @@ class TeamMembersComponent extends Component {
           <StyledMdCardTitle title={<FormattedMessage id="teamMembersComponent.mainHeading" defaultMessage="Members" />} />
           <FlexRow>
             <Can permissions={team.permissions} permission="update Team">
-              <RaisedButton
+              <Button
+                variant="contained"
                 style={{ marginLeft: 'auto', marginRight: units(1) }}
                 onClick={this.handleEditMembers.bind(this)}
                 className="team-members__edit-button"
                 icon={<MdCreate className="team-members__edit-icon" />}
-                label={isEditing
-                  ? <FormattedMessage
+              >
+                { isEditing ?
+                  <FormattedMessage
                     id="teamMembersComponent.editDoneButton"
                     defaultMessage="Done"
                   />
                   : <FormattedMessage id="teamMembersComponent.editButton" defaultMessage="Edit" />}
-              />
+              </Button>
             </Can>
             <Can permissions={team.permissions} permission="invite Members">
               <TeamInviteMembers team={team} />

@@ -117,7 +117,7 @@ const MediaRequestsContainer = Relay.createContainer(MediaRequestsComponent, {
         id
         dbid
         pusher_channel
-        requests: log(last: $pageSize, event_types: $eventTypes, field_names: $fieldNames, annotation_types: $annotationTypes, who_dunnit: $whoDunnit) {
+        requests: log(last: $pageSize, event_types: $eventTypes, field_names: $fieldNames, annotation_types: $annotationTypes, who_dunnit: $whoDunnit, include_related: true) {
           edges {
             node {
               id,
@@ -129,6 +129,7 @@ const MediaRequestsContainer = Relay.createContainer(MediaRequestsComponent, {
               created_at,
               object_after,
               object_changes_json,
+              smooch_user_slack_channel_url,
               meta,
               user {
                 id,

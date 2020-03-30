@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { Link } from 'react-router';
-import IconArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
-import IconButton from 'material-ui/IconButton';
+import IconArrowBack from '@material-ui/icons/ArrowBack';
+import IconButton from '@material-ui/core/IconButton';
 import { FormattedMessage } from 'react-intl';
 import ProjectRoute from '../../relay/ProjectRoute';
 import { urlFromSearchQuery } from '../search/Search';
@@ -85,16 +85,15 @@ class ProjectHeaderComponent extends React.PureComponent {
       <div style={{ display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
         {url ?
           <Row>
-            <IconButton
-              containerElement={<Link to={url} />}
-              className="project-header__back-button"
-            >
-              <FadeIn>
-                <SlideIn>
-                  <IconArrowBack color={black54} />
-                </SlideIn>
-              </FadeIn>
-            </IconButton>
+            <Link to={url}>
+              <IconButton className="project-header__back-button">
+                <FadeIn>
+                  <SlideIn>
+                    <IconArrowBack color={black54} />
+                  </SlideIn>
+                </FadeIn>
+              </IconButton>
+            </Link>
             <HeaderTitle className="project-header__title" style={{ maxWidth: '100%' }}>
               <Text ellipsis>
                 {label}

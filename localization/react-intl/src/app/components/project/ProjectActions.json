@@ -20,23 +20,11 @@
     "defaultMessage": "Delete"
   },
   {
-    "id": "projectActions.cancelDelete",
-    "defaultMessage": "Cancel"
-  },
-  {
-    "id": "projectActions.continue",
-    "defaultMessage": "Continue"
-  },
-  {
     "id": "ProjectActions.tooltip",
     "defaultMessage": "List actions"
   },
   {
     "id": "projectActions.confirmDeleteProject",
     "defaultMessage": "Are you sure you want to delete this list? All its items will still be accessible through the 'All items' list."
-  },
-  {
-    "id": "projectActions.yes",
-    "defaultMessage": "Yes"
   }
 ]

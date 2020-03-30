@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
 import { injectIntl, FormattedMessage } from 'react-intl';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import Button from '@material-ui/core/Button';
 import TextField from 'material-ui/TextField';
 import CreateDynamicMutation from '../../relay/mutations/CreateDynamicMutation';
 import UpdateDynamicMutation from '../../relay/mutations/UpdateDynamicMutation';
@@ -103,45 +105,46 @@ class MediaStatus extends Component {
 
   render() {
     const actions = [
-      <FlatButton
-        label={<FormattedMessage id="mediaStatus.cancelMessage" defaultMessage="Cancel" />}
-        secondary
+      <Button
+        color="secondary"
         onClick={this.handleClose.bind(this)}
-      />,
+      >
+        <FormattedMessage id="mediaStatus.cancelMessage" defaultMessage="Cancel" />
+      </Button>,
     ];
 
     return (
       <span>
         <Dialog
-          title={null}
-          actions={actions}
-          modal={false}
           open={this.state.open}
-          onRequestClose={this.handleClose.bind(this)}
+          onClose={this.handleClose.bind(this)}
         >
-          <p>
+          <DialogContent>
             <FormattedMessage
               id="mediaStatus.messageDescription"
               defaultMessage="Please add a comment. it will be sent back to the original poster to inform them that their request will be closed."
             />
-          </p>
-          <form name="media-status-note-form">
-            <TextField
-              className="media-status--note"
-              name="note"
-              onKeyPress={this.handleKeyPress.bind(this)}
-              errorText={
-                <FormattedMessage
-                  id="mediaStatus.noteHint"
-                  defaultMessage="Press ENTER to submit"
-                />
-              }
-              errorStyle={{ color: '#757575' }}
-              autoFocus
-              fullWidth
-              multiLine
-            />
-          </form>
+            <form name="media-status-note-form">
+              <TextField
+                className="media-status--note"
+                name="note"
+                onKeyPress={this.handleKeyPress.bind(this)}
+                errorText={
+                  <FormattedMessage
+                    id="mediaStatus.noteHint"
+                    defaultMessage="Press ENTER to submit"
+                  />
+                }
+                errorStyle={{ color: '#757575' }}
+                autoFocus
+                fullWidth
+                multiLine
+              />
+            </form>
+          </DialogContent>
+          <DialogActions>
+            {actions}
+          </DialogActions>
         </Dialog>
         <MediaStatusCommon
           {...this.props}

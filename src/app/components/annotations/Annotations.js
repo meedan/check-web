@@ -1,6 +1,7 @@
 import React from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import { Card, CardActions } from 'material-ui/Card';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
 import AddAnnotation from './AddAnnotation';

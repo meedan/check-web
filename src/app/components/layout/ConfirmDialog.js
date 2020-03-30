@@ -4,8 +4,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
 import { units } from '../../styles/js/shared';
 import Message from '../Message';
 
@@ -29,14 +30,23 @@ class ConfirmDialog extends React.Component {
     }
   }
 
+  handleProceed = () => {
+    this.setState({ confirmed: false });
+    if (this.props.handleConfirm) {
+      this.props.handleConfirm();
+    }
+  }
+
   render() {
     return (
       <Dialog
         open={this.props.open}
         onClose={this.props.handleClose}
       >
+        <DialogTitle>
+          {this.props.title}
+        </DialogTitle>
         <DialogContent>
-          <h2 style={{ marginBottom: units(3) }}>{this.props.title}</h2>
           <Message message={this.props.message} />
           {this.props.blurb}
           <div style={{ margin: `${units(4)} 0` }}>
@@ -48,7 +58,10 @@ class ConfirmDialog extends React.Component {
                   checked={this.state.confirmed}
                 />
               }
-              label={<FormattedMessage id="teamTasks.confirmAction" defaultMessage="Yes" />}
+              label={
+                this.props.checkBoxLabel ||
+                <FormattedMessage id="teamTasks.confirmAction" defaultMessage="Yes" />
+              }
             />
           </div>
         </DialogContent>
@@ -61,9 +74,9 @@ class ConfirmDialog extends React.Component {
           </Button>
           <Button
             id="confirm-dialog__confirm-action-button"
-            onClick={this.props.handleConfirm}
+            onClick={this.handleProceed}
             color="primary"
-            disabled={!this.state.confirmed}
+            disabled={this.props.disabled || !this.state.confirmed}
           >
             <FormattedMessage id="teamTasks.continue" defaultMessage="Continue" />
           </Button>

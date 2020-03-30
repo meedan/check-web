@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import Button from '@material-ui/core/Button';
 import UpdateUserMutation from '../relay/mutations/UpdateUserMutation';
 import CheckContext from '../CheckContext';
 import { mapGlobalMessage } from './MappedMessage';
@@ -61,14 +63,14 @@ class UserTos extends Component {
     const actions = [
       // eslint-disable-next-line jsx-a11y/click-events-have-key-events
       <div onClick={this.handleValidate.bind(this)} style={{ cursor: 'pointer' }}>
-        <FlatButton
+        <Button
           id="tos__save"
-          label={<FormattedMessage id="userTos.save" defaultMessage="Save" />}
-          primary
-          keyboardFocused
+          color="primary"
           onClick={this.handleSubmit.bind(this)}
           disabled={!this.state.checkedTos || !this.state.checkedPp}
-        />
+        >
+          <FormattedMessage id="userTos.save" defaultMessage="Save" />
+        </Button>
       </div>,
     ];
 
@@ -91,31 +93,32 @@ class UserTos extends Component {
 
     return (
       <div>
-        <Dialog
-          actions={actions}
-          modal={false}
-          open
-        >
-          <Message message={this.state.message} />
-          <UserTosForm
-            user={user}
-            showTitle
-            handleCheckTos={this.handleCheckTos.bind(this)}
-            handleCheckPp={this.handleCheckPp.bind(this)}
-            checkedTos={this.state.checkedTos}
-            checkedPp={this.state.checkedPp}
-          />
-          { !user.last_accepted_terms_at ?
-            <p>
-              <FormattedMessage
-                id="userTos.commGuidelines"
-                defaultMessage="We ask that you also read our {communityGuidelinesLink} for using {appName}."
-                values={{
-                  communityGuidelinesLink,
-                  appName: mapGlobalMessage(this.props.intl, 'appNameHuman'),
-                }}
-              />
-            </p> : null }
+        <Dialog open>
+          <DialogContent>
+            <Message message={this.state.message} />
+            <UserTosForm
+              user={user}
+              showTitle
+              handleCheckTos={this.handleCheckTos.bind(this)}
+              handleCheckPp={this.handleCheckPp.bind(this)}
+              checkedTos={this.state.checkedTos}
+              checkedPp={this.state.checkedPp}
+            />
+            { !user.last_accepted_terms_at ?
+              <p>
+                <FormattedMessage
+                  id="userTos.commGuidelines"
+                  defaultMessage="We ask that you also read our {communityGuidelinesLink} for using {appName}."
+                  values={{
+                    communityGuidelinesLink,
+                    appName: mapGlobalMessage(this.props.intl, 'appNameHuman'),
+                  }}
+                />
+              </p> : null }
+          </DialogContent>
+          <DialogActions>
+            {actions}
+          </DialogActions>
         </Dialog>
       </div>
     );

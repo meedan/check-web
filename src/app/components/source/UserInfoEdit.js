@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { injectIntl, defineMessages } from 'react-intl';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from '@material-ui/core/Button';
 import Checkbox from 'material-ui/Checkbox';
 import TextField from 'material-ui/TextField';
 import MdCancel from 'react-icons/lib/md/cancel';
@@ -495,11 +494,12 @@ class UserInfoEdit extends React.Component {
             />
             {!this.state.editProfileImg ?
               <StyledAvatarEditButton className="source__edit-avatar-button">
-                <FlatButton
-                  label={this.props.intl.formatMessage(globalStrings.edit)}
+                <Button
                   onClick={this.handleEditProfileImg.bind(this)}
-                  primary
-                />
+                  color="primary"
+                >
+                  {this.props.intl.formatMessage(globalStrings.edit)}
+                </Button>
               </StyledAvatarEditButton>
               : null}
           </StyledSmallColumn>
@@ -560,25 +560,29 @@ class UserInfoEdit extends React.Component {
               isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
             >
               <div>
-                <FlatButton
-                  primary
+                <Button
+                  color="primary"
                   onClick={this.handleAddLink.bind(this)}
-                  label={this.props.intl.formatMessage(messages.addLink)}
-                />
+                >
+                  {this.props.intl.formatMessage(messages.addLink)}
+                </Button>
               </div>
 
               <div className="source__edit-buttons-cancel-save">
-                <FlatButton
+                <Button
                   className="source__edit-cancel-button"
                   onClick={this.handleLeaveEditMode.bind(this)}
-                  label={this.props.intl.formatMessage(globalStrings.cancel)}
-                />
-                <RaisedButton
+                >
+                  {this.props.intl.formatMessage(globalStrings.cancel)}
+                </Button>
+                <Button
+                  variant="contained"
                   className="source__edit-save-button"
-                  primary
+                  color="primary"
                   onClick={this.handleSubmit.bind(this)}
-                  label={this.props.intl.formatMessage(globalStrings.save)}
-                />
+                >
+                  {this.props.intl.formatMessage(globalStrings.save)}
+                </Button>
               </div>
             </StyledButtonGroup>
           </StyledBigColumn>

@@ -4,7 +4,8 @@ import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
 import Relay from 'react-relay/classic';
 import { Link } from 'react-router';
 import Button from '@material-ui/core/Button';
-import MenuItem from 'material-ui/MenuItem';
+import MenuItem from '@material-ui/core/MenuItem';
+import ListItemText from '@material-ui/core/ListItemText';
 import Tooltip from '@material-ui/core/Tooltip';
 import styled from 'styled-components';
 import InfiniteScroll from 'react-infinite-scroller';
@@ -15,8 +16,11 @@ import RelayContainer from '../../relay/RelayContainer';
 import CheckContext from '../../CheckContext';
 
 import {
+  AlignOpposite,
+  Row,
   Text,
   body1,
+  units,
   highlightOrange,
 } from '../../styles/js/shared';
 
@@ -36,38 +40,45 @@ const pageSize = 20;
 const StyledListItemAll = styled.div`
   .project-list__link-all {
     text-decoration: none!important;
-    .project-list__item-all {
-      font: ${body1}!important;
-      min-height: 32px!important;
-      height: 48px!important;
-      line-height: 28px!important;
-      padding-top: 16px!important;
+
+    li.project-list__item-all {
+      height: ${units(4)};
+      padding: 0 ${units(2)};
       &:hover {
       background-color: white!important;
+      }
+    }
+
+    .project-list__item-row {
+      font: ${body1}!important;
+      line-height: ${units(4)} !important;
+      &:hover {
       color: ${highlightOrange}!important;
       }
     }
   }
 `;
 
-
 const StyledListItem = styled.div`
-
   .project-list__link {
     text-decoration: none!important;
 
-    .project-list__item {
-      font: ${body1}!important;
-      min-height: 32px!important;
-      height: 32px!important;
-      line-height: 28px!important;
+    li.project-list__item {
+      height: ${units(4)};
+      padding: 0 ${units(2)};
       &:hover {
       background-color: white!important;
+      }
+    }
+
+    .project-list__item-row {
+      font: ${body1}!important;
+      line-height: ${units(4)} !important;
+      &:hover {
       color: ${highlightOrange}!important;
       }
     }
   }
-
 `;
 
 // TODO Fix a11y issues
@@ -155,20 +166,24 @@ class DrawerProjectsComponent extends Component {
       props.team.projects.edges
         .sortp((a, b) => a.node.title.localeCompare(b.node.title))
         .map((p) => {
-          const dashboardPath = /^\/[^/]+\/dashboard/.test(window.location.pathname) ? '/dashboard' : '';
-          const projectPath = `/${props.team.slug}${dashboardPath}/project/${p.node.dbid}`;
+          const projectPath = `/${props.team.slug}/project/${p.node.dbid}`;
           return (
             <StyledListItem className="project-list__link-container">
               <Link to={projectPath} key={p.node.dbid} className="project-list__link">
-                <MenuItem
-                  className="project-list__item"
-                  primaryText={
-                    <Text maxWidth="85%" ellipsis>
-                      {p.node.title}
-                    </Text>
-                  }
-                  secondaryText={String(p.node.medias_count)}
-                />
+                <MenuItem className="project-list__item">
+                  <ListItemText
+                    primary={
+                      <Row className="project-list__item-row">
+                        <Text maxWidth="85%" ellipsis>
+                          {p.node.title}
+                        </Text>
+                        <AlignOpposite fromDirection={props.fromDirection}>
+                          {String(p.node.medias_count)}
+                        </AlignOpposite>
+                      </Row>
+                    }
+                  />
+                </MenuItem>
               </Link>
             </StyledListItem>
           );
@@ -179,6 +194,7 @@ class DrawerProjectsComponent extends Component {
       projectsList: {
         maxHeight: 'calc(100vh - 310px)',
         overflow: 'auto',
+        padding: `${units(2)} 0`,
       },
     };
 
@@ -188,11 +204,20 @@ class DrawerProjectsComponent extends Component {
           <InfiniteScroll hasMore loadMore={this.loadMore.bind(this)} useWindow={false}>
             <StyledListItemAll>
               <Link to={`/${props.team.slug}/all-items`} className="project-list__link-all">
-                <MenuItem
-                  className="project-list__item-all"
-                  primaryText={<FormattedMessage id="projects.allClaims" defaultMessage="All items" />}
-                  secondaryText={String(props.team.medias_count)}
-                />
+                <MenuItem className="project-list__item-all">
+                  <ListItemText
+                    primary={
+                      <Row className="project-list__item-row">
+                        <Text maxWidth="85%" ellipsis>
+                          <FormattedMessage id="projects.allClaims" defaultMessage="All items" />
+                        </Text>
+                        <AlignOpposite fromDirection={props.fromDirection}>
+                          {String(props.team.medias_count)}
+                        </AlignOpposite>
+                      </Row>
+                    }
+                  />
+                </MenuItem>
               </Link>
             </StyledListItemAll>
             {projectList}
@@ -218,7 +243,7 @@ class DrawerProjectsComponent extends Component {
           </Tooltip>
         </Can>
         { this.state.showCreateProject ?
-          <div style={{ width: '100%', padding: '16px' }}>
+          <div style={{ width: '100%', padding: `0 ${units(2)}` }}>
             <CreateProject
               className="project-list__input"
               team={props.team}

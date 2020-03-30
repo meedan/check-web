@@ -3,7 +3,7 @@ import { injectIntl, defineMessages } from 'react-intl';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import styled from 'styled-components';
-import ChatBubble from 'material-ui/svg-icons/communication/chat-bubble';
+import ChatBubble from '@material-ui/icons/ChatBubble';
 import Tooltip from '@material-ui/core/Tooltip';
 import TaskRoute from '../../relay/TaskRoute';
 import CheckContext from '../../CheckContext';

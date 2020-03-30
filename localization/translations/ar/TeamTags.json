@@ -8,8 +8,6 @@
   "teamTags.deleteTag": "حذف العلامة",
   "teamTags.moveTag": "Move to default tags",
   "teamTags.itemsCount": "{count, plural, =0 {لا توجد عناصر} one {عنصر واحد} other {# عناصر}}",
-  "teamTags.cancelDelete": "إلغاء",
-  "teamTags.continue": "المتابعة",
   "teamTags.counter": "{total, plural, =0 {لا توجد علامات} one {علامة واحدة ({hidden} مُصفاة)} other {# علامات ({hidden} مُصفاة)}}",
   "teamTags.counterNoHidden": "{total, plural, =0 {لا توجد علامات} one {علامة واحدة} other {# علامات}}",
   "teamTags.tags": "العلامات",

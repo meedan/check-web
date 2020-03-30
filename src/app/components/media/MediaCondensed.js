@@ -1,16 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
+import { Link } from 'react-router';
 import { injectIntl, defineMessages, FormattedMessage } from 'react-intl';
 import Avatar from 'material-ui/Avatar';
-import { CardHeader } from 'material-ui/Card';
-import MenuItem from 'material-ui/MenuItem';
-import FlatButton from 'material-ui/FlatButton';
-import Dialog from 'material-ui/Dialog';
+import CardHeader from '@material-ui/core/CardHeader';
+import MenuItem from '@material-ui/core/MenuItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from 'material-ui/TextField';
 import IconMenu from 'material-ui/IconMenu';
-import IconButton from 'material-ui/IconButton';
-import IconMoreVert from 'material-ui/svg-icons/navigation/more-vert';
+import IconButton from '@material-ui/core/IconButton';
+import IconMoreVert from '@material-ui/icons/MoreVert';
 import Can from '../Can';
 import TimeBefore from '../TimeBefore';
 import MediaUtil from './MediaUtil';
@@ -21,6 +26,7 @@ import DeleteRelationshipMutation from '../../relay/mutations/DeleteRelationship
 import UpdateRelationshipMutation from '../../relay/mutations/UpdateRelationshipMutation';
 import { truncateLength, getErrorMessage } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
+import { black87 } from '../../styles/js/shared';
 
 const messages = defineMessages({
   editReport: {
@@ -60,11 +66,6 @@ class MediaCondensedComponent extends Component {
 
   getTitle() {
     return (typeof this.state.title === 'string') ? this.state.title.trim() : this.props.media.title;
-  }
-
-  handleClickHeader() {
-    const { mediaUrl, mediaQuery } = this.props;
-    this.getContext().history.push({ pathname: mediaUrl, state: { query: mediaQuery } });
   }
 
   handleEdit() {
@@ -211,101 +212,107 @@ class MediaCondensedComponent extends Component {
 
     const editDialog = (
       <Dialog
-        modal
-        title={this.props.intl.formatMessage(messages.editReport)}
         open={this.state.isEditing}
-        onRequestClose={this.handleCloseDialogs.bind(this)}
-        autoScrollBodyContent
+        onClose={this.handleCloseDialogs.bind(this)}
       >
-        <form onSubmit={this.handleSave.bind(this, media)} name="edit-media-form">
-          <TextField
-            type="text"
-            floatingLabelText={
-              <FormattedMessage
-                id="mediaCondensed.title"
-                defaultMessage="Title"
-              />
-            }
-            defaultValue={this.getTitle()}
-            onChange={this.handleChangeTitle.bind(this)}
-            style={{ width: '100%' }}
-          />
-
-          <TextField
-            type="text"
-            floatingLabelText={
-              <FormattedMessage
-                id="mediaCondensed.description"
-                defaultMessage="Description"
-              />
-            }
-            defaultValue={this.getDescription()}
-            onChange={this.handleChangeDescription.bind(this)}
-            style={{ width: '100%' }}
-            multiLine
-          />
-        </form>
-
-        <span style={{ display: 'flex' }}>
-          <FlatButton
-            onClick={this.handleCancel.bind(this)}
-            label={
-              <FormattedMessage
-                id="mediaCondensed.cancelButton"
-                defaultMessage="Cancel"
-              />
-            }
-          />
-          <FlatButton
+        <DialogTitle>
+          {this.props.intl.formatMessage(messages.editReport)}
+        </DialogTitle>
+        <DialogContent>
+          <form onSubmit={this.handleSave.bind(this, media)} name="edit-media-form">
+            <TextField
+              type="text"
+              floatingLabelText={
+                <FormattedMessage
+                  id="mediaCondensed.title"
+                  defaultMessage="Title"
+                />
+              }
+              defaultValue={this.getTitle()}
+              onChange={this.handleChangeTitle.bind(this)}
+              style={{ width: '100%' }}
+            />
+            <TextField
+              type="text"
+              floatingLabelText={
+                <FormattedMessage
+                  id="mediaCondensed.description"
+                  defaultMessage="Description"
+                />
+              }
+              defaultValue={this.getDescription()}
+              onChange={this.handleChangeDescription.bind(this)}
+              style={{ width: '100%' }}
+              multiLine
+            />
+          </form>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={this.handleCancel.bind(this)}>
+            <FormattedMessage
+              id="mediaCondensed.cancelButton"
+              defaultMessage="Cancel"
+            />
+          </Button>
+          <Button
             onClick={this.handleSave.bind(this, media)}
-            label={
-              <FormattedMessage
-                id="mediaCondensed.doneButton"
-                defaultMessage="Done"
-              />
-            }
             disabled={!this.canSubmit()}
-            primary
-          />
-        </span>
+            color="primary"
+          >
+            <FormattedMessage
+              id="mediaCondensed.doneButton"
+              defaultMessage="Done"
+            />
+          </Button>
+        </DialogActions>
       </Dialog>
     );
+
+    const { mediaUrl, mediaQuery } = this.props;
 
     return (
       <span style={{ display: 'block', position: 'relative' }}>
         <CardHeader
-          title={truncateLength(media.title, 120)}
-          subtitle={
+          title={
+            <Link to={{ pathname: mediaUrl, state: { query: mediaQuery } }}>
+              <span style={{ color: black87 }}>
+                {truncateLength(media.title, 120)}
+              </span>
+            </Link>}
+          subheader={
             <p>
-              <span>{MediaUtil.mediaTypeLabel(media.type, this.props.intl)}</span>
-              { smoochBotInstalled ?
-                <span>
-                  <span style={{ margin: '0 8px' }}> - </span>
+              <Link to={{ pathname: mediaUrl, state: { query: mediaQuery } }}>
+                <span>{MediaUtil.mediaTypeLabel(media.type, this.props.intl)}</span>
+                { smoochBotInstalled ?
                   <span>
-                    <FormattedMessage
-                      id="mediaCondensed.requests"
-                      defaultMessage="{count} requests"
-                      values={{
-                        count: media.requests_count,
-                      }}
-                    />
-                  </span>
-                </span> : null
-              }
-              <span style={{ margin: '0 8px' }}> - </span>
-              <TimeBefore date={MediaUtil.createdAt({ published: media.last_seen })} />
+                    <span style={{ margin: '0 8px' }}> - </span>
+                    <span>
+                      <FormattedMessage
+                        id="mediaCondensed.requests"
+                        defaultMessage="{count} requests"
+                        values={{
+                          count: media.requests_count,
+                        }}
+                      />
+                    </span>
+                  </span> : null
+                }
+                <span style={{ margin: '0 8px' }}> - </span>
+                <TimeBefore date={MediaUtil.createdAt({ published: media.last_seen })} />
+              </Link>
             </p>
           }
           avatar={
-            <Avatar
-              src={media.picture}
-              size={100}
-              style={{
-                borderRadius: 0,
-              }}
-            />
+            <Link to={{ pathname: mediaUrl, state: { query: mediaQuery } }}>
+              <Avatar
+                src={media.picture}
+                size={100}
+                style={{
+                  borderRadius: 0,
+                }}
+              />
+            </Link>
           }
-          onClick={this.handleClickHeader.bind(this)}
           style={{
             cursor: 'pointer',
             padding: 0,
@@ -329,24 +336,36 @@ class MediaCondensedComponent extends Component {
                   <FormattedMessage id="mediaCondensed.tooltip" defaultMessage="Item actions" />
                 }
               >
-                <IconMoreVert className="media-actions__icon" />
+                <IconMoreVert className="media-codensed__actions_icon" />
               </IconButton>}
           >
             { (media.relationships && media.relationships.sources_count > 0) ?
               <Can permissions={media.relationship.permissions} permission="update Relationship">
-                <MenuItem key="promote" onClick={this.handlePromoteRelationship.bind(this)}>
-                  <FormattedMessage id="mediaCondensed.promote" defaultMessage="Promote to primary item" />
+                <MenuItem key="promote" className="media-condensed__promote-relationshp" onClick={this.handlePromoteRelationship.bind(this)}>
+                  <ListItemText
+                    primary={
+                      <FormattedMessage id="mediaCondensed.promote" defaultMessage="Promote to primary item" />
+                    }
+                  />
                 </MenuItem>
               </Can> : null }
             { (media.relationships && media.relationships.sources_count > 0) ?
               <Can permissions={media.relationship.permissions} permission="destroy Relationship">
-                <MenuItem key="break" onClick={this.handleBreakRelationship.bind(this)}>
-                  <FormattedMessage id="mediaCondensed.break" defaultMessage="Break relation to primary item" />
+                <MenuItem key="break" className="media-condensed__break-relationship" onClick={this.handleBreakRelationship.bind(this)} >
+                  <ListItemText
+                    primary={
+                      <FormattedMessage id="mediaCondensed.break" defaultMessage="Break relation to primary item" />
+                    }
+                  />
                 </MenuItem>
               </Can> : null }
             <Can permissions={media.permissions} permission="update ProjectMedia">
-              <MenuItem key="edit" onClick={this.handleEdit.bind(this)}>
-                <FormattedMessage id="mediaCondensed.edit" defaultMessage="Edit title and description" />
+              <MenuItem key="edit" className="media-condensed__edit" onClick={this.handleEdit.bind(this)}>
+                <ListItemText
+                  primary={
+                    <FormattedMessage id="mediaCondensed.edit" defaultMessage="Edit title and description" />
+                  }
+                />
               </MenuItem>
             </Can>
           </IconMenu> : null }

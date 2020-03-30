@@ -437,7 +437,7 @@ module AppSpecHelpers
     # Install bot
     wait_for_selector('.team > div + div button').click
     wait_for_selector(".bot-garden__bot-name")
-    bot= wait_for_selector("//b[contains(text(), '#{bot_name}')]", :xpath)
+    bot = wait_for_selector("//span[contains(text(), '#{bot_name}')]", :xpath)
     bot.click
     wait_for_selector('input').click
     @driver.switch_to.alert.accept
@@ -459,7 +459,7 @@ module AppSpecHelpers
 
   def change_the_status_to(status_class, confirm)
     wait_for_selector(".media-detail")
-    wait_for_selector(".media-status__label > div button svg").click
+    wait_for_selector(".media-status__current div[role=button]").click
     wait_for_selector(".media-status__menu-item")
     wait_for_selector(status_class).click
     if confirm

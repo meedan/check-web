@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, injectIntl } from 'react-intl';
 import Relay from 'react-relay/classic';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from '@material-ui/core/Button';
 import TextField from 'material-ui/TextField';
 import ChangePasswordMutation from '../relay/mutations/ChangePasswordMutation';
 import CheckContext from '../CheckContext';
@@ -22,6 +22,10 @@ const messages = defineMessages({
   confirmPassword: {
     id: 'passwordChange.confirmPassword',
     defaultMessage: 'Confirm password',
+  },
+  changePassword: {
+    id: 'passwordChange.changePassword',
+    defaultMessage: 'Change password',
   },
   unmatchingPasswords: {
     id: 'passwordChange.unmatchingPasswords',
@@ -149,13 +153,15 @@ class ChangePasswordComponent extends Component {
           errorText={this.state.errorPasswordMsg}
         />
         <br />
-        <RaisedButton
+        <Button
+          variant="contained"
           className="user-password-change__submit-button"
-          label="Change Password"
           onClick={this.handleSubmit.bind(this)}
-          primary
+          color="primary"
           disabled={this.state.submitDisabled}
-        />
+        >
+          {this.props.intl.formatMessage(messages.changePassword)}
+        </Button>
       </div>
     );
   }

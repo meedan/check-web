@@ -8,16 +8,19 @@ import {
   injectIntl,
   intlShape,
 } from 'react-intl';
-import Dialog from 'material-ui/Dialog';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from 'material-ui/TextField';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
-import { CardActions } from 'material-ui/Card';
+import Button from '@material-ui/core/Button';
+import CardActions from '@material-ui/core/CardActions';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import Popover from 'material-ui/Popover';
-import IconEdit from 'material-ui/svg-icons/image/edit';
+import IconEdit from '@material-ui/icons/Edit';
 import Menu from 'material-ui/Menu';
-import MenuItem from 'material-ui/MenuItem';
+import MenuItem from '@material-ui/core/MenuItem';
+import ListItemText from '@material-ui/core/ListItemText';
 import MdCancel from 'react-icons/lib/md/cancel';
 import deepEqual from 'deep-equal';
 import capitalize from 'lodash.capitalize';
@@ -1280,21 +1283,16 @@ class SourceComponent extends Component {
 
   renderSourceEdit(source) {
     const actions = [
-      <FlatButton
-        label={this.props.intl.formatMessage(globalStrings.cancel)}
-        onClick={this.handleCloseDialog.bind(this)}
-      />,
-      <FlatButton
-        label={
-          <FormattedMessage
-            id="sourceComponent.add"
-            defaultMessage="Add Field"
-          />
-        }
+      <Button onClick={this.handleCloseDialog.bind(this)}>
+        {this.props.intl.formatMessage(globalStrings.cancel)}
+      </Button>,
+      <Button
         onClick={this.handleAddCustomField.bind(this)}
-        primary
+        color="primary"
         disabled={!this.state.customFieldLabel}
-      />,
+      >
+        <FormattedMessage id="sourceComponent.add" defaultMessage="Add Field" />
+      </Button>,
     ];
 
     return (
@@ -1308,11 +1306,12 @@ class SourceComponent extends Component {
           />
           {!this.state.editProfileImg ? (
             <StyledAvatarEditButton className="source__edit-avatar-button">
-              <FlatButton
-                label={this.props.intl.formatMessage(globalStrings.edit)}
+              <Button
                 onClick={this.handleEditProfileImg.bind(this)}
-                primary
-              />
+                color="primary"
+              >
+                {this.props.intl.formatMessage(globalStrings.edit)}
+              </Button>
             </StyledAvatarEditButton>
           ) : null}
         </StyledSmallColumn>
@@ -1364,12 +1363,13 @@ class SourceComponent extends Component {
 
           <StyledButtonGroup isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
             <Row className="source__edit-buttons-add-merge">
-              <FlatButton
+              <Button
                 className="source__edit-addinfo-button"
-                primary
+                color="primary"
                 onClick={this.handleAddInfoMenu.bind(this)}
-                label={this.props.intl.formatMessage(messages.addInfo)}
-              />
+              >
+                {this.props.intl.formatMessage(messages.addInfo)}
+              </Button>
               <SourceActions source={source} handleRefresh={this.handleRefresh.bind(this)} />
             </Row>
             <Popover
@@ -1383,84 +1383,113 @@ class SourceComponent extends Component {
                 <MenuItem
                   className="source__add-phone"
                   onClick={this.handleAddMetadataField.bind(this, 'phone')}
-                  primaryText={this.props.intl.formatMessage(messages.phone)}
-                />
+                >
+                  <ListItemText
+                    primary={this.props.intl.formatMessage(messages.phone)}
+                  />
+                </MenuItem>
                 <MenuItem
                   className="source__add-organization"
                   onClick={this.handleAddMetadataField.bind(
                     this,
                     'organization',
                   )}
-                  primaryText={this.props.intl.formatMessage(messages.organization)}
-                />
+                >
+                  <ListItemText
+                    primary={this.props.intl.formatMessage(messages.organization)}
+                  />
+                </MenuItem>
                 <MenuItem
                   className="source__add-location"
                   onClick={this.handleAddMetadataField.bind(
                     this,
                     'location',
                   )}
-                  primaryText={this.props.intl.formatMessage(messages.location)}
-                />
+                >
+                  <ListItemText
+                    primary={this.props.intl.formatMessage(messages.location)}
+                  />
+                </MenuItem>
                 <MenuItem
                   className="source__add-tags"
                   onClick={this.handleAddTags.bind(this)}
-                  primaryText={this.props.intl.formatMessage(globalStrings.tags)}
-                />
+                >
+                  <ListItemText
+                    primary={this.props.intl.formatMessage(globalStrings.tags)}
+                  />
+                </MenuItem>
                 <MenuItem
                   className="source__add-languages"
                   onClick={this.handleAddLanguages.bind(this)}
-                  primaryText={this.props.intl.formatMessage(messages.languages)}
-                />
+                >
+                  <ListItemText
+                    primary={this.props.intl.formatMessage(messages.languages)}
+                  />
+                </MenuItem>
                 <MenuItem
                   className="source__add-link"
                   onClick={this.handleAddLink.bind(this)}
-                  primaryText={this.props.intl.formatMessage(messages.link)}
-                />
+                >
+                  <ListItemText
+                    primary={this.props.intl.formatMessage(messages.link)}
+                  />
+                </MenuItem>
                 <MenuItem
                   className="source__add-other"
                   onClick={this.handleOpenDialog.bind(this)}
-                  primaryText={this.props.intl.formatMessage(messages.other)}
-                />
+                >
+                  <ListItemText
+                    primary={this.props.intl.formatMessage(messages.other)}
+                  />
+                </MenuItem>
               </Menu>
             </Popover>
 
             <Dialog
-              title={this.props.intl.formatMessage(messages.otherDialogTitle)}
-              actions={actions}
-              actionsContainerClassName="sourceComponent__action-container"
               open={this.state.dialogOpen}
-              onRequestClose={this.handleCloseDialog.bind(this)}
+              onClose={this.handleCloseDialog.bind(this)}
             >
-              <TextField
-                id="source__other-label-input"
-                floatingLabelText={this.props.intl.formatMessage(messages.label)}
-                fullWidth
-                onChange={(e) => {
-                  this.setState({ customFieldLabel: e.target.value });
-                }}
-              />
-              <TextField
-                id="source__other-value-input"
-                floatingLabelText={this.props.intl.formatMessage(messages.value)}
-                onChange={(e) => {
-                  this.setState({ customFieldValue: e.target.value });
-                }}
-                fullWidth
-              />
+              <DialogTitle>
+                {this.props.intl.formatMessage(messages.otherDialogTitle)}
+              </DialogTitle>
+              <DialogContent>
+                <TextField
+                  id="source__other-label-input"
+                  floatingLabelText={this.props.intl.formatMessage(messages.label)}
+                  fullWidth
+                  onChange={(e) => {
+                    this.setState({ customFieldLabel: e.target.value });
+                  }}
+                />
+                <TextField
+                  id="source__other-value-input"
+                  floatingLabelText={this.props.intl.formatMessage(messages.value)}
+                  onChange={(e) => {
+                    this.setState({ customFieldValue: e.target.value });
+                  }}
+                  fullWidth
+                />
+              </DialogContent>
+              <DialogActions className="sourceComponent__action-container">
+                {actions}
+              </DialogActions>
             </Dialog>
 
             <div className="source__edit-buttons-cancel-save">
-              <FlatButton
+              <Button
                 className="source__edit-cancel-button"
                 onClick={this.handleLeaveEditMode.bind(this)}
-                label={this.props.intl.formatMessage(globalStrings.cancel)}
-              />
-              <RaisedButton
+              >
+                {this.props.intl.formatMessage(globalStrings.cancel)}
+              </Button>
+              <Button
+                variant="contained"
                 className="source__edit-save-button"
-                primary
+                color="primary"
                 onClick={this.handleSubmit.bind(this)}
-                label={this.props.intl.formatMessage(globalStrings.save)}
-              />
+              >
+                {this.props.intl.formatMessage(globalStrings.save)}
+              </Button>
             </div>
           </StyledButtonGroup>
         </StyledBigColumn>

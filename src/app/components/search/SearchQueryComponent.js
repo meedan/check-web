@@ -12,7 +12,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import ClearIcon from '@material-ui/icons/Clear';
-import FlatButton from 'material-ui/FlatButton';
 import deepEqual from 'deep-equal';
 import rtlDetect from 'rtl-detect';
 import styled from 'styled-components';
@@ -892,25 +891,28 @@ class SearchQueryComponent extends React.Component {
                     </StyledFilterRow> : null}
 
                   <p style={{ textAlign: 'right' }}>
-                    <FlatButton
+                    <Button
                       id="search-query__cancel-button"
-                      label={this.props.intl.formatMessage(messages.cancel)}
                       onClick={this.cancelFilters.bind(this)}
-                    />
+                    >
+                      {this.props.intl.formatMessage(messages.cancel)}
+                    </Button>
 
-                    <FlatButton
+                    <Button
                       id="search-query__reset-button"
-                      label={this.props.intl.formatMessage(messages.reset)}
                       onClick={() => { this.resetFilters(); }}
-                    />
+                    >
+                      {this.props.intl.formatMessage(messages.reset)}
+                    </Button>
 
-                    <FlatButton
+                    <Button
                       id="search-query__submit-button"
-                      label={this.props.intl.formatMessage(messages.applyFilters)}
                       onClick={this.handleApplyFilters.bind(this)}
                       disabled={this.doneButtonDisabled()}
-                      primary
-                    />
+                      color="primary"
+                    >
+                      {this.props.intl.formatMessage(messages.applyFilters)}
+                    </Button>
                   </p>
                 </StyledSearchFiltersSection>
               </ContentColumn>
