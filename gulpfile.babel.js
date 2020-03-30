@@ -157,7 +157,7 @@ gulp.task('webpack:build:web:dev', (callback) => {
   // never call callback()
 });
 
-gulp.task('build:web:dev', gulp.series('replace-webpack-code', 'relay:copy', 'webpack:build:web:dev', 'copy:build:web'));
+gulp.task('build:web:dev', gulp.series('replace-webpack-code', 'relay:copy', 'copy:build:web', 'webpack:build:web:dev'));
 
 gulp.task('serve:server', (callback) => {
   const app = require('./scripts/server-app');
