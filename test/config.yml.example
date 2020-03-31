@@ -1,18 +1,37 @@
-app_name:
-twitter_user:
-twitter_password:
-twitter_name:
-facebook_user:
-facebook_password:
-facebook_name:
-chromedriver_url: http://localhost:4444/wd/hub
-# for BrowserStack testing
-# chromedriver_url: http://username:password@hub-cloud.browserstack.com/wd/hub
-self_url: http://localhost:3333
-slack_domain:
-slack_user:
-slack_password:
-slack_name:
-imgur_client_id:
-proxy: # localhost:8080 for JMeter test script capture and replay as per https://github.com/meedan/check#load-testing
-api_path: 'http://api.test:13000'
+app_name: check
+api_path: http://api:3000
+self_url: http://web:3333
+chromedriver_url: http://chromedriver:4444/wd/hub
+
+# Twitter user information to test Twitter social login
+#
+# REQUIRED to pass Twitter social login tests
+#
+twitter_user: # '<TWITTER USERNAME>'
+twitter_password: # '<TWITTER PASSWORD>'
+twitter_name: # '<TWITTER SCREEN NAME>'
+
+# Facebook user information to test Facebook social login
+#
+# REQUIRED to pass Facebook social login tests
+# Create a test user in the Facebook app for your local development
+#
+facebook_user: # '<FACEBOOK TEST USER EMAIL>'
+facebook_password: # '<FACEBOOK TEST USER PASSWORD>'
+facebook_name: # '<FACEBOOK TEST USER NAME>'
+
+# Slack user information to test Slack social login
+#
+# REQUIRED to pass Slack social login tests
+# Create a Slack user in your workspace
+#
+slack_domain: # '<SLACK WORKSPACE>'
+slack_user: # '<SLACK USER EMAIL>'
+slack_password: # '<SLACK USER PASSWORD>'
+slack_name: # '<SLACK USER NAME>'
+
+# Imgur is used to upload a screenshot of test failures https://imgur.com/
+#
+# OPTIONAL
+#
+imgur_client_id: # '<IMGUR CLIENT ID>'

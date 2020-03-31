@@ -1,19 +1,38 @@
 window.config = {
-  appName: '', // 'bridge' or 'check'
+  appName: 'check',
   selfHost: 'localhost:3333',
   restBaseUrl: 'http://localhost:3000/api/',
   relayPath: 'http://localhost:3000/api/graphql',
   relayHeaders: {
-    'X-Check-Token': 'dev'
+    'X-Check-Token': ''
   },
   penderUrl: 'http://localhost:3200',
-  pusherKey: '',
-  pusherCluster: '',
+
+  // Pusher is used for push notifications from backend to frontend https://pusher.com/channels
+  //
+  // REQUIRED
+  //
+  pusherKey: null, // '<PUSHER KEY>',
+  pusherCluster: null, // '<PUSHER CLUSTER>',
   pusherDebug: true,
-  locale: 'en',
-  googleAnalyticsCode: 'UA-00000000-1', // Optional
-  mapboxApiKey: '' // Get one at mapbox.com
-  opencageApiKey: '' // Get one at opencagedata.com
-  extensionUrls: ['chrome-extension://mgnopppclmjnogmkgfkbclpoondpfnmf', 'moz-extension://baeeb55c-c744-4ffc-bddd-64199b73f77b'],
-  intercomAppId: '' // Get one at intercom.io
+
+  // Mapbox is used to show maps on geolocation tasks https://www.mapbox.com/
+  //
+  // OPTIONAL
+  // Only needed for geolocation tasks
+  //
+  mapboxApiKey: null, // '<MAPBOX API KEY>',
+
+  // OpenCage Geocoder is used to convert get coordinates into place names https://opencagedata.com/
+  //
+  // OPTIONAL
+  // Only needed for geolocation tasks
+  //
+  opencageApiKey: null, // '<OPENCAGE API KEY>',
+
+  // Intercom is used for user support https://www.intercom.com/
+  //
+  // OPTIONAL
+  //
+  intercomAppId: null, // '<INTERCOM APP ID>',
 }

@@ -19,7 +19,7 @@ ENV DEPLOYUSER=checkdeploy \
     MAX_POOL_SIZE=12
 
 # user config
-RUN useradd ${DEPLOYUSER} -s /bin/bash -d ${DEPLOYDIR}/latest 
+RUN useradd ${DEPLOYUSER} -s /bin/bash -d ${DEPLOYDIR}/latest
 RUN apt-get install -y dirmngr gnupg \
     && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 561F9B9CAC40B2F7 \
     && apt-get install -y apt-transport-https ca-certificates \
@@ -40,7 +40,7 @@ COPY . ${DEPLOYDIR}/latest
 
 # get the relay.json file from github.com/meedan/check-api that corresponds to the current local git branch (defaults to 'develop')
 RUN curl --silent https://raw.githubusercontent.com/meedan/check-api/develop/public/relay.json -o ${DEPLOYDIR}/latest/relay.json \
-    && sed "s|https://raw.githubusercontent.com/meedan/check-api/develop/public/relay.json|${DEPLOYDIR}/latest/relay.json|" < config-build.js.example > ${DEPLOYDIR}/latest/config-build.js
+    && sed "s|/api/public/relay.json|${DEPLOYDIR}/latest/relay.json|" < config-build.js.example > ${DEPLOYDIR}/latest/config-build.js
 
 
 # build all assets, js, css, transifex

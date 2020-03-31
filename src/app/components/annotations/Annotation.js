@@ -1110,7 +1110,7 @@ class Annotation extends Component {
         showCard = true;
         const objectValue = JSON.parse(object.value);
         const messageType = objectValue.source.type;
-        let messageText = objectValue.text.trim();
+        let messageText = objectValue.text ? objectValue.text.trim() : null;
         if (!messageText) {
           messageText = this.props.intl.formatMessage(messages.smoochNoMessage);
         }
@@ -1120,7 +1120,7 @@ class Annotation extends Component {
             <StyledRequestHeader isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
               <span className="annotation__card-header">
                 <span>
-                  {objectValue.name}
+                  {emojify(objectValue.name)}
                 </span>
                 <span style={{ margin: `0 ${units(0.5)}` }} className="circle_delimeter" />
                 <span >
@@ -1146,7 +1146,7 @@ class Annotation extends Component {
               </span>
             </StyledRequestHeader>
             <div className="annotation__card-content">
-              <ParsedText text={messageText} />
+              <ParsedText text={emojify(messageText)} />
             </div>
           </div>
         );
