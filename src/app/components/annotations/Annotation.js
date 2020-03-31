@@ -1110,7 +1110,7 @@ class Annotation extends Component {
         showCard = true;
         const objectValue = JSON.parse(object.value);
         const messageType = objectValue.source.type;
-        let messageText = objectValue.text.trim();
+        let messageText = objectValue.text ? objectValue.text.trim() : null;
         if (!messageText) {
           messageText = this.props.intl.formatMessage(messages.smoochNoMessage);
         }
