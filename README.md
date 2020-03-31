@@ -13,7 +13,6 @@ This is the web client of [Check](https://github.com/meedan/check).
 * [Node.js](https://nodejs.org/en/ "Node.js") (tested with version 6.9.2) and [NPM](https://www.npmjs.com/ "npm") modules as defined in [package.json]()
 * [Ruby](https://www.ruby-lang.org/en/downloads/ "Download Ruby") and [RubyGems](https://rubygems.org/ "RubyGems.org | your community gem host") (to run the tests)
 * Optional: [Inkscape](https://inkscape.org/en/ "Draw Freely | Inkscape") and [ImageMagick](https://www.imagemagick.org/script/index.php "Convert, Edit, Or Compose Bitmap Images @ ImageMagick") (to generate the favicon)
-* Optional: [Guard](https://github.com/guard/guard "GitHub - guard/guard: Guard is a command line tool to easily handle events on file system modifications."), [Guard-Livereload](https://github.com/guard/guard-livereload "GitHub - guard/guard-livereload: Guard::LiveReload automatically reload your browser when files are modified.") and the [LiveReload browser extension](http://livereload.com/extensions/) (for an autorefreshing browser in dev mode)
 
 ## Installation
 
@@ -28,34 +27,9 @@ Docker container can see the `node_modules/` directory.
 
 #### Using Dev mode
 
-The dev mode build (`npm run build:dev`.) is intended to be used instead of the existing "full build" (`npm run build`) during local development. The dev mode reduces build time primarily by enabling webpack's `watch` feature, which uses caching and auto-rebuilding. It also disables sourcemaps by default.
-
-* Run `npm run build:dev`.
-* This runs the compiler. It monitors for changes, automatically triggering a rebuild. Press Ctrl+C to stop.
-* The script is defined in [package.json]() — it uses both [gulp](http://gulpjs.com/ "gulp.js") and [webpack](https://webpack.github.io/ "webpack module bundler")
-
-*Dev mode with LiveReload*
-
-In dev mode can optionally use [guard-livereload](https://github.com/guard/guard-livereload) for cross-browser live-reloading, as configured in `check-web/Guardfile`.
-
-* Run `npm run build:dev` per above.
-* Install the [LiveReload browser extension](http://livereload.com/extensions/)
-* Install Guard and Guard-livereload gems with bundler: `bundle install`
-* Run guard: `cd check-app/check-web && bundle exec guard`
-* Open localhost:3333 and turn on the browser extension (click it).
-* You should see "Browser connected" in the Guard window.
-* When you save a .js file, build:dev rebuilds, then Guard notices the new bundle and triggers LiveReload. The page automatically refreshes and reflects your js changes.
-
-#### Installation without Docker
-
-* Copy `config.js.example` to `config.js` and define your runtime configurations
-* Copy `config-build.js.example` to `config-build.js` and define your build-time configurations (optional)
-* Copy `config-server.js.example` to `config-server.js` and define your server configurations
-* `npm install`
-* `npm run build`
-* `SERVER_PORT=3333 npm run publish` (which basically serves the contents from `build/web`)
-* Open your browser and go to http://localhost:3333
-* For better debugging, set your `NODE_ENV` environment variable to `development` instead of `production`.
+The dev-mode Docker container will watch for file changes in `src/` and rebuild
+whenever a file changes. It will output a message (success or error) after each
+rebuild.
 
 ## Localization
 
@@ -88,11 +62,10 @@ any change to `package.json`.
 
 *Running*
 
-* Compile the code with `npm run build`
+* Start the test environment in the [check](https://github.com/meedan/check) repo: `docker-compose -f docker-compose.yml -f docker-test.yml up`
 * Copy `test/config.yml.example` to `test/config.yml` and set the configurations
 * Copy `test/config.js.example` to `test/config.js` and set the configurations
-* Start `chromedriver` and the application (`SERVER_PORT=3333 npm run publish`)
-* Run `npm run test:integration`
+* Run `docker-compose exec web npm test:integration`
 
 *Writing*
 
@@ -101,7 +74,7 @@ any change to `package.json`.
 
 #### Unit tests
 
-* Run `npm run test:unit`
+* Run `docker-compose exec web npm run test:unit`
 
 #### Missing tests
 
@@ -121,5 +94,4 @@ it("should do whatever my unit expects");
 
 ## Notes and tips
 
-* Run `npm install babel-register -g` if you face errors related to `babel-register`
 * Remove your `node_modules` directory if you face errors related to `npm install`
