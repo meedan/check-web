@@ -13,20 +13,17 @@ RUN true \
     && gem install bundler:1.17.1 \
     && rm -rf /var/lib/apt/lists/*
 
-# node modules
-ADD package.json /tmp/package.json
-RUN cd /tmp && npm install
-RUN mkdir -p /app && cp -a /tmp/node_modules /app/
-
 # /app will be "." mounted as a volume mount from the host
 WORKDIR /app
 
 # ruby gems, for guard and integration tests
 # Gemfile.lock files must be updated on a host machine (outside of Docker)
 COPY Gemfile Gemfile.lock /app/
+RUN true \
+    && BUNDLE_SILENCE_ROOT_WARNING=1 bundle install --jobs 20 --retry 5
+
 COPY test/Gemfile test/Gemfile.lock /app/test/
 RUN true \
-    && BUNDLE_SILENCE_ROOT_WARNING=1 bundle install --jobs 20 --retry 5 \
     && cd /app/test \
     && BUNDLE_SILENCE_ROOT_WARNING=1 bundle install --jobs 20 --retry 5
 
