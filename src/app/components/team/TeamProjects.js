@@ -2,11 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { browserHistory } from 'react-router';
+import IconButton from '@material-ui/core/IconButton';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
-import { List, ListItem } from 'material-ui/List';
-import styled from 'styled-components';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import Collapse from '@material-ui/core/Collapse';
+import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import CreateProject from '../project/CreateProject';
 import ProjectAssignment from '../project/ProjectAssignment';
 import CheckContext from '../../CheckContext';
@@ -16,14 +21,16 @@ import LoadMore from '../layout/LoadMore';
 import {
   highlightBlue,
   checkBlue,
-  title1,
   units,
+  black05,
   black54,
 } from '../../styles/js/shared';
 
 const pageSize = 20;
 
 class TeamProjects extends React.Component {
+  state = {};
+
   goToProject(pdbid) {
     browserHistory.push(`/${this.props.team.slug}/project/${pdbid}`);
   }
@@ -32,13 +39,13 @@ class TeamProjects extends React.Component {
     return new CheckContext(this).getContextStore();
   }
 
-  render() {
-    const StyledCardHeader = styled(CardHeader)`
-      span {
-        font: ${title1} !important;
-      }
-    `;
+  toggleItemCollapse = (id) => {
+    const state = Object.assign({}, this.state);
+    state[id] = !state[id];
+    this.setState(state);
+  };
 
+  render() {
     const { team } = this.props;
     const { currentUser } = this.currentContext();
 
@@ -52,7 +59,7 @@ class TeamProjects extends React.Component {
           />
         </Can>
         <Card style={{ marginBottom: units(2) }}>
-          <StyledCardHeader
+          <CardHeader
             title={<FormattedMessage id="teamComponent.projects" defaultMessage="Lists" />}
           />
 
@@ -71,34 +78,46 @@ class TeamProjects extends React.Component {
                 {team.projects.edges
                   .sortp((a, b) => a.node.title.localeCompare(b.node.title))
                   .map(p => (
-                    <ListItem
-                      key={p.node.dbid}
-                      className="team__project"
-                      hoverColor={highlightBlue}
-                      focusRippleColor={checkBlue}
-                      touchRippleColor={checkBlue}
-                      primaryText={
-                        <span className="team__project-title">
-                          {p.node.title}
-                        </span>
-                      }
-                      secondaryText={
-                        <div>
-                          <small>
-                            { UserUtil.myRole(currentUser, team.slug) !== 'annotator' ?
-                              <FormattedMessage
-                                id="teamComponent.projectAssignmentsCount"
-                                defaultMessage="{count, plural, =0 {&nbsp;} one {Assigned to one member} other {Assigned to # members}}"
-                                values={{ count: p.node.assignments_count }}
-                              /> : null }
-                          </small>
+                    <div>
+                      <ListItem
+                        key={p.node.dbid}
+                        className="team__project"
+                        hoverColor={highlightBlue}
+                        focusRippleColor={checkBlue}
+                        touchRippleColor={checkBlue}
+                        onClick={this.goToProject.bind(this, p.node.dbid)}
+                      >
+                        <ListItemText
+                          primary={
+                            <span className="team__project-title">
+                              {p.node.title}
+                            </span>
+                          }
+                          secondary={
+                            <small>
+                              { UserUtil.myRole(currentUser, team.slug) !== 'annotator' ?
+                                <FormattedMessage
+                                  id="teamComponent.projectAssignmentsCount"
+                                  defaultMessage="{count, plural, =0 {&nbsp;} one {Assigned to one member} other {Assigned to # members}}"
+                                  values={{ count: p.node.assignments_count }}
+                                /> : null }
+                            </small>
+                          }
+                        />
+                        <ListItemSecondaryAction>
+                          <IconButton
+                            onClick={() => { this.toggleItemCollapse(p.node.dbid); }}
+                          >
+                            <KeyboardArrowDown />
+                          </IconButton>
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                      <Collapse in={this.state[p.node.dbid]} timeout="auto" unmountOnExit>
+                        <div style={{ padding: `${units(1)} ${units(2)}`, backgroundColor: black05 }}>
+                          <ProjectAssignment project={p.node} key={p.node.dbid} />
                         </div>
-                      }
-                      onClick={this.goToProject.bind(this, p.node.dbid)}
-                      nestedItems={[
-                        <ProjectAssignment project={p.node} key={p.node.dbid} />,
-                      ]}
-                    />
+                      </Collapse>
+                    </div>
                   ))
                 }
               </LoadMore>

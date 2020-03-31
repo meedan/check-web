@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
 import Button from '@material-ui/core/Button';
-import SvgIcon from 'material-ui/SvgIcon';
+import SvgIcon from '@material-ui/core/SvgIcon';
 import TextField from 'material-ui/TextField';
 import IconInsertPhoto from '@material-ui/icons/InsertPhoto';
 import Movie from '@material-ui/icons/Movie';

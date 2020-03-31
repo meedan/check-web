@@ -171,6 +171,7 @@ class DrawerNavigationComponent extends Component {
       <Drawer
         open
         variant="persistent"
+        anchor={fromDirection}
       >
         <div>
           {inTeamContext ?

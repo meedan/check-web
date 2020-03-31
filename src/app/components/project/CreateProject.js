@@ -2,16 +2,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay/classic';
-import { Card, CardActions, CardText, CardHeader } from 'material-ui/Card';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
 import TextField from 'material-ui/TextField';
 import Button from '@material-ui/core/Button';
-import styled from 'styled-components';
 import CreateProjectMutation from '../../relay/mutations/CreateProjectMutation';
 import CheckContext from '../../CheckContext';
 import { getErrorMessage } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 import {
-  title1,
   units,
 } from '../../styles/js/shared';
 
@@ -138,12 +139,6 @@ class CreateProject extends Component {
       </form>
     );
 
-    const StyledCardHeader = styled(CardHeader)`
-      span {
-        font: ${title1} !important;
-      }
-    `;
-
     const { team } = this.props;
 
     if (this.props.renderCard) {
@@ -154,18 +149,16 @@ class CreateProject extends Component {
       return (
         <Card
           style={{ marginBottom: units(2) }}
-          initiallyExpanded
         >
-          <StyledCardHeader
+          <CardHeader
             title={this.props.intl.formatMessage(cardTitle)}
-            showExpandableButton
           />
-          <CardText expandable>
+          <CardContent>
             <form onSubmit={this.handleSubmit.bind(this)} className="create-project">
               {textInput}
             </form>
-          </CardText>
-          <CardActions expandable>
+          </CardContent>
+          <CardActions>
             {submitButton}
           </CardActions>
         </Card>

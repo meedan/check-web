@@ -139,6 +139,7 @@ class TeamComponent extends Component {
             textColor="primary"
             value={this.state.showTab}
             onChange={this.handleTabChange}
+            centered
           >
             { UserUtil.myRole(this.getCurrentUser(), team.slug) === 'owner' ?
               <Tab
@@ -224,8 +225,8 @@ class TeamComponent extends Component {
             <ContentColumn>
               <Message message={this.state.message} />
               <HeaderContent />
-              <TeamSettingsTabs />
             </ContentColumn>
+            <TeamSettingsTabs />
           </HeaderCard>
           { !isEditing && !isSettings && !isReadOnly ? TeamPageContent : null }
           { isSettings && this.state.showTab === 'tasks'
