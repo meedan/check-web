@@ -675,7 +675,10 @@ class Task extends Component {
             subheader={taskDescription}
             id={`task__label-${task.id}`}
             action={
-              <IconButton onClick={() => this.setState({ expand: !this.state.expand })}>
+              <IconButton
+                className="task__card-expand"
+                onClick={() => this.setState({ expand: !this.state.expand })}
+              >
                 <KeyboardArrowDown />
               </IconButton>
             }
