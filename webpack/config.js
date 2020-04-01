@@ -57,12 +57,21 @@ module.exports = {
       test: /\.js$/,
       loader: 'babel-loader',
       exclude: /node_modules/,
-      query: {
+      options: {
         presets: [
           [
             '@babel/preset-env',
             {
-              targets: { browsers: '> 0.5%, not IE 11' },
+              targets: {
+                browsers: '> 0.5%, not IE 11',
+                // While we're on Webpack 2, we must be parseable by UglifyJS.
+                // UglifyJS is abandonware, so we can't output "class" or other
+                // keywords.
+                //
+                // [adamhooper, 2020-03-31] TODO upgrade to Webpack 4, then nix
+                // "uglify"
+                uglify: true,
+              },
               useBuiltIns: 'usage',
             }
           ],
