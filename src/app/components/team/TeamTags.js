@@ -328,6 +328,7 @@ class TeamTagsComponent extends Component {
           const menu = can(tag.permissions, 'update TagText') ? (
             <div>
               <IconButton
+                className="tag__actions"
                 style={{ padding: 0 }}
                 tooltip={this.props.intl.formatMessage(messages.menuTooltip)}
                 onClick={e => this.handleOpenMenu(e, tag)}
