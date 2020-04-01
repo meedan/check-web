@@ -6,8 +6,8 @@ import {
   FadeIn,
   Shimmer,
   black05,
-  defaultBorderWidth,
-  borderRadiusDefault,
+  borderWidthSmall,
+  defaultBorderRadius,
   white,
 } from '../../styles/js/shared';
 
@@ -29,8 +29,8 @@ const StyledLoadingInner = styled(ContentColumn)`
 
 const StyledLoadingCard = styled.div`
   background: ${white};
-  border: ${defaultBorderWidth} solid ${black05};
-  border-radius: ${borderRadiusDefault};
+  border: ${borderWidthSmall} solid ${black05};
+  border-radius: ${defaultBorderRadius};
   margin: ${gridUnit} 0;
   min-height: ${units(11)};
   padding: ${gridUnit};

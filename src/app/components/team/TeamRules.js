@@ -688,6 +688,7 @@ class TeamRulesComponent extends Component {
 
   deleteRule(i) {
     const rules = this.state.rules.slice();
+    // eslint-disable-next-line no-alert
     if (window.confirm(this.props.intl.formatMessage(
       messages.confirmDeleteRule,
       { ruleName: rules[i].name },

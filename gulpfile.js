@@ -95,7 +95,7 @@ gulp.task('webpack:build:web:dev', (callback) => {
 
   webpack(devConfig, (err, stats) => {
     if (err) {
-      throw new gutil.PluginError('webpack:build', err);
+      return callback(new gutil.PluginError('webpack:build', err));
     }
     gutil.log('[webpack:build:web:dev]', stats.toString({
       colors: true,
@@ -109,8 +109,8 @@ gulp.task('webpack:build:web:dev', (callback) => {
       children: false,
       source: false,
       errors: true,
-      errorDetails: false,
-      warnings: false,
+      errorDetails: true,
+      warnings: true,
       publicPath: false,
     }));
   });
