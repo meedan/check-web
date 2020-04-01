@@ -42,10 +42,17 @@ const callback = (translations) => {
 if (locale === 'en') {
   callback({});
 } else {
-  import(/* webpackChunkName: "[request]" */ `react-intl/locale-data/${locale}.js`).then((data) => {
-    addLocaleData(data);
-    import(/* webpackChunkName: "[request]" */ `../../../localization/translations/${locale}.js`).then((translations) => {
-      callback(translations);
-    });
+  Promise.all([
+    import(
+      /* webpackChunkName: "react-intl-[request]" */
+      'react-intl/locale-data/' + locale
+    ),
+    import(
+      /* webpackChunkName: "messages-[request]" */
+      '../../../localization/translations/' + locale
+    ),
+  ]).then(([ localeData, messages ]) => {
+    addLocaleData(localeData);
+    callback(messages);
   });
 }

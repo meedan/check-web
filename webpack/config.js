@@ -3,9 +3,12 @@ const path = require('path');
 const webpack = require('webpack');
 //const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const CompressionPlugin = require('compression-webpack-plugin');
-const locales = require(path.join(__dirname, '../localization/translations/locales.js'));
+const locales = require('../localization/translations/locales');
 
-const localesRegExp = new RegExp('\/(' + locales.join('|') + ')\.js$');
+// For ContextReplacementPlugin: pattern for dynamic-import filenames.
+// matches "/es.js" and "/es.json".
+// Doesn't match "messages-ru-TeamRules.json".
+const localesRegExp = new RegExp(`/(${locales.join('|')})$`);
 
 const NODE_ENV = process.env.NODE_ENV || 'production';
 
@@ -17,7 +20,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, '../build/web/js'),
     filename: '[name].bundle.js',
-    chunkFilename: '[id].chunk.js'
+    chunkFilename: '[name].chunk.js'
   },
   devtool: 'source-map',
   watchOptions: {
@@ -27,14 +30,8 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
     }),
-    new webpack.ContextReplacementPlugin(
-      /react-intl\/locale-data/,
-      localesRegExp,
-    ),
-    new webpack.ContextReplacementPlugin(
-      /localization\/translations/,
-      localesRegExp,
-    ),
+    new webpack.ContextReplacementPlugin(/react-intl\/locale-data/, localesRegExp),
+    new webpack.ContextReplacementPlugin(/localization\/translations/, localesRegExp),
     new webpack.optimize.AggressiveMergingPlugin(),
     new CompressionPlugin({
       asset: '[path].gz[query]',
@@ -53,7 +50,7 @@ module.exports = {
   ].concat(NODE_ENV === 'production' ? [new webpack.optimize.UglifyJsPlugin({sourceMap: true})] : []),
   resolve: {
     alias: {app: path.join(__dirname, '../src/app')},
-    extensions: ['.js']
+    extensions: ['.js', '.json']
   },
   module: {
     loaders: [{
@@ -82,6 +79,7 @@ module.exports = {
               schema: path.resolve(__dirname, '../relay.json'),
             }
           ],
+          ['react-intl', { 'messagesDir': path.resolve(__dirname, '../localization/react-intl/') }],
         ],
         cacheDirectory: true,
         cacheIdentifier: JSON.stringify({
@@ -101,9 +99,6 @@ module.exports = {
     }, {
       test: /\.css?$/,
       use: ['style-loader', 'raw-loader']
-    }, {
-      test: /\.json$/,
-      loader: 'ignore-loader'
     }]
   },
   externals: {
