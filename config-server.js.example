@@ -2,13 +2,18 @@ const config = {
   default: {
     appName: 'check',
     relayPath: 'http://api:3000/api/graphql',
-    // The "access_token" attribute of an "ApiKey" created on Check API
     checkApiToken: 'dev',
-    httpAuth: 'user:password:realm',
+
+    // Heap is used for user analytics https://heap.io
+    //
+    // OPTIONAL
+    // Remove key if not needed
+    //
+    heapAppId: '<HEAP APP ID>',
   },
   test: {
     appName: 'check',
-    relayPath: 'http://api.test:13000/api/graphql',
+    relayPath: 'http://api:3000/api/graphql',
     checkApiToken: 'test'
   }
 };
