@@ -36,10 +36,6 @@
     "defaultMessage": "Upload an image"
   },
   {
-    "id": "createMedia.submitButton",
-    "defaultMessage": "Post"
-  },
-  {
     "id": "createMedia.invalidUrl",
     "defaultMessage": "Please enter a valid URL"
   },

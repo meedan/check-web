@@ -2,8 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
-import { Card, CardHeader, CardActions, CardText } from 'material-ui/Card';
+import IconButton from '@material-ui/core/IconButton';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
+import Collapse from '@material-ui/core/Collapse';
 import EditIcon from '@material-ui/icons/Edit';
+import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
 import Lightbox from 'react-image-lightbox';
@@ -34,7 +39,7 @@ import UpdateTaskMutation from '../../relay/mutations/UpdateTaskMutation';
 import UpdateDynamicMutation from '../../relay/mutations/UpdateDynamicMutation';
 import DeleteAnnotationMutation from '../../relay/mutations/DeleteAnnotationMutation';
 import DeleteDynamicMutation from '../../relay/mutations/DeleteDynamicMutation';
-import { Row, units, black16, title1 } from '../../styles/js/shared';
+import { Row, units, black16, black87, title1 } from '../../styles/js/shared';
 
 const StyledWordBreakDiv = styled.div`
   hyphens: auto;
@@ -57,6 +62,12 @@ const messages = defineMessages({
     defaultMessage: 'Are you sure you want to delete this task answer?',
   },
 });
+
+const StyledTaskTitle = styled.span`
+  line-height: ${units(3)};
+  font-weight: 500;
+  color: ${black87};
+`;
 
 const StyledTaskResponses = styled.div`
   .task__resolved {
@@ -89,6 +100,7 @@ class Task extends Component {
       message: null,
       editingResponse: false,
       editingAttribution: false,
+      expand: false,
       zoomedImage: null,
     };
   }
@@ -523,7 +535,7 @@ class Task extends Component {
     taskActionsStyle[direction.to] = units(0.5);
 
     const taskActions = !media.archived ? (
-      <div>
+      <div style={{ position: 'relative' }}>
         {taskAssignment}
         {data.by ?
           <div className="task__resolver" style={{ display: 'flex', alignItems: 'center', marginTop: units(1) }}>
@@ -556,9 +568,9 @@ class Task extends Component {
       <div className="task__question">
         <div className="task__label-container">
           <Row>
-            <span className="task__label">
+            <StyledTaskTitle className="task__label">
               {task.label}
-            </span>
+            </StyledTaskTitle>
             <RequiredIndicator required={task.required} />
           </Row>
         </div>
@@ -658,30 +670,28 @@ class Task extends Component {
           style={{ marginBottom: units(1) }}
         >
           <CardHeader
+            disableTypography
             title={taskQuestion}
-            subtitle={taskDescription}
+            subheader={taskDescription}
             id={`task__label-${task.id}`}
-            showExpandableButton
-            actAsExpander
-          />
-          <CardText expandable className="task__card-text">
-            <Message message={this.state.message} />
-            {taskBody}
-          </CardText>
-          <CardActions
-            expandable
-            style={
-              {
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'flex-start',
-                minHeight: units(6),
-              }
+            action={
+              <IconButton
+                className="task__card-expand"
+                onClick={() => this.setState({ expand: !this.state.expand })}
+              >
+                <KeyboardArrowDown />
+              </IconButton>
             }
-          >
+          />
+          <Collapse in={this.state.expand} timeout="auto">
+            <CardContent className="task__card-text">
+              <Message message={this.state.message} />
+              {taskBody}
+            </CardContent>
+            <div style={{ minHeight: units(6) }} />
             {taskActions}
-          </CardActions>
-          <TaskLog task={task} response={response} />
+            <TaskLog task={task} response={response} />
+          </Collapse>
         </Card>
 
         { this.state.editingQuestion ?

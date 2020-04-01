@@ -3,7 +3,7 @@ import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { FormattedHTMLMessage, injectIntl } from 'react-intl';
 import { Link } from 'react-router';
-import Avatar from 'material-ui/Avatar';
+import Avatar from '@material-ui/core/Avatar';
 import MdLaunch from 'react-icons/lib/md/launch';
 import rtlDetect from 'rtl-detect';
 import styled from 'styled-components';
