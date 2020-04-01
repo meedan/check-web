@@ -155,19 +155,19 @@ shared_examples 'smoke' do
     api_create_team_project_and_claim_and_redirect_to_media_page
     # First, verify that there isn't any comment with image
     expect(@driver.page_source.include?('This is my comment with image')).to be(false)
-    wait_for_selector(".media__annotations-column > div > div > button + button + button + button").click
+    wait_for_selector(".media-tab__comments").click
     old = @driver.find_elements(:class, "annotations__list-item").length
-    wait_for_selector(".media__annotations-column > div > div > button + button + button").click
+    wait_for_selector(".media-tab__comments").click
     # Add a comment as a command
     fill_field('#cmd-input', 'This is my comment with image')
     wait_for_selector('.add-annotation__insert-photo').click
     wait_for_selector('input[type=file]').send_keys(File.join(File.dirname(__FILE__), 'test.png'))
     wait_for_selector('.add-annotation__buttons button').click
-    wait_for_selector(".media__annotations-column > div > div > button + button + button + button").click
+    wait_for_selector(".media-tab__activity").click
     wait_for_size_change(old, "annotations__list-item", :class)
 
     # Verify that comment was added to annotations list
-    wait_for_selector(".media__annotations-column > div > div > button + button + button").click
+    wait_for_selector(".media-tab__comments").click
     expect(@driver.page_source.include?('This is my comment with image')).to be(true)
     imgsrc = @driver.find_element(:css, '.annotation__card-thumbnail').attribute('src')
     expect(imgsrc.match(/test\.png$/).nil?).to be(false)
@@ -184,8 +184,9 @@ shared_examples 'smoke' do
 
     # Reload the page and verify that comment is still there
     @driver.navigate.refresh
-    wait_for_selector(".media__annotations-column > div > div > button + button + button").click
-    wait_for_selector('add-annotation__buttons', :class)
+    wait_for_selector(".media")
+    wait_for_selector(".media-tab__comments").click
+    wait_for_selector(".annotation--card")
     expect(@driver.page_source.include?('This is my comment with image')).to be(true)
     imgsrc = @driver.find_element(:css, '.annotation__card-thumbnail').attribute('src')
     expect(imgsrc.match(/test\.png$/).nil?).to be(false)
@@ -200,6 +201,7 @@ shared_examples 'smoke' do
     p = Page.new(config: @config, driver: @driver)
     p.go(@config['self_url'] + '/' + team)
     wait_for_selector('.team-menu__team-settings-button').click
+    wait_for_selector(".team__privacy")
     wait_for_selector('.team-settings__tasks-tab').click
     wait_for_selector('.team-tasks')
     expect(@driver.page_source.include?('No default tasks to display')).to be(true)
@@ -248,31 +250,30 @@ shared_examples 'smoke' do
     wait_for_selector('.create-task__add-button').click
     wait_for_selector(".create-task__add-short-answer")
     wait_for_selector('.create-task__add-datetime').click
-    wait_for_selector(".edit-task__required-switch")
-    fill_field('#task-label-input', 'When?')
+    wait_for_selector('#task-label-input').send_keys("When?")
     wait_for_selector('.create-task__dialog-submit-button').click
     wait_for_selector_none(".create-task__add-short-answer")
-    wait_for_selector(".media__annotations-column > div > div > button + button + button + button").click
+    wait_for_selector(".media-tab__activity").click
     old = wait_for_size_change(old, 'annotation__default-content', :class, 25, 'datetime task 2')
     expect(@driver.page_source.include?('When?')).to be(true)
     expect(@driver.page_source.include?('Task created by')).to be(true)
 
     # Answer task
     expect(@driver.page_source.include?('Task answered by')).to be(false)
-    wait_for_selector(".media__annotations-column > div > div > button").click
-    wait_for_selector('.task-type__datetime > div > div > button > div > svg').click
+    wait_for_selector(".media-tab__tasks").click
+    wait_for_selector('.task__card-expand').click
     fill_field('input[name="hour"]', '23')
     fill_field('input[name="minute"]', '59')
     wait_for_selector('#task__response-date').click
     wait_for_selector_list('button').last.click
     wait_for_selector('.task__save').click
-    wait_for_selector(".media__annotations-column > div > div > button + button + button + button").click
+    wait_for_selector(".media-tab__activity").click
     old = wait_for_size_change(old, 'annotation__default-content', :class, 25, 'datetime task 3')
     expect(@driver.page_source.include?('Task answered by')).to be(true)
 
     # Edit task
-    wait_for_selector(".media__annotations-column > div > div > button").click
-    wait_for_selector('.task-type__datetime > div > div > button > div > svg').click
+    wait_for_selector(".media-tab__tasks").click
+    wait_for_selector('.task__card-expand').click
     expect(@driver.page_source.include?('When was it?')).to be(false)
     wait_for_selector('.task-actions__icon').click
     el = wait_for_selector(".task-actions__edit")
@@ -281,12 +282,12 @@ shared_examples 'smoke' do
     wait_for_selector("//textarea[contains(text(), 'When?')]", :xpath)
     update_field('#task-label-input', 'When was it?')
     wait_for_selector('.create-task__dialog-submit-button').click
-    wait_for_selector(".media__annotations-column > div > div > button + button + button + button").click
+    wait_for_selector(".media-tab__activity").click
     old = wait_for_size_change(old, 'annotation__default-content', :class, 25, 'datetime task 4')
     expect(@driver.page_source.include?('When was it?')).to be(true)
     # Edit task response
-    wait_for_selector(".media__annotations-column > div > div > button").click
-    wait_for_selector('.task-type__datetime > div > div > button > div > svg').click
+    wait_for_selector(".media-tab__tasks").click
+    wait_for_selector('.task__card-expand').click
     expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('12:34')).to be(false)
     wait_for_selector('.task-actions__icon').click
     wait_for_selector('.task-actions__edit-response').click
@@ -295,13 +296,13 @@ shared_examples 'smoke' do
     wait_for_selector('input[name="minute"]').send_keys(:control, 'a', :delete)
     update_field('input[name="minute"]', '34')
     wait_for_selector('.task__save').click
-    wait_for_selector(".media__annotations-column > div > div > button + button + button + button").click
+    wait_for_selector(".media-tab__activity").click
     old = wait_for_size_change(old, 'annotation__default-content', :class, 25, 'datetime task 5')
     expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('12:34')).to be(true)
 
     # Delete task
-    wait_for_selector(".media__annotations-column > div > div > button").click
-    wait_for_selector('.task-type__datetime > div > div > button > div > svg').click
+    wait_for_selector(".media-tab__tasks").click
+    wait_for_selector('.task__card-expand').click
     delete_task('When was it')
   end
 
@@ -317,14 +318,13 @@ shared_examples 'smoke' do
     wait_for_selector('#task-label-input')
     fill_field('#task-label-input', 'Test')
     wait_for_selector('.create-task__dialog-submit-button').click
-    wait_for_selector(".media__annotations-column > div > div > button + button + button + button").click
+    wait_for_selector(".media-tab__activity").click
     wait_for_selector_list_size(".annotations__list-item", 2)
 
-    wait_for_selector(".media__annotations-column > div > div > button").click
-
     #assign the task
+    wait_for_selector(".media-tab__tasks").click
     expect(@driver.page_source.include?("Assigned to")).to be (false)
-    wait_for_selector('.task-type__free_text > div > div > button > div > svg').click
+    wait_for_selector('.task__card-expand').click
     wait_for_selector(".task-actions__icon").click
     wait_for_selector(".task-actions__assign").click
     wait_for_selector(".Select-input input").send_keys("user")
@@ -351,7 +351,7 @@ shared_examples 'smoke' do
     wait_for_selector("#cmd-input")
     fill_field('#cmd-input', 'This is a comment under a task')
     @driver.action.send_keys(:enter).perform
-    wait_for_selector(".media__annotations-column > div > div > button + button + button + button").click
+    wait_for_selector(".media-tab__activity").click
     wait_for_selector(".annotation__author-name")
     expect(@driver.page_source.include?('This is a comment under a task')).to be(true)
   end
@@ -397,7 +397,7 @@ shared_examples 'smoke' do
     wait_for_selector(".team-header__drawer-team-link").click
     wait_for_selector('.team__project-title')
     expect(@driver.page_source.include?('Assigned to one member')).to be(false)
-    ['.team__project button', '.project__assignment-button', '.project__assignment-menu input[type=checkbox]', '.multi__selector-save'].each do |selector|
+    ['.team__project-expand', '.project__assignment-button', '.project__assignment-menu input[type=checkbox]', '.multi__selector-save'].each do |selector|
       wait_for_selector(selector).click
     end
     wait_for_selector('.message')
