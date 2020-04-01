@@ -106,6 +106,7 @@ class TeamProjects extends React.Component {
                         />
                         <ListItemSecondaryAction>
                           <IconButton
+                            className="team__project-expand"
                             onClick={() => { this.toggleItemCollapse(p.node.dbid); }}
                           >
                             <KeyboardArrowDown />

@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
-import { List, ListItem } from 'material-ui/List';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -10,8 +13,7 @@ import IconClose from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import TextField from 'material-ui/TextField';
+import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 import deepEqual from 'deep-equal';
@@ -369,7 +371,7 @@ class TeamTagsComponent extends Component {
 
           if (this.state.editing && this.state.editing.dbid === tag.dbid) {
             return (
-              <ListItem disabled key={tag.dbid} style={{ paddingTop: 0, paddingBottom: 0 }}>
+              <ListItem key={tag.dbid} style={{ paddingTop: 0, paddingBottom: 0 }}>
                 <TextField
                   style={{ paddingTop: 0, paddingBottom: 0 }}
                   id="tag__edit"
@@ -390,25 +392,24 @@ class TeamTagsComponent extends Component {
 
           return (
             <ListItem
-              disabled
               style={{ padding: `${units(2)} 0` }}
-              primaryText={
-                <span>
-                  {tag.text}
-                  <br />
-                  <small style={{ color: black32 }}>
-                    <FormattedMessage
-                      id="teamTags.itemsCount"
-                      defaultMessage="{count, plural, =0 {no items} one {1 item} other {# items}}"
-                      values={{ count: tag.tags_count }}
-                    />
-                  </small>
-                </span>
-              }
-              rightIcon={menu}
               key={tag.dbid}
               id={`tag__text-${tag.text}`}
-            />
+            >
+              <ListItemText
+                primary={tag.text}
+                secondary={
+                  <FormattedMessage
+                    id="teamTags.itemsCount"
+                    defaultMessage="{count, plural, =0 {no items} one {1 item} other {# items}}"
+                    values={{ count: tag.tags_count }}
+                  />
+                }
+              />
+              <ListItemSecondaryAction>
+                {menu}
+              </ListItemSecondaryAction>
+            </ListItem>
           );
         })}
       </List>
@@ -496,7 +497,7 @@ class TeamTagsComponent extends Component {
                   id="tag__new"
                   onKeyUp={this.handleKeyUp.bind(this)}
                   onKeyPress={this.handleKeyPress.bind(this)}
-                  floatingLabelText={<FormattedMessage id="teamTags.new" defaultMessage="New tag" />}
+                  label={<FormattedMessage id="teamTags.new" defaultMessage="New tag" />}
                   style={{ width: '50%' }}
                 />
                 <p>
