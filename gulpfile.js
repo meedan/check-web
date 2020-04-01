@@ -102,7 +102,7 @@ gulp.task('webpack:build:web:dev', (callback) => {
       hash: false,
       version: false,
       timings: true,
-      assets: false,
+      assets: true,
       chunks: false,
       modules: false,
       reasons: false,
