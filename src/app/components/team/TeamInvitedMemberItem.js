@@ -2,14 +2,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import Relay from 'react-relay/classic';
-import { ListItem } from 'material-ui/List';
+import ListItem from '@material-ui/core/ListItem';
 import Button from '@material-ui/core/Button';
+import rtlDetect from 'rtl-detect';
 import '../../styles/css/tooltip.css';
 import ResendCancelInvitationMutation from '../../relay/mutations/ResendCancelInvitationMutation';
 import { getErrorMessage } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 import globalStrings from '../../globalStrings';
 import {
+  AlignOpposite,
   FlexRow,
   Text,
   units,
@@ -45,35 +47,39 @@ class TeamInvitedMemberItem extends Component {
   }
 
   render() {
+    const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
+    const fromDirection = isRtl ? 'right' : 'left';
+
     return (
       <ListItem
-        className="team-members__invited"
+        className="team-members__invited-list-item"
         key={this.props.invitedMail}
-        disabled
       >
-        <FlexRow>
-          <Text ellipsis>
-            {this.props.invitedMail}
-          </Text>
-          <Button
-            variant="contained"
-            style={{ marginLeft: 'auto', marginRight: units(1) }}
-            onClick={this.handleTeamMemberInvites.bind(this, 'cancel')}
-            className="team-member-invited__user-button--cancel"
-          >
-            <FormattedMessage
-              id="TeamMembersInvitedListItem.cancel"
-              defaultMessage="Cancel invite"
-            />
-          </Button>
-          <Button
-            variant="contained"
-            onClick={this.handleTeamMemberInvites.bind(this, 'resend')}
-            className="team-member-invited__user-button--resend"
-          >
-            <FormattedMessage id="TeamMembersInvitedListItem.resend" defaultMessage="Resend" />
-          </Button>
-        </FlexRow>
+        <Text ellipsis>
+          {this.props.invitedMail}
+        </Text>
+        <AlignOpposite fromDirection={fromDirection}>
+          <FlexRow>
+            <Button
+              variant="contained"
+              style={{ marginLeft: 'auto', marginRight: units(1) }}
+              onClick={this.handleTeamMemberInvites.bind(this, 'cancel')}
+              className="team-member-invited__user-button--cancel"
+            >
+              <FormattedMessage
+                id="TeamMembersInvitedListItem.cancel"
+                defaultMessage="Cancel invite"
+              />
+            </Button>
+            <Button
+              variant="contained"
+              onClick={this.handleTeamMemberInvites.bind(this, 'resend')}
+              className="team-member-invited__user-button--resend"
+            >
+              <FormattedMessage id="TeamMembersInvitedListItem.resend" defaultMessage="Resend" />
+            </Button>
+          </FlexRow>
+        </AlignOpposite>
       </ListItem>
     );
   }

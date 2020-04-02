@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { injectIntl, defineMessages } from 'react-intl';
 import Button from '@material-ui/core/Button';
-import Checkbox from 'material-ui/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 import TextField from 'material-ui/TextField';
 import MdCancel from 'react-icons/lib/md/cancel';
 import capitalize from 'lodash.capitalize';
@@ -547,11 +548,15 @@ class UserInfoEdit extends React.Component {
               <StyledHelper>
                 {emailHelperText}
               </StyledHelper>
-              <Checkbox
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={this.state.sendEmail}
+                    onChange={this.handleSendEmail.bind(this)}
+                    name="sendNotification"
+                  />
+                }
                 label={this.props.intl.formatMessage(messages.userSendEmailNotification)}
-                checked={this.state.sendEmail}
-                onCheck={this.handleSendEmail.bind(this)}
-                name="sendNotification"
               />
               {this.renderAccountsEdit()}
             </form>

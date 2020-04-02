@@ -6,7 +6,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import rtlDetect from 'rtl-detect';
 import Button from '@material-ui/core/Button';
-import { List } from 'material-ui/List';
+import List from '@material-ui/core/List';
 import ConfirmDialog from '../layout/ConfirmDialog';
 import UserConnectedAccount from '../user/UserConnectedAccount';
 import { logout } from '../../redux/actions';

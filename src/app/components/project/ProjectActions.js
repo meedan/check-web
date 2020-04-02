@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import IconMoreVert from '@material-ui/icons/MoreVert';
 import IconButton from '@material-ui/core/IconButton';
-import IconMenu from 'material-ui/IconMenu';
+import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ConfirmDialog from '../layout/ConfirmDialog';
@@ -27,8 +27,12 @@ class ProjectActions extends Component {
     history.push(`${window.location.pathname.match(/.*\/project\/\d+/)[0]}/edit`);
   };
 
-  handleClick = (event) => {
-    this.setState({ anchorEl: event.currentTarget });
+  handleOpenMenu = (e) => {
+    this.setState({ anchorEl: e.currentTarget });
+  };
+
+  handleCloseMenu = () => {
+    this.setState({ anchorEl: null });
   };
 
   handleAssign = () => {
@@ -36,11 +40,11 @@ class ProjectActions extends Component {
   };
 
   handleAssignClose = () => {
-    this.setState({ openAssignPopup: false });
+    this.setState({ openAssignPopup: false, anchorEl: null });
   };
 
   handleConfirmDestroy = () => {
-    this.setState({ showConfirmDeleteProjectDialog: true });
+    this.setState({ showConfirmDeleteProjectDialog: true, anchorEl: null });
   };
 
   handleCloseDialog() {
@@ -142,20 +146,22 @@ class ProjectActions extends Component {
 
     return menuItems.length ?
       <Can permissions={project.permissions} permission="update Project">
-        <IconMenu
-          onClick={this.handleClick}
+        <IconButton
           className="project-actions"
-          iconButtonElement={
-            <IconButton
-              tooltip={
-                <FormattedMessage id="ProjectActions.tooltip" defaultMessage="List actions" />
-              }
-            >
-              <IconMoreVert className="project-actions__icon" />
-            </IconButton>}
+          tooltip={
+            <FormattedMessage id="ProjectActions.tooltip" defaultMessage="List actions" />
+          }
+          onClick={this.handleOpenMenu}
+        >
+          <IconMoreVert className="project-actions__icon" />
+        </IconButton>
+        <Menu
+          anchorEl={this.state.anchorEl}
+          open={Boolean(this.state.anchorEl)}
+          onClose={this.handleCloseMenu}
         >
           {menuItems}
-        </IconMenu>
+        </Menu>
         <ConfirmDialog
           message={this.state.message}
           open={this.state.showConfirmDeleteProjectDialog}

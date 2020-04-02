@@ -1,8 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import Button from '@material-ui/core/Button';
-import Popover from 'material-ui/Popover';
-import Menu from 'material-ui/Menu';
+import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -61,85 +60,81 @@ class CreateTaskMenu extends React.Component {
           <FormattedMessage id="tasks.addTask" defaultMessage="Add task" />
         </StyledCreateTaskButton>
 
-        <Popover
+        <Menu
           open={this.state.menuOpen}
           anchorEl={this.state.anchorEl}
-          anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
-          targetOrigin={{ horizontal: 'left', vertical: 'top' }}
-          onRequestClose={this.handleRequestClose.bind(this)}
+          onClose={this.handleRequestClose.bind(this)}
         >
-          <Menu>
+          <MenuItem
+            className="create-task__add-short-answer"
+            onClick={() => this.handleSelectType('free_text')}
+          >
+            <ListItemIcon><MdShortText /></ListItemIcon>
+            <ListItemText
+              primary={
+                <FormattedMessage id="tasks.shortAnswer" defaultMessage="Short answer" />
+              }
+            />
+          </MenuItem>
+          <MenuItem
+            className="create-task__add-choose-one"
+            onClick={() => this.handleSelectType('single_choice')}
+          >
+            <ListItemIcon><MdRadioButtonChecked /></ListItemIcon>
+            <ListItemText
+              primary={<FormattedMessage id="tasks.chooseOne" defaultMessage="Choose one" />}
+            />
+          </MenuItem>
+          <MenuItem
+            className="create-task__add-choose-multiple"
+            onClick={() => this.handleSelectType('multiple_choice')}
+          >
+            <ListItemIcon><MdCheckBox style={{ transform: 'scale(1,1)' }} /></ListItemIcon>
+            <ListItemText
+              primary={
+                <FormattedMessage id="tasks.chooseMultiple" defaultMessage="Choose multiple" />
+              }
+            />
+          </MenuItem>
+          <MenuItem
+            className="create-task__add-geolocation"
+            onClick={() => this.handleSelectType('geolocation')}
+          >
+            <ListItemIcon><MdLocationOn /></ListItemIcon>
+            <ListItemText
+              primary={<FormattedMessage id="tasks.geolocation" defaultMessage="Location" />}
+            />
+          </MenuItem>
+          <MenuItem
+            className="create-task__add-datetime"
+            onClick={() => this.handleSelectType('datetime')}
+          >
+            <ListItemIcon><MdDateRange /></ListItemIcon>
+            <ListItemText
+              primary={<FormattedMessage id="tasks.datetime" defaultMessage="Date and time" />}
+            />
+          </MenuItem>
+          <MenuItem
+            className="create-task__add-image-upload"
+            onClick={() => this.handleSelectType('image_upload')}
+          >
+            <ListItemIcon><IconImageUpload /></ListItemIcon>
+            <ListItemText
+              primary={<FormattedMessage id="tasks.imageUpload" defaultMessage="Image upload" />}
+            />
+          </MenuItem>
+          {config.appName === 'check' && !this.props.hideTeamwideOption ?
             <MenuItem
-              className="create-task__add-short-answer"
-              onClick={() => this.handleSelectType('free_text')}
+              className="create-task__teamwide-nudge"
+              onClick={() => this.handleSelectType('teamwide')}
             >
-              <ListItemIcon><MdShortText /></ListItemIcon>
+              <ListItemIcon><MdGrade /></ListItemIcon>
               <ListItemText
-                primary={
-                  <FormattedMessage id="tasks.shortAnswer" defaultMessage="Short answer" />
-                }
+                primary={<FormattedMessage id="tasks.teamwideNudge" defaultMessage="Default tasks" />}
               />
-            </MenuItem>
-            <MenuItem
-              className="create-task__add-choose-one"
-              onClick={() => this.handleSelectType('single_choice')}
-            >
-              <ListItemIcon><MdRadioButtonChecked /></ListItemIcon>
-              <ListItemText
-                primary={<FormattedMessage id="tasks.chooseOne" defaultMessage="Choose one" />}
-              />
-            </MenuItem>
-            <MenuItem
-              className="create-task__add-choose-multiple"
-              onClick={() => this.handleSelectType('multiple_choice')}
-            >
-              <ListItemIcon><MdCheckBox style={{ transform: 'scale(1,1)' }} /></ListItemIcon>
-              <ListItemText
-                primary={
-                  <FormattedMessage id="tasks.chooseMultiple" defaultMessage="Choose multiple" />
-                }
-              />
-            </MenuItem>
-            <MenuItem
-              className="create-task__add-geolocation"
-              onClick={() => this.handleSelectType('geolocation')}
-            >
-              <ListItemIcon><MdLocationOn /></ListItemIcon>
-              <ListItemText
-                primary={<FormattedMessage id="tasks.geolocation" defaultMessage="Location" />}
-              />
-            </MenuItem>
-            <MenuItem
-              className="create-task__add-datetime"
-              onClick={() => this.handleSelectType('datetime')}
-            >
-              <ListItemIcon><MdDateRange /></ListItemIcon>
-              <ListItemText
-                primary={<FormattedMessage id="tasks.datetime" defaultMessage="Date and time" />}
-              />
-            </MenuItem>
-            <MenuItem
-              className="create-task__add-image-upload"
-              onClick={() => this.handleSelectType('image_upload')}
-            >
-              <ListItemIcon><IconImageUpload /></ListItemIcon>
-              <ListItemText
-                primary={<FormattedMessage id="tasks.imageUpload" defaultMessage="Image upload" />}
-              />
-            </MenuItem>
-            {config.appName === 'check' && !this.props.hideTeamwideOption ?
-              <MenuItem
-                className="create-task__teamwide-nudge"
-                onClick={() => this.handleSelectType('teamwide')}
-              >
-                <ListItemIcon><MdGrade /></ListItemIcon>
-                <ListItemText
-                  primary={<FormattedMessage id="tasks.teamwideNudge" defaultMessage="Default tasks" />}
-                />
-              </MenuItem> : null
-            }
-          </Menu>
-        </Popover>
+            </MenuItem> : null
+          }
+        </Menu>
       </div>
     );
   }

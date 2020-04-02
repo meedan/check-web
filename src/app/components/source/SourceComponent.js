@@ -15,10 +15,10 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from 'material-ui/TextField';
 import Button from '@material-ui/core/Button';
 import CardActions from '@material-ui/core/CardActions';
-import { Tabs, Tab } from 'material-ui/Tabs';
-import Popover from 'material-ui/Popover';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 import IconEdit from '@material-ui/icons/Edit';
-import Menu from 'material-ui/Menu';
+import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import MdCancel from 'react-icons/lib/md/cancel';
@@ -711,7 +711,7 @@ class SourceComponent extends Component {
     this.setState({ editProfileImg: true });
   };
 
-  handleTabChange = (value) => {
+  handleTabChange = (e, value) => {
     this.setState({
       showTab: value,
     });
@@ -1242,7 +1242,12 @@ class SourceComponent extends Component {
         </StyledTwoColumns>
 
         {isProjectSource ? (
-          <Tabs value={this.state.showTab} onChange={this.handleTabChange}>
+          <Tabs
+            indicatorColor="primary"
+            textColor="primary"
+            value={this.state.showTab}
+            onChange={this.handleTabChange}
+          >
             <Tab
               label={
                 <FormattedMessage
@@ -1372,78 +1377,75 @@ class SourceComponent extends Component {
               </Button>
               <SourceActions source={source} handleRefresh={this.handleRefresh.bind(this)} />
             </Row>
-            <Popover
+
+            <Menu
               open={this.state.menuOpen}
               anchorEl={this.state.anchorEl}
-              anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
-              targetOrigin={{ horizontal: 'left', vertical: 'top' }}
-              onRequestClose={this.handleRequestClose.bind(this)}
+              onClose={this.handleRequestClose.bind(this)}
             >
-              <Menu>
-                <MenuItem
-                  className="source__add-phone"
-                  onClick={this.handleAddMetadataField.bind(this, 'phone')}
-                >
-                  <ListItemText
-                    primary={this.props.intl.formatMessage(messages.phone)}
-                  />
-                </MenuItem>
-                <MenuItem
-                  className="source__add-organization"
-                  onClick={this.handleAddMetadataField.bind(
-                    this,
-                    'organization',
-                  )}
-                >
-                  <ListItemText
-                    primary={this.props.intl.formatMessage(messages.organization)}
-                  />
-                </MenuItem>
-                <MenuItem
-                  className="source__add-location"
-                  onClick={this.handleAddMetadataField.bind(
-                    this,
-                    'location',
-                  )}
-                >
-                  <ListItemText
-                    primary={this.props.intl.formatMessage(messages.location)}
-                  />
-                </MenuItem>
-                <MenuItem
-                  className="source__add-tags"
-                  onClick={this.handleAddTags.bind(this)}
-                >
-                  <ListItemText
-                    primary={this.props.intl.formatMessage(globalStrings.tags)}
-                  />
-                </MenuItem>
-                <MenuItem
-                  className="source__add-languages"
-                  onClick={this.handleAddLanguages.bind(this)}
-                >
-                  <ListItemText
-                    primary={this.props.intl.formatMessage(messages.languages)}
-                  />
-                </MenuItem>
-                <MenuItem
-                  className="source__add-link"
-                  onClick={this.handleAddLink.bind(this)}
-                >
-                  <ListItemText
-                    primary={this.props.intl.formatMessage(messages.link)}
-                  />
-                </MenuItem>
-                <MenuItem
-                  className="source__add-other"
-                  onClick={this.handleOpenDialog.bind(this)}
-                >
-                  <ListItemText
-                    primary={this.props.intl.formatMessage(messages.other)}
-                  />
-                </MenuItem>
-              </Menu>
-            </Popover>
+              <MenuItem
+                className="source__add-phone"
+                onClick={this.handleAddMetadataField.bind(this, 'phone')}
+              >
+                <ListItemText
+                  primary={this.props.intl.formatMessage(messages.phone)}
+                />
+              </MenuItem>
+              <MenuItem
+                className="source__add-organization"
+                onClick={this.handleAddMetadataField.bind(
+                  this,
+                  'organization',
+                )}
+              >
+                <ListItemText
+                  primary={this.props.intl.formatMessage(messages.organization)}
+                />
+              </MenuItem>
+              <MenuItem
+                className="source__add-location"
+                onClick={this.handleAddMetadataField.bind(
+                  this,
+                  'location',
+                )}
+              >
+                <ListItemText
+                  primary={this.props.intl.formatMessage(messages.location)}
+                />
+              </MenuItem>
+              <MenuItem
+                className="source__add-tags"
+                onClick={this.handleAddTags.bind(this)}
+              >
+                <ListItemText
+                  primary={this.props.intl.formatMessage(globalStrings.tags)}
+                />
+              </MenuItem>
+              <MenuItem
+                className="source__add-languages"
+                onClick={this.handleAddLanguages.bind(this)}
+              >
+                <ListItemText
+                  primary={this.props.intl.formatMessage(messages.languages)}
+                />
+              </MenuItem>
+              <MenuItem
+                className="source__add-link"
+                onClick={this.handleAddLink.bind(this)}
+              >
+                <ListItemText
+                  primary={this.props.intl.formatMessage(messages.link)}
+                />
+              </MenuItem>
+              <MenuItem
+                className="source__add-other"
+                onClick={this.handleOpenDialog.bind(this)}
+              >
+                <ListItemText
+                  primary={this.props.intl.formatMessage(messages.other)}
+                />
+              </MenuItem>
+            </Menu>
 
             <Dialog
               open={this.state.dialogOpen}
