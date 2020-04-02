@@ -6,7 +6,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import MoreHoriz from '@material-ui/icons/MoreHoriz';
 import IconButton from '@material-ui/core/IconButton';
-import IconMenu from 'material-ui/IconMenu';
+import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Button from '@material-ui/core/Button';
@@ -59,7 +59,7 @@ class TranslationItem extends Component {
     super(props);
 
     this.state = {
-      isMenuOpen: false,
+      anchorEl: null,
       editing: false,
     };
   }
@@ -121,12 +121,16 @@ class TranslationItem extends Component {
   }
 
   handleEdit() {
-    this.setState({ editing: true, isMenuOpen: false });
+    this.setState({ editing: true, anchorEl: null });
   }
 
-  toggleMenu() {
-    this.setState({ isMenuOpen: !this.state.isMenuOpen });
-  }
+  handleOpenMenu = (e) => {
+    this.setState({ anchorEl: e.currentTarget });
+  };
+
+  handleCloseMenu = () => {
+    this.setState({ anchorEl: null });
+  };
 
   render() {
     const content = JSON.parse(this.props.translation.content);
@@ -196,11 +200,18 @@ class TranslationItem extends Component {
               <span className="media-tags__tag">
                 {this.props.intl.formatMessage(messages.language, { language })}
               </span>
-              <IconMenu
+              <IconButton
+                className="task-actions__icon"
+                onClick={this.handleOpenMenu}
+              >
+                <MoreHoriz />
+              </IconButton>
+              <Menu
                 className="task-actions"
-                iconButtonElement={
-                  <IconButton className="task-actions__icon"><MoreHoriz /></IconButton>
-                }
+                anchorEl={this.state.anchorEl}
+                keepMounted
+                open={Boolean(this.state.anchorEl)}
+                onClose={this.handleCloseMenu}
               >
                 <MenuItem
                   className="task-actions__edit-translation"
@@ -212,7 +223,7 @@ class TranslationItem extends Component {
                     }
                   />
                 </MenuItem>
-              </IconMenu>
+              </Menu>
             </Row>
           </CardContent>
         </Card>

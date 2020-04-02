@@ -1,13 +1,15 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
-import Checkbox from 'material-ui/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormGroup from '@material-ui/core/FormGroup';
+import Checkbox from '@material-ui/core/Checkbox';
 import { FormattedMessage } from 'react-intl';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import TextField from 'material-ui/TextField';
-import { ContentColumn, FlexRow, units } from '../../styles/js/shared';
+import { ContentColumn, units } from '../../styles/js/shared';
 import Can from '../Can';
 import CardHeaderOutside from '../layout/CardHeaderOutside';
 import TeamRoute from '../../relay/TeamRoute';
@@ -98,18 +100,20 @@ class TeamEmbedComponent extends React.Component {
               }
             />
             <CardContent>
-              {team_tasks.edges.map(task => (
-                <FlexRow key={task.node.dbid} style={{ justifyContent: 'start' }}>
-                  <span>
-                    <Checkbox
-                      checked={this.state.selectedTasks.indexOf(task.node.dbid.toString()) > -1}
-                      onCheck={this.handleCheck.bind(this, task.node.dbid)}
-                    />
-                  </span>
-                  {' '}
-                  <span style={{ fontSize: '1rem' }}>{task.node.label}</span>
-                </FlexRow>
-              ))}
+              <FormGroup>
+                {team_tasks.edges.map(task => (
+                  <FormControlLabel
+                    key={task.node.dbid}
+                    control={
+                      <Checkbox
+                        checked={this.state.selectedTasks.indexOf(task.node.dbid.toString()) > -1}
+                        onChange={this.handleCheck.bind(this, task.node.dbid)}
+                      />
+                    }
+                    label={task.node.label}
+                  />
+                ))}
+              </FormGroup>
             </CardContent>
           </Card>
 
@@ -142,18 +146,21 @@ class TeamEmbedComponent extends React.Component {
               }
             />
             <CardContent>
-              <FlexRow style={{ justifyContent: 'flex-start' }}>
-                <Checkbox
-                  style={{ width: 'auto' }}
-                  checked={this.state.showAnalysis}
-                  onCheck={this.toggleAnalysis.bind(this)}
-                />
-                {' '}
-                <FormattedMessage
-                  id="teamEmbed.analysisYes"
-                  defaultMessage="Yes"
-                />
-              </FlexRow>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    style={{ width: 'auto' }}
+                    checked={this.state.showAnalysis}
+                    onChange={this.toggleAnalysis.bind(this)}
+                  />
+                }
+                label={
+                  <FormattedMessage
+                    id="teamEmbed.analysisYes"
+                    defaultMessage="Yes"
+                  />
+                }
+              />
             </CardContent>
           </Card>
 

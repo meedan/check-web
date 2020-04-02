@@ -5,8 +5,12 @@ import { injectIntl, FormattedMessage, defineMessages } from 'react-intl';
 import rtlDetect from 'rtl-detect';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
-import { List, ListItem } from 'material-ui/List';
-import Avatar from 'material-ui/Avatar';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import Avatar from '@material-ui/core/Avatar';
 import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import RadioButtonIcon from '@material-ui/icons/RadioButtonUnchecked';
 import { Link } from 'react-router';
@@ -212,31 +216,36 @@ class UserAssignmentsComponent extends Component {
 
                 return (
                   <div key={`div-${assignment.dbid}`}>
-                    <ListItem
-                      key={`media-${assignment.dbid}`}
-                      containerElement={<Link to={assignment.path} />}
-                      primaryText={
-                        MediaUtil.title(assignment, assignment.metadata, this.props.intl)
-                      }
-                      rightAvatar={
-                        (progress && (answered > 0 || total > 0)) ?
-                          <Avatar
-                            backgroundColor={color}
-                            color="#fff"
-                            style={{ fontSize: 12 }}
-                            title={
-                              this.props.intl.formatMessage(messages.progress, {
-                                answered: assignment.assignments_progress.answered,
-                                total: assignment.assignments_progress.total,
-                              })
-                            }
-                          >
-                            {answered}/{total}
-                          </Avatar>
-                          : null
-                      }
-                      leftIcon={icons[assignment.report_type]}
-                    />
+                    <ListItem key={`media-${assignment.dbid}`}>
+                      <ListItemIcon>
+                        {icons[assignment.report_type]}
+                      </ListItemIcon>
+                      <Link to={assignment.path}>
+                        <ListItemText
+                          primary={
+                            MediaUtil.title(assignment, assignment.metadata, this.props.intl)
+                          }
+                        />
+                      </Link>
+                      <ListItemSecondaryAction>
+                        {
+                          (progress && (answered > 0 || total > 0)) ?
+                            <Avatar
+                              color="#fff"
+                              style={{ fontSize: 12, backgroundColor: color }}
+                              title={
+                                this.props.intl.formatMessage(messages.progress, {
+                                  answered: assignment.assignments_progress.answered,
+                                  total: assignment.assignments_progress.total,
+                                })
+                              }
+                            >
+                              {answered}/{total}
+                            </Avatar>
+                            : null
+                        }
+                      </ListItemSecondaryAction>
+                    </ListItem>
                   </div>
                 );
               })}

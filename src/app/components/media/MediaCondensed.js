@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { Link } from 'react-router';
 import { injectIntl, defineMessages, FormattedMessage } from 'react-intl';
-import Avatar from 'material-ui/Avatar';
 import CardHeader from '@material-ui/core/CardHeader';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -13,7 +12,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from 'material-ui/TextField';
-import IconMenu from 'material-ui/IconMenu';
+import Menu from '@material-ui/core/Menu';
 import IconButton from '@material-ui/core/IconButton';
 import IconMoreVert from '@material-ui/icons/MoreVert';
 import Can from '../Can';
@@ -69,7 +68,7 @@ class MediaCondensedComponent extends Component {
   }
 
   handleEdit() {
-    this.setState({ isEditing: true });
+    this.setState({ isEditing: true, anchorEl: null });
   }
 
   handleCancel() {
@@ -161,7 +160,7 @@ class MediaCondensedComponent extends Component {
       { onFailure },
     );
 
-    this.setState({ broken: true });
+    this.setState({ broken: true, anchorEl: null });
   }
 
   handlePromoteRelationship() {
@@ -191,7 +190,17 @@ class MediaCondensedComponent extends Component {
       }),
       { onFailure, onSuccess },
     );
+
+    this.setState({ anchorEl: null });
   }
+
+  handleOpenMenu = (e) => {
+    this.setState({ anchorEl: e.currentTarget });
+  };
+
+  handleCloseMenu = () => {
+    this.setState({ anchorEl: null });
+  };
 
   render() {
     if (this.state.broken) {
@@ -304,12 +313,10 @@ class MediaCondensedComponent extends Component {
           }
           avatar={
             <Link to={{ pathname: mediaUrl, state: { query: mediaQuery } }}>
-              <Avatar
+              <img
+                alt=""
+                style={{ height: '100px', width: '100px', objectFit: 'cover' }}
                 src={media.picture}
-                size={100}
-                style={{
-                  borderRadius: 0,
-                }}
               />
             </Link>
           }
@@ -324,51 +331,57 @@ class MediaCondensedComponent extends Component {
           }}
         />
         { !media.archived ?
-          <IconMenu
-            style={{
-              position: 'absolute',
-              top: 0,
-              right: 0,
-            }}
-            iconButtonElement={
-              <IconButton
-                tooltip={
-                  <FormattedMessage id="mediaCondensed.tooltip" defaultMessage="Item actions" />
-                }
-              >
-                <IconMoreVert className="media-codensed__actions_icon" />
-              </IconButton>}
-          >
-            { (media.relationships && media.relationships.sources_count > 0) ?
-              <Can permissions={media.relationship.permissions} permission="update Relationship">
-                <MenuItem key="promote" className="media-condensed__promote-relationshp" onClick={this.handlePromoteRelationship.bind(this)}>
+          <div>
+            <IconButton
+              style={{
+                position: 'absolute',
+                top: 0,
+                right: 0,
+              }}
+              tooltip={
+                <FormattedMessage id="mediaCondensed.tooltip" defaultMessage="Item actions" />
+              }
+              onClick={this.handleOpenMenu}
+            >
+              <IconMoreVert className="media-codensed__actions_icon" />
+            </IconButton>
+            <Menu
+              anchorEl={this.state.anchorEl}
+              keepMounted
+              open={Boolean(this.state.anchorEl)}
+              onClose={this.handleCloseMenu}
+            >
+              { (media.relationships && media.relationships.sources_count > 0) ?
+                <Can permissions={media.relationship.permissions} permission="update Relationship">
+                  <MenuItem key="promote" className="media-condensed__promote-relationshp" onClick={this.handlePromoteRelationship.bind(this)}>
+                    <ListItemText
+                      primary={
+                        <FormattedMessage id="mediaCondensed.promote" defaultMessage="Promote to primary item" />
+                      }
+                    />
+                  </MenuItem>
+                </Can> : null }
+              { (media.relationships && media.relationships.sources_count > 0) ?
+                <Can permissions={media.relationship.permissions} permission="destroy Relationship">
+                  <MenuItem key="break" className="media-condensed__break-relationship" onClick={this.handleBreakRelationship.bind(this)} >
+                    <ListItemText
+                      primary={
+                        <FormattedMessage id="mediaCondensed.break" defaultMessage="Break relation to primary item" />
+                      }
+                    />
+                  </MenuItem>
+                </Can> : null }
+              <Can permissions={media.permissions} permission="update ProjectMedia">
+                <MenuItem key="edit" className="media-condensed__edit" onClick={this.handleEdit.bind(this)}>
                   <ListItemText
                     primary={
-                      <FormattedMessage id="mediaCondensed.promote" defaultMessage="Promote to primary item" />
+                      <FormattedMessage id="mediaCondensed.edit" defaultMessage="Edit title and description" />
                     }
                   />
                 </MenuItem>
-              </Can> : null }
-            { (media.relationships && media.relationships.sources_count > 0) ?
-              <Can permissions={media.relationship.permissions} permission="destroy Relationship">
-                <MenuItem key="break" className="media-condensed__break-relationship" onClick={this.handleBreakRelationship.bind(this)} >
-                  <ListItemText
-                    primary={
-                      <FormattedMessage id="mediaCondensed.break" defaultMessage="Break relation to primary item" />
-                    }
-                  />
-                </MenuItem>
-              </Can> : null }
-            <Can permissions={media.permissions} permission="update ProjectMedia">
-              <MenuItem key="edit" className="media-condensed__edit" onClick={this.handleEdit.bind(this)}>
-                <ListItemText
-                  primary={
-                    <FormattedMessage id="mediaCondensed.edit" defaultMessage="Edit title and description" />
-                  }
-                />
-              </MenuItem>
-            </Can>
-          </IconMenu> : null }
+              </Can>
+            </Menu>
+          </div> : null }
         { this.state.isEditing ? editDialog : null }
       </span>
     );

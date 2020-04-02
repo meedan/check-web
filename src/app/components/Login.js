@@ -4,21 +4,19 @@ import {
   FormattedMessage,
   injectIntl,
   intlShape,
+  defineMessages,
 } from 'react-intl';
 import FASlack from 'react-icons/lib/fa/slack';
 import FAFacebook from 'react-icons/lib/fa/facebook-official';
 import FATwitter from 'react-icons/lib/fa/twitter';
 import MDEmail from 'react-icons/lib/md/email';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import rtlDetect from 'rtl-detect';
 import { Link } from 'react-router';
 import Button from '@material-ui/core/Button';
-import TextField from 'material-ui/TextField';
-import EnhancedButton from 'material-ui/internal/EnhancedButton';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import TextField from '@material-ui/core/TextField';
 import Card from '@material-ui/core/Card';
 import styled from 'styled-components';
-import merge from 'lodash.merge';
 import Message from './Message';
 import UploadImage from './UploadImage';
 import UserTosForm from './UserTosForm';
@@ -29,7 +27,6 @@ import { stringHelper } from '../customHelpers';
 import { getErrorObjects } from '../helpers';
 import CheckError from '../CheckError';
 import {
-  muiThemeWithoutRtl,
   units,
   mediaQuery,
   caption,
@@ -49,6 +46,33 @@ import {
   defaultBorderRadius,
 } from '../styles/js/shared';
 
+const messages = defineMessages({
+  nameLabel: {
+    id: 'login.nameLabel',
+    defaultMessage: 'Your name',
+  },
+  emailLabel: {
+    id: 'login.emailLabel',
+    defaultMessage: 'Email address',
+  },
+  passwordInputHint: {
+    id: 'login.passwordInputHint',
+    defaultMessage: 'Password',
+  },
+  passwordLabel: {
+    id: 'login.passwordLabel',
+    defaultMessage: 'Password (minimum 8 characters)',
+  },
+  otpAttemptLabel: {
+    id: 'login.otpAttemptLabel',
+    defaultMessage: 'Two-Factor Authentication Token',
+  },
+  passwordConfirmLabel: {
+    id: 'login.passwordConfirmLabel',
+    defaultMessage: 'Password confirmation',
+  },
+});
+
 const StyledSubHeader = styled.h2`
   font: ${title1};
   font-weight: 600;
@@ -63,7 +87,7 @@ const StyledLabel = styled.div`
   margin-top: ${units(2)};
 `;
 
-const StyledEnhancedButton = styled(EnhancedButton)`
+const StyledEnhancedButton = styled(ButtonBase)`
   border: 0;
   width: ${units(39)};
   margin: ${units(2)} 0 0 !important;
@@ -280,11 +304,7 @@ class Login extends Component {
   }
 
   render() {
-    const muiThemeWithRtl = getMuiTheme(merge(muiThemeWithoutRtl, {
-      isRtl: rtlDetect.isRtlLang(this.props.intl.locale),
-    }));
-
-    const { intl: { locale } } = this.props;
+    const { intl: { locale, formatMessage } } = this.props;
     const isRtl = rtlDetect.isRtlLang(locale);
     const fromDirection = isRtl ? 'right' : 'left';
 
@@ -317,261 +337,237 @@ class Login extends Component {
     );
 
     return (
-      <MuiThemeProvider muiTheme={muiThemeWithRtl}>
-        <div className="login" id="login">
-          <StyledCard>
-            <form
-              name={this.state.type}
-              onSubmit={this.onFormSubmit.bind(this)}
-              className="login__form"
-            >
-              <img
-                style={styles.logo}
-                alt={mapGlobalMessage(this.props.intl, 'appNameHuman')}
-                width="120"
-                className="login__icon"
-                src={stringHelper('LOGO_URL')}
-              />
-              <StyledSubHeader className="login__heading">
+      <div className="login" id="login">
+        <StyledCard>
+          <form
+            name={this.state.type}
+            onSubmit={this.onFormSubmit.bind(this)}
+            className="login__form"
+          >
+            <img
+              style={styles.logo}
+              alt={mapGlobalMessage(this.props.intl, 'appNameHuman')}
+              width="120"
+              className="login__icon"
+              src={stringHelper('LOGO_URL')}
+            />
+            <StyledSubHeader className="login__heading">
+              {this.state.type === 'login' ?
+                <FormattedMessage
+                  id="login.title"
+                  defaultMessage="Sign in"
+                /> :
+                <FormattedMessage
+                  id="login.registerTitle"
+                  defaultMessage="Register"
+                />}
+            </StyledSubHeader>
+            <Message message={this.state.message} />
+            {this.state.registrationSubmitted ?
+              null :
+              <div>
                 {this.state.type === 'login' ?
-                  <FormattedMessage
-                    id="login.title"
-                    defaultMessage="Sign in"
-                  /> :
-                  <FormattedMessage
-                    id="login.registerTitle"
-                    defaultMessage="Register"
-                  />}
-              </StyledSubHeader>
-              <Message message={this.state.message} />
-              {this.state.registrationSubmitted ?
-                null :
-                <div>
-                  {this.state.type === 'login' ?
-                    null :
-                    <div className="login__name">
-                      <TextField
-                        fullWidth
-                        name="name"
-                        value={this.state.name}
-                        className="login__name-input"
-                        ref={(i) => { this.inputName = i; }}
-                        onChange={this.handleFieldChange.bind(this)}
-                        floatingLabelText={
-                          <FormattedMessage
-                            id="login.nameLabel"
-                            defaultMessage="Your name"
-                          />
-                        }
-                      />
-                    </div>}
-
-                  <div className="login__email">
+                  null :
+                  <div className="login__name">
                     <TextField
+                      margin="normal"
                       fullWidth
-                      type="email"
-                      name="email"
-                      value={this.state.email}
-                      className="login__email-input"
-                      ref={(i) => { this.inputEmail = i; }}
+                      name="name"
+                      value={this.state.name}
+                      className="login__name-input"
+                      inputRef={(i) => { this.inputName = i; }}
                       onChange={this.handleFieldChange.bind(this)}
-                      floatingLabelText={
-                        <FormattedMessage
-                          id="login.emailLabel"
-                          defaultMessage="Email address"
-                        />
-                      }
-                      autoFocus
+                      label={formatMessage(messages.nameLabel)}
                     />
-                  </div>
+                  </div>}
 
-                  <div className="login__password">
+                <div className="login__email">
+                  <TextField
+                    margin="normal"
+                    fullWidth
+                    type="email"
+                    name="email"
+                    value={this.state.email}
+                    className="login__email-input"
+                    inputRef={(i) => { this.inputEmail = i; }}
+                    onChange={this.handleFieldChange.bind(this)}
+                    label={formatMessage(messages.emailLabel)}
+                    autoFocus
+                  />
+                </div>
+
+                <div className="login__password">
+                  <TextField
+                    margin="normal"
+                    fullWidth
+                    type="password"
+                    name="password"
+                    value={this.state.password}
+                    className="login__password-input"
+                    onChange={this.handleFieldChange.bind(this)}
+                    label={this.state.type === 'login' ?
+                      formatMessage(messages.passwordInputHint) :
+                      formatMessage(messages.passwordLabel)
+                    }
+                  />
+                </div>
+
+                {this.state.type === 'login' && this.state.showOtp ?
+                  <div className="login__otp_attempt">
                     <TextField
+                      margin="normal"
+                      fullWidth
+                      name="otp_attempt"
+                      value={this.state.otp_attempt}
+                      className="login__otp_attempt-input"
+                      onChange={this.handleFieldChange.bind(this)}
+                      label={formatMessage(messages.otpAttemptLabel)}
+                    />
+                  </div> : null}
+
+                {this.state.type === 'login' ?
+                  null :
+                  <div className="login__password-confirmation">
+                    <TextField
+                      margin="normal"
                       fullWidth
                       type="password"
-                      name="password"
-                      value={this.state.password}
-                      className="login__password-input"
+                      name="passwordConfirmation"
+                      value={this.state.passwordConfirmation}
+                      className="login__password-confirmation-input"
                       onChange={this.handleFieldChange.bind(this)}
-                      floatingLabelText={this.state.type === 'login' ?
-                        <FormattedMessage
-                          id="login.passwordInputHint"
-                          defaultMessage="Password"
-                        />
-                        :
-                        <FormattedMessage
-                          id="login.passwordLabel"
-                          defaultMessage="Password (minimum 8 characters)"
-                        />
-                      }
+                      label={formatMessage(messages.passwordConfirmLabel)}
                     />
-                  </div>
+                  </div>}
 
-                  {this.state.type === 'login' && this.state.showOtp ?
-                    <div className="login__otp_attempt">
-                      <TextField
-                        fullWidth
-                        name="otp_attempt"
-                        value={this.state.otp_attempt}
-                        className="login__otp_attempt-input"
-                        onChange={this.handleFieldChange.bind(this)}
-                        floatingLabelText={
-                          <FormattedMessage
-                            id="login.otpAttemptLabel"
-                            defaultMessage="Two-Factor Authentication Token"
-                          />
-                        }
+                {this.state.type === 'login' ?
+                  null :
+                  <div>
+                    <StyledLabel>
+                      <FormattedMessage
+                        id="login.profilePicture"
+                        defaultMessage="Profile picture"
                       />
-                    </div> : null}
+                    </StyledLabel>
+                    <UploadImage onImage={Login.onImage} type="image" />
+                    <UserTosForm
+                      user={{}}
+                      showTitle={false}
+                      handleCheckTos={this.handleCheckTos.bind(this)}
+                      handleCheckPp={this.handleCheckPp.bind(this)}
+                      checkedTos={this.state.checkedTos}
+                      checkedPp={this.state.checkedPp}
+                    />
+                  </div> }
 
-                  {this.state.type === 'login' ?
-                    null :
-                    <div className="login__password-confirmation">
-                      <TextField
-                        fullWidth
-                        type="password"
-                        name="passwordConfirmation"
-                        value={this.state.passwordConfirmation}
-                        className="login__password-confirmation-input"
-                        onChange={this.handleFieldChange.bind(this)}
-                        floatingLabelText={
-                          <FormattedMessage
-                            id="login.passwordConfirmLabel"
-                            defaultMessage="Password confirmation"
-                          />
-                        }
-                      />
-                    </div>}
-
-                  {this.state.type === 'login' ?
-                    null :
-                    <div>
-                      <StyledLabel>
-                        <FormattedMessage
-                          id="login.profilePicture"
-                          defaultMessage="Profile picture"
-                        />
-                      </StyledLabel>
-                      <UploadImage onImage={Login.onImage} type="image" />
-                      <UserTosForm
-                        user={{}}
-                        showTitle={false}
-                        handleCheckTos={this.handleCheckTos.bind(this)}
-                        handleCheckPp={this.handleCheckPp.bind(this)}
-                        checkedTos={this.state.checkedTos}
-                        checkedPp={this.state.checkedPp}
-                      />
-                    </div> }
-
-                  <div className="login__actions" style={styles.buttonGroup}>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      style={styles.primaryButton}
-                      type="submit"
-                      id="submit-register-or-login"
-                      className={`login__submit login__submit--${this.state.type}`}
-                    >
-                      {this.state.type === 'login' ?
-                        <FormattedMessage
-                          id="login.signIn"
-                          defaultMessage="SIGN IN"
-                        /> :
-                        <FormattedMessage
-                          id="login.signUp"
-                          defaultMessage="REGISTER"
-                        />
-                      }
-                    </Button>
+                <div className="login__actions" style={styles.buttonGroup}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    style={styles.primaryButton}
+                    type="submit"
+                    id="submit-register-or-login"
+                    className={`login__submit login__submit--${this.state.type}`}
+                  >
                     {this.state.type === 'login' ?
-                      <span className="login__forgot-password">
-                        <Link to="/check/user/password-reset">
-                          <Button style={styles.secondaryButton}>
-                            <FormattedMessage
-                              id="loginEmail.lostPassword"
-                              defaultMessage="Forgot password"
-                            />
-                          </Button>
-                        </Link>
-                      </span>
-                      : null}
-                  </div>
-                </div>}
-            </form>
-          </StyledCard>
+                      <FormattedMessage
+                        id="login.signIn"
+                        defaultMessage="SIGN IN"
+                      /> :
+                      <FormattedMessage
+                        id="login.signUp"
+                        defaultMessage="REGISTER"
+                      />
+                    }
+                  </Button>
+                  {this.state.type === 'login' ?
+                    <span className="login__forgot-password">
+                      <Link to="/check/user/password-reset">
+                        <Button style={styles.secondaryButton}>
+                          <FormattedMessage
+                            id="loginEmail.lostPassword"
+                            defaultMessage="Forgot password"
+                          />
+                        </Button>
+                      </Link>
+                    </span>
+                    : null}
+                </div>
+              </div>}
+          </form>
+        </StyledCard>
 
-          <BigButtons>
-            <BigButton
-              onClick={this.oAuthLogin.bind(this, 'slack')}
-              id="slack-login"
-              icon={<FASlack style={{ color: slackGreen }} className="logo" />}
-              headerText={
-                <FormattedMessage
-                  id="login.with"
-                  defaultMessage="Continue with {provider}"
-                  values={{ provider: 'Slack' }}
-                />
-              }
-              subheaderText
-            />
-
-            <BigButton
-              onClick={this.oAuthLogin.bind(this, 'twitter')}
-              id="twitter-login"
-              icon={<FATwitter style={{ color: twitterBlue }} className="logo" />}
-              headerText={
-                <FormattedMessage
-                  id="login.with"
-                  defaultMessage="Continue with {provider}"
-                  values={{ provider: 'Twitter' }}
-                />
-              }
-              subheaderText
-            />
-
-            <BigButton
-              onClick={this.oAuthLogin.bind(this, 'facebook')}
-              id="facebook-login"
-              icon={<FAFacebook style={{ color: facebookBlue }} className="logo" />}
-              headerText={
-                <FormattedMessage
-                  id="login.with"
-                  defaultMessage="Continue with {provider}"
-                  values={{ provider: 'Facebook' }}
-                />
-              }
-              subheaderText
-            />
-
-            {this.state.type === 'login' ?
-              <BigButton
-                id="register-or-login"
-                onClick={this.handleSwitchType.bind(this)}
-                icon={<MDEmail style={{ color: black54 }} />}
-                headerText={
-                  <FormattedMessage
-                    id="login.newAccount"
-                    defaultMessage="Create a new account with email"
-                  />
-                }
-                subheaderText={false}
+        <BigButtons>
+          <BigButton
+            onClick={this.oAuthLogin.bind(this, 'slack')}
+            id="slack-login"
+            icon={<FASlack style={{ color: slackGreen }} className="logo" />}
+            headerText={
+              <FormattedMessage
+                id="login.with"
+                defaultMessage="Continue with {provider}"
+                values={{ provider: 'Slack' }}
               />
-              :
-              <BigButton
-                id="register-or-login"
-                onClick={this.handleSwitchType.bind(this)}
-                icon={<MDEmail style={{ color: black54 }} />}
-                headerText={
-                  <FormattedMessage
-                    id="login.alreadyHasAccount"
-                    defaultMessage="I already have an account"
-                  />
-                }
-                subheaderText={false}
-              />}
-          </BigButtons>
-        </div>
-      </MuiThemeProvider>
+            }
+            subheaderText
+          />
+
+          <BigButton
+            onClick={this.oAuthLogin.bind(this, 'twitter')}
+            id="twitter-login"
+            icon={<FATwitter style={{ color: twitterBlue }} className="logo" />}
+            headerText={
+              <FormattedMessage
+                id="login.with"
+                defaultMessage="Continue with {provider}"
+                values={{ provider: 'Twitter' }}
+              />
+            }
+            subheaderText
+          />
+
+          <BigButton
+            onClick={this.oAuthLogin.bind(this, 'facebook')}
+            id="facebook-login"
+            icon={<FAFacebook style={{ color: facebookBlue }} className="logo" />}
+            headerText={
+              <FormattedMessage
+                id="login.with"
+                defaultMessage="Continue with {provider}"
+                values={{ provider: 'Facebook' }}
+              />
+            }
+            subheaderText
+          />
+
+          {this.state.type === 'login' ?
+            <BigButton
+              id="register-or-login"
+              onClick={this.handleSwitchType.bind(this)}
+              icon={<MDEmail style={{ color: black54 }} />}
+              headerText={
+                <FormattedMessage
+                  id="login.newAccount"
+                  defaultMessage="Create a new account with email"
+                />
+              }
+              subheaderText={false}
+            />
+            :
+            <BigButton
+              id="register-or-login"
+              onClick={this.handleSwitchType.bind(this)}
+              icon={<MDEmail style={{ color: black54 }} />}
+              headerText={
+                <FormattedMessage
+                  id="login.alreadyHasAccount"
+                  defaultMessage="I already have an account"
+                />
+              }
+              subheaderText={false}
+            />}
+        </BigButtons>
+      </div>
     );
   }
 }

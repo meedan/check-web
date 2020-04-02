@@ -102,7 +102,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('newteamwidetagedited')).to be(false)
 
       # Edit tag
-      wait_for_selector('#tag__text-newteamwidetag button').click
+      wait_for_selector('.tag__actions').click
       wait_for_selector(".tag__delete")
       wait_for_selector('.tag__edit').click
       wait_for_selector("#tag__edit")
@@ -115,7 +115,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('newteamwidetagedited')).to be(true)
 
       # Delete tag
-      wait_for_selector('#tag__text-newteamwidetagedited button').click
+      wait_for_selector('.tag__actions').click
       wait_for_selector('.tag__edit')
       wait_for_selector('.tag__delete').click
       wait_for_selector('#confirm-dialog__checkbox').click
