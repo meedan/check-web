@@ -1,4 +1,4 @@
-var config = window.config = {
+module.exports = {
   appName: 'check', // 'bridge' or 'check'
   selfHost: 'web.test:13333',
   restBaseUrl: 'http://api.test:13000/api/',
@@ -7,5 +7,4 @@ var config = window.config = {
     'X-Check-Token': 'test'
   },
   penderUrl: 'http://pender.test:13200',
-}
-module.exports = config;
+};

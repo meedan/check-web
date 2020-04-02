@@ -18,7 +18,6 @@ import styled from 'styled-components';
 import {
   alertRed,
   defaultBorderRadius,
-  defaultBorderWidth,
   opaqueBlack87,
   borderWidthMedium,
   tiny,
@@ -116,7 +115,7 @@ class SwitchTeamsComponent extends Component {
     `;
 
     const teamAvatarStyle = {
-      border: `${defaultBorderWidth} solid ${black05}`,
+      border: `1px solid ${black05}`,
       borderRadius: `${defaultBorderRadius}`,
       backgroundColor: white,
     };

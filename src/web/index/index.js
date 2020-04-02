@@ -32,17 +32,6 @@ if (locales.indexOf(locale) === -1) {
   locale = 'en';
 }
 
-if (!global.Intl) {
-  // eslint-disable-next-line max-len
-  // eslint-disable-next-line import/no-dynamic-require, global-require, require-path-exists/tooManyArguments
-  require(['intl'], (intl) => {
-    global.Intl = intl;
-    // TODO Commented out while build is not optimized for this!
-    // eslint-disable-next-line global-require
-    // require(`intl/locale-data/jsonp/${locale}.js`);
-  });
-}
-
 const callback = (translations) => {
   render(
     <Root store={store} translations={translations} locale={locale} />,
@@ -53,10 +42,17 @@ const callback = (translations) => {
 if (locale === 'en') {
   callback({});
 } else {
-  import(/* webpackChunkName: "[request]" */ `react-intl/locale-data/${locale}.js`).then((data) => {
-    addLocaleData(data);
-    import(/* webpackChunkName: "[request]" */ `../../../localization/translations/${locale}.js`).then((translations) => {
-      callback(translations);
-    });
+  Promise.all([
+    import(
+      /* webpackChunkName: "react-intl-[request]" */
+      'react-intl/locale-data/' + locale
+    ),
+    import(
+      /* webpackChunkName: "messages-[request]" */
+      '../../../localization/translations/' + locale
+    ),
+  ]).then(([ localeData, messages ]) => {
+    addLocaleData(localeData);
+    callback(messages);
   });
 }

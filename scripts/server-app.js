@@ -2,10 +2,8 @@
 
 const util = require('util');
 const fetch = require('node-fetch');
-const window = require('node-window');
 const express = require('express');
 const serveStatic = require('serve-static');
-const basicAuth = require('express-basic-auth');
 
 const configs = require('../config-server');
 const template = require('../src/web/views/index');

@@ -1,6 +1,6 @@
 {
   "app_type": "node",
-  "startup_file": "dist/server.js",
+  "startup_file": "scripts/server.js",
   "environment": "production",
   "port": 8000,
   "daemonize": false,

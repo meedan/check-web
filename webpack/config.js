@@ -1,37 +1,37 @@
-import path from 'path';
-import webpack from 'webpack';
-var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-var CompressionPlugin = require('compression-webpack-plugin');
-var locales = require(path.join(__dirname, '../localization/translations/locales.js'));
+const fs = require('fs');
+const path = require('path');
+const webpack = require('webpack');
+//const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const CompressionPlugin = require('compression-webpack-plugin');
+const locales = require('../localization/translations/locales');
 
-const localesRegExp = new RegExp('\/(' + locales.join('|') + ')\.js$');
+// For ContextReplacementPlugin: pattern for dynamic-import filenames.
+// matches "/es.js" and "/es.json".
+// Doesn't match "messages-ru-TeamRules.json".
+const localesRegExp = new RegExp(`/(${locales.join('|')})$`);
 
-export default {
+const NODE_ENV = process.env.NODE_ENV || 'production';
+
+module.exports = {
   bail: true, // exit 1 on build failure
   entry: {
-    index: [ 'babel-polyfill', 'whatwg-fetch', path.join(__dirname, '../src/web/index/index') ]
+    index: [ 'whatwg-fetch', path.join(__dirname, '../src/web/index/index') ]
   },
   output: {
     path: path.join(__dirname, '../build/web/js'),
     filename: '[name].bundle.js',
-    chunkFilename: '[id].chunk.js'
+    chunkFilename: '[name].chunk.js'
   },
   devtool: 'source-map',
+  watchOptions: {
+    ignored: /node_modules/,
+  },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'production')
-      },
-      __DEVELOPMENT__: false
+      'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
     }),
-    new webpack.ContextReplacementPlugin(
-      /react-intl\/locale-data/,
-      localesRegExp,
-    ),
-    new webpack.ContextReplacementPlugin(
-      /localization\/translations/,
-      localesRegExp,
-    ),
+    new webpack.ContextReplacementPlugin(/react-intl\/locale-data/, localesRegExp),
+    new webpack.ContextReplacementPlugin(/localization\/translations/, localesRegExp),
     new webpack.optimize.AggressiveMergingPlugin(),
     new CompressionPlugin({
       asset: '[path].gz[query]',
@@ -42,30 +42,61 @@ export default {
     }),
     // Uncomment to see at localhost:8888 a treemap of modules included in the bundle
     // new BundleAnalyzerPlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      minimize: true,
-      sourceMap: true,
-      comments: false,
-      compressor: {
-        screw_ie8: true,
-        warnings: false
-      }
-    }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       minChunks: module => /node_modules/.test(module.resource)
-    })
-  ],
+    }),
+    // TODO upgrade to Webpack 5, which derives "minify" from mode (dev/prod)
+  ].concat(NODE_ENV === 'production' ? [new webpack.optimize.UglifyJsPlugin({sourceMap: true})] : []),
   resolve: {
     alias: {app: path.join(__dirname, '../src/app')},
-    extensions: ['.js']
+    extensions: ['.js', '.json']
   },
   module: {
     loaders: [{
       test: /\.js$/,
       loader: 'babel-loader',
       exclude: /node_modules/,
-      query: { presets: ['es2015', 'stage-0', 'react'], plugins: [path.join(__dirname, './babelRelayPlugin.js')]}
+      options: {
+        presets: [
+          [
+            '@babel/preset-env',
+            {
+              targets: {
+                browsers: '> 0.5%, not IE 11',
+                // While we're on Webpack 2, we must be parseable by UglifyJS.
+                // UglifyJS is abandonware, so we can't output "class" or other
+                // keywords.
+                //
+                // [adamhooper, 2020-03-31] TODO upgrade to Webpack 4, then nix
+                // "uglify"
+                uglify: true,
+              },
+              useBuiltIns: 'usage',
+            }
+          ],
+          '@babel/preset-react',
+        ],
+        plugins: [
+          '@babel/plugin-syntax-dynamic-import',
+          '@babel/plugin-proposal-class-properties',
+          '@babel/plugin-proposal-object-rest-spread',
+          [
+            'relay',
+            {
+              compat: true,
+              schema: path.resolve(__dirname, '../relay.json'),
+            }
+          ],
+          ['react-intl', { 'messagesDir': path.resolve(__dirname, '../localization/react-intl/') }],
+        ],
+        cacheDirectory: true,
+        cacheIdentifier: JSON.stringify({
+          NODE_ENV: NODE_ENV,
+          'package-lock.json': require('../package-lock.json'),
+          'webpack/config.js': fs.readFileSync(__filename),
+        }),
+      },
     }, {
       enforce: 'pre',
       test: /\.js$/,
@@ -77,9 +108,6 @@ export default {
     }, {
       test: /\.css?$/,
       use: ['style-loader', 'raw-loader']
-    }, {
-      test: /\.json$/,
-      loader: 'ignore-loader'
     }]
   },
   externals: {
