@@ -25,7 +25,7 @@
   },
   {
     "id": "teamTasks.confirmDeleteBlurb",
-    "defaultMessage": "Related item tasks will be deleted as a consequence of applying this change, except for those that have already been answered or resolved."
+    "defaultMessage": "You are about to delete this tasks from {itemsNumber} number of items. If you proceed, you will delete the answers to those tasks at the same time. Do you want to proceed?"
   },
   {
     "id": "teamTasks.edit",

@@ -166,6 +166,8 @@ class TeamTasksListItem extends React.Component {
         defaultMessage="Are you sure you want to delete this task?"
       />,
     };
+    let deletedItems = 0;
+    team.projects.edges.forEach((project) => { deletedItems += project.node.medias_count; });
 
     const confirmDialogBlurb = {
       edit: <FormattedMessage
@@ -174,7 +176,8 @@ class TeamTasksListItem extends React.Component {
       />,
       delete: <FormattedMessage
         id="teamTasks.confirmDeleteBlurb"
-        defaultMessage="Related item tasks will be deleted as a consequence of applying this change, except for those that have already been answered or resolved."
+        defaultMessage="You are about to delete this tasks from {itemsNumber} number of items. If you proceed, you will delete the answers to those tasks at the same time. Do you want to proceed?"
+        values={{ itemsNumber: deletedItems }}
       />,
     };
 
