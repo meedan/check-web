@@ -1,10 +1,10 @@
 import React from 'react';
-import VideoPlayer from 'react-video-js-player';
+import VideoJsPlayer from '../VideoJsPlayer';
 import '../../styles/css/player.css';
 
 const VideoMediaCard = props => (
   <article className="video-media-card">
-    <VideoPlayer
+    <VideoJsPlayer
       controls
       src={props.videoPath}
       poster={props.posterPath}

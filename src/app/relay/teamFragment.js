@@ -46,4 +46,4 @@ const teamFragment = Relay.QL`
   }
 `;
 
-module.exports = teamFragment;
+export default teamFragment;

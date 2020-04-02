@@ -247,6 +247,7 @@ class Root extends Component {
 
     if (config.pusherKey) {
       // Pusher is imported at runtime from a <script file> tag.
+      // eslint-disable-next-line no-console
       if (!!config.pusherDebug && console && console.debug) {
         // eslint-disable-next-line no-undef, no-console
         Pusher.log = console.debug;

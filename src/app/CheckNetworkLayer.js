@@ -23,12 +23,12 @@ const messages = defineMessages({
 });
 
 function createRequestError(request, responseStatus, payload) {
-  const errorReason: string = `Server response had an error status ${responseStatus} and error ${util.inspect(payload)}`;
+  const errorReason = `Server response had an error status ${responseStatus} and error ${util.inspect(payload)}`;
 
   const error = new Error(errorReason);
-  (error: any).source = payload;
-  (error: any).status = responseStatus;
-  (error: any).parsed = true;
+  error.source = payload;
+  error.status = responseStatus;
+  error.parsed = true;
 
   return error;
 }

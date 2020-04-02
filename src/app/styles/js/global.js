@@ -5,7 +5,7 @@ import {
   black87,
   title1,
   opaqueBlack87,
-  subHeading1,
+  subheading1,
 } from './shared';
 
 export const layout = `
@@ -40,7 +40,7 @@ export const typography = `
 
   h2 {
     color: ${black87};
-    font: ${subHeading1};
+    font: ${subheading1};
   }
 
   h1, h2, h3, h4, h5 {

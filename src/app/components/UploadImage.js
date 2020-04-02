@@ -12,7 +12,6 @@ import {
   Row,
   units,
   borderWidthMedium,
-  borderRadiusLarge,
   StyledIconButton,
 } from '../styles/js/shared';
 
@@ -27,7 +26,6 @@ const StyledUploader = styled.div`
     .without-file {
       align-items: center;
       border: ${borderWidthMedium} dashed ${black38};
-      border-radius: ${borderRadiusLarge};
       color: ${black38};
       cursor: pointer;
       display: flex;

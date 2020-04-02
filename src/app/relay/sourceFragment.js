@@ -292,4 +292,4 @@ const sourceFragment = Relay.QL`
   }
 `;
 
-module.exports = sourceFragment;
+export default sourceFragment;

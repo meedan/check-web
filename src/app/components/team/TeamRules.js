@@ -13,7 +13,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import IconButton from '@material-ui/core/IconButton';
 import styled from 'styled-components';
-import Form from 'react-jsonschema-form-material-ui';
+import Form from 'meedan-check-react-jsonschema-form-material-ui-v1';
 import ExternalLink from '../ExternalLink';
 import TeamRoute from '../../relay/TeamRoute';
 import { units, ContentColumn } from '../../styles/js/shared';
@@ -689,6 +689,7 @@ class TeamRulesComponent extends Component {
 
   deleteRule(i) {
     const rules = this.state.rules.slice();
+    // eslint-disable-next-line no-alert
     if (window.confirm(this.props.intl.formatMessage(
       messages.confirmDeleteRule,
       { ruleName: rules[i].name },
