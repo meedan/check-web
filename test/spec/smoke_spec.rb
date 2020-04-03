@@ -317,41 +317,6 @@ shared_examples 'smoke' do
     delete_task('When was it')
   end
 
-<<<<<<< HEAD
-  it "should assign, answer, insert a image, and add a comment to a team-wide task", bin5: true do
-     # Create team and go to team page that should not contain any task
-     team = "team#{Time.now.to_i}"
-     api_create_team(team: team)
-     @driver.navigate.to @config['self_url']+'/'+team
-     wait_for_selector('.team-menu__team-settings-button').click
-     wait_for_selector('.team-settings__tasks-tab').click
-     wait_for_selector('.team-tasks')
-     expect(@driver.page_source.include?('No default tasks to display')).to be(true)
-     expect(@driver.page_source.include?('No tasks')).to be(true)
-     expect(@driver.page_source.include?('New teamwide task')).to be(false)
- 
-     # Create task
-     wait_for_selector('.create-task__add-button').click
-     wait_for_selector('.create-task__add-short-answer').click
-     fill_field('#task-label-input', 'New teamwide task')
-     wait_for_selector('.create-task__dialog-submit-button').click
-     wait_for_selector('.team-tasks-project')
-     expect(@driver.page_source.include?('No default tasks to display')).to be(false)
-     expect(@driver.page_source.include?('1 task')).to be(true)
-     expect(@driver.page_source.include?('New teamwide task')).to be(true)
-
-    # Create a media
-    wait_for_selector(".project-list__link-all").click
-    create_media("media")
-    wait_for_selector(".media__heading").click
-    
-    #assign the task
-    wait_for_selector(".media-tab__tasks").click
-    wait_for_selector(".task-type__free_text")
-    expect(@driver.page_source.include?("Assigned to")).to be (false)
-    expect(@driver.page_source.include?("New teamwide task")).to be (true)
-    wait_for_selector('.task-type__free_text > div > div > button > div > svg').click
-=======
   it "should assign, answer with a link and add a comment to a task", bin5: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector('.create-task__add-button')
@@ -371,7 +336,6 @@ shared_examples 'smoke' do
     wait_for_selector(".media-tab__tasks").click
     expect(@driver.page_source.include?("Assigned to")).to be (false)
     wait_for_selector('.task__card-expand').click
->>>>>>> f6f711dd6cd42c1cfb9ca7650e3666733750721f
     wait_for_selector(".task-actions__icon").click
     wait_for_selector(".task-actions__assign").click
     wait_for_selector(".Select-input input").send_keys("user")
@@ -1227,7 +1191,6 @@ shared_examples 'smoke' do
 #Permissions section end
 
 #Filter section start
-
 it "sort by date that the media was created", bin4: true do
   api_create_claim_and_go_to_search_page
   wait_for_selector(".medias__item")
@@ -1262,8 +1225,18 @@ it "should filter by status", bin2: true do
   wait_for_selector("#search-query__status-false").click
   wait_for_selector("#search-query__status-verified").click
   wait_for_selector("#search-query__submit-button").click
-  wait_for_selector_list_size(".media__heading", 2)
   expect(@driver.page_source.include?('My search result')).to be(false)
+  url = @driver.current_url.to_s
+  attempts = 0
+  while !@driver.page_source.include?('media 2') && attempts < 30
+    wait_for_selector("#search__open-dialog-button").click
+    wait_for_selector("#search-query__cancel-button")
+    wait_for_selector("#search-query__status-false").click
+    wait_for_selector("#search-query__submit-button").click
+    sleep 1
+    attempts += 1
+  end
+  wait_for_selector_list_size(".media__heading", 2)
   expect(@driver.page_source.include?('media 2')).to be(true)
   expect(@driver.page_source.include?('media 3')).to be(true)
   wait_for_selector("#search__open-dialog-button").click
@@ -1271,30 +1244,37 @@ it "should filter by status", bin2: true do
   expect(selected.size == 2).to be(true)
 end
 
-# it "should find medias when searching by keyword", bin2: true do
-#   api_create_team_project_and_link('https://www.facebook.com/permalink.php?story_fbid=10155901893214439&id=54421674438')
-#   @driver.navigate.to @config['self_url']
-#   wait_for_selector_list_size('.medias__item', 1)
-#   create_media("https://twitter.com/TwitterVideo/status/931930009450795009")
-#   wait_for_selector_list_size('.medias__item', 2)
-#   wait_for_selector("//span[contains(text(), '1 - 2 / 2')]",:xpath)
-#   expect(@driver.page_source.include?('on Facebook')).to be(true)
-#   expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
-#   el = wait_for_selector("#search-input")
-#   el.send_keys "video"
-#   @driver.action.send_keys(:enter).perform
-#   wait_for_selector_list_size('.medias__item', 1)
-#   wait_for_selector("//span[contains(text(), '1 / 1')]",:xpath)
-#   expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
-#   expect(@driver.page_source.include?('on Facebook')).to be(false)
-#   wait_for_selector('#search-input').send_keys(:control, 'a', :delete)
-#   wait_for_selector("#search-input").send_keys "meedan"
-#   @driver.action.send_keys(:enter).perform
-#   wait_for_selector_list_size('.medias__item', 1)
-#   wait_for_selector("//span[contains(text(), '1 / 1')]",:xpath)
-#   expect(@driver.page_source.include?('on Facebook')).to be(true)
-#   expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(false)
-# end
+it "should find medias when searching by keyword", bin2: true do
+  api_create_team_project_and_link('https://www.instagram.com/p/BRYob0dA1SC/"')
+  @driver.navigate.to @config['self_url']
+  wait_for_selector_list_size('.medias__item', 1)
+  create_media("https://twitter.com/TwitterVideo/status/931930009450795009")
+  wait_for_selector_list_size('.medias__item', 2)
+  wait_for_selector("//span[contains(text(), '1 - 2 / 2')]",:xpath)
+  expect(@driver.page_source.include?('#wEDnesday')).to be(true)
+  expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
+  wait_for_selector("#search-input").send_keys("video")
+  @driver.action.send_keys(:enter).perform
+  attempts = 0
+  while !@driver.page_source.include?('weekly @Twitter video recap') && attempts < 30
+    wait_for_selector('#search-input').send_keys(:control, 'a', :delete)
+    wait_for_selector("#search-input").send_keys("video")
+    @driver.action.send_keys(:enter).perform
+    sleep 1
+    attempts += 1
+  end
+  wait_for_selector_list_size('.medias__item', 1)
+  wait_for_selector("//span[contains(text(), '1 / 1')]",:xpath)
+  expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
+  expect(@driver.page_source.include?('#wEDnesday')).to be(false)
+  wait_for_selector('#search-input').send_keys(:control, 'a', :delete)
+  wait_for_selector("#search-input").send_keys "sent"
+  @driver.action.send_keys(:enter).perform
+  wait_for_selector_list_size('.medias__item', 1)
+  wait_for_selector("//span[contains(text(), '1 / 1')]",:xpath)
+  expect(@driver.page_source.include?('#wEDnesday')).to be(true)
+  expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(false)
+end
 
 #Filter section end
 

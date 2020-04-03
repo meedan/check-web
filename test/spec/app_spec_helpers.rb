@@ -260,6 +260,7 @@ module AppSpecHelpers
         sleep 20
       end
     end
+    wait_for_selector_none("#tos__pp-agree")
   end
 
   def create_team
