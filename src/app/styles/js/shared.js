@@ -1,5 +1,4 @@
 import styled, { css, keyframes } from 'styled-components';
-import CardHeader from '@material-ui/core/CardHeader';
 import TextField from 'material-ui/TextField';
 import IconButton from '@material-ui/core/IconButton';
 import CheckboxNext from '@material-ui/core/Checkbox';
@@ -431,17 +430,6 @@ export const Row = styled.div`
   ${props => props.alignTop ? 'align-items: top;' : 'align-items: center;'}
   ${props => props.containsEllipsis ? '& > * {overflow: hidden; }' : ''}
 `;
-
-// Shared Material UI style overrides using styled-components
-// This is not ideal because of the !important declarations ...
-// Still figuring out how best to customize our Material components,
-// feedback welcome! WIP CGB 2017-7-12
-//
-export const StyledMdCardTitle =
-  styled(CardHeader)` > span {
-      font: ${title1} !important;
-    }
-  `;
 
 // A Flexbox row, center aligned
 //

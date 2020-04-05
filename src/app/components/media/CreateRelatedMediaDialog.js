@@ -76,7 +76,6 @@ class CreateRelatedMediaDialog extends React.Component {
               isSubmitting={this.props.isSubmitting}
               onSubmit={this.props.onSubmit}
               noSource
-              submitHidden
             />
           }
           { mode === 'existing' &&

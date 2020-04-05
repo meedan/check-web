@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import { stripUnit } from 'polished';
-import { Tabs, Tab } from 'material-ui/Tabs';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 import PageTitle from '../PageTitle';
 import MediaDetail from './MediaDetail';
 import MediaRelated from './MediaRelated';
@@ -157,7 +158,7 @@ class MediaComponent extends Component {
     }
   }
 
-  handleTabChange = value => this.setState({ showTab: value });
+  handleTabChange = (e, value) => this.setState({ showTab: value });
 
   render() {
     if (this.props.relay.variables.contextId === null && /\/project\//.test(window.location.pathname)) {
@@ -194,14 +195,10 @@ class MediaComponent extends Component {
             </ContentColumn>
             <ContentColumn className="media__annotations-column">
               <Tabs
+                indicatorColor="primary"
+                textColor="primary"
                 value={this.state.showTab}
                 onChange={this.handleTabChange}
-                style={{
-                  marginBottom: units(1),
-                }}
-                tabItemContainerStyle={{
-                  backgroundColor: 'transparent',
-                }}
               >
                 { this.state.showRequests ?
                   <Tab

@@ -3,8 +3,9 @@ import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import Popover from 'material-ui/Popover';
-import Checkbox from 'material-ui/Checkbox';
+import Popover from '@material-ui/core/Popover';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import TextField from 'material-ui/TextField';
 import CopyToClipboard from 'react-copy-to-clipboard';
@@ -319,8 +320,7 @@ class MediaEmbedComponent extends Component {
             open={this.state.codeMenuOpened}
             anchorEl={this.state.codeMenuAnchor}
             anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
-            targetOrigin={{ horizontal: 'left', vertical: 'top' }}
-            onRequestClose={this.handleCodeMenuClose.bind(this)}
+            onClose={this.handleCodeMenuClose.bind(this)}
           >
             <div id="media-embed__copy-code">
               <p className="media-embed__warning">
@@ -350,8 +350,7 @@ class MediaEmbedComponent extends Component {
             open={this.state.shareMenuOpened}
             anchorEl={this.state.shareMenuAnchor}
             anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
-            targetOrigin={{ horizontal: 'left', vertical: 'top' }}
-            onRequestClose={this.handleShareMenuClose.bind(this)}
+            onClose={this.handleShareMenuClose.bind(this)}
           >
             <div id="media-embed__copy-share-url">
               <p className="media-embed__warning">
@@ -487,23 +486,21 @@ class MediaEmbedComponent extends Component {
                     />
                   </h3>
                   <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <span>
-                      <Checkbox
-                        className="media-embed__customization-option"
-                        checked={this.state.customizationOptions.analysis}
-                        onCheck={this.handleSelectCheckbox.bind(this, 'analysis')}
-                      />
-                    </span>
-                    <span // eslint-disable-line jsx-a11y/click-events-have-key-events
-                      className="media-embed__customization-label"
-                      style={{ cursor: 'pointer' }}
-                      onClick={this.handleSelectCheckbox.bind(this, 'analysis')}
-                    >
-                      <FormattedMessage
-                        id="mediaEmbed.analysisSlogan"
-                        defaultMessage="Show analysis in the report"
-                      />
-                    </span>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          className="media-embed__customization-option"
+                          checked={this.state.customizationOptions.analysis}
+                          onChange={this.handleSelectCheckbox.bind(this, 'analysis')}
+                        />
+                      }
+                      label={
+                        <FormattedMessage
+                          id="mediaEmbed.analysisSlogan"
+                          defaultMessage="Show analysis in the report"
+                        />
+                      }
+                    />
                   </div>
                 </div>
 
@@ -521,20 +518,16 @@ class MediaEmbedComponent extends Component {
                 </div>
                 {media.tasks.edges.map(task => (
                   <div key={task.node.dbid} style={{ display: 'flex', alignItems: 'center' }}>
-                    <span>
-                      <Checkbox
-                        className="media-embed__customization-option"
-                        checked={this.state.customizationOptions[`task-${task.node.dbid}`]}
-                        onCheck={this.handleSelectCheckbox.bind(this, `task-${task.node.dbid}`)}
-                      />
-                    </span>
-                    <span // eslint-disable-line jsx-a11y/click-events-have-key-events
-                      className="media-embed__customization-label"
-                      style={{ cursor: 'pointer' }}
-                      onClick={this.handleSelectCheckbox.bind(this, `task-${task.node.dbid}`)}
-                    >
-                      {task.node.label}
-                    </span>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          className="media-embed__customization-option"
+                          checked={this.state.customizationOptions[`task-${task.node.dbid}`]}
+                          onChange={this.handleSelectCheckbox.bind(this, `task-${task.node.dbid}`)}
+                        />
+                      }
+                      label={task.node.label}
+                    />
                   </div>
                 ))}
 

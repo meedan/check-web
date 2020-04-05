@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
-import { Card, CardText, CardActions } from 'material-ui/Card';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+import Collapse from '@material-ui/core/Collapse';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import FlatButton from 'material-ui/FlatButton';
@@ -11,7 +14,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { Emojione } from 'react-emoji-render';
 import { Link, browserHistory } from 'react-router';
 import styled from 'styled-components';
-import Form from 'react-jsonschema-form-material-ui';
+import Form from 'meedan-check-react-jsonschema-form-material-ui-v1';
 import TeamRoute from '../../relay/TeamRoute';
 import { units, ContentColumn, black32 } from '../../styles/js/shared';
 import DeleteTeamBotInstallationMutation from '../../relay/mutations/DeleteTeamBotInstallationMutation';
@@ -28,7 +31,7 @@ const messages = defineMessages({
   },
 });
 
-const StyledCardText = styled(CardText)`
+const StyledCardContent = styled(CardContent)`
   display: flex;
 
   img {
@@ -44,6 +47,9 @@ const StyledCardText = styled(CardText)`
 
 const StyledToggle = styled.div`
   display: inline;
+
+  margin-${props => props.direction.from}: auto !important;
+  margin-${props => props.direction.to}: 0 !important;
 
   span.toggleLabel {
     font-weight: bold;
@@ -211,9 +217,8 @@ class TeamBotsComponent extends Component {
             <Card
               style={{ marginBottom: units(5) }}
               key={`bot-${bot.dbid}`}
-              expanded={this.state.expanded[bot.dbid]}
             >
-              <StyledCardText direction={direction}>
+              <StyledCardContent direction={direction}>
                 <img src={bot.avatar} alt={bot.name} />
                 <div>
                   <h2>{bot.name}</h2>
@@ -224,9 +229,9 @@ class TeamBotsComponent extends Component {
                     </Link>
                   </p>
                 </div>
-              </StyledCardText>
-              <CardActions style={{ padding: 0, textAlign: 'right' }}>
-                <StyledToggle style={{ marginRight: 0 }}>
+              </StyledCardContent>
+              <CardActions>
+                <StyledToggle direction={direction}>
                   <span className="toggleLabel">
                     <FormattedMessage id="teamBots.inUse" defaultMessage="In Use" />
                   </span>
@@ -243,42 +248,44 @@ class TeamBotsComponent extends Component {
                 </StyledToggle>
               </CardActions>
               <Divider />
-              <CardText expandable>
-                <h3><FormattedMessage id="teamBots.settings" defaultMessage="Settings" /></h3>
-                { bot.settings_as_json_schema ?
-                  <StyledSchemaForm>
-                    <Form
-                      schema={JSON.parse(bot.settings_as_json_schema)}
-                      uiSchema={JSON.parse(bot.settings_ui_schema)}
-                      formData={this.state.settings[installation.node.id]}
-                      onChange={this.handleSettingsUpdated.bind(this, installation.node)}
-                    />
-                    <p>
-                      <FlatButton
-                        primary
-                        onClick={this.handleSubmitSettings.bind(this, installation.node)}
-                        label={
-                          <FormattedMessage
-                            id="teamBots.save"
-                            defaultMessage="Save"
-                          />
-                        }
+              <Collapse in={this.state.expanded[bot.dbid]} timeout="auto">
+                <CardContent>
+                  <h3><FormattedMessage id="teamBots.settings" defaultMessage="Settings" /></h3>
+                  { bot.settings_as_json_schema ?
+                    <StyledSchemaForm>
+                      <Form
+                        schema={JSON.parse(bot.settings_as_json_schema)}
+                        uiSchema={JSON.parse(bot.settings_ui_schema)}
+                        formData={this.state.settings[installation.node.id]}
+                        onChange={this.handleSettingsUpdated.bind(this, installation.node)}
                       />
-                    </p>
-                    <p>
-                      <small>
-                        { this.state.message && this.state.messageBotId === bot.dbid ?
-                          this.state.message : null
-                        }
-                      </small>
-                    </p>
-                  </StyledSchemaForm> :
-                  <FormattedMessage
-                    id="teamBots.noSettings"
-                    defaultMessage="There are no settings for this bot."
-                  />
-                }
-              </CardText>
+                      <p>
+                        <FlatButton
+                          primary
+                          onClick={this.handleSubmitSettings.bind(this, installation.node)}
+                          label={
+                            <FormattedMessage
+                              id="teamBots.save"
+                              defaultMessage="Save"
+                            />
+                          }
+                        />
+                      </p>
+                      <p>
+                        <small>
+                          { this.state.message && this.state.messageBotId === bot.dbid ?
+                            this.state.message : null
+                          }
+                        </small>
+                      </p>
+                    </StyledSchemaForm> :
+                    <FormattedMessage
+                      id="teamBots.noSettings"
+                      defaultMessage="There are no settings for this bot."
+                    />
+                  }
+                </CardContent>
+              </Collapse>
             </Card>
           );
         })}

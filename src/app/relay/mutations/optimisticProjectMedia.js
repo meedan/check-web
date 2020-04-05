@@ -84,4 +84,4 @@ const optimisticProjectMedia = (media, proj, context, customTeam) => {
   return optimisticResponse;
 };
 
-module.exports = optimisticProjectMedia;
+export default optimisticProjectMedia;

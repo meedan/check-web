@@ -49,4 +49,4 @@ const checkSearchResultFragment = Relay.QL`
   }
 `;
 
-module.exports = checkSearchResultFragment;
+export default checkSearchResultFragment;

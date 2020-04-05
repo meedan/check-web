@@ -6,13 +6,13 @@ import {
   gutterSmall,
   gutterMedium,
   gutterLarge,
-  borderRadiusDefault,
+  defaultBorderRadius,
   FadeIn,
 } from '../styles/js/shared';
 
 const StyledMessage = styled(FadeIn)`
   background: ${black54};
-  border-radius: ${borderRadiusDefault};
+  border-radius: ${defaultBorderRadius};
   color: ${white};
   margin: ${gutterMedium} auto;
   padding: ${gutterSmall} ${gutterLarge};
