@@ -542,12 +542,11 @@ shared_examples 'smoke' do
     cards = wait_for_selector_list(".media-detail").length
     expect(cards == 1).to be(true)
     #add a related image
-    press_button('.create-related-media__add-button')
+    wait_for_selector('.create-related-media__add-button').click
     wait_for_selector('#create-media__image').click
     wait_for_selector("#media-url-container")
-    input = wait_for_selector('input[type=file]')
-    input.send_keys(File.join(File.dirname(__FILE__), 'test.png'))
-    press_button('#create-media-dialog__submit-button')
+    wait_for_selector('input[type=file]').send_keys(File.join(File.dirname(__FILE__), 'test.png'))
+    wait_for_selector('#create-media-dialog__submit-button').click
     #verify that the image was created
     wait_for_selector_list_size(".media-detail", 2)
     cards = wait_for_selector_list(".media-detail").length
@@ -1191,91 +1190,89 @@ shared_examples 'smoke' do
 #Permissions section end
 
 #Filter section start
-it "sort by date that the media was created", bin4: true do
-  api_create_claim_and_go_to_search_page
-  wait_for_selector(".medias__item")
-  expect(@driver.page_source.include?('My search result')).to be(true)
-  wait_for_selector("#search__open-dialog-button").click
-  wait_for_selector(".date-range__start-date input").click
-  wait_for_selector("//span[contains(text(), 'OK')]", :xpath).click
-  wait_for_selector(".date-range__end-date input").click
-  wait_for_selector("//span[contains(text(), 'OK')]", :xpath).click
-  wait_for_selector("#search-query__submit-button").click
-  wait_for_selector(".medias__item")
-  expect(@driver.page_source.include?('My search result')).to be(true)
-end
+  it "sort by date that the media was created", bin4: true do
+    api_create_claim_and_go_to_search_page
+    wait_for_selector(".medias__item")
+    expect(@driver.page_source.include?('My search result')).to be(true)
+    wait_for_selector("#search__open-dialog-button").click
+    wait_for_selector(".date-range__start-date input").click
+    wait_for_selector("//span[contains(text(), 'OK')]", :xpath).click
+    wait_for_selector(".date-range__end-date input").click
+    wait_for_selector("//span[contains(text(), 'OK')]", :xpath).click
+    wait_for_selector("#search-query__submit-button").click
+    wait_for_selector(".medias__item")
+    expect(@driver.page_source.include?('My search result')).to be(true)
+  end
 
-it "should filter by status", bin2: true do
-  api_create_claim_and_go_to_search_page
-  expect(@driver.page_source.include?('My search result')).to be(true)
-  create_media("media 2")
-  create_media("media 3")
-  wait_for_selector_list(".media__heading")[0].click
-  wait_for_selector(".media__annotations-column")
-  change_the_status_to(".media-status__menu-item--false", false)
-  wait_for_selector(".project-header__back-button").click
-  wait_for_selector("#search-input")
-  wait_for_selector_list(".media__heading")[1].click
-  wait_for_selector(".media__annotations-column")
-  change_the_status_to(".media-status__menu-item--verified", false)
-  wait_for_selector(".project-header__back-button").click
-  wait_for_selector_list_size(".media__heading", 3)
-  wait_for_selector("#search__open-dialog-button").click
-  wait_for_selector("#search-query__cancel-button")
-  wait_for_selector("#search-query__status-false").click
-  wait_for_selector("#search-query__status-verified").click
-  wait_for_selector("#search-query__submit-button").click
-  expect(@driver.page_source.include?('My search result')).to be(false)
-  url = @driver.current_url.to_s
-  attempts = 0
-  while !@driver.page_source.include?('media 2') && attempts < 30
+  it "should filter by status", bin2: true, quick:true do
+    api_create_claim_and_go_to_search_page
+    expect(@driver.page_source.include?('My search result')).to be(true)
+    create_media("media 2")
+    create_media("media 3")
+    wait_for_selector_list(".media__heading")[0].click
+    wait_for_selector(".media__annotations-column")
+    change_the_status_to(".media-status__menu-item--false", false)
+    wait_for_selector(".project-header__back-button").click
+    wait_for_selector("#search-input")
+    wait_for_selector_list(".media__heading")[1].click
+    wait_for_selector(".media__annotations-column")
+    change_the_status_to(".media-status__menu-item--verified", false)
+    wait_for_selector(".project-header__back-button").click
+    wait_for_selector_list_size(".media__heading", 3)
     wait_for_selector("#search__open-dialog-button").click
     wait_for_selector("#search-query__cancel-button")
     wait_for_selector("#search-query__status-false").click
+    wait_for_selector("#search-query__status-verified").click
     wait_for_selector("#search-query__submit-button").click
-    sleep 1
-    attempts += 1
+    expect(@driver.page_source.include?('My search result')).to be(false)
+    url = @driver.current_url.to_s
+    attempts = 0
+    while !@driver.page_source.include?('media 2') && attempts < 30
+      wait_for_selector("#search__open-dialog-button").click
+      wait_for_selector("#search-query__cancel-button")
+      wait_for_selector("#search-query__status-false").click
+      wait_for_selector("#search-query__submit-button").click
+      sleep 1
+      attempts += 1
+    end
+    wait_for_selector_list_size(".media__heading", 2)
+    expect(@driver.page_source.include?('media 2')).to be(true)
+    expect(@driver.page_source.include?('media 3')).to be(true)
+    wait_for_selector("#search__open-dialog-button").click
+    selected = @driver.find_elements(:css, '.search-query__filter-button--selected')
+    expect(selected.size == 2).to be(true)
   end
-  wait_for_selector_list_size(".media__heading", 2)
-  expect(@driver.page_source.include?('media 2')).to be(true)
-  expect(@driver.page_source.include?('media 3')).to be(true)
-  wait_for_selector("#search__open-dialog-button").click
-  selected = @driver.find_elements(:css, '.search-query__filter-button--selected')
-  expect(selected.size == 2).to be(true)
-end
 
-it "should find medias when searching by keyword", bin2: true do
-  api_create_team_project_and_link('https://www.instagram.com/p/BRYob0dA1SC/"')
-  @driver.navigate.to @config['self_url']
-  wait_for_selector_list_size('.medias__item', 1)
-  create_media("https://twitter.com/TwitterVideo/status/931930009450795009")
-  wait_for_selector_list_size('.medias__item', 2)
-  wait_for_selector("//span[contains(text(), '1 - 2 / 2')]",:xpath)
-  expect(@driver.page_source.include?('#wEDnesday')).to be(true)
-  expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
-  wait_for_selector("#search-input").send_keys("video")
-  @driver.action.send_keys(:enter).perform
-  attempts = 0
-  while !@driver.page_source.include?('weekly @Twitter video recap') && attempts < 30
-    wait_for_selector('#search-input').send_keys(:control, 'a', :delete)
+  it "should find medias when searching by keyword", bin6: true do
+    api_create_team_project_and_link('https://www.instagram.com/p/BRYob0dA1SC/"')
+    @driver.navigate.to @config['self_url']
+    wait_for_selector_list_size('.medias__item', 1)
+    create_media("https://twitter.com/TwitterVideo/status/931930009450795009")
+    wait_for_selector_list_size('.medias__item', 2)
+    wait_for_selector("//span[contains(text(), '1 - 2 / 2')]",:xpath)
+    expect(@driver.page_source.include?('#wEDnesday')).to be(true)
+    expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
     wait_for_selector("#search-input").send_keys("video")
     @driver.action.send_keys(:enter).perform
-    sleep 1
-    attempts += 1
+    attempts = 0
+    while !@driver.page_source.include?('weekly @Twitter video recap') && attempts < 30
+      wait_for_selector('#search-input').send_keys(:control, 'a', :delete)
+      wait_for_selector("#search-input").send_keys("video")
+      @driver.action.send_keys(:enter).perform
+      sleep 1
+      attempts += 1
+    end
+    wait_for_selector_list_size('.medias__item', 1)
+    wait_for_selector("//span[contains(text(), '1 / 1')]",:xpath)
+    expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
+    expect(@driver.page_source.include?('#wEDnesday')).to be(false)
+    wait_for_selector('#search-input').send_keys(:control, 'a', :delete)
+    wait_for_selector("#search-input").send_keys "sent"
+    @driver.action.send_keys(:enter).perform
+    wait_for_selector_list_size('.medias__item', 1)
+    wait_for_selector("//span[contains(text(), '1 / 1')]",:xpath)
+    expect(@driver.page_source.include?('#wEDnesday')).to be(true)
+    expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(false)
   end
-  wait_for_selector_list_size('.medias__item', 1)
-  wait_for_selector("//span[contains(text(), '1 / 1')]",:xpath)
-  expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
-  expect(@driver.page_source.include?('#wEDnesday')).to be(false)
-  wait_for_selector('#search-input').send_keys(:control, 'a', :delete)
-  wait_for_selector("#search-input").send_keys "sent"
-  @driver.action.send_keys(:enter).perform
-  wait_for_selector_list_size('.medias__item', 1)
-  wait_for_selector("//span[contains(text(), '1 / 1')]",:xpath)
-  expect(@driver.page_source.include?('#wEDnesday')).to be(true)
-  expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(false)
-end
-
 #Filter section end
-
 end
