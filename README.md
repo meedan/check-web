@@ -16,16 +16,16 @@ This is the web client of [Check](https://github.com/meedan/check).
 
 ## Installation
 
-#### With Docker
-
-If you are just getting started, you probably want to install the full [Check](https://github.com/meedan/check) stack with [Docker](https://www.docker.com/ "Docker - Build, Ship, and Run Any App, Anywhere").
+If you are just getting started, you probably want to install the full
+[Check](https://github.com/meedan/check) stack with
+[Docker](https://www.docker.com/).
 
 The full Check environment will install Node packages into an invisible
 `node_modules/` directory. Instead of using `npm run ...`, run
 `docker-compose exec web npm run ...` to run in the Docker container: the
 Docker container can see the `node_modules/` directory.
 
-#### Using Dev mode
+## Watching for changes
 
 The dev-mode Docker container will watch for file changes in `src/` and rebuild
 whenever a file changes. It will output a message (success or error) after each
@@ -33,30 +33,43 @@ rebuild.
 
 ## Localization
 
-Translations are managed in [Transifex](https://www.transifex.com/meedan/check-2/). All the contents are stored in the `localization` directory which contains the following subfolders:
+Translations are managed in [Transifex](https://www.transifex.com/meedan/check-2/).
+All the contents are stored in the `localization` directory which contains the
+following subfolders:
 
-* `localization/react-intl`: Contains the files extracted by `babel-plugin-react-intl` (localizable strings)
-* `localization/transifex`: Contains the files above, but converted to Transifex JSON format
-* `localization/translations`: Contains the translations files downloaded from Transifex in JavaScript format
+* `localization/react-intl`: files extracted by `babel-plugin-react-intl` (localizable strings)
+* `localization/transifex`: files above, but converted to Transifex JSON format
+* `localization/translations`: files downloaded from Transifex in JavaScript format
 
-By default, the application is displayed in the browser's language using the files from `localization` directory.
-
-### Adding a new language
-
-Copy `config-build.js.example` to `config-build.js` (if you don't have it yet) and add your Transifex user and password.
-
-Then you can use `npm run transifex:upload` and `npm run transifex:download` to upload and download translations, respectively.
+The application is displayed in the browser's language using the files from the
+`localization` directory.
 
 ## Developing
 
+### Adding a new language
+
+Copy `config-build.js.example` to `config-build.js` (if you don't have it yet) and
+add your Transifex user and password.
+
+Then you can use `npm run transifex:upload` and `npm run transifex:download` to
+upload and download translations, respectively.
+
 ### Maintaining `package-lock.json`
 
-If running within Docker, run
-`docker-compose exec web npm install [--save-dev] MODULE [...]`. This will
+Run `docker-compose exec web npm install [--save-dev] MODULE [...]`. This will
 overwrite `package-lock.json`. Commit and deploy `package-lock.json` alongside
 any change to `package.json`.
 
-## Testing
+#### Publishing meedan-maintained modules to npmjs.org
+
+(For Meedan employees.) If:
+
+* You are a member of the [Meedan npmjs org](https://www.npmjs.com/org/meedan); and
+* You mean to install a fork of a buggy JavaScript module -- or a _new_ module
+
+Then publish it to npm. Name the module `@meedan/name-of-my-module` (in its
+`package.json`) and then `npm publish`. After, you may
+`docker-compose exec web npm install [--save-dev] MODULE` to use it in `check-web`.
 
 #### Integration tests
 
