@@ -128,19 +128,17 @@ class ProjectActions extends Component {
 
     if (can(project.permissions, 'destroy Project')) {
       menuItems.push((
-        <div>
-          <MenuItem
-            key="projectActions.destroy"
-            className="project-actions__destroy"
-            onClick={this.handleConfirmDestroy}
-          >
-            <ListItemText
-              primary={
-                <FormattedMessage id="projectActions.destroy" defaultMessage="Delete" />
-              }
-            />
-          </MenuItem>
-        </div>
+        <MenuItem
+          key="projectActions.destroy"
+          className="project-actions__destroy"
+          onClick={this.handleConfirmDestroy}
+        >
+          <ListItemText
+            primary={
+              <FormattedMessage id="projectActions.destroy" defaultMessage="Delete" />
+            }
+          />
+        </MenuItem>
       ));
     }
 

@@ -644,8 +644,8 @@ class SearchQueryComponent extends React.Component {
               onKeyPress={this.handleKeyPress}
               onBlur={this.handleBlur}
               onChange={this.handleInputChange}
-              innerRef={(i) => { this.searchInput = i; }}
-              autofocus
+              ref={(i) => { this.searchInput = i; }}
+              autoFocus
             />
             <StyledPopper
               id="search-help"

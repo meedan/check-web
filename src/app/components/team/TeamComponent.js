@@ -108,7 +108,6 @@ class TeamComponent extends Component {
 
   render() {
     const { team, classes } = this.props;
-    console.log('classes', classes);
     const { action } = this.props.route;
 
     const isEditing = (action === 'edit') && can(team.permissions, 'update Team');
