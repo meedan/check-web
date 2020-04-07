@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import deepEqual from 'deep-equal';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
+import { browserHistory } from 'react-router';
 import rtlDetect from 'rtl-detect';
 import { withStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
@@ -94,7 +95,7 @@ class TeamComponent extends Component {
     if (!store.team || store.team.slug !== team.slug) {
       context.setContextStore({ team });
       const path = `/${team.slug}`;
-      store.history.push(path);
+      browserHistory.push(path);
     }
   }
 

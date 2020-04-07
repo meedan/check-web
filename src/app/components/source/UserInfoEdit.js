@@ -1,6 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
+import { browserHistory } from 'react-router';
 import { injectIntl, defineMessages } from 'react-intl';
 import Button from '@material-ui/core/Button';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -14,7 +14,6 @@ import SourcePicture from './SourcePicture';
 import Message from '../Message';
 import UploadImage from '../UploadImage';
 import globalStrings from '../../globalStrings';
-import CheckContext from '../../CheckContext';
 import UpdateSourceMutation from '../../relay/mutations/UpdateSourceMutation';
 import { updateUserNameEmail } from '../../relay/mutations/UpdateUserNameEmailMutation';
 import CreateAccountSourceMutation from '../../relay/mutations/CreateAccountSourceMutation';
@@ -89,6 +88,10 @@ const messages = defineMessages({
   },
 });
 
+function handleLeaveEditMode() {
+  browserHistory.push('/check/me');
+}
+
 class UserInfoEdit extends React.Component {
   constructor(props) {
     super(props);
@@ -131,11 +134,6 @@ class UserInfoEdit extends React.Component {
 
   handleEditProfileImg() {
     this.setState({ editProfileImg: true });
-  }
-
-  handleLeaveEditMode() {
-    const { history } = new CheckContext(this).getContextStore();
-    history.push('/check/me');
   }
 
   handleSubmit(e) {
@@ -202,7 +200,7 @@ class UserInfoEdit extends React.Component {
 
     this.setState({ submitDisabled, message });
     if (!isEditing) {
-      this.handleLeaveEditMode();
+      handleLeaveEditMode();
     }
   };
 
@@ -576,7 +574,7 @@ class UserInfoEdit extends React.Component {
               <div className="source__edit-buttons-cancel-save">
                 <Button
                   className="source__edit-cancel-button"
-                  onClick={this.handleLeaveEditMode.bind(this)}
+                  onClick={handleLeaveEditMode}
                 >
                   {this.props.intl.formatMessage(globalStrings.cancel)}
                 </Button>
@@ -596,9 +594,5 @@ class UserInfoEdit extends React.Component {
     );
   }
 }
-
-UserInfoEdit.contextTypes = {
-  store: PropTypes.object,
-};
 
 export default injectIntl(UserInfoEdit);

@@ -62,7 +62,7 @@ class CreateProjectMedia extends Component {
 
     const onSuccess = (response) => {
       const rid = response.createProjectSource.project_source.dbid;
-      context.history.push(prefix + rid);
+      browserHistory.push(prefix + rid);
       this.setState({ message: null });
     };
 
@@ -91,7 +91,7 @@ class CreateProjectMedia extends Component {
     const onSuccess = (response) => {
       if (getFilters() !== '{}') {
         const rid = response.createProjectMedia.project_media.dbid;
-        context.history.push(prefix + rid);
+        browserHistory.push(prefix + rid);
       }
       this.setState({ message: null });
     };

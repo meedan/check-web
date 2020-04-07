@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, injectIntl, intlShape, FormattedMessage } from 'react-intl';
+import { browserHistory } from 'react-router';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
@@ -71,10 +72,9 @@ class MediaStatusCommon extends Component {
 
   handleEdit() {
     const { media } = this.props;
-    const { history } = new CheckContext(this).getContextStore();
     const projectPart = media.project_id ? `/project/${media.project_id}` : '';
     this.setState({ showConfirmation: false });
-    history.push(`/${media.team.slug}${projectPart}/media/${media.dbid}/embed`);
+    browserHistory.push(`/${media.team.slug}${projectPart}/media/${media.dbid}/embed`);
   }
 
   handleStatusClick = (clickedStatus, smoochBotInstalled) => {

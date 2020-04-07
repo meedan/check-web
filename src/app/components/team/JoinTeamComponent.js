@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
-import { Link } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -50,7 +50,7 @@ class JoinTeamComponent extends Component {
     const { team } = this.props;
 
     if (!team) {
-      this.getContext().history.push('/check/not-found');
+      browserHistory.push('/check/not-found');
       this.setState({ willRedirect: true });
       return;
     }
@@ -111,7 +111,7 @@ class JoinTeamComponent extends Component {
         }
       });
       if (redirect) {
-        this.getContext().history.push(`/${team.slug}`);
+        browserHistory.push(`/${team.slug}`);
       }
     }
   }

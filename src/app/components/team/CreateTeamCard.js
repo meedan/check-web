@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
-import { Link } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 import XRegExp from 'xregexp';
 import {
   FormattedMessage,
@@ -126,7 +126,7 @@ class CreateTeamCard extends React.Component {
       context.team = team;
 
       const path = `/${team.slug}`;
-      context.history.push(path);
+      browserHistory.push(path);
     };
 
     Relay.Store.commitUpdate(

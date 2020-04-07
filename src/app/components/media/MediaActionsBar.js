@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { injectIntl, FormattedMessage, defineMessages } from 'react-intl';
-import { Link } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -127,7 +127,6 @@ class MediaActionsBarComponent extends Component {
   handleMoveProjectMedia() {
     const { media } = this.props;
     const { dstProj: { dbid: projectId } } = this.state;
-    const { history } = this.getContext();
 
     const onFailure = (transaction) => {
       this.fail(transaction);
@@ -137,7 +136,7 @@ class MediaActionsBarComponent extends Component {
     const context = this.getContext();
 
     const onSuccess = () => {
-      history.push(path);
+      browserHistory.push(path);
     };
 
     Relay.Store.commitUpdate(
@@ -167,7 +166,7 @@ class MediaActionsBarComponent extends Component {
       );
       this.context.setMessage(message);
       const path = `/${media.team.slug}/media/${media.dbid}`;
-      context.history.push(path);
+      browserHistory.push(path);
     };
 
     Relay.Store.commitUpdate(
