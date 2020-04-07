@@ -4,10 +4,11 @@ const devConfig = require('./config');
 
 module.exports = {
   target: 'node',
+  mode: 'development',
   externals: [nodeExternals()],
   module: {
-    loaders: [
-      ...devConfig.module.loaders,
+    rules: [
+      ...devConfig.module.rules,
       {
         test: /\.js/,
         enforce: 'post',
