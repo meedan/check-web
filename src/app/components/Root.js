@@ -241,7 +241,7 @@ class Root extends Component {
     const context = this.getContext();
     const store = context.store || this.props.store;
 
-    const data = { locale: this.props.locale };
+    const data = {};
 
     if (config.pusherKey) {
       // Pusher is imported at runtime from a <script file> tag.
