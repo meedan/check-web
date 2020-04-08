@@ -5,7 +5,10 @@ import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import Favicon from 'react-favicon';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import { MuiThemeProvider as MuiThemeProviderNext, createMuiTheme } from '@material-ui/core/styles';
+import {
+  MuiThemeProvider as MuiThemeProviderNext,
+  createMuiTheme,
+} from '@material-ui/core/styles';
 import rtlDetect from 'rtl-detect';
 import merge from 'lodash.merge';
 import isEqual from 'lodash.isequal';
