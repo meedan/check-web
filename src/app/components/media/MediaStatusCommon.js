@@ -162,7 +162,7 @@ class MediaStatusCommon extends Component {
                 )} media-status__menu-item--${status.id.replace('_', '-')}`}
                 value={status}
                 disabled={!status.can_change}
-                style={{ minWidth: units(20), height: units(4.5), padding: `${units(0.5)} ${units(2)}` }}
+                style={{ width: units(20), height: units(4.5), padding: `${units(0.5)} ${units(2)}` }}
               >
                 <ListItemText
                   style={{ padding: 0 }}
