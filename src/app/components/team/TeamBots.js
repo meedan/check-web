@@ -14,7 +14,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { Emojione } from 'react-emoji-render';
 import { Link, browserHistory } from 'react-router';
 import styled from 'styled-components';
-import Form from 'meedan-check-react-jsonschema-form-material-ui-v1';
+import Form from '@meedan/react-jsonschema-form-material-ui-v1-sandbox';
 import TeamRoute from '../../relay/TeamRoute';
 import { units, ContentColumn, black32 } from '../../styles/js/shared';
 import DeleteTeamBotInstallationMutation from '../../relay/mutations/DeleteTeamBotInstallationMutation';
