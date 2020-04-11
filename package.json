@@ -112,7 +112,7 @@
     "lodash.xor": "^4.5.0",
     "material-ui": "^0.20.0",
     "material-ui-persian-date-picker-utils": "^0.1.2",
-    "meedan-check-react-jsonschema-form-material-ui-v1": "^30.0.3",
+    "@meedan/react-jsonschema-form-material-ui-v1-sandbox": "^31.0.13",
     "node-fetch": "^1.7.1",
     "nyc": "^13.1.0",
     "polished": "^1.2.1",

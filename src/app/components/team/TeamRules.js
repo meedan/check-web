@@ -15,7 +15,7 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import IconButton from '@material-ui/core/IconButton';
 import JssProvider from 'react-jss/lib/JssProvider';
 import styled from 'styled-components';
-import Form from 'meedan-check-react-jsonschema-form-material-ui-v1';
+import Form from '@meedan/react-jsonschema-form-material-ui-v1-sandbox';
 import ExternalLink from '../ExternalLink';
 import TeamRoute from '../../relay/TeamRoute';
 import { units, ContentColumn } from '../../styles/js/shared';
