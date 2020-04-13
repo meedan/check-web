@@ -12,6 +12,7 @@ import ConfirmDialog from '../layout/ConfirmDialog';
 import DeleteProjectMutation from '../../relay/mutations/DeleteProjectMutation';
 import ProjectAssignment from './ProjectAssignment';
 import Can, { can } from '../Can';
+import { withSetFlashMessage } from '../FlashMessage';
 import CheckContext from '../../CheckContext';
 
 class ProjectActions extends Component {
@@ -65,7 +66,7 @@ class ProjectActions extends Component {
           defaultMessage="List deleted successfully."
         />
       );
-      this.context.setMessage(message);
+      this.props.setFlashMessage(message);
     };
 
     const onFailure = () => {
@@ -75,7 +76,7 @@ class ProjectActions extends Component {
           defaultMessage="Sorry, could not delete list."
         />
       );
-      this.context.setMessage(message);
+      this.props.setFlashMessage(message);
     };
 
     Relay.Store.commitUpdate(
@@ -186,9 +187,12 @@ class ProjectActions extends Component {
   }
 }
 
-ProjectActions.contextTypes = {
-  store: PropTypes.object,
-  setMessage: PropTypes.func,
+ProjectActions.propTypes = {
+  setFlashMessage: PropTypes.func.isRequired,
 };
 
-export default injectIntl(ProjectActions);
+ProjectActions.contextTypes = {
+  store: PropTypes.object,
+};
+
+export default withSetFlashMessage(injectIntl(ProjectActions));

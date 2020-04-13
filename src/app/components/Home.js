@@ -21,7 +21,7 @@ import BrowserSupport from './BrowserSupport';
 import CheckContext from '../CheckContext';
 import DrawerNavigation from './DrawerNavigation';
 import { bemClass } from '../helpers';
-import Message from './Message';
+import { FlashMessageContext, FlashMessage } from './FlashMessage';
 import {
   muiThemeWithoutRtl,
   muiThemeV1,
@@ -91,6 +91,47 @@ const messages = defineMessages({
   },
 });
 
+function buildLoginContainerMessage(flashMessage, error, childRoute, queryString, intl) {
+  let message = null;
+  if (error) {
+    message = flashMessage;
+
+    // TODO Don't parse error messages because they may be l10n'd - use error codes instead.
+    if (!message && /^[^/]+\/join$/.test(childRoute.path)) {
+      message = intl.formatMessage(messages.needRegister);
+    }
+
+    // TODO Don't parse error messages because they may be l10n'd - use error codes instead.
+    if (error && message && message.match(/\{ \[Error: Request has been terminated/)) {
+      message = intl.formatMessage(messages.somethingWrong, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+    }
+  }
+
+  if ('invitation_response' in queryString) {
+    if (queryString.invitation_response === 'success') {
+      if (queryString.msg === 'yes') {
+        message = intl.formatMessage(
+          messages.successInvitation,
+          { appName: mapGlobalMessage(intl, 'appNameHuman') },
+        );
+      }
+    } else {
+      const invitationErrors = {
+        invalid_team: messages.invalidTeamInvitation,
+        no_invitation: messages.invalidNoInvitation,
+        invitation_expired: messages.invalidExpiredInvitation,
+      };
+      message = intl.formatMessage(
+        Object.keys(invitationErrors).includes(queryString.invitation_response) ?
+          invitationErrors[queryString.invitation_response] :
+          messages.invalidInvitation,
+        { supportEmail: stringHelper('SUPPORT_EMAIL') },
+      );
+    }
+  }
+  return message;
+}
+
 class HomeComponent extends Component {
   static routeSlug(children) {
     if (!(children && children.props.route)) {
@@ -118,20 +159,11 @@ class HomeComponent extends Component {
     super(props);
 
     this.state = {
-      message: null,
       token: null,
       error: false,
       sessionStarted: false,
       open: false,
       path: window.location.pathname,
-    };
-  }
-
-  getChildContext() {
-    return {
-      setMessage: (message) => {
-        this.setState({ message });
-      },
     };
   }
 
@@ -173,10 +205,6 @@ class HomeComponent extends Component {
     this.setState({ error: false, path: null });
   }
 
-  resetMessage() {
-    this.setState({ message: null });
-  }
-
   render() {
     if (!this.state.sessionStarted) {
       return null;
@@ -184,7 +212,7 @@ class HomeComponent extends Component {
 
     const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
 
-    const { children } = this.props;
+    const { children, location, intl } = this.props;
     const routeSlug = HomeComponent.routeSlug(children);
     const muiThemeWithRtl = getMuiTheme(merge(
       muiThemeWithoutRtl,
@@ -192,48 +220,25 @@ class HomeComponent extends Component {
     ));
     const muiThemeNext = createMuiTheme(muiThemeV1);
 
-    let message = null;
-    if (this.state.error) {
-      ({ message } = this.state);
-
-      // TODO Don't parse error messages because they may be l10n'd - use error codes instead.
-      if (!message && /^[^/]+\/join$/.test(children.props.route.path)) {
-        message = this.props.intl.formatMessage(messages.needRegister);
-      }
-
-      // TODO Don't parse error messages because they may be l10n'd - use error codes instead.
-      if (this.state.error && message && message.match(/\{ \[Error: Request has been terminated/)) {
-        message = this.props.intl.formatMessage(messages.somethingWrong, { supportEmail: stringHelper('SUPPORT_EMAIL') });
-      }
-    }
-
-    if ('invitation_response' in this.props.location.query) {
-      if (this.props.location.query.invitation_response === 'success') {
-        if (this.props.location.query.msg === 'yes') {
-          message = this.props.intl.formatMessage(
-            messages.successInvitation,
-            { appName: mapGlobalMessage(this.props.intl, 'appNameHuman') },
-          );
-        }
-      } else {
-        const invitationErrors = {
-          invalid_team: messages.invalidTeamInvitation,
-          no_invitation: messages.invalidNoInvitation,
-          invitation_expired: messages.invalidExpiredInvitation,
-        };
-        message = this.props.intl.formatMessage(
-          Object.keys(invitationErrors).includes(this.props.location.query.invitation_response) ?
-            invitationErrors[this.props.location.query.invitation_response] :
-            messages.invalidInvitation,
-          { supportEmail: stringHelper('SUPPORT_EMAIL') },
-        );
-      }
-    }
-
     const routeIsPublic = children && children.props.route.public;
     if (!routeIsPublic && !this.state.token) {
       if (this.state.error) {
-        return <LoginContainer loginCallback={this.loginCallback.bind(this)} message={message} />;
+        return (
+          <FlashMessageContext.Consumer>
+            {flashMessage => (
+              <LoginContainer
+                loginCallback={this.loginCallback.bind(this)}
+                message={buildLoginContainerMessage(
+                  flashMessage,
+                  this.state.error,
+                  children.props.route,
+                  location.query,
+                  intl,
+                )}
+              />
+            )}
+          </FlashMessageContext.Consumer>
+        );
       }
       return null;
     }
@@ -307,17 +312,7 @@ class HomeComponent extends Component {
                   currentUserIsMember={currentUserIsMember}
                   {...this.props}
                 />
-                <Message
-                  message={this.state.message}
-                  onClick={this.resetMessage.bind(this)}
-                  className="home__message"
-                  style={{
-                    marginTop: '0',
-                    position: 'fixed',
-                    width: '100%',
-                    zIndex: '1000',
-                  }}
-                />
+                <FlashMessage />
                 <StyledContent
                   inMediaPage={routeSlug === 'media'}
                   className="content-wrapper"
@@ -341,10 +336,6 @@ HomeComponent.propTypes = {
 
 HomeComponent.contextTypes = {
   store: PropTypes.object,
-};
-
-HomeComponent.childContextTypes = {
-  setMessage: PropTypes.func,
 };
 
 const HomeContainer = Relay.createContainer(injectIntl(HomeComponent), {

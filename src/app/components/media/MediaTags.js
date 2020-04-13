@@ -13,6 +13,7 @@ import Can from '../Can';
 import UpdateLanguageMutation from '../../relay/mutations/UpdateLanguageMutation';
 import LanguageSelector from '../LanguageSelector';
 import { searchQueryFromUrl, urlFromSearchQuery } from '../search/Search';
+import { withSetFlashMessage } from '../FlashMessage';
 import { getErrorMessage, bemClass } from '../../helpers';
 import {
   units,
@@ -129,7 +130,7 @@ class MediaTags extends Component {
   fail = (transaction) => {
     const fallbackMessage = this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') });
     const errorMessage = getErrorMessage(transaction, fallbackMessage);
-    this.context.setMessage(errorMessage);
+    this.props.setFlashMessage(errorMessage);
   };
 
   searchTagUrl(tagString) {
@@ -294,10 +295,7 @@ MediaTags.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
+  setFlashMessage: PropTypes.func.isRequired,
 };
 
-MediaTags.contextTypes = {
-  setMessage: PropTypes.func,
-};
-
-export default injectIntl(MediaTags);
+export default withSetFlashMessage(injectIntl(MediaTags));

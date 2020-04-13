@@ -24,6 +24,7 @@ import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
+import { withSetFlashMessage } from '../FlashMessage';
 import EmbedUpdate from './EmbedUpdate';
 import EmbedCreate from './EmbedCreate';
 import TaskUpdate from './TaskUpdate';
@@ -355,7 +356,7 @@ class Annotation extends Component {
   fail = (transaction) => {
     const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
     const message = getErrorMessage(transaction, fallbackMessage);
-    this.context.setMessage(message);
+    this.props.setFlashMessage(message);
   };
 
   handleSuggestion(vid, accept) {
@@ -1321,10 +1322,7 @@ Annotation.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
+  setFlashMessage: PropTypes.func.isRequired,
 };
 
-Annotation.contextTypes = {
-  setMessage: PropTypes.func,
-};
-
-export default injectIntl(Annotation);
+export default withSetFlashMessage(injectIntl(Annotation));

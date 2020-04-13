@@ -56,13 +56,6 @@ const StyledMetadata = styled.div`
 
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
 class MediaMetadata extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-    };
-  }
-
   reverseImageSearchGoogle() {
     const imagePath = this.props.media.picture;
     window.open(`https://www.google.com/searchbyimage?image_url=${imagePath}`);
@@ -146,9 +139,8 @@ class MediaMetadata extends Component {
   }
 }
 
-MediaMetadata.contextTypes = {
-  store: PropTypes.object,
-  setMessage: PropTypes.func,
+MediaMetadata.propTypes = {
+  intl: PropTypes.object.isRequired,
 };
 
 export default injectIntl(MediaMetadata);

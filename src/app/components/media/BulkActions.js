@@ -6,6 +6,7 @@ import { injectIntl, intlShape, defineMessages, FormattedMessage } from 'react-i
 import IconDelete from '@material-ui/icons/Delete';
 import Tooltip from '@material-ui/core/Tooltip';
 import styled from 'styled-components';
+import { withSetFlashMessage } from '../FlashMessage';
 import MoveDialog from './MoveDialog';
 import Can from '../Can';
 import BulkUpdateProjectMediaMutation from '../../relay/mutations/BulkUpdateProjectMediaMutation';
@@ -78,7 +79,7 @@ class BulkActions extends React.Component {
           defaultMessage="Done! Please note that it can take a while until the items are actually added."
         />
       );
-      this.context.setMessage(message);
+      this.props.setFlashMessage(message);
       this.setState({ openAddDialog: false, dstProjForAdd: null });
       this.props.onUnselectAll();
     };
@@ -108,7 +109,7 @@ class BulkActions extends React.Component {
           defaultMessage="Done! Please note that it can take a while until the items are actually removed from this list."
         />
       );
-      this.context.setMessage(message);
+      this.props.setFlashMessage(message);
       this.props.onUnselectAll();
     };
     const onDone = () => {};
@@ -137,7 +138,7 @@ class BulkActions extends React.Component {
           defaultMessage="Done! Please note that it can take a while until the items are actually moved."
         />
       );
-      this.context.setMessage(message);
+      this.props.setFlashMessage(message);
       this.setState({ openMoveDialog: false, dstProj: null });
       this.props.onUnselectAll();
     };
@@ -173,7 +174,7 @@ class BulkActions extends React.Component {
           defaultMessage="Done! Please note that it can take a while until the items are actually restored from the trash."
         />
       );
-      this.context.setMessage(message);
+      this.props.setFlashMessage(message);
       this.props.onUnselectAll();
       if (this.props.parentComponent) {
         this.props.parentComponent.props.relay.forceFetch();
@@ -359,10 +360,7 @@ BulkActions.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
+  setFlashMessage: PropTypes.func.isRequired,
 };
 
-BulkActions.contextTypes = {
-  setMessage: PropTypes.func,
-};
-
-export default injectIntl(BulkActions);
+export default withSetFlashMessage(injectIntl(BulkActions));
