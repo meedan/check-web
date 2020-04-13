@@ -202,7 +202,7 @@ class MediaSearchComponent extends React.Component {
         </StyledTopBar>
 
         <Media
-          router={this.props.context.router}
+          router={this.context.router}
           route={this.props.route}
           params={{
             projectId: media.project_id,
