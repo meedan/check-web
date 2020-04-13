@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
+import { createGenerateClassName } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
@@ -12,8 +13,9 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import IconButton from '@material-ui/core/IconButton';
+import JssProvider from 'react-jss/lib/JssProvider';
 import styled from 'styled-components';
-import Form from 'meedan-check-react-jsonschema-form-material-ui-v1';
+import Form from '@meedan/react-jsonschema-form-material-ui-v1-sandbox';
 import ExternalLink from '../ExternalLink';
 import TeamRoute from '../../relay/TeamRoute';
 import { units, ContentColumn } from '../../styles/js/shared';
@@ -802,6 +804,10 @@ class TeamRulesComponent extends Component {
       </List>
     );
 
+    const generateClassName = createGenerateClassName({
+      productionPrefix: 'check-jss',
+    });
+
     return (
       <div>
         <Message message={this.state.message} />
@@ -840,12 +846,14 @@ class TeamRulesComponent extends Component {
                 </p>}
               <StyledSchemaForm intl={this.props.intl}>
                 <div id="rules">
-                  <Form
-                    schema={this.state.schema}
-                    uiSchema={uiSchema}
-                    formData={{ rules: this.state.rules }}
-                    onChange={this.handleRulesUpdated.bind(this)}
-                  />
+                  <JssProvider generateClassName={generateClassName}>
+                    <Form
+                      schema={this.state.schema}
+                      uiSchema={uiSchema}
+                      formData={{ rules: this.state.rules }}
+                      onChange={this.handleRulesUpdated.bind(this)}
+                    />
+                  </JssProvider>
                 </div>
               </StyledSchemaForm>
             </CardContent>

@@ -70,6 +70,10 @@ module AppSpecHelpers
     fill_field('input[name="session[username_or_email]"]', @config['twitter_user'])
     fill_field('input[name="session[password]"]', @config['twitter_password'])
     press_button('div[role="button"]')
+    if @driver.page_source.include?("Help us keep your account safe")
+      fill_field('input[name="challenge_response"]',@config['twitter_phone_number'])
+      press_button('input[type="submit"]')
+    end
     @wait.until {
       @driver.page_source.include?("#{@config['twitter_name']}")
     }
