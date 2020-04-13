@@ -102,7 +102,7 @@ const fieldNames = [
 
 const annotationTypes = ['translation_status', 'verification_status', 'flag'];
 
-const MediaLogContainer = Relay.createContainer(MediaLogComponent, {
+const MediaLogContainer = Relay.createContainer(withPusher(MediaLogComponent), {
   initialVariables: {
     pageSize,
     eventTypes,
@@ -260,15 +260,13 @@ const MediaLogContainer = Relay.createContainer(MediaLogComponent, {
   },
 });
 
-const ConnectedMediaLogContainer = withPusher(MediaLogContainer);
-
 const MediaLog = (props) => {
   const ids = `${props.media.dbid},${props.media.project_id}`;
   const route = new MediaRoute({ ids });
 
   return (
     <Relay.RootContainer
-      Component={ConnectedMediaLogContainer}
+      Component={MediaLogContainer}
       renderFetched={data => <MediaLogContainer cachedMedia={props.media} {...data} />}
       route={route}
       renderLoading={() => <MediasLoading count={1} />}
