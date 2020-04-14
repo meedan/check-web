@@ -213,17 +213,6 @@ class MediaStatusCommon extends Component {
                 id="mediaStatusCommon.confirmationMessage"
                 defaultMessage="You are about to send a report to all people who requested this item."
               /> }
-            <div>
-              <Button
-                onClick={this.handleEdit.bind(this)}
-                backgroundColor="#FBAA6D"
-              >
-                <FormattedMessage
-                  id="mediaStatusCommon.editReportBeforeSending"
-                  defaultMessage="Edit report before sending"
-                />
-              </Button>
-            </div>
           </DialogContent>
           <DialogActions>
             <Button

@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
+import { Card, CardText, CardActions } from 'material-ui/Card';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import FlatButton from 'material-ui/FlatButton';
@@ -15,6 +12,7 @@ import { Emojione } from 'react-emoji-render';
 import { Link, browserHistory } from 'react-router';
 import styled from 'styled-components';
 import Form from '@meedan/react-jsonschema-form-material-ui-v1';
+import TeamBot from './TeamBot';
 import TeamRoute from '../../relay/TeamRoute';
 import { units, ContentColumn, black32 } from '../../styles/js/shared';
 import DeleteTeamBotInstallationMutation from '../../relay/mutations/DeleteTeamBotInstallationMutation';
@@ -31,7 +29,7 @@ const messages = defineMessages({
   },
 });
 
-const StyledCardContent = styled(CardContent)`
+const StyledCardText = styled(CardText)`
   display: flex;
 
   img {
@@ -47,9 +45,6 @@ const StyledCardContent = styled(CardContent)`
 
 const StyledToggle = styled.div`
   display: inline;
-
-  margin-${props => props.direction.from}: auto !important;
-  margin-${props => props.direction.to}: 0 !important;
 
   span.toggleLabel {
     font-weight: bold;
@@ -88,29 +83,16 @@ const StyledSchemaForm = styled.div`
 
   fieldset fieldset {
     padding: ${units(1)};
+    margin-top: ${units(1)};
     border: 1px solid ${black32};
   }
 
   fieldset fieldset button {
     display: block !important;
-    width: 160px !important;
-  }
-
-  fieldset fieldset button[class*="remove"] {
-    border: 0 !important;
     width: 32px !important;
-  }
-
-  fieldset fieldset fieldset {
-    margin-bottom: ${units(1)} !important;
-  }
-
-  fieldset fieldset fieldset fieldset div[class*="input"] {
-    max-width: 470px;
-  }
-
-  fieldset fieldset fieldset fieldset button[class*="remove"] {
-    display: none !important;
+    background: #fff !important;
+    border-radius: 5px !important;
+    color: ${black32} !important;
   }
 `;
 
@@ -201,7 +183,7 @@ class TeamBotsComponent extends Component {
     const { team, direction } = this.props;
 
     return (
-      <ContentColumn>
+      <ContentColumn style={{ maxWidth: 900 }}>
         { team.team_bot_installations.edges.length === 0 ?
           <p style={{ paddingBottom: units(5), textAlign: 'center' }}>
             <FormattedMessage
@@ -217,8 +199,9 @@ class TeamBotsComponent extends Component {
             <Card
               style={{ marginBottom: units(5) }}
               key={`bot-${bot.dbid}`}
+              expanded={this.state.expanded[bot.dbid]}
             >
-              <StyledCardContent direction={direction}>
+              <StyledCardText direction={direction}>
                 <img src={bot.avatar} alt={bot.name} />
                 <div>
                   <h2>{bot.name}</h2>
@@ -229,9 +212,9 @@ class TeamBotsComponent extends Component {
                     </Link>
                   </p>
                 </div>
-              </StyledCardContent>
-              <CardActions>
-                <StyledToggle direction={direction}>
+              </StyledCardText>
+              <CardActions style={{ padding: 0, textAlign: 'right' }}>
+                <StyledToggle style={{ marginRight: 0 }}>
                   <span className="toggleLabel">
                     <FormattedMessage id="teamBots.inUse" defaultMessage="In Use" />
                   </span>
@@ -248,44 +231,43 @@ class TeamBotsComponent extends Component {
                 </StyledToggle>
               </CardActions>
               <Divider />
-              <Collapse in={this.state.expanded[bot.dbid]} timeout="auto">
-                <CardContent>
-                  <h3><FormattedMessage id="teamBots.settings" defaultMessage="Settings" /></h3>
-                  { bot.settings_as_json_schema ?
-                    <StyledSchemaForm>
-                      <Form
-                        schema={JSON.parse(bot.settings_as_json_schema)}
-                        uiSchema={JSON.parse(bot.settings_ui_schema)}
-                        formData={this.state.settings[installation.node.id]}
-                        onChange={this.handleSettingsUpdated.bind(this, installation.node)}
-                      />
-                      <p>
-                        <FlatButton
-                          primary
-                          onClick={this.handleSubmitSettings.bind(this, installation.node)}
-                          label={
-                            <FormattedMessage
-                              id="teamBots.save"
-                              defaultMessage="Save"
-                            />
-                          }
-                        />
-                      </p>
-                      <p>
-                        <small>
-                          { this.state.message && this.state.messageBotId === bot.dbid ?
-                            this.state.message : null
-                          }
-                        </small>
-                      </p>
-                    </StyledSchemaForm> :
-                    <FormattedMessage
-                      id="teamBots.noSettings"
-                      defaultMessage="There are no settings for this bot."
+              <CardText expandable>
+                <h3><FormattedMessage id="teamBots.settings" defaultMessage="Settings" /></h3>
+                { bot.settings_as_json_schema ?
+                  <StyledSchemaForm>
+                    <TeamBot
+                      bot={bot}
+                      schema={JSON.parse(bot.settings_as_json_schema)}
+                      uiSchema={JSON.parse(bot.settings_ui_schema)}
+                      formData={this.state.settings[installation.node.id]}
+                      onChange={this.handleSettingsUpdated.bind(this, installation.node)}
                     />
-                  }
-                </CardContent>
-              </Collapse>
+                    <p>
+                      <FlatButton
+                        primary
+                        onClick={this.handleSubmitSettings.bind(this, installation.node)}
+                        label={
+                          <FormattedMessage
+                            id="teamBots.save"
+                            defaultMessage="Save"
+                          />
+                        }
+                      />
+                    </p>
+                    <p>
+                      <small>
+                        { this.state.message && this.state.messageBotId === bot.dbid ?
+                          this.state.message : null
+                        }
+                      </small>
+                    </p>
+                  </StyledSchemaForm> :
+                  <FormattedMessage
+                    id="teamBots.noSettings"
+                    defaultMessage="There are no settings for this bot."
+                  />
+                }
+              </CardText>
             </Card>
           );
         })}
