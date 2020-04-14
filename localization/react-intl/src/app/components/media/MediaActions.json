@@ -24,10 +24,6 @@
     "defaultMessage": "Meme designer"
   },
   {
-    "id": "mediaActions.report",
-    "defaultMessage": "Report designer"
-  },
-  {
     "id": "mediaActions.sendToTrash",
     "defaultMessage": "Send to trash"
   },

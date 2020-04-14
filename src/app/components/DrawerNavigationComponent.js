@@ -7,6 +7,7 @@ import Divider from '@material-ui/core/Divider';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import { withStyles } from '@material-ui/core/styles';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import styled from 'styled-components';
 import IconSettings from '@material-ui/icons/Settings';
@@ -110,7 +111,7 @@ class DrawerNavigationComponent extends Component {
   }
 
   render() {
-    const { loggedIn } = this.props;
+    const { loggedIn, classes } = this.props;
     const inTeamContext = this.props.team;
 
     // This component now renders based on teamPublicFragment
@@ -172,6 +173,7 @@ class DrawerNavigationComponent extends Component {
         open
         variant="persistent"
         anchor={fromDirection}
+        classes={{ paper: classes.paper }}
       >
         <div>
           {inTeamContext ?
@@ -288,4 +290,12 @@ DrawerNavigationComponent.contextTypes = {
   store: PropTypes.object,
 };
 
-export default injectIntl(DrawerNavigationComponent);
+const drawerStyles = {
+  paper: {
+    minWidth: units(32),
+    maxWidth: units(32),
+    overflow: 'hidden',
+  },
+};
+
+export default withStyles(drawerStyles)(injectIntl(DrawerNavigationComponent));

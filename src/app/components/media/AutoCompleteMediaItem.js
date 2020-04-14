@@ -5,7 +5,7 @@ import AutoComplete from 'material-ui/AutoComplete';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import CheckContext from '../../CheckContext';
 import { nested } from '../../helpers';
-import { stringHelper } from '../../customHelpers';
+import { stringHelper, mediaStatuses } from '../../customHelpers';
 
 const messages = defineMessages({
   searching: {
@@ -23,6 +23,16 @@ const messages = defineMessages({
 });
 
 class AutoCompleteMediaItem extends React.Component {
+  static isFinalStatus(media, status) {
+    let isFinal = false;
+    mediaStatuses(media).statuses.forEach((st) => {
+      if (st.id === status && parseInt(st.completed, 10) === 1) {
+        isFinal = true;
+      }
+    });
+    return isFinal;
+  }
+
   constructor(props) {
     super(props);
 
@@ -65,7 +75,7 @@ class AutoCompleteMediaItem extends React.Component {
     this.setState({ searching: true });
 
     // eslint-disable-next-line no-useless-escape
-    const queryString = `{ \\"keyword\\":\\"${query}\\", \\"eslimit\\":10 }`;
+    const queryString = `{ \\"keyword\\": \\"${query}\\", \\"eslimit\\": 30 }`;
 
     const init = {
       body: JSON.stringify({
@@ -75,12 +85,14 @@ class AutoCompleteMediaItem extends React.Component {
               team {
                 name
               }
-              medias(first: 5) {
+              medias(first: 30) {
                 edges {
                   node {
                     id
                     dbid
                     title
+                    verification_statuses
+                    status
                     relationships { sources_count, targets_count }
                     domain
                     metadata
@@ -113,13 +125,18 @@ class AutoCompleteMediaItem extends React.Component {
         return response.json();
       })
       .then((response) => {
-        const items = nested(['data', 'search', 'medias', 'edges'], response);
+        let items = nested(['data', 'search', 'medias', 'edges'], response);
 
-        const unrelatedItems = items.filter(item =>
+        items = items.filter(item =>
           (item.node.relationships.sources_count + item.node.relationships.targets_count === 0) &&
           (item.node.dbid !== this.props.media.dbid));
 
-        const searchResult = unrelatedItems.map(item => ({
+        if (this.props.onlyFinal) {
+          items = items.filter(item =>
+            AutoCompleteMediaItem.isFinalStatus(item.node, item.node.status));
+        }
+
+        const searchResult = items.map(item => ({
           text: item.node.title,
           value: item.node.dbid,
           id: item.node.id,

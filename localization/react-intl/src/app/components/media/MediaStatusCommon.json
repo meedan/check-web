@@ -16,10 +16,6 @@
     "defaultMessage": "You are about to send a report to all people who requested this item."
   },
   {
-    "id": "mediaStatusCommon.editReportBeforeSending",
-    "defaultMessage": "Edit report before sending"
-  },
-  {
     "id": "mediaStatusCommon.proceedAndSend",
     "defaultMessage": "Proceed and Send"
   }

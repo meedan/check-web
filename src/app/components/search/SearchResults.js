@@ -384,13 +384,16 @@ class SearchResultsComponent extends React.Component {
       let itemOffset = query.esoffset ? parseInt(query.esoffset, 10) : 0;
       itemOffset -= 1;
 
+      let projectId = null;
+
       const itemBaseQuery = Object.assign({ original: query }, query);
       if (Array.isArray(itemBaseQuery.show)) {
         itemBaseQuery.show = itemBaseQuery.show.filter(f => f !== 'sources');
       }
       if (isProject) {
-        itemBaseQuery.parent = { type: 'project', id: this.currentContext().project.dbid };
-        itemBaseQuery.projects = [this.currentContext().project.dbid];
+        projectId = this.currentContext().project.dbid;
+        itemBaseQuery.parent = { type: 'project', id: projectId };
+        itemBaseQuery.projects = [projectId];
         itemBaseQuery.referer = 'project';
       } else {
         itemBaseQuery.parent = { type: 'team', slug: team.slug };
@@ -409,8 +412,8 @@ class SearchResultsComponent extends React.Component {
         itemQuery.esoffset = itemOffset;
 
         const media = item.node;
-        let mediaUrl = media.project_id && team && media.dbid > 0
-          ? `/${team.slug}/project/${media.project_id}/media/${media.dbid}`
+        let mediaUrl = projectId && team && media.dbid > 0
+          ? `/${team.slug}/project/${projectId}/media/${media.dbid}`
           : null;
         if (!mediaUrl && team && media.dbid > 0) {
           mediaUrl = `/${team.slug}/media/${media.dbid}`;
