@@ -13,7 +13,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import IconButton from '@material-ui/core/IconButton';
 import styled from 'styled-components';
-import Form from '@meedan/react-jsonschema-form-material-ui-v1-sandbox';
+import Form from '@meedan/react-jsonschema-form-material-ui-v1';
 import ExternalLink from '../ExternalLink';
 import TeamRoute from '../../relay/TeamRoute';
 import { units, ContentColumn } from '../../styles/js/shared';
