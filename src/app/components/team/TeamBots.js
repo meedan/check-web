@@ -11,7 +11,6 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { Emojione } from 'react-emoji-render';
 import { Link, browserHistory } from 'react-router';
 import styled from 'styled-components';
-import Form from '@meedan/react-jsonschema-form-material-ui-v1';
 import TeamBot from './TeamBot';
 import TeamRoute from '../../relay/TeamRoute';
 import { units, ContentColumn, black32 } from '../../styles/js/shared';
