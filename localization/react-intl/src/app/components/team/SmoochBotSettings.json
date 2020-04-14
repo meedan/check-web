@@ -1,0 +1,162 @@
+[
+  {
+    "id": "smoochBotSettings.labelScenario",
+    "defaultMessage": "+ Scenario"
+  },
+  {
+    "id": "smoochBotSettings.descIf",
+    "defaultMessage": "One of the following keywords is received"
+  },
+  {
+    "id": "smoochBotSettings.descThen",
+    "defaultMessage": "Respond with"
+  },
+  {
+    "id": "smoochBotSettings.keywordPlaceholder",
+    "defaultMessage": "Type exact keywords, separated by commas"
+  },
+  {
+    "id": "smoochBotSettings.greetingLabel",
+    "defaultMessage": "Greeting"
+  },
+  {
+    "id": "smoochBotSettings.greetingDescription",
+    "defaultMessage": "The first message that is sent to the user. It introduces your organization and the service you provide through this bot. This message is automatically followed by the Main menu."
+  },
+  {
+    "id": "smoochBotSettings.greetingPlaceholder",
+    "defaultMessage": "Hi! Welcome to [Name of your organization]’s fact-checking bot. We fact-check claims, videos and images related to topics such as politics, health, finance, and technology."
+  },
+  {
+    "id": "smoochBotSettings.mainLabel",
+    "defaultMessage": "Main menu"
+  },
+  {
+    "id": "smoochBotSettings.mainDescription",
+    "defaultMessage": "A menu asking the user to choose between a set of options. This message automatically follows the Greeting message."
+  },
+  {
+    "id": "smoochBotSettings.mainPlaceholder",
+    "defaultMessage": "Main menu: Reply \"1\" to do something and \"2\" to do something else."
+  },
+  {
+    "id": "smoochBotSettings.secondaryLabel",
+    "defaultMessage": "Secondary menu"
+  },
+  {
+    "id": "smoochBotSettings.secondaryDescription",
+    "defaultMessage": "An optional menu asking the user to choose from a set of options. When a user replies with one of the options, the bot can send a report or direct them to another bot message."
+  },
+  {
+    "id": "smoochBotSettings.secondaryPlaceholder",
+    "defaultMessage": "Secondary menu: Reply \"1\" to do something and \"2\" to do something else."
+  },
+  {
+    "id": "smoochBotSettings.nooptLabel",
+    "defaultMessage": "Option not available"
+  },
+  {
+    "id": "smoochBotSettings.nooptDescription",
+    "defaultMessage": "The message sent if the user response to a menu is not a valid menu scenario. This message will be automatically followed by the same menu the user saw before this message."
+  },
+  {
+    "id": "smoochBotSettings.nooptPlaceholder",
+    "defaultMessage": "I'm sorry, I didn't understand your message. Please try again!"
+  },
+  {
+    "id": "smoochBotSettings.queryLabel",
+    "defaultMessage": "Query prompt"
+  },
+  {
+    "id": "smoochBotSettings.queryDescription",
+    "defaultMessage": "The message asking the user to submit content for a fact-check. If the user successfully submits content, the bot will reply with the Query received message next."
+  },
+  {
+    "id": "smoochBotSettings.queryPlaceholder",
+    "defaultMessage": "Please enter your question or reply 0 to go back to main menu."
+  },
+  {
+    "id": "smoochBotSettings.receivedLabel",
+    "defaultMessage": "Query received"
+  },
+  {
+    "id": "smoochBotSettings.receivedDescription",
+    "defaultMessage": "If the user successfully submits content, the bot will reply with this message."
+  },
+  {
+    "id": "smoochBotSettings.receivedPlaceholder",
+    "defaultMessage": "Thank you! Your request has been received. Responses are being aggregated and sorted, and we're working on fact-checking your questions."
+  },
+  {
+    "id": "smoochBotSettings.updatedLabel",
+    "defaultMessage": "Report updated"
+  },
+  {
+    "id": "smoochBotSettings.updatedDescription",
+    "defaultMessage": "The message sent to the user when status of a report has changed. The report must be completed for this message to be sent."
+  },
+  {
+    "id": "smoochBotSettings.updatedPlaceholder",
+    "defaultMessage": "The fact-check that we sent to you has been *updated* with new information:"
+  },
+  {
+    "id": "smoochBotSettings.invalidLabel",
+    "defaultMessage": "Invalid format"
+  },
+  {
+    "id": "smoochBotSettings.invalidDescription",
+    "defaultMessage": "Message automatically sent to users when a file received in the query is not supported."
+  },
+  {
+    "id": "smoochBotSettings.invalidPlaceholder",
+    "defaultMessage": "Sorry, we can't accept this type of message for verification at this time."
+  },
+  {
+    "id": "smoochBotSettings.inactivityLabel",
+    "defaultMessage": "Notice of inactivity"
+  },
+  {
+    "id": "smoochBotSettings.inactivityDescription",
+    "defaultMessage": "This message is sent to any user that has sent a message to the tipline when the Check Message bot is set to inactive."
+  },
+  {
+    "id": "smoochBotSettings.inactivityPlaceholder",
+    "defaultMessage": "Thank you for your message. Our fact-checking service is currently *inactive*. Contact us at *[email or other contact]* for further inquiries."
+  },
+  {
+    "id": "smoochBotSettings.disabled",
+    "defaultMessage": "Check this box to disable the service. This makes the Check Message bot inactive: it will reply with ONLY the message below when a user interacts with the bot."
+  },
+  {
+    "id": "smoochBotSettings.tosLabel",
+    "defaultMessage": "Terms of service"
+  },
+  {
+    "id": "smoochBotSettings.tosDescription",
+    "defaultMessage": "This message immediately follows any report sent to the user and should contain a link to the Check Terms of Service"
+  },
+  {
+    "id": "smoochBotSettings.tosPlaceholder",
+    "defaultMessage": "The software that powers this tipline, Check Message, is provided to you under these [link to Terms of Service]."
+  },
+  {
+    "id": "smoochBotSettings.main",
+    "defaultMessage": "Main Scenario"
+  },
+  {
+    "id": "smoochBotSettings.settings",
+    "defaultMessage": "Settings"
+  },
+  {
+    "id": "smoochBotSettings.sidebarTitle",
+    "defaultMessage": "Create your bot"
+  },
+  {
+    "id": "smoochBotSettings.dialogTitle",
+    "defaultMessage": "Select a report"
+  },
+  {
+    "id": "smoochBotSettings.dialogDesc",
+    "defaultMessage": "Search for the title of an item in order to send the report associated with it. The report must be completed (Final status) in order to be found"
+  }
+]
