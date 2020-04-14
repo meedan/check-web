@@ -113,6 +113,7 @@
     "lodash.xor": "^4.5.0",
     "material-ui": "^0.20.0",
     "material-ui-persian-date-picker-utils": "^0.1.2",
+    "memoize-one": "^5.1.1",
     "node-fetch": "^1.7.1",
     "nyc": "^13.1.0",
     "polished": "^1.2.1",

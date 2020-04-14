@@ -1,5 +1,6 @@
 import React from 'react';
 import { injectIntl, defineMessages } from 'react-intl';
+import memoizeOne from 'memoize-one';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-material.css';
@@ -92,14 +93,106 @@ const messages = defineMessages({
   },
 });
 
-class List extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      columnDefs: List.getColumnDefs(props),
-    };
+function buildColumnDefs(team, formatMessage) {
+  let smoochBotInstalled = false;
+  if (team && team.team_bot_installations) {
+    team.team_bot_installations.edges.forEach((edge) => {
+      if (edge.node.team_bot.identifier === 'smooch') {
+        smoochBotInstalled = true;
+      }
+    });
   }
 
+  const colDefs = [
+    {
+      headerName: formatMessage(messages.item),
+      field: 'title',
+      checkboxSelection: true,
+      headerCheckboxSelection: true,
+      cellRenderer: 'mediaCellRenderer',
+      minWidth: 424,
+    },
+    {
+      headerName: formatMessage(messages.share_count),
+      field: 'share_count',
+      minWidth: 124,
+      maxWidth: 124,
+      cellRenderer: 'metadataCellRenderer',
+      headerComponentFramework: ListHeader,
+      headerComponentParams: {
+        sort: 'share_count',
+      },
+    },
+    {
+      headerName: formatMessage(messages.linked_items_count),
+      field: 'linked_items_count',
+      minWidth: 88,
+      maxWidth: 88,
+      cellRenderer: 'metadataCellRenderer',
+      headerComponentFramework: ListHeader,
+      headerComponentParams: {
+        sort: 'related',
+      },
+    },
+    {
+      headerName: formatMessage(messages.type),
+      field: 'type',
+      minWidth: 72,
+      maxWidth: 72,
+      cellRenderer: 'metadataCellRenderer',
+    },
+    {
+      headerName: formatMessage(messages.status),
+      field: 'status',
+      minWidth: 96,
+      maxWidth: 112,
+      cellRenderer: 'metadataCellRenderer',
+    },
+    {
+      headerName: formatMessage(messages.first_seen),
+      field: 'first_seen',
+      minWidth: 96,
+      maxWidth: 112,
+      cellRenderer: 'metadataCellRenderer',
+      headerComponentFramework: ListHeader,
+      headerComponentParams: {
+        sort: 'recent_added',
+      },
+    },
+  ];
+
+  if (smoochBotInstalled) {
+    const requestsCol = {
+      headerName: formatMessage(messages.demand),
+      field: 'demand',
+      minWidth: 96,
+      maxWidth: 96,
+      cellRenderer: 'metadataCellRenderer',
+      headerComponentFramework: ListHeader,
+      headerComponentParams: {
+        sort: 'requests',
+      },
+    };
+
+    const lastSeenCol = {
+      headerName: formatMessage(messages.last_seen),
+      field: 'last_seen',
+      minWidth: 96,
+      maxWidth: 112,
+      cellRenderer: 'metadataCellRenderer',
+      headerComponentFramework: ListHeader,
+      headerComponentParams: {
+        sort: 'last_seen',
+      },
+    };
+    colDefs.splice(1, 0, requestsCol);
+    colDefs.push(lastSeenCol);
+  }
+
+  return colDefs;
+}
+
+class List extends React.Component {
   componentDidMount() {
     window.addEventListener('resize', this.handleWindowResize);
   }
@@ -119,107 +212,7 @@ class List extends React.Component {
     window.removeEventListener('resize', this.handleWindowResize);
   }
 
-  static getColumnDefs(props) {
-    const { team } = props;
-    const fmtMsg = props.intl.formatMessage;
-
-    let smoochBotInstalled = false;
-    if (team && team.team_bot_installations) {
-      team.team_bot_installations.edges.forEach((edge) => {
-        if (edge.node.team_bot.identifier === 'smooch') {
-          smoochBotInstalled = true;
-        }
-      });
-    }
-
-    const colDefs = [
-      {
-        headerName: fmtMsg(messages.item),
-        field: 'title',
-        checkboxSelection: true,
-        headerCheckboxSelection: true,
-        cellRenderer: 'mediaCellRenderer',
-        minWidth: 424,
-      },
-      {
-        headerName: fmtMsg(messages.share_count),
-        field: 'share_count',
-        minWidth: 124,
-        maxWidth: 124,
-        cellRenderer: 'metadataCellRenderer',
-        headerComponentFramework: ListHeader,
-        headerComponentParams: {
-          sort: 'share_count',
-        },
-      },
-      {
-        headerName: fmtMsg(messages.linked_items_count),
-        field: 'linked_items_count',
-        minWidth: 88,
-        maxWidth: 88,
-        cellRenderer: 'metadataCellRenderer',
-        headerComponentFramework: ListHeader,
-        headerComponentParams: {
-          sort: 'related',
-        },
-      },
-      {
-        headerName: fmtMsg(messages.type),
-        field: 'type',
-        minWidth: 72,
-        maxWidth: 72,
-        cellRenderer: 'metadataCellRenderer',
-      },
-      {
-        headerName: fmtMsg(messages.status),
-        field: 'status',
-        minWidth: 96,
-        maxWidth: 112,
-        cellRenderer: 'metadataCellRenderer',
-      },
-      {
-        headerName: fmtMsg(messages.first_seen),
-        field: 'first_seen',
-        minWidth: 96,
-        maxWidth: 112,
-        cellRenderer: 'metadataCellRenderer',
-        headerComponentFramework: ListHeader,
-        headerComponentParams: {
-          sort: 'recent_added',
-        },
-      },
-    ];
-
-    if (smoochBotInstalled) {
-      const requestsCol = {
-        headerName: fmtMsg(messages.demand),
-        field: 'demand',
-        minWidth: 96,
-        maxWidth: 96,
-        cellRenderer: 'metadataCellRenderer',
-        headerComponentFramework: ListHeader,
-        headerComponentParams: {
-          sort: 'requests',
-        },
-      };
-
-      const lastSeenCol = {
-        headerName: fmtMsg(messages.last_seen),
-        field: 'last_seen',
-        minWidth: 96,
-        maxWidth: 112,
-        cellRenderer: 'metadataCellRenderer',
-        headerComponentFramework: ListHeader,
-        headerComponentParams: {
-          sort: 'last_seen',
-        },
-      };
-      colDefs.splice(1, 0, requestsCol);
-      colDefs.push(lastSeenCol);
-    }
-
-    return colDefs;
-  }
+  getColumnDefs = () => this.buildColumnDefs(this.props.team, this.props.intl.formatMessage);
 
   getRowData() {
     return this.props.searchResults.map((i) => {
@@ -271,6 +264,8 @@ class List extends React.Component {
     });
   }
 
+  buildColumnDefs = memoizeOne(buildColumnDefs);
+
   handleClickRow = (wrapper) => {
     if (this.props.onClick) {
       this.props.onClick(wrapper.rowIndex);
@@ -297,7 +292,7 @@ class List extends React.Component {
     return (
       <StyledGridContainer className="ag-theme-material">
         <AgGridReact
-          columnDefs={this.state.columnDefs}
+          columnDefs={this.getColumnDefs()}
           frameworkComponents={{
             mediaCellRenderer: MediaCell,
             metadataCellRenderer: MetadataCell,
