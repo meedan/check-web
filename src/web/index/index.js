@@ -51,7 +51,10 @@ if (locale === 'en') {
       /* webpackChunkName: "messages-[request]" */
       '../../../localization/translations/' + locale
     ),
-  ]).then(([ localeData, messages ]) => {
+  ]).then(([ localeDataModule, messagesModule ]) => {
+    // https://medium.com/webpack/webpack-4-import-and-commonjs-d619d626b655
+    const localeData = localeDataModule.default;
+    const messages = messagesModule.default;
     addLocaleData(localeData);
     callback(messages);
   });

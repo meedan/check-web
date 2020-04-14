@@ -152,7 +152,7 @@ class DrawerProjectsComponent extends Component {
     }
   }
 
-  loadMore() {
+  loadMore = () => {
     this.props.relay.setVariables({ pageSize: this.props.team.projects.edges.length + pageSize });
   }
 
@@ -168,8 +168,8 @@ class DrawerProjectsComponent extends Component {
         .map((p) => {
           const projectPath = `/${props.team.slug}/project/${p.node.dbid}`;
           return (
-            <StyledListItem className="project-list__link-container">
-              <Link to={projectPath} key={p.node.dbid} className="project-list__link">
+            <StyledListItem key={p.node.dbid} className="project-list__link-container">
+              <Link to={projectPath} className="project-list__link">
                 <MenuItem className="project-list__item">
                   <ListItemText
                     primary={
@@ -201,7 +201,7 @@ class DrawerProjectsComponent extends Component {
     return (
       <div className="projects__list">
         <div style={styles.projectsList}>
-          <InfiniteScroll hasMore loadMore={this.loadMore.bind(this)} useWindow={false}>
+          <InfiniteScroll hasMore loadMore={this.loadMore} useWindow={false}>
             <StyledListItemAll>
               <Link to={`/${props.team.slug}/all-items`} className="project-list__link-all">
                 <MenuItem className="project-list__item-all">

@@ -1,9 +1,9 @@
 const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
-//const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const CompressionPlugin = require('compression-webpack-plugin');
 const locales = require('../localization/translations/locales');
+const zlib = require('zlib');
 
 // For ContextReplacementPlugin: pattern for dynamic-import filenames.
 // matches "/es.js" and "/es.json".
@@ -12,48 +12,74 @@ const localesRegExp = new RegExp(`/(${locales.join('|')})$`);
 
 const NODE_ENV = process.env.NODE_ENV || 'production';
 
+const nodeModulesPrefix = path.resolve(__dirname, '../node_modules') + '/';
+const reactIntlLocaleDataPrefix = `${nodeModulesPrefix}react-intl/locale-data/`;
+
+// This export may be mangled by the caller: either gulpfile.js, or
+// `webpack` command-line parameters.
 module.exports = {
-  bail: true, // exit 1 on build failure
+  bail: true, // crash on error
   entry: {
     index: [ 'whatwg-fetch', path.join(__dirname, '../src/web/index/index') ]
   },
+  devtool: NODE_ENV === 'production' ? 'source-map' : 'eval-cheap-module-source-map',
   output: {
     path: path.join(__dirname, '../build/web/js'),
     filename: '[name].bundle.js',
     chunkFilename: '[name].chunk.js'
   },
-  devtool: 'source-map',
   watchOptions: {
     ignored: /node_modules/,
   },
+  optimization: {
+    splitChunks: {
+      // do not auto-split.
+      // Override with "enforce" (`vendor` chunk below) or comments above
+      // import() directives (`react-intl/locale-data/*.js` and
+      // `localization/translations/*.js`).
+      minSize: 999999999,
+      // do not auto-name chunks.
+      // Recommended in Webpack docs so names in dev/prod stay predictable.
+      // https://webpack.js.org/plugins/split-chunks-plugin/#splitchunksname
+      name: false,
+      cacheGroups: {
+        // "vendor.chunk.js" chunk.
+        vendor: {
+          name: 'vendor',
+          filename: 'vendor.bundle.js', // we link to it directly in our HTML
+          chunks: 'all',
+          enforce: true,
+          test({ resource }) {
+            return (
+              resource
+              && resource.startsWith(nodeModulesPrefix)
+              && !resource.startsWith(reactIntlLocaleDataPrefix)
+            );
+          }
+        }
+      }
+    }
+  },
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
-    }),
     new webpack.ContextReplacementPlugin(/react-intl\/locale-data/, localesRegExp),
     new webpack.ContextReplacementPlugin(/localization\/translations/, localesRegExp),
-    new webpack.optimize.AggressiveMergingPlugin(),
     new CompressionPlugin({
       asset: '[path].gz[query]',
       algorithm: 'gzip',
+      compressionOptions: {
+        level: NODE_ENV === 'production' ? zlib.Z_BEST_COMPRESSION : zlib.Z_NO_COMPRESSION,
+      },
       test: /\.js$|\.css$|\.html$/,
       threshold: 5000,
       minRatio: 0.8
     }),
-    // Uncomment to see at localhost:8888 a treemap of modules included in the bundle
-    // new BundleAnalyzerPlugin(),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks: module => /node_modules/.test(module.resource)
-    }),
-    // TODO upgrade to Webpack 5, which derives "minify" from mode (dev/prod)
-  ].concat(NODE_ENV === 'production' ? [new webpack.optimize.UglifyJsPlugin({sourceMap: true})] : []),
+  ],
   resolve: {
     alias: {app: path.join(__dirname, '../src/app')},
     extensions: ['.js', '.json']
   },
   module: {
-    loaders: [{
+    rules: [{
       test: /\.js$/,
       loader: 'babel-loader',
       exclude: /node_modules/,
@@ -62,17 +88,9 @@ module.exports = {
           [
             '@babel/preset-env',
             {
-              targets: {
-                browsers: '> 0.5%, not IE 11',
-                // While we're on Webpack 2, we must be parseable by UglifyJS.
-                // UglifyJS is abandonware, so we can't output "class" or other
-                // keywords.
-                //
-                // [adamhooper, 2020-03-31] TODO upgrade to Webpack 4, then nix
-                // "uglify"
-                uglify: true,
-              },
+              targets: { browsers: '> 0.5%, not IE 11' },
               useBuiltIns: 'usage',
+              corejs: 3,
             }
           ],
           '@babel/preset-react',

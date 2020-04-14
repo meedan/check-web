@@ -33,7 +33,11 @@ gulp.task('relay:copy', (callback) => {
 });
 
 gulp.task('webpack:build:web', (callback) => {
-  webpack(webpackConfig, (err, stats) => {
+  const prodConfig = {
+    ...webpackConfig,
+    mode: 'production',
+  };
+  webpack(prodConfig, (err, stats) => {
     if (err) {
       gutil.log(err.message);
       process.exit(1);
@@ -90,6 +94,7 @@ gulp.task('webpack:build:web:dev', (callback) => {
   const devConfig = {
     ...webpackConfig,
     bail: false, // don't stop on error
+    mode: 'development',
     watch: true,
   }
 
