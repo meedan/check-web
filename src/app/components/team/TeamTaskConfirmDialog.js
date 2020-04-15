@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
@@ -173,4 +173,4 @@ class TeamTaskConfirmDialog extends React.Component {
   }
 }
 
-export default injectIntl(TeamTaskConfirmDialog);
+export default TeamTaskConfirmDialog;
