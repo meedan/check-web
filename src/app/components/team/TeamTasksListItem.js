@@ -16,7 +16,7 @@ import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import IconImageUpload from '@material-ui/icons/CloudUpload';
-import ConfirmDialog from '../layout/ConfirmDialog';
+import TeamTaskConfirmDialog from './TeamTaskConfirmDialog';
 import EditTaskDialog from '../task/EditTaskDialog';
 import { RequiredIndicator } from '../task/Task';
 import UpdateTeamTaskMutation from '../../relay/mutations/UpdateTeamTaskMutation';
@@ -47,6 +47,7 @@ class TeamTasksListItem extends React.Component {
       message: null,
       anchorEl: null,
       dialogOpen: false,
+      editLabelOrDescription: false,
     };
   }
 
@@ -74,26 +75,32 @@ class TeamTasksListItem extends React.Component {
     this.handleCloseMenu();
   };
 
-  handleConfirmDialog = () => {
+  handleConfirmDialog = (keepResolved) => {
     this.handleCloseDialog();
     if (this.state.action === 'delete') {
-      this.handleDestroy();
+      this.handleDestroy(keepResolved);
     } else if (this.state.action === 'edit') {
-      this.handleSubmitTask();
+      this.handleSubmitTask(keepResolved);
     }
   }
 
   handleEdit = (editedTask) => {
-    this.setState({ isEditing: false, editedTask, dialogOpen: true });
+    this.setState({
+      isEditing: false,
+      editedTask,
+      editLabelOrDescription: editedTask.editLabelOrDescription,
+      dialogOpen: true,
+    });
   };
 
-  handleDestroy = () => {
+  handleDestroy = (keepResolved) => {
     const { task } = this.props;
 
     Relay.Store.commitUpdate(
       new DeleteTeamTaskMutation({
         teamId: this.props.team.id,
         id: task.id,
+        keepResolved,
       }),
       { onFailure: this.fail },
     );
@@ -107,7 +114,7 @@ class TeamTasksListItem extends React.Component {
     this.setState({ action: null, isEditing: false, message: null });
   };
 
-  handleSubmitTask = () => {
+  handleSubmitTask = (keepResolved) => {
     const task = this.state.editedTask;
     const { id, type } = this.props.task;
     const teamTask = {
@@ -119,6 +126,7 @@ class TeamTasksListItem extends React.Component {
       json_options: task.jsonoptions,
       json_project_ids: task.json_project_ids,
       json_schema: task.jsonschema,
+      keep_resolved_tasks: keepResolved,
     };
 
     const onSuccess = () => {
@@ -156,28 +164,6 @@ class TeamTasksListItem extends React.Component {
       </span>
     );
 
-    const confirmDialogTitle = {
-      edit: <FormattedMessage
-        id="teamTasks.confirmEditTitle"
-        defaultMessage="Are you sure you want to edit this task?"
-      />,
-      delete: <FormattedMessage
-        id="teamTasks.confirmDeleteTitle"
-        defaultMessage="Are you sure you want to delete this task?"
-      />,
-    };
-
-    const confirmDialogBlurb = {
-      edit: <FormattedMessage
-        id="teamTasks.confirmEditBlurb"
-        defaultMessage="Related item tasks will be modified as a consequence of applying this change, except for those that have already been answered or resolved."
-      />,
-      delete: <FormattedMessage
-        id="teamTasks.confirmDeleteBlurb"
-        defaultMessage="Related item tasks will be deleted as a consequence of applying this change, except for those that have already been answered or resolved."
-      />,
-    };
-
     return (
       <div>
         <ListItem className="team-tasks__list-item">
@@ -205,10 +191,12 @@ class TeamTasksListItem extends React.Component {
             </Menu>
           </ListItemSecondaryAction>
         </ListItem>
-        <ConfirmDialog
+        <TeamTaskConfirmDialog
+          projects={projects}
+          editedTask={this.state.editedTask}
+          editLabelOrDescription={this.state.editLabelOrDescription}
           open={this.state.dialogOpen}
-          title={confirmDialogTitle[this.state.action]}
-          blurb={confirmDialogBlurb[this.state.action]}
+          action={this.state.action}
           handleClose={this.handleCloseDialog}
           handleConfirm={this.handleConfirmDialog}
           message={this.state.message}

@@ -197,6 +197,7 @@ const TeamTasksContainer = Relay.createContainer(TeamTasksComponent, {
               title,
               dbid,
               id,
+              medias_count,
             }
           }
         }

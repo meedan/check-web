@@ -1,0 +1,46 @@
+[
+  {
+    "id": "teamTasks.confirmEditTitle",
+    "defaultMessage": "Are you sure you want to edit this task?"
+  },
+  {
+    "id": "teamTasks.confirmDeleteTitle",
+    "defaultMessage": "Are you sure you want to delete this task?"
+  },
+  {
+    "id": "teamTasks.confirmEditBlurb",
+    "defaultMessage": "Related item tasks will be modified as a consequence of applying this change, except for those that have already been answered or resolved."
+  },
+  {
+    "id": "teamTasks.confirmEditLabelOrDescriptionBlurb",
+    "defaultMessage": "You are about to edit tasks in {itemsNumber} items. If you proceed, all those tasks will also modified."
+  },
+  {
+    "id": "teamTasks.confirmDeleteBlurb",
+    "defaultMessage": "You are about to delete the selected tasks from {itemsNumber} items. If you proceed, the answers to these tasks will also be deleted."
+  },
+  {
+    "id": "teamTasks.confirmEditKeepResolved",
+    "defaultMessage": "Keep the tasks that have been resolved, with their current name and description."
+  },
+  {
+    "id": "teamTasks.confirmDeleteKeepResolved",
+    "defaultMessage": "Keep the tasks that have been resolved, with their answers."
+  },
+  {
+    "id": "teamTasks.processMessage",
+    "defaultMessage": "Do you want to proceed?"
+  },
+  {
+    "id": "teamTasks.confirmAction",
+    "defaultMessage": "Yes"
+  },
+  {
+    "id": "teamTasks.cancelAction",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "teamTasks.continue",
+    "defaultMessage": "Continue"
+  }
+]
