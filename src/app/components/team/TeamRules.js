@@ -197,9 +197,17 @@ const StyledSchemaForm = styled.div`
     display: none;
   }
 
+  fieldset fieldset fieldset fieldset + div > button {
+    display: none !important;
+  }
+
+  fieldset fieldset fieldset fieldset + div > button + button + button {
+    display: block !important;
+  }
+
   // Button to delete an action or condition
   fieldset fieldset fieldset fieldset + div > button::before {
-    content: "🗙";
+    content: "X";
   }
 
   // All Actions fieldset
@@ -356,7 +364,7 @@ class TeamRulesComponent extends Component {
         const button = document.createElement('button');
         button.setAttribute('attr-index', i);
         button.onclick = (e) => { this.resetConditions(e); };
-        button.append('🗙');
+        button.append('X');
         block.prepend(button);
       }
       i += 1;
@@ -369,7 +377,7 @@ class TeamRulesComponent extends Component {
         const button = document.createElement('button');
         button.setAttribute('attr-index', i);
         button.onclick = (e) => { this.resetActions(e); };
-        button.append('🗙');
+        button.append('X');
         block.prepend(button);
       }
       i += 1;
