@@ -205,9 +205,21 @@ const StyledSchemaForm = styled.div`
     display: block !important;
   }
 
-  // Button to delete an action or condition
+  // Button to delete an action or condition (top right)
+  fieldset fieldset fieldset fieldset > button {
+    line-height: 16px;
+    margin-top: -2px;
+    font-size: x-large;
+  }
+
+  // Button to delete an action or condition (bottom right)
+  fieldset fieldset fieldset fieldset + div > button {
+    font-size: x-large;
+  }
+
+  // Button to delete an action or condition (bottom right)
   fieldset fieldset fieldset fieldset + div > button::before {
-    content: "X";
+    content: "×";
   }
 
   // All Actions fieldset
@@ -364,7 +376,7 @@ class TeamRulesComponent extends Component {
         const button = document.createElement('button');
         button.setAttribute('attr-index', i);
         button.onclick = (e) => { this.resetConditions(e); };
-        button.append('X');
+        button.append('×');
         block.prepend(button);
       }
       i += 1;
@@ -377,7 +389,7 @@ class TeamRulesComponent extends Component {
         const button = document.createElement('button');
         button.setAttribute('attr-index', i);
         button.onclick = (e) => { this.resetActions(e); };
-        button.append('X');
+        button.append('×');
         block.prepend(button);
       }
       i += 1;
