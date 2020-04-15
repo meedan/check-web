@@ -12,6 +12,10 @@
     "defaultMessage": "Related item tasks will be modified as a consequence of applying this change, except for those that have already been answered or resolved."
   },
   {
+    "id": "teamTasks.confirmEditLabelOrDescriptionBlurb",
+    "defaultMessage": "You are about to edit tasks in {itemsNumber} items. If you proceed, all those tasks will also modified."
+  },
+  {
     "id": "teamTasks.confirmDeleteBlurb",
     "defaultMessage": "You are about to delete the selected tasks from {itemsNumber} items. If you proceed, the answers to these tasks will also be deleted."
   },

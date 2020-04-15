@@ -47,6 +47,7 @@ class TeamTasksListItem extends React.Component {
       message: null,
       anchorEl: null,
       dialogOpen: false,
+      editLabelOrDescription: false,
     };
   }
 
@@ -84,7 +85,12 @@ class TeamTasksListItem extends React.Component {
   }
 
   handleEdit = (editedTask) => {
-    this.setState({ isEditing: false, editedTask, dialogOpen: true });
+    this.setState({
+      isEditing: false,
+      editedTask,
+      editLabelOrDescription: editedTask.editLabelOrDescription,
+      dialogOpen: true,
+    });
   };
 
   handleDestroy = (keepResolved) => {
@@ -187,6 +193,8 @@ class TeamTasksListItem extends React.Component {
         </ListItem>
         <TeamTaskConfirmDialog
           team={team}
+          editedTask={this.state.editedTask}
+          editLabelOrDescription={this.state.editLabelOrDescription}
           open={this.state.dialogOpen}
           action={this.state.action}
           handleClose={this.handleCloseDialog}

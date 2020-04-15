@@ -32,7 +32,7 @@ class TeamTaskConfirmDialog extends React.Component {
   };
 
   handleCancel = () => {
-    this.setState({ confirmed: false });
+    this.setState({ confirmed: false, keepResolved: false });
     if (this.props.handleClose) {
       this.props.handleClose();
     }
@@ -42,11 +42,16 @@ class TeamTaskConfirmDialog extends React.Component {
     this.setState({ confirmed: false });
     if (this.props.handleConfirm) {
       this.props.handleConfirm(this.state.keepResolved);
+      this.setState({ keepResolved: false });
     }
   }
 
   render() {
     const { team } = this.props;
+    let action = 'delete';
+    if (this.props.action === 'edit') {
+      action = this.props.editLabelOrDescription ? 'editLabelOrDescription' : 'edit';
+    }
     const confirmDialogTitle = {
       edit: <FormattedMessage
         id="teamTasks.confirmEditTitle"
@@ -57,18 +62,34 @@ class TeamTaskConfirmDialog extends React.Component {
         defaultMessage="Are you sure you want to delete this task?"
       />,
     };
-    let deletedItems = 0;
-    team.projects.edges.forEach((project) => { deletedItems += project.node.medias_count; });
+    let affectedItems = 0;
+    team.projects.edges.forEach((project) => { affectedItems += project.node.medias_count; });
+    if (action === 'editLabelOrDescription' && this.props.editedTask !== null) {
+      const selectedProjects = JSON.parse(this.props.editedTask.json_project_ids);
+      if (selectedProjects.length) {
+        affectedItems = 0;
+        team.projects.edges.forEach((project) => {
+          if (selectedProjects.indexOf(project.node.dbid) > -1) {
+            affectedItems += project.node.medias_count;
+          }
+        });
+      }
+    }
 
     const confirmDialogBlurb = {
       edit: <FormattedMessage
         id="teamTasks.confirmEditBlurb"
         defaultMessage="Related item tasks will be modified as a consequence of applying this change, except for those that have already been answered or resolved."
       />,
+      editLabelOrDescription: <FormattedMessage
+        id="teamTasks.confirmEditLabelOrDescriptionBlurb"
+        defaultMessage="You are about to edit tasks in {itemsNumber} items. If you proceed, all those tasks will also modified."
+        values={{ itemsNumber: affectedItems }}
+      />,
       delete: <FormattedMessage
         id="teamTasks.confirmDeleteBlurb"
         defaultMessage="You are about to delete the selected tasks from {itemsNumber} items. If you proceed, the answers to these tasks will also be deleted."
-        values={{ itemsNumber: deletedItems }}
+        values={{ itemsNumber: affectedItems }}
       />,
     };
 
@@ -88,26 +109,29 @@ class TeamTaskConfirmDialog extends React.Component {
         onClose={this.props.handleClose}
       >
         <DialogTitle>
-          {confirmDialogTitle[this.props.action]}
+          {confirmDialogTitle[action]}
         </DialogTitle>
         <DialogContent>
           <Message message={this.props.message} />
           <div style={{ margin: `${units(2)} 0` }}>
             <Row>
-              {confirmDialogBlurb[this.props.action]}
+              {confirmDialogBlurb[action]}
             </Row>
-            <Row>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    id="keep-dialog__checkbox"
-                    onChange={this.handleKeepResolved.bind(this)}
-                    checked={this.state.keepResolved}
-                  />
-                }
-                label={confirmKeepResolved[this.props.action]}
-              />
-            </Row>
+            { action !== 'edit' ?
+              <Row>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      id="keep-dialog__checkbox"
+                      onChange={this.handleKeepResolved.bind(this)}
+                      checked={this.state.keepResolved}
+                    />
+                  }
+                  label={confirmKeepResolved[this.props.action]}
+                />
+              </Row>
+              : null
+            }
             <Row>
               <FormattedMessage
                 id="teamTasks.processMessage"
