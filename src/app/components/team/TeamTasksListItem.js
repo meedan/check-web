@@ -192,7 +192,7 @@ class TeamTasksListItem extends React.Component {
           </ListItemSecondaryAction>
         </ListItem>
         <TeamTaskConfirmDialog
-          team={team}
+          projects={projects}
           editedTask={this.state.editedTask}
           editLabelOrDescription={this.state.editLabelOrDescription}
           open={this.state.dialogOpen}

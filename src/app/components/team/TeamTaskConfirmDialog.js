@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
@@ -47,7 +47,7 @@ class TeamTaskConfirmDialog extends React.Component {
   }
 
   render() {
-    const { team } = this.props;
+    const { projects } = this.props;
     let action = 'delete';
     if (this.props.action === 'edit') {
       action = this.props.editLabelOrDescription ? 'editLabelOrDescription' : 'edit';
@@ -63,16 +63,18 @@ class TeamTaskConfirmDialog extends React.Component {
       />,
     };
     let affectedItems = 0;
-    team.projects.edges.forEach((project) => { affectedItems += project.node.medias_count; });
-    if (action === 'editLabelOrDescription' && this.props.editedTask !== null) {
-      const selectedProjects = JSON.parse(this.props.editedTask.json_project_ids);
-      if (selectedProjects.length) {
-        affectedItems = 0;
-        team.projects.edges.forEach((project) => {
-          if (selectedProjects.indexOf(project.node.dbid) > -1) {
-            affectedItems += project.node.medias_count;
-          }
-        });
+    if (projects !== null) {
+      projects.forEach((project) => { affectedItems += project.node.medias_count; });
+      if (action === 'editLabelOrDescription' && this.props.editedTask !== null) {
+        const selectedProjects = JSON.parse(this.props.editedTask.json_project_ids);
+        if (selectedProjects.length) {
+          affectedItems = 0;
+          projects.forEach((project) => {
+            if (selectedProjects.indexOf(project.node.dbid) > -1) {
+              affectedItems += project.node.medias_count;
+            }
+          });
+        }
       }
     }
 
@@ -109,7 +111,7 @@ class TeamTaskConfirmDialog extends React.Component {
         onClose={this.props.handleClose}
       >
         <DialogTitle>
-          {confirmDialogTitle[action]}
+          {confirmDialogTitle[this.props.action]}
         </DialogTitle>
         <DialogContent>
           <Message message={this.props.message} />
@@ -171,4 +173,4 @@ class TeamTaskConfirmDialog extends React.Component {
   }
 }
 
-export default TeamTaskConfirmDialog;
+export default injectIntl(TeamTaskConfirmDialog);
