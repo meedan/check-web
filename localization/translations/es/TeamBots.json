@@ -9,5 +9,7 @@
   "teamBots.settings": "Configuración",
   "teamBots.save": "Guardar",
   "teamBots.noSettings": "No hay configuraciones para este bot",
-  "teamBots.botGarden": "Navega en el Bot Garden"
+  "teamBots.botGarden": "Navega en el Bot Garden",
+  "teamBots.confirmationTitle": "Confirmar",
+  "teamBots.confirmationMessage": "Está a punto de realizar los cambios en su bot en vivo. Todos los usuarios en su línea de información verán esos cambios. ¿Estás seguro(a) que deseas continuar?"
 }

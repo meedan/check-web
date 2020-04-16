@@ -2,10 +2,6 @@
   "createTeamTask.editError": "Failed to edit default task",
   "createTeamTask.deleteError": "Failed to delete default task",
   "createTeamTask.menuTooltip": "Task actions",
-  "teamTasks.confirmEditTitle": "Sigur doriți să redactați această sarcină?",
-  "teamTasks.confirmDeleteTitle": "Sigur doriți să ștergeți această sarcină?",
-  "teamTasks.confirmEditBlurb": "Related item tasks will be modified as a consequence of applying this change, except for those that have already been answered or resolved.",
-  "teamTasks.confirmDeleteBlurb": "Related item tasks will be deleted as a consequence of applying this change, except for those that have already been answered or resolved.",
   "teamTasks.edit": "Redactare sarcină",
   "teamTasks.delete": "Ștergere sarcină"
 }

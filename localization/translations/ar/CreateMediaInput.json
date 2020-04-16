@@ -8,10 +8,9 @@
   "createMedia.sourceInput": "اسم المصدر",
   "createMedia.sourceUrlInput": "رابط المصدر",
   "createMedia.uploadImage": "ارفع صورة",
-  "createMedia.submitButton": "نشر",
   "createMedia.invalidUrl": "من فضلك أدخل رابطاً صحيحاً",
   "createMedia.link": "الرابط",
-  "createMedia.quote": "Text",
+  "createMedia.quote": "نص",
   "createMedia.source": "المصدر",
   "createMedia.image": "صورة",
   "createMedia.video": "فيديو"

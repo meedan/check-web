@@ -49,6 +49,6 @@
   },
   {
     "id": "teamBots.confirmationMessage",
-    "defaultMessage": "You are about to make the changes to your bot live. All the users on your tip-line will see those changes. Are you sure you want to proceed?"
+    "defaultMessage": "You are about to make the changes to your bot live. All the users on your tipline will see those changes. Are you sure you want to proceed?"
   }
 ]

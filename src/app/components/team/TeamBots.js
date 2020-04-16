@@ -299,7 +299,7 @@ class TeamBotsComponent extends Component {
           title={<FormattedMessage id="teamBots.confirmationTitle" defaultMessage="Confirm" />}
           blurb={<FormattedMessage
             id="teamBots.confirmationMessage"
-            defaultMessage="You are about to make the changes to your bot live. All the users on your tip-line will see those changes. Are you sure you want to proceed?"
+            defaultMessage="You are about to make the changes to your bot live. All the users on your tipline will see those changes. Are you sure you want to proceed?"
           />}
           handleClose={this.handleClose.bind(this)}
           handleConfirm={this.handleConfirm.bind(this)}
