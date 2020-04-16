@@ -113,40 +113,46 @@ class TeamTaskConfirmDialog extends React.Component {
         <DialogContent>
           <Message message={this.props.message} />
           <div style={{ margin: `${units(2)} 0` }}>
-            <Row>
-              {confirmDialogBlurb[action]}
-            </Row>
-            { action !== 'edit' ?
-              <Row>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      id="keep-dialog__checkbox"
-                      onChange={this.handleKeepResolved.bind(this)}
-                      checked={this.state.keepResolved}
+            { affectedItems > 0 ?
+              <div>
+                <Row>
+                  {confirmDialogBlurb[action]}
+                </Row>
+                { action !== 'edit' ?
+                  <Row>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          id="keep-dialog__checkbox"
+                          onChange={this.handleKeepResolved.bind(this)}
+                          checked={this.state.keepResolved}
+                        />
+                      }
+                      label={confirmKeepResolved[this.props.action]}
                     />
-                  }
-                  label={confirmKeepResolved[this.props.action]}
-                />
-              </Row>
-              : null
+                  </Row>
+                  : null
+                }
+                <Row>
+                  <FormattedMessage
+                    id="teamTasks.processMessage"
+                    defaultMessage="Do you want to proceed?"
+                  />
+                </Row>
+              </div> : null
             }
             <Row>
-              <FormattedMessage
-                id="teamTasks.processMessage"
-                defaultMessage="Do you want to proceed?"
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    id="confirm-dialog__checkbox"
+                    onChange={this.handleConfirmation.bind(this)}
+                    checked={this.state.confirmed}
+                  />
+                }
+                label={<FormattedMessage id="teamTasks.confirmAction" defaultMessage="Yes" />}
               />
             </Row>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  id="confirm-dialog__checkbox"
-                  onChange={this.handleConfirmation.bind(this)}
-                  checked={this.state.confirmed}
-                />
-              }
-              label={<FormattedMessage id="teamTasks.confirmAction" defaultMessage="Yes" />}
-            />
           </div>
         </DialogContent>
         <DialogActions>
