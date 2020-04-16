@@ -64,18 +64,15 @@ class TeamTaskConfirmDialog extends React.Component {
     };
     let affectedItems = 0;
     if (projects !== null) {
-      projects.forEach((project) => { affectedItems += project.node.medias_count; });
+      let { selectedProjects } = this.props;
       if (action === 'editLabelOrDescription' && this.props.editedTask !== null) {
-        const selectedProjects = JSON.parse(this.props.editedTask.json_project_ids);
-        if (selectedProjects.length) {
-          affectedItems = 0;
-          projects.forEach((project) => {
-            if (selectedProjects.indexOf(project.node.dbid) > -1) {
-              affectedItems += project.node.medias_count;
-            }
-          });
-        }
+        selectedProjects = JSON.parse(this.props.editedTask.json_project_ids);
       }
+      projects.forEach((project) => {
+        if (selectedProjects.length === 0 || selectedProjects.indexOf(project.node.dbid) > -1) {
+          affectedItems += project.node.medias_count;
+        }
+      });
     }
 
     const confirmDialogBlurb = {
