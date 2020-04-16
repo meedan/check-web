@@ -37,7 +37,7 @@
   },
   {
     "id": "smoochBotSettings.mainPlaceholder",
-    "defaultMessage": "Main menu: Reply \"1\" to do something and \"2\" to do something else."
+    "defaultMessage": "📌*Main Menu* \n      \n*Reply 1* (or 🔍) to submit a request for a fact-check about an article, video, image, or other content.\n*Reply 2* (or 🦠) to get the latest information about coronavirus disease (COVID-19)"
   },
   {
     "id": "smoochBotSettings.secondaryLabel",
@@ -49,7 +49,7 @@
   },
   {
     "id": "smoochBotSettings.secondaryPlaceholder",
-    "defaultMessage": "Secondary menu: Reply \"1\" to do something and \"2\" to do something else."
+    "defaultMessage": "*Information about Coronavirus disease (COVID-19)* 🦠\n    \n👉*Reply with any one of the following numbers (or emoji) to get information about that topic:*\n  \n*1:* How do I protect myself and/or my family? 👨‍👩‍👧\n*2:* I think I might be getting sick 🤒\n*3:* How can I handle stress associated with COVID-19? ❤️\n*4:* Information about cases and recoveries globally 📊\n*5:* Latest updates from the World Health Organization 🌐\n\n*Reply 0* to get back to the *Main Menu* 📌"
   },
   {
     "id": "smoochBotSettings.nooptLabel",
@@ -57,11 +57,11 @@
   },
   {
     "id": "smoochBotSettings.nooptDescription",
-    "defaultMessage": "The message sent if the user response to a menu is not a valid menu scenario. This message will be automatically followed by the same menu the user saw before this message."
+    "defaultMessage": "The message sent if the user response to a menu is not a valid menu scenario."
   },
   {
     "id": "smoochBotSettings.nooptPlaceholder",
-    "defaultMessage": "I'm sorry, I didn't understand your message. Please try again!"
+    "defaultMessage": "🤖I'm sorry, I didn't understand your message. Please try again!"
   },
   {
     "id": "smoochBotSettings.queryLabel",
@@ -69,11 +69,11 @@
   },
   {
     "id": "smoochBotSettings.queryDescription",
-    "defaultMessage": "The message asking the user to submit content for a fact-check. If the user successfully submits content, the bot will reply with the Query received message next."
+    "defaultMessage": "The message asking the user to submit content for a fact-check."
   },
   {
     "id": "smoochBotSettings.queryPlaceholder",
-    "defaultMessage": "Please enter your question or reply 0 to go back to main menu."
+    "defaultMessage": "*Please enter the question, link, picture, or video that you want fact-checked,* followed by any context or additional questions related to that item. Your request will be sent to fact-checkers about 30 seconds after you have sent your last message.\n      \n*Reply 0 (or 📌)* to go back to the *Main Menu*"
   },
   {
     "id": "smoochBotSettings.receivedLabel",
@@ -81,11 +81,11 @@
   },
   {
     "id": "smoochBotSettings.receivedDescription",
-    "defaultMessage": "If the user successfully submits content, the bot will reply with this message."
+    "defaultMessage": "The confirmation sent to the user after a valid query from the user has been received."
   },
   {
     "id": "smoochBotSettings.receivedPlaceholder",
-    "defaultMessage": "Thank you! Your request has been received. Responses are being aggregated and sorted, and we're working on fact-checking your questions."
+    "defaultMessage": "Thank you! Your request has been received. Responses are being aggregated and sorted, and we're working on fact-checking your questions.\n      \n✔️*Follow this link for an updated list of common questions that we have fact-checked:* [ Link to a page of fact-checks on your website ]\n\n👉*Reply with any text* to get back to the *Main Menu* 📌"
   },
   {
     "id": "smoochBotSettings.updatedLabel",
@@ -97,7 +97,7 @@
   },
   {
     "id": "smoochBotSettings.updatedPlaceholder",
-    "defaultMessage": "The fact-check that we sent to you has been *updated* with new information:"
+    "defaultMessage": "❗️The fact-check that we sent to you has been *updated* with new information:"
   },
   {
     "id": "smoochBotSettings.invalidLabel",
@@ -105,11 +105,11 @@
   },
   {
     "id": "smoochBotSettings.invalidDescription",
-    "defaultMessage": "Message automatically sent to users when a file received in the query is not supported."
+    "defaultMessage": "An automatic message sent to the user when they have sent a file that is not supported by Check."
   },
   {
     "id": "smoochBotSettings.invalidPlaceholder",
-    "defaultMessage": "Sorry, we can't accept this type of message for verification at this time."
+    "defaultMessage": "❌Sorry, we can't accept this type of message for verification at this time. \n      \nWe can accept most images, videos, links, text messages, and shared WhatsApp messages."
   },
   {
     "id": "smoochBotSettings.inactivityLabel",
@@ -121,7 +121,7 @@
   },
   {
     "id": "smoochBotSettings.inactivityPlaceholder",
-    "defaultMessage": "Thank you for your message. Our fact-checking service is currently *inactive*. Contact us at *[email or other contact]* for further inquiries."
+    "defaultMessage": "❌Thank you for your message. Our fact-checking service is currently *inactive.*\n      \nContact us at *[email or other contact]* for further inquiries."
   },
   {
     "id": "smoochBotSettings.disabled",
@@ -133,11 +133,11 @@
   },
   {
     "id": "smoochBotSettings.tosDescription",
-    "defaultMessage": "This message immediately follows any report sent to the user and should contain a link to the Check Terms of Service"
+    "defaultMessage": "This message immediately follows any report sent to the user and should contain a link to the Check Terms of Service."
   },
   {
     "id": "smoochBotSettings.tosPlaceholder",
-    "defaultMessage": "The software that powers this tipline, Check Message, is provided to you under these [link to Terms of Service]."
+    "defaultMessage": "This service is provided under the following Terms of Services: %{tos}"
   },
   {
     "id": "smoochBotSettings.main",
@@ -157,6 +157,6 @@
   },
   {
     "id": "smoochBotSettings.dialogDesc",
-    "defaultMessage": "Search for the title of an item in order to send the report associated with it. The report must be completed (Final status) in order to be found"
+    "defaultMessage": "Search for the title of the item that you want to send as a report. The bot will reply to the user with this report. The report must be completed before you can search for it here."
   }
 ]
