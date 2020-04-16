@@ -68,7 +68,10 @@ const messages = defineMessages({
   },
   mainPlaceholder: {
     id: 'smoochBotSettings.mainPlaceholder',
-    defaultMessage: 'Main menu: Reply "1" to do something and "2" to do something else.',
+    defaultMessage: `📌*Main Menu* 
+      
+*Reply 1* (or 🔍) to submit a request for a fact-check about an article, video, image, or other content.
+*Reply 2* (or 🦠) to get the latest information about coronavirus disease (COVID-19)`,
   },
   secondaryLabel: {
     id: 'smoochBotSettings.secondaryLabel',
@@ -80,7 +83,17 @@ const messages = defineMessages({
   },
   secondaryPlaceholder: {
     id: 'smoochBotSettings.secondaryPlaceholder',
-    defaultMessage: 'Secondary menu: Reply "1" to do something and "2" to do something else.',
+    defaultMessage: `*Information about Coronavirus disease (COVID-19)* 🦠
+    
+👉*Reply with any one of the following numbers (or emoji) to get information about that topic:*
+  
+*1:* How do I protect myself and/or my family? 👨‍👩‍👧
+*2:* I think I might be getting sick 🤒
+*3:* How can I handle stress associated with COVID-19? ❤️
+*4:* Information about cases and recoveries globally 📊
+*5:* Latest updates from the World Health Organization 🌐
+
+*Reply 0* to get back to the *Main Menu* 📌`,
   },
   nooptLabel: {
     id: 'smoochBotSettings.nooptLabel',
@@ -88,11 +101,11 @@ const messages = defineMessages({
   },
   nooptDescription: {
     id: 'smoochBotSettings.nooptDescription',
-    defaultMessage: 'The message sent if the user response to a menu is not a valid menu scenario. This message will be automatically followed by the same menu the user saw before this message.',
+    defaultMessage: 'The message sent if the user response to a menu is not a valid menu scenario.',
   },
   nooptPlaceholder: {
     id: 'smoochBotSettings.nooptPlaceholder',
-    defaultMessage: "I'm sorry, I didn't understand your message. Please try again!",
+    defaultMessage: "🤖I'm sorry, I didn't understand your message. Please try again!",
   },
   queryLabel: {
     id: 'smoochBotSettings.queryLabel',
@@ -100,11 +113,13 @@ const messages = defineMessages({
   },
   queryDescription: {
     id: 'smoochBotSettings.queryDescription',
-    defaultMessage: 'The message asking the user to submit content for a fact-check. If the user successfully submits content, the bot will reply with the Query received message next.',
+    defaultMessage: 'The message asking the user to submit content for a fact-check.',
   },
   queryPlaceholder: {
     id: 'smoochBotSettings.queryPlaceholder',
-    defaultMessage: 'Please enter your question or reply 0 to go back to main menu.',
+    defaultMessage: `*Please enter the question, link, picture, or video that you want fact-checked,* followed by any context or additional questions related to that item. Your request will be sent to fact-checkers about 30 seconds after you have sent your last message.
+      
+*Reply 0 (or 📌)* to go back to the *Main Menu* `,
   },
   receivedLabel: {
     id: 'smoochBotSettings.receivedLabel',
@@ -112,11 +127,15 @@ const messages = defineMessages({
   },
   receivedDescription: {
     id: 'smoochBotSettings.receivedDescription',
-    defaultMessage: 'If the user successfully submits content, the bot will reply with this message.',
+    defaultMessage: 'The confirmation sent to the user after a valid query from the user has been received.',
   },
   receivedPlaceholder: {
     id: 'smoochBotSettings.receivedPlaceholder',
-    defaultMessage: "Thank you! Your request has been received. Responses are being aggregated and sorted, and we're working on fact-checking your questions.",
+    defaultMessage: `Thank you! Your request has been received. Responses are being aggregated and sorted, and we're working on fact-checking your questions.
+      
+✔️*Follow this link for an updated list of common questions that we have fact-checked:* [ Link to a page of fact-checks on your website ]
+
+👉*Reply with any text* to get back to the *Main Menu* 📌`,
   },
   updatedLabel: {
     id: 'smoochBotSettings.updatedLabel',
@@ -128,7 +147,7 @@ const messages = defineMessages({
   },
   updatedPlaceholder: {
     id: 'smoochBotSettings.updatedPlaceholder',
-    defaultMessage: 'The fact-check that we sent to you has been *updated* with new information:',
+    defaultMessage: '❗️The fact-check that we sent to you has been *updated* with new information:',
   },
   invalidLabel: {
     id: 'smoochBotSettings.invalidLabel',
@@ -136,11 +155,13 @@ const messages = defineMessages({
   },
   invalidDescription: {
     id: 'smoochBotSettings.invalidDescription',
-    defaultMessage: 'Message automatically sent to users when a file received in the query is not supported.',
+    defaultMessage: 'An automatic message sent to the user when they have sent a file that is not supported by Check.',
   },
   invalidPlaceholder: {
     id: 'smoochBotSettings.invalidPlaceholder',
-    defaultMessage: "Sorry, we can't accept this type of message for verification at this time.",
+    defaultMessage: `❌Sorry, we can't accept this type of message for verification at this time. 
+      
+We can accept most images, videos, links, text messages, and shared WhatsApp messages.`,
   },
   inactivityLabel: {
     id: 'smoochBotSettings.inactivityLabel',
@@ -152,7 +173,9 @@ const messages = defineMessages({
   },
   inactivityPlaceholder: {
     id: 'smoochBotSettings.inactivityPlaceholder',
-    defaultMessage: 'Thank you for your message. Our fact-checking service is currently *inactive*. Contact us at *[email or other contact]* for further inquiries.',
+    defaultMessage: `❌Thank you for your message. Our fact-checking service is currently *inactive.*
+      
+Contact us at *[email or other contact]* for further inquiries.`,
   },
   disabled: {
     id: 'smoochBotSettings.disabled',
@@ -164,11 +187,11 @@ const messages = defineMessages({
   },
   tosDescription: {
     id: 'smoochBotSettings.tosDescription',
-    defaultMessage: 'This message immediately follows any report sent to the user and should contain a link to the Check Terms of Service',
+    defaultMessage: 'This message immediately follows any report sent to the user and should contain a link to the Check Terms of Service.',
   },
   tosPlaceholder: {
     id: 'smoochBotSettings.tosPlaceholder',
-    defaultMessage: 'The software that powers this tipline, Check Message, is provided to you under these [link to Terms of Service].',
+    defaultMessage: 'This service is provided under the following Terms of Services: %{tos}',
   },
 });
 
@@ -342,8 +365,8 @@ const StyledSettings = styled.div`
             }
 
             &::before {
-              content: "🗙";
-              font-size: 20px;
+              content: "×";
+              font-size: 34px;
               line-height: 30px;
             }
           }
@@ -409,15 +432,17 @@ const StyledSettings = styled.div`
             cursor: pointer;
             height: 33px;
             line-height: 33px;
+            padding-right: 20px;
+            box-sizing: border-box;
           }
 
           &::after {
-            content: "🗙";
-            color: #828282;
+            content: "×";
+            color: #FBAA6D;
             height: 10px;
             width: 10px;
             position: absolute;
-            font-size: 16px;
+            font-size: 26px;
             background: transparent;
             padding: 4px;
             z-index: 1;
@@ -448,11 +473,15 @@ const StyledSettings = styled.div`
     }
 
     textarea {
+      resize: none;
       width: 100%;
       border: 1px solid #979797;
       padding: 10px;
       border-radius: 10px;
       font-size: 14px;
+      min-height: 150px;
+      overflow: hidden;
+      box-sizing: border-box;
     }
   }
 `;
@@ -461,7 +490,7 @@ class SmoochBotSettings extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: Object.assign({}, props.formData),
+      data: this.mergeWithDefaultData(props.formData),
       showResourceDialog: false,
       currentSelectedResource: null,
       currentState: null,
@@ -483,6 +512,30 @@ class SmoochBotSettings extends Component {
       document.getElementsByTagName('BODY')[0].style.overflow = 'auto';
       document.getElementsByTagName('BODY')[0].style.paddingRight = 0;
     }
+  }
+
+  mergeWithDefaultData(propsFormData) {
+    const data = Object.assign({}, propsFormData);
+    const mapping = {
+      smooch_message_smooch_bot_greetings: 'greeting',
+      smooch_state_main: 'main',
+      smooch_state_secondary: 'secondary',
+      smooch_message_smooch_bot_option_not_available: 'noopt',
+      smooch_state_query: 'query',
+      smooch_message_smooch_bot_message_confirmed: 'received',
+      smooch_message_smooch_bot_result_changed: 'updated',
+      smooch_message_smooch_bot_message_type_unsupported: 'invalid',
+      smooch_message_smooch_bot_disabled: 'inactivity',
+      smooch_message_smooch_bot_ask_for_tos: 'tos',
+    };
+    Object.keys(mapping).forEach((key) => {
+      if (!data[key]) {
+        data[key] = this.props.intl.formatMessage(messages[`${mapping[key]}Placeholder`]);
+      } else if (Object.keys(data[key]).length === 0) {
+        data[key] = { smooch_menu_message: this.props.intl.formatMessage(messages[`${mapping[key]}Placeholder`]) };
+      }
+    });
+    return data;
   }
 
   toggleFields() {
@@ -517,8 +570,14 @@ class SmoochBotSettings extends Component {
 
       const textarea = field.querySelector('textarea');
       if (textarea) {
-        textarea.setAttribute('placeholder', this.props.intl.formatMessage(messages[`${this.state.currentSidebarOption}Placeholder`]));
-        textarea.setAttribute('id', `textarea-${this.state.currentSidebarOption}`);
+        const placeholder = this.props.intl.formatMessage(messages[`${this.state.currentSidebarOption}Placeholder`]);
+        textarea.setAttribute('placeholder', placeholder);
+        const id = `textarea-${this.state.currentSidebarOption}`;
+        textarea.setAttribute('id', id);
+        setTimeout(() => {
+          textarea.style.height = '1px';
+          textarea.style.height = `${textarea.scrollHeight}px`;
+        }, 200);
       }
       field.style.display = 'block';
       field.classList.add('sidebar');
@@ -764,7 +823,7 @@ class SmoochBotSettings extends Component {
                   <span style={{ color: '#171616', fontSize: 14, lineHeight: '1.5em' }}>
                     <FormattedMessage
                       id="smoochBotSettings.dialogDesc"
-                      defaultMessage="Search for the title of an item in order to send the report associated with it. The report must be completed (Final status) in order to be found"
+                      defaultMessage="Search for the title of the item that you want to send as a report. The bot will reply to the user with this report. The report must be completed before you can search for it here."
                     />
                   </span>
                   <div>
