@@ -146,6 +146,7 @@ class TeamTasksListItem extends React.Component {
   render() {
     const { team, task } = this.props;
     const projects = team ? team.projects.edges : null;
+    const selectedProjects = task ? task.project_ids : [];
     const { anchorEl } = this.state;
 
     const icon = {
@@ -193,6 +194,7 @@ class TeamTasksListItem extends React.Component {
         </ListItem>
         <TeamTaskConfirmDialog
           projects={projects}
+          selectedProjects={selectedProjects}
           editedTask={this.state.editedTask}
           editLabelOrDescription={this.state.editLabelOrDescription}
           open={this.state.dialogOpen}
