@@ -6,6 +6,8 @@
   "teamBots.noBots": "لا يوجد بوتات مثبتة.",
   "teamBots.moreInfo": "مزيد من المعلومات",
   "teamBots.inUse": "قيد الاستخدام",
+  "teamBots.confirmDeleteTitle": "You are about to deactivate {botName}",
+  "teamBots.confirmDeleteBlurb": "All settings will be deleted and cannot be recovered. Are you sure you want to proceed?",
   "teamBots.settings": "الإعدادات",
   "teamBots.save": "حفظ",
   "teamBots.noSettings": "لا يوجد إعدادات لهذا البوت,",
