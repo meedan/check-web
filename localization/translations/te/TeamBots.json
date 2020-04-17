@@ -9,5 +9,7 @@
   "teamBots.settings": "Settings",
   "teamBots.save": "Save",
   "teamBots.noSettings": "There are no settings for this bot.",
-  "teamBots.botGarden": "Browse the Bot Garden"
+  "teamBots.botGarden": "Browse the Bot Garden",
+  "teamBots.confirmationTitle": "Confirm",
+  "teamBots.confirmationMessage": "You are about to make the changes to your bot live. All the users on your tipline will see those changes. Are you sure you want to proceed?"
 }

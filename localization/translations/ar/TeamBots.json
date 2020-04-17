@@ -9,5 +9,7 @@
   "teamBots.settings": "الإعدادات",
   "teamBots.save": "حفظ",
   "teamBots.noSettings": "لا يوجد إعدادات لهذا البوت,",
-  "teamBots.botGarden": "تصفح Bot Garden"
+  "teamBots.botGarden": "تصفح Bot Garden",
+  "teamBots.confirmationTitle": "تأكيد",
+  "teamBots.confirmationMessage": "You are about to make the changes to your bot live. All the users on your tipline will see those changes. Are you sure you want to proceed?"
 }

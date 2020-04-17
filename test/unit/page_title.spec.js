@@ -1,7 +1,7 @@
 import React from 'react';
 import { expect } from 'chai';
 import { mountWithIntl } from './helpers/intl-test';
-import config from 'config';
+import config from 'config'; // eslint-disable-line require-path-exists/exists
 
 import PageTitle from '../../src/app/components/PageTitle';
 

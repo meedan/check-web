@@ -44,7 +44,7 @@ RUN curl --silent https://raw.githubusercontent.com/meedan/check-api/develop/pub
 
 
 # build all assets, js, css, transifex
-RUN npm run build && npm run build:server
+RUN npm run build
 
 WORKDIR ${DEPLOYDIR}/latest
 

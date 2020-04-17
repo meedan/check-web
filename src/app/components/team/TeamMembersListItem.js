@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay/classic';
 import { Link } from 'react-router';
-import { ListItem } from 'material-ui/List';
+import ListItem from '@material-ui/core/ListItem';
 import MdClear from 'react-icons/lib/md/clear';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -21,6 +21,7 @@ import { getErrorMessage } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 import globalStrings from '../../globalStrings';
 import {
+  AlignOpposite,
   FlexRow,
   Text,
   buttonInButtonGroupStyle,
@@ -187,13 +188,15 @@ class TeamMembersListItem extends Component {
       }
     }
 
+    const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
+    const fromDirection = isRtl ? 'right' : 'left';
+
     return (
       <ListItem
         className="team-members__member"
         key={teamUser.node.id}
-        disabled
       >
-        <FlexRow>
+        <FlexRow style={{ width: '100%' }}>
           <FlexRow>
             <RCTooltip
               placement="top"
@@ -201,7 +204,7 @@ class TeamMembersListItem extends Component {
             >
               <Link to={`/check/user/${teamUser.node.user.dbid}`} className="team-members__profile-link">
                 <FlexRow>
-                  <Offset isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
+                  <Offset isRtl={isRtl}>
                     <SourcePicture
                       className="avatar"
                       object={teamUser.node.user.source}
@@ -259,27 +262,29 @@ class TeamMembersListItem extends Component {
               );
             }
             return (
-              <FlexRow>
-                <RoleSelect
-                  onChange={this.handleRoleChange}
-                  value={teamUser.node.role}
-                  disabled={!this.canEditRole()}
-                />
+              <AlignOpposite fromDirection={fromDirection}>
+                <FlexRow>
+                  <RoleSelect
+                    onChange={this.handleRoleChange}
+                    value={teamUser.node.role}
+                    disabled={!this.canEditRole()}
+                  />
 
-                {isEditing && teamUser.node.status !== 'banned' ?
-                  <Tooltip title={deleteTooltip}>
-                    <div>
-                      <IconButton
-                        disabled={singleOwner && userIsSelf && selfIsOwner}
-                        className="team-members__delete-member"
-                        onClick={this.handleDeleteButtonClick}
-                      >
-                        <MdClear />
-                      </IconButton>
-                    </div>
-                  </Tooltip>
-                  : null}
-              </FlexRow>
+                  {isEditing && teamUser.node.status !== 'banned' ?
+                    <Tooltip title={deleteTooltip}>
+                      <div>
+                        <IconButton
+                          disabled={singleOwner && userIsSelf && selfIsOwner}
+                          className="team-members__delete-member"
+                          onClick={this.handleDeleteButtonClick}
+                        >
+                          <MdClear />
+                        </IconButton>
+                      </div>
+                    </Tooltip>
+                    : null}
+                </FlexRow>
+              </AlignOpposite>
             );
           })()}
 

@@ -4,15 +4,16 @@ import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
-import { List, ListItem } from 'material-ui/List';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import IconButton from '@material-ui/core/IconButton';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import styled from 'styled-components';
-import Form from 'react-jsonschema-form-material-ui';
+import Form from '@meedan/react-jsonschema-form-material-ui-v1';
 import ExternalLink from '../ExternalLink';
 import TeamRoute from '../../relay/TeamRoute';
 import { units, ContentColumn } from '../../styles/js/shared';
@@ -196,9 +197,29 @@ const StyledSchemaForm = styled.div`
     display: none;
   }
 
-  // Button to delete an action or condition
+  fieldset fieldset fieldset fieldset + div > button {
+    display: none !important;
+  }
+
+  fieldset fieldset fieldset fieldset + div > button + button + button {
+    display: block !important;
+  }
+
+  // Button to delete an action or condition (top right)
+  fieldset fieldset fieldset fieldset > button {
+    line-height: 16px;
+    margin-top: -2px;
+    font-size: x-large;
+  }
+
+  // Button to delete an action or condition (bottom right)
+  fieldset fieldset fieldset fieldset + div > button {
+    font-size: x-large;
+  }
+
+  // Button to delete an action or condition (bottom right)
   fieldset fieldset fieldset fieldset + div > button::before {
-    content: "🗙";
+    content: "×";
   }
 
   // All Actions fieldset
@@ -355,7 +376,7 @@ class TeamRulesComponent extends Component {
         const button = document.createElement('button');
         button.setAttribute('attr-index', i);
         button.onclick = (e) => { this.resetConditions(e); };
-        button.append('🗙');
+        button.append('×');
         block.prepend(button);
       }
       i += 1;
@@ -368,7 +389,7 @@ class TeamRulesComponent extends Component {
         const button = document.createElement('button');
         button.setAttribute('attr-index', i);
         button.onclick = (e) => { this.resetActions(e); };
-        button.append('🗙');
+        button.append('×');
         block.prepend(button);
       }
       i += 1;
@@ -688,6 +709,7 @@ class TeamRulesComponent extends Component {
 
   deleteRule(i) {
     const rules = this.state.rules.slice();
+    // eslint-disable-next-line no-alert
     if (window.confirm(this.props.intl.formatMessage(
       messages.confirmDeleteRule,
       { ruleName: rules[i].name },

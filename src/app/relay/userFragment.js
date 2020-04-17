@@ -50,4 +50,4 @@ const userFragment = Relay.QL`
   }
 `;
 
-module.exports = userFragment;
+export default userFragment;

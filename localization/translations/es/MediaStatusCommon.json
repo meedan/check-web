@@ -3,6 +3,5 @@
   "mediaStatusCommon.title": "Informe final",
   "mediaStatusCommon.confirmationMessageWithValue": "Está a punto de enviar un informe a {value} personas que solicitaron este ítem.",
   "mediaStatusCommon.confirmationMessage": "Está a punto de enviar un informe a todas las personas que solicitaron este ítem.",
-  "mediaStatusCommon.editReportBeforeSending": "Editar informe antes de enviar",
   "mediaStatusCommon.proceedAndSend": "Continuar y Enviar"
 }

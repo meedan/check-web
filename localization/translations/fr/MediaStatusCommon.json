@@ -3,6 +3,5 @@
   "mediaStatusCommon.title": "Rapport final",
   "mediaStatusCommon.confirmationMessageWithValue": "Vous êtes sur le point d'envoyer un rapport aux {value} personnes qui ont demandé cet élément.",
   "mediaStatusCommon.confirmationMessage": "Vous êtes sur le point d'envoyer un rapport à toutes les personnes qui ont demandé cet élément.",
-  "mediaStatusCommon.editReportBeforeSending": "Modifier le rapport avant de l'envoyer",
   "mediaStatusCommon.proceedAndSend": "Poursuivre et envoyer"
 }

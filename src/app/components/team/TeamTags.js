@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
-import { List, ListItem } from 'material-ui/List';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import MoreHoriz from '@material-ui/icons/MoreHoriz';
 import IconClose from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
-import IconMenu from 'material-ui/IconMenu';
+import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import TextField from 'material-ui/TextField';
+import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 import deepEqual from 'deep-equal';
@@ -195,8 +197,16 @@ class TeamTagsComponent extends Component {
     }
   }
 
+  handleOpenMenu = (e, menuOpenForTag) => {
+    this.setState({ anchorEl: e.currentTarget, menuOpenForTag });
+  };
+
+  handleCloseMenu = () => {
+    this.setState({ anchorEl: null, menuOpenForTag: null });
+  };
+
   handleEdit(tag) {
-    this.setState({ editing: tag });
+    this.setState({ editing: tag, anchorEl: null, menuOpenForTag: null });
   }
 
   handleDelete(tag) {
@@ -204,6 +214,8 @@ class TeamTagsComponent extends Component {
       dialogOpen: true,
       tagToBeDeleted: tag,
       message: null,
+      anchorEl: null,
+      menuOpenForTag: null,
     });
   }
 
@@ -314,47 +326,53 @@ class TeamTagsComponent extends Component {
       >
         { list.map((tag) => {
           const menu = can(tag.permissions, 'update TagText') ? (
-            <IconMenu
-              style={{ margin: '0 12px' }}
-              iconButtonElement={
-                <IconButton
-                  style={{ padding: 0 }}
-                  tooltip={this.props.intl.formatMessage(messages.menuTooltip)}
-                >
-                  <MoreHoriz />
-                </IconButton>
-              }
-            >
-              <MenuItem
-                className="tag__edit"
-                onClick={this.handleEdit.bind(this, tag)}
+            <div>
+              <IconButton
+                className="tag__actions"
+                style={{ padding: 0 }}
+                tooltip={this.props.intl.formatMessage(messages.menuTooltip)}
+                onClick={e => this.handleOpenMenu(e, tag)}
               >
-                <ListItemText
-                  primary={<FormattedMessage id="teamTags.editTag" defaultMessage="Edit tag" />}
-                />
-              </MenuItem>
-              <MenuItem
-                className="tag__delete"
-                onClick={this.handleDelete.bind(this, tag)}
+                <MoreHoriz />
+              </IconButton>
+              <Menu
+                anchorEl={this.state.anchorEl}
+                open={this.state.anchorEl && (this.state.menuOpenForTag === tag)}
+                onClose={this.handleCloseMenu}
+                style={{ margin: '0 12px' }}
               >
-                <ListItemText
-                  primary={<FormattedMessage id="teamTags.deleteTag" defaultMessage="Delete tag" />}
-                />
-              </MenuItem>
-              { showMove ? (
                 <MenuItem
-                  className="tag__move"
-                  onClick={this.handleMove.bind(this, tag)}
+                  className="tag__edit"
+                  onClick={this.handleEdit.bind(this, tag)}
                 >
                   <ListItemText
-                    primary={<FormattedMessage id="teamTags.moveTag" defaultMessage="Move to default tags" />}
+                    primary={<FormattedMessage id="teamTags.editTag" defaultMessage="Edit tag" />}
                   />
-                </MenuItem>) : null }
-            </IconMenu>) : null;
+                </MenuItem>
+                <MenuItem
+                  className="tag__delete"
+                  onClick={this.handleDelete.bind(this, tag)}
+                >
+                  <ListItemText
+                    primary={<FormattedMessage id="teamTags.deleteTag" defaultMessage="Delete tag" />}
+                  />
+                </MenuItem>
+                { showMove ? (
+                  <MenuItem
+                    className="tag__move"
+                    onClick={this.handleMove.bind(this, tag)}
+                  >
+                    <ListItemText
+                      primary={<FormattedMessage id="teamTags.moveTag" defaultMessage="Move to default tags" />}
+                    />
+                  </MenuItem>) : null }
+              </Menu>
+            </div>
+          ) : null;
 
           if (this.state.editing && this.state.editing.dbid === tag.dbid) {
             return (
-              <ListItem disabled key={tag.dbid} style={{ paddingTop: 0, paddingBottom: 0 }}>
+              <ListItem key={tag.dbid} style={{ paddingTop: 0, paddingBottom: 0 }}>
                 <TextField
                   style={{ paddingTop: 0, paddingBottom: 0 }}
                   id="tag__edit"
@@ -375,25 +393,24 @@ class TeamTagsComponent extends Component {
 
           return (
             <ListItem
-              disabled
               style={{ padding: `${units(2)} 0` }}
-              primaryText={
-                <span>
-                  {tag.text}
-                  <br />
-                  <small style={{ color: black32 }}>
-                    <FormattedMessage
-                      id="teamTags.itemsCount"
-                      defaultMessage="{count, plural, =0 {no items} one {1 item} other {# items}}"
-                      values={{ count: tag.tags_count }}
-                    />
-                  </small>
-                </span>
-              }
-              rightIcon={menu}
               key={tag.dbid}
               id={`tag__text-${tag.text}`}
-            />
+            >
+              <ListItemText
+                primary={tag.text}
+                secondary={
+                  <FormattedMessage
+                    id="teamTags.itemsCount"
+                    defaultMessage="{count, plural, =0 {no items} one {1 item} other {# items}}"
+                    values={{ count: tag.tags_count }}
+                  />
+                }
+              />
+              <ListItemSecondaryAction>
+                {menu}
+              </ListItemSecondaryAction>
+            </ListItem>
           );
         })}
       </List>
@@ -481,7 +498,7 @@ class TeamTagsComponent extends Component {
                   id="tag__new"
                   onKeyUp={this.handleKeyUp.bind(this)}
                   onKeyPress={this.handleKeyPress.bind(this)}
-                  floatingLabelText={<FormattedMessage id="teamTags.new" defaultMessage="New tag" />}
+                  label={<FormattedMessage id="teamTags.new" defaultMessage="New tag" />}
                   style={{ width: '50%' }}
                 />
                 <p>

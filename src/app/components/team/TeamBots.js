@@ -4,18 +4,19 @@ import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-i
 import { Card, CardText, CardActions } from 'material-ui/Card';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
-import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import Settings from '@material-ui/icons/Settings';
 import Switch from '@material-ui/core/Switch';
 import Tooltip from '@material-ui/core/Tooltip';
 import { Emojione } from 'react-emoji-render';
 import { Link, browserHistory } from 'react-router';
 import styled from 'styled-components';
-import Form from 'react-jsonschema-form-material-ui';
+import TeamBot from './TeamBot';
 import TeamRoute from '../../relay/TeamRoute';
 import { units, ContentColumn, black32 } from '../../styles/js/shared';
 import DeleteTeamBotInstallationMutation from '../../relay/mutations/DeleteTeamBotInstallationMutation';
 import UpdateTeamBotInstallationMutation from '../../relay/mutations/UpdateTeamBotInstallationMutation';
+import ConfirmDialog from '../layout/ConfirmDialog';
 
 const messages = defineMessages({
   confirmUninstall: {
@@ -82,29 +83,16 @@ const StyledSchemaForm = styled.div`
 
   fieldset fieldset {
     padding: ${units(1)};
+    margin-top: ${units(1)};
     border: 1px solid ${black32};
   }
 
   fieldset fieldset button {
     display: block !important;
-    width: 160px !important;
-  }
-
-  fieldset fieldset button[class*="remove"] {
-    border: 0 !important;
     width: 32px !important;
-  }
-
-  fieldset fieldset fieldset {
-    margin-bottom: ${units(1)} !important;
-  }
-
-  fieldset fieldset fieldset fieldset div[class*="input"] {
-    max-width: 470px;
-  }
-
-  fieldset fieldset fieldset fieldset button[class*="remove"] {
-    display: none !important;
+    background: #fff !important;
+    border-radius: 5px !important;
+    color: ${black32} !important;
   }
 `;
 
@@ -120,6 +108,8 @@ class TeamBotsComponent extends Component {
       settings: {},
       message: null,
       messageBotId: null,
+      open: false,
+      currentInstallation: null,
     };
   }
 
@@ -132,6 +122,19 @@ class TeamBotsComponent extends Component {
     this.setState({ settings });
   }
 
+  handleClose() {
+    this.setState({ open: false });
+  }
+
+  handleOpen(installation) {
+    this.setState({ open: true, currentInstallation: installation });
+  }
+
+  handleConfirm() {
+    this.handleClose();
+    this.handleSubmitSettings(this.state.currentInstallation);
+  }
+
   handleSettingsUpdated(installation, data) {
     const settings = Object.assign({}, this.state.settings);
     settings[installation.id] = data.formData;
@@ -142,15 +145,9 @@ class TeamBotsComponent extends Component {
     const settings = JSON.stringify(this.state.settings[installation.id]);
     const messageBotId = installation.team_bot.dbid;
     const onSuccess = () => {
-      const expanded = Object.assign({}, this.state.expanded);
-      expanded[messageBotId] = false;
       this.setState({
-        expanded,
         messageBotId,
         message: <FormattedMessage id="teamBots.success" defaultMessage="Settings updated!" />,
-      }, () => {
-        expanded[messageBotId] = true;
-        this.setState({ expanded });
       });
     };
     const onFailure = () => {
@@ -195,7 +192,7 @@ class TeamBotsComponent extends Component {
     const { team, direction } = this.props;
 
     return (
-      <ContentColumn>
+      <ContentColumn style={{ maxWidth: 900 }}>
         { team.team_bot_installations.edges.length === 0 ?
           <p style={{ paddingBottom: units(5), textAlign: 'center' }}>
             <FormattedMessage
@@ -244,34 +241,39 @@ class TeamBotsComponent extends Component {
               </CardActions>
               <Divider />
               <CardText expandable>
-                <h3><FormattedMessage id="teamBots.settings" defaultMessage="Settings" /></h3>
                 { bot.settings_as_json_schema ?
                   <StyledSchemaForm>
-                    <Form
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                      <h3><FormattedMessage id="teamBots.settings" defaultMessage="Settings" /></h3>
+                      <div>
+                        <RaisedButton
+                          primary
+                          onClick={
+                            bot.name === 'Smooch' ?
+                              this.handleOpen.bind(this, installation.node) :
+                              this.handleSubmitSettings.bind(this, installation.node)
+                          }
+                          label={
+                            <FormattedMessage
+                              id="teamBots.save"
+                              defaultMessage="Save"
+                            />
+                          }
+                        />
+                        <small style={{ margin: `0 ${units(1)}` }}>
+                          { this.state.message && this.state.messageBotId === bot.dbid ?
+                            this.state.message : null
+                          }
+                        </small>
+                      </div>
+                    </div>
+                    <TeamBot
+                      bot={bot}
                       schema={JSON.parse(bot.settings_as_json_schema)}
                       uiSchema={JSON.parse(bot.settings_ui_schema)}
                       formData={this.state.settings[installation.node.id]}
                       onChange={this.handleSettingsUpdated.bind(this, installation.node)}
                     />
-                    <p>
-                      <FlatButton
-                        primary
-                        onClick={this.handleSubmitSettings.bind(this, installation.node)}
-                        label={
-                          <FormattedMessage
-                            id="teamBots.save"
-                            defaultMessage="Save"
-                          />
-                        }
-                      />
-                    </p>
-                    <p>
-                      <small>
-                        { this.state.message && this.state.messageBotId === bot.dbid ?
-                          this.state.message : null
-                        }
-                      </small>
-                    </p>
                   </StyledSchemaForm> :
                   <FormattedMessage
                     id="teamBots.noSettings"
@@ -292,6 +294,16 @@ class TeamBotsComponent extends Component {
             </span>
           </Button>
         </p>
+        <ConfirmDialog
+          open={this.state.open}
+          title={<FormattedMessage id="teamBots.confirmationTitle" defaultMessage="Confirm" />}
+          blurb={<FormattedMessage
+            id="teamBots.confirmationMessage"
+            defaultMessage="You are about to make the changes to your bot live. All the users on your tipline will see those changes. Are you sure you want to proceed?"
+          />}
+          handleClose={this.handleClose.bind(this)}
+          handleConfirm={this.handleConfirm.bind(this)}
+        />
       </ContentColumn>
     );
   }

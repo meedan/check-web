@@ -39,27 +39,25 @@ module.exports = function (config) {
   return through.obj(directoryMap,
     function (cb) {
       if (!isEmpty(translations)) {
-        const langs = [];
         for (const lang in translations) {
-          langs.push(lang);
           const contents = JSON.stringify(translations[lang]);
           this.push(new gutil.File({
             cwd: firstFile.cwd,
             base: firstFile.cwd,
-            path: path.join(firstFile.cwd, `${lang}.js`),
-            contents: Buffer.from(`const translations = ${contents}\n\nmodule.exports = translations;`)
+            path: path.join(firstFile.cwd, `${lang}.json`),
+            contents: Buffer.from(contents),
           }));
-          gutil.log('Generated', gutil.colors.blue(`${lang}.js`));
+          gutil.log('Generated', gutil.colors.blue(`${lang}.json`));
         }
 
-        const contents = JSON.stringify(langs);
+        const contents = JSON.stringify(Object.keys(translations));
         this.push(new gutil.File({
           cwd: firstFile.cwd,
           base: firstFile.cwd,
-          path: path.join(firstFile.cwd, 'locales.js'),
-          contents: Buffer.from(`const locales = ${contents}\n\nmodule.exports = locales;`)
+          path: path.join(firstFile.cwd, 'locales.json'),
+          contents: Buffer.from(contents),
         }));
-        gutil.log('Generated', gutil.colors.blue('locales.js'));
+        gutil.log('Generated', gutil.colors.blue('locales.json'));
       }
       return cb();
     }

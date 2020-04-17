@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import deepEqual from 'deep-equal';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import rtlDetect from 'rtl-detect';
-import { Tabs, Tab } from 'material-ui/Tabs';
+import { withStyles } from '@material-ui/core/styles';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 import styled from 'styled-components';
 import TeamBots from './TeamBots';
 import TeamRules from './TeamRules';
@@ -26,6 +28,16 @@ import {
   units,
   mediaQuery,
 } from '../../styles/js/shared';
+
+const styles = () => ({
+  root: {
+    maxWidth: '120px',
+    minWidth: '120px',
+  },
+  labelContainer: {
+    padding: units(1),
+  },
+});
 
 const StyledTwoColumnLayout = styled(ContentColumn)`
   flex-direction: column;
@@ -90,10 +102,12 @@ class TeamComponent extends Component {
     return new CheckContext(this).getContextStore().currentUser;
   }
 
-  handleTabChange = value => this.setState({ showTab: value });
+  handleTabChange = (e, value) => {
+    this.setState({ showTab: value });
+  };
 
   render() {
-    const { team } = this.props;
+    const { team, classes } = this.props;
     const { action } = this.props.route;
 
     const isEditing = (action === 'edit') && can(team.permissions, 'update Team');
@@ -131,10 +145,17 @@ class TeamComponent extends Component {
     const TeamSettingsTabs = () => {
       if (isSettings || isReadOnly) {
         return (
-          <Tabs value={this.state.showTab} onChange={this.handleTabChange}>
+          <Tabs
+            indicatorColor="primary"
+            textColor="primary"
+            value={this.state.showTab}
+            onChange={this.handleTabChange}
+            centered
+          >
             { UserUtil.myRole(this.getCurrentUser(), team.slug) === 'owner' ?
               <Tab
                 className="team-settings__tasks-tab"
+                classes={{ root: classes.root, labelContainer: classes.labelContainer }}
                 label={
                   <FormattedMessage
                     id="teamSettings.Tasks"
@@ -147,6 +168,7 @@ class TeamComponent extends Component {
             {UserUtil.myRole(this.getCurrentUser(), team.slug) === 'owner' ?
               <Tab
                 className="team-settings__rules-tab"
+                classes={{ root: classes.root, labelContainer: classes.labelContainer }}
                 label={
                   <FormattedMessage
                     id="teamSettings.rules"
@@ -156,19 +178,22 @@ class TeamComponent extends Component {
                 value="rules"
               />
               : null }
-            { isSettings || isReadOnly ? <Tab
-              className="team-settings__tags-tab"
-              label={
-                <FormattedMessage
-                  id="teamSettings.Tags"
-                  defaultMessage="Tags"
-                />
-              }
-              value="tags"
-            /> : null }
+            { isSettings || isReadOnly ?
+              <Tab
+                className="team-settings__tags-tab"
+                classes={{ root: classes.root, labelContainer: classes.labelContainer }}
+                label={
+                  <FormattedMessage
+                    id="teamSettings.Tags"
+                    defaultMessage="Tags"
+                  />
+                }
+                value="tags"
+              /> : null }
             {UserUtil.myRole(this.getCurrentUser(), team.slug) === 'owner' ?
               <Tab
                 className="team-settings__embed-tab"
+                classes={{ root: classes.root, labelContainer: classes.labelContainer }}
                 label={
                   <FormattedMessage
                     id="teamSettings.embed"
@@ -181,6 +206,7 @@ class TeamComponent extends Component {
             {UserUtil.myRole(this.getCurrentUser(), team.slug) === 'owner' ?
               <Tab
                 className="team-settings__integrations-tab"
+                classes={{ root: classes.root, labelContainer: classes.labelContainer }}
                 label={
                   <FormattedMessage
                     id="teamSettings.integrations"
@@ -193,6 +219,7 @@ class TeamComponent extends Component {
             {UserUtil.myRole(this.getCurrentUser(), team.slug) === 'owner' ?
               <Tab
                 className="team-settings__bots-tab"
+                classes={{ root: classes.root, labelContainer: classes.labelContainer }}
                 label={
                   <FormattedMessage
                     id="teamSettings.bots"
@@ -216,8 +243,8 @@ class TeamComponent extends Component {
             <ContentColumn>
               <Message message={this.state.message} />
               <HeaderContent />
-              <TeamSettingsTabs />
             </ContentColumn>
+            <TeamSettingsTabs />
           </HeaderCard>
           { !isEditing && !isSettings && !isReadOnly ? TeamPageContent : null }
           { isSettings && this.state.showTab === 'tasks'
@@ -255,6 +282,7 @@ TeamComponent.propTypes = {
 
 TeamComponent.contextTypes = {
   store: PropTypes.object,
+  classes: PropTypes.object.isRequired,
 };
 
-export default injectIntl(TeamComponent);
+export default withStyles(styles)(injectIntl(TeamComponent));

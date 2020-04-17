@@ -143,6 +143,7 @@ class MediaActions extends Component {
 
     if (can(media.permissions, 'embed ProjectMedia') &&
       !media.archived) {
+      /*
       menuItems.push((
         <MenuItem
           key="mediaActions.embed"
@@ -154,6 +155,7 @@ class MediaActions extends Component {
             primary={<FormattedMessage id="mediaActions.report" defaultMessage="Report designer" />}
           />
         </MenuItem>));
+      */
     }
 
     if (can(media.permissions, 'update ProjectMedia') && !media.archived && handleSendToTrash) {

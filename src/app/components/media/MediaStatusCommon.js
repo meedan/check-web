@@ -162,7 +162,7 @@ class MediaStatusCommon extends Component {
                 )} media-status__menu-item--${status.id.replace('_', '-')}`}
                 value={status}
                 disabled={!status.can_change}
-                style={{ width: units(20), height: units(4.5), padding: `${units(0.5)} ${units(2)}` }}
+                style={{ minWidth: units(20), height: units(4.5), padding: `${units(0.5)} ${units(2)}` }}
               >
                 <ListItemText
                   style={{ padding: 0 }}
@@ -213,17 +213,6 @@ class MediaStatusCommon extends Component {
                 id="mediaStatusCommon.confirmationMessage"
                 defaultMessage="You are about to send a report to all people who requested this item."
               /> }
-            <div>
-              <Button
-                onClick={this.handleEdit.bind(this)}
-                backgroundColor="#FBAA6D"
-              >
-                <FormattedMessage
-                  id="mediaStatusCommon.editReportBeforeSending"
-                  defaultMessage="Edit report before sending"
-                />
-              </Button>
-            </div>
           </DialogContent>
           <DialogActions>
             <Button

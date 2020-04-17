@@ -1,7 +1,7 @@
 {
   "teamEmbed.updateFail": "Sorry, an error occurred while updating the report settings. Please try again and contact {supportEmail} if the condition persists.",
-  "teamEmbed.updateSuccess": "Report settings updated successfully!",
-  "teamEmbed.title": "Report settings",
+  "teamEmbed.updateSuccess": "تم حفظ إعدادات التقرير بنجاح",
+  "teamEmbed.title": "إعدادات التقرير",
   "teamEmbed.tasks": "المهام",
   "teamEmbed.tasksSub": "The selected tasks will be included in the report if they are resolved.",
   "teamEmbed.disclaimer": "إخلاء المسؤولية",

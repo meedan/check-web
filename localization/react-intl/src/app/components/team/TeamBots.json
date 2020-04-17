@@ -42,5 +42,13 @@
   {
     "id": "teamBots.botGarden",
     "defaultMessage": "Browse the Bot Garden"
+  },
+  {
+    "id": "teamBots.confirmationTitle",
+    "defaultMessage": "Confirm"
+  },
+  {
+    "id": "teamBots.confirmationMessage",
+    "defaultMessage": "You are about to make the changes to your bot live. All the users on your tipline will see those changes. Are you sure you want to proceed?"
   }
 ]

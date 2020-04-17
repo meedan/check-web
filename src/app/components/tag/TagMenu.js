@@ -5,7 +5,7 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import isEqual from 'lodash.isequal';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import IconMenu from 'material-ui/IconMenu';
+import Menu from '@material-ui/core/Menu';
 import styled from 'styled-components';
 import TagInput from './TagInput';
 import TagPicker from './TagPicker';
@@ -30,7 +30,7 @@ class TagMenuComponent extends Component {
     super(props);
 
     this.state = {
-      menuOpen: false,
+      anchorEl: null,
       value: '',
       tagsToAdd: [],
       tagsToRemove: [],
@@ -41,6 +41,11 @@ class TagMenuComponent extends Component {
 
   handleChange = (value) => {
     this.setState({ value });
+  };
+
+  handleOpenMenu = (e) => {
+    this.setState({ anchorEl: e.currentTarget });
+    this.props.relay.forceFetch();
   };
 
   handleCloseMenu = () => {
@@ -56,19 +61,11 @@ class TagMenuComponent extends Component {
       }
     });
     this.setState({
-      menuOpen: false,
+      anchorEl: null,
       value: '',
       tagsToAdd: [],
       tagsToRemove: [],
     });
-  };
-
-  handlePopup = (open) => {
-    if (open) {
-      this.props.relay.forceFetch();
-    }
-
-    this.setState({ menuOpen: open });
   };
 
   handleTagToAdd(tag) {
@@ -134,42 +131,40 @@ class TagMenuComponent extends Component {
     }
 
     return (
-      <IconMenu
-        className="tag-menu__icon"
-        onClick={this.handleOpenMenu}
-        open={this.state.menuOpen}
-        onRequestChange={this.handlePopup}
-        iconButtonElement={
-          <IconButton
-            tooltip={
-              <FormattedMessage id="tagMenu.tooltip" defaultMessage="Edit tags" />
-            }
-          >
-            <TagOutline />
-          </IconButton>
-        }
-      >
-        <div>
-          <TagInput media={media} onChange={this.handleChange} />
-          <TagPicker
-            value={this.state.value}
-            media={media}
-            tags={media.tags.edges}
-            onAddTag={this.handleTagToAdd.bind(this)}
-            onRemoveTag={this.handleTagToRemove.bind(this)}
-          />
-          <StyledActions>
-            <Button
-              style={{ marginLeft: 'auto' }}
-              className="tag-menu__done"
-              onClick={this.handleCloseMenu}
-              color="primary"
-            >
-              <FormattedMessage id="tagMenu.done" defaultMessage="Done" />
-            </Button>
-          </StyledActions>
-        </div>
-      </IconMenu>
+      <div>
+        <IconButton
+          className="tag-menu__icon"
+          tooltip={<FormattedMessage id="tagMenu.tooltip" defaultMessage="Edit tags" />}
+          onClick={this.handleOpenMenu}
+        >
+          <TagOutline />
+        </IconButton>
+        <Menu
+          anchorEl={this.state.anchorEl}
+          open={Boolean(this.state.anchorEl)}
+        >
+          <div>
+            <TagInput media={media} onChange={this.handleChange} />
+            <TagPicker
+              value={this.state.value}
+              media={media}
+              tags={media.tags.edges}
+              onAddTag={this.handleTagToAdd.bind(this)}
+              onRemoveTag={this.handleTagToRemove.bind(this)}
+            />
+            <StyledActions>
+              <Button
+                style={{ marginLeft: 'auto' }}
+                className="tag-menu__done"
+                onClick={this.handleCloseMenu}
+                color="primary"
+              >
+                <FormattedMessage id="tagMenu.done" defaultMessage="Done" />
+              </Button>
+            </StyledActions>
+          </div>
+        </Menu>
+      </div>
     );
   }
 }

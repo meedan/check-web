@@ -12,8 +12,8 @@ import UserAvatar from '../UserAvatar';
 import {
   Text,
   black54,
-  body1,
   units,
+  body1,
 } from '../../styles/js/shared';
 
 class UserMenu extends React.Component {
@@ -56,22 +56,20 @@ class UserMenu extends React.Component {
 
     return (
       <div className="header__user-menu">
-        <MenuItem
-          onClick={this.handleClick}
-          style={{
-            fontSize: body1,
-            overflow: 'hidden',
-          }}
-        >
+        <MenuItem onClick={this.handleClick}>
           <ListItemAvatar>
-            <UserAvatar size={units(4)} {...this.props} />
+            <UserAvatar size="extraSmall" {...this.props} />
           </ListItemAvatar>
           <ListItemText
             primary={
-              <Text maxWidth="100%" ellipsis>
-                {user ? user.name : null}
-                {localizedRoleText}
-              </Text>
+              <div>
+                <Text maxWidth="100%" font={body1} ellipsis>
+                  <span style={{ maxWidth: '80%' }}>
+                    {user ? user.name : null}
+                  </span>
+                  {localizedRoleText}
+                </Text>
+              </div>
             }
           />
         </MenuItem>

@@ -3,6 +3,5 @@
   "mediaStatusCommon.title": "Relato final",
   "mediaStatusCommon.confirmationMessageWithValue": "Você está prestes a enviar um relato à(s) {value} solicitante(s) deste item.",
   "mediaStatusCommon.confirmationMessage": "Você está prestes a enviar um relato à todas as pessoas que solicitaram este item.",
-  "mediaStatusCommon.editReportBeforeSending": "Editar relato antes de enviar",
   "mediaStatusCommon.proceedAndSend": "Prosseguir e enviar"
 }

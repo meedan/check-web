@@ -1,0 +1,13 @@
+{
+  "teamTasks.confirmEditTitle": "Voulez-vous vraiment modifier cette tâche ?",
+  "teamTasks.confirmDeleteTitle": "Voulez-vous vraiment supprimer cette tâche ?",
+  "teamTasks.confirmEditBlurb": "Les tâches associées aux éléments seront modifiées en conséquence de l'application de cette modification, à l'exception des tâches qui ont déjà été traitées ou résolues.",
+  "teamTasks.confirmEditLabelOrDescriptionBlurb": "Vous êtes sur le point de modifier les tâches de {itemsNumber, plural, =0 {0 élément} one {1 élément} other {# éléments}}. Si vous continuez, toutes ces tâches seront également modifiées.",
+  "teamTasks.confirmDeleteBlurb": "Vous êtes sur le point de supprimer les tâches sélectionnées de {itemsNumber, plural, =0 {0 élément} one {1 élément} other {# éléments}}. Si vous continuez, les réponses à ces tâches seront également supprimées.",
+  "teamTasks.confirmEditKeepResolved": "Conservez les tâches qui ont été résolues, avec leur nom et description actuels.",
+  "teamTasks.confirmDeleteKeepResolved": "Garder les tâches résolues, avec leurs réponses.",
+  "teamTasks.processMessage": "Voulez-vous vraiment continuer ?",
+  "teamTasks.confirmAction": "Oui",
+  "teamTasks.cancelAction": "Annuler",
+  "teamTasks.continue": "Continuer"
+}

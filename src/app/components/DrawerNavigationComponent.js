@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import Button from '@material-ui/core/Button';
-import Drawer from 'material-ui/Drawer';
+import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import { withStyles } from '@material-ui/core/styles';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import styled from 'styled-components';
 import IconSettings from '@material-ui/icons/Settings';
@@ -110,7 +111,7 @@ class DrawerNavigationComponent extends Component {
   }
 
   render() {
-    const { loggedIn } = this.props;
+    const { loggedIn, classes } = this.props;
     const inTeamContext = this.props.team;
 
     // This component now renders based on teamPublicFragment
@@ -149,6 +150,8 @@ class DrawerNavigationComponent extends Component {
     };
 
     const DrawerHeader = styled.div`
+      min-width: ${units(32)};
+      max-width: ${units(32)};
       height: ${drawerHeaderHeight};
       background-color: ${black05};
       padding: ${units(2)};
@@ -167,18 +170,14 @@ class DrawerNavigationComponent extends Component {
 
     return (
       <Drawer
-        {...this.props}
-        containerStyle={{
-          boxShadow: 'none',
-          borderRight: 'solid 1px #e0e0e0',
-          overflow: 'unset',
-        }}
+        open
+        variant="persistent"
+        anchor={fromDirection}
+        classes={{ paper: classes.paper }}
       >
         <div>
-
           {inTeamContext ?
             <DrawerHeader
-              className="sc-itybZL dJsdpW"
               style={{
                 padding: '10px',
                 height: '68px',
@@ -291,4 +290,12 @@ DrawerNavigationComponent.contextTypes = {
   store: PropTypes.object,
 };
 
-export default injectIntl(DrawerNavigationComponent);
+const drawerStyles = {
+  paper: {
+    minWidth: units(32),
+    maxWidth: units(32),
+    overflow: 'hidden',
+  },
+};
+
+export default withStyles(drawerStyles)(injectIntl(DrawerNavigationComponent));

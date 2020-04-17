@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
-import Checkbox from 'material-ui/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 import { units } from '../styles/js/shared';
 import { stringHelper } from '../customHelpers';
 
@@ -79,10 +80,14 @@ class UserTosForm extends Component {
           </div>
         }
         <div style={{ margin: `${units(4)} 0` }}>
-          <Checkbox
-            id="tos__tos-agree"
-            onCheck={this.props.handleCheckTos}
-            checked={this.props.checkedTos}
+          <FormControlLabel
+            control={
+              <Checkbox
+                id="tos__tos-agree"
+                onChange={this.props.handleCheckTos}
+                checked={this.props.checkedTos}
+              />
+            }
             label={
               <FormattedMessage
                 id="userTos.agreeTos"
@@ -92,10 +97,14 @@ class UserTosForm extends Component {
           />
         </div>
         <div style={{ margin: `${units(4)} 0` }}>
-          <Checkbox
-            id="tos__pp-agree"
-            onCheck={this.props.handleCheckPp}
-            checked={this.props.checkedPp}
+          <FormControlLabel
+            control={
+              <Checkbox
+                id="tos__pp-agree"
+                onChange={this.props.handleCheckPp}
+                checked={this.props.checkedPp}
+              />
+            }
             label={
               <FormattedMessage
                 id="userTos.agreePp"
