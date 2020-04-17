@@ -177,8 +177,6 @@ class TeamBotsComponent extends Component {
     const deleteBotName = node.team_bot.identifier !== 'smooch' ?
       node.team_bot.name : 'Check Message';
 
-    console.log('node.team_bot', node.team_bot);
-
     this.setState({
       showConfirmDeleteDialog: true,
       deleteBot,
