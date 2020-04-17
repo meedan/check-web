@@ -476,7 +476,9 @@ shared_examples 'smoke' do
 
     # Uninstall bot
     wait_for_selector('input').click
-    @driver.switch_to.alert.accept
+    wait_for_selector('#confirm-dialog__checkbox').click
+    wait_for_selector('#confirm-dialog__confirm-action-button').click
+    wait_for_selector_none('#confirm-dialog__checkbox')
     wait_for_selector_none('.settingsIcon')
     expect(@driver.page_source.include?('No bots installed')).to be(true)
     expect(@driver.page_source.include?('More info')).to be(false)
