@@ -71,11 +71,10 @@ const FlashMessage = () => {
  * Call <Component setFlashMessage={fn} {...props}>.
  */
 const withSetFlashMessage = (Component) => {
-  const inner = props => (
-    <FlashMessageSetterContext.Consumer>
-      {setFlashMessage => <Component setFlashMessage={setFlashMessage} {...props} />}
-    </FlashMessageSetterContext.Consumer>
-  );
+  const inner = (props) => {
+    const setFlashMessage = React.useContext(FlashMessageSetterContext);
+    return <Component setFlashMessage={setFlashMessage} {...props} />;
+  };
   inner.displayName = `WithSetFlashMessage(${Component.displayName || Component.name || 'Component'})`;
   return inner;
 };
