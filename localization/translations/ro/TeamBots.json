@@ -6,6 +6,8 @@
   "teamBots.noBots": "Nu există roboți instalați.",
   "teamBots.moreInfo": "Mai multe informații",
   "teamBots.inUse": "În uz",
+  "teamBots.confirmDeleteTitle": "You are about to deactivate {botName}",
+  "teamBots.confirmDeleteBlurb": "All settings will be deleted and cannot be recovered. Are you sure you want to proceed?",
   "teamBots.settings": "Setări",
   "teamBots.save": "Salvează",
   "teamBots.noSettings": "Nu există setări pentru acest robot.",

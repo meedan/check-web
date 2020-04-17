@@ -6,6 +6,8 @@
   "teamBots.noBots": "Нет добавленных ботов.",
   "teamBots.moreInfo": "Информация",
   "teamBots.inUse": "Используется",
+  "teamBots.confirmDeleteTitle": "You are about to deactivate {botName}",
+  "teamBots.confirmDeleteBlurb": "All settings will be deleted and cannot be recovered. Are you sure you want to proceed?",
   "teamBots.settings": "Настройки",
   "teamBots.save": "Сохранить",
   "teamBots.noSettings": "У этого бота нет настроек.",
