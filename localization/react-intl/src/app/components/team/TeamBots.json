@@ -28,6 +28,14 @@
     "defaultMessage": "In Use"
   },
   {
+    "id": "teamBots.confirmDeleteTitle",
+    "defaultMessage": "You are about to deactivate {botName}"
+  },
+  {
+    "id": "teamBots.confirmDeleteBlurb",
+    "defaultMessage": "All settings will be deleted and cannot be recovered. Are you sure you want to proceed?"
+  },
+  {
     "id": "teamBots.settings",
     "defaultMessage": "Settings"
   },
