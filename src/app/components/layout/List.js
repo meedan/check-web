@@ -192,20 +192,71 @@ function buildColumnDefs(team, formatMessage) {
   return colDefs;
 }
 
-class List extends React.Component {
+function buildRowData(searchResults, intl) {
+  return searchResults.map((i) => {
+    const media = i.node;
+    const {
+      id,
+      dbid,
+      picture,
+      title,
+      description,
+      demand,
+      linked_items_count,
+      type,
+      status,
+      first_seen,
+      last_seen,
+      share_count,
+    } = media;
+
+    const statusObj = getStatus(teamStatuses(media), status);
+
+    const formatted_first_seen = intl.formatRelative(MediaUtil.createdAt({
+      published: first_seen,
+    }));
+
+    const formatted_last_seen = intl.formatRelative(MediaUtil.createdAt({
+      published: last_seen,
+    }));
+
+    const row = {
+      id,
+      dbid,
+      picture,
+      title,
+      description,
+      type: MediaUtil.mediaTypeLabel(type, intl),
+      demand,
+      linked_items_count,
+      status: statusObj.label,
+      first_seen: formatted_first_seen,
+      last_seen: formatted_last_seen,
+      media,
+      share_count,
+      query: i.itemQuery,
+      url: i.mediaUrl,
+    };
+
+    return row;
+  });
+}
+
+const AgRowStyle = { cursor: 'pointer' };
+
+const AgFrameworkComponents = {
+  mediaCellRenderer: MediaCell,
+  metadataCellRenderer: MetadataCell,
+};
+
+class List extends React.PureComponent {
   componentDidMount() {
     window.addEventListener('resize', this.handleWindowResize);
+    this.reselectAgGridNodes();
   }
 
   componentDidUpdate() {
-    if (this.gridApi) {
-      this.gridApi.deselectAll();
-      this.gridApi.getModel().forEachNode((node) => {
-        if (this.props.selectedMedia.includes(node.data.id)) {
-          node.setSelected(true);
-        }
-      });
-    }
+    this.reselectAgGridNodes();
   }
 
   componentWillUnmount() {
@@ -214,57 +265,19 @@ class List extends React.Component {
 
   getColumnDefs = () => this.buildColumnDefs(this.props.team, this.props.intl.formatMessage);
 
-  getRowData() {
-    return this.props.searchResults.map((i) => {
-      const media = i.node;
-      const {
-        id,
-        dbid,
-        picture,
-        title,
-        description,
-        demand,
-        linked_items_count,
-        type,
-        status,
-        first_seen,
-        last_seen,
-        share_count,
-      } = media;
-
-      const statusObj = getStatus(teamStatuses(media), status);
-
-      const formatted_first_seen = this.props.intl.formatRelative(MediaUtil.createdAt({
-        published: first_seen,
-      }));
-
-      const formatted_last_seen = this.props.intl.formatRelative(MediaUtil.createdAt({
-        published: last_seen,
-      }));
-
-      const row = {
-        id,
-        dbid,
-        picture,
-        title,
-        description,
-        type: MediaUtil.mediaTypeLabel(type, this.props.intl),
-        demand,
-        linked_items_count,
-        status: statusObj.label,
-        first_seen: formatted_first_seen,
-        last_seen: formatted_last_seen,
-        media,
-        share_count,
-        query: i.itemQuery,
-        url: i.mediaUrl,
-      };
-
-      return row;
-    });
-  }
+  getRowData = () => this.buildRowData(this.props.searchResults, this.props.intl);
 
   buildColumnDefs = memoizeOne(buildColumnDefs);
+
+  buildRowData = memoizeOne(buildRowData);
+
+  reselectAgGridNodes() {
+    if (this.gridApi) {
+      this.gridApi.getModel().forEachNode((node) => {
+        node.setSelected(this.props.selectedMedia.includes(node.data.id));
+      });
+    }
+  }
 
   handleClickRow = (wrapper) => {
     if (this.props.onClick) {
@@ -278,9 +291,12 @@ class List extends React.Component {
   };
 
   handleChange = (params) => {
-    const rows = params.api.getSelectedRows();
     if (this.props.onSelect) {
-      this.props.onSelect(rows.map(r => r.id));
+      const rows = params.api.getSelectedRows();
+      const mediaIds = rows.map(r => r.id).sort();
+      if (mediaIds.join(',') !== this.props.selectedMedia.sort().join(',')) {
+        this.props.onSelect(rows.map(r => r.id));
+      }
     }
   };
 
@@ -293,16 +309,13 @@ class List extends React.Component {
       <StyledGridContainer className="ag-theme-material">
         <AgGridReact
           columnDefs={this.getColumnDefs()}
-          frameworkComponents={{
-            mediaCellRenderer: MediaCell,
-            metadataCellRenderer: MetadataCell,
-          }}
           rowData={this.getRowData()}
+          frameworkComponents={AgFrameworkComponents}
           onGridReady={this.handleGridReady}
           onRowClicked={this.handleClickRow}
           onSelectionChanged={this.handleChange}
           rowClass="medias__item"
-          rowStyle={{ cursor: 'pointer' }}
+          rowStyle={AgRowStyle}
           rowHeight="96"
           rowSelection="multiple"
           suppressCellSelection

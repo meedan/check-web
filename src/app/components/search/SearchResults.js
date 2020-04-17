@@ -5,7 +5,6 @@ import { defineMessages, injectIntl, intlShape, FormattedMessage } from 'react-i
 import { browserHistory } from 'react-router';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import sortby from 'lodash.sortby';
-import isEqual from 'lodash.isequal';
 import styled from 'styled-components';
 import NextIcon from '@material-ui/icons/KeyboardArrowRight';
 import PrevIcon from '@material-ui/icons/KeyboardArrowLeft';
@@ -107,8 +106,12 @@ const StyledSearchResultsWrapper = styled.div`
   }
 `;
 
+const StyledToolbarWrapper = styled.div`
+  margin: ${units(2)} 0;
+`;
+
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
-class SearchResultsComponent extends React.Component {
+class SearchResultsComponent extends React.PureComponent {
   static mergeResults(medias, sources) {
     if (medias.length === 0 && sources.length === 0) {
       return [];
@@ -131,30 +134,19 @@ class SearchResultsComponent extends React.Component {
   constructor(props) {
     super(props);
 
+    this.pusherChannel = null;
+
     this.state = {
       selectedMedia: [],
     };
   }
 
   componentDidMount() {
-    this.subscribe();
+    this.resubscribe();
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return !isEqual(this.state, nextState) ||
-           !isEqual(this.props.search, nextProps.search);
-  }
-
-  componentWillUpdate(nextProps) {
-    if (this.props.search.pusher_channel !== nextProps.search.pusher_channel) {
-      this.unsubscribe();
-    }
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.search.pusher_channel !== prevProps.search.pusher_channel) {
-      this.subscribe();
-    }
+  componentDidUpdate() {
+    this.resubscribe();
   }
 
   componentWillUnmount() {
@@ -215,12 +207,16 @@ class SearchResultsComponent extends React.Component {
     return this.getContext().getContextStore();
   }
 
-  subscribe() {
+  resubscribe() {
     const { pusher, search, intl } = this.props;
-    if (search.pusher_channel) {
-      const { pusher_channel: channel } = this.props;
 
-      pusher.unsubscribe(channel);
+    if (this.pusherChannel !== search.pusher_channel) {
+      this.unsubscribe();
+    }
+
+    if (search.pusher_channel) {
+      const channel = search.pusher_channel;
+      this.pusherChannel = channel;
 
       pusher.subscribe(channel).bind('bulk_update_end', 'Search', (data, run) => {
         if (run) {
@@ -273,9 +269,9 @@ class SearchResultsComponent extends React.Component {
   }
 
   unsubscribe() {
-    const { pusher, search } = this.props;
-    if (search.pusher_channel) {
-      pusher.unsubscribe(search.pusher_channel);
+    if (this.pusherChannel) {
+      this.props.pusher.unsubscribe(this.pusherChannel);
+      this.pusherChannel = null;
     }
   }
 
@@ -454,7 +450,7 @@ class SearchResultsComponent extends React.Component {
           </Row>
         </StyledListHeader>
         <StyledSearchResultsWrapper className="search__results results">
-          <div style={{ margin: `${units(2)} 0` }}>{title}</div>
+          <StyledToolbarWrapper>{title}</StyledToolbarWrapper>
           {content}
         </StyledSearchResultsWrapper>
       </ContentColumn>
