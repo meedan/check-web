@@ -172,20 +172,28 @@ class TeamBotsComponent extends Component {
     this.setState({ expanded, message: null, messageBotId: null });
   }
 
-  handleToggle(id, teamId) {
-    // eslint-disable-next-line no-alert
-    if (window.confirm(this.props.intl.formatMessage(messages.confirmUninstall))) {
-      const onSuccess = () => {};
-      const onFailure = () => {};
+  handleToggle(node) {
+    const deleteBot = { id: node.id, teamId: this.props.team.id };
+    const deleteBotName = node.team_bot.identifier !== 'smooch' ?
+      node.team_bot.name : 'Check Message';
 
-      Relay.Store.commitUpdate(
-        new DeleteTeamBotInstallationMutation({
-          id,
-          teamId,
-        }),
-        { onSuccess, onFailure },
-      );
-    }
+    console.log('node.team_bot', node.team_bot);
+
+    this.setState({
+      showConfirmDeleteDialog: true,
+      deleteBot,
+      deleteBotName,
+    });
+  }
+
+  handleCloseDialog() {
+    this.setState({ showConfirmDeleteDialog: false });
+  }
+
+  handleDestroy() {
+    const { deleteBot } = this.state;
+    Relay.Store.commitUpdate(new DeleteTeamBotInstallationMutation(deleteBot));
+    this.setState({ showConfirmDeleteDialog: false });
   }
 
   render() {
@@ -229,7 +237,7 @@ class TeamBotsComponent extends Component {
                   </span>
                   <Switch
                     checked
-                    onClick={this.handleToggle.bind(this, installation.node.id, team.id)}
+                    onClick={this.handleToggle.bind(this, installation.node)}
                   />
                   <Tooltip title={this.props.intl.formatMessage(messages.settingsTooltip)}>
                     <Settings
@@ -239,6 +247,24 @@ class TeamBotsComponent extends Component {
                   </Tooltip>
                 </StyledToggle>
               </CardActions>
+              <ConfirmDialog
+                open={this.state.showConfirmDeleteDialog}
+                title={
+                  <FormattedMessage
+                    id="teamBots.confirmDeleteTitle"
+                    defaultMessage="You are about to deactivate {botName}"
+                    values={{ botName: this.state.deleteBotName }}
+                  />
+                }
+                blurb={
+                  <FormattedMessage
+                    id="teamBots.confirmDeleteBlurb"
+                    defaultMessage="All settings will be deleted and cannot be recovered. Are you sure you want to proceed?"
+                  />
+                }
+                handleClose={this.handleCloseDialog.bind(this)}
+                handleConfirm={this.handleDestroy.bind(this)}
+              />
               <Divider />
               <CardText expandable>
                 { bot.settings_as_json_schema ?
@@ -332,6 +358,7 @@ const TeamBotsContainer = Relay.createContainer(injectIntl(TeamBotsComponent), {
                 dbid
                 avatar
                 name
+                identifier
                 settings_as_json_schema
                 settings_ui_schema
                 description: get_description
