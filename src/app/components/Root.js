@@ -56,7 +56,7 @@ class Root extends Component {
     window.Check = { store };
 
     return (
-      <div>
+      <React.Fragment>
         <RootLocale locale={locale} />
         <IntlProvider locale={locale} messages={translations}>
           <Provider store={store}>
@@ -103,7 +103,7 @@ class Root extends Component {
             </Router>
           </Provider>
         </IntlProvider>
-      </div>
+      </React.Fragment>
     );
   }
 }

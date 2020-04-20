@@ -277,7 +277,7 @@ class HomeComponent extends Component {
         <GlobalStyle />
         <MuiThemeProviderNext theme={muiThemeNext}>
           <MuiThemeProvider muiTheme={muiThemeWithRtl}>
-            <span>
+            <React.Fragment>
               {config.intercomAppId && user.dbid ?
                 <Intercom
                   appID={config.intercomAppId}
@@ -320,7 +320,7 @@ class HomeComponent extends Component {
                   {children}
                 </StyledContent>
               </StyledWrapper>
-            </span>
+            </React.Fragment>
           </MuiThemeProvider>
         </MuiThemeProviderNext>
       </React.Fragment>
