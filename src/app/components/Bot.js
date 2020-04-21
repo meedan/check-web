@@ -123,7 +123,7 @@ class BotComponent extends Component {
       mutation = new DeleteTeamBotInstallationMutation({
         id: installation.id,
         teamId: team.id,
-        botId: bot.id,
+        botUserId: this.props.bot.id,
       });
     } else {
       message = messages.confirmInstall;
@@ -188,6 +188,7 @@ class BotComponent extends Component {
                 <Switch
                   checked={bot.installed}
                   onClick={this.handleToggle.bind(this)}
+                  disabled={bot.installed && !bot.installation}
                 />
               </StyledToggle>
             </StyledCardText>
