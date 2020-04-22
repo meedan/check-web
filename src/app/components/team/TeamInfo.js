@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import { browserHistory } from 'react-router';
 import MdLock from '@material-ui/icons/Lock';
 import MdPublic from '@material-ui/icons/Public';
 import MdLink from '@material-ui/icons/Link';
@@ -91,7 +92,7 @@ const TeamInfo = (props) => {
               <Can permissions={team.permissions} permission="update Team">
                 <SmallerStyledIconButton
                   className="team-menu__edit-team-button"
-                  onClick={() => props.context.history.push(`/${props.team.slug}/edit`)}
+                  onClick={() => browserHistory.push(`/${props.team.slug}/edit`)}
                   tooltip={
                     <FormattedMessage id="teamInfo.editTeam" defaultMessage="Edit" />
                   }

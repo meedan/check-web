@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { defineMessages, injectIntl, intlShape, FormattedMessage } from 'react-intl';
+import { browserHistory } from 'react-router';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import sortby from 'lodash.sortby';
 import isEqual from 'lodash.isequal';
@@ -188,7 +189,7 @@ class SearchResultsComponent extends React.Component {
 
     const url = urlFromSearchQuery(query, path);
 
-    this.getContext().getContextStore().history.push(url);
+    browserHistory.push(url);
   }
 
   handleSelect = (selectedMedia) => {

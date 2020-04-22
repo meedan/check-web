@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormattedHTMLMessage, injectIntl } from 'react-intl';
+import { browserHistory } from 'react-router';
 import rtlDetect from 'rtl-detect';
 import IconEdit from '@material-ui/icons/Edit';
 import AccountChips from './AccountChips';
@@ -46,9 +47,9 @@ const UserInfo = (props) => {
                   className="source__edit-source-button"
                   onClick={() => {
                     if (props.user.dbid === props.context.currentUser.dbid) {
-                      props.context.history.push('/check/me/edit');
+                      browserHistory.push('/check/me/edit');
                     } else {
-                      props.context.history.push(`/check/user/${props.user.dbid}/edit`);
+                      browserHistory.push(`/check/user/${props.user.dbid}/edit`);
                     }
                   }}
                   tooltip={props.intl.formatMessage(globalStrings.edit)}

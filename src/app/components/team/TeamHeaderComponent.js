@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { browserHistory } from 'react-router';
 import styled from 'styled-components';
 import { injectIntl } from 'react-intl';
 import TeamAvatar from './TeamAvatar';
@@ -37,7 +38,7 @@ class TeamHeaderComponent extends Component {
     const { team } = this.props;
 
     if (!team) {
-      this.getContext().history.push('/check/not-found');
+      browserHistory.push('/check/not-found');
       this.setState({ willRedirect: true });
       return;
     }
@@ -47,10 +48,6 @@ class TeamHeaderComponent extends Component {
 
   componentWillUpdate() {
     this.updateContext();
-  }
-
-  getContext() {
-    return new CheckContext(this);
   }
 
   updateContext() {

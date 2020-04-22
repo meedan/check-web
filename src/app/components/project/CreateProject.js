@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { browserHistory } from 'react-router';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay/classic';
 import Card from '@material-ui/core/Card';
@@ -73,8 +74,6 @@ class CreateProject extends Component {
   handleSubmit(e) {
     const title = this.projectInput.getValue();
     const { team } = this.props;
-    const context = new CheckContext(this);
-    const { history } = context.getContextStore();
 
     const onFailure = (transaction) => {
       const fallbackMessage = this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') });
@@ -85,7 +84,7 @@ class CreateProject extends Component {
     const onSuccess = (response) => {
       const { createProject: { project } } = response;
       const path = `/${team.slug}/project/${project.dbid}`;
-      history.push(path);
+      browserHistory.push(path);
       if (this.props.onCreate) {
         this.props.onCreate();
       }

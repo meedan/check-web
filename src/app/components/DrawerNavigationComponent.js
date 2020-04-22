@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 import Button from '@material-ui/core/Button';
 import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
@@ -67,10 +67,6 @@ class DrawerNavigationComponent extends Component {
     return new CheckContext(this).getContextStore().currentUser;
   }
 
-  getHistory() {
-    return new CheckContext(this).getContextStore().history;
-  }
-
   setContextTeam() {
     const context = new CheckContext(this);
     const { team } = this.props;
@@ -107,7 +103,7 @@ class DrawerNavigationComponent extends Component {
   }
 
   handleClickTeamSettings() {
-    this.getHistory().push(`/${this.props.team.slug}/settings`);
+    browserHistory.push(`/${this.props.team.slug}/settings`);
   }
 
   render() {

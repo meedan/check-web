@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
-import { syncHistoryWithStore } from 'react-router-redux';
 import ReactGA from 'react-ga';
 import { IntlProvider } from 'react-intl';
 import deepEqual from 'deep-equal';
@@ -239,11 +238,10 @@ class Root extends Component {
   }
 
   setStore() {
-    const history = syncHistoryWithStore(browserHistory, this.props.store);
     const context = this.getContext();
     const store = context.store || this.props.store;
 
-    const data = { history, locale: this.props.locale };
+    const data = { locale: this.props.locale };
 
     if (config.pusherKey) {
       // Pusher is imported at runtime from a <script file> tag.
@@ -273,7 +271,7 @@ class Root extends Component {
         <RootLocale locale={locale} />
         <IntlProvider locale={locale} messages={translations}>
           <Provider store={store}>
-            <Router history={this.state.history} onUpdate={Root.logPageView}>
+            <Router history={browserHistory} onUpdate={Root.logPageView}>
               <Route path="/" component={App}>
                 <IndexRoute component={Team} />
                 <Route path="check/user/already-confirmed" component={UserAlreadyConfirmed} public />

@@ -1,24 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
-import { Link } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 import IconArrowBack from '@material-ui/icons/ArrowBack';
 import IconButton from '@material-ui/core/IconButton';
 import { FormattedMessage } from 'react-intl';
 import ProjectRoute from '../../relay/ProjectRoute';
 import { urlFromSearchQuery } from '../search/Search';
 import { Row, Text, HeaderTitle, FadeIn, SlideIn, black54 } from '../../styles/js/shared';
-import CheckContext from '../../CheckContext';
 
 class ProjectHeaderComponent extends React.PureComponent {
-  getContext() {
-    return new CheckContext(this);
-  }
-
-  currentContext() {
-    return this.getContext().getContextStore();
-  }
-
   render() {
     const { props } = this;
     const currentProject = props.project;
@@ -28,9 +19,9 @@ class ProjectHeaderComponent extends React.PureComponent {
     const regexMedia = /project\/[0-9]+\/media\/[0-9]/;
     const regexSource = /\/source\/[0-9]/;
     let mediaQuery = null;
-    const { state } = this.currentContext().history.getCurrentLocation();
-    if (state && state.query) {
-      mediaQuery = state.query;
+    const { loc } = browserHistory.getCurrentLocation(); // TODO use props
+    if (loc && loc.query) {
+      mediaQuery = loc.query;
     }
     const isProjectSubpage = regexMedia.test(path) || regexSource.test(path);
 
@@ -107,7 +98,6 @@ class ProjectHeaderComponent extends React.PureComponent {
 }
 
 ProjectHeaderComponent.contextTypes = {
-  store: PropTypes.object,
   router: PropTypes.object,
 };
 

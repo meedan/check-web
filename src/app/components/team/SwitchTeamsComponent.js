@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, defineMessages, intlShape, injectIntl } from 'react-intl';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-import { Link } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -57,7 +57,7 @@ class SwitchTeamsComponent extends Component {
 
   setCurrentTeam(team, user) {
     const context = this.getContext();
-    const { history, currentUser } = context.getContextStore();
+    const { currentUser } = context.getContextStore();
 
     currentUser.current_team = team;
     context.setContextStore({ team, currentUser });
@@ -70,7 +70,7 @@ class SwitchTeamsComponent extends Component {
 
     const onSuccess = () => {
       const path = `/${team.slug}/all-items`;
-      history.push(path);
+      browserHistory.push(path);
     };
 
     Relay.Store.commitUpdate(
@@ -202,7 +202,7 @@ class SwitchTeamsComponent extends Component {
         { isUserSelf ?
           <CardActions>
             <Button
-              onClick={() => this.getContext().getContextStore().history.push('/check/teams/new')}
+              onClick={() => browserHistory.push('/check/teams/new')}
             >
               <FormattedMessage id="switchTeams.newTeamLink" defaultMessage="Create Workspace" />
             </Button>

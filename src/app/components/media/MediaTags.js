@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, intlShape, injectIntl } from 'react-intl';
+import { browserHistory } from 'react-router';
 import Relay from 'react-relay/classic';
 import mergeWith from 'lodash.mergewith';
 import xor from 'lodash.xor';
@@ -11,7 +12,6 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import Can from '../Can';
 import UpdateLanguageMutation from '../../relay/mutations/UpdateLanguageMutation';
 import LanguageSelector from '../LanguageSelector';
-import CheckContext from '../../CheckContext';
 import { searchQueryFromUrl, urlFromSearchQuery } from '../search/Search';
 import { getErrorMessage, bemClass } from '../../helpers';
 import {
@@ -185,8 +185,7 @@ class MediaTags extends Component {
 
   handleTagViewClick(tagString) {
     const url = this.searchTagUrl(tagString);
-    const { history } = new CheckContext(this).getContextStore();
-    history.push(url);
+    browserHistory.push(url);
   }
 
   render() {
@@ -298,7 +297,6 @@ MediaTags.propTypes = {
 };
 
 MediaTags.contextTypes = {
-  store: PropTypes.object,
   setMessage: PropTypes.func,
 };
 
