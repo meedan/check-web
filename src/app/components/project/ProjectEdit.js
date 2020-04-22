@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { browserHistory } from 'react-router';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay/classic';
 import TextField from 'material-ui/TextField';
@@ -69,7 +70,7 @@ class ProjectEditComponent extends Component {
     context.setContextStore(newContext);
 
     if (notFound) {
-      currentContext.history.push('/check/not-found');
+      browserHistory.push('/check/not-found');
     }
   }
 
@@ -88,7 +89,7 @@ class ProjectEditComponent extends Component {
   }
 
   backToProject = () => {
-    this.currentContext().history.push(window.location.pathname.match(/.*\/project\/\d+/)[0]);
+    browserHistory.push(window.location.pathname.match(/.*\/project\/\d+/)[0]);
   };
 
   canSubmit = () => (
@@ -111,7 +112,7 @@ class ProjectEditComponent extends Component {
       const fallbackMessage = this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') });
       const message = getErrorMessage(transaction, fallbackMessage);
       this.context.setMessage(message);
-      this.currentContext().history.push(`${window.location.pathname}/edit`);
+      browserHistory.push(`${window.location.pathname}/edit`);
     };
 
     Relay.Store.commitUpdate(

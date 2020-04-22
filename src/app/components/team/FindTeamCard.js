@@ -1,11 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {
   FormattedMessage,
   defineMessages,
   injectIntl,
 } from 'react-intl';
-import { Link } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 import TextField from 'material-ui/TextField';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -14,7 +13,6 @@ import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 import styled from 'styled-components';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
-import CheckContext from '../../CheckContext';
 import {
   black38,
   caption,
@@ -70,16 +68,12 @@ class FindTeamCard extends React.Component {
     this.handleQuery();
   }
 
-  getContext() {
-    return new CheckContext(this).getContextStore();
-  }
-
   handleQuery = () => {
     const { team, teamSlug } = this.props;
 
     if (teamSlug) {
       if (team && (teamSlug === team.slug)) {
-        this.getContext().history.push(`/${team.slug}/join`);
+        browserHistory.push(`/${team.slug}/join`);
       } else {
         this.setState({ message: this.props.intl.formatMessage(messages.teamNotFound) });
       }
@@ -93,7 +87,7 @@ class FindTeamCard extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const { slug } = this.state;
-    this.getContext().history.push(`/check/teams/find/${slug}`);
+    browserHistory.push(`/check/teams/find/${slug}`);
   };
 
   render() {
@@ -170,9 +164,5 @@ class FindTeamCard extends React.Component {
     );
   }
 }
-
-FindTeamCard.contextTypes = {
-  store: PropTypes.object,
-};
 
 export default injectIntl(FindTeamCard);

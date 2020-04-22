@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { browserHistory } from 'react-router';
+import React from 'react';
 import PropTypes from 'prop-types';
+import { browserHistory } from 'react-router';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import Relay from 'react-relay/classic';
 import Card from '@material-ui/core/Card';
@@ -29,7 +29,7 @@ const messages = defineMessages({
   },
 });
 
-class UserPasswordReset extends Component {
+class UserPasswordReset extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

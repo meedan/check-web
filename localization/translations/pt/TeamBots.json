@@ -6,6 +6,8 @@
   "teamBots.noBots": "Sem bots instalados",
   "teamBots.moreInfo": "Mais informações",
   "teamBots.inUse": "Em Uso",
+  "teamBots.confirmDeleteTitle": "Você irá desativar {botName}",
+  "teamBots.confirmDeleteBlurb": "Todas as configurações serão apagadas e não será possível recuperá-las. Tem certeza que deseja prosseguir?",
   "teamBots.settings": "Configurações",
   "teamBots.save": "Salvar",
   "teamBots.noSettings": "Não há configurações para este bot.",

@@ -1,12 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import UserUtil from './UserUtil';
-import CheckContext from '../../CheckContext';
 import UserMenuItems from '../UserMenuItems';
 import UserAvatar from '../UserAvatar';
 import {
@@ -21,17 +19,9 @@ class UserMenu extends React.Component {
     anchorEl: null,
   };
 
-  getHistory() {
-    return new CheckContext(this).getContextStore().history;
-  }
-
   handleClick = (event) => {
     this.setState({ anchorEl: event.currentTarget });
   };
-
-  handleClickEdit() {
-    this.getHistory().push('/check/me/edit');
-  }
 
   handleClose = () => {
     this.setState({ anchorEl: null });
@@ -86,9 +76,5 @@ class UserMenu extends React.Component {
     );
   }
 }
-
-UserMenu.contextTypes = {
-  store: PropTypes.object,
-};
 
 export default injectIntl(UserMenu);

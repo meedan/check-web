@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { browserHistory } from 'react-router';
 import Relay from 'react-relay/classic';
 import isEqual from 'lodash.isequal';
 import ProjectActions from './ProjectActions';
@@ -58,7 +59,7 @@ class ProjectComponent extends Component {
     context.setContextStore(newContext);
 
     if (notFound) {
-      currentContext.history.push('/check/not-found');
+      browserHistory.push('/check/not-found');
     }
   }
 

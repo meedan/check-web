@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { browserHistory } from 'react-router';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import IconMoreVert from '@material-ui/icons/MoreVert';
 import IconButton from '@material-ui/core/IconButton';
@@ -9,7 +9,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
 import { can } from '../Can';
-import CheckContext from '../../CheckContext';
 
 const StyledIconMenuWrapper = styled.div`
   margin-${props => (props.isRtl ? 'right' : 'left')}: auto;
@@ -37,16 +36,14 @@ class MediaActions extends Component {
 
   handleEmbed() {
     const { media } = this.props;
-    const { history } = new CheckContext(this).getContextStore();
     const projectPart = media.project_id ? `/project/${media.project_id}` : '';
-    history.push(`/${media.team.slug}${projectPart}/media/${media.dbid}/embed`);
+    browserHistory.push(`/${media.team.slug}${projectPart}/media/${media.dbid}/embed`);
   }
 
   handleMemebuster = () => {
     const { media } = this.props;
-    const { history } = new CheckContext(this).getContextStore();
     const projectPart = media.project_id ? `/project/${media.project_id}` : '';
-    history.push(`/${media.team.slug}${projectPart}/media/${media.dbid}/memebuster`);
+    browserHistory.push(`/${media.team.slug}${projectPart}/media/${media.dbid}/memebuster`);
   };
 
   render() {
@@ -255,9 +252,5 @@ class MediaActions extends Component {
       : null;
   }
 }
-
-MediaActions.contextTypes = {
-  store: PropTypes.object,
-};
 
 export default injectIntl(MediaActions);

@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { defineMessages, injectIntl } from 'react-intl';
+import { browserHistory } from 'react-router';
 import Relay from 'react-relay/classic';
 import Button from '@material-ui/core/Button';
 import TextField from 'material-ui/TextField';
 import ChangePasswordMutation from '../relay/mutations/ChangePasswordMutation';
-import CheckContext from '../CheckContext';
 import globalStrings from '../globalStrings';
 import { stringHelper } from '../customHelpers';
 import { getErrorMessage } from '../helpers';
@@ -52,10 +51,6 @@ class ChangePasswordComponent extends Component {
     return decodeURIComponent(window.location.search.replace(new RegExp(`^(?:.*[&\\?]${encodeURIComponent(key).replace(/[.+*]/g, '\\$&')}(?:\\=([^&]*))?)?.*$`, 'i'), '$1'));
   }
 
-  getHistory() {
-    return new CheckContext(this).getContextStore().history;
-  }
-
   handleChangeCurrentPassword(e) {
     this.setState({ current_password: e.target.value });
   }
@@ -81,7 +76,7 @@ class ChangePasswordComponent extends Component {
       const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
       const message = getErrorMessage(transaction, fallbackMessage);
       if (this.props.type === 'reset-password') {
-        this.getHistory().push({ pathname: '/check/user/password-reset', state: { errorMsg: message } });
+        browserHistory.push({ pathname: '/check/user/password-reset', state: { errorMsg: message } });
         return;
       }
       this.setState({ errorMsg: message });
@@ -166,9 +161,5 @@ class ChangePasswordComponent extends Component {
     );
   }
 }
-
-ChangePasswordComponent.contextTypes = {
-  store: PropTypes.object,
-};
 
 export default injectIntl(ChangePasswordComponent);
