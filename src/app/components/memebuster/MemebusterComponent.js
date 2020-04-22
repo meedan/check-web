@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 import MemeEditor from './MemeEditor';
 import SVGViewport from './SVGViewport';
+import { withPusher, pusherShape } from '../../pusher';
 import { can } from '../Can';
 import PageTitle from '../PageTitle';
 import TimeBefore from '../TimeBefore';
@@ -164,33 +165,29 @@ class MemebusterComponent extends React.Component {
   }
 
   subscribe() {
-    const { pusher } = this.getContext();
-    if (pusher) {
-      pusher.subscribe(this.props.media.pusher_channel).bind('media_updated', 'MemebusterComponent', (data, run) => {
-        const message = JSON.parse(data.message);
-        if (
-          message.annotation_type === 'memebuster' &&
-          message.annotated_id === this.props.media.dbid
-        ) {
-          if (run) {
-            this.props.relay.forceFetch();
-            return true;
-          }
-          return {
-            id: `memebuster-${this.props.media.dbid}`,
-            callback: this.props.relay.forceFetch,
-          };
+    const { pusher, media } = this.props;
+    pusher.subscribe(media.pusher_channel).bind('media_updated', 'MemebusterComponent', (data, run) => {
+      const message = JSON.parse(data.message);
+      if (
+        message.annotation_type === 'memebuster' &&
+        message.annotated_id === media.dbid
+      ) {
+        if (run) {
+          this.props.relay.forceFetch();
+          return true;
         }
-        return false;
-      });
-    }
+        return {
+          id: `memebuster-${this.props.media.dbid}`,
+          callback: this.props.relay.forceFetch,
+        };
+      }
+      return false;
+    });
   }
 
   unsubscribe() {
-    const { pusher } = this.getContext();
-    if (pusher) {
-      pusher.unsubscribe(this.props.media.pusher_channel);
-    }
+    const { pusher, media } = this.props;
+    pusher.unsubscribe(media.pusher_channel);
   }
 
   returnToMedia = () => {
@@ -376,4 +373,8 @@ MemebusterComponent.contextTypes = {
   store: PropTypes.object,
 };
 
-export default injectIntl(MemebusterComponent);
+MemebusterComponent.propTypes = {
+  pusher: pusherShape.isRequired,
+};
+
+export default withPusher(injectIntl(MemebusterComponent));

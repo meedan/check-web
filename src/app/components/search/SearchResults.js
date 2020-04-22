@@ -10,6 +10,7 @@ import styled from 'styled-components';
 import NextIcon from '@material-ui/icons/KeyboardArrowRight';
 import PrevIcon from '@material-ui/icons/KeyboardArrowLeft';
 import Tooltip from '@material-ui/core/Tooltip';
+import { withPusher, pusherShape } from '../../pusher';
 import { searchQueryFromUrl, urlFromSearchQuery } from './Search';
 import SearchQuery from './SearchQuery';
 import Toolbar from './Toolbar';
@@ -132,7 +133,6 @@ class SearchResultsComponent extends React.Component {
 
     this.state = {
       selectedMedia: [],
-      subscribed: false,
     };
   }
 
@@ -158,9 +158,7 @@ class SearchResultsComponent extends React.Component {
   }
 
   componentWillUnmount() {
-    if (this.state.subscribed) {
-      this.unsubscribe();
-    }
+    this.unsubscribe();
   }
 
   onUnselectAll = () => {
@@ -218,9 +216,9 @@ class SearchResultsComponent extends React.Component {
   }
 
   subscribe() {
-    const { pusher } = this.currentContext();
-    if (pusher && this.props.search.pusher_channel) {
-      const { search: { pusher_channel: channel } } = this.props;
+    const { pusher, search, intl } = this.props;
+    if (search.pusher_channel) {
+      const { pusher_channel: channel } = this.props;
 
       pusher.unsubscribe(channel);
 
@@ -251,7 +249,7 @@ class SearchResultsComponent extends React.Component {
             `$1/media/${message.id}`,
           );
           notify(
-            this.props.intl.formatMessage(messages.newTranslationRequestNotification),
+            intl.formatMessage(messages.newTranslationRequestNotification),
             '',
             url,
             avatar,
@@ -271,16 +269,13 @@ class SearchResultsComponent extends React.Component {
         }
         return false;
       });
-
-      this.setState({ subscribed: true });
     }
   }
 
   unsubscribe() {
-    const { pusher } = this.currentContext();
-    if (pusher && this.props.search.pusher_channel) {
-      pusher.unsubscribe(this.props.search.pusher_channel);
-      this.setState({ subscribed: false });
+    const { pusher, search } = this.props;
+    if (search.pusher_channel) {
+      pusher.unsubscribe(search.pusher_channel);
     }
   }
 
@@ -468,7 +463,6 @@ class SearchResultsComponent extends React.Component {
 }
 
 SearchResultsComponent.contextTypes = {
-  router: PropTypes.object,
   store: PropTypes.object,
 };
 
@@ -476,12 +470,15 @@ SearchResultsComponent.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
+  pusher: pusherShape.isRequired,
 };
+
+const ConnectedSearchResultsComponent = withPusher(injectIntl(SearchResultsComponent));
 
 // eslint-disable-next-line react/no-multi-comp
 class SearchResults extends React.PureComponent {
   render() {
-    const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsComponent), {
+    const SearchResultsContainer = Relay.createContainer(ConnectedSearchResultsComponent, {
       initialVariables: {
         pageSize,
       },

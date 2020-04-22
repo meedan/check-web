@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
+import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
 import MediasLoading from './MediasLoading';
 import Annotations from '../annotations/Annotations';
 import CheckContext from '../../CheckContext';
 
 class MediaLogComponent extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {};
-  }
+  static propTypes = {
+    pusher: pusherShape.isRequired,
+  };
 
   componentDidMount() {
     this.subscribe();
@@ -38,32 +37,28 @@ class MediaLogComponent extends Component {
   }
 
   subscribe() {
-    const { pusher } = this.getContext();
-    if (pusher) {
-      pusher.subscribe(this.props.media.pusher_channel).bind('media_updated', 'MediaLog', (data, run) => {
-        const annotation = JSON.parse(data.message);
-        if (annotation.annotated_id === this.props.media.dbid &&
-          this.getContext().clientSessionId !== data.actor_session_id
-        ) {
-          if (run) {
-            this.props.relay.forceFetch();
-            return true;
-          }
-          return {
-            id: `media-log-${this.props.media.dbid}`,
-            callback: this.props.relay.forceFetch,
-          };
+    const { pusher, media } = this.props;
+    pusher.subscribe(media.pusher_channel).bind('media_updated', 'MediaLog', (data, run) => {
+      const annotation = JSON.parse(data.message);
+      if (annotation.annotated_id === media.dbid &&
+        this.getContext().clientSessionId !== data.actor_session_id
+      ) {
+        if (run) {
+          this.props.relay.forceFetch();
+          return true;
         }
-        return false;
-      });
-    }
+        return {
+          id: `media-log-${media.dbid}`,
+          callback: this.props.relay.forceFetch,
+        };
+      }
+      return false;
+    });
   }
 
   unsubscribe() {
-    const { pusher } = this.getContext();
-    if (pusher) {
-      pusher.unsubscribe(this.props.media.pusher_channel);
-    }
+    const { pusher, media } = this.props;
+    pusher.unsubscribe(media.pusher_channel);
   }
 
   render() {
@@ -265,13 +260,15 @@ const MediaLogContainer = Relay.createContainer(MediaLogComponent, {
   },
 });
 
+const ConnectedMediaLogContainer = withPusher(MediaLogContainer);
+
 const MediaLog = (props) => {
   const ids = `${props.media.dbid},${props.media.project_id}`;
   const route = new MediaRoute({ ids });
 
   return (
     <Relay.RootContainer
-      Component={MediaLogContainer}
+      Component={ConnectedMediaLogContainer}
       renderFetched={data => <MediaLogContainer cachedMedia={props.media} {...data} />}
       route={route}
       renderLoading={() => <MediasLoading count={1} />}
