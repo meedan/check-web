@@ -24,7 +24,7 @@
     "transifex:ls": "scripts/tx-ls.sh",
     "publish": "node scripts/server.js",
     "test": "npm run test:unit && npm run test:integration && npm run test:quick",
-    "test:unit": "nyc --reporter=lcov --reporter=text mocha-webpack --webpack-config webpack/test.js --require test/unit/setup.js \"test/unit/*.js\"",
+    "test:unit": "jest",
     "test:integration": "cd test && rspec spec/integration_spec.rb && cd ..",
     "test:bin1": "cd test && rspec spec/integration_spec.rb --tag bin1 && cd ..",
     "test:bin2": "cd test && rspec spec/integration_spec.rb --tag bin2 && cd ..",
@@ -43,16 +43,33 @@
     "Meedan"
   ],
   "license": "MIT",
+  "jest": {
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "<rootDir>/src/**/*.{js,jsx}"
+    ],
+    "coverageDirectory": "<rootDir>/coverage/",
+    "coverageReporters": [
+      "lcov"
+    ],
+    "moduleNameMapper": {
+      "\\.(css)$": "<rootDir>/test/unit/__mocks__/fileMock.js",
+      "^config$": "<rootDir>/test/unit/__mocks__/config.json"
+    },
+    "roots": [
+      "<rootDir>/src/",
+      "<rootDir>/test/unit/"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/test/unit/setupJest.js"
+    ]
+  },
   "devDependencies": {
-    "chai": "^3.5.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
-    "jsdom": "^8.5.0",
-    "mocha": "^7.1.1",
-    "mocha-webpack": "^2.0.0-beta.0",
+    "jest": "^25.4.0",
     "selenium-webdriver": "^3.0.1",
-    "sinon": "^9.0.1",
-    "webpack-node-externals": "^1.7.2"
+    "sinon": "^9.0.1"
   },
   "dependencies": {
     "@babel/core": "^7.9.0",
@@ -96,7 +113,6 @@
     "ignore-styles": "^5.0.1",
     "intl": "^1.2.5",
     "intl-locales-supported": "^1.0.0",
-    "istanbul": "^0.4.5",
     "istanbul-instrumenter-loader": "^3.0.1",
     "json-loader": "^0.5.4",
     "leaflet": "^1.2.0",
@@ -114,7 +130,6 @@
     "material-ui": "^0.20.0",
     "material-ui-persian-date-picker-utils": "^0.1.2",
     "node-fetch": "^1.7.1",
-    "nyc": "^13.1.0",
     "polished": "^1.2.1",
     "prop-types": "^15.6.2",
     "raw-loader": "^0.5.1",

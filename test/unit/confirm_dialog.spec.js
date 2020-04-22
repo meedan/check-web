@@ -4,8 +4,6 @@ import { expect } from 'chai';
 import ConfirmDialog from '../../src/app/components/layout/ConfirmDialog';
 
 describe('<ConfirmDialog />', function() {
-  this.timeout(5000);
-
   it('should render title and blurb', function() {
     const wrapper = mountWithIntl(
       <ConfirmDialog
