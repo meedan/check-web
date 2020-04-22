@@ -37,7 +37,7 @@ import {
 
 // TODO Fix a11y issues
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
-export class DrawerNavigationComponent extends Component {
+class DrawerNavigationComponent extends Component {
   componentDidMount() {
     this.subscribe();
     this.setContextTeam();

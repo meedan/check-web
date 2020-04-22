@@ -1,7 +1,7 @@
 import React from 'react';
 import { expect } from 'chai';
 import * as sinon from 'sinon';
-import { DrawerNavigationComponent } from '../../src/app/components/DrawerNavigationComponent';
+import DrawerNavigationComponent from '../../src/app/components/DrawerNavigationComponent';
 import DrawerProjects from '../../src/app/components/drawer/Projects';
 import UserMenuItems from '../../src/app/components/UserMenuItems';
 
