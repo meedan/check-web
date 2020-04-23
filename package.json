@@ -67,8 +67,7 @@
   "devDependencies": {
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
-    "jest": "^25.4.0",
-    "selenium-webdriver": "^3.0.1"
+    "jest": "^25.4.0"
   },
   "dependencies": {
     "@babel/core": "^7.9.0",
