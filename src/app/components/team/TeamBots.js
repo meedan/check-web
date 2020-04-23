@@ -49,7 +49,7 @@ const StyledSettings = styled.div`
     vertical-align: middle;
     cursor: pointer;
     color: ${black32};
-    margin: 0 ${units(1)};
+    margin: ${units(1)};
   }
 `;
 
