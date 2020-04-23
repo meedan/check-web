@@ -154,6 +154,7 @@ class BotComponent extends Component {
               </div>
               <StyledInstall direction={direction}>
                 <Button
+                  id="bot__install-button"
                   variant="contained"
                   color="primary"
                   onClick={this.handleToggle.bind(this)}

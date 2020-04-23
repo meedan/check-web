@@ -216,7 +216,10 @@ class TeamBotsComponent extends Component {
                     <Button onClick={() => browserHistory.push(`/check/bot/${bot.dbid}`)}>
                       <FormattedMessage id="teamBots.moreInfo" defaultMessage="More info" />
                     </Button>
-                    <Button onClick={this.handleToggle.bind(this, installation.node)}>
+                    <Button
+                      className="team-bots__uninstall-button"
+                      onClick={this.handleToggle.bind(this, installation.node)}
+                    >
                       <FormattedMessage id="teamBots.remove" defaultMessage="Remove" />
                     </Button>
                   </div>
@@ -296,7 +299,7 @@ class TeamBotsComponent extends Component {
           );
         })}
         <p style={{ textAlign: direction.to }}>
-          <Button onClick={TeamBotsComponent.handleBotGardenClick}>
+          <Button id="team-bots__bot-garden-button" onClick={TeamBotsComponent.handleBotGardenClick}>
             <span>
               <FormattedMessage
                 id="teamBots.botGarden"

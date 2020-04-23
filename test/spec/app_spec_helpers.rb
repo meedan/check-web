@@ -435,16 +435,13 @@ module AppSpecHelpers
     api_create_bot
     @driver.navigate.to @config['self_url'] + '/' + team
     wait_for_selector('.team-menu__team-settings-button').click
-    wait_for_selector(".team-settings__embed-tab")
     wait_for_selector('.team-settings__bots-tab').click
-    wait_for_selector("img")
     # Install bot
-    wait_for_selector('.team > div + div button').click
+    wait_for_selector('#team-bots__bot-garden-button').click
     wait_for_selector(".bot-garden__bot-name")
     bot = wait_for_selector("//span[contains(text(), '#{bot_name}')]", :xpath)
     bot.click
-    wait_for_selector('input').click
-    @driver.switch_to.alert.accept
+    wait_for_selector('#bot__install-button').click
     @driver.navigate.to @config['self_url'] + '/' + team
   end
 
