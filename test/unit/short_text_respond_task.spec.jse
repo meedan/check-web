@@ -30,7 +30,7 @@ describe('<ShortTextRespondTask />', () => {
     task.setState({ response: 'a response', focus: true });
     task.instance().canSubmit();
     expect(task.find('.task__save').at(0)).toHaveLength(1);
-    expect(task.find('.task__save').at(0).html()).not.toMatch('disabled=""');
+    expect(task.find('.task__save').at(0).html()).to.not.contain('disabled=""');
   });
 
   it('Can edit a response', () => {
@@ -38,7 +38,7 @@ describe('<ShortTextRespondTask />', () => {
     task.setState({ response: 'an edited response', focus: true });
     task.instance().canSubmit();
     expect(task.find('.task__save').at(0)).toHaveLength(1);
-    expect(task.find('.task__save').at(0).html()).not.toMatch('disabled=""');
+    expect(task.find('.task__save').at(0).html()).to.not.contain('disabled=""');
   });
 
   it('Cannot remove a response', () => {
@@ -54,6 +54,6 @@ describe('<ShortTextRespondTask />', () => {
     task.setState({ note: 'a note', focus: true });
     task.instance().canSubmit();
     expect(task.find('.task__save').at(0)).toHaveLength(1);
-    expect(task.find('.task__save').at(0).html()).not.toMatch('disabled=""');
+    expect(task.find('.task__save').at(0).html()).to.not.contain('disabled=""');
   });
 });

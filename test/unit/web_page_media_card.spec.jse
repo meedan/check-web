@@ -188,7 +188,7 @@ describe('<WebPageMediaCard />', () => {
     );
 
     expect(card1.text()).toMatch('hello!');
-    expect(card2.text()).not.toMatch('hello!');
-    expect(card3.text()).not.toMatch('hello!');
+    expect(card2.text()).to.not.contain('hello!');
+    expect(card3.text()).to.not.contain('hello!');
   });
 });
