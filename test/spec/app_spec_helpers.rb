@@ -446,16 +446,8 @@ module AppSpecHelpers
   end
 
   def generate_a_embed_and_copy_embed_code
-    wait_for_selector(".media-detail")
-    wait_for_selector('.media-actions__icon').click
-    wait_for_selector('.media-actions__edit')
-    el = wait_for_selector('.media-actions__embed')
-    el.location_once_scrolled_into_view
-    el.click
-    wait_for_selector("#media-embed__actions")
-    el = wait_for_selector('#media-embed__actions-copy')
-    el.click
-    wait_for_selector("#media-embed__copy-code")
+    wait_for_selector('#media-detail__report-designer').click
+    wait_for_selector('#report-designer__actions-copy').click
   end
 
   def change_the_status_to(status_class, confirm)

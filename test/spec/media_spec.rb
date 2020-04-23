@@ -61,34 +61,6 @@ shared_examples 'media' do |type|
     expect(page.has_tag?(new_tag)).to be(false)
   end
 
-  # Commented because of https://mantis.meedan.com/view.php?id=8155#c33691 - to be uncommented after https://mantis.meedan.com/view.php?id=8194
-  # it "should embed", bin1: true do
-  #   create_media_depending_on_type
-  #   wait_for_selector(".tasks")
-  #   request_api('make_team_public', { slug: get_team })
-
-  #   @driver.navigate.refresh
-  #   wait_for_selector('.media-detail')
-  #   wait_for_selector('.media-actions__icon').click
-  #   wait_for_selector('.media-actions__edit')
-  #   expect(@driver.page_source.include?('Report')).to be(true)
-  #   url = @driver.current_url.to_s
-  #   wait_for_selector('.media-actions__embed').click
-  #   wait_for_selector("#media-embed__actions")
-  #   expect(@driver.current_url.to_s == "#{url}/embed").to be(true)
-  #   expect(@driver.page_source.include?('Not available')).to be(false)
-  #   @driver.find_elements(:css, 'body').map(&:click)
-  #   el = wait_for_selector('#media-embed__actions-copy')
-  #   el.click
-  #   wait_for_selector("#media-embed__copy-code")
-  #   @driver.navigate.to 'https://paste.ubuntu.com/'
-  #   el = wait_for_selector('#id_content')
-  #   el.send_keys(' ')
-  #   @driver.action.send_keys(:control, 'v').perform
-  #   wait_for_text_change(' ',"#id_content", :css)
-  #   expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
-  # end
-
   it "should add, edit, answer, update answer and delete short answer task", bin3: true do
     media_pg = create_media_depending_on_type
     wait_for_selector('.create-task__add-button')
