@@ -475,7 +475,7 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('More info')).to be(true)
 
     # Uninstall bot
-    wait_for_selector('input').click
+    wait_for_selector('.team-bots__uninstall-button').click
     wait_for_selector('#confirm-dialog__checkbox').click
     wait_for_selector('#confirm-dialog__confirm-action-button').click
     wait_for_selector_none('#confirm-dialog__checkbox')
