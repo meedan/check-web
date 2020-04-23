@@ -12,7 +12,7 @@ import TeamBots from './TeamBots';
 import TeamRules from './TeamRules';
 import TeamTags from './TeamTags';
 import TeamTasks from './TeamTasks';
-import TeamEmbed from './TeamEmbed';
+import TeamReport from './TeamReport';
 import TeamInfo from './TeamInfo';
 import TeamInfoEdit from './TeamInfoEdit';
 import TeamMembers from './TeamMembers';
@@ -198,15 +198,15 @@ class TeamComponent extends Component {
               /> : null }
             {UserUtil.myRole(this.getCurrentUser(), team.slug) === 'owner' ?
               <Tab
-                className="team-settings__embed-tab"
+                className="team-settings__report-tab"
                 classes={{ root: classes.root, labelContainer: classes.labelContainer }}
                 label={
                   <FormattedMessage
-                    id="teamSettings.embed"
+                    id="teamSettings.report"
                     defaultMessage="Report"
                   />
                 }
-                value="embed"
+                value="report"
               />
               : null }
             {UserUtil.myRole(this.getCurrentUser(), team.slug) === 'owner' ?
@@ -262,8 +262,8 @@ class TeamComponent extends Component {
           { isSettings && this.state.showTab === 'rules'
             ? <TeamRules team={team} direction={direction} />
             : null }
-          { isSettings && this.state.showTab === 'embed'
-            ? <TeamEmbed team={team} direction={direction} />
+          { isSettings && this.state.showTab === 'report'
+            ? <TeamReport team={team} direction={direction} />
             : null }
           { isSettings && this.state.showTab === 'integrations'
             ? (

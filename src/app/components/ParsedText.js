@@ -3,12 +3,23 @@ import Linkify from 'react-linkify';
 import { toArray } from 'react-emoji-render';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import ReactHtmlParser from 'react-html-parser';
+import ReactDOMServer from 'react-dom/server';
 import { units } from '../styles/js/shared';
 
 const StyledEmojiOnly = styled.span`
   line-height: ${units(4)};
   font-size: ${units(4)};
 `;
+
+const marked = (text) => {
+  const parsedText = text
+    .replace(/\*([^*]*)\*/gm, '<b>$1</b>')
+    .replace(/_([^_]*)_/gm, '<em>$1</em>')
+    .replace(/```([^`]*)```/gm, '<code>$1</code>')
+    .replace(/~([^~]*)~/gm, '<strike>$1</strike>');
+  return ReactHtmlParser(parsedText);
+};
 
 const ParsedText = (props) => {
   if (!props.text) {
@@ -45,10 +56,17 @@ const ParsedText = (props) => {
     </React.Fragment>
   ));
 
-  const linkified =
-    <Linkify properties={{ target: '_blank', rel: 'noopener noreferrer' }}>{breakified}</Linkify>;
+  // Convert back to string.
+  const string = ReactDOMServer.renderToString(breakified);
+
+  // Markdown.
+  const markdown = marked(string);
 
   // Linkify the result.
+  const linkified =
+    <Linkify properties={{ target: '_blank', rel: 'noopener noreferrer' }}>{markdown}</Linkify>;
+
+  // Block or not.
   return props.block ? <div>{linkified}</div> : linkified;
 };
 

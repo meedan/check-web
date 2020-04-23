@@ -31,6 +31,7 @@ class UpdateStatusMutation extends Relay.Mutation {
           last_status_obj,
           log_count,
           project_id,
+          dynamic_annotation_report_design,
         }
       }`;
     default:

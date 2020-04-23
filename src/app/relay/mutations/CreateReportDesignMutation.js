@@ -1,18 +1,18 @@
 import Relay from 'react-relay/classic';
 
-class UpdateMemebusterMutation extends Relay.Mutation {
+class CreateReportDesignMutation extends Relay.Mutation {
   getMutation() {
     return Relay.QL`mutation {
-      updateDynamicAnnotationMemebuster
+      createDynamicAnnotationReportDesign
     }`;
   }
 
   getFatQuery() {
-    return Relay.QL`fragment on UpdateDynamicAnnotationMemebusterPayload {
+    return Relay.QL`fragment on CreateDynamicAnnotationReportDesignPayload {
       dynamicEdge,
       project_media {
-        annotations(first: 1, annotation_type: "memebuster")
-        dynamic_annotation_memebuster
+        annotations(first: 1, annotation_type: "report_design")
+        dynamic_annotation_report_design
       }
     }`;
   }
@@ -27,12 +27,7 @@ class UpdateMemebusterMutation extends Relay.Mutation {
   getVariables() {
     const dynamic = this.props.annotation;
     return {
-      id: this.props.id,
-      set_fields: JSON.stringify(dynamic.fields),
-      annotation_type: dynamic.annotation_type,
-      annotated_id: `${dynamic.annotated_id}`,
-      annotated_type: dynamic.annotated_type,
-      action: dynamic.action,
+      set_fields: JSON.stringify(dynamic.fields), annotation_type: dynamic.annotation_type, annotated_id: `${dynamic.annotated_id}`, annotated_type: dynamic.annotated_type, action: dynamic.action,
     };
   }
 
@@ -49,4 +44,4 @@ class UpdateMemebusterMutation extends Relay.Mutation {
   }
 }
 
-export default UpdateMemebusterMutation;
+export default CreateReportDesignMutation;
