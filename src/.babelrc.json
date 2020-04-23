@@ -18,7 +18,7 @@
       "relay",
       {
         "compat": true,
-        "schema": "/app/relay.json"
+        "schema": "relay.json"
       }
     ],
     ["react-intl", { "messagesDir": "/app/localization/react-intl/" }]
