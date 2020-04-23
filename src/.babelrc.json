@@ -14,13 +14,7 @@
     "@babel/plugin-syntax-dynamic-import",
     "@babel/plugin-proposal-class-properties",
     "@babel/plugin-proposal-object-rest-spread",
-    [
-      "relay",
-      {
-        "compat": true,
-        "schema": "relay.json"
-      }
-    ],
-    ["react-intl", { "messagesDir": "/app/localization/react-intl/" }]
+    ["relay", { "compat": true, "schema": "relay.json" }],
+    ["react-intl", { "messagesDir": "localization/react-intl/" }]
   ]
 }
