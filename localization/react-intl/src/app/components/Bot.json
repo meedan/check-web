@@ -16,8 +16,12 @@
     "defaultMessage": "Made by {teamLink}"
   },
   {
-    "id": "bot.inUse",
-    "defaultMessage": "In Use"
+    "id": "bot.installed",
+    "defaultMessage": "Installed"
+  },
+  {
+    "id": "bot.install",
+    "defaultMessage": "Install"
   },
   {
     "id": "bot.permissions",
