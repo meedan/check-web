@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { FormattedMessage, FormattedHTMLMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import { browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
@@ -270,7 +271,7 @@ class SearchQueryComponent extends React.Component {
     const prefix = searchPrefixFromUrl();
     const url = urlFromSearchQuery(query, prefix);
 
-    this.getContext().getContextStore().history.push(url);
+    browserHistory.push(url);
   }
 
   keywordIsActive = () => {

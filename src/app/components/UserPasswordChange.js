@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
+import { browserHistory } from 'react-router';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -9,7 +9,6 @@ import Button from '@material-ui/core/Button';
 import rtlDetect from 'rtl-detect';
 import PageTitle from './PageTitle';
 import ChangePasswordComponent from './ChangePasswordComponent';
-import CheckContext from '../CheckContext';
 import { stringHelper } from '../customHelpers';
 import { StyledPasswordChange } from '../styles/js/shared';
 
@@ -32,6 +31,10 @@ const messages = defineMessages({
   },
 });
 
+function handleSignIn() {
+  browserHistory.push('/');
+}
+
 class UserPasswordChange extends Component {
   constructor(props) {
     super(props);
@@ -42,14 +45,6 @@ class UserPasswordChange extends Component {
 
   static getQueryStringValue(key) {
     return decodeURIComponent(window.location.search.replace(new RegExp(`^(?:.*[&\\?]${encodeURIComponent(key).replace(/[.+*]/g, '\\$&')}(?:\\=([^&]*))?)?.*$`, 'i'), '$1'));
-  }
-
-  getHistory() {
-    return new CheckContext(this).getContextStore().history;
-  }
-
-  handleSignIn() {
-    this.getHistory().push('/');
   }
 
   showConfirm() {
@@ -71,7 +66,7 @@ class UserPasswordChange extends Component {
                 />
               </CardContent>
               <CardActions className="user-password-change__actions">
-                <Button color="primary" onClick={this.handleSignIn.bind(this)}>
+                <Button color="primary" onClick={handleSignIn}>
                   <FormattedMessage id="passwordChange.signIn" defaultMessage="Got it" />
                 </Button>
               </CardActions>
@@ -98,9 +93,5 @@ class UserPasswordChange extends Component {
     );
   }
 }
-
-UserPasswordChange.contextTypes = {
-  store: PropTypes.object,
-};
 
 export default injectIntl(UserPasswordChange);

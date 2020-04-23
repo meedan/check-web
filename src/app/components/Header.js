@@ -1,10 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { browserHistory } from 'react-router';
 import styled from 'styled-components';
 import Relay from 'react-relay/classic';
 import TeamPublicHeader from './team/TeamPublicHeader';
 import ProjectHeader from './project/ProjectHeader';
-import CheckContext from '../CheckContext';
 import PublicTeamRoute from '../relay/PublicTeamRoute';
 import teamPublicFragment from '../relay/teamPublicFragment';
 
@@ -40,15 +39,11 @@ class HeaderComponent extends React.Component {
     this.handleQuery();
   }
 
-  getContext() {
-    return new CheckContext(this).getContextStore();
-  }
-
   handleQuery = () => {
     const { team, teamSlug } = this.props;
 
     if (!team && teamSlug) {
-      this.getContext().history.push('/check/not-found');
+      browserHistory.push('/check/not-found');
     }
   };
 
@@ -101,10 +96,6 @@ class HeaderComponent extends React.Component {
     );
   }
 }
-
-HeaderComponent.contextTypes = {
-  store: PropTypes.object,
-};
 
 const Header = (props) => {
   if (props.inTeamContext) {

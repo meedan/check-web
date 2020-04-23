@@ -8,6 +8,7 @@ import {
   injectIntl,
   intlShape,
 } from 'react-intl';
+import { browserHistory } from 'react-router';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -739,7 +740,7 @@ class SourceComponent extends Component {
     this.onClear();
     const { team, projectId, sourceId } = this.props.params;
 
-    this.getContext().history.push(`/${team}/project/${projectId}/source/${sourceId}`);
+    browserHistory.push(`/${team}/project/${projectId}/source/${sourceId}`);
   }
 
   handleChangeLink(e, index) {
@@ -782,9 +783,8 @@ class SourceComponent extends Component {
 
   handleClickEditSource() {
     const { team, projectId, sourceId } = this.props.params;
-    const { history } = this.getContext();
 
-    history.push(`/${team}/project/${projectId}/source/${sourceId}/edit`);
+    browserHistory.push(`/${team}/project/${projectId}/source/${sourceId}/edit`);
   }
 
   isProjectSource() {
