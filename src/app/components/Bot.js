@@ -6,8 +6,8 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Divider from '@material-ui/core/Divider';
-import Switch from '@material-ui/core/Switch';
-import { Link } from 'react-router';
+import Button from '@material-ui/core/Button';
+import { Link, browserHistory } from 'react-router';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
 import BotRoute from '../relay/BotRoute';
@@ -17,7 +17,6 @@ import PageTitle from './PageTitle';
 import Message from './Message';
 import CheckContext from '../CheckContext';
 import { stringHelper } from '../customHelpers';
-import DeleteTeamBotInstallationMutation from '../relay/mutations/DeleteTeamBotInstallationMutation';
 import CreateTeamBotInstallationMutation from '../relay/mutations/CreateTeamBotInstallationMutation';
 
 const messages = defineMessages({
@@ -70,17 +69,10 @@ const StyledCardFooter = styled.div`
   }
 `;
 
-const StyledToggle = styled.div`
+const StyledInstall = styled.div`
   ${props => props.direction.to}: 0;
   margin-${props => props.direction.from}: auto;
   margin-${props => props.direction.to}: 0;
-
-  span.label {
-    font-weight: bold;
-    text-transform: uppercase;
-    color: ${black32};
-    align-self: center;
-  }
 `;
 
 class BotComponent extends Component {
@@ -104,45 +96,24 @@ class BotComponent extends Component {
 
   handleToggle() {
     const { bot } = this.props;
-    const { installation } = bot;
 
-    let team = null;
-    if (installation) {
-      const installation_team = installation.team;
-      team = installation_team;
-    }
-    if (!team) {
-      team = this.getTeam();
-    }
+    const team = this.getTeam();
 
-    let mutation = null;
-    let message = null;
+    const onSuccess = () => {
+      if (team) {
+        browserHistory.push(`/${team.slug}/settings/bots`);
+      }
+    };
 
-    if (bot.installed) {
-      message = messages.confirmUninstall;
-      mutation = new DeleteTeamBotInstallationMutation({
-        id: installation.id,
-        teamId: team.id,
-        botUserId: this.props.bot.id,
-      });
-    } else {
-      message = messages.confirmInstall;
-      mutation = new CreateTeamBotInstallationMutation({ bot, team });
-    }
+    const onFailure = () => {
+      const errorMessage = this.props.intl.formatMessage(messages.cantChange, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+      this.setState({ message: errorMessage });
+    };
 
-    // eslint-disable-next-line no-alert
-    if (window.confirm(this.props.intl.formatMessage(message, { teamName: team.name }))) {
-      const onSuccess = () => {};
-      const onFailure = () => {
-        const errorMessage = this.props.intl.formatMessage(messages.cantChange, { supportEmail: stringHelper('SUPPORT_EMAIL') });
-        this.setState({ message: errorMessage });
-      };
-
-      Relay.Store.commitUpdate(
-        mutation,
-        { onSuccess, onFailure },
-      );
-    }
+    Relay.Store.commitUpdate(
+      new CreateTeamBotInstallationMutation({ bot, team }),
+      { onSuccess, onFailure },
+    );
   }
 
   render() {
@@ -181,16 +152,19 @@ class BotComponent extends Component {
                 />
                 <p>{bot.description}</p>
               </div>
-              <StyledToggle direction={direction}>
-                <span className="label">
-                  <FormattedMessage id="bot.inUse" defaultMessage="In Use" />
-                </span>
-                <Switch
-                  checked={bot.installed}
+              <StyledInstall direction={direction}>
+                <Button
+                  variant="contained"
+                  color="primary"
                   onClick={this.handleToggle.bind(this)}
-                  disabled={bot.installed && !bot.installation}
-                />
-              </StyledToggle>
+                  disabled={bot.installed}
+                >
+                  { bot.installed ?
+                    <FormattedMessage id="bot.installed" defaultMessage="Installed" /> :
+                    <FormattedMessage id="bot.install" defaultMessage="Install" />
+                  }
+                </Button>
+              </StyledInstall>
             </StyledCardText>
             <CardContent>
               <p><b><FormattedMessage id="bot.permissions" defaultMessage="Permissions" /></b></p>

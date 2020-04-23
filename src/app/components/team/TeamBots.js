@@ -6,14 +6,13 @@ import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import RaisedButton from 'material-ui/RaisedButton';
 import Settings from '@material-ui/icons/Settings';
-import Switch from '@material-ui/core/Switch';
 import Tooltip from '@material-ui/core/Tooltip';
 import { Emojione } from 'react-emoji-render';
-import { Link, browserHistory } from 'react-router';
+import { browserHistory } from 'react-router';
 import styled from 'styled-components';
 import TeamBot from './TeamBot';
 import TeamRoute from '../../relay/TeamRoute';
-import { units, ContentColumn, black32 } from '../../styles/js/shared';
+import { units, title1, ContentColumn, black32 } from '../../styles/js/shared';
 import DeleteTeamBotInstallationMutation from '../../relay/mutations/DeleteTeamBotInstallationMutation';
 import UpdateTeamBotInstallationMutation from '../../relay/mutations/UpdateTeamBotInstallationMutation';
 import ConfirmDialog from '../layout/ConfirmDialog';
@@ -43,16 +42,8 @@ const StyledCardText = styled(CardText)`
   }
 `;
 
-const StyledToggle = styled.div`
+const StyledSettings = styled.div`
   display: inline;
-
-  span.toggleLabel {
-    font-weight: bold;
-    text-transform: uppercase;
-    color: ${black32};
-    align-self: center;
-    vertical-align: middle;
-  }
 
   .settingsIcon {
     vertical-align: middle;
@@ -219,31 +210,27 @@ class TeamBotsComponent extends Component {
               <StyledCardText direction={direction}>
                 <img src={bot.avatar} alt={bot.name} />
                 <div>
-                  <h2>{bot.name}</h2>
+                  <h2 style={{ font: title1 }}>{bot.name}</h2>
                   <p>{bot.description}</p>
-                  <p>
-                    <Link to={`/check/bot/${bot.dbid}`}>
+                  <div>
+                    <Button onClick={() => browserHistory.push(`/check/bot/${bot.dbid}`)}>
                       <FormattedMessage id="teamBots.moreInfo" defaultMessage="More info" />
-                    </Link>
-                  </p>
+                    </Button>
+                    <Button onClick={this.handleToggle.bind(this, installation.node)}>
+                      <FormattedMessage id="teamBots.remove" defaultMessage="Remove" />
+                    </Button>
+                  </div>
                 </div>
               </StyledCardText>
               <CardActions style={{ padding: 0, textAlign: 'right' }}>
-                <StyledToggle style={{ marginRight: 0 }}>
-                  <span className="toggleLabel">
-                    <FormattedMessage id="teamBots.inUse" defaultMessage="In Use" />
-                  </span>
-                  <Switch
-                    checked
-                    onClick={this.handleToggle.bind(this, installation.node)}
-                  />
+                <StyledSettings style={{ marginRight: 0 }}>
                   <Tooltip title={this.props.intl.formatMessage(messages.settingsTooltip)}>
                     <Settings
                       onClick={this.handleToggleSettings.bind(this, bot.dbid)}
                       className="settingsIcon"
                     />
                   </Tooltip>
-                </StyledToggle>
+                </StyledSettings>
               </CardActions>
               <ConfirmDialog
                 open={this.state.showConfirmDeleteDialog}
