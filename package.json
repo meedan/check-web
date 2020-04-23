@@ -108,7 +108,6 @@
     "ifvisible.js": "^1.0.6",
     "intl": "^1.2.5",
     "intl-locales-supported": "^1.0.0",
-    "istanbul-instrumenter-loader": "^3.0.1",
     "json-loader": "^0.5.4",
     "leaflet": "^1.2.0",
     "lodash.capitalize": "^4.2.1",
