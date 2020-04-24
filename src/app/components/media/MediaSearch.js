@@ -88,16 +88,7 @@ const StyledPager = styled.div`
 `;
 
 class MediaSearchComponent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  componentWillMount() {
-    this.updateUrl();
-  }
-
-  componentWillUpdate() {
+  componentDidMount() {
     this.updateUrl();
   }
 
