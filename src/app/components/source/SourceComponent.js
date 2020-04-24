@@ -28,6 +28,7 @@ import capitalize from 'lodash.capitalize';
 import LinkifyIt from 'linkify-it';
 import rtlDetect from 'rtl-detect';
 import styled from 'styled-components';
+import { withPusher, pusherShape } from '../../pusher';
 import AccountChips from './AccountChips';
 import SourceActions from './SourceActions';
 import SourceLanguages from './SourceLanguages';
@@ -795,9 +796,8 @@ class SourceComponent extends Component {
     if (!this.isProjectSource()) {
       return;
     }
-    const { pusher } = this.getContext();
-    const { source: { source: { pusher_channel: pusherChannel } } } = this.props;
-    if (pusher && pusherChannel) {
+    const { pusher, source: { source: { pusher_channel: pusherChannel } } } = this.props;
+    if (pusherChannel) {
       pusher.subscribe(pusherChannel).bind('source_updated', 'Source', (data) => {
         const source = this.getSource() || {};
         const metadata = this.getMetadataAnnotation() || {};
@@ -827,9 +827,9 @@ class SourceComponent extends Component {
     if (!this.isProjectSource()) {
       return;
     }
-    const { pusher } = this.getContext();
-    if (pusher) {
-      pusher.unsubscribe(this.props.source.source.pusher_channel);
+    const { pusher, source: { source: { pusher_channel: pusherChannel } } } = this.props;
+    if (pusherChannel) {
+      pusher.unsubscribe(pusherChannel);
     }
   }
 
@@ -1563,10 +1563,11 @@ SourceComponent.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
+  pusher: pusherShape.isRequired,
 };
 
 SourceComponent.contextTypes = {
   store: PropTypes.object,
 };
 
-export default injectIntl(SourceComponent);
+export default withPusher(injectIntl(SourceComponent));

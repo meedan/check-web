@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
+import { withPusher, pusherShape } from '../../pusher';
 import CreateRelatedMedia from './CreateRelatedMedia';
 import MediaRoute from '../../relay/MediaRoute';
 import mediaFragment from '../../relay/mediaFragment';
@@ -68,33 +69,29 @@ class MediaRelatedComponent extends Component {
   }
 
   subscribe() {
-    const { pusher } = this.getContext();
-    if (pusher) {
-      pusher.subscribe(this.props.media.pusher_channel).bind('relationship_change', 'MediaRelated', (data, run) => {
-        const relationship = JSON.parse(data.message);
-        if (
-          (this.getContext().clientSessionId !== data.actor_session_id) &&
-          (relationship.source_id === this.props.media.dbid)
-        ) {
-          if (run) {
-            this.props.relay.forceFetch();
-            return true;
-          }
-          return {
-            id: `media-relationships-${this.props.media.dbid}`,
-            callback: this.props.relay.forceFetch,
-          };
+    const { pusher, media } = this.props;
+    pusher.subscribe(media.pusher_channel).bind('relationship_change', 'MediaRelated', (data, run) => {
+      const relationship = JSON.parse(data.message);
+      if (
+        (this.getContext().clientSessionId !== data.actor_session_id) &&
+        (relationship.source_id === media.dbid)
+      ) {
+        if (run) {
+          this.props.relay.forceFetch();
+          return true;
         }
-        return false;
-      });
-    }
+        return {
+          id: `media-relationships-${media.dbid}`,
+          callback: this.props.relay.forceFetch,
+        };
+      }
+      return false;
+    });
   }
 
   unsubscribe() {
-    const { pusher } = this.getContext();
-    if (pusher) {
-      pusher.unsubscribe(this.props.media.pusher_channel);
-    }
+    const { pusher, media } = this.props;
+    pusher.unsubscribe(media.pusher_channel);
   }
 
   render() {
@@ -209,7 +206,11 @@ MediaRelatedComponent.contextTypes = {
   store: PropTypes.object,
 };
 
-const MediaRelatedContainer = Relay.createContainer(MediaRelatedComponent, {
+MediaRelatedComponent.propTypes = {
+  pusher: pusherShape.isRequired,
+};
+
+const MediaRelatedContainer = Relay.createContainer(withPusher(MediaRelatedComponent), {
   initialVariables: {
     contextId: null,
     filters: getFilters(),

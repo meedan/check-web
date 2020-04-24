@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import TextField from 'material-ui/TextField';
 import Button from '@material-ui/core/Button';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
@@ -11,7 +10,6 @@ import IconSchedule from '@material-ui/icons/Schedule';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import CheckContext from '../../CheckContext';
 import { convertNumbers2English } from '../../helpers';
 import { alertRed, black38, black54, units, caption, FlexRow } from '../../styles/js/shared';
 import timezones from '../../timezones';
@@ -92,10 +90,6 @@ class DatetimeRespondTask extends Component {
         minute,
       },
     };
-  }
-
-  getLocale() {
-    return new CheckContext(this).getContextStore().locale || 'en';
   }
 
   canSubmit(date) {
@@ -219,7 +213,6 @@ class DatetimeRespondTask extends Component {
       </p>
     );
 
-    const locale = this.getLocale();
     let DateTimeFormat;
 
     if (areIntlLocalesSupported(['en', 'pt', 'ar', 'fr'])) {
@@ -250,7 +243,7 @@ class DatetimeRespondTask extends Component {
             value={this.state.date}
             onChange={this.handleChange.bind(this)}
             fullWidth
-            locale={locale}
+            locale={this.props.intl.locale}
             DateTimeFormat={DateTimeFormat}
             okLabel={this.props.intl.formatMessage(messages.ok)}
             cancelLabel={this.props.intl.formatMessage(messages.cancel)}
@@ -328,10 +321,6 @@ DatetimeRespondTask.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
-};
-
-DatetimeRespondTask.contextTypes = {
-  store: PropTypes.object,
 };
 
 export default injectIntl(DatetimeRespondTask);

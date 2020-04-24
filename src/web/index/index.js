@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import Root from 'app/components/Root';
+import { subscribe as pusherSubscribe, unsubscribe as pusherUnsubscribe, PusherContext } from 'app/pusher';
 import { createStore, applyMiddleware, compose } from 'redux';
 import rootReducer from 'app/redux';
 import thunk from 'redux-thunk';
@@ -32,9 +33,18 @@ if (locales.indexOf(locale) === -1) {
   locale = 'en';
 }
 
+const pusherContextValue = {
+  subscribe: pusherSubscribe,
+  unsubscribe: pusherUnsubscribe,
+};
+
 const callback = (translations) => {
   render(
-    <Root store={store} translations={translations} locale={locale} />,
+    (
+      <PusherContext.Provider value={pusherContextValue}>
+        <Root store={store} translations={translations} locale={locale} />
+      </PusherContext.Provider>
+    ),
     document.getElementById('root'),
   );
 };
