@@ -36,7 +36,7 @@ const StyledAnnotations = styled.div`
         width: ${borderWidthMedium};
         ${props => (props.isRtl ? 'right' : 'left')}: ${units(4)};
       }
-      &:first-of-type {
+      &:last-of-type {
         height: 100%;
       }
     }

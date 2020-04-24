@@ -4,6 +4,7 @@ import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import Tasks from '../task/Tasks';
+import { withPusher, pusherShape } from '../../pusher';
 import CreateTask from '../task/CreateTask';
 import MediaRoute from '../../relay/MediaRoute';
 import MediasLoading from './MediasLoading';
@@ -132,32 +133,28 @@ class MediaTasksComponent extends Component {
   }
 
   subscribe() {
-    const { pusher } = this.getContext();
-    if (pusher) {
-      pusher.subscribe(this.props.media.pusher_channel).bind('media_updated', 'MediaTasks', (data, run) => {
-        const annotation = JSON.parse(data.message);
-        if (annotation.annotated_id === this.props.media.dbid &&
-          this.getContext().clientSessionId !== data.actor_session_id
-        ) {
-          if (run) {
-            this.props.relay.forceFetch();
-            return true;
-          }
-          return {
-            id: `media-tasks-${this.props.media.dbid}`,
-            callback: this.props.relay.forceFetch,
-          };
+    const { pusher, media } = this.props;
+    pusher.subscribe(media.pusher_channel).bind('media_updated', 'MediaTasks', (data, run) => {
+      const annotation = JSON.parse(data.message);
+      if (annotation.annotated_id === media.dbid &&
+        this.getContext().clientSessionId !== data.actor_session_id
+      ) {
+        if (run) {
+          this.props.relay.forceFetch();
+          return true;
         }
-        return false;
-      });
-    }
+        return {
+          id: `media-tasks-${media.dbid}`,
+          callback: this.props.relay.forceFetch,
+        };
+      }
+      return false;
+    });
   }
 
   unsubscribe() {
-    const { pusher } = this.getContext();
-    if (pusher) {
-      pusher.unsubscribe(this.props.media.pusher_channel);
-    }
+    const { pusher, media } = this.props;
+    pusher.unsubscribe(media.pusher_channel);
   }
 
   render() {
@@ -206,7 +203,11 @@ MediaTasksComponent.contextTypes = {
   store: PropTypes.object,
 };
 
-const MediaTasksContainer = Relay.createContainer(MediaTasksComponent, {
+MediaTasksComponent.propTypes = {
+  pusher: pusherShape.isRequired,
+};
+
+const MediaTasksContainer = Relay.createContainer(withPusher(MediaTasksComponent), {
   fragments: {
     media: () => Relay.QL`
       fragment on ProjectMedia {

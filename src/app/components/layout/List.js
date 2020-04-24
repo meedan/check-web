@@ -1,5 +1,6 @@
 import React from 'react';
 import { injectIntl, defineMessages } from 'react-intl';
+import memoizeOne from 'memoize-one';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-material.css';
@@ -92,183 +93,190 @@ const messages = defineMessages({
   },
 });
 
-class List extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      columnDefs: List.getColumnDefs(props),
-    };
+function buildColumnDefs(team, formatMessage) {
+  let smoochBotInstalled = false;
+  if (team && team.team_bot_installations) {
+    team.team_bot_installations.edges.forEach((edge) => {
+      if (edge.node.team_bot.identifier === 'smooch') {
+        smoochBotInstalled = true;
+      }
+    });
   }
 
+  const colDefs = [
+    {
+      headerName: formatMessage(messages.item),
+      field: 'title',
+      checkboxSelection: true,
+      headerCheckboxSelection: true,
+      cellRenderer: 'mediaCellRenderer',
+      minWidth: 424,
+    },
+    {
+      headerName: formatMessage(messages.share_count),
+      field: 'share_count',
+      minWidth: 124,
+      maxWidth: 124,
+      cellRenderer: 'metadataCellRenderer',
+      headerComponentFramework: ListHeader,
+      headerComponentParams: {
+        sort: 'share_count',
+      },
+    },
+    {
+      headerName: formatMessage(messages.linked_items_count),
+      field: 'linked_items_count',
+      minWidth: 88,
+      maxWidth: 88,
+      cellRenderer: 'metadataCellRenderer',
+      headerComponentFramework: ListHeader,
+      headerComponentParams: {
+        sort: 'related',
+      },
+    },
+    {
+      headerName: formatMessage(messages.type),
+      field: 'type',
+      minWidth: 72,
+      maxWidth: 72,
+      cellRenderer: 'metadataCellRenderer',
+    },
+    {
+      headerName: formatMessage(messages.status),
+      field: 'status',
+      minWidth: 96,
+      maxWidth: 112,
+      cellRenderer: 'metadataCellRenderer',
+    },
+    {
+      headerName: formatMessage(messages.first_seen),
+      field: 'first_seen',
+      minWidth: 96,
+      maxWidth: 112,
+      cellRenderer: 'metadataCellRenderer',
+      headerComponentFramework: ListHeader,
+      headerComponentParams: {
+        sort: 'recent_added',
+      },
+    },
+  ];
+
+  if (smoochBotInstalled) {
+    const requestsCol = {
+      headerName: formatMessage(messages.demand),
+      field: 'demand',
+      minWidth: 96,
+      maxWidth: 96,
+      cellRenderer: 'metadataCellRenderer',
+      headerComponentFramework: ListHeader,
+      headerComponentParams: {
+        sort: 'requests',
+      },
+    };
+
+    const lastSeenCol = {
+      headerName: formatMessage(messages.last_seen),
+      field: 'last_seen',
+      minWidth: 96,
+      maxWidth: 112,
+      cellRenderer: 'metadataCellRenderer',
+      headerComponentFramework: ListHeader,
+      headerComponentParams: {
+        sort: 'last_seen',
+      },
+    };
+    colDefs.splice(1, 0, requestsCol);
+    colDefs.push(lastSeenCol);
+  }
+
+  return colDefs;
+}
+
+function buildRowData(searchResults, intl) {
+  return searchResults.map((i) => {
+    const media = i.node;
+    const {
+      id,
+      dbid,
+      picture,
+      title,
+      description,
+      demand,
+      linked_items_count,
+      type,
+      status,
+      first_seen,
+      last_seen,
+      share_count,
+    } = media;
+
+    const statusObj = getStatus(teamStatuses(media), status);
+
+    const formatted_first_seen = intl.formatRelative(MediaUtil.createdAt({
+      published: first_seen,
+    }));
+
+    const formatted_last_seen = intl.formatRelative(MediaUtil.createdAt({
+      published: last_seen,
+    }));
+
+    const row = {
+      id,
+      dbid,
+      picture,
+      title,
+      description,
+      type: MediaUtil.mediaTypeLabel(type, intl),
+      demand,
+      linked_items_count,
+      status: statusObj.label,
+      first_seen: formatted_first_seen,
+      last_seen: formatted_last_seen,
+      media,
+      share_count,
+      query: i.itemQuery,
+      url: i.mediaUrl,
+    };
+
+    return row;
+  });
+}
+
+const AgRowStyle = { cursor: 'pointer' };
+
+const AgFrameworkComponents = {
+  mediaCellRenderer: MediaCell,
+  metadataCellRenderer: MetadataCell,
+};
+
+class List extends React.PureComponent {
   componentDidMount() {
     window.addEventListener('resize', this.handleWindowResize);
+    this.reselectAgGridNodes();
   }
 
   componentDidUpdate() {
-    if (this.gridApi) {
-      this.gridApi.deselectAll();
-      this.gridApi.getModel().forEachNode((node) => {
-        if (this.props.selectedMedia.includes(node.data.id)) {
-          node.setSelected(true);
-        }
-      });
-    }
+    this.reselectAgGridNodes();
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.handleWindowResize);
   }
 
-  static getColumnDefs(props) {
-    const { team } = props;
-    const fmtMsg = props.intl.formatMessage;
+  getColumnDefs = () => this.buildColumnDefs(this.props.team, this.props.intl.formatMessage);
 
-    let smoochBotInstalled = false;
-    if (team && team.team_bot_installations) {
-      team.team_bot_installations.edges.forEach((edge) => {
-        if (edge.node.team_bot.identifier === 'smooch') {
-          smoochBotInstalled = true;
-        }
+  getRowData = () => this.buildRowData(this.props.searchResults, this.props.intl);
+
+  buildColumnDefs = memoizeOne(buildColumnDefs);
+
+  buildRowData = memoizeOne(buildRowData);
+
+  reselectAgGridNodes() {
+    if (this.gridApi) {
+      this.gridApi.getModel().forEachNode((node) => {
+        node.setSelected(this.props.selectedMedia.includes(node.data.id));
       });
     }
-
-    const colDefs = [
-      {
-        headerName: fmtMsg(messages.item),
-        field: 'title',
-        checkboxSelection: true,
-        headerCheckboxSelection: true,
-        cellRenderer: 'mediaCellRenderer',
-        minWidth: 424,
-      },
-      {
-        headerName: fmtMsg(messages.share_count),
-        field: 'share_count',
-        minWidth: 124,
-        maxWidth: 124,
-        cellRenderer: 'metadataCellRenderer',
-        headerComponentFramework: ListHeader,
-        headerComponentParams: {
-          sort: 'share_count',
-        },
-      },
-      {
-        headerName: fmtMsg(messages.linked_items_count),
-        field: 'linked_items_count',
-        minWidth: 88,
-        maxWidth: 88,
-        cellRenderer: 'metadataCellRenderer',
-        headerComponentFramework: ListHeader,
-        headerComponentParams: {
-          sort: 'related',
-        },
-      },
-      {
-        headerName: fmtMsg(messages.type),
-        field: 'type',
-        minWidth: 72,
-        maxWidth: 72,
-        cellRenderer: 'metadataCellRenderer',
-      },
-      {
-        headerName: fmtMsg(messages.status),
-        field: 'status',
-        minWidth: 96,
-        maxWidth: 112,
-        cellRenderer: 'metadataCellRenderer',
-      },
-      {
-        headerName: fmtMsg(messages.first_seen),
-        field: 'first_seen',
-        minWidth: 96,
-        maxWidth: 112,
-        cellRenderer: 'metadataCellRenderer',
-        headerComponentFramework: ListHeader,
-        headerComponentParams: {
-          sort: 'recent_added',
-        },
-      },
-    ];
-
-    if (smoochBotInstalled) {
-      const requestsCol = {
-        headerName: fmtMsg(messages.demand),
-        field: 'demand',
-        minWidth: 96,
-        maxWidth: 96,
-        cellRenderer: 'metadataCellRenderer',
-        headerComponentFramework: ListHeader,
-        headerComponentParams: {
-          sort: 'requests',
-        },
-      };
-
-      const lastSeenCol = {
-        headerName: fmtMsg(messages.last_seen),
-        field: 'last_seen',
-        minWidth: 96,
-        maxWidth: 112,
-        cellRenderer: 'metadataCellRenderer',
-        headerComponentFramework: ListHeader,
-        headerComponentParams: {
-          sort: 'last_seen',
-        },
-      };
-      colDefs.splice(1, 0, requestsCol);
-      colDefs.push(lastSeenCol);
-    }
-
-    return colDefs;
-  }
-
-  getRowData() {
-    return this.props.searchResults.map((i) => {
-      const media = i.node;
-      const {
-        id,
-        dbid,
-        picture,
-        title,
-        description,
-        demand,
-        linked_items_count,
-        type,
-        status,
-        first_seen,
-        last_seen,
-        share_count,
-      } = media;
-
-      const statusObj = getStatus(teamStatuses(media), status);
-
-      const formatted_first_seen = this.props.intl.formatRelative(MediaUtil.createdAt({
-        published: first_seen,
-      }));
-
-      const formatted_last_seen = this.props.intl.formatRelative(MediaUtil.createdAt({
-        published: last_seen,
-      }));
-
-      const row = {
-        id,
-        dbid,
-        picture,
-        title,
-        description,
-        type: MediaUtil.mediaTypeLabel(type, this.props.intl),
-        demand,
-        linked_items_count,
-        status: statusObj.label,
-        first_seen: formatted_first_seen,
-        last_seen: formatted_last_seen,
-        media,
-        share_count,
-        query: i.itemQuery,
-        url: i.mediaUrl,
-      };
-
-      return row;
-    });
   }
 
   handleClickRow = (wrapper) => {
@@ -283,9 +291,12 @@ class List extends React.Component {
   };
 
   handleChange = (params) => {
-    const rows = params.api.getSelectedRows();
     if (this.props.onSelect) {
-      this.props.onSelect(rows.map(r => r.id));
+      const rows = params.api.getSelectedRows();
+      const mediaIds = rows.map(r => r.id).sort();
+      if (mediaIds.join(',') !== this.props.selectedMedia.sort().join(',')) {
+        this.props.onSelect(rows.map(r => r.id));
+      }
     }
   };
 
@@ -297,17 +308,14 @@ class List extends React.Component {
     return (
       <StyledGridContainer className="ag-theme-material">
         <AgGridReact
-          columnDefs={this.state.columnDefs}
-          frameworkComponents={{
-            mediaCellRenderer: MediaCell,
-            metadataCellRenderer: MetadataCell,
-          }}
+          columnDefs={this.getColumnDefs()}
           rowData={this.getRowData()}
+          frameworkComponents={AgFrameworkComponents}
           onGridReady={this.handleGridReady}
           onRowClicked={this.handleClickRow}
           onSelectionChanged={this.handleChange}
           rowClass="medias__item"
-          rowStyle={{ cursor: 'pointer' }}
+          rowStyle={AgRowStyle}
           rowHeight="96"
           rowSelection="multiple"
           suppressCellSelection
