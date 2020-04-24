@@ -5,7 +5,7 @@ import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import ReactGA from 'react-ga';
 import { IntlProvider } from 'react-intl';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
-import App from './App';
+import Home from './Home';
 import RootLocale from './RootLocale';
 import NotFound from './NotFound';
 import AccessDenied from './AccessDenied';
@@ -61,7 +61,7 @@ class Root extends Component {
         <IntlProvider locale={locale} messages={translations}>
           <Provider store={store}>
             <Router history={browserHistory} onUpdate={Root.logPageView}>
-              <Route path="/" component={App}>
+              <Route path="/" component={Home}>
                 <IndexRoute component={Team} />
                 <Route path="check/user/already-confirmed" component={UserAlreadyConfirmed} public />
                 <Route path="check/user/confirmed" component={UserConfirmed} public />
