@@ -45,7 +45,7 @@ const StyledTopBar = styled.div`
     justify-content: space-between;
   }
 
-  @media (max-width: 1300px) {
+  @media (max-width: 1500px) {
     .media-search__actions-bar {
       width: 100%;
       position: static;

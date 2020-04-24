@@ -48,7 +48,10 @@ class ConfirmDialog extends React.Component {
         </DialogTitle>
         <DialogContent>
           <Message message={this.props.message} />
-          {this.props.blurb}
+          <div style={{ lineHeight: '1.5em' }}>
+            {this.props.blurb}
+          </div>
+          <div>{this.props.children}</div>
           <div style={{ margin: `${units(4)} 0` }}>
             <FormControlLabel
               control={

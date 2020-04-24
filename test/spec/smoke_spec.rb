@@ -475,7 +475,7 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('More info')).to be(true)
 
     # Uninstall bot
-    wait_for_selector('input').click
+    wait_for_selector('.team-bots__uninstall-button').click
     wait_for_selector('#confirm-dialog__checkbox').click
     wait_for_selector('#confirm-dialog__confirm-action-button').click
     wait_for_selector_none('#confirm-dialog__checkbox')
@@ -599,158 +599,109 @@ shared_examples 'smoke' do
 #Related items section end
 
 #Embed section Start
-  # Commented because of https://mantis.meedan.com/view.php?id=8155#c33691 - to be uncommented after https://mantis.meedan.com/view.php?id=8194
-  # it "should generate a embed from Youtube video", bin1: true do
-  #   api_create_team_project_and_link_and_redirect_to_media_page('https://www.youtube.com/watch?v=ykLgjhBnik0')
-  #   wait_for_selector(".media-detail")
-  #   generate_a_embed_and_copy_embed_code
-  #   @driver.navigate.to 'https://paste.ubuntu.com/'
-  #   title = 'a embed from Youtube video' + Time.now.to_i.to_s
-  #   fill_field('#id_poster' , title)
-  #   wait_for_selector('#id_content').send_keys(' ')
-  #   @driver.action.send_keys(:control, 'v').perform
-  #   wait_for_text_change(' ',"#id_content", :css)
-  #   expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
-  # end
+  it "should generate a embed from Youtube video", bin1: true do
+    api_create_team_project_and_link_and_redirect_to_media_page('https://www.youtube.com/watch?v=ykLgjhBnik0')
+    wait_for_selector(".media-detail")
+    generate_a_embed_and_copy_embed_code
+    @driver.navigate.to 'https://paste.ubuntu.com/'
+    title = 'a embed from Youtube video' + Time.now.to_i.to_s
+    fill_field('#id_poster' , title)
+    wait_for_selector('#id_content').send_keys(' ')
+    @driver.action.send_keys(:control, 'v').perform
+    wait_for_text_change(' ',"#id_content", :css)
+    expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
+  end
 
-  # it "should generate a embed from Facebook post", bin1: true do
-  #   api_create_team_project_and_link_and_redirect_to_media_page('https://www.facebook.com/FirstDraftNews/posts/1808121032783161')
-  #   wait_for_selector(".media-detail")
-  #   generate_a_embed_and_copy_embed_code
-  #   @driver.navigate.to 'https://paste.ubuntu.com/'
-  #   title = 'a embed from Facebook' + Time.now.to_i.to_s
-  #   fill_field('#id_poster' , title)
-  #   wait_for_selector('#id_content').send_keys(' ')
-  #   @driver.action.send_keys(:control, 'v').perform
-  #   wait_for_text_change(' ',"#id_content", :css)
-  #   expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
-  # end
+  it "should generate a embed from Facebook post", bin1: true do
+    api_create_team_project_and_link_and_redirect_to_media_page('https://www.facebook.com/FirstDraftNews/posts/1808121032783161')
+    wait_for_selector(".media-detail")
+    generate_a_embed_and_copy_embed_code
+    @driver.navigate.to 'https://paste.ubuntu.com/'
+    title = 'a embed from Facebook' + Time.now.to_i.to_s
+    fill_field('#id_poster' , title)
+    wait_for_selector('#id_content').send_keys(' ')
+    @driver.action.send_keys(:control, 'v').perform
+    wait_for_text_change(' ',"#id_content", :css)
+    expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
+  end
 
-  # it "should generate a embed from Twitter post", bin4: true do
-  #   api_create_team_project_and_link_and_redirect_to_media_page('https://twitter.com/TheWho/status/890135323216367616')
-  #   wait_for_selector(".media-detail")
-  #   generate_a_embed_and_copy_embed_code
-  #   @driver.navigate.to 'https://paste.ubuntu.com/'
-  #   title = 'a embed from Twitter' + Time.now.to_i.to_s
-  #   fill_field('#id_poster' , title)
-  #   wait_for_selector('#id_content').send_keys(' ')
-  #   @driver.action.send_keys(:control, 'v').perform
-  #   wait_for_text_change(' ',"#id_content", :css)
-  #   expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
-  # end
+  it "should generate a embed from Twitter post", bin4: true do
+    api_create_team_project_and_link_and_redirect_to_media_page('https://twitter.com/TheWho/status/890135323216367616')
+    wait_for_selector(".media-detail")
+    generate_a_embed_and_copy_embed_code
+    @driver.navigate.to 'https://paste.ubuntu.com/'
+    title = 'a embed from Twitter' + Time.now.to_i.to_s
+    fill_field('#id_poster' , title)
+    wait_for_selector('#id_content').send_keys(' ')
+    @driver.action.send_keys(:control, 'v').perform
+    wait_for_text_change(' ',"#id_content", :css)
+    expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
+  end
 
-  # it "should generate a embed from Instagram post", bin1: true do
-  #   api_create_team_project_and_link_and_redirect_to_media_page('https://www.instagram.com/p/BRYob0dA1SC/')
-  #   wait_for_selector(".media-detail")
-  #   generate_a_embed_and_copy_embed_code
-  #   @driver.navigate.to 'https://paste.ubuntu.com/'
-  #   title = 'a embed from Instagram' + Time.now.to_i.to_s
-  #   fill_field('#id_poster' , title)
-  #   wait_for_selector('#id_content').send_keys(' ')
-  #   @driver.action.send_keys(:control, 'v').perform
-  #   wait_for_text_change(' ',"#id_content", :css)
-  #   expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
-  # end
+  it "should generate a embed from Instagram post", bin1: true do
+    api_create_team_project_and_link_and_redirect_to_media_page('https://www.instagram.com/p/BRYob0dA1SC/')
+    wait_for_selector(".media-detail")
+    generate_a_embed_and_copy_embed_code
+    @driver.navigate.to 'https://paste.ubuntu.com/'
+    title = 'a embed from Instagram' + Time.now.to_i.to_s
+    fill_field('#id_poster' , title)
+    wait_for_selector('#id_content').send_keys(' ')
+    @driver.action.send_keys(:control, 'v').perform
+    wait_for_text_change(' ',"#id_content", :css)
+    expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
+  end
 
-  # it "should generate a embed from website link copy the code and insert in a blog", bin3: true do
-  #   api_create_team_project_and_link_and_redirect_to_media_page('https://meedan.com')
-  #   wait_for_selector(".media-detail")
-  #   generate_a_embed_and_copy_embed_code
-  #   @driver.navigate.to 'http://codemagic.gr/'
-  #   wait_for_selector('.ace_text-input').send_keys(' ')
-  #   @driver.action.send_keys(:control, 'v').perform
-  #   wait_for_text_change(' ',".ace_text-input", :css)
-  #   button = wait_for_selector("#update")
-  #   button.click
-  #   expect(@driver.page_source.include?('test-team')).to be(true)
-  # end
+  it "should generate a embed from website link copy the code and insert in a blog", bin3: true do
+    api_create_team_project_and_link_and_redirect_to_media_page('https://meedan.com')
+    wait_for_selector(".media-detail")
+    generate_a_embed_and_copy_embed_code
+    @driver.navigate.to 'http://codemagic.gr/'
+    wait_for_selector('.ace_text-input').send_keys(' ')
+    @driver.action.send_keys(:control, 'v').perform
+    wait_for_text_change(' ',".ace_text-input", :css)
+    button = wait_for_selector("#update")
+    button.click
+    expect(@driver.page_source.include?('test-team')).to be(true)
+  end
 
-  # it "should create a image, change the status to in progress and generate a embed",bin4: true do
-  #   api_create_team_and_project
-  #   @driver.navigate.to @config['self_url']
-  #   wait_for_selector(".project__description")
-  #   create_image('test.png')
-  #   wait_for_selector(".medias__item")
-  #   wait_for_selector(".media__heading").click
-  #   wait_for_selector(".media-detail")
-  #   expect(@driver.page_source.include?('In Progress')).to be(false)
-  #   change_the_status_to(".media-status__menu-item--in-progress", false)
-  #   expect(@driver.page_source.include?('In Progress')).to be(true)
-  #   generate_a_embed_and_copy_embed_code
-  #   @driver.navigate.to 'https://paste.ubuntu.com/'
-  #   title = 'a embed from image' + Time.now.to_i.to_s
-  #   fill_field('#id_poster' , title)
-  #   wait_for_selector('#id_content').send_keys(' ')
-  #   @driver.action.send_keys(:control, 'v').perform
-  #   wait_for_text_change(' ',"#id_content", :css)
-  #   expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
-  # end
+  it "should create a image, change the status to in progress and generate a embed",bin4: true do
+    api_create_team_and_project
+    @driver.navigate.to @config['self_url']
+    wait_for_selector(".project__description")
+    create_image('test.png')
+    wait_for_selector(".medias__item")
+    wait_for_selector(".media__heading").click
+    wait_for_selector(".media-detail")
+    expect(@driver.page_source.include?('In Progress')).to be(false)
+    change_the_status_to(".media-status__menu-item--in-progress", false)
+    expect(@driver.page_source.include?('In Progress')).to be(true)
+    generate_a_embed_and_copy_embed_code
+    @driver.navigate.to 'https://paste.ubuntu.com/'
+    title = 'a embed from image' + Time.now.to_i.to_s
+    fill_field('#id_poster' , title)
+    wait_for_selector('#id_content').send_keys(' ')
+    @driver.action.send_keys(:control, 'v').perform
+    wait_for_text_change(' ',"#id_content", :css)
+    expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
+  end
 
-  # it "should create a image, generate a embed, copy url and open in a incognito window", bin4: true do
-  #  api_create_team_and_project
-  #   @driver.navigate.to @config['self_url']
-  #   wait_for_selector(".project__description")
-  #   create_image('test.png')
-  #   wait_for_selector(".medias__item")
-  #   wait_for_selector("img").click
-  #   wait_for_selector(".media-detail")
-  #   url = @driver.current_url.to_s
-  #   wait_for_selector('.media-actions__icon').click
-  #   wait_for_selector('.media-actions__edit')
-  #   el = wait_for_selector('.media-actions__embed')
-  #   el.location_once_scrolled_into_view
-  #   el.click
-  #   wait_for_selector("#media-embed__actions")
-  #   expect(@driver.current_url.to_s == "#{url}/embed").to be(true)
-  #   wait_for_selector('#media-embed__actions button + button').click
-  #   wait_for_selector("#media-embed__copy-share-url")
-  #   url = wait_for_selector("#media-embed__share-field").value.to_s
-  #   caps = Selenium::WebDriver::Remote::Capabilities.chrome("chromeOptions" => {"args" => [ "--incognito" ]})
-  #   driver = Selenium::WebDriver.for(:remote, url: @webdriver_url, desired_capabilities: caps)
-  #   driver.navigate.to url
-  #   wait_for_selector_none("#media-embed__copy-share-url")
-  #   wait_for_selector(".pender-container")
-  #   expect(@driver.page_source.include?('test.png')).to be(true)
-  # end
+  it "should create a image, generate a embed, copy url and open in a incognito window", bin4: true do
+   api_create_team_and_project
+    @driver.navigate.to @config['self_url']
+    wait_for_selector('.project__description')
+    create_image('test.png')
+    wait_for_selector('.medias__item')
+    wait_for_selector('img').click
+    wait_for_selector('#media-detail__report-designer').click
+    wait_for_selector('#report-designer__actions button + button').click
+    url = wait_for_selector('#report-designer__share-field').value.to_s
+    caps = Selenium::WebDriver::Remote::Capabilities.chrome('chromeOptions' => { 'args' => [ '--incognito' ]})
+    driver = Selenium::WebDriver.for(:remote, url: @webdriver_url, desired_capabilities: caps)
+    driver.navigate.to url
+    wait_for_selector('.pender-container')
+    expect(@driver.page_source.include?('test.png')).to be(true)
+  end
 #Embed section end
-
-# # Meme Generator section start
-#   it "should go to mem  e generator change the title and description publish and generate a embed", bin1: true do
-#     create_team_project_and_image_and_redirect_to_media_page
-#     wait_for_selector(".media__annotations-column")
-#     wait_for_selector('.media-actions__icon').click
-#     wait_for_selector('.media-actions__edit')
-#     sleep 5
-#     el = wait_for_selector('.media-actions__memebuster')
-#     el.location_once_scrolled_into_view
-#     el.click
-#     sleep 2
-#     expect(@driver.page_source.include?('Last saved')).to be(false)
-#     wait_for_selector(".without-file")
-#     fill_field('input[name="headline"]', 'Meme')
-#     save_button = wait_for_selector(".memebuster__viewport-column > div > div button + button")
-#     expect(save_button.attribute('tabindex')== "-1" ).to be(true) #if save_button is not enable
-#     fill_field('textarea[name="description"]', 'description')
-#     expect(save_button.attribute('tabindex')== "0" ).to be(true) #if save_button is enable
-#     save_button.click
-#     wait_for_selector(".memebuster__viewport-column > div > div >  span")
-#     expect(@driver.page_source.include?('Last saved')).to be(true)
-#     publish_button = wait_for_selector(".memebuster__viewport-column > div > div button + button + button")
-#     publish_button.click
-#     wait_for_selector(".memebuster__viewport-column > div > div > div")
-#     expect(@driver.page_source.include?('Publishing')).to be(true)
-#     wait_for_selector(".memebuster__viewport-column > div > div > div > span")
-#     wait_for_selector(".memebuster__viewport-column > div > div > div > span > time")
-#     expect(@driver.page_source.include?('Publishing')).to be(false)
-#     expect(@driver.page_source.include?('Last published')).to be(true)
-#     @driver.navigate.back
-#     wait_for_selector_none(".without-file")
-#     wait_for_selector(".media__annotations-column")
-#     generate_a_embed_and_copy_embed_code
-#     wait_for_selector(".oembed__meme")
-#     expect(@driver.page_source.include?('Meme')).to be(true)
-#   end
-# Meme Generator section end
 
 #Bulk Actions section start
   it "should move media to another project", bin2: true do

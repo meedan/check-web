@@ -68,8 +68,8 @@ const messages = defineMessages({
   },
   mainPlaceholder: {
     id: 'smoochBotSettings.mainPlaceholder',
-    defaultMessage: `📌*Main Menu* 
-      
+    defaultMessage: `📌*Main Menu*
+
 *Reply 1* (or 🔍) to submit a request for a fact-check about an article, video, image, or other content.
 *Reply 2* (or 🦠) to get the latest information about coronavirus disease (COVID-19)`,
   },
@@ -84,9 +84,9 @@ const messages = defineMessages({
   secondaryPlaceholder: {
     id: 'smoochBotSettings.secondaryPlaceholder',
     defaultMessage: `*Information about Coronavirus disease (COVID-19)* 🦠
-    
+
 👉*Reply with any one of the following numbers (or emoji) to get information about that topic:*
-  
+
 *1:* How do I protect myself and/or my family? 👨‍👩‍👧
 *2:* I think I might be getting sick 🤒
 *3:* How can I handle stress associated with COVID-19? ❤️
@@ -118,7 +118,7 @@ const messages = defineMessages({
   queryPlaceholder: {
     id: 'smoochBotSettings.queryPlaceholder',
     defaultMessage: `*Please enter the question, link, picture, or video that you want fact-checked,* followed by any context or additional questions related to that item. Your request will be sent to fact-checkers about 30 seconds after you have sent your last message.
-      
+
 *Reply 0 (or 📌)* to go back to the *Main Menu* `,
   },
   receivedLabel: {
@@ -132,7 +132,7 @@ const messages = defineMessages({
   receivedPlaceholder: {
     id: 'smoochBotSettings.receivedPlaceholder',
     defaultMessage: `Thank you! Your request has been received. Responses are being aggregated and sorted, and we're working on fact-checking your questions.
-      
+
 ✔️*Follow this link for an updated list of common questions that we have fact-checked:* [ Link to a page of fact-checks on your website ]
 
 👉*Reply with any text* to get back to the *Main Menu* 📌`,
@@ -159,8 +159,8 @@ const messages = defineMessages({
   },
   invalidPlaceholder: {
     id: 'smoochBotSettings.invalidPlaceholder',
-    defaultMessage: `❌Sorry, we can't accept this type of message for verification at this time. 
-      
+    defaultMessage: `❌Sorry, we can't accept this type of message for verification at this time.
+
 We can accept most images, videos, links, text messages, and shared WhatsApp messages.`,
   },
   inactivityLabel: {
@@ -174,7 +174,7 @@ We can accept most images, videos, links, text messages, and shared WhatsApp mes
   inactivityPlaceholder: {
     id: 'smoochBotSettings.inactivityPlaceholder',
     defaultMessage: `❌Thank you for your message. Our fact-checking service is currently *inactive.*
-      
+
 Contact us at *[email or other contact]* for further inquiries.`,
   },
   disabled: {
@@ -242,12 +242,12 @@ const StyledSettings = styled.div`
     outline: 0;
     text-align: left;
   }
- 
+
   #smooch-bot-settings-sidebar-option-active {
     font-weight: bold;
     border-color: #617FDB;
   }
-  
+
   #smooch-bot-settings-form > div > fieldset > div {
     display: flex;
 
@@ -255,12 +255,12 @@ const StyledSettings = styled.div`
       width: 100%;
     }
   }
-  
+
   #smooch-bot-settings-form > div > fieldset > div > div:last-child {
     order: -1;
     margin-bottom: 10px;
   }
-  
+
   #smooch-bot-settings-form > div > fieldset > div fieldset {
     padding: 0;
     margin: 0;
@@ -272,7 +272,7 @@ const StyledSettings = styled.div`
       & > div {
         margin: 0;
         position: relative;
-      
+
         &:before, &:after {
           content: none;
         }
@@ -291,7 +291,7 @@ const StyledSettings = styled.div`
       /* Add scenario */
       & > div > div > div > button {
         width: auto !important;
-        
+
         &::before {
           content: "${props => props.intl.formatMessage(messages.labelScenario)}";
           display: block;
@@ -300,7 +300,7 @@ const StyledSettings = styled.div`
           font-size: 17px;
           color: #FD730C;
         }
-        
+
         svg {
           display: none;
         }
@@ -399,10 +399,10 @@ const StyledSettings = styled.div`
             position: static;
           }
         }
-        
+
         .smooch-state-option-value, .smooch-state-project-media-title {
           display: block;
-          
+
           & > div > div, input {
             height: 32px;
             line-height: 32px;
@@ -791,7 +791,7 @@ class SmoochBotSettings extends Component {
                   <span style={{ display: 'inline-flex', alignItems: 'center' }}>
                     <b>{this.props.intl.formatMessage(messages[`${this.state.currentSidebarOption}Label`])}</b>
                     { this.state.currentSidebarOption === 'invalid' ?
-                      <a href="http://help.checkmedia.org/en/articles/3872451-supported-formats" target="_blank" rel="noopener noreferrer" style={{ display: 'flex' }}>
+                      <a href="http://help.checkmedia.org/en/articles/3546268-supported-item-formats" target="_blank" rel="noopener noreferrer" style={{ display: 'flex' }}>
                         <HelpIcon style={{ margin: '0 2px', color: checkBlue }} />
                       </a> : null }
                   </span>

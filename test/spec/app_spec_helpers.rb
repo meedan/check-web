@@ -435,30 +435,19 @@ module AppSpecHelpers
     api_create_bot
     @driver.navigate.to @config['self_url'] + '/' + team
     wait_for_selector('.team-menu__team-settings-button').click
-    wait_for_selector(".team-settings__embed-tab")
     wait_for_selector('.team-settings__bots-tab').click
-    wait_for_selector("img")
     # Install bot
-    wait_for_selector('.team > div + div button').click
+    wait_for_selector('#team-bots__bot-garden-button').click
     wait_for_selector(".bot-garden__bot-name")
     bot = wait_for_selector("//span[contains(text(), '#{bot_name}')]", :xpath)
     bot.click
-    wait_for_selector('input').click
-    @driver.switch_to.alert.accept
+    wait_for_selector('#bot__install-button').click
     @driver.navigate.to @config['self_url'] + '/' + team
   end
 
   def generate_a_embed_and_copy_embed_code
-    wait_for_selector(".media-detail")
-    wait_for_selector('.media-actions__icon').click
-    wait_for_selector('.media-actions__edit')
-    el = wait_for_selector('.media-actions__embed')
-    el.location_once_scrolled_into_view
-    el.click
-    wait_for_selector("#media-embed__actions")
-    el = wait_for_selector('#media-embed__actions-copy')
-    el.click
-    wait_for_selector("#media-embed__copy-code")
+    wait_for_selector('#media-detail__report-designer').click
+    wait_for_selector('#report-designer__actions-copy').click
   end
 
   def change_the_status_to(status_class, confirm)

@@ -40,12 +40,6 @@ class MediaActions extends Component {
     browserHistory.push(`/${media.team.slug}${projectPart}/media/${media.dbid}/embed`);
   }
 
-  handleMemebuster = () => {
-    const { media } = this.props;
-    const projectPart = media.project_id ? `/project/${media.project_id}` : '';
-    browserHistory.push(`/${media.team.slug}${projectPart}/media/${media.dbid}/memebuster`);
-  };
-
   render() {
     const {
       media,
@@ -122,37 +116,6 @@ class MediaActions extends Component {
               <FormattedMessage id="mediaActions.lockStatus" defaultMessage="Lock status" />}
           />
         </MenuItem>));
-    }
-
-    if (can(media.permissions, 'update ProjectMedia') && !media.archived) {
-      menuItems.push((
-        <MenuItem
-          key="mediaActions.memebuster"
-          className="media-actions__memebuster"
-          id="media-actions__memebuster"
-          onClick={() => this.handleActionAndClose(this.handleMemebuster)}
-        >
-          <ListItemText
-            primary={<FormattedMessage id="mediaActions.memebuster" defaultMessage="Meme designer" />}
-          />
-        </MenuItem>));
-    }
-
-    if (can(media.permissions, 'embed ProjectMedia') &&
-      !media.archived) {
-      /*
-      menuItems.push((
-        <MenuItem
-          key="mediaActions.embed"
-          className="media-actions__embed"
-          id="media-actions__embed"
-          onClick={() => this.handleActionAndClose(this.handleEmbed.bind(this))}
-        >
-          <ListItemText
-            primary={<FormattedMessage id="mediaActions.report" defaultMessage="Report designer" />}
-          />
-        </MenuItem>));
-      */
     }
 
     if (can(media.permissions, 'update ProjectMedia') && !media.archived && handleSendToTrash) {
