@@ -31,7 +31,6 @@ describe('<DrawerNavigationComponent />', () => {
   it('renders with projects in team context if user is logged in and a member', () => {
     const location = { pathname: '/team/members' };
     const params = { team: 'team' };
-    const pusher = { subscribe: sinon.stub().returns(sinon.spy()), unsubscribe: sinon.spy() };
     getStore().currentUser = currentUser;
     getStore().team = privateTeam;
     getStore().dispatch = () => {};
