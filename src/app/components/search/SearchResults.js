@@ -5,11 +5,11 @@ import { defineMessages, injectIntl, intlShape, FormattedMessage } from 'react-i
 import { browserHistory } from 'react-router';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import sortby from 'lodash.sortby';
-import isEqual from 'lodash.isequal';
 import styled from 'styled-components';
 import NextIcon from '@material-ui/icons/KeyboardArrowRight';
 import PrevIcon from '@material-ui/icons/KeyboardArrowLeft';
 import Tooltip from '@material-ui/core/Tooltip';
+import { withPusher, pusherShape } from '../../pusher';
 import { searchQueryFromUrl, urlFromSearchQuery } from './Search';
 import SearchQuery from './SearchQuery';
 import Toolbar from './Toolbar';
@@ -106,8 +106,12 @@ const StyledSearchResultsWrapper = styled.div`
   }
 `;
 
+const StyledToolbarWrapper = styled.div`
+  margin: ${units(2)} 0;
+`;
+
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
-class SearchResultsComponent extends React.Component {
+class SearchResultsComponent extends React.PureComponent {
   static mergeResults(medias, sources) {
     if (medias.length === 0 && sources.length === 0) {
       return [];
@@ -130,37 +134,23 @@ class SearchResultsComponent extends React.Component {
   constructor(props) {
     super(props);
 
+    this.pusherChannel = null;
+
     this.state = {
       selectedMedia: [],
-      subscribed: false,
     };
   }
 
   componentDidMount() {
-    this.subscribe();
+    this.resubscribe();
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return !isEqual(this.state, nextState) ||
-           !isEqual(this.props.search, nextProps.search);
-  }
-
-  componentWillUpdate(nextProps) {
-    if (this.props.search.pusher_channel !== nextProps.search.pusher_channel) {
-      this.unsubscribe();
-    }
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.search.pusher_channel !== prevProps.search.pusher_channel) {
-      this.subscribe();
-    }
+  componentDidUpdate() {
+    this.resubscribe();
   }
 
   componentWillUnmount() {
-    if (this.state.subscribed) {
-      this.unsubscribe();
-    }
+    this.unsubscribe();
   }
 
   onUnselectAll = () => {
@@ -217,12 +207,16 @@ class SearchResultsComponent extends React.Component {
     return this.getContext().getContextStore();
   }
 
-  subscribe() {
-    const { pusher } = this.currentContext();
-    if (pusher && this.props.search.pusher_channel) {
-      const { search: { pusher_channel: channel } } = this.props;
+  resubscribe() {
+    const { pusher, search, intl } = this.props;
 
-      pusher.unsubscribe(channel);
+    if (this.pusherChannel !== search.pusher_channel) {
+      this.unsubscribe();
+    }
+
+    if (search.pusher_channel) {
+      const channel = search.pusher_channel;
+      this.pusherChannel = channel;
 
       pusher.subscribe(channel).bind('bulk_update_end', 'Search', (data, run) => {
         if (run) {
@@ -251,7 +245,7 @@ class SearchResultsComponent extends React.Component {
             `$1/media/${message.id}`,
           );
           notify(
-            this.props.intl.formatMessage(messages.newTranslationRequestNotification),
+            intl.formatMessage(messages.newTranslationRequestNotification),
             '',
             url,
             avatar,
@@ -271,16 +265,13 @@ class SearchResultsComponent extends React.Component {
         }
         return false;
       });
-
-      this.setState({ subscribed: true });
     }
   }
 
   unsubscribe() {
-    const { pusher } = this.currentContext();
-    if (pusher && this.props.search.pusher_channel) {
-      pusher.unsubscribe(this.props.search.pusher_channel);
-      this.setState({ subscribed: false });
+    if (this.pusherChannel) {
+      this.props.pusher.unsubscribe(this.pusherChannel);
+      this.pusherChannel = null;
     }
   }
 
@@ -459,7 +450,7 @@ class SearchResultsComponent extends React.Component {
           </Row>
         </StyledListHeader>
         <StyledSearchResultsWrapper className="search__results results">
-          <div style={{ margin: `${units(2)} 0` }}>{title}</div>
+          <StyledToolbarWrapper>{title}</StyledToolbarWrapper>
           {content}
         </StyledSearchResultsWrapper>
       </ContentColumn>
@@ -468,7 +459,6 @@ class SearchResultsComponent extends React.Component {
 }
 
 SearchResultsComponent.contextTypes = {
-  router: PropTypes.object,
   store: PropTypes.object,
 };
 
@@ -476,12 +466,15 @@ SearchResultsComponent.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
+  pusher: pusherShape.isRequired,
 };
+
+const ConnectedSearchResultsComponent = withPusher(injectIntl(SearchResultsComponent));
 
 // eslint-disable-next-line react/no-multi-comp
 class SearchResults extends React.PureComponent {
   render() {
-    const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsComponent), {
+    const SearchResultsContainer = Relay.createContainer(ConnectedSearchResultsComponent, {
       initialVariables: {
         pageSize,
       },

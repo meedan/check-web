@@ -5,6 +5,7 @@ import Relay from 'react-relay/classic';
 import styled from 'styled-components';
 import ChatBubble from '@material-ui/icons/ChatBubble';
 import Tooltip from '@material-ui/core/Tooltip';
+import { withPusher, pusherShape } from '../../pusher';
 import TaskRoute from '../../relay/TaskRoute';
 import CheckContext from '../../CheckContext';
 import Annotation from '../annotations/Annotation';
@@ -134,33 +135,29 @@ class TaskLogComponent extends Component {
   }
 
   subscribe() {
-    const { pusher } = this.getContext();
-    if (pusher) {
-      pusher.subscribe(this.props.cachedTask.project_media.pusher_channel).bind('media_updated', 'TaskLog', (data, run) => {
-        const annotation = JSON.parse(data.message);
-        if (annotation.annotation_type === 'task' &&
-          parseInt(annotation.id, 10) === parseInt(this.props.task.dbid, 10) &&
-          this.getContext().clientSessionId !== data.actor_session_id
-        ) {
-          if (run) {
-            this.props.relay.forceFetch();
-            return true;
-          }
-          return {
-            id: `task-log-${this.props.task.dbid}`,
-            callback: this.props.relay.forceFetch,
-          };
+    const { pusher, cachedTask, task } = this.props;
+    pusher.subscribe(cachedTask.project_media.pusher_channel).bind('media_updated', 'TaskLog', (data, run) => {
+      const annotation = JSON.parse(data.message);
+      if (annotation.annotation_type === 'task' &&
+        parseInt(annotation.id, 10) === parseInt(this.props.task.dbid, 10) &&
+        this.getContext().clientSessionId !== data.actor_session_id
+      ) {
+        if (run) {
+          this.props.relay.forceFetch();
+          return true;
         }
-        return false;
-      });
-    }
+        return {
+          id: `task-log-${task.dbid}`,
+          callback: this.props.relay.forceFetch,
+        };
+      }
+      return false;
+    });
   }
 
   unsubscribe() {
-    const { pusher } = this.getContext();
-    if (pusher) {
-      pusher.unsubscribe(this.props.cachedTask.project_media.pusher_channel);
-    }
+    const { pusher, cachedTask } = this.props;
+    pusher.unsubscribe(cachedTask.project_media.pusher_channel);
   }
 
   render() {
@@ -199,7 +196,11 @@ TaskLogComponent.contextTypes = {
   store: PropTypes.object,
 };
 
-const TaskLogContainer = Relay.createContainer(TaskLogComponent, {
+TaskLogComponent.propTypes = {
+  pusher: pusherShape.isRequired,
+};
+
+const TaskLogContainer = Relay.createContainer(withPusher(TaskLogComponent), {
   fragments: {
     task: () => Relay.QL`
       fragment on Task {

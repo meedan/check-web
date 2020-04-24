@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from 'react-intl';
 import Card from '@material-ui/core/Card';
 import rtlDetect from 'rtl-detect';
+import { withPusher, pusherShape } from '../../pusher';
 import MediaExpanded from './MediaExpanded';
 import MediaCondensed from './MediaCondensed';
 import CheckContext from '../../CheckContext';
@@ -30,29 +31,25 @@ class MediaDetail extends Component {
   }
 
   subscribe() {
-    const { pusher } = this.getContext();
-    if (pusher) {
-      pusher.subscribe(this.props.media.pusher_channel).bind('media_updated', 'MediaDetail', (data, run) => {
-        if (this.props.parentComponentName === 'MediaRelated') {
-          if (run) {
-            this.props.parentComponent.props.relay.forceFetch();
-            return true;
-          }
-          return {
-            id: `parent-media-${this.props.parentComponent.props.media.dbid}`,
-            callback: this.props.parentComponent.props.relay.forceFetch,
-          };
+    const { pusher, media } = this.props;
+    pusher.subscribe(media.pusher_channel).bind('media_updated', 'MediaDetail', (data, run) => {
+      if (this.props.parentComponentName === 'MediaRelated') {
+        if (run) {
+          this.props.parentComponent.props.relay.forceFetch();
+          return true;
         }
-        return false;
-      });
-    }
+        return {
+          id: `parent-media-${this.props.parentComponent.props.media.dbid}`,
+          callback: this.props.parentComponent.props.relay.forceFetch,
+        };
+      }
+      return false;
+    });
   }
 
   unsubscribe() {
-    const { pusher } = this.getContext();
-    if (pusher) {
-      pusher.unsubscribe(this.props.media.pusher_channel);
-    }
+    const { pusher, media } = this.props;
+    pusher.unsubscribe(media.pusher_channel);
   }
 
   render() {
@@ -109,10 +106,11 @@ MediaDetail.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
+  pusher: pusherShape.isRequired,
 };
 
 MediaDetail.contextTypes = {
   store: PropTypes.object,
 };
 
-export default injectIntl(MediaDetail);
+export default withPusher(injectIntl(MediaDetail));

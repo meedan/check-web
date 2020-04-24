@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { stripUnit } from 'polished';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import { withPusher, pusherShape } from '../../pusher';
 import PageTitle from '../PageTitle';
 import MediaDetail from './MediaDetail';
 import MediaRelated from './MediaRelated';
@@ -111,51 +112,47 @@ class MediaComponent extends Component {
   }
 
   subscribe() {
-    const { pusher } = this.getContext();
-    if (pusher) {
-      pusher.subscribe(this.props.media.pusher_channel).bind('relationship_change', 'MediaComponent', (data, run) => {
-        const relationship = JSON.parse(data.message);
-        if (
-          (!relationship.id || this.getContext().clientSessionId !== data.actor_session_id) &&
-          (relationship.source_id === this.props.media.dbid ||
-          relationship.target_id === this.props.media.dbid)
-        ) {
-          if (run) {
-            this.props.relay.forceFetch();
-            return true;
-          }
-          return {
-            id: `media-${this.props.media.dbid}`,
-            callback: this.props.relay.forceFetch,
-          };
+    const { pusher, media } = this.props;
+    pusher.subscribe(media.pusher_channel).bind('relationship_change', 'MediaComponent', (data, run) => {
+      const relationship = JSON.parse(data.message);
+      if (
+        (!relationship.id || this.getContext().clientSessionId !== data.actor_session_id) &&
+        (relationship.source_id === media.dbid ||
+        relationship.target_id === media.dbid)
+      ) {
+        if (run) {
+          this.props.relay.forceFetch();
+          return true;
         }
-        return false;
-      });
+        return {
+          id: `media-${media.dbid}`,
+          callback: this.props.relay.forceFetch,
+        };
+      }
+      return false;
+    });
 
-      pusher.subscribe(this.props.media.pusher_channel).bind('media_updated', 'MediaComponent', (data, run) => {
-        const annotation = JSON.parse(data.message);
-        if (annotation.annotated_id === this.props.media.dbid &&
-          this.getContext().clientSessionId !== data.actor_session_id
-        ) {
-          if (run) {
-            this.props.relay.forceFetch();
-            return true;
-          }
-          return {
-            id: `media-${this.props.media.dbid}`,
-            callback: this.props.relay.forceFetch,
-          };
+    pusher.subscribe(media.pusher_channel).bind('media_updated', 'MediaComponent', (data, run) => {
+      const annotation = JSON.parse(data.message);
+      if (annotation.annotated_id === media.dbid &&
+        this.getContext().clientSessionId !== data.actor_session_id
+      ) {
+        if (run) {
+          this.props.relay.forceFetch();
+          return true;
         }
-        return false;
-      });
-    }
+        return {
+          id: `media-${media.dbid}`,
+          callback: this.props.relay.forceFetch,
+        };
+      }
+      return false;
+    });
   }
 
   unsubscribe() {
-    const { pusher } = this.getContext();
-    if (pusher) {
-      pusher.unsubscribe(this.props.media.pusher_channel);
-    }
+    const { pusher, media } = this.props;
+    pusher.unsubscribe(media.pusher_channel);
   }
 
   handleTabChange = (e, value) => this.setState({ showTab: value });
@@ -271,10 +268,11 @@ MediaComponent.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
+  pusher: pusherShape.isRequired,
 };
 
 MediaComponent.contextTypes = {
   store: PropTypes.object,
 };
 
-export default injectIntl(MediaComponent);
+export default withPusher(injectIntl(MediaComponent));
