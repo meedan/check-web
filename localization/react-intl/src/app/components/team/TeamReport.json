@@ -1,38 +1,38 @@
 [
   {
-    "id": "teamEmbed.updateFail",
+    "id": "teamReport.updateFail",
     "defaultMessage": "Sorry, an error occurred while updating the report settings. Please try again and contact {supportEmail} if the condition persists."
   },
   {
-    "id": "teamEmbed.updateSuccess",
+    "id": "teamReport.updateSuccess",
     "defaultMessage": "Report settings updated successfully!"
   },
   {
-    "id": "teamEmbed.save",
+    "id": "teamReport.save",
     "defaultMessage": "Save"
   },
   {
-    "id": "teamEmbed.title",
+    "id": "teamReport.title",
     "defaultMessage": "Default report settings"
   },
   {
-    "id": "teamEmbed.subtitle",
+    "id": "teamReport.subtitle",
     "defaultMessage": "The content you set here can be edited in each individual report"
   },
   {
-    "id": "teamEmbed.introduction",
+    "id": "teamReport.introduction",
     "defaultMessage": "Introduction"
   },
   {
-    "id": "teamEmbed.introductionSub",
+    "id": "teamReport.introductionSub",
     "defaultMessage": "Use \\{\\{query_date\\}\\} and \\{\\{query_message\\}\\} placeholders to display the original dates and the content of the original query dynamically. Use \\{\\{status\\}\\} to communicate the status of the claim."
   },
   {
-    "id": "teamEmbed.disclaimer",
+    "id": "teamReport.disclaimer",
     "defaultMessage": "Disclaimer"
   },
   {
-    "id": "teamEmbed.disclaimerSub",
+    "id": "teamReport.disclaimerSub",
     "defaultMessage": "Disclaimer that will be shown at the bottom of the report with the workspace logo."
   }
 ]

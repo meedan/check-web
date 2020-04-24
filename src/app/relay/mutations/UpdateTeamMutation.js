@@ -22,8 +22,9 @@ class UpdateTeamMutation extends Relay.Mutation {
           get_slack_webhook
           get_slack_channel
           get_disclaimer
-          get_embed_analysis
-          get_embed_tasks
+          get_introduction
+          get_use_disclaimer
+          get_use_introduction
           get_rules
           public_team
         }
@@ -51,8 +52,9 @@ class UpdateTeamMutation extends Relay.Mutation {
       slack_webhook: this.props.slack_webhook,
       slack_channel: this.props.slack_channel,
       disclaimer: this.props.disclaimer,
-      embed_analysis: this.props.analysis,
-      embed_tasks: this.props.embed_tasks,
+      introduction: this.props.introduction,
+      use_disclaimer: this.props.use_disclaimer,
+      use_introduction: this.props.use_introduction,
       rules: this.props.rules,
     };
     Object.keys(options).forEach((key) => {
@@ -100,8 +102,9 @@ class UpdateTeamMutation extends Relay.Mutation {
               get_slack_webhook,
               get_slack_channel,
               get_disclaimer,
-              get_embed_analysis,
-              get_embed_tasks,
+              get_introduction,
+              get_use_disclaimer,
+              get_use_introduction,
               get_rules,
               contacts(first: 1) { edges { node { web, location, phone } } }
             }

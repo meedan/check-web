@@ -26,9 +26,8 @@ import JoinTeam from './team/JoinTeam';
 import Teams from './team/Teams';
 import Trash from './team/Trash';
 import ProjectMediaSearch from './media/MediaSearch';
-import MediaEmbed from './media/MediaEmbed';
+import ReportDesigner from './media/ReportDesigner';
 import MediaTasks from './media/MediaTasks';
-import Memebuster from './memebuster/Memebuster';
 import Project from './project/Project';
 import ProjectEdit from './project/ProjectEdit';
 import Search from './search/Search';
@@ -295,10 +294,8 @@ class Root extends Component {
 
                 <Route path=":team/media/:mediaId" component={ProjectMediaSearch} public />
                 <Route path=":team/project/:projectId/media/:mediaId" component={ProjectMediaSearch} public />
-                <Route path=":team/media/:mediaId/embed" component={MediaEmbed} public />
-                <Route path=":team/project/:projectId/media/:mediaId/embed" component={MediaEmbed} public />
-                <Route path=":team/media/:mediaId/memebuster" component={Memebuster} />
-                <Route path=":team/project/:projectId/media/:mediaId/memebuster" component={Memebuster} />
+                <Route path=":team/media/:mediaId/report-designer" component={ReportDesigner} public />
+                <Route path=":team/project/:projectId/media/:mediaId/report-designer" component={ReportDesigner} public />
                 <Route path=":team/project/:projectId/media/:mediaId/tasks" component={MediaTasks} />
                 <Route path=":team/project/:projectId/source/:sourceId" component={Source} public />
                 <Route path=":team/project/:projectId/source/:sourceId/edit" isEditing component={Source} />
