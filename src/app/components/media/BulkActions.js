@@ -271,6 +271,7 @@ class BulkActions extends React.Component {
 
     const moveDialogActions = [
       <Button
+        key="cancel"
         color="primary"
         onClick={this.handleCloseDialogs.bind(this)}
       >
@@ -280,6 +281,7 @@ class BulkActions extends React.Component {
         />
       </Button>,
       <Button
+        key="move"
         color="primary"
         className="media-bulk-actions__move-button"
         onClick={this.handleMove.bind(this)}
