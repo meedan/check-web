@@ -20,7 +20,15 @@ class TeamReportComponent extends React.Component {
     super(props);
     this.state = {
       message: null,
+      useIntroduction: props.team.get_use_introduction,
+      useDisclaimer: props.team.get_use_disclaimer,
     };
+  }
+
+  handleToggle(field, e) {
+    const state = {};
+    state[field] = e.target.checked;
+    this.setState(state);
   }
 
   handleSubmit() {
@@ -65,8 +73,6 @@ class TeamReportComponent extends React.Component {
     const {
       get_disclaimer,
       get_introduction,
-      get_use_disclaimer,
-      get_use_introduction,
       permissions,
     } = this.props.team;
 
@@ -103,7 +109,11 @@ class TeamReportComponent extends React.Component {
             />
             <CardContent>
               <div style={{ display: 'flex', alignItems: 'center' }}>
-                <Checkbox checked={get_use_introduction} id="use_introduction" />
+                <Checkbox
+                  checked={this.state.useIntroduction}
+                  id="use_introduction"
+                  onChange={this.handleToggle.bind(this, 'useIntroduction')}
+                />
                 <h3><FormattedMessage id="teamReport.introduction" defaultMessage="Introduction" /></h3>
               </div>
               <TextField
@@ -122,7 +132,11 @@ class TeamReportComponent extends React.Component {
                 </a>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', marginTop: units(4) }}>
-                <Checkbox checked={get_use_disclaimer} id="use_disclaimer" />
+                <Checkbox
+                  checked={this.state.useDisclaimer}
+                  id="use_disclaimer"
+                  onChange={this.handleToggle.bind(this, 'useDisclaimer')}
+                />
                 <h3><FormattedMessage id="teamReport.disclaimer" defaultMessage="Disclaimer" /></h3>
               </div>
               <TextField

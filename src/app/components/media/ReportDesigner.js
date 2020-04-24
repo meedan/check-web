@@ -489,6 +489,9 @@ class ReportDesignerComponent extends Component {
 
   previewIntroduction() {
     let { introduction } = this.state.options;
+    if (!introduction) {
+      introduction = '';
+    }
     let firstSmoochRequest = this.props.media.first_smooch_request.edges;
     if (firstSmoochRequest.length > 0) {
       firstSmoochRequest = firstSmoochRequest[0].node;
