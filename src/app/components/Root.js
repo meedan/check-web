@@ -31,7 +31,6 @@ import ProjectEdit from './project/ProjectEdit';
 import Search from './search/Search';
 import BotGarden from './BotGarden';
 import Bot from './Bot';
-import CheckContext from '../CheckContext';
 
 class Root extends Component {
   static logPageView() {
@@ -45,31 +44,11 @@ class Root extends Component {
     store: PropTypes.object.isRequired,
   };
 
-  componentWillMount() {
-    this.setStore();
-  }
-
   // eslint-disable-next-line class-methods-use-this
   componentDidMount() {
     if (config.googleAnalyticsCode) {
       ReactGA.initialize(config.googleAnalyticsCode, { debug: false });
     }
-  }
-
-  componentWillUpdate() {
-    this.setStore();
-  }
-
-  getContext() {
-    return new CheckContext(this);
-  }
-
-  setStore() {
-    const context = this.getContext();
-    const store = context.store || this.props.store;
-    const data = {};
-    context.setContextStore(data, store);
-    this.setState(data);
   }
 
   render() {

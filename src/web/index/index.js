@@ -22,7 +22,8 @@ window.storage = {
   },
 };
 
-const store = compose(applyMiddleware(thunk))(createStore)(rootReducer);
+// TODO nix Redux. Every identifier after "=" on this next line makes no sense.
+const store = compose(applyMiddleware(thunk))(createStore)(rootReducer, { app: { context: {} } });
 
 let locale = navigator.languages || navigator.language || navigator.userLanguage || 'en';
 if (locale.constructor === Array) {
