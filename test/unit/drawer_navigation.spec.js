@@ -35,6 +35,7 @@ describe('<DrawerNavigationComponent />', () => {
     getStore().currentUser = currentUser;
     getStore().team = privateTeam;
     getStore().dispatch = () => {};
+    const pusher = { subscribe: sinon.stub().returns(sinon.spy()), unsubscribe: sinon.spy() };
     const header = mountWithIntl(
       <DrawerNavigationComponent
         inTeamContext
@@ -44,6 +45,7 @@ describe('<DrawerNavigationComponent />', () => {
         location={location}
         pusher={pusher}
         params={params}
+        classes={{paper: {}}}
       />,
     );
     expect(header.find(DrawerProjects)).to.have.length(1);
