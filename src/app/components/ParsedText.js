@@ -3,8 +3,7 @@ import Linkify from 'react-linkify';
 import { toArray } from 'react-emoji-render';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import ReactHtmlParser from 'react-html-parser';
-import ReactDOMServer from 'react-dom/server';
+import reactStringReplace from 'react-string-replace';
 import { units } from '../styles/js/shared';
 
 const StyledEmojiOnly = styled.span`
@@ -13,12 +12,21 @@ const StyledEmojiOnly = styled.span`
 `;
 
 const marked = (text) => {
-  const parsedText = text
-    .replace(/\*([^*]*)\*/gm, '<b>$1</b>')
-    .replace(/_([^_]*)_/gm, '<em>$1</em>')
-    .replace(/```([^`]*)```/gm, '<code>$1</code>')
-    .replace(/~([^~]*)~/gm, '<strike>$1</strike>');
-  return ReactHtmlParser(parsedText);
+  // For now, only WhatsApp formatting rules... extend it if needed in the future,
+  // for example, use a proper Markdown library (WhatsApp doesn't follow Markdown properly)
+  let parsedText = reactStringReplace(text, /\*([^*]*)\*/gm, (match, i) => (
+    <b key={i}>{match}</b>
+  ));
+  parsedText = reactStringReplace(parsedText, /_([^_]*)_/gm, (match, i) => (
+    <em key={i}>{match}</em>
+  ));
+  parsedText = reactStringReplace(parsedText, /~([^~]*)~/gm, (match, i) => (
+    <strike key={i}>{match}</strike>
+  ));
+  parsedText = reactStringReplace(parsedText, /```([^`]*)```/gm, (match, i) => (
+    <code key={i}>{match}</code>
+  ));
+  return parsedText;
 };
 
 const ParsedText = (props) => {
@@ -48,23 +56,20 @@ const ParsedText = (props) => {
     emojified;
 
   // Add the line breaks elements.
-  const breakified = e2.map((line, key) => (
-    // eslint-disable-next-line react/no-array-index-key
-    <React.Fragment key={key}>
-      {line}
-      {key < e2.length - 1 ? <br /> : null}
-    </React.Fragment>
-  ));
-
-  // Convert back to string.
-  const string = ReactDOMServer.renderToString(breakified);
-
-  // Markdown.
-  const markdown = marked(string);
+  const breakified = e2.map((line, key) => {
+    const parsedLine = line.map(part => (typeof part === 'string' ? marked(part) : part));
+    return (
+      // eslint-disable-next-line react/no-array-index-key
+      <React.Fragment key={key}>
+        {parsedLine}
+        {key < e2.length - 1 ? <br /> : null}
+      </React.Fragment>
+    );
+  });
 
   // Linkify the result.
   const linkified =
-    <Linkify properties={{ target: '_blank', rel: 'noopener noreferrer' }}>{markdown}</Linkify>;
+    <Linkify properties={{ target: '_blank', rel: 'noopener noreferrer' }}>{breakified}</Linkify>;
 
   // Block or not.
   return props.block ? <div>{linkified}</div> : linkified;
