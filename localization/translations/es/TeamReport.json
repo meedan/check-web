@@ -1,11 +1,11 @@
 {
-  "teamReport.updateFail": "Sorry, an error occurred while updating the report settings. Please try again and contact {supportEmail} if the condition persists.",
-  "teamReport.updateSuccess": "Report settings updated successfully!",
-  "teamReport.save": "Save",
-  "teamReport.title": "Default report settings",
-  "teamReport.subtitle": "The content you set here can be edited in each individual report",
-  "teamReport.introduction": "Introduction",
-  "teamReport.introductionSub": "Use {query_date} and {query_message} placeholders to display the original dates and the content of the original query dynamically. Use {status} to communicate the status of the claim.",
-  "teamReport.disclaimer": "Disclaimer",
-  "teamReport.disclaimerSub": "Disclaimer that will be shown at the bottom of the report with the workspace logo."
+  "teamReport.updateFail": "Lo sentimos, se produjo un error al actualizar las configuraciones del informe. Vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}.",
+  "teamReport.updateSuccess": "¡Las configuraciones de informe se han actualizado con éxito!",
+  "teamReport.save": "Guardar",
+  "teamReport.title": "Configuración del informe",
+  "teamReport.subtitle": "El contenido que establezca aquí puede editarse en cada informe individual",
+  "teamReport.introduction": "Introducción",
+  "teamReport.introductionSub": "Utilice los marcadores de posición {query_date} y {query_message} para mostrar la fecha y el contenido de la consulta original. Use {estado} para comunicar el estado del artículo.",
+  "teamReport.disclaimer": "Aviso",
+  "teamReport.disclaimerSub": "El aviso que se mostrará al final del informe junto al logo del área de trabajo."
 }

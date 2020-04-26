@@ -128,7 +128,7 @@ class TeamReportComponent extends React.Component {
               <div style={{ lineHeight: '1.5em', marginTop: units(1) }}>
                 <FormattedMessage
                   id="teamReport.introductionSub"
-                  defaultMessage="Use {query_date} and {query_message} placeholders to display the original dates and the content of the original query dynamically. Use {status} to communicate the status of the claim."
+                  defaultMessage="Use {query_date} and {query_message} placeholders to display the date and content of the original query. Use {status} to communicate the status of the article."
                   values={{
                     query_date: '{{query_date}}',
                     query_message: '{{query_message}}',

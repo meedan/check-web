@@ -35,7 +35,7 @@ import RelayContainer from '../../relay/RelayContainer';
 import ParsedText from '../ParsedText';
 import ConfirmDialog from '../layout/ConfirmDialog';
 import { getStatus, getStatusStyle } from '../../helpers';
-import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
+import { stringHelper, mediaStatuses, mediaLastStatus } from '../../customHelpers';
 import {
   black87,
   black54,
@@ -437,7 +437,13 @@ class ReportDesignerComponent extends Component {
 
   handleSave(action) {
     const onFailure = () => {
-      const message = <FormattedMessage id="reportDesigner.error" defaultMessage="Could not save report" />;
+      const message = (<FormattedMessage
+        id="reportDesigner.error"
+        defaultMessage="Sorry, an error occurred while updating the report settings. Please try again and contact {supportEmail} if the condition persists."
+        values={{
+          supportEmail: stringHelper('SUPPORT_EMAIL'),
+        }}
+      />);
       this.setState({ pending: false, message });
     };
 
@@ -780,7 +786,7 @@ class ReportDesignerComponent extends Component {
               <h2>
                 <FormattedMessage
                   id="reportDesigner.preview"
-                  defaultMessage="Report Preview"
+                  defaultMessage="Preview"
                 />
               </h2>
               { empty ?
@@ -867,7 +873,7 @@ class ReportDesignerComponent extends Component {
                     <div style={{ lineHeight: '1.5em', marginTop: units(1) }}>
                       <FormattedMessage
                         id="reportDesigner.introductionSub"
-                        defaultMessage="Use {query_date} and {query_message} placeholders to display the original dates and the content of the original query dynamically. Use {status} to communicate the status of the claim."
+                        defaultMessage="Use {query_date} and {query_message} placeholders to display the date and content of the original query. Use {status} to communicate the status of the article."
                         values={{
                           query_date: '{{query_date}}',
                           query_message: '{{query_message}}',
@@ -1074,11 +1080,18 @@ class ReportDesignerComponent extends Component {
               />
             }
             blurb={
-              <FormattedMessage
-                id="reportDesigner.confirmPublishText"
-                defaultMessage="{demand, plural, =0 {This report will be sent to anyone who requests this item in the future while published.} one {You are about to send a report to the person who requested this item. This report will be sent to anyone who requests this item in the future while published.} other {You are about to send a report to # people who requested this item. This report will be sent to anyone who requests this item in the future while published.}}"
-                values={{ demand: media.demand }}
-              />
+              <div>
+                <FormattedMessage
+                  id="reportDesigner.confirmPublishText"
+                  defaultMessage="{demand, plural, =0 {} one {You are about to send this report to the user who requested this item.} other {You are about to send this report to the # users who requested this item.}}"
+                  values={{ demand: media.demand }}
+                />
+                &nbsp;
+                <FormattedMessage
+                  id="reportDesigner.confirmPublishText2"
+                  defaultMessage="In the future, users who request this item will receive your report while it remains published."
+                />
+              </div>
             }
             handleClose={this.handleCloseDialogs.bind(this)}
             handleConfirm={this.handlePublishConfirmed.bind(this)}
@@ -1112,7 +1125,7 @@ class ReportDesignerComponent extends Component {
               <strong>
                 <FormattedMessage
                   id="reportDesigner.confirmRepublishText"
-                  defaultMessage="In the future your changes will be published to all users who request this item."
+                  defaultMessage="In the future, users who request this item will receive this new version of the report."
                 />
               </strong>
             }
@@ -1127,7 +1140,7 @@ class ReportDesignerComponent extends Component {
                 label={
                   <FormattedMessage
                     id="reportDesigner.republishAndResend"
-                    defaultMessage="{demand, plural, =0 {None} one {Also send correction to the user who already received the previous version of this report} other {Also send correction to the # users who already received the previous version of this report}}"
+                    defaultMessage="{demand, plural, =0 {} one {Also send correction to the user who already received the previous version of this report} other {Also send correction to the # users who already received the previous version of this report}}"
                     values={{ demand: media.demand }}
                   />
                 }
@@ -1142,13 +1155,18 @@ class ReportDesignerComponent extends Component {
               />
             }
             blurb={
-              <strong>
+              <div>
                 <FormattedMessage
                   id="reportDesigner.confirmRepublishResendText"
-                  defaultMessage="{demand, plural, =0 {In the future, a user who requests the item will receive this new version.} one {Your correction will be sent to the user who have received the previous report. In the future, a user who requests the item will receive this new version.} other {Your correction will be sent to the # users who have received the previous report. In the future, a user who requests the item will receive this new version.}}"
+                  defaultMessage="{demand, plural, =0 {} one {Your correction will be sent to the user who has received the previous report.} other {Your correction will be sent to the # users who have received the previous report.}}"
                   values={{ demand: media.demand }}
                 />
-              </strong>
+                &nbsp;
+                <FormattedMessage
+                  id="reportDesigner.confirmRepublishResendText2"
+                  defaultMessage="In the future, users who request this item will receive this new version of the report."
+                />
+              </div>
             }
             handleClose={this.handleCloseDialogs.bind(this)}
             handleConfirm={this.handleRepublishResendConfirmed.bind(this)}

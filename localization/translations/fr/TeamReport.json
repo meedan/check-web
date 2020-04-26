@@ -1,11 +1,11 @@
 {
-  "teamReport.updateFail": "Sorry, an error occurred while updating the report settings. Please try again and contact {supportEmail} if the condition persists.",
+  "teamReport.updateFail": "Désolé, une erreur s'est produite durant la mise à jour des paramètres du rapport. Veuillez réessayer et prévenir {supportEmail} si le problème persiste.",
   "teamReport.updateSuccess": "Les paramètres du rapport ont été sauvegardées avec succès.",
   "teamReport.save": "Sauvegarder",
   "teamReport.title": "Paramètres de défaut des rapports",
-  "teamReport.subtitle": "The content you set here can be edited in each individual report",
+  "teamReport.subtitle": "Le contenu que vous définissez ici peut être modifié dans chaque rapport individuel",
   "teamReport.introduction": "Introduction",
-  "teamReport.introductionSub": "Use {query_date} and {query_message} placeholders to display the original dates and the content of the original query dynamically. Use {status} to communicate the status of the claim.",
+  "teamReport.introductionSub": "Utilisez les paramètres {query_date} et {query_message} pour afficher la date et le contenu de la requête d'origine. Utilisez {status} pour communiquer le statut de l'article.",
   "teamReport.disclaimer": "Notice",
-  "teamReport.disclaimerSub": "Disclaimer that will be shown at the bottom of the report with the workspace logo."
+  "teamReport.disclaimerSub": "Notice affichée au bas du rapport auprès du logo de l'espace de travail."
 }
