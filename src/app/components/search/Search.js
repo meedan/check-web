@@ -1,12 +1,11 @@
 import React from 'react';
 import { injectIntl, defineMessages } from 'react-intl';
 import isEqual from 'lodash.isequal';
-import config from 'config'; // eslint-disable-line require-path-exists/exists
 import SearchResults from './SearchResults';
 import { safelyParseJSON } from '../../helpers';
 import { units } from '../../styles/js/shared';
 
-const statusKey = config.appName === 'bridge' ? 'translation_status' : 'verification_status';
+const statusKey = 'verification_status';
 
 const messages = defineMessages({
   title: {

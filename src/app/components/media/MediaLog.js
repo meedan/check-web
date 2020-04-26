@@ -93,14 +93,13 @@ const fieldNames = [
   'suggestion_multiple_choice', 'suggestion_geolocation', 'suggestion_datetime',
   'response_free_text', 'response_yes_no', 'response_single_choice', 'response_multiple_choice',
   'response_geolocation', 'response_datetime', 'metadata_value', 'verification_status_status',
-  'team_bot_response_formatted_data', 'reverse_image_path', 'translation_text', 'mt_translations',
-  'translation_status_status', 'translation_published', 'archive_is_response',
+  'team_bot_response_formatted_data', 'reverse_image_path', 'archive_is_response',
   'archive_org_response', 'keep_backup_response', 'embed_code_copied',
   'pender_archive_response', 'perma_cc_response', 'video_archiver_response',
   'suggestion_image_upload', 'response_image_upload',
 ];
 
-const annotationTypes = ['translation_status', 'verification_status', 'flag'];
+const annotationTypes = ['verification_status', 'flag'];
 
 const MediaLogContainer = Relay.createContainer(withPusher(MediaLogComponent), {
   initialVariables: {
@@ -211,11 +210,9 @@ const MediaLogContainer = Relay.createContainer(withPusher(MediaLogComponent), {
                           }
                         }
                       }
-                      field_value(annotation_type_field_name: "translation_status:translation_status_status"),
                       log_count,
                       permissions,
                       verification_statuses,
-                      translation_statuses,
                       domain,
                       team {
                         slug,

@@ -4,10 +4,6 @@
     "defaultMessage": "Check"
   },
   {
-    "id": "bridge.global.appNameHuman",
-    "defaultMessage": "Bridge"
-  },
-  {
     "id": "global.edit",
     "defaultMessage": "Edit"
   },

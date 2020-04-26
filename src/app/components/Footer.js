@@ -34,10 +34,6 @@ const messages = defineMessages({
     id: 'footer.madeBy',
     defaultMessage: 'Check: Verify breaking news online. Made with ✨ by',
   },
-  bridge_footer: {
-    id: 'bridge.footer.madeBy',
-    defaultMessage: 'Bridge: Translate the global web. Made with ✨ by',
-  },
 });
 
 const Footer = () => (

@@ -240,7 +240,6 @@ const MediaRelatedContainer = Relay.createContainer(withPusher(MediaRelatedCompo
           team {
             search_id
             verification_statuses
-            translation_statuses
           }
         }
         relationships {

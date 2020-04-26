@@ -16,7 +16,6 @@ import ClearIcon from '@material-ui/icons/Clear';
 import deepEqual from 'deep-equal';
 import rtlDetect from 'rtl-detect';
 import styled from 'styled-components';
-import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { withPusher, pusherShape } from '../../pusher';
 import { searchPrefixFromUrl, searchQueryFromUrl, urlFromSearchQuery } from './Search';
 import DateRangeFilter from './DateRangeFilter';
@@ -43,7 +42,7 @@ import {
   ellipsisStyles,
 } from '../../styles/js/shared';
 
-const statusKey = config.appName === 'bridge' ? 'translation_status' : 'verification_status';
+const statusKey = 'verification_status';
 
 // https://github.com/styled-components/styled-components/issues/305#issuecomment-298680960
 const swallowingStyled = (WrappedComponent, { swallowProps = [] } = {}) => {

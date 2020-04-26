@@ -175,11 +175,9 @@ const MediaRequestsContainer = Relay.createContainer(withPusher(MediaRequestsCom
                           }
                         }
                       }
-                      field_value(annotation_type_field_name: "translation_status:translation_status_status"),
                       log_count,
                       permissions,
                       verification_statuses,
-                      translation_statuses,
                       domain,
                       team {
                         slug,

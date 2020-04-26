@@ -164,22 +164,6 @@
     "defaultMessage": "Task answered by {author}: {task}{response}"
   },
   {
-    "id": "annotation.translation",
-    "defaultMessage": "Translated to {language} by {author}{translation}"
-  },
-  {
-    "id": "annotation.translationStatus",
-    "defaultMessage": "Translation status set to {status} by {author}"
-  },
-  {
-    "id": "annotation.translationPublished",
-    "defaultMessage": "Translation published to {link}"
-  },
-  {
-    "id": "annotation.publishTranslation",
-    "defaultMessage": "Publish this translation to {link}"
-  },
-  {
     "id": "annotation.archiverSuccess",
     "defaultMessage": "In case this item goes offline, you can <a href=\"{link}\" target=\"_blank\" rel=\"noopener noreferrer\">access a backup at {name}</a>."
   },
