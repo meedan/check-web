@@ -226,7 +226,7 @@ class BulkActions extends React.Component {
           <Row>
             <Tooltip title={this.props.intl.formatMessage(messages.add)} style={{ margin: '0 10px' }}>
               <Button
-                className="media-bulk-actions__add-icon"
+                id="media-bulk-actions__add-icon"
                 onClick={this.addSelected.bind(this)}
                 color="primary"
                 variant="contained"
@@ -236,7 +236,7 @@ class BulkActions extends React.Component {
             </Tooltip>
             <Tooltip title={this.props.intl.formatMessage(messages.move)} style={{ margin: '0 10px' }}>
               <Button
-                className="media-bulk-actions__move-icon"
+                id="media-bulk-actions__move-icon"
                 onClick={this.moveSelected.bind(this)}
                 color="primary"
                 variant="contained"
@@ -247,6 +247,7 @@ class BulkActions extends React.Component {
             { !/all-items/.test(window.location.pathname) ?
               <Tooltip title={this.props.intl.formatMessage(messages.remove)} style={{ margin: '0 10px' }}>
                 <Button
+                  id="media-bulk-actions__remove-from-list"
                   style={{ margin: '0 8px', border: '1px solid #000' }}
                   onClick={this.handleRemoveSelectedFromList.bind(this)}
                 >

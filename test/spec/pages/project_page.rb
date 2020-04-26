@@ -48,7 +48,7 @@ class ProjectPage < Page
   def click_media
     wait_for_selector(".medias__item")
     wait_for_selector(".media__heading").click
-    wait_for_element('.media')
+    wait_for_selector('.media')
     MediaPage.new(config: @config, driver: @driver)
   end
 
