@@ -1,9 +1,0 @@
-{
-  "UserFeedback.thanks": "Большое спасибо за отзыв!",
-  "UserFeedback.label": "Насколько вероятно, что вы порекомендуете {appName}?",
-  "UserFeedback.unlikely": "Вряд ли",
-  "UserFeedback.maybe": "Возможно",
-  "UserFeedback.likely": "Вероятно",
-  "UserFeedback.save": "Сохранить",
-  "UserFeedback.explainMore": "Подробнее"
-}

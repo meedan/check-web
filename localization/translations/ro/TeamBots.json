@@ -5,7 +5,7 @@
   "teamBots.fail": "Eroare! Mai încercați odată.",
   "teamBots.noBots": "Nu există roboți instalați.",
   "teamBots.moreInfo": "Mai multe informații",
-  "teamBots.inUse": "În uz",
+  "teamBots.remove": "Remove",
   "teamBots.confirmDeleteTitle": "You are about to deactivate {botName}",
   "teamBots.confirmDeleteBlurb": "All settings will be deleted and cannot be recovered. Are you sure you want to proceed?",
   "teamBots.settings": "Setări",

@@ -1,7 +1,4 @@
 {
-  "search.newTranslationRequestNotification": "Solicitare de traducere nouă",
-  "search.newTranslationNotification": "Traducere nouă",
-  "search.newTranslationNotificationBody": "Un element numai ce a fost marcat ca ”tradus”",
   "search.previousPage": "Previous page",
   "search.nextPage": "Next page",
   "searchResults.itemsCount": "{count, plural, =0 { } one {1 / 1} other {{from} - {to} / #}}",

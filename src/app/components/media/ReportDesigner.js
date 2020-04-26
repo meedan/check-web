@@ -865,7 +865,15 @@ class ReportDesignerComponent extends Component {
                       multiline
                     />
                     <div style={{ lineHeight: '1.5em', marginTop: units(1) }}>
-                      <FormattedMessage id="reportDesigner.introductionSub" defaultMessage="Use \{\{query_date\}\} and \{\{query_message\}\} placeholders to display the original dates and the content of the original query dynamically. Use \{\{status\}\} to communicate the status of the claim." />
+                      <FormattedMessage
+                        id="reportDesigner.introductionSub"
+                        defaultMessage="Use {query_date} and {query_message} placeholders to display the original dates and the content of the original query dynamically. Use {status} to communicate the status of the claim."
+                        values={{
+                          query_date: '{{query_date}}',
+                          query_message: '{{query_message}}',
+                          status: '{{status}}',
+                        }}
+                      />
                       <a href="http://help.checkmedia.org/en/articles/3627266-check-message-report" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', verticalAlign: 'bottom' }}>
                         <HelpIcon style={{ margin: '0 2px', color: checkBlue }} />
                       </a>
@@ -948,7 +956,7 @@ class ReportDesignerComponent extends Component {
                       label={
                         <FormattedMessage
                           id="reportDesigner.statusLabel"
-                          defaultMessage="Status Label - {max} characters max"
+                          defaultMessage="Status label - {max} characters max"
                           values={{ max: 16 }}
                         />
                       }

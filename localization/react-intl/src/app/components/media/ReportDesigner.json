@@ -81,7 +81,7 @@
   },
   {
     "id": "reportDesigner.introductionSub",
-    "defaultMessage": "Use \\{\\{query_date\\}\\} and \\{\\{query_message\\}\\} placeholders to display the original dates and the content of the original query dynamically. Use \\{\\{status\\}\\} to communicate the status of the claim."
+    "defaultMessage": "Use {query_date} and {query_message} placeholders to display the original dates and the content of the original query dynamically. Use {status} to communicate the status of the claim."
   },
   {
     "id": "reportDesigner.visualCard",
@@ -101,7 +101,7 @@
   },
   {
     "id": "reportDesigner.statusLabel",
-    "defaultMessage": "Status Label - {max} characters max"
+    "defaultMessage": "Status label - {max} characters max"
   },
   {
     "id": "reportDesigner.themeColor",
@@ -145,7 +145,7 @@
   },
   {
     "id": "reportDesigner.republishAndResend",
-    "defaultMessage": "{demand, plural, =0 {None} one {Also send correction to the user who already received the previous version of this report} other {Also send correction to the # users who already received the previous version of this report}}"
+    "defaultMessage": "{demand, plural, =0 {} one {Also send correction to the user who already received the previous version of this report} other {Also send correction to the # users who already received the previous version of this report}}"
   },
   {
     "id": "reportDesigner.confirmRepublishResendTitle",
