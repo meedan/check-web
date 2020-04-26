@@ -499,15 +499,17 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('More info')).to be(false)
   end
 
-  it "should add a disclaimer", bin5: true do
+  it "should add introduction and a disclaimer", bin5: true do
     team = "team#{Time.now.to_i}"
     api_create_team(team: team)
     @driver.navigate.to @config['self_url']+'/'+team
     wait_for_selector('.team-menu__team-settings-button').click
-    wait_for_selector('.team-settings__embed-tab').click
-    wait_for_selector('#disclaimer')
+    wait_for_selector('.team-settings__report-tab').click
+    wait_for_selector('#use_introduction').click
     expect(@driver.page_source.include?('Report settings updated successfully!')).to be(false)
-    expect(@driver.page_source.include?('Report settings')).to be(true)
+    expect(@driver.page_source.include?('The content you set here can be edited in each individual report')).to be(true)
+    wait_for_selector('#introduction').send_keys("introduction text")
+    wait_for_selector('#use_disclaimer').click
     wait_for_selector('#disclaimer').send_keys("a text")
     wait_for_selector(".team > div> div > p > button[type='button']").click #save button
     wait_for_selector(".message")
@@ -838,41 +840,41 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?("Add a link or text")).to be(true)
   end
 
-  it "should create items, add to another project and then delete it", bin6: true do
-    project1 = api_create_team_and_project
-    api_create_project(project1[:team].dbid.to_s)
-    @driver.navigate.to @config['self_url']
-    wait_for_selector("#create-media__add-item")
-    create_media("claim 1")
-    wait_for_selector(".medias__item")
-    create_media("claim 2")
-    wait_for_selector_list_size(".medias__item", 2)
-    expect(@driver.page_source.include?('Add a link or text')).to be(false)
-    wait_for_selector('.project-list__link-container + .project-list__link-container .project-list__link').click #Go to the second project
-    wait_for_selector_none(".medias__item")
-    expect(@driver.page_source.include?('Add a link or text')).to be(true)
-    wait_for_selector('.project-list__link').click #Go back to the first project
-    wait_for_selector_list_size(".medias__item", 2)
-    wait_for_selector(".ag-icon-checkbox-unchecked").click
-    wait_for_selector("#media-bulk-actions__add-icon").click
-    wait_for_selector('.Select-input input').send_keys('Project')
-    wait_for_selector(".Select-menu-outer")
-    @driver.action.send_keys(:enter).perform
-    wait_for_selector('.media-bulk-actions__add-button').click
-    wait_for_selector_none(".Select-placeholder")
-    wait_for_selector('.project-list__link-container + .project-list__link-container .project-list__link').click # Go to the second project
-    wait_for_selector_list_size(".medias__item", 2, :css , 80)
-    expect(@driver.page_source.include?('claim 1')).to be(true)
-    expect(@driver.page_source.include?('claim 2')).to be(true)
-    wait_for_selector(".ag-icon-checkbox-unchecked").click
-    wait_for_selector("span[title='Send selected items to trash']").click #Delete items
-    wait_for_selector_none(".medias__item")
-    expect(@driver.page_source.include?('Add a link or text')).to be(true)
-    wait_for_selector(".project-list__item-trash").click #Go to the trash page
-    wait_for_selector_list_size(".medias__item", 2, :css , 90)
-    expect(@driver.page_source.include?('claim 1')).to be(true)
-    expect(@driver.page_source.include?('claim 2')).to be(true)
-  end
+  # it "should create items, add to another project and then delete it", bin6: true do
+  #   project1 = api_create_team_and_project
+  #   api_create_project(project1[:team].dbid.to_s)
+  #   @driver.navigate.to @config['self_url']
+  #   wait_for_selector("#create-media__add-item")
+  #   create_media("claim 1")
+  #   wait_for_selector(".medias__item")
+  #   create_media("claim 2")
+  #   wait_for_selector_list_size(".medias__item", 2)
+  #   expect(@driver.page_source.include?('Add a link or text')).to be(false)
+  #   wait_for_selector('.project-list__link-container + .project-list__link-container .project-list__link').click #Go to the second project
+  #   wait_for_selector_none(".medias__item")
+  #   expect(@driver.page_source.include?('Add a link or text')).to be(true)
+  #   wait_for_selector('.project-list__link').click #Go back to the first project
+  #   wait_for_selector_list_size(".medias__item", 2)
+  #   wait_for_selector(".ag-icon-checkbox-unchecked").click
+  #   wait_for_selector("#media-bulk-actions__add-icon").click
+  #   wait_for_selector('.Select-input input').send_keys('Project')
+  #   wait_for_selector(".Select-menu-outer")
+  #   @driver.action.send_keys(:enter).perform
+  #   wait_for_selector('.media-bulk-actions__add-button').click
+  #   wait_for_selector_none(".Select-placeholder")
+  #   wait_for_selector('.project-list__link-container + .project-list__link-container .project-list__link').click # Go to the second project
+  #   wait_for_selector_list_size(".medias__item", 2, :css , 80)
+  #   expect(@driver.page_source.include?('claim 1')).to be(true)
+  #   expect(@driver.page_source.include?('claim 2')).to be(true)
+  #   wait_for_selector(".ag-icon-checkbox-unchecked").click
+  #   wait_for_selector("span[title='Send selected items to trash']").click #Delete items
+  #   wait_for_selector_none(".medias__item")
+  #   expect(@driver.page_source.include?('Add a link or text')).to be(true)
+  #   wait_for_selector(".project-list__item-trash").click #Go to the trash page
+  #   wait_for_selector_list_size(".medias__item", 2, :css , 90)
+  #   expect(@driver.page_source.include?('claim 1')).to be(true)
+  #   expect(@driver.page_source.include?('claim 2')).to be(true)
+  # end
 
   it "should restore items from the trash", bin2: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
@@ -1235,40 +1237,40 @@ shared_examples 'smoke' do
   #   expect(selected.size == 2).to be(true)
   # end
 
-  it "should find medias when searching by keyword", bin6: true do
-    api_create_team_project_and_link('https://www.instagram.com/p/BRYob0dA1SC/"')
-    @driver.navigate.to @config['self_url']
-    wait_for_selector_list_size('.medias__item', 1)
-    create_media("https://twitter.com/TwitterVideo/status/931930009450795009")
-    wait_for_selector_list_size('.medias__item', 2)
-    wait_for_selector("//span[contains(text(), '1 - 2 / 2')]",:xpath)
-    expect(@driver.page_source.include?('#wEDnesday')).to be(true)
-    expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
-    wait_for_selector("#search-input").send_keys("video")
-    @driver.action.send_keys(:enter).perform
-    sleep 90
-    wait_for_selector('#search-input').send_keys(:control, 'a', :delete)
-    wait_for_selector("#search-input").send_keys("video")
-    @driver.action.send_keys(:enter).perform
-    # attempts = 0
-    # while !@driver.page_source.include?('weekly @Twitter video recap') && attempts < 30
-    #   wait_for_selector('#search-input').send_keys(:control, 'a', :delete)
-    #   wait_for_selector("#search-input").send_keys("video")
-    #   @driver.action.send_keys(:enter).perform
-    #   sleep 1
-    #   attempts += 1
-    # end
-    wait_for_selector_list_size('.medias__item', 1)
-    wait_for_selector("//span[contains(text(), '1 / 1')]",:xpath)
-    expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
-    expect(@driver.page_source.include?('#wEDnesday')).to be(false)
-    wait_for_selector('#search-input').send_keys(:control, 'a', :delete)
-    wait_for_selector("#search-input").send_keys "sent"
-    @driver.action.send_keys(:enter).perform
-    wait_for_selector_list_size('.medias__item', 1)
-    wait_for_selector("//span[contains(text(), '1 / 1')]",:xpath)
-    expect(@driver.page_source.include?('#wEDnesday')).to be(true)
-    expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(false)
-  end
+  # it "should find medias when searching by keyword", bin6: true do
+  #   api_create_team_project_and_link('https://www.instagram.com/p/BRYob0dA1SC/"')
+  #   @driver.navigate.to @config['self_url']
+  #   wait_for_selector_list_size('.medias__item', 1)
+  #   create_media("https://twitter.com/TwitterVideo/status/931930009450795009")
+  #   wait_for_selector_list_size('.medias__item', 2)
+  #   wait_for_selector("//span[contains(text(), '1 - 2 / 2')]",:xpath)
+  #   expect(@driver.page_source.include?('#wEDnesday')).to be(true)
+  #   expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
+  #   wait_for_selector("#search-input").send_keys("video")
+  #   @driver.action.send_keys(:enter).perform
+  #   sleep 90
+  #   wait_for_selector('#search-input').send_keys(:control, 'a', :delete)
+  #   wait_for_selector("#search-input").send_keys("video")
+  #   @driver.action.send_keys(:enter).perform
+  #   # attempts = 0
+  #   # while !@driver.page_source.include?('weekly @Twitter video recap') && attempts < 30
+  #   #   wait_for_selector('#search-input').send_keys(:control, 'a', :delete)
+  #   #   wait_for_selector("#search-input").send_keys("video")
+  #   #   @driver.action.send_keys(:enter).perform
+  #   #   sleep 1
+  #   #   attempts += 1
+  #   # end
+  #   wait_for_selector_list_size('.medias__item', 1)
+  #   wait_for_selector("//span[contains(text(), '1 / 1')]",:xpath)
+  #   expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
+  #   expect(@driver.page_source.include?('#wEDnesday')).to be(false)
+  #   wait_for_selector('#search-input').send_keys(:control, 'a', :delete)
+  #   wait_for_selector("#search-input").send_keys "sent"
+  #   @driver.action.send_keys(:enter).perform
+  #   wait_for_selector_list_size('.medias__item', 1)
+  #   wait_for_selector("//span[contains(text(), '1 / 1')]",:xpath)
+  #   expect(@driver.page_source.include?('#wEDnesday')).to be(true)
+  #   expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(false)
+  # end
 #Filter section end
 end
