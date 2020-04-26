@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { injectIntl, FormattedMessage, defineMessages } from 'react-intl';
-import { Link } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import TextField from 'material-ui/TextField';
+import IconReport from '@material-ui/icons/Receipt';
 import MediaStatus from './MediaStatus';
 import MediaRoute from '../../relay/MediaRoute';
 import MediaActions from './MediaActions';
@@ -47,6 +48,11 @@ const messages = defineMessages({
 });
 
 class MediaActionsBarComponent extends Component {
+  static handleReportDesigner() {
+    const path = `${window.location.pathname}/report-designer`;
+    browserHistory.push(path);
+  }
+
   constructor(props) {
     super(props);
 
@@ -127,7 +133,6 @@ class MediaActionsBarComponent extends Component {
   handleMoveProjectMedia() {
     const { media } = this.props;
     const { dstProj: { dbid: projectId } } = this.state;
-    const { history } = this.getContext();
 
     const onFailure = (transaction) => {
       this.fail(transaction);
@@ -137,7 +142,7 @@ class MediaActionsBarComponent extends Component {
     const context = this.getContext();
 
     const onSuccess = () => {
-      history.push(path);
+      browserHistory.push(path);
     };
 
     Relay.Store.commitUpdate(
@@ -167,7 +172,7 @@ class MediaActionsBarComponent extends Component {
       );
       this.context.setMessage(message);
       const path = `/${media.team.slug}/media/${media.dbid}`;
-      context.history.push(path);
+      browserHistory.push(path);
     };
 
     Relay.Store.commitUpdate(
@@ -466,6 +471,7 @@ class MediaActionsBarComponent extends Component {
       }
     }
     const readonlyStatus = smoochBotInstalled && isChild && !isParent;
+    const published = (media.dynamic_annotation_report_design && media.dynamic_annotation_report_design.data && media.dynamic_annotation_report_design.data.state === 'published');
 
     const assignments = media.last_status_obj.assignments.edges;
 
@@ -589,6 +595,21 @@ class MediaActionsBarComponent extends Component {
                   defaultMessage="Remove from list"
                 />
               </Button> : null }
+
+            <Button
+              style={{
+                margin: '0 8px',
+                border: '1px solid #000',
+              }}
+              onClick={MediaActionsBarComponent.handleReportDesigner.bind(this)}
+              id="media-detail__report-designer"
+            >
+              <IconReport style={{ fontSize: 'medium' }} />
+              <FormattedMessage
+                id="mediaActionsBar.reportDesigner"
+                defaultMessage="Report"
+              />
+            </Button>
           </div> : <div />}
 
         <div
@@ -598,7 +619,7 @@ class MediaActionsBarComponent extends Component {
         >
           <MediaStatus
             media={media}
-            readonly={media.archived || media.last_status_obj.locked || readonlyStatus}
+            readonly={media.archived || media.last_status_obj.locked || readonlyStatus || published}
           />
 
           <MediaActions
@@ -709,6 +730,10 @@ const MediaActionsBarContainer = Relay.createContainer(MediaActionsBarComponent,
         url
         quote
         archived
+        dynamic_annotation_report_design {
+          id
+          data
+        }
         media {
           url
           embed_path

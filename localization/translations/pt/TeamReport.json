@@ -1,0 +1,11 @@
+{
+  "teamReport.updateFail": "Sorry, an error occurred while updating the report settings. Please try again and contact {supportEmail} if the condition persists.",
+  "teamReport.updateSuccess": "Report settings updated successfully!",
+  "teamReport.save": "Save",
+  "teamReport.title": "Default report settings",
+  "teamReport.subtitle": "The content you set here can be edited in each individual report",
+  "teamReport.introduction": "Introduction",
+  "teamReport.introductionSub": "Use {query_date} and {query_message} placeholders to display the original dates and the content of the original query dynamically. Use {status} to communicate the status of the claim.",
+  "teamReport.disclaimer": "Disclaimer",
+  "teamReport.disclaimerSub": "Disclaimer that will be shown at the bottom of the report with the workspace logo."
+}

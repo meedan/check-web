@@ -490,8 +490,10 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('More info')).to be(true)
 
     # Uninstall bot
-    wait_for_selector('input').click
-    @driver.switch_to.alert.accept
+    wait_for_selector('.team-bots__uninstall-button').click
+    wait_for_selector('#confirm-dialog__checkbox').click
+    wait_for_selector('#confirm-dialog__confirm-action-button').click
+    wait_for_selector_none('#confirm-dialog__checkbox')
     wait_for_selector_none('.settingsIcon')
     expect(@driver.page_source.include?('No bots installed')).to be(true)
     expect(@driver.page_source.include?('More info')).to be(false)
@@ -715,27 +717,17 @@ shared_examples 'smoke' do
   it "should create a image, generate a embed, copy url and open in a incognito window", bin4: true do
    api_create_team_and_project
     @driver.navigate.to @config['self_url']
-    wait_for_selector(".project__description")
+    wait_for_selector('.project__description')
     create_image('test.png')
-    wait_for_selector(".medias__item")
-    wait_for_selector("img").click
-    wait_for_selector(".media-detail")
-    url = @driver.current_url.to_s
-    wait_for_selector('.media-actions__icon').click
-    wait_for_selector('.media-actions__edit')
-    el = wait_for_selector('.media-actions__embed')
-    el.location_once_scrolled_into_view
-    el.click
-    wait_for_selector("#media-embed__actions")
-    expect(@driver.current_url.to_s == "#{url}/embed").to be(true)
-    wait_for_selector('#media-embed__actions button + button').click
-    wait_for_selector("#media-embed__copy-share-url")
-    url = wait_for_selector("#media-embed__share-field").value.to_s
-    caps = Selenium::WebDriver::Remote::Capabilities.chrome("chromeOptions" => {"args" => [ "--incognito" ]})
+    wait_for_selector('.medias__item')
+    wait_for_selector('img').click
+    wait_for_selector('#media-detail__report-designer').click
+    wait_for_selector('#report-designer__actions button + button').click
+    url = wait_for_selector('#report-designer__share-field').value.to_s
+    caps = Selenium::WebDriver::Remote::Capabilities.chrome('chromeOptions' => { 'args' => [ '--incognito' ]})
     driver = Selenium::WebDriver.for(:remote, url: @webdriver_url, desired_capabilities: caps)
     driver.navigate.to url
-    wait_for_selector_none("#media-embed__copy-share-url")
-    wait_for_selector(".pender-container")
+    wait_for_selector('.pender-container')
     expect(@driver.page_source.include?('test.png')).to be(true)
   end
 #Embed section end

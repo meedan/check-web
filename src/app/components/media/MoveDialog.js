@@ -5,38 +5,27 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DestinationProjects from './DestinationProjects';
 
-class MoveDialog extends React.Component {
-  handleDestinationProjectsLoaded() {
-    this.moveDialogRef.forceUpdate();
-  }
-
-  render() {
-    return (
-      <Dialog
-        ref={(d) => { this.moveDialogRef = d; }}
-        autoScrollBodyContent
-        open={this.props.open}
-        onClose={this.props.handleClose}
-        minWidth="sm"
-        fullWidth
-      >
-        <DialogTitle>
-          {this.props.title}
-        </DialogTitle>
-        <DialogContent style={this.props.style}>
-          <DestinationProjects
-            include={this.props.team ? [this.props.team.slug] : null}
-            projectId={this.props.projectId}
-            onChange={this.props.onChange}
-            onLoad={this.handleDestinationProjectsLoaded.bind(this)}
-          />
-        </DialogContent>
-        <DialogActions>
-          {this.props.actions}
-        </DialogActions>
-      </Dialog>
-    );
-  }
-}
+const MoveDialog = props => (
+  <Dialog
+    open={props.open}
+    onClose={props.handleClose}
+    minWidth="sm"
+    fullWidth
+  >
+    <DialogTitle>
+      {props.title}
+    </DialogTitle>
+    <DialogContent style={props.style}>
+      <DestinationProjects
+        include={props.team ? [props.team.slug] : null}
+        projectId={props.projectId}
+        onChange={props.onChange}
+      />
+    </DialogContent>
+    <DialogActions>
+      {props.actions}
+    </DialogActions>
+  </Dialog>
+);
 
 export default MoveDialog;

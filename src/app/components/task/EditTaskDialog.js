@@ -88,11 +88,12 @@ class EditTaskDialog extends React.Component {
       resolvable: task && task.responses && task.responses.edges.length > 0,
       confirmRequired: false,
       jsonschema: task ? task.json_schema : null,
+      editLabelOrDescription: false,
     };
   }
 
   handleDescriptionChange(e) {
-    this.setState({ description: e.target.value });
+    this.setState({ description: e.target.value, editLabelOrDescription: true });
     this.validateTask(this.state.label, this.state.options);
   }
 
@@ -161,7 +162,7 @@ class EditTaskDialog extends React.Component {
   }
 
   handleLabelChange(e) {
-    this.setState({ label: e.target.value });
+    this.setState({ label: e.target.value, editLabelOrDescription: true });
     this.validateTask(e.target.value, this.state.options);
   }
 
@@ -216,6 +217,7 @@ class EditTaskDialog extends React.Component {
       jsonoptions,
       json_project_ids: JSON.stringify(this.state.project_ids),
       jsonschema: this.state.jsonschema,
+      editLabelOrDescription: this.state.editLabelOrDescription,
     };
 
     if (!this.state.submitDisabled) {

@@ -3,7 +3,7 @@
   "bulkActions.sendItemsToTrash": "ارسال العناصر المحددة إلى سلة المهملات",
   "bulkActions.restoreItemsFromTrash": "Restore selected items from trash",
   "bulkActions.selectAll": "‏‏تحديد كافة العناصر في الصفحة",
-  "bulkActions.add": "Add selected items to another list",
+  "bulkActions.add": "إضافة ‏‏العناصر المحددة إلى قائمة آخرى",
   "bulkActions.remove": "Remove selected items from this list",
   "bulkActions.moveToTrashSuccessfully": "تم ! يرجى ملاحظة أن الأمر قد يستغرق بعض الوقت حتى يتم نقل العناصر إلى سلة المهملات بالفعل.",
   "bulkActions.restoredFromTrashSuccessfully": "Done! Please note that it can take a while until the items are actually restored from the trash.",
@@ -18,5 +18,5 @@
   "bulkActions.moveTitle": "نقل",
   "bulkActions.addTitle": "Add",
   "bulkActions.dialogMoveTitle": "Move to a different list",
-  "bulkActions.dialogAddTitle": "Add to a different list"
+  "bulkActions.dialogAddTitle": "إضافة إلى قائمة آخرى"
 }

@@ -2,10 +2,6 @@
   "createTeamTask.editError": "Failed to edit default task",
   "createTeamTask.deleteError": "Failed to delete default task",
   "createTeamTask.menuTooltip": "إجراءات المهام",
-  "teamTasks.confirmEditTitle": "هل أنت متأكد أنك تود تحرير هذه المهمة ؟",
-  "teamTasks.confirmDeleteTitle": "هل أنت متأكد أنك تود حذف هذه المهمة ؟",
-  "teamTasks.confirmEditBlurb": "Related item tasks will be modified as a consequence of applying this change, except for those that have already been answered or resolved.",
-  "teamTasks.confirmDeleteBlurb": "Related item tasks will be deleted as a consequence of applying this change, except for those that have already been answered or resolved.",
   "teamTasks.edit": "تحرير",
   "teamTasks.delete": "حذف المهمة"
 }

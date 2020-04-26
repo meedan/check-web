@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { FormattedMessage, FormattedHTMLMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import { browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
@@ -15,7 +16,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import deepEqual from 'deep-equal';
 import rtlDetect from 'rtl-detect';
 import styled from 'styled-components';
-import config from 'config'; // eslint-disable-line require-path-exists/exists
+import { withPusher, pusherShape } from '../../pusher';
 import { searchPrefixFromUrl, searchQueryFromUrl, urlFromSearchQuery } from './Search';
 import DateRangeFilter from './DateRangeFilter';
 import PageTitle from '../PageTitle';
@@ -41,7 +42,7 @@ import {
   ellipsisStyles,
 } from '../../styles/js/shared';
 
-const statusKey = config.appName === 'bridge' ? 'translation_status' : 'verification_status';
+const statusKey = 'verification_status';
 
 // https://github.com/styled-components/styled-components/issues/305#issuecomment-298680960
 const swallowingStyled = (WrappedComponent, { swallowProps = [] } = {}) => {
@@ -270,7 +271,7 @@ class SearchQueryComponent extends React.Component {
     const prefix = searchPrefixFromUrl();
     const url = urlFromSearchQuery(query, prefix);
 
-    this.getContext().getContextStore().history.push(url);
+    browserHistory.push(url);
   }
 
   keywordIsActive = () => {
@@ -560,44 +561,40 @@ class SearchQueryComponent extends React.Component {
   }
 
   subscribe() {
-    const { pusher } = this.currentContext();
-    if (pusher) {
-      pusher.subscribe(this.props.team.pusher_channel).bind('tagtext_updated', 'SearchQueryComponent', (data, run) => {
-        if (this.currentContext().clientSessionId !== data.actor_session_id) {
-          if (run) {
-            this.props.relay.forceFetch();
-            return true;
-          }
-          return {
-            id: `team-${this.props.team.dbid}`,
-            callback: this.props.relay.forceFetch,
-          };
+    const { pusher, team } = this.props;
+    pusher.subscribe(team.pusher_channel).bind('tagtext_updated', 'SearchQueryComponent', (data, run) => {
+      if (this.currentContext().clientSessionId !== data.actor_session_id) {
+        if (run) {
+          this.props.relay.forceFetch();
+          return true;
         }
-        return false;
-      });
+        return {
+          id: `team-${team.dbid}`,
+          callback: this.props.relay.forceFetch,
+        };
+      }
+      return false;
+    });
 
-      pusher.subscribe(this.props.team.pusher_channel).bind('project_updated', 'SearchQueryComponent', (data, run) => {
-        if (this.currentContext().clientSessionId !== data.actor_session_id) {
-          if (run) {
-            this.props.relay.forceFetch();
-            return true;
-          }
-          return {
-            id: `team-${this.props.team.dbid}`,
-            callback: this.props.relay.forceFetch,
-          };
+    pusher.subscribe(team.pusher_channel).bind('project_updated', 'SearchQueryComponent', (data, run) => {
+      if (this.currentContext().clientSessionId !== data.actor_session_id) {
+        if (run) {
+          this.props.relay.forceFetch();
+          return true;
         }
-        return false;
-      });
-    }
+        return {
+          id: `team-${team.dbid}`,
+          callback: this.props.relay.forceFetch,
+        };
+      }
+      return false;
+    });
   }
 
   unsubscribe() {
-    const { pusher } = this.currentContext();
-    if (pusher) {
-      pusher.unsubscribe(this.props.team.pusher_channel, 'tagtext_updated', 'SearchQueryComponent');
-      pusher.unsubscribe(this.props.team.pusher_channel, 'project_updated', 'SearchQueryComponent');
-    }
+    const { pusher, team } = this.props;
+    pusher.unsubscribe(team.pusher_channel, 'tagtext_updated', 'SearchQueryComponent');
+    pusher.unsubscribe(team.pusher_channel, 'project_updated', 'SearchQueryComponent');
   }
 
   render() {
@@ -930,11 +927,12 @@ SearchQueryComponent.propTypes = {
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
   classes: PropTypes.object.isRequired,
+  pusher: pusherShape.isRequired,
 };
 
 SearchQueryComponent.contextTypes = {
   store: PropTypes.object,
 };
 
-export default withStyles(styles)(injectIntl(SearchQueryComponent));
+export default withStyles(styles)(withPusher(injectIntl(SearchQueryComponent)));
 export { StyledFilterRow };

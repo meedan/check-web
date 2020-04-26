@@ -25,11 +25,15 @@ class DestinationProjectsComponent extends React.Component {
   }
 
   componentDidMount() {
-    this.props.onLoad();
+    if (this.props.onLoad) {
+      this.props.onLoad();
+    }
   }
 
   componentWillUpdate(nextProps) {
-    if (nextProps.user.team_users.length > this.props.user.team_users.length || !this.props.user) {
+    if (this.props.onLoad && (
+      nextProps.user.team_users.length > this.props.user.team_users.length || !this.props.user
+    )) {
       this.props.onLoad();
     }
   }

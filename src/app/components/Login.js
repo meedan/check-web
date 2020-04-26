@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import {
   FormattedMessage,
   injectIntl,
@@ -11,7 +10,7 @@ import FAFacebook from 'react-icons/lib/fa/facebook-official';
 import FATwitter from 'react-icons/lib/fa/twitter';
 import MDEmail from 'react-icons/lib/md/email';
 import rtlDetect from 'rtl-detect';
-import { Link } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 import Button from '@material-ui/core/Button';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import TextField from '@material-ui/core/TextField';
@@ -20,7 +19,6 @@ import styled from 'styled-components';
 import Message from './Message';
 import UploadImage from './UploadImage';
 import UserTosForm from './UserTosForm';
-import CheckContext from '../CheckContext';
 import { login, request } from '../redux/actions';
 import { mapGlobalMessage } from './MappedMessage';
 import { stringHelper } from '../customHelpers';
@@ -207,10 +205,6 @@ class Login extends Component {
     }
   }
 
-  getHistory() {
-    return new CheckContext(this).getContextStore().history;
-  }
-
   handleCheckTos() {
     this.setState({ checkedTos: !this.state.checkedTos });
   }
@@ -231,7 +225,6 @@ class Login extends Component {
   }
 
   emailLogin() {
-    const history = this.getHistory();
     const params = {
       'api_user[email]': this.state.email,
       'api_user[password]': this.state.password,
@@ -250,14 +243,13 @@ class Login extends Component {
     const successCallback = () => {
       this.setState({ message: null });
       this.props.loginCallback();
-      history.push('/');
+      browserHistory.push('/');
     };
 
     request('post', 'users/sign_in', failureCallback, successCallback, params);
   }
 
   registerEmail() {
-    const history = this.getHistory();
     const form = document.forms.register;
     const params = {
       'api_user[email]': this.state.email,
@@ -280,7 +272,7 @@ class Login extends Component {
     const successCallback = () => {
       this.setState({ message: null });
       this.props.loginCallback();
-      history.push(window.location.pathname);
+      browserHistory.push(window.location.pathname);
     };
 
     if (this.state.checkedTos && this.state.checkedPp) {
@@ -576,10 +568,6 @@ Login.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
-};
-
-Login.contextTypes = {
-  store: PropTypes.object,
 };
 
 export default injectIntl(Login);

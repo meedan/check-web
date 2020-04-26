@@ -76,6 +76,10 @@
     "defaultMessage": "Remove from list"
   },
   {
+    "id": "mediaActionsBar.reportDesigner",
+    "defaultMessage": "Report"
+  },
+  {
     "id": "mediaActionsBar.dialogAddToListTitle",
     "defaultMessage": "Add to a different list"
   },

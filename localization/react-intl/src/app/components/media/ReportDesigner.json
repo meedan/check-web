@@ -1,0 +1,158 @@
+[
+  {
+    "id": "reportDesigner.cantPublish",
+    "defaultMessage": "You need to add content to your report before you can publish it"
+  },
+  {
+    "id": "reportDesigner.canPublish",
+    "defaultMessage": "Publish report"
+  },
+  {
+    "id": "reportDesigner.pauseReport",
+    "defaultMessage": "Pause report"
+  },
+  {
+    "id": "reportDesigner.introductionPlaceholder",
+    "defaultMessage": "Type your introduction here..."
+  },
+  {
+    "id": "reportDesigner.textPlaceholder",
+    "defaultMessage": "Type your report here..."
+  },
+  {
+    "id": "reportDesigner.error",
+    "defaultMessage": "Could not save report"
+  },
+  {
+    "id": "reportDesigner.warning",
+    "defaultMessage": "Warning — sharing this will expose information to people outside your private workspace. Proceed with caution."
+  },
+  {
+    "id": "reportDesigner.copyButtonInactive",
+    "defaultMessage": "Copied"
+  },
+  {
+    "id": "reportDesigner.copyButton",
+    "defaultMessage": "Copy"
+  },
+  {
+    "id": "reportDesigner.back",
+    "defaultMessage": "Back to annotation"
+  },
+  {
+    "id": "reportDesigner.copyEmbedCode",
+    "defaultMessage": "Copy embed code"
+  },
+  {
+    "id": "reportDesigner.copyShareUrl",
+    "defaultMessage": "Copy share URL"
+  },
+  {
+    "id": "reportDesigner.save",
+    "defaultMessage": "Save"
+  },
+  {
+    "id": "reportDesigner.edit",
+    "defaultMessage": "Edit"
+  },
+  {
+    "id": "reportDesigner.publish",
+    "defaultMessage": "Publish"
+  },
+  {
+    "id": "reportDesigner.pause",
+    "defaultMessage": "Pause"
+  },
+  {
+    "id": "reportDesigner.preview",
+    "defaultMessage": "Report Preview"
+  },
+  {
+    "id": "reportDesigner.nothingToPreview",
+    "defaultMessage": "Start creating your report to preview what users will see when they receive it."
+  },
+  {
+    "id": "reportDesigner.reportEditorTitle",
+    "defaultMessage": "Select the content to send in your report"
+  },
+  {
+    "id": "reportDesigner.introduction",
+    "defaultMessage": "Introduction"
+  },
+  {
+    "id": "reportDesigner.introductionSub",
+    "defaultMessage": "Use {query_date} and {query_message} placeholders to display the original dates and the content of the original query dynamically. Use {status} to communicate the status of the claim."
+  },
+  {
+    "id": "reportDesigner.visualCard",
+    "defaultMessage": "Visual card"
+  },
+  {
+    "id": "reportDesigner.useDefaultImage",
+    "defaultMessage": "Use default image"
+  },
+  {
+    "id": "reportDesigner.headline",
+    "defaultMessage": "Headline - {max} characters max"
+  },
+  {
+    "id": "reportDesigner.description",
+    "defaultMessage": "Description - {max} characters max"
+  },
+  {
+    "id": "reportDesigner.statusLabel",
+    "defaultMessage": "Status label - {max} characters max"
+  },
+  {
+    "id": "reportDesigner.themeColor",
+    "defaultMessage": "Theme color"
+  },
+  {
+    "id": "reportDesigner.url",
+    "defaultMessage": "URL - {max} characters max"
+  },
+  {
+    "id": "reportDesigner.textMessage",
+    "defaultMessage": "Text message"
+  },
+  {
+    "id": "reportDesigner.disclaimer",
+    "defaultMessage": "Disclaimer"
+  },
+  {
+    "id": "reportDesigner.confirmPublishTitle",
+    "defaultMessage": "Ready to publish your report?"
+  },
+  {
+    "id": "reportDesigner.confirmPublishText",
+    "defaultMessage": "{demand, plural, =0 {This report will be sent to anyone who requests this item in the future while published.} one {You are about to send a report to the person who requested this item. This report will be sent to anyone who requests this item in the future while published.} other {You are about to send a report to # people who requested this item. This report will be sent to anyone who requests this item in the future while published.}}"
+  },
+  {
+    "id": "reportDesigner.confirmPauseTitle",
+    "defaultMessage": "You are about to pause the report"
+  },
+  {
+    "id": "reportDesigner.confirmPauseText",
+    "defaultMessage": "This report will not be sent to users until it is published again. Do you want to continue?"
+  },
+  {
+    "id": "reportDesigner.confirmRepublishTitle",
+    "defaultMessage": "Ready to publish your changes?"
+  },
+  {
+    "id": "reportDesigner.confirmRepublishText",
+    "defaultMessage": "In the future your changes will be published to all users who request this item."
+  },
+  {
+    "id": "reportDesigner.republishAndResend",
+    "defaultMessage": "{demand, plural, =0 {} one {Also send correction to the user who already received the previous version of this report} other {Also send correction to the # users who already received the previous version of this report}}"
+  },
+  {
+    "id": "reportDesigner.confirmRepublishResendTitle",
+    "defaultMessage": "Ready to publish your correction?"
+  },
+  {
+    "id": "reportDesigner.confirmRepublishResendText",
+    "defaultMessage": "{demand, plural, =0 {In the future, a user who requests the item will receive this new version.} one {Your correction will be sent to the user who have received the previous report. In the future, a user who requests the item will receive this new version.} other {Your correction will be sent to the # users who have received the previous report. In the future, a user who requests the item will receive this new version.}}"
+  }
+]

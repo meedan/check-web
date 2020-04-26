@@ -100,7 +100,6 @@ const SourceMediasContainer = Relay.createContainer(SourceMediasComponent, {
                 published,
                 url,
                 last_status,
-                field_value(annotation_type_field_name: "translation_status:translation_status_status"),
                 log_count,
                 domain,
                 permissions,
@@ -112,7 +111,6 @@ const SourceMediasContainer = Relay.createContainer(SourceMediasComponent, {
                 project_id,
                 pusher_channel,
                 verification_statuses,
-                translation_statuses,
                 overridden,
                 language,
                 language_code,
@@ -158,25 +156,6 @@ const SourceMediasContainer = Relay.createContainer(SourceMediasComponent, {
                           image
                         }
                       }
-                    }
-                  }
-                }
-                translation_status: annotation(annotation_type: "translation_status") {
-                  id
-                  dbid
-                }
-                translations: annotations(annotation_type: "translation", first: 10000) {
-                  edges {
-                    node {
-                      id,
-                      dbid,
-                      annotation_type,
-                      annotated_type,
-                      annotated_id,
-                      annotator,
-                      content,
-                      created_at,
-                      updated_at
                     }
                   }
                 }
@@ -275,11 +254,9 @@ const SourceMediasContainer = Relay.createContainer(SourceMediasComponent, {
                               metadata,
                               project_id,
                               last_status,
-                              field_value(annotation_type_field_name: "translation_status:translation_status_status"),
                               log_count,
                               permissions,
                               verification_statuses,
-                              translation_statuses,
                               domain,
                               team {
                                 slug

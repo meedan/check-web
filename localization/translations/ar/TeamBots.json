@@ -5,9 +5,13 @@
   "teamBots.fail": "عذراً ، لقد واجهنا خطأ ما. من فضلك أعد المحاولة وتواصل مع فريق الدعم إن استمر الخطأ.",
   "teamBots.noBots": "لا يوجد بوتات مثبتة.",
   "teamBots.moreInfo": "مزيد من المعلومات",
-  "teamBots.inUse": "قيد الاستخدام",
+  "teamBots.remove": "Remove",
+  "teamBots.confirmDeleteTitle": "You are about to deactivate {botName}",
+  "teamBots.confirmDeleteBlurb": "All settings will be deleted and cannot be recovered. Are you sure you want to proceed?",
   "teamBots.settings": "الإعدادات",
   "teamBots.save": "حفظ",
   "teamBots.noSettings": "لا يوجد إعدادات لهذا البوت,",
-  "teamBots.botGarden": "تصفح Bot Garden"
+  "teamBots.botGarden": "تصفح Bot Garden",
+  "teamBots.confirmationTitle": "تأكيد",
+  "teamBots.confirmationMessage": "You are about to make the changes to your bot live. All the users on your tipline will see those changes. Are you sure you want to proceed?"
 }

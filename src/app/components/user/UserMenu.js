@@ -1,19 +1,17 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import UserUtil from './UserUtil';
-import CheckContext from '../../CheckContext';
 import UserMenuItems from '../UserMenuItems';
 import UserAvatar from '../UserAvatar';
 import {
   Text,
   black54,
-  body1,
   units,
+  body1,
 } from '../../styles/js/shared';
 
 class UserMenu extends React.Component {
@@ -21,17 +19,9 @@ class UserMenu extends React.Component {
     anchorEl: null,
   };
 
-  getHistory() {
-    return new CheckContext(this).getContextStore().history;
-  }
-
   handleClick = (event) => {
     this.setState({ anchorEl: event.currentTarget });
   };
-
-  handleClickEdit() {
-    this.getHistory().push('/check/me/edit');
-  }
 
   handleClose = () => {
     this.setState({ anchorEl: null });
@@ -56,22 +46,20 @@ class UserMenu extends React.Component {
 
     return (
       <div className="header__user-menu">
-        <MenuItem
-          onClick={this.handleClick}
-          style={{
-            fontSize: body1,
-            overflow: 'hidden',
-          }}
-        >
+        <MenuItem onClick={this.handleClick}>
           <ListItemAvatar>
-            <UserAvatar size={units(4)} {...this.props} />
+            <UserAvatar size="extraSmall" {...this.props} />
           </ListItemAvatar>
           <ListItemText
             primary={
-              <Text maxWidth="100%" ellipsis>
-                {user ? user.name : null}
-                {localizedRoleText}
-              </Text>
+              <div>
+                <Text maxWidth="100%" font={body1} ellipsis>
+                  <span style={{ maxWidth: '80%' }}>
+                    {user ? user.name : null}
+                  </span>
+                  {localizedRoleText}
+                </Text>
+              </div>
             }
           />
         </MenuItem>
@@ -88,9 +76,5 @@ class UserMenu extends React.Component {
     );
   }
 }
-
-UserMenu.contextTypes = {
-  store: PropTypes.object,
-};
 
 export default injectIntl(UserMenu);

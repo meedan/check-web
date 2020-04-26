@@ -26,7 +26,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import EmbedUpdate from './EmbedUpdate';
 import EmbedCreate from './EmbedCreate';
-import Memebuster from './Memebuster';
 import TaskUpdate from './TaskUpdate';
 import SourcePicture from '../source/SourcePicture';
 import MediaDetail from '../media/MediaDetail';
@@ -684,7 +683,7 @@ class Annotation extends Component {
             {flagsContent}
           </div>
         );
-      } else if (object.annotation_type === 'verification_status' || object.annotation_type === 'translation_status') {
+      } else if (object.annotation_type === 'verification_status') {
         const statusChanges = JSON.parse(activity.object_changes_json);
         if (statusChanges.locked) {
           if (statusChanges.locked[1]) {
@@ -891,95 +890,10 @@ class Annotation extends Component {
         );
       }
 
-      if (object.field_name === 'translation_text') {
-        const translationContent = JSON.parse(annotation.content);
-        let language = translationContent.find(it => it.field_name === 'translation_language');
-        language = (language && language.formatted_value) || '?';
-        contentTemplate = (
-          <span className="annotation__translation-text">
-            <FormattedMessage
-              id="annotation.translation"
-              defaultMessage="Translated to {language} by {author}{translation}"
-              values={{
-                language,
-                author: authorName,
-                translation: <ParsedText text={object.value} block />,
-              }}
-            />
-          </span>
-        );
-      }
-
-      if (object.field_name === 'translation_status_status') {
-        const statusCode = object.value.toLowerCase().replace(/[ _]/g, '-');
-        const status = getStatus(this.props.annotated.translation_statuses, object.value);
-        contentTemplate = (
-          <span>
-            <FormattedMessage
-              id="annotation.translationStatus"
-              defaultMessage="Translation status set to {status} by {author}"
-              values={{
-                status: (
-                  <span
-                    className={`annotation__status annotation__status--${statusCode}`}
-                    style={{ color: getStatusStyle(status, 'color') }}
-                  >
-                    {status.label}
-                  </span>
-                ),
-                author: authorName,
-              }}
-            />
-          </span>
-        );
-      }
-
-      if (object.field_name === 'translation_published') {
-        const published = JSON.parse(object.value);
-        const colors = {
-          twitter: '#4099FF',
-          facebook: '#3b5998',
-        };
-        contentTemplate = [];
-        Object.getOwnPropertyNames(published).forEach((provider) => {
-          const name = provider.charAt(0).toUpperCase() + provider.slice(1);
-          const color = colors[provider] || '#333';
-          const values = {
-            link: (
-              <a
-                style={{ color, fontWeight: 'bold' }}
-                href={published[provider]}
-                target="_blank"
-                rel="noreferrer noopener"
-              >
-                {name}
-              </a>
-            ),
-          };
-          let message = (
-            <FormattedMessage
-              id="annotation.translationPublished"
-              defaultMessage="Translation published to {link}"
-              values={values}
-            />
-          );
-          if (provider === 'facebook') {
-            message = (
-              <FormattedMessage
-                id="annotation.publishTranslation"
-                defaultMessage="Publish this translation to {link}"
-                values={values}
-              />
-            );
-          }
-          contentTemplate.push(message);
-        });
-      }
       // TODO Replace with Pender-supplied names.
       const archivers = {
         archive_is_response: 'Archive.is',
         archive_org_response: 'Archive.org',
-        keep_backup_response: 'Video Vault',
         perma_cc_response: 'Perma.cc',
         video_archiver_response: 'Video Archiver',
       };
@@ -1022,16 +936,6 @@ class Annotation extends Component {
             </span>
           );
         }
-      }
-
-      if (object.field_name === 'memebuster_operation') {
-        contentTemplate = (
-          <Memebuster
-            activity={activity}
-            object={object}
-            authorName={authorName}
-          />
-        );
       }
 
       if (object.field_name === 'embed_code_copied') {

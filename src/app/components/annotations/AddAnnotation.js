@@ -253,7 +253,9 @@ class AddAnnotation extends Component {
 
   handleSubmit(e) {
     const command = AddAnnotation.parseCommand(this.state.cmd);
-    if (this.state.isSubmitting) {
+    const { image } = document.forms.addannotation;
+
+    if (this.state.isSubmitting || (!this.state.cmd && !image)) {
       e.preventDefault();
       return;
     }
@@ -348,7 +350,11 @@ class AddAnnotation extends Component {
         name="addannotation"
         onSubmit={this.handleSubmit.bind(this)}
         style={{
-          height: '100%', paddingTop: units(2), position: 'relative', zIndex: 0,
+          height: '100%',
+          width: '100%',
+          paddingTop: units(2),
+          position: 'relative',
+          zIndex: 0,
         }}
       >
         <ContentColumn flex style={{ maxWidth: '100%' }}>

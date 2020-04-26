@@ -3,12 +3,31 @@ import Linkify from 'react-linkify';
 import { toArray } from 'react-emoji-render';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import reactStringReplace from 'react-string-replace';
 import { units } from '../styles/js/shared';
 
 const StyledEmojiOnly = styled.span`
   line-height: ${units(4)};
   font-size: ${units(4)};
 `;
+
+const marked = (text) => {
+  // For now, only WhatsApp formatting rules... extend it if needed in the future,
+  // for example, use a proper Markdown library (WhatsApp doesn't follow Markdown properly)
+  let parsedText = reactStringReplace(text, /\*([^*]*)\*/gm, (match, i) => (
+    <b key={i}>{match}</b>
+  ));
+  parsedText = reactStringReplace(parsedText, /_([^_]*)_/gm, (match, i) => (
+    <em key={i}>{match}</em>
+  ));
+  parsedText = reactStringReplace(parsedText, /~([^~]*)~/gm, (match, i) => (
+    <strike key={i}>{match}</strike>
+  ));
+  parsedText = reactStringReplace(parsedText, /```([^`]*)```/gm, (match, i) => (
+    <code key={i}>{match}</code>
+  ));
+  return parsedText;
+};
 
 const ParsedText = (props) => {
   if (!props.text) {
@@ -37,18 +56,22 @@ const ParsedText = (props) => {
     emojified;
 
   // Add the line breaks elements.
-  const breakified = e2.map((line, key) => (
-    // eslint-disable-next-line react/no-array-index-key
-    <React.Fragment key={key}>
-      {line}
-      {key < e2.length - 1 ? <br /> : null}
-    </React.Fragment>
-  ));
+  const breakified = e2.map((line, key) => {
+    const parsedLine = line.map(part => (typeof part === 'string' ? marked(part) : part));
+    return (
+      // eslint-disable-next-line react/no-array-index-key
+      <React.Fragment key={key}>
+        {parsedLine}
+        {key < e2.length - 1 ? <br /> : null}
+      </React.Fragment>
+    );
+  });
 
+  // Linkify the result.
   const linkified =
     <Linkify properties={{ target: '_blank', rel: 'noopener noreferrer' }}>{breakified}</Linkify>;
 
-  // Linkify the result.
+  // Block or not.
   return props.block ? <div>{linkified}</div> : linkified;
 };
 

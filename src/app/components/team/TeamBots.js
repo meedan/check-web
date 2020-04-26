@@ -1,24 +1,21 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
+import { Card, CardText, CardActions } from 'material-ui/Card';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
-import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import Settings from '@material-ui/icons/Settings';
-import Switch from '@material-ui/core/Switch';
 import Tooltip from '@material-ui/core/Tooltip';
 import { Emojione } from 'react-emoji-render';
-import { Link, browserHistory } from 'react-router';
+import { browserHistory } from 'react-router';
 import styled from 'styled-components';
-import Form from '@meedan/react-jsonschema-form-material-ui-v1-sandbox';
+import TeamBot from './TeamBot';
 import TeamRoute from '../../relay/TeamRoute';
-import { units, ContentColumn, black32 } from '../../styles/js/shared';
+import { units, title1, ContentColumn, black32 } from '../../styles/js/shared';
 import DeleteTeamBotInstallationMutation from '../../relay/mutations/DeleteTeamBotInstallationMutation';
 import UpdateTeamBotInstallationMutation from '../../relay/mutations/UpdateTeamBotInstallationMutation';
+import ConfirmDialog from '../layout/ConfirmDialog';
 
 const messages = defineMessages({
   confirmUninstall: {
@@ -31,7 +28,7 @@ const messages = defineMessages({
   },
 });
 
-const StyledCardContent = styled(CardContent)`
+const StyledCardText = styled(CardText)`
   display: flex;
 
   img {
@@ -45,25 +42,14 @@ const StyledCardContent = styled(CardContent)`
   }
 `;
 
-const StyledToggle = styled.div`
+const StyledSettings = styled.div`
   display: inline;
-
-  margin-${props => props.direction.from}: auto !important;
-  margin-${props => props.direction.to}: 0 !important;
-
-  span.toggleLabel {
-    font-weight: bold;
-    text-transform: uppercase;
-    color: ${black32};
-    align-self: center;
-    vertical-align: middle;
-  }
 
   .settingsIcon {
     vertical-align: middle;
     cursor: pointer;
     color: ${black32};
-    margin: 0 ${units(1)};
+    margin: ${units(1)};
   }
 `;
 
@@ -88,29 +74,16 @@ const StyledSchemaForm = styled.div`
 
   fieldset fieldset {
     padding: ${units(1)};
+    margin-top: ${units(1)};
     border: 1px solid ${black32};
   }
 
   fieldset fieldset button {
     display: block !important;
-    width: 160px !important;
-  }
-
-  fieldset fieldset button[class*="remove"] {
-    border: 0 !important;
     width: 32px !important;
-  }
-
-  fieldset fieldset fieldset {
-    margin-bottom: ${units(1)} !important;
-  }
-
-  fieldset fieldset fieldset fieldset div[class*="input"] {
-    max-width: 470px;
-  }
-
-  fieldset fieldset fieldset fieldset button[class*="remove"] {
-    display: none !important;
+    background: #fff !important;
+    border-radius: 5px !important;
+    color: ${black32} !important;
   }
 `;
 
@@ -126,6 +99,8 @@ class TeamBotsComponent extends Component {
       settings: {},
       message: null,
       messageBotId: null,
+      open: false,
+      currentInstallation: null,
     };
   }
 
@@ -138,6 +113,19 @@ class TeamBotsComponent extends Component {
     this.setState({ settings });
   }
 
+  handleClose() {
+    this.setState({ open: false });
+  }
+
+  handleOpen(installation) {
+    this.setState({ open: true, currentInstallation: installation });
+  }
+
+  handleConfirm() {
+    this.handleClose();
+    this.handleSubmitSettings(this.state.currentInstallation);
+  }
+
   handleSettingsUpdated(installation, data) {
     const settings = Object.assign({}, this.state.settings);
     settings[installation.id] = data.formData;
@@ -148,15 +136,9 @@ class TeamBotsComponent extends Component {
     const settings = JSON.stringify(this.state.settings[installation.id]);
     const messageBotId = installation.team_bot.dbid;
     const onSuccess = () => {
-      const expanded = Object.assign({}, this.state.expanded);
-      expanded[messageBotId] = false;
       this.setState({
-        expanded,
         messageBotId,
         message: <FormattedMessage id="teamBots.success" defaultMessage="Settings updated!" />,
-      }, () => {
-        expanded[messageBotId] = true;
-        this.setState({ expanded });
       });
     };
     const onFailure = () => {
@@ -181,27 +163,33 @@ class TeamBotsComponent extends Component {
     this.setState({ expanded, message: null, messageBotId: null });
   }
 
-  handleToggle(id, teamId) {
-    // eslint-disable-next-line no-alert
-    if (window.confirm(this.props.intl.formatMessage(messages.confirmUninstall))) {
-      const onSuccess = () => {};
-      const onFailure = () => {};
+  handleToggle(node) {
+    const deleteBot = { id: node.id, teamId: this.props.team.id };
+    const deleteBotName = node.team_bot.identifier !== 'smooch' ?
+      node.team_bot.name : 'Check Message';
 
-      Relay.Store.commitUpdate(
-        new DeleteTeamBotInstallationMutation({
-          id,
-          teamId,
-        }),
-        { onSuccess, onFailure },
-      );
-    }
+    this.setState({
+      showConfirmDeleteDialog: true,
+      deleteBot,
+      deleteBotName,
+    });
+  }
+
+  handleCloseDialog() {
+    this.setState({ showConfirmDeleteDialog: false });
+  }
+
+  handleDestroy() {
+    const { deleteBot } = this.state;
+    Relay.Store.commitUpdate(new DeleteTeamBotInstallationMutation(deleteBot));
+    this.setState({ showConfirmDeleteDialog: false });
   }
 
   render() {
     const { team, direction } = this.props;
 
     return (
-      <ContentColumn>
+      <ContentColumn style={{ maxWidth: 900 }}>
         { team.team_bot_installations.edges.length === 0 ?
           <p style={{ paddingBottom: units(5), textAlign: 'center' }}>
             <FormattedMessage
@@ -217,52 +205,68 @@ class TeamBotsComponent extends Component {
             <Card
               style={{ marginBottom: units(5) }}
               key={`bot-${bot.dbid}`}
+              expanded={this.state.expanded[bot.dbid]}
             >
-              <StyledCardContent direction={direction}>
+              <StyledCardText direction={direction}>
                 <img src={bot.avatar} alt={bot.name} />
                 <div>
-                  <h2>{bot.name}</h2>
+                  <h2 style={{ font: title1 }}>{bot.name}</h2>
                   <p>{bot.description}</p>
-                  <p>
-                    <Link to={`/check/bot/${bot.dbid}`}>
+                  <div>
+                    <Button onClick={() => browserHistory.push(`/check/bot/${bot.dbid}`)}>
                       <FormattedMessage id="teamBots.moreInfo" defaultMessage="More info" />
-                    </Link>
-                  </p>
+                    </Button>
+                    <Button
+                      className="team-bots__uninstall-button"
+                      onClick={this.handleToggle.bind(this, installation.node)}
+                    >
+                      <FormattedMessage id="teamBots.remove" defaultMessage="Remove" />
+                    </Button>
+                  </div>
                 </div>
-              </StyledCardContent>
-              <CardActions>
-                <StyledToggle direction={direction}>
-                  <span className="toggleLabel">
-                    <FormattedMessage id="teamBots.inUse" defaultMessage="In Use" />
-                  </span>
-                  <Switch
-                    checked
-                    onClick={this.handleToggle.bind(this, installation.node.id, team.id)}
-                  />
+              </StyledCardText>
+              <CardActions style={{ padding: 0, textAlign: 'right' }}>
+                <StyledSettings style={{ marginRight: 0 }}>
                   <Tooltip title={this.props.intl.formatMessage(messages.settingsTooltip)}>
                     <Settings
                       onClick={this.handleToggleSettings.bind(this, bot.dbid)}
                       className="settingsIcon"
                     />
                   </Tooltip>
-                </StyledToggle>
+                </StyledSettings>
               </CardActions>
+              <ConfirmDialog
+                open={this.state.showConfirmDeleteDialog}
+                title={
+                  <FormattedMessage
+                    id="teamBots.confirmDeleteTitle"
+                    defaultMessage="You are about to deactivate {botName}"
+                    values={{ botName: this.state.deleteBotName }}
+                  />
+                }
+                blurb={
+                  <FormattedMessage
+                    id="teamBots.confirmDeleteBlurb"
+                    defaultMessage="All settings will be deleted and cannot be recovered. Are you sure you want to proceed?"
+                  />
+                }
+                handleClose={this.handleCloseDialog.bind(this)}
+                handleConfirm={this.handleDestroy.bind(this)}
+              />
               <Divider />
-              <Collapse in={this.state.expanded[bot.dbid]} timeout="auto">
-                <CardContent>
-                  <h3><FormattedMessage id="teamBots.settings" defaultMessage="Settings" /></h3>
-                  { bot.settings_as_json_schema ?
-                    <StyledSchemaForm>
-                      <Form
-                        schema={JSON.parse(bot.settings_as_json_schema)}
-                        uiSchema={JSON.parse(bot.settings_ui_schema)}
-                        formData={this.state.settings[installation.node.id]}
-                        onChange={this.handleSettingsUpdated.bind(this, installation.node)}
-                      />
-                      <p>
-                        <FlatButton
+              <CardText expandable>
+                { bot.settings_as_json_schema ?
+                  <StyledSchemaForm>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                      <h3><FormattedMessage id="teamBots.settings" defaultMessage="Settings" /></h3>
+                      <div>
+                        <RaisedButton
                           primary
-                          onClick={this.handleSubmitSettings.bind(this, installation.node)}
+                          onClick={
+                            bot.name === 'Smooch' ?
+                              this.handleOpen.bind(this, installation.node) :
+                              this.handleSubmitSettings.bind(this, installation.node)
+                          }
                           label={
                             <FormattedMessage
                               id="teamBots.save"
@@ -270,27 +274,32 @@ class TeamBotsComponent extends Component {
                             />
                           }
                         />
-                      </p>
-                      <p>
-                        <small>
+                        <small style={{ margin: `0 ${units(1)}` }}>
                           { this.state.message && this.state.messageBotId === bot.dbid ?
                             this.state.message : null
                           }
                         </small>
-                      </p>
-                    </StyledSchemaForm> :
-                    <FormattedMessage
-                      id="teamBots.noSettings"
-                      defaultMessage="There are no settings for this bot."
+                      </div>
+                    </div>
+                    <TeamBot
+                      bot={bot}
+                      schema={JSON.parse(bot.settings_as_json_schema)}
+                      uiSchema={JSON.parse(bot.settings_ui_schema)}
+                      formData={this.state.settings[installation.node.id]}
+                      onChange={this.handleSettingsUpdated.bind(this, installation.node)}
                     />
-                  }
-                </CardContent>
-              </Collapse>
+                  </StyledSchemaForm> :
+                  <FormattedMessage
+                    id="teamBots.noSettings"
+                    defaultMessage="There are no settings for this bot."
+                  />
+                }
+              </CardText>
             </Card>
           );
         })}
         <p style={{ textAlign: direction.to }}>
-          <Button onClick={TeamBotsComponent.handleBotGardenClick}>
+          <Button id="team-bots__bot-garden-button" onClick={TeamBotsComponent.handleBotGardenClick}>
             <span>
               <FormattedMessage
                 id="teamBots.botGarden"
@@ -299,6 +308,16 @@ class TeamBotsComponent extends Component {
             </span>
           </Button>
         </p>
+        <ConfirmDialog
+          open={this.state.open}
+          title={<FormattedMessage id="teamBots.confirmationTitle" defaultMessage="Confirm" />}
+          blurb={<FormattedMessage
+            id="teamBots.confirmationMessage"
+            defaultMessage="You are about to make the changes to your bot live. All the users on your tipline will see those changes. Are you sure you want to proceed?"
+          />}
+          handleClose={this.handleClose.bind(this)}
+          handleConfirm={this.handleConfirm.bind(this)}
+        />
       </ContentColumn>
     );
   }
@@ -327,6 +346,7 @@ const TeamBotsContainer = Relay.createContainer(injectIntl(TeamBotsComponent), {
                 dbid
                 avatar
                 name
+                identifier
                 settings_as_json_schema
                 settings_ui_schema
                 description: get_description

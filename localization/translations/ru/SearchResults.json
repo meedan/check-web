@@ -1,7 +1,4 @@
 {
-  "search.newTranslationRequestNotification": "Новый запрос на перевод",
-  "search.newTranslationNotification": "Новый перевод",
-  "search.newTranslationNotificationBody": "Материал был отмечен как переведённый",
   "search.previousPage": "Previous page",
   "search.nextPage": "Next page",
   "searchResults.itemsCount": "{count, plural, =0 { } one {1 / 1} other {{from} - {to} / #}}",

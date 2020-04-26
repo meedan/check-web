@@ -24,8 +24,16 @@
     "defaultMessage": "More info"
   },
   {
-    "id": "teamBots.inUse",
-    "defaultMessage": "In Use"
+    "id": "teamBots.remove",
+    "defaultMessage": "Remove"
+  },
+  {
+    "id": "teamBots.confirmDeleteTitle",
+    "defaultMessage": "You are about to deactivate {botName}"
+  },
+  {
+    "id": "teamBots.confirmDeleteBlurb",
+    "defaultMessage": "All settings will be deleted and cannot be recovered. Are you sure you want to proceed?"
   },
   {
     "id": "teamBots.settings",
@@ -42,5 +50,13 @@
   {
     "id": "teamBots.botGarden",
     "defaultMessage": "Browse the Bot Garden"
+  },
+  {
+    "id": "teamBots.confirmationTitle",
+    "defaultMessage": "Confirm"
+  },
+  {
+    "id": "teamBots.confirmationMessage",
+    "defaultMessage": "You are about to make the changes to your bot live. All the users on your tipline will see those changes. Are you sure you want to proceed?"
   }
 ]

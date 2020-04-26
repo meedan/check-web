@@ -1,8 +1,8 @@
 {
-  "mediaDetail.byUser": "por {username}",
-  "accountCard.providerAccount": "conta de {provider}",
-  "mediaDetail.added": "Adicionado por {byUser}",
   "accountCard.fbStats": "{likes, number} curtidas",
   "accountCard.twitterStats": "{tweets, number} Tuítes • {followers, number} Seguidores • {following, number} Seguindo",
-  "accountCard.youtubeStats": "{videos, number} Vídeos • {subscribers, number} Assinantes"
+  "accountCard.youtubeStats": "{videos, number} Vídeos • {subscribers, number} Assinantes",
+  "mediaDetail.byUser": "por {username}",
+  "accountCard.providerAccount": "conta de {provider}",
+  "mediaDetail.added": "Adicionado por {byUser}"
 }

@@ -2,10 +2,6 @@
   "createTeamTask.editError": "Failed to edit default task",
   "createTeamTask.deleteError": "Failed to delete default task",
   "createTeamTask.menuTooltip": "Task actions",
-  "teamTasks.confirmEditTitle": "Are you sure you want to edit this task?",
-  "teamTasks.confirmDeleteTitle": "Are you sure you want to delete this task?",
-  "teamTasks.confirmEditBlurb": "Related item tasks will be modified as a consequence of applying this change, except for those that have already been answered or resolved.",
-  "teamTasks.confirmDeleteBlurb": "Related item tasks will be deleted as a consequence of applying this change, except for those that have already been answered or resolved.",
   "teamTasks.edit": "Edit task",
   "teamTasks.delete": "Delete task"
 }
