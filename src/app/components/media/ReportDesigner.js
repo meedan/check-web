@@ -97,6 +97,12 @@ const StyledTwoColumnLayout = styled(ContentColumn)`
     max-width: 100%;
   }
 
+  #empty-report {
+    font-size: large;
+    line-height: 1.5em;
+    padding: ${units(2)};
+  }
+
   #editor {
     position: relative;
   }
@@ -110,11 +116,11 @@ const StyledTwoColumnLayout = styled(ContentColumn)`
       bottom: 0;
       background: white;
       opacity: 0.8;
-      z-index: 1;
+      z-index: 2;
     }
   }
 
-  #image-preview {
+  #image-preview, #empty-report {
     width: 504px;
     margin: ${units(2)} auto;
     border: 2px solid ${black32};
@@ -226,8 +232,14 @@ class ReportDesignerComponent extends Component {
     if (props.media.team.get_introduction && !options.introduction) {
       options.introduction = props.media.team.get_introduction;
     }
-    if (props.media.team.get_use_introduction && Object.keys(options).indexOf('use_introduction') === -1) {
-      options.use_introduction = true;
+    if (Object.keys(options).indexOf('use_introduction') === -1) {
+      options.use_introduction = !!props.media.team.get_use_introduction;
+    }
+    if (Object.keys(options).indexOf('use_visual_card') === -1) {
+      options.use_visual_card = false;
+    }
+    if (Object.keys(options).indexOf('use_text_message') === -1) {
+      options.use_text_message = false;
     }
     if (props.media.title && !options.headline) {
       options.headline = props.media.title.substring(0, 85);
@@ -241,6 +253,9 @@ class ReportDesignerComponent extends Component {
     }
     if (status && !options.theme_color) {
       options.theme_color = getStatusStyle(status, 'color');
+    }
+    if (!options.image && props.media.media.picture) {
+      options.image = props.media.media.picture;
     }
     const teamUrl = props.media.team.contacts.edges[0] ?
       props.media.team.contacts.edges[0].node.web :
@@ -263,6 +278,11 @@ class ReportDesignerComponent extends Component {
       message: null,
       editing: false,
       image: null,
+      sectionExpanded: {
+        introduction: false,
+        visual_card: false,
+        text_message: false,
+      },
       showPublishConfirmationDialog: false,
       showPauseConfirmationDialog: false,
       showRepublishConfirmationDialog: false,
@@ -540,6 +560,25 @@ class ReportDesignerComponent extends Component {
     this.setState({ options });
   }
 
+  enableCard(card, e) {
+    const options = Object.assign({}, this.state.options);
+    const sectionExpanded = Object.assign({}, this.state.sectionExpanded);
+    const value = e.target.checked;
+    options[`use_${card}`] = value;
+    sectionExpanded[card] = value;
+    this.setState({ options, sectionExpanded });
+  }
+
+  toggleSection(section, e) {
+    if (this.state.options[`use_${section}`]) {
+      const sectionExpanded = Object.assign({}, this.state.sectionExpanded);
+      sectionExpanded[section] = !sectionExpanded[section];
+      this.setState({ sectionExpanded });
+    }
+    e.stopPropagation();
+    e.preventDefault();
+  }
+
   render() {
     const { media } = this.props;
     const { options } = this.state;
@@ -641,7 +680,7 @@ class ReportDesignerComponent extends Component {
                   <IconButton>
                     <FadeIn>
                       <SlideIn>
-                        <IconArrowBack color={black54} />
+                        <IconArrowBack />
                       </SlideIn>
                     </FadeIn>
                   </IconButton>
@@ -723,36 +762,39 @@ class ReportDesignerComponent extends Component {
                       this.props.intl.formatMessage(messages.canPublish)
                   }
                 >
-                  <Button
-                    variant="contained"
-                    disabled={this.state.pending || empty}
-                    onClick={
-                      () => {
-                        if (options.last_published) {
-                          if (options.previous_published_status_label &&
-                            options.status_label !== options.previous_published_status_label) {
-                            this.handleConfirmRepublishResend();
+                  <span>
+                    <Button
+                      variant="contained"
+                      disabled={this.state.pending || empty}
+                      onClick={
+                        () => {
+                          if (options.last_published) {
+                            if (options.previous_published_status_label &&
+                              options.status_label !== options.previous_published_status_label) {
+                              this.handleConfirmRepublishResend();
+                            } else {
+                              this.handleConfirmRepublish();
+                            }
                           } else {
-                            this.handleConfirmRepublish();
+                            this.handleConfirmPublish();
                           }
-                        } else {
-                          this.handleConfirmPublish();
                         }
                       }
-                    }
-                    style={{
-                      background: completedGreen,
-                      color: '#FFFFFF',
-                      marginRight: units(1),
-                      marginLeft: units(1),
-                    }}
-                  >
-                    <IconPlay />
-                    <FormattedMessage
-                      id="reportDesigner.publish"
-                      defaultMessage="Publish"
-                    />
-                  </Button>
+                      style={{
+                        background: completedGreen,
+                        color: '#FFFFFF',
+                        marginRight: units(1),
+                        marginLeft: units(1),
+                        opacity: (empty ? 0.5 : 1),
+                      }}
+                    >
+                      <IconPlay />
+                      <FormattedMessage
+                        id="reportDesigner.publish"
+                        defaultMessage="Publish"
+                      />
+                    </Button>
+                  </span>
                 </Tooltip> : null }
               { (!this.state.editing && options.state === 'published') ?
                 <Tooltip title={this.props.intl.formatMessage(messages.pauseReport)}>
@@ -790,7 +832,7 @@ class ReportDesignerComponent extends Component {
                 />
               </h2>
               { empty ?
-                <div>
+                <div id="empty-report">
                   <FormattedMessage
                     id="reportDesigner.nothingToPreview"
                     defaultMessage="Start creating your report to preview what users will see when they receive it."
@@ -840,14 +882,20 @@ class ReportDesignerComponent extends Component {
                 </h2>
               </div>
               <div id="report-designer__customization-menu">
-                <ExpansionPanel TransitionProps={{ unmountOnExit: true }}>
-                  <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                <ExpansionPanel
+                  TransitionProps={{ unmountOnExit: true }}
+                  expanded={this.state.sectionExpanded.introduction}
+                >
+                  <ExpansionPanelSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    onClick={this.toggleSection.bind(this, 'introduction')}
+                  >
                     <FormControlLabel
                       onClick={event => event.stopPropagation()}
                       onFocus={event => event.stopPropagation()}
                       control={
                         <Checkbox
-                          onChange={this.handleChange.bind(this, 'use_introduction')}
+                          onChange={this.enableCard.bind(this, 'introduction')}
                           checked={options.use_introduction}
                         />
                       }
@@ -887,14 +935,20 @@ class ReportDesignerComponent extends Component {
                   </ExpansionPanelDetails>
                 </ExpansionPanel>
 
-                <ExpansionPanel TransitionProps={{ unmountOnExit: true }}>
-                  <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                <ExpansionPanel
+                  TransitionProps={{ unmountOnExit: true }}
+                  expanded={this.state.sectionExpanded.visual_card}
+                >
+                  <ExpansionPanelSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    onClick={this.toggleSection.bind(this, 'visual_card')}
+                  >
                     <FormControlLabel
                       onClick={event => event.stopPropagation()}
                       onFocus={event => event.stopPropagation()}
                       control={
                         <Checkbox
-                          onChange={this.handleChange.bind(this, 'use_visual_card')}
+                          onChange={this.enableCard.bind(this, 'visual_card')}
                           checked={options.use_visual_card}
                         />
                       }
@@ -987,6 +1041,7 @@ class ReportDesignerComponent extends Component {
                       <div id="theme-selector">
                         {['#afafaf', '#f83430', '#00be7a', '#a500dd', '#faa62e'].map(color => (
                           <Button
+                            key={color}
                             className="theme-color"
                             style={{ backgroundColor: color }}
                             onClick={this.handleSelectColor.bind(this, color)}
@@ -1012,14 +1067,20 @@ class ReportDesignerComponent extends Component {
                   </ExpansionPanelDetails>
                 </ExpansionPanel>
 
-                <ExpansionPanel TransitionProps={{ unmountOnExit: true }}>
-                  <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                <ExpansionPanel
+                  TransitionProps={{ unmountOnExit: true }}
+                  expanded={this.state.sectionExpanded.text_message}
+                >
+                  <ExpansionPanelSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    onClick={this.toggleSection.bind(this, 'text_message')}
+                  >
                     <FormControlLabel
                       onClick={event => event.stopPropagation()}
                       onFocus={event => event.stopPropagation()}
                       control={
                         <Checkbox
-                          onChange={this.handleChange.bind(this, 'use_text_message')}
+                          onChange={this.enableCard.bind(this, 'text_message')}
                           checked={options.use_text_message}
                         />
                       }

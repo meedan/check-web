@@ -7,7 +7,7 @@ class MediaPage < Page
   def change_status(status)
     element('.media-status__label').click
     element(".media-status__menu-item--#{status.to_s}").click
-    wait_for_element(".media-status__current--#{status.to_s}")
+    wait_for_selector(".media-status__current--#{status.to_s}")
   end
 
   def set_description(string)
