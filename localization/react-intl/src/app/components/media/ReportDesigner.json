@@ -20,6 +20,10 @@
     "defaultMessage": "Type your report here..."
   },
   {
+    "id": "reportDesigner.confirmLeaveTitle",
+    "defaultMessage": "Close without saving?"
+  },
+  {
     "id": "reportDesigner.error",
     "defaultMessage": "Sorry, an error occurred while updating the report settings. Please try again and contact {supportEmail} if the condition persists."
   },
@@ -162,5 +166,9 @@
   {
     "id": "reportDesigner.confirmRepublishResendText2",
     "defaultMessage": "In the future, users who request this item will receive this new version of the report."
+  },
+  {
+    "id": "reportDesigner.confirmLeaveText",
+    "defaultMessage": "You will loose all changes."
   }
 ]
