@@ -684,7 +684,10 @@ class SearchQueryComponent extends React.Component {
           </Button>
           { (this.filterIsActive() || this.keywordIsActive()) ?
             <Tooltip title={this.props.intl.formatMessage(messages.clear)}>
-              <IconButton onClick={() => { this.resetFilters(true); }}>
+              <IconButton
+                id="search-query__clear-button"
+                onClick={() => { this.resetFilters(true); }}
+              >
                 <ClearIcon style={{ color: highlightOrange }} />
               </IconButton>
             </Tooltip>
