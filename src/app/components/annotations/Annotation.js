@@ -665,7 +665,8 @@ class Annotation extends Component {
         const { flags } = object.data;
         const flagsContent = (
           <ul>
-            { Object.keys(flags).map((flag) => {
+            { Object.keys(flags).filter(flag => flag !== 'spam').map((flag) => {
+              // #8220 remove "spam" until we get real values for it.
               const likelihood = this.props.intl.formatMessage(messages[`flagLikelihood${flags[flag]}`]);
               const flagName = this.props.intl.formatMessage(messages[`${flag}Flag`]);
               return (
