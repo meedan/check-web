@@ -15,7 +15,6 @@ class CreateTaskMutation extends Relay.Mutation {
     const {
       label,
       type,
-      required,
       description,
       jsonoptions,
       json_schema,
@@ -27,7 +26,6 @@ class CreateTaskMutation extends Relay.Mutation {
     return {
       label,
       type,
-      required,
       description,
       jsonoptions,
       json_schema,

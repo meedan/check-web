@@ -51,7 +51,6 @@ class CreateTask extends Component {
     const {
       label,
       description,
-      required,
       jsonoptions,
       jsonschema,
     } = task;
@@ -73,7 +72,6 @@ class CreateTask extends Component {
       new CreateTaskMutation({
         label,
         description,
-        required,
         type: this.state.type,
         jsonoptions,
         json_schema: jsonschema,

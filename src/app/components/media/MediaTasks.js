@@ -223,7 +223,6 @@ const MediaTasksContainer = Relay.createContainer(withPusher(MediaTasksComponent
               label,
               type,
               status,
-              required,
               description,
               permissions,
               jsonoptions,

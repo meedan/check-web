@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
-import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import IconButton from '@material-ui/core/IconButton';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -39,7 +39,7 @@ import UpdateTaskMutation from '../../relay/mutations/UpdateTaskMutation';
 import UpdateDynamicMutation from '../../relay/mutations/UpdateDynamicMutation';
 import DeleteAnnotationMutation from '../../relay/mutations/DeleteAnnotationMutation';
 import DeleteDynamicMutation from '../../relay/mutations/DeleteDynamicMutation';
-import { Row, units, black16, black87, title1 } from '../../styles/js/shared';
+import { Row, units, black16, black87 } from '../../styles/js/shared';
 
 const StyledWordBreakDiv = styled.div`
   hyphens: auto;
@@ -76,19 +76,6 @@ const StyledTaskResponses = styled.div`
     margin-bottom: ${units(1)};
   }
 `;
-
-const StyledRequiredIndicator = styled.span`
-  color: red;
-  font-weight: normal;
-  font: ${title1};
-  line-height: 20px;
-`;
-
-const RequiredIndicator = props => (
-  <StyledRequiredIndicator className="task__required">
-    { props.required ? '*' : null}
-  </StyledRequiredIndicator>
-);
 
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
 class Task extends Component {
@@ -245,8 +232,6 @@ class Task extends Component {
     const taskObj = {
       id: task.id,
       label: editedTask.label,
-      required: editedTask.required,
-      status: editedTask.status,
       json_schema: editedTask.jsonschema,
       description: editedTask.description,
       assigned_to_ids: this.getAssignment(),
@@ -571,7 +556,6 @@ class Task extends Component {
             <StyledTaskTitle className="task__label">
               {task.label}
             </StyledTaskTitle>
-            <RequiredIndicator required={task.required} />
           </Row>
         </div>
       </div>
@@ -657,9 +641,6 @@ class Task extends Component {
     }
     if (taskAssigned) {
       className.push('task__assigned-to-current-user');
-    }
-    if (task.required) {
-      className.push('task__required');
     }
 
     return (
@@ -750,15 +731,8 @@ class Task extends Component {
   }
 }
 
-Task.propTypes = {
-  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
-  // eslint-disable-next-line react/no-typos
-  intl: intlShape.isRequired,
-};
-
 Task.contextTypes = {
   store: PropTypes.object,
 };
 
 export default injectIntl(Task);
-export { RequiredIndicator };

@@ -18,7 +18,6 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import IconImageUpload from '@material-ui/icons/CloudUpload';
 import TeamTaskConfirmDialog from './TeamTaskConfirmDialog';
 import EditTaskDialog from '../task/EditTaskDialog';
-import { RequiredIndicator } from '../task/Task';
 import UpdateTeamTaskMutation from '../../relay/mutations/UpdateTeamTaskMutation';
 import DeleteTeamTaskMutation from '../../relay/mutations/DeleteTeamTaskMutation';
 import { getErrorMessage } from '../../helpers';
@@ -122,7 +121,6 @@ class TeamTasksListItem extends React.Component {
       task_type: type,
       label: task.label,
       description: task.description,
-      required: Boolean(task.required),
       json_options: task.jsonoptions,
       json_project_ids: task.json_project_ids,
       json_schema: task.jsonschema,
@@ -161,7 +159,6 @@ class TeamTasksListItem extends React.Component {
     const label = (
       <span>
         {task.label}
-        <RequiredIndicator required={task.required} />
       </span>
     );
 
