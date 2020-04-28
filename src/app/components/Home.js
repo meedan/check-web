@@ -14,6 +14,8 @@ import merge from 'lodash.merge';
 import isEqual from 'lodash.isequal';
 import styled, { createGlobalStyle } from 'styled-components';
 import Intercom from 'react-intercom';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import MomentUtils from '@date-io/moment';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import Header from './Header';
 import LoginContainer from './LoginContainer';
@@ -270,64 +272,66 @@ class HomeComponent extends Component {
     return (
       <React.Fragment>
         <GlobalStyle />
-        <MuiThemeProviderNext theme={muiThemeNext}>
-          <MuiThemeProvider muiTheme={muiThemeWithRtl}>
-            <span>
-              {config.intercomAppId && user.dbid ?
-                <Intercom
-                  appID={config.intercomAppId}
-                  user_id={user.dbid}
-                  email={user.email}
-                  name={user.name}
-                  alignment={isRtl ? 'left' : 'right'}
-                /> : null
-              }
-              <Favicon url={`/images/logo/${config.appName}.ico`} animated={false} />
-              <BrowserSupport />
-              { showDrawer ?
-                <DrawerNavigation
-                  variant="persistent"
-                  docked
-                  loggedIn={loggedIn}
-                  teamSlug={teamSlug}
-                  inTeamContext={inTeamContext}
-                  currentUserIsMember={currentUserIsMember}
-                  {...this.props}
-                /> : null }
-              <StyledWrapper
-                isRtl={isRtl}
-                className={bemClass('home', routeSlug, `--${routeSlug}`)}
-                style={showDrawer ? {} : { margin: 0 }}
-              >
-                <Header
-                  drawerToggle={this.handleDrawerToggle.bind(this)}
-                  loggedIn={loggedIn}
-                  pageType={routeSlug}
-                  inTeamContext={inTeamContext}
-                  currentUserIsMember={currentUserIsMember}
-                  {...this.props}
-                />
-                <Message
-                  message={this.state.message}
-                  onClick={this.resetMessage.bind(this)}
-                  className="home__message"
-                  style={{
-                    marginTop: '0',
-                    position: 'fixed',
-                    width: '100%',
-                    zIndex: '1000',
-                  }}
-                />
-                <StyledContent
-                  inMediaPage={routeSlug === 'media'}
-                  className="content-wrapper"
+        <MuiPickersUtilsProvider utils={MomentUtils}>
+          <MuiThemeProviderNext theme={muiThemeNext}>
+            <MuiThemeProvider muiTheme={muiThemeWithRtl}>
+              <span>
+                {config.intercomAppId && user.dbid ?
+                  <Intercom
+                    appID={config.intercomAppId}
+                    user_id={user.dbid}
+                    email={user.email}
+                    name={user.name}
+                    alignment={isRtl ? 'left' : 'right'}
+                  /> : null
+                }
+                <Favicon url={`/images/logo/${config.appName}.ico`} animated={false} />
+                <BrowserSupport />
+                { showDrawer ?
+                  <DrawerNavigation
+                    variant="persistent"
+                    docked
+                    loggedIn={loggedIn}
+                    teamSlug={teamSlug}
+                    inTeamContext={inTeamContext}
+                    currentUserIsMember={currentUserIsMember}
+                    {...this.props}
+                  /> : null }
+                <StyledWrapper
+                  isRtl={isRtl}
+                  className={bemClass('home', routeSlug, `--${routeSlug}`)}
+                  style={showDrawer ? {} : { margin: 0 }}
                 >
-                  {children}
-                </StyledContent>
-              </StyledWrapper>
-            </span>
-          </MuiThemeProvider>
-        </MuiThemeProviderNext>
+                  <Header
+                    drawerToggle={this.handleDrawerToggle.bind(this)}
+                    loggedIn={loggedIn}
+                    pageType={routeSlug}
+                    inTeamContext={inTeamContext}
+                    currentUserIsMember={currentUserIsMember}
+                    {...this.props}
+                  />
+                  <Message
+                    message={this.state.message}
+                    onClick={this.resetMessage.bind(this)}
+                    className="home__message"
+                    style={{
+                      marginTop: '0',
+                      position: 'fixed',
+                      width: '100%',
+                      zIndex: '1000',
+                    }}
+                  />
+                  <StyledContent
+                    inMediaPage={routeSlug === 'media'}
+                    className="content-wrapper"
+                  >
+                    {children}
+                  </StyledContent>
+                </StyledWrapper>
+              </span>
+            </MuiThemeProvider>
+          </MuiThemeProviderNext>
+        </MuiPickersUtilsProvider>
       </React.Fragment>
     );
   }
