@@ -69,7 +69,6 @@ const sourceFragment = Relay.QL`
           url,
           metadata,
           last_status,
-          field_value(annotation_type_field_name: "translation_status:translation_status_status"),
           log_count,
           domain,
           permissions,
@@ -81,7 +80,6 @@ const sourceFragment = Relay.QL`
           project_id,
           pusher_channel,
           verification_statuses,
-          translation_statuses,
           overridden,
           language,
           language_code,
@@ -125,25 +123,6 @@ const sourceFragment = Relay.QL`
                     image
                   }
                 }
-              }
-            }
-          }
-          translation_status: annotation(annotation_type: "translation_status") {
-            id
-            dbid
-          }
-          translations: annotations(annotation_type: "translation", first: 10000) {
-            edges {
-              node {
-                id,
-                dbid,
-                annotation_type,
-                annotated_type,
-                annotated_id,
-                annotator,
-                content,
-                created_at,
-                updated_at
               }
             }
           }
@@ -241,11 +220,9 @@ const sourceFragment = Relay.QL`
                         metadata,
                         project_id,
                         last_status,
-                        field_value(annotation_type_field_name: "translation_status:translation_status_status"),
                         log_count,
                         permissions,
                         verification_statuses,
-                        translation_statuses,
                         domain,
                         team {
                           slug

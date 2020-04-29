@@ -114,7 +114,6 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
           search_id,
           medias_count,
           verification_statuses,
-          translation_statuses,
           public_team {
             id,
             trash_count,

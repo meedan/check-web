@@ -1,17 +1,5 @@
 [
   {
-    "id": "search.newTranslationRequestNotification",
-    "defaultMessage": "New translation request"
-  },
-  {
-    "id": "search.newTranslationNotification",
-    "defaultMessage": "New translation"
-  },
-  {
-    "id": "search.newTranslationNotificationBody",
-    "defaultMessage": "An item was just marked as \"translated\""
-  },
-  {
     "id": "search.previousPage",
     "defaultMessage": "Previous page"
   },

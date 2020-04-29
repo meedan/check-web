@@ -227,7 +227,7 @@ class BulkActions extends React.Component {
           <Row>
             <Tooltip title={this.props.intl.formatMessage(messages.add)} style={{ margin: '0 10px' }}>
               <Button
-                className="media-bulk-actions__add-icon"
+                id="media-bulk-actions__add-icon"
                 onClick={this.addSelected.bind(this)}
                 color="primary"
                 variant="contained"
@@ -237,7 +237,7 @@ class BulkActions extends React.Component {
             </Tooltip>
             <Tooltip title={this.props.intl.formatMessage(messages.move)} style={{ margin: '0 10px' }}>
               <Button
-                className="media-bulk-actions__move-icon"
+                id="media-bulk-actions__move-icon"
                 onClick={this.moveSelected.bind(this)}
                 color="primary"
                 variant="contained"
@@ -248,6 +248,7 @@ class BulkActions extends React.Component {
             { !/all-items/.test(window.location.pathname) ?
               <Tooltip title={this.props.intl.formatMessage(messages.remove)} style={{ margin: '0 10px' }}>
                 <Button
+                  id="media-bulk-actions__remove-from-list"
                   style={{ margin: '0 8px', border: '1px solid #000' }}
                   onClick={this.handleRemoveSelectedFromList.bind(this)}
                 >
@@ -275,6 +276,7 @@ class BulkActions extends React.Component {
         key="cancel"
         color="primary"
         onClick={this.handleCloseDialogs.bind(this)}
+        key="bulkActions.cancelMoveButton"
       >
         <FormattedMessage
           id="bulkActions.cancelButton"
@@ -287,6 +289,7 @@ class BulkActions extends React.Component {
         className="media-bulk-actions__move-button"
         onClick={this.handleMove.bind(this)}
         disabled={!this.state.dstProj}
+        key="bulkActions.moveButton"
       >
         <FormattedMessage id="bulkActions.moveTitle" defaultMessage="Move" />
       </Button>,
@@ -296,6 +299,7 @@ class BulkActions extends React.Component {
       <Button
         color="primary"
         onClick={this.handleCloseDialogs.bind(this)}
+        key="bulkActions.cancelAddButton"
       >
         <FormattedMessage
           id="bulkActions.cancelButton"
@@ -307,6 +311,7 @@ class BulkActions extends React.Component {
         className="media-bulk-actions__add-button"
         onClick={this.handleAdd.bind(this)}
         disabled={!this.state.dstProjForAdd}
+        key="bulkActions.addButton"
       >
         <FormattedMessage id="bulkActions.addTitle" defaultMessage="Add" />
       </Button>,

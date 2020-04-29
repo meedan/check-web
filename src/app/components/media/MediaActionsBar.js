@@ -557,6 +557,7 @@ class MediaActionsBarComponent extends Component {
         { !media.archived ?
           <div>
             <Button
+              id="media-actions-bar__add-to"
               variant="contained"
               style={{ margin: '0 8px' }}
               color="primary"
@@ -569,6 +570,7 @@ class MediaActionsBarComponent extends Component {
             </Button>
 
             <Button
+              id="media-actions-bar__move-to"
               variant="contained"
               style={{ margin: '0 8px' }}
               color="primary"
@@ -582,6 +584,7 @@ class MediaActionsBarComponent extends Component {
 
             { media.project_id ?
               <Button
+                id="media-actions-bar__remove-from-list"
                 style={{
                   margin: '0 8px',
                   border: '1px solid #000',

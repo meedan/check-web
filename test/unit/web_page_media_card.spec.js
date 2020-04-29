@@ -70,8 +70,6 @@ describe('<WebPageMediaCard />', () => {
       media: {},
       user: {},
       last_status_obj: {},
-      translation_status: {},
-      translations: {},
       tags: {},
       tasks: {},
       log: {},

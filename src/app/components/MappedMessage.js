@@ -1,12 +1,10 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
-import config from 'config'; // eslint-disable-line require-path-exists/exists
 import globalStrings from '../globalStrings';
 
 function mapMessage(intl, msgObj, msgKey, values) {
-  const appPrefix = config.appName === 'bridge' ? 'bridge_' : '';
   const parent = msgObj || globalStrings;
-  const string_resource = parent[appPrefix + msgKey];
+  const string_resource = parent[msgKey];
 
   return intl.formatHTMLMessage(string_resource, { ...values });
 }

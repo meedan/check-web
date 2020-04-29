@@ -14,7 +14,6 @@ describe('<PageTitle />', () => {
   it('should set the document.title based on team name and prefix', function() {
     mountWithIntl(<PageTitle team={{name: 'A Team'}} prefix="A Prefix" />);
 
-    if (config.appName === 'check'){ expect(document.title).to.equal('A Prefix | A Team Check'); }
-    if (config.appName === 'bridge'){ expect(document.title).to.equal('A Prefix | A Team Bridge'); }
+    expect(document.title).to.equal('A Prefix | A Team Check');
   });
 });

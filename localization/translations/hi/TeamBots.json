@@ -5,7 +5,7 @@
   "teamBots.fail": "Error! Please try again.",
   "teamBots.noBots": "No bots installed.",
   "teamBots.moreInfo": "More info",
-  "teamBots.inUse": "In Use",
+  "teamBots.remove": "Remove",
   "teamBots.confirmDeleteTitle": "You are about to deactivate {botName}",
   "teamBots.confirmDeleteBlurb": "All settings will be deleted and cannot be recovered. Are you sure you want to proceed?",
   "teamBots.settings": "Settings",

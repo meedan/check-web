@@ -49,6 +49,7 @@ shared_examples 'custom' do
     expect((@driver.title =~ /False/).nil?).to be(true)
     @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"verification_status"%3A%5B"false"%5D%7D'
     wait_for_selector(".search__results-heading")
+    wait_for_selector("#search-query__clear-button")
     expect((@driver.title =~ /False/).nil?).to be(false)
     expect(@driver.page_source.include?('My search result')).to be(false)
     wait_for_selector("#search__open-dialog-button").click

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
-import merge from 'lodash.merge';
 import TeamRoute from '../../relay/TeamRoute';
 import CheckContext from '../../CheckContext';
 import Search from '../search/Search';
@@ -29,8 +28,7 @@ class TrashComponent extends React.Component {
 
   setContextTeam() {
     const context = this.getContext();
-    const currentTeam = this.currentContext().team || {};
-    context.setContextStore({ team: merge(currentTeam, this.props.team) });
+    context.setContextStore({ team: this.props.team });
   }
 
   currentContext() {

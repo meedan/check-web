@@ -4,7 +4,7 @@ import { defineMessages, injectIntl } from 'react-intl';
 import Relay from 'react-relay/classic';
 import CheckContext from '../../CheckContext';
 import MediaRoute from '../../relay/MediaRoute';
-import MediaParentComponent from './MediaParentComponent';
+import MediaComponent from './MediaComponent';
 import MediasLoading from './MediasLoading';
 
 const messages = defineMessages({
@@ -14,7 +14,7 @@ const messages = defineMessages({
   },
 });
 
-const MediaContainer = Relay.createContainer(MediaParentComponent, {
+const MediaContainer = Relay.createContainer(MediaComponent, {
   initialVariables: {
     contextId: null,
   },

@@ -20,8 +20,12 @@
     "defaultMessage": "Type your report here..."
   },
   {
+    "id": "reportDesigner.confirmLeaveTitle",
+    "defaultMessage": "Close without saving?"
+  },
+  {
     "id": "reportDesigner.error",
-    "defaultMessage": "Could not save report"
+    "defaultMessage": "Sorry, an error occurred while updating the report settings. Please try again and contact {supportEmail} if the condition persists."
   },
   {
     "id": "reportDesigner.warning",
@@ -65,7 +69,7 @@
   },
   {
     "id": "reportDesigner.preview",
-    "defaultMessage": "Report Preview"
+    "defaultMessage": "Preview"
   },
   {
     "id": "reportDesigner.nothingToPreview",
@@ -81,7 +85,7 @@
   },
   {
     "id": "reportDesigner.introductionSub",
-    "defaultMessage": "Use \\{\\{query_date\\}\\} and \\{\\{query_message\\}\\} placeholders to display the original dates and the content of the original query dynamically. Use \\{\\{status\\}\\} to communicate the status of the claim."
+    "defaultMessage": "Use {query_date} and {query_message} placeholders to display the date and content of the original query. Use {status} to communicate the status of the article."
   },
   {
     "id": "reportDesigner.visualCard",
@@ -101,7 +105,7 @@
   },
   {
     "id": "reportDesigner.statusLabel",
-    "defaultMessage": "Status Label - {max} characters max"
+    "defaultMessage": "Status label - {max} characters max"
   },
   {
     "id": "reportDesigner.themeColor",
@@ -125,7 +129,11 @@
   },
   {
     "id": "reportDesigner.confirmPublishText",
-    "defaultMessage": "{demand, plural, =0 {This report will be sent to anyone who requests this item in the future while published.} one {You are about to send a report to the person who requested this item. This report will be sent to anyone who requests this item in the future while published.} other {You are about to send a report to # people who requested this item. This report will be sent to anyone who requests this item in the future while published.}}"
+    "defaultMessage": "{demand, plural, =0 {} one {You are about to send this report to the user who requested this item.} other {You are about to send this report to the # users who requested this item.}}"
+  },
+  {
+    "id": "reportDesigner.confirmPublishText2",
+    "defaultMessage": "In the future, users who request this item will receive your report while it remains published."
   },
   {
     "id": "reportDesigner.confirmPauseTitle",
@@ -141,11 +149,11 @@
   },
   {
     "id": "reportDesigner.confirmRepublishText",
-    "defaultMessage": "In the future your changes will be published to all users who request this item."
+    "defaultMessage": "In the future, users who request this item will receive this new version of the report."
   },
   {
     "id": "reportDesigner.republishAndResend",
-    "defaultMessage": "{demand, plural, =0 {None} one {Also send correction to the user who already received the previous version of this report} other {Also send correction to the # users who already received the previous version of this report}}"
+    "defaultMessage": "{demand, plural, =0 {} one {Also send correction to the user who already received the previous version of this report} other {Also send correction to the # users who already received the previous version of this report}}"
   },
   {
     "id": "reportDesigner.confirmRepublishResendTitle",
@@ -153,6 +161,14 @@
   },
   {
     "id": "reportDesigner.confirmRepublishResendText",
-    "defaultMessage": "{demand, plural, =0 {In the future, a user who requests the item will receive this new version.} one {Your correction will be sent to the user who have received the previous report. In the future, a user who requests the item will receive this new version.} other {Your correction will be sent to the # users who have received the previous report. In the future, a user who requests the item will receive this new version.}}"
+    "defaultMessage": "{demand, plural, =0 {} one {Your correction will be sent to the user who has received the previous report.} other {Your correction will be sent to the # users who have received the previous report.}}"
+  },
+  {
+    "id": "reportDesigner.confirmRepublishResendText2",
+    "defaultMessage": "In the future, users who request this item will receive this new version of the report."
+  },
+  {
+    "id": "reportDesigner.confirmLeaveText",
+    "defaultMessage": "You will loose all changes."
   }
 ]

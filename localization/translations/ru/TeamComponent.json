@@ -2,7 +2,7 @@
   "teamSettings.Tasks": "Вопросы",
   "teamSettings.rules": "Rules",
   "teamSettings.Tags": "Тэги",
-  "teamSettings.embed": "Report",
+  "teamSettings.report": "Report",
   "teamSettings.integrations": "Интеграция",
   "teamSettings.bots": "Боты"
 }

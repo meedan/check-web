@@ -1,7 +1,4 @@
 {
-  "search.newTranslationRequestNotification": "Nueva solicitud de traducción",
-  "search.newTranslationNotification": "Nueva traducción",
-  "search.newTranslationNotificationBody": "Un ítem fue marcado como traducido",
   "search.previousPage": "Página anterior",
   "search.nextPage": "Página siguiente",
   "searchResults.itemsCount": "{count, plural, =0 { } one {1 / 1} other {{from} - {to} / #}}",
