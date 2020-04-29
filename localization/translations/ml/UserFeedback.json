@@ -1,9 +1,0 @@
-{
-  "UserFeedback.thanks": "Thanks for your feedback!",
-  "UserFeedback.label": "How likely are you to recommend {appName}?",
-  "UserFeedback.unlikely": "Unlikely",
-  "UserFeedback.maybe": "Maybe",
-  "UserFeedback.likely": "Likely",
-  "UserFeedback.save": "Save",
-  "UserFeedback.explainMore": "Explain More"
-}

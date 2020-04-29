@@ -13,7 +13,6 @@ describe('<MediaDetail />', () => {
       locked: false,
     },
     verification_statuses: { statuses: [{ label: 'verified' }] },
-    translation_statuses: { statuses: [{ label: 'translated' }] },
     log_count: 0,
     permissions: JSON.stringify({}),
     project_id: 1,

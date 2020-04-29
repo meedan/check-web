@@ -18,6 +18,9 @@ class CreateTeamBotInstallationMutation extends Relay.Mutation {
         bot_user {
           id
           installed
+          installation {
+            id
+          }
         }
       }
     `;

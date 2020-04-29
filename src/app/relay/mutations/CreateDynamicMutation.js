@@ -23,10 +23,7 @@ class CreateDynamicMutation extends Relay.Mutation {
         dynamicEdge,
         project_media {
           log,
-          log_count,
-          field_value(annotation_type_field_name: "translation_status:translation_status_status"),
-          translation_status: annotation(annotation_type: "translation_status"),
-          translations: annotations(annotation_type: "translation", first: 10000)
+          log_count
         }
       }`;
     case 'project_source':

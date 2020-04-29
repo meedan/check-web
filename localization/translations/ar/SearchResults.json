@@ -1,7 +1,4 @@
 {
-  "search.newTranslationRequestNotification": "طلب جديد للترجمة",
-  "search.newTranslationNotification": "ترجمة جديدة",
-  "search.newTranslationNotificationBody": "تمت ترجمة عنصر",
   "search.previousPage": "الصفحة السابقة",
   "search.nextPage": "الصفحة التالية",
   "searchResults.itemsCount": "{count, plural, =0 { } one {1 / 1} other {{from} - {to} / #}}",

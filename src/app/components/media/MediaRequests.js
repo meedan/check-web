@@ -2,18 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
+import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
 import MediasLoading from './MediasLoading';
 import Annotations from '../annotations/Annotations';
 import CheckContext from '../../CheckContext';
 
 class MediaRequestsComponent extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {};
-  }
-
   componentDidMount() {
     this.subscribe();
   }
@@ -39,32 +34,28 @@ class MediaRequestsComponent extends Component {
   }
 
   subscribe() {
-    const { pusher } = this.getContext();
-    if (pusher) {
-      pusher.subscribe(this.props.media.pusher_channel).bind('media_updated', 'MediaRequests', (data, run) => {
-        const annotation = JSON.parse(data.message);
-        if (annotation.annotated_id === this.props.media.dbid &&
-          this.getContext().clientSessionId !== data.actor_session_id
-        ) {
-          if (run) {
-            this.props.relay.forceFetch();
-            return true;
-          }
-          return {
-            id: `media-requests-${this.props.media.dbid}`,
-            callback: this.props.relay.forceFetch,
-          };
+    const { pusher, media } = this.props;
+    pusher.subscribe(media.pusher_channel).bind('media_updated', 'MediaRequests', (data, run) => {
+      const annotation = JSON.parse(data.message);
+      if (annotation.annotated_id === media.dbid &&
+        this.getContext().clientSessionId !== data.actor_session_id
+      ) {
+        if (run) {
+          this.props.relay.forceFetch();
+          return true;
         }
-        return false;
-      });
-    }
+        return {
+          id: `media-requests-${media.dbid}`,
+          callback: this.props.relay.forceFetch,
+        };
+      }
+      return false;
+    });
   }
 
   unsubscribe() {
-    const { pusher } = this.getContext();
-    if (pusher) {
-      pusher.unsubscribe(this.props.media.pusher_channel);
-    }
+    const { pusher, media } = this.props;
+    pusher.unsubscribe(media.pusher_channel);
   }
 
   render() {
@@ -97,13 +88,17 @@ MediaRequestsComponent.contextTypes = {
   store: PropTypes.object,
 };
 
+MediaRequestsComponent.propTypes = {
+  pusher: pusherShape.isRequired,
+};
+
 const pageSize = 30;
 const eventTypes = ['create_dynamicannotationfield'];
 const fieldNames = ['smooch_data'];
 const annotationTypes = [];
 const whoDunnit = ['smooch'];
 
-const MediaRequestsContainer = Relay.createContainer(MediaRequestsComponent, {
+const MediaRequestsContainer = Relay.createContainer(withPusher(MediaRequestsComponent), {
   initialVariables: {
     pageSize,
     eventTypes,
@@ -180,11 +175,9 @@ const MediaRequestsContainer = Relay.createContainer(MediaRequestsComponent, {
                           }
                         }
                       }
-                      field_value(annotation_type_field_name: "translation_status:translation_status_status"),
                       log_count,
                       permissions,
                       verification_statuses,
-                      translation_statuses,
                       domain,
                       team {
                         slug,

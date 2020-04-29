@@ -10,7 +10,6 @@ const teamPublicFragment = Relay.QL`
       slug,
       team_graphql_id,
       verification_statuses,
-      translation_statuses,
       trash_count,
       pusher_channel,
     }

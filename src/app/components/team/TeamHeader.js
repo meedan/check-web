@@ -22,7 +22,6 @@ const TeamHeader = (props) => {
           get_suggested_tags,
           pusher_channel,
           public_team_id,
-          translation_statuses,
           verification_statuses,
           source_verification_statuses,
         }

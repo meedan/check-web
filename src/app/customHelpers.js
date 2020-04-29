@@ -1,17 +1,6 @@
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 
 const customHelpers = {
-  bridge: {
-    teamStatuses(team) {
-      return team.translation_statuses;
-    },
-    mediaStatuses(media) {
-      return media.translation_statuses;
-    },
-    mediaLastStatus(media) {
-      return media.field_value || 'pending';
-    },
-  },
   check: {
     teamStatuses(team) {
       return team.verification_statuses;
@@ -26,15 +15,6 @@ const customHelpers = {
 };
 
 const customStrings = {
-  bridge: {
-    ABOUT_URL: 'https://meedan.com/bridge',
-    ADMIN_EMAIL: 'bridge@meedan.com',
-    CONTACT_HUMAN_URL: 'mailto:bridge@meedan.com',
-    PP_URL: 'https://meedan.com/en/bridge/bridge_privacy.html',
-    SUPPORT_EMAIL: 'bridge@meedan.com',
-    TOS_URL: 'https://meedan.com/en/bridge/bridge_tos.html',
-    LOGO_URL: '/images/logo/bridge.svg',
-  },
   check: {
     ABOUT_URL: 'https://meedan.com/check',
     ADMIN_EMAIL: 'check@meedan.com',

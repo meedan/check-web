@@ -1,9 +1,0 @@
-{
-  "UserFeedback.thanks": "شكراً على ملاحظاتكم !",
-  "UserFeedback.label": "ما مدى احتمالية أن توصي ب{appName} ؟",
-  "UserFeedback.unlikely": "مُستبعد",
-  "UserFeedback.maybe": "ربما",
-  "UserFeedback.likely": "مُحتمل",
-  "UserFeedback.save": "حفظ",
-  "UserFeedback.explainMore": "اشرح اكثر"
-}

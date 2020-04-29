@@ -24,8 +24,8 @@
     "defaultMessage": "More info"
   },
   {
-    "id": "teamBots.inUse",
-    "defaultMessage": "In Use"
+    "id": "teamBots.remove",
+    "defaultMessage": "Remove"
   },
   {
     "id": "teamBots.confirmDeleteTitle",

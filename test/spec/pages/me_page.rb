@@ -15,7 +15,7 @@ class MePage < SourcePage
     team = wait_for_selector("//*[contains(text(), '#{options[:name]}')]", :xpath)
     team.click
     wait_for_selector(".team-header__drawer-team-link").click
-    wait_for_element('.team')
+    wait_for_selector('.team')
     TeamPage.new(config: @config, driver: @driver)
   end
 

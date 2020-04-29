@@ -45,7 +45,7 @@ const StyledTopBar = styled.div`
     justify-content: space-between;
   }
 
-  @media (max-width: 1300px) {
+  @media (max-width: 1500px) {
     .media-search__actions-bar {
       width: 100%;
       position: static;
@@ -88,16 +88,7 @@ const StyledPager = styled.div`
 `;
 
 class MediaSearchComponent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  componentWillMount() {
-    this.updateUrl();
-  }
-
-  componentWillUpdate() {
+  componentDidMount() {
     this.updateUrl();
   }
 

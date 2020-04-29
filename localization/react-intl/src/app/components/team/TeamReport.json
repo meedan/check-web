@@ -1,0 +1,38 @@
+[
+  {
+    "id": "teamReport.updateFail",
+    "defaultMessage": "Sorry, an error occurred while updating the report settings. Please try again and contact {supportEmail} if the condition persists."
+  },
+  {
+    "id": "teamReport.updateSuccess",
+    "defaultMessage": "Report settings updated successfully!"
+  },
+  {
+    "id": "teamReport.save",
+    "defaultMessage": "Save"
+  },
+  {
+    "id": "teamReport.title",
+    "defaultMessage": "Default report settings"
+  },
+  {
+    "id": "teamReport.subtitle",
+    "defaultMessage": "The content you set here can be edited in each individual report"
+  },
+  {
+    "id": "teamReport.introduction",
+    "defaultMessage": "Introduction"
+  },
+  {
+    "id": "teamReport.introductionSub",
+    "defaultMessage": "Use {query_date} and {query_message} placeholders to display the date and content of the original query. Use {status} to communicate the status of the article."
+  },
+  {
+    "id": "teamReport.disclaimer",
+    "defaultMessage": "Disclaimer"
+  },
+  {
+    "id": "teamReport.disclaimerSub",
+    "defaultMessage": "Disclaimer that will be shown at the bottom of the report with the workspace logo."
+  }
+]

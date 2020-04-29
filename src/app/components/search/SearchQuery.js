@@ -10,7 +10,6 @@ const queryWithoutProjects = Relay.QL`
     id,
     dbid,
     verification_statuses,
-    translation_statuses,
     teamwide_tags(first: 10000) {
       edges {
         node {
@@ -31,7 +30,6 @@ const queryWithProjects = Relay.QL`
     id,
     dbid,
     verification_statuses,
-    translation_statuses,
     teamwide_tags(first: 10000) {
       edges {
         node {
