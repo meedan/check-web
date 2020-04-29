@@ -1,5 +1,4 @@
 import React from 'react';
-import { expect } from 'chai';
 import { mountWithIntl } from './helpers/intl-test';
 
 import FaFacebookSquare from 'react-icons/lib/fa/facebook-square';
@@ -17,11 +16,11 @@ describe('<AccountChips />', () => {
 
   it('renders chips with their correct social network icons', () => {
     const accountChips = mountWithIntl(<AccountChips accounts={accounts} />);
-    expect(accountChips.find('.media-tags__tag')).to.have.length(6);
-    expect(accountChips.find(FaFacebookSquare)).to.have.length(1);
-    expect(accountChips.find(FaTwitter)).to.have.length(1);
-    expect(accountChips.find(MdLink)).to.have.length(1);
-    expect(accountChips.find(FaInstagram)).to.have.length(0);
-    expect(accountChips.find(FaYoutubePlay)).to.have.length(0);
+    expect(accountChips.find('.media-tags__tag')).toHaveLength(6);
+    expect(accountChips.find(FaFacebookSquare)).toHaveLength(1);
+    expect(accountChips.find(FaTwitter)).toHaveLength(1);
+    expect(accountChips.find(MdLink)).toHaveLength(1);
+    expect(accountChips.find(FaInstagram)).toHaveLength(0);
+    expect(accountChips.find(FaYoutubePlay)).toHaveLength(0);
   });
 });

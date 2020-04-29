@@ -276,7 +276,6 @@ class BulkActions extends React.Component {
         key="cancel"
         color="primary"
         onClick={this.handleCloseDialogs.bind(this)}
-        key="bulkActions.cancelMoveButton"
       >
         <FormattedMessage
           id="bulkActions.cancelButton"
@@ -289,7 +288,6 @@ class BulkActions extends React.Component {
         className="media-bulk-actions__move-button"
         onClick={this.handleMove.bind(this)}
         disabled={!this.state.dstProj}
-        key="bulkActions.moveButton"
       >
         <FormattedMessage id="bulkActions.moveTitle" defaultMessage="Move" />
       </Button>,
