@@ -13,6 +13,7 @@ import UpdateProjectMutation from '../../relay/mutations/UpdateProjectMutation';
 import UserAvatars from '../UserAvatars';
 import { getErrorMessage } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
+import { withSetFlashMessage } from '../FlashMessage';
 import globalStrings from '../../globalStrings';
 
 class ProjectAssignmentComponent extends Component {
@@ -37,7 +38,7 @@ class ProjectAssignmentComponent extends Component {
     const onFailure = (transaction) => {
       const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
       const message = getErrorMessage(transaction, fallbackMessage);
-      this.context.setMessage(message);
+      this.props.setFlashMessage(message);
     };
 
     const onSuccess = () => {
@@ -47,7 +48,7 @@ class ProjectAssignmentComponent extends Component {
           defaultMessage="Done! The assignments are now propagating to items and tasks. You will receive an e-mail when it's ready."
         />
       );
-      this.context.setMessage(message);
+      this.props.setFlashMessage(message);
     };
 
     Relay.Store.commitUpdate(
@@ -136,11 +137,15 @@ class ProjectAssignmentComponent extends Component {
   }
 }
 
-ProjectAssignmentComponent.contextTypes = {
-  setMessage: PropTypes.func,
+ProjectAssignmentComponent.propTypes = {
+  intl: PropTypes.object.isRequired,
+  setFlashMessage: PropTypes.func.isRequired,
 };
 
-const ProjectAssignmentContainer = Relay.createContainer(injectIntl(ProjectAssignmentComponent), {
+const ConnectedProjectAssignmentComponent =
+  withSetFlashMessage(injectIntl(ProjectAssignmentComponent));
+
+const ProjectAssignmentContainer = Relay.createContainer(ConnectedProjectAssignmentComponent, {
   initialVariables: {
     contextId: null,
   },

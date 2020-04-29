@@ -16,6 +16,7 @@ import Menu from '@material-ui/core/Menu';
 import IconButton from '@material-ui/core/IconButton';
 import IconMoreVert from '@material-ui/icons/MoreVert';
 import Can from '../Can';
+import { withSetFlashMessage } from '../FlashMessage';
 import TimeBefore from '../TimeBefore';
 import MediaUtil from './MediaUtil';
 import MediaRoute from '../../relay/MediaRoute';
@@ -123,7 +124,7 @@ class MediaCondensedComponent extends Component {
     const onFailure = (transaction) => {
       const fallbackMessage = this.props.intl.formatMessage(messages.editReportError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
       const message = getErrorMessage(transaction, fallbackMessage);
-      this.context.setMessage(message);
+      this.props.setFlashMessage(message);
     };
 
     if (this.canSubmit()) {
@@ -143,7 +144,7 @@ class MediaCondensedComponent extends Component {
   handleBreakRelationship() {
     const onFailure = () => {
       const message = this.props.intl.formatMessage(messages.errorBreakRelationship, { supportEmail: stringHelper('SUPPORT_EMAIL') });
-      this.context.setMessage(message);
+      this.props.setFlashMessage(message);
       this.setState({ broken: false });
     };
 
@@ -168,7 +169,7 @@ class MediaCondensedComponent extends Component {
 
     const onFailure = () => {
       const message = this.props.intl.formatMessage(messages.errorUpdateRelationship, { supportEmail: stringHelper('SUPPORT_EMAIL') });
-      this.context.setMessage(message);
+      this.props.setFlashMessage(message);
     };
 
     const onSuccess = () => {
@@ -388,12 +389,18 @@ class MediaCondensedComponent extends Component {
   }
 }
 
-MediaCondensedComponent.contextTypes = {
-  store: PropTypes.object,
-  setMessage: PropTypes.func,
+MediaCondensedComponent.propTypes = {
+  intl: PropTypes.object.isRequired,
+  setFlashMessage: PropTypes.func.isRequired,
 };
 
-const MediaCondensedContainer = Relay.createContainer(MediaCondensedComponent, {
+MediaCondensedComponent.contextTypes = {
+  store: PropTypes.object,
+};
+
+const ConnectedMediaCondensedComponent = withSetFlashMessage(injectIntl(MediaCondensedComponent));
+
+const MediaCondensedContainer = Relay.createContainer(ConnectedMediaCondensedComponent, {
   initialVariables: {
     contextId: null,
   },
@@ -457,4 +464,4 @@ const MediaCondensed = (props) => {
   );
 };
 
-export default injectIntl(MediaCondensed);
+export default MediaCondensed;

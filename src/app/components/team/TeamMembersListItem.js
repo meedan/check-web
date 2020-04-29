@@ -19,6 +19,7 @@ import UpdateTeamUserMutation from '../../relay/mutations/UpdateTeamUserMutation
 import UserTooltip from '../user/UserTooltip';
 import { getErrorMessage } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
+import { withSetFlashMessage } from '../FlashMessage';
 import globalStrings from '../../globalStrings';
 import {
   AlignOpposite,
@@ -64,7 +65,7 @@ class TeamMembersListItem extends Component {
   fail = (transaction) => {
     const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
     const message = getErrorMessage(transaction, fallbackMessage);
-    this.context.setMessage(message);
+    this.props.setFlashMessage(message);
   };
 
   handleDeleteTeamUser() {
@@ -296,14 +297,12 @@ class TeamMembersListItem extends Component {
 }
 
 TeamMembersListItem.propTypes = {
-  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
-  // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
+  setFlashMessage: PropTypes.func.isRequired,
 };
 
 TeamMembersListItem.contextTypes = {
-  setMessage: PropTypes.func,
   store: PropTypes.object,
 };
 
-export default injectIntl(TeamMembersListItem);
+export default withSetFlashMessage(injectIntl(TeamMembersListItem));

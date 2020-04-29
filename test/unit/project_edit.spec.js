@@ -1,7 +1,21 @@
 import React from 'react';
+import { FlashMessageSetterContext } from '../../src/app/components/FlashMessage';
 import { mountWithIntl, getStore } from './helpers/intl-test';
 
-import { ProjectEditComponent, ProjectEditComponentWithIntl } from '../../src/app/components/project/ProjectEdit';
+import { ProjectEditComponent, ConnectedProjectEditComponent } from '../../src/app/components/project/ProjectEdit';
+
+/**
+ * Return { wrapper: <ConnectedProjectEditComponent {...props}>, setFlashMessage: spy() }.
+ */
+const createWrapper = (props) => {
+  const setFlashMessage = jest.fn();
+  const wrapper = mountWithIntl(
+    <FlashMessageSetterContext.Provider value={setFlashMessage}>
+      <ConnectedProjectEditComponent {...props} />
+    </FlashMessageSetterContext.Provider>
+  );
+  return { wrapper, setFlashMessage };
+};
 
 describe('<ProjectEditComponent />', () => {
   it('forbids empty title', function() {
@@ -9,7 +23,7 @@ describe('<ProjectEditComponent />', () => {
     getStore().team = team;
     getStore().dispatch = () => {};
 
-    const wrapper = mountWithIntl(<ProjectEditComponentWithIntl project={{ title: 'Project', description: 'Description', team }} />);
+    const { wrapper } = createWrapper({ project: { title: 'Project', description: 'Description', team } });
     let ProjectEdit = wrapper.find(ProjectEditComponent);
 
     let saveButton = wrapper.find('.project-edit__editing-button--save button');
@@ -32,7 +46,7 @@ describe('<ProjectEditComponent />', () => {
     getStore().team = team;
     getStore().dispatch = () => {};
 
-    const wrapper = mountWithIntl(<ProjectEditComponentWithIntl project={{ title: 'Project', description: 'Description', team }} />);
+    const { wrapper } = createWrapper({ project: { title: 'Project', description: 'Description', team } });
     let ProjectEdit = wrapper.find(ProjectEditComponent);
 
     let saveButton = wrapper.find('.project-edit__editing-button--save button');
@@ -55,7 +69,7 @@ describe('<ProjectEditComponent />', () => {
     getStore().team = team;
     getStore().dispatch = () => {};
 
-    const wrapper = mountWithIntl(<ProjectEditComponentWithIntl project={{ title: 'Project', description: 'Description', team }} />);
+    const { wrapper } = createWrapper({ project: { title: 'Project', description: 'Description', team } });
     let ProjectEdit = wrapper.find(ProjectEditComponent);
 
     let saveButton = wrapper.find('.project-edit__editing-button--save button');

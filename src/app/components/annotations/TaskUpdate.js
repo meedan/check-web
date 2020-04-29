@@ -3,19 +3,6 @@ import { FormattedMessage } from 'react-intl';
 import ParsedText from '../ParsedText';
 
 class TaskUpdate extends React.Component {
-  componentWillUpdate() {
-    this.editedTitle = false;
-    this.editedNote = false;
-    this.createdNote = false;
-    this.changedAssignment = false;
-    this.removedAssignment = false;
-    this.addedComment = false;
-    this.removedComment = false;
-    this.isNowRequired = false;
-    this.isNotRequired = false;
-    this.changedJsonSchema = false;
-  }
-
   shouldLogChange(activity) {
     const changes = JSON.parse(activity.object_changes_json);
 
@@ -68,7 +55,21 @@ class TaskUpdate extends React.Component {
   render() {
     const { authorName: author, activity } = this.props;
 
-    if (this.shouldLogChange(activity)) {
+    // TODO nix all these properties and shouldLogChange(). A better approach:
+    // make the if-statements construct an Array of child React.Components.
+    this.editedTitle = false;
+    this.editedNote = false;
+    this.createdNote = false;
+    this.changedAssignment = false;
+    this.removedAssignment = false;
+    this.addedComment = false;
+    this.removedComment = false;
+    this.isNowRequired = false;
+    this.isNotRequired = false;
+    this.changedJsonSchema = false;
+    const shouldLog = this.shouldLogChange(activity); // modifies all the properties.
+
+    if (shouldLog) {
       let title = '';
       let comment = '';
       let assigneeFrom = null;

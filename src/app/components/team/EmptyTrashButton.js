@@ -9,6 +9,7 @@ import TeamRoute from '../../relay/TeamRoute';
 import UpdateTeamMutation from '../../relay/mutations/UpdateTeamMutation';
 import Can from '../Can';
 import { getErrorMessage } from '../../helpers';
+import { withSetFlashMessage } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
 import globalStrings from '../../globalStrings';
 
@@ -48,7 +49,7 @@ class EmptyTrashComponent extends Component {
         const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
         const message = getErrorMessage(transaction, fallbackMessage);
         this.setState({ emptyTrashDisabled: false });
-        this.context.setMessage(message);
+        this.props.setFlashMessage(message);
       };
 
       const onSuccess = () => {
@@ -103,9 +104,12 @@ class EmptyTrashComponent extends Component {
   }
 }
 
+EmptyTrashComponent.propTypes = {
+  setFlashMessage: PropTypes.func.isRequired,
+};
+
 EmptyTrashComponent.contextTypes = {
   store: PropTypes.object,
-  setMessage: PropTypes.func,
 };
 
 const EmptyTrashContainer = Relay.createContainer(EmptyTrashComponent, {
@@ -138,4 +142,4 @@ const EmptyTrashButton = (props) => {
   );
 };
 
-export default injectIntl(EmptyTrashButton);
+export default withSetFlashMessage(injectIntl(EmptyTrashButton));

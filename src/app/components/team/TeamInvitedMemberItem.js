@@ -9,6 +9,7 @@ import '../../styles/css/tooltip.css';
 import ResendCancelInvitationMutation from '../../relay/mutations/ResendCancelInvitationMutation';
 import { getErrorMessage } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
+import { withSetFlashMessage } from '../FlashMessage';
 import globalStrings from '../../globalStrings';
 import {
   AlignOpposite,
@@ -22,7 +23,7 @@ class TeamInvitedMemberItem extends Component {
     const onFailure = (transaction) => {
       const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
       const message = getErrorMessage(transaction, fallbackMessage);
-      this.context.setMessage(message);
+      this.props.setFlashMessage(message);
     };
 
     const onSuccess = () => {
@@ -33,7 +34,7 @@ class TeamInvitedMemberItem extends Component {
             defaultMessage="Invitation was sent successfully"
           />
         );
-        this.context.setMessage(message);
+        this.props.setFlashMessage(message);
       }
     };
 
@@ -85,8 +86,12 @@ class TeamInvitedMemberItem extends Component {
   }
 }
 
+TeamInvitedMemberItem.propTypes = {
+  setFlashMessage: PropTypes.func.isRequired,
+};
+
 TeamInvitedMemberItem.contextTypes = {
   store: PropTypes.object,
-  setMessage: PropTypes.func,
 };
-export default injectIntl(TeamInvitedMemberItem);
+
+export default withSetFlashMessage(injectIntl(TeamInvitedMemberItem));

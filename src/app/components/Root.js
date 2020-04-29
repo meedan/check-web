@@ -5,7 +5,7 @@ import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import ReactGA from 'react-ga';
 import { IntlProvider } from 'react-intl';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
-import App from './App';
+import Home from './Home';
 import RootLocale from './RootLocale';
 import NotFound from './NotFound';
 import AccessDenied from './AccessDenied';
@@ -31,7 +31,6 @@ import ProjectEdit from './project/ProjectEdit';
 import Search from './search/Search';
 import BotGarden from './BotGarden';
 import Bot from './Bot';
-import CheckContext from '../CheckContext';
 
 class Root extends Component {
   static logPageView() {
@@ -45,10 +44,6 @@ class Root extends Component {
     store: PropTypes.object.isRequired,
   };
 
-  componentWillMount() {
-    this.setStore();
-  }
-
   // eslint-disable-next-line class-methods-use-this
   componentDidMount() {
     if (config.googleAnalyticsCode) {
@@ -56,33 +51,17 @@ class Root extends Component {
     }
   }
 
-  componentWillUpdate() {
-    this.setStore();
-  }
-
-  getContext() {
-    return new CheckContext(this);
-  }
-
-  setStore() {
-    const context = this.getContext();
-    const store = context.store || this.props.store;
-    const data = {};
-    context.setContextStore(data, store);
-    this.setState(data);
-  }
-
   render() {
     const { store, translations, locale } = this.props;
     window.Check = { store };
 
     return (
-      <div>
+      <React.Fragment>
         <RootLocale locale={locale} />
         <IntlProvider locale={locale} messages={translations}>
           <Provider store={store}>
             <Router history={browserHistory} onUpdate={Root.logPageView}>
-              <Route path="/" component={App}>
+              <Route path="/" component={Home}>
                 <IndexRoute component={Team} />
                 <Route path="check/user/already-confirmed" component={UserAlreadyConfirmed} public />
                 <Route path="check/user/confirmed" component={UserConfirmed} public />
@@ -124,7 +103,7 @@ class Root extends Component {
             </Router>
           </Provider>
         </IntlProvider>
-      </div>
+      </React.Fragment>
     );
   }
 }

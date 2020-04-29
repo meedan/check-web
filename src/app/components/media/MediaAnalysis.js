@@ -6,6 +6,7 @@ import TextField from 'material-ui/TextField';
 import Button from '@material-ui/core/Button';
 import MediaRoute from '../../relay/MediaRoute';
 import { can } from '../Can';
+import { withSetFlashMessage } from '../FlashMessage';
 import CreateAnalysisMutation from '../../relay/mutations/CreateAnalysisMutation';
 import UpdateAnalysisMutation from '../../relay/mutations/UpdateAnalysisMutation';
 import { units } from '../../styles/js/shared';
@@ -38,7 +39,7 @@ class MediaAnalysisComponent extends Component {
           supportEmail: stringHelper('SUPPORT_EMAIL'),
         }}
       />);
-      this.context.setMessage(message);
+      this.props.setFlashMessage(message);
       this.setState({ saving: false });
     };
 
@@ -87,7 +88,7 @@ class MediaAnalysisComponent extends Component {
   }
 
   handleChange(event, newValue) {
-    this.context.setMessage(null);
+    this.props.setFlashMessage(null);
     const canSave = (newValue.trim().length > 0);
     this.setState({ value: newValue, canSave });
   }
@@ -141,12 +142,15 @@ class MediaAnalysisComponent extends Component {
   }
 }
 
-MediaAnalysisComponent.contextTypes = {
-  store: PropTypes.object,
-  setMessage: PropTypes.func,
+MediaAnalysisComponent.propTypes = {
+  setFlashMessage: PropTypes.func.isRequired,
 };
 
-const MediaAnalysisContainer = Relay.createContainer(MediaAnalysisComponent, {
+MediaAnalysisComponent.contextTypes = {
+  store: PropTypes.object,
+};
+
+const MediaAnalysisContainer = Relay.createContainer(withSetFlashMessage(MediaAnalysisComponent), {
   initialVariables: {
     contextId: null,
   },
