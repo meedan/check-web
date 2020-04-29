@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import TextField from 'material-ui/TextField';
+import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import { DatePicker } from '@material-ui/pickers';
@@ -212,8 +212,6 @@ class DatetimeRespondTask extends Component {
       </p>
     );
 
-    console.log('this.state.date', this.state.date);
-
     return (
       <div>
         <FlexRow style={styles.row}>
@@ -255,11 +253,14 @@ class DatetimeRespondTask extends Component {
             >
               <TextField
                 name="hour"
-                hintText="HH"
-                maxLength="2"
+                placeholder="HH"
+                inputProps={{
+                  maxLength: 2,
+                  style: {
+                    textAlign: 'center',
+                  },
+                }}
                 style={styles.time}
-                inputStyle={styles.time}
-                hintStyle={styles.time}
                 value={this.state.hour}
                 onChange={this.handleChangeTime.bind(this, 'hour')}
                 onFocus={() => { this.setState({ focus: true }); }}
@@ -267,11 +268,14 @@ class DatetimeRespondTask extends Component {
               <div>:</div>{' '}
               <TextField
                 name="minute"
-                hintText="MM"
-                maxLength="2"
+                placeholder="MM"
+                inputProps={{
+                  maxLength: 2,
+                  style: {
+                    textAlign: 'center',
+                  },
+                }}
                 style={styles.time}
-                inputStyle={styles.time}
-                hintStyle={styles.time}
                 value={this.state.minute}
                 onChange={this.handleChangeTime.bind(this, 'minute')}
                 onFocus={() => { this.setState({ focus: true }); }}

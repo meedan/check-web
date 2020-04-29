@@ -12,6 +12,14 @@
     "defaultMessage": "Sorry, an error occurred while updating the task. Please try again and contact {supportEmail} if the condition persists."
   },
   {
+    "id": "geolocationRespondTask.placeName",
+    "defaultMessage": "Customize place name"
+  },
+  {
+    "id": "geolocationRespondTask.coordinates",
+    "defaultMessage": "Latitude, Longitude"
+  },
+  {
     "id": "geolocationRespondTask.cancelTask",
     "defaultMessage": "Cancel"
   },
@@ -22,13 +30,5 @@
   {
     "id": "geolocationRespondTask.searchMap",
     "defaultMessage": "Search the map"
-  },
-  {
-    "id": "geolocationRespondTask.placeName",
-    "defaultMessage": "Customize place name"
-  },
-  {
-    "id": "geolocationRespondTask.coordinates",
-    "defaultMessage": "Latitude, Longitude"
   }
 ]

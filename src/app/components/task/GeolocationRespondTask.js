@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import AutoComplete from 'material-ui/AutoComplete';
-import TextField from 'material-ui/TextField';
+import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
 import { Map, Marker, TileLayer } from 'react-leaflet';
@@ -21,15 +21,17 @@ const messages = defineMessages({
     id: 'geoLocationRespondTask.error',
     defaultMessage: 'Sorry, an error occurred while updating the task. Please try again and contact {supportEmail} if the condition persists.',
   },
+  placeName: {
+    id: 'geolocationRespondTask.placeName',
+    defaultMessage: 'Customize place name',
+  },
+  coordinates: {
+    id: 'geolocationRespondTask.coordinates',
+    defaultMessage: 'Latitude, Longitude',
+  },
 });
 
 class GeolocationRespondTask extends Component {
-  static canSubmit() {
-    // TODO Use React ref
-    const { value } = document.getElementById('task__response-geolocation-name');
-    return value && value.length;
-  }
-
   constructor(props) {
     super(props);
 
@@ -91,6 +93,15 @@ class GeolocationRespondTask extends Component {
     return coordinates;
   }
 
+  setTaskAnswerDisabled = () => {
+    const taskAnswerDisabled = !this.canSubmit();
+    this.setState({ taskAnswerDisabled });
+  };
+
+  canSubmit() {
+    return this.state.name && this.state.name.trim();
+  }
+
   toggleDraggable() {
     this.setState({ draggable: !this.state.draggable });
   }
@@ -117,17 +128,16 @@ class GeolocationRespondTask extends Component {
   }
 
   handlePressButton() {
-    if (GeolocationRespondTask.canSubmit()) {
+    if (this.canSubmit()) {
       this.handleSubmit();
     }
   }
 
   handleChange(e) {
     this.setState({
-      taskAnswerDisabled: !GeolocationRespondTask.canSubmit(),
       name: e.target.value,
       message: '',
-    });
+    }, this.setTaskAnswerDisabled);
   }
 
   handleSearchText(query) {
@@ -145,9 +155,8 @@ class GeolocationRespondTask extends Component {
 
   handleChangeCoordinates(e) {
     this.setState({
-      taskAnswerDisabled: !GeolocationRespondTask.canSubmit(),
       coordinatesString: e.target.value,
-    });
+    }, this.setTaskAnswerDisabled);
 
     const keystrokeWait = 1000;
 
@@ -164,16 +173,15 @@ class GeolocationRespondTask extends Component {
   handleBlur() {
     const coordinates = this.getCoordinates();
     this.setState({
-      taskAnswerDisabled: !GeolocationRespondTask.canSubmit(),
       lat: coordinates[0],
       lng: coordinates[1],
-    });
+    }, this.setTaskAnswerDisabled);
     this.autoComplete.setState({ searchText: '' });
   }
 
   handleSubmit() {
     if (!this.state.taskAnswerDisabled) {
-      const name = document.getElementById('task__response-geolocation-name').value;
+      const name = this.state.name.trim();
       const coordinates = this.getCoordinates();
 
       const response = JSON.stringify({
@@ -315,34 +323,26 @@ class GeolocationRespondTask extends Component {
         <TextField
           id="task__response-geolocation-name"
           className="task__response-input"
-          floatingLabelText={
-            <FormattedMessage
-              id="geolocationRespondTask.placeName"
-              defaultMessage="Customize place name"
-            />
-          }
+          label={this.props.intl.formatMessage(messages.placeName)}
           name="response"
           value={this.state.name}
           onChange={this.handleChange.bind(this)}
           onFocus={() => { this.setState({ focus: true }); }}
           fullWidth
-          multiLine
+          multiline
+          margin="normal"
         />
         <TextField
           id="task__response-geolocation-coordinates"
           className="task__response-coordinates-input"
-          floatingLabelText={
-            <FormattedMessage
-              id="geolocationRespondTask.coordinates"
-              defaultMessage="Latitude, Longitude"
-            />
-          }
+          label={this.props.intl.formatMessage(messages.coordinates)}
           name="coordinates"
           onChange={this.handleChangeCoordinates.bind(this)}
           onFocus={() => { this.setState({ focus: true }); }}
           onBlur={this.handleBlur.bind(this)}
           value={this.state.coordinatesString}
           fullWidth
+          margin="normal"
         />
         <div>
           <Map
