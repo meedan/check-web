@@ -1,5 +1,4 @@
 import React from 'react';
-import { expect } from 'chai';
 import { mountWithIntl } from './helpers/intl-test';
 
 import AccountCard from '../../src/app/components/source/AccountCard';
@@ -9,13 +8,13 @@ describe('<AccountCard />', () => {
 
   it('renders name, description and avatar', () => {
     const accountChips = mountWithIntl(<AccountCard account={account} />);
-    expect(accountChips.find('.source-card__name').html()).to.contain(account.metadata.name);
-    expect(accountChips.find('.source-card__description').html()).to.contain(account.metadata.description);
+    expect(accountChips.find('.source-card__name').html()).toMatch(account.metadata.name);
+    expect(accountChips.find('.source-card__description').html()).toMatch(account.metadata.description);
   });
 
   it('links to account\'s URL', () => {
     const accountChips = mountWithIntl(<AccountCard account={account} />);
-    expect(accountChips.find('.source-card__name').html()).to.contain(`<a href="${account.metadata.url}"`);
-    expect(accountChips.find('.source-card__url').html()).to.contain(`<a href="${account.metadata.url}"`);
+    expect(accountChips.find('.source-card__name').html()).toMatch(`<a href="${account.metadata.url}"`);
+    expect(accountChips.find('.source-card__url').html()).toMatch(`<a href="${account.metadata.url}"`);
   });
 });

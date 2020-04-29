@@ -1,5 +1,4 @@
 import React from 'react';
-import { expect } from 'chai';
 import { mountWithIntl, getStore } from './helpers/intl-test';
 
 import { ProjectEditComponent, ProjectEditComponentWithIntl } from '../../src/app/components/project/ProjectEdit';
@@ -14,18 +13,18 @@ describe('<ProjectEditComponent />', () => {
     let ProjectEdit = wrapper.find(ProjectEditComponent);
 
     let saveButton = wrapper.find('.project-edit__editing-button--save button');
-    expect(saveButton.prop('disabled')).to.equal(true);
+    expect(saveButton.prop('disabled')).toEqual(true);
 
     let descriptionField = wrapper.find('#project-title-field').at(1);
-    expect(descriptionField.prop('value')).to.equal('Project');
+    expect(descriptionField.prop('value')).toEqual('Project');
 
     ProjectEdit.setState({ title: '' });
 
     descriptionField = wrapper.find('#project-title-field').at(1);
-    expect(descriptionField.prop('value')).to.equal('');
+    expect(descriptionField.prop('value')).toEqual('');
 
     saveButton = wrapper.find('.project-edit__editing-button--save button');
-    expect(saveButton.prop('disabled')).to.equal(true);
+    expect(saveButton.prop('disabled')).toEqual(true);
   });
 
   it('allows editing title', function() {
@@ -37,18 +36,18 @@ describe('<ProjectEditComponent />', () => {
     let ProjectEdit = wrapper.find(ProjectEditComponent);
 
     let saveButton = wrapper.find('.project-edit__editing-button--save button');
-    expect(saveButton.prop('disabled')).to.equal(true);
+    expect(saveButton.prop('disabled')).toEqual(true);
 
     let descriptionField = wrapper.find('#project-title-field').at(1);
-    expect(descriptionField.prop('value')).to.equal('Project');
+    expect(descriptionField.prop('value')).toEqual('Project');
 
     ProjectEdit.setState({ title: 'Edited project' });
 
     descriptionField = wrapper.find('#project-title-field').at(1);
-    expect(descriptionField.prop('value')).to.equal('Edited project');
+    expect(descriptionField.prop('value')).toEqual('Edited project');
 
     saveButton = wrapper.find('.project-edit__editing-button--save button');
-    expect(saveButton.prop('disabled')).to.equal(false);
+    expect(saveButton.prop('disabled')).toEqual(false);
   });
 
   it('allows editing description', function() {
@@ -60,17 +59,17 @@ describe('<ProjectEditComponent />', () => {
     let ProjectEdit = wrapper.find(ProjectEditComponent);
 
     let saveButton = wrapper.find('.project-edit__editing-button--save button');
-    expect(saveButton.prop('disabled')).to.equal(true);
+    expect(saveButton.prop('disabled')).toEqual(true);
 
     let descriptionField = wrapper.find('#project-description-field').at(1);
-    expect(descriptionField.prop('value')).to.equal('Description');
+    expect(descriptionField.prop('value')).toEqual('Description');
 
     ProjectEdit.setState({ description: 'Edited description' });
 
     descriptionField = wrapper.find('#project-description-field').at(1);
-    expect(descriptionField.prop('value')).to.equal('Edited description');
+    expect(descriptionField.prop('value')).toEqual('Edited description');
 
     saveButton = wrapper.find('.project-edit__editing-button--save button');
-    expect(saveButton.prop('disabled')).to.equal(false);
+    expect(saveButton.prop('disabled')).toEqual(false);
   });
 });

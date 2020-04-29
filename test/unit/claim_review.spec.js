@@ -1,6 +1,5 @@
 import React from 'react';
 import { mountWithIntl } from './helpers/intl-test';
-import { expect } from 'chai';
 import ClaimReview from '../../src/app/components/media/ClaimReview';
 
 describe('<ClaimReview />', () => {
@@ -39,20 +38,20 @@ describe('<ClaimReview />', () => {
 
   it('should render claim reviews with full data', function() {
     const claimReview = mountWithIntl(<ClaimReview data={data} />);
-    expect(claimReview.text()).to.contain('Today, 27 million people .. are enslaved.');
-    expect(claimReview.text()).to.contain('Bob Corker');
-    expect(claimReview.text()).to.contain('Mostly True');
-    expect(claimReview.text()).to.contain('PolitiFact');
+    expect(claimReview.text()).toMatch('Today, 27 million people .. are enslaved.');
+    expect(claimReview.text()).toMatch('Bob Corker');
+    expect(claimReview.text()).toMatch('Mostly True');
+    expect(claimReview.text()).toMatch('PolitiFact');
   });
 
   it('should render claim reviews with incomplete data', function() {
     delete data.reviewRating.alternateName;
     delete data.author.name;
     const claimReview = mountWithIntl(<ClaimReview data={data} />);
-    expect(claimReview.text()).to.contain('Today, 27 million people .. are enslaved.');
-    expect(claimReview.text()).to.contain('Bob Corker');
-    expect(claimReview.text()).to.contain('5 (1-7)');
-    expect(claimReview.text()).to.contain('www.politifact.com');
+    expect(claimReview.text()).toMatch('Today, 27 million people .. are enslaved.');
+    expect(claimReview.text()).toMatch('Bob Corker');
+    expect(claimReview.text()).toMatch('5 (1-7)');
+    expect(claimReview.text()).toMatch('www.politifact.com');
   });
 
   it('should not crash with missing data', function() {
@@ -60,6 +59,6 @@ describe('<ClaimReview />', () => {
     delete data.author;
     delete data.itemReviewed;
     const claimReview = mountWithIntl(<ClaimReview data={data} />);
-    expect(claimReview.html()).to.equal('');
+    expect(claimReview.html()).toEqual('');
   });
 });

@@ -1,7 +1,6 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import { expect } from 'chai';
 import { render } from 'enzyme';
 
 import Annotation from '../../src/app/components/annotations/Annotation';
@@ -34,7 +33,7 @@ describe('<Annotation />', () => {
   it('should render annotation updated_at time', () => {
     const wrapper = render(<IntlProvider locale="en"><MuiThemeProvider><Annotation annotation={activity} annotated={annotated} annotatedType={'ProjectMedia'} /></MuiThemeProvider></IntlProvider>);
     const container = wrapper.find('.annotation__timestamp > time');
-    expect(container.length).to.equal(1);
-    expect(container.prop('title')).to.contain('2017-02-08');
+    expect(container.length).toEqual(1);
+    expect(container.prop('title')).toMatch('2017-02-08');
   });
 });

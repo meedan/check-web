@@ -1,7 +1,6 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl';
 import { mountWithIntl } from './helpers/intl-test';
-import { expect } from 'chai';
 import CreateTeamTask from '../../src/app/components/team/CreateTeamTask';
 
 describe('<CreateTeamTask />', () => {
@@ -9,6 +8,6 @@ describe('<CreateTeamTask />', () => {
     const wrapper = mountWithIntl(
       <CreateTeamTask />
     );
-    expect(wrapper.find('.create-task__add-button').hostNodes()).to.have.length(1);
+    expect(wrapper.find('.create-task__add-button').hostNodes()).toHaveLength(1);
   });
 });
