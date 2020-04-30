@@ -21,6 +21,7 @@ import UpdateStatusMutation from '../../relay/mutations/UpdateStatusMutation';
 import MoveDialog from './MoveDialog';
 import CheckContext from '../../CheckContext';
 import globalStrings from '../../globalStrings';
+import { withSetFlashMessage } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
 import { nested, getErrorMessage } from '../../helpers';
 
@@ -103,7 +104,7 @@ class MediaActionsBarComponent extends Component {
           }}
         />
       );
-      this.context.setMessage(message);
+      this.props.setFlashMessage(message);
     };
 
     const context = this.getContext();
@@ -127,7 +128,7 @@ class MediaActionsBarComponent extends Component {
   fail(transaction) {
     const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
     const message = getErrorMessage(transaction, fallbackMessage);
-    this.context.setMessage(message);
+    this.props.setFlashMessage(message);
   }
 
   handleMoveProjectMedia() {
@@ -170,7 +171,7 @@ class MediaActionsBarComponent extends Component {
           defaultMessage="Removed from list"
         />
       );
-      this.context.setMessage(message);
+      this.props.setFlashMessage(message);
       const path = `/${media.team.slug}/media/${media.dbid}`;
       browserHistory.push(path);
     };
@@ -224,7 +225,7 @@ class MediaActionsBarComponent extends Component {
     const onFailure = (transaction) => {
       const fallbackMessage = this.props.intl.formatMessage(messages.editReportError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
       const message = getErrorMessage(transaction, fallbackMessage);
-      this.context.setMessage(message);
+      this.props.setFlashMessage(message);
     };
 
     if (this.canSubmit()) {
@@ -257,7 +258,7 @@ class MediaActionsBarComponent extends Component {
           }}
         />
       );
-      this.context.setMessage(message);
+      this.props.setFlashMessage(message);
     };
 
     const context = this.getContext();
@@ -347,7 +348,7 @@ class MediaActionsBarComponent extends Component {
           defaultMessage="Assignments updated successfully!"
         />
       );
-      this.context.setMessage(message);
+      this.props.setFlashMessage(message);
     };
 
     const status_id = media.last_status_obj ? media.last_status_obj.id : '';
@@ -387,7 +388,7 @@ class MediaActionsBarComponent extends Component {
           }}
         />
       );
-      this.context.setMessage(message);
+      this.props.setFlashMessage(message);
     };
 
     const context = this.getContext();
@@ -556,6 +557,7 @@ class MediaActionsBarComponent extends Component {
         { !media.archived ?
           <div>
             <Button
+              id="media-actions-bar__add-to"
               variant="contained"
               style={{ margin: '0 8px' }}
               color="primary"
@@ -568,6 +570,7 @@ class MediaActionsBarComponent extends Component {
             </Button>
 
             <Button
+              id="media-actions-bar__move-to"
               variant="contained"
               style={{ margin: '0 8px' }}
               color="primary"
@@ -581,6 +584,7 @@ class MediaActionsBarComponent extends Component {
 
             { media.project_id ?
               <Button
+                id="media-actions-bar__remove-from-list"
                 style={{
                   margin: '0 8px',
                   border: '1px solid #000',
@@ -701,12 +705,18 @@ class MediaActionsBarComponent extends Component {
   }
 }
 
-MediaActionsBarComponent.contextTypes = {
-  store: PropTypes.object,
-  setMessage: PropTypes.func,
+MediaActionsBarComponent.propTypes = {
+  intl: PropTypes.object.isRequired,
+  setFlashMessage: PropTypes.func.isRequired,
 };
 
-const MediaActionsBarContainer = Relay.createContainer(MediaActionsBarComponent, {
+MediaActionsBarComponent.contextTypes = {
+  store: PropTypes.object,
+};
+
+const ConnectedMediaActionsBarComponent = withSetFlashMessage(injectIntl(MediaActionsBarComponent));
+
+const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarComponent, {
   initialVariables: {
     contextId: null,
   },
@@ -830,4 +840,4 @@ class MediaActionsBar extends React.PureComponent {
   }
 }
 
-export default injectIntl(MediaActionsBar);
+export default MediaActionsBar;

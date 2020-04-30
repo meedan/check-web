@@ -1,6 +1,4 @@
 import React from 'react';
-import { expect } from 'chai';
-import * as sinon from 'sinon';
 import DrawerNavigationComponent from '../../src/app/components/DrawerNavigationComponent';
 import DrawerProjects from '../../src/app/components/drawer/Projects';
 import UserMenuItems from '../../src/app/components/UserMenuItems';
@@ -34,7 +32,7 @@ describe('<DrawerNavigationComponent />', () => {
     getStore().currentUser = currentUser;
     getStore().team = privateTeam;
     getStore().dispatch = () => {};
-    const pusher = { subscribe: sinon.stub().returns(sinon.spy()), unsubscribe: sinon.spy() };
+    const pusher = { subscribe: jest.fn(() => ({ bind: jest.fn() })), unsubscribe: jest.fn() };
     const header = mountWithIntl(
       <DrawerNavigationComponent
         inTeamContext
@@ -47,13 +45,13 @@ describe('<DrawerNavigationComponent />', () => {
         classes={{paper: {}}}
       />,
     );
-    expect(header.find(DrawerProjects)).to.have.length(1);
+    expect(header.find(DrawerProjects)).toHaveLength(1);
   });
 
   it('does not render projects if user is logged in but not in a team context', () => {
     const location = { pathname: '/' };
     const params = { team: 'team' };
-    const pusher = { subscribe: sinon.stub().returns(sinon.spy()), unsubscribe: sinon.spy() };
+    const pusher = { subscribe: jest.fn(() => ({ bind: jest.fn() })), unsubscribe: jest.fn() };
     getStore().currentUser = currentUser;
     const header = mountWithIntl(
       <DrawerNavigationComponent
@@ -64,13 +62,13 @@ describe('<DrawerNavigationComponent />', () => {
         pusher={pusher}
       />,
     );
-    expect(header.find(DrawerProjects)).to.have.length(0);
+    expect(header.find(DrawerProjects)).toHaveLength(0);
   });
 
   it('does not render projects if user is logged in and in team context but not a member', () => {
     const location = { pathname: '/team/members' };
     const params = { team: 'team' };
-    const pusher = { subscribe: sinon.stub().returns(sinon.spy()), unsubscribe: sinon.spy() };
+    const pusher = { subscribe: jest.fn(() => ({ bind: jest.fn() })), unsubscribe: jest.fn() };
     getStore().currentUser = currentUser;
     getStore().team = privateTeam;
     getStore().dispatch = () => {};
@@ -86,13 +84,13 @@ describe('<DrawerNavigationComponent />', () => {
         pusher={pusher}
       />,
     );
-    expect(header.find(DrawerProjects)).to.have.length(0);
+    expect(header.find(DrawerProjects)).toHaveLength(0);
   });
 
   it('renders with projects in team context if user is not logged in and it is a public team', () => {
     const location = { pathname: '/team/members' };
     const params = { team: 'team' };
-    const pusher = { subscribe: sinon.stub().returns(sinon.spy()), unsubscribe: sinon.spy() };
+    const pusher = { subscribe: jest.fn(() => ({ bind: jest.fn() })), unsubscribe: jest.fn() };
     getStore().currentUser = undefined;
     getStore().team = publicTeam;
     getStore().dispatch = () => {};
@@ -109,13 +107,13 @@ describe('<DrawerNavigationComponent />', () => {
       />,
     );
 
-    expect(header.find(DrawerProjects)).to.have.length(1);
+    expect(header.find(DrawerProjects)).toHaveLength(1);
   });
 
   it('does not render UserMenuItems if user is not logged in', () => {
     const location = { pathname: '/team/members' };
     const params = { team: 'team' };
-    const pusher = { subscribe: sinon.stub().returns(sinon.spy()), unsubscribe: sinon.spy() };
+    const pusher = { subscribe: jest.fn(() => ({ bind: jest.fn() })), unsubscribe: jest.fn() };
     getStore().currentUser = currentUser;
     getStore().team = publicTeam;
     getStore().dispatch = () => {};
@@ -131,6 +129,6 @@ describe('<DrawerNavigationComponent />', () => {
         pusher={pusher}
       />,
     );
-    expect(header.find(UserMenuItems)).to.have.length(0);
+    expect(header.find(UserMenuItems)).toHaveLength(0);
   });
 });

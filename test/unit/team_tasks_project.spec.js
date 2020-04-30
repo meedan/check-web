@@ -1,7 +1,6 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl';
 import { mountWithIntl } from './helpers/intl-test';
-import { expect } from 'chai';
 import TeamTasksProject from '../../src/app/components/team/TeamTasksProject';
 
 const project = {
@@ -28,7 +27,7 @@ describe('<TeamTasksProject />', () => {
         project={project}
       />
     );
-    expect(wrapper.html()).to.equal(null);
+    expect(wrapper.html()).toEqual(null);
   });
 
   it('should render items if project has tasks', function() {
@@ -37,6 +36,6 @@ describe('<TeamTasksProject />', () => {
         project={projectWithTasks}
       />
     );
-    expect(wrapper.find('.team-tasks__list-item').hostNodes()).to.have.length(2);
+    expect(wrapper.find('.team-tasks__list-item').hostNodes()).toHaveLength(2);
   });
 });

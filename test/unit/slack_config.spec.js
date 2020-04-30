@@ -1,5 +1,4 @@
 import React from 'react';
-import { expect } from 'chai';
 import { mountWithIntl, getStore } from './helpers/intl-test';
 
 import SlackConfig from '../../src/app/components/team/SlackConfig';
@@ -27,7 +26,7 @@ describe('<SlackConfig />', () => {
         team={team}
       />
     );
-    expect(wrapper.html()).to.contain('Slack integration');
+    expect(wrapper.html()).toMatch('Slack integration');
   });
 
   it('should not render component for other team members', function() {
@@ -37,6 +36,6 @@ describe('<SlackConfig />', () => {
         team={team}
       />
     );
-    expect(wrapper.html()).to.equal('');
+    expect(wrapper.html()).toEqual('');
   });
 });

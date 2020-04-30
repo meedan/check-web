@@ -1,7 +1,6 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl';
 import { mountWithIntl } from './helpers/intl-test';
-import { expect } from 'chai';
 
 import TaskUpdate from '../../src/app/components/annotations/TaskUpdate';
 
@@ -23,21 +22,21 @@ describe('<TaskUpdate />', () => {
 
   it('should render empty string if no changes', function() {
     const wrapper = mountWithIntl(<TaskUpdate activity={activity_no_changes} authorName={authorName} />);
-    expect(wrapper.html()).to.equal(null);
+    expect(wrapper.html()).toEqual(null);
   });
 
   it('should render edited title entry', function() {
     const wrapper = mountWithIntl(<TaskUpdate activity={activity_edited_title} authorName={authorName} />);
-    expect(wrapper.html()).to.contain('Task edited by Felis Catus: New edited title');
+    expect(wrapper.html()).toMatch('Task edited by Felis Catus: New edited title');
   });
 
   it('should render edited note entry', function() {
     const wrapper = mountWithIntl(<TaskUpdate activity={activity_edited_description} authorName={authorName} />);
-    expect(wrapper.html()).to.contain('Task note edited by Felis Catus: Same old title');
+    expect(wrapper.html()).toMatch('Task note edited by Felis Catus: Same old title');
   });
 
   it('should render created note entry', function() {
     const wrapper = mountWithIntl(<TaskUpdate activity={activity_created_description} authorName={authorName} />);
-    expect(wrapper.html()).to.contain('Task note added by Felis Catus: Same old title');
+    expect(wrapper.html()).toMatch('Task note added by Felis Catus: Same old title');
   });
 });

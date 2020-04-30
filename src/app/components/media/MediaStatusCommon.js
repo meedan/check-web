@@ -11,6 +11,7 @@ import CheckContext from '../../CheckContext';
 import { getStatus, getStatusStyle, getErrorMessage, bemClass } from '../../helpers';
 import { mediaStatuses, mediaLastStatus, stringHelper } from '../../customHelpers';
 import { units, black87 } from '../../styles/js/shared';
+import { withSetFlashMessage } from '../FlashMessage';
 
 const messages = defineMessages({
   error: {
@@ -47,7 +48,7 @@ class MediaStatusCommon extends Component {
   fail = (transaction) => {
     const fallbackMessage = this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') });
     const message = getErrorMessage(transaction, fallbackMessage);
-    this.context.setMessage(message);
+    this.props.setFlashMessage(message);
   };
 
   // eslint-disable-next-line class-methods-use-this
@@ -133,11 +134,11 @@ MediaStatusCommon.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
+  setFlashMessage: PropTypes.func.isRequired,
 };
 
 MediaStatusCommon.contextTypes = {
   store: PropTypes.object,
-  setMessage: PropTypes.func,
 };
 
-export default injectIntl(MediaStatusCommon);
+export default withSetFlashMessage(injectIntl(MediaStatusCommon));

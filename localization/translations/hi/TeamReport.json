@@ -5,7 +5,7 @@
   "teamReport.title": "Default report settings",
   "teamReport.subtitle": "The content you set here can be edited in each individual report",
   "teamReport.introduction": "Introduction",
-  "teamReport.introductionSub": "Use {query_date} and {query_message} placeholders to display the original dates and the content of the original query dynamically. Use {status} to communicate the status of the claim.",
+  "teamReport.introductionSub": "Use {query_date} and {query_message} placeholders to display the date and content of the original query. Use {status} to communicate the status of the article.",
   "teamReport.disclaimer": "Disclaimer",
   "teamReport.disclaimerSub": "Disclaimer that will be shown at the bottom of the report with the workspace logo."
 }

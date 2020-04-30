@@ -1,0 +1,4 @@
+{
+  "appName": "check",
+  "restBaseUrl": "http://api:3000/"
+}

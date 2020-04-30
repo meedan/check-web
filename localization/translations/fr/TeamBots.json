@@ -5,7 +5,7 @@
   "teamBots.fail": "Une erreur s'est produite. Veuillez réessayer.",
   "teamBots.noBots": "Aucun robot installé.",
   "teamBots.moreInfo": "Plus d'informations",
-  "teamBots.remove": "Remove",
+  "teamBots.remove": "Supprimer",
   "teamBots.confirmDeleteTitle": "Vous êtes sur le point de désactiver {botName}",
   "teamBots.confirmDeleteBlurb": "Tous les paramètres seront supprimés et ne pourront pas être récupérés. Voulez-vous vraiment continuer?",
   "teamBots.settings": "Paramètres",

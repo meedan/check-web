@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-intl';
 import Relay from 'react-relay/classic';
-import { Link } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 import Popover from '@material-ui/core/Popover';
 import Button from '@material-ui/core/Button';
 import CopyToClipboard from 'react-copy-to-clipboard';
@@ -19,6 +19,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import TextField from '@material-ui/core/TextField';
 import HelpIcon from '@material-ui/icons/HelpOutline';
+import { SliderPicker } from 'react-color';
 import styled from 'styled-components';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import PageTitle from '../PageTitle';
@@ -35,7 +36,7 @@ import RelayContainer from '../../relay/RelayContainer';
 import ParsedText from '../ParsedText';
 import ConfirmDialog from '../layout/ConfirmDialog';
 import { getStatus, getStatusStyle } from '../../helpers';
-import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
+import { stringHelper, mediaStatuses, mediaLastStatus } from '../../customHelpers';
 import {
   black87,
   black54,
@@ -71,6 +72,10 @@ const messages = defineMessages({
     id: 'reportDesigner.textPlaceholder',
     defaultMessage: 'Type your report here...',
   },
+  confirmLeaveTitle: {
+    id: 'reportDesigner.confirmLeaveTitle',
+    defaultMessage: 'Close without saving?',
+  },
 });
 
 const StyledContainer = styled.div`
@@ -97,6 +102,12 @@ const StyledTwoColumnLayout = styled(ContentColumn)`
     max-width: 100%;
   }
 
+  #empty-report {
+    font-size: large;
+    line-height: 1.5em;
+    padding: ${units(2)};
+  }
+
   #editor {
     position: relative;
   }
@@ -110,11 +121,11 @@ const StyledTwoColumnLayout = styled(ContentColumn)`
       bottom: 0;
       background: white;
       opacity: 0.8;
-      z-index: 1;
+      z-index: 2;
     }
   }
 
-  #image-preview {
+  #image-preview, #empty-report {
     width: 504px;
     margin: ${units(2)} auto;
     border: 2px solid ${black32};
@@ -150,19 +161,6 @@ const StyledTwoColumnLayout = styled(ContentColumn)`
 
   #theme-selector {
     display: flex;
-  }
-
-  .theme-color {
-    display: block;
-    width: ${units(4)};
-    height: ${units(4)};
-    border-radius: 50%;
-    border: 0;
-    padding: 0;
-    cursor: pointer;
-    min-width: 0;
-    min-height: 0;
-    margin: ${units(1)};
   }
 `;
 
@@ -226,14 +224,20 @@ class ReportDesignerComponent extends Component {
     if (props.media.team.get_introduction && !options.introduction) {
       options.introduction = props.media.team.get_introduction;
     }
-    if (props.media.team.get_use_introduction && Object.keys(options).indexOf('use_introduction') === -1) {
-      options.use_introduction = true;
+    if (Object.keys(options).indexOf('use_introduction') === -1) {
+      options.use_introduction = !!props.media.team.get_use_introduction;
+    }
+    if (Object.keys(options).indexOf('use_visual_card') === -1) {
+      options.use_visual_card = false;
+    }
+    if (Object.keys(options).indexOf('use_text_message') === -1) {
+      options.use_text_message = false;
     }
     if (props.media.title && !options.headline) {
       options.headline = props.media.title.substring(0, 85);
     }
     if (props.media.description && !options.description) {
-      options.description = props.media.description.substring(0, 120);
+      options.description = props.media.description.substring(0, 240);
     }
     const status = getStatus(mediaStatuses(props.media), mediaLastStatus(props.media));
     if (status && status.label && !options.status_label) {
@@ -242,11 +246,14 @@ class ReportDesignerComponent extends Component {
     if (status && !options.theme_color) {
       options.theme_color = getStatusStyle(status, 'color');
     }
+    if (!options.image && props.media.media.picture) {
+      options.image = props.media.media.picture;
+    }
     const teamUrl = props.media.team.contacts.edges[0] ?
       props.media.team.contacts.edges[0].node.web :
       window.location.href.match(/https?:\/\/[^/]+\/[^/]+/)[0];
     if (teamUrl && !options.url) {
-      options.url = teamUrl.substring(0, 32);
+      options.url = teamUrl.substring(0, 40);
     }
     if (!options.state) {
       options.state = 'paused';
@@ -263,12 +270,40 @@ class ReportDesignerComponent extends Component {
       message: null,
       editing: false,
       image: null,
+      sectionExpanded: {
+        introduction: false,
+        visual_card: false,
+        text_message: false,
+      },
       showPublishConfirmationDialog: false,
       showPauseConfirmationDialog: false,
       showRepublishConfirmationDialog: false,
       showRepublishResendConfirmationDialog: false,
+      unsavedChanges: false,
+      showLeaveDialog: false,
+      nextLocation: null,
+      confirmedToLeave: false,
       options,
     };
+  }
+
+  componentDidMount() {
+    const { router } = this.props;
+    router.setRouteLeaveHook(
+      this.props.route,
+      (nextLocation) => {
+        if (this.state.unsavedChanges && !this.state.confirmedToLeave) {
+          this.setState({ showLeaveDialog: true, nextLocation });
+          return false;
+        }
+        return null;
+      },
+    );
+    window.addEventListener('beforeunload', this.confirmCloseBrowserWindow);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('beforeunload', this.confirmCloseBrowserWindow);
   }
 
   settingsEmpty() {
@@ -285,6 +320,16 @@ class ReportDesignerComponent extends Component {
     });
     return empty;
   }
+
+  confirmCloseBrowserWindow = (e) => {
+    if (this.state.unsavedChanges) {
+      const message = this.props.intl.formatMessage(messages.confirmLeaveTitle);
+      e.returnValue = message;
+      return message;
+    }
+    e.preventDefault();
+    return '';
+  };
 
   handleCodeMenuOpen(e) {
     e.preventDefault();
@@ -337,7 +382,7 @@ class ReportDesignerComponent extends Component {
 
   handleImage(image) {
     const options = Object.assign({}, this.state.options);
-    const state = { options, message: null };
+    const state = { options, message: null, unsavedChanges: true };
     if (typeof image === 'string') {
       state.image = null;
       state.options.image = image;
@@ -363,8 +408,8 @@ class ReportDesignerComponent extends Component {
 
   handleSelectColor(color) {
     const options = Object.assign({}, this.state.options);
-    options.theme_color = color;
-    this.setState({ options, message: null });
+    options.theme_color = color.hex;
+    this.setState({ options, message: null, unsavedChanges: true });
   }
 
   handleConfirmPublish() {
@@ -413,6 +458,7 @@ class ReportDesignerComponent extends Component {
       showPauseConfirmationDialog: false,
       showRepublishConfirmationDialog: false,
       showRepublishResendConfirmationDialog: false,
+      showLeaveDialog: false,
     });
   }
 
@@ -432,17 +478,28 @@ class ReportDesignerComponent extends Component {
     const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
     const options = Object.assign({}, this.state.options);
     options[field] = value;
-    this.setState({ options, message: null });
+    this.setState({ options, message: null, unsavedChanges: true });
   }
 
   handleSave(action) {
     const onFailure = () => {
-      const message = <FormattedMessage id="reportDesigner.error" defaultMessage="Could not save report" />;
+      const message = (<FormattedMessage
+        id="reportDesigner.error"
+        defaultMessage="Sorry, an error occurred while updating the report settings. Please try again and contact {supportEmail} if the condition persists."
+        values={{
+          supportEmail: stringHelper('SUPPORT_EMAIL'),
+        }}
+      />);
       this.setState({ pending: false, message });
     };
 
     const onSuccess = () => {
-      this.setState({ pending: false, editing: false, message: null });
+      this.setState({
+        pending: false,
+        editing: false,
+        message: null,
+        unsavedChanges: false,
+      });
     };
 
     const annotation = this.props.media.dynamic_annotation_report_design;
@@ -531,7 +588,32 @@ class ReportDesignerComponent extends Component {
       options.status_label = status.label.substring(0, 16);
       options.theme_color = getStatusStyle(status, 'color');
     }
-    this.setState({ options });
+    this.setState({ options, unsavedChanges: true });
+  }
+
+  enableCard(card, e) {
+    const options = Object.assign({}, this.state.options);
+    const sectionExpanded = Object.assign({}, this.state.sectionExpanded);
+    const value = e.target.checked;
+    options[`use_${card}`] = value;
+    sectionExpanded[card] = value;
+    this.setState({ options, sectionExpanded, unsavedChanges: true });
+  }
+
+  toggleSection(section, e) {
+    if (this.state.options[`use_${section}`]) {
+      const sectionExpanded = Object.assign({}, this.state.sectionExpanded);
+      sectionExpanded[section] = !sectionExpanded[section];
+      this.setState({ sectionExpanded });
+    }
+    e.stopPropagation();
+    e.preventDefault();
+  }
+
+  handleConfirmLeave() {
+    this.setState({ confirmedToLeave: true }, () => {
+      browserHistory.push(this.state.nextLocation);
+    });
   }
 
   render() {
@@ -635,7 +717,7 @@ class ReportDesignerComponent extends Component {
                   <IconButton>
                     <FadeIn>
                       <SlideIn>
-                        <IconArrowBack color={black54} />
+                        <IconArrowBack />
                       </SlideIn>
                     </FadeIn>
                   </IconButton>
@@ -717,36 +799,39 @@ class ReportDesignerComponent extends Component {
                       this.props.intl.formatMessage(messages.canPublish)
                   }
                 >
-                  <Button
-                    variant="contained"
-                    disabled={this.state.pending || empty}
-                    onClick={
-                      () => {
-                        if (options.last_published) {
-                          if (options.previous_published_status_label &&
-                            options.status_label !== options.previous_published_status_label) {
-                            this.handleConfirmRepublishResend();
+                  <span>
+                    <Button
+                      variant="contained"
+                      disabled={this.state.pending || empty}
+                      onClick={
+                        () => {
+                          if (options.last_published) {
+                            if (options.previous_published_status_label &&
+                              options.status_label !== options.previous_published_status_label) {
+                              this.handleConfirmRepublishResend();
+                            } else {
+                              this.handleConfirmRepublish();
+                            }
                           } else {
-                            this.handleConfirmRepublish();
+                            this.handleConfirmPublish();
                           }
-                        } else {
-                          this.handleConfirmPublish();
                         }
                       }
-                    }
-                    style={{
-                      background: completedGreen,
-                      color: '#FFFFFF',
-                      marginRight: units(1),
-                      marginLeft: units(1),
-                    }}
-                  >
-                    <IconPlay />
-                    <FormattedMessage
-                      id="reportDesigner.publish"
-                      defaultMessage="Publish"
-                    />
-                  </Button>
+                      style={{
+                        background: completedGreen,
+                        color: '#FFFFFF',
+                        marginRight: units(1),
+                        marginLeft: units(1),
+                        opacity: (empty ? 0.5 : 1),
+                      }}
+                    >
+                      <IconPlay />
+                      <FormattedMessage
+                        id="reportDesigner.publish"
+                        defaultMessage="Publish"
+                      />
+                    </Button>
+                  </span>
                 </Tooltip> : null }
               { (!this.state.editing && options.state === 'published') ?
                 <Tooltip title={this.props.intl.formatMessage(messages.pauseReport)}>
@@ -780,11 +865,11 @@ class ReportDesignerComponent extends Component {
               <h2>
                 <FormattedMessage
                   id="reportDesigner.preview"
-                  defaultMessage="Report Preview"
+                  defaultMessage="Preview"
                 />
               </h2>
               { empty ?
-                <div>
+                <div id="empty-report">
                   <FormattedMessage
                     id="reportDesigner.nothingToPreview"
                     defaultMessage="Start creating your report to preview what users will see when they receive it."
@@ -834,14 +919,20 @@ class ReportDesignerComponent extends Component {
                 </h2>
               </div>
               <div id="report-designer__customization-menu">
-                <ExpansionPanel TransitionProps={{ unmountOnExit: true }}>
-                  <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                <ExpansionPanel
+                  TransitionProps={{ unmountOnExit: true }}
+                  expanded={this.state.sectionExpanded.introduction}
+                >
+                  <ExpansionPanelSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    onClick={this.toggleSection.bind(this, 'introduction')}
+                  >
                     <FormControlLabel
                       onClick={event => event.stopPropagation()}
                       onFocus={event => event.stopPropagation()}
                       control={
                         <Checkbox
-                          onChange={this.handleChange.bind(this, 'use_introduction')}
+                          onChange={this.enableCard.bind(this, 'introduction')}
                           checked={options.use_introduction}
                         />
                       }
@@ -867,7 +958,7 @@ class ReportDesignerComponent extends Component {
                     <div style={{ lineHeight: '1.5em', marginTop: units(1) }}>
                       <FormattedMessage
                         id="reportDesigner.introductionSub"
-                        defaultMessage="Use {query_date} and {query_message} placeholders to display the original dates and the content of the original query dynamically. Use {status} to communicate the status of the claim."
+                        defaultMessage="Use {query_date} and {query_message} placeholders to display the date and content of the original query. Use {status} to communicate the status of the article."
                         values={{
                           query_date: '{{query_date}}',
                           query_message: '{{query_message}}',
@@ -881,14 +972,20 @@ class ReportDesignerComponent extends Component {
                   </ExpansionPanelDetails>
                 </ExpansionPanel>
 
-                <ExpansionPanel TransitionProps={{ unmountOnExit: true }}>
-                  <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                <ExpansionPanel
+                  TransitionProps={{ unmountOnExit: true }}
+                  expanded={this.state.sectionExpanded.visual_card}
+                >
+                  <ExpansionPanelSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    onClick={this.toggleSection.bind(this, 'visual_card')}
+                  >
                     <FormControlLabel
                       onClick={event => event.stopPropagation()}
                       onFocus={event => event.stopPropagation()}
                       control={
                         <Checkbox
-                          onChange={this.handleChange.bind(this, 'use_visual_card')}
+                          onChange={this.enableCard.bind(this, 'visual_card')}
                           checked={options.use_visual_card}
                         />
                       }
@@ -933,18 +1030,18 @@ class ReportDesignerComponent extends Component {
                       id="report-designer__description"
                       defaultValue={options.description}
                       onChange={this.handleChange.bind(this, 'description')}
-                      inputProps={{ maxLength: 120 }}
+                      inputProps={{ maxLength: 240 }}
                       style={{ marginBottom: units(4) }}
                       label={
                         <FormattedMessage
                           id="reportDesigner.description"
                           defaultMessage="Description - {max} characters max"
-                          values={{ max: 120 }}
+                          values={{ max: 240 }}
                         />
                       }
                       fullWidth
                       multiline
-                      rows={2}
+                      rows={6}
                     />
                     <TextField
                       id="report-designer__status"
@@ -978,27 +1075,24 @@ class ReportDesignerComponent extends Component {
                         }
                         fullWidth
                       />
-                      <div id="theme-selector">
-                        {['#afafaf', '#f83430', '#00be7a', '#a500dd', '#faa62e'].map(color => (
-                          <Button
-                            className="theme-color"
-                            style={{ backgroundColor: color }}
-                            onClick={this.handleSelectColor.bind(this, color)}
-                          />
-                        ))}
+                      <div style={{ width: 400, margin: `0 ${units(2)}` }}>
+                        <SliderPicker
+                          color={options.theme_color}
+                          onChangeComplete={this.handleSelectColor.bind(this)}
+                        />
                       </div>
                     </div>
                     <TextField
                       id="report-designer__url"
                       defaultValue={options.url}
                       onChange={this.handleChange.bind(this, 'url')}
-                      inputProps={{ maxLength: 32 }}
+                      inputProps={{ maxLength: 40 }}
                       style={{ marginBottom: units(4) }}
                       label={
                         <FormattedMessage
                           id="reportDesigner.url"
                           defaultMessage="URL - {max} characters max"
-                          values={{ max: 32 }}
+                          values={{ max: 40 }}
                         />
                       }
                       fullWidth
@@ -1006,14 +1100,20 @@ class ReportDesignerComponent extends Component {
                   </ExpansionPanelDetails>
                 </ExpansionPanel>
 
-                <ExpansionPanel TransitionProps={{ unmountOnExit: true }}>
-                  <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                <ExpansionPanel
+                  TransitionProps={{ unmountOnExit: true }}
+                  expanded={this.state.sectionExpanded.text_message}
+                >
+                  <ExpansionPanelSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    onClick={this.toggleSection.bind(this, 'text_message')}
+                  >
                     <FormControlLabel
                       onClick={event => event.stopPropagation()}
                       onFocus={event => event.stopPropagation()}
                       control={
                         <Checkbox
-                          onChange={this.handleChange.bind(this, 'use_text_message')}
+                          onChange={this.enableCard.bind(this, 'text_message')}
                           checked={options.use_text_message}
                         />
                       }
@@ -1074,11 +1174,18 @@ class ReportDesignerComponent extends Component {
               />
             }
             blurb={
-              <FormattedMessage
-                id="reportDesigner.confirmPublishText"
-                defaultMessage="{demand, plural, =0 {This report will be sent to anyone who requests this item in the future while published.} one {You are about to send a report to the person who requested this item. This report will be sent to anyone who requests this item in the future while published.} other {You are about to send a report to # people who requested this item. This report will be sent to anyone who requests this item in the future while published.}}"
-                values={{ demand: media.demand }}
-              />
+              <div>
+                <FormattedMessage
+                  id="reportDesigner.confirmPublishText"
+                  defaultMessage="{demand, plural, =0 {} one {You are about to send this report to the user who requested this item.} other {You are about to send this report to the # users who requested this item.}}"
+                  values={{ demand: media.demand }}
+                />
+                &nbsp;
+                <FormattedMessage
+                  id="reportDesigner.confirmPublishText2"
+                  defaultMessage="In the future, users who request this item will receive your report while it remains published."
+                />
+              </div>
             }
             handleClose={this.handleCloseDialogs.bind(this)}
             handleConfirm={this.handlePublishConfirmed.bind(this)}
@@ -1112,7 +1219,7 @@ class ReportDesignerComponent extends Component {
               <strong>
                 <FormattedMessage
                   id="reportDesigner.confirmRepublishText"
-                  defaultMessage="In the future your changes will be published to all users who request this item."
+                  defaultMessage="In the future, users who request this item will receive this new version of the report."
                 />
               </strong>
             }
@@ -1127,7 +1234,7 @@ class ReportDesignerComponent extends Component {
                 label={
                   <FormattedMessage
                     id="reportDesigner.republishAndResend"
-                    defaultMessage="{demand, plural, =0 {None} one {Also send correction to the user who already received the previous version of this report} other {Also send correction to the # users who already received the previous version of this report}}"
+                    defaultMessage="{demand, plural, =0 {} one {Also send correction to the user who already received the previous version of this report} other {Also send correction to the # users who already received the previous version of this report}}"
                     values={{ demand: media.demand }}
                   />
                 }
@@ -1142,16 +1249,33 @@ class ReportDesignerComponent extends Component {
               />
             }
             blurb={
-              <strong>
+              <div>
                 <FormattedMessage
                   id="reportDesigner.confirmRepublishResendText"
-                  defaultMessage="{demand, plural, =0 {In the future, a user who requests the item will receive this new version.} one {Your correction will be sent to the user who have received the previous report. In the future, a user who requests the item will receive this new version.} other {Your correction will be sent to the # users who have received the previous report. In the future, a user who requests the item will receive this new version.}}"
+                  defaultMessage="{demand, plural, =0 {} one {Your correction will be sent to the user who has received the previous report.} other {Your correction will be sent to the # users who have received the previous report.}}"
                   values={{ demand: media.demand }}
                 />
-              </strong>
+                &nbsp;
+                <FormattedMessage
+                  id="reportDesigner.confirmRepublishResendText2"
+                  defaultMessage="In the future, users who request this item will receive this new version of the report."
+                />
+              </div>
             }
             handleClose={this.handleCloseDialogs.bind(this)}
             handleConfirm={this.handleRepublishResendConfirmed.bind(this)}
+          />
+          <ConfirmDialog
+            open={this.state.showLeaveDialog}
+            title={this.props.intl.formatMessage(messages.confirmLeaveTitle)}
+            blurb={
+              <FormattedMessage
+                id="reportDesigner.confirmLeaveText"
+                defaultMessage="You will loose all changes."
+              />
+            }
+            handleClose={this.handleCloseDialogs.bind(this)}
+            handleConfirm={this.handleConfirmLeave.bind(this)}
           />
         </StyledContainer>
       </PageTitle>

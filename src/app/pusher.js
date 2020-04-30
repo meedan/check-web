@@ -185,6 +185,7 @@ const { subscribe, unsubscribe } = config.pusherKey ? createPusher({
 }) : { subscribe: () => {}, unsubscribe: () => {} };
 
 const PusherContext = React.createContext({ subscribe: () => {}, unsubscribe: () => {} });
+PusherContext.displayName = 'PusherContext';
 
 function withPusher(Component) {
   const inner = (props) => {

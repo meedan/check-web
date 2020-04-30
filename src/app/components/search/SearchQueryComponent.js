@@ -684,7 +684,10 @@ class SearchQueryComponent extends React.Component {
           </Button>
           { (this.filterIsActive() || this.keywordIsActive()) ?
             <Tooltip title={this.props.intl.formatMessage(messages.clear)}>
-              <IconButton onClick={() => { this.resetFilters(true); }}>
+              <IconButton
+                id="search-query__clear-button"
+                onClick={() => { this.resetFilters(true); }}
+              >
                 <ClearIcon style={{ color: highlightOrange }} />
               </IconButton>
             </Tooltip>
@@ -713,6 +716,7 @@ class SearchQueryComponent extends React.Component {
                       <h4><FormattedMessage id="search.statusHeading" defaultMessage="Status" /></h4>
                       {statuses.map(status => (
                         <StyledFilterChip
+                          id={`search-query__status-${status.id}`}
                           active={this.statusIsSelected(status.id)}
                           key={status.id}
                           title={status.description}
@@ -832,7 +836,8 @@ class SearchQueryComponent extends React.Component {
                       const fields = [];
 
                       if (annotationType.type === 'array') {
-                        annotationType.items.enum.forEach((value, i) => {
+                        // #8220 remove "spam" until we get real values for it.
+                        annotationType.items.enum.filter(value => value !== 'spam').forEach((value, i) => {
                           const label = annotationType.items.enumNames[i];
                           const option = (
                             <StyledFilterChip
