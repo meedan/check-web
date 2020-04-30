@@ -11,11 +11,12 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import TextField from 'material-ui/TextField';
+import TextField from '@material-ui/core/TextField';
 import Menu from '@material-ui/core/Menu';
 import IconButton from '@material-ui/core/IconButton';
 import IconMoreVert from '@material-ui/icons/MoreVert';
 import Can from '../Can';
+import { withSetFlashMessage } from '../FlashMessage';
 import TimeBefore from '../TimeBefore';
 import MediaUtil from './MediaUtil';
 import MediaRoute from '../../relay/MediaRoute';
@@ -123,7 +124,7 @@ class MediaCondensedComponent extends Component {
     const onFailure = (transaction) => {
       const fallbackMessage = this.props.intl.formatMessage(messages.editReportError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
       const message = getErrorMessage(transaction, fallbackMessage);
-      this.context.setMessage(message);
+      this.props.setFlashMessage(message);
     };
 
     if (this.canSubmit()) {
@@ -143,7 +144,7 @@ class MediaCondensedComponent extends Component {
   handleBreakRelationship() {
     const onFailure = () => {
       const message = this.props.intl.formatMessage(messages.errorBreakRelationship, { supportEmail: stringHelper('SUPPORT_EMAIL') });
-      this.context.setMessage(message);
+      this.props.setFlashMessage(message);
       this.setState({ broken: false });
     };
 
@@ -168,7 +169,7 @@ class MediaCondensedComponent extends Component {
 
     const onFailure = () => {
       const message = this.props.intl.formatMessage(messages.errorUpdateRelationship, { supportEmail: stringHelper('SUPPORT_EMAIL') });
-      this.context.setMessage(message);
+      this.props.setFlashMessage(message);
     };
 
     const onSuccess = () => {
@@ -231,7 +232,7 @@ class MediaCondensedComponent extends Component {
           <form onSubmit={this.handleSave.bind(this, media)} name="edit-media-form">
             <TextField
               type="text"
-              floatingLabelText={
+              label={
                 <FormattedMessage
                   id="mediaCondensed.title"
                   defaultMessage="Title"
@@ -239,11 +240,12 @@ class MediaCondensedComponent extends Component {
               }
               defaultValue={this.getTitle()}
               onChange={this.handleChangeTitle.bind(this)}
-              style={{ width: '100%' }}
+              margin="normal"
+              fullWidth
             />
             <TextField
               type="text"
-              floatingLabelText={
+              label={
                 <FormattedMessage
                   id="mediaCondensed.description"
                   defaultMessage="Description"
@@ -251,8 +253,9 @@ class MediaCondensedComponent extends Component {
               }
               defaultValue={this.getDescription()}
               onChange={this.handleChangeDescription.bind(this)}
-              style={{ width: '100%' }}
-              multiLine
+              margin="normal"
+              fullWidth
+              multiline
             />
           </form>
         </DialogContent>
@@ -388,12 +391,18 @@ class MediaCondensedComponent extends Component {
   }
 }
 
-MediaCondensedComponent.contextTypes = {
-  store: PropTypes.object,
-  setMessage: PropTypes.func,
+MediaCondensedComponent.propTypes = {
+  intl: PropTypes.object.isRequired,
+  setFlashMessage: PropTypes.func.isRequired,
 };
 
-const MediaCondensedContainer = Relay.createContainer(MediaCondensedComponent, {
+MediaCondensedComponent.contextTypes = {
+  store: PropTypes.object,
+};
+
+const ConnectedMediaCondensedComponent = withSetFlashMessage(injectIntl(MediaCondensedComponent));
+
+const MediaCondensedContainer = Relay.createContainer(ConnectedMediaCondensedComponent, {
   initialVariables: {
     contextId: null,
   },
@@ -403,6 +412,7 @@ const MediaCondensedContainer = Relay.createContainer(MediaCondensedComponent, {
         id
         dbid
         title
+        description
         archived
         type
         overridden
@@ -457,4 +467,4 @@ const MediaCondensed = (props) => {
   );
 };
 
-export default injectIntl(MediaCondensed);
+export default MediaCondensed;

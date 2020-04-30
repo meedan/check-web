@@ -15,6 +15,7 @@ import CheckContext from '../../CheckContext';
 import { getErrorMessage } from '../../helpers';
 import { ContentColumn } from '../../styles/js/shared';
 import { stringHelper } from '../../customHelpers';
+import { withSetFlashMessage } from '../FlashMessage';
 import globalStrings from '../../globalStrings';
 
 const messages = defineMessages({
@@ -111,7 +112,7 @@ class ProjectEditComponent extends Component {
     const onFailure = (transaction) => {
       const fallbackMessage = this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') });
       const message = getErrorMessage(transaction, fallbackMessage);
-      this.context.setMessage(message);
+      this.props.setFlashMessage(message);
       browserHistory.push(`${window.location.pathname}/edit`);
     };
 
@@ -196,16 +197,16 @@ ProjectEditComponent.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
+  setFlashMessage: PropTypes.func.isRequired,
 };
 
 ProjectEditComponent.contextTypes = {
-  setMessage: PropTypes.func,
   store: PropTypes.object,
 };
 
-const ProjectEditComponentWithIntl = injectIntl(ProjectEditComponent);
+const ConnectedProjectEditComponent = withSetFlashMessage(injectIntl(ProjectEditComponent));
 
-const ProjectEditContainer = Relay.createContainer(ProjectEditComponentWithIntl, {
+const ProjectEditContainer = Relay.createContainer(ConnectedProjectEditComponent, {
   initialVariables: {
     contextId: null,
   },
@@ -238,4 +239,4 @@ const ProjectEdit = (props) => {
 };
 
 export default ProjectEdit;
-export { ProjectEditComponent, ProjectEditComponentWithIntl };
+export { ProjectEditComponent, ConnectedProjectEditComponent };

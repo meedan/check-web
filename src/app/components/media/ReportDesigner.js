@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-intl';
 import Relay from 'react-relay/classic';
-import { Link } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 import Popover from '@material-ui/core/Popover';
 import Button from '@material-ui/core/Button';
 import CopyToClipboard from 'react-copy-to-clipboard';
@@ -19,6 +19,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import TextField from '@material-ui/core/TextField';
 import HelpIcon from '@material-ui/icons/HelpOutline';
+import { SliderPicker } from 'react-color';
 import styled from 'styled-components';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import PageTitle from '../PageTitle';
@@ -70,6 +71,10 @@ const messages = defineMessages({
   textPlaceholder: {
     id: 'reportDesigner.textPlaceholder',
     defaultMessage: 'Type your report here...',
+  },
+  confirmLeaveTitle: {
+    id: 'reportDesigner.confirmLeaveTitle',
+    defaultMessage: 'Close without saving?',
   },
 });
 
@@ -157,19 +162,6 @@ const StyledTwoColumnLayout = styled(ContentColumn)`
   #theme-selector {
     display: flex;
   }
-
-  .theme-color {
-    display: block;
-    width: ${units(4)};
-    height: ${units(4)};
-    border-radius: 50%;
-    border: 0;
-    padding: 0;
-    cursor: pointer;
-    min-width: 0;
-    min-height: 0;
-    margin: ${units(1)};
-  }
 `;
 
 const StyledPopover = styled(Popover)`
@@ -245,7 +237,7 @@ class ReportDesignerComponent extends Component {
       options.headline = props.media.title.substring(0, 85);
     }
     if (props.media.description && !options.description) {
-      options.description = props.media.description.substring(0, 120);
+      options.description = props.media.description.substring(0, 240);
     }
     const status = getStatus(mediaStatuses(props.media), mediaLastStatus(props.media));
     if (status && status.label && !options.status_label) {
@@ -261,7 +253,7 @@ class ReportDesignerComponent extends Component {
       props.media.team.contacts.edges[0].node.web :
       window.location.href.match(/https?:\/\/[^/]+\/[^/]+/)[0];
     if (teamUrl && !options.url) {
-      options.url = teamUrl.substring(0, 32);
+      options.url = teamUrl.substring(0, 40);
     }
     if (!options.state) {
       options.state = 'paused';
@@ -287,8 +279,31 @@ class ReportDesignerComponent extends Component {
       showPauseConfirmationDialog: false,
       showRepublishConfirmationDialog: false,
       showRepublishResendConfirmationDialog: false,
+      unsavedChanges: false,
+      showLeaveDialog: false,
+      nextLocation: null,
+      confirmedToLeave: false,
       options,
     };
+  }
+
+  componentDidMount() {
+    const { router } = this.props;
+    router.setRouteLeaveHook(
+      this.props.route,
+      (nextLocation) => {
+        if (this.state.unsavedChanges && !this.state.confirmedToLeave) {
+          this.setState({ showLeaveDialog: true, nextLocation });
+          return false;
+        }
+        return null;
+      },
+    );
+    window.addEventListener('beforeunload', this.confirmCloseBrowserWindow);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('beforeunload', this.confirmCloseBrowserWindow);
   }
 
   settingsEmpty() {
@@ -305,6 +320,16 @@ class ReportDesignerComponent extends Component {
     });
     return empty;
   }
+
+  confirmCloseBrowserWindow = (e) => {
+    if (this.state.unsavedChanges) {
+      const message = this.props.intl.formatMessage(messages.confirmLeaveTitle);
+      e.returnValue = message;
+      return message;
+    }
+    e.preventDefault();
+    return '';
+  };
 
   handleCodeMenuOpen(e) {
     e.preventDefault();
@@ -357,7 +382,7 @@ class ReportDesignerComponent extends Component {
 
   handleImage(image) {
     const options = Object.assign({}, this.state.options);
-    const state = { options, message: null };
+    const state = { options, message: null, unsavedChanges: true };
     if (typeof image === 'string') {
       state.image = null;
       state.options.image = image;
@@ -383,8 +408,8 @@ class ReportDesignerComponent extends Component {
 
   handleSelectColor(color) {
     const options = Object.assign({}, this.state.options);
-    options.theme_color = color;
-    this.setState({ options, message: null });
+    options.theme_color = color.hex;
+    this.setState({ options, message: null, unsavedChanges: true });
   }
 
   handleConfirmPublish() {
@@ -433,6 +458,7 @@ class ReportDesignerComponent extends Component {
       showPauseConfirmationDialog: false,
       showRepublishConfirmationDialog: false,
       showRepublishResendConfirmationDialog: false,
+      showLeaveDialog: false,
     });
   }
 
@@ -452,7 +478,7 @@ class ReportDesignerComponent extends Component {
     const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
     const options = Object.assign({}, this.state.options);
     options[field] = value;
-    this.setState({ options, message: null });
+    this.setState({ options, message: null, unsavedChanges: true });
   }
 
   handleSave(action) {
@@ -468,7 +494,12 @@ class ReportDesignerComponent extends Component {
     };
 
     const onSuccess = () => {
-      this.setState({ pending: false, editing: false, message: null });
+      this.setState({
+        pending: false,
+        editing: false,
+        message: null,
+        unsavedChanges: false,
+      });
     };
 
     const annotation = this.props.media.dynamic_annotation_report_design;
@@ -557,7 +588,7 @@ class ReportDesignerComponent extends Component {
       options.status_label = status.label.substring(0, 16);
       options.theme_color = getStatusStyle(status, 'color');
     }
-    this.setState({ options });
+    this.setState({ options, unsavedChanges: true });
   }
 
   enableCard(card, e) {
@@ -566,7 +597,7 @@ class ReportDesignerComponent extends Component {
     const value = e.target.checked;
     options[`use_${card}`] = value;
     sectionExpanded[card] = value;
-    this.setState({ options, sectionExpanded });
+    this.setState({ options, sectionExpanded, unsavedChanges: true });
   }
 
   toggleSection(section, e) {
@@ -577,6 +608,12 @@ class ReportDesignerComponent extends Component {
     }
     e.stopPropagation();
     e.preventDefault();
+  }
+
+  handleConfirmLeave() {
+    this.setState({ confirmedToLeave: true }, () => {
+      browserHistory.push(this.state.nextLocation);
+    });
   }
 
   render() {
@@ -993,18 +1030,18 @@ class ReportDesignerComponent extends Component {
                       id="report-designer__description"
                       defaultValue={options.description}
                       onChange={this.handleChange.bind(this, 'description')}
-                      inputProps={{ maxLength: 120 }}
+                      inputProps={{ maxLength: 240 }}
                       style={{ marginBottom: units(4) }}
                       label={
                         <FormattedMessage
                           id="reportDesigner.description"
                           defaultMessage="Description - {max} characters max"
-                          values={{ max: 120 }}
+                          values={{ max: 240 }}
                         />
                       }
                       fullWidth
                       multiline
-                      rows={2}
+                      rows={6}
                     />
                     <TextField
                       id="report-designer__status"
@@ -1038,28 +1075,24 @@ class ReportDesignerComponent extends Component {
                         }
                         fullWidth
                       />
-                      <div id="theme-selector">
-                        {['#afafaf', '#f83430', '#00be7a', '#a500dd', '#faa62e'].map(color => (
-                          <Button
-                            key={color}
-                            className="theme-color"
-                            style={{ backgroundColor: color }}
-                            onClick={this.handleSelectColor.bind(this, color)}
-                          />
-                        ))}
+                      <div style={{ width: 400, margin: `0 ${units(2)}` }}>
+                        <SliderPicker
+                          color={options.theme_color}
+                          onChangeComplete={this.handleSelectColor.bind(this)}
+                        />
                       </div>
                     </div>
                     <TextField
                       id="report-designer__url"
                       defaultValue={options.url}
                       onChange={this.handleChange.bind(this, 'url')}
-                      inputProps={{ maxLength: 32 }}
+                      inputProps={{ maxLength: 40 }}
                       style={{ marginBottom: units(4) }}
                       label={
                         <FormattedMessage
                           id="reportDesigner.url"
                           defaultMessage="URL - {max} characters max"
-                          values={{ max: 32 }}
+                          values={{ max: 40 }}
                         />
                       }
                       fullWidth
@@ -1231,6 +1264,18 @@ class ReportDesignerComponent extends Component {
             }
             handleClose={this.handleCloseDialogs.bind(this)}
             handleConfirm={this.handleRepublishResendConfirmed.bind(this)}
+          />
+          <ConfirmDialog
+            open={this.state.showLeaveDialog}
+            title={this.props.intl.formatMessage(messages.confirmLeaveTitle)}
+            blurb={
+              <FormattedMessage
+                id="reportDesigner.confirmLeaveText"
+                defaultMessage="You will loose all changes."
+              />
+            }
+            handleClose={this.handleCloseDialogs.bind(this)}
+            handleConfirm={this.handleConfirmLeave.bind(this)}
           />
         </StyledContainer>
       </PageTitle>

@@ -33,6 +33,7 @@ import DeleteTeamUserMutation from '../../relay/mutations/DeleteTeamUserMutation
 import CheckContext from '../../CheckContext';
 import { can } from '../Can';
 import { getErrorMessage } from '../../helpers';
+import { withSetFlashMessage } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
 
 const messages = defineMessages({
@@ -65,7 +66,7 @@ class SwitchTeamsComponent extends Component {
     const onFailure = (transaction) => {
       const fallbackMessage = this.props.intl.formatMessage(messages.switchTeamsError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
       const message = getErrorMessage(transaction, fallbackMessage);
-      this.context.setMessage(message);
+      this.props.setFlashMessage(message);
     };
 
     const onSuccess = () => {
@@ -218,11 +219,11 @@ SwitchTeamsComponent.propTypes = {
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
   user: PropTypes.object.isRequired,
+  setFlashMessage: PropTypes.func.isRequired,
 };
 
 SwitchTeamsComponent.contextTypes = {
   store: PropTypes.object,
-  setMessage: PropTypes.func,
 };
 
-export default injectIntl(SwitchTeamsComponent);
+export default withSetFlashMessage(injectIntl(SwitchTeamsComponent));

@@ -1,5 +1,4 @@
 import React from 'react';
-import { expect } from 'chai';
 import { mountWithIntl } from './helpers/intl-test';
 import MediaDetail from '../../src/app/components/media/MediaDetail';
 
@@ -30,7 +29,7 @@ describe('<MediaDetail />', () => {
 
   it('renders', () => {
     const mediaDetail = mountWithIntl(<MediaDetail media={media} />);
-    expect(mediaDetail.find('.media-detail').at(0)).to.have.length(1);
+    expect(mediaDetail.find('.media-detail').at(0)).toHaveLength(1);
   });
 
   it('should not render a link while media is being processed', () => {
@@ -38,10 +37,10 @@ describe('<MediaDetail />', () => {
     delete optimisticMedia.project_id;
     const mediaDetail = mountWithIntl(<MediaDetail media={media} />);
     const mediaHeadingLink = mediaDetail.find('.media__heading a').at(0);
-    expect(mediaHeadingLink).to.have.length(0);
+    expect(mediaHeadingLink).toHaveLength(0);
     const timestampLink = mediaDetail.find('.media-detail__check-timestamp a').at(0);
-    expect(timestampLink).to.have.length(0);
+    expect(timestampLink).toHaveLength(0);
     const notesCountLink = mediaDetail.find('.media-detail__check-notes-count a').at(0);
-    expect(notesCountLink).to.have.length(0);
+    expect(notesCountLink).toHaveLength(0);
   });
 });

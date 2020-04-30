@@ -1,5 +1,4 @@
 import React from 'react';
-import { expect } from 'chai';
 import { mountWithIntl } from './helpers/intl-test';
 
 import MediaTags from '../../src/app/components/media/MediaTags';
@@ -15,6 +14,6 @@ describe('<MediaTags />', () => {
 
   it('renders correctly', () => {
     const mediaTags = mountWithIntl(<MediaTags media={media} tags={tags} />);
-    expect(mediaTags.find('.media-tags')).to.have.length(1);
+    expect(mediaTags.find('.media-tags')).toHaveLength(1);
   });
 });

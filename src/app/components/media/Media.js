@@ -103,9 +103,12 @@ class ProjectMedia extends Component {
   }
 }
 
+ProjectMedia.propTypes = {
+  router: PropTypes.object.isRequired,
+};
+
 ProjectMedia.contextTypes = {
   store: PropTypes.object,
-  router: PropTypes.object,
 };
 
 export default injectIntl(ProjectMedia);

@@ -326,6 +326,15 @@ class TeamRulesComponent extends Component {
       menuIndex: null,
       observer: new MutationObserver(this.observeChanges.bind(this)),
     };
+    // #8220 remove "spam" until we get real values for it.
+    this.state.schema.properties
+      .rules.items.properties
+      .rules.items.properties
+      .rule_value_flagged_as.enum =
+      this.state.schema.properties
+        .rules.items.properties
+        .rules.items.properties
+        .rule_value_flagged_as.enum.filter(flag => flag.key !== 'spam');
   }
 
   componentDidMount() {

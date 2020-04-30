@@ -4,14 +4,14 @@ import FindPublicTeamRoute from '../relay/FindPublicTeamRoute';
 import teamPublicFragment from '../relay/teamPublicFragment';
 import DrawerNavigationComponent from './DrawerNavigationComponent';
 
+const DrawerNavigationContainer = Relay.createContainer(DrawerNavigationComponent, {
+  fragments: {
+    team: () => teamPublicFragment,
+  },
+});
+
 const DrawerNavigation = (props) => {
   if (props.teamSlug) {
-    const DrawerNavigationContainer = Relay.createContainer(DrawerNavigationComponent, {
-      fragments: {
-        team: () => teamPublicFragment,
-      },
-    });
-
     const { teamSlug } = props;
 
     const route = new FindPublicTeamRoute({ teamSlug });
@@ -30,7 +30,7 @@ const DrawerNavigation = (props) => {
     );
   }
 
-  return (<DrawerNavigationComponent {...props} />);
+  return <DrawerNavigationComponent {...props} />;
 };
 
 export default DrawerNavigation;

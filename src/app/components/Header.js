@@ -1,5 +1,4 @@
 import React from 'react';
-import { browserHistory } from 'react-router';
 import styled from 'styled-components';
 import Relay from 'react-relay/classic';
 import TeamPublicHeader from './team/TeamPublicHeader';
@@ -34,67 +33,51 @@ const HeaderBar = styled.div`
 
 // TODO Fix a11y issues
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
-class HeaderComponent extends React.Component {
-  componentWillMount() {
-    this.handleQuery();
+function HeaderComponent(props) {
+  const { inTeamContext, team, currentUserIsMember } = props;
+  const path = window.location.pathname;
+
+  const tasksPage = /^\/[^/]+\/project\/[0-9]+\/media\/[0-9]+\/tasks$/.test(path);
+  const mediaPage = /^\/[^/]+\/(project\/[0-9]+\/)?media\/[0-9]+$/.test(path);
+  const sourcePage = /^\/[^/]+\/project\/[0-9]+\/source\/[0-9]+$/.test(path);
+
+  if (tasksPage || (!mediaPage && !sourcePage)) {
+    return null;
   }
 
-  handleQuery = () => {
-    const { team, teamSlug } = this.props;
+  const reallyInTeamContext = team ? inTeamContext : false;
 
-    if (!team && teamSlug) {
-      browserHistory.push('/check/not-found');
+  const teamPrivateContentShouldShow =
+    (reallyInTeamContext && currentUserIsMember) || (reallyInTeamContext && !team.private);
+
+  const teamPublicContentShouldShow =
+    reallyInTeamContext && !currentUserIsMember && team.private;
+
+  const primary = (() => {
+    if (teamPrivateContentShouldShow) {
+      // TODO write props explicitly
+      return (
+        <Row containsEllipsis>
+          <div><ProjectHeader isRtl {...props} /></div>
+        </Row>
+      );
+    } else if (teamPublicContentShouldShow) {
+      // TODO write props explicitly
+      return (
+        <Row containsEllipsis>
+          <TeamPublicHeader isRtl {...props} />
+        </Row>
+      );
     }
-  };
 
-  render() {
-    const {
-      team,
-      currentUserIsMember,
-    } = this.props;
+    return null;
+  })();
 
-    const path = window.location.pathname;
-
-    const tasksPage = /^\/[^/]+\/project\/[0-9]+\/media\/[0-9]+\/tasks$/.test(path);
-    const mediaPage = /^\/[^/]+\/(project\/[0-9]+\/)?media\/[0-9]+$/.test(path);
-    const sourcePage = /^\/[^/]+\/project\/[0-9]+\/source\/[0-9]+$/.test(path);
-
-    if (tasksPage || (!mediaPage && !sourcePage)) {
-      return null;
-    }
-
-    const inTeamContext = team ? this.props.inTeamContext : false;
-
-    const teamPrivateContentShouldShow =
-      (inTeamContext && currentUserIsMember) || (inTeamContext && !this.props.team.private);
-
-    const teamPublicContentShouldShow =
-      inTeamContext && !currentUserIsMember && this.props.team.private;
-
-    const primary = (() => {
-      if (teamPrivateContentShouldShow) {
-        return (
-          <Row containsEllipsis>
-            <div><ProjectHeader isRtl {...this.props} /></div>
-          </Row>
-        );
-      } else if (teamPublicContentShouldShow) {
-        return (
-          <Row containsEllipsis>
-            <TeamPublicHeader isRtl {...this.props} />
-          </Row>
-        );
-      }
-
-      return null;
-    })();
-
-    return (
-      <HeaderBar>
-        {primary}
-      </HeaderBar>
-    );
-  }
+  return (
+    <HeaderBar>
+      {primary}
+    </HeaderBar>
+  );
 }
 
 const Header = (props) => {

@@ -840,41 +840,41 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?("Add a link or text")).to be(true)
   end
 
-  # it "should create items, add to another project and then delete it", bin6: true do
-  #   project1 = api_create_team_and_project
-  #   api_create_project(project1[:team].dbid.to_s)
-  #   @driver.navigate.to @config['self_url']
-  #   wait_for_selector("#create-media__add-item")
-  #   create_media("claim 1")
-  #   wait_for_selector(".medias__item")
-  #   create_media("claim 2")
-  #   wait_for_selector_list_size(".medias__item", 2)
-  #   expect(@driver.page_source.include?('Add a link or text')).to be(false)
-  #   wait_for_selector('.project-list__link-container + .project-list__link-container .project-list__link').click #Go to the second project
-  #   wait_for_selector_none(".medias__item")
-  #   expect(@driver.page_source.include?('Add a link or text')).to be(true)
-  #   wait_for_selector('.project-list__link').click #Go back to the first project
-  #   wait_for_selector_list_size(".medias__item", 2)
-  #   wait_for_selector(".ag-icon-checkbox-unchecked").click
-  #   wait_for_selector("#media-bulk-actions__add-icon").click
-  #   wait_for_selector('.Select-input input').send_keys('Project')
-  #   wait_for_selector(".Select-menu-outer")
-  #   @driver.action.send_keys(:enter).perform
-  #   wait_for_selector('.media-bulk-actions__add-button').click
-  #   wait_for_selector_none(".Select-placeholder")
-  #   wait_for_selector('.project-list__link-container + .project-list__link-container .project-list__link').click # Go to the second project
-  #   wait_for_selector_list_size(".medias__item", 2, :css , 80)
-  #   expect(@driver.page_source.include?('claim 1')).to be(true)
-  #   expect(@driver.page_source.include?('claim 2')).to be(true)
-  #   wait_for_selector(".ag-icon-checkbox-unchecked").click
-  #   wait_for_selector("span[title='Send selected items to trash']").click #Delete items
-  #   wait_for_selector_none(".medias__item")
-  #   expect(@driver.page_source.include?('Add a link or text')).to be(true)
-  #   wait_for_selector(".project-list__item-trash").click #Go to the trash page
-  #   wait_for_selector_list_size(".medias__item", 2, :css , 90)
-  #   expect(@driver.page_source.include?('claim 1')).to be(true)
-  #   expect(@driver.page_source.include?('claim 2')).to be(true)
-  # end
+  it "should create items, add to another project and then delete it", bin6: true do
+    project1 = api_create_team_and_project
+    api_create_project(project1[:team].dbid.to_s)
+    @driver.navigate.to @config['self_url']
+    wait_for_selector("#create-media__add-item")
+    create_media("claim 1")
+    wait_for_selector(".medias__item")
+    create_media("claim 2")
+    wait_for_selector_list_size(".medias__item", 2)
+    expect(@driver.page_source.include?('Add a link or text')).to be(false)
+    wait_for_selector('.project-list__link-container + .project-list__link-container .project-list__link').click #Go to the second project
+    wait_for_selector_none(".medias__item")
+    expect(@driver.page_source.include?('Add a link or text')).to be(true)
+    wait_for_selector('.project-list__link').click #Go back to the first project
+    wait_for_selector_list_size(".medias__item", 2)
+    wait_for_selector(".ag-icon-checkbox-unchecked").click
+    wait_for_selector("#media-bulk-actions__add-icon").click
+    wait_for_selector('.Select-input input').send_keys('Project')
+    wait_for_selector(".Select-menu-outer")
+    @driver.action.send_keys(:enter).perform
+    wait_for_selector('.media-bulk-actions__add-button').click
+    wait_for_selector_none(".Select-placeholder")
+    wait_for_selector('.project-list__link-container + .project-list__link-container .project-list__link').click # Go to the second project
+    wait_for_selector_list_size(".medias__item", 2, :css , 80)
+    expect(@driver.page_source.include?('claim 1')).to be(true)
+    expect(@driver.page_source.include?('claim 2')).to be(true)
+    wait_for_selector(".ag-icon-checkbox-unchecked").click
+    wait_for_selector("span[title='Send selected items to trash']").click #Delete items
+    wait_for_selector_none(".medias__item")
+    expect(@driver.page_source.include?('Add a link or text')).to be(true)
+    wait_for_selector(".project-list__item-trash").click #Go to the trash page
+    wait_for_selector_list_size(".medias__item", 2, :css , 90)
+    expect(@driver.page_source.include?('claim 1')).to be(true)
+    expect(@driver.page_source.include?('claim 2')).to be(true)
+  end
 
   it "should restore items from the trash", bin2: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
