@@ -13,7 +13,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import TextField from 'material-ui/TextField';
+import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CardActions from '@material-ui/core/CardActions';
 import Tabs from '@material-ui/core/Tabs';
@@ -870,7 +870,7 @@ class SourceComponent extends Component {
               <TextField
                 id={`source__link-item${index.toString()}`}
                 defaultValue={as.node.account.url}
-                floatingLabelText={capitalize(as.node.account.provider)}
+                label={capitalize(as.node.account.provider)}
                 style={{ width: '85%' }}
                 disabled
               />
@@ -985,7 +985,7 @@ class SourceComponent extends Component {
           <Row>
             <TextField
               defaultValue={metadata[type]}
-              floatingLabelText={this.labelForType(type)}
+              label={this.labelForType(type)}
               style={{ width: '85%' }}
               onChange={(e) => {
                 handleChangeField(type, e);
@@ -1008,7 +1008,7 @@ class SourceComponent extends Component {
             <Row>
               <TextField
                 defaultValue={cf.value}
-                floatingLabelText={cf.label}
+                label={cf.label}
                 style={{ width: '85%' }}
                 onChange={(e) => {
                   handleChangeCustomField(index, e);
@@ -1340,7 +1340,7 @@ class SourceComponent extends Component {
               name="name"
               id="source__name-container"
               defaultValue={source.name}
-              floatingLabelText={this.props.intl.formatMessage(messages.sourceName)}
+              label={this.props.intl.formatMessage(messages.sourceName)}
               style={{ width: '85%' }}
             />
             <StyledHelper>
@@ -1351,8 +1351,8 @@ class SourceComponent extends Component {
               name="description"
               id="source__bio-container"
               defaultValue={source.description}
-              floatingLabelText={this.props.intl.formatMessage(messages.sourceBio)}
-              multiLine
+              label={this.props.intl.formatMessage(messages.sourceBio)}
+              multiline
               rowsMax={4}
               style={{ width: '85%' }}
             />
@@ -1457,7 +1457,7 @@ class SourceComponent extends Component {
               <DialogContent>
                 <TextField
                   id="source__other-label-input"
-                  floatingLabelText={this.props.intl.formatMessage(messages.label)}
+                  label={this.props.intl.formatMessage(messages.label)}
                   fullWidth
                   onChange={(e) => {
                     this.setState({ customFieldLabel: e.target.value });
@@ -1465,7 +1465,7 @@ class SourceComponent extends Component {
                 />
                 <TextField
                   id="source__other-value-input"
-                  floatingLabelText={this.props.intl.formatMessage(messages.value)}
+                  label={this.props.intl.formatMessage(messages.value)}
                   onChange={(e) => {
                     this.setState({ customFieldValue: e.target.value });
                   }}
