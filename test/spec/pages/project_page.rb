@@ -56,18 +56,17 @@ class ProjectPage < Page
     wait_for_selector('.project-actions', :css, 60).click
     wait_for_selector('.project-actions__edit', :css, 60).click
     if (options[:title])
-      #puts "options title"
-      element = wait_for_selector('.project-edit__title-field input')
+      element = wait_for_selector('#project-title-field')
       element.clear
-      fill_input('.project-edit__title-field input', options[:title])
+      fill_input('#project-title-field', options[:title])
     end
     sleep 1 #(time for insert info in other field)
     if (options[:description] != nil)
-      element = wait_for_selector('.project-edit__description-field textarea:last-child')
+      element = wait_for_selector('#project-description-field')
       element.clear
       @driver.action.send_keys(" \b").perform
       sleep 1
-      fill_input('.project-edit__description-field textarea:last-child', options[:description])
+      fill_input('#project-description-field', options[:description])
     end
     sleep 1 #(time for click button
     element = wait_for_selector('button.project-edit__editing-button--save')

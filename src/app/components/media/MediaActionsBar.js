@@ -8,7 +8,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import TextField from 'material-ui/TextField';
+import TextField from '@material-ui/core/TextField';
 import IconReport from '@material-ui/icons/Receipt';
 import MediaStatus from './MediaStatus';
 import MediaRoute from '../../relay/MediaRoute';
@@ -504,24 +504,22 @@ class MediaActionsBarComponent extends Component {
         <DialogContent>
           <form onSubmit={this.handleSave.bind(this, media)} name="edit-media-form">
             <TextField
-              type="text"
-              id={`media-detail-title-input-${media.dbid}`}
-              className="media-detail__title-input"
-              floatingLabelText={this.props.intl.formatMessage(messages.mediaTitle)}
+              id="media-detail__title-input"
+              label={this.props.intl.formatMessage(messages.mediaTitle)}
               defaultValue={this.getTitle()}
               onChange={this.handleChangeTitle.bind(this)}
-              style={{ width: '100%' }}
+              fullWidth
+              margin="normal"
             />
 
             <TextField
-              type="text"
-              id={`media-detail-description-input-${media.dbid}`}
-              className="media-detail__description-input"
-              floatingLabelText={this.props.intl.formatMessage(messages.mediaDescription)}
+              id="media-detail__description-input"
+              label={this.props.intl.formatMessage(messages.mediaDescription)}
               defaultValue={this.getDescription()}
               onChange={this.handleChangeDescription.bind(this)}
-              style={{ width: '100%' }}
-              multiLine
+              fullWidth
+              multiline
+              margin="normal"
             />
           </form>
         </DialogContent>
