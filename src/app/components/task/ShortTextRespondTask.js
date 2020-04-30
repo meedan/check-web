@@ -1,15 +1,7 @@
 import React from 'react';
-import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
-import TextField from '@material-ui/core/TextField';
+import { FormattedMessage } from 'react-intl';
+import TextField from 'material-ui/TextField';
 import Button from '@material-ui/core/Button';
-
-
-const messages = defineMessages({
-  responseHint: {
-    id: 'shortTextRespondTask.responseHint',
-    defaultMessage: 'Answer here.',
-  },
-});
 
 class ShortTextRespondTask extends React.Component {
   constructor(props) {
@@ -117,7 +109,12 @@ class ShortTextRespondTask extends React.Component {
     return (
       <div>
         <TextField
-          placeholder={this.props.intl.formatMessage(messages.responseHint)}
+          hintText={
+            <FormattedMessage
+              id="shortTextRespondTask.responseHint"
+              defaultMessage="Answer here."
+            />
+          }
           className="task__response-input"
           value={response}
           name="response"
@@ -127,7 +124,7 @@ class ShortTextRespondTask extends React.Component {
           onFocus={() => { this.setState({ focus: true }); }}
           ref={(input) => { this.input = input; }}
           fullWidth
-          multiline
+          multiLine
         />
         {this.state.focus || this.props.response ? actionBtns : null}
       </div>
@@ -135,4 +132,4 @@ class ShortTextRespondTask extends React.Component {
   }
 }
 
-export default injectIntl(ShortTextRespondTask);
+export default ShortTextRespondTask;
