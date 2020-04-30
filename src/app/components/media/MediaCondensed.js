@@ -11,7 +11,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import TextField from 'material-ui/TextField';
+import TextField from '@material-ui/core/TextField';
 import Menu from '@material-ui/core/Menu';
 import IconButton from '@material-ui/core/IconButton';
 import IconMoreVert from '@material-ui/icons/MoreVert';
@@ -232,7 +232,7 @@ class MediaCondensedComponent extends Component {
           <form onSubmit={this.handleSave.bind(this, media)} name="edit-media-form">
             <TextField
               type="text"
-              floatingLabelText={
+              label={
                 <FormattedMessage
                   id="mediaCondensed.title"
                   defaultMessage="Title"
@@ -240,11 +240,12 @@ class MediaCondensedComponent extends Component {
               }
               defaultValue={this.getTitle()}
               onChange={this.handleChangeTitle.bind(this)}
-              style={{ width: '100%' }}
+              margin="normal"
+              fullWidth
             />
             <TextField
               type="text"
-              floatingLabelText={
+              label={
                 <FormattedMessage
                   id="mediaCondensed.description"
                   defaultMessage="Description"
@@ -252,8 +253,9 @@ class MediaCondensedComponent extends Component {
               }
               defaultValue={this.getDescription()}
               onChange={this.handleChangeDescription.bind(this)}
-              style={{ width: '100%' }}
-              multiLine
+              margin="normal"
+              fullWidth
+              multiline
             />
           </form>
         </DialogContent>
@@ -410,6 +412,7 @@ const MediaCondensedContainer = Relay.createContainer(ConnectedMediaCondensedCom
         id
         dbid
         title
+        description
         archived
         type
         overridden
