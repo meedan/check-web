@@ -4,6 +4,7 @@
   "reportDesigner.pauseReport": "Pausar relato",
   "reportDesigner.introductionPlaceholder": "Digite sua introdução aqui...",
   "reportDesigner.textPlaceholder": "Digite seu relato aqui...",
+  "reportDesigner.confirmLeaveTitle": "Fechar sem salvar?",
   "reportDesigner.error": "Desculpe, ocorreu um erro ao atualizar as configurações do relato. Por favor, tente novamente e entre em contato com {supportEmail} se a condição persistir.",
   "reportDesigner.warning": "Aviso — compartilhar isso expõe informações a pessoas fora da sua área de trabalho privado. Prossiga com cuidado.",
   "reportDesigner.copyButtonInactive": "Copiado",
@@ -39,5 +40,6 @@
   "reportDesigner.republishAndResend": "{demand, plural, = 0 {} one {Envie também a correção ao usuário que já recebeu a versão anterior deste relato} other {Envie também a correção aos # usuários que já receberam a versão anterior deste relato}}",
   "reportDesigner.confirmRepublishResendTitle": "Pronto para publicar sua correção?",
   "reportDesigner.confirmRepublishResendText": "{demand, plural, =0 {} one {Sua correção será enviada ao usuário que recebeu o relato anterior.} other {Sua correção será enviada aos # usuários que receberam o relato anterior.}}",
-  "reportDesigner.confirmRepublishResendText2": "No futuro, os usuários que solicitarem este item receberão esta nova versão do relato."
+  "reportDesigner.confirmRepublishResendText2": "No futuro, os usuários que solicitarem este item receberão esta nova versão do relato.",
+  "reportDesigner.confirmLeaveText": "Se continuar, você perderá suas alterações."
 }
