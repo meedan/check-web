@@ -30,8 +30,8 @@ shared_examples 'media' do |type|
     wait_for_selector(".media-actions__icon").click
     wait_for_selector(".media-actions__edit").click
     wait_for_selector("form")
-    fill_field(".media-detail__title-input > input","Edited media title")
-    fill_field(".media-detail__description-input > div > textarea + textarea","Edited media description")
+    fill_field("#media-detail__title-input","Edited media title")
+    fill_field("#media-detail__description-input","Edited media description")
     wait_for_selector(".media-detail__save-edits").click
     wait_for_selector_none("form")
     expect(@driver.page_source.include?('Edited media title')).to be(true)
