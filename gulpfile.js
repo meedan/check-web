@@ -1,13 +1,23 @@
 const fs = require('fs');
+const { spawn } = require('child_process');
 const request = require('sync-request');
 const gulp = require('gulp');
 const gutil = require('gulp-util');
 const transifex = require('gulp-transifex');
 const jsonEditor = require('gulp-json-editor');
 const webpack = require('webpack');
+const app = require('./scripts/server-app');
 const mergeTransifex = require('./webpack/gulp-merge-transifex-translations');
 const webpackConfig = require('./webpack/config');
 const buildConfig = require('./config-build');
+
+const RelayCommand = [
+  'relay-compiler',
+  '--src',
+  'src/app',
+  '--schema',
+  'relay.json',
+];
 
 let transifexClient = null;
 if (buildConfig.transifex) {
@@ -57,36 +67,46 @@ function copy_build_web_config_js() {
 
 gulp.task('copy:build:web', gulp.series(copy_build_web_assets, copy_build_web_config_js));
 
-gulp.task('transifex:download', () => {
-  return gulp.src('./localization/transifex/**/*.json').pipe(transifexClient.pullResource());
-});
+gulp.task('transifex:download', () => gulp.src('./localization/transifex/**/*.json').pipe(transifexClient.pullResource()));
 
-gulp.task('transifex:translations', () => {
-  return gulp.src('./localization/translations/**/*.json').pipe(mergeTransifex(buildConfig)).pipe(gulp.dest('./localization/translations/'));
-});
+gulp.task('transifex:translations', () => gulp.src('./localization/translations/**/*.json').pipe(mergeTransifex(buildConfig)).pipe(gulp.dest('./localization/translations/')));
 
-gulp.task('transifex:prepare', () => {
-  return gulp.src('./localization/react-intl/**/*').pipe(jsonEditor((inputJson) => {
-    const outputJson = {};
-    inputJson.forEach((entry) => {
-      outputJson[entry.id] = entry.defaultMessage;
-    });
-    return outputJson;
-  })).pipe(gulp.dest('./localization/transifex/'));
-});
+gulp.task('transifex:prepare', () => gulp.src('./localization/react-intl/**/*').pipe(jsonEditor((inputJson) => {
+  const outputJson = {};
+  inputJson.forEach((entry) => {
+    outputJson[entry.id] = entry.defaultMessage;
+  });
+  return outputJson;
+})).pipe(gulp.dest('./localization/transifex/')));
 
-gulp.task('transifex:upload', () => {
-  return gulp.src('./localization/transifex/**/*').pipe(transifexClient.pushResource());
-});
+gulp.task('transifex:upload', () => gulp.src('./localization/transifex/**/*').pipe(transifexClient.pushResource()));
 
 gulp.task('transifex:languages', () => {
   transifexClient.languages((data) => {
-    console.log(JSON.stringify(data));
+    console.log(JSON.stringify(data)); // eslint-disable-line no-console
   });
   return gulp.series();
 });
 
-gulp.task('build:web', gulp.series('relay:copy', 'webpack:build:web', 'copy:build:web'));
+function spawnPromise(cmd) {
+  return new Promise((resolve, reject) => {
+    const childProcess = spawn(cmd[0], cmd.slice(1), { stdio: 'inherit' });
+    childProcess.on('error', reject);
+    childProcess.on('exit', (code) => {
+      if (code !== 0) {
+        reject(new Error(`${cmd[0]} exited with code ${code}`));
+      } else {
+        resolve();
+      }
+    });
+  });
+}
+
+gulp.task('react-relay:build', () => spawnPromise(RelayCommand));
+
+gulp.task('build:web', gulp.series('relay:copy', 'react-relay:build', 'webpack:build:web', 'copy:build:web'));
+
+gulp.task('react-relay:build:watch', () => spawnPromise([...RelayCommand, '--watch']));
 
 // Dev mode — with 'watch' enabled for faster builds
 // Webpack only — without the rest of the web build steps.
@@ -96,7 +116,7 @@ gulp.task('webpack:build:web:dev', (callback) => {
     bail: false, // don't stop on error
     mode: 'development',
     watch: true,
-  }
+  };
 
   webpack(devConfig, (err, stats) => {
     if (err) {
@@ -118,20 +138,28 @@ gulp.task('webpack:build:web:dev', (callback) => {
       warnings: true,
       publicPath: false,
     }));
+    return null; // keep eslint happy
   });
 
   // never call callback()
 });
 
-gulp.task('build:web:dev', gulp.series('relay:copy', 'copy:build:web', 'webpack:build:web:dev'));
+gulp.task(
+  'build:web:dev',
+  gulp.series(
+    'relay:copy',
+    'copy:build:web',
+    'react-relay:build', // before Webpack -- for first run to succeed and not race
+    gulp.parallel('react-relay:build:watch', 'webpack:build:web:dev'),
+  ),
+);
 
-gulp.task('serve:server', (callback) => {
-  const app = require('./scripts/server-app');
+gulp.task('serve:server', (callback) => { // eslint-disable-line no-unused-vars
   const port = process.env.SERVER_PORT || 8000;
   app.listen(port, () => {
-    console.log(`Server listening on port ${port}`);
+    console.log(`Server listening on port ${port}`); // eslint-disable-line no-console
     // never call callback()
   });
-})
+});
 
 gulp.task('serve:dev', gulp.parallel('build:web:dev', 'serve:server'));
