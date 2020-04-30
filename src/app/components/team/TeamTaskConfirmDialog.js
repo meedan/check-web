@@ -19,7 +19,7 @@ class TeamTaskConfirmDialog extends React.Component {
 
     this.state = {
       confirmed: false,
-      keepResolved: false,
+      keepCompleted: false,
     };
   }
 
@@ -27,12 +27,12 @@ class TeamTaskConfirmDialog extends React.Component {
     this.setState({ confirmed: !this.state.confirmed });
   };
 
-  handleKeepResolved= () => {
-    this.setState({ keepResolved: !this.state.keepResolved });
+  handlekeepCompleted= () => {
+    this.setState({ keepCompleted: !this.state.keepCompleted });
   };
 
   handleCancel = () => {
-    this.setState({ confirmed: false, keepResolved: false });
+    this.setState({ confirmed: false, keepCompleted: false });
     if (this.props.handleClose) {
       this.props.handleClose();
     }
@@ -41,8 +41,8 @@ class TeamTaskConfirmDialog extends React.Component {
   handleProceed = () => {
     this.setState({ confirmed: false });
     if (this.props.handleConfirm) {
-      this.props.handleConfirm(this.state.keepResolved);
-      this.setState({ keepResolved: false });
+      this.props.handleConfirm(this.state.keepCompleted);
+      this.setState({ keepCompleted: false });
     }
   }
 
@@ -92,14 +92,14 @@ class TeamTaskConfirmDialog extends React.Component {
       />,
     };
 
-    const confirmKeepResolved = {
+    const confirmkeepCompleted = {
       edit: <FormattedMessage
-        id="teamTasks.confirmEditKeepResolved"
-        defaultMessage="Keep the tasks that have been resolved, with their current name and description."
+        id="teamTasks.confirmEditkeepCompleted"
+        defaultMessage="Keep the tasks that have been completed, with their current name and description."
       />,
       delete: <FormattedMessage
-        id="teamTasks.confirmDeleteKeepResolved"
-        defaultMessage="Keep the tasks that have been resolved, with their answers."
+        id="teamTasks.confirmDeletekeepCompleted"
+        defaultMessage="Keep the tasks that have been completed, with their answers."
       />,
     };
     return (
@@ -124,11 +124,11 @@ class TeamTaskConfirmDialog extends React.Component {
                       control={
                         <Checkbox
                           id="keep-dialog__checkbox"
-                          onChange={this.handleKeepResolved.bind(this)}
-                          checked={this.state.keepResolved}
+                          onChange={this.handlekeepCompleted.bind(this)}
+                          checked={this.state.keepCompleted}
                         />
                       }
-                      label={confirmKeepResolved[this.props.action]}
+                      label={confirmkeepCompleted[this.props.action]}
                     />
                   </Row>
                   : null

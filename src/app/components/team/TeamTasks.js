@@ -186,7 +186,6 @@ const TeamTasksContainer = Relay.createContainer(TeamTasksComponent, {
               options
               type
               project_ids
-              required
               json_schema
             }
           }

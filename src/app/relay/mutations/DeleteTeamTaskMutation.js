@@ -12,7 +12,7 @@ class DeleteTeamTaskMutation extends Relay.Mutation {
   };
 
   getVariables() {
-    return { id: this.props.id, keep_resolved_tasks: this.props.keepResolved };
+    return { id: this.props.id, keep_completed_tasks: this.props.keepCompleted };
   }
 
   getFatQuery() {
