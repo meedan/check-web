@@ -10,7 +10,7 @@ module AppSpecHelpers
       end
     }
     sleep 0.5
-    input.clear
+    input.send_keys(:control, 'a', :delete)
     sleep 0.5
     input.send_keys(value)
   end
