@@ -1,5 +1,5 @@
 import styled, { css, keyframes } from 'styled-components';
-import TextField from 'material-ui/TextField';
+import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
 import CheckboxNext from '@material-ui/core/Checkbox';
 import { stripUnit, rgba } from 'polished';

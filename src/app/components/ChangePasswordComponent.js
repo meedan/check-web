@@ -3,7 +3,7 @@ import { defineMessages, injectIntl } from 'react-intl';
 import { browserHistory } from 'react-router';
 import Relay from 'react-relay/classic';
 import Button from '@material-ui/core/Button';
-import TextField from 'material-ui/TextField';
+import TextField from '@material-ui/core/TextField';
 import ChangePasswordMutation from '../relay/mutations/ChangePasswordMutation';
 import globalStrings from '../globalStrings';
 import { stringHelper } from '../customHelpers';
@@ -65,9 +65,9 @@ class ChangePasswordComponent extends Component {
     const bothFilled =
       password.length >= passwordLength.min && password_confirmation.length >= passwordLength.min;
     const samePass = password === password_confirmation;
-    const errorPasswordMsg = bothFilled && !samePass ?
-      this.props.intl.formatMessage(messages.unmatchingPasswords) : '';
-    this.setState({ password_confirmation, errorPasswordMsg });
+    const errorMsg = bothFilled && !samePass ?
+      this.props.intl.formatMessage(messages.unmatchingPasswords) : null;
+    this.setState({ password_confirmation, errorMsg });
     this.setState({ submitDisabled: !(bothFilled && samePass) });
   }
 
@@ -122,7 +122,7 @@ class ChangePasswordComponent extends Component {
             className="user-password-change__password-input-field"
             id="password-change-password-input-current"
             type="password"
-            hintText={this.props.intl.formatMessage(messages.currentPassword)}
+            placeholder={this.props.intl.formatMessage(messages.currentPassword)}
             onChange={this.handleChangeCurrentPassword.bind(this)}
           />
           : null
@@ -132,7 +132,7 @@ class ChangePasswordComponent extends Component {
           className="user-password-change__password-input-field"
           id="password-change-password-input"
           type="password"
-          hintText={this.props.intl.formatMessage(
+          placeholder={this.props.intl.formatMessage(
             messages.newPassword,
             { min: passwordLength.min },
           )}
@@ -143,9 +143,8 @@ class ChangePasswordComponent extends Component {
           className="user-password-change__password-input-field"
           id="password-change-password-input-confirm"
           type="password"
-          hintText={this.props.intl.formatMessage(messages.confirmPassword)}
+          placeholder={this.props.intl.formatMessage(messages.confirmPassword)}
           onChange={this.handleChangePasswordConfirm.bind(this)}
-          errorText={this.state.errorPasswordMsg}
         />
         <br />
         <Button
