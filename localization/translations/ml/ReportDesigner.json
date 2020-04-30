@@ -4,6 +4,7 @@
   "reportDesigner.pauseReport": "Pause report",
   "reportDesigner.introductionPlaceholder": "Type your introduction here...",
   "reportDesigner.textPlaceholder": "Type your report here...",
+  "reportDesigner.confirmLeaveTitle": "Close without saving?",
   "reportDesigner.error": "Sorry, an error occurred while updating the report settings. Please try again and contact {supportEmail} if the condition persists.",
   "reportDesigner.warning": "Warning — sharing this will expose information to people outside your private workspace. Proceed with caution.",
   "reportDesigner.copyButtonInactive": "Copied",
@@ -39,5 +40,6 @@
   "reportDesigner.republishAndResend": "{demand, plural, =0 {} one {Also send correction to the user who already received the previous version of this report} other {Also send correction to the # users who already received the previous version of this report}}",
   "reportDesigner.confirmRepublishResendTitle": "Ready to publish your correction?",
   "reportDesigner.confirmRepublishResendText": "{demand, plural, =0 {} one {Your correction will be sent to the user who has received the previous report.} other {Your correction will be sent to the # users who have received the previous report.}}",
-  "reportDesigner.confirmRepublishResendText2": "In the future, users who request this item will receive this new version of the report."
+  "reportDesigner.confirmRepublishResendText2": "In the future, users who request this item will receive this new version of the report.",
+  "reportDesigner.confirmLeaveText": "If you continue, you will lose your changes."
 }
