@@ -504,8 +504,7 @@ class MediaActionsBarComponent extends Component {
         <DialogContent>
           <form onSubmit={this.handleSave.bind(this, media)} name="edit-media-form">
             <TextField
-              id={`media-detail-title-input-${media.dbid}`}
-              className="media-detail__title-input"
+              id="media-detail__title-input"
               label={this.props.intl.formatMessage(messages.mediaTitle)}
               defaultValue={this.getTitle()}
               onChange={this.handleChangeTitle.bind(this)}
@@ -514,8 +513,7 @@ class MediaActionsBarComponent extends Component {
             />
 
             <TextField
-              id={`media-detail-description-input-${media.dbid}`}
-              className="media-detail__description-input"
+              id="media-detail__description-input"
               label={this.props.intl.formatMessage(messages.mediaDescription)}
               defaultValue={this.getDescription()}
               onChange={this.handleChangeDescription.bind(this)}
