@@ -169,6 +169,6 @@
   },
   {
     "id": "reportDesigner.confirmLeaveText",
-    "defaultMessage": "You will loose all changes."
+    "defaultMessage": "If you continue, you will lose your changes."
   }
 ]

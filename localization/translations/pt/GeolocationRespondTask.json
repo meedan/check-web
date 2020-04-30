@@ -2,9 +2,9 @@
   "geoLocationRespondTask.searching": "Buscando...",
   "geoLocationRespondTask.notFound": "Desculpe, este lugar não foi encontrado. Por favor, tente outra pesquisa.",
   "geoLocationRespondTask.error": "Desculpe, ocorreu um erro ao atualizar a tarefa. Por favor, tente novamente e entre em contato com {supportEmail} se a condição persistir.",
+  "geolocationRespondTask.placeName": "Personalizar o nome do lugar",
+  "geolocationRespondTask.coordinates": "Latitude, Longitude",
   "geolocationRespondTask.cancelTask": "Cancelar",
   "geolocationRespondTask.answerTask": "Responder",
-  "geolocationRespondTask.searchMap": "Pesquisar o mapa",
-  "geolocationRespondTask.placeName": "Personalizar o nome do lugar",
-  "geolocationRespondTask.coordinates": "Latitude, Longitude"
+  "geolocationRespondTask.searchMap": "Pesquisar o mapa"
 }

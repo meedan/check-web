@@ -2,9 +2,9 @@
   "geoLocationRespondTask.searching": "Поиск...",
   "geoLocationRespondTask.notFound": "Извините, запрашиваемое место не найдено. Пожалуйста, попробуйте изменить условия поиска.",
   "geoLocationRespondTask.error": "В процессе редактирования вопроса произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}.",
+  "geolocationRespondTask.placeName": "Редактировать название места",
+  "geolocationRespondTask.coordinates": "Широта, долгота",
   "geolocationRespondTask.cancelTask": "Отменить",
   "geolocationRespondTask.answerTask": "Ответить на вопрос",
-  "geolocationRespondTask.searchMap": "Искать на карте",
-  "geolocationRespondTask.placeName": "Редактировать название места",
-  "geolocationRespondTask.coordinates": "Широта, долгота"
+  "geolocationRespondTask.searchMap": "Искать на карте"
 }

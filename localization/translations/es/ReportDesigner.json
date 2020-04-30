@@ -4,6 +4,7 @@
   "reportDesigner.pauseReport": "Pausar informe",
   "reportDesigner.introductionPlaceholder": "Escriba su introducción aquí ...",
   "reportDesigner.textPlaceholder": "Escriba su informe aquí ...",
+  "reportDesigner.confirmLeaveTitle": "¿Cerrar sin guardar?",
   "reportDesigner.error": "Lo sentimos, se produjo un error al actualizar las configuraciones del informe. Vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}.",
   "reportDesigner.warning": "Advertencia - Al compartir esto, estarás exponiendo públicamente, información confidencial de tu área de trabajo. Procede con precaución.",
   "reportDesigner.copyButtonInactive": "Copiado ",
@@ -39,5 +40,6 @@
   "reportDesigner.republishAndResend": "{demand, plural, =0 {} one {Envíe también la corrección al usuario que ya recibió la versión anterior de este informe} other {También envíe correcciones a los # usuarios que ya recibieron la versión anterior de este informe}}",
   "reportDesigner.confirmRepublishResendTitle": "¿Listo(a) para publicar tu corrección?",
   "reportDesigner.confirmRepublishResendText": "{demand, plural, =0 {} one {Su corrección se enviará al usuario que recibió el informe anterior.} other {Su corrección se enviará a los # usuarios que han recibido el informe anterior.}}",
-  "reportDesigner.confirmRepublishResendText2": "En el futuro, los usuarios que soliciten este artículo recibirán esta nueva versión del informe."
+  "reportDesigner.confirmRepublishResendText2": "En el futuro, los usuarios que soliciten este artículo recibirán esta nueva versión del informe.",
+  "reportDesigner.confirmLeaveText": "Si continúa, perderá sus cambios."
 }

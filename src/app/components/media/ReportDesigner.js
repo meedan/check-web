@@ -1271,7 +1271,7 @@ class ReportDesignerComponent extends Component {
             blurb={
               <FormattedMessage
                 id="reportDesigner.confirmLeaveText"
-                defaultMessage="You will loose all changes."
+                defaultMessage="If you continue, you will lose your changes."
               />
             }
             handleClose={this.handleCloseDialogs.bind(this)}

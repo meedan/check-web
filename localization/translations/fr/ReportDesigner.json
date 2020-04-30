@@ -4,6 +4,7 @@
   "reportDesigner.pauseReport": "Suspendre le rapport",
   "reportDesigner.introductionPlaceholder": "Tapez votre introduction ici...",
   "reportDesigner.textPlaceholder": "Tapez votre rapport ici...",
+  "reportDesigner.confirmLeaveTitle": "Fermer sans enregistrer ?",
   "reportDesigner.error": "Désolé, une erreur s'est produite durant la mise à jour des paramètres du rapport. Veuillez réessayer et prévenir {supportEmail} si le problème persiste.",
   "reportDesigner.warning": "Avertissement : le partage de cette intégration exposera des renseignements à l'extérieur de votre espace de travail privé. Soyez prudent.",
   "reportDesigner.copyButtonInactive": "Copié",
@@ -39,5 +40,6 @@
   "reportDesigner.republishAndResend": "{demand, plural, =0 {} one {Envoyez également la correction à l'utilisateur qui a déjà reçu la version précédente de ce rapport} other {Envoyez également la correction aux # utilisateurs qui ont déjà reçu la version précédente de ce rapport}}",
   "reportDesigner.confirmRepublishResendTitle": "Prêt à publier votre correction?",
   "reportDesigner.confirmRepublishResendText": "{demand, plural, =0 {} one {Votre correction sera envoyée à l'utilisateur qui a reçu le rapport précédent.} other {Votre correction sera envoyée aux # utilisateurs qui ont reçu le rapport précédent}}",
-  "reportDesigner.confirmRepublishResendText2": "A l'avenir, les utilisateurs qui soumettent cet article recevront cette nouvelle version du rapport."
+  "reportDesigner.confirmRepublishResendText2": "A l'avenir, les utilisateurs qui soumettent cet article recevront cette nouvelle version du rapport.",
+  "reportDesigner.confirmLeaveText": "Si vous continuez, vous perdrez vos modifications."
 }

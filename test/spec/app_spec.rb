@@ -763,8 +763,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Meedan on Facebook')).to be(true)
 
       el = wait_for_selector("search-input", :id)
-      el.clear
-      el.click
+      el.send_keys(:control, 'a', :delete)
       el.send_keys "tagtag"
       @driver.action.send_keys(:enter).perform
       sleep 3 #due the reload
