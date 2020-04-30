@@ -87,6 +87,7 @@
     "babel-loader": "^8.1.0",
     "babel-plugin-react-intl": "^3.5.1",
     "babel-plugin-relay": "^1.7.0",
+    "babel-plugin-styled-components": "^1.10.7",
     "compression-webpack-plugin": "^0.3.2",
     "core-js": "^3.6.4",
     "crossmessaging": "0.2.2",
