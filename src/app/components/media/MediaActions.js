@@ -193,7 +193,6 @@ class MediaActions extends Component {
     return menuItems.length ?
       <StyledIconMenuWrapper
         isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
-        style={this.props.style}
       >
         <IconButton
           tooltip={
