@@ -78,7 +78,7 @@ class EmptyTrashComponent extends Component {
           title={<FormattedMessage id="trash.emptyTrash" defaultMessage="Empty trash" />}
           blurb={<FormattedMessage
             id="trash.emptyTrashConfirmationText"
-            defaultMessage="Are you sure? This will permanently delete {itemsCount, plural, =0 {0 items} one {1 item} other {# items}} and {notesCount, plural, =0 {0 annotations} one {1 annotation} other {# annotations}}."
+            defaultMessage="Are you sure? This will permanently delete {itemsCount, plural, one {1 item} other {# items}} and {notesCount, plural, one {1 annotation} other {# annotations}}."
             values={{
               itemsCount: team.trash_size.project_media.toString(),
               notesCount: team.trash_size.annotation.toString(),

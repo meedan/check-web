@@ -1175,12 +1175,13 @@ class ReportDesignerComponent extends Component {
             }
             blurb={
               <div>
-                <FormattedMessage
-                  id="reportDesigner.confirmPublishText"
-                  defaultMessage="{demand, plural, =0 {} one {You are about to send this report to the user who requested this item.} other {You are about to send this report to the # users who requested this item.}}"
-                  values={{ demand: media.demand }}
-                />
-                &nbsp;
+                { media.demand > 0 ?
+                  <FormattedMessage
+                    id="reportDesigner.confirmPublishText"
+                    defaultMessage="{demand, plural, one {You are about to send this report to the user who requested this item.} other {You are about to send this report to the # users who requested this item.}}"
+                    values={{ demand: media.demand }}
+                  /> : null }
+                <br /><br />
                 <FormattedMessage
                   id="reportDesigner.confirmPublishText2"
                   defaultMessage="In the future, users who request this item will receive your report while it remains published."
@@ -1234,7 +1235,7 @@ class ReportDesignerComponent extends Component {
                 label={
                   <FormattedMessage
                     id="reportDesigner.republishAndResend"
-                    defaultMessage="{demand, plural, =0 {} one {Also send correction to the user who already received the previous version of this report} other {Also send correction to the # users who already received the previous version of this report}}"
+                    defaultMessage="{demand, plural, one {Also send correction to the user who already received the previous version of this report} other {Also send correction to the # users who already received the previous version of this report}}"
                     values={{ demand: media.demand }}
                   />
                 }
@@ -1250,12 +1251,13 @@ class ReportDesignerComponent extends Component {
             }
             blurb={
               <div>
-                <FormattedMessage
-                  id="reportDesigner.confirmRepublishResendText"
-                  defaultMessage="{demand, plural, =0 {} one {Your correction will be sent to the user who has received the previous report.} other {Your correction will be sent to the # users who have received the previous report.}}"
-                  values={{ demand: media.demand }}
-                />
-                &nbsp;
+                { media.demand > 0 ?
+                  <FormattedMessage
+                    id="reportDesigner.confirmRepublishResendText"
+                    defaultMessage="{demand, plural, one {Your correction will be sent to the user who has received the previous report.} other {Your correction will be sent to the # users who have received the previous report.}}"
+                    values={{ demand: media.demand }}
+                  /> : null }
+                <br /><br />
                 <FormattedMessage
                   id="reportDesigner.confirmRepublishResendText2"
                   defaultMessage="In the future, users who request this item will receive this new version of the report."

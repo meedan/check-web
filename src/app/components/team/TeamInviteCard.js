@@ -86,7 +86,6 @@ class TeamInviteCard extends Component {
       return null;
     }
     if (
-      config.appName === 'check' &&
       team.get_max_number_of_members > 0 &&
       team.team_users.edges.length >= team.get_max_number_of_members
     ) {

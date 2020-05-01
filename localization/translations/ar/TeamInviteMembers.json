@@ -10,7 +10,7 @@
   "TeamMembersListItem.editor": "محرر",
   "TeamMembersListItem.annotator": "مُفَسِّر",
   "teamInviteMembers.resendEmailSuccess": "تم إرسال الدعوة بنجاح",
-  "teamInviteMembers.limits": "The maximum number of members for this workspace has been reached ({count, plural, =0 {0 members} one {1 member} other {# members}}).",
+  "teamInviteMembers.limits": "The maximum number of members for this workspace has been reached ({count, plural, one {1 member} other {# members}}).",
   "teamInviteMembers.inviteMembers": "إضافة اﻷعضاء الى دور",
   "teamInviteMembers.inviteMember": "دعوة",
   "teamInviteMembers.customInvitation": "رسالة الدعوة (اختيارية)",

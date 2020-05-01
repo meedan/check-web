@@ -31,15 +31,15 @@
   "reportDesigner.textMessage": "Message texte",
   "reportDesigner.disclaimer": "Notice",
   "reportDesigner.confirmPublishTitle": "Prêt à publier votre rapport ?",
-  "reportDesigner.confirmPublishText": "{demand, plural, =0 {} one {Vous êtes sur le point d'envoyer ce rapport à l'utilisateur qui a soumis cet article.} other {Vous êtes sur le point d'envoyer ce rapport aux # utilisateurs qui ont soumis cet article.}}",
+  "reportDesigner.confirmPublishText": "{demand, plural, one {Vous êtes sur le point d'envoyer ce rapport à l'utilisateur qui a soumis cet article.} other {Vous êtes sur le point d'envoyer ce rapport aux # utilisateurs qui ont soumis cet article.}}",
   "reportDesigner.confirmPublishText2": "A l'avenir, les utilisateurs qui soumettent cet article recevront votre rapport tant qu'il reste publié.",
   "reportDesigner.confirmPauseTitle": "Vous êtes sur le point de suspendre la publication du rapport",
   "reportDesigner.confirmPauseText": "Ce rapport ne sera envoyé aux utilisateurs qu'après sa nouvelle publication. Voulez-vous continuer?",
   "reportDesigner.confirmRepublishTitle": "Prêt à publier vos modifications ?",
   "reportDesigner.confirmRepublishText": "A l'avenir, les utilisateurs qui soumettent cet article recevront cette nouvelle version du rapport.",
-  "reportDesigner.republishAndResend": "{demand, plural, =0 {} one {Envoyez également la correction à l'utilisateur qui a déjà reçu la version précédente de ce rapport} other {Envoyez également la correction aux # utilisateurs qui ont déjà reçu la version précédente de ce rapport}}",
+  "reportDesigner.republishAndResend": "{demand, plural, one {Envoyez également la correction à l'utilisateur qui a déjà reçu la version précédente de ce rapport} other {Envoyez également la correction aux # utilisateurs qui ont déjà reçu la version précédente de ce rapport}}",
   "reportDesigner.confirmRepublishResendTitle": "Prêt à publier votre correction?",
-  "reportDesigner.confirmRepublishResendText": "{demand, plural, =0 {} one {Votre correction sera envoyée à l'utilisateur qui a reçu le rapport précédent.} other {Votre correction sera envoyée aux # utilisateurs qui ont reçu le rapport précédent}}",
+  "reportDesigner.confirmRepublishResendText": "{demand, plural, one {Votre correction sera envoyée à l'utilisateur qui a reçu le rapport précédent.} other {Votre correction sera envoyée aux # utilisateurs qui ont reçu le rapport précédent.}}",
   "reportDesigner.confirmRepublishResendText2": "A l'avenir, les utilisateurs qui soumettent cet article recevront cette nouvelle version du rapport.",
   "reportDesigner.confirmLeaveText": "Si vous continuez, vous perdrez vos modifications."
 }
