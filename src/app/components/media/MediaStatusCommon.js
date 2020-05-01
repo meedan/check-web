@@ -10,7 +10,6 @@ import { can } from '../Can';
 import CheckContext from '../../CheckContext';
 import { getStatus, getErrorMessage, bemClass } from '../../helpers';
 import { mediaStatuses, mediaLastStatus, stringHelper } from '../../customHelpers';
-import { units } from '../../styles/js/shared';
 import { withSetFlashMessage } from '../FlashMessage';
 
 const messages = defineMessages({
@@ -21,10 +20,12 @@ const messages = defineMessages({
 });
 
 const ReadOnlyStatusLabel = styled.div`
-  height: ${units(3)};
-  lineHeight: ${units(3)};
-  paddingLeft: 0;
   color: black;
+`;
+
+const StyledMediaStatus = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 class MediaStatusCommon extends Component {
@@ -74,7 +75,7 @@ class MediaStatusCommon extends Component {
     const currentStatus = getStatus(mediaStatuses(media), mediaLastStatus(media));
 
     return (
-      <div className="media-status">
+      <StyledMediaStatus className="media-status">
         {this.canUpdate() ? (
           <FormControl variant="outlined">
             <Select
@@ -103,7 +104,7 @@ class MediaStatusCommon extends Component {
         ) : (
           <ReadOnlyStatusLabel>{currentStatus.label}</ReadOnlyStatusLabel>
         )}
-      </div>
+      </StyledMediaStatus>
     );
   }
 }
