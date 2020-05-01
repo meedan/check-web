@@ -2,9 +2,9 @@
   "geoLocationRespondTask.searching": "البحث جارٍ...",
   "geoLocationRespondTask.notFound": "عذراً ، هذا المكان لم يتم العثور عليه. من فضلك أعد المحاولة مع بحث مختلف.",
   "geoLocationRespondTask.error": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث المهمة. من فضلك أعد المحاولة وتواصل مع {supportEmail} إن استمرت المشكلة.",
+  "geolocationRespondTask.placeName": "تصحيح اسم المكان",
+  "geolocationRespondTask.coordinates": "خطوط العرض والطول",
   "geolocationRespondTask.cancelTask": "إلغاء",
   "geolocationRespondTask.answerTask": "إجابة",
-  "geolocationRespondTask.searchMap": "بحث في الخريطة",
-  "geolocationRespondTask.placeName": "تصحيح اسم المكان",
-  "geolocationRespondTask.coordinates": "خطوط العرض والطول"
+  "geolocationRespondTask.searchMap": "بحث في الخريطة"
 }

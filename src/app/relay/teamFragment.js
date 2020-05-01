@@ -18,7 +18,6 @@ const teamFragment = Relay.QL`
     get_max_number_of_members,
     pusher_channel,
     public_team_id,
-    translation_statuses,
     verification_statuses,
     source_verification_statuses,
     contacts(first: 1) {

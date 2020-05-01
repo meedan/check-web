@@ -11,6 +11,7 @@ import CheckContext from '../../CheckContext';
 import { stringHelper } from '../../customHelpers';
 import { getErrorObjects, getFilters } from '../../helpers';
 import CheckError from '../../CheckError';
+import { withSetFlashMessage } from '../FlashMessage';
 
 const messages = defineMessages({
   submitting: {
@@ -45,7 +46,7 @@ class CreateProjectMedia extends Component {
         message = error[0].message; // eslint-disable-line prefer-destructuring
       }
     }
-    this.context.setMessage(message);
+    this.props.setFlashMessage(message);
   };
 
   submitSource(value) {
@@ -62,7 +63,7 @@ class CreateProjectMedia extends Component {
 
     const onSuccess = (response) => {
       const rid = response.createProjectSource.project_source.dbid;
-      context.history.push(prefix + rid);
+      browserHistory.push(prefix + rid);
       this.setState({ message: null });
     };
 
@@ -91,7 +92,7 @@ class CreateProjectMedia extends Component {
     const onSuccess = (response) => {
       if (getFilters() !== '{}') {
         const rid = response.createProjectMedia.project_media.dbid;
-        context.history.push(prefix + rid);
+        browserHistory.push(prefix + rid);
       }
       this.setState({ message: null });
     };
@@ -148,11 +149,11 @@ CreateProjectMedia.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
+  setFlashMessage: PropTypes.func.isRequired,
 };
 
 CreateProjectMedia.contextTypes = {
   store: PropTypes.object,
-  setMessage: PropTypes.func,
 };
 
-export default injectIntl(CreateProjectMedia);
+export default withSetFlashMessage(injectIntl(CreateProjectMedia));

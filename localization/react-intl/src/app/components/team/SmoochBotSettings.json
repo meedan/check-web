@@ -37,7 +37,7 @@
   },
   {
     "id": "smoochBotSettings.mainPlaceholder",
-    "defaultMessage": "📌*Main Menu* \n      \n*Reply 1* (or 🔍) to submit a request for a fact-check about an article, video, image, or other content.\n*Reply 2* (or 🦠) to get the latest information about coronavirus disease (COVID-19)"
+    "defaultMessage": "📌*Main Menu*\n\n*Reply 1* (or 🔍) to submit a request for a fact-check about an article, video, image, or other content.\n*Reply 2* (or 🦠) to get the latest information about coronavirus disease (COVID-19)"
   },
   {
     "id": "smoochBotSettings.secondaryLabel",
@@ -49,7 +49,7 @@
   },
   {
     "id": "smoochBotSettings.secondaryPlaceholder",
-    "defaultMessage": "*Information about Coronavirus disease (COVID-19)* 🦠\n    \n👉*Reply with any one of the following numbers (or emoji) to get information about that topic:*\n  \n*1:* How do I protect myself and/or my family? 👨‍👩‍👧\n*2:* I think I might be getting sick 🤒\n*3:* How can I handle stress associated with COVID-19? ❤️\n*4:* Information about cases and recoveries globally 📊\n*5:* Latest updates from the World Health Organization 🌐\n\n*Reply 0* to get back to the *Main Menu* 📌"
+    "defaultMessage": "*Information about Coronavirus disease (COVID-19)* 🦠\n\n👉*Reply with any one of the following numbers (or emoji) to get information about that topic:*\n\n*1:* How do I protect myself and/or my family? 👨‍👩‍👧\n*2:* I think I might be getting sick 🤒\n*3:* How can I handle stress associated with COVID-19? ❤️\n*4:* Information about cases and recoveries globally 📊\n*5:* Latest updates from the World Health Organization 🌐\n\n*Reply 0* to get back to the *Main Menu* 📌"
   },
   {
     "id": "smoochBotSettings.nooptLabel",
@@ -73,7 +73,7 @@
   },
   {
     "id": "smoochBotSettings.queryPlaceholder",
-    "defaultMessage": "*Please enter the question, link, picture, or video that you want fact-checked,* followed by any context or additional questions related to that item. Your request will be sent to fact-checkers about 30 seconds after you have sent your last message.\n      \n*Reply 0 (or 📌)* to go back to the *Main Menu*"
+    "defaultMessage": "*Please enter the question, link, picture, or video that you want fact-checked,* followed by any context or additional questions related to that item. Your request will be sent to fact-checkers about 30 seconds after you have sent your last message.\n\n*Reply 0 (or 📌)* to go back to the *Main Menu*"
   },
   {
     "id": "smoochBotSettings.receivedLabel",
@@ -85,7 +85,7 @@
   },
   {
     "id": "smoochBotSettings.receivedPlaceholder",
-    "defaultMessage": "Thank you! Your request has been received. Responses are being aggregated and sorted, and we're working on fact-checking your questions.\n      \n✔️*Follow this link for an updated list of common questions that we have fact-checked:* [ Link to a page of fact-checks on your website ]\n\n👉*Reply with any text* to get back to the *Main Menu* 📌"
+    "defaultMessage": "Thank you! Your request has been received. Responses are being aggregated and sorted, and we're working on fact-checking your questions.\n\n✔️*Follow this link for an updated list of common questions that we have fact-checked:* [ Link to a page of fact-checks on your website ]\n\n👉*Reply with any text* to get back to the *Main Menu* 📌"
   },
   {
     "id": "smoochBotSettings.updatedLabel",
@@ -109,7 +109,7 @@
   },
   {
     "id": "smoochBotSettings.invalidPlaceholder",
-    "defaultMessage": "❌Sorry, we can't accept this type of message for verification at this time. \n      \nWe can accept most images, videos, links, text messages, and shared WhatsApp messages."
+    "defaultMessage": "❌Sorry, we can't accept this type of message for verification at this time.\n\nWe can accept most images, videos, links, text messages, and shared WhatsApp messages."
   },
   {
     "id": "smoochBotSettings.inactivityLabel",
@@ -121,7 +121,7 @@
   },
   {
     "id": "smoochBotSettings.inactivityPlaceholder",
-    "defaultMessage": "❌Thank you for your message. Our fact-checking service is currently *inactive.*\n      \nContact us at *[email or other contact]* for further inquiries."
+    "defaultMessage": "❌Thank you for your message. Our fact-checking service is currently *inactive.*\n\nContact us at *[email or other contact]* for further inquiries."
   },
   {
     "id": "smoochBotSettings.disabled",

@@ -1,4 +1,5 @@
 import Relay from 'react-relay/classic';
+import { browserHistory } from 'react-router';
 import { defineMessages } from 'react-intl';
 import util from 'util';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
@@ -122,15 +123,14 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
       // eslint-disable-next-line no-console
       console.debug('%cSending request to backend ', 'font-weight: bold');
     }
-    const { history } = this._init;
     if (result.status === 404 && window.location.pathname !== '/check/not-found') {
-      history.push('/check/not-found');
+      browserHistory.push('/check/not-found');
     } else if (result.status === 401 || result.status === 403) {
       const team = this._init.team();
       if (team !== '') {
-        history.push(`/${team}/join`);
+        browserHistory.push(`/${team}/join`);
       } else if (window.location.pathname !== '/check/forbidden') {
-        history.push('/check/forbidden');
+        browserHistory.push('/check/forbidden');
       }
     }
   }

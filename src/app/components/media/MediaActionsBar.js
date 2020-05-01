@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { injectIntl, FormattedMessage, defineMessages } from 'react-intl';
-import { Link } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import TextField from 'material-ui/TextField';
+import TextField from '@material-ui/core/TextField';
+import { withStyles } from '@material-ui/core/styles';
+import IconReport from '@material-ui/icons/Receipt';
 import MediaStatus from './MediaStatus';
 import MediaRoute from '../../relay/MediaRoute';
 import MediaActions from './MediaActions';
@@ -20,6 +22,7 @@ import UpdateStatusMutation from '../../relay/mutations/UpdateStatusMutation';
 import MoveDialog from './MoveDialog';
 import CheckContext from '../../CheckContext';
 import globalStrings from '../../globalStrings';
+import { withSetFlashMessage } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
 import { nested, getErrorMessage } from '../../helpers';
 
@@ -46,7 +49,18 @@ const messages = defineMessages({
   },
 });
 
+const Styles = theme => ({
+  spacedButton: {
+    marginRight: theme.spacing(1),
+  },
+});
+
 class MediaActionsBarComponent extends Component {
+  static handleReportDesigner() {
+    const path = `${window.location.pathname}/report-designer`;
+    browserHistory.push(path);
+  }
+
   constructor(props) {
     super(props);
 
@@ -77,7 +91,7 @@ class MediaActionsBarComponent extends Component {
     return this.props.media.project;
   }
 
-  handleAddToList() {
+  handleAddToList = () => {
     this.setState({ openAddToListDialog: true });
   }
 
@@ -97,7 +111,7 @@ class MediaActionsBarComponent extends Component {
           }}
         />
       );
-      this.context.setMessage(message);
+      this.props.setFlashMessage(message);
     };
 
     const context = this.getContext();
@@ -114,20 +128,19 @@ class MediaActionsBarComponent extends Component {
     this.setState({ openAddToListDialog: false });
   }
 
-  handleMove() {
+  handleMove = () => {
     this.setState({ openMoveDialog: true });
   }
 
   fail(transaction) {
     const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
     const message = getErrorMessage(transaction, fallbackMessage);
-    this.context.setMessage(message);
+    this.props.setFlashMessage(message);
   }
 
   handleMoveProjectMedia() {
     const { media } = this.props;
     const { dstProj: { dbid: projectId } } = this.state;
-    const { history } = this.getContext();
 
     const onFailure = (transaction) => {
       this.fail(transaction);
@@ -137,7 +150,7 @@ class MediaActionsBarComponent extends Component {
     const context = this.getContext();
 
     const onSuccess = () => {
-      history.push(path);
+      browserHistory.push(path);
     };
 
     Relay.Store.commitUpdate(
@@ -154,7 +167,7 @@ class MediaActionsBarComponent extends Component {
     this.setState({ openMoveDialog: false });
   }
 
-  handleRemoveFromList() {
+  handleRemoveFromList = () => {
     const context = this.getContext();
     const { media } = this.props;
 
@@ -165,9 +178,9 @@ class MediaActionsBarComponent extends Component {
           defaultMessage="Removed from list"
         />
       );
-      this.context.setMessage(message);
+      this.props.setFlashMessage(message);
       const path = `/${media.team.slug}/media/${media.dbid}`;
-      context.history.push(path);
+      browserHistory.push(path);
     };
 
     Relay.Store.commitUpdate(
@@ -219,7 +232,7 @@ class MediaActionsBarComponent extends Component {
     const onFailure = (transaction) => {
       const fallbackMessage = this.props.intl.formatMessage(messages.editReportError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
       const message = getErrorMessage(transaction, fallbackMessage);
-      this.context.setMessage(message);
+      this.props.setFlashMessage(message);
     };
 
     if (this.canSubmit()) {
@@ -252,7 +265,7 @@ class MediaActionsBarComponent extends Component {
           }}
         />
       );
-      this.context.setMessage(message);
+      this.props.setFlashMessage(message);
     };
 
     const context = this.getContext();
@@ -342,7 +355,7 @@ class MediaActionsBarComponent extends Component {
           defaultMessage="Assignments updated successfully!"
         />
       );
-      this.context.setMessage(message);
+      this.props.setFlashMessage(message);
     };
 
     const status_id = media.last_status_obj ? media.last_status_obj.id : '';
@@ -382,7 +395,7 @@ class MediaActionsBarComponent extends Component {
           }}
         />
       );
-      this.context.setMessage(message);
+      this.props.setFlashMessage(message);
     };
 
     const context = this.getContext();
@@ -405,7 +418,7 @@ class MediaActionsBarComponent extends Component {
   }
 
   render() {
-    const { media, intl: { locale } } = this.props;
+    const { classes, media, intl: { locale } } = this.props;
     const context = this.getContext();
 
     const addToListDialogActions = [
@@ -466,6 +479,7 @@ class MediaActionsBarComponent extends Component {
       }
     }
     const readonlyStatus = smoochBotInstalled && isChild && !isParent;
+    const published = (media.dynamic_annotation_report_design && media.dynamic_annotation_report_design.data && media.dynamic_annotation_report_design.data.state === 'published');
 
     const assignments = media.last_status_obj.assignments.edges;
 
@@ -497,24 +511,22 @@ class MediaActionsBarComponent extends Component {
         <DialogContent>
           <form onSubmit={this.handleSave.bind(this, media)} name="edit-media-form">
             <TextField
-              type="text"
-              id={`media-detail-title-input-${media.dbid}`}
-              className="media-detail__title-input"
-              floatingLabelText={this.props.intl.formatMessage(messages.mediaTitle)}
+              id="media-detail__title-input"
+              label={this.props.intl.formatMessage(messages.mediaTitle)}
               defaultValue={this.getTitle()}
               onChange={this.handleChangeTitle.bind(this)}
-              style={{ width: '100%' }}
+              fullWidth
+              margin="normal"
             />
 
             <TextField
-              type="text"
-              id={`media-detail-description-input-${media.dbid}`}
-              className="media-detail__description-input"
-              floatingLabelText={this.props.intl.formatMessage(messages.mediaDescription)}
+              id="media-detail__description-input"
+              label={this.props.intl.formatMessage(messages.mediaDescription)}
               defaultValue={this.getDescription()}
               onChange={this.handleChangeDescription.bind(this)}
-              style={{ width: '100%' }}
-              multiLine
+              fullWidth
+              multiline
+              margin="normal"
             />
           </form>
         </DialogContent>
@@ -550,10 +562,11 @@ class MediaActionsBarComponent extends Component {
         { !media.archived ?
           <div>
             <Button
+              id="media-actions-bar__add-to"
               variant="contained"
-              style={{ margin: '0 8px' }}
+              className={classes.spacedButton}
               color="primary"
-              onClick={this.handleAddToList.bind(this)}
+              onClick={this.handleAddToList}
             >
               <FormattedMessage
                 id="mediaActionsBar.addTo"
@@ -562,10 +575,11 @@ class MediaActionsBarComponent extends Component {
             </Button>
 
             <Button
+              id="media-actions-bar__move-to"
               variant="contained"
-              style={{ margin: '0 8px' }}
+              className={classes.spacedButton}
               color="primary"
-              onClick={this.handleMove.bind(this)}
+              onClick={this.handleMove}
             >
               <FormattedMessage
                 id="mediaActionsBar.moveTo"
@@ -575,17 +589,29 @@ class MediaActionsBarComponent extends Component {
 
             { media.project_id ?
               <Button
-                style={{
-                  margin: '0 8px',
-                  border: '1px solid #000',
-                }}
-                onClick={this.handleRemoveFromList.bind(this)}
+                id="media-actions-bar__remove-from-list"
+                variant="outlined"
+                className={classes.spacedButton}
+                onClick={this.handleRemoveFromList}
               >
                 <FormattedMessage
                   id="mediaActionsBar.removeFromList"
                   defaultMessage="Remove from list"
                 />
               </Button> : null }
+
+            <Button
+              onClick={MediaActionsBarComponent.handleReportDesigner}
+              id="media-detail__report-designer"
+              variant="outlined"
+              className={classes.spacedButton}
+              startIcon={<IconReport />}
+            >
+              <FormattedMessage
+                id="mediaActionsBar.reportDesigner"
+                defaultMessage="Report"
+              />
+            </Button>
           </div> : <div />}
 
         <div
@@ -595,7 +621,7 @@ class MediaActionsBarComponent extends Component {
         >
           <MediaStatus
             media={media}
-            readonly={media.archived || media.last_status_obj.locked || readonlyStatus}
+            readonly={media.archived || media.last_status_obj.locked || readonlyStatus || published}
           />
 
           <MediaActions
@@ -680,12 +706,19 @@ class MediaActionsBarComponent extends Component {
   }
 }
 
-MediaActionsBarComponent.contextTypes = {
-  store: PropTypes.object,
-  setMessage: PropTypes.func,
+MediaActionsBarComponent.propTypes = {
+  intl: PropTypes.object.isRequired,
+  setFlashMessage: PropTypes.func.isRequired,
 };
 
-const MediaActionsBarContainer = Relay.createContainer(MediaActionsBarComponent, {
+MediaActionsBarComponent.contextTypes = {
+  store: PropTypes.object,
+};
+
+const ConnectedMediaActionsBarComponent =
+  withStyles(Styles)(withSetFlashMessage(injectIntl(MediaActionsBarComponent)));
+
+const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarComponent, {
   initialVariables: {
     contextId: null,
   },
@@ -706,6 +739,10 @@ const MediaActionsBarContainer = Relay.createContainer(MediaActionsBarComponent,
         url
         quote
         archived
+        dynamic_annotation_report_design {
+          id
+          data
+        }
         media {
           url
           embed_path
@@ -805,4 +842,4 @@ class MediaActionsBar extends React.PureComponent {
   }
 }
 
-export default injectIntl(MediaActionsBar);
+export default MediaActionsBar;

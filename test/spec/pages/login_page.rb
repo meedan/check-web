@@ -57,7 +57,7 @@ class LoginPage < Page
     # TODO: fix or remove click_button() for mobile browsers
     (@wait.until { @driver.find_element(:xpath, "//button[@id='submit-register-or-login']") }).click
 
-    wait_for_element('.home')
+    wait_for_selector('.home')
     return CreateTeamPage.new(config: @config, driver: @driver) if contains_element?('.create-team', {timeout: 1})
     return ProjectPage.new(config: @config, driver: @driver) if contains_element?('.project')
     return ProjectPage.new(config: @config, driver: @driver) if options[:project]
@@ -65,8 +65,8 @@ class LoginPage < Page
 
   def login_with_facebook
     @driver.navigate.to 'https://www.facebook.com'
-    fill_input('#email', @config['facebook_user'])
-    fill_input('#pass', @config['facebook_password'])
+    wait_for_selector('#email').send_keys(@config['facebook_user'])
+    wait_for_selector('#pass').send_keys(@config['facebook_password'])
     click_button('#loginbutton input')
     sleep 2
 
@@ -78,7 +78,7 @@ class LoginPage < Page
     @driver.switch_to.window(window)
     sleep 20
     agree_to_tos
-    wait_for_element('.home')
+    wait_for_selector('.home')
   end
 
   private

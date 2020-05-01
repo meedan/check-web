@@ -1,5 +1,6 @@
 import React from 'react';
 import { defineMessages, injectIntl } from 'react-intl';
+import { browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import styled from 'styled-components';
@@ -10,7 +11,6 @@ import MediasLoading from './MediasLoading';
 import Media from './Media';
 import MediaActionsBar from './MediaActionsBar';
 import SearchRoute from '../../relay/SearchRoute';
-import CheckContext from '../../CheckContext';
 import { units, black54 } from '../../styles/js/shared';
 
 const messages = defineMessages({
@@ -45,7 +45,7 @@ const StyledTopBar = styled.div`
     justify-content: space-between;
   }
 
-  @media (max-width: 1300px) {
+  @media (max-width: 1500px) {
     .media-search__actions-bar {
       width: 100%;
       position: static;
@@ -88,21 +88,8 @@ const StyledPager = styled.div`
 `;
 
 class MediaSearchComponent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  componentWillMount() {
+  componentDidMount() {
     this.updateUrl();
-  }
-
-  componentWillUpdate() {
-    this.updateUrl();
-  }
-
-  getContext() {
-    return new CheckContext(this);
   }
 
   setOffset(offset) {
@@ -111,7 +98,7 @@ class MediaSearchComponent extends React.Component {
     delete query.id;
     query.noid = true;
     const pathname = window.location.pathname.match(/^(\/[^/]+\/(project\/[0-9]+\/)?media\/[0-9]+)/)[1];
-    this.currentContext().history.push({ pathname, state: { query } });
+    browserHistory.push({ pathname, state: { query } });
   }
 
   updateUrl() {
@@ -122,7 +109,7 @@ class MediaSearchComponent extends React.Component {
       if (item_navigation_offset > -1 && item_navigation_offset !== currentOffset) {
         query.esoffset = this.props.search.item_navigation_offset;
         const pathname = window.location.pathname.match(/^(\/[^/]+\/(project\/[0-9]+\/)?media\/[0-9]+)/)[1];
-        this.currentContext().history.push({ pathname, state: { query } });
+        browserHistory.push({ pathname, state: { query } });
       } else {
         const currId = parseInt(window.location.pathname.match(/^\/[^/]+\/(project\/[0-9]+\/)?media\/([0-9]+)/)[2], 10);
         const medias = this.props.search.medias.edges;
@@ -134,7 +121,7 @@ class MediaSearchComponent extends React.Component {
             projectPart = `project/${medias[0].node.project_id}/`;
           }
           const pathname = `${teamSlug}/${projectPart}media/${newId}`;
-          this.currentContext().history.push({ pathname, state: { query } });
+          browserHistory.push({ pathname, state: { query } });
         }
       }
     }
@@ -147,10 +134,6 @@ class MediaSearchComponent extends React.Component {
       searchQuery = state.query;
     }
     return Object.assign({}, searchQuery);
-  }
-
-  currentContext() {
-    return this.getContext().getContextStore();
   }
 
   previousItem() {
@@ -210,7 +193,7 @@ class MediaSearchComponent extends React.Component {
         </StyledTopBar>
 
         <Media
-          router={this.props.context.router}
+          router={this.context.router}
           route={this.props.route}
           params={{
             projectId: media.project_id,
@@ -223,7 +206,6 @@ class MediaSearchComponent extends React.Component {
 }
 
 MediaSearchComponent.contextTypes = {
-  store: PropTypes.object,
   router: PropTypes.object,
 };
 
@@ -312,7 +294,6 @@ class MediaSearch extends React.PureComponent {
 }
 
 MediaSearch.contextTypes = {
-  store: PropTypes.object,
   router: PropTypes.object,
 };
 

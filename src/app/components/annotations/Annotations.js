@@ -12,18 +12,10 @@ const StyledAnnotations = styled.div`
   display: flex;
   flex-direction: column;
   .annotations__list {
-    // Chrome only hack to avoid broken scroll on Firefox :( CGB 2017-10-6
-    // TODO Figure out a real solution for this
-    // https://github.com/philipwalton/flexbugs/issues/108
-    ${props => props.annotationCount < 4 ? 'height: 250px' :
-    `@media screen and (-webkit-min-device-pixel-ratio:0) {
-      max-height: ${props.height === 'short'
-    ? 'calc(100vh - 580px);'
-    : 'calc(100vh - 420px);'
-};
-    }`
-};
-    min-height: 250px;
+    ${props => props.showAddAnnotation ?
+    'height: calc(100vh - 260px);' :
+    'height: calc(100vh - 160px);'
+}
     overflow: auto;
     display: flex;
     flex-direction: column;
@@ -44,7 +36,7 @@ const StyledAnnotations = styled.div`
         width: ${borderWidthMedium};
         ${props => (props.isRtl ? 'right' : 'left')}: ${units(4)};
       }
-      &:first-of-type {
+      &:last-of-type {
         height: 100%;
       }
     }
@@ -77,7 +69,7 @@ class Annotations extends React.Component {
       <StyledAnnotations
         className="annotations"
         isRtl={rtlDetect.isRtlLang(props.intl.locale)}
-        height={props.height}
+        showAddAnnotation={props.showAddAnnotation}
         annotationCount={props.annotations.length}
       >
         <Card initiallyExpanded style={props.style}>

@@ -171,7 +171,6 @@ class TagMenuComponent extends Component {
 
 TagMenuComponent.contextTypes = {
   store: PropTypes.object,
-  setMessage: PropTypes.func,
 };
 
 const TagMenuContainer = Relay.createContainer(TagMenuComponent, {

@@ -1,8 +1,19 @@
 import Relay from 'react-relay/classic';
+import { browserHistory } from 'react-router';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { SET_CONTEXT } from './redux/ActionTypes';
 // import { request } from './redux/actions';
 import CheckNetworkLayer from './CheckNetworkLayer';
+
+function redirectToPreviousPageOr(path) {
+  const previousPage = window.storage.getValue('previousPage');
+  window.storage.set('previousPage', '');
+  if (previousPage && previousPage !== '') {
+    browserHistory.push(previousPage);
+  } else {
+    browserHistory.push(path);
+  }
+}
 
 // Verify if user is logged in, if so, start a session
 // and set the context based on session information
@@ -34,16 +45,14 @@ class CheckContext {
 
   startNetwork(token) {
     const context = this.getContextStore();
-    const { history } = context;
     const clientSessionId = context.clientSessionId || (`browser-${Date.now()}${parseInt(Math.random() * 1000000, 10)}`);
     this.setContextStore({ clientSessionId });
     Relay.injectNetworkLayer(new CheckNetworkLayer(config.relayPath, {
       caller: this.caller,
-      history,
       team: () => {
-        const { team } = this.getContextStore();
-        if (team) {
-          return team.slug;
+        const team = window.location.pathname.match(/^\/([^/]+)/);
+        if (team && team[1] !== 'check') {
+          return team[1];
         }
         return '';
       },
@@ -85,7 +94,7 @@ class CheckContext {
     this.setContextStore({ currentUser: userData });
 
     if (userData && !userData.accepted_terms) {
-      this.getContextStore().history.push('/check/user/terms-of-service');
+      browserHistory.push('/check/user/terms-of-service');
     } else {
       this.maybeRedirect(this.caller.props.location.pathname, userData);
       this.setContext();
@@ -132,7 +141,7 @@ class CheckContext {
     }
     this.setContextStore(newContext);
 
-    this.redirectToPreviousPageOr(path);
+    redirectToPreviousPageOr(path);
   }
 
   // When accessing Check root, redirect to a friendlier location if needed:
@@ -145,7 +154,7 @@ class CheckContext {
 
     const userCurrentTeam = userData.current_team;
     if (!userCurrentTeam) {
-      this.redirectToPreviousPageOr('/check/teams/find');
+      redirectToPreviousPageOr('/check/teams/find');
       return;
     }
     let projectNode = null;
@@ -157,16 +166,6 @@ class CheckContext {
       this.setContextAndRedirect(project.team, project);
     } else {
       this.setContextAndRedirect(userCurrentTeam, null);
-    }
-  }
-
-  redirectToPreviousPageOr(path) {
-    const previousPage = window.storage.getValue('previousPage');
-    window.storage.set('previousPage', '');
-    if (previousPage && previousPage !== '') {
-      this.getContextStore().history.push(previousPage);
-    } else {
-      this.getContextStore().history.push(path);
     }
   }
 }

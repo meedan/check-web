@@ -361,6 +361,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(current > 0).to be(true)
     end
 
+#search section start
     it "should search in trash page", bin4: true do
       api_create_team_project_and_claim_and_redirect_to_media_page
       wait_for_selector(".media-detail")
@@ -508,6 +509,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el = wait_for_selector("#list-header__recent_added")
       expect(el.find_element(:css, "svg.list-header__sort-asc").nil?).to be(false)
     end
+#search section end
 
     it "should not reset password", bin5: true do
       page = LoginPage.new(config: @config, driver: @driver)
@@ -761,8 +763,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Meedan on Facebook')).to be(true)
 
       el = wait_for_selector("search-input", :id)
-      el.clear
-      el.click
+      el.send_keys(:control, 'a', :delete)
       el.send_keys "tagtag"
       @driver.action.send_keys(:enter).perform
       sleep 3 #due the reload

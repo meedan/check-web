@@ -7,12 +7,12 @@ class MediaPage < Page
   def change_status(status)
     element('.media-status__label').click
     element(".media-status__menu-item--#{status.to_s}").click
-    wait_for_element(".media-status__current--#{status.to_s}")
+    wait_for_selector(".media-status__current--#{status.to_s}")
   end
 
   def set_description(string)
     edit
-    fill_input('.media-detail__description-input textarea:last-child', string)
+    fill_input('#media-detail__description-input', string)
     click('.media-detail__save-edits') # Done
     wait_for_selector_none(".media-detail__save-edits")
     wait_for_selector("//span[contains(@class, 'Linkify') and contains(text(), '#{string}')]", :xpath)
@@ -20,7 +20,7 @@ class MediaPage < Page
 
   def set_title(string)
     edit
-    fill_input('.media-detail__title-input > input', string, {clear: true})
+    fill_input('#media-detail__title-input', string, {clear: true})
     click('.media-detail__save-edits') # Done
     @wait.until {
       string == primary_heading.text

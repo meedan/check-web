@@ -2,7 +2,7 @@
   "teamSettings.Tasks": "Tasks",
   "teamSettings.rules": "Rules",
   "teamSettings.Tags": "Tags",
-  "teamSettings.embed": "Report",
+  "teamSettings.report": "Report",
   "teamSettings.integrations": "Integrations",
   "teamSettings.bots": "Bots"
 }

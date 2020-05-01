@@ -20,10 +20,6 @@
     "defaultMessage": "Lock status"
   },
   {
-    "id": "mediaActions.memebuster",
-    "defaultMessage": "Meme designer"
-  },
-  {
     "id": "mediaActions.sendToTrash",
     "defaultMessage": "Send to trash"
   },

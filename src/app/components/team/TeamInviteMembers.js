@@ -15,6 +15,7 @@ import RoleSelect from './RoleSelect';
 import UserUtil from '../user/UserUtil';
 import CheckContext from '../../CheckContext';
 import UserInvitationMutation from '../../relay/mutations/UserInvitationMutation';
+import { withSetFlashMessage } from '../FlashMessage';
 import {
   units,
   StyledIconButton,
@@ -219,7 +220,7 @@ class TeamInviteMembers extends Component {
             <p key={`email-error-${index.toString()}`}>{message.email} : {message.error}</p>
           ))
         );
-        this.context.setMessage(errorMessage);
+        this.props.setFlashMessage(errorMessage);
       } else {
         const message = (
           <FormattedMessage
@@ -227,7 +228,7 @@ class TeamInviteMembers extends Component {
             defaultMessage="Invitation was sent successfully"
           />
         );
-        this.context.setMessage(message);
+        this.props.setFlashMessage(message);
       }
     };
     const validateMaxError = this.validateMembers(this.state.membersToInvite);
@@ -258,7 +259,7 @@ class TeamInviteMembers extends Component {
       return (
         <FormattedMessage
           id="teamInviteMembers.limits"
-          defaultMessage="The maximum number of members for this workspace has been reached ({count, plural, =0 {0 members} one {1 member} other {# members}})."
+          defaultMessage="The maximum number of members for this workspace has been reached ({count, plural, one {1 member} other {# members}})."
           values={{ count: item.maxMembers }}
         />
       );
@@ -436,8 +437,12 @@ class TeamInviteMembers extends Component {
   }
 }
 
+TeamInviteMembers.propTypes = {
+  setFlashMessage: PropTypes.func.isRequired,
+};
+
 TeamInviteMembers.contextTypes = {
   store: PropTypes.object,
-  setMessage: PropTypes.func,
 };
-export default injectIntl(TeamInviteMembers);
+
+export default withSetFlashMessage(injectIntl(TeamInviteMembers));

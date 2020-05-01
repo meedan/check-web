@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 import Button from '@material-ui/core/Button';
 import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
@@ -8,11 +8,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import { withStyles } from '@material-ui/core/styles';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import styled from 'styled-components';
 import IconSettings from '@material-ui/icons/Settings';
 import Delete from '@material-ui/icons/Delete';
 import rtlDetect from 'rtl-detect';
+import { withPusher, pusherShape } from '../pusher';
 import DrawerProjects from './drawer/Projects';
 import TeamAvatar from './team/TeamAvatar';
 import { stringHelper } from '../customHelpers';
@@ -63,14 +64,6 @@ class DrawerNavigationComponent extends Component {
     return new CheckContext(this).getContextStore();
   }
 
-  getCurrentUser() {
-    return new CheckContext(this).getContextStore().currentUser;
-  }
-
-  getHistory() {
-    return new CheckContext(this).getContextStore().history;
-  }
-
   setContextTeam() {
     const context = new CheckContext(this);
     const { team } = this.props;
@@ -81,16 +74,16 @@ class DrawerNavigationComponent extends Component {
   }
 
   subscribe() {
-    const { pusher } = this.getContext();
-    if (pusher && this.props.team) {
-      pusher.subscribe(this.props.team.pusher_channel).bind('media_updated', 'DrawerNavigationComponent', (data, run) => {
+    const { pusher, team } = this.props;
+    if (pusher && team) {
+      pusher.subscribe(team.pusher_channel).bind('media_updated', 'DrawerNavigationComponent', (data, run) => {
         if (this.getContext().clientSessionId !== data.actor_session_id) {
           if (run) {
             this.props.relay.forceFetch();
             return true;
           }
           return {
-            id: `drawer-navigation-component-${this.props.team.dbid}`,
+            id: `drawer-navigation-component-${team.dbid}`,
             callback: this.props.relay.forceFetch,
           };
         }
@@ -100,14 +93,14 @@ class DrawerNavigationComponent extends Component {
   }
 
   unsubscribe() {
-    const { pusher } = this.getContext();
-    if (pusher && this.props.team) {
-      pusher.unsubscribe(this.props.team.pusher_channel, 'media_updated', 'DrawerNavigationComponent');
+    const { pusher, team } = this.props;
+    if (pusher && team) {
+      pusher.unsubscribe(team.pusher_channel, 'media_updated', 'DrawerNavigationComponent');
     }
   }
 
   handleClickTeamSettings() {
-    this.getHistory().push(`/${this.props.team.slug}/settings`);
+    browserHistory.push(`/${this.props.team.slug}/settings`);
   }
 
   render() {
@@ -173,7 +166,7 @@ class DrawerNavigationComponent extends Component {
         open
         variant="persistent"
         anchor={fromDirection}
-        classes={{ paper: classes.paper }}
+        classes={classes}
       >
         <div>
           {inTeamContext ?
@@ -286,6 +279,12 @@ class DrawerNavigationComponent extends Component {
   }
 }
 
+DrawerNavigationComponent.propTypes = {
+  pusher: pusherShape.isRequired,
+  intl: intlShape.isRequired,
+  classes: PropTypes.object.isRequired,
+};
+
 DrawerNavigationComponent.contextTypes = {
   store: PropTypes.object,
 };
@@ -298,4 +297,4 @@ const drawerStyles = {
   },
 };
 
-export default withStyles(drawerStyles)(injectIntl(DrawerNavigationComponent));
+export default withStyles(drawerStyles)(withPusher(injectIntl(DrawerNavigationComponent)));

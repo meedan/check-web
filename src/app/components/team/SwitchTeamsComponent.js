@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, defineMessages, intlShape, injectIntl } from 'react-intl';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-import { Link } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -33,6 +33,7 @@ import DeleteTeamUserMutation from '../../relay/mutations/DeleteTeamUserMutation
 import CheckContext from '../../CheckContext';
 import { can } from '../Can';
 import { getErrorMessage } from '../../helpers';
+import { withSetFlashMessage } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
 
 const messages = defineMessages({
@@ -57,7 +58,7 @@ class SwitchTeamsComponent extends Component {
 
   setCurrentTeam(team, user) {
     const context = this.getContext();
-    const { history, currentUser } = context.getContextStore();
+    const { currentUser } = context.getContextStore();
 
     currentUser.current_team = team;
     context.setContextStore({ team, currentUser });
@@ -65,12 +66,12 @@ class SwitchTeamsComponent extends Component {
     const onFailure = (transaction) => {
       const fallbackMessage = this.props.intl.formatMessage(messages.switchTeamsError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
       const message = getErrorMessage(transaction, fallbackMessage);
-      this.context.setMessage(message);
+      this.props.setFlashMessage(message);
     };
 
     const onSuccess = () => {
       const path = `/${team.slug}/all-items`;
-      history.push(path);
+      browserHistory.push(path);
     };
 
     Relay.Store.commitUpdate(
@@ -202,7 +203,7 @@ class SwitchTeamsComponent extends Component {
         { isUserSelf ?
           <CardActions>
             <Button
-              onClick={() => this.getContext().getContextStore().history.push('/check/teams/new')}
+              onClick={() => browserHistory.push('/check/teams/new')}
             >
               <FormattedMessage id="switchTeams.newTeamLink" defaultMessage="Create Workspace" />
             </Button>
@@ -218,11 +219,11 @@ SwitchTeamsComponent.propTypes = {
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
   user: PropTypes.object.isRequired,
+  setFlashMessage: PropTypes.func.isRequired,
 };
 
 SwitchTeamsComponent.contextTypes = {
   store: PropTypes.object,
-  setMessage: PropTypes.func,
 };
 
-export default injectIntl(SwitchTeamsComponent);
+export default withSetFlashMessage(injectIntl(SwitchTeamsComponent));

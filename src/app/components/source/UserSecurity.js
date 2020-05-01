@@ -16,6 +16,7 @@ import GenerateTwoFactorBackupCodesMutation from '../../relay/mutations/Generate
 import UserTwoFactorAuthenticationMutation from '../../relay/mutations/UserTwoFactorAuthenticationMutation';
 import CheckContext from '../../CheckContext';
 import { getErrorMessage, getErrorObjects } from '../../helpers';
+import { withSetFlashMessage } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
 import globalStrings from '../../globalStrings';
 import { units, opaqueBlack10, StyledPasswordChange } from '../../styles/js/shared';
@@ -70,7 +71,7 @@ class UserSecurity extends Component {
   fail = (transaction) => {
     const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
     const message = getErrorMessage(transaction, fallbackMessage);
-    this.context.setMessage(message);
+    this.props.setFlashMessage(message);
   };
 
   handleFieldChange(e) {
@@ -508,9 +509,12 @@ class UserSecurity extends Component {
   }
 }
 
-UserSecurity.contextTypes = {
-  store: PropTypes.object,
-  setMessage: PropTypes.func,
+UserSecurity.propTypes = {
+  setFlashMessage: PropTypes.func.isRequired,
 };
 
-export default injectIntl(UserSecurity);
+UserSecurity.contextTypes = {
+  store: PropTypes.object,
+};
+
+export default withSetFlashMessage(injectIntl(UserSecurity));

@@ -1,7 +1,3 @@
 {
-  "mediaStatus.error": "Désolé, une erreur s'est produite durant la mise à jour du statut. Veuillez réessayer et prévenir {supportEmail} si le problème persiste.",
-  "mediaStatusCommon.title": "Rapport final",
-  "mediaStatusCommon.confirmationMessageWithValue": "Vous êtes sur le point d'envoyer un rapport aux {value} personnes qui ont demandé cet élément.",
-  "mediaStatusCommon.confirmationMessage": "Vous êtes sur le point d'envoyer un rapport à toutes les personnes qui ont demandé cet élément.",
-  "mediaStatusCommon.proceedAndSend": "Poursuivre et envoyer"
+  "mediaStatus.error": "Désolé, une erreur s'est produite durant la mise à jour du statut. Veuillez réessayer et prévenir {supportEmail} si le problème persiste."
 }

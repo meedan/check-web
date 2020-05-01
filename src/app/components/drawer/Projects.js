@@ -10,6 +10,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import styled from 'styled-components';
 import InfiniteScroll from 'react-infinite-scroller';
 import Can from '../Can';
+import { withPusher, pusherShape } from '../../pusher';
 import CreateProject from '../project/CreateProject';
 import TeamRoute from '../../relay/TeamRoute';
 import RelayContainer from '../../relay/RelayContainer';
@@ -113,29 +114,29 @@ class DrawerProjectsComponent extends Component {
   }
 
   subscribe() {
-    const { pusher } = this.getContext();
-    if (pusher && this.props.team) {
-      pusher.subscribe(this.props.team.pusher_channel).bind('media_updated', 'Projects', (data, run) => {
+    const { pusher, team } = this.props;
+    if (pusher && team) {
+      pusher.subscribe(team.pusher_channel).bind('media_updated', 'Projects', (data, run) => {
         if (this.getContext().clientSessionId !== data.actor_session_id) {
           if (run) {
             this.props.relay.forceFetch();
             return true;
           }
           return {
-            id: `projects-drawer-${this.props.team.dbid}`,
+            id: `projects-drawer-${team.dbid}`,
             callback: this.props.relay.forceFetch,
           };
         }
         return false;
       });
-      pusher.subscribe(this.props.team.pusher_channel).bind('project_updated', 'Projects', (data, run) => {
+      pusher.subscribe(team.pusher_channel).bind('project_updated', 'Projects', (data, run) => {
         if (this.getContext().clientSessionId !== data.actor_session_id) {
           if (run) {
             this.props.relay.forceFetch();
             return true;
           }
           return {
-            id: `projects-drawer-${this.props.team.dbid}`,
+            id: `projects-drawer-${team.dbid}`,
             callback: this.props.relay.forceFetch,
           };
         }
@@ -145,10 +146,10 @@ class DrawerProjectsComponent extends Component {
   }
 
   unsubscribe() {
-    const { pusher } = this.getContext();
-    if (pusher && this.props.team) {
-      pusher.unsubscribe(this.props.team.pusher_channel, 'media_updated', 'Projects');
-      pusher.unsubscribe(this.props.team.pusher_channel, 'project_updated', 'Projects');
+    const { pusher, team } = this.props;
+    if (pusher && team) {
+      pusher.unsubscribe(team.pusher_channel, 'media_updated', 'Projects');
+      pusher.unsubscribe(team.pusher_channel, 'project_updated', 'Projects');
     }
   }
 
@@ -262,7 +263,13 @@ DrawerProjectsComponent.contextTypes = {
   store: PropTypes.object,
 };
 
-const DrawerProjectsContainer = Relay.createContainer(injectIntl(DrawerProjectsComponent), {
+DrawerProjectsComponent.propTypes = {
+  pusher: pusherShape.isRequired,
+};
+
+const ConnectedDrawerProjectsComponent = withPusher(injectIntl(DrawerProjectsComponent));
+
+const DrawerProjectsContainer = Relay.createContainer(ConnectedDrawerProjectsComponent, {
   initialVariables: {
     pageSize,
   },

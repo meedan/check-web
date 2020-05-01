@@ -9,6 +9,7 @@ import TeamRoute from '../../relay/TeamRoute';
 import UpdateTeamMutation from '../../relay/mutations/UpdateTeamMutation';
 import Can from '../Can';
 import { getErrorMessage } from '../../helpers';
+import { withSetFlashMessage } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
 import globalStrings from '../../globalStrings';
 
@@ -48,7 +49,7 @@ class EmptyTrashComponent extends Component {
         const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
         const message = getErrorMessage(transaction, fallbackMessage);
         this.setState({ emptyTrashDisabled: false });
-        this.context.setMessage(message);
+        this.props.setFlashMessage(message);
       };
 
       const onSuccess = () => {
@@ -77,7 +78,7 @@ class EmptyTrashComponent extends Component {
           title={<FormattedMessage id="trash.emptyTrash" defaultMessage="Empty trash" />}
           blurb={<FormattedMessage
             id="trash.emptyTrashConfirmationText"
-            defaultMessage="Are you sure? This will permanently delete {itemsCount, plural, =0 {0 items} one {1 item} other {# items}} and {notesCount, plural, =0 {0 annotations} one {1 annotation} other {# annotations}}."
+            defaultMessage="Are you sure? This will permanently delete {itemsCount, plural, one {1 item} other {# items}} and {notesCount, plural, one {1 annotation} other {# annotations}}."
             values={{
               itemsCount: team.trash_size.project_media.toString(),
               notesCount: team.trash_size.annotation.toString(),
@@ -103,9 +104,12 @@ class EmptyTrashComponent extends Component {
   }
 }
 
+EmptyTrashComponent.propTypes = {
+  setFlashMessage: PropTypes.func.isRequired,
+};
+
 EmptyTrashComponent.contextTypes = {
   store: PropTypes.object,
-  setMessage: PropTypes.func,
 };
 
 const EmptyTrashContainer = Relay.createContainer(EmptyTrashComponent, {
@@ -138,4 +142,4 @@ const EmptyTrashButton = (props) => {
   );
 };
 
-export default injectIntl(EmptyTrashButton);
+export default withSetFlashMessage(injectIntl(EmptyTrashButton));

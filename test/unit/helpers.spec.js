@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import {
   bemClass,
   bemClassFromMediaStatus,
@@ -20,6 +19,6 @@ import {
 
 describe('Helpers', function() {
   it('converts emojis', function() {
-    expect(emojify('I :heart: U')).to.equal('I ❤️ U');
+    expect(emojify('I :heart: U')).toEqual('I ❤️ U');
   });
 });

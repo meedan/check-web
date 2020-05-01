@@ -4,8 +4,8 @@
   "mediaDetail.editReport": "Editar",
   "mediaDetail.editReportError": "Lo sentimos, se produjo un error al actualizar el ítem. Vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}.",
   "mediaDetail.trash": "Papelera",
-  "mediaMetadata.addedToList": "Añadir a la lista {listName}",
   "mediaActionsBar.removedFromList": "Eliminado de la lista",
+  "mediaMetadata.addedToList": "Añadir a la lista {listName}",
   "mediaActionsBar.movedToTrash": "Enviado a  {trash}",
   "mediaActionsBar.assignmentsUpdated": "¡Las asignaciones se han actualizado con éxito!",
   "mediaActionsBar.movedBack": "Restaurado a la lista {project}",
@@ -18,6 +18,7 @@
   "mediaActionsBar.addTo": "Añadir a...",
   "mediaActionsBar.moveTo": "Mover a...",
   "mediaActionsBar.removeFromList": "Eliminar de la lista",
+  "mediaActionsBar.reportDesigner": "Informe",
   "mediaActionsBar.dialogAddToListTitle": "Añadir a otra lista",
   "mediaActionsBar.dialogMoveTitle": "Mover a otra lista",
   "mediaActionsBar.assignDialogHeader": "Asignación"

@@ -1,4 +1,4 @@
 {
-  "teamSizeNudge.nudge": "{max, plural, =0 {Votre espace de travail est actuellement limité à 0 membres. Pour une mise à niveau, veuillez contacter {supportEmail}.} one {Votre espace de travail est actuellement limité à un seul membre. Pour une mise à niveau, veuillez contacter {supportEmail}.} other {Votre espace de travail est actuellement limité à # membres. Pour une mise à niveau, veuillez contacter {supportEmail}.}}",
+  "teamSizeNudge.nudge": "{max, plural, one {Votre espace de travail est actuellement limité à un seul membre. Pour une mise à niveau, veuillez contacter {supportEmail}.}} other {Votre espace de travail est actuellement limité à # membres. Pour une mise à niveau, veuillez contacter {supportEmail}.}}",
   "teamSizeNudge.title": "Mise à niveau"
 }

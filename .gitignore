@@ -20,6 +20,7 @@ relay.json
 config-server.js
 .nyc_output
 coverage
+__generated__/
 dist
 .idea/
 basic-auth.sh

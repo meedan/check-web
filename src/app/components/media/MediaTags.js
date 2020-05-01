@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, intlShape, injectIntl } from 'react-intl';
+import { browserHistory } from 'react-router';
 import Relay from 'react-relay/classic';
 import mergeWith from 'lodash.mergewith';
 import xor from 'lodash.xor';
@@ -11,8 +12,8 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import Can from '../Can';
 import UpdateLanguageMutation from '../../relay/mutations/UpdateLanguageMutation';
 import LanguageSelector from '../LanguageSelector';
-import CheckContext from '../../CheckContext';
 import { searchQueryFromUrl, urlFromSearchQuery } from '../search/Search';
+import { withSetFlashMessage } from '../FlashMessage';
 import { getErrorMessage, bemClass } from '../../helpers';
 import {
   units,
@@ -129,7 +130,7 @@ class MediaTags extends Component {
   fail = (transaction) => {
     const fallbackMessage = this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') });
     const errorMessage = getErrorMessage(transaction, fallbackMessage);
-    this.context.setMessage(errorMessage);
+    this.props.setFlashMessage(errorMessage);
   };
 
   searchTagUrl(tagString) {
@@ -185,8 +186,7 @@ class MediaTags extends Component {
 
   handleTagViewClick(tagString) {
     const url = this.searchTagUrl(tagString);
-    const { history } = new CheckContext(this).getContextStore();
-    history.push(url);
+    browserHistory.push(url);
   }
 
   render() {
@@ -295,11 +295,7 @@ MediaTags.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
+  setFlashMessage: PropTypes.func.isRequired,
 };
 
-MediaTags.contextTypes = {
-  store: PropTypes.object,
-  setMessage: PropTypes.func,
-};
-
-export default injectIntl(MediaTags);
+export default withSetFlashMessage(injectIntl(MediaTags));

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
+import { browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import IconMoreVert from '@material-ui/icons/MoreVert';
@@ -11,6 +12,7 @@ import ConfirmDialog from '../layout/ConfirmDialog';
 import DeleteProjectMutation from '../../relay/mutations/DeleteProjectMutation';
 import ProjectAssignment from './ProjectAssignment';
 import Can, { can } from '../Can';
+import { withSetFlashMessage } from '../FlashMessage';
 import CheckContext from '../../CheckContext';
 
 class ProjectActions extends Component {
@@ -23,8 +25,7 @@ class ProjectActions extends Component {
   };
 
   handleEdit = () => {
-    const { history } = new CheckContext(this).getContextStore();
-    history.push(`${window.location.pathname.match(/.*\/project\/\d+/)[0]}/edit`);
+    browserHistory.push(`${window.location.pathname.match(/.*\/project\/\d+/)[0]}/edit`);
   };
 
   handleOpenMenu = (e) => {
@@ -56,7 +57,7 @@ class ProjectActions extends Component {
   }
 
   handleDestroy() {
-    const { project, team, history } = new CheckContext(this).getContextStore();
+    const { project, team } = new CheckContext(this).getContextStore();
 
     const onSuccess = () => {
       const message = (
@@ -65,7 +66,7 @@ class ProjectActions extends Component {
           defaultMessage="List deleted successfully."
         />
       );
-      this.context.setMessage(message);
+      this.props.setFlashMessage(message);
     };
 
     const onFailure = () => {
@@ -75,7 +76,7 @@ class ProjectActions extends Component {
           defaultMessage="Sorry, could not delete list."
         />
       );
-      this.context.setMessage(message);
+      this.props.setFlashMessage(message);
     };
 
     Relay.Store.commitUpdate(
@@ -86,7 +87,7 @@ class ProjectActions extends Component {
       { onSuccess, onFailure },
     );
 
-    history.push(`/${team.slug}/all-items`);
+    browserHistory.push(`/${team.slug}/all-items`);
   }
 
   render() {
@@ -186,9 +187,12 @@ class ProjectActions extends Component {
   }
 }
 
-ProjectActions.contextTypes = {
-  store: PropTypes.object,
-  setMessage: PropTypes.func,
+ProjectActions.propTypes = {
+  setFlashMessage: PropTypes.func.isRequired,
 };
 
-export default injectIntl(ProjectActions);
+ProjectActions.contextTypes = {
+  store: PropTypes.object,
+};
+
+export default withSetFlashMessage(injectIntl(ProjectActions));

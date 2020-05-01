@@ -32,14 +32,8 @@ const mediaFragment = Relay.QL`
     pusher_channel,
     domain,
     permissions,
-    translation_statuses,
     language,
     language_code,
-    field_value(annotation_type_field_name: "translation_status:translation_status_status"),
-    translation_status: annotation(annotation_type: "translation_status") {
-      id
-      dbid
-    }
     last_status,
     last_status_obj {
       id,

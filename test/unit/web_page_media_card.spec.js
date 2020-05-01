@@ -1,5 +1,4 @@
 import React from 'react';
-import { expect } from 'chai';
 import { mountWithIntl } from './helpers/intl-test';
 import WebPageMediaCard from '../../src/app/components/media/WebPageMediaCard.js';
 
@@ -70,8 +69,6 @@ describe('<WebPageMediaCard />', () => {
       media: {},
       user: {},
       last_status_obj: {},
-      translation_status: {},
-      translations: {},
       tags: {},
       tasks: {},
       log: {},
@@ -161,7 +158,7 @@ describe('<WebPageMediaCard />', () => {
       />,
     );
 
-    expect(card.find('img').html()).to.contain(`src="${webPageWithGoodPicture.data.picture}"`);
+    expect(card.find('img').html()).toMatch(`src="${webPageWithGoodPicture.data.picture}"`);
   });
 
   it('displays the embed html only if the domain is whitelisted', () => {
@@ -188,8 +185,8 @@ describe('<WebPageMediaCard />', () => {
       />,
     );
 
-    expect(card1.text()).to.contain('hello!');
-    expect(card2.text()).to.not.contain('hello!');
-    expect(card3.text()).to.not.contain('hello!');
+    expect(card1.text()).toMatch('hello!');
+    expect(card2.text()).not.toMatch('hello!');
+    expect(card3.text()).not.toMatch('hello!');
   });
 });

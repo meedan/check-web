@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
-import TextField from 'material-ui/TextField';
+import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import MediaRoute from '../../relay/MediaRoute';
 import { can } from '../Can';
+import { withSetFlashMessage } from '../FlashMessage';
 import CreateAnalysisMutation from '../../relay/mutations/CreateAnalysisMutation';
 import UpdateAnalysisMutation from '../../relay/mutations/UpdateAnalysisMutation';
-import { units } from '../../styles/js/shared';
 import CheckContext from '../../CheckContext';
 import { stringHelper } from '../../customHelpers';
 
@@ -38,7 +38,7 @@ class MediaAnalysisComponent extends Component {
           supportEmail: stringHelper('SUPPORT_EMAIL'),
         }}
       />);
-      this.context.setMessage(message);
+      this.props.setFlashMessage(message);
       this.setState({ saving: false });
     };
 
@@ -86,8 +86,9 @@ class MediaAnalysisComponent extends Component {
     this.setState({ saving: true });
   }
 
-  handleChange(event, newValue) {
-    this.context.setMessage(null);
+  handleChange(event) {
+    const newValue = event.target.value;
+    this.props.setFlashMessage(null);
     const canSave = (newValue.trim().length > 0);
     this.setState({ value: newValue, canSave });
   }
@@ -107,19 +108,19 @@ class MediaAnalysisComponent extends Component {
       <div>
         <div>
           <TextField
-            floatingLabelText={
+            label={
               <FormattedMessage
                 id="mediaAnalysis.type"
                 defaultMessage="Type an analysis of this item that will appear in the item's report..."
               />
             }
-            textareaStyle={{ background: '#fff', padding: units(1) }}
             defaultValue={value}
             disabled={disabled}
             onChange={this.handleChange.bind(this)}
-            multiLine
+            multiline
             fullWidth
             rows={10}
+            margin="normal"
           />
         </div>
         { !disabled ?
@@ -141,12 +142,15 @@ class MediaAnalysisComponent extends Component {
   }
 }
 
-MediaAnalysisComponent.contextTypes = {
-  store: PropTypes.object,
-  setMessage: PropTypes.func,
+MediaAnalysisComponent.propTypes = {
+  setFlashMessage: PropTypes.func.isRequired,
 };
 
-const MediaAnalysisContainer = Relay.createContainer(MediaAnalysisComponent, {
+MediaAnalysisComponent.contextTypes = {
+  store: PropTypes.object,
+};
+
+const MediaAnalysisContainer = Relay.createContainer(withSetFlashMessage(MediaAnalysisComponent), {
   initialVariables: {
     contextId: null,
   },

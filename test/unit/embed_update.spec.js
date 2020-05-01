@@ -1,7 +1,6 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl';
 import { mountWithIntl } from './helpers/intl-test';
-import { expect } from 'chai';
 
 import EmbedUpdate from '../../src/app/components/annotations/EmbedUpdate';
 
@@ -23,21 +22,21 @@ describe('<EmbedUpdate />', () => {
 
   it('should render empty string if no changes', function() {
     const wrapper = mountWithIntl(<EmbedUpdate activity={activity_no_changes} authorName={authorName} />);
-    expect(wrapper.html()).to.equal(null);
+    expect(wrapper.html()).toEqual(null);
   });
 
   it('should render edited title entry', function() {
     const wrapper = mountWithIntl(<EmbedUpdate activity={activity_edited_title} authorName={authorName} />);
-    expect(wrapper.html()).to.contain('Item title edited by Felis Catus: New edited title');
+    expect(wrapper.html()).toMatch('Item title edited by Felis Catus: New edited title');
   });
 
   it('should render edited note entry', function() {
     const wrapper = mountWithIntl(<EmbedUpdate activity={activity_edited_description} authorName={authorName} />);
-    expect(wrapper.html()).to.contain('Item description edited by Felis Catus');
+    expect(wrapper.html()).toMatch('Item description edited by Felis Catus');
   });
 
   it('should render created note entry', function() {
     const wrapper = mountWithIntl(<EmbedUpdate activity={activity_created_description} authorName={authorName} />);
-    expect(wrapper.html()).to.contain('Item description added by Felis Catus');
+    expect(wrapper.html()).toMatch('Item description added by Felis Catus');
   });
 });

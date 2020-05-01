@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { browserHistory } from 'react-router';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay/classic';
-import TextField from 'material-ui/TextField';
+import TextField from '@material-ui/core/TextField';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
@@ -14,6 +15,7 @@ import CheckContext from '../../CheckContext';
 import { getErrorMessage } from '../../helpers';
 import { ContentColumn } from '../../styles/js/shared';
 import { stringHelper } from '../../customHelpers';
+import { withSetFlashMessage } from '../FlashMessage';
 import globalStrings from '../../globalStrings';
 
 const messages = defineMessages({
@@ -69,7 +71,7 @@ class ProjectEditComponent extends Component {
     context.setContextStore(newContext);
 
     if (notFound) {
-      currentContext.history.push('/check/not-found');
+      browserHistory.push('/check/not-found');
     }
   }
 
@@ -88,7 +90,7 @@ class ProjectEditComponent extends Component {
   }
 
   backToProject = () => {
-    this.currentContext().history.push(window.location.pathname.match(/.*\/project\/\d+/)[0]);
+    browserHistory.push(window.location.pathname.match(/.*\/project\/\d+/)[0]);
   };
 
   canSubmit = () => (
@@ -110,8 +112,8 @@ class ProjectEditComponent extends Component {
     const onFailure = (transaction) => {
       const fallbackMessage = this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') });
       const message = getErrorMessage(transaction, fallbackMessage);
-      this.context.setMessage(message);
-      this.currentContext().history.push(`${window.location.pathname}/edit`);
+      this.props.setFlashMessage(message);
+      browserHistory.push(`${window.location.pathname}/edit`);
     };
 
     Relay.Store.commitUpdate(
@@ -142,12 +144,13 @@ class ProjectEditComponent extends Component {
                     name="name"
                     id="project-title-field"
                     className="project-edit__title-field"
+                    label={this.props.intl.formatMessage(messages.titleField)}
                     type="text"
                     fullWidth
                     value={this.state.title}
-                    floatingLabelText={this.props.intl.formatMessage(messages.titleField)}
                     autoComplete="off"
                     onChange={this.handleTitleChange.bind(this)}
+                    margin="normal"
                   />
 
                   <TextField
@@ -156,11 +159,12 @@ class ProjectEditComponent extends Component {
                     className="project-edit__description-field"
                     type="text"
                     fullWidth
-                    multiLine
+                    multiline
                     value={this.state.description}
-                    floatingLabelText={this.props.intl.formatMessage(messages.descriptionField)}
+                    label={this.props.intl.formatMessage(messages.descriptionField)}
                     autoComplete="off"
                     onChange={this.handleDescriptionChange.bind(this)}
+                    margin="normal"
                   />
                 </CardContent>
                 <CardActions>
@@ -193,16 +197,16 @@ ProjectEditComponent.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
+  setFlashMessage: PropTypes.func.isRequired,
 };
 
 ProjectEditComponent.contextTypes = {
-  setMessage: PropTypes.func,
   store: PropTypes.object,
 };
 
-const ProjectEditComponentWithIntl = injectIntl(ProjectEditComponent);
+const ConnectedProjectEditComponent = withSetFlashMessage(injectIntl(ProjectEditComponent));
 
-const ProjectEditContainer = Relay.createContainer(ProjectEditComponentWithIntl, {
+const ProjectEditContainer = Relay.createContainer(ConnectedProjectEditComponent, {
   initialVariables: {
     contextId: null,
   },
@@ -235,4 +239,4 @@ const ProjectEdit = (props) => {
 };
 
 export default ProjectEdit;
-export { ProjectEditComponent, ProjectEditComponentWithIntl };
+export { ProjectEditComponent, ConnectedProjectEditComponent };

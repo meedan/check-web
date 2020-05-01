@@ -1,6 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
 import Root from 'app/components/Root';
+import { FlashMessageProvider } from 'app/components/FlashMessage';
+import { subscribe as pusherSubscribe, unsubscribe as pusherUnsubscribe, PusherContext } from 'app/pusher';
 import { createStore, applyMiddleware, compose } from 'redux';
 import rootReducer from 'app/redux';
 import thunk from 'redux-thunk';
@@ -21,7 +23,8 @@ window.storage = {
   },
 };
 
-const store = compose(applyMiddleware(thunk))(createStore)(rootReducer);
+// TODO nix Redux. Every identifier after "=" on this next line makes no sense.
+const store = compose(applyMiddleware(thunk))(createStore)(rootReducer, { app: { context: {} } });
 
 let locale = navigator.languages || navigator.language || navigator.userLanguage || 'en';
 if (locale.constructor === Array) {
@@ -32,9 +35,20 @@ if (locales.indexOf(locale) === -1) {
   locale = 'en';
 }
 
+const pusherContextValue = {
+  subscribe: pusherSubscribe,
+  unsubscribe: pusherUnsubscribe,
+};
+
 const callback = (translations) => {
   render(
-    <Root store={store} translations={translations} locale={locale} />,
+    (
+      <PusherContext.Provider value={pusherContextValue}>
+        <FlashMessageProvider>
+          <Root store={store} translations={translations} locale={locale} />
+        </FlashMessageProvider>
+      </PusherContext.Provider>
+    ),
     document.getElementById('root'),
   );
 };

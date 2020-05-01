@@ -1,7 +1,10 @@
 import React from 'react';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 
-const RootLocale = props =>
-  <Helmet htmlAttributes={{ lang: props.locale }} />;
+const RootLocale = ({ locale }) => (
+  <Helmet>
+    <html lang={locale} />
+  </Helmet>
+);
 
 export default RootLocale;

@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 import { IntlProvider } from 'react-intl';
 import ShortTextIcon from '@material-ui/icons/ShortText';
@@ -16,8 +15,8 @@ describe('<TeamTasksListItem />', () => {
         task={task}
       />
     );
-    expect(wrapper.find('.team-tasks__task-icon').hostNodes()).to.have.length(1);
-    expect(wrapper.find('.team-tasks__task-label').hostNodes()).to.have.length(1);
-    expect(wrapper.find('.team-tasks__menu-item-button').hostNodes()).to.have.length(1);
+    expect(wrapper.find('.team-tasks__task-icon').hostNodes()).toHaveLength(1);
+    expect(wrapper.find('.team-tasks__task-label').hostNodes()).toHaveLength(1);
+    expect(wrapper.find('.team-tasks__menu-item-button').hostNodes()).toHaveLength(1);
   });
 });

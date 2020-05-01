@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import DatePicker from 'material-ui/DatePicker';
+import { DatePicker } from '@material-ui/pickers';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
@@ -16,8 +16,9 @@ class DateRangeFilter extends React.Component {
     return { type, value };
   };
 
-  handleChangeDate = (date, field) => {
+  handleChangeDate = (moment, field) => {
     const range = this.getRange();
+    const date = moment.toDate();
 
     if (field === 'start_time') {
       range.value[field] =
@@ -121,36 +122,34 @@ class DateRangeFilter extends React.Component {
               </MenuItem>
             </Select>
             <DatePicker
-              floatingLabelText={
+              label={
                 <FormattedMessage
                   id="search.pickDateFrom"
                   defaultMessage="Starting date"
                 />
               }
               className="date-range__start-date"
-              onChange={(e, date) => this.handleChangeDate(date, 'start_time')}
+              onChange={date => this.handleChangeDate(date, 'start_time')}
               shouldDisableDate={date => this.shouldDisableDate(date, 'start_time')}
               okLabel={this.props.intl.formatMessage(globalStrings.ok)}
               cancelLabel={this.props.intl.formatMessage(globalStrings.cancel)}
-              mode="landscape"
-              textFieldStyle={{ width: units(18), fontSize: 'small' }}
-              value={start_time && new Date(start_time)}
+              value={start_time ? new Date(start_time) : null}
+              style={{ margin: `0 ${units(2)}` }}
             />
             <DatePicker
-              floatingLabelText={
+              label={
                 <FormattedMessage
                   id="search.pickDateTo"
                   defaultMessage="Ending date"
                 />
               }
               className="date-range__end-date"
-              onChange={(e, date) => this.handleChangeDate(date, 'end_time')}
+              onChange={date => this.handleChangeDate(date, 'end_time')}
               shouldDisableDate={date => this.shouldDisableDate(date, 'end_time')}
               okLabel={this.props.intl.formatMessage(globalStrings.ok)}
               cancelLabel={this.props.intl.formatMessage(globalStrings.cancel)}
-              mode="landscape"
-              textFieldStyle={{ width: units(18), fontSize: 'small' }}
-              value={end_time && new Date(end_time)}
+              value={end_time ? new Date(end_time) : null}
+              style={{ margin: `0 ${units(2)}` }}
             />
           </FlexRow>
         </div>

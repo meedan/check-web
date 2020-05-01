@@ -272,7 +272,6 @@ const MediaExpandedContainer = Relay.createContainer(MediaExpandedComponent, {
           slug
           search_id
           verification_statuses
-          translation_statuses
           get_languages
           team_bot_installations(first: 10000) {
             edges {

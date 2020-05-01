@@ -1,6 +1,10 @@
 FROM node:12.16.1-buster AS base
 MAINTAINER Meedan <sysops@meedan.com>
 
+# TODO develop our own `watchman` image, so we can version it
+COPY --from=icalialabs/watchman:buster /usr/local/bin/watchman /usr/local/bin/watchman
+RUN mkdir -p /usr/local/var/run/watchman && touch /usr/local/var/run/watchman/.not-empty
+
 # install dependencies
 RUN true \
     && apt-get update \

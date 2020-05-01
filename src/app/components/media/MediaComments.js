@@ -2,18 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
+import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
 import MediasLoading from './MediasLoading';
 import Annotations from '../annotations/Annotations';
 import CheckContext from '../../CheckContext';
 
 class MediaCommentsComponent extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {};
-  }
-
   componentDidMount() {
     this.subscribe();
   }
@@ -39,20 +34,20 @@ class MediaCommentsComponent extends Component {
   }
 
   subscribe() {
-    const { pusher } = this.getContext();
+    const { pusher, media, relay } = this.props;
     if (pusher) {
-      pusher.subscribe(this.props.media.pusher_channel).bind('media_updated', 'MediaComments', (data, run) => {
+      pusher.subscribe(media.pusher_channel).bind('media_updated', 'MediaComments', (data, run) => {
         const annotation = JSON.parse(data.message);
-        if (annotation.annotated_id === this.props.media.dbid &&
+        if (annotation.annotated_id === media.dbid &&
           this.getContext().clientSessionId !== data.actor_session_id
         ) {
           if (run) {
-            this.props.relay.forceFetch();
+            relay.forceFetch();
             return true;
           }
           return {
-            id: `media-comments-${this.props.media.dbid}`,
-            callback: this.props.relay.forceFetch,
+            id: `media-comments-${media.dbid}`,
+            callback: relay.forceFetch,
           };
         }
         return false;
@@ -61,9 +56,9 @@ class MediaCommentsComponent extends Component {
   }
 
   unsubscribe() {
-    const { pusher } = this.getContext();
+    const { pusher, media } = this.props;
     if (pusher) {
-      pusher.unsubscribe(this.props.media.pusher_channel);
+      pusher.unsubscribe(media.pusher_channel);
     }
   }
 
@@ -98,12 +93,16 @@ MediaCommentsComponent.contextTypes = {
   store: PropTypes.object,
 };
 
+MediaCommentsComponent.propTypes = {
+  pusher: pusherShape.isRequired,
+};
+
 const pageSize = 30;
 const eventTypes = ['create_comment'];
 const fieldNames = [];
 const annotationTypes = [];
 
-const MediaCommentsContainer = Relay.createContainer(MediaCommentsComponent, {
+const MediaCommentsContainer = Relay.createContainer(withPusher(MediaCommentsComponent), {
   initialVariables: {
     pageSize,
     eventTypes,
@@ -178,11 +177,9 @@ const MediaCommentsContainer = Relay.createContainer(MediaCommentsComponent, {
                           }
                         }
                       }
-                      field_value(annotation_type_field_name: "translation_status:translation_status_status"),
                       log_count,
                       permissions,
                       verification_statuses,
-                      translation_statuses,
                       domain,
                       team {
                         slug,
