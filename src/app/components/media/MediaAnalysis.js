@@ -86,7 +86,8 @@ class MediaAnalysisComponent extends Component {
     this.setState({ saving: true });
   }
 
-  handleChange(event, newValue) {
+  handleChange(event) {
+    const newValue = event.target.value;
     this.props.setFlashMessage(null);
     const canSave = (newValue.trim().length > 0);
     this.setState({ value: newValue, canSave });
