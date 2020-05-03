@@ -93,15 +93,14 @@ class TeamProjects extends React.Component {
                               {p.node.title}
                             </span>
                           }
-                          secondary={
+                          secondary={UserUtil.myRole(currentUser, team.slug) !== 'annotator' && p.node.assignments_count > 0 ?
                             <small>
-                              { UserUtil.myRole(currentUser, team.slug) !== 'annotator' ?
-                                <FormattedMessage
-                                  id="teamComponent.projectAssignmentsCount"
-                                  defaultMessage="{count, plural, =0 {&nbsp;} one {Assigned to one member} other {Assigned to # members}}"
-                                  values={{ count: p.node.assignments_count }}
-                                /> : null }
-                            </small>
+                              <FormattedMessage
+                                id="teamComponent.projectAssignmentsCount"
+                                defaultMessage="{count, plural, one {Assigned to one member} other {Assigned to # members}}"
+                                values={{ count: p.node.assignments_count }}
+                              />
+                            </small> : null
                           }
                         />
                         <ListItemSecondaryAction>

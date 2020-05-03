@@ -9,10 +9,10 @@
   },
   {
     "id": "searchResults.itemsCount",
-    "defaultMessage": "{count, plural, =0 { } one {1 / 1} other {{from} - {to} / #}}"
+    "defaultMessage": "{count, plural, one {1 / 1} other {{from} - {to} / #}}"
   },
   {
     "id": "searchResults.withSelection",
-    "defaultMessage": "{selectedCount, plural, =0 {} one {(1 selected)} other {(# selected)}}"
+    "defaultMessage": "{selectedCount, plural, one {(1 selected)} other {(# selected)}}"
   }
 ]

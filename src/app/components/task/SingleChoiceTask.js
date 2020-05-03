@@ -14,6 +14,7 @@ class SingleChoiceTask extends Component {
     super(props);
 
     this.state = {
+      response: null,
       responseOther: null,
       taskAnswerDisabled: true,
     };
@@ -126,14 +127,14 @@ class SingleChoiceTask extends Component {
         options.findIndex(item => item.label === response || item.label === this.state.response);
       let responseOther = '';
       if (typeof this.state.responseOther !== 'undefined' && this.state.responseOther !== null) {
-        ({ responseOther } = this.state.responseOther);
+        ({ responseOther } = this.state);
       } else if (responseIndex < 0) {
         responseOther = response;
       }
       const responseOtherSelected = this.state.otherSelected || responseOther
         ? responseOther
         : 'none';
-      const responseSelected = this.state.response == null ? response : this.state.response;
+      const responseSelected = this.state.response === null ? response : this.state.response;
 
       return (
         <div className="task__options">
@@ -184,7 +185,7 @@ class SingleChoiceTask extends Component {
                         name="response"
                         onKeyPress={keyPressCallback}
                         onChange={this.handleEditOther.bind(this)}
-                        multiLine
+                        multiline
                       /> :
                       <ParsedText text={responseOther} />
                     }

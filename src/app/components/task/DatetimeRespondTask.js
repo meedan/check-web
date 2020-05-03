@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import TextField from 'material-ui/TextField';
+import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
-import DatePicker from 'material-ui/DatePicker';
-import areIntlLocalesSupported from 'intl-locales-supported';
-import IntlPolyfill from 'intl';
+import { DatePicker } from '@material-ui/pickers';
 import IconDateRange from '@material-ui/icons/DateRange';
 import IconSchedule from '@material-ui/icons/Schedule';
 import Select from '@material-ui/core/Select';
@@ -108,7 +106,8 @@ class DatetimeRespondTask extends Component {
     }
   }
 
-  handleChange(e, date) {
+  handleChange(moment) {
+    const date = moment.toDate();
     this.setState({ focus: true, taskAnswerDisabled: !this.canSubmit(date), date });
   }
 
@@ -213,25 +212,12 @@ class DatetimeRespondTask extends Component {
       </p>
     );
 
-    let DateTimeFormat;
-
-    if (areIntlLocalesSupported(['en', 'pt', 'ar', 'fr'])) {
-      ({ DateTimeFormat } = global.Intl.DateTimeFormat);
-    } else {
-      ({ DateTimeFormat } = IntlPolyfill.DateTimeFormat);
-      require('intl/locale-data/jsonp/pt'); // eslint-disable-line global-require
-      require('intl/locale-data/jsonp/en'); // eslint-disable-line global-require
-      require('intl/locale-data/jsonp/ar'); // eslint-disable-line global-require
-      require('intl/locale-data/jsonp/fr'); // eslint-disable-line global-require
-      require('intl/locale-data/jsonp/es'); // eslint-disable-line global-require
-    }
-
     return (
       <div>
         <FlexRow style={styles.row}>
           <IconDateRange className="task__icon" style={styles.secondaryColumn} />
           <DatePicker
-            floatingLabelText={
+            label={
               <FormattedMessage
                 id="datetimeRespondTask.pickDate"
                 defaultMessage="Pick a date from the calendar"
@@ -242,12 +228,12 @@ class DatetimeRespondTask extends Component {
             name="response"
             value={this.state.date}
             onChange={this.handleChange.bind(this)}
-            fullWidth
-            locale={this.props.intl.locale}
-            DateTimeFormat={DateTimeFormat}
             okLabel={this.props.intl.formatMessage(messages.ok)}
             cancelLabel={this.props.intl.formatMessage(messages.cancel)}
-            mode="landscape"
+            labelFunc={
+              this.state.date ?
+                date => this.props.intl.formatDate(date) : null
+            }
             style={styles.primaryColumn}
           />
         </FlexRow>
@@ -267,11 +253,14 @@ class DatetimeRespondTask extends Component {
             >
               <TextField
                 name="hour"
-                hintText="HH"
-                maxLength="2"
+                placeholder="HH"
+                inputProps={{
+                  maxLength: 2,
+                  style: {
+                    textAlign: 'center',
+                  },
+                }}
                 style={styles.time}
-                inputStyle={styles.time}
-                hintStyle={styles.time}
                 value={this.state.hour}
                 onChange={this.handleChangeTime.bind(this, 'hour')}
                 onFocus={() => { this.setState({ focus: true }); }}
@@ -279,11 +268,14 @@ class DatetimeRespondTask extends Component {
               <div>:</div>{' '}
               <TextField
                 name="minute"
-                hintText="MM"
-                maxLength="2"
+                placeholder="MM"
+                inputProps={{
+                  maxLength: 2,
+                  style: {
+                    textAlign: 'center',
+                  },
+                }}
                 style={styles.time}
-                inputStyle={styles.time}
-                hintStyle={styles.time}
                 value={this.state.minute}
                 onChange={this.handleChangeTime.bind(this, 'minute')}
                 onFocus={() => { this.setState({ focus: true }); }}

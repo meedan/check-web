@@ -286,20 +286,22 @@ class SearchResultsComponent extends React.PureComponent {
               </span>
             </Tooltip>
             <span className="search__count">
-              <FormattedMessage
-                id="searchResults.itemsCount"
-                defaultMessage="{count, plural, =0 {&nbsp;} one {1 / 1} other {{from} - {to} / #}}"
-                values={{
-                  from: offset + 1,
-                  to,
-                  count,
-                }}
-              />
+              {count > 0 ?
+                <FormattedMessage
+                  id="searchResults.itemsCount"
+                  defaultMessage="{count, plural, one {1 / 1} other {{from} - {to} / #}}"
+                  values={{
+                    from: offset + 1,
+                    to,
+                    count,
+                  }}
+                /> : null
+              }
               {this.state.selectedMedia.length ?
                 <span>&nbsp;
                   <FormattedMessage
                     id="searchResults.withSelection"
-                    defaultMessage="{selectedCount, plural, =0 {} one {(1 selected)} other {(# selected)}}"
+                    defaultMessage="{selectedCount, plural, one {(1 selected)} other {(# selected)}}"
                     values={{
                       selectedCount: this.state.selectedMedia.length,
                     }}

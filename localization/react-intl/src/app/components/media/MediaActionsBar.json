@@ -20,12 +20,12 @@
     "defaultMessage": "Trash"
   },
   {
-    "id": "mediaMetadata.addedToList",
-    "defaultMessage": "Added to list {listName}"
-  },
-  {
     "id": "mediaActionsBar.removedFromList",
     "defaultMessage": "Removed from list"
+  },
+  {
+    "id": "mediaMetadata.addedToList",
+    "defaultMessage": "Added to list {listName}"
   },
   {
     "id": "mediaActionsBar.movedToTrash",

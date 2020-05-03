@@ -1,5 +1,0 @@
-{
-  "mediaDetail.progress": "Обязательных вопросов с ответами: {answered, plural, =0 {0} one {1} other {#}} из {total}",
-  "mediaDetail.relatedCount": "{relatedCount, plural, =0 {} one {1 связанный материал} other {Связанных материалов: #}}",
-  "mediaDetail.child": "Связано с другим материалом"
-}

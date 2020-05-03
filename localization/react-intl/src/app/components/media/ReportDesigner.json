@@ -129,7 +129,7 @@
   },
   {
     "id": "reportDesigner.confirmPublishText",
-    "defaultMessage": "{demand, plural, =0 {} one {You are about to send this report to the user who requested this item.} other {You are about to send this report to the # users who requested this item.}}"
+    "defaultMessage": "{demand, plural, one {You are about to send this report to the user who requested this item.} other {You are about to send this report to the # users who requested this item.}}"
   },
   {
     "id": "reportDesigner.confirmPublishText2",
@@ -153,7 +153,7 @@
   },
   {
     "id": "reportDesigner.republishAndResend",
-    "defaultMessage": "{demand, plural, =0 {} one {Also send correction to the user who already received the previous version of this report} other {Also send correction to the # users who already received the previous version of this report}}"
+    "defaultMessage": "{demand, plural, one {Also send correction to the user who already received the previous version of this report} other {Also send correction to the # users who already received the previous version of this report}}"
   },
   {
     "id": "reportDesigner.confirmRepublishResendTitle",
@@ -161,7 +161,7 @@
   },
   {
     "id": "reportDesigner.confirmRepublishResendText",
-    "defaultMessage": "{demand, plural, =0 {} one {Your correction will be sent to the user who has received the previous report.} other {Your correction will be sent to the # users who have received the previous report.}}"
+    "defaultMessage": "{demand, plural, one {Your correction will be sent to the user who has received the previous report.} other {Your correction will be sent to the # users who have received the previous report.}}"
   },
   {
     "id": "reportDesigner.confirmRepublishResendText2",
@@ -169,6 +169,6 @@
   },
   {
     "id": "reportDesigner.confirmLeaveText",
-    "defaultMessage": "You will loose all changes."
+    "defaultMessage": "If you continue, you will lose your changes."
   }
 ]

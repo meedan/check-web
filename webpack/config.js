@@ -2,6 +2,9 @@ const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
 const CompressionPlugin = require('compression-webpack-plugin');
+// TODO once we reach react-relay 8.0, uncomment for simpler build end.
+// (Also, delete the relay-compiler stuff form gulpfile.)
+// const RelayCompilerWebpackPlugin = require('relay-compiler-webpack-plugin');
 const locales = require('../localization/translations/locales');
 const zlib = require('zlib');
 
@@ -61,6 +64,12 @@ module.exports = {
     }
   },
   plugins: [
+    // TODO once we reach react-relay 8.0, uncomment for simpler build env
+    // (Also, delete the relay-compiler stuff form gulpfile.)
+    // new RelayCompilerWebpackPlugin({
+    //   schema: path.resolve(__dirname, '../relay.json'),
+    //   src: path.resolve(__dirname, '../src/app'),
+    // }),
     new webpack.ContextReplacementPlugin(/react-intl\/locale-data/, localesRegExp),
     new webpack.ContextReplacementPlugin(/localization\/translations/, localesRegExp),
     new CompressionPlugin({

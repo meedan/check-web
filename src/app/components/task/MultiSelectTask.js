@@ -209,12 +209,12 @@ class MultiSelectTask extends Component {
                       <StyledSmallTextField
                         key="task__option_other_text_input"
                         className="task__option_other_text_input"
-                        hintText={other.label}
+                        placeholder={other.label}
                         value={responseOther}
                         name="response"
                         onKeyPress={keyPressCallback}
                         onChange={this.handleEditOther.bind(this)}
-                        multiLine
+                        multiline
                       /> :
                       <ParsedText text={responseOther} />
                     }

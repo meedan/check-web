@@ -10,7 +10,7 @@
   "TeamMembersListItem.editor": "Redactor",
   "TeamMembersListItem.annotator": "Adnotator",
   "teamInviteMembers.resendEmailSuccess": "Invitația s-a trimis cu succes",
-  "teamInviteMembers.limits": "The maximum number of members for this workspace has been reached ({count, plural, =0 {0 members} one {1 member} other {# members}}).",
+  "teamInviteMembers.limits": "The maximum number of members for this workspace has been reached ({count, plural, one {1 member} other {# members}}).",
   "teamInviteMembers.inviteMembers": "Membrii vor fi invitați ca",
   "teamInviteMembers.inviteMember": "Invită",
   "teamInviteMembers.customInvitation": "Notă la invitație (opțional)",

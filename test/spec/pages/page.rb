@@ -66,7 +66,7 @@ class Page
 
   def fill_input(selector, value, options = {})
     input = element(selector, options)
-    input.clear if options[:clear]
+    input.send_keys(:control, 'a', :delete) if options[:clear]
     input.send_keys(value)
   end
 

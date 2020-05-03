@@ -56,22 +56,18 @@ class ProjectPage < Page
     wait_for_selector('.project-actions', :css, 60).click
     wait_for_selector('.project-actions__edit', :css, 60).click
     if (options[:title])
-      #puts "options title"
-      element = wait_for_selector('.project-edit__title-field input')
-      element.clear
-      fill_input('.project-edit__title-field input', options[:title])
+      wait_for_selector('#project-title-field').send_keys(:control, 'a', :delete)
+      fill_input('#project-title-field', options[:title])
     end
     sleep 1 #(time for insert info in other field)
     if (options[:description] != nil)
-      element = wait_for_selector('.project-edit__description-field textarea:last-child')
-      element.clear
+      wait_for_selector('#project-description-field').send_keys(:control, 'a', :delete)
       @driver.action.send_keys(" \b").perform
       sleep 1
-      fill_input('.project-edit__description-field textarea:last-child', options[:description])
+      fill_input('#project-description-field', options[:description])
     end
     sleep 1 #(time for click button
-    element = wait_for_selector('button.project-edit__editing-button--save')
-    element.click
+    wait_for_selector('button.project-edit__editing-button--save').click
     self
   end
 
@@ -83,7 +79,7 @@ class ProjectPage < Page
   def new_project(options = {})
     name = options[:name] || "Project #{Time.now.to_i}"
     element('.team__new-project-input').click
-    element('.team__new-project-input').clear
+    element('.team__new-project-input').send_keys(:control, 'a', :delete)
     fill_input('.team__new-project-input', name)
     press(:enter)
   end
