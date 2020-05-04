@@ -43,14 +43,6 @@ const UpperRow = styled.div`
   justify-content: space-between;
 `;
 
-const BottomRow = styled.div`
-  width: 100%;
-  margin-top: auto;
-  display: flex;
-  justify-content: flex-end;
-  font-size: smaller;
-`;
-
 const SmallMediaCard = (props) => {
   const { media, intl: { locale } } = props;
 
