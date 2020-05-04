@@ -118,6 +118,7 @@ class ShortTextRespondTask extends React.Component {
       <div>
         <TextField
           placeholder={this.props.intl.formatMessage(messages.responseHint)}
+          id="task__response-input"
           className="task__response-input"
           value={response}
           name="response"
