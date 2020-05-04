@@ -81,8 +81,8 @@ shared_examples 'media' do |type|
     expect(@driver.page_source.include?('Resolved by')).to be(false)
     wait_for_selector('.task-type__free_text > div > div > button').click
 
-    wait_for_selector(".task__response-input > div > textarea + textarea")
-    fill_field('.task__response-input > div > textarea + textarea', 'Foo')
+    wait_for_selector("#task__response-input")
+    fill_field('#task__response-input', 'Foo')
     @driver.find_element(:css, '.task__save').click
     wait_for_selector('.task__response')
     expect(@driver.page_source.include?('Resolved by')).to be(true)
@@ -103,7 +103,7 @@ shared_examples 'media' do |type|
     # Ensure menu closes and textarea is focused...
     wait_for_selector('textarea[name="response"]', :css).click
     wait_for_selector(".task__cancel")
-    fill_field('.task__response-input > div > textarea + textarea', ' edited')
+    fill_field('#task__response-input', ' edited')
     @driver.find_element(:css, '.task__save').click
     wait_for_selector_none(".task__cancel")
     expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Foo edited')).to be(true)
