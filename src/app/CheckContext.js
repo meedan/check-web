@@ -50,9 +50,9 @@ class CheckContext {
     Relay.injectNetworkLayer(new CheckNetworkLayer(config.relayPath, {
       caller: this.caller,
       team: () => {
-        const { team } = this.getContextStore();
-        if (team) {
-          return team.slug;
+        const team = window.location.pathname.match(/^\/([^/]+)/);
+        if (team && team[1] !== 'check') {
+          return team[1];
         }
         return '';
       },

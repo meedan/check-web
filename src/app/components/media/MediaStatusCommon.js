@@ -3,14 +3,13 @@ import PropTypes from 'prop-types';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import { browserHistory } from 'react-router';
 import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import ListItemText from '@material-ui/core/ListItemText';
+import styled from 'styled-components';
 import { can } from '../Can';
 import CheckContext from '../../CheckContext';
-import { getStatus, getStatusStyle, getErrorMessage, bemClass } from '../../helpers';
+import { getStatus, getErrorMessage, bemClass } from '../../helpers';
 import { mediaStatuses, mediaLastStatus, stringHelper } from '../../customHelpers';
-import { units, black87 } from '../../styles/js/shared';
 import { withSetFlashMessage } from '../FlashMessage';
 
 const messages = defineMessages({
@@ -19,6 +18,15 @@ const messages = defineMessages({
     defaultMessage: 'Sorry, an error occurred while updating the status. Please try again and contact {supportEmail} if the condition persists.',
   },
 });
+
+const ReadOnlyStatusLabel = styled.div`
+  color: black;
+`;
+
+const StyledMediaStatus = styled.div`
+  display: flex;
+  align-items: center;
+`;
 
 class MediaStatusCommon extends Component {
   static currentStatusToClass(status) {
@@ -56,76 +64,47 @@ class MediaStatusCommon extends Component {
     // Do nothing. This is here because the child status component calls it.
   }
 
+  handleChange = (e) => {
+    const statusId = e.target.value;
+    this.handleStatusClick(statusId);
+  };
+
   render() {
     const { media } = this.props;
     const { statuses } = mediaStatuses(media);
     const currentStatus = getStatus(mediaStatuses(media), mediaLastStatus(media));
 
-    const styles = {
-      label: {
-        height: units(3),
-        lineHeight: units(3),
-        paddingLeft: 0,
-        color: this.props.readonly ? '#000' : '#fff',
-      },
-      readOnlyLabel: {
-        height: 36,
-        lineHeight: '36px',
-      },
-    };
-
-    const handleChange = (e) => {
-      const status = e.target.value;
-      this.handleStatusClick(status.id);
-    };
-
     return (
-      <div className={bemClass('media-status', this.canUpdate(), '--editable')}>
-        {this.canUpdate() ?
-          <Select
-            className={`media-status__label media-status__current${MediaStatusCommon.currentStatusToClass(mediaLastStatus(media))}`}
-            input={<OutlinedInput style={{ border: black87 }} />}
-            onChange={handleChange}
-            value={currentStatus}
-            style={{
-              minWidth: units(18),
-              height: units(4.5),
-            }}
-            margin="dense"
-          >
-            {statuses.map(status => (
-              <MenuItem
-                key={status.id}
-                className={`${bemClass(
-                  'media-status__menu-item',
-                  mediaLastStatus(media) === status.id,
-                  '--current',
-                )} media-status__menu-item--${status.id.replace('_', '-')}`}
-                value={status}
-                style={{ minWidth: units(20), height: units(4.5), padding: `${units(0.5)} ${units(2)}` }}
-              >
-                <ListItemText
-                  style={{ padding: 0 }}
-                  primary={
-                    <span
-                      style={{
-                        textTransform: 'uppercase',
-                        color: getStatusStyle(status, 'color'),
-                        cursor: 'pointer',
-                        display: 'flex',
-                      }}
-                    >
-                      {status.label}
-                    </span>
-                  }
-                />
-              </MenuItem>))}
-          </Select>
-          :
-          <div style={Object.assign(styles.label, styles.readOnlyLabel)}>
-            {currentStatus.label}
-          </div>}
-      </div>
+      <StyledMediaStatus className="media-status">
+        {this.canUpdate() ? (
+          <FormControl variant="outlined">
+            <Select
+              className={`media-status__label media-status__current${MediaStatusCommon.currentStatusToClass(mediaLastStatus(media))}`}
+              onChange={this.handleChange}
+              value={currentStatus.id}
+              margin="dense"
+            >
+              {statuses.map(status => (
+                <MenuItem
+                  key={status.id}
+                  className={`${bemClass(
+                    'media-status__menu-item',
+                    mediaLastStatus(media) === status.id,
+                    '--current',
+                  )} media-status__menu-item--${status.id.replace('_', '-')}`}
+                  value={status.id}
+                >
+                  <span style={{ color: status.style.color }}>
+                    {status.label}
+                  </span>
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        ) : (
+          <ReadOnlyStatusLabel>{currentStatus.label}</ReadOnlyStatusLabel>
+        )}
+      </StyledMediaStatus>
     );
   }
 }
