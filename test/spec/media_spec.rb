@@ -286,7 +286,6 @@ shared_examples 'media' do |type|
     wait_for_selector('#create-media__quote').click
     wait_for_selector("#create-media-quote-input")
     fill_field('#create-media-quote-input', 'Related Claim')
-    fill_field('#create-media-quote-attribution-source-input', 'Related Item')
     press_button('#create-media-dialog__submit-button')
     wait_for_selector_none("#create-media-quote-input")
     wait_for_selector_list_size(".media-detail", 2)
