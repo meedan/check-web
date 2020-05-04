@@ -16,10 +16,6 @@
     "defaultMessage": "Assigned to {name}"
   },
   {
-    "id": "task.resolvedBy",
-    "defaultMessage": "Resolved by {byName}"
-  },
-  {
     "id": "tasks.editAssignment",
     "defaultMessage": "Edit assignment"
   },

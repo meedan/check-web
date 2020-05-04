@@ -519,6 +519,8 @@ class Task extends Component {
     };
     taskActionsStyle[direction.to] = units(0.5);
 
+    const zeroAnswer = task.responses.edges.length === 0;
+
     const taskActions = !media.archived ? (
       <div style={{ position: 'relative' }}>
         {taskAssignment}
@@ -527,13 +529,7 @@ class Task extends Component {
             <small style={{ display: 'flex' }}>
               <UserAvatars users={byPictures} />
               <span style={{ lineHeight: '24px', paddingLeft: units(1), paddingRight: units(1) }}>
-                { task.status === 'resolved' ?
-                  <FormattedMessage
-                    id="task.resolvedBy"
-                    defaultMessage="Resolved by {byName}"
-                    values={{ byName: <Sentence list={by} /> }}
-                  /> : null }
-                { task.status === 'unresolved' && response ?
+                { response ?
                   <FormattedMessage
                     id="task.answeredBy"
                     defaultMessage="Answered by {byName}"
@@ -577,7 +573,7 @@ class Task extends Component {
               );
             })}
           </StyledTaskResponses>
-          {task.status === 'unresolved' ?
+          {zeroAnswer ?
             <Can permissions={media.permissions} permission="create Dynamic">
               <div>
                 <form name={`task-response-${task.id}`}>
