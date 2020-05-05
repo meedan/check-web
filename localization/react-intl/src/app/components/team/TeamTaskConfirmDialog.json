@@ -20,12 +20,12 @@
     "defaultMessage": "You are about to delete the selected tasks from {itemsNumber, plural, one {1 item} other {# items}}. If you proceed, the answers to these tasks will also be deleted."
   },
   {
-    "id": "teamTasks.confirmEditKeepResolved",
-    "defaultMessage": "Keep the tasks that have been resolved, with their current name and description."
+    "id": "teamTasks.confirmEditkeepCompleted",
+    "defaultMessage": "Keep the tasks that have been completed, with their current name and description."
   },
   {
-    "id": "teamTasks.confirmDeleteKeepResolved",
-    "defaultMessage": "Keep the tasks that have been resolved, with their answers."
+    "id": "teamTasks.confirmDeletekeepCompleted",
+    "defaultMessage": "Keep the tasks that have been completed, with their answers."
   },
   {
     "id": "teamTasks.processMessage",

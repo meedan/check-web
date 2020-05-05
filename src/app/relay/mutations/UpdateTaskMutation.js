@@ -12,7 +12,6 @@ class UpdateTaskMutation extends Relay.Mutation {
       return Relay.QL`fragment on UpdateTaskPayload {
         first_response_versionEdge
         task {
-          status
           responses
           first_response
         },

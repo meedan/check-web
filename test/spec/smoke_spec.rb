@@ -233,13 +233,11 @@ shared_examples 'smoke' do
     wait_for_selector('.team-tasks__menu-item-button').click
     wait_for_selector('.team-tasks__edit-button').click
     fill_field('#task-label-input', '-EDITED')
-    wait_for_selector('#edit-task__required-switch').click ;
     wait_for_selector('.create-task__dialog-submit-button').click
     wait_for_selector('#confirm-dialog__checkbox').click
     wait_for_selector('#confirm-dialog__confirm-action-button').click
     wait_for_selector_none("#confirm-dialog__cancel-action-button")
     expect(@driver.page_source.include?('New teamwide task-EDITED')).to be(true)
-    expect(@driver.find_element(:css, '.task__required').text == '*').to be(true)
 
     # Delete task
     wait_for_selector('.team-tasks__menu-item-button').click

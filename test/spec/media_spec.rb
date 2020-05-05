@@ -78,14 +78,14 @@ shared_examples 'media' do |type|
     expect(@driver.page_source.include?('Foo or bar?')).to be(true)
 
     # Answer task
-    expect(@driver.page_source.include?('Resolved by')).to be(false)
+    expect(@driver.page_source.include?('Answered by')).to be(false)
     wait_for_selector('.task-type__free_text > div > div > button').click
 
     wait_for_selector("#task__response-input")
     fill_field('#task__response-input', 'Foo')
     @driver.find_element(:css, '.task__save').click
     wait_for_selector('.task__response')
-    expect(@driver.page_source.include?('Resolved by')).to be(true)
+    expect(@driver.page_source.include?('Answered by')).to be(true)
 
     # Edit task
     expect(@driver.page_source.include?('Foo or bar???')).to be(false)
@@ -131,7 +131,7 @@ shared_examples 'media' do |type|
     wait_for_selector('0', :id).click
     wait_for_selector('.task__submit').click
     wait_for_selector("#user__avatars")
-    expect(@driver.page_source.include?('Resolved by')).to be(true)
+    expect(@driver.page_source.include?('Answered by')).to be(true)
     # Edit task
     expect(@driver.page_source.include?('??')).to be(false)
     wait_for_selector('.task-actions__icon').click
@@ -167,13 +167,13 @@ shared_examples 'media' do |type|
     wait_for_selector('.create-task__dialog-submit-button').click
     expect(@driver.page_source.include?('Foo, Doo or bar?')).to be(true)
     # Answer task
-    expect(@driver.page_source.include?('Resolved by')).to be(false)
+    expect(@driver.page_source.include?('Answered by')).to be(false)
     wait_for_selector('.task-type__multiple_choice > div > div > button').click
     wait_for_selector('#Foo').click
     wait_for_selector('#Doo').click
     wait_for_selector('.task__submit').click
     wait_for_selector("#user__avatars")
-    expect(@driver.page_source.include?('Resolved by')).to be(true)
+    expect(@driver.page_source.include?('Answered by')).to be(true)
     # Edit task
     expect(@driver.page_source.include?('??')).to be(false)
     wait_for_selector('.task-actions__icon').click

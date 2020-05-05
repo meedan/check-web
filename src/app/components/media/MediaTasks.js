@@ -179,10 +179,10 @@ class MediaTasksComponent extends Component {
               {currentUserRole !== 'annotator' ?
                 <FlexRow>
                   {media.tasks.edges.filter(t =>
-                    t.node.status === 'resolved').length}/{media.tasks.edges.length
+                    t.node.responses.edges.length > 0).length}/{media.tasks.edges.length
                   }
                   &nbsp;
-                  <FormattedMessage id="mediaComponent.resolved" defaultMessage="resolved" />
+                  <FormattedMessage id="mediaComponent.answered" defaultMessage="answered" />
                 </FlexRow> : null
               }
             </FlexRow> : null}
@@ -222,8 +222,6 @@ const MediaTasksContainer = Relay.createContainer(withPusher(MediaTasksComponent
               dbid,
               label,
               type,
-              status,
-              required,
               description,
               permissions,
               jsonoptions,
