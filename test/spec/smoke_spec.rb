@@ -72,7 +72,7 @@ shared_examples 'smoke' do
     wait_for_selector_none(".invite-member-email-input")
   end
 
-  it "should redirect to login screen by the join team link", bin2: true do 
+  it "should redirect to login screen by the join team link", bin2: true do
     team = "team#{Time.now.to_i}"
     api_create_team(team: team)
     api_logout
@@ -268,7 +268,7 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('Task created by')).to be(true)
 
     # Answer task
-    expect(@driver.page_source.include?('Task answered by')).to be(false)
+    expect(@driver.page_source.include?('Task completed by')).to be(false)
     wait_for_selector(".media-tab__tasks").click
     wait_for_selector('.task__card-expand').click
     fill_field('input[name="hour"]', '23')
@@ -278,7 +278,7 @@ shared_examples 'smoke' do
     wait_for_selector('.task__save').click
     wait_for_selector(".media-tab__activity").click
     old = wait_for_size_change(old, 'annotation__default-content', :class, 25, 'datetime task 3')
-    expect(@driver.page_source.include?('Task answered by')).to be(true)
+    expect(@driver.page_source.include?('Task completed by')).to be(true)
 
     # Edit task
     wait_for_selector(".media-tab__tasks").click

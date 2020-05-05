@@ -584,7 +584,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       wait_for_selector(".media-tab__activity").click
       old = wait_for_size_change(old, "annotations__list-item", :class)
-      expect(@driver.page_source.include?('Task answered by')).to be(true)
+      expect(@driver.page_source.include?('Task completed by')).to be(true)
       wait_for_selector(".media-tab__tasks").click
       wait_for_selector('.task-type__geolocation > div > div > button').click
 
