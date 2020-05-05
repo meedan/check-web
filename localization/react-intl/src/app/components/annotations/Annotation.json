@@ -161,7 +161,7 @@
   },
   {
     "id": "annotation.taskResolve",
-    "defaultMessage": "Task answered by {author}: {task}{response}"
+    "defaultMessage": "Task completed by {author}: {task}{response}"
   },
   {
     "id": "annotation.archiverSuccess",

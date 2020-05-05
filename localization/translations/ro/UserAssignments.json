@@ -1,6 +1,5 @@
 {
   "userAssignments.filterByTeam": "Filter by workspace",
-  "userAssignments.progress": "{answered, plural, =0 {Niciun răspuns la sarcini obligatorii} one {A răspuns la 1  sarcină obligatorie} other {A răspuns la # sarcini obligatorii}}, out of {total}",
   "userAssignments.yourAssignments": "Sarcinile atribuite dvs",
   "userAssignments.userAssignments": "Sarcinile atribuite lui {name}",
   "userAssignments.blank": "Nicio activitate"

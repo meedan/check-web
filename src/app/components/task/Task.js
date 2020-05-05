@@ -451,7 +451,7 @@ class Task extends Component {
               <span style={{ lineHeight: '24px', paddingLeft: units(1), paddingRight: units(1) }}>
                 <FormattedMessage
                   id="task.answeredBy"
-                  defaultMessage="Answered by {byName}"
+                  defaultMessage="Completed by {byName}"
                   values={{ byName: <Sentence list={by} /> }}
                 />
               </span>
@@ -532,7 +532,7 @@ class Task extends Component {
                 { response ?
                   <FormattedMessage
                     id="task.answeredBy"
-                    defaultMessage="Answered by {byName}"
+                    defaultMessage="Completed by {byName}"
                     values={{ byName: <Sentence list={by} /> }}
                   /> : null }
               </span>

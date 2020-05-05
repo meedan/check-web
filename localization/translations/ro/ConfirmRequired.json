@@ -1,4 +1,0 @@
-{
-  "task.confirmRequiredTitle": "Confirmați sarcina obligatorie",
-  "task.confirmRequiredText": "Dvs adăugați o sarcină obligatorie la un element marcat <strong>{status}</strong>. Ca urmare, elementul va reveni la starea lui inițială în mod automat."
-}

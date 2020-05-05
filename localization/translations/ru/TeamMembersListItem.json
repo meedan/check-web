@@ -7,7 +7,6 @@
   "TeamMembersListItem.deleteMember": "Remove member",
   "TeamMembersListItem.leaveTeam": "Leave workspace",
   "TeamMembersListItem.singleOwner": "Before you can leave the workspace, please transfer ownership to another member.",
-  "teamMembersListItem.assignmentsProgress": "Завершенных: {completedCount}, в работе: {inProgressCount}, неначатых: {unstartedCount}",
   "TeamMembershipRequestsListItem.approve": "Одобрить",
   "TeamMembershipRequestsListItem.deny": "Отклонить"
 }

@@ -182,7 +182,7 @@ class MediaTasksComponent extends Component {
                     t.node.responses.edges.length > 0).length}/{media.tasks.edges.length
                   }
                   &nbsp;
-                  <FormattedMessage id="mediaComponent.answered" defaultMessage="answered" />
+                  <FormattedMessage id="mediaComponent.answered" defaultMessage="completed" />
                 </FlexRow> : null
               }
             </FlexRow> : null}

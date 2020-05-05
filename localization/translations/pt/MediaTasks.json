@@ -1,5 +1,5 @@
 {
   "mediaComponent.verificationTasks": "Tarefas do item",
-  "mediaComponent.resolved": "resolvidos",
+  "mediaComponent.answered": "completada",
   "mediaComponent.noTasks": "Nenhuma tarefa para mostrar."
 }

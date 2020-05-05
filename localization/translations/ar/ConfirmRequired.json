@@ -1,4 +1,0 @@
-{
-  "task.confirmRequiredTitle": "تأكيد المهمة الإجبارية",
-  "task.confirmRequiredText": "أنت بصدد إضافة مهمة إجبارية جديدة لعنصر حالته <strong>{status}</strong>. سوف ينقلب العنصر تلقائياً إلى حالته الأولية."
-}

@@ -39,7 +39,7 @@
   "annotation.suggestionRejected": "Rejected by {user}",
   "annotation.acceptSuggestion": "Accept",
   "annotation.rejectSuggestion": "Reject",
-  "annotation.taskResolve": "Task answered by {author}: {task}{response}",
+  "annotation.taskResolve": "Task completed by {author}: {task}{response}",
   "annotation.archiverSuccess": "In case this item goes offline, you can <a href=\"{link}\" target=\"_blank\" rel=\"noopener noreferrer\">access a backup at {name}</a>.",
   "annotation.archiverError": "Sorry, an error occurred while archiving the item at {name}. Please refresh the item to try again and contact {supportEmail} if the condition persists.",
   "annotation.archiverWait": "This item is being archived at {name}. The archive link will be displayed here when it's ready.",
