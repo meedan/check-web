@@ -1,8 +1,8 @@
 {
   "userEmail.title": "Add your email",
+  "userEmail.emailInputHint": "email@example.com",
   "userEmail.submit": "Submit",
   "userEmail.skip": "Skip",
   "userEmail.text": "To send you notifications, we need your email address. If you'd like to receive notifications, please enter your email address. Otherwise, click \"Skip\"",
-  "userEmail.emailInputLabel": "Email",
-  "userEmail.emailInputHint": "email@example.com"
+  "userEmail.emailInputLabel": "Email"
 }
