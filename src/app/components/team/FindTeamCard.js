@@ -33,10 +33,11 @@ const messages = defineMessages({
 });
 
 const TeamUrlRow = styled.div`
-  align-items: flex-end;
+  align-items: flex-start;
   display: flex;
   font-size: 12px;
   margin-top: 24px;
+  height: ${units(10)};
   label {
     font: ${caption};
     color: ${checkBlue};
