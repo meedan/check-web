@@ -9,15 +9,15 @@ import NextIcon from '@material-ui/icons/KeyboardArrowRight';
 import PrevIcon from '@material-ui/icons/KeyboardArrowLeft';
 import Tooltip from '@material-ui/core/Tooltip';
 import { withPusher, pusherShape } from '../../pusher';
-import { searchQueryFromUrl, urlFromSearchQuery } from './Search';
 import SearchQuery from './SearchQuery';
 import Toolbar from './Toolbar';
 import ParsedText from '../ParsedText';
 import BulkActions from '../media/BulkActions';
 import MediasLoading from '../media/MediasLoading';
 import ProjectBlankState from '../project/ProjectBlankState';
-import List from '../layout/List';
+import { searchPrefixFromUrl, searchQueryFromUrl, urlFromSearchQuery } from './Search';
 import { black87, headline, units, ContentColumn, Row } from '../../styles/js/shared';
+import SearchResultsTable from './SearchResultsTable';
 import CheckContext from '../../CheckContext';
 import SearchRoute from '../../relay/SearchRoute';
 import checkSearchResultFragment from '../../relay/checkSearchResultFragment';
@@ -68,13 +68,6 @@ const StyledListHeader = styled.div`
 `;
 
 const StyledSearchResultsWrapper = styled.div`
-    padding-bottom: 0 0 ${units(2)};
-
-    .results li {
-      margin-top: 0;
-      list-style-type: none;
-    }
-
   .search__results-heading {
     color: ${black87};
     font-size: larger;
@@ -84,7 +77,7 @@ const StyledSearchResultsWrapper = styled.div`
     align-items: center;
 
     .search__nav {
-      margin: 0 ${units(1)};
+      padding: 0 ${units(1)};
       display: flex;
       cursor: pointer;
       color: ${black87};
@@ -93,7 +86,7 @@ const StyledSearchResultsWrapper = styled.div`
 `;
 
 const StyledToolbarWrapper = styled.div`
-  margin: ${units(2)} 0;
+  padding: ${units(2)} 0;
 `;
 
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
@@ -123,7 +116,7 @@ class SearchResultsComponent extends React.PureComponent {
     this.pusherChannel = null;
 
     this.state = {
-      selectedMedia: [],
+      selectedProjectMediaIds: [],
     };
   }
 
@@ -140,7 +133,7 @@ class SearchResultsComponent extends React.PureComponent {
   }
 
   onUnselectAll = () => {
-    this.setState({ selectedMedia: [] });
+    this.setState({ selectedProjectMediaIds: [] });
   };
 
   getContext() {
@@ -167,10 +160,6 @@ class SearchResultsComponent extends React.PureComponent {
 
     browserHistory.push(url);
   }
-
-  handleSelect = (selectedMedia) => {
-    this.setState({ selectedMedia });
-  };
 
   previousPage() {
     const query = Object.assign({}, searchQueryFromUrl());
@@ -238,19 +227,80 @@ class SearchResultsComponent extends React.PureComponent {
     }
   }
 
+  handleChangeSelectedIds = (selectedProjectMediaIds) => {
+    this.setState({ selectedProjectMediaIds });
+  }
+
+  handleChangeSortParams = (sortParams) => {
+    const oldQuery = searchQueryFromUrl();
+    let newQuery;
+    if (sortParams === null) {
+      newQuery = { ...oldQuery };
+      delete newQuery.sort;
+      delete newQuery.sort_type;
+    } else {
+      const { key, ascending } = sortParams;
+      newQuery = { ...oldQuery, sort: key, sort_type: ascending ? 'ASC' : 'DESC' };
+    }
+
+    const prefix = searchPrefixFromUrl();
+    browserHistory.push(urlFromSearchQuery(newQuery, prefix));
+  }
+
+  handleClickRow = (ev, projectMedia) => {
+    const projectId = projectMedia.project_id;
+    const teamSlug = this.props.team;
+    let mediaUrl;
+    if (projectId && projectMedia.dbid) {
+      mediaUrl = `/${teamSlug}/project/${projectId}/media/${projectMedia.dbid}`;
+    } else if (projectMedia.dbid) {
+      mediaUrl = `/${teamSlug}/media/${projectMedia.dbid}`;
+    } else {
+      return;
+    }
+
+    const originalQuery = searchQueryFromUrl();
+    const query = { original: originalQuery, ...originalQuery };
+    if (Array.isArray(query.show)) {
+      query.show = query.show.filter(f => f !== 'sources');
+    }
+    if (projectId) {
+      query.parent = { type: 'project', id: projectId };
+      query.projects = [projectId];
+      query.referer = 'project';
+    } else {
+      query.parent = { type: 'team', slug: teamSlug };
+      query.referer = 'search';
+    }
+    const isTrash = /\/trash/.test(window.location.pathname);
+    if (isTrash) {
+      query.archived = 1;
+      query.referer = 'trash';
+    }
+    query.timestamp = new Date().getTime();
+
+    const itemOffset = (originalQuery.esoffset || 0) +
+      Array.prototype.indexOf.call(ev.target.parentNode.childNodes, ev.target);
+    query.esoffset = itemOffset;
+
+    browserHistory.push(mediaUrl, { query });
+  };
+
   render() {
     const medias = this.props.search.medias ? this.props.search.medias.edges : [];
     const sources = this.props.search.sources ? this.props.search.sources.edges : [];
 
-    const searchResults = SearchResultsComponent.mergeResults(medias, sources);
+    const searchResults = SearchResultsComponent.mergeResults(medias, sources)
+      .map(({ node }) => node);
     const count = this.props.search ? this.props.search.number_of_results : 0;
     const team = this.props.search.team || this.currentContext().team;
+    const selectedProjectMediaIds = this.state.selectedProjectMediaIds
+      .filter(id => searchResults.some(({ dbid }) => id === dbid));
 
     const query = Object.assign({}, searchQueryFromUrl());
     const offset = query.esoffset ? parseInt(query.esoffset, 10) : 0;
     const to = Math.min(count, Math.max(offset + pageSize, searchResults.length));
     const isProject = /\/project\//.test(window.location.pathname);
-    const isTrash = /\/trash/.test(window.location.pathname);
 
     const searchQueryProps = {
       project: this.props.project,
@@ -269,7 +319,7 @@ class SearchResultsComponent extends React.PureComponent {
             team={team}
             page={this.props.page}
             project={this.currentContext().project}
-            selectedMedia={this.state.selectedMedia}
+            selectedMedia={selectedProjectMediaIds}
             onUnselectAll={this.onUnselectAll}
           /> : null}
         title={
@@ -279,7 +329,7 @@ class SearchResultsComponent extends React.PureComponent {
                 className="search__previous-page search__nav"
                 onClick={this.previousPage.bind(this)}
                 style={{
-                  marginLeft: '0',
+                  paddingLeft: '0',
                 }}
               >
                 <PrevIcon style={{ opacity: offset <= 0 ? '0.25' : '1' }} />
@@ -295,13 +345,13 @@ class SearchResultsComponent extends React.PureComponent {
                   count,
                 }}
               />
-              {this.state.selectedMedia.length ?
+              {selectedProjectMediaIds.length ?
                 <span>&nbsp;
                   <FormattedMessage
                     id="searchResults.withSelection"
                     defaultMessage="{selectedCount, plural, =0 {} one {(1 selected)} other {(# selected)}}"
                     values={{
-                      selectedCount: this.state.selectedMedia.length,
+                      selectedCount: selectedProjectMediaIds.length,
                     }}
                   />
                 </span> : null
@@ -330,53 +380,18 @@ class SearchResultsComponent extends React.PureComponent {
         content = <ProjectBlankState project={this.currentContext().project} />;
       }
     } else {
-      let itemOffset = query.esoffset ? parseInt(query.esoffset, 10) : 0;
-      itemOffset -= 1;
-
-      let projectId = null;
-
-      const itemBaseQuery = Object.assign({ original: query }, query);
-      if (Array.isArray(itemBaseQuery.show)) {
-        itemBaseQuery.show = itemBaseQuery.show.filter(f => f !== 'sources');
-      }
-      if (isProject) {
-        projectId = this.currentContext().project.dbid;
-        itemBaseQuery.parent = { type: 'project', id: projectId };
-        itemBaseQuery.projects = [projectId];
-        itemBaseQuery.referer = 'project';
-      } else {
-        itemBaseQuery.parent = { type: 'team', slug: team.slug };
-        itemBaseQuery.referer = 'search';
-      }
-      if (isTrash) {
-        itemBaseQuery.archived = 1;
-        itemBaseQuery.referer = 'trash';
-      }
-      itemBaseQuery.timestamp = new Date().getTime();
-
-      const resultsWithQueries = searchResults.map((item) => {
-        let itemQuery = {};
-        itemOffset += 1;
-        itemQuery = Object.assign({}, itemBaseQuery);
-        itemQuery.esoffset = itemOffset;
-
-        const media = item.node;
-        let mediaUrl = projectId && team && media.dbid > 0
-          ? `/${team.slug}/project/${projectId}/media/${media.dbid}`
-          : null;
-        if (!mediaUrl && team && media.dbid > 0) {
-          mediaUrl = `/${team.slug}/media/${media.dbid}`;
-        }
-
-        return { ...item, itemQuery, mediaUrl };
-      });
-
       content = (
-        <List
-          searchResults={resultsWithQueries}
-          onSelect={this.handleSelect}
-          selectedMedia={this.state.selectedMedia}
+        <SearchResultsTable
+          projectMedias={searchResults}
           team={team}
+          selectedIds={selectedProjectMediaIds}
+          sortParams={query.sort ? {
+            key: query.sort,
+            ascending: query.sort_type !== 'DESC',
+          } : null}
+          onChangeSelectedIds={this.handleChangeSelectedIds}
+          onChangeSortParams={this.handleChangeSortParams}
+          onClickRow={this.handleClickRow}
         />
       );
     }
@@ -428,18 +443,18 @@ SearchResultsComponent.propTypes = {
 
 const ConnectedSearchResultsComponent = withPusher(injectIntl(SearchResultsComponent));
 
+const SearchResultsContainer = Relay.createContainer(ConnectedSearchResultsComponent, {
+  initialVariables: {
+    pageSize,
+  },
+  fragments: {
+    search: () => checkSearchResultFragment,
+  },
+});
+
 // eslint-disable-next-line react/no-multi-comp
 class SearchResults extends React.PureComponent {
   render() {
-    const SearchResultsContainer = Relay.createContainer(ConnectedSearchResultsComponent, {
-      initialVariables: {
-        pageSize,
-      },
-      fragments: {
-        search: () => checkSearchResultFragment,
-      },
-    });
-
     const resultsRoute = new SearchRoute({ query: JSON.stringify(this.props.query) });
 
     return (

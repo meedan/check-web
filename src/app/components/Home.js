@@ -44,20 +44,12 @@ const GlobalStyle = createGlobalStyle([`
 `]);
 
 const StyledWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
   position: relative;
   margin-${props => (props.isRtl ? 'right' : 'left')}: ${units(32)};
 `;
 
 const StyledContent = styled.div`
-  display: flex;
-  flex: 1;
-  flex-direction: column;
   padding-top: ${gutterMedium};
-  padding-bottom: ${props => (props.inMediaPage ? '0' : 'gutterMedium')};
-  width: 100%;
   background-color: white;
 `;
 
