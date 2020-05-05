@@ -725,7 +725,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.task-type__geolocation > div > div > button').click
       wait_for_selector("#task__response-geolocation-name")
       fill_field("#geolocationsearch", "Salvador")
-      wait_for_selector(".task__response-geolocation-search-options")
+      wait_for_selector("#geolocationsearch-option-0")
       dropdown = @driver.find_element(:id,'geolocationsearch')
       dropdown.send_keys(:arrow_down)
       dropdown.send_keys(:arrow_down)
