@@ -5,7 +5,7 @@ import {
   injectIntl,
 } from 'react-intl';
 import { browserHistory, Link } from 'react-router';
-import TextField from 'material-ui/TextField';
+import TextField from '@material-ui/core/TextField';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -33,10 +33,11 @@ const messages = defineMessages({
 });
 
 const TeamUrlRow = styled.div`
-  align-items: flex-end;
+  align-items: flex-start;
   display: flex;
   font-size: 12px;
   margin-top: 24px;
+  height: ${units(10)};
   label {
     font: ${caption};
     color: ${checkBlue};
@@ -129,10 +130,12 @@ class FindTeamCard extends React.Component {
                   className="find-team__team-slug-input"
                   defaultValue={this.props.teamSlug}
                   onChange={this.handleSlugChange}
-                  hintText={this.props.intl.formatMessage(messages.teamSlugHint)}
-                  errorText={this.state.message}
+                  placeholder={this.props.intl.formatMessage(messages.teamSlugHint)}
+                  error={this.state.message}
+                  helperText={this.state.message}
                   autoComplete="off"
                   fullWidth
+                  margin="normal"
                 />
               </TeamUrlRow>
             </CardContent>

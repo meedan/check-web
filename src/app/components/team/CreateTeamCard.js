@@ -8,7 +8,7 @@ import {
   defineMessages,
   injectIntl,
 } from 'react-intl';
-import TextField from 'material-ui/TextField';
+import TextField from '@material-ui/core/TextField';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -93,13 +93,13 @@ class CreateTeamCard extends React.Component {
     };
   }
 
-  componentDidMount() {
-    this.teamDisplayName.focus();
-  }
-
   getContext() {
     return new CheckContext(this).getContextStore();
   }
+
+  handleNameChange = (e) => {
+    this.setState({ teamName: e.target.value });
+  };
 
   handleSlugChange = (e) => {
     this.setState({ slugName: e.target.value });
@@ -149,7 +149,7 @@ class CreateTeamCard extends React.Component {
     const slugName = slugify(e.target.value);
 
     if (!this.state.slugName && slugName.length) {
-      this.setState({ teamName: e.target.value, slugName });
+      this.setState({ slugName });
     }
   };
 
@@ -180,16 +180,18 @@ class CreateTeamCard extends React.Component {
                   type="text"
                   id="team-name-container"
                   className="create-team__team-display-name-input"
+                  onChange={this.handleNameChange}
                   onBlur={this.handleDisplayNameBlur}
                   autoComplete="off"
-                  ref={(i) => { this.teamDisplayName = i; }}
-                  floatingLabelText={
+                  autoFocus
+                  label={
                     <FormattedMessage
                       id="createTeam.displayName"
                       defaultMessage="Workspace Name"
                     />
                   }
                   fullWidth
+                  margin="normal"
                 />
               </div>
 
@@ -211,8 +213,9 @@ class CreateTeamCard extends React.Component {
                   id="team-slug-container"
                   className="create-team__team-slug-input"
                   onChange={this.handleSlugChange}
-                  hintText={this.props.intl.formatMessage(messages.teamSlugHint)}
+                  placeholder={this.props.intl.formatMessage(messages.teamSlugHint)}
                   autoComplete="off"
+                  margin="normal"
                   fullWidth
                 />
               </TeamUrlRow>

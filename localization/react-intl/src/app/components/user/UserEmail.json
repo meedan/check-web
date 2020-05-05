@@ -4,6 +4,10 @@
     "defaultMessage": "Add your email"
   },
   {
+    "id": "userEmail.emailInputHint",
+    "defaultMessage": "email@example.com"
+  },
+  {
     "id": "userEmail.submit",
     "defaultMessage": "Submit"
   },
@@ -18,9 +22,5 @@
   {
     "id": "userEmail.emailInputLabel",
     "defaultMessage": "Email"
-  },
-  {
-    "id": "userEmail.emailInputHint",
-    "defaultMessage": "email@example.com"
   }
 ]

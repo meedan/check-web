@@ -1,5 +1,4 @@
 import React from 'react';
-import IconDelete from 'material-ui/svg-icons/action/delete';
 import { mountWithIntl } from './helpers/intl-test';
 import TeamInviteCard from '../../src/app/components/team/TeamInviteCard';
 import TeamSizeNudge from '../../src/app/components/team/TeamSizeNudge';

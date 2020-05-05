@@ -1,21 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
 import Button from '@material-ui/core/Button';
 import SvgIcon from '@material-ui/core/SvgIcon';
-import TextField from 'material-ui/TextField';
+import TextField from '@material-ui/core/TextField';
 import IconInsertPhoto from '@material-ui/icons/InsertPhoto';
 import Movie from '@material-ui/icons/Movie';
 import IconLink from '@material-ui/icons/Link';
-import FaFeed from 'react-icons/lib/fa/feed';
 import MdFormatQuote from 'react-icons/lib/md/format-quote';
 import styled from 'styled-components';
 import urlRegex from 'url-regex';
-import AutoCompleteClaimAttribution from './AutoCompleteClaimAttribution';
 import Message from '../Message';
 import UploadImage from '../UploadImage';
-import CheckContext from '../../CheckContext';
-import { validateURL } from '../../helpers';
 import {
   Row,
   units,
@@ -66,30 +61,6 @@ const messages = defineMessages({
     id: 'createMedia.quoteInput',
     defaultMessage: 'Paste or type a text',
   },
-  quoteAttributionSourceInput: {
-    id: 'createMedia.quoteAttributionSourceInput',
-    defaultMessage: 'Source name',
-  },
-  quoteAttributionContextInput: {
-    id: 'createMedia.quoteAttributionContext',
-    defaultMessage: 'URL or context',
-  },
-  quoteAttributionSourceInputHelper: {
-    id: 'createMedia.quoteAttributionSourceInputHelper',
-    defaultMessage: 'Who said this?',
-  },
-  quoteAttributionContextInputHelper: {
-    id: 'createMedia.quoteAttributionContextHelper',
-    defaultMessage: 'Add URL or describe the content',
-  },
-  sourceInput: {
-    id: 'createMedia.sourceInput',
-    defaultMessage: 'Source name',
-  },
-  sourceUrlInput: {
-    id: 'createMedia.sourceUrlInput',
-    defaultMessage: 'Link to source',
-  },
   uploadImage: {
     id: 'createMedia.uploadImage',
     defaultMessage: 'Upload an image',
@@ -117,7 +88,6 @@ class CreateMediaInput extends React.Component {
     let urls = '';
     let url = '';
     let quote = '';
-    let quoteAttributions = JSON.stringify({});
 
     if (this.state.mode === 'image') {
       ({ media: { image } } = document.forms);
@@ -134,9 +104,6 @@ class CreateMediaInput extends React.Component {
     } else if (this.state.mode === 'quote') {
       // TODO Use React ref
       quote = document.getElementById('create-media-quote-input').value.trim();
-      quoteAttributions = JSON.stringify({
-        name: document.getElementById('create-media-quote-attribution-source-input').value.trim(),
-      });
       mediaType = 'Claim';
     } else {
       // TODO Use React ref
@@ -172,32 +139,11 @@ class CreateMediaInput extends React.Component {
       return ({
         url,
         quote,
-        quoteAttributions,
         image,
         video,
         title,
         mode: this.state.mode,
         mediaType,
-      });
-    }
-
-    return null;
-  };
-
-  getSourceInputValue = () => {
-    const inputValue = document.getElementById('create-media-source-name-input').value.trim();
-    const url = document.getElementById('create-media-source-url-input').value.trim();
-
-    if (url && !validateURL(url)) {
-      this.setState({ message: this.props.intl.formatMessage(messages.invalidUrl) });
-      return null;
-    }
-
-    if (inputValue || url) {
-      return ({
-        source_name: inputValue,
-        source_url: url,
-        mode: 'source',
       });
     }
 
@@ -213,8 +159,7 @@ class CreateMediaInput extends React.Component {
   };
 
   handleSubmit = () => {
-    const value = this.state.mode === 'source' ?
-      this.getSourceInputValue() : this.getMediaInputValue();
+    const value = this.getMediaInputValue();
 
     this.resetForm();
 
@@ -244,18 +189,19 @@ class CreateMediaInput extends React.Component {
     this.setState({ message, submittable: false });
   };
 
-  handleChange = () => {
+  handleChange = (e) => {
+    const previousInput = e.target.value;
+
     this.setState({
-      previousInput: this.primaryInput ? this.primaryInput.getValue() : this.state.previousInput,
+      previousInput,
       message: null,
-      submittable: (this.primaryInput && this.primaryInput.getValue().length > 0) ||
-                   (this.secondaryInput && this.secondaryInput.getValue().length > 0),
+      submittable: (previousInput && previousInput.trim()),
     });
   };
 
   resetForm() {
     // TODO Use React refs
-    ['create-media-quote-input', 'create-media-quote-attribution-source-input', 'create-media-input']
+    ['create-media-quote-input', 'create-media-input']
       .forEach((id) => {
         const field = document.getElementById(id);
         if (field) {
@@ -276,9 +222,8 @@ class CreateMediaInput extends React.Component {
       multiLine: true,
       onKeyPress: this.handleKeyPress,
       onChange: this.handleChange,
+      margin: 'normal',
     };
-
-    const context = new CheckContext(this).getContextStore();
 
     switch (this.state.mode) {
     case 'image':
@@ -300,42 +245,16 @@ class CreateMediaInput extends React.Component {
           noPreview
         />,
       ];
-    case 'source':
-      return [
-        <TextField
-          key="createMedia.source.name"
-          hintText={this.props.intl.formatMessage(messages.sourceInput)}
-          id="create-media-source-name-input"
-          ref={(input) => { this.primaryInput = input; }}
-          defaultValue={this.state.previousInput}
-          autoFocus
-          {...defaultInputProps}
-        />,
-        <TextField
-          key="createMedia.source.url"
-          hintText={this.props.intl.formatMessage(messages.sourceUrlInput)}
-          id="create-media-source-url-input"
-          ref={(input) => { this.secondaryInput = input; }}
-          {...defaultInputProps}
-        />,
-      ];
     case 'quote': {
       return [
         <TextField
           key="createMedia.quote.input"
-          hintText={this.props.intl.formatMessage(messages.quoteInput)}
+          placeholder={this.props.intl.formatMessage(messages.quoteInput)}
           name="quote"
           id="create-media-quote-input"
-          ref={(input) => { this.primaryInput = input; }}
-          defaultValue={this.state.previousInput}
+          value={this.state.previousInput}
           autoFocus
           {...defaultInputProps}
-        />,
-        <AutoCompleteClaimAttribution
-          key="createMedia.source.input"
-          team={context.team}
-          hintText={this.props.intl.formatMessage(messages.quoteAttributionSourceInput)}
-          inputProps={defaultInputProps}
         />,
       ];
     }
@@ -344,11 +263,10 @@ class CreateMediaInput extends React.Component {
       return [
         <TextField
           key="createMedia.media.input"
-          hintText={this.props.intl.formatMessage(messages.mediaInput)}
+          placeholder={this.props.intl.formatMessage(messages.mediaInput)}
           name="url"
           id="create-media-input"
-          ref={(input) => { this.primaryInput = input; }}
-          defaultValue={this.state.previousInput}
+          value={this.state.previousInput}
           autoFocus
           {...defaultInputProps}
         />,
@@ -377,15 +295,6 @@ class CreateMediaInput extends React.Component {
         <StyledIcon><SvgIcon style={styles.svgIcon}><MdFormatQuote /></SvgIcon></StyledIcon>
         <StyledTabLabelText>
           <FormattedMessage id="createMedia.quote" defaultMessage="Text" />
-        </StyledTabLabelText>
-      </StyledTabLabel>
-    );
-
-    const tabLabelSource = (
-      <StyledTabLabel active={this.state.mode === 'source'}>
-        <StyledIcon><SvgIcon style={styles.svgIcon}><FaFeed /></SvgIcon></StyledIcon>
-        <StyledTabLabelText>
-          <FormattedMessage id="createMedia.source" defaultMessage="Source" />
         </StyledTabLabelText>
       </StyledTabLabel>
     );
@@ -436,15 +345,6 @@ class CreateMediaInput extends React.Component {
               >
                 {tabLabelQuote}
               </Button>
-              { this.props.noSource ?
-                null :
-                <Button
-                  id="create-media__source"
-                  onClick={e => this.handleTabChange(e, 'source')}
-                >
-                  {tabLabelSource}
-                </Button>
-              }
               <Button
                 id="create-media__image"
                 onClick={e => this.handleTabChange(e, 'image')}
@@ -471,9 +371,5 @@ class CreateMediaInput extends React.Component {
     );
   }
 }
-
-CreateMediaInput.contextTypes = {
-  store: PropTypes.object,
-};
 
 export default injectIntl(CreateMediaInput);

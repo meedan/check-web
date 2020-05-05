@@ -5,7 +5,7 @@ import { injectIntl, defineMessages } from 'react-intl';
 import Button from '@material-ui/core/Button';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import TextField from 'material-ui/TextField';
+import TextField from '@material-ui/core/TextField';
 import MdCancel from 'react-icons/lib/md/cancel';
 import capitalize from 'lodash.capitalize';
 import LinkifyIt from 'linkify-it';
@@ -426,8 +426,9 @@ class UserInfoEdit extends React.Component {
               <TextField
                 id={`source__link-item${index.toString()}`}
                 defaultValue={as.node.account.url}
-                floatingLabelText={capitalize(as.node.account.provider)}
+                label={capitalize(as.node.account.provider)}
                 style={{ width: '85%' }}
+                margin="normal"
                 disabled
               />
               <StyledIconButton
@@ -445,10 +446,12 @@ class UserInfoEdit extends React.Component {
                 id={`source__link-input${index.toString()}`}
                 name={`source__link-input${index.toString()}`}
                 value={link.url}
-                errorText={link.error}
-                floatingLabelText={this.props.intl.formatMessage(messages.addLinkLabel)}
+                error={link.error}
+                helperText={link.error}
+                label={this.props.intl.formatMessage(messages.addLinkLabel)}
                 onChange={e => this.handleChangeLink(e, index)}
                 style={{ width: '85%' }}
+                margin="normal"
               />
               <StyledIconButton
                 className="source__remove-link-button"
@@ -522,26 +525,29 @@ class UserInfoEdit extends React.Component {
                 name="name"
                 id="source__name-container"
                 defaultValue={user.name}
-                floatingLabelText={this.props.intl.formatMessage(messages.sourceName)}
+                label={this.props.intl.formatMessage(messages.sourceName)}
                 style={{ width: '85%' }}
+                margin="normal"
               />
               <TextField
                 className="source__bio-input"
                 name="description"
                 id="source__bio-container"
                 defaultValue={source.description}
-                floatingLabelText={this.props.intl.formatMessage(messages.sourceBio)}
-                multiLine
+                label={this.props.intl.formatMessage(messages.sourceBio)}
+                multiline
                 rowsMax={4}
                 style={{ width: '85%' }}
+                margin="normal"
               />
               <TextField
                 className="source__email-input"
                 name="email"
                 id="source__email-container"
                 defaultValue={user.unconfirmed_email || user.email}
-                floatingLabelText={this.props.intl.formatMessage(messages.userEmail)}
+                label={this.props.intl.formatMessage(messages.userEmail)}
                 style={{ width: '85%' }}
+                margin="normal"
               />
               <StyledHelper>
                 {emailHelperText}
