@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { defineMessages, injectIntl, intlShape, FormattedMessage } from 'react-intl';
+import rtlDetect from 'rtl-detect';
 import { browserHistory } from 'react-router';
 import sortby from 'lodash.sortby';
 import styled from 'styled-components';
@@ -16,11 +17,10 @@ import BulkActions from '../media/BulkActions';
 import MediasLoading from '../media/MediasLoading';
 import ProjectBlankState from '../project/ProjectBlankState';
 import { searchPrefixFromUrl, searchQueryFromUrl, urlFromSearchQuery } from './Search';
-import { black87, headline, units, ContentColumn, Row } from '../../styles/js/shared';
+import { black87, headline, units, Row } from '../../styles/js/shared';
 import SearchResultsTable from './SearchResultsTable';
 import CheckContext from '../../CheckContext';
 import SearchRoute from '../../relay/SearchRoute';
-import checkSearchResultFragment from '../../relay/checkSearchResultFragment';
 
 // TODO Make this a config
 const pageSize = 20;
@@ -37,6 +37,8 @@ const messages = defineMessages({
 });
 
 const StyledListHeader = styled.div`
+  padding: 0 ${units(2)};
+
   .search__list-header-filter-row {
     justify-content: space-between;
     display: flex;
@@ -68,6 +70,8 @@ const StyledListHeader = styled.div`
 `;
 
 const StyledSearchResultsWrapper = styled.div`
+  margin: 0 -${units(2)};
+
   .search__results-heading {
     color: ${black87};
     font-size: larger;
@@ -83,10 +87,6 @@ const StyledSearchResultsWrapper = styled.div`
       color: ${black87};
     }
   }
-`;
-
-const StyledToolbarWrapper = styled.div`
-  padding: ${units(2)} 0;
 `;
 
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
@@ -309,70 +309,6 @@ class SearchResultsComponent extends React.PureComponent {
       title: this.props.title,
     };
 
-    const title = (
-      <Toolbar
-        team={team}
-        actions={medias.length ?
-          <BulkActions
-            parentComponent={this}
-            count={this.props.search ? this.props.search.number_of_results : 0}
-            team={team}
-            page={this.props.page}
-            project={this.currentContext().project}
-            selectedMedia={selectedProjectMediaIds}
-            onUnselectAll={this.onUnselectAll}
-          /> : null}
-        title={
-          <span className="search__results-heading">
-            <Tooltip title={this.props.intl.formatMessage(messages.previousPage)}>
-              <span
-                className="search__previous-page search__nav"
-                onClick={this.previousPage.bind(this)}
-                style={{
-                  paddingLeft: '0',
-                }}
-              >
-                <PrevIcon style={{ opacity: offset <= 0 ? '0.25' : '1' }} />
-              </span>
-            </Tooltip>
-            <span className="search__count">
-              <FormattedMessage
-                id="searchResults.itemsCount"
-                defaultMessage="{count, plural, =0 {&nbsp;} one {1 / 1} other {{from} - {to} / #}}"
-                values={{
-                  from: offset + 1,
-                  to,
-                  count,
-                }}
-              />
-              {selectedProjectMediaIds.length ?
-                <span>&nbsp;
-                  <FormattedMessage
-                    id="searchResults.withSelection"
-                    defaultMessage="{selectedCount, plural, =0 {} one {(1 selected)} other {(# selected)}}"
-                    values={{
-                      selectedCount: selectedProjectMediaIds.length,
-                    }}
-                  />
-                </span> : null
-              }
-            </span>
-            <Tooltip title={this.props.intl.formatMessage(messages.nextPage)}>
-              <span
-                className="search__next-page search__nav"
-                onClick={this.nextPage.bind(this)}
-              >
-                <NextIcon style={{ opacity: to >= count ? '0.25' : '1' }} />
-              </span>
-            </Tooltip>
-          </span>
-        }
-        project={isProject ? this.currentContext().project : null}
-        page={this.props.page}
-        search={this.props.search}
-      />
-    );
-
     let content = null;
 
     if (count === 0) {
@@ -382,6 +318,7 @@ class SearchResultsComponent extends React.PureComponent {
     } else {
       content = (
         <SearchResultsTable
+          isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
           projectMedias={searchResults}
           team={team}
           selectedIds={selectedProjectMediaIds}
@@ -399,7 +336,7 @@ class SearchResultsComponent extends React.PureComponent {
     const { listName, listActions, listDescription } = this.props;
 
     return (
-      <ContentColumn fullWidth>
+      <React.Fragment>
         <StyledListHeader>
           <Row className="search__list-header-filter-row">
             <Row className="search__list-header-title-and-filter">
@@ -422,10 +359,70 @@ class SearchResultsComponent extends React.PureComponent {
           </Row>
         </StyledListHeader>
         <StyledSearchResultsWrapper className="search__results results">
-          <StyledToolbarWrapper>{title}</StyledToolbarWrapper>
+          <Toolbar
+            team={team}
+            actions={medias.length ?
+              <BulkActions
+                parentComponent={this}
+                count={this.props.search ? this.props.search.number_of_results : 0}
+                team={team}
+                page={this.props.page}
+                project={this.currentContext().project}
+                selectedMedia={selectedProjectMediaIds}
+                onUnselectAll={this.onUnselectAll}
+              /> : null}
+            title={
+              <span className="search__results-heading">
+                <Tooltip title={this.props.intl.formatMessage(messages.previousPage)}>
+                  <span
+                    className="search__previous-page search__nav"
+                    onClick={this.previousPage.bind(this)}
+                    style={{
+                      paddingLeft: '0',
+                    }}
+                  >
+                    <PrevIcon style={{ opacity: offset <= 0 ? '0.25' : '1' }} />
+                  </span>
+                </Tooltip>
+                <span className="search__count">
+                  <FormattedMessage
+                    id="searchResults.itemsCount"
+                    defaultMessage="{count, plural, =0 {&nbsp;} one {1 / 1} other {{from} - {to} / #}}"
+                    values={{
+                      from: offset + 1,
+                      to,
+                      count,
+                    }}
+                  />
+                  {selectedProjectMediaIds.length ?
+                    <span>&nbsp;
+                      <FormattedMessage
+                        id="searchResults.withSelection"
+                        defaultMessage="{selectedCount, plural, =0 {} one {(1 selected)} other {(# selected)}}"
+                        values={{
+                          selectedCount: selectedProjectMediaIds.length,
+                        }}
+                      />
+                    </span> : null
+                  }
+                </span>
+                <Tooltip title={this.props.intl.formatMessage(messages.nextPage)}>
+                  <span
+                    className="search__next-page search__nav"
+                    onClick={this.nextPage.bind(this)}
+                  >
+                    <NextIcon style={{ opacity: to >= count ? '0.25' : '1' }} />
+                  </span>
+                </Tooltip>
+              </span>
+            }
+            project={isProject ? this.currentContext().project : null}
+            page={this.props.page}
+            search={this.props.search}
+          />
           {content}
         </StyledSearchResultsWrapper>
-      </ContentColumn>
+      </React.Fragment>
     );
   }
 }
@@ -448,7 +445,54 @@ const SearchResultsContainer = Relay.createContainer(ConnectedSearchResultsCompo
     pageSize,
   },
   fragments: {
-    search: () => checkSearchResultFragment,
+    search: () => Relay.QL`
+      fragment on CheckSearch {
+        id,
+        pusher_channel,
+        team {
+          slug
+          search_id,
+          permissions,
+          search { id, number_of_results },
+          check_search_trash { id, number_of_results },
+          verification_statuses,
+          medias_count,
+          team_bot_installations(first: 10000) {
+            edges {
+              node {
+                id
+                team_bot: bot_user {
+                  id
+                  identifier
+                }
+              }
+            }
+          }
+        }
+        medias(first: $pageSize) {
+          edges {
+            node {
+              id,
+              dbid,
+              picture,
+              title,
+              description,
+              virality,
+              demand,
+              linked_items_count,
+              type,
+              status,
+              first_seen: created_at,
+              last_seen,
+              share_count,
+              project_id,
+              verification_statuses,
+            }
+          }
+        },
+        number_of_results
+      }
+    `,
   },
 });
 

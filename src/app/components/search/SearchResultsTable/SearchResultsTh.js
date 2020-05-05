@@ -21,19 +21,33 @@ export default function SearchResultsTh({
   const classes = useStyles({ width });
 
   const handleClickSort = React.useCallback(() => {
-    onChangeSortParams({
-      key: sortKey,
-      ascending: sortDirection !== 'asc',
-    });
+    let newSortParams;
+    if (sortKey !== sortParams.key) {
+      // Not sorted by this column => sort ascending
+      newSortParams = { key: sortKey, ascending: true };
+    } else if (sortParams.ascending) {
+      // Sorted by this column, ascending => sort descending
+      newSortParams = { key: sortKey, ascending: false };
+    } else {
+      // Sorted by this column, descending => un-sort
+      newSortParams = null;
+    }
+    onChangeSortParams(newSortParams);
   }, [sortKey, sortDirection]);
 
+  // hideSortIcon to (A) line things up correctly and (B) save horizontal space
   return (
-    <TableCell sortDirection={sortDirection || false} className={classes.root}>
+    <TableCell
+      sortDirection={sortDirection || false}
+      classes={classes}
+      align={width === '1px' ? 'center' : undefined}
+    >
       {sortKey ? (
         <TableSortLabel
           active={!!sortDirection}
           direction={sortDirection || undefined}
           onClick={handleClickSort}
+          hideSortIcon
         >
           {text}
         </TableSortLabel>

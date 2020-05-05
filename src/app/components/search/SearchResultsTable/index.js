@@ -78,7 +78,14 @@ function buildColumnDefs(team) {
 }
 
 export default function SearchResultsTable({
-  team, selectedIds, projectMedias, sortParams, onChangeSelectedIds, onChangeSortParams, onClickRow,
+  team,
+  selectedIds,
+  projectMedias,
+  sortParams,
+  onChangeSelectedIds,
+  onChangeSortParams,
+  onClickRow,
+  isRtl,
 }) {
   const columnDefs = React.useMemo(() => buildColumnDefs(team), [team]);
 
@@ -106,7 +113,7 @@ export default function SearchResultsTable({
 
   return (
     <FillRemainingHeight component={TableContainer}>
-      <Table stickyHeader>
+      <Table stickyHeader size="small">
         <SearchResultsTableHead
           columnDefs={columnDefs}
           team={team}
@@ -119,6 +126,7 @@ export default function SearchResultsTable({
         <TableBody>
           {projectMedias.map(projectMedia => (
             <SearchResultsTableRow
+              isRtl={isRtl}
               key={projectMedia.id}
               columnDefs={columnDefs}
               projectMedia={projectMedia}
@@ -136,6 +144,7 @@ SearchResultsTable.defaultProps = {
   sortParams: null,
 };
 SearchResultsTable.propTypes = {
+  isRtl: PropTypes.bool.isRequired,
   team: PropTypes.object.isRequired,
   projectMedias: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
   selectedIds: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,

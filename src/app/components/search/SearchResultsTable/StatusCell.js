@@ -2,22 +2,25 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import TableCell from '@material-ui/core/TableCell';
 
-function findStatusObject(statuses, statusId) {
+function findStatusObjectOrNull(statuses, statusId) {
+  if (!statuses) {
+    return null;
+  }
   const index = statuses.findIndex(({ id }) => id === statusId);
   if (index === -1) {
-    throw new Error(`Invalid status ID ${statusId}`);
+    return null;
   }
   return statuses[index];
 }
 
 export default function StatusCell({ projectMedia }) {
-  const statusObject = findStatusObject(
+  const statusObject = findStatusObjectOrNull(
     projectMedia.verification_statuses.statuses,
     projectMedia.status,
   );
   return (
     <TableCell>
-      {statusObject.label}
+      {statusObject ? statusObject.label : null}
     </TableCell>
   );
 }
@@ -27,7 +30,7 @@ StatusCell.propTypes = {
       statuses: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.string.isRequired,
         label: PropTypes.string.isRequired,
-      })).isRequired,
+      }).isRequired), // undefined during optimistic update
     }).isRequired,
     status: PropTypes.string.isRequired,
   }).isRequired,

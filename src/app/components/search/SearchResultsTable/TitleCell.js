@@ -2,25 +2,26 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import TableCell from '@material-ui/core/TableCell';
 import { makeStyles } from '@material-ui/core/styles';
-import { units, black87, Offset } from '../../../styles/js/shared';
+import { units, black87 } from '../../../styles/js/shared';
 
 const useStyles = makeStyles({
-  thumbnail: {
+  thumbnail: ({ isRtl }) => ({
     width: units(10),
     height: units(10),
-  },
+    overflow: 'hidden',
+    float: isRtl ? 'right' : 'left',
+    [`margin${isRtl ? 'Left' : 'Right'}`]: units(2),
+  }),
   fullHeightImg: {
     height: '100%',
     objectFit: 'cover',
   },
-  content: props => ({
-    cursor: props.optimistic ? 'wait' : 'pointer',
+  content: {
     whiteSpace: 'normal',
-    height: units(12),
-    padding: [units(1), 0],
+    height: units(10),
     color: black87,
     lineHeight: units(2.5),
-  }),
+  },
   title: {
     minHeight: units(5),
     maxHeight: units(5),
@@ -33,23 +34,20 @@ const useStyles = makeStyles({
   },
 });
 
-const TitleCell = ({ projectMedia }) => {
+const TitleCell = ({ projectMedia, isRtl }) => {
   const {
-    thumbnailUrl,
+    picture,
     title,
     description,
-    dbid, // if truthy, this media has been saved to the server
   } = projectMedia;
-  const classes = useStyles({ optimistic: !dbid });
+  const classes = useStyles({ isRtl });
 
   return (
     <TableCell component="th" scope="row">
-      {thumbnailUrl ? (
-        <Offset>
-          <div className={classes.thumbnail}>
-            <img className={classes.fullHeightImg} alt="" src={thumbnailUrl} />
-          </div>
-        </Offset>
+      {picture ? (
+        <div className={classes.thumbnail}>
+          <img className={classes.fullHeightImg} alt="" src={picture} />
+        </div>
       ) : null}
       <div className={classes.content}>
         <h4 className={classes.title}>{title}</h4>
@@ -61,12 +59,11 @@ const TitleCell = ({ projectMedia }) => {
   );
 };
 TitleCell.propTypes = {
+  isRtl: PropTypes.bool.isRequired,
   projectMedia: PropTypes.shape({
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired, // may be empty string
-    thumbnailUrl: PropTypes.string, // or null
-    url: PropTypes.string, // or null
-    query: PropTypes.object, // or null
+    picture: PropTypes.string, // thumbnail URL or null
   }).isRequired,
 };
 

@@ -5,12 +5,12 @@ import isEqual from 'lodash.isequal';
 import rtlDetect from 'rtl-detect';
 import CreateProjectMedia from '../media/CreateMedia';
 import Can from '../Can';
-import { black87, units, separationGray, Row, FlexRow, Offset } from '../../styles/js/shared';
+import { black87, units, Row, FlexRow, Offset } from '../../styles/js/shared';
 
 const StyledToolbar = styled.div`
   background-color: white;
   min-height: ${units(5)};
-  border-bottom: 2px solid ${separationGray};
+  padding: ${units(2)};
 
   .toolbar__title {
     color: ${black87};
