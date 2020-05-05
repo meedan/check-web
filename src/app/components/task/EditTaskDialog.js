@@ -4,18 +4,14 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Switch from '@material-ui/core/Switch';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import MdCancel from 'react-icons/lib/md/cancel';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import styled from 'styled-components';
 import Attribution from './Attribution';
-import ConfirmRequired from './ConfirmRequired';
 import Message from '../Message';
 import ProjectSelector from '../project/ProjectSelector';
-import { getStatus } from '../../helpers';
-import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
 import { units, StyledIconButton, caption, black54, Row } from '../../styles/js/shared';
 
 const StyledProjectsArea = styled.div`
@@ -37,10 +33,6 @@ const StyledTaskAssignment = styled.div`
     border: 0;
     background: transparent;
   }
-`;
-
-const HelperText = styled.div`
-  font: ${caption};
 `;
 
 const messages = defineMessages({
@@ -83,10 +75,6 @@ class EditTaskDialog extends React.Component {
       project_ids: task ? task.project_ids : [],
       submitDisabled: true,
       showAssignmentField: false,
-      required: task ? task.required : false,
-      status: task ? task.status : 'unresolved',
-      resolvable: task && task.responses && task.responses.edges.length > 0,
-      confirmRequired: false,
       jsonschema: task ? task.json_schema : null,
       editLabelOrDescription: false,
     };
@@ -171,31 +159,6 @@ class EditTaskDialog extends React.Component {
     this.validateTask(this.state.label, this.state.options);
   }
 
-  handleSelectRequired(e, inputChecked) {
-    const { media } = this.props;
-
-    if (media) {
-      const status = getStatus(mediaStatuses(media), mediaLastStatus(media));
-
-      if (inputChecked && status.completed && !media.last_status_obj.locked) {
-        this.setState({ required: inputChecked, confirmRequired: true, status });
-        return;
-      }
-    }
-
-    this.setState({ required: inputChecked });
-    this.validateTask(this.state.label, this.state.options);
-  }
-
-  handleSelectResolved(e, inputChecked) {
-    if (this.state.resolvable && inputChecked) {
-      this.setState({ status: 'resolved' });
-    } else if (!inputChecked) {
-      this.setState({ status: 'unresolved' });
-    }
-    this.validateTask(this.state.label, this.state.options);
-  }
-
   handleSelectProjects = (projectsIds) => {
     const project_ids = projectsIds.map(id => parseInt(id, 10));
     this.setState({ project_ids });
@@ -212,8 +175,6 @@ class EditTaskDialog extends React.Component {
     const task = {
       label: this.state.label,
       description: this.state.description,
-      required: this.state.required,
-      status: this.state.status,
       jsonoptions,
       json_project_ids: JSON.stringify(this.state.project_ids),
       jsonschema: this.state.jsonschema,
@@ -325,42 +286,7 @@ class EditTaskDialog extends React.Component {
             multiline
             fullWidth
           />
-          <FormattedMessage
-            id="tasks.requiredCheckbox"
-            defaultMessage="Required"
-          />
-          <Switch
-            id="edit-task__required-switch"
-            checked={Boolean(this.state.required)}
-            onChange={this.handleSelectRequired.bind(this)}
-            value="required"
-            color="primary"
-          />
-          <HelperText>
-            <FormattedMessage
-              id="tasks.requiredHelper"
-              defaultMessage="Items cannot be marked as completed while any of their required tasks remains unresolved"
-            />
-          </HelperText>
           <p />
-          <FormattedMessage
-            id="tasks.resolvedCheckbox"
-            defaultMessage="Resolved"
-          />
-          <Switch
-            id="edit-task__resolved-switch"
-            checked={this.state.status === 'resolved'}
-            disabled={!this.state.resolvable}
-            onChange={this.handleSelectResolved.bind(this)}
-            value="resolved"
-            color="primary"
-          />
-          <HelperText>
-            <FormattedMessage
-              id="tasks.resolvedHelper"
-              defaultMessage="The task can only be resolved if it has been answered"
-            />
-          </HelperText>
           { this.props.projects ?
             <StyledProjectsArea>
               <FormattedMessage id="tasks.showInProj" defaultMessage="Show tasks in" />
@@ -372,12 +298,6 @@ class EditTaskDialog extends React.Component {
             </StyledProjectsArea>
             : null
           }
-          <ConfirmRequired
-            open={this.state.confirmRequired}
-            status={this.state.status}
-            handleCancel={() => { this.setState({ required: false, confirmRequired: false }); }}
-            handleConfirm={() => { this.setState({ confirmRequired: false }); }}
-          />
 
           {this.renderOptions()}
 

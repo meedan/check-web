@@ -33,7 +33,6 @@ class UpdateDynamicMutation extends Relay.Mutation {
       return Relay.QL`fragment on UpdateDynamicPayload {
         task {
           id
-          status
           first_response
           responses
         }

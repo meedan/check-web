@@ -27,9 +27,6 @@ import {
   Text,
   buttonInButtonGroupStyle,
   Offset,
-  inProgressYellow,
-  unstartedRed,
-  completedGreen,
 } from '../../styles/js/shared';
 
 class TeamMembersListItem extends Component {
@@ -163,22 +160,6 @@ class TeamMembersListItem extends Component {
     const userIsSelf = teamUser.node.user_id === currentUser.dbid;
     const selfIsOwner = userIsSelf && teamUser.node.role === 'owner';
 
-    const assignmentsProgress = teamUser.node.assignments_progress;
-    let assignmentsProgressColor = null;
-    if (assignmentsProgress) {
-      assignmentsProgressColor = inProgressYellow;
-      if (assignmentsProgress.in_progress === 0 &&
-          assignmentsProgress.completed === 0 &&
-          assignmentsProgress.unstarted > 0) {
-        assignmentsProgressColor = unstartedRed;
-      }
-      if (assignmentsProgress.in_progress === 0 &&
-          assignmentsProgress.completed > 0 &&
-          assignmentsProgress.unstarted === 0) {
-        assignmentsProgressColor = completedGreen;
-      }
-    }
-
     let deleteTooltip = <FormattedMessage id="TeamMembersListItem.deleteMember" defaultMessage="Remove member" />;
 
     if (userIsSelf) {
@@ -215,22 +196,7 @@ class TeamMembersListItem extends Component {
                     />
                   </Offset>
                   <Text breakWord>
-                    {teamUser.node.user.name}<br />
-                    { assignmentsProgress.completed === 0 &&
-                      assignmentsProgress.in_progress === 0 &&
-                      assignmentsProgress.unstarted === 0 ? null :
-                      <span style={{ fontSize: 11, color: assignmentsProgressColor }}>
-                        <FormattedMessage
-                          id="teamMembersListItem.assignmentsProgress"
-                          defaultMessage="{completedCount} completed, {inProgressCount} in progress, {unstartedCount} unstarted"
-                          values={{
-                            completedCount: assignmentsProgress.completed,
-                            inProgressCount: assignmentsProgress.in_progress,
-                            unstartedCount: assignmentsProgress.unstarted,
-                          }}
-                        />
-                      </span>
-                    }
+                    {teamUser.node.user.name}
                   </Text>
                 </FlexRow>
               </Link>

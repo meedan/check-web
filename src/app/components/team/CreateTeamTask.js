@@ -35,7 +35,6 @@ class CreateTeamTask extends React.Component {
     const teamTask = {
       label: task.label,
       description: task.description,
-      required: Boolean(task.required),
       task_type: this.state.createType,
       json_options: task.jsonoptions,
       json_project_ids: task.json_project_ids,

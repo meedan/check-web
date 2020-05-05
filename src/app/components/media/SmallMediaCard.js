@@ -6,7 +6,6 @@ import LayersIcon from '@material-ui/icons/Layers';
 import rtlDetect from 'rtl-detect';
 import styled from 'styled-components';
 import MediaSelectable from './MediaSelectable';
-import ItemDeadline from './ItemDeadline';
 import MediaUtil from './MediaUtil';
 import LayerIcon from '../icons/Layer';
 import { black38, units, Offset, Row, StyledHeading } from '../../styles/js/shared';
@@ -42,14 +41,6 @@ const UpperRow = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-`;
-
-const BottomRow = styled.div`
-  width: 100%;
-  margin-top: auto;
-  display: flex;
-  justify-content: flex-end;
-  font-size: smaller;
 `;
 
 const SmallMediaCard = (props) => {
@@ -138,9 +129,6 @@ const SmallMediaCard = (props) => {
                   ) : null
                 }
               </UpperRow>
-              <BottomRow>
-                <ItemDeadline media={media} isRtl={isRtl} />
-              </BottomRow>
             </Content>
           </Row>
         </div>

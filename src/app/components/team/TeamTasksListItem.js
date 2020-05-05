@@ -18,7 +18,6 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import IconImageUpload from '@material-ui/icons/CloudUpload';
 import TeamTaskConfirmDialog from './TeamTaskConfirmDialog';
 import EditTaskDialog from '../task/EditTaskDialog';
-import { RequiredIndicator } from '../task/Task';
 import UpdateTeamTaskMutation from '../../relay/mutations/UpdateTeamTaskMutation';
 import DeleteTeamTaskMutation from '../../relay/mutations/DeleteTeamTaskMutation';
 import { getErrorMessage } from '../../helpers';
@@ -75,12 +74,12 @@ class TeamTasksListItem extends React.Component {
     this.handleCloseMenu();
   };
 
-  handleConfirmDialog = (keepResolved) => {
+  handleConfirmDialog = (keepCompleted) => {
     this.handleCloseDialog();
     if (this.state.action === 'delete') {
-      this.handleDestroy(keepResolved);
+      this.handleDestroy(keepCompleted);
     } else if (this.state.action === 'edit') {
-      this.handleSubmitTask(keepResolved);
+      this.handleSubmitTask(keepCompleted);
     }
   }
 
@@ -93,14 +92,14 @@ class TeamTasksListItem extends React.Component {
     });
   };
 
-  handleDestroy = (keepResolved) => {
+  handleDestroy = (keepCompleted) => {
     const { task } = this.props;
 
     Relay.Store.commitUpdate(
       new DeleteTeamTaskMutation({
         teamId: this.props.team.id,
         id: task.id,
-        keepResolved,
+        keepCompleted,
       }),
       { onFailure: this.fail },
     );
@@ -114,7 +113,7 @@ class TeamTasksListItem extends React.Component {
     this.setState({ action: null, isEditing: false, message: null });
   };
 
-  handleSubmitTask = (keepResolved) => {
+  handleSubmitTask = (keepCompleted) => {
     const task = this.state.editedTask;
     const { id, type } = this.props.task;
     const teamTask = {
@@ -122,11 +121,10 @@ class TeamTasksListItem extends React.Component {
       task_type: type,
       label: task.label,
       description: task.description,
-      required: Boolean(task.required),
       json_options: task.jsonoptions,
       json_project_ids: task.json_project_ids,
       json_schema: task.jsonschema,
-      keep_resolved_tasks: keepResolved,
+      keep_completed_tasks: keepCompleted,
     };
 
     const onSuccess = () => {
@@ -161,7 +159,6 @@ class TeamTasksListItem extends React.Component {
     const label = (
       <span>
         {task.label}
-        <RequiredIndicator required={task.required} />
       </span>
     );
 
