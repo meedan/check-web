@@ -2,7 +2,7 @@ import React from 'react';
 import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
 import Button from '@material-ui/core/Button';
 import SvgIcon from '@material-ui/core/SvgIcon';
-import TextField from 'material-ui/TextField';
+import TextField from '@material-ui/core/TextField';
 import IconInsertPhoto from '@material-ui/icons/InsertPhoto';
 import Movie from '@material-ui/icons/Movie';
 import IconLink from '@material-ui/icons/Link';
@@ -252,8 +252,7 @@ class CreateMediaInput extends React.Component {
           placeholder={this.props.intl.formatMessage(messages.quoteInput)}
           name="quote"
           id="create-media-quote-input"
-          ref={(input) => { this.primaryInput = input; }}
-          defaultValue={this.state.previousInput}
+          value={this.state.previousInput}
           autoFocus
           {...defaultInputProps}
         />,
@@ -267,8 +266,7 @@ class CreateMediaInput extends React.Component {
           placeholder={this.props.intl.formatMessage(messages.mediaInput)}
           name="url"
           id="create-media-input"
-          ref={(input) => { this.primaryInput = input; }}
-          defaultValue={this.state.previousInput}
+          value={this.state.previousInput}
           autoFocus
           {...defaultInputProps}
         />,
