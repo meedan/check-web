@@ -1,17 +1,10 @@
 {
   "createMedia.mediaInput": "الصق أو اكتب",
   "createMedia.quoteInput": "Paste or type a text",
-  "createMedia.quoteAttributionSourceInput": "اسم المصدر",
-  "createMedia.quoteAttributionContext": "رابط أو سياق",
-  "createMedia.quoteAttributionSourceInputHelper": "من أدعى ذلك ؟",
-  "createMedia.quoteAttributionContextHelper": "إضافة رابط أو شرح للإدعاء",
-  "createMedia.sourceInput": "اسم المصدر",
-  "createMedia.sourceUrlInput": "رابط المصدر",
   "createMedia.uploadImage": "ارفع صورة",
   "createMedia.invalidUrl": "من فضلك أدخل رابطاً صحيحاً",
   "createMedia.link": "الرابط",
   "createMedia.quote": "نص",
-  "createMedia.source": "المصدر",
   "createMedia.image": "صورة",
   "createMedia.video": "فيديو"
 }

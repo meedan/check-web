@@ -39,7 +39,7 @@
   "annotation.suggestionRejected": "Recusado por {user}",
   "annotation.acceptSuggestion": "Aceitar",
   "annotation.rejectSuggestion": "Recusar",
-  "annotation.taskResolve": "Tarefa respondida por {author}: {task}{response}",
+  "annotation.taskResolve": "Tarefa completada por {author}: {task}{response}",
   "annotation.archiverSuccess": "No caso deste link ficar indisponível, você pode <a href=\"{link}\" target=\"_blank\" rel=\"noopener noreferrer\">acessar um backup em {name}</a>.",
   "annotation.archiverError": "Desculpe, ocorreu um erro ao arquivar o item em {name}. Por favor, atualize o item para tentar novamente e entre em contato com {supportEmail} se a condição persistir.",
   "annotation.archiverWait": "Esse item está sendo arquivado em {name}. O link do arquivo será exibido aqui quando estiver pronto.",

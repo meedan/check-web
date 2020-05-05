@@ -9,7 +9,7 @@
   },
   {
     "id": "task.answeredBy",
-    "defaultMessage": "Answered by {byName}"
+    "defaultMessage": "Completed by {byName}"
   },
   {
     "id": "task.assignedTo",

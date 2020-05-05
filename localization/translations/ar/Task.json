@@ -1,9 +1,8 @@
 {
   "task.confirmDelete": "هل أنت متأكد أنك تود حذف هذه المهمة ؟",
   "task.confirmDeleteResponse": "هل أنت متأكد أنك تود حذف هذه اﻹجابة ؟",
-  "task.answeredBy": "أجابها {byName}",
+  "task.answeredBy": "Completed by {byName}",
   "task.assignedTo": "تم تكليف الميديا إلى {name}",
-  "task.resolvedBy": "أجابها {byName}",
   "tasks.editAssignment": "تحرير التكليف",
   "tasks.attributionSlogan": "للمهمة \"{label}\"",
   "tasks.editAttribution": "تحرير اﻹسناد"

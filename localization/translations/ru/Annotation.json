@@ -39,7 +39,7 @@
   "annotation.suggestionRejected": "Отклонено ({user})",
   "annotation.acceptSuggestion": "Принять",
   "annotation.rejectSuggestion": "Отклонить",
-  "annotation.taskResolve": "На вопрос дан ответ ({author}): {task}{response}",
+  "annotation.taskResolve": "Task completed by {author}: {task}{response}",
   "annotation.archiverSuccess": "Если материал перестанет быть доступным, <a href=\"{link}\" target=\"_blank\" rel=\"noopener noreferrer\">в {name} сохранена архивная копия</a>.",
   "annotation.archiverError": "В процессе архивации материала на {name} произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}.",
   "annotation.archiverWait": "Материал находится в процессе архивации на {name}. Ссылка на архив будет доступна по завершению.",

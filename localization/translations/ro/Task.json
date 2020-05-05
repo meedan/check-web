@@ -1,9 +1,8 @@
 {
   "task.confirmDelete": "Sigur doriți să ștergeți această sarcină?",
   "task.confirmDeleteResponse": "Sigur doriți să ștergeți aceast răspuns la sarcină?",
-  "task.answeredBy": "Răspuns dat de {byName}",
+  "task.answeredBy": "Completed by {byName}",
   "task.assignedTo": "Atribuit lui {name}",
-  "task.resolvedBy": "Rezolvată de {byName}",
   "tasks.editAssignment": "Redactează atribuirea",
   "tasks.attributionSlogan": "Pentru sarcină, \"{label}\"",
   "tasks.editAttribution": "Redactează atribuirea"

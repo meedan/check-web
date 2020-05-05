@@ -78,7 +78,7 @@ class TeamTaskConfirmDialog extends React.Component {
     const confirmDialogBlurb = {
       edit: <FormattedMessage
         id="teamTasks.confirmEditBlurb"
-        defaultMessage="Related item tasks will be modified as a consequence of applying this change, except for those that have already been answered or resolved."
+        defaultMessage="Related item tasks will be modified as a consequence of applying this change, except for those that have already been completed."
       />,
       editLabelOrDescription: <FormattedMessage
         id="teamTasks.confirmEditLabelOrDescriptionBlurb"
@@ -95,11 +95,11 @@ class TeamTaskConfirmDialog extends React.Component {
     const confirmkeepCompleted = {
       edit: <FormattedMessage
         id="teamTasks.confirmEditkeepCompleted"
-        defaultMessage="Keep the tasks that have been completed, with their current name and description."
+        defaultMessage="Keep the completed tasks, with their current name and description."
       />,
       delete: <FormattedMessage
         id="teamTasks.confirmDeletekeepCompleted"
-        defaultMessage="Keep the tasks that have been completed, with their answers."
+        defaultMessage="Keep the completed tasks, with their current answers."
       />,
     };
     return (

@@ -1,9 +1,8 @@
 {
   "task.confirmDelete": "Tem certeza que deseja excluir esta tarefa?",
   "task.confirmDeleteResponse": "Tem certeza que deseja excluir esta resposta?",
-  "task.answeredBy": "Respondida por {byName}",
+  "task.answeredBy": "Completada por {byName}",
   "task.assignedTo": "Atribuído(a) a {name}",
-  "task.resolvedBy": "Resolvido por {byName}",
   "tasks.editAssignment": "Editar atribuição",
   "tasks.attributionSlogan": "Para a tarefa \"{label}\"",
   "tasks.editAttribution": "Editar autoria da resposta"

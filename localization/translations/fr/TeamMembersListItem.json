@@ -7,7 +7,6 @@
   "TeamMembersListItem.deleteMember": "Supprimer le membre",
   "TeamMembersListItem.leaveTeam": "Quitter l'espace de travail",
   "TeamMembersListItem.singleOwner": "Avant de quitter l'espace de travail, veuillez en transférer la propriété à un autre membre. ",
-  "teamMembersListItem.assignmentsProgress": "{completedCount} complété.es, {inProgressCount} en cours, {unstartedCount} non commencé.es",
   "TeamMembershipRequestsListItem.approve": "Approuver",
   "TeamMembershipRequestsListItem.deny": "Refuser"
 }

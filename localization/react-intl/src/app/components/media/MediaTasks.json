@@ -5,7 +5,7 @@
   },
   {
     "id": "mediaComponent.answered",
-    "defaultMessage": "answered"
+    "defaultMessage": "completed"
   },
   {
     "id": "mediaComponent.noTasks",

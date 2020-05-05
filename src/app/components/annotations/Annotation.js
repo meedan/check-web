@@ -881,7 +881,7 @@ class Annotation extends Component {
           <span className="annotation__task-resolved">
             <FormattedMessage
               id="annotation.taskResolve"
-              defaultMessage="Task answered by {author}: {task}{response}"
+              defaultMessage="Task completed by {author}: {task}{response}"
               values={{
                 task: activity.task.label,
                 author: authorName,
