@@ -31,7 +31,6 @@ class DeleteDynamicMutation extends Relay.Mutation {
       return {
         deletedId: this.props.id,
         task: {
-          status: 'unresolved',
           id: this.props.annotated.id,
           assignments: { edges: [] },
           first_response: null,
