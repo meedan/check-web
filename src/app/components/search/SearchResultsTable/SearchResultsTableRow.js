@@ -23,10 +23,16 @@ export default function SearchResultsTableRow({
   const classes = useStyles({ dbid });
 
   const handleClick = React.useCallback((ev) => {
+    if (!dbid) {
+      return;
+    }
     onClick(ev, projectMedia);
   }, [projectMedia, onClick]);
 
   const handleChangeChecked = React.useCallback((ev) => {
+    if (!dbid) {
+      return;
+    }
     onChangeChecked(ev, projectMedia);
   }, [projectMedia, onChangeChecked]);
 
@@ -36,7 +42,8 @@ export default function SearchResultsTableRow({
       aria-checked={checked}
       selected={checked}
       classes={classes}
-      hover={!!projectMedia.dbid}
+      className="medias__item" // for integration tests
+      hover={!!dbid} // only allow hover when clickable
     >
       <TableCell padding="checkbox" onClick={swallowClick}>
         <Checkbox checked={checked} onChange={handleChangeChecked} />
