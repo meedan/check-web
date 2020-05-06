@@ -219,7 +219,7 @@ class CreateMediaInput extends React.Component {
   renderFormInputs() {
     const defaultInputProps = {
       fullWidth: true,
-      multiLine: true,
+      multiline: true,
       onKeyPress: this.handleKeyPress,
       onChange: this.handleChange,
       margin: 'normal',

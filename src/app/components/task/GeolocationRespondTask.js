@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AutoComplete from 'material-ui/AutoComplete';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
@@ -66,6 +66,7 @@ class GeolocationRespondTask extends Component {
         coordinatesString,
       },
       searchResult: [],
+      openResultsPopup: false,
     };
 
     this.timer = null;
@@ -124,7 +125,7 @@ class GeolocationRespondTask extends Component {
     this.setState({
       lat, lng, zoom, coordinatesString, focus: true, message: '',
     });
-    this.autoComplete.setState({ searchText: '' });
+    // this.autoComplete.setState({ searchText: '' });
   }
 
   handlePressButton() {
@@ -140,11 +141,11 @@ class GeolocationRespondTask extends Component {
     }, this.setTaskAnswerDisabled);
   }
 
-  handleSearchText(query) {
+  handleSearchText(e) {
+    const query = e.target.value;
     const keystrokeWait = 1000;
 
     this.setState({ message: '' });
-
     clearTimeout(this.timer);
 
     if (query) {
@@ -165,7 +166,7 @@ class GeolocationRespondTask extends Component {
     clearTimeout(this.timer);
 
     if (e.target.value) {
-      this.autoComplete.setState({ searchText: '' });
+      // this.autoComplete.setState({ searchText: '' });
       this.timer = setTimeout(() => this.handleBlur(), keystrokeWait);
     }
   }
@@ -176,7 +177,7 @@ class GeolocationRespondTask extends Component {
       lat: coordinates[0],
       lng: coordinates[1],
     }, this.setTaskAnswerDisabled);
-    this.autoComplete.setState({ searchText: '' });
+    // this.autoComplete.setState({ searchText: '' });
   }
 
   handleSubmit() {
@@ -220,7 +221,7 @@ class GeolocationRespondTask extends Component {
     if (this.props.onDismiss) {
       this.props.onDismiss();
     }
-    this.autoComplete.setState({ searchText: '' });
+    // this.autoComplete.setState({ searchText: '' });
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -247,7 +248,11 @@ class GeolocationRespondTask extends Component {
         if (!searchResult.length) {
           message = this.props.intl.formatMessage(messages.notFound);
         }
-        this.setState({ searchResult, message });
+        this.setState({
+          searchResult,
+          message,
+          openResultsPopup: Boolean(searchResult.length),
+        });
       })
       .catch(error => this.setState({ message: error.message }));
   };
@@ -277,44 +282,43 @@ class GeolocationRespondTask extends Component {
       </p>
     );
 
-    const selectCallback = (obj) => {
+    const selectCallback = (e, obj) => {
       if (typeof obj === 'object') {
         const { lat, lng } = obj.geometry;
         this.setState(
           {
             name: obj.formatted,
             coordinatesString: `${lat}, ${lng}`,
+            openResultsPopup: false,
           },
           this.handleBlur,
         );
       }
     };
 
-    const dataSourceConfig = {
-      text: 'formatted',
-      value: 'geometry',
-    };
-
     return (
       <div>
-        <AutoComplete
+        <Autocomplete
           id="geolocationsearch"
-          floatingLabelText={
-            <FormattedMessage
-              id="geolocationRespondTask.searchMap"
-              defaultMessage="Search the map"
-            />
-          }
           name="geolocationsearch"
-          dataSource={this.state.searchResult}
-          dataSourceConfig={dataSourceConfig}
-          filter={AutoComplete.noFilter}
-          onFocus={() => { this.setState({ focus: true }); }}
-          onKeyPress={this.handleKeyPress.bind(this)}
-          onNewRequest={selectCallback}
-          ref={(a) => { this.autoComplete = a; }}
-          onUpdateInput={this.handleSearchText.bind(this)}
-          menuProps={{ className: 'task__response-geolocation-search-options' }}
+          options={this.state.searchResult}
+          open={this.state.openResultsPopup}
+          getOptionLabel={option => option.formatted}
+          renderInput={
+            params => (<TextField
+              label={
+                <FormattedMessage
+                  id="geolocationRespondTask.searchMap"
+                  defaultMessage="Search the map"
+                />
+              }
+              onKeyPress={this.handleKeyPress.bind(this)}
+              onChange={this.handleSearchText.bind(this)}
+              {...params}
+            />)
+          }
+          onChange={selectCallback}
+          onBlur={() => this.setState({ openResultsPopup: false })}
           fullWidth
         />
         <div style={{ font: caption, color: black54 }}>

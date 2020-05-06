@@ -226,7 +226,7 @@ class MediaCondensedComponent extends Component {
         onClose={this.handleCloseDialogs.bind(this)}
       >
         <DialogTitle>
-          {this.props.intl.formatMessage(messages.editReport)}
+          {this.props.intl && this.props.intl.formatMessage(messages.editReport)}
         </DialogTitle>
         <DialogContent>
           <form onSubmit={this.handleSave.bind(this, media)} name="edit-media-form">
@@ -327,10 +327,6 @@ class MediaCondensedComponent extends Component {
             cursor: 'pointer',
             padding: 0,
             height: 100,
-          }}
-          titleStyle={{
-            paddingRight: 120,
-            margin: '16px 0',
           }}
         />
         { !media.archived ?
@@ -453,7 +449,7 @@ const MediaCondensed = (props) => {
 
   if (props.media.dbid === 0) {
     return (
-      <MediaCondensedComponent {...props} />
+      <ConnectedMediaCondensedComponent {...props} />
     );
   }
 
