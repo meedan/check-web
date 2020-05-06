@@ -1,5 +1,0 @@
-{
-  "sourceCard.error": "В процессе редактирования источника произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}.",
-  "mediaDetail.byUser": "{username}",
-  "mediaDetail.added": "Добавлено {byUser}"
-}
