@@ -802,7 +802,7 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?("Add a link or text")).to be(false)
 
     # Move the claim to another project
-    wait_for_selector(".ag-icon-checkbox-unchecked").click
+    wait_for_selector("tbody input[type='checkbox']:not(:checked)").click
     wait_for_selector("#media-bulk-actions__move-icon").click
     wait_for_selector('.Select-input input').send_keys('Project')
     wait_for_selector(".Select-menu-outer")
@@ -853,7 +853,7 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('Add a link or text')).to be(true)
     wait_for_selector('.project-list__link').click #Go back to the first project
     wait_for_selector_list_size(".medias__item", 2)
-    wait_for_selector(".ag-icon-checkbox-unchecked").click
+    wait_for_selector("thead input[type='checkbox']:not(:checked)").click
     wait_for_selector("#media-bulk-actions__add-icon").click
     wait_for_selector('.Select-input input').send_keys('Project')
     wait_for_selector(".Select-menu-outer")
@@ -864,7 +864,7 @@ shared_examples 'smoke' do
     wait_for_selector_list_size(".medias__item", 2, :css , 80)
     expect(@driver.page_source.include?('claim 1')).to be(true)
     expect(@driver.page_source.include?('claim 2')).to be(true)
-    wait_for_selector(".ag-icon-checkbox-unchecked").click
+    wait_for_selector("thead input[type='checkbox']:not(:checked)").click
     wait_for_selector("span[title='Send selected items to trash']").click #Delete items
     wait_for_selector_none(".medias__item")
     expect(@driver.page_source.include?('Add a link or text')).to be(true)
@@ -885,7 +885,7 @@ shared_examples 'smoke' do
     expect(@driver.find_elements(:css, '.medias__item').length == 0 )
     wait_for_selector(".project-list__item-trash").click #Go to the trash page
     wait_for_selector(".media__heading")
-    wait_for_selector(".ag-icon-checkbox-unchecked").click
+    wait_for_selector("body input[type='checkbox']:not(:checked)").click
     wait_for_selector("#media-bulk-actions__actions").click
     wait_for_selector(".message")
     wait_for_selector(".project-list__item-all").click
@@ -899,7 +899,7 @@ shared_examples 'smoke' do
     wait_for_selector(".project-header__back-button").click
     expect(@driver.page_source.include?("Add a link or text")).to be(false)
     wait_for_selector_list_size(".medias__item",1)
-    wait_for_selector(".ag-icon-checkbox-unchecked").click
+    wait_for_selector("body input[type='checkbox']:not(:checked)").click
     wait_for_selector("#media-bulk-actions__remove-from-list").click #remove_button
     wait_for_selector(".message")
     expect(@driver.find_elements(:css, '.medias__item').length == 0 )
