@@ -10,7 +10,7 @@ export default function SearchResultsTableHead({
   columnDefs, selectedIds, projectMedias, sortParams, onChangeSelectedIds, onChangeSortParams,
 }) {
   const handleSelectAll = React.useCallback((ev) => {
-    const newIds = ev.target.checked ? projectMedias.map(pm => pm.dbid) : [];
+    const newIds = ev.target.checked ? projectMedias.map(pm => pm.id) : [];
     onChangeSelectedIds(newIds);
   }, [projectMedias, onChangeSelectedIds]);
 

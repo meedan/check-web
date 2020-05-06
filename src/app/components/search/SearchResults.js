@@ -294,8 +294,8 @@ class SearchResultsComponent extends React.PureComponent {
       .map(({ node }) => node);
     const count = this.props.search ? this.props.search.number_of_results : 0;
     const team = this.props.search.team || this.currentContext().team;
-    const selectedProjectMediaIds = this.state.selectedProjectMediaIds
-      .filter(id => searchResults.some(({ dbid }) => id === dbid));
+    const isIdInSearchResults = wantedId => searchResults.some(({ id }) => id === wantedId);
+    const selectedProjectMediaIds = this.state.selectedProjectMediaIds.filter(isIdInSearchResults);
 
     const query = Object.assign({}, searchQueryFromUrl());
     const offset = query.esoffset ? parseInt(query.esoffset, 10) : 0;

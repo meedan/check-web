@@ -90,23 +90,23 @@ export default function SearchResultsTable({
   const columnDefs = React.useMemo(() => buildColumnDefs(team), [team]);
 
   const handleChangeProjectMediaChecked = React.useCallback((ev, projectMedia) => {
-    const { dbid } = projectMedia;
-    if (!dbid) return; // Can't select unsaved object. Swallow mouse click.
+    const { id } = projectMedia;
+    if (!id) return; // Can't select unsaved object. Swallow mouse click.
 
     let newIds;
     if (ev.target.checked) {
       // Add
-      if (selectedIds.includes(dbid)) {
+      if (selectedIds.includes(id)) {
         return;
       }
-      newIds = [...selectedIds, dbid];
+      newIds = [...selectedIds, id];
       newIds.sort((a, b) => a - b);
     } else {
       // Remove
-      if (!selectedIds.includes(dbid)) {
+      if (!selectedIds.includes(id)) {
         return;
       }
-      newIds = selectedIds.filter(id => id !== dbid);
+      newIds = selectedIds.filter(oldId => oldId !== id);
     }
     onChangeSelectedIds(newIds);
   }, [selectedIds, onChangeSelectedIds]);
@@ -130,7 +130,7 @@ export default function SearchResultsTable({
               key={projectMedia.id}
               columnDefs={columnDefs}
               projectMedia={projectMedia}
-              checked={selectedIds.includes(projectMedia.dbid)}
+              checked={selectedIds.includes(projectMedia.id)}
               onChangeChecked={handleChangeProjectMediaChecked}
               onClick={onClickRow}
             />
@@ -147,7 +147,7 @@ SearchResultsTable.propTypes = {
   isRtl: PropTypes.bool.isRequired,
   team: PropTypes.object.isRequired,
   projectMedias: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
-  selectedIds: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+  selectedIds: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   sortParams: PropTypes.shape({
     key: PropTypes.string.isRequired,
     ascending: PropTypes.bool.isRequired,
