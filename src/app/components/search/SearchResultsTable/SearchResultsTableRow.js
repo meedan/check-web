@@ -36,7 +36,7 @@ export default function SearchResultsTableRow({
       aria-checked={checked}
       selected={checked}
       classes={classes}
-      hover
+      hover={!!projectMedia.dbid}
     >
       <TableCell padding="checkbox" onClick={swallowClick}>
         <Checkbox checked={checked} onChange={handleChangeChecked} />
@@ -54,7 +54,7 @@ SearchResultsTableRow.propTypes = {
     cellComponent: PropTypes.elementType.isRequired,
   }).isRequired).isRequired,
   projectMedia: PropTypes.shape({
-    dbid: PropTypes.number, // or null
+    dbid: PropTypes.number, // or null/0
   }).isRequired,
   checked: PropTypes.bool.isRequired,
   onChangeChecked: PropTypes.func.isRequired, // onChangeChecked(ev, projectMedia) => undefined
