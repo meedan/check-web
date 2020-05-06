@@ -18,10 +18,12 @@ import LinkedItemsCountCell from './LinkedItemsCountCell';
 
 const AllPossibleColumns = [
   {
+    field: 'item',
     headerText: <FormattedMessage id="list.Item" defaultMessage="Item" />,
     cellComponent: TitleCell,
   },
   {
+    field: 'demand',
     headerText: <FormattedMessage id="list.Demand" defaultMessage="Requests" />,
     onlyIfSmoochBotEnabled: true,
     cellComponent: DemandCell,
@@ -29,34 +31,40 @@ const AllPossibleColumns = [
     width: '1px', // "width: 1px" means, "consume the minimum width to fit the contents"
   },
   {
+    field: 'share_count',
     headerText: <FormattedMessage id="list.ShareCount" defaultMessage="Social shares" />,
     cellComponent: ShareCountCell,
     sortKey: 'share_count',
     width: '1px',
   },
   {
+    field: 'linked_items_count',
     headerText: <FormattedMessage id="list.LinkedItems" defaultMessage="Related" />,
     cellComponent: LinkedItemsCountCell,
     sortKey: 'related',
     width: '1px',
   },
   {
+    field: 'type',
     headerText: <FormattedMessage id="list.Type" defaultMessage="Type" />,
     cellComponent: TypeCell,
     width: '1px',
   },
   {
+    field: 'status',
     headerText: <FormattedMessage id="list.Status" defaultMessage="Status" />,
     cellComponent: StatusCell,
     width: '1px',
   },
   {
+    field: 'created_at',
     headerText: <FormattedMessage id="list.FirstSeen" defaultMessage="First seen" />,
     cellComponent: FirstSeenCell,
     sortKey: 'recent_added',
     width: '1px',
   },
   {
+    field: 'last_seen',
     headerText: <FormattedMessage id="list.LastSeen" defaultMessage="Last seen" />,
     onlyIfSmoochBotEnabled: true,
     sortKey: 'last_seen',

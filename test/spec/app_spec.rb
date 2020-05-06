@@ -485,14 +485,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"related"%2C"sort_type"%3A"DESC"%7D'
       wait_for_selector("#create-media__add-item")
       expect(@driver.page_source.include?('My search result')).to be(true)
-      el = wait_for_selector("#list-header__related")
-      expect(el.find_element(:css, "svg.list-header__sort-desc").nil?).to be(false)
+      el = wait_for_selector("th[data-key=linked_items_count][aria-sort]")
+      expect(el).to be  # TODO nix this line after https://mantis.meedan.com/view.php?id=8221
 
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"recent_added"%2C"sort_type"%3A"DESC"%7D'
       wait_for_selector("#create-media__add-item")
       expect(@driver.page_source.include?('My search result')).to be(true)
-      el = wait_for_selector("#list-header__recent_added")
-      expect(el.find_element(:css, "svg.list-header__sort-desc").nil?).to be(false)
+      el = wait_for_selector("th[data-key=created_at][aria-sort]")
+      expect(el).to be  # TODO nix this line after https://mantis.meedan.com/view.php?id=8221
     end
 
     it "should change search sort order through URL", bin2: true do
@@ -500,14 +500,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"related"%2C"sort_type"%3A"DESC"%7D'
       wait_for_selector("#create-media__add-item")
       expect(@driver.page_source.include?('My search result')).to be(true)
-      el = wait_for_selector("#list-header__related")
-      expect(el.find_element(:css, "svg.list-header__sort-desc").nil?).to be(false)
+      el = wait_for_selector("th[data-key=linked_items_count][aria-sort=descending]")
+      expect(el).to be  # TODO nix this line after https://mantis.meedan.com/view.php?id=8221
 
-      @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"recent_added"%2C"sort_type"%3A"ASC"%7D'
+      @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"related"%2C"sort_type"%3A"ASC"%7D'
       wait_for_selector("#create-media__add-item")
       expect(@driver.page_source.include?('My search result')).to be(true)
-      el = wait_for_selector("#list-header__recent_added")
-      expect(el.find_element(:css, "svg.list-header__sort-asc").nil?).to be(false)
+      el = wait_for_selector("th[data-key=linked_items_count][aria-sort=ascending]")
+      expect(el).to be  # TODO nix this line after https://mantis.meedan.com/view.php?id=8221
     end
 #search section end
 

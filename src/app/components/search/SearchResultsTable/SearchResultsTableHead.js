@@ -43,6 +43,7 @@ SearchResultsTableHead.defaultProps = {
 SearchResultsTableHead.propTypes = {
   columnDefs: PropTypes.arrayOf(PropTypes.shape({
     headerText: PropTypes.element.isRequired,
+    field: PropTypes.string, // or undefined -- sets data-field="..." HTML attribute
     sortKey: PropTypes.string, // or undefined
     width: PropTypes.string, // '1px' or undefined
   }).isRequired).isRequired,

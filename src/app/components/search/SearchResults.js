@@ -70,7 +70,7 @@ const StyledListHeader = styled.div`
 `;
 
 const StyledSearchResultsWrapper = styled.div`
-  margin: 0 -${units(2)};
+  margin: 0 -${units(2)} 0 0;
 
   .search__results-heading {
     color: ${black87};
