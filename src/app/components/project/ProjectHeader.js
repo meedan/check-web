@@ -7,7 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import { FormattedMessage } from 'react-intl';
 import ProjectRoute from '../../relay/ProjectRoute';
 import { urlFromSearchQuery } from '../search/Search';
-import { Row, Text, HeaderTitle, FadeIn, SlideIn, black54 } from '../../styles/js/shared';
+import { Row, Text, HeaderTitle, FadeIn, SlideIn } from '../../styles/js/shared';
 
 class ProjectHeaderComponent extends React.PureComponent {
   render() {
@@ -80,7 +80,7 @@ class ProjectHeaderComponent extends React.PureComponent {
               <IconButton className="project-header__back-button">
                 <FadeIn>
                   <SlideIn>
-                    <IconArrowBack color={black54} />
+                    <IconArrowBack />
                   </SlideIn>
                 </FadeIn>
               </IconButton>

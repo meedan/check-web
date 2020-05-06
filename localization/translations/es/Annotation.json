@@ -39,7 +39,7 @@
   "annotation.suggestionRejected": "Rechazado por {user}",
   "annotation.acceptSuggestion": "Aceptar",
   "annotation.rejectSuggestion": "Rechazar",
-  "annotation.taskResolve": "Tarea resuelta por {author}: {task}{response}",
+  "annotation.taskResolve": "Tarea completada por {author}: {task}{response}",
   "annotation.archiverSuccess": "En caso de que este ítem se desconecte, puedes <a href=\"{link}\" target=\"_blank\" rel=\"noopener noreferrer\">acceder a una copia de respaldo a través de {name}</a>.",
   "annotation.archiverError": "Lo sentimos, se produjo un error al archivar el ítem. Actualiza el ítem y si el problema persiste ponte en contacto con {supportEmail}.",
   "annotation.archiverWait": "Este ítem está siendo archivado en {nombre}. El enlace del archivo se mostrará aquí {name} cuando esté listo.",

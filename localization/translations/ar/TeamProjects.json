@@ -1,5 +1,5 @@
 {
   "teamComponent.projects": "القوائم",
   "teamComponent.noProjects": "لا توجد قوائم",
-  "teamComponent.projectAssignmentsCount": "{count, plural, =0 { } one {Assigned to one member} other {Assigned to # members}}"
+  "teamComponent.projectAssignmentsCount": "{count, plural, one {Assigned to one member} other {Assigned to # members}}"
 }

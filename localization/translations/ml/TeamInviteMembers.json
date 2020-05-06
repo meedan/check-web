@@ -10,7 +10,7 @@
   "TeamMembersListItem.editor": "Editor",
   "TeamMembersListItem.annotator": "Annotator",
   "teamInviteMembers.resendEmailSuccess": "Invitation was sent successfully",
-  "teamInviteMembers.limits": "The maximum number of members for this workspace has been reached ({count, plural, =0 {0 members} one {1 member} other {# members}}).",
+  "teamInviteMembers.limits": "The maximum number of members for this workspace has been reached ({count, plural, one {1 member} other {# members}}).",
   "teamInviteMembers.inviteMembers": "Members will invited as",
   "teamInviteMembers.inviteMember": "Invite",
   "teamInviteMembers.customInvitation": "Invitation note (optional)",

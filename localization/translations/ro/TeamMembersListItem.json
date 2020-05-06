@@ -7,7 +7,6 @@
   "TeamMembersListItem.deleteMember": "Remove member",
   "TeamMembersListItem.leaveTeam": "Leave workspace",
   "TeamMembersListItem.singleOwner": "Before you can leave the workspace, please transfer ownership to another member.",
-  "teamMembersListItem.assignmentsProgress": "{completedCount} finalizate, {inProgressCount} în lucru, {unstartedCount} neîncepute",
   "TeamMembershipRequestsListItem.approve": "Aprobă",
   "TeamMembershipRequestsListItem.deny": "Respinge"
 }

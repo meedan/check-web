@@ -1,8 +1,0 @@
-{
-  "accountCard.fbStats": "{likes, number} إعجابات",
-  "accountCard.twitterStats": "{tweets, number} تغريدات • {followers, number} مُتابِعون • {following, number} مُتابَعون",
-  "accountCard.youtubeStats": "{videos, number} مقاطع الفيديو • {subscribers. number} مشتركًا",
-  "mediaDetail.byUser": "من {username}",
-  "accountCard.providerAccount": "حساب {provider}",
-  "mediaDetail.added": "أضيف {byUser}"
-}

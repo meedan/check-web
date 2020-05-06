@@ -259,7 +259,7 @@ class TeamInviteMembers extends Component {
       return (
         <FormattedMessage
           id="teamInviteMembers.limits"
-          defaultMessage="The maximum number of members for this workspace has been reached ({count, plural, =0 {0 members} one {1 member} other {# members}})."
+          defaultMessage="The maximum number of members for this workspace has been reached ({count, plural, one {1 member} other {# members}})."
           values={{ count: item.maxMembers }}
         />
       );

@@ -8,7 +8,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
-import TextField from 'material-ui/TextField';
+import TextField from '@material-ui/core/TextField';
 import ResetPasswordMutation from '../relay/mutations/ResetPasswordMutation';
 import PageTitle from './PageTitle';
 import { stringHelper } from '../customHelpers';
@@ -116,9 +116,10 @@ class UserPasswordReset extends React.Component {
                   <TextField
                     id="password-reset-email-input"
                     type="email"
-                    floatingLabelText={<FormattedMessage id="passwordReset.email" defaultMessage="Email" />}
+                    label={<FormattedMessage id="passwordReset.email" defaultMessage="Email" />}
                     onChange={this.handleChange.bind(this)}
-                    errorText={this.state.errorMsg}
+                    helperText={this.state.errorMsg}
+                    error={this.state.errorMsg}
                     fullWidth
                     autoFocus
                   />

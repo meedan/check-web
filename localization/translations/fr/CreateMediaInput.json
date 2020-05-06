@@ -1,17 +1,10 @@
 {
   "createMedia.mediaInput": "Copiez-collez ou tapez",
   "createMedia.quoteInput": "Copiez-collez ou tapez un texte",
-  "createMedia.quoteAttributionSourceInput": "Nom de la source",
-  "createMedia.quoteAttributionContext": "URL ou contexte",
-  "createMedia.quoteAttributionSourceInputHelper": "Qui a prononcé cela ?",
-  "createMedia.quoteAttributionContextHelper": "Ajouter une URL ou donnez plus de détails sur le témoignage",
-  "createMedia.sourceInput": "Nom de la source",
-  "createMedia.sourceUrlInput": "Lien vers la source",
   "createMedia.uploadImage": "Charger une image",
   "createMedia.invalidUrl": "Veuillez saisir une URL valide.",
   "createMedia.link": "Lien",
   "createMedia.quote": "Texte",
-  "createMedia.source": "Source",
   "createMedia.image": "Photo",
   "createMedia.video": "Vidéo"
 }

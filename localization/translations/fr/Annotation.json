@@ -39,7 +39,7 @@
   "annotation.suggestionRejected": "Refusé pas {user}",
   "annotation.acceptSuggestion": "Accepter",
   "annotation.rejectSuggestion": "Refuser",
-  "annotation.taskResolve": "Tâche répondue par {author} : {task}{response}",
+  "annotation.taskResolve": "Tâche complétée par {author} : {task}{response}",
   "annotation.archiverSuccess": "Au cas où ce lien serait mis hors ligne, vous pourrez en <a href=\"{link}\" target=\"_blank\" rel=\"noopener noreferrer\">trouver une archive sur {name}</a>.",
   "annotation.archiverError": "Désolé, une erreur s'est produite durant l'archivage de l'élément sur {name}. Veuillez actualiser l'élément pour réessayer et prévenir {supportEmail} si le problème persiste.",
   "annotation.archiverWait": "Cet élément est en cours d'archivage sur {name}. Le lien d'archive sera affiché ici une fois prêt.",

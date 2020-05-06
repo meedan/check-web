@@ -1,4 +1,4 @@
 {
   "trash.emptyTrash": "إفراغ سلة المهملات",
-  "trash.emptyTrashConfirmationText": "هل أنت متأكد ؟ سوف يتم حذف نهائي {itemsCount, plural, =0 {٠ عنصر} one {عنصر واحد} other {# عناصر}} و {notesCount, plural, =0 {٠ تعليق} one {تعليق واحد} other {# تعليقات}}."
+  "trash.emptyTrashConfirmationText": "Are you sure? This will permanently delete {itemsCount, plural, one {1 item} other {# items}} and {notesCount, plural, one {1 annotation} other {# annotations}}."
 }

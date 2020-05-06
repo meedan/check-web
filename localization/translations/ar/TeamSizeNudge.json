@@ -1,4 +1,4 @@
 {
-  "teamSizeNudge.nudge": "{max, plural, =0 {تقتصر مساحة العمل حاليًا على صفر مستخدم. للترقية ، يرجى الاتصال بـ {supportEmail}.} one {تقتصر مساحة العمل حاليًا على مستخدم واحد. للترقية ، يرجى الاتصال بـ {supportEmail}.} other {تقتصر مساحة العمل حاليًا على # مستخدمين. للترقية ، يرجى الاتصال بـ {supportEmail}.}}",
+  "teamSizeNudge.nudge": "{max, plural, one {Your workspace is currently limited to one member. To upgrade, please contact {supportEmail}.} other {Your workspace is currently limited to # members. To upgrade, please contact {supportEmail}.}}",
   "teamSizeNudge.title": "ترقية اﻹشتراك"
 }

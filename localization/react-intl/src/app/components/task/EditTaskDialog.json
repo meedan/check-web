@@ -32,22 +32,6 @@
     "defaultMessage": "Description (optional)"
   },
   {
-    "id": "tasks.requiredCheckbox",
-    "defaultMessage": "Required"
-  },
-  {
-    "id": "tasks.requiredHelper",
-    "defaultMessage": "Items cannot be marked as completed while any of their required tasks remains unresolved"
-  },
-  {
-    "id": "tasks.resolvedCheckbox",
-    "defaultMessage": "Resolved"
-  },
-  {
-    "id": "tasks.resolvedHelper",
-    "defaultMessage": "The task can only be resolved if it has been answered"
-  },
-  {
     "id": "tasks.showInProj",
     "defaultMessage": "Show tasks in"
   },

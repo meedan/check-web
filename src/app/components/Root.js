@@ -15,7 +15,6 @@ import UserUnconfirmed from './UserUnconfirmed';
 import UserPasswordChange from './UserPasswordChange';
 import UserPasswordReset from './UserPasswordReset';
 import UserTos from './UserTos';
-import Source from './source/Source';
 import User from './source/User';
 import Me from './source/Me';
 import Team from './team/Team';
@@ -87,8 +86,6 @@ class Root extends Component {
                 <Route path=":team/media/:mediaId/report-designer" component={ReportDesigner} public />
                 <Route path=":team/project/:projectId/media/:mediaId/report-designer" component={ReportDesigner} public />
                 <Route path=":team/project/:projectId/media/:mediaId/tasks" component={MediaTasks} />
-                <Route path=":team/project/:projectId/source/:sourceId" component={Source} public />
-                <Route path=":team/project/:projectId/source/:sourceId/edit" isEditing component={Source} />
                 <Route path=":team/join" component={JoinTeam} />
                 <Route path=":team/project/:projectId/edit" component={ProjectEdit} />
                 <Route path=":team/project/:projectId(/:query)" component={Project} public />

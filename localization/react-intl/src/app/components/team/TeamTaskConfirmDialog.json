@@ -9,23 +9,23 @@
   },
   {
     "id": "teamTasks.confirmEditBlurb",
-    "defaultMessage": "Related item tasks will be modified as a consequence of applying this change, except for those that have already been answered or resolved."
+    "defaultMessage": "Related item tasks will be modified as a consequence of applying this change, except for those that have already been completed."
   },
   {
     "id": "teamTasks.confirmEditLabelOrDescriptionBlurb",
-    "defaultMessage": "You are about to edit tasks in {itemsNumber, plural, =0 {0 items} one {1 item} other {# items}}. If you proceed, all those tasks will also modified."
+    "defaultMessage": "You are about to edit tasks in {itemsNumber, plural, one {1 item} other {# items}}. If you proceed, all those tasks will also modified."
   },
   {
     "id": "teamTasks.confirmDeleteBlurb",
-    "defaultMessage": "You are about to delete the selected tasks from {itemsNumber, plural, =0 {0 items} one {1 item} other {# items}}. If you proceed, the answers to these tasks will also be deleted."
+    "defaultMessage": "You are about to delete the selected tasks from {itemsNumber, plural, one {1 item} other {# items}}. If you proceed, the answers to these tasks will also be deleted."
   },
   {
-    "id": "teamTasks.confirmEditKeepResolved",
-    "defaultMessage": "Keep the tasks that have been resolved, with their current name and description."
+    "id": "teamTasks.confirmEditkeepCompleted",
+    "defaultMessage": "Keep the completed tasks, with their current name and description."
   },
   {
-    "id": "teamTasks.confirmDeleteKeepResolved",
-    "defaultMessage": "Keep the tasks that have been resolved, with their answers."
+    "id": "teamTasks.confirmDeletekeepCompleted",
+    "defaultMessage": "Keep the completed tasks, with their current answers."
   },
   {
     "id": "teamTasks.processMessage",

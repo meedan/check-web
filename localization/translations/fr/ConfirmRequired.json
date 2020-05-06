@@ -1,4 +1,0 @@
-{
-  "task.confirmRequiredTitle": "Confirmer la tâche requise",
-  "task.confirmRequiredText": "Vous avez ajouté une nouvelle tâche requise à un élément marqué comme <strong>{status}</strong>. En ce faisant, l'élément sera automatiquement ramené à son statut originel."
-}

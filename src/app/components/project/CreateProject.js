@@ -7,7 +7,7 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import TextField from 'material-ui/TextField';
+import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CreateProjectMutation from '../../relay/mutations/CreateProjectMutation';
 import CheckContext from '../../CheckContext';
@@ -51,12 +51,6 @@ class CreateProject extends Component {
     };
   }
 
-  componentDidMount() {
-    if (this.props.autofocus && this.projectInput) {
-      this.projectInput.focus();
-    }
-  }
-
   getCurrentUser() {
     return new CheckContext(this).getContextStore().currentUser;
   }
@@ -72,7 +66,7 @@ class CreateProject extends Component {
   };
 
   handleSubmit(e) {
-    const title = this.projectInput.getValue();
+    const title = this.state.name ? this.state.name.trim() : null;
     const { team } = this.props;
 
     const onFailure = (transaction) => {
@@ -90,7 +84,7 @@ class CreateProject extends Component {
       }
     };
 
-    if (!this.state.submitDisabled) {
+    if (!this.state.submitDisabled && title) {
       Relay.Store.commitUpdate(
         new CreateProjectMutation({
           title,
@@ -109,11 +103,12 @@ class CreateProject extends Component {
       <TextField
         id="create-project-title"
         className={this.props.className || 'team__new-project-input'}
-        hintText={this.props.intl.formatMessage(messages.newProjectName)}
-        ref={(i) => { this.projectInput = i; }}
+        placeholder={this.props.intl.formatMessage(messages.newProjectName)}
         style={this.props.style}
         autoFocus={this.props.autoFocus}
-        errorText={this.state.message}
+        label={this.state.message}
+        error={this.state.message}
+        value={this.state.name}
         onChange={this.handleChange}
         onKeyDown={this.handleKeyDown}
         fullWidth

@@ -9,8 +9,6 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import Avatar from '@material-ui/core/Avatar';
 import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import RadioButtonIcon from '@material-ui/icons/RadioButtonUnchecked';
 import { Link } from 'react-router';
@@ -30,21 +28,12 @@ import TeamSelect from '../team/TeamSelect';
 import MediaUtil from '../media/MediaUtil';
 import UserRoute from '../../relay/UserRoute';
 import CheckContext from '../../CheckContext';
-import {
-  units,
-  inProgressYellow,
-  unstartedRed,
-  completedGreen,
-} from '../../styles/js/shared';
+import { units } from '../../styles/js/shared';
 
 const messages = defineMessages({
   filterByTeam: {
     id: 'userAssignments.filterByTeam',
     defaultMessage: 'Filter by workspace',
-  },
-  progress: {
-    id: 'userAssignments.progress',
-    defaultMessage: '{answered, plural, =0 {No required task answered} one {1 required task answered} other {# required tasks answered}}, out of {total}',
   },
 });
 
@@ -203,52 +192,22 @@ class UserAssignmentsComponent extends Component {
               </Link>}
             />
             <List>
-              {assignments[project].map((assignment) => {
-                const progress = assignment.assignments_progress || {};
-                const { answered, total } = progress;
-
-                let color = inProgressYellow;
-                if (answered === 0 && total > 0) {
-                  color = unstartedRed;
-                } else if (answered === total) {
-                  color = completedGreen;
-                }
-
-                return (
-                  <div key={`div-${assignment.dbid}`}>
-                    <ListItem key={`media-${assignment.dbid}`}>
-                      <ListItemIcon>
-                        {icons[assignment.report_type]}
-                      </ListItemIcon>
-                      <Link to={assignment.path}>
-                        <ListItemText
-                          primary={
-                            MediaUtil.title(assignment, assignment.metadata, this.props.intl)
-                          }
-                        />
-                      </Link>
-                      <ListItemSecondaryAction>
-                        {
-                          (progress && (answered > 0 || total > 0)) ?
-                            <Avatar
-                              color="#fff"
-                              style={{ fontSize: 12, backgroundColor: color }}
-                              title={
-                                this.props.intl.formatMessage(messages.progress, {
-                                  answered: assignment.assignments_progress.answered,
-                                  total: assignment.assignments_progress.total,
-                                })
-                              }
-                            >
-                              {answered}/{total}
-                            </Avatar>
-                            : null
+              {assignments[project].map(assignment => (
+                <div key={`div-${assignment.dbid}`}>
+                  <ListItem key={`media-${assignment.dbid}`}>
+                    <ListItemIcon>
+                      {icons[assignment.report_type]}
+                    </ListItemIcon>
+                    <Link to={assignment.path}>
+                      <ListItemText
+                        primary={
+                          MediaUtil.title(assignment, assignment.metadata, this.props.intl)
                         }
-                      </ListItemSecondaryAction>
-                    </ListItem>
-                  </div>
-                );
-              })}
+                      />
+                    </Link>
+                  </ListItem>
+                </div>
+              ))}
             </List>
           </Card>
         ))}
@@ -290,7 +249,6 @@ const UserAssignmentsContainer = Relay.createContainer(injectIntl(UserAssignment
               id
               dbid
               metadata
-              assignments_progress(user_id: $userId)
               media {
                 metadata
                 embed_path

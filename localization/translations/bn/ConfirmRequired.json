@@ -1,4 +1,0 @@
-{
-  "task.confirmRequiredTitle": "Confirm required task",
-  "task.confirmRequiredText": "You are adding a required task to an item marked <strong>{status}</strong>. By doing so, the item will automatically be reverted to its original status."
-}

@@ -8,30 +8,6 @@
     "defaultMessage": "Paste or type a text"
   },
   {
-    "id": "createMedia.quoteAttributionSourceInput",
-    "defaultMessage": "Source name"
-  },
-  {
-    "id": "createMedia.quoteAttributionContext",
-    "defaultMessage": "URL or context"
-  },
-  {
-    "id": "createMedia.quoteAttributionSourceInputHelper",
-    "defaultMessage": "Who said this?"
-  },
-  {
-    "id": "createMedia.quoteAttributionContextHelper",
-    "defaultMessage": "Add URL or describe the content"
-  },
-  {
-    "id": "createMedia.sourceInput",
-    "defaultMessage": "Source name"
-  },
-  {
-    "id": "createMedia.sourceUrlInput",
-    "defaultMessage": "Link to source"
-  },
-  {
     "id": "createMedia.uploadImage",
     "defaultMessage": "Upload an image"
   },
@@ -46,10 +22,6 @@
   {
     "id": "createMedia.quote",
     "defaultMessage": "Text"
-  },
-  {
-    "id": "createMedia.source",
-    "defaultMessage": "Source"
   },
   {
     "id": "createMedia.image",

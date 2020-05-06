@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
-import AutoComplete from 'material-ui/AutoComplete';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import TextField from '@material-ui/core/TextField';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import CheckContext from '../../CheckContext';
 import { nested } from '../../helpers';
@@ -39,6 +40,7 @@ class AutoCompleteMediaItem extends React.Component {
     this.state = {
       searchResult: [],
       searching: false,
+      openResultsPopup: false,
     };
 
     this.timer = null;
@@ -51,12 +53,10 @@ class AutoCompleteMediaItem extends React.Component {
     }
   }
 
-  handleSearchText(query, dataSource, params) {
-    if (params.source === 'click') {
-      return;
-    }
-
+  handleSearchText(e) {
+    const query = e.target.value;
     const keystrokeWait = 2000;
+
     this.setState({ message: '' });
     clearTimeout(this.timer);
 
@@ -146,7 +146,11 @@ class AutoCompleteMediaItem extends React.Component {
         if (!searchResult.length) {
           message = this.props.intl.formatMessage(messages.notFound);
         }
-        this.setState({ searchResult, message });
+        this.setState({
+          searchResult,
+          message,
+          openResultsPopup: Boolean(searchResult.length),
+        });
       })
       .catch(() => this.setState({
         message: this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') }),
@@ -155,29 +159,36 @@ class AutoCompleteMediaItem extends React.Component {
   };
 
   render() {
-    const selectCallback = (obj) => {
+    const selectCallback = (e, obj) => {
       if (this.props.onSelect) {
         this.props.onSelect(obj);
       }
+      this.setState({ openResultsPopup: false });
     };
 
     return (
       <div>
-        <AutoComplete
+        <Autocomplete
           id="autocomplete-media-item"
-          floatingLabelText={
-            <FormattedMessage
-              id="autoCompleteMediaItem.searchItem"
-              defaultMessage="Search"
-            />
-          }
           name="autocomplete-media-item"
-          dataSource={this.state.searchResult}
-          filter={AutoComplete.noFilter}
-          onKeyPress={this.handleKeyPress.bind(this)}
-          onNewRequest={selectCallback}
-          ref={(a) => { this.autoComplete = a; }}
-          onUpdateInput={this.handleSearchText.bind(this)}
+          options={this.state.searchResult}
+          open={this.state.openResultsPopup}
+          getOptionLabel={option => option.text}
+          renderInput={
+            params => (<TextField
+              label={
+                <FormattedMessage
+                  id="autoCompleteMediaItem.searchItem"
+                  defaultMessage="Search"
+                />
+              }
+              onKeyPress={this.handleKeyPress.bind(this)}
+              onChange={this.handleSearchText.bind(this)}
+              {...params}
+            />)
+          }
+          onChange={selectCallback}
+          onBlur={() => this.setState({ openResultsPopup: false })}
           fullWidth
         />
         <span>{this.state.message}</span>
