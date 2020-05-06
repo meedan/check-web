@@ -25,10 +25,6 @@ class TaskUpdate extends React.Component {
       if (this.from.log_count > this.to.log_count) {
         this.removedComment = true;
       }
-      if (this.from.required !== this.to.required) {
-        this.isNowRequired = this.to.required;
-        this.isNowNotRequired = !this.to.required;
-      }
       if (this.from.json_schema !== this.to.json_schema) {
         this.changedJsonSchema = true;
       }
@@ -46,8 +42,6 @@ class TaskUpdate extends React.Component {
       this.changedAssignment ||
       this.removedAssignment ||
       this.addedComment ||
-      this.isNowRequired ||
-      this.isNowNotRequired ||
       this.removedComment ||
       this.changedJsonSchema;
   }
@@ -64,8 +58,6 @@ class TaskUpdate extends React.Component {
     this.removedAssignment = false;
     this.addedComment = false;
     this.removedComment = false;
-    this.isNowRequired = false;
-    this.isNotRequired = false;
     this.changedJsonSchema = false;
     const shouldLog = this.shouldLogChange(activity); // modifies all the properties.
 
@@ -78,8 +70,6 @@ class TaskUpdate extends React.Component {
         this.changedAssignment ||
         this.removedAssignment ||
         this.addedComment ||
-        this.isNowRequired ||
-        this.isNowNotRequired ||
         this.removedComment ||
         this.changedJsonSchema
       ) {
@@ -174,26 +164,6 @@ class TaskUpdate extends React.Component {
                 title,
                 author,
                 note: <ParsedText text={comment} block />,
-              }}
-            />
-            : null}
-          {this.isNowRequired ?
-            <FormattedMessage
-              id="annotation.nowRequired"
-              defaultMessage="Task marked as required by {author}: {title}"
-              values={{
-                title,
-                author,
-              }}
-            />
-            : null}
-          {this.isNowNotRequired ?
-            <FormattedMessage
-              id="annotation.nowNotRequired"
-              defaultMessage="Task marked as not required by {author}: {title}"
-              values={{
-                title,
-                author,
               }}
             />
             : null}
