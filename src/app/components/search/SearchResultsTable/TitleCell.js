@@ -50,7 +50,7 @@ const TitleCell = ({ projectMedia, isRtl }) => {
         </div>
       ) : null}
       <div className={classes.content}>
-        <h4 className={classes.title}>{title}</h4>
+        <h4 className={`media__heading ${classes.title}`}>{title}</h4>
         {description ? (
           <div className={classes.description}>{description}</div>
         ) : null}
