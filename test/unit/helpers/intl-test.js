@@ -10,7 +10,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { IntlProvider, intlShape } from 'react-intl';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { mount, shallow } from 'enzyme';
 
 // You can pass your messages to the IntlProvider. Optional: remove if unneeded.
@@ -52,8 +51,6 @@ const store = {
   },
 };
 
-const muiTheme = getMuiTheme();
-
 /**
  * You can manipulate the global context through this function, e.g.:
  *
@@ -65,11 +62,11 @@ export function getStore() {
 
 export function mountWithIntl(node) {
   return mount(nodeWithIntlProp(node), {
-    context: { intl, store, muiTheme },
-    childContextTypes: { intl: intlShape, store: PropTypes.object, muiTheme: PropTypes.object },
+    context: { intl, store },
+    childContextTypes: { intl: intlShape, store: PropTypes.object },
   });
 }
 
 export function shallowWithIntl(node) {
-  return shallow(nodeWithIntlProp(node), { context: { intl, store, muiTheme } });
+  return shallow(nodeWithIntlProp(node), { context: { intl, store } });
 }
