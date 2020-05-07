@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { defineMessages, injectIntl, intlShape, FormattedMessage } from 'react-intl';
-import rtlDetect from 'rtl-detect';
 import { browserHistory } from 'react-router';
 import sortby from 'lodash.sortby';
 import styled from 'styled-components';
@@ -318,7 +317,6 @@ class SearchResultsComponent extends React.PureComponent {
     } else {
       content = (
         <SearchResultsTable
-          isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
           projectMedias={searchResults}
           team={team}
           selectedIds={selectedProjectMediaIds}

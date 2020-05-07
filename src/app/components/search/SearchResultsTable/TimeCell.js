@@ -15,7 +15,7 @@ export default function TimeCell({ unixTimestampInS }) {
   const date = new Date(unixTimestampInS * 1000);
 
   return (
-    <TableCell align="center" classes={classes}>
+    <TableCell classes={classes}>
       <time dateTime={date.toISOString()}>
         <FormattedRelative value={date} />
       </time>

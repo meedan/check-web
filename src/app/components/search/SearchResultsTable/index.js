@@ -4,9 +4,9 @@ import { FormattedMessage } from 'react-intl';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableContainer from '@material-ui/core/TableContainer';
+import { withStyles } from '@material-ui/core/styles';
 import SearchResultsTableHead from './SearchResultsTableHead';
 import SearchResultsTableRow from './SearchResultsTableRow';
-import FillRemainingHeight from './FillRemainingHeight';
 import TitleCell from './TitleCell';
 import TypeCell from './TypeCell';
 import StatusCell from './StatusCell';
@@ -20,6 +20,7 @@ const AllPossibleColumns = [
   {
     field: 'item',
     headerText: <FormattedMessage id="list.Item" defaultMessage="Item" />,
+    colspan: 2,
     cellComponent: TitleCell,
   },
   {
@@ -34,6 +35,7 @@ const AllPossibleColumns = [
     field: 'share_count',
     headerText: <FormattedMessage id="list.ShareCount" defaultMessage="Social shares" />,
     cellComponent: ShareCountCell,
+    align: 'center',
     sortKey: 'share_count',
     width: '1px',
   },
@@ -41,6 +43,7 @@ const AllPossibleColumns = [
     field: 'linked_items_count',
     headerText: <FormattedMessage id="list.LinkedItems" defaultMessage="Related" />,
     cellComponent: LinkedItemsCountCell,
+    align: 'center',
     sortKey: 'related',
     width: '1px',
   },
@@ -85,6 +88,18 @@ function buildColumnDefs(team) {
     .filter(({ onlyIfSmoochBotEnabled }) => onlyIfSmoochBotEnabled ? smoochBotInstalled : true);
 }
 
+/**
+ * A <TableContainer> that won't show scrollbars.
+ *
+ * This implies a parent must manage scrolling. Our design is: <html> shows
+ * scrollbars; and the table's sticky header appears here.
+ */
+const TableContainerWithoutScrollbars = withStyles({
+  root: {
+    overflow: 'visible',
+  },
+})(TableContainer);
+
 export default function SearchResultsTable({
   team,
   selectedIds,
@@ -93,7 +108,6 @@ export default function SearchResultsTable({
   onChangeSelectedIds,
   onChangeSortParams,
   onClickRow,
-  isRtl,
 }) {
   const columnDefs = React.useMemo(() => buildColumnDefs(team), [team]);
 
@@ -120,7 +134,7 @@ export default function SearchResultsTable({
   }, [selectedIds, onChangeSelectedIds]);
 
   return (
-    <FillRemainingHeight component={TableContainer}>
+    <TableContainerWithoutScrollbars>
       <Table stickyHeader size="small">
         <SearchResultsTableHead
           columnDefs={columnDefs}
@@ -134,7 +148,6 @@ export default function SearchResultsTable({
         <TableBody>
           {projectMedias.map(projectMedia => (
             <SearchResultsTableRow
-              isRtl={isRtl}
               key={projectMedia.id}
               columnDefs={columnDefs}
               projectMedia={projectMedia}
@@ -145,14 +158,13 @@ export default function SearchResultsTable({
           ))}
         </TableBody>
       </Table>
-    </FillRemainingHeight>
+    </TableContainerWithoutScrollbars>
   );
 }
 SearchResultsTable.defaultProps = {
   sortParams: null,
 };
 SearchResultsTable.propTypes = {
-  isRtl: PropTypes.bool.isRequired,
   team: PropTypes.object.isRequired,
   projectMedias: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
   selectedIds: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,

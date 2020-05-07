@@ -24,10 +24,18 @@ export default function SearchResultsTableHead({
             onChange={handleSelectAll}
           />
         </TableCell>
-        {columnDefs.map(({ headerText, sortKey, width }) => (
+        {columnDefs.map(({
+          headerText,
+          colspan,
+          sortKey,
+          width,
+          align,
+        }) => (
           <SearchResultsTh
             text={headerText}
+            colspan={colspan}
             sortKey={sortKey}
+            align={align || 'inherit'}
             sortParams={sortParams}
             onChangeSortParams={onChangeSortParams}
             width={width}
@@ -44,8 +52,10 @@ SearchResultsTableHead.propTypes = {
   columnDefs: PropTypes.arrayOf(PropTypes.shape({
     headerText: PropTypes.element.isRequired,
     field: PropTypes.string, // or undefined -- sets data-field="..." HTML attribute
+    colspan: PropTypes.number, // if not 1
     sortKey: PropTypes.string, // or undefined
     width: PropTypes.string, // '1px' or undefined
+    align: PropTypes.oneOf(['inherit', 'left', 'center', 'right', 'justify']), // default inherit
   }).isRequired).isRequired,
   projectMedias: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
   selectedIds: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,

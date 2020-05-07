@@ -20,7 +20,9 @@ export const completedGreen = '#5cae73';
 export const separationGray = '#ECECEC';
 
 // Material blacks
-//
+// TODO make these opaque!
+// TODO change their names!
+// TODO https://material.io/design/color/the-color-system.html
 export const black87 = 'rgba(0, 0, 0, .87)';
 export const black54 = 'rgba(0, 0, 0, .54)';
 export const black38 = 'rgba(0, 0, 0, .38)';

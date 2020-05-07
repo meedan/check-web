@@ -7,13 +7,13 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 
 const useStyles = makeStyles({
   root: ({ width }) => ({
-    width: width || 'auto',
+    width,
     whiteSpace: 'nowrap',
   }),
 });
 
 export default function SearchResultsTh({
-  text, field, sortKey, width, sortParams, onChangeSortParams,
+  text, field, colspan, sortKey, width, align, sortParams, onChangeSortParams,
 }) {
   let sortDirection = null;
   if (sortParams && sortKey === sortParams.key) {
@@ -43,9 +43,10 @@ export default function SearchResultsTh({
   return (
     <TableCell
       data-field={field}
+      colspan={colspan}
       sortDirection={sortDirection || false}
       classes={classes}
-      align={width === '1px' ? 'center' : undefined}
+      align={align}
     >
       {sortKey ? (
         <TableSortLabel
@@ -62,16 +63,20 @@ export default function SearchResultsTh({
   );
 }
 SearchResultsTh.defaultProps = {
-  field: null,
+  field: undefined,
   sortKey: null,
   sortParams: null,
-  width: null,
+  colspan: undefined,
+  width: 'auto',
+  align: 'inherit',
 };
 SearchResultsTh.propTypes = {
   text: React.Component.isRequired,
-  field: PropTypes.string, // or null -- sets data-field="..." HTML attribute
+  field: PropTypes.string, // or undefined -- sets data-field="..." HTML attribute
+  colspan: PropTypes.number, // or undefined -- sets colspan="..." HTML attribute
   sortKey: PropTypes.string, // or null
-  width: PropTypes.number, // '1px' means "minimum"; null means "auto"
+  width: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf(['auto'])]),
+  align: PropTypes.oneOf(['inherit', 'left', 'center', 'right', 'justify']),
   sortParams: PropTypes.shape({
     key: PropTypes.string.isRequired,
     ascending: PropTypes.bool.isRequired,
