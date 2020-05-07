@@ -828,7 +828,7 @@ class SmoochBotSettings extends Component {
                   </span>
                   <div>
                     <AutoCompleteMediaItem
-                      onlyFinal
+                      onlyPublished
                       media={{}}
                       onSelect={this.handleSelectResource.bind(this)}
                     />
