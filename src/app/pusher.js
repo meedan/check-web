@@ -178,11 +178,19 @@ function createPusher({ cluster, pusherKey, debug }) {
   };
 }
 
+const NullPusher = {
+  // https://mantis.meedan.com/view.php?id=8278
+  subscribe: () => ({
+    bind: () => null,
+  }),
+  unsubscribe: () => null,
+};
+
 const { subscribe, unsubscribe } = config.pusherKey ? createPusher({
   cluster: config.pusherCluster,
   pusherKey: config.pusherKey,
   debug: config.pusherDebug,
-}) : { subscribe: () => {}, unsubscribe: () => {} };
+}) : NullPusher;
 
 const PusherContext = React.createContext({ subscribe: () => {}, unsubscribe: () => {} });
 PusherContext.displayName = 'PusherContext';
