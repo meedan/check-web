@@ -1,6 +1,6 @@
 /* eslint-disable */
 import React, { Component } from 'react';
-import { QueryRenderer, graphql, commitMutation } from 'react-relay';
+import { QueryRenderer, graphql, commitMutation } from 'react-relay/compat';
 import qs from 'qs';
 import { Timeline } from '@meedan/check-ui';
 

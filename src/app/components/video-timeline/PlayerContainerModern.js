@@ -1,6 +1,6 @@
 /* eslint-disable */
 import React from 'react';
-import { QueryRenderer, graphql } from 'react-relay';
+import { QueryRenderer, graphql } from 'react-relay/compat';
 import { Player } from '@meedan/check-ui';
 
 import environment from '../../CheckNetworkLayerModern';
