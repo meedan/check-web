@@ -549,8 +549,10 @@ class TeamRulesComponent extends Component {
             TeamRulesComponent.toggleRuleField(i, 7);
           } else if (rule2.rule_definition === 'flagged_as') {
             TeamRulesComponent.toggleRuleField(i, [8, 9]);
-          } else {
+          } else if (rule2.rule_definition === 'contains_keyword' || rule2.rule_definition === 'title_contains_keyword') {
             TeamRulesComponent.toggleRuleField(i, 10);
+          } else {
+            TeamRulesComponent.toggleRuleField(i, []);
           }
         });
       }
@@ -679,6 +681,8 @@ class TeamRulesComponent extends Component {
               flag: rule2.rule_value_flagged_as,
               threshold: parseInt(rule2.rule_value_flag_threshold, 10),
             });
+          } else {
+            rules[i].rules[j].rule_value = '';
           }
           j += 1;
         });

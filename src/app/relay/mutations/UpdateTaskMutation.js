@@ -99,8 +99,6 @@ class UpdateTaskMutation extends Relay.Mutation {
     } else if (task.label) {
       params.label = task.label;
       params.description = task.description;
-      params.required = task.required;
-      params.status = task.status;
       params.assigned_to_ids = task.assigned_to_ids;
       params.json_schema = task.json_schema;
     }

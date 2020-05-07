@@ -28,14 +28,6 @@
     "defaultMessage": "Task note deleted by {author}: {title}{note}"
   },
   {
-    "id": "annotation.nowRequired",
-    "defaultMessage": "Task marked as required by {author}: {title}"
-  },
-  {
-    "id": "annotation.nowNotRequired",
-    "defaultMessage": "Task marked as not required by {author}: {title}"
-  },
-  {
     "id": "annotation.changedJsonSchema",
     "defaultMessage": "JSON Schema of task {title} changed by {author}"
   }

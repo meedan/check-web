@@ -6,7 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import CheckContext from '../../CheckContext';
 import { nested } from '../../helpers';
-import { stringHelper, mediaStatuses } from '../../customHelpers';
+import { stringHelper } from '../../customHelpers';
 
 const messages = defineMessages({
   searching: {
@@ -24,14 +24,12 @@ const messages = defineMessages({
 });
 
 class AutoCompleteMediaItem extends React.Component {
-  static isFinalStatus(media, status) {
-    let isFinal = false;
-    mediaStatuses(media).statuses.forEach((st) => {
-      if (st.id === status && parseInt(st.completed, 10) === 1) {
-        isFinal = true;
-      }
-    });
-    return isFinal;
+  static isPublished(media) {
+    return (
+      media.dynamic_annotation_report_design &&
+      media.dynamic_annotation_report_design.data &&
+      media.dynamic_annotation_report_design.data.state === 'published'
+    );
   }
 
   constructor(props) {
@@ -97,6 +95,10 @@ class AutoCompleteMediaItem extends React.Component {
                     domain
                     metadata
                     overridden
+                    dynamic_annotation_report_design {
+                      id
+                      data
+                    }
                     media {
                       quote
                     }
@@ -131,9 +133,9 @@ class AutoCompleteMediaItem extends React.Component {
           (item.node.relationships.sources_count + item.node.relationships.targets_count === 0) &&
           (item.node.dbid !== this.props.media.dbid));
 
-        if (this.props.onlyFinal) {
+        if (this.props.onlyPublished) {
           items = items.filter(item =>
-            AutoCompleteMediaItem.isFinalStatus(item.node, item.node.status));
+            AutoCompleteMediaItem.isPublished(item.node));
         }
 
         const searchResult = items.map(item => ({

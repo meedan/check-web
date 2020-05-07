@@ -1,8 +1,0 @@
-{
-  "accountCard.fbStats": "{likes, number} like-uri",
-  "accountCard.twitterStats": "{tweets, number} mesaje Twitter • {followers, number} urmăritori • {following, number} urmăresc",
-  "accountCard.youtubeStats": "{videos, number} videoclipuri • {subscribers, number} abonați",
-  "mediaDetail.byUser": "de {username}",
-  "accountCard.providerAccount": "{provider} cont",
-  "mediaDetail.added": "Adăugat de {byUser}"
-}

@@ -6,7 +6,5 @@
   "annotation.assignmentRemoved": "Task unassigned from {assigneeFrom} by {author}: {title}",
   "annotation.addedComment": "Task note added by {author}: {title}{note}",
   "annotation.removedComment": "Task note deleted by {author}: {title}{note}",
-  "annotation.nowRequired": "Task marked as required by {author}: {title}",
-  "annotation.nowNotRequired": "Task marked as not required by {author}: {title}",
   "annotation.changedJsonSchema": "JSON Schema of task {title} changed by {author}"
 }

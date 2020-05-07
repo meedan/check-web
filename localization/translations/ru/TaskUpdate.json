@@ -6,7 +6,5 @@
   "annotation.assignmentRemoved": "Вопрос снят с {assigneeFrom} ({author}): {title}",
   "annotation.addedComment": "Заметка к вопросу добавлена ({author}): {title}{note}",
   "annotation.removedComment": "Заметка к вопросу удалена ({author}): {title}{note}",
-  "annotation.nowRequired": "Вопрос отмечен как обязательный ({author}): {title}",
-  "annotation.nowNotRequired": "Вопрос отмечен как необязательный ({author}): {title}",
   "annotation.changedJsonSchema": "JSON Schema of task {title} changed by {author}"
 }

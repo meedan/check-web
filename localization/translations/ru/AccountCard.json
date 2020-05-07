@@ -1,8 +1,0 @@
-{
-  "accountCard.fbStats": "Лайков: {likes, number}",
-  "accountCard.twitterStats": "Твитов: {tweets, number} • Читателей: {followers, number} • Читаемых: {following, number}",
-  "accountCard.youtubeStats": "Видео: {videos, number} • Подписчиков: {subscribers, number}",
-  "mediaDetail.byUser": "от {username}",
-  "accountCard.providerAccount": "{provider} аккаунт",
-  "mediaDetail.added": "Добавлено {byUser}"
-}
