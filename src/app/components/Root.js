@@ -30,6 +30,7 @@ import ProjectEdit from './project/ProjectEdit';
 import Search from './search/Search';
 import BotGarden from './BotGarden';
 import Bot from './Bot';
+import VideoTimeline from './video-timeline/VideoTimeline';
 
 class Root extends Component {
   static logPageView() {
@@ -81,6 +82,7 @@ class Root extends Component {
                 <Route path="check/bot-garden" component={BotGarden} />
                 <Route path="check/bot/:botId" component={Bot} />
 
+                <Route path=":team/project/:projectId/media/:mediaId/timeline" component={VideoTimeline} public />
                 <Route path=":team/media/:mediaId" component={ProjectMediaSearch} public />
                 <Route path=":team/project/:projectId/media/:mediaId" component={ProjectMediaSearch} public />
                 <Route path=":team/media/:mediaId/report-designer" component={ReportDesigner} public />
