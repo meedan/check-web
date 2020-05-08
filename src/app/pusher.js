@@ -4,6 +4,7 @@ import config from 'config'; // eslint-disable-line require-path-exists/exists
 import deepEqual from 'deep-equal';
 import ifvisible from 'ifvisible.js';
 import { safelyParseJSON } from './helpers';
+import { ClientSessionIdContext } from './ClientSessionId';
 
 function createPusher({ cluster, pusherKey, debug }) {
   // Pusher is imported at runtime from a <script file> tag.
@@ -178,11 +179,19 @@ function createPusher({ cluster, pusherKey, debug }) {
   };
 }
 
+const NullPusher = {
+  // https://mantis.meedan.com/view.php?id=8278
+  subscribe: () => ({
+    bind: () => null,
+  }),
+  unsubscribe: () => null,
+};
+
 const { subscribe, unsubscribe } = config.pusherKey ? createPusher({
   cluster: config.pusherCluster,
   pusherKey: config.pusherKey,
   debug: config.pusherDebug,
-}) : { subscribe: () => {}, unsubscribe: () => {} };
+}) : NullPusher;
 
 const PusherContext = React.createContext({ subscribe: () => {}, unsubscribe: () => {} });
 PusherContext.displayName = 'PusherContext';
@@ -190,7 +199,10 @@ PusherContext.displayName = 'PusherContext';
 function withPusher(Component) {
   const inner = (props) => {
     const pusher = React.useContext(PusherContext);
-    return <Component pusher={pusher} {...props} />;
+    // TODO streamline design, so components don't need to check
+    // clientSessionId.
+    const clientSessionId = React.useContext(ClientSessionIdContext);
+    return <Component pusher={pusher} clientSessionId={clientSessionId} {...props} />;
   };
   inner.displayName = `WithPusher(${Component.displayName || Component.name || 'Component'})`;
   return inner;

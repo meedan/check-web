@@ -133,12 +133,10 @@ class MediaTasksComponent extends Component {
   }
 
   subscribe() {
-    const { pusher, media } = this.props;
+    const { pusher, clientSessionId, media } = this.props;
     pusher.subscribe(media.pusher_channel).bind('media_updated', 'MediaTasks', (data, run) => {
       const annotation = JSON.parse(data.message);
-      if (annotation.annotated_id === media.dbid &&
-        this.getContext().clientSessionId !== data.actor_session_id
-      ) {
+      if (annotation.annotated_id === media.dbid && clientSessionId !== data.actor_session_id) {
         if (run) {
           this.props.relay.forceFetch();
           return true;
@@ -205,6 +203,7 @@ MediaTasksComponent.contextTypes = {
 
 MediaTasksComponent.propTypes = {
   pusher: pusherShape.isRequired,
+  clientSessionId: PropTypes.string.isRequired,
 };
 
 const MediaTasksContainer = Relay.createContainer(withPusher(MediaTasksComponent), {

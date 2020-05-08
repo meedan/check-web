@@ -21,6 +21,7 @@ import CheckContext from '../CheckContext';
 import DrawerNavigation from './DrawerNavigation';
 import { bemClass } from '../helpers';
 import { FlashMessageContext, FlashMessage } from './FlashMessage';
+import { withClientSessionId } from '../ClientSessionId';
 import {
   muiThemeV1,
   gutterMedium,
@@ -181,10 +182,10 @@ class HomeComponent extends Component {
   setContext() {
     const context = new CheckContext(this);
     if (!this.state.token && !this.state.error) {
-      context.startSession(this.props.user);
+      context.startSession(this.props.user, this.props.clientSessionId);
     }
     context.setContext();
-    context.startNetwork(this.state.token);
+    context.startNetwork(this.state.token, this.props.clientSessionId);
   }
 
   getContext() {
@@ -238,20 +239,11 @@ class HomeComponent extends Component {
       return null;
     }
 
-    const context = this.getContext();
     const user = this.getContext().currentUser || {};
-    const inTeamContext = !!(this.props.params.team || user.current_team);
     const loggedIn = !!this.state.token;
-    const teamSlug = (() => {
-      if (this.props.params.team) {
-        return this.props.params.team;
-      } else if (context.team) {
-        return context.team.slug;
-      } else if (user.current_team && user.current_team.slug) {
-        return user.current_team.slug;
-      }
-      return null;
-    })();
+    const teamSlugFromUrl = window.location.pathname.match(/^\/([^/]+)/);
+    const teamSlug = (teamSlugFromUrl && teamSlugFromUrl[1] !== 'check' ? teamSlugFromUrl[1] : null);
+    const inTeamContext = !!teamSlug;
 
     const currentUserIsMember = (() => {
       if (inTeamContext && loggedIn) {
@@ -326,6 +318,7 @@ class HomeComponent extends Component {
 HomeComponent.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
+  clientSessionId: PropTypes.string.isRequired,
   intl: intlShape.isRequired,
 };
 
@@ -333,7 +326,7 @@ HomeComponent.contextTypes = {
   store: PropTypes.object,
 };
 
-const HomeContainer = Relay.createContainer(injectIntl(HomeComponent), {
+const HomeContainer = Relay.createContainer(injectIntl(withClientSessionId(HomeComponent)), {
   fragments: {
     user: () => Relay.QL`
       fragment on User {
@@ -397,7 +390,7 @@ const HomeContainer = Relay.createContainer(injectIntl(HomeComponent), {
 class Home extends Component {
   componentWillMount() {
     const context = new CheckContext(this);
-    context.startNetwork(null);
+    context.startNetwork(null, this.props.clientSessionId);
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -422,8 +415,12 @@ class Home extends Component {
   }
 }
 
+Home.propTypes = {
+  clientSessionId: PropTypes.string.isRequired,
+};
+
 Home.contextTypes = {
   store: PropTypes.object,
 };
 
-export default Home;
+export default withClientSessionId(Home);

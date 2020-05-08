@@ -528,7 +528,7 @@ shared_examples 'smoke' do
     wait_for_selector_none("#create-media-quote-input")
     wait_for_selector_list_size(".media-detail", 2)
     expect(@driver.page_source.include?('Main Item')).to be(true)
-    wait_for_selector(".media-codensed__actions_icon").click
+    wait_for_selector(".media-condensed__actions_icon").click
     wait_for_selector('.media-condensed__promote-relationshp').click
     wait_for_selector_none('.media-condensed__promote-relationshp')
     wait_for_selector(".project-header__back-button").click
@@ -583,7 +583,7 @@ shared_examples 'smoke' do
     cards = wait_for_selector_list(".media-detail").length
     expect(cards == 2).to be(true)
     #break the relationship between the items
-    wait_for_selector(".media-codensed__actions_icon").click
+    wait_for_selector(".media-condensed__actions_icon").click
     wait_for_selector('.media-condensed__break-relationship').click
     wait_for_selector_none('.media-condensed__break-relationship')
     wait_for_selector_list_size(".media-detail", 1)
