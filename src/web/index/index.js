@@ -1,12 +1,13 @@
 import React from 'react';
 import { render } from 'react-dom';
-import Root from 'app/components/Root';
-import { FlashMessageProvider } from 'app/components/FlashMessage';
-import { subscribe as pusherSubscribe, unsubscribe as pusherUnsubscribe, PusherContext } from 'app/pusher';
-import { createStore, applyMiddleware, compose } from 'redux';
-import rootReducer from 'app/redux';
-import thunk from 'redux-thunk';
 import { addLocaleData } from 'react-intl';
+import { createStore, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
+import Root from '../../app/components/Root';
+import { FlashMessageProvider } from '../../app/components/FlashMessage';
+import { subscribe as pusherSubscribe, unsubscribe as pusherUnsubscribe, PusherContext } from '../../app/pusher';
+import { ClientSessionIdContext, generateRandomClientSessionId } from '../../app/ClientSessionId';
+import rootReducer from '../../app/redux';
 import locales from '../../../localization/translations/locales';
 
 window.storage = {
@@ -40,14 +41,18 @@ const pusherContextValue = {
   unsubscribe: pusherUnsubscribe,
 };
 
+const clientSessionId = generateRandomClientSessionId();
+
 const callback = (translations) => {
   render(
     (
-      <PusherContext.Provider value={pusherContextValue}>
-        <FlashMessageProvider>
-          <Root store={store} translations={translations} locale={locale} />
-        </FlashMessageProvider>
-      </PusherContext.Provider>
+      <ClientSessionIdContext.Provider value={clientSessionId}>
+        <PusherContext.Provider value={pusherContextValue}>
+          <FlashMessageProvider>
+            <Root store={store} translations={translations} locale={locale} />
+          </FlashMessageProvider>
+        </PusherContext.Provider>
+      </ClientSessionIdContext.Provider>
     ),
     document.getElementById('root'),
   );
@@ -57,15 +62,9 @@ if (locale === 'en') {
   callback({});
 } else {
   Promise.all([
-    import(
-      /* webpackChunkName: "react-intl-[request]" */
-      'react-intl/locale-data/' + locale
-    ),
-    import(
-      /* webpackChunkName: "messages-[request]" */
-      '../../../localization/translations/' + locale
-    ),
-  ]).then(([ localeDataModule, messagesModule ]) => {
+    import(/* webpackChunkName: "react-intl-[request]" */ `react-intl/locale-data/${locale}`),
+    import(/* webpackChunkName: "messages-[request]" */ `../../../localization/translations/${locale}`),
+  ]).then(([localeDataModule, messagesModule]) => {
     // https://medium.com/webpack/webpack-4-import-and-commonjs-d619d626b655
     const localeData = localeDataModule.default;
     const messages = messagesModule.default;
