@@ -128,7 +128,7 @@ class MediaRelatedComponent extends Component {
     return (
       <div style={{ marginTop: units(5) }}>
         { primaryItem ?
-          <div style={{ marginBottom: units(4) }}>
+          <div style={{ marginBottom: units(4) }} id="media-related__primary-item">
             <StyledHeaderRow>
               <FlexRow style={{ marginBottom: units(2) }}>
                 <h2>
@@ -181,7 +181,7 @@ class MediaRelatedComponent extends Component {
                   return null;
                 }
                 return (
-                  <li key={item.node.id} className="medias__item" style={{ paddingBottom: units(1) }}>
+                  <li key={item.node.id} className="medias__item media-related__secondary-item" style={{ paddingBottom: units(1) }}>
                     {<MediaDetail
                       media={item.node}
                       condensed

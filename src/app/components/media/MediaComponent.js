@@ -105,9 +105,11 @@ class MediaComponent extends Component {
   }
 
   setCurrentContext() {
-    const { project } = this.getContext();
-    if (project && project.dbid) {
-      this.props.relay.setVariables({ contextId: project.dbid });
+    if (/^\/[^/]+\/project\/[0-9]+\/media\/[0-9]+/.test(window.location.pathname)) {
+      const projectId = window.location.pathname.match(/^\/[^/]+\/project\/([0-9]+)\/media\/[0-9]+/)[1];
+      if (this.props.relay.variables.contextId !== projectId) {
+        this.props.relay.setVariables({ contextId: projectId });
+      }
     }
   }
 
