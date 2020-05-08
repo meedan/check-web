@@ -1,14 +1,15 @@
 import React from 'react';
 import {
-  QueryRenderer,
+  createFragmentContainer,
   graphql,
 } from 'react-relay/compat';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import styled from 'styled-components';
-import { injectIntl, defineMessages, intlShape } from 'react-intl';
+import { injectIntl, intlShape, defineMessages } from 'react-intl';
+import MeRoute from '../../relay/MeRoute';
+import RelayContainer from '../../relay/RelayContainer';
 import { units } from '../../styles/js/shared';
-import environment from '../../CheckEnvironment';
 
 const messages = defineMessages({
   choose: {
@@ -17,8 +18,6 @@ const messages = defineMessages({
   },
 });
 
-/* eslint react/no-multi-comp: 0 */
-
 class DestinationProjectsComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -26,6 +25,20 @@ class DestinationProjectsComponent extends React.Component {
     this.state = {
       selectedValue: null,
     };
+  }
+
+  componentDidMount() {
+    if (this.props.onLoad) {
+      this.props.onLoad();
+    }
+  }
+
+  componentWillUpdate(nextProps) {
+    if (this.props.onLoad && (
+      nextProps.user.team_users.length > this.props.user.team_users.length || !this.props.user
+    )) {
+      this.props.onLoad();
+    }
   }
 
   handleChange(selectedValue) {
@@ -99,79 +112,52 @@ class DestinationProjectsComponent extends React.Component {
   }
 }
 
-class DestinationProjects extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      parentProps: Object.assign({}, props),
-      refetch: 0, // can be used by Pusher updates later
-    };
-  }
-
-  refetchData() {
-    this.setState({ refetch: this.state.refetch + 1 });
-  }
-
-  render() {
-    const query = (
-      <QueryRenderer
-        environment={environment}
-        variables={{ refetch: this.state.refetch }}
-        query={graphql`
-          query DestinationProjectsModernQuery {
-            me {
+const DestinationProjectsContainer = createFragmentContainer(
+  DestinationProjectsComponent,
+  graphql`
+    fragment DestinationProjects_user on User {
+      id
+      team_users(first: 10000) {
+        edges {
+          node {
+            id
+            status
+            team {
               id
-              team_users(first: 10000) {
+              dbid
+              slug
+              name
+              projects(first: 10000) {
                 edges {
                   node {
                     id
-                    status
-                    team {
-                      id
-                      dbid
-                      slug
-                      name
-                      projects(first: 10000) {
-                        edges {
-                          node {
-                            id
-                            dbid
-                            title
-                            search_id
-                            medias_count
-                          }
-                        }
-                      }
-                    }
+                    dbid
+                    title
+                    search_id
+                    medias_count
                   }
                 }
               }
-            }  
+            }
           }
-        `}
-        render={({ error, props }) => {
-          if (error) {
-            return null;
-          }
-          if (props && props.me) {
-            return (
-              <DestinationProjectsComponent
-                user={props.me}
-                refetchData={this.refetchData.bind(this)}
-                {...this.state.parentProps}
-              />
-            );
-          }
-          return null;
-        }}
-      />
-    );
-    return query;
-  }
-}
+        }
+      }
+    }
+  `,
+);
 
-DestinationProjectsComponent.propTypes = {
+const DestinationProjects = (props) => {
+  const route = new MeRoute();
+  return (
+    <RelayContainer
+      Component={DestinationProjectsContainer}
+      route={route}
+      renderFetched={data => <DestinationProjectsContainer {...props} {...data} />}
+    />
+  );
+};
+
+DestinationProjects.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
