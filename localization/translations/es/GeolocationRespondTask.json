@@ -4,6 +4,7 @@
   "geoLocationRespondTask.error": "Lo sentimos, se produjo un error al actualizar la tarea. Vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}.",
   "geolocationRespondTask.placeName": "Editar el nombre del lugar",
   "geolocationRespondTask.coordinates": "Latitud, Longitud",
+  "geoLocationRespondTask.invalidCoords": "Coordenadas no válidas",
   "geolocationRespondTask.cancelTask": "Cancelar",
   "geolocationRespondTask.answerTask": "Responder",
   "geolocationRespondTask.searchMap": "Buscar el mapa"

@@ -4,6 +4,7 @@
   "geoLocationRespondTask.error": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث المهمة. من فضلك أعد المحاولة وتواصل مع {supportEmail} إن استمرت المشكلة.",
   "geolocationRespondTask.placeName": "تصحيح اسم المكان",
   "geolocationRespondTask.coordinates": "خطوط العرض والطول",
+  "geoLocationRespondTask.invalidCoords": "Invalid coordinates",
   "geolocationRespondTask.cancelTask": "إلغاء",
   "geolocationRespondTask.answerTask": "إجابة",
   "geolocationRespondTask.searchMap": "بحث في الخريطة"
