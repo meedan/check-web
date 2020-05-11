@@ -118,7 +118,7 @@ class GeolocationRespondTask extends Component {
     const zoom = this.marker.leafletElement._map.getZoom();
     const coordinatesString = `${parseFloat(lat).toFixed(7)}, ${parseFloat(lng).toFixed(7)}`;
     this.setState({
-      lat, lng, zoom, coordinatesString, focus: true,
+      lat, lng, zoom, coordinatesString, focus: true, message: '', coordMessage: '',
     });
   }
 
@@ -128,7 +128,7 @@ class GeolocationRespondTask extends Component {
     const zoom = this.marker.leafletElement._map.getZoom();
     const coordinatesString = `${parseFloat(lat).toFixed(7)}, ${parseFloat(lng).toFixed(7)}`;
     this.setState({
-      lat, lng, zoom, coordinatesString, focus: true, message: '',
+      lat, lng, zoom, coordinatesString, focus: true, message: '', coordMessage: '',
     });
   }
 
