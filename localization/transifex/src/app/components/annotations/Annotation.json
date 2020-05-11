@@ -41,7 +41,7 @@
   "annotation.rejectSuggestion": "Reject",
   "annotation.taskResolve": "Task completed by {author}: {task}{response}",
   "annotation.archiverSuccess": "In case this item goes offline, you can <a href=\"{link}\" target=\"_blank\" rel=\"noopener noreferrer\">access a backup at {name}</a>.",
-  "annotation.archiverError": "Sorry, archiving to {name} returned this error message: \"{message}\". Please refresh the item to try again and contact {supportEmail} if the condition persists.",
+  "annotation.archiverError": "Sorry, the following error occurred while archiving the item to {name}: \"{message}\". Please refresh the item to try again and contact {supportEmail} if the condition persists.",
   "annotation.archiverWait": "This item is being archived at {name}. The archive link will be displayed here when it's ready.",
   "annotation.embedCodeCopied": "An embed code of the item has been generated and copied. The item may now be publicly viewable.",
   "annotation.penderArchiveResponseError": "Sorry, an error occurred while taking a screenshot of the item. Please refresh the item to try again and contact {supportEmail} if the condition persists.",
