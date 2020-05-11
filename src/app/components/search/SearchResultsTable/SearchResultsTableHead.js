@@ -30,9 +30,11 @@ export default function SearchResultsTableHead({
           sortKey,
           width,
           align,
+          field,
         }) => (
           <SearchResultsTh
             text={headerText}
+            field={field}
             colspan={colspan}
             sortKey={sortKey}
             align={align || 'inherit'}
