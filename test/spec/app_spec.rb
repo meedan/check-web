@@ -424,7 +424,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect((@driver.current_url.to_s.match(/last_seen/)).nil?).to be(true)
       expect(@driver.page_source.include?('My search result')).to be(true)
 
-      @driver.execute_script("document.getElementsByClassName('ag-body-horizontal-scroll-viewport')[0].scrollLeft = 5000;")
       wait_for_selector("th[data-field=created_at] span").click
       wait_for_selector(".medias__item")
       expect((@driver.current_url.to_s.match(/requests/)).nil?).to be(true)
