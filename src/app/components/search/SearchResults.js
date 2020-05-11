@@ -282,8 +282,7 @@ class SearchResultsComponent extends React.PureComponent {
       Array.prototype.indexOf.call(ev.target.parentNode.childNodes, ev.target);
     query.esoffset = itemOffset;
 
-    // FIXME [2020-05-11] {query} has no effect. Don't know when that started.
-    browserHistory.push(mediaUrl, { query });
+    browserHistory.push({ pathname: mediaUrl, state: { query } });
   };
 
   render() {
