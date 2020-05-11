@@ -247,13 +247,13 @@ class SearchResultsComponent extends React.PureComponent {
   }
 
   handleClickRow = (ev, projectMedia) => {
-    const projectId = projectMedia.project_id;
-    const teamSlug = this.props.team;
+    const team = this.props.search.team || this.currentContext().team;
+    const project = this.props.project || this.currentContext().project;
     let mediaUrl;
-    if (projectId && projectMedia.dbid) {
-      mediaUrl = `/${teamSlug}/project/${projectId}/media/${projectMedia.dbid}`;
+    if (project && projectMedia.dbid) {
+      mediaUrl = `/${team.slug}/project/${project.dbid}/media/${projectMedia.dbid}`;
     } else if (projectMedia.dbid) {
-      mediaUrl = `/${teamSlug}/media/${projectMedia.dbid}`;
+      mediaUrl = `/${team.slug}/media/${projectMedia.dbid}`;
     } else {
       return;
     }
@@ -263,12 +263,12 @@ class SearchResultsComponent extends React.PureComponent {
     if (Array.isArray(query.show)) {
       query.show = query.show.filter(f => f !== 'sources');
     }
-    if (projectId) {
-      query.parent = { type: 'project', id: projectId };
-      query.projects = [projectId];
+    if (project) {
+      query.parent = { type: 'project', id: project.dbid };
+      query.projects = [project.dbid];
       query.referer = 'project';
     } else {
-      query.parent = { type: 'team', slug: teamSlug };
+      query.parent = { type: 'team', slug: team.slug };
       query.referer = 'search';
     }
     const isTrash = /\/trash/.test(window.location.pathname);
@@ -282,6 +282,7 @@ class SearchResultsComponent extends React.PureComponent {
       Array.prototype.indexOf.call(ev.target.parentNode.childNodes, ev.target);
     query.esoffset = itemOffset;
 
+    // FIXME [2020-05-11] {query} has no effect. Don't know when that started.
     browserHistory.push(mediaUrl, { query });
   };
 
