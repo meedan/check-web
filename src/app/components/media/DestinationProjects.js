@@ -1,5 +1,8 @@
 import React from 'react';
-import Relay from 'react-relay/classic';
+import {
+  createFragmentContainer,
+  graphql,
+} from 'react-relay/compat';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import styled from 'styled-components';
@@ -109,30 +112,29 @@ class DestinationProjectsComponent extends React.Component {
   }
 }
 
-const DestinationProjectsContainer = Relay.createContainer(DestinationProjectsComponent, {
-  fragments: {
-    user: () => Relay.QL`
-      fragment on User {
-        id
-        team_users(first: 10000) {
-          edges {
-            node {
+const DestinationProjectsContainer = createFragmentContainer(
+  DestinationProjectsComponent,
+  graphql`
+    fragment DestinationProjects_user on User {
+      id
+      team_users(first: 10000) {
+        edges {
+          node {
+            id
+            status
+            team {
               id
-              status
-              team {
-                id
-                dbid
-                slug
-                name
-                projects(first: 10000) {
-                  edges {
-                    node {
-                      id
-                      dbid
-                      title
-                      search_id
-                      medias_count
-                    }
+              dbid
+              slug
+              name
+              projects(first: 10000) {
+                edges {
+                  node {
+                    id
+                    dbid
+                    title
+                    search_id
+                    medias_count
                   }
                 }
               }
@@ -140,9 +142,9 @@ const DestinationProjectsContainer = Relay.createContainer(DestinationProjectsCo
           }
         }
       }
-    `,
-  },
-});
+    }
+  `,
+);
 
 const DestinationProjects = (props) => {
   const route = new MeRoute();
