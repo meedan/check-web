@@ -561,9 +561,9 @@ class SearchQueryComponent extends React.Component {
   }
 
   subscribe() {
-    const { pusher, team } = this.props;
+    const { pusher, clientSessionId, team } = this.props;
     pusher.subscribe(team.pusher_channel).bind('tagtext_updated', 'SearchQueryComponent', (data, run) => {
-      if (this.currentContext().clientSessionId !== data.actor_session_id) {
+      if (clientSessionId !== data.actor_session_id) {
         if (run) {
           this.props.relay.forceFetch();
           return true;
@@ -577,7 +577,7 @@ class SearchQueryComponent extends React.Component {
     });
 
     pusher.subscribe(team.pusher_channel).bind('project_updated', 'SearchQueryComponent', (data, run) => {
-      if (this.currentContext().clientSessionId !== data.actor_session_id) {
+      if (clientSessionId !== data.actor_session_id) {
         if (run) {
           this.props.relay.forceFetch();
           return true;
@@ -932,6 +932,7 @@ SearchQueryComponent.propTypes = {
   intl: intlShape.isRequired,
   classes: PropTypes.object.isRequired,
   pusher: pusherShape.isRequired,
+  clientSessionId: PropTypes.string.isRequired,
 };
 
 SearchQueryComponent.contextTypes = {

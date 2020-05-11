@@ -9,7 +9,6 @@ import MediaRoute from '../../relay/MediaRoute';
 import mediaFragment from '../../relay/mediaFragment';
 import MediaDetail from './MediaDetail';
 import MediasLoading from './MediasLoading';
-import CheckContext from '../../CheckContext';
 import { getFilters } from '../../helpers';
 import {
   FlexRow,
@@ -64,18 +63,11 @@ class MediaRelatedComponent extends Component {
     this.unsubscribe();
   }
 
-  getContext() {
-    return new CheckContext(this).getContextStore();
-  }
-
   subscribe() {
-    const { pusher, media } = this.props;
+    const { pusher, clientSessionId, media } = this.props;
     pusher.subscribe(media.pusher_channel).bind('relationship_change', 'MediaRelated', (data, run) => {
       const relationship = JSON.parse(data.message);
-      if (
-        (this.getContext().clientSessionId !== data.actor_session_id) &&
-        (relationship.source_id === media.dbid)
-      ) {
+      if (clientSessionId !== data.actor_session_id && relationship.source_id === media.dbid) {
         if (run) {
           this.props.relay.forceFetch();
           return true;
@@ -128,7 +120,7 @@ class MediaRelatedComponent extends Component {
     return (
       <div style={{ marginTop: units(5) }}>
         { primaryItem ?
-          <div style={{ marginBottom: units(4) }}>
+          <div style={{ marginBottom: units(4) }} id="media-related__primary-item">
             <StyledHeaderRow>
               <FlexRow style={{ marginBottom: units(2) }}>
                 <h2>
@@ -181,7 +173,7 @@ class MediaRelatedComponent extends Component {
                   return null;
                 }
                 return (
-                  <li key={item.node.id} className="medias__item" style={{ paddingBottom: units(1) }}>
+                  <li key={item.node.id} className="medias__item media-related__secondary-item" style={{ paddingBottom: units(1) }}>
                     {<MediaDetail
                       media={item.node}
                       condensed
@@ -202,12 +194,9 @@ class MediaRelatedComponent extends Component {
   }
 }
 
-MediaRelatedComponent.contextTypes = {
-  store: PropTypes.object,
-};
-
 MediaRelatedComponent.propTypes = {
   pusher: pusherShape.isRequired,
+  clientSessionId: PropTypes.string.isRequired,
 };
 
 const MediaRelatedContainer = Relay.createContainer(withPusher(MediaRelatedComponent), {

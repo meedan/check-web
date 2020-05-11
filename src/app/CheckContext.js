@@ -43,10 +43,8 @@ class CheckContext {
     store.dispatch(newContext);
   }
 
-  startNetwork(token) {
-    const context = this.getContextStore();
-    const clientSessionId = context.clientSessionId || (`browser-${Date.now()}${parseInt(Math.random() * 1000000, 10)}`);
-    this.setContextStore({ clientSessionId });
+  startNetwork(token, clientSessionId) {
+    this.setContextStore({});
     Relay.injectNetworkLayer(new CheckNetworkLayer(config.relayPath, {
       caller: this.caller,
       team: () => {
@@ -67,7 +65,7 @@ class CheckContext {
     }));
   }
 
-  startSession(user) {
+  startSession(user, clientSessionId) {
     const newState = { sessionStarted: true };
 
     let userData = user;
@@ -86,7 +84,7 @@ class CheckContext {
         });
       }
       newState.token = userData.token;
-      this.startNetwork(userData.token);
+      this.startNetwork(userData.token, clientSessionId);
     } else {
       newState.error = true;
     }

@@ -130,17 +130,18 @@ class TaskLogComponent extends Component {
     this.unsubscribe();
   }
 
-  getContext() {
-    return new CheckContext(this).getContextStore();
-  }
-
   subscribe() {
-    const { pusher, cachedTask, task } = this.props;
+    const {
+      pusher,
+      clientSessionId,
+      cachedTask,
+      task,
+    } = this.props;
     pusher.subscribe(cachedTask.project_media.pusher_channel).bind('media_updated', 'TaskLog', (data, run) => {
       const annotation = JSON.parse(data.message);
       if (annotation.annotation_type === 'task' &&
         parseInt(annotation.id, 10) === parseInt(this.props.task.dbid, 10) &&
-        this.getContext().clientSessionId !== data.actor_session_id
+        clientSessionId !== data.actor_session_id
       ) {
         if (run) {
           this.props.relay.forceFetch();
@@ -192,12 +193,9 @@ class TaskLogComponent extends Component {
   }
 }
 
-TaskLogComponent.contextTypes = {
-  store: PropTypes.object,
-};
-
 TaskLogComponent.propTypes = {
   pusher: pusherShape.isRequired,
+  clientSessionId: PropTypes.string.isRequired,
 };
 
 const TaskLogContainer = Relay.createContainer(withPusher(TaskLogComponent), {

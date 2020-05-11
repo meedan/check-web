@@ -149,7 +149,7 @@ class SwitchTeamsComponent extends Component {
           <List className="teams" style={listStyle}>
             {joinedTeams.map(team => (
               <StyledListItemContainer key={`team-${team.dbid}`} isRtl={this.props.isRtl}>
-                <Link to={`/${team.slug}/all-items`}>
+                <Link to={`/${team.slug}/all-items`} id={`switch-teams__link-to-${team.slug}`}>
                   <ListItem
                     className="switch-teams__joined-team"
                     onClick={this.setCurrentTeam.bind(this, team, currentUser)}

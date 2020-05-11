@@ -182,7 +182,7 @@ class SearchResultsComponent extends React.PureComponent {
   }
 
   resubscribe() {
-    const { pusher, search } = this.props;
+    const { pusher, clientSessionId, search } = this.props;
 
     if (this.pusherChannel !== search.pusher_channel) {
       this.unsubscribe();
@@ -204,7 +204,7 @@ class SearchResultsComponent extends React.PureComponent {
       });
 
       pusher.subscribe(channel).bind('media_updated', 'Search', (data, run) => {
-        if (this.currentContext().clientSessionId !== data.actor_session_id) {
+        if (clientSessionId !== data.actor_session_id) {
           if (run) {
             this.props.relay.forceFetch();
             return true;
@@ -434,6 +434,7 @@ SearchResultsComponent.propTypes = {
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
   pusher: pusherShape.isRequired,
+  clientSessionId: PropTypes.string.isRequired,
 };
 
 const ConnectedSearchResultsComponent = withPusher(injectIntl(SearchResultsComponent));

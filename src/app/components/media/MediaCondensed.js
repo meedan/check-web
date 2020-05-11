@@ -286,7 +286,7 @@ class MediaCondensedComponent extends Component {
       <span style={{ display: 'block', position: 'relative' }}>
         <CardHeader
           title={
-            <Link to={{ pathname: mediaUrl, state: { query: mediaQuery } }}>
+            <Link to={{ pathname: mediaUrl, state: { query: mediaQuery } }} className="media-condensed__title">
               <span style={{ color: black87 }}>
                 {truncateLength(media.title, 120)}
               </span>
@@ -342,7 +342,7 @@ class MediaCondensedComponent extends Component {
               }
               onClick={this.handleOpenMenu}
             >
-              <IconMoreVert className="media-codensed__actions_icon" />
+              <IconMoreVert className="media-condensed__actions_icon" />
             </IconButton>
             <Menu
               anchorEl={this.state.anchorEl}
