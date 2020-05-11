@@ -6,7 +6,6 @@ import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
 import MediasLoading from './MediasLoading';
 import Annotations from '../annotations/Annotations';
-import CheckContext from '../../CheckContext';
 
 class MediaRequestsComponent extends Component {
   componentDidMount() {
@@ -29,17 +28,11 @@ class MediaRequestsComponent extends Component {
     this.unsubscribe();
   }
 
-  getContext() {
-    return new CheckContext(this).getContextStore();
-  }
-
   subscribe() {
-    const { pusher, media } = this.props;
+    const { pusher, clientSessionId, media } = this.props;
     pusher.subscribe(media.pusher_channel).bind('media_updated', 'MediaRequests', (data, run) => {
       const annotation = JSON.parse(data.message);
-      if (annotation.annotated_id === media.dbid &&
-        this.getContext().clientSessionId !== data.actor_session_id
-      ) {
+      if (annotation.annotated_id === media.dbid && clientSessionId !== data.actor_session_id) {
         if (run) {
           this.props.relay.forceFetch();
           return true;
@@ -84,12 +77,9 @@ class MediaRequestsComponent extends Component {
   }
 }
 
-MediaRequestsComponent.contextTypes = {
-  store: PropTypes.object,
-};
-
 MediaRequestsComponent.propTypes = {
   pusher: pusherShape.isRequired,
+  clientSessionId: PropTypes.string.isRequired,
 };
 
 const pageSize = 30;

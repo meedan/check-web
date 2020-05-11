@@ -72,7 +72,7 @@ class Annotations extends React.Component {
         showAddAnnotation={props.showAddAnnotation}
         annotationCount={props.annotations.length}
       >
-        <Card initiallyExpanded style={props.style}>
+        <Card style={props.style}>
           <div className="annotations__list">
             {!props.annotations.length ?
               <Text style={{ margin: 'auto', color: black38 }}>

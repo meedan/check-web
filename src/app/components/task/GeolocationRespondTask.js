@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import AutoComplete from 'material-ui/AutoComplete';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
 import { Map, Marker, TileLayer } from 'react-leaflet';
+import CoordinateParser from 'coordinate-parser';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { black54, caption } from '../../styles/js/shared';
 import { stringHelper } from '../../customHelpers';
@@ -28,6 +29,10 @@ const messages = defineMessages({
   coordinates: {
     id: 'geolocationRespondTask.coordinates',
     defaultMessage: 'Latitude, Longitude',
+  },
+  invalidCoords: {
+    id: 'geoLocationRespondTask.invalidCoords',
+    defaultMessage: 'Invalid coordinates',
   },
 });
 
@@ -66,6 +71,7 @@ class GeolocationRespondTask extends Component {
         coordinatesString,
       },
       searchResult: [],
+      openResultsPopup: false,
     };
 
     this.timer = null;
@@ -80,15 +86,15 @@ class GeolocationRespondTask extends Component {
   }
 
   getCoordinates() {
+    const { coordinatesString } = this.state;
     let coordinates = [0, 0];
     try {
-      const { coordinatesString } = this.state;
-      if (coordinatesString && coordinatesString !== '') {
-        const pair = coordinatesString.split(/, ?/);
-        coordinates = [parseFloat(pair[0]), parseFloat(pair[1])];
-      }
+      const pos = new CoordinateParser(coordinatesString);
+      coordinates = [pos.getLatitude(), pos.getLongitude()];
     } catch (e) {
       coordinates = [0, 0];
+      const coordMessage = this.props.intl.formatMessage(messages.invalidCoords);
+      this.setState({ coordMessage });
     }
     return coordinates;
   }
@@ -112,7 +118,7 @@ class GeolocationRespondTask extends Component {
     const zoom = this.marker.leafletElement._map.getZoom();
     const coordinatesString = `${parseFloat(lat).toFixed(7)}, ${parseFloat(lng).toFixed(7)}`;
     this.setState({
-      lat, lng, zoom, coordinatesString, focus: true,
+      lat, lng, zoom, coordinatesString, focus: true, message: '', coordMessage: '',
     });
   }
 
@@ -122,9 +128,8 @@ class GeolocationRespondTask extends Component {
     const zoom = this.marker.leafletElement._map.getZoom();
     const coordinatesString = `${parseFloat(lat).toFixed(7)}, ${parseFloat(lng).toFixed(7)}`;
     this.setState({
-      lat, lng, zoom, coordinatesString, focus: true, message: '',
+      lat, lng, zoom, coordinatesString, focus: true, message: '', coordMessage: '',
     });
-    this.autoComplete.setState({ searchText: '' });
   }
 
   handlePressButton() {
@@ -140,11 +145,11 @@ class GeolocationRespondTask extends Component {
     }, this.setTaskAnswerDisabled);
   }
 
-  handleSearchText(query) {
+  handleSearchText(e) {
+    const query = e.target.value;
     const keystrokeWait = 1000;
 
     this.setState({ message: '' });
-
     clearTimeout(this.timer);
 
     if (query) {
@@ -156,6 +161,7 @@ class GeolocationRespondTask extends Component {
   handleChangeCoordinates(e) {
     this.setState({
       coordinatesString: e.target.value,
+      coordMessage: '',
     }, this.setTaskAnswerDisabled);
 
     const keystrokeWait = 1000;
@@ -165,7 +171,6 @@ class GeolocationRespondTask extends Component {
     clearTimeout(this.timer);
 
     if (e.target.value) {
-      this.autoComplete.setState({ searchText: '' });
       this.timer = setTimeout(() => this.handleBlur(), keystrokeWait);
     }
   }
@@ -176,7 +181,6 @@ class GeolocationRespondTask extends Component {
       lat: coordinates[0],
       lng: coordinates[1],
     }, this.setTaskAnswerDisabled);
-    this.autoComplete.setState({ searchText: '' });
   }
 
   handleSubmit() {
@@ -220,7 +224,6 @@ class GeolocationRespondTask extends Component {
     if (this.props.onDismiss) {
       this.props.onDismiss();
     }
-    this.autoComplete.setState({ searchText: '' });
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -247,7 +250,11 @@ class GeolocationRespondTask extends Component {
         if (!searchResult.length) {
           message = this.props.intl.formatMessage(messages.notFound);
         }
-        this.setState({ searchResult, message });
+        this.setState({
+          searchResult,
+          message,
+          openResultsPopup: Boolean(searchResult.length),
+        });
       })
       .catch(error => this.setState({ message: error.message }));
   };
@@ -277,44 +284,43 @@ class GeolocationRespondTask extends Component {
       </p>
     );
 
-    const selectCallback = (obj) => {
+    const selectCallback = (e, obj) => {
       if (typeof obj === 'object') {
         const { lat, lng } = obj.geometry;
         this.setState(
           {
             name: obj.formatted,
             coordinatesString: `${lat}, ${lng}`,
+            openResultsPopup: false,
           },
           this.handleBlur,
         );
       }
     };
 
-    const dataSourceConfig = {
-      text: 'formatted',
-      value: 'geometry',
-    };
-
     return (
       <div>
-        <AutoComplete
+        <Autocomplete
           id="geolocationsearch"
-          floatingLabelText={
-            <FormattedMessage
-              id="geolocationRespondTask.searchMap"
-              defaultMessage="Search the map"
-            />
-          }
           name="geolocationsearch"
-          dataSource={this.state.searchResult}
-          dataSourceConfig={dataSourceConfig}
-          filter={AutoComplete.noFilter}
-          onFocus={() => { this.setState({ focus: true }); }}
-          onKeyPress={this.handleKeyPress.bind(this)}
-          onNewRequest={selectCallback}
-          ref={(a) => { this.autoComplete = a; }}
-          onUpdateInput={this.handleSearchText.bind(this)}
-          menuProps={{ className: 'task__response-geolocation-search-options' }}
+          options={this.state.searchResult}
+          open={this.state.openResultsPopup}
+          getOptionLabel={option => option.formatted}
+          renderInput={
+            params => (<TextField
+              label={
+                <FormattedMessage
+                  id="geolocationRespondTask.searchMap"
+                  defaultMessage="Search the map"
+                />
+              }
+              onKeyPress={this.handleKeyPress.bind(this)}
+              onChange={this.handleSearchText.bind(this)}
+              {...params}
+            />)
+          }
+          onChange={selectCallback}
+          onBlur={() => this.setState({ openResultsPopup: false })}
           fullWidth
         />
         <div style={{ font: caption, color: black54 }}>
@@ -341,6 +347,8 @@ class GeolocationRespondTask extends Component {
           onFocus={() => { this.setState({ focus: true }); }}
           onBlur={this.handleBlur.bind(this)}
           value={this.state.coordinatesString}
+          error={this.state.coordMessage}
+          helperText={this.state.coordMessage}
           fullWidth
           margin="normal"
         />

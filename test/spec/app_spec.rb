@@ -584,7 +584,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       wait_for_selector(".media-tab__activity").click
       old = wait_for_size_change(old, "annotations__list-item", :class)
-      expect(@driver.page_source.include?('Task answered by')).to be(true)
+      expect(@driver.page_source.include?('Task completed by')).to be(true)
       wait_for_selector(".media-tab__tasks").click
       wait_for_selector('.task-type__geolocation > div > div > button').click
 
@@ -725,13 +725,72 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.task-type__geolocation > div > div > button').click
       wait_for_selector("#task__response-geolocation-name")
       fill_field("#geolocationsearch", "Salvador")
-      wait_for_selector(".task__response-geolocation-search-options")
+      wait_for_selector("#geolocationsearch-option-0")
       dropdown = @driver.find_element(:id,'geolocationsearch')
       dropdown.send_keys(:arrow_down)
       dropdown.send_keys(:arrow_down)
       @driver.action.send_keys(:enter).perform
       wait_for_text_change(' ',"#task__response-geolocation-name")
       expect(@driver.page_source.include?('Salvador, Microrregião de Salvador, Brazil')).to be(true)
+    end
+
+    it "should go back to previous team", bin1: true do
+      user = api_register_and_login_with_email
+      t1 = api_create_team(user: user)
+      t2 = api_create_team(user: user)
+
+      # Go to first team
+      @driver.navigate.to @config['self_url'] + '/' + t1.slug + '/all-items'
+      wait_for_selector('.project__title')
+      expect(@driver.page_source.include?(t1.name)).to be(true)
+      expect(@driver.page_source.include?(t2.name)).to be(false)
+      
+      # Navigate to second team
+      wait_for_selector('.header__user-menu').click
+      wait_for_selector('a[href="/check/me"]').click
+      wait_for_selector('#teams-tab').click
+      wait_for_selector("#switch-teams__link-to-#{t2.slug}").click
+      wait_for_selector('.project__title')
+      expect(@driver.page_source.include?(t2.name)).to be(true)
+      expect(@driver.page_source.include?(t1.name)).to be(false)
+
+      # Navigate back to first team
+      wait_for_selector('.header__user-menu').click
+      wait_for_selector('a[href="/check/me"]').click
+      wait_for_selector('#teams-tab').click
+      wait_for_selector("#switch-teams__link-to-#{t1.slug}").click
+      wait_for_selector('.project__title')
+      expect(@driver.page_source.include?(t1.name)).to be(true)
+      expect(@driver.page_source.include?(t2.name)).to be(false)
+    end
+
+    it "should go back to primary item", bin1: true do
+      # Go to primary item
+      api_create_team_project_and_claim_and_redirect_to_media_page
+      expect((@driver.title =~ /Claim/).nil?).to be(false)
+      expect((@driver.title =~ /Secondary/).nil?).to be(true)
+
+      # Create related item
+      wait_for_selector('.media-detail')
+      wait_for_selector('.create-related-media__add-button')
+      press_button('.create-related-media__add-button')
+      wait_for_selector('#create-media__quote').click
+      wait_for_selector('#create-media-quote-input')
+      fill_field('#create-media-quote-input', 'Secondary Item')
+      press_button('#create-media-dialog__submit-button')
+      wait_for_selector_none('#create-media-quote-input')
+
+      # Go to related item
+      wait_for_selector('.media-condensed__title').click
+      wait_for_selector('#media-related__primary-item')
+      expect((@driver.title =~ /Claim/).nil?).to be(true)
+      expect((@driver.title =~ /Secondary/).nil?).to be(false)
+
+      # Go back to primary item
+      wait_for_selector('.media-condensed__title').click
+      wait_for_selector('.media-related__secondary-item')
+      expect((@driver.title =~ /Claim/).nil?).to be(false)
+      expect((@driver.title =~ /Secondary/).nil?).to be(true)
     end
 
     # Postponed due Alexandre's developement

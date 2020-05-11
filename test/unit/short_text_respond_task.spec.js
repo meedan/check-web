@@ -11,49 +11,33 @@ describe('<ShortTextRespondTask />', () => {
 
   it('Cannot submit empty response', () => {
     const task = mountWithIntl(<ShortTextRespondTask />);
-    task.setState({ response: '', focus: true });
-    task.instance().canSubmit();
-    expect(task.find('.task__save').at(0)).toHaveLength(1);
-    expect(task.find('.task__save').at(0).html()).toMatch('disabled=""');
-  });
-
-  it('Cannot submit a note without response', () => {
-    const task = mountWithIntl(<ShortTextRespondTask />);
-    task.setState({ note: 'a note', focus: true });
-    task.instance().canSubmit();
-    expect(task.find('.task__save').at(0)).toHaveLength(1);
-    expect(task.find('.task__save').at(0).html()).toMatch('disabled=""');
+    task.find('#task__response-input').hostNodes().simulate('focus');
+    task.find('#task__response-input').hostNodes().simulate('change', { target: { name: 'response', value: '' } });
+    expect(task.find('.task__save').hostNodes()).toHaveLength(1);
+    expect(task.find('.task__save').hostNodes().html()).toMatch('disabled=""');
   });
 
   it('Can submit a response', () => {
     const task = mountWithIntl(<ShortTextRespondTask />);
-    task.setState({ response: 'a response', focus: true });
-    task.instance().canSubmit();
-    expect(task.find('.task__save').at(0)).toHaveLength(1);
-    expect(task.find('.task__save').at(0).html()).not.toMatch('disabled=""');
+    task.find('#task__response-input').hostNodes().simulate('focus');
+    task.find('#task__response-input').hostNodes().simulate('change', { target: { name: 'response', value: 'a response' } });
+    expect(task.find('.task__save').hostNodes()).toHaveLength(1);
+    expect(task.find('.task__save').hostNodes().html()).not.toMatch('disabled=""');
   });
 
   it('Can edit a response', () => {
     const task = mountWithIntl(<ShortTextRespondTask response="text response" />);
-    task.setState({ response: 'an edited response', focus: true });
-    task.instance().canSubmit();
-    expect(task.find('.task__save').at(0)).toHaveLength(1);
-    expect(task.find('.task__save').at(0).html()).not.toMatch('disabled=""');
+    task.find('#task__response-input').hostNodes().simulate('focus');
+    task.find('#task__response-input').hostNodes().simulate('change', { target: { name: 'response', value: 'an edited response' } });
+    expect(task.find('.task__save').hostNodes()).toHaveLength(1);
+    expect(task.find('.task__save').hostNodes().html()).not.toMatch('disabled=""');
   });
 
   it('Cannot remove a response', () => {
     const task = mountWithIntl(<ShortTextRespondTask response="text response" />);
-    task.setState({ response: '', focus: true });
-    task.instance().canSubmit();
-    expect(task.find('.task__save').at(0)).toHaveLength(1);
-    expect(task.find('.task__save').at(0).html()).toMatch('disabled=""');
-  });
-
-  it('Can edit a note', () => {
-    const task = mountWithIntl(<ShortTextRespondTask response="text response" note="text note" />);
-    task.setState({ note: 'a note', focus: true });
-    task.instance().canSubmit();
-    expect(task.find('.task__save').at(0)).toHaveLength(1);
-    expect(task.find('.task__save').at(0).html()).not.toMatch('disabled=""');
+    task.find('#task__response-input').hostNodes().simulate('focus');
+    task.find('#task__response-input').hostNodes().simulate('change', { target: { name: 'response', value: '' } });
+    expect(task.find('.task__save').hostNodes()).toHaveLength(1);
+    expect(task.find('.task__save').hostNodes().html()).toMatch('disabled=""');
   });
 });

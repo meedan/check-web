@@ -881,7 +881,7 @@ class Annotation extends Component {
           <span className="annotation__task-resolved">
             <FormattedMessage
               id="annotation.taskResolve"
-              defaultMessage="Task answered by {author}: {task}{response}"
+              defaultMessage="Task completed by {author}: {task}{response}"
               values={{
                 task: activity.task.label,
                 author: authorName,
@@ -922,8 +922,8 @@ class Annotation extends Component {
             <span className="annotation__keep">
               <FormattedHTMLMessage
                 id="annotation.archiverError"
-                defaultMessage="Sorry, an error occurred while archiving the item at {name}. Please refresh the item to try again and contact {supportEmail} if the condition persists."
-                values={{ name: archiveName, supportEmail: stringHelper('SUPPORT_EMAIL') }}
+                defaultMessage='Sorry, the following error occurred while archiving the item to {name}: "{message}". Please refresh the item to try again and contact {supportEmail} if the condition persists.'
+                values={{ name: archiveName, message: archiveResponse.error.message, supportEmail: stringHelper('SUPPORT_EMAIL') }}
               />
             </span>
           );

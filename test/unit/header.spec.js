@@ -1,5 +1,4 @@
 import React from 'react';
-import IconArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 import { HeaderComponent } from '../../src/app/components/Header';
 import TeamHeader from '../../src/app/components/team/TeamHeader';
 import TeamPublicHeader from '../../src/app/components/team/TeamPublicHeader';

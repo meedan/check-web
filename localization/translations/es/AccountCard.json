@@ -1,8 +1,0 @@
-{
-  "accountCard.fbStats": "{likes, number} Me gusta",
-  "accountCard.twitterStats": "{tweets, number} Tweets • {followers, number} Seguidores • {following, number} Seguidos",
-  "accountCard.youtubeStats": "{videos, number} Vídeos • {subscribers, number} Suscriptores",
-  "mediaDetail.byUser": "por {username}",
-  "accountCard.providerAccount": "{provider} cuenta",
-  "mediaDetail.added": "Añadido {byUser}"
-}

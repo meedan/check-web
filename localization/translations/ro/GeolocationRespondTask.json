@@ -4,6 +4,7 @@
   "geoLocationRespondTask.error": "Ne pare rău, în timpul actualizării sarcinii s-a produs o eroare. Vă rugăm să mai încercați odată și să contactați {supportEmail} dacă situația persistă.",
   "geolocationRespondTask.placeName": "Individualizarea denumirii locului",
   "geolocationRespondTask.coordinates": "Latitudine, Longitudine",
+  "geoLocationRespondTask.invalidCoords": "Invalid coordinates",
   "geolocationRespondTask.cancelTask": "Anulare",
   "geolocationRespondTask.answerTask": "Rezolvă sarcina",
   "geolocationRespondTask.searchMap": "Caută pe hartă"

@@ -226,7 +226,7 @@ class MediaCondensedComponent extends Component {
         onClose={this.handleCloseDialogs.bind(this)}
       >
         <DialogTitle>
-          {this.props.intl.formatMessage(messages.editReport)}
+          {this.props.intl && this.props.intl.formatMessage(messages.editReport)}
         </DialogTitle>
         <DialogContent>
           <form onSubmit={this.handleSave.bind(this, media)} name="edit-media-form">
@@ -286,7 +286,7 @@ class MediaCondensedComponent extends Component {
       <span style={{ display: 'block', position: 'relative' }}>
         <CardHeader
           title={
-            <Link to={{ pathname: mediaUrl, state: { query: mediaQuery } }}>
+            <Link to={{ pathname: mediaUrl, state: { query: mediaQuery } }} className="media-condensed__title">
               <span style={{ color: black87 }}>
                 {truncateLength(media.title, 120)}
               </span>
@@ -328,10 +328,6 @@ class MediaCondensedComponent extends Component {
             padding: 0,
             height: 100,
           }}
-          titleStyle={{
-            paddingRight: 120,
-            margin: '16px 0',
-          }}
         />
         { !media.archived ?
           <div>
@@ -346,7 +342,7 @@ class MediaCondensedComponent extends Component {
               }
               onClick={this.handleOpenMenu}
             >
-              <IconMoreVert className="media-codensed__actions_icon" />
+              <IconMoreVert className="media-condensed__actions_icon" />
             </IconButton>
             <Menu
               anchorEl={this.state.anchorEl}
@@ -453,7 +449,7 @@ const MediaCondensed = (props) => {
 
   if (props.media.dbid === 0) {
     return (
-      <MediaCondensedComponent {...props} />
+      <ConnectedMediaCondensedComponent {...props} />
     );
   }
 

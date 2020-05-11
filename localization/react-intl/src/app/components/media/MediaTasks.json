@@ -4,8 +4,8 @@
     "defaultMessage": "Item tasks"
   },
   {
-    "id": "mediaComponent.resolved",
-    "defaultMessage": "resolved"
+    "id": "mediaComponent.answered",
+    "defaultMessage": "completed"
   },
   {
     "id": "mediaComponent.noTasks",

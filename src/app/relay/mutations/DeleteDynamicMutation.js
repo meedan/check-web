@@ -20,7 +20,7 @@ class DeleteDynamicMutation extends Relay.Mutation {
     case 'project_source':
       return Relay.QL`fragment on DestroyDynamicPayload { deletedId, project_source { source { log, log_count } } }`;
     case 'task':
-      return Relay.QL`fragment on DestroyDynamicPayload { deletedId, task { id, status, first_response, responses } }`;
+      return Relay.QL`fragment on DestroyDynamicPayload { deletedId, task { id, first_response, responses } }`;
     default:
       return Relay.QL`fragment on DestroyDynamicPayload { deletedId }`;
     }
@@ -31,7 +31,6 @@ class DeleteDynamicMutation extends Relay.Mutation {
       return {
         deletedId: this.props.id,
         task: {
-          status: 'unresolved',
           id: this.props.annotated.id,
           assignments: { edges: [] },
           first_response: null,

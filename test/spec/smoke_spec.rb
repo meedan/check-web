@@ -72,7 +72,7 @@ shared_examples 'smoke' do
     wait_for_selector_none(".invite-member-email-input")
   end
 
-  it "should redirect to login screen by the join team link", bin2: true do 
+  it "should redirect to login screen by the join team link", bin2: true do
     team = "team#{Time.now.to_i}"
     api_create_team(team: team)
     api_logout
@@ -233,13 +233,11 @@ shared_examples 'smoke' do
     wait_for_selector('.team-tasks__menu-item-button').click
     wait_for_selector('.team-tasks__edit-button').click
     fill_field('#task-label-input', '-EDITED')
-    wait_for_selector('#edit-task__required-switch').click ;
     wait_for_selector('.create-task__dialog-submit-button').click
     wait_for_selector('#confirm-dialog__checkbox').click
     wait_for_selector('#confirm-dialog__confirm-action-button').click
     wait_for_selector_none("#confirm-dialog__cancel-action-button")
     expect(@driver.page_source.include?('New teamwide task-EDITED')).to be(true)
-    expect(@driver.find_element(:css, '.task__required').text == '*').to be(true)
 
     # Delete task
     wait_for_selector('.team-tasks__menu-item-button').click
@@ -270,7 +268,7 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('Task created by')).to be(true)
 
     # Answer task
-    expect(@driver.page_source.include?('Task answered by')).to be(false)
+    expect(@driver.page_source.include?('Task completed by')).to be(false)
     wait_for_selector(".media-tab__tasks").click
     wait_for_selector('.task__card-expand').click
     fill_field('input[name="hour"]', '23')
@@ -280,7 +278,7 @@ shared_examples 'smoke' do
     wait_for_selector('.task__save').click
     wait_for_selector(".media-tab__activity").click
     old = wait_for_size_change(old, 'annotation__default-content', :class, 25, 'datetime task 3')
-    expect(@driver.page_source.include?('Task answered by')).to be(true)
+    expect(@driver.page_source.include?('Task completed by')).to be(true)
 
     # Edit task
     wait_for_selector(".media-tab__tasks").click
@@ -530,7 +528,7 @@ shared_examples 'smoke' do
     wait_for_selector_none("#create-media-quote-input")
     wait_for_selector_list_size(".media-detail", 2)
     expect(@driver.page_source.include?('Main Item')).to be(true)
-    wait_for_selector(".media-codensed__actions_icon").click
+    wait_for_selector(".media-condensed__actions_icon").click
     wait_for_selector('.media-condensed__promote-relationshp').click
     wait_for_selector_none('.media-condensed__promote-relationshp')
     wait_for_selector(".project-header__back-button").click
@@ -585,7 +583,7 @@ shared_examples 'smoke' do
     cards = wait_for_selector_list(".media-detail").length
     expect(cards == 2).to be(true)
     #break the relationship between the items
-    wait_for_selector(".media-codensed__actions_icon").click
+    wait_for_selector(".media-condensed__actions_icon").click
     wait_for_selector('.media-condensed__break-relationship').click
     wait_for_selector_none('.media-condensed__break-relationship')
     wait_for_selector_list_size(".media-detail", 1)

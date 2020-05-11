@@ -15,7 +15,6 @@ import MediaLog from './MediaLog';
 import MediaComments from './MediaComments';
 import MediaRequests from './MediaRequests';
 import MediaUtil from './MediaUtil';
-import CheckContext from '../../CheckContext';
 import {
   ContentColumn,
   headerHeight,
@@ -100,23 +99,21 @@ class MediaComponent extends Component {
     this.unsubscribe();
   }
 
-  getContext() {
-    return new CheckContext(this).getContextStore();
-  }
-
   setCurrentContext() {
-    const { project } = this.getContext();
-    if (project && project.dbid) {
-      this.props.relay.setVariables({ contextId: project.dbid });
+    if (/^\/[^/]+\/project\/[0-9]+\/media\/[0-9]+/.test(window.location.pathname)) {
+      const projectId = window.location.pathname.match(/^\/[^/]+\/project\/([0-9]+)\/media\/[0-9]+/)[1];
+      if (this.props.relay.variables.contextId !== projectId) {
+        this.props.relay.setVariables({ contextId: projectId });
+      }
     }
   }
 
   subscribe() {
-    const { pusher, media } = this.props;
+    const { pusher, clientSessionId, media } = this.props;
     pusher.subscribe(media.pusher_channel).bind('relationship_change', 'MediaComponent', (data, run) => {
       const relationship = JSON.parse(data.message);
       if (
-        (!relationship.id || this.getContext().clientSessionId !== data.actor_session_id) &&
+        (!relationship.id || clientSessionId !== data.actor_session_id) &&
         (relationship.source_id === media.dbid ||
         relationship.target_id === media.dbid)
       ) {
@@ -134,9 +131,7 @@ class MediaComponent extends Component {
 
     pusher.subscribe(media.pusher_channel).bind('media_updated', 'MediaComponent', (data, run) => {
       const annotation = JSON.parse(data.message);
-      if (annotation.annotated_id === media.dbid &&
-        this.getContext().clientSessionId !== data.actor_session_id
-      ) {
+      if (annotation.annotated_id === media.dbid && clientSessionId !== data.actor_session_id) {
         if (run) {
           this.props.relay.forceFetch();
           return true;
@@ -269,10 +264,7 @@ MediaComponent.propTypes = {
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
   pusher: pusherShape.isRequired,
-};
-
-MediaComponent.contextTypes = {
-  store: PropTypes.object,
+  clientSessionId: PropTypes.string.isRequired,
 };
 
 export default withPusher(injectIntl(MediaComponent));

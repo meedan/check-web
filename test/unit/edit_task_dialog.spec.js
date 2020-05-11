@@ -15,7 +15,6 @@ describe('<EditTaskDialog />', function() {
     );
     expect(wrapper.find('#task-label-input').hostNodes()).toHaveLength(1);
     expect(wrapper.find('#task-description-input').hostNodes()).toHaveLength(1);
-    expect(wrapper.find('#edit-task__required-switch').hostNodes()).toHaveLength(1);
     expect(wrapper.find('.create-task__dialog-cancel-button').hostNodes()).toHaveLength(1);
     expect(wrapper.find('.create-task__dialog-submit-button').hostNodes()).toHaveLength(1);
   });

@@ -7,7 +7,6 @@
   "TeamMembersListItem.deleteMember": "Eliminar miembro",
   "TeamMembersListItem.leaveTeam": "Salir de área de trabajo",
   "TeamMembersListItem.singleOwner": "Antes de que puedas abandonar el área de trabajo, por favor designa el rol de propietario a otro miembro.",
-  "teamMembersListItem.assignmentsProgress": "{completedCount} completadas, {inProgressCount} en curso, {unstartedCount} sin comenzar",
   "TeamMembershipRequestsListItem.approve": "Aprobado",
   "TeamMembershipRequestsListItem.deny": "Rechazar"
 }

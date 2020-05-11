@@ -1,5 +1,0 @@
-{
-  "sourceCard.error": "Désolé, une erreur s'est produite durant la mise à jour de la source. Veuillez réessayer et prévenir {supportEmail} si le problème persiste.",
-  "mediaDetail.byUser": "par {username}",
-  "mediaDetail.added": "Rajouté {byUser}"
-}

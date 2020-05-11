@@ -6,10 +6,16 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import styled from 'styled-components';
 import AutoCompleteMediaItem from './AutoCompleteMediaItem';
 import CreateMediaInput from './CreateMediaInput';
 import Message from '../Message';
 import globalStrings from '../../globalStrings';
+import { units } from '../../styles/js/shared';
+
+const StyledAutoCompleteWrapper = styled.div`
+  height: ${units(10)};
+`;
 
 class CreateRelatedMediaDialog extends React.Component {
   constructor(props) {
@@ -79,13 +85,13 @@ class CreateRelatedMediaDialog extends React.Component {
             />
           }
           { mode === 'existing' &&
-            <div>
+            <StyledAutoCompleteWrapper>
               <Message message={this.props.message} />
               <AutoCompleteMediaItem
                 media={media}
                 onSelect={this.handleSelectExisting}
               />
-            </div>
+            </StyledAutoCompleteWrapper>
           }
         </DialogContent>
         <DialogActions>

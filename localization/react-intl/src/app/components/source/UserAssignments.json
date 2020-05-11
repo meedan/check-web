@@ -4,10 +4,6 @@
     "defaultMessage": "Filter by workspace"
   },
   {
-    "id": "userAssignments.progress",
-    "defaultMessage": "{answered, plural, =0 {No required task answered} one {1 required task answered} other {# required tasks answered}}, out of {total}"
-  },
-  {
     "id": "userAssignments.yourAssignments",
     "defaultMessage": "Your assignments"
   },

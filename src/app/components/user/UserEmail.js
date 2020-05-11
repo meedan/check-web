@@ -6,7 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
-import TextField from 'material-ui/TextField';
+import TextField from '@material-ui/core/TextField';
 import ConfirmEmail from './ConfirmEmail';
 import CheckContext from '../../CheckContext';
 import { getErrorMessage } from '../../helpers';
@@ -19,6 +19,10 @@ const messages = defineMessages({
   title: {
     id: 'userEmail.title',
     defaultMessage: 'Add your email',
+  },
+  emailHint: {
+    id: 'userEmail.emailInputHint',
+    defaultMessage: 'email@example.com',
   },
   submit: {
     id: 'userEmail.submit',
@@ -92,19 +96,18 @@ class UserEmail extends React.Component {
             <div>
               <TextField
                 id="user-email__input"
-                floatingLabelText={
+                label={
                   <FormattedMessage
                     id="userEmail.emailInputLabel"
                     defaultMessage="Email"
                   />
                 }
-                hintText={
-                  <FormattedMessage
-                    id="userEmail.emailInputHint"
-                    defaultMessage="email@example.com"
-                  />
+                placeholder={
+                  this.props.intl.formatMessage(messages.emailHint)
                 }
-                errorText={this.state.message}
+                helperText={this.state.message}
+                error={this.state.message}
+                margin="normal"
                 fullWidth
               />
             </div>

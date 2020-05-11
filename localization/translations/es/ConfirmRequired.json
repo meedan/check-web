@@ -1,4 +1,0 @@
-{
-  "task.confirmRequiredTitle": "Confirmar la tarea requerida",
-  "task.confirmRequiredText": "Estás agregando una tarea requerida a un ítem marcado <strong>{status}</strong>. Al hacerlo, el ítem volverá automáticamente a su estado original."
-}

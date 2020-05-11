@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import Button from '@material-ui/core/Button';
-import TextField from 'material-ui/TextField';
+import TextField from '@material-ui/core/TextField';
 import { getErrorMessage } from '../../helpers';
 import CheckContext from '../../CheckContext';
 import { units, Row } from '../../styles/js/shared';
@@ -13,6 +13,10 @@ const messages = defineMessages({
   error: {
     id: 'tagInput.error',
     defaultMessage: 'Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists.',
+  },
+  search: {
+    id: 'tagInput.search',
+    defaultMessage: 'Search or add new tag',
   },
 });
 
@@ -96,15 +100,11 @@ class TagInput extends React.Component {
           <TextField
             id="tag-input__tag-input"
             value={this.state.value}
-            errorText={this.state.message}
+            error={this.state.message}
+            helperText={this.state.message}
             onChange={this.handleChange.bind(this)}
             onKeyPress={this.handleKeyPress.bind(this)}
-            hintText={
-              <FormattedMessage
-                id="tagInput.search"
-                defaultMessage="Search or add new tag"
-              />
-            }
+            placeholder={this.props.intl.formatMessage(messages.search)}
           />
           <Button
             style={{ marginLeft: 'auto' }}
