@@ -243,7 +243,9 @@ class HomeComponent extends Component {
     const loggedIn = !!this.state.token;
     const teamSlugFromUrl = window.location.pathname.match(/^\/([^/]+)/);
     const teamSlug = (teamSlugFromUrl && teamSlugFromUrl[1] !== 'check' ? teamSlugFromUrl[1] : null);
-    const inTeamContext = !!teamSlug;
+    const userTeamSlug = ((user.current_team && user.current_team.slug) ?
+      user.current_team.slug : null);
+    const inTeamContext = !!(teamSlug || userTeamSlug);
 
     const currentUserIsMember = (() => {
       if (inTeamContext && loggedIn) {
@@ -281,7 +283,7 @@ class HomeComponent extends Component {
                   variant="persistent"
                   docked
                   loggedIn={loggedIn}
-                  teamSlug={teamSlug}
+                  teamSlug={teamSlug || userTeamSlug}
                   inTeamContext={inTeamContext}
                   currentUserIsMember={currentUserIsMember}
                   {...this.props}
