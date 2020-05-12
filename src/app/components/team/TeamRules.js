@@ -681,7 +681,7 @@ class TeamRulesComponent extends Component {
               flag: rule2.rule_value_flagged_as,
               threshold: parseInt(rule2.rule_value_flag_threshold, 10),
             });
-          } else {
+          } else if (rule2.rule_definition === 'report_is_published' || rule2.rule_definition === 'report_is_paused') {
             rules[i].rules[j].rule_value = '';
           }
           j += 1;
