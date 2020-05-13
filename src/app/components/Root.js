@@ -30,7 +30,7 @@ import ProjectEdit from './project/ProjectEdit';
 import Search from './search/Search';
 import BotGarden from './BotGarden';
 import Bot from './Bot';
-import VideoTimeline from './video-timeline/VideoTimeline';
+import VideoTimeline from './video-timeline/VideoTimelineContainer';
 
 class Root extends Component {
   static logPageView() {
