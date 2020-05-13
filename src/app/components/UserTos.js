@@ -93,7 +93,7 @@ class UserTos extends Component {
 
     return (
       <div>
-        <Dialog open>
+        <Dialog open={this.props.open}>
           <DialogContent>
             <Message message={this.state.message} />
             <UserTosForm

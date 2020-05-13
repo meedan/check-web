@@ -90,13 +90,8 @@ class CheckContext {
     }
 
     this.setContextStore({ currentUser: userData });
-
-    if (userData && !userData.accepted_terms) {
-      browserHistory.push('/check/user/terms-of-service');
-    } else {
-      this.maybeRedirect(this.caller.props.location.pathname, userData);
-      this.setContext();
-    }
+    this.maybeRedirect(this.caller.props.location.pathname, userData);
+    this.setContext();
 
     this.caller.setState(newState);
   }
