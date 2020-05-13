@@ -279,7 +279,7 @@ class HomeComponent extends Component {
               }
               <Favicon url={`/images/logo/${config.appName}.ico`} animated={false} />
               <BrowserSupport />
-              <UserTos open={!user.accepted_terms} />
+              <UserTos user={user} routeIsPublic={routeIsPublic} />
               { showDrawer ?
                 <DrawerNavigation
                   variant="persistent"
