@@ -658,8 +658,7 @@ class SmoochBotSettings extends Component {
     this.setState({ showResourceDialog: true, currentIndex: i });
   }
 
-  handleOnChange(formData) {
-    const data = formData.formData;
+  handleOnChange(data) {
     this.setState({ data });
     this.props.onChange({ formData: data });
   }
@@ -802,7 +801,7 @@ class SmoochBotSettings extends Component {
               <Form
                 schema={this.props.schema}
                 uiSchema={uiSchema}
-                formData={this.state.data}
+                value={this.state.data}
                 onChange={this.handleOnChange.bind(this)}
               />
               <Dialog

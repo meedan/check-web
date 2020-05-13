@@ -49,17 +49,6 @@ const messages = defineMessages({
 });
 
 const StyledSchemaForm = styled.div`
-  div {
-    box-shadow: none !important;
-  }
-
-  fieldset > label + div div {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    display: block;
-    box-sizing: border-box;
-  }
-
   fieldset {
     border: 0;
     padding: 0;
@@ -71,10 +60,6 @@ const StyledSchemaForm = styled.div`
 
   div + fieldset {
     margin-top: ${units(1)};
-  }
-
-  textarea, input[type=string], input[type=number] {
-    width: 100%;
   }
 
   // All Actions fieldset and all rules fieldset
@@ -136,7 +121,6 @@ const StyledSchemaForm = styled.div`
   fieldset fieldset fieldset div + fieldset + fieldset fieldset {
     border-radius: 5px;
     border: 2px solid #CBCBCB;
-    width: auto;
     clear: both;
   }
   fieldset fieldset fieldset div + fieldset > div > div > div + div > fieldset::before,
@@ -563,7 +547,7 @@ class TeamRulesComponent extends Component {
     const rules = [];
 
     // Always start with a default list, condition and action
-    data.formData.rules.forEach((rule) => {
+    data.rules.forEach((rule) => {
       if (Object.values(rule).join('') === '') {
         rules.push({
           name: '',
@@ -750,7 +734,7 @@ class TeamRulesComponent extends Component {
     const { direction } = this.props;
 
     const regexhintMessage = (
-      <div>
+      <React.Fragment>
         <FormattedMessage id="teamRules.ruleRegexHint" defaultMessage="Your regex should look like ^(0?[1-9]|[12][0-9]|3[01])$." />
         <ExternalLink
           style={{ textDecoration: 'underline' }}
@@ -758,7 +742,7 @@ class TeamRulesComponent extends Component {
         >
           <FormattedMessage id="teamRules.ruleRegexHintLink" defaultMessage="Click here to read more about regular expressions." />
         </ExternalLink>
-      </div>
+      </React.Fragment>
     );
 
     const similarImagesHintMessage = (
@@ -876,7 +860,7 @@ class TeamRulesComponent extends Component {
                   <Form
                     schema={this.state.schema}
                     uiSchema={uiSchema}
-                    formData={{ rules: this.state.rules }}
+                    value={{ rules: this.state.rules }}
                     onChange={this.handleRulesUpdated.bind(this)}
                   />
                 </div>
