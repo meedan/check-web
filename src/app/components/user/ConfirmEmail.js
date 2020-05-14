@@ -1,7 +1,7 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
-import MdInfoOutline from '@material-ui/icons/InfoOutline';
+import MdInfoOutlined from '@material-ui/icons/InfoOutlined';
 import styled from 'styled-components';
 import ResendConfirmationMutation from '../../relay/mutations/ResendConfirmationMutation';
 import SpecialBlueCard from '../layout/SpecialBlueCard';
@@ -51,7 +51,7 @@ const ConfirmEmail = (props) => {
   return (
     <SpecialBlueCard
       title={<FormattedMessage id="ConfirmEmail.title" defaultMessage="Confirm your email" />}
-      icon={<MdInfoOutline />}
+      icon={<MdInfoOutlined />}
       content={
         <div>
           <FormattedMessage

@@ -133,7 +133,7 @@ class TeamBotsComponent extends Component {
 
   handleSettingsUpdated(installation, data) {
     const settings = Object.assign({}, this.state.settings);
-    settings[installation.id] = data.formData;
+    settings[installation.id] = data;
     this.setState({ settings, message: null, messageBotId: null });
   }
 
@@ -292,7 +292,7 @@ class TeamBotsComponent extends Component {
                             bot={bot}
                             schema={JSON.parse(bot.settings_as_json_schema)}
                             uiSchema={JSON.parse(bot.settings_ui_schema)}
-                            formData={this.state.settings[installation.node.id]}
+                            value={this.state.settings[installation.node.id]}
                             onChange={this.handleSettingsUpdated.bind(this, installation.node)}
                           /> : null
                         }
