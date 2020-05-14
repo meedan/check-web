@@ -49,6 +49,10 @@ const messages = defineMessages({
 });
 
 const StyledSchemaForm = styled.div`
+  div {
+    box-shadow: none !important;
+  }
+
   fieldset {
     border: 0;
     padding: 0;
@@ -77,6 +81,15 @@ const StyledSchemaForm = styled.div`
     border-radius: 5px;
     border: 2px solid transparent;
     position: relative;
+  }
+  fieldset fieldset fieldset div + fieldset > div > div > div + div,
+  fieldset fieldset fieldset div + fieldset + fieldset > div > div > div + div {
+    margin-top: 20px;
+
+    &:last-child {
+      margin-top: 0;
+      justify-content: flex-start;
+    }
   }
   fieldset fieldset fieldset div + fieldset > div::before {
     color: #FFAE53;
@@ -147,6 +160,7 @@ const StyledSchemaForm = styled.div`
     color: #ACACAC;
     width: auto !important;
     font-size: 1rem;
+    height: auto;
   }
 
   fieldset fieldset fieldset div + fieldset > div > div > div + div > fieldset::before {
@@ -163,7 +177,6 @@ const StyledSchemaForm = styled.div`
 
   fieldset fieldset fieldset button::before {
     content: "${props => props.intl.formatMessage(messages.labelAdd)}";
-    padding-left: 10px;
   }
 
   fieldset fieldset + div > button {
@@ -186,7 +199,7 @@ const StyledSchemaForm = styled.div`
   }
 
   fieldset fieldset fieldset fieldset + div > button + button + button {
-    display: block !important;
+    display: block;
   }
 
   // Button to delete an action or condition (top right)
@@ -199,6 +212,11 @@ const StyledSchemaForm = styled.div`
   // Button to delete an action or condition (bottom right)
   fieldset fieldset fieldset fieldset + div > button {
     font-size: x-large;
+    display: none !important;
+  }
+
+  textarea, input[type=string], input[type=number] {
+    width: 100%;
   }
 
   // Button to delete an action or condition (bottom right)
