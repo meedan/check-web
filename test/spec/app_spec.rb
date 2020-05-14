@@ -793,6 +793,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect((@driver.title =~ /Secondary/).nil?).to be(true)
     end
 
+    it "should show current team content on sidebar when viewing profile", bin2: true do
+      user = api_register_and_login_with_email
+      api_create_team_and_project(user: user)
+      @driver.navigate.to(@config['self_url'] + '/check/me')
+      wait_for_selector('#teams-tab')
+      expect(@driver.page_source.include?('All items')).to be(true)
+    end
+
     # Postponed due Alexandre's developement
     # it "should add and remove suggested tags" do
     #   skip("Needs to be implemented")

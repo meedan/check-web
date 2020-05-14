@@ -40,8 +40,13 @@ function generateRandomQueryId() {
 
 function parseQueryPayload(request, payload) {
   if (Object.prototype.hasOwnProperty.call(payload, 'errors')) {
-    const error = createRequestError(request, '200', payload);
-    request.reject(error);
+    if (payload.errors.filter(error => error.code === 3).length
+      && window.location.pathname !== '/check/not-found') {
+      browserHistory.push('/check/not-found');
+    } else {
+      const error = createRequestError(request, '200', payload);
+      request.reject(error);
+    }
   } else if (!Object.prototype.hasOwnProperty.call(payload, 'data')) {
     request.reject(new Error('Server response was missing for query ' +
           `\`${request.getDebugName()}\`.`));
@@ -123,9 +128,7 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
       // eslint-disable-next-line no-console
       console.debug('%cSending request to backend ', 'font-weight: bold');
     }
-    if (result.status === 404 && window.location.pathname !== '/check/not-found') {
-      browserHistory.push('/check/not-found');
-    } else if (result.status === 401 || result.status === 403) {
+    if (result.status === 401 || result.status === 403) {
       const team = this._init.team();
       if (team !== '') {
         browserHistory.push(`/${team}/join`);
