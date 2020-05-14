@@ -119,7 +119,6 @@ class UserAssignmentsComponent extends Component {
 
     user.assignments.edges.forEach((assignment) => {
       const a = assignment.node;
-      console.log(a);
       if (a.project) {
         const project = a.project.title;
         if (!assignments[project]) {
