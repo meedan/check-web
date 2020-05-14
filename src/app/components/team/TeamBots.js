@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
-import { Card, CardText, CardActions } from 'material-ui/Card';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+import Collapse from '@material-ui/core/Collapse';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
-import RaisedButton from 'material-ui/RaisedButton';
 import Settings from '@material-ui/icons/Settings';
 import Tooltip from '@material-ui/core/Tooltip';
 import { Emojione } from 'react-emoji-render';
@@ -28,7 +30,7 @@ const messages = defineMessages({
   },
 });
 
-const StyledCardText = styled(CardText)`
+const StyledCardContent = styled(CardContent)`
   display: flex;
 
   img {
@@ -44,6 +46,9 @@ const StyledCardText = styled(CardText)`
 
 const StyledSettings = styled.div`
   display: inline;
+
+  margin-${props => props.direction.to}: 0;
+  margin-${props => props.direction.from}: auto;
 
   .settingsIcon {
     vertical-align: middle;
@@ -95,7 +100,7 @@ class TeamBotsComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      expanded: {},
+      expanded: null,
       settings: {},
       message: null,
       messageBotId: null,
@@ -158,8 +163,7 @@ class TeamBotsComponent extends Component {
   }
 
   handleToggleSettings(botId) {
-    const expanded = Object.assign({}, this.state.expanded);
-    expanded[botId] = !this.state.expanded[botId];
+    const expanded = (this.state.expanded === botId) ? null : botId;
     this.setState({ expanded, message: null, messageBotId: null });
   }
 
@@ -200,14 +204,14 @@ class TeamBotsComponent extends Component {
           : null }
         { team.team_bot_installations.edges.map((installation) => {
           const bot = installation.node.team_bot;
+          const botExpanded = this.state.expanded === bot.dbid;
 
           return (
             <Card
               style={{ marginBottom: units(5) }}
               key={`bot-${bot.dbid}`}
-              expanded={this.state.expanded[bot.dbid]}
             >
-              <StyledCardText direction={direction}>
+              <StyledCardContent direction={direction}>
                 <img src={bot.avatar} alt={bot.name} />
                 <div>
                   <h2 style={{ font: title1 }}>{bot.name}</h2>
@@ -224,9 +228,9 @@ class TeamBotsComponent extends Component {
                     </Button>
                   </div>
                 </div>
-              </StyledCardText>
-              <CardActions style={{ padding: 0, textAlign: 'right' }}>
-                <StyledSettings style={{ marginRight: 0 }}>
+              </StyledCardContent>
+              <CardActions>
+                <StyledSettings direction={direction}>
                   <Tooltip title={this.props.intl.formatMessage(messages.settingsTooltip)}>
                     <Settings
                       onClick={this.handleToggleSettings.bind(this, bot.dbid)}
@@ -254,47 +258,53 @@ class TeamBotsComponent extends Component {
                 handleConfirm={this.handleDestroy.bind(this)}
               />
               <Divider />
-              <CardText expandable>
-                { bot.settings_as_json_schema ?
-                  <StyledSchemaForm>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                      <h3><FormattedMessage id="teamBots.settings" defaultMessage="Settings" /></h3>
-                      <div>
-                        <RaisedButton
-                          primary
-                          onClick={
-                            bot.name === 'Smooch' ?
-                              this.handleOpen.bind(this, installation.node) :
-                              this.handleSubmitSettings.bind(this, installation.node)
-                          }
-                          label={
+              <Collapse in={botExpanded} timeout="auto">
+                <CardContent>
+                  { bot.settings_as_json_schema ?
+                    <React.Fragment>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                        <h3><FormattedMessage id="teamBots.settings" defaultMessage="Settings" /></h3>
+                        <div>
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={
+                              bot.name === 'Smooch' ?
+                                this.handleOpen.bind(this, installation.node) :
+                                this.handleSubmitSettings.bind(this, installation.node)
+                            }
+                          >
                             <FormattedMessage
                               id="teamBots.save"
                               defaultMessage="Save"
                             />
-                          }
-                        />
-                        <small style={{ margin: `0 ${units(1)}` }}>
-                          { this.state.message && this.state.messageBotId === bot.dbid ?
-                            this.state.message : null
-                          }
-                        </small>
+                          </Button>
+                          <small style={{ margin: `0 ${units(1)}` }}>
+                            { this.state.message && this.state.messageBotId === bot.dbid ?
+                              this.state.message : null
+                            }
+                          </small>
+                        </div>
                       </div>
-                    </div>
-                    <TeamBot
-                      bot={bot}
-                      schema={JSON.parse(bot.settings_as_json_schema)}
-                      uiSchema={JSON.parse(bot.settings_ui_schema)}
-                      formData={this.state.settings[installation.node.id]}
-                      onChange={this.handleSettingsUpdated.bind(this, installation.node)}
+                      <StyledSchemaForm>
+                        { botExpanded ?
+                          <TeamBot
+                            bot={bot}
+                            schema={JSON.parse(bot.settings_as_json_schema)}
+                            uiSchema={JSON.parse(bot.settings_ui_schema)}
+                            formData={this.state.settings[installation.node.id]}
+                            onChange={this.handleSettingsUpdated.bind(this, installation.node)}
+                          /> : null
+                        }
+                      </StyledSchemaForm>
+                    </React.Fragment> :
+                    <FormattedMessage
+                      id="teamBots.noSettings"
+                      defaultMessage="There are no settings for this bot."
                     />
-                  </StyledSchemaForm> :
-                  <FormattedMessage
-                    id="teamBots.noSettings"
-                    defaultMessage="There are no settings for this bot."
-                  />
-                }
-              </CardText>
+                  }
+                </CardContent>
+              </Collapse>
             </Card>
           );
         })}

@@ -14,7 +14,6 @@ import { withPusher, pusherShape } from '../../pusher';
 import CreateProject from '../project/CreateProject';
 import TeamRoute from '../../relay/TeamRoute';
 import RelayContainer from '../../relay/RelayContainer';
-import CheckContext from '../../CheckContext';
 
 import {
   AlignOpposite,
@@ -109,15 +108,11 @@ class DrawerProjectsComponent extends Component {
     this.unsubscribe();
   }
 
-  getContext() {
-    return new CheckContext(this).getContextStore();
-  }
-
   subscribe() {
-    const { pusher, team } = this.props;
+    const { pusher, clientSessionId, team } = this.props;
     if (pusher && team) {
       pusher.subscribe(team.pusher_channel).bind('media_updated', 'Projects', (data, run) => {
-        if (this.getContext().clientSessionId !== data.actor_session_id) {
+        if (clientSessionId !== data.actor_session_id) {
           if (run) {
             this.props.relay.forceFetch();
             return true;
@@ -130,7 +125,7 @@ class DrawerProjectsComponent extends Component {
         return false;
       });
       pusher.subscribe(team.pusher_channel).bind('project_updated', 'Projects', (data, run) => {
-        if (this.getContext().clientSessionId !== data.actor_session_id) {
+        if (clientSessionId !== data.actor_session_id) {
           if (run) {
             this.props.relay.forceFetch();
             return true;
@@ -259,12 +254,9 @@ class DrawerProjectsComponent extends Component {
   }
 }
 
-DrawerProjectsComponent.contextTypes = {
-  store: PropTypes.object,
-};
-
 DrawerProjectsComponent.propTypes = {
   pusher: pusherShape.isRequired,
+  clientSessionId: PropTypes.string.isRequired,
 };
 
 const ConnectedDrawerProjectsComponent = withPusher(injectIntl(DrawerProjectsComponent));
@@ -304,7 +296,9 @@ const DrawerProjects = (props) => {
     <RelayContainer
       Component={DrawerProjectsContainer}
       route={route}
-      renderFetched={data => <DrawerProjectsContainer {...props} {...data} />}
+      forceFetch
+      renderFetched={data =>
+        <DrawerProjectsContainer fromDirection={props.fromDirection} {...data} />}
     />
   );
 };

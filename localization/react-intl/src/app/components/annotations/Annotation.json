@@ -169,7 +169,7 @@
   },
   {
     "id": "annotation.archiverError",
-    "defaultMessage": "Sorry, an error occurred while archiving the item at {name}. Please refresh the item to try again and contact {supportEmail} if the condition persists."
+    "defaultMessage": "Sorry, the following error occurred while archiving the item to {name}: \"{message}\". Please refresh the item to try again and contact {supportEmail} if the condition persists."
   },
   {
     "id": "annotation.archiverWait",

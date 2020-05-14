@@ -3,14 +3,11 @@ import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import Favicon from 'react-favicon';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {
   MuiThemeProvider as MuiThemeProviderNext,
   createMuiTheme,
 } from '@material-ui/core/styles';
 import rtlDetect from 'rtl-detect';
-import merge from 'lodash.merge';
 import isEqual from 'lodash.isequal';
 import styled, { createGlobalStyle } from 'styled-components';
 import Intercom from 'react-intercom';
@@ -24,8 +21,8 @@ import CheckContext from '../CheckContext';
 import DrawerNavigation from './DrawerNavigation';
 import { bemClass } from '../helpers';
 import { FlashMessageContext, FlashMessage } from './FlashMessage';
+import { withClientSessionId } from '../ClientSessionId';
 import {
-  muiThemeWithoutRtl,
   muiThemeV1,
   gutterMedium,
   units,
@@ -185,10 +182,10 @@ class HomeComponent extends Component {
   setContext() {
     const context = new CheckContext(this);
     if (!this.state.token && !this.state.error) {
-      context.startSession(this.props.user);
+      context.startSession(this.props.user, this.props.clientSessionId);
     }
     context.setContext();
-    context.startNetwork(this.state.token);
+    context.startNetwork(this.state.token, this.props.clientSessionId);
   }
 
   getContext() {
@@ -216,10 +213,7 @@ class HomeComponent extends Component {
 
     const { children, location, intl } = this.props;
     const routeSlug = HomeComponent.routeSlug(children);
-    const muiThemeWithRtl = getMuiTheme(merge(
-      muiThemeWithoutRtl,
-      { isRtl },
-    ));
+
     const muiThemeNext = createMuiTheme(muiThemeV1);
 
     const routeIsPublic = children && children.props.route.public;
@@ -245,20 +239,13 @@ class HomeComponent extends Component {
       return null;
     }
 
-    const context = this.getContext();
     const user = this.getContext().currentUser || {};
-    const inTeamContext = !!(this.props.params.team || user.current_team);
     const loggedIn = !!this.state.token;
-    const teamSlug = (() => {
-      if (this.props.params.team) {
-        return this.props.params.team;
-      } else if (context.team) {
-        return context.team.slug;
-      } else if (user.current_team && user.current_team.slug) {
-        return user.current_team.slug;
-      }
-      return null;
-    })();
+    const teamSlugFromUrl = window.location.pathname.match(/^\/([^/]+)/);
+    const teamSlug = (teamSlugFromUrl && teamSlugFromUrl[1] !== 'check' ? teamSlugFromUrl[1] : null);
+    const userTeamSlug = ((user.current_team && user.current_team.slug) ?
+      user.current_team.slug : null);
+    const inTeamContext = !!(teamSlug || userTeamSlug);
 
     const currentUserIsMember = (() => {
       if (inTeamContext && loggedIn) {
@@ -279,52 +266,50 @@ class HomeComponent extends Component {
         <GlobalStyle />
         <MuiPickersUtilsProvider utils={MomentUtils}>
           <MuiThemeProviderNext theme={muiThemeNext}>
-            <MuiThemeProvider muiTheme={muiThemeWithRtl}>
-              <React.Fragment>
-                {config.intercomAppId && user.dbid ?
-                  <Intercom
-                    appID={config.intercomAppId}
-                    user_id={user.dbid}
-                    email={user.email}
-                    name={user.name}
-                    alignment={isRtl ? 'left' : 'right'}
-                  /> : null
-                }
-                <Favicon url={`/images/logo/${config.appName}.ico`} animated={false} />
-                <BrowserSupport />
-                { showDrawer ?
-                  <DrawerNavigation
-                    variant="persistent"
-                    docked
-                    loggedIn={loggedIn}
-                    teamSlug={teamSlug}
-                    inTeamContext={inTeamContext}
-                    currentUserIsMember={currentUserIsMember}
-                    {...this.props}
-                  /> : null }
-                <StyledWrapper
-                  isRtl={isRtl}
-                  className={bemClass('home', routeSlug, `--${routeSlug}`)}
-                  style={showDrawer ? {} : { margin: 0 }}
+            <React.Fragment>
+              {config.intercomAppId && user.dbid ?
+                <Intercom
+                  appID={config.intercomAppId}
+                  user_id={user.dbid}
+                  email={user.email}
+                  name={user.name}
+                  alignment={isRtl ? 'left' : 'right'}
+                /> : null
+              }
+              <Favicon url={`/images/logo/${config.appName}.ico`} animated={false} />
+              <BrowserSupport />
+              { showDrawer ?
+                <DrawerNavigation
+                  variant="persistent"
+                  docked
+                  loggedIn={loggedIn}
+                  teamSlug={teamSlug || userTeamSlug}
+                  inTeamContext={inTeamContext}
+                  currentUserIsMember={currentUserIsMember}
+                  {...this.props}
+                /> : null }
+              <StyledWrapper
+                isRtl={isRtl}
+                className={bemClass('home', routeSlug, `--${routeSlug}`)}
+                style={showDrawer ? {} : { margin: 0 }}
+              >
+                <Header
+                  drawerToggle={this.handleDrawerToggle.bind(this)}
+                  loggedIn={loggedIn}
+                  pageType={routeSlug}
+                  inTeamContext={inTeamContext}
+                  currentUserIsMember={currentUserIsMember}
+                  {...this.props}
+                />
+                <FlashMessage />
+                <StyledContent
+                  inMediaPage={routeSlug === 'media'}
+                  className="content-wrapper"
                 >
-                  <Header
-                    drawerToggle={this.handleDrawerToggle.bind(this)}
-                    loggedIn={loggedIn}
-                    pageType={routeSlug}
-                    inTeamContext={inTeamContext}
-                    currentUserIsMember={currentUserIsMember}
-                    {...this.props}
-                  />
-                  <FlashMessage />
-                  <StyledContent
-                    inMediaPage={routeSlug === 'media'}
-                    className="content-wrapper"
-                  >
-                    {children}
-                  </StyledContent>
-                </StyledWrapper>
-              </React.Fragment>
-            </MuiThemeProvider>
+                  {children}
+                </StyledContent>
+              </StyledWrapper>
+            </React.Fragment>
           </MuiThemeProviderNext>
         </MuiPickersUtilsProvider>
       </React.Fragment>
@@ -335,6 +320,7 @@ class HomeComponent extends Component {
 HomeComponent.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
+  clientSessionId: PropTypes.string.isRequired,
   intl: intlShape.isRequired,
 };
 
@@ -342,7 +328,7 @@ HomeComponent.contextTypes = {
   store: PropTypes.object,
 };
 
-const HomeContainer = Relay.createContainer(injectIntl(HomeComponent), {
+const HomeContainer = Relay.createContainer(injectIntl(withClientSessionId(HomeComponent)), {
   fragments: {
     user: () => Relay.QL`
       fragment on User {
@@ -406,7 +392,7 @@ const HomeContainer = Relay.createContainer(injectIntl(HomeComponent), {
 class Home extends Component {
   componentWillMount() {
     const context = new CheckContext(this);
-    context.startNetwork(null);
+    context.startNetwork(null, this.props.clientSessionId);
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -431,8 +417,12 @@ class Home extends Component {
   }
 }
 
+Home.propTypes = {
+  clientSessionId: PropTypes.string.isRequired,
+};
+
 Home.contextTypes = {
   store: PropTypes.object,
 };
 
-export default Home;
+export default withClientSessionId(Home);

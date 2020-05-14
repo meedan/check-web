@@ -4,6 +4,7 @@
   "geoLocationRespondTask.error": "Sorry, an error occurred while updating the task. Please try again and contact {supportEmail} if the condition persists.",
   "geolocationRespondTask.placeName": "Customize place name",
   "geolocationRespondTask.coordinates": "Latitude, Longitude",
+  "geoLocationRespondTask.invalidCoords": "Invalid coordinates",
   "geolocationRespondTask.cancelTask": "Cancel",
   "geolocationRespondTask.answerTask": "Answer task",
   "geolocationRespondTask.searchMap": "Search the map"

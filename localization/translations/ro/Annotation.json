@@ -41,7 +41,7 @@
   "annotation.rejectSuggestion": "Respinge",
   "annotation.taskResolve": "Task completed by {author}: {task}{response}",
   "annotation.archiverSuccess": "Dacă acest element devine nefuncțional, puteți <a href=\"{link}\" target=\"_blank\" rel=\"noopener noreferrer\">accesa o copie de rezervă pe {name}</a>.",
-  "annotation.archiverError": "Ne pare rău, în timpul arhivării elementului pe {name} s-a produs o eroare. Vă rugăm să actualizați elementul pentru a mai face o încercare și contactați {supportEmail} dacă situația persistă.",
+  "annotation.archiverError": "Sorry, the following error occurred while archiving the item to {name}: \"{message}\". Please refresh the item to try again and contact {supportEmail} if the condition persists.",
   "annotation.archiverWait": "Acest element se arhivează pe {name}. Linkul spre arhivă va fi afișat aici imediat ce este gata.",
   "annotation.embedCodeCopied": "A fost generat și copiat un cod de încorporare a elementului. Acum elementul poate fi vizibil public. ",
   "annotation.penderArchiveResponseError": "Ne pare rău, în timpul executării capturii de ecran de pe element s-a produs o eroare. Vă rugăm să actualizați elementul pentru a mai face o încercare și contactați {supportEmail} dacă situația persistă.",

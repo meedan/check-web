@@ -20,6 +20,10 @@
     "defaultMessage": "Latitude, Longitude"
   },
   {
+    "id": "geoLocationRespondTask.invalidCoords",
+    "defaultMessage": "Invalid coordinates"
+  },
+  {
     "id": "geolocationRespondTask.cancelTask",
     "defaultMessage": "Cancel"
   },

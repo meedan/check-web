@@ -74,10 +74,10 @@ class DrawerNavigationComponent extends Component {
   }
 
   subscribe() {
-    const { pusher, team } = this.props;
+    const { pusher, clientSessionId, team } = this.props;
     if (pusher && team) {
       pusher.subscribe(team.pusher_channel).bind('media_updated', 'DrawerNavigationComponent', (data, run) => {
-        if (this.getContext().clientSessionId !== data.actor_session_id) {
+        if (clientSessionId !== data.actor_session_id) {
           if (run) {
             this.props.relay.forceFetch();
             return true;
@@ -281,6 +281,7 @@ class DrawerNavigationComponent extends Component {
 
 DrawerNavigationComponent.propTypes = {
   pusher: pusherShape.isRequired,
+  clientSessionId: PropTypes.string.isRequired,
   intl: intlShape.isRequired,
   classes: PropTypes.object.isRequired,
 };
