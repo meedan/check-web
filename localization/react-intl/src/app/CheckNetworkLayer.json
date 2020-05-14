@@ -4,10 +4,6 @@
     "defaultMessage": "Still working..."
   },
   {
-    "id": "network.offline",
-    "defaultMessage": "Can't connect to {app}, please make sure you're connected to the internet. Trying to reconnect..."
-  },
-  {
     "id": "network.noResponse",
     "defaultMessage": "Couldn't connect to {app}, please make sure you're connected to the internet"
   }

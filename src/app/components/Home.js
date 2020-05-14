@@ -20,7 +20,7 @@ import BrowserSupport from './BrowserSupport';
 import CheckContext from '../CheckContext';
 import DrawerNavigation from './DrawerNavigation';
 import { bemClass } from '../helpers';
-import { FlashMessageContext, FlashMessage } from './FlashMessage';
+import { FlashMessageContext, FlashMessage, withSetFlashMessage } from './FlashMessage';
 import { withClientSessionId } from '../ClientSessionId';
 import {
   muiThemeV1,
@@ -180,12 +180,13 @@ class HomeComponent extends Component {
   }
 
   setContext() {
+    const { clientSessionId, setFlashMessage } = this.props;
     const context = new CheckContext(this);
     if (!this.state.token && !this.state.error) {
-      context.startSession(this.props.user, this.props.clientSessionId);
+      context.startSession(this.props.user, clientSessionId, setFlashMessage);
     }
     context.setContext();
-    context.startNetwork(this.state.token, this.props.clientSessionId);
+    context.startNetwork(this.state.token, clientSessionId, setFlashMessage);
   }
 
   getContext() {
@@ -321,6 +322,7 @@ HomeComponent.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
   clientSessionId: PropTypes.string.isRequired,
+  setFlashMessage: PropTypes.func.isRequired,
   intl: intlShape.isRequired,
 };
 
@@ -328,7 +330,9 @@ HomeComponent.contextTypes = {
   store: PropTypes.object,
 };
 
-const HomeContainer = Relay.createContainer(injectIntl(withClientSessionId(HomeComponent)), {
+const ConnectedHomeComponent = injectIntl(withSetFlashMessage(withClientSessionId(HomeComponent)));
+
+const HomeContainer = Relay.createContainer(ConnectedHomeComponent, {
   fragments: {
     user: () => Relay.QL`
       fragment on User {
@@ -392,7 +396,8 @@ const HomeContainer = Relay.createContainer(injectIntl(withClientSessionId(HomeC
 class Home extends Component {
   componentWillMount() {
     const context = new CheckContext(this);
-    context.startNetwork(null, this.props.clientSessionId);
+    const { clientSessionId, setFlashMessage } = this.props;
+    context.startNetwork(null, clientSessionId, setFlashMessage);
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -419,10 +424,11 @@ class Home extends Component {
 
 Home.propTypes = {
   clientSessionId: PropTypes.string.isRequired,
+  setFlashMessage: PropTypes.func.isRequired,
 };
 
 Home.contextTypes = {
   store: PropTypes.object,
 };
 
-export default withClientSessionId(Home);
+export default withSetFlashMessage(withClientSessionId(Home));

@@ -41,8 +41,9 @@ describe('<DrawerNavigationComponent />', () => {
         team={privateTeam}
         location={location}
         pusher={pusher}
+        clientSessionId="checkClientSessionId"
         params={params}
-        classes={{paper: {}}}
+        classes={{ paper: 'check-paper' }}
       />,
     );
     expect(header.find(DrawerProjects)).toHaveLength(1);
@@ -58,8 +59,9 @@ describe('<DrawerNavigationComponent />', () => {
         loggedIn
         location={location}
         params={params}
-        classes={{paper: {}}}
+        classes={{ paper: 'check-paper' }}
         pusher={pusher}
+        clientSessionId="checkClientSessionId"
       />,
     );
     expect(header.find(DrawerProjects)).toHaveLength(0);
@@ -80,8 +82,9 @@ describe('<DrawerNavigationComponent />', () => {
         team={privateTeam}
         location={location}
         params={params}
-        classes={{paper: {}}}
+        classes={{ paper: 'check-paper' }}
         pusher={pusher}
+        clientSessionId="checkClientSessionId"
       />,
     );
     expect(header.find(DrawerProjects)).toHaveLength(0);
@@ -102,8 +105,9 @@ describe('<DrawerNavigationComponent />', () => {
         team={publicTeam}
         location={location}
         pusher={pusher}
+        clientSessionId="checkClientSessionId"
         params={params}
-        classes={{paper: {}}}
+        classes={{ paper: 'check-paper' }}
       />,
     );
 
@@ -125,8 +129,9 @@ describe('<DrawerNavigationComponent />', () => {
         team={publicTeam}
         location={location}
         params={params}
-        classes={{paper: {}}}
+        classes={{ paper: 'check-paper' }}
         pusher={pusher}
+        clientSessionId="checkClientSessionId"
       />,
     );
     expect(header.find(UserMenuItems)).toHaveLength(0);
