@@ -7,6 +7,7 @@ import { units, black87 } from '../../../styles/js/shared';
 const useStyles = makeStyles({
   thumbnailCell: {
     paddingRight: 0, // paddingLeft, if jss-rtl is flipping it
+    width: '1px', // minimal width
   },
   thumbnail: {
     width: units(10),
@@ -37,11 +38,11 @@ const useStyles = makeStyles({
 
 const TextCell = ({
   classes,
-  colspan,
+  colSpan,
   title,
   description,
 }) => (
-  <TableCell colspan={colspan} component="th" scope="row">
+  <TableCell colSpan={colSpan} component="th" scope="row">
     <div className={classes.textBox}>
       <h4 className={`media__heading ${classes.title}`}>{title}</h4>
       {description ? (
@@ -75,14 +76,14 @@ const TitleCell = ({ projectMedia }) => {
       classes={classes}
       title={title}
       description={description}
-      colspan={2}
+      colSpan={2}
     />
   );
 };
 TitleCell.propTypes = {
   projectMedia: PropTypes.shape({
     title: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired, // may be empty string
+    description: PropTypes.string, // may be empty string or null
     picture: PropTypes.string, // thumbnail URL or null
   }).isRequired,
 };

@@ -177,7 +177,7 @@ const StyledFilterChip = styled.div`
 
 const styles = theme => ({
   margin: {
-    marginLeft: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
     padding: `5px ${units(2)}`,
   },
   filterInactive: {

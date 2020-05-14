@@ -13,7 +13,7 @@ const useStyles = makeStyles({
 });
 
 export default function SearchResultsTh({
-  text, field, colspan, sortKey, width, align, sortParams, onChangeSortParams,
+  text, field, colSpan, sortKey, width, align, sortParams, onChangeSortParams,
 }) {
   let sortDirection = null;
   if (sortParams && sortKey === sortParams.key) {
@@ -43,7 +43,7 @@ export default function SearchResultsTh({
   return (
     <TableCell
       data-field={field}
-      colspan={colspan}
+      colSpan={colSpan}
       sortDirection={sortDirection || false}
       classes={classes}
       align={align}
@@ -66,16 +66,16 @@ SearchResultsTh.defaultProps = {
   field: undefined,
   sortKey: null,
   sortParams: null,
-  colspan: undefined,
+  colSpan: undefined,
   width: 'auto',
   align: 'inherit',
 };
 SearchResultsTh.propTypes = {
-  text: React.Component.isRequired,
+  text: PropTypes.node.isRequired,
   field: PropTypes.string, // or undefined -- sets data-field="..." HTML attribute
-  colspan: PropTypes.number, // or undefined -- sets colspan="..." HTML attribute
+  colSpan: PropTypes.number, // or undefined -- sets colSpan="..." HTML attribute
   sortKey: PropTypes.string, // or null
-  width: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf(['auto'])]),
+  width: PropTypes.oneOfType([PropTypes.number.isRequired, PropTypes.oneOf(['auto']).isRequired]),
   align: PropTypes.oneOf(['inherit', 'left', 'center', 'right', 'justify']),
   sortParams: PropTypes.shape({
     key: PropTypes.string.isRequired,

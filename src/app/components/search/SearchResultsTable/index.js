@@ -20,7 +20,7 @@ const AllPossibleColumns = [
   {
     field: 'item',
     headerText: <FormattedMessage id="list.Item" defaultMessage="Item" />,
-    colspan: 2,
+    colSpan: 2,
     cellComponent: TitleCell,
   },
   {

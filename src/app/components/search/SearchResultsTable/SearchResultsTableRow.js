@@ -17,7 +17,7 @@ const useStyles = makeStyles({
 });
 
 export default function SearchResultsTableRow({
-  projectMedia, checked, columnDefs, onChangeChecked, onClick, isRtl,
+  projectMedia, checked, columnDefs, onChangeChecked, onClick,
 }) {
   const { dbid } = projectMedia;
   const classes = useStyles({ dbid });
@@ -50,13 +50,12 @@ export default function SearchResultsTableRow({
       </TableCell>
       {columnDefs.map(({ cellComponent: Cell }) => {
         const componentName = Cell.displayName || Cell.name;
-        return <Cell isRtl={isRtl} key={componentName} projectMedia={projectMedia} />;
+        return <Cell key={componentName} projectMedia={projectMedia} />;
       })}
     </TableRow>
   );
 }
 SearchResultsTableRow.propTypes = {
-  isRtl: PropTypes.bool.isRequired,
   columnDefs: PropTypes.arrayOf(PropTypes.shape({
     cellComponent: PropTypes.elementType.isRequired,
   }).isRequired).isRequired,

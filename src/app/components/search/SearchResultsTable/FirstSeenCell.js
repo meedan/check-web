@@ -9,6 +9,6 @@ FirstSeenCell.propTypes = {
   projectMedia: PropTypes.shape({
     // first_seen: UNIX timestamp in s, encoded as a String.
     // TODO make .first_seen a Number (requires API change)
-    first_seen: PropTypes.number.isRequired,
+    first_seen: PropTypes.string.isRequired,
   }).isRequired,
 };
