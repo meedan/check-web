@@ -11,11 +11,14 @@ const environment = Store;
 
 const NOOP = () => {};
 
-const createTag = (tag, fragment, annotated_id, callback, retry) => {
+const createTag = (tag, fragment, annotated_id, parent_id, callback, retry) => {
   return commitMutation(environment, {
     mutation: graphql`
       mutation VideoTimelineContainerCreateInstanceMutation($input: CreateTagInput!) {
         createTag(input: $input) {
+          project_media {
+            id
+          }
           tagEdge {
             node {
               id
@@ -35,8 +38,11 @@ const createTag = (tag, fragment, annotated_id, callback, retry) => {
     configs: [
       {
         type: 'RANGE_ADD',
-        parentID: annotated_id,
+        parentName: 'project_media',
+        parentID: parent_id,
         edgeName: 'tagEdge',
+        connectionName: 'tags',
+        rangeBehaviors: () => ('append'),
         connectionInfo: [{
           key: 'ProjectMedia_tags',
           rangeBehavior: 'append',
@@ -44,7 +50,6 @@ const createTag = (tag, fragment, annotated_id, callback, retry) => {
       },
     ],
     onCompleted: (data, errors) => {
-      console.log({ data, errors });
       callback && callback(data, errors);
       // retry(); // FIXME
     },
@@ -162,8 +167,6 @@ class VideoTimelineContainer extends Component {
   }
 
   render() {
-    console.log({ props: this.props });
-
     const { params: { mediaId, projectId } } = this.props;
     const {
       playing, duration, time, progress, seekTo, scrubTo, refetch
@@ -175,8 +178,9 @@ class VideoTimelineContainer extends Component {
         query={graphql`
           query VideoTimelineContainerQuery($ids: String!) {
             project_media(ids: $ids) {
+              id
               metadata
-              tags(first: 10000) {
+              tags(first: 10000) @connection(key: "ProjectMedia_tags") {
                 edges {
                   node {
                     id
@@ -216,8 +220,6 @@ class VideoTimelineContainer extends Component {
                 entities[id].instances.push({ start_seconds, end_seconds, id: instance });
               });
 
-            console.log({ projecttags, entities });
-
             const data = {
               commentThreads: [],
               project: {
@@ -230,8 +232,6 @@ class VideoTimelineContainer extends Component {
               videoTags: Object.values(entities).filter(({ type }) => type === 'tag' || type === 'tags'),
               user: {},
             };
-
-            console.log({ data });
 
             return (
               <div>                
@@ -289,11 +289,11 @@ class VideoTimelineContainer extends Component {
                   onCommentEdit={NOOP}
                   onCommentThreadCreate={NOOP}
                   onCommentThreadDelete={NOOP}
-                  onEntityCreate={(type, payload, callback) => createTag(payload[`project_${type}`].name, payload.fragment, mediaId, callback, retry)}
+                  onEntityCreate={(type, payload, callback) => createTag(payload[`project_${type}`].name, payload.fragment, mediaId, props.project_media.id, callback, retry)}
                   onEntityDelete={NOOP}
                   onEntityUpdate={NOOP}
                   onInstanceClip={NOOP}
-                  onInstanceCreate={(type, id, payload, callback) => createTag(data.videoTags.find(({ id: _id }) => _id === id).name, payload.fragment, mediaId, callback, retry)}
+                  onInstanceCreate={(type, id, payload, callback) => createTag(data.videoTags.find(({ id: _id }) => _id === id).name, payload.fragment, mediaId, props.project_media.id, callback, retry)}
                   onInstanceDelete={(type, entityId, instanceId) => destroy(instanceId, mediaId)}
                   onInstanceUpdate={(type, entityId, instanceId, { start_seconds, end_seconds }) => retime(instanceId, `t=${start_seconds},${end_seconds}&type=${type}`)}
                   onPlaylistLaunch={NOOP}
