@@ -123,40 +123,43 @@ module AppSpecHelpers
         elements.each do |e|
           raise "element is not being displayed" unless  e.displayed?
         end
-      rescue Exception => e
+      rescue
         # rescue from 'Selenium::WebDriver::Error::TimeOutError:' to give more information about the failure
       end
     end
-      finish = Time.now.to_i - start
-      raise "Could not find element with selector #{type.upcase} '#{selector}' for test '#{test}' after #{finish} seconds!" if elements.empty? 
+    finish = Time.now.to_i - start
+    raise "Could not find element with selector #{type.upcase} '#{selector}' for test '#{test}' after #{finish} seconds!" if elements.empty? 
     elements
   end
 
   def wait_for_selector_list_size(selector, size, type = :css, retries = 2, test = 'unknown')
     elements = []
     attempts = 0
+    start = Time.now.to_i
     while elements.length < size && attempts < retries do
       attempts += 1
       elements = wait_for_selector_list(selector, type)
     end
+    finish = Time.now.to_i - start
+    raise "Could not find #{size} list elements  with selector #{type.upcase} '#{selector}' for test '#{test}' after #{finish} seconds!" if elements.length < size
     elements
   end
 
   def wait_for_selector_none(selector, type = :css, retries = 2, test = 'unknown')
-    wait = Selenium::WebDriver::Wait.new(:timeout => 20)
-    element = @driver.find_element(type, selector)
     attempts = 0
+    start = Time.now.to_i
     begin
       attempts += 1
       sleep 0.5
       begin
-        wait.until { @driver.find_element(type, selector).length == 0 }
-        element = @driver.find_element(type, selector)
-      rescue
-        # rescue from 'Selenium::WebDriver::Error::TimeOutError:' to give more information about the failure
+      element = wait_for_selector_list(selector, type)
+      rescue 
+        element = [] 
+        #rescue from Selenium::WebDriver::Error::NoSuchElementError: to give more information about the failure
       end
-    end while element.length > 0 && attempts < retries
-    puts "Element with selector #{type.upcase} '#{selector}' did not disappear for test '#{test}'!" if !element.empty?
+    end while element.size > 0 && attempts < retries
+    finish = Time.now.to_i - start
+    raise "Element with selector #{type.upcase} '#{selector}' did not disappear for test '#{test}' after #{finish} seconds!" if element.size > 0
     element
   end
 
