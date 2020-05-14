@@ -296,7 +296,9 @@ const DrawerProjects = (props) => {
     <RelayContainer
       Component={DrawerProjectsContainer}
       route={route}
-      renderFetched={data => <DrawerProjectsContainer {...props} {...data} />}
+      forceFetch
+      renderFetched={data =>
+        <DrawerProjectsContainer fromDirection={props.fromDirection} {...data} />}
     />
   );
 };

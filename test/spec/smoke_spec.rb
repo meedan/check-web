@@ -728,7 +728,7 @@ shared_examples 'smoke' do
     driver = Selenium::WebDriver.for(:remote, url: @webdriver_url, desired_capabilities: caps)
     driver.navigate.to url
     wait_for_selector('.pender-container')
-    expect(@driver.page_source.include?('test.png')).to be(true)
+    expect(@driver.page_source.include?('test')).to be(true)
   end
 #Embed section end
 

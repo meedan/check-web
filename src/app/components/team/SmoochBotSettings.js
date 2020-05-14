@@ -206,13 +206,18 @@ const StyledSettings = styled.div`
     border-radius: 10px;
     display: flex;
     width: 100%;
+
+    span {
+      font-size: inherit;
+    }
   }
 
   #smooch-bot-settings-sidebar {
     flex-grow: 1;
     border-right: 1px solid #d7d7d7;
     padding: 30px !important;
-    min-width: 230px;
+    min-width: 250px;
+    max-width: 250px;
 
     h2 {
       font-weight: bold;
@@ -357,6 +362,13 @@ const StyledSettings = styled.div`
           button {
             border: 0;
             color: #FBAA6D !important;
+            cursor: pointer;
+
+            span {
+              position: absolute;
+              left: 0;
+              top: 0;
+            }
           }
 
           button + button + button {
@@ -367,7 +379,11 @@ const StyledSettings = styled.div`
             &::before {
               content: "×";
               font-size: 34px;
-              line-height: 30px;
+              line-height: 24px;
+              width: 32px;
+              position: absolute;
+              left: 0;
+              top: 0;
             }
           }
         }
@@ -397,13 +413,18 @@ const StyledSettings = styled.div`
             height: auto;
             background: transparent;
             position: static;
+            border: 0;
           }
         }
 
         .smooch-state-option-value, .smooch-state-project-media-title {
           display: block;
 
-          & > div > div, input {
+          svg {
+            top: 26px;
+          }
+
+          & > div, input {
             height: 32px;
             line-height: 32px;
             border: 1px solid #979797;
@@ -422,6 +443,7 @@ const StyledSettings = styled.div`
             height: auto;
             background: transparent;
             position: static;
+            border: 0;
           }
         }
 
@@ -453,6 +475,7 @@ const StyledSettings = styled.div`
             bottom: auto;
             transition: none;
             transform: none;
+            border: 0;
           }
         }
       }
@@ -490,7 +513,7 @@ class SmoochBotSettings extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: this.mergeWithDefaultData(props.formData),
+      data: this.mergeWithDefaultData(props.value),
       showResourceDialog: false,
       currentSelectedResource: null,
       currentState: null,
@@ -658,10 +681,9 @@ class SmoochBotSettings extends Component {
     this.setState({ showResourceDialog: true, currentIndex: i });
   }
 
-  handleOnChange(formData) {
-    const data = formData.formData;
+  handleOnChange(data) {
     this.setState({ data });
-    this.props.onChange({ formData: data });
+    this.props.onChange(data);
   }
 
   handleSelectResource(resource) {
@@ -802,7 +824,7 @@ class SmoochBotSettings extends Component {
               <Form
                 schema={this.props.schema}
                 uiSchema={uiSchema}
-                formData={this.state.data}
+                value={this.state.data}
                 onChange={this.handleOnChange.bind(this)}
               />
               <Dialog
