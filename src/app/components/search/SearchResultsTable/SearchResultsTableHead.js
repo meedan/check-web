@@ -1,29 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Checkbox from '@material-ui/core/Checkbox';
-import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import SelectAllTh from './SelectAllTh';
 import SearchResultsTh from './SearchResultsTh';
 
 export default function SearchResultsTableHead({
   columnDefs, selectedIds, projectMedias, sortParams, onChangeSelectedIds, onChangeSortParams,
 }) {
-  const handleSelectAll = React.useCallback((ev) => {
-    const newIds = ev.target.checked ? projectMedias.map(pm => pm.id) : [];
-    onChangeSelectedIds(newIds);
-  }, [projectMedias, onChangeSelectedIds]);
-
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="checkbox">
-          <Checkbox
-            indeterminate={selectedIds.length > 0 && selectedIds.length < projectMedias.length}
-            checked={selectedIds.length > 0 && selectedIds.length === projectMedias.length}
-            onChange={handleSelectAll}
-          />
-        </TableCell>
+        <SelectAllTh
+          selectedIds={selectedIds}
+          projectMedias={projectMedias}
+          onChangeSelectedIds={onChangeSelectedIds}
+        />
         {columnDefs.map(({
           headerText,
           colSpan,
