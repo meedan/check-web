@@ -144,7 +144,7 @@ const UserTosContainer = Relay.createContainer(injectIntl(UserTosComponent), {
 const UserTos = (props) => {
   const route = new AboutRoute();
   const { user } = props;
-  const openDialog = user && user.dbid && !user.accepted_terms && !props.routeIsPublic;
+  const openDialog = user && user.dbid && !user.accepted_terms;
 
   return (
     <Dialog open={openDialog}>
