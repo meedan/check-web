@@ -21,6 +21,7 @@ import CheckContext from '../CheckContext';
 import DrawerNavigation from './DrawerNavigation';
 import { bemClass } from '../helpers';
 import { FlashMessageContext, FlashMessage, withSetFlashMessage } from './FlashMessage';
+import UserTos from './UserTos';
 import { withClientSessionId } from '../ClientSessionId';
 import {
   muiThemeV1,
@@ -279,6 +280,7 @@ class HomeComponent extends Component {
               }
               <Favicon url={`/images/logo/${config.appName}.ico`} animated={false} />
               <BrowserSupport />
+              <UserTos user={user} routeIsPublic={routeIsPublic} />
               { showDrawer ?
                 <DrawerNavigation
                   variant="persistent"
