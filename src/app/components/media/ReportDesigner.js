@@ -54,7 +54,7 @@ import {
 const messages = defineMessages({
   cantPublish: {
     id: 'reportDesigner.cantPublish',
-    defaultMessage: 'You must select at least a text message or a visual card in order to publish your report',
+    defaultMessage: 'Select at least the text message or the visual card to publish your report',
   },
   canPublish: {
     id: 'reportDesigner.canPublish',

@@ -13,7 +13,7 @@
   },
   {
     "id": "userTos.termsLastUpdatedAt",
-    "defaultMessage": "Last updated: {lastUpdated}"
+    "defaultMessage": "Last updated {lastUpdated}"
   },
   {
     "id": "userTos.disclaimer",
