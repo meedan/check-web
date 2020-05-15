@@ -98,7 +98,7 @@ class MediaExpandedComponent extends Component {
             languageCode={media.language_code}
           />
         );
-      } else if (isWebPage) {
+      } else if (isWebPage || data.error) {
         return (
           <WebPageMediaCard
             media={media}

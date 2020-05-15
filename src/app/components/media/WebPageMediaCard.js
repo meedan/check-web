@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { injectIntl } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import deepEqual from 'deep-equal';
 import styled from 'styled-components';
 import AspectRatio from '../layout/AspectRatio';
+import MediaUtil from './MediaUtil';
 import MoreLess from '../layout/MoreLess';
 import ExternalLink from '../ExternalLink';
 import ParsedText from '../ParsedText';
@@ -40,16 +41,15 @@ class WebPageMediaCard extends Component {
   render() {
     const {
       media,
+      data,
     } = this.props;
-
-    const media_embed = media.media.metadata;
 
     return (
       <article className="web-page-media-card">
         {this.canEmbedHtml() ?
           <div
             dangerouslySetInnerHTML={{ // eslint-disable-line react/no-danger
-              __html: media_embed.html,
+              __html: data.html,
             }}
           />
           :
@@ -65,6 +65,13 @@ class WebPageMediaCard extends Component {
               <AspectRatio>
                 <img src={media.picture} alt="" />
               </AspectRatio> : null
+            }
+            { data.error ?
+              <FormattedMessage
+                id="webPageMediaCard.Error"
+                defaultMessage="This {host} post could not be identified. It may have been removed, or may only be visible to users when logged in. Click below to view it on {host}."
+                values={{ host: MediaUtil.typeLabel(media, data, this.props.intl) }}
+              /> : null
             }
             { media.metadata.url ?
               <StyledLink>
