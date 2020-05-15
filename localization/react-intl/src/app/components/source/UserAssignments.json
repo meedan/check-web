@@ -14,5 +14,9 @@
   {
     "id": "userAssignments.blank",
     "defaultMessage": "No activity"
+  },
+  {
+    "id": "userAssignments.other",
+    "defaultMessage": "Other"
   }
 ]

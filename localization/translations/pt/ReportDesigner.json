@@ -1,5 +1,5 @@
 {
-  "reportDesigner.cantPublish": "Você precisa adicionar conteúdo ao seu relato para poder publicá-lo",
+  "reportDesigner.cantPublish": "Selecione pelo menos a mensagem de texto ou o cartão visual para publicar seu relato",
   "reportDesigner.canPublish": "Publicar relato",
   "reportDesigner.pauseReport": "Pausar relato",
   "reportDesigner.introductionPlaceholder": "Digite sua introdução aqui...",

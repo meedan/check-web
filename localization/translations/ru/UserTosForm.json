@@ -2,6 +2,7 @@
   "userTos.tosLink": "условия предоставления услуг",
   "userTos.ppLink": "политику конфиденциальности",
   "userTos.title": "Условия предоставления услуг и политика конфиденциальности",
+  "userTos.termsLastUpdatedAt": "Last updated {lastUpdated}",
   "userTos.disclaimer": "Пожалуйста, прочтите {tosLink} и {ppLink} и дайте своё согласие:",
   "userTos.titleUpdated": "Обновленные политики",
   "userTos.disclaimerUpdate": "Мы обновили {tosLink} и {ppLink}. Пожалуйста, прочтите их и дайте своё согласие:",

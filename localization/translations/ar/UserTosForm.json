@@ -2,6 +2,7 @@
   "userTos.tosLink": "شروط الاستخدام",
   "userTos.ppLink": "سياسة الخصوصية",
   "userTos.title": "شروط الاستخدام وسياسة الخصوصية",
+  "userTos.termsLastUpdatedAt": "Last updated {lastUpdated}",
   "userTos.disclaimer": "من فضلك راجع {tosLink} و{ppLink} للموافقة على اﻵتي:",
   "userTos.titleUpdated": "شروط الاستخدام وسياسة الخصوصية المحدثة",
   "userTos.disclaimerUpdate": "قمنا بتحديث {tosLink} و{ppLink} - من فضلك راجع عليهم للموافقة على اﻵتي:",
