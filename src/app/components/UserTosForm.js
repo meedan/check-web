@@ -56,7 +56,7 @@ class UserTosForm extends Component {
               <p style={{ margin: `${units(1)} 0`, font: caption }}>
                 <FormattedMessage
                   id="userTos.termsLastUpdatedAt"
-                  defaultMessage="Last updated: {lastUpdated}"
+                  defaultMessage="Last updated {lastUpdated}"
                   values={{
                     lastUpdated: <FormattedDate value={termsLastUpdatedAt * 1000} day="numeric" month="long" year="numeric" />,
                   }}

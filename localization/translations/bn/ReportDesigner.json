@@ -1,5 +1,5 @@
 {
-  "reportDesigner.cantPublish": "You need to add content to your report before you can publish it",
+  "reportDesigner.cantPublish": "Select at least the text message or the visual card to publish your report",
   "reportDesigner.canPublish": "Publish report",
   "reportDesigner.pauseReport": "Pause report",
   "reportDesigner.introductionPlaceholder": "Type your introduction here...",

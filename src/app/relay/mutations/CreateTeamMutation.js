@@ -33,10 +33,19 @@ class CreateTeamMutation extends Relay.Mutation {
             name,
             dbid,
             slug,
-            description
+            description,
+          },
+          user {
+            user_teams
           }
         }`,
       ],
+    },
+    {
+      type: 'FIELDS_CHANGE',
+      fieldIDs: {
+        user: this.props.user.id,
+      },
     },
     {
       type: 'RANGE_ADD',
