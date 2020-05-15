@@ -38,7 +38,7 @@ class UserTosComponent extends Component {
   handleSubmit() {
     const currentUser = this.getCurrentUser();
 
-    const onSubmit = () => {
+    const onFailure = () => {
       window.location.assign(window.location.origin);
     };
 
@@ -48,7 +48,7 @@ class UserTosComponent extends Component {
           current_user_id: currentUser.id,
           accept_terms: true,
         }),
-        { onSuccess: onSubmit, onFailure: onSubmit },
+        { onFailure },
       );
     }
   }
