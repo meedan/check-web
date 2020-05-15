@@ -6,12 +6,14 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import Button from '@material-ui/core/Button';
-import AboutRoute from '../relay/AboutRoute';
-import RelayContainer from '../relay/RelayContainer';
-import UpdateUserMutation from '../relay/mutations/UpdateUserMutation';
 import { mapGlobalMessage } from './MappedMessage';
 import UserTosForm from './UserTosForm';
 import Message from './Message';
+import globalStrings from '../globalStrings';
+import { stringHelper } from '../customHelpers';
+import AboutRoute from '../relay/AboutRoute';
+import RelayContainer from '../relay/RelayContainer';
+import UpdateUserMutation from '../relay/mutations/UpdateUserMutation';
 
 class UserTosComponent extends Component {
   constructor(props) {
@@ -32,7 +34,12 @@ class UserTosComponent extends Component {
 
   handleSubmit() {
     const onFailure = () => {
-      window.location.assign(window.location.origin);
+      this.setState({
+        message: this.props.intl.formatMessage(
+          globalStrings.unknownError,
+          { supportEmail: stringHelper('SUPPORT_EMAIL') },
+        ),
+      });
     };
 
     if (this.state.checkedTos && this.state.checkedPp) {
