@@ -69,7 +69,7 @@ class WebPageMediaCard extends Component {
             { data.error ?
               <FormattedMessage
                 id="webPageMediaCard.Error"
-                defaultMessage="This {host} post could not be identified. It may have been removed, or may only be visible to users when logged in. Click below to view it on {host}."
+                defaultMessage="This URL could not be identified. It may have been removed, or may only be visible to users when logged in. Click below to view it."
                 values={{ host: MediaUtil.typeLabel(media, data, this.props.intl) }}
               /> : null
             }

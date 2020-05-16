@@ -5,11 +5,11 @@
   },
   {
     "id": "media.typeTwitter",
-    "defaultMessage": "Twitter"
+    "defaultMessage": "Tweet"
   },
   {
     "id": "media.typeFacebook",
-    "defaultMessage": "Facebook"
+    "defaultMessage": "Facebook post"
   },
   {
     "id": "media.typeInstagram",
@@ -17,7 +17,7 @@
   },
   {
     "id": "media.typeTiktok",
-    "defaultMessage": "TikTok"
+    "defaultMessage": "TikTok video"
   },
   {
     "id": "media.typeLink",

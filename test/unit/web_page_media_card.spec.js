@@ -147,6 +147,7 @@ describe('<WebPageMediaCard />', () => {
       favicon: 'https://www.google.com/s2/favicons?domain_url=meedan.com/en/',
       embed_tag: '<script src="http://pender:3200/api/medias.js?url=https%3A%2F%2Fmeedan.com%2Fen%2F" type="text/javascript"></script>',
       refreshes_count: 1,
+      html: "hello!",
     },
   };
 

@@ -1,3 +1,3 @@
 {
-  "webPageMediaCard.Error": "This {host} post could not be identified. It may have been removed, or may only be visible to users when logged in. Click below to view it on {host}."
+  "webPageMediaCard.Error": "This URL could not be identified. It may have been removed, or may only be visible to users when logged in. Click below to view it."
 }

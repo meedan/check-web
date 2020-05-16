@@ -1,9 +1,9 @@
 {
   "media.notesCount": "{notesCount, plural, =0 {No notes} one {1 note} other {# notes}}",
-  "media.typeTwitter": "Twitter",
-  "media.typeFacebook": "Facebook",
+  "media.typeTwitter": "Tweet",
+  "media.typeFacebook": "Facebook post",
   "media.typeInstagram": "Instagram",
-  "media.typeInstagram": "TikTok",
+  "media.typeInstagram": "TikTok video",
   "media.typeLink": "Link",
   "media.typeVideo": "Video",
   "media.typeClaim": "Text",

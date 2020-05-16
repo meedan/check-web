@@ -14,11 +14,11 @@ const messages = defineMessages({
   },
   typeTwitter: {
     id: 'media.typeTwitter',
-    defaultMessage: 'Twitter',
+    defaultMessage: 'Tweet',
   },
   typeFacebook: {
     id: 'media.typeFacebook',
-    defaultMessage: 'Facebook',
+    defaultMessage: 'Facebook post',
   },
   typeInstagram: {
     id: 'media.typeInstagram',
@@ -26,7 +26,7 @@ const messages = defineMessages({
   },
   typeTiktok: {
     id: 'media.typeTiktok',
-    defaultMessage: 'TikTok',
+    defaultMessage: 'TikTok video',
   },
   typeLink: {
     id: 'media.typeLink',
