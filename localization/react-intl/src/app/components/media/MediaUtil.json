@@ -16,6 +16,10 @@
     "defaultMessage": "Instagram"
   },
   {
+    "id": "media.typeTiktok",
+    "defaultMessage": "TikTok video"
+  },
+  {
     "id": "media.typeLink",
     "defaultMessage": "Link"
   },
