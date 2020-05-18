@@ -354,7 +354,7 @@ shared_examples 'smoke' do
 
     #Answer with link
     wait_for_selector(".task__log-icon > svg").click
-    wait_for_selector(".add-annotation")
+    wait_for_selector("#task__response-input")
     wait_for_selector("textarea[name=response]").send_keys("https://www.youtube.com/watch?v=ykLgjhBnik0")
     @driver.action.send_keys(:enter).perform
     expect(@driver.find_elements(:css, ".task__response").size).to eq 1
@@ -480,7 +480,6 @@ shared_examples 'smoke' do
     install_bot(team, bot_name)
     wait_for_selector(".team-members__member")
     wait_for_selector('.team-menu__team-settings-button').click
-    wait_for_selector(".team-settings__embed-tab")
     wait_for_selector('.team-settings__bots-tab').click
     wait_for_selector_none(".create-task__add-button")
     expect(@driver.page_source.include?(bot_name)).to be(true)
@@ -531,7 +530,7 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('Main Item')).to be(true)
     wait_for_selector(".media-condensed__actions_icon").click
     wait_for_selector('.media-condensed__promote-relationshp').click
-    wait_for_selector_none('.media-condensed__promote-relationshp')
+    wait_for_selector_none(".media-condensed__break-relationshp")
     wait_for_selector(".project-header__back-button").click
     @driver.navigate.refresh
     wait_for_selector("#create-media__add-item")
@@ -542,8 +541,6 @@ shared_examples 'smoke' do
   it "should create a related image, delete the main item and verify that the both items were deleted" , bin1: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector(".media-detail")
-    cards = wait_for_selector_list(".media-detail").length
-    expect(cards == 1).to be(true)
     #add a related image
     wait_for_selector('.create-related-media__add-button').click
     wait_for_selector('#create-media__image').click
@@ -551,8 +548,8 @@ shared_examples 'smoke' do
     wait_for_selector('input[type=file]').send_keys(File.join(File.dirname(__FILE__), 'test.png'))
     wait_for_selector('#create-media-dialog__submit-button').click
     #verify that the image was created
-    wait_for_selector_list_size(".media-detail", 2)
-    cards = wait_for_selector_list(".media-detail").length
+    wait_for_selector(".media-related__secondary-item")
+    cards = wait_for_selector_list(".card").length
     expect(cards == 2).to be(true)
     wait_for_selector('.media-actions__icon').click
     wait_for_selector('.media-actions__edit')
@@ -715,59 +712,27 @@ shared_examples 'smoke' do
     expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
   end
 
-  it "should create a image, generate a embed, copy url and open in a incognito window", bin4: true do
-   api_create_team_and_project
-    @driver.navigate.to @config['self_url']
-    wait_for_selector('.project__description')
-    create_image('test.png')
-    wait_for_selector('.medias__item')
-    wait_for_selector('img').click
-    wait_for_selector('#media-detail__report-designer').click
-    wait_for_selector('#report-designer__actions button + button').click
-    url = wait_for_selector('#report-designer__share-field').value.to_s
-    caps = Selenium::WebDriver::Remote::Capabilities.chrome('chromeOptions' => { 'args' => [ '--incognito' ]})
-    driver = Selenium::WebDriver.for(:remote, url: @webdriver_url, desired_capabilities: caps)
-    driver.navigate.to url
-    wait_for_selector('.pender-container')
-    expect(@driver.page_source.include?('test.png')).to be(true)
-  end
-#Embed section end
-
-# Meme Generator section start
-  # it "should generate a meme and then the embed", bin1: true do
-  #   create_team_project_and_image_and_redirect_to_media_page
-  #   wait_for_selector(".media__annotations-column")
-  #   wait_for_selector('.media-actions__icon').click
-  #   wait_for_selector('.media-actions__edit')
-  #   el = wait_for_selector('.media-actions__memebuster')
-  #   el.location_once_scrolled_into_view
-  #   el.click
-  #   expect(@driver.page_source.include?('Last saved')).to be(false)
-  #   wait_for_selector(".without-file")
-  #   fill_field('input[name="headline"]', 'Meme')
-  #   save_button = wait_for_selector(".memebuster__viewport-column > div > div button + button")
-  #   expect(save_button.attribute('tabindex')== "-1" ).to be(true) #if save_button is not enable
-  #   fill_field('textarea[name="description"]', 'description')
-  #   expect(save_button.attribute('tabindex')== "0" ).to be(true) #if save_button is enable
-  #   save_button.click
-  #   wait_for_selector(".memebuster__viewport-column > div > div >  span")
-  #   expect(@driver.page_source.include?('Last saved')).to be(true)
-  #   publish_button = wait_for_selector(".memebuster__viewport-column > div > div button + button + button")
-  #   publish_button.click
-  #   wait_for_selector(".memebuster__viewport-column > div > div > div")
-  #   expect(@driver.page_source.include?('Publishing')).to be(true)
-  #   wait_for_selector(".memebuster__viewport-column > div > div > div > span")
-  #   wait_for_selector(".memebuster__viewport-column > div > div > div > span > time")
-  #   expect(@driver.page_source.include?('Publishing')).to be(false)
-  #   expect(@driver.page_source.include?('Last published')).to be(true)
-  #   @driver.navigate.back
-  #   wait_for_selector_none(".without-file")
-  #   wait_for_selector(".media-status__label")
-  #   generate_a_embed_and_copy_embed_code
-  #   wait_for_selector(".oembed__meme")
-  #   expect(@driver.page_source.include?('Meme')).to be(true)
+  # it "should create a image, generate a embed, copy url and open in a incognito window", bin4: true do
+  #  api_create_team_and_project
+  #   @driver.navigate.to @config['self_url']
+  #   wait_for_selector('.project__description')
+  #   create_image('test.png')
+  #   wait_for_selector('.medias__item')
+  #   wait_for_selector('img').click
+  #   wait_for_selector('#media-detail__report-designer').click
+  #   wait_for_selector("#report-designer__customization-menu")
+  #   wait_for_selector("//span[contains(text(), 'Edit')]", :xpath).click
+  #   wait_for_selector("//span[contains(text(), 'Visual card')]", :xpath).click
+  #   wait_for_selector("//span[contains(text(), 'Save')]", :xpath).click
+  #   wait_for_selector('#report-designer__actions button + button').click
+  #   url = wait_for_selector('#report-designer__share-field').value.to_s
+  #   caps = Selenium::WebDriver::Remote::Capabilities.chrome('chromeOptions' => { 'args' => [ '--incognito' ]})
+  #   driver = Selenium::WebDriver.for(:remote, url: @webdriver_url, desired_capabilities: caps)
+  #   driver.navigate.to url
+  #   wait_for_selector('#content')
+  #   expect(@driver.page_source.include?('test.png')).to be(true)
   # end
-# Meme Generator section end
+#Embed section end
 
 #Bulk Actions section start
   it "should move media to another project", bin2: true do
@@ -920,17 +885,24 @@ shared_examples 'smoke' do
     team = request_api 'team', { name: 'Team 2', email: user.email, slug: "team-2-#{rand(9999)}#{Time.now.to_i}" }
     request_api 'project', { title: 'Team 2 Project', team_id: team.dbid }
 
-    page = MePage.new(config: @config, driver: @driver).load.select_team(name: 'Team 1')
+    page = MePage.new(config: @config, driver: @driver).load
+    wait_for_selector(".source__primary-info")
+    page.select_team(name: 'Team 1')
 
-    expect(page.team_name).to eq('Team 1')
-    expect(page.project_titles.include?('Team 1 Project')).to be(true)
-    expect(page.project_titles.include?('Team 2 Project')).to be(false)
+    team_name = wait_for_selector('.team__name').text
+    expect(team_name).to eq('Team 1')
+    expect(wait_for_selector(".team__project-title").text.include?('Team 1 Project')).to be(true)
+    expect(wait_for_selector(".team__project-title").text.include?('Team 2 Project')).to be(false)
 
-    page = MePage.new(config: @config, driver: @driver).load.select_team(name: 'Team 2')
-
-    expect(page.team_name).to eq('Team 2')
-    expect(page.project_titles.include?('Team 2 Project')).to be(true)
-    expect(page.project_titles.include?('Team 1 Project')).to be(false)
+    @driver.navigate.to(@config['self_url'] + '/check/me')
+    wait_for_selector(".source__primary-info")
+    page.select_team(name: 'Team 2')
+    
+    wait_for_selector(".team__primary-info")
+    team_name = wait_for_selector('.team__name').text
+    expect(team_name).to eq('Team 2')
+    expect(wait_for_selector(".team__project-title").text.include?('Team 1 Project')).to be(false)
+    expect(wait_for_selector(".team__project-title").text.include?('Team 2 Project')).to be(true)
 
     #As a different user, request to join one team and be accepted.
     user = api_register_and_login_with_email(email: "new"+@user_mail, password: @password)
@@ -1023,9 +995,12 @@ shared_examples 'smoke' do
     user = api_register_and_login_with_email(email: @user_mail, password: @password)
     team = request_api 'team', { name: 'Team', email: user.email, slug: @team1_slug }
     request_api 'project', { title: 'Team Project', team_id: team.dbid }
-    page = MePage.new(config: @config, driver: @driver).load.select_team(name: 'Team')
-    expect(page.team_name).to eq('Team')
-    expect(page.project_titles.include?('Team Project')).to be(true)
+    @driver.navigate.to @config['self_url'] + "/" + @team1_slug
+    wait_for_selector(".team__primary-info")
+    team_name = wait_for_selector('.team__name').text
+    expect(team_name).to eq('Team')
+    expect(wait_for_selector(".team__project-title").text.include?('Team Project')).to be(true)
+    api_logout
     #As a different user, request to join one team and be accepted.
     user2 = api_register_and_login_with_email(email: "new"+@user_mail, password: @password)
     page = MePage.new(config: @config, driver: @driver).load
@@ -1114,35 +1089,6 @@ shared_examples 'smoke' do
     wait_for_selector(".team-menu__team-settings-button").click
     wait_for_selector(".team-settings__tags-tab")
     expect(@driver.find_elements(:css, ".team-menu__edit-team-button").size).to eq 0
-
-    api_logout
-    @driver.quit
-
-    #As the group creator, go to the members page and  edit team member role to 'editor'
-    @driver = new_driver(@webdriver_url,@browser_capabilities)
-    page = Page.new(config: @config, driver: @driver)
-    page.go(@config['api_path'] + '/test/session?email='+@user_mail)
-    page = MePage.new(config: @config, driver: @driver).load
-    @driver.navigate.to @config['self_url'] + "/"+@team1_slug
-    #edit team member role
-    change_the_member_role_to('li.role-editor')
-    el = wait_for_selector('input[name="role-select"]', :css, 29, 1)
-    expect(el.value).to eq 'editor'
-
-    api_logout
-    @driver.quit
-
-    #log in as the editor
-    @driver = new_driver(@webdriver_url,@browser_capabilities)
-    page = Page.new(config: @config, driver: @driver)
-    page.go(@config['api_path'] + '/test/session?email=new'+@user_mail)
-    page = MePage.new(config: @config, driver: @driver).load
-    @driver.navigate.to @config['self_url']
-
-    #go to the project that you don't own and can't see the actions icon
-    wait_for_selector_list(".project-list__link")[0].click
-    wait_for_selector_none(".project-actions__icon") #actions icon
-    expect(@driver.find_elements(:css, ".project-actions__icon").size).to eq 1
 
     api_logout
     @driver.quit

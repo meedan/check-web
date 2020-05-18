@@ -265,7 +265,7 @@ module AppSpecHelpers
         sleep 20
       end
     end
-    wait_for_selector_none("#tos__pp-agree")
+    wait_for_selector_none("#tos__save")
   end
 
   def create_team
@@ -290,13 +290,14 @@ module AppSpecHelpers
 
   def register_with_email(should_create_team = true, email = @email, should_login = true)
     @driver.navigate.to @config['self_url']
-    sleep 1
-    @driver.find_element(:xpath, "//button[@id='register-or-login']").click
-    sleep 1
+    wait_for_selector(".login__form")
+    wait_for_selector("#register-or-login").click
+    wait_for_selector(".without-file")
     fill_field('.login__name input', 'User With Email')
     fill_field('.login__email input', email)
     fill_field('.login__password input', '12345678')
     fill_field('.login__password-confirmation input', '12345678')
+    wait_for_selector('input[type=file]').send_keys(File.join(File.dirname(__FILE__), 'test.png'))
     agree_to_tos(false)
     press_button('#submit-register-or-login')
     sleep 3
