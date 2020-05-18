@@ -697,8 +697,9 @@ shared_examples 'smoke' do
     wait_for_selector(".project__description")
     create_image('test.png')
     wait_for_selector(".medias__item")
+    wait_for_selector(".media-cell__thumbnail img")
     wait_for_selector(".media__heading").click
-    wait_for_selector(".media-detail")
+    wait_for_selector(".card")
     expect(@driver.page_source.include?('In Progress')).to be(false)
     change_the_status_to(".media-status__menu-item--in-progress", false)
     expect(@driver.page_source.include?('In Progress')).to be(true)
@@ -712,26 +713,26 @@ shared_examples 'smoke' do
     expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
   end
 
-  # it "should create a image, generate a embed, copy url and open in a incognito window", bin4: true do
-  #  api_create_team_and_project
-  #   @driver.navigate.to @config['self_url']
-  #   wait_for_selector('.project__description')
-  #   create_image('test.png')
-  #   wait_for_selector('.medias__item')
-  #   wait_for_selector('img').click
-  #   wait_for_selector('#media-detail__report-designer').click
-  #   wait_for_selector("#report-designer__customization-menu")
-  #   wait_for_selector("//span[contains(text(), 'Edit')]", :xpath).click
-  #   wait_for_selector("//span[contains(text(), 'Visual card')]", :xpath).click
-  #   wait_for_selector("//span[contains(text(), 'Save')]", :xpath).click
-  #   wait_for_selector('#report-designer__actions button + button').click
-  #   url = wait_for_selector('#report-designer__share-field').value.to_s
-  #   caps = Selenium::WebDriver::Remote::Capabilities.chrome('chromeOptions' => { 'args' => [ '--incognito' ]})
-  #   driver = Selenium::WebDriver.for(:remote, url: @webdriver_url, desired_capabilities: caps)
-  #   driver.navigate.to url
-  #   wait_for_selector('#content')
-  #   expect(@driver.page_source.include?('test.png')).to be(true)
-  # end
+  it "should create a image, generate a embed, copy url and open in a incognito window", bin4: true do
+   api_create_team_and_project
+    @driver.navigate.to @config['self_url']
+    wait_for_selector('.project__description')
+    create_image('test.png')
+    wait_for_selector('.medias__item')
+    wait_for_selector('img').click
+    wait_for_selector('#media-detail__report-designer').click
+    wait_for_selector("#report-designer__customization-menu")
+    wait_for_selector("//span[contains(text(), 'Edit')]", :xpath).click
+    wait_for_selector("//span[contains(text(), 'Visual card')]", :xpath).click
+    wait_for_selector("//span[contains(text(), 'Save')]", :xpath).click
+    wait_for_selector('#report-designer__actions button + button').click
+    url = wait_for_selector('#report-designer__share-field').value.to_s
+    caps = Selenium::WebDriver::Remote::Capabilities.chrome('chromeOptions' => { 'args' => [ '--incognito' ]})
+    driver = Selenium::WebDriver.for(:remote, url: @webdriver_url, desired_capabilities: caps)
+    driver.navigate.to url
+    wait_for_selector('.pender-container')
+    expect(@driver.page_source.include?('test.png')).to be(true)
+  end
 #Embed section end
 
 #Bulk Actions section start

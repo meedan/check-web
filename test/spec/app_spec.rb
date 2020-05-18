@@ -565,14 +565,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector(".media-tab__tasks").click
       expect(@driver.page_source.include?('Where?')).to be(false)
       expect(@driver.page_source.include?('Task created by')).to be(false)
-      el = wait_for_selector('.create-task__add-button')
-      el.click
-      el = wait_for_selector('.create-task__add-geolocation')
-      el.click
+      wait_for_selector('.create-task__add-button').click
+      wait_for_selector('.create-task__add-geolocation').click
       wait_for_selector("#task-description-input" )
       fill_field('#task-label-input', 'Where?')
-      el = wait_for_selector('.create-task__dialog-submit-button')
-      el.click
+      wait_for_selector('.create-task__dialog-submit-button').click
       wait_for_selector(".media-tab__activity").click
       old = wait_for_size_change(old, "annotations__list-item", :class)
       expect(@driver.page_source.include?('Where?')).to be(true)
@@ -584,8 +581,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('task__answered-by-current-user')).to be(false)
       fill_field('textarea[name="response"]', 'Salvador')
       fill_field('#task__response-geolocation-coordinates', '-12.9015866, -38.560239')
-      el = wait_for_selector('.task__save')
-      el.click
+      wait_for_selector('.task__save').click
       wait_for_selector(".media-tab__activity").click
       old = wait_for_size_change(old, "annotations__list-item", :class)
       expect(@driver.page_source.include?('Task completed by')).to be(true)
@@ -595,14 +591,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Edit task
       expect(@driver.page_source.include?('Where was it?')).to be(false)
-      el = wait_for_selector('.task-actions__icon')
-      el.click
-      el = wait_for_selector('.task-actions__edit')
-      el.click
+      wait_for_selector('.task-actions__icon').click
+      wait_for_selector('.task-actions__edit').click
       wait_for_selector("#task-description-input" )
       update_field('#task-label-input', 'Where was it?')
-      el = wait_for_selector( '.create-task__dialog-submit-button')
-      el.click
+      wait_for_selector( '.create-task__dialog-submit-button').click
       wait_for_selector(".media-tab__activity").click
       old = wait_for_size_change(old, "annotations__list-item", :class)
       expect(@driver.page_source.include?('Where was it?')).to be(true)
@@ -611,15 +604,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Edit task answer
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Vancouver')).to be(false)
-      el = wait_for_selector('.task-actions__icon')
-      el.click
-      el = wait_for_selector('.task-actions__edit-response')
-      el.click
+      wait_for_selector('.task-actions__icon').click
+      wait_for_selector('.task-actions__edit-response').click
       wait_for_selector(".task__cancel")
       update_field('textarea[name="response"]', 'Vancouver')
       update_field('#task__response-geolocation-coordinates', '49.2577142, -123.1941156')
-      el = wait_for_selector('.task__save')
-      el.click
+      wait_for_selector('.task__save').click
       wait_for_selector(".media-tab__activity").click
       old = wait_for_size_change(old, "annotations__list-item", :class)
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Vancouver')).to be(true)
@@ -659,6 +649,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector(".switch-teams__joined-team")
       wait_for_selector_list('.teams a').first.click
       wait_for_selector(".project__title")
+      wait_for_selector(".project-list__link-trash")
       wait_for_selector(".team-header__drawer-team-link").click
       wait_for_selector(".project-list__link-all")
       wait_for_selector('.project-list__link').click
@@ -670,6 +661,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector(".switch-teams__joined-team")
       wait_for_selector_list('.teams a').last.click
       wait_for_selector(".project__title")
+      wait_for_selector(".project-list__link-trash")
       wait_for_selector(".team-header__drawer-team-link").click
       wait_for_selector_none(".team-members__edit-button", :css,10)
 
@@ -808,6 +800,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_team_and_project(user: user)
       @driver.navigate.to(@config['self_url'] + '/check/me')
       wait_for_selector('#teams-tab')
+      wait_for_selector(".project-list__link-all")
       expect(@driver.page_source.include?('All items')).to be(true)
     end
 
