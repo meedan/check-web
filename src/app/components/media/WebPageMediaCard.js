@@ -3,7 +3,6 @@ import { injectIntl, FormattedMessage } from 'react-intl';
 import deepEqual from 'deep-equal';
 import styled from 'styled-components';
 import AspectRatio from '../layout/AspectRatio';
-import MediaUtil from './MediaUtil';
 import MoreLess from '../layout/MoreLess';
 import ExternalLink from '../ExternalLink';
 import ParsedText from '../ParsedText';
@@ -70,7 +69,6 @@ class WebPageMediaCard extends Component {
               <FormattedMessage
                 id="webPageMediaCard.Error"
                 defaultMessage="This URL could not be identified. It may have been removed, or may only be visible to users when logged in. Click below to view it."
-                values={{ host: MediaUtil.typeLabel(media, data, this.props.intl) }}
               /> : null
             }
             { media.metadata.url ?

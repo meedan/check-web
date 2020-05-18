@@ -186,8 +186,32 @@ describe('<WebPageMediaCard />', () => {
       />,
     );
 
-    expect(card1.text()).toMatch('hello!');
-    expect(card2.text()).not.toMatch('hello!');
-    expect(card3.text()).not.toMatch('hello!');
+    expect(card1.text()).toMatch(webPageWithWhitelistedUrl.data.html);
+    expect(card2.text()).not.toMatch(webPageWithWhitelistedUrl.data.html);
+    expect(card3.text()).not.toMatch(webPageWithWhitelistedUrl.data.html);
+  });
+
+  it('renders an error message if data has error', () => {
+    webPageWithGoodPicture.data.error = {
+      message: 'Not Found',
+      code: 14
+    };
+    const card1 = mountWithIntl(
+      <WebPageMediaCard
+        media={webPageWithGoodPicture.media}
+        data={webPageWithGoodPicture.data}
+      />,
+    );
+
+    delete webPageWithGoodPicture.data.error;
+    const card2 = mountWithIntl(
+      <WebPageMediaCard
+        media={webPageWithGoodPicture.media}
+        data={webPageWithGoodPicture.data}
+      />,
+    );
+
+    expect(card1.text()).toMatch('This URL could not be identified');
+    expect(card2.text()).not.toMatch('This URL could not be identified');
   });
 });
