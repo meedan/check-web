@@ -716,7 +716,7 @@ shared_examples 'smoke' do
     expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
   end
 
-  it "should create a image, generate a embed, copy url and open in a incognito window", bin4: true do
+  it "should generate a embed and go to embed page", bin4: true do
    api_create_team_and_project
     @driver.navigate.to @config['self_url']
     wait_for_selector('.project__description')
@@ -728,16 +728,14 @@ shared_examples 'smoke' do
     wait_for_selector("//span[contains(text(), 'Edit')]", :xpath).click
     wait_for_selector("//span[contains(text(), 'Visual card')]", :xpath).click
     wait_for_selector("//span[contains(text(), 'Text message')]", :xpath).click
-    wait_for_selector("#report-designer__text").send_keys("message")
+    wait_for_selector("#report-designer__text").send_keys("text message")
     wait_for_selector("//span[contains(text(), 'Save')]", :xpath).click
     wait_for_selector("//span[contains(text(), 'Edit')]", :xpath)
     wait_for_selector('#report-designer__actions button + button').click
-    url = wait_for_selector('#report-designer__share-field').value.to_s
-    caps = Selenium::WebDriver::Remote::Capabilities.chrome('chromeOptions' => { 'args' => [ '--incognito' ]})
-    driver = Selenium::WebDriver.for(:remote, url: @webdriver_url, desired_capabilities: caps)
-    driver.navigate.to url
+    embed_url = wait_for_selector('#report-designer__share-field').value.to_s
+    @driver.navigate.to embed_url
     wait_for_selector('#container')
-    expect(@driver.page_source.include?('test.png')).to be(true)
+    expect(@driver.page_source.include?('text message')).to be(true)
   end
 #Embed section end
 
@@ -817,6 +815,7 @@ shared_examples 'smoke' do
     @driver.navigate.to @config['self_url']
     wait_for_selector("#create-media__add-item")
     create_media("claim 1")
+    wait_for_selector_none("#create-media__field")
     wait_for_selector(".medias__item")
     create_media("claim 2")
     wait_for_selector_list_size(".medias__item", 2)
