@@ -67,6 +67,16 @@ export function mountWithIntl(node) {
   });
 }
 
+export function mountWithIntlProvider(node, intlProviderProps = {}) {
+  return mount(node, {
+    wrappingComponent: IntlProvider,
+    wrappingComponentProps: {
+      locale: 'en',
+      ...intlProviderProps,
+    },
+  });
+}
+
 export function shallowWithIntl(node) {
   return shallow(nodeWithIntlProp(node), { context: { intl, store } });
 }
