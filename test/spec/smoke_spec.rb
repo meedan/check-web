@@ -408,8 +408,11 @@ shared_examples 'smoke' do
     @driver.navigate.to(@config['self_url'] + '/check/me')
     wait_for_selector('#teams-tab').click
     wait_for_selector('.teams a').click
+    wait_for_selector(".project-list__link-all")
+    wait_for_selector(".project-list__link-trash")
+    wait_for_selector(".project__title")
     wait_for_selector(".team-header__drawer-team-link").click
-    wait_for_selector('.team__project-title')
+    wait_for_selector(".team__primary-info")
     expect(@driver.page_source.include?('Assigned to one member')).to be(false)
     ['.team__project-expand', '.project__assignment-button', '.project__assignment-menu input[type=checkbox]', '.multi__selector-save'].each do |selector|
       wait_for_selector(selector).click
@@ -724,13 +727,16 @@ shared_examples 'smoke' do
     wait_for_selector("#report-designer__customization-menu")
     wait_for_selector("//span[contains(text(), 'Edit')]", :xpath).click
     wait_for_selector("//span[contains(text(), 'Visual card')]", :xpath).click
+    wait_for_selector("//span[contains(text(), 'Text message')]", :xpath).click
+    wait_for_selector("#report-designer__text").send_keys("message")
     wait_for_selector("//span[contains(text(), 'Save')]", :xpath).click
+    wait_for_selector("//span[contains(text(), 'Edit')]", :xpath)
     wait_for_selector('#report-designer__actions button + button').click
     url = wait_for_selector('#report-designer__share-field').value.to_s
     caps = Selenium::WebDriver::Remote::Capabilities.chrome('chromeOptions' => { 'args' => [ '--incognito' ]})
     driver = Selenium::WebDriver.for(:remote, url: @webdriver_url, desired_capabilities: caps)
     driver.navigate.to url
-    wait_for_selector('.pender-container')
+    wait_for_selector('#container')
     expect(@driver.page_source.include?('test.png')).to be(true)
   end
 #Embed section end
@@ -868,7 +874,7 @@ shared_examples 'smoke' do
     wait_for_selector_list_size(".medias__item",1)
     wait_for_selector(".ag-icon-checkbox-unchecked").click
     wait_for_selector("#media-bulk-actions__remove-from-list").click #remove_button
-    wait_for_selector(".message")
+    wait_for_selector_none(".media")
     expect(@driver.find_elements(:css, '.medias__item').length == 0 )
     expect(@driver.page_source.include?("Add a link or text")).to be(true)
   end

@@ -570,6 +570,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector("#task-description-input" )
       fill_field('#task-label-input', 'Where?')
       wait_for_selector('.create-task__dialog-submit-button').click
+      wait_for_selector_none("#task-label-input")
       wait_for_selector(".media-tab__activity").click
       old = wait_for_size_change(old, "annotations__list-item", :class)
       expect(@driver.page_source.include?('Where?')).to be(true)
@@ -596,6 +597,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector("#task-description-input" )
       update_field('#task-label-input', 'Where was it?')
       wait_for_selector( '.create-task__dialog-submit-button').click
+      wait_for_selector_none("#task-description-input")
       wait_for_selector(".media-tab__activity").click
       old = wait_for_size_change(old, "annotations__list-item", :class)
       expect(@driver.page_source.include?('Where was it?')).to be(true)
@@ -649,7 +651,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector(".switch-teams__joined-team")
       wait_for_selector_list('.teams a').first.click
       wait_for_selector(".project__title")
+      wait_for_selector(".project-list__link-all")
       wait_for_selector(".project-list__link-trash")
+      wait_for_selector(".project__title")
       wait_for_selector(".team-header__drawer-team-link").click
       wait_for_selector(".project-list__link-all")
       wait_for_selector('.project-list__link').click
@@ -663,7 +667,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector(".project__title")
       wait_for_selector(".project-list__link-trash")
       wait_for_selector(".team-header__drawer-team-link").click
-      wait_for_selector_none(".team-members__edit-button", :css,10)
+      wait_for_selector(".project-list__link-all")
 
       @driver.navigate.to(@config['self_url'])
       wait_for_selector('.project__title')
