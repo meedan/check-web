@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import { browserHistory } from 'react-router';
+import Button from '@material-ui/core/Button';
+import Popover from '@material-ui/core/Popover';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import LockIcon from '@material-ui/icons/Lock';
 import styled from 'styled-components';
 import { can } from '../Can';
 import CheckContext from '../../CheckContext';
@@ -19,10 +21,6 @@ const messages = defineMessages({
   },
 });
 
-const ReadOnlyStatusLabel = styled.div`
-  color: black;
-`;
-
 const StyledMediaStatus = styled.div`
   display: flex;
   align-items: center;
@@ -34,9 +32,15 @@ class MediaStatusCommon extends Component {
     return ` media-status__current--${status.toLowerCase().replace(/[ _]/g, '-')}`;
   }
 
+  state = {};
+
   canUpdate() {
     return !this.props.readonly && can(this.props.media.permissions, 'update Status');
   }
+
+  handleCloseMenu = () => {
+    this.setState({ anchorEl: null });
+  };
 
   handleEdit() {
     const { media } = this.props;
@@ -47,6 +51,8 @@ class MediaStatusCommon extends Component {
   handleStatusClick = (clickedStatus) => {
     const { media } = this.props;
     const store = new CheckContext(this).getContextStore();
+
+    this.setState({ anchorEl: null });
 
     if (clickedStatus !== mediaLastStatus(media)) {
       this.props.setStatus(this, store, media, clickedStatus, this.props.parentComponent, null);
@@ -64,11 +70,6 @@ class MediaStatusCommon extends Component {
     // Do nothing. This is here because the child status component calls it.
   }
 
-  handleChange = (e) => {
-    const statusId = e.target.value;
-    this.handleStatusClick(statusId);
-  };
-
   render() {
     const { media } = this.props;
     const { statuses } = mediaStatuses(media);
@@ -76,34 +77,39 @@ class MediaStatusCommon extends Component {
 
     return (
       <StyledMediaStatus className="media-status">
-        {this.canUpdate() ? (
-          <FormControl variant="outlined">
-            <Select
-              className={`media-status__label media-status__current${MediaStatusCommon.currentStatusToClass(mediaLastStatus(media))}`}
-              onChange={this.handleChange}
-              value={currentStatus.id}
-              margin="dense"
+        <Button
+          className={`media-status__label media-status__current${MediaStatusCommon.currentStatusToClass(mediaLastStatus(media))}`}
+          style={{ backgroundColor: currentStatus.style.color, color: 'white' }}
+          variant="contained"
+          disableElevation
+          onClick={e => this.setState({ anchorEl: e.currentTarget })}
+          disabled={!this.canUpdate()}
+          endIcon={this.canUpdate() ? <KeyboardArrowDownIcon /> : <LockIcon />}
+        >
+          {currentStatus.label}
+        </Button>
+        <Popover
+          anchorEl={this.state.anchorEl}
+          open={Boolean(this.state.anchorEl)}
+          onClose={this.handleCloseMenu}
+          anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+        >
+          {statuses.map(status => (
+            <MenuItem
+              key={status.id}
+              className={`${bemClass(
+                'media-status__menu-item',
+                mediaLastStatus(media) === status.id,
+                '--current',
+              )} media-status__menu-item--${status.id.replace('_', '-')}`}
+              onClick={() => this.handleStatusClick(status.id)}
             >
-              {statuses.map(status => (
-                <MenuItem
-                  key={status.id}
-                  className={`${bemClass(
-                    'media-status__menu-item',
-                    mediaLastStatus(media) === status.id,
-                    '--current',
-                  )} media-status__menu-item--${status.id.replace('_', '-')}`}
-                  value={status.id}
-                >
-                  <span style={{ color: status.style.color }}>
-                    {status.label}
-                  </span>
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        ) : (
-          <ReadOnlyStatusLabel>{currentStatus.label}</ReadOnlyStatusLabel>
-        )}
+              <span style={{ color: status.style.color }}>
+                {status.label.toUpperCase()}
+              </span>
+            </MenuItem>
+          ))}
+        </Popover>
       </StyledMediaStatus>
     );
   }
