@@ -29,7 +29,7 @@ const StyledMediaStatus = styled.div`
 class MediaStatusCommon extends Component {
   static currentStatusToClass(status) {
     if (status === '') return '';
-    return ` media-status__current--${status.toLowerCase().replace(/[ _]/g, '-')}`;
+    return `media-status__current--${status.toLowerCase().replace(/[ _]/g, '-')}`;
   }
 
   state = {};
@@ -78,7 +78,7 @@ class MediaStatusCommon extends Component {
     return (
       <StyledMediaStatus className="media-status">
         <Button
-          className={`media-status__label media-status__current${MediaStatusCommon.currentStatusToClass(mediaLastStatus(media))}`}
+          className={`media-status__label media-status__current ${MediaStatusCommon.currentStatusToClass(mediaLastStatus(media))}`}
           style={{ backgroundColor: currentStatus.style.color, color: 'white' }}
           variant="contained"
           disableElevation
