@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedDate, FormattedMessage } from 'react-intl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import { units } from '../styles/js/shared';
+import { units, title1, caption } from '../styles/js/shared';
 import { stringHelper } from '../customHelpers';
 
 class UserTosForm extends Component {
@@ -38,17 +38,31 @@ class UserTosForm extends Component {
       </a>
     );
 
+    const { termsLastUpdatedAt } = this.props;
+
     return (
       <div>
         { !this.props.user.last_accepted_terms_at ?
           <div>
             { this.props.showTitle ?
-              <h2>
+              <h2 style={{ font: title1 }}>
                 <FormattedMessage
                   id="userTos.title"
                   defaultMessage="Terms of Service and Privacy Policy"
                 />
-              </h2> : null }
+              </h2> : null
+            }
+            { termsLastUpdatedAt ?
+              <p style={{ margin: `${units(1)} 0`, font: caption }}>
+                <FormattedMessage
+                  id="userTos.termsLastUpdatedAt"
+                  defaultMessage="Last updated {lastUpdated}"
+                  values={{
+                    lastUpdated: <FormattedDate value={termsLastUpdatedAt * 1000} day="numeric" month="long" year="numeric" />,
+                  }}
+                />
+              </p> : null
+            }
             <p style={{ margin: `${units(4)} 0` }}>
               <FormattedMessage
                 id="userTos.disclaimer"

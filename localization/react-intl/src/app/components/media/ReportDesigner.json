@@ -1,7 +1,7 @@
 [
   {
     "id": "reportDesigner.cantPublish",
-    "defaultMessage": "You need to add content to your report before you can publish it"
+    "defaultMessage": "Select at least the text message or the visual card to publish your report"
   },
   {
     "id": "reportDesigner.canPublish",

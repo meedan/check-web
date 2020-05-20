@@ -113,20 +113,26 @@ class UserAssignmentsComponent extends Component {
     }
 
     const assignments = {};
+    const assignmentsWithoutProject = [];
     const projectPaths = {};
     const hasAssignment = user.assignments.edges.length > 0;
 
     user.assignments.edges.forEach((assignment) => {
       const a = assignment.node;
-      const project = a.project.title;
-      if (!assignments[project]) {
-        assignments[project] = [];
+      if (a.project) {
+        const project = a.project.title;
+        if (!assignments[project]) {
+          assignments[project] = [];
+        }
+        if (!projectPaths[project]) {
+          projectPaths[project] = `/${a.team.slug}/project/${a.project_id}`;
+        }
+        a.path = `/${a.team.slug}/project/${a.project_id}/media/${a.dbid}`;
+        assignments[project].push(a);
+      } else {
+        a.path = `/${a.team.slug}/media/${a.dbid}`;
+        assignmentsWithoutProject.push(a);
       }
-      if (!projectPaths[project]) {
-        projectPaths[project] = `/${a.team.slug}/project/${a.project_id}`;
-      }
-      a.path = `/${a.team.slug}/project/${a.project_id}/media/${a.dbid}`;
-      assignments[project].push(a);
     });
 
     const options = [];
@@ -211,6 +217,29 @@ class UserAssignmentsComponent extends Component {
             </List>
           </Card>
         ))}
+        <Card style={{ marginTop: units(2), marginBottom: units(2) }}>
+          <CardHeader
+            title={
+              <FormattedMessage id="userAssignments.other" defaultMessage="Other" />
+            }
+          />
+          <List>
+            {assignmentsWithoutProject.map(assignment => (
+              <ListItem key={`media-${assignment.dbid}`}>
+                <ListItemIcon>
+                  {icons[assignment.report_type]}
+                </ListItemIcon>
+                <Link to={assignment.path}>
+                  <ListItemText
+                    primary={
+                      MediaUtil.title(assignment, assignment.metadata, this.props.intl)
+                    }
+                  />
+                </Link>
+              </ListItem>
+            ))}
+          </List>
+        </Card>
       </div>
     );
   }

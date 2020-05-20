@@ -2,6 +2,7 @@
   "userTos.tosLink": "Termeni de utilizare",
   "userTos.ppLink": "Politica de confidențialitate",
   "userTos.title": "Termenii de utilizare și politica de confidențialitate",
+  "userTos.termsLastUpdatedAt": "Last updated {lastUpdated}",
   "userTos.disclaimer": "Vă rugăm să analizați {tosLink} și {ppLink} și dați acordul pentru următoarele:",
   "userTos.titleUpdated": "Termenii de utilizare și politica de confidențialitate actualizate",
   "userTos.disclaimerUpdate": "Am actualizat {tosLink} și {ppLink}. Vă rugăm să le analizați și să dați acordul pentru următoarele:",

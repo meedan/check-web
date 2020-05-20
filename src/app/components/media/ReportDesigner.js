@@ -54,7 +54,7 @@ import {
 const messages = defineMessages({
   cantPublish: {
     id: 'reportDesigner.cantPublish',
-    defaultMessage: 'You need to add content to your report before you can publish it',
+    defaultMessage: 'Select at least the text message or the visual card to publish your report',
   },
   canPublish: {
     id: 'reportDesigner.canPublish',
@@ -627,6 +627,7 @@ class ReportDesignerComponent extends Component {
     const url = window.location.href.replace(/\/embed$/, `?t=${new Date().getTime()}`);
     const embedTag = `<script src="${config.penderUrl}/api/medias.js?url=${encodeURIComponent(url)}"></script>`;
     const empty = this.settingsEmpty();
+    const cantPublish = !this.state.options.use_visual_card && !this.state.options.use_text_message;
     const mediaPreview = this.previewMedia();
 
     return (
@@ -794,7 +795,7 @@ class ReportDesignerComponent extends Component {
               { (!this.state.editing && options.state === 'paused') ?
                 <Tooltip
                   title={
-                    empty ?
+                    cantPublish ?
                       this.props.intl.formatMessage(messages.cantPublish) :
                       this.props.intl.formatMessage(messages.canPublish)
                   }
@@ -802,7 +803,7 @@ class ReportDesignerComponent extends Component {
                   <span>
                     <Button
                       variant="contained"
-                      disabled={this.state.pending || empty}
+                      disabled={this.state.pending || cantPublish}
                       onClick={
                         () => {
                           if (options.last_published) {
@@ -822,7 +823,7 @@ class ReportDesignerComponent extends Component {
                         color: '#FFFFFF',
                         marginRight: units(1),
                         marginLeft: units(1),
-                        opacity: (empty ? 0.5 : 1),
+                        opacity: (cantPublish ? 0.5 : 1),
                       }}
                     >
                       <IconPlay />

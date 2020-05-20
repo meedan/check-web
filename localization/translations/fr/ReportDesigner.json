@@ -1,5 +1,5 @@
 {
-  "reportDesigner.cantPublish": "Vous devez ajouter du contenu à votre rapport avant de pouvoir le publier",
+  "reportDesigner.cantPublish": "Sélectionnez au moins le message texte ou la carte visuelle pour publier votre rapport",
   "reportDesigner.canPublish": "Publier le rapport",
   "reportDesigner.pauseReport": "Suspendre le rapport",
   "reportDesigner.introductionPlaceholder": "Tapez votre introduction ici...",

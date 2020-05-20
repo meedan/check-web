@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import Favicon from 'react-favicon';
 import {
-  MuiThemeProvider as MuiThemeProviderNext,
+  MuiThemeProvider,
   createMuiTheme,
 } from '@material-ui/core/styles';
 import rtlDetect from 'rtl-detect';
@@ -20,7 +20,8 @@ import BrowserSupport from './BrowserSupport';
 import CheckContext from '../CheckContext';
 import DrawerNavigation from './DrawerNavigation';
 import { bemClass } from '../helpers';
-import { FlashMessageContext, FlashMessage } from './FlashMessage';
+import { FlashMessageContext, FlashMessage, withSetFlashMessage } from './FlashMessage';
+import UserTos from './UserTos';
 import { withClientSessionId } from '../ClientSessionId';
 import {
   muiThemeV1,
@@ -180,12 +181,13 @@ class HomeComponent extends Component {
   }
 
   setContext() {
+    const { clientSessionId, setFlashMessage } = this.props;
     const context = new CheckContext(this);
     if (!this.state.token && !this.state.error) {
-      context.startSession(this.props.user, this.props.clientSessionId);
+      context.startSession(this.props.user, clientSessionId, setFlashMessage);
     }
     context.setContext();
-    context.startNetwork(this.state.token, this.props.clientSessionId);
+    context.startNetwork(this.state.token, clientSessionId, setFlashMessage);
   }
 
   getContext() {
@@ -214,7 +216,7 @@ class HomeComponent extends Component {
     const { children, location, intl } = this.props;
     const routeSlug = HomeComponent.routeSlug(children);
 
-    const muiThemeNext = createMuiTheme(muiThemeV1);
+    const muiTheme = createMuiTheme(muiThemeV1);
 
     const routeIsPublic = children && children.props.route.public;
     if (!routeIsPublic && !this.state.token) {
@@ -239,20 +241,20 @@ class HomeComponent extends Component {
       return null;
     }
 
-    const user = this.getContext().currentUser || {};
+    const user = this.props.user || {};
     const loggedIn = !!this.state.token;
     const teamSlugFromUrl = window.location.pathname.match(/^\/([^/]+)/);
-    const teamSlug = (teamSlugFromUrl && teamSlugFromUrl[1] !== 'check' ? teamSlugFromUrl[1] : null);
     const userTeamSlug = ((user.current_team && user.current_team.slug) ?
       user.current_team.slug : null);
-    const inTeamContext = !!(teamSlug || userTeamSlug);
+    const teamSlug = (teamSlugFromUrl && teamSlugFromUrl[1] !== 'check' ? teamSlugFromUrl[1] : null) || userTeamSlug;
+    const inTeamContext = Boolean(teamSlug);
 
     const currentUserIsMember = (() => {
       if (inTeamContext && loggedIn) {
         if (user.is_admin) {
           return true;
         }
-        const teams = JSON.parse(user.teams);
+        const teams = JSON.parse(user.user_teams);
         const team = teams[teamSlug] || {};
         return team.status === 'member';
       }
@@ -265,7 +267,7 @@ class HomeComponent extends Component {
       <React.Fragment>
         <GlobalStyle />
         <MuiPickersUtilsProvider utils={MomentUtils}>
-          <MuiThemeProviderNext theme={muiThemeNext}>
+          <MuiThemeProvider theme={muiTheme}>
             <React.Fragment>
               {config.intercomAppId && user.dbid ?
                 <Intercom
@@ -278,6 +280,7 @@ class HomeComponent extends Component {
               }
               <Favicon url={`/images/logo/${config.appName}.ico`} animated={false} />
               <BrowserSupport />
+              <UserTos user={user} />
               { showDrawer ?
                 <DrawerNavigation
                   variant="persistent"
@@ -310,7 +313,7 @@ class HomeComponent extends Component {
                 </StyledContent>
               </StyledWrapper>
             </React.Fragment>
-          </MuiThemeProviderNext>
+          </MuiThemeProvider>
         </MuiPickersUtilsProvider>
       </React.Fragment>
     );
@@ -321,6 +324,7 @@ HomeComponent.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
   clientSessionId: PropTypes.string.isRequired,
+  setFlashMessage: PropTypes.func.isRequired,
   intl: intlShape.isRequired,
 };
 
@@ -328,7 +332,9 @@ HomeComponent.contextTypes = {
   store: PropTypes.object,
 };
 
-const HomeContainer = Relay.createContainer(injectIntl(withClientSessionId(HomeComponent)), {
+const ConnectedHomeComponent = injectIntl(withSetFlashMessage(withClientSessionId(HomeComponent)));
+
+const HomeContainer = Relay.createContainer(ConnectedHomeComponent, {
   fragments: {
     user: () => Relay.QL`
       fragment on User {
@@ -392,7 +398,8 @@ const HomeContainer = Relay.createContainer(injectIntl(withClientSessionId(HomeC
 class Home extends Component {
   componentWillMount() {
     const context = new CheckContext(this);
-    context.startNetwork(null, this.props.clientSessionId);
+    const { clientSessionId, setFlashMessage } = this.props;
+    context.startNetwork(null, clientSessionId, setFlashMessage);
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -419,10 +426,11 @@ class Home extends Component {
 
 Home.propTypes = {
   clientSessionId: PropTypes.string.isRequired,
+  setFlashMessage: PropTypes.func.isRequired,
 };
 
 Home.contextTypes = {
   store: PropTypes.object,
 };
 
-export default withClientSessionId(Home);
+export default withSetFlashMessage(withClientSessionId(Home));

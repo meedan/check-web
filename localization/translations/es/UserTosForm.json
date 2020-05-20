@@ -2,6 +2,7 @@
   "userTos.tosLink": "Términos del Servicio",
   "userTos.ppLink": "Política de Privacidad",
   "userTos.title": "Términos del Servicio y Política de Privacidad",
+  "userTos.termsLastUpdatedAt": "Última actualización {lastUpdated}",
   "userTos.disclaimer": "Por favor revisa nuestros {tosLink} y nuestra {ppLink} y autoriza lo siguiente:",
   "userTos.titleUpdated": "Términos de Servicio y Política de Privacidad actualizados",
   "userTos.disclaimerUpdate": "Hemos actualizado nuestros {tosLink} y nuestra {ppLink}. Por favor revisa y aprueba lo siguiente:",
