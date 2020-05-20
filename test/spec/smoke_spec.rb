@@ -1083,7 +1083,7 @@ shared_examples 'smoke' do
     #see the icon 'change the status' that the media you don't own
     wait_for_selector_list(".media__heading")[1].click
     wait_for_selector(".create-related-media__add-button")
-    expect(@driver.find_elements(:css, ".media-status input").size).to eq 1
+    expect(@driver.find_elements(:css, ".media-status button").size).to eq 1
 
     # see the input to add a comment in media you don't own
     wait_for_selector(".media-tab__comments").click
@@ -1130,7 +1130,7 @@ shared_examples 'smoke' do
     wait_for_selector_list(".project-list__link")[0].click
     wait_for_selector_list(".media__heading")[1].click
     wait_for_selector(".create-related-media__add-button")
-    expect(@driver.find_elements(:css, ".media-status input").size).to eq 0
+    expect(@driver.find_elements(:css, ".media-status button[disabled]").size).to eq 1
   end
 #Permissions section end
 
