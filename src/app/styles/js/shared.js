@@ -282,7 +282,9 @@ export const muiTheme = createMuiTheme({
     MuiTableCell: {
       stickyHeader: {
         // @material-ui/core sets #fafafa, only for sticky header. Undo that.
-        backgroundColor: 'transparent',
+        // We do need a color, though -- if we choose "transparent" the tbody
+        // will show through.
+        backgroundColor: white,
       },
     },
   },
