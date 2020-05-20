@@ -132,7 +132,7 @@ module AppSpecHelpers
     elements
   end
 
-  def wait_for_selector_list_size(selector, size, type = :css, retries = 2, test = 'unknown')
+  def wait_for_selector_list_size(selector, size, type = :css, retries = 10, test = 'unknown')
     elements = []
     attempts = 0
     start = Time.now.to_i

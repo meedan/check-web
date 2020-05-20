@@ -381,18 +381,18 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Claim')).to be(false)
     end
 
-    it "should search for reverse images", bin2: true do
-      api_create_team_project_and_link_and_redirect_to_media_page 'https://www.instagram.com/p/BRYob0dA1SC/'
-      card = wait_for_selector_list(".media-detail").length
-      expect(card == 1).to be(true)
-      expect((@driver.current_url.to_s =~ /google/).nil?).to be(true)
-      current_window = @driver.window_handles.last
-      wait_for_selector(".media-detail__reverse-image-search > button").click
-      @driver.switch_to.window(@driver.window_handles.last)
-      wait_for_selector("#top_nav")
-      expect((@driver.current_url.to_s =~ /google/).nil?).to be(false)
-      @driver.switch_to.window(current_window)
-    end
+    # it "should search for reverse images", bin2: true do
+    #   api_create_team_project_and_link_and_redirect_to_media_page 'https://www.instagram.com/p/BRYob0dA1SC/'
+    #   card = wait_for_selector_list(".media-detail").length
+    #   expect(card == 1).to be(true)
+    #   expect((@driver.current_url.to_s =~ /google/).nil?).to be(true)
+    #   current_window = @driver.window_handles.last
+    #   wait_for_selector(".media-detail__reverse-image-search > button").click
+    #   @driver.switch_to.window(@driver.window_handles.last)
+    #   wait_for_selector("#top_nav")
+    #   expect((@driver.current_url.to_s =~ /google/).nil?).to be(false)
+    #   @driver.switch_to.window(current_window)
+    # end
 
     it "should refresh media", bin1: true do
       page = api_create_team_project_and_link_and_redirect_to_media_page 'http://ca.ios.ba/files/meedan/random.php'
