@@ -388,8 +388,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     #   expect((@driver.current_url.to_s =~ /google/).nil?).to be(true)
     #   current_window = @driver.window_handles.last
     #   wait_for_selector(".media-detail__reverse-image-search > button").click
-    #   @driver.switch_to.window(@driver.window_handles.last)
     #   wait_for_selector("#top_nav")
+    #   @driver.switch_to.window(@driver.window_handles.last)
+    #   wait_for_selector(".create-task__add-button")
     #   expect((@driver.current_url.to_s =~ /google/).nil?).to be(false)
     #   @driver.switch_to.window(current_window)
     # end
@@ -750,7 +751,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.project__title')
       expect(@driver.page_source.include?(t1.name)).to be(true)
       expect(@driver.page_source.include?(t2.name)).to be(false)
-      
+
       # Navigate to second team
       wait_for_selector('.header__user-menu').click
       wait_for_selector('a[href="/check/me"]').click

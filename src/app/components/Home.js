@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import Favicon from 'react-favicon';
 import {
-  MuiThemeProvider as MuiThemeProviderNext,
+  MuiThemeProvider,
   createMuiTheme,
 } from '@material-ui/core/styles';
 import rtlDetect from 'rtl-detect';
@@ -216,7 +216,7 @@ class HomeComponent extends Component {
     const { children, location, intl } = this.props;
     const routeSlug = HomeComponent.routeSlug(children);
 
-    const muiThemeNext = createMuiTheme(muiThemeV1);
+    const muiTheme = createMuiTheme(muiThemeV1);
 
     const routeIsPublic = children && children.props.route.public;
     if (!routeIsPublic && !this.state.token) {
@@ -267,7 +267,7 @@ class HomeComponent extends Component {
       <React.Fragment>
         <GlobalStyle />
         <MuiPickersUtilsProvider utils={MomentUtils}>
-          <MuiThemeProviderNext theme={muiThemeNext}>
+          <MuiThemeProvider theme={muiTheme}>
             <React.Fragment>
               {config.intercomAppId && user.dbid ?
                 <Intercom
@@ -313,7 +313,7 @@ class HomeComponent extends Component {
                 </StyledContent>
               </StyledWrapper>
             </React.Fragment>
-          </MuiThemeProviderNext>
+          </MuiThemeProvider>
         </MuiPickersUtilsProvider>
       </React.Fragment>
     );
