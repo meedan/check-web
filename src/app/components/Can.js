@@ -1,3 +1,6 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+
 function can(permissionsData, permission) {
   try {
     const permissions = JSON.parse(permissionsData);
@@ -9,11 +12,23 @@ function can(permissionsData, permission) {
   return false;
 }
 
-const Can = (props) => {
-  if (can(props.permissions, props.permission)) {
-    return props.children;
-  }
-  return props.otherwise || null;
+export default function Can({
+  permissions, permission, children, otherwise,
+}) {
+  return (
+    <React.Fragment>
+      {can(permissions, permission) ? children : otherwise}
+    </React.Fragment>
+  );
+}
+Can.defaultProps = {
+  otherwise: null,
+};
+Can.propTypes = {
+  permissions: PropTypes.string.isRequired, // e.g., '{"create Media":true}'
+  permission: PropTypes.string.isRequired, // e.g., 'create Media'
+  children: PropTypes.node.isRequired, // component to render if permitted
+  otherwise: PropTypes.node, // component to render otherwise (or null)
 };
 
-export { Can as default, can };
+export { can };
