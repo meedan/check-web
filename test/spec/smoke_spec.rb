@@ -605,14 +605,10 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('Smooch')).to be(true)
     wait_for_selector(".team__project").click
     wait_for_selector("#search__open-dialog-button")
-    wait_for_selector("#create-media__add-item").click
-    wait_for_selector("#create-media__quote").click
-    wait_for_selector("#create-media-quote-input")
-    fill_field('#create-media-quote-input', "Claim")
-    wait_for_selector('#create-media-dialog__submit-button').click
+    create_media("Claim")
     wait_for_selector(".medias__item")
     wait_for_selector(".media__heading").click
-    wait_for_selector(".annotations__list")
+    wait_for_selector(".create-related-media__add-button")
     expect(@driver.page_source.include?('In Progress')).to be(false)
     change_the_status_to(".media-status__menu-item--in-progress", true)
     expect(@driver.page_source.include?('In Progress')).to be(true)
@@ -760,7 +756,7 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?("Add a link or text")).to be(true)
 
     # Go to the second project, make sure that there is no claim, and thus store the data in local Relay store
-    wait_for_selector('.project-list__link-container + .project-list__link-container .project-list__link').click
+    @driver.navigate.to p2url
     wait_for_selector('.search__results')
     expect(@driver.page_source.include?(claim)).to be(false)
     expect(@driver.page_source.include?('1 / 1')).to be(false)
@@ -768,31 +764,32 @@ shared_examples 'smoke' do
 
     # Create a claim under project 2
     create_media(claim)
-    # Go to the second project, make sure that the claim is there
-    wait_for_selector('.project-list__link-container + .project-list__link-container .project-list__link').click
     wait_for_selector('.medias__item')
+    wait_for_selector(".ag-header-row")
     expect(@driver.page_source.include?(claim)).to be(true)
     expect(@driver.page_source.include?('1 / 1')).to be(true)
     expect(@driver.page_source.include?("Add a link or text")).to be(false)
 
     # Move the claim to another project
-    wait_for_selector(".ag-icon-checkbox-unchecked").click
-    wait_for_selector("#media-bulk-actions__move-icon").click
+    wait_for_selector(".media__heading").click
+    wait_for_selector(".tasks")
+    wait_for_selector("#media-actions-bar__move-to").click
+    wait_for_selector(".Select-control")
     wait_for_selector('.Select-input input').send_keys('Project')
     wait_for_selector(".Select-menu-outer")
     @driver.action.send_keys(:enter).perform
-    button_move = wait_for_selector('.media-bulk-actions__move-button')
+    button_move = wait_for_selector('.media-actions-bar__move-button')
     button_move.location_once_scrolled_into_view
     button_move.click
     wait_for_selector_none(".Select-placeholder")
-    wait_for_selector('.project-list__link').click
+    @driver.navigate.to p1url
     expect(@driver.current_url.to_s == p1url).to be(true)
-    wait_for_selector_list_size(".medias__item", 1, :css , 80)
+    wait_for_selector_list_size(".medias__item",1)
     expect(@driver.page_source.include?('1 / 1')).to be(true)
     expect(@driver.page_source.include?("Add a link or text")).to be(false)
 
     # Go back to the second project and make sure that the claim is not there anymore
-    wait_for_selector('.project-list__link-container + .project-list__link-container .project-list__link').click
+    @driver.navigate.to p2url
     wait_for_selector('.search__results')
     expect(@driver.page_source.include?('1 / 1')).to be(false)
     expect(@driver.page_source.include?("Add a link or text")).to be(true)
@@ -803,13 +800,6 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?(claim)).to be(true)
     expect(@driver.page_source.include?('1 / 1')).to be(true)
     expect(@driver.page_source.include?("Add a link or text")).to be(false)
-
-    # Reload the second project page and make sure that the claim is not there
-    @driver.navigate.to p2url
-    wait_for_selector('.search__results')
-    expect(@driver.page_source.include?(claim)).to be(false)
-    expect(@driver.page_source.include?('1 / 1')).to be(false)
-    expect(@driver.page_source.include?("Add a link or text")).to be(true)
   end
 
   it "should create items, add to another project and then delete it", bin6: true do
