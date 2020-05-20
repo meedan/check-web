@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
-import { defineMessages, injectIntl, intlShape, FormattedMessage } from 'react-intl';
-import { browserHistory } from 'react-router';
-import sortby from 'lodash.sortby';
+import { FormattedMessage } from 'react-intl';
+import { Link, browserHistory } from 'react-router';
 import styled from 'styled-components';
 import NextIcon from '@material-ui/icons/KeyboardArrowRight';
 import PrevIcon from '@material-ui/icons/KeyboardArrowLeft';
@@ -15,25 +14,13 @@ import ParsedText from '../ParsedText';
 import BulkActions from '../media/BulkActions';
 import MediasLoading from '../media/MediasLoading';
 import ProjectBlankState from '../project/ProjectBlankState';
-import { searchPrefixFromUrl, searchQueryFromUrl, urlFromSearchQuery } from './Search';
+import { searchQueryFromUrl } from './Search';
 import { black87, headline, units, Row } from '../../styles/js/shared';
 import SearchResultsTable from './SearchResultsTable';
-import CheckContext from '../../CheckContext';
 import SearchRoute from '../../relay/SearchRoute';
 
 // TODO Make this a config
 const pageSize = 20;
-
-const messages = defineMessages({
-  previousPage: {
-    id: 'search.previousPage',
-    defaultMessage: 'Previous page',
-  },
-  nextPage: {
-    id: 'search.nextPage',
-    defaultMessage: 'Next page',
-  },
-});
 
 const StyledListHeader = styled.div`
   padding: 0 ${units(2)};
@@ -69,8 +56,6 @@ const StyledListHeader = styled.div`
 `;
 
 const StyledSearchResultsWrapper = styled.div`
-  margin: 0 -${units(2)} 0 0;
-
   .search__results-heading {
     color: ${black87};
     font-size: larger;
@@ -84,31 +69,39 @@ const StyledSearchResultsWrapper = styled.div`
       display: flex;
       cursor: pointer;
       color: ${black87};
+
+      &:first-child {
+        padding-left: 0;
+      }
     }
   }
 `;
 
+/**
+ * Delete `esoffset`, `timestamp`, `parent` and maybe `projects` -- whenever
+ * they can be inferred from the URL or defaults.
+ *
+ * This is useful for building simple-as-possible URLs.
+ */
+function simplifyQuery(query, project) {
+  const ret = { ...query };
+  delete ret.esoffset;
+  delete ret.timestamp;
+  delete ret.parent; // assume it's redundant
+  if (
+    ret.projects &&
+    (
+      ret.projects.length === 0 ||
+      (ret.projects.length === 1 && project && ret.projects[0] === project.dbid)
+    )
+  ) {
+    delete ret.projects;
+  }
+  return ret;
+}
+
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
 class SearchResultsComponent extends React.PureComponent {
-  static mergeResults(medias, sources) {
-    if (medias.length === 0 && sources.length === 0) {
-      return [];
-    }
-    if (sources.length === 0) {
-      return medias;
-    }
-    if (medias.length === 0) {
-      return sources;
-    }
-    const query = searchQueryFromUrl();
-    const comparisonField = query.sort === 'recent_activity'
-      ? o => o.node.updated_at
-      : o => o.node.published;
-
-    const results = sortby(Array.concat(medias, sources), comparisonField);
-    return query.sort_type !== 'ASC' ? results.reverse() : results;
-  }
-
   constructor(props) {
     super(props);
 
@@ -135,50 +128,26 @@ class SearchResultsComponent extends React.PureComponent {
     this.setState({ selectedProjectMediaIds: [] });
   };
 
-  getContext() {
-    return new CheckContext(this);
+  get beginIndex() {
+    return parseInt(this.props.query.esoffset /* may be invalid */, 10) || 0;
   }
 
-  setOffset(offset) {
-    const team = this.props.search.team || this.currentContext().team;
-    const project = this.props.project || this.currentContext().project;
-    const query = Object.assign({}, searchQueryFromUrl());
-    query.esoffset = offset;
-
-    let path = null;
-    if (/\/trash/.test(window.location.pathname)) {
-      path = `/${team.slug}/trash`;
-    }
-    if (!path) {
-      path = project
-        ? `/${team.slug}/project/${project.dbid}`
-        : `/${team.slug}/all-items`;
-    }
-
-    const url = urlFromSearchQuery(query, path);
-
-    browserHistory.push(url);
+  get endIndex() {
+    return this.beginIndex + this.props.search.medias.edges.length;
   }
 
-  previousPage() {
-    const query = Object.assign({}, searchQueryFromUrl());
-    const offset = query.esoffset ? parseInt(query.esoffset, 10) : 0;
-    if (offset > 0) {
-      this.setOffset(offset - pageSize);
+  get nextPageLocation() {
+    if (this.endIndex >= this.props.search.number_of_results) {
+      return null;
     }
+    return this.buildSearchUrlAtOffset(this.beginIndex + pageSize);
   }
 
-  nextPage() {
-    const count = this.props.search ? this.props.search.number_of_results : 0;
-    const query = Object.assign({}, searchQueryFromUrl());
-    const offset = query.esoffset ? parseInt(query.esoffset, 10) : 0;
-    if (offset + pageSize < count) {
-      this.setOffset(offset + pageSize);
+  get previousPageLocation() {
+    if (this.beginIndex <= 0) {
+      return null;
     }
-  }
-
-  currentContext() {
-    return this.getContext().getContextStore();
+    return this.buildSearchUrlAtOffset(this.beginIndex - pageSize);
   }
 
   resubscribe() {
@@ -231,93 +200,97 @@ class SearchResultsComponent extends React.PureComponent {
   }
 
   handleChangeSortParams = (sortParams) => {
-    const oldQuery = searchQueryFromUrl();
-    let newQuery;
+    const newQuery = { ...this.props.query };
     if (sortParams === null) {
-      newQuery = { ...oldQuery };
       delete newQuery.sort;
       delete newQuery.sort_type;
     } else {
-      const { key, ascending } = sortParams;
-      newQuery = { ...oldQuery, sort: key, sort_type: ascending ? 'ASC' : 'DESC' };
+      newQuery.sort = sortParams.key;
+      newQuery.sort_type = sortParams.ascending ? 'ASC' : 'DESC';
     }
 
-    const prefix = searchPrefixFromUrl();
-    browserHistory.push(urlFromSearchQuery(newQuery, prefix));
+    browserHistory.push(`${this.props.searchUrlPrefix}/${encodeURIComponent(JSON.stringify(newQuery))}`);
   }
 
-  handleClickRow = (ev, projectMedia) => {
-    const team = this.props.search.team || this.currentContext().team;
-    const project = this.props.project || this.currentContext().project;
-    let mediaUrl;
-    if (project && projectMedia.dbid) {
-      mediaUrl = `/${team.slug}/project/${project.dbid}/media/${projectMedia.dbid}`;
-    } else if (projectMedia.dbid) {
-      mediaUrl = `/${team.slug}/media/${projectMedia.dbid}`;
-    } else {
-      return;
+  buildSearchUrlAtOffset = (offset) => {
+    const {
+      query,
+      project,
+      searchUrlPrefix,
+    } = this.props;
+
+    const cleanQuery = simplifyQuery(query, project);
+    if (offset > 0) {
+      cleanQuery.esoffset = offset;
     }
 
-    const originalQuery = searchQueryFromUrl();
-    const query = { original: originalQuery, ...originalQuery };
-    if (Array.isArray(query.show)) {
-      query.show = query.show.filter(f => f !== 'sources');
+    if (Object.keys(cleanQuery).length > 0) {
+      return `${searchUrlPrefix}/${encodeURIComponent(JSON.stringify(cleanQuery))}`;
     }
-    if (project) {
-      query.parent = { type: 'project', id: project.dbid };
-      query.projects = [project.dbid];
-      query.referer = 'project';
-    } else {
-      query.parent = { type: 'team', slug: team.slug };
-      query.referer = 'search';
-    }
-    const isTrash = /\/trash/.test(window.location.pathname);
-    if (isTrash) {
-      query.archived = 1;
-      query.referer = 'trash';
-    }
-    query.timestamp = new Date().getTime();
+    return searchUrlPrefix;
+  }
 
-    const itemOffset = (originalQuery.esoffset || 0) +
-      Array.prototype.indexOf.call(ev.target.parentNode.childNodes, ev.target);
-    query.esoffset = itemOffset;
+  /**
+   * Build a URL for the 'ProjectMedia' page.
+   *
+   * The URL will have a `listIndex` (so the ProjectMedia page can paginate). It
+   * will also include `listPath` and `listQuery` ... _unless_ those parameters
+   * are redundant. (For instance, if the query is
+   * `{ timestamp, parent, esoffset }` then it doesn't need to be supplied,
+   * because enough data is in `mediaUrlPrefix` to infer `parent`.)
+   */
+  buildProjectMediaUrl = (projectMedia) => {
+    if (!projectMedia.dbid) {
+      return null;
+    }
 
-    browserHistory.push({ pathname: mediaUrl, state: { query } });
-  };
+    const {
+      query,
+      project,
+      search,
+      searchUrlPrefix,
+      mediaUrlPrefix,
+    } = this.props;
+
+    const cleanQuery = simplifyQuery(query, project);
+    const itemIndexInPage = search.medias.edges.findIndex(edge => edge.node === projectMedia);
+    const listIndex = this.beginIndex + itemIndexInPage;
+    const urlParams = new URLSearchParams();
+    if (searchUrlPrefix.endsWith('/trash')) {
+      // Usually, `listPath` can be inferred from the route params. With `trash` it can't,
+      // so we'll give it to the receiving page. (See <MediaPage>.)
+      urlParams.set('listPath', searchUrlPrefix);
+    }
+    if (Object.keys(cleanQuery).length > 0) {
+      urlParams.set('listQuery', JSON.stringify(cleanQuery));
+    }
+    urlParams.set('listIndex', String(listIndex));
+    return `${mediaUrlPrefix}/${projectMedia.dbid}?${urlParams.toString()}`;
+  }
 
   render() {
-    const medias = this.props.search.medias ? this.props.search.medias.edges : [];
-    const sources = this.props.search.sources ? this.props.search.sources.edges : [];
+    const projectMedias = this.props.search.medias
+      ? this.props.search.medias.edges.map(({ node }) => node)
+      : [];
 
-    const searchResults = SearchResultsComponent.mergeResults(medias, sources)
-      .map(({ node }) => node);
     const count = this.props.search ? this.props.search.number_of_results : 0;
-    const team = this.props.search.team || this.currentContext().team;
-    const isIdInSearchResults = wantedId => searchResults.some(({ id }) => id === wantedId);
+    const { team } = this.props.search;
+    const isIdInSearchResults = wantedId => projectMedias.some(({ id }) => id === wantedId);
     const selectedProjectMediaIds = this.state.selectedProjectMediaIds.filter(isIdInSearchResults);
 
     const query = Object.assign({}, searchQueryFromUrl());
-    const offset = query.esoffset ? parseInt(query.esoffset, 10) : 0;
-    const to = Math.min(count, Math.max(offset + pageSize, searchResults.length));
-    const isProject = /\/project\//.test(window.location.pathname);
-
-    const searchQueryProps = {
-      project: this.props.project,
-      team: this.props.team,
-      fields: this.props.fields,
-      title: this.props.title,
-    };
+    const isProject = !!this.props.project;
 
     let content = null;
 
     if (count === 0) {
       if (isProject) {
-        content = <ProjectBlankState project={this.currentContext().project} />;
+        content = <ProjectBlankState project={this.props.project} />;
       }
     } else {
       content = (
         <SearchResultsTable
-          projectMedias={searchResults}
+          projectMedias={projectMedias}
           team={team}
           selectedIds={selectedProjectMediaIds}
           sortParams={query.sort ? {
@@ -326,12 +299,17 @@ class SearchResultsComponent extends React.PureComponent {
           } : null}
           onChangeSelectedIds={this.handleChangeSelectedIds}
           onChangeSortParams={this.handleChangeSortParams}
-          onClickRow={this.handleClickRow}
+          buildProjectMediaUrl={this.buildProjectMediaUrl}
         />
       );
     }
 
-    const { listName, listActions, listDescription } = this.props;
+    const {
+      project,
+      title,
+      listActions,
+      listDescription,
+    } = this.props;
 
     return (
       <React.Fragment>
@@ -339,12 +317,13 @@ class SearchResultsComponent extends React.PureComponent {
           <Row className="search__list-header-filter-row">
             <Row className="search__list-header-title-and-filter">
               <div style={{ font: headline }} className="project__title">
-                {listName}
+                {title}
               </div>
               <SearchQuery
                 className="search-query"
-                project={this.currentContext().project}
-                {...searchQueryProps}
+                project={this.props.project}
+                fields={this.props.fields}
+                title={this.props.title}
                 team={team}
               />
             </Row>
@@ -359,36 +338,42 @@ class SearchResultsComponent extends React.PureComponent {
         <StyledSearchResultsWrapper className="search__results results">
           <Toolbar
             team={team}
-            actions={medias.length ?
+            actions={projectMedias.length ?
               <BulkActions
                 parentComponent={this}
                 count={this.props.search ? this.props.search.number_of_results : 0}
                 team={team}
                 page={this.props.page}
-                project={this.currentContext().project}
+                project={this.project}
                 selectedMedia={selectedProjectMediaIds}
                 onUnselectAll={this.onUnselectAll}
               /> : null}
             title={
               <span className="search__results-heading">
-                <Tooltip title={this.props.intl.formatMessage(messages.previousPage)}>
-                  <span
-                    className="search__previous-page search__nav"
-                    onClick={this.previousPage.bind(this)}
-                    style={{
-                      paddingLeft: '0',
-                    }}
-                  >
-                    <PrevIcon style={{ opacity: offset <= 0 ? '0.25' : '1' }} />
-                  </span>
+                <Tooltip title={
+                  <FormattedMessage id="search.previousPage" defaultMessage="Previous page" />
+                }
+                >
+                  {this.previousPageLocation ? (
+                    <Link
+                      className="search__previous-page search__nav"
+                      to={this.previousPageLocation}
+                    >
+                      <PrevIcon />
+                    </Link>
+                  ) : (
+                    <span className="search__previous-page search__nav">
+                      <PrevIcon />
+                    </span>
+                  )}
                 </Tooltip>
                 <span className="search__count">
                   <FormattedMessage
                     id="searchResults.itemsCount"
                     defaultMessage="{count, plural, =0 {&nbsp;} one {1 / 1} other {{from} - {to} / #}}"
                     values={{
-                      from: offset + 1,
-                      to,
+                      from: this.beginIndex + 1,
+                      to: this.endIndex,
                       count,
                     }}
                   />
@@ -404,17 +389,23 @@ class SearchResultsComponent extends React.PureComponent {
                     </span> : null
                   }
                 </span>
-                <Tooltip title={this.props.intl.formatMessage(messages.nextPage)}>
-                  <span
-                    className="search__next-page search__nav"
-                    onClick={this.nextPage.bind(this)}
-                  >
-                    <NextIcon style={{ opacity: to >= count ? '0.25' : '1' }} />
-                  </span>
+                <Tooltip title={
+                  <FormattedMessage id="search.nextPage" defaultMessage="Next page" />
+                }
+                >
+                  {this.nextPageLocation ? (
+                    <Link className="search__next-page search__nav" to={this.nextPageLocation}>
+                      <NextIcon />
+                    </Link>
+                  ) : (
+                    <span className="search__next-page search__nav">
+                      <NextIcon />
+                    </span>
+                  )}
                 </Tooltip>
               </span>
             }
-            project={isProject ? this.currentContext().project : null}
+            project={project}
             page={this.props.page}
             search={this.props.search}
           />
@@ -425,21 +416,28 @@ class SearchResultsComponent extends React.PureComponent {
   }
 }
 
-SearchResultsComponent.contextTypes = {
-  store: PropTypes.object,
+SearchResultsComponent.defaultProps = {
+  project: null,
 };
 
 SearchResultsComponent.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
-  intl: intlShape.isRequired,
   pusher: pusherShape.isRequired,
   clientSessionId: PropTypes.string.isRequired,
+  search: PropTypes.shape({
+    id: PropTypes.string.isRequired, // TODO fill in props
+    medias: PropTypes.shape({ edges: PropTypes.array.isRequired }).isRequired,
+  }).isRequired,
+  project: PropTypes.shape({
+    id: PropTypes.string.isRequired, // TODO fill in props
+    dbid: PropTypes.number.isRequired,
+  }), // may be null
+  searchUrlPrefix: PropTypes.string.isRequired,
+  mediaUrlPrefix: PropTypes.string.isRequired,
 };
 
-const ConnectedSearchResultsComponent = withPusher(injectIntl(SearchResultsComponent));
-
-const SearchResultsContainer = Relay.createContainer(ConnectedSearchResultsComponent, {
+const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsComponent), {
   initialVariables: {
     pageSize,
   },
@@ -498,13 +496,15 @@ const SearchResultsContainer = Relay.createContainer(ConnectedSearchResultsCompo
 // eslint-disable-next-line react/no-multi-comp
 class SearchResults extends React.PureComponent {
   render() {
-    const resultsRoute = new SearchRoute({ query: JSON.stringify(this.props.query) });
+    const resultsRoute = new SearchRoute({ jsonEncodedQuery: JSON.stringify(this.props.query) });
 
     return (
       <Relay.RootContainer
         Component={SearchResultsContainer}
         route={resultsRoute}
-        renderFetched={data => <SearchResultsContainer {...this.props} {...data} />}
+        renderFetched={data => (
+          <SearchResultsContainer {...this.props} search={data.search} />
+        )}
         renderLoading={() => <MediasLoading />}
       />
     );

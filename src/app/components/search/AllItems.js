@@ -1,27 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import Search from './Search';
 import { safelyParseJSON } from '../../helpers';
-import Search from '../search/Search';
 
-export default function Trash({ routeParams }) {
+export default function AllItems({ routeParams }) {
   const query = {
-    ...safelyParseJSON(routeParams.query, '{}'),
-    archived: 1,
+    ...safelyParseJSON(routeParams.query, {}),
+    parent: { type: 'team', slug: routeParams.team },
   };
 
   return (
     <Search
-      searchUrlPrefix={`/${routeParams.team}/trash`}
+      searchUrlPrefix={`/${routeParams.team}/all-items`}
       mediaUrlPrefix={`/${routeParams.team}/media`}
-      title={<FormattedMessage id="trash.title" defaultMessage="Trash" />}
+      title={<FormattedMessage id="search.allClaimsTitle" defaultMessage="All items" />}
       query={query}
-      fields={['keyword', 'date', 'status', 'sort', 'tags', 'rules']}
-      page="trash"
     />
   );
 }
-Trash.propTypes = {
+AllItems.propTypes = {
   routeParams: PropTypes.shape({
     team: PropTypes.string.isRequired,
     query: PropTypes.string, // JSON-encoded value; can be empty/null/invalid

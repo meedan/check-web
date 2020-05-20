@@ -1,27 +1,35 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router';
 import TableCell from '@material-ui/core/TableCell';
 import { makeStyles } from '@material-ui/core/styles';
 import { units, black87 } from '../../../styles/js/shared';
 
 const useStyles = makeStyles({
-  thumbnailCell: {
-    paddingRight: 0, // paddingLeft, if jss-rtl is flipping it
-    width: '1px', // minimal width
+  root: {
+    // Use flexbox so thumbnail takes up very little space and then text takes
+    // the rest. (display: float; is too finicky.)
+    display: 'flex',
   },
   thumbnail: {
+    display: 'block',
     width: units(10),
     height: units(10),
+    marginRight: units(1),
     objectFit: 'cover',
+    flexShrink: 0,
+    flexGrow: 0,
   },
   textBox: {
     // This is a <div>, not a <th> with vertical-align center, because we need
     // to force the height to be `units(10)` plus padding and border. Use
     // flexbox to center vertically.
+    display: 'flex',
+    flexGrow: 1,
+    flexShrink: 1,
     whiteSpace: 'normal',
     height: units(10),
     lineHeight: units(2.5),
-    display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
   },
@@ -36,23 +44,20 @@ const useStyles = makeStyles({
   },
 });
 
-const TextCell = ({
+const TitleText = ({
   classes,
-  colSpan,
   title,
   description,
 }) => (
-  <TableCell colSpan={colSpan} component="th" scope="row">
-    <div className={classes.textBox}>
-      <h4 className={`media__heading ${classes.title}`}>{title}</h4>
-      {description ? (
-        <div className={classes.description}>{description}</div>
-      ) : null}
-    </div>
-  </TableCell>
+  <div className={classes.textBox}>
+    <h4 className={`media__heading ${classes.title}`}>{title}</h4>
+    {description ? (
+      <div className={classes.description}>{description}</div>
+    ) : null}
+  </div>
 );
 
-const TitleCell = ({ projectMedia }) => {
+const TitleCell = ({ projectMedia, projectMediaUrl }) => {
   const {
     picture,
     title,
@@ -60,25 +65,19 @@ const TitleCell = ({ projectMedia }) => {
   } = projectMedia;
   const classes = useStyles();
 
-  if (picture) {
-    return (
-      <React.Fragment>
-        <TableCell className={classes.thumbnailCell}>
-          <img className={classes.thumbnail} alt="" src={picture} />
-        </TableCell>
-        <TextCell classes={classes} title={title} description={description} />
-      </React.Fragment>
-    );
-  }
-
   return (
-    <TextCell
-      classes={classes}
-      title={title}
-      description={description}
-      colSpan={2}
-    />
+    <TableCell component="th" scope="row">
+      <Link className={classes.root} to={projectMediaUrl || '#'} disabled={!projectMediaUrl}>
+        {picture ? (
+          <img className={classes.thumbnail} alt="" src={picture} />
+        ) : null}
+        <TitleText classes={classes} title={title} description={description} />
+      </Link>
+    </TableCell>
   );
+};
+TitleCell.defaultProps = {
+  projectMediaUrl: null,
 };
 TitleCell.propTypes = {
   projectMedia: PropTypes.shape({
@@ -86,6 +85,7 @@ TitleCell.propTypes = {
     description: PropTypes.string, // may be empty string or null
     picture: PropTypes.string, // thumbnail URL or null
   }).isRequired,
+  projectMediaUrl: PropTypes.string, // or null
 };
 
 export default TitleCell;

@@ -15,8 +15,8 @@ export default function SelectAllTh({ selectedIds, projectMedias, onChangeSelect
   return (
     <TableCell padding="checkbox">
       <Checkbox
-        indeterminate={nSelected && nSelected < nTotal}
-        checked={nSelected && nSelected === nTotal}
+        indeterminate={nSelected ? nSelected < nTotal : false}
+        checked={nSelected ? nSelected === nTotal : false}
         onChange={handleChange}
       />
     </TableCell>

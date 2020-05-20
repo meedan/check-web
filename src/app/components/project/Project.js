@@ -1,24 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 import Relay from 'react-relay/classic';
-import isEqual from 'lodash.isequal';
 import ProjectActions from './ProjectActions';
 import ProjectRoute from '../../relay/ProjectRoute';
-import PageTitle from '../PageTitle';
 import CheckContext from '../../CheckContext';
 import MediasLoading from '../media/MediasLoading';
 import Search from '../search/Search';
+import { safelyParseJSON } from '../../helpers';
+import NotFound from '../NotFound';
 import UpdateUserMutation from '../../relay/mutations/UpdateUserMutation';
 
-class ProjectComponent extends Component {
+class ProjectComponent extends React.PureComponent {
   componentDidMount() {
     this.setContextProject();
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return !isEqual(this.state, nextState) ||
-           !isEqual(this.props, nextProps);
   }
 
   componentDidUpdate() {
@@ -68,23 +63,28 @@ class ProjectComponent extends Component {
   }
 
   render() {
-    const { project } = this.props;
+    const { project, routeParams } = this.props;
+
+    const query = {
+      ...safelyParseJSON(routeParams.query, {}),
+      parent: { type: 'project', id: project.dbid },
+      projects: [project.dbid],
+    };
 
     return (
-      <PageTitle prefix={project.title} skipTeam={false} team={this.currentContext().team}>
-        <div className="project">
-          <Search
-            listName={project.title}
-            listDescription={project.description}
-            listActions={<ProjectActions project={project} />}
-            team={project.team.slug}
-            page="project"
-            project={project}
-            query={this.props.params.query || '{}'}
-            fields={['date', 'keyword', 'status', 'sort', 'tags', 'show', 'dynamic', 'bulk', 'rules']}
-          />
-        </div>
-      </PageTitle>
+      <div className="project">
+        <Search
+          searchUrlPrefix={`/${routeParams.team}/project/${routeParams.projectId}`}
+          mediaUrlPrefix={`/${routeParams.team}/project/${routeParams.projectId}/media`}
+          title={project.title}
+          listDescription={project.description}
+          listActions={<ProjectActions project={project} />}
+          team={routeParams.team}
+          project={project}
+          query={query}
+          fields={['date', 'keyword', 'status', 'sort', 'tags', 'show', 'dynamic', 'bulk', 'rules']}
+        />
+      </div>
     );
   }
 }
@@ -95,7 +95,7 @@ ProjectComponent.contextTypes = {
 
 const ProjectContainer = Relay.createContainer(ProjectComponent, {
   initialVariables: {
-    contextId: null,
+    projectId: null,
   },
   fragments: {
     project: () => Relay.QL`
@@ -124,16 +124,33 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
   },
 });
 
-const Project = (props) => {
-  const route = new ProjectRoute({ contextId: props.params.projectId });
+const Project = ({ routeParams, ...props }) => {
+  const route = new ProjectRoute({ projectId: routeParams.projectId });
   return (
     <Relay.RootContainer
       Component={ProjectContainer}
       route={route}
-      renderFetched={data => <ProjectContainer {...props} {...data} />}
+      renderFetched={data => (
+        /* TODO make GraphQL Projects query filter by Team
+         * ... in the meantime, we can fake an error by showing "Not Found" when the
+         * Project exists but is in a different Team than the one the user asked for
+         * in the URL.
+         */
+        (data.project && data.project.team && data.project.team.slug !== routeParams.team)
+          ? <NotFound />
+          : <ProjectContainer routeParams={routeParams} {...props} {...data} />
+      )}
       renderLoading={() => <MediasLoading />}
     />
   );
+};
+
+Project.propTypes = {
+  routeParams: PropTypes.shape({
+    team: PropTypes.string.isRequired,
+    projectId: PropTypes.string.isRequired,
+    query: PropTypes.string, // JSON-encoded value; can be empty/null/invalid
+  }).isRequired,
 };
 
 export default Project;

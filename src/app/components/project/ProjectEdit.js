@@ -208,7 +208,7 @@ const ConnectedProjectEditComponent = withSetFlashMessage(injectIntl(ProjectEdit
 
 const ProjectEditContainer = Relay.createContainer(ConnectedProjectEditComponent, {
   initialVariables: {
-    contextId: null,
+    projectId: null,
   },
   fragments: {
     project: () => Relay.QL`
@@ -229,7 +229,7 @@ const ProjectEditContainer = Relay.createContainer(ConnectedProjectEditComponent
 });
 
 const ProjectEdit = (props) => {
-  const route = new ProjectRoute({ contextId: props.params.projectId });
+  const route = new ProjectRoute({ projectId: props.params.projectId });
   return (
     <Relay.RootContainer
       Component={ProjectEditContainer}

@@ -50,6 +50,18 @@ const messages = defineMessages({
 });
 
 const Styles = theme => ({
+  root: {
+    width: '50%',
+    position: 'absolute',
+    height: 64,
+    right: 0,
+    top: 0,
+    display: 'flex',
+    alignItems: 'center',
+    zIndex: 2,
+    padding: '0 16px',
+    justifyContent: 'space-between',
+  },
   spacedButton: {
     marginRight: theme.spacing(1),
   },
@@ -558,7 +570,7 @@ class MediaActionsBarComponent extends Component {
     );
 
     return (
-      <div style={this.props.style} className={this.props.className}>
+      <div className={classes.root}>
         { !media.archived ?
           <div>
             <Button
@@ -827,9 +839,8 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
 // eslint-disable-next-line react/no-multi-comp
 class MediaActionsBar extends React.PureComponent {
   render() {
-    const { props } = this;
-    const projectId = props.params.projectId || 0;
-    const ids = `${props.params.mediaId},${projectId}`;
+    const { projectId, projectMediaId } = this.props;
+    const ids = `${projectMediaId},${projectId}`;
     const route = new MediaRoute({ ids });
 
     return (

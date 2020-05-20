@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { browserHistory } from 'react-router';
 import Checkbox from '@material-ui/core/Checkbox';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
@@ -17,17 +18,17 @@ const useStyles = makeStyles({
 });
 
 export default function SearchResultsTableRow({
-  projectMedia, checked, columnDefs, onChangeChecked, onClick,
+  projectMedia, projectMediaUrl, checked, columnDefs, onChangeChecked,
 }) {
   const { dbid } = projectMedia;
   const classes = useStyles({ dbid });
 
-  const handleClick = React.useCallback((ev) => {
-    if (!dbid) {
+  const handleClick = React.useCallback(() => {
+    if (!projectMediaUrl) {
       return;
     }
-    onClick(ev, projectMedia);
-  }, [projectMedia, onClick]);
+    browserHistory.push(projectMediaUrl);
+  }, [projectMediaUrl]);
 
   const handleChangeChecked = React.useCallback((ev) => {
     if (!dbid) {
@@ -48,13 +49,19 @@ export default function SearchResultsTableRow({
       <TableCell padding="checkbox" onClick={swallowClick}>
         <Checkbox checked={checked} onChange={handleChangeChecked} />
       </TableCell>
-      {columnDefs.map(({ cellComponent: Cell }) => {
-        const componentName = Cell.displayName || Cell.name;
-        return <Cell key={componentName} projectMedia={projectMedia} />;
-      })}
+      {columnDefs.map(({ cellComponent: Cell }) => (
+        <Cell
+          key={Cell.displayName || Cell.name}
+          projectMedia={projectMedia}
+          projectMediaUrl={projectMediaUrl}
+        />
+      ))}
     </TableRow>
   );
 }
+SearchResultsTableRow.defaultProps = {
+  projectMediaUrl: null,
+};
 SearchResultsTableRow.propTypes = {
   columnDefs: PropTypes.arrayOf(PropTypes.shape({
     cellComponent: PropTypes.elementType.isRequired,
@@ -62,7 +69,7 @@ SearchResultsTableRow.propTypes = {
   projectMedia: PropTypes.shape({
     dbid: PropTypes.number, // or null/0
   }).isRequired,
+  projectMediaUrl: PropTypes.string, // or null
   checked: PropTypes.bool.isRequired,
   onChangeChecked: PropTypes.func.isRequired, // onChangeChecked(ev, projectMedia) => undefined
-  onClick: PropTypes.func.isRequired, // onClick(ev, projectMedia) => undefined
 };

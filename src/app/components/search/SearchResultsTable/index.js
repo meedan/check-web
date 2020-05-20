@@ -20,7 +20,6 @@ const AllPossibleColumns = [
   {
     field: 'item',
     headerText: <FormattedMessage id="list.Item" defaultMessage="Item" />,
-    colSpan: 2,
     cellComponent: TitleCell,
   },
   {
@@ -94,20 +93,21 @@ function buildColumnDefs(team) {
  * This implies a parent must manage scrolling. Our design is: <html> shows
  * scrollbars; and the table's sticky header appears here.
  */
-const TableContainerWithoutScrollbars = withStyles({
+const TableContainerWithoutScrollbars = withStyles(theme => ({
   root: {
     overflow: 'visible',
+    paddingLeft: theme.spacing(2),
   },
-})(TableContainer);
+}))(TableContainer);
 
 export default function SearchResultsTable({
   team,
   selectedIds,
   projectMedias,
+  buildProjectMediaUrl,
   sortParams,
   onChangeSelectedIds,
   onChangeSortParams,
-  onClickRow,
 }) {
   const columnDefs = React.useMemo(() => buildColumnDefs(team), [team]);
 
@@ -151,9 +151,9 @@ export default function SearchResultsTable({
               key={projectMedia.id}
               columnDefs={columnDefs}
               projectMedia={projectMedia}
+              projectMediaUrl={buildProjectMediaUrl(projectMedia)}
               checked={selectedIds.includes(projectMedia.id)}
               onChangeChecked={handleChangeProjectMediaChecked}
-              onClick={onClickRow}
             />
           ))}
         </TableBody>
@@ -167,6 +167,7 @@ SearchResultsTable.defaultProps = {
 SearchResultsTable.propTypes = {
   team: PropTypes.object.isRequired,
   projectMedias: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
+  buildProjectMediaUrl: PropTypes.func.isRequired, // func(projectMedia) => String
   selectedIds: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   sortParams: PropTypes.shape({
     key: PropTypes.string.isRequired,
@@ -174,5 +175,4 @@ SearchResultsTable.propTypes = {
   }), // or null for unsorted
   onChangeSelectedIds: PropTypes.func.isRequired, // func([1, 2, 3]) => undefined
   onChangeSortParams: PropTypes.func.isRequired, // func({ key, ascending }) => undefined
-  onClickRow: PropTypes.func.isRequired, // func(ev, projectMedia) => undefined
 };

@@ -7,6 +7,8 @@ import IconButton from '@material-ui/core/IconButton';
 import { FormattedMessage } from 'react-intl';
 import ProjectRoute from '../../relay/ProjectRoute';
 import { urlFromSearchQuery } from '../search/Search';
+import { getListUrlQueryAndIndex } from '../../urlHelpers';
+import { safelyParseJSON } from '../../helpers';
 import { Row, Text, HeaderTitle, FadeIn, SlideIn } from '../../styles/js/shared';
 
 class ProjectHeaderComponent extends React.PureComponent {
@@ -19,13 +21,26 @@ class ProjectHeaderComponent extends React.PureComponent {
     const regexMedia = /project\/[0-9]+\/media\/[0-9]/;
     const regexSource = /\/source\/[0-9]/;
     let mediaQuery = null;
-    const { loc } = browserHistory.getCurrentLocation(); // TODO use props
+    const loc = browserHistory.getCurrentLocation(); // TODO use props
     if (loc && loc.query) {
-      mediaQuery = loc.query;
+      mediaQuery = safelyParseJSON(loc.query, null);
     }
     const isProjectSubpage = regexMedia.test(path) || regexSource.test(path);
 
     const backUrl = () => {
+      // New-style: read using getListUrlQueryAndIndex()
+      //
+      // TODO: nix this logic _entirely_ and pass it as props from a parent
+      // that understands URL. Move `getListUrlQueryAndIndex()` to
+      // `<MediaPage>`.
+      const { listUrl, listQuery } = getListUrlQueryAndIndex(
+        props.params,
+        (loc && loc.query) ? loc.query : {},
+      );
+      if (listQuery !== null) {
+        return listUrl;
+      }
+
       if (mediaQuery) {
         const query = Object.assign({}, mediaQuery);
         let basePath = '';
@@ -114,10 +129,11 @@ const ProjectHeaderContainer = Relay.createContainer(ProjectHeaderComponent, {
 
 const ProjectHeader = (props) => {
   if (props.params && props.params.projectId) {
-    const route = new ProjectRoute({ contextId: props.params.projectId });
+    const route = new ProjectRoute({ projectId: props.params.projectId });
     return (<Relay.RootContainer
       Component={ProjectHeaderContainer}
       route={route}
+      renderFetched={data => <ProjectHeaderComponent {...data} {...props} />}
     />);
   } else if (props.params && props.params.mediaId) {
     return (<ProjectHeaderComponent

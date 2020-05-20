@@ -13,7 +13,7 @@ const useStyles = makeStyles({
 });
 
 export default function SearchResultsTh({
-  text, field, colSpan, sortKey, width, align, sortParams, onChangeSortParams,
+  text, field, sortKey, width, align, sortParams, onChangeSortParams,
 }) {
   let sortDirection = null;
   if (sortParams && sortKey === sortParams.key) {
@@ -43,7 +43,6 @@ export default function SearchResultsTh({
   return (
     <TableCell
       data-field={field}
-      colSpan={colSpan}
       sortDirection={sortDirection || false}
       classes={classes}
       align={align}
@@ -66,16 +65,14 @@ SearchResultsTh.defaultProps = {
   field: undefined,
   sortKey: null,
   sortParams: null,
-  colSpan: undefined,
   width: 'auto',
   align: 'inherit',
 };
 SearchResultsTh.propTypes = {
   text: PropTypes.node.isRequired,
   field: PropTypes.string, // or undefined -- sets data-field="..." HTML attribute
-  colSpan: PropTypes.number, // or undefined -- sets colSpan="..." HTML attribute
   sortKey: PropTypes.string, // or null
-  width: PropTypes.oneOfType([PropTypes.number.isRequired, PropTypes.oneOf(['auto']).isRequired]),
+  width: PropTypes.oneOfType([PropTypes.string.isRequired, PropTypes.oneOf(['auto']).isRequired]),
   align: PropTypes.oneOf(['inherit', 'left', 'center', 'right', 'justify']),
   sortParams: PropTypes.shape({
     key: PropTypes.string.isRequired,

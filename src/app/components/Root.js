@@ -22,12 +22,12 @@ import AddTeamPage from './team/AddTeamPage';
 import JoinTeam from './team/JoinTeam';
 import Teams from './team/Teams';
 import Trash from './team/Trash';
-import ProjectMediaSearch from './media/MediaSearch';
+import MediaPage from './media/MediaPage';
 import ReportDesigner from './media/ReportDesigner';
 import MediaTasks from './media/MediaTasks';
 import Project from './project/Project';
 import ProjectEdit from './project/ProjectEdit';
-import Search from './search/Search';
+import AllItems from './search/AllItems';
 import BotGarden from './BotGarden';
 import Bot from './Bot';
 
@@ -81,15 +81,15 @@ class Root extends Component {
                 <Route path="check/bot-garden" component={BotGarden} />
                 <Route path="check/bot/:botId" component={Bot} />
 
-                <Route path=":team/media/:mediaId" component={ProjectMediaSearch} public />
-                <Route path=":team/project/:projectId/media/:mediaId" component={ProjectMediaSearch} public />
+                <Route path=":team/media/:mediaId" component={MediaPage} public />
+                <Route path=":team/project/:projectId/media/:mediaId" component={MediaPage} public />
                 <Route path=":team/media/:mediaId/report-designer" component={ReportDesigner} public />
                 <Route path=":team/project/:projectId/media/:mediaId/report-designer" component={ReportDesigner} public />
                 <Route path=":team/project/:projectId/media/:mediaId/tasks" component={MediaTasks} />
                 <Route path=":team/join" component={JoinTeam} />
                 <Route path=":team/project/:projectId/edit" component={ProjectEdit} />
                 <Route path=":team/project/:projectId(/:query)" component={Project} public />
-                <Route path=":team/all-items(/:query)" component={Search} public />
+                <Route path=":team/all-items(/:query)" component={AllItems} public />
                 <Route path=":team/trash(/:query)" component={Trash} />
                 <Route path=":team" component={Team} public />
                 <Route path=":team/edit" action="edit" component={Team} />

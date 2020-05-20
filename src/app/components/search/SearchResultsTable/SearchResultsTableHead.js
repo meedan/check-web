@@ -18,7 +18,6 @@ export default function SearchResultsTableHead({
         />
         {columnDefs.map(({
           headerText,
-          colSpan,
           sortKey,
           width,
           align,
@@ -28,7 +27,6 @@ export default function SearchResultsTableHead({
             key={field}
             text={headerText}
             field={field}
-            colSpan={colSpan}
             sortKey={sortKey}
             align={align || 'inherit'}
             sortParams={sortParams}
@@ -47,7 +45,6 @@ SearchResultsTableHead.propTypes = {
   columnDefs: PropTypes.arrayOf(PropTypes.shape({
     headerText: PropTypes.element.isRequired,
     field: PropTypes.string, // or undefined -- sets data-field="..." HTML attribute
-    colSpan: PropTypes.number, // if not 1
     sortKey: PropTypes.string, // or undefined
     width: PropTypes.string, // '1px' or undefined
     align: PropTypes.oneOf(['inherit', 'left', 'center', 'right', 'justify']), // default inherit
