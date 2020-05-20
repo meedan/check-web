@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
 import styled from 'styled-components';
 import isEqual from 'lodash.isequal';
@@ -62,5 +63,12 @@ class Toolbar extends React.Component {
     );
   }
 }
+
+Toolbar.defaultProps = {
+  page: undefined, // FIXME find a cleaner way to render Trash differently
+};
+Toolbar.propTypes = {
+  page: PropTypes.oneOf(['trash']), // FIXME find a cleaner way to render Trash differently
+};
 
 export default injectIntl(Toolbar);
