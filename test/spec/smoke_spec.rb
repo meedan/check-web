@@ -571,29 +571,29 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('Add a link or text')).to be(true)
   end
 
-  # it "should break relationship between related items" , bin1: true do
-  #   api_create_team_project_and_claim_and_redirect_to_media_page
-  #   wait_for_selector(".media-detail")
-  #   expect(@driver.page_source.include?('Claim Related')).to be(false)
-  #   press_button('.create-related-media__add-button')
-  #   #add a related link
-  #   wait_for_selector('#create-media__link').click
-  #   wait_for_selector("#create-media-input")
-  #   fill_field('#create-media-input', 'https://www.instagram.com/p/BRYob0dA1SC/')
-  #   press_button('#create-media-dialog__submit-button')
-  #   wait_for_selector_none("#create-media-quote-input")
-  #   #verify that the link was created
-  #   wait_for_selector_list_size(".media-detail", 2)
-  #   cards = wait_for_selector_list(".media-detail").length
-  #   expect(cards == 2).to be(true)
-  #   #break the relationship between the items
-  #   wait_for_selector(".media-condensed__actions_icon").click
-  #   wait_for_selector('.media-condensed__break-relationship').click
-  #   wait_for_selector_none('.media-condensed__break-relationship')
-  #   wait_for_selector_list_size(".media-detail", 1)
-  #   list_size = wait_for_selector_list(".media-detail").length
-  #   expect(list_size == 1).to be(true)
-  # end
+  it "should break relationship between related items" , bin1: true do
+    api_create_team_project_and_claim_and_redirect_to_media_page
+    wait_for_selector(".media-detail")
+    expect(@driver.page_source.include?('Claim Related')).to be(false)
+    press_button('.create-related-media__add-button')
+    #add a related link
+    wait_for_selector('#create-media__link').click
+    wait_for_selector("#create-media-input")
+    fill_field('#create-media-input', 'https://twitter.com/meedan/status/1167366036791943168')
+    press_button('#create-media-dialog__submit-button')
+    wait_for_selector_none("#create-media-quote-input")
+    #verify that the link was created
+    wait_for_selector_list_size(".media-detail", 2)
+    cards = wait_for_selector_list(".media-detail").length
+    expect(cards == 2).to be(true)
+    #break the relationship between the items
+    wait_for_selector(".media-condensed__actions_icon").click
+    wait_for_selector('.media-condensed__break-relationship').click
+    wait_for_selector_none('.media-condensed__break-relationship')
+    wait_for_selector_list_size(".media-detail", 1)
+    list_size = wait_for_selector_list(".media-detail").length
+    expect(list_size == 1).to be(true)
+  end
 
   it "should install Smooch bot, create a claim, change the status and add a related item", bin1: true do
     response = api_create_team_and_project
