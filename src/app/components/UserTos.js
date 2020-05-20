@@ -6,23 +6,22 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import Button from '@material-ui/core/Button';
-import UpdateUserMutation from '../relay/mutations/UpdateUserMutation';
-import CheckContext from '../CheckContext';
 import { mapGlobalMessage } from './MappedMessage';
 import UserTosForm from './UserTosForm';
 import Message from './Message';
+import globalStrings from '../globalStrings';
+import { stringHelper } from '../customHelpers';
+import AboutRoute from '../relay/AboutRoute';
+import RelayContainer from '../relay/RelayContainer';
+import UpdateUserMutation from '../relay/mutations/UpdateUserMutation';
 
-class UserTos extends Component {
+class UserTosComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
       checkedTos: false,
       checkedPp: false,
     };
-  }
-
-  getCurrentUser() {
-    return new CheckContext(this).getContextStore().currentUser;
   }
 
   handleCheckTos() {
@@ -34,19 +33,22 @@ class UserTos extends Component {
   }
 
   handleSubmit() {
-    const currentUser = this.getCurrentUser();
-
-    const onSubmit = () => {
-      window.location.assign(window.location.origin);
+    const onFailure = () => {
+      this.setState({
+        message: this.props.intl.formatMessage(
+          globalStrings.unknownError,
+          { supportEmail: stringHelper('SUPPORT_EMAIL') },
+        ),
+      });
     };
 
     if (this.state.checkedTos && this.state.checkedPp) {
       Relay.Store.commitUpdate(
         new UpdateUserMutation({
-          current_user_id: currentUser.id,
+          current_user_id: this.props.user.id,
           accept_terms: true,
         }),
-        { onSuccess: onSubmit, onFailure: onSubmit },
+        { onFailure },
       );
     }
   }
@@ -60,6 +62,8 @@ class UserTos extends Component {
   }
 
   render() {
+    const { user, about } = this.props;
+
     const actions = [
       // eslint-disable-next-line jsx-a11y/click-events-have-key-events
       <div onClick={this.handleValidate.bind(this)} style={{ cursor: 'pointer' }}>
@@ -78,8 +82,6 @@ class UserTos extends Component {
       textDecoration: 'underline',
     };
 
-    const user = this.getCurrentUser();
-
     const communityGuidelinesLink = (
       <a
         target="_blank"
@@ -92,41 +94,69 @@ class UserTos extends Component {
     );
 
     return (
-      <div>
-        <Dialog open>
-          <DialogContent>
-            <Message message={this.state.message} />
-            <UserTosForm
-              user={user}
-              showTitle
-              handleCheckTos={this.handleCheckTos.bind(this)}
-              handleCheckPp={this.handleCheckPp.bind(this)}
-              checkedTos={this.state.checkedTos}
-              checkedPp={this.state.checkedPp}
-            />
-            { !user.last_accepted_terms_at ?
-              <p>
-                <FormattedMessage
-                  id="userTos.commGuidelines"
-                  defaultMessage="We ask that you also read our {communityGuidelinesLink} for using {appName}."
-                  values={{
-                    communityGuidelinesLink,
-                    appName: mapGlobalMessage(this.props.intl, 'appNameHuman'),
-                  }}
-                />
-              </p> : null }
-          </DialogContent>
-          <DialogActions>
-            {actions}
-          </DialogActions>
-        </Dialog>
-      </div>
+      <React.Fragment>
+        <DialogContent>
+          <Message message={this.state.message} />
+          <UserTosForm
+            user={user}
+            showTitle
+            termsLastUpdatedAt={about.terms_last_updated_at}
+            handleCheckTos={this.handleCheckTos.bind(this)}
+            handleCheckPp={this.handleCheckPp.bind(this)}
+            checkedTos={this.state.checkedTos}
+            checkedPp={this.state.checkedPp}
+          />
+          { user && !user.last_accepted_terms_at ?
+            <p>
+              <FormattedMessage
+                id="userTos.commGuidelines"
+                defaultMessage="We ask that you also read our {communityGuidelinesLink} for using {appName}."
+                values={{
+                  communityGuidelinesLink,
+                  appName: mapGlobalMessage(this.props.intl, 'appNameHuman'),
+                }}
+              />
+            </p> : null }
+        </DialogContent>
+        <DialogActions>
+          {actions}
+        </DialogActions>
+      </React.Fragment>
     );
   }
 }
 
-UserTos.contextTypes = {
-  store: PropTypes.object,
+UserTosComponent.propTypes = {
+  user: PropTypes.object.isRequired,
+  about: PropTypes.object.isRequired,
 };
 
-export default injectIntl(UserTos);
+const UserTosContainer = Relay.createContainer(injectIntl(UserTosComponent), {
+  fragments: {
+    about: () => Relay.QL`
+      fragment on About {
+        terms_last_updated_at
+      }
+    `,
+  },
+});
+
+const UserTos = (props) => {
+  const route = new AboutRoute();
+  const { user } = props;
+  const openDialog = user && user.dbid && !user.accepted_terms;
+
+  return (
+    <Dialog open={openDialog}>
+      <RelayContainer
+        Component={UserTosContainer}
+        route={route}
+        renderFetched={data =>
+          <UserTosContainer user={user} {...data} />
+        }
+      />
+    </Dialog>
+  );
+};
+
+export default UserTos;

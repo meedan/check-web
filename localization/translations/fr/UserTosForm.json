@@ -2,6 +2,7 @@
   "userTos.tosLink": "Conditions d'utilisation",
   "userTos.ppLink": "Politique de confidentialité",
   "userTos.title": "Conditions d'utilisation et politique de confidentialité",
+  "userTos.termsLastUpdatedAt": "Dernière mise à jour {lastUpdated}",
   "userTos.disclaimer": "Veuillez revoir nos {tosLink} et {ppLink} avant d'accepter ce qui suit :",
   "userTos.titleUpdated": "Conditions d'utilisation et politique de confidentialité mises à jour",
   "userTos.disclaimerUpdate": "Nous avons mis à jour nos {tosLink} et {ppLink}. Veuillez les revoir avant d'accepter ce qui suit :",

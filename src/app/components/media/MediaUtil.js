@@ -25,6 +25,10 @@ const messages = defineMessages({
     id: 'media.typeInstagram',
     defaultMessage: 'Instagram',
   },
+  typeTiktok: {
+    id: 'media.typeTiktok',
+    defaultMessage: 'TikTok video',
+  },
   typeLink: {
     id: 'media.typeLink',
     defaultMessage: 'Link',
@@ -100,6 +104,7 @@ const MediaUtil = {
         'facebook.com': messages.typeFacebook,
         'instagram.com': messages.typeInstagram,
         'youtube.com': messages.typeVideo,
+        'tiktok.com': messages.typeTiktok,
       }[media.domain];
 
       if (socialMedia) {

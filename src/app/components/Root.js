@@ -14,7 +14,6 @@ import UserConfirmed from './UserConfirmed';
 import UserUnconfirmed from './UserUnconfirmed';
 import UserPasswordChange from './UserPasswordChange';
 import UserPasswordReset from './UserPasswordReset';
-import UserTos from './UserTos';
 import User from './source/User';
 import Me from './source/Me';
 import Team from './team/Team';
@@ -67,7 +66,6 @@ class Root extends Component {
                 <Route path="check/user/unconfirmed" component={UserUnconfirmed} public />
                 <Route path="check/user/password-reset" component={UserPasswordReset} public />
                 <Route path="check/user/password-change" component={UserPasswordChange} public />
-                <Route path="check/user/terms-of-service" component={UserTos} public />
                 <Route path="check/forbidden" component={AccessDenied} public />
                 <Route path="check/not-found" component={NotFound} public />
 

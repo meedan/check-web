@@ -2,5 +2,6 @@
   "userAssignments.filterByTeam": "Filtrar por área de trabajo",
   "userAssignments.yourAssignments": "Tus asignaciones ",
   "userAssignments.userAssignments": "Asignaciones de {name}",
-  "userAssignments.blank": "Sin actividad "
+  "userAssignments.blank": "Sin actividad ",
+  "userAssignments.other": "Otro"
 }

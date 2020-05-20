@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { injectIntl } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import deepEqual from 'deep-equal';
 import styled from 'styled-components';
 import AspectRatio from '../layout/AspectRatio';
@@ -40,16 +40,15 @@ class WebPageMediaCard extends Component {
   render() {
     const {
       media,
+      data,
     } = this.props;
-
-    const media_embed = media.media.metadata;
 
     return (
       <article className="web-page-media-card">
         {this.canEmbedHtml() ?
           <div
             dangerouslySetInnerHTML={{ // eslint-disable-line react/no-danger
-              __html: media_embed.html,
+              __html: data.html,
             }}
           />
           :
@@ -65,6 +64,14 @@ class WebPageMediaCard extends Component {
               <AspectRatio>
                 <img src={media.picture} alt="" />
               </AspectRatio> : null
+            }
+            { data.error ?
+              <span className="web-page-media-card__error">
+                <FormattedMessage
+                  id="webPageMediaCard.Error"
+                  defaultMessage="This item could not be identified. It may have been removed, or may only be visible to users who are logged in. Click below to open it."
+                />
+              </span> : null
             }
             { media.metadata.url ?
               <StyledLink>

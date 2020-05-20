@@ -1,5 +1,4 @@
 {
   "network.stillWorking": "Procesando...",
-  "network.offline": "No se puede conectar a {app}. Asegúrate de estar conectado a internet. Intentando reconectar ...",
   "network.noResponse": "No pudimos conectarnos con {app}. Asegúrate de estar conectado a internet."
 }
