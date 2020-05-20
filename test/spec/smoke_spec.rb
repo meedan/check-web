@@ -121,11 +121,11 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?("How To Check An")).to be(true)
 
     #from Instagram
-    expect(@driver.page_source.include?('#wEDnesday')).to be(false)
-    create_media("https://www.instagram.com/p/BRYob0dA1SC/")
-    wait_for_selector_list_size('.media__heading',4)
-    wait_for_selector("//h3[contains(text(), 'We get')]", :xpath)
-    expect(@driver.page_source.include?('#wEDnesday')).to be(true)
+    # expect(@driver.page_source.include?('#wEDnesday')).to be(false)
+    # create_media("https://www.instagram.com/p/BRYob0dA1SC/")
+    # wait_for_selector_list_size('.media__heading',4)
+    # wait_for_selector("//h3[contains(text(), 'We get')]", :xpath)
+    # expect(@driver.page_source.include?('#wEDnesday')).to be(true)
   end
 
   it "should register, create a claim and assign it", bin4: true do
@@ -567,29 +567,29 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('Add a link or text')).to be(true)
   end
 
-  it "should break relationship between related items" , bin1: true do
-    api_create_team_project_and_claim_and_redirect_to_media_page
-    wait_for_selector(".media-detail")
-    expect(@driver.page_source.include?('Claim Related')).to be(false)
-    press_button('.create-related-media__add-button')
-    #add a related link
-    wait_for_selector('#create-media__link').click
-    wait_for_selector("#create-media-input")
-    fill_field('#create-media-input', 'https://www.instagram.com/p/BRYob0dA1SC/')
-    press_button('#create-media-dialog__submit-button')
-    wait_for_selector_none("#create-media-quote-input")
-    #verify that the link was created
-    wait_for_selector_list_size(".media-detail", 2)
-    cards = wait_for_selector_list(".media-detail").length
-    expect(cards == 2).to be(true)
-    #break the relationship between the items
-    wait_for_selector(".media-condensed__actions_icon").click
-    wait_for_selector('.media-condensed__break-relationship').click
-    wait_for_selector_none('.media-condensed__break-relationship')
-    wait_for_selector_list_size(".media-detail", 1)
-    list_size = wait_for_selector_list(".media-detail").length
-    expect(list_size == 1).to be(true)
-  end
+  # it "should break relationship between related items" , bin1: true do
+  #   api_create_team_project_and_claim_and_redirect_to_media_page
+  #   wait_for_selector(".media-detail")
+  #   expect(@driver.page_source.include?('Claim Related')).to be(false)
+  #   press_button('.create-related-media__add-button')
+  #   #add a related link
+  #   wait_for_selector('#create-media__link').click
+  #   wait_for_selector("#create-media-input")
+  #   fill_field('#create-media-input', 'https://www.instagram.com/p/BRYob0dA1SC/')
+  #   press_button('#create-media-dialog__submit-button')
+  #   wait_for_selector_none("#create-media-quote-input")
+  #   #verify that the link was created
+  #   wait_for_selector_list_size(".media-detail", 2)
+  #   cards = wait_for_selector_list(".media-detail").length
+  #   expect(cards == 2).to be(true)
+  #   #break the relationship between the items
+  #   wait_for_selector(".media-condensed__actions_icon").click
+  #   wait_for_selector('.media-condensed__break-relationship').click
+  #   wait_for_selector_none('.media-condensed__break-relationship')
+  #   wait_for_selector_list_size(".media-detail", 1)
+  #   list_size = wait_for_selector_list(".media-detail").length
+  #   expect(list_size == 1).to be(true)
+  # end
 
   it "should install Smooch bot, create a claim, change the status and add a related item", bin1: true do
     response = api_create_team_and_project
@@ -667,18 +667,18 @@ shared_examples 'smoke' do
     expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
   end
 
-  it "should generate a embed from Instagram post", bin1: true do
-    api_create_team_project_and_link_and_redirect_to_media_page('https://www.instagram.com/p/BRYob0dA1SC/')
-    wait_for_selector(".media-detail")
-    generate_a_embed_and_copy_embed_code
-    @driver.navigate.to 'https://paste.ubuntu.com/'
-    title = 'a embed from Instagram' + Time.now.to_i.to_s
-    fill_field('#id_poster' , title)
-    wait_for_selector('#id_content').send_keys(' ')
-    @driver.action.send_keys(:control, 'v').perform
-    wait_for_text_change(' ',"#id_content", :css)
-    expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
-  end
+  # it "should generate a embed from Instagram post", bin1: true do
+  #   api_create_team_project_and_link_and_redirect_to_media_page('https://www.instagram.com/p/BRYob0dA1SC/')
+  #   wait_for_selector(".media-detail")
+  #   generate_a_embed_and_copy_embed_code
+  #   @driver.navigate.to 'https://paste.ubuntu.com/'
+  #   title = 'a embed from Instagram' + Time.now.to_i.to_s
+  #   fill_field('#id_poster' , title)
+  #   wait_for_selector('#id_content').send_keys(' ')
+  #   @driver.action.send_keys(:control, 'v').perform
+  #   wait_for_text_change(' ',"#id_content", :css)
+  #   expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
+  # end
 
   it "should generate a embed from website link copy the code and insert in a blog", bin3: true do
     api_create_team_project_and_link_and_redirect_to_media_page('https://meedan.com')
