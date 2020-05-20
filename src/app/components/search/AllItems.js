@@ -5,17 +5,12 @@ import Search from './Search';
 import { safelyParseJSON } from '../../helpers';
 
 export default function AllItems({ routeParams }) {
-  const query = {
-    ...safelyParseJSON(routeParams.query, {}),
-    parent: { type: 'team', slug: routeParams.team },
-  };
-
   return (
     <Search
       searchUrlPrefix={`/${routeParams.team}/all-items`}
       mediaUrlPrefix={`/${routeParams.team}/media`}
       title={<FormattedMessage id="search.allClaimsTitle" defaultMessage="All items" />}
-      query={query}
+      query={safelyParseJSON(routeParams.query, {})}
     />
   );
 }

@@ -25,7 +25,6 @@ export function urlFromSearchQuery(query, path) {
 export function noFilters(query_, project) {
   const query = { ...query_ };
   delete query.timestamp;
-  delete query.parent;
   if (
     query.projects &&
     (query.projects.length === 0 ||

@@ -13,8 +13,9 @@ const pageSize = 20;
  * integer represented by String, fallback `0`).
  *
  * Output `listQuery` is always set: it's an Object describing a query that
- * will generate a list based on the URL. It will include a `{ parent }`
- * inferred from `routeParams` (so callers don't need to provide one).
+ * will generate a list based on the URL. It will include a `{ projects }`
+ * inferred from `routeParams` if needed (so callers don't need to provide
+ * that).
  *
  * Output `listIndex` and `buildSiblingUrl` are either both-set or both-null.
  * If they're set, `buildSiblingUrl()` will generate URLs that produce the
@@ -23,10 +24,10 @@ const pageSize = 20;
  * Output `listUrl` will have an esoffset that is a multiple of 20.
  *
  * Prefer shorter URLs. Callers should omit unneeded `listQuery` parameters
- * like `{ timestamp, parent, esoffset }` which can be inferred from
- * `routeParams` and `listIndex`. And if there are no other parameters,
- * callers should omit `listQuery` entirely. (Callers may also omit
- * `listPath` if it can be inferred from the `routeParams`.)
+ * like `{ timestamp, esoffset }` which can be inferred from `routeParams` and
+ * `listIndex`. And if there are no other parameters, callers should omit
+ * `listQuery` entirely. (Callers may also omit `listPath` if it can be inferred
+ * from the `routeParams`.)
  */
 function getListUrlQueryAndIndex(routeParams, locationQuery) {
   let { listPath } = locationQuery;
@@ -40,12 +41,10 @@ function getListUrlQueryAndIndex(routeParams, locationQuery) {
 
   // build `listQuery` from routeParams and ?listQuery=...
   const listQueryFromUrl = safelyParseJSON(locationQuery.listQuery, {});
-  const listQuery = {
-    ...listQueryFromUrl,
-    parent: projectId
-      ? { type: 'project', id: projectId }
-      : { type: 'team', slug: routeParams.team },
-  };
+  const listQuery = { ...listQueryFromUrl };
+  if (projectId) {
+    listQuery.projects = [projectId];
+  }
 
   const listIndex = parseInt(locationQuery.listIndex, 10);
   if (Number.isNaN(listIndex) || listIndex < 0) {

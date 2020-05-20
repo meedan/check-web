@@ -21,7 +21,7 @@ describe('<MediaPage />', () => {
         .toEqual(`/a-team/trash/${encodeURIComponent('{"key1":"value1","key2":"value2"}')}`);
       // listQuery has no offset (listIndex is the offset)
       expect(childProps.listQuery)
-        .toEqual({ key1: 'value1', key2: 'value2', parent: { type: 'team', slug: 'a-team' } });
+        .toEqual({ key1: 'value1', key2: 'value2' });
       expect(childProps.listIndex).toEqual(3);
       expect(childProps.buildSiblingUrl(4, 5))
         .toEqual(`/a-team/media/4?listPath=%2Fa-team%2Ftrash&listQuery=${encodeURIComponent('{"key1":"value1","key2":"value2"}')}&listIndex=5`);
@@ -41,8 +41,7 @@ describe('<MediaPage />', () => {
       expect(childProps.listUrl)
         .toEqual(`/a-team/project/1/${encodeURIComponent('{"key1":"value1","key2":"value2"}')}`);
       // listQuery has no offset (listIndex is the offset)
-      expect(childProps.listQuery)
-        .toEqual({ key1: 'value1', key2: 'value2', parent: { type: 'project', id: 1 } });
+      expect(childProps.listQuery).toEqual({ key1: 'value1', key2: 'value2', projects: [1] });
       expect(childProps.listIndex).toEqual(3);
       expect(childProps.buildSiblingUrl(4, 5))
         .toEqual(`/a-team/project/1/media/4?listPath=%2Fa-team%2Fproject%2F1&listQuery=${encodeURIComponent('{"key1":"value1","key2":"value2"}')}&listIndex=5`);
@@ -54,7 +53,7 @@ describe('<MediaPage />', () => {
         location={{ query: {} }}
       />).find(MediaPageLayout).props();
       expect(childProps.listUrl).toEqual('/a-team/all-items');
-      expect(childProps.listQuery).toEqual({ parent: { type: 'team', slug: 'a-team' } });
+      expect(childProps.listQuery).toEqual({});
       expect(childProps.listIndex).toBeNull();
       expect(childProps.buildSiblingUrl).toBeNull();
     });
@@ -65,7 +64,7 @@ describe('<MediaPage />', () => {
         location={{ query: {} }}
       />).find(MediaPageLayout).props();
       expect(childProps.listUrl).toEqual('/a-team/project/1');
-      expect(childProps.listQuery).toEqual({ parent: { type: 'project', id: 1 } });
+      expect(childProps.listQuery).toEqual({ projects: [1] });
       expect(childProps.listIndex).toBeNull();
       expect(childProps.buildSiblingUrl).toBeNull();
     });
@@ -76,7 +75,7 @@ describe('<MediaPage />', () => {
         location={{ query: { listIndex: '3' } }}
       />).find(MediaPageLayout).props();
       expect(childProps.listUrl).toEqual('/a-team/all-items');
-      expect(childProps.listQuery).toEqual({ parent: { type: 'team', slug: 'a-team' } });
+      expect(childProps.listQuery).toEqual({});
       expect(childProps.listIndex).toEqual(3);
       expect(childProps.buildSiblingUrl(4, 5)).toEqual('/a-team/media/4?listIndex=5');
     });
@@ -87,7 +86,7 @@ describe('<MediaPage />', () => {
         location={{ query: { listIndex: '3' } }}
       />).find(MediaPageLayout).props();
       expect(childProps.listUrl).toEqual('/a-team/project/1');
-      expect(childProps.listQuery).toEqual({ parent: { type: 'project', id: 1 } });
+      expect(childProps.listQuery).toEqual({ projects: [1] });
       expect(childProps.listIndex).toEqual(3);
       expect(childProps.buildSiblingUrl(4, 5)).toEqual('/a-team/project/1/media/4?listIndex=5');
     });

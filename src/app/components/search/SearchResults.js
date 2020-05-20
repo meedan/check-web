@@ -78,7 +78,7 @@ const StyledSearchResultsWrapper = styled.div`
 `;
 
 /**
- * Delete `esoffset`, `timestamp`, `parent` and maybe `projects` -- whenever
+ * Delete `esoffset`, `timestamp`, and maybe `projects` -- whenever
  * they can be inferred from the URL or defaults.
  *
  * This is useful for building simple-as-possible URLs.
@@ -87,7 +87,6 @@ function simplifyQuery(query, project) {
   const ret = { ...query };
   delete ret.esoffset;
   delete ret.timestamp;
-  delete ret.parent; // assume it's redundant
   if (
     ret.projects &&
     (
@@ -236,8 +235,8 @@ class SearchResultsComponent extends React.PureComponent {
    * The URL will have a `listIndex` (so the ProjectMedia page can paginate). It
    * will also include `listPath` and `listQuery` ... _unless_ those parameters
    * are redundant. (For instance, if the query is
-   * `{ timestamp, parent, esoffset }` then it doesn't need to be supplied,
-   * because enough data is in `mediaUrlPrefix` to infer `parent`.)
+   * `{ timestamp, esoffset, projects: [projectId] }` then the result can be `{}`
+   * because enough data is in `mediaUrlPrefix` to infer the properties.
    */
   buildProjectMediaUrl = (projectMedia) => {
     if (!projectMedia.dbid) {

@@ -67,7 +67,6 @@ class ProjectComponent extends React.PureComponent {
 
     const query = {
       ...safelyParseJSON(routeParams.query, {}),
-      parent: { type: 'project', id: project.dbid },
       projects: [project.dbid],
     };
 
