@@ -65,6 +65,17 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
     this.setFlashMessage = setFlashMessage || (() => null);
   }
 
+  _parseQueryResult(result) {
+    if (result.status === 401) {
+      const team = this._init.team();
+      if (team !== '') {
+        browserHistory.push(`/${team}/join`);
+      } else if (window.location.pathname !== '/check/forbidden') {
+        browserHistory.push('/check/forbidden');
+      }
+    }
+  }
+
   sendQueries(requests) {
     const team = this._init.team();
     if (requests.length > 1) {
@@ -72,7 +83,10 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
         request.randomId = generateRandomQueryId();
         return request;
       });
-      return this._sendBatchQuery(requests).then(result => result.json()).then((response) => {
+      return this._sendBatchQuery(requests).then((result) => {
+        this._parseQueryResult(result);
+        return result.json();
+      }).then((response) => {
         response.forEach((payload) => {
           const request = requests.find(r => r.randomId === payload.id);
           if (request) {
@@ -84,7 +98,10 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
       });
     }
     return Promise.all(requests.map(request => (
-      this._sendQuery(request).then(result => result.json()).then((payload) => {
+      this._sendQuery(request).then((result) => {
+        this._parseQueryResult(result);
+        return result.json();
+      }).then((payload) => {
         parseQueryPayload(request, payload, team);
       }).catch((error) => {
         request.reject(error);
