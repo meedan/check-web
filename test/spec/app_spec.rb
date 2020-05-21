@@ -805,6 +805,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('All items')).to be(true)
     end
 
+    it "should redirect to login page if not logged in and team is private", bin2: true do
+      t = api_create_team(private: true, user: OpenStruct.new(email: 'anonymous@test.test'))
+      @driver.navigate.to @config['self_url'] + '/' + t.slug + '/all-items'
+      wait_for_selector('.login__form')
+      expect(@driver.page_source.include?('Sign in')).to be(true)
+    end
+
     # Postponed due Alexandre's developement
     # it "should add and remove suggested tags" do
     #   skip("Needs to be implemented")
