@@ -495,7 +495,12 @@ const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsCom
 // eslint-disable-next-line react/no-multi-comp
 class SearchResults extends React.PureComponent {
   render() {
-    const resultsRoute = new SearchRoute({ jsonEncodedQuery: JSON.stringify(this.props.query) });
+    const resultsRoute = new SearchRoute({
+      jsonEncodedQuery: JSON.stringify({
+        ...this.props.query,
+        timestamp: new Date().getTime(), // force refresh after a mutation ... somehow?
+      }),
+    });
 
     return (
       <Relay.RootContainer
