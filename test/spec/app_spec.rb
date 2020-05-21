@@ -388,9 +388,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect((@driver.current_url.to_s =~ /google/).nil?).to be(true)
       current_window = @driver.window_handles.last
       wait_for_selector(".media-detail__reverse-image-search > button").click
-      wait_for_selector("#top_nav")
       @driver.switch_to.window(@driver.window_handles.last)
-      wait_for_selector(".create-task__add-button")
       expect((@driver.current_url.to_s =~ /google/).nil?).to be(false)
       @driver.switch_to.window(current_window)
     end
@@ -714,14 +712,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Create a task
       expect(@driver.page_source.include?('Where?')).to be(false)
       expect(@driver.page_source.include?('Task "Where?" created by')).to be(false)
-      el = wait_for_selector('.create-task__add-button')
-      el.click
-      el = wait_for_selector('.create-task__add-geolocation')
-      el.click
+      wait_for_selector('.create-task__add-button').click
+      wait_for_selector('.create-task__add-geolocation').click
       wait_for_selector("#task-description-input")
       fill_field('#task-label-input', 'Where?')
-      el = wait_for_selector('.create-task__dialog-submit-button')
-      el.click
+      wait_for_selector('.create-task__dialog-submit-button').click
+      wait_for_selector_none("#task-label-input")
       wait_for_selector(".media-tab__activity").click
       old = @driver.find_elements(:class, "annotations__list-item").length
       expect(@driver.page_source.include?('Where?')).to be(true)
