@@ -105,61 +105,62 @@ module AppSpecHelpers
     sleep 3
   end
 
-  def wait_for_selector(selector, type = :css, timeout = 25, index = 0)
+  def wait_for_selector(selector, type = :css, timeout = 20, index = 0)
     wait_for_selector_list(selector, type, timeout)[index]
   end
 
-  def wait_for_selector_list(selector, type = :css, timeout = 25, test = 'unknown')
+  def wait_for_selector_list(selector, type = :css, timeout = 20, test = 'unknown')
     elements = []
     attempts = 0
-    wait = Selenium::WebDriver::Wait.new(timeout: timeout)
-    while elements.empty? && attempts < 10 do
+    wait = Selenium::WebDriver::Wait.new(:timeout => timeout)
+    start = Time.now.to_i
+    while elements.empty? && attempts < 2 do
       attempts += 1
-      sleep 2
+      sleep 0.5
       begin
-        elements = wait.until { @driver.find_elements(type, selector) }
-        elements.map(&:displayed?)
+        wait.until { @driver.find_elements(type, selector).length > 0 }
+        elements = @driver.find_elements(type, selector)
+        elements.each do |e|
+          raise "element is not being displayed" unless  e.displayed?
+        end
       rescue
-        elements = []
+        # rescue from 'Selenium::WebDriver::Error::TimeOutError:' to give more information about the failure
       end
     end
-    puts "Could not find element with selector #{type.upcase} '#{selector}' for test '#{test}'!" if elements.empty?
+    finish = Time.now.to_i - start
+    raise "Could not find element with selector #{type.upcase} '#{selector}' for test '#{test}' after #{finish} seconds!" if elements.empty? 
     elements
   end
 
   def wait_for_selector_list_size(selector, size, type = :css, retries = 10, test = 'unknown')
     elements = []
     attempts = 0
-    wait = Selenium::WebDriver::Wait.new(timeout: 2)
+    start = Time.now.to_i
     while elements.length < size && attempts < retries do
       attempts += 1
-      sleep 2
-      begin
-        elements = wait.until { @driver.find_elements(type, selector) }
-        elements.map(&:displayed?)
-      rescue
-        elements = []
-      end
+      elements = wait_for_selector_list(selector, type)
     end
-    puts "Could not find element with selector #{type.upcase} '#{selector}' for test '#{test}'!" if elements.empty?
+    finish = Time.now.to_i - start
+    raise "Could not find #{size} list elements  with selector #{type.upcase} '#{selector}' for test '#{test}' after #{finish} seconds!" if elements.length < size
     elements
   end
 
   def wait_for_selector_none(selector, type = :css, retries = 10, test = 'unknown')
-    elements = @driver.find_elements(type, selector)
     attempts = 0
+    start = Time.now.to_i
     begin
       attempts += 1
-      sleep 2
+      sleep 0.5
       begin
-        elements = @driver.find_elements(type, selector)
-        elements.map(&:displayed?)
-      rescue
-        elements = []
+        element = wait_for_selector_list(selector, type)
+      rescue 
+        element = [] 
+        #rescue from Selenium::WebDriver::Error::NoSuchElementError: to give more information about the failure
       end
-    end while elements.length > 0 && attempts < retries
-    puts "Element with selector #{type.upcase} '#{selector}' did not disappear for test '#{test}'!" if !elements.empty?
-    elements
+    end while element.size > 0 && attempts < retries
+    finish = Time.now.to_i - start
+    raise "Element with selector #{type.upcase} '#{selector}' did not disappear for test '#{test}' after #{finish} seconds!" if element.size > 0
+    element
   end
 
   def wait_for_text_change(txt, selector, type = :css, count = 10)
@@ -264,7 +265,7 @@ module AppSpecHelpers
         sleep 20
       end
     end
-    wait_for_selector_none("#tos__pp-agree")
+    wait_for_selector_none("#tos__save")
   end
 
   def create_team
@@ -289,13 +290,14 @@ module AppSpecHelpers
 
   def register_with_email(should_create_team = true, email = @email, should_login = true)
     @driver.navigate.to @config['self_url']
-    sleep 1
-    @driver.find_element(:xpath, "//button[@id='register-or-login']").click
-    sleep 1
+    wait_for_selector(".login__form")
+    wait_for_selector("#register-or-login").click
+    wait_for_selector(".without-file")
     fill_field('.login__name input', 'User With Email')
     fill_field('.login__email input', email)
     fill_field('.login__password input', '12345678')
     fill_field('.login__password-confirmation input', '12345678')
+    wait_for_selector('input[type=file]').send_keys(File.join(File.dirname(__FILE__), 'test.png'))
     agree_to_tos(false)
     press_button('#submit-register-or-login')
     sleep 3
@@ -321,6 +323,8 @@ module AppSpecHelpers
     wait_for_selector("#create-media__add-item").click
     fill_field('#create-media-input', url)
     press_button('#create-media-dialog__submit-button')
+    wait_for_selector_none("#create-media-input")
+    wait_for_selector(".media__heading")
   end
 
   def create_image(file)
