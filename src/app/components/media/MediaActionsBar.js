@@ -51,16 +51,19 @@ const messages = defineMessages({
 
 const Styles = theme => ({
   root: {
-    width: '50%',
-    position: 'absolute',
-    height: 64,
-    right: 0,
-    top: 0,
     display: 'flex',
+    width: '100%',
+    height: 64,
     alignItems: 'center',
-    zIndex: 2,
     padding: '0 16px',
     justifyContent: 'space-between',
+    [theme.breakpoints.up(1500)]: {
+      top: 0,
+      right: 0,
+      width: '50%',
+      position: 'absolute',
+      zIndex: 2,
+    },
   },
   spacedButton: {
     marginRight: theme.spacing(1),
