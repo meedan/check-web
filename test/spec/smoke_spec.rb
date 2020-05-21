@@ -715,7 +715,7 @@ shared_examples 'smoke' do
     expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
   end
 
-  it "should generate a embed and go to embed page", bin4: true do
+  it "should generate a embed, copy the embed url and open the embed page in a incognito window", bin4: true do
    api_create_team_and_project
     @driver.navigate.to @config['self_url']
     wait_for_selector('.project__description')
@@ -732,7 +732,9 @@ shared_examples 'smoke' do
     wait_for_selector("//span[contains(text(), 'Edit')]", :xpath)
     wait_for_selector('#report-designer__actions button + button').click
     embed_url = wait_for_selector('#report-designer__share-field').value.to_s
-    @driver.navigate.to embed_url
+    caps = Selenium::WebDriver::Remote::Capabilities.chrome('chromeOptions' => { 'args' => [ '--incognito' ]})
+    driver = Selenium::WebDriver.for(:remote, url: @webdriver_url, desired_capabilities: caps)
+    driver.navigate.to embed_url
     wait_for_selector('#container')
     expect(@driver.page_source.include?('text message')).to be(true)
   end

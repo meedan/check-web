@@ -152,7 +152,7 @@ module AppSpecHelpers
       attempts += 1
       sleep 0.5
       begin
-      element = wait_for_selector_list(selector, type)
+        element = wait_for_selector_list(selector, type)
       rescue 
         element = [] 
         #rescue from Selenium::WebDriver::Error::NoSuchElementError: to give more information about the failure
