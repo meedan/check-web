@@ -171,7 +171,7 @@ class SwitchTeamsComponent extends Component {
             ))}
 
             {pendingTeams.map(team => (
-              <Link to={`/${team.slug}`}>
+              <Link key={team.slug} to={`/${team.slug}`}>
                 <ListItem
                   className="switch-teams__pending-team"
                   key={`team-${team.dbid}`}
