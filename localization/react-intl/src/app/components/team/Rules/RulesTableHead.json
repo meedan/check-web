@@ -1,0 +1,14 @@
+[
+  {
+    "id": "rulesTableHead.name",
+    "defaultMessage": "Name"
+  },
+  {
+    "id": "rulesTableHead.created",
+    "defaultMessage": "Created"
+  },
+  {
+    "id": "rulesTableHead.selectAll",
+    "defaultMessage": "Select all rules"
+  }
+]
