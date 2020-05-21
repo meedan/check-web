@@ -13,7 +13,7 @@ class Page
   end
 
   def load
-    go(url)
+    @driver.navigate.to url
     self
   end
 

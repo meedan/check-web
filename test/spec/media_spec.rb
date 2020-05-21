@@ -262,16 +262,15 @@ shared_examples 'media' do |type|
     @driver.action.send_keys(:enter).perform
     wait_for_selector('.annotation__avatar-col')
     wait_for_selector(".media-tab__activity").click
-    notes_count_before = wait_for_selector_list('.annotation__timestamp').length
-    expect(notes_count_before == 0).to be(true)
+    expect(@driver.find_elements(:class, "annotation__timestamp").length == 0).to be(true)
     expect(@driver.page_source.include?('Comment deleted')).to be(false)
     wait_for_selector(".media-tab__comments").click
     wait_for_selector('.annotation .menu-button').click
     wait_for_selector('.annotation__delete').click
     wait_for_selector_none('.annotation__avatar-col')
     wait_for_selector(".media-tab__activity").click
-    notes_count_after = wait_for_selector_list('.annotation__timestamp').length
-    expect(notes_count_after > notes_count_before).to be(true)
+    notes_count = wait_for_selector_list('.annotation__timestamp').length
+    expect(notes_count > 0).to be(true)
     expect(@driver.page_source.include?('Comment deleted')).to be(true)
   end
 
