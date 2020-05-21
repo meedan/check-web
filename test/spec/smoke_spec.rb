@@ -715,7 +715,7 @@ shared_examples 'smoke' do
     expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
   end
 
-  it "should generate a embed, copy the embed url and open the embed page in a incognito window", bin4: true do
+  it "should generate a embed, copy the share url and open the embed page in a incognito window", bin4: true do
    api_create_team_and_project
     @driver.navigate.to @config['self_url']
     wait_for_selector('.project__description')
@@ -735,8 +735,8 @@ shared_examples 'smoke' do
     caps = Selenium::WebDriver::Remote::Capabilities.chrome('chromeOptions' => { 'args' => [ '--incognito' ]})
     driver = Selenium::WebDriver.for(:remote, url: @webdriver_url, desired_capabilities: caps)
     driver.navigate.to embed_url
-    wait_for_selector('#container')
-    expect(@driver.page_source.include?('text message')).to be(true)
+    @wait.until { driver.find_element(:id, "container") }
+    expect(driver.page_source.include?('text message')).to be(true)
   end
 #Embed section end
 
