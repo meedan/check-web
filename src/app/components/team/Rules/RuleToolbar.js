@@ -143,7 +143,7 @@ const RuleToolbar = (props) => {
         blurb={
           <FormattedMessage
             id="ruleToolbar.leaveConfirmationText"
-            defaultMessage="If you continue, you will loose your changes."
+            defaultMessage="If you continue, you will lose your changes."
           />
         }
         handleClose={handleCloseDialogs}
