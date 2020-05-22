@@ -767,7 +767,6 @@ shared_examples 'smoke' do
     # Create a claim under project 2
     create_media(claim)
     wait_for_selector('.medias__item')
-    wait_for_selector(".ag-header-row")
     expect(@driver.page_source.include?(claim)).to be(true)
     expect(@driver.page_source.include?('1 / 1')).to be(true)
     expect(@driver.page_source.include?("Add a link or text")).to be(false)
