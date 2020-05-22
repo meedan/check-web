@@ -15,6 +15,7 @@ export default function Trash({ routeParams }) {
       searchUrlPrefix={`/${routeParams.team}/trash`}
       mediaUrlPrefix={`/${routeParams.team}/media`}
       title={<FormattedMessage id="trash.title" defaultMessage="Trash" />}
+      teamSlug={routeParams.team}
       query={query}
       fields={['keyword', 'date', 'status', 'sort', 'tags', 'rules']}
       page="trash"

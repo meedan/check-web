@@ -78,7 +78,7 @@ class ProjectComponent extends React.PureComponent {
           title={project.title}
           listDescription={project.description}
           listActions={<ProjectActions project={project} />}
-          team={routeParams.team}
+          teamSlug={routeParams.team}
           project={project}
           query={query}
           fields={['date', 'keyword', 'status', 'sort', 'tags', 'show', 'dynamic', 'bulk', 'rules']}

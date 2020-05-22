@@ -343,7 +343,7 @@ class SearchResultsComponent extends React.PureComponent {
                 count={this.props.search ? this.props.search.number_of_results : 0}
                 team={team}
                 page={this.props.page}
-                project={this.project}
+                project={this.props.project}
                 selectedMedia={selectedProjectMediaIds}
                 onUnselectAll={this.onUnselectAll}
               /> : null}
@@ -424,6 +424,7 @@ SearchResultsComponent.propTypes = {
   // eslint-disable-next-line react/no-typos
   pusher: pusherShape.isRequired,
   clientSessionId: PropTypes.string.isRequired,
+  query: PropTypes.object.isRequired,
   search: PropTypes.shape({
     id: PropTypes.string.isRequired, // TODO fill in props
     medias: PropTypes.shape({ edges: PropTypes.array.isRequired }).isRequired,
@@ -492,27 +493,69 @@ const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsCom
   },
 });
 
-// eslint-disable-next-line react/no-multi-comp
-class SearchResults extends React.PureComponent {
-  render() {
-    const resultsRoute = new SearchRoute({
-      jsonEncodedQuery: JSON.stringify({
-        ...this.props.query,
-        timestamp: new Date().getTime(), // force refresh after a mutation ... somehow?
-      }),
-    });
-
-    return (
-      <Relay.RootContainer
-        Component={SearchResultsContainer}
-        route={resultsRoute}
-        renderFetched={data => (
-          <SearchResultsContainer {...this.props} search={data.search} />
-        )}
-        renderLoading={() => <MediasLoading />}
-      />
-    );
+/**
+ * Build JSON-stringified query string that replicates check-api's warts.
+ *
+ * TL;DR when given `{projects: [projectId]}` or `{}` as input, return an
+ * equivalent query that looks like the one `check-api` assumes.
+ *
+ * A long explanation follows -- [adamhooper, 2020-05-22] it took me hours to
+ * figure this out.
+ *
+ * A CheckSearch has an `id`, to mimic GraphQL: check-api is designed to
+ * encourage the client to store a CheckSearch in its `Relay.Store` (even though
+ * CheckSearch is not stored anywhere on the server).
+ *
+ * What happens when the client alters a list? Well, that should change the
+ * search results ... so check-api's UpdateProjectMediaPayload includes
+ * `check_search_project`, `check_search_team` and `check_search_trash` based
+ * on **check-api's guesses** of what the client-side IDs are.
+ *
+ * Check-api can't know the client-side IDs. So it guesses that they look like
+ * `b64('CheckSearch/{"parent":{"type":"project","id":32},"projects":[32]}`)`.
+ * The ordering must be exact. Luckily, MRI Ruby (check-api server side) happens
+ * to JSON-encode Hash literals in deterministic order; and so does ES2015.
+ *
+ * This solution could never handle filters or sorting. (The search ID is based
+ * on *all* parameters -- including filters/sorts.) So this is quasi-GraphQL.
+ * TODO design `team.project_medias` and `project.project_medias`, filterable
+ * GraphQL Connections, and nix `CheckSearch` (and these IDs).
+ *
+ * One other spot for confusion is in the GraphQL property,
+ * `CheckSearch.pusher_channel`. Avoid it, because it's null if there are sorts
+ * or filters -- and if you're reading the `pusher_channel` you can correctly
+ * determine the pusher channel, client-side.
+ */
+function encodeQueryToMimicTheWayCheckApiGeneratesIds(query, teamSlug) {
+  const nKeys = Object.keys(query).length;
+  if (nKeys === 0) {
+    return `{"parent":{"type":"team","slug":${JSON.stringify(teamSlug)}}}`;
   }
+  if (nKeys === 1 && query.projects && query.projects.length === 1) {
+    // JSON.stringify is pedantic -- the ID is a Number to begin with
+    const id = JSON.stringify(query.projects[0]);
+    return `{"parent":{"type":"project","id":${id}},"projects":[${id}]}`;
+  }
+  // In all but these two cases, generate a separate query.
+  return JSON.stringify(query);
 }
 
-export default SearchResults;
+export default function SearchResults({ query, teamSlug, ...props }) {
+  const jsonEncodedQuery = encodeQueryToMimicTheWayCheckApiGeneratesIds(query, teamSlug);
+  const route = React.useMemo(() => new SearchRoute({ jsonEncodedQuery }), [jsonEncodedQuery]);
+
+  return (
+    <Relay.RootContainer
+      Component={SearchResultsContainer}
+      route={route}
+      renderFetched={data => (
+        <SearchResultsContainer {...props} query={query} search={data.search} />
+      )}
+      renderLoading={() => <MediasLoading />}
+    />
+  );
+}
+SearchResults.propTypes = {
+  query: PropTypes.object.isRequired,
+  teamSlug: PropTypes.string.isRequired,
+};

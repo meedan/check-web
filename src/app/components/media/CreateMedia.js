@@ -7,7 +7,6 @@ import Button from '@material-ui/core/Button';
 import CreateMediaDialog from './CreateMediaDialog';
 import CreateProjectMediaMutation from '../../relay/mutations/CreateProjectMediaMutation';
 import CreateProjectSourceMutation from '../../relay/mutations/CreateProjectSourceMutation';
-import CheckContext from '../../CheckContext';
 import { stringHelper } from '../../customHelpers';
 import { getErrorObjects, getFilters } from '../../helpers';
 import CheckError from '../../CheckError';
@@ -50,8 +49,7 @@ class CreateProjectMedia extends Component {
   };
 
   submitSource(value) {
-    const context = new CheckContext(this).getContextStore();
-    const prefix = `/${context.team.slug}/project/${context.project.dbid}/source/`;
+    const prefix = `/${this.props.team.slug}/project/${this.props.project.dbid}/source/`;
 
     if (!value) {
       return;
@@ -70,19 +68,18 @@ class CreateProjectMedia extends Component {
     Relay.Store.commitUpdate(
       new CreateProjectSourceMutation({
         ...value,
-        project: context.project,
+        project: this.props.project,
       }),
       { onSuccess, onFailure: this.fail },
     );
   }
 
   submitMedia(value) {
-    const context = new CheckContext(this).getContextStore();
     let prefix = null;
-    if (context.project) {
-      prefix = `/${context.team.slug}/project/${context.project.dbid}/media/`;
+    if (this.props.project) {
+      prefix = `/${this.props.team.slug}/project/${this.props.project.dbid}/media/`;
     } else {
-      prefix = `/${context.team.slug}/media/`;
+      prefix = `/${this.props.team.slug}/media/`;
     }
 
     if (!value) {
@@ -102,10 +99,9 @@ class CreateProjectMedia extends Component {
     Relay.Store.commitUpdate(
       new CreateProjectMediaMutation({
         ...value,
-        context,
         team: this.props.team,
         search: this.props.search,
-        project: context.project,
+        project: this.props.project,
       }),
       { onSuccess, onFailure: this.fail },
     );
@@ -150,10 +146,6 @@ CreateProjectMedia.propTypes = {
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
   setFlashMessage: PropTypes.func.isRequired,
-};
-
-CreateProjectMedia.contextTypes = {
-  store: PropTypes.object,
 };
 
 export default withSetFlashMessage(injectIntl(CreateProjectMedia));

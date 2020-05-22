@@ -54,7 +54,7 @@ class Toolbar extends React.Component {
           <Offset isRtl={isRtl}>
             { page !== 'trash' ?
               <Can {...perms}>
-                <CreateProjectMedia search={search} team={team} />
+                <CreateProjectMedia search={search} project={project} team={team} />
               </Can> : null
             }
           </Offset>

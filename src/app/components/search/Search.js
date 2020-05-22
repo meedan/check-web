@@ -55,6 +55,7 @@ export default function Search({
   listDescription,
   mediaUrlPrefix,
   page,
+  teamSlug,
   project,
   query,
   searchUrlPrefix,
@@ -69,6 +70,7 @@ export default function Search({
     <SearchResults
       searchUrlPrefix={searchUrlPrefix}
       mediaUrlPrefix={mediaUrlPrefix}
+      teamSlug={teamSlug}
       project={project}
       listActions={listActions}
       listDescription={listDescription}
@@ -92,6 +94,7 @@ Search.propTypes = {
   listDescription: PropTypes.string, // or undefined
   listActions: PropTypes.node, // or undefined
   project: PropTypes.object, // or null
+  teamSlug: PropTypes.string.isRequired,
   title: PropTypes.node.isRequired,
   fields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
   page: PropTypes.oneOf(['trash']), // FIXME find a cleaner way to render Trash differently
