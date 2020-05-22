@@ -62,7 +62,7 @@ shared_examples 'media' do |type|
   end
 
   it "should add, edit, answer, update answer and delete short answer task", bin3: true do
-    media_pg = create_media_depending_on_type
+    create_media_depending_on_type
     wait_for_selector('.create-task__add-button')
 
     # Create a task
@@ -113,7 +113,7 @@ shared_examples 'media' do |type|
   end
 
   it "should add, edit, answer, update answer and delete single_choice task", bin2: true  do
-    media_pg = create_media_depending_on_type
+    create_media_depending_on_type
     wait_for_selector('.create-task__add-button')
     # Create a task
     expect(@driver.page_source.include?('Foo or bar?')).to be(false)
@@ -151,7 +151,7 @@ shared_examples 'media' do |type|
   end
 
   it "should add, edit, answer, update answer and delete multiple_choice task", bin5: true do
-    media_pg = create_media_depending_on_type
+    create_media_depending_on_type
     wait_for_selector('.create-task__add-button')
     # Create a task
     expect(@driver.page_source.include?('Foo, Doo or bar?')).to be(false)

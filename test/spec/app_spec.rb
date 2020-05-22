@@ -344,7 +344,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       fill_field('#cmd-input', 'https://meedan.com/en/')
       @driver.action.send_keys(:enter).perform
       wait_for_selector('.annotation__avatar-col')
-      old = wait_for_size_change(0, 'annotation__card-content', :class, 25)
+      wait_for_size_change(0, 'annotation__card-content', :class, 25)
       expect(@driver.page_source.include?('https://meedan.com/en/')).to be(true)
       el = wait_for_selector_list("//a[contains(text(), 'https://meedan.com/en/')]", :xpath)
       expect(el.length == 1).to be(true)
@@ -394,7 +394,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should refresh media", bin1: true do
-      page = api_create_team_project_and_link_and_redirect_to_media_page 'http://ca.ios.ba/files/meedan/random.php'
+      api_create_team_project_and_link_and_redirect_to_media_page 'http://ca.ios.ba/files/meedan/random.php'
       wait_for_selector(".media-detail")
       title1 = @driver.title
       expect((title1 =~ /Random/).nil?).to be(false)

@@ -152,7 +152,7 @@ shared_examples 'smoke' do
   end
 
   it "should lock and unlock status", bin2: true do
-    page = api_create_team_project_and_link_and_redirect_to_media_page 'http://ca.ios.ba/files/meedan/random.php'
+    api_create_team_project_and_link_and_redirect_to_media_page 'http://ca.ios.ba/files/meedan/random.php'
     wait_for_selector(".media")
     wait_for_selector('.media-actions__icon').click
     wait_for_selector('.media-actions__lock-status').click
@@ -253,7 +253,7 @@ shared_examples 'smoke' do
   end
 
   it "should add, edit, answer, update answer and delete datetime task", bin3: true do
-    media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
+    api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector('.media-detail')
 
     # Create a task
