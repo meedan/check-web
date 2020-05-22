@@ -1,0 +1,38 @@
+[
+  {
+    "id": "ruleToolbar.back",
+    "defaultMessage": "Back"
+  },
+  {
+    "id": "ruleToolbar.more",
+    "defaultMessage": "More"
+  },
+  {
+    "id": "ruleToolbar.duplicate",
+    "defaultMessage": "Duplicate"
+  },
+  {
+    "id": "ruleToolbar.delete",
+    "defaultMessage": "Delete"
+  },
+  {
+    "id": "rulesTableToolbar.save",
+    "defaultMessage": "Save"
+  },
+  {
+    "id": "ruleToolbar.deleteConfirmationTitle",
+    "defaultMessage": "Delete rule?"
+  },
+  {
+    "id": "ruleToolbar.deleteConfirmationText",
+    "defaultMessage": "Are you sure you want to delete this rule? This is permanent."
+  },
+  {
+    "id": "ruleToolbar.leaveConfirmationTitle",
+    "defaultMessage": "Close without saving?"
+  },
+  {
+    "id": "ruleToolbar.leaveConfirmationText",
+    "defaultMessage": "If you continue, you will lose your changes."
+  }
+]

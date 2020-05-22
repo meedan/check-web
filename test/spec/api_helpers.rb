@@ -38,7 +38,9 @@ module ApiHelpers
   def api_create_team(params = {})
     team_name = params[:team] || "TestTeam#{Time.now.to_i}-#{rand(99999)}"
     user = params[:user] || api_register_and_login_with_email
-    team = request_api 'team', { name: team_name, email: user.email }
+    options = { name: team_name, email: user.email }
+    options[:private] = true if params[:private]
+    team = request_api 'team', options
     team
   end
 

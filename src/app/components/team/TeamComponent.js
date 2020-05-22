@@ -9,7 +9,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import styled from 'styled-components';
 import TeamBots from './TeamBots';
-import TeamRules from './TeamRules';
+import TeamRules from './Rules';
 import TeamTags from './TeamTags';
 import TeamTasks from './TeamTasks';
 import TeamReport from './TeamReport';
@@ -260,7 +260,7 @@ class TeamComponent extends Component {
             ? <TeamBots team={team} direction={direction} />
             : null }
           { isSettings && this.state.showTab === 'rules'
-            ? <TeamRules team={team} direction={direction} />
+            ? <TeamRules teamSlug={team.slug} />
             : null }
           { isSettings && this.state.showTab === 'report'
             ? <TeamReport team={team} direction={direction} />

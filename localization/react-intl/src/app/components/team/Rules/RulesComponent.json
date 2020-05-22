@@ -1,0 +1,10 @@
+[
+  {
+    "id": "rulesComponent.defaultErrorMessage",
+    "defaultMessage": "Could not save rules"
+  },
+  {
+    "id": "rulesComponent.savedSuccessfully",
+    "defaultMessage": "Rules saved successfully!"
+  }
+]
