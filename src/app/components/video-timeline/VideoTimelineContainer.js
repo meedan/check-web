@@ -11,7 +11,7 @@ const environment = Store;
 
 const NOOP = () => {};
 
-const createTag = (tag, fragment, annotated_id, parent_id, callback, retry) => {
+const createTag = (tag, fragment, annotated_id, parentID, callback) => {
   return commitMutation(environment, {
     mutation: graphql`
       mutation VideoTimelineContainerCreateInstanceMutation($input: CreateTagInput!) {
@@ -39,24 +39,21 @@ const createTag = (tag, fragment, annotated_id, parent_id, callback, retry) => {
       {
         type: 'RANGE_ADD',
         parentName: 'project_media',
-        parentID: parent_id,
+        parentID,
         edgeName: 'tagEdge',
         connectionName: 'tags',
-        rangeBehaviors: () => ('append'),
+        rangeBehaviors: () => ('prepend'),
         connectionInfo: [{
           key: 'ProjectMedia_tags',
-          rangeBehavior: 'append',
+          rangeBehavior: 'prepend',
         }],
       },
     ],
-    onCompleted: (data, errors) => {
-      callback && callback(data, errors);
-      // retry(); // FIXME
-    },
+    onCompleted: (data, errors) => callback && callback(data, errors),
   });
 };
 
-const retime = (id, fragment) => {
+const retimeTag = (id, fragment) => {
   return commitMutation(environment, {
     mutation: graphql`
       mutation VideoTimelineContainerFragmentMutation($input: UpdateTagInput!) {
@@ -82,7 +79,7 @@ const retime = (id, fragment) => {
   });
 };
 
-const rename = (id, text) => {
+const renameTag = (id, text, callback) => {
   return commitMutation(environment, {
     mutation: graphql`
       mutation VideoTimelineContainerTextMutation($input: UpdateTagTextInput!) {
@@ -97,6 +94,7 @@ const rename = (id, text) => {
     variables: {
       input: { id, text, clientMutationId: `m${Date.now()}` },
     },
+    onCompleted: (data, errors) => callback && callback(data, errors),
     optimisticResponse: {
       updateTagText: {
         tag_text: {
@@ -108,7 +106,7 @@ const rename = (id, text) => {
   });
 };
 
-const destroy = (id, annotated_id) => {
+const destroyTag = (id, annotated_id) => {
   return commitMutation(environment, {
     mutation: graphql`
       mutation VideoTimelineContainerDestroyMutation($input: DestroyTagTextInput!) {
@@ -132,26 +130,76 @@ const destroy = (id, annotated_id) => {
   });
 };
 
-// const TEST = () => {
-//   return commitMutation(Store, {
-//     mutation: graphql`
-//       mutation VideoTimelineContainerTESTMutation {
-//         createRelationship(input: {
-//           source_id: 2,
-//           target_id: 3,
-//           relationship_type: "{\"source\":\"full_video\",\"target\":\"clip\"}"
-//         }) {
-//           relationship {
-//             dbid
-//           }
-//         }
-//       }
-//     `,
-//     variables: {},
-//   });
-// };
+const entityCreate = (type, payload, mediaId, parentId, callback) => {
+  switch (type) {
+    case 'tag':
+      createTag(payload[`project_${type}`].name, payload.fragment, mediaId, parentId, callback);
+      break;
+    default:
+      console.error(`${type} not handled`);
+  }
+};
 
-// window.TEST = TEST;
+const entityUpdate = (type, entityId, payload, callback) => {
+  switch (type) {
+    case 'tag':
+      renameTag(entityId, payload.project_tag.name, callback);
+      break;
+    default:
+      console.error(`${type} not handled`);
+  }
+};
+
+const entityDelete = (type, entityId, tags, mediaId, callback) => {
+  switch (type) {
+    case 'tag':
+      tags.forEach(({ id }) => destroyTag(id, mediaId));
+      callback && callback();
+      break;
+    default:
+      console.error(`${type} not handled`);
+  }
+};
+
+const instanceCreate = (type, id, name, payload, mediaId, parentId, callback) => {
+  switch (type) {
+    case 'tag':
+      createTag(name, payload.fragment, mediaId, parentId, callback);
+      break;
+    default:
+      console.error(`${type} not handled`);
+  }
+};
+
+const instanceUpdate = (type, entityId, instanceId, fragment) => {
+  switch (type) {
+    case 'tag':
+      retimeTag(instanceId, fragment);
+      break;
+    default:
+      console.error(`${type} not handled`);
+  }
+};
+
+const instanceDelete = (type, instanceId, mediaId) => {
+  switch (type) {
+    case 'tag':
+      destroyTag(instanceId, mediaId);
+      break;
+    default:
+      console.error(`${type} not handled`);
+  }
+};
+
+const instanceClip = (type, entityId, instanceId) => {
+  switch (type) {
+    case 'tag':
+      console.warn('TODO instance -> clip');
+      break;
+    default:
+      console.error(`${type} not handled`);
+  }
+};
 
 class VideoTimelineContainer extends Component {
   constructor(props) {
@@ -289,15 +337,15 @@ class VideoTimelineContainer extends Component {
                   onCommentEdit={NOOP}
                   onCommentThreadCreate={NOOP}
                   onCommentThreadDelete={NOOP}
-                  onEntityCreate={(type, payload, callback) => createTag(payload[`project_${type}`].name, payload.fragment, mediaId, props.project_media.id, callback, retry)}
-                  onEntityDelete={NOOP}
-                  onEntityUpdate={NOOP}
-                  onInstanceClip={NOOP}
-                  onInstanceCreate={(type, id, payload, callback) => createTag(data.videoTags.find(({ id: _id }) => _id === id).name, payload.fragment, mediaId, props.project_media.id, callback, retry)}
-                  onInstanceDelete={(type, entityId, instanceId) => destroy(instanceId, mediaId)}
-                  onInstanceUpdate={(type, entityId, instanceId, { start_seconds, end_seconds }) => retime(instanceId, `t=${start_seconds},${end_seconds}&type=${type}`)}
+                  onEntityCreate={(type, payload, callback) => entityCreate(type, payload, mediaId, props.project_media.id, callback)}
+                  onEntityDelete={(type, entityId, callback) => entityDelete(type, entityId, data.videoTags.find(({ id }) => entityId === id).instances, mediaId, callback)}
+                  onEntityUpdate={(type, entityId, payload, callback) => entityUpdate(type, entityId, payload, callback)}
+                  onInstanceClip={(type, entityId, instanceId) => instanceClip(type, entityId, instanceId)}
+                  onInstanceCreate={(type, id, payload, callback) => instanceCreate(type, id, data.videoTags.find(({ id: _id }) => _id === id).name, payload, mediaId, props.project_media.id, callback)}
+                  onInstanceDelete={(type, entityId, instanceId) => instanceDelete(type, instanceId, mediaId)}
+                  onInstanceUpdate={(type, entityId, instanceId, { start_seconds, end_seconds }) => instanceUpdate(type, entityId, instanceId, `t=${start_seconds},${end_seconds}&type=${type}`)}
                   onPlaylistLaunch={NOOP}
-                  onTimeChange={NOOP}
+                  onTimeChange={seekTo => this.setState({ seekTo })}
                 />
               </div>
             );
