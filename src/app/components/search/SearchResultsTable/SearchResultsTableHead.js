@@ -50,7 +50,7 @@ SearchResultsTableHead.propTypes = {
     align: PropTypes.oneOf(['inherit', 'left', 'center', 'right', 'justify']), // default inherit
   }).isRequired).isRequired,
   projectMedias: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
-  selectedIds: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+  selectedIds: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   sortParams: PropTypes.shape({
     key: PropTypes.string.isRequired,
     ascending: PropTypes.bool.isRequired,
