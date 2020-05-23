@@ -12,8 +12,7 @@ class UpdateTagTextMutation extends Relay.Mutation {
       fragment on UpdateTagTextPayload {
         team {
           id
-          custom_tags
-          teamwide_tags
+          tag_texts
         }
       }
     `;

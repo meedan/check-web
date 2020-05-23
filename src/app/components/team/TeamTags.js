@@ -7,7 +7,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
 import MoreHoriz from '@material-ui/icons/MoreHoriz';
 import IconClose from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
@@ -64,8 +63,7 @@ class TeamTagsComponent extends Component {
       deleting: false,
       countTotal: 0,
       countHidden: 0,
-      teamwideTags: [],
-      customTags: [],
+      tag_texts: [],
     };
   }
 
@@ -94,37 +92,25 @@ class TeamTagsComponent extends Component {
   }
 
   filter() {
-    const teamwideTags = [];
-    const customTags = [];
+    const tag_texts = [];
     let countTotal = 0;
     let countHidden = 0;
-    this.props.team.teamwide_tags.edges.forEach((node) => {
+    this.props.team.tag_texts.edges.forEach((node) => {
       const tag = node.node;
       countTotal += 1;
       if (tag.text.toLowerCase().includes(this.state.search.toLowerCase())) {
-        teamwideTags.push(tag);
-      } else {
-        countHidden += 1;
-      }
-    });
-    this.props.team.custom_tags.edges.forEach((node) => {
-      const tag = node.node;
-      countTotal += 1;
-      if (tag.text.toLowerCase().includes(this.state.search.toLowerCase())) {
-        customTags.push(tag);
+        tag_texts.push(tag);
       } else {
         countHidden += 1;
       }
     });
     if (
-      !deepEqual(teamwideTags, this.state.teamwideTags) ||
-      !deepEqual(customTags, this.state.customTags) ||
+      !deepEqual(tag_texts, this.state.tag_texts) ||
       countTotal !== this.state.countTotal ||
       countHidden !== this.state.countHidden
     ) {
       this.setState({
-        teamwideTags,
-        customTags,
+        tag_texts,
         countTotal,
         countHidden,
       });
@@ -431,8 +417,7 @@ class TeamTagsComponent extends Component {
       mu: (a, b) => (a.tags_count < b.tags_count ? 1 : -1),
       lu: (a, b) => (a.tags_count > b.tags_count ? 1 : -1),
     };
-    const teamwideTags = this.state.teamwideTags.slice(0).sort(sortFunctions[this.state.sort]);
-    const customTags = this.state.customTags.slice(0).sort(sortFunctions[this.state.sort]);
+    const tag_texts = this.state.tag_texts.slice(0).sort(sortFunctions[this.state.sort]);
 
     const filterLabel = this.state.countHidden > 0 ? (
       <FormattedMessage
@@ -477,13 +462,8 @@ class TeamTagsComponent extends Component {
           }
         />
         <Card style={{ marginTop: units(2) }}>
-          <CardHeader
-            title={
-              <FormattedMessage id="teamTags.teamwideTags" defaultMessage="Default tags" />
-            }
-          />
           <CardContent style={{ padding: 0 }}>
-            { teamwideTags.length === 0 ?
+            { tag_texts.length === 0 ?
               <p style={{ paddingBottom: units(5), textAlign: 'center' }}>
                 <FormattedMessage
                   id="teamTags.noTeamwideTags"
@@ -491,7 +471,7 @@ class TeamTagsComponent extends Component {
                 />
               </p>
               : null }
-            {this.tagsList(teamwideTags, false)}
+            {this.tagsList(tag_texts, false)}
             <Can permissions={this.props.team.permissions} permission="create TagText">
               <div style={{ padding: units(2) }}>
                 <TextField
@@ -512,24 +492,6 @@ class TeamTagsComponent extends Component {
                 </p>
               </div>
             </Can>
-          </CardContent>
-        </Card>
-        <Card style={{ marginTop: units(5) }}>
-          <CardHeader
-            title={
-              <FormattedMessage id="teamTags.customTags" defaultMessage="Custom tags" />
-            }
-          />
-          <CardContent style={{ padding: 0 }}>
-            { customTags.length === 0 ?
-              <p style={{ paddingBottom: units(5), textAlign: 'center' }}>
-                <FormattedMessage
-                  id="teamTags.noCustomTags"
-                  defaultMessage="No custom tags."
-                />
-              </p>
-              : null }
-            {this.tagsList(customTags, true)}
           </CardContent>
         </Card>
 
@@ -559,20 +521,7 @@ const TeamTagsContainer = Relay.createContainer(injectIntl(TeamTagsComponent), {
         dbid
         slug
         permissions
-        teamwide_tags(first: 10000) {
-          edges {
-            node {
-              id
-              dbid
-              text
-              teamwide
-              tags_count
-              permissions
-              created_at
-            }
-          }
-        }
-        custom_tags(first: 10000) {
+        tag_texts(first: 10000) {
           edges {
             node {
               id

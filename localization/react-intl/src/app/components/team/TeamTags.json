@@ -52,10 +52,6 @@
     "defaultMessage": "Filter and sort list"
   },
   {
-    "id": "teamTags.teamwideTags",
-    "defaultMessage": "Default tags"
-  },
-  {
     "id": "teamTags.noTeamwideTags",
     "defaultMessage": "No default tags."
   },
@@ -66,14 +62,6 @@
   {
     "id": "teamTags.addTag",
     "defaultMessage": "Add tag"
-  },
-  {
-    "id": "teamTags.customTags",
-    "defaultMessage": "Custom tags"
-  },
-  {
-    "id": "teamTags.noCustomTags",
-    "defaultMessage": "No custom tags."
   },
   {
     "id": "teamTags.confirmDeleteTitle",

@@ -29,14 +29,7 @@ class DeleteTagTextMutation extends Relay.Mutation {
         type: 'NODE_DELETE',
         parentName: 'team',
         parentID: this.props.teamId,
-        connectionName: 'custom_tags',
-        deletedIDFieldName: 'deletedId',
-      },
-      {
-        type: 'NODE_DELETE',
-        parentName: 'team',
-        parentID: this.props.teamId,
-        connectionName: 'teamwide_tags',
+        connectionName: 'tag_texts',
         deletedIDFieldName: 'deletedId',
       },
     ];
