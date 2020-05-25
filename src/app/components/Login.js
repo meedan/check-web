@@ -1,15 +1,9 @@
-import React, { Component } from 'react';
-import {
-  FormattedMessage,
-  injectIntl,
-  intlShape,
-  defineMessages,
-} from 'react-intl';
+import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import FASlack from 'react-icons/lib/fa/slack';
 import FAFacebook from 'react-icons/lib/fa/facebook-official';
 import FATwitter from 'react-icons/lib/fa/twitter';
 import MDEmail from 'react-icons/lib/md/email';
-import rtlDetect from 'rtl-detect';
 import { browserHistory, Link } from 'react-router';
 import Button from '@material-ui/core/Button';
 import ButtonBase from '@material-ui/core/ButtonBase';
@@ -20,7 +14,7 @@ import Message from './Message';
 import UploadImage from './UploadImage';
 import UserTosForm from './UserTosForm';
 import { login, request } from '../redux/actions';
-import { mapGlobalMessage } from './MappedMessage';
+import { FormattedGlobalMessage } from './MappedMessage';
 import { stringHelper } from '../customHelpers';
 import { getErrorObjects } from '../helpers';
 import CheckError from '../CheckError';
@@ -43,33 +37,6 @@ import {
   transitionSpeedFast,
   defaultBorderRadius,
 } from '../styles/js/shared';
-
-const messages = defineMessages({
-  nameLabel: {
-    id: 'login.nameLabel',
-    defaultMessage: 'Your name',
-  },
-  emailLabel: {
-    id: 'login.emailLabel',
-    defaultMessage: 'Email address',
-  },
-  passwordInputHint: {
-    id: 'login.passwordInputHint',
-    defaultMessage: 'Password',
-  },
-  passwordLabel: {
-    id: 'login.passwordLabel',
-    defaultMessage: 'Password (minimum 8 characters)',
-  },
-  otpAttemptLabel: {
-    id: 'login.otpAttemptLabel',
-    defaultMessage: 'Two-Factor Authentication Token',
-  },
-  passwordConfirmLabel: {
-    id: 'login.passwordConfirmLabel',
-    defaultMessage: 'Password confirmation',
-  },
-});
 
 const StyledSubHeader = styled.h2`
   font: ${title1};
@@ -95,6 +62,7 @@ const StyledEnhancedButton = styled(ButtonBase)`
   box-shadow: ${boxShadow(1)};
   transition: box-shadow ${transitionSpeedFast} ease-in-out;
   border-radius: ${defaultBorderRadius};
+  text-align: ${props => props.theme.dir === 'rtl' ? 'right' : 'left'};
 
   &:hover {
     box-shadow: ${boxShadow(2)};
@@ -174,7 +142,30 @@ const Column = styled.div`
   margin: ${units(0.5)} ${units(1)};
 `;
 
-class Login extends Component {
+const BigButton = ({
+  className, icon, id, onClick, headerText, subheaderText,
+}) => (
+  <StyledEnhancedButton id={id} className={className} onClick={onClick}>
+    <Row>
+      <Column>
+        {icon}
+      </Column>
+      <Column>
+        <h3>{headerText}</h3>
+        {subheaderText ?
+          <h4>
+            <FormattedMessage
+              id="login.disclaimer"
+              defaultMessage="We won’t publish without your permission"
+            />
+          </h4> : null
+        }
+      </Column>
+    </Row>
+  </StyledEnhancedButton>
+);
+
+class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -296,38 +287,6 @@ class Login extends Component {
   }
 
   render() {
-    const { intl: { locale, formatMessage } } = this.props;
-    const isRtl = rtlDetect.isRtlLang(locale);
-    const fromDirection = isRtl ? 'right' : 'left';
-
-    const BigButton = ({
-      className, icon, id, onClick, headerText, subheaderText,
-    }) => (
-      <StyledEnhancedButton
-        id={id}
-        className={className}
-        onClick={onClick}
-        style={{ textAlign: fromDirection }}
-      >
-        <Row>
-          <Column>
-            {icon}
-          </Column>
-          <Column>
-            <h3>{headerText}</h3>
-            {subheaderText ?
-              <h4>
-                <FormattedMessage
-                  id="login.disclaimer"
-                  defaultMessage="We won’t publish without your permission"
-                />
-              </h4> : null
-            }
-          </Column>
-        </Row>
-      </StyledEnhancedButton>
-    );
-
     return (
       <div className="login" id="login">
         <StyledCard>
@@ -336,13 +295,17 @@ class Login extends Component {
             onSubmit={this.onFormSubmit.bind(this)}
             className="login__form"
           >
-            <img
-              style={styles.logo}
-              alt={mapGlobalMessage(this.props.intl, 'appNameHuman')}
-              width="120"
-              className="login__icon"
-              src={stringHelper('LOGO_URL')}
-            />
+            <FormattedGlobalMessage messageKey="appNameHuman">
+              {appNameHuman => (
+                <img
+                  style={styles.logo}
+                  alt={appNameHuman}
+                  width="120"
+                  className="login__icon"
+                  src={stringHelper('LOGO_URL')}
+                />
+              )}
+            </FormattedGlobalMessage>
             <StyledSubHeader className="login__heading">
               {this.state.type === 'login' ?
                 <FormattedMessage
@@ -369,7 +332,7 @@ class Login extends Component {
                       className="login__name-input"
                       inputRef={(i) => { this.inputName = i; }}
                       onChange={this.handleFieldChange.bind(this)}
-                      label={formatMessage(messages.nameLabel)}
+                      label={<FormattedMessage id="login.nameLabel" defaultMessage="Your name" />}
                     />
                   </div>}
 
@@ -383,7 +346,9 @@ class Login extends Component {
                     className="login__email-input"
                     inputRef={(i) => { this.inputEmail = i; }}
                     onChange={this.handleFieldChange.bind(this)}
-                    label={formatMessage(messages.emailLabel)}
+                    label={
+                      <FormattedMessage id="login.emailLabel" defaultMessage="Email address" />
+                    }
                     autoFocus
                   />
                 </div>
@@ -397,10 +362,14 @@ class Login extends Component {
                     value={this.state.password}
                     className="login__password-input"
                     onChange={this.handleFieldChange.bind(this)}
-                    label={this.state.type === 'login' ?
-                      formatMessage(messages.passwordInputHint) :
-                      formatMessage(messages.passwordLabel)
-                    }
+                    label={this.state.type === 'login' ? (
+                      <FormattedMessage id="login.passwordInputHint" defaultMessage="Password" />
+                    ) : (
+                      <FormattedMessage
+                        id="login.passwordLabel"
+                        defaultMessage="Password (minimum 8 characters)"
+                      />
+                    )}
                   />
                 </div>
 
@@ -413,7 +382,12 @@ class Login extends Component {
                       value={this.state.otp_attempt}
                       className="login__otp_attempt-input"
                       onChange={this.handleFieldChange.bind(this)}
-                      label={formatMessage(messages.otpAttemptLabel)}
+                      label={
+                        <FormattedMessage
+                          id="login.otpAttemptLabel"
+                          defaultMessage="Two-Factor Authentication Token"
+                        />
+                      }
                     />
                   </div> : null}
 
@@ -428,7 +402,12 @@ class Login extends Component {
                       value={this.state.passwordConfirmation}
                       className="login__password-confirmation-input"
                       onChange={this.handleFieldChange.bind(this)}
-                      label={formatMessage(messages.passwordConfirmLabel)}
+                      label={
+                        <FormattedMessage
+                          id="login.passwordConfirmLabel"
+                          defaultMessage="Password confirmation"
+                        />
+                      }
                     />
                   </div>}
 
@@ -564,10 +543,4 @@ class Login extends Component {
   }
 }
 
-Login.propTypes = {
-  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
-  // eslint-disable-next-line react/no-typos
-  intl: intlShape.isRequired,
-};
-
-export default injectIntl(Login);
+export default Login;
