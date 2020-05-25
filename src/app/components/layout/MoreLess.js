@@ -1,19 +1,23 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Button from '@material-ui/core/Button';
 import styled from 'styled-components';
 import isEqual from 'lodash.isequal';
 import { units } from '../../styles/js/shared';
 
+const MaxHeight = units(12);
+
 const StyledMoreLessArea = styled.div`
-  ${props => props.maxHeight ? `max-height: ${props.maxHeight};` : null}
-  ${props => props.maxHeight ? 'overflow: hidden;' : null}
+  ${props => props.isExpanded ? null : `max-height: ${MaxHeight}; overflow: hidden;`}
 `;
 
+/**
+ * Show `children` with a "More"/"Less" button if there's lots of text.
+ */
 class MoreLess extends React.PureComponent {
   state = {
-    isExpanded: false,
-    areaHeight: null,
+    userWantsExpand: false,
     contentHeight: null,
   };
 
@@ -32,53 +36,47 @@ class MoreLess extends React.PureComponent {
     window.removeEventListener('resize', this.resetHeights);
   }
 
-  areaRef = React.createRef();
   contentRef = React.createRef();
 
   resetHeights = () => {
-    let areaHeight = null;
-    let contentHeight = null;
-
-    if (this.areaRef.current) {
-      areaHeight = this.areaRef.current.clientHeight;
-    }
-    if (this.contentRef.current) {
-      contentHeight = this.contentRef.current.clientHeight;
-    }
-
-    this.setState({ contentHeight, areaHeight });
+    const div = this.contentRef.current;
+    const contentHeight = div ? div.clientHeight : null;
+    this.setState({ contentHeight });
   }
 
   toggleExpand = () => {
-    const isExpanded = !this.state.isExpanded;
-    this.setState({ isExpanded });
+    const userWantsExpand = !this.state.userWantsExpand;
+    this.setState({ userWantsExpand });
   };
 
   render() {
-    const { areaHeight, contentHeight, isExpanded } = this.state;
+    const { children } = this.props;
+    const { contentHeight, userWantsExpand } = this.state;
+    // if contentHeight is null, canExpand is NaN -- falsy
+    const canExpand = contentHeight > parseInt(MaxHeight, 10);
+    const isExpanded = !canExpand || userWantsExpand;
 
     return (
       <div className="more-less">
-        <StyledMoreLessArea
-          className="more-less-area"
-          maxHeight={isExpanded ? null : units(12)}
-          ref={this.areaRef}
-        >
+        <StyledMoreLessArea className="more-less-area" isExpanded={isExpanded} ref={this.areaRef}>
           <div className="more-less-content" ref={this.contentRef}>
-            {this.props.children}
+            {children}
           </div>
         </StyledMoreLessArea>
-        { contentHeight > areaHeight ?
+        {canExpand ? (
           <Button color="primary" onClick={this.toggleExpand}>
-            { this.state.isExpanded ?
+            {isExpanded ?
               <FormattedMessage id="moreLess.less" defaultMessage="Less" /> :
               <FormattedMessage id="moreLess.more" defaultMessage="More" />
             }
-          </Button> : null
-        }
+          </Button>
+        ) : null}
       </div>
     );
   }
 }
+MoreLess.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export default MoreLess;
