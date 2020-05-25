@@ -8,6 +8,6 @@ export default function DemandCell({ projectMedia }) {
 }
 DemandCell.propTypes = {
   projectMedia: PropTypes.shape({
-    demand: PropTypes.number.isRequired,
+    demand: PropTypes.number, // or null/undefined
   }).isRequired,
 };
