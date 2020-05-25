@@ -217,7 +217,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_team_project_and_link_and_redirect_to_media_page @media_url
       id1 = @driver.current_url.to_s.gsub(/^.*\/media\//, '').to_i
       expect(id1 > 0).to be(true)
-      @driver.navigate.to @driver.current_url.to_s.gsub(/\/media\/[0-9]+$/, '')
+      @driver.navigate.to @driver.current_url.to_s.gsub(/\/media\/.*$/, '')
       wait_for_selector(".medias__item")
       wait_for_selector("#create-media__add-item").click
       wait_for_selector("#create-media__link")
