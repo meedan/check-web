@@ -779,7 +779,7 @@ shared_examples 'smoke' do
     wait_for_selector('.Select-input input').send_keys('Project')
     wait_for_selector(".Select-menu-outer")
     @driver.action.send_keys(:enter).perform
-    button_move = wait_for_selector('#media-bulk-actions__move-button')
+    button_move = wait_for_selector('.media-bulk-actions__move-button')
     button_move.location_once_scrolled_into_view
     button_move.click
     wait_for_selector_none(".Select-placeholder")
