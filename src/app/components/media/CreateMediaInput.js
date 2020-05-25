@@ -1,5 +1,5 @@
 import React from 'react';
-import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import Button from '@material-ui/core/Button';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import TextField from '@material-ui/core/TextField';
@@ -51,25 +51,6 @@ const StyledTabLabel = styled(Row)`
       }`
       : null}
 `;
-
-const messages = defineMessages({
-  mediaInput: {
-    id: 'createMedia.mediaInput',
-    defaultMessage: 'Paste or type',
-  },
-  quoteInput: {
-    id: 'createMedia.quoteInput',
-    defaultMessage: 'Paste or type a text',
-  },
-  uploadImage: {
-    id: 'createMedia.uploadImage',
-    defaultMessage: 'Upload an image',
-  },
-  invalidUrl: {
-    id: 'createMedia.invalidUrl',
-    defaultMessage: 'Please enter a valid URL',
-  },
-});
 
 class CreateMediaInput extends React.Component {
   constructor(props) {
@@ -216,7 +197,7 @@ class CreateMediaInput extends React.Component {
     this.setState({ submittable: false, previousInput: null });
   }
 
-  renderFormInputs() {
+  renderFormInput() {
     const defaultInputProps = {
       fullWidth: true,
       multiline: true,
@@ -226,51 +207,54 @@ class CreateMediaInput extends React.Component {
     };
 
     switch (this.state.mode) {
-    case 'image':
-      return [
-        <UploadImage
-          key="createMedia.image.upload"
-          type="image"
-          onImage={this.handleImage}
-          onError={this.handleImageError}
-        />,
-      ];
-    case 'video':
-      return [
-        <UploadImage
-          key="createMedia.video.upload"
-          type="video"
-          onImage={this.handleVideo}
-          onError={this.handleImageError}
-          noPreview
-        />,
-      ];
-    case 'quote': {
-      return [
-        <TextField
-          key="createMedia.quote.input"
-          placeholder={this.props.intl.formatMessage(messages.quoteInput)}
-          name="quote"
-          id="create-media-quote-input"
-          value={this.state.previousInput}
-          autoFocus
-          {...defaultInputProps}
-        />,
-      ];
-    }
+    case 'image': return (
+      <UploadImage
+        key="createMedia.image.upload"
+        type="image"
+        onImage={this.handleImage}
+        onError={this.handleImageError}
+      />
+    );
+    case 'video': return (
+      <UploadImage
+        key="createMedia.video.upload"
+        type="video"
+        onImage={this.handleVideo}
+        onError={this.handleImageError}
+        noPreview
+      />
+    );
+    case 'quote': return (
+      <FormattedMessage id="createMedia.quoteInput" defaultMessage="Paste or type a text">
+        {placeholder => (
+          <TextField
+            key="createMedia.quote.input"
+            placeholder={placeholder}
+            name="quote"
+            id="create-media-quote-input"
+            value={this.state.previousInput}
+            autoFocus
+            {...defaultInputProps}
+          />
+        )}
+      </FormattedMessage>
+    );
     case 'link':
-    default:
-      return [
-        <TextField
-          key="createMedia.media.input"
-          placeholder={this.props.intl.formatMessage(messages.mediaInput)}
-          name="url"
-          id="create-media-input"
-          value={this.state.previousInput}
-          autoFocus
-          {...defaultInputProps}
-        />,
-      ];
+    default: return (
+      <FormattedMessage id="createMedia.mediaInput" defaultMessage="Paste or type">
+        {placeholder => (
+          <TextField
+            key="createMedia.media.input"
+            placeholder={placeholder}
+            name="url"
+            id="create-media-input"
+            value={this.state.previousInput}
+            autoFocus
+            {...defaultInputProps}
+          />
+        )}
+      </FormattedMessage>
+    );
     }
   }
 
@@ -328,7 +312,7 @@ class CreateMediaInput extends React.Component {
           onSubmit={this.handleSubmit}
         >
           <div id="create-media__field">
-            {this.renderFormInputs()}
+            {this.renderFormInput()}
           </div>
 
           <div style={{ marginTop: units(2) }}>
@@ -372,4 +356,4 @@ class CreateMediaInput extends React.Component {
   }
 }
 
-export default injectIntl(CreateMediaInput);
+export default CreateMediaInput;
