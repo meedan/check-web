@@ -52,8 +52,8 @@
     "defaultMessage": "Filter and sort list"
   },
   {
-    "id": "teamTags.noTeamwideTags",
-    "defaultMessage": "No default tags."
+    "id": "teamTags.noTags",
+    "defaultMessage": "No tags"
   },
   {
     "id": "teamTags.new",

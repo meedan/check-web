@@ -466,8 +466,8 @@ class TeamTagsComponent extends Component {
             { tag_texts.length === 0 ?
               <p style={{ paddingBottom: units(5), textAlign: 'center' }}>
                 <FormattedMessage
-                  id="teamTags.noTeamwideTags"
-                  defaultMessage="No default tags."
+                  id="teamTags.noTags"
+                  defaultMessage="No tags"
                 />
               </p>
               : null }
