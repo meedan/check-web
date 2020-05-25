@@ -11,7 +11,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ConfirmDialog from '../layout/ConfirmDialog';
 import DeleteProjectMutation from '../../relay/mutations/DeleteProjectMutation';
 import ProjectAssignment from './ProjectAssignment';
-import Can, { can } from '../Can';
+import { can } from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
 import CheckContext from '../../CheckContext';
 
@@ -143,8 +143,12 @@ class ProjectActions extends Component {
       ));
     }
 
-    return menuItems.length ?
-      <Can permissions={project.permissions} permission="update Project">
+    if (!menuItems.length) {
+      return null;
+    }
+
+    return (
+      <React.Fragment>
         <IconButton
           className="project-actions"
           tooltip={
@@ -182,8 +186,8 @@ class ProjectActions extends Component {
             />
             : null
         }
-      </Can>
-      : null;
+      </React.Fragment>
+    );
   }
 }
 

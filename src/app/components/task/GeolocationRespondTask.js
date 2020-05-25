@@ -2,39 +2,12 @@ import React, { Component } from 'react';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { Map, Marker, TileLayer } from 'react-leaflet';
 import CoordinateParser from 'coordinate-parser';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { black54, caption } from '../../styles/js/shared';
 import { stringHelper } from '../../customHelpers';
-
-const messages = defineMessages({
-  searching: {
-    id: 'geoLocationRespondTask.searching',
-    defaultMessage: 'Searching...',
-  },
-  notFound: {
-    id: 'geoLocationRespondTask.notFound',
-    defaultMessage: 'Sorry, this place was not found. Please try another search.',
-  },
-  error: {
-    id: 'geoLocationRespondTask.error',
-    defaultMessage: 'Sorry, an error occurred while updating the task. Please try again and contact {supportEmail} if the condition persists.',
-  },
-  placeName: {
-    id: 'geolocationRespondTask.placeName',
-    defaultMessage: 'Customize place name',
-  },
-  coordinates: {
-    id: 'geolocationRespondTask.coordinates',
-    defaultMessage: 'Latitude, Longitude',
-  },
-  invalidCoords: {
-    id: 'geoLocationRespondTask.invalidCoords',
-    defaultMessage: 'Invalid coordinates',
-  },
-});
 
 class GeolocationRespondTask extends Component {
   constructor(props) {
@@ -93,8 +66,14 @@ class GeolocationRespondTask extends Component {
       coordinates = [pos.getLatitude(), pos.getLongitude()];
     } catch (e) {
       coordinates = [0, 0];
-      const coordMessage = this.props.intl.formatMessage(messages.invalidCoords);
-      this.setState({ coordMessage });
+      this.setState({
+        coordMessage: (
+          <FormattedMessage
+            id="geoLocationRespondTask.invalidCoords"
+            defaultMessage="Invalid coordinates"
+          />
+        ),
+      });
     }
     return coordinates;
   }
@@ -153,7 +132,11 @@ class GeolocationRespondTask extends Component {
     clearTimeout(this.timer);
 
     if (query) {
-      this.setState({ message: this.props.intl.formatMessage(messages.searching) });
+      this.setState({
+        message: (
+          <FormattedMessage id="geoLocationRespondTask.searching" defaultMessage="Searching..." />
+        ),
+      });
       this.timer = setTimeout(() => this.geoCodeQueryOpenCage(query), keystrokeWait);
     }
   }
@@ -233,31 +216,50 @@ class GeolocationRespondTask extends Component {
     }
   }
 
-  geoCodeQueryOpenCage = (query) => {
+  async geoCodeQueryOpenCage(query) {
     const apiKey = config.opencageApiKey;
     const providerUrl = `https://api.opencagedata.com/geocode/v1/json?key=${apiKey}&q=${query}&no_annotations=1`;
 
-    fetch(providerUrl)
-      .then((response) => {
-        if (!response.ok) {
-          throw Error(this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') }));
-        }
-        return response.json();
-      })
-      .then((response) => {
-        const searchResult = response.results || [];
-        let message = '';
-        if (!searchResult.length) {
-          message = this.props.intl.formatMessage(messages.notFound);
-        }
+    let response;
+    try {
+      response = await fetch(providerUrl); // may throw
+
+      if (!response.ok) {
         this.setState({
-          searchResult,
-          message,
-          openResultsPopup: Boolean(searchResult.length),
+          message: (
+            <FormattedMessage
+              id="geoLocationRespondTask.error"
+              defaultMessage="Sorry, an error occurred while updating the task. Please try again and contact {supportEmail} if the condition persists."
+              values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
+            />
+          ),
         });
-      })
-      .catch(error => this.setState({ message: error.message }));
-  };
+        return;
+      }
+
+      response = await response.json(); // may throw
+      const searchResult = response.results || []; // may throw if response === null
+
+      let message = null;
+      if (!searchResult.length) {
+        message = (
+          <FormattedMessage
+            id="geoLocationRespondTask.notFound"
+            defaultMessage="Sorry, this place was not found. Please try another search."
+          />
+        );
+      }
+      this.setState({
+        searchResult,
+        message,
+        openResultsPopup: Boolean(searchResult.length),
+      });
+    } catch (error) {
+      this.setState({
+        message: <span className="TODO-help-the-user">{error.message}</span>,
+      });
+    }
+  }
 
   render() {
     const position = [this.state.lat, this.state.lng];
@@ -329,7 +331,12 @@ class GeolocationRespondTask extends Component {
         <TextField
           id="task__response-geolocation-name"
           className="task__response-input"
-          label={this.props.intl.formatMessage(messages.placeName)}
+          label={
+            <FormattedMessage
+              id="geolocationRespondTask.placeName"
+              defaultMessage="Customize place name"
+            />
+          }
           name="response"
           value={this.state.name}
           onChange={this.handleChange.bind(this)}
@@ -341,13 +348,18 @@ class GeolocationRespondTask extends Component {
         <TextField
           id="task__response-geolocation-coordinates"
           className="task__response-coordinates-input"
-          label={this.props.intl.formatMessage(messages.coordinates)}
+          label={
+            <FormattedMessage
+              id="geolocationRespondTask.coordinates"
+              defaultMessage="Latitude, Longitude"
+            />
+          }
           name="coordinates"
           onChange={this.handleChangeCoordinates.bind(this)}
           onFocus={() => { this.setState({ focus: true }); }}
           onBlur={this.handleBlur.bind(this)}
           value={this.state.coordinatesString}
-          error={this.state.coordMessage}
+          error={!!this.state.coordMessage}
           helperText={this.state.coordMessage}
           fullWidth
           margin="normal"
@@ -377,4 +389,4 @@ class GeolocationRespondTask extends Component {
   }
 }
 
-export default injectIntl(GeolocationRespondTask);
+export default GeolocationRespondTask;
