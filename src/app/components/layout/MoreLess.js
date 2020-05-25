@@ -10,59 +10,67 @@ const StyledMoreLessArea = styled.div`
   ${props => props.maxHeight ? 'overflow: hidden;' : null}
 `;
 
-class MoreLess extends React.Component {
+class MoreLess extends React.PureComponent {
   state = {
-    expand: false,
-    canExpand: false,
+    isExpanded: false,
+    areaHeight: null,
+    contentHeight: null,
   };
 
   componentDidMount() {
-    const contentArea = document.querySelector('div.more-less-content');
-    window.addEventListener('resize', this.canExpand);
-    contentArea.addEventListener('resize', this.canExpand);
-    this.canExpand();
+    window.addEventListener('resize', this.resetHeights);
+    this.resetHeights();
   }
 
   componentDidUpdate(prevProps) {
     if (!isEqual(this.props.children, prevProps.children)) {
-      this.canExpand();
+      this.resetHeights();
     }
   }
 
   componentWillUnmount() {
-    const contentArea = document.querySelector('div.more-less-content');
-    window.removeEventListener('resize', this.canExpand);
-    contentArea.removeEventListener('resize', this.canExpand);
+    window.removeEventListener('resize', this.resetHeights);
   }
 
-  canExpand = () => {
-    const actualHeight = document.querySelector('div.more-less-content').clientHeight;
-    const limitHeight = document.querySelector('div.more-less-area').clientHeight;
-    const canExpand = actualHeight > limitHeight;
-    if (canExpand !== this.state.canExpand) {
-      this.setState({ canExpand });
+  areaRef = React.createRef();
+  contentRef = React.createRef();
+
+  resetHeights = () => {
+    let areaHeight = null;
+    let contentHeight = null;
+
+    if (this.areaRef.current) {
+      areaHeight = this.areaRef.current.clientHeight;
     }
-  };
+    if (this.contentRef.current) {
+      contentHeight = this.contentRef.current.clientHeight;
+    }
+
+    this.setState({ contentHeight, areaHeight });
+  }
 
   toggleExpand = () => {
-    const expand = !this.state.expand;
-    this.setState({ expand, canExpand: true });
+    const isExpanded = !this.state.isExpanded;
+    this.setState({ isExpanded });
   };
 
   render() {
+    const { areaHeight, contentHeight, isExpanded } = this.state;
+
     return (
       <div className="more-less">
         <StyledMoreLessArea
           className="more-less-area"
-          maxHeight={this.state.expand ? null : units(12)}
+          maxHeight={isExpanded ? null : units(12)}
+          ref={this.areaRef}
         >
-          <div className="more-less-content">
+          <div className="more-less-content" ref={this.contentRef}>
             {this.props.children}
           </div>
         </StyledMoreLessArea>
-        { this.state.canExpand ?
+        { contentHeight > areaHeight ?
           <Button color="primary" onClick={this.toggleExpand}>
-            { this.state.expand ?
+            { this.state.isExpanded ?
               <FormattedMessage id="moreLess.less" defaultMessage="Less" /> :
               <FormattedMessage id="moreLess.more" defaultMessage="More" />
             }
