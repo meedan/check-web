@@ -68,4 +68,9 @@ describe('<PageTitle />', () => {
     />);
     expect(Helmet.peek().title).toEqual('Translated!');
   });
+
+  it('should render "Check" when title=null prefix=null', () => {
+    mountWithIntlProvider(<PageTitle />);
+    expect(Helmet.peek().title).toEqual('Check');
+  });
 });

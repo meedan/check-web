@@ -4,6 +4,11 @@ import { Helmet } from 'react-helmet';
 import { FormattedGlobalMessage } from './MappedMessage';
 import { emojify } from '../helpers';
 
+const StringOrFormattedMessage = PropTypes.oneOfType([
+  PropTypes.string.isRequired,
+  PropTypes.element.isRequired,
+]);
+
 /**
  * Behave like <FormattedMessage>{ value => ... }</FormattedMessage> ... even
  * if `value` is a `String`.
@@ -43,6 +48,13 @@ function DefaultSuffix({ teamName, children }) {
     </FormattedGlobalMessage>
   );
 }
+DefaultSuffix.defaultProps = {
+  teamName: null,
+};
+DefaultSuffix.propTypes = {
+  teamName: PropTypes.string, // or null
+  children: PropTypes.func.isRequired,
+};
 
 function TitleFromPrefixAndTeam({ prefix, teamName, children }) {
   return (
@@ -55,12 +67,30 @@ function TitleFromPrefixAndTeam({ prefix, teamName, children }) {
     </DefaultSuffix>
   );
 }
+TitleFromPrefixAndTeam.defaultProps = {
+  teamName: null,
+};
+TitleFromPrefixAndTeam.propTypes = {
+  prefix: StringOrFormattedMessage.isRequired,
+  teamName: PropTypes.string, // or null
+  children: PropTypes.func.isRequired,
+};
 
 function TitleFromProps({
   prefix, teamName, title, children,
 }) {
   if (title === null) {
+    if (prefix === null) {
+      return (
+        // "Check" or "Meedan Check"
+        <DefaultSuffix teamName={teamName}>
+          {localizedSuffix => children(localizedSuffix)}
+        </DefaultSuffix>
+      );
+    }
+
     return (
+      // "prefix | Meedan Check"
       <TitleFromPrefixAndTeam prefix={prefix} teamName={teamName}>
         {s => children(s)}
       </TitleFromPrefixAndTeam>
@@ -69,6 +99,17 @@ function TitleFromProps({
 
   return <RenderedValue value={title}>{ s => children(s) }</RenderedValue>;
 }
+TitleFromProps.defaultProps = {
+  prefix: null,
+  title: null,
+  teamName: null,
+};
+TitleFromProps.propTypes = {
+  prefix: StringOrFormattedMessage, // or null
+  title: StringOrFormattedMessage, // or null
+  teamName: PropTypes.string, // or null
+  children: PropTypes.func.isRequired,
+};
 
 function PageTitle({
   children, title, prefix, team, skipTeam,
@@ -96,8 +137,8 @@ PageTitle.defaultProps = {
 };
 PageTitle.propTypes = {
   // overrides prefix|team
-  title: PropTypes.oneOfType([PropTypes.string.isRequired, PropTypes.node.isRequired]),
-  prefix: PropTypes.oneOfType([PropTypes.string.isRequired, PropTypes.node.isRequired]),
+  title: StringOrFormattedMessage, // or null
+  prefix: StringOrFormattedMessage, // or null
   // If team is set, write "My Team Check" instead of just "Check"
   team: PropTypes.shape({ name: PropTypes.string.isRequired }),
   skipTeam: PropTypes.bool, // TODO nix this: make team===null do this
