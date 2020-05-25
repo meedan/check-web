@@ -30,9 +30,15 @@ const dashBuilder = () => {
   return dash;
 };
 
+const StyledBox = styled.div`
+  margin: ${units(1)} auto;
+  height: 100px;
+  width: 100px;
+  overflow: hidden;
+`;
+
 const StyledSvg = styled.svg`
   display: block;
-  margin: ${units(1)} auto;
   animation: ${rotationBuilder} 2s linear infinite;
   height: 100px;
   width: 100px;
@@ -46,19 +52,21 @@ const StyledCircle = styled.circle`
 `;
 
 const CircularProgress = ({ color }) => (
-  <StyledSvg>
-    <StyledCircle
-      color={color}
-      className="path"
-      cx="50"
-      cy="50"
-      r="20"
-      fill="none"
-      stroke={color}
-      strokeWidth="3"
-      stroke-miterlimit="10"
-    />
-  </StyledSvg>
+  <StyledBox>
+    <StyledSvg>
+      <StyledCircle
+        color={color}
+        className="path"
+        cx="50"
+        cy="50"
+        r="20"
+        fill="none"
+        stroke={color}
+        strokeWidth="3"
+        stroke-miterlimit="10"
+      />
+    </StyledSvg>
+  </StyledBox>
 );
 CircularProgress.defaultProps = {
   color: black16,
