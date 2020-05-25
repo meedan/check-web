@@ -201,7 +201,7 @@ shared_examples 'media' do |type|
     page = create_media_depending_on_type(nil, 3)
     page.load unless page.nil?
     wait_for_selector(".medias__item")
-    wait_for_selector('.media__heading').click
+    wait_for_selector('.media__heading a').click
     wait_for_selector('.media-search__actions-bar')
 
     # First item

@@ -110,14 +110,14 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('Happy birthday Mick')).to be(false)
     create_media("https://twitter.com/TheWho/status/890135323216367616")
     wait_for_selector_list_size('.media__heading',2)
-    wait_for_selector("//h3[contains(text(), 'Happy')]", :xpath)
+    wait_for_selector("//h4[contains(text(), 'Happy')]", :xpath)
     expect(@driver.page_source.include?('Happy birthday Mick')).to be(true)
 
     #from Youtube
     expect(@driver.page_source.include?("How To Check An")).to be(false)
     create_media("https://www.youtube.com/watch?v=ykLgjhBnik0")
     wait_for_selector_list_size('.media__heading',3)
-    wait_for_selector("//h3[contains(text(), 'How')]", :xpath)
+    wait_for_selector("//h4[contains(text(), 'How')]", :xpath)
     expect(@driver.page_source.include?("How To Check An")).to be(true)
 
     #from Instagram
@@ -607,7 +607,7 @@ shared_examples 'smoke' do
     wait_for_selector("#search__open-dialog-button")
     create_media("Claim")
     wait_for_selector(".medias__item")
-    wait_for_selector(".media__heading").click
+    wait_for_selector(".media__heading a").click
     wait_for_selector(".create-related-media__add-button")
     expect(@driver.page_source.include?('In Progress')).to be(false)
     change_the_status_to(".media-status__menu-item--in-progress", true)
@@ -700,7 +700,7 @@ shared_examples 'smoke' do
     create_image('test.png')
     wait_for_selector(".medias__item")
     wait_for_selector(".media-cell__thumbnail img")
-    wait_for_selector(".media__heading").click
+    wait_for_selector(".media__heading a").click
     wait_for_selector(".card")
     expect(@driver.page_source.include?('In Progress')).to be(false)
     change_the_status_to(".media-status__menu-item--in-progress", false)
@@ -1075,7 +1075,7 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('new item')).to be(true)
 
     #see the icon 'change the status' that the media you don't own
-    wait_for_selector_list(".media__heading")[1].click
+    wait_for_selector_list(".media__heading a")[1].click
     wait_for_selector(".create-related-media__add-button")
     expect(@driver.find_elements(:css, ".media-status button").size).to eq 1
 
@@ -1122,7 +1122,7 @@ shared_examples 'smoke' do
 
     #go to the project and can't see the icon 'change the status' that the media you don't own
     wait_for_selector_list(".project-list__link")[0].click
-    wait_for_selector_list(".media__heading")[1].click
+    wait_for_selector_list(".media__heading a")[1].click
     wait_for_selector(".create-related-media__add-button")
     expect(@driver.find_elements(:css, ".media-status button[disabled]").size).to eq 1
   end
@@ -1148,12 +1148,12 @@ shared_examples 'smoke' do
   #   expect(@driver.page_source.include?('My search result')).to be(true)
   #   create_media("media 2")
   #   create_media("media 3")
-  #   wait_for_selector_list(".media__heading")[0].click
+  #   wait_for_selector_list(".media__heading a")[0].click
   #   wait_for_selector(".media__annotations-column")
   #   change_the_status_to(".media-status__menu-item--false", false)
   #   wait_for_selector(".project-header__back-button").click
   #   wait_for_selector("#search-input")
-  #   wait_for_selector_list(".media__heading")[1].click
+  #   wait_for_selector_list(".media__heading a")[1].click
   #   wait_for_selector(".media__annotations-column")
   #   change_the_status_to(".media-status__menu-item--verified", false)
   #   wait_for_selector(".project-header__back-button").click

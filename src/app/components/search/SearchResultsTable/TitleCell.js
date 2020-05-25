@@ -51,7 +51,7 @@ const TitleText = ({
   description,
 }) => (
   <div className={classes.textBox}>
-    <h4 className={`media__heading ${classes.title}`}>{title}</h4>
+    <h4 className={classes.title}>{title}</h4>
     {description ? (
       <div className={classes.description}>{description}</div>
     ) : null}
@@ -74,7 +74,7 @@ const TitleCell = ({ projectMedia, projectMediaUrl }) => {
   const classes = useStyles();
 
   return (
-    <TableCell component="th" scope="row">
+    <TableCell className="media__heading" component="th" scope="row">
       <MaybeLink className={classes.root} to={projectMediaUrl}>
         {picture ? (
           <img className={classes.thumbnail} alt="" src={picture} />
