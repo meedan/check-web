@@ -1,6 +1,11 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
+/**
+ * TODO upgrade react-intl v4, and use <FormattedList> instead.
+ *
+ * https://mantis.meedan.com/view.php?id=8347
+ */
 // Turning off the following eslint rule because the input is an array of strings.
 /* eslint react/no-array-index-key: 0 */
 const Sentence = (props) => {
