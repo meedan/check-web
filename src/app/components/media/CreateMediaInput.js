@@ -150,18 +150,15 @@ class CreateMediaInput extends React.Component {
     return null;
   };
 
-  handleKeyPress = (ev) => {
+  handleKeyPress = (e) => {
     this.setState({ message: null });
 
-    if (ev.key === 'Enter' && !ev.shiftKey) {
-      ev.preventDefault();
-      ev.target.form.dispatchEvent(new Event('submit'));
+    if (e.key === 'Enter' && !e.shiftKey) {
+      this.handleSubmit();
     }
   };
 
-  handleSubmit = (ev) => {
-    ev.preventDefault();
-
+  handleSubmit = () => {
     const value = this.getMediaInputValue();
 
     this.resetForm();
@@ -362,8 +359,8 @@ class CreateMediaInput extends React.Component {
               </Button>
               <Button
                 id="create-media-submit"
-                type="submit"
                 disabled={!this.state.submittable}
+                onClick={this.handleSubmit}
                 className="create-media__button create-media__button--submit"
                 style={{ display: 'none' }}
               />

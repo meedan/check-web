@@ -699,7 +699,7 @@ shared_examples 'smoke' do
     wait_for_selector(".project__description")
     create_image('test.png')
     wait_for_selector(".medias__item")
-    wait_for_selector(".media__heading img")
+    wait_for_selector(".media-cell__thumbnail img")
     wait_for_selector(".media__heading a").click
     wait_for_selector(".card")
     expect(@driver.page_source.include?('In Progress')).to be(false)
