@@ -6,17 +6,5 @@
   {
     "id": "tagPicker.tagNotFound",
     "defaultMessage": "Tag #{tag} not found."
-  },
-  {
-    "id": "tagPicker.teamTags",
-    "defaultMessage": "Default tags"
-  },
-  {
-    "id": "tagPicker.none",
-    "defaultMessage": "None"
-  },
-  {
-    "id": "tagPicker.teamOtherTags",
-    "defaultMessage": "Custom tags"
   }
 ]

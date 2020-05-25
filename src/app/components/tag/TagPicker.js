@@ -1,26 +1,11 @@
 import React from 'react';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import FormGroup from '@material-ui/core/FormGroup';
+import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import rtlDetect from 'rtl-detect';
 import styled from 'styled-components';
-import difference from 'lodash.difference';
-import intersection from 'lodash.intersection';
-import { black54, black87, caption, units, opaqueBlack02, opaqueBlack05, StyledCheckboxNext } from '../../styles/js/shared';
-
-const StyledHeadingFirst = styled.div`
-  color: ${black87};
-  font: ${caption};
-`;
-
-const StyledHeading = styled(StyledHeadingFirst)`
-  padding-top: ${units(3)};
-`;
-
-const StyledNone = styled.div`
-  color: ${black54};
-  padding-top: ${units(1)};
-`;
+import { black54, units, opaqueBlack02, opaqueBlack05 } from '../../styles/js/shared';
 
 const StyledNotFound = styled.div`
   color: ${black54};
@@ -63,7 +48,7 @@ class TagPicker extends React.Component {
     this.setState({ tags });
   }
 
-  renderNotFound(shownTagsCount, totalTagsCount) {
+  renderNotFound(totalTagsCount) {
     if (totalTagsCount === 0) {
       return (
         <StyledNotFound>
@@ -87,7 +72,13 @@ class TagPicker extends React.Component {
   }
 
   render() {
-    const { media, tags, value } = this.props;
+    const { media, value } = this.props;
+
+    const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
+    const direction = {
+      from: isRtl ? 'right' : 'left',
+      to: isRtl ? 'left' : 'right',
+    };
 
     const compareString = (tag, val) => {
       if (!tag) {
@@ -97,92 +88,35 @@ class TagPicker extends React.Component {
     };
 
     const plainMediaTags = this.state.tags;
+    const { tag_texts } = media.team;
+    const shown_tag_texts = tag_texts.edges.filter(t => compareString(t.node.text, value));
 
-    const suggestedTags = media.team && media.team.get_suggested_tags
-      ? media.team.get_suggested_tags.split(',').filter(tag => compareString(tag, value))
-      : [];
+    const shownTagsCount = shown_tag_texts.length;
+    const totalTagsCount = tag_texts.edges.length;
 
-    const nonRepeatedUsedTags =
-      difference(media.team.used_tags, suggestedTags).filter(tag => compareString(tag, value));
-
-    const checkedSuggestedTags = intersection(suggestedTags, plainMediaTags);
-    const uncheckedSuggestedTags = difference(suggestedTags, plainMediaTags);
-
-    const checkedUsedTags =
-      difference(plainMediaTags, suggestedTags).filter(tag => compareString(tag, value));
-    const uncheckedUsedTags = difference(nonRepeatedUsedTags, plainMediaTags);
-
-    const shownSuggestedCount = checkedSuggestedTags.length + uncheckedSuggestedTags.length;
-    const shownUsedCount = checkedUsedTags.length + uncheckedUsedTags.length;
-
-    const shownTagsCount = shownSuggestedCount + shownUsedCount;
-    const totalTagsCount = suggestedTags.length + tags.length + media.team.used_tags.length;
-
-    const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
-    const direction = {
-      from: isRtl ? 'right' : 'left',
-      to: isRtl ? 'left' : 'right',
-    };
-
-    return (shownTagsCount === 0 ?
+    return (
       <StyledTagPickerArea>
-        { this.renderNotFound(shownTagsCount, totalTagsCount) }
-      </StyledTagPickerArea>
-      :
-      <StyledTagPickerArea>
-        <FormGroup>
-          <StyledHeadingFirst>
-            <FormattedMessage
-              id="tagPicker.teamTags"
-              defaultMessage="Default tags"
-            />
-          </StyledHeadingFirst>
-          {
-            shownSuggestedCount === 0 ?
-              <StyledNone>
-                <FormattedMessage id="tagPicker.none" defaultMessage="None" />
-              </StyledNone>
-              :
-              checkedSuggestedTags.concat(uncheckedSuggestedTags).map((tag, index) => (
+        { shownTagsCount === 0 ?
+          this.renderNotFound(totalTagsCount) :
+          <FormGroup>
+            {
+              shown_tag_texts.map((tag, index) => (
                 <StyledFormControlLabel
                   direction={direction}
                   key={`team-suggested-tag-${index.toString()}`}
                   control={
-                    <StyledCheckboxNext
-                      checked={plainMediaTags.includes(tag)}
+                    <Checkbox
+                      checked={plainMediaTags.includes(tag.node.text)}
                       onChange={this.handleSelectCheckbox}
-                      id={tag}
+                      id={tag.node.text}
                     />
                   }
-                  label={tag}
+                  label={tag.node.text}
                 />
               ))
-          }
-          <StyledHeading>
-            <FormattedMessage id="tagPicker.teamOtherTags" defaultMessage="Custom tags" />
-          </StyledHeading>
-          {
-            shownUsedCount === 0 ?
-              <StyledNone>
-                <FormattedMessage id="tagPicker.none" defaultMessage="None" />
-              </StyledNone>
-              :
-              checkedUsedTags.concat(uncheckedUsedTags).map((tag, index) => (
-                <StyledFormControlLabel
-                  direction={direction}
-                  key={`team-used-tag-${index.toString()}`}
-                  control={
-                    <StyledCheckboxNext
-                      checked={plainMediaTags.includes(tag)}
-                      onChange={this.handleSelectCheckbox}
-                      id={tag}
-                    />
-                  }
-                  label={tag}
-                />
-              ))
-          }
-        </FormGroup>
+            }
+          </FormGroup>
+        }
       </StyledTagPickerArea>
     );
   }

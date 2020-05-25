@@ -190,9 +190,13 @@ const TagMenuContainer = Relay.createContainer(TagMenuComponent, {
           }
         }
         team {
-          name
-          used_tags
-          get_suggested_tags
+          tag_texts(first: 10000) {
+            edges {
+              node {
+                text
+              }
+            }
+          }
         }
         permissions
       }
