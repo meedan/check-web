@@ -770,10 +770,10 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?(claim)).to be(true)
     expect(@driver.page_source.include?('1 / 1')).to be(true)
     expect(@driver.page_source.include?("Add a link or text")).to be(false)
+    wait_for_selector('.media__heading a')  # wait for backend to process claim
 
     # Move the claim to another project
     wait_for_selector("tbody input[type='checkbox']:not(:checked)").click
-    wait_for_selector(".tasks")
     wait_for_selector("#media-actions-bar__move-to").click
     wait_for_selector(".Select-control")
     wait_for_selector('.Select-input input').send_keys('Project')
