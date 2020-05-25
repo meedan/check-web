@@ -20,7 +20,7 @@ class CreateTagTextMutation extends Relay.Mutation {
   }
 
   getVariables() {
-    return { team_id: this.props.team.dbid, text: this.props.text, teamwide: true };
+    return { team_id: this.props.team.dbid, text: this.props.text };
   }
 
   getConfigs() {

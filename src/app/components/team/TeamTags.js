@@ -259,7 +259,6 @@ class TeamTagsComponent extends Component {
         team: this.props.team,
         tagText: {
           id: tag.id,
-          teamwide: true,
         },
       }),
       { onSuccess, onFailure },
@@ -527,7 +526,6 @@ const TeamTagsContainer = Relay.createContainer(injectIntl(TeamTagsComponent), {
               id
               dbid
               text
-              teamwide
               tags_count
               permissions
               created_at
