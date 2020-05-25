@@ -774,7 +774,7 @@ shared_examples 'smoke' do
 
     # Move the claim to another project
     wait_for_selector("tbody input[type='checkbox']:not(:checked)").click
-    wait_for_selector("#media-actions-bar__move-to").click
+    wait_for_selector("#media-bulk-actions__move-to").click
     wait_for_selector(".Select-control")
     wait_for_selector('.Select-input input').send_keys('Project')
     wait_for_selector(".Select-menu-outer")
