@@ -2,6 +2,8 @@ import React from 'react';
 import { render } from 'react-dom';
 import { addLocaleData } from 'react-intl';
 import { createStore, applyMiddleware, compose } from 'redux';
+import { ThemeProvider } from 'styled-components';
+import rtlDetect from 'rtl-detect';
 import thunk from 'redux-thunk';
 import Root from '../../app/components/Root';
 import { FlashMessageProvider } from '../../app/components/FlashMessage';
@@ -43,13 +45,19 @@ const pusherContextValue = {
 
 const clientSessionId = generateRandomClientSessionId();
 
+const styledComponentsTheme = {
+  dir: rtlDetect.isRtlLang(locale) ? 'rtl' : 'ltr',
+};
+
 const callback = (translations) => {
   render(
     (
       <ClientSessionIdContext.Provider value={clientSessionId}>
         <PusherContext.Provider value={pusherContextValue}>
           <FlashMessageProvider>
-            <Root store={store} translations={translations} locale={locale} />
+            <ThemeProvider theme={styledComponentsTheme}>
+              <Root store={store} translations={translations} locale={locale} />
+            </ThemeProvider>
           </FlashMessageProvider>
         </PusherContext.Provider>
       </ClientSessionIdContext.Provider>

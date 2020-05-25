@@ -1,6 +1,8 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 
+/**
+ * Return `true` if `permissionsData` includes `permission`.
+ */
 function can(permissionsData, permission) {
   try {
     const permissions = JSON.parse(permissionsData);
@@ -12,15 +14,16 @@ function can(permissionsData, permission) {
   return false;
 }
 
-export default function Can({
+/**
+ * Render `children` if the permissions allow. Else render `otherwise`
+ * (which may be null).
+ *
+ * This does not forward a ref to its child. Don't use it when that matters. In
+ * particular, do not wrap a `<MenuItem>` in a `<Can>`. (use `can()` instead.)
+ */
+const Can = ({
   permissions, permission, children, otherwise,
-}) {
-  return (
-    <React.Fragment>
-      {can(permissions, permission) ? children : otherwise}
-    </React.Fragment>
-  );
-}
+}) => can(permissions, permission) ? children : otherwise;
 Can.defaultProps = {
   otherwise: null,
 };
@@ -32,3 +35,4 @@ Can.propTypes = {
 };
 
 export { can };
+export default Can;
