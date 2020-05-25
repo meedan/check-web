@@ -1,3 +1,8 @@
+import PropTypes from 'prop-types';
+
+/**
+ * Return `true` if `permissionsData` includes `permission`.
+ */
 function can(permissionsData, permission) {
   try {
     const permissions = JSON.parse(permissionsData);
@@ -9,11 +14,25 @@ function can(permissionsData, permission) {
   return false;
 }
 
-const Can = (props) => {
-  if (can(props.permissions, props.permission)) {
-    return props.children;
-  }
-  return props.otherwise || null;
+/**
+ * Render `children` if the permissions allow. Else render `otherwise`
+ * (which may be null).
+ *
+ * This does not forward a ref to its child. Don't use it when that matters. In
+ * particular, do not wrap a `<MenuItem>` in a `<Can>`. (use `can()` instead.)
+ */
+const Can = ({
+  permissions, permission, children, otherwise,
+}) => can(permissions, permission) ? children : otherwise;
+Can.defaultProps = {
+  otherwise: null,
+};
+Can.propTypes = {
+  permissions: PropTypes.string.isRequired, // e.g., '{"create Media":true}'
+  permission: PropTypes.string.isRequired, // e.g., 'create Media'
+  children: PropTypes.node.isRequired, // component to render if permitted
+  otherwise: PropTypes.node, // component to render otherwise (or null)
 };
 
-export { Can as default, can };
+export { can };
+export default Can;

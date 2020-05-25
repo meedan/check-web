@@ -1,8 +1,8 @@
+/* global describe, expect, it */
 import React from 'react';
-import { IntlProvider } from 'react-intl';
-import { render } from 'enzyme';
+import { mountWithIntlProvider } from '../../../../test/unit/helpers/intl-test';
 
-import Annotation from '../../src/app/components/annotations/Annotation';
+import Annotation from './Annotation';
 
 describe('<Annotation />', () => {
   const timestamp = new Date('2017-02-08 17:19:40 UTC').valueOf() / 1000;
@@ -30,8 +30,8 @@ describe('<Annotation />', () => {
   const annotated = {};
 
   it('should render annotation updated_at time', () => {
-    const wrapper = render(<IntlProvider locale="en"><Annotation annotation={activity} annotated={annotated} annotatedType={'ProjectMedia'} /></IntlProvider>);
-    const container = wrapper.find('.annotation__timestamp > time');
+    const wrapper = mountWithIntlProvider(<Annotation annotation={activity} annotated={annotated} annotatedType="ProjectMedia" />);
+    const container = wrapper.find('.annotation__timestamp time');
     expect(container.length).toEqual(1);
     expect(container.prop('title')).toMatch('2017-02-08');
   });
