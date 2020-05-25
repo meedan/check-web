@@ -28,6 +28,7 @@ const useStyles = makeStyles({
     flexGrow: 1,
     flexShrink: 1,
     whiteSpace: 'normal',
+    overflowWrap: 'anywhere', // long URLs shouldn't affect page width
     height: units(10),
     lineHeight: units(2.5),
     flexDirection: 'column',
@@ -57,6 +58,13 @@ const TitleText = ({
   </div>
 );
 
+const MaybeLink = ({ to, className, children }) => {
+  if (to) {
+    return <Link className={className} to={to}>{children}</Link>;
+  }
+  return <span className={className}>{children}</span>;
+};
+
 const TitleCell = ({ projectMedia, projectMediaUrl }) => {
   const {
     picture,
@@ -67,12 +75,12 @@ const TitleCell = ({ projectMedia, projectMediaUrl }) => {
 
   return (
     <TableCell component="th" scope="row">
-      <Link className={classes.root} to={projectMediaUrl || '#'} disabled={!projectMediaUrl}>
+      <MaybeLink className={classes.root} to={projectMediaUrl}>
         {picture ? (
           <img className={classes.thumbnail} alt="" src={picture} />
         ) : null}
         <TitleText classes={classes} title={title} description={description} />
-      </Link>
+      </MaybeLink>
     </TableCell>
   );
 };
