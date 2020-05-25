@@ -213,7 +213,7 @@ shared_examples 'media' do |type|
     expect(@driver.page_source.include?('Claim 0')).to be(false)
 
     # Second item
-    wait_for_selector('#media-search__next-item').click
+    wait_for_selector('.media-search__next-item').click
     wait_for_selector('.media-search__actions-bar')
     expect(@driver.page_source.include?('1 of 3')).to be(false)
     expect(@driver.page_source.include?('2 of 3')).to be(true)
@@ -223,7 +223,7 @@ shared_examples 'media' do |type|
     expect(@driver.page_source.include?('Claim 0')).to be(false)
 
     # Third item
-    wait_for_selector('#media-search__next-item').click
+    wait_for_selector('.media-search__next-item').click
     wait_for_selector('.media-search__actions-bar')
 
     expect(@driver.page_source.include?('1 of 3')).to be(false)
@@ -234,7 +234,7 @@ shared_examples 'media' do |type|
     expect(@driver.page_source.include?('Claim 0')).to be(true)
 
     # Second item
-    wait_for_selector('#media-search__previous-item').click
+    wait_for_selector('.media-search__previous-item').click
     wait_for_selector('.media-search__actions-bar')
     expect(@driver.page_source.include?('1 of 3')).to be(false)
     expect(@driver.page_source.include?('2 of 3')).to be(true)
@@ -244,7 +244,7 @@ shared_examples 'media' do |type|
     expect(@driver.page_source.include?('Claim 0')).to be(false)
 
     # First item
-    wait_for_selector('#media-search__previous-item').click
+    wait_for_selector('.media-search__previous-item').click
     wait_for_selector('.media-search__actions-bar')
     expect(@driver.page_source.include?('1 of 3')).to be(true)
     expect(@driver.page_source.include?('2 of 3')).to be(false)
