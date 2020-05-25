@@ -71,7 +71,7 @@ class ProjectComponent extends Component {
     const { project } = this.props;
 
     return (
-      <PageTitle prefix={project.title} skipTeam={false} team={this.currentContext().team}>
+      <PageTitle prefix={project.title} team={this.currentContext().team}>
         <div className="project">
           <Search
             listName={project.title}

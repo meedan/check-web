@@ -166,7 +166,6 @@ class MediaComponent extends Component {
     return (
       <PageTitle
         prefix={MediaUtil.title(media, data, this.props.intl)}
-        skipTeam={false}
         team={media.team}
         data-id={media.dbid}
       >

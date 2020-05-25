@@ -694,7 +694,7 @@ class SearchQueryComponent extends React.Component {
             : null
           }
         </Row>
-        <PageTitle prefix={title} skipTeam={false} team={this.props.team}>
+        <PageTitle prefix={title} team={this.props.team}>
           <Dialog
             className="search__query-dialog"
             maxWidth="md"
