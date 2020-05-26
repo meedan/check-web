@@ -1,0 +1,11 @@
+{
+  "ruleToolbar.back": "Back",
+  "ruleToolbar.more": "More",
+  "ruleToolbar.duplicate": "Duplicate",
+  "ruleToolbar.delete": "Delete",
+  "rulesTableToolbar.save": "Save",
+  "ruleToolbar.deleteConfirmationTitle": "Delete rule?",
+  "ruleToolbar.deleteConfirmationText": "Are you sure you want to delete this rule?",
+  "ruleToolbar.leaveConfirmationTitle": "Close without saving?",
+  "ruleToolbar.leaveConfirmationText": "If you continue, you will lose your changes."
+}
