@@ -2,10 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import FormGroup from '@material-ui/core/FormGroup';
-import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import styled from 'styled-components';
-import { black54, units, opaqueBlack02, opaqueBlack05 } from '../../styles/js/shared';
+import { black54, units, opaqueBlack02, opaqueBlack05, StyledCheckbox } from '../../styles/js/shared';
 
 const StyledNotFound = styled.div`
   color: ${black54};
@@ -100,7 +99,7 @@ class TagPicker extends React.Component {
                 <StyledFormControlLabel
                   key={`team-suggested-tag-${index.toString()}`}
                   control={
-                    <Checkbox
+                    <StyledCheckbox
                       checked={plainMediaTags.includes(tag.node.text)}
                       onChange={this.handleSelectCheckbox}
                       id={tag.node.text}
