@@ -611,7 +611,7 @@ shared_examples 'smoke' do
     wait_for_selector(".create-related-media__add-button")
     expect(@driver.page_source.include?('In Progress')).to be(false)
     change_the_status_to(".media-status__menu-item--in-progress", true)
-    expect(@driver.page_source.include?('In Progress')).to be(true)
+    wait_for_selector(".media-status__current--in-progress")
     expect(@driver.page_source.include?('Claim Related')).to be(false)
     press_button('.create-related-media__add-button')
     wait_for_selector('#create-media__quote').click
@@ -621,9 +621,7 @@ shared_examples 'smoke' do
     wait_for_selector_none("#create-media-quote-input")
     wait_for_selector_list_size(".media-detail", 2)
     wait_for_selector(".medias__item").click
-    wait_for_selector(".media-detail")
-    expect(@driver.page_source.include?('Unstarted')).to be(false)
-    expect(@driver.page_source.include?('In Progress')).to be(true)
+    wait_for_selector(".media-status__current--in-progress")
   end
 #Related items section end
 
