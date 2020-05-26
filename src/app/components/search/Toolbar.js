@@ -1,16 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
 import styled from 'styled-components';
 import isEqual from 'lodash.isequal';
 import rtlDetect from 'rtl-detect';
 import CreateProjectMedia from '../media/CreateMedia';
 import Can from '../Can';
-import { black87, units, separationGray, Row, FlexRow, Offset } from '../../styles/js/shared';
+import { black87, units, Row, FlexRow, Offset } from '../../styles/js/shared';
 
 const StyledToolbar = styled.div`
   background-color: white;
   min-height: ${units(5)};
-  border-bottom: 2px solid ${separationGray};
+  padding: ${units(2)};
 
   .toolbar__title {
     color: ${black87};
@@ -53,7 +54,7 @@ class Toolbar extends React.Component {
           <Offset isRtl={isRtl}>
             { page !== 'trash' ?
               <Can {...perms}>
-                <CreateProjectMedia search={search} team={team} />
+                <CreateProjectMedia search={search} project={project} team={team} />
               </Can> : null
             }
           </Offset>
@@ -62,5 +63,12 @@ class Toolbar extends React.Component {
     );
   }
 }
+
+Toolbar.defaultProps = {
+  page: undefined, // FIXME find a cleaner way to render Trash differently
+};
+Toolbar.propTypes = {
+  page: PropTypes.oneOf(['trash']), // FIXME find a cleaner way to render Trash differently
+};
 
 export default injectIntl(Toolbar);

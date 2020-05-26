@@ -147,7 +147,7 @@ const ConnectedProjectAssignmentComponent =
 
 const ProjectAssignmentContainer = Relay.createContainer(ConnectedProjectAssignmentComponent, {
   initialVariables: {
-    contextId: null,
+    projectId: null,
   },
   fragments: {
     project: () => Relay.QL`
@@ -199,7 +199,7 @@ const ProjectAssignmentContainer = Relay.createContainer(ConnectedProjectAssignm
 
 const ProjectAssignment = (props) => {
   const { project } = props;
-  const route = new ProjectRoute({ contextId: project.dbid.toString() });
+  const route = new ProjectRoute({ projectId: project.dbid.toString() });
 
   return (
     <Relay.RootContainer

@@ -110,14 +110,14 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('Happy birthday Mick')).to be(false)
     create_media("https://twitter.com/TheWho/status/890135323216367616")
     wait_for_selector_list_size('.media__heading',2)
-    wait_for_selector("//h3[contains(text(), 'Happy')]", :xpath)
+    wait_for_selector("//h4[contains(text(), 'Happy')]", :xpath)
     expect(@driver.page_source.include?('Happy birthday Mick')).to be(true)
 
     #from Youtube
     expect(@driver.page_source.include?("How To Check An")).to be(false)
     create_media("https://www.youtube.com/watch?v=ykLgjhBnik0")
     wait_for_selector_list_size('.media__heading',3)
-    wait_for_selector("//h3[contains(text(), 'How')]", :xpath)
+    wait_for_selector("//h4[contains(text(), 'How')]", :xpath)
     expect(@driver.page_source.include?("How To Check An")).to be(true)
 
     #from Instagram
@@ -152,7 +152,7 @@ shared_examples 'smoke' do
   end
 
   it "should lock and unlock status", bin2: true do
-    page = api_create_team_project_and_link_and_redirect_to_media_page 'http://ca.ios.ba/files/meedan/random.php'
+    api_create_team_project_and_link_and_redirect_to_media_page 'http://ca.ios.ba/files/meedan/random.php'
     wait_for_selector(".media")
     wait_for_selector('.media-actions__icon').click
     wait_for_selector('.media-actions__lock-status').click
@@ -253,7 +253,7 @@ shared_examples 'smoke' do
   end
 
   it "should add, edit, answer, update answer and delete datetime task", bin3: true do
-    media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
+    api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector('.media-detail')
 
     # Create a task
@@ -607,11 +607,11 @@ shared_examples 'smoke' do
     wait_for_selector("#search__open-dialog-button")
     create_media("Claim")
     wait_for_selector(".medias__item")
-    wait_for_selector(".media__heading").click
+    wait_for_selector(".media__heading a").click
     wait_for_selector(".create-related-media__add-button")
     expect(@driver.page_source.include?('In Progress')).to be(false)
     change_the_status_to(".media-status__menu-item--in-progress", true)
-    expect(@driver.page_source.include?('In Progress')).to be(true)
+    wait_for_selector(".media-status__current--in-progress")
     expect(@driver.page_source.include?('Claim Related')).to be(false)
     press_button('.create-related-media__add-button')
     wait_for_selector('#create-media__quote').click
@@ -621,9 +621,7 @@ shared_examples 'smoke' do
     wait_for_selector_none("#create-media-quote-input")
     wait_for_selector_list_size(".media-detail", 2)
     wait_for_selector(".medias__item").click
-    wait_for_selector(".media-detail")
-    expect(@driver.page_source.include?('Unstarted')).to be(false)
-    expect(@driver.page_source.include?('In Progress')).to be(true)
+    wait_for_selector(".media-status__current--in-progress")
   end
 #Related items section end
 
@@ -699,8 +697,8 @@ shared_examples 'smoke' do
     wait_for_selector(".project__description")
     create_image('test.png')
     wait_for_selector(".medias__item")
-    wait_for_selector(".media-cell__thumbnail img")
-    wait_for_selector(".media__heading").click
+    wait_for_selector(".media__heading img")
+    wait_for_selector(".media__heading a").click
     wait_for_selector(".card")
     expect(@driver.page_source.include?('In Progress')).to be(false)
     change_the_status_to(".media-status__menu-item--in-progress", false)
@@ -767,20 +765,19 @@ shared_examples 'smoke' do
     # Create a claim under project 2
     create_media(claim)
     wait_for_selector('.medias__item')
-    wait_for_selector(".ag-header-row")
     expect(@driver.page_source.include?(claim)).to be(true)
     expect(@driver.page_source.include?('1 / 1')).to be(true)
     expect(@driver.page_source.include?("Add a link or text")).to be(false)
+    wait_for_selector('.media__heading a')  # wait for backend to process claim
 
     # Move the claim to another project
-    wait_for_selector(".media__heading").click
-    wait_for_selector(".tasks")
-    wait_for_selector("#media-actions-bar__move-to").click
+    wait_for_selector("tbody input[type='checkbox']:not(:checked)").click
+    wait_for_selector("#media-bulk-actions__move-to").click
     wait_for_selector(".Select-control")
     wait_for_selector('.Select-input input').send_keys('Project')
     wait_for_selector(".Select-menu-outer")
     @driver.action.send_keys(:enter).perform
-    button_move = wait_for_selector('.media-actions-bar__move-button')
+    button_move = wait_for_selector('.media-bulk-actions__move-button')
     button_move.location_once_scrolled_into_view
     button_move.click
     wait_for_selector_none(".Select-placeholder")
@@ -820,7 +817,7 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('Add a link or text')).to be(true)
     wait_for_selector('.project-list__link').click #Go back to the first project
     wait_for_selector_list_size(".medias__item", 2)
-    wait_for_selector(".ag-icon-checkbox-unchecked").click
+    wait_for_selector("thead input[type='checkbox']:not(:checked)").click
     wait_for_selector("#media-bulk-actions__add-icon").click
     wait_for_selector('.Select-input input').send_keys('Project')
     wait_for_selector(".Select-menu-outer")
@@ -831,7 +828,7 @@ shared_examples 'smoke' do
     wait_for_selector_list_size(".medias__item", 2, :css , 80)
     expect(@driver.page_source.include?('claim 1')).to be(true)
     expect(@driver.page_source.include?('claim 2')).to be(true)
-    wait_for_selector(".ag-icon-checkbox-unchecked").click
+    wait_for_selector("thead input[type='checkbox']:not(:checked)").click
     wait_for_selector("span[title='Send selected items to trash']").click #Delete items
     wait_for_selector_none(".medias__item")
     expect(@driver.page_source.include?('Add a link or text')).to be(true)
@@ -852,7 +849,7 @@ shared_examples 'smoke' do
     expect(@driver.find_elements(:css, '.medias__item').length == 0 )
     wait_for_selector(".project-list__item-trash").click #Go to the trash page
     wait_for_selector(".media__heading")
-    wait_for_selector(".ag-icon-checkbox-unchecked").click
+    wait_for_selector("body input[type='checkbox']:not(:checked)").click
     wait_for_selector("#media-bulk-actions__actions").click
     wait_for_selector(".message")
     wait_for_selector(".project-list__item-all").click
@@ -866,7 +863,7 @@ shared_examples 'smoke' do
     wait_for_selector(".project-header__back-button").click
     expect(@driver.page_source.include?("Add a link or text")).to be(false)
     wait_for_selector_list_size(".medias__item",1)
-    wait_for_selector(".ag-icon-checkbox-unchecked").click
+    wait_for_selector("body input[type='checkbox']:not(:checked)").click
     wait_for_selector("#media-bulk-actions__remove-from-list").click #remove_button
     wait_for_selector_none(".media")
     expect(@driver.find_elements(:css, '.medias__item').length == 0 )
@@ -1076,7 +1073,7 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('new item')).to be(true)
 
     #see the icon 'change the status' that the media you don't own
-    wait_for_selector_list(".media__heading")[1].click
+    wait_for_selector_list(".media__heading a")[1].click
     wait_for_selector(".create-related-media__add-button")
     expect(@driver.find_elements(:css, ".media-status button").size).to eq 1
 
@@ -1123,7 +1120,7 @@ shared_examples 'smoke' do
 
     #go to the project and can't see the icon 'change the status' that the media you don't own
     wait_for_selector_list(".project-list__link")[0].click
-    wait_for_selector_list(".media__heading")[1].click
+    wait_for_selector_list(".media__heading a")[1].click
     wait_for_selector(".create-related-media__add-button")
     expect(@driver.find_elements(:css, ".media-status button[disabled]").size).to eq 1
   end
@@ -1149,12 +1146,12 @@ shared_examples 'smoke' do
   #   expect(@driver.page_source.include?('My search result')).to be(true)
   #   create_media("media 2")
   #   create_media("media 3")
-  #   wait_for_selector_list(".media__heading")[0].click
+  #   wait_for_selector_list(".media__heading a")[0].click
   #   wait_for_selector(".media__annotations-column")
   #   change_the_status_to(".media-status__menu-item--false", false)
   #   wait_for_selector(".project-header__back-button").click
   #   wait_for_selector("#search-input")
-  #   wait_for_selector_list(".media__heading")[1].click
+  #   wait_for_selector_list(".media__heading a")[1].click
   #   wait_for_selector(".media__annotations-column")
   #   change_the_status_to(".media-status__menu-item--verified", false)
   #   wait_for_selector(".project-header__back-button").click

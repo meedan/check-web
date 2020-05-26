@@ -62,6 +62,7 @@ module ApiHelpers
     claim
   end
 
+  # O
   def api_create_team_project_claims_sources_and_redirect_to_project_page(count, project_id = 0)
     data = api_create_team_and_project
     project_id_was = project_id
@@ -90,16 +91,24 @@ module ApiHelpers
     data
   end
 
+  # Create things, then navigate to /my-team/project/123/media/234?listIndex=0
+  #
+  # listIndex is always 0, so this only simulates user behavior when there are
+  # no other media in this project.
   def api_create_team_project_and_link_and_redirect_to_media_page(url = @media_url, project_id = 0)
     media = api_create_team_project_and_link url, project_id
-    @driver.navigate.to media.full_url
+    @driver.navigate.to "#{media.full_url}?listIndex=0"
     sleep 2
     MediaPage.new(config: @config, driver: @driver)
   end
 
+  # Create things, then navigate to /my-team/project/123/media/234?listIndex=0
+  #
+  # listIndex is always 0, so this only simulates user behavior when there are
+  # no other media in this project.
   def api_create_team_project_and_claim_and_redirect_to_media_page(quote = 'Claim', project_id = 0)
     media = api_create_team_project_and_claim false, quote, project_id
-    @driver.navigate.to media.full_url
+    @driver.navigate.to "#{media.full_url}?listIndex=0"
     sleep 2
     MediaPage.new(config: @config, driver: @driver)
   end
