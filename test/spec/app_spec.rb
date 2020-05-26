@@ -870,13 +870,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.login__form')
       expect(@driver.page_source.include?('Sign in')).to be(true)
     end
-
-    # Postponed due Alexandre's developement
-    # it "should add and remove suggested tags" do
-    #   skip("Needs to be implemented")
-    # end
+    
 =begin
-
     ## Search by tag not working in QA
 
     it "should find medias when searching by tag" do
