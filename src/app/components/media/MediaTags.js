@@ -231,6 +231,8 @@ MediaTags.propTypes = {
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
   setFlashMessage: PropTypes.func.isRequired,
+  media: PropTypes.object.isRequired,
+  tags: PropTypes.object.isRequired,
 };
 
 export default withSetFlashMessage(injectIntl(MediaTags));

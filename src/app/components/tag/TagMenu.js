@@ -173,6 +173,11 @@ TagMenuComponent.contextTypes = {
   store: PropTypes.object,
 };
 
+TagMenuComponent.propTypes = {
+  media: PropTypes.object.isRequired,
+  relay: PropTypes.object.isRequired,
+};
+
 const TagMenuContainer = Relay.createContainer(TagMenuComponent, {
   fragments: {
     media: () => Relay.QL`

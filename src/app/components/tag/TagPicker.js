@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import FormGroup from '@material-ui/core/FormGroup';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -82,7 +83,9 @@ class TagPicker extends React.Component {
 
     const plainMediaTags = this.state.tags;
     const { tag_texts } = media.team;
-    const shown_tag_texts = tag_texts.edges.filter(t => compareString(t.node.text, value));
+    const shown_tag_texts = value ?
+      tag_texts.edges.filter(t => compareString(t.node.text, value)) :
+      tag_texts.edges;
 
     const shownTagsCount = shown_tag_texts.length;
     const totalTagsCount = tag_texts.edges.length;
@@ -115,7 +118,15 @@ class TagPicker extends React.Component {
 }
 
 TagPicker.propTypes = {
+  onAddTag: PropTypes.func.isRequired,
+  onRemoveTag: PropTypes.func.isRequired,
+  value: PropTypes.string,
+  media: PropTypes.object.isRequired,
+  tags: PropTypes.array.isRequired,
+};
 
+TagPicker.defaultProps = {
+  value: null,
 };
 
 export default TagPicker;

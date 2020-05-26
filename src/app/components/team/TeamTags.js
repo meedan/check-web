@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
 import List from '@material-ui/core/List';
@@ -511,6 +512,13 @@ class TeamTagsComponent extends Component {
     );
   }
 }
+
+TeamTagsComponent.propTypes = {
+  relay: PropTypes.object.isRequired,
+  team: PropTypes.object.isRequired,
+  intl: PropTypes.object.isRequired,
+  direction: PropTypes.object.isRequired,
+};
 
 const TeamTagsContainer = Relay.createContainer(injectIntl(TeamTagsComponent), {
   fragments: {
