@@ -96,7 +96,6 @@ const mediaFragment = Relay.QL`
       slug
       search_id,
       get_embed_whitelist
-      get_suggested_tags
       get_status_target_turnaround
     }
     tags(first: 10000) {

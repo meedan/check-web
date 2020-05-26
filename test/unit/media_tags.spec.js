@@ -4,11 +4,7 @@ import { mountWithIntl } from './helpers/intl-test';
 import MediaTags from '../../src/app/components/media/MediaTags';
 
 describe('<MediaTags />', () => {
-  const media = {
-    team: {
-      get_suggested_tags: 'suggestedTag1,suggestedTag2,suggestedTag3',
-    },
-  };
+  const media = {};
 
   const tags = [{ node: { tag: 123, id: '123', tag_text: 'tag1' } }, { node: { tag: 234, tag_text: 'suggestedTag3', id: '234' } }];
 

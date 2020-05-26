@@ -259,7 +259,6 @@ const sourceFragment = Relay.QL`
             }
           }
           team {
-            get_suggested_tags,
             get_languages,
             slug
           }
