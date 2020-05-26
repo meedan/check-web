@@ -1,11 +1,11 @@
 {
-  "geoLocationRespondTask.searching": "Buscando...",
-  "geoLocationRespondTask.notFound": "Lo sentimos, este lugar no fue encontrado. Por favor, intenta otra búsqueda.",
-  "geoLocationRespondTask.error": "Lo sentimos, se produjo un error al actualizar la tarea. Vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}.",
-  "geolocationRespondTask.placeName": "Editar el nombre del lugar",
-  "geolocationRespondTask.coordinates": "Latitud, Longitud",
   "geoLocationRespondTask.invalidCoords": "Coordenadas no válidas",
+  "geoLocationRespondTask.searching": "Buscando...",
+  "geoLocationRespondTask.error": "Lo sentimos, se produjo un error al actualizar la tarea. Vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}.",
+  "geoLocationRespondTask.notFound": "Lo sentimos, este lugar no fue encontrado. Por favor, intenta otra búsqueda.",
   "geolocationRespondTask.cancelTask": "Cancelar",
   "geolocationRespondTask.answerTask": "Responder",
-  "geolocationRespondTask.searchMap": "Buscar el mapa"
+  "geolocationRespondTask.searchMap": "Buscar el mapa",
+  "geolocationRespondTask.placeName": "Editar el nombre del lugar",
+  "geolocationRespondTask.coordinates": "Latitud, Longitud"
 }

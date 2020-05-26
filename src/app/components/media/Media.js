@@ -56,7 +56,8 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
 });
 
 const ProjectMedia = (props, context) => {
-  let projectId = props.params.projectId || 0;
+  let { projectId } = props;
+  const { projectMediaId } = props;
   const checkContext = new CheckContext({ props, context });
   checkContext.setContext();
   if (!projectId) {
@@ -65,7 +66,7 @@ const ProjectMedia = (props, context) => {
       projectId = store.project.dbid;
     }
   }
-  const ids = `${props.params.mediaId},${projectId}`;
+  const ids = `${projectMediaId},${projectId}`;
   const route = new MediaRoute({ ids });
 
   return (

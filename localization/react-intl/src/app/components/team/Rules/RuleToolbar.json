@@ -25,7 +25,7 @@
   },
   {
     "id": "ruleToolbar.deleteConfirmationText",
-    "defaultMessage": "Are you sure you want to delete this rule? This is permanent."
+    "defaultMessage": "Are you sure you want to delete this rule?"
   },
   {
     "id": "ruleToolbar.leaveConfirmationTitle",

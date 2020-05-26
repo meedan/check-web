@@ -210,7 +210,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_team_project_and_link_and_redirect_to_media_page @media_url
       id1 = @driver.current_url.to_s.gsub(/^.*\/media\//, '').to_i
       expect(id1 > 0).to be(true)
-      @driver.navigate.to @driver.current_url.to_s.gsub(/\/media\/[0-9]+$/, '')
+      @driver.navigate.to @driver.current_url.to_s.gsub(/\/media\/.*$/, '')
       wait_for_selector(".medias__item")
       wait_for_selector("#create-media__add-item").click
       wait_for_selector("#create-media__link")
@@ -337,7 +337,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       fill_field('#cmd-input', 'https://meedan.com/en/')
       @driver.action.send_keys(:enter).perform
       wait_for_selector('.annotation__avatar-col')
-      old = wait_for_size_change(0, 'annotation__card-content', :class, 25)
+      wait_for_size_change(0, 'annotation__card-content', :class, 25)
       expect(@driver.page_source.include?('https://meedan.com/en/')).to be(true)
       el = wait_for_selector_list("//a[contains(text(), 'https://meedan.com/en/')]", :xpath)
       expect(el.length == 1).to be(true)
@@ -387,7 +387,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should refresh media", bin1: true do
-      page = api_create_team_project_and_link_and_redirect_to_media_page 'http://ca.ios.ba/files/meedan/random.php'
+      api_create_team_project_and_link_and_redirect_to_media_page 'http://ca.ios.ba/files/meedan/random.php'
       wait_for_selector(".media-detail")
       title1 = @driver.title
       expect((title1 =~ /Random/).nil?).to be(false)
@@ -410,7 +410,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect((@driver.current_url.to_s.match(/recent_added/)).nil?).to be(true)
       expect((@driver.current_url.to_s.match(/last_seen/)).nil?).to be(true)
 
-      wait_for_selector("#list-header__related").click
+      wait_for_selector("th[data-field=linked_items_count] span").click
       wait_for_selector(".medias__item")
       expect((@driver.current_url.to_s.match(/requests/)).nil?).to be(true)
       expect((@driver.current_url.to_s.match(/related/)).nil?).to be(false)
@@ -418,8 +418,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect((@driver.current_url.to_s.match(/last_seen/)).nil?).to be(true)
       expect(@driver.page_source.include?('My search result')).to be(true)
 
-      @driver.execute_script("document.getElementsByClassName('ag-body-horizontal-scroll-viewport')[0].scrollLeft = 5000;")
-      wait_for_selector("#list-header__recent_added").click
+      wait_for_selector("th[data-field=created_at] span").click
       wait_for_selector(".medias__item")
       expect((@driver.current_url.to_s.match(/requests/)).nil?).to be(true)
       expect((@driver.current_url.to_s.match(/related/)).nil?).to be(true)
@@ -432,13 +431,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_claim_and_go_to_search_page
       expect((@driver.current_url.to_s.match(/ASC|DESC/)).nil?).to be(true)
 
-      wait_for_selector("#list-header__related").click
+      wait_for_selector("th[data-field=linked_items_count]").click
       wait_for_selector(".medias__item")
       expect((@driver.current_url.to_s.match(/DESC/)).nil?).to be(false)
       expect((@driver.current_url.to_s.match(/ASC/)).nil?).to be(true)
       expect(@driver.page_source.include?('My search result')).to be(true)
 
-      wait_for_selector("#list-header__related").click
+      wait_for_selector("th[data-field=linked_items_count]").click
       wait_for_selector(".medias__item")
       expect((@driver.current_url.to_s.match(/DESC/)).nil?).to be(true)
       expect((@driver.current_url.to_s.match(/ASC/)).nil?).to be(false)
@@ -480,14 +479,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"related"%2C"sort_type"%3A"DESC"%7D'
       wait_for_selector("#create-media__add-item")
       expect(@driver.page_source.include?('My search result')).to be(true)
-      el = wait_for_selector("#list-header__related")
-      expect(el.find_element(:css, "svg.list-header__sort-desc").nil?).to be(false)
+      el = wait_for_selector("th[data-field=linked_items_count][aria-sort]")
+      expect(el).to be  # TODO nix this line after https://mantis.meedan.com/view.php?id=8221
 
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"recent_added"%2C"sort_type"%3A"DESC"%7D'
       wait_for_selector("#create-media__add-item")
       expect(@driver.page_source.include?('My search result')).to be(true)
-      el = wait_for_selector("#list-header__recent_added")
-      expect(el.find_element(:css, "svg.list-header__sort-desc").nil?).to be(false)
+      el = wait_for_selector("th[data-field=created_at][aria-sort]")
+      expect(el).to be  # TODO nix this line after https://mantis.meedan.com/view.php?id=8221
     end
 
     it "should change search sort order through URL", bin2: true do
@@ -495,14 +494,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"related"%2C"sort_type"%3A"DESC"%7D'
       wait_for_selector("#create-media__add-item")
       expect(@driver.page_source.include?('My search result')).to be(true)
-      el = wait_for_selector("#list-header__related")
-      expect(el.find_element(:css, "svg.list-header__sort-desc").nil?).to be(false)
+      el = wait_for_selector("th[data-field=linked_items_count][aria-sort=descending]")
+      expect(el).to be  # TODO nix this line after https://mantis.meedan.com/view.php?id=8221
 
-      @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"recent_added"%2C"sort_type"%3A"ASC"%7D'
+      @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"related"%2C"sort_type"%3A"ASC"%7D'
       wait_for_selector("#create-media__add-item")
       expect(@driver.page_source.include?('My search result')).to be(true)
-      el = wait_for_selector("#list-header__recent_added")
-      expect(el.find_element(:css, "svg.list-header__sort-asc").nil?).to be(false)
+      el = wait_for_selector("th[data-field=linked_items_count][aria-sort=ascending]")
+      expect(el).to be  # TODO nix this line after https://mantis.meedan.com/view.php?id=8221
     end
 #search section end
 

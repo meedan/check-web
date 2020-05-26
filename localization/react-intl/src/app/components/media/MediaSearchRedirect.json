@@ -1,0 +1,10 @@
+[
+  {
+    "id": "mediaSearch.itemWentAway",
+    "defaultMessage": "Not found"
+  },
+  {
+    "id": "mediaSearch.error",
+    "defaultMessage": "Error from server: {message}"
+  }
+]

@@ -28,7 +28,7 @@ class CreateProjectMediaMutation extends Relay.Mutation {
       optimisticProjectMedia(
         this.props.title,
         this.props.project,
-        this.props.context,
+        { team: this.props.team }, // context -- TODO nix context argument
         this.props.team,
       );
 

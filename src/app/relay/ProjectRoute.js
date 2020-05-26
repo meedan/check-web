@@ -2,17 +2,13 @@ import Relay from 'react-relay/classic';
 
 class ProjectRoute extends Relay.Route {
   static queries = {
-    project: (Component, contextId) => Relay.QL`
-      query Project {
-        project(id: $contextId) {
-          ${Component.getFragment('project', contextId)}
-        }
-      }
+    project: () => Relay.QL`
+      query Project { project(id: $projectId) }
     `,
   };
 
   static paramDefinitions = {
-    contextId: { required: true },
+    projectId: { required: true },
   };
 
   static routeName = 'ProjectRoute';

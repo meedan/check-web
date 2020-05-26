@@ -280,20 +280,20 @@ class MediaCondensedComponent extends Component {
       </Dialog>
     );
 
-    const { mediaUrl, mediaQuery } = this.props;
+    const { mediaUrl } = this.props;
 
     return (
       <span style={{ display: 'block', position: 'relative' }}>
         <CardHeader
           title={
-            <Link to={{ pathname: mediaUrl, state: { query: mediaQuery } }} className="media-condensed__title">
+            <Link to={mediaUrl} className="media-condensed__title">
               <span style={{ color: black87 }}>
                 {truncateLength(media.title, 120)}
               </span>
             </Link>}
           subheader={
             <p>
-              <Link to={{ pathname: mediaUrl, state: { query: mediaQuery } }}>
+              <Link to={mediaUrl}>
                 <span>{MediaUtil.mediaTypeLabel(media.type, this.props.intl)}</span>
                 { smoochBotInstalled ?
                   <span>
@@ -315,7 +315,7 @@ class MediaCondensedComponent extends Component {
             </p>
           }
           avatar={
-            <Link to={{ pathname: mediaUrl, state: { query: mediaQuery } }}>
+            <Link to={mediaUrl}>
               <img
                 alt=""
                 style={{ height: '100px', width: '100px', objectFit: 'cover' }}
