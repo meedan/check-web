@@ -116,7 +116,7 @@ const RulesTableToolbar = (props) => {
         blurb={
           <FormattedMessage
             id="rulesTableToolbar.deleteConfirmationText"
-            defaultMessage="Are you sure you want to delete these rules? This is permanent."
+            defaultMessage="Are you sure you want to delete these rules?"
           />
         }
         handleClose={handleCloseDialogs}

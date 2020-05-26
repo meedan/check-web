@@ -2,6 +2,7 @@ import styled, { css, keyframes } from 'styled-components';
 import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
 import CheckboxNext from '@material-ui/core/Checkbox';
+import { createMuiTheme } from '@material-ui/core/styles';
 import { stripUnit, rgba } from 'polished';
 
 // Styles for overriding material UI
@@ -20,7 +21,9 @@ export const completedGreen = '#5cae73';
 export const separationGray = '#ECECEC';
 
 // Material blacks
-//
+// TODO make these opaque!
+// TODO change their names!
+// TODO https://material.io/design/color/the-color-system.html
 export const black87 = 'rgba(0, 0, 0, .87)';
 export const black54 = 'rgba(0, 0, 0, .54)';
 export const black38 = 'rgba(0, 0, 0, .38)';
@@ -250,46 +253,7 @@ export const StyledPasswordChange = styled.div`
 
 `;
 
-// Material UI theme configuration
-//
-// This is passed as a prop to <MuiThemeProvider>
-//
-export const muiThemeWithoutRtl = {
-  palette: {
-    primary1Color: checkBlue,
-    primary2Color: checkBlue,
-    primary3Color: checkBlue,
-    accent1Color: checkBlue,
-    accent2Color: checkBlue,
-    accent3Color: checkBlue,
-    pickerHeaderColor: checkBlue,
-  },
-  appBar: {
-    color: black02,
-  },
-  svgIcon: {
-    color: black54,
-  },
-  ripple: {
-    color: checkBlue,
-  },
-  tabs: {
-    backgroundColor: white,
-    textColor: checkBlue,
-    selectedTextColor: checkBlue,
-  },
-  inkBar: {
-    backgroundColor: checkBlue,
-  },
-  menuItem: {
-    hoverColor: highlightBlue,
-  },
-  overlay: {
-    backgroundColor: modalBlue,
-  },
-};
-
-export const muiThemeV1 = {
+export const muiTheme = createMuiTheme({
   palette: {
     type: 'light',
     primary: {
@@ -315,8 +279,16 @@ export const muiThemeV1 = {
         },
       },
     },
+    MuiTableCell: {
+      stickyHeader: {
+        // @material-ui/core sets #fafafa, only for sticky header. Undo that.
+        // We do need a color, though -- if we choose "transparent" the tbody
+        // will show through.
+        backgroundColor: white,
+      },
+    },
   },
-};
+});
 
 export const mediaQuery = {
   handheld: (...args) => css`@media (max-width: ${breakpointMobile}) { ${css(...args)} }`,
@@ -380,6 +352,7 @@ export const breakWordStyles = `
 //
 // <Text ellipsis />
 //
+// deprecated: use @material-ui/core/Typography and theme
 export const Text = styled.div`
   ${props => props.ellipsis ? ellipsisStyles : ''}
   ${props => props.font ? `font: ${props.font};` : ''}
@@ -556,16 +529,6 @@ export const StyledTagsWrapper = styled.div`
 // It seems that this component is not centered in Material UI 0.x
 // So we must always use this wrapper, or similar.
 export const StyledIconButton = styled(IconButton)`
-  font-size: 20px !important;
-  svg {
-    color: ${black38} !important;
-    margin: 0!important;
-  }
-`;
-
-// It seems that this component is not centered in Material UI 0.x
-// So we must always use this wrapper, or similar.
-export const StyledIcon = styled.span`
   font-size: 20px !important;
   svg {
     color: ${black38} !important;

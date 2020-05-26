@@ -324,7 +324,7 @@ module AppSpecHelpers
     fill_field('#create-media-input', url)
     press_button('#create-media-dialog__submit-button')
     wait_for_selector_none("#create-media-input")
-    wait_for_selector(".media__heading")
+    wait_for_selector(".media__heading a")
   end
 
   def create_image(file)
@@ -364,7 +364,7 @@ module AppSpecHelpers
     wait_for_selector_none(".without-file")
     wait_for_selector("#create-media-dialog__submit-button").click
     wait_for_selector('.medias__item')
-    wait_for_selector(".media__heading").click
+    wait_for_selector(".media__heading a").click
     wait_for_selector(".media__annotations-column")
   end
 
