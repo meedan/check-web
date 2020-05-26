@@ -19,12 +19,11 @@ import Tooltip from '@material-ui/core/Tooltip';
 import deepEqual from 'deep-equal';
 import styled from 'styled-components';
 import TagTextCount from './TagTextCount';
-import CardHeaderOutside from '../layout/CardHeaderOutside';
 import ConfirmDialog from '../layout/ConfirmDialog';
 import SortSelector from '../layout/SortSelector';
 import FilterPopup from '../layout/FilterPopup';
 import TeamRoute from '../../relay/TeamRoute';
-import { units, ContentColumn, black32 } from '../../styles/js/shared';
+import { units, ContentColumn, black32, AlignOpposite } from '../../styles/js/shared';
 import Can, { can } from '../Can';
 import Message from '../Message';
 import CreateTagTextMutation from '../../relay/mutations/CreateTagTextMutation';
@@ -441,26 +440,22 @@ class TeamTagsComponent extends Component {
     return (
       <StyledContentColumn>
         <Message message={this.state.message} />
-        <CardHeaderOutside
-          title={<FormattedMessage id="teamTags.tags" defaultMessage="Tags" />}
-          direction={this.props.direction}
-          actions={
-            <FilterPopup
-              search={this.state.search}
-              onSearchChange={this.handleSearchChange}
-              label={filterLabel}
-              tooltip={<FormattedMessage id="teamTags.tooltip" defaultMessage="Filter and sort list" />}
-            >
-              <div style={{ marginTop: units(2) }}>
-                <SortSelector
-                  value={this.state.sort}
-                  onChange={this.handleChange.bind(this)}
-                  fullWidth
-                />
-              </div>
-            </FilterPopup>
-          }
-        />
+        <AlignOpposite>
+          <FilterPopup
+            search={this.state.search}
+            onSearchChange={this.handleSearchChange}
+            label={filterLabel}
+            tooltip={<FormattedMessage id="teamTags.tooltip" defaultMessage="Filter and sort list" />}
+          >
+            <div style={{ marginTop: units(2) }}>
+              <SortSelector
+                value={this.state.sort}
+                onChange={this.handleChange.bind(this)}
+                fullWidth
+              />
+            </div>
+          </FilterPopup>
+        </AlignOpposite>
         <Card style={{ marginTop: units(2) }}>
           <CardContent style={{ padding: 0 }}>
             { tag_texts.length === 0 ?
@@ -517,7 +512,6 @@ TeamTagsComponent.propTypes = {
   relay: PropTypes.object.isRequired,
   team: PropTypes.object.isRequired,
   intl: PropTypes.object.isRequired,
-  direction: PropTypes.object.isRequired,
 };
 
 const TeamTagsContainer = Relay.createContainer(injectIntl(TeamTagsComponent), {

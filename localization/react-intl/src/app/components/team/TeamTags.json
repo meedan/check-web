@@ -44,10 +44,6 @@
     "defaultMessage": "{total, plural, =0 {No tags} one {1 tag} other {# tags}}"
   },
   {
-    "id": "teamTags.tags",
-    "defaultMessage": "Tags"
-  },
-  {
     "id": "teamTags.tooltip",
     "defaultMessage": "Filter and sort list"
   },

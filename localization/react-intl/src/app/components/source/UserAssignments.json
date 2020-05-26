@@ -4,14 +4,6 @@
     "defaultMessage": "Filter by workspace"
   },
   {
-    "id": "userAssignments.yourAssignments",
-    "defaultMessage": "Your assignments"
-  },
-  {
-    "id": "userAssignments.userAssignments",
-    "defaultMessage": "{name}'s assignments"
-  },
-  {
     "id": "userAssignments.blank",
     "defaultMessage": "No activity"
   },

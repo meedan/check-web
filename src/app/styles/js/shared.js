@@ -486,7 +486,9 @@ export const OffsetBothSides = styled.div`
 
 // AlignOpposite
 export const AlignOpposite = styled.div`
-  ${props => (props.fromDirection ? `margin-${props.fromDirection}: auto;` : '')};
+  ${props => props.theme.dir === 'rtl' ? 'margin-right: auto' : 'margin-left: auto'};
+  ${props => props.theme.dir === 'rtl' ? 'left: 0px' : 'right: 0px'};
+  width: fit-content;
 `;
 
 // Material style Chip
