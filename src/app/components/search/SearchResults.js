@@ -14,7 +14,6 @@ import ParsedText from '../ParsedText';
 import BulkActions from '../media/BulkActions';
 import MediasLoading from '../media/MediasLoading';
 import ProjectBlankState from '../project/ProjectBlankState';
-import { searchQueryFromUrl } from './Search';
 import { black87, headline, units, Row } from '../../styles/js/shared';
 import SearchResultsTable from './SearchResultsTable';
 import SearchRoute from '../../relay/SearchRoute';
@@ -95,6 +94,9 @@ function simplifyQuery(query, project) {
     )
   ) {
     delete ret.projects;
+  }
+  if (ret.keyword && !ret.keyword.trim()) {
+    delete ret.keyword;
   }
   return ret;
 }
@@ -199,7 +201,9 @@ class SearchResultsComponent extends React.PureComponent {
   }
 
   handleChangeSortParams = (sortParams) => {
-    const newQuery = { ...this.props.query };
+    const { query, project } = this.props;
+
+    const newQuery = { ...query };
     if (sortParams === null) {
       delete newQuery.sort;
       delete newQuery.sort_type;
@@ -207,8 +211,28 @@ class SearchResultsComponent extends React.PureComponent {
       newQuery.sort = sortParams.key;
       newQuery.sort_type = sortParams.ascending ? 'ASC' : 'DESC';
     }
+    const cleanQuery = simplifyQuery(newQuery, project);
+    this.navigateToQuery(cleanQuery);
+  }
 
-    browserHistory.push(`${this.props.searchUrlPrefix}/${encodeURIComponent(JSON.stringify(newQuery))}`);
+  handleChangeQuery = (newQuery /* minus sort data */) => {
+    const { query, project } = this.props;
+    const cleanQuery = simplifyQuery(newQuery, project);
+    if (query.sort) {
+      cleanQuery.sort = query.sort;
+    }
+    if (query.sort_type) {
+      cleanQuery.sort_type = query.sort_type;
+    }
+    this.navigateToQuery(cleanQuery);
+  }
+
+  navigateToQuery(query) {
+    const { searchUrlPrefix } = this.props;
+    const path = Object.keys(query).length > 0
+      ? `${searchUrlPrefix}/${encodeURIComponent(JSON.stringify(query))}`
+      : searchUrlPrefix;
+    browserHistory.push(path);
   }
 
   buildSearchUrlAtOffset = (offset) => {
@@ -268,6 +292,14 @@ class SearchResultsComponent extends React.PureComponent {
   }
 
   render() {
+    const {
+      query,
+      project,
+      title,
+      listActions,
+      listDescription,
+    } = this.props;
+
     const projectMedias = this.props.search.medias
       ? this.props.search.medias.edges.map(({ node }) => node)
       : [];
@@ -277,7 +309,6 @@ class SearchResultsComponent extends React.PureComponent {
     const isIdInSearchResults = wantedId => projectMedias.some(({ id }) => id === wantedId);
     const selectedProjectMediaIds = this.state.selectedProjectMediaIds.filter(isIdInSearchResults);
 
-    const query = Object.assign({}, searchQueryFromUrl());
     const isProject = !!this.props.project;
 
     let content = null;
@@ -303,12 +334,9 @@ class SearchResultsComponent extends React.PureComponent {
       );
     }
 
-    const {
-      project,
-      title,
-      listActions,
-      listDescription,
-    } = this.props;
+    const unsortedQuery = simplifyQuery(query, project); // nix .projects
+    delete unsortedQuery.sort;
+    delete unsortedQuery.sort_type;
 
     return (
       <React.Fragment>
@@ -320,6 +348,9 @@ class SearchResultsComponent extends React.PureComponent {
               </div>
               <SearchQuery
                 className="search-query"
+                key={JSON.stringify(unsortedQuery) /* TODO make <SearchQuery> stateless */}
+                query={unsortedQuery}
+                onChange={this.handleChangeQuery}
                 project={this.props.project}
                 fields={this.props.fields}
                 title={this.props.title}

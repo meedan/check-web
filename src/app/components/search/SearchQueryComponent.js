@@ -1,7 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
 import { FormattedMessage, FormattedHTMLMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
-import { browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
@@ -17,7 +16,6 @@ import deepEqual from 'deep-equal';
 import rtlDetect from 'rtl-detect';
 import styled from 'styled-components';
 import { withPusher, pusherShape } from '../../pusher';
-import { searchPrefixFromUrl, searchQueryFromUrl, urlFromSearchQuery } from './Search';
 import DateRangeFilter from './DateRangeFilter';
 import PageTitle from '../PageTitle';
 import CheckContext from '../../CheckContext';
@@ -221,36 +219,21 @@ class SearchQueryComponent extends React.Component {
   constructor(props) {
     super(props);
 
+    this.searchInput = React.createRef();
+
     this.state = {
-      query: {},
+      query: props.query, // CODE SMELL! Caller must use `key=` to reset state on prop change
+      isPopperClosed: false,
       popper: {
         open: false,
-        allowed: true,
         anchorEl: null,
       },
       dialogOpen: false,
     };
   }
 
-  componentWillMount() {
-    const context = this.getContext();
-    if (context.getContextStore().project && /\/all-items/.test(window.location.pathname)) {
-      context.setContextStore({ project: null });
-    }
-
-    const query = searchQueryFromUrl();
-    this.setState({ query });
-  }
-
   componentDidMount() {
     this.subscribe();
-  }
-
-  componentWillReceiveProps() {
-    const query = searchQueryFromUrl();
-    if (!deepEqual(this.state.query, query)) {
-      this.setState({ query });
-    }
   }
 
   componentWillUnmount() {
@@ -266,21 +249,18 @@ class SearchQueryComponent extends React.Component {
   }
 
   handleApplyFilters() {
-    const { query } = this.state;
-
-    const prefix = searchPrefixFromUrl();
-    const url = urlFromSearchQuery(query, prefix);
-
-    browserHistory.push(url);
+    if (!deepEqual(this.state.query, this.props.query)) {
+      this.props.onChange(this.state.query);
+    }
   }
 
   keywordIsActive = () => {
-    const query = searchQueryFromUrl();
+    const { query } = this.state;
     return query.keyword && query.keyword.trim() !== '';
   };
 
   filterIsActive = () => {
-    const query = searchQueryFromUrl();
+    const { query } = this.state;
     const filterFields = ['range', 'verification_status', 'projects', 'tags', 'show'];
     let active = false;
     filterFields.forEach((field) => {
@@ -446,20 +426,18 @@ class SearchQueryComponent extends React.Component {
       dialogOpen: true,
       popper: {
         open: false,
-        allowed: this.state.popper.allowed,
         anchorEl: null,
       },
     });
   };
 
   handleDialogClose = () => {
-    const query = searchQueryFromUrl();
+    const { query } = this.state;
     this.setState({
       query,
       dialogOpen: false,
       popper: {
         open: false,
-        allowed: this.state.popper.allowed,
         anchorEl: null,
       },
     });
@@ -502,62 +480,50 @@ class SearchQueryComponent extends React.Component {
     return this.props.fields ? this.props.fields.indexOf(field) > -1 : true;
   }
 
-  handleInputChange = () => {
-    // Open the search help when
-    // - user has typed something
-    // - user has not explicitly closed the help
-    // - user has reset the keywords
-    this.setState((prevState) => {
-      const state = Object.assign({}, prevState);
-      state.query.keyword = this.searchInput.value;
-      return {
-        query: state.query,
-        popper: {
-          open: this.searchInput.value.length > 0 && this.state.popper.allowed,
-          anchorEl: this.searchInput,
-          allowed: this.state.popper.allowed || !this.searchInput.value.length,
-        },
-      };
-    });
-  };
+  handleInputChange = (ev) => {
+    const { keyword, ...newQuery } = this.state.query;
+    const newKeyword = ev.target.value;
+    if (newKeyword) { // empty string => remove property from query
+      newQuery.keyword = newKeyword;
+    }
+    this.setState({ query: newQuery });
+  }
 
   handleKeyPress = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
       this.handleApplyFilters();
     }
-  };
+  }
+
+  handleSubmit = (ev) => {
+    ev.preventDefault();
+    this.handleApplyFilters();
+  }
 
   handleBlur = () => {
-    const query = searchQueryFromUrl();
-    const value = this.searchInput.value.trim();
-    if (value || query.keyword) {
-      if (value !== query.keyword) {
-        this.handleApplyFilters();
-      }
-    }
-  };
+    this.handleApplyFilters();
+  }
 
   handlePopperClick() {
-    this.setState({ popper: { open: false, allowed: false } });
+    this.setState({ isPopperClosed: true });
   }
 
   cancelFilters() {
-    const query = searchQueryFromUrl();
+    const { query } = this.props;
     this.setState({ dialogOpen: false, query });
   }
 
-  resetFilters = (apply) => {
-    this.searchInput.value = '';
-    this.setState({ query: {} }, () => {
-      if (apply) {
-        this.handleApplyFilters();
-      }
-    });
-  };
+  resetFiltersAndApply = () => {
+    this.props.onChange({});
+  }
+
+  resetFilters = () => {
+    this.setState({ query: {} });
+  }
 
   doneButtonDisabled() {
-    const query = searchQueryFromUrl();
-    return deepEqual(this.state.query, query);
+    return deepEqual(this.state.query, this.props.query);
   }
 
   subscribe() {
@@ -629,6 +595,7 @@ class SearchQueryComponent extends React.Component {
           <form
             id="search-form"
             className="search__form"
+            onSubmit={this.handleSubmit}
             autoComplete="off"
           >
             <StyledSearchInput
@@ -641,14 +608,21 @@ class SearchQueryComponent extends React.Component {
               onKeyPress={this.handleKeyPress}
               onBlur={this.handleBlur}
               onChange={this.handleInputChange}
-              ref={(i) => { this.searchInput = i; }}
+              ref={this.searchInput}
               autoFocus
             />
             <StyledPopper
               id="search-help"
               isRtl={isRtl}
-              open={this.state.popper.open}
-              anchorEl={this.state.popper.anchorEl}
+              open={
+                // Open the search help when
+                // - user has typed something
+                // - user has not explicitly closed the help
+                // - user has reset the keywords
+                this.state.query.keyword !== this.props.query.keyword &&
+                !this.state.isPopperClosed
+              }
+              anchorEl={this.searchInput.current}
             >
               <Paper>
                 <IconButton style={{ fontSize: '20px' }} onClick={this.handlePopperClick.bind(this)}>
@@ -684,10 +658,7 @@ class SearchQueryComponent extends React.Component {
           </Button>
           { (this.filterIsActive() || this.keywordIsActive()) ?
             <Tooltip title={this.props.intl.formatMessage(messages.clear)}>
-              <IconButton
-                id="search-query__clear-button"
-                onClick={() => { this.resetFilters(true); }}
-              >
+              <IconButton id="search-query__clear-button" onClick={this.resetFiltersAndApply}>
                 <ClearIcon style={{ color: highlightOrange }} />
               </IconButton>
             </Tooltip>
@@ -900,10 +871,7 @@ class SearchQueryComponent extends React.Component {
                       {this.props.intl.formatMessage(messages.cancel)}
                     </Button>
 
-                    <Button
-                      id="search-query__reset-button"
-                      onClick={() => { this.resetFilters(); }}
-                    >
+                    <Button id="search-query__reset-button" onClick={this.resetFilters}>
                       {this.props.intl.formatMessage(messages.reset)}
                     </Button>
 
@@ -933,6 +901,8 @@ SearchQueryComponent.propTypes = {
   classes: PropTypes.object.isRequired,
   pusher: pusherShape.isRequired,
   clientSessionId: PropTypes.string.isRequired,
+  query: PropTypes.object.isRequired,
+  onChange: PropTypes.func.isRequired, // onChange({ ... /* query */ }) => undefined
 };
 
 SearchQueryComponent.contextTypes = {
