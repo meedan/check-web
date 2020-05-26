@@ -607,7 +607,7 @@ class SearchQueryComponent extends React.Component {
     }
 
     const { currentUser } = this.currentContext();
-    const suggestedTags = team.tag_texts.edges.map(t => t.node.text);
+    const plainTagsTexts = team.tag_texts.edges.map(t => t.node.text);
 
     const title = (this.filterIsActive() || this.keywordIsActive())
       ? this.title(statuses, projects)
@@ -753,12 +753,12 @@ class SearchQueryComponent extends React.Component {
                     </StyledFilterRow>
                     : null}
 
-                  {this.showField('tags') && suggestedTags.length ?
+                  {this.showField('tags') && plainTagsTexts.length ?
                     <StyledFilterRow>
                       <h4>
                         <FormattedMessage id="status.categoriesHeading" defaultMessage="Tags" />
                       </h4>
-                      {suggestedTags.map(tag => (
+                      {plainTagsTexts.map(tag => (
                         <StyledFilterChip
                           active={this.tagIsSelected(tag)}
                           key={tag}

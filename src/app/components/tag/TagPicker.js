@@ -1,9 +1,8 @@
 import React from 'react';
-import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import FormGroup from '@material-ui/core/FormGroup';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import rtlDetect from 'rtl-detect';
 import styled from 'styled-components';
 import { black54, units, opaqueBlack02, opaqueBlack05 } from '../../styles/js/shared';
 
@@ -23,8 +22,8 @@ const StyledTagPickerArea = styled.div`
 `;
 
 const StyledFormControlLabel = styled(FormControlLabel)`
-  margin-${props => props.direction.from}: -14px !important;
-  margin-${props => props.direction.to}: 16px !important;
+  margin-${props => props.theme.dir === 'rtl' ? 'right' : 'left'}: -14px !important;
+  margin-${props => props.theme.dir === 'rtl' ? 'left' : 'right'}: 16px !important;
 `;
 
 class TagPicker extends React.Component {
@@ -74,12 +73,6 @@ class TagPicker extends React.Component {
   render() {
     const { media, value } = this.props;
 
-    const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
-    const direction = {
-      from: isRtl ? 'right' : 'left',
-      to: isRtl ? 'left' : 'right',
-    };
-
     const compareString = (tag, val) => {
       if (!tag) {
         return false;
@@ -102,7 +95,6 @@ class TagPicker extends React.Component {
             {
               shown_tag_texts.map((tag, index) => (
                 <StyledFormControlLabel
-                  direction={direction}
                   key={`team-suggested-tag-${index.toString()}`}
                   control={
                     <Checkbox
@@ -123,9 +115,7 @@ class TagPicker extends React.Component {
 }
 
 TagPicker.propTypes = {
-  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
-  // eslint-disable-next-line react/no-typos
-  intl: intlShape.isRequired,
+
 };
 
-export default injectIntl(TagPicker);
+export default TagPicker;
