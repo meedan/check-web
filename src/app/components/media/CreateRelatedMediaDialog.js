@@ -44,7 +44,7 @@ class CreateRelatedMediaDialog extends React.Component {
     }
 
     if (this.formRef.current) {
-      this.formRef.current.dispatch(new Event('submit')); // ick
+      this.formRef.current.dispatchEvent(new Event('submit')); // ick
     }
   };
 
