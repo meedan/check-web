@@ -21,6 +21,8 @@ class CreateRelatedMediaDialog extends React.Component {
   constructor(props) {
     super(props);
 
+    this.formRef = React.createRef(null);
+
     this.state = {
       mode: 'new',
       selectedId: null,
@@ -41,9 +43,8 @@ class CreateRelatedMediaDialog extends React.Component {
       return;
     }
 
-    const submitButton = document.getElementById('create-media-submit');
-    if (submitButton) {
-      submitButton.click();
+    if (this.formRef.current) {
+      this.formRef.current.dispatch(new Event('submit')); // ick
     }
   };
 
@@ -79,6 +80,7 @@ class CreateRelatedMediaDialog extends React.Component {
           { mode === 'new' &&
             <CreateMediaInput
               message={this.props.message}
+              formRef={this.formRef}
               isSubmitting={this.props.isSubmitting}
               onSubmit={this.props.onSubmit}
               noSource

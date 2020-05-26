@@ -170,6 +170,7 @@ class Login extends React.Component {
     super(props);
     this.state = {
       type: 'login', // or 'register'
+      image: null,
       message: null,
       name: '',
       email: '',
@@ -182,10 +183,6 @@ class Login extends React.Component {
     };
   }
 
-  static onImage(file) {
-    document.forms.register.image = file;
-  }
-
   onFormSubmit(e) {
     e.preventDefault();
 
@@ -194,6 +191,14 @@ class Login extends React.Component {
     } else {
       this.registerEmail();
     }
+  }
+
+  handleImageChange = (file) => {
+    this.setState({ image: file, message: null });
+  }
+
+  handleImageError = (file, message) => {
+    this.setState({ image: null, message });
   }
 
   handleCheckTos() {
@@ -241,13 +246,12 @@ class Login extends React.Component {
   }
 
   registerEmail() {
-    const form = document.forms.register;
     const params = {
       'api_user[email]': this.state.email,
       'api_user[name]': this.state.name,
       'api_user[password]': this.state.password,
       'api_user[password_confirmation]': this.state.passwordConfirmation,
-      'api_user[image]': form.image,
+      'api_user[image]': this.state.image,
     };
 
     const failureCallback = (transaction) => {
@@ -290,11 +294,7 @@ class Login extends React.Component {
     return (
       <div className="login" id="login">
         <StyledCard>
-          <form
-            name={this.state.type}
-            onSubmit={this.onFormSubmit.bind(this)}
-            className="login__form"
-          >
+          <form onSubmit={this.onFormSubmit.bind(this)} className="login__form">
             <FormattedGlobalMessage messageKey="appNameHuman">
               {appNameHuman => (
                 <img
@@ -420,7 +420,12 @@ class Login extends React.Component {
                         defaultMessage="Profile picture"
                       />
                     </StyledLabel>
-                    <UploadImage onImage={Login.onImage} type="image" />
+                    <UploadImage
+                      type="image"
+                      value={this.state.image}
+                      onChange={this.handleImageChange}
+                      onError={this.handleImageError}
+                    />
                     <UserTosForm
                       user={{}}
                       showTitle={false}

@@ -380,7 +380,7 @@ class ReportDesignerComponent extends Component {
     });
   }
 
-  handleImage(image) {
+  handleImageChange = (image) => {
     const options = Object.assign({}, this.state.options);
     const state = { options, message: null, unsavedChanges: true };
     if (typeof image === 'string') {
@@ -393,8 +393,13 @@ class ReportDesignerComponent extends Component {
     this.setState(state);
   }
 
-  handleClearImage() {
-    this.handleImage(null);
+  handleImageError = (file, message) => {
+    this.setState({
+      image: null,
+      message,
+      options: { ...this.state.options, image: '' },
+      unsavedChanges: true,
+    });
   }
 
   handleDefaultImage() {
@@ -403,7 +408,7 @@ class ReportDesignerComponent extends Component {
       remove.click();
     }
     const image = this.props.media.media.picture;
-    this.handleImage(image);
+    this.handleImageChange(image);
   }
 
   handleSelectColor(color) {
@@ -999,7 +1004,7 @@ class ReportDesignerComponent extends Component {
                   </ExpansionPanelSummary>
                   <ExpansionPanelDetails style={{ display: 'block' }}>
                     <div style={{ marginBottom: units(2) }}>
-                      <UploadImage onImage={this.handleImage.bind(this)} onClear={this.handleClearImage.bind(this)} type="image" />
+                      <UploadImage onImage={this.handleImageChange} onError={this.handleImageError} type="image" />
                       { media.media.picture ?
                         <p>
                           <Button onClick={this.handleDefaultImage.bind(this)}>
