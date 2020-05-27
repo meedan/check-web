@@ -3,10 +3,7 @@ import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import Favicon from 'react-favicon';
-import {
-  MuiThemeProvider as MuiThemeProviderNext,
-  createMuiTheme,
-} from '@material-ui/core/styles';
+import { MuiThemeProvider } from '@material-ui/core/styles';
 import rtlDetect from 'rtl-detect';
 import isEqual from 'lodash.isequal';
 import styled, { createGlobalStyle } from 'styled-components';
@@ -23,11 +20,7 @@ import { bemClass } from '../helpers';
 import { FlashMessageContext, FlashMessage, withSetFlashMessage } from './FlashMessage';
 import UserTos from './UserTos';
 import { withClientSessionId } from '../ClientSessionId';
-import {
-  muiThemeV1,
-  gutterMedium,
-  units,
-} from '../styles/js/shared';
+import { muiTheme, gutterMedium, units } from '../styles/js/shared';
 import { layout, typography, localeAr, removeYellowAutocomplete } from '../styles/js/global';
 import { stringHelper } from '../customHelpers';
 import { mapGlobalMessage } from './MappedMessage';
@@ -42,20 +35,12 @@ const GlobalStyle = createGlobalStyle([`
 `]);
 
 const StyledWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
   position: relative;
   margin-${props => (props.isRtl ? 'right' : 'left')}: ${units(32)};
 `;
 
 const StyledContent = styled.div`
-  display: flex;
-  flex: 1;
-  flex-direction: column;
   padding-top: ${gutterMedium};
-  padding-bottom: ${props => (props.inMediaPage ? '0' : 'gutterMedium')};
-  width: 100%;
   background-color: white;
 `;
 
@@ -216,8 +201,6 @@ class HomeComponent extends Component {
     const { children, location, intl } = this.props;
     const routeSlug = HomeComponent.routeSlug(children);
 
-    const muiThemeNext = createMuiTheme(muiThemeV1);
-
     const routeIsPublic = children && children.props.route.public;
     if (!routeIsPublic && !this.state.token) {
       if (this.state.error) {
@@ -267,7 +250,7 @@ class HomeComponent extends Component {
       <React.Fragment>
         <GlobalStyle />
         <MuiPickersUtilsProvider utils={MomentUtils}>
-          <MuiThemeProviderNext theme={muiThemeNext}>
+          <MuiThemeProvider theme={muiTheme}>
             <React.Fragment>
               {config.intercomAppId && user.dbid ?
                 <Intercom
@@ -313,7 +296,7 @@ class HomeComponent extends Component {
                 </StyledContent>
               </StyledWrapper>
             </React.Fragment>
-          </MuiThemeProviderNext>
+          </MuiThemeProvider>
         </MuiPickersUtilsProvider>
       </React.Fragment>
     );

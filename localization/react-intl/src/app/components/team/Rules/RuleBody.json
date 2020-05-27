@@ -1,0 +1,18 @@
+[
+  {
+    "id": "ruleBody.ruleNameValidation",
+    "defaultMessage": "Rule name is required"
+  },
+  {
+    "id": "ruleBody.ruleName",
+    "defaultMessage": "Name"
+  },
+  {
+    "id": "ruleBody.if",
+    "defaultMessage": "If"
+  },
+  {
+    "id": "ruleBody.then",
+    "defaultMessage": "Then"
+  }
+]

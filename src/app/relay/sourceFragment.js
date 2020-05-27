@@ -11,7 +11,6 @@ const sourceFragment = Relay.QL`
     user_id,
     description,
     permissions,
-    verification_statuses,
     accounts(first: 10000) {
       edges {
         node {

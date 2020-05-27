@@ -66,10 +66,12 @@ class WebPageMediaCard extends Component {
               </AspectRatio> : null
             }
             { data.error ?
-              <FormattedMessage
-                id="webPageMediaCard.Error"
-                defaultMessage="This URL could not be identified. It may have been removed, or may only be visible to users when logged in. Click below to view it."
-              /> : null
+              <span className="web-page-media-card__error">
+                <FormattedMessage
+                  id="webPageMediaCard.Error"
+                  defaultMessage="This item could not be identified. It may have been removed, or may only be visible to users who are logged in. Click below to open it."
+                />
+              </span> : null
             }
             { media.metadata.url ?
               <StyledLink>

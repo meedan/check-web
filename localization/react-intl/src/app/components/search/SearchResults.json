@@ -4,15 +4,15 @@
     "defaultMessage": "Previous page"
   },
   {
-    "id": "search.nextPage",
-    "defaultMessage": "Next page"
-  },
-  {
     "id": "searchResults.itemsCount",
     "defaultMessage": "{count, plural, one {1 / 1} other {{from} - {to} / #}}"
   },
   {
     "id": "searchResults.withSelection",
     "defaultMessage": "{selectedCount, plural, one {(1 selected)} other {(# selected)}}"
+  },
+  {
+    "id": "search.nextPage",
+    "defaultMessage": "Next page"
   }
 ]

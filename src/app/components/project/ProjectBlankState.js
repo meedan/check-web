@@ -1,25 +1,24 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import BlankState from '../layout/BlankState';
-import { can } from '../Can';
+import Can from '../Can';
 
-const ProjectBlankState = (props) => {
-  const message = (
-    <FormattedHTMLMessage
-      id="ProjectBlankState.createMedia"
-      defaultMessage="Add a link or text"
-    />
-  );
-
+export default function ProjectBlankState({ project }) {
   return (
     <BlankState>
-      {
-        can(props.project.permissions, 'create Media')
-          ? message
-          : <FormattedMessage id="userAssignments.blank" defaultMessage="No activity" />
-      }
+      <Can
+        permission="create Media"
+        permissions={project.permissions}
+        otherwise={<FormattedMessage id="userAssignments.blank" defaultMessage="No activity" />}
+      >
+        <FormattedHTMLMessage id="ProjectBlankState.createMedia" defaultMessage="Add a link or text" />
+      </Can>
     </BlankState>
   );
+}
+ProjectBlankState.propTypes = {
+  project: PropTypes.shape({
+    permissions: PropTypes.string.isRequired,
+  }).isRequired,
 };
-
-export default ProjectBlankState;

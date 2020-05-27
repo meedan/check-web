@@ -1,0 +1,4 @@
+{
+  "mediaSearch.itemWentAway": "Introuvable",
+  "mediaSearch.error": "Désolé, l'erreur suivante s'est produite: {message}. Veuillez actualiser l'élément pour réessayer et prévenir {supportEmail} si le problème persiste."
+}

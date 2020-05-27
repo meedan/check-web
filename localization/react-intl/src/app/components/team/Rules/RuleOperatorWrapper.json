@@ -1,0 +1,14 @@
+[
+  {
+    "id": "ruleOperatorWrapper.and",
+    "defaultMessage": "And"
+  },
+  {
+    "id": "ruleOperatorWrapper.or",
+    "defaultMessage": "Or"
+  },
+  {
+    "id": "ruleOperatorWrapper.removeTheAbove",
+    "defaultMessage": "Remove item above"
+  }
+]

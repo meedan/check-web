@@ -19,16 +19,15 @@ shared_examples 'custom' do
     el = wait_for_selector("//div[contains(text(), 'False')]",:xpath)
     el.click
     wait_for_selector("#search-query__submit-button").click
-    wait_for_selector_none("#search-query__submit-button")
-    wait_for_selector_none(".medias__item")
+    wait_for_selector_none("#search-query__submit-button",:css,10)
+    wait_for_selector_none(".medias__item",:css,10 )
     expect(@driver.page_source.include?('to announce')).to be(false)
     wait_for_selector("#search__open-dialog-button").click
     el = wait_for_selector("//div[contains(text(), 'Unstarted')]",:xpath)
     el.click
     wait_for_selector("#search-query__submit-button").click
-    wait_for_selector_none("#search-query__submit-button")
+    wait_for_selector_none("#search-query__submit-button",:css,10)
     wait_for_selector(".medias__item")
-    wait_for_selector(".media-status__current--undetermined")
     expect(@driver.page_source.include?('to announce')).to be(true)
   end
 
@@ -48,7 +47,6 @@ shared_examples 'custom' do
     api_create_claim_and_go_to_search_page
     expect((@driver.title =~ /False/).nil?).to be(true)
     @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"verification_status"%3A%5B"false"%5D%7D'
-    wait_for_selector(".search__results-heading")
     wait_for_selector("#search-query__clear-button")
     expect((@driver.title =~ /False/).nil?).to be(false)
     expect(@driver.page_source.include?('My search result')).to be(false)

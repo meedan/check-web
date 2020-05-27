@@ -24,13 +24,16 @@ class LoginPage < Page
   end
 
   def register_with_email(options)
-    load
+    @driver.navigate.to @config['self_url']
+    wait_for_selector(".login__form")
+    wait_for_selector("#register-or-login").click
     toggle_form_mode unless form_mode == 'register'
-
+    wait_for_selector(".login__form")
     fill_input('.login__name input', 'User With Email')
     fill_input('.login__email input', options[:email])
     fill_input('.login__password input', options[:password])
     fill_input('.login__password-confirmation input', options[:password])
+    wait_for_selector(".without-file")
     fill_input('input[type=file]', options[:file], { hidden: true }) if options[:file]
     agree_to_tos(false)
     wait_for_selector("#submit-register-or-login").click
@@ -45,7 +48,6 @@ class LoginPage < Page
     wait_for_selector('.login__forgot-password a').click
     wait_for_selector('#password-reset-email-input').send_keys(email)
     wait_for_selector('.user-password-reset__actions button + button').click
-    wait_for_selector_none("#password-reset-email-input")
   end
 
   def login_with_email(options)

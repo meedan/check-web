@@ -210,7 +210,7 @@ describe('<WebPageMediaCard />', () => {
       />,
     );
 
-    expect(card1.text()).toMatch('This URL could not be identified');
-    expect(card2.text()).not.toMatch('This URL could not be identified');
+    expect(card1.find('span.web-page-media-card__error')).toHaveLength(1);
+    expect(card2.find('span.web-page-media-card__error')).toHaveLength(0);
   });
 });
