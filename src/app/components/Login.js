@@ -147,9 +147,7 @@ const BigButton = ({
 }) => (
   <StyledEnhancedButton id={id} className={className} onClick={onClick}>
     <Row>
-      <Column>
-        {icon}
-      </Column>
+      <Column>{icon}</Column>
       <Column>
         <h3>{headerText}</h3>
         {subheaderText ?
@@ -209,14 +207,15 @@ class Login extends React.Component {
     this.setState({ checkedPp: !this.state.checkedPp });
   }
 
-  handleSwitchType() {
-    const type = this.state.type === 'login' ? 'register' : 'login';
-    this.setState({ type, registrationSubmitted: false, message: null }, () => {
-      if (type === 'login') {
-        this.inputEmail.focus();
-      } else {
-        this.inputName.focus();
-      }
+  handleSwitchToRegister = () => {
+    this.setState({ type: 'register', registrationSubmitted: false, message: null }, () => {
+      this.inputName.focus();
+    });
+  }
+
+  handleSwitchToLogin = () => {
+    this.setState({ type: 'login', registrationSubmitted: false, message: null }, () => {
+      this.inputEmail.focus();
     });
   }
 
@@ -516,10 +515,10 @@ class Login extends React.Component {
             subheaderText
           />
 
-          {this.state.type === 'login' ?
+          {this.state.type === 'login' ? (
             <BigButton
-              id="register-or-login"
-              onClick={this.handleSwitchType.bind(this)}
+              id="register"
+              onClick={this.handleSwitchToRegister}
               icon={<MDEmail style={{ color: black54 }} />}
               headerText={
                 <FormattedMessage
@@ -529,10 +528,10 @@ class Login extends React.Component {
               }
               subheaderText={false}
             />
-            :
+          ) : (
             <BigButton
-              id="register-or-login"
-              onClick={this.handleSwitchType.bind(this)}
+              id="register"
+              onClick={this.handleSwitchToLogin}
               icon={<MDEmail style={{ color: black54 }} />}
               headerText={
                 <FormattedMessage
@@ -541,7 +540,8 @@ class Login extends React.Component {
                 />
               }
               subheaderText={false}
-            />}
+            />
+          )}
         </BigButtons>
       </div>
     );

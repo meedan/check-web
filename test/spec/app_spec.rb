@@ -148,14 +148,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
         caps = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { prefs: { 'intl.accept_languages' => 'fr' } })
         driver = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: caps)
         driver.navigate.to @config['self_url']
-        @wait.until { driver.find_element(:id, "register-or-login") }
+        @wait.until { driver.find_element(:id, "register") }
         expect(driver.find_element(:css, '.login__heading span').text == 'Connexion').to be(true)
         driver.quit
 
         caps = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { prefs: { 'intl.accept_languages' => 'pt' } })
         driver = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: caps)
         driver.navigate.to @config['self_url']
-        @wait.until { driver.find_element(:id, "register-or-login") }
+        @wait.until { driver.find_element(:id, "register") }
         expect(driver.find_element(:css, '.login__heading span').text == 'Entrar').to be(true)
         driver.quit
       end
@@ -625,7 +625,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should upload image when registering", bin3: true do
       @driver.navigate.to @config['self_url']
       wait_for_selector(".login__form")
-      wait_for_selector("#register-or-login").click
+      wait_for_selector("#register").click
       wait_for_selector(".without-file")
       fill_field('.login__name input', 'User With Email')
       fill_field('.login__email input', @email)
