@@ -478,7 +478,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector(".date-range__end-date input").click
       wait_for_selector("//span[contains(text(), 'OK')]", :xpath).click
       wait_for_selector_none("body>div[role=dialog]")  # wait for mui-picker background to fade away
-      wait_for_selector("#search-query__submit-button").click
+      wait_for_selector("#search-query__submit-button:not(:disabled)").click
       wait_for_selector_none(".medias__item",:css, 10)
       expect(@driver.page_source.include?('My search result')).to be(false)
     end
