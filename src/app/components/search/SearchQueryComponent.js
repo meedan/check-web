@@ -107,7 +107,6 @@ const StyledSearchFiltersSection = styled.section`
 const StyledFilterRow = swallowingStyled(Row, { swallowProps: ['isRtl'] })`
   min-height: ${units(5)};
   margin-bottom: ${units(2)};
-  flex-wrap: wrap;
 
   h4 {
     text-transform: uppercase;
@@ -115,6 +114,7 @@ const StyledFilterRow = swallowingStyled(Row, { swallowProps: ['isRtl'] })`
     margin: 0;
     min-width: ${units(6)};
     margin-${props => (props.isRtl ? 'left' : 'right')}: ${units(2)};
+    line-height: ${units(4 /* eyeballing it */)};
   }
 
   ${mediaQuery.tablet`
@@ -303,10 +303,8 @@ class SearchQueryComponent extends React.Component {
   }
 
   handleDateChange = (value) => {
-    const query = Object.assign({}, this.state.query);
-    query.range = value;
-    this.setState({ query });
-  };
+    this.setState({ query: { ...this.state.query, range: value } });
+  }
 
   handleStatusClick(statusCode) {
     const query = Object.assign({}, this.state.query);
