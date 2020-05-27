@@ -378,7 +378,7 @@ class SearchResultsComponent extends React.PureComponent {
                 selectedMedia={selectedProjectMediaIds}
                 onUnselectAll={this.onUnselectAll}
               /> : null}
-            title={
+            title={count ?
               <span className="search__results-heading">
                 <Tooltip title={
                   <FormattedMessage id="search.previousPage" defaultMessage="Previous page" />
@@ -400,7 +400,7 @@ class SearchResultsComponent extends React.PureComponent {
                 <span className="search__count">
                   <FormattedMessage
                     id="searchResults.itemsCount"
-                    defaultMessage="{count, plural, =0 {&nbsp;} one {1 / 1} other {{from} - {to} / #}}"
+                    defaultMessage="{count, plural, one {1 / 1} other {{from} - {to} / #}}"
                     values={{
                       from: this.beginIndex + 1,
                       to: this.endIndex,
@@ -411,7 +411,7 @@ class SearchResultsComponent extends React.PureComponent {
                     <span>&nbsp;
                       <FormattedMessage
                         id="searchResults.withSelection"
-                        defaultMessage="{selectedCount, plural, =0 {} one {(1 selected)} other {(# selected)}}"
+                        defaultMessage="{selectedCount, plural, one {(1 selected)} other {(# selected)}}"
                         values={{
                           selectedCount: selectedProjectMediaIds.length,
                         }}
@@ -433,7 +433,7 @@ class SearchResultsComponent extends React.PureComponent {
                     </span>
                   )}
                 </Tooltip>
-              </span>
+              </span> : null
             }
             project={project}
             page={this.props.page}
