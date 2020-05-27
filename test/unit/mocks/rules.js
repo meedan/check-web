@@ -1,7 +1,7 @@
 const rules = [
   {
     name: 'Rule 1',
-    created_at: parseInt(new Date().getTime() / 1000, 10),
+    updated_at: parseInt(new Date().getTime() / 1000, 10),
     rules: {
       operator: 'and',
       groups: [
@@ -42,7 +42,7 @@ const rules = [
   },
   {
     name: 'Rule 2',
-    created_at: parseInt(new Date().getTime() / 1000, 10),
+    updated_at: parseInt(new Date().getTime() / 1000, 10),
     rules: {
       operator: 'or',
       groups: [
