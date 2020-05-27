@@ -4,6 +4,7 @@ import { FormattedMessage, FormattedHTMLMessage, defineMessages, injectIntl, int
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import Paper from '@material-ui/core/Paper';
 import Popper from '@material-ui/core/Popper';
@@ -31,7 +32,6 @@ import {
   checkBlue,
   highlightOrange,
   Row,
-  ContentColumn,
   units,
   caption,
   borderWidthLarge,
@@ -489,13 +489,6 @@ class SearchQueryComponent extends React.Component {
     this.setState({ query: newQuery });
   }
 
-  handleKeyPress = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      this.handleApplyFilters();
-    }
-  }
-
   handleSubmit = (ev) => {
     ev.preventDefault();
     this.handleApplyFilters();
@@ -509,16 +502,16 @@ class SearchQueryComponent extends React.Component {
     this.setState({ isPopperClosed: true });
   }
 
-  cancelFilters() {
+  handleClickCancel = () => {
     const { query } = this.props;
     this.setState({ dialogOpen: false, query });
   }
 
-  resetFiltersAndApply = () => {
+  handleClickClear = () => {
     this.props.onChange({});
   }
 
-  resetFilters = () => {
+  handleClickReset = () => {
     this.setState({ query: {} });
   }
 
@@ -605,7 +598,6 @@ class SearchQueryComponent extends React.Component {
               active={this.keywordIsActive()}
               defaultValue={this.state.query.keyword || ''}
               isRtl={isRtl}
-              onKeyPress={this.handleKeyPress}
               onBlur={this.handleBlur}
               onChange={this.handleInputChange}
               ref={this.searchInput}
@@ -658,7 +650,7 @@ class SearchQueryComponent extends React.Component {
           </Button>
           { (this.filterIsActive() || this.keywordIsActive()) ?
             <Tooltip title={this.props.intl.formatMessage(messages.clear)}>
-              <IconButton id="search-query__clear-button" onClick={this.resetFiltersAndApply}>
+              <IconButton id="search-query__clear-button" onClick={this.handleClickClear}>
                 <ClearIcon style={{ color: highlightOrange }} />
               </IconButton>
             </Tooltip>
@@ -668,225 +660,221 @@ class SearchQueryComponent extends React.Component {
         <PageTitle prefix={title} skipTeam={false} team={this.props.team}>
           <Dialog
             className="search__query-dialog"
-            maxWidth="md"
+            maxWidth="sm"
             fullWidth
             scroll="paper"
             open={this.state.dialogOpen}
             onClose={this.handleDialogClose}
           >
             <DialogContent>
-              <ContentColumn>
-                <StyledSearchFiltersSection>
-                  <DateRangeFilter
-                    hidden={!this.showField('date')}
-                    onChange={this.handleDateChange}
-                    value={this.state.query.range}
-                  />
-                  {this.showField('status') ?
-                    <StyledFilterRow isRtl={isRtl}>
-                      <h4><FormattedMessage id="search.statusHeading" defaultMessage="Status" /></h4>
-                      {statuses.map(status => (
-                        <StyledFilterChip
-                          id={`search-query__status-${status.id}`}
-                          active={this.statusIsSelected(status.id)}
-                          key={status.id}
-                          title={status.description}
-                          onClick={this.handleStatusClick.bind(this, status.id)}
-                          className={bemClass(
-                            'search-query__filter-button',
-                            this.statusIsSelected(status.id),
-                            '--selected',
-                          )}
-                        >
-                          {status.label}
-                        </StyledFilterChip>))}
-                    </StyledFilterRow>
-                    : null}
-
-                  {this.showField('project') ?
-                    <StyledFilterRow>
-                      <h4>
-                        <FormattedMessage id="search.projectHeading" defaultMessage="List" />
-                      </h4>
-                      {projects.map(project => (
-                        <StyledFilterChip
-                          active={this.projectIsSelected(project.node.dbid)}
-                          key={project.node.dbid}
-                          onClick={this.handleProjectClick.bind(this, project.node.dbid)}
-                          className={bemClass(
-                            'search-filter__project-chip',
-                            this.projectIsSelected(project.node.dbid),
-                            '--selected',
-                          )}
-                        >
-                          {project.node.title}
-                        </StyledFilterChip>))}
-                    </StyledFilterRow>
-                    : null}
-
-                  {this.showField('tags') && suggestedTags.length ?
-                    <StyledFilterRow>
-                      <h4>
-                        <FormattedMessage id="status.categoriesHeading" defaultMessage="Default Tags" />
-                      </h4>
-                      {suggestedTags.map(tag => (
-                        <StyledFilterChip
-                          active={this.tagIsSelected(tag)}
-                          key={tag}
-                          title={null}
-                          onClick={this.handleTagClick.bind(this, tag)}
-                          className={bemClass(
-                            'search-query__filter-button',
-                            this.tagIsSelected(tag),
-                            '--selected',
-                          )}
-                        >
-                          {tag}
-                        </StyledFilterChip>))}
-                    </StyledFilterRow>
-                    : null}
-
-                  {this.showField('show') ?
-                    <StyledFilterRow className="search-query__sort-actions">
-                      <h4><FormattedMessage id="search.show" defaultMessage="Type" /></h4>
+              <StyledSearchFiltersSection>
+                <DateRangeFilter
+                  hidden={!this.showField('date')}
+                  onChange={this.handleDateChange}
+                  value={this.state.query.range}
+                />
+                {this.showField('status') ?
+                  <StyledFilterRow isRtl={isRtl}>
+                    <h4><FormattedMessage id="search.statusHeading" defaultMessage="Status" /></h4>
+                    {statuses.map(status => (
                       <StyledFilterChip
-                        active={this.showIsSelected('claims')}
-                        onClick={this.handleShowClick.bind(this, 'claims')}
+                        id={`search-query__status-${status.id}`}
+                        active={this.statusIsSelected(status.id)}
+                        key={status.id}
+                        title={status.description}
+                        onClick={this.handleStatusClick.bind(this, status.id)}
                         className={bemClass(
                           'search-query__filter-button',
-                          this.showIsSelected('claims'),
+                          this.statusIsSelected(status.id),
                           '--selected',
                         )}
                       >
-                        <FormattedMessage id="search.showClaims" defaultMessage="Texts" />
-                      </StyledFilterChip>
+                        {status.label}
+                      </StyledFilterChip>))}
+                  </StyledFilterRow>
+                  : null}
+
+                {this.showField('project') ?
+                  <StyledFilterRow>
+                    <h4>
+                      <FormattedMessage id="search.projectHeading" defaultMessage="List" />
+                    </h4>
+                    {projects.map(project => (
                       <StyledFilterChip
-                        active={this.showIsSelected('links')}
-                        onClick={this.handleShowClick.bind(this, 'links')}
+                        active={this.projectIsSelected(project.node.dbid)}
+                        key={project.node.dbid}
+                        onClick={this.handleProjectClick.bind(this, project.node.dbid)}
                         className={bemClass(
-                          'search-query__filter-button',
-                          this.showIsSelected('links'),
+                          'search-filter__project-chip',
+                          this.projectIsSelected(project.node.dbid),
                           '--selected',
                         )}
                       >
-                        <FormattedMessage id="search.showLinks" defaultMessage="Links" />
-                      </StyledFilterChip>
+                        {project.node.title}
+                      </StyledFilterChip>))}
+                  </StyledFilterRow>
+                  : null}
+
+                {this.showField('tags') && suggestedTags.length ?
+                  <StyledFilterRow>
+                    <h4>
+                      <FormattedMessage id="status.categoriesHeading" defaultMessage="Default Tags" />
+                    </h4>
+                    {suggestedTags.map(tag => (
                       <StyledFilterChip
-                        active={this.showIsSelected('images')}
-                        onClick={this.handleShowClick.bind(this, 'images')}
+                        active={this.tagIsSelected(tag)}
+                        key={tag}
+                        title={null}
+                        onClick={this.handleTagClick.bind(this, tag)}
                         className={bemClass(
                           'search-query__filter-button',
-                          this.showIsSelected('images'),
+                          this.tagIsSelected(tag),
                           '--selected',
                         )}
                       >
-                        <FormattedMessage id="search.showImages" defaultMessage="Images" />
-                      </StyledFilterChip>
-                      <StyledFilterChip
-                        active={this.showIsSelected('videos')}
-                        onClick={this.handleShowClick.bind(this, 'videos')}
-                        className={bemClass(
-                          'search-query__filter-button',
-                          this.showIsSelected('videos'),
-                          '--selected',
-                        )}
-                      >
-                        <FormattedMessage id="search.showVideos" defaultMessage="Videos" />
-                      </StyledFilterChip>
-                    </StyledFilterRow>
-                    : null}
+                        {tag}
+                      </StyledFilterChip>))}
+                  </StyledFilterRow>
+                  : null}
 
-                  {this.showField('dynamic') ?
-                    (Object.keys(team.dynamic_search_fields_json_schema.properties).map((key) => {
-                      if (key === 'sort') {
-                        return null;
-                      }
-
-                      const annotationType = team.dynamic_search_fields_json_schema.properties[key];
-
-                      const fields = [];
-
-                      if (annotationType.type === 'array') {
-                        // #8220 remove "spam" until we get real values for it.
-                        annotationType.items.enum.filter(value => value !== 'spam').forEach((value, i) => {
-                          const label = annotationType.items.enumNames[i];
-                          const option = (
-                            <StyledFilterChip
-                              key={`dynamic-field-${key}-option-${value}`}
-                              active={this.dynamicIsSelected(key, value)}
-                              onClick={this.handleDynamicClick.bind(this, key, value)}
-                              className={bemClass(
-                                'search-query__filter-button',
-                                this.dynamicIsSelected(key, value),
-                                '--selected',
-                              )}
-                            >
-                              <span>{label}</span>
-                            </StyledFilterChip>
-                          );
-                          fields.push(option);
-                        });
-                      }
-
-                      return (
-                        <StyledFilterRow key={`dynamic-field-${key}`} className="search-query__dynamic">
-                          <h4>{annotationType.title}</h4>
-                          {fields}
-                        </StyledFilterRow>
-                      );
-                    }))
-                    : null}
-
-                  {hasRules && this.showField('rules') && currentUser.is_admin ?
-                    <StyledFilterRow className="search-query__sort-actions">
-                      <h4><FormattedMessage id="search.rules" defaultMessage="Rules" /></h4>
-                      {Object
-                        .keys(team.rules_search_fields_json_schema.properties.rules.properties)
-                        .map((id) => {
-                          const label = team.rules_search_fields_json_schema.properties
-                            .rules.properties[id].title;
-                          return (
-                            <StyledFilterChip
-                              key={id}
-                              active={this.ruleIsSelected(id)}
-                              onClick={this.handleRuleClick.bind(this, id)}
-                              className={bemClass(
-                                'search-query__filter-button',
-                                this.ruleIsSelected(id),
-                                '--selected',
-                              )}
-                            >
-                              {label}
-                            </StyledFilterChip>
-                          );
-                        })
-                      }
-                    </StyledFilterRow> : null}
-
-                  <p style={{ textAlign: 'right' }}>
-                    <Button
-                      id="search-query__cancel-button"
-                      onClick={this.cancelFilters.bind(this)}
+                {this.showField('show') ?
+                  <StyledFilterRow className="search-query__sort-actions">
+                    <h4><FormattedMessage id="search.show" defaultMessage="Type" /></h4>
+                    <StyledFilterChip
+                      active={this.showIsSelected('claims')}
+                      onClick={this.handleShowClick.bind(this, 'claims')}
+                      className={bemClass(
+                        'search-query__filter-button',
+                        this.showIsSelected('claims'),
+                        '--selected',
+                      )}
                     >
-                      {this.props.intl.formatMessage(messages.cancel)}
-                    </Button>
-
-                    <Button id="search-query__reset-button" onClick={this.resetFilters}>
-                      {this.props.intl.formatMessage(messages.reset)}
-                    </Button>
-
-                    <Button
-                      id="search-query__submit-button"
-                      onClick={this.handleApplyFilters.bind(this)}
-                      disabled={this.doneButtonDisabled()}
-                      color="primary"
+                      <FormattedMessage id="search.showClaims" defaultMessage="Texts" />
+                    </StyledFilterChip>
+                    <StyledFilterChip
+                      active={this.showIsSelected('links')}
+                      onClick={this.handleShowClick.bind(this, 'links')}
+                      className={bemClass(
+                        'search-query__filter-button',
+                        this.showIsSelected('links'),
+                        '--selected',
+                      )}
                     >
-                      {this.props.intl.formatMessage(messages.applyFilters)}
-                    </Button>
-                  </p>
-                </StyledSearchFiltersSection>
-              </ContentColumn>
+                      <FormattedMessage id="search.showLinks" defaultMessage="Links" />
+                    </StyledFilterChip>
+                    <StyledFilterChip
+                      active={this.showIsSelected('images')}
+                      onClick={this.handleShowClick.bind(this, 'images')}
+                      className={bemClass(
+                        'search-query__filter-button',
+                        this.showIsSelected('images'),
+                        '--selected',
+                      )}
+                    >
+                      <FormattedMessage id="search.showImages" defaultMessage="Images" />
+                    </StyledFilterChip>
+                    <StyledFilterChip
+                      active={this.showIsSelected('videos')}
+                      onClick={this.handleShowClick.bind(this, 'videos')}
+                      className={bemClass(
+                        'search-query__filter-button',
+                        this.showIsSelected('videos'),
+                        '--selected',
+                      )}
+                    >
+                      <FormattedMessage id="search.showVideos" defaultMessage="Videos" />
+                    </StyledFilterChip>
+                  </StyledFilterRow>
+                  : null}
+
+                {this.showField('dynamic') ?
+                  (Object.keys(team.dynamic_search_fields_json_schema.properties).map((key) => {
+                    if (key === 'sort') {
+                      return null;
+                    }
+
+                    const annotationType = team.dynamic_search_fields_json_schema.properties[key];
+
+                    const fields = [];
+
+                    if (annotationType.type === 'array') {
+                      // #8220 remove "spam" until we get real values for it.
+                      annotationType.items.enum.filter(value => value !== 'spam').forEach((value, i) => {
+                        const label = annotationType.items.enumNames[i];
+                        const option = (
+                          <StyledFilterChip
+                            key={`dynamic-field-${key}-option-${value}`}
+                            active={this.dynamicIsSelected(key, value)}
+                            onClick={this.handleDynamicClick.bind(this, key, value)}
+                            className={bemClass(
+                              'search-query__filter-button',
+                              this.dynamicIsSelected(key, value),
+                              '--selected',
+                            )}
+                          >
+                            <span>{label}</span>
+                          </StyledFilterChip>
+                        );
+                        fields.push(option);
+                      });
+                    }
+
+                    return (
+                      <StyledFilterRow key={`dynamic-field-${key}`} className="search-query__dynamic">
+                        <h4>{annotationType.title}</h4>
+                        {fields}
+                      </StyledFilterRow>
+                    );
+                  }))
+                  : null}
+
+                {hasRules && this.showField('rules') && currentUser.is_admin ? (
+                  <StyledFilterRow className="search-query__sort-actions">
+                    <h4><FormattedMessage id="search.rules" defaultMessage="Rules" /></h4>
+                    {Object
+                      .keys(team.rules_search_fields_json_schema.properties.rules.properties)
+                      .map((id) => {
+                        const label = team.rules_search_fields_json_schema.properties
+                          .rules.properties[id].title;
+                        return (
+                          <StyledFilterChip
+                            key={id}
+                            active={this.ruleIsSelected(id)}
+                            onClick={this.handleRuleClick.bind(this, id)}
+                            className={bemClass(
+                              'search-query__filter-button',
+                              this.ruleIsSelected(id),
+                              '--selected',
+                            )}
+                          >
+                            {label}
+                          </StyledFilterChip>
+                        );
+                      })
+                    }
+                  </StyledFilterRow>
+                ) : null}
+              </StyledSearchFiltersSection>
             </DialogContent>
+            <DialogActions>
+              <Button id="search-query__cancel-button" onClick={this.handleClickCancel}>
+                {this.props.intl.formatMessage(messages.cancel)}
+              </Button>
+
+              <Button id="search-query__reset-button" onClick={this.handleClickReset}>
+                {this.props.intl.formatMessage(messages.reset)}
+              </Button>
+
+              <Button
+                id="search-query__submit-button"
+                type="submit"
+                form="search-form"
+                disabled={this.doneButtonDisabled()}
+                color="primary"
+              >
+                {this.props.intl.formatMessage(messages.applyFilters)}
+              </Button>
+            </DialogActions>
           </Dialog>
         </PageTitle>
       </div>
