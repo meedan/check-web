@@ -7,6 +7,7 @@ import Relay from 'react-relay/classic';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Tooltip from '@material-ui/core/Tooltip';
 import WarningIcon from '@material-ui/icons/Warning';
+import { stringHelper } from '../../customHelpers';
 
 function BrokenLink() {
   return (
@@ -21,8 +22,8 @@ function Error({ message }) {
     <Tooltip title={
       <FormattedMessage
         id="mediaSearch.error"
-        defaultMessage="Error from server: {message}"
-        values={{ message }}
+        defaultMessage="Sorry, the following error occurred: {message}. Please refresh the item to try again and contact {supportEmail} if the condition persists."
+        values={{ message, supportEmail: stringHelper('SUPPORT_EMAIL') }}
       />
     }
     >
