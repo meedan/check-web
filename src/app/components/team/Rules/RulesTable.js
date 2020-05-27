@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
 export default function RulesTable(props) {
   const { rules } = props;
   const rows = rules.map((rule, index) => (
-    { name: rule.name, created_at: rule.created_at, index }
+    { name: rule.name, updated_at: rule.updated_at, index }
   ));
 
   const classes = useStyles();
@@ -60,7 +60,7 @@ export default function RulesTable(props) {
     const updatedRules = rules.slice(0);
     const newRule = {
       name: '',
-      created_at: null,
+      updated_at: null,
       rules: {
         operator: 'and',
         groups: [
@@ -121,7 +121,7 @@ export default function RulesTable(props) {
                 const isItemSelected = isSelected(index);
                 const labelId = `rules-table-checkbox-${index}`;
                 const { name } = row;
-                const date = new Date(row.created_at * 1000);
+                const date = new Date(row.updated_at * 1000);
 
                 return (
                   <TableRow

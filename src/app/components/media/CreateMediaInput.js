@@ -138,15 +138,19 @@ class CreateMediaInput extends React.Component {
   handleKeyPress = (ev) => {
     if (ev.key === 'Enter' && !ev.shiftKey) {
       ev.preventDefault();
-      this.handleSubmit();
+      this.callOnSubmit();
     }
   };
 
   handleSubmit = (ev) => {
+    ev.preventDefault();
+    ev.stopPropagation();
+    this.callOnSubmit();
+  }
+
+  callOnSubmit() {
     const value = this.getMediaInputValue();
     if (!value) {
-      ev.preventDefault();
-      ev.stopPropagation();
       return;
     }
 
@@ -155,7 +159,7 @@ class CreateMediaInput extends React.Component {
     if (this.props.onSubmit) {
       this.props.onSubmit(value);
     }
-  };
+  }
 
   handleTabChange = (e, mode) => {
     this.setState({ mode });
@@ -265,7 +269,7 @@ class CreateMediaInput extends React.Component {
 
         <form
           name="media"
-          id="media-url-container"
+          id={this.props.formId /* so outsiders can write <button type="submit" form="...id"> */}
           className="create-media__form"
           ref={this.props.formRef}
           onSubmit={this.handleSubmit}

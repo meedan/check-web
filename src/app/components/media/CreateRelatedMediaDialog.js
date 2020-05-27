@@ -35,24 +35,20 @@ class CreateRelatedMediaDialog extends React.Component {
 
   handleSelectExisting = (selectedId) => {
     this.setState({ selectedId });
-  };
+  }
 
-  handleSubmit = () => {
+  handleSubmitExisting = () => {
     if (this.props.onSelect && this.state.selectedId) {
       this.props.onSelect(this.state.selectedId);
-      return;
     }
+  }
 
-    if (this.formRef.current) {
-      this.formRef.current.dispatchEvent(new Event('submit')); // ick
-    }
-  };
-
-  submitDisabled = () => (this.state.mode === 'existing' && !this.state.selectedId);
+  submitExistingDisabled = () => !this.state.selectedId
 
   render() {
     const { mode } = this.state;
     const { media } = this.props;
+    const formId = 'create-related-media-dialog-form';
 
     return (
       <Dialog open={this.props.open} fullWidth>
@@ -80,7 +76,7 @@ class CreateRelatedMediaDialog extends React.Component {
           { mode === 'new' &&
             <CreateMediaInput
               message={this.props.message}
-              formRef={this.formRef}
+              formId={formId}
               isSubmitting={this.props.isSubmitting}
               onSubmit={this.props.onSubmit}
               noSource
@@ -100,14 +96,26 @@ class CreateRelatedMediaDialog extends React.Component {
           <Button id="create-media-dialog__dismiss-button" onClick={this.props.onDismiss}>
             {this.props.intl.formatMessage(globalStrings.cancel)}
           </Button>
-          <Button
-            id="create-media-dialog__submit-button"
-            color="primary"
-            onClick={this.handleSubmit}
-            disabled={this.submitDisabled()}
-          >
-            {this.props.intl.formatMessage(globalStrings.submit)}
-          </Button>
+          { mode === 'new' &&
+            <Button
+              type="submit"
+              id="create-media-dialog__submit-button"
+              color="primary"
+              form={formId}
+            >
+              <FormattedMessage {...globalStrings.submit} />
+            </Button>
+          }
+          { mode === 'existing' &&
+            <Button
+              id="create-media-dialog__submit-button"
+              color="primary"
+              onClick={this.handleSubmitExisting}
+              disabled={this.submitExistingDisabled()}
+            >
+              <FormattedMessage {...globalStrings.submit} />
+            </Button>
+          }
         </DialogActions>
       </Dialog>
     );

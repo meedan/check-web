@@ -7,16 +7,14 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
-import { black54 } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   paper: {
     width: '100%',
     padding: theme.spacing(2),
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
     boxShadow: 'none',
-    border: `2px solid ${black54}`,
   },
 }));
 

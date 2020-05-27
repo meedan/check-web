@@ -4,8 +4,9 @@ import { FormattedMessage } from 'react-intl';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
-import { checkBlue, inProgressYellow } from '../../../styles/js/shared';
+import { checkBlue, inProgressYellow, opaqueBlack23 } from '../../../styles/js/shared';
 import RuleOperatorWrapper from './RuleOperatorWrapper';
 import RuleField from './RuleField';
 
@@ -33,6 +34,12 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     textTransform: 'uppercase',
+  },
+  box: {
+    border: `2px solid ${opaqueBlack23}`,
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+    borderRadius: 4,
   },
 }));
 
@@ -141,7 +148,7 @@ const RuleBody = (props) => {
                   const conditionalField = getConditionalField(conditions, 'rule_definition', condition.rule_definition);
 
                   return (
-                    <React.Fragment key={Math.random().toString().substring(2, 10)}>
+                    <Box key={Math.random().toString().substring(2, 10)} className={classes.box}>
                       <RuleField
                         definition={rulesDefinition}
                         value={condition.rule_definition}
@@ -160,7 +167,7 @@ const RuleBody = (props) => {
                             props.onUpdateRule(rule);
                           }}
                         /> : null }
-                    </React.Fragment>
+                    </Box>
                   );
                 })}
               </RuleOperatorWrapper>
@@ -195,7 +202,7 @@ const RuleBody = (props) => {
             const actionsDefinition = actions.properties.action_definition;
             const conditionalField = getConditionalField(actions.allOf, 'action_definition', action.action_definition);
             return (
-              <React.Fragment key={Math.random().toString().substring(2, 10)}>
+              <Box key={Math.random().toString().substring(2, 10)} className={classes.box}>
                 <RuleField
                   definition={actionsDefinition}
                   value={action.action_definition}
@@ -214,7 +221,7 @@ const RuleBody = (props) => {
                       props.onUpdateRule(rule);
                     }}
                   /> : null }
-              </React.Fragment>
+              </Box>
             );
           })}
         </RuleOperatorWrapper>

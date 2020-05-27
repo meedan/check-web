@@ -4,8 +4,8 @@
     "defaultMessage": "Name"
   },
   {
-    "id": "rulesTableHead.created",
-    "defaultMessage": "Created"
+    "id": "rulesTableHead.updated",
+    "defaultMessage": "Updated"
   },
   {
     "id": "rulesTableHead.selectAll",

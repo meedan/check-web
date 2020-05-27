@@ -12,25 +12,19 @@ import globalStrings from '../../globalStrings';
 export default function CreateMediaDialog({
   open, title, onSubmit, onDismiss,
 }) {
-  const formRef = React.useRef(null);
-  const handleClickSubmit = React.useCallback(() => {
-    if (!formRef.current) {
-      return;
-    }
-    formRef.current.dispatchEvent(new Event('submit')); // ick
-  }, [formRef.current]);
+  const formId = 'create-media-dialog-form';
 
   return (
     <Dialog open={open} fullWidth>
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>
-        <CreateMediaInput formRef={formRef} onSubmit={onSubmit} />
+        <CreateMediaInput formId={formId} onSubmit={onSubmit} />
       </DialogContent>
       <DialogActions>
         <Button id="create-media-dialog__dismiss-button" onClick={onDismiss}>
           <FormattedMessage {...globalStrings.cancel} />
         </Button>
-        <Button id="create-media-dialog__submit-button" onClick={handleClickSubmit} color="primary">
+        <Button type="submit" form={formId} id="create-media-dialog__submit-button" color="primary">
           <FormattedMessage {...globalStrings.submit} />
         </Button>
       </DialogActions>
@@ -40,4 +34,6 @@ export default function CreateMediaDialog({
 CreateMediaDialog.propTypes = {
   open: PropTypes.bool.isRequired,
   title: PropTypes.node.isRequired, // <FormattedMessage>
+  onSubmit: PropTypes.func.isRequired, // func({ ... }) => undefined
+  onDismiss: PropTypes.func.isRequired, // func() => undefined
 };

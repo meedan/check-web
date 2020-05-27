@@ -15,7 +15,7 @@ const Rule = (props) => {
   const propRule = JSON.parse(JSON.stringify(props.rules[props.index]));
   const [index, setIndex] = React.useState(props.index);
   const [rule, setRule] = React.useState(propRule);
-  const [savedRule, setSavedRule] = React.useState(propRule.created_at ? propRule : null);
+  const [savedRule, setSavedRule] = React.useState(propRule.updated_at ? propRule : null);
 
   React.useEffect(() => {
     setIndex(props.index);
@@ -40,9 +40,7 @@ const Rule = (props) => {
 
   const handleSave = () => {
     const updatedRule = JSON.parse(JSON.stringify(rule));
-    if (!updatedRule.created_at) {
-      updatedRule.created_at = parseInt(new Date().getTime() / 1000, 10);
-    }
+    updatedRule.updated_at = parseInt(new Date().getTime() / 1000, 10);
     const rules = props.rules.slice(0);
     rules[index] = updatedRule;
     setRule(updatedRule);
@@ -54,9 +52,9 @@ const Rule = (props) => {
   const handleDuplicateRule = () => {
     const rules = props.rules.slice(0);
     const dupRule = JSON.parse(JSON.stringify(rule));
-    if (dupRule.created_at) {
+    if (dupRule.updated_at) {
       dupRule.name = props.intl.formatMessage(messages.copyOf, { ruleName: rule.name });
-      dupRule.created_at = parseInt(new Date().getTime() / 1000, 10);
+      dupRule.updated_at = parseInt(new Date().getTime() / 1000, 10);
       rules.push(dupRule);
       const newIndex = rules.length - 1;
       setSavedRule(dupRule);
@@ -83,7 +81,7 @@ const Rule = (props) => {
     <React.Fragment>
       <RuleToolbar
         unsavedChanges={JSON.stringify(rule) !== JSON.stringify(savedRule)}
-        actionsDisabled={!rule.created_at}
+        actionsDisabled={!rule.updated_at}
         onGoBack={handleGoBack}
         onSave={handleSave}
         onDuplicateRule={handleDuplicateRule}
