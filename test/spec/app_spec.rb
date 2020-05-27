@@ -1,5 +1,4 @@
 require 'selenium-webdriver'
-require 'appium_lib'
 require 'yaml'
 require_relative './spec_helper.rb'
 require_relative './app_spec_helpers.rb'
@@ -144,21 +143,19 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should localize interface based on browser language", bin6: true do
-      unless browser_capabilities['appiumVersion']
-        caps = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { prefs: { 'intl.accept_languages' => 'fr' } })
-        driver = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: caps)
-        driver.navigate.to @config['self_url']
-        @wait.until { driver.find_element(:id, "register") }
-        expect(driver.find_element(:css, '.login__heading span').text == 'Connexion').to be(true)
-        driver.quit
+      caps = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { prefs: { 'intl.accept_languages' => 'fr' } })
+      driver = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: caps)
+      driver.navigate.to @config['self_url']
+      @wait.until { driver.find_element(:id, "register") }
+      expect(driver.find_element(:css, '.login__heading span').text == 'Connexion').to be(true)
+      driver.quit
 
-        caps = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { prefs: { 'intl.accept_languages' => 'pt' } })
-        driver = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: caps)
-        driver.navigate.to @config['self_url']
-        @wait.until { driver.find_element(:id, "register") }
-        expect(driver.find_element(:css, '.login__heading span').text == 'Entrar').to be(true)
-        driver.quit
-      end
+      caps = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { prefs: { 'intl.accept_languages' => 'pt' } })
+      driver = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: caps)
+      driver.navigate.to @config['self_url']
+      @wait.until { driver.find_element(:id, "register") }
+      expect(driver.find_element(:css, '.login__heading span').text == 'Entrar').to be(true)
+      driver.quit
     end
 
     it "should access user confirmed page", bin5: true do
