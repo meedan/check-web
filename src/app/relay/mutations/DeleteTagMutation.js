@@ -18,7 +18,7 @@ class DeleteTagMutation extends Relay.Mutation {
   getFatQuery() {
     switch (this.props.parent_type) {
     case 'source':
-      return Relay.QL`fragment on DestroyTagPayload { deletedId, source { log, tags, log_count } }`;
+      return Relay.QL`fragment on DestroyTagPayload { deletedId, source { log, log_count } }`;
     case 'project_media':
       return Relay.QL`fragment on DestroyTagPayload { deletedId, project_media { log, tags, log_count } }`;
     default:
