@@ -6,7 +6,6 @@ import Relay from 'react-relay/classic';
 import Button from '@material-ui/core/Button';
 import CreateMediaDialog from './CreateMediaDialog';
 import CreateProjectMediaMutation from '../../relay/mutations/CreateProjectMediaMutation';
-import CreateProjectSourceMutation from '../../relay/mutations/CreateProjectSourceMutation';
 import CheckContext from '../../CheckContext';
 import { stringHelper } from '../../customHelpers';
 import { getErrorObjects, getFilters } from '../../helpers';
@@ -48,33 +47,6 @@ class CreateProjectMedia extends Component {
     }
     this.props.setFlashMessage(message);
   };
-
-  submitSource(value) {
-    const context = new CheckContext(this).getContextStore();
-    const prefix = `/${context.team.slug}/project/${context.project.dbid}/source/`;
-
-    if (!value) {
-      return;
-    }
-
-    this.setState({
-      message: this.props.intl.formatMessage(messages.submitting),
-    });
-
-    const onSuccess = (response) => {
-      const rid = response.createProjectSource.project_source.dbid;
-      browserHistory.push(prefix + rid);
-      this.setState({ message: null });
-    };
-
-    Relay.Store.commitUpdate(
-      new CreateProjectSourceMutation({
-        ...value,
-        project: context.project,
-      }),
-      { onSuccess, onFailure: this.fail },
-    );
-  }
 
   submitMedia(value) {
     const context = new CheckContext(this).getContextStore();
@@ -120,11 +92,7 @@ class CreateProjectMedia extends Component {
   };
 
   handleSubmit = (value) => {
-    if (value && value.mode === 'source') {
-      this.submitSource(value);
-    } else {
-      this.submitMedia(value);
-    }
+    this.submitMedia(value);
   };
 
   render() {

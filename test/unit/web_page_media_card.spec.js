@@ -63,7 +63,6 @@ describe('<WebPageMediaCard />', () => {
       domain: 'idlewords.com',
       project: {},
       project_id: 1,
-      project_source: {},
       language: null,
       language_code: null,
       media: {},

@@ -87,14 +87,6 @@ const MediaUtil = {
     return data.username;
   },
 
-  sourceName(media) {
-    try {
-      return media.project_source.source.name;
-    } catch (e) {
-      return '';
-    }
-  },
-
   mediaType(media) {
     let type = null;
     try {

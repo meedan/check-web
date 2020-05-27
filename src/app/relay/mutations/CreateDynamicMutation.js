@@ -26,17 +26,6 @@ class CreateDynamicMutation extends Relay.Mutation {
           log_count
         }
       }`;
-    case 'project_source':
-      return Relay.QL`fragment on CreateDynamicPayload {
-        dynamicEdge,
-        project_source {
-          source {
-            log,
-            log_count,
-            languages: annotations(annotation_type: "language", first: 10000)
-          }
-        }
-      }`;
     default:
       return '';
     }
