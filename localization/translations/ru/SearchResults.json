@@ -1,6 +1,6 @@
 {
   "search.previousPage": "Previous page",
-  "search.nextPage": "Next page",
   "searchResults.itemsCount": "{count, plural, one {1 / 1} other {{from} - {to} / #}}",
-  "searchResults.withSelection": "{selectedCount, plural, one {(1 selected)} other {(# selected)}}"
+  "searchResults.withSelection": "{selectedCount, plural, one {(1 selected)} other {(# selected)}}",
+  "search.nextPage": "Next page"
 }
