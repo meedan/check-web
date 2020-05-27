@@ -17,7 +17,7 @@ class ProjectPage < Page
   def create_media(options = {})
     wait_for_selector(".project-actions")
     wait_for_selector("#create-media__add-item").click
-    wait_for_selector("#create-media-submit")
+    wait_for_selector("#create-media-input")
     fill_input('#create-media-input', options[:input])
     wait_for_selector('#create-media-dialog__submit-button').click
     wait_for_selector_none("#create-media-input")
