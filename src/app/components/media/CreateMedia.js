@@ -6,7 +6,6 @@ import Relay from 'react-relay/classic';
 import Button from '@material-ui/core/Button';
 import CreateMediaDialog from './CreateMediaDialog';
 import CreateProjectMediaMutation from '../../relay/mutations/CreateProjectMediaMutation';
-import CreateProjectSourceMutation from '../../relay/mutations/CreateProjectSourceMutation';
 import { stringHelper } from '../../customHelpers';
 import { getErrorObjects, getFilters } from '../../helpers';
 import CheckError from '../../CheckError';
@@ -30,7 +29,6 @@ class CreateProjectMedia extends Component {
 
     this.state = {
       dialogOpen: false,
-      message: null,
     };
   }
 
@@ -47,32 +45,6 @@ class CreateProjectMedia extends Component {
     }
     this.props.setFlashMessage(message);
   };
-
-  submitSource(value) {
-    const prefix = `/${this.props.team.slug}/project/${this.props.project.dbid}/source/`;
-
-    if (!value) {
-      return;
-    }
-
-    this.setState({
-      message: this.props.intl.formatMessage(messages.submitting),
-    });
-
-    const onSuccess = (response) => {
-      const rid = response.createProjectSource.project_source.dbid;
-      browserHistory.push(prefix + rid);
-      this.setState({ message: null });
-    };
-
-    Relay.Store.commitUpdate(
-      new CreateProjectSourceMutation({
-        ...value,
-        project: this.props.project,
-      }),
-      { onSuccess, onFailure: this.fail },
-    );
-  }
 
   submitMedia(value) {
     let prefix = null;
@@ -91,7 +63,6 @@ class CreateProjectMedia extends Component {
         const rid = response.createProjectMedia.project_media.dbid;
         browserHistory.push(prefix + rid);
       }
-      this.setState({ message: null });
     };
 
     this.setState({ dialogOpen: false });
@@ -108,7 +79,7 @@ class CreateProjectMedia extends Component {
   }
 
   handleOpenDialog = () => {
-    this.setState({ dialogOpen: true, message: null });
+    this.setState({ dialogOpen: true });
   };
 
   handleCloseDialog = () => {
@@ -116,11 +87,7 @@ class CreateProjectMedia extends Component {
   };
 
   handleSubmit = (value) => {
-    if (value && value.mode === 'source') {
-      this.submitSource(value);
-    } else {
-      this.submitMedia(value);
-    }
+    this.submitMedia(value);
   };
 
   render() {
@@ -133,7 +100,6 @@ class CreateProjectMedia extends Component {
           title={<FormattedMessage id="createMedia.addNewItem" defaultMessage="Add new item" />}
           open={this.state.dialogOpen}
           onDismiss={this.handleCloseDialog}
-          message={this.state.message}
           onSubmit={this.handleSubmit}
         />
       </div>

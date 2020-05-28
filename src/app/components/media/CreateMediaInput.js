@@ -1,12 +1,11 @@
 import React from 'react';
 import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
 import Button from '@material-ui/core/Button';
-import SvgIcon from '@material-ui/core/SvgIcon';
 import TextField from '@material-ui/core/TextField';
-import IconInsertPhoto from '@material-ui/icons/InsertPhoto';
-import Movie from '@material-ui/icons/Movie';
-import IconLink from '@material-ui/icons/Link';
-import MdFormatQuote from 'react-icons/lib/md/format-quote';
+import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
+import MovieIcon from '@material-ui/icons/Movie';
+import FormatQuoteIcon from '@material-ui/icons/FormatQuote';
+import LinkIcon from '@material-ui/icons/Link';
 import styled from 'styled-components';
 import urlRegex from 'url-regex';
 import Message from '../Message';
@@ -21,35 +20,22 @@ import {
   mediaQuery,
 } from '../../styles/js/shared';
 
-const StyledIcon = styled.div`
-  svg {
-    color: ${black38} !important;
-    padding: 0 ${units(0.5)};
-  }
-`;
-
-const StyledTabLabelText = styled.div`
-  font: ${caption};
-  text-transform: none;
-  color: ${black54};
+const StyledTabLabelText = styled.span`
   ${mediaQuery.handheld`
     display: none;
   `}
 `;
 
-const StyledTabLabel = styled(Row)`
-  ${props =>
-    props.active
-      ? `
-      border-radius: ${units(3)};
-      div {
-        color: ${black87} !important;
-        font-weight: 700 !important;
-      }
-      svg {
-        color: ${black87} !important;
-      }`
-      : null}
+const StyledTabLabel = styled.span`
+  display: flex;
+  align-items: center;
+  color: ${props => props.active ? black87 : black54} !important;
+  font: ${caption};
+  text-transform: none;
+  svg {
+    padding: 0 ${units(0.5)};
+    color: ${props => props.active ? black87 : black38} !important;
+  }
 `;
 
 const messages = defineMessages({
@@ -102,12 +88,13 @@ class CreateMediaInput extends React.Component {
         return null;
       }
     } else if (this.state.mode === 'quote') {
-      // TODO Use React ref
-      quote = document.getElementById('create-media-quote-input').value.trim();
+      quote = this.state.textValue.trim();
+      if (!quote) {
+        return null;
+      }
       mediaType = 'Claim';
     } else {
-      // TODO Use React ref
-      inputValue = document.getElementById('create-media-input').value.trim();
+      inputValue = this.state.textValue.trim();
       urls = inputValue.match(urlRegex());
       url = urls && urls[0] ? urls[0] : '';
       mediaType = 'Link';
@@ -154,19 +141,29 @@ class CreateMediaInput extends React.Component {
     this.setState({ message: null });
 
     if (e.key === 'Enter' && !e.shiftKey) {
-      this.handleSubmit();
+      e.preventDefault();
+      this.callOnSubmit();
     }
   };
 
-  handleSubmit = () => {
+  handleSubmit = (ev) => {
+    ev.preventDefault();
+    ev.stopPropagation();
+    this.callOnSubmit();
+  }
+
+  callOnSubmit() {
     const value = this.getMediaInputValue();
+    if (!value) {
+      return;
+    }
 
     this.resetForm();
 
     if (this.props.onSubmit) {
       this.props.onSubmit(value);
     }
-  };
+  }
 
   handleTabChange = (e, mode) => {
     this.setState({ mode, message: null });
@@ -176,26 +173,25 @@ class CreateMediaInput extends React.Component {
   }
 
   handleVideo = (file) => {
-    this.setState({ message: null, submittable: true });
+    this.setState({ message: null });
     document.forms.media.video = file;
   };
 
   handleImage = (file) => {
-    this.setState({ message: null, submittable: true });
+    this.setState({ message: null });
     document.forms.media.image = file;
   };
 
   handleImageError = (file, message) => {
-    this.setState({ message, submittable: false });
+    this.setState({ message });
   };
 
-  handleChange = (e) => {
-    const previousInput = e.target.value;
+  handleChange = (ev) => {
+    const textValue = ev.target.value;
 
     this.setState({
-      previousInput,
+      textValue,
       message: null,
-      submittable: (previousInput && previousInput.trim()),
     });
   };
 
@@ -213,7 +209,7 @@ class CreateMediaInput extends React.Component {
       removeImage.click();
     }
     document.forms.media.image = null;
-    this.setState({ submittable: false, previousInput: null });
+    this.setState({ textValue: null });
   }
 
   renderFormInputs() {
@@ -252,7 +248,7 @@ class CreateMediaInput extends React.Component {
           placeholder={this.props.intl.formatMessage(messages.quoteInput)}
           name="quote"
           id="create-media-quote-input"
-          value={this.state.previousInput}
+          value={this.state.textValue || ''}
           autoFocus
           {...defaultInputProps}
         />,
@@ -266,7 +262,7 @@ class CreateMediaInput extends React.Component {
           placeholder={this.props.intl.formatMessage(messages.mediaInput)}
           name="url"
           id="create-media-input"
-          value={this.state.previousInput}
+          value={this.state.textValue || ''}
           autoFocus
           {...defaultInputProps}
         />,
@@ -275,55 +271,13 @@ class CreateMediaInput extends React.Component {
   }
 
   render() {
-    const styles = {
-      svgIcon: {
-        fontSize: units(3),
-      },
-    };
-
-    const tabLabelLink = (
-      <StyledTabLabel active={this.state.mode === 'link'}>
-        <StyledIcon><IconLink /></StyledIcon>
-        <StyledTabLabelText>
-          <FormattedMessage id="createMedia.link" defaultMessage="Link" />
-        </StyledTabLabelText>
-      </StyledTabLabel>
-    );
-
-    const tabLabelQuote = (
-      <StyledTabLabel active={this.state.mode === 'quote'}>
-        <StyledIcon><SvgIcon style={styles.svgIcon}><MdFormatQuote /></SvgIcon></StyledIcon>
-        <StyledTabLabelText>
-          <FormattedMessage id="createMedia.quote" defaultMessage="Text" />
-        </StyledTabLabelText>
-      </StyledTabLabel>
-    );
-
-    const tabLabelImage = (
-      <StyledTabLabel active={this.state.mode === 'image'}>
-        <StyledIcon><IconInsertPhoto /></StyledIcon>
-        <StyledTabLabelText>
-          <FormattedMessage id="createMedia.image" defaultMessage="Photo" />
-        </StyledTabLabelText>
-      </StyledTabLabel>
-    );
-
-    const tabLabelVideo = (
-      <StyledTabLabel active={this.state.mode === 'video'}>
-        <StyledIcon><Movie /></StyledIcon>
-        <StyledTabLabelText>
-          <FormattedMessage id="createMedia.video" defaultMessage="Video" />
-        </StyledTabLabelText>
-      </StyledTabLabel>
-    );
-
     return (
       <div>
         <Message className="create-media__message" message={this.props.message || this.state.message} />
 
         <form
           name="media"
-          id="media-url-container"
+          id={this.props.formId /* so outsiders can write <button type="submit" form="...id"> */}
           className="create-media__form"
           onSubmit={this.handleSubmit}
         >
@@ -337,33 +291,46 @@ class CreateMediaInput extends React.Component {
                 id="create-media__link"
                 onClick={e => this.handleTabChange(e, 'link')}
               >
-                {tabLabelLink}
+                <StyledTabLabel active={this.state.mode === 'link'}>
+                  <LinkIcon />
+                  <StyledTabLabelText>
+                    <FormattedMessage id="createMedia.link" defaultMessage="Link" />
+                  </StyledTabLabelText>
+                </StyledTabLabel>
               </Button>
               <Button
                 id="create-media__quote"
                 onClick={e => this.handleTabChange(e, 'quote')}
               >
-                {tabLabelQuote}
+                <StyledTabLabel active={this.state.mode === 'quote'}>
+                  <FormatQuoteIcon />
+                  <StyledTabLabelText>
+                    <FormattedMessage id="createMedia.quote" defaultMessage="Text" />
+                  </StyledTabLabelText>
+                </StyledTabLabel>
               </Button>
               <Button
                 id="create-media__image"
                 onClick={e => this.handleTabChange(e, 'image')}
               >
-                {tabLabelImage}
+                <StyledTabLabel active={this.state.mode === 'image'}>
+                  <InsertPhotoIcon />
+                  <StyledTabLabelText>
+                    <FormattedMessage id="createMedia.image" defaultMessage="Photo" />
+                  </StyledTabLabelText>
+                </StyledTabLabel>
               </Button>
               <Button
                 id="create-media__video"
                 onClick={e => this.handleTabChange(e, 'video')}
               >
-                {tabLabelVideo}
+                <StyledTabLabel active={this.state.mode === 'video'}>
+                  <MovieIcon />
+                  <StyledTabLabelText>
+                    <FormattedMessage id="createMedia.video" defaultMessage="Video" />
+                  </StyledTabLabelText>
+                </StyledTabLabel>
               </Button>
-              <Button
-                id="create-media-submit"
-                disabled={!this.state.submittable}
-                onClick={this.handleSubmit}
-                className="create-media__button create-media__button--submit"
-                style={{ display: 'none' }}
-              />
             </Row>
           </div>
         </form>
