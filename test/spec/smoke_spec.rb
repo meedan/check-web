@@ -582,7 +582,6 @@ shared_examples 'smoke' do
     #add a related image
     wait_for_selector('.create-related-media__add-button').click
     wait_for_selector('#create-media__image').click
-    wait_for_selector("#media-url-container")
     wait_for_selector('input[type=file]').send_keys(File.join(File.dirname(__FILE__), 'test.png'))
     wait_for_selector('#create-media-dialog__submit-button').click
     #verify that the image was created
