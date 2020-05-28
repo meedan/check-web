@@ -31,10 +31,7 @@ const AddTeamComponent = (props) => {
   const title = mode === 'find' ? messages.titleFind : messages.titleCreate;
 
   return (
-    <PageTitle
-      prefix={props.intl.formatMessage(title)}
-      skipTeam
-    >
+    <PageTitle prefix={props.intl.formatMessage(title)}>
       <main className="create-team">
         <ContentColumn narrow>
           { mode === 'find' ?

@@ -1,0 +1,10 @@
+[
+  {
+    "id": "mediaSearch.itemWentAway",
+    "defaultMessage": "Not found"
+  },
+  {
+    "id": "mediaSearch.error",
+    "defaultMessage": "Sorry, the following error occurred: {message}. Please refresh the item to try again and contact {supportEmail} if the condition persists."
+  }
+]

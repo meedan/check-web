@@ -1,20 +1,9 @@
 import React from 'react';
-import { injectIntl, defineMessages } from 'react-intl';
-import isEqual from 'lodash.isequal';
+import PropTypes from 'prop-types';
 import SearchResults from './SearchResults';
 import { safelyParseJSON } from '../../helpers';
-import { units } from '../../styles/js/shared';
 
-const statusKey = 'verification_status';
-
-const messages = defineMessages({
-  title: {
-    id: 'search.allClaimsTitle',
-    defaultMessage: 'All items',
-  },
-});
-
-export function searchQueryFromUrlQuery(urlQuery) {
+function searchQueryFromUrlQuery(urlQuery) {
   return safelyParseJSON(decodeURIComponent(urlQuery), {});
 }
 
@@ -28,16 +17,14 @@ export function searchPrefixFromUrl() {
   return queryString ? queryString[0] : null;
 }
 
-export function urlFromSearchQuery(query, path, shouldBeQueryString) {
-  const connector = shouldBeQueryString ? '?query=' : '/';
+export function urlFromSearchQuery(query, path) {
   const prefix = path || searchPrefixFromUrl();
-  return isEqual(query, {}) ? prefix : `${prefix}${connector}${encodeURIComponent(JSON.stringify(query))}`;
+  return Object.keys(query).length === 0 ? prefix : `${prefix}/${encodeURIComponent(JSON.stringify(query))}`;
 }
 
 export function noFilters(query_, project) {
-  const query = query_;
+  const query = { ...query_ };
   delete query.timestamp;
-  delete query.parent;
   if (
     query.projects &&
     (query.projects.length === 0 ||
@@ -47,8 +34,8 @@ export function noFilters(query_, project) {
   ) {
     delete query.projects;
   }
-  if (query[statusKey] && query[statusKey].length === 0) {
-    delete query[statusKey];
+  if (query.verification_status && query.verification_status.length === 0) {
+    delete query.verification_status;
   }
   if (query.sort && query.sort === 'recent_activity') {
     delete query.sort;
@@ -62,49 +49,54 @@ export function noFilters(query_, project) {
   return false;
 }
 
-class Search extends React.Component {
-  shouldComponentUpdate(nextProps) {
-    return !isEqual(this.props, nextProps);
+export default function Search({
+  fields,
+  listActions,
+  listDescription,
+  mediaUrlPrefix,
+  page,
+  teamSlug,
+  project,
+  query,
+  searchUrlPrefix,
+  title,
+}) {
+  let timestampedQuery = query;
+  if (!noFilters(query, project) && Object.keys(query).join('') !== 'archived') {
+    timestampedQuery = { ...query, timestamp: new Date().getTime() };
   }
 
-  noFilters(query_) {
-    return noFilters(query_, this.props.project);
-  }
-
-  render() {
-    const searchQuery = this.props.query || this.props.params.query;
-    const teamSlug = this.props.team || this.props.params.team;
-
-    const query = searchQueryFromUrlQuery(searchQuery);
-    if (!this.noFilters(query) && Object.keys(query).join('') !== 'archived') {
-      query.timestamp = new Date().getTime();
-    }
-    if (this.props.project) {
-      query.parent = { type: 'project', id: this.props.project.dbid };
-      query.projects = [this.props.project.dbid];
-    } else {
-      query.parent = { type: 'team', slug: teamSlug };
-    }
-
-    let title = null;
-    if (/^\/.*\/all-items(\/)?.*/.test(window.location.pathname)) {
-      title = this.props.intl.formatMessage(messages.title);
-    }
-    if (this.props.page === 'trash') {
-      title = this.props.title; // eslint-disable-line prefer-destructuring
-    }
-
-    return (
-      <div className="all-items" style={{ padding: `0 ${units(2)}` }}>
-        <SearchResults
-          {...this.props}
-          listName={title || this.props.listName}
-          title={title}
-          query={query}
-        />
-      </div>
-    );
-  }
+  return (
+    <SearchResults
+      searchUrlPrefix={searchUrlPrefix}
+      mediaUrlPrefix={mediaUrlPrefix}
+      teamSlug={teamSlug}
+      project={project}
+      listActions={listActions}
+      listDescription={listDescription}
+      page={page}
+      fields={fields}
+      title={title}
+      query={timestampedQuery}
+    />
+  );
 }
-
-export default injectIntl(Search);
+Search.defaultProps = {
+  project: null,
+  page: undefined, // FIXME find a cleaner way to render Trash differently
+  fields: undefined,
+  listDescription: undefined,
+  listActions: undefined,
+};
+Search.propTypes = {
+  searchUrlPrefix: PropTypes.string.isRequired,
+  mediaUrlPrefix: PropTypes.string.isRequired,
+  listDescription: PropTypes.string, // or undefined
+  listActions: PropTypes.node, // or undefined
+  project: PropTypes.object, // or null
+  teamSlug: PropTypes.string.isRequired,
+  title: PropTypes.node.isRequired,
+  fields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
+  page: PropTypes.oneOf(['trash']), // FIXME find a cleaner way to render Trash differently
+  query: PropTypes.object.isRequired, // may be empty
+};

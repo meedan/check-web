@@ -1,27 +1,19 @@
 [
   {
-    "id": "geoLocationRespondTask.searching",
-    "defaultMessage": "Searching..."
+    "id": "geoLocationRespondTask.invalidCoords",
+    "defaultMessage": "Invalid coordinates"
   },
   {
-    "id": "geoLocationRespondTask.notFound",
-    "defaultMessage": "Sorry, this place was not found. Please try another search."
+    "id": "geoLocationRespondTask.searching",
+    "defaultMessage": "Searching..."
   },
   {
     "id": "geoLocationRespondTask.error",
     "defaultMessage": "Sorry, an error occurred while updating the task. Please try again and contact {supportEmail} if the condition persists."
   },
   {
-    "id": "geolocationRespondTask.placeName",
-    "defaultMessage": "Customize place name"
-  },
-  {
-    "id": "geolocationRespondTask.coordinates",
-    "defaultMessage": "Latitude, Longitude"
-  },
-  {
-    "id": "geoLocationRespondTask.invalidCoords",
-    "defaultMessage": "Invalid coordinates"
+    "id": "geoLocationRespondTask.notFound",
+    "defaultMessage": "Sorry, this place was not found. Please try another search."
   },
   {
     "id": "geolocationRespondTask.cancelTask",
@@ -34,5 +26,13 @@
   {
     "id": "geolocationRespondTask.searchMap",
     "defaultMessage": "Search the map"
+  },
+  {
+    "id": "geolocationRespondTask.placeName",
+    "defaultMessage": "Customize place name"
+  },
+  {
+    "id": "geolocationRespondTask.coordinates",
+    "defaultMessage": "Latitude, Longitude"
   }
 ]

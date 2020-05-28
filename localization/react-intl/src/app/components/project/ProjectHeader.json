@@ -1,10 +1,10 @@
 [
   {
-    "id": "projectHeader.allItems",
-    "defaultMessage": "All items"
-  },
-  {
     "id": "projectHeader.trash",
     "defaultMessage": "Trash"
+  },
+  {
+    "id": "projectHeader.allItems",
+    "defaultMessage": "All items"
   }
 ]

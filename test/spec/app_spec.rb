@@ -183,12 +183,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_team_and_project
       page = ProjectPage.new(config: @config, driver: @driver).load
              .create_image_media(File.join(File.dirname(__FILE__), 'test.png'))
-      wait_for_selector(".add-annotation__buttons")
+      wait_for_selector(".create-related-media__add-button")
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items'
       wait_for_selector(".search__results-heading")
       wait_for_selector('.medias__item')
       expect(@driver.page_source.include?('test.png')).to be(true)
-
     end
 
     it "should redirect to 404 page", bin4: true do
@@ -218,13 +217,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_team_project_and_link_and_redirect_to_media_page @media_url
       id1 = @driver.current_url.to_s.gsub(/^.*\/media\//, '').to_i
       expect(id1 > 0).to be(true)
-      @driver.navigate.to @driver.current_url.to_s.gsub(/\/media\/[0-9]+$/, '')
+      @driver.navigate.to @driver.current_url.to_s.gsub(/\/media\/.*$/, '')
       wait_for_selector(".medias__item")
       wait_for_selector("#create-media__add-item").click
       wait_for_selector("#create-media__link")
       fill_field('#create-media-input', @media_url)
       wait_for_selector('#create-media-dialog__submit-button').click
-      wait_for_selector(".add-annotation__insert-photo")
+      wait_for_selector(".create-related-media__add-button")
       id2 = @driver.current_url.to_s.gsub(/^.*\/media\//, '').to_i
       expect(id1 == id2).to be(true)
     end
@@ -253,15 +252,15 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page = Page.new(config: @config, driver: @driver)
       page.go(@config['api_path'] + '/test/session?email='+utp[:user1]["email"])
       page.go(@config['self_url'] + '/'+utp[:team]["slug"]+'/project/'+utp[:project]["dbid"].to_s)
-      wait_for_selector(".search")
+      wait_for_selector("#search-form")
       l = wait_for_selector_list('.project-actions')
       expect(l.length == 1).to be(true)
 
       page.go(@config['api_path'] + '/test/session?email='+utp[:user2]["email"])
       page.go(@config['self_url'] + '/'+utp[:team]["slug"]+'/project/'+utp[:project]["dbid"].to_s)
-      wait_for_selector(".search")
-      l = wait_for_selector_list('.project-actions')
-      expect(l.length == 0).to be(true)
+      wait_for_selector("#search-form")
+      wait_for_selector_none('.project-actions')
+      expect(@driver.find_elements(:class, "project-actions").length == 0).to be(true)
     end
 
     it "should autorefresh project when media is created", bin1: true do
@@ -325,13 +324,17 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       t1 = api_create_team(user: user)
       t2 = api_create_team(user: user)
       page = MePage.new(config: @config, driver: @driver).load
-          .select_team(name: t1.name)
+      wait_for_selector(".source__primary-info")
+      page.select_team(name: t1.name)
       wait_for_selector(".team-menu__edit-team-button")
-      expect(page.team_name).to eq(t1.name)
-      page = MePage.new(config: @config, driver: @driver).load
-          .select_team(name: t2.name)
+      team_name = wait_for_selector('.team__name').text
+      expect(team_name).to eq(t1.name)
+      @driver.navigate.to(@config['self_url'] + '/check/me')
+      wait_for_selector(".source__primary-info")
+      page.select_team(name: t2.name)
       wait_for_selector(".team-menu__edit-team-button")
-      expect(page.team_name).to eq(t2.name)
+      team_name = wait_for_selector('.team__name').text
+      expect(team_name).to eq(t2.name)
     end
 
     it "should linkify URLs on comments", bin1: true do
@@ -341,7 +344,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       fill_field('#cmd-input', 'https://meedan.com/en/')
       @driver.action.send_keys(:enter).perform
       wait_for_selector('.annotation__avatar-col')
-      old = wait_for_size_change(0, 'annotation__card-content', :class, 25)
+      wait_for_size_change(0, 'annotation__card-content', :class, 25)
       expect(@driver.page_source.include?('https://meedan.com/en/')).to be(true)
       el = wait_for_selector_list("//a[contains(text(), 'https://meedan.com/en/')]", :xpath)
       expect(el.length == 1).to be(true)
@@ -378,22 +381,20 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Claim')).to be(false)
     end
 
-    # it "should search for reverse images", bin2: true do
-    #   api_create_team_project_and_link_and_redirect_to_media_page 'https://www.instagram.com/p/BRYob0dA1SC/'
-    #   card = wait_for_selector_list(".media-detail").length
-    #   expect(card == 1).to be(true)
-    #   expect((@driver.current_url.to_s =~ /google/).nil?).to be(true)
-    #   current_window = @driver.window_handles.last
-    #   wait_for_selector(".media-detail__reverse-image-search > button").click
-    #   wait_for_selector("#top_nav")
-    #   @driver.switch_to.window(@driver.window_handles.last)
-    #   wait_for_selector(".create-task__add-button")
-    #   expect((@driver.current_url.to_s =~ /google/).nil?).to be(false)
-    #   @driver.switch_to.window(current_window)
-    # end
+    it "should search for reverse images", bin2: true do
+      api_create_team_project_and_link_and_redirect_to_media_page 'https://twitter.com/meedan/status/1167366036791943168'
+      card = wait_for_selector_list(".media-detail").length
+      expect(card == 1).to be(true)
+      expect((@driver.current_url.to_s =~ /google/).nil?).to be(true)
+      current_window = @driver.window_handles.last
+      wait_for_selector(".media-detail__reverse-image-search > button").click
+      @driver.switch_to.window(@driver.window_handles.last)
+      expect((@driver.current_url.to_s =~ /google/).nil?).to be(false)
+      @driver.switch_to.window(current_window)
+    end
 
     it "should refresh media", bin1: true do
-      page = api_create_team_project_and_link_and_redirect_to_media_page 'http://ca.ios.ba/files/meedan/random.php'
+      api_create_team_project_and_link_and_redirect_to_media_page 'http://ca.ios.ba/files/meedan/random.php'
       wait_for_selector(".media-detail")
       title1 = @driver.title
       expect((title1 =~ /Random/).nil?).to be(false)
@@ -416,7 +417,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect((@driver.current_url.to_s.match(/recent_added/)).nil?).to be(true)
       expect((@driver.current_url.to_s.match(/last_seen/)).nil?).to be(true)
 
-      wait_for_selector("#list-header__related").click
+      wait_for_selector("th[data-field=linked_items_count] span").click
       wait_for_selector(".medias__item")
       expect((@driver.current_url.to_s.match(/requests/)).nil?).to be(true)
       expect((@driver.current_url.to_s.match(/related/)).nil?).to be(false)
@@ -424,8 +425,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect((@driver.current_url.to_s.match(/last_seen/)).nil?).to be(true)
       expect(@driver.page_source.include?('My search result')).to be(true)
 
-      @driver.execute_script("document.getElementsByClassName('ag-body-horizontal-scroll-viewport')[0].scrollLeft = 5000;")
-      wait_for_selector("#list-header__recent_added").click
+      wait_for_selector("th[data-field=created_at] span").click
       wait_for_selector(".medias__item")
       expect((@driver.current_url.to_s.match(/requests/)).nil?).to be(true)
       expect((@driver.current_url.to_s.match(/related/)).nil?).to be(true)
@@ -438,13 +438,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_claim_and_go_to_search_page
       expect((@driver.current_url.to_s.match(/ASC|DESC/)).nil?).to be(true)
 
-      wait_for_selector("#list-header__related").click
+      wait_for_selector("th[data-field=linked_items_count]").click
       wait_for_selector(".medias__item")
       expect((@driver.current_url.to_s.match(/DESC/)).nil?).to be(false)
       expect((@driver.current_url.to_s.match(/ASC/)).nil?).to be(true)
       expect(@driver.page_source.include?('My search result')).to be(true)
 
-      wait_for_selector("#list-header__related").click
+      wait_for_selector("th[data-field=linked_items_count]").click
       wait_for_selector(".medias__item")
       expect((@driver.current_url.to_s.match(/DESC/)).nil?).to be(true)
       expect((@driver.current_url.to_s.match(/ASC/)).nil?).to be(false)
@@ -467,16 +467,25 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector(".medias__item")
       expect(@driver.page_source.include?('My search result')).to be(true)
 
+      # Pre-populate dates to force the date picker to open at certain calendar months.
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B%20%22range%22%3A%20%7B%22created_at%22%3A%7B%22start_time%22%3A%222016-01-01%22%2C%22end_time%22%3A%222016-02-28%22%7D%7D%7D'
-      expect(@driver.page_source.include?('Claim')).to be(false)
+      wait_for_selector_none(".medias__item", :css, 10)
+      expect(@driver.page_source.include?('My search result')).to be(false)
 
       wait_for_selector("#search__open-dialog-button").click
       wait_for_selector(".date-range__start-date input").click
+
+      # The date picker is broken: https://github.com/mui-org/material-ui-pickers/issues/1526
+      # The upshot: open it with value=2016-01-01, click "OK", and it will return a different
+      # date. That's why we can submit the form even though it looks like this test isn't
+      # changing any values.
       wait_for_selector("//span[contains(text(), 'OK')]", :xpath).click
+      wait_for_selector_none("body>div[role=dialog]")  # wait for mui-picker background to fade away
       wait_for_selector(".date-range__end-date input").click
       wait_for_selector("//span[contains(text(), 'OK')]", :xpath).click
-      wait_for_selector("#search-query__submit-button").click
-      wait_for_selector(".medias__item")
+      wait_for_selector_none("body>div[role=dialog]")  # wait for mui-picker background to fade away
+      wait_for_selector("#search-query__submit-button:not(:disabled)").click
+      wait_for_selector_none(".medias__item",:css, 10)
       expect(@driver.page_source.include?('My search result')).to be(false)
     end
 
@@ -485,14 +494,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"related"%2C"sort_type"%3A"DESC"%7D'
       wait_for_selector("#create-media__add-item")
       expect(@driver.page_source.include?('My search result')).to be(true)
-      el = wait_for_selector("#list-header__related")
-      expect(el.find_element(:css, "svg.list-header__sort-desc").nil?).to be(false)
+      el = wait_for_selector("th[data-field=linked_items_count][aria-sort]")
+      expect(el).to be  # TODO nix this line after https://mantis.meedan.com/view.php?id=8221
 
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"recent_added"%2C"sort_type"%3A"DESC"%7D'
       wait_for_selector("#create-media__add-item")
       expect(@driver.page_source.include?('My search result')).to be(true)
-      el = wait_for_selector("#list-header__recent_added")
-      expect(el.find_element(:css, "svg.list-header__sort-desc").nil?).to be(false)
+      el = wait_for_selector("th[data-field=created_at][aria-sort]")
+      expect(el).to be  # TODO nix this line after https://mantis.meedan.com/view.php?id=8221
     end
 
     it "should change search sort order through URL", bin2: true do
@@ -500,14 +509,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"related"%2C"sort_type"%3A"DESC"%7D'
       wait_for_selector("#create-media__add-item")
       expect(@driver.page_source.include?('My search result')).to be(true)
-      el = wait_for_selector("#list-header__related")
-      expect(el.find_element(:css, "svg.list-header__sort-desc").nil?).to be(false)
+      el = wait_for_selector("th[data-field=linked_items_count][aria-sort=descending]")
+      expect(el).to be  # TODO nix this line after https://mantis.meedan.com/view.php?id=8221
 
-      @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"recent_added"%2C"sort_type"%3A"ASC"%7D'
+      @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"related"%2C"sort_type"%3A"ASC"%7D'
       wait_for_selector("#create-media__add-item")
       expect(@driver.page_source.include?('My search result')).to be(true)
-      el = wait_for_selector("#list-header__recent_added")
-      expect(el.find_element(:css, "svg.list-header__sort-asc").nil?).to be(false)
+      el = wait_for_selector("th[data-field=linked_items_count][aria-sort=ascending]")
+      expect(el).to be  # TODO nix this line after https://mantis.meedan.com/view.php?id=8221
     end
 #search section end
 
@@ -515,6 +524,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page = LoginPage.new(config: @config, driver: @driver)
       page.reset_password('test@meedan.com')
       wait_for_selector(".user-password-reset__email-input")
+      wait_for_selector("#password-reset-email-input-helper-text")
       expect(@driver.page_source.include?('email was not found')).to be(true)
       expect(@driver.page_source.include?('Password reset sent')).to be(false)
     end
@@ -561,14 +571,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector(".media-tab__tasks").click
       expect(@driver.page_source.include?('Where?')).to be(false)
       expect(@driver.page_source.include?('Task created by')).to be(false)
-      el = wait_for_selector('.create-task__add-button')
-      el.click
-      el = wait_for_selector('.create-task__add-geolocation')
-      el.click
+      wait_for_selector('.create-task__add-button').click
+      wait_for_selector('.create-task__add-geolocation').click
       wait_for_selector("#task-description-input" )
       fill_field('#task-label-input', 'Where?')
-      el = wait_for_selector('.create-task__dialog-submit-button')
-      el.click
+      wait_for_selector('.create-task__dialog-submit-button').click
+      wait_for_selector_none("#task-label-input")
       wait_for_selector(".media-tab__activity").click
       old = wait_for_size_change(old, "annotations__list-item", :class)
       expect(@driver.page_source.include?('Where?')).to be(true)
@@ -580,8 +588,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('task__answered-by-current-user')).to be(false)
       fill_field('textarea[name="response"]', 'Salvador')
       fill_field('#task__response-geolocation-coordinates', '-12.9015866, -38.560239')
-      el = wait_for_selector('.task__save')
-      el.click
+      wait_for_selector('.task__save').click
       wait_for_selector(".media-tab__activity").click
       old = wait_for_size_change(old, "annotations__list-item", :class)
       expect(@driver.page_source.include?('Task completed by')).to be(true)
@@ -591,14 +598,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Edit task
       expect(@driver.page_source.include?('Where was it?')).to be(false)
-      el = wait_for_selector('.task-actions__icon')
-      el.click
-      el = wait_for_selector('.task-actions__edit')
-      el.click
+      wait_for_selector('.task-actions__icon').click
+      wait_for_selector('.task-actions__edit').click
       wait_for_selector("#task-description-input" )
       update_field('#task-label-input', 'Where was it?')
-      el = wait_for_selector( '.create-task__dialog-submit-button')
-      el.click
+      wait_for_selector( '.create-task__dialog-submit-button').click
+      wait_for_selector_none("#task-description-input")
       wait_for_selector(".media-tab__activity").click
       old = wait_for_size_change(old, "annotations__list-item", :class)
       expect(@driver.page_source.include?('Where was it?')).to be(true)
@@ -607,15 +612,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Edit task answer
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Vancouver')).to be(false)
-      el = wait_for_selector('.task-actions__icon')
-      el.click
-      el = wait_for_selector('.task-actions__edit-response')
-      el.click
+      wait_for_selector('.task-actions__icon').click
+      wait_for_selector('.task-actions__edit-response').click
       wait_for_selector(".task__cancel")
       update_field('textarea[name="response"]', 'Vancouver')
       update_field('#task__response-geolocation-coordinates', '49.2577142, -123.1941156')
-      el = wait_for_selector('.task__save')
-      el.click
+      wait_for_selector('.task__save').click
       wait_for_selector(".media-tab__activity").click
       old = wait_for_size_change(old, "annotations__list-item", :class)
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Vancouver')).to be(true)
@@ -627,14 +629,21 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should upload image when registering", bin3: true do
-      email, password, avatar = ["test-#{Time.now.to_i}@example.com", '12345678', File.join(File.dirname(__FILE__), 'test.png')]
-      page = LoginPage.new(config: @config, driver: @driver).load
-             .register_and_login_with_email(email: email, password: password, file: avatar)
-      me_page = MePage.new(config: @config, driver: page.driver).load
-      wait_for_selector('.user-menu__edit-profile-button')
-      script = "return window.getComputedStyle(document.getElementsByClassName('source__avatar')[0]).getPropertyValue('background-image')"
-      avatar = @driver.execute_script(script)
-      expect(avatar.include?('test.png')).to be(true)
+      @driver.navigate.to @config['self_url']
+      wait_for_selector(".login__form")
+      wait_for_selector("#register-or-login").click
+      wait_for_selector(".without-file")
+      fill_field('.login__name input', 'User With Email')
+      fill_field('.login__email input', @email)
+      fill_field('.login__password input', '12345678')
+      fill_field('.login__password-confirmation input', '12345678')
+      wait_for_selector('input[type=file]').send_keys(File.join(File.dirname(__FILE__), 'test.png'))
+      wait_for_selector(".with-file")
+      expect(wait_for_selector(".with-file div").text.include?('test.png')).to be(true)
+      agree_to_tos(false)
+      press_button('#submit-register-or-login')
+      wait_for_selector(".message")
+      expect(@driver.page_source.include?('Please check your email to verify your account')).to be(true)
     end
 
     it "should redirect to last visited project", bin3: true do
@@ -646,24 +655,28 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       button = wait_for_selector('#teams-tab')
       button.click
       wait_for_selector(".switch-teams__joined-team")
-      link = wait_for_selector_list('.teams a').first
-      link.click
+      wait_for_selector_list('.teams a').first.click
+      wait_for_selector(".project__title")
+      wait_for_selector(".project-list__link-all")
+      wait_for_selector(".project-list__link-trash")
+      wait_for_selector(".project__title")
       wait_for_selector(".team-header__drawer-team-link").click
-      link = wait_for_selector('.team__project-title')
-      link.click
-      wait_for_selector_none(".team-members__edit-button")
+      wait_for_selector(".project-list__link-all")
+      wait_for_selector('.project-list__link').click
+      wait_for_selector_none(".team-members__edit-button", :css, 10)
 
       @driver.navigate.to(@config['self_url'] + '/check/me')
       button = wait_for_selector('#teams-tab')
       button.click
       wait_for_selector(".switch-teams__joined-team")
-      link = wait_for_selector_list('.teams a').last
-      link.click
+      wait_for_selector_list('.teams a').last.click
+      wait_for_selector(".project__title")
+      wait_for_selector(".project-list__link-trash")
       wait_for_selector(".team-header__drawer-team-link").click
-      wait_for_selector(".team-members__edit-button")
+      wait_for_selector(".project-list__link-all")
 
       @driver.navigate.to(@config['self_url'])
-      wait_for_selector('.main-title')
+      wait_for_selector('.project__title')
       notfound = @config['self_url'] + '/check/404'
       expect(@driver.current_url.to_s == notfound).to be(false)
     end
@@ -691,9 +704,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el = wait_for_selector('.find-team__submit-button')
       fill_field('#team-slug-container', team )
       el.click
-      wait_for_selector('.join-team__button')
+      wait_for_selector(".team__primary-info")
       expect(@driver.page_source.include?(team)).to be(true)
-
     end
 
     it "should search map in geolocation task", bin3: true do
@@ -707,14 +719,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Create a task
       expect(@driver.page_source.include?('Where?')).to be(false)
       expect(@driver.page_source.include?('Task "Where?" created by')).to be(false)
-      el = wait_for_selector('.create-task__add-button')
-      el.click
-      el = wait_for_selector('.create-task__add-geolocation')
-      el.click
+      wait_for_selector('.create-task__add-button').click
+      wait_for_selector('.create-task__add-geolocation').click
       wait_for_selector("#task-description-input")
       fill_field('#task-label-input', 'Where?')
-      el = wait_for_selector('.create-task__dialog-submit-button')
-      el.click
+      wait_for_selector('.create-task__dialog-submit-button').click
+      wait_for_selector_none("#task-label-input")
       wait_for_selector(".media-tab__activity").click
       old = @driver.find_elements(:class, "annotations__list-item").length
       expect(@driver.page_source.include?('Where?')).to be(true)
@@ -798,7 +808,75 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_team_and_project(user: user)
       @driver.navigate.to(@config['self_url'] + '/check/me')
       wait_for_selector('#teams-tab')
+      wait_for_selector(".project-list__link-all")
       expect(@driver.page_source.include?('All items')).to be(true)
+    end
+
+    it "should set rules", bin3: true do
+      user = api_register_and_login_with_email
+      t = api_create_team(user: user)
+
+      # Go to rules page
+      @driver.navigate.to @config['self_url'] + '/' + t.slug + '/settings'
+      wait_for_selector('.team-settings__rules-tab').click
+      wait_for_selector('#tableTitle')
+      
+      # No rules
+      expect(@driver.page_source.include?('0 rules')).to be(true)
+      expect(@driver.page_source.include?('Rule 1')).to be(false)
+      
+      # Create new rule and check that form is blank
+      wait_for_selector('.rules__new-rule').click
+      wait_for_selector('input')
+      expect(@driver.page_source.include?('Rule 1')).to be(false)
+      expect(@driver.page_source.include?('keyword')).to be(false)
+      expect(@driver.page_source.include?('foo,bar')).to be(false)
+      expect(@driver.page_source.include?('Move item to list')).to be(false)
+      expect(@driver.page_source.include?('Select destination list')).to be(false)
+      
+      # Select a condition and set a value for it
+      wait_for_selector('.rules__rule-field div[role="button"]').click
+      wait_for_selector('ul li').click
+      wait_for_selector('.rules__rule-field textarea').send_keys('foo,bar')
+      wait_for_selector('body').click
+
+      # Select an action
+      wait_for_selector('.rules__actions .rules__rule-field div[role="button"]').click
+      wait_for_selector('ul li').click
+      expect(@driver.page_source.include?('Select destination list')).to be(true)
+      
+      # Set rule name
+      wait_for_selector('input[type="text"]').click
+      @driver.action.send_keys('Rule 1').perform
+
+      # Save
+      wait_for_selector('.rules__save-button').click
+      wait_for_selector('#tableTitle')
+      expect(@driver.page_source.include?('1 rule')).to be(true)
+      expect(@driver.page_source.include?('Rule 1')).to be(true)
+
+      # Open
+      wait_for_selector('tbody tr').click
+      wait_for_selector('input')
+      expect(@driver.page_source.include?('Rule 1')).to be(true)
+      expect(@driver.page_source.include?('keyword')).to be(true)
+      expect(@driver.page_source.include?('foo,bar')).to be(true)
+      expect(@driver.page_source.include?('Move item to list')).to be(true)
+      expect(@driver.page_source.include?('Select destination list')).to be(true)
+
+      # Reload the page and make sure that everything was saved correctly and is displayed correctly
+      @driver.navigate.refresh
+      wait_for_selector('.team-settings__rules-tab').click
+      wait_for_selector('#tableTitle')
+      expect(@driver.page_source.include?('1 rule')).to be(true)
+      expect(@driver.page_source.include?('Rule 1')).to be(true)
+      wait_for_selector('tbody tr').click
+      wait_for_selector('input')
+      expect(@driver.page_source.include?('Rule 1')).to be(true)
+      expect(@driver.page_source.include?('keyword')).to be(true)
+      expect(@driver.page_source.include?('foo,bar')).to be(true)
+      expect(@driver.page_source.include?('Move item to list')).to be(true)
+      expect(@driver.page_source.include?('Select destination list')).to be(true)
     end
 
     it "should redirect to login page if not logged in and team is private", bin2: true do

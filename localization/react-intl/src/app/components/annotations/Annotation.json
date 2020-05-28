@@ -1,39 +1,7 @@
 [
   {
-    "id": "annotation.error",
-    "defaultMessage": "Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists."
-  },
-  {
-    "id": "annotation.deleteButton",
-    "defaultMessage": "Delete"
-  },
-  {
-    "id": "annotation.and",
-    "defaultMessage": "and"
-  },
-  {
-    "id": "annotation.newClaim",
-    "defaultMessage": "New text added by {author}"
-  },
-  {
-    "id": "annotation.menuTooltip",
-    "defaultMessage": "Annotation actions"
-  },
-  {
-    "id": "annotation.smoochNoMessage",
-    "defaultMessage": "No message was sent with the request"
-  },
-  {
-    "id": "annotation.slackChannel",
-    "defaultMessage": "Slack channel"
-  },
-  {
     "id": "annotation.flagAdult",
     "defaultMessage": "Adult"
-  },
-  {
-    "id": "annotation.flagSpoof",
-    "defaultMessage": "Spoof"
   },
   {
     "id": "annotation.flagMedical",
@@ -74,6 +42,14 @@
   {
     "id": "annotation.flagLikelihood5",
     "defaultMessage": "Very likely"
+  },
+  {
+    "id": "annotation.menuTooltip",
+    "defaultMessage": "Annotation actions"
+  },
+  {
+    "id": "annotation.deleteButton",
+    "defaultMessage": "Delete"
   },
   {
     "id": "annotation.permalink",
@@ -190,6 +166,14 @@
   {
     "id": "annotation.penderArchiveWait",
     "defaultMessage": "The screenshot of this item is being taken by Keep. Come back in a few minutes to see it."
+  },
+  {
+    "id": "annotation.smoochNoMessage",
+    "defaultMessage": "No message was sent with the request"
+  },
+  {
+    "id": "annotation.slackChannel",
+    "defaultMessage": "Slack channel"
   },
   {
     "id": "annotation.projectMoved",

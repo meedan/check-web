@@ -1,0 +1,8 @@
+{
+  "rulesTableToolbar.selected": "{numSelected, plural, one {1 selecionada} other {# selecionadas}}",
+  "rulesTableToolbar.title": "{numRules, plural, one {1 regra} other {# regras}}",
+  "rulesTableToolbar.delete": "Excluir",
+  "rulesTableToolbar.add": "Nova regra",
+  "rulesTableToolbar.deleteConfirmationTitle": "Excluir regras selecionadas?",
+  "rulesTableToolbar.deleteConfirmationText": "Tem certeza que deseja excluir estas regras?"
+}

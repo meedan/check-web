@@ -62,7 +62,7 @@ shared_examples 'media' do |type|
   end
 
   it "should add, edit, answer, update answer and delete short answer task", bin3: true do
-    media_pg = create_media_depending_on_type
+    create_media_depending_on_type
     wait_for_selector('.create-task__add-button')
 
     # Create a task
@@ -113,7 +113,7 @@ shared_examples 'media' do |type|
   end
 
   it "should add, edit, answer, update answer and delete single_choice task", bin2: true  do
-    media_pg = create_media_depending_on_type
+    create_media_depending_on_type
     wait_for_selector('.create-task__add-button')
     # Create a task
     expect(@driver.page_source.include?('Foo or bar?')).to be(false)
@@ -151,7 +151,7 @@ shared_examples 'media' do |type|
   end
 
   it "should add, edit, answer, update answer and delete multiple_choice task", bin5: true do
-    media_pg = create_media_depending_on_type
+    create_media_depending_on_type
     wait_for_selector('.create-task__add-button')
     # Create a task
     expect(@driver.page_source.include?('Foo, Doo or bar?')).to be(false)
@@ -201,7 +201,7 @@ shared_examples 'media' do |type|
     page = create_media_depending_on_type(nil, 3)
     page.load unless page.nil?
     wait_for_selector(".medias__item")
-    wait_for_selector('.media__heading').click
+    wait_for_selector('.media__heading a').click
     wait_for_selector('.media-search__actions-bar')
 
     # First item
@@ -213,7 +213,7 @@ shared_examples 'media' do |type|
     expect(@driver.page_source.include?('Claim 0')).to be(false)
 
     # Second item
-    wait_for_selector('#media-search__next-item').click
+    wait_for_selector('.media-search__next-item').click
     wait_for_selector('.media-search__actions-bar')
     expect(@driver.page_source.include?('1 of 3')).to be(false)
     expect(@driver.page_source.include?('2 of 3')).to be(true)
@@ -223,7 +223,7 @@ shared_examples 'media' do |type|
     expect(@driver.page_source.include?('Claim 0')).to be(false)
 
     # Third item
-    wait_for_selector('#media-search__next-item').click
+    wait_for_selector('.media-search__next-item').click
     wait_for_selector('.media-search__actions-bar')
 
     expect(@driver.page_source.include?('1 of 3')).to be(false)
@@ -234,7 +234,7 @@ shared_examples 'media' do |type|
     expect(@driver.page_source.include?('Claim 0')).to be(true)
 
     # Second item
-    wait_for_selector('#media-search__previous-item').click
+    wait_for_selector('.media-search__previous-item').click
     wait_for_selector('.media-search__actions-bar')
     expect(@driver.page_source.include?('1 of 3')).to be(false)
     expect(@driver.page_source.include?('2 of 3')).to be(true)
@@ -244,7 +244,7 @@ shared_examples 'media' do |type|
     expect(@driver.page_source.include?('Claim 0')).to be(false)
 
     # First item
-    wait_for_selector('#media-search__previous-item').click
+    wait_for_selector('.media-search__previous-item').click
     wait_for_selector('.media-search__actions-bar')
     expect(@driver.page_source.include?('1 of 3')).to be(true)
     expect(@driver.page_source.include?('2 of 3')).to be(false)
@@ -262,16 +262,15 @@ shared_examples 'media' do |type|
     @driver.action.send_keys(:enter).perform
     wait_for_selector('.annotation__avatar-col')
     wait_for_selector(".media-tab__activity").click
-    notes_count_before = wait_for_selector_list('.annotation__timestamp').length
-    expect(notes_count_before == 0).to be(true)
+    expect(@driver.find_elements(:class, "annotation__timestamp").length == 0).to be(true)
     expect(@driver.page_source.include?('Comment deleted')).to be(false)
     wait_for_selector(".media-tab__comments").click
     wait_for_selector('.annotation .menu-button').click
     wait_for_selector('.annotation__delete').click
     wait_for_selector_none('.annotation__avatar-col')
     wait_for_selector(".media-tab__activity").click
-    notes_count_after = wait_for_selector_list('.annotation__timestamp').length
-    expect(notes_count_after > notes_count_before).to be(true)
+    notes_count = wait_for_selector_list('.annotation__timestamp').length
+    expect(notes_count > 0).to be(true)
     expect(@driver.page_source.include?('Comment deleted')).to be(true)
   end
 

@@ -54,7 +54,7 @@ class UserPasswordChange extends Component {
   render() {
     const token = UserPasswordChange.getQueryStringValue('reset_password_token');
     return (
-      <PageTitle skipTeam prefix={this.props.intl.formatMessage(messages.title)} >
+      <PageTitle prefix={this.props.intl.formatMessage(messages.title)}>
         <StyledPasswordChange isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
           { this.state.showConfirmDialog ?
             <Card className="user-password-change__confirm-card">
