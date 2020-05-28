@@ -57,45 +57,16 @@ export default function RulesTable(props) {
   };
 
   const handleNewRule = () => {
-    const updatedRules = rules.slice(0);
-    const newRule = {
-      name: '',
-      updated_at: null,
-      rules: {
-        operator: 'and',
-        groups: [
-          {
-            operator: 'and',
-            conditions: [
-              {
-                rule_definition: '',
-                rule_value: '',
-              },
-            ],
-          },
-        ],
-      },
-      actions: [
-        {
-          action_definition: '',
-          action_value: '',
-        },
-      ],
-    };
-    updatedRules.push(newRule);
-    props.onUpdateRules(updatedRules, false);
-    props.onSetCurrentRuleIndex(updatedRules.length - 1);
+    props.onAddRule();
   };
 
-  const handleClick = (event, index) => {
-    props.onSetCurrentRuleIndex(index);
+  const handleClick = (index) => {
+    props.onClickRule(index);
   };
 
   const handleDelete = () => {
-    const updatedRules = rules.slice(0);
-    selected.sort().reverse().forEach((index) => { updatedRules.splice(index, 1); });
+    props.onDeleteRules(selected.slice(0));
     setSelected([]);
-    props.onUpdateRules(updatedRules);
   };
 
   const isSelected = index => selected.indexOf(index) !== -1;
@@ -127,7 +98,7 @@ export default function RulesTable(props) {
                   <TableRow
                     hover
                     className={classes.tableRow}
-                    onClick={(event) => { handleClick(event, index); }}
+                    onClick={() => { handleClick(index); }}
                     key={row.index}
                   >
                     <TableCell padding="checkbox">
@@ -158,6 +129,7 @@ export default function RulesTable(props) {
 
 RulesTable.propTypes = {
   rules: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
-  onUpdateRules: PropTypes.func.isRequired,
-  onSetCurrentRuleIndex: PropTypes.func.isRequired,
+  onClickRule: PropTypes.func.isRequired,
+  onAddRule: PropTypes.func.isRequired,
+  onDeleteRules: PropTypes.func.isRequired,
 };
