@@ -13,8 +13,6 @@ class CreateDynamicMutation extends Relay.Mutation {
       return Relay.QL`fragment on CreateDynamicPayload {
         dynamicEdge,
         source {
-          log,
-          log_count,
           languages: annotations(annotation_type: "language", first: 10000)
         }
       }`;

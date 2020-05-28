@@ -14,7 +14,7 @@ class DeleteAnnotationMutation extends Relay.Mutation {
   getFatQuery() {
     switch (this.props.parent_type) {
     case 'source':
-      return Relay.QL`fragment on DestroyAnnotationPayload { deletedId, source { log, log_count } }`;
+      return Relay.QL`fragment on DestroyAnnotationPayload { deletedId, source { id } }`;
     case 'project_media':
       return Relay.QL`fragment on DestroyAnnotationPayload { deletedId, project_media { log, tags, tasks, metadata, log_count, last_status, last_status_obj { id } } }`;
     case 'task':

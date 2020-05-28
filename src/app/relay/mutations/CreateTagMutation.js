@@ -10,7 +10,7 @@ class CreateTagMutation extends Relay.Mutation {
   getFatQuery() {
     switch (this.props.parent_type) {
     case 'source':
-      return Relay.QL`fragment on CreateTagPayload { tagEdge, source { log, log_count } }`;
+      return Relay.QL`fragment on CreateTagPayload { tagEdge, source { id } }`;
     case 'project_media':
       return Relay.QL`fragment on CreateTagPayload { tagEdge, project_media { last_status, last_status_obj,log, tags, log_count, project_id } }`;
     default:
