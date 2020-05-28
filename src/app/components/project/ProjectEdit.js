@@ -134,7 +134,7 @@ class ProjectEditComponent extends Component {
     const { project } = this.props;
 
     return (
-      <PageTitle prefix={project.title} skipTeam={false} team={this.currentContext().team}>
+      <PageTitle prefix={project.title} team={this.currentContext().team}>
         <section className="project-edit">
           <ContentColumn>
             <Card>

@@ -137,11 +137,7 @@ class JoinTeamComponent extends Component {
     }
 
     return (
-      <PageTitle
-        prefix={this.props.intl.formatMessage(messages.title)}
-        skipTeam={false}
-        team={team}
-      >
+      <PageTitle prefix={this.props.intl.formatMessage(messages.title)} team={team}>
         <div>
           <ContentColumn>
             <Message message={this.state.message} />

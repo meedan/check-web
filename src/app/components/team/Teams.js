@@ -12,11 +12,12 @@ const messages = defineMessages({
 });
 
 const Teams = props => (
-  <PageTitle prefix={props.intl.formatMessage(messages.title)} skipTeam>
+  <PageTitle prefix={props.intl.formatMessage(messages.title)}>
     <ContentColumn>
       <SwitchTeams />
     </ContentColumn>
-  </PageTitle>);
+  </PageTitle>
+);
 
 Teams.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
