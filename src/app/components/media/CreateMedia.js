@@ -29,7 +29,6 @@ class CreateProjectMedia extends Component {
 
     this.state = {
       dialogOpen: false,
-      message: null,
     };
   }
 
@@ -64,7 +63,6 @@ class CreateProjectMedia extends Component {
         const rid = response.createProjectMedia.project_media.dbid;
         browserHistory.push(prefix + rid);
       }
-      this.setState({ message: null });
     };
 
     this.setState({ dialogOpen: false });
@@ -81,7 +79,7 @@ class CreateProjectMedia extends Component {
   }
 
   handleOpenDialog = () => {
-    this.setState({ dialogOpen: true, message: null });
+    this.setState({ dialogOpen: true });
   };
 
   handleCloseDialog = () => {
@@ -102,7 +100,6 @@ class CreateProjectMedia extends Component {
           title={<FormattedMessage id="createMedia.addNewItem" defaultMessage="Add new item" />}
           open={this.state.dialogOpen}
           onDismiss={this.handleCloseDialog}
-          message={this.state.message}
           onSubmit={this.handleSubmit}
         />
       </div>

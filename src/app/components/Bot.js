@@ -129,7 +129,7 @@ class BotComponent extends Component {
     const botDate = new Date(parseInt(bot.updated_at, 10) * 1000);
 
     return (
-      <PageTitle prefix={bot.name} skipTeam>
+      <PageTitle prefix={bot.name}>
         <ContentColumn>
           <Message message={this.state.message} />
           <Card key={`bot-${bot.dbid}`}>

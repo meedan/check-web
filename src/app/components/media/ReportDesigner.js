@@ -634,7 +634,6 @@ class ReportDesignerComponent extends Component {
       <PageTitle
         prefix={MediaUtil.title({ media }, data, this.props.intl)}
         team={media.team}
-        skipTeam={false}
         data-id={media.dbid}
       >
         <StyledContainer id="report-designer">

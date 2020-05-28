@@ -1,10 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
 import { FormattedMessage, FormattedHTMLMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
-import { browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import Paper from '@material-ui/core/Paper';
 import Popper from '@material-ui/core/Popper';
@@ -17,7 +17,6 @@ import deepEqual from 'deep-equal';
 import rtlDetect from 'rtl-detect';
 import styled from 'styled-components';
 import { withPusher, pusherShape } from '../../pusher';
-import { searchPrefixFromUrl, searchQueryFromUrl, urlFromSearchQuery } from './Search';
 import DateRangeFilter from './DateRangeFilter';
 import PageTitle from '../PageTitle';
 import CheckContext from '../../CheckContext';
@@ -33,7 +32,6 @@ import {
   checkBlue,
   highlightOrange,
   Row,
-  ContentColumn,
   units,
   caption,
   borderWidthLarge,
@@ -41,8 +39,6 @@ import {
   mediaQuery,
   ellipsisStyles,
 } from '../../styles/js/shared';
-
-const statusKey = 'verification_status';
 
 // https://github.com/styled-components/styled-components/issues/305#issuecomment-298680960
 const swallowingStyled = (WrappedComponent, { swallowProps = [] } = {}) => {
@@ -70,8 +66,8 @@ export const StyledSearchInput = styled.input`
   padding-${props => (props.isRtl ? 'right' : 'left')}: ${units(6)};
 `;
 
-const StyledPopper = swallowingStyled(Popper, { swallowProps: ['isRtl'] })`
-  width: 100%;
+const StyledPopper = styled(Popper)`
+  width: 80%;
   padding: 0 ${units(1)};
   z-index: 10000;
 
@@ -86,12 +82,12 @@ const StyledPopper = swallowingStyled(Popper, { swallowProps: ['isRtl'] })`
 
   a {
     font: ${caption};
-    padding-${props => (props.isRtl ? 'right' : 'left')}: ${units(1)};
+    padding-${props => (props.theme.dir === 'rtl' ? 'right' : 'left')}: ${units(1)};
   }
 
   button {
     color: ${black54};
-    float: ${props => (props.isRtl ? 'left' : 'right')};
+    float: ${props => (props.theme.dir === 'rtl' ? 'left' : 'right')};
   }
 `;
 
@@ -109,7 +105,6 @@ const StyledSearchFiltersSection = styled.section`
 const StyledFilterRow = swallowingStyled(Row, { swallowProps: ['isRtl'] })`
   min-height: ${units(5)};
   margin-bottom: ${units(2)};
-  flex-wrap: wrap;
 
   h4 {
     text-transform: uppercase;
@@ -117,6 +112,7 @@ const StyledFilterRow = swallowingStyled(Row, { swallowProps: ['isRtl'] })`
     margin: 0;
     min-width: ${units(6)};
     margin-${props => (props.isRtl ? 'left' : 'right')}: ${units(2)};
+    line-height: ${units(4 /* eyeballing it */)};
   }
 
   ${mediaQuery.tablet`
@@ -217,40 +213,72 @@ const messages = defineMessages({
   },
 });
 
+function addToArraySet(array, value) {
+  if (!array || !array.length) {
+    // Empty array means undefined
+    return [value];
+  }
+  const ret = array.slice();
+  ret.push(value);
+  ret.sort(); // should make output more predictable
+  return ret;
+}
+
+function removeFromArraySet(array, value) {
+  const ret = (array || []).filter(v => v !== value);
+  if (ret.length === 0) {
+    return undefined;
+  }
+  return ret;
+}
+
+/**
+ * Given an array or undefined, return an array or undefined.
+ *
+ * If `array` contains `value`, then the return value won't have it.
+ * Otherwise, the return value _will_.
+ *
+ * `undefined` is understood to be the empty array. This function will never
+ * return `[]`: it will always return `undefined`.
+ */
+function toggleArraySetContains(array, value) {
+  if (array && array.includes(value)) {
+    return removeFromArraySet(array, value);
+  }
+  return addToArraySet(array, value);
+}
+
+/**
+ * Return `query`, with property `key` changed to omit/add `value`.
+ *
+ * `undefined` is understood to be the empty array. This function will remove
+ * the `key` filter rather than return an empty array.
+ */
+function toggleStateQueryArrayValue(query, key, value) {
+  const newArray = toggleArraySetContains(query[key], value);
+  if (newArray === undefined) {
+    const newQuery = { ...query };
+    delete newQuery[key];
+    return newQuery;
+  }
+  return { ...query, [key]: newArray };
+}
+
 class SearchQueryComponent extends React.Component {
   constructor(props) {
     super(props);
 
+    this.searchInput = React.createRef();
+
     this.state = {
-      query: {},
-      popper: {
-        open: false,
-        allowed: true,
-        anchorEl: null,
-      },
-      dialogOpen: false,
+      query: props.query, // CODE SMELL! Caller must use `key=` to reset state on prop change
+      isPopperClosed: false, // user sets this once per page load
+      dialogOpen: false, // true when user opens the "Filter" dialog
     };
-  }
-
-  componentWillMount() {
-    const context = this.getContext();
-    if (context.getContextStore().project && /\/all-items/.test(window.location.pathname)) {
-      context.setContextStore({ project: null });
-    }
-
-    const query = searchQueryFromUrl();
-    this.setState({ query });
   }
 
   componentDidMount() {
     this.subscribe();
-  }
-
-  componentWillReceiveProps() {
-    const query = searchQueryFromUrl();
-    if (!deepEqual(this.state.query, query)) {
-      this.setState({ query });
-    }
   }
 
   componentWillUnmount() {
@@ -266,208 +294,116 @@ class SearchQueryComponent extends React.Component {
   }
 
   handleApplyFilters() {
-    const { query } = this.state;
-
-    const prefix = searchPrefixFromUrl();
-    const url = urlFromSearchQuery(query, prefix);
-
-    browserHistory.push(url);
+    if (!deepEqual(this.state.query, this.props.query)) {
+      this.props.onChange(this.state.query);
+    }
   }
 
   keywordIsActive = () => {
-    const query = searchQueryFromUrl();
+    const { query } = this.props;
     return query.keyword && query.keyword.trim() !== '';
   };
 
   filterIsActive = () => {
-    const query = searchQueryFromUrl();
+    const { query } = this.props;
     const filterFields = ['range', 'verification_status', 'projects', 'tags', 'show'];
-    let active = false;
-    filterFields.forEach((field) => {
-      if (Object.keys(query).includes(field)) {
-        active = true;
-      }
-    });
-    return active;
-  };
-
-  statusIsSelected(statusCode, state = this.state) {
-    const selectedStatuses = state.query[statusKey] || [];
-    return selectedStatuses.length && selectedStatuses.includes(statusCode);
+    return filterFields.some(key => !!query[key]);
   }
 
-  projectIsSelected(projectId, state = this.state) {
-    const selectedProjects = state.query.projects || [];
-    return selectedProjects.length && selectedProjects.includes(projectId);
+  statusIsSelected(statusCode) {
+    const array = this.state.query.verification_status;
+    return array ? array.includes(statusCode) : false;
   }
 
-  tagIsSelected(tag, state = this.state) {
-    const selectedTags = state.query.tags || [];
-    return selectedTags.length && selectedTags.includes(tag);
+  projectIsSelected(projectId) {
+    const array = this.state.query.projects;
+    return array ? array.includes(projectId) : false;
   }
 
-  showIsSelected(show, state = this.state) {
-    const selected = state.query.show;
-    return Array.isArray(selected) ? selected.includes(show) : false;
+  tagIsSelected(tag) {
+    const array = this.state.query.tags;
+    return array ? array.includes(tag) : false;
   }
 
-  ruleIsSelected(rule, state = this.state) {
-    const selected = state.query.rules || [];
-    return selected.includes(rule);
+  showIsSelected(show) {
+    const array = this.state.query.show;
+    return array ? array.includes(show) : false;
   }
 
-  dynamicIsSelected(field, value, state = this.state) {
-    const dynamic = state.query.dynamic || {};
-    const selected = dynamic[field] || [];
-    return selected.includes(value);
+  ruleIsSelected(rule) {
+    const array = this.state.query.rules;
+    return array ? array.includes(rule) : false;
+  }
+
+  dynamicIsSelected(field, value) {
+    const dynamic = this.state.query.dynamic || {};
+    const array = dynamic[field];
+    return array ? array.includes(value) : false;
   }
 
   handleDateChange = (value) => {
-    const query = Object.assign({}, this.state.query);
-    query.range = value;
-    this.setState({ query });
-  };
+    this.setState({ query: { ...this.state.query, range: value } });
+  }
 
-  handleStatusClick(statusCode) {
-    const query = Object.assign({}, this.state.query);
-    const statusIsSelected = this.statusIsSelected(statusCode, this.state);
-    const selectedStatuses = query[statusKey] || []; // TODO Avoid ambiguous reference
-
-    if (statusIsSelected) {
-      selectedStatuses.splice(selectedStatuses.indexOf(statusCode), 1); // remove from array
-      if (!selectedStatuses.length) {
-        delete query[statusKey];
-      }
-    } else {
-      query[statusKey] = selectedStatuses.concat(statusCode);
-    }
-    this.setState({ query });
+  handleStatusClick = (statusCode) => {
+    this.setState({
+      query: toggleStateQueryArrayValue(this.state.query, 'verification_status', statusCode),
+    });
   }
 
   handleProjectClick(projectId) {
-    const query = Object.assign({}, this.state.query);
-    const projectIsSelected = this.projectIsSelected(projectId, this.state);
-    const selectedProjects = query.projects || [];
-
-    if (projectIsSelected) {
-      selectedProjects.splice(selectedProjects.indexOf(projectId), 1);
-      if (!selectedProjects.length) {
-        delete query.projects;
-      }
-    } else {
-      query.projects = selectedProjects.concat(projectId);
-    }
-    this.setState({ query });
+    this.setState({
+      query: toggleStateQueryArrayValue(this.state.query, 'projects', projectId),
+    });
   }
 
   handleTagClick(tag) {
-    const query = Object.assign({}, this.state.query);
-    const tagIsSelected = this.tagIsSelected(tag, this.state);
-    const selectedTags = query.tags || [];
-
-    if (tagIsSelected) {
-      selectedTags.splice(selectedTags.indexOf(tag), 1); // remove from array
-      if (!selectedTags.length) {
-        delete query.tags;
-      }
-    } else {
-      query.tags = selectedTags.concat(tag);
-    }
-    this.setState({ query });
+    this.setState({
+      query: toggleStateQueryArrayValue(this.state.query, 'tags', tag),
+    });
   }
 
   handleRuleClick(rule) {
-    this.setState((prevState) => {
-      const state = Object.assign({}, prevState);
-      if (!state.query.rules) {
-        state.query.rules = [];
-      }
-      const i = state.query.rules.indexOf(rule);
-      if (i === -1) {
-        state.query.rules.push(rule);
-      } else {
-        state.query.rules.splice(i, 1);
-      }
-      return { query: state.query };
+    this.setState({
+      query: toggleStateQueryArrayValue(this.state.query, 'rules', rule),
     });
   }
 
   handleShowClick(show) {
-    this.setState((prevState) => {
-      const state = Object.assign({}, prevState);
-      if (!state.query.show) {
-        state.query.show = [];
-      }
-
-      const toggleMedia = (t) => {
-        const i = state.query.show.indexOf(t);
-        if (i === -1) {
-          state.query.show.push(t);
-        } else {
-          state.query.show.splice(i, 1);
-        }
-      };
-
-      toggleMedia(show);
-
-      if (state.query.show.length === 0) {
-        delete state.query.show;
-      }
-
-      return { query: state.query };
+    this.setState({
+      query: toggleStateQueryArrayValue(this.state.query, 'show', show),
     });
   }
 
   handleDynamicClick(field, value) {
-    const query = Object.assign({}, this.state.query);
-    if (!query.dynamic) {
-      query.dynamic = {};
-    }
-    if (!query.dynamic[field]) {
-      query.dynamic[field] = [];
-    }
-    const i = query.dynamic[field].indexOf(value);
-    if (i === -1) {
-      query.dynamic[field].push(value);
+    const { query } = this.state;
+    const oldDynamic = query.dynamic ? query.dynamic : {};
+    const newDynamic = toggleStateQueryArrayValue(oldDynamic, field, value);
+    if (Object.keys(newDynamic).length === 0) {
+      const newQuery = { ...query };
+      delete newQuery.dynamic;
+      this.setState({ query: newQuery });
     } else {
-      query.dynamic[field].splice(i, 1);
+      this.setState({
+        query: { ...query, dynamic: newDynamic },
+      });
     }
-    if (!query.dynamic[field].length) {
-      delete query.dynamic[field];
-    }
-    if (!Object.keys(query.dynamic).length) {
-      delete query.dynamic;
-    }
-    this.setState({ query });
   }
 
   handleDialogOpen = () => {
-    this.setState({
-      dialogOpen: true,
-      popper: {
-        open: false,
-        allowed: this.state.popper.allowed,
-        anchorEl: null,
-      },
-    });
-  };
+    this.setState({ dialogOpen: true });
+  }
 
   handleDialogClose = () => {
-    const query = searchQueryFromUrl();
     this.setState({
-      query,
       dialogOpen: false,
-      popper: {
-        open: false,
-        allowed: this.state.popper.allowed,
-        anchorEl: null,
-      },
+      query: this.props.query, // undo changes
     });
-  };
+  }
 
   // Create title out of query parameters
   title(statuses, projects) {
-    const { query } = this.state;
+    const { query } = this.props;
     return (
       // Merge/flatten the array constructed below
       // http://stackoverflow.com/a/10865042/209184
@@ -481,8 +417,8 @@ class SearchQueryComponent extends React.Component {
                 return project ? project.node.title : '';
               })
               : [],
-            query[statusKey]
-              ? query[statusKey].map((s) => {
+            query.verification_status
+              ? query.verification_status.map((s) => {
                 const status = statuses.find(so => so.id === s);
                 return status ? status.label : '';
               })
@@ -502,62 +438,44 @@ class SearchQueryComponent extends React.Component {
     return this.props.fields ? this.props.fields.indexOf(field) > -1 : true;
   }
 
-  handleInputChange = () => {
-    // Open the search help when
-    // - user has typed something
-    // - user has not explicitly closed the help
-    // - user has reset the keywords
-    this.setState((prevState) => {
-      const state = Object.assign({}, prevState);
-      state.query.keyword = this.searchInput.value;
-      return {
-        query: state.query,
-        popper: {
-          open: this.searchInput.value.length > 0 && this.state.popper.allowed,
-          anchorEl: this.searchInput,
-          allowed: this.state.popper.allowed || !this.searchInput.value.length,
-        },
-      };
-    });
-  };
-
-  handleKeyPress = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      this.handleApplyFilters();
+  handleInputChange = (ev) => {
+    const { keyword, ...newQuery } = this.state.query;
+    const newKeyword = ev.target.value;
+    if (newKeyword) { // empty string => remove property from query
+      newQuery.keyword = newKeyword;
     }
-  };
-
-  handleBlur = () => {
-    const query = searchQueryFromUrl();
-    const value = this.searchInput.value.trim();
-    if (value || query.keyword) {
-      if (value !== query.keyword) {
-        this.handleApplyFilters();
-      }
-    }
-  };
-
-  handlePopperClick() {
-    this.setState({ popper: { open: false, allowed: false } });
+    this.setState({ query: newQuery });
   }
 
-  cancelFilters() {
-    const query = searchQueryFromUrl();
+  handleSubmit = (ev) => {
+    ev.preventDefault();
+    this.handleApplyFilters();
+  }
+
+  handleBlur = () => {
+    this.handleApplyFilters();
+  }
+
+  handlePopperClick = (ev) => {
+    ev.preventDefault();
+    this.setState({ isPopperClosed: true });
+  }
+
+  handleClickCancel = () => {
+    const { query } = this.props;
     this.setState({ dialogOpen: false, query });
   }
 
-  resetFilters = (apply) => {
-    this.searchInput.value = '';
-    this.setState({ query: {} }, () => {
-      if (apply) {
-        this.handleApplyFilters();
-      }
-    });
-  };
+  handleClickClear = () => {
+    this.props.onChange({});
+  }
+
+  handleClickReset = () => {
+    this.setState({ query: {} });
+  }
 
   doneButtonDisabled() {
-    const query = searchQueryFromUrl();
-    return deepEqual(this.state.query, query);
+    return deepEqual(this.state.query, this.props.query);
   }
 
   subscribe() {
@@ -629,6 +547,7 @@ class SearchQueryComponent extends React.Component {
           <form
             id="search-form"
             className="search__form"
+            onSubmit={this.handleSubmit}
             autoComplete="off"
           >
             <StyledSearchInput
@@ -638,20 +557,24 @@ class SearchQueryComponent extends React.Component {
               active={this.keywordIsActive()}
               defaultValue={this.state.query.keyword || ''}
               isRtl={isRtl}
-              onKeyPress={this.handleKeyPress}
               onBlur={this.handleBlur}
               onChange={this.handleInputChange}
-              ref={(i) => { this.searchInput = i; }}
+              ref={this.searchInput}
               autoFocus
             />
             <StyledPopper
               id="search-help"
-              isRtl={isRtl}
-              open={this.state.popper.open}
-              anchorEl={this.state.popper.anchorEl}
+              open={
+                // Open the search help when
+                // - user has typed something
+                // - user has not explicitly closed the help
+                this.state.query.keyword !== this.props.query.keyword &&
+                !this.state.isPopperClosed
+              }
+              anchorEl={() => this.searchInput.current}
             >
               <Paper>
-                <IconButton style={{ fontSize: '20px' }} onClick={this.handlePopperClick.bind(this)}>
+                <IconButton onClick={this.handlePopperClick}>
                   <ClearIcon />
                 </IconButton>
                 <FormattedHTMLMessage
@@ -684,241 +607,231 @@ class SearchQueryComponent extends React.Component {
           </Button>
           { (this.filterIsActive() || this.keywordIsActive()) ?
             <Tooltip title={this.props.intl.formatMessage(messages.clear)}>
-              <IconButton
-                id="search-query__clear-button"
-                onClick={() => { this.resetFilters(true); }}
-              >
+              <IconButton id="search-query__clear-button" onClick={this.handleClickClear}>
                 <ClearIcon style={{ color: highlightOrange }} />
               </IconButton>
             </Tooltip>
             : null
           }
         </Row>
-        <PageTitle prefix={title} skipTeam={false} team={this.props.team}>
+        <PageTitle prefix={title} team={this.props.team}>
           <Dialog
             className="search__query-dialog"
-            maxWidth="md"
+            maxWidth="sm"
             fullWidth
             scroll="paper"
             open={this.state.dialogOpen}
             onClose={this.handleDialogClose}
           >
             <DialogContent>
-              <ContentColumn>
-                <StyledSearchFiltersSection>
-                  <DateRangeFilter
-                    hidden={!this.showField('date')}
-                    onChange={this.handleDateChange}
-                    value={this.state.query.range}
-                  />
-                  {this.showField('status') ?
-                    <StyledFilterRow isRtl={isRtl}>
-                      <h4><FormattedMessage id="search.statusHeading" defaultMessage="Status" /></h4>
-                      {statuses.map(status => (
-                        <StyledFilterChip
-                          id={`search-query__status-${status.id}`}
-                          active={this.statusIsSelected(status.id)}
-                          key={status.id}
-                          title={status.description}
-                          onClick={this.handleStatusClick.bind(this, status.id)}
-                          className={bemClass(
-                            'search-query__filter-button',
-                            this.statusIsSelected(status.id),
-                            '--selected',
-                          )}
-                        >
-                          {status.label}
-                        </StyledFilterChip>))}
-                    </StyledFilterRow>
-                    : null}
-
-                  {this.showField('project') ?
-                    <StyledFilterRow>
-                      <h4>
-                        <FormattedMessage id="search.projectHeading" defaultMessage="List" />
-                      </h4>
-                      {projects.map(project => (
-                        <StyledFilterChip
-                          active={this.projectIsSelected(project.node.dbid)}
-                          key={project.node.dbid}
-                          onClick={this.handleProjectClick.bind(this, project.node.dbid)}
-                          className={bemClass(
-                            'search-filter__project-chip',
-                            this.projectIsSelected(project.node.dbid),
-                            '--selected',
-                          )}
-                        >
-                          {project.node.title}
-                        </StyledFilterChip>))}
-                    </StyledFilterRow>
-                    : null}
-
-                  {this.showField('tags') && suggestedTags.length ?
-                    <StyledFilterRow>
-                      <h4>
-                        <FormattedMessage id="status.categoriesHeading" defaultMessage="Default Tags" />
-                      </h4>
-                      {suggestedTags.map(tag => (
-                        <StyledFilterChip
-                          active={this.tagIsSelected(tag)}
-                          key={tag}
-                          title={null}
-                          onClick={this.handleTagClick.bind(this, tag)}
-                          className={bemClass(
-                            'search-query__filter-button',
-                            this.tagIsSelected(tag),
-                            '--selected',
-                          )}
-                        >
-                          {tag}
-                        </StyledFilterChip>))}
-                    </StyledFilterRow>
-                    : null}
-
-                  {this.showField('show') ?
-                    <StyledFilterRow className="search-query__sort-actions">
-                      <h4><FormattedMessage id="search.show" defaultMessage="Type" /></h4>
+              <StyledSearchFiltersSection>
+                <DateRangeFilter
+                  hidden={!this.showField('date')}
+                  onChange={this.handleDateChange}
+                  value={this.state.query.range}
+                />
+                {this.showField('status') ?
+                  <StyledFilterRow isRtl={isRtl}>
+                    <h4><FormattedMessage id="search.statusHeading" defaultMessage="Status" /></h4>
+                    {statuses.map(status => (
                       <StyledFilterChip
-                        active={this.showIsSelected('claims')}
-                        onClick={this.handleShowClick.bind(this, 'claims')}
+                        id={`search-query__status-${status.id}`}
+                        active={this.statusIsSelected(status.id)}
+                        key={status.id}
+                        title={status.description}
+                        onClick={this.handleStatusClick.bind(this, status.id)}
                         className={bemClass(
                           'search-query__filter-button',
-                          this.showIsSelected('claims'),
+                          this.statusIsSelected(status.id),
                           '--selected',
                         )}
                       >
-                        <FormattedMessage id="search.showClaims" defaultMessage="Texts" />
-                      </StyledFilterChip>
+                        {status.label}
+                      </StyledFilterChip>))}
+                  </StyledFilterRow>
+                  : null}
+
+                {this.showField('project') ?
+                  <StyledFilterRow>
+                    <h4>
+                      <FormattedMessage id="search.projectHeading" defaultMessage="List" />
+                    </h4>
+                    {projects.map(project => (
                       <StyledFilterChip
-                        active={this.showIsSelected('links')}
-                        onClick={this.handleShowClick.bind(this, 'links')}
+                        active={this.projectIsSelected(project.node.dbid)}
+                        key={project.node.dbid}
+                        onClick={this.handleProjectClick.bind(this, project.node.dbid)}
                         className={bemClass(
-                          'search-query__filter-button',
-                          this.showIsSelected('links'),
+                          'search-filter__project-chip',
+                          this.projectIsSelected(project.node.dbid),
                           '--selected',
                         )}
                       >
-                        <FormattedMessage id="search.showLinks" defaultMessage="Links" />
-                      </StyledFilterChip>
+                        {project.node.title}
+                      </StyledFilterChip>))}
+                  </StyledFilterRow>
+                  : null}
+
+                {this.showField('tags') && suggestedTags.length ?
+                  <StyledFilterRow>
+                    <h4>
+                      <FormattedMessage id="status.categoriesHeading" defaultMessage="Default Tags" />
+                    </h4>
+                    {suggestedTags.map(tag => (
                       <StyledFilterChip
-                        active={this.showIsSelected('images')}
-                        onClick={this.handleShowClick.bind(this, 'images')}
+                        active={this.tagIsSelected(tag)}
+                        key={tag}
+                        title={null}
+                        onClick={this.handleTagClick.bind(this, tag)}
                         className={bemClass(
                           'search-query__filter-button',
-                          this.showIsSelected('images'),
+                          this.tagIsSelected(tag),
                           '--selected',
                         )}
                       >
-                        <FormattedMessage id="search.showImages" defaultMessage="Images" />
-                      </StyledFilterChip>
-                      <StyledFilterChip
-                        active={this.showIsSelected('videos')}
-                        onClick={this.handleShowClick.bind(this, 'videos')}
-                        className={bemClass(
-                          'search-query__filter-button',
-                          this.showIsSelected('videos'),
-                          '--selected',
-                        )}
-                      >
-                        <FormattedMessage id="search.showVideos" defaultMessage="Videos" />
-                      </StyledFilterChip>
-                    </StyledFilterRow>
-                    : null}
+                        {tag}
+                      </StyledFilterChip>))}
+                  </StyledFilterRow>
+                  : null}
 
-                  {this.showField('dynamic') ?
-                    (Object.keys(team.dynamic_search_fields_json_schema.properties).map((key) => {
-                      if (key === 'sort') {
-                        return null;
-                      }
-
-                      const annotationType = team.dynamic_search_fields_json_schema.properties[key];
-
-                      const fields = [];
-
-                      if (annotationType.type === 'array') {
-                        // #8220 remove "spam" until we get real values for it.
-                        annotationType.items.enum.filter(value => value !== 'spam').forEach((value, i) => {
-                          const label = annotationType.items.enumNames[i];
-                          const option = (
-                            <StyledFilterChip
-                              key={`dynamic-field-${key}-option-${value}`}
-                              active={this.dynamicIsSelected(key, value)}
-                              onClick={this.handleDynamicClick.bind(this, key, value)}
-                              className={bemClass(
-                                'search-query__filter-button',
-                                this.dynamicIsSelected(key, value),
-                                '--selected',
-                              )}
-                            >
-                              <span>{label}</span>
-                            </StyledFilterChip>
-                          );
-                          fields.push(option);
-                        });
-                      }
-
-                      return (
-                        <StyledFilterRow key={`dynamic-field-${key}`} className="search-query__dynamic">
-                          <h4>{annotationType.title}</h4>
-                          {fields}
-                        </StyledFilterRow>
-                      );
-                    }))
-                    : null}
-
-                  {hasRules && this.showField('rules') && currentUser.is_admin ?
-                    <StyledFilterRow className="search-query__sort-actions">
-                      <h4><FormattedMessage id="search.rules" defaultMessage="Rules" /></h4>
-                      {Object
-                        .keys(team.rules_search_fields_json_schema.properties.rules.properties)
-                        .map((id) => {
-                          const label = team.rules_search_fields_json_schema.properties
-                            .rules.properties[id].title;
-                          return (
-                            <StyledFilterChip
-                              key={id}
-                              active={this.ruleIsSelected(id)}
-                              onClick={this.handleRuleClick.bind(this, id)}
-                              className={bemClass(
-                                'search-query__filter-button',
-                                this.ruleIsSelected(id),
-                                '--selected',
-                              )}
-                            >
-                              {label}
-                            </StyledFilterChip>
-                          );
-                        })
-                      }
-                    </StyledFilterRow> : null}
-
-                  <p style={{ textAlign: 'right' }}>
-                    <Button
-                      id="search-query__cancel-button"
-                      onClick={this.cancelFilters.bind(this)}
+                {this.showField('show') ?
+                  <StyledFilterRow className="search-query__sort-actions">
+                    <h4><FormattedMessage id="search.show" defaultMessage="Type" /></h4>
+                    <StyledFilterChip
+                      active={this.showIsSelected('claims')}
+                      onClick={this.handleShowClick.bind(this, 'claims')}
+                      className={bemClass(
+                        'search-query__filter-button',
+                        this.showIsSelected('claims'),
+                        '--selected',
+                      )}
                     >
-                      {this.props.intl.formatMessage(messages.cancel)}
-                    </Button>
-
-                    <Button
-                      id="search-query__reset-button"
-                      onClick={() => { this.resetFilters(); }}
+                      <FormattedMessage id="search.showClaims" defaultMessage="Texts" />
+                    </StyledFilterChip>
+                    <StyledFilterChip
+                      active={this.showIsSelected('links')}
+                      onClick={this.handleShowClick.bind(this, 'links')}
+                      className={bemClass(
+                        'search-query__filter-button',
+                        this.showIsSelected('links'),
+                        '--selected',
+                      )}
                     >
-                      {this.props.intl.formatMessage(messages.reset)}
-                    </Button>
-
-                    <Button
-                      id="search-query__submit-button"
-                      onClick={this.handleApplyFilters.bind(this)}
-                      disabled={this.doneButtonDisabled()}
-                      color="primary"
+                      <FormattedMessage id="search.showLinks" defaultMessage="Links" />
+                    </StyledFilterChip>
+                    <StyledFilterChip
+                      active={this.showIsSelected('images')}
+                      onClick={this.handleShowClick.bind(this, 'images')}
+                      className={bemClass(
+                        'search-query__filter-button',
+                        this.showIsSelected('images'),
+                        '--selected',
+                      )}
                     >
-                      {this.props.intl.formatMessage(messages.applyFilters)}
-                    </Button>
-                  </p>
-                </StyledSearchFiltersSection>
-              </ContentColumn>
+                      <FormattedMessage id="search.showImages" defaultMessage="Images" />
+                    </StyledFilterChip>
+                    <StyledFilterChip
+                      active={this.showIsSelected('videos')}
+                      onClick={this.handleShowClick.bind(this, 'videos')}
+                      className={bemClass(
+                        'search-query__filter-button',
+                        this.showIsSelected('videos'),
+                        '--selected',
+                      )}
+                    >
+                      <FormattedMessage id="search.showVideos" defaultMessage="Videos" />
+                    </StyledFilterChip>
+                  </StyledFilterRow>
+                  : null}
+
+                {this.showField('dynamic') ?
+                  (Object.keys(team.dynamic_search_fields_json_schema.properties).map((key) => {
+                    if (key === 'sort') {
+                      return null;
+                    }
+
+                    const annotationType = team.dynamic_search_fields_json_schema.properties[key];
+
+                    const fields = [];
+
+                    if (annotationType.type === 'array') {
+                      // #8220 remove "spam" until we get real values for it.
+                      annotationType.items.enum.filter(value => value !== 'spam').forEach((value, i) => {
+                        const label = annotationType.items.enumNames[i];
+                        const option = (
+                          <StyledFilterChip
+                            key={`dynamic-field-${key}-option-${value}`}
+                            active={this.dynamicIsSelected(key, value)}
+                            onClick={this.handleDynamicClick.bind(this, key, value)}
+                            className={bemClass(
+                              'search-query__filter-button',
+                              this.dynamicIsSelected(key, value),
+                              '--selected',
+                            )}
+                          >
+                            <span>{label}</span>
+                          </StyledFilterChip>
+                        );
+                        fields.push(option);
+                      });
+                    }
+
+                    return (
+                      <StyledFilterRow key={`dynamic-field-${key}`} className="search-query__dynamic">
+                        <h4>{annotationType.title}</h4>
+                        {fields}
+                      </StyledFilterRow>
+                    );
+                  }))
+                  : null}
+
+                {hasRules && this.showField('rules') && currentUser.is_admin ? (
+                  <StyledFilterRow className="search-query__sort-actions">
+                    <h4><FormattedMessage id="search.rules" defaultMessage="Rules" /></h4>
+                    {Object
+                      .keys(team.rules_search_fields_json_schema.properties.rules.properties)
+                      .map((id) => {
+                        const label = team.rules_search_fields_json_schema.properties
+                          .rules.properties[id].title;
+                        return (
+                          <StyledFilterChip
+                            key={id}
+                            active={this.ruleIsSelected(id)}
+                            onClick={this.handleRuleClick.bind(this, id)}
+                            className={bemClass(
+                              'search-query__filter-button',
+                              this.ruleIsSelected(id),
+                              '--selected',
+                            )}
+                          >
+                            {label}
+                          </StyledFilterChip>
+                        );
+                      })
+                    }
+                  </StyledFilterRow>
+                ) : null}
+              </StyledSearchFiltersSection>
             </DialogContent>
+            <DialogActions>
+              <Button id="search-query__cancel-button" onClick={this.handleClickCancel}>
+                {this.props.intl.formatMessage(messages.cancel)}
+              </Button>
+
+              <Button id="search-query__reset-button" onClick={this.handleClickReset}>
+                {this.props.intl.formatMessage(messages.reset)}
+              </Button>
+
+              <Button
+                id="search-query__submit-button"
+                type="submit"
+                form="search-form"
+                disabled={this.doneButtonDisabled()}
+                color="primary"
+              >
+                {this.props.intl.formatMessage(messages.applyFilters)}
+              </Button>
+            </DialogActions>
           </Dialog>
         </PageTitle>
       </div>
@@ -933,6 +846,8 @@ SearchQueryComponent.propTypes = {
   classes: PropTypes.object.isRequired,
   pusher: pusherShape.isRequired,
   clientSessionId: PropTypes.string.isRequired,
+  query: PropTypes.object.isRequired,
+  onChange: PropTypes.func.isRequired, // onChange({ ... /* query */ }) => undefined
 };
 
 SearchQueryComponent.contextTypes = {

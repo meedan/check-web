@@ -16,6 +16,11 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(1),
     boxShadow: 'none',
   },
+  inner: {
+    margin: 0,
+    padding: 0,
+    marginBottom: theme.spacing(2),
+  },
 }));
 
 const RuleField = (props) => {
@@ -49,7 +54,7 @@ const RuleField = (props) => {
   }
 
   return (
-    <Paper className={[classes.paper, 'rules__rule-field'].join(' ')}>
+    <Paper className={[classes.paper, props.className, 'rules__rule-field'].join(' ')}>
       { options ?
         <FormControl variant="outlined" fullWidth>
           <InputLabel>{label}</InputLabel>
@@ -93,6 +98,7 @@ const RuleField = (props) => {
             const subValue = value[field] || '';
             return (
               <RuleField
+                className={classes.inner}
                 key={field}
                 definition={subDefinition}
                 value={subValue}
@@ -112,6 +118,7 @@ const RuleField = (props) => {
 
 RuleField.defaultProps = {
   value: null,
+  className: '',
 };
 
 RuleField.propTypes = {
@@ -135,6 +142,7 @@ RuleField.propTypes = {
     })),
   }).isRequired,
   onChange: PropTypes.func.isRequired,
+  className: PropTypes.string,
 };
 
 export default RuleField;

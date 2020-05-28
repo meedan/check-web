@@ -467,16 +467,24 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector(".medias__item")
       expect(@driver.page_source.include?('My search result')).to be(true)
 
+      # Pre-populate dates to force the date picker to open at certain calendar months.
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B%20%22range%22%3A%20%7B%22created_at%22%3A%7B%22start_time%22%3A%222016-01-01%22%2C%22end_time%22%3A%222016-02-28%22%7D%7D%7D'
       wait_for_selector_none(".medias__item", :css, 10)
       expect(@driver.page_source.include?('My search result')).to be(false)
 
       wait_for_selector("#search__open-dialog-button").click
       wait_for_selector(".date-range__start-date input").click
+
+      # The date picker is broken: https://github.com/mui-org/material-ui-pickers/issues/1526
+      # The upshot: open it with value=2016-01-01, click "OK", and it will return a different
+      # date. That's why we can submit the form even though it looks like this test isn't
+      # changing any values.
       wait_for_selector("//span[contains(text(), 'OK')]", :xpath).click
+      wait_for_selector_none("body>div[role=dialog]")  # wait for mui-picker background to fade away
       wait_for_selector(".date-range__end-date input").click
       wait_for_selector("//span[contains(text(), 'OK')]", :xpath).click
-      wait_for_selector("#search-query__submit-button").click
+      wait_for_selector_none("body>div[role=dialog]")  # wait for mui-picker background to fade away
+      wait_for_selector("#search-query__submit-button:not(:disabled)").click
       wait_for_selector_none(".medias__item",:css, 10)
       expect(@driver.page_source.include?('My search result')).to be(false)
     end
