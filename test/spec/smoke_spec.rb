@@ -372,6 +372,7 @@ shared_examples 'smoke' do
     wait_for_selector('.task__card-expand').click
     wait_for_selector(".task-actions__icon").click
     wait_for_selector(".task-actions__assign").click
+    wait_for_selector("#attribution")
     wait_for_selector(".Select-input input").send_keys("user")
     @driver.action.send_keys(:enter).perform
     wait_for_selector(".attribution-dialog__save").click
