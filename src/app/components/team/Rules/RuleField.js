@@ -7,16 +7,19 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
-import { black54 } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   paper: {
     width: '100%',
     padding: theme.spacing(2),
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
     boxShadow: 'none',
-    border: `2px solid ${black54}`,
+  },
+  inner: {
+    margin: 0,
+    padding: 0,
+    marginBottom: theme.spacing(2),
   },
 }));
 
@@ -51,7 +54,7 @@ const RuleField = (props) => {
   }
 
   return (
-    <Paper className={[classes.paper, 'rules__rule-field'].join(' ')}>
+    <Paper className={[classes.paper, props.className, 'rules__rule-field'].join(' ')}>
       { options ?
         <FormControl variant="outlined" fullWidth>
           <InputLabel>{label}</InputLabel>
@@ -95,6 +98,7 @@ const RuleField = (props) => {
             const subValue = value[field] || '';
             return (
               <RuleField
+                className={classes.inner}
                 key={field}
                 definition={subDefinition}
                 value={subValue}
@@ -114,6 +118,7 @@ const RuleField = (props) => {
 
 RuleField.defaultProps = {
   value: null,
+  className: '',
 };
 
 RuleField.propTypes = {
@@ -137,6 +142,7 @@ RuleField.propTypes = {
     })),
   }).isRequired,
   onChange: PropTypes.func.isRequired,
+  className: PropTypes.string,
 };
 
 export default RuleField;

@@ -4,8 +4,9 @@ import { FormattedMessage } from 'react-intl';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
-import { checkBlue, inProgressYellow } from '../../../styles/js/shared';
+import { checkBlue, inProgressYellow, opaqueBlack23 } from '../../../styles/js/shared';
 import RuleOperatorWrapper from './RuleOperatorWrapper';
 import RuleField from './RuleField';
 
@@ -34,26 +35,17 @@ const useStyles = makeStyles(theme => ({
   title: {
     textTransform: 'uppercase',
   },
+  box: {
+    border: `2px solid ${opaqueBlack23}`,
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+    borderRadius: 4,
+  },
 }));
 
 const RuleBody = (props) => {
   const classes = useStyles();
-  const [rule, setRule] = React.useState(JSON.parse(JSON.stringify(props.rule)));
-  const [ruleName, setRuleName] = React.useState(rule.name);
-
-  React.useEffect(() => {
-    setRule(JSON.parse(JSON.stringify(props.rule)));
-    setRuleName(props.rule.name);
-  }, [props.rule]);
-
-  const handleChangeRuleName = (event) => {
-    setRuleName(event.target.value);
-  };
-
-  const handleUpdateRuleName = (event) => {
-    rule.name = event.target.value;
-    props.onUpdateRule(rule);
-  };
+  const rule = JSON.parse(JSON.stringify(props.rule));
 
   const getConditionalField = (conditions, key, value) => {
     let conditionalField = null;
@@ -68,11 +60,16 @@ const RuleBody = (props) => {
     return conditionalField;
   };
 
+  const handleUpdateRuleName = (e) => {
+    rule.name = e.target.value;
+    props.onChangeRule(rule);
+  };
+
   return (
     <Paper className={classes.paper}>
       <TextField
-        value={ruleName}
-        error={!ruleName}
+        key={rule.name}
+        defaultValue={rule.name}
         helperText={
           <FormattedMessage
             id="ruleBody.ruleNameValidation"
@@ -85,7 +82,6 @@ const RuleBody = (props) => {
             defaultMessage="Name"
           />
         }
-        onChange={handleChangeRuleName}
         onBlur={handleUpdateRuleName}
         fullWidth
       />
@@ -96,15 +92,15 @@ const RuleBody = (props) => {
         operator={rule.rules.operator}
         onSetOperator={(value) => {
           rule.rules.operator = value;
-          props.onUpdateRule(rule);
+          props.onChangeRule(rule);
         }}
         onAdd={() => {
           rule.rules.groups.push({ operator: 'and', conditions: [{ rule_definition: '', rule_value: '' }] });
-          props.onUpdateRule(rule);
+          props.onChangeRule(rule);
         }}
         onRemove={(i) => {
           rule.rules.groups.splice(i, 1);
-          props.onUpdateRule(rule);
+          props.onChangeRule(rule);
         }}
       >
         {rule.rules.groups.map((group, i) => {
@@ -124,15 +120,15 @@ const RuleBody = (props) => {
                 operator={group.operator}
                 onSetOperator={(value) => {
                   rule.rules.groups[i].operator = value;
-                  props.onUpdateRule(rule);
+                  props.onChangeRule(rule);
                 }}
                 onAdd={() => {
                   rule.rules.groups[i].conditions.push({ rule_definition: '', rule_value: '' });
-                  props.onUpdateRule(rule);
+                  props.onChangeRule(rule);
                 }}
                 onRemove={(j) => {
                   rule.rules.groups[i].conditions.splice(j, 1);
-                  props.onUpdateRule(rule);
+                  props.onChangeRule(rule);
                 }}
               >
                 {group.conditions.map((condition, j) => {
@@ -141,14 +137,14 @@ const RuleBody = (props) => {
                   const conditionalField = getConditionalField(conditions, 'rule_definition', condition.rule_definition);
 
                   return (
-                    <React.Fragment key={Math.random().toString().substring(2, 10)}>
+                    <Box key={Math.random().toString().substring(2, 10)} className={classes.box}>
                       <RuleField
                         definition={rulesDefinition}
                         value={condition.rule_definition}
                         onChange={(value) => {
                           rule.rules.groups[i].conditions[j].rule_definition = value;
                           rule.rules.groups[i].conditions[j].rule_value = '';
-                          props.onUpdateRule(rule);
+                          props.onChangeRule(rule);
                         }}
                       />
                       { conditionalField ?
@@ -157,10 +153,10 @@ const RuleBody = (props) => {
                           value={condition.rule_value}
                           onChange={(value) => {
                             rule.rules.groups[i].conditions[j].rule_value = value;
-                            props.onUpdateRule(rule);
+                            props.onChangeRule(rule);
                           }}
                         /> : null }
-                    </React.Fragment>
+                    </Box>
                   );
                 })}
               </RuleOperatorWrapper>
@@ -183,11 +179,11 @@ const RuleBody = (props) => {
           onSetOperator={() => {}}
           onAdd={() => {
             rule.actions.push({ action_definition: '', action_value: '' });
-            props.onUpdateRule(rule);
+            props.onChangeRule(rule);
           }}
           onRemove={(i) => {
             rule.actions.splice(i, 1);
-            props.onUpdateRule(rule);
+            props.onChangeRule(rule);
           }}
         >
           {rule.actions.map((action, i) => {
@@ -195,14 +191,14 @@ const RuleBody = (props) => {
             const actionsDefinition = actions.properties.action_definition;
             const conditionalField = getConditionalField(actions.allOf, 'action_definition', action.action_definition);
             return (
-              <React.Fragment key={Math.random().toString().substring(2, 10)}>
+              <Box key={Math.random().toString().substring(2, 10)} className={classes.box}>
                 <RuleField
                   definition={actionsDefinition}
                   value={action.action_definition}
                   onChange={(value) => {
                     rule.actions[i].action_definition = value;
                     rule.actions[i].action_value = '';
-                    props.onUpdateRule(rule);
+                    props.onChangeRule(rule);
                   }}
                 />
                 { conditionalField ?
@@ -211,10 +207,10 @@ const RuleBody = (props) => {
                     value={action.action_value}
                     onChange={(value) => {
                       rule.actions[i].action_value = value;
-                      props.onUpdateRule(rule);
+                      props.onChangeRule(rule);
                     }}
                   /> : null }
-              </React.Fragment>
+              </Box>
             );
           })}
         </RuleOperatorWrapper>
@@ -226,7 +222,7 @@ const RuleBody = (props) => {
 RuleBody.propTypes = {
   rule: PropTypes.object.isRequired,
   schema: PropTypes.object.isRequired,
-  onUpdateRule: PropTypes.func.isRequired,
+  onChangeRule: PropTypes.func.isRequired,
 };
 
 export default RuleBody;

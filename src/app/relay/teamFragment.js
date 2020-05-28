@@ -18,7 +18,6 @@ const teamFragment = Relay.QL`
     pusher_channel,
     public_team_id,
     verification_statuses,
-    source_verification_statuses,
     contacts(first: 1) {
       edges {
         node {

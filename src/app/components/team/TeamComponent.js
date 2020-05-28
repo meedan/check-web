@@ -243,7 +243,7 @@ class TeamComponent extends Component {
     };
 
     return (
-      <PageTitle prefix={false} skipTeam={false} team={team}>
+      <PageTitle team={team}>
         <div className="team">
           <HeaderCard direction={direction} isEditing={isEditing}>
             <ContentColumn>

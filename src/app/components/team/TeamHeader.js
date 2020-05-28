@@ -22,7 +22,6 @@ const TeamHeader = (props) => {
           pusher_channel,
           public_team_id,
           verification_statuses,
-          source_verification_statuses,
         }
       `,
     },

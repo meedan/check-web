@@ -40,14 +40,6 @@ describe('<PageTitle />', () => {
     expect(Helmet.peek().title).toEqual('Translated! | Check');
   });
 
-  it('should skip team when prefix is provided but skipTeam is set (TODO nix skipTeam)', () => {
-    mountWithIntlProvider(<PageTitle
-      skipTeam
-      prefix={<FormattedMessage id="test.PageTitleTest" defaultMessage="Translated!" />}
-    />);
-    expect(Helmet.peek().title).toEqual('Translated! | Check');
-  });
-
   it('should translate when prefix is a <FormattedMessage>', () => {
     config.appName = 'check';
     mountWithIntlProvider(<PageTitle

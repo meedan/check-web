@@ -1,5 +1,4 @@
 import React from 'react';
-import { injectIntl } from 'react-intl';
 import Relay from 'react-relay/classic';
 import isEqual from 'lodash.isequal';
 import SearchQueryComponent from './SearchQueryComponent';
@@ -64,7 +63,7 @@ class SearchQuery extends React.Component {
   render() {
     const gqlquery = this.props.project ? queryWithoutProjects : queryWithProjects;
 
-    const SearchQueryContainer = Relay.createContainer(injectIntl(SearchQueryComponent), {
+    const SearchQueryContainer = Relay.createContainer(SearchQueryComponent, {
       fragments: {
         team: () => gqlquery,
       },

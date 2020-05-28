@@ -8,7 +8,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 
 const headCells = [
   { id: 'name', label: <FormattedMessage id="rulesTableHead.name" defaultMessage="Name" /> },
-  { id: 'created_at', label: <FormattedMessage id="rulesTableHead.created" defaultMessage="Created" /> },
+  { id: 'updated_at', label: <FormattedMessage id="rulesTableHead.updated" defaultMessage="Updated" /> },
 ];
 
 const RulesTableHead = (props) => {

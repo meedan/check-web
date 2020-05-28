@@ -12,7 +12,7 @@ const schema = {
             "title": "A unique name that identifies what this rule does",
             "type": "string"
           },
-          "created_at": {
+          "updated_at": {
             "title": "Created",
             "type": "integer"
           },

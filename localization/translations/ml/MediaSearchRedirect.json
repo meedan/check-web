@@ -1,0 +1,4 @@
+{
+  "mediaSearch.itemWentAway": "Not found",
+  "mediaSearch.error": "Sorry, the following error occurred: {message}. Please refresh the item to try again and contact {supportEmail} if the condition persists."
+}
