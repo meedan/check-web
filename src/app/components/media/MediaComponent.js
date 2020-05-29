@@ -22,6 +22,7 @@ import {
   units,
   mediaQuery,
 } from '../../styles/js/shared';
+import CheckContext from '../../CheckContext';
 
 const TimelineDrawer = styled.div`
   position: absolute;
@@ -117,6 +118,10 @@ class MediaComponent extends Component {
     }
   }
 
+  getContext() {
+    return new CheckContext(this).getContextStore();
+  }
+
   subscribe() {
     const { pusher, clientSessionId, media } = this.props;
     pusher.subscribe(media.pusher_channel).bind('relationship_change', 'MediaComponent', (data, run) => {
@@ -171,6 +176,9 @@ class MediaComponent extends Component {
     media.url = media.media.url;
     media.quote = media.media.quote;
     media.embed_path = media.media.embed_path;
+
+    // const { currentUser: annotator } = this.getContext();
+    // console.log({ annotator });
 
     return (
       <PageTitle
