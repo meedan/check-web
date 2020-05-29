@@ -15,6 +15,8 @@ import MediaLog from './MediaLog';
 import MediaComments from './MediaComments';
 import MediaRequests from './MediaRequests';
 import MediaUtil from './MediaUtil';
+import MediaTimeline from './MediaTimeline';
+import CheckContext from '../../CheckContext';
 import {
   ContentColumn,
   headerHeight,
@@ -22,7 +24,6 @@ import {
   units,
   mediaQuery,
 } from '../../styles/js/shared';
-import CheckContext from '../../CheckContext';
 
 const TimelineDrawer = styled.div`
   position: absolute;
@@ -30,7 +31,7 @@ const TimelineDrawer = styled.div`
   left: 0;
   height: 33vh;
   width: 100%;
-  background-color: #cccccc;
+  background-color: white;
 `;
 
 const StyledTwoColumnLayout = styled(ContentColumn)`
@@ -82,6 +83,10 @@ class MediaComponent extends Component {
     this.state = {
       showTab,
       showRequests,
+      duration: 0,
+      playing: false,
+      time: 0,
+      progress: 0,
     };
   }
 
@@ -177,8 +182,11 @@ class MediaComponent extends Component {
     media.quote = media.media.quote;
     media.embed_path = media.media.embed_path;
 
-    const { currentUser: annotator } = this.getContext();
-    console.log({ annotator });
+    const {
+      playing, duration, time, progress, seekTo, scrubTo,
+    } = this.state;
+
+    const { currentUser } = this.getContext();
 
     return (
       <PageTitle
@@ -195,6 +203,8 @@ class MediaComponent extends Component {
                 media={media}
                 hideBorder
                 hideRelated
+                setPlayerState={payload => this.setState(payload)}
+                {...{ playing, seekTo, scrubTo }}
               />
               {this.props.extras}
               <MediaRelated
@@ -271,7 +281,12 @@ class MediaComponent extends Component {
           </StyledTwoColumnLayout>
         </StyledBackgroundColor>
         <TimelineDrawer>
-          foo
+          <MediaTimeline
+            setPlayerState={payload => this.setState(payload)}
+            {...{
+              media, playing, duration, time, progress, seekTo, scrubTo, currentUser,
+            }}
+          />
         </TimelineDrawer>
       </PageTitle>
     );

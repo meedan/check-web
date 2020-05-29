@@ -1,0 +1,333 @@
+import React, { Component } from 'react';
+import { graphql, commitMutation } from 'react-relay/compat';
+import { Store } from 'react-relay/classic';
+import { Timeline } from '@meedan/check-ui';
+import qs from 'qs';
+
+const environment = Store;
+
+const createComment =
+  (text, fragment, annotated_id, parentID, callback) => commitMutation(environment, {
+    mutation: graphql`
+      mutation MediaTimelineCreateCommentMutation($input: CreateCommentInput!) {
+        createComment(input: $input) {
+          comment {
+            dbid
+          }
+        }
+      }
+    `,
+    variables: {
+      input: {
+        annotated_id, text, fragment, clientMutationId: `m${Date.now()}`, annotated_type: 'ProjectMedia',
+      },
+    },
+    // configs: [
+    //   {
+    //     type: 'RANGE_ADD',
+    //     parentName: 'project_media',
+    //     parentID,
+    //     edgeName: 'tagEdge',
+    //     connectionName: 'tags',
+    //     rangeBehaviors: () => ('prepend'),
+    //     connectionInfo: [{
+    //       key: 'ProjectMedia_tags',
+    //       rangeBehavior: 'prepend',
+    //     }],
+    //   },
+    // ],
+    onCompleted: (data, errors) => callback && callback(data, errors),
+  });
+
+const createTag = (tag, fragment, annotated_id, parentID, callback) => commitMutation(environment, {
+  mutation: graphql`
+    mutation MediaTimelineCreateInstanceMutation($input: CreateTagInput!) {
+      createTag(input: $input) {
+        project_media {
+          id
+        }
+        tagEdge {
+          node {
+            id
+            fragment
+            tag_text_object {
+              id
+              text
+            }
+          }
+        }
+      }
+    }
+  `,
+  variables: {
+    input: {
+      tag, fragment, annotated_id, clientMutationId: `m${Date.now()}`, annotated_type: 'ProjectMedia',
+    },
+  },
+  configs: [
+    {
+      type: 'RANGE_ADD',
+      parentName: 'project_media',
+      parentID,
+      edgeName: 'tagEdge',
+      connectionName: 'tags',
+      rangeBehaviors: () => ('prepend'),
+      connectionInfo: [{
+        key: 'ProjectMedia_tags',
+        rangeBehavior: 'prepend',
+      }],
+    },
+  ],
+  onCompleted: (data, errors) => callback && callback(data, errors),
+});
+
+const retimeTag = (id, fragment) => commitMutation(environment, {
+  mutation: graphql`
+    mutation MediaTimelineFragmentMutation($input: UpdateTagInput!) {
+      updateTag(input: $input) {
+        tag {
+          id
+          fragment
+        }
+      }
+    }
+  `,
+  variables: {
+    input: { id, fragment, clientMutationId: `m${Date.now()}` },
+  },
+  optimisticResponse: {
+    updateTag: {
+      tag: {
+        id,
+        fragment,
+      },
+    },
+  },
+});
+
+const renameTag = (id, text, callback) => commitMutation(environment, {
+  mutation: graphql`
+    mutation MediaTimelineTextMutation($input: UpdateTagTextInput!) {
+      updateTagText(input: $input) {
+        tag_text {
+          id
+          text
+        }
+      }
+    }
+  `,
+  variables: {
+    input: { id, text, clientMutationId: `m${Date.now()}` },
+  },
+  onCompleted: (data, errors) => callback && callback(data, errors),
+  optimisticResponse: {
+    updateTagText: {
+      tag_text: {
+        id,
+        text,
+      },
+    },
+  },
+});
+
+const destroyTag = (id, annotated_id) => commitMutation(environment, {
+  mutation: graphql`
+    mutation MediaTimelineDestroyMutation($input: DestroyTagTextInput!) {
+      destroyTagText(input: $input) {
+        deletedId
+      }
+    }
+  `,
+  variables: {
+    input: { id, clientMutationId: `m${Date.now()}` },
+  },
+  configs: [
+    {
+      type: 'NODE_DELETE',
+      parentName: 'project_media',
+      parentID: annotated_id,
+      connectionName: 'tags',
+      deletedIDFieldName: 'deletedId',
+    },
+  ],
+});
+
+const entityCreate = (type, payload, mediaId, parentId, callback) => {
+  switch (type) {
+  case 'tag':
+    createTag(payload[`project_${type}`].name, payload.fragment, mediaId, parentId, callback);
+    break;
+  default:
+    console.error(`${type} not handled`);
+  }
+};
+
+const entityUpdate = (type, entityId, payload, callback) => {
+  switch (type) {
+  case 'tag':
+    renameTag(entityId, payload.project_tag.name, callback);
+    break;
+  default:
+    console.error(`${type} not handled`);
+  }
+};
+
+const entityDelete = (type, entityId, tags, mediaId, callback) => {
+  switch (type) {
+  case 'tag':
+    tags.forEach(({ id }) => destroyTag(id, mediaId));
+    if (callback) callback();
+    break;
+  default:
+    console.error(`${type} not handled`);
+  }
+};
+
+const instanceCreate = (type, id, name, payload, mediaId, parentId, callback) => {
+  switch (type) {
+  case 'tag':
+    createTag(name, payload.fragment, mediaId, parentId, callback);
+    break;
+  default:
+    console.error(`${type} not handled`);
+  }
+};
+
+const instanceUpdate = (type, entityId, instanceId, fragment) => {
+  switch (type) {
+  case 'tag':
+    retimeTag(instanceId, fragment);
+    break;
+  default:
+    console.error(`${type} not handled`);
+  }
+};
+
+const instanceDelete = (type, instanceId, mediaId) => {
+  switch (type) {
+  case 'tag':
+    destroyTag(instanceId, mediaId);
+    break;
+  default:
+    console.error(`${type} not handled`);
+  }
+};
+
+const instanceClip = (type, entityId, instanceId) => {
+  switch (type) {
+  case 'tag':
+    console.warn(`TODO instance ${instanceId} -> clip`);
+    break;
+  default:
+    console.error(`${type} not handled`);
+  }
+};
+
+const playlistLaunch = (type, data) => {
+  switch (type) {
+  case 'tags':
+    console.warn('TODO playlist tags', data);
+    break;
+  default:
+    console.error(`${type} not handled`);
+  }
+};
+
+// createComment = (text, fragment, annotated_id, parentID, callback)
+const commentThreadCreate = (time, text, mediaId, callback) => {
+  createComment(text, `t=${time}`, mediaId, null, callback);
+};
+
+class MediaTimeline extends Component {
+  render() {
+    const {
+      media: { id: mediaId, dbid, tags: { edges = [] } },
+      duration, time, setPlayerState,
+      currentUser: { name: first_name, id: userId, profile_image: profile_img_url },
+    } = this.props;
+
+    const projecttags = [];
+    const entities = {};
+
+    edges
+      .filter(({ node }) => !!node)
+      .forEach(({ node: { id: instance, fragment, tag_text_object } }) => {
+        if (!tag_text_object) return;
+
+        const { id, text: name } = tag_text_object;
+        if (!fragment) {
+          projecttags.push({ id, name });
+          return;
+        }
+
+        if (!entities[id]) {
+          entities[id] = {
+            id, name, project_tag: { id, name }, instances: [],
+          };
+        }
+
+        const { t = '0,0', type = 'tag' } = qs.parse(fragment);
+        const [start_seconds, end_seconds] = t.split(',').map(n => parseFloat(n));
+
+        entities[id].type = type;
+        entities[id].instances.push({ start_seconds, end_seconds, id: instance });
+      });
+
+    const data = {
+      commentThreads: [],
+      project: {
+        projectclips: [],
+        projectplaces: [],
+        projecttags,
+      },
+      videoClips: [],
+      videoPlaces: [],
+      videoTags: Object.values(entities).filter(({ type }) => type === 'tag' || type === 'tags'),
+      user: {
+        first_name,
+        id: userId,
+        last_name: '',
+        profile_img_url,
+      },
+    };
+
+    return (
+      <Timeline
+        currentTime={time}
+        data={data}
+        duration={duration}
+        onBeforeCommentThreadCreate={(a, b, c, d, e) => console.log(a, b, c, d, e)}
+        onCommentCreate={(a, b, c, d, e) => console.log(a, b, c, d, e)}
+        onCommentDelete={(a, b, c, d, e) => console.log(a, b, c, d, e)}
+        onCommentEdit={(a, b, c, d, e) => console.log(a, b, c, d, e)}
+        onCommentThreadCreate={
+          (t, text, callback) => commentThreadCreate(t, text, dbid, callback)
+        }
+        onCommentThreadDelete={(a, b, c, d, e) => console.log(a, b, c, d, e)}
+        onEntityCreate={
+          (type, payload, callback) => entityCreate(type, payload, dbid, mediaId, callback)
+        }
+        onEntityDelete={
+          (type, entityId, callback) =>
+            entityDelete(type, entityId, data.videoTags.find(({ id }) =>
+              entityId === id).instances, dbid, callback)
+        }
+        onEntityUpdate={
+          (type, entityId, payload, callback) => entityUpdate(type, entityId, payload, callback)
+        }
+        onInstanceClip={(type, entityId, instanceId) => instanceClip(type, entityId, instanceId)}
+        onInstanceCreate={
+          (type, id, payload, callback) =>
+            instanceCreate(type, id, data.videoTags.find(({ id: _id }) =>
+              _id === id).name, payload, dbid, mediaId, callback)
+        }
+        onInstanceDelete={(type, entityId, instanceId) => instanceDelete(type, instanceId, dbid)}
+        onInstanceUpdate={(type, entityId, instanceId, { start_seconds, end_seconds }) => instanceUpdate(type, entityId, instanceId, `t=${start_seconds},${end_seconds}&type=${type}`)}
+        onPlaylistLaunch={type => playlistLaunch(type, data)}
+        onTimeChange={seekTo => setPlayerState({ seekTo })}
+      />
+    );
+  }
+}
+
+export default MediaTimeline;

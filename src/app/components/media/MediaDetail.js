@@ -54,6 +54,10 @@ class MediaDetail extends Component {
 
   render() {
     const {
+      playing,
+      seekTo,
+      scrubTo,
+      setPlayerState,
       media,
       annotated,
       annotatedType,
@@ -94,6 +98,9 @@ class MediaDetail extends Component {
             media={this.props.media}
             mediaUrl={mediaUrl}
             isRtl={isRtl}
+            {...{
+              playing, seekTo, scrubTo, setPlayerState,
+            }}
           /> }
       </Card>
     );

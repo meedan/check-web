@@ -6,6 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardActions from '@material-ui/core/CardActions';
 import styled from 'styled-components';
+import { Player } from '@meedan/check-ui';
 import MediaRoute from '../../relay/MediaRoute';
 import MediaMetadata from './MediaMetadata';
 import MediaUtil from './MediaUtil';
@@ -32,6 +33,8 @@ const StyledHeaderTextSecondary = styled.div`
   white-space: nowrap;
   margin-bottom: ${units(3)};
 `;
+
+const timelineEnabled = true;
 
 class MediaExpandedComponent extends Component {
   constructor(props) {
@@ -61,7 +64,9 @@ class MediaExpandedComponent extends Component {
   }
 
   render() {
-    const { media } = this.props;
+    const {
+      media, playing, seekTo, scrubTo, setPlayerState,
+    } = this.props;
     let smoochBotInstalled = false;
     if (media.team && media.team.team_bot_installations) {
       media.team.team_bot_installations.edges.forEach((edge) => {
@@ -108,6 +113,20 @@ class MediaExpandedComponent extends Component {
             isRtl={isRtl}
             authorName={authorName}
             authorUserName={authorUsername}
+          />
+        );
+      } else if (isPender && timelineEnabled) {
+        return (
+          <Player
+            url={media.url}
+            playing={playing}
+            onDuration={d => setPlayerState({ duration: d })}
+            onPlay={() => setPlayerState({ playing: true })}
+            onPause={() => setPlayerState({ playing: false })}
+            onTimeUpdate={t => setPlayerState({ time: t })}
+            onProgress={p => setPlayerState({ progress: p })}
+            seekTo={seekTo}
+            scrubTo={scrubTo}
           />
         );
       } else if (isPender) {
