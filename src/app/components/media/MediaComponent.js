@@ -177,8 +177,8 @@ class MediaComponent extends Component {
     media.quote = media.media.quote;
     media.embed_path = media.media.embed_path;
 
-    // const { currentUser: annotator } = this.getContext();
-    // console.log({ annotator });
+    const { currentUser: annotator } = this.getContext();
+    console.log({ annotator });
 
     return (
       <PageTitle
@@ -284,6 +284,10 @@ MediaComponent.propTypes = {
   intl: intlShape.isRequired,
   pusher: pusherShape.isRequired,
   clientSessionId: PropTypes.string.isRequired,
+};
+
+MediaComponent.contextTypes = {
+  store: PropTypes.object,
 };
 
 export default withPusher(injectIntl(MediaComponent));

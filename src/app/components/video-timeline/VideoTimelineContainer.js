@@ -7,6 +7,7 @@ import qs from 'qs';
 import { Player } from '@meedan/check-ui';
 import { Timeline } from '@meedan/check-ui';
 
+import CheckContext from '../../CheckContext';
 import { entityCreate, entityUpdate, entityDelete, instanceCreate, instanceUpdate, instanceDelete, instanceClip, playlistLaunch, commentThreadCreate } from './VideoTimelineUtils';
 
 const environment = Store;
@@ -25,6 +26,10 @@ class VideoTimelineContainer extends Component {
       refetch: 0,
     };
   }
+
+  // getContext() {
+  //   return new CheckContext(this).getContextStore();
+  // }
 
   render() {
     const { params: { mediaId, projectId } } = this.props;
@@ -79,6 +84,9 @@ class VideoTimelineContainer extends Component {
                 entities[id].type = type;
                 entities[id].instances.push({ start_seconds, end_seconds, id: instance });
               });
+
+            // const { currentUser: annotator } = this.getContext();
+            // console.log({ currentUser });
 
             const data = {
               commentThreads: [],
