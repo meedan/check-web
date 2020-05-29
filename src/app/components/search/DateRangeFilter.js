@@ -1,73 +1,95 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { DatePicker } from '@material-ui/pickers';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
+import { withStyles } from '@material-ui/core/styles';
 import { StyledFilterRow } from './SearchQueryComponent';
-import { FlexRow, units, checkBlue } from '../../styles/js/shared';
+import { FlexRow, units } from '../../styles/js/shared';
 import globalStrings from '../../globalStrings';
 
+const Styles = {
+  selectFormControl: {
+    flexShrink: 0,
+  },
+};
+
+function buildValue(valueType, startTimeOrNull, endTimeOrNull) {
+  if (startTimeOrNull === null && endTimeOrNull === null) {
+    return null;
+  }
+
+  const range = {};
+  if (startTimeOrNull) {
+    range.start_time = startTimeOrNull;
+  }
+  if (endTimeOrNull) {
+    range.end_time = endTimeOrNull;
+  }
+  return { [valueType]: range };
+}
+
+function parseStartDateAsISOString(moment) {
+  const date = moment.toDate();
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate()).toISOString();
+}
+
+function parseEndDateAsISOString(moment) {
+  const date = moment.toDate();
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59).toISOString();
+}
+
 class DateRangeFilter extends React.Component {
-  getRange = () => {
-    const type = this.props.value ? Object.keys(this.props.value)[0] : 'created_at';
-    const value = this.props.value ? this.props.value[type] : {};
-    return { type, value };
-  };
+  get valueType() {
+    const { value } = this.props;
+    return (value && value.updated_at) ? 'updated_at' : 'created_at';
+  }
 
-  handleChangeDate = (moment, field) => {
-    const range = this.getRange();
-    const date = moment.toDate();
+  getDateStringOrNull(field) {
+    const { value } = this.props;
+    return (value && value[this.valueType][field]) || null;
+  }
 
-    if (field === 'start_time') {
-      range.value[field] =
-        new Date(date.getFullYear(), date.getMonth(), date.getDate()).toISOString();
-    } else if (field === 'end_time') {
-      range.value[field] =
-        new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59).toISOString();
-    }
+  get startDateStringOrNull() {
+    return this.getDateStringOrNull('start_time');
+  }
 
-    if (this.props.onChange) {
-      const result = {};
-      result[range.type] = range.value;
-      this.props.onChange(result);
-    }
-  };
+  get endDateStringOrNull() {
+    return this.getDateStringOrNull('end_time');
+  }
+
+  handleChangeStartDate = (moment) => {
+    this.props.onChange(buildValue(
+      this.valueType,
+      parseStartDateAsISOString(moment),
+      this.endDateStringOrNull,
+    ));
+  }
+
+  handleChangeEndDate = (moment) => {
+    this.props.onChange(buildValue(
+      this.valueType,
+      this.startDateStringOrNull,
+      parseEndDateAsISOString(moment),
+    ));
+  }
 
   handleChangeType = (e) => {
-    const newType = e.target.value;
-    const range = this.getRange();
-
-    if (this.props.onChange) {
-      const result = {};
-      result[newType] = range.value;
-      this.props.onChange(result);
-    }
-  };
-
-  shouldDisableDate = (date, field) => {
-    const range = this.getRange();
-    const { start_time, end_time } = range.value;
-
-    if (field === 'start_time') {
-      return (end_time && date > new Date(end_time));
-    }
-
-    if (field === 'end_time') {
-      return (start_time && date < new Date(start_time));
-    }
-
-    return false;
-  };
+    const valueType = e.target.value;
+    this.props.onChange(buildValue(
+      valueType,
+      this.startDateStringOrNull,
+      this.endDateStringOrNull,
+    ));
+  }
 
   render() {
-    if (this.props.hidden) {
+    const { hidden, classes } = this.props;
+    if (hidden) {
       return null;
     }
-
-    const range = this.getRange();
-    const { start_time, end_time } = range.value;
 
     const label = {
       date: <FormattedMessage id="search.dateHeading" defaultMessage="Date" />,
@@ -75,80 +97,40 @@ class DateRangeFilter extends React.Component {
       updated_at: <FormattedMessage id="search.dateUpdatedHeading" defaultMessage="Updated" />,
     };
 
-    const isActive = start_time || end_time;
-    const selectStyle = {
-      minWidth: units(18),
-      fontSize: 'small',
-    };
-    if (isActive) {
-      selectStyle.border = `${checkBlue} 3px solid`;
-      selectStyle.borderRadius = units(1);
-    }
-
     return (
-      <StyledFilterRow height={units(9)} overflowY="hidden" isRtl={this.props.isRtl}>
+      <StyledFilterRow isRtl={this.props.isRtl}>
         <h4>{ label.date }</h4>
-        <div style={{ width: units(60) }}>
+        <div>
           <FlexRow>
-            <Select
-              className="date-range__select-root"
-              input={<OutlinedInput />}
-              onChange={this.handleChangeType}
-              value={range.type}
-              style={selectStyle}
-              labelWidth={0}
-              classes={{ select: 'date-range__select-menu' }}
-              margin="dense"
-            >
-              <MenuItem
-                className="date-range__created"
-                value="created_at"
-                style={{
-                  fontSize: 'small',
-                  padding: units(0.5),
-                }}
-              >
-                {label.created_at}
-              </MenuItem>
-              <MenuItem
-                className="date-range__updated"
-                value="updated_at"
-                style={{
-                  fontSize: 'small',
-                  padding: units(0.5),
-                }}
-              >
-                {label.updated_at}
-              </MenuItem>
-            </Select>
+            <FormControl className={classes.selectFormControl}>
+              <FormLabel>{/* styling -- the <label> tag changes the height */}</FormLabel>
+              <Select onChange={this.handleChangeType} value={this.valueType}>
+                <MenuItem value="created_at">
+                  {label.created_at}
+                </MenuItem>
+                <MenuItem value="updated_at">
+                  {label.updated_at}
+                </MenuItem>
+              </Select>
+            </FormControl>
             <DatePicker
-              label={
-                <FormattedMessage
-                  id="search.pickDateFrom"
-                  defaultMessage="Starting date"
-                />
-              }
+              label={<FormattedMessage id="search.pickDateFrom" defaultMessage="Starting date" />}
               className="date-range__start-date"
-              onChange={date => this.handleChangeDate(date, 'start_time')}
-              shouldDisableDate={date => this.shouldDisableDate(date, 'start_time')}
-              okLabel={this.props.intl.formatMessage(globalStrings.ok)}
-              cancelLabel={this.props.intl.formatMessage(globalStrings.cancel)}
-              value={start_time ? new Date(start_time) : null}
+              onChange={this.handleChangeStartDate}
+              maxDate={this.endDateStringOrNull || undefined}
+              okLabel={<FormattedMessage {...globalStrings.ok} />}
+              cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
+              value={this.startDateStringOrNull}
               style={{ margin: `0 ${units(2)}` }}
             />
             <DatePicker
-              label={
-                <FormattedMessage
-                  id="search.pickDateTo"
-                  defaultMessage="Ending date"
-                />
-              }
+              label={<FormattedMessage id="search.pickDateTo" defaultMessage="Ending date" />}
               className="date-range__end-date"
-              onChange={date => this.handleChangeDate(date, 'end_time')}
-              shouldDisableDate={date => this.shouldDisableDate(date, 'end_time')}
-              okLabel={this.props.intl.formatMessage(globalStrings.ok)}
-              cancelLabel={this.props.intl.formatMessage(globalStrings.cancel)}
-              value={end_time ? new Date(end_time) : null}
+              onChange={this.handleChangeEndDate}
+              minDate={this.startDateStringOrNull || undefined}
+              okLabel={<FormattedMessage {...globalStrings.ok} />}
+              cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
+              value={this.endDateStringOrNull}
               style={{ margin: `0 ${units(2)}` }}
             />
           </FlexRow>
@@ -158,8 +140,4 @@ class DateRangeFilter extends React.Component {
   }
 }
 
-DateRangeFilter.contextTypes = {
-  store: PropTypes.object,
-};
-
-export default injectIntl(DateRangeFilter);
+export default withStyles(Styles)(DateRangeFilter);

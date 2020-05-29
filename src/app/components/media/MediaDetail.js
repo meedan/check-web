@@ -87,14 +87,12 @@ class MediaDetail extends Component {
           <MediaCondensed
             media={this.props.media}
             mediaUrl={mediaUrl}
-            mediaQuery={this.props.query}
             currentRelatedMedia={this.props.currentRelatedMedia}
             isRtl={isRtl}
           /> :
           <MediaExpanded
             media={this.props.media}
             mediaUrl={mediaUrl}
-            mediaQuery={this.props.query}
             isRtl={isRtl}
           /> }
       </Card>

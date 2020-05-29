@@ -59,7 +59,7 @@ class UserComponent extends React.Component {
     };
 
     return (
-      <PageTitle prefix={user.name} skipTeam>
+      <PageTitle prefix={user.name}>
         <div className="source">
           <HeaderCard direction={direction}>
             <ContentColumn>

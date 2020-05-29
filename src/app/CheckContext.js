@@ -2,7 +2,6 @@ import Relay from 'react-relay/classic';
 import { browserHistory } from 'react-router';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { SET_CONTEXT } from './redux/ActionTypes';
-// import { request } from './redux/actions';
 import CheckNetworkLayer from './CheckNetworkLayer';
 
 function redirectToPreviousPageOr(path) {
@@ -43,10 +42,10 @@ class CheckContext {
     store.dispatch(newContext);
   }
 
-  startNetwork(token, clientSessionId) {
+  startNetwork(token, clientSessionId, setFlashMessage) {
     this.setContextStore({});
     Relay.injectNetworkLayer(new CheckNetworkLayer(config.relayPath, {
-      caller: this.caller,
+      setFlashMessage,
       team: () => {
         const team = window.location.pathname.match(/^\/([^/]+)/);
         if (team && team[1] !== 'check') {
@@ -65,7 +64,7 @@ class CheckContext {
     }));
   }
 
-  startSession(user, clientSessionId) {
+  startSession(user, clientSessionId, setFlashMessage) {
     const newState = { sessionStarted: true };
 
     let userData = user;
@@ -84,19 +83,14 @@ class CheckContext {
         });
       }
       newState.token = userData.token;
-      this.startNetwork(userData.token, clientSessionId);
+      this.startNetwork(userData.token, clientSessionId, setFlashMessage);
     } else {
       newState.error = true;
     }
 
     this.setContextStore({ currentUser: userData });
-
-    if (userData && !userData.accepted_terms) {
-      browserHistory.push('/check/user/terms-of-service');
-    } else {
-      this.maybeRedirect(this.caller.props.location.pathname, userData);
-      this.setContext();
-    }
+    this.maybeRedirect(this.caller.props.location.pathname, userData);
+    this.setContext();
 
     this.caller.setState(newState);
   }

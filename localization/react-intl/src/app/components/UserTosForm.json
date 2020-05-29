@@ -12,6 +12,10 @@
     "defaultMessage": "Terms of Service and Privacy Policy"
   },
   {
+    "id": "userTos.termsLastUpdatedAt",
+    "defaultMessage": "Last updated {lastUpdated}"
+  },
+  {
     "id": "userTos.disclaimer",
     "defaultMessage": "Please review our {tosLink} and our {ppLink} and consent to the following:"
   },

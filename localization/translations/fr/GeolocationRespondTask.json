@@ -1,11 +1,11 @@
 {
-  "geoLocationRespondTask.searching": "Recherche en cours...",
-  "geoLocationRespondTask.notFound": "Désolé, ce lieu est introuvable. Veuillez essayer une recherche différente.",
-  "geoLocationRespondTask.error": "Désolé, une erreur s'est produite durant la mise à jour de la tâche. Veuillez réessayer et prévenir {supportEmail} si le problème persiste.",
-  "geolocationRespondTask.placeName": "Personnaliser le nom du lieu",
-  "geolocationRespondTask.coordinates": "Latitude, Longitude",
   "geoLocationRespondTask.invalidCoords": "Coordonnées non valides",
+  "geoLocationRespondTask.searching": "Recherche en cours...",
+  "geoLocationRespondTask.error": "Désolé, une erreur s'est produite durant la mise à jour de la tâche. Veuillez réessayer et prévenir {supportEmail} si le problème persiste.",
+  "geoLocationRespondTask.notFound": "Désolé, ce lieu est introuvable. Veuillez essayer une recherche différente.",
   "geolocationRespondTask.cancelTask": "Annuler",
   "geolocationRespondTask.answerTask": "Répondre",
-  "geolocationRespondTask.searchMap": "Rechercher la carte"
+  "geolocationRespondTask.searchMap": "Rechercher la carte",
+  "geolocationRespondTask.placeName": "Personnaliser le nom du lieu",
+  "geolocationRespondTask.coordinates": "Latitude, Longitude"
 }

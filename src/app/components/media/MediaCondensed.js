@@ -15,7 +15,7 @@ import TextField from '@material-ui/core/TextField';
 import Menu from '@material-ui/core/Menu';
 import IconButton from '@material-ui/core/IconButton';
 import IconMoreVert from '@material-ui/icons/MoreVert';
-import Can from '../Can';
+import { can } from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
 import TimeBefore from '../TimeBefore';
 import MediaUtil from './MediaUtil';
@@ -280,20 +280,20 @@ class MediaCondensedComponent extends Component {
       </Dialog>
     );
 
-    const { mediaUrl, mediaQuery } = this.props;
+    const { mediaUrl } = this.props;
 
     return (
       <span style={{ display: 'block', position: 'relative' }}>
         <CardHeader
           title={
-            <Link to={{ pathname: mediaUrl, state: { query: mediaQuery } }} className="media-condensed__title">
+            <Link to={mediaUrl} className="media-condensed__title">
               <span style={{ color: black87 }}>
                 {truncateLength(media.title, 120)}
               </span>
             </Link>}
           subheader={
             <p>
-              <Link to={{ pathname: mediaUrl, state: { query: mediaQuery } }}>
+              <Link to={mediaUrl}>
                 <span>{MediaUtil.mediaTypeLabel(media.type, this.props.intl)}</span>
                 { smoochBotInstalled ?
                   <span>
@@ -315,7 +315,7 @@ class MediaCondensedComponent extends Component {
             </p>
           }
           avatar={
-            <Link to={{ pathname: mediaUrl, state: { query: mediaQuery } }}>
+            <Link to={mediaUrl}>
               <img
                 alt=""
                 style={{ height: '100px', width: '100px', objectFit: 'cover' }}
@@ -350,27 +350,25 @@ class MediaCondensedComponent extends Component {
               open={Boolean(this.state.anchorEl)}
               onClose={this.handleCloseMenu}
             >
-              { (media.relationships && media.relationships.sources_count > 0) ?
-                <Can permissions={media.relationship.permissions} permission="update Relationship">
-                  <MenuItem key="promote" className="media-condensed__promote-relationshp" onClick={this.handlePromoteRelationship.bind(this)}>
-                    <ListItemText
-                      primary={
-                        <FormattedMessage id="mediaCondensed.promote" defaultMessage="Promote to primary item" />
-                      }
-                    />
-                  </MenuItem>
-                </Can> : null }
-              { (media.relationships && media.relationships.sources_count > 0) ?
-                <Can permissions={media.relationship.permissions} permission="destroy Relationship">
-                  <MenuItem key="break" className="media-condensed__break-relationship" onClick={this.handleBreakRelationship.bind(this)} >
-                    <ListItemText
-                      primary={
-                        <FormattedMessage id="mediaCondensed.break" defaultMessage="Break relation to primary item" />
-                      }
-                    />
-                  </MenuItem>
-                </Can> : null }
-              <Can permissions={media.permissions} permission="update ProjectMedia">
+              {(media.relationships && media.relationships.sources_count > 0 && can(media.relationship.permissions, 'update Relationship')) ? (
+                <MenuItem key="promote" className="media-condensed__promote-relationshp" onClick={this.handlePromoteRelationship.bind(this)}>
+                  <ListItemText
+                    primary={
+                      <FormattedMessage id="mediaCondensed.promote" defaultMessage="Promote to primary item" />
+                    }
+                  />
+                </MenuItem>
+              ) : null}
+              {(media.relationships && media.relationships.sources_count > 0 && can(media.relationship.permissions, 'destroy Relationship')) ? (
+                <MenuItem key="break" className="media-condensed__break-relationship" onClick={this.handleBreakRelationship.bind(this)} >
+                  <ListItemText
+                    primary={
+                      <FormattedMessage id="mediaCondensed.break" defaultMessage="Break relation to primary item" />
+                    }
+                  />
+                </MenuItem>
+              ) : null}
+              {can(media.permissions, 'update ProjectMedia') ? (
                 <MenuItem key="edit" className="media-condensed__edit" onClick={this.handleEdit.bind(this)}>
                   <ListItemText
                     primary={
@@ -378,7 +376,7 @@ class MediaCondensedComponent extends Component {
                     }
                   />
                 </MenuItem>
-              </Can>
+              ) : null}
             </Menu>
           </div> : null }
         { this.state.isEditing ? editDialog : null }

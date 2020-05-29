@@ -5,7 +5,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import Can, { can } from '../Can';
+import { can } from '../Can';
 
 const messages = defineMessages({
   menuTooltip: {
@@ -41,8 +41,12 @@ class TaskActions extends React.Component {
       return null;
     }
 
+    if (!can(task.permissions, 'update Task')) {
+      return null;
+    }
+
     return (
-      <Can permissions={task.permissions} permission="update Task">
+      <React.Fragment>
         <Tooltip title={this.props.intl.formatMessage(messages.menuTooltip)}>
           <IconButton className="task-actions__icon" onClick={this.handleMenuClick}>
             <MoreHoriz />
@@ -54,28 +58,29 @@ class TaskActions extends React.Component {
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
         >
-          {(can(media.permissions, 'create Task')) ?
+          {can(media.permissions, 'create Task') ? (
             <MenuItem className="task-actions__edit" onClick={() => this.handleAction('edit_question')}>
               <FormattedMessage id="task.edit" defaultMessage="Edit task" />
             </MenuItem>
-            : null}
+          ) : null}
 
-          {response ?
-            <Can permissions={task.first_response.permissions} permission="update Dynamic">
+          {(response && can(task.first_response.permissions, 'update Dynamic')) ? [
+            (
               <MenuItem className="task-actions__edit-response" onClick={() => this.handleAction('edit_response', task.first_response)}>
                 <FormattedMessage id="task.editResponse" defaultMessage="Edit answer" />
               </MenuItem>
+            ), (
               <MenuItem className="task-actions__delete-response" onClick={() => this.handleAction('delete_response', task.first_response)}>
                 <FormattedMessage id="task.deleteResponse" defaultMessage="Delete answer" />
               </MenuItem>
-            </Can>
-            : null}
+            ),
+          ] : null}
 
-          {(can(media.permissions, 'create Task')) ?
+          {(can(media.permissions, 'create Task')) ? (
             <MenuItem className="task-actions__assign" onClick={() => this.handleAction('edit_assignment')}>
               <FormattedMessage id="task.assignOrUnassign" defaultMessage="Assign / Unassign" />
             </MenuItem>
-            : null}
+          ) : null}
 
           {(response && can(task.first_response.permissions, 'update Dynamic')) ?
             <MenuItem className="task-actions__edit-attribution" onClick={() => this.handleAction('edit_attribution')}>
@@ -83,13 +88,13 @@ class TaskActions extends React.Component {
             </MenuItem>
             : null}
 
-          <Can permissions={task.permissions} permission="destroy Task">
+          {can(task.permissions, 'destroy Task') ? (
             <MenuItem className="task-actions__delete" onClick={() => this.handleAction('delete')}>
               <FormattedMessage id="task.delete" defaultMessage="Delete task" />
             </MenuItem>
-          </Can>
+          ) : null}
         </Menu>
-      </Can>
+      </React.Fragment>
     );
   }
 }

@@ -1,10 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import FaFacebookSquare from 'react-icons/lib/fa/facebook-square';
 import FaInstagram from 'react-icons/lib/fa/instagram';
 import FaTwitter from 'react-icons/lib/fa/twitter';
 import FaYoutubePlay from 'react-icons/lib/fa/youtube-play';
 import MdLink from 'react-icons/lib/md/link';
-import { defineMessages } from 'react-intl';
+import { defineMessages, FormattedMessage } from 'react-intl';
 import { nested, truncateLength, emojify } from '../../helpers';
 
 const messages = defineMessages({
@@ -23,6 +24,10 @@ const messages = defineMessages({
   typeInstagram: {
     id: 'media.typeInstagram',
     defaultMessage: 'Instagram',
+  },
+  typeTiktok: {
+    id: 'media.typeTiktok',
+    defaultMessage: 'TikTok video',
   },
   typeLink: {
     id: 'media.typeLink',
@@ -99,6 +104,7 @@ const MediaUtil = {
         'facebook.com': messages.typeFacebook,
         'instagram.com': messages.typeInstagram,
         'youtube.com': messages.typeVideo,
+        'tiktok.com': messages.typeTiktok,
       }[media.domain];
 
       if (socialMedia) {
@@ -128,11 +134,8 @@ const MediaUtil = {
   },
 
   mediaTypeLabel(type, intl) {
-    if (type === '-') {
-      return '-';
-    }
-
     const labels = {
+      '-': '-',
       Claim: intl.formatMessage(messages.typeClaim),
       Link: intl.formatMessage(messages.typeLink),
       UploadedImage: intl.formatMessage(messages.typeImage),
@@ -140,6 +143,18 @@ const MediaUtil = {
     };
 
     return labels[type];
+  },
+
+  mediaTypeLabelFormattedMessage(type) {
+    // TODO nix mediaTypeLabel() and defineMessages() and use this instead.
+    switch (type) {
+    case 'Claim': return <FormattedMessage {...messages.typeClaim} />;
+    case 'Link': return <FormattedMessage {...messages.typeLink} />;
+    case 'UploadedImage': return <FormattedMessage {...messages.typeImage} />;
+    case 'UploadedVideo': return <FormattedMessage {...messages.typeVideo} />;
+    case '-': return '-';
+    default: throw new Error('Unknown type');
+    }
   },
 
   hasCustomTitle(mediaParam, data) {
@@ -250,6 +265,8 @@ const MediaUtil = {
       return <MdLink alt="link" key="socialIcon__Link" />;
     }
   },
+
+  TypeLabelPropType: PropTypes.oneOf(['-', 'Claim', 'Link', 'UploadedImage', 'UploadedVideo']),
 };
 
 export default MediaUtil;

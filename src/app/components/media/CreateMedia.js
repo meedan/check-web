@@ -6,8 +6,6 @@ import Relay from 'react-relay/classic';
 import Button from '@material-ui/core/Button';
 import CreateMediaDialog from './CreateMediaDialog';
 import CreateProjectMediaMutation from '../../relay/mutations/CreateProjectMediaMutation';
-import CreateProjectSourceMutation from '../../relay/mutations/CreateProjectSourceMutation';
-import CheckContext from '../../CheckContext';
 import { stringHelper } from '../../customHelpers';
 import { getErrorObjects, getFilters } from '../../helpers';
 import CheckError from '../../CheckError';
@@ -31,7 +29,6 @@ class CreateProjectMedia extends Component {
 
     this.state = {
       dialogOpen: false,
-      message: null,
     };
   }
 
@@ -49,40 +46,12 @@ class CreateProjectMedia extends Component {
     this.props.setFlashMessage(message);
   };
 
-  submitSource(value) {
-    const context = new CheckContext(this).getContextStore();
-    const prefix = `/${context.team.slug}/project/${context.project.dbid}/source/`;
-
-    if (!value) {
-      return;
-    }
-
-    this.setState({
-      message: this.props.intl.formatMessage(messages.submitting),
-    });
-
-    const onSuccess = (response) => {
-      const rid = response.createProjectSource.project_source.dbid;
-      browserHistory.push(prefix + rid);
-      this.setState({ message: null });
-    };
-
-    Relay.Store.commitUpdate(
-      new CreateProjectSourceMutation({
-        ...value,
-        project: context.project,
-      }),
-      { onSuccess, onFailure: this.fail },
-    );
-  }
-
   submitMedia(value) {
-    const context = new CheckContext(this).getContextStore();
     let prefix = null;
-    if (context.project) {
-      prefix = `/${context.team.slug}/project/${context.project.dbid}/media/`;
+    if (this.props.project) {
+      prefix = `/${this.props.team.slug}/project/${this.props.project.dbid}/media/`;
     } else {
-      prefix = `/${context.team.slug}/media/`;
+      prefix = `/${this.props.team.slug}/media/`;
     }
 
     if (!value) {
@@ -94,7 +63,6 @@ class CreateProjectMedia extends Component {
         const rid = response.createProjectMedia.project_media.dbid;
         browserHistory.push(prefix + rid);
       }
-      this.setState({ message: null });
     };
 
     this.setState({ dialogOpen: false });
@@ -102,17 +70,16 @@ class CreateProjectMedia extends Component {
     Relay.Store.commitUpdate(
       new CreateProjectMediaMutation({
         ...value,
-        context,
         team: this.props.team,
         search: this.props.search,
-        project: context.project,
+        project: this.props.project,
       }),
       { onSuccess, onFailure: this.fail },
     );
   }
 
   handleOpenDialog = () => {
-    this.setState({ dialogOpen: true, message: null });
+    this.setState({ dialogOpen: true });
   };
 
   handleCloseDialog = () => {
@@ -120,11 +87,7 @@ class CreateProjectMedia extends Component {
   };
 
   handleSubmit = (value) => {
-    if (value && value.mode === 'source') {
-      this.submitSource(value);
-    } else {
-      this.submitMedia(value);
-    }
+    this.submitMedia(value);
   };
 
   render() {
@@ -137,7 +100,6 @@ class CreateProjectMedia extends Component {
           title={<FormattedMessage id="createMedia.addNewItem" defaultMessage="Add new item" />}
           open={this.state.dialogOpen}
           onDismiss={this.handleCloseDialog}
-          message={this.state.message}
           onSubmit={this.handleSubmit}
         />
       </div>
@@ -150,10 +112,6 @@ CreateProjectMedia.propTypes = {
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
   setFlashMessage: PropTypes.func.isRequired,
-};
-
-CreateProjectMedia.contextTypes = {
-  store: PropTypes.object,
 };
 
 export default withSetFlashMessage(injectIntl(CreateProjectMedia));

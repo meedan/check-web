@@ -1,6 +1,6 @@
 import {
-  opaqueBlack02,
   opaqueBlack54,
+  white,
   body1,
   black87,
   title1,
@@ -10,7 +10,7 @@ import {
 
 export const layout = `
   html {
-    background: ${opaqueBlack02};
+    background: ${white};
   }
 
   // Layout default settings

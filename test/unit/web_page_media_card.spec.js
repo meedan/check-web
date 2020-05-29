@@ -147,6 +147,7 @@ describe('<WebPageMediaCard />', () => {
       favicon: 'https://www.google.com/s2/favicons?domain_url=meedan.com/en/',
       embed_tag: '<script src="http://pender:3200/api/medias.js?url=https%3A%2F%2Fmeedan.com%2Fen%2F" type="text/javascript"></script>',
       refreshes_count: 1,
+      html: "hello!",
     },
   };
 
@@ -185,8 +186,32 @@ describe('<WebPageMediaCard />', () => {
       />,
     );
 
-    expect(card1.text()).toMatch('hello!');
-    expect(card2.text()).not.toMatch('hello!');
-    expect(card3.text()).not.toMatch('hello!');
+    expect(card1.text()).toMatch(webPageWithWhitelistedUrl.data.html);
+    expect(card2.text()).not.toMatch(webPageWithWhitelistedUrl.data.html);
+    expect(card3.text()).not.toMatch(webPageWithWhitelistedUrl.data.html);
+  });
+
+  it('renders an error message if data has error', () => {
+    webPageWithGoodPicture.data.error = {
+      message: 'Not Found',
+      code: 14
+    };
+    const card1 = mountWithIntl(
+      <WebPageMediaCard
+        media={webPageWithGoodPicture.media}
+        data={webPageWithGoodPicture.data}
+      />,
+    );
+
+    delete webPageWithGoodPicture.data.error;
+    const card2 = mountWithIntl(
+      <WebPageMediaCard
+        media={webPageWithGoodPicture.media}
+        data={webPageWithGoodPicture.data}
+      />,
+    );
+
+    expect(card1.find('span.web-page-media-card__error')).toHaveLength(1);
+    expect(card2.find('span.web-page-media-card__error')).toHaveLength(0);
   });
 });

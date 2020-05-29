@@ -1,5 +1,6 @@
 import React from 'react';
-import { injectIntl } from 'react-intl';
+import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -8,36 +9,31 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import CreateMediaInput from './CreateMediaInput';
 import globalStrings from '../../globalStrings';
 
-class CreateMediaDialog extends React.Component {
-  handleSubmit = () => {
-    const submitButton = document.getElementById('create-media-submit');
-    if (submitButton) {
-      submitButton.click();
-    }
-  };
+export default function CreateMediaDialog({
+  open, title, onSubmit, onDismiss,
+}) {
+  const formId = 'create-media-dialog-form';
 
-  render() {
-    return (
-      <Dialog open={this.props.open} fullWidth>
-        <DialogTitle>{this.props.title}</DialogTitle>
-        <DialogContent>
-          <CreateMediaInput
-            message={this.props.message}
-            onSubmit={this.props.onSubmit}
-            noSource
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button id="create-media-dialog__dismiss-button" onClick={this.props.onDismiss}>
-            {this.props.intl.formatMessage(globalStrings.cancel)}
-          </Button>
-          <Button id="create-media-dialog__submit-button" onClick={this.handleSubmit} color="primary">
-            {this.props.intl.formatMessage(globalStrings.submit)}
-          </Button>
-        </DialogActions>
-      </Dialog>
-    );
-  }
+  return (
+    <Dialog open={open} fullWidth>
+      <DialogTitle>{title}</DialogTitle>
+      <DialogContent>
+        <CreateMediaInput formId={formId} onSubmit={onSubmit} />
+      </DialogContent>
+      <DialogActions>
+        <Button id="create-media-dialog__dismiss-button" onClick={onDismiss}>
+          <FormattedMessage {...globalStrings.cancel} />
+        </Button>
+        <Button type="submit" form={formId} id="create-media-dialog__submit-button" color="primary">
+          <FormattedMessage {...globalStrings.submit} />
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
 }
-
-export default injectIntl(CreateMediaDialog);
+CreateMediaDialog.propTypes = {
+  open: PropTypes.bool.isRequired,
+  title: PropTypes.node.isRequired, // <FormattedMessage>
+  onSubmit: PropTypes.func.isRequired, // func({ ... }) => undefined
+  onDismiss: PropTypes.func.isRequired, // func() => undefined
+};

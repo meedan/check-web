@@ -1,27 +1,12 @@
+import React from 'react';
 import Relay from 'react-relay/classic';
 import { browserHistory } from 'react-router';
-import { defineMessages } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import util from 'util';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
-import { request as requestFunction } from './redux/actions';
-import { mapGlobalMessage } from './components/MappedMessage';
+import globalStrings from './globalStrings';
 
 const fetchTimeout = config.timeout || 60000;
-
-const messages = defineMessages({
-  stillWorking: {
-    id: 'network.stillWorking',
-    defaultMessage: 'Still working...',
-  },
-  offline: {
-    id: 'network.offline',
-    defaultMessage: 'Can\'t connect to {app}, please make sure you\'re connected to the internet. Trying to reconnect...',
-  },
-  noResponse: {
-    id: 'network.noResponse',
-    defaultMessage: 'Couldn\'t connect to {app}, please make sure you\'re connected to the internet',
-  },
-});
 
 function createRequestError(request, responseStatus, payload) {
   const errorReason = `Server response had an error status ${responseStatus} and error ${util.inspect(payload)}`;
@@ -38,11 +23,18 @@ function generateRandomQueryId() {
   return `q${parseInt(Math.random() * 1000000, 10)}`;
 }
 
-function parseQueryPayload(request, payload) {
+function parseQueryPayload(request, payload, team) {
   if (Object.prototype.hasOwnProperty.call(payload, 'errors')) {
     if (payload.errors.filter(error => error.code === 3).length
       && window.location.pathname !== '/check/not-found') {
       browserHistory.push('/check/not-found');
+    } else if (payload.errors.filter(error => error.code === 1).length
+      && window.location.pathname !== '/check/forbidden') {
+      if (team !== '') {
+        browserHistory.push(`/${team}/join`);
+      } else if (window.location.pathname !== '/check/forbidden') {
+        browserHistory.push('/check/forbidden');
+      }
     } else {
       const error = createRequestError(request, '200', payload);
       request.reject(error);
@@ -64,71 +56,17 @@ function throwOnServerError(request, response) {
   });
 }
 
-let pollStarted = false;
-
 /* eslint-disable no-underscore-dangle */
 
 class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
   constructor(path, options) {
-    super(path, options);
-    this.caller = options.caller;
-    // this.startPoll();
-  }
-
-  messageCallback(message) {
-    if (this.caller) {
-      this.caller.setState({ message: this.l(message) });
-    }
-  }
-
-  startPoll() {
-    if (this.caller && !pollStarted) {
-      let online = true;
-      let poll = () => {};
-
-      const failureCallback = () => {
-        if (online) {
-          this.messageCallback(messages.offline);
-          online = false;
-        }
-        poll();
-      };
-
-      const successCallback = () => {
-        if (!online) {
-          this.messageCallback(null);
-          online = true;
-        }
-        poll();
-      };
-
-      poll = () => {
-        setTimeout(() => {
-          requestFunction('get', 'ping', failureCallback, successCallback);
-        }, 5000);
-      };
-
-      poll();
-      pollStarted = true;
-    }
-  }
-
-  l(message) {
-    if (!message) {
-      return null;
-    }
-    if (this.caller) {
-      return this.caller.props.intl.formatMessage(message, { app: mapGlobalMessage(this.caller.props.intl, 'appNameHuman') });
-    }
-    return message.defaultMessage;
+    const { setFlashMessage, ...otherOptions } = options;
+    super(path, otherOptions);
+    this.setFlashMessage = setFlashMessage || (() => null);
   }
 
   _parseQueryResult(result) {
-    if (config.pusherDebug) {
-      // eslint-disable-next-line no-console
-      console.debug('%cSending request to backend ', 'font-weight: bold');
-    }
-    if (result.status === 401 || result.status === 403) {
+    if (result.status === 401) {
       const team = this._init.team();
       if (team !== '') {
         browserHistory.push(`/${team}/join`);
@@ -139,6 +77,7 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
   }
 
   sendQueries(requests) {
+    const team = this._init.team();
     if (requests.length > 1) {
       requests.map((request) => {
         request.randomId = generateRandomQueryId();
@@ -151,7 +90,7 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
         response.forEach((payload) => {
           const request = requests.find(r => r.randomId === payload.id);
           if (request) {
-            parseQueryPayload(request, payload.payload);
+            parseQueryPayload(request, payload.payload, team);
           }
         });
       }).catch((error) => {
@@ -163,7 +102,7 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
         this._parseQueryResult(result);
         return result.json();
       }).then((payload) => {
-        parseQueryPayload(request, payload);
+        parseQueryPayload(request, payload, team);
       }).catch((error) => {
         request.reject(error);
       })
@@ -261,11 +200,11 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
     }
 
     const timeout = setTimeout(() => {
-      this.messageCallback(messages.stillWorking);
+      this.setFlashMessage(<FormattedMessage id="network.stillWorking" defaultMessage="Still working..." />);
     }, fetchTimeout);
 
     return fetch(this._uri, init).then((response) => {
-      this.messageCallback(null);
+      this.setFlashMessage(null);
       clearTimeout(timeout);
       return throwOnServerError(request, response);
     }).catch((error) => {
@@ -276,10 +215,16 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
 
         let { message } = error;
         if (error.name === 'TypeError') {
-          message = this.l(messages.noResponse);
+          message = (
+            <FormattedMessage
+              id="network.noResponse"
+              defaultMessage="Couldn't connect to {app}, please make sure you're connected to the internet"
+              values={{ app: <FormattedMessage {...globalStrings.appNameHuman} /> }}
+            />
+          );
         }
 
-        throw createRequestError(request, 0, JSON.stringify({ error: message }));
+        throw createRequestError(request, 0, JSON.stringify({ error: message.error }));
       }
     });
   }

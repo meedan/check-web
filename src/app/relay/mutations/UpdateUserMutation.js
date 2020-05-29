@@ -21,12 +21,26 @@ class UpdateUserMutation extends Relay.Mutation {
     return vars;
   }
 
+  getOptimisticResponse() {
+    const response = {};
+
+    if (this.props.accept_terms) {
+      response.user = {
+        id: this.props.current_user_id,
+        accepted_terms: true,
+      };
+    }
+
+    return response;
+  }
+
   getFatQuery() {
     return Relay.QL`
       fragment on UpdateUserPayload {
         user {
           id
           dbid
+          accepted_terms
           current_team_id
           current_team {
             id

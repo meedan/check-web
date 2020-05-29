@@ -237,7 +237,7 @@ class BulkActions extends React.Component {
             </Tooltip>
             <Tooltip title={this.props.intl.formatMessage(messages.move)} style={{ margin: '0 10px' }}>
               <Button
-                id="media-bulk-actions__move-icon"
+                id="media-bulk-actions__move-to"
                 onClick={this.moveSelected.bind(this)}
                 color="primary"
                 variant="contained"

@@ -1,16 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {
-  FormattedMessage,
-  FormattedHTMLMessage,
-  defineMessages,
-  injectIntl,
-  intlShape,
-} from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
 import RCTooltip from 'rc-tooltip';
 import styled from 'styled-components';
-import rtlDetect from 'rtl-detect';
 import { stripUnit } from 'polished';
 import { Link } from 'react-router';
 import Lightbox from 'react-image-lightbox';
@@ -37,7 +30,7 @@ import DeleteAnnotationMutation from '../../relay/mutations/DeleteAnnotationMuta
 import DeleteVersionMutation from '../../relay/mutations/DeleteVersionMutation';
 import UpdateTaskMutation from '../../relay/mutations/UpdateTaskMutation';
 import DatetimeTaskResponse from '../task/DatetimeTaskResponse';
-import Can, { can } from '../Can';
+import { can } from '../Can';
 import TimeBefore from '../TimeBefore';
 import { getErrorMessage, getStatus, getStatusStyle, emojify } from '../../helpers';
 import globalStrings from '../../globalStrings';
@@ -66,12 +59,12 @@ const StyledDefaultAnnotation = styled.div`
   color: ${black87};
   display: flex;
   font: ${caption};
-  ${props => (props.isRtl ? 'padding-right' : 'padding-left')}: ${units(10)};
+  ${props => (props.theme.dir === 'rtl' ? 'padding-right' : 'padding-left')}: ${units(10)};
 
   .annotation__default-content {
     @extend ${breakWordStyles};
     display: block;
-    margin-${props => (props.isRtl ? 'left' : 'right')}: ${units(2)};
+    margin-${props => (props.theme.dir === 'rtl' ? 'left' : 'right')}: ${units(2)};
   }
 `;
 
@@ -89,7 +82,7 @@ const StyledAnnotationCardWrapper = styled.div`
 `;
 
 const StyledAvatarColumn = styled.div`
-  margin-${props => (props.isRtl ? 'left' : 'right')}: ${units(3)};
+  margin-${props => (props.theme.dir === 'rtl' ? 'left' : 'right')}: ${units(3)};
 `;
 
 const StyledPrimaryColumn = styled.div`
@@ -133,7 +126,7 @@ const StyledAnnotationWrapper = styled.section`
       position: absolute;
       top: ${units(2)};
       width: ${units(1)};
-      ${props => (props.isRtl ? 'right' : 'left')}: ${dotOffset}px;
+      ${props => (props.theme.dir === 'rtl' ? 'right' : 'left')}: ${dotOffset}px;
     }
   }
 
@@ -157,14 +150,14 @@ const StyledAnnotationWrapper = styled.section`
     display: inline;
     flex: 1;
     white-space: pre;
-    margin-${props => (props.isRtl ? 'left' : 'right')}: ${units(1)};
+    margin-${props => (props.theme.dir === 'rtl' ? 'left' : 'right')}: ${units(1)};
   }
 
   .annotation__actions {
     align-self: flex-start;
     display: none;
     flex: 1;
-    text-align: ${props => (props.isRtl ? 'left' : 'right')};
+    text-align: ${props => (props.theme.dir === 'rtl' ? 'left' : 'right')};
   }
 
   .annotation__body {
@@ -204,7 +197,7 @@ const StyledAnnotationMetadata = styled(Row)`
 
   .annotation__card-author {
     color: ${black87};
-    padding-${props => (props.isRtl ? 'left' : 'right')}: ${units(1)};
+    padding-${props => (props.theme.dir === 'rtl' ? 'left' : 'right')}: ${units(1)};
   }
 `;
 
@@ -221,87 +214,37 @@ const StyledRequestHeader = styled(Row)`
 `;
 
 const StyledAnnotationActionsWrapper = styled.div`
-  margin-${props => (props.isRtl ? 'right' : 'left')}: auto;
+  margin-${props => (props.theme.dir === 'rtl' ? 'right' : 'left')}: auto;
 `;
 
-const messages = defineMessages({
-  error: {
-    id: 'annotation.error',
-    defaultMessage: 'Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists.',
-  },
-  deleteButton: {
-    id: 'annotation.deleteButton',
-    defaultMessage: 'Delete',
-  },
-  and: {
-    id: 'annotation.and',
-    defaultMessage: 'and',
-  },
-  newClaim: {
-    id: 'annotation.newClaim',
-    defaultMessage: 'New text added by {author}',
-  },
-  menuTooltip: {
-    id: 'annotation.menuTooltip',
-    defaultMessage: 'Annotation actions',
-  },
-  smoochNoMessage: {
-    id: 'annotation.smoochNoMessage',
-    defaultMessage: 'No message was sent with the request',
-  },
-  slackChannel: {
-    id: 'annotation.slackChannel',
-    defaultMessage: 'Slack channel',
-  },
-  adultFlag: {
-    id: 'annotation.flagAdult',
-    defaultMessage: 'Adult',
-  },
-  spoofFlag: {
-    id: 'annotation.flagSpoof',
-    defaultMessage: 'Spoof',
-  },
-  medicalFlag: {
-    id: 'annotation.flagMedical',
-    defaultMessage: 'Medical',
-  },
-  violenceFlag: {
-    id: 'annotation.flagViolence',
-    defaultMessage: 'Violence',
-  },
-  racyFlag: {
-    id: 'annotation.flagRacy',
-    defaultMessage: 'Racy',
-  },
-  spamFlag: {
-    id: 'annotation.flagSpam',
-    defaultMessage: 'Spam',
-  },
-  flagLikelihood0: {
-    id: 'annotation.flagLikelihood0',
-    defaultMessage: 'Unknown',
-  },
-  flagLikelihood1: {
-    id: 'annotation.flagLikelihood1',
-    defaultMessage: 'Very unlikely',
-  },
-  flagLikelihood2: {
-    id: 'annotation.flagLikelihood2',
-    defaultMessage: 'Unlikely',
-  },
-  flagLikelihood3: {
-    id: 'annotation.flagLikelihood3',
-    defaultMessage: 'Possible',
-  },
-  flagLikelihood4: {
-    id: 'annotation.flagLikelihood4',
-    defaultMessage: 'Likely',
-  },
-  flagLikelihood5: {
-    id: 'annotation.flagLikelihood5',
-    defaultMessage: 'Very likely',
-  },
-});
+const FlagName = ({ flag }) => {
+  switch (flag) {
+  case 'adult': return <FormattedMessage id="annotation.flagAdult" defaultMessage="Adult" />;
+  case 'medical': return <FormattedMessage id="annotation.flagMedical" defaultMessage="Medical" />;
+  case 'violence': return <FormattedMessage id="annotation.flagViolence" defaultMessage="Violence" />;
+  case 'racy': return <FormattedMessage id="annotation.flagRacy" defaultMessage="Racy" />;
+  case 'spam': return <FormattedMessage id="annotation.flagSpam" defaultMessage="Spam" />;
+  default: return null;
+  }
+};
+FlagName.propTypes = {
+  flag: PropTypes.oneOf(['adult', 'medical', 'violence', 'racy', 'spam']).isRequired,
+};
+
+const FlagLikelihood = ({ likelihood }) => {
+  switch (likelihood) {
+  case 0: return <FormattedMessage id="annotation.flagLikelihood0" defaultMessage="Unknown" />;
+  case 1: return <FormattedMessage id="annotation.flagLikelihood1" defaultMessage="Very unlikely" />;
+  case 2: return <FormattedMessage id="annotation.flagLikelihood2" defaultMessage="Unlikely" />;
+  case 3: return <FormattedMessage id="annotation.flagLikelihood3" defaultMessage="Possible" />;
+  case 4: return <FormattedMessage id="annotation.flagLikelihood4" defaultMessage="Likely" />;
+  case 5: return <FormattedMessage id="annotation.flagLikelihood5" defaultMessage="Very likely" />;
+  default: return null;
+  }
+};
+FlagLikelihood.propTypes = {
+  likelihood: PropTypes.oneOf([0, 1, 2, 3, 4, 5]).isRequired,
+};
 
 // TODO Fix a11y issues
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
@@ -354,8 +297,15 @@ class Annotation extends Component {
   }
 
   fail = (transaction) => {
-    const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
-    const message = getErrorMessage(transaction, fallbackMessage);
+    const message = getErrorMessage(
+      transaction,
+      (
+        <FormattedMessage
+          {...globalStrings.unknownError}
+          values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
+        />
+      ),
+    );
     this.props.setFlashMessage(message);
   };
 
@@ -411,7 +361,6 @@ class Annotation extends Component {
 
   render() {
     const { annotation: activity, annotated, annotation: { annotation } } = this.props;
-    const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
 
     let annotationActions = null;
     if (annotation && annotation.annotation_type) {
@@ -420,14 +369,17 @@ class Annotation extends Component {
         .toUpperCase()}${annotation.annotation_type.slice(1)}`;
       annotationActions = can(annotation.permissions, permission) ? (
         <div>
-          <IconButton
-            className="menu-button"
-            onClick={this.handleOpenMenu}
+          <Tooltip title={
+            <FormattedMessage id="annotation.menuTooltip" defaultMessage="Annotation actions" />
+          }
           >
-            <Tooltip title={this.props.intl.formatMessage(messages.menuTooltip)}>
+            <IconButton
+              className="menu-button"
+              onClick={this.handleOpenMenu}
+            >
               <MoreHoriz />
-            </Tooltip>
-          </IconButton>
+            </IconButton>
+          </Tooltip>
           <Menu
             id="customized-menu"
             anchorEl={this.state.anchorEl}
@@ -435,14 +387,14 @@ class Annotation extends Component {
             open={Boolean(this.state.anchorEl)}
             onClose={this.handleCloseMenu}
           >
-            <Can permissions={annotation.permissions} permission={permission}>
+            {can(annotation.permissions, permission) ? (
               <MenuItem
                 className="annotation__delete"
                 onClick={this.handleDelete.bind(this, annotation.id)}
               >
-                {this.props.intl.formatMessage(messages.deleteButton)}
+                <FormattedMessage id="annotation.deleteButton" defaultMessage="Delete" />
               </MenuItem>
-            </Can>
+            ) : null}
             <MenuItem>
               <a
                 href={`#annotation-${activity.dbid}`}
@@ -664,16 +616,16 @@ class Annotation extends Component {
       if (object.annotation_type === 'flag') {
         showCard = true;
         const { flags } = object.data;
+        // #8220 remove "spam" until we get real values for it.
         const flagsContent = (
           <ul>
-            { Object.keys(flags).filter(flag => flag !== 'spam').map((flag) => {
-              // #8220 remove "spam" until we get real values for it.
-              const likelihood = this.props.intl.formatMessage(messages[`flagLikelihood${flags[flag]}`]);
-              const flagName = this.props.intl.formatMessage(messages[`${flag}Flag`]);
-              return (
-                <li style={{ margin: units(1), listStyle: 'disc' }}>{flagName}: {likelihood}</li>
-              );
-            })}
+            { Object.keys(flags).filter(flag => flag !== 'spam').map(flag => (
+              <li style={{ margin: units(1), listStyle: 'disc' }}>
+                <FlagName flag={flag} />
+                {': '}
+                <FlagLikelihood likelihood={flags[flag]} />
+              </li>
+            ))}
           </ul>
         );
         contentTemplate = (
@@ -1018,12 +970,17 @@ class Annotation extends Component {
         const messageType = objectValue.source.type;
         let messageText = objectValue.text ? objectValue.text.trim() : null;
         if (!messageText) {
-          messageText = this.props.intl.formatMessage(messages.smoochNoMessage);
+          messageText = (
+            <FormattedMessage
+              id="annotation.smoochNoMessage"
+              defaultMessage="No message was sent with the request"
+            />
+          );
         }
         const smoochSlackUrl = activity.smooch_user_slack_channel_url;
         contentTemplate = (
           <div>
-            <StyledRequestHeader isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
+            <StyledRequestHeader>
               <span className="annotation__card-header">
                 <span>
                   {emojify(objectValue.name)}
@@ -1044,7 +1001,7 @@ class Annotation extends Component {
                       rel="noopener noreferrer"
                       href={smoochSlackUrl}
                     >
-                      {this.props.intl.formatMessage(messages.slackChannel)}
+                      <FormattedMessage id="annotation.slackChannel" defaultMessage="Slack channel" />
                     </a>
                   </span> :
                   null
@@ -1176,10 +1133,9 @@ class Annotation extends Component {
       <StyledAnnotationWrapper
         className={`annotation ${templateClass} ${typeClass}`}
         id={`annotation-${activity.dbid}`}
-        isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
       >
         {useCardTemplate ?
-          <StyledAnnotationCardWrapper isRtl={isRtl}>
+          <StyledAnnotationCardWrapper>
             <Card>
               <CardContent
                 className={`annotation__card-text annotation__card-activity-${activityType.replace(
@@ -1189,7 +1145,7 @@ class Annotation extends Component {
               >
                 {authorName ?
                   <RCTooltip placement="top" overlay={<UserTooltip user={activity.user} team={annotated.team} />}>
-                    <StyledAvatarColumn isRtl={isRtl} className="annotation__avatar-col">
+                    <StyledAvatarColumn className="annotation__avatar-col">
                       <SourcePicture
                         className="avatar"
                         type="user"
@@ -1199,9 +1155,9 @@ class Annotation extends Component {
                     </StyledAvatarColumn>
                   </RCTooltip> : null}
 
-                <StyledPrimaryColumn isRtl={isRtl}>
+                <StyledPrimaryColumn>
                   {contentTemplate}
-                  <StyledAnnotationMetadata isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
+                  <StyledAnnotationMetadata>
                     <span className="annotation__card-footer">
                       {authorName ?
                         <ProfileLink
@@ -1214,7 +1170,7 @@ class Annotation extends Component {
                       </span>
                     </span>
 
-                    <StyledAnnotationActionsWrapper isRtl={isRtl}>
+                    <StyledAnnotationActionsWrapper>
                       {annotationActions}
                     </StyledAnnotationActionsWrapper>
                   </StyledAnnotationMetadata>
@@ -1223,7 +1179,7 @@ class Annotation extends Component {
               </CardContent>
             </Card>
           </StyledAnnotationCardWrapper> :
-          <StyledDefaultAnnotation isRtl={isRtl} className="annotation__default">
+          <StyledDefaultAnnotation className="annotation__default">
             <span>
               <span className="annotation__default-content">{contentTemplate}</span>
               {timestamp}
@@ -1237,8 +1193,7 @@ class Annotation extends Component {
 Annotation.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
-  intl: intlShape.isRequired,
   setFlashMessage: PropTypes.func.isRequired,
 };
 
-export default withSetFlashMessage(injectIntl(Annotation));
+export default withSetFlashMessage(Annotation);
