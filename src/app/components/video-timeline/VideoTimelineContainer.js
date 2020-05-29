@@ -7,7 +7,7 @@ import qs from 'qs';
 import { Player } from '@meedan/check-ui';
 import { Timeline } from '@meedan/check-ui';
 
-import { entityCreate, entityUpdate, entityDelete, instanceCreate, instanceUpdate, instanceDelete, instanceClip } from './VideoTimelineUtils';
+import { entityCreate, entityUpdate, entityDelete, instanceCreate, instanceUpdate, instanceDelete, instanceClip, playlistLaunch, commentThreadCreate } from './VideoTimelineUtils';
 
 const environment = Store;
 
@@ -90,7 +90,12 @@ class VideoTimelineContainer extends Component {
               videoClips: [],
               videoPlaces: [],
               videoTags: Object.values(entities).filter(({ type }) => type === 'tag' || type === 'tags'),
-              user: {},
+              user: { 
+                first_name: "Mark",
+                id: 2376,
+                last_name: "Boas",
+                profile_img_url: "https://lh4.googleusercontent.com/-KAQP-uwuJ-U/AAAAAAAAAAI/AAAAAAAAAA8/m1-ILT1IqWs/s100/photo.jpg",
+              },
             };
 
             return (
@@ -143,12 +148,12 @@ class VideoTimelineContainer extends Component {
                   currentTime={time}
                   data={data}
                   duration={duration}
-                  onBeforeCommentThreadCreate={NOOP}
-                  onCommentCreate={NOOP}
-                  onCommentDelete={NOOP}
-                  onCommentEdit={NOOP}
-                  onCommentThreadCreate={NOOP}
-                  onCommentThreadDelete={NOOP}
+                  onBeforeCommentThreadCreate={(a, b, c, d, e) => console.log(a, b, c, d, e)}
+                  onCommentCreate={(a, b, c, d, e) => console.log(a, b, c, d, e)}
+                  onCommentDelete={(a, b, c, d, e) => console.log(a, b, c, d, e)}
+                  onCommentEdit={(a, b, c, d, e) => console.log(a, b, c, d, e)}
+                  onCommentThreadCreate={(time, text, callback) => commentThreadCreate(time, text, mediaId, callback)}
+                  onCommentThreadDelete={(a, b, c, d, e) => console.log(a, b, c, d, e)}
                   onEntityCreate={(type, payload, callback) => entityCreate(type, payload, mediaId, props.project_media.id, callback)}
                   onEntityDelete={(type, entityId, callback) => entityDelete(type, entityId, data.videoTags.find(({ id }) => entityId === id).instances, mediaId, callback)}
                   onEntityUpdate={(type, entityId, payload, callback) => entityUpdate(type, entityId, payload, callback)}
@@ -156,7 +161,7 @@ class VideoTimelineContainer extends Component {
                   onInstanceCreate={(type, id, payload, callback) => instanceCreate(type, id, data.videoTags.find(({ id: _id }) => _id === id).name, payload, mediaId, props.project_media.id, callback)}
                   onInstanceDelete={(type, entityId, instanceId) => instanceDelete(type, instanceId, mediaId)}
                   onInstanceUpdate={(type, entityId, instanceId, { start_seconds, end_seconds }) => instanceUpdate(type, entityId, instanceId, `t=${start_seconds},${end_seconds}&type=${type}`)}
-                  onPlaylistLaunch={NOOP}
+                  onPlaylistLaunch={type => playlistLaunch(type, data)}
                   onTimeChange={seekTo => this.setState({ seekTo })}
                 />
               </div>

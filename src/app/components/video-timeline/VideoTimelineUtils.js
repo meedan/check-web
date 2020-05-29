@@ -6,6 +6,38 @@ const environment = Store;
 
 const NOOP = () => {};
 
+const createComment = (text, fragment, annotated_id, parentID, callback) => {
+  return commitMutation(environment, {
+    mutation: graphql`
+      mutation VideoTimelineUtilsCreateCommentMutation($input: CreateCommentInput!) {
+        createComment(input: $input) {
+          comment {
+            dbid
+          }
+        }
+      }
+    `,
+    variables: {
+      input: { annotated_id, text, fragment, clientMutationId: `m${Date.now()}`, annotated_type: 'ProjectMedia'},
+    },
+    // configs: [
+    //   {
+    //     type: 'RANGE_ADD',
+    //     parentName: 'project_media',
+    //     parentID,
+    //     edgeName: 'tagEdge',
+    //     connectionName: 'tags',
+    //     rangeBehaviors: () => ('prepend'),
+    //     connectionInfo: [{
+    //       key: 'ProjectMedia_tags',
+    //       rangeBehavior: 'prepend',
+    //     }],
+    //   },
+    // ],
+    onCompleted: (data, errors) => callback && callback(data, errors),
+  });
+};
+
 const createTag = (tag, fragment, annotated_id, parentID, callback) => {
   return commitMutation(environment, {
     mutation: graphql`
@@ -196,3 +228,17 @@ export const instanceClip = (type, entityId, instanceId) => {
   }
 };
 
+export const playlistLaunch = (type, data) => {
+  switch (type) {
+    case 'tags':
+      console.warn('TODO playlist tags');
+      break;
+    default:
+      console.error(`${type} not handled`);
+  }
+};
+
+// createComment = (text, fragment, annotated_id, parentID, callback)
+export const commentThreadCreate = (time, text, mediaId, callback) => {
+  createComment(text, `t=${time}`, mediaId, null, callback);
+};
