@@ -26,6 +26,7 @@ import TeamRoute from '../../relay/TeamRoute';
 import { units, ContentColumn, black32, AlignOpposite } from '../../styles/js/shared';
 import Can, { can } from '../Can';
 import Message from '../Message';
+import { withPusher, pusherShape } from '../../pusher';
 import CreateTagTextMutation from '../../relay/mutations/CreateTagTextMutation';
 import UpdateTagTextMutation from '../../relay/mutations/UpdateTagTextMutation';
 import DeleteTagTextMutation from '../../relay/mutations/DeleteTagTextMutation';
@@ -68,13 +69,17 @@ class TeamTagsComponent extends Component {
   }
 
   componentDidMount() {
-    this.props.relay.forceFetch();
+    this.subscribe();
     this.filter();
   }
 
   componentDidUpdate() {
     this.filter();
     this.highlight();
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
   }
 
   highlight() {
@@ -407,6 +412,28 @@ class TeamTagsComponent extends Component {
     this.setState({ search });
   }
 
+  subscribe() {
+    const { pusher, clientSessionId, team } = this.props;
+    pusher.subscribe(team.pusher_channel).bind('tagtext_updated', 'TeamTagsComponent', (data, run) => {
+      if (clientSessionId !== data.actor_session_id) {
+        if (run) {
+          this.props.relay.forceFetch();
+          return true;
+        }
+        return {
+          id: `team-${team.dbid}`,
+          callback: this.props.relay.forceFetch,
+        };
+      }
+      return false;
+    });
+  }
+
+  unsubscribe() {
+    const { pusher, team } = this.props;
+    pusher.unsubscribe(team.pusher_channel, 'tagtext_updated', 'TeamTagsComponent');
+  }
+
   render() {
     const sortFunctions = {
       az: (a, b) => (a.text.localeCompare(b.text)),
@@ -512,9 +539,10 @@ TeamTagsComponent.propTypes = {
   relay: PropTypes.object.isRequired,
   team: PropTypes.object.isRequired,
   intl: PropTypes.object.isRequired,
+  pusher: pusherShape.isRequired,
 };
 
-const TeamTagsContainer = Relay.createContainer(injectIntl(TeamTagsComponent), {
+const TeamTagsContainer = Relay.createContainer(withPusher(injectIntl(TeamTagsComponent)), {
   fragments: {
     team: () => Relay.QL`
       fragment on Team {
@@ -522,6 +550,7 @@ const TeamTagsContainer = Relay.createContainer(injectIntl(TeamTagsComponent), {
         dbid
         slug
         permissions
+        pusher_channel
         tag_texts(first: 10000) {
           edges {
             node {

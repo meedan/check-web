@@ -105,6 +105,7 @@ const StyledSearchFiltersSection = styled.section`
 const StyledFilterRow = swallowingStyled(Row, { swallowProps: ['isRtl'] })`
   min-height: ${units(5)};
   margin-bottom: ${units(2)};
+  flex-wrap: wrap;
 
   h4 {
     text-transform: uppercase;
@@ -124,7 +125,6 @@ const StyledFilterRow = swallowingStyled(Row, { swallowProps: ['isRtl'] })`
 
   ${mediaQuery.handheld`
     padding: 0;
-    flex-wrap: nowrap;
     justify-content: flex-start;
     overflow-x: auto;
     overflow-y: auto;
@@ -617,8 +617,6 @@ class SearchQueryComponent extends React.Component {
         <PageTitle prefix={title} team={this.props.team}>
           <Dialog
             className="search__query-dialog"
-            maxWidth="sm"
-            fullWidth
             scroll="paper"
             open={this.state.dialogOpen}
             onClose={this.handleDialogClose}

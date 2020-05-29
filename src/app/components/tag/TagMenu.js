@@ -5,7 +5,7 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import isEqual from 'lodash.isequal';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import Menu from '@material-ui/core/Menu';
+import Popover from '@material-ui/core/Popover';
 import styled from 'styled-components';
 import TagInput from './TagInput';
 import TagPicker from './TagPicker';
@@ -139,7 +139,7 @@ class TagMenuComponent extends Component {
         >
           <TagOutline />
         </IconButton>
-        <Menu
+        <Popover
           anchorEl={this.state.anchorEl}
           open={Boolean(this.state.anchorEl)}
         >
@@ -163,7 +163,7 @@ class TagMenuComponent extends Component {
               </Button>
             </StyledActions>
           </div>
-        </Menu>
+        </Popover>
       </div>
     );
   }
