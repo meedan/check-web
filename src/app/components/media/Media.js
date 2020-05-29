@@ -37,6 +37,36 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
           quote
           embed_path
         }
+        comments(first: 10) { 
+          edges { 
+            node {
+              id
+              annotator {
+                id
+                name
+                profile_image
+              }
+              text
+              parsed_fragment 
+            }
+          } 
+        }
+        tags(first: 10000) {
+          edges {
+            node {
+              id
+              dbid
+              fragment
+              annotated_id
+              annotated_type
+              annotated_type
+              tag_text_object {
+                id
+                text
+              }
+            }
+          }
+        }
         team {
           id
           dbid
