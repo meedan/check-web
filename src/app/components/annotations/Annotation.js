@@ -968,15 +968,7 @@ class Annotation extends Component {
         showCard = true;
         const objectValue = JSON.parse(object.value);
         const messageType = objectValue.source.type;
-        let messageText = objectValue.text ? objectValue.text.trim() : null;
-        if (!messageText) {
-          messageText = (
-            <FormattedMessage
-              id="annotation.smoochNoMessage"
-              defaultMessage="No message was sent with the request"
-            />
-          );
-        }
+        const messageText = objectValue.text ? objectValue.text.trim() : null;
         const smoochSlackUrl = activity.smooch_user_slack_channel_url;
         contentTemplate = (
           <div>
@@ -1009,7 +1001,14 @@ class Annotation extends Component {
               </span>
             </StyledRequestHeader>
             <div className="annotation__card-content">
-              <ParsedText text={emojify(messageText)} />
+              {messageText ? (
+                <ParsedText text={emojify(messageText)} />
+              ) : (
+                <FormattedMessage
+                  id="annotation.smoochNoMessage"
+                  defaultMessage="No message was sent with the request"
+                />
+              )}
             </div>
           </div>
         );
