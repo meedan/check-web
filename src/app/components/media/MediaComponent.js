@@ -23,6 +23,15 @@ import {
   mediaQuery,
 } from '../../styles/js/shared';
 
+const TimelineDrawer = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 33vh;
+  width: 100%;
+  background-color: #cccccc;
+`;
+
 const StyledTwoColumnLayout = styled(ContentColumn)`
   flex-direction: column;
   ${mediaQuery.desktop`
@@ -253,6 +262,9 @@ class MediaComponent extends Component {
             </ContentColumn>
           </StyledTwoColumnLayout>
         </StyledBackgroundColor>
+        <TimelineDrawer>
+          foo
+        </TimelineDrawer>
       </PageTitle>
     );
   }
