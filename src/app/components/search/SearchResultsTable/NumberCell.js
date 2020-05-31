@@ -6,7 +6,7 @@ import TableCell from '@material-ui/core/TableCell';
 export default function NumberCell({ value }) {
   return (
     <TableCell align="center">
-      {value ? <FormattedNumber value={value} /> : null}
+      {value === null ? null : <FormattedNumber value={value} />}
     </TableCell>
   );
 }

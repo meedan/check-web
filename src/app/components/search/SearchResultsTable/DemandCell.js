@@ -4,7 +4,7 @@ import NumberCell from './NumberCell';
 
 export default function DemandCell({ projectMedia }) {
   const { demand } = projectMedia;
-  return <NumberCell>{demand}</NumberCell>;
+  return <NumberCell value={demand} />;
 }
 DemandCell.propTypes = {
   projectMedia: PropTypes.shape({

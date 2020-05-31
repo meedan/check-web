@@ -72,7 +72,7 @@ const Styles = theme => ({
 
 class MediaActionsBarComponent extends Component {
   static handleReportDesigner() {
-    const path = `${window.location.pathname}/report-designer`;
+    const path = `${window.location.pathname}/report`;
     browserHistory.push(path);
   }
 
