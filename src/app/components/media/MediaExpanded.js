@@ -257,15 +257,6 @@ const MediaExpandedContainer = Relay.createContainer(MediaExpandedComponent, {
           embed_path
           metadata
         }
-        project_source {
-          id
-          dbid
-          source {
-            id
-            dbid
-            name
-          }
-        }
         team {
           id
           dbid

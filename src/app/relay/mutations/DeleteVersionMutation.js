@@ -14,7 +14,7 @@ class DeleteVersionMutation extends Relay.Mutation {
   getFatQuery() {
     switch (this.props.parent_type) {
     case 'source':
-      return Relay.QL`fragment on DestroyVersionPayload { deletedId, source { log, log_count } }`;
+      return Relay.QL`fragment on DestroyVersionPayload { deletedId, source { id } }`;
     case 'project_media':
       return Relay.QL`fragment on DestroyVersionPayload { deletedId, project_media { log, log_count, last_status, last_status_obj { id } } }`;
     default:

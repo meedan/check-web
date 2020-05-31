@@ -13,8 +13,6 @@ class UpdateStatusMutation extends Relay.Mutation {
       return Relay.QL`fragment on UpdateDynamicPayload {
         dynamicEdge,
         source {
-          log,
-          log_count,
           id
         }
       }`;
