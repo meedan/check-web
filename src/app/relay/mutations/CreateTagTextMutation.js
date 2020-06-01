@@ -23,6 +23,24 @@ class CreateTagTextMutation extends Relay.Mutation {
     return { team_id: this.props.team.dbid, text: this.props.text };
   }
 
+  getOptimisticResponse() {
+    return {
+      tag_textEdge: {
+        node: {
+          id: 'VGFnVGV4dC8w\n',
+          dbid: 0,
+          text: this.props.text,
+          tags_count: 0,
+          created_at: new Date().toString(),
+          permissions: '{"read TagText":true,"update TagText":false,"destroy TagText":false}',
+        },
+      },
+      team: {
+        id: this.props.team.id,
+      },
+    };
+  }
+
   getConfigs() {
     return [
       {
