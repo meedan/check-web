@@ -624,7 +624,7 @@ class ReportDesignerComponent extends Component {
     const shareUrl = metadata.embed_url;
     const itemUrl = metadata.permalink.replace(/^https?:\/\/[^/]+/, '');
     const saveDisabled = !can(media.permissions, 'update ProjectMedia');
-    const url = window.location.href.replace(/\/embed$/, `?t=${new Date().getTime()}`);
+    const url = window.location.href.replace(/\/report$/, `?t=${new Date().getTime()}`);
     const embedTag = `<script src="${config.penderUrl}/api/medias.js?url=${encodeURIComponent(url)}"></script>`;
     const empty = this.settingsEmpty();
     const cantPublish = !this.state.options.use_visual_card && !this.state.options.use_text_message;
@@ -862,12 +862,6 @@ class ReportDesignerComponent extends Component {
 
           <StyledTwoColumnLayout>
             <ContentColumn className="column">
-              <h2>
-                <FormattedMessage
-                  id="reportDesigner.preview"
-                  defaultMessage="Preview"
-                />
-              </h2>
               { empty ?
                 <div id="empty-report">
                   <FormattedMessage
