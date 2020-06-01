@@ -304,7 +304,7 @@ class TeamTagsComponent extends Component {
     );
   }
 
-  tagsList(list, showMove) {
+  tagsList(list) {
     return (
       <List
         style={{
@@ -347,15 +347,6 @@ class TeamTagsComponent extends Component {
                     primary={<FormattedMessage id="teamTags.deleteTag" defaultMessage="Delete tag" />}
                   />
                 </MenuItem>
-                { showMove ? (
-                  <MenuItem
-                    className="tag__move"
-                    onClick={this.handleMove.bind(this, tag)}
-                  >
-                    <ListItemText
-                      primary={<FormattedMessage id="teamTags.moveTag" defaultMessage="Move to default tags" />}
-                    />
-                  </MenuItem>) : null }
               </Menu>
             </div>
           ) : null;
@@ -493,7 +484,7 @@ class TeamTagsComponent extends Component {
                 />
               </p>
               : null }
-            {this.tagsList(tag_texts, false)}
+            {this.tagsList(tag_texts)}
             <Can permissions={this.props.team.permissions} permission="create TagText">
               <div style={{ padding: units(2) }}>
                 <TextField

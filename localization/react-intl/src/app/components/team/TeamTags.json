@@ -28,10 +28,6 @@
     "defaultMessage": "Delete tag"
   },
   {
-    "id": "teamTags.moveTag",
-    "defaultMessage": "Move to default tags"
-  },
-  {
     "id": "teamTags.itemsCount",
     "defaultMessage": "{count, plural, =0 {no items} one {1 item} other {# items}}"
   },
