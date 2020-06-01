@@ -61,13 +61,6 @@ const mediaFragment = Relay.QL`
       search_id,
       title
     },
-    project_source {
-      dbid,
-      project_id,
-      source {
-        name
-      }
-    },
     media {
       type,
       metadata,

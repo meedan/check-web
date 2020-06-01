@@ -9,8 +9,6 @@ class CreateCommentMutation extends Relay.Mutation {
 
   getFatQuery() {
     switch (this.props.parent_type) {
-    case 'project_source':
-      return Relay.QL`fragment on CreateCommentPayload { commentEdge, comment_versionEdge, source { log_count } }`;
     case 'project_media':
       return Relay.QL`fragment on CreateCommentPayload { commentEdge, comment_versionEdge, project_media { last_status, last_status_obj, log, log_count } }`;
     case 'task':
@@ -120,11 +118,7 @@ class CreateCommentMutation extends Relay.Mutation {
     const { parent_type } = this.props;
     const { annotated } = this.props;
 
-    if (parent_type !== 'project_source') {
-      fieldIds[parent_type] = annotated.id;
-    } else {
-      fieldIds.source = annotated.source.id;
-    }
+    fieldIds[parent_type] = annotated.id;
 
     if (parent_type === 'task') {
       fieldIds.project_media = annotated.project_media.id;
@@ -137,8 +131,8 @@ class CreateCommentMutation extends Relay.Mutation {
       },
       {
         type: 'RANGE_ADD',
-        parentName: parent_type === 'project_source' ? 'source' : parent_type,
-        parentID: parent_type === 'project_source' ? annotated.source.id : annotated.id,
+        parentName: parent_type,
+        parentID: annotated.id,
         connectionName: 'log',
         edgeName: 'comment_versionEdge',
         rangeBehaviors: () => ('append'),

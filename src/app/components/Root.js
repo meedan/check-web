@@ -83,8 +83,8 @@ class Root extends Component {
                 <Route path=":team/project/:projectId/media/:mediaId/timeline" component={VideoTimeline} public />
                 <Route path=":team/media/:mediaId" component={MediaPage} public />
                 <Route path=":team/project/:projectId/media/:mediaId" component={MediaPage} public />
-                <Route path=":team/media/:mediaId/report-designer" component={ReportDesigner} public />
-                <Route path=":team/project/:projectId/media/:mediaId/report-designer" component={ReportDesigner} public />
+                <Route path=":team/media/:mediaId/report" component={ReportDesigner} public />
+                <Route path=":team/project/:projectId/media/:mediaId/report" component={ReportDesigner} public />
                 <Route path=":team/project/:projectId/media/:mediaId/tasks" component={MediaTasks} />
                 <Route path=":team/join" component={JoinTeam} />
                 <Route path=":team/project/:projectId/edit" component={ProjectEdit} />

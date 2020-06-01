@@ -6,7 +6,7 @@ import Search from '../search/Search';
 
 export default function Trash({ routeParams }) {
   const query = {
-    ...safelyParseJSON(routeParams.query, '{}'),
+    ...safelyParseJSON(routeParams.query, {}),
     archived: 1,
   };
 
