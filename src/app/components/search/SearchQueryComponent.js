@@ -525,7 +525,8 @@ class SearchQueryComponent extends React.Component {
     }
 
     const { currentUser } = this.currentContext();
-    const plainTagsTexts = team.tag_texts.edges.map(t => t.node.text);
+    const plainTagsTexts = team.tag_texts ?
+      team.tag_texts.edges.map(t => t.node.text) : [];
 
     const title = (this.filterIsActive() || this.keywordIsActive())
       ? this.title(statuses, projects)
