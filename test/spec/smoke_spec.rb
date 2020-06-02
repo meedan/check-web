@@ -205,6 +205,38 @@ shared_examples 'smoke' do
     imgsrc = @driver.find_element(:css, '.annotation__card-thumbnail').attribute('src')
     expect(imgsrc.match(/test\.png$/).nil?).to be(false)
   end
+
+  it "should go back to the right url from the item page", bin3: true do 
+    #item created in a project
+    api_create_team_project_and_claim_and_redirect_to_media_page
+    wait_for_selector(".card")
+    wait_for_selector(".project-header__back-button").click
+    wait_for_selector("#create-media__add-item")
+    expect(@driver.current_url.to_s.match(/\/project\/[0-9]+$/).nil?).to be(false) #project page
+    # send this item to trash go to the item page and go back to trash page
+    wait_for_selector("input[type=checkbox]").click
+    wait_for_selector(".media-bulk-actions__delete-icon").click
+    wait_for_selector(".message")
+    wait_for_selector(".project-list__link-all").click
+    wait_for_selector_none(".medias__item")
+    wait_for_selector(".project-list__item-trash").click #Go to the trash page
+    wait_for_selector("//span[contains(text(), 'Trash')]", :xpath)
+    wait_for_selector(".medias__item")
+    wait_for_selector(".media__heading").click
+    wait_for_selector(".media-actions__icon")
+    wait_for_selector(".project-header__back-button").click
+    wait_for_selector("#media-bulk-actions")
+    expect(@driver.current_url.to_s.match(/trash/).nil?).to be(false) # trash page
+    #item created from "all items" page
+    wait_for_selector(".project-list__link-all").click
+    create_media("claim 2")
+    wait_for_selector(".media__heading").click
+    wait_for_selector("#media-detail__report-designer")
+    wait_for_selector(".project-header__back-button").click
+    wait_for_selector("#create-media__add-item")
+    expect(@driver.current_url.to_s.match(/all-items/).nil?).to be(false) # all items page
+  end
+
 #media items section end
 
 #tasks section start
@@ -340,6 +372,7 @@ shared_examples 'smoke' do
     wait_for_selector('.task__card-expand').click
     wait_for_selector(".task-actions__icon").click
     wait_for_selector(".task-actions__assign").click
+    wait_for_selector("#attribution")
     wait_for_selector(".Select-input input").send_keys("user")
     @driver.action.send_keys(:enter).perform
     wait_for_selector(".attribution-dialog__save").click
