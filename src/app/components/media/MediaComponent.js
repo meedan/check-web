@@ -31,14 +31,6 @@ import {
   mediaQuery,
 } from '../../styles/js/shared';
 
-// const TimelineDrawer = styled.div`
-//   position: absolute;
-//   bottom: 0;
-//   left: 0;
-//   height: 33vh;
-//   width: 100%;
-//   background-color: white;
-// `;
 const styles = theme => ({
   root: {
     borderBottom: `1px solid ${theme.palette.divider}`,
@@ -188,7 +180,6 @@ class MediaComponent extends Component {
   }
 
   handleTabChange = (e, value) => this.setState({ showTab: value });
-
   handleToggleVideoAnnotation = () => this.setState({ showVideoAnnotation: !this.state.showVideoAnnotation }) 
 
   render() {

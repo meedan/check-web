@@ -67,9 +67,8 @@ class MediaMetadata extends Component {
     const isRtl = rtlDetect.isRtlLang(locale);
     const fromDirection = isRtl ? 'right' : 'left';
     const claimReview = data.schema && data.schema.ClaimReview ? data.schema.ClaimReview[0] : null;
+    // check if the media item is either a Youtube link or uploaded video:
     const allowsAnnotation = media.media.type === "Link" && media.media.metadata.provider === 'youtube' || media.media.type === "UploadedVideo";
-
-    console.log("HERE, media obj:", media );
 
     return (
       <StyledMetadata
