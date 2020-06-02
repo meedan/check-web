@@ -214,14 +214,16 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should not create duplicated media", bin4: true do
-      api_create_team_project_and_link_and_redirect_to_media_page @media_url
+      url = 'https://twitter.com/meedan/status/1262644257996898305'
+      api_create_team_project_and_link_and_redirect_to_media_page url
       id1 = @driver.current_url.to_s.gsub(/^.*\/media\//, '').to_i
       expect(id1 > 0).to be(true)
-      @driver.navigate.to @driver.current_url.to_s.gsub(/\/media\/.*$/, '')
+      wait_for_selector("#media-actions-bar__add-to")
+      wait_for_selector(".project-header__back-button").click
       wait_for_selector(".medias__item")
       wait_for_selector("#create-media__add-item").click
       wait_for_selector("#create-media__link")
-      fill_field('#create-media-input', @media_url)
+      fill_field('#create-media-input', url)
       wait_for_selector('#create-media-dialog__submit-button').click
       wait_for_selector(".create-related-media__add-button")
       id2 = @driver.current_url.to_s.gsub(/^.*\/media\//, '').to_i
