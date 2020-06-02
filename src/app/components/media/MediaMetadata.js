@@ -68,6 +68,8 @@ class MediaMetadata extends Component {
     const fromDirection = isRtl ? 'right' : 'left';
     const claimReview = data.schema && data.schema.ClaimReview ? data.schema.ClaimReview[0] : null;
 
+    console.log("HERE, media obj:", media );
+
     return (
       <StyledMetadata
         fromDirection={fromDirection}
@@ -76,6 +78,14 @@ class MediaMetadata extends Component {
         { claimReview ? <Row><ClaimReview data={claimReview} /></Row> : null }
         { (media.picture || (media.media && media.media.file_path)) ?
           <Row style={{ display: 'flex', alignItems: 'center', marginBottom: units(2) }}>
+
+          <Button 
+            color="primary" 
+            disabled={this.props.showVideoAnnotation}
+            onClick={this.props.handleToggleVideoAnnotation} 
+            variant="contained" 
+          >Video annotation</Button>
+
             { media.picture ?
               <div className="media-detail__reverse-image-search">
                 <small>

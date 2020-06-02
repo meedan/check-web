@@ -3,8 +3,14 @@ import PropTypes from 'prop-types';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import { stripUnit } from 'polished';
-import Tabs from '@material-ui/core/Tabs';
+import Grid from '@material-ui/core/Grid';
+import Drawer from '@material-ui/core/Drawer';
+import IconButton from '@material-ui/core/IconButton';
+import { withStyles } from '@material-ui/core/styles';
+import CloseIcon from '@material-ui/icons/Close';
 import Tab from '@material-ui/core/Tab';
+import Tabs from '@material-ui/core/Tabs';
+import Toolbar from '@material-ui/core/Toolbar';
 import { withPusher, pusherShape } from '../../pusher';
 import PageTitle from '../PageTitle';
 import MediaDetail from './MediaDetail';
@@ -25,14 +31,24 @@ import {
   mediaQuery,
 } from '../../styles/js/shared';
 
-const TimelineDrawer = styled.div`
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 33vh;
-  width: 100%;
-  background-color: white;
-`;
+// const TimelineDrawer = styled.div`
+//   position: absolute;
+//   bottom: 0;
+//   left: 0;
+//   height: 33vh;
+//   width: 100%;
+//   background-color: white;
+// `;
+const styles = theme => ({
+  root: {
+    borderBottom: `1px solid ${theme.palette.divider}`,
+    minHeight: 'auto',
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
+  }
+})
+
+const StyledDrawerToolbar = withStyles(styles)(Toolbar);
 
 const StyledTwoColumnLayout = styled(ContentColumn)`
   flex-direction: column;
@@ -83,6 +99,8 @@ class MediaComponent extends Component {
     this.state = {
       showTab,
       showRequests,
+      showVideoAnnotation: false,
+      videoAnnotationTab: 'timeline',
       duration: 0,
       playing: false,
       time: 0,
@@ -171,6 +189,8 @@ class MediaComponent extends Component {
 
   handleTabChange = (e, value) => this.setState({ showTab: value });
 
+  handleToggleVideoAnnotation = () => this.setState({ showVideoAnnotation: !this.state.showVideoAnnotation }) 
+
   render() {
     if (this.props.relay.variables.contextId === null && /\/project\//.test(window.location.pathname)) {
       return null;
@@ -183,7 +203,7 @@ class MediaComponent extends Component {
     media.embed_path = media.media.embed_path;
 
     const {
-      playing, duration, time, progress, seekTo, scrubTo,
+      playing, duration, time, progress, seekTo, scrubTo, showVideoAnnotation
     } = this.state;
 
     const { currentUser } = this.getContext();
@@ -204,7 +224,8 @@ class MediaComponent extends Component {
                 hideBorder
                 hideRelated
                 setPlayerState={payload => this.setState(payload)}
-                {...{ playing, seekTo, scrubTo }}
+                handleToggleVideoAnnotation={this.handleToggleVideoAnnotation}
+                {...{ playing, seekTo, scrubTo, showVideoAnnotation }}
               />
               {this.props.extras}
               <MediaRelated
@@ -280,14 +301,29 @@ class MediaComponent extends Component {
             </ContentColumn>
           </StyledTwoColumnLayout>
         </StyledBackgroundColor>
-        <TimelineDrawer>
-          <MediaTimeline
-            setPlayerState={payload => this.setState(payload)}
-            {...{
-              media, playing, duration, time, progress, seekTo, scrubTo, currentUser,
-            }}
-          />
-        </TimelineDrawer>
+        <Drawer anchor="bottom" elevation={3} ModalProps={{}} open={showVideoAnnotation} PaperProps={{}} SliderProps={{}} variant="persistent">
+          <StyledDrawerToolbar>
+            <Grid alignItems="center" container justify="space-between">
+              <Grid item>
+                {/* <Tabs onChange={val => this.setState({videoAnnotationTab: val})}> */}
+                <Tabs value={this.state.videoAnnotationTab} onChange={args => console.log({args})}>
+                  <Tab label="Timeline" disabled id="TimelineTab" ariaControls="simple-tabpanel-${index}" value="timeline" />
+                </Tabs>
+              </Grid>
+              <Grid item>
+                <IconButton onClick={this.handleToggleVideoAnnotation} size="small"><CloseIcon /></IconButton>
+              </Grid>
+            </Grid>
+          </StyledDrawerToolbar>
+          <div aria-labelledby={`TimelineTab`} role="tabpanel" hidden={this.state.videoAnnotationTab !== 'timeline'}>
+            <MediaTimeline
+              setPlayerState={payload => this.setState(payload)}
+              {...{
+                media, playing, duration, time, progress, seekTo, scrubTo, currentUser,
+              }}
+            />
+          </div>
+        </Drawer>
       </PageTitle>
     );
   }

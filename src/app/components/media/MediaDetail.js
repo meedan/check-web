@@ -61,6 +61,8 @@ class MediaDetail extends Component {
       media,
       annotated,
       annotatedType,
+      handleToggleVideoAnnotation,
+      showVideoAnnotation,
       intl: { locale },
     } = this.props;
 
@@ -99,7 +101,7 @@ class MediaDetail extends Component {
             mediaUrl={mediaUrl}
             isRtl={isRtl}
             {...{
-              playing, seekTo, scrubTo, setPlayerState,
+              playing, seekTo, scrubTo, setPlayerState, handleToggleVideoAnnotation, showVideoAnnotation
             }}
           /> }
       </Card>
