@@ -214,14 +214,16 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should not create duplicated media", bin4: true do
-      api_create_team_project_and_link_and_redirect_to_media_page @media_url
+      url = 'https://twitter.com/meedan/status/1262644257996898305'
+      api_create_team_project_and_link_and_redirect_to_media_page url
       id1 = @driver.current_url.to_s.gsub(/^.*\/media\//, '').to_i
       expect(id1 > 0).to be(true)
-      @driver.navigate.to @driver.current_url.to_s.gsub(/\/media\/.*$/, '')
+      wait_for_selector("#media-actions-bar__add-to")
+      wait_for_selector(".project-header__back-button").click
       wait_for_selector(".medias__item")
       wait_for_selector("#create-media__add-item").click
       wait_for_selector("#create-media__link")
-      fill_field('#create-media-input', @media_url)
+      fill_field('#create-media-input', url)
       wait_for_selector('#create-media-dialog__submit-button').click
       wait_for_selector(".create-related-media__add-button")
       id2 = @driver.current_url.to_s.gsub(/^.*\/media\//, '').to_i
@@ -810,73 +812,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('#teams-tab')
       wait_for_selector(".project-list__link-all")
       expect(@driver.page_source.include?('All items')).to be(true)
-    end
-
-    it "should set rules", bin3: true do
-      user = api_register_and_login_with_email
-      t = api_create_team(user: user)
-
-      # Go to rules page
-      @driver.navigate.to @config['self_url'] + '/' + t.slug + '/settings'
-      wait_for_selector('.team-settings__rules-tab').click
-      wait_for_selector('#tableTitle')
-      
-      # No rules
-      expect(@driver.page_source.include?('0 rules')).to be(true)
-      expect(@driver.page_source.include?('Rule 1')).to be(false)
-      
-      # Create new rule and check that form is blank
-      wait_for_selector('.rules__new-rule').click
-      wait_for_selector('input')
-      expect(@driver.page_source.include?('Rule 1')).to be(false)
-      expect(@driver.page_source.include?('keyword')).to be(false)
-      expect(@driver.page_source.include?('foo,bar')).to be(false)
-      expect(@driver.page_source.include?('Move item to list')).to be(false)
-      expect(@driver.page_source.include?('Select destination list')).to be(false)
-      
-      # Select a condition and set a value for it
-      wait_for_selector('.rules__rule-field div[role="button"]').click
-      wait_for_selector('ul li').click
-      wait_for_selector('.rules__rule-field textarea').send_keys('foo,bar')
-      wait_for_selector('body').click
-
-      # Select an action
-      wait_for_selector('.rules__actions .rules__rule-field div[role="button"]').click
-      wait_for_selector('ul li').click
-      expect(@driver.page_source.include?('Select destination list')).to be(true)
-      
-      # Set rule name
-      wait_for_selector('input[type="text"]').click
-      @driver.action.send_keys('Rule 1').perform
-
-      # Save
-      wait_for_selector('.rules__save-button').click
-      wait_for_selector('#tableTitle')
-      expect(@driver.page_source.include?('1 rule')).to be(true)
-      expect(@driver.page_source.include?('Rule 1')).to be(true)
-
-      # Open
-      wait_for_selector('tbody tr').click
-      wait_for_selector('input')
-      expect(@driver.page_source.include?('Rule 1')).to be(true)
-      expect(@driver.page_source.include?('keyword')).to be(true)
-      expect(@driver.page_source.include?('foo,bar')).to be(true)
-      expect(@driver.page_source.include?('Move item to list')).to be(true)
-      expect(@driver.page_source.include?('Select destination list')).to be(true)
-
-      # Reload the page and make sure that everything was saved correctly and is displayed correctly
-      @driver.navigate.refresh
-      wait_for_selector('.team-settings__rules-tab').click
-      wait_for_selector('#tableTitle')
-      expect(@driver.page_source.include?('1 rule')).to be(true)
-      expect(@driver.page_source.include?('Rule 1')).to be(true)
-      wait_for_selector('tbody tr').click
-      wait_for_selector('input')
-      expect(@driver.page_source.include?('Rule 1')).to be(true)
-      expect(@driver.page_source.include?('keyword')).to be(true)
-      expect(@driver.page_source.include?('foo,bar')).to be(true)
-      expect(@driver.page_source.include?('Move item to list')).to be(true)
-      expect(@driver.page_source.include?('Select destination list')).to be(true)
     end
 
     it "should redirect to login page if not logged in and team is private", bin2: true do

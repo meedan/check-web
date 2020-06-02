@@ -4,7 +4,7 @@ shared_examples 'custom' do
   it "should register and redirect to newly created media", bin4: true do
     api_create_team_and_project
     page = ProjectPage.new(config: @config, driver: @driver).load
-           .create_media(input: @media_url)
+           .create_media(input: 'https://twitter.com/meedan/status/1260264996048498688')
     wait_for_selector('.media-detail')
     expect(@driver.page_source.include?('Unstarted')).to be(true)
     $media_id = page.driver.current_url.to_s.match(/\/media\/([0-9]+)/)[1]
