@@ -67,7 +67,7 @@ class MediaMetadata extends Component {
     const isRtl = rtlDetect.isRtlLang(locale);
     const fromDirection = isRtl ? 'right' : 'left';
     const claimReview = data.schema && data.schema.ClaimReview ? data.schema.ClaimReview[0] : null;
-    const isYTVideo = media.media.type === "Link" && media.media.metadata.provider === 'youtube';
+    const allowsAnnotation = media.media.type === "Link" && media.media.metadata.provider === 'youtube' || media.media.type === "UploadedVideo";
 
     console.log("HERE, media obj:", media );
 
@@ -80,7 +80,7 @@ class MediaMetadata extends Component {
         { (media.picture || (media.media && media.media.file_path)) ?
           <Row style={{ display: 'flex', alignItems: 'center', marginBottom: units(2) }}>
 
-          {isYTVideo ? 
+          {allowsAnnotation ? 
             <Button 
               color="primary" 
               disabled={this.props.showVideoAnnotation}
