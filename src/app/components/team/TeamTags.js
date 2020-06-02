@@ -53,6 +53,7 @@ class TeamTagsComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      anchorEl: null,
       sort: 'az',
       search: '',
       newTag: '',
@@ -327,7 +328,7 @@ class TeamTagsComponent extends Component {
               </IconButton>
               <Menu
                 anchorEl={this.state.anchorEl}
-                open={this.state.anchorEl && (this.state.menuOpenForTag === tag)}
+                open={Boolean(this.state.anchorEl && (this.state.menuOpenForTag === tag))}
                 onClose={this.handleCloseMenu}
                 style={{ margin: '0 12px' }}
               >
@@ -498,7 +499,7 @@ class TeamTagsComponent extends Component {
                   <Button
                     onClick={this.handleAddTag.bind(this)}
                     disabled={this.state.newTag.length === 0}
-                    primary={this.state.newTag.length > 0}
+                    color="primary"
                   >
                     <FormattedMessage id="teamTags.addTag" defaultMessage="Add tag" />
                   </Button>
