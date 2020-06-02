@@ -25,7 +25,7 @@
   },
   {
     "id": "teamReport.introductionSub",
-    "defaultMessage": "Use {query_date} and {query_message} placeholders to display the date and content of the original query. Use {status} to communicate the status of the article."
+    "defaultMessage": "Use {query_date} placeholder to display the date of the original query. Use {status} to communicate the status of the article."
   },
   {
     "id": "teamReport.disclaimer",
