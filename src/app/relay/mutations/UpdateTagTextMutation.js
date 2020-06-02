@@ -10,12 +10,19 @@ class UpdateTagTextMutation extends Relay.Mutation {
   getFatQuery() {
     return Relay.QL`
       fragment on UpdateTagTextPayload {
+        tag_text,
         team {
           id
           tag_texts
         }
       }
     `;
+  }
+
+  getOptimisticResponse() {
+    return {
+      tag_text: this.props.tagText,
+    };
   }
 
   getVariables() {
@@ -28,6 +35,7 @@ class UpdateTagTextMutation extends Relay.Mutation {
         type: 'FIELDS_CHANGE',
         fieldIDs: {
           team: this.props.team.id,
+          tag_text: this.props.tagText.id,
         },
       },
     ];

@@ -26,26 +26,47 @@ const StyledFormControlLabel = styled(FormControlLabel)`
   margin-${props => props.theme.dir === 'rtl' ? 'left' : 'right'}: 16px !important;
 `;
 
-class TagPicker extends React.Component {
+class TagPicker extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      tags: props.tags.map(tag => tag.node.tag_text),
+      selected: [],
+      unselected: [],
     };
   }
 
   handleSelectCheckbox = (e, inputChecked) => {
-    const tags = this.state.tags.slice();
     const tag = e.target.id;
+
+    const selected = [...this.state.selected];
+    const unselected = [...this.state.unselected];
+
     if (inputChecked) {
       this.props.onAddTag(tag);
-      tags.push(tag);
+      selected.push(tag);
+      if (unselected.indexOf(tag)) {
+        unselected.splice(unselected.indexOf(tag), 1);
+      }
     } else {
       this.props.onRemoveTag(tag);
-      tags.splice(tags.indexOf(tag), 1);
+      unselected.push(tag);
+      if (selected.indexOf(tag)) {
+        selected.splice(selected.indexOf(tag), 1);
+      }
     }
-    this.setState({ tags });
+    this.setState({ selected, unselected });
   }
+
+  tagIsChecked = (tag) => {
+    const { selected, unselected } = this.state;
+    if (selected.includes(tag)) {
+      return true;
+    }
+    if (unselected.includes(tag)) {
+      return false;
+    }
+    return this.props.tags.map(t => t.node.tag_text).includes(tag);
+  };
 
   renderNotFound(totalTagsCount) {
     if (totalTagsCount === 0) {
@@ -80,8 +101,7 @@ class TagPicker extends React.Component {
       return tag.toLowerCase().includes(val.toLowerCase());
     };
 
-    const plainMediaTags = this.state.tags;
-    const { tag_texts } = media.team;
+    const tag_texts = media.team.tag_texts || { edges: [] };
     const shown_tag_texts = value ?
       tag_texts.edges.filter(t => compareString(t.node.text, value)) :
       tag_texts.edges;
@@ -100,7 +120,7 @@ class TagPicker extends React.Component {
                   key={`team-suggested-tag-${index.toString()}`}
                   control={
                     <StyledCheckbox
-                      checked={plainMediaTags.includes(tag.node.text)}
+                      checked={this.tagIsChecked(tag.node.text)}
                       onChange={this.handleSelectCheckbox}
                       id={tag.node.text}
                     />

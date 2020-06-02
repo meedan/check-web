@@ -134,19 +134,19 @@ class TeamTagsComponent extends Component {
 
   handleUpdate(e) {
     if (e.key === 'Enter' && !e.shiftKey) {
-      this.setState({ search: '' });
       const text = document.getElementById('tag__edit').value;
       const tag = this.state.editing;
+      this.setState({ search: '', editing: null });
       if (text.length > 0 && tag.text !== text) {
         const onSuccess = () => {
           this.setState({
             message: null,
-            editing: null,
             highlight: text,
           });
         };
         const onFailure = () => {
           this.setState({
+            editing: tag,
             message: <FormattedMessage
               id="teamTags.failUpdate"
               defaultMessage="Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists."
