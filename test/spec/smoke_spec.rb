@@ -114,11 +114,11 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('Happy birthday Mick')).to be(true)
 
     #from Youtube
-    expect(@driver.page_source.include?("How To Check An")).to be(false)
-    create_media("https://www.youtube.com/watch?v=ykLgjhBnik0")
-    wait_for_selector_list_size('.media__heading',3)
-    wait_for_selector("//h4[contains(text(), 'How')]", :xpath)
-    expect(@driver.page_source.include?("How To Check An")).to be(true)
+    # expect(@driver.page_source.include?("How To Check An")).to be(false)
+    # create_media("https://www.youtube.com/watch?v=ykLgjhBnik0")
+    # wait_for_selector_list_size('.media__heading',3)
+    # wait_for_selector("//h4[contains(text(), 'How')]", :xpath)
+    # expect(@driver.page_source.include?("How To Check An")).to be(true)
 
     #from Instagram
     # expect(@driver.page_source.include?('#wEDnesday')).to be(false)
@@ -206,7 +206,7 @@ shared_examples 'smoke' do
     expect(imgsrc.match(/test\.png$/).nil?).to be(false)
   end
 
-  it "should go back to the right url from the item page", bin3: true do 
+  it "should go back to the right url from the item page", bin3: true do
     #item created in a project
     api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector(".card")
@@ -927,7 +927,7 @@ shared_examples 'smoke' do
     @driver.navigate.to(@config['self_url'] + '/check/me')
     wait_for_selector(".source__primary-info")
     page.select_team(name: 'Team 2')
-    
+
     wait_for_selector(".team__primary-info")
     team_name = wait_for_selector('.team__name').text
     expect(team_name).to eq('Team 2')
