@@ -67,6 +67,7 @@ class MediaMetadata extends Component {
     const isRtl = rtlDetect.isRtlLang(locale);
     const fromDirection = isRtl ? 'right' : 'left';
     const claimReview = data.schema && data.schema.ClaimReview ? data.schema.ClaimReview[0] : null;
+    const isYTVideo = media.media.type === "Link" && media.media.metadata.provider === 'youtube';
 
     console.log("HERE, media obj:", media );
 
@@ -79,14 +80,14 @@ class MediaMetadata extends Component {
         { (media.picture || (media.media && media.media.file_path)) ?
           <Row style={{ display: 'flex', alignItems: 'center', marginBottom: units(2) }}>
 
-          <Button 
-            color="primary" 
-            disabled={this.props.showVideoAnnotation}
-            onClick={this.props.handleToggleVideoAnnotation} 
-            variant="contained" 
-          >Video annotation</Button>
-
-            { media.picture ?
+          {isYTVideo ? 
+            <Button 
+              color="primary" 
+              disabled={this.props.showVideoAnnotation}
+              onClick={this.props.handleToggleVideoAnnotation} 
+              variant="contained" 
+            >Video annotation</Button> 
+            : (media.picture ?
               <div className="media-detail__reverse-image-search">
                 <small>
                   <FormattedMessage
@@ -105,7 +106,7 @@ class MediaMetadata extends Component {
                 >
                   Google
                 </Button>
-              </div> : null }
+              </div> : null)}
             { (media.media && media.media.file_path) ?
               <div
                 className="media-detail__download"
