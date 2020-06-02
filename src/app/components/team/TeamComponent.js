@@ -281,11 +281,11 @@ TeamComponent.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
+  classes: PropTypes.object.isRequired,
 };
 
 TeamComponent.contextTypes = {
   store: PropTypes.object,
-  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(injectIntl(TeamComponent));
