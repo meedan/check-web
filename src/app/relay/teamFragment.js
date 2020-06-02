@@ -15,7 +15,6 @@ const teamFragment = Relay.QL`
     get_slack_webhook,
     get_slack_channel,
     get_suggested_tags,
-    get_max_number_of_members,
     pusher_channel,
     public_team_id,
     verification_statuses,

@@ -14,9 +14,6 @@ describe('<SlackConfig />', () => {
 
   const team = {
     slug: 'team-slug',
-    limits: {
-      slack_integration: true,
-    }
   };
 
   it('should render component for team owners', function() {
