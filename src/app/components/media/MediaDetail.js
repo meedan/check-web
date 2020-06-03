@@ -63,7 +63,7 @@ class MediaDetail extends Component {
       scrubTo,
       seekTo,
       setPlayerState,
-      setVideoAnnoToggleRef,
+      setPlayerRef,
       showVideoAnno,
       intl: { locale },
     } = this.props;
@@ -103,12 +103,12 @@ class MediaDetail extends Component {
             mediaUrl={mediaUrl}
             isRtl={isRtl}
             {...{
-              setVideoAnnoToggleRef, 
               onPlayerReady,
               onVideoAnnoToggle, 
               playing, 
               scrubTo, 
               seekTo,
+              setPlayerRef, 
               setPlayerState, 
               showVideoAnno,
             }}

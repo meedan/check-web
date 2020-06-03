@@ -96,8 +96,8 @@ class MediaComponent extends Component {
       showTab,
       showVideoAnno: false,
       time: 0,
-      videoAnnoAnchor: null,
-      videoAnnoAnchorRect: null,
+      playerRef: null,
+      playerRect: null,
       videoAnnotationTab: 'timeline',
     };
   }
@@ -107,7 +107,7 @@ class MediaComponent extends Component {
     MediaComponent.scrollToAnnotation();
     this.subscribe();
     window.addEventListener('resize', this.onWindowResize);
-    this.setVideoAnnoAnchorRect();
+    this.setPlayerRect();
   }
 
   componentWillUpdate(nextProps) {
@@ -122,9 +122,7 @@ class MediaComponent extends Component {
     if (this.props.media.dbid !== prevProps.media.dbid) {
       this.subscribe();
     }
-    if (prevState.videoAnnoAnchor !== this.state.videoAnnoAnchor) { 
-      this.setVideoAnnoAnchorRect();
-    }
+    if (prevState.playerRef !== this.state.playerRef) this.setPlayerRect();
   }
 
   componentWillUnmount() {
@@ -133,12 +131,12 @@ class MediaComponent extends Component {
   }
   
   onWindowResize = () => {
-    this.setVideoAnnoAnchorRect();
+    this.setPlayerRect();
   }
 
-  setVideoAnnoAnchorRect = () => { 
-    // update video annotation drawer anchor rect
-    if (this.state.videoAnnoAnchor) this.setState({ videoAnnoAnchorRect: this.state.videoAnnoAnchor.getBoundingClientRect() });
+  setPlayerRect = () => { 
+    // update player rect which used to anchor video anno drawer
+    if (this.state.playerRef) this.setState({ playerRect: this.state.playerRef.getBoundingClientRect() });
   }
 
   setCurrentContext() {
@@ -197,7 +195,6 @@ class MediaComponent extends Component {
   }
 
   handleTabChange = (e, value) => this.setState({ showTab: value });
-  setVideoAnnoToggleRef = node => this.setState({ videoAnnoAnchor: node });
 
   render() {
     if (this.props.relay.variables.contextId === null && /\/project\//.test(window.location.pathname)) {
@@ -212,13 +209,13 @@ class MediaComponent extends Component {
 
     const {
       duration, 
+      playerRect,
       playing, 
       progress,
       scrubTo, 
       seekTo, 
       showVideoAnno, 
       time,
-      videoAnnoAnchorRect,
     } = this.state;
 
     const { currentUser } = this.getContext();
@@ -238,10 +235,10 @@ class MediaComponent extends Component {
                 hideBorder
                 hideRelated
                 media={media}
-                onPlayerReady={this.setVideoAnnoAnchorRect}
+                onPlayerReady={this.setPlayerRect}
                 onVideoAnnoToggle={() => this.setState({ showVideoAnno: true })}
+                setPlayerRef={node => this.setState({ playerRef: node })}
                 setPlayerState={payload => this.setState(payload)}
-                setVideoAnnoToggleRef={this.setVideoAnnoToggleRef}
                 {...{ playing, seekTo, scrubTo, showVideoAnno }}
               />
               {this.props.extras}
@@ -320,8 +317,8 @@ class MediaComponent extends Component {
         </StyledBackgroundColor>
 
         {// render video annotation drawer only if we can anchor it to the bottom of the player:
-          videoAnnoAnchorRect ? <Drawer 
-            PaperProps={{ style: { top: (videoAnnoAnchorRect.bottom + 10) || 'auto' }}} 
+          playerRect ? <Drawer 
+            PaperProps={{ style: { top: (playerRect.bottom + 10) || 'auto' }}} 
             anchor="bottom" 
             elevation={3} 
             open={showVideoAnno} 

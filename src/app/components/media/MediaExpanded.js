@@ -42,7 +42,6 @@ class MediaExpandedComponent extends Component {
 
     this.state = {
       mediaVersion: false,
-      videoAnnoToggle: null, // this will be passed up to MediaComponent.js onComponentDidUpdate
     };
   }
 
@@ -50,12 +49,8 @@ class MediaExpandedComponent extends Component {
     this.setContext();
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate() {
     this.setContext();
-    // pass videoAnnoToggle up to MediaComponent.js to anchor video annotation drawer
-    if (this.state.videoAnnoToggle && prevState.videoAnnoToggle !== this.state.videoAnnoToggle) { 
-      this.props.setVideoAnnoToggleRef(this.state.videoAnnoToggle);
-    }
   }
 
   getContext() {
@@ -69,9 +64,8 @@ class MediaExpandedComponent extends Component {
   }
 
   getPlayerRef = (node) => { 
-    // we’re grabbing this ref to anchor video annotation drawer to its top y coordinate:
-    this.setState({ videoAnnoToggle: node });
-  };
+    this.props.setPlayerRef(node);
+  }
 
   render() {
     const {
