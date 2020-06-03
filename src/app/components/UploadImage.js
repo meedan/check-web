@@ -88,8 +88,8 @@ class UploadImageComponent extends Component {
   onDrop(files) {
     const file = files[0];
     const { type } = this.props;
-    const extensions = type === 'image' ? this.props.about.upload_extensions : this.props.about.video_extensions;
-    const max_size = type === 'image' ? this.props.about.upload_max_size : this.props.about.video_max_size;
+    const extensions = type === 'image' ? this.props.about.image_extensions : this.props.about.video_extensions;
+    const max_size = type === 'image' ? this.props.about.image_max_size : this.props.about.video_max_size;
     const valid_extensions = extensions.toLowerCase().split(/[\s,]+/);
     const extension = file.name.substr(file.name.lastIndexOf('.') + 1).toLowerCase();
     if (valid_extensions.length > 0 && valid_extensions.indexOf(extension) < 0) {
@@ -148,12 +148,12 @@ class UploadImageComponent extends Component {
     const uploadMessage = type === 'image' ? (
       <FormattedMessage
         id="uploadImage.message"
-        defaultMessage="Drop an image file here, or click to upload a file (max size: {upload_max_size}, allowed extensions: {upload_extensions}, allowed dimensions between {upload_min_dimensions} and {upload_max_dimensions} pixels)"
+        defaultMessage="Drop an image file here, or click to upload a file (max size: {image_max_size}, allowed extensions: {image_extensions}, allowed dimensions between {image_min_dimensions} and {image_max_dimensions} pixels)"
         values={{
-          upload_max_size: about.upload_max_size,
-          upload_extensions: about.upload_extensions,
-          upload_max_dimensions: about.upload_max_dimensions,
-          upload_min_dimensions: about.upload_min_dimensions,
+          image_max_size: about.image_max_size,
+          image_extensions: about.image_extensions,
+          image_max_dimensions: about.image_max_dimensions,
+          image_min_dimensions: about.image_min_dimensions,
         }}
       />
     )
@@ -200,12 +200,12 @@ const UploadImageContainer = Relay.createContainer(injectIntl(UploadImageCompone
   fragments: {
     about: () => Relay.QL`
       fragment on About {
-        upload_max_size,
-        upload_extensions,
+        image_max_size,
+        image_extensions,
         video_max_size,
         video_extensions,
-        upload_max_dimensions,
-        upload_min_dimensions
+        image_max_dimensions,
+        image_min_dimensions
       }
     `,
   },
