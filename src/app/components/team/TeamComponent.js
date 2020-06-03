@@ -35,9 +35,6 @@ const styles = () => ({
     maxWidth: '120px',
     minWidth: '120px',
   },
-  labelContainer: {
-    padding: units(1),
-  },
 });
 
 const StyledTwoColumnLayout = styled(ContentColumn)`
@@ -161,7 +158,7 @@ class TeamComponent extends Component {
             { UserUtil.myRole(this.getCurrentUser(), team.slug) === 'owner' ?
               <Tab
                 className="team-settings__tasks-tab"
-                classes={{ root: classes.root, labelContainer: classes.labelContainer }}
+                classes={{ root: classes.root }}
                 label={
                   <FormattedMessage
                     id="teamSettings.Tasks"
@@ -174,7 +171,7 @@ class TeamComponent extends Component {
             {UserUtil.myRole(this.getCurrentUser(), team.slug) === 'owner' ?
               <Tab
                 className="team-settings__rules-tab"
-                classes={{ root: classes.root, labelContainer: classes.labelContainer }}
+                classes={{ root: classes.root }}
                 label={
                   <FormattedMessage
                     id="teamSettings.rules"
@@ -187,7 +184,7 @@ class TeamComponent extends Component {
             { isSettings || isReadOnly ?
               <Tab
                 className="team-settings__tags-tab"
-                classes={{ root: classes.root, labelContainer: classes.labelContainer }}
+                classes={{ root: classes.root }}
                 label={
                   <FormattedMessage
                     id="teamSettings.Tags"
@@ -199,7 +196,7 @@ class TeamComponent extends Component {
             {UserUtil.myRole(this.getCurrentUser(), team.slug) === 'owner' ?
               <Tab
                 className="team-settings__report-tab"
-                classes={{ root: classes.root, labelContainer: classes.labelContainer }}
+                classes={{ root: classes.root }}
                 label={
                   <FormattedMessage
                     id="teamSettings.report"
@@ -212,7 +209,7 @@ class TeamComponent extends Component {
             {UserUtil.myRole(this.getCurrentUser(), team.slug) === 'owner' ?
               <Tab
                 className="team-settings__integrations-tab"
-                classes={{ root: classes.root, labelContainer: classes.labelContainer }}
+                classes={{ root: classes.root }}
                 label={
                   <FormattedMessage
                     id="teamSettings.integrations"
@@ -225,7 +222,7 @@ class TeamComponent extends Component {
             {UserUtil.myRole(this.getCurrentUser(), team.slug) === 'owner' ?
               <Tab
                 className="team-settings__bots-tab"
-                classes={{ root: classes.root, labelContainer: classes.labelContainer }}
+                classes={{ root: classes.root }}
                 label={
                   <FormattedMessage
                     id="teamSettings.bots"
@@ -284,11 +281,11 @@ TeamComponent.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
+  classes: PropTypes.object.isRequired,
 };
 
 TeamComponent.contextTypes = {
   store: PropTypes.object,
-  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(injectIntl(TeamComponent));

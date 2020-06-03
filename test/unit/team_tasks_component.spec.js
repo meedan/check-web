@@ -12,18 +12,12 @@ const team = {
   },
 };
 
-const direction = {
-  from: 'left',
-  to: 'right',
-};
-
 describe('<TeamTasksComponent />', () => {
   it('should render filter and create task button', function() {
     const wrapper = mountWithIntl(
-      <TeamTasksComponent team={team} direction={direction} />
+      <TeamTasksComponent team={team} />
     );
     expect(wrapper.find('.filter-popup').hostNodes()).toHaveLength(1);
     expect(wrapper.find('.create-task__add-button').hostNodes()).toHaveLength(1);
-    expect(wrapper.html()).toMatch('Tasks');
   });
 });

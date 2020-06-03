@@ -44,12 +44,8 @@
     "defaultMessage": "Invitation was sent successfully"
   },
   {
-    "id": "teamInviteMembers.limits",
-    "defaultMessage": "The maximum number of members for this workspace has been reached ({count, plural, one {1 member} other {# members}})."
-  },
-  {
     "id": "teamInviteMembers.inviteMembers",
-    "defaultMessage": "Members will invited as"
+    "defaultMessage": "Members will be invited as"
   },
   {
     "id": "teamInviteMembers.inviteMember",

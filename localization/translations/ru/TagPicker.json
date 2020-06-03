@@ -1,7 +1,4 @@
 {
   "tagPicker.emptyTags": "There are currently no tags for this workspace.",
-  "tagPicker.tagNotFound": "Тэг #{tag} не найден.",
-  "tagPicker.teamTags": "Default tags",
-  "tagPicker.none": "Нет тэгов",
-  "tagPicker.teamOtherTags": "Дополнительные тэги"
+  "tagPicker.tagNotFound": "Тэг #{tag} не найден."
 }

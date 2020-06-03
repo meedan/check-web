@@ -97,7 +97,7 @@ shared_examples 'smoke' do
 #security section end
 
 #media items section start
-  it "should create new medias using links from Facebook, Twitter and Youtube", bin2: true do
+  it "should create new medias using links from Facebook, Twitter, Youtube, Instagram and Tiktok", bin2: true do
     #from facebook
     api_create_team_project_and_link_and_redirect_to_media_page('https://www.facebook.com/FirstDraftNews/posts/1808121032783161')
     wait_for_selector(".media-detail")
@@ -113,21 +113,26 @@ shared_examples 'smoke' do
     wait_for_selector("//h4[contains(text(), 'Happy')]", :xpath)
     expect(@driver.page_source.include?('Happy birthday Mick')).to be(true)
 
-    #from Youtube
-    expect(@driver.page_source.include?("How To Check An")).to be(false)
-    create_media("https://www.youtube.com/watch?v=ykLgjhBnik0")
-    wait_for_selector_list_size('.media__heading',3)
-    wait_for_selector("//h4[contains(text(), 'How')]", :xpath)
-    expect(@driver.page_source.include?("How To Check An")).to be(true)
+    #from Youtube commented until #8390 is fixed
+    # expect(@driver.page_source.include?("How To Check An")).to be(false)
+    # create_media("https://www.youtube.com/watch?v=ykLgjhBnik0")
+    # wait_for_selector_list_size('.media__heading',3)
+    # wait_for_selector("//h4[contains(text(), 'How')]", :xpath)
+    # expect(@driver.page_source.include?("How To Check An")).to be(true)
 
     #from Instagram
-    # expect(@driver.page_source.include?('#wEDnesday')).to be(false)
-    # create_media("https://www.instagram.com/p/BRYob0dA1SC/")
-    # wait_for_selector_list_size('.media__heading',4)
-    # wait_for_selector("//h3[contains(text(), 'We get')]", :xpath)
-    # expect(@driver.page_source.include?('#wEDnesday')).to be(true)
+    expect(@driver.page_source.include?('#wEDnesday')).to be(false)
+    create_media("https://www.instagram.com/p/BRYob0dA1SC/")
+    wait_for_selector_list_size('.media__heading',3)
+    wait_for_selector("//h4[contains(text(), 'We get')]", :xpath)
+    expect(@driver.page_source.include?('#wEDnesday')).to be(true)
 
-    #TODO Tiktok
+    #from Tiktok
+    expect(@driver.page_source.include?('Who agrees with this')).to be(false)
+    create_media("https://www.tiktok.com/@scout2015/video/6771039287917038854")
+    wait_for_selector_list_size('.media__heading',4)
+    wait_for_selector("//h4[contains(text(), 'Who agrees')]", :xpath)
+    expect(@driver.page_source.include?('Who agrees with this')).to be(true)
   end
 
   it "should register, create a claim and assign it", bin4: true do
@@ -177,6 +182,7 @@ shared_examples 'smoke' do
     wait_for_selector('.add-annotation__insert-photo').click
     wait_for_selector('input[type=file]').send_keys(File.join(File.dirname(__FILE__), 'test.png'))
     wait_for_selector('.add-annotation__buttons button').click
+    wait_for_selector_none(".with-file")
     wait_for_selector(".media-tab__activity").click
     wait_for_size_change(old, "annotations__list-item", :class)
 
@@ -198,13 +204,45 @@ shared_examples 'smoke' do
 
     # Reload the page and verify that comment is still there
     @driver.navigate.refresh
-    wait_for_selector(".media")
+    wait_for_selector(".media__annotations-column")
     wait_for_selector(".media-tab__comments").click
     wait_for_selector(".annotation--card")
     expect(@driver.page_source.include?('This is my comment with image')).to be(true)
     imgsrc = @driver.find_element(:css, '.annotation__card-thumbnail').attribute('src')
     expect(imgsrc.match(/test\.png$/).nil?).to be(false)
   end
+
+  it "should go back to the right url from the item page", bin3: true do
+    #item created in a project
+    api_create_team_project_and_claim_and_redirect_to_media_page
+    wait_for_selector(".card")
+    wait_for_selector(".project-header__back-button").click
+    wait_for_selector("#create-media__add-item")
+    expect(@driver.current_url.to_s.match(/\/project\/[0-9]+$/).nil?).to be(false) #project page
+    # send this item to trash go to the item page and go back to trash page
+    wait_for_selector("input[type=checkbox]").click
+    wait_for_selector(".media-bulk-actions__delete-icon").click
+    wait_for_selector(".message")
+    wait_for_selector(".project-list__link-all").click
+    wait_for_selector_none(".medias__item")
+    wait_for_selector(".project-list__item-trash").click #Go to the trash page
+    wait_for_selector("//span[contains(text(), 'Trash')]", :xpath)
+    wait_for_selector(".medias__item")
+    wait_for_selector(".media__heading").click
+    wait_for_selector(".media-actions__icon")
+    wait_for_selector(".project-header__back-button").click
+    wait_for_selector("#media-bulk-actions")
+    expect(@driver.current_url.to_s.match(/trash/).nil?).to be(false) # trash page
+    #item created from "all items" page
+    wait_for_selector(".project-list__link-all").click
+    create_media("claim 2")
+    wait_for_selector(".media__heading").click
+    wait_for_selector("#media-detail__report-designer")
+    wait_for_selector(".project-header__back-button").click
+    wait_for_selector("#create-media__add-item")
+    expect(@driver.current_url.to_s.match(/all-items/).nil?).to be(false) # all items page
+  end
+
 #media items section end
 
 #tasks section start
@@ -340,6 +378,7 @@ shared_examples 'smoke' do
     wait_for_selector('.task__card-expand').click
     wait_for_selector(".task-actions__icon").click
     wait_for_selector(".task-actions__assign").click
+    wait_for_selector("#attribution")
     wait_for_selector(".Select-input input").send_keys("user")
     @driver.action.send_keys(:enter).perform
     wait_for_selector(".attribution-dialog__save").click
@@ -507,6 +546,7 @@ shared_examples 'smoke' do
     team = "team#{Time.now.to_i}"
     api_create_team(team: team)
     @driver.navigate.to @config['self_url']+'/'+team
+    wait_for_selector('.team')
     wait_for_selector('.team-menu__team-settings-button').click
     wait_for_selector('.team-settings__report-tab').click
     wait_for_selector('#use_introduction').click
@@ -518,6 +558,21 @@ shared_examples 'smoke' do
     wait_for_selector(".team > div> div > p > button[type='button']").click #save button
     wait_for_selector(".message")
     expect(@driver.page_source.include?('Report settings updated successfully!')).to be(true)
+  end
+
+  it "should enable the slack notifications", bin5: true do
+    team = "team#{Time.now.to_i}"
+    api_create_team(team: team)
+    @driver.navigate.to @config['self_url']+'/'+team
+    wait_for_selector('.team')
+    wait_for_selector('.team-menu__team-settings-button').click
+    wait_for_selector('.team-settings__integrations-tab').click
+    expect(@driver.find_elements(:css, '.Mui-checked').length == 0 )
+    wait_for_selector("input[type=checkbox]").click
+    @driver.navigate.refresh
+    wait_for_selector('.team-settings__integrations-tab').click
+    wait_for_selector(".Mui-checked")
+    expect(@driver.find_elements(:css, '.Mui-checked').length == 1 )
   end
 #team section end
 
@@ -625,12 +680,12 @@ shared_examples 'smoke' do
 #Related items section end
 
 #Embed section Start
-  it "should generate a embed from Youtube video", bin1: true do
+  it "should generate a report from Youtube video", bin1: true do
     api_create_team_project_and_link_and_redirect_to_media_page('https://www.youtube.com/watch?v=ykLgjhBnik0')
     wait_for_selector(".media-detail")
-    generate_a_embed_and_copy_embed_code
+    generate_a_report_and_copy_report_code
     @driver.navigate.to 'https://paste.ubuntu.com/'
-    title = 'a embed from Youtube video' + Time.now.to_i.to_s
+    title = 'a report from Youtube video' + Time.now.to_i.to_s
     fill_field('#id_poster' , title)
     wait_for_selector('#id_content').send_keys(' ')
     @driver.action.send_keys(:control, 'v').perform
@@ -638,12 +693,12 @@ shared_examples 'smoke' do
     expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
   end
 
-  it "should generate a embed from Facebook post", bin1: true do
+  it "should generate a report from Facebook post", bin1: true do
     api_create_team_project_and_link_and_redirect_to_media_page('https://www.facebook.com/FirstDraftNews/posts/1808121032783161')
     wait_for_selector(".media-detail")
-    generate_a_embed_and_copy_embed_code
+    generate_a_report_and_copy_report_code
     @driver.navigate.to 'https://paste.ubuntu.com/'
-    title = 'a embed from Facebook' + Time.now.to_i.to_s
+    title = 'a report from Facebook' + Time.now.to_i.to_s
     fill_field('#id_poster' , title)
     wait_for_selector('#id_content').send_keys(' ')
     @driver.action.send_keys(:control, 'v').perform
@@ -651,12 +706,12 @@ shared_examples 'smoke' do
     expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
   end
 
-  it "should generate a embed from Twitter post", bin4: true do
+  it "should generate a report from Twitter post", bin4: true do
     api_create_team_project_and_link_and_redirect_to_media_page('https://twitter.com/TheWho/status/890135323216367616')
     wait_for_selector(".media-detail")
-    generate_a_embed_and_copy_embed_code
+    generate_a_report_and_copy_report_code
     @driver.navigate.to 'https://paste.ubuntu.com/'
-    title = 'a embed from Twitter' + Time.now.to_i.to_s
+    title = 'a report from Twitter' + Time.now.to_i.to_s
     fill_field('#id_poster' , title)
     wait_for_selector('#id_content').send_keys(' ')
     @driver.action.send_keys(:control, 'v').perform
@@ -664,23 +719,23 @@ shared_examples 'smoke' do
     expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
   end
 
-  # it "should generate a embed from Instagram post", bin1: true do
-  #   api_create_team_project_and_link_and_redirect_to_media_page('https://www.instagram.com/p/BRYob0dA1SC/')
-  #   wait_for_selector(".media-detail")
-  #   generate_a_embed_and_copy_embed_code
-  #   @driver.navigate.to 'https://paste.ubuntu.com/'
-  #   title = 'a embed from Instagram' + Time.now.to_i.to_s
-  #   fill_field('#id_poster' , title)
-  #   wait_for_selector('#id_content').send_keys(' ')
-  #   @driver.action.send_keys(:control, 'v').perform
-  #   wait_for_text_change(' ',"#id_content", :css)
-  #   expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
-  # end
+  it "should generate a report from Instagram post", bin1: true do
+    api_create_team_project_and_link_and_redirect_to_media_page('https://www.instagram.com/p/BRYob0dA1SC/')
+    wait_for_selector(".media-detail")
+    generate_a_report_and_copy_report_code
+    @driver.navigate.to 'https://paste.ubuntu.com/'
+    title = 'a report from Instagram' + Time.now.to_i.to_s
+    fill_field('#id_poster' , title)
+    wait_for_selector('#id_content').send_keys(' ')
+    @driver.action.send_keys(:control, 'v').perform
+    wait_for_text_change(' ',"#id_content", :css)
+    expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
+  end
 
-  it "should generate a embed from website link copy the code and insert in a blog", bin3: true do
+  it "should generate a report from website link copy the code and insert in a blog", bin3: true do
     api_create_team_project_and_link_and_redirect_to_media_page('https://meedan.com')
     wait_for_selector(".media-detail")
-    generate_a_embed_and_copy_embed_code
+    generate_a_report_and_copy_report_code
     @driver.navigate.to 'http://codemagic.gr/'
     wait_for_selector('.ace_text-input').send_keys(' ')
     @driver.action.send_keys(:control, 'v').perform
@@ -690,7 +745,7 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('test-team')).to be(true)
   end
 
-  it "should create a image, change the status to in progress and generate a embed",bin4: true do
+  it "should create a image, change the status to in progress and generate a report",bin4: true do
     api_create_team_and_project
     @driver.navigate.to @config['self_url']
     wait_for_selector(".project__description")
@@ -702,9 +757,9 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('In Progress')).to be(false)
     change_the_status_to(".media-status__menu-item--in-progress", false)
     expect(@driver.page_source.include?('In Progress')).to be(true)
-    generate_a_embed_and_copy_embed_code
+    generate_a_report_and_copy_report_code
     @driver.navigate.to 'https://paste.ubuntu.com/'
-    title = 'a embed from image' + Time.now.to_i.to_s
+    title = 'a report from image' + Time.now.to_i.to_s
     fill_field('#id_poster' , title)
     wait_for_selector('#id_content').send_keys(' ')
     @driver.action.send_keys(:control, 'v').perform
@@ -712,7 +767,7 @@ shared_examples 'smoke' do
     expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
   end
 
-  it "should generate a embed, copy the share url and open the embed page in a incognito window", bin4: true do
+  it "should generate a report, copy the share url and open the report page in a incognito window", bin4: true do
    api_create_team_and_project
     @driver.navigate.to @config['self_url']
     wait_for_selector('.project__description')
@@ -722,8 +777,8 @@ shared_examples 'smoke' do
     wait_for_selector('#media-detail__report-designer').click
     wait_for_selector("#report-designer__customization-menu")
     wait_for_selector("//span[contains(text(), 'Edit')]", :xpath).click
-    wait_for_selector("//span[contains(text(), 'Visual card')]", :xpath).click
-    wait_for_selector("//span[contains(text(), 'Text message')]", :xpath).click
+    wait_for_selector("//span[contains(text(), 'Report image')]", :xpath).click
+    wait_for_selector("//span[contains(text(), 'Report text')]", :xpath).click
     wait_for_selector("#report-designer__text").send_keys("text message")
     wait_for_selector("//span[contains(text(), 'Save')]", :xpath).click
     wait_for_selector("//span[contains(text(), 'Edit')]", :xpath)
@@ -735,7 +790,43 @@ shared_examples 'smoke' do
     @wait.until { driver.find_element(:id, "container") }
     expect(driver.page_source.include?('text message')).to be(true)
   end
-#Embed section end
+#Report section end
+
+# Meme Generator section start
+  # it "should generate a meme and then the embed", bin1: true do
+  #   create_team_project_and_image_and_redirect_to_media_page
+  #   wait_for_selector(".media__annotations-column")
+  #   wait_for_selector('.media-actions__icon').click
+  #   wait_for_selector('.media-actions__edit')
+  #   el = wait_for_selector('.media-actions__memebuster')
+  #   el.location_once_scrolled_into_view
+  #   el.click
+  #   expect(@driver.page_source.include?('Last saved')).to be(false)
+  #   wait_for_selector(".without-file")
+  #   fill_field('input[name="headline"]', 'Meme')
+  #   save_button = wait_for_selector(".memebuster__viewport-column > div > div button + button")
+  #   expect(save_button.attribute('tabindex')== "-1" ).to be(true) #if save_button is not enable
+  #   fill_field('textarea[name="description"]', 'description')
+  #   expect(save_button.attribute('tabindex')== "0" ).to be(true) #if save_button is enable
+  #   save_button.click
+  #   wait_for_selector(".memebuster__viewport-column > div > div >  span")
+  #   expect(@driver.page_source.include?('Last saved')).to be(true)
+  #   publish_button = wait_for_selector(".memebuster__viewport-column > div > div button + button + button")
+  #   publish_button.click
+  #   wait_for_selector(".memebuster__viewport-column > div > div > div")
+  #   expect(@driver.page_source.include?('Publishing')).to be(true)
+  #   wait_for_selector(".memebuster__viewport-column > div > div > div > span")
+  #   wait_for_selector(".memebuster__viewport-column > div > div > div > span > time")
+  #   expect(@driver.page_source.include?('Publishing')).to be(false)
+  #   expect(@driver.page_source.include?('Last published')).to be(true)
+  #   @driver.navigate.back
+  #   wait_for_selector_none(".without-file")
+  #   wait_for_selector(".media-status__label")
+  #   generate_a_embed_and_copy_embed_code
+  #   wait_for_selector(".oembed__meme")
+  #   expect(@driver.page_source.include?('Meme')).to be(true)
+  # end
+# Meme Generator section end
 
 #Bulk Actions section start
   it "should move media to another project", bin2: true do
@@ -894,7 +985,7 @@ shared_examples 'smoke' do
     @driver.navigate.to(@config['self_url'] + '/check/me')
     wait_for_selector(".source__primary-info")
     page.select_team(name: 'Team 2')
-    
+
     wait_for_selector(".team__primary-info")
     team_name = wait_for_selector('.team__name').text
     expect(team_name).to eq('Team 2')
@@ -1111,7 +1202,7 @@ shared_examples 'smoke' do
     page = MePage.new(config: @config, driver: @driver).load
     @driver.navigate.to @config['self_url'] + "/"+@team1_slug
 
-    #can't see the link 'edit member rules'
+    #can't see the link 'edit member roles'
     expect(@driver.find_elements(:css, ".team-members__edit-button").size).to eq 0
 
     #can't see the link 'create a new list'
@@ -1124,6 +1215,92 @@ shared_examples 'smoke' do
     expect(@driver.find_elements(:css, ".media-status button[disabled]").size).to eq 1
   end
 #Permissions section end
+
+#Rules section start
+  it "should set, edit and delete rules", bin3: true do
+    user = api_register_and_login_with_email
+    t = api_create_team(user: user)
+
+    # Go to rules page
+    @driver.navigate.to @config['self_url'] + '/' + t.slug + '/settings'
+    wait_for_selector('.team-settings__rules-tab').click
+    wait_for_selector('#tableTitle')
+
+    # No rules
+    expect(@driver.page_source.include?('0 rules')).to be(true)
+    expect(@driver.page_source.include?('Rule 1')).to be(false)
+
+    # Create new rule and check that form is blank
+    wait_for_selector('.rules__new-rule').click
+    wait_for_selector('input')
+    expect(@driver.page_source.include?('Rule 1')).to be(false)
+    expect(@driver.page_source.include?('keyword')).to be(false)
+    expect(@driver.page_source.include?('foo,bar')).to be(false)
+    expect(@driver.page_source.include?('Move item to list')).to be(false)
+    expect(@driver.page_source.include?('Select destination list')).to be(false)
+
+    # Select a condition and set a value for it
+    wait_for_selector('.rules__rule-field div[role="button"]').click
+    wait_for_selector('ul li').click
+    wait_for_selector('.rules__rule-field textarea').send_keys('foo,bar')
+    wait_for_selector('body').click
+
+    # Select an action
+    wait_for_selector('.rules__actions .rules__rule-field div[role="button"]').click
+    wait_for_selector('ul li').click
+    expect(@driver.page_source.include?('Select destination list')).to be(true)
+
+    # Set rule name
+    wait_for_selector('input[type="text"]').click
+    @driver.action.send_keys('Rule 1').perform
+
+    # Save
+    wait_for_selector('.rules__save-button').click
+    wait_for_selector('#tableTitle')
+    expect(@driver.page_source.include?('1 rule')).to be(true)
+    expect(@driver.page_source.include?('Rule 1')).to be(true)
+
+    # Open
+    wait_for_selector('tbody tr').click
+    wait_for_selector('input')
+    expect(@driver.page_source.include?('Rule 1')).to be(true)
+    expect(@driver.page_source.include?('keyword')).to be(true)
+    expect(@driver.page_source.include?('foo,bar')).to be(true)
+    expect(@driver.page_source.include?('Move item to list')).to be(true)
+    expect(@driver.page_source.include?('Select destination list')).to be(true)
+
+    # Reload the page and make sure that everything was saved correctly and is displayed correctly
+    @driver.navigate.refresh
+    wait_for_selector('.team-settings__rules-tab').click
+    wait_for_selector('#tableTitle')
+    expect(@driver.page_source.include?('1 rule')).to be(true)
+    expect(@driver.page_source.include?('Rule 1')).to be(true)
+    wait_for_selector('tbody tr').click
+    wait_for_selector('input')
+    expect(@driver.page_source.include?('Rule 1')).to be(true)
+    expect(@driver.page_source.include?('keyword')).to be(true)
+    expect(@driver.page_source.include?('foo,bar')).to be(true)
+    expect(@driver.page_source.include?('Move item to list')).to be(true)
+    expect(@driver.page_source.include?('Select destination list')).to be(true)
+
+    #edit rule
+    wait_for_selector('input[type="text"]').click
+    @driver.action.send_keys('- Edited').perform
+    wait_for_selector('.rules__save-button').click
+    wait_for_selector('#tableTitle')
+    expect(@driver.page_source.include?('1 rule')).to be(true)
+    expect(@driver.page_source.include?('Rule 1- Edited')).to be(true)
+
+    #delet rule
+    wait_for_selector('tbody tr').click
+    wait_for_selector("//span[contains(text(), 'More')]", :xpath).click
+    wait_for_selector("//span[contains(text(), 'Delete')]", :xpath).click
+    wait_for_selector("#confirm-dialog__checkbox").click
+    wait_for_selector("#confirm-dialog__confirm-action-button").click
+    wait_for_selector(".message")
+    expect(@driver.page_source.include?('Rule 1- Edited')).to be(false)
+  end
+#Rules section end
 
 #Filter section start
   it "sort by date that the media was created", bin4: true do
@@ -1140,44 +1317,52 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('My search result')).to be(true)
   end
 
-  # it "should filter by status", bin2: true, quick:true do
-  #   api_create_claim_and_go_to_search_page
-  #   expect(@driver.page_source.include?('My search result')).to be(true)
-  #   create_media("media 2")
-  #   create_media("media 3")
-  #   wait_for_selector_list(".media__heading a")[0].click
-  #   wait_for_selector(".media__annotations-column")
-  #   change_the_status_to(".media-status__menu-item--false", false)
-  #   wait_for_selector(".project-header__back-button").click
-  #   wait_for_selector("#search-input")
-  #   wait_for_selector_list(".media__heading a")[1].click
-  #   wait_for_selector(".media__annotations-column")
-  #   change_the_status_to(".media-status__menu-item--verified", false)
-  #   wait_for_selector(".project-header__back-button").click
-  #   wait_for_selector_list_size(".media__heading", 3)
-  #   wait_for_selector("#search__open-dialog-button").click
-  #   wait_for_selector("#search-query__cancel-button")
-  #   wait_for_selector("#search-query__status-false").click
-  #   wait_for_selector("#search-query__status-verified").click
-  #   wait_for_selector("#search-query__submit-button").click
-  #   expect(@driver.page_source.include?('My search result')).to be(false)
-  #   url = @driver.current_url.to_s
-  #   attempts = 0
-  #   while !@driver.page_source.include?('media 2') && attempts < 30
-  #     wait_for_selector("#search__open-dialog-button").click
-  #     wait_for_selector("#search-query__cancel-button")
-  #     wait_for_selector("#search-query__status-false").click
-  #     wait_for_selector("#search-query__submit-button").click
-  #     sleep 1
-  #     attempts += 1
-  #   end
-  #   wait_for_selector_list_size(".media__heading", 2)
-  #   expect(@driver.page_source.include?('media 2')).to be(true)
-  #   expect(@driver.page_source.include?('media 3')).to be(true)
-  #   wait_for_selector("#search__open-dialog-button").click
-  #   selected = @driver.find_elements(:css, '.search-query__filter-button--selected')
-  #   expect(selected.size == 2).to be(true)
-  # end
+  it "should filter by status", bin2: true, quick:true do
+    api_create_claim_and_go_to_search_page
+    expect(@driver.page_source.include?('My search result')).to be(true)
+    create_media("media 2")
+    create_media("media 3")
+    wait_for_selector_list(".media__heading a")[0].click
+    change_the_status_to(".media-status__menu-item--false", false)
+    wait_for_selector(".project-header__back-button").click
+    wait_for_selector("#search-input")
+    wait_for_selector_list(".media__heading a")[1].click
+    wait_for_selector(".media__annotations-column")
+    change_the_status_to(".media-status__menu-item--verified", false)
+    wait_for_selector(".project-header__back-button").click
+    wait_for_selector_list_size(".media__heading", 3)
+    wait_for_selector("#search__open-dialog-button").click
+    wait_for_selector("#search-query__cancel-button")
+    wait_for_selector("#search-query__status-false").click
+    wait_for_selector("#search-query__status-verified").click
+    wait_for_selector("#search-query__submit-button").click
+    expect(@driver.page_source.include?('My search result')).to be(false)
+    url = @driver.current_url.to_s
+    attempts = 0
+    while !@driver.page_source.include?('media 2') && attempts < 30
+      wait_for_selector("#search__open-dialog-button").click
+      wait_for_selector("#search-query__cancel-button")
+      wait_for_selector("#search-query__status-verified").click
+      wait_for_selector("#search-query__submit-button").click
+      sleep 1
+      attempts += 1
+    end
+    while !@driver.page_source.include?('media 3') && attempts < 30
+      wait_for_selector("#search__open-dialog-button").click
+      wait_for_selector("#search-query__cancel-button")
+      wait_for_selector("#search-query__status-false").click
+      wait_for_selector("#search-query__submit-button").click
+      sleep 1
+      attempts += 1
+    end
+    expect(@driver.page_source.include?('media 3')).to be(true)
+    expect(@driver.page_source.include?('media 2')).to be(true)
+    wait_for_selector_list_size(".media__heading", 2)
+    expect(@driver.page_source.include?('My search result')).to be(false)
+    wait_for_selector("#search__open-dialog-button").click
+    selected = @driver.find_elements(:css, '.search-query__filter-button--selected')
+    expect(selected.size == 2).to be(true)
+  end
 
   # it "should find medias when searching by keyword", bin6: true do
   #   api_create_team_project_and_link('https://www.instagram.com/p/BRYob0dA1SC/"')

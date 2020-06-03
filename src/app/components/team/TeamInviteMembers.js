@@ -8,7 +8,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
-import ListItem from '@material-ui/core/ListItem';
 import MdCancel from 'react-icons/lib/md/cancel';
 import * as EmailValidator from 'email-validator';
 import RoleSelect from './RoleSelect';
@@ -84,9 +83,9 @@ class TeamInviteMembers extends Component {
     super(props);
     this.state = {
       dialogOpen: false,
-      membersToInvite: [{ email: '', role: 'contributor', error: [] }],
+      sendDisabled: true,
+      membersToInvite: [{ email: '', role: 'contributor', errors: [] }],
       addMany: false,
-      errors: [],
     };
   }
 
@@ -99,8 +98,7 @@ class TeamInviteMembers extends Component {
       dialogOpen: true,
       sendDisabled: true,
       addMany: false,
-      membersToInvite: [{ email: '', role: 'contributor', error: [] }],
-      errors: [],
+      membersToInvite: [{ email: '', role: 'contributor', errors: [] }],
     });
   }
 
@@ -109,14 +107,13 @@ class TeamInviteMembers extends Component {
       dialogOpen: false,
       sendDisabled: true,
       addMany: false,
-      membersToInvite: [{ email: '', role: 'contributor', error: [] }],
-      errors: [],
+      membersToInvite: [{ email: '', role: 'contributor', errors: [] }],
     });
   }
 
   handleAddAnother() {
     this.setState({
-      membersToInvite: [...this.state.membersToInvite, { email: '', role: 'contributor', error: [] }],
+      membersToInvite: [...this.state.membersToInvite, { email: '', role: 'contributor', errors: [] }],
     });
   }
 
@@ -124,8 +121,7 @@ class TeamInviteMembers extends Component {
     this.setState({
       addMany: true,
       sendDisabled: true,
-      errors: [],
-      membersToInvite: [{ email: '', role: 'contributor', error: [] }],
+      membersToInvite: [{ email: '', role: 'contributor', errors: [] }],
     });
   }
 
@@ -133,23 +129,20 @@ class TeamInviteMembers extends Component {
     this.setState({
       addMany: false,
       sendDisabled: true,
-      errors: [],
-      membersToInvite: [{ email: '', role: 'contributor', error: [] }],
+      membersToInvite: [{ email: '', role: 'contributor', errors: [] }],
     });
   }
 
   handleRemoveEmail(index) {
     this.state.membersToInvite.splice(index, 1);
-    this.setState({ membersToInvite: this.state.membersToInvite });
-    const emptyEmails = this.state.membersToInvite.every(obj => obj.email === '');
-    this.setState({ sendDisabled: emptyEmails });
+    const emptyEmails = this.state.membersToInvite.every(obj => !obj.email);
+    this.setState({ membersToInvite: this.state.membersToInvite, sendDisabled: emptyEmails });
   }
 
   handleEmailChange(e, index) {
     this.state.membersToInvite[index].email = e.target.value;
-    this.setState({ membersToInvite: this.state.membersToInvite });
-    const emptyEmails = this.state.membersToInvite.every(obj => obj.email === '');
-    this.setState({ sendDisabled: emptyEmails });
+    const emptyEmails = this.state.membersToInvite.every(obj => !obj.email);
+    this.setState({ membersToInvite: this.state.membersToInvite, sendDisabled: emptyEmails });
   }
 
   handleRoleChange(e, index) {
@@ -157,52 +150,34 @@ class TeamInviteMembers extends Component {
     this.setState({ membersToInvite: this.state.membersToInvite });
   }
 
-  validateMembers(members) {
-    let validateMaxError = true;
-    const { members_count: membersCount } = this.props.team;
-    const maxMembers = parseInt(this.props.team.get_max_number_of_members, 10);
-    const { invited_mails: invitedEmails, team_users: teamUsers } = this.props.team;
-    let invitedCount = 0;
-    const membersEmails = [];
-    teamUsers.edges.map((teamUser) => {
-      if (teamUser.node.status === 'member' && teamUser.node.user.email !== null) {
-        return membersEmails.push(teamUser.node.user.email);
-      }
-      return null;
-    });
-    let emailError = null;
-    members.forEach((item, index) => {
-      const errors = [];
-      if (item.email !== '') {
+  validateMembers() {
+    const {
+      invited_mails: invitedEmails,
+      team_users: teamUsers,
+    } = this.props.team;
+    const membersEmails = teamUsers.edges
+      .filter(tu => tu.node.status === 'member' && tu.node.user.email)
+      .map(tu => tu.node.user.email);
+    this.state.membersToInvite.forEach((item, index) => {
+      this.state.membersToInvite[index].errors = [];
+      if (item.email) {
         if (this.state.addMany) {
-          const emails = item.email.split(',');
-          emails.forEach((x) => {
-            invitedCount += 1;
-            emailError = TeamInviteMembers.validateEmail(x, invitedEmails, membersEmails);
-            if (emailError !== null) {
-              errors.push({ key: emailError, email: x });
+          item.email.split(',').map(email => email.trim()).filter(email => !!email).forEach((email) => {
+            const error = TeamInviteMembers.validateEmail(email, invitedEmails, membersEmails);
+            if (error) {
+              this.state.membersToInvite[index].errors.push({ key: error, email });
             }
           });
         } else {
-          invitedCount += 1;
-          emailError = TeamInviteMembers.validateEmail(item.email, invitedEmails, membersEmails);
-          if (emailError !== null) {
-            errors.push({ key: emailError, email: item.email });
+          const error = TeamInviteMembers.validateEmail(item.email, invitedEmails, membersEmails);
+          if (error) {
+            this.state.membersToInvite[index].errors.push({ key: error, email: item.email });
           }
         }
-        this.state.membersToInvite[index].error = errors;
       }
     });
     this.setState({ membersToInvite: this.state.membersToInvite });
-    const allMembers = invitedEmails.length + membersCount + invitedCount;
-    if (maxMembers !== 0 && maxMembers < allMembers) {
-      const limit = maxMembers - (invitedEmails.length + membersCount);
-      this.setState({ errors: [{ key: 'limits', maxMembers, limit }] });
-      validateMaxError = false;
-    } else {
-      this.setState({ errors: [] });
-    }
-    return validateMaxError;
+    return this.state.membersToInvite.every(member => !member.errors.length);
   }
 
   handleSubmit() {
@@ -231,16 +206,13 @@ class TeamInviteMembers extends Component {
         this.props.setFlashMessage(message);
       }
     };
-    const validateMaxError = this.validateMembers(this.state.membersToInvite);
-    const membersList = this.state.membersToInvite;
-    const isValid = membersList.every(obj => obj.error.length === 0);
-    if (isValid && validateMaxError === true && !this.state.sendDisabled) {
+    if (this.validateMembers() && !this.state.sendDisabled) {
+      // FIXME Don't read from the DOM.
       const invitation = document.getElementById('invite-msg-input').value.trim();
-      const members = JSON.stringify(membersList);
       Relay.Store.commitUpdate(
         new UserInvitationMutation({
           invitation,
-          members,
+          members: JSON.stringify(this.state.membersToInvite),
         }),
         { onSuccess, onFailure },
       );
@@ -255,27 +227,12 @@ class TeamInviteMembers extends Component {
       return this.props.intl.formatMessage(messages.memberEmail);
     case 'invited':
       return this.props.intl.formatMessage(messages.invitedEmail);
-    case 'limits':
-      return (
-        <FormattedMessage
-          id="teamInviteMembers.limits"
-          defaultMessage="The maximum number of members for this workspace has been reached ({count, plural, one {1 member} other {# members}})."
-          values={{ count: item.maxMembers }}
-        />
-      );
     default:
       return null;
     }
   }
 
   render() {
-    const errosList = (
-      this.state.errors.map((error, index) => (
-        <ListItem key={`email-error-${index.toString()}`} style={{ color: 'red' }} className="team-invite-members__list-item-error">
-          {this.renderError(error)}
-        </ListItem>
-      ))
-    );
     const excludeRoles = UserUtil.myRole(this.getCurrentUser(), this.props.team.slug) === 'owner' ? [] : ['owner'];
     let inviteBody = null;
     if (this.state.addMany) {
@@ -283,7 +240,7 @@ class TeamInviteMembers extends Component {
         this.state.membersToInvite.map((member, index) => (
           <div key={`invite-team-member-new-${index.toString()}`}>
             <FlexRow>
-              <FormattedMessage id="teamInviteMembers.inviteMembers" defaultMessage="Members will invited as" />
+              <FormattedMessage id="teamInviteMembers.inviteMembers" defaultMessage="Members will be invited as" />
               <RoleSelect
                 className="invite-member-email-role"
                 onChange={e => this.handleRoleChange(e, index)}
@@ -303,11 +260,9 @@ class TeamInviteMembers extends Component {
               rows={4}
               onChange={e => this.handleEmailChange(e, index)}
               value={member.email}
-              error={member.error.length > 0}
+              error={member.errors.length > 0}
               helperText={
-                member.error.map(errorItem => (
-                  ` "${errorItem.email}": ${this.renderError(errorItem)}`
-                ))
+                member.errors.map(errorItem => `${errorItem.email}: ${this.renderError(errorItem)}`).join(' ')
               }
             />
           </div>
@@ -325,8 +280,10 @@ class TeamInviteMembers extends Component {
                 placeholder={this.props.intl.formatMessage(messages.inviteEmailInput)}
                 onChange={e => this.handleEmailChange(e, index)}
                 value={member.email}
-                error={member.error.length > 0}
-                helperText={member.error.length === 0 ? null : this.renderError(member.error[0])}
+                error={member.errors.length > 0}
+                helperText={
+                  member.errors.map(errorItem => this.renderError(errorItem)).join(' ')
+                }
                 margin="normal"
                 fullWidth
               />
@@ -363,9 +320,10 @@ class TeamInviteMembers extends Component {
           style={{ marginLeft: 'auto', marginRight: units(2) }}
           onClick={this.handleOpenDialog.bind(this)}
           className="team-members__invite-button"
-        >
-          <FormattedMessage id="teamInviteMembers.inviteMember" defaultMessage="Invite" />
-        </Button>
+          label={
+            <FormattedMessage id="teamInviteMembers.inviteMember" defaultMessage="Invite" />
+          }
+        />
         <Dialog
           className="team-invite-members__dialog"
           open={this.state.dialogOpen}
@@ -375,7 +333,6 @@ class TeamInviteMembers extends Component {
         >
           <DialogTitle>{this.props.intl.formatMessage(messages.inviteMembers)}</DialogTitle>
           <DialogContent>
-            { errosList }
             <TextField
               id="invite-msg-input"
               className="team-invite-members__input"

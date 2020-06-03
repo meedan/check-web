@@ -450,7 +450,7 @@ module AppSpecHelpers
     @driver.navigate.to @config['self_url'] + '/' + team
   end
 
-  def generate_a_embed_and_copy_embed_code
+  def generate_a_report_and_copy_report_code
     wait_for_selector('#media-detail__report-designer').click
     wait_for_selector('#report-designer__actions-copy').click
   end

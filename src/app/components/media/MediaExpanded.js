@@ -20,6 +20,7 @@ import VideoMediaCard from './VideoMediaCard';
 import PenderCard from '../PenderCard';
 import { truncateLength } from '../../helpers';
 import CheckContext from '../../CheckContext';
+import { withPusher, pusherShape } from '../../pusher';
 import {
   FadeIn,
   units,
@@ -47,10 +48,15 @@ class MediaExpandedComponent extends Component {
 
   componentDidMount() {
     this.setContext();
+    this.subscribe();
   }
 
   componentDidUpdate() {
     this.setContext();
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
   }
 
   getContext() {
@@ -65,6 +71,29 @@ class MediaExpandedComponent extends Component {
 
   getPlayerRef = (node) => { 
     this.props.setPlayerRef(node);
+  }
+
+  subscribe() {
+    const { pusher, clientSessionId, media } = this.props;
+    pusher.subscribe(media.pusher_channel).bind('media_updated', 'MediaComponent', (data, run) => {
+      const annotation = JSON.parse(data.message);
+      if (annotation.annotated_id === media.dbid && clientSessionId !== data.actor_session_id) {
+        if (run) {
+          this.props.relay.forceFetch();
+          return true;
+        }
+        return {
+          id: `media-${media.dbid}`,
+          callback: this.props.relay.forceFetch,
+        };
+      }
+      return false;
+    });
+  }
+
+  unsubscribe() {
+    const { pusher, media } = this.props;
+    pusher.unsubscribe(media.pusher_channel);
   }
 
   render() {
@@ -214,7 +243,11 @@ MediaExpandedComponent.contextTypes = {
   store: PropTypes.object,
 };
 
-const MediaExpandedContainer = Relay.createContainer(MediaExpandedComponent, {
+MediaExpandedComponent.propTypes = {
+  pusher: pusherShape.isRequired,
+};
+
+const MediaExpandedContainer = Relay.createContainer(withPusher(MediaExpandedComponent), {
   initialVariables: {
     contextId: null,
   },
@@ -238,6 +271,7 @@ const MediaExpandedContainer = Relay.createContainer(MediaExpandedComponent, {
         language
         project_id
         project_ids
+        pusher_channel
         dynamic_annotation_language {
           id
         }

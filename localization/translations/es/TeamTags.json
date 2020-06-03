@@ -6,17 +6,12 @@
   "teamTags.fail": "Lo sentimos, se produjo un error al actualizar la etiqueta. Vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}.",
   "teamTags.editTag": "Editar etiqueta",
   "teamTags.deleteTag": "Eliminar etiqueta",
-  "teamTags.moveTag": "Mover a las etiquetas predeterminadas",
   "teamTags.itemsCount": "{count, plural, =0 {no items} one {1 item} other {# items}}",
   "teamTags.counter": "{total, plural, =0 {Sin etiquetas} one {1 etiqueta ({hidden} ocultas por filtros)} other {# etiquetas ({hidden} ocultas por filtros)}}",
   "teamTags.counterNoHidden": "{total, plural, =0 {Sin etiquetas} one {1 etiqueta} other {# etiquetas}}",
-  "teamTags.tags": "Etiquetas",
   "teamTags.tooltip": "Filtrar y ordenar la lista",
-  "teamTags.teamwideTags": "Etiquetas predeterminadas",
-  "teamTags.noTeamwideTags": "No hay predeterminadas personalizadas.",
+  "teamTags.noTags": "Sin etiquetas",
   "teamTags.new": "Nueva etiqueta",
   "teamTags.addTag": "Añadir etiqueta",
-  "teamTags.customTags": "Editar etiqueta",
-  "teamTags.noCustomTags": "No hay etiquetas personalizadas.",
   "teamTags.confirmDeleteTitle": "¿Estás seguro(a) que quieres eliminar esta etiqueta?"
 }
