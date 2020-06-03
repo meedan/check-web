@@ -320,7 +320,7 @@ class TeamInviteMembers extends Component {
           style={{ marginLeft: 'auto', marginRight: units(2) }}
           onClick={this.handleOpenDialog.bind(this)}
           className="team-members__invite-button"
-          >
+        >
           <FormattedMessage id="teamInviteMembers.inviteMember" defaultMessage="Invite" />
         </Button>
         <Dialog
