@@ -54,7 +54,7 @@ import {
 const messages = defineMessages({
   cantPublish: {
     id: 'reportDesigner.cantPublish',
-    defaultMessage: 'Select at least the text message or the visual card to publish your report',
+    defaultMessage: 'Select at least the report text or image to publish your report',
   },
   canPublish: {
     id: 'reportDesigner.canPublish',
@@ -909,7 +909,7 @@ class ReportDesignerComponent extends Component {
                       label={
                         <FormattedMessage
                           id="reportDesigner.introduction"
-                          defaultMessage="Introduction"
+                          defaultMessage="Introduction message"
                         />
                       }
                     />
@@ -961,7 +961,7 @@ class ReportDesignerComponent extends Component {
                       label={
                         <FormattedMessage
                           id="reportDesigner.visualCard"
-                          defaultMessage="Visual card"
+                          defaultMessage="Report image"
                         />
                       }
                     />
@@ -1089,7 +1089,7 @@ class ReportDesignerComponent extends Component {
                       label={
                         <FormattedMessage
                           id="reportDesigner.textMessage"
-                          defaultMessage="Text message"
+                          defaultMessage="Report text"
                         />
                       }
                     />

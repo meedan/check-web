@@ -5,7 +5,7 @@
   "teamReport.title": "Configuración del informe",
   "teamReport.subtitle": "El contenido que establezca aquí puede editarse en cada informe individual",
   "teamReport.introduction": "Introducción",
-  "teamReport.introductionSub": "Utilice los marcadores de posición {query_date} y {query_message} para mostrar la fecha y el contenido de la consulta original. Use {estado} para comunicar el estado del artículo.",
+  "teamReport.introductionSub": "Utilice el marcador de posición {query_date} para mostrar la fecha de la consulta original. Use {estado} para comunicar el estado del artículo.",
   "teamReport.disclaimer": "Aviso",
   "teamReport.disclaimerSub": "El aviso que se mostrará al final del informe junto al logo del área de trabajo."
 }

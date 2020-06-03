@@ -1,7 +1,4 @@
 {
   "tagPicker.emptyTags": "There are currently no tags for this workspace.",
-  "tagPicker.tagNotFound": "Eticheta #{tag} nu a fost găsită.",
-  "tagPicker.teamTags": "Default tags",
-  "tagPicker.none": "Nimic",
-  "tagPicker.teamOtherTags": "Etichete individualizate"
+  "tagPicker.tagNotFound": "Eticheta #{tag} nu a fost găsită."
 }

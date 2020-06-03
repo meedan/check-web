@@ -1,7 +1,7 @@
 [
   {
     "id": "reportDesigner.cantPublish",
-    "defaultMessage": "Select at least the text message or the visual card to publish your report"
+    "defaultMessage": "Select at least the report text or image to publish your report"
   },
   {
     "id": "reportDesigner.canPublish",
@@ -77,7 +77,7 @@
   },
   {
     "id": "reportDesigner.introduction",
-    "defaultMessage": "Introduction"
+    "defaultMessage": "Introduction message"
   },
   {
     "id": "reportDesigner.introductionSub",
@@ -85,7 +85,7 @@
   },
   {
     "id": "reportDesigner.visualCard",
-    "defaultMessage": "Visual card"
+    "defaultMessage": "Report image"
   },
   {
     "id": "reportDesigner.useDefaultImage",
@@ -113,7 +113,7 @@
   },
   {
     "id": "reportDesigner.textMessage",
-    "defaultMessage": "Text message"
+    "defaultMessage": "Report text"
   },
   {
     "id": "reportDesigner.disclaimer",
