@@ -42,6 +42,7 @@ class MediaExpandedComponent extends Component {
 
     this.state = {
       mediaVersion: false,
+      videoAnnoToggle: null, // this will be passed up to MediaComponent.js onComponentDidUpdate
     };
   }
 
@@ -49,8 +50,12 @@ class MediaExpandedComponent extends Component {
     this.setContext();
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState) {
     this.setContext();
+    // pass videoAnnoToggle up to MediaComponent.js to anchor video annotation drawer
+    if (this.state.videoAnnoToggle && prevState.videoAnnoToggle !== this.state.videoAnnoToggle) { 
+      this.props.setVideoAnnoToggleRef(this.state.videoAnnoToggle);
+    }
   }
 
   getContext() {
@@ -62,6 +67,11 @@ class MediaExpandedComponent extends Component {
     const { team, project } = this.props.media;
     context.setContextStore({ team, project });
   }
+
+  getPlayerRef = (node) => { 
+    // we’re grabbing this ref to anchor video annotation drawer to its top y coordinate:
+    this.setState({ videoAnnoToggle: node });
+  };
 
   render() {
     const {
@@ -117,17 +127,20 @@ class MediaExpandedComponent extends Component {
         );
       } else if (isPender && timelineEnabled) {
         return (
-          <Player
-            url={media.url}
-            playing={playing}
-            onDuration={d => setPlayerState({ duration: d })}
-            onPlay={() => setPlayerState({ playing: true })}
-            onPause={() => setPlayerState({ playing: false })}
-            onTimeUpdate={t => setPlayerState({ time: t })}
-            onProgress={p => setPlayerState({ progress: p })}
-            seekTo={seekTo}
-            scrubTo={scrubTo}
-          />
+          <div ref={this.getPlayerRef}>
+            <Player
+              onDuration={d => setPlayerState({ duration: d })}
+              onPause={() => setPlayerState({ playing: false })}
+              onPlay={() => setPlayerState({ playing: true })}
+              onProgress={p => setPlayerState({ progress: p })}
+              onReady={this.props.onPlayerReady}
+              onTimeUpdate={t => setPlayerState({ time: t })}
+              playing={playing}
+              scrubTo={scrubTo}
+              seekTo={seekTo}
+              url={media.url}
+            />
+          </div>
         );
       } else if (isPender) {
         return (

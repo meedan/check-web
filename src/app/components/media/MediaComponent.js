@@ -89,14 +89,16 @@ class MediaComponent extends Component {
     const showTab = showRequests ? 'requests' : 'tasks';
 
     this.state = {
-      showTab,
-      showRequests,
-      showVideoAnnotation: false,
-      videoAnnotationTab: 'timeline',
       duration: 0,
       playing: false,
-      time: 0,
       progress: 0,
+      showRequests,
+      showTab,
+      showVideoAnno: false,
+      time: 0,
+      videoAnnoAnchor: null,
+      videoAnnoAnchorRect: null,
+      videoAnnotationTab: 'timeline',
     };
   }
 
@@ -104,6 +106,8 @@ class MediaComponent extends Component {
     this.setCurrentContext();
     MediaComponent.scrollToAnnotation();
     this.subscribe();
+    window.addEventListener('resize', this.onWindowResize);
+    this.setVideoAnnoAnchorRect();
   }
 
   componentWillUpdate(nextProps) {
@@ -112,16 +116,29 @@ class MediaComponent extends Component {
     }
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
     this.setCurrentContext();
     MediaComponent.scrollToAnnotation();
     if (this.props.media.dbid !== prevProps.media.dbid) {
       this.subscribe();
     }
+    if (prevState.videoAnnoAnchor !== this.state.videoAnnoAnchor) { 
+      this.setVideoAnnoAnchorRect();
+    }
   }
 
   componentWillUnmount() {
+    window.removeEventListener('resize', this.onWindowResize);
     this.unsubscribe();
+  }
+  
+  onWindowResize = () => {
+    this.setVideoAnnoAnchorRect();
+  }
+
+  setVideoAnnoAnchorRect = () => { 
+    // update video annotation drawer anchor rect
+    if (this.state.videoAnnoAnchor) this.setState({ videoAnnoAnchorRect: this.state.videoAnnoAnchor.getBoundingClientRect() });
   }
 
   setCurrentContext() {
@@ -180,7 +197,7 @@ class MediaComponent extends Component {
   }
 
   handleTabChange = (e, value) => this.setState({ showTab: value });
-  handleToggleVideoAnnotation = () => this.setState({ showVideoAnnotation: !this.state.showVideoAnnotation }) 
+  setVideoAnnoToggleRef = node => this.setState({ videoAnnoAnchor: node });
 
   render() {
     if (this.props.relay.variables.contextId === null && /\/project\//.test(window.location.pathname)) {
@@ -194,7 +211,14 @@ class MediaComponent extends Component {
     media.embed_path = media.media.embed_path;
 
     const {
-      playing, duration, time, progress, seekTo, scrubTo, showVideoAnnotation
+      duration, 
+      playing, 
+      progress,
+      scrubTo, 
+      seekTo, 
+      showVideoAnno, 
+      time,
+      videoAnnoAnchorRect,
     } = this.state;
 
     const { currentUser } = this.getContext();
@@ -211,12 +235,14 @@ class MediaComponent extends Component {
           <StyledTwoColumnLayout>
             <ContentColumn className="media__media-column">
               <MediaDetail
-                media={media}
                 hideBorder
                 hideRelated
+                media={media}
+                onPlayerReady={this.setVideoAnnoAnchorRect}
+                onVideoAnnoToggle={() => this.setState({ showVideoAnno: true })}
                 setPlayerState={payload => this.setState(payload)}
-                handleToggleVideoAnnotation={this.handleToggleVideoAnnotation}
-                {...{ playing, seekTo, scrubTo, showVideoAnnotation }}
+                setVideoAnnoToggleRef={this.setVideoAnnoToggleRef}
+                {...{ playing, seekTo, scrubTo, showVideoAnno }}
               />
               {this.props.extras}
               <MediaRelated
@@ -292,29 +318,37 @@ class MediaComponent extends Component {
             </ContentColumn>
           </StyledTwoColumnLayout>
         </StyledBackgroundColor>
-        <Drawer anchor="bottom" elevation={3} ModalProps={{}} open={showVideoAnnotation} PaperProps={{}} SliderProps={{}} variant="persistent">
-          <StyledDrawerToolbar>
-            <Grid alignItems="center" container justify="space-between">
-              <Grid item>
-                {/* <Tabs onChange={val => this.setState({videoAnnotationTab: val})}> */}
-                <Tabs value={this.state.videoAnnotationTab} onChange={args => console.log({args})}>
-                  <Tab label="Timeline" disabled id="TimelineTab" ariaControls="simple-tabpanel-${index}" value="timeline" />
-                </Tabs>
+
+        {// render video annotation drawer only if we can anchor it to the bottom of the player:
+          videoAnnoAnchorRect ? <Drawer 
+            PaperProps={{ style: { top: (videoAnnoAnchorRect.bottom + 10) || 'auto' }}} 
+            anchor="bottom" 
+            elevation={3} 
+            open={showVideoAnno} 
+            variant="persistent"
+          >
+            <StyledDrawerToolbar>
+              <Grid alignItems="center" container justify="space-between">
+                <Grid item>
+                  <Tabs value={this.state.videoAnnotationTab}>
+                    <Tab label="Timeline" disabled id="TimelineTab" ariaControls="" value="timeline" />
+                  </Tabs>
+                </Grid>
+                <Grid item>
+                  <IconButton onClick={() => this.setState({ showVideoAnno: false })} size="small"><CloseIcon /></IconButton>
+                </Grid>
               </Grid>
-              <Grid item>
-                <IconButton onClick={this.handleToggleVideoAnnotation} size="small"><CloseIcon /></IconButton>
-              </Grid>
-            </Grid>
-          </StyledDrawerToolbar>
-          <div aria-labelledby={`TimelineTab`} role="tabpanel" hidden={this.state.videoAnnotationTab !== 'timeline'}>
-            <MediaTimeline
-              setPlayerState={payload => this.setState(payload)}
-              {...{
-                media, playing, duration, time, progress, seekTo, scrubTo, currentUser,
-              }}
-            />
-          </div>
-        </Drawer>
+            </StyledDrawerToolbar>
+            <div aria-labelledby={`TimelineTab`} role="tabpanel" hidden={this.state.videoAnnotationTab !== 'timeline'}>
+              <MediaTimeline
+                setPlayerState={payload => this.setState(payload)}
+                {...{
+                  media, playing, duration, time, progress, seekTo, scrubTo, currentUser,
+                }}
+              />
+            </div>
+          </Drawer> 
+        : null}
       </PageTitle>
     );
   }

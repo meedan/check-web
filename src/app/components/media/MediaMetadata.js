@@ -83,7 +83,7 @@ class MediaMetadata extends Component {
             <Button 
               color="primary" 
               disabled={this.props.showVideoAnnotation}
-              onClick={this.props.handleToggleVideoAnnotation} 
+              onClick={this.props.onVideoAnnoToggle} 
               variant="contained" 
             >Video annotation</Button> 
             : (media.picture ?
