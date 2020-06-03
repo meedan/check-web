@@ -572,9 +572,10 @@ class SmoochBotSettings extends Component {
     });
 
     if (this.state.showTab === 'settings') {
-      [0, 1, 2, 3, 4, 6, 24].forEach((index) => {
+      [0, 1, 2, 3, 4, 6, 24, 26].forEach((index) => {
         fields[index].style.display = 'block';
       });
+      fields[26].style.marginTop = '50px';
 
     // If we are viewing the "main" tab, we show the option that is selected from the sidebar
     } else if (this.state.showTab === 'main') {
@@ -726,7 +727,12 @@ class SmoochBotSettings extends Component {
   };
 
   render() {
-    const schema = {};
+    const schema = {
+      smooch_template_locales: {
+        'ui:widget': 'checkboxes',
+        'mui:className': 'smooch-template-locales',
+      },
+    };
     states.forEach((state) => {
       schema[`smooch_state_${state}`] = {
         'mui:className': `smooch-state-${state}`,
