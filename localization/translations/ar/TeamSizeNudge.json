@@ -1,4 +1,0 @@
-{
-  "teamSizeNudge.nudge": "{max, plural, one {Your workspace is currently limited to one member. To upgrade, please contact {supportEmail}.} other {Your workspace is currently limited to # members. To upgrade, please contact {supportEmail}.}}",
-  "teamSizeNudge.title": "ترقية اﻹشتراك"
-}

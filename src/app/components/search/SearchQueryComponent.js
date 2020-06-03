@@ -105,6 +105,7 @@ const StyledSearchFiltersSection = styled.section`
 const StyledFilterRow = swallowingStyled(Row, { swallowProps: ['isRtl'] })`
   min-height: ${units(5)};
   margin-bottom: ${units(2)};
+  flex-wrap: wrap;
 
   h4 {
     text-transform: uppercase;
@@ -124,7 +125,6 @@ const StyledFilterRow = swallowingStyled(Row, { swallowProps: ['isRtl'] })`
 
   ${mediaQuery.handheld`
     padding: 0;
-    flex-wrap: nowrap;
     justify-content: flex-start;
     overflow-x: auto;
     overflow-y: auto;
@@ -525,7 +525,8 @@ class SearchQueryComponent extends React.Component {
     }
 
     const { currentUser } = this.currentContext();
-    const suggestedTags = team.teamwide_tags.edges.map(t => t.node.text);
+    const plainTagsTexts = team.tag_texts ?
+      team.tag_texts.edges.map(t => t.node.text) : [];
 
     const title = (this.filterIsActive() || this.keywordIsActive())
       ? this.title(statuses, projects)
@@ -617,8 +618,6 @@ class SearchQueryComponent extends React.Component {
         <PageTitle prefix={title} team={this.props.team}>
           <Dialog
             className="search__query-dialog"
-            maxWidth="sm"
-            fullWidth
             scroll="paper"
             open={this.state.dialogOpen}
             onClose={this.handleDialogClose}
@@ -651,7 +650,7 @@ class SearchQueryComponent extends React.Component {
                   </StyledFilterRow>
                   : null}
 
-                {this.showField('project') ?
+                {this.showField('project') && projects.length ?
                   <StyledFilterRow>
                     <h4>
                       <FormattedMessage id="search.projectHeading" defaultMessage="List" />
@@ -672,12 +671,12 @@ class SearchQueryComponent extends React.Component {
                   </StyledFilterRow>
                   : null}
 
-                {this.showField('tags') && suggestedTags.length ?
+                {this.showField('tags') && plainTagsTexts.length ?
                   <StyledFilterRow>
                     <h4>
-                      <FormattedMessage id="status.categoriesHeading" defaultMessage="Default Tags" />
+                      <FormattedMessage id="status.categoriesHeading" defaultMessage="Tags" />
                     </h4>
-                    {suggestedTags.map(tag => (
+                    {plainTagsTexts.map(tag => (
                       <StyledFilterChip
                         active={this.tagIsSelected(tag)}
                         key={tag}

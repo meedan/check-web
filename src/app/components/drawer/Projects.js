@@ -173,7 +173,7 @@ class DrawerProjectsComponent extends Component {
                         <Text maxWidth="85%" ellipsis>
                           {p.node.title}
                         </Text>
-                        <AlignOpposite fromDirection={props.fromDirection}>
+                        <AlignOpposite>
                           {String(p.node.medias_count)}
                         </AlignOpposite>
                       </Row>
@@ -207,7 +207,7 @@ class DrawerProjectsComponent extends Component {
                         <Text maxWidth="85%" ellipsis>
                           <FormattedMessage id="projects.allClaims" defaultMessage="All items" />
                         </Text>
-                        <AlignOpposite fromDirection={props.fromDirection}>
+                        <AlignOpposite>
                           {String(props.team.medias_count)}
                         </AlignOpposite>
                       </Row>
@@ -298,7 +298,7 @@ const DrawerProjects = (props) => {
       route={route}
       forceFetch
       renderFetched={data =>
-        <DrawerProjectsContainer fromDirection={props.fromDirection} {...data} />}
+        <DrawerProjectsContainer {...data} />}
     />
   );
 };

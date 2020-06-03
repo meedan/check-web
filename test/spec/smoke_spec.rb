@@ -212,7 +212,7 @@ shared_examples 'smoke' do
     expect(imgsrc.match(/test\.png$/).nil?).to be(false)
   end
 
-  it "should go back to the right url from the item page", bin3: true do 
+  it "should go back to the right url from the item page", bin3: true do
     #item created in a project
     api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector(".card")
@@ -777,8 +777,8 @@ shared_examples 'smoke' do
     wait_for_selector('#media-detail__report-designer').click
     wait_for_selector("#report-designer__customization-menu")
     wait_for_selector("//span[contains(text(), 'Edit')]", :xpath).click
-    wait_for_selector("//span[contains(text(), 'Visual card')]", :xpath).click
-    wait_for_selector("//span[contains(text(), 'Text message')]", :xpath).click
+    wait_for_selector("//span[contains(text(), 'Report image')]", :xpath).click
+    wait_for_selector("//span[contains(text(), 'Report text')]", :xpath).click
     wait_for_selector("#report-designer__text").send_keys("text message")
     wait_for_selector("//span[contains(text(), 'Save')]", :xpath).click
     wait_for_selector("//span[contains(text(), 'Edit')]", :xpath)
@@ -985,7 +985,7 @@ shared_examples 'smoke' do
     @driver.navigate.to(@config['self_url'] + '/check/me')
     wait_for_selector(".source__primary-info")
     page.select_team(name: 'Team 2')
-    
+
     wait_for_selector(".team__primary-info")
     team_name = wait_for_selector('.team__name').text
     expect(team_name).to eq('Team 2')

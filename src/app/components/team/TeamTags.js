@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
 import List from '@material-ui/core/List';
@@ -7,7 +8,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
 import MoreHoriz from '@material-ui/icons/MoreHoriz';
 import IconClose from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
@@ -19,14 +19,14 @@ import Tooltip from '@material-ui/core/Tooltip';
 import deepEqual from 'deep-equal';
 import styled from 'styled-components';
 import TagTextCount from './TagTextCount';
-import CardHeaderOutside from '../layout/CardHeaderOutside';
 import ConfirmDialog from '../layout/ConfirmDialog';
 import SortSelector from '../layout/SortSelector';
 import FilterPopup from '../layout/FilterPopup';
 import TeamRoute from '../../relay/TeamRoute';
-import { units, ContentColumn, black32 } from '../../styles/js/shared';
+import { units, ContentColumn, black32, AlignOpposite } from '../../styles/js/shared';
 import Can, { can } from '../Can';
 import Message from '../Message';
+import { withPusher, pusherShape } from '../../pusher';
 import CreateTagTextMutation from '../../relay/mutations/CreateTagTextMutation';
 import UpdateTagTextMutation from '../../relay/mutations/UpdateTagTextMutation';
 import DeleteTagTextMutation from '../../relay/mutations/DeleteTagTextMutation';
@@ -53,6 +53,7 @@ class TeamTagsComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      anchorEl: null,
       sort: 'az',
       search: '',
       newTag: '',
@@ -64,19 +65,22 @@ class TeamTagsComponent extends Component {
       deleting: false,
       countTotal: 0,
       countHidden: 0,
-      teamwideTags: [],
-      customTags: [],
+      tag_texts: [],
     };
   }
 
   componentDidMount() {
-    this.props.relay.forceFetch();
+    this.subscribe();
     this.filter();
   }
 
   componentDidUpdate() {
     this.filter();
     this.highlight();
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
   }
 
   highlight() {
@@ -94,37 +98,25 @@ class TeamTagsComponent extends Component {
   }
 
   filter() {
-    const teamwideTags = [];
-    const customTags = [];
+    const tag_texts = [];
     let countTotal = 0;
     let countHidden = 0;
-    this.props.team.teamwide_tags.edges.forEach((node) => {
+    this.props.team.tag_texts.edges.forEach((node) => {
       const tag = node.node;
       countTotal += 1;
       if (tag.text.toLowerCase().includes(this.state.search.toLowerCase())) {
-        teamwideTags.push(tag);
-      } else {
-        countHidden += 1;
-      }
-    });
-    this.props.team.custom_tags.edges.forEach((node) => {
-      const tag = node.node;
-      countTotal += 1;
-      if (tag.text.toLowerCase().includes(this.state.search.toLowerCase())) {
-        customTags.push(tag);
+        tag_texts.push(tag);
       } else {
         countHidden += 1;
       }
     });
     if (
-      !deepEqual(teamwideTags, this.state.teamwideTags) ||
-      !deepEqual(customTags, this.state.customTags) ||
+      !deepEqual(tag_texts, this.state.tag_texts) ||
       countTotal !== this.state.countTotal ||
       countHidden !== this.state.countHidden
     ) {
       this.setState({
-        teamwideTags,
-        customTags,
+        tag_texts,
         countTotal,
         countHidden,
       });
@@ -143,19 +135,19 @@ class TeamTagsComponent extends Component {
 
   handleUpdate(e) {
     if (e.key === 'Enter' && !e.shiftKey) {
-      this.setState({ search: '' });
       const text = document.getElementById('tag__edit').value;
       const tag = this.state.editing;
+      this.setState({ search: '', editing: null });
       if (text.length > 0 && tag.text !== text) {
         const onSuccess = () => {
           this.setState({
             message: null,
-            editing: null,
             highlight: text,
           });
         };
         const onFailure = () => {
           this.setState({
+            editing: tag,
             message: <FormattedMessage
               id="teamTags.failUpdate"
               defaultMessage="Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists."
@@ -273,7 +265,6 @@ class TeamTagsComponent extends Component {
         team: this.props.team,
         tagText: {
           id: tag.id,
-          teamwide: true,
         },
       }),
       { onSuccess, onFailure },
@@ -314,7 +305,7 @@ class TeamTagsComponent extends Component {
     );
   }
 
-  tagsList(list, showMove) {
+  tagsList(list) {
     return (
       <List
         style={{
@@ -337,7 +328,7 @@ class TeamTagsComponent extends Component {
               </IconButton>
               <Menu
                 anchorEl={this.state.anchorEl}
-                open={this.state.anchorEl && (this.state.menuOpenForTag === tag)}
+                open={Boolean(this.state.anchorEl && (this.state.menuOpenForTag === tag))}
                 onClose={this.handleCloseMenu}
                 style={{ margin: '0 12px' }}
               >
@@ -357,15 +348,6 @@ class TeamTagsComponent extends Component {
                     primary={<FormattedMessage id="teamTags.deleteTag" defaultMessage="Delete tag" />}
                   />
                 </MenuItem>
-                { showMove ? (
-                  <MenuItem
-                    className="tag__move"
-                    onClick={this.handleMove.bind(this, tag)}
-                  >
-                    <ListItemText
-                      primary={<FormattedMessage id="teamTags.moveTag" defaultMessage="Move to default tags" />}
-                    />
-                  </MenuItem>) : null }
               </Menu>
             </div>
           ) : null;
@@ -422,6 +404,28 @@ class TeamTagsComponent extends Component {
     this.setState({ search });
   }
 
+  subscribe() {
+    const { pusher, clientSessionId, team } = this.props;
+    pusher.subscribe(team.pusher_channel).bind('tagtext_updated', 'TeamTagsComponent', (data, run) => {
+      if (clientSessionId !== data.actor_session_id) {
+        if (run) {
+          this.props.relay.forceFetch();
+          return true;
+        }
+        return {
+          id: `team-${team.dbid}`,
+          callback: this.props.relay.forceFetch,
+        };
+      }
+      return false;
+    });
+  }
+
+  unsubscribe() {
+    const { pusher, team } = this.props;
+    pusher.unsubscribe(team.pusher_channel, 'tagtext_updated', 'TeamTagsComponent');
+  }
+
   render() {
     const sortFunctions = {
       az: (a, b) => (a.text.localeCompare(b.text)),
@@ -431,8 +435,7 @@ class TeamTagsComponent extends Component {
       mu: (a, b) => (a.tags_count < b.tags_count ? 1 : -1),
       lu: (a, b) => (a.tags_count > b.tags_count ? 1 : -1),
     };
-    const teamwideTags = this.state.teamwideTags.slice(0).sort(sortFunctions[this.state.sort]);
-    const customTags = this.state.customTags.slice(0).sort(sortFunctions[this.state.sort]);
+    const tag_texts = this.state.tag_texts.slice(0).sort(sortFunctions[this.state.sort]);
 
     const filterLabel = this.state.countHidden > 0 ? (
       <FormattedMessage
@@ -456,42 +459,33 @@ class TeamTagsComponent extends Component {
     return (
       <StyledContentColumn>
         <Message message={this.state.message} />
-        <CardHeaderOutside
-          title={<FormattedMessage id="teamTags.tags" defaultMessage="Tags" />}
-          direction={this.props.direction}
-          actions={
-            <FilterPopup
-              search={this.state.search}
-              onSearchChange={this.handleSearchChange}
-              label={filterLabel}
-              tooltip={<FormattedMessage id="teamTags.tooltip" defaultMessage="Filter and sort list" />}
-            >
-              <div style={{ marginTop: units(2) }}>
-                <SortSelector
-                  value={this.state.sort}
-                  onChange={this.handleChange.bind(this)}
-                  fullWidth
-                />
-              </div>
-            </FilterPopup>
-          }
-        />
+        <AlignOpposite>
+          <FilterPopup
+            search={this.state.search}
+            onSearchChange={this.handleSearchChange}
+            label={filterLabel}
+            tooltip={<FormattedMessage id="teamTags.tooltip" defaultMessage="Filter and sort list" />}
+          >
+            <div style={{ marginTop: units(2) }}>
+              <SortSelector
+                value={this.state.sort}
+                onChange={this.handleChange.bind(this)}
+                fullWidth
+              />
+            </div>
+          </FilterPopup>
+        </AlignOpposite>
         <Card style={{ marginTop: units(2) }}>
-          <CardHeader
-            title={
-              <FormattedMessage id="teamTags.teamwideTags" defaultMessage="Default tags" />
-            }
-          />
           <CardContent style={{ padding: 0 }}>
-            { teamwideTags.length === 0 ?
+            { tag_texts.length === 0 ?
               <p style={{ paddingBottom: units(5), textAlign: 'center' }}>
                 <FormattedMessage
-                  id="teamTags.noTeamwideTags"
-                  defaultMessage="No default tags."
+                  id="teamTags.noTags"
+                  defaultMessage="No tags"
                 />
               </p>
               : null }
-            {this.tagsList(teamwideTags, false)}
+            {this.tagsList(tag_texts)}
             <Can permissions={this.props.team.permissions} permission="create TagText">
               <div style={{ padding: units(2) }}>
                 <TextField
@@ -505,31 +499,13 @@ class TeamTagsComponent extends Component {
                   <Button
                     onClick={this.handleAddTag.bind(this)}
                     disabled={this.state.newTag.length === 0}
-                    primary={this.state.newTag.length > 0}
+                    color="primary"
                   >
                     <FormattedMessage id="teamTags.addTag" defaultMessage="Add tag" />
                   </Button>
                 </p>
               </div>
             </Can>
-          </CardContent>
-        </Card>
-        <Card style={{ marginTop: units(5) }}>
-          <CardHeader
-            title={
-              <FormattedMessage id="teamTags.customTags" defaultMessage="Custom tags" />
-            }
-          />
-          <CardContent style={{ padding: 0 }}>
-            { customTags.length === 0 ?
-              <p style={{ paddingBottom: units(5), textAlign: 'center' }}>
-                <FormattedMessage
-                  id="teamTags.noCustomTags"
-                  defaultMessage="No custom tags."
-                />
-              </p>
-              : null }
-            {this.tagsList(customTags, true)}
           </CardContent>
         </Card>
 
@@ -551,7 +527,14 @@ class TeamTagsComponent extends Component {
   }
 }
 
-const TeamTagsContainer = Relay.createContainer(injectIntl(TeamTagsComponent), {
+TeamTagsComponent.propTypes = {
+  relay: PropTypes.object.isRequired,
+  team: PropTypes.object.isRequired,
+  intl: PropTypes.object.isRequired,
+  pusher: pusherShape.isRequired,
+};
+
+const TeamTagsContainer = Relay.createContainer(withPusher(injectIntl(TeamTagsComponent)), {
   fragments: {
     team: () => Relay.QL`
       fragment on Team {
@@ -559,26 +542,13 @@ const TeamTagsContainer = Relay.createContainer(injectIntl(TeamTagsComponent), {
         dbid
         slug
         permissions
-        teamwide_tags(first: 10000) {
+        pusher_channel
+        tag_texts(first: 10000) {
           edges {
             node {
               id
               dbid
               text
-              teamwide
-              tags_count
-              permissions
-              created_at
-            }
-          }
-        }
-        custom_tags(first: 10000) {
-          edges {
-            node {
-              id
-              dbid
-              text
-              teamwide
               tags_count
               permissions
               created_at

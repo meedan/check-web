@@ -86,20 +86,17 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.team-settings__tasks-tab')
       wait_for_selector('.team-settings__tags-tab').click
       wait_for_selector_none("team-tasks")
-      expect(@driver.page_source.include?('No default tags')).to be(true)
-      expect(@driver.page_source.include?('No custom tags')).to be(true)
       expect(@driver.page_source.include?('No tags')).to be(true)
-      expect(@driver.page_source.include?('newteamwidetag')).to be(false)
+      expect(@driver.page_source.include?('newtag')).to be(false)
 
       # Create tag
-      fill_field('#tag__new', 'newteamwidetag')
+      fill_field('#tag__new', 'newtag')
       @driver.action.send_keys(:enter).perform
-      wait_for_selector("#tag__text-newteamwidetag")
-      expect(@driver.page_source.include?('No default tags')).to be(false)
-      expect(@driver.page_source.include?('No custom tags')).to be(true)
+      wait_for_selector("#tag__text-newtag")
+      expect(@driver.page_source.include?('No tags')).to be(false)
       expect(@driver.page_source.include?('1 tag')).to be(true)
-      expect(@driver.page_source.include?('newteamwidetag')).to be(true)
-      expect(@driver.page_source.include?('newteamwidetagedited')).to be(false)
+      expect(@driver.page_source.include?('newtag')).to be(true)
+      expect(@driver.page_source.include?('newtagedited')).to be(false)
 
       # Edit tag
       wait_for_selector('.tag__actions').click
@@ -108,11 +105,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector("#tag__edit")
       fill_field('#tag__edit', 'edited')
       @driver.action.send_keys(:enter).perform
-      wait_for_selector("#tag__text-newteamwidetagedited")
-      expect(@driver.page_source.include?('No default tags')).to be(false)
-      expect(@driver.page_source.include?('No custom tags')).to be(true)
+      wait_for_selector("#tag__text-newtagedited")
       expect(@driver.page_source.include?('1 tag')).to be(true)
-      expect(@driver.page_source.include?('newteamwidetagedited')).to be(true)
+      expect(@driver.page_source.include?('newtagedited')).to be(true)
 
       # Delete tag
       wait_for_selector('.tag__actions').click
@@ -121,11 +116,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('#confirm-dialog__checkbox').click
       wait_for_selector('#confirm-dialog__confirm-action-button').click
       wait_for_selector_none('#tag__confirm')
-      wait_for_selector_none("#tag__text-newteamwidetagedited")
-      expect(@driver.page_source.include?('No default tags')).to be(true)
-      expect(@driver.page_source.include?('No custom tags')).to be(true)
+      wait_for_selector_none("#tag__text-newtagedited")
       expect(@driver.page_source.include?('No tags')).to be(true)
-      expect(@driver.page_source.include?('newteamwidetagedited')).to be(false)
+      expect(@driver.page_source.include?('newtagedited')).to be(false)
     end
 
     it "should redirect to access denied page", bin1: true do
@@ -820,13 +813,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.login__form')
       expect(@driver.page_source.include?('Sign in')).to be(true)
     end
-
-    # Postponed due Alexandre's developement
-    # it "should add and remove suggested tags" do
-    #   skip("Needs to be implemented")
-    # end
+    
 =begin
-
     ## Search by tag not working in QA
 
     it "should find medias when searching by tag" do

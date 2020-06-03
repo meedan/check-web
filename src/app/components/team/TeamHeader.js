@@ -18,7 +18,6 @@ const TeamHeader = (props) => {
           description,
           slug,
           permissions,
-          get_suggested_tags,
           pusher_channel,
           public_team_id,
           verification_statuses,

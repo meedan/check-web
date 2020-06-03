@@ -5,7 +5,7 @@
   "teamReport.title": "Paramètres de défaut des rapports",
   "teamReport.subtitle": "Le contenu que vous définissez ici peut être modifié dans chaque rapport individuel",
   "teamReport.introduction": "Introduction",
-  "teamReport.introductionSub": "Utilisez les paramètres {query_date} et {query_message} pour afficher la date et le contenu de la requête d'origine. Utilisez {status} pour communiquer le statut de l'article.",
+  "teamReport.introductionSub": "Utilisez le paramètre {query_date} pour afficher la date de la requête d'origine. Utilisez {status} pour communiquer le statut de l'article.",
   "teamReport.disclaimer": "Notice",
   "teamReport.disclaimerSub": "Notice affichée au bas du rapport auprès du logo de l'espace de travail."
 }

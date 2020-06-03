@@ -1,7 +1,4 @@
 {
   "tagPicker.emptyTags": "Não há tags para essa área de trabalho.",
-  "tagPicker.tagNotFound": "Tag #{tag} não encontrada.",
-  "tagPicker.teamTags": "Tags padrão",
-  "tagPicker.none": "Nenhuma",
-  "tagPicker.teamOtherTags": "Tags personalizadas"
+  "tagPicker.tagNotFound": "Tag #{tag} não encontrada."
 }

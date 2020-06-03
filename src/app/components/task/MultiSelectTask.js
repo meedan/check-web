@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import { FormattedMessage } from 'react-intl';
 import ParsedText from '../ParsedText';
 import { safelyParseJSON } from '../../helpers';
-import { StyledSmallTextField, StyledCheckboxNext } from '../../styles/js/shared';
+import { StyledSmallTextField, StyledCheckbox } from '../../styles/js/shared';
 
 class MultiSelectTask extends Component {
   constructor(props) {
@@ -177,7 +177,7 @@ class MultiSelectTask extends Component {
               <FormControlLabel
                 key={`task__options-multiselect-${index.toString()}`}
                 control={
-                  <StyledCheckboxNext
+                  <StyledCheckbox
                     checked={this.isChecked(item.label, index)}
                     onChange={this.handleSelectCheckbox.bind(this)}
                     id={item.label}
@@ -198,7 +198,7 @@ class MultiSelectTask extends Component {
                 <div key="task__option_other_checkbox">
                   <FormControlLabel
                     control={
-                      <StyledCheckboxNext
+                      <StyledCheckbox
                         className="task__option_other_checkbox"
                         checked={this.state.otherSelected || !!responseOther}
                         onChange={this.handleSelectCheckboxOther.bind(this)}

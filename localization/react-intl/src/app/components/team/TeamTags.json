@@ -28,10 +28,6 @@
     "defaultMessage": "Delete tag"
   },
   {
-    "id": "teamTags.moveTag",
-    "defaultMessage": "Move to default tags"
-  },
-  {
     "id": "teamTags.itemsCount",
     "defaultMessage": "{count, plural, =0 {no items} one {1 item} other {# items}}"
   },
@@ -44,20 +40,12 @@
     "defaultMessage": "{total, plural, =0 {No tags} one {1 tag} other {# tags}}"
   },
   {
-    "id": "teamTags.tags",
-    "defaultMessage": "Tags"
-  },
-  {
     "id": "teamTags.tooltip",
     "defaultMessage": "Filter and sort list"
   },
   {
-    "id": "teamTags.teamwideTags",
-    "defaultMessage": "Default tags"
-  },
-  {
-    "id": "teamTags.noTeamwideTags",
-    "defaultMessage": "No default tags."
+    "id": "teamTags.noTags",
+    "defaultMessage": "No tags"
   },
   {
     "id": "teamTags.new",
@@ -66,14 +54,6 @@
   {
     "id": "teamTags.addTag",
     "defaultMessage": "Add tag"
-  },
-  {
-    "id": "teamTags.customTags",
-    "defaultMessage": "Custom tags"
-  },
-  {
-    "id": "teamTags.noCustomTags",
-    "defaultMessage": "No custom tags."
   },
   {
     "id": "teamTags.confirmDeleteTitle",
