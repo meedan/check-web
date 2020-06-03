@@ -1,4 +1,0 @@
-{
-  "teamSizeNudge.nudge": "{max, plural, one {Sua área de trabalho está limitada a um membro. Para aumentar, entre em contato com {supportEmail}.} other {Sua área de trabalho está limitada a # membros. Para aumentar, entre em contato com {supportEmail}.}}",
-  "teamSizeNudge.title": "Assinar"
-}
