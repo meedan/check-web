@@ -12,7 +12,21 @@ class CreateTagMutation extends Relay.Mutation {
     case 'source':
       return Relay.QL`fragment on CreateTagPayload { tagEdge, source { id } }`;
     case 'project_media':
-      return Relay.QL`fragment on CreateTagPayload { tagEdge, project_media { last_status, last_status_obj,log, tags, log_count, project_id } }`;
+      return Relay.QL`fragment on CreateTagPayload {
+        tagEdge,
+        project_media {
+          last_status,
+          last_status_obj,
+          log,
+          tags,
+          log_count,
+          project_id,
+        }
+        team {
+          id
+          tag_texts(first: 10000),
+        }
+      }`;
     default:
       return '';
     }
@@ -57,8 +71,20 @@ class CreateTagMutation extends Relay.Mutation {
   getConfigs() {
     const fieldIds = {};
     fieldIds[this.props.parent_type] = this.props.annotated.id;
+    fieldIds.team = this.props.media ? this.props.media.team.id : null;
 
     return [
+      {
+        type: 'REQUIRED_CHILDREN',
+        children: [Relay.QL`
+          fragment on CreateTagPayload {
+            team {
+              id
+              tag_texts(first: 10000),
+            }
+          }`,
+        ],
+      },
       {
         type: 'RANGE_ADD',
         parentName: this.props.parent_type,

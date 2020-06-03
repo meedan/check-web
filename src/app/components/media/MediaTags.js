@@ -6,7 +6,6 @@ import Relay from 'react-relay/classic';
 import mergeWith from 'lodash.mergewith';
 import xor from 'lodash.xor';
 import styled from 'styled-components';
-import rtlDetect from 'rtl-detect';
 import EditIcon from '@material-ui/icons/Edit';
 import CancelIcon from '@material-ui/icons/Cancel';
 import Can from '../Can';
@@ -14,10 +13,9 @@ import UpdateLanguageMutation from '../../relay/mutations/UpdateLanguageMutation
 import LanguageSelector from '../LanguageSelector';
 import { searchQueryFromUrl, urlFromSearchQuery } from '../search/Search';
 import { withSetFlashMessage } from '../FlashMessage';
-import { getErrorMessage, bemClass } from '../../helpers';
+import { getErrorMessage } from '../../helpers';
 import {
   units,
-  caption,
   opaqueBlack54,
   opaqueBlack05,
   chipStyles,
@@ -55,8 +53,8 @@ const StyledLanguageIcon = styled.span`
     width: 16px;
     height: 16px;
     vertical-align: middle;
-    margin-${props => (props.isRtl ? 'left' : 'right')}: 0 !important;
-    margin-${props => (props.isRtl ? 'right' : 'left')}: ${units(1)};
+    margin-${props => (props.theme.dir === 'rtl' ? 'left' : 'right')}: 0 !important;
+    margin-${props => (props.theme.dir === 'rtl' ? 'right' : 'left')}: ${units(1)};
   }
 `;
 
@@ -67,47 +65,13 @@ const StyledMediaTagsContainer = styled.div`
     &:empty {
       display: none;
     }
-
-    &--editing {
-      margin: ${units(1)} 0;
-      width: 100%;
-    }
-  }
-
-  .media-tags__header {
-    // TODO Remove in markup
-    display: none;
-  }
-
-  .media-tags__heading {
-    margin-bottom: 1px;
-    margin-top: 4px;
-    text-transform: uppercase;
-    margin: 0;
-    margin-${props => (props.isRtl ? 'right' : 'left')}: ${units(2)};
-  }
-
-  .media-tags__message {
-    font: ${caption};
-    margin: 0;
-  }
-
-  .media-tags__suggestions {
-    display: inline-block;
-    margin-top: ${units(1)};
-    margin: 0;
-    margin-${props => (props.isRtl ? 'left' : 'right')}: ${units(1)};
-  }
-
-  .media-tags__tag,
-  .media-tags__suggestion {
-    ${chipStyles}
   }
 
   .media-tags__tag {
+    ${chipStyles}
     svg {
       color: ${opaqueBlack54};
-      margin-${props => (props.isRtl ? 'left' : 'right')}: ${units(1)};
+      margin-${props => (props.theme.dir === 'rtl' ? 'left' : 'right')}: ${units(1)};
     }
   }
 
@@ -190,51 +154,22 @@ class MediaTags extends Component {
   }
 
   render() {
-    const { media, tags } = this.props;
-    const suggestedTags = media.team && media.team.get_suggested_tags
-      ? media.team.get_suggested_tags.split(',')
-      : [];
-    const activeSuggestedTags = tags.filter(tag => suggestedTags.includes(tag.node.tag_text));
-    const remainingTags = tags.filter(tag => !suggestedTags.includes(tag.node.tag_text));
-    const searchQuery = searchQueryFromUrl();
-    const activeRegularTags = searchQuery.tags || [];
+    const { media } = this.props;
+    const tags = this.props.tags || [];
 
     return (
-      <StyledMediaTagsContainer
-        className="media-tags__container"
-        isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
-      >
+      <StyledMediaTagsContainer className="media-tags__container">
         <div className="media-tags">
-          {activeSuggestedTags.length ?
-            <ul className="media-tags__suggestions">
-              {activeSuggestedTags.map(tag => (
-                <li
-                  key={tag.node.id}
-                  onClick={this.handleTagViewClick.bind(this, tag.node.tag_text)}
-                  className={bemClass(
-                    'media-tags__suggestion',
-                    activeRegularTags.indexOf(tag.node.tag_text) > -1,
-                    '--selected',
-                  )}
-                >
-                  {tag.node.tag_text}
-                </li>))}
-            </ul>
-            : null}
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <div>
               <ul className="media-tags__list">
-                {remainingTags.map((tag) => {
+                {tags.map((tag) => {
                   if (tag.node.tag_text) {
                     return (
                       <li
                         key={tag.node.id}
                         onClick={this.handleTagViewClick.bind(this, tag.node.tag_text)}
-                        className={bemClass(
-                          'media-tags__tag',
-                          activeRegularTags.indexOf(tag.node.tag_text) > -1,
-                          '--selected',
-                        )}
+                        className="media-tags__tag"
                       >
                         {tag.node.tag_text.replace(/^#/, '')}
                       </li>
@@ -296,6 +231,8 @@ MediaTags.propTypes = {
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
   setFlashMessage: PropTypes.func.isRequired,
+  media: PropTypes.object.isRequired,
+  tags: PropTypes.object.isRequired,
 };
 
 export default withSetFlashMessage(injectIntl(MediaTags));

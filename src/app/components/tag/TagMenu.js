@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import isEqual from 'lodash.isequal';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import Menu from '@material-ui/core/Menu';
+import Popover from '@material-ui/core/Popover';
 import styled from 'styled-components';
 import TagInput from './TagInput';
 import TagPicker from './TagPicker';
@@ -139,7 +138,7 @@ class TagMenuComponent extends Component {
         >
           <TagOutline />
         </IconButton>
-        <Menu
+        <Popover
           anchorEl={this.state.anchorEl}
           open={Boolean(this.state.anchorEl)}
         >
@@ -163,7 +162,7 @@ class TagMenuComponent extends Component {
               </Button>
             </StyledActions>
           </div>
-        </Menu>
+        </Popover>
       </div>
     );
   }
@@ -173,6 +172,11 @@ TagMenuComponent.contextTypes = {
   store: PropTypes.object,
 };
 
+TagMenuComponent.propTypes = {
+  media: PropTypes.object.isRequired,
+  relay: PropTypes.object.isRequired,
+};
+
 const TagMenuContainer = Relay.createContainer(TagMenuComponent, {
   fragments: {
     media: () => Relay.QL`
@@ -180,6 +184,7 @@ const TagMenuContainer = Relay.createContainer(TagMenuComponent, {
         id
         dbid
         archived
+        permissions
         tags(first: 10000) {
           edges {
             node {
@@ -190,26 +195,22 @@ const TagMenuContainer = Relay.createContainer(TagMenuComponent, {
           }
         }
         team {
-          name
-          used_tags
-          get_suggested_tags
+          id,
+          tag_texts(first: 10000) {
+            edges {
+              node {
+                text
+              }
+            }
+          }
         }
-        permissions
       }
     `,
   },
 });
 
 // eslint-disable-next-line react/no-multi-comp
-class TagMenu extends React.Component {
-  // eslint-disable-next-line class-methods-use-this
-  shouldComponentUpdate(nextProps, nextState) {
-    if (isEqual(this.props.tags, nextProps.tags) && isEqual(this.state, nextState)) {
-      return false;
-    }
-    return true;
-  }
-
+class TagMenu extends React.PureComponent {
   render() {
     const ids = `${this.props.media.dbid},${this.props.media.project_id}`;
     const route = new MediaRoute({ ids });
@@ -219,7 +220,6 @@ class TagMenu extends React.Component {
         Component={TagMenuContainer}
         route={route}
         renderFetched={data => <TagMenuContainer {...this.props} {...data} />}
-        forceFetch
       />
     );
   }

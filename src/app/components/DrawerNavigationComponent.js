@@ -202,7 +202,7 @@ class DrawerNavigationComponent extends Component {
                     </OffsetBothSides>
                   </Row>
                 </Link>
-                <AlignOpposite fromDirection={fromDirection}>
+                <AlignOpposite>
                   { currentUserIsMember ?
                     <SmallerStyledIconButton
                       className="team-menu__team-settings-button"
@@ -232,7 +232,7 @@ class DrawerNavigationComponent extends Component {
           <div style={styles.drawerProjectsAndFooter}>
             <div style={styles.drawerProjects}>
               {inTeamContext && (currentUserIsMember || !this.props.team.private)
-                ? <DrawerProjects fromDirection={fromDirection} team={this.props.team.slug} />
+                ? <DrawerProjects team={this.props.team.slug} />
                 : null}
             </div>
             { inTeamContext && currentUserIsMember ?
@@ -248,7 +248,7 @@ class DrawerNavigationComponent extends Component {
                     primary={
                       <Row style={{ font: body1 }}>
                         <FormattedMessage id="projects.trash" defaultMessage="Trash" />
-                        <AlignOpposite fromDirection={fromDirection}>
+                        <AlignOpposite>
                           {String(this.props.team.trash_count)}
                         </AlignOpposite>
                       </Row>
