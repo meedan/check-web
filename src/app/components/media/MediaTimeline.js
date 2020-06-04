@@ -16,6 +16,7 @@ const createComment =
         mutation MediaTimelineCreateCommentMutation($input: CreateCommentInput!) {
           createComment(input: $input) {
             commentEdge {
+              cursor
               __typename
               node {
                 id
