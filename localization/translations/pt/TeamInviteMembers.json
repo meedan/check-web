@@ -10,7 +10,6 @@
   "TeamMembersListItem.editor": "Editor",
   "TeamMembersListItem.annotator": "Anotador(a)",
   "teamInviteMembers.resendEmailSuccess": "Convite enviado com sucesso",
-  "teamInviteMembers.limits": "O número máximo de membros para esta área de trabalho foi atingido ({count, plural, one {1 membro} other {# membros}}).",
   "teamInviteMembers.inviteMembers": "Os membros serão convidados como",
   "teamInviteMembers.inviteMember": "Convidar",
   "teamInviteMembers.customInvitation": "Nota de convite (opcional)",

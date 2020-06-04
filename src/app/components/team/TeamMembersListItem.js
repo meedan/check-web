@@ -171,7 +171,6 @@ class TeamMembersListItem extends Component {
     }
 
     const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
-    const fromDirection = isRtl ? 'right' : 'left';
 
     return (
       <ListItem
@@ -229,7 +228,7 @@ class TeamMembersListItem extends Component {
               );
             }
             return (
-              <AlignOpposite fromDirection={fromDirection}>
+              <AlignOpposite>
                 <FlexRow>
                   <RoleSelect
                     onChange={this.handleRoleChange}

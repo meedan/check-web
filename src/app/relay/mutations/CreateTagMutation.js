@@ -10,11 +10,23 @@ class CreateTagMutation extends Relay.Mutation {
   getFatQuery() {
     switch (this.props.parent_type) {
     case 'source':
-      return Relay.QL`fragment on CreateTagPayload { tagEdge, source { log, tags, log_count } }`;
+      return Relay.QL`fragment on CreateTagPayload { tagEdge, source { id } }`;
     case 'project_media':
-      return Relay.QL`fragment on CreateTagPayload { tagEdge, project_media { last_status, last_status_obj,log, tags, log_count, project_id } }`;
-    case 'project_source':
-      return Relay.QL`fragment on CreateTagPayload { tagEdge, project_source { source { log, tags, log_count } } }`;
+      return Relay.QL`fragment on CreateTagPayload {
+        tagEdge,
+        project_media {
+          last_status,
+          last_status_obj,
+          log,
+          tags,
+          log_count,
+          project_id,
+        }
+        team {
+          id
+          tag_texts(first: 10000),
+        }
+      }`;
     default:
       return '';
     }
@@ -59,8 +71,20 @@ class CreateTagMutation extends Relay.Mutation {
   getConfigs() {
     const fieldIds = {};
     fieldIds[this.props.parent_type] = this.props.annotated.id;
+    fieldIds.team = this.props.media ? this.props.media.team.id : null;
 
     return [
+      {
+        type: 'REQUIRED_CHILDREN',
+        children: [Relay.QL`
+          fragment on CreateTagPayload {
+            team {
+              id
+              tag_texts(first: 10000),
+            }
+          }`,
+        ],
+      },
       {
         type: 'RANGE_ADD',
         parentName: this.props.parent_type,
@@ -89,11 +113,6 @@ const createTag = (obj, onSuccess, onFailure) => {
   if (media) {
     parent_type = 'project_media';
     annotated_type = 'ProjectMedia';
-  }
-
-  if (source) {
-    parent_type = 'project_source';
-    annotated_type = 'ProjectSource';
   }
 
   const tagsList = [...new Set(value.split(','))];

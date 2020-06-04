@@ -12,10 +12,6 @@
     "defaultMessage": "No default tasks to display"
   },
   {
-    "id": "teamTasks.title",
-    "defaultMessage": "Tasks"
-  },
-  {
     "id": "teamTasks.filter",
     "defaultMessage": "Filter tasks"
   },

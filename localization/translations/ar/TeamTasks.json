@@ -2,7 +2,6 @@
   "teamTasks.filterLabelHidden": "{total, plural, =0 {لا توجد مهام} one {مهمة واحدة ({hidden} مُصفاة)} other {# مهام ({hidden} مُصفاة)}}",
   "teamTasks.filterLabel": "{total, plural, =0 {لا توجد مهام} one {مهمة واحدة} other {# مهام}}",
   "teamTasks.blank": "No default tasks to display",
-  "teamTasks.title": "المهام",
   "teamTasks.filter": "تصفية المهام",
   "teamTasks.projFilter": "عرض المهام في",
   "teamTasks.typeFilter": "نوع المهمة"

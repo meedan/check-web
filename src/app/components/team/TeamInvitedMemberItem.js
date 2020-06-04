@@ -4,7 +4,6 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import Relay from 'react-relay/classic';
 import ListItem from '@material-ui/core/ListItem';
 import Button from '@material-ui/core/Button';
-import rtlDetect from 'rtl-detect';
 import '../../styles/css/tooltip.css';
 import ResendCancelInvitationMutation from '../../relay/mutations/ResendCancelInvitationMutation';
 import { getErrorMessage } from '../../helpers';
@@ -48,9 +47,6 @@ class TeamInvitedMemberItem extends Component {
   }
 
   render() {
-    const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
-    const fromDirection = isRtl ? 'right' : 'left';
-
     return (
       <ListItem
         className="team-members__invited-list-item"
@@ -59,7 +55,7 @@ class TeamInvitedMemberItem extends Component {
         <Text ellipsis>
           {this.props.invitedMail}
         </Text>
-        <AlignOpposite fromDirection={fromDirection}>
+        <AlignOpposite>
           <FlexRow>
             <Button
               variant="contained"

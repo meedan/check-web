@@ -1,26 +1,10 @@
 import React from 'react';
-import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
+import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import rtlDetect from 'rtl-detect';
 import styled from 'styled-components';
-import difference from 'lodash.difference';
-import intersection from 'lodash.intersection';
-import { black54, black87, caption, units, opaqueBlack02, opaqueBlack05, StyledCheckboxNext } from '../../styles/js/shared';
-
-const StyledHeadingFirst = styled.div`
-  color: ${black87};
-  font: ${caption};
-`;
-
-const StyledHeading = styled(StyledHeadingFirst)`
-  padding-top: ${units(3)};
-`;
-
-const StyledNone = styled.div`
-  color: ${black54};
-  padding-top: ${units(1)};
-`;
+import { black54, units, opaqueBlack02, opaqueBlack05, StyledCheckbox } from '../../styles/js/shared';
 
 const StyledNotFound = styled.div`
   color: ${black54};
@@ -38,32 +22,53 @@ const StyledTagPickerArea = styled.div`
 `;
 
 const StyledFormControlLabel = styled(FormControlLabel)`
-  margin-${props => props.direction.from}: -14px !important;
-  margin-${props => props.direction.to}: 16px !important;
+  margin-${props => props.theme.dir === 'rtl' ? 'right' : 'left'}: -14px !important;
+  margin-${props => props.theme.dir === 'rtl' ? 'left' : 'right'}: 16px !important;
 `;
 
-class TagPicker extends React.Component {
+class TagPicker extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      tags: props.tags.map(tag => tag.node.tag_text),
+      selected: [],
+      unselected: [],
     };
   }
 
   handleSelectCheckbox = (e, inputChecked) => {
-    const tags = this.state.tags.slice();
     const tag = e.target.id;
+
+    const selected = [...this.state.selected];
+    const unselected = [...this.state.unselected];
+
     if (inputChecked) {
       this.props.onAddTag(tag);
-      tags.push(tag);
+      selected.push(tag);
+      if (unselected.indexOf(tag)) {
+        unselected.splice(unselected.indexOf(tag), 1);
+      }
     } else {
       this.props.onRemoveTag(tag);
-      tags.splice(tags.indexOf(tag), 1);
+      unselected.push(tag);
+      if (selected.indexOf(tag)) {
+        selected.splice(selected.indexOf(tag), 1);
+      }
     }
-    this.setState({ tags });
+    this.setState({ selected, unselected });
   }
 
-  renderNotFound(shownTagsCount, totalTagsCount) {
+  tagIsChecked = (tag) => {
+    const { selected, unselected } = this.state;
+    if (selected.includes(tag)) {
+      return true;
+    }
+    if (unselected.includes(tag)) {
+      return false;
+    }
+    return this.props.tags.map(t => t.node.tag_text).includes(tag);
+  };
+
+  renderNotFound(totalTagsCount) {
     if (totalTagsCount === 0) {
       return (
         <StyledNotFound>
@@ -87,7 +92,7 @@ class TagPicker extends React.Component {
   }
 
   render() {
-    const { media, tags, value } = this.props;
+    const { media, value } = this.props;
 
     const compareString = (tag, val) => {
       if (!tag) {
@@ -96,102 +101,51 @@ class TagPicker extends React.Component {
       return tag.toLowerCase().includes(val.toLowerCase());
     };
 
-    const plainMediaTags = this.state.tags;
+    const tag_texts = media.team.tag_texts || { edges: [] };
+    const shown_tag_texts = value ?
+      tag_texts.edges.filter(t => compareString(t.node.text, value)) :
+      tag_texts.edges;
 
-    const suggestedTags = media.team && media.team.get_suggested_tags
-      ? media.team.get_suggested_tags.split(',').filter(tag => compareString(tag, value))
-      : [];
+    const shownTagsCount = shown_tag_texts.length;
+    const totalTagsCount = tag_texts.edges.length;
 
-    const nonRepeatedUsedTags =
-      difference(media.team.used_tags, suggestedTags).filter(tag => compareString(tag, value));
-
-    const checkedSuggestedTags = intersection(suggestedTags, plainMediaTags);
-    const uncheckedSuggestedTags = difference(suggestedTags, plainMediaTags);
-
-    const checkedUsedTags =
-      difference(plainMediaTags, suggestedTags).filter(tag => compareString(tag, value));
-    const uncheckedUsedTags = difference(nonRepeatedUsedTags, plainMediaTags);
-
-    const shownSuggestedCount = checkedSuggestedTags.length + uncheckedSuggestedTags.length;
-    const shownUsedCount = checkedUsedTags.length + uncheckedUsedTags.length;
-
-    const shownTagsCount = shownSuggestedCount + shownUsedCount;
-    const totalTagsCount = suggestedTags.length + tags.length + media.team.used_tags.length;
-
-    const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
-    const direction = {
-      from: isRtl ? 'right' : 'left',
-      to: isRtl ? 'left' : 'right',
-    };
-
-    return (shownTagsCount === 0 ?
+    return (
       <StyledTagPickerArea>
-        { this.renderNotFound(shownTagsCount, totalTagsCount) }
-      </StyledTagPickerArea>
-      :
-      <StyledTagPickerArea>
-        <FormGroup>
-          <StyledHeadingFirst>
-            <FormattedMessage
-              id="tagPicker.teamTags"
-              defaultMessage="Default tags"
-            />
-          </StyledHeadingFirst>
-          {
-            shownSuggestedCount === 0 ?
-              <StyledNone>
-                <FormattedMessage id="tagPicker.none" defaultMessage="None" />
-              </StyledNone>
-              :
-              checkedSuggestedTags.concat(uncheckedSuggestedTags).map((tag, index) => (
+        { shownTagsCount === 0 ?
+          this.renderNotFound(totalTagsCount) :
+          <FormGroup>
+            {
+              shown_tag_texts.map((tag, index) => (
                 <StyledFormControlLabel
-                  direction={direction}
                   key={`team-suggested-tag-${index.toString()}`}
                   control={
-                    <StyledCheckboxNext
-                      checked={plainMediaTags.includes(tag)}
+                    <StyledCheckbox
+                      checked={this.tagIsChecked(tag.node.text)}
                       onChange={this.handleSelectCheckbox}
-                      id={tag}
+                      id={tag.node.text}
                     />
                   }
-                  label={tag}
+                  label={tag.node.text}
                 />
               ))
-          }
-          <StyledHeading>
-            <FormattedMessage id="tagPicker.teamOtherTags" defaultMessage="Custom tags" />
-          </StyledHeading>
-          {
-            shownUsedCount === 0 ?
-              <StyledNone>
-                <FormattedMessage id="tagPicker.none" defaultMessage="None" />
-              </StyledNone>
-              :
-              checkedUsedTags.concat(uncheckedUsedTags).map((tag, index) => (
-                <StyledFormControlLabel
-                  direction={direction}
-                  key={`team-used-tag-${index.toString()}`}
-                  control={
-                    <StyledCheckboxNext
-                      checked={plainMediaTags.includes(tag)}
-                      onChange={this.handleSelectCheckbox}
-                      id={tag}
-                    />
-                  }
-                  label={tag}
-                />
-              ))
-          }
-        </FormGroup>
+            }
+          </FormGroup>
+        }
       </StyledTagPickerArea>
     );
   }
 }
 
 TagPicker.propTypes = {
-  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
-  // eslint-disable-next-line react/no-typos
-  intl: intlShape.isRequired,
+  onAddTag: PropTypes.func.isRequired,
+  onRemoveTag: PropTypes.func.isRequired,
+  value: PropTypes.string,
+  media: PropTypes.object.isRequired,
+  tags: PropTypes.array.isRequired,
 };
 
-export default injectIntl(TagPicker);
+TagPicker.defaultProps = {
+  value: null,
+};
+
+export default TagPicker;

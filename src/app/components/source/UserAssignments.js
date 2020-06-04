@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { injectIntl, FormattedMessage, defineMessages } from 'react-intl';
-import rtlDetect from 'rtl-detect';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import List from '@material-ui/core/List';
@@ -22,13 +21,12 @@ import MdLink from 'react-icons/lib/md/link';
 import MdImage from 'react-icons/lib/md/image';
 import IconImageUpload from '@material-ui/icons/CloudUpload';
 import BlankState from '../layout/BlankState';
-import CardHeaderOutside from '../layout/CardHeaderOutside';
 import FilterPopup from '../layout/FilterPopup';
 import TeamSelect from '../team/TeamSelect';
 import MediaUtil from '../media/MediaUtil';
 import UserRoute from '../../relay/UserRoute';
 import CheckContext from '../../CheckContext';
-import { units } from '../../styles/js/shared';
+import { units, AlignOpposite } from '../../styles/js/shared';
 
 const messages = defineMessages({
   filterByTeam: {
@@ -101,8 +99,6 @@ class UserAssignmentsComponent extends Component {
 
   render() {
     const { user } = this.props;
-    const { currentUser } = this.getContext().getContextStore();
-    const isUserSelf = (user.id === currentUser.id);
 
     if (this.props.relay.variables.teamId === null) {
       return null;
@@ -145,46 +141,23 @@ class UserAssignmentsComponent extends Component {
       });
     });
 
-    const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
-    const direction = {
-      from: isRtl ? 'right' : 'left',
-      to: isRtl ? 'left' : 'right',
-    };
-
     const filterLabel = this.state.teamId ?
       options.find(o => o.value === this.state.teamId.toString()).label : null;
 
-    const cardTitle = isUserSelf ? (
-      <FormattedMessage
-        id="userAssignments.yourAssignments"
-        defaultMessage="Your assignments"
-      />
-    ) : (
-      <FormattedMessage
-        id="userAssignments.userAssignments"
-        defaultMessage="{name}'s assignments"
-        values={{ name: user.name }}
-      />
-    );
-
     return (
       <div id="assignments">
-        <CardHeaderOutside
-          title={cardTitle}
-          direction={direction}
-          actions={
-            <FilterPopup
-              label={filterLabel}
-              tooltip={this.props.intl.formatMessage(messages.filterByTeam)}
-            >
-              <TeamSelect
-                teams={user.teams.edges}
-                value={this.state.teamId.toString()}
-                onChange={this.handleSelect.bind(this)}
-              />
-            </FilterPopup>
-          }
-        />
+        <AlignOpposite>
+          <FilterPopup
+            label={filterLabel}
+            tooltip={this.props.intl.formatMessage(messages.filterByTeam)}
+          >
+            <TeamSelect
+              teams={user.teams.edges}
+              value={this.state.teamId.toString()}
+              onChange={this.handleSelect.bind(this)}
+            />
+          </FilterPopup>
+        </AlignOpposite>
         { hasAssignment ? null : (
           <BlankState>
             <FormattedMessage id="userAssignments.blank" defaultMessage="No activity" />

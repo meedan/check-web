@@ -1,7 +1,7 @@
 import styled, { css, keyframes } from 'styled-components';
 import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
-import CheckboxNext from '@material-ui/core/Checkbox';
+import Checkbox from '@material-ui/core/Checkbox';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { stripUnit, rgba } from 'polished';
 
@@ -487,7 +487,9 @@ export const OffsetBothSides = styled.div`
 
 // AlignOpposite
 export const AlignOpposite = styled.div`
-  ${props => (props.fromDirection ? `margin-${props.fromDirection}: auto;` : '')};
+  ${props => props.theme.dir === 'rtl' ? 'margin-right: auto' : 'margin-left: auto'};
+  ${props => props.theme.dir === 'rtl' ? 'left: 0px' : 'right: 0px'};
+  width: fit-content;
 `;
 
 // Material style Chip
@@ -563,7 +565,8 @@ export const StyledSmallTextField = styled(TextField)`
   }
 `;
 
-export const StyledCheckboxNext = styled(CheckboxNext)`
+// This makes Checkbox icon render correctly on RTL layout
+export const StyledCheckbox = styled(Checkbox)`
   svg {
     transform: scale(1,1) !important;
   }

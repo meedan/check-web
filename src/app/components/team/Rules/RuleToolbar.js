@@ -109,7 +109,7 @@ const RuleToolbar = (props) => {
             color="primary"
             variant="contained"
             className={[classes.button, 'rules__save-button'].join(' ')}
-            onClick={props.onSave}
+            onClick={props.onSaveRule}
           >
             <FormattedMessage id="rulesTableToolbar.save" defaultMessage="Save" />
           </Button>
@@ -157,7 +157,7 @@ RuleToolbar.propTypes = {
   actionsDisabled: PropTypes.bool.isRequired,
   unsavedChanges: PropTypes.bool.isRequired,
   onGoBack: PropTypes.func.isRequired,
-  onSave: PropTypes.func.isRequired,
+  onSaveRule: PropTypes.func.isRequired,
   onDeleteRule: PropTypes.func.isRequired,
   onDuplicateRule: PropTypes.func.isRequired,
 };

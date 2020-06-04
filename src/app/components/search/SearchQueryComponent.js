@@ -40,8 +40,6 @@ import {
   ellipsisStyles,
 } from '../../styles/js/shared';
 
-const statusKey = 'verification_status';
-
 // https://github.com/styled-components/styled-components/issues/305#issuecomment-298680960
 const swallowingStyled = (WrappedComponent, { swallowProps = [] } = {}) => {
   const Wrapper = ({ children, ...props }) => {
@@ -68,8 +66,8 @@ export const StyledSearchInput = styled.input`
   padding-${props => (props.isRtl ? 'right' : 'left')}: ${units(6)};
 `;
 
-const StyledPopper = swallowingStyled(Popper, { swallowProps: ['isRtl'] })`
-  width: 100%;
+const StyledPopper = styled(Popper)`
+  width: 80%;
   padding: 0 ${units(1)};
   z-index: 10000;
 
@@ -84,12 +82,12 @@ const StyledPopper = swallowingStyled(Popper, { swallowProps: ['isRtl'] })`
 
   a {
     font: ${caption};
-    padding-${props => (props.isRtl ? 'right' : 'left')}: ${units(1)};
+    padding-${props => (props.theme.dir === 'rtl' ? 'right' : 'left')}: ${units(1)};
   }
 
   button {
     color: ${black54};
-    float: ${props => (props.isRtl ? 'left' : 'right')};
+    float: ${props => (props.theme.dir === 'rtl' ? 'left' : 'right')};
   }
 `;
 
@@ -107,6 +105,7 @@ const StyledSearchFiltersSection = styled.section`
 const StyledFilterRow = swallowingStyled(Row, { swallowProps: ['isRtl'] })`
   min-height: ${units(5)};
   margin-bottom: ${units(2)};
+  flex-wrap: wrap;
 
   h4 {
     text-transform: uppercase;
@@ -126,7 +125,6 @@ const StyledFilterRow = swallowingStyled(Row, { swallowProps: ['isRtl'] })`
 
   ${mediaQuery.handheld`
     padding: 0;
-    flex-wrap: nowrap;
     justify-content: flex-start;
     overflow-x: auto;
     overflow-y: auto;
@@ -215,6 +213,57 @@ const messages = defineMessages({
   },
 });
 
+function addToArraySet(array, value) {
+  if (!array || !array.length) {
+    // Empty array means undefined
+    return [value];
+  }
+  const ret = array.slice();
+  ret.push(value);
+  ret.sort(); // should make output more predictable
+  return ret;
+}
+
+function removeFromArraySet(array, value) {
+  const ret = (array || []).filter(v => v !== value);
+  if (ret.length === 0) {
+    return undefined;
+  }
+  return ret;
+}
+
+/**
+ * Given an array or undefined, return an array or undefined.
+ *
+ * If `array` contains `value`, then the return value won't have it.
+ * Otherwise, the return value _will_.
+ *
+ * `undefined` is understood to be the empty array. This function will never
+ * return `[]`: it will always return `undefined`.
+ */
+function toggleArraySetContains(array, value) {
+  if (array && array.includes(value)) {
+    return removeFromArraySet(array, value);
+  }
+  return addToArraySet(array, value);
+}
+
+/**
+ * Return `query`, with property `key` changed to omit/add `value`.
+ *
+ * `undefined` is understood to be the empty array. This function will remove
+ * the `key` filter rather than return an empty array.
+ */
+function toggleStateQueryArrayValue(query, key, value) {
+  const newArray = toggleArraySetContains(query[key], value);
+  if (newArray === undefined) {
+    const newQuery = { ...query };
+    delete newQuery[key];
+    return newQuery;
+  }
+  return { ...query, [key]: newArray };
+}
+
 class SearchQueryComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -223,12 +272,8 @@ class SearchQueryComponent extends React.Component {
 
     this.state = {
       query: props.query, // CODE SMELL! Caller must use `key=` to reset state on prop change
-      isPopperClosed: false,
-      popper: {
-        open: false,
-        anchorEl: null,
-      },
-      dialogOpen: false,
+      isPopperClosed: false, // user sets this once per page load
+      dialogOpen: false, // true when user opens the "Filter" dialog
     };
   }
 
@@ -255,195 +300,110 @@ class SearchQueryComponent extends React.Component {
   }
 
   keywordIsActive = () => {
-    const { query } = this.state;
+    const { query } = this.props;
     return query.keyword && query.keyword.trim() !== '';
   };
 
   filterIsActive = () => {
-    const { query } = this.state;
-    const filterFields = ['range', 'verification_status', 'projects', 'tags', 'show'];
-    let active = false;
-    filterFields.forEach((field) => {
-      if (Object.keys(query).includes(field)) {
-        active = true;
-      }
-    });
-    return active;
-  };
-
-  statusIsSelected(statusCode, state = this.state) {
-    const selectedStatuses = state.query[statusKey] || [];
-    return selectedStatuses.length && selectedStatuses.includes(statusCode);
+    const { query } = this.props;
+    const filterFields = ['range', 'verification_status', 'projects', 'tags', 'show', 'dynamic'];
+    return filterFields.some(key => !!query[key]);
   }
 
-  projectIsSelected(projectId, state = this.state) {
-    const selectedProjects = state.query.projects || [];
-    return selectedProjects.length && selectedProjects.includes(projectId);
+  statusIsSelected(statusCode) {
+    const array = this.state.query.verification_status;
+    return array ? array.includes(statusCode) : false;
   }
 
-  tagIsSelected(tag, state = this.state) {
-    const selectedTags = state.query.tags || [];
-    return selectedTags.length && selectedTags.includes(tag);
+  projectIsSelected(projectId) {
+    const array = this.state.query.projects;
+    return array ? array.includes(projectId) : false;
   }
 
-  showIsSelected(show, state = this.state) {
-    const selected = state.query.show;
-    return Array.isArray(selected) ? selected.includes(show) : false;
+  tagIsSelected(tag) {
+    const array = this.state.query.tags;
+    return array ? array.includes(tag) : false;
   }
 
-  ruleIsSelected(rule, state = this.state) {
-    const selected = state.query.rules || [];
-    return selected.includes(rule);
+  showIsSelected(show) {
+    const array = this.state.query.show;
+    return array ? array.includes(show) : false;
   }
 
-  dynamicIsSelected(field, value, state = this.state) {
-    const dynamic = state.query.dynamic || {};
-    const selected = dynamic[field] || [];
-    return selected.includes(value);
+  ruleIsSelected(rule) {
+    const array = this.state.query.rules;
+    return array ? array.includes(rule) : false;
+  }
+
+  dynamicIsSelected(field, value) {
+    const dynamic = this.state.query.dynamic || {};
+    const array = dynamic[field];
+    return array ? array.includes(value) : false;
   }
 
   handleDateChange = (value) => {
     this.setState({ query: { ...this.state.query, range: value } });
   }
 
-  handleStatusClick(statusCode) {
-    const query = Object.assign({}, this.state.query);
-    const statusIsSelected = this.statusIsSelected(statusCode, this.state);
-    const selectedStatuses = query[statusKey] || []; // TODO Avoid ambiguous reference
-
-    if (statusIsSelected) {
-      selectedStatuses.splice(selectedStatuses.indexOf(statusCode), 1); // remove from array
-      if (!selectedStatuses.length) {
-        delete query[statusKey];
-      }
-    } else {
-      query[statusKey] = selectedStatuses.concat(statusCode);
-    }
-    this.setState({ query });
+  handleStatusClick = (statusCode) => {
+    this.setState({
+      query: toggleStateQueryArrayValue(this.state.query, 'verification_status', statusCode),
+    });
   }
 
   handleProjectClick(projectId) {
-    const query = Object.assign({}, this.state.query);
-    const projectIsSelected = this.projectIsSelected(projectId, this.state);
-    const selectedProjects = query.projects || [];
-
-    if (projectIsSelected) {
-      selectedProjects.splice(selectedProjects.indexOf(projectId), 1);
-      if (!selectedProjects.length) {
-        delete query.projects;
-      }
-    } else {
-      query.projects = selectedProjects.concat(projectId);
-    }
-    this.setState({ query });
+    this.setState({
+      query: toggleStateQueryArrayValue(this.state.query, 'projects', projectId),
+    });
   }
 
   handleTagClick(tag) {
-    const query = Object.assign({}, this.state.query);
-    const tagIsSelected = this.tagIsSelected(tag, this.state);
-    const selectedTags = query.tags || [];
-
-    if (tagIsSelected) {
-      selectedTags.splice(selectedTags.indexOf(tag), 1); // remove from array
-      if (!selectedTags.length) {
-        delete query.tags;
-      }
-    } else {
-      query.tags = selectedTags.concat(tag);
-    }
-    this.setState({ query });
+    this.setState({
+      query: toggleStateQueryArrayValue(this.state.query, 'tags', tag),
+    });
   }
 
   handleRuleClick(rule) {
-    this.setState((prevState) => {
-      const state = Object.assign({}, prevState);
-      if (!state.query.rules) {
-        state.query.rules = [];
-      }
-      const i = state.query.rules.indexOf(rule);
-      if (i === -1) {
-        state.query.rules.push(rule);
-      } else {
-        state.query.rules.splice(i, 1);
-      }
-      return { query: state.query };
+    this.setState({
+      query: toggleStateQueryArrayValue(this.state.query, 'rules', rule),
     });
   }
 
   handleShowClick(show) {
-    this.setState((prevState) => {
-      const state = Object.assign({}, prevState);
-      if (!state.query.show) {
-        state.query.show = [];
-      }
-
-      const toggleMedia = (t) => {
-        const i = state.query.show.indexOf(t);
-        if (i === -1) {
-          state.query.show.push(t);
-        } else {
-          state.query.show.splice(i, 1);
-        }
-      };
-
-      toggleMedia(show);
-
-      if (state.query.show.length === 0) {
-        delete state.query.show;
-      }
-
-      return { query: state.query };
+    this.setState({
+      query: toggleStateQueryArrayValue(this.state.query, 'show', show),
     });
   }
 
   handleDynamicClick(field, value) {
-    const query = Object.assign({}, this.state.query);
-    if (!query.dynamic) {
-      query.dynamic = {};
-    }
-    if (!query.dynamic[field]) {
-      query.dynamic[field] = [];
-    }
-    const i = query.dynamic[field].indexOf(value);
-    if (i === -1) {
-      query.dynamic[field].push(value);
+    const { query } = this.state;
+    const oldDynamic = query.dynamic ? query.dynamic : {};
+    const newDynamic = toggleStateQueryArrayValue(oldDynamic, field, value);
+    if (Object.keys(newDynamic).length === 0) {
+      const newQuery = { ...query };
+      delete newQuery.dynamic;
+      this.setState({ query: newQuery });
     } else {
-      query.dynamic[field].splice(i, 1);
+      this.setState({
+        query: { ...query, dynamic: newDynamic },
+      });
     }
-    if (!query.dynamic[field].length) {
-      delete query.dynamic[field];
-    }
-    if (!Object.keys(query.dynamic).length) {
-      delete query.dynamic;
-    }
-    this.setState({ query });
   }
 
   handleDialogOpen = () => {
-    this.setState({
-      dialogOpen: true,
-      popper: {
-        open: false,
-        anchorEl: null,
-      },
-    });
-  };
+    this.setState({ dialogOpen: true });
+  }
 
   handleDialogClose = () => {
-    const { query } = this.state;
     this.setState({
-      query,
       dialogOpen: false,
-      popper: {
-        open: false,
-        anchorEl: null,
-      },
+      query: this.props.query, // undo changes
     });
-  };
+  }
 
   // Create title out of query parameters
   title(statuses, projects) {
-    const { query } = this.state;
+    const { query } = this.props;
     return (
       // Merge/flatten the array constructed below
       // http://stackoverflow.com/a/10865042/209184
@@ -457,8 +417,8 @@ class SearchQueryComponent extends React.Component {
                 return project ? project.node.title : '';
               })
               : [],
-            query[statusKey]
-              ? query[statusKey].map((s) => {
+            query.verification_status
+              ? query.verification_status.map((s) => {
                 const status = statuses.find(so => so.id === s);
                 return status ? status.label : '';
               })
@@ -496,7 +456,8 @@ class SearchQueryComponent extends React.Component {
     this.handleApplyFilters();
   }
 
-  handlePopperClick() {
+  handlePopperClick = (ev) => {
+    ev.preventDefault();
     this.setState({ isPopperClosed: true });
   }
 
@@ -564,7 +525,8 @@ class SearchQueryComponent extends React.Component {
     }
 
     const { currentUser } = this.currentContext();
-    const suggestedTags = team.teamwide_tags.edges.map(t => t.node.text);
+    const plainTagsTexts = team.tag_texts ?
+      team.tag_texts.edges.map(t => t.node.text) : [];
 
     const title = (this.filterIsActive() || this.keywordIsActive())
       ? this.title(statuses, projects)
@@ -603,19 +565,17 @@ class SearchQueryComponent extends React.Component {
             />
             <StyledPopper
               id="search-help"
-              isRtl={isRtl}
               open={
                 // Open the search help when
                 // - user has typed something
                 // - user has not explicitly closed the help
-                // - user has reset the keywords
                 this.state.query.keyword !== this.props.query.keyword &&
                 !this.state.isPopperClosed
               }
-              anchorEl={this.searchInput.current}
+              anchorEl={() => this.searchInput.current}
             >
               <Paper>
-                <IconButton style={{ fontSize: '20px' }} onClick={this.handlePopperClick.bind(this)}>
+                <IconButton onClick={this.handlePopperClick}>
                   <ClearIcon />
                 </IconButton>
                 <FormattedHTMLMessage
@@ -658,8 +618,6 @@ class SearchQueryComponent extends React.Component {
         <PageTitle prefix={title} team={this.props.team}>
           <Dialog
             className="search__query-dialog"
-            maxWidth="sm"
-            fullWidth
             scroll="paper"
             open={this.state.dialogOpen}
             onClose={this.handleDialogClose}
@@ -692,7 +650,7 @@ class SearchQueryComponent extends React.Component {
                   </StyledFilterRow>
                   : null}
 
-                {this.showField('project') ?
+                {this.showField('project') && projects.length ?
                   <StyledFilterRow>
                     <h4>
                       <FormattedMessage id="search.projectHeading" defaultMessage="List" />
@@ -713,12 +671,12 @@ class SearchQueryComponent extends React.Component {
                   </StyledFilterRow>
                   : null}
 
-                {this.showField('tags') && suggestedTags.length ?
+                {this.showField('tags') && plainTagsTexts.length ?
                   <StyledFilterRow>
                     <h4>
-                      <FormattedMessage id="status.categoriesHeading" defaultMessage="Default Tags" />
+                      <FormattedMessage id="status.categoriesHeading" defaultMessage="Tags" />
                     </h4>
-                    {suggestedTags.map(tag => (
+                    {plainTagsTexts.map(tag => (
                       <StyledFilterChip
                         active={this.tagIsSelected(tag)}
                         key={tag}

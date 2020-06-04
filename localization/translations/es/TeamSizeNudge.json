@@ -1,4 +1,0 @@
-{
-  "teamSizeNudge.nudge": "{max, plural, one {Tu área de trabajo actualmente está actualmente limitado a un miembro. Para actualizar, ponte en contacto con {supportEmail}.} other {Tu área de trabajo actualmente está actualmente limitado a # miembros. Para actualizar, ponte en contacto con {supportEmail}.}}",
-  "teamSizeNudge.title": "Actualizar"
-}

@@ -54,7 +54,7 @@ import {
 const messages = defineMessages({
   cantPublish: {
     id: 'reportDesigner.cantPublish',
-    defaultMessage: 'Select at least the text message or the visual card to publish your report',
+    defaultMessage: 'Select at least the report text or image to publish your report',
   },
   canPublish: {
     id: 'reportDesigner.canPublish',
@@ -558,31 +558,9 @@ class ReportDesignerComponent extends Component {
     if (firstSmoochRequest.length > 0) {
       firstSmoochRequest = firstSmoochRequest[0].node;
       introduction = introduction.replace(/{{query_date}}/g, new Date(parseInt(firstSmoochRequest.created_at, 10) * 1000).toLocaleDateString());
-      const firstSmoochRequestData = JSON.parse(firstSmoochRequest.content);
-      const text = firstSmoochRequestData[0].value_json.text || '';
-      introduction = introduction.replace(/{{query_message}}/g, text.replace(/[_*~`]+/g, ''));
     }
     introduction = introduction.replace(/{{status}}/g, this.state.options.status_label);
     return introduction;
-  }
-
-  previewMedia() {
-    let media = null;
-    let messageType = null;
-    if (/{{query_message}}/.test(this.state.options.introduction)) {
-      const firstSmoochRequest = this.props.media.first_smooch_request.edges;
-      if (firstSmoochRequest.length > 0) {
-        const data = JSON.parse(firstSmoochRequest[0].node.content)[0].value_json;
-        media = data.mediaUrl;
-        messageType = data.type;
-      }
-    }
-    if (messageType === 'image') {
-      return (<img src={media} id="media-preview" alt="" />);
-    } else if (messageType) {
-      return (<p><a href={media} target="_blank" rel="noopener noreferrer">{media}</a></p>);
-    }
-    return null;
   }
 
   statusCallback() {
@@ -629,11 +607,10 @@ class ReportDesignerComponent extends Component {
     const shareUrl = metadata.embed_url;
     const itemUrl = metadata.permalink.replace(/^https?:\/\/[^/]+/, '');
     const saveDisabled = !can(media.permissions, 'update ProjectMedia');
-    const url = window.location.href.replace(/\/embed$/, `?t=${new Date().getTime()}`);
+    const url = window.location.href.replace(/\/report$/, `?t=${new Date().getTime()}`);
     const embedTag = `<script src="${config.penderUrl}/api/medias.js?url=${encodeURIComponent(url)}"></script>`;
     const empty = this.settingsEmpty();
     const cantPublish = !this.state.options.use_visual_card && !this.state.options.use_text_message;
-    const mediaPreview = this.previewMedia();
 
     return (
       <PageTitle
@@ -867,12 +844,6 @@ class ReportDesignerComponent extends Component {
 
           <StyledTwoColumnLayout>
             <ContentColumn className="column">
-              <h2>
-                <FormattedMessage
-                  id="reportDesigner.preview"
-                  defaultMessage="Preview"
-                />
-              </h2>
               { empty ?
                 <div id="empty-report">
                   <FormattedMessage
@@ -883,7 +854,6 @@ class ReportDesignerComponent extends Component {
                 <div id="preview">
                   { options.use_introduction ?
                     <div className="text-preview">
-                      {mediaPreview}
                       <ParsedText text={this.previewIntroduction()} />
                     </div> : null }
                   { options.use_visual_card ?
@@ -944,7 +914,7 @@ class ReportDesignerComponent extends Component {
                       label={
                         <FormattedMessage
                           id="reportDesigner.introduction"
-                          defaultMessage="Introduction"
+                          defaultMessage="Introduction message"
                         />
                       }
                     />
@@ -963,10 +933,9 @@ class ReportDesignerComponent extends Component {
                     <div style={{ lineHeight: '1.5em', marginTop: units(1) }}>
                       <FormattedMessage
                         id="reportDesigner.introductionSub"
-                        defaultMessage="Use {query_date} and {query_message} placeholders to display the date and content of the original query. Use {status} to communicate the status of the article."
+                        defaultMessage="Use {query_date} placeholder to display the date of the original query. Use {status} to communicate the status of the article."
                         values={{
                           query_date: '{{query_date}}',
-                          query_message: '{{query_message}}',
                           status: '{{status}}',
                         }}
                       />
@@ -997,7 +966,7 @@ class ReportDesignerComponent extends Component {
                       label={
                         <FormattedMessage
                           id="reportDesigner.visualCard"
-                          defaultMessage="Visual card"
+                          defaultMessage="Report image"
                         />
                       }
                     />
@@ -1125,7 +1094,7 @@ class ReportDesignerComponent extends Component {
                       label={
                         <FormattedMessage
                           id="reportDesigner.textMessage"
-                          defaultMessage="Text message"
+                          defaultMessage="Report text"
                         />
                       }
                     />

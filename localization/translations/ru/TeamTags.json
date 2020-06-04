@@ -6,17 +6,12 @@
   "teamTags.fail": "В процессе редактирования тэга произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}.",
   "teamTags.editTag": "Редактировать тэг",
   "teamTags.deleteTag": "Удалить тэг",
-  "teamTags.moveTag": "Move to default tags",
   "teamTags.itemsCount": "{count, plural, =0 {Нет материалов} one {1 материал} other {Материалов: #}}",
   "teamTags.counter": "{total, plural, =0 {Нет тэгов} one {1 тэг (скрыто фильтрами: {hidden})} other {Тэгов: # (скрыто фильтрами: {hidden})}}",
   "teamTags.counterNoHidden": "{total, plural, =0 {Нет тэгов} one {1 тэг} other {Тэгов: #}}",
-  "teamTags.tags": "Тэги",
   "teamTags.tooltip": "Фильтр и сортировка",
-  "teamTags.teamwideTags": "Default tags",
-  "teamTags.noTeamwideTags": "No default tags.",
+  "teamTags.noTags": "No tags",
   "teamTags.new": "Новый тэг",
   "teamTags.addTag": "Добавить тэг",
-  "teamTags.customTags": "Дополнительные тэги",
-  "teamTags.noCustomTags": "Нет дополнительных тэгов.",
   "teamTags.confirmDeleteTitle": "Вы уверены, что хотите удалить этот тэг?"
 }
