@@ -7,37 +7,54 @@ import qs from 'qs';
 const environment = Store;
 
 const createComment =
-  (text, fragment, annotated_id, parentID, callback) => commitMutation(environment, {
-    mutation: graphql`
-      mutation MediaTimelineCreateCommentMutation($input: CreateCommentInput!) {
-        createComment(input: $input) {
-          comment {
-            dbid
+  (text, fragment, annotated_id, parentID, callback) => {
+    console.log({
+      text, fragment, annotated_id, parentID, callback,
+    });
+    return commitMutation(environment, {
+      mutation: graphql`
+        mutation MediaTimelineCreateCommentMutation($input: CreateCommentInput!) {
+          createComment(input: $input) {
+            commentEdge {
+              __typename
+              node {
+                id
+                text
+                dbid
+                annotator {
+                  id
+                  name
+                  profile_image
+                }
+                text
+                parsed_fragment
+              }
+            }
           }
         }
-      }
-    `,
-    variables: {
-      input: {
-        annotated_id, text, fragment, clientMutationId: `m${Date.now()}`, annotated_type: 'ProjectMedia',
+      `,
+      variables: {
+        input: {
+          annotated_id, text, fragment, clientMutationId: `m${Date.now()}`, annotated_type: 'ProjectMedia',
+        },
       },
-    },
-    configs: [
-      {
-        type: 'RANGE_ADD',
-        parentName: 'project_media',
-        parentID,
-        edgeName: 'commentEdge',
-        connectionName: 'comments',
-        rangeBehaviors: () => ('append'),
-        connectionInfo: [{
-          key: 'ProjectMedia_comments',
-          rangeBehavior: 'append',
-        }],
-      },
-    ],
-    onCompleted: (data, errors) => callback && callback(data, errors),
-  });
+      configs: [
+        {
+          type: 'RANGE_ADD',
+          parentName: 'project_media',
+          parentID,
+          edgeName: 'commentEdge',
+          connectionName: 'comments',
+          rangeBehaviors: () => ('append'),
+          connectionInfo: [{
+            key: 'ProjectMedia_comments',
+            rangeBehavior: 'append',
+          }],
+        },
+      ],
+      onCompleted: (data, errors) => callback && callback(data, errors),
+    });
+  };
 
 const createTag = (tag, fragment, annotated_id, parentID, callback) => commitMutation(environment, {
   mutation: graphql`
@@ -155,7 +172,7 @@ const destroyTag = (id, annotated_id) => commitMutation(environment, {
 const entityCreate = (type, payload, mediaId, parentId, callback) => {
   switch (type) {
   case 'tag':
-    createTag(payload[`project_${type}`].name, payload.fragment, mediaId, parentId, callback);
+    createTag(payload[`project_${type}`].name, payload.fragment, `${mediaId}`, parentId, callback);
     break;
   default:
     console.error(`${type} not handled`);
@@ -233,9 +250,8 @@ const playlistLaunch = (type, data) => {
   }
 };
 
-// createComment = (text, fragment, annotated_id, parentID, callback)
-const commentThreadCreate = (time, text, mediaId, callback) => {
-  createComment(text, `t=${time}`, `${mediaId}`, null, callback);
+const commentThreadCreate = (time, text, mediaId, parentID, callback) => {
+  createComment(text, `t=${time}`, `${mediaId}`, parentID, callback);
 };
 
 class MediaTimeline extends Component {
@@ -325,7 +341,7 @@ class MediaTimeline extends Component {
         onCommentDelete={(a, b, c, d, e) => console.log(a, b, c, d, e)}
         onCommentEdit={(a, b, c, d, e) => console.log(a, b, c, d, e)}
         onCommentThreadCreate={
-          (t, text, callback) => commentThreadCreate(t, text, dbid, callback)
+          (t, text, callback) => commentThreadCreate(t, text, dbid, mediaId, callback)
         }
         onCommentThreadDelete={(a, b, c, d, e) => console.log(a, b, c, d, e)}
         onEntityCreate={
