@@ -104,12 +104,12 @@ class MediaDetail extends Component {
             isRtl={isRtl}
             {...{
               onPlayerReady,
-              onVideoAnnoToggle, 
-              playing, 
-              scrubTo, 
+              onVideoAnnoToggle,
+              playing,
+              scrubTo,
               seekTo,
-              setPlayerRef, 
-              setPlayerState, 
+              setPlayerRef,
+              setPlayerState,
               showVideoAnno,
             }}
           /> }

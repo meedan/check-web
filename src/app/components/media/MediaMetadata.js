@@ -68,7 +68,7 @@ class MediaMetadata extends Component {
     const fromDirection = isRtl ? 'right' : 'left';
     const claimReview = data.schema && data.schema.ClaimReview ? data.schema.ClaimReview[0] : null;
     // check if the media item is either a Youtube link or uploaded video:
-    const allowsAnnotation = media.media.type === "Link" && media.media.metadata.provider === 'youtube' || media.media.type === "UploadedVideo";
+    const allowsAnnotation = media.media.type === 'Link' && media.media.metadata.provider === 'youtube' || media.media.type === 'UploadedVideo';
 
     return (
       <StyledMetadata
@@ -79,33 +79,34 @@ class MediaMetadata extends Component {
         { (media.picture || (media.media && media.media.file_path)) ?
           <Row style={{ display: 'flex', alignItems: 'center', marginBottom: units(2) }}>
 
-          {allowsAnnotation ? 
-            <Button 
-              color="primary" 
-              disabled={this.props.showVideoAnno}
-              onClick={this.props.onVideoAnnoToggle} 
-              variant="contained" 
-            >Video annotation</Button> 
-            : (media.picture ?
-              <div className="media-detail__reverse-image-search">
-                <small>
-                  <FormattedMessage
-                    id="mediaMetadata.reverseImageSearch"
-                    defaultMessage="Reverse image search"
-                  />
-                </small>
-                <br />
-                <Button
-                  style={{
-                    border: '1px solid #000',
-                    minWidth: 115,
-                    marginRight: units(2),
-                  }}
-                  onClick={this.reverseImageSearchGoogle.bind(this)}
-                >
-                  Google
-                </Button>
-              </div> : null)}
+            {allowsAnnotation ?
+              <Button
+                color="primary"
+                disabled={this.props.showVideoAnno}
+                onClick={this.props.onVideoAnnoToggle}
+                variant="contained"
+              >Video annotation
+              </Button>
+              : (media.picture ?
+                <div className="media-detail__reverse-image-search">
+                  <small>
+                    <FormattedMessage
+                      id="mediaMetadata.reverseImageSearch"
+                      defaultMessage="Reverse image search"
+                    />
+                  </small>
+                  <br />
+                  <Button
+                    style={{
+                      border: '1px solid #000',
+                      minWidth: 115,
+                      marginRight: units(2),
+                    }}
+                    onClick={this.reverseImageSearchGoogle.bind(this)}
+                  >
+                    Google
+                  </Button>
+                </div> : null)}
             { (media.media && media.media.file_path) ?
               <div
                 className="media-detail__download"

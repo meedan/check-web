@@ -69,7 +69,7 @@ class MediaExpandedComponent extends Component {
     context.setContextStore({ team, project });
   }
 
-  getPlayerRef = (node) => { 
+  getPlayerRef = (node) => {
     this.props.setPlayerRef(node);
   }
 

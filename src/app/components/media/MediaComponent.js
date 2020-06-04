@@ -37,8 +37,8 @@ const styles = theme => ({
     minHeight: 'auto',
     paddingLeft: theme.spacing(1),
     paddingRight: theme.spacing(1),
-  }
-})
+  },
+});
 
 const StyledDrawerToolbar = withStyles(styles)(Toolbar);
 
@@ -129,12 +129,12 @@ class MediaComponent extends Component {
     window.removeEventListener('resize', this.onWindowResize);
     this.unsubscribe();
   }
-  
+
   onWindowResize = () => {
     this.setPlayerRect();
   }
 
-  setPlayerRect = () => { 
+  setPlayerRect = () => {
     // update player rect which used to anchor video anno drawer
     if (this.state.playerRef) this.setState({ playerRect: this.state.playerRef.getBoundingClientRect() });
   }
@@ -208,13 +208,13 @@ class MediaComponent extends Component {
     media.embed_path = media.media.embed_path;
 
     const {
-      duration, 
+      duration,
       playerRect,
-      playing, 
+      playing,
       progress,
-      scrubTo, 
-      seekTo, 
-      showVideoAnno, 
+      scrubTo,
+      seekTo,
+      showVideoAnno,
       time,
     } = this.state;
 
@@ -239,7 +239,9 @@ class MediaComponent extends Component {
                 onVideoAnnoToggle={() => this.setState({ showVideoAnno: true })}
                 setPlayerRef={node => this.setState({ playerRef: node })}
                 setPlayerState={payload => this.setState(payload)}
-                {...{ playing, seekTo, scrubTo, showVideoAnno }}
+                {...{
+                  playing, seekTo, scrubTo, showVideoAnno,
+                }}
               />
               {this.props.extras}
               <MediaRelated
@@ -317,11 +319,11 @@ class MediaComponent extends Component {
         </StyledBackgroundColor>
 
         {// render video annotation drawer only if we can anchor it to the bottom of the player:
-          playerRect ? <Drawer 
-            PaperProps={{ style: { top: (playerRect.bottom + 10) || 'auto' }}} 
-            anchor="bottom" 
-            elevation={3} 
-            open={showVideoAnno} 
+          playerRect ? <Drawer
+            PaperProps={{ style: { top: (playerRect.bottom + 10) || 'auto' } }}
+            anchor="bottom"
+            elevation={3}
+            open={showVideoAnno}
             variant="persistent"
           >
             <StyledDrawerToolbar>
@@ -336,7 +338,7 @@ class MediaComponent extends Component {
                 </Grid>
               </Grid>
             </StyledDrawerToolbar>
-            <div aria-labelledby={`TimelineTab`} role="tabpanel" hidden={this.state.videoAnnotationTab !== 'timeline'}>
+            <div aria-labelledby="TimelineTab" role="tabpanel" hidden={this.state.videoAnnotationTab !== 'timeline'}>
               <MediaTimeline
                 setPlayerState={payload => this.setState(payload)}
                 {...{
@@ -344,8 +346,8 @@ class MediaComponent extends Component {
                 }}
               />
             </div>
-          </Drawer> 
-        : null}
+          </Drawer>
+            : null}
       </PageTitle>
     );
   }
