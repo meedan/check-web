@@ -14,26 +14,20 @@ import MediaLog from './MediaLog';
 import MediaComments from './MediaComments';
 import MediaRequests from './MediaRequests';
 import MediaUtil from './MediaUtil';
-import { ContentColumn, mediaQuery } from '../../styles/js/shared';
+import { columnWidthMedium, columnWidthLarge, units } from '../../styles/js/shared';
 
-const StyledTwoColumnLayout = styled(ContentColumn)`
-  flex-direction: column;
-  ${mediaQuery.desktop`
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    max-width: 100%;
-    padding: 0;
-    flex-direction: row;
+const StyledTwoColumnLayout = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+`;
 
-    .media__media-column {
-      max-width: 100%;
-    }
-
-    .media__annotations-column {
-      max-width: 100%;
-    }
-  `}
+const Column = styled.div`
+  min-width: min(50%, ${columnWidthMedium});
+  max-width: ${columnWidthLarge};
+  padding: ${units(2)};
+  flex-grow: 1;
 `;
 
 class MediaComponent extends Component {
@@ -157,7 +151,7 @@ class MediaComponent extends Component {
           data-id={media.dbid}
         />
         <StyledTwoColumnLayout className="media">
-          <ContentColumn className="media__media-column">
+          <Column>
             <MediaDetail
               media={media}
               hideBorder
@@ -167,8 +161,8 @@ class MediaComponent extends Component {
             <MediaRelated
               media={media}
             />
-          </ContentColumn>
-          <ContentColumn className="media__annotations-column">
+          </Column>
+          <Column className="media__annotations-column">
             <Tabs
               indicatorColor="primary"
               textColor="primary"
@@ -234,7 +228,7 @@ class MediaComponent extends Component {
             { this.state.showTab === 'analysis' ? <MediaAnalysis media={media} /> : null }
             { this.state.showTab === 'notes' ? <MediaComments media={media} /> : null }
             { this.state.showTab === 'activity' ? <MediaLog media={media} /> : null }
-          </ContentColumn>
+          </Column>
         </StyledTwoColumnLayout>
       </React.Fragment>
     );
