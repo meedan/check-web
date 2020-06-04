@@ -398,9 +398,8 @@ module AppSpecHelpers
     @driver.navigate.to new_url
   end
 
-
   def new_driver(webdriver_url, browser_capabilities)
-    if @config.key?('proxy') and !webdriver_url.include? "browserstack"
+    if @config.key?('proxy')
       proxy = Selenium::WebDriver::Proxy.new(
         :http     => @config['proxy'],
         :ftp      => @config['proxy'],
