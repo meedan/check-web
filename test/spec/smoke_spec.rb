@@ -1225,11 +1225,11 @@ shared_examples 'smoke' do
     @driver.navigate.to @config['self_url'] + '/' + t.slug + '/settings'
     wait_for_selector('.team-settings__rules-tab').click
     wait_for_selector('#tableTitle')
-
+    
     # No rules
     expect(@driver.page_source.include?('0 rules')).to be(true)
     expect(@driver.page_source.include?('Rule 1')).to be(false)
-
+    
     # Create new rule and check that form is blank
     wait_for_selector('.rules__new-rule').click
     wait_for_selector('input')
@@ -1238,7 +1238,7 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('foo,bar')).to be(false)
     expect(@driver.page_source.include?('Move item to list')).to be(false)
     expect(@driver.page_source.include?('Select destination list')).to be(false)
-
+    
     # Select a condition and set a value for it
     wait_for_selector('.rules__rule-field div[role="button"]').click
     wait_for_selector('ul li').click
@@ -1249,7 +1249,7 @@ shared_examples 'smoke' do
     wait_for_selector('.rules__actions .rules__rule-field div[role="button"]').click
     wait_for_selector('ul li').click
     expect(@driver.page_source.include?('Select destination list')).to be(true)
-
+    
     # Set rule name
     wait_for_selector('input[type="text"]').click
     @driver.action.send_keys('Rule 1').perform
