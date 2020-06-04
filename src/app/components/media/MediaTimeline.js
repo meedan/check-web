@@ -22,20 +22,20 @@ const createComment =
         annotated_id, text, fragment, clientMutationId: `m${Date.now()}`, annotated_type: 'ProjectMedia',
       },
     },
-    // configs: [
-    //   {
-    //     type: 'RANGE_ADD',
-    //     parentName: 'project_media',
-    //     parentID,
-    //     edgeName: 'tagEdge',
-    //     connectionName: 'tags',
-    //     rangeBehaviors: () => ('prepend'),
-    //     connectionInfo: [{
-    //       key: 'ProjectMedia_tags',
-    //       rangeBehavior: 'prepend',
-    //     }],
-    //   },
-    // ],
+    configs: [
+      {
+        type: 'RANGE_ADD',
+        parentName: 'project_media',
+        parentID,
+        edgeName: 'commentEdge',
+        connectionName: 'comments',
+        rangeBehaviors: () => ('append'),
+        connectionInfo: [{
+          key: 'ProjectMedia_comments',
+          rangeBehavior: 'append',
+        }],
+      },
+    ],
     onCompleted: (data, errors) => callback && callback(data, errors),
   });
 
@@ -235,13 +235,17 @@ const playlistLaunch = (type, data) => {
 
 // createComment = (text, fragment, annotated_id, parentID, callback)
 const commentThreadCreate = (time, text, mediaId, callback) => {
-  createComment(text, `t=${time}`, mediaId, null, callback);
+  createComment(text, `t=${time}`, `${mediaId}`, null, callback);
 };
 
 class MediaTimeline extends Component {
   render() {
     const {
-      media: { id: mediaId, dbid, tags: { edges = [] } },
+      media: {
+        id: mediaId, dbid,
+        tags: { edges = [] },
+        comments,
+      },
       duration, time, setPlayerState,
       currentUser: { name: first_name, id: userId, profile_image: profile_img_url },
     } = this.props;
@@ -273,8 +277,28 @@ class MediaTimeline extends Component {
         entities[id].instances.push({ start_seconds, end_seconds, id: instance });
       });
 
+    const commentThreads = comments.edges.map(({
+      node: {
+        id, text, parsed_fragment,
+        annotator: {
+          id: annoId, name, profile_image,
+        },
+      },
+    }) => ({
+      id,
+      text,
+      start_seconds: parsed_fragment.t[0],
+      user: {
+        id: annoId,
+        first_name: name,
+        last_name: '',
+        profile_img_url: profile_image,
+      },
+      replies: [],
+    }));
+
     const data = {
-      commentThreads: [],
+      commentThreads,
       project: {
         projectclips: [],
         projectplaces: [],
