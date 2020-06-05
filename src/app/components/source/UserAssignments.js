@@ -61,7 +61,7 @@ class UserAssignmentsComponent extends Component {
     const { currentUser } = this.getContext().getContextStore();
     const { user } = this.props;
     user.teams.edges.forEach((team) => {
-      const tid = parseInt(team.node.dbid, 10);
+      const tid = team.node.dbid;
       if (tid === parseInt(currentUser.current_team_id, 10)) {
         teamId = tid;
       }

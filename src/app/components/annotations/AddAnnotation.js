@@ -76,7 +76,7 @@ class AddAnnotation extends Component {
         if (data.selectedText &&
           this.state.canBeAutoChanged &&
           (this.props.taskResponse || task.type !== 'free_text') &&
-          parseInt(data.task, 10) === parseInt(this.props.annotated.dbid, 10)) {
+          parseInt(data.task, 10) === this.props.annotated.dbid) {
           this.setState({ cmd: data.selectedText });
         }
       };

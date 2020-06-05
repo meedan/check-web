@@ -140,7 +140,7 @@ class TaskLogComponent extends Component {
     pusher.subscribe(cachedTask.project_media.pusher_channel).bind('media_updated', 'TaskLog', (data, run) => {
       const annotation = JSON.parse(data.message);
       if (annotation.annotation_type === 'task' &&
-        parseInt(annotation.id, 10) === parseInt(this.props.task.dbid, 10) &&
+        parseInt(annotation.id, 10) === this.props.task.dbid &&
         clientSessionId !== data.actor_session_id
       ) {
         if (run) {

@@ -27,7 +27,7 @@ class ShortTextRespondTask extends React.Component {
       const receiveMessage = (event) => {
         const data = JSON.parse(event.data);
         if (data.selectedText &&
-          parseInt(data.task, 10) === parseInt(this.props.task.dbid, 10) &&
+          parseInt(data.task, 10) === this.props.task.dbid &&
           this.state.canBeAutoChanged &&
           !this.props.response) {
           this.setState({ response: data.selectedText, taskAnswerDisabled: false }, () => {
