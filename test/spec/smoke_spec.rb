@@ -783,12 +783,17 @@ shared_examples 'smoke' do
     wait_for_selector("//span[contains(text(), 'Save')]", :xpath).click
     wait_for_selector("//span[contains(text(), 'Edit')]", :xpath)
     wait_for_selector('#report-designer__actions button + button').click
+    embed_url = wait_for_selector('#report-designer__share-field').property('value').to_s
     embed_url = wait_for_selector('#report-designer__share-field').value.to_s
     caps = Selenium::WebDriver::Remote::Capabilities.chrome('chromeOptions' => { 'args' => [ '--incognito' ]})
     driver = Selenium::WebDriver.for(:remote, url: @webdriver_url, desired_capabilities: caps)
-    driver.navigate.to embed_url
-    @wait.until { driver.find_element(:id, "container") }
-    expect(driver.page_source.include?('text message')).to be(true)
+    begin
+      driver.navigate.to embed_url
+      @wait.until { driver.find_element(:id, "container") }
+      expect(driver.page_source.include?('text message')).to be(true)
+    ensure
+      driver.quit
+    end
   end
 #Report section end
 
