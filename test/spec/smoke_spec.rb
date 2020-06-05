@@ -784,7 +784,6 @@ shared_examples 'smoke' do
     wait_for_selector("//span[contains(text(), 'Edit')]", :xpath)
     wait_for_selector('#report-designer__actions button + button').click
     embed_url = wait_for_selector('#report-designer__share-field').property('value').to_s
-    embed_url = wait_for_selector('#report-designer__share-field').value.to_s
     caps = Selenium::WebDriver::Remote::Capabilities.chrome('chromeOptions' => { 'args' => [ '--incognito' ]})
     driver = Selenium::WebDriver.for(:remote, url: @webdriver_url, desired_capabilities: caps)
     begin
@@ -1027,7 +1026,7 @@ shared_examples 'smoke' do
     #edit team member role
     change_the_member_role_to('li.role-journalist')
     el = wait_for_selector('input[name="role-select"]', :css, 29, 1)
-    expect(el.value).to eq 'journalist'
+    expect(el.property('value')).to eq 'journalist'
 
     # "should redirect to team page if user asking to join a team is already a member"
     page = Page.new(config: @config, driver: @driver)
@@ -1121,7 +1120,7 @@ shared_examples 'smoke' do
     #edit team member role
     change_the_member_role_to('li.role-journalist')
     el = wait_for_selector('input[name="role-select"]', :css, 29, 1)
-    expect(el.value).to eq 'journalist'
+    expect(el.property('value')).to eq 'journalist'
 
     #create one media
     wait_for_selector_list(".project-list__link")[0].click
@@ -1195,7 +1194,7 @@ shared_examples 'smoke' do
     #edit team member role
     change_the_member_role_to('li.role-contributor')
     el = wait_for_selector('input[name="role-select"]', :css, 29, 1)
-    expect(el.value).to eq 'contributor'
+    expect(el.property('value')).to eq 'contributor'
 
     api_logout
     @driver.quit
