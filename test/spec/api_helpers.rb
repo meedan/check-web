@@ -31,7 +31,9 @@ module ApiHelpers
 
   def api_register_and_login_with_email(params = {})
     user = api_create_and_confirm_user(params)
-    @driver.navigate.to "#{api_path}session?email=#{user.email}"
+    if not @driver.nil?  # TODO don't fiddle with the web browser in api_helpers
+      @driver.navigate.to "#{api_path}session?email=#{user.email}"
+    end
     user
   end
 
@@ -52,14 +54,12 @@ module ApiHelpers
     { project: project, user: user, team: team }
   end
 
-  def api_create_team_project_and_claim(quit = false, quote = 'Claim', project_id = 0)
+  def api_create_team_project_and_claim(quote = 'Claim', project_id = 0)
     data = api_create_team_and_project
     if project_id == 0
       project_id = data[:project].dbid
     end
-    claim = request_api 'claim', { quote: quote, email: data[:user].email, team_id: data[:team].dbid, project_id: project_id }
-    @driver.quit if quit
-    claim
+    request_api 'claim', { quote: quote, email: data[:user].email, team_id: data[:team].dbid, project_id: project_id }
   end
 
   # O
@@ -107,7 +107,7 @@ module ApiHelpers
   # listIndex is always 0, so this only simulates user behavior when there are
   # no other media in this project.
   def api_create_team_project_and_claim_and_redirect_to_media_page(quote = 'Claim', project_id = 0)
-    media = api_create_team_project_and_claim false, quote, project_id
+    media = api_create_team_project_and_claim(quote, project_id)
     @driver.navigate.to "#{media.full_url}?listIndex=0"
     sleep 2
     MediaPage.new(config: @config, driver: @driver)
@@ -122,7 +122,7 @@ module ApiHelpers
   end
 
   def api_create_claim_and_go_to_search_page
-    media = api_create_team_project_and_claim(false, 'My search result')
+    media = api_create_team_project_and_claim('My search result')
     @driver.navigate.to media.full_url
 
     sleep 10 # wait for Sidekiq

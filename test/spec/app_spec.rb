@@ -13,7 +13,7 @@ require_relative './media_spec.rb'
 CONFIG = YAML.load_file('config.yml')
 require_relative "#{CONFIG['app_name']}_spec.rb"
 
-shared_examples 'app' do |webdriver_url, browser_capabilities|
+shared_examples 'app' do |webdriver_url|
 
   # Helpers
   include AppSpecHelpers
@@ -31,7 +31,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     @team1_slug = 'team1'+Time.now.to_i.to_s
     @user_mail = 'sysops_' + Time.now.to_i.to_s + '@meedan.com'
     @webdriver_url = webdriver_url
-    @browser_capabilities = browser_capabilities
+    @driver = nil
 
     begin
       FileUtils.cp('./config.js', '../build/web/js/config.js')
@@ -39,12 +39,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       puts "Could not copy local ./config.js to ../build/web/js/"
     end
 
-    #EXTRACT USER:PWD FROM URL FOR CHROME
-    if ((browser_capabilities == :chrome) and (@config['self_url'].include? "@" and @config['self_url'].include? ":"))
-      @config['self_url'] = @config['self_url'][0..(@config['self_url'].index('//')+1)] + @config['self_url'][(@config['self_url'].index('@')+1)..-1]
-    end
-
-    @driver = new_driver(webdriver_url,browser_capabilities)
     api_create_team_project_and_claim(true)
   end
 
@@ -54,7 +48,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
   before :each do |example|
     $caller_name = example.metadata[:description_args]
-    @driver = new_driver(webdriver_url,browser_capabilities)
+    @driver = new_driver
   end
 
   after :each do |example|
@@ -63,6 +57,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       print " [Test \"#{example.description}\" failed! Check screenshot at #{link} and browser console output: #{console_logs}] "
     end
     @driver.quit
+    @driver = nil
   end
 
   # The tests themselves start here
@@ -134,19 +129,17 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should localize interface based on browser language", bin6: true do
-      caps = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { prefs: { 'intl.accept_languages' => 'fr' } })
-      driver = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: caps)
-      driver.navigate.to @config['self_url']
-      @wait.until { driver.find_element(:id, "register") }
-      expect(driver.find_element(:css, '.login__heading span').text == 'Connexion').to be(true)
-      driver.quit
+      driver_block(prefs: {'intl.accept_language' => 'fr'}) do |driver|
+        driver.navigate.to @config['self_url']
+        @wait.until { driver.find_element(:id, "register") }
+        expect(driver.find_element(:css, '.login__heading span').text == 'Connexion').to be(true)
+      end
 
-      caps = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { prefs: { 'intl.accept_languages' => 'pt' } })
-      driver = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: caps)
-      driver.navigate.to @config['self_url']
-      @wait.until { driver.find_element(:id, "register") }
-      expect(driver.find_element(:css, '.login__heading span').text == 'Entrar').to be(true)
-      driver.quit
+      driver_block(prefs: {'intl.accept_languages' => 'pt'}) do |driver|
+        driver.navigate.to @config['self_url']
+        @wait.until { driver.find_element(:id, "register") }
+        expect(driver.find_element(:css, '.login__heading span').text == 'entrar').to be(true)
+      end
     end
 
     it "should access user confirmed page", bin5: true do
@@ -272,7 +265,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.execute_script('window.close()')
       @driver.switch_to.window(current_window)
       wait_for_selector("#create-media__add-item")
-      wait_for_selector_list_size(".medias__item", 1, :css , 80)
+      wait_for_selector_list_size(".medias__item", 1, :css)
       @wait.until { (@driver.page_source.include?('Auto-Refresh')) }
       result = @driver.find_elements(:css, '.media__heading')
       expect(result.size == 1).to be(true)
@@ -459,7 +452,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Pre-populate dates to force the date picker to open at certain calendar months.
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B%20%22range%22%3A%20%7B%22created_at%22%3A%7B%22start_time%22%3A%222016-01-01%22%2C%22end_time%22%3A%222016-02-28%22%7D%7D%7D'
-      wait_for_selector_none(".medias__item", :css, 10)
+      wait_for_selector_none(".medias__item")
       expect(@driver.page_source.include?('My search result')).to be(false)
 
       wait_for_selector("#search__open-dialog-button").click
@@ -475,7 +468,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector("//span[contains(text(), 'OK')]", :xpath).click
       wait_for_selector_none("body>div[role=dialog]")  # wait for mui-picker background to fade away
       wait_for_selector("#search-query__submit-button:not(:disabled)").click
-      wait_for_selector_none(".medias__item",:css, 10)
+      wait_for_selector_none(".medias__item")
       expect(@driver.page_source.include?('My search result')).to be(false)
     end
 
@@ -653,7 +646,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector(".team-header__drawer-team-link").click
       wait_for_selector(".project-list__link-all")
       wait_for_selector('.project-list__link').click
-      wait_for_selector_none(".team-members__edit-button", :css, 10)
+      wait_for_selector_none(".team-members__edit-button")
 
       @driver.navigate.to(@config['self_url'] + '/check/me')
       button = wait_for_selector('#teams-tab')

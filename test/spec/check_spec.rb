@@ -19,14 +19,14 @@ shared_examples 'custom' do
     el = wait_for_selector("//div[contains(text(), 'False')]",:xpath)
     el.click
     wait_for_selector("#search-query__submit-button").click
-    wait_for_selector_none("#search-query__submit-button",:css,10)
-    wait_for_selector_none(".medias__item",:css,10 )
+    wait_for_selector_none("#search-query__submit-button")
+    wait_for_selector_none(".medias__item")
     expect(@driver.page_source.include?('to announce')).to be(false)
     wait_for_selector("#search__open-dialog-button").click
     el = wait_for_selector("//div[contains(text(), 'Unstarted')]",:xpath)
     el.click
     wait_for_selector("#search-query__submit-button").click
-    wait_for_selector_none("#search-query__submit-button",:css,10)
+    wait_for_selector_none("#search-query__submit-button")
     wait_for_selector(".medias__item")
     expect(@driver.page_source.include?('to announce')).to be(true)
   end

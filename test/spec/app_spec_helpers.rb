@@ -106,61 +106,49 @@ module AppSpecHelpers
   end
 
   def wait_for_selector(selector, type = :css, timeout = 20, index = 0)
-    wait_for_selector_list(selector, type, timeout)[index]
+    wait_for_selector_list_size(selector, index + 1, type, timeout)[index]
   end
 
   def wait_for_selector_list(selector, type = :css, timeout = 20, test = 'unknown')
-    elements = []
-    attempts = 0
-    wait = Selenium::WebDriver::Wait.new(:timeout => timeout)
-    start = Time.now.to_i
-    while elements.empty? && attempts < 2 do
-      attempts += 1
-      sleep 0.5
-      begin
-        wait.until { @driver.find_elements(type, selector).length > 0 }
-        elements = @driver.find_elements(type, selector)
-        elements.each do |e|
-          raise "element is not being displayed" unless  e.displayed?
-        end
-      rescue
-        # rescue from 'Selenium::WebDriver::Error::TimeOutError:' to give more information about the failure
-      end
-    end
-    finish = Time.now.to_i - start
-    raise "Could not find element with selector #{type.upcase} '#{selector}' for test '#{test}' after #{finish} seconds!" if elements.empty? 
-    elements
+    predicate = lambda { |elements| elements.size >= 1 }
+    message = lambda { |n_seconds| "Did not find any elements with #{type.upcase} '#{selector}' after #{n_seconds} seconds" }
+    wait_for_selector_list_matching_predicate(selector, predicate, message, type: type, timeout: timeout)
   end
 
-  def wait_for_selector_list_size(selector, size, type = :css, retries = 10, test = 'unknown')
-    elements = []
-    attempts = 0
-    start = Time.now.to_i
-    while elements.length < size && attempts < retries do
-      attempts += 1
-      elements = wait_for_selector_list(selector, type)
-    end
-    finish = Time.now.to_i - start
-    raise "Could not find #{size} list elements  with selector #{type.upcase} '#{selector}' for test '#{test}' after #{finish} seconds!" if elements.length < size
-    elements
+  def wait_for_selector_list_size(selector, size, type = :css, timeout = 20)
+    predicate = lambda { |elements| elements.size >= size }
+    message = lambda { |elements| "Found #{elements.size} elements with #{type.upcase} '#{selector}' and expected #{size}" }
+    wait_for_selector_list_matching_predicate(selector, predicate, message, type: type, timeout: timeout)
   end
 
-  def wait_for_selector_none(selector, type = :css, retries = 10, test = 'unknown')
-    attempts = 0
-    start = Time.now.to_i
+  def wait_for_selector_none(selector, type = :css)
+    predicate = lambda { |elements| elements.size == 0 }
+    message = lambda { |elements| "Found #{elements.size} elements with #{type.upcase} '#{selector}' and expected none" }
+    wait_for_selector_list_matching_predicate(selector, predicate, message, type: type)
+  end
+
+  def wait_for_size_change(size, selector, type = :css)
+    predicate = lambda { |elements| elements.size == 0 }
+    message = lambda { |elements| "Found #{elements.size} elements with #{type.upcase} '#{selector}' and expected any other number" }
+    elements = wait_for_selector_list_matching_predicate(selector, predicate, message, type: type)
+    elements.size
+  end
+
+  def wait_for_selector_list_matching_predicate(selector, predicate, build_message, type: :css, timeout: 20)
+    start = Time.now
+    wait = Selenium::WebDriver::Wait.new(timeout: timeout, interval: 0.5)
+    sleep 0.5  # TODO nix
+    elements = nil
     begin
-      attempts += 1
-      sleep 0.5
-      begin
-        element = wait_for_selector_list(selector, type)
-      rescue 
-        element = [] 
-        #rescue from Selenium::WebDriver::Error::NoSuchElementError: to give more information about the failure
-      end
-    end while element.size > 0 && attempts < retries
-    finish = Time.now.to_i - start
-    raise "Element with selector #{type.upcase} '#{selector}' did not disappear for test '#{test}' after #{finish} seconds!" if element.size > 0
-    element
+      wait.until {
+        elements = @driver.find_elements(type, selector)
+        predicate.call(elements)
+      }
+      elements
+    rescue Selenium::WebDriver::Error::TimeoutError
+      finish = (Time.now - start).to_i
+      raise "#{build_message.call(elements)} after #{finish}s"
+    end
   end
 
   def wait_for_text_change(txt, selector, type = :css, count = 10)
@@ -171,16 +159,6 @@ module AppSpecHelpers
       sleep 1
     end while (el.text == txt and c < count)
     el.text
-  end
-
-  def wait_for_size_change(s, selector, type = :css, count = 30, test = 'unknown')
-    c = 0
-    begin
-      c += 1
-      el = wait_for_selector_list(selector, type, 25, test)
-      sleep 3
-    end while (s == el.size and c < count)
-    el.size
   end
 
   def slack_auth
@@ -398,40 +376,41 @@ module AppSpecHelpers
     @driver.navigate.to new_url
   end
 
-  def new_driver(webdriver_url, browser_capabilities)
+  def new_driver(args: [], prefs: {})
+    chrome_options = Selenium::WebDriver::Chrome::Options.new
+    chrome_options.add_argument('--disable-dev-shm-usage')
+    chrome_options.add_argument('--disable-translate')
+    args.each { |arg| chrome_options.add_argument(arg) }
+    prefs.each { |k, v| chrome_options.add_preference(k, v) }
+    if (Dir.entries(".").include? "extension.crx")
+      chrome_options.add_encoded_extension(
+        Base64.strict_encode64(File.open('./extension.crx', 'rb').read)
+      )
+    end
+
     if @config.key?('proxy')
       proxy = Selenium::WebDriver::Proxy.new(
         :http     => @config['proxy'],
         :ftp      => @config['proxy'],
         :ssl      => @config['proxy']
       )
-      if (Dir.entries(".").include? "extension.crx")
-        caps = Selenium::WebDriver::Remote::Capabilities.chrome ({
-            'chromeOptions' => {
-              'extensions' => [
-                Base64.strict_encode64(File.open('./extension.crx', 'rb').read)
-              ]
-            }, :proxy => proxy
-          })
-      else
-        caps = Selenium::WebDriver::Remote::Capabilities.chrome(:proxy => proxy)
-      end
-      dr = Selenium::WebDriver.for(:chrome, :desired_capabilities => caps , :url => webdriver_url)
-    else
-      if ((Dir.entries(".").include? "extension.crx") and (browser_capabilities == :chrome))
-        caps = Selenium::WebDriver::Remote::Capabilities.chrome ({
-            'chromeOptions' => {
-              'extensions' => [
-                Base64.strict_encode64(File.open('./extension.crx', 'rb').read)
-              ]
-            }
-          })
-        dr = Selenium::WebDriver.for(:chrome, :desired_capabilities => caps , :url => webdriver_url)
-      else
-        dr = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
-      end
+      chrome_options.set_capability(:proxy, proxy)
     end
-    dr
+
+    capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+      "goog:chromeOptions" => chrome_options
+    )
+
+    Selenium::WebDriver.for(:remote, desired_capabilities: capabilities , url: @webdriver_url)
+  end
+
+  def driver_block(args: [], prefs: {}, &block)
+    driver = new_driver(args: args, prefs: prefs)
+    begin
+      block.call(driver)
+    ensure
+      driver.quit
+    end
   end
 
   def install_bot (team, bot_name)

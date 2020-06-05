@@ -77,7 +77,7 @@ shared_examples 'smoke' do
     api_create_team(team: team)
     api_logout
     @driver.quit
-    @driver = new_driver(@webdriver_url,@browser_capabilities)
+    @driver = new_driver
     @driver.navigate.to @config['self_url'] + "/"+team+"/join"
     wait_for_selector(".message")
     expect(@driver.page_source.include?("First you need to register. Once registered, you can request to join the workspace.")).to be(true)
@@ -784,16 +784,12 @@ shared_examples 'smoke' do
     wait_for_selector("//span[contains(text(), 'Edit')]", :xpath)
     wait_for_selector('#report-designer__actions button + button').click
     embed_url = wait_for_selector('#report-designer__share-field').property('value').to_s
-    embed_url = wait_for_selector('#report-designer__share-field').value.to_s
-    caps = Selenium::WebDriver::Remote::Capabilities.chrome('chromeOptions' => { 'args' => [ '--incognito' ]})
-    driver = Selenium::WebDriver.for(:remote, url: @webdriver_url, desired_capabilities: caps)
-    begin
-      driver.navigate.to embed_url
-      @wait.until { driver.find_element(:id, "container") }
-      expect(driver.page_source.include?('text message')).to be(true)
-    ensure
-      driver.quit
-    end
+    # replace @driver, to get the best screenshot on failure
+    @driver.quit
+    @driver = new_driver(args: ['--incognito'])
+    @driver.navigate.to embed_url
+    wait_for_selector('#container')
+    expect(@driver.page_source.include?('text message')).to be(true)
   end
 #Report section end
 
@@ -920,7 +916,7 @@ shared_examples 'smoke' do
     wait_for_selector('.media-bulk-actions__add-button').click
     wait_for_selector_none(".Select-placeholder")
     wait_for_selector('.project-list__link-container + .project-list__link-container .project-list__link').click # Go to the second project
-    wait_for_selector_list_size(".medias__item", 2, :css , 80)
+    wait_for_selector_list_size(".medias__item", 2)
     expect(@driver.page_source.include?('claim 1')).to be(true)
     expect(@driver.page_source.include?('claim 2')).to be(true)
     wait_for_selector("thead input[type='checkbox']:not(:checked)").click
@@ -928,7 +924,7 @@ shared_examples 'smoke' do
     wait_for_selector_none(".medias__item")
     expect(@driver.page_source.include?('Add a link or text')).to be(true)
     wait_for_selector(".project-list__item-trash").click #Go to the trash page
-    wait_for_selector_list_size(".medias__item", 2, :css , 90)
+    wait_for_selector_list_size(".medias__item", 2)
     expect(@driver.page_source.include?('claim 1')).to be(true)
     expect(@driver.page_source.include?('claim 2')).to be(true)
   end
@@ -948,7 +944,7 @@ shared_examples 'smoke' do
     wait_for_selector("#media-bulk-actions__actions").click
     wait_for_selector(".message")
     wait_for_selector(".project-list__item-all").click
-    wait_for_selector_list_size(".medias__item", 1, :css , 90)
+    wait_for_selector_list_size(".medias__item", 1, :css)
     expect(@driver.page_source.include?("Claim")).to be(true)
   end
 
@@ -1007,7 +1003,7 @@ shared_examples 'smoke' do
     api_logout
     @driver.quit
 
-    @driver = new_driver(@webdriver_url,@browser_capabilities)
+    @driver = new_driver
     page = Page.new(config: @config, driver: @driver)
     page.go(@config['api_path'] + '/test/session?email='+@user_mail)
 
@@ -1050,7 +1046,7 @@ shared_examples 'smoke' do
     api_logout
     @driver.quit
 
-    @driver = new_driver(@webdriver_url,@browser_capabilities)
+    @driver = new_driver
     page = Page.new(config: @config, driver: @driver)
     page.go(@config['api_path'] + '/test/session?email='+@user_mail)
     page = MePage.new(config: @config, driver: @driver).load
@@ -1070,14 +1066,12 @@ shared_examples 'smoke' do
     wait_for_selector('.team-members__member')
     wait_for_selector('.team-members__edit-button').click
 
-    l = wait_for_selector_list_size('team-members__delete-member', 2, :class)
-    old = l.length
-    expect(l.length > 1).to be(true)
+    l = wait_for_selector_list_size('.team-members__delete-member', 2)
     l.last.click
     wait_for_selector('#confirm-dialog__checkbox').click
     wait_for_selector('#confirm-dialog__confirm-action-button').click
     wait_for_selector_none('#confirm-dialog__checkbox')
-    new = wait_for_size_change(old, 'team-members__delete-member', :class)
+    new = wait_for_size_change(l.length, 'team-members__delete-member', :class)
     expect(new < old).to be(true)
   end
 
@@ -1103,7 +1097,7 @@ shared_examples 'smoke' do
     }
     api_logout
     @driver.quit
-    @driver = new_driver(@webdriver_url,@browser_capabilities)
+    @driver = new_driver
     page = Page.new(config: @config, driver: @driver)
     page.go(@config['api_path'] + '/test/session?email='+@user_mail)
     #As the group creator, go to the members page and approve the joining request.
@@ -1148,7 +1142,7 @@ shared_examples 'smoke' do
     api_logout
     @driver.quit
     #As the journalist, go to the members page and can't see the request to join the another user
-    @driver = new_driver(@webdriver_url,@browser_capabilities)
+    @driver = new_driver
     page = Page.new(config: @config, driver: @driver)
     page.go(@config['api_path'] + '/test/session?email=new'+@user_mail)
     page = MePage.new(config: @config, driver: @driver).load
@@ -1187,7 +1181,7 @@ shared_examples 'smoke' do
     @driver.quit
 
     #As the group creator, go to the members page and edit team member role to 'contribuitor'
-    @driver = new_driver(@webdriver_url,@browser_capabilities)
+    @driver = new_driver
     page = Page.new(config: @config, driver: @driver)
     page.go(@config['api_path'] + '/test/session?email='+@user_mail)
     page = MePage.new(config: @config, driver: @driver).load
@@ -1201,7 +1195,7 @@ shared_examples 'smoke' do
     @driver.quit
 
     #log in as the contributor
-    @driver = new_driver(@webdriver_url,@browser_capabilities)
+    @driver = new_driver
     page = Page.new(config: @config, driver: @driver)
     page.go(@config['api_path'] + '/test/session?email=new'+@user_mail)
     page = MePage.new(config: @config, driver: @driver).load
