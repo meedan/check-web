@@ -136,7 +136,9 @@ class MediaComponent extends Component {
 
   setPlayerRect = () => {
     // update player rect which used to anchor video anno drawer
-    if (this.state.playerRef) this.setState({ playerRect: this.state.playerRef.getBoundingClientRect() });
+    if (this.state.playerRef) {
+      this.setState({ playerRect: this.state.playerRef.getBoundingClientRect() });
+    }
   }
 
   setCurrentContext() {
@@ -319,34 +321,35 @@ class MediaComponent extends Component {
         </StyledBackgroundColor>
 
         {// render video annotation drawer only if we can anchor it to the bottom of the player:
-          playerRect ? <Drawer
-            PaperProps={{ style: { top: (playerRect.bottom + 10) || 'auto' } }}
-            anchor="bottom"
-            elevation={3}
-            open={showVideoAnno}
-            variant="persistent"
-          >
-            <StyledDrawerToolbar>
-              <Grid alignItems="center" container justify="space-between">
-                <Grid item>
-                  <Tabs value={this.state.videoAnnotationTab}>
-                    <Tab label="Timeline" disabled id="TimelineTab" ariaControls="" value="timeline" />
-                  </Tabs>
+          playerRect ?
+            <Drawer
+              PaperProps={{ style: { top: (playerRect.bottom + 10) || 'auto' } }}
+              anchor="bottom"
+              elevation={3}
+              open={showVideoAnno}
+              variant="persistent"
+            >
+              <StyledDrawerToolbar>
+                <Grid alignItems="center" container justify="space-between">
+                  <Grid item>
+                    <Tabs value={this.state.videoAnnotationTab}>
+                      <Tab label="Timeline" disabled id="TimelineTab" ariaControls="" value="timeline" />
+                    </Tabs>
+                  </Grid>
+                  <Grid item>
+                    <IconButton onClick={() => this.setState({ showVideoAnno: false })} size="small"><CloseIcon /></IconButton>
+                  </Grid>
                 </Grid>
-                <Grid item>
-                  <IconButton onClick={() => this.setState({ showVideoAnno: false })} size="small"><CloseIcon /></IconButton>
-                </Grid>
-              </Grid>
-            </StyledDrawerToolbar>
-            <div aria-labelledby="TimelineTab" role="tabpanel" hidden={this.state.videoAnnotationTab !== 'timeline'}>
-              <MediaTimeline
-                setPlayerState={payload => this.setState(payload)}
-                {...{
-                  media, playing, duration, time, progress, seekTo, scrubTo, currentUser,
-                }}
-              />
-            </div>
-          </Drawer>
+              </StyledDrawerToolbar>
+              <div aria-labelledby="TimelineTab" role="tabpanel" hidden={this.state.videoAnnotationTab !== 'timeline'}>
+                <MediaTimeline
+                  setPlayerState={payload => this.setState(payload)}
+                  {...{
+                    media, playing, duration, time, progress, seekTo, scrubTo, currentUser,
+                  }}
+                />
+              </div>
+            </Drawer>
             : null}
       </PageTitle>
     );
