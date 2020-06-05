@@ -128,7 +128,11 @@ class MediaExpandedComponent extends Component {
       if (isImage) {
         return <ImageMediaCard imagePath={media.embed_path} />;
       } else if (isVideo) {
-        return <VideoMediaCard videoPath={media.media.file_path} posterPath={posterUrl} />;
+        return (
+          <div ref={this.getPlayerRef}>
+            <VideoMediaCard videoPath={media.media.file_path} posterPath={posterUrl} />
+          </div>
+        );
       } else if (isQuote) {
         return (
           <QuoteMediaCard
