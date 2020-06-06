@@ -312,8 +312,10 @@ const TaskLogContainer = Relay.createContainer(withPusher(TaskLogComponent), {
                   }
                 }
                 annotator {
-                  name,
-                  profile_image
+                  ... on User {
+                    name,
+                    profile_image
+                  }
                 }
                 version {
                   id

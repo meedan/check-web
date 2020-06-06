@@ -252,12 +252,11 @@ const MediaTasksContainer = Relay.createContainer(withPusher(MediaTasksComponent
                       }
                     }
                     annotator {
-                      name,
-                      profile_image,
-                      user {
+                      ... on User {
                         id,
                         dbid,
                         name,
+                        profile_image,
                         is_active
                         source {
                           id,
@@ -304,12 +303,11 @@ const MediaTasksContainer = Relay.createContainer(withPusher(MediaTasksComponent
                   }
                 }
                 annotator {
-                  name,
-                  profile_image,
-                  user {
+                  ... on User {
                     id,
                     dbid,
                     name,
+                    profile_image,
                     is_active
                     source {
                       id,

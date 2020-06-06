@@ -202,8 +202,10 @@ const MediaCommentsContainer = Relay.createContainer(withPusher(MediaCommentsCom
                   }
                 }
                 annotator {
-                  name,
-                  profile_image
+                  ... on User {
+                    name,
+                    profile_image
+                  }
                 }
                 version {
                   id
