@@ -3,12 +3,13 @@ import Relay from 'react-relay/classic';
 class UpdateLanguageMutation extends Relay.Mutation {
   getMutation() {
     return Relay.QL`mutation updateDynamicAnnotationLanguage {
-      updateDynamicAnnotationLanguage
+      updateDynamic
     }`;
   }
 
   getFatQuery() {
-    return Relay.QL`fragment on UpdateDynamicAnnotationLanguagePayload {
+    return Relay.QL`fragment on UpdateDynamicPayload {
+      dynamicEdge
       project_media {
         id
         language
@@ -31,6 +32,7 @@ class UpdateLanguageMutation extends Relay.Mutation {
     return {
       id: this.props.id,
       set_fields: JSON.stringify({ language: this.props.languageCode }),
+      annotation_type: 'language',
     };
   }
 

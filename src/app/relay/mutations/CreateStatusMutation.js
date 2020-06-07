@@ -10,9 +10,25 @@ class CreateStatusMutation extends Relay.Mutation {
   getFatQuery() {
     switch (this.props.parent_type) {
     case 'source':
-      return Relay.QL`fragment on CreateDynamicPayload { dynamicEdge, source { id } }`;
+      return Relay.QL`fragment on CreateDynamicPayload {
+        dynamicEdge
+        source {
+          id
+        }
+      }`;
     case 'project_media':
-      return Relay.QL`fragment on CreateDynamicPayload { dynamicEdge, project_media { log, id, last_status, log_count, last_status_obj { id } } }`;
+      return Relay.QL`fragment on CreateDynamicPayload {
+        dynamicEdge
+        project_media {
+          log
+          id
+          last_status
+          log_count
+          last_status_obj {
+            id
+          }
+        }
+      }`;
     default:
       return '';
     }

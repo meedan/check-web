@@ -3,13 +3,13 @@ import Relay from 'react-relay/classic';
 class UpdateReportDesignMutation extends Relay.Mutation {
   getMutation() {
     return Relay.QL`mutation {
-      updateDynamicAnnotationReportDesign
+      updateDynamic
     }`;
   }
 
   getFatQuery() {
-    return Relay.QL`fragment on UpdateDynamicAnnotationReportDesignPayload {
-      dynamicEdge,
+    return Relay.QL`fragment on UpdateDynamicPayload {
+      dynamicEdge
       project_media {
         dynamic_annotation_report_design: annotation(annotation_type: "report_design")
       }
@@ -28,7 +28,7 @@ class UpdateReportDesignMutation extends Relay.Mutation {
     return {
       id: this.props.id,
       set_fields: JSON.stringify(dynamic.fields),
-      annotation_type: dynamic.annotation_type,
+      annotation_type: 'report_design',
       annotated_id: `${dynamic.annotated_id}`,
       annotated_type: dynamic.annotated_type,
       action: dynamic.action,
