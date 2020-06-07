@@ -11,8 +11,7 @@ class UpdateReportDesignMutation extends Relay.Mutation {
     return Relay.QL`fragment on UpdateDynamicAnnotationReportDesignPayload {
       dynamicEdge,
       project_media {
-        annotations(first: 1, annotation_type: "report_design")
-        dynamic_annotation_report_design
+        dynamic_annotation_report_design: annotation(annotation_type: "report_design")
       }
     }`;
   }

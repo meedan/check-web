@@ -12,7 +12,7 @@ class CreateAnalysisMutation extends Relay.Mutation {
       dynamicEdge,
       project_media {
         id
-        dynamic_annotation_analysis {
+        dynamic_annotation_analysis: annotation(annotation_type: "analysis") {
           id
           dbid
           content

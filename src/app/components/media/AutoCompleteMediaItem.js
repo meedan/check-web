@@ -95,7 +95,7 @@ class AutoCompleteMediaItem extends React.Component {
                     domain
                     metadata
                     overridden
-                    dynamic_annotation_report_design {
+                    dynamic_annotation_report_design: annotation(annotation_type: "report_design") {
                       id
                       data
                     }

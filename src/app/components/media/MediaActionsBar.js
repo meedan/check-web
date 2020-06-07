@@ -754,7 +754,7 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
         url
         quote
         archived
-        dynamic_annotation_report_design {
+        dynamic_annotation_report_design: annotation(annotation_type: "report_design") {
           id
           data
         }

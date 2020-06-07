@@ -1291,7 +1291,7 @@ const ReportDesignerContainer = Relay.createContainer(ReportDesignerComponent, {
           locked
           content
         }
-        dynamic_annotation_report_design {
+        dynamic_annotation_report_design: annotation(annotation_type: "report_design") {
           id
           dbid
           data

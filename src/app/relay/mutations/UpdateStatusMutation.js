@@ -11,24 +11,24 @@ class UpdateStatusMutation extends Relay.Mutation {
     switch (this.props.parent_type) {
     case 'source':
       return Relay.QL`fragment on UpdateDynamicPayload {
-        dynamicEdge,
+        dynamicEdge
         source {
           id
         }
       }`;
     case 'project_media':
       return Relay.QL`fragment on UpdateDynamicPayload {
-        dynamicEdge,
+        dynamicEdge
         project_media {
-          dbid,
-          targets_by_users,
-          log,
-          id,
-          last_status,
-          last_status_obj,
-          log_count,
-          project_id,
-          dynamic_annotation_report_design,
+          dbid
+          targets_by_users
+          log
+          id
+          last_status
+          last_status_obj
+          log_count
+          project_id
+          dynamic_annotation_report_design: annotation(annotation_type: "report_design")
         }
       }`;
     default:

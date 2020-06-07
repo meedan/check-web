@@ -161,7 +161,7 @@ const MediaAnalysisContainer = Relay.createContainer(withSetFlashMessage(MediaAn
         dbid
         archived
         permissions
-        dynamic_annotation_analysis {
+        dynamic_annotation_analysis: annotation(annotation_type: "analysis") {
           id
           dbid
           content
