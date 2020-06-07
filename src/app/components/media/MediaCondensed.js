@@ -310,7 +310,7 @@ class MediaCondensedComponent extends Component {
                   </span> : null
                 }
                 <span style={{ margin: '0 8px' }}> - </span>
-                <TimeBefore date={MediaUtil.createdAt({ published: media.last_seen })} />
+                <TimeBefore date={MediaUtil.createdAt({ created_at: media.last_seen })} />
               </Link>
             </p>
           }

@@ -211,11 +211,11 @@ const MediaUtil = {
     return intl.formatMessage(messages.notesCount, { notesCount: media.log_count });
   },
 
-  createdAt(media) {
+  createdAt(object) {
     // check media
     let date = null;
     try {
-      date = new Date(parseInt(media.published, 10) * 1000);
+      date = new Date(parseInt(object.created_at, 10) * 1000);
       if (Number.isNaN(date.valueOf())) {
         date = null;
       }

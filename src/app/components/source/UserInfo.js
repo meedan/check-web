@@ -76,7 +76,7 @@ const UserInfo = (props) => {
             defaultMessage="Joined {date} &bull; {teamsCount, plural, one {1 workspace} other {# workspaces}}"
             values={{
               date: props.intl.formatDate(
-                MediaUtil.createdAt({ published: props.user.source.created_at }),
+                MediaUtil.createdAt(props.user.source),
                 { year: 'numeric', month: 'short', day: '2-digit' },
               ),
               teamsCount: props.user.team_users.edges.length || 0,

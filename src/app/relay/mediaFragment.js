@@ -8,7 +8,6 @@ const mediaFragment = Relay.QL`
     quote,
     title,
     type,
-    published,
     created_at,
     updated_at,
     last_seen,

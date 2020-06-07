@@ -258,7 +258,7 @@ const TaskLogContainer = Relay.createContainer(withPusher(TaskLogComponent), {
                       id,
                       dbid,
                       quote,
-                      published,
+                      created_at,
                       url,
                       metadata,
                       project_id,

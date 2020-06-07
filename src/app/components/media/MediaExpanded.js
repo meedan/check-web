@@ -163,14 +163,14 @@ class MediaExpandedComponent extends Component {
             <span style={{ margin: `0 ${units(1)}` }}> - </span>
             <span>
               <FormattedMessage id="mediaExpanded.firstSeen" defaultMessage="First seen: " />
-              <TimeBefore date={MediaUtil.createdAt({ published: media.created_at })} />
+              <TimeBefore date={MediaUtil.createdAt(media)} />
             </span>
             { smoochBotInstalled ?
               <span>
                 <span style={{ margin: `0 ${units(1)}` }}> - </span>
                 <span>
                   <FormattedMessage id="mediaExpanded.lastSeen" defaultMessage="Last seen: " />
-                  <TimeBefore date={MediaUtil.createdAt({ published: media.last_seen })} />
+                  <TimeBefore date={MediaUtil.createdAt({ created_at: media.last_seen })} />
                 </span>
                 <span style={{ margin: `0 ${units(1)}` }}> - </span>
                 <span>

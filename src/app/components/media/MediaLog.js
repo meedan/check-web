@@ -176,7 +176,7 @@ const MediaLogContainer = Relay.createContainer(withPusher(MediaLogComponent), {
                       id,
                       dbid,
                       quote,
-                      published,
+                      created_at,
                       url,
                       metadata,
                       project_id,

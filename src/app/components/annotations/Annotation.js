@@ -411,7 +411,7 @@ class Annotation extends Component {
         : null;
     }
 
-    const updatedAt = MediaUtil.createdAt({ published: activity.created_at });
+    const updatedAt = MediaUtil.createdAt(activity);
     const timestamp = updatedAt
       ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span>
       : null;
