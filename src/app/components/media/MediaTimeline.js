@@ -6,6 +6,32 @@ import qs from 'qs';
 
 const environment = Store;
 
+const updateComment = (id, text) => commitMutation(environment, {
+  mutation: graphql`
+    mutation MediaTimelineUpdateCommentMutation($input: UpdateCommentInput!) {
+      updateComment(input: $input) {
+        comment {
+          id
+          dbid
+          text
+        }
+      }
+    }
+  `,
+  variables: {
+    input: { id, text, clientMutationId: `m${Date.now()}` },
+  },
+  optimisticResponse: {
+    updateComment: {
+      comment: {
+        id,
+        text,
+      },
+    },
+  },
+  // onCompleted: (data, errors) => callback && callback(data, errors),
+});
+
 const destroyComment = (id, annotated_id, callback) => commitMutation(environment, {
   mutation: graphql`
     mutation MediaTimelineDestroyCommentMutation($input: DestroyCommentInput!) {
@@ -282,6 +308,15 @@ const commentThreadDelete = (id, annotated_id, callback) => {
   destroyComment(id, annotated_id, callback);
 };
 
+const commentCreate = (id, annotated_id, callback) => {
+  console.log({ id, annotated_id, callback });
+  // createComment(text, `t=${time}`, `${mediaId}`, parentID, callback);
+};
+
+const commentEdit = (threadId, commentId, text) => {
+  updateComment(commentId, text);
+};
+
 class MediaTimeline extends Component {
   render() {
     const {
@@ -365,9 +400,9 @@ class MediaTimeline extends Component {
         data={data}
         duration={duration}
         onBeforeCommentThreadCreate={(a, b, c, d, e) => console.log(a, b, c, d, e)}
-        onCommentCreate={(a, b, c, d, e) => console.log(a, b, c, d, e)}
+        onCommentCreate={(id, callback) => commentCreate(id, callback)}
         onCommentDelete={(a, b, c, d, e) => console.log(a, b, c, d, e)}
-        onCommentEdit={(a, b, c, d, e) => console.log(a, b, c, d, e)}
+        onCommentEdit={(threadId, commentId, text) => commentEdit(threadId, commentId, text)}
         onCommentThreadCreate={
           (t, text, callback) => commentThreadCreate(t, text, dbid, mediaId, callback)
         }
