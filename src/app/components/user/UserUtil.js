@@ -26,9 +26,15 @@ const messages = defineMessages({
   },
 });
 
-const LocalizedRole = ({ role }) => role ? <FormattedMessage {...messages[role]} /> : null;
+const LocalizedRole = ({ role, children }) => role ?
+  <FormattedMessage {...messages[role]}>{children}</FormattedMessage>
+  : null;
+LocalizedRole.defaultProps = {
+  children: null,
+};
 LocalizedRole.propTypes = {
   role: PropTypes.oneOf(Object.keys(messages)).isRequired,
+  children: PropTypes.func, // or null
 };
 
 const userRole = (user, team) => {
@@ -46,9 +52,6 @@ const UserUtil = {
     const teams = safelyParseJSON(currentUser.teams);
     return teams[teamSlug] && teams[teamSlug].role;
   },
-
-  userRole,
-  localizedRole: (role, intl) => role ? `${intl.formatMessage(messages[role])}` : '',
 };
 
 export default UserUtil;
