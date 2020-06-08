@@ -55,6 +55,7 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
                     node {
                       ... on Comment {
                         id
+                        created_at
                         text
                         annotator {
                           id

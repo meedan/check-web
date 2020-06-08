@@ -130,6 +130,22 @@ const createCommentThread =
                 }
                 text
                 parsed_fragment
+                comments: annotations(first: 10000, annotation_type: "comment") {
+                  edges {
+                    node {
+                      ... on Comment {
+                        id
+                        created_at
+                        text
+                        annotator {
+                          id
+                          name
+                          profile_image
+                        }
+                      }
+                    }
+                  }
+                }
               }
             }
           }
@@ -374,6 +390,10 @@ const commentEdit = (threadId, commentId, text, callback) => {
   updateComment(commentId, text, callback);
 };
 
+const commentDelete = (threadId, commentId) => {
+  destroyComment(commentId, threadId);
+};
+
 class MediaTimeline extends Component {
   render() {
     const {
@@ -415,14 +435,14 @@ class MediaTimeline extends Component {
 
     const commentThreads = comments.edges.map(({
       node: {
-        id, dbid, text, parsed_fragment,
+        id: thread_id, dbid, text, parsed_fragment,
         annotator: {
           id: annoId, name, profile_image,
         },
         comments,
       },
     }) => ({
-      id,
+      id: thread_id,
       dbid,
       text,
       start_seconds: parsed_fragment.t[0],
@@ -434,14 +454,15 @@ class MediaTimeline extends Component {
       },
       replies: comments && comments.edges ? comments.edges.map(({
         node: {
-          id, dbid, text,
+          id, created_at, text,
           annotator: {
             id: annoId, name, profile_image,
           },
         },
       }) => ({
         id,
-        dbid,
+        thread_id,
+        created_at,
         text,
         start_seconds: 0,
         user: {
@@ -450,7 +471,7 @@ class MediaTimeline extends Component {
           last_name: '',
           profile_img_url: profile_image,
         },
-      })) : [],
+      })).sort((a, b) => a.created_at - b.created_at) : [],
     }));
 
     const data = {
@@ -480,7 +501,7 @@ class MediaTimeline extends Component {
         onCommentCreate={(threadId, text, callback) =>
           commentCreate(commentThreads.find(({ id }) =>
             id === threadId).dbid, text, threadId, callback)}
-        onCommentDelete={(a, b, c, d, e) => console.log(a, b, c, d, e)}
+        onCommentDelete={(threadId, commentId) => commentDelete(threadId, commentId)}
         onCommentEdit={(threadId, commentId, text, callback) =>
           commentEdit(threadId, commentId, text, callback)}
         onCommentThreadCreate={
