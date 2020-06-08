@@ -321,7 +321,7 @@ const entityDelete = (type, entityId, tags, mediaId, callback) => {
 const instanceCreate = (type, id, name, payload, mediaId, parentId, callback) => {
   switch (type) {
   case 'tag':
-    createTag(name, payload.fragment, mediaId, parentId, callback);
+    createTag(name, payload.fragment, `${mediaId}`, parentId, callback);
     break;
   default:
     console.error(`${type} not handled`);
