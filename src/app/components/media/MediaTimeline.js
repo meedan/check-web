@@ -6,6 +6,29 @@ import qs from 'qs';
 
 const environment = Store;
 
+const destroyComment = (id, annotated_id, callback) => commitMutation(environment, {
+  mutation: graphql`
+    mutation MediaTimelineDestroyCommentMutation($input: DestroyCommentInput!) {
+      destroyComment(input: $input) {
+        deletedId
+      }
+    }
+  `,
+  variables: {
+    input: { id, clientMutationId: `m${Date.now()}` },
+  },
+  configs: [
+    {
+      type: 'NODE_DELETE',
+      parentName: 'project_media',
+      parentID: annotated_id,
+      connectionName: 'comments',
+      deletedIDFieldName: 'deletedId',
+    },
+  ],
+  onCompleted: (data, errors) => callback && callback(data, errors),
+});
+
 const createComment =
   (text, fragment, annotated_id, parentID, callback) => {
     console.log({
@@ -255,6 +278,10 @@ const commentThreadCreate = (time, text, mediaId, parentID, callback) => {
   createComment(text, `t=${time}`, `${mediaId}`, parentID, callback);
 };
 
+const commentThreadDelete = (id, annotated_id, callback) => {
+  destroyComment(id, annotated_id, callback);
+};
+
 class MediaTimeline extends Component {
   render() {
     const {
@@ -344,7 +371,7 @@ class MediaTimeline extends Component {
         onCommentThreadCreate={
           (t, text, callback) => commentThreadCreate(t, text, dbid, mediaId, callback)
         }
-        onCommentThreadDelete={(a, b, c, d, e) => console.log(a, b, c, d, e)}
+        onCommentThreadDelete={(id, callback) => commentThreadDelete(id, mediaId, callback)}
         onEntityCreate={
           (type, payload, callback) => entityCreate(type, payload, dbid, mediaId, callback)
         }
