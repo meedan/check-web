@@ -37,20 +37,37 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
           quote
           embed_path
         }
-        comments(first: 10) { 
-          edges { 
+        comments: annotations(first: 10000, annotation_type: "comment") {
+          edges {
             node {
-              id
-              dbid
-              annotator {
+              ... on Comment {
                 id
-                name
-                profile_image
+                dbid
+                text
+                parsed_fragment
+                annotator {
+                  id
+                  name
+                  profile_image
+                }
+                comments: annotations(first: 10000, annotation_type: "comment") {
+                  edges {
+                    node {
+                      ... on Comment {
+                        id
+                        text
+                        annotator {
+                          id
+                          name
+                          profile_image
+                        }
+                      }
+                    }
+                  }
+                }
               }
-              text
-              parsed_fragment 
             }
-          } 
+          }
         }
         tags(first: 10000) {
           edges {
@@ -64,6 +81,16 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
               tag_text_object {
                 id
                 text
+              }
+            }
+          }
+        }
+        geolocations: annotations(first: 10000, annotation_type: "geolocation") {
+          edges {
+          node {
+              ... on Dynamic {
+                id
+                content
               }
             }
           }

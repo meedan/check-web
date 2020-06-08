@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import React, { Component } from 'react';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
@@ -85,6 +86,57 @@ const createComment =
       `,
       variables: {
         input: {
+          annotated_id, text, fragment, clientMutationId: `m${Date.now()}`, annotated_type: 'Comment',
+        },
+      },
+      configs: [
+        {
+          type: 'RANGE_ADD',
+          parentName: 'Comment',
+          parentID,
+          edgeName: 'commentEdge',
+          connectionName: 'annotations',
+          rangeBehaviors: () => ('append'),
+          connectionInfo: [{
+            key: 'Comment_comments',
+            rangeBehavior: 'append',
+          }],
+        },
+      ],
+      onCompleted: (data, errors) => callback && callback(data, errors),
+    });
+  };
+
+const createCommentThread =
+  (text, fragment, annotated_id, parentID, callback) => {
+    console.log({
+      text, fragment, annotated_id, parentID, callback,
+    });
+    return commitMutation(environment, {
+      mutation: graphql`
+        mutation MediaTimelineCreateCommentThreadMutation($input: CreateCommentInput!) {
+          createComment(input: $input) {
+            commentEdge {
+              cursor
+              __typename
+              node {
+                id
+                text
+                dbid
+                annotator {
+                  id
+                  name
+                  profile_image
+                }
+                text
+                parsed_fragment
+              }
+            }
+          }
+        }
+      `,
+      variables: {
+        input: {
           annotated_id, text, fragment, clientMutationId: `m${Date.now()}`, annotated_type: 'ProjectMedia',
         },
       },
@@ -94,7 +146,7 @@ const createComment =
           parentName: 'project_media',
           parentID,
           edgeName: 'commentEdge',
-          connectionName: 'comments',
+          connectionName: 'annotations',
           rangeBehaviors: () => ('append'),
           connectionInfo: [{
             key: 'ProjectMedia_comments',
@@ -301,16 +353,18 @@ const playlistLaunch = (type, data) => {
 };
 
 const commentThreadCreate = (time, text, mediaId, parentID, callback) => {
-  createComment(text, `t=${time}`, `${mediaId}`, parentID, callback);
+  createCommentThread(text, `t=${time}`, `${mediaId}`, parentID, callback);
 };
 
 const commentThreadDelete = (id, annotated_id, callback) => {
   destroyComment(id, annotated_id, callback);
 };
 
-const commentCreate = (id, annotated_id, callback) => {
-  console.log({ id, annotated_id, callback });
-  // createComment(text, `t=${time}`, `${mediaId}`, parentID, callback);
+const commentCreate = (id, text, parentID, callback) => {
+  console.log({
+    id, text, parentID, callback,
+  });
+  createComment(text, null, `${id}`, parentID, callback);
 };
 
 const commentEdit = (threadId, commentId, text, callback) => {
@@ -361,13 +415,15 @@ class MediaTimeline extends Component {
 
     const commentThreads = comments.edges.map(({
       node: {
-        id, text, parsed_fragment,
+        id, dbid, text, parsed_fragment,
         annotator: {
           id: annoId, name, profile_image,
         },
+        comments,
       },
     }) => ({
       id,
+      dbid,
       text,
       start_seconds: parsed_fragment.t[0],
       user: {
@@ -376,7 +432,25 @@ class MediaTimeline extends Component {
         last_name: '',
         profile_img_url: profile_image,
       },
-      replies: [],
+      replies: comments && comments.edges ? comments.edges.map(({
+        node: {
+          id, dbid, text,
+          annotator: {
+            id: annoId, name, profile_image,
+          },
+        },
+      }) => ({
+        id,
+        dbid,
+        text,
+        start_seconds: 0,
+        user: {
+          id: annoId,
+          first_name: name,
+          last_name: '',
+          profile_img_url: profile_image,
+        },
+      })) : [],
     }));
 
     const data = {
@@ -403,7 +477,9 @@ class MediaTimeline extends Component {
         data={data}
         duration={duration}
         onBeforeCommentThreadCreate={(a, b, c, d, e) => console.log(a, b, c, d, e)}
-        onCommentCreate={(id, callback) => commentCreate(id, callback)}
+        onCommentCreate={(threadId, text, callback) =>
+          commentCreate(commentThreads.find(({ id }) =>
+            id === threadId).dbid, text, threadId, callback)}
         onCommentDelete={(a, b, c, d, e) => console.log(a, b, c, d, e)}
         onCommentEdit={(threadId, commentId, text, callback) =>
           commentEdit(threadId, commentId, text, callback)}
