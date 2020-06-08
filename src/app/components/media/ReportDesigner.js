@@ -492,8 +492,8 @@ class ReportDesignerComponent extends Component {
       this.setState({ pending: false, message });
     };
 
-    const onSuccess = (response) => {
-      const projectMedia = response.updateDynamicAnnotationReportDesign.project_media;
+    const onSuccess = (data) => {
+      const projectMedia = data.project_media;
       const nextProps = {
         ...this.props,
         media: {
@@ -539,7 +539,10 @@ class ReportDesignerComponent extends Component {
             annotated_id: this.props.media.dbid,
           },
         }),
-        { onFailure, onSuccess },
+        {
+          onFailure,
+          onSuccess: response => onSuccess(response.createDynamicAnnotationReportDesign),
+        },
       );
     } else {
       Relay.Store.commitUpdate(
@@ -555,7 +558,10 @@ class ReportDesignerComponent extends Component {
             annotated_id: this.props.media.dbid,
           },
         }),
-        { onFailure, onSuccess },
+        {
+          onFailure,
+          onSuccess: response => onSuccess(response.updateDynamicAnnotationReportDesign),
+        },
       );
     }
   }
