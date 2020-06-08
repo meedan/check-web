@@ -562,7 +562,7 @@ const TeamTagsContainer = Relay.createContainer(withPusher(injectIntl(TeamTagsCo
 
 const TeamTags = (props) => {
   const route = new TeamRoute({ teamSlug: props.team.slug });
-  const params = { propTeam: props.team, direction: props.direction };
+  const params = { propTeam: props.team };
   return (
     <Relay.RootContainer
       Component={TeamTagsContainer}

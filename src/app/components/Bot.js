@@ -9,7 +9,6 @@ import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import { Link, browserHistory } from 'react-router';
 import styled from 'styled-components';
-import rtlDetect from 'rtl-detect';
 import BotRoute from '../relay/BotRoute';
 import { units, ContentColumn, black32, black87 } from '../styles/js/shared';
 import { LocalizedRole } from './user/UserUtil';
@@ -40,7 +39,7 @@ const StyledCardText = styled(CardContent)`
   img {
     height: 150px;
     border: 1px solid ${black32};
-    margin-${props => props.direction.to}: ${units(3)};
+    margin-${props => props.theme.dir === 'rtl' ? 'left' : 'right'}: ${units(3)};
   }
 
   h2 {
@@ -69,10 +68,12 @@ const StyledCardFooter = styled.div`
   }
 `;
 
-const StyledInstall = styled.div`
-  ${props => props.direction.to}: 0;
-  margin-${props => props.direction.from}: auto;
-  margin-${props => props.direction.to}: 0;
+const CardContainer = styled.div`
+  flex: 1 1 auto;
+`;
+
+const ButtonContainer = styled.div`
+  flex: 0 0 auto;
 `;
 
 class BotComponent extends Component {
@@ -118,14 +119,6 @@ class BotComponent extends Component {
 
   render() {
     const { bot } = this.props;
-
-    const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
-
-    const direction = {
-      from: isRtl ? 'right' : 'left',
-      to: isRtl ? 'left' : 'right',
-    };
-
     const botDate = new Date(parseInt(bot.updated_at, 10) * 1000);
 
     return (
@@ -133,9 +126,9 @@ class BotComponent extends Component {
         <ContentColumn>
           <Message message={this.state.message} />
           <Card key={`bot-${bot.dbid}`}>
-            <StyledCardText direction={direction}>
+            <StyledCardText>
               <img src={bot.avatar} alt={bot.name} />
-              <div>
+              <CardContainer>
                 <CardHeader
                   style={{ padding: 0, paddingTop: units(2) }}
                   title={bot.name}
@@ -151,8 +144,8 @@ class BotComponent extends Component {
                   }
                 />
                 <p>{bot.description}</p>
-              </div>
-              <StyledInstall direction={direction}>
+              </CardContainer>
+              <ButtonContainer>
                 <Button
                   id="bot__install-button"
                   variant="contained"
@@ -165,7 +158,7 @@ class BotComponent extends Component {
                     <FormattedMessage id="bot.install" defaultMessage="Install" />
                   }
                 </Button>
-              </StyledInstall>
+              </ButtonContainer>
             </StyledCardText>
             <CardContent>
               <p><b><FormattedMessage id="bot.permissions" defaultMessage="Permissions" /></b></p>

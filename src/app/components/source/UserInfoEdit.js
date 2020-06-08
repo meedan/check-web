@@ -9,7 +9,6 @@ import TextField from '@material-ui/core/TextField';
 import MdCancel from 'react-icons/lib/md/cancel';
 import capitalize from 'lodash.capitalize';
 import LinkifyIt from 'linkify-it';
-import rtlDetect from 'rtl-detect';
 import SourcePicture from './SourcePicture';
 import Message from '../Message';
 import UploadImage from '../UploadImage';
@@ -470,9 +469,7 @@ class UserInfoEdit extends React.Component {
       <ContentColumn noPadding>
         <Message message={this.state.message} />
         <StyledTwoColumns>
-          <StyledSmallColumn
-            isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
-          >
+          <StyledSmallColumn>
             <SourcePicture
               size="large"
               object={source}
@@ -550,9 +547,7 @@ class UserInfoEdit extends React.Component {
               {this.renderAccountsEdit()}
             </form>
 
-            <StyledButtonGroup
-              isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
-            >
+            <StyledButtonGroup>
               <div>
                 <Button
                   color="primary"

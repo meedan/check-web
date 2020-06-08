@@ -2,7 +2,6 @@ import styled, { css, keyframes } from 'styled-components';
 import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
 import Checkbox from '@material-ui/core/Checkbox';
-import { createMuiTheme } from '@material-ui/core/styles';
 import { stripUnit, rgba } from 'polished';
 
 // Styles for overriding material UI
@@ -225,7 +224,7 @@ export const StyledPasswordChange = styled.div`
 
   .user-password-change__password-input-field {
     margin-top: ${units(1)};
-    text-align: ${props => (props.isRtl ? 'right' : 'left')};
+    text-align: start;
     width: ${units(50)} !important;
   }
 
@@ -249,12 +248,11 @@ export const StyledPasswordChange = styled.div`
   }
 
   .user-password-change__actions {
-    text-align: ${props => (props.isRtl ? 'left' : 'right')};
+    text-align: end;
   }
-
 `;
 
-export const muiTheme = createMuiTheme({
+export const MuiTheme = {
   palette: {
     type: 'light',
     primary: {
@@ -289,7 +287,7 @@ export const muiTheme = createMuiTheme({
       },
     },
   },
-});
+};
 
 export const mediaQuery = {
   handheld: (...args) => css`@media (max-width: ${breakpointMobile}) { ${css(...args)} }`,

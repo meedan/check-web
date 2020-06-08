@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { injectIntl, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
-import rtlDetect from 'rtl-detect';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 import DownloadIcon from '@material-ui/icons/MoveToInbox';
@@ -13,41 +11,12 @@ import TagMenu from '../tag/TagMenu';
 import {
   Row,
   black54,
-  black87,
-  title1,
   units,
   opaqueBlack05,
 } from '../../styles/js/shared';
 
 const StyledMetadata = styled.div`
-  margin: ${units(1)} 0 0;
-  padding-${props => props.fromDirection}: ${units(1)};
-
-  .media-detail__dialog-header {
-    color: ${black87};
-    font: ${title1};
-    height: ${units(4)};
-    margin-bottom: ${units(0.5)};
-    margin-top: ${units(0.5)};
-    margin-${props => props.fromDirection}: auto;
-  }
-
-  .media-detail__dialog-media-path {
-    height: ${units(2)};
-    margin-bottom: ${units(4)};
-    text-align: ${props => props.fromDirection};
-  }
-
-  .media-detail__dialog-radio-group {
-    margin-top: ${units(4)};
-    margin-${props => props.fromDirection}: ${units(4)};
-  }
-
-  .media-detail__buttons {
-    display: flex;
-    alignItems: center;
-    margin-${props => props.fromDirection}: auto;
-  }
+  margin: ${units(1)} ${units(1)} 0;
 
   svg {
     color: ${black54};
@@ -62,17 +31,12 @@ class MediaMetadata extends Component {
   }
 
   render() {
-    const { media, intl: { locale } } = this.props;
+    const { media } = this.props;
     const data = media.metadata;
-    const isRtl = rtlDetect.isRtlLang(locale);
-    const fromDirection = isRtl ? 'right' : 'left';
     const claimReview = data.schema && data.schema.ClaimReview ? data.schema.ClaimReview[0] : null;
 
     return (
-      <StyledMetadata
-        fromDirection={fromDirection}
-        className="media-detail__check-metadata"
-      >
+      <StyledMetadata className="media-detail__check-metadata">
         { claimReview ? <Row><ClaimReview data={claimReview} /></Row> : null }
         { (media.picture || (media.media && media.media.file_path)) ?
           <Row style={{ display: 'flex', alignItems: 'center', marginBottom: units(2) }}>
@@ -139,8 +103,4 @@ class MediaMetadata extends Component {
   }
 }
 
-MediaMetadata.propTypes = {
-  intl: PropTypes.object.isRequired,
-};
-
-export default injectIntl(MediaMetadata);
+export default MediaMetadata;

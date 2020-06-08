@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
-import { defineMessages, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import Favicon from 'react-favicon';
-import { MuiThemeProvider } from '@material-ui/core/styles';
-import rtlDetect from 'rtl-detect';
 import isEqual from 'lodash.isequal';
 import styled, { createGlobalStyle } from 'styled-components';
 import Intercom from 'react-intercom';
@@ -16,14 +14,13 @@ import LoginContainer from './LoginContainer';
 import BrowserSupport from './BrowserSupport';
 import CheckContext from '../CheckContext';
 import DrawerNavigation from './DrawerNavigation';
-import { bemClass } from '../helpers';
 import { FlashMessageContext, FlashMessage, withSetFlashMessage } from './FlashMessage';
 import UserTos from './UserTos';
 import { withClientSessionId } from '../ClientSessionId';
-import { muiTheme, gutterMedium, units } from '../styles/js/shared';
+import { gutterMedium } from '../styles/js/shared';
 import { layout, typography, localeAr, removeYellowAutocomplete } from '../styles/js/global';
 import { stringHelper } from '../customHelpers';
-import { mapGlobalMessage } from './MappedMessage';
+import { FormattedGlobalMessage } from './MappedMessage';
 import MeRoute from '../relay/MeRoute';
 
 // Global styles
@@ -34,9 +31,12 @@ const GlobalStyle = createGlobalStyle([`
   ${removeYellowAutocomplete}
 `]);
 
-const StyledWrapper = styled.div`
-  position: relative;
-  margin-${props => (props.isRtl ? 'right' : 'left')}: ${units(32)};
+const Wrapper = styled.div`
+  display: flex;
+`;
+
+const Main = styled.main`
+  flex: 1 1 auto;
 `;
 
 const StyledContent = styled.div`
@@ -44,74 +44,80 @@ const StyledContent = styled.div`
   background-color: white;
 `;
 
-const messages = defineMessages({
-  needRegister: {
-    id: 'home.needRegister',
-    defaultMessage:
-      'First you need to register. Once registered, you can request to join the workspace.',
-  },
-  somethingWrong: {
-    id: 'home.somethingWrong',
-    defaultMessage: 'Sorry, an error occurred. Please refresh your browser and contact {supportEmail} if the condition persists.',
-  },
-  successInvitation: {
-    id: 'home.successInvitation',
-    defaultMessage: 'Welcome to {appName}. Please login with the password that you received in the welcome email.',
-  },
-  invalidInvitation: {
-    id: 'home.invalidInvitation',
-    defaultMessage: 'Sorry, an error occurred while processing your invitation. Please contact {supportEmail}.',
-  },
-  invalidTeamInvitation: {
-    id: 'home.invalidTeamInvitation',
-    defaultMessage: 'Sorry, the workspace to which you were invited was not found. Please contact {supportEmail} if you think this is an error.',
-  },
-  invalidNoInvitation: {
-    id: 'home.invalidNoInvitation',
-    defaultMessage: 'Sorry, the invitation you received was not found. Please contact {supportEmail} if you think this is an error.',
-  },
-  invalidExpiredInvitation: {
-    id: 'home.invalidExpiredInvitation',
-    defaultMessage: 'Sorry, the invitation you received was expired. Please contact {supportEmail} if you think this is an error.',
-  },
-});
-
-function buildLoginContainerMessage(flashMessage, error, childRoute, queryString, intl) {
+function buildLoginContainerMessage(flashMessage, error, childRoute, queryString) {
   let message = null;
   if (error) {
     message = flashMessage;
 
     // TODO Don't parse error messages because they may be l10n'd - use error codes instead.
     if (!message && /^[^/]+\/join$/.test(childRoute.path)) {
-      message = intl.formatMessage(messages.needRegister);
+      message = (
+        <FormattedMessage
+          id="home.needRegister"
+          defaultMessage="First you need to register. Once registered, you can request to join the workspace."
+        />
+      );
     }
 
     // TODO Don't parse error messages because they may be l10n'd - use error codes instead.
     if (error && message && message.match(/\{ \[Error: Request has been terminated/)) {
-      message = intl.formatMessage(messages.somethingWrong, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+      message = (
+        <FormattedMessage
+          id="home.somethingWrong"
+          defaultMessage="Sorry, an error occurred. Please refresh your browser and contact {supportEmail} if the condition persists."
+          values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
+        />
+      );
     }
   }
 
   if ('invitation_response' in queryString) {
     if (queryString.invitation_response === 'success') {
       if (queryString.msg === 'yes') {
-        message = intl.formatMessage(
-          messages.successInvitation,
-          { appName: mapGlobalMessage(intl, 'appNameHuman') },
+        message = (
+          <FormattedGlobalMessage messageKey="appNameHuman">
+            {appName => (
+              <FormattedMessage
+                id="home.successInvitation"
+                defaultMessage="Welcome to {appName}. Please login with the password that you received in the welcome email."
+                values={{ appName }}
+              />
+            )}
+          </FormattedGlobalMessage>
         );
       }
     } else {
-      const invitationErrors = {
-        invalid_team: messages.invalidTeamInvitation,
-        no_invitation: messages.invalidNoInvitation,
-        invitation_expired: messages.invalidExpiredInvitation,
-      };
-      message = intl.formatMessage(
-        Object.keys(invitationErrors).includes(queryString.invitation_response) ?
-          invitationErrors[queryString.invitation_response] :
-          messages.invalidInvitation,
-        { supportEmail: stringHelper('SUPPORT_EMAIL') },
+      const values = { supportEmail: stringHelper('SUPPORT_EMAIL') };
+      switch (queryString.invitation_response) {
+      case 'invalidTeamInvitation': return (
+        <FormattedMessage
+          id="home.invalidTeamInvitation"
+          defaultMessage="Sorry, the workspace to which you were invited was not found. Please contact {supportEmail} if you think this is an error."
+          values={values}
+        />
       );
+      case 'invalidNoInvitation': return (
+        <FormattedMessage
+          id="home.invalidNoInvitation"
+          defaultMessage="Sorry, the invitation you received was not found. Please contact {supportEmail} if you think this is an error."
+          values={values}
+        />
+      );
+      case 'invalidExpiredInvitation': return (
+        <FormattedMessage
+          id="home.invalidExpiredInvitation"
+          defaultMessage="Sorry, the invitation you received was expired. Please contact {supportEmail} if you think this is an error."
+          values={values}
+        />
+      );
+      default: return (
+        <FormattedMessage
+          id="home.invalidInvitation"
+          defaultMessage="Sorry, an error occurred while processing your invitation. Please contact {supportEmail}."
+          values={values}
+        />
+      );
+      }
     }
   }
   return message;
@@ -196,9 +202,7 @@ class HomeComponent extends Component {
       return null;
     }
 
-    const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
-
-    const { children, location, intl } = this.props;
+    const { children, location } = this.props;
     const routeSlug = HomeComponent.routeSlug(children);
 
     const routeIsPublic = children && children.props.route.public;
@@ -214,7 +218,6 @@ class HomeComponent extends Component {
                   this.state.error,
                   children.props.route,
                   location.query,
-                  intl,
                 )}
               />
             )}
@@ -250,53 +253,45 @@ class HomeComponent extends Component {
       <React.Fragment>
         <GlobalStyle />
         <MuiPickersUtilsProvider utils={MomentUtils}>
-          <MuiThemeProvider theme={muiTheme}>
-            <React.Fragment>
-              {config.intercomAppId && user.dbid ?
-                <Intercom
-                  appID={config.intercomAppId}
-                  user_id={user.dbid}
-                  email={user.email}
-                  name={user.name}
-                  alignment={isRtl ? 'left' : 'right'}
-                /> : null
-              }
-              <Favicon url={`/images/logo/${config.appName}.ico`} animated={false} />
-              <BrowserSupport />
-              <UserTos user={user} />
-              { showDrawer ?
-                <DrawerNavigation
-                  variant="persistent"
-                  docked
-                  loggedIn={loggedIn}
-                  teamSlug={teamSlug}
-                  inTeamContext={inTeamContext}
-                  currentUserIsMember={currentUserIsMember}
-                  {...this.props}
-                /> : null }
-              <StyledWrapper
-                isRtl={isRtl}
-                className={bemClass('home', routeSlug, `--${routeSlug}`)}
-                style={showDrawer ? {} : { margin: 0 }}
+          {config.intercomAppId && user.dbid ?
+            <Intercom
+              appID={config.intercomAppId}
+              user_id={user.dbid}
+              email={user.email}
+              name={user.name}
+            /> : null
+          }
+          <Favicon url={`/images/logo/${config.appName}.ico`} animated={false} />
+          <BrowserSupport />
+          <UserTos user={user} />
+          <Wrapper>
+            {showDrawer ? (
+              <DrawerNavigation
+                loggedIn={loggedIn}
+                teamSlug={teamSlug}
+                inTeamContext={inTeamContext}
+                currentUserIsMember={currentUserIsMember}
+                {...this.props}
+              />
+            ) : null}
+            <Main>
+              <Header
+                drawerToggle={this.handleDrawerToggle.bind(this)}
+                loggedIn={loggedIn}
+                pageType={routeSlug}
+                inTeamContext={inTeamContext}
+                currentUserIsMember={currentUserIsMember}
+                {...this.props}
+              />
+              <FlashMessage />
+              <StyledContent
+                inMediaPage={routeSlug === 'media'}
+                className="content-wrapper"
               >
-                <Header
-                  drawerToggle={this.handleDrawerToggle.bind(this)}
-                  loggedIn={loggedIn}
-                  pageType={routeSlug}
-                  inTeamContext={inTeamContext}
-                  currentUserIsMember={currentUserIsMember}
-                  {...this.props}
-                />
-                <FlashMessage />
-                <StyledContent
-                  inMediaPage={routeSlug === 'media'}
-                  className="content-wrapper"
-                >
-                  {children}
-                </StyledContent>
-              </StyledWrapper>
-            </React.Fragment>
-          </MuiThemeProvider>
+                {children}
+              </StyledContent>
+            </Main>
+          </Wrapper>
         </MuiPickersUtilsProvider>
       </React.Fragment>
     );
@@ -308,14 +303,13 @@ HomeComponent.propTypes = {
   // eslint-disable-next-line react/no-typos
   clientSessionId: PropTypes.string.isRequired,
   setFlashMessage: PropTypes.func.isRequired,
-  intl: intlShape.isRequired,
 };
 
 HomeComponent.contextTypes = {
   store: PropTypes.object,
 };
 
-const ConnectedHomeComponent = injectIntl(withSetFlashMessage(withClientSessionId(HomeComponent)));
+const ConnectedHomeComponent = withSetFlashMessage(withClientSessionId(HomeComponent));
 
 const HomeContainer = Relay.createContainer(ConnectedHomeComponent, {
   fragments: {

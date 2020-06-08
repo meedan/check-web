@@ -111,7 +111,7 @@ class MediaExpandedComponent extends Component {
     const authorUsername = MediaUtil.authorUsername(media, data);
     const isPender = media.media.url && data.provider !== 'page';
     const randomNumber = Math.floor(Math.random() * 1000000);
-    const { isRtl, mediaUrl, mediaQuery } = this.props;
+    const { mediaUrl, mediaQuery } = this.props;
     const posterUrl = media.media.thumbnail_path;
     const hasCustomDescription = MediaUtil.hasCustomDescription(media, data);
 
@@ -134,7 +134,6 @@ class MediaExpandedComponent extends Component {
             mediaUrl={mediaUrl}
             mediaQuery={mediaQuery}
             data={data}
-            isRtl={isRtl}
             authorName={authorName}
             authorUserName={authorUsername}
           />

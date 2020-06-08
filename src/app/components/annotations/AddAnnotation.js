@@ -6,7 +6,6 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import MdInsertPhoto from 'react-icons/lib/md/insert-photo';
 import styled from 'styled-components';
-import rtlDetect from 'rtl-detect';
 import CreateCommentMutation from '../../relay/mutations/CreateCommentMutation';
 import CreateTagMutation from '../../relay/mutations/CreateTagMutation';
 import CreateStatusMutation from '../../relay/mutations/CreateStatusMutation';
@@ -321,7 +320,6 @@ class AddAnnotation extends Component {
       align-items: center;
       display: flex;
       justify-content: flex-end;
-      margin-${props => props.isRtl ? 'right' : 'left'}: auto;
       .add-annotation__insert-photo {
         svg {
           path { color: ${black38}; }
@@ -329,7 +327,6 @@ class AddAnnotation extends Component {
             color: ${black87};
             cusor: pointer;
           }
-          margin-${props => props.isRtl ? 'left' : 'right'}: 0;
         }
       }
     `;
@@ -384,10 +381,7 @@ class AddAnnotation extends Component {
             }
             return null;
           })()}
-          <AddAnnotationButtonGroup
-            className="add-annotation__buttons"
-            isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
-          >
+          <AddAnnotationButtonGroup className="add-annotation__buttons">
             <div className="add-annotation__insert-photo">
               <MdInsertPhoto
                 id="add-annotation__switcher"

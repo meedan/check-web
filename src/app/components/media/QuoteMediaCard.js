@@ -7,7 +7,7 @@ import { breakWordStyles } from '../../styles/js/shared';
 
 const StyledQuoteText = styled.div`
   ${breakWordStyles}
-  ${props => props.dir === 'rtl' ? 'direction: rtl; text-align: right;' : 'direction: ltr; text-align: left;'};
+  text-align: start;
 `;
 
 /* eslint jsx-a11y/click-events-have-key-events: 0 */

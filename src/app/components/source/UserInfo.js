@@ -1,7 +1,6 @@
 import React from 'react';
 import { FormattedHTMLMessage, injectIntl } from 'react-intl';
 import { browserHistory } from 'react-router';
-import rtlDetect from 'rtl-detect';
 import IconEdit from '@material-ui/icons/Edit';
 import AccountChips from './AccountChips';
 import Can from '../Can';
@@ -28,7 +27,7 @@ const UserInfo = (props) => {
 
   return (
     <StyledTwoColumns>
-      <StyledSmallColumn isRtl={rtlDetect.isRtlLang(props.intl.locale)}>
+      <StyledSmallColumn>
         <SourcePicture
           size="large"
           object={props.user.source}

@@ -69,7 +69,6 @@ class TeamReportComponent extends React.Component {
   }
 
   render() {
-    const { direction } = this.props;
     const {
       get_disclaimer,
       get_introduction,
@@ -81,7 +80,7 @@ class TeamReportComponent extends React.Component {
         <ContentColumn>
           <Message message={this.state.message} />
           <Can permissions={permissions} permission="update Team">
-            <p style={{ marginTop: units(2), textAlign: direction.to }}>
+            <p style={{ marginTop: units(2), textAlign: 'end' }}>
               <Button onClick={this.handleSubmit.bind(this)}>
                 <FormattedMessage id="teamReport.save" defaultMessage="Save" />
               </Button>
@@ -181,7 +180,7 @@ const TeamReportContainer = Relay.createContainer(TeamReportComponent, {
 
 const TeamReport = (props) => {
   const route = new TeamRoute({ teamSlug: props.team.slug });
-  const params = { propTeam: props.team, direction: props.direction };
+  const params = { propTeam: props.team };
   return (
     <Relay.RootContainer
       Component={TeamReportContainer}

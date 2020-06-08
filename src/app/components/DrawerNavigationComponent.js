@@ -8,11 +8,10 @@ import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import { withStyles } from '@material-ui/core/styles';
-import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import IconSettings from '@material-ui/icons/Settings';
 import Delete from '@material-ui/icons/Delete';
-import rtlDetect from 'rtl-detect';
 import { withPusher, pusherShape } from '../pusher';
 import DrawerProjects from './drawer/Projects';
 import TeamAvatar from './team/TeamAvatar';
@@ -152,9 +151,6 @@ class DrawerNavigationComponent extends Component {
 
     const checkLogo = <img width={units(8)} alt="Team Logo" src={stringHelper('LOGO_URL')} />;
 
-    const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
-    const fromDirection = isRtl ? 'right' : 'left';
-
     const saveCurrentPage = () => {
       if (window.location.pathname !== '/') {
         window.storage.set('previousPage', window.location.pathname);
@@ -162,12 +158,7 @@ class DrawerNavigationComponent extends Component {
     };
 
     return (
-      <Drawer
-        open
-        variant="persistent"
-        anchor={fromDirection}
-        classes={classes}
-      >
+      <Drawer open variant="persistent" anchor="left" classes={classes}>
         <div>
           {inTeamContext ?
             <DrawerHeader
@@ -282,7 +273,6 @@ class DrawerNavigationComponent extends Component {
 DrawerNavigationComponent.propTypes = {
   pusher: pusherShape.isRequired,
   clientSessionId: PropTypes.string.isRequired,
-  intl: intlShape.isRequired,
   classes: PropTypes.object.isRequired,
 };
 
@@ -292,10 +282,14 @@ DrawerNavigationComponent.contextTypes = {
 
 const drawerStyles = {
   paper: {
+    width: units(32),
     minWidth: units(32),
     maxWidth: units(32),
     overflow: 'hidden',
   },
+  root: {
+    width: units(32),
+  },
 };
 
-export default withStyles(drawerStyles)(withPusher(injectIntl(DrawerNavigationComponent)));
+export default withStyles(drawerStyles)(withPusher(DrawerNavigationComponent));

@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
 import styled from 'styled-components';
 import isEqual from 'lodash.isequal';
-import rtlDetect from 'rtl-detect';
 import CreateProjectMedia from '../media/CreateMedia';
 import Can from '../Can';
-import { black87, units, Row, FlexRow, Offset } from '../../styles/js/shared';
+import { black87, units, Row, FlexRow } from '../../styles/js/shared';
 
 const StyledToolbar = styled.div`
   background-color: white;
@@ -17,6 +16,11 @@ const StyledToolbar = styled.div`
     color: ${black87};
     margin: ${units(2)} ${units(2)} ${units(2)} 0;
   }
+`;
+
+const OffsetButton = styled.div`
+  flex: 1 1 auto;
+  text-align: end;
 `;
 
 class Toolbar extends React.Component {
@@ -35,8 +39,6 @@ class Toolbar extends React.Component {
       search,
     } = this.props;
 
-    const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
-
     let perms = { permissions: {}, permission: '' };
     if (project) {
       perms = { permissions: project.permissions, permission: 'create Media' };
@@ -51,13 +53,13 @@ class Toolbar extends React.Component {
             <span className="toolbar__title">{title}</span>
             {actions}
           </Row>
-          <Offset isRtl={isRtl}>
-            { page !== 'trash' ?
-              <Can {...perms}>
+          {page !== 'trash' ? (
+            <Can {...perms}>
+              <OffsetButton>
                 <CreateProjectMedia search={search} project={project} team={team} />
-              </Can> : null
-            }
-          </Offset>
+              </OffsetButton>
+            </Can>
+          ) : null}
         </FlexRow>
       </StyledToolbar>
     );

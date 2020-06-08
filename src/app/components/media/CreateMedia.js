@@ -92,7 +92,7 @@ class CreateProjectMedia extends Component {
 
   render() {
     return (
-      <div>
+      <React.Fragment>
         <Button id="create-media__add-item" onClick={this.handleOpenDialog} color="primary" variant="contained">
           <FormattedMessage id="createMedia.addItem" defaultMessage="Add Item" />
         </Button>
@@ -102,7 +102,7 @@ class CreateProjectMedia extends Component {
           onDismiss={this.handleCloseDialog}
           onSubmit={this.handleSubmit}
         />
-      </div>
+      </React.Fragment>
     );
   }
 }
