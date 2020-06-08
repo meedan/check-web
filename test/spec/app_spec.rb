@@ -741,27 +741,21 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Go to first team
       @driver.navigate.to @config['self_url'] + '/' + t1.slug + '/all-items'
-      wait_for_selector('.project__title')
-      expect(@driver.page_source.include?(t1.name)).to be(true)
-      expect(@driver.page_source.include?(t2.name)).to be(false)
+      wait_for_selector(".team-header__drawer-team-link[href=\"/#{t1.slug}/\"]")
 
       # Navigate to second team
       wait_for_selector('.header__user-menu').click
       wait_for_selector('a[href="/check/me"]').click
       wait_for_selector('#teams-tab').click
       wait_for_selector("#switch-teams__link-to-#{t2.slug}").click
-      wait_for_selector('.project__title')
-      expect(@driver.page_source.include?(t2.name)).to be(true)
-      expect(@driver.page_source.include?(t1.name)).to be(false)
+      wait_for_selector(".team-header__drawer-team-link[href=\"/#{t2.slug}/\"]")
 
       # Navigate back to first team
       wait_for_selector('.header__user-menu').click
       wait_for_selector('a[href="/check/me"]').click
       wait_for_selector('#teams-tab').click
       wait_for_selector("#switch-teams__link-to-#{t1.slug}").click
-      wait_for_selector('.project__title')
-      expect(@driver.page_source.include?(t1.name)).to be(true)
-      expect(@driver.page_source.include?(t2.name)).to be(false)
+      wait_for_selector(".team-header__drawer-team-link[href=\"/#{t1.slug}/\"]")
     end
 
     it "should go back to primary item", bin1: true do

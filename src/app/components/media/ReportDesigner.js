@@ -1295,8 +1295,10 @@ const ReportDesignerContainer = Relay.createContainer(ReportDesignerComponent, {
         first_smooch_request: annotations(first: 1, annotation_type: "smooch") {
           edges {
             node {
-              created_at
-              content
+              ... on Dynamic {
+                created_at
+                content
+              }
             }
           }
         }
