@@ -1,0 +1,42 @@
+[
+  {
+    "id": "smoochBot.labelGreeting",
+    "defaultMessage": "Greeting"
+  },
+  {
+    "id": "smoochBot.labelMainMenu",
+    "defaultMessage": "Main menu"
+  },
+  {
+    "id": "smoochBot.labelSecondaryMenu",
+    "defaultMessage": "Secondary menu"
+  },
+  {
+    "id": "smoochBot.labelQueryPrompt",
+    "defaultMessage": "Query prompt"
+  },
+  {
+    "id": "smoochBot.labelQueryReceived",
+    "defaultMessage": "Query received"
+  },
+  {
+    "id": "smoochBot.labelOptionNotAvailable",
+    "defaultMessage": "Option not available"
+  },
+  {
+    "id": "smoochBot.labelReportUpdated",
+    "defaultMessage": "Report updated"
+  },
+  {
+    "id": "smoochBot.labelInvalidFormat",
+    "defaultMessage": "Invalid format"
+  },
+  {
+    "id": "smoochBot.labelInactive",
+    "defaultMessage": "Notice of inactivity"
+  },
+  {
+    "id": "smoochBot.labelTos",
+    "defaultMessage": "Terms of service"
+  }
+]

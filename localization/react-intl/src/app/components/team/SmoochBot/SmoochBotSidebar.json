@@ -1,0 +1,42 @@
+[
+  {
+    "id": "smoochBotSidebar.greeting",
+    "defaultMessage": "Greeting"
+  },
+  {
+    "id": "smoochBotSidebar.mainMenu",
+    "defaultMessage": "Main menu"
+  },
+  {
+    "id": "smoochBotSidebar.secondaryMenu",
+    "defaultMessage": "Secondary menu"
+  },
+  {
+    "id": "smoochBotSidebar.queryPrompt",
+    "defaultMessage": "Query prompt"
+  },
+  {
+    "id": "smoochBotSidebar.messageConfirmed",
+    "defaultMessage": "Query received"
+  },
+  {
+    "id": "smoochBotSidebar.optionNotAvailable",
+    "defaultMessage": "Option not available"
+  },
+  {
+    "id": "smoochBotSidebar.resultChanged",
+    "defaultMessage": "Report updated"
+  },
+  {
+    "id": "smoochBotSidebar.unsupported",
+    "defaultMessage": "Invalid format"
+  },
+  {
+    "id": "smoochBotSidebar.inactive",
+    "defaultMessage": "Notice of inactivity"
+  },
+  {
+    "id": "smoochBotSidebar.tos",
+    "defaultMessage": "Terms of service"
+  }
+]
