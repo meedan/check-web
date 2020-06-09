@@ -19,7 +19,7 @@ import UserTos from './UserTos';
 import { withClientSessionId } from '../ClientSessionId';
 import { gutterMedium } from '../styles/js/shared';
 import { layout, typography, localeAr, removeYellowAutocomplete } from '../styles/js/global';
-import { stringHelper } from '../customHelpers';
+import { bemClass, stringHelper } from '../customHelpers';
 import { FormattedGlobalMessage } from './MappedMessage';
 import MeRoute from '../relay/MeRoute';
 
@@ -266,7 +266,7 @@ class HomeComponent extends Component {
           <Favicon url={`/images/logo/${config.appName}.ico`} animated={false} />
           <BrowserSupport />
           <UserTos user={user} />
-          <Wrapper>
+          <Wrapper className={bemClass('home', routeSlug, `--${routeSlug}`)}>
             {showDrawer ? (
               <DrawerNavigation
                 loggedIn={loggedIn}
