@@ -89,7 +89,7 @@ Contact us at *[email or other contact]* for further inquiries.`,
   },
   smooch_message_smooch_bot_ask_for_tos: {
     id: 'smoochBot.placeholderTos',
-    defaultMessage: 'This service is provided under the following Terms of Services: %{tos}',
+    defaultMessage: 'This service is provided under the following terms: %{tos}',
   },
 });
 

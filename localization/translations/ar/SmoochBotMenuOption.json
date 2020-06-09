@@ -1,0 +1,11 @@
+{
+  "smoochBotMenuOption.mainState": "Main menu",
+  "smoochBotMenuOption.secondaryState": "Secondary menu",
+  "smoochBotMenuOption.queryState": "Query prompt",
+  "smoochBotMenuOption.resource": "Report",
+  "smoochBotMenuOption.if": "If",
+  "smoochBotMenuOption.condition": "The following keyword is matched",
+  "smoochBotMenuOption.then": "Then",
+  "smoochBotMenuOption.action": "Respond with",
+  "smoochBotMenuOption.languageAction": "{languageName} (main menu)"
+}

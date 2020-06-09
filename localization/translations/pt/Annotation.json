@@ -35,7 +35,7 @@
   "annotation.rejectSuggestion": "Recusar",
   "annotation.taskResolve": "Tarefa completada por {author}: {task}{response}",
   "annotation.archiverSuccess": "No caso deste link ficar indisponível, você pode <a href=\"{link}\" target=\"_blank\" rel=\"noopener noreferrer\">acessar um backup em {name}</a>.",
-  "annotation.archiverError": "Desculpe, ocorreu o seguinte erro ao arquivar o item em {name}: \"{message}\". Por favor, atualize o item para tentar novamente e entre em contato com {supportEmail} se a condição persistir.",
+  "annotation.archiverError": "Desculpe, ocorreu este erro ao arquivar o item em {name}: \"{message}\". Por favor, atualize o item para tentar novamente e entre em contato com {supportEmail} se a condição persistir.",
   "annotation.archiverWait": "Esse item está sendo arquivado em {name}. O link do arquivo será exibido aqui quando estiver pronto.",
   "annotation.embedCodeCopied": "Um código de incorporação deste item foi gerado e copiado. O item pode agora estar visível publicamente.",
   "annotation.penderArchiveResponseError": "Desculpe, ocorreu um erro ao capturar a tela deste item. Por favor, atualize o item para tentar novamente e entre em contato com {supportEmail} se a condição persistir.",

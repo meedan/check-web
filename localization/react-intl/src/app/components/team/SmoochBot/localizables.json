@@ -117,6 +117,6 @@
   },
   {
     "id": "smoochBot.placeholderTos",
-    "defaultMessage": "This service is provided under the following Terms of Services: %{tos}"
+    "defaultMessage": "This service is provided under the following terms: %{tos}"
   }
 ]
