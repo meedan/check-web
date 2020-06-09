@@ -60,7 +60,12 @@ function buildLoginContainerMessage(flashMessage, error, childRoute, queryString
     }
 
     // TODO Don't parse error messages because they may be l10n'd - use error codes instead.
-    if (error && message && message.match(/\{ \[Error: Request has been terminated/)) {
+    if (
+      error &&
+      message &&
+      message.match && // Test `message` is a String, not a <FormattedMessage>
+      message.match(/\{ \[Error: Request has been terminated/)
+    ) {
       message = (
         <FormattedMessage
           id="home.somethingWrong"
