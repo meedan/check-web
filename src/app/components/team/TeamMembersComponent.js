@@ -11,11 +11,7 @@ import TeamInvitedMemberItem from './TeamInvitedMemberItem';
 import TeamInviteMembers from './TeamInviteMembers';
 import Can from '../Can';
 import LoadMore from '../layout/LoadMore';
-import {
-  FlexRow,
-  cardInCardGroupStyle,
-  units,
-} from '../../styles/js/shared';
+import { FlexRow, cardInCardGroupStyle, units } from '../../styles/js/shared';
 
 const pageSize = 20;
 
