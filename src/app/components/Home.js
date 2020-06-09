@@ -158,7 +158,6 @@ class HomeComponent extends Component {
       token: null,
       error: false,
       sessionStarted: false,
-      open: false,
       path: window.location.pathname,
     };
   }
@@ -189,8 +188,6 @@ class HomeComponent extends Component {
   getContext() {
     return new CheckContext(this).getContextStore();
   }
-
-  handleDrawerToggle = () => this.setState({ open: !this.state.open });
 
   loginCallback() {
     if (this.state.path !== '/check/user/password-change' &&
@@ -281,7 +278,6 @@ class HomeComponent extends Component {
             ) : null}
             <Main>
               <Header
-                drawerToggle={this.handleDrawerToggle.bind(this)}
                 loggedIn={loggedIn}
                 pageType={routeSlug}
                 inTeamContext={inTeamContext}
