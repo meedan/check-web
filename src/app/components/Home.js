@@ -19,7 +19,8 @@ import UserTos from './UserTos';
 import { withClientSessionId } from '../ClientSessionId';
 import { gutterMedium } from '../styles/js/shared';
 import { layout, typography, localeAr, removeYellowAutocomplete } from '../styles/js/global';
-import { bemClass, stringHelper } from '../customHelpers';
+import { stringHelper } from '../customHelpers';
+import { bemClass } from '../helpers';
 import { FormattedGlobalMessage } from './MappedMessage';
 import MeRoute from '../relay/MeRoute';
 
