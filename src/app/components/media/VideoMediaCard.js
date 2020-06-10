@@ -1,14 +1,11 @@
 import React from 'react';
-import VideoJsPlayer from '../VideoJsPlayer';
+import { Player } from '@meedan/check-ui';
 import '../../styles/css/player.css';
 
 const VideoMediaCard = props => (
   <article className="video-media-card">
-    <VideoJsPlayer
-      controls
-      src={props.videoPath}
-      poster={props.posterPath}
-      height="420"
+    <Player
+      url={props.videoPath}
       className="video-media-player"
     />
   </article>);
