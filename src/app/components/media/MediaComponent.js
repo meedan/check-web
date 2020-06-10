@@ -17,6 +17,7 @@ import PageTitle from '../PageTitle';
 import MediaDetail from './MediaDetail';
 import MediaRelated from './MediaRelated';
 import MediaTasks from './MediaTasks';
+import MediaInfo from './MediaInfo';
 import MediaAnalysis from './MediaAnalysis';
 import MediaLog from './MediaLog';
 import MediaComments from './MediaComments';
@@ -259,6 +260,16 @@ class MediaComponent extends Component {
                   value={this.state.showTab}
                   onChange={this.handleTabChange}
                 >
+                  <Tab
+                    label={
+                      <FormattedMessage
+                        id="mediaComponent.info"
+                        defaultMessage="Metadata"
+                      />
+                    }
+                    value="info"
+                    className="media-tab__info"
+                  />
                   { this.state.showRequests ?
                     <Tab
                       label={
@@ -313,6 +324,7 @@ class MediaComponent extends Component {
                     className="media-tab__activity"
                   />
                 </Tabs>
+                { this.state.showTab === 'info' ? <MediaInfo /> : null }
                 { this.state.showTab === 'requests' ? <MediaRequests media={media} /> : null }
                 { this.state.showTab === 'tasks' ? <MediaTasks media={media} /> : null }
                 { this.state.showTab === 'analysis' ? <MediaAnalysis media={media} /> : null }
