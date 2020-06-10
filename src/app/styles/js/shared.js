@@ -49,6 +49,8 @@ export const facebookBlue = '#3b5999';
 export const twitterBlue = '#0095ff';
 export const googleOrange = '#db4437';
 export const slackGreen = '#2ab27b';
+// https://www.youtube.com/about/brand-resources/#logos-icons-colors
+export const youTubeRed = '#ff0000';
 
 // Units
 export function units(unit) {
@@ -464,18 +466,6 @@ export const ContentColumn = styled.div`
   ${props => props.wide ? `max-width: ${columnWidthWide}` : ''}
   ${props => props.fullWidth ? 'max-width: 100%' : ''}
   ${props => props.flex ? 'display: flex; flex-direction: column;' : ''}
-`;
-
-// Offset (pad the far side)
-//
-// Optionally specify offsetSize | isRtl | ellipsis | noShrink
-//
-// Usage: <Offset size={units(10)}  isRtl={isRtl} />
-//
-export const Offset = styled.div`
-  ${props => props.ellipsis ? ellipsisStyles : ''}
-  padding-${props => (props.isRtl ? 'left' : 'right')}:
-    ${props => (props.offsetSize ? props.offsetSize : units(1))};
 `;
 
 export const OffsetBothSides = styled.div`

@@ -4,7 +4,7 @@ import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Dropzone from 'react-dropzone';
 import { FormattedMessage } from 'react-intl';
-import MdHighlightRemove from 'react-icons/lib/md/highlight-remove';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import styled from 'styled-components';
 import CircularProgress from './CircularProgress';
 import { unhumanizeSize } from '../helpers';
@@ -148,7 +148,7 @@ class UploadImageComponent extends React.PureComponent {
           {noPreview ? <NoPreview /> : <Preview image={value.preview} />}
           <span className="no-preview" />
           <StyledIconButton id="remove-image" onClick={this.onDelete}>
-            <MdHighlightRemove />
+            <HighlightOffIcon />
           </StyledIconButton>
         </Row>
       );

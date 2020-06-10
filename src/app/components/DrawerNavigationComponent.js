@@ -21,7 +21,6 @@ import CheckContext from '../CheckContext';
 import {
   AlignOpposite,
   Row,
-  Offset,
   OffsetBothSides,
   StyledHeading,
   white,
@@ -149,8 +148,6 @@ class DrawerNavigationComponent extends Component {
       padding: ${units(2)};
     `;
 
-    const checkLogo = <img width={units(8)} alt="Team Logo" src={stringHelper('LOGO_URL')} />;
-
     const saveCurrentPage = () => {
       if (window.location.pathname !== '/') {
         window.storage.set('previousPage', window.location.pathname);
@@ -160,7 +157,7 @@ class DrawerNavigationComponent extends Component {
     return (
       <Drawer open variant="persistent" anchor="left" classes={classes}>
         <div>
-          {inTeamContext ?
+          {inTeamContext ? (
             <DrawerHeader
               style={{
                 padding: '10px',
@@ -211,15 +208,16 @@ class DrawerNavigationComponent extends Component {
                   }
                 </AlignOpposite>
               </Row>
-            </DrawerHeader> :
+            </DrawerHeader>
+          ) : (
             <DrawerHeader>
               <Row style={{ alignItems: 'flex-start', justifyContent: 'space-between' }}>
-                <Offset>
-                  {loggedIn && checkLogo}
-                </Offset>
+                {loggedIn ? (
+                  <img width={units(8)} alt="Team Logo" src={stringHelper('LOGO_URL')} />
+                ) : null}
               </Row>
-            </DrawerHeader>}
-
+            </DrawerHeader>
+          )}
           <div style={styles.drawerProjectsAndFooter}>
             <div style={styles.drawerProjects}>
               {inTeamContext && (currentUserIsMember || !this.props.team.private)

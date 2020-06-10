@@ -8,8 +8,8 @@ import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import MdCopy from 'react-icons/lib/md/content-copy';
-import MdDone from 'react-icons/lib/md/done';
+import { MdContentCopy } from 'react-icons/md';
+import DoneIcon from '@material-ui/icons/Done';
 import CheckContext from '../../CheckContext';
 import UserUtil from '../user/UserUtil';
 import { encodeSvgDataUri } from '../../helpers';
@@ -102,10 +102,10 @@ class TeamInviteCard extends Component {
               <div className={classes.urlCopy}>
                 <CopyToClipboard text={joinUrl} onCopy={() => this.setState({ copied: true })}>
                   {this.state.copied ?
-                    <Button variant="contained" startIcon={<MdDone />}>
+                    <Button variant="contained" startIcon={<DoneIcon />}>
                       <FormattedMessage id="teamInviteCard.copy" defaultMessage="COPIED!" />
                     </Button> :
-                    <Button variant="contained" startIcon={<MdCopy />}>
+                    <Button variant="contained" startIcon={<MdContentCopy />}>
                       <FormattedMessage id="teamInviteCard.copied" defaultMessage="COPY" />
                     </Button>
                   }

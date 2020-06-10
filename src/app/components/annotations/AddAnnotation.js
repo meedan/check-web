@@ -4,7 +4,7 @@ import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay/classic';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import MdInsertPhoto from 'react-icons/lib/md/insert-photo';
+import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 import styled from 'styled-components';
 import CreateCommentMutation from '../../relay/mutations/CreateCommentMutation';
 import CreateTagMutation from '../../relay/mutations/CreateTagMutation';
@@ -383,7 +383,7 @@ class AddAnnotation extends Component {
           })()}
           <AddAnnotationButtonGroup className="add-annotation__buttons">
             <div className="add-annotation__insert-photo">
-              <MdInsertPhoto
+              <InsertPhotoIcon
                 id="add-annotation__switcher"
                 title={this.props.intl.formatMessage(messages.addImage)}
                 className={this.state.fileMode ? 'add-annotation__file' : ''}

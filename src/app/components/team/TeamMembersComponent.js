@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { FormattedMessage, injectIntl } from 'react-intl';
-import MdCreate from 'react-icons/lib/md/create';
+import { FormattedMessage } from 'react-intl';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import List from '@material-ui/core/List';
+import EditIcon from '@material-ui/icons/Edit';
 import TeamInviteCard from './TeamInviteCard';
 import TeamMembersListItem from './TeamMembersListItem';
 import TeamInvitedMemberItem from './TeamInvitedMemberItem';
@@ -76,7 +76,8 @@ class TeamMembersComponent extends Component {
                 { teamUsersRequestingMembership.map(teamUser => (
                   <TeamMembersListItem
                     className="team-members__requesting-list-item"
-                    teamUser={teamUser}
+                    team={team}
+                    teamUser={teamUser.node}
                     key={teamUser.node.id}
                     requestingMembership
                   />
@@ -95,7 +96,7 @@ class TeamMembersComponent extends Component {
                 style={{ marginLeft: 'auto', marginRight: units(1) }}
                 onClick={this.handleEditMembers.bind(this)}
                 className="team-members__edit-button"
-                icon={<MdCreate className="team-members__edit-icon" />}
+                icon={<EditIcon className="team-members__edit-icon" />}
               >
                 { isEditing ?
                   <FormattedMessage
@@ -120,7 +121,8 @@ class TeamMembersComponent extends Component {
                 <TeamMembersListItem
                   className="team-members__member-list-item"
                   key={teamUser.node.id}
-                  teamUser={teamUser}
+                  team={team}
+                  teamUser={teamUser.node}
                   isEditing={isEditing}
                   singleOwner={ownerMembers.length <= 1}
                 />
@@ -133,4 +135,4 @@ class TeamMembersComponent extends Component {
   }
 }
 
-export default injectIntl(TeamMembersComponent);
+export default TeamMembersComponent;
