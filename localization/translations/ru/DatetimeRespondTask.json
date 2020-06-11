@@ -1,9 +1,0 @@
-{
-  "datetimeRespondTask.ok": "Ок",
-  "datetimeRespondTask.cancel": "Отменить",
-  "datetimeRespondTask.timeError": "Ошибка: некорректное время",
-  "datetimeRespondTask.cancelTask": "Отменить",
-  "datetimeRespondTask.answerTask": "Ответить на вопрос",
-  "datetimeRespondTask.pickDate": "Выберите дату в календаре",
-  "datetimeRespondTask.timeOptional": "Время (необязательно)"
-}

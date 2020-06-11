@@ -1,5 +1,0 @@
-{
-  "userAlreadyConfirmed.heading": "Account Already Confirmed",
-  "userAlreadyConfirmed.message": "Oops! Your account is already confirmed. Please {login} to get started.",
-  "userAlreadyConfirmed.login": "login"
-}

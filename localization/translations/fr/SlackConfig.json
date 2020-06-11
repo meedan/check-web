@@ -1,5 +1,0 @@
-{
-  "slackConfig.title": "Intégration avec Slack",
-  "slackConfig.menuTooltip": "Paramètres de l'intégration",
-  "slackConfig.text": "Informez un canal Slack sur l'activité dans l'espace de travail."
-}

@@ -1,6 +1,0 @@
-{
-  "smoochBotSelectReport.dialogTitle": "Seleccionar informe",
-  "smoochBotSelectReport.dialogDescription": "Busque el título del elemento que desea enviar como informe. El bot responderá al usuario con este informe. El informe debe completarse antes de que pueda buscarlo aquí.",
-  "smoochBotSelectReport.cancel": "Cancelar",
-  "smoochBotSelectReport.confirm": "Confirmar"
-}

@@ -21,7 +21,6 @@
     "serve:dev": "NODE_ENV=development gulp serve:dev",
     "transifex:download": "gulp transifex:download && gulp transifex:translations",
     "transifex:upload": "gulp transifex:prepare && gulp transifex:upload",
-    "transifex:ls": "scripts/tx-ls.sh",
     "publish": "node scripts/server.js",
     "test": "npm run test:unit && npm run test:integration && npm run test:quick",
     "test:unit": "jest",
@@ -67,6 +66,7 @@
   "devDependencies": {
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
+    "gulp-merge-json": "^2.1.1",
     "jest": "^25.4.0"
   },
   "dependencies": {

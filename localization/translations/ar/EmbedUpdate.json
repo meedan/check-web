@@ -1,7 +1,0 @@
-{
-  "annotation.embedLabelUpdated": "قام {author} بتعديل عنوان العنصر : {title}",
-  "annotation.embedLabelRemoved": "قام {author} بحذف عنوان العنصر : {title}",
-  "annotation.embedNoteUpdated": "قام {author} بتعديل وصف العنصر{note}",
-  "annotation.embedNoteCreated": "قام {author} بإضافة وصف العنصر{note}",
-  "annotation.embedNoteRemoved": "قام {author} بحذف وصف العنصر{note}"
-}

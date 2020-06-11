@@ -10,6 +10,7 @@ const app = require('./scripts/server-app');
 const mergeTransifex = require('./webpack/gulp-merge-transifex-translations');
 const webpackConfig = require('./webpack/config');
 const buildConfig = require('./config-build');
+const merge = require('gulp-merge-json');
 
 const RelayCommand = [
   'relay-compiler',
@@ -77,9 +78,11 @@ gulp.task('transifex:prepare', () => gulp.src('./localization/react-intl/**/*').
     outputJson[entry.id] = entry.defaultMessage;
   });
   return outputJson;
-})).pipe(gulp.dest('./localization/transifex/')));
+}))
+.pipe(merge({ fileName: 'Web.json' }))
+.pipe(gulp.dest('./localization/transifex/')));
 
-gulp.task('transifex:upload', () => gulp.src('./localization/transifex/**/*').pipe(transifexClient.pushResource()));
+gulp.task('transifex:upload', () => gulp.src('./localization/transifex/Web.json').pipe(transifexClient.pushResource()));
 
 gulp.task('transifex:languages', () => {
   transifexClient.languages((data) => {

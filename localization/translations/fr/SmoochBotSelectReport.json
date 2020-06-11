@@ -1,6 +1,0 @@
-{
-  "smoochBotSelectReport.dialogTitle": "Sélectionner un rapport",
-  "smoochBotSelectReport.dialogDescription": "Recherchez le titre de l'élément que vous souhaitez envoyer en tant que rapport. Le bot répondra à l'utilisateur par ce rapport. Le rapport doit être rempli avant de pouvoir le trouver ici.",
-  "smoochBotSelectReport.cancel": "Annuler",
-  "smoochBotSelectReport.confirm": "Confirmer"
-}

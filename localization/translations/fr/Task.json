@@ -1,9 +1,0 @@
-{
-  "task.confirmDelete": "Voulez-vous vraiment supprimer cette tâche ?",
-  "task.confirmDeleteResponse": "Voulez-vous vraiment supprimer cette réponse ?",
-  "task.answeredBy": "Complétée par {byName}",
-  "task.assignedTo": "Affectée à {name}",
-  "tasks.editAssignment": "Modifier l'affectation",
-  "tasks.attributionSlogan": "Pour la tâche \"{label}\"",
-  "tasks.editAttribution": "Modifier l'attribution"
-}
