@@ -3,8 +3,6 @@ import { Store } from 'react-relay/classic';
 
 const environment = Store;
 
-// const NOOP = () => {};
-
 export const createClip = (label, fragment, annotated_id, parentID, callback) =>
   commitMutation(environment, {
     mutation: graphql`
