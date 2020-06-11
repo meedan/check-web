@@ -1,7 +1,0 @@
-{
-  "createTeamTask.editError": "La modification de la tâche a échoué",
-  "createTeamTask.deleteError": "La suppression de la tâche a échoué",
-  "createTeamTask.menuTooltip": "Actions des tâches",
-  "teamTasks.edit": "Modifier",
-  "teamTasks.delete": "Supprimer"
-}

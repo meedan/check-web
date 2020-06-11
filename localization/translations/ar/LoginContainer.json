@@ -1,7 +1,0 @@
-{
-  "browser.support.message": "أفضل تصفح على <a href=\"https://www.google.com/chrome/browser/desktop/\">  كروم نسخة سطح المكتب </a>.",
-  "loginContainer.agreeTerms": "بتسجيل الدخول أنت توافق على {tosLink}  و {ppLink} لدى {appName}.",
-  "tos.title": "شروط الاستخدام",
-  "privacy.policy.title": "سياسة الخصوصية",
-  "login.contactSupport": "للدعم تواصل معنا على <a href=\"mailto:{supportEmail}\">{supportEmail}</a>."
-}

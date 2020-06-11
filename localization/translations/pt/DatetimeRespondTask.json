@@ -1,9 +1,0 @@
-{
-  "datetimeRespondTask.ok": "OK",
-  "datetimeRespondTask.cancel": "Cancelar",
-  "datetimeRespondTask.timeError": "Erro: horário inválido",
-  "datetimeRespondTask.cancelTask": "Cancelar",
-  "datetimeRespondTask.answerTask": "Responder",
-  "datetimeRespondTask.pickDate": "Escolha uma data a partir do calendário",
-  "datetimeRespondTask.timeOptional": "Hora (opcional)"
-}

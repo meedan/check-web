@@ -1,6 +1,0 @@
-{
-  "createMedia.submitting": "Отправка...",
-  "createMedia.error": "В процессе добавления материала произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}.",
-  "createMedia.addItem": "Добавить материал",
-  "createMedia.addNewItem": "Добавить материал"
-}

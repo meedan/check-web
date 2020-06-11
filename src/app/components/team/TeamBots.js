@@ -58,40 +58,6 @@ const StyledSettings = styled.div`
   }
 `;
 
-const StyledSchemaForm = styled.div`
-  div {
-    padding: 0 !important;
-    box-shadow: none !important;
-  }
-
-  fieldset {
-    border: 0;
-    padding: 0;
-  }
-
-  button {
-    display: none;
-  }
-
-  label + div {
-    margin-top: 36px;
-  }
-
-  fieldset fieldset {
-    padding: ${units(1)};
-    margin-top: ${units(1)};
-    border: 1px solid ${black32};
-  }
-
-  fieldset fieldset button {
-    display: block !important;
-    width: 32px !important;
-    background: #fff !important;
-    border-radius: 5px !important;
-    color: ${black32} !important;
-  }
-`;
-
 class TeamBotsComponent extends Component {
   static handleBotGardenClick() {
     browserHistory.push('/check/bot-garden');
@@ -286,17 +252,16 @@ class TeamBotsComponent extends Component {
                           </small>
                         </div>
                       </div>
-                      <StyledSchemaForm>
-                        { botExpanded ?
-                          <TeamBot
-                            bot={bot}
-                            schema={JSON.parse(bot.settings_as_json_schema)}
-                            uiSchema={JSON.parse(bot.settings_ui_schema)}
-                            value={this.state.settings[installation.node.id]}
-                            onChange={this.handleSettingsUpdated.bind(this, installation.node)}
-                          /> : null
-                        }
-                      </StyledSchemaForm>
+                      { botExpanded ?
+                        <TeamBot
+                          team={team}
+                          bot={bot}
+                          schema={JSON.parse(bot.settings_as_json_schema)}
+                          uiSchema={JSON.parse(bot.settings_ui_schema)}
+                          value={this.state.settings[installation.node.id]}
+                          onChange={this.handleSettingsUpdated.bind(this, installation.node)}
+                        /> : null
+                      }
                     </React.Fragment> :
                     <FormattedMessage
                       id="teamBots.noSettings"
@@ -346,6 +311,8 @@ const TeamBotsContainer = Relay.createContainer(injectIntl(TeamBotsComponent), {
         id
         dbid
         slug
+        get_language
+        get_languages
         team_bot_installations(first: 10000) {
           edges {
             node {

@@ -1,5 +1,0 @@
-{
-  "datetimeTaskResponse.timeIs": "Afficher ce fuseau horaire sur time.is",
-  "datetimeTaskResponse.invalidTimestamp": "Erreur : l'horaire n'est pas valide",
-  "datetimeTaskResponse.taskResponse": "{date} à {timeLink}"
-}

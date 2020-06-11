@@ -1,0 +1,14 @@
+[
+  {
+    "id": "smoochBot.scenarios",
+    "defaultMessage": "Scenarios"
+  },
+  {
+    "id": "smoochBot.settings",
+    "defaultMessage": "Settings"
+  },
+  {
+    "id": "smoochBot.title",
+    "defaultMessage": "Design your bot"
+  }
+]

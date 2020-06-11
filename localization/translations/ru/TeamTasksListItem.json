@@ -1,7 +1,0 @@
-{
-  "createTeamTask.editError": "Failed to edit default task",
-  "createTeamTask.deleteError": "Failed to delete default task",
-  "createTeamTask.menuTooltip": "Task actions",
-  "teamTasks.edit": "Редактировать вопрос",
-  "teamTasks.delete": "Удалить вопрос"
-}

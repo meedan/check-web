@@ -1,7 +1,0 @@
-{
-  "UserConnectedAccount.connectButton": "Conectează",
-  "UserConnectedAccount.disconnectButton": "Deconectează",
-  "UserConnectedAccount.disconnectAccountTitle": "Deconectează contul",
-  "UserConnectedAccount.disconnectAccountConfirmationText": "Sigur? Această acțiune va deconecta contul de accesare a sistemului.",
-  "UserConnectedAccount.addAnother": "Adaugă alt cont"
-}

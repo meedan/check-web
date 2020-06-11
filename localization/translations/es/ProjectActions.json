@@ -1,9 +1,0 @@
-{
-  "projectActions.projectDeleted": "Lista eliminada con éxito. ",
-  "projectActions.projectNotDeleted": "Lo sentimos, no puedes eliminar la lista",
-  "ProjectActions.edit": "Editar nombre e descripción",
-  "projectActions.assignOrUnassign": "Asignar lista",
-  "projectActions.destroy": "Eliminar ",
-  "ProjectActions.tooltip": "Acciones de la lista",
-  "projectActions.confirmDeleteProject": "¿Estás seguro de que deseas eliminar esta lista? Todos sus ítems seguirán siendo accesibles a través de la lista 'Todos los ítems'."
-}

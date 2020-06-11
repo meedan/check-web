@@ -1,5 +1,0 @@
-{
-  "annotation.newReport": "Материал добавлен ({author})",
-  "annotation.titleChanged": "Заголовок материала изменён ({author}): {title}",
-  "annotation.embedNoteCreated": "Описание материала добавлено ({author}){description}"
-}
