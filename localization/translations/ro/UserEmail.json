@@ -1,8 +1,0 @@
-{
-  "userEmail.title": "Adăugați adresa Dvs de e-mail",
-  "userEmail.emailInputHint": "email@example.com",
-  "userEmail.submit": "Trimite",
-  "userEmail.skip": "Omite",
-  "userEmail.text": "Pentru a vă trimite notificări avem nevoie de adresa Dvs de e-mail. Dacă doriți să primiți notificări, vă rugăm să introduceți adresa Dvs de e-mail. Altfel, dați click pe ”Omite”",
-  "userEmail.emailInputLabel": "Email"
-}

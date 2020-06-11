@@ -1,8 +1,0 @@
-{
-  "teamTasks.filterLabelHidden": "{total, plural, =0 {Sin tareas} one {1 tarea ({hidden} ocultas por filtros)} other {# tareas ({hidden} ocultas por filtros)}}",
-  "teamTasks.filterLabel": "{total, plural, =0 {Sin tareas} one {1 tarea} other {# tareas}}",
-  "teamTasks.blank": "No hay tareas predeterminadas para mostrar",
-  "teamTasks.filter": "Filtrar tareas",
-  "teamTasks.projFilter": "Mostrar tareas en ",
-  "teamTasks.typeFilter": "Tipo de tarea"
-}

@@ -1,7 +1,0 @@
-{
-  "UserConnectedAccount.connectButton": "توصيل حساب",
-  "UserConnectedAccount.disconnectButton": "إلغاء توصيل الحساب",
-  "UserConnectedAccount.disconnectAccountTitle": "إلغاء توصيل الحساب",
-  "UserConnectedAccount.disconnectAccountConfirmationText": "هل أنت متأكد أنك تود إلغاء توصيل الحساب ؟",
-  "UserConnectedAccount.addAnother": "إضافة حساب آخر"
-}

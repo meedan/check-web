@@ -1,7 +1,0 @@
-{
-  "addAnnotation.invalidCommand": "Commande non valide",
-  "addAnnotation.error": "Désolé, une erreur s'est produite durant la mise à jour de l'élément. Veuillez réessayer et prévenir {supportEmail} si le problème persiste.",
-  "addAnnotation.inputHint": "Ajouter une note",
-  "addAnnotation.submitButton": "Envoyer",
-  "addAnnotation.addImage": "Charger une image"
-}

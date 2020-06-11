@@ -1,9 +1,0 @@
-{
-  "task.confirmDelete": "Are you sure you want to delete this task?",
-  "task.confirmDeleteResponse": "Are you sure you want to delete this task answer?",
-  "task.answeredBy": "Completed by {byName}",
-  "task.assignedTo": "Assigned to {name}",
-  "tasks.editAssignment": "Edit assignment",
-  "tasks.attributionSlogan": "For the task, \"{label}\"",
-  "tasks.editAttribution": "Edit attribution"
-}

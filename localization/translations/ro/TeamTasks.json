@@ -1,8 +1,0 @@
-{
-  "teamTasks.filterLabelHidden": "{total, plural, =0 {Nu sunt sarcini} one {1 sarcină ({hidden} ascunsă de filtre)} other {# sarcini ({hidden} ascunse de filtre)}}",
-  "teamTasks.filterLabel": "{total, plural, =0 {Nu sunt sarcini} one {1 sarcină} other {# sarcini}}",
-  "teamTasks.blank": "No default tasks to display",
-  "teamTasks.filter": "Filtrează sarcinile",
-  "teamTasks.projFilter": "Arată sarcinile în",
-  "teamTasks.typeFilter": "Tip sarcină"
-}

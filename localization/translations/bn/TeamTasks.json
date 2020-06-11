@@ -1,8 +1,0 @@
-{
-  "teamTasks.filterLabelHidden": "{total, plural, =0 {No tasks} one {1 task ({hidden} hidden by filters)} other {# tasks ({hidden} hidden by filters)}}",
-  "teamTasks.filterLabel": "{total, plural, =0 {No tasks} one {1 task} other {# tasks}}",
-  "teamTasks.blank": "No default tasks to display",
-  "teamTasks.filter": "Filter tasks",
-  "teamTasks.projFilter": "Show tasks in",
-  "teamTasks.typeFilter": "Task type"
-}
