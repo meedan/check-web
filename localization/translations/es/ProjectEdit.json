@@ -1,6 +1,0 @@
-{
-  "projectEdit.error": "Lo sentimos, se produjo un error al actualizar la lista. Vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}.",
-  "projectEdit.titleField": "Título",
-  "projectEdit.descriptionField": "Descripción ",
-  "projectEdit.saveButton": "Guardar"
-}

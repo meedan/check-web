@@ -1,6 +1,43 @@
 import React, { Component } from 'react';
 import Form from '@meedan/react-jsonschema-form-material-ui-v1';
-import SmoochBotSettings from './SmoochBotSettings';
+import styled from 'styled-components';
+import SmoochBot from './SmoochBot';
+import { units, black32 } from '../../styles/js/shared';
+
+const StyledSchemaForm = styled.div`
+  div {
+    padding: 0 !important;
+    box-shadow: none !important;
+  }
+
+  fieldset {
+    border: 0;
+    padding: 0;
+  }
+
+  button {
+    display: none;
+  }
+
+  label + div {
+    margin-top: 36px;
+  }
+
+  fieldset fieldset {
+    padding: ${units(1)};
+    margin-top: ${units(1)};
+    border: 1px solid ${black32};
+  }
+
+  fieldset fieldset button {
+    display: block !important;
+    width: 32px !important;
+    background: #fff !important;
+    border-radius: 5px !important;
+    color: ${black32} !important;
+  }
+`;
+
 
 class TeamBot extends Component {
   constructor(props) {
@@ -10,9 +47,13 @@ class TeamBot extends Component {
 
   render() {
     if (this.props.bot.name === 'Smooch') {
-      return (<SmoochBotSettings {...this.props} />);
+      return (<SmoochBot {...this.props} />);
     }
-    return (<Form {...this.props} />);
+    return (
+      <StyledSchemaForm>
+        <Form {...this.props} />
+      </StyledSchemaForm>
+    );
   }
 }
 

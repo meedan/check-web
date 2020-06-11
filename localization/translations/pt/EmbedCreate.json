@@ -1,5 +1,0 @@
-{
-  "annotation.newReport": "Item inserido por {author}",
-  "annotation.titleChanged": "Título do item editado por {author}: {title}",
-  "annotation.embedNoteCreated": "Descrição do item inserida por {author}{description}"
-}

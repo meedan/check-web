@@ -66,6 +66,7 @@ module.exports = ({ config, metadata, url }) => `
     <html>
       <head>
         <meta charset="UTF-8">
+        <meta name="referrer" content="no-referrer">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>${metadata ? metadata.title : capitalize(config.appName)}</title>
         ${socialTags(metadata, config, url)}

@@ -1,7 +1,0 @@
-{
-  "addAnnotation.invalidCommand": " أمر غير صالح",
-  "addAnnotation.error": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث العنصر. من فضلك أعد المحاولة وتواصل مع {supportEmail} إن استمرت المشكلة.",
-  "addAnnotation.inputHint": "إضافة ملاحظة",
-  "addAnnotation.submitButton": "إرسال",
-  "addAnnotation.addImage": "إضافة صورة"
-}

@@ -1,0 +1,122 @@
+[
+  {
+    "id": "smoochBot.labelGreeting",
+    "defaultMessage": "Greeting"
+  },
+  {
+    "id": "smoochBot.labelMainMenu",
+    "defaultMessage": "Main menu"
+  },
+  {
+    "id": "smoochBot.labelSecondaryMenu",
+    "defaultMessage": "Secondary menu"
+  },
+  {
+    "id": "smoochBot.labelQueryPrompt",
+    "defaultMessage": "Query prompt"
+  },
+  {
+    "id": "smoochBot.labelQueryReceived",
+    "defaultMessage": "Query received"
+  },
+  {
+    "id": "smoochBot.labelOptionNotAvailable",
+    "defaultMessage": "Option not available"
+  },
+  {
+    "id": "smoochBot.labelReportUpdated",
+    "defaultMessage": "Report updated"
+  },
+  {
+    "id": "smoochBot.labelInvalidFormat",
+    "defaultMessage": "Invalid format"
+  },
+  {
+    "id": "smoochBot.labelInactive",
+    "defaultMessage": "Notice of inactivity"
+  },
+  {
+    "id": "smoochBot.labelTos",
+    "defaultMessage": "Terms of service"
+  },
+  {
+    "id": "smoochBot.descriptionGreeting",
+    "defaultMessage": "The first message that is sent to the user. It introduces your organization and the service you provide through this bot. This message is automatically followed by the Main menu."
+  },
+  {
+    "id": "smoochBot.descriptionMainMenu",
+    "defaultMessage": "A menu asking the user to choose between a set of options. This message automatically follows the Greeting message."
+  },
+  {
+    "id": "smoochBot.descriptionSecondaryMenu",
+    "defaultMessage": "An optional menu asking the user to choose from a set of options. When a user replies with one of the options, the bot can send a report or direct them to another bot message."
+  },
+  {
+    "id": "smoochBot.descriptionQueryPrompt",
+    "defaultMessage": "The message asking the user to submit content for a fact-check."
+  },
+  {
+    "id": "smoochBot.descriptionQueryReceived",
+    "defaultMessage": "The confirmation sent to the user after a valid query from the user has been received."
+  },
+  {
+    "id": "smoochBot.descriptionOptionNotAvailable",
+    "defaultMessage": "The message sent if the user response to a menu is not a valid menu scenario."
+  },
+  {
+    "id": "smoochBot.descriptionReportUpdated",
+    "defaultMessage": "The message sent to the user when status of a report has changed. The report must be completed for this message to be sent."
+  },
+  {
+    "id": "smoochBot.descriptionInvalidFormat",
+    "defaultMessage": "An automatic message sent to the user when they have sent a file that is not supported by Check."
+  },
+  {
+    "id": "smoochBot.descriptionInactive",
+    "defaultMessage": "This message is sent to any user that has sent a message to the tipline when the Check Message bot is set to inactive."
+  },
+  {
+    "id": "smoochBot.descriptionTos",
+    "defaultMessage": "This message immediately follows any report sent to the user and should contain a link to the Check Terms of Service."
+  },
+  {
+    "id": "smoochBot.placeholderGreeting",
+    "defaultMessage": "Hi! Welcome to [Name of your organization]’s fact-checking bot. We fact-check claims, videos and images related to topics such as politics, health, finance, and technology."
+  },
+  {
+    "id": "smoochBot.placeholderMainMenu",
+    "defaultMessage": "📌*Main Menu*\n\n*Reply 1* (or 🔍) to submit a request for a fact-check about an article, video, image, or other content.\n*Reply 2* (or 🦠) to get the latest information about coronavirus disease (COVID-19)"
+  },
+  {
+    "id": "smoochBot.placeholderSecondaryMenu",
+    "defaultMessage": "*Information about Coronavirus disease (COVID-19)* 🦠\n\n👉*Reply with any one of the following numbers (or emoji) to get information about that topic:*\n\n*1:* How do I protect myself and/or my family? 👨‍👩‍👧\n*2:* I think I might be getting sick 🤒\n*3:* How can I handle stress associated with COVID-19? ❤️\n*4:* Information about cases and recoveries globally 📊\n*5:* Latest updates from the World Health Organization 🌐\n\n*Reply 0* to get back to the *Main Menu* 📌"
+  },
+  {
+    "id": "smoochBot.placeholderQueryPrompt",
+    "defaultMessage": "*Please enter the question, link, picture, or video that you want fact-checked,* followed by any context or additional questions related to that item. Your request will be sent to fact-checkers about 30 seconds after you have sent your last message.\n\n*Reply 0 (or 📌)* to go back to the *Main Menu*"
+  },
+  {
+    "id": "smoochBot.placeholderQueryReceived",
+    "defaultMessage": "Thank you! Your request has been received. Responses are being aggregated and sorted, and we're working on fact-checking your questions.\n\n✔️*Follow this link for an updated list of common questions that we have fact-checked:* [ Link to a page of fact-checks on your website ]\n\n👉*Reply with any text* to get back to the *Main Menu* 📌"
+  },
+  {
+    "id": "smoochBot.placeholderOptionNotAvailable",
+    "defaultMessage": "🤖I'm sorry, I didn't understand your message. Please try again!"
+  },
+  {
+    "id": "smoochBot.placeholderReportUpdated",
+    "defaultMessage": "❗️The fact-check that we sent to you has been *updated* with new information:"
+  },
+  {
+    "id": "smoochBot.placeholderInvalidFormat",
+    "defaultMessage": "❌Sorry, we can't accept this type of message for verification at this time.\n\nWe can accept most images, videos, links, text messages, and shared WhatsApp messages."
+  },
+  {
+    "id": "smoochBot.placeholderInactive",
+    "defaultMessage": "❌Thank you for your message. Our fact-checking service is currently *inactive.*\n\nContact us at *[email or other contact]* for further inquiries."
+  },
+  {
+    "id": "smoochBot.placeholderTos",
+    "defaultMessage": "This service is provided under the following terms: %{tos}"
+  }
+]
