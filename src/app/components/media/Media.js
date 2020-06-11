@@ -70,6 +70,17 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
             }
           }
         }
+        clips: annotations(first: 10000, annotation_type: "clip") {
+          edges {
+            node {
+              ... on Dynamic {
+                id
+                data
+                parsed_fragment
+              }
+            }
+          }
+        }
         tags(first: 10000) {
           edges {
             node {
