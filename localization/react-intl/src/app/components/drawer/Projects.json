@@ -1,15 +1,15 @@
 [
   {
-    "id": "projects.addProject",
-    "defaultMessage": "Add list"
+    "id": "projects.allClaims",
+    "defaultMessage": "All items"
   },
   {
     "id": "projects.dismiss",
     "defaultMessage": "Dismiss"
   },
   {
-    "id": "projects.allClaims",
-    "defaultMessage": "All items"
+    "id": "projects.addProject",
+    "defaultMessage": "Add list"
   },
   {
     "id": "projects.newList",

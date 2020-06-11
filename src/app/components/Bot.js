@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
-import { FormattedDate, FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import { FormattedDate, FormattedMessage } from 'react-intl';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
@@ -17,21 +17,6 @@ import Message from './Message';
 import CheckContext from '../CheckContext';
 import { stringHelper } from '../customHelpers';
 import CreateTeamBotInstallationMutation from '../relay/mutations/CreateTeamBotInstallationMutation';
-
-const messages = defineMessages({
-  confirmInstall: {
-    id: 'bot.confirmInstall',
-    defaultMessage: 'Are you sure you want to install bot in {teamName}?',
-  },
-  confirmUninstall: {
-    id: 'bot.confirmUninstall',
-    defaultMessage: 'Are you sure you want to uninstall this bot from {teamName}?',
-  },
-  cantChange: {
-    id: 'bot.cantChange',
-    defaultMessage: 'Sorry, an error occurred while updating the bot. Please try again and contact {supportEmail} if the condition persists.',
-  },
-});
 
 const StyledCardText = styled(CardContent)`
   display: flex;
@@ -107,8 +92,15 @@ class BotComponent extends Component {
     };
 
     const onFailure = () => {
-      const errorMessage = this.props.intl.formatMessage(messages.cantChange, { supportEmail: stringHelper('SUPPORT_EMAIL') });
-      this.setState({ message: errorMessage });
+      this.setState({
+        message: (
+          <FormattedMessage
+            id="bot.cantChange"
+            defaultMessage="Sorry, an error occurred while updating the bot. Please try again and contact {supportEmail} if the condition persists."
+            values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
+          />
+        ),
+      });
     };
 
     Relay.Store.commitUpdate(
@@ -204,17 +196,11 @@ class BotComponent extends Component {
   }
 }
 
-BotComponent.propTypes = {
-  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
-  // eslint-disable-next-line react/no-typos
-  intl: intlShape.isRequired,
-};
-
 BotComponent.contextTypes = {
   store: PropTypes.object,
 };
 
-const BotContainer = Relay.createContainer(injectIntl(BotComponent), {
+const BotContainer = Relay.createContainer(BotComponent, {
   fragments: {
     bot: () => Relay.QL`
       fragment on BotUser {

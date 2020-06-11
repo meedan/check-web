@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
 import { Link } from 'react-router';
 import Button from '@material-ui/core/Button';
@@ -23,17 +23,6 @@ import {
   units,
   highlightOrange,
 } from '../../styles/js/shared';
-
-const messages = defineMessages({
-  addProject: {
-    id: 'projects.addProject',
-    defaultMessage: 'Add list',
-  },
-  dismiss: {
-    id: 'projects.dismiss',
-    defaultMessage: 'Dismiss',
-  },
-});
 
 const pageSize = 20;
 
@@ -220,9 +209,12 @@ class DrawerProjectsComponent extends Component {
           </InfiniteScroll>
         </div>
         <Can permissions={props.team.permissions} permission="create Project">
-          <Tooltip
-            title={this.props.intl.formatMessage(props.showAddProj ?
-              messages.dismiss : messages.addProject)}
+          <Tooltip title={this.state.showCreateProject ? (
+            /* TODO use two separate buttons, not one "toggle" button */
+            <FormattedMessage id="projects.dismiss" defaultMessage="Dismiss" />
+          ) : (
+            <FormattedMessage id="projects.addProject" defaultMessage="Add list" />
+          )}
           >
             <Button
               onClick={this.toggleShowCreateProject}
@@ -259,7 +251,7 @@ DrawerProjectsComponent.propTypes = {
   clientSessionId: PropTypes.string.isRequired,
 };
 
-const ConnectedDrawerProjectsComponent = withPusher(injectIntl(DrawerProjectsComponent));
+const ConnectedDrawerProjectsComponent = withPusher(DrawerProjectsComponent);
 
 const DrawerProjectsContainer = Relay.createContainer(ConnectedDrawerProjectsComponent, {
   initialVariables: {

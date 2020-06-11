@@ -97,7 +97,7 @@ export const localeAr = `
       font-size: 11px;
     }
 
-    .footer {
+    footer {
       font-size: 14px;
     }
 
