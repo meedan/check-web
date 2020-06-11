@@ -1,9 +1,0 @@
-{
-  "taskActions.menuTooltip": "Task actions",
-  "task.edit": "Редактировать вопрос",
-  "task.editResponse": "Редактировать ответ",
-  "task.deleteResponse": "Удалить ответ",
-  "task.assignOrUnassign": "Назначить / Снять",
-  "task.editAttribution": "Авторство ответа",
-  "task.delete": "Удалить вопрос"
-}

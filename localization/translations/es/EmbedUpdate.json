@@ -1,7 +1,0 @@
-{
-  "annotation.embedLabelUpdated": "Título del ítem editado por {author}: {title}",
-  "annotation.embedLabelRemoved": "Título del ítem eliminado por {author}: {title}",
-  "annotation.embedNoteUpdated": "Descripción del ítem editada por {author}{description}",
-  "annotation.embedNoteCreated": "Descripción del ítem añadida por {author}{description}",
-  "annotation.embedNoteRemoved": "Descripción del ítem eliminada por {author}{description}"
-}

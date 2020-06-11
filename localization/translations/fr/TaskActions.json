@@ -1,9 +1,0 @@
-{
-  "taskActions.menuTooltip": "Actions des tâches",
-  "task.edit": "Modifier la tâche",
-  "task.editResponse": "Modifier la réponse",
-  "task.deleteResponse": "Supprimer la réponse",
-  "task.assignOrUnassign": "Affecter / annuler",
-  "task.editAttribution": "Modifier l'attribution",
-  "task.delete": "Supprimer la tâche"
-}

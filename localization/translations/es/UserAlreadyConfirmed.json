@@ -1,5 +1,0 @@
-{
-  "userAlreadyConfirmed.heading": "Esta cuenta ya ha sido confirmada",
-  "userAlreadyConfirmed.message": "¡Ups! Tu cuenta ya ha sido confirmada con anterioridad. Por favor {login} para empezar.",
-  "userAlreadyConfirmed.login": "Iniciar sesión"
-}

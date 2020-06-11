@@ -1,7 +1,0 @@
-{
-  "annotation.embedLabelUpdated": "Titre de l'élément modifié par {author} : {title}",
-  "annotation.embedLabelRemoved": "Titre de l'élément supprimé par {author} : {title}",
-  "annotation.embedNoteUpdated": "Description de l'élément modifiée par {author}{description}",
-  "annotation.embedNoteCreated": "Description de l'élément ajoutée par {author}{description}",
-  "annotation.embedNoteRemoved": "Description de l'élément supprimée par {author}{description}"
-}

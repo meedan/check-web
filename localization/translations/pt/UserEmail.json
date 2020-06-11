@@ -1,8 +1,0 @@
-{
-  "userEmail.title": "Adicione seu email",
-  "userEmail.emailInputHint": "email@exemplo.com.br",
-  "userEmail.submit": "Enviar",
-  "userEmail.skip": "Dispensar",
-  "userEmail.text": "Para enviar notificações, precisamos do seu endereço de email. Se você gostaria de receber notificações, por favor insira seu email. Caso contrário, clique \"Dispensar\"",
-  "userEmail.emailInputLabel": "Email"
-}

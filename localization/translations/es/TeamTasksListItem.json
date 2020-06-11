@@ -1,7 +1,0 @@
-{
-  "createTeamTask.editError": "Error al editar la tarea predeterminada",
-  "createTeamTask.deleteError": "Error al eliminar la tarea predeterminada",
-  "createTeamTask.menuTooltip": "Acciones de las tareas",
-  "teamTasks.edit": "Editar tarea",
-  "teamTasks.delete": "Eliminar tarea"
-}

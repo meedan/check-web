@@ -1,7 +1,0 @@
-{
-  "createTeamTask.editError": "Desculpe, não foi possível editar a tarefa padrão",
-  "createTeamTask.deleteError": "Desculpe, não foi possível excluir a tarefa padrão",
-  "createTeamTask.menuTooltip": "Ações das tarefas",
-  "teamTasks.edit": "Editar tarefa",
-  "teamTasks.delete": "Excluir tarefa"
-}

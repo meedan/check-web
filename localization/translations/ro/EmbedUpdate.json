@@ -1,7 +1,0 @@
-{
-  "annotation.embedLabelUpdated": "Titlul elementului redactat de {author}: {title}",
-  "annotation.embedLabelRemoved": "Titlul elementului șters de {author}: {title}",
-  "annotation.embedNoteUpdated": "Descrierea elementului redactată de {author}{description}",
-  "annotation.embedNoteCreated": "Descrierea elementului adăugată de {author}{description}",
-  "annotation.embedNoteRemoved": "Descrierea elementului ștearsă de {author}{description}"
-}

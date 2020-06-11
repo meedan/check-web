@@ -1,9 +1,0 @@
-{
-  "taskActions.menuTooltip": "Task actions",
-  "task.edit": "Edit task",
-  "task.editResponse": "Edit answer",
-  "task.deleteResponse": "Delete answer",
-  "task.assignOrUnassign": "Assign / Unassign",
-  "task.editAttribution": "Edit attribution",
-  "task.delete": "Delete task"
-}

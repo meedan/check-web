@@ -1,7 +1,0 @@
-{
-  "addAnnotation.invalidCommand": "Команда некорректна",
-  "addAnnotation.error": "В процессе редактирования материала произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}.",
-  "addAnnotation.inputHint": "Add a note",
-  "addAnnotation.submitButton": "Отправить",
-  "addAnnotation.addImage": "Добавить изображение"
-}

@@ -1,4 +1,0 @@
-{
-  "trash.emptyTrash": "Vaciar papelera",
-  "trash.emptyTrashConfirmationText": "¿Estás seguro(a)? Esto será eliminado de forma permanente: {itemsCount, plural, one {1 ítem} other {# ítems}} y {notesCount, plural, one {1 anotación} other {# anotaciones}}."
-}

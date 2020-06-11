@@ -1,8 +1,0 @@
-{
-  "userEmail.title": "Rajoutez votre e-mail",
-  "userEmail.emailInputHint": "email@exemple.com",
-  "userEmail.submit": "Envoyer",
-  "userEmail.skip": "Ignorer",
-  "userEmail.text": "Pour vous envoyer des notifications, nous avons besoin de votre adresse e-mail. Si vous ne désirez pas recevoir de notification, vous pouvez cliquer \"Ignorer\".",
-  "userEmail.emailInputLabel": "E-mail"
-}
