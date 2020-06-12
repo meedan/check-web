@@ -478,6 +478,7 @@ const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsCom
         id,
         pusher_channel,
         team {
+          ${BulkActions.getFragment('team')}
           slug
           search_id,
           permissions,

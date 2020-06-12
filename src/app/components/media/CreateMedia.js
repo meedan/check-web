@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { browserHistory } from 'react-router';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { defineMessages, injectIntl, intlShape, FormattedMessage } from 'react-intl';
+import { browserHistory } from 'react-router';
+import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
 import Button from '@material-ui/core/Button';
 import CreateMediaDialog from './CreateMediaDialog';
@@ -11,19 +11,7 @@ import { getErrorObjects, getFilters } from '../../helpers';
 import CheckError from '../../CheckError';
 import { withSetFlashMessage } from '../FlashMessage';
 
-const messages = defineMessages({
-  submitting: {
-    id: 'createMedia.submitting',
-    defaultMessage: 'Submitting...',
-  },
-  error: {
-    id: 'createMedia.error',
-    defaultMessage:
-      'Sorry, an error occurred while submitting the item. Please try again and contact {supportEmail} if the condition persists.',
-  },
-});
-
-class CreateProjectMedia extends Component {
+class CreateProjectMedia extends React.Component {
   constructor(props) {
     super(props);
 
@@ -33,7 +21,13 @@ class CreateProjectMedia extends Component {
   }
 
   fail = (transaction) => {
-    let message = this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+    let message = (
+      <FormattedMessage
+        id="createMedia.error"
+        defaultMessage="Sorry, an error occurred while submitting the item. Please try again and contact {supportEmail} if the condition persists."
+        values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
+      />
+    );
     const error = getErrorObjects(transaction);
     if (Array.isArray(error) && error.length > 0) {
       if (error[0].code === CheckError.codes.DUPLICATED) {
@@ -108,10 +102,7 @@ class CreateProjectMedia extends Component {
 }
 
 CreateProjectMedia.propTypes = {
-  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
-  // eslint-disable-next-line react/no-typos
-  intl: intlShape.isRequired,
   setFlashMessage: PropTypes.func.isRequired,
 };
 
-export default withSetFlashMessage(injectIntl(CreateProjectMedia));
+export default withSetFlashMessage(CreateProjectMedia);

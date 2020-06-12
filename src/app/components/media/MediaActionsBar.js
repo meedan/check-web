@@ -24,7 +24,7 @@ import CheckContext from '../../CheckContext';
 import globalStrings from '../../globalStrings';
 import { withSetFlashMessage } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
-import { nested, getErrorMessage } from '../../helpers';
+import { getErrorMessage } from '../../helpers';
 
 const messages = defineMessages({
   mediaTitle: {
@@ -434,7 +434,6 @@ class MediaActionsBarComponent extends Component {
 
   render() {
     const { classes, media, intl: { locale } } = this.props;
-    const context = this.getContext();
 
     const addToListDialogActions = [
       <Button
@@ -660,13 +659,11 @@ class MediaActionsBarComponent extends Component {
         <MoveDialog
           actions={addToListDialogActions}
           open={this.state.openAddToListDialog}
-          handleClose={this.handleCloseDialogs.bind(this)}
-          team={context.team}
-          projectId={media.project_ids}
+          onClose={this.handleCloseDialogs.bind(this)}
+          team={media.team}
+          excludeProjectDbids={media.project_ids}
+          value={this.state.dstProj}
           onChange={this.handleSelectDestProject.bind(this)}
-          style={{
-            minHeight: 400,
-          }}
           title={
             <FormattedMessage
               id="mediaActionsBar.dialogAddToListTitle"
@@ -678,13 +675,11 @@ class MediaActionsBarComponent extends Component {
         <MoveDialog
           actions={moveDialogActions}
           open={this.state.openMoveDialog}
-          handleClose={this.handleCloseDialogs.bind(this)}
-          team={context.team}
-          projectId={nested(['project', 'dbid'], media)}
+          onClose={this.handleCloseDialogs.bind(this)}
+          excludeProjectDbids={media.project_ids}
+          team={media.team}
+          value={this.state.dstProj}
           onChange={this.handleSelectDestProject.bind(this)}
-          style={{
-            minHeight: 400,
-          }}
           title={
             <FormattedMessage
               id="mediaActionsBar.dialogMoveTitle"
@@ -806,6 +801,7 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
           }
         }
         team {
+          ${MoveDialog.getFragment('team')}
           id
           dbid
           slug
