@@ -1,7 +1,0 @@
-{
-  "annotation.embedLabelUpdated": "Item title edited by {author}: {title}",
-  "annotation.embedLabelRemoved": "Item title removed by {author}: {title}",
-  "annotation.embedNoteUpdated": "Item description edited by {author}{description}",
-  "annotation.embedNoteCreated": "Item description added by {author}{description}",
-  "annotation.embedNoteRemoved": "Item description removed by {author}{description}"
-}

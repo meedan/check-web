@@ -1,7 +1,0 @@
-{
-  "addAnnotation.invalidCommand": "Comando inválido",
-  "addAnnotation.error": "Desculpe, ocorreu um erro ao atualizar o item. Por favor, tente novamente e entre em contato com {supportEmail} se a condição persistir.",
-  "addAnnotation.inputHint": "Insira uma nota",
-  "addAnnotation.submitButton": "Enviar",
-  "addAnnotation.addImage": "Insira uma imagem"
-}

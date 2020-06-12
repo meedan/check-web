@@ -63,7 +63,6 @@ describe('<WebPageMediaCard />', () => {
       domain: 'idlewords.com',
       project: {},
       project_id: 1,
-      project_source: {},
       language: null,
       language_code: null,
       media: {},
@@ -196,7 +195,8 @@ describe('<WebPageMediaCard />', () => {
       message: 'Not Found',
       code: 14
     };
-    const card1 = mountWithIntl(
+
+    const cardWithErrorMessage = mountWithIntl(
       <WebPageMediaCard
         media={webPageWithGoodPicture.media}
         data={webPageWithGoodPicture.data}
@@ -204,14 +204,14 @@ describe('<WebPageMediaCard />', () => {
     );
 
     delete webPageWithGoodPicture.data.error;
-    const card2 = mountWithIntl(
+    const cardWithoutErrorMessage = mountWithIntl(
       <WebPageMediaCard
         media={webPageWithGoodPicture.media}
         data={webPageWithGoodPicture.data}
       />,
     );
 
-    expect(card1.find('span.web-page-media-card__error')).toHaveLength(1);
-    expect(card2.find('span.web-page-media-card__error')).toHaveLength(0);
+    expect(cardWithErrorMessage.find('span.web-page-media-card__error')).toHaveLength(1);
+    expect(cardWithoutErrorMessage.find('span.web-page-media-card__error')).toHaveLength(0);
   });
 });

@@ -61,13 +61,6 @@ const mediaFragment = Relay.QL`
       search_id,
       title
     },
-    project_source {
-      dbid,
-      project_id,
-      source {
-        name
-      }
-    },
     media {
       type,
       metadata,
@@ -96,7 +89,6 @@ const mediaFragment = Relay.QL`
       slug
       search_id,
       get_embed_whitelist
-      get_suggested_tags
       get_status_target_turnaround
     }
     tags(first: 10000) {

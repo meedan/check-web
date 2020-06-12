@@ -1,7 +1,0 @@
-{
-  "tagPicker.emptyTags": "No hay etiquetas para esta área de trabajo.",
-  "tagPicker.tagNotFound": "Etiqueta #{tag} no encontrada",
-  "tagPicker.teamTags": "Etiquetas predeterminadas",
-  "tagPicker.none": "Ninguna",
-  "tagPicker.teamOtherTags": "Etiquetas personalizadas"
-}

@@ -1,0 +1,38 @@
+[
+  {
+    "id": "smoochBotMenuOption.mainState",
+    "defaultMessage": "Main menu"
+  },
+  {
+    "id": "smoochBotMenuOption.secondaryState",
+    "defaultMessage": "Secondary menu"
+  },
+  {
+    "id": "smoochBotMenuOption.queryState",
+    "defaultMessage": "Query prompt"
+  },
+  {
+    "id": "smoochBotMenuOption.resource",
+    "defaultMessage": "Report"
+  },
+  {
+    "id": "smoochBotMenuOption.if",
+    "defaultMessage": "If"
+  },
+  {
+    "id": "smoochBotMenuOption.condition",
+    "defaultMessage": "The following keyword is matched"
+  },
+  {
+    "id": "smoochBotMenuOption.then",
+    "defaultMessage": "Then"
+  },
+  {
+    "id": "smoochBotMenuOption.action",
+    "defaultMessage": "Respond with"
+  },
+  {
+    "id": "smoochBotMenuOption.languageAction",
+    "defaultMessage": "{languageName} (main menu)"
+  }
+]

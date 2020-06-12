@@ -1,5 +1,0 @@
-{
-  "datetimeTaskResponse.timeIs": "Посмотреть на time.is",
-  "datetimeTaskResponse.invalidTimestamp": "Ошибка: некорректное время",
-  "datetimeTaskResponse.taskResponse": "{date} в {timeLink}"
-}

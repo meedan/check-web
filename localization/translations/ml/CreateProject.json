@@ -1,7 +1,0 @@
-{
-  "createProject.addProject": "Create list",
-  "createProject.title": "Add a list",
-  "createProject.titleBlank": "Add your first list",
-  "createProject.newProjectName": "List name",
-  "createProject.error": "Sorry, an error occurred while updating the list. Please try again and contact {supportEmail} if the condition persists."
-}

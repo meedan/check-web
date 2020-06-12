@@ -1,7 +1,0 @@
-{
-  "uploadImage.changeFile": "{filename} (لتغيير الصورة انقر هنا أو اسقط صورة جديدة)",
-  "uploadImage.invalidExtension": "لا يمكن إضافة ملف نوعه ({extension}). من فضلك أعد المحاولة مع ملف من الانواع المسموحة : ({allowed_types})",
-  "uploadImage.fileTooLarge": "لا يمكن إضافة ملف حجمه اكبر من {size}. من فضلك أعد المحاولة مع ملف ذو حجم مناسب.",
-  "uploadImage.message": "اسقط صورة هنا، أو انقر لتحميل ملف (الحجم الأقصى:  {upload_max_size}، الأنواع المسموحة: {upload_extensions}، الأبعاد المسموحة بين {upload_min_dimensions} و {upload_max_dimensions} بكسل)",
-  "uploadImage.videoMessage": "اسقط فيديو هنا، أو انقر لتحميل ملف (الحجم الأقصى:  {video_max_size}، الأنواع المسموحة: {video_extensions})"
-}
