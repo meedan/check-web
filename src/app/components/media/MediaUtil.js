@@ -134,6 +134,7 @@ const MediaUtil = {
 
   mediaTypeLabelFormattedMessage(type) {
     // TODO nix mediaTypeLabel() and defineMessages() and use this instead.
+    // TODO (and then move it into a separate file like a normal React component)
     switch (type) {
     case 'Claim': return <FormattedMessage {...messages.typeClaim} />;
     case 'Link': return <FormattedMessage {...messages.typeLink} />;
