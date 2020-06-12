@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
-import { stripUnit } from 'polished';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { withPusher, pusherShape } from '../../pusher';
@@ -15,39 +14,20 @@ import MediaLog from './MediaLog';
 import MediaComments from './MediaComments';
 import MediaRequests from './MediaRequests';
 import MediaUtil from './MediaUtil';
-import {
-  ContentColumn,
-  headerHeight,
-  gutterMedium,
-  units,
-  mediaQuery,
-} from '../../styles/js/shared';
+import { columnWidthMedium, columnWidthLarge, units } from '../../styles/js/shared';
 
-const StyledTwoColumnLayout = styled(ContentColumn)`
-  flex-direction: column;
-  ${mediaQuery.desktop`
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    max-width: 100%;
-    padding: 0;
-    flex-direction: row;
-
-    .media__media-column {
-      max-width: 100%;
-    }
-
-    .media__annotations-column {
-      max-width: 100%;
-    }
-  `}
+const StyledTwoColumnLayout = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
 `;
 
-const StyledBackgroundColor = styled.div`
-  margin-top: -${stripUnit(headerHeight) + stripUnit(gutterMedium)}px;
-  padding-bottom: ${units(6)};
-  padding-top: ${stripUnit(headerHeight) + stripUnit(gutterMedium)}px;
-  min-height: 100vh;
+const Column = styled.div`
+  min-width: min(50%, ${columnWidthMedium});
+  max-width: ${columnWidthLarge};
+  padding: ${units(2)};
+  flex-grow: 1;
 `;
 
 class MediaComponent extends Component {
@@ -164,96 +144,93 @@ class MediaComponent extends Component {
     media.embed_path = media.media.embed_path;
 
     return (
-      <PageTitle
-        prefix={MediaUtil.title(media, data, this.props.intl)}
-        team={media.team}
-        data-id={media.dbid}
-      >
-        <StyledBackgroundColor
-          className="media"
-        >
-          <StyledTwoColumnLayout>
-            <ContentColumn className="media__media-column">
-              <MediaDetail
-                media={media}
-                hideBorder
-                hideRelated
-              />
-              {this.props.extras}
-              <MediaRelated
-                media={media}
-              />
-            </ContentColumn>
-            <ContentColumn className="media__annotations-column">
-              <Tabs
-                indicatorColor="primary"
-                textColor="primary"
-                value={this.state.showTab}
-                onChange={this.handleTabChange}
-              >
-                { this.state.showRequests ?
-                  <Tab
-                    label={
-                      <FormattedMessage
-                        id="mediaComponent.requests"
-                        defaultMessage="Requests"
-                      />
-                    }
-                    value="requests"
-                    className="media-tab__requests"
+      <React.Fragment>
+        <PageTitle
+          prefix={MediaUtil.title(media, data, this.props.intl)}
+          team={media.team}
+          data-id={media.dbid}
+        />
+        <StyledTwoColumnLayout className="media">
+          <Column>
+            <MediaDetail
+              media={media}
+              hideBorder
+              hideRelated
+            />
+            {this.props.extras}
+            <MediaRelated
+              media={media}
+            />
+          </Column>
+          <Column className="media__annotations-column">
+            <Tabs
+              indicatorColor="primary"
+              textColor="primary"
+              value={this.state.showTab}
+              onChange={this.handleTabChange}
+            >
+              { this.state.showRequests ?
+                <Tab
+                  label={
+                    <FormattedMessage
+                      id="mediaComponent.requests"
+                      defaultMessage="Requests"
+                    />
+                  }
+                  value="requests"
+                  className="media-tab__requests"
+                />
+                : null }
+              <Tab
+                label={
+                  <FormattedMessage
+                    id="mediaComponent.tasks"
+                    defaultMessage="Tasks"
                   />
-                  : null }
-                <Tab
-                  label={
-                    <FormattedMessage
-                      id="mediaComponent.tasks"
-                      defaultMessage="Tasks"
-                    />
-                  }
-                  value="tasks"
-                  className="media-tab__tasks"
-                />
-                <Tab
-                  label={
-                    <FormattedMessage
-                      id="mediaComponent.analysis"
-                      defaultMessage="Analysis"
-                    />
-                  }
-                  value="analysis"
-                  className="media-tab__analysis"
-                />
+                }
+                value="tasks"
+                className="media-tab__tasks"
+              />
+              <Tab
+                label={
+                  <FormattedMessage
+                    id="mediaComponent.analysis"
+                    defaultMessage="Analysis"
+                  />
+                }
+                value="analysis"
+                className="media-tab__analysis"
+              />
 
-                <Tab
-                  label={
-                    <FormattedMessage
-                      id="mediaComponent.notes"
-                      defaultMessage="Notes"
-                    />
-                  }
-                  value="notes"
-                  className="media-tab__comments"
-                />
-                <Tab
-                  label={
-                    <FormattedMessage
-                      id="mediaComponent.activity"
-                      defaultMessage="Activity"
-                    />
-                  }
-                  value="activity"
-                  className="media-tab__activity"
-                />
-              </Tabs>
-              { this.state.showTab === 'requests' ? <MediaRequests media={media} /> : null }
-              { this.state.showTab === 'tasks' ? <MediaTasks media={media} /> : null }
-              { this.state.showTab === 'analysis' ? <MediaAnalysis media={media} /> : null }
-              { this.state.showTab === 'notes' ? <MediaComments media={media} /> : null }
-              { this.state.showTab === 'activity' ? <MediaLog media={media} /> : null }
-            </ContentColumn>
-          </StyledTwoColumnLayout>
-        </StyledBackgroundColor>
-      </PageTitle>
+              <Tab
+                label={
+                  <FormattedMessage
+                    id="mediaComponent.notes"
+                    defaultMessage="Notes"
+                  />
+                }
+                value="notes"
+                className="media-tab__comments"
+              />
+              <Tab
+                label={
+                  <FormattedMessage
+                    id="mediaComponent.activity"
+                    defaultMessage="Activity"
+                  />
+                }
+                value="activity"
+                className="media-tab__activity"
+              />
+            </Tabs>
+            { this.state.showTab === 'requests' ? <MediaRequests media={media} /> : null }
+            { this.state.showTab === 'tasks' ? <MediaTasks media={media} /> : null }
+            { this.state.showTab === 'analysis' ? <MediaAnalysis media={media} /> : null }
+            { this.state.showTab === 'notes' ? <MediaComments media={media} /> : null }
+            { this.state.showTab === 'activity' ? <MediaLog media={media} /> : null }
+          </Column>
+        </StyledTwoColumnLayout>
+      </React.Fragment>
     );
   }
 }
