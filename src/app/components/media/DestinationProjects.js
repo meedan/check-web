@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
-import 'react-select/dist/react-select.css';
 import { FormattedMessage } from 'react-intl';
 // Import mutations so we can include them in query fragments
 // eslint-disable-next-line no-unused-vars
