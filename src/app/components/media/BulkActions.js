@@ -373,5 +373,7 @@ BulkActions.propTypes = {
 export default createFragmentContainer(withSetFlashMessage(BulkActions), graphql`
   fragment BulkActions_team on Team {
     ...MoveDialog_team
+    permissions
+    search_id
   }
 `);
