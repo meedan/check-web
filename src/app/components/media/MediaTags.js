@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { defineMessages, intlShape, injectIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
 import Relay from 'react-relay/classic';
 import mergeWith from 'lodash.mergewith';
@@ -21,21 +21,6 @@ import {
   chipStyles,
 } from '../../styles/js/shared';
 import { stringHelper } from '../../customHelpers';
-
-const messages = defineMessages({
-  loading: {
-    id: 'mediaTags.loading',
-    defaultMessage: 'Loading...',
-  },
-  language: {
-    id: 'mediaTags.language',
-    defaultMessage: 'Language: {language}',
-  },
-  error: {
-    id: 'mediaTags.error',
-    defaultMessage: 'Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists.',
-  },
-});
 
 const StyledLanguageSelect = styled.span`
   select {
@@ -92,7 +77,13 @@ class MediaTags extends Component {
   }
 
   fail = (transaction) => {
-    const fallbackMessage = this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+    const fallbackMessage = (
+      <FormattedMessage
+        id="mediaTags.error"
+        defaultMessage="Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists."
+        values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
+      />
+    );
     const errorMessage = getErrorMessage(transaction, fallbackMessage);
     this.props.setFlashMessage(errorMessage);
   };
@@ -185,7 +176,11 @@ class MediaTags extends Component {
                   <li className="media-tags__tag media-tags__language">
                     {this.state.correctingLanguage ?
                       <span>
-                        {this.props.intl.formatMessage(messages.language, { language: '' })}
+                        <FormattedMessage
+                          id="mediaTags.language"
+                          defaultMessage="Language: {language}"
+                          values={{ language: '' }}
+                        />
                         {' '}
                         <StyledLanguageSelect>
                           <LanguageSelector
@@ -202,10 +197,11 @@ class MediaTags extends Component {
                         </StyledLanguageIcon>
                       </span> :
                       <span>
-                        {this.props.intl.formatMessage(
-                          messages.language,
-                          { language: media.language },
-                        )}
+                        <FormattedMessage
+                          id="mediaTags.language"
+                          defaultMessage="Language: {language}"
+                          values={{ language: media.language }}
+                        />
                         <Can permissions={media.permissions} permission="create Dynamic">
                           <StyledLanguageIcon>
                             <EditIcon
@@ -227,12 +223,9 @@ class MediaTags extends Component {
 }
 
 MediaTags.propTypes = {
-  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
-  // eslint-disable-next-line react/no-typos
-  intl: intlShape.isRequired,
   setFlashMessage: PropTypes.func.isRequired,
   media: PropTypes.object.isRequired,
   tags: PropTypes.object.isRequired,
 };
 
-export default withSetFlashMessage(injectIntl(MediaTags));
+export default withSetFlashMessage(MediaTags);
