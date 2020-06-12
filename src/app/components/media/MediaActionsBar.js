@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
-import { injectIntl, FormattedMessage, defineMessages } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { browserHistory, Link } from 'react-router';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -25,29 +25,6 @@ import globalStrings from '../../globalStrings';
 import { withSetFlashMessage } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
 import { getErrorMessage } from '../../helpers';
-
-const messages = defineMessages({
-  mediaTitle: {
-    id: 'mediaDetail.mediaTitle',
-    defaultMessage: 'Title',
-  },
-  mediaDescription: {
-    id: 'mediaDetail.mediaDescription',
-    defaultMessage: 'Description',
-  },
-  editReport: {
-    id: 'mediaDetail.editReport',
-    defaultMessage: 'Edit',
-  },
-  editReportError: {
-    id: 'mediaDetail.editReportError',
-    defaultMessage: 'Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists.',
-  },
-  trash: {
-    id: 'mediaDetail.trash',
-    defaultMessage: 'Trash',
-  },
-});
 
 const Styles = theme => ({
   root: {
@@ -148,7 +125,12 @@ class MediaActionsBarComponent extends Component {
   }
 
   fail(transaction) {
-    const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+    const fallbackMessage = (
+      <FormattedMessage
+        {...globalStrings.unknownError}
+        values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
+      />
+    );
     const message = getErrorMessage(transaction, fallbackMessage);
     this.props.setFlashMessage(message);
   }
@@ -245,7 +227,13 @@ class MediaActionsBarComponent extends Component {
     }
 
     const onFailure = (transaction) => {
-      const fallbackMessage = this.props.intl.formatMessage(messages.editReportError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+      const fallbackMessage = (
+        <FormattedMessage
+          id="mediaDetail.editReportError"
+          defaultMessage="Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists."
+          values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
+        />
+      );
       const message = getErrorMessage(transaction, fallbackMessage);
       this.props.setFlashMessage(message);
     };
@@ -274,7 +262,7 @@ class MediaActionsBarComponent extends Component {
           values={{
             trash: (
               <Link to={`/${pm.team.slug}/trash`}>
-                {this.props.intl.formatMessage(messages.trash)}
+                <FormattedMessage id="mediaDetail.trash" defaultMessage="Trash" />
               </Link>
             ),
           }}
@@ -433,7 +421,7 @@ class MediaActionsBarComponent extends Component {
   }
 
   render() {
-    const { classes, media, intl: { locale } } = this.props;
+    const { classes, media } = this.props;
 
     const addToListDialogActions = [
       <Button
@@ -521,13 +509,15 @@ class MediaActionsBarComponent extends Component {
         maxWidth="md"
         fullWidth
       >
-        <DialogTitle>{this.props.intl.formatMessage(messages.editReport)}</DialogTitle>
+        <DialogTitle>
+          <FormattedMessage id="mediaDetail.editReport" defaultMessage="Edit" />
+        </DialogTitle>
         <DialogContent>
           <form onSubmit={this.handleSave.bind(this, media)} name="edit-media-form">
             <TextField
               id="media-detail__title-input"
-              label={this.props.intl.formatMessage(messages.mediaTitle)}
-              defaultValue={this.getTitle()}
+              label={<FormattedMessage id="mediaDetail.mediaTitle" defaultMessage="Title" />}
+              value={this.getTitle()}
               onChange={this.handleChangeTitle.bind(this)}
               fullWidth
               margin="normal"
@@ -535,8 +525,10 @@ class MediaActionsBarComponent extends Component {
 
             <TextField
               id="media-detail__description-input"
-              label={this.props.intl.formatMessage(messages.mediaDescription)}
-              defaultValue={this.getDescription()}
+              label={
+                <FormattedMessage id="mediaDetail.mediaDescription" defaultMessage="Description" />
+              }
+              value={this.getDescription()}
               onChange={this.handleChangeDescription.bind(this)}
               fullWidth
               multiline
@@ -650,7 +642,6 @@ class MediaActionsBarComponent extends Component {
             handleRestore={this.handleRestore.bind(this)}
             handleAssign={this.handleAssign.bind(this)}
             handleStatusLock={this.handleStatusLock.bind(this)}
-            locale={locale}
           />
         </div>
 
@@ -717,7 +708,6 @@ class MediaActionsBarComponent extends Component {
 }
 
 MediaActionsBarComponent.propTypes = {
-  intl: PropTypes.object.isRequired,
   setFlashMessage: PropTypes.func.isRequired,
 };
 
@@ -726,7 +716,7 @@ MediaActionsBarComponent.contextTypes = {
 };
 
 const ConnectedMediaActionsBarComponent =
-  withStyles(Styles)(withSetFlashMessage(injectIntl(MediaActionsBarComponent)));
+  withStyles(Styles)(withSetFlashMessage(MediaActionsBarComponent));
 
 const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarComponent, {
   initialVariables: {
