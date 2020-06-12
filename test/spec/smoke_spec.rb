@@ -867,14 +867,10 @@ shared_examples 'smoke' do
     # Move the claim to another project
     wait_for_selector("tbody input[type='checkbox']:not(:checked)").click
     wait_for_selector("#media-bulk-actions__move-to").click
-    wait_for_selector(".Select-control")
-    wait_for_selector('.Select-input input').send_keys('Project')
-    wait_for_selector(".Select-menu-outer")
+    wait_for_selector("input[name=project-title]").send_keys('Project')
     @driver.action.send_keys(:enter).perform
-    button_move = wait_for_selector('.media-bulk-actions__move-button')
-    button_move.location_once_scrolled_into_view
-    button_move.click
-    wait_for_selector_none(".Select-placeholder")
+    wait_for_selector('.media-bulk-actions__move-button').click
+    wait_for_selector_none("input[name=project-title]")  # wait for dialog to disappear
     @driver.navigate.to p1url
     expect(@driver.current_url.to_s == p1url).to be(true)
     wait_for_selector_list_size(".medias__item",1)
@@ -912,12 +908,10 @@ shared_examples 'smoke' do
     wait_for_selector('.project-list__link').click #Go back to the first project
     wait_for_selector_list_size(".medias__item", 2)
     wait_for_selector("thead input[type='checkbox']:not(:checked)").click
-    wait_for_selector("#media-bulk-actions__add-icon").click
-    wait_for_selector('.Select-input input').send_keys('Project')
-    wait_for_selector(".Select-menu-outer")
+    wait_for_selector("input[name=project-title]").send_keys('Project')
     @driver.action.send_keys(:enter).perform
     wait_for_selector('.media-bulk-actions__add-button').click
-    wait_for_selector_none(".Select-placeholder")
+    wait_for_selector_none("input[name=project-title]")  # wait for dialog to disappear
     wait_for_selector('.project-list__link-container + .project-list__link-container .project-list__link').click # Go to the second project
     wait_for_selector_list_size(".medias__item", 2, :css , 80)
     expect(@driver.page_source.include?('claim 1')).to be(true)
