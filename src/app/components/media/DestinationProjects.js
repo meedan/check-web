@@ -26,9 +26,11 @@ function DestinationProjects({
     }
   }, [onChange]);
 
+  // autoHighlight: makes it so user can type name and press Enter to choose list
   return (
     <Autocomplete
       options={filteredProjects}
+      autoHighlight
       value={value}
       onChange={handleChange}
       getOptionLabel={({ title }) => title}
@@ -36,6 +38,8 @@ function DestinationProjects({
       renderInput={params => (
         <TextField
           {...params}
+          autoFocus
+          name="project-title"
           label={
             <FormattedMessage id="destinationProjects.choose" defaultMessage="Choose a list" />
           }
