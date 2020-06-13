@@ -101,6 +101,7 @@ const MediaRequestsContainer = Relay.createContainer(withPusher(MediaRequestsCom
       fragment on ProjectMedia {
         id
         dbid
+        archived
         pusher_channel
         requests: log(last: $pageSize, event_types: $eventTypes, field_names: $fieldNames, annotation_types: $annotationTypes, who_dunnit: $whoDunnit, include_related: true) {
           edges {

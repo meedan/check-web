@@ -109,6 +109,7 @@ const MediaCommentsContainer = Relay.createContainer(withPusher(MediaCommentsCom
       fragment on ProjectMedia {
         id
         dbid
+        archived
         pusher_channel
         log(last: $pageSize, event_types: $eventTypes, field_names: $fieldNames, annotation_types: $annotationTypes) {
           edges {

@@ -212,6 +212,7 @@ const MediaTasksContainer = Relay.createContainer(withPusher(MediaTasksComponent
       fragment on ProjectMedia {
         id
         dbid
+        archived
         permissions
         pusher_channel
         tasks(first: 10000) {
