@@ -55,12 +55,10 @@ export const renameClip = (id, label) => commitMutation(environment, {
   mutation: graphql`
     mutation MediaTimelineUtilsRenameClipMutation($input: UpdateDynamicInput!) {
       updateDynamic(input: $input) {
-        dynamicEdge {
-          node {
-            id,
-            data,
-            parsed_fragment
-          }
+        dynamic {
+          id,
+          data,
+          parsed_fragment
         }
       }
     }
@@ -74,11 +72,9 @@ export const renameClip = (id, label) => commitMutation(environment, {
   },
   optimisticResponse: {
     updateDynamic: {
-      dynamicEdge: {
-        node: {
-          id,
-          data: { label },
-        },
+      dynamic: {
+        id,
+        data: { label },
       },
     },
   },
@@ -88,12 +84,10 @@ export const retimeClip = (id, fragment, parsed_fragment) => commitMutation(envi
   mutation: graphql`
     mutation MediaTimelineUtilsRetimeClipMutation($input: UpdateDynamicInput!) {
       updateDynamic(input: $input) {
-        dynamicEdge {
-          node {
-            id,
-            data,
-            parsed_fragment
-          }
+        dynamic {
+          id,
+          data,
+          parsed_fragment
         }
       }
     }
@@ -107,12 +101,10 @@ export const retimeClip = (id, fragment, parsed_fragment) => commitMutation(envi
   },
   optimisticResponse: {
     updateDynamic: {
-      dynamicEdge: {
-        node: {
-          id,
-          fragment,
-          parsed_fragment,
-        },
+      dynamic: {
+        id,
+        fragment,
+        parsed_fragment,
       },
     },
   },
