@@ -210,6 +210,7 @@ const TaskLogContainer = Relay.createContainer(withPusher(TaskLogComponent), {
         project_media {
           id
           dbid
+          archived
           pusher_channel
           team {
             id
@@ -378,7 +379,7 @@ class TaskLog extends Component {
           route={route}
           renderLoading={() => <MediasLoading count={1} />}
         /> : null }
-        { !this.state.collapsed ?
+        { !this.state.collapsed && !this.props.task.project_media.archived ?
           <div id={`task-${this.props.task.dbid}-log`}>
             <AddAnnotation
               annotated={this.props.task}
