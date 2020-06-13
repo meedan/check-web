@@ -1,4 +1,0 @@
-{
-  "trash.emptyTrash": "إفراغ سلة المهملات",
-  "trash.emptyTrashConfirmationText": "Are you sure? This will permanently delete {itemsCount, plural, one {1 item} other {# items}} and {notesCount, plural, one {1 annotation} other {# annotations}}."
-}

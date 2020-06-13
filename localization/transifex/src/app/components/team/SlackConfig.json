@@ -1,5 +1,0 @@
-{
-  "slackConfig.title": "Slack integration",
-  "slackConfig.menuTooltip": "Integration settings",
-  "slackConfig.text": "Notify a Slack channel about workspace activity."
-}

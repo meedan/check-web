@@ -1,6 +1,0 @@
-{
-  "smoochBotSelectReport.dialogTitle": "Select a report",
-  "smoochBotSelectReport.dialogDescription": "Search for the title of the item that you want to send as a report. The bot will reply to the user with this report. The report must be completed before you can search for it here.",
-  "smoochBotSelectReport.cancel": "Cancel",
-  "smoochBotSelectReport.confirm": "Confirm"
-}

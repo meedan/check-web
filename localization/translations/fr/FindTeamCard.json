@@ -1,9 +1,0 @@
-{
-  "findTeamCard.teamSlugHint": "URL de l'espace de travail",
-  "findTeamCard.teamNotFound": "Espace de travail introuvable !",
-  "findTeamCard.mainHeading": "Trouver un espace de travail existant",
-  "findTeamCard.blurb": "Demandez à intégrer un espace de travail existant en rajoutant votre nom ici, ou commencez par créer le vôtre.",
-  "findTeamCard.url": "URL de l'espace de travail",
-  "findTeamCard.submitButton": "Rechercher un espace de travail",
-  "findTeamCard.createYourOwn": "Vous pouvez aussi créer votre propre espace de travail."
-}

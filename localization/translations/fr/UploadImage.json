@@ -1,7 +1,0 @@
-{
-  "uploadImage.changeFile": "{filename} (cliquer ou déposer pour changer)",
-  "uploadImage.invalidExtension": "Les fichiers de type \"{extension}\" ne sont pas acceptés. Veuillez essayer avec un fichier de type : {allowed_types}.",
-  "uploadImage.fileTooLarge": "La taille des fichiers doit être inférieure à {size}. Veuillez essayer avec un fichier plus petit.",
-  "uploadImage.message": "Déposez une image ici, ou cliquez pour charger un fichier (taille max: {upload_max_size}, extensions acceptées: {upload_extensions}, dimensions acceptées: entre {upload_min_dimensions} et {upload_max_dimensions} pixels)",
-  "uploadImage.videoMessage": "Déposez une vidéo ici, ou cliquez pour charger un fichier (taille max: {video_max_size}, extensions acceptées: {video_extensions})"
-}

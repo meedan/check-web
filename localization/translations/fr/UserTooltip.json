@@ -1,3 +1,0 @@
-{
-  "userTooltip.dateJoined": "Membre depuis {date} • {teamsCount, plural, =0 {Aucun espace de travail} one {1 espace de travail} other {# espaces de travail}}"
-}

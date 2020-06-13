@@ -1,6 +1,0 @@
-{
-  "smoochBotSelectReport.dialogTitle": "Selecione um relato",
-  "smoochBotSelectReport.dialogDescription": "Procure o título do item que você deseja enviar como relato. O bot responderá ao usuário com esse relato. O relato deve estar concluído antes que você possa procurá-lo aqui.",
-  "smoochBotSelectReport.cancel": "Cancelar",
-  "smoochBotSelectReport.confirm": "Confirmar"
-}

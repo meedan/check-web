@@ -1,6 +1,0 @@
-{
-  "autoCompleteMediaItem.searching": "Поиск...",
-  "autoCompleteMediaItem.notFound": "Нет результатов",
-  "autoCompleteMediaItem.error": "В процессе поиска произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}.",
-  "autoCompleteMediaItem.searchItem": "Искать"
-}

@@ -1,8 +1,0 @@
-{
-  "rulesTableToolbar.selected": "{numSelected, plural, one {1 seleccionada} other {# seleccionadas}}",
-  "rulesTableToolbar.title": "{numRules, plural, one {1 regla} other {# reglas}}",
-  "rulesTableToolbar.delete": "Eliminar ",
-  "rulesTableToolbar.add": "Nueva regla",
-  "rulesTableToolbar.deleteConfirmationTitle": "¿Eliminar las reglas seleccionadas? ",
-  "rulesTableToolbar.deleteConfirmationText": "¿Estás seguro(a) que quieres eliminar estas reglas?"
-}

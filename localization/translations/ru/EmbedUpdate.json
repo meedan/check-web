@@ -1,7 +1,0 @@
-{
-  "annotation.embedLabelUpdated": "Заголовок материала изменён ({author}): {title}",
-  "annotation.embedLabelRemoved": "Заголовок материала удалён ({author}): {title}",
-  "annotation.embedNoteUpdated": "Описание материала изменено ({author}){description}",
-  "annotation.embedNoteCreated": "Описание материала добавлено ({author}){description}",
-  "annotation.embedNoteRemoved": "Описание материала удалено ({author}){description}"
-}
