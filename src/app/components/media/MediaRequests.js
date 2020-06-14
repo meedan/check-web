@@ -136,7 +136,7 @@ const MediaRequestsContainer = Relay.createContainer(withPusher(MediaRequestsCom
                 updated_at,
                 created_at,
                 permissions,
-                medias(first: 10000) {
+                references(first: 10000) {
                   edges {
                     node {
                       id,

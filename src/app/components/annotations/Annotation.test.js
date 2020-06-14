@@ -16,7 +16,7 @@ describe('<Annotation />', () => {
       content: JSON.stringify({ text: 'testing' }),
       updated_at: timestamp.toString(),
       created_at: timestamp.toString(),
-      medias: { edges: [] },
+      references: { edges: [] },
       permissions: JSON.stringify({ 'read Comment': false, 'update Comment': true, 'destroy Comment': true }),
       annotator: { name: '', profile_image: null },
     },

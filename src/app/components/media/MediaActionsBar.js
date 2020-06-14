@@ -227,21 +227,21 @@ class MediaActionsBarComponent extends Component {
       event.preventDefault();
     }
 
-    const embed = {};
+    const metadata = {};
 
     const title = this.getTitle();
     const description = this.getDescription();
 
     if (typeof title === 'string' && title.trim().length > 0) {
-      embed.title = title.trim();
+      metadata.title = title.trim();
     }
 
     if (typeof description === 'string' && description.trim().length > 0) {
-      embed.description = description.trim();
+      metadata.description = description.trim();
     }
 
-    if (embed.title === '' && media.media.embed_path) {
-      embed.title = media.media.embed_path.split('/').pop().replace('embed_', '');
+    if (metadata.title === '' && media.media.embed_path) {
+      metadata.title = media.media.embed_path.split('/').pop().replace('embed_', '');
     }
 
     const onFailure = (transaction) => {
@@ -254,7 +254,7 @@ class MediaActionsBarComponent extends Component {
       Relay.Store.commitUpdate(
         new UpdateProjectMediaMutation({
           media,
-          metadata: JSON.stringify(embed),
+          metadata,
           id: media.id,
         }),
         { onFailure },

@@ -70,14 +70,14 @@ app.use((req, res, next) => {
   const mediaDetailUrl = url.match(/\/([^\/]+)(\/project\/([0-9]+))?\/media\/([0-9]+)/);
   if (mediaDetailUrl != null) {
     try {
-      const query = `query { project_media(ids: "${mediaDetailUrl[4]},${mediaDetailUrl[3]}") { oembed_metadata } }`;
+      const query = `query { project_media(ids: "${mediaDetailUrl[4]},${mediaDetailUrl[3]}") { oembed } }`;
       headers['X-Check-Team'] = mediaDetailUrl[1];
       fetch(relayPath, { headers, method: 'post', body: JSON.stringify({ query }) }).then(response => response.json()).catch((e) => {
         console.log(util.inspect(e));
         res.send(template({ config, metadata: null, url }));
       }).then((json) => {
         try {
-          const metadata = JSON.parse(json.data.project_media.oembed_metadata);
+          const metadata = json.data.project_media.oembed;
           res.send(template({ config, metadata, url }));
         } catch (e) {
           console.log(util.inspect(json));

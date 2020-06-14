@@ -76,7 +76,7 @@ class CreateCommentMutation extends Relay.Mutation {
           annotation_type: 'comment',
           updated_at: now,
           created_at: now,
-          medias: {
+          references: {
             edges: [],
           },
           permissions: '{"read Comment":true,"update Comment":false,"destroy Comment":false}',

@@ -598,7 +598,7 @@ class ReportDesignerComponent extends Component {
     const { media } = this.props;
     const { options } = this.state;
     const data = media.metadata;
-    const metadata = JSON.parse(media.oembed_metadata);
+    const metadata = media.oembed;
     const shareUrl = metadata.embed_url;
     const itemUrl = metadata.permalink.replace(/^https?:\/\/[^/]+/, '');
     const saveDisabled = !can(media.permissions, 'update ProjectMedia');
@@ -1265,7 +1265,7 @@ const ReportDesignerContainer = Relay.createContainer(ReportDesignerComponent, {
         dbid
         archived
         permissions
-        oembed_metadata
+        oembed
         metadata
         title
         demand

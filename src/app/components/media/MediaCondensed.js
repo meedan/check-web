@@ -131,7 +131,7 @@ class MediaCondensedComponent extends Component {
       Relay.Store.commitUpdate(
         new UpdateProjectMediaMutation({
           media,
-          metadata: JSON.stringify(embed),
+          metadata: embed,
           id: media.id,
         }),
         { onFailure },

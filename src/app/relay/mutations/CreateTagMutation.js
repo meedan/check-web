@@ -54,7 +54,7 @@ class CreateTagMutation extends Relay.Mutation {
         name: this.props.annotator.name,
         profile_image: this.props.annotator.profile_image,
       },
-      medias: {
+      references: {
         edges: [],
       },
       project_media: {

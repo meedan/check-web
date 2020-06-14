@@ -179,7 +179,7 @@ const StyledAnnotationWrapper = styled.section`
     display: block;
   }
 
-  .annotation__card-embedded-medias {
+  .annotation__card-references {
     clear: both;
     margin-top: ${units(0.5)};
   }
@@ -442,9 +442,9 @@ class Annotation extends Component {
               </div> : null}
           </div>
 
-          {/* embedded medias */}
-          <div className="annotation__card-embedded-medias">
-            {annotation.medias.edges.map(media => (
+          {/* referenced medias */}
+          <div className="annotation__card-references">
+            {annotation.references.edges.map(media => (
               <div key={media.node.dbid}>
                 <MediaDetail media={media.node} condensed readonly hideRelated />
               </div>))

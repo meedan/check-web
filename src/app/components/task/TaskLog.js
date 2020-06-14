@@ -253,7 +253,7 @@ const TaskLogContainer = Relay.createContainer(withPusher(TaskLogComponent), {
                 updated_at,
                 created_at,
                 permissions,
-                medias(first: 10000) {
+                references(first: 10000) {
                   edges {
                     node {
                       id,
@@ -293,7 +293,7 @@ const TaskLogContainer = Relay.createContainer(withPusher(TaskLogComponent), {
                       }
                       media {
                         type,
-                        metadata,
+                        metadata
                         embed_path,
                         thumbnail_path,
                         file_path,
