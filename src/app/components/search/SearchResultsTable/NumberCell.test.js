@@ -17,7 +17,7 @@ function mountInTable(value) {
 }
 
 describe('<NumberCell>', () => {
-  it('should show demand', () => {
+  it('should display 1', () => {
     const cell = mountInTable(<NumberCell value={1} />);
     expect(cell.find('td').text()).toEqual('1');
   });

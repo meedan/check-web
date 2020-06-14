@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import NumberCell from './NumberCell';
 
 export default function LinkedItemsCountCell({ projectMedia }) {
-  const linkedItemsCount = projectMedia.linked_items_count;
-  return <NumberCell value={linkedItemsCount} />;
+  const { related_count } = projectMedia;
+  return <NumberCell value={related_count} />;
 }
 LinkedItemsCountCell.propTypes = {
   projectMedia: PropTypes.shape({
-    linked_items_count: PropTypes.number.isRequired,
+    related_count: PropTypes.number.isRequired,
   }).isRequired,
 };

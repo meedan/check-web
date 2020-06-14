@@ -595,12 +595,9 @@ class ReportDesignerComponent extends Component {
   }
 
   render() {
-    const { media } = this.props;
+    const { media, media: { oembed, oembed: { shareUrl }, metadata } } = this.props;
     const { options } = this.state;
-    const data = media.metadata;
-    const metadata = media.oembed;
-    const shareUrl = metadata.embed_url;
-    const itemUrl = metadata.permalink.replace(/^https?:\/\/[^/]+/, '');
+    const itemUrl = oembed.permalink.replace(/^https?:\/\/[^/]+/, '');
     const saveDisabled = !can(media.permissions, 'update ProjectMedia');
     const url = window.location.href.replace(/\/report$/, `?t=${new Date().getTime()}`);
     const embedTag = `<script src="${config.penderUrl}/api/medias.js?url=${encodeURIComponent(url)}"></script>`;
@@ -609,7 +606,7 @@ class ReportDesignerComponent extends Component {
 
     return (
       <PageTitle
-        prefix={MediaUtil.title({ media }, data, this.props.intl)}
+        prefix={MediaUtil.title({ media }, metadata, this.props.intl)}
         team={media.team}
         data-id={media.dbid}
       >
@@ -1144,11 +1141,11 @@ class ReportDesignerComponent extends Component {
             }
             blurb={
               <div>
-                { media.demand > 0 ?
+                { media.requests_related_count > 0 ?
                   <FormattedMessage
                     id="reportDesigner.confirmPublishText"
                     defaultMessage="{demand, plural, one {You are about to send this report to the user who requested this item.} other {You are about to send this report to the # users who requested this item.}}"
-                    values={{ demand: media.demand }}
+                    values={{ demand: media.requests_related_count }}
                   /> : null }
                 <br /><br />
                 <FormattedMessage
@@ -1196,7 +1193,7 @@ class ReportDesignerComponent extends Component {
             handleClose={this.handleCloseDialogs.bind(this)}
             handleConfirm={this.handleRepublishConfirmed.bind(this)}
           >
-            { media.demand > 0 ?
+            { media.requests_related_count > 0 ?
               <FormControlLabel
                 onClick={event => event.stopPropagation()}
                 onFocus={event => event.stopPropagation()}
@@ -1205,7 +1202,7 @@ class ReportDesignerComponent extends Component {
                   <FormattedMessage
                     id="reportDesigner.republishAndResend"
                     defaultMessage="{demand, plural, one {Also send correction to the user who already received the previous version of this report} other {Also send correction to the # users who already received the previous version of this report}}"
-                    values={{ demand: media.demand }}
+                    values={{ demand: media.requests_related_count }}
                   />
                 }
               /> : null }
@@ -1220,11 +1217,11 @@ class ReportDesignerComponent extends Component {
             }
             blurb={
               <div>
-                { media.demand > 0 ?
+                { media.requests_related_count > 0 ?
                   <FormattedMessage
                     id="reportDesigner.confirmRepublishResendText"
                     defaultMessage="{demand, plural, one {Your correction will be sent to the user who has received the previous report.} other {Your correction will be sent to the # users who have received the previous report.}}"
-                    values={{ demand: media.demand }}
+                    values={{ demand: media.requests_related_count }}
                   /> : null }
                 <br /><br />
                 <FormattedMessage
@@ -1268,7 +1265,7 @@ const ReportDesignerContainer = Relay.createContainer(ReportDesignerComponent, {
         oembed
         metadata
         title
-        demand
+        requests_related_count
         description
         verification_statuses
         last_status

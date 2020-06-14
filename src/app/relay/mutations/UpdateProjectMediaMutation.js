@@ -32,13 +32,13 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         project_was {
           medias_count
         },
-        related_to { id, relationships, log, log_count, demand, requests_count, linked_items_count },
+        related_to { id, relationships, log, log_count, requests_related_count, requests_count, related_count },
         relationships_target { id },
         relationships_source { id },
         project_media {
-          demand
+          requests_related_count
           requests_count
-          linked_items_count
+          related_count
           project_id,
           overridden,
           metadata,

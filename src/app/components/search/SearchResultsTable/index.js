@@ -23,11 +23,11 @@ const AllPossibleColumns = [
     cellComponent: TitleCell,
   },
   {
-    field: 'demand',
+    field: 'requests_related_count',
     headerText: <FormattedMessage id="list.Demand" defaultMessage="Requests" />,
     onlyIfSmoochBotEnabled: true,
     cellComponent: DemandCell,
-    sortKey: 'demand',
+    sortKey: 'requests_related_count',
     width: '1px', // "width: 1px" means, "consume the minimum width to fit the contents"
   },
   {
@@ -39,11 +39,11 @@ const AllPossibleColumns = [
     width: '1px',
   },
   {
-    field: 'linked_items_count',
+    field: 'related_count',
     headerText: <FormattedMessage id="list.LinkedItems" defaultMessage="Related" />,
     cellComponent: LinkedItemsCountCell,
     align: 'center',
-    sortKey: 'related',
+    sortKey: 'related_count',
     width: '1px',
   },
   {
@@ -62,7 +62,7 @@ const AllPossibleColumns = [
     field: 'created_at',
     headerText: <FormattedMessage id="list.FirstSeen" defaultMessage="First seen" />,
     cellComponent: FirstSeenCell,
-    sortKey: 'recent_added',
+    sortKey: 'created_at',
     width: '1px',
   },
   {
@@ -83,7 +83,7 @@ function buildColumnDefs(team) {
   );
 
   return AllPossibleColumns
-    // "demand" and "last_seen" only appear if smooch bot is installed
+    // "requests_related_count" and "last_seen" only appear if smooch bot is installed
     .filter(({ onlyIfSmoochBotEnabled }) => onlyIfSmoochBotEnabled ? smoochBotInstalled : true);
 }
 

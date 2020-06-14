@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import NumberCell from './NumberCell';
 
 export default function DemandCell({ projectMedia }) {
-  const { demand } = projectMedia;
-  return <NumberCell value={demand} />;
+  const { requests_related_count } = projectMedia;
+  return <NumberCell value={requests_related_count} />;
 }
 DemandCell.propTypes = {
   projectMedia: PropTypes.shape({
-    demand: PropTypes.number, // or null/undefined
+    requests_related_count: PropTypes.number, // or null/undefined
   }).isRequired,
 };
