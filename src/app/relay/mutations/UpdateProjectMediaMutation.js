@@ -87,6 +87,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
     if (this.props.metadata) {
       const metadataNew = this.props.metadata;
       const metadata = Object.assign(this.props.media.metadata, metadataNew);
+      // FIXME Receive this non-stringified
       const permissions = JSON.parse(this.props.media.permissions);
       permissions['update Dynamic'] = false;
       const { overridden } = this.props.media;
@@ -98,7 +99,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
           id: this.props.media.id,
           title: metadata.title,
           description: metadata.description,
-          metadata,
+          metadata: JSON.stringify(metadata),
           overridden: JSON.stringify(overridden),
           permissions: JSON.stringify(permissions),
         },
@@ -220,7 +221,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
   getVariables() {
     const vars = {
       id: this.props.id,
-      metadata: this.props.metadata,
+      metadata: JSON.stringify(this.props.metadata), // FIXME Should send this non-stringified
       project_id: this.props.project_id,
       related_to_id: this.props.related_to_id,
       refresh_media: this.props.refresh_media,

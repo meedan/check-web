@@ -211,6 +211,8 @@ class MediaActionsBarComponent extends Component {
   canSubmit = () => {
     const { title, description } = this.state;
     const permissions = JSON.parse(this.props.media.permissions);
+
+    // FIXME Should not open dialog if this permission is not set.
     return (permissions['update Dynamic'] !== false && (typeof title === 'string' || typeof description === 'string'));
   };
 
@@ -230,18 +232,15 @@ class MediaActionsBarComponent extends Component {
     const metadata = {};
 
     const title = this.getTitle();
-    const description = this.getDescription();
-
-    if (typeof title === 'string' && title.trim().length > 0) {
-      metadata.title = title.trim();
-    }
-
-    if (typeof description === 'string' && description.trim().length > 0) {
-      metadata.description = description.trim();
-    }
-
-    if (metadata.title === '' && media.media.embed_path) {
+    if (title) {
+      metadata.title = title;
+    } else if (media.media.embed_path) {
       metadata.title = media.media.embed_path.split('/').pop().replace('embed_', '');
+    }
+
+    const description = this.getDescription();
+    if (description) {
+      metadata.description = description;
     }
 
     const onFailure = (transaction) => {

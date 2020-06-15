@@ -105,20 +105,17 @@ class MediaCondensedComponent extends Component {
       event.preventDefault();
     }
 
-    const embed = {};
+    const metadata = {};
 
     const { title, description } = this.state;
-
-    if (typeof title === 'string') {
-      embed.title = title.trim();
+    if (title) {
+      metadata.title = title.trim();
+    } else if (media.media.embed_path) {
+      metadata.title = media.media.embed_path.split('/').pop().replace('embed_', '');
     }
 
-    if (typeof description === 'string') {
-      embed.description = description.trim();
-    }
-
-    if (embed.title === '' && media.media.embed_path) {
-      embed.title = media.media.embed_path.split('/').pop().replace('embed_', '');
+    if (description) {
+      metadata.description = description.trim();
     }
 
     const onFailure = (transaction) => {
@@ -131,7 +128,7 @@ class MediaCondensedComponent extends Component {
       Relay.Store.commitUpdate(
         new UpdateProjectMediaMutation({
           media,
-          metadata: embed,
+          metadata,
           id: media.id,
         }),
         { onFailure },

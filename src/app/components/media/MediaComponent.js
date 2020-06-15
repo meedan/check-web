@@ -138,7 +138,8 @@ class MediaComponent extends Component {
     }
 
     const { media } = this.props;
-    const data = media.metadata;
+
+    // FIXME No need for that.
     media.url = media.media.url;
     media.quote = media.media.quote;
     media.embed_path = media.media.embed_path;
@@ -146,7 +147,7 @@ class MediaComponent extends Component {
     return (
       <React.Fragment>
         <PageTitle
-          prefix={MediaUtil.title(media, data, this.props.intl)}
+          prefix={MediaUtil.title(media, media.metadata, this.props.intl)}
           team={media.team}
           data-id={media.dbid}
         />

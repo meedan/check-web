@@ -595,7 +595,7 @@ class ReportDesignerComponent extends Component {
   }
 
   render() {
-    const { media, media: { oembed, oembed: { shareUrl }, metadata } } = this.props;
+    const { media, media: { oembed, metadata } } = this.props;
     const { options } = this.state;
     const itemUrl = oembed.permalink.replace(/^https?:\/\/[^/]+/, '');
     const saveDisabled = !can(media.permissions, 'update ProjectMedia');
@@ -655,7 +655,7 @@ class ReportDesignerComponent extends Component {
                 />
               </p>
               <p className="report-designer__copy-footer">
-                <input disabled readOnly value={shareUrl} id="report-designer__share-field" />
+                <input disabled readOnly value={oembed.embed_url} id="report-designer__share-field" />
                 {this.state.urlCopied ?
                   <span className="report-designer__copy-button-inactive">
                     <FormattedMessage
@@ -712,7 +712,7 @@ class ReportDesignerComponent extends Component {
                   />
                 </Button>
               </CopyToClipboard>
-              <CopyToClipboard text={shareUrl} onCopy={this.handleCopyShareUrl.bind(this)}>
+              <CopyToClipboard text={oembed.embed_url} onCopy={this.handleCopyShareUrl.bind(this)}>
                 <Button
                   id="report-designer__actions-copy"
                   onClick={this.handleShareMenuOpen.bind(this)}
