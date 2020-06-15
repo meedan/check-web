@@ -541,7 +541,7 @@ class ReportDesignerComponent extends Component {
         }),
         {
           onFailure,
-          onSuccess: response => onSuccess(response.createDynamicAnnotationReportDesign),
+          onSuccess: response => onSuccess(response.createDynamic),
         },
       );
     } else {
@@ -560,7 +560,7 @@ class ReportDesignerComponent extends Component {
         }),
         {
           onFailure,
-          onSuccess: response => onSuccess(response.updateDynamicAnnotationReportDesign),
+          onSuccess: response => onSuccess(response.updateDynamic),
         },
       );
     }
