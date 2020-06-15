@@ -908,6 +908,7 @@ shared_examples 'smoke' do
     wait_for_selector('.project-list__link').click #Go back to the first project
     wait_for_selector_list_size(".medias__item", 2)
     wait_for_selector("thead input[type='checkbox']:not(:checked)").click
+    wait_for_selector("#media-bulk-actions__add-icon").click
     wait_for_selector("input[name=project-title]").send_keys('Project')
     @driver.action.send_keys(:enter).perform
     wait_for_selector('.media-bulk-actions__add-button').click
