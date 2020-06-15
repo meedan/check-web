@@ -290,9 +290,8 @@ module AppSpecHelpers
 
   def register_with_email(should_create_team = true, email = @email, should_login = true)
     @driver.navigate.to @config['self_url']
-    wait_for_selector(".login__form")
-    wait_for_selector("#register-or-login").click
-    wait_for_selector(".without-file")
+    wait_for_selector("#register").click
+    wait_for_selector(".login__name input")
     fill_field('.login__name input', 'User With Email')
     fill_field('.login__email input', email)
     fill_field('.login__password input', '12345678')
@@ -399,9 +398,8 @@ module AppSpecHelpers
     @driver.navigate.to new_url
   end
 
-
   def new_driver(webdriver_url, browser_capabilities)
-    if @config.key?('proxy') and !webdriver_url.include? "browserstack"
+    if @config.key?('proxy')
       proxy = Selenium::WebDriver::Proxy.new(
         :http     => @config['proxy'],
         :ftp      => @config['proxy'],

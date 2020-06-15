@@ -1,5 +1,4 @@
 require 'selenium-webdriver'
-require 'appium_lib'
 require 'yaml'
 require_relative './spec_helper.rb'
 require_relative './app_spec_helpers.rb'
@@ -29,8 +28,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     @source_url = 'https://twitter.com/ironmaiden?timestamp=' + Time.now.to_i.to_s
     @media_url = 'https://twitter.com/meedan/status/773947372527288320/?t=' + Time.now.to_i.to_s
     @config = CONFIG
-    $source_id = nil
-    $media_id = nil
     @team1_slug = 'team1'+Time.now.to_i.to_s
     @user_mail = 'sysops_' + Time.now.to_i.to_s + '@meedan.com'
     @webdriver_url = webdriver_url
@@ -137,21 +134,19 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should localize interface based on browser language", bin6: true do
-      unless browser_capabilities['appiumVersion']
-        caps = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { prefs: { 'intl.accept_languages' => 'fr' } })
-        driver = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: caps)
-        driver.navigate.to @config['self_url']
-        @wait.until { driver.find_element(:id, "register-or-login") }
-        expect(driver.find_element(:css, '.login__heading span').text == 'Connexion').to be(true)
-        driver.quit
+      caps = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { prefs: { 'intl.accept_languages' => 'fr' } })
+      driver = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: caps)
+      driver.navigate.to @config['self_url']
+      @wait.until { driver.find_element(:id, "register") }
+      expect(driver.find_element(:css, '.login__heading span').text == 'Connexion').to be(true)
+      driver.quit
 
-        caps = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { prefs: { 'intl.accept_languages' => 'pt' } })
-        driver = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: caps)
-        driver.navigate.to @config['self_url']
-        @wait.until { driver.find_element(:id, "register-or-login") }
-        expect(driver.find_element(:css, '.login__heading span').text == 'Entrar').to be(true)
-        driver.quit
-      end
+      caps = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { prefs: { 'intl.accept_languages' => 'pt' } })
+      driver = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: caps)
+      driver.navigate.to @config['self_url']
+      @wait.until { driver.find_element(:id, "register") }
+      expect(driver.find_element(:css, '.login__heading span').text == 'Entrar').to be(true)
+      driver.quit
     end
 
     it "should access user confirmed page", bin5: true do
@@ -626,7 +621,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should upload image when registering", bin3: true do
       @driver.navigate.to @config['self_url']
       wait_for_selector(".login__form")
-      wait_for_selector("#register-or-login").click
+      wait_for_selector("#register").click
       wait_for_selector(".without-file")
       fill_field('.login__name input', 'User With Email')
       fill_field('.login__email input', @email)
@@ -746,27 +741,21 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Go to first team
       @driver.navigate.to @config['self_url'] + '/' + t1.slug + '/all-items'
-      wait_for_selector('.project__title')
-      expect(@driver.page_source.include?(t1.name)).to be(true)
-      expect(@driver.page_source.include?(t2.name)).to be(false)
+      wait_for_selector(".team-header__drawer-team-link[href=\"/#{t1.slug}/\"]")
 
       # Navigate to second team
       wait_for_selector('.header__user-menu').click
       wait_for_selector('a[href="/check/me"]').click
       wait_for_selector('#teams-tab').click
       wait_for_selector("#switch-teams__link-to-#{t2.slug}").click
-      wait_for_selector('.project__title')
-      expect(@driver.page_source.include?(t2.name)).to be(true)
-      expect(@driver.page_source.include?(t1.name)).to be(false)
+      wait_for_selector(".team-header__drawer-team-link[href=\"/#{t2.slug}/\"]")
 
       # Navigate back to first team
       wait_for_selector('.header__user-menu').click
       wait_for_selector('a[href="/check/me"]').click
       wait_for_selector('#teams-tab').click
       wait_for_selector("#switch-teams__link-to-#{t1.slug}").click
-      wait_for_selector('.project__title')
-      expect(@driver.page_source.include?(t1.name)).to be(true)
-      expect(@driver.page_source.include?(t2.name)).to be(false)
+      wait_for_selector(".team-header__drawer-team-link[href=\"/#{t1.slug}/\"]")
     end
 
     it "should go back to primary item", bin1: true do

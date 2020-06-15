@@ -61,6 +61,7 @@ class TeamInfoEdit extends React.Component {
     const { team } = this.props;
     const contact = team.contacts.edges[0] || { node: {} };
     this.state = {
+      avatar: null,
       message: null,
       editProfileImg: false,
       submitDisabled: false,
@@ -74,20 +75,12 @@ class TeamInfoEdit extends React.Component {
     };
   }
 
-  onImage(file) {
-    document.forms['edit-team-form'].avatar = file;
-    this.setState({ message: null, avatar: file });
+  handleImageChange = (file) => {
+    this.setState({ avatar: file, message: null });
   }
 
-  onClear() {
-    if (document.forms['edit-team-form']) {
-      document.forms['edit-team-form'].avatar = null;
-    }
-    this.setState({ message: null, avatar: null });
-  }
-
-  onImageError(file, message) {
-    this.setState({ message, avatar: null });
+  handleImageError = (file, message) => {
+    this.setState({ avatar: null, message });
   }
 
   handleEditProfileImg() {
@@ -127,8 +120,7 @@ class TeamInfoEdit extends React.Component {
       this.handleLeaveEditMode();
     };
 
-    const { values } = this.state;
-    const form = document.forms['edit-team-form'];
+    const { values, avatar } = this.state;
 
     if (!this.state.submitDisabled) {
       Relay.Store.commitUpdate(
@@ -142,7 +134,7 @@ class TeamInfoEdit extends React.Component {
           }),
           id: this.props.team.id,
           public_id: this.props.team.public_team_id,
-          avatar: form.avatar,
+          avatar,
         }),
         { onSuccess, onFailure },
       );
@@ -193,9 +185,9 @@ class TeamInfoEdit extends React.Component {
             {this.state.editProfileImg ?
               <UploadImage
                 type="image"
-                onImage={this.onImage.bind(this)}
-                onClear={this.onClear.bind(this)}
-                onError={this.onImageError.bind(this)}
+                value={this.state.avatar}
+                onChange={this.handleImageChange}
+                onError={this.handleImageError}
                 noPreview
               />
               : null}
