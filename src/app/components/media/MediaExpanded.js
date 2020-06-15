@@ -243,17 +243,10 @@ const MediaExpandedContainer = Relay.createContainer(withPusher(MediaExpandedCom
         description
         language_code
         language
-        project_id
         project_ids
         pusher_channel
         dynamic_annotation_language {
           id
-        }
-        project {
-          id
-          dbid
-          title
-          search_id
         }
         relationships {
           id

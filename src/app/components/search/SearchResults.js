@@ -513,7 +513,6 @@ const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsCom
               first_seen: created_at,
               last_seen,
               share_count,
-              project_id,
               verification_statuses,
             }
           }

@@ -127,18 +127,6 @@ const MediaLogContainer = Relay.createContainer(withPusher(MediaLogComponent), {
                   }
                 }
               }
-              projects(first: 2) {
-                edges {
-                  node {
-                    id,
-                    dbid,
-                    title
-                    team {
-                      slug
-                    }
-                  }
-                }
-              }
               user {
                 id,
                 dbid,
@@ -179,7 +167,6 @@ const MediaLogContainer = Relay.createContainer(withPusher(MediaLogComponent), {
                       published,
                       url,
                       metadata,
-                      project_id,
                       last_status,
                       last_status_obj {
                         id

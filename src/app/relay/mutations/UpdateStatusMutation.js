@@ -27,7 +27,6 @@ class UpdateStatusMutation extends Relay.Mutation {
           last_status,
           last_status_obj,
           log_count,
-          project_id,
           dynamic_annotation_report_design,
         }
       }`;
@@ -51,7 +50,6 @@ class UpdateStatusMutation extends Relay.Mutation {
       const obj = {
         project_media: {
           id: media.id,
-          project_id: media.project_id,
           last_status: this.props.annotation.status,
           last_status_obj: {
             id: this.props.annotation.status_id,

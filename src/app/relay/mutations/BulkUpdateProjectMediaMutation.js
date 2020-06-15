@@ -13,7 +13,6 @@ class BulkUpdateProjectMediaMutation extends Relay.Mutation {
         fragment on UpdateProjectMediaPayload {
           affectedIds
           check_search_project { id, number_of_results, medias }
-          project { id, medias_count }
         }
       `;
     }
@@ -23,7 +22,6 @@ class BulkUpdateProjectMediaMutation extends Relay.Mutation {
         check_search_project_was { id, number_of_results, medias }
         check_search_project { id, number_of_results, medias }
         check_search_team { id, number_of_results }
-        project { id, medias_count }
         project_was { id, medias_count }
       }
     `;

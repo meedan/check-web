@@ -21,17 +21,8 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
         permissions
         pusher_channel
         verification_statuses
-        project_id
         project_ids
         requests_count
-        project {
-          id
-          dbid
-          title
-          search_id
-          search { id, number_of_results }
-          medias_count
-        }
         media {
           url
           quote

@@ -39,7 +39,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
           demand
           requests_count
           linked_items_count
-          project_id,
           overridden,
           metadata,
           dbid,
@@ -71,12 +70,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
             public_team {
               trash_count
             }
-          }
-          project {
-            id
-            title
-            search_id
-            medias_count
           }
         }
       }
@@ -221,7 +214,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
     const vars = {
       id: this.props.id,
       metadata: this.props.metadata,
-      project_id: this.props.project_id,
+      move_to_project_id: this.props.project_id,
       related_to_id: this.props.related_to_id,
       refresh_media: this.props.refresh_media,
       update_mt: this.props.update_mt,
@@ -258,25 +251,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
                 slug
               }
             }
-            project {
-              id
-              medias_count
-              team {
-                id
-                medias_count
-                public_team {
-                  id
-                  trash_count
-                }
-              }
-              project_medias(first: 20) {
-                edges {
-                  node {
-                    id
-                  }
-                }
-              }
-            },
           }`,
         ],
       },

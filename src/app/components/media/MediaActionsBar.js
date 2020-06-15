@@ -742,7 +742,6 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
       fragment on ProjectMedia {
         id
         dbid
-        project_id
         project_ids
         title
         demand
@@ -793,17 +792,6 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
           dbid
           target_id
           source_id
-        }
-        project {
-          id
-          dbid
-          title
-          search_id
-          medias_count
-          search {
-            id
-            number_of_results
-          }
         }
         team {
           id

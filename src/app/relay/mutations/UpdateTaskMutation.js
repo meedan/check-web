@@ -19,8 +19,7 @@ class UpdateTaskMutation extends Relay.Mutation {
           verification_statuses,
           last_status,
           id,
-          log_count,
-          project_id
+          log_count
         },
       }`;
     }

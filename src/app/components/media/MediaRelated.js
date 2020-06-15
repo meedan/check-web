@@ -222,15 +222,6 @@ const MediaRelatedContainer = Relay.createContainer(withPusher(MediaRelatedCompo
           permissions
           search_id
         }
-        project {
-          dbid
-          search_id
-          permissions
-          team {
-            search_id
-            verification_statuses
-          }
-        }
         relationships {
           id
           target_id

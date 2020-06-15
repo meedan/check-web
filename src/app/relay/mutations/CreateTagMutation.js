@@ -19,8 +19,7 @@ class CreateTagMutation extends Relay.Mutation {
           last_status_obj,
           log,
           tags,
-          log_count,
-          project_id,
+          log_count
         }
         team {
           id
