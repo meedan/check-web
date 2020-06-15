@@ -59,6 +59,7 @@ class AddAnnotation extends Component {
 
     this.state = {
       cmd: '',
+      image: null,
       message: null,
       isSubmitting: false,
       fileMode: false,
@@ -84,12 +85,12 @@ class AddAnnotation extends Component {
     }
   }
 
-  static onImage(file) {
-    document.forms.addannotation.image = file;
+  onImageChange = (file) => {
+    this.setState({ image: file, message: null });
   }
 
   onImageError(file, message) {
-    this.setState({ message });
+    this.setState({ image: null, message });
   }
 
   getContext() {
@@ -103,11 +104,10 @@ class AddAnnotation extends Component {
     });
   }
 
-  success = () => {
-    document.forms.addannotation.image = null;
-
+  resetState = () => {
     this.setState({
       cmd: '',
+      image: null,
       message: null,
       isSubmitting: false,
       fileMode: false,
@@ -130,8 +130,7 @@ class AddAnnotation extends Component {
     comment,
   ) {
     const { currentUser: annotator } = this.getContext();
-
-    const image = this.state.fileMode ? document.forms.addannotation.image : '';
+    const image = this.state.fileMode ? this.state.image : '';
 
     Relay.Store.commitUpdate(
       new CreateCommentMutation({
@@ -148,7 +147,7 @@ class AddAnnotation extends Component {
           annotated_id,
         },
       }),
-      { onFailure: this.fail, onSuccess: this.success },
+      { onFailure: this.fail, onSuccess: this.resetState },
     );
   }
 
@@ -174,7 +173,7 @@ class AddAnnotation extends Component {
             annotated_id,
           },
         }),
-        { onFailure: this.fail, onSuccess: this.success },
+        { onFailure: this.fail, onSuccess: this.resetState },
       );
     });
   }
@@ -203,11 +202,11 @@ class AddAnnotation extends Component {
     // Add or Update status
     if (status_id && status_id.length) {
       Relay.Store.commitUpdate(new UpdateStatusMutation(status_attr), {
-        onFailure: this.fail, onSuccess: this.success,
+        onFailure: this.fail, onSuccess: this.resetState,
       });
     } else {
       Relay.Store.commitUpdate(new CreateStatusMutation(status_attr), {
-        onFailure: this.fail, onSuccess: this.success,
+        onFailure: this.fail, onSuccess: this.resetState,
       });
     }
   }
@@ -239,7 +238,7 @@ class AddAnnotation extends Component {
           annotated_id,
         },
       }),
-      { onFailure: this.fail, onSuccess: this.success },
+      { onFailure: this.fail, onSuccess: this.resetState },
     );
   }
 
@@ -253,7 +252,7 @@ class AddAnnotation extends Component {
 
   handleSubmit(e) {
     const command = AddAnnotation.parseCommand(this.state.cmd);
-    const { image } = document.forms.addannotation;
+    const image = this.state.fileMode ? this.state.image : null;
 
     if (this.state.isSubmitting || (!this.state.cmd && !image)) {
       e.preventDefault();
@@ -347,7 +346,6 @@ class AddAnnotation extends Component {
     return (
       <form
         className="add-annotation"
-        name="addannotation"
         onSubmit={this.handleSubmit.bind(this)}
         style={{
           height: '100%',
@@ -378,8 +376,9 @@ class AddAnnotation extends Component {
               return (
                 <UploadImage
                   type="image"
-                  onImage={AddAnnotation.onImage}
-                  onError={this.onImageError.bind(this)}
+                  value={this.state.image}
+                  onChange={this.onImageChange}
+                  onError={this.onImageError}
                 />
               );
             }

@@ -7,8 +7,8 @@ shared_examples 'custom' do
            .create_media(input: 'https://twitter.com/meedan/status/1260264996048498688')
     wait_for_selector('.media-detail')
     expect(@driver.page_source.include?('Unstarted')).to be(true)
-    $media_id = page.driver.current_url.to_s.match(/\/media\/([0-9]+)/)[1]
-    expect($media_id.nil?).to be(false)
+    media_id = page.driver.current_url.to_s.match(/\/media\/([0-9]+)/)[1]
+    expect(media_id.nil?).to be(false)
   end
 
   it "should find medias when searching by status", bin2: true do
@@ -38,8 +38,8 @@ shared_examples 'custom' do
 
     wait_for_selector('.media-detail')
     expect(@driver.page_source.include?('Unstarted')).to be(true)
-    $media_id = page.driver.current_url.to_s.match(/\/media\/([0-9]+)/)[1]
-    expect($media_id.nil?).to be(false)
+    media_id = page.driver.current_url.to_s.match(/\/media\/([0-9]+)/)[1]
+    expect(media_id.nil?).to be(false)
     expect(@driver.page_source.include?('test.png')).to be(true)
   end
 

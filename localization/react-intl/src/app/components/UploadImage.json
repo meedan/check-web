@@ -1,7 +1,11 @@
 [
   {
-    "id": "uploadImage.changeFile",
-    "defaultMessage": "{filename} (click or drop to change)"
+    "id": "uploadImage.message",
+    "defaultMessage": "Drop an image file here, or click to upload a file (max size: {image_max_size}, allowed extensions: {image_extensions}, allowed dimensions between {image_min_dimensions} and {image_max_dimensions} pixels)"
+  },
+  {
+    "id": "uploadImage.videoMessage",
+    "defaultMessage": "Drop a video file here, or click to upload a file (max size: {video_max_size}, allowed extensions: {video_extensions})"
   },
   {
     "id": "uploadImage.invalidExtension",
@@ -12,11 +16,7 @@
     "defaultMessage": "The file size should be less than {size}. Please try with a smaller file."
   },
   {
-    "id": "uploadImage.message",
-    "defaultMessage": "Drop an image file here, or click to upload a file (max size: {image_max_size}, allowed extensions: {image_extensions}, allowed dimensions between {image_min_dimensions} and {image_max_dimensions} pixels)"
-  },
-  {
-    "id": "uploadImage.videoMessage",
-    "defaultMessage": "Drop a video file here, or click to upload a file (max size: {video_max_size}, allowed extensions: {video_extensions})"
+    "id": "uploadImage.changeFile",
+    "defaultMessage": "{filename} (click or drop to change)"
   }
 ]

@@ -94,6 +94,7 @@
     "crossmessaging": "0.2.2",
     "deep-equal": "^1.0.1",
     "email-validator": "^2.0.4",
+    "escape-html": "^1.0.3",
     "eslint": "4.13.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-loader": "^3.0.3",
