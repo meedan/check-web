@@ -27,7 +27,7 @@ const AllPossibleColumns = [
     headerText: <FormattedMessage id="list.Demand" defaultMessage="Requests" />,
     onlyIfSmoochBotEnabled: true,
     cellComponent: DemandCell,
-    sortKey: 'requests_related_count',
+    sortKey: 'demand',
     width: '1px', // "width: 1px" means, "consume the minimum width to fit the contents"
   },
   {
@@ -43,7 +43,7 @@ const AllPossibleColumns = [
     headerText: <FormattedMessage id="list.LinkedItems" defaultMessage="Related" />,
     cellComponent: LinkedItemsCountCell,
     align: 'center',
-    sortKey: 'related_count',
+    sortKey: 'related',
     width: '1px',
   },
   {
@@ -62,7 +62,7 @@ const AllPossibleColumns = [
     field: 'created_at',
     headerText: <FormattedMessage id="list.FirstSeen" defaultMessage="First seen" />,
     cellComponent: FirstSeenCell,
-    sortKey: 'created_at',
+    sortKey: 'recent_added',
     width: '1px',
   },
   {
