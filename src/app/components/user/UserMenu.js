@@ -1,10 +1,9 @@
 import React from 'react';
-import { injectIntl } from 'react-intl';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
-import UserUtil from './UserUtil';
+import { LocalizedRole, userRole } from './UserUtil';
 import UserMenuItems from '../UserMenuItems';
 import UserAvatar from '../UserAvatar';
 import {
@@ -14,7 +13,7 @@ import {
   body1,
 } from '../../styles/js/shared';
 
-class UserMenu extends React.Component {
+export default class UserMenu extends React.Component {
   state = {
     anchorEl: null,
   };
@@ -36,12 +35,7 @@ class UserMenu extends React.Component {
       return null;
     }
 
-    const role = inTeamContext && currentUserIsMember && UserUtil.userRole(user, team);
-    const localizedRoleText = role &&
-      <span className="user-menu__role" style={{ color: black54, marginLeft: units(1) }}>
-        {`(${UserUtil.localizedRole(role, this.props.intl)})`}
-      </span>;
-
+    const role = inTeamContext && currentUserIsMember && userRole(user, team);
     const { anchorEl } = this.state;
 
     return (
@@ -57,7 +51,11 @@ class UserMenu extends React.Component {
                   <span style={{ maxWidth: '80%' }}>
                     {user ? user.name : null}
                   </span>
-                  {localizedRoleText}
+                  {role ? (
+                    <span className="user-menu__role" style={{ color: black54, marginLeft: units(1) }}>
+                      <LocalizedRole role={role} />
+                    </span>
+                  ) : null}
                 </Text>
               </div>
             }
@@ -76,5 +74,3 @@ class UserMenu extends React.Component {
     );
   }
 }
-
-export default injectIntl(UserMenu);

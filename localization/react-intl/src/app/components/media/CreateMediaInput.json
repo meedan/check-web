@@ -1,19 +1,11 @@
 [
   {
-    "id": "createMedia.mediaInput",
-    "defaultMessage": "Paste or type"
-  },
-  {
     "id": "createMedia.quoteInput",
     "defaultMessage": "Paste or type a text"
   },
   {
-    "id": "createMedia.uploadImage",
-    "defaultMessage": "Upload an image"
-  },
-  {
-    "id": "createMedia.invalidUrl",
-    "defaultMessage": "Please enter a valid URL"
+    "id": "createMedia.mediaInput",
+    "defaultMessage": "Paste or type"
   },
   {
     "id": "createMedia.link",

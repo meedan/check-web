@@ -1,64 +1,102 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
+import escapeHtml from 'escape-html';
 
-class ReportImagePreview extends React.Component {
-  componentDidMount() {
-    this.setContent();
-    this.applyParams();
-  }
-
-  componentDidUpdate() {
-    this.setContent();
-    this.applyParams();
-  }
-
-  setContent() {
-    let { template } = this.props;
-    let imageUrl = null;
-    if (this.props.params.image) {
-      imageUrl = this.props.params.image;
-    } else if (this.props.image) {
-      imageUrl = this.props.image.preview;
-    }
-    template = template
-      .replace(/#CCCCCC/gi, this.props.params.theme_color)
-      .replace('%IMAGE_URL%', imageUrl)
-      .replace('%AVATAR_URL%', this.props.teamAvatar);
-    const doc = document.getElementById('report-image-preview').contentWindow.document;
-    doc.open();
-    doc.write(template);
-    doc.close();
-  }
-
-  applyParams() {
-    const doc = document.getElementById('report-image-preview').contentWindow.document;
-    const title = doc.getElementById('title');
-    title.innerHTML = this.props.params.headline;
-
-    const description = doc.getElementById('description');
-    description.innerHTML = this.props.params.description || '';
-
-    const status = doc.getElementById('status');
-    status.innerHTML = this.props.params.status_label;
-
-    const url = doc.getElementById('url');
-    if (this.props.params.url) {
-      url.innerHTML = this.props.params.url;
-    }
-  }
-
-  render() {
-    const customStyle = this.props.style || {};
-    const style = Object.assign({ border: 0, overflow: 'hidden' }, customStyle);
-
-    return (
-      <iframe
-        src="about:blank"
-        id="report-image-preview"
-        title="report-image-preview"
-        style={style}
-      />
-    );
-  }
+function overwriteDocumentHtml(contentDocument, html) {
+  contentDocument.open();
+  contentDocument.write(html);
+  contentDocument.close();
 }
+
+function tweakIframeDom({
+  contentDocument, headline, description, status_label, url,
+}) {
+  const fillIn = (selector, textContent) => {
+    const el = contentDocument.querySelector(selector);
+    if (el) {
+      el.textContent = textContent;
+    }
+  };
+  fillIn('#title', headline);
+  fillIn('#description', description);
+  fillIn('#status', status_label);
+  fillIn('#url', url);
+}
+
+function ReportImagePreview({
+  template, teamAvatar, image, style, params,
+}) {
+  const [iframe, setIframe] = React.useState(null);
+
+  const {
+    theme_color: themeColor,
+    headline,
+    description,
+    status_label,
+    url,
+  } = params;
+
+  // TODO don't use 'style' attribute at all
+  const fullStyle = {
+    border: 0,
+    overflow: 'hidden',
+    ...style,
+  };
+
+  const html = template
+    .replace(/#CCCCCC/gi, themeColor)
+    .replace('%IMAGE_URL%', escapeHtml(image || ''))
+    .replace('%AVATAR_URL%', escapeHtml(teamAvatar || ''));
+
+  React.useEffect(
+    () => {
+      if (!iframe) {
+        return;
+      }
+      const { contentDocument } = iframe;
+      overwriteDocumentHtml(contentDocument, html);
+      tweakIframeDom({
+        contentDocument, headline, description, status_label, url,
+      });
+    },
+    [iframe, html, headline, description, status_label, url],
+  );
+
+  return (
+    <FormattedMessage
+      id="reportDesigner.reportImagePreviewTitle"
+      description="Image caption spoken by screen readers but not seen by most users"
+      defaultMessage="Report preview"
+    >
+      {title => (
+        <iframe
+          ref={setIframe /* causing a re-render -- and thus useEffect() -- on load */}
+          src="about:blank"
+          title={title}
+          style={fullStyle}
+        />
+      )}
+    </FormattedMessage>
+  );
+}
+ReportImagePreview.defaultProps = {
+  image: null,
+  teamAvatar: null,
+  style: {},
+};
+ReportImagePreview.propTypes = {
+  template: PropTypes.string.isRequired,
+  image: PropTypes.string, // or null
+  teamAvatar: PropTypes.string, // or null
+  style: PropTypes.object, // or null. TODO nix this prop
+  params: PropTypes.shape({
+    headline: PropTypes.string.isRequired,
+    description: PropTypes.string, // or null
+    status_label: PropTypes.string.isRequired,
+    url: PropTypes.string, // or null
+    theme_color: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default ReportImagePreview;

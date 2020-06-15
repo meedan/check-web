@@ -26,8 +26,7 @@ class LoginPage < Page
   def register_with_email(options)
     @driver.navigate.to @config['self_url']
     wait_for_selector(".login__form")
-    wait_for_selector("#register-or-login").click
-    toggle_form_mode unless form_mode == 'register'
+    wait_for_selector("#register").click
     wait_for_selector(".login__form")
     fill_input('.login__name input', 'User With Email')
     fill_input('.login__email input', options[:email])
@@ -52,8 +51,6 @@ class LoginPage < Page
 
   def login_with_email(options)
     load
-    toggle_form_mode unless form_mode == 'login'
-
     fill_input('.login__email input', options[:email])
     fill_input('.login__password input', options[:password])
     # TODO: fix or remove click_button() for mobile browsers
@@ -84,14 +81,6 @@ class LoginPage < Page
   end
 
   private
-
-  def form_mode
-    (@wait.until { @driver.find_element(:css, '.login__form') }).attribute('name')
-  end
-
-  def toggle_form_mode
-    (@wait.until { @driver.find_element(:xpath, "//button[@id='register-or-login']") }).click
-  end
 
   def confirm_email(email) # TODO: test real email confirmation flow
     if @config.key?('proxy')

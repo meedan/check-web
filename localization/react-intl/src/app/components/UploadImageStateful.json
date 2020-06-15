@@ -1,0 +1,22 @@
+[
+  {
+    "id": "uploadImage.changeFile",
+    "defaultMessage": "{filename} (click or drop to change)"
+  },
+  {
+    "id": "uploadImage.invalidExtension",
+    "defaultMessage": "The file cannot have type \"{extension}\". Please try with the following file types: {allowed_types}."
+  },
+  {
+    "id": "uploadImage.fileTooLarge",
+    "defaultMessage": "The file size should be less than {size}. Please try with a smaller file."
+  },
+  {
+    "id": "uploadImage.message",
+    "defaultMessage": "Drop an image file here, or click to upload a file (max size: {upload_max_size}, allowed extensions: {upload_extensions}, allowed dimensions between {upload_min_dimensions} and {upload_max_dimensions} pixels)"
+  },
+  {
+    "id": "uploadImage.videoMessage",
+    "defaultMessage": "Drop a video file here, or click to upload a file (max size: {video_max_size}, allowed extensions: {video_extensions})"
+  }
+]
