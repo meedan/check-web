@@ -12,7 +12,7 @@ import PageTitle from './PageTitle';
 import { FadeIn, ContentColumn, units } from '../styles/js/shared';
 
 const LoginContainer = props => (
-  <Typography variant="body2" gutterBottom>
+  <Typography component="div" variant="body2" gutterBottom>
     <PageTitle>
       <ContentColumn style={{ maxWidth: units(82) }} id="login-container" className="login-container">
         <Favicon url={`/images/logo/${config.appName}.ico`} animated={false} />

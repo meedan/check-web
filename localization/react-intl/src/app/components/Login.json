@@ -1,5 +1,21 @@
 [
   {
+    "id": "login.disclaimer",
+    "defaultMessage": "We won’t publish without your permission"
+  },
+  {
+    "id": "login.tosMissing",
+    "defaultMessage": "You must agree to the Terms of Service and Privacy Policy"
+  },
+  {
+    "id": "login.title",
+    "defaultMessage": "Sign in"
+  },
+  {
+    "id": "login.registerTitle",
+    "defaultMessage": "Register"
+  },
+  {
     "id": "login.nameLabel",
     "defaultMessage": "Your name"
   },
@@ -22,22 +38,6 @@
   {
     "id": "login.passwordConfirmLabel",
     "defaultMessage": "Password confirmation"
-  },
-  {
-    "id": "login.tosMissing",
-    "defaultMessage": "You must agree to the Terms of Service and Privacy Policy"
-  },
-  {
-    "id": "login.disclaimer",
-    "defaultMessage": "We won’t publish without your permission"
-  },
-  {
-    "id": "login.title",
-    "defaultMessage": "Sign in"
-  },
-  {
-    "id": "login.registerTitle",
-    "defaultMessage": "Register"
   },
   {
     "id": "login.profilePicture",

@@ -16,7 +16,6 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Avatar from '@material-ui/core/Avatar';
 import styled from 'styled-components';
 import {
-  alertRed,
   defaultBorderRadius,
   opaqueBlack87,
   borderWidthMedium,
@@ -185,7 +184,6 @@ class SwitchTeamsComponent extends Component {
                     <Button
                       className="switch-team__cancel-request"
                       style={listItemButtonStyle}
-                      hoverColor={alertRed}
                       onClick={this.cancelRequest.bind(this, team)}
                     >
                       <FormattedMessage id="switchTeams.cancelJoinRequest" defaultMessage="Cancel" />

@@ -199,7 +199,7 @@ class MediaExpandedComponent extends Component {
           {cardHeaderText}
           <FadeIn>
             { hasCustomDescription ?
-              <MoreLess maxHeight="75">
+              <MoreLess key={media.description /* reset on new text */}>
                 <ParsedText text={media.description} />
               </MoreLess> : null }
             {embedCard}

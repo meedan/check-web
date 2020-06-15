@@ -71,6 +71,40 @@ const messages = defineMessages({
   },
 });
 
+const SocialIcon = ({ domain }) => {
+  switch (domain) {
+  case 'twitter.com':
+  case 'twitter':
+    return <FaTwitter alt={domain} key="socialIcon__Twitter" />;
+  case 'youtube.com':
+  case 'youtube':
+    return <FaYoutubePlay alt={domain} key="socialIcon__Youtube" />;
+  case 'instagram.com':
+  case 'instagram':
+    return <FaInstagram alt={domain} key="socialIcon__Instagram" />;
+  case 'facebook.com':
+  case 'facebook':
+    return <FaFacebookSquare alt={domain} key="socialIcon__Facebook" />;
+  default:
+    return <MdLink alt="link" key="socialIcon__Link" />;
+  }
+};
+SocialIcon.defaultProps = {
+  domain: null,
+};
+SocialIcon.propTypes = {
+  domain: PropTypes.oneOf([
+    'facebook',
+    'facebook.com',
+    'instagram',
+    'instagram.com',
+    'twitter',
+    'twitter.com',
+    'youtube',
+    'youtube.com',
+  ]), // or null
+};
+
 const MediaUtil = {
   url(media, data) {
     try {
@@ -239,7 +273,7 @@ const MediaUtil = {
     return date;
   },
 
-  socialIcon(domain) {
+  socialIcon(domain) { // DEPRECATED -- use <SocialIcon />
     switch (domain) {
     case 'twitter.com':
     case 'twitter':
@@ -262,3 +296,4 @@ const MediaUtil = {
 };
 
 export default MediaUtil;
+export { SocialIcon };

@@ -318,8 +318,7 @@ shared_examples 'source' do
     expect(id1 > 0).to be(true)
     @driver.navigate.to @driver.current_url.to_s.gsub(/\/source\/[0-9]+$/, '')
     wait_for_selector("#create-media__add-item").click
-    el = wait_for_selector('#create-media__source')
-    el.click
+    wait_for_selector('#create-media__source').click
     wait_for_selector('#create-media-quote-input')
     fill_field('#create-media-source-name-input', 'Megadeth')
     fill_field('#create-media-source-url-input', 'https://twitter.com/megadeth')

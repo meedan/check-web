@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-intl';
 import Relay from 'react-relay/classic';
 import { browserHistory, Link } from 'react-router';
+import deepEqual from 'deep-equal';
 import Popover from '@material-ui/core/Popover';
 import Button from '@material-ui/core/Button';
 import CopyToClipboard from 'react-copy-to-clipboard';
@@ -207,57 +208,57 @@ const StyledPopover = styled(Popover)`
   }
 `;
 
+function propsToOptions(props) {
+  const options = {};
+  if (props.media.dynamic_annotation_report_design) {
+    Object.assign(options, props.media.dynamic_annotation_report_design.data);
+  }
+  if (props.media.team.get_disclaimer && !options.disclaimer) {
+    options.disclaimer = props.media.team.get_disclaimer;
+  }
+  if (props.media.team.get_use_disclaimer && Object.keys(options).indexOf('use_disclaimer') === -1) {
+    options.use_disclaimer = true;
+  }
+  if (props.media.team.get_introduction && !options.introduction) {
+    options.introduction = props.media.team.get_introduction;
+  }
+  if (Object.keys(options).indexOf('use_introduction') === -1) {
+    options.use_introduction = !!props.media.team.get_use_introduction;
+  }
+  if (Object.keys(options).indexOf('use_visual_card') === -1) {
+    options.use_visual_card = false;
+  }
+  if (Object.keys(options).indexOf('use_text_message') === -1) {
+    options.use_text_message = false;
+  }
+  if (props.media.title && !options.headline) {
+    options.headline = props.media.title.substring(0, 85);
+  }
+  if (props.media.description && !options.description) {
+    options.description = props.media.description.substring(0, 240);
+  }
+  const status = getStatus(mediaStatuses(props.media), mediaLastStatus(props.media));
+  if (status && status.label && !options.status_label) {
+    options.status_label = status.label.substring(0, 16);
+  }
+  if (status && !options.theme_color) {
+    options.theme_color = getStatusStyle(status, 'color');
+  }
+  const teamUrl = props.media.team.contacts.edges[0] ?
+    props.media.team.contacts.edges[0].node.web :
+    window.location.href.match(/https?:\/\/[^/]+\/[^/]+/)[0];
+  if (teamUrl && !options.url) {
+    options.url = teamUrl.substring(0, 40);
+  }
+  if (!options.state) {
+    options.state = 'paused';
+  }
+  return options;
+}
+
 class ReportDesignerComponent extends Component {
   constructor(props) {
     super(props);
-
-    let options = {};
-    if (props.media.dynamic_annotation_report_design) {
-      options = props.media.dynamic_annotation_report_design.data;
-    }
-    if (props.media.team.get_disclaimer && !options.disclaimer) {
-      options.disclaimer = props.media.team.get_disclaimer;
-    }
-    if (props.media.team.get_use_disclaimer && Object.keys(options).indexOf('use_disclaimer') === -1) {
-      options.use_disclaimer = true;
-    }
-    if (props.media.team.get_introduction && !options.introduction) {
-      options.introduction = props.media.team.get_introduction;
-    }
-    if (Object.keys(options).indexOf('use_introduction') === -1) {
-      options.use_introduction = !!props.media.team.get_use_introduction;
-    }
-    if (Object.keys(options).indexOf('use_visual_card') === -1) {
-      options.use_visual_card = false;
-    }
-    if (Object.keys(options).indexOf('use_text_message') === -1) {
-      options.use_text_message = false;
-    }
-    if (props.media.title && !options.headline) {
-      options.headline = props.media.title.substring(0, 85);
-    }
-    if (props.media.description && !options.description) {
-      options.description = props.media.description.substring(0, 240);
-    }
-    const status = getStatus(mediaStatuses(props.media), mediaLastStatus(props.media));
-    if (status && status.label && !options.status_label) {
-      options.status_label = status.label.substring(0, 16);
-    }
-    if (status && !options.theme_color) {
-      options.theme_color = getStatusStyle(status, 'color');
-    }
-    if (!options.image && props.media.media.picture) {
-      options.image = props.media.media.picture;
-    }
-    const teamUrl = props.media.team.contacts.edges[0] ?
-      props.media.team.contacts.edges[0].node.web :
-      window.location.href.match(/https?:\/\/[^/]+\/[^/]+/)[0];
-    if (teamUrl && !options.url) {
-      options.url = teamUrl.substring(0, 40);
-    }
-    if (!options.state) {
-      options.state = 'paused';
-    }
 
     this.state = {
       codeMenuOpened: false,
@@ -269,7 +270,6 @@ class ReportDesignerComponent extends Component {
       pending: false,
       message: null,
       editing: false,
-      image: null,
       sectionExpanded: {
         introduction: false,
         visual_card: false,
@@ -279,11 +279,12 @@ class ReportDesignerComponent extends Component {
       showPauseConfirmationDialog: false,
       showRepublishConfirmationDialog: false,
       showRepublishResendConfirmationDialog: false,
-      unsavedChanges: false,
       showLeaveDialog: false,
       nextLocation: null,
       confirmedToLeave: false,
-      options,
+      // "options" is the current form value. TODO use a different name, or nix
+      // it and track each of its properties individually.
+      options: propsToOptions(props),
     };
   }
 
@@ -292,7 +293,7 @@ class ReportDesignerComponent extends Component {
     router.setRouteLeaveHook(
       this.props.route,
       (nextLocation) => {
-        if (this.state.unsavedChanges && !this.state.confirmedToLeave) {
+        if (this.hasUnsavedChanges && !this.state.confirmedToLeave) {
           this.setState({ showLeaveDialog: true, nextLocation });
           return false;
         }
@@ -304,6 +305,10 @@ class ReportDesignerComponent extends Component {
 
   componentWillUnmount() {
     window.removeEventListener('beforeunload', this.confirmCloseBrowserWindow);
+  }
+
+  get hasUnsavedChanges() {
+    return !deepEqual(this.state.options, propsToOptions(this.props));
   }
 
   settingsEmpty() {
@@ -322,7 +327,7 @@ class ReportDesignerComponent extends Component {
   }
 
   confirmCloseBrowserWindow = (e) => {
-    if (this.state.unsavedChanges) {
+    if (this.hasUnsavedChanges) {
       const message = this.props.intl.formatMessage(messages.confirmLeaveTitle);
       e.returnValue = message;
       return message;
@@ -380,36 +385,31 @@ class ReportDesignerComponent extends Component {
     });
   }
 
-  handleImage(image) {
-    const options = Object.assign({}, this.state.options);
-    const state = { options, message: null, unsavedChanges: true };
-    if (typeof image === 'string') {
-      state.image = null;
-      state.options.image = image;
-    } else {
-      state.image = image;
-      state.options.image = '';
-    }
-    this.setState(state);
+  handleImageChange = (image) => {
+    this.setState({
+      options: { ...this.state.options, image },
+      message: null,
+    });
   }
 
-  handleClearImage() {
-    this.handleImage(null);
+  handleImageError = (image, message) => {
+    this.setState({
+      options: { ...this.state.options, image: null },
+      message,
+    });
   }
 
   handleDefaultImage() {
-    const remove = document.getElementById('remove-image');
-    if (remove) {
-      remove.click();
-    }
-    const image = this.props.media.media.picture;
-    this.handleImage(image);
+    this.setState({
+      options: { ...this.state.options, image: null },
+      message: null,
+    });
   }
 
   handleSelectColor(color) {
     const options = Object.assign({}, this.state.options);
     options.theme_color = color.hex;
-    this.setState({ options, message: null, unsavedChanges: true });
+    this.setState({ options, message: null });
   }
 
   handleConfirmPublish() {
@@ -476,9 +476,8 @@ class ReportDesignerComponent extends Component {
 
   handleChange(field, e) {
     const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
-    const options = Object.assign({}, this.state.options);
-    options[field] = value;
-    this.setState({ options, message: null, unsavedChanges: true });
+    const options = { ...this.state.options, [field]: value };
+    this.setState({ options, message: null });
   }
 
   handleSave(action) {
@@ -493,12 +492,20 @@ class ReportDesignerComponent extends Component {
       this.setState({ pending: false, message });
     };
 
-    const onSuccess = () => {
+    const onSuccess = (data) => {
+      const projectMedia = data.project_media;
+      const nextProps = {
+        ...this.props,
+        media: {
+          ...this.props.media,
+          ...projectMedia,
+        },
+      };
       this.setState({
         pending: false,
         editing: false,
         message: null,
-        unsavedChanges: false,
+        options: propsToOptions(nextProps),
       });
     };
 
@@ -506,15 +513,24 @@ class ReportDesignerComponent extends Component {
 
     this.setState({ pending: true, message: null });
 
-    const fields = Object.assign({}, this.state.options);
+    const fields = { ...this.state.options };
     delete fields.last_published;
     delete fields.previous_published_status_label;
+    const { image } = fields; // File, String or null
+    if (!image || image.preview) {
+      // image is a File? The mutation's fields.image must be "" and its
+      // props.image must be the File.
+      //
+      // image is null? The mutation's fields.image must be "" and its
+      // props.image must be null.
+      fields.image = '';
+    }
 
     if (!annotation) {
       Relay.Store.commitUpdate(
         new CreateReportDesignMutation({
           parent_type: 'project_media',
-          image: this.state.image,
+          image,
           annotated: this.props.media,
           annotation: {
             action,
@@ -523,13 +539,16 @@ class ReportDesignerComponent extends Component {
             annotated_id: this.props.media.dbid,
           },
         }),
-        { onFailure, onSuccess },
+        {
+          onFailure,
+          onSuccess: response => onSuccess(response.createDynamicAnnotationReportDesign),
+        },
       );
     } else {
       Relay.Store.commitUpdate(
         new UpdateReportDesignMutation({
           id: annotation.id,
-          image: this.state.image,
+          image,
           parent_type: 'project_media',
           annotated: this.props.media,
           annotation: {
@@ -539,7 +558,10 @@ class ReportDesignerComponent extends Component {
             annotated_id: this.props.media.dbid,
           },
         }),
-        { onFailure, onSuccess },
+        {
+          onFailure,
+          onSuccess: response => onSuccess(response.updateDynamicAnnotationReportDesign),
+        },
       );
     }
   }
@@ -566,7 +588,7 @@ class ReportDesignerComponent extends Component {
       options.status_label = status.label.substring(0, 16);
       options.theme_color = getStatusStyle(status, 'color');
     }
-    this.setState({ options, unsavedChanges: true });
+    this.setState({ options });
   }
 
   enableCard(card, e) {
@@ -575,7 +597,7 @@ class ReportDesignerComponent extends Component {
     const value = e.target.checked;
     options[`use_${card}`] = value;
     sectionExpanded[card] = value;
-    this.setState({ options, sectionExpanded, unsavedChanges: true });
+    this.setState({ options, sectionExpanded });
   }
 
   toggleSection(section, e) {
@@ -739,7 +761,7 @@ class ReportDesignerComponent extends Component {
                 <Button
                   variant="contained"
                   color="primary"
-                  disabled={this.state.pending || saveDisabled}
+                  disabled={!this.hasUnsavedChanges || this.state.pending || saveDisabled}
                   onClick={this.handleSave.bind(this, 'save')}
                   style={{
                     marginRight: units(1),
@@ -858,7 +880,13 @@ class ReportDesignerComponent extends Component {
                           width: 500,
                           height: 500,
                         }}
-                        image={this.state.image}
+                        image={
+                          options.image
+                            // options.image is either String (from backend) or File (from upload).
+                            // <ReportImagePreview> needs String.
+                            ? (options.image.preview || options.image)
+                            : media.media.picture
+                        }
                         teamAvatar={media.team.avatar}
                         params={options}
                         template={media.team.get_report_design_image_template}
@@ -917,7 +945,7 @@ class ReportDesignerComponent extends Component {
                   <ExpansionPanelDetails style={{ display: 'block' }}>
                     <TextField
                       id="report-designer__introduction"
-                      defaultValue={options.introduction}
+                      value={options.introduction}
                       onChange={this.handleChange.bind(this, 'introduction')}
                       placeholder={this.props.intl.formatMessage(messages.introductionPlaceholder)}
                       rows={10}
@@ -968,7 +996,7 @@ class ReportDesignerComponent extends Component {
                   </ExpansionPanelSummary>
                   <ExpansionPanelDetails style={{ display: 'block' }}>
                     <div style={{ marginBottom: units(2) }}>
-                      <UploadImage onImage={this.handleImage.bind(this)} onClear={this.handleClearImage.bind(this)} type="image" />
+                      <UploadImage onChange={this.handleImageChange} onError={this.handleImageError} type="image" />
                       { media.media.picture ?
                         <p>
                           <Button onClick={this.handleDefaultImage.bind(this)}>
@@ -982,7 +1010,7 @@ class ReportDesignerComponent extends Component {
                     </div>
                     <TextField
                       id="report-designer__headline"
-                      defaultValue={options.headline}
+                      value={options.headline}
                       onChange={this.handleChange.bind(this, 'headline')}
                       inputProps={{ maxLength: 85 }}
                       style={{ marginBottom: units(4) }}
@@ -997,7 +1025,7 @@ class ReportDesignerComponent extends Component {
                     />
                     <TextField
                       id="report-designer__description"
-                      defaultValue={options.description}
+                      value={options.description}
                       onChange={this.handleChange.bind(this, 'description')}
                       inputProps={{ maxLength: 240 }}
                       style={{ marginBottom: units(4) }}
@@ -1014,7 +1042,6 @@ class ReportDesignerComponent extends Component {
                     />
                     <TextField
                       id="report-designer__status"
-                      defaultValue={options.status_label}
                       value={options.status_label}
                       onChange={this.handleChange.bind(this, 'status_label')}
                       inputProps={{ maxLength: 16 }}
@@ -1031,7 +1058,6 @@ class ReportDesignerComponent extends Component {
                     <div style={{ display: 'flex' }}>
                       <TextField
                         id="report-designer__theme-color"
-                        defaultValue={options.theme_color}
                         value={options.theme_color}
                         onChange={this.handleChange.bind(this, 'theme_color')}
                         inputProps={{ maxLength: 7 }}
@@ -1053,7 +1079,7 @@ class ReportDesignerComponent extends Component {
                     </div>
                     <TextField
                       id="report-designer__url"
-                      defaultValue={options.url}
+                      value={options.url}
                       onChange={this.handleChange.bind(this, 'url')}
                       inputProps={{ maxLength: 40 }}
                       style={{ marginBottom: units(4) }}
@@ -1097,7 +1123,7 @@ class ReportDesignerComponent extends Component {
                   <ExpansionPanelDetails style={{ display: 'block' }}>
                     <TextField
                       id="report-designer__text"
-                      defaultValue={options.text}
+                      value={options.text}
                       onChange={this.handleChange.bind(this, 'text')}
                       placeholder={this.props.intl.formatMessage(messages.textPlaceholder)}
                       rows={10}
@@ -1125,7 +1151,7 @@ class ReportDesignerComponent extends Component {
                     </div>
                     <TextField
                       id="report-designer__disclaimer"
-                      defaultValue={options.disclaimer}
+                      value={options.disclaimer}
                       onChange={this.handleChange.bind(this, 'disclaimer')}
                       fullWidth
                     />

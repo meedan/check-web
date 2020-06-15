@@ -1,7 +1,6 @@
 import {
   bemClass,
   bemClassFromMediaStatus,
-  rtlClass,
   safelyParseJSON,
   nested,
   getStatus,

@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { FormattedMessage, FormattedHTMLMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
@@ -14,7 +14,6 @@ import Tooltip from '@material-ui/core/Tooltip';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import ClearIcon from '@material-ui/icons/Clear';
 import deepEqual from 'deep-equal';
-import rtlDetect from 'rtl-detect';
 import styled from 'styled-components';
 import { withPusher, pusherShape } from '../../pusher';
 import DateRangeFilter from './DateRangeFilter';
@@ -40,30 +39,18 @@ import {
   ellipsisStyles,
 } from '../../styles/js/shared';
 
-// https://github.com/styled-components/styled-components/issues/305#issuecomment-298680960
-const swallowingStyled = (WrappedComponent, { swallowProps = [] } = {}) => {
-  const Wrapper = ({ children, ...props }) => {
-    const remainingProps = props;
-    swallowProps.forEach((propName) => {
-      delete remainingProps[propName];
-    });
-    return <WrappedComponent {...remainingProps}>{children}</WrappedComponent>;
-  };
-  return styled(Wrapper);
-};
-
 export const StyledSearchInput = styled.input`
   background-repeat: no-repeat;
   background-color: ${white};
   background-image: url('/images/search.svg');
-  background-position: ${props => (props.isRtl ? `calc(100% - ${units(2)})` : units(2))} center;
+  background-position: ${props => (props.theme.dir === 'rtl' ? `calc(100% - ${units(2)})` : units(2))} center;
   border: ${borderWidthLarge} solid ${props => (props.active ? highlightOrange : black16)};
   border-radius: ${units(0.5)};
   height: ${units(5)};
   outline: none;
   width: 100%;
   font-size: 16px;
-  padding-${props => (props.isRtl ? 'right' : 'left')}: ${units(6)};
+  padding-${props => (props.theme.dir === 'rtl' ? 'right' : 'left')}: ${units(6)};
 `;
 
 const StyledPopper = styled(Popper)`
@@ -102,7 +89,7 @@ const StyledSearchFiltersSection = styled.section`
   }
 `;
 
-const StyledFilterRow = swallowingStyled(Row, { swallowProps: ['isRtl'] })`
+const StyledFilterRow = styled(Row)`
   min-height: ${units(5)};
   margin-bottom: ${units(2)};
   flex-wrap: wrap;
@@ -112,14 +99,14 @@ const StyledFilterRow = swallowingStyled(Row, { swallowProps: ['isRtl'] })`
     color: ${black87};
     margin: 0;
     min-width: ${units(6)};
-    margin-${props => (props.isRtl ? 'left' : 'right')}: ${units(2)};
+    margin-${props => (props.theme.dir === 'rtl' ? 'left' : 'right')}: ${units(2)};
     line-height: ${units(4 /* eyeballing it */)};
   }
 
   ${mediaQuery.tablet`
     justify-content: flex-end;
     h4 {
-      margin-${props => (props.isRtl ? 'left' : 'right')}: auto;
+      margin-${props => (props.theme.dir === 'rtl' ? 'left' : 'right')}: auto;
     }
   `};
 
@@ -136,8 +123,8 @@ const StyledFilterRow = swallowingStyled(Row, { swallowProps: ['isRtl'] })`
 
     h4 {
       padding: ${units(0.5)};
-      text-align: ${props => (props.isRtl ? 'right' : 'left')};
-      margin-${props => (props.isRtl ? 'left' : 'right')}: ${units(2)};
+      text-align: ${props => (props.theme.dir === 'rtl' ? 'right' : 'left')};
+      margin-${props => (props.theme.dir === 'rtl' ? 'left' : 'right')}: ${units(2)};
     }
   `}
 `;
@@ -183,33 +170,6 @@ const styles = theme => ({
     color: white,
     backgroundColor: highlightOrange,
     border: `${borderWidthLarge} solid ${highlightOrange}`,
-  },
-});
-
-const messages = defineMessages({
-  title: {
-    id: 'search.title',
-    defaultMessage: 'All items',
-  },
-  searchInputHint: {
-    id: 'search.inputHint',
-    defaultMessage: 'Search',
-  },
-  applyFilters: {
-    id: 'search.applyFilters',
-    defaultMessage: 'Done',
-  },
-  cancel: {
-    id: 'search.cancel',
-    defaultMessage: 'Cancel',
-  },
-  reset: {
-    id: 'search.reset',
-    defaultMessage: 'Reset',
-  },
-  clear: {
-    id: 'search.clear',
-    defaultMessage: 'Clear filter',
   },
 });
 
@@ -402,6 +362,8 @@ class SearchQueryComponent extends React.Component {
   }
 
   // Create title out of query parameters
+  //
+  // Returns either a String or a <FormattedMessage> component.
   title(statuses, projects) {
     const { query } = this.props;
     return (
@@ -430,7 +392,9 @@ class SearchQueryComponent extends React.Component {
           ].filter(Boolean),
         )
         .join(' ')
-        .trim() || this.props.intl.formatMessage(messages.title)
+        .trim()
+    ) || (
+      <FormattedMessage id="search.title" defaultMessage="All items" />
     );
   }
 
@@ -532,8 +496,6 @@ class SearchQueryComponent extends React.Component {
       ? this.title(statuses, projects)
       : (this.props.title || (this.props.project ? this.props.project.title : null));
 
-    const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
-
     const hasRules = team.rules_search_fields_json_schema &&
       Object.keys(team.rules_search_fields_json_schema.properties.rules.properties).length > 0;
 
@@ -551,18 +513,21 @@ class SearchQueryComponent extends React.Component {
             onSubmit={this.handleSubmit}
             autoComplete="off"
           >
-            <StyledSearchInput
-              placeholder={this.props.intl.formatMessage(messages.searchInputHint)}
-              name="search-input"
-              id="search-input"
-              active={this.keywordIsActive()}
-              defaultValue={this.state.query.keyword || ''}
-              isRtl={isRtl}
-              onBlur={this.handleBlur}
-              onChange={this.handleInputChange}
-              ref={this.searchInput}
-              autoFocus
-            />
+            <FormattedMessage id="search.inputHint" defaultMessage="Search">
+              {placeholder => (
+                <StyledSearchInput
+                  placeholder={placeholder}
+                  name="search-input"
+                  id="search-input"
+                  active={this.keywordIsActive()}
+                  defaultValue={this.state.query.keyword || ''}
+                  onBlur={this.handleBlur}
+                  onChange={this.handleInputChange}
+                  ref={this.searchInput}
+                  autoFocus
+                />
+              )}
+            </FormattedMessage>
             <StyledPopper
               id="search-help"
               open={
@@ -606,14 +571,13 @@ class SearchQueryComponent extends React.Component {
             <FilterListIcon />
             <FormattedMessage id="search.Filter" defaultMessage="Filter" />
           </Button>
-          { (this.filterIsActive() || this.keywordIsActive()) ?
-            <Tooltip title={this.props.intl.formatMessage(messages.clear)}>
+          {(this.filterIsActive() || this.keywordIsActive()) ? (
+            <Tooltip title={<FormattedMessage id="search.clear" defaultMessage="Clear filter" />}>
               <IconButton id="search-query__clear-button" onClick={this.handleClickClear}>
                 <ClearIcon style={{ color: highlightOrange }} />
               </IconButton>
             </Tooltip>
-            : null
-          }
+          ) : null}
         </Row>
         <PageTitle prefix={title} team={this.props.team}>
           <Dialog
@@ -630,7 +594,7 @@ class SearchQueryComponent extends React.Component {
                   value={this.state.query.range}
                 />
                 {this.showField('status') ?
-                  <StyledFilterRow isRtl={isRtl}>
+                  <StyledFilterRow>
                     <h4><FormattedMessage id="search.statusHeading" defaultMessage="Status" /></h4>
                     {statuses.map(status => (
                       <StyledFilterChip
@@ -814,11 +778,11 @@ class SearchQueryComponent extends React.Component {
             </DialogContent>
             <DialogActions>
               <Button id="search-query__cancel-button" onClick={this.handleClickCancel}>
-                {this.props.intl.formatMessage(messages.cancel)}
+                <FormattedMessage id="search.cancel" defaultMessage="Cancel" />
               </Button>
 
               <Button id="search-query__reset-button" onClick={this.handleClickReset}>
-                {this.props.intl.formatMessage(messages.reset)}
+                <FormattedMessage id="search.reset" defaultMessage="Reset" />
               </Button>
 
               <Button
@@ -828,7 +792,7 @@ class SearchQueryComponent extends React.Component {
                 disabled={this.doneButtonDisabled()}
                 color="primary"
               >
-                {this.props.intl.formatMessage(messages.applyFilters)}
+                <FormattedMessage id="search.applyFilters" defaultMessage="Done" />
               </Button>
             </DialogActions>
           </Dialog>
@@ -839,9 +803,6 @@ class SearchQueryComponent extends React.Component {
 }
 
 SearchQueryComponent.propTypes = {
-  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
-  // eslint-disable-next-line react/no-typos
-  intl: intlShape.isRequired,
   classes: PropTypes.object.isRequired,
   pusher: pusherShape.isRequired,
   clientSessionId: PropTypes.string.isRequired,
@@ -853,5 +814,5 @@ SearchQueryComponent.contextTypes = {
   store: PropTypes.object,
 };
 
-export default withStyles(styles)(withPusher(injectIntl(SearchQueryComponent)));
+export default withStyles(styles)(withPusher(SearchQueryComponent));
 export { StyledFilterRow };
