@@ -109,7 +109,7 @@ class UploadImageComponent extends React.PureComponent {
     } = this.props;
     const file = files[0];
     const extensions = type === 'image' ? about.upload_extensions : about.video_extensions;
-    const max_size = type === 'image' ? about.upload_max_size : about.video_max_size;
+    const maxSize = type === 'image' ? about.upload_max_size : about.video_max_size;
     const valid_extensions = extensions.toLowerCase().split(/[\s,]+/);
     const extension = file.name.substr(file.name.lastIndexOf('.') + 1).toLowerCase();
     if (valid_extensions.length > 0 && valid_extensions.indexOf(extension) < 0) {
@@ -120,10 +120,11 @@ class UploadImageComponent extends React.PureComponent {
       />);
       return;
     }
-    if (file.size && unhumanizeSize(max_size) < file.size) {
+    if (file.size && unhumanizeSize(maxSize) < file.size) {
       onError(file, <FormattedMessage
         id="uploadImage.fileTooLarge"
         defaultMessage="The file size should be less than {size}. Please try with a smaller file."
+        values={{ size: maxSize }}
       />);
       return;
     }

@@ -1,7 +1,0 @@
-{
-  "browser.support.message": "Melhor visualizado com  <a href=\"https://www.google.com/chrome/browser/desktop/\">Chrome para Desktop</a>.",
-  "loginContainer.agreeTerms": "Ao registrar-se você concorda com os {tosLink} e {ppLink} do {appName}.",
-  "tos.title": "Termos de Serviço",
-  "privacy.policy.title": "Política de Privacidade",
-  "login.contactSupport": "Para suporte, entre em contato com <a href=\"mailto:{supportEmail}\">{supportEmail}</a>."
-}

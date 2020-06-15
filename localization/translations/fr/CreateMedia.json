@@ -1,6 +1,0 @@
-{
-  "createMedia.submitting": "En chargement...",
-  "createMedia.error": "Désolé, une erreur s'est produite durant la soumission de l'élément. Veuillez réessayer et prévenir {supportEmail} si le problème persiste.",
-  "createMedia.addItem": "Ajouter un élément",
-  "createMedia.addNewItem": "Ajouter un nouvel élément"
-}

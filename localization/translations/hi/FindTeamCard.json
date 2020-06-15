@@ -1,9 +1,0 @@
-{
-  "findTeamCard.teamSlugHint": "Workspace URL",
-  "findTeamCard.teamNotFound": "Workspace not found!",
-  "findTeamCard.mainHeading": "Find an existing workspace",
-  "findTeamCard.blurb": "Request to join an existing workspace by adding its name here, or get started by creating your own.",
-  "findTeamCard.url": "Workspace URL",
-  "findTeamCard.submitButton": "Find workspace",
-  "findTeamCard.createYourOwn": "You can also create your own workspace."
-}

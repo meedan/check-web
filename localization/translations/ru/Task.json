@@ -1,9 +1,0 @@
-{
-  "task.confirmDelete": "Вы уверены, что хотите удалить вопрос?",
-  "task.confirmDeleteResponse": "Вы уверены, что хотите удалить этот ответ?",
-  "task.answeredBy": "Completed by {byName}",
-  "task.assignedTo": "Назначено {name}",
-  "tasks.editAssignment": "Редактировать назначение",
-  "tasks.attributionSlogan": "Авторы ответа на вопрос «{label}»",
-  "tasks.editAttribution": "Авторство ответа"
-}

@@ -1,9 +1,0 @@
-{
-  "findTeamCard.teamSlugHint": "URL del área de trabajo",
-  "findTeamCard.teamNotFound": "Área de trabajo no encontrada!",
-  "findTeamCard.mainHeading": "Buscar una área de trabajo existente",
-  "findTeamCard.blurb": "Solicita unirte a una área de trabajo existente agregando el nombre aquí, o comienza creando el tuyo.",
-  "findTeamCard.url": "URL del área de trabajo",
-  "findTeamCard.submitButton": "Buscar una área de trabajo",
-  "findTeamCard.createYourOwn": "También puedes crear tu propia área de trabajo."
-}

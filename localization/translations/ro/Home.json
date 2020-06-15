@@ -1,9 +1,0 @@
-{
-  "home.needRegister": "First you need to register. Once registered, you can request to join the workspace.",
-  "home.somethingWrong": "Ne pare rău, s-a produs o eroare. Vă rugăm să actualizați browser-ul și să contactați {supportEmail} dacă situația persistă.",
-  "home.successInvitation": "Bine ați venit în {appName}. Vă rugăm să vă conectați cu ajutorul parolei, pe care ați primit-o în mesajul de bun venit pe e-mail.",
-  "home.invalidInvitation": "Ne pare rău, în timpul procesării invitației Dvs s-a produs o eroare. Vă rugăm să contactați {supportEmail}.",
-  "home.invalidTeamInvitation": "Sorry, the workspace to which you were invited was not found. Please contact {supportEmail} if you think this is an error.",
-  "home.invalidNoInvitation": "Ne pare rău, invitația pe care ați primit nu a fost găsită. Contactați {supportEmail} dacă credeți că s-a produs o eroare.",
-  "home.invalidExpiredInvitation": "Sorry, the invitation you received was expired. Please contact {supportEmail} if you think this is an error."
-}

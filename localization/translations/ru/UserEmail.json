@@ -1,8 +1,0 @@
-{
-  "userEmail.title": "Добавить e-mail адрес",
-  "userEmail.emailInputHint": "email@example.com",
-  "userEmail.submit": "Отправить",
-  "userEmail.skip": "Пропустить",
-  "userEmail.text": "Чтобы получать уведомления, вам нужно указать e-mail адрес. Если вы не хотите получать уведомления, нажмите «Пропустить».",
-  "userEmail.emailInputLabel": "E-mail"
-}
