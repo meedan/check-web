@@ -72,11 +72,11 @@ class MediaActionsBarComponent extends Component {
   }
 
   getDescription() {
-    return (typeof this.state.description === 'string') ? this.state.description.trim() : this.props.media.description;
+    return (typeof this.state.description === 'string') ? this.state.description : this.props.media.description;
   }
 
   getTitle() {
-    return (typeof this.state.title === 'string') ? this.state.title.trim() : this.props.media.title;
+    return (typeof this.state.title === 'string') ? this.state.title : this.props.media.title;
   }
 
   currentProject() {
@@ -209,18 +209,10 @@ class MediaActionsBarComponent extends Component {
       event.preventDefault();
     }
 
-    const embed = {};
-
-    const title = this.getTitle();
-    const description = this.getDescription();
-
-    if (typeof title === 'string' && title.trim().length > 0) {
-      embed.title = title.trim();
-    }
-
-    if (typeof description === 'string' && description.trim().length > 0) {
-      embed.description = description.trim();
-    }
+    const embed = {
+      title: this.getTitle().trim(),
+      description: this.getDescription().trim(),
+    };
 
     if (embed.title === '' && media.media.embed_path) {
       embed.title = media.media.embed_path.split('/').pop().replace('embed_', '');
@@ -244,6 +236,8 @@ class MediaActionsBarComponent extends Component {
           media,
           metadata: JSON.stringify(embed),
           id: media.id,
+          srcProj: null,
+          dstProj: null,
         }),
         { onFailure },
       );
@@ -285,6 +279,8 @@ class MediaActionsBarComponent extends Component {
         media: this.props.media,
         context,
         id: this.props.media.id,
+        srcProj: null,
+        dstProj: null,
       }),
       { onSuccess, onFailure: this.fail },
     );
@@ -321,6 +317,8 @@ class MediaActionsBarComponent extends Component {
       new UpdateProjectMediaMutation({
         refresh_media: 1,
         id: this.props.media.id,
+        srcProj: null,
+        dstProj: null,
       }),
       { onFailure: this.fail },
     );
@@ -415,6 +413,8 @@ class MediaActionsBarComponent extends Component {
         check_search_project: this.props.media.project.search,
         check_search_trash: this.props.media.team.check_search_trash,
         context,
+        srcProj: null,
+        dstProj: null,
       }),
       { onSuccess, onFailure: this.fail },
     );
