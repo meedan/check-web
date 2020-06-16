@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -13,7 +13,7 @@ import MediaAnalysis from './MediaAnalysis';
 import MediaLog from './MediaLog';
 import MediaComments from './MediaComments';
 import MediaRequests from './MediaRequests';
-import MediaUtil from './MediaUtil';
+import MediaTitle from './MediaTitle';
 import { columnWidthMedium, columnWidthLarge, units } from '../../styles/js/shared';
 
 const StyledTwoColumnLayout = styled.div`
@@ -138,18 +138,15 @@ class MediaComponent extends Component {
     }
 
     const { media } = this.props;
-    const data = media.metadata;
     media.url = media.media.url;
     media.quote = media.media.quote;
     media.embed_path = media.media.embed_path;
 
     return (
       <React.Fragment>
-        <PageTitle
-          prefix={MediaUtil.title(media, data, this.props.intl)}
-          team={media.team}
-          data-id={media.dbid}
-        />
+        <MediaTitle projectMedia={media}>
+          {text => <PageTitle prefix={text} team={media.team} data-id={media.dbid} />}
+        </MediaTitle>
         <StyledTwoColumnLayout className="media">
           <Column>
             <MediaDetail
@@ -238,9 +235,8 @@ class MediaComponent extends Component {
 MediaComponent.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
-  intl: intlShape.isRequired,
   pusher: pusherShape.isRequired,
   clientSessionId: PropTypes.string.isRequired,
 };
 
-export default withPusher(injectIntl(MediaComponent));
+export default withPusher(MediaComponent);

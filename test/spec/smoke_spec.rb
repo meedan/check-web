@@ -978,7 +978,7 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('claim 1')).to be(true)
     expect(@driver.page_source.include?('claim 2')).to be(true)
     wait_for_selector("thead input[type='checkbox']:not(:checked)").click
-    wait_for_selector("span[title='Send selected items to trash']").click #Delete items
+    wait_for_selector('.media-bulk-actions__delete-icon').click  # Delete items
     wait_for_selector_none(".medias__item")
     expect(@driver.page_source.include?('Add a link or text')).to be(true)
     wait_for_selector(".project-list__item-trash").click #Go to the trash page

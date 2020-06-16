@@ -85,10 +85,10 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
   getOptimisticResponse() {
     if (this.props.metadata) {
       const newEmbed = JSON.parse(this.props.metadata);
-      const embed = Object.assign(this.props.media.metadata, newEmbed);
+      const embed = { ...this.props.media.metadata, newEmbed };
       const permissions = JSON.parse(this.props.media.permissions);
       permissions['update Dynamic'] = false;
-      const { overridden } = this.props.media;
+      const overridden = { ...this.props.media.overridden };
       Object.keys(newEmbed).forEach((attribute) => {
         overridden[attribute] = true;
       });
@@ -392,6 +392,18 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
   }
 
   static fragments = {
+    media: () => Relay.QL`
+      fragment on ProjectMedia {
+        id
+        metadata
+        overridden
+        permissions
+        project {  # for the optimistic update. TODO nix this!
+          id
+          medias_count
+        }
+      }
+    `,
     srcProj: () => Relay.QL`
       fragment on Project {
         id
