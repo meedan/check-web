@@ -175,13 +175,12 @@ class MediaTimeline extends Component {
   entityCreate = (type, payload, callback) => {
     const { mediaId, dbid } = this.state;
 
-    console.log({ type, payload });
     switch (type) {
     case 'tag':
       createTag(payload[`project_${type}`].name, payload.fragment, `${dbid}`, mediaId, callback);
       break;
     case 'clip':
-      createClip(payload[`project_${type}`].name, payload.fragment, `${dbid}`, mediaId);
+      createClip(payload[`project_${type}`].name, payload.fragment, `${dbid}`, mediaId, callback);
       break;
     default:
       console.error(`${type} not handled`);
@@ -235,6 +234,9 @@ class MediaTimeline extends Component {
       createTag(name, payload.fragment, `${dbid}`, mediaId, callback);
       break;
     }
+    case 'clip':
+      createClip(id.substring(5), payload.fragment, `${dbid}`, mediaId, callback);
+      break;
     default:
       console.error(`${type} not handled`);
     }
@@ -275,6 +277,9 @@ class MediaTimeline extends Component {
     const { data } = this.state;
 
     switch (type) {
+    case 'tags':
+      console.warn('TODO playlist tags', data);
+      break;
     case 'tags':
       console.warn('TODO playlist tags', data);
       break;
