@@ -80,7 +80,7 @@ export const repositionPlace = (id, payload, content) => {
       },
     },
   });
-}; 
+};
 
 export const renamePlace = (id, label, content) => {
   const fields = JSON.parse(content);
@@ -184,10 +184,6 @@ export const createPlaceInstance = (name, { fragment }, content, annotated_id, p
     geolocation_location: geojson,
   } = content.reduce((acc, { field_name, value_json }) =>
     ({ ...acc, [field_name]: value_json }), {});
-
-  console.log({
-    name, fragment, viewport, zoom, geojson, annotated_id, parentID,
-  });
 
   console.log(`http://geojson.io/#data=data:application/json,${encodeURIComponent(JSON.stringify(geojson))}`);
 
@@ -502,91 +498,82 @@ export const destroyComment = (id, annotated_id, callback) => commitMutation(env
 });
 
 export const createComment =
-  (text, fragment, annotated_id, parentID, callback) => {
-    console.log({
-      text, fragment, annotated_id, parentID, callback,
-    });
-    return commitMutation(environment, {
-      mutation: graphql`
-        mutation MediaTimelineUtilsCreateCommentMutation($input: CreateCommentInput!) {
-          createComment(input: $input) {
-            commentEdge {
-              cursor
-              __typename
-              node {
+  (text, fragment, annotated_id, parentID, callback) => commitMutation(environment, {
+    mutation: graphql`
+      mutation MediaTimelineUtilsCreateCommentMutation($input: CreateCommentInput!) {
+        createComment(input: $input) {
+          commentEdge {
+            cursor
+            __typename
+            node {
+              id
+              text
+              dbid
+              annotator {
                 id
-                text
-                dbid
-                annotator {
-                  id
-                  name
-                  profile_image
-                }
-                text
-                parsed_fragment
+                name
+                profile_image
               }
+              text
+              parsed_fragment
             }
           }
         }
-      `,
-      variables: {
-        input: {
-          annotated_id, text, fragment, clientMutationId: `m${Date.now()}`, annotated_type: 'Comment',
-        },
+      }
+    `,
+    variables: {
+      input: {
+        annotated_id, text, fragment, clientMutationId: `m${Date.now()}`, annotated_type: 'Comment',
       },
-      configs: [
-        {
-          type: 'RANGE_ADD',
-          parentName: 'Comment',
-          parentID,
-          edgeName: 'commentEdge',
-          connectionName: 'annotations',
-          rangeBehaviors: () => ('append'),
-          connectionInfo: [{
-            key: 'Comment_comments',
-            rangeBehavior: 'append',
-          }],
-        },
-      ],
-      onCompleted: (data, errors) => callback && callback(data, errors),
-    });
-  };
+    },
+    configs: [
+      {
+        type: 'RANGE_ADD',
+        parentName: 'Comment',
+        parentID,
+        edgeName: 'commentEdge',
+        connectionName: 'annotations',
+        rangeBehaviors: () => ('append'),
+        connectionInfo: [{
+          key: 'Comment_comments',
+          rangeBehavior: 'append',
+        }],
+      },
+    ],
+    onCompleted: (data, errors) => callback && callback(data, errors),
+  });
+
 
 export const createCommentThread =
-  (text, fragment, annotated_id, parentID, callback) => {
-    console.log({
-      text, fragment, annotated_id, parentID, callback,
-    });
-    return commitMutation(environment, {
-      mutation: graphql`
-        mutation MediaTimelineUtilsCreateCommentThreadMutation($input: CreateCommentInput!) {
-          createComment(input: $input) {
-            commentEdge {
-              cursor
-              __typename
-              node {
+  (text, fragment, annotated_id, parentID, callback) => commitMutation(environment, {
+    mutation: graphql`
+      mutation MediaTimelineUtilsCreateCommentThreadMutation($input: CreateCommentInput!) {
+        createComment(input: $input) {
+          commentEdge {
+            cursor
+            __typename
+            node {
+              id
+              text
+              dbid
+              annotator {
                 id
-                text
-                dbid
-                annotator {
-                  id
-                  name
-                  profile_image
-                }
-                text
-                parsed_fragment
-                comments: annotations(first: 10000, annotation_type: "comment") {
-                  edges {
-                    node {
-                      ... on Comment {
+                name
+                profile_image
+              }
+              text
+              parsed_fragment
+              comments: annotations(first: 10000, annotation_type: "comment") {
+                edges {
+                  node {
+                    ... on Comment {
+                      id
+                      created_at
+                      text
+                      annotator {
                         id
-                        created_at
-                        text
-                        annotator {
-                          id
-                          name
-                          profile_image
-                        }
+                        name
+                        profile_image
                       }
                     }
                   }
@@ -595,34 +582,34 @@ export const createCommentThread =
             }
           }
         }
-      `,
-      variables: {
-        input: {
-          annotated_id, text, fragment, clientMutationId: `m${Date.now()}`, annotated_type: 'ProjectMedia',
-        },
+      }
+    `,
+    variables: {
+      input: {
+        annotated_id, text, fragment, clientMutationId: `m${Date.now()}`, annotated_type: 'ProjectMedia',
       },
-      configs: [
-        {
-          type: 'RANGE_ADD',
-          parentName: 'project_media',
-          parentID,
-          edgeName: 'commentEdge',
-          connectionName: 'annotations',
-          rangeBehaviors: (args) => {
-            if (args.annotation_type === 'comment') {
-              return 'append';
-            }
-            return 'ignore';
-          },
-          connectionInfo: [{
-            key: 'ProjectMedia_comments',
-            rangeBehavior: 'append',
-          }],
+    },
+    configs: [
+      {
+        type: 'RANGE_ADD',
+        parentName: 'project_media',
+        parentID,
+        edgeName: 'commentEdge',
+        connectionName: 'annotations',
+        rangeBehaviors: (args) => {
+          if (args.annotation_type === 'comment') {
+            return 'append';
+          }
+          return 'ignore';
         },
-      ],
-      onCompleted: (data, errors) => callback && callback(data, errors),
-    });
-  };
+        connectionInfo: [{
+          key: 'ProjectMedia_comments',
+          rangeBehavior: 'append',
+        }],
+      },
+    ],
+    onCompleted: (data, errors) => callback && callback(data, errors),
+  });
 
 export const createTag = (tag, fragment, annotated_id, parentID, callback) =>
   commitMutation(environment, {

@@ -30,9 +30,9 @@ class MediaTimeline extends Component {
     const projecttags = [];
     const entities = {};
 
-    console.log({
-      mediaId, dbid, tags, clips, comments, locations,
-    });
+    // console.log({
+    //   mediaId, dbid, tags, clips, comments, locations,
+    // });
 
     const commentThreads = comments.edges.filter(({ node: { dbid } }) => !!dbid).map(({
       node,
@@ -185,7 +185,7 @@ class MediaTimeline extends Component {
       },
     };
 
-    console.log({ data });
+    // console.log({ data });
 
     return {
       duration, time, data, mediaId, dbid,
@@ -226,14 +226,14 @@ class MediaTimeline extends Component {
 
   instanceClip = (type, entityId, instanceId) => {
     const { mediaId, dbid, data: { videoTags, videoPlaces } } = this.state;
-    console.log({ type, entityId, instanceId });
+    // console.log({ type, entityId, instanceId });
 
     switch (type) {
     case 'tag': {
       const { project_tag: { name }, instances = [] } = videoTags.find(({ id }) => id === entityId);
       const { start_seconds, end_seconds } = instances.find(({ id }) => id === instanceId);
 
-      console.log(name, `t=${start_seconds},${end_seconds}`, `${dbid}`, mediaId);
+      // console.log(name, `t=${start_seconds},${end_seconds}`, `${dbid}`, mediaId);
       createClip(name, `t=${start_seconds},${end_seconds}`, `${dbid}`, mediaId);
       break;
     }
@@ -241,7 +241,7 @@ class MediaTimeline extends Component {
       const { name, instances = [] } = videoPlaces.find(({ id }) => id === entityId);
       const { start_seconds, end_seconds } = instances.find(({ id }) => id === instanceId);
 
-      console.log(name, `t=${start_seconds},${end_seconds}`, `${dbid}`, mediaId);
+      // console.log(name, `t=${start_seconds},${end_seconds}`, `${dbid}`, mediaId);
       createClip(name, `t=${start_seconds},${end_seconds}`, `${dbid}`, mediaId);
       break;
     }
@@ -261,7 +261,7 @@ class MediaTimeline extends Component {
       createClip(payload[`project_${type}`].name, payload.fragment, `${dbid}`, mediaId, callback);
       break;
     case 'place':
-      console.log({ type, payload });
+      // console.log({ type, payload });
       createPlace(payload[`project_${type}`].name, payload, `${dbid}`, mediaId, callback);
       break;
     default:
@@ -413,9 +413,9 @@ class MediaTimeline extends Component {
     const start = gaps.length > 0 ? Math.max(gaps[0][1], 0) : null;
     const end = gaps.length > 0 ? Math.min(gaps[gaps.length - 1][0], duration) : null;
 
-    console.log({
-      instances, segments, events, start, end, gaps,
-    });
+    // console.log({
+    //   instances, segments, events, start, end, gaps,
+    // });
 
     setPlayerState({
       gaps, transport: type, start, end,
