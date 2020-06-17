@@ -96,6 +96,10 @@ class MediaComponent extends Component {
     const { t = '', id } = qs.parse(document.location.hash.substring(1));
     const [start, end] = t.split(',').map(s => parseFloat(s));
 
+    const gaps = [];
+    if (start) gaps.push([0, start]);
+    if (end) gaps.push([end, Number.MAX_VALUE]);
+
     this.state = {
       duration: 0,
       playing: false,
@@ -106,7 +110,7 @@ class MediaComponent extends Component {
       fragment: { t, id },
       start,
       end,
-      gaps: [],
+      gaps,
       time: 0,
       playerRef: null,
       playerRect: null,

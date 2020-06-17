@@ -7,7 +7,7 @@ import {
   createClip, renameClip, destroyClip, retimeClip,
   createCommentThread, destroyComment, createComment, updateComment,
   createTag, renameTag, destroyTag, retimeTag,
-  createPlace,
+  createPlace, createPlaceInstance,
 } from './MediaTimelineUtils';
 
 const NOOP = () => {};
@@ -32,6 +32,7 @@ class MediaTimeline extends Component {
     });
 
     const commentThreads = comments.edges.filter(({ node: { dbid } }) => !!dbid).map(({
+      node,
       node: {
         id: thread_id, dbid, text, parsed_fragment,
         annotator: {
@@ -70,9 +71,11 @@ class MediaTimeline extends Component {
           profile_img_url: profile_image,
         },
       })).sort((a, b) => a.created_at - b.created_at) : [],
+      node,
     }));
 
     clips.filter(({ node: { id } }) => !!id).forEach(({
+      node,
       node: { id, parsed_fragment: { t: [start_seconds, end_seconds] }, data: { label: name } },
     }) => {
       if (!entities[`clip-${name}`]) {
@@ -82,6 +85,7 @@ class MediaTimeline extends Component {
           type: 'clip',
           project_clip: { id: `clip-${name}`, name },
           instances: [],
+          node,
         };
       }
 
@@ -95,7 +99,7 @@ class MediaTimeline extends Component {
 
     tags
       .filter(({ node }) => !!node)
-      .forEach(({ node: { id: instance, fragment, tag_text_object } }) => {
+      .forEach(({ node, node: { id: instance, fragment, tag_text_object } }) => {
         if (!tag_text_object) return;
 
         const { id, text: name } = tag_text_object;
@@ -106,7 +110,7 @@ class MediaTimeline extends Component {
 
         if (!entities[id]) {
           entities[id] = {
-            id, name, project_tag: { id, name }, instances: [],
+            id, name, project_tag: { id, name }, instances: [], node,
           };
         }
 
@@ -118,7 +122,7 @@ class MediaTimeline extends Component {
       });
 
     locations.filter(({ node: { id } }) => !!id).forEach(({
-      node: { id, parsed_fragment: { t: [start_seconds, end_seconds] }, content },
+      node, node: { id, parsed_fragment: { t: [start_seconds, end_seconds] }, content },
     }) => {
       const {
         geolocation_viewport: { viewport, zoom = 10 },
@@ -143,6 +147,7 @@ class MediaTimeline extends Component {
           test: { geolocation_location },
           project_place: { id: `place-${name}`, name },
           instances: [],
+          node,
         };
 
         if (type === 'Polygon') {
@@ -179,11 +184,13 @@ class MediaTimeline extends Component {
   }
 
   componentDidUpdate() {
-    const { fragment: { t, id } = {} } = this.props;
-    const instance = t && id ? document.querySelector(`*[data-instance-id="clip-${id.trim()}"]`) : null;
-    console.log({ instance });
-    if (instance) {
-      instance.style.outline = '2px solid #2e77fc';
+    const { fragment: { id } = {} } = this.props;
+    const instance = id ? document.querySelector(`*[data-instance-id="clip-${id.trim()}"]`) : null;
+
+    const outline = '2px solid #2e77fc';
+
+    if (instance && instance.style.outline !== outline) {
+      instance.style.outline = outline;
       instance.scrollIntoView();
     }
   }
@@ -283,7 +290,7 @@ class MediaTimeline extends Component {
   };
 
   instanceCreate = (type, id, payload, callback) => {
-    const { mediaId, dbid, data: { videoTags } } = this.state;
+    const { mediaId, dbid, data: { videoTags, videoPlaces } } = this.state;
 
     switch (type) {
     case 'tag': {
@@ -294,12 +301,19 @@ class MediaTimeline extends Component {
     case 'clip':
       createClip(id.substring(5), payload.fragment, `${dbid}`, mediaId, callback);
       break;
+    case 'place': {
+      const place = videoPlaces.find(({ id: _id }) => _id === id);
+      createPlaceInstance(id.substring(6), payload, JSON.parse(place.node.content), `${dbid}`, mediaId, callback);
+      break;
+    }
     default:
       console.error(`${type} not handled`);
     }
   };
 
   instanceUpdate = (type, entityId, instanceId, { start_seconds, end_seconds }) => {
+    this.props.setPlayerState({ scrubTo: null });
+
     const fragment = `t=${start_seconds},${end_seconds}&type=${type}`;
     const parsed_fragment = { t: [start_seconds, end_seconds] };
 
@@ -331,25 +345,27 @@ class MediaTimeline extends Component {
   };
 
   playlistLaunch = (type) => {
-    const { data } = this.state;
+    const { data, duration } = this.state;
+    const { setPlayerState } = this.props;
 
-    switch (type) {
-    case 'clips':
-      console.warn('TODO playlist clips', data);
-      break;
-    case 'tags':
-      console.warn('TODO playlist tags', data);
-      break;
-    default:
-      console.error(`${type} not handled`);
-    }
+    const instances = data[`video${type.charAt(0).toUpperCase()}${type.slice(1)}`].reduce((acc, { instances }) => [...acc, ...instances.map(({ start_seconds, end_seconds }) => [start_seconds, end_seconds])], []).sort(([a], [b]) => a - b);
+    const events = instances.reduce((acc, [a, b]) => [...acc, a, b], [0, duration])
+      .sort((a, b) => a - b);
+    const gaps = events.reduce((acc, e, i) => {
+      if (i % 2 === 0) return [...acc, [e]];
+      const p = acc.pop();
+      p.push(e);
+      return [...acc, p];
+    }, []).filter(([a, b]) => a !== b);
+
+    setPlayerState({ gaps, transport: type });
   };
 
   timeChange = seekTo => this.props.setPlayerState({ seekTo });
+  scrub = scrubTo => this.props.setPlayerState({ scrubTo });
 
   render() {
     const { data, duration, time } = this.state;
-    const { setPlayerState } = this.props;
 
     return (
       <Timeline
@@ -370,8 +386,8 @@ class MediaTimeline extends Component {
         onInstanceDelete={this.instanceDelete}
         onInstanceUpdate={this.instanceUpdate}
         onPlaylistLaunch={this.playlistLaunch}
-        onTimeChange={seekTo => setPlayerState({ seekTo })}
-        onScrub={scrub => console.log({ scrub })}
+        onTimeChange={this.timeChange}
+        onScrub={this.scrubTo}
       />
     );
   }

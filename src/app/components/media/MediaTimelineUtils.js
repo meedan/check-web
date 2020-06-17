@@ -1,8 +1,73 @@
 /* eslint-disable no-shadow */
+/* eslint-disable max-len */
 import { graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 
 const environment = Store;
+
+export const createPlaceInstance = (name, { fragment }, content, annotated_id, parentID, callback) => {
+  const {
+    geolocation_viewport: { viewport, zoom },
+    geolocation_location: geojson,
+  } = content.reduce((acc, { field_name, value_json }) =>
+    ({ ...acc, [field_name]: value_json }), {});
+
+  console.log({
+    name, fragment, viewport, zoom, geojson, annotated_id, parentID,
+  });
+
+  console.log(`http://geojson.io/#data=data:application/json,${encodeURIComponent(JSON.stringify(geojson))}`);
+
+  return commitMutation(environment, {
+    mutation: graphql`
+      mutation MediaTimelineUtilsCreatePlaceInstanceMutation($input: CreateDynamicAnnotationGeolocationInput!) {
+        createDynamicAnnotationGeolocation(input: $input) {
+          dynamicEdge {
+            node {
+              id
+              dbid
+              parsed_fragment
+              content
+            }
+          }
+        }
+      }
+    `,
+    variables: {
+      input: {
+        fragment,
+        annotated_id,
+        set_fields: JSON.stringify({
+          geolocation_viewport: { viewport, zoom },
+          geolocation_location: JSON.stringify(geojson),
+        }),
+        clientMutationId: `m${Date.now()}`,
+        annotated_type: 'ProjectMedia',
+      },
+    },
+    configs: [
+      {
+        type: 'RANGE_ADD',
+        parentName: 'project_media',
+        parentID,
+        edgeName: 'dynamicEdge',
+        connectionName: 'annotations',
+        rangeBehaviors: (args) => {
+          if (args.annotation_type === 'geolocation') {
+            return 'prepend';
+          }
+          return 'ignore';
+        },
+        connectionInfo: [{
+          key: 'ProjectMedia_geolocations',
+          rangeBehavior: 'prepend',
+          filters: { annotation_type: 'geolocation' },
+        }],
+      },
+    ],
+    onCompleted: (data, errors) => callback && callback(data, errors),
+  });
+};
 
 export const createPlace = (name, payload, annotated_id, parentID, callback) => {
   const {
@@ -42,6 +107,7 @@ export const createPlace = (name, payload, annotated_id, parentID, callback) => 
             node {
               id
               dbid
+              parsed_fragment
               content
             }
           }
