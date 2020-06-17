@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import { stripUnit } from 'polished';
+import qs from 'qs';
 import { LoadScript } from '@react-google-maps/api';
 import Grid from '@material-ui/core/Grid';
 import Drawer from '@material-ui/core/Drawer';
@@ -71,6 +72,8 @@ const StyledBackgroundColor = styled.div`
   min-height: 100vh;
 `;
 
+const GOOGLE_MAPS_LIBRARIES = ['places'];
+
 class MediaComponent extends Component {
   static scrollToAnnotation() {
     if (window.location.hash !== '') {
@@ -90,13 +93,20 @@ class MediaComponent extends Component {
     const showRequests = (enabledBots.indexOf('smooch') > -1 || props.media.requests_count > 0);
     const showTab = showRequests ? 'requests' : 'tasks';
 
+    const { t = '', id } = qs.parse(document.location.hash.substring(1));
+    const [start, end] = t.split(',').map(s => parseFloat(s));
+
     this.state = {
       duration: 0,
       playing: false,
       progress: 0,
       showRequests,
       showTab,
-      showVideoAnno: false,
+      showVideoAnno: t && id,
+      fragment: { t, id },
+      start,
+      end,
+      gaps: [],
       time: 0,
       playerRef: null,
       playerRect: null,
@@ -212,10 +222,12 @@ class MediaComponent extends Component {
     media.embed_path = media.media.embed_path;
 
     const {
+      fragment,
       duration,
       playerRect,
       playing,
       progress,
+      start, end, gaps,
       scrubTo,
       seekTo,
       showVideoAnno,
@@ -225,7 +237,10 @@ class MediaComponent extends Component {
     const { currentUser } = this.getContext();
 
     return (
-      <LoadScript googleMapsApiKey={window.config.googleMapsApiKey}>
+      <LoadScript
+        googleMapsApiKey={window.config.googleMapsApiKey}
+        libraries={GOOGLE_MAPS_LIBRARIES}
+      >
         <PageTitle
           prefix={MediaUtil.title(media, data, this.props.intl)}
           team={media.team}
@@ -245,7 +260,7 @@ class MediaComponent extends Component {
                   setPlayerRef={node => this.setState({ playerRef: node })}
                   setPlayerState={payload => this.setState(payload)}
                   {...{
-                    playing, seekTo, scrubTo, showVideoAnno,
+                    playing, start, end, gaps, seekTo, scrubTo, showVideoAnno,
                   }}
                 />
                 {this.props.extras}
@@ -359,7 +374,15 @@ class MediaComponent extends Component {
                   <MediaTimeline
                     setPlayerState={payload => this.setState(payload)}
                     {...{
-                      media, playing, duration, time, progress, seekTo, scrubTo, currentUser,
+                      media,
+                      fragment,
+                      playing,
+                      duration,
+                      time,
+                      progress,
+                      seekTo,
+                      scrubTo,
+                      currentUser,
                     }}
                   />
                 </div>

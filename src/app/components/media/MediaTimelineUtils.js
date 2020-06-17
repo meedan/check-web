@@ -1,7 +1,88 @@
+/* eslint-disable no-shadow */
 import { graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 
 const environment = Store;
+
+export const createPlace = (name, payload, annotated_id, parentID, callback) => {
+  const {
+    fragment, type, polygon,
+    lat = 0, lng = 0,
+    viewport, zoom = 10,
+  } = payload;
+
+  // const {
+  //   west, south, east, north,
+  // } = viewport;
+
+  const geojson = {
+    type: 'Feature',
+    // bbox: [west, south, east, north],
+    geometry: {
+      type: 'Point',
+      coordinates: [lng, lat],
+    },
+    properties: { name },
+  };
+
+  if (type === 'polygon') {
+    geojson.geometry = {
+      type: 'Polygon',
+      coordinates: [polygon.map(({ lat, lng }) => [lng, lat])],
+    };
+  }
+
+  console.log(`http://geojson.io/#data=data:application/json,${encodeURIComponent(JSON.stringify(geojson))}`);
+
+  return commitMutation(environment, {
+    mutation: graphql`
+      mutation MediaTimelineUtilsCreatePlaceMutation($input: CreateDynamicAnnotationGeolocationInput!) {
+        createDynamicAnnotationGeolocation(input: $input) {
+          dynamicEdge {
+            node {
+              id
+              dbid
+              content
+            }
+          }
+        }
+      }
+    `,
+    variables: {
+      input: {
+        fragment,
+        annotated_id,
+        set_fields: JSON.stringify({
+          geolocation_viewport: { viewport, zoom },
+          geolocation_location: JSON.stringify(geojson),
+        }),
+        clientMutationId: `m${Date.now()}`,
+        annotated_type: 'ProjectMedia',
+      },
+    },
+    // configs: [
+    //   {
+    //     type: 'RANGE_ADD',
+    //     parentName: 'project_media',
+    //     parentID,
+    //     edgeName: 'dynamicEdge',
+    //     connectionName: 'annotations',
+    //     rangeBehaviors: (args) => {
+    //       if (args.annotation_type === 'clip') {
+    //         return 'prepend';
+    //       }
+    //       return 'ignore';
+    //     },
+    //     connectionInfo: [{
+    //       key: 'ProjectMedia_clips',
+    //       rangeBehavior: 'prepend',
+    //       filters: { annotation_type: 'clip' },
+    //     }],
+    //   },
+    // ],
+    onCompleted: (data, errors) => callback && callback(data, errors),
+  });
+};
 
 export const createClip = (label, fragment, annotated_id, parentID, callback) =>
   commitMutation(environment, {

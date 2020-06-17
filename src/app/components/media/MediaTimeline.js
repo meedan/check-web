@@ -7,6 +7,7 @@ import {
   createClip, renameClip, destroyClip, retimeClip,
   createCommentThread, destroyComment, createComment, updateComment,
   createTag, renameTag, destroyTag, retimeTag,
+  createPlace,
 } from './MediaTimelineUtils';
 
 const NOOP = () => {};
@@ -17,6 +18,7 @@ class MediaTimeline extends Component {
       id: mediaId, dbid,
       tags: { edges: tags = [] },
       clips: { edges: clips = [] },
+      geolocations: { edges: locations = [] },
       comments,
     },
     duration, time,
@@ -26,7 +28,7 @@ class MediaTimeline extends Component {
     const entities = {};
 
     console.log({
-      mediaId, dbid, tags, clips, comments,
+      mediaId, dbid, tags, clips, comments, locations,
     });
 
     const commentThreads = comments.edges.filter(({ node: { dbid } }) => !!dbid).map(({
@@ -83,7 +85,12 @@ class MediaTimeline extends Component {
         };
       }
 
-      entities[`clip-${name}`].instances.push({ id, start_seconds, end_seconds });
+      entities[`clip-${name}`].instances.push({
+        id,
+        start_seconds,
+        end_seconds,
+        url: new URL(`#t=${start_seconds},${end_seconds}&id=${encodeURIComponent(id)}`, document.location.href).href,
+      });
     });
 
     tags
@@ -110,6 +117,42 @@ class MediaTimeline extends Component {
         entities[id].instances.push({ start_seconds, end_seconds, id: instance });
       });
 
+    locations.filter(({ node: { id } }) => !!id).forEach(({
+      node: { id, parsed_fragment: { t: [start_seconds, end_seconds] }, content },
+    }) => {
+      const {
+        geolocation_viewport: { viewport, zoom = 10 },
+        geolocation_location,
+      } = JSON.parse(content).reduce((acc, { field_name, value_json }) =>
+        ({ ...acc, [field_name]: value_json }), {});
+      const {
+        properties: { name = id.trim() } = {},
+        geometry: { type = 'Point', coordinates = [0, 0] } = {},
+      } = geolocation_location;
+      const [lng, lat] = coordinates;
+
+      if (!entities[`place-${name}`]) {
+        entities[`place-${name}`] = {
+          id: `place-${name}`,
+          name,
+          viewport,
+          zoom,
+          lat,
+          lng,
+          type: type === 'Point' ? 'marker' : 'polygon',
+          test: { geolocation_location },
+          project_place: { id: `place-${name}`, name },
+          instances: [],
+        };
+
+        if (type === 'Polygon') {
+          entities[`place-${name}`].polygon = []; // coordinates.map();
+        }
+      }
+
+      entities[`place-${name}`].instances.push({ id, start_seconds, end_seconds });
+    });
+
     const data = {
       project: {
         projectclips: projecttags,
@@ -117,9 +160,9 @@ class MediaTimeline extends Component {
         projectplaces: projecttags,
       },
       commentThreads,
-      videoClips: Object.values(entities).filter(({ type }) => type === 'clip' || type === 'clips'),
-      videoTags: Object.values(entities).filter(({ type }) => type === 'tag' || type === 'tags'),
-      videoPlaces: [],
+      videoClips: Object.values(entities).filter(({ project_clip }) => !!project_clip),
+      videoTags: Object.values(entities).filter(({ project_tag }) => !!project_tag),
+      videoPlaces: Object.values(entities).filter(({ project_place }) => !!project_place),
       user: {
         first_name,
         id: userId,
@@ -133,6 +176,16 @@ class MediaTimeline extends Component {
     return {
       duration, time, data, mediaId, dbid,
     };
+  }
+
+  componentDidUpdate() {
+    const { fragment: { t, id } = {} } = this.props;
+    const instance = t && id ? document.querySelector(`*[data-instance-id="clip-${id.trim()}"]`) : null;
+    console.log({ instance });
+    if (instance) {
+      instance.style.outline = '2px solid #2e77fc';
+      instance.scrollIntoView();
+    }
   }
 
   commentThreadCreate = (time, text, callback) => {
@@ -181,6 +234,10 @@ class MediaTimeline extends Component {
       break;
     case 'clip':
       createClip(payload[`project_${type}`].name, payload.fragment, `${dbid}`, mediaId, callback);
+      break;
+    case 'place':
+      console.log({ type, payload });
+      createPlace(payload[`project_${type}`].name, payload, `${dbid}`, mediaId, callback);
       break;
     default:
       console.error(`${type} not handled`);
@@ -277,8 +334,8 @@ class MediaTimeline extends Component {
     const { data } = this.state;
 
     switch (type) {
-    case 'tags':
-      console.warn('TODO playlist tags', data);
+    case 'clips':
+      console.warn('TODO playlist clips', data);
       break;
     case 'tags':
       console.warn('TODO playlist tags', data);
@@ -314,6 +371,7 @@ class MediaTimeline extends Component {
         onInstanceUpdate={this.instanceUpdate}
         onPlaylistLaunch={this.playlistLaunch}
         onTimeChange={seekTo => setPlayerState({ seekTo })}
+        onScrub={scrub => console.log({ scrub })}
       />
     );
   }

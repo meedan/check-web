@@ -102,6 +102,7 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
           node {
               ... on Dynamic {
                 id
+                parsed_fragment
                 content
               }
             }

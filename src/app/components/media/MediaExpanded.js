@@ -98,7 +98,7 @@ class MediaExpandedComponent extends Component {
 
   render() {
     const {
-      media, playing, seekTo, scrubTo, setPlayerState,
+      media, playing, start, end, gaps, seekTo, scrubTo, setPlayerState,
     } = this.props;
     let smoochBotInstalled = false;
     if (media.team && media.team.team_bot_installations) {
@@ -163,6 +163,9 @@ class MediaExpandedComponent extends Component {
               onReady={this.props.onPlayerReady}
               onTimeUpdate={t => setPlayerState({ time: t })}
               playing={playing}
+              start={start}
+              end={end}
+              gaps={gaps}
               scrubTo={scrubTo}
               seekTo={seekTo}
               url={media.url}
