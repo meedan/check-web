@@ -28,6 +28,10 @@
     "defaultMessage": "Added to list {listName}"
   },
   {
+    "id": "mediaActionsBar.movingItem",
+    "defaultMessage": "Moving item..."
+  },
+  {
     "id": "mediaActionsBar.movedToTrash",
     "defaultMessage": "Sent to {trash}"
   },

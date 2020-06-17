@@ -29,9 +29,8 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         check_search_trash { id, number_of_results },
         check_search_project { id, number_of_results },
         check_search_project_was { id, number_of_results },
-        project_was {
-          medias_count
-        },
+        project { medias_count },
+        project_was { medias_count },
         related_to { id, relationships, log, log_count, demand, requests_count, linked_items_count },
         relationships_target { id },
         relationships_source { id },
@@ -194,26 +193,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
       response.affectedId = this.props.id;
       return response;
     }
-
-    if (this.props.srcProj && this.props.dstProj) {
-      const response = optimisticProjectMedia(
-        this.props.media,
-        this.props.dstProj,
-        this.props.context,
-      );
-      response.project_was = {
-        id: this.props.srcProj.id,
-        medias_count: this.props.srcProj.medias_count - 1,
-      };
-      response.project = {
-        id: this.props.dstProj.id,
-        medias_count: this.props.dstProj.medias_count + 1,
-      };
-      delete response.team;
-      response.affectedId = this.props.id;
-      return response;
-    }
-
     return {};
   }
 
@@ -234,53 +213,12 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
   }
 
   getConfigs() {
-    const ids = { project_media: this.props.id };
+    const ids = {};
 
-    if (this.props.srcProj) {
-      ids.check_search_project_was = this.props.srcProj.search_id;
-    }
-
-    if (this.props.dstProj) {
-      ids.check_search_project = this.props.dstProj.search_id;
-    }
-
-    const configs = [
-      {
-        type: 'FIELDS_CHANGE',
-        fieldIDs: ids,
-      },
-      {
-        type: 'REQUIRED_CHILDREN',
-        children: [Relay.QL`
-          fragment on UpdateProjectMediaPayload {
-            project_media {
-              team {
-                slug
-              }
-            }
-            project {
-              id
-              medias_count
-              team {
-                id
-                medias_count
-                public_team {
-                  id
-                  trash_count
-                }
-              }
-              project_medias(first: 20) {
-                edges {
-                  node {
-                    id
-                  }
-                }
-              }
-            },
-          }`,
-        ],
-      },
-    ];
+    const configs = [{
+      type: 'FIELDS_CHANGE',
+      fieldIDs: ids,
+    }];
 
     if (this.props.related_to_id) {
       configs.push({
@@ -329,12 +267,16 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
 
     if (this.props.srcProj) {
       configs.push({
-        type: 'NODE_DELETE',
+        type: 'RANGE_DELETE',
         parentName: 'check_search_project',
         parentID: this.props.srcProj.search_id,
         connectionName: 'medias',
+        pathToConnection: ['check_search_project', 'medias'],
         deletedIDFieldName: 'affectedId',
       });
+
+      ids.check_search_project_was = this.props.srcProj.search_id;
+      ids.project_was = this.props.srcProj.id;
     }
 
     if (this.props.dstProj) {
@@ -346,9 +288,40 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         edgeName: 'project_mediaEdge',
         rangeBehaviors: () => ('prepend'),
       });
+
+      ids.check_search_project = this.props.dstProj.search_id;
+      ids.project = this.props.dstProj.id;
+    } else {
       configs.push({
-        type: 'FIELDS_CHANGE',
-        fieldIDs: { project_was: this.props.dstProj.id },
+        type: 'REQUIRED_CHILDREN',
+        children: [Relay.QL`
+          fragment on UpdateProjectMediaPayload {
+            project_media {
+              team {
+                slug
+              }
+            }
+            project {
+              id
+              medias_count
+              team {
+                id
+                medias_count
+                public_team {
+                  id
+                  trash_count
+                }
+              }
+              project_medias(first: 20) {
+                edges {
+                  node {
+                    id
+                  }
+                }
+              }
+            },
+          }`,
+        ],
       });
     }
 
