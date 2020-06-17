@@ -10,7 +10,7 @@ import {
   createClip, renameClip, destroyClip, retimeClip,
   createCommentThread, destroyComment, createComment, updateComment,
   createTag, renameTag, destroyTag, retimeTag,
-  createPlace, createPlaceInstance, retimePlace, destroyPlace, renamePlace,
+  createPlace, createPlaceInstance, retimePlace, destroyPlace, renamePlace, repositionPlace,
 } from './MediaTimelineUtils';
 
 const NOOP = () => {};
@@ -160,7 +160,7 @@ class MediaTimeline extends Component {
         };
 
         if (type === 'Polygon') {
-          entities[`place-${name}`].polygon = []; // coordinates.map();
+          entities[`place-${name}`].polygon = coordinates[0].map(([lng, lat]) => ({ lat, lng }));
         }
       }
 
@@ -277,18 +277,23 @@ class MediaTimeline extends Component {
       renameTag(entityId, payload.project_tag.name, callback);
       break;
     case 'clip':
-      console.log('renameClip', entityId, payload.project_clip.name);
       videoClips.find(({ id }) =>
         entityId === id).instances.forEach(({ id }) =>
         renameClip(id, payload.project_clip.name, dbid));
+
       if (callback) callback();
       break;
     case 'place': {
-      console.log('renamePlace', entityId, payload.project_place.name);
       const { instances, node } = videoPlaces.find(({ id }) => entityId === id);
-      console.log({ node });
-      instances.forEach(({ id }) =>
-        renamePlace(id, payload.project_place.name, node.content, dbid));
+
+      if (payload.project_place) {
+        instances.forEach(({ id }) =>
+          renamePlace(id, payload.project_place.name, node.content, dbid));
+      } else {
+        instances.forEach(({ id }) =>
+          repositionPlace(id, payload, node.content, dbid));
+      }
+
       if (callback) callback();
       break;
     }

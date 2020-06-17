@@ -6,6 +6,82 @@ import { Store } from 'react-relay/classic';
 
 const environment = Store;
 
+export const repositionPlace = (id, payload, content) => {
+  const fields = JSON.parse(content);
+
+  const {
+    geolocation_viewport,
+    geolocation_location,
+  } = fields.reduce((acc, field) =>
+    ({ ...acc, [field.field_name]: field }), {});
+
+  const { value_json: { properties: { name } } } = geolocation_location;
+
+  const {
+    type, polygon,
+    lat = 0, lng = 0,
+    viewport, zoom = 10,
+  } = payload;
+
+  const {
+    west, south, east, north,
+  } = viewport;
+
+  const geojson = {
+    type: 'Feature',
+    bbox: [west, south, east, north],
+    geometry: {
+      type: 'Point',
+      coordinates: [lng, lat],
+    },
+    properties: { name },
+  };
+
+  if (type === 'polygon') {
+    geojson.geometry = {
+      type: 'Polygon',
+      coordinates: [polygon.map(({ lat, lng }) => [lng, lat])],
+    };
+  }
+
+  geolocation_viewport.value_json = { viewport, zoom };
+  geolocation_location.value_json = geojson;
+
+  console.log(`http://geojson.io/#data=data:application/json,${encodeURIComponent(JSON.stringify(geojson))}`);
+
+  return commitMutation(environment, {
+    mutation: graphql`
+      mutation MediaTimelineUtilsRepositionPlaceMutation($input: UpdateDynamicInput!) {
+        updateDynamic(input: $input) {
+          dynamic {
+            id,
+            content,
+            parsed_fragment
+          }
+        }
+      }
+    `,
+    variables: {
+      input: {
+        id,
+        set_fields: JSON.stringify({
+          geolocation_viewport: { viewport, zoom },
+          geolocation_location: JSON.stringify(geojson),
+        }),
+        clientMutationId: `m${Date.now()}`,
+      },
+    },
+    optimisticResponse: {
+      updateDynamic: {
+        dynamic: {
+          id,
+          content: JSON.stringify([geolocation_viewport, geolocation_location]),
+        },
+      },
+    },
+  });
+}; 
+
 export const renamePlace = (id, label, content) => {
   const fields = JSON.parse(content);
   const {
