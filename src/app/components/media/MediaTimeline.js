@@ -1,3 +1,7 @@
+/* eslint-disable no-sequences */
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-return-assign */
+/* eslint-disable no-console */
 /* eslint-disable no-shadow */
 import React, { Component } from 'react';
 import { Timeline } from '@meedan/check-ui';
@@ -345,12 +349,22 @@ class MediaTimeline extends Component {
   };
 
   playlistLaunch = (type) => {
-    const { data, duration } = this.state;
+    const { data } = this.state;
     const { setPlayerState } = this.props;
 
-    const instances = data[`video${type.charAt(0).toUpperCase()}${type.slice(1)}`].reduce((acc, { instances }) => [...acc, ...instances.map(({ start_seconds, end_seconds }) => [start_seconds, end_seconds])], []).sort(([a], [b]) => a - b);
-    const events = instances.reduce((acc, [a, b]) => [...acc, a, b], [0, duration])
-      .sort((a, b) => a - b);
+    const entities = data[`video${type.charAt(0).toUpperCase()}${type.slice(1)}`];
+    const instances = entities.reduce((acc, { instances }) =>
+      [...acc, ...instances.map(({ start_seconds, end_seconds }) =>
+        [start_seconds, end_seconds])], []);
+
+    const segments = instances.sort((a, b) => a[0] - b[0])
+      .reduce((ac, x) => (!ac.length || ac[ac.length - 1][1] < x[0]
+        ? ac.push(x)
+        : ac[ac.length - 1][1] = Math.max(ac[ac.length - 1][1], x[1]), ac), []);
+
+    const events = [...new Set(segments.reduce((acc, [a, b]) =>
+      [...acc, a, b], [-1, Number.MAX_VALUE]))].sort((a, b) => a - b);
+
     const gaps = events.reduce((acc, e, i) => {
       if (i % 2 === 0) return [...acc, [e]];
       const p = acc.pop();
@@ -358,7 +372,16 @@ class MediaTimeline extends Component {
       return [...acc, p];
     }, []).filter(([a, b]) => a !== b);
 
-    setPlayerState({ gaps, transport: type });
+    const start = gaps.length > 0 ? gaps[0][1] : null;
+    const end = gaps.length > 0 ? gaps[gaps.length - 1][0] : null;
+
+    console.log({
+      instances, segments, events, start, end, gaps,
+    });
+
+    setPlayerState({
+      gaps, transport: type, start, end,
+    });
   };
 
   timeChange = seekTo => this.props.setPlayerState({ seekTo });
@@ -387,7 +410,7 @@ class MediaTimeline extends Component {
         onInstanceUpdate={this.instanceUpdate}
         onPlaylistLaunch={this.playlistLaunch}
         onTimeChange={this.timeChange}
-        onScrub={this.scrubTo}
+        onScrub={this.scrub}
       />
     );
   }

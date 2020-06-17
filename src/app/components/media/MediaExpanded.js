@@ -156,6 +156,7 @@ class MediaExpandedComponent extends Component {
         return (
           <div ref={this.getPlayerRef}>
             <Player
+              key={`${media.url}#t=${start},${end}`}
               onDuration={d => setPlayerState({ duration: d })}
               onPause={() => setPlayerState({ playing: false })}
               onPlay={() => setPlayerState({ playing: true })}
