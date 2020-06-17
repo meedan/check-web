@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-shadow */
 /* eslint-disable max-len */
 import { graphql, commitMutation } from 'react-relay/compat';
@@ -126,26 +127,26 @@ export const createPlace = (name, payload, annotated_id, parentID, callback) => 
         annotated_type: 'ProjectMedia',
       },
     },
-    // configs: [
-    //   {
-    //     type: 'RANGE_ADD',
-    //     parentName: 'project_media',
-    //     parentID,
-    //     edgeName: 'dynamicEdge',
-    //     connectionName: 'annotations',
-    //     rangeBehaviors: (args) => {
-    //       if (args.annotation_type === 'clip') {
-    //         return 'prepend';
-    //       }
-    //       return 'ignore';
-    //     },
-    //     connectionInfo: [{
-    //       key: 'ProjectMedia_clips',
-    //       rangeBehavior: 'prepend',
-    //       filters: { annotation_type: 'clip' },
-    //     }],
-    //   },
-    // ],
+    configs: [
+      {
+        type: 'RANGE_ADD',
+        parentName: 'project_media',
+        parentID,
+        edgeName: 'dynamicEdge',
+        connectionName: 'annotations',
+        rangeBehaviors: (args) => {
+          if (args.annotation_type === 'geolocation') {
+            return 'prepend';
+          }
+          return 'ignore';
+        },
+        connectionInfo: [{
+          key: 'ProjectMedia_geolocations',
+          rangeBehavior: 'prepend',
+          filters: { annotation_type: 'geolocation' },
+        }],
+      },
+    ],
     onCompleted: (data, errors) => callback && callback(data, errors),
   });
 };

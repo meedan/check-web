@@ -349,7 +349,7 @@ class MediaTimeline extends Component {
   };
 
   playlistLaunch = (type) => {
-    const { data } = this.state;
+    const { data, duration } = this.state;
     const { setPlayerState } = this.props;
 
     const entities = data[`video${type.charAt(0).toUpperCase()}${type.slice(1)}`];
@@ -372,8 +372,8 @@ class MediaTimeline extends Component {
       return [...acc, p];
     }, []).filter(([a, b]) => a !== b);
 
-    const start = gaps.length > 0 ? gaps[0][1] : null;
-    const end = gaps.length > 0 ? gaps[gaps.length - 1][0] : null;
+    const start = gaps.length > 0 ? Math.max(gaps[0][1], 0) : null;
+    const end = gaps.length > 0 ? Math.min(gaps[gaps.length - 1][0], duration) : null;
 
     console.log({
       instances, segments, events, start, end, gaps,
