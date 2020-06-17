@@ -6,6 +6,102 @@ import { Store } from 'react-relay/classic';
 
 const environment = Store;
 
+export const renamePlace = (id, label, content) => {
+  const fields = JSON.parse(content);
+  const {
+    geolocation_viewport: { viewport, zoom },
+    geolocation_location: geojson,
+  } = fields.reduce((acc, { field_name, value_json }) =>
+    ({ ...acc, [field_name]: value_json }), {});
+
+  geojson.properties.name = label;
+
+  const index = fields.findIndex(({ field_name }) => field_name === 'geolocation_location');
+  fields[index].value_json = geojson;
+
+  return commitMutation(environment, {
+    mutation: graphql`
+      mutation MediaTimelineUtilsRenamePlaceMutation($input: UpdateDynamicInput!) {
+        updateDynamic(input: $input) {
+          dynamic {
+            id,
+            content,
+            parsed_fragment
+          }
+        }
+      }
+    `,
+    variables: {
+      input: {
+        id,
+        set_fields: JSON.stringify({
+          geolocation_viewport: { viewport, zoom },
+          geolocation_location: JSON.stringify(geojson),
+        }),
+        clientMutationId: `m${Date.now()}`,
+      },
+    },
+    optimisticResponse: {
+      updateDynamic: {
+        dynamic: {
+          id,
+          content: JSON.stringify(fields),
+        },
+      },
+    },
+  });
+};
+
+export const destroyPlace = (id, annotated_id) => commitMutation(environment, {
+  mutation: graphql`
+    mutation MediaTimelineUtilsDestroyPlaceMutation($input: DestroyDynamicInput!) {
+      destroyDynamic(input: $input) {
+        deletedId
+      }
+    }
+  `,
+  variables: {
+    input: { id, clientMutationId: `m${Date.now()}` },
+  },
+  configs: [
+    {
+      type: 'NODE_DELETE',
+      parentName: 'project_media',
+      parentID: annotated_id,
+      connectionName: 'geolocations',
+      deletedIDFieldName: 'deletedId',
+    },
+  ],
+});
+
+export const retimePlace = (id, fragment, parsed_fragment) => commitMutation(environment, {
+  mutation: graphql`
+    mutation MediaTimelineUtilsRetimePlaceMutation($input: UpdateDynamicInput!) {
+      updateDynamic(input: $input) {
+        dynamic {
+          id,
+          parsed_fragment
+        }
+      }
+    }
+  `,
+  variables: {
+    input: {
+      id,
+      fragment,
+      clientMutationId: `m${Date.now()}`,
+    },
+  },
+  optimisticResponse: {
+    updateDynamic: {
+      dynamic: {
+        id,
+        parsed_fragment,
+      },
+    },
+  },
+});
+
 export const createPlaceInstance = (name, { fragment }, content, annotated_id, parentID, callback) => {
   const {
     geolocation_viewport: { viewport, zoom },
@@ -77,13 +173,13 @@ export const createPlace = (name, payload, annotated_id, parentID, callback) => 
     viewport, zoom = 10,
   } = payload;
 
-  // const {
-  //   west, south, east, north,
-  // } = viewport;
+  const {
+    west, south, east, north,
+  } = viewport;
 
   const geojson = {
     type: 'Feature',
-    // bbox: [west, south, east, north],
+    bbox: [west, south, east, north],
     geometry: {
       type: 'Point',
       coordinates: [lng, lat],

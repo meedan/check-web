@@ -11,7 +11,7 @@ import {
   createClip, renameClip, destroyClip, retimeClip,
   createCommentThread, destroyComment, createComment, updateComment,
   createTag, renameTag, destroyTag, retimeTag,
-  createPlace, createPlaceInstance,
+  createPlace, createPlaceInstance, retimePlace, destroyPlace, renamePlace,
 } from './MediaTimelineUtils';
 
 const NOOP = () => {};
@@ -220,11 +220,20 @@ class MediaTimeline extends Component {
   commentDelete = (threadId, commentId) => destroyComment(commentId, threadId);
 
   instanceClip = (type, entityId, instanceId) => {
-    const { mediaId, dbid, data: { videoTags } } = this.state;
+    const { mediaId, dbid, data: { videoTags, videoPlaces } } = this.state;
+    console.log({ type, entityId, instanceId });
 
     switch (type) {
     case 'tag': {
-      const { name, instances = [] } = videoTags.find(({ id }) => id === entityId);
+      const { project_tag: { name }, instances = [] } = videoTags.find(({ id }) => id === entityId);
+      const { start_seconds, end_seconds } = instances.find(({ id }) => id === instanceId);
+
+      console.log(name, `t=${start_seconds},${end_seconds}`, `${dbid}`, mediaId);
+      createClip(name, `t=${start_seconds},${end_seconds}`, `${dbid}`, mediaId);
+      break;
+    }
+    case 'place': {
+      const { name, instances = [] } = videoPlaces.find(({ id }) => id === entityId);
       const { start_seconds, end_seconds } = instances.find(({ id }) => id === instanceId);
 
       console.log(name, `t=${start_seconds},${end_seconds}`, `${dbid}`, mediaId);
@@ -256,7 +265,7 @@ class MediaTimeline extends Component {
   };
 
   entityUpdate = (type, entityId, payload, callback) => {
-    const { dbid, data: { videoClips } } = this.state;
+    const { dbid, data: { videoClips, videoPlaces } } = this.state;
 
     switch (type) {
     case 'tag':
@@ -269,13 +278,22 @@ class MediaTimeline extends Component {
         renameClip(id, payload.project_clip.name, dbid));
       if (callback) callback();
       break;
+    case 'place': {
+      console.log('renamePlace', entityId, payload.project_place.name);
+      const { instances, node } = videoPlaces.find(({ id }) => entityId === id);
+      console.log({ node });
+      instances.forEach(({ id }) =>
+        renamePlace(id, payload.project_place.name, node.content, dbid));
+      if (callback) callback();
+      break;
+    }
     default:
       console.error(`${type} not handled`);
     }
   };
 
   entityDelete = (type, entityId, callback) => {
-    const { dbid, data: { videoTags, videoClips } } = this.state;
+    const { dbid, data: { videoTags, videoClips, videoPlaces } } = this.state;
 
     switch (type) {
     case 'tag':
@@ -287,6 +305,10 @@ class MediaTimeline extends Component {
       videoClips.find(({ id }) =>
         entityId === id).instances.forEach(({ id }) => destroyClip(id, dbid));
       if (callback) callback();
+      break;
+    case 'place':
+      videoPlaces.find(({ id }) =>
+        entityId === id).instances.forEach(({ id }) => destroyPlace(id, dbid));
       break;
     default:
       console.error(`${type} not handled`);
@@ -328,6 +350,9 @@ class MediaTimeline extends Component {
     case 'clip':
       retimeClip(instanceId, fragment, parsed_fragment);
       break;
+    case 'place':
+      retimePlace(instanceId, fragment, parsed_fragment);
+      break;
     default:
       console.error(`${type} not handled`);
     }
@@ -342,6 +367,9 @@ class MediaTimeline extends Component {
       break;
     case 'clip':
       destroyClip(instanceId, dbid);
+      break;
+    case 'place':
+      destroyPlace(instanceId, dbid);
       break;
     default:
       console.error(`${type} not handled`);
