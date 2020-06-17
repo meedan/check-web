@@ -5,7 +5,6 @@
 /* eslint-disable no-shadow */
 import React, { Component } from 'react';
 import { Timeline } from '@meedan/check-ui';
-import qs from 'qs';
 
 import {
   createClip, renameClip, destroyClip, retimeClip,
@@ -103,7 +102,15 @@ class MediaTimeline extends Component {
 
     tags
       .filter(({ node }) => !!node)
-      .forEach(({ node, node: { id: instance, fragment, tag_text_object } }) => {
+      .forEach(({
+        node,
+        node: {
+          id: instance,
+          fragment,
+          parsed_fragment: { t: [start_seconds, end_seconds] = [] } = {},
+          tag_text_object,
+        },
+      }) => {
         if (!tag_text_object) return;
 
         const { id, text: name } = tag_text_object;
@@ -118,10 +125,7 @@ class MediaTimeline extends Component {
           };
         }
 
-        const { t = '0,0', type = 'tag' } = qs.parse(fragment);
-        const [start_seconds, end_seconds] = t.split(',').map(n => parseFloat(n));
-
-        entities[id].type = type;
+        entities[id].type = 'tag';
         entities[id].instances.push({ start_seconds, end_seconds, id: instance });
       });
 
@@ -133,6 +137,7 @@ class MediaTimeline extends Component {
         geolocation_location,
       } = JSON.parse(content).reduce((acc, { field_name, value_json }) =>
         ({ ...acc, [field_name]: value_json }), {});
+
       const {
         properties: { name = id.trim() } = {},
         geometry: { type = 'Point', coordinates = [0, 0] } = {},

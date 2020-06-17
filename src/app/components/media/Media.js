@@ -87,6 +87,7 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
               id
               dbid
               fragment
+              parsed_fragment
               annotated_id
               annotated_type
               annotated_type
