@@ -343,7 +343,7 @@ class MediaComponent extends Component {
                     className="media-tab__activity"
                   />
                 </Tabs>
-                { this.state.showTab === 'info' ? <MediaInfo /> : null }
+                { this.state.showTab === 'info' ? <MediaInfo media={media} time={time} /> : null }
                 { this.state.showTab === 'requests' ? <MediaRequests media={media} /> : null }
                 { this.state.showTab === 'tasks' ? <MediaTasks media={media} /> : null }
                 { this.state.showTab === 'analysis' ? <MediaAnalysis media={media} /> : null }
