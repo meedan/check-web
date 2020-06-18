@@ -8,7 +8,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Tooltip from '@material-ui/core/Tooltip';
 import styled from 'styled-components';
-import InfiniteScroll from 'react-infinite-scroller';
 import Can from '../Can';
 import { withPusher, pusherShape } from '../../pusher';
 import CreateProject from '../project/CreateProject';
@@ -34,8 +33,6 @@ const messages = defineMessages({
     defaultMessage: 'Dismiss',
   },
 });
-
-const pageSize = 20;
 
 const StyledListItemAll = styled.div`
   .project-list__link-all {
@@ -148,10 +145,6 @@ class DrawerProjectsComponent extends Component {
     }
   }
 
-  loadMore = () => {
-    this.props.relay.setVariables({ pageSize: this.props.team.projects.edges.length + pageSize });
-  }
-
   toggleShowCreateProject = () => {
     this.setState({ showCreateProject: !this.state.showCreateProject });
   };
@@ -188,7 +181,6 @@ class DrawerProjectsComponent extends Component {
 
     const styles = {
       projectsList: {
-        maxHeight: 'calc(100vh - 310px)',
         overflow: 'auto',
         padding: `${units(2)} 0`,
       },
@@ -197,27 +189,25 @@ class DrawerProjectsComponent extends Component {
     return (
       <div className="projects__list">
         <div style={styles.projectsList}>
-          <InfiniteScroll hasMore loadMore={this.loadMore} useWindow={false}>
-            <StyledListItemAll>
-              <Link to={`/${props.team.slug}/all-items`} className="project-list__link-all">
-                <MenuItem className="project-list__item-all">
-                  <ListItemText
-                    primary={
-                      <Row className="project-list__item-row">
-                        <Text maxWidth="85%" ellipsis>
-                          <FormattedMessage id="projects.allClaims" defaultMessage="All items" />
-                        </Text>
-                        <AlignOpposite>
-                          {String(props.team.medias_count)}
-                        </AlignOpposite>
-                      </Row>
-                    }
-                  />
-                </MenuItem>
-              </Link>
-            </StyledListItemAll>
-            {projectList}
-          </InfiniteScroll>
+          <StyledListItemAll>
+            <Link to={`/${props.team.slug}/all-items`} className="project-list__link-all">
+              <MenuItem className="project-list__item-all">
+                <ListItemText
+                  primary={
+                    <Row className="project-list__item-row">
+                      <Text maxWidth="85%" ellipsis>
+                        <FormattedMessage id="projects.allClaims" defaultMessage="All items" />
+                      </Text>
+                      <AlignOpposite>
+                        {String(props.team.medias_count)}
+                      </AlignOpposite>
+                    </Row>
+                  }
+                />
+              </MenuItem>
+            </Link>
+          </StyledListItemAll>
+          {projectList}
         </div>
         <Can permissions={props.team.permissions} permission="create Project">
           <Tooltip
@@ -262,9 +252,6 @@ DrawerProjectsComponent.propTypes = {
 const ConnectedDrawerProjectsComponent = withPusher(injectIntl(DrawerProjectsComponent));
 
 const DrawerProjectsContainer = Relay.createContainer(ConnectedDrawerProjectsComponent, {
-  initialVariables: {
-    pageSize,
-  },
   fragments: {
     team: () => Relay.QL`
       fragment on Team {
@@ -274,7 +261,7 @@ const DrawerProjectsContainer = Relay.createContainer(ConnectedDrawerProjectsCom
         permissions,
         medias_count,
         pusher_channel,
-        projects(first: $pageSize) {
+        projects(first: 10000) {
           edges {
             node {
               title,
