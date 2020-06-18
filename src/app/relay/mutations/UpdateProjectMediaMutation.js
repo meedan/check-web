@@ -213,12 +213,45 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
   }
 
   getConfigs() {
-    const ids = {};
+    const ids = { project_media: this.props.id };
 
-    const configs = [{
-      type: 'FIELDS_CHANGE',
-      fieldIDs: ids,
-    }];
+    const configs = [
+      {
+        type: 'FIELDS_CHANGE',
+        fieldIDs: ids,
+      },
+      {
+        type: 'REQUIRED_CHILDREN',
+        children: [Relay.QL`
+          fragment on UpdateProjectMediaPayload {
+            project_media {
+              team {
+                slug
+              }
+            }
+            project {
+              id
+              medias_count
+              team {
+                id
+                medias_count
+                public_team {
+                  id
+                  trash_count
+                }
+              }
+              project_medias(first: 20) {
+                edges {
+                  node {
+                    id
+                  }
+                }
+              }
+            },
+          }`,
+        ],
+      },
+    ];
 
     if (this.props.related_to_id) {
       configs.push({
@@ -291,38 +324,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
 
       ids.check_search_project = this.props.dstProj.search_id;
       ids.project = this.props.dstProj.id;
-    } else {
-      configs.push({
-        type: 'REQUIRED_CHILDREN',
-        children: [Relay.QL`
-          fragment on UpdateProjectMediaPayload {
-            project_media {
-              team {
-                slug
-              }
-            }
-            project {
-              id
-              medias_count
-              team {
-                id
-                medias_count
-                public_team {
-                  id
-                  trash_count
-                }
-              }
-              project_medias(first: 20) {
-                edges {
-                  node {
-                    id
-                  }
-                }
-              }
-            },
-          }`,
-        ],
-      });
     }
 
     if (this.props.archived === 1) {
