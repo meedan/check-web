@@ -1,13 +1,5 @@
 [
   {
-    "id": "bulkActions.moveToTrashSuccessfully",
-    "defaultMessage": "Done! Please note that it can take a while until the items are actually moved to the trash."
-  },
-  {
-    "id": "bulkActions.restoredFromTrashSuccessfully",
-    "defaultMessage": "Done! Please note that it can take a while until the items are actually restored from the trash."
-  },
-  {
     "id": "bulkActions.addedSuccessfully",
     "defaultMessage": "Done! Please note that it can take a while until the items are actually added."
   },
@@ -18,6 +10,14 @@
   {
     "id": "bulkActions.movedSuccessfully",
     "defaultMessage": "Done! Please note that it can take a while until the items are actually moved."
+  },
+  {
+    "id": "bulkActions.moveToTrashSuccessfully",
+    "defaultMessage": "Done! Please note that it can take a while until the items are actually moved to the trash."
+  },
+  {
+    "id": "bulkActions.restoredFromTrashSuccessfully",
+    "defaultMessage": "Done! Please note that it can take a while until the items are actually restored from the trash."
   },
   {
     "id": "bulkActions.restoreItemsFromTrash",
@@ -64,12 +64,12 @@
     "defaultMessage": "Move"
   },
   {
-    "id": "bulkActions.addTitle",
-    "defaultMessage": "Add"
-  },
-  {
     "id": "bulkActions.dialogMoveTitle",
     "defaultMessage": "Move to a different list"
+  },
+  {
+    "id": "bulkActions.addTitle",
+    "defaultMessage": "Add"
   },
   {
     "id": "bulkActions.dialogAddTitle",
