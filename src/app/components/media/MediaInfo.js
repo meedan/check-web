@@ -2,7 +2,9 @@
 import React, { Component } from 'react';
 
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 import { Map } from '@meedan/check-ui';
+import { withStyles } from '@material-ui/core/styles';
 
 class MediaInfo extends Component {
   static getDerivedStateFromProps({
@@ -56,15 +58,17 @@ class MediaInfo extends Component {
 
   render() {
     const { places = [], index = -1 } = this.state;
+    const { classes } = this.props;
+
+    console.group("MediaInfo.js")
+    console.log(this.props)
+    console.groupEnd();
 
     return (
-      <Grid container>
-        <Grid item>
-          <div style={{
-            width: 560,
-            height: 315,
-          }}
-          >
+      <Grid className={classes.gridContainer} container>
+        <Grid className={classes.gridItem} item>
+          <Typography color="textSecondary" component="h2" gutterBottom variant="subtitle1">Location</Typography>
+          <div className={classes.mapWrap}>
             <Map places={places} index={index} />
           </div>
         </Grid>
@@ -73,4 +77,19 @@ class MediaInfo extends Component {
   }
 }
 
-export default MediaInfo;
+const mediaInfoStyles = {
+  gridContainer: {
+    width: '100%',
+    height: '100%'
+  },
+  gridItem: {
+    width: '100%',
+  },
+  mapWrap: {
+    minHeight: '260px',
+    width: '100%',
+    height: '100%'
+  }
+}
+
+export default withStyles(mediaInfoStyles)(MediaInfo);
