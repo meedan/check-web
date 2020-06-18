@@ -4,9 +4,11 @@ import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import { Link, browserHistory } from 'react-router';
 import styled from 'styled-components';
+import Tooltip from '@material-ui/core/Tooltip';
+import IconButton from '@material-ui/core/IconButton';
+import { makeStyles } from '@material-ui/core/styles';
 import NextIcon from '@material-ui/icons/KeyboardArrowRight';
 import PrevIcon from '@material-ui/icons/KeyboardArrowLeft';
-import Tooltip from '@material-ui/core/Tooltip';
 import { withPusher, pusherShape } from '../../pusher';
 import SearchQuery from './SearchQuery';
 import Toolbar from './Toolbar';
@@ -54,6 +56,26 @@ const StyledListHeader = styled.div`
   }
 `;
 
+const useNavButtonStyles = makeStyles({
+  root: ({ disabled }) => disabled ? {} : { color: black87 },
+});
+
+const NavButton = React.forwardRef(({ to, ...props }, ref) => {
+  const commonProps = {
+    classes: useNavButtonStyles(),
+    ...props,
+  };
+
+  if (to) {
+    return <IconButton component={Link} to={to} innerRef={ref} {...commonProps} />;
+  }
+
+  // https://material-ui.com/components/tooltips/#disabled-elements
+  // Tooltip can't have disabled <IconButton> as children, so use a <span>
+  return <span ref={ref}><IconButton disabled {...commonProps} /></span>;
+});
+NavButton.displayName = 'NavButton';
+
 const StyledSearchResultsWrapper = styled.div`
   .search__results-heading {
     color: ${black87};
@@ -62,17 +84,6 @@ const StyledSearchResultsWrapper = styled.div`
     text-align: center;
     display: flex;
     align-items: center;
-
-    .search__nav {
-      padding: 0 ${units(1)};
-      display: flex;
-      cursor: pointer;
-      color: ${black87};
-
-      &:first-child {
-        padding-left: 0;
-      }
-    }
   }
 `;
 
@@ -378,24 +389,15 @@ class SearchResultsComponent extends React.PureComponent {
                 selectedMedia={selectedProjectMediaIds}
                 onUnselectAll={this.onUnselectAll}
               /> : null}
-            title={count ?
+            title={count ? (
               <span className="search__results-heading">
                 <Tooltip title={
                   <FormattedMessage id="search.previousPage" defaultMessage="Previous page" />
                 }
                 >
-                  {this.previousPageLocation ? (
-                    <Link
-                      className="search__previous-page search__nav"
-                      to={this.previousPageLocation}
-                    >
-                      <PrevIcon />
-                    </Link>
-                  ) : (
-                    <span className="search__previous-page search__nav">
-                      <PrevIcon />
-                    </span>
-                  )}
+                  <NavButton className="search__previous-page" to={this.previousPageLocation} >
+                    <PrevIcon />
+                  </NavButton>
                 </Tooltip>
                 <span className="search__count">
                   <FormattedMessage
@@ -423,18 +425,12 @@ class SearchResultsComponent extends React.PureComponent {
                   <FormattedMessage id="search.nextPage" defaultMessage="Next page" />
                 }
                 >
-                  {this.nextPageLocation ? (
-                    <Link className="search__next-page search__nav" to={this.nextPageLocation}>
-                      <NextIcon />
-                    </Link>
-                  ) : (
-                    <span className="search__next-page search__nav">
-                      <NextIcon />
-                    </span>
-                  )}
+                  <NavButton className="search__next-page" to={this.nextPageLocation}>
+                    <NextIcon />
+                  </NavButton>
                 </Tooltip>
-              </span> : null
-            }
+              </span>
+            ) : null}
             project={project}
             page={this.props.page}
             search={this.props.search}
