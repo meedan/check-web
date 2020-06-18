@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable no-sequences */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-return-assign */
@@ -34,7 +35,7 @@ class MediaTimeline extends Component {
     //   mediaId, dbid, tags, clips, comments, locations,
     // });
 
-    const commentThreads = comments.edges.filter(({ node: { dbid } }) => !!dbid).map(({
+    const commentThreads = comments.edges.filter(({ node: { dbid, parsed_fragment } }) => !!dbid && !!parsed_fragment && !!parsed_fragment.t).map(({
       node,
       node: {
         id: thread_id, dbid, text, parsed_fragment,
