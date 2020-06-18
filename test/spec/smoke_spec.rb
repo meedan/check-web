@@ -627,6 +627,7 @@ shared_examples 'smoke' do
     wait_for_selector("//span[contains(text(), 'Cancel')]", :xpath)
     wait_for_selector(".MuiInput-input").send_keys("https://hooks.slack.com/services/00000/0000000000")
     wait_for_selector("//span[contains(text(), 'Save')]", :xpath).click
+    wait_for_selector_none("//span[contains(text(), 'Cancel')]", :xpath)
     wait_for_selector(".MuiCardHeader-action").click
     wait_for_selector("//span[contains(text(), 'Cancel')]", :xpath)
     expect(@driver.page_source.include?('hooks.slack.com/services')).to be(true)
