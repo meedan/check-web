@@ -10,6 +10,7 @@ import ExternalLink from '../ExternalLink';
 import MediaTags from './MediaTags';
 import ClaimReview from './ClaimReview';
 import TagMenu from '../tag/TagMenu';
+import VideoAnnoIcon from '../../../assets/images/video-anno/video-anno';
 import {
   Row,
   black54,
@@ -77,7 +78,7 @@ class MediaMetadata extends Component {
       const allowsReverseSearch = isPicture;
       if (allowsAnnotation) {
         return (
-          <Button color="primary" disabled={this.props.showVideoAnno} onClick={this.props.onVideoAnnoToggle} variant="contained">Video annotation</Button>
+          <Button color="primary" disabled={this.props.showVideoAnno} onClick={this.props.onVideoAnnoToggle} variant="contained" startIcon={<VideoAnnoIcon color="action" />}>Video annotation</Button>
         );
       } else if (allowsReverseSearch) {
         return (
