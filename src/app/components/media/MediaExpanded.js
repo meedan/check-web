@@ -110,16 +110,18 @@ class MediaExpandedComponent extends Component {
     const authorName = MediaUtil.authorName(media, data);
     const authorUsername = MediaUtil.authorUsername(media, data);
     const isPender = media.media.url && data.provider !== 'page';
+    const isYoutube = media.media.url && media.domain === 'youtube.com';
     const randomNumber = Math.floor(Math.random() * 1000000);
     const { isRtl, mediaUrl, mediaQuery } = this.props;
-    const posterUrl = media.media.thumbnail_path;
     const hasCustomDescription = MediaUtil.hasCustomDescription(media, data);
 
     const embedCard = (() => {
       if (isImage) {
         return <ImageMediaCard imagePath={media.embed_path} />;
       } else if (isVideo) {
-        return <VideoMediaCard videoPath={media.media.file_path} posterPath={posterUrl} />;
+        return <VideoMediaCard videoPath={media.media.file_path} />;
+      } else if (isYoutube) {
+        return <VideoMediaCard videoPath={media.url} />;
       } else if (isQuote) {
         return (
           <QuoteMediaCard
