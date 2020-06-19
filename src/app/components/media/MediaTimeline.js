@@ -226,23 +226,44 @@ class MediaTimeline extends Component {
   commentDelete = (threadId, commentId) => destroyComment(commentId, threadId);
 
   instanceClip = (type, entityId, instanceId) => {
-    const { mediaId, dbid, data: { videoTags, videoPlaces } } = this.state;
-    // console.log({ type, entityId, instanceId });
+    const { mediaId, dbid, data: { videoTags, videoPlaces, videoClips } } = this.state;
 
     switch (type) {
     case 'tag': {
       const { project_tag: { name }, instances = [] } = videoTags.find(({ id }) => id === entityId);
       const { start_seconds, end_seconds } = instances.find(({ id }) => id === instanceId);
+      console.log({ start_seconds, end_seconds });
 
-      // console.log(name, `t=${start_seconds},${end_seconds}`, `${dbid}`, mediaId);
-      createClip(name, `t=${start_seconds},${end_seconds}`, `${dbid}`, mediaId);
+      const entity = videoClips.find(c => c.name === name);
+      const clips = entity ? entity.instances : [];
+
+      const included = clips.find(({ start_seconds: s, end_seconds: e }) => s <= start_seconds && start_seconds < e && s < end_seconds && end_seconds <= e);
+      const padLeft = clips.find(({ start_seconds: s, end_seconds: e }) => start_seconds < s && s < end_seconds && end_seconds <= e);
+      const padRight = clips.find(({ start_seconds: s, end_seconds: e }) => s <= start_seconds && start_seconds < e && e < end_seconds);
+
+      console.log({ included, padLeft, padRight });
+      if (!included && !padLeft && !padRight) {
+        createClip(name, `t=${start_seconds},${end_seconds}`, `${dbid}`, mediaId);
+      }
+
+      if (padLeft) {
+        createClip(name, `t=${start_seconds},${padLeft.start_seconds}`, `${dbid}`, mediaId);
+      } else if (padRight) {
+        createClip(name, `t=${padRight.end_seconds},${end_seconds}`, `${dbid}`, mediaId);
+      } else if (padLeft && padRight && padLeft.id === padRight.id) {
+        const fragment = `t=${start_seconds},${end_seconds}`;
+        const parsed_fragment = { t: [start_seconds, end_seconds] };
+
+        retimeClip(padRight.id, fragment, parsed_fragment);
+      } else if (padLeft && padRight && padLeft.id === padRight.id) {
+        createClip(name, `t=${padRight.end_seconds},${padLeft.start_seconds}`, `${dbid}`, mediaId);
+      }
       break;
     }
     case 'place': {
       const { name, instances = [] } = videoPlaces.find(({ id }) => id === entityId);
       const { start_seconds, end_seconds } = instances.find(({ id }) => id === instanceId);
 
-      // console.log(name, `t=${start_seconds},${end_seconds}`, `${dbid}`, mediaId);
       createClip(name, `t=${start_seconds},${end_seconds}`, `${dbid}`, mediaId);
       break;
     }
