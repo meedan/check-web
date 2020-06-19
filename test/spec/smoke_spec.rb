@@ -906,10 +906,11 @@ shared_examples 'smoke' do
     create_media("claim 2")
     wait_for_selector_list_size(".medias__item", 2)
     expect(@driver.page_source.include?('Add a link or text')).to be(false)
-    wait_for_selector('.project-list__link-container + .project-list__link-container .project-list__link').click #Go to the second project
+    # 0th <a> is "All items"; 1st is project 1; 2nd is project 2
+    wait_for_selector('.projects__list a', index=2).click  # project 2
     wait_for_selector_none(".medias__item")
     expect(@driver.page_source.include?('Add a link or text')).to be(true)
-    wait_for_selector('.project-list__link').click #Go back to the first project
+    wait_for_selector('.projects__list a', index=1).click  # project 1
     wait_for_selector_list_size(".medias__item", 2)
     wait_for_selector("thead input[type='checkbox']:not(:checked)").click
     wait_for_selector("#media-bulk-actions__add-icon").click
@@ -918,7 +919,7 @@ shared_examples 'smoke' do
     @driver.action.send_keys(:enter).perform
     wait_for_selector('.media-bulk-actions__add-button').click
     wait_for_selector_none(".Select-placeholder")
-    wait_for_selector('.project-list__link-container + .project-list__link-container .project-list__link').click # Go to the second project
+    wait_for_selector('.projects__list a', index=2).click  # project 2
     wait_for_selector_list_size(".medias__item", 2, :css , 80)
     expect(@driver.page_source.include?('claim 1')).to be(true)
     expect(@driver.page_source.include?('claim 2')).to be(true)
@@ -946,7 +947,7 @@ shared_examples 'smoke' do
     wait_for_selector("body input[type='checkbox']:not(:checked)").click
     wait_for_selector("#media-bulk-actions__actions").click
     wait_for_selector(".message")
-    wait_for_selector(".project-list__item-all").click
+    wait_for_selector(".projects__list a[href$='/all-items']").click
     wait_for_selector_list_size(".medias__item", 1, :css , 90)
     expect(@driver.page_source.include?("Claim")).to be(true)
   end

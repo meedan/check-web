@@ -106,7 +106,7 @@ module AppSpecHelpers
   end
 
   def wait_for_selector(selector, type = :css, timeout = 20, index = 0)
-    wait_for_selector_list(selector, type, timeout)[index]
+    wait_for_selector_list_size(selector, index + 1, type)[index]
   end
 
   def wait_for_selector_list(selector, type = :css, timeout = 20, test = 'unknown')

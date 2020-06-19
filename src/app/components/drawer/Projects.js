@@ -1,27 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
+import { FormattedMessage, FormattedNumber, injectIntl, defineMessages } from 'react-intl';
 import Relay from 'react-relay/classic';
 import { Link } from 'react-router';
 import Button from '@material-ui/core/Button';
-import MenuItem from '@material-ui/core/MenuItem';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Tooltip from '@material-ui/core/Tooltip';
-import styled from 'styled-components';
+import { makeStyles } from '@material-ui/core/styles';
 import Can from '../Can';
 import { withPusher, pusherShape } from '../../pusher';
 import CreateProject from '../project/CreateProject';
 import TeamRoute from '../../relay/TeamRoute';
 import RelayContainer from '../../relay/RelayContainer';
 
-import {
-  AlignOpposite,
-  Row,
-  Text,
-  body1,
-  units,
-  highlightOrange,
-} from '../../styles/js/shared';
+import { units } from '../../styles/js/shared';
 
 const messages = defineMessages({
   addProject: {
@@ -34,49 +28,40 @@ const messages = defineMessages({
   },
 });
 
-const StyledListItemAll = styled.div`
-  .project-list__link-all {
-    text-decoration: none!important;
+const ProjectLink = React.forwardRef(({ teamSlug, projectDbid, ...props }, ref) => {
+  const to = projectDbid ? `/${teamSlug}/project/${projectDbid}` : `/${teamSlug}/all-items`;
+  return <Link innerRef={ref} to={to} {...props} />;
+});
+ProjectLink.displayName = 'ProjectLink';
 
-    li.project-list__item-all {
-      height: ${units(4)};
-      padding: 0 ${units(2)};
-      &:hover {
-      background-color: white!important;
-      }
-    }
+const useProjectListItemTextStyles = makeStyles(theme => ({
+  primary: {
+    display: 'flex',
+    whiteSpace: 'nowrap',
 
-    .project-list__item-row {
-      font: ${body1}!important;
-      line-height: ${units(4)} !important;
-      &:hover {
-      color: ${highlightOrange}!important;
-      }
-    }
-  }
-`;
+    '&>.title': {
+      flex: '1 1 auto',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      paddingRight: theme.spacing(1),
+    },
 
-const StyledListItem = styled.div`
-  .project-list__link {
-    text-decoration: none!important;
+    '&>.count': {
+      flex: '0 0 auto',
+    },
+  },
+}));
 
-    li.project-list__item {
-      height: ${units(4)};
-      padding: 0 ${units(2)};
-      &:hover {
-      background-color: white!important;
-      }
-    }
+const ProjectListItemText = ({ title, count }) => {
+  const classes = useProjectListItemTextStyles();
 
-    .project-list__item-row {
-      font: ${body1}!important;
-      line-height: ${units(4)} !important;
-      &:hover {
-      color: ${highlightOrange}!important;
-      }
-    }
-  }
-`;
+  return (
+    <ListItemText classes={classes}>
+      <span className="title">{title}</span>
+      <span className="count"><FormattedNumber value={count} /></span>
+    </ListItemText>
+  );
+};
 
 // TODO Fix a11y issues
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
@@ -150,68 +135,35 @@ class DrawerProjectsComponent extends Component {
   };
 
   render() {
-    const { props } = this;
-    const projectList = (() =>
-      props.team.projects.edges
-        .sortp((a, b) => a.node.title.localeCompare(b.node.title))
-        .map((p) => {
-          const projectPath = `/${props.team.slug}/project/${p.node.dbid}`;
-          return (
-            <StyledListItem key={p.node.dbid} className="project-list__link-container">
-              <Link to={projectPath} className="project-list__link">
-                <MenuItem className="project-list__item">
-                  <ListItemText
-                    primary={
-                      <Row className="project-list__item-row">
-                        <Text maxWidth="85%" ellipsis>
-                          {p.node.title}
-                        </Text>
-                        <AlignOpposite>
-                          {String(p.node.medias_count)}
-                        </AlignOpposite>
-                      </Row>
-                    }
-                  />
-                </MenuItem>
-              </Link>
-            </StyledListItem>
-          );
-        })
-    )();
-
-    const styles = {
-      projectsList: {
-        overflow: 'auto',
-        padding: `${units(2)} 0`,
-      },
-    };
+    const { team } = this.props;
 
     return (
       <div className="projects__list">
-        <div style={styles.projectsList}>
-          <StyledListItemAll>
-            <Link to={`/${props.team.slug}/all-items`} className="project-list__link-all">
-              <MenuItem className="project-list__item-all">
-                <ListItemText
-                  primary={
-                    <Row className="project-list__item-row">
-                      <Text maxWidth="85%" ellipsis>
-                        <FormattedMessage id="projects.allClaims" defaultMessage="All items" />
-                      </Text>
-                      <AlignOpposite>
-                        {String(props.team.medias_count)}
-                      </AlignOpposite>
-                    </Row>
-                  }
-                />
-              </MenuItem>
-            </Link>
-          </StyledListItemAll>
-          {projectList}
-        </div>
-        <Can permissions={props.team.permissions} permission="create Project">
+        <List dense>
+          <ListItem
+            component={ProjectLink}
+            className="project-list__link"
+            teamSlug={team.slug}
+            projectDbid={null}
+          >
+            <ProjectListItemText
+              title={<FormattedMessage id="projects.allClaims" defaultMessage="All items" />}
+              count={team.medias_count}
+            />
+          </ListItem>
+          {team.projects.edges
+            .map(({ node }) => node) // make copy of Array
+            .sort((a, b) => a.title.localeCompare(b.title)) // mutate _copy_ of Array
+            .map(({ dbid, title, medias_count }) => (
+              <ListItem key={dbid} component={ProjectLink} teamSlug={team.slug} projectDbid={dbid}>
+                <ProjectListItemText title={title} count={medias_count} />
+              </ListItem>
+            ))
+          }
+        </List>
+        <Can permissions={team.permissions} permission="create Project">
           <Tooltip
-            title={this.props.intl.formatMessage(props.showAddProj ?
+            title={this.props.intl.formatMessage(this.props.showAddProj ?
               messages.dismiss : messages.addProject)}
           >
             <Button
@@ -232,7 +184,7 @@ class DrawerProjectsComponent extends Component {
           <div style={{ width: '100%', padding: `0 ${units(2)}` }}>
             <CreateProject
               className="project-list__input"
-              team={props.team}
+              team={team}
               onCreate={this.toggleShowCreateProject}
               onBlur={this.toggleShowCreateProject}
               autoFocus
