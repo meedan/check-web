@@ -943,10 +943,11 @@ shared_examples 'smoke' do
     wait_for_selector(".drawer__create-project-button").click
     wait_for_selector("#create-project-title").send_keys("project 2")
     @driver.action.send_keys(:enter).perform
-    wait_for_selector_none(".media__heading")
+    wait_for_selector_none(".media__heading", :css, 5)
     wait_for_selector_list(".project-list__link")[0].click
     expect(@driver.page_source.include?('Add a link or text')).to be(true)
     wait_for_selector_list(".project-list__link")[1].click
+    wait_for_selector("#media-bulk-actions__actions")
     wait_for_selector(".media__heading").click
     wait_for_selector("#media-actions-bar__move-to").click
     wait_for_selector('.Select-input input').send_keys('Project')
@@ -954,13 +955,12 @@ shared_examples 'smoke' do
     @driver.action.send_keys(:enter).perform
     wait_for_selector('.media-actions-bar__move-button').click
     wait_for_selector_none(".Select-placeholder")
-    wait_for_selector(".message").click
-    wait_for_selector(".project-header__back-button").click
-    wait_for_selector_list(".project-list__link")[1].click
-    wait_for_selector_none(".media__heading")
-    wait_for_selector_list(".project-list__link")[0].click
+    wait_for_selector("#search-input")
     wait_for_selector(".media__heading")
     expect(@driver.page_source.include?('My search result')).to be(true)
+    wait_for_selector_list(".project-list__link")[1].click
+    wait_for_selector_none(".media__heading", :css, 5)
+    expect(@driver.page_source.include?('My search result')).to be(false)
   end
 
   it "should add media to another project from item page", bin2: true do
