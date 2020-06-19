@@ -228,48 +228,38 @@ class MediaTimeline extends Component {
   instanceClip = (type, entityId, instanceId) => {
     const { mediaId, dbid, data: { videoTags, videoPlaces, videoClips } } = this.state;
 
-    switch (type) {
-    case 'tag': {
-      const { project_tag: { name }, instances = [] } = videoTags.find(({ id }) => id === entityId);
-      const { start_seconds, end_seconds } = instances.find(({ id }) => id === instanceId);
-      console.log({ start_seconds, end_seconds });
+    const entity = (type === 'tag' ? videoTags : videoPlaces).find(({ id }) => id === entityId);
+    const { name, instances } = entity;
 
-      const entity = videoClips.find(c => c.name === name);
-      const clips = entity ? entity.instances : [];
+    const { start_seconds, end_seconds } = instances.find(({ id }) => id === instanceId);
+    console.log({ start_seconds, end_seconds });
 
-      const included = clips.find(({ start_seconds: s, end_seconds: e }) => s <= start_seconds && start_seconds < e && s < end_seconds && end_seconds <= e);
-      const padLeft = clips.find(({ start_seconds: s, end_seconds: e }) => start_seconds < s && s < end_seconds && end_seconds <= e);
-      const padRight = clips.find(({ start_seconds: s, end_seconds: e }) => s <= start_seconds && start_seconds < e && e < end_seconds);
+    const clipEntity = videoClips.find(c => c.name === name);
+    const clips = clipEntity ? clipEntity.instances : [];
+    console.log({ clips });
 
-      console.log({ included, padLeft, padRight });
-      if (!included && !padLeft && !padRight) {
-        createClip(name, `t=${start_seconds},${end_seconds}`, `${dbid}`, mediaId);
-      }
+    const intervals = [...clips.map(({ id, start_seconds, end_seconds }) =>
+      [start_seconds, end_seconds, id]), [start_seconds, end_seconds, null]];
+    console.log(JSON.stringify(intervals));
 
-      if (padLeft) {
-        createClip(name, `t=${start_seconds},${padLeft.start_seconds}`, `${dbid}`, mediaId);
-      } else if (padRight) {
-        createClip(name, `t=${padRight.end_seconds},${end_seconds}`, `${dbid}`, mediaId);
-      } else if (padLeft && padRight && padLeft.id === padRight.id) {
+    const segments = intervals.sort((a, b) => a[0] - b[0])
+      .reduce((ac, x) => (!ac.length || ac[ac.length - 1][1] < x[0]
+        ? ac.push(x)
+        : ac[ac.length - 1][1] = Math.max(ac[ac.length - 1][1], x[1]), ac), []);
+
+    console.log({ segments });
+
+    segments.forEach(([start_seconds, end_seconds, id]) => {
+      if (id) {
         const fragment = `t=${start_seconds},${end_seconds}`;
         const parsed_fragment = { t: [start_seconds, end_seconds] };
-
-        retimeClip(padRight.id, fragment, parsed_fragment);
-      } else if (padLeft && padRight && padLeft.id === padRight.id) {
-        createClip(name, `t=${padRight.end_seconds},${padLeft.start_seconds}`, `${dbid}`, mediaId);
+        retimeClip(id, fragment, parsed_fragment);
+      } else {
+        createClip(name, `t=${start_seconds},${end_seconds}`, `${dbid}`, mediaId);
       }
-      break;
-    }
-    case 'place': {
-      const { name, instances = [] } = videoPlaces.find(({ id }) => id === entityId);
-      const { start_seconds, end_seconds } = instances.find(({ id }) => id === instanceId);
+    });
 
-      createClip(name, `t=${start_seconds},${end_seconds}`, `${dbid}`, mediaId);
-      break;
-    }
-    default:
-      console.error(`${type} not handled`);
-    }
+    clips.filter(({ id }) => !segments.find(s => id === s[2])).forEach(({ id }) => destroyClip(id, dbid));
   };
 
   entityCreate = (type, payload, callback) => {
