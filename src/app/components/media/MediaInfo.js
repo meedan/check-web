@@ -60,10 +60,6 @@ class MediaInfo extends Component {
     const { places = [], index = -1 } = this.state;
     const { classes } = this.props;
 
-    console.group("MediaInfo.js")
-    console.log(this.props)
-    console.groupEnd();
-
     return (
       <Grid className={classes.gridContainer} container>
         <Grid className={classes.gridItem} item>
@@ -80,7 +76,7 @@ class MediaInfo extends Component {
 const mediaInfoStyles = {
   gridContainer: {
     width: '100%',
-    height: '100%'
+    height: '100%',
   },
   gridItem: {
     width: '100%',
@@ -88,8 +84,8 @@ const mediaInfoStyles = {
   mapWrap: {
     minHeight: '260px',
     width: '100%',
-    height: '100%'
-  }
-}
+    height: '100%',
+  },
+};
 
 export default withStyles(mediaInfoStyles)(MediaInfo);

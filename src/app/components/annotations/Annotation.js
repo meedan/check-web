@@ -12,6 +12,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
+import { withStyles } from '@material-ui/core/styles';
 import MoreHoriz from '@material-ui/icons/MoreHoriz';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
@@ -20,6 +21,7 @@ import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { withSetFlashMessage } from '../FlashMessage';
 import EmbedUpdate from './EmbedUpdate';
 import EmbedCreate from './EmbedCreate';
+import VideoAnnoIcon from '../../../assets/images/video-anno/video-anno';
 import TaskUpdate from './TaskUpdate';
 import SourcePicture from '../source/SourcePicture';
 import MediaDetail from '../media/MediaDetail';
@@ -266,6 +268,7 @@ class Annotation extends Component {
   }
 
   handleOpenMenu = (e) => {
+    e.stopPropagation();
     this.setState({ anchorEl: e.currentTarget });
   };
 
@@ -360,7 +363,9 @@ class Annotation extends Component {
   }
 
   render() {
-    const { annotation: activity, annotated, annotation: { annotation } } = this.props;
+    const {
+      annotation: activity, annotated, annotation: { annotation }, classes,
+    } = this.props;
 
     let annotationActions = null;
     if (annotation && annotation.annotation_type) {
@@ -419,6 +424,7 @@ class Annotation extends Component {
       ? <ProfileLink className="annotation__author-name" user={activity.user} team={annotated.team} /> : null;
     const object = JSON.parse(activity.object_after);
     const content = object.data;
+    const isVideoAnno = object.fragment !== undefined;
     let activityType = activity.event_type;
     let contentTemplate = null;
     let showCard = false;
@@ -430,7 +436,9 @@ class Annotation extends Component {
       contentTemplate = (
         <div>
           <div className="annotation__card-content">
-            <ParsedText text={commentText} />
+            <div className={isVideoAnno ? classes.videoAnnoText : ''} onClick={isVideoAnno ? () => this.props.onTimelineCommentOpen(object.fragment) : null}>
+              {isVideoAnno ? <VideoAnnoIcon fontSize="small" className={classes.videoAnnoIcon} /> : null} <ParsedText text={commentText} />
+            </div>
             {/* thumbnail */}
             {commentContent.original ?
               <div onClick={this.handleOpenCommentImage.bind(this, commentContent.original)}>
@@ -441,7 +449,6 @@ class Annotation extends Component {
                 />
               </div> : null}
           </div>
-
           {/* embedded medias */}
           <div className="annotation__card-embedded-medias">
             {annotation.medias.edges.map(media => (
@@ -1128,6 +1135,7 @@ class Annotation extends Component {
     const useCardTemplate = (cardActivities.indexOf(activityType) > -1 || showCard);
     const templateClass = `annotation--${useCardTemplate ? 'card' : 'default'}`;
     const typeClass = annotation ? `annotation--${annotation.annotation_type}` : '';
+
     return (
       <StyledAnnotationWrapper
         className={`annotation ${templateClass} ${typeClass}`}
@@ -1195,4 +1203,15 @@ Annotation.propTypes = {
   setFlashMessage: PropTypes.func.isRequired,
 };
 
-export default withSetFlashMessage(Annotation);
+const annotationStyles = theme => ({
+  videoAnnoIcon: {
+    marginRight: theme.spacing(1),
+    position: 'relative',
+    top: theme.spacing(0.5),
+  },
+  videoAnnoText: {
+    cursor: 'pointer',
+  },
+});
+
+export default withStyles(annotationStyles)(withSetFlashMessage(Annotation));

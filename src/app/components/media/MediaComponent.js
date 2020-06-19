@@ -150,12 +150,12 @@ class MediaComponent extends Component {
     this.setPlayerRect();
   }
 
-  setPlayerRect = () => {
-    // update player rect which used to anchor video anno drawer
-    if (this.state.playerRef) {
-      this.setState({ playerRect: this.state.playerRef.getBoundingClientRect() });
-    }
-  }
+  onTimelineCommentOpen = (fragment) => {
+    // this call will come from Annotation.js
+    if (!fragment) return;
+    const parsedFragment = parseInt(fragment.substring(2), 10);
+    this.setState({ seekTo: parsedFragment, showVideoAnno: 'timeline' });
+  };
 
   setCurrentContext() {
     if (/^\/[^/]+\/project\/[0-9]+\/media\/[0-9]+/.test(window.location.pathname)) {
@@ -163,6 +163,13 @@ class MediaComponent extends Component {
       if (this.props.relay.variables.contextId !== projectId) {
         this.props.relay.setVariables({ contextId: projectId });
       }
+    }
+  }
+
+  setPlayerRect = () => {
+    // update player rect which used to anchor video anno drawer
+    if (this.state.playerRef) {
+      this.setState({ playerRect: this.state.playerRef.getBoundingClientRect() });
     }
   }
 
@@ -239,6 +246,10 @@ class MediaComponent extends Component {
     } = this.state;
 
     const { currentUser } = this.getContext();
+
+    // console.group("MediaComponent.js");
+    // console.log(this.state);
+    // console.groupEnd();
 
     return (
       <LoadScript
@@ -347,7 +358,7 @@ class MediaComponent extends Component {
                 { this.state.showTab === 'requests' ? <MediaRequests media={media} /> : null }
                 { this.state.showTab === 'tasks' ? <MediaTasks media={media} /> : null }
                 { this.state.showTab === 'analysis' ? <MediaAnalysis media={media} /> : null }
-                { this.state.showTab === 'notes' ? <MediaComments media={media} /> : null }
+                { this.state.showTab === 'notes' ? <MediaComments media={media} onTimelineCommentOpen={this.onTimelineCommentOpen} /> : null }
                 { this.state.showTab === 'activity' ? <MediaLog media={media} /> : null }
               </ContentColumn>
             </StyledTwoColumnLayout>
