@@ -186,7 +186,7 @@ class MediaTimeline extends Component {
       },
     };
 
-    // console.log({ data });
+    console.log({ data });
 
     return {
       duration, time, data, mediaId, dbid,

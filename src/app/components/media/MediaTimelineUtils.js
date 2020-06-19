@@ -623,6 +623,7 @@ export const createTag = (tag, fragment, annotated_id, parentID, callback) =>
             node {
               id
               fragment
+              parsed_fragment
               tag_text_object {
                 id
                 text
@@ -661,6 +662,7 @@ export const retimeTag = (id, fragment) => commitMutation(environment, {
         tag {
           id
           fragment
+          parsed_fragment
         }
       }
     }
