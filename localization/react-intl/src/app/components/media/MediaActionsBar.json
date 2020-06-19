@@ -8,6 +8,10 @@
     "defaultMessage": "Added to list {listName}"
   },
   {
+    "id": "mediaActionsBar.movingItem",
+    "defaultMessage": "Moving item..."
+  },
+  {
     "id": "mediaDetail.editReportError",
     "defaultMessage": "Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists."
   },
