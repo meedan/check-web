@@ -1557,7 +1557,7 @@ shared_examples 'smoke' do
     expect((@driver.current_url.to_s.match(/recent_added/)).nil?).to be(true)
     expect((@driver.current_url.to_s.match(/last_seen/)).nil?).to be(true)
 
-    wait_for_selector("th[data-field=linked_items_count] span").click
+    wait_for_selector("th[data-field=related_count] span").click
     wait_for_selector(".medias__item")
     expect((@driver.current_url.to_s.match(/requests/)).nil?).to be(true)
     expect((@driver.current_url.to_s.match(/related/)).nil?).to be(false)
@@ -1578,13 +1578,13 @@ shared_examples 'smoke' do
     api_create_claim_and_go_to_search_page
     expect((@driver.current_url.to_s.match(/ASC|DESC/)).nil?).to be(true)
 
-    wait_for_selector("th[data-field=linked_items_count]").click
+    wait_for_selector("th[data-field=related_count]").click
     wait_for_selector(".medias__item")
     expect((@driver.current_url.to_s.match(/DESC/)).nil?).to be(false)
     expect((@driver.current_url.to_s.match(/ASC/)).nil?).to be(true)
     expect(@driver.page_source.include?('My search result')).to be(true)
 
-    wait_for_selector("th[data-field=linked_items_count]").click
+    wait_for_selector("th[data-field=related_count]").click
     wait_for_selector(".medias__item")
     expect((@driver.current_url.to_s.match(/DESC/)).nil?).to be(true)
     expect((@driver.current_url.to_s.match(/ASC/)).nil?).to be(false)
@@ -1634,7 +1634,7 @@ shared_examples 'smoke' do
     @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"related"%2C"sort_type"%3A"DESC"%7D'
     wait_for_selector("#create-media__add-item")
     expect(@driver.page_source.include?('My search result')).to be(true)
-    el = wait_for_selector("th[data-field=linked_items_count][aria-sort]")
+    el = wait_for_selector("th[data-field=related_count][aria-sort]")
     expect(el).to be  # TODO nix this line after https://mantis.meedan.com/view.php?id=8221
 
     @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"recent_added"%2C"sort_type"%3A"DESC"%7D'
@@ -1649,13 +1649,13 @@ shared_examples 'smoke' do
     @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"related"%2C"sort_type"%3A"DESC"%7D'
     wait_for_selector("#create-media__add-item")
     expect(@driver.page_source.include?('My search result')).to be(true)
-    el = wait_for_selector("th[data-field=linked_items_count][aria-sort=descending]")
+    el = wait_for_selector("th[data-field=related_count][aria-sort=descending]")
     expect(el).to be  # TODO nix this line after https://mantis.meedan.com/view.php?id=8221
 
     @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"related"%2C"sort_type"%3A"ASC"%7D'
     wait_for_selector("#create-media__add-item")
     expect(@driver.page_source.include?('My search result')).to be(true)
-    el = wait_for_selector("th[data-field=linked_items_count][aria-sort=ascending]")
+    el = wait_for_selector("th[data-field=related_count][aria-sort=ascending]")
     expect(el).to be  # TODO nix this line after https://mantis.meedan.com/view.php?id=8221
   end
 
