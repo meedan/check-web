@@ -21,6 +21,13 @@ class CreateReportDesignMutation extends Relay.Mutation {
     if (this.props.image) {
       return { 'file[]': this.props.image };
     }
+    if (this.props.images) {
+      const files = {};
+      Object.keys(this.props.images).forEach((key) => {
+        files[`file[${key}]`] = this.props.images[key];
+      });
+      return files;
+    }
     return {};
   }
 

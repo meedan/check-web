@@ -128,7 +128,7 @@ module AppSpecHelpers
       end
     end
     finish = Time.now.to_i - start
-    raise "Could not find element with selector #{type.upcase} '#{selector}' for test '#{test}' after #{finish} seconds!" if elements.empty? 
+    raise "Could not find element with selector #{type.upcase} '#{selector}' after #{finish} seconds!" if elements.empty?
     elements
   end
 
@@ -450,7 +450,7 @@ module AppSpecHelpers
 
   def generate_a_report_and_copy_report_code
     wait_for_selector('#media-detail__report-designer').click
-    wait_for_selector('#report-designer__actions-copy').click
+    wait_for_selector('.report-designer__actions-copy').click
   end
 
   def change_the_status_to(status_class, confirm)
