@@ -9,7 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import HelpIcon from '@material-ui/icons/HelpOutline';
 import Box from '@material-ui/core/Box';
 import { checkBlue } from '../../../styles/js/shared';
-import SmoochBotLanguages from './SmoochBotLanguages';
+import LanguageSwitcher from '../../LanguageSwitcher';
 import SmoochBotSidebar from './SmoochBotSidebar';
 import SmoochBotTextEditor from './SmoochBotTextEditor';
 import SmoochBotMenuEditor from './SmoochBotMenuEditor';
@@ -139,7 +139,7 @@ const SmoochBot = (props) => {
       </Tabs>
       { currentTab === 0 ?
         <React.Fragment>
-          <SmoochBotLanguages
+          <LanguageSwitcher
             currentLanguage={currentLanguage || 'en'}
             languages={languages}
             onChange={handleChangeLanguage}

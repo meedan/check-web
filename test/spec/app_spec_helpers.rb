@@ -128,7 +128,7 @@ module AppSpecHelpers
       end
     end
     finish = Time.now.to_i - start
-    raise "Could not find element with selector #{type.upcase} '#{selector}' for test '#{test}' after #{finish} seconds!" if elements.empty? 
+    raise "Could not find element with selector #{type.upcase} '#{selector}' after #{finish} seconds!" if elements.empty?
     elements
   end
 
@@ -290,9 +290,8 @@ module AppSpecHelpers
 
   def register_with_email(should_create_team = true, email = @email, should_login = true)
     @driver.navigate.to @config['self_url']
-    wait_for_selector(".login__form")
-    wait_for_selector("#register-or-login").click
-    wait_for_selector(".without-file")
+    wait_for_selector("#register").click
+    wait_for_selector(".login__name input")
     fill_field('.login__name input', 'User With Email')
     fill_field('.login__email input', email)
     fill_field('.login__password input', '12345678')
@@ -330,11 +329,11 @@ module AppSpecHelpers
   def create_image(file)
     wait_for_selector('#create-media__add-item').click
     wait_for_selector("#create-media__image").click
+    wait_for_selector(".without-file")
     wait_for_selector('input[type=file]').send_keys(File.join(File.dirname(__FILE__), "#{file}"))
-
-    sleep 8
-
+    wait_for_selector(".with-file")
     wait_for_selector("#create-media-dialog__submit-button").click
+    wait_for_selector_none(".with-file")
   end
 
   def team_url(path)
@@ -399,9 +398,8 @@ module AppSpecHelpers
     @driver.navigate.to new_url
   end
 
-
   def new_driver(webdriver_url, browser_capabilities)
-    if @config.key?('proxy') and !webdriver_url.include? "browserstack"
+    if @config.key?('proxy')
       proxy = Selenium::WebDriver::Proxy.new(
         :http     => @config['proxy'],
         :ftp      => @config['proxy'],
@@ -452,7 +450,7 @@ module AppSpecHelpers
 
   def generate_a_report_and_copy_report_code
     wait_for_selector('#media-detail__report-designer').click
-    wait_for_selector('#report-designer__actions-copy').click
+    wait_for_selector('.report-designer__actions-copy').click
   end
 
   def change_the_status_to(status_class, confirm)

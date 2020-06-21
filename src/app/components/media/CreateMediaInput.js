@@ -1,5 +1,5 @@
 import React from 'react';
-import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
@@ -38,35 +38,23 @@ const StyledTabLabel = styled.span`
   }
 `;
 
-const messages = defineMessages({
-  mediaInput: {
-    id: 'createMedia.mediaInput',
-    defaultMessage: 'Paste or type',
-  },
-  quoteInput: {
-    id: 'createMedia.quoteInput',
-    defaultMessage: 'Paste or type a text',
-  },
-  uploadImage: {
-    id: 'createMedia.uploadImage',
-    defaultMessage: 'Upload an image',
-  },
-  invalidUrl: {
-    id: 'createMedia.invalidUrl',
-    defaultMessage: 'Please enter a valid URL',
-  },
-});
-
 class CreateMediaInput extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      mode: 'link',
-    };
-  }
+  state = {
+    mode: 'link',
+    textValue: '',
+    imageFile: null,
+    imageMessage: null,
+    videoFile: null,
+    videoMessage: null,
+  };
 
   getMediaInputValue = () => {
+    const {
+      mode,
+      imageFile,
+      videoFile,
+      textValue,
+    } = this.state;
     let mediaType = '';
     let image = '';
     let video = '';
@@ -75,26 +63,26 @@ class CreateMediaInput extends React.Component {
     let url = '';
     let quote = '';
 
-    if (this.state.mode === 'image') {
-      ({ media: { image } } = document.forms);
+    if (mode === 'image') {
+      image = imageFile;
       mediaType = 'UploadedImage';
       if (!image) {
         return null;
       }
-    } else if (this.state.mode === 'video') {
-      ({ media: { video } } = document.forms);
+    } else if (mode === 'video') {
+      video = videoFile;
       mediaType = 'UploadedVideo';
       if (!video) {
         return null;
       }
-    } else if (this.state.mode === 'quote') {
-      quote = this.state.textValue.trim();
+    } else if (mode === 'quote') {
+      quote = textValue.trim();
       if (!quote) {
         return null;
       }
       mediaType = 'Claim';
     } else {
-      inputValue = this.state.textValue.trim();
+      inputValue = textValue.trim();
       urls = inputValue.match(urlRegex());
       url = urls && urls[0] ? urls[0] : '';
       mediaType = 'Link';
@@ -137,11 +125,19 @@ class CreateMediaInput extends React.Component {
     return null;
   };
 
-  handleKeyPress = (e) => {
-    this.setState({ message: null });
+  get currentErrorMessageOrNull() {
+    const { mode, imageMessage, videoMessage } = this.state;
+    if (mode === 'video' && videoMessage) {
+      return videoMessage;
+    } else if (mode === 'image' && imageMessage) {
+      return imageMessage;
+    }
+    return this.props.message; // hopefully null
+  }
 
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
+  handleKeyPress = (ev) => {
+    if (ev.key === 'Enter' && !ev.shiftKey) {
+      ev.preventDefault();
       this.callOnSubmit();
     }
   };
@@ -166,53 +162,44 @@ class CreateMediaInput extends React.Component {
   }
 
   handleTabChange = (e, mode) => {
-    this.setState({ mode, message: null });
+    this.setState({ mode });
     if (this.props.onTabChange) {
       this.props.onTabChange(mode);
     }
   }
 
-  handleVideo = (file) => {
-    this.setState({ message: null });
-    document.forms.media.video = file;
-  };
-
-  handleImage = (file) => {
-    this.setState({ message: null });
-    document.forms.media.image = file;
+  handleImageChange = (file) => {
+    this.setState({ imageFile: file, imageMessage: null });
   };
 
   handleImageError = (file, message) => {
-    this.setState({ message });
+    this.setState({ imageFile: null, imageMessage: message });
+  };
+
+  handleVideoChange = (file) => {
+    this.setState({ videoFile: file, videoMessage: null });
+  };
+
+  handleVideoError = (file, message) => {
+    this.setState({ videoFile: null, videoMessage: message });
   };
 
   handleChange = (ev) => {
     const textValue = ev.target.value;
-
-    this.setState({
-      textValue,
-      message: null,
-    });
+    this.setState({ textValue });
   };
 
   resetForm() {
-    // TODO Use React refs
-    ['create-media-quote-input', 'create-media-input']
-      .forEach((id) => {
-        const field = document.getElementById(id);
-        if (field) {
-          field.value = '';
-        }
-      });
-    const removeImage = document.getElementById('remove-image');
-    if (removeImage) {
-      removeImage.click();
-    }
-    document.forms.media.image = null;
-    this.setState({ textValue: null });
+    this.setState({
+      textValue: '',
+      imageFile: null,
+      imageMessage: null,
+      videoFile: null,
+      videoMessage: null,
+    });
   }
 
-  renderFormInputs() {
+  renderFormInput() {
     const defaultInputProps = {
       fullWidth: true,
       multiline: true,
@@ -222,67 +209,73 @@ class CreateMediaInput extends React.Component {
     };
 
     switch (this.state.mode) {
-    case 'image':
-      return [
-        <UploadImage
-          key="createMedia.image.upload"
-          type="image"
-          onImage={this.handleImage}
-          onError={this.handleImageError}
-        />,
-      ];
-    case 'video':
-      return [
-        <UploadImage
-          key="createMedia.video.upload"
-          type="video"
-          onImage={this.handleVideo}
-          onError={this.handleImageError}
-          noPreview
-        />,
-      ];
-    case 'quote': {
-      return [
-        <TextField
-          key="createMedia.quote.input"
-          placeholder={this.props.intl.formatMessage(messages.quoteInput)}
-          name="quote"
-          id="create-media-quote-input"
-          value={this.state.textValue || ''}
-          autoFocus
-          {...defaultInputProps}
-        />,
-      ];
-    }
+    case 'image': return (
+      <UploadImage
+        key="createMedia.image.upload"
+        type="image"
+        onChange={this.handleImageChange}
+        onError={this.handleImageError}
+        value={this.state.imageFile}
+      />
+    );
+    case 'video': return (
+      <UploadImage
+        key="createMedia.video.upload"
+        type="video"
+        onChange={this.handleVideoChange}
+        onError={this.handleVideoError}
+        value={this.state.videoFile}
+        noPreview
+      />
+    );
+    case 'quote': return (
+      <FormattedMessage id="createMedia.quoteInput" defaultMessage="Paste or type a text">
+        {placeholder => (
+          <TextField
+            key="createMedia.quote.input"
+            placeholder={placeholder}
+            name="quote"
+            id="create-media-quote-input"
+            value={this.state.textValue}
+            autoFocus
+            {...defaultInputProps}
+          />
+        )}
+      </FormattedMessage>
+    );
     case 'link':
-    default:
-      return [
-        <TextField
-          key="createMedia.media.input"
-          placeholder={this.props.intl.formatMessage(messages.mediaInput)}
-          name="url"
-          id="create-media-input"
-          value={this.state.textValue || ''}
-          autoFocus
-          {...defaultInputProps}
-        />,
-      ];
+    default: return (
+      <FormattedMessage id="createMedia.mediaInput" defaultMessage="Paste or type">
+        {placeholder => (
+          <TextField
+            key="createMedia.media.input"
+            placeholder={placeholder}
+            name="url"
+            id="create-media-input"
+            value={this.state.textValue}
+            autoFocus
+            {...defaultInputProps}
+          />
+        )}
+      </FormattedMessage>
+    );
     }
   }
 
   render() {
     return (
       <div>
-        <Message className="create-media__message" message={this.props.message || this.state.message} />
+        <Message className="create-media__message" message={this.currentErrorMessageOrNull} />
 
         <form
           name="media"
           id={this.props.formId /* so outsiders can write <button type="submit" form="...id"> */}
           className="create-media__form"
+          ref={this.props.formRef}
           onSubmit={this.handleSubmit}
         >
           <div id="create-media__field">
-            {this.renderFormInputs()}
+            {this.renderFormInput()}
           </div>
 
           <div style={{ marginTop: units(2) }}>
@@ -339,4 +332,4 @@ class CreateMediaInput extends React.Component {
   }
 }
 
-export default injectIntl(CreateMediaInput);
+export default CreateMediaInput;
