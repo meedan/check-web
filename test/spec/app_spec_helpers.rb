@@ -466,7 +466,7 @@ module AppSpecHelpers
 
   def change_the_member_role_to(rule_class)
     wait_for_selector('.team-members__edit-button', :css).click
-    wait_for_selector('.role-select', :css, 29, 1).click
+    wait_for_selector('.role-select', :css, 29, index: 1).click
     wait_for_selector(rule_class).click
     wait_for_selector('#confirm-dialog__checkbox').click
     wait_for_selector('#confirm-dialog__confirm-action-button').click

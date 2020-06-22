@@ -980,7 +980,7 @@ shared_examples 'smoke' do
     wait_for_selector('.media-bulk-actions__add-button').click
     wait_for_selector_none(".Select-placeholder")
     wait_for_selector('.projects__list a', index: 2).click  # project 2
-    wait_for_selector_list_size(".medias__item", 2, :css , 80)
+    wait_for_selector_list_size(".medias__item", 2, :css)
     expect(@driver.page_source.include?('claim 1')).to be(true)
     expect(@driver.page_source.include?('claim 2')).to be(true)
     wait_for_selector("thead input[type='checkbox']:not(:checked)").click
@@ -988,7 +988,7 @@ shared_examples 'smoke' do
     wait_for_selector_none(".medias__item")
     expect(@driver.page_source.include?('Add a link or text')).to be(true)
     wait_for_selector(".project-list__item-trash").click #Go to the trash page
-    wait_for_selector_list_size(".medias__item", 2, :css , 90)
+    wait_for_selector_list_size(".medias__item", 2, :css)
     expect(@driver.page_source.include?('claim 1')).to be(true)
     expect(@driver.page_source.include?('claim 2')).to be(true)
   end
@@ -1008,7 +1008,7 @@ shared_examples 'smoke' do
     wait_for_selector("#media-bulk-actions__actions").click
     wait_for_selector(".message")
     wait_for_selector(".projects__list a[href$='/all-items']").click
-    wait_for_selector_list_size(".medias__item", 1, :css , 90)
+    wait_for_selector_list_size(".medias__item", 1, :css)
     expect(@driver.page_source.include?("Claim")).to be(true)
   end
 
@@ -1137,7 +1137,7 @@ shared_examples 'smoke' do
 
     #edit team member role
     change_the_member_role_to('li.role-journalist')
-    el = wait_for_selector('input[name="role-select"]', :css, 29, 1)
+    el = wait_for_selector('input[name="role-select"]', index: 1)
     expect(el.property('value')).to eq 'journalist'
 
     # "should redirect to team page if user asking to join a team is already a member"
@@ -1231,7 +1231,7 @@ shared_examples 'smoke' do
     expect(elems.size).to be > 1
     #edit team member role
     change_the_member_role_to('li.role-journalist')
-    el = wait_for_selector('input[name="role-select"]', :css, 29, 1)
+    el = wait_for_selector('input[name="role-select"]', index: 1)
     expect(el.property('value')).to eq 'journalist'
 
     #create one media
@@ -1305,7 +1305,7 @@ shared_examples 'smoke' do
     @driver.navigate.to @config['self_url'] + "/"+@team1_slug
     #edit team member role
     change_the_member_role_to('li.role-contributor')
-    el = wait_for_selector('input[name="role-select"]', :css, 29, 1)
+    el = wait_for_selector('input[name="role-select"]', index: 1)
     expect(el.property('value')).to eq 'contributor'
 
     api_logout
