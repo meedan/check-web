@@ -69,7 +69,7 @@ class TeamReportComponent extends React.Component {
   }
 
   render() {
-    const { direction, team } = this.props;
+    const { team } = this.props;
     const { currentLanguage } = this.state;
     const report = this.state.report[currentLanguage] || {};
     const defaultLanguage = team.get_language || 'en';
@@ -84,7 +84,7 @@ class TeamReportComponent extends React.Component {
           onChange={this.handleChangeLanguage.bind(this)}
         />
         <Can permissions={team.permissions} permission="update Team">
-          <p style={{ marginTop: units(2), textAlign: direction.to }}>
+          <p style={{ marginTop: units(2), textAlign: 'end' }}>
             <Button onClick={this.handleSubmit.bind(this)} primary>
               <FormattedMessage id="teamReport.save" defaultMessage="Save" />
             </Button>
