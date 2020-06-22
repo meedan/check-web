@@ -1,0 +1,18 @@
+[
+  {
+    "id": "editStatusDialog.title",
+    "defaultMessage": "Add a new status"
+  },
+  {
+    "id": "editStatusDialog.statusTitle",
+    "defaultMessage": "Status (35 characters max)"
+  },
+  {
+    "id": "editStatusDialog.statusDescription",
+    "defaultMessage": "Description"
+  },
+  {
+    "id": "editStatusDialog.addButton",
+    "defaultMessage": "Add status"
+  }
+]

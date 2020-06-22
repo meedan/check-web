@@ -2,25 +2,25 @@ import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
-import RulesComponent from './RulesComponent';
+import StatusesComponent from './StatusesComponent';
 
 const renderQuery = ({ error, props }) => {
   if (!error && props) {
-    return <RulesComponent team={props.team} />;
+    return <StatusesComponent team={props.team} />;
   }
+
   // TODO: We need a better error handling in the future, standardized with other components
   return null;
 };
 
-const Rules = props => (
+const Statuses = props => (
   <QueryRenderer
     environment={Relay.Store}
     query={graphql`
-      query RulesQuery($teamSlug: String!) {
+      query StatusesQuery($teamSlug: String!) {
         team(slug: $teamSlug) {
           id
-          get_rules
-          rules_json_schema
+          verification_statuses
         }
       }
     `}
@@ -31,8 +31,8 @@ const Rules = props => (
   />
 );
 
-Rules.propTypes = {
+Statuses.propTypes = {
   teamSlug: PropTypes.string.isRequired,
 };
 
-export default Rules;
+export default Statuses;

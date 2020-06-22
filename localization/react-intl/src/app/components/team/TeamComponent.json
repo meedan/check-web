@@ -22,5 +22,9 @@
   {
     "id": "teamSettings.bots",
     "defaultMessage": "Bots"
+  },
+  {
+    "id": "teamSettings.statuses",
+    "defaultMessage": "Statuses"
   }
 ]

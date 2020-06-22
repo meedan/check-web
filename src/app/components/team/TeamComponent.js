@@ -10,6 +10,7 @@ import Tab from '@material-ui/core/Tab';
 import styled from 'styled-components';
 import TeamBots from './TeamBots';
 import TeamRules from './Rules';
+import TeamStatuses from './Statuses';
 import TeamTags from './TeamTags';
 import TeamTasks from './TeamTasks';
 import TeamReport from './TeamReport';
@@ -232,6 +233,19 @@ class TeamComponent extends Component {
                 value="bots"
               />
               : null }
+            {UserUtil.myRole(this.getCurrentUser(), team.slug) === 'owner' ?
+              <Tab
+                className="team-settings__statuses-tab"
+                classes={{ root: classes.root }}
+                label={
+                  <FormattedMessage
+                    id="teamSettings.statuses"
+                    defaultMessage="Statuses"
+                  />
+                }
+                value="statuses"
+              />
+              : null }
           </Tabs>
         );
       }
@@ -270,6 +284,9 @@ class TeamComponent extends Component {
             ) : null }
           { isReadOnly && this.state.showTab === 'tags'
             ? <TeamTags team={team} direction={direction} />
+            : null }
+          { isSettings && this.state.showTab === 'statuses'
+            ? <TeamStatuses team={team} />
             : null }
         </div>
       </PageTitle>
