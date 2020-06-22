@@ -119,8 +119,11 @@ const ReportDesignerTopBar = (props) => {
                     defaultMessage="Publish report"
                   /> :
                   <FormattedMessage
-                    id="reportDesigner.cantPublish"
-                    defaultMessage="Fill in at least the report text or image to publish your report"
+                    id="reportDesigner.cannotPublish"
+                    defaultMessage="Fill in at least the report text or image to publish your report. Make sure to create a report for the primary language ({language})."
+                    values={{
+                      language: props.defaultLanguage,
+                    }}
                   />
               }
               title={
@@ -224,6 +227,7 @@ ReportDesignerTopBar.propTypes = {
   canPublish: PropTypes.bool.isRequired,
   media: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
+  defaultLanguage: PropTypes.string.isRequired,
   onStatusChange: PropTypes.func.isRequired,
   onStateChange: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
