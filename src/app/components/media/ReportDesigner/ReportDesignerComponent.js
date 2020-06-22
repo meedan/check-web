@@ -177,9 +177,6 @@ const ReportDesignerComponent = (props) => {
         images[i] = image;
       }
     });
-    fields.options = fields.options.filter(r => (
-      r.use_introduction || r.use_visual_card || r.use_text_message
-    ));
 
     if (!annotation) {
       Relay.Store.commitUpdate(
