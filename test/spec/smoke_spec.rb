@@ -223,7 +223,7 @@ shared_examples 'smoke' do
     wait_for_selector("input[type=checkbox]").click
     wait_for_selector(".media-bulk-actions__delete-icon").click
     wait_for_selector(".message")
-    wait_for_selector(".project-list__link-all").click
+    wait_for_selector('a[href$="/all-items"]').click
     wait_for_selector_none(".medias__item")
     wait_for_selector(".project-list__item-trash").click #Go to the trash page
     wait_for_selector("//span[contains(text(), 'Trash')]", :xpath)
@@ -234,7 +234,7 @@ shared_examples 'smoke' do
     wait_for_selector("#media-bulk-actions")
     expect(@driver.current_url.to_s.match(/trash/).nil?).to be(false) # trash page
     #item created from "all items" page
-    wait_for_selector(".project-list__link-all").click
+    wait_for_selector('a[href$="/all-items"]').click
     create_media("claim 2")
     wait_for_selector(".media__heading").click
     wait_for_selector("#media-detail__report-designer")
@@ -450,7 +450,7 @@ shared_examples 'smoke' do
     @driver.navigate.to(@config['self_url'] + '/check/me')
     wait_for_selector('#teams-tab').click
     wait_for_selector('.teams a').click
-    wait_for_selector(".project-list__link-all")
+    wait_for_selector('a[href$="/all-items"]')
     wait_for_selector(".project-list__link-trash")
     wait_for_selector(".project__title")
     wait_for_selector(".team-header__drawer-team-link").click
