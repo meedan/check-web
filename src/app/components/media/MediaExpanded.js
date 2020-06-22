@@ -6,7 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardActions from '@material-ui/core/CardActions';
 import styled from 'styled-components';
-import { Player } from '@meedan/check-ui';
+// import { Player } from '@meedan/check-ui';
 import MediaRoute from '../../relay/MediaRoute';
 import MediaMetadata from './MediaMetadata';
 import MediaUtil from './MediaUtil';
@@ -98,7 +98,7 @@ class MediaExpandedComponent extends Component {
 
   render() {
     const {
-      media, playing, start, end, gaps, seekTo, scrubTo, setPlayerState,
+      media, playing, start, end, gaps, seekTo, scrubTo, setPlayerState, onPlayerReady,
     } = this.props;
     let smoochBotInstalled = false;
     if (media.team && media.team.team_bot_installations) {
@@ -132,19 +132,9 @@ class MediaExpandedComponent extends Component {
           <div ref={this.getPlayerRef}>
             <VideoMediaCard
               videoPath={media.media.file_path}
-              onDuration={d => setPlayerState({ duration: d })}
-              onPause={() => setPlayerState({ playing: false })}
-              onPlay={() => setPlayerState({ playing: true })}
-              onProgress={p => setPlayerState({ progress: p })}
-              onReady={this.props.onPlayerReady}
-              onTimeUpdate={t => setPlayerState({ time: t })}
-              playing={playing}
-              start={start}
-              end={end}
-              gaps={gaps}
-              scrubTo={scrubTo}
-              seekTo={seekTo}
-              // url={media.url}
+              {...{
+                playing, start, end, gaps, scrubTo, seekTo, onPlayerReady, setPlayerState,
+              }}
             />
           </div>
         );
@@ -153,19 +143,9 @@ class MediaExpandedComponent extends Component {
           <div ref={this.getPlayerRef}>
             <VideoMediaCard
               videoPath={media.url}
-              onDuration={d => setPlayerState({ duration: d })}
-              onPause={() => setPlayerState({ playing: false })}
-              onPlay={() => setPlayerState({ playing: true })}
-              onProgress={p => setPlayerState({ progress: p })}
-              onReady={this.props.onPlayerReady}
-              onTimeUpdate={t => setPlayerState({ time: t })}
-              playing={playing}
-              start={start}
-              end={end}
-              gaps={gaps}
-              scrubTo={scrubTo}
-              seekTo={seekTo}
-              // url={media.url}
+              {...{
+                playing, start, end, gaps, scrubTo, seekTo, onPlayerReady, setPlayerState,
+              }}
             />
           </div>
         );
