@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
+import { createFragmentContainer, graphql } from 'react-relay/compat';
+import { FormattedMessage } from 'react-intl';
 import BlankState from '../layout/BlankState';
 import Can from '../Can';
 
-export default function ProjectBlankState({ project }) {
+function ProjectBlankState({ project }) {
   return (
     <BlankState>
       <Can
@@ -12,7 +13,7 @@ export default function ProjectBlankState({ project }) {
         permissions={project.permissions}
         otherwise={<FormattedMessage id="userAssignments.blank" defaultMessage="No activity" />}
       >
-        <FormattedHTMLMessage id="ProjectBlankState.createMedia" defaultMessage="Add a link or text" />
+        <FormattedMessage id="ProjectBlankState.createMedia" defaultMessage="Add a link or text" />
       </Can>
     </BlankState>
   );
@@ -22,3 +23,9 @@ ProjectBlankState.propTypes = {
     permissions: PropTypes.string.isRequired,
   }).isRequired,
 };
+
+export default createFragmentContainer(ProjectBlankState, graphql`
+  fragment ProjectBlankState_project on Project {
+    permissions
+  }
+`);

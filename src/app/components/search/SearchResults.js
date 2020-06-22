@@ -388,7 +388,7 @@ class SearchResultsComponent extends React.PureComponent {
                 project={this.props.project}
                 selectedMedia={selectedProjectMediaIds}
                 onUnselectAll={this.onUnselectAll}
-              /> : null}
+              /> : []}
             title={count ? (
               <span className="search__results-heading">
                 <Tooltip title={
@@ -527,6 +527,7 @@ const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsCom
         dbid
         ${BulkActions.getFragment('project')}
         ${Toolbar.getFragment('project')}
+        ${ProjectBlankState.getFragment('project')}
         team {  # TODO query project _from within Team_
           dbid
           slug

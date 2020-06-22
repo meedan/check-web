@@ -23,6 +23,10 @@ const IconButtonInASpan = React.forwardRef((props, ref) => (
 ));
 IconButtonInASpan.displayName = 'IconButtonInASpan';
 
+// Generic Relay success/failure handlers
+const onSuccess = () => {};
+const onFailure = err => console.error(err); // eslint-disable-line no-console
+
 class BulkActions extends React.Component {
   constructor(props) {
     super(props);
@@ -51,18 +55,6 @@ class BulkActions extends React.Component {
   }
 
   handleSubmitAdd = () => {
-    const message = (
-      <FormattedMessage
-        id="bulkActions.addedSuccessfully"
-        defaultMessage="Done! Please note that it can take a while until the items are actually added."
-      />
-    );
-    this.props.setFlashMessage(message);
-    this.setState({ openAddDialog: false, dstProjectForAdd: null });
-    this.props.onUnselectAll();
-
-    const onDone = () => {};
-
     if (this.props.selectedMedia.length && this.state.dstProjectForAdd) {
       Relay.Store.commitUpdate(
         new BulkUpdateProjectMediaMutation({
@@ -75,23 +67,22 @@ class BulkActions extends React.Component {
           srcProject: null,
           srcProjectForRemove: null,
         }),
-        { onSuccess: onDone, onFailure: onDone },
+        { onSuccess, onFailure },
       );
     }
-  }
 
-  handleClickRemove = () => {
     const message = (
       <FormattedMessage
-        id="bulkActions.removedSuccessfully"
-        defaultMessage="Done! Please note that it can take a while until the items are actually removed from this list."
+        id="bulkActions.addedSuccessfully"
+        defaultMessage="Done! Please note that it can take a while until the items are actually added."
       />
     );
     this.props.setFlashMessage(message);
+    this.setState({ openAddDialog: false, dstProjectForAdd: null });
     this.props.onUnselectAll();
+  }
 
-    const onDone = () => {};
-
+  handleClickRemove = () => {
     if (this.props.selectedMedia.length) {
       Relay.Store.commitUpdate(
         new BulkUpdateProjectMediaMutation({
@@ -104,24 +95,21 @@ class BulkActions extends React.Component {
           dstProjectForAdd: null,
           srcProject: null,
         }),
-        { onSuccess: onDone, onFailure: onDone },
+        { onSuccess, onFailure },
       );
     }
-  }
 
-  handleSubmitMove = () => {
     const message = (
       <FormattedMessage
-        id="bulkActions.movedSuccessfully"
-        defaultMessage="Done! Please note that it can take a while until the items are actually moved."
+        id="bulkActions.removedSuccessfully"
+        defaultMessage="Done! Please note that it can take a while until the items are actually removed from this list."
       />
     );
     this.props.setFlashMessage(message);
-    this.setState({ openMoveDialog: false, dstProject: null });
     this.props.onUnselectAll();
+  }
 
-    const onDone = () => {};
-
+  handleSubmitMove = () => {
     if (this.props.selectedMedia.length && this.state.dstProject) {
       Relay.Store.commitUpdate(
         new BulkUpdateProjectMediaMutation({
@@ -134,9 +122,19 @@ class BulkActions extends React.Component {
           dstProjectForAdd: null,
           srcProjectForRemove: null,
         }),
-        { onSuccess: onDone, onFailure: onDone },
+        { onSuccess, onFailure },
       );
     }
+
+    const message = (
+      <FormattedMessage
+        id="bulkActions.movedSuccessfully"
+        defaultMessage="Done! Please note that it can take a while until the items are actually moved."
+      />
+    );
+    this.props.setFlashMessage(message);
+    this.setState({ openMoveDialog: false, dstProject: null });
+    this.props.onUnselectAll();
   }
 
   handleClickSendToTrash = () => {
@@ -156,7 +154,7 @@ class BulkActions extends React.Component {
   }
 
   updateArchived(archived) {
-    const onSuccess = () => {
+    const onSuccessShowMessage = () => {
       const message = archived ? (
         <FormattedMessage
           id="bulkActions.moveToTrashSuccessfully"
@@ -188,7 +186,7 @@ class BulkActions extends React.Component {
           dstProjectForAdd: null,
           srcProjectForRemove: null,
         }),
-        { onSuccess },
+        { onSuccess: onSuccessShowMessage, onFailure },
       );
     }
   }

@@ -59,11 +59,12 @@ class Toolbar extends React.PureComponent {
 }
 
 Toolbar.defaultProps = {
+  actions: null,
   page: undefined, // FIXME find a cleaner way to render Trash differently
   project: null,
 };
 Toolbar.propTypes = {
-  actions: PropTypes.node.isRequired,
+  actions: PropTypes.node, // or null
   page: PropTypes.oneOf(['trash']), // FIXME find a cleaner way to render Trash differently
   project: PropTypes.shape({
     permissions: PropTypes.string.isRequired,

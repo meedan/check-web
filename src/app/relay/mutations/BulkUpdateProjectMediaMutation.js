@@ -13,7 +13,7 @@ class BulkUpdateProjectMediaMutation extends Relay.Mutation {
         fragment on UpdateProjectMediaPayload {
           affectedIds
           check_search_project { id, number_of_results, medias }
-          project { id, medias_count }  # FIXME nix (#8237)
+          project { id, project_medias, medias_count }  # FIXME nix (#8237)
         }
       `;
     }
