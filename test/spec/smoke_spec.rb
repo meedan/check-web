@@ -592,7 +592,7 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('Hi, this is a test')).to be(true)
   end
 
-  it "should add introduction and a disclaimer", bin5: true do
+  it "should add introduction and a disclaimer to team report settings", bin5: true do
     team = "team#{Time.now.to_i}"
     api_create_team(team: team)
     @driver.navigate.to @config['self_url']+'/'+team
@@ -605,7 +605,7 @@ shared_examples 'smoke' do
     wait_for_selector('#introduction').send_keys("introduction text")
     wait_for_selector('#use_disclaimer').click
     wait_for_selector('#disclaimer').send_keys("a text")
-    wait_for_selector(".team > div> div > p > button[type='button']").click #save button
+    wait_for_selector('.team p button').click #save button
     wait_for_selector(".message")
     expect(@driver.page_source.include?('Report settings updated successfully!')).to be(true)
   end
@@ -757,56 +757,24 @@ shared_examples 'smoke' do
 #Related items section end
 
 #Embed section Start
-  it "should generate a report from Youtube video", bin1: true do
-    api_create_team_project_and_link_and_redirect_to_media_page('https://www.youtube.com/watch?v=ykLgjhBnik0')
-    wait_for_selector(".media-detail")
-    generate_a_report_and_copy_report_code
-    @driver.navigate.to 'https://paste.ubuntu.com/'
-    title = 'a report from Youtube video' + Time.now.to_i.to_s
-    fill_field('#id_poster' , title)
-    wait_for_selector('#id_content').send_keys(' ')
-    @driver.action.send_keys(:control, 'v').perform
-    wait_for_text_change(' ',"#id_content", :css)
-    expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
-  end
-
-  it "should generate a report from Facebook post", bin1: true do
-    api_create_team_project_and_link_and_redirect_to_media_page('https://www.facebook.com/FirstDraftNews/posts/1808121032783161')
-    wait_for_selector(".media-detail")
-    generate_a_report_and_copy_report_code
-    @driver.navigate.to 'https://paste.ubuntu.com/'
-    title = 'a report from Facebook' + Time.now.to_i.to_s
-    fill_field('#id_poster' , title)
-    wait_for_selector('#id_content').send_keys(' ')
-    @driver.action.send_keys(:control, 'v').perform
-    wait_for_text_change(' ',"#id_content", :css)
-    expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
-  end
-
-  it "should generate a report from Twitter post", bin4: true do
-    api_create_team_project_and_link_and_redirect_to_media_page('https://twitter.com/TheWho/status/890135323216367616')
-    wait_for_selector(".media-detail")
-    generate_a_report_and_copy_report_code
-    @driver.navigate.to 'https://paste.ubuntu.com/'
-    title = 'a report from Twitter' + Time.now.to_i.to_s
-    fill_field('#id_poster' , title)
-    wait_for_selector('#id_content').send_keys(' ')
-    @driver.action.send_keys(:control, 'v').perform
-    wait_for_text_change(' ',"#id_content", :css)
-    expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
-  end
-
-  it "should generate a report from Instagram post", bin1: true do
-    api_create_team_project_and_link_and_redirect_to_media_page('https://www.instagram.com/p/BRYob0dA1SC/')
-    wait_for_selector(".media-detail")
-    generate_a_report_and_copy_report_code
-    @driver.navigate.to 'https://paste.ubuntu.com/'
-    title = 'a report from Instagram' + Time.now.to_i.to_s
-    fill_field('#id_poster' , title)
-    wait_for_selector('#id_content').send_keys(' ')
-    @driver.action.send_keys(:control, 'v').perform
-    wait_for_text_change(' ',"#id_content", :css)
-    expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
+  {
+    'YouTube' => 'https://www.youtube.com/watch?v=ykLgjhBnik0',
+    'Facebook' => 'https://www.facebook.com/FirstDraftNews/posts/1808121032783161',
+    'Twitter' => 'https://twitter.com/TheWho/status/890135323216367616',
+    'Instagram' => 'https://www.instagram.com/p/BRYob0dA1SC/',
+  }.each do |provider, url|
+    it "should generate a report from #{provider} video", bin1: true do
+      api_create_team_project_and_link_and_redirect_to_media_page(url)
+      wait_for_selector('.media-detail')
+      generate_a_report_and_copy_report_code
+      @driver.navigate.to 'https://paste.ubuntu.com/'
+      title = 'A report at ' + Time.now.to_i.to_s
+      fill_field('#id_poster' , title)
+      wait_for_selector('#id_content').send_keys(' ')
+      @driver.action.send_keys(:control, 'v').perform
+      wait_for_text_change(' ',"#id_content", :css)
+      expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
+    end
   end
 
   it "should generate a report from website link copy the code and insert in a blog", bin3: true do
@@ -853,15 +821,15 @@ shared_examples 'smoke' do
     wait_for_selector('.medias__item')
     wait_for_selector('img').click
     wait_for_selector('#media-detail__report-designer').click
-    wait_for_selector("#report-designer__customization-menu")
+    wait_for_selector('.report-designer__actions-copy')
     wait_for_selector("//span[contains(text(), 'Edit')]", :xpath).click
     wait_for_selector("//span[contains(text(), 'Report image')]", :xpath).click
     wait_for_selector("//span[contains(text(), 'Report text')]", :xpath).click
     wait_for_selector("#report-designer__text").send_keys("text message")
     wait_for_selector("//span[contains(text(), 'Save')]", :xpath).click
     wait_for_selector("//span[contains(text(), 'Edit')]", :xpath)
-    wait_for_selector('#report-designer__actions button + button').click
-    embed_url = wait_for_selector('#report-designer__share-field').property('value').to_s
+    wait_for_selector('.report-designer__copy-share-url').click
+    embed_url = wait_for_selector('.report-designer__copy-share-url input').property('value').to_s
     caps = Selenium::WebDriver::Remote::Capabilities.chrome('chromeOptions' => { 'args' => [ '--incognito' ]})
     driver = Selenium::WebDriver.for(:remote, url: @webdriver_url, desired_capabilities: caps)
     begin
@@ -932,32 +900,32 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('1 / 1')).to be(true)
     expect(@driver.page_source.include?("Add a link or text")).to be(false)
   end
-#commented until #8394 be fixed
-  # it "should move media to another project from item page", bin2: true do
-  #   api_create_claim_and_go_to_search_page
-  #   wait_for_selector("#search-input")
-  #   wait_for_selector(".drawer__create-project-button").click
-  #   wait_for_selector("#create-project-title").send_keys("project 2")
-  #   @driver.action.send_keys(:enter).perform
-  #   wait_for_selector_none(".media__heading")
-  #   wait_for_selector_list(".project-list__link")[0].click
-  #   expect(@driver.page_source.include?('Add a link or text')).to be(true)
-  #   wait_for_selector_list(".project-list__link")[1].click
-  #   wait_for_selector(".media__heading").click
-  #   wait_for_selector("#media-actions-bar__move-to").click
-  #   wait_for_selector('.Select-input input').send_keys('Project')
-  #   wait_for_selector(".Select-menu-outer")
-  #   @driver.action.send_keys(:enter).perform
-  #   wait_for_selector('.media-actions-bar__move-button').click
-  #   wait_for_selector_none(".Select-placeholder")
-  #   wait_for_selector(".message").click
-  #   wait_for_selector(".project-header__back-button").click
-  #   wait_for_selector_list(".project-list__link")[1].click
-  #   wait_for_selector_none(".media__heading")
-  #   wait_for_selector_list(".project-list__link")[0].click
-  #   wait_for_selector(".media__heading")
-  #   expect(@driver.page_source.include?('My search result')).to be(true)
-  # end
+
+  it "should move media to another project from item page", bin2: true do
+    api_create_claim_and_go_to_search_page
+    wait_for_selector("#search-input")
+    wait_for_selector(".drawer__create-project-button").click
+    wait_for_selector("#create-project-title").send_keys("project 2")
+    @driver.action.send_keys(:enter).perform
+    wait_for_selector_none(".media__heading", :css, 5)
+    wait_for_selector_list(".project-list__link")[0].click
+    expect(@driver.page_source.include?('Add a link or text')).to be(true)
+    wait_for_selector_list(".project-list__link")[1].click
+    wait_for_selector("#media-bulk-actions__actions")
+    wait_for_selector(".media__heading").click
+    wait_for_selector("#media-actions-bar__move-to").click
+    wait_for_selector('.Select-input input').send_keys('Project')
+    wait_for_selector(".Select-menu-outer")
+    @driver.action.send_keys(:enter).perform
+    wait_for_selector('.media-actions-bar__move-button').click
+    wait_for_selector_none(".Select-placeholder")
+    wait_for_selector("#search-input")
+    wait_for_selector(".media__heading")
+    expect(@driver.page_source.include?('My search result')).to be(true)
+    wait_for_selector_list(".project-list__link")[1].click
+    wait_for_selector_none(".media__heading", :css, 5)
+    expect(@driver.page_source.include?('My search result')).to be(false)
+  end
 
   it "should add media to another project from item page", bin2: true do
     api_create_claim_and_go_to_search_page
@@ -1367,11 +1335,11 @@ shared_examples 'smoke' do
     @driver.navigate.to @config['self_url'] + '/' + t.slug + '/settings'
     wait_for_selector('.team-settings__rules-tab').click
     wait_for_selector('#tableTitle')
-    
+
     # No rules
     expect(@driver.page_source.include?('0 rules')).to be(true)
     expect(@driver.page_source.include?('Rule 1')).to be(false)
-    
+
     # Create new rule and check that form is blank
     wait_for_selector('.rules__new-rule').click
     wait_for_selector('input')
@@ -1380,7 +1348,7 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('foo,bar')).to be(false)
     expect(@driver.page_source.include?('Move item to list')).to be(false)
     expect(@driver.page_source.include?('Select destination list')).to be(false)
-    
+
     # Select a condition and set a value for it
     wait_for_selector('.rules__rule-field div[role="button"]').click
     wait_for_selector('ul li').click
@@ -1391,7 +1359,7 @@ shared_examples 'smoke' do
     wait_for_selector('.rules__actions .rules__rule-field div[role="button"]').click
     wait_for_selector('ul li').click
     expect(@driver.page_source.include?('Select destination list')).to be(true)
-    
+
     # Set rule name
     wait_for_selector('input[type="text"]').click
     @driver.action.send_keys('Rule 1').perform

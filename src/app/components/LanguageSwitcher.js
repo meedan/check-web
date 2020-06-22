@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
-import languagesList from '../../../languagesList';
+import languagesList from '../languagesList';
 
-const SmoochBotLanguages = (props) => {
+const LanguageSwitcher = (props) => {
   const handleChange = (event, newValue) => {
     props.onChange(newValue);
   };
@@ -22,10 +22,10 @@ const SmoochBotLanguages = (props) => {
   );
 };
 
-SmoochBotLanguages.propTypes = {
+LanguageSwitcher.propTypes = {
   currentLanguage: PropTypes.string.isRequired,
   languages: PropTypes.arrayOf(PropTypes.string).isRequired,
   onChange: PropTypes.func.isRequired,
 };
 
-export default SmoochBotLanguages;
+export default LanguageSwitcher;
