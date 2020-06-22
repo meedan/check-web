@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { injectIntl } from 'react-intl';
 import styled from 'styled-components';
-import isEqual from 'lodash.isequal';
-import CreateProjectMedia from '../media/CreateMedia';
+import CreateProjectMedia from '../media/CreateProjectMedia';
 import Can from '../Can';
 import { black87, units, Row, FlexRow } from '../../styles/js/shared';
 
@@ -23,12 +23,7 @@ const OffsetButton = styled.div`
   text-align: end;
 `;
 
-class Toolbar extends React.Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    return !isEqual(this.state, nextState) ||
-           !isEqual(this.props, nextProps);
-  }
-
+class Toolbar extends React.PureComponent {
   render() {
     const {
       actions,
@@ -39,12 +34,9 @@ class Toolbar extends React.Component {
       search,
     } = this.props;
 
-    let perms = { permissions: {}, permission: '' };
-    if (project) {
-      perms = { permissions: project.permissions, permission: 'create Media' };
-    } else if (team) {
-      perms = { permissions: team.permissions, permission: 'create ProjectMedia' };
-    }
+    const perms = project
+      ? { permissions: project.permissions, permission: 'create Media' }
+      : { permissions: team.permissions, permission: 'create ProjectMedia' };
 
     return (
       <StyledToolbar className="toolbar">
@@ -68,9 +60,26 @@ class Toolbar extends React.Component {
 
 Toolbar.defaultProps = {
   page: undefined, // FIXME find a cleaner way to render Trash differently
+  project: null,
 };
 Toolbar.propTypes = {
+  actions: PropTypes.node.isRequired,
   page: PropTypes.oneOf(['trash']), // FIXME find a cleaner way to render Trash differently
+  project: PropTypes.shape({
+    permissions: PropTypes.string.isRequired,
+  }), // or null
+  team: PropTypes.shape({
+    permissions: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
-export default injectIntl(Toolbar);
+export default createFragmentContainer(injectIntl(Toolbar), graphql`
+  fragment Toolbar_project on Project {
+    ...CreateProjectMedia_project
+    permissions
+  }
+  fragment Toolbar_team on Team {
+    ...CreateProjectMedia_team
+    permissions
+  }
+`);

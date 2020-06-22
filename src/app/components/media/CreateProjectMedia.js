@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { browserHistory } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
@@ -100,9 +101,26 @@ class CreateProjectMedia extends React.Component {
     );
   }
 }
-
+CreateProjectMedia.defaultProps = {
+  project: null,
+};
 CreateProjectMedia.propTypes = {
   setFlashMessage: PropTypes.func.isRequired,
+  team: PropTypes.shape({
+    slug: PropTypes.string.isRequired,
+  }).isRequired,
+  project: PropTypes.shape({
+    dbid: PropTypes.number.isRequired,
+  }), // or null
 };
 
-export default withSetFlashMessage(CreateProjectMedia);
+export default createFragmentContainer(withSetFlashMessage(CreateProjectMedia), graphql`
+  fragment CreateProjectMedia_team on Team {
+    slug
+    ...CreateProjectMediaMutation_team
+  }
+  fragment CreateProjectMedia_project on Project {
+    dbid
+    ...CreateProjectMediaMutation_project
+  }
+`);

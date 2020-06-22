@@ -157,7 +157,7 @@ class BulkActions extends React.Component {
 
   updateArchived(archived) {
     const onSuccess = () => {
-      const message = archived === 1 ? (
+      const message = archived ? (
         <FormattedMessage
           id="bulkActions.moveToTrashSuccessfully"
           defaultMessage="Done! Please note that it can take a while until the items are actually moved to the trash."
@@ -181,7 +181,7 @@ class BulkActions extends React.Component {
           id: this.props.selectedMedia[0], // FIXME nix this parameter from API
           ids: this.props.selectedMedia,
           srcProject: this.props.project,
-          archived,
+          archived: archived ? 1 : 0, // FIXME API should accept true/false, not 1/0
           teamSearchId: this.props.team.search_id,
           count: this.props.count,
           dstProject: null,
@@ -383,5 +383,11 @@ export default createFragmentContainer(withSetFlashMessage(BulkActions), graphql
     ...MoveDialog_team
     permissions
     search_id
+  }
+  fragment BulkActions_project on Project {
+    id
+    dbid
+    ...BulkUpdateProjectMediaMutation_srcProject
+    ...BulkUpdateProjectMediaMutation_srcProjectForRemove
   }
 `);

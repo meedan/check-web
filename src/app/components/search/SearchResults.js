@@ -457,8 +457,10 @@ SearchResultsComponent.propTypes = {
     medias: PropTypes.shape({ edges: PropTypes.array.isRequired }).isRequired,
   }).isRequired,
   project: PropTypes.shape({
-    id: PropTypes.string.isRequired, // TODO fill in props
     dbid: PropTypes.number.isRequired,
+    team: PropTypes.shape({
+      slug: PropTypes.string.isRequired,
+    }).isRequired,
   }), // may be null
   searchUrlPrefix: PropTypes.string.isRequired,
   mediaUrlPrefix: PropTypes.string.isRequired,
@@ -475,6 +477,8 @@ const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsCom
         pusher_channel,
         team {
           ${BulkActions.getFragment('team')}
+          ${SearchQuery.getFragment('team')}
+          ${Toolbar.getFragment('team')}
           slug
           search_id,
           permissions,
@@ -516,6 +520,17 @@ const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsCom
           }
         },
         number_of_results
+      }
+    `,
+    project: () => Relay.QL`
+      fragment on Project {
+        dbid
+        ${BulkActions.getFragment('project')}
+        ${Toolbar.getFragment('project')}
+        team {  # TODO query project _from within Team_
+          dbid
+          slug
+        }
       }
     `,
   },
@@ -568,16 +583,28 @@ function encodeQueryToMimicTheWayCheckApiGeneratesIds(query, teamSlug) {
   return JSON.stringify(query);
 }
 
-export default function SearchResults({ query, teamSlug, ...props }) {
+export default function SearchResults({
+  query, teamSlug, project, ...props
+}) {
   const jsonEncodedQuery = encodeQueryToMimicTheWayCheckApiGeneratesIds(query, teamSlug);
-  const route = React.useMemo(() => new SearchRoute({ jsonEncodedQuery }), [jsonEncodedQuery]);
+  // TODO when this is a fragment, `project` will come with. And so will `search`.
+  const projectDbidCommaTeamDbid = project ? `${project.dbid},${project.team.dbid}` : '';
+  const route = React.useMemo(
+    () => new SearchRoute({ jsonEncodedQuery, projectDbidCommaTeamDbid }),
+    [jsonEncodedQuery, projectDbidCommaTeamDbid],
+  );
 
   return (
     <Relay.RootContainer
       Component={SearchResultsContainer}
       route={route}
       renderFetched={data => (
-        <SearchResultsContainer {...props} query={query} search={data.search} />
+        <SearchResultsContainer
+          {...props}
+          query={query}
+          search={data.search}
+          project={data.project}
+        />
       )}
       renderLoading={() => <MediasLoading />}
     />

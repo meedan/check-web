@@ -24,12 +24,39 @@ function generateRandomQueryId() {
 }
 
 function parseQueryPayload(request, payload, team) {
-  if (Object.prototype.hasOwnProperty.call(payload, 'errors')) {
-    if (payload.errors.filter(error => error.code === 3).length
-      && window.location.pathname !== '/check/not-found') {
+  // FIXME nix this function and handle query errors where we write queries. [#6211]
+  let errors = payload.errors ? payload.errors : null;
+  if (errors && /[-_a-zA-Z0-9]*\/(all-items|trash)/.test(window.location.pathname)) {
+    // [adamhooper, 2020-06-22] the <SearchResults> component queries for
+    // `project` ... and `project` will always be null if we're on the
+    // all-items or trash pages.
+    //
+    // FIXME A "Not Found" error should not be an error at all, _ever_. `null`
+    // is the correct response. refs:
+    // https://itnext.io/the-definitive-guide-to-handling-graphql-errors-e0c58b52b5e1
+    // https://blog.logrocket.com/handling-graphql-errors-like-a-champ-with-unions-and-interfaces/
+    // https://hasura.io/blog/graphql-nulls-cheatsheet/#relay-all-is-good-all-the-time
+    //
+    // In the meantime, nix all the "not-found" errors for the known-good
+    // queries at the above URLs.
+    errors = errors.filter(({ code }) => code !== 3);
+  }
+
+  if (errors && errors.length) {
+    // Below this line is all broken: error-handling on behalf of the API server
+    // and/or the caller. TODO nix everything below this line. (One strategy:
+    // add all the _non-broken_ stuff _above_ this line ... and then delete
+    // the below error-handling lines _and_ the above error-ignoring lines when
+    // all callers are non-broken.
+    if (
+      errors.filter(({ code }) => code === 3).length
+      && window.location.pathname !== '/check/not-found'
+    ) {
       browserHistory.push('/check/not-found');
-    } else if (payload.errors.filter(error => error.code === 1).length
-      && window.location.pathname !== '/check/forbidden') {
+    } else if (
+      errors.filter(({ code }) => code === 1).length
+      && window.location.pathname !== '/check/forbidden'
+    ) {
       if (team !== '') {
         browserHistory.push(`/${team}/join`);
       } else if (window.location.pathname !== '/check/forbidden') {

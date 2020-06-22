@@ -1,0 +1,14 @@
+[
+  {
+    "id": "createMedia.error",
+    "defaultMessage": "Sorry, an error occurred while submitting the item. Please try again and contact {supportEmail} if the condition persists."
+  },
+  {
+    "id": "createMedia.addItem",
+    "defaultMessage": "Add Item"
+  },
+  {
+    "id": "createMedia.addNewItem",
+    "defaultMessage": "Add new item"
+  }
+]

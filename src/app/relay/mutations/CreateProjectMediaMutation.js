@@ -65,19 +65,16 @@ class CreateProjectMediaMutation extends Relay.Mutation {
   getConfigs() {
     const configs = [];
     const fieldIDs = {};
-    if (!this.props.related && !this.props.related_to_id &&
-    (this.props.team || this.props.project)) {
+    if (!this.props.related && !this.props.related_to_id && this.props.team) {
       configs.push({
         type: 'RANGE_ADD',
         parentName: 'check_search_team',
-        parentID: this.props.team ? this.props.team.search_id : this.props.project.team.search_id,
+        parentID: this.props.team.search_id,
         connectionName: 'medias',
         edgeName: 'project_mediaEdge',
         rangeBehaviors: () => ('prepend'),
       });
-      fieldIDs.check_search_team = this.props.team ?
-        this.props.team.search_id :
-        this.props.project.team.search_id;
+      fieldIDs.check_search_team = this.props.team.search_id;
     }
     if (!this.props.related && !this.props.related_to_id && this.props.project) {
       configs.push({
@@ -148,6 +145,26 @@ class CreateProjectMediaMutation extends Relay.Mutation {
     }
 
     return configs;
+  }
+
+  static fragments = {
+    team: () => Relay.QL`
+      fragment on Team {
+        id
+        verification_statuses,  # optimisticProjectUpdate
+        slug  # optimisticProjectUpdate
+        medias_count  # optimisticProjectUpdate
+        search_id
+      }
+    `,
+    project: () => Relay.QL`
+      fragment on Project {
+        id  # optimisticProjectUpdate
+        dbid  # optimisticProjectUpdate
+        search_id  # optimisticProjectUpdate
+        medias_count  # optimisticProjectUpdate
+      }
+    `,
   }
 }
 

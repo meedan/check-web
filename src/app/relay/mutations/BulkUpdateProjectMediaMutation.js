@@ -23,8 +23,18 @@ class BulkUpdateProjectMediaMutation extends Relay.Mutation {
         check_search_project_was { id, number_of_results, medias }
         check_search_project { id, number_of_results, medias }
         check_search_team { id, number_of_results }
-        project { id, medias_count }  # FIXME nix (#8237)
-        project_was { id, medias_count }  # FIXME nix (#8237)
+        # FIXME UpdateProjectMediaPayload should probably list all the medias,
+        # so we can update all their Projects....
+        project {
+          id
+          medias_count # FIXME nix (#8237)
+          project_medias
+        }
+        project_was {
+          id
+          medias_count # FIXME nix (#8237)
+          project_medias
+        }
       }
     `;
   }

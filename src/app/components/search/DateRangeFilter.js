@@ -6,7 +6,7 @@ import FormLabel from '@material-ui/core/FormLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { withStyles } from '@material-ui/core/styles';
-import { StyledFilterRow } from './SearchQueryComponent';
+import StyledFilterRow from './StyledFilterRow';
 import { FlexRow, units } from '../../styles/js/shared';
 import globalStrings from '../../globalStrings';
 
