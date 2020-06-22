@@ -967,10 +967,10 @@ shared_examples 'smoke' do
     wait_for_selector_list_size(".medias__item", 2)
     expect(@driver.page_source.include?('Add a link or text')).to be(false)
     # 0th <a> is "All items"; 1st is project 1; 2nd is project 2
-    wait_for_selector('.projects__list a', index=2).click  # project 2
+    wait_for_selector('.projects__list a', index: 2).click  # project 2
     wait_for_selector_none(".medias__item")
     expect(@driver.page_source.include?('Add a link or text')).to be(true)
-    wait_for_selector('.projects__list a', index=1).click  # project 1
+    wait_for_selector('.projects__list a', index: 1).click  # project 1
     wait_for_selector_list_size(".medias__item", 2)
     wait_for_selector("thead input[type='checkbox']:not(:checked)").click
     wait_for_selector("#media-bulk-actions__add-icon").click
@@ -979,7 +979,7 @@ shared_examples 'smoke' do
     @driver.action.send_keys(:enter).perform
     wait_for_selector('.media-bulk-actions__add-button').click
     wait_for_selector_none(".Select-placeholder")
-    wait_for_selector('.projects__list a', index=2).click  # project 2
+    wait_for_selector('.projects__list a', index: 2).click  # project 2
     wait_for_selector_list_size(".medias__item", 2, :css , 80)
     expect(@driver.page_source.include?('claim 1')).to be(true)
     expect(@driver.page_source.include?('claim 2')).to be(true)

@@ -105,7 +105,7 @@ module AppSpecHelpers
     sleep 3
   end
 
-  def wait_for_selector(selector, type = :css, timeout = 20, index = 0)
+  def wait_for_selector(selector, type = :css, timeout = 20, index: 0)
     wait_for_selector_list_size(selector, index + 1, type)[index]
   end
 
