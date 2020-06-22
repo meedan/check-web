@@ -15,7 +15,6 @@ class MePage < SourcePage
     team = wait_for_selector("//*[contains(text(), '#{options[:name]}')]", :xpath)
     team.click
     wait_for_selector('.projects__list a[href$="/all-items"]')
-    wait_for_selector('.projects__list a[href$="/trash"]')
     wait_for_selector(".project__title")
     wait_for_selector(".team-header__drawer-team-link").click
     wait_for_selector(".team__primary-info")
