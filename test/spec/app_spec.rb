@@ -73,51 +73,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it_behaves_like "media", 'BELONGS_TO_ONE_PROJECT'
     it_behaves_like "media", 'DOES_NOT_BELONG_TO_ANY_PROJECT'
 
-    it "should manage team tags", bin6: true do
-      # Create team and go to team page that should not contain any tag
-      team = "tag-team-#{Time.now.to_i}"
-      api_create_team(team: team)
-      p = Page.new(config: @config, driver: @driver)
-      @driver.navigate.to @config['self_url'] + '/' + team
-      wait_for_selector('.team-menu__team-settings-button').click
-      wait_for_selector('.team-settings__tasks-tab')
-      wait_for_selector('.team-settings__tags-tab').click
-      wait_for_selector_none("team-tasks")
-      expect(@driver.page_source.include?('No tags')).to be(true)
-      expect(@driver.page_source.include?('newtag')).to be(false)
-
-      # Create tag
-      fill_field('#tag__new', 'newtag')
-      @driver.action.send_keys(:enter).perform
-      wait_for_selector("#tag__text-newtag")
-      expect(@driver.page_source.include?('No tags')).to be(false)
-      expect(@driver.page_source.include?('1 tag')).to be(true)
-      expect(@driver.page_source.include?('newtag')).to be(true)
-      expect(@driver.page_source.include?('newtagedited')).to be(false)
-
-      # Edit tag
-      wait_for_selector('.tag__actions').click
-      wait_for_selector(".tag__delete")
-      wait_for_selector('.tag__edit').click
-      wait_for_selector("#tag__edit")
-      fill_field('#tag__edit', 'edited')
-      @driver.action.send_keys(:enter).perform
-      wait_for_selector("#tag__text-newtagedited")
-      expect(@driver.page_source.include?('1 tag')).to be(true)
-      expect(@driver.page_source.include?('newtagedited')).to be(true)
-
-      # Delete tag
-      wait_for_selector('.tag__actions').click
-      wait_for_selector('.tag__edit')
-      wait_for_selector('.tag__delete').click
-      wait_for_selector('#confirm-dialog__checkbox').click
-      wait_for_selector('#confirm-dialog__confirm-action-button').click
-      wait_for_selector_none('#tag__confirm')
-      wait_for_selector_none("#tag__text-newtagedited")
-      expect(@driver.page_source.include?('No tags')).to be(true)
-      expect(@driver.page_source.include?('newtagedited')).to be(false)
-    end
-
     it "should redirect to access denied page", bin1: true do
       user = api_register_and_login_with_email
       api_logout
@@ -165,17 +120,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.navigate.to @config['self_url'] + '/check/user/already-confirmed'
       title = wait_for_selector('.main-title')
       expect(title.text == 'Account Already Confirmed').to be(true)
-    end
-
-    it "should search for image",  bin2: true do
-      api_create_team_and_project
-      page = ProjectPage.new(config: @config, driver: @driver).load
-             .create_image_media(File.join(File.dirname(__FILE__), 'test.png'))
-      wait_for_selector(".create-related-media__add-button")
-      @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items'
-      wait_for_selector(".search__results-heading")
-      wait_for_selector('.medias__item')
-      expect(@driver.page_source.include?('test.png')).to be(true)
     end
 
     it "should redirect to 404 page", bin4: true do
@@ -340,49 +284,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(el.length == 1).to be(true)
     end
 
-    it "should find all medias with an empty search", bin1: true do
-      api_create_team_project_and_claim_and_redirect_to_media_page
-      wait_for_selector(".media-detail")
-      wait_for_selector(".project-header__back-button").click
-      wait_for_selector("#search__open-dialog-button")
-      old = wait_for_selector_list(".medias__item").length
-      el = wait_for_selector("#search-input")
-      el.click
-      @driver.action.send_keys(:enter).perform
-      current = wait_for_selector_list(".medias__item").length
-      expect(old == current).to be(true)
-      expect(current > 0).to be(true)
-    end
-
-#search section start
-    it "should search in trash page", bin4: true do
-      api_create_team_project_and_claim_and_redirect_to_media_page
-      wait_for_selector(".media-detail")
-      wait_for_selector('.media-actions__icon').click
-      wait_for_selector(".media-actions__send-to-trash").click
-      wait_for_selector(".message")
-      @driver.navigate.to @config['self_url'] + '/' + get_team + '/trash'
-      wait_for_selector(".medias__item")
-      expect(@driver.page_source.include?('Claim')).to be(true)
-      wait_for_selector("search__open-dialog-button", :id).click
-      wait_for_selector("//div[contains(text(), 'In Progress')]",:xpath).click
-      wait_for_selector("#search-query__submit-button").click
-      wait_for_selector_none("#search-query__submit-button")
-      expect(@driver.page_source.include?('Claim')).to be(false)
-    end
-
-    it "should search for reverse images", bin2: true do
-      api_create_team_project_and_link_and_redirect_to_media_page 'https://twitter.com/meedan/status/1167366036791943168'
-      card = wait_for_selector_list(".media-detail").length
-      expect(card == 1).to be(true)
-      expect((@driver.current_url.to_s =~ /google/).nil?).to be(true)
-      current_window = @driver.window_handles.last
-      wait_for_selector(".media-detail__reverse-image-search > button").click
-      @driver.switch_to.window(@driver.window_handles.last)
-      expect((@driver.current_url.to_s =~ /google/).nil?).to be(false)
-      @driver.switch_to.window(current_window)
-    end
-
     it "should refresh media", bin1: true do
       api_create_team_project_and_link_and_redirect_to_media_page 'http://ca.ios.ba/files/meedan/random.php'
       wait_for_selector(".media-detail")
@@ -399,116 +300,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect((title2 =~ /Random/).nil?).to be(false)
       expect(title1 != title2).to be(true)
     end
-
-    it "should search and change sort criteria", bin2: true do
-      api_create_claim_and_go_to_search_page
-      expect((@driver.current_url.to_s.match(/requests/)).nil?).to be(true)
-      expect((@driver.current_url.to_s.match(/related/)).nil?).to be(true)
-      expect((@driver.current_url.to_s.match(/recent_added/)).nil?).to be(true)
-      expect((@driver.current_url.to_s.match(/last_seen/)).nil?).to be(true)
-
-      wait_for_selector("th[data-field=linked_items_count] span").click
-      wait_for_selector(".medias__item")
-      expect((@driver.current_url.to_s.match(/requests/)).nil?).to be(true)
-      expect((@driver.current_url.to_s.match(/related/)).nil?).to be(false)
-      expect((@driver.current_url.to_s.match(/recent_added/)).nil?).to be(true)
-      expect((@driver.current_url.to_s.match(/last_seen/)).nil?).to be(true)
-      expect(@driver.page_source.include?('My search result')).to be(true)
-
-      wait_for_selector("th[data-field=created_at] span").click
-      wait_for_selector(".medias__item")
-      expect((@driver.current_url.to_s.match(/requests/)).nil?).to be(true)
-      expect((@driver.current_url.to_s.match(/related/)).nil?).to be(true)
-      expect((@driver.current_url.to_s.match(/recent_added/)).nil?).to be(false)
-      expect((@driver.current_url.to_s.match(/last_seen/)).nil?).to be(true)
-      expect(@driver.page_source.include?('My search result')).to be(true)
-    end
-
-    it "should search and change sort order", bin2: true do
-      api_create_claim_and_go_to_search_page
-      expect((@driver.current_url.to_s.match(/ASC|DESC/)).nil?).to be(true)
-
-      wait_for_selector("th[data-field=linked_items_count]").click
-      wait_for_selector(".medias__item")
-      expect((@driver.current_url.to_s.match(/DESC/)).nil?).to be(false)
-      expect((@driver.current_url.to_s.match(/ASC/)).nil?).to be(true)
-      expect(@driver.page_source.include?('My search result')).to be(true)
-
-      wait_for_selector("th[data-field=linked_items_count]").click
-      wait_for_selector(".medias__item")
-      expect((@driver.current_url.to_s.match(/DESC/)).nil?).to be(true)
-      expect((@driver.current_url.to_s.match(/ASC/)).nil?).to be(false)
-      expect(@driver.page_source.include?('My search result')).to be(true)
-    end
-
-    it "should search by project through URL", bin2: true do
-      api_create_team_project_and_claim_and_redirect_to_media_page
-      @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"projects"%3A%5B' + get_project + '%5D%7D'
-      wait_for_selector(".search__results-heading")
-      expect(@driver.page_source.include?('My search result')).to be(false)
-      wait_for_selector("#search__open-dialog-button").click
-      wait_for_selector("#search-query__cancel-button")
-      selected = @driver.find_elements(:css, '.search-filter__project-chip--selected')
-      expect(selected.size == 1).to be(true)
-    end
-
-    it "should search by date range", bin4: true do
-      api_create_claim_and_go_to_search_page
-      wait_for_selector(".medias__item")
-      expect(@driver.page_source.include?('My search result')).to be(true)
-
-      # Pre-populate dates to force the date picker to open at certain calendar months.
-      @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B%20%22range%22%3A%20%7B%22created_at%22%3A%7B%22start_time%22%3A%222016-01-01%22%2C%22end_time%22%3A%222016-02-28%22%7D%7D%7D'
-      wait_for_selector_none(".medias__item", :css, 10)
-      expect(@driver.page_source.include?('My search result')).to be(false)
-
-      wait_for_selector("#search__open-dialog-button").click
-      wait_for_selector(".date-range__start-date input").click
-
-      # The date picker is broken: https://github.com/mui-org/material-ui-pickers/issues/1526
-      # The upshot: open it with value=2016-01-01, click "OK", and it will return a different
-      # date. That's why we can submit the form even though it looks like this test isn't
-      # changing any values.
-      wait_for_selector("//span[contains(text(), 'OK')]", :xpath).click
-      wait_for_selector_none("body>div[role=dialog]")  # wait for mui-picker background to fade away
-      wait_for_selector(".date-range__end-date input").click
-      wait_for_selector("//span[contains(text(), 'OK')]", :xpath).click
-      wait_for_selector_none("body>div[role=dialog]")  # wait for mui-picker background to fade away
-      wait_for_selector("#search-query__submit-button:not(:disabled)").click
-      wait_for_selector_none(".medias__item",:css, 10)
-      expect(@driver.page_source.include?('My search result')).to be(false)
-    end
-
-    it "should change search sort criteria through URL", bin2: true do
-      api_create_claim_and_go_to_search_page
-      @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"related"%2C"sort_type"%3A"DESC"%7D'
-      wait_for_selector("#create-media__add-item")
-      expect(@driver.page_source.include?('My search result')).to be(true)
-      el = wait_for_selector("th[data-field=linked_items_count][aria-sort]")
-      expect(el).to be  # TODO nix this line after https://mantis.meedan.com/view.php?id=8221
-
-      @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"recent_added"%2C"sort_type"%3A"DESC"%7D'
-      wait_for_selector("#create-media__add-item")
-      expect(@driver.page_source.include?('My search result')).to be(true)
-      el = wait_for_selector("th[data-field=created_at][aria-sort]")
-      expect(el).to be  # TODO nix this line after https://mantis.meedan.com/view.php?id=8221
-    end
-
-    it "should change search sort order through URL", bin2: true do
-      api_create_claim_and_go_to_search_page
-      @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"related"%2C"sort_type"%3A"DESC"%7D'
-      wait_for_selector("#create-media__add-item")
-      expect(@driver.page_source.include?('My search result')).to be(true)
-      el = wait_for_selector("th[data-field=linked_items_count][aria-sort=descending]")
-      expect(el).to be  # TODO nix this line after https://mantis.meedan.com/view.php?id=8221
-
-      @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"related"%2C"sort_type"%3A"ASC"%7D'
-      wait_for_selector("#create-media__add-item")
-      expect(@driver.page_source.include?('My search result')).to be(true)
-      el = wait_for_selector("th[data-field=linked_items_count][aria-sort=ascending]")
-      expect(el).to be  # TODO nix this line after https://mantis.meedan.com/view.php?id=8221
-    end
-#search section end
 
     it "should not reset password", bin5: true do
       page = LoginPage.new(config: @config, driver: @driver)
@@ -798,42 +589,5 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.login__form')
       expect(@driver.page_source.include?('Sign in')).to be(true)
     end
-    
-=begin
-    ## Search by tag not working in QA
-
-    it "should find medias when searching by tag" do
-      data = api_create_team_and_project
-      source = api_create_media(data: data, url: "https://www.facebook.com/permalink.php?story_fbid=10155901893214439&id=54421674438")
-      #data = api_create_team_project_and_source_and_redirect_to_source('ACDC', 'https://twitter.com/acdc')
-      @driver.navigate.to source.full_url
-      wait_for_selector('cmd-input', :id)
-      wait_for_selector('add-annotation__insert-photo', :class)
-      fill_field('#cmd-input', '/tag tagtag')
-      @driver.action.send_keys(:enter).perform
-      sleep 5
-      wait_for_size_change(0,'annotations__list-item', :class)
-
-      media = api_create_media(data: data, url: "https://twitter.com/TwitterVideo/status/931930009450795009")
-      @driver.navigate.to media.full_url
-      @driver.navigate.to @config['self_url'] + '/' + get_team + '/search'
-      wait_for_selector(".search__results")
-      old = wait_for_selector_list("medias__item", :class).length
-      expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
-      expect(@driver.page_source.include?('Meedan on Facebook')).to be(true)
-
-      el = wait_for_selector("search-input", :id)
-      el.send_keys(:control, 'a', :delete)
-      el.send_keys "tagtag"
-      @driver.action.send_keys(:enter).perform
-      sleep 3 #due the reload
-      wait_for_selector("search-input", :id)
-      current = wait_for_selector_list("medias__item", :class).length
-      expect(old > current).to be(true)
-      expect(current > 0).to be(true)
-      expect(@driver.page_source.include?('Meedan on Facebook')).to be(true)
-      expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(false)
-    end
-=end
   end
 end

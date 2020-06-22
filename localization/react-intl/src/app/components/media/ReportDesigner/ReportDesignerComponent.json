@@ -1,0 +1,14 @@
+[
+  {
+    "id": "reportDesigner.error",
+    "defaultMessage": "Sorry, an error occurred while updating the report settings. Please try again and contact {supportEmail} if the condition persists."
+  },
+  {
+    "id": "reportDesigner.confirmLeaveTitle",
+    "defaultMessage": "Close without saving?"
+  },
+  {
+    "id": "reportDesigner.confirmLeaveText",
+    "defaultMessage": "If you continue, you will lose your changes."
+  }
+]

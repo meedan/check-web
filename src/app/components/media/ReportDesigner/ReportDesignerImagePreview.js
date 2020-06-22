@@ -10,22 +10,27 @@ function overwriteDocumentHtml(contentDocument, html) {
 }
 
 function tweakIframeDom({
-  contentDocument, headline, description, status_label, url,
+  contentDocument, headline, description, status_label, url, date,
 }) {
-  const fillIn = (selector, textContent) => {
+  const fillInOrHide = (selector, textContent) => {
     const el = contentDocument.querySelector(selector);
     if (el) {
-      el.textContent = textContent;
+      if (textContent) {
+        el.textContent = textContent;
+      } else {
+        el.style.display = 'none';
+      }
     }
   };
-  fillIn('#title', headline);
-  fillIn('#description', description);
-  fillIn('#status', status_label);
-  fillIn('#url', url);
+  fillInOrHide('#title', headline);
+  fillInOrHide('#description', description);
+  fillInOrHide('#status', status_label);
+  fillInOrHide('#url', url);
+  fillInOrHide('#date', date);
 }
 
 function ReportImagePreview({
-  template, teamAvatar, image, style, params,
+  template, teamAvatar, image, style, params, date,
 }) {
   const [iframe, setIframe] = React.useState(null);
 
@@ -35,6 +40,7 @@ function ReportImagePreview({
     description,
     status_label,
     url,
+    dark_overlay,
   } = params;
 
   // TODO don't use 'style' attribute at all
@@ -56,11 +62,13 @@ function ReportImagePreview({
       }
       const { contentDocument } = iframe;
       overwriteDocumentHtml(contentDocument, html);
+      const theme = dark_overlay ? 'dark' : 'light';
+      contentDocument.body.className += ` ${theme}`;
       tweakIframeDom({
-        contentDocument, headline, description, status_label, url,
+        contentDocument, headline, description, status_label, url, date,
       });
     },
-    [iframe, html, headline, description, status_label, url],
+    [iframe, html, headline, description, status_label, url, dark_overlay, date],
   );
 
   return (
@@ -80,15 +88,19 @@ function ReportImagePreview({
     </FormattedMessage>
   );
 }
+
 ReportImagePreview.defaultProps = {
   image: null,
   teamAvatar: null,
+  date: null,
   style: {},
 };
+
 ReportImagePreview.propTypes = {
   template: PropTypes.string.isRequired,
   image: PropTypes.string, // or null
   teamAvatar: PropTypes.string, // or null
+  date: PropTypes.string, // or null
   style: PropTypes.object, // or null. TODO nix this prop
   params: PropTypes.shape({
     headline: PropTypes.string.isRequired,
@@ -96,6 +108,7 @@ ReportImagePreview.propTypes = {
     status_label: PropTypes.string.isRequired,
     url: PropTypes.string, // or null
     theme_color: PropTypes.string.isRequired,
+    dark_overlay: PropTypes.bool, // or null
   }).isRequired,
 };
 
