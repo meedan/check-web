@@ -12,7 +12,7 @@ import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
 import BotRoute from '../relay/BotRoute';
 import { units, ContentColumn, black32, black87 } from '../styles/js/shared';
-import UserUtil from './user/UserUtil';
+import { LocalizedRole } from './user/UserUtil';
 import PageTitle from './PageTitle';
 import Message from './Message';
 import CheckContext from '../CheckContext';
@@ -170,13 +170,15 @@ class BotComponent extends Component {
             <CardContent>
               <p><b><FormattedMessage id="bot.permissions" defaultMessage="Permissions" /></b></p>
               <p>
-                <FormattedMessage
-                  id="bot.permissionsText"
-                  defaultMessage="This bot has an access level of {role}."
-                  values={{
-                    role: UserUtil.localizedRole(bot.role, this.props.intl),
-                  }}
-                />
+                <LocalizedRole role={bot.role}>
+                  {roleText => (
+                    <FormattedMessage
+                      id="bot.permissionsText"
+                      defaultMessage="This bot has an access level of {role}."
+                      values={{ role: roleText }}
+                    />
+                  )}
+                </LocalizedRole>
               </p>
               { bot.source_code_url ?
                 <p>

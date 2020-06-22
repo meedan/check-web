@@ -163,6 +163,12 @@ class MediaActionsBarComponent extends Component {
 
     const path = `/${media.team.slug}/project/${projectId}`;
     const context = this.getContext();
+    this.props.setFlashMessage((
+      <FormattedMessage
+        id="mediaActionsBar.movingItem"
+        defaultMessage="Moving item..."
+      />
+    ));
 
     const onSuccess = () => {
       browserHistory.push(path);

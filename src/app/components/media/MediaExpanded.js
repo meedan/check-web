@@ -35,7 +35,7 @@ const StyledHeaderTextSecondary = styled.div`
   margin-bottom: ${units(3)};
 `;
 
-const timelineEnabled = true;
+// const timelineEnabled = true;
 
 class MediaExpandedComponent extends Component {
   constructor(props) {
@@ -119,9 +119,9 @@ class MediaExpandedComponent extends Component {
     const authorName = MediaUtil.authorName(media, data);
     const authorUsername = MediaUtil.authorUsername(media, data);
     const isPender = media.media.url && data.provider !== 'page';
+    const isYoutube = media.media.url && media.domain === 'youtube.com';
     const randomNumber = Math.floor(Math.random() * 1000000);
     const { isRtl, mediaUrl, mediaQuery } = this.props;
-    const posterUrl = media.media.thumbnail_path;
     const hasCustomDescription = MediaUtil.hasCustomDescription(media, data);
 
     const embedCard = (() => {
@@ -130,33 +130,8 @@ class MediaExpandedComponent extends Component {
       } else if (isVideo) {
         return (
           <div ref={this.getPlayerRef}>
-            <VideoMediaCard videoPath={media.media.file_path} posterPath={posterUrl} />
-          </div>
-        );
-      } else if (isQuote) {
-        return (
-          <QuoteMediaCard
-            quote={media.quote}
-            languageCode={media.language_code}
-          />
-        );
-      } else if (isWebPage || data.error) {
-        return (
-          <WebPageMediaCard
-            media={media}
-            mediaUrl={mediaUrl}
-            mediaQuery={mediaQuery}
-            data={data}
-            isRtl={isRtl}
-            authorName={authorName}
-            authorUserName={authorUsername}
-          />
-        );
-      } else if (isPender && timelineEnabled) {
-        return (
-          <div ref={this.getPlayerRef}>
-            <Player
-              key={`${media.url}#t=${start},${end}`}
+            <VideoMediaCard
+              videoPath={media.media.file_path}
               onDuration={d => setPlayerState({ duration: d })}
               onPause={() => setPlayerState({ playing: false })}
               onPlay={() => setPlayerState({ playing: true })}
@@ -169,10 +144,71 @@ class MediaExpandedComponent extends Component {
               gaps={gaps}
               scrubTo={scrubTo}
               seekTo={seekTo}
-              url={media.url}
+              // url={media.url}
             />
           </div>
         );
+      } else if (isYoutube) {
+        return (
+          <div ref={this.getPlayerRef}>
+            <VideoMediaCard
+              videoPath={media.url}
+              onDuration={d => setPlayerState({ duration: d })}
+              onPause={() => setPlayerState({ playing: false })}
+              onPlay={() => setPlayerState({ playing: true })}
+              onProgress={p => setPlayerState({ progress: p })}
+              onReady={this.props.onPlayerReady}
+              onTimeUpdate={t => setPlayerState({ time: t })}
+              playing={playing}
+              start={start}
+              end={end}
+              gaps={gaps}
+              scrubTo={scrubTo}
+              seekTo={seekTo}
+              // url={media.url}
+            />
+          </div>
+        );
+      } else if (isQuote) {
+        return (
+          <QuoteMediaCard
+            quote={media.quote}
+            languageCode={media.language_code}
+          />
+        );
+      } else if (isWebPage || !data.html) {
+        return (
+          <WebPageMediaCard
+            media={media}
+            mediaUrl={mediaUrl}
+            mediaQuery={mediaQuery}
+            data={data}
+            isRtl={isRtl}
+            authorName={authorName}
+            authorUserName={authorUsername}
+          />
+        );
+      // } else if (isPender && timelineEnabled) {
+      //   return (
+      //     <div ref={this.getPlayerRef}>
+      //       <Player
+      //         key={`${media.url}#t=${start},${end}`}
+      //         onDuration={d => setPlayerState({ duration: d })}
+      //         onPause={() => setPlayerState({ playing: false })}
+      //         onPlay={() => setPlayerState({ playing: true })}
+      //         onProgress={p => setPlayerState({ progress: p })}
+      //         onReady={this.props.onPlayerReady}
+      //         onTimeUpdate={t => setPlayerState({ time: t })}
+      //         playing={playing}
+      //         start={start}
+      //         end={end}
+      //         gaps={gaps}
+      //         scrubTo={scrubTo}
+      //         seekTo={seekTo}
+      //         url={media.url}
+      //       />
+      //     </div>
+      //   );
       } else if (isPender) {
         return (
           <PenderCard
@@ -233,7 +269,7 @@ class MediaExpandedComponent extends Component {
           {cardHeaderText}
           <FadeIn>
             { hasCustomDescription ?
-              <MoreLess maxHeight="75">
+              <MoreLess key={media.description /* reset on new text */}>
                 <ParsedText text={media.description} />
               </MoreLess> : null }
             {embedCard}

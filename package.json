@@ -96,6 +96,7 @@
     "crossmessaging": "0.2.2",
     "deep-equal": "^1.0.1",
     "email-validator": "^2.0.4",
+    "escape-html": "^1.0.3",
     "eslint": "4.13.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-loader": "^3.0.3",
@@ -167,7 +168,6 @@
     "superagent": "^3.3.0",
     "sync-request": "^4.0.3",
     "url-regex": "^3.2.0",
-    "video.js": "^7.7.5",
     "webpack": "^4.42.1",
     "whatwg-fetch": "^2.0.1",
     "xregexp": "^3.1.1"

@@ -22,6 +22,9 @@ const useStyles = makeStyles(theme => ({
     borderStyle: 'solid',
     marginBottom: theme.spacing(1),
   },
+  menu: {
+    outline: 0,
+  },
 }));
 
 const SmoochBotSidebar = (props) => {
@@ -32,7 +35,7 @@ const SmoochBotSidebar = (props) => {
   };
 
   return (
-    <MenuList>
+    <MenuList className={classes.menu}>
       { Object.keys(labels).map((key) => {
         const label = labels[key];
         return (

@@ -372,7 +372,8 @@ class Annotation extends Component {
       const permission = `destroy ${annotation.annotation_type
         .charAt(0)
         .toUpperCase()}${annotation.annotation_type.slice(1)}`;
-      annotationActions = can(annotation.permissions, permission) ? (
+      // TODO: Improve hide when item is archived logic. Not all annotated types have archived flag.
+      annotationActions = can(annotation.permissions, permission) && !annotated.archived ? (
         <div>
           <Tooltip title={
             <FormattedMessage id="annotation.menuTooltip" defaultMessage="Annotation actions" />
