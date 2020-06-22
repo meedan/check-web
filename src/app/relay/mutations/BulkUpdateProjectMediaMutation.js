@@ -33,7 +33,7 @@ class BulkUpdateProjectMediaMutation extends Relay.Mutation {
       ids: this.props.ids,
     };
     if (this.props.dstProject) {
-      vars.project_id = this.props.dstProject.dbid;
+      vars.move_to_project_id = this.props.dstProject.dbid;
     }
     if (this.props.dstProjectForAdd) {
       vars.add_to_project_id = this.props.dstProjectForAdd.dbid;
@@ -111,7 +111,6 @@ class BulkUpdateProjectMediaMutation extends Relay.Mutation {
       };
       if (this.props.dstProject) {
         fieldIDs.check_search_project = this.props.dstProject.search_id;
-        fieldIDs.project = this.props.dstProject.id;
       }
       configs = [
         {
@@ -130,7 +129,6 @@ class BulkUpdateProjectMediaMutation extends Relay.Mutation {
     if (this.props.dstProjectForAdd) {
       const fieldIDs = {
         check_search_project: this.props.dstProjectForAdd.search_id,
-        project: this.props.dstProjectForAdd.id,
       };
       configs = [
         {

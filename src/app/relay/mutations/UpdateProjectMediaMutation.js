@@ -29,7 +29,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         check_search_trash { id, number_of_results },
         check_search_project { id, number_of_results },
         check_search_project_was { id, number_of_results },
-        project { medias_count },
         project_was { medias_count },
         related_to { id, relationships, log, log_count, demand, requests_count, linked_items_count },
         relationships_target { id },
@@ -45,6 +44,18 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
           log_count,
           archived,
           permissions,
+          projects(first: 10000) {
+            edges {
+              node {
+                id
+                dbid
+                title
+                search_id
+                search { id, number_of_results }
+                medias_count
+              }
+            }
+          },
           media {
             metadata,
             url,
@@ -127,19 +138,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         };
       }
 
-      response.project = {
-        id: this.props.media.project.id,
-        medias_count: this.props.media.project.medias_count + 1,
-        team: {
-          id: this.props.context.team.id,
-          medias_count: this.props.context.team.medias_count + 1,
-          public_team: {
-            id: this.props.context.team.public_team.id,
-            trash_count: this.props.context.team.public_team.trash_count - 1,
-          },
-        },
-      };
-
       response.affectedId = this.props.id;
 
       return response;
@@ -165,21 +163,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         response.check_search_project = {
           id: this.props.check_search_project.id,
           number_of_results: this.props.check_search_project.number_of_results - 1,
-        };
-      }
-
-      if (this.props.context.project) {
-        response.project = {
-          id: this.props.media.project.id,
-          medias_count: this.props.context.project.medias_count - 1,
-          team: {
-            id: this.props.context.team.id,
-            medias_count: this.props.context.team.medias_count - 1,
-            public_team: {
-              id: this.props.context.team.public_team.id,
-              trash_count: this.props.context.team.public_team.trash_count + 1,
-            },
-          },
         };
       }
 
@@ -297,7 +280,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
       });
 
       ids.check_search_project = this.props.dstProj.search_id;
-      ids.project = this.props.dstProj.id;
     }
 
     if (this.props.archived === 1) {

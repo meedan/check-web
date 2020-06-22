@@ -24,7 +24,7 @@ import CheckContext from '../../CheckContext';
 import globalStrings from '../../globalStrings';
 import { withSetFlashMessage } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
-import { nested, getErrorMessage } from '../../helpers';
+import { getErrorMessage } from '../../helpers';
 
 const messages = defineMessages({
   mediaTitle: {
@@ -103,7 +103,17 @@ class MediaActionsBarComponent extends Component {
   }
 
   currentProject() {
-    return this.props.media.project;
+    let project = null;
+    let currentProjectId = window.location.pathname.match(/project\/([0-9]+)/);
+    if (currentProjectId) {
+      currentProjectId = parseInt(currentProjectId[1], 10);
+      project = this.props.media.projects.edges.filter(p =>
+        parseInt(p.node.dbid, 10) === currentProjectId);
+      if (project.length) {
+        project = project[0].node;
+      }
+    }
+    return project;
   }
 
   handleAddToList = () => {
@@ -206,7 +216,7 @@ class MediaActionsBarComponent extends Component {
 
     Relay.Store.commitUpdate(
       new DeleteProjectMediaProjectMutation({
-        project: media.project,
+        project: this.currentProject(),
         project_media: media,
         context,
       }),
@@ -441,6 +451,9 @@ class MediaActionsBarComponent extends Component {
   render() {
     const { classes, media, intl: { locale } } = this.props;
     const context = this.getContext();
+    const ids = this.props.media.project_ids;
+    const currentProjectId = this.currentProject() ? this.currentProject().dbid : 0;
+    const showRemoveFromList = ids.indexOf(currentProjectId) > -1;
 
     const addToListDialogActions = [
       <Button
@@ -608,7 +621,7 @@ class MediaActionsBarComponent extends Component {
               />
             </Button>
 
-            { media.project_id ?
+            { showRemoveFromList ?
               <Button
                 id="media-actions-bar__remove-from-list"
                 variant="outlined"
@@ -686,7 +699,7 @@ class MediaActionsBarComponent extends Component {
           open={this.state.openMoveDialog}
           handleClose={this.handleCloseDialogs.bind(this)}
           team={context.team}
-          projectId={nested(['project', 'dbid'], media)}
+          projectId={media.project_ids}
           onChange={this.handleSelectDestProject.bind(this)}
           style={{
             minHeight: 400,
@@ -762,6 +775,18 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
         dynamic_annotation_report_design {
           id
           data
+        }
+        projects(first: 10000) {
+          edges {
+            node {
+              id
+              dbid
+              title
+              search_id
+              search { id, number_of_results }
+              medias_count
+            }
+          }
         }
         media {
           url
