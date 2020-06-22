@@ -305,6 +305,9 @@ TeamBotsComponent.propTypes = {
 };
 
 const TeamBotsContainer = Relay.createContainer(injectIntl(TeamBotsComponent), {
+  initialVariables: {
+    teamSlug: window.location.pathname.match(/^\/([^/]+)/),
+  },
   fragments: {
     team: () => Relay.QL`
       fragment on Team {
@@ -324,7 +327,7 @@ const TeamBotsContainer = Relay.createContainer(injectIntl(TeamBotsComponent), {
                 avatar
                 name
                 identifier
-                settings_as_json_schema
+                settings_as_json_schema(team_slug: $teamSlug)
                 settings_ui_schema
                 description: get_description
               }
