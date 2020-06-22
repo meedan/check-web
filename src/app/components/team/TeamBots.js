@@ -306,7 +306,7 @@ TeamBotsComponent.propTypes = {
 
 const TeamBotsContainer = Relay.createContainer(injectIntl(TeamBotsComponent), {
   initialVariables: {
-    teamSlug: window.location.pathname.match(/^\/([^/]+)/)[1],
+    teamSlug: /^\/([^/]+)/.test(window.location.pathname) ? window.location.pathname.match(/^\/([^/]+)/)[1] : null,
   },
   fragments: {
     team: () => Relay.QL`
