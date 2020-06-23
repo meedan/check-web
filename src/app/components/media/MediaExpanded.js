@@ -6,7 +6,6 @@ import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardActions from '@material-ui/core/CardActions';
 import styled from 'styled-components';
-// import { Player } from '@meedan/check-ui';
 import MediaRoute from '../../relay/MediaRoute';
 import MediaMetadata from './MediaMetadata';
 import MediaUtil from './MediaUtil';
@@ -34,8 +33,6 @@ const StyledHeaderTextSecondary = styled.div`
   white-space: nowrap;
   margin-bottom: ${units(3)};
 `;
-
-// const timelineEnabled = true;
 
 class MediaExpandedComponent extends Component {
   constructor(props) {
@@ -168,27 +165,6 @@ class MediaExpandedComponent extends Component {
             authorUserName={authorUsername}
           />
         );
-      // } else if (isPender && timelineEnabled) {
-      //   return (
-      //     <div ref={this.getPlayerRef}>
-      //       <Player
-      //         key={`${media.url}#t=${start},${end}`}
-      //         onDuration={d => setPlayerState({ duration: d })}
-      //         onPause={() => setPlayerState({ playing: false })}
-      //         onPlay={() => setPlayerState({ playing: true })}
-      //         onProgress={p => setPlayerState({ progress: p })}
-      //         onReady={this.props.onPlayerReady}
-      //         onTimeUpdate={t => setPlayerState({ time: t })}
-      //         playing={playing}
-      //         start={start}
-      //         end={end}
-      //         gaps={gaps}
-      //         scrubTo={scrubTo}
-      //         seekTo={seekTo}
-      //         url={media.url}
-      //       />
-      //     </div>
-      //   );
       } else if (isPender) {
         return (
           <PenderCard

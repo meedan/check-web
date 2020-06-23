@@ -1,8 +1,6 @@
-/* eslint-disable max-len */
 /* eslint-disable no-sequences */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-return-assign */
-/* eslint-disable no-console */
 /* eslint-disable no-shadow */
 import React, { Component } from 'react';
 import { Timeline } from '@meedan/check-ui';
@@ -31,52 +29,50 @@ class MediaTimeline extends Component {
     const projecttags = [];
     const entities = {};
 
-    // console.log({
-    //   mediaId, dbid, tags, clips, comments, locations,
-    // });
-
-    const commentThreads = comments.edges.filter(({ node: { dbid, parsed_fragment } }) => !!dbid && !!parsed_fragment && !!parsed_fragment.t).map(({
-      node,
-      node: {
-        id: thread_id, dbid, text, parsed_fragment,
-        annotator: {
-          id: annoId, name, profile_image,
-        },
-        comments,
-      },
-    }) => ({
-      id: thread_id,
-      dbid,
-      text,
-      start_seconds: parsed_fragment.t[0],
-      user: {
-        id: annoId,
-        first_name: name,
-        last_name: '',
-        profile_img_url: profile_image,
-      },
-      replies: comments && comments.edges ? comments.edges.map(({
+    const commentThreads = comments.edges
+      .filter(({ node: { dbid, parsed_fragment } }) =>
+        !!dbid && !!parsed_fragment && !!parsed_fragment.t).map(({
+        node,
         node: {
-          id, created_at, text,
+          id: thread_id, dbid, text, parsed_fragment,
           annotator: {
             id: annoId, name, profile_image,
           },
+          comments,
         },
       }) => ({
-        id,
-        thread_id,
-        created_at,
+        id: thread_id,
+        dbid,
         text,
-        start_seconds: 0,
+        start_seconds: parsed_fragment.t[0],
         user: {
           id: annoId,
           first_name: name,
           last_name: '',
           profile_img_url: profile_image,
         },
-      })).sort((a, b) => a.created_at - b.created_at) : [],
-      node,
-    }));
+        replies: comments && comments.edges ? comments.edges.map(({
+          node: {
+            id, created_at, text,
+            annotator: {
+              id: annoId, name, profile_image,
+            },
+          },
+        }) => ({
+          id,
+          thread_id,
+          created_at,
+          text,
+          start_seconds: 0,
+          user: {
+            id: annoId,
+            first_name: name,
+            last_name: '',
+            profile_img_url: profile_image,
+          },
+        })).sort((a, b) => a.created_at - b.created_at) : [],
+        node,
+      }));
 
     clips.filter(({ node: { id } }) => !!id).forEach(({
       node,
@@ -186,8 +182,6 @@ class MediaTimeline extends Component {
       },
     };
 
-    console.log({ data });
-
     return {
       duration, time, data, mediaId, dbid,
     };
@@ -232,22 +226,17 @@ class MediaTimeline extends Component {
     const { name, instances } = entity;
 
     const { start_seconds, end_seconds } = instances.find(({ id }) => id === instanceId);
-    console.log({ start_seconds, end_seconds });
 
     const clipEntity = videoClips.find(c => c.name === name);
     const clips = clipEntity ? clipEntity.instances : [];
-    console.log({ clips });
 
     const intervals = [...clips.map(({ id, start_seconds, end_seconds }) =>
       [start_seconds, end_seconds, id]), [start_seconds, end_seconds, null]];
-    console.log(JSON.stringify(intervals));
 
     const segments = intervals.sort((a, b) => a[0] - b[0])
       .reduce((ac, x) => (!ac.length || ac[ac.length - 1][1] < x[0]
         ? ac.push(x)
         : ac[ac.length - 1][1] = Math.max(ac[ac.length - 1][1], x[1]), ac), []);
-
-    console.log({ segments });
 
     segments.forEach(([start_seconds, end_seconds, id]) => {
       if (id) {
@@ -259,7 +248,8 @@ class MediaTimeline extends Component {
       }
     });
 
-    clips.filter(({ id }) => !segments.find(s => id === s[2])).forEach(({ id }) => destroyClip(id, dbid));
+    clips.filter(({ id }) => !segments.find(s => id === s[2]))
+      .forEach(({ id }) => destroyClip(id, dbid));
   };
 
   entityCreate = (type, payload, callback) => {
@@ -273,11 +263,10 @@ class MediaTimeline extends Component {
       createClip(payload[`project_${type}`].name, payload.fragment, `${dbid}`, mediaId, callback);
       break;
     case 'place':
-      // console.log({ type, payload });
       createPlace(payload[`project_${type}`].name, payload, `${dbid}`, mediaId, callback);
       break;
     default:
-      console.error(`${type} not handled`);
+      NOOP();
     }
   };
 
@@ -310,7 +299,7 @@ class MediaTimeline extends Component {
       break;
     }
     default:
-      console.error(`${type} not handled`);
+      NOOP();
     }
   };
 
@@ -333,7 +322,7 @@ class MediaTimeline extends Component {
         entityId === id).instances.forEach(({ id }) => destroyPlace(id, dbid));
       break;
     default:
-      console.error(`${type} not handled`);
+      NOOP();
     }
   };
 
@@ -355,7 +344,7 @@ class MediaTimeline extends Component {
       break;
     }
     default:
-      console.error(`${type} not handled`);
+      NOOP();
     }
   };
 
@@ -376,7 +365,7 @@ class MediaTimeline extends Component {
       retimePlace(instanceId, fragment, parsed_fragment);
       break;
     default:
-      console.error(`${type} not handled`);
+      NOOP();
     }
   };
 
@@ -394,7 +383,7 @@ class MediaTimeline extends Component {
       destroyPlace(instanceId, dbid);
       break;
     default:
-      console.error(`${type} not handled`);
+      NOOP();
     }
   };
 
@@ -424,10 +413,6 @@ class MediaTimeline extends Component {
 
     const start = gaps.length > 0 ? Math.max(gaps[0][1], 0) : null;
     const end = gaps.length > 0 ? Math.min(gaps[gaps.length - 1][0], duration) : null;
-
-    // console.log({
-    //   instances, segments, events, start, end, gaps,
-    // });
 
     setPlayerState({
       gaps, transport: type, start, end,

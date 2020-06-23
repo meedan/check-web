@@ -227,10 +227,6 @@ class MediaComponent extends Component {
 
     const { currentUser } = this.getContext();
 
-    // console.group("MediaComponent.js");
-    // console.log(this.state);
-    // console.groupEnd();
-
     return (
       <LoadScript
         googleMapsApiKey={window.config.googleMapsApiKey}
