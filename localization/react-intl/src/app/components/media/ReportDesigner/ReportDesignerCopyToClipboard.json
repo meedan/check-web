@@ -1,0 +1,10 @@
+[
+  {
+    "id": "reportDesigner.warning",
+    "defaultMessage": "Warning — sharing this will expose information to people outside your private workspace. Proceed with caution."
+  },
+  {
+    "id": "reportDesigner.copyButtonInactive",
+    "defaultMessage": "Copied"
+  }
+]

@@ -140,6 +140,7 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
       headers: this._queryHeaders(),
       method: 'POST',
       credentials: 'include',
+      referrerPolicy: 'no-referrer',
     });
   }
 
@@ -154,6 +155,7 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
       headers: this._queryHeaders(),
       method: 'POST',
       credentials: 'include',
+      referrerPolicy: 'no-referrer',
     });
   }
 
@@ -181,6 +183,7 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
       init = (0, _extends3.default)({}, this._init, {
         body: formData,
         method: 'POST',
+        referrerPolicy: 'no-referrer',
       });
     } else {
       init = (0, _extends3.default)({}, this._init, {
@@ -196,6 +199,7 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
           'X-Timezone': Intl.DateTimeFormat().resolvedOptions().timeZone,
         }),
         method: 'POST',
+        referrerPolicy: 'no-referrer',
       });
     }
 

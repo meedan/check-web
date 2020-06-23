@@ -55,7 +55,7 @@ class WebPageMediaCard extends Component {
           <div>
             { media.description ?
               <StyledDescription>
-                <MoreLess>
+                <MoreLess key={media.description /* reset on new text */}>
                   <ParsedText text={media.description} />
                 </MoreLess>
               </StyledDescription> : null

@@ -1,6 +1,5 @@
 import truncate from 'lodash.truncate';
 import LinkifyIt from 'linkify-it';
-import rtlDetect from 'rtl-detect';
 import { toArray } from 'react-emoji-render';
 
 /**
@@ -81,14 +80,6 @@ function getStatusStyle(status, property) {
  */
 function truncateLength(text, length = 70) {
   return truncate(text, { length, separator: /,? +/, ellipsis: '…' });
-}
-
-/**
- * Apply styles conditionally with style components.
- * TODO Deprecate in terms of `isRtl` as a prop
- */
-function rtlClass(language_code) {
-  return (rtlDetect.isRtlLang(language_code)) ? 'translation__rtl' : 'translation__ltr';
 }
 
 /**
@@ -221,7 +212,6 @@ function capitalize(text) {
 export {
   bemClass,
   bemClassFromMediaStatus,
-  rtlClass,
   safelyParseJSON,
   nested,
   getStatus,

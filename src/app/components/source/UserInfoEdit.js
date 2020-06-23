@@ -109,26 +109,11 @@ class UserInfoEdit extends React.Component {
     };
   }
 
-  onImage(file) {
-    document.forms['edit-source-form'].image = file;
-    // TODO eslint false positive
-    // eslint-disable-next-line react/no-unused-state
+  handleImageChange = (file) => {
     this.setState({ image: file });
   }
 
-  onClear() {
-    if (document.forms['edit-source-form']) {
-      document.forms['edit-source-form'].image = null;
-    }
-
-    // TODO eslint false positive
-    // eslint-disable-next-line react/no-unused-state
-    this.setState({ image: null });
-  }
-
-  onImageError(file, message) {
-    // TODO eslint false positive
-    // eslint-disable-next-line react/no-unused-state
+  handleImageError = (file, message) => {
     this.setState({ message, image: null });
   }
 
@@ -235,7 +220,7 @@ class UserInfoEdit extends React.Component {
 
     const form = document.forms['edit-source-form'];
 
-    if (source.description === form.description.value && !form.image) {
+    if (source.description === form.description.value && !this.state.image) {
       return false;
     }
 
@@ -245,7 +230,7 @@ class UserInfoEdit extends React.Component {
       new UpdateSourceMutation({
         source: {
           id: source.id,
-          image: form.image,
+          image: this.state.image,
           description: form.description.value,
         },
       }),
@@ -514,9 +499,9 @@ class UserInfoEdit extends React.Component {
               {this.state.editProfileImg ?
                 <UploadImage
                   type="image"
-                  onImage={this.onImage.bind(this)}
-                  onClear={this.onClear.bind(this)}
-                  onError={this.onImageError.bind(this)}
+                  value={this.state.image}
+                  onChange={this.handleImageChange}
+                  onError={this.handleImageError}
                   noPreview
                 />
                 : null}

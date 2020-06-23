@@ -1,0 +1,7 @@
+[
+  {
+    "id": "reportDesigner.reportImagePreviewTitle",
+    "description": "Image caption spoken by screen readers but not seen by most users",
+    "defaultMessage": "Report preview"
+  }
+]

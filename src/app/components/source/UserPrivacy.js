@@ -162,7 +162,6 @@ class UserPrivacy extends Component {
             />
             <Button
               id="user-privacy__see-info"
-              hoverColor="transparent"
               style={buttonStyle}
               color="primary"
               onClick={UserPrivacy.handleSubmit.bind(this, 'Send information')}
@@ -180,7 +179,6 @@ class UserPrivacy extends Component {
             />
             <Button
               id="user-privacy__stop-processing"
-              hoverColor="transparent"
               style={buttonStyle}
               color="primary"
               onClick={UserPrivacy.handleSubmit.bind(this, 'Stop processing')}
@@ -217,7 +215,6 @@ class UserPrivacy extends Component {
             />
             <Button
               id="user-privacy__delete-account"
-              hoverColor="transparent"
               style={buttonStyle}
               color="primary"
               onClick={this.handleOpenDialog.bind(this)}
