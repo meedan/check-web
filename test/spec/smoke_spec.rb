@@ -655,7 +655,7 @@ shared_examples 'smoke' do
 
 #related items section start
   it "should promote related item to main item" , bin1: true do
-    api_create_team_project_and_claim_and_redirect_to_media_page
+    api_create_team_and_claim_and_redirect_to_media_page
     wait_for_selector(".media-detail")
     expect(@driver.page_source.include?('Main Item')).to be(false)
     press_button('.create-related-media__add-button')
@@ -1560,8 +1560,14 @@ shared_examples 'smoke' do
   end
 
   it "should search by project through URL", bin2: true do
-    api_create_team_project_and_claim_and_redirect_to_media_page
-    @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"projects"%3A%5B' + get_project + '%5D%7D'
+    # TODO: Sawy - review
+    # api_create_team_project_and_claim_and_redirect_to_media_page
+    data = api_create_team_and_project
+    project_id = data[:project].dbid.to_s
+    claim = request_api 'claim', { quote: 'Claim', email: data[:user].email, team_id: data[:team].dbid, project_id: project_id }
+    sleep 2
+    MediaPage.new(config: @config, driver: @driver)
+    @driver.navigate.to @config['self_url'] + '/' + data[:team].slug + '/all-items/%7B"projects"%3A%5B' + project_id + '%5D%7D'
     wait_for_selector(".search__results-heading")
     expect(@driver.page_source.include?('My search result')).to be(false)
     wait_for_selector("#search__open-dialog-button").click
