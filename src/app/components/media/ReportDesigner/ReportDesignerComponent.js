@@ -29,18 +29,24 @@ const ReportDesignerComponent = (props) => {
   const { media, media: { team } } = props;
 
   const defaultLanguage = team.get_language || 'en';
+
   const [currentLanguage, setCurrentLanguage] = React.useState(defaultLanguage);
-  const languages = team.get_languages ? JSON.parse(team.get_languages) : [defaultLanguage];
   const [data, setData] = React.useState(propsToData(props, currentLanguage));
-  const currentReportIndex = findReportIndex(data, currentLanguage);
-  hasUnsavedChanges = !deepEqual(data, propsToData(props, currentLanguage));
-  const canPublish = data.options.filter(r => (
-    (!r.use_visual_card && !r.use_text_message) ||
-    (r.use_text_message && r.text.length === 0)
-  )).length === 0;
   const [leaveLocation, setLeaveLocation] = React.useState(null);
   const [editing, setEditing] = React.useState(false);
   const [pending, setPending] = React.useState(false);
+
+  const languages = team.get_languages ? JSON.parse(team.get_languages) : [defaultLanguage];
+  const currentReportIndex = findReportIndex(data, currentLanguage);
+  hasUnsavedChanges = !deepEqual(data, propsToData(props, currentLanguage));
+  const defaultReportIsSet = data.options.filter(r => (
+    (r.language === defaultLanguage) &&
+    (r.use_visual_card || (r.use_text_message && r.text.length > 0))
+  )).length === 1;
+  const canPublish = defaultReportIsSet && data.options.filter(r => (
+    (r.use_introduction && !r.use_visual_card && !r.use_text_message) ||
+    (r.use_text_message && r.text.length === 0)
+  )).length === 0;
 
   const confirmCloseBrowserWindow = (e) => {
     if (hasUnsavedChanges) {
@@ -216,6 +222,7 @@ const ReportDesignerComponent = (props) => {
     <React.Fragment>
       <ReportDesignerTopBar
         media={media}
+        defaultLanguage={defaultLanguage}
         data={data}
         state={data.state}
         editing={editing}
@@ -236,6 +243,7 @@ const ReportDesignerComponent = (props) => {
         </Box>
         <Box flex="1">
           <LanguageSwitcher
+            primaryLanguage={defaultLanguage}
             currentLanguage={currentLanguage}
             languages={languages}
             onChange={handleChangeLanguage}
