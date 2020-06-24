@@ -100,7 +100,7 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
         }
         geolocations: annotations(first: 10000, annotation_type: "geolocation") {
           edges {
-          node {
+            node {
               ... on Dynamic {
                 id
                 parsed_fragment
