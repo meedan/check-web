@@ -160,6 +160,14 @@ class MediaMetadata extends Component {
 
 MediaMetadata.propTypes = {
   intl: PropTypes.object.isRequired,
+  media: PropTypes.shape({
+    media: PropTypes.shape({
+      type: PropTypes.string,
+      metadata: PropTypes.shape({
+        provider: PropTypes.string,
+      }),
+    }),
+  }).isRequired,
 };
 
 export default injectIntl(MediaMetadata);
