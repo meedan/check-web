@@ -67,7 +67,7 @@ class MediaDetail extends Component {
       seekTo,
       setPlayerState,
       setPlayerRef,
-      showVideoAnno,
+      showVideoAnnotation,
       intl: { locale },
     } = this.props;
 
@@ -116,7 +116,7 @@ class MediaDetail extends Component {
               seekTo,
               setPlayerRef,
               setPlayerState,
-              showVideoAnno,
+              showVideoAnnotation,
             }}
           /> }
       </Card>

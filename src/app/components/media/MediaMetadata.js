@@ -78,7 +78,7 @@ class MediaMetadata extends Component {
       const allowsReverseSearch = isPicture;
       if (allowsAnnotation) {
         return (
-          <Button color="primary" disabled={this.props.showVideoAnno} onClick={this.props.onVideoAnnoToggle} variant="contained" startIcon={<VideoAnnoIcon color="action" />}>Video annotation</Button>
+          <Button color="primary" disabled={this.props.showVideoAnnotation} onClick={this.props.onVideoAnnoToggle} variant="contained" startIcon={<VideoAnnoIcon color="action" />}>Video annotation</Button>
         );
       } else if (allowsReverseSearch) {
         return (

@@ -86,7 +86,7 @@ class MediaComponent extends Component {
       progress: 0,
       showRequests,
       showTab,
-      showVideoAnno: t && id,
+      showVideoAnnotation: t && id,
       fragment: { t, id },
       start,
       end,
@@ -134,7 +134,7 @@ class MediaComponent extends Component {
     // this call will come from Annotation.js
     if (!fragment) return;
     const parsedFragment = parseInt(fragment.substring(2), 10);
-    this.setState({ seekTo: parsedFragment, showVideoAnno: true, videoAnnotationTab: 'timeline' });
+    this.setState({ seekTo: parsedFragment, showVideoAnnotation: true, videoAnnotationTab: 'timeline' });
   };
 
   setCurrentContext() {
@@ -221,7 +221,7 @@ class MediaComponent extends Component {
       start, end, gaps,
       scrubTo,
       seekTo,
-      showVideoAnno,
+      showVideoAnnotation,
       time,
     } = this.state;
 
@@ -244,11 +244,11 @@ class MediaComponent extends Component {
                 hideRelated
                 media={media}
                 onPlayerReady={this.setPlayerRect}
-                onVideoAnnoToggle={() => this.setState({ showVideoAnno: true })}
+                onVideoAnnoToggle={() => this.setState({ showVideoAnnotation: true })}
                 setPlayerRef={node => this.setState({ playerRef: node })}
                 setPlayerState={payload => this.setState(payload)}
                 {...{
-                  playing, start, end, gaps, seekTo, scrubTo, showVideoAnno,
+                  playing, start, end, gaps, seekTo, scrubTo, showVideoAnnotation,
                 }}
               />
               {this.props.extras}
@@ -342,7 +342,7 @@ class MediaComponent extends Component {
                 PaperProps={{ style: { top: (playerRect.bottom + 10) || 'auto' } }}
                 anchor="bottom"
                 elevation={3}
-                open={showVideoAnno}
+                open={showVideoAnnotation}
                 variant="persistent"
               >
                 <StyledDrawerToolbar>
@@ -353,7 +353,7 @@ class MediaComponent extends Component {
                       </Tabs>
                     </Grid>
                     <Grid item>
-                      <IconButton onClick={() => this.setState({ showVideoAnno: false })} size="small"><CloseIcon /></IconButton>
+                      <IconButton onClick={() => this.setState({ showVideoAnnotation: false })} size="small"><CloseIcon /></IconButton>
                     </Grid>
                   </Grid>
                 </StyledDrawerToolbar>
