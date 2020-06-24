@@ -1357,13 +1357,13 @@ shared_examples 'smoke' do
 
     # Select a condition and set a value for it
     wait_for_selector('.rules__rule-field div[role="button"]').click
-    wait_for_selector('ul li').click
+    wait_for_selector('ul[role=listbox] li[role=option]').click
     wait_for_selector('.rules__rule-field textarea').send_keys('foo,bar')
     wait_for_selector('body').click
 
     # Select an action
     wait_for_selector('.rules__actions .rules__rule-field div[role="button"]').click
-    wait_for_selector('ul li').click
+    wait_for_selector('ul[role=listbox] li[role=option]').click
     expect(@driver.page_source.include?('Select destination list')).to be(true)
 
     # Set rule name
