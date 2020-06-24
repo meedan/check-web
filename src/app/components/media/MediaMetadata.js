@@ -10,7 +10,7 @@ import ExternalLink from '../ExternalLink';
 import MediaTags from './MediaTags';
 import ClaimReview from './ClaimReview';
 import TagMenu from '../tag/TagMenu';
-import VideoAnnotationIcon from '../../../assets/images/video-anno/video-anno';
+import VideoAnnotationIcon from '../../../assets/images/video-annotation/video-annotation';
 import {
   Row,
   black54,

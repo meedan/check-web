@@ -21,7 +21,7 @@ import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { withSetFlashMessage } from '../FlashMessage';
 import EmbedUpdate from './EmbedUpdate';
 import EmbedCreate from './EmbedCreate';
-import VideoAnnotationIcon from '../../../assets/images/video-anno/video-anno';
+import VideoAnnotationIcon from '../../../assets/images/video-annotation/video-annotation';
 import TaskUpdate from './TaskUpdate';
 import SourcePicture from '../source/SourcePicture';
 import MediaDetail from '../media/MediaDetail';
