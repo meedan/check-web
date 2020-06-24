@@ -79,6 +79,7 @@ class TeamReportComponent extends React.Component {
       <div style={{ width: columnWidthWide, margin: 'auto' }}>
         <Message message={this.state.message} />
         <LanguageSwitcher
+          primaryLanguage={defaultLanguage}
           currentLanguage={currentLanguage}
           languages={languages}
           onChange={this.handleChangeLanguage.bind(this)}
