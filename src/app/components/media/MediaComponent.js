@@ -134,7 +134,7 @@ class MediaComponent extends Component {
     // this call will come from Annotation.js
     if (!fragment) return;
     const parsedFragment = parseInt(fragment.substring(2), 10);
-    this.setState({ seekTo: parsedFragment, showVideoAnno: 'timeline' });
+    this.setState({ seekTo: parsedFragment, showVideoAnno: true, videoAnnotationTab: 'timeline' });
   };
 
   setCurrentContext() {
