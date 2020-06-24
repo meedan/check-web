@@ -62,7 +62,7 @@ const ProjectListItemText = ({
       <Typography
         component={Link}
         to={to}
-        className="project-list__link"
+        className={projectDbid ? 'project-list__link' : 'project-list__link-all'}
         variant="inherit"
         classes={linkClasses}
       >
