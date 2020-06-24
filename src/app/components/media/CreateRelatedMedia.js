@@ -39,6 +39,20 @@ class CreateRelatedMedia extends Component {
     this.setState({ dialogOpen: false });
   };
 
+  currentProject() {
+    let project = null;
+    let currentProjectId = window.location.pathname.match(/project\/([0-9]+)/);
+    if (currentProjectId) {
+      currentProjectId = parseInt(currentProjectId[1], 10);
+      project = this.props.media.projects.edges.filter(p =>
+        parseInt(p.node.dbid, 10) === currentProjectId);
+      if (project.length) {
+        project = project[0].node;
+      }
+    }
+    return project;
+  }
+
   handleSubmit = (value) => {
     const onFailure = (transaction) => {
       const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
@@ -56,7 +70,7 @@ class CreateRelatedMedia extends Component {
       new CreateProjectMediaMutation({
         ...value,
         context,
-        project: this.props.media.project,
+        project: this.currentProject(),
         team: this.props.media.team,
         related: this.props.media,
         related_to_id: this.props.media.dbid,
@@ -88,7 +102,7 @@ class CreateRelatedMedia extends Component {
         obj,
         context,
         id: obj.id,
-        project: this.props.media.project,
+        project: this.currentProject(),
         related_to: this.props.media,
         related_to_id: this.props.media.dbid,
         relationships_target_id: this.props.media.relationships.target_id,

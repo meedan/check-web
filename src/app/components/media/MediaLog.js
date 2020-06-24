@@ -75,7 +75,7 @@ const eventTypes = [
   'destroy_relationship', 'create_assignment', 'destroy_assignment', 'create_dynamic',
   'update_dynamic', 'create_dynamicannotationfield', 'update_dynamicannotationfield',
   'create_flag', 'update_embed', 'create_embed', 'update_projectmedia', 'copy_projectmedia',
-  'update_task',
+  'update_task', 'update_projectmediaproject',
 ];
 
 const fieldNames = [
@@ -124,6 +124,18 @@ const MediaLogContainer = Relay.createContainer(withPusher(MediaLogComponent), {
                     dbid,
                     name,
                     slug
+                  }
+                }
+              }
+              projects(first: 2) {
+                edges {
+                  node {
+                    id,
+                    dbid,
+                    title
+                    team {
+                      slug
+                    }
                   }
                 }
               }

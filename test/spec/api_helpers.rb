@@ -119,15 +119,6 @@ module ApiHelpers
     MediaPage.new(config: @config, driver: @driver)
   end
 
-  def api_create_team_and_claim_and_redirect_to_media_page(quote = 'Claim', params = {})
-    params[:user] ||= api_register_and_login_with_email
-    team = api_create_team(params)
-    claim = request_api 'claim', { quote: quote, email: params[:user].email, team_id: team.dbid }
-    @driver.navigate.to "#{claim.full_url}?listIndex=0"
-    sleep 2
-    MediaPage.new(config: @config, driver: @driver)
-  end
-
   def api_create_media_and_go_to_search_page
     media = api_create_team_project_and_link
     @driver.navigate.to media.full_url

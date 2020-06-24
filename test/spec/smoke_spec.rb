@@ -655,7 +655,7 @@ shared_examples 'smoke' do
 
 #related items section start
   it "should promote related item to main item" , bin1: true do
-    api_create_team_and_claim_and_redirect_to_media_page
+    api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector(".media-detail")
     expect(@driver.page_source.include?('Main Item')).to be(false)
     press_button('.create-related-media__add-button')
