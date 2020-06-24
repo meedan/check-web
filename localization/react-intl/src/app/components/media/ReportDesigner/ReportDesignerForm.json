@@ -1,0 +1,66 @@
+[
+  {
+    "id": "reportDesigner.introductionPlaceholder",
+    "defaultMessage": "Type your introduction here..."
+  },
+  {
+    "id": "reportDesigner.textPlaceholder",
+    "defaultMessage": "Type your report here..."
+  },
+  {
+    "id": "reportDesigner.reportEditorTitle",
+    "defaultMessage": "Select the content to send in your report"
+  },
+  {
+    "id": "reportDesigner.introduction",
+    "defaultMessage": "Introduction message"
+  },
+  {
+    "id": "reportDesigner.introductionSub",
+    "defaultMessage": "Use {query_date} placeholder to display the date of the original query. Use {status} to communicate the status of the article."
+  },
+  {
+    "id": "reportDesigner.visualCard",
+    "defaultMessage": "Report image"
+  },
+  {
+    "id": "reportDesigner.useDefaultImage",
+    "defaultMessage": "Use default image"
+  },
+  {
+    "id": "reportDesigner.headline",
+    "defaultMessage": "Headline - {max} characters max"
+  },
+  {
+    "id": "reportDesigner.description",
+    "defaultMessage": "Description - {max} characters max"
+  },
+  {
+    "id": "reportDesigner.statusLabel",
+    "defaultMessage": "Status label - {max} characters max"
+  },
+  {
+    "id": "reportDesigner.themeColor",
+    "defaultMessage": "Theme color"
+  },
+  {
+    "id": "reportDesigner.darkOverlay",
+    "defaultMessage": "Dark overlay"
+  },
+  {
+    "id": "reportDesigner.url",
+    "defaultMessage": "URL - {max} characters max"
+  },
+  {
+    "id": "reportDesigner.textMessage",
+    "defaultMessage": "Report text"
+  },
+  {
+    "id": "reportDesigner.textError",
+    "defaultMessage": "You must either provide text for the report or uncheck the 'Report text' box"
+  },
+  {
+    "id": "reportDesigner.disclaimer",
+    "defaultMessage": "Disclaimer"
+  }
+]

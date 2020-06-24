@@ -1,0 +1,70 @@
+[
+  {
+    "id": "reportDesigner.back",
+    "defaultMessage": "Back to annotation"
+  },
+  {
+    "id": "reportDesigner.copyEmbedCode",
+    "defaultMessage": "Copy embed code"
+  },
+  {
+    "id": "reportDesigner.copyShareUrl",
+    "defaultMessage": "Copy share URL"
+  },
+  {
+    "id": "reportDesigner.save",
+    "defaultMessage": "Save"
+  },
+  {
+    "id": "reportDesigner.edit",
+    "defaultMessage": "Edit"
+  },
+  {
+    "id": "reportDesigner.publish",
+    "defaultMessage": "Publish"
+  },
+  {
+    "id": "reportDesigner.canPublish",
+    "defaultMessage": "Publish report"
+  },
+  {
+    "id": "reportDesigner.cannotPublish",
+    "defaultMessage": "Fill in at least the report text or image to publish your report. Make sure to create a report for the primary language ({language})."
+  },
+  {
+    "id": "reportDesigner.confirmRepublishTitle",
+    "defaultMessage": "Ready to publish your changes?"
+  },
+  {
+    "id": "reportDesigner.confirmPublishTitle",
+    "defaultMessage": "Ready to publish your report?"
+  },
+  {
+    "id": "reportDesigner.confirmPublishText",
+    "defaultMessage": "{demand, plural, one {You are about to send this report to the user who requested this item.} other {You are about to send this report to the # users who requested this item.}}"
+  },
+  {
+    "id": "reportDesigner.confirmRepublishResendText",
+    "defaultMessage": "{demand, plural, one {Your correction will be sent to the user who has received the previous report.} other {Your correction will be sent to the # users who have received the previous report.}}"
+  },
+  {
+    "id": "reportDesigner.confirmPublishText2",
+    "defaultMessage": "In the future, users who request this item will receive your report while it remains published."
+  },
+  {
+    "id": "reportDesigner.pause",
+    "defaultMessage": "Pause"
+  },
+  {
+    "id": "reportDesigner.pauseReport",
+    "defaultMessage": "Pause report"
+  },
+  {
+    "id": "reportDesigner.confirmPauseTitle",
+    "defaultMessage": "You are about to pause the report"
+  },
+  {
+    "id": "reportDesigner.confirmPauseText",
+    "defaultMessage": "This report will not be sent to users until it is published again. Do you want to continue?"
+  }
+]

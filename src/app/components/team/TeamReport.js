@@ -8,35 +8,38 @@ import CardHeader from '@material-ui/core/CardHeader';
 import TextField from '@material-ui/core/TextField';
 import Checkbox from '@material-ui/core/Checkbox';
 import HelpIcon from '@material-ui/icons/HelpOutline';
-import { ContentColumn, units, checkBlue } from '../../styles/js/shared';
+import { columnWidthWide, units, checkBlue } from '../../styles/js/shared';
 import Can from '../Can';
 import TeamRoute from '../../relay/TeamRoute';
 import Message from '../Message';
+import LanguageSwitcher from '../LanguageSwitcher';
 import UpdateTeamMutation from '../../relay/mutations/UpdateTeamMutation';
 import { stringHelper } from '../../customHelpers';
 
 class TeamReportComponent extends React.Component {
   constructor(props) {
     super(props);
+    const report = props.team.get_report || {};
     this.state = {
       message: null,
-      useIntroduction: props.team.get_use_introduction,
-      useDisclaimer: props.team.get_use_disclaimer,
+      report: JSON.parse(JSON.stringify(report)),
+      currentLanguage: props.team.get_language || 'en',
     };
   }
 
-  handleToggle(field, e) {
-    const state = {};
-    state[field] = e.target.checked;
-    this.setState(state);
+  handleUpdate(field, value) {
+    const { currentLanguage } = this.state;
+    const report = JSON.parse(JSON.stringify(this.state.report));
+    report[currentLanguage] = report[currentLanguage] || {};
+    report[currentLanguage][field] = value;
+    this.setState({ report });
+  }
+
+  handleChangeLanguage(newLanguage) {
+    this.setState({ currentLanguage: newLanguage });
   }
 
   handleSubmit() {
-    const disclaimer = document.getElementById('disclaimer').value;
-    const introduction = document.getElementById('introduction').value;
-    const use_disclaimer = document.getElementById('use_disclaimer').checked;
-    const use_introduction = document.getElementById('use_introduction').checked;
-
     const onFailure = () => {
       this.setState({
         message: <FormattedMessage
@@ -59,104 +62,111 @@ class TeamReportComponent extends React.Component {
     Relay.Store.commitUpdate(
       new UpdateTeamMutation({
         id: this.props.team.id,
-        disclaimer,
-        introduction,
-        use_disclaimer,
-        use_introduction,
+        report: JSON.stringify(this.state.report),
       }),
       { onSuccess, onFailure },
     );
   }
 
   render() {
-    const {
-      get_disclaimer,
-      get_introduction,
-      permissions,
-    } = this.props.team;
+    const { team } = this.props;
+    const { currentLanguage } = this.state;
+    const report = this.state.report[currentLanguage] || {};
+    const defaultLanguage = team.get_language || 'en';
+    const languages = team.get_languages ? JSON.parse(team.get_languages) : [defaultLanguage];
 
     return (
-      <div>
-        <ContentColumn>
-          <Message message={this.state.message} />
-          <Can permissions={permissions} permission="update Team">
-            <p style={{ marginTop: units(2), textAlign: 'end' }}>
-              <Button onClick={this.handleSubmit.bind(this)}>
-                <FormattedMessage id="teamReport.save" defaultMessage="Save" />
-              </Button>
-            </p>
-          </Can>
-          <Card style={{ marginTop: units(2) }}>
-            <CardHeader
-              title={
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  <FormattedMessage
-                    id="teamReport.title"
-                    defaultMessage="Default report settings"
-                  />
-                  <a href="http://help.checkmedia.org/en/articles/3627266-check-message-report" target="_blank" rel="noopener noreferrer" style={{ display: 'flex' }}>
-                    <HelpIcon style={{ margin: '0 2px', color: checkBlue }} />
-                  </a>
-                </div>
-              }
-              subheader={
-                <FormattedMessage
-                  id="teamReport.subtitle"
-                  defaultMessage="The content you set here can be edited in each individual report"
-                />
-              }
-            />
-            <CardContent>
+      <div style={{ width: columnWidthWide, margin: 'auto' }}>
+        <Message message={this.state.message} />
+        <LanguageSwitcher
+          primaryLanguage={defaultLanguage}
+          currentLanguage={currentLanguage}
+          languages={languages}
+          onChange={this.handleChangeLanguage.bind(this)}
+        />
+        <Can permissions={team.permissions} permission="update Team">
+          <p style={{ marginTop: units(2), textAlign: 'end' }}>
+            <Button onClick={this.handleSubmit.bind(this)} primary>
+              <FormattedMessage id="teamReport.save" defaultMessage="Save" />
+            </Button>
+          </p>
+        </Can>
+        <Card style={{ marginTop: units(2) }}>
+          <CardHeader
+            title={
               <div style={{ display: 'flex', alignItems: 'center' }}>
-                <Checkbox
-                  checked={this.state.useIntroduction}
-                  id="use_introduction"
-                  onChange={this.handleToggle.bind(this, 'useIntroduction')}
-                />
-                <h3><FormattedMessage id="teamReport.introduction" defaultMessage="Introduction" /></h3>
-              </div>
-              <TextField
-                style={{ paddingTop: 0, paddingBottom: 0 }}
-                id="introduction"
-                defaultValue={get_introduction}
-                multiline
-                variant="outlined"
-                rows="10"
-                fullWidth
-              />
-              <div style={{ lineHeight: '1.5em', marginTop: units(1) }}>
                 <FormattedMessage
-                  id="teamReport.introductionSub"
-                  defaultMessage="Use {query_date} placeholder to display the date of the original query. Use {status} to communicate the status of the article."
-                  values={{
-                    query_date: '{{query_date}}',
-                    status: '{{status}}',
-                  }}
+                  id="teamReport.title"
+                  defaultMessage="Default report settings"
                 />
-                <a href="http://help.checkmedia.org/en/articles/3627266-check-message-report" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', verticalAlign: 'bottom' }}>
+                <a href="http://help.checkmedia.org/en/articles/3627266-check-message-report" target="_blank" rel="noopener noreferrer" style={{ display: 'flex' }}>
                   <HelpIcon style={{ margin: '0 2px', color: checkBlue }} />
                 </a>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', marginTop: units(4) }}>
-                <Checkbox
-                  checked={this.state.useDisclaimer}
-                  id="use_disclaimer"
-                  onChange={this.handleToggle.bind(this, 'useDisclaimer')}
-                />
-                <h3><FormattedMessage id="teamReport.disclaimer" defaultMessage="Disclaimer" /></h3>
-              </div>
-              <TextField
-                style={{ paddingTop: 0, paddingBottom: 0 }}
-                id="disclaimer"
-                defaultValue={get_disclaimer}
-                fullWidth
+            }
+            subheader={
+              <FormattedMessage
+                id="teamReport.subtitle"
+                defaultMessage="The content you set here can be edited in each individual report"
               />
-              <div style={{ lineHeight: '1.5em', marginTop: units(1) }}>
-                <FormattedMessage id="teamReport.disclaimerSub" defaultMessage="Disclaimer that will be shown at the bottom of the report with the workspace logo." />
-              </div>
-            </CardContent>
-          </Card>
-        </ContentColumn>
+            }
+          />
+          <CardContent>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <Checkbox
+                id="use_introduction"
+                key={`use-introduction-${currentLanguage}`}
+                checked={report.use_introduction || false}
+                onChange={(e) => { this.handleUpdate('use_introduction', e.target.checked); }}
+              />
+              <h3><FormattedMessage id="teamReport.introduction" defaultMessage="Introduction" /></h3>
+            </div>
+            <TextField
+              id="introduction"
+              key={`introduction-${currentLanguage}`}
+              style={{ paddingTop: 0, paddingBottom: 0 }}
+              value={report.introduction || ''}
+              onChange={(e) => { this.handleUpdate('introduction', e.target.value); }}
+              multiline
+              variant="outlined"
+              rows="10"
+              fullWidth
+            />
+            <div style={{ lineHeight: '1.5em', marginTop: units(1) }}>
+              <FormattedMessage
+                id="teamReport.introductionSub"
+                defaultMessage="Use {query_date} placeholder to display the date of the original query. Use {status} to communicate the status of the article."
+                values={{
+                  query_date: '{{query_date}}',
+                  status: '{{status}}',
+                }}
+              />
+              <a href="http://help.checkmedia.org/en/articles/3627266-check-message-report" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', verticalAlign: 'bottom' }}>
+                <HelpIcon style={{ margin: '0 2px', color: checkBlue }} />
+              </a>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', marginTop: units(4) }}>
+              <Checkbox
+                id="use_disclaimer"
+                key={`use-disclaimer-${currentLanguage}`}
+                checked={report.use_disclaimer || false}
+                onChange={(e) => { this.handleUpdate('use_disclaimer', e.target.checked); }}
+              />
+              <h3><FormattedMessage id="teamReport.disclaimer" defaultMessage="Disclaimer" /></h3>
+            </div>
+            <TextField
+              id="disclaimer"
+              key={`disclaimer-${currentLanguage}`}
+              style={{ paddingTop: 0, paddingBottom: 0 }}
+              value={report.disclaimer || ''}
+              onChange={(e) => { this.handleUpdate('disclaimer', e.target.value); }}
+              fullWidth
+            />
+            <div style={{ lineHeight: '1.5em', marginTop: units(1) }}>
+              <FormattedMessage id="teamReport.disclaimerSub" defaultMessage="Disclaimer that will be shown at the bottom of the report with the workspace logo." />
+            </div>
+          </CardContent>
+        </Card>
       </div>
     );
   }
@@ -169,10 +179,9 @@ const TeamReportContainer = Relay.createContainer(TeamReportComponent, {
         id
         dbid
         permissions
-        get_disclaimer
-        get_introduction
-        get_use_disclaimer
-        get_use_introduction
+        get_report
+        get_language
+        get_languages
       }
     `,
   },
