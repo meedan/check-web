@@ -8,6 +8,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Tooltip from '@material-ui/core/Tooltip';
+import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Can from '../Can';
 import { withPusher, pusherShape } from '../../pusher';
@@ -28,14 +29,8 @@ const messages = defineMessages({
   },
 });
 
-const ProjectLink = React.forwardRef(({ teamSlug, projectDbid, ...props }, ref) => {
-  const to = projectDbid ? `/${teamSlug}/project/${projectDbid}` : `/${teamSlug}/all-items`;
-  return <Link innerRef={ref} to={to} {...props} />;
-});
-ProjectLink.displayName = 'ProjectLink';
-
-const useProjectListItemTextStyles = makeStyles(theme => ({
-  primary: {
+const useProjectLinkStyles = makeStyles(theme => ({
+  root: {
     display: 'flex',
     whiteSpace: 'nowrap',
 
@@ -52,13 +47,28 @@ const useProjectListItemTextStyles = makeStyles(theme => ({
   },
 }));
 
-const ProjectListItemText = ({ title, count }) => {
-  const classes = useProjectListItemTextStyles();
+const ProjectListItemText = ({
+  title, count, teamSlug, projectDbid,
+}) => {
+  const linkClasses = useProjectLinkStyles();
+
+  // Not using <ListItemSecondaryAction> because it absorbs events, so clicking
+  // the count wouldn't follow the link
+
+  const to = projectDbid ? `/${teamSlug}/project/${projectDbid}` : `/${teamSlug}/all-items`;
 
   return (
-    <ListItemText classes={classes}>
-      <span className="title">{title}</span>
-      <span className="count"><FormattedNumber value={count} /></span>
+    <ListItemText>
+      <Typography
+        component={Link}
+        to={to}
+        className="project-list__link"
+        variant="inherit"
+        classes={linkClasses}
+      >
+        <span className="title">{title}</span>
+        <span className="count"><FormattedNumber value={count} /></span>
+      </Typography>
     </ListItemText>
   );
 };
@@ -140,13 +150,10 @@ class DrawerProjectsComponent extends Component {
     return (
       <div className="projects__list">
         <List dense>
-          <ListItem
-            component={ProjectLink}
-            className="project-list__link"
-            teamSlug={team.slug}
-            projectDbid={null}
-          >
+          <ListItem>
             <ProjectListItemText
+              teamSlug={team.slug}
+              projectDbid={null}
               title={<FormattedMessage id="projects.allClaims" defaultMessage="All items" />}
               count={team.medias_count}
             />
@@ -155,8 +162,13 @@ class DrawerProjectsComponent extends Component {
             .map(({ node }) => node) // make copy of Array
             .sort((a, b) => a.title.localeCompare(b.title)) // mutate _copy_ of Array
             .map(({ dbid, title, medias_count }) => (
-              <ListItem key={dbid} component={ProjectLink} teamSlug={team.slug} projectDbid={dbid}>
-                <ProjectListItemText title={title} count={medias_count} />
+              <ListItem key={dbid}>
+                <ProjectListItemText
+                  teamSlug={team.slug}
+                  projectDbid={dbid}
+                  title={title}
+                  count={medias_count}
+                />
               </ListItem>
             ))
           }
