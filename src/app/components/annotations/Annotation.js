@@ -21,7 +21,7 @@ import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { withSetFlashMessage } from '../FlashMessage';
 import EmbedUpdate from './EmbedUpdate';
 import EmbedCreate from './EmbedCreate';
-import VideoAnnoIcon from '../../../assets/images/video-anno/video-anno';
+import VideoAnnotationIcon from '../../../assets/images/video-anno/video-anno';
 import TaskUpdate from './TaskUpdate';
 import SourcePicture from '../source/SourcePicture';
 import MediaDetail from '../media/MediaDetail';
@@ -438,7 +438,7 @@ class Annotation extends Component {
         <div>
           <div className="annotation__card-content">
             <div className={isVideoAnno ? classes.videoAnnoText : ''} onClick={isVideoAnno ? () => this.props.onTimelineCommentOpen(object.fragment) : null}>
-              {isVideoAnno ? <VideoAnnoIcon fontSize="small" className={classes.videoAnnoIcon} /> : null} <ParsedText text={commentText} />
+              {isVideoAnno ? <VideoAnnotationIcon fontSize="small" className={classes.VideoAnnotationIcon} /> : null} <ParsedText text={commentText} />
             </div>
             {/* thumbnail */}
             {commentContent.original ?
@@ -1205,7 +1205,7 @@ Annotation.propTypes = {
 };
 
 const annotationStyles = theme => ({
-  videoAnnoIcon: {
+  VideoAnnotationIcon: {
     marginRight: theme.spacing(1),
     position: 'relative',
     top: theme.spacing(0.5),
