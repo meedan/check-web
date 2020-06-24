@@ -1,6 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable no-shadow */
-/* eslint-disable max-len */
 import { graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 
@@ -40,18 +37,16 @@ export const repositionPlace = (id, payload, content) => {
   if (type === 'polygon') {
     geojson.geometry = {
       type: 'Polygon',
-      coordinates: [polygon.map(({ lat, lng }) => [lng, lat])],
+      coordinates: [polygon.map(({ lat: lat2, lng: lng2 }) => [lng2, lat2])],
     };
   }
 
   geolocation_viewport.value_json = { viewport, zoom };
   geolocation_location.value_json = geojson;
 
-  console.log(`http://geojson.io/#data=data:application/json,${encodeURIComponent(JSON.stringify(geojson))}`);
-
   return commitMutation(environment, {
     mutation: graphql`
-      mutation MediaTimelineUtilsRepositionPlaceMutation($input: UpdateDynamicInput!) {
+      mutation MediaTimelineMutationsRepositionPlaceMutation($input: UpdateDynamicInput!) {
         updateDynamic(input: $input) {
           dynamic {
             id,
@@ -97,7 +92,7 @@ export const renamePlace = (id, label, content) => {
 
   return commitMutation(environment, {
     mutation: graphql`
-      mutation MediaTimelineUtilsRenamePlaceMutation($input: UpdateDynamicInput!) {
+      mutation MediaTimelineMutationsRenamePlaceMutation($input: UpdateDynamicInput!) {
         updateDynamic(input: $input) {
           dynamic {
             id,
@@ -130,7 +125,7 @@ export const renamePlace = (id, label, content) => {
 
 export const destroyPlace = (id, annotated_id) => commitMutation(environment, {
   mutation: graphql`
-    mutation MediaTimelineUtilsDestroyPlaceMutation($input: DestroyDynamicInput!) {
+    mutation MediaTimelineMutationsDestroyPlaceMutation($input: DestroyDynamicInput!) {
       destroyDynamic(input: $input) {
         deletedId
       }
@@ -152,7 +147,7 @@ export const destroyPlace = (id, annotated_id) => commitMutation(environment, {
 
 export const retimePlace = (id, fragment, parsed_fragment) => commitMutation(environment, {
   mutation: graphql`
-    mutation MediaTimelineUtilsRetimePlaceMutation($input: UpdateDynamicInput!) {
+    mutation MediaTimelineMutationsRetimePlaceMutation($input: UpdateDynamicInput!) {
       updateDynamic(input: $input) {
         dynamic {
           id,
@@ -178,65 +173,64 @@ export const retimePlace = (id, fragment, parsed_fragment) => commitMutation(env
   },
 });
 
-export const createPlaceInstance = (name, { fragment }, content, annotated_id, parentID, callback) => {
-  const {
-    geolocation_viewport: { viewport, zoom },
-    geolocation_location: geojson,
-  } = content.reduce((acc, { field_name, value_json }) =>
-    ({ ...acc, [field_name]: value_json }), {});
+export const createPlaceInstance =
+  (name, { fragment }, content, annotated_id, parentID, callback) => {
+    const {
+      geolocation_viewport: { viewport, zoom },
+      geolocation_location: geojson,
+    } = content.reduce((acc, { field_name, value_json }) =>
+      ({ ...acc, [field_name]: value_json }), {});
 
-  console.log(`http://geojson.io/#data=data:application/json,${encodeURIComponent(JSON.stringify(geojson))}`);
-
-  return commitMutation(environment, {
-    mutation: graphql`
-      mutation MediaTimelineUtilsCreatePlaceInstanceMutation($input: CreateDynamicAnnotationGeolocationInput!) {
-        createDynamicAnnotationGeolocation(input: $input) {
-          dynamicEdge {
-            node {
-              id
-              dbid
-              parsed_fragment
-              content
+    return commitMutation(environment, {
+      mutation: graphql`
+        mutation MediaTimelineMutationsCreatePlaceInstanceMutation($input: CreateDynamicAnnotationGeolocationInput!) {
+          createDynamicAnnotationGeolocation(input: $input) {
+            dynamicEdge {
+              node {
+                id
+                dbid
+                parsed_fragment
+                content
+              }
             }
           }
         }
-      }
-    `,
-    variables: {
-      input: {
-        fragment,
-        annotated_id,
-        set_fields: JSON.stringify({
-          geolocation_viewport: { viewport, zoom },
-          geolocation_location: JSON.stringify(geojson),
-        }),
-        clientMutationId: `m${Date.now()}`,
-        annotated_type: 'ProjectMedia',
-      },
-    },
-    configs: [
-      {
-        type: 'RANGE_ADD',
-        parentName: 'project_media',
-        parentID,
-        edgeName: 'dynamicEdge',
-        connectionName: 'annotations',
-        rangeBehaviors: (args) => {
-          if (args.annotation_type === 'geolocation') {
-            return 'prepend';
-          }
-          return 'ignore';
+      `,
+      variables: {
+        input: {
+          fragment,
+          annotated_id,
+          set_fields: JSON.stringify({
+            geolocation_viewport: { viewport, zoom },
+            geolocation_location: JSON.stringify(geojson),
+          }),
+          clientMutationId: `m${Date.now()}`,
+          annotated_type: 'ProjectMedia',
         },
-        connectionInfo: [{
-          key: 'ProjectMedia_geolocations',
-          rangeBehavior: 'prepend',
-          filters: { annotation_type: 'geolocation' },
-        }],
       },
-    ],
-    onCompleted: (data, errors) => callback && callback(data, errors),
-  });
-};
+      configs: [
+        {
+          type: 'RANGE_ADD',
+          parentName: 'project_media',
+          parentID,
+          edgeName: 'dynamicEdge',
+          connectionName: 'annotations',
+          rangeBehaviors: (args) => {
+            if (args.annotation_type === 'geolocation') {
+              return 'prepend';
+            }
+            return 'ignore';
+          },
+          connectionInfo: [{
+            key: 'ProjectMedia_geolocations',
+            rangeBehavior: 'prepend',
+            filters: { annotation_type: 'geolocation' },
+          }],
+        },
+      ],
+      onCompleted: (data, errors) => callback && callback(data, errors),
+    });
+  };
 
 export const createPlace = (name, payload, annotated_id, parentID, callback) => {
   const {
@@ -262,15 +256,13 @@ export const createPlace = (name, payload, annotated_id, parentID, callback) => 
   if (type === 'polygon') {
     geojson.geometry = {
       type: 'Polygon',
-      coordinates: [polygon.map(({ lat, lng }) => [lng, lat])],
+      coordinates: [polygon.map(({ lat: lat2, lng: lng2 }) => [lng2, lat2])],
     };
   }
 
-  console.log(`http://geojson.io/#data=data:application/json,${encodeURIComponent(JSON.stringify(geojson))}`);
-
   return commitMutation(environment, {
     mutation: graphql`
-      mutation MediaTimelineUtilsCreatePlaceMutation($input: CreateDynamicAnnotationGeolocationInput!) {
+      mutation MediaTimelineMutationsCreatePlaceMutation($input: CreateDynamicAnnotationGeolocationInput!) {
         createDynamicAnnotationGeolocation(input: $input) {
           dynamicEdge {
             node {
@@ -322,7 +314,7 @@ export const createPlace = (name, payload, annotated_id, parentID, callback) => 
 export const createClip = (label, fragment, annotated_id, parentID, callback) =>
   commitMutation(environment, {
     mutation: graphql`
-      mutation MediaTimelineUtilsCreateClipMutation($input: CreateDynamicInput!) {
+      mutation MediaTimelineMutationsCreateClipMutation($input: CreateDynamicInput!) {
         createDynamic(input: $input) {
           dynamicEdge {
             node {
@@ -369,7 +361,7 @@ export const createClip = (label, fragment, annotated_id, parentID, callback) =>
 
 export const renameClip = (id, label) => commitMutation(environment, {
   mutation: graphql`
-    mutation MediaTimelineUtilsRenameClipMutation($input: UpdateDynamicInput!) {
+    mutation MediaTimelineMutationsRenameClipMutation($input: UpdateDynamicInput!) {
       updateDynamic(input: $input) {
         dynamic {
           id,
@@ -398,7 +390,7 @@ export const renameClip = (id, label) => commitMutation(environment, {
 
 export const retimeClip = (id, fragment, parsed_fragment) => commitMutation(environment, {
   mutation: graphql`
-    mutation MediaTimelineUtilsRetimeClipMutation($input: UpdateDynamicInput!) {
+    mutation MediaTimelineMutationsRetimeClipMutation($input: UpdateDynamicInput!) {
       updateDynamic(input: $input) {
         dynamic {
           id,
@@ -428,7 +420,7 @@ export const retimeClip = (id, fragment, parsed_fragment) => commitMutation(envi
 
 export const destroyClip = (id, annotated_id) => commitMutation(environment, {
   mutation: graphql`
-    mutation MediaTimelineUtilsDestroyClipMutation($input: DestroyDynamicInput!) {
+    mutation MediaTimelineMutationsDestroyClipMutation($input: DestroyDynamicInput!) {
       destroyDynamic(input: $input) {
         deletedId
       }
@@ -450,7 +442,7 @@ export const destroyClip = (id, annotated_id) => commitMutation(environment, {
 
 export const updateComment = (id, text, callback) => commitMutation(environment, {
   mutation: graphql`
-    mutation MediaTimelineUtilsUpdateCommentMutation($input: UpdateCommentInput!) {
+    mutation MediaTimelineMutationsUpdateCommentMutation($input: UpdateCommentInput!) {
       updateComment(input: $input) {
         comment {
           id
@@ -476,7 +468,7 @@ export const updateComment = (id, text, callback) => commitMutation(environment,
 
 export const destroyComment = (id, annotated_id, callback) => commitMutation(environment, {
   mutation: graphql`
-    mutation MediaTimelineUtilsDestroyCommentMutation($input: DestroyCommentInput!) {
+    mutation MediaTimelineMutationsDestroyCommentMutation($input: DestroyCommentInput!) {
       destroyComment(input: $input) {
         deletedId
       }
@@ -500,7 +492,7 @@ export const destroyComment = (id, annotated_id, callback) => commitMutation(env
 export const createComment =
   (text, fragment, annotated_id, parentID, callback) => commitMutation(environment, {
     mutation: graphql`
-      mutation MediaTimelineUtilsCreateCommentMutation($input: CreateCommentInput!) {
+      mutation MediaTimelineMutationsCreateCommentMutation($input: CreateCommentInput!) {
         createComment(input: $input) {
           commentEdge {
             cursor
@@ -547,7 +539,7 @@ export const createComment =
 export const createCommentThread =
   (text, fragment, annotated_id, parentID, callback) => commitMutation(environment, {
     mutation: graphql`
-      mutation MediaTimelineUtilsCreateCommentThreadMutation($input: CreateCommentInput!) {
+      mutation MediaTimelineMutationsCreateCommentThreadMutation($input: CreateCommentInput!) {
         createComment(input: $input) {
           commentEdge {
             cursor
@@ -614,7 +606,7 @@ export const createCommentThread =
 export const createTag = (tag, fragment, annotated_id, parentID, callback) =>
   commitMutation(environment, {
     mutation: graphql`
-      mutation MediaTimelineUtilsCreateInstanceMutation($input: CreateTagInput!) {
+      mutation MediaTimelineMutationsCreateInstanceMutation($input: CreateTagInput!) {
         createTag(input: $input) {
           project_media {
             id
@@ -657,7 +649,7 @@ export const createTag = (tag, fragment, annotated_id, parentID, callback) =>
 
 export const retimeTag = (id, fragment) => commitMutation(environment, {
   mutation: graphql`
-    mutation MediaTimelineUtilsFragmentMutation($input: UpdateTagInput!) {
+    mutation MediaTimelineMutationsFragmentMutation($input: UpdateTagInput!) {
       updateTag(input: $input) {
         tag {
           id
@@ -682,7 +674,7 @@ export const retimeTag = (id, fragment) => commitMutation(environment, {
 
 export const renameTag = (id, text, callback) => commitMutation(environment, {
   mutation: graphql`
-    mutation MediaTimelineUtilsTextMutation($input: UpdateTagTextInput!) {
+    mutation MediaTimelineMutationsTextMutation($input: UpdateTagTextInput!) {
       updateTagText(input: $input) {
         tag_text {
           id
@@ -707,7 +699,7 @@ export const renameTag = (id, text, callback) => commitMutation(environment, {
 
 export const destroyTag = (id, annotated_id) => commitMutation(environment, {
   mutation: graphql`
-    mutation MediaTimelineUtilsDestroyMutation($input: DestroyTagTextInput!) {
+    mutation MediaTimelineMutationsDestroyMutation($input: DestroyTagTextInput!) {
       destroyTagText(input: $input) {
         deletedId
       }

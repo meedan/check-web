@@ -1,7 +1,6 @@
 /* eslint-disable no-sequences */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-return-assign */
-/* eslint-disable no-shadow */
 import React, { Component } from 'react';
 import { Timeline } from '@meedan/check-ui';
 
@@ -10,7 +9,7 @@ import {
   createCommentThread, destroyComment, createComment, updateComment,
   createTag, renameTag, destroyTag, retimeTag,
   createPlace, createPlaceInstance, retimePlace, destroyPlace, renamePlace, repositionPlace,
-} from './MediaTimelineUtils';
+} from './MediaTimelineMutations';
 
 const NOOP = () => {};
 
@@ -30,19 +29,19 @@ class MediaTimeline extends Component {
     const entities = {};
 
     const commentThreads = comments.edges
-      .filter(({ node: { dbid, parsed_fragment } }) =>
-        !!dbid && !!parsed_fragment && !!parsed_fragment.t).map(({
+      .filter(({ node: { dbid: dbid2, parsed_fragment } }) =>
+        !!dbid2 && !!parsed_fragment && !!parsed_fragment.t).map(({
         node,
         node: {
-          id: thread_id, dbid, text, parsed_fragment,
+          id: thread_id, dbid: dbid3, text, parsed_fragment,
           annotator: {
             id: annoId, name, profile_image,
           },
-          comments,
+          comments: comments2,
         },
       }) => ({
         id: thread_id,
-        dbid,
+        dbid: dbid3,
         text,
         start_seconds: parsed_fragment.t[0],
         user: {
@@ -51,24 +50,24 @@ class MediaTimeline extends Component {
           last_name: '',
           profile_img_url: profile_image,
         },
-        replies: comments && comments.edges ? comments.edges.map(({
+        replies: comments2 && comments2.edges ? comments2.edges.map(({
           node: {
-            id, created_at, text,
+            id, created_at, text: text2,
             annotator: {
-              id: annoId, name, profile_image,
+              id: annoId2, name: name2, profile_image: profile_image2,
             },
           },
         }) => ({
           id,
           thread_id,
           created_at,
-          text,
+          text: text2,
           start_seconds: 0,
           user: {
-            id: annoId,
-            first_name: name,
+            id: annoId2,
+            first_name: name2,
             last_name: '',
-            profile_img_url: profile_image,
+            profile_img_url: profile_image2,
           },
         })).sort((a, b) => a.created_at - b.created_at) : [],
         node,
@@ -157,7 +156,7 @@ class MediaTimeline extends Component {
         };
 
         if (type === 'Polygon') {
-          entities[`place-${name}`].polygon = coordinates[0].map(([lng, lat]) => ({ lat, lng }));
+          entities[`place-${name}`].polygon = coordinates[0].map(([lng2, lat2]) => ({ lat: lat2, lng: lng2 }));
         }
       }
 
@@ -211,7 +210,7 @@ class MediaTimeline extends Component {
 
   commentCreate = (threadId, text, callback) => {
     const { data: { commentThreads } } = this.state;
-    const id = commentThreads.find(({ id }) => id === threadId).dbid;
+    const id = commentThreads.find(({ id: id2 }) => id2 === threadId).dbid;
     createComment(text, null, `${id}`, threadId, callback);
   };
 
@@ -230,21 +229,22 @@ class MediaTimeline extends Component {
     const clipEntity = videoClips.find(c => c.name === name);
     const clips = clipEntity ? clipEntity.instances : [];
 
-    const intervals = [...clips.map(({ id, start_seconds, end_seconds }) =>
-      [start_seconds, end_seconds, id]), [start_seconds, end_seconds, null]];
+    const intervals = [
+      ...clips.map(({ id, start_seconds: start_seconds2, end_seconds: end_seconds2 }) =>
+        [start_seconds2, end_seconds2, id]), [start_seconds, end_seconds, null]];
 
     const segments = intervals.sort((a, b) => a[0] - b[0])
       .reduce((ac, x) => (!ac.length || ac[ac.length - 1][1] < x[0]
         ? ac.push(x)
         : ac[ac.length - 1][1] = Math.max(ac[ac.length - 1][1], x[1]), ac), []);
 
-    segments.forEach(([start_seconds, end_seconds, id]) => {
+    segments.forEach(([start_seconds2, end_seconds2, id]) => {
       if (id) {
-        const fragment = `t=${start_seconds},${end_seconds}`;
-        const parsed_fragment = { t: [start_seconds, end_seconds] };
+        const fragment = `t=${start_seconds2},${end_seconds2}`;
+        const parsed_fragment = { t: [start_seconds2, end_seconds2] };
         retimeClip(id, fragment, parsed_fragment);
       } else {
-        createClip(name, `t=${start_seconds},${end_seconds}`, `${dbid}`, mediaId);
+        createClip(name, `t=${start_seconds2},${end_seconds2}`, `${dbid}`, mediaId);
       }
     });
 
@@ -392,8 +392,8 @@ class MediaTimeline extends Component {
     const { setPlayerState } = this.props;
 
     const entities = data[`video${type.charAt(0).toUpperCase()}${type.slice(1)}`];
-    const instances = entities.reduce((acc, { instances }) =>
-      [...acc, ...instances.map(({ start_seconds, end_seconds }) =>
+    const instances = entities.reduce((acc, { instances: instances2 }) =>
+      [...acc, ...instances2.map(({ start_seconds, end_seconds }) =>
         [start_seconds, end_seconds])], []);
 
     const segments = instances.sort((a, b) => a[0] - b[0])
