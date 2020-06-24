@@ -63,7 +63,7 @@ class MediaMetadata extends Component {
   }
 
   render() {
-    const { media, intl: { locale } } = this.props;
+    const { media, intl: { locale }, onTimelineCommentOpen } = this.props;
     const data = media.metadata;
     const isRtl = rtlDetect.isRtlLang(locale);
     const fromDirection = isRtl ? 'right' : 'left';
@@ -151,7 +151,14 @@ class MediaMetadata extends Component {
           </Row> : null }
         <Row>
           <TagMenu media={media} />
-          { media.tags ? <MediaTags media={media} tags={media.tags.edges} /> : null }
+          { media.tags ?
+            <MediaTags
+              media={media}
+              tags={media.tags.edges}
+              onTimelineCommentOpen={onTimelineCommentOpen}
+            />
+            : null
+          }
         </Row>
       </StyledMetadata>
     );

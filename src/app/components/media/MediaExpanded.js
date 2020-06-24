@@ -342,6 +342,7 @@ const MediaExpandedContainer = Relay.createContainer(withPusher(MediaExpandedCom
               id
               tag
               tag_text
+              fragment
             }
           }
         }
