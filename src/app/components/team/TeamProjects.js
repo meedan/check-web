@@ -76,7 +76,8 @@ class TeamProjects extends React.Component {
                 total={team.projects_count}
               >
                 {team.projects.edges
-                  .sortp((a, b) => a.node.title.localeCompare(b.node.title))
+                  .slice() // so sort() doesn't mutate input
+                  .sort((a, b) => a.node.title.localeCompare(b.node.title))
                   .map(p => (
                     <div>
                       <ListItem
