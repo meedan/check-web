@@ -484,7 +484,7 @@ class SearchQueryComponent extends React.Component {
     const { statuses } = teamStatuses(team);
     let projects = [];
     if (team.projects) {
-      projects = team.projects.edges.sortp((a, b) =>
+      projects = team.projects.edges.slice().sort((a, b) =>
         a.node.title.localeCompare(b.node.title));
     }
 

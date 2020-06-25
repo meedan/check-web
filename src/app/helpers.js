@@ -3,13 +3,6 @@ import LinkifyIt from 'linkify-it';
 import { toArray } from 'react-emoji-render';
 
 /**
- * Functionally-pure sort: keeps the given array unchanged and returns sorted one.
- */
-Array.prototype.sortp = function sortp(fn) {
-  return [].concat(this).sort(fn);
-};
-
-/**
  * TODO
  */
 function bemClass(baseClass, modifierBoolean, modifierSuffix) {
