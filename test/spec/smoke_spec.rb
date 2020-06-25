@@ -914,11 +914,10 @@ shared_examples 'smoke' do
     wait_for_selector("#media-bulk-actions__actions")
     wait_for_selector(".media__heading").click
     wait_for_selector("#media-actions-bar__move-to").click
-    wait_for_selector('.Select-input input').send_keys('Project')
-    wait_for_selector(".Select-menu-outer")
+    wait_for_selector("input[name=project-title]").send_keys('Project')
     @driver.action.send_keys(:enter).perform
     wait_for_selector('.media-actions-bar__move-button').click
-    wait_for_selector_none(".Select-placeholder")
+    wait_for_selector_none("input[name=project-title]")  # wait for dialog to disappear
     wait_for_selector("#search-input")
     wait_for_selector(".media__heading")
     expect(@driver.page_source.include?('My search result')).to be(true)
@@ -939,11 +938,10 @@ shared_examples 'smoke' do
     wait_for_selector(".project-list__link", index: 1).click
     wait_for_selector(".media__heading").click
     wait_for_selector("#media-actions-bar__add-to").click
-    wait_for_selector('.Select-input input').send_keys('Project')
-    wait_for_selector(".Select-menu-outer")
+    wait_for_selector("input[name=project-title]").send_keys('Project')
     @driver.action.send_keys(:enter).perform
     wait_for_selector('.media-actions-bar__add-button').click
-    wait_for_selector_none(".Select-placeholder")
+    wait_for_selector_none("input[name=project-title]")  # wait for dialog to disappear
     wait_for_selector(".message").click
     wait_for_selector(".project-header__back-button").click
     wait_for_selector(".project-list__link", index: 0).click
