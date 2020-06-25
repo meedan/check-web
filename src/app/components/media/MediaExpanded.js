@@ -17,7 +17,7 @@ import WebPageMediaCard from './WebPageMediaCard';
 import ImageMediaCard from './ImageMediaCard';
 import VideoMediaCard from './VideoMediaCard';
 import PenderCard from '../PenderCard';
-import { truncateLength } from '../../helpers';
+import { truncateLength, getCurrentProjectId } from '../../helpers';
 import CheckContext from '../../CheckContext';
 import { withPusher, pusherShape } from '../../pusher';
 import {
@@ -320,7 +320,8 @@ const MediaExpandedContainer = Relay.createContainer(withPusher(MediaExpandedCom
 });
 
 const MediaExpanded = (props) => {
-  const ids = `${props.media.dbid},${props.media.project_id}`;
+  const projectId = getCurrentProjectId(props.media.project_ids);
+  const ids = `${props.media.dbid},${projectId}`;
   const route = new MediaRoute({ ids });
 
   return (

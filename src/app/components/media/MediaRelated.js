@@ -9,7 +9,7 @@ import MediaRoute from '../../relay/MediaRoute';
 import mediaFragment from '../../relay/mediaFragment';
 import MediaDetail from './MediaDetail';
 import MediasLoading from './MediasLoading';
-import { getFilters } from '../../helpers';
+import { getFilters, getCurrentProjectId } from '../../helpers';
 import {
   FlexRow,
   black54,
@@ -281,7 +281,8 @@ const MediaRelatedContainer = Relay.createContainer(withPusher(MediaRelatedCompo
 });
 
 const MediaRelated = (props) => {
-  const ids = `${props.media.dbid},${props.media.project_id}`;
+  const projectId = getCurrentProjectId(props.media.project_ids);
+  const ids = `${props.media.dbid},${projectId}`;
   const route = new MediaRoute({ ids });
 
   return (

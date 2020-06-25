@@ -6,6 +6,7 @@ import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
 import MediasLoading from './MediasLoading';
 import Annotations from '../annotations/Annotations';
+import { getCurrentProjectId } from '../../helpers';
 
 class MediaRequestsComponent extends Component {
   componentDidMount() {
@@ -213,7 +214,8 @@ const MediaRequestsContainer = Relay.createContainer(withPusher(MediaRequestsCom
 });
 
 const MediaRequests = (props) => {
-  const ids = `${props.media.dbid},${props.media.project_id}`;
+  const projectId = getCurrentProjectId(props.media.project_ids);
+  const ids = `${props.media.dbid},${projectId}`;
   const route = new MediaRoute({ ids });
 
   return (

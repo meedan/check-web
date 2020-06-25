@@ -24,7 +24,7 @@ import CheckContext from '../../CheckContext';
 import globalStrings from '../../globalStrings';
 import { withSetFlashMessage } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
-import { getErrorMessage } from '../../helpers';
+import { getErrorMessage, getCurrentProject } from '../../helpers';
 
 const messages = defineMessages({
   mediaTitle: {
@@ -102,20 +102,6 @@ class MediaActionsBarComponent extends Component {
     return (typeof this.state.title === 'string') ? this.state.title.trim() : this.props.media.title;
   }
 
-  currentProject() {
-    let project = null;
-    let currentProjectId = window.location.pathname.match(/project\/([0-9]+)/);
-    if (currentProjectId) {
-      currentProjectId = parseInt(currentProjectId[1], 10);
-      project = this.props.media.projects.edges.filter(p =>
-        parseInt(p.node.dbid, 10) === currentProjectId);
-      if (project.length) {
-        project = project[0].node;
-      }
-    }
-    return project;
-  }
-
   handleAddToList = () => {
     this.setState({ openAddToListDialog: true });
   }
@@ -188,7 +174,7 @@ class MediaActionsBarComponent extends Component {
       new UpdateProjectMediaMutation({
         project_id: projectId,
         id: media.id,
-        srcProj: this.currentProject(),
+        srcProj: getCurrentProject(this.props.media.projects),
         dstProj: this.state.dstProj,
         context,
       }),
@@ -216,7 +202,7 @@ class MediaActionsBarComponent extends Component {
 
     Relay.Store.commitUpdate(
       new DeleteProjectMediaProjectMutation({
-        project: this.currentProject(),
+        project: getCurrentProject(this.props.media.projects),
         project_media: media,
         context,
       }),
@@ -452,7 +438,8 @@ class MediaActionsBarComponent extends Component {
     const { classes, media, intl: { locale } } = this.props;
     const context = this.getContext();
     const ids = this.props.media.project_ids;
-    const currentProjectId = this.currentProject() ? this.currentProject().dbid : 0;
+    const currentProject = getCurrentProject(this.props.media.projects);
+    const currentProjectId = currentProject ? currentProject.dbid : 0;
     const showRemoveFromList = ids.indexOf(currentProjectId) > -1;
 
     const addToListDialogActions = [
