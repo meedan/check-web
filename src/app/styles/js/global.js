@@ -83,8 +83,6 @@ export const typography = `
 
 export const localeAr = `
   [lang="ar"] {
-    direction: rtl;
-
     * {
       letter-spacing: 0 !important;
     }
