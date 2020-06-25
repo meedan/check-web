@@ -8,7 +8,6 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Tooltip from '@material-ui/core/Tooltip';
-import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Can from '../Can';
 import { withPusher, pusherShape } from '../../pusher';
@@ -33,17 +32,19 @@ const useProjectLinkStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
     whiteSpace: 'nowrap',
+  },
 
-    '&>.title': {
-      flex: '1 1 auto',
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
-      paddingRight: theme.spacing(1),
-    },
+  title: {
+    display: 'block',
+    flex: '1 1 auto',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    paddingRight: theme.spacing(1),
+  },
 
-    '&>.count': {
-      flex: '0 0 auto',
-    },
+  count: {
+    display: 'block',
+    flex: '0 0 auto',
   },
 }));
 
@@ -59,16 +60,13 @@ const ProjectListItemText = ({
 
   return (
     <ListItemText>
-      <Typography
-        component={Link}
+      <Link
         to={to}
-        className={projectDbid ? 'project-list__link' : 'project-list__link-all'}
-        variant="inherit"
-        classes={linkClasses}
+        className={`${linkClasses.root} ${projectDbid ? 'project-list__link' : 'project-list__link-all'}`}
       >
-        <span className="title">{title}</span>
-        <span className="count"><FormattedNumber value={count} /></span>
-      </Typography>
+        <span className={linkClasses.title}>{title}</span>
+        <span className={linkClasses.count}><FormattedNumber value={count} /></span>
+      </Link>
     </ListItemText>
   );
 };
