@@ -8,16 +8,16 @@ import AspectRatio from '../layout/AspectRatio';
 import { units } from '../../styles/js/shared';
 
 const StyledPlaybackRate = styled.div`
-  margin-top: ${units(1)};
-  display: flex;
-  justify-content: flex-end;
+  margin-top: ${units(2)};
+  position: absolute;
+  right: 0;
 `;
 
 const VideoMediaCard = (props) => {
   const [playbackRate, setplaybackRate] = React.useState(1);
 
   return (
-    <article className="video-media-card">
+    <article className="video-media-card" style={{ position: 'relative' }}>
       <AspectRatio>
         <Player
           url={props.videoPath}
