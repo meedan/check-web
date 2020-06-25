@@ -59,6 +59,7 @@ class MediaDetail extends Component {
       media,
       onPlayerReady,
       onVideoAnnoToggle,
+      onTimelineCommentOpen,
       playing,
       start,
       end,
@@ -108,6 +109,7 @@ class MediaDetail extends Component {
             {...{
               onPlayerReady,
               onVideoAnnoToggle,
+              onTimelineCommentOpen,
               playing,
               start,
               end,

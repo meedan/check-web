@@ -132,6 +132,7 @@ class MediaComponent extends Component {
 
   onTimelineCommentOpen = (fragment) => {
     // this call will come from Annotation.js
+    // or from MediaTags.js
     if (!fragment) return;
     const parsedFragment = parseInt(fragment.substring(2), 10);
     this.setState({ seekTo: parsedFragment, showVideoAnnotation: true, videoAnnotationTab: 'timeline' });
@@ -247,6 +248,7 @@ class MediaComponent extends Component {
                 onVideoAnnoToggle={() => this.setState({ showVideoAnnotation: true })}
                 setPlayerRef={node => this.setState({ playerRef: node })}
                 setPlayerState={payload => this.setState(payload)}
+                onTimelineCommentOpen={this.onTimelineCommentOpen}
                 {...{
                   playing, start, end, gaps, seekTo, scrubTo, showVideoAnnotation,
                 }}
