@@ -129,7 +129,8 @@ class DrawerNavigationComponent extends Component {
         font: caption,
       },
       drawerProjects: {
-        overflow: 'auto',
+        overflowX: 'hidden',
+        overflowY: 'auto',
         marginBottom: 'auto',
       },
       drawerProjectsAndFooter: {

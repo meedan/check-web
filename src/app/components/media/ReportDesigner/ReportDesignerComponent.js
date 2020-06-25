@@ -95,16 +95,14 @@ const ReportDesignerComponent = (props) => {
   };
 
   const handleStatusChange = () => {
-    const status = getStatus(mediaStatuses(media), mediaLastStatus(media));
-    if (status) {
-      const updatedData = cloneData(data);
-      updatedData.options.forEach((option, i) => {
-        updatedData.options[i].previous_published_status_label = option.status_label;
-        updatedData.options[i].status_label = status.label.substring(0, 16);
-        updatedData.options[i].theme_color = getStatusStyle(status, 'color');
-      });
-      setData(updatedData);
-    }
+    const updatedData = cloneData(data);
+    updatedData.options.forEach((option, i) => {
+      const status = getStatus(mediaStatuses(media), mediaLastStatus(media), option.language);
+      updatedData.options[i].previous_published_status_label = option.status_label;
+      updatedData.options[i].status_label = status.label.substring(0, 16);
+      updatedData.options[i].theme_color = getStatusStyle(status, 'color');
+    });
+    setData(updatedData);
   };
 
   const handleEdit = () => {
