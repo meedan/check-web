@@ -50,18 +50,6 @@ const Styles = theme => ({
   },
 });
 
-// const BackgroundImageRow = styled.div`
-//   background-image: url("${encodeSvgDataUri(teamInviteSvg)}");
-//   background-repeat: no-repeat;
-//   background-size: contain;
-//   background-position: top ${props => props.theme.dir === 'rtl' ? 'right' : 'left'};
-//   padding-${props => props.theme.dir === 'rtl' ? 'right' : 'left'}: ${units(21)};
-//   @media all and (max-width: ${breakpointMobile}) {
-//     padding-${props => props.theme.dir === 'rtl' ? 'right' : 'left'}: ${units(12)};
-//     background-size: ${units(10)};
-//   }
-// `;
-
 class TeamInviteCard extends Component {
   constructor(props) {
     super(props);

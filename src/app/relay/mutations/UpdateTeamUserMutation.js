@@ -34,7 +34,6 @@ class UpdateTeamUserMutation extends Relay.Mutation {
   getFatQuery() {
     return Relay.QL`
       fragment on UpdateTeamUserPayload {
-        team_userEdge
         team_user {
           role
           status
