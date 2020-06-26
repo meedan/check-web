@@ -7,7 +7,7 @@ if [[ -z ${GITHUB_TOKEN+x} || -z ${DEPLOY_ENV+x} || -z ${APP+x} ]]; then
 	exit 1
 fi
 
-git clone https://${GITHUB_TOKEN}:x-oauth-basic@github.com/meedan/configurator ${DEPLOYDIR}/latest/configurator
+rm -rf ${DEPLOYDIR}/latest/configurator && git clone https://${GITHUB_TOKEN}:x-oauth-basic@github.com/meedan/configurator ${DEPLOYDIR}/latest/configurator
 d=configurator/check/${DEPLOY_ENV}/${APP}/; for f in $(find $d -type f); do cp "$f" "${f/$d/}"; done
 
 # Put config into place
