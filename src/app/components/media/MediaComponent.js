@@ -139,7 +139,8 @@ class MediaComponent extends Component {
     // or from MediaTags.js
     if (!fragment) return;
     const parsedFragment = parseInt(fragment.substring(2), 10);
-    this.setState({ seekTo: parsedFragment, showVideoAnnotation: true, videoAnnotationTab: 'timeline' });
+    this.setState({ showVideoAnnotation: true, videoAnnotationTab: 'timeline' });
+    this.setPlayerState({ seekTo: parsedFragment });
   };
 
   setCurrentContext() {
@@ -161,6 +162,9 @@ class MediaComponent extends Component {
   getContext() {
     return new CheckContext(this).getContextStore();
   }
+
+  setPlayerState = payload =>
+    this.setState({ playerState: { ...this.state.playerState, ...payload } });
 
   subscribe() {
     const { pusher, clientSessionId, media } = this.props;
@@ -226,11 +230,11 @@ class MediaComponent extends Component {
         duration,
         playing,
         progress,
+        scrubTo,
+        seekTo,
       },
       fragment,
       playerRect,
-      scrubTo,
-      seekTo,
       showVideoAnnotation,
     } = this.state;
 
@@ -255,7 +259,7 @@ class MediaComponent extends Component {
                 onPlayerReady={this.setPlayerRect}
                 onVideoAnnoToggle={() => this.setState({ showVideoAnnotation: true })}
                 setPlayerRef={node => this.setState({ playerRef: node })}
-                setPlayerState={payload => this.setState({ playerState: payload })}
+                setPlayerState={this.setPlayerState}
                 onTimelineCommentOpen={this.onTimelineCommentOpen}
                 {...{
                   playing, start, end, gaps, seekTo, scrubTo, showVideoAnnotation,
@@ -369,7 +373,7 @@ class MediaComponent extends Component {
                 </StyledDrawerToolbar>
                 <div aria-labelledby="TimelineTab" role="tabpanel" hidden={this.state.videoAnnotationTab !== 'timeline'}>
                   <MediaTimeline
-                    setPlayerState={payload => this.setState({ playerState: payload })}
+                    setPlayerState={this.setPlayerState}
                     {...{
                       media,
                       fragment,
