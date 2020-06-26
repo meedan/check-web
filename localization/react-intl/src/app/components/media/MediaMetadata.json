@@ -1,5 +1,9 @@
 [
   {
+    "id": "mediaMetadata.VideoAnnotation",
+    "defaultMessage": "Video annotation"
+  },
+  {
     "id": "mediaMetadata.reverseImageSearch",
     "defaultMessage": "Reverse image search"
   },

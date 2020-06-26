@@ -64,21 +64,32 @@ class MediaMetadata extends Component {
 
   render() {
     const { media, intl: { locale }, onTimelineCommentOpen } = this.props;
-    const data = media.metadata;
     const isRtl = rtlDetect.isRtlLang(locale);
     const fromDirection = isRtl ? 'right' : 'left';
-    const claimReview = data.schema && data.schema.ClaimReview ? data.schema.ClaimReview[0] : null;
+    const claimReview = media.metadata.schema && media.metadata.schema.ClaimReview ?
+      media.metadata.schema.ClaimReview[0] : null;
 
     // check if the media item is either a Youtube link or an uploaded video:
     const displayExtraMediaActions = () => {
       const isYoutubeVideo = media.media.type === 'Link' && media.media.metadata.provider === 'youtube';
       const isUploadedVideo = media.media.type === 'UploadedVideo';
       const isPicture = media.picture !== null && media.picture !== undefined;
-      const allowsAnnotation = isYoutubeVideo || isUploadedVideo;
+      const allowsVideoAnnotation = isYoutubeVideo || isUploadedVideo;
       const allowsReverseSearch = isPicture;
-      if (allowsAnnotation) {
+      if (allowsVideoAnnotation) {
         return (
-          <Button color="primary" disabled={this.props.showVideoAnnotation} onClick={this.props.onVideoAnnoToggle} variant="contained" startIcon={<VideoAnnotationIcon color="action" />}>Video annotation</Button>
+          <Button
+            color="primary"
+            disabled={this.props.showVideoAnnotation}
+            onClick={this.props.onVideoAnnoToggle}
+            variant="contained"
+            startIcon={<VideoAnnotationIcon color="action" />}
+          >
+            <FormattedMessage
+              id="mediaMetadata.VideoAnnotation"
+              defaultMessage="Video annotation"
+            />
+          </Button>
         );
       } else if (allowsReverseSearch) {
         return (

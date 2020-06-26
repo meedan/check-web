@@ -1,11 +1,10 @@
 import React, { useMemo } from 'react';
 
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 import { Map } from '@meedan/check-ui';
 import { withStyles } from '@material-ui/core/styles';
 
-const MediaInfo = ({
+const MediaLocation = ({
   media: {
     geolocations: { edges: locations = [] },
   },
@@ -59,7 +58,6 @@ const MediaInfo = ({
   return (
     <Grid className={classes.gridContainer} container>
       <Grid className={classes.gridItem} item>
-        <Typography color="textSecondary" component="h2" gutterBottom variant="subtitle1">Location</Typography>
         <div className={classes.mapWrap}>
           <Map places={places} index={index} />
         </div>
@@ -68,7 +66,7 @@ const MediaInfo = ({
   );
 };
 
-const mediaInfoStyles = {
+const mediaLocationStyles = {
   gridContainer: {
     width: '100%',
     height: '100%',
@@ -83,4 +81,4 @@ const mediaInfoStyles = {
   },
 };
 
-export default withStyles(mediaInfoStyles)(MediaInfo);
+export default withStyles(mediaLocationStyles)(MediaLocation);

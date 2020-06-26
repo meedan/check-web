@@ -1,9 +1,5 @@
 [
   {
-    "id": "mediaComponent.info",
-    "defaultMessage": "Metadata"
-  },
-  {
     "id": "mediaComponent.requests",
     "defaultMessage": "Requests"
   },
@@ -18,6 +14,10 @@
   {
     "id": "mediaComponent.notes",
     "defaultMessage": "Notes"
+  },
+  {
+    "id": "mediaComponent.location",
+    "defaultMessage": "Location"
   },
   {
     "id": "mediaComponent.activity",

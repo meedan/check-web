@@ -18,7 +18,7 @@ import PageTitle from '../PageTitle';
 import MediaDetail from './MediaDetail';
 import MediaRelated from './MediaRelated';
 import MediaTasks from './MediaTasks';
-import MediaInfo from './MediaInfo';
+import MediaLocation from './MediaLocation';
 import MediaAnalysis from './MediaAnalysis';
 import MediaLog from './MediaLog';
 import MediaComments from './MediaComments';
@@ -70,6 +70,9 @@ class MediaComponent extends Component {
     super(props);
 
     const { team_bots: teamBots } = props.media.team;
+    const isYoutubeVideo = props.media.media.type === 'Link' && props.media.media.metadata.provider === 'youtube';
+    const isUploadedVideo = props.media.media.type === 'UploadedVideo';
+    const showLocation = isYoutubeVideo || isUploadedVideo;
     const enabledBots = teamBots.edges.map(b => b.node.login);
     const showRequests = (enabledBots.indexOf('smooch') > -1 || props.media.requests_count > 0);
     const showTab = showRequests ? 'requests' : 'tasks';
@@ -94,6 +97,7 @@ class MediaComponent extends Component {
       },
       showRequests,
       showTab,
+      showLocation,
       showVideoAnnotation: Boolean(temporalInterval && clipId),
       fragment: { t: temporalInterval, id: clipId },
       playerRef: null,
@@ -216,7 +220,6 @@ class MediaComponent extends Component {
     }
 
     const { media } = this.props;
-    const data = media.metadata;
     media.url = media.media.url;
     media.quote = media.media.quote;
     media.embed_path = media.media.embed_path;
@@ -246,7 +249,7 @@ class MediaComponent extends Component {
         libraries={GOOGLE_MAPS_LIBRARIES}
       >
         <PageTitle
-          prefix={MediaUtil.title(media, data, this.props.intl)}
+          prefix={MediaUtil.title(media, media.metadata, this.props.intl)}
           team={media.team}
           data-id={media.dbid}
         >
@@ -277,16 +280,6 @@ class MediaComponent extends Component {
                 value={this.state.showTab}
                 onChange={this.handleTabChange}
               >
-                <Tab
-                  label={
-                    <FormattedMessage
-                      id="mediaComponent.info"
-                      defaultMessage="Metadata"
-                    />
-                  }
-                  value="info"
-                  className="media-tab__info"
-                />
                 { this.state.showRequests ?
                   <Tab
                     label={
@@ -330,6 +323,17 @@ class MediaComponent extends Component {
                   value="notes"
                   className="media-tab__comments"
                 />
+                { this.state.showLocation ?
+                  <Tab
+                    label={
+                      <FormattedMessage
+                        id="mediaComponent.location"
+                        defaultMessage="Location"
+                      />
+                    }
+                    value="location"
+                    className="media-tab__location"
+                  /> : null }
                 <Tab
                   label={
                     <FormattedMessage
@@ -341,7 +345,7 @@ class MediaComponent extends Component {
                   className="media-tab__activity"
                 />
               </Tabs>
-              { this.state.showTab === 'info' ? <MediaInfo media={media} time={time} /> : null }
+              { this.state.showTab === 'location' ? <MediaLocation media={media} time={time} /> : null }
               { this.state.showTab === 'requests' ? <MediaRequests media={media} /> : null }
               { this.state.showTab === 'tasks' ? <MediaTasks media={media} /> : null }
               { this.state.showTab === 'analysis' ? <MediaAnalysis media={media} /> : null }
