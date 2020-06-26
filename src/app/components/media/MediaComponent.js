@@ -12,6 +12,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import Toolbar from '@material-ui/core/Toolbar';
+import config from 'config';
 import { withPusher, pusherShape } from '../../pusher';
 import PageTitle from '../PageTitle';
 import MediaDetail from './MediaDetail';
@@ -231,7 +232,7 @@ class MediaComponent extends Component {
 
     return (
       <LoadScript
-        googleMapsApiKey={window.config.googleMapsApiKey}
+        googleMapsApiKey={config.googleMapsApiKey}
         libraries={GOOGLE_MAPS_LIBRARIES}
       >
         <PageTitle
