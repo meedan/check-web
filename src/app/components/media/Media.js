@@ -36,6 +36,8 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
           url
           quote
           embed_path
+          metadata
+          type
         }
         comments: annotations(first: 10000, annotation_type: "comment") {
           edges {
