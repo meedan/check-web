@@ -16,13 +16,10 @@ function mapGlobalMessage(intl, msgKey, values) {
 
 function FormattedGlobalMessage({ messageKey, ...rest }) {
   const message = globalStrings[messageKey];
-  if (!message) {
-    throw new Error(`Message with key ${messageKey} not found`);
-  }
   return <FormattedMessage {...message} {...rest} />;
 }
 FormattedGlobalMessage.propTypes = {
-  messageKey: PropTypes.string.isRequired,
+  messageKey: PropTypes.oneOf(Object.keys(globalStrings)).isRequired,
 };
 
 const MappedMessage = props => (
