@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
-import { FormattedMessage, defineMessages, intlShape, injectIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import { browserHistory, Link } from 'react-router';
 import Card from '@material-ui/core/Card';
@@ -32,21 +32,6 @@ import { getErrorMessage } from '../../helpers';
 import { withSetFlashMessage } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
 
-const messages = defineMessages({
-  switchTeamsError: {
-    id: 'switchTeams.error',
-    defaultMessage: 'Sorry, an error occurred while updating the workspace. Please try again and contact {supportEmail} if the condition persists.',
-  },
-  switchTeamsMember: {
-    id: 'switchTeams.member',
-    defaultMessage: '{membersCount, plural, =0 {No members} one {1 member} other {# members}}',
-  },
-  joinTeam: {
-    id: 'switchTeams.joinRequestMessage',
-    defaultMessage: 'You requested to join',
-  },
-});
-
 class SwitchTeamsComponent extends Component {
   getContext() {
     return new CheckContext(this);
@@ -60,7 +45,13 @@ class SwitchTeamsComponent extends Component {
     context.setContextStore({ team, currentUser });
 
     const onFailure = (transaction) => {
-      const fallbackMessage = this.props.intl.formatMessage(messages.switchTeamsError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+      const fallbackMessage = (
+        <FormattedMessage
+          id="switchTeams.error"
+          defaultMessage="Sorry, an error occurred while updating the workspace. Please try again and contact {supportEmail} if the condition persists."
+          values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
+        />
+      );
       const message = getErrorMessage(transaction, fallbackMessage);
       this.props.setFlashMessage(message);
     };
@@ -141,9 +132,12 @@ class SwitchTeamsComponent extends Component {
                 <ListItemText
                   primary={team.name}
                   secondary={
-                    this.props.intl.formatMessage(messages.switchTeamsMember, {
-                      membersCount: team.members_count,
-                    })}
+                    <FormattedMessage
+                      id="switchTeams.member"
+                      defaultMessage="{membersCount, plural, =0 {No members} one {1 member} other {# members}}"
+                      values={{ membersCount: team.members_count }}
+                    />
+                  }
                 />
                 <ListItemSecondaryAction>
                   <IconButton edge="end" onClick={this.setCurrentTeam.bind(this, team, currentUser)}>
@@ -165,7 +159,12 @@ class SwitchTeamsComponent extends Component {
                 </ListItemAvatar>
                 <ListItemText
                   primary={team.name}
-                  secondary={this.props.intl.formatMessage(messages.joinTeam)}
+                  secondary={
+                    <FormattedMessage
+                      id="switchTeams.joinRequestMessage"
+                      defaultMessage="You requested to join"
+                    />
+                  }
                 />
                 <ListItemSecondaryAction>
                   <Button
@@ -199,9 +198,6 @@ class SwitchTeamsComponent extends Component {
 }
 
 SwitchTeamsComponent.propTypes = {
-  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
-  // eslint-disable-next-line react/no-typos
-  intl: intlShape.isRequired,
   user: PropTypes.object.isRequired,
   setFlashMessage: PropTypes.func.isRequired,
 };
@@ -210,4 +206,4 @@ SwitchTeamsComponent.contextTypes = {
   store: PropTypes.object,
 };
 
-export default withSetFlashMessage(injectIntl(SwitchTeamsComponent));
+export default withSetFlashMessage(SwitchTeamsComponent);
