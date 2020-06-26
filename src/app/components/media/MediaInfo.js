@@ -1,19 +1,19 @@
-/* eslint-disable no-shadow */
-import React, { Component } from 'react';
+import React, { useMemo } from 'react';
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { Map } from '@meedan/check-ui';
 import { withStyles } from '@material-ui/core/styles';
 
-class MediaInfo extends Component {
-  static getDerivedStateFromProps({
-    media: {
-      geolocations: { edges: locations = [] },
-    },
-    time,
-  }) {
-    const places = locations.filter(({ node: { id } }) => !!id).map(({
+const MediaInfo = ({
+  media: {
+    geolocations: { edges: locations = [] },
+  },
+  time,
+  classes,
+}) => {
+  const { places = [], index = -1 } = useMemo(() => {
+    const places2 = locations.filter(({ node: { id } }) => !!id).map(({
       node, node: { id, parsed_fragment: { t: [start_seconds, end_seconds] }, content },
     }) => {
       const {
@@ -44,34 +44,29 @@ class MediaInfo extends Component {
       };
 
       if (type === 'Polygon') {
-        place.polygon = coordinates[0].map(([lng, lat]) => ({ lat, lng }));
+        place.polygon = coordinates[0].map(([lng2, lat2]) => ({ lat: lat2, lng: lng2 }));
       }
 
       return place;
     });
 
-    const index = places.findIndex(({ start_seconds, end_seconds }) =>
+    const index2 = places2.findIndex(({ start_seconds, end_seconds }) =>
       start_seconds <= time && time < end_seconds);
 
-    return { places, index };
-  }
+    return { places: places2, index: index2 };
+  }, [locations, time]);
 
-  render() {
-    const { places = [], index = -1 } = this.state;
-    const { classes } = this.props;
-
-    return (
-      <Grid className={classes.gridContainer} container>
-        <Grid className={classes.gridItem} item>
-          <Typography color="textSecondary" component="h2" gutterBottom variant="subtitle1">Location</Typography>
-          <div className={classes.mapWrap}>
-            <Map places={places} index={index} />
-          </div>
-        </Grid>
+  return (
+    <Grid className={classes.gridContainer} container>
+      <Grid className={classes.gridItem} item>
+        <Typography color="textSecondary" component="h2" gutterBottom variant="subtitle1">Location</Typography>
+        <div className={classes.mapWrap}>
+          <Map places={places} index={index} />
+        </div>
       </Grid>
-    );
-  }
-}
+    </Grid>
+  );
+};
 
 const mediaInfoStyles = {
   gridContainer: {
