@@ -23,7 +23,8 @@ class MediaTimeline extends Component {
   };
 
   commentCreate = (threadId, text, callback) => {
-    const { commentThreads } = getTimelineData(this.props);
+    const { media, currentUser } = this.props;
+    const { commentThreads } = getTimelineData({ media, currentUser });
     const id = commentThreads.find(({ id: id2 }) => id2 === threadId).dbid;
     createComment(text, null, `${id}`, threadId, callback);
   };
@@ -33,8 +34,8 @@ class MediaTimeline extends Component {
   commentDelete = (threadId, commentId) => destroyComment(commentId, threadId);
 
   instanceClip = (type, entityId, instanceId) => {
-    const { media: { id: mediaId, dbid } } = this.props;
-    const { videoTags, videoPlaces, videoClips } = getTimelineData(this.props);
+    const { media, currentUser, media: { id: mediaId, dbid } } = this.props;
+    const { videoTags, videoPlaces, videoClips } = getTimelineData({ media, currentUser });
 
     const entity = (type === 'tag' ? videoTags : videoPlaces).find(({ id }) => id === entityId);
     const { name, instances } = entity;
@@ -83,8 +84,8 @@ class MediaTimeline extends Component {
   };
 
   entityUpdate = (type, entityId, payload, callback) => {
-    const { media: { dbid } } = this.props;
-    const { videoClips, videoPlaces } = getTimelineData(this.props);
+    const { media, currentUser, media: { dbid } } = this.props;
+    const { videoClips, videoPlaces } = getTimelineData({ media, currentUser });
 
     switch (type) {
     case 'tag':
@@ -117,8 +118,8 @@ class MediaTimeline extends Component {
   };
 
   entityDelete = (type, entityId, callback) => {
-    const { media: { dbid } } = this.props;
-    const { videoTags, videoClips, videoPlaces } = getTimelineData(this.props);
+    const { media, currentUser, media: { dbid } } = this.props;
+    const { videoTags, videoClips, videoPlaces } = getTimelineData({ media, currentUser });
 
     switch (type) {
     case 'tag':
