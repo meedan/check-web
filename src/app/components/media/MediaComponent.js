@@ -83,17 +83,19 @@ class MediaComponent extends Component {
     if (end) gaps.push([end, Number.MAX_VALUE]);
 
     this.state = {
-      duration: 0,
-      playing: false,
-      progress: 0,
+      playerState: {
+        start,
+        end,
+        gaps,
+        time: 0,
+        duration: 0,
+        playing: false,
+        progress: 0,
+      },
       showRequests,
       showTab,
       showVideoAnnotation: Boolean(temporalInterval && clipId),
       fragment: { t: temporalInterval, id: clipId },
-      start,
-      end,
-      gaps,
-      time: 0,
       playerRef: null,
       playerRect: null,
       videoAnnotationTab: 'timeline',
@@ -216,16 +218,20 @@ class MediaComponent extends Component {
     media.embed_path = media.media.embed_path;
 
     const {
+      playerState: {
+        start,
+        end,
+        gaps,
+        time,
+        duration,
+        playing,
+        progress,
+      },
       fragment,
-      duration,
       playerRect,
-      playing,
-      progress,
-      start, end, gaps,
       scrubTo,
       seekTo,
       showVideoAnnotation,
-      time,
     } = this.state;
 
     const { currentUser } = this.getContext();
@@ -249,7 +255,7 @@ class MediaComponent extends Component {
                 onPlayerReady={this.setPlayerRect}
                 onVideoAnnoToggle={() => this.setState({ showVideoAnnotation: true })}
                 setPlayerRef={node => this.setState({ playerRef: node })}
-                setPlayerState={payload => this.setState(payload)}
+                setPlayerState={payload => this.setState({ playerState: payload })}
                 onTimelineCommentOpen={this.onTimelineCommentOpen}
                 {...{
                   playing, start, end, gaps, seekTo, scrubTo, showVideoAnnotation,
@@ -363,7 +369,7 @@ class MediaComponent extends Component {
                 </StyledDrawerToolbar>
                 <div aria-labelledby="TimelineTab" role="tabpanel" hidden={this.state.videoAnnotationTab !== 'timeline'}>
                   <MediaTimeline
-                    setPlayerState={payload => this.setState(payload)}
+                    setPlayerState={payload => this.setState({ playerState: payload })}
                     {...{
                       media,
                       fragment,
