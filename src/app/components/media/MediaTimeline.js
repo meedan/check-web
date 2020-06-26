@@ -142,8 +142,8 @@ class MediaTimeline extends Component {
   };
 
   instanceCreate = (type, id, payload, callback) => {
-    const { media: { id: mediaId, dbid } } = this.props;
-    const { videoTags, videoPlaces } = getTimelineData(this.props);
+    const { media, currentUser, media: { id: mediaId, dbid } } = this.props;
+    const { videoTags, videoPlaces } = getTimelineData({ media, currentUser });
 
     switch (type) {
     case 'tag': {
@@ -204,8 +204,10 @@ class MediaTimeline extends Component {
   };
 
   playlistLaunch = (type) => {
-    const data = getTimelineData(this.props);
-    const { setPlayerState, duration } = this.props;
+    const {
+      media, currentUser, setPlayerState, duration,
+    } = this.props;
+    const data = getTimelineData({ media, currentUser });
 
     const entities = data[`video${type.charAt(0).toUpperCase()}${type.slice(1)}`];
     const instances = entities.reduce((acc, { instances: instances2 }) =>
@@ -236,8 +238,10 @@ class MediaTimeline extends Component {
   scrub = scrubTo => this.props.setPlayerState({ scrubTo });
 
   render() {
-    const { duration, time } = this.props;
-    const data = getTimelineData(this.props);
+    const {
+      media, currentUser, duration, time,
+    } = this.props;
+    const data = getTimelineData({ media, currentUser });
 
     return (
       <Timeline
