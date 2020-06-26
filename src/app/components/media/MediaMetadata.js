@@ -171,9 +171,9 @@ MediaMetadata.propTypes = {
     media: PropTypes.shape({
       type: PropTypes.string,
       metadata: PropTypes.shape({
-        provider: PropTypes.string,
-      }),
-    }),
+        provider: PropTypes.string.isRequired,
+      }).isRequired,
+    }).isRequired,
   }).isRequired,
 };
 
