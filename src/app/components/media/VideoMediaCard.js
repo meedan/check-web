@@ -4,6 +4,7 @@ import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import styled from 'styled-components';
+import { FormattedMessage } from 'react-intl';
 import AspectRatio from '../layout/AspectRatio';
 import { units } from '../../styles/js/shared';
 
@@ -32,8 +33,13 @@ const VideoMediaCard = (props) => {
             value={playbackRate}
             onChange={e => setplaybackRate(e.target.value)}
           >
-            <MenuItem value={1}>1x</MenuItem>
+            <MenuItem value={0.25}>0.25x</MenuItem>
+            <MenuItem value={0.5}>0.5x</MenuItem>
+            <MenuItem value={0.75}>0.75x</MenuItem>
+            <MenuItem value={1}><FormattedMessage id="video.normalSpeed" defaultMessage="Normal speed" /></MenuItem>
+            <MenuItem value={1.25}>1.25x</MenuItem>
             <MenuItem value={1.5}>1.5x</MenuItem>
+            <MenuItem value={1.75}>1.75x</MenuItem>
             <MenuItem value={2}>2x</MenuItem>
           </Select>
         </FormControl>
