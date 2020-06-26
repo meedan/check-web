@@ -18,9 +18,6 @@ const useStyles = makeStyles(theme => ({
     width: 502,
     color: 'black',
   },
-  image: {
-    border: '1px solid black',
-  },
 }));
 
 function isEmpty(data) {
@@ -74,7 +71,7 @@ const ReportDesignerPreview = (props) => {
           <ParsedText text={previewIntroduction(data)} />
         </Box> : null }
       { data.use_visual_card ?
-        <Box className={classes.image}>
+        <Box>
           <ReportDesignerImagePreview
             style={{
               width: 500,

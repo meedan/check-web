@@ -28,8 +28,8 @@
     "defaultMessage": "Publish report"
   },
   {
-    "id": "reportDesigner.cantPublish",
-    "defaultMessage": "Fill in at least the report text or image to publish your report"
+    "id": "reportDesigner.cannotPublish",
+    "defaultMessage": "Fill in at least the report text or image to publish your report. Make sure to create a report for the primary language ({language})."
   },
   {
     "id": "reportDesigner.confirmRepublishTitle",
