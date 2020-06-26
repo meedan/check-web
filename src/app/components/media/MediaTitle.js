@@ -142,15 +142,15 @@ function MediaTitle({ projectMedia, children }) {
       ? retval(projectMedia.media.metadata.title)
       : <PageOnDomain domain={projectMedia.domain}>{retval}</PageOnDomain>;
   case MediaType.Claim:
-    return children(projectMedia.media.quote);
+    return retval(projectMedia.media.quote);
   case MediaType.Image:
-    return children(projectMedia.metadata.title);
+    return retval(projectMedia.metadata.title);
   case MediaType.Facebook:
   case MediaType.Twitter:
   case MediaType.Instagram:
   case MediaType.Video:
     return projectMedia.media.metadata.title
-      ? children(projectMedia.media.metadata.title)
+      ? retval(projectMedia.media.metadata.title)
       : (
         <ByAttribution mediaType={mediaType} projectMedia={projectMedia}>
           {retval}
