@@ -1,5 +1,9 @@
 [
   {
+    "id": "mediaComponent.info",
+    "defaultMessage": "Metadata"
+  },
+  {
     "id": "mediaComponent.requests",
     "defaultMessage": "Requests"
   },

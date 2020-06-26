@@ -10,6 +10,7 @@ import ExternalLink from '../ExternalLink';
 import MediaTags from './MediaTags';
 import ClaimReview from './ClaimReview';
 import TagMenu from '../tag/TagMenu';
+import VideoAnnotationIcon from '../../../assets/images/video-annotation/video-annotation';
 import {
   Row,
   black54,
@@ -62,11 +63,48 @@ class MediaMetadata extends Component {
   }
 
   render() {
-    const { media, intl: { locale } } = this.props;
+    const { media, intl: { locale }, onTimelineCommentOpen } = this.props;
     const data = media.metadata;
     const isRtl = rtlDetect.isRtlLang(locale);
     const fromDirection = isRtl ? 'right' : 'left';
     const claimReview = data.schema && data.schema.ClaimReview ? data.schema.ClaimReview[0] : null;
+
+    // check if the media item is either a Youtube link or an uploaded video:
+    const displayExtraMediaActions = () => {
+      const isYoutubeVideo = media.media.type === 'Link' && media.media.metadata.provider === 'youtube';
+      const isUploadedVideo = media.media.type === 'UploadedVideo';
+      const isPicture = media.picture !== null && media.picture !== undefined;
+      const allowsAnnotation = isYoutubeVideo || isUploadedVideo;
+      const allowsReverseSearch = isPicture;
+      if (allowsAnnotation) {
+        return (
+          <Button color="primary" disabled={this.props.showVideoAnnotation} onClick={this.props.onVideoAnnoToggle} variant="contained" startIcon={<VideoAnnotationIcon color="action" />}>Video annotation</Button>
+        );
+      } else if (allowsReverseSearch) {
+        return (
+          <div className="media-detail__reverse-image-search">
+            <small>
+              <FormattedMessage
+                id="mediaMetadata.reverseImageSearch"
+                defaultMessage="Reverse image search"
+              />
+            </small>
+            <br />
+            <Button
+              style={{
+                border: '1px solid #000',
+                minWidth: 115,
+                marginRight: units(2),
+              }}
+              onClick={this.reverseImageSearchGoogle.bind(this)}
+            >
+              Google
+            </Button>
+          </div>
+        );
+      }
+      return null;
+    };
 
     return (
       <StyledMetadata
@@ -76,26 +114,7 @@ class MediaMetadata extends Component {
         { claimReview ? <Row><ClaimReview data={claimReview} /></Row> : null }
         { (media.picture || (media.media && media.media.file_path)) ?
           <Row style={{ display: 'flex', alignItems: 'center', marginBottom: units(2) }}>
-            { media.picture ?
-              <div className="media-detail__reverse-image-search">
-                <small>
-                  <FormattedMessage
-                    id="mediaMetadata.reverseImageSearch"
-                    defaultMessage="Reverse image search"
-                  />
-                </small>
-                <br />
-                <Button
-                  style={{
-                    border: '1px solid #000',
-                    minWidth: 115,
-                    marginRight: units(2),
-                  }}
-                  onClick={this.reverseImageSearchGoogle.bind(this)}
-                >
-                  Google
-                </Button>
-              </div> : null }
+            {displayExtraMediaActions()}
             { (media.media && media.media.file_path) ?
               <div
                 className="media-detail__download"
@@ -132,7 +151,14 @@ class MediaMetadata extends Component {
           </Row> : null }
         <Row>
           <TagMenu media={media} />
-          { media.tags ? <MediaTags media={media} tags={media.tags.edges} /> : null }
+          { media.tags ?
+            <MediaTags
+              media={media}
+              tags={media.tags.edges}
+              onTimelineCommentOpen={onTimelineCommentOpen}
+            />
+            : null
+          }
         </Row>
       </StyledMetadata>
     );
@@ -141,6 +167,14 @@ class MediaMetadata extends Component {
 
 MediaMetadata.propTypes = {
   intl: PropTypes.object.isRequired,
+  media: PropTypes.shape({
+    media: PropTypes.shape({
+      type: PropTypes.string,
+      metadata: PropTypes.shape({
+        provider: PropTypes.string.isRequired,
+      }).isRequired,
+    }).isRequired,
+  }).isRequired,
 };
 
 export default injectIntl(MediaMetadata);

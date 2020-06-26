@@ -5,7 +5,9 @@ import { browserHistory } from 'react-router';
 import Relay from 'react-relay/classic';
 import mergeWith from 'lodash.mergewith';
 import xor from 'lodash.xor';
+import memoize from 'memoize-one';
 import styled from 'styled-components';
+import Chip from '@material-ui/core/Chip';
 import EditIcon from '@material-ui/icons/Edit';
 import CancelIcon from '@material-ui/icons/Cancel';
 import Can from '../Can';
@@ -18,9 +20,9 @@ import {
   units,
   opaqueBlack54,
   opaqueBlack05,
-  chipStyles,
 } from '../../styles/js/shared';
 import { stringHelper } from '../../customHelpers';
+import VideoAnnotationIcon from '../../../assets/images/video-annotation/video-annotation';
 
 const messages = defineMessages({
   loading: {
@@ -67,14 +69,6 @@ const StyledMediaTagsContainer = styled.div`
     }
   }
 
-  .media-tags__tag {
-    ${chipStyles}
-    svg {
-      color: ${opaqueBlack54};
-      margin-${props => (props.theme.dir === 'rtl' ? 'left' : 'right')}: ${units(1)};
-    }
-  }
-
   .media-tags__language {
     white-space: nowrap;
   }
@@ -96,6 +90,37 @@ class MediaTags extends Component {
     const errorMessage = getErrorMessage(transaction, fallbackMessage);
     this.props.setFlashMessage(errorMessage);
   };
+
+  filterTags = memoize((tags) => {
+    const splitTags = {
+      regularTags: [],
+      videoTags: [],
+    };
+    const fragments = {};
+
+    // Get regular tags and cluster video tags by tag_text
+    if (Array.isArray(tags)) {
+      tags.forEach((t) => {
+        if (t.node.fragment) {
+          if (!fragments[t.node.tag_text]) {
+            fragments[t.node.tag_text] = [];
+          }
+          fragments[t.node.tag_text].push(t);
+        } else {
+          splitTags.regularTags.push(t);
+        }
+      });
+    }
+
+    // Get the video tags with earliest timestamp
+    Object.keys(fragments).forEach((tag_text) => {
+      fragments[tag_text].sort((a, b) =>
+        (a.node.fragment > b.node.fragment) ? 1 : -1);
+      splitTags.videoTags.push(fragments[tag_text][0]);
+    });
+
+    return splitTags;
+  });
 
   searchTagUrl(tagString) {
     const { media } = this.props;
@@ -153,9 +178,17 @@ class MediaTags extends Component {
     browserHistory.push(url);
   }
 
+  handleVideoAnnotationIconClick = (e, fragment) => {
+    e.stopPropagation();
+    if (this.props.onTimelineCommentOpen) {
+      this.props.onTimelineCommentOpen(fragment);
+    }
+  };
+
   render() {
     const { media } = this.props;
-    const tags = this.props.tags || [];
+    const { regularTags, videoTags } = this.filterTags(this.props.tags);
+    const tags = regularTags.concat(videoTags);
 
     return (
       <StyledMediaTagsContainer className="media-tags__container">
@@ -166,13 +199,20 @@ class MediaTags extends Component {
                 {tags.map((tag) => {
                   if (tag.node.tag_text) {
                     return (
-                      <li
+                      <Chip
+                        icon={
+                          tag.node.fragment ?
+                            <VideoAnnotationIcon
+                              onClick={e =>
+                                this.handleVideoAnnotationIconClick(e, tag.node.fragment)}
+                            />
+                            : null
+                        }
                         key={tag.node.id}
-                        onClick={this.handleTagViewClick.bind(this, tag.node.tag_text)}
                         className="media-tags__tag"
-                      >
-                        {tag.node.tag_text.replace(/^#/, '')}
-                      </li>
+                        onClick={this.handleTagViewClick.bind(this, tag.node.tag_text)}
+                        label={tag.node.tag_text.replace(/^#/, '')}
+                      />
                     );
                   }
                   return null;
@@ -182,8 +222,9 @@ class MediaTags extends Component {
             <div style={{ display: 'flex', alignItems: 'flex-end' }}>
               {media.language ?
                 <ul className="media-tags__list">
-                  <li className="media-tags__tag media-tags__language">
-                    {this.state.correctingLanguage ?
+                  <Chip
+                    className="media-tags__tag media-tags__language"
+                    label={this.state.correctingLanguage ?
                       <span>
                         {this.props.intl.formatMessage(messages.language, { language: '' })}
                         {' '}
@@ -215,7 +256,7 @@ class MediaTags extends Component {
                         </Can>
                       </span>
                     }
-                  </li>
+                  />
                 </ul>
                 : null}
             </div>
