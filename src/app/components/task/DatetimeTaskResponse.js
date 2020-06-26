@@ -1,13 +1,6 @@
 import React from 'react';
-import { FormattedMessage, FormattedDate, injectIntl, intlShape, defineMessages } from 'react-intl';
+import { FormattedMessage, FormattedDate } from 'react-intl';
 import { convertNumbers2English } from '../../helpers';
-
-const messages = defineMessages({
-  timeIs: {
-    id: 'datetimeTaskResponse.timeIs',
-    defaultMessage: 'View this timezone on time.is',
-  },
-});
 
 const DatetimeTaskResponse = (props) => {
   if (!props.response) {
@@ -36,37 +29,36 @@ const DatetimeTaskResponse = (props) => {
   const date = new Date(`${values[1]} 00:00`); // Make sure we get the real day and not the day before or after
   const time = `${hour}:${minute} ${values[5]}`;
 
-  const formattedDate = <FormattedDate value={date} day="numeric" month="long" year="numeric" />;
-
   return (
     <span className="task__datetime-response">
-      {noTime
-        ? formattedDate
-        : <FormattedMessage
+      {noTime ? (
+        <FormattedDate value={date} day="numeric" month="long" year="numeric" />
+      ) : (
+        <FormattedMessage
           id="datetimeTaskResponse.taskResponse"
           defaultMessage="{date} at {timeLink}"
           values={{
-            date: formattedDate,
+            date: <FormattedDate value={date} day="numeric" month="long" year="numeric" />,
             timeLink: (
               <a
                 href={`https://time.is/${values[1]} ${time}`}
                 target="_blank"
                 rel="noreferrer noopener"
-                title={props.intl.formatMessage(messages.timeIs)}
+                title={
+                  <FormattedMessage
+                    id="datetimeTaskResponse.timeIs"
+                    defaultMessage="View this timezone on time.is"
+                  />
+                }
               >
                 {time}
               </a>
             ),
           }}
-        />}
+        />
+      )}
     </span>
   );
 };
 
-DatetimeTaskResponse.propTypes = {
-  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
-  // eslint-disable-next-line react/no-typos
-  intl: intlShape.isRequired,
-};
-
-export default injectIntl(DatetimeTaskResponse);
+export default DatetimeTaskResponse;
