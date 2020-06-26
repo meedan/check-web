@@ -73,8 +73,9 @@ class MediaComponent extends Component {
     const showRequests = (enabledBots.indexOf('smooch') > -1 || props.media.requests_count > 0);
     const showTab = showRequests ? 'requests' : 'tasks';
 
-    const { t = '', id } = qs.parse(document.location.hash.substring(1));
-    const [start, end] = t.split(',').map(s => parseFloat(s));
+    // https://www.w3.org/TR/media-frags/
+    const { t: temporalInterval = '', id: clipId } = qs.parse(document.location.hash.substring(1));
+    const [start, end] = temporalInterval.split(',').map(s => parseFloat(s));
 
     const gaps = [];
     if (start) gaps.push([0, start]);
@@ -86,8 +87,8 @@ class MediaComponent extends Component {
       progress: 0,
       showRequests,
       showTab,
-      showVideoAnnotation: t && id,
-      fragment: { t, id },
+      showVideoAnnotation: Boolean(temporalInterval && clipId),
+      fragment: { t: temporalInterval, id: clipId },
       start,
       end,
       gaps,
