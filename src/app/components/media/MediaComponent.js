@@ -367,7 +367,18 @@ class MediaComponent extends Component {
                   <Grid alignItems="center" container justify="space-between">
                     <Grid item>
                       <Tabs value={this.state.videoAnnotationTab}>
-                        <Tab label="Timeline" disabled id="TimelineTab" ariaControls="" value="timeline" />
+                        <Tab
+                          ariaControls=""
+                          disabled
+                          id="TimelineTab"
+                          label={
+                            <FormattedMessage
+                              id="mediaComponent.timelineTab"
+                              defaultMessage="Timeline"
+                            />
+                          }
+                          value="timeline"
+                        />
                       </Tabs>
                     </Grid>
                     <Grid item>
