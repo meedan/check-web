@@ -210,9 +210,8 @@ class MediaTimeline extends Component {
     const data = getTimelineData({ media, currentUser });
 
     const entities = data[`video${type.charAt(0).toUpperCase()}${type.slice(1)}`];
-    const instances = entities.reduce((acc, { instances: instances2 }) =>
-      [...acc, ...instances2.map(({ start_seconds, end_seconds }) =>
-        [start_seconds, end_seconds])], []);
+    const instances = entities.flatMap(({ instances: instances2 }) =>
+      instances2.map(({ start_seconds, end_seconds }) => [start_seconds, end_seconds]));
 
     const segments = mergeIntervals(instances);
 
