@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
-import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
@@ -18,17 +18,6 @@ import { units, title1, ContentColumn, black32 } from '../../styles/js/shared';
 import DeleteTeamBotInstallationMutation from '../../relay/mutations/DeleteTeamBotInstallationMutation';
 import UpdateTeamBotInstallationMutation from '../../relay/mutations/UpdateTeamBotInstallationMutation';
 import ConfirmDialog from '../layout/ConfirmDialog';
-
-const messages = defineMessages({
-  confirmUninstall: {
-    id: 'teamBots.confirmUninstall',
-    defaultMessage: 'Are you sure you want to uninstall this bot?',
-  },
-  settingsTooltip: {
-    id: 'teamBots.settingsTooltip',
-    defaultMessage: 'Bot settings',
-  },
-});
 
 const StyledCardContent = styled(CardContent)`
   display: flex;
@@ -197,7 +186,11 @@ class TeamBotsComponent extends Component {
               </StyledCardContent>
               <CardActions>
                 <StyledSettings>
-                  <Tooltip title={this.props.intl.formatMessage(messages.settingsTooltip)}>
+                  <Tooltip
+                    title={
+                      <FormattedMessage id="teamBots.settingsTooltip" defaultMessage="Bot settings" />
+                    }
+                  >
                     <Settings
                       onClick={this.handleToggleSettings.bind(this, bot.dbid)}
                       className="settingsIcon"
@@ -298,13 +291,7 @@ class TeamBotsComponent extends Component {
   }
 }
 
-TeamBotsComponent.propTypes = {
-  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
-  // eslint-disable-next-line react/no-typos
-  intl: intlShape.isRequired,
-};
-
-const TeamBotsContainer = Relay.createContainer(injectIntl(TeamBotsComponent), {
+const TeamBotsContainer = Relay.createContainer(TeamBotsComponent, {
   initialVariables: {
     teamSlug: /^\/([^/]+)/.test(window.location.pathname) ? window.location.pathname.match(/^\/([^/]+)/)[1] : null,
   },

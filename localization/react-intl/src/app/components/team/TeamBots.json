@@ -1,13 +1,5 @@
 [
   {
-    "id": "teamBots.confirmUninstall",
-    "defaultMessage": "Are you sure you want to uninstall this bot?"
-  },
-  {
-    "id": "teamBots.settingsTooltip",
-    "defaultMessage": "Bot settings"
-  },
-  {
     "id": "teamBots.success",
     "defaultMessage": "Settings updated!"
   },
@@ -26,6 +18,10 @@
   {
     "id": "teamBots.remove",
     "defaultMessage": "Remove"
+  },
+  {
+    "id": "teamBots.settingsTooltip",
+    "defaultMessage": "Bot settings"
   },
   {
     "id": "teamBots.confirmDeleteTitle",
