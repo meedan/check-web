@@ -1,21 +1,20 @@
 /* eslint-disable no-sequences */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-return-assign */
+import memoizeOne from 'memoize-one';
 
 export const intersectIntervals = intervals => intervals.sort((a, b) => a[0] - b[0])
   .reduce((ac, x) => (!ac.length || ac[ac.length - 1][1] < x[0]
     ? ac.push(x)
     : ac[ac.length - 1][1] = Math.max(ac[ac.length - 1][1], x[1]), ac), []);
 
-export const getTimelineData = ({
+const check2montage = ({
   media: {
-    // id: mediaId, dbid,
     tags: { edges: tags = [] },
     clips: { edges: clips = [] },
     geolocations: { edges: locations = [] },
     comments,
   },
-  // duration, time,
   currentUser: { name: first_name, id: userId, profile_image: profile_img_url },
 }) => {
   const projecttags = [];
@@ -177,6 +176,4 @@ export const getTimelineData = ({
   return data;
 };
 
-// return {
-//   duration, time, data, mediaId, dbid,
-// };
+export const getTimelineData = memoizeOne(check2montage);
