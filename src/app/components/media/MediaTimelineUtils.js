@@ -1,12 +1,16 @@
-/* eslint-disable no-sequences */
-/* eslint-disable no-param-reassign */
-/* eslint-disable no-return-assign */
 import memoizeOne from 'memoize-one';
 
-export const intersectIntervals = intervals => intervals.sort((a, b) => a[0] - b[0])
-  .reduce((ac, x) => (!ac.length || ac[ac.length - 1][1] < x[0]
-    ? ac.push(x)
-    : ac[ac.length - 1][1] = Math.max(ac[ac.length - 1][1], x[1]), ac), []);
+export const mergeIntervals = intervals =>
+  intervals.sort((a, b) => a[0] - b[0])
+    .reduce((acc, x) => {
+      if (!acc.length || acc[acc.length - 1][1] < x[0]) {
+        return [...acc, x];
+      }
+
+      const y = acc.pop();
+      y[1] = Math.max(y[1], x[1]);
+      return [...acc, y];
+    }, []);
 
 const check2montage = ({
   media: {

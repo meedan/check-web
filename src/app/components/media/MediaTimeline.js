@@ -7,7 +7,7 @@ import {
   createTag, renameTag, destroyTag, retimeTag,
   createPlace, createPlaceInstance, retimePlace, destroyPlace, renamePlace, repositionPlace,
 } from './MediaTimelineMutations';
-import { getTimelineData, intersectIntervals } from './MediaTimelineUtils';
+import { getTimelineData, mergeIntervals } from './MediaTimelineUtils';
 
 const NOOP = () => {};
 
@@ -49,7 +49,7 @@ class MediaTimeline extends Component {
       ...clips.map(({ id, start_seconds: start_seconds2, end_seconds: end_seconds2 }) =>
         [start_seconds2, end_seconds2, id]), [start_seconds, end_seconds, null]];
 
-    const segments = intersectIntervals(intervals);
+    const segments = mergeIntervals(intervals);
 
     segments.forEach(([start_seconds2, end_seconds2, id]) => {
       if (id) {
@@ -214,7 +214,7 @@ class MediaTimeline extends Component {
       [...acc, ...instances2.map(({ start_seconds, end_seconds }) =>
         [start_seconds, end_seconds])], []);
 
-    const segments = intersectIntervals(instances);
+    const segments = mergeIntervals(instances);
 
     const events = [...new Set(segments.reduce((acc, [a, b]) =>
       [...acc, a, b], [-1, Number.MAX_VALUE]))].sort((a, b) => a - b);
