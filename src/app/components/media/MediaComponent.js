@@ -100,10 +100,12 @@ class MediaComponent extends Component {
       showLocation,
       showVideoAnnotation: Boolean(temporalInterval && clipId),
       fragment: { t: temporalInterval, id: clipId },
-      playerRef: null,
       playerRect: null,
       videoAnnotationTab: 'timeline',
     };
+
+    this.playerRef = React.createRef();
+
   }
 
   componentDidMount() {
@@ -120,13 +122,12 @@ class MediaComponent extends Component {
     }
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     this.setCurrentContext();
     MediaComponent.scrollToAnnotation();
     if (this.props.media.dbid !== prevProps.media.dbid) {
       this.subscribe();
     }
-    if (prevState.playerRef !== this.state.playerRef) this.setPlayerRect();
   }
 
   componentWillUnmount() {
@@ -157,9 +158,9 @@ class MediaComponent extends Component {
   }
 
   setPlayerRect = () => {
-    // update player rect which used to anchor video anno drawer
-    if (this.state.playerRef) {
-      this.setState({ playerRect: this.state.playerRef.getBoundingClientRect() });
+    // update player rect used to anchor video annotation drawer
+    if (this.playerRef) {
+      this.setState({ playerRect: this.playerRef.current?.getBoundingClientRect() });
     }
   }
 
@@ -260,10 +261,11 @@ class MediaComponent extends Component {
                 hideRelated
                 media={media}
                 onPlayerReady={this.setPlayerRect}
-                onVideoAnnoToggle={() => this.setState({ showVideoAnnotation: true })}
-                setPlayerRef={node => this.setState({ playerRef: node })}
-                setPlayerState={this.setPlayerState}
+                onReady={this.handleMediaDetailReady}
                 onTimelineCommentOpen={this.onTimelineCommentOpen}
+                onVideoAnnoToggle={() => this.setState({ showVideoAnnotation: true })}
+                playerRef={this.playerRef}
+                setPlayerState={this.setPlayerState}
                 {...{
                   playing, start, end, gaps, seekTo, scrubTo, showVideoAnnotation,
                 }}

@@ -56,20 +56,20 @@ class MediaDetail extends Component {
     const {
       annotated,
       annotatedType,
-      media,
-      onPlayerReady,
-      onVideoAnnoToggle,
-      onTimelineCommentOpen,
-      playing,
-      start,
       end,
       gaps,
+      intl: { locale },
+      media,
+      onPlayerReady,
+      onTimelineCommentOpen,
+      onVideoAnnoToggle,
+      playerRef,
+      playing,
       scrubTo,
       seekTo,
       setPlayerState,
-      setPlayerRef,
       showVideoAnnotation,
-      intl: { locale },
+      start,
     } = this.props;
 
     const isRtl = rtlDetect.isRtlLang(locale);
@@ -107,18 +107,18 @@ class MediaDetail extends Component {
             mediaUrl={mediaUrl}
             isRtl={isRtl}
             {...{
-              onPlayerReady,
-              onVideoAnnoToggle,
-              onTimelineCommentOpen,
-              playing,
-              start,
               end,
               gaps,
+              onPlayerReady,
+              onTimelineCommentOpen,
+              onVideoAnnoToggle,
+              playerRef,
+              playing,
               scrubTo,
               seekTo,
-              setPlayerRef,
               setPlayerState,
               showVideoAnnotation,
+              start,
             }}
           /> }
       </Card>
