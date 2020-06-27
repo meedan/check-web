@@ -133,7 +133,7 @@ class MediaMetadata extends Component {
               media={media}
               onVideoAnnoToggle={this.props.onVideoAnnoToggle}
               showVideoAnnotation={this.props.showVideoAnnotation}
-              reverseImageSearchGoogle={() => this.reverseImageSearchGoogle.bind(this)}
+              reverseImageSearchGoogle={this.reverseImageSearchGoogle.bind(this)}
             />
             { (media.media && media.media.file_path) ?
               <div
