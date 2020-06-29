@@ -72,6 +72,19 @@ const StyledMediaTagsContainer = styled.div`
   .media-tags__language {
     white-space: nowrap;
   }
+
+  .media-tags__list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: ${units(0.5)};
+    margin: 0;
+
+    li {
+      margin: ${units(0.5)};
+    }
+  }
 `;
 
 // TODO Fix a11y issues
@@ -113,10 +126,14 @@ class MediaTags extends Component {
     }
 
     // Get the video tags with earliest timestamp
-    Object.keys(fragments).forEach((tag_text) => {
-      fragments[tag_text].sort((a, b) =>
-        (a.node.fragment > b.node.fragment) ? 1 : -1);
-      splitTags.videoTags.push(fragments[tag_text][0]);
+    Object.values(fragments).forEach((tagFragments) => {
+      tagFragments.sort((a, b) => {
+        const aStart = parseFloat(a.node.fragment.match(/(\d+\.\d+)/)[0]);
+        const bStart = parseFloat(b.node.fragment.match(/(\d+\.\d+)/)[0]);
+        return aStart - bStart;
+      });
+
+      splitTags.videoTags.push(tagFragments[0]);
     });
 
     return splitTags;
@@ -199,20 +216,22 @@ class MediaTags extends Component {
                 {tags.map((tag) => {
                   if (tag.node.tag_text) {
                     return (
-                      <Chip
-                        icon={
-                          tag.node.fragment ?
-                            <VideoAnnotationIcon
-                              onClick={e =>
-                                this.handleVideoAnnotationIconClick(e, tag.node.fragment)}
-                            />
-                            : null
-                        }
-                        key={tag.node.id}
-                        className="media-tags__tag"
-                        onClick={this.handleTagViewClick.bind(this, tag.node.tag_text)}
-                        label={tag.node.tag_text.replace(/^#/, '')}
-                      />
+                      <li>
+                        <Chip
+                          icon={
+                            tag.node.fragment ?
+                              <VideoAnnotationIcon
+                                onClick={e =>
+                                  this.handleVideoAnnotationIconClick(e, tag.node.fragment)}
+                              />
+                              : null
+                          }
+                          key={tag.node.id}
+                          className="media-tags__tag"
+                          onClick={this.handleTagViewClick.bind(this, tag.node.tag_text)}
+                          label={tag.node.tag_text.replace(/^#/, '')}
+                        />
+                      </li>
                     );
                   }
                   return null;
@@ -222,41 +241,43 @@ class MediaTags extends Component {
             <div style={{ display: 'flex', alignItems: 'flex-end' }}>
               {media.language ?
                 <ul className="media-tags__list">
-                  <Chip
-                    className="media-tags__tag media-tags__language"
-                    label={this.state.correctingLanguage ?
-                      <span>
-                        {this.props.intl.formatMessage(messages.language, { language: '' })}
-                        {' '}
-                        <StyledLanguageSelect>
-                          <LanguageSelector
-                            onChange={this.handleLanguageChange.bind(this)}
-                            team={media.team}
-                            selected={media.language_code}
-                          />
-                        </StyledLanguageSelect>
-                        {' '}
-                        <StyledLanguageIcon>
-                          <CancelIcon
-                            onClick={this.handleCorrectLanguageCancel.bind(this)}
-                          />
-                        </StyledLanguageIcon>
-                      </span> :
-                      <span>
-                        {this.props.intl.formatMessage(
-                          messages.language,
-                          { language: media.language },
-                        )}
-                        <Can permissions={media.permissions} permission="create Dynamic">
+                  <li>
+                    <Chip
+                      className="media-tags__tag media-tags__language"
+                      label={this.state.correctingLanguage ?
+                        <span>
+                          {this.props.intl.formatMessage(messages.language, { language: '' })}
+                          {' '}
+                          <StyledLanguageSelect>
+                            <LanguageSelector
+                              onChange={this.handleLanguageChange.bind(this)}
+                              team={media.team}
+                              selected={media.language_code}
+                            />
+                          </StyledLanguageSelect>
+                          {' '}
                           <StyledLanguageIcon>
-                            <EditIcon
-                              onClick={this.handleCorrectLanguage.bind(this)}
+                            <CancelIcon
+                              onClick={this.handleCorrectLanguageCancel.bind(this)}
                             />
                           </StyledLanguageIcon>
-                        </Can>
-                      </span>
-                    }
-                  />
+                        </span> :
+                        <span>
+                          {this.props.intl.formatMessage(
+                            messages.language,
+                            { language: media.language },
+                          )}
+                          <Can permissions={media.permissions} permission="create Dynamic">
+                            <StyledLanguageIcon>
+                              <EditIcon
+                                onClick={this.handleCorrectLanguage.bind(this)}
+                              />
+                            </StyledLanguageIcon>
+                          </Can>
+                        </span>
+                      }
+                    />
+                  </li>
                 </ul>
                 : null}
             </div>
