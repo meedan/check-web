@@ -24,7 +24,7 @@ import CheckContext from '../../CheckContext';
 import globalStrings from '../../globalStrings';
 import { withSetFlashMessage } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
-import { getErrorMessage, getCurrentProject } from '../../helpers';
+import { getErrorMessage, getCurrentProject, getCurrentProjectId } from '../../helpers';
 
 const messages = defineMessages({
   mediaTitle: {
@@ -397,19 +397,11 @@ class MediaActionsBarComponent extends Component {
   }
 
   handleRestore() {
-    const onSuccess = (response) => {
-      const pm = response.updateProjectMedia.project_media;
+    const onSuccess = () => {
       const message = (
         <FormattedMessage
           id="mediaActionsBar.movedBack"
-          defaultMessage="Restored to list {project}"
-          values={{
-            project: (
-              <Link to={`/${pm.team.slug}/project/${pm.project_id}`}>
-                {pm.project.title}
-              </Link>
-            ),
-          }}
+          defaultMessage="Restored from trash"
         />
       );
       this.props.setFlashMessage(message);
@@ -426,7 +418,7 @@ class MediaActionsBarComponent extends Component {
         media: this.props.media,
         archived: 0,
         check_search_team: this.props.media.team.search,
-        check_search_project: this.props.media.project.search,
+        check_search_project: getCurrentProject(this.props.media.projects),
         check_search_trash: this.props.media.team.check_search_trash,
         context,
       }),
@@ -438,8 +430,7 @@ class MediaActionsBarComponent extends Component {
     const { classes, media, intl: { locale } } = this.props;
     const context = this.getContext();
     const ids = this.props.media.project_ids;
-    const currentProject = getCurrentProject(this.props.media.projects);
-    const currentProjectId = currentProject ? currentProject.dbid : 0;
+    const currentProjectId = getCurrentProjectId(ids);
     const showRemoveFromList = ids.indexOf(currentProjectId) > -1;
 
     const addToListDialogActions = [

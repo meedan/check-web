@@ -44,6 +44,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
           log_count,
           archived,
           permissions,
+          project_ids,
           media {
             metadata,
             url,

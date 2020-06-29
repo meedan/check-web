@@ -10,7 +10,7 @@ import LockIcon from '@material-ui/icons/Lock';
 import styled from 'styled-components';
 import { can } from '../Can';
 import CheckContext from '../../CheckContext';
-import { getStatus, getErrorMessage, bemClass } from '../../helpers';
+import { getStatus, getErrorMessage, bemClass, getCurrentProjectId } from '../../helpers';
 import { mediaStatuses, mediaLastStatus, stringHelper } from '../../customHelpers';
 import { withSetFlashMessage } from '../FlashMessage';
 
@@ -44,7 +44,8 @@ class MediaStatusCommon extends Component {
 
   handleEdit() {
     const { media } = this.props;
-    const projectPart = media.project_id ? `/project/${media.project_id}` : '';
+    const projectId = getCurrentProjectId(media.project_ids);
+    const projectPart = projectId ? `/project/${projectId}` : '';
     browserHistory.push(`/${media.team.slug}${projectPart}/media/${media.dbid}/embed`);
   }
 

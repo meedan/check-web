@@ -9,6 +9,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
 import { can } from '../Can';
+import { getCurrentProjectId } from '../../helpers';
 
 const StyledIconMenuWrapper = styled.div`
   margin-${props => (props.isRtl ? 'right' : 'left')}: auto;
@@ -36,7 +37,8 @@ class MediaActions extends Component {
 
   handleEmbed() {
     const { media } = this.props;
-    const projectPart = media.project_id ? `/project/${media.project_id}` : '';
+    const projectId = getCurrentProjectId(media.project_ids);
+    const projectPart = projectId ? `/project/${projectId}` : '';
     browserHistory.push(`/${media.team.slug}${projectPart}/media/${media.dbid}/embed`);
   }
 
@@ -54,6 +56,9 @@ class MediaActions extends Component {
       handleStatusLock,
     } = this.props;
     const menuItems = [];
+
+    const currentProjectId = getCurrentProjectId(media.project_ids);
+    const showRemoveFromList = media.project_ids.indexOf(currentProjectId) > -1;
 
     if (can(media.permissions, 'update ProjectMedia') && !media.archived && handleEdit) {
       menuItems.push((
@@ -176,8 +181,7 @@ class MediaActions extends Component {
     if (can(media.permissions, 'update ProjectMedia') &&
       !media.archived &&
       handleRemoveFromList &&
-      /project\/[0-9]+/.test(window.location.pathname) &&
-      media.project_id) {
+      showRemoveFromList) {
       menuItems.push((
         <MenuItem
           key="mediaActions.removeFromList"

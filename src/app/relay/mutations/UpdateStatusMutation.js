@@ -21,6 +21,7 @@ class UpdateStatusMutation extends Relay.Mutation {
         dynamicEdge,
         project_media {
           dbid,
+          project_ids,
           targets_by_users,
           log,
           id,

@@ -41,7 +41,7 @@
   },
   {
     "id": "mediaActionsBar.movedBack",
-    "defaultMessage": "Restored to list {project}"
+    "defaultMessage": "Restored from trash"
   },
   {
     "id": "mediaActionsBar.cancelButton",
