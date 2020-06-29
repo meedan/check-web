@@ -79,9 +79,10 @@ class Annotations extends React.Component {
               props.annotations.map(annotation => (
                 <div key={annotation.node.dbid} className="annotations__list-item">
                   <Annotation
-                    annotation={annotation.node}
                     annotated={props.annotated}
                     annotatedType={props.annotatedType}
+                    annotation={annotation.node}
+                    onTimelineCommentOpen={props.onTimelineCommentOpen}
                   />
                 </div>))}
           </div>
