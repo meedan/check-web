@@ -438,11 +438,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector(".switch-teams__joined-team")
       wait_for_selector_list('.teams a').first.click
       wait_for_selector(".project__title")
-      wait_for_selector(".project-list__link-all")
       wait_for_selector(".project-list__link-trash")
       wait_for_selector(".project__title")
       wait_for_selector(".team-header__drawer-team-link").click
-      wait_for_selector(".project-list__link-all")
       wait_for_selector('.project-list__link').click
       wait_for_selector_none(".team-members__edit-button", :css, 10)
 
@@ -454,7 +452,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector(".project__title")
       wait_for_selector(".project-list__link-trash")
       wait_for_selector(".team-header__drawer-team-link").click
-      wait_for_selector(".project-list__link-all")
 
       @driver.navigate.to(@config['self_url'])
       wait_for_selector('.project__title')
@@ -583,8 +580,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_team_and_project(user: user)
       @driver.navigate.to(@config['self_url'] + '/check/me')
       wait_for_selector('#teams-tab')
-      wait_for_selector(".project-list__link-all")
-      expect(@driver.page_source.include?('All items')).to be(true)
+      wait_for_selector('.projects__list a[href$="/all-items"]')
     end
 
     it "should redirect to login page if not logged in and team is private", bin2: true do

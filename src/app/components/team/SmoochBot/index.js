@@ -140,6 +140,7 @@ const SmoochBot = (props) => {
       { currentTab === 0 ?
         <React.Fragment>
           <LanguageSwitcher
+            primaryLanguage={defaultLanguage}
             currentLanguage={currentLanguage || 'en'}
             languages={languages}
             onChange={handleChangeLanguage}

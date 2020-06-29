@@ -3,7 +3,7 @@ import { mediaStatuses, mediaLastStatus } from '../../../customHelpers';
 
 export function defaultOptions(media, language) {
   const { team } = media;
-  const status = getStatus(mediaStatuses(media), mediaLastStatus(media));
+  const status = getStatus(mediaStatuses(media), mediaLastStatus(media), language);
   const teamUrl = team.contacts.edges[0] ?
     team.contacts.edges[0].node.web :
     window.location.href.match(/https?:\/\/[^/]+\/[^/]+/)[0];
