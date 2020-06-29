@@ -64,7 +64,7 @@ class BulkActions extends React.Component {
           teamSearchId: this.props.team.search_id,
           count: this.props.count,
           dstProject: null,
-          dstProjectForAdd: null,
+          dstProjectForAdd: this.state.dstProjForAdd,
           srcProject: null,
           srcProjectForRemove: null,
         }),
@@ -361,7 +361,7 @@ class BulkActions extends React.Component {
           team={this.props.team}
           onClose={this.handleCloseDialogs.bind(this)}
           excludeProjectDbids={this.props.project ? [this.props.project.dbid] : []}
-          value={this.state.dstProjectForAdd}
+          value={this.state.dstProjForAdd}
           onChange={this.handleSelectDestProjectForAdd.bind(this)}
           title={
             <FormattedMessage
