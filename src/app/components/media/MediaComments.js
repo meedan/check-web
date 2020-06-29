@@ -76,6 +76,7 @@ class MediaCommentsComponent extends Component {
           annotations={media.log.edges}
           annotated={media}
           annotatedType="ProjectMedia"
+          onTimelineCommentOpen={this.props.onTimelineCommentOpen}
           noActivityMessage={
             <FormattedMessage
               id="mediaComments.noNote"
@@ -89,8 +90,8 @@ class MediaCommentsComponent extends Component {
 }
 
 MediaCommentsComponent.propTypes = {
-  pusher: pusherShape.isRequired,
   clientSessionId: PropTypes.string.isRequired,
+  pusher: pusherShape.isRequired,
 };
 
 const pageSize = 30;
@@ -228,8 +229,13 @@ const MediaComments = (props) => {
   return (
     <Relay.RootContainer
       Component={MediaCommentsContainer}
-      renderFetched={data =>
-        <MediaCommentsContainer cachedMedia={props.media} style={props.style} {...data} />}
+      renderFetched={data => (
+        <MediaCommentsContainer
+          cachedMedia={props.media}
+          style={props.style}
+          {...data}
+          onTimelineCommentOpen={props.onTimelineCommentOpen}
+        />)}
       route={route}
       renderLoading={() => <MediasLoading count={1} />}
     />

@@ -223,7 +223,7 @@ shared_examples 'smoke' do
     wait_for_selector("input[type=checkbox]").click
     wait_for_selector(".media-bulk-actions__delete-icon").click
     wait_for_selector(".message")
-    wait_for_selector(".project-list__link-all").click
+    wait_for_selector('a[href$="/all-items"]').click
     wait_for_selector_none(".medias__item")
     wait_for_selector(".project-list__item-trash").click #Go to the trash page
     wait_for_selector("//span[contains(text(), 'Trash')]", :xpath)
@@ -234,7 +234,7 @@ shared_examples 'smoke' do
     wait_for_selector("#media-bulk-actions")
     expect(@driver.current_url.to_s.match(/trash/).nil?).to be(false) # trash page
     #item created from "all items" page
-    wait_for_selector(".project-list__link-all").click
+    wait_for_selector('a[href$="/all-items"]').click
     create_media("claim 2")
     wait_for_selector(".media__heading").click
     wait_for_selector("#media-detail__report-designer")
@@ -476,7 +476,7 @@ shared_examples 'smoke' do
     @driver.navigate.to(@config['self_url'] + '/check/me')
     wait_for_selector('#teams-tab').click
     wait_for_selector('.teams a').click
-    wait_for_selector(".project-list__link-all")
+    wait_for_selector('a[href$="/all-items"]')
     wait_for_selector(".project-list__link-trash")
     wait_for_selector(".project__title")
     wait_for_selector(".team-header__drawer-team-link").click
@@ -912,9 +912,9 @@ shared_examples 'smoke' do
     wait_for_selector("#create-project-title").send_keys("project 2")
     @driver.action.send_keys(:enter).perform
     wait_for_selector_none(".media__heading", :css, 5)
-    wait_for_selector_list(".project-list__link")[0].click
+    wait_for_selector(".project-list__link", index: 0).click
     expect(@driver.page_source.include?('Add a link or text')).to be(true)
-    wait_for_selector_list(".project-list__link")[1].click
+    wait_for_selector(".project-list__link", index: 1).click
     wait_for_selector("#media-bulk-actions__actions")
     wait_for_selector(".media__heading").click
     wait_for_selector("#media-actions-bar__move-to").click
@@ -926,7 +926,7 @@ shared_examples 'smoke' do
     wait_for_selector("#search-input")
     wait_for_selector(".media__heading")
     expect(@driver.page_source.include?('My search result')).to be(true)
-    wait_for_selector_list(".project-list__link")[1].click
+    wait_for_selector(".project-list__link", index: 1).click
     wait_for_selector_none(".media__heading", :css, 5)
     expect(@driver.page_source.include?('My search result')).to be(false)
   end
@@ -938,9 +938,9 @@ shared_examples 'smoke' do
     wait_for_selector("#create-project-title").send_keys("project 2")
     @driver.action.send_keys(:enter).perform
     wait_for_selector_none(".media__heading")
-    wait_for_selector_list(".project-list__link")[0].click
+    wait_for_selector(".project-list__link", index: 0).click
     expect(@driver.page_source.include?('Add a link or text')).to be(true)
-    wait_for_selector_list(".project-list__link")[1].click
+    wait_for_selector(".project-list__link", index: 1).click
     wait_for_selector(".media__heading").click
     wait_for_selector("#media-actions-bar__add-to").click
     wait_for_selector('.Select-input input').send_keys('Project')
@@ -950,7 +950,7 @@ shared_examples 'smoke' do
     wait_for_selector_none(".Select-placeholder")
     wait_for_selector(".message").click
     wait_for_selector(".project-header__back-button").click
-    wait_for_selector_list(".project-list__link")[0].click
+    wait_for_selector(".project-list__link", index: 0).click
     wait_for_selector(".media__heading")
     expect(@driver.page_source.include?('My search result')).to be(true)
   end
@@ -966,10 +966,11 @@ shared_examples 'smoke' do
     create_media("claim 2")
     wait_for_selector_list_size(".medias__item", 2)
     expect(@driver.page_source.include?('Add a link or text')).to be(false)
-    wait_for_selector('.project-list__link-container + .project-list__link-container .project-list__link').click #Go to the second project
+    # 0th <a> is "All items"; 1st is project 1; 2nd is project 2
+    wait_for_selector('.projects__list a', index: 2).click  # project 2
     wait_for_selector_none(".medias__item")
     expect(@driver.page_source.include?('Add a link or text')).to be(true)
-    wait_for_selector('.project-list__link').click #Go back to the first project
+    wait_for_selector('.projects__list a', index: 1).click  # project 1
     wait_for_selector_list_size(".medias__item", 2)
     wait_for_selector("thead input[type='checkbox']:not(:checked)").click
     wait_for_selector("#media-bulk-actions__add-icon").click
@@ -978,8 +979,8 @@ shared_examples 'smoke' do
     @driver.action.send_keys(:enter).perform
     wait_for_selector('.media-bulk-actions__add-button').click
     wait_for_selector_none(".Select-placeholder")
-    wait_for_selector('.project-list__link-container + .project-list__link-container .project-list__link').click # Go to the second project
-    wait_for_selector_list_size(".medias__item", 2, :css , 80)
+    wait_for_selector('.projects__list a', index: 2).click  # project 2
+    wait_for_selector_list_size(".medias__item", 2, :css)
     expect(@driver.page_source.include?('claim 1')).to be(true)
     expect(@driver.page_source.include?('claim 2')).to be(true)
     wait_for_selector("thead input[type='checkbox']:not(:checked)").click
@@ -987,7 +988,7 @@ shared_examples 'smoke' do
     wait_for_selector_none(".medias__item")
     expect(@driver.page_source.include?('Add a link or text')).to be(true)
     wait_for_selector(".project-list__item-trash").click #Go to the trash page
-    wait_for_selector_list_size(".medias__item", 2, :css , 90)
+    wait_for_selector_list_size(".medias__item", 2, :css)
     expect(@driver.page_source.include?('claim 1')).to be(true)
     expect(@driver.page_source.include?('claim 2')).to be(true)
   end
@@ -1006,8 +1007,8 @@ shared_examples 'smoke' do
     wait_for_selector("body input[type='checkbox']:not(:checked)").click
     wait_for_selector("#media-bulk-actions__actions").click
     wait_for_selector(".message")
-    wait_for_selector(".project-list__item-all").click
-    wait_for_selector_list_size(".medias__item", 1, :css , 90)
+    wait_for_selector(".projects__list a[href$='/all-items']").click
+    wait_for_selector_list_size(".medias__item", 1, :css)
     expect(@driver.page_source.include?("Claim")).to be(true)
   end
 
@@ -1136,7 +1137,7 @@ shared_examples 'smoke' do
 
     #edit team member role
     change_the_member_role_to('li.role-journalist')
-    el = wait_for_selector('input[name="role-select"]', :css, 29, 1)
+    el = wait_for_selector('input[name="role-select"]', index: 1)
     expect(el.property('value')).to eq 'journalist'
 
     # "should redirect to team page if user asking to join a team is already a member"
@@ -1230,11 +1231,11 @@ shared_examples 'smoke' do
     expect(elems.size).to be > 1
     #edit team member role
     change_the_member_role_to('li.role-journalist')
-    el = wait_for_selector('input[name="role-select"]', :css, 29, 1)
+    el = wait_for_selector('input[name="role-select"]', index: 1)
     expect(el.property('value')).to eq 'journalist'
 
     #create one media
-    wait_for_selector_list(".project-list__link")[0].click
+    wait_for_selector(".project-list__link", index: 0).click
     create_media("one item")
     wait_for_selector_list_size(".medias__item", 1)
     expect(@driver.page_source.include?('one item')).to be(true)
@@ -1267,7 +1268,7 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('Requests to join')).to be(false)
 
     #go to the project that you don't own and can't see the actions icon
-    wait_for_selector_list(".project-list__link")[0].click
+    wait_for_selector(".project-list__link", index: 0).click
     wait_for_selector_none(".project-actions__icon") #actions icon
     expect(@driver.find_elements(:css, ".project-actions__icon").size).to eq 0
 
@@ -1304,7 +1305,7 @@ shared_examples 'smoke' do
     @driver.navigate.to @config['self_url'] + "/"+@team1_slug
     #edit team member role
     change_the_member_role_to('li.role-contributor')
-    el = wait_for_selector('input[name="role-select"]', :css, 29, 1)
+    el = wait_for_selector('input[name="role-select"]', index: 1)
     expect(el.property('value')).to eq 'contributor'
 
     api_logout
@@ -1324,8 +1325,8 @@ shared_examples 'smoke' do
     expect(@driver.find_elements(:css, ".create-project-title").size).to eq 0
 
     #go to the project and can't see the icon 'change the status' that the media you don't own
-    wait_for_selector_list(".project-list__link")[0].click
-    wait_for_selector_list(".media__heading a")[1].click
+    wait_for_selector(".project-list__link", index: 0).click
+    wait_for_selector(".media__heading a", index: 1).click
     wait_for_selector(".create-related-media__add-button")
     expect(@driver.find_elements(:css, ".media-status button[disabled]").size).to eq 1
   end
@@ -1356,13 +1357,13 @@ shared_examples 'smoke' do
 
     # Select a condition and set a value for it
     wait_for_selector('.rules__rule-field div[role="button"]').click
-    wait_for_selector('ul li').click
+    wait_for_selector('ul[role=listbox] li[role=option]').click
     wait_for_selector('.rules__rule-field textarea').send_keys('foo,bar')
     wait_for_selector('body').click
 
     # Select an action
     wait_for_selector('.rules__actions .rules__rule-field div[role="button"]').click
-    wait_for_selector('ul li').click
+    wait_for_selector('ul[role=listbox] li[role=option]').click
     expect(@driver.page_source.include?('Select destination list')).to be(true)
 
     # Set rule name

@@ -35,4 +35,11 @@ window.config = {
   // OPTIONAL
   //
   intercomAppId: null, // '<INTERCOM APP ID>',
+
+  // Google Maps is used to show maps for the video timeline https://cloud.google.com/maps-platform/
+  //
+  // OPTIONAL
+  // Only needed for video timeline map
+  //
+  googleMapsApiKey: null, // '<GOOGLE MAPS API KEY>',
 }

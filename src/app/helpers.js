@@ -3,13 +3,6 @@ import LinkifyIt from 'linkify-it';
 import { toArray } from 'react-emoji-render';
 
 /**
- * Functionally-pure sort: keeps the given array unchanged and returns sorted one.
- */
-Array.prototype.sortp = function sortp(fn) {
-  return [].concat(this).sort(fn);
-};
-
-/**
  * TODO
  */
 function bemClass(baseClass, modifierBoolean, modifierSuffix) {
@@ -48,7 +41,7 @@ function nested(path, obj) {
 /**
  * Find a status given its id.
  */
-function getStatus(statusesParam, id) {
+function getStatus(statusesParam, id, language) {
   let statusesJson = statusesParam;
   if (typeof statusesJson === 'string') {
     statusesJson = JSON.parse(statusesJson);
@@ -57,9 +50,13 @@ function getStatus(statusesParam, id) {
   let status = '';
   statuses.forEach((st) => {
     if (st.id === id) {
-      status = st;
+      status = JSON.parse(JSON.stringify(st));
     }
   });
+  if (language) {
+    status.label = status.locales[language] ?
+      status.locales[language].label : status.locales.en.label;
+  }
   return status;
 }
 
