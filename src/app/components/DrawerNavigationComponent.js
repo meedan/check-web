@@ -9,28 +9,17 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import { withStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
-import styled from 'styled-components';
-import IconSettings from '@material-ui/icons/Settings';
-import Delete from '@material-ui/icons/Delete';
+import DeleteIcon from '@material-ui/icons/Delete';
 import { withPusher, pusherShape } from '../pusher';
 import DrawerProjects from './drawer/Projects';
-import TeamAvatar from './team/TeamAvatar';
-import { stringHelper } from '../customHelpers';
+import DrawerHeader from './drawer/DrawerHeader';
 import UserMenuRelay from '../relay/containers/UserMenuRelay';
 import CheckContext from '../CheckContext';
 import {
   AlignOpposite,
   Row,
-  OffsetBothSides,
-  StyledHeading,
-  white,
   body1,
-  black05,
   units,
-  caption,
-  separationGray,
-  SmallerStyledIconButton,
-  Text,
 } from '../styles/js/shared';
 
 // TODO Fix a11y issues
@@ -102,8 +91,9 @@ class DrawerNavigationComponent extends Component {
   }
 
   render() {
-    const { loggedIn, classes } = this.props;
-    const inTeamContext = this.props.team;
+    const {
+      team, currentUserIsMember, loggedIn, classes,
+    } = this.props;
 
     // This component now renders based on teamPublicFragment
     // and decides whether to include <Project> which has its own team route/relay
@@ -111,43 +101,6 @@ class DrawerNavigationComponent extends Component {
     // See DrawerNavigation
     //
     // — @chris with @alex 2017-10-3
-
-    const { currentUserIsMember } = this.props;
-
-    const drawerHeaderHeight = units(10);
-
-    const styles = {
-      drawerFooter: {
-        display: 'flex',
-        alignItems: 'flex-start',
-        justifyContent: 'space-between',
-        backgroundColor: white,
-        padding: `${units(2)}`,
-        flexWrap: 'wrap',
-      },
-      drawerFooterLink: {
-        font: caption,
-      },
-      drawerProjects: {
-        overflowX: 'hidden',
-        overflowY: 'auto',
-        marginBottom: 'auto',
-      },
-      drawerProjectsAndFooter: {
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        height: `calc(100vh - ${drawerHeaderHeight})`,
-      },
-    };
-
-    const DrawerHeader = styled.div`
-      min-width: ${units(32)};
-      max-width: ${units(32)};
-      height: ${drawerHeaderHeight};
-      background-color: ${black05};
-      padding: ${units(2)};
-    `;
 
     const saveCurrentPage = () => {
       if (window.location.pathname !== '/') {
@@ -157,112 +110,44 @@ class DrawerNavigationComponent extends Component {
 
     return (
       <Drawer open variant="persistent" anchor="left" classes={classes}>
-        <div>
-          {inTeamContext ? (
-            <DrawerHeader
-              style={{
-                padding: '10px',
-                height: '68px',
-                backgroundColor: 'white',
-                borderBottom: `1px solid ${separationGray}`,
-              }}
-            >
-              <Row>
-                <Link
-                  className="team-header__drawer-team-link"
-                  style={{ cursor: 'pointer' }}
-                  to={`/${this.props.team.slug}/`}
-                >
-                  <Row>
-                    <TeamAvatar
-                      size={units(5.5)}
-                      team={this.props.team}
-                    />
-                    <OffsetBothSides
-                      style={{
-                        paddingRight: '0',
-                      }}
-                    >
-                      <StyledHeading>
-                        <Text maxWidth={units(20)} ellipsis>
-                          {this.props.team.name}
-                        </Text>
-                      </StyledHeading>
-                    </OffsetBothSides>
+        <DrawerHeader team={team} loggedIn={loggedIn} currentUserIsMember={currentUserIsMember} />
+        <Divider />
+        {!!team && (currentUserIsMember || !this.props.team.private) ? (
+          <DrawerProjects team={team.slug} />
+        ) : null}
+        {!!team && currentUserIsMember ? (
+          <Link to={`/${team.slug}/trash`} className="project-list__link-trash">
+            <MenuItem className="project-list__item-trash">
+              <ListItemIcon>
+                <DeleteIcon />
+              </ListItemIcon>
+              <ListItemText
+                primary={
+                  <Row style={{ font: body1 }}>
+                    <FormattedMessage id="projects.trash" defaultMessage="Trash" />
+                    <AlignOpposite>
+                      {String(this.props.team.trash_count)}
+                    </AlignOpposite>
                   </Row>
-                </Link>
-                <AlignOpposite>
-                  { currentUserIsMember ?
-                    <SmallerStyledIconButton
-                      className="team-menu__team-settings-button"
-                      style={{
-                        padding: '12px 0 12px 0',
-                        width: 'none',
-                      }}
-                      onClick={this.handleClickTeamSettings.bind(this)}
-                      tooltip={
-                        <FormattedMessage id="teamMenu.teamSettings" defaultMessage="Workspace settings" />
-                      }
-                    >
-                      <IconSettings />
-                    </SmallerStyledIconButton> : null
-                  }
-                </AlignOpposite>
-              </Row>
-            </DrawerHeader>
-          ) : (
-            <DrawerHeader>
-              <Row style={{ alignItems: 'flex-start', justifyContent: 'space-between' }}>
-                {loggedIn ? (
-                  <img width={units(8)} alt="Team Logo" src={stringHelper('LOGO_URL')} />
-                ) : null}
-              </Row>
-            </DrawerHeader>
-          )}
-          <div style={styles.drawerProjectsAndFooter}>
-            <div style={styles.drawerProjects}>
-              {inTeamContext && (currentUserIsMember || !this.props.team.private)
-                ? <DrawerProjects team={this.props.team.slug} />
-                : null}
-            </div>
-            { inTeamContext && currentUserIsMember ?
-              <Link
-                to={`/${this.props.team.slug}/trash`}
-                className="project-list__link-trash"
+                }
+              />
+            </MenuItem>
+          </Link>
+        ) : null}
+        <Divider />
+        <div className="drawer__footer">
+          {loggedIn ? <div><UserMenuRelay {...this.props} /></div> : (
+            <Link to="/">
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={saveCurrentPage}
+                style={{ width: '100%' }}
               >
-                <MenuItem className="project-list__item-trash">
-                  <ListItemIcon>
-                    <Delete />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={
-                      <Row style={{ font: body1 }}>
-                        <FormattedMessage id="projects.trash" defaultMessage="Trash" />
-                        <AlignOpposite>
-                          {String(this.props.team.trash_count)}
-                        </AlignOpposite>
-                      </Row>
-                    }
-                  />
-                </MenuItem>
-              </Link>
-              : null }
-            <Divider />
-            <div className="drawer__footer">
-              {loggedIn ? <div><UserMenuRelay {...this.props} /></div> : (
-                <Link to="/">
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={saveCurrentPage}
-                    style={{ width: '100%' }}
-                  >
-                    <FormattedMessage defaultMessage="Sign In" id="headerActions.signIn" />
-                  </Button>
-                </Link>
-              )}
-            </div>
-          </div>
+                <FormattedMessage defaultMessage="Sign In" id="headerActions.signIn" />
+              </Button>
+            </Link>
+          )}
         </div>
       </Drawer>
     );
@@ -288,6 +173,9 @@ const drawerStyles = {
   },
   root: {
     width: units(32),
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100vh',
   },
 };
 

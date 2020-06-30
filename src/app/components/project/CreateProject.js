@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
@@ -9,6 +9,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
 import CreateProjectMutation from '../../relay/mutations/CreateProjectMutation';
 import CheckContext from '../../CheckContext';
 import { getErrorMessage } from '../../helpers';
@@ -40,7 +41,19 @@ const messages = defineMessages({
   },
 });
 
-class CreateProject extends Component {
+const Styles = theme => ({
+  rootCard: {
+  },
+  rootNotCard: {
+    padding: theme.spacing(0, 2),
+  },
+  rootHidden: {
+    visibility: 'hidden',
+    pointerEvents: 'none',
+  },
+});
+
+class CreateProject extends React.Component {
   constructor(props) {
     super(props);
 
@@ -99,8 +112,15 @@ class CreateProject extends Component {
   }
 
   render() {
+    const {
+      classes, team, visible, renderCard,
+    } = this.props;
+    const className = `${renderCard ? classes.rootCard : classes.rootNotCard} ${visible ? '' : classes.rootHidden}`;
+    const disabled = !visible;
+
     const textInput = (
       <TextField
+        key={visible /* re-render -- and thus autofocus -- when visible becomes true */}
         id="create-project-title"
         className={this.props.className || 'team__new-project-input'}
         placeholder={this.props.intl.formatMessage(messages.newProjectName)}
@@ -111,6 +131,7 @@ class CreateProject extends Component {
         value={this.state.name}
         onChange={this.handleChange}
         onKeyDown={this.handleKeyDown}
+        disabled={disabled}
         fullWidth
       />
     );
@@ -120,33 +141,27 @@ class CreateProject extends Component {
         id="create-project-submit-button"
         onClick={this.handleSubmit.bind(this)}
         color="primary"
-        disabled={!this.state.name}
+        disabled={disabled || !this.state.name}
       >
         {this.props.intl.formatMessage(messages.addProject)}
       </Button>
     );
 
     const form = (
-      <form onSubmit={this.handleSubmit.bind(this)} className="create-project">
+      <form onSubmit={this.handleSubmit.bind(this)} disabled={disabled} className={className}>
         {textInput}
         {submitButton}
       </form>
     );
 
-    const { team } = this.props;
-
-    if (this.props.renderCard) {
+    if (renderCard) {
       const cardTitle = team.projects.edges.length
         ? messages.cardTitle
         : messages.cardTitleBlank;
 
       return (
-        <Card
-          style={{ marginBottom: units(2) }}
-        >
-          <CardHeader
-            title={this.props.intl.formatMessage(cardTitle)}
-          />
+        <Card className={className} style={{ marginBottom: units(2) }}>
+          <CardHeader title={this.props.intl.formatMessage(cardTitle)} />
           <CardContent>
             <form onSubmit={this.handleSubmit.bind(this)} className="create-project">
               {textInput}
@@ -162,15 +177,18 @@ class CreateProject extends Component {
     return form;
   }
 }
-
+CreateProject.defaultProps = {
+  visible: true,
+};
 CreateProject.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
+  visible: PropTypes.bool, // default true
 };
 
 CreateProject.contextTypes = {
   store: PropTypes.object,
 };
 
-export default injectIntl(CreateProject);
+export default withStyles(Styles)(injectIntl(CreateProject));
