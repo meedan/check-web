@@ -1,13 +1,5 @@
 [
   {
-    "id": "bot.confirmInstall",
-    "defaultMessage": "Are you sure you want to install bot in {teamName}?"
-  },
-  {
-    "id": "bot.confirmUninstall",
-    "defaultMessage": "Are you sure you want to uninstall this bot from {teamName}?"
-  },
-  {
     "id": "bot.cantChange",
     "defaultMessage": "Sorry, an error occurred while updating the bot. Please try again and contact {supportEmail} if the condition persists."
   },

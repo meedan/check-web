@@ -390,6 +390,25 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
 
     return configs;
   }
+
+  static fragments = {
+    srcProj: () => Relay.QL`
+      fragment on Project {
+        id
+        dbid
+        search_id
+        medias_count
+      }
+    `,
+    dstProj: () => Relay.QL`
+      fragment on Project {
+        id
+        dbid
+        search_id
+        medias_count
+      }
+    `,
+  };
 }
 
 export default UpdateProjectMediaMutation;

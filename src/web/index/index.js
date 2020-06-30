@@ -3,9 +3,19 @@ import { render } from 'react-dom';
 import { addLocaleData } from 'react-intl';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { ThemeProvider } from 'styled-components';
+import { Helmet } from 'react-helmet';
 import rtlDetect from 'rtl-detect';
 import thunk from 'redux-thunk';
+import { create as jssCreate } from 'jss';
+import rtl from 'jss-rtl';
+import {
+  StylesProvider,
+  MuiThemeProvider,
+  createMuiTheme,
+  jssPreset,
+} from '@material-ui/core/styles';
 import Root from '../../app/components/Root';
+import { MuiTheme } from '../../app/styles/js/shared';
 import { FlashMessageProvider } from '../../app/components/FlashMessage';
 import { subscribe as pusherSubscribe, unsubscribe as pusherUnsubscribe, PusherContext } from '../../app/pusher';
 import { ClientSessionIdContext, generateRandomClientSessionId } from '../../app/ClientSessionId';
@@ -45,22 +55,33 @@ const pusherContextValue = {
 
 const clientSessionId = generateRandomClientSessionId();
 
-const styledComponentsTheme = {
-  dir: rtlDetect.isRtlLang(locale) ? 'rtl' : 'ltr',
-};
+const dir = rtlDetect.isRtlLang(locale) ? 'rtl' : 'ltr';
+const styledComponentsTheme = { dir };
+const muiTheme = createMuiTheme({ direction: dir, ...MuiTheme });
+// JSS and StylesProvider and <Helmet><body> are to make material-ui
+// support right-to-left (e.g., Arabic).
+// See https://material-ui.com/guides/right-to-left/
+const jss = jssCreate({ plugins: [...jssPreset().plugins, rtl()] });
 
 const callback = (translations) => {
   render(
     (
-      <ClientSessionIdContext.Provider value={clientSessionId}>
-        <PusherContext.Provider value={pusherContextValue}>
-          <FlashMessageProvider>
-            <ThemeProvider theme={styledComponentsTheme}>
-              <Root store={store} translations={translations} locale={locale} />
-            </ThemeProvider>
-          </FlashMessageProvider>
-        </PusherContext.Provider>
-      </ClientSessionIdContext.Provider>
+      <React.Fragment>
+        <Helmet><body dir={dir} /></Helmet>
+        <ClientSessionIdContext.Provider value={clientSessionId}>
+          <PusherContext.Provider value={pusherContextValue}>
+            <FlashMessageProvider>
+              <ThemeProvider theme={styledComponentsTheme}>
+                <StylesProvider jss={jss}>
+                  <MuiThemeProvider theme={muiTheme}>
+                    <Root store={store} translations={translations} locale={locale} />
+                  </MuiThemeProvider>
+                </StylesProvider>
+              </ThemeProvider>
+            </FlashMessageProvider>
+          </PusherContext.Provider>
+        </ClientSessionIdContext.Provider>
+      </React.Fragment>
     ),
     document.getElementById('root'),
   );

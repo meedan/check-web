@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
-import { injectIntl, FormattedMessage } from 'react-intl';
-import rtlDetect from 'rtl-detect';
+import { FormattedMessage } from 'react-intl';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import UserEmail from '../user/UserEmail';
@@ -49,19 +48,13 @@ class UserComponent extends React.Component {
   render() {
     const { user } = this.props;
     const isEditing = this.props.route.isEditing && can(user.permissions, 'update User');
-    const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
     const context = this.getContext();
     const isUserSelf = (user.id === context.currentUser.id);
-
-    const direction = {
-      from: isRtl ? 'right' : 'left',
-      to: isRtl ? 'left' : 'right',
-    };
 
     return (
       <PageTitle prefix={user.name}>
         <div className="source">
-          <HeaderCard direction={direction}>
+          <HeaderCard>
             <ContentColumn>
               { isEditing ?
                 <UserInfoEdit user={user} /> :
@@ -127,14 +120,8 @@ class UserComponent extends React.Component {
               null :
               <div>
                 <UserEmail user={user} />
-                { this.state.showTab === 'teams' ? <SwitchTeamsComponent user={user} isRtl={isRtl} /> : null}
-                { this.state.showTab === 'assignments' ?
-                  <UserAssignments
-                    direction={direction}
-                    user={user}
-                    isRtl={isRtl}
-                  /> : null
-                }
+                { this.state.showTab === 'teams' ? <SwitchTeamsComponent user={user} /> : null}
+                { this.state.showTab === 'assignments' ? <UserAssignments user={user} /> : null}
                 { this.state.showTab === 'privacy' ? <UserPrivacy user={user} /> : null}
                 { this.state.showTab === 'security' ? <UserSecurity user={user} /> : null}
               </div>
@@ -150,4 +137,4 @@ UserComponent.contextTypes = {
   store: PropTypes.object,
 };
 
-export default injectIntl(UserComponent);
+export default UserComponent;

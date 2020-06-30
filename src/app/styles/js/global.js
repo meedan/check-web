@@ -83,8 +83,6 @@ export const typography = `
 
 export const localeAr = `
   [lang="ar"] {
-    direction: rtl;
-
     * {
       letter-spacing: 0 !important;
     }
@@ -97,7 +95,7 @@ export const localeAr = `
       font-size: 11px;
     }
 
-    .footer {
+    footer {
       font-size: 14px;
     }
 
