@@ -278,9 +278,11 @@ class MediaComponent extends Component {
             <Column className="media__annotations-column">
               <Tabs
                 indicatorColor="primary"
-                textColor="primary"
-                value={this.state.showTab}
                 onChange={this.handleTabChange}
+                scrollButtons="auto"
+                textColor="primary"
+                variant="scrollable"
+                value={this.state.showTab}
               >
                 { this.state.showRequests ?
                   <Tab
