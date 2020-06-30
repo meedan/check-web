@@ -114,7 +114,7 @@ class MediaExpandedComponent extends Component {
     const isPender = media.media.url && data.provider !== 'page';
     const isYoutube = media.media.url && media.domain === 'youtube.com';
     const randomNumber = Math.floor(Math.random() * 1000000);
-    const { isRtl, mediaUrl, mediaQuery } = this.props;
+    const { mediaUrl, mediaQuery } = this.props;
     const hasCustomDescription = MediaUtil.hasCustomDescription(media, data);
 
     const embedCard = (() => {
@@ -156,7 +156,6 @@ class MediaExpandedComponent extends Component {
             mediaUrl={mediaUrl}
             mediaQuery={mediaQuery}
             data={data}
-            isRtl={isRtl}
             authorName={authorName}
             authorUserName={authorUsername}
           />

@@ -10,7 +10,6 @@ import Collapse from '@material-ui/core/Collapse';
 import EditIcon from '@material-ui/icons/Edit';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import styled from 'styled-components';
-import rtlDetect from 'rtl-detect';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
 import EditTaskDialog from './EditTaskDialog';
@@ -488,13 +487,6 @@ class Task extends Component {
       }
     });
 
-    const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
-
-    const direction = {
-      from: isRtl ? 'right' : 'left',
-      to: isRtl ? 'left' : 'right',
-    };
-
     const taskAssignment = task.assignments.edges.length > 0 && !response ? (
       <div className="task__assigned" style={{ display: 'flex', alignItems: 'center', width: 420 }}>
         <small style={{ display: 'flex' }}>
@@ -513,16 +505,13 @@ class Task extends Component {
     ) : null;
 
     const taskActionsStyle = {
-      marginLeft: 'auto',
-      position: 'absolute',
-      bottom: '0',
+      textAlign: 'end',
     };
-    taskActionsStyle[direction.to] = units(0.5);
 
     const zeroAnswer = task.responses.edges.length === 0;
 
     const taskActions = !media.archived ? (
-      <div style={{ position: 'relative' }}>
+      <div>
         {taskAssignment}
         {data.by ?
           <div className="task__resolver" style={{ display: 'flex', alignItems: 'center', marginTop: units(1) }}>

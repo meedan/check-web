@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
 import { Link } from 'react-router';
 import ListItem from '@material-ui/core/ListItem';
-import MdClear from 'react-icons/lib/md/clear';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import ListItemText from '@material-ui/core/ListItemText';
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
-import Button from '@material-ui/core/Button';
-import rtlDetect from 'rtl-detect';
-import RCTooltip from 'rc-tooltip';
+import { withStyles } from '@material-ui/core/styles';
+import ClearIcon from '@material-ui/icons/Clear';
 import RoleSelect from './RoleSelect';
 import CheckContext from '../../CheckContext';
 import ConfirmDialog from '../layout/ConfirmDialog';
 import '../../styles/css/tooltip.css';
-import SourcePicture from '../source/SourcePicture';
 import UpdateTeamUserMutation from '../../relay/mutations/UpdateTeamUserMutation';
 import UserTooltip from '../user/UserTooltip';
 import { getErrorMessage } from '../../helpers';
@@ -22,12 +23,56 @@ import { stringHelper } from '../../customHelpers';
 import { withSetFlashMessage } from '../FlashMessage';
 import globalStrings from '../../globalStrings';
 import {
-  AlignOpposite,
-  FlexRow,
   Text,
   buttonInButtonGroupStyle,
-  Offset,
+  black38,
+  black87,
+  white,
 } from '../../styles/js/shared';
+
+const Styles = {
+  tooltip: {
+    width: 300,
+    minHeight: 60,
+    backgroundColor: white,
+    color: black87,
+    border: `1px solid ${black38}`,
+  },
+  tooltipArrow: {
+    color: black38,
+  },
+  name: {
+    display: 'flex', // avatar+name should appear beside each other
+    alignItems: 'center',
+    flex: '0 0 auto', // tooltip should appear immediately beside text
+  },
+  actions: {
+    flex: '1 1 auto',
+    display: 'flex', // don't wrap
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+};
+
+const DeleteMessage = ({ userIsSelf, selfIsOwner, singleOwner }) => {
+  if (userIsSelf) {
+    return <FormattedMessage id="TeamMembersListItem.leaveTeam" defaultMessage="Leave workspace" />;
+  }
+
+  if (selfIsOwner && singleOwner) {
+    return (
+      <FormattedMessage
+        id="TeamMembersListItem.singleOwner"
+        defaultMessage="Before you can leave the workspace, please transfer ownership to another member."
+      />
+    );
+  }
+
+  return <FormattedMessage id="TeamMembersListItem.deleteMember" defaultMessage="Remove member" />;
+};
+
+const LinkWithForwardedRef = React.forwardRef((props, ref) => <Link {...props} innerRef={ref} />);
+LinkWithForwardedRef.displayName = 'LinkWithForwardedRef';
 
 class TeamMembersListItem extends Component {
   state = {
@@ -39,7 +84,7 @@ class TeamMembersListItem extends Component {
     const { isEditing, teamUser } = this.props;
     const context = new CheckContext(this).getContextStore();
     const { currentUser } = context;
-    return isEditing && teamUser.node.status === 'member' && (currentUser.is_admin || teamUser.node.user_id !== currentUser.dbid);
+    return isEditing && teamUser.status === 'member' && (currentUser.is_admin || teamUser.user_id !== currentUser.dbid);
   };
 
   handleCloseDialog = () => {
@@ -55,12 +100,17 @@ class TeamMembersListItem extends Component {
     const { teamUser } = this.props;
     const context = new CheckContext(this).getContextStore();
     const { currentUser } = context;
-    const userIsSelf = teamUser.node.user_id === currentUser.dbid;
+    const userIsSelf = teamUser.user_id === currentUser.dbid;
     this.setState({ dialogOpen: true, mode: userIsSelf ? 'leave' : 'remove' });
   };
 
   fail = (transaction) => {
-    const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+    const fallbackMessage = (
+      <FormattedMessage
+        {...globalStrings.unknownError}
+        values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
+      />
+    );
     const message = getErrorMessage(transaction, fallbackMessage);
     this.props.setFlashMessage(message);
   };
@@ -68,7 +118,8 @@ class TeamMembersListItem extends Component {
   handleDeleteTeamUser() {
     Relay.Store.commitUpdate(
       new UpdateTeamUserMutation({
-        id: this.props.teamUser.node.id,
+        team: this.props.team, // To manipulate its TeamUser lists
+        teamUser: this.props.teamUser,
         status: 'banned',
       }),
       { onFailure: this.fail },
@@ -82,8 +133,8 @@ class TeamMembersListItem extends Component {
   handleTeamMembershipRequest(status) {
     Relay.Store.commitUpdate(
       new UpdateTeamUserMutation({
-        id: this.props.teamUser.node.id,
-        team: this.props.teamUser.node.team,
+        team: this.props.team, // To manipulate its TeamUser lists
+        teamUser: this.props.teamUser,
         status,
       }),
       { onFailure: this.fail },
@@ -93,7 +144,8 @@ class TeamMembersListItem extends Component {
   submitRoleChange = () => {
     Relay.Store.commitUpdate(
       new UpdateTeamUserMutation({
-        id: this.props.teamUser.node.id,
+        team: this.props.team, // To manipulate its TeamUser lists
+        teamUser: this.props.teamUser,
         role: this.state.role,
       }),
       { onFailure: this.fail },
@@ -102,23 +154,23 @@ class TeamMembersListItem extends Component {
   };
 
   renderConfirmDialog = () => {
-    const { teamUser } = this.props;
+    const { teamUser: { user }, team } = this.props;
 
     const titles = {
       leave: <FormattedMessage
         id="TeamMembersListItem.confirmLeaveTitle"
         defaultMessage="Are you sure you want to leave {team}?"
-        values={{ team: teamUser.node.team.name }}
+        values={{ team: team.name }}
       />,
       remove: <FormattedMessage
         id="TeamMembersListItem.confirmDeleteMemberTitle"
         defaultMessage="Are you sure you want to remove {user}?"
-        values={{ user: teamUser.node.user.name }}
+        values={{ user: user.name }}
       />,
       edit_role: <FormattedMessage
         id="TeamMembersListItem.confirmEditMemberTitle"
         defaultMessage="Are you sure you want to change {user}'s role?"
-        values={{ user: teamUser.node.user.name }}
+        values={{ user: user.name }}
       />,
     };
 
@@ -126,12 +178,12 @@ class TeamMembersListItem extends Component {
       leave: <FormattedMessage
         id="TeamMembersListItem.confirmLeaveBlurb"
         defaultMessage="You will be removed from {team}"
-        values={{ team: teamUser.node.team.name }}
+        values={{ team: team.name }}
       />,
       remove: <FormattedMessage
         id="TeamMembersListItem.confirmDeleteMemberBlurb"
         defaultMessage="User will be removed from {team}"
-        values={{ team: teamUser.node.team.name }}
+        values={{ team: team.name }}
       />,
     };
 
@@ -156,113 +208,100 @@ class TeamMembersListItem extends Component {
   render() {
     const context = new CheckContext(this).getContextStore();
     const { currentUser } = context;
-    const { teamUser, isEditing, singleOwner } = this.props;
-    const userIsSelf = teamUser.node.user_id === currentUser.dbid;
-    const selfIsOwner = userIsSelf && teamUser.node.role === 'owner';
-
-    let deleteTooltip = <FormattedMessage id="TeamMembersListItem.deleteMember" defaultMessage="Remove member" />;
-
-    if (userIsSelf) {
-      deleteTooltip = <FormattedMessage id="TeamMembersListItem.leaveTeam" defaultMessage="Leave workspace" />;
-
-      if (selfIsOwner && singleOwner) {
-        deleteTooltip = <FormattedMessage id="TeamMembersListItem.singleOwner" defaultMessage="Before you can leave the workspace, please transfer ownership to another member." />;
-      }
-    }
-
-    const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
+    const {
+      teamUser,
+      isEditing,
+      singleOwner,
+      requestingMembership,
+      classes,
+    } = this.props;
+    const userIsSelf = teamUser.user_id === currentUser.dbid;
+    const selfIsOwner = userIsSelf && teamUser.role === 'owner';
 
     return (
-      <ListItem
-        className="team-members__member"
-        key={teamUser.node.id}
-      >
-        <FlexRow style={{ width: '100%' }}>
-          <FlexRow>
-            <RCTooltip
-              placement="top"
-              overlay={<UserTooltip user={teamUser.node.user} team={teamUser.node.team} />}
-            >
-              <Link to={`/check/user/${teamUser.node.user.dbid}`} className="team-members__profile-link">
-                <FlexRow>
-                  <Offset isRtl={isRtl}>
-                    <SourcePicture
-                      className="avatar"
-                      object={teamUser.node.user.source}
-                      alt={teamUser.node.user.name}
-                      size="small"
-                      type="user"
-                    />
-                  </Offset>
-                  <Text breakWord>
-                    {teamUser.node.user.name}
-                  </Text>
-                </FlexRow>
-              </Link>
-            </RCTooltip>
-          </FlexRow>
+      <ListItem className="team-members__member">
+        <Tooltip
+          placement="right"
+          interactive
+          arrow
+          classes={{ tooltip: classes.tooltip }}
+          title={<UserTooltip teamUser={teamUser} />}
+        >
+          <LinkWithForwardedRef className={classes.name} to={`/check/user/${teamUser.user.dbid}`}>
+            <ListItemAvatar>
+              <Avatar
+                src={
+                  teamUser.user.source ? teamUser.user.source.image : null
+                }
+                alt={teamUser.user.name}
+              />
+            </ListItemAvatar>
+            <ListItemText>
+              <Text breakWord>{teamUser.user.name}</Text>
+            </ListItemText>
+          </LinkWithForwardedRef>
+        </Tooltip>
 
-          {(() => {
-            if (this.props.requestingMembership) {
-              return (
-                <FlexRow>
-                  <Button
-                    variant="contained"
-                    style={buttonInButtonGroupStyle}
-                    onClick={this.handleTeamMembershipRequest.bind(this, 'member')}
-                    className="team-member-requests__user-button--approve"
-                  >
-                    <FormattedMessage
-                      id="TeamMembershipRequestsListItem.approve"
-                      defaultMessage="Approve"
-                    />
-                  </Button>
-                  <Button
-                    variant="contained"
-                    onClick={this.handleTeamMembershipRequest.bind(this, 'banned')}
-                    className="team-member-requests__user-button--deny"
-                  >
-                    <FormattedMessage id="TeamMembershipRequestsListItem.deny" defaultMessage="Reject" />
-                  </Button>
-                </FlexRow>
-              );
-            }
-            return (
-              <AlignOpposite>
-                <FlexRow>
-                  <RoleSelect
-                    onChange={this.handleRoleChange}
-                    value={teamUser.node.role}
-                    disabled={!this.canEditRole()}
+        <div className={classes.actions}>
+          {requestingMembership ? (
+            <React.Fragment>
+              <Button
+                variant="contained"
+                style={buttonInButtonGroupStyle}
+                onClick={this.handleTeamMembershipRequest.bind(this, 'member')}
+                className="team-member-requests__user-button--approve"
+              >
+                <FormattedMessage
+                  id="TeamMembershipRequestsListItem.approve"
+                  defaultMessage="Approve"
+                />
+              </Button>
+              <Button
+                variant="contained"
+                onClick={this.handleTeamMembershipRequest.bind(this, 'banned')}
+                className="team-member-requests__user-button--deny"
+              >
+                <FormattedMessage id="TeamMembershipRequestsListItem.deny" defaultMessage="Reject" />
+              </Button>
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              <RoleSelect
+                onChange={this.handleRoleChange}
+                value={teamUser.role}
+                disabled={!this.canEditRole()}
+              />
+
+              {isEditing && teamUser.status !== 'banned' ?
+                <Tooltip title={
+                  <DeleteMessage
+                    userIsSelf={userIsSelf}
+                    selfIsOwner={selfIsOwner}
+                    singleOwner={singleOwner}
                   />
-
-                  {isEditing && teamUser.node.status !== 'banned' ?
-                    <Tooltip title={deleteTooltip}>
-                      <div>
-                        <IconButton
-                          disabled={singleOwner && userIsSelf && selfIsOwner}
-                          className="team-members__delete-member"
-                          onClick={this.handleDeleteButtonClick}
-                        >
-                          <MdClear />
-                        </IconButton>
-                      </div>
-                    </Tooltip>
-                    : null}
-                </FlexRow>
-              </AlignOpposite>
-            );
-          })()}
-
-        </FlexRow>
-        { this.renderConfirmDialog() }
+                }
+                >
+                  <div>
+                    <IconButton
+                      disabled={singleOwner && userIsSelf && selfIsOwner}
+                      className="team-members__delete-member"
+                      onClick={this.handleDeleteButtonClick}
+                    >
+                      <ClearIcon />
+                    </IconButton>
+                    { this.renderConfirmDialog() }
+                  </div>
+                </Tooltip>
+                : null}
+            </React.Fragment>
+          )}
+        </div>
       </ListItem>
     );
   }
 }
 
 TeamMembersListItem.propTypes = {
-  intl: intlShape.isRequired,
   setFlashMessage: PropTypes.func.isRequired,
 };
 
@@ -270,4 +309,32 @@ TeamMembersListItem.contextTypes = {
   store: PropTypes.object,
 };
 
-export default withSetFlashMessage(injectIntl(TeamMembersListItem));
+export default Relay.createContainer(withStyles(Styles)(withSetFlashMessage(TeamMembersListItem)), {
+  fragments: {
+    team: () => Relay.QL`
+      fragment on Team {
+        ${UpdateTeamUserMutation.getFragment('team')}
+        id
+        name
+      }
+    `,
+    teamUser: () => Relay.QL`
+      fragment on TeamUser {
+        ${UserTooltip.getFragment('teamUser')}
+        ${UpdateTeamUserMutation.getFragment('teamUser')}
+        id
+        role
+        status
+        user_id
+        user {
+          id
+          name
+          dbid
+          source {
+            image
+          }
+        }
+      }
+    `,
+  },
+});

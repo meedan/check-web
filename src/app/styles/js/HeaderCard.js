@@ -29,14 +29,14 @@ export const StyledButtonGroup = styled.div`
   display: flex;
 
   .source__edit-buttons-cancel-save {
-    margin-${props => (props.isRtl ? 'right' : 'left')}: auto;
+    margin-${props => (props.theme.dir === 'rtl' ? 'right' : 'left')}: auto;
 
     ${mediaQuery.desktop`
-      margin-${props => (props.isRtl ? 'left' : 'right')}: ${units(3)};
+      margin-${props => (props.theme.dir === 'rtl' ? 'left' : 'right')}: ${units(3)};
     `}
 
     .source__edit-cancel-button {
-      margin-${props => (props.isRtl ? 'left' : 'right')}: ${units(1)} !important;
+      margin-${props => (props.theme.dir === 'rtl' ? 'left' : 'right')}: ${units(1)} !important;
     }
   }
 `;
@@ -91,7 +91,7 @@ export const StyledContactInfo = styled.div`
   margin: ${props => (props.noVerticalMargin ? '0' : `${units(2)} 0`)};
 
   & > span {
-    margin-${props => (props.isRtl ? 'left' : 'right')}: ${units(2)};
+    margin-${props => (props.theme.dir === 'rtl' ? 'left' : 'right')}: ${units(2)};
   }
 `;
 
@@ -108,9 +108,9 @@ export const StyledTwoColumns = styled(Row)`
 
 export const StyledSmallColumn = styled.div`
   flex: 0;
-  margin-${props => (props.isRtl ? 'left' : 'right')}: ${units(2)};
+  margin-${props => (props.theme.dir === 'rtl' ? 'left' : 'right')}: ${units(2)};
   ${mediaQuery.desktop`
-    margin-${props => (props.isRtl ? 'left' : 'right')}: ${units(3)};
+    margin-${props => (props.theme.dir === 'rtl' ? 'left' : 'right')}: ${units(3)};
   `}
   justify-content: center;
   flex-shrink: 0;

@@ -5,12 +5,12 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import MdShortText from 'react-icons/lib/md/short-text';
-import MdRadioButtonChecked from 'react-icons/lib/md/radio-button-checked';
-import MdCheckBox from 'react-icons/lib/md/check-box';
-import MdLocationOn from 'react-icons/lib/md/location-on';
-import MdDateRange from 'react-icons/lib/md/date-range';
-import MdGrade from 'react-icons/lib/md/grade';
+import ShortTextIcon from '@material-ui/icons/ShortText';
+import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import DateRangeIcon from '@material-ui/icons/DateRange';
+import GradeIcon from '@material-ui/icons/Grade';
 import IconImageUpload from '@material-ui/icons/CloudUpload';
 import styled from 'styled-components';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
@@ -69,7 +69,7 @@ class CreateTaskMenu extends React.Component {
             className="create-task__add-short-answer"
             onClick={() => this.handleSelectType('free_text')}
           >
-            <ListItemIcon><MdShortText /></ListItemIcon>
+            <ListItemIcon><ShortTextIcon /></ListItemIcon>
             <ListItemText
               primary={
                 <FormattedMessage id="tasks.shortAnswer" defaultMessage="Short answer" />
@@ -80,7 +80,7 @@ class CreateTaskMenu extends React.Component {
             className="create-task__add-choose-one"
             onClick={() => this.handleSelectType('single_choice')}
           >
-            <ListItemIcon><MdRadioButtonChecked /></ListItemIcon>
+            <ListItemIcon><RadioButtonCheckedIcon /></ListItemIcon>
             <ListItemText
               primary={<FormattedMessage id="tasks.chooseOne" defaultMessage="Choose one" />}
             />
@@ -89,7 +89,7 @@ class CreateTaskMenu extends React.Component {
             className="create-task__add-choose-multiple"
             onClick={() => this.handleSelectType('multiple_choice')}
           >
-            <ListItemIcon><MdCheckBox style={{ transform: 'scale(1,1)' }} /></ListItemIcon>
+            <ListItemIcon><CheckBoxIcon style={{ transform: 'scale(1,1)' }} /></ListItemIcon>
             <ListItemText
               primary={
                 <FormattedMessage id="tasks.chooseMultiple" defaultMessage="Choose multiple" />
@@ -100,7 +100,7 @@ class CreateTaskMenu extends React.Component {
             className="create-task__add-geolocation"
             onClick={() => this.handleSelectType('geolocation')}
           >
-            <ListItemIcon><MdLocationOn /></ListItemIcon>
+            <ListItemIcon><LocationOnIcon /></ListItemIcon>
             <ListItemText
               primary={<FormattedMessage id="tasks.geolocation" defaultMessage="Location" />}
             />
@@ -109,7 +109,7 @@ class CreateTaskMenu extends React.Component {
             className="create-task__add-datetime"
             onClick={() => this.handleSelectType('datetime')}
           >
-            <ListItemIcon><MdDateRange /></ListItemIcon>
+            <ListItemIcon><DateRangeIcon /></ListItemIcon>
             <ListItemText
               primary={<FormattedMessage id="tasks.datetime" defaultMessage="Date and time" />}
             />
@@ -128,7 +128,7 @@ class CreateTaskMenu extends React.Component {
               className="create-task__teamwide-nudge"
               onClick={() => this.handleSelectType('teamwide')}
             >
-              <ListItemIcon><MdGrade /></ListItemIcon>
+              <ListItemIcon><GradeIcon /></ListItemIcon>
               <ListItemText
                 primary={<FormattedMessage id="tasks.teamwideNudge" defaultMessage="Default tasks" />}
               />

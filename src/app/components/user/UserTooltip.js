@@ -1,15 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedHTMLMessage, FormattedDate } from 'react-intl';
 import { Link } from 'react-router';
 import Avatar from '@material-ui/core/Avatar';
-import MdLaunch from 'react-icons/lib/md/launch';
+import LaunchIcon from '@material-ui/icons/Launch';
 import styled from 'styled-components';
-import { LocalizedRole, userRole } from './UserUtil';
+import { LocalizedRole } from './UserUtil';
 import ParsedText from '../ParsedText';
-import { SocialIcon } from '../media/MediaUtil';
+import SocialIcon from '../SocialIcon';
 import { truncateLength } from '../../helpers';
-import UserRoute from '../../relay/UserRoute';
 import {
   black38,
   black54,
@@ -60,15 +60,31 @@ const StyledUserRole = styled.span`
   margin: ${units(1)};
 `;
 
-const AccountLink = ({ id, url, provider }) => (
-  <StyledSocialLink key={id} href={url} target="_blank" rel="noopener noreferrer" style={{ paddingRight: units(1) }}>
+const AccountLink = ({ url, provider }) => (
+  <StyledSocialLink href={url} target="_blank" rel="noopener noreferrer" style={{ paddingRight: units(1) }}>
     <SocialIcon domain={provider} />
   </StyledSocialLink>
 );
+AccountLink.propTypes = {
+  url: PropTypes.string.isRequired,
+  provider: PropTypes.string.isRequired,
+};
 
-function UserTooltipComponent({ user, team }) {
+const userRole = ({
+  user, team, status, role,
+}) => {
+  // Copied from UserUtil.js, minus the Array#find(). Don't know whether these
+  // if-statements are needed.
+  if (!user || !team || !team.slug) {
+    return null;
+  }
+  return status === 'requested' ? '' : role;
+};
+
+function UserTooltipComponent({ teamUser }) {
+  const { user } = teamUser;
   const { source } = user;
-  const role = userRole(user, team);
+  const role = userRole(teamUser);
 
   if (!source) {
     return null;
@@ -96,7 +112,7 @@ function UserTooltipComponent({ user, team }) {
             <StyledUserRole>{role ? <LocalizedRole role={role} /> : null}</StyledUserRole>
             <Link to={`/check/user/${user.dbid}`} className="tooltip__profile-link" >
               <StyledMdLaunch>
-                <MdLaunch />
+                <LaunchIcon />
               </StyledMdLaunch>
             </Link>
 
@@ -121,8 +137,8 @@ function UserTooltipComponent({ user, team }) {
               )}
             </FormattedDate>
           </div>
-          {source.account_sources.edges.map(({ node: { id, url, provider } }) => (
-            <AccountLink key={id} id={id} url={url} provider={provider} />
+          {source.account_sources.edges.map(({ node: { account: { id, url, provider } } }) => (
+            <AccountLink key={id} url={url} provider={provider} />
           ))}
         </StyledBigColumn>
       </StyledTwoColumns>
@@ -130,39 +146,35 @@ function UserTooltipComponent({ user, team }) {
   );
 }
 
-const UserTooltipContainer = Relay.createContainer(UserTooltipComponent, {
+export default Relay.createContainer(UserTooltipComponent, {
   fragments: {
-    user: () => Relay.QL`
-      fragment on User {
+    teamUser: () => Relay.QL`
+      fragment on TeamUser {
         id
-        dbid
-        name
-        number_of_teams
-        team_users(first: 10000) {
-          edges {
-            node {
-              id
-              status
-              role
-              team {
-                id
-                slug
-              }
-            }
-          }
-        }
-        source {
+        status
+        role
+        team {
           id
-          image
-          description
-          created_at
-          account_sources(first: 10000) {
-            edges {
-              node {
-                account {
-                  id
-                  url
-                  provider
+          slug
+        }
+        user {
+          id
+          dbid
+          name
+          number_of_teams
+          source {
+            id
+            image
+            description
+            created_at
+            account_sources(first: 10000) {
+              edges {
+                node {
+                  account {
+                    id
+                    url
+                    provider
+                  }
                 }
               }
             }
@@ -172,16 +184,3 @@ const UserTooltipContainer = Relay.createContainer(UserTooltipComponent, {
     `,
   },
 });
-
-const UserTooltip = (props) => {
-  const route = new UserRoute({ userId: props.user.dbid });
-  return (
-    <Relay.RootContainer
-      Component={UserTooltipContainer}
-      route={route}
-      renderFetched={data => <UserTooltipContainer {...props} {...data} />}
-    />
-  );
-};
-
-export default UserTooltip;

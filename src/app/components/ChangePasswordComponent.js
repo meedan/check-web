@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { defineMessages, injectIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
 import Relay from 'react-relay/classic';
 import Button from '@material-ui/core/Button';
@@ -8,29 +8,6 @@ import ChangePasswordMutation from '../relay/mutations/ChangePasswordMutation';
 import globalStrings from '../globalStrings';
 import { stringHelper } from '../customHelpers';
 import { getErrorMessage } from '../helpers';
-
-const messages = defineMessages({
-  newPassword: {
-    id: 'passwordChange.newPassword',
-    defaultMessage: 'New password (minimum {min} characters)',
-  },
-  currentPassword: {
-    id: 'passwordChange.currentPassword',
-    defaultMessage: 'Current password',
-  },
-  confirmPassword: {
-    id: 'passwordChange.confirmPassword',
-    defaultMessage: 'Confirm password',
-  },
-  changePassword: {
-    id: 'passwordChange.changePassword',
-    defaultMessage: 'Change password',
-  },
-  unmatchingPasswords: {
-    id: 'passwordChange.unmatchingPasswords',
-    defaultMessage: 'Passwords didn\'t match',
-  },
-});
 
 // TODO Read this from the backend.
 const passwordLength = {
@@ -47,10 +24,6 @@ class ChangePasswordComponent extends Component {
     };
   }
 
-  static getQueryStringValue(key) {
-    return decodeURIComponent(window.location.search.replace(new RegExp(`^(?:.*[&\\?]${encodeURIComponent(key).replace(/[.+*]/g, '\\$&')}(?:\\=([^&]*))?)?.*$`, 'i'), '$1'));
-  }
-
   handleChangeCurrentPassword(e) {
     this.setState({ current_password: e.target.value });
   }
@@ -65,8 +38,12 @@ class ChangePasswordComponent extends Component {
     const bothFilled =
       password.length >= passwordLength.min && password_confirmation.length >= passwordLength.min;
     const samePass = password === password_confirmation;
-    const errorMsg = bothFilled && !samePass ?
-      this.props.intl.formatMessage(messages.unmatchingPasswords) : null;
+    const errorMsg = bothFilled && !samePass ? (
+      <FormattedMessage
+        id="passwordChange.unmatchingPasswords"
+        defaultMessage="Passwords didn't match"
+      />
+    ) : null;
     this.setState({ password_confirmation, errorMsg });
     this.setState({ submitDisabled: !(bothFilled && samePass) });
   }
@@ -117,35 +94,50 @@ class ChangePasswordComponent extends Component {
         <div style={{ color: 'red', textAlign: 'center' }}>
           {this.state.errorMsg}
         </div>
-        {show_current_password === true ?
-          <TextField
-            className="user-password-change__password-input-field"
-            id="password-change-password-input-current"
-            type="password"
-            placeholder={this.props.intl.formatMessage(messages.currentPassword)}
-            onChange={this.handleChangeCurrentPassword.bind(this)}
-          />
-          : null
-        }
+        {show_current_password === true ? (
+          <FormattedMessage
+            id="passwordChange.currentPassword"
+            defaultMessage="Current password"
+          >
+            {label => (
+              <TextField
+                className="user-password-change__password-input-field"
+                id="password-change-password-input-current"
+                type="password"
+                placeholder={label /* TODO why not label={label}? */}
+                onChange={this.handleChangeCurrentPassword.bind(this)}
+              />
+            )}
+          </FormattedMessage>
+        ) : null}
         <br />
-        <TextField
-          className="user-password-change__password-input-field"
-          id="password-change-password-input"
-          type="password"
-          placeholder={this.props.intl.formatMessage(
-            messages.newPassword,
-            { min: passwordLength.min },
+        <FormattedMessage
+          id="passwordChange.newPassword"
+          defaultMessage="New password (minimum {min} characters)"
+          values={{ min: passwordLength.min }}
+        >
+          {label => (
+            <TextField
+              className="user-password-change__password-input-field"
+              id="password-change-password-input"
+              type="password"
+              placeholder={label /* TODO why not label={label}? */}
+              onChange={this.handleChangePassword.bind(this)}
+            />
           )}
-          onChange={this.handleChangePassword.bind(this)}
-        />
+        </FormattedMessage>
         <br />
-        <TextField
-          className="user-password-change__password-input-field"
-          id="password-change-password-input-confirm"
-          type="password"
-          placeholder={this.props.intl.formatMessage(messages.confirmPassword)}
-          onChange={this.handleChangePasswordConfirm.bind(this)}
-        />
+        <FormattedMessage id="passwordChange.confirmPassword" defaultMessage="Confirm password">
+          {label => (
+            <TextField
+              className="user-password-change__password-input-field"
+              id="password-change-password-input-confirm"
+              type="password"
+              placeholder={label /* TODO why not label={label}? */}
+              onChange={this.handleChangePasswordConfirm.bind(this)}
+            />
+          )}
+        </FormattedMessage>
         <br />
         <Button
           variant="contained"
@@ -154,11 +146,11 @@ class ChangePasswordComponent extends Component {
           color="primary"
           disabled={this.state.submitDisabled}
         >
-          {this.props.intl.formatMessage(messages.changePassword)}
+          <FormattedMessage id="passwordChange.changePassword" defaultMessage="Change password" />
         </Button>
       </div>
     );
   }
 }
 
-export default injectIntl(ChangePasswordComponent);
+export default ChangePasswordComponent;

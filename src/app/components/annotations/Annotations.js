@@ -3,7 +3,6 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import styled from 'styled-components';
-import rtlDetect from 'rtl-detect';
 import AddAnnotation from './AddAnnotation';
 import Annotation from './Annotation';
 import { units, black16, black38, opaqueBlack16, borderWidthMedium, Text } from '../../styles/js/shared';
@@ -28,13 +27,13 @@ const StyledAnnotations = styled.div`
       // The timeline line
       &::before {
         background-color: ${opaqueBlack16};
-        bottom: 0;
         content: '';
         display: block;
         position: absolute;
+        bottom: 0;
         top: 0;
         width: ${borderWidthMedium};
-        ${props => (props.isRtl ? 'right' : 'left')}: ${units(4)};
+        ${props => (props.theme.dir === 'rtl' ? 'right' : 'left')}: ${units(4)};
       }
       &:last-of-type {
         height: 100%;
@@ -68,7 +67,6 @@ class Annotations extends React.Component {
     return (
       <StyledAnnotations
         className="annotations"
-        isRtl={rtlDetect.isRtlLang(props.intl.locale)}
         showAddAnnotation={props.showAddAnnotation}
         annotationCount={props.annotations.length}
       >

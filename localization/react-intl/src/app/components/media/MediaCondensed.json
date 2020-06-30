@@ -1,9 +1,5 @@
 [
   {
-    "id": "mediaCondensed.editReport",
-    "defaultMessage": "Edit"
-  },
-  {
     "id": "mediaCondensed.editReportError",
     "defaultMessage": "Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists."
   },
@@ -14,6 +10,10 @@
   {
     "id": "mediaCondensed.updateRelationshipError",
     "defaultMessage": "Sorry, an error occurred while updating the relationship. Please try again and contact {supportEmail} if the condition persists."
+  },
+  {
+    "id": "mediaCondensed.editReport",
+    "defaultMessage": "Edit"
   },
   {
     "id": "mediaCondensed.title",

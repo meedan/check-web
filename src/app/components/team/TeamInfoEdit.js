@@ -2,7 +2,6 @@ import React from 'react';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import { browserHistory } from 'react-router';
 import Relay from 'react-relay/classic';
-import rtlDetect from 'rtl-detect';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import TeamAvatar from './TeamAvatar';
@@ -249,9 +248,7 @@ class TeamInfoEdit extends React.Component {
               helperText={this.state.urlError}
             />
 
-            <StyledButtonGroup
-              isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
-            >
+            <StyledButtonGroup>
               <div className="source__edit-buttons-cancel-save">
                 <Button
                   className="source__edit-cancel-button"

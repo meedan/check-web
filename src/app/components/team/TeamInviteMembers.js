@@ -8,7 +8,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
-import MdCancel from 'react-icons/lib/md/cancel';
+import CancelIcon from '@material-ui/icons/Cancel';
 import * as EmailValidator from 'email-validator';
 import RoleSelect from './RoleSelect';
 import UserUtil from '../user/UserUtil';
@@ -71,9 +71,9 @@ class TeamInviteMembers extends Component {
     const inputEmail = email.trim();
     if (EmailValidator.validate(inputEmail) === false) {
       error = 'invalid';
-    } else if (invitedEmails.includes(inputEmail) === true) {
+    } else if (invitedEmails.has(inputEmail) === true) {
       error = 'invited';
-    } else if (membersEmails.includes(inputEmail) === true) {
+    } else if (membersEmails.has(inputEmail) === true) {
       error = 'member';
     }
     return error;
@@ -151,13 +151,14 @@ class TeamInviteMembers extends Component {
   }
 
   validateMembers() {
-    const {
-      invited_mails: invitedEmails,
-      team_users: teamUsers,
-    } = this.props.team;
-    const membersEmails = teamUsers.edges
-      .filter(tu => tu.node.status === 'member' && tu.node.user.email)
-      .map(tu => tu.node.user.email);
+    const { team } = this.props;
+    const invitedEmails = new Set(team.invited_mails);
+    const membersEmails = new Set();
+    team.team_users.edges.forEach(({ node: { status, user } }) => {
+      if (status === 'member' && user && user.email) {
+        membersEmails.add(user.email);
+      }
+    });
     this.state.membersToInvite.forEach((item, index) => {
       this.state.membersToInvite[index].errors = [];
       if (item.email) {
@@ -304,7 +305,7 @@ class TeamInviteMembers extends Component {
                   className="invite-member-email-remove-button"
                   onClick={() => this.handleRemoveEmail(index)}
                 >
-                  <MdCancel />
+                  <CancelIcon />
                 </StyledIconButton>
               </Row>
             </Row>
@@ -401,4 +402,22 @@ TeamInviteMembers.contextTypes = {
   store: PropTypes.object,
 };
 
-export default withSetFlashMessage(injectIntl(TeamInviteMembers));
+export default Relay.createContainer(withSetFlashMessage(injectIntl(TeamInviteMembers)), {
+  fragments: {
+    team: () => Relay.QL`
+      fragment on Team {
+        invited_mails
+        team_users(first: 10000) {
+          edges {
+            node {
+              status
+              user {
+                email
+              }
+            }
+          }
+        }
+      }
+    `,
+  },
+});

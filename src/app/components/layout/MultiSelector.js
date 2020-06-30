@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import FormGroup from '@material-ui/core/FormGroup';
@@ -9,13 +9,6 @@ import Radio from '@material-ui/core/Radio';
 import styled from 'styled-components';
 import { units, opaqueBlack02, opaqueBlack05, black54 } from '../../styles/js/shared';
 import { emojify } from '../../helpers';
-
-const messages = defineMessages({
-  search: {
-    id: 'MultiSelector.search',
-    defaultMessage: 'Search...',
-  },
-});
 
 const StyledMultiSelectorArea = styled.div`
   padding: ${units(2)};
@@ -112,18 +105,17 @@ class MultiSelector extends React.Component {
       onSubmit,
     } = this.props;
 
-    const { formatMessage } = this.props.intl;
     const options = this.filter(this.props.options).map(emojify);
 
     return (
       <div>
         { this.props.allowSearch ?
           <div style={{ padding: units(2) }}>
-            <TextField
-              onChange={this.handleChange}
-              placeholder={formatMessage(messages.search)}
-              fullWidth
-            />
+            <FormattedMessage id="MultiSelector.search" defaultMessage="Search...">
+              {placeholder => (
+                <TextField onChange={this.handleChange} placeholder={placeholder} fullWidth />
+              )}
+            </FormattedMessage>
           </div>
           : null
         }
@@ -197,4 +189,4 @@ class MultiSelector extends React.Component {
   }
 }
 
-export default injectIntl(MultiSelector);
+export default MultiSelector;

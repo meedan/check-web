@@ -9,7 +9,6 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import rtlDetect from 'rtl-detect';
 import ChangePasswordComponent from '../ChangePasswordComponent';
 import SetUserSecuritySettingsMutation from '../../relay/mutations/SetUserSecuritySettingsMutation';
 import GenerateTwoFactorBackupCodesMutation from '../../relay/mutations/GenerateTwoFactorBackupCodesMutation';
@@ -493,7 +492,7 @@ class UserSecurity extends Component {
         <h2 style={style}>
           <FormattedMessage id="userSecurity.changePassword" defaultMessage="Change password" />
         </h2>
-        <StyledPasswordChange isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
+        <StyledPasswordChange>
           <Card style={style} className="user-password-change__card">
             <CardContent>
               <ChangePasswordComponent
