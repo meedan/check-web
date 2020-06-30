@@ -105,7 +105,6 @@ class MediaComponent extends Component {
     };
 
     this.playerRef = React.createRef();
-
   }
 
   componentDidMount() {
@@ -159,8 +158,8 @@ class MediaComponent extends Component {
 
   setPlayerRect = () => {
     // update player rect used to anchor video annotation drawer
-    if (this.playerRef) {
-      this.setState({ playerRect: this.playerRef.current?.getBoundingClientRect() });
+    if (this.playerRef && this.playerRef.current) {
+      this.setState({ playerRect: this.playerRef.current.getBoundingClientRect() });
     }
   }
 
