@@ -119,8 +119,8 @@ class MediaTags extends React.Component {
     // Get the video tags with earliest timestamp
     Object.values(fragments).forEach((tagFragments) => {
       tagFragments.sort((a, b) => {
-        const aStart = parseFloat(a.node.fragment.match(/(\d+\.\d+)/)[0]);
-        const bStart = parseFloat(b.node.fragment.match(/(\d+\.\d+)/)[0]);
+        const aStart = parseFloat(a.node.fragment.match(/\d+(\.\d+)?/)[0]);
+        const bStart = parseFloat(b.node.fragment.match(/\d+(\.\d+)?/)[0]);
         return aStart - bStart;
       });
 
