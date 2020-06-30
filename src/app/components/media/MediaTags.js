@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { defineMessages, intlShape, injectIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
 import Relay from 'react-relay/classic';
 import mergeWith from 'lodash.mergewith';
@@ -23,21 +23,6 @@ import {
 } from '../../styles/js/shared';
 import { stringHelper } from '../../customHelpers';
 import VideoAnnotationIcon from '../../../assets/images/video-annotation/video-annotation';
-
-const messages = defineMessages({
-  loading: {
-    id: 'mediaTags.loading',
-    defaultMessage: 'Loading...',
-  },
-  language: {
-    id: 'mediaTags.language',
-    defaultMessage: 'Language: {language}',
-  },
-  error: {
-    id: 'mediaTags.error',
-    defaultMessage: 'Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists.',
-  },
-});
 
 const StyledLanguageSelect = styled.span`
   select {
@@ -72,12 +57,25 @@ const StyledMediaTagsContainer = styled.div`
   .media-tags__language {
     white-space: nowrap;
   }
+
+  .media-tags__list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: ${units(0.5)};
+    margin: 0;
+
+    li {
+      margin: ${units(0.5)};
+    }
+  }
 `;
 
 // TODO Fix a11y issues
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
 /* eslint jsx-a11y/no-noninteractive-element-interactions: 0 */
-class MediaTags extends Component {
+class MediaTags extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -86,7 +84,13 @@ class MediaTags extends Component {
   }
 
   fail = (transaction) => {
-    const fallbackMessage = this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+    const fallbackMessage = (
+      <FormattedMessage
+        id="mediaTags.error"
+        defaultMessage="Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists."
+        values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
+      />
+    );
     const errorMessage = getErrorMessage(transaction, fallbackMessage);
     this.props.setFlashMessage(errorMessage);
   };
@@ -113,10 +117,14 @@ class MediaTags extends Component {
     }
 
     // Get the video tags with earliest timestamp
-    Object.keys(fragments).forEach((tag_text) => {
-      fragments[tag_text].sort((a, b) =>
-        (a.node.fragment > b.node.fragment) ? 1 : -1);
-      splitTags.videoTags.push(fragments[tag_text][0]);
+    Object.values(fragments).forEach((tagFragments) => {
+      tagFragments.sort((a, b) => {
+        const aStart = parseFloat(a.node.fragment.match(/\d+(\.\d+)?/)[0]);
+        const bStart = parseFloat(b.node.fragment.match(/\d+(\.\d+)?/)[0]);
+        return aStart - bStart;
+      });
+
+      splitTags.videoTags.push(tagFragments[0]);
     });
 
     return splitTags;
@@ -199,20 +207,22 @@ class MediaTags extends Component {
                 {tags.map((tag) => {
                   if (tag.node.tag_text) {
                     return (
-                      <Chip
-                        icon={
-                          tag.node.fragment ?
-                            <VideoAnnotationIcon
-                              onClick={e =>
-                                this.handleVideoAnnotationIconClick(e, tag.node.fragment)}
-                            />
-                            : null
-                        }
-                        key={tag.node.id}
-                        className="media-tags__tag"
-                        onClick={this.handleTagViewClick.bind(this, tag.node.tag_text)}
-                        label={tag.node.tag_text.replace(/^#/, '')}
-                      />
+                      <li>
+                        <Chip
+                          icon={
+                            tag.node.fragment ?
+                              <VideoAnnotationIcon
+                                onClick={e =>
+                                  this.handleVideoAnnotationIconClick(e, tag.node.fragment)}
+                              />
+                              : null
+                          }
+                          key={tag.node.id}
+                          className="media-tags__tag"
+                          onClick={this.handleTagViewClick.bind(this, tag.node.tag_text)}
+                          label={tag.node.tag_text.replace(/^#/, '')}
+                        />
+                      </li>
                     );
                   }
                   return null;
@@ -222,41 +232,47 @@ class MediaTags extends Component {
             <div style={{ display: 'flex', alignItems: 'flex-end' }}>
               {media.language ?
                 <ul className="media-tags__list">
-                  <Chip
-                    className="media-tags__tag media-tags__language"
-                    label={this.state.correctingLanguage ?
-                      <span>
-                        {this.props.intl.formatMessage(messages.language, { language: '' })}
-                        {' '}
-                        <StyledLanguageSelect>
-                          <LanguageSelector
-                            onChange={this.handleLanguageChange.bind(this)}
-                            team={media.team}
-                            selected={media.language_code}
-                          />
-                        </StyledLanguageSelect>
-                        {' '}
-                        <StyledLanguageIcon>
-                          <CancelIcon
-                            onClick={this.handleCorrectLanguageCancel.bind(this)}
-                          />
-                        </StyledLanguageIcon>
-                      </span> :
-                      <span>
-                        {this.props.intl.formatMessage(
-                          messages.language,
-                          { language: media.language },
-                        )}
-                        <Can permissions={media.permissions} permission="create Dynamic">
-                          <StyledLanguageIcon>
-                            <EditIcon
-                              onClick={this.handleCorrectLanguage.bind(this)}
-                            />
-                          </StyledLanguageIcon>
-                        </Can>
-                      </span>
-                    }
-                  />
+                  <li>
+                    <Chip
+                      className="media-tags__tag media-tags__language"
+                      label={
+                        <FormattedMessage
+                          id="mediaTags.language"
+                          defaultMessage="Language: {language}"
+                          values={{
+                            language: this.state.correctingLanguage ? (
+                              <React.Fragment>
+                                <StyledLanguageSelect>
+                                  <LanguageSelector
+                                    onChange={this.handleLanguageChange.bind(this)}
+                                    team={media.team}
+                                    selected={media.language_code}
+                                  />
+                                </StyledLanguageSelect>
+                                {' '}
+                                <StyledLanguageIcon>
+                                  <CancelIcon
+                                    onClick={this.handleCorrectLanguageCancel.bind(this)}
+                                  />
+                                </StyledLanguageIcon>
+                              </React.Fragment>
+                            ) : (
+                              <React.Fragment>
+                                {media.language}
+                                <Can permissions={media.permissions} permission="create Dynamic">
+                                  <StyledLanguageIcon>
+                                    <EditIcon
+                                      onClick={this.handleCorrectLanguage.bind(this)}
+                                    />
+                                  </StyledLanguageIcon>
+                                </Can>
+                              </React.Fragment>
+                            ),
+                          }}
+                        />
+                      }
+                    />
+                  </li>
                 </ul>
                 : null}
             </div>
@@ -268,12 +284,9 @@ class MediaTags extends Component {
 }
 
 MediaTags.propTypes = {
-  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
-  // eslint-disable-next-line react/no-typos
-  intl: intlShape.isRequired,
   setFlashMessage: PropTypes.func.isRequired,
   media: PropTypes.object.isRequired,
   tags: PropTypes.object.isRequired,
 };
 
-export default withSetFlashMessage(injectIntl(MediaTags));
+export default withSetFlashMessage(MediaTags);

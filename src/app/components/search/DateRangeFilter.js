@@ -98,7 +98,7 @@ class DateRangeFilter extends React.Component {
     };
 
     return (
-      <StyledFilterRow isRtl={this.props.isRtl}>
+      <StyledFilterRow>
         <h4>{ label.date }</h4>
         <div>
           <FlexRow>

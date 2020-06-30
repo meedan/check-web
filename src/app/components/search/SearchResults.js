@@ -478,6 +478,7 @@ const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsCom
         id,
         pusher_channel,
         team {
+          ${BulkActions.getFragment('team')}
           slug
           search_id,
           permissions,
@@ -575,10 +576,17 @@ export default function SearchResults({ query, teamSlug, ...props }) {
   const jsonEncodedQuery = encodeQueryToMimicTheWayCheckApiGeneratesIds(query, teamSlug);
   const route = React.useMemo(() => new SearchRoute({ jsonEncodedQuery }), [jsonEncodedQuery]);
 
+  // We have a forceFetch to handle this case:
+  //
+  // 1. User browses to a search and plays around (caches results)
+  // 2. User browses elsewhere (unsubscribes from Pusher)
+  // 3. Pusher says something changed -- but we weren't listening!
+  // 4. User browses back to the search (subscribes to Pusher)
   return (
     <Relay.RootContainer
       Component={SearchResultsContainer}
       route={route}
+      forceFetch
       renderFetched={data => (
         <SearchResultsContainer {...props} query={query} search={data.search} />
       )}

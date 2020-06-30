@@ -58,14 +58,14 @@ function HeaderComponent(props) {
       // TODO write props explicitly
       return (
         <Row containsEllipsis>
-          <div><ProjectHeader isRtl {...props} /></div>
+          <div><ProjectHeader {...props} /></div>
         </Row>
       );
     } else if (teamPublicContentShouldShow) {
       // TODO write props explicitly
       return (
         <Row containsEllipsis>
-          <TeamPublicHeader isRtl {...props} />
+          <TeamPublicHeader {...props} />
         </Row>
       );
     }

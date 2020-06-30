@@ -1,19 +1,10 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { injectIntl, intlShape } from 'react-intl';
+import React from 'react';
 import Card from '@material-ui/core/Card';
-import rtlDetect from 'rtl-detect';
 import { withPusher, pusherShape } from '../../pusher';
 import MediaExpanded from './MediaExpanded';
 import MediaCondensed from './MediaCondensed';
-import CheckContext from '../../CheckContext';
 
-class MediaDetail extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
+class MediaDetail extends React.Component {
   componentDidMount() {
     if (this.props.parentComponentName === 'MediaRelated') {
       this.subscribe();
@@ -24,10 +15,6 @@ class MediaDetail extends Component {
     if (this.props.parentComponentName === 'MediaRelated') {
       this.unsubscribe();
     }
-  }
-
-  getContext() {
-    return new CheckContext(this).getContextStore();
   }
 
   subscribe() {
@@ -58,7 +45,6 @@ class MediaDetail extends Component {
       annotatedType,
       end,
       gaps,
-      intl: { locale },
       media,
       onPlayerReady,
       onTimelineCommentOpen,
@@ -71,8 +57,6 @@ class MediaDetail extends Component {
       showVideoAnnotation,
       start,
     } = this.props;
-
-    const isRtl = rtlDetect.isRtlLang(locale);
 
     // Build the item URL
 
@@ -95,17 +79,16 @@ class MediaDetail extends Component {
 
     return (
       <Card className="card media-detail">
-        { this.props.condensed ?
+        {this.props.condensed ? (
           <MediaCondensed
             media={this.props.media}
             mediaUrl={mediaUrl}
             currentRelatedMedia={this.props.currentRelatedMedia}
-            isRtl={isRtl}
-          /> :
+          />
+        ) : (
           <MediaExpanded
             media={this.props.media}
             mediaUrl={mediaUrl}
-            isRtl={isRtl}
             {...{
               end,
               gaps,
@@ -120,7 +103,8 @@ class MediaDetail extends Component {
               showVideoAnnotation,
               start,
             }}
-          /> }
+          />
+        )}
       </Card>
     );
   }
@@ -129,12 +113,7 @@ class MediaDetail extends Component {
 MediaDetail.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
-  intl: intlShape.isRequired,
   pusher: pusherShape.isRequired,
 };
 
-MediaDetail.contextTypes = {
-  store: PropTypes.object,
-};
-
-export default withPusher(injectIntl(MediaDetail));
+export default withPusher(MediaDetail);
