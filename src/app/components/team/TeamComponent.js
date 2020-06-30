@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import deepEqual from 'deep-equal';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
-import rtlDetect from 'rtl-detect';
 import { withStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -116,13 +115,6 @@ class TeamComponent extends Component {
     const isEditing = (action === 'edit') && can(team.permissions, 'update Team');
     const isSettings = (action === 'settings') && can(team.permissions, 'update Team');
     const isReadOnly = (action === 'settings') && can(team.permissions, 'read Team');
-
-    const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
-
-    const direction = {
-      from: isRtl ? 'right' : 'left',
-      to: isRtl ? 'left' : 'right',
-    };
 
     const context = new CheckContext(this).getContextStore();
 
@@ -242,7 +234,7 @@ class TeamComponent extends Component {
     return (
       <PageTitle team={team}>
         <div className="team">
-          <HeaderCard direction={direction} isEditing={isEditing}>
+          <HeaderCard>
             <ContentColumn>
               <Message message={this.state.message} />
               <HeaderContent />
@@ -251,16 +243,16 @@ class TeamComponent extends Component {
           </HeaderCard>
           { !isEditing && !isSettings && !isReadOnly ? TeamPageContent : null }
           { isSettings && this.state.showTab === 'tasks'
-            ? <TeamTasks team={team} direction={direction} />
+            ? <TeamTasks team={team} />
             : null }
           { isSettings && this.state.showTab === 'bots'
-            ? <TeamBots team={team} direction={direction} />
+            ? <TeamBots team={team} />
             : null }
           { isSettings && this.state.showTab === 'rules'
             ? <TeamRules teamSlug={team.slug} />
             : null }
           { isSettings && this.state.showTab === 'report'
-            ? <TeamReport team={team} direction={direction} />
+            ? <TeamReport team={team} />
             : null }
           { isSettings && this.state.showTab === 'integrations'
             ? (
@@ -269,7 +261,7 @@ class TeamComponent extends Component {
               </ContentColumn>
             ) : null }
           { isReadOnly && this.state.showTab === 'tags'
-            ? <TeamTags team={team} direction={direction} />
+            ? <TeamTags team={team} />
             : null }
         </div>
       </PageTitle>

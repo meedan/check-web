@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { defineMessages, intlShape, injectIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
 import Relay from 'react-relay/classic';
 import mergeWith from 'lodash.mergewith';
@@ -23,21 +23,6 @@ import {
 } from '../../styles/js/shared';
 import { stringHelper } from '../../customHelpers';
 import VideoAnnotationIcon from '../../../assets/images/video-annotation/video-annotation';
-
-const messages = defineMessages({
-  loading: {
-    id: 'mediaTags.loading',
-    defaultMessage: 'Loading...',
-  },
-  language: {
-    id: 'mediaTags.language',
-    defaultMessage: 'Language: {language}',
-  },
-  error: {
-    id: 'mediaTags.error',
-    defaultMessage: 'Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists.',
-  },
-});
 
 const StyledLanguageSelect = styled.span`
   select {
@@ -90,7 +75,7 @@ const StyledMediaTagsContainer = styled.div`
 // TODO Fix a11y issues
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
 /* eslint jsx-a11y/no-noninteractive-element-interactions: 0 */
-class MediaTags extends Component {
+class MediaTags extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -99,7 +84,13 @@ class MediaTags extends Component {
   }
 
   fail = (transaction) => {
-    const fallbackMessage = this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+    const fallbackMessage = (
+      <FormattedMessage
+        id="mediaTags.error"
+        defaultMessage="Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists."
+        values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
+      />
+    );
     const errorMessage = getErrorMessage(transaction, fallbackMessage);
     this.props.setFlashMessage(errorMessage);
   };
@@ -244,37 +235,41 @@ class MediaTags extends Component {
                   <li>
                     <Chip
                       className="media-tags__tag media-tags__language"
-                      label={this.state.correctingLanguage ?
-                        <span>
-                          {this.props.intl.formatMessage(messages.language, { language: '' })}
-                          {' '}
-                          <StyledLanguageSelect>
-                            <LanguageSelector
-                              onChange={this.handleLanguageChange.bind(this)}
-                              team={media.team}
-                              selected={media.language_code}
-                            />
-                          </StyledLanguageSelect>
-                          {' '}
-                          <StyledLanguageIcon>
-                            <CancelIcon
-                              onClick={this.handleCorrectLanguageCancel.bind(this)}
-                            />
-                          </StyledLanguageIcon>
-                        </span> :
-                        <span>
-                          {this.props.intl.formatMessage(
-                            messages.language,
-                            { language: media.language },
-                          )}
-                          <Can permissions={media.permissions} permission="create Dynamic">
-                            <StyledLanguageIcon>
-                              <EditIcon
-                                onClick={this.handleCorrectLanguage.bind(this)}
-                              />
-                            </StyledLanguageIcon>
-                          </Can>
-                        </span>
+                      label={
+                        <FormattedMessage
+                          id="mediaTags.language"
+                          defaultMessage="Language: {language}"
+                          values={{
+                            language: this.state.correctingLanguage ? (
+                              <React.Fragment>
+                                <StyledLanguageSelect>
+                                  <LanguageSelector
+                                    onChange={this.handleLanguageChange.bind(this)}
+                                    team={media.team}
+                                    selected={media.language_code}
+                                  />
+                                </StyledLanguageSelect>
+                                {' '}
+                                <StyledLanguageIcon>
+                                  <CancelIcon
+                                    onClick={this.handleCorrectLanguageCancel.bind(this)}
+                                  />
+                                </StyledLanguageIcon>
+                              </React.Fragment>
+                            ) : (
+                              <React.Fragment>
+                                {media.language}
+                                <Can permissions={media.permissions} permission="create Dynamic">
+                                  <StyledLanguageIcon>
+                                    <EditIcon
+                                      onClick={this.handleCorrectLanguage.bind(this)}
+                                    />
+                                  </StyledLanguageIcon>
+                                </Can>
+                              </React.Fragment>
+                            ),
+                          }}
+                        />
                       }
                     />
                   </li>
@@ -289,12 +284,9 @@ class MediaTags extends Component {
 }
 
 MediaTags.propTypes = {
-  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
-  // eslint-disable-next-line react/no-typos
-  intl: intlShape.isRequired,
   setFlashMessage: PropTypes.func.isRequired,
   media: PropTypes.object.isRequired,
   tags: PropTypes.object.isRequired,
 };
 
-export default withSetFlashMessage(injectIntl(MediaTags));
+export default withSetFlashMessage(MediaTags);

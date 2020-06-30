@@ -6,7 +6,6 @@ import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
-import rtlDetect from 'rtl-detect';
 import PageTitle from './PageTitle';
 import ChangePasswordComponent from './ChangePasswordComponent';
 import { stringHelper } from '../customHelpers';
@@ -55,7 +54,7 @@ class UserPasswordChange extends Component {
     const token = UserPasswordChange.getQueryStringValue('reset_password_token');
     return (
       <PageTitle prefix={this.props.intl.formatMessage(messages.title)}>
-        <StyledPasswordChange isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
+        <StyledPasswordChange>
           { this.state.showConfirmDialog ?
             <Card className="user-password-change__confirm-card">
               <CardHeader title={<FormattedMessage id="passwordChange.successTitle" defaultMessage="Password updated" />} />

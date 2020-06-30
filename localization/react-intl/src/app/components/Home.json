@@ -12,10 +12,6 @@
     "defaultMessage": "Welcome to {appName}. Please login with the password that you received in the welcome email."
   },
   {
-    "id": "home.invalidInvitation",
-    "defaultMessage": "Sorry, an error occurred while processing your invitation. Please contact {supportEmail}."
-  },
-  {
     "id": "home.invalidTeamInvitation",
     "defaultMessage": "Sorry, the workspace to which you were invited was not found. Please contact {supportEmail} if you think this is an error."
   },
@@ -26,5 +22,9 @@
   {
     "id": "home.invalidExpiredInvitation",
     "defaultMessage": "Sorry, the invitation you received was expired. Please contact {supportEmail} if you think this is an error."
+  },
+  {
+    "id": "home.invalidInvitation",
+    "defaultMessage": "Sorry, an error occurred while processing your invitation. Please contact {supportEmail}."
   }
 ]

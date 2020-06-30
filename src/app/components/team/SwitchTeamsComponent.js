@@ -9,18 +9,15 @@ import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
+import Avatar from '@material-ui/core/Avatar';
+import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import Avatar from '@material-ui/core/Avatar';
-import styled from 'styled-components';
 import {
   defaultBorderRadius,
-  opaqueBlack87,
-  borderWidthMedium,
-  tiny,
-  units,
   titleStyle,
   listStyle,
   listItemButtonStyle,
@@ -97,23 +94,6 @@ class SwitchTeamsComponent extends Component {
     const joinedTeams = [];
     const pendingTeams = [];
 
-    const StyledListItemContainer = styled.div`
-      position: relative;
-      .team__badge {
-        background-color: ${opaqueBlack87};
-        border-radius: ${borderWidthMedium};
-        color: ${white};
-        font: ${tiny};
-        line-height: 1.2;
-        padding: ${units(0.25)} ${units(0.5)};
-        position: absolute;
-        ${props => props.isRtl ? 'right' : 'left'}: ${units(5)};
-        top: ${units(2.5)};
-        text-transform: uppercase;
-        z-index: 9999;
-      }
-    `;
-
     const teamAvatarStyle = {
       border: `1px solid ${black05}`,
       borderRadius: `${defaultBorderRadius}`,
@@ -147,50 +127,56 @@ class SwitchTeamsComponent extends Component {
         { (joinedTeams.length + pendingTeams.length) ?
           <List className="teams" style={listStyle}>
             {joinedTeams.map(team => (
-              <StyledListItemContainer key={`team-${team.dbid}`} isRtl={this.props.isRtl}>
-                <Link to={`/${team.slug}/all-items`} id={`switch-teams__link-to-${team.slug}`}>
-                  <ListItem
-                    className="switch-teams__joined-team"
-                    onClick={this.setCurrentTeam.bind(this, team, currentUser)}
-                  >
-                    <Avatar style={teamAvatarStyle} src={team.avatar} />
-                    <ListItemText
-                      primary={team.name}
-                      secondary={
-                        this.props.intl.formatMessage(messages.switchTeamsMember, {
-                          membersCount: team.members_count,
-                        })}
-                    />
-                    <ListItemSecondaryAction>
-                      <KeyboardArrowRight />
-                    </ListItemSecondaryAction>
-                  </ListItem>
-                </Link>
-              </StyledListItemContainer>
+              <ListItem
+                key={team.slug}
+                className="switch-teams__joined-team"
+                onClick={this.setCurrentTeam.bind(this, team, currentUser)}
+                component={Link}
+                to={`/${team.slug}/all-items`}
+                id={`switch-teams__link-to-${team.slug}`}
+              >
+                <ListItemAvatar>
+                  <Avatar style={teamAvatarStyle} src={team.avatar} />
+                </ListItemAvatar>
+                <ListItemText
+                  primary={team.name}
+                  secondary={
+                    this.props.intl.formatMessage(messages.switchTeamsMember, {
+                      membersCount: team.members_count,
+                    })}
+                />
+                <ListItemSecondaryAction>
+                  <IconButton edge="end" onClick={this.setCurrentTeam.bind(this, team, currentUser)}>
+                    <KeyboardArrowRight />
+                  </IconButton>
+                </ListItemSecondaryAction>
+              </ListItem>
             ))}
 
             {pendingTeams.map(team => (
-              <Link key={team.slug} to={`/${team.slug}`}>
-                <ListItem
-                  className="switch-teams__pending-team"
-                  key={`team-${team.dbid}`}
-                >
+              <ListItem
+                key={team.slug}
+                className="switch-teams__pending-team"
+                component={Link}
+                to={`/${team.slug}`}
+              >
+                <ListItemAvatar>
                   <Avatar style={teamAvatarStyle} src={team.avatar} />
-                  <ListItemText
-                    primary={team.name}
-                    secondary={this.props.intl.formatMessage(messages.joinTeam)}
-                  />
-                  <ListItemSecondaryAction>
-                    <Button
-                      className="switch-team__cancel-request"
-                      style={listItemButtonStyle}
-                      onClick={this.cancelRequest.bind(this, team)}
-                    >
-                      <FormattedMessage id="switchTeams.cancelJoinRequest" defaultMessage="Cancel" />
-                    </Button>
-                  </ListItemSecondaryAction>
-                </ListItem>
-              </Link>
+                </ListItemAvatar>
+                <ListItemText
+                  primary={team.name}
+                  secondary={this.props.intl.formatMessage(messages.joinTeam)}
+                />
+                <ListItemSecondaryAction>
+                  <Button
+                    className="switch-team__cancel-request"
+                    style={listItemButtonStyle}
+                    onClick={this.cancelRequest.bind(this, team)}
+                  >
+                    <FormattedMessage id="switchTeams.cancelJoinRequest" defaultMessage="Cancel" />
+                  </Button>
+                </ListItemSecondaryAction>
+              </ListItem>
             ))}
           </List> :
           <CardContent>

@@ -7,18 +7,11 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Button from '@material-ui/core/Button';
-import FASlack from 'react-icons/lib/fa/slack';
-import FAFacebook from 'react-icons/lib/fa/facebook-official';
-import FATwitter from 'react-icons/lib/fa/twitter';
 import ConfirmDialog from '../layout/ConfirmDialog';
 import UserDisconnectLoginAccountMutation from '../../relay/mutations/UserDisconnectLoginAccountMutation';
 import { login } from '../../redux/actions';
-import {
-  FlexRow,
-  slackGreen,
-  twitterBlue,
-  facebookBlue,
-} from '../../styles/js/shared';
+import SocialIcon from '../SocialIcon';
+import { FlexRow } from '../../styles/js/shared';
 
 class UserConnectedAccount extends Component {
   static renderLabel(userAction) {
@@ -73,19 +66,6 @@ class UserConnectedAccount extends Component {
     );
   }
 
-  socialIcon() {
-    switch (this.props.provider.key) {
-    case 'twitter':
-      return <FATwitter style={{ color: twitterBlue }} className="logo" />;
-    case 'slack':
-      return <FASlack style={{ color: slackGreen }} className="logo" />;
-    case 'facebook':
-      return <FAFacebook style={{ color: facebookBlue }} className="logo" />;
-    default:
-      return null;
-    }
-  }
-
   render() {
     const { provider } = this.props;
     const buttonStyle = {
@@ -102,8 +82,6 @@ class UserConnectedAccount extends Component {
       />,
     };
 
-    const listIcon = this.socialIcon();
-
     return (
       <div style={{ listStyleType: 'none' }} >
         { provider.values.map((socialAccount, index) => {
@@ -115,7 +93,7 @@ class UserConnectedAccount extends Component {
           return (
             <ListItem className="user-connect__list-item" key={`account-connect-disconnect-raw-${index.toString()}`}>
               <ListItemIcon className="user-connect__list-icon">
-                {listIcon}
+                <SocialIcon inColor domain={this.props.provider.key} />
               </ListItemIcon>
               <ListItemText style={{ minWidth: '500px', padding: '0px' }} primary={socialAccount.info} />
               <ListItemSecondaryAction>
