@@ -115,14 +115,14 @@ class CreateProject extends React.Component {
     const {
       classes, team, visible, renderCard,
     } = this.props;
-    const className = `${renderCard ? classes.rootCard : classes.rootNotCard} ${visible ? '' : classes.rootHidden}`;
+    const className = `create-project-${renderCard ? 'card' : 'form'} ${renderCard ? classes.rootCard : classes.rootNotCard} ${visible ? '' : classes.rootHidden}`;
     const disabled = !visible;
 
     const textInput = (
       <TextField
         key={visible /* re-render -- and thus autofocus -- when visible becomes true */}
-        id="create-project-title"
         className={this.props.className || 'team__new-project-input'}
+        name="title"
         placeholder={this.props.intl.formatMessage(messages.newProjectName)}
         style={this.props.style}
         autoFocus={this.props.autoFocus}
@@ -137,21 +137,9 @@ class CreateProject extends React.Component {
     );
 
     const submitButton = (
-      <Button
-        id="create-project-submit-button"
-        onClick={this.handleSubmit.bind(this)}
-        color="primary"
-        disabled={disabled || !this.state.name}
-      >
+      <Button type="submit" color="primary" disabled={disabled || !this.state.name}>
         {this.props.intl.formatMessage(messages.addProject)}
       </Button>
-    );
-
-    const form = (
-      <form onSubmit={this.handleSubmit.bind(this)} disabled={disabled} className={className}>
-        {textInput}
-        {submitButton}
-      </form>
     );
 
     if (renderCard) {
@@ -160,12 +148,15 @@ class CreateProject extends React.Component {
         : messages.cardTitleBlank;
 
       return (
-        <Card className={className} style={{ marginBottom: units(2) }}>
+        <Card
+          component="form"
+          onSubmit={this.handleSubmit.bind(this)}
+          className={className}
+          style={{ marginBottom: units(2) }}
+        >
           <CardHeader title={this.props.intl.formatMessage(cardTitle)} />
           <CardContent>
-            <form onSubmit={this.handleSubmit.bind(this)} className="create-project">
-              {textInput}
-            </form>
+            {textInput}
           </CardContent>
           <CardActions>
             {submitButton}
@@ -174,7 +165,12 @@ class CreateProject extends React.Component {
       );
     }
 
-    return form;
+    return (
+      <form onSubmit={this.handleSubmit.bind(this)} className={className}>
+        {textInput}
+        {submitButton}
+      </form>
+    );
   }
 }
 CreateProject.defaultProps = {

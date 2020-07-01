@@ -50,7 +50,9 @@ const DrawerHeader = ({ team, loggedIn, currentUserIsMember }) => {
 
   if (!team) {
     return loggedIn ? (
-      <img width={units(8)} alt="Team Logo" src={stringHelper('LOGO_URL')} />
+      <div className={classes.root}>
+        <img height={31 /* file's real height */} alt="Team Logo" src={stringHelper('LOGO_URL')} />
+      </div>
     ) : null;
   }
 

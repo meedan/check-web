@@ -7,7 +7,7 @@ import Divider from '@material-ui/core/Divider';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { withPusher, pusherShape } from '../pusher';
@@ -21,6 +21,16 @@ import {
   body1,
   units,
 } from '../styles/js/shared';
+
+const useStylesBigEmptySpaceInSidebar = makeStyles({
+  root: {
+    flex: '1 1 auto',
+  },
+});
+const BigEmptySpaceInSidebar = () => {
+  const classes = useStylesBigEmptySpaceInSidebar();
+  return <div className={classes.root} />;
+};
 
 // TODO Fix a11y issues
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
@@ -112,28 +122,30 @@ class DrawerNavigationComponent extends Component {
       <Drawer open variant="persistent" anchor="left" classes={classes}>
         <DrawerHeader team={team} loggedIn={loggedIn} currentUserIsMember={currentUserIsMember} />
         <Divider />
-        {!!team && (currentUserIsMember || !this.props.team.private) ? (
-          <DrawerProjects team={team.slug} />
-        ) : null}
-        {!!team && currentUserIsMember ? (
-          <Link to={`/${team.slug}/trash`} className="project-list__link-trash">
-            <MenuItem className="project-list__item-trash">
-              <ListItemIcon>
-                <DeleteIcon />
-              </ListItemIcon>
-              <ListItemText
-                primary={
-                  <Row style={{ font: body1 }}>
-                    <FormattedMessage id="projects.trash" defaultMessage="Trash" />
-                    <AlignOpposite>
-                      {String(this.props.team.trash_count)}
-                    </AlignOpposite>
-                  </Row>
-                }
-              />
-            </MenuItem>
-          </Link>
-        ) : null}
+        {!!team && (currentUserIsMember || !team.private) ? (
+          <React.Fragment>
+            <DrawerProjects team={team.slug} />
+            {currentUserIsMember ? (
+              <Link to={`/${team.slug}/trash`} className="project-list__link-trash">
+                <MenuItem className="project-list__item-trash">
+                  <ListItemIcon>
+                    <DeleteIcon />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={
+                      <Row style={{ font: body1 }}>
+                        <FormattedMessage id="projects.trash" defaultMessage="Trash" />
+                        <AlignOpposite>
+                          {String(team.trash_count)}
+                        </AlignOpposite>
+                      </Row>
+                    }
+                  />
+                </MenuItem>
+              </Link>
+            ) : null}
+          </React.Fragment>
+        ) : <BigEmptySpaceInSidebar />}
         <Divider />
         <div className="drawer__footer">
           {loggedIn ? <div><UserMenuRelay {...this.props} /></div> : (
