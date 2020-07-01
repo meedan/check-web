@@ -9,6 +9,7 @@ import styled from 'styled-components';
 import MediaRoute from '../../relay/MediaRoute';
 import MediaMetadata from './MediaMetadata';
 import MediaTypeDisplayName from './MediaTypeDisplayName';
+import MediaUtil from './MediaUtil';
 import MoreLess from '../layout/MoreLess';
 import ParsedText from '../ParsedText';
 import TimeBefore from '../TimeBefore';
