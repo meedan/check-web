@@ -11,7 +11,7 @@ cache:
   directories:
     - "/tmp/bundler"
 addons:
-  postgresql: "9.5"
+  postgresql: "11"
   hosts:
     - minio
     - redis
