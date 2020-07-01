@@ -38,6 +38,80 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
           url
           quote
           embed_path
+          metadata
+          type
+        }
+        comments: annotations(first: 10000, annotation_type: "comment") {
+          edges {
+            node {
+              ... on Comment {
+                id
+                dbid
+                text
+                parsed_fragment
+                annotator {
+                  id
+                  name
+                  profile_image
+                }
+                comments: annotations(first: 10000, annotation_type: "comment") {
+                  edges {
+                    node {
+                      ... on Comment {
+                        id
+                        created_at
+                        text
+                        annotator {
+                          id
+                          name
+                          profile_image
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        clips: annotations(first: 10000, annotation_type: "clip") {
+          edges {
+            node {
+              ... on Dynamic {
+                id
+                data
+                parsed_fragment
+              }
+            }
+          }
+        }
+        tags(first: 10000) {
+          edges {
+            node {
+              id
+              dbid
+              fragment
+              parsed_fragment
+              annotated_id
+              annotated_type
+              annotated_type
+              tag_text_object {
+                id
+                text
+              }
+            }
+          }
+        }
+        geolocations: annotations(first: 10000, annotation_type: "geolocation") {
+          edges {
+            node {
+              ... on Dynamic {
+                id
+                parsed_fragment
+                content
+              }
+            }
+          }
         }
         team {
           id

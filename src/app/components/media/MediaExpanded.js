@@ -8,7 +8,6 @@ import CardActions from '@material-ui/core/CardActions';
 import styled from 'styled-components';
 import MediaRoute from '../../relay/MediaRoute';
 import MediaMetadata from './MediaMetadata';
-import MediaUtil from './MediaUtil';
 import MediaTypeDisplayName from './MediaTypeDisplayName';
 import MoreLess from '../layout/MoreLess';
 import ParsedText from '../ParsedText';
@@ -75,6 +74,10 @@ class MediaExpandedComponent extends Component {
     context.setContextStore({ team, project });
   }
 
+  getPlayerRef = (node) => {
+    this.props.setPlayerRef(node);
+  }
+
   subscribe() {
     const { pusher, clientSessionId, media } = this.props;
     pusher.subscribe(media.pusher_channel).bind('media_updated', 'MediaComponent', (data, run) => {
@@ -99,7 +102,9 @@ class MediaExpandedComponent extends Component {
   }
 
   render() {
-    const { media } = this.props;
+    const {
+      media, playing, start, end, gaps, seekTo, scrubTo, setPlayerState, onPlayerReady,
+    } = this.props;
     let smoochBotInstalled = false;
     if (media.team && media.team.team_bot_installations) {
       media.team.team_bot_installations.edges.forEach((edge) => {
@@ -128,9 +133,27 @@ class MediaExpandedComponent extends Component {
       if (isImage) {
         return <ImageMediaCard imagePath={media.embed_path} />;
       } else if (isVideo) {
-        return <VideoMediaCard videoPath={media.media.file_path} />;
+        return (
+          <div ref={this.getPlayerRef}>
+            <VideoMediaCard
+              videoPath={media.media.file_path}
+              {...{
+                playing, start, end, gaps, scrubTo, seekTo, onPlayerReady, setPlayerState,
+              }}
+            />
+          </div>
+        );
       } else if (isYoutube) {
-        return <VideoMediaCard videoPath={media.url} />;
+        return (
+          <div ref={this.getPlayerRef}>
+            <VideoMediaCard
+              videoPath={media.url}
+              {...{
+                playing, start, end, gaps, scrubTo, seekTo, onPlayerReady, setPlayerState,
+              }}
+            />
+          </div>
+        );
       } else if (isQuote) {
         return (
           <QuoteMediaCard
@@ -324,6 +347,7 @@ const MediaExpandedContainer = Relay.createContainer(withPusher(MediaExpandedCom
               id
               tag
               tag_text
+              fragment
             }
           }
         }

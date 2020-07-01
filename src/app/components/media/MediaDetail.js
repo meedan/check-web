@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Card from '@material-ui/core/Card';
 import { withPusher, pusherShape } from '../../pusher';
 import MediaExpanded from './MediaExpanded';
 import MediaCondensed from './MediaCondensed';
 
-class MediaDetail extends Component {
+class MediaDetail extends React.Component {
   componentDidMount() {
     if (this.props.parentComponentName === 'MediaRelated') {
       this.subscribe();
@@ -40,7 +40,23 @@ class MediaDetail extends Component {
   }
 
   render() {
-    const { media, annotated, annotatedType } = this.props;
+    const {
+      annotated,
+      annotatedType,
+      media,
+      onPlayerReady,
+      onVideoAnnoToggle,
+      onTimelineCommentOpen,
+      playing,
+      start,
+      end,
+      gaps,
+      scrubTo,
+      seekTo,
+      setPlayerState,
+      setPlayerRef,
+      showVideoAnnotation,
+    } = this.props;
 
     // Build the item URL
 
@@ -70,7 +86,24 @@ class MediaDetail extends Component {
             currentRelatedMedia={this.props.currentRelatedMedia}
           />
         ) : (
-          <MediaExpanded media={this.props.media} mediaUrl={mediaUrl} />
+          <MediaExpanded
+            media={this.props.media}
+            mediaUrl={mediaUrl}
+            {...{
+              onPlayerReady,
+              onVideoAnnoToggle,
+              onTimelineCommentOpen,
+              playing,
+              start,
+              end,
+              gaps,
+              scrubTo,
+              seekTo,
+              setPlayerRef,
+              setPlayerState,
+              showVideoAnnotation,
+            }}
+          />
         )}
       </Card>
     );
