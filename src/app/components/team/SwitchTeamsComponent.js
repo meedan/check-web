@@ -18,7 +18,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import {
   defaultBorderRadius,
-  titleStyle,
   listStyle,
   listItemButtonStyle,
   white,
@@ -112,7 +111,6 @@ class SwitchTeamsComponent extends Component {
     return (
       <Card>
         <CardHeader
-          titleStyle={titleStyle}
           title={cardTitle}
         />
         { (joinedTeams.length + pendingTeams.length) ?
