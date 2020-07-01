@@ -239,12 +239,14 @@ class MediaTimeline extends Component {
   render() {
     const {
       media, currentUser, duration, time,
+      fragment: { id: instanceId },
     } = this.props;
     const data = getTimelineData({ media, currentUser });
 
     return (
       <Timeline
         currentTime={time}
+        instanceId={instanceId}
         data={data}
         duration={duration}
         onBeforeCommentThreadCreate={NOOP}
