@@ -8,6 +8,10 @@ export default function Trash({ routeParams }) {
   const query = {
     ...safelyParseJSON(routeParams.query, {}),
     archived: 1,
+    parent: {
+      type: 'team',
+      slug: routeParams.team,
+    },
   };
 
   return (

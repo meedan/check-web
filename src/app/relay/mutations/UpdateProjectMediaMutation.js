@@ -68,6 +68,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
             slug
             medias_count
             public_team {
+              id
               trash_count
             }
           }

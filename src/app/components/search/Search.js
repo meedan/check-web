@@ -25,6 +25,10 @@ export function urlFromSearchQuery(query, path) {
 export function noFilters(query_, project) {
   const query = { ...query_ };
   delete query.timestamp;
+  if (Object.keys(query).indexOf('archived') > -1) {
+    delete query.archived;
+    delete query.parent;
+  }
   if (
     query.projects &&
     (query.projects.length === 0 ||
@@ -62,7 +66,7 @@ export default function Search({
   title,
 }) {
   let timestampedQuery = query;
-  if (!noFilters(query, project) && Object.keys(query).join('') !== 'archived') {
+  if (!noFilters(query, project)) {
     timestampedQuery = { ...query, timestamp: new Date().getTime() };
   }
 
