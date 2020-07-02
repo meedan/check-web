@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { injectIntl, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
-import rtlDetect from 'rtl-detect';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 import DownloadIcon from '@material-ui/icons/MoveToInbox';
@@ -14,41 +13,12 @@ import VideoAnnotationIcon from '../../../assets/images/video-annotation/video-a
 import {
   Row,
   black54,
-  black87,
-  title1,
   units,
   opaqueBlack05,
 } from '../../styles/js/shared';
 
 const StyledMetadata = styled.div`
-  margin: ${units(1)} 0 0;
-  padding-${props => props.fromDirection}: ${units(1)};
-
-  .media-detail__dialog-header {
-    color: ${black87};
-    font: ${title1};
-    height: ${units(4)};
-    margin-bottom: ${units(0.5)};
-    margin-top: ${units(0.5)};
-    margin-${props => props.fromDirection}: auto;
-  }
-
-  .media-detail__dialog-media-path {
-    height: ${units(2)};
-    margin-bottom: ${units(4)};
-    text-align: ${props => props.fromDirection};
-  }
-
-  .media-detail__dialog-radio-group {
-    margin-top: ${units(4)};
-    margin-${props => props.fromDirection}: ${units(4)};
-  }
-
-  .media-detail__buttons {
-    display: flex;
-    alignItems: center;
-    margin-${props => props.fromDirection}: auto;
-  }
+  margin: ${units(1)} ${units(1)} 0;
 
   svg {
     color: ${black54};
@@ -56,16 +26,14 @@ const StyledMetadata = styled.div`
 `;
 
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
-class MediaMetadata extends Component {
+class MediaMetadata extends React.Component {
   reverseImageSearchGoogle() {
     const imagePath = this.props.media.picture;
     window.open(`https://www.google.com/searchbyimage?image_url=${imagePath}`);
   }
 
   render() {
-    const { media, intl: { locale }, onTimelineCommentOpen } = this.props;
-    const isRtl = rtlDetect.isRtlLang(locale);
-    const fromDirection = isRtl ? 'right' : 'left';
+    const { media, onTimelineCommentOpen } = this.props;
     const claimReview = media.metadata.schema && media.metadata.schema.ClaimReview ?
       media.metadata.schema.ClaimReview[0] : null;
 
@@ -118,10 +86,7 @@ class MediaMetadata extends Component {
     };
 
     return (
-      <StyledMetadata
-        fromDirection={fromDirection}
-        className="media-detail__check-metadata"
-      >
+      <StyledMetadata className="media-detail__check-metadata">
         { claimReview ? <Row><ClaimReview data={claimReview} /></Row> : null }
         { (media.picture || (media.media && media.media.file_path)) ?
           <Row style={{ display: 'flex', alignItems: 'center', marginBottom: units(2) }}>
@@ -177,7 +142,6 @@ class MediaMetadata extends Component {
 }
 
 MediaMetadata.propTypes = {
-  intl: PropTypes.object.isRequired,
   media: PropTypes.shape({
     media: PropTypes.shape({
       type: PropTypes.string,
@@ -188,4 +152,4 @@ MediaMetadata.propTypes = {
   }).isRequired,
 };
 
-export default injectIntl(MediaMetadata);
+export default MediaMetadata;

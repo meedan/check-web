@@ -478,6 +478,8 @@ const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsCom
         id,
         pusher_channel,
         team {
+          ${BulkActions.getFragment('team')}
+          id
           slug
           search_id,
           permissions,
@@ -578,6 +580,7 @@ export default function SearchResults({ query, teamSlug, ...props }) {
     <Relay.RootContainer
       Component={SearchResultsContainer}
       route={route}
+      forceFetch
       renderFetched={data => (
         <SearchResultsContainer {...props} query={query} search={data.search} />
       )}

@@ -6,7 +6,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import MdCancel from 'react-icons/lib/md/cancel';
+import CancelIcon from '@material-ui/icons/Cancel';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import styled from 'styled-components';
 import Attribution from './Attribution';
@@ -223,7 +223,7 @@ class EditTaskDialog extends React.Component {
               />
               {canRemove ?
                 <StyledIconButton>
-                  <MdCancel
+                  <CancelIcon
                     key="create-task__remove-option-button"
                     className="create-task__remove-option-button create-task__md-icon"
                     onClick={this.handleRemoveOption.bind(this, index)}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, FormattedNumber, injectIntl, defineMessages } from 'react-intl';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
 import Relay from 'react-relay/classic';
 import { Link } from 'react-router';
 import Button from '@material-ui/core/Button';
@@ -16,17 +16,6 @@ import TeamRoute from '../../relay/TeamRoute';
 import RelayContainer from '../../relay/RelayContainer';
 
 import { units } from '../../styles/js/shared';
-
-const messages = defineMessages({
-  addProject: {
-    id: 'projects.addProject',
-    defaultMessage: 'Add list',
-  },
-  dismiss: {
-    id: 'projects.dismiss',
-    defaultMessage: 'Dismiss',
-  },
-});
 
 const useProjectLinkStyles = makeStyles(theme => ({
   root: {
@@ -172,9 +161,11 @@ class DrawerProjectsComponent extends Component {
           }
         </List>
         <Can permissions={team.permissions} permission="create Project">
-          <Tooltip
-            title={this.props.intl.formatMessage(this.props.showAddProj ?
-              messages.dismiss : messages.addProject)}
+          <Tooltip title={
+            this.props.showAddProj
+              ? <FormattedMessage id="projects.dismiss" defaultMessage="Dismiss" />
+              : <FormattedMessage id="projects.addProject" defaultMessage="Add list" />
+          }
           >
             <Button
               onClick={this.toggleShowCreateProject}
@@ -211,7 +202,7 @@ DrawerProjectsComponent.propTypes = {
   clientSessionId: PropTypes.string.isRequired,
 };
 
-const ConnectedDrawerProjectsComponent = withPusher(injectIntl(DrawerProjectsComponent));
+const ConnectedDrawerProjectsComponent = withPusher(DrawerProjectsComponent);
 
 const DrawerProjectsContainer = Relay.createContainer(ConnectedDrawerProjectsComponent, {
   fragments: {
@@ -245,7 +236,6 @@ const DrawerProjects = (props) => {
     <RelayContainer
       Component={DrawerProjectsContainer}
       route={route}
-      forceFetch
       renderFetched={data =>
         <DrawerProjectsContainer {...data} />}
     />

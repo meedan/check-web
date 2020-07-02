@@ -6,14 +6,8 @@ import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import styled from 'styled-components';
-import rtlDetect from 'rtl-detect';
 import { can } from '../Can';
 import { getCurrentProjectId } from '../../helpers';
-
-const StyledIconMenuWrapper = styled.div`
-  margin-${props => (props.isRtl ? 'right' : 'left')}: auto;
-`;
 
 class MediaActions extends Component {
   state = {
@@ -194,10 +188,8 @@ class MediaActions extends Component {
         </MenuItem>));
     }
 
-    return menuItems.length ?
-      <StyledIconMenuWrapper
-        isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
-      >
+    return menuItems.length ? (
+      <div>
         <IconButton
           tooltip={
             <FormattedMessage id="mediaActions.tooltip" defaultMessage="Item actions" />
@@ -214,8 +206,8 @@ class MediaActions extends Component {
         >
           {menuItems}
         </Menu>
-      </StyledIconMenuWrapper>
-      : null;
+      </div>
+    ) : null;
   }
 }
 

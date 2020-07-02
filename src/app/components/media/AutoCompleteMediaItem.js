@@ -1,206 +1,218 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
-import CheckContext from '../../CheckContext';
-import { nested } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 
-const messages = defineMessages({
-  searching: {
-    id: 'autoCompleteMediaItem.searching',
-    defaultMessage: 'Searching...',
-  },
-  notFound: {
-    id: 'autoCompleteMediaItem.notFound',
-    defaultMessage: 'No matches found',
-  },
-  error: {
-    id: 'autoCompleteMediaItem.error',
-    defaultMessage: 'Sorry, an error occurred while searching. Please try again and contact {supportEmail} if the condition persists.',
-  },
-});
+function isPublished(media) {
+  return (
+    media.dynamic_annotation_report_design &&
+    media.dynamic_annotation_report_design.data &&
+    media.dynamic_annotation_report_design.data.state === 'published'
+  );
+}
 
-class AutoCompleteMediaItem extends React.Component {
-  static isPublished(media) {
-    return (
-      media.dynamic_annotation_report_design &&
-      media.dynamic_annotation_report_design.data &&
-      media.dynamic_annotation_report_design.data.state === 'published'
-    );
-  }
+// Return { jsonPromise, abort }.
+//
+// jsonPromise will reject as AbortError if aborted.
+//
+// jsonPromise will reject as Error if response status is not 200 or response
+// is not valid JSON.
+function fetchJsonEnsuringOkAllowingAbort(url, params) {
+  const controller = new AbortController();
+  const abort = () => controller.abort();
 
-  constructor(props) {
-    super(props);
+  const { signal } = controller;
+  const jsonPromise = (async () => {
+    const httpResponse = await fetch(url, { signal, ...params }); // may throw
+    if (!httpResponse.ok) {
+      throw new Error('HTTP response not OK');
+    }
+    const jsonResponse = await httpResponse.json(); // may throw
+    return jsonResponse;
+  })();
 
-    this.state = {
-      searchResult: [],
-      searching: false,
-      openResultsPopup: false,
-    };
+  return { jsonPromise, abort };
+}
 
-    this.timer = null;
-  }
+function AutoCompleteMediaItem(props, context) {
+  const teamSlug = context.store.getState().app.context.team.slug; // TODO make it a prop
+  const [searchText, setSearchText] = React.useState('');
 
-  // eslint-disable-next-line class-methods-use-this
-  handleKeyPress(e) {
-    if (e.key === 'Enter' && !e.shiftKey) {
+  // Object with { loading, items, error } (only one truthy), or `null`
+  const [searchResult, setSearchResult] = React.useState(null);
+
+  const handleKeyPress = React.useCallback((e) => {
+    // Avoid submitting form. TODO make Enter skip the timeout?
+    if (e.key === 'Enter') {
       e.preventDefault();
     }
-  }
+  }, []);
 
-  handleSearchText(e) {
-    const query = e.target.value;
-    const keystrokeWait = 2000;
+  const handleChange = React.useCallback((e, obj) => { props.onSelect(obj); }, [props.onSelect]);
 
-    this.setState({ message: '' });
-    clearTimeout(this.timer);
+  const handleChangeSearchText = React.useCallback((e) => {
+    setSearchText(e.target.value);
+  }, [setSearchText]);
 
-    if (query) {
-      this.setState({ message: this.props.intl.formatMessage(messages.searching) });
-      this.timer = setTimeout(() => this.search(query), keystrokeWait);
+  // Call setSearchResult() twice (loading ... results!) whenever `searchText` changes.
+  //
+  // After abort, we promise we won't call any more setSearchResult().
+  React.useEffect(() => {
+    if (searchText.length < 3) {
+      setSearchResult(null);
+      return undefined; // no cleanup needed
     }
-  }
 
-  search = (query) => {
-    const context = new CheckContext(this).getContextStore();
+    const keystrokeWait = 1000;
 
-    if (query.length < 3 || this.state.searching) {
-      return;
-    }
-    this.setState({ searching: true });
+    setSearchResult({ loading: true, items: null, error: null });
 
-    // eslint-disable-next-line no-useless-escape
-    const queryString = `{ \\"keyword\\": \\"${query}\\", \\"eslimit\\": 30 }`;
+    let aborted = false;
+    let timer = null; // we'll set it below
+    let abortHttpRequest = null;
 
-    const init = {
-      body: JSON.stringify({
-        query: `
-          query {
-            search(query: "${queryString}") {
-              team {
-                name
-              }
-              medias(first: 30) {
-                edges {
-                  node {
-                    id
-                    dbid
-                    title
-                    verification_statuses
-                    status
-                    relationships { sources_count, targets_count }
-                    domain
-                    metadata
-                    overridden
-                    dynamic_annotation_report_design {
+    async function begin() {
+      timer = null;
+      if (aborted) { // paranoia?
+        return;
+      }
+
+      const encodedQuery = JSON.stringify(JSON.stringify({ keyword: searchText, eslimit: 30 }));
+      const params = {
+        body: JSON.stringify({
+          query: `
+            query {
+              search(query: ${encodedQuery}) {
+                medias(first: 30) {
+                  edges {
+                    node {
                       id
-                      data
-                    }
-                    media {
-                      quote
+                      dbid
+                      title
+                      relationships { sources_count, targets_count }
+                      dynamic_annotation_report_design {
+                        id
+                        data
+                      }
                     }
                   }
                 }
               }
             }
-          }
-        `,
-      }),
-      headers: {
-        Accept: '*/*',
-        'X-Check-Team': context.team.slug,
-        'Content-Type': 'application/json',
-        ...config.relayHeaders,
-      },
-      method: 'POST',
-    };
-
-    fetch(config.relayPath, init)
-      .then((response) => {
-        this.setState({ searching: false });
-        if (!response.ok) {
-          throw Error(this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') }));
+          `,
+        }),
+        headers: {
+          Accept: '*/*',
+          'X-Check-Team': teamSlug,
+          'Content-Type': 'application/json',
+          ...config.relayHeaders,
+        },
+        method: 'POST',
+      };
+      const { jsonPromise, abort } = fetchJsonEnsuringOkAllowingAbort(config.relayPath, params);
+      // abortAsyncStuff() should call this HTTP abort(). That will cause
+      // an AbortError from the HTTP response.
+      abortHttpRequest = abort;
+      let response;
+      try {
+        response = await jsonPromise;
+      } catch (err) {
+        if (aborted) {
+          return; // this is a healthy error and we should stop processing now
         }
-        return response.json();
-      })
-      .then((response) => {
-        let items = nested(['data', 'search', 'medias', 'edges'], response);
-
-        items = items.filter(item =>
-          (item.node.relationships.sources_count + item.node.relationships.targets_count === 0) &&
-          (item.node.dbid !== this.props.media.dbid));
-
-        if (this.props.onlyPublished) {
-          items = items.filter(item =>
-            AutoCompleteMediaItem.isPublished(item.node));
-        }
-
-        const searchResult = items.map(item => ({
-          text: item.node.title,
-          value: item.node.dbid,
-          id: item.node.id,
-        })) || [];
-
-        let message = '';
-        if (!searchResult.length) {
-          message = this.props.intl.formatMessage(messages.notFound);
-        }
-        this.setState({
-          searchResult,
-          message,
-          openResultsPopup: Boolean(searchResult.length),
-        });
-      })
-      .catch(() => this.setState({
-        message: this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') }),
-        searching: false,
-      }));
-  };
-
-  render() {
-    const selectCallback = (e, obj) => {
-      if (this.props.onSelect) {
-        this.props.onSelect(obj);
+        setSearchResult({ loading: false, items: null, error: err });
+        return;
       }
-      this.setState({ openResultsPopup: false });
+
+      if (aborted) {
+        // After HTTP response and before we started processing it, user aborted.
+        return;
+      }
+
+      // The rest of this code is synchronous, so it can't be aborted.
+      try {
+        let items = response.data.search.medias.edges
+          .map(({ node }) => node)
+          .filter(({ relationships }) => (
+            relationships.sources_count + relationships.targets_count === 0
+          ))
+          .filter(({ dbid }) => dbid !== props.dbid);
+        if (props.onlyPublished) {
+          items = items.filter(isPublished);
+        }
+        items = items.map(({ title, dbid, id }) => ({ text: title, value: dbid, id }));
+        setSearchResult({ loading: false, items, error: null });
+      } catch (err) {
+        // TODO nix catch-all error handler for errors we've likely never seen
+        console.error(err); // eslint-disable-line no-console
+        setSearchResult({ loading: false, items: null, error: err });
+      }
+    }
+
+    const abortAsyncStuff = () => {
+      aborted = true;
+      if (timer !== null) {
+        clearTimeout(timer);
+        timer = null;
+      }
+      if (abortHttpRequest !== null) {
+        abortHttpRequest();
+        abortHttpRequest = null;
+      }
     };
+    timer = setTimeout(begin, keystrokeWait);
+    return abortAsyncStuff;
+  }, [searchText, setSearchResult, props.dbid, props.onlyPublished]);
 
-    return (
-      <div>
-        <Autocomplete
-          id="autocomplete-media-item"
-          name="autocomplete-media-item"
-          options={this.state.searchResult}
-          open={this.state.openResultsPopup}
-          getOptionLabel={option => option.text}
-          renderInput={
-            params => (<TextField
-              label={
-                <FormattedMessage
-                  id="autoCompleteMediaItem.searchItem"
-                  defaultMessage="Search"
-                />
-              }
-              onKeyPress={this.handleKeyPress.bind(this)}
-              onChange={this.handleSearchText.bind(this)}
-              {...params}
-            />)
-          }
-          onChange={selectCallback}
-          onBlur={() => this.setState({ openResultsPopup: false })}
-          fullWidth
+  return (
+    <Autocomplete
+      id="autocomplete-media-item"
+      name="autocomplete-media-item"
+      options={(searchResult && searchResult.items) ? searchResult.items : []}
+      open={!!searchResult}
+      getOptionLabel={option => option.text}
+      loading={searchResult ? searchResult.loading : false}
+      loadingText={
+        <FormattedMessage id="autoCompleteMediaItem.searching" defaultMessage="Searching..." />
+      }
+      noOptionsText={searchResult && searchResult.error ? (
+        <FormattedMessage
+          id="autoCompleteMediaItem.error"
+          defaultMessage="Sorry, an error occurred while searching. Please try again and contact {supportEmail} if the condition persists."
+          values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
         />
-        <span>{this.state.message}</span>
-      </div>
-    );
-  }
+      ) : (
+        <FormattedMessage id="autoCompleteMediaItem.notFound" defaultMessage="No matches found" />
+      )}
+      renderInput={
+        params => (<TextField
+          label={
+            <FormattedMessage id="autoCompleteMediaItem.searchItem" defaultMessage="Search" />
+          }
+          onKeyPress={handleKeyPress}
+          onChange={handleChangeSearchText}
+          {...params}
+        />)
+      }
+      onChange={handleChange}
+      onBlur={() => setSearchText('') /* so useEffect() will setSearchResult(null) */}
+    />
+  );
 }
-
 AutoCompleteMediaItem.contextTypes = {
-  store: PropTypes.object,
+  store: PropTypes.object, // TODO nix
+};
+AutoCompleteMediaItem.defaultProps = {
+  dbid: null,
+  onlyPublished: false,
+};
+AutoCompleteMediaItem.propTypes = {
+  onSelect: PropTypes.func.isRequired, // func({ value, text } or null) => undefined
+  dbid: PropTypes.number, // filter results: do _not_ select this number
+  onlyPublished: PropTypes.bool, // filter results
 };
 
-export default injectIntl(AutoCompleteMediaItem);
+export default AutoCompleteMediaItem;

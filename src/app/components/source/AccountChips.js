@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import MediaUtil from '../media/MediaUtil';
+import SocialIcon from '../SocialIcon';
 import { units, chipStyles } from '../../styles/js/shared';
 
 const StyledTag = styled.li`
@@ -15,7 +15,7 @@ const AccountChips = (props) => {
       <ul className="media-tags__list">
         {props.accounts.map(account => (
           <StyledTag key={account.id} className="media-tags__tag">
-            { MediaUtil.socialIcon(account.provider) }
+            <SocialIcon domain={account.provider} />
             <a href={account.url} style={{ margin: `0 ${units(1)}` }} target="_blank" rel="noopener noreferrer">
               { account.metadata.username || account.metadata.url }
             </a>

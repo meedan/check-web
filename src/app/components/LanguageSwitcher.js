@@ -13,7 +13,8 @@ const LanguageSwitcher = (props) => {
   return (
     <Tabs value={props.currentLanguage} onChange={handleChange} variant="fullWidth">
       { props.languages.map((languageCode) => {
-        const label = languagesList[languageCode].nativeName;
+        const label = Object.keys(languagesList).indexOf(languageCode) > -1 ?
+          languagesList[languageCode].nativeName : languageCode;
         return (
           <Tab
             label={

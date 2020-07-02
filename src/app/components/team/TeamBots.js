@@ -36,7 +36,7 @@ const StyledCardContent = styled(CardContent)`
   img {
     height: 100px;
     border: 1px solid ${black32};
-    margin-${props => props.direction.to}: ${units(3)};
+    margin-${props => props.theme.dir === 'rtl' ? 'left' : 'right'}: ${units(3)};
   }
 
   h2 {
@@ -47,8 +47,8 @@ const StyledCardContent = styled(CardContent)`
 const StyledSettings = styled.div`
   display: inline;
 
-  margin-${props => props.direction.to}: 0;
-  margin-${props => props.direction.from}: auto;
+  margin-${props => props.theme.dir === 'rtl' ? 'left' : 'right'}: 0;
+  margin-${props => props.theme.dir === 'rtl' ? 'right' : 'left'}: auto;
 
   .settingsIcon {
     vertical-align: middle;
@@ -156,7 +156,7 @@ class TeamBotsComponent extends Component {
   }
 
   render() {
-    const { team, direction } = this.props;
+    const { team } = this.props;
 
     return (
       <ContentColumn style={{ maxWidth: 900 }}>
@@ -177,7 +177,7 @@ class TeamBotsComponent extends Component {
               style={{ marginBottom: units(5) }}
               key={`bot-${bot.dbid}`}
             >
-              <StyledCardContent direction={direction}>
+              <StyledCardContent>
                 <img src={bot.avatar} alt={bot.name} />
                 <div>
                   <h2 style={{ font: title1 }}>{bot.name}</h2>
@@ -196,7 +196,7 @@ class TeamBotsComponent extends Component {
                 </div>
               </StyledCardContent>
               <CardActions>
-                <StyledSettings direction={direction}>
+                <StyledSettings>
                   <Tooltip title={this.props.intl.formatMessage(messages.settingsTooltip)}>
                     <Settings
                       onClick={this.handleToggleSettings.bind(this, bot.dbid)}
@@ -273,7 +273,7 @@ class TeamBotsComponent extends Component {
             </Card>
           );
         })}
-        <p style={{ textAlign: direction.to }}>
+        <p style={{ textAlign: 'end' }}>
           <Button id="team-bots__bot-garden-button" onClick={TeamBotsComponent.handleBotGardenClick}>
             <span>
               <FormattedMessage
@@ -341,7 +341,7 @@ const TeamBotsContainer = Relay.createContainer(injectIntl(TeamBotsComponent), {
 
 const TeamBots = (props) => {
   const route = new TeamRoute({ teamSlug: props.team.slug });
-  const params = { propTeam: props.team, direction: props.direction };
+  const params = { propTeam: props.team };
   return (
     <Relay.RootContainer
       Component={TeamBotsContainer}

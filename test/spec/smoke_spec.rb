@@ -877,14 +877,10 @@ shared_examples 'smoke' do
     # Move the claim to another project
     wait_for_selector("tbody input[type='checkbox']:not(:checked)").click
     wait_for_selector("#media-bulk-actions__move-to").click
-    wait_for_selector(".Select-control")
-    wait_for_selector('.Select-input input').send_keys('Project')
-    wait_for_selector(".Select-menu-outer")
+    wait_for_selector("input[name=project-title]").send_keys('Project')
     @driver.action.send_keys(:enter).perform
-    button_move = wait_for_selector('.media-bulk-actions__move-button')
-    button_move.location_once_scrolled_into_view
-    button_move.click
-    wait_for_selector_none(".Select-placeholder")
+    wait_for_selector('.media-bulk-actions__move-button').click
+    wait_for_selector_none("input[name=project-title]")  # wait for dialog to disappear
     @driver.navigate.to p1url
     expect(@driver.current_url.to_s == p1url).to be(true)
     wait_for_selector_list_size(".medias__item",1)
@@ -918,11 +914,10 @@ shared_examples 'smoke' do
     wait_for_selector("#media-bulk-actions__actions")
     wait_for_selector(".media__heading").click
     wait_for_selector("#media-actions-bar__move-to").click
-    wait_for_selector('.Select-input input').send_keys('Project')
-    wait_for_selector(".Select-menu-outer")
+    wait_for_selector("input[name=project-title]").send_keys('Project')
     @driver.action.send_keys(:enter).perform
     wait_for_selector('.media-actions-bar__move-button').click
-    wait_for_selector_none(".Select-placeholder")
+    wait_for_selector_none("input[name=project-title]")  # wait for dialog to disappear
     wait_for_selector("#search-input")
     wait_for_selector(".media__heading")
     expect(@driver.page_source.include?('My search result')).to be(true)
@@ -943,11 +938,10 @@ shared_examples 'smoke' do
     wait_for_selector(".project-list__link", index: 1).click
     wait_for_selector(".media__heading").click
     wait_for_selector("#media-actions-bar__add-to").click
-    wait_for_selector('.Select-input input').send_keys('Project')
-    wait_for_selector(".Select-menu-outer")
+    wait_for_selector("input[name=project-title]").send_keys('Project')
     @driver.action.send_keys(:enter).perform
     wait_for_selector('.media-actions-bar__add-button').click
-    wait_for_selector_none(".Select-placeholder")
+    wait_for_selector_none("input[name=project-title]")  # wait for dialog to disappear
     wait_for_selector(".message").click
     wait_for_selector(".project-header__back-button").click
     wait_for_selector(".project-list__link", index: 0).click
@@ -974,17 +968,16 @@ shared_examples 'smoke' do
     wait_for_selector_list_size(".medias__item", 2)
     wait_for_selector("thead input[type='checkbox']:not(:checked)").click
     wait_for_selector("#media-bulk-actions__add-icon").click
-    wait_for_selector('.Select-input input').send_keys('Project')
-    wait_for_selector(".Select-menu-outer")
+    wait_for_selector("input[name=project-title]").send_keys('Project')
     @driver.action.send_keys(:enter).perform
     wait_for_selector('.media-bulk-actions__add-button').click
-    wait_for_selector_none(".Select-placeholder")
+    wait_for_selector_none("input[name=project-title]")  # wait for dialog to disappear
     wait_for_selector('.projects__list a', index: 2).click  # project 2
     wait_for_selector_list_size(".medias__item", 2, :css)
     expect(@driver.page_source.include?('claim 1')).to be(true)
     expect(@driver.page_source.include?('claim 2')).to be(true)
     wait_for_selector("thead input[type='checkbox']:not(:checked)").click
-    wait_for_selector("span[title='Send selected items to trash']").click #Delete items
+    wait_for_selector(".media-bulk-actions__delete-icon").click # Delete items
     wait_for_selector_none(".medias__item")
     expect(@driver.page_source.include?('Add a link or text')).to be(true)
     wait_for_selector(".project-list__item-trash").click #Go to the trash page

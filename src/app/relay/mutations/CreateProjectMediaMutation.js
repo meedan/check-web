@@ -16,6 +16,7 @@ class CreateProjectMediaMutation extends Relay.Mutation {
         related_to { id, relationships, log, log_count },
         relationships_target { id },
         relationships_source { id },
+        team { id, medias_count },
         check_search_team { id, number_of_results },
         check_search_project { id, number_of_results }
       }
@@ -77,6 +78,9 @@ class CreateProjectMediaMutation extends Relay.Mutation {
       fieldIDs.check_search_team = this.props.team ?
         this.props.team.search_id :
         this.props.project.team.search_id;
+      fieldIDs.team = this.props.team ?
+        this.props.team.id :
+        this.props.project.team.id;
     }
     if (!this.props.related && !this.props.related_to_id && this.props.project) {
       configs.push({
