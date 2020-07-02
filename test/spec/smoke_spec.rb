@@ -290,20 +290,20 @@ shared_examples 'smoke' do
 
     #search task by keyword
     wait_for_selector(".filter-popup > div > button > span > svg").click
-    wait_for_selector("input[type=text]").send_keys("New")
+    wait_for_selector('input[name="filter-search"]').send_keys("New")
     wait_for_selector("//span[contains(text(), 'Done')]", :xpath).click
-    wait_for_selector_none("input[type=text]")
+    wait_for_selector_none('input[name="filter-search"]')
     expect(@driver.page_source.include?('New teamwide task-EDITED')).to be(true)
     expect(@driver.page_source.include?('geolocation task')).to be(false)
 
     #filter by type
     wait_for_selector(".filter-popup > div > button > span > svg").click
-    wait_for_selector("input[type=text]").send_keys(:control, 'a', :delete)
+    wait_for_selector('input[name="filter-search"]').send_keys(:control, 'a', :delete)
     wait_for_selector("//span[contains(text(), 'All tasks')]", :xpath).click
     wait_for_selector("//span[contains(text(), 'Location')]", :xpath).click
     wait_for_selector(".multi__selector-save").click
     wait_for_selector("//span[contains(text(), 'Done')]", :xpath).click
-    wait_for_selector_none("input[type=text]")
+    wait_for_selector_none('input[name="filter-search"]')
     expect(@driver.page_source.include?('geolocation task')).to be(true)
 
     # Delete task
@@ -570,15 +570,14 @@ shared_examples 'smoke' do
 
   it "should install Smooch bot and customize message", bin1: true do
     response = api_create_team_and_project
-    bot_name = 'Smooch'
-    install_bot(response[:team].slug, bot_name)
+    install_bot(response[:team].slug, 'Smooch')
     wait_for_selector(".team-members__member")
     wait_for_selector('.team-menu__team-settings-button').click
     wait_for_selector('.team-settings__bots-tab').click
     wait_for_selector("img[alt=Smooch]")
     wait_for_selector('.settingsIcon').click
-    wait_for_selector(".MuiInputBase-input").send_keys(:control, 'a', :delete)
-    wait_for_selector(".MuiInputBase-input").send_keys("Hi, this is a test")
+    wait_for_selector('textarea[name="smooch_message_smooch_bot_greetings"]').send_keys(:control, 'a', :delete)
+    wait_for_selector('textarea[name="smooch_message_smooch_bot_greetings"]').send_keys("Hi, this is a test")
     wait_for_selector("//span[contains(text(), 'Save')]", :xpath).click
     wait_for_selector("input[type=checkbox]").click
     wait_for_selector("#confirm-dialog__confirm-action-button").click
@@ -588,7 +587,7 @@ shared_examples 'smoke' do
     wait_for_selector('.team-settings__bots-tab').click
     wait_for_selector("img[alt=Smooch]")
     wait_for_selector('.settingsIcon').click
-    wait_for_selector(".MuiInputBase-input")
+    wait_for_selector('textarea[name="smooch_message_smooch_bot_greetings"]')
     expect(@driver.page_source.include?('Hi, this is a test')).to be(true)
   end
 
@@ -625,7 +624,7 @@ shared_examples 'smoke' do
     expect(@driver.find_elements(:css, '.Mui-checked').length == 1 )
     wait_for_selector(".MuiCardHeader-action").click
     wait_for_selector("//span[contains(text(), 'Cancel')]", :xpath)
-    wait_for_selector(".MuiInput-input").send_keys("https://hooks.slack.com/services/00000/0000000000")
+    wait_for_selector('input[name="webhook"]').send_keys("https://hooks.slack.com/services/00000/0000000000")
     wait_for_selector("//span[contains(text(), 'Save')]", :xpath).click
     wait_for_selector_none("//span[contains(text(), 'Cancel')]", :xpath)
     wait_for_selector(".MuiCardHeader-action").click
@@ -638,10 +637,10 @@ shared_examples 'smoke' do
     api_create_team(team: team)
     @driver.navigate.to @config['self_url']+'/'+team
     wait_for_selector('.team')
-    wait_for_selector("#create-project-title").send_keys("list")
+    wait_for_selector('.create-project-card input[name="title"]').send_keys("list")
     @driver.action.send_keys(:enter).perform
     wait_for_selector(".team-header__drawer-team-link").click
-    wait_for_selector("#create-project-title")
+    wait_for_selector(".create-project-card")
     wait_for_selector(".team__project-expand").click
     wait_for_selector(".project__assignment-button").click
     wait_for_selector("input[type=checkbox]").click
@@ -905,7 +904,7 @@ shared_examples 'smoke' do
     api_create_claim_and_go_to_search_page
     wait_for_selector("#search-input")
     wait_for_selector(".drawer__create-project-button").click
-    wait_for_selector("#create-project-title").send_keys("project 2")
+    wait_for_selector('.create-project-form input[name="title"]').send_keys("project 2")
     @driver.action.send_keys(:enter).perform
     wait_for_selector_none(".media__heading", :css, 5)
     wait_for_selector(".project-list__link", index: 0).click
@@ -930,7 +929,7 @@ shared_examples 'smoke' do
     api_create_claim_and_go_to_search_page
     wait_for_selector("#search-input")
     wait_for_selector(".drawer__create-project-button").click
-    wait_for_selector("#create-project-title").send_keys("project 2")
+    wait_for_selector('.create-project-form input[name="title"]').send_keys("project 2")
     @driver.action.send_keys(:enter).perform
     wait_for_selector_none(".media__heading")
     wait_for_selector(".project-list__link", index: 0).click
@@ -1257,7 +1256,7 @@ shared_examples 'smoke' do
     page.go(@config['api_path'] + '/test/session?email=new'+@user_mail)
     page = MePage.new(config: @config, driver: @driver).load
     @driver.navigate.to @config['self_url'] + "/"+@team1_slug
-    wait_for_selector("#create-project-title")
+    wait_for_selector(".create-project-card")
     expect(@driver.page_source.include?('Requests to join')).to be(false)
 
     #go to the project that you don't own and can't see the actions icon
@@ -1315,7 +1314,7 @@ shared_examples 'smoke' do
     expect(@driver.find_elements(:css, ".team-members__edit-button").size).to eq 0
 
     #can't see the link 'create a new list'
-    expect(@driver.find_elements(:css, ".create-project-title").size).to eq 0
+    expect(@driver.find_elements(:css, ".create-project-card").size).to eq 0
 
     #go to the project and can't see the icon 'change the status' that the media you don't own
     wait_for_selector(".project-list__link", index: 0).click
@@ -1360,7 +1359,7 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('Select destination list')).to be(true)
 
     # Set rule name
-    wait_for_selector('input[type="text"]').click
+    wait_for_selector('input[name="rule-name"]').click
     @driver.action.send_keys('Rule 1').perform
 
     # Save
@@ -1385,7 +1384,7 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('1 rule')).to be(true)
     expect(@driver.page_source.include?('Rule 1')).to be(true)
     wait_for_selector('tbody tr').click
-    wait_for_selector('input')
+    wait_for_selector('input[name="rule-name"]')
     expect(@driver.page_source.include?('Rule 1')).to be(true)
     expect(@driver.page_source.include?('keyword')).to be(true)
     expect(@driver.page_source.include?('foo,bar')).to be(true)
@@ -1393,7 +1392,7 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('Select destination list')).to be(true)
 
     #edit rule
-    wait_for_selector('input[type="text"]').click
+    wait_for_selector('input[name="rule-name"]').click
     @driver.action.send_keys('- Edited').perform
     wait_for_selector('.rules__save-button').click
     wait_for_selector('#tableTitle')
