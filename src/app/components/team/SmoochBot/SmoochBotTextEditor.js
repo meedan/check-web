@@ -28,6 +28,7 @@ const SmoochBotTextEditor = (props) => {
       <Typography component="div">{descriptions[field]}</Typography>
       <TextField
         key={value}
+        name={field}
         className={classes.textarea}
         defaultValue={value}
         placeholder={value}

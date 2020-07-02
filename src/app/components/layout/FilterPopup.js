@@ -60,6 +60,7 @@ class FilterPopup extends React.Component {
                   <TextField
                     defaultValue={this.props.search}
                     onChange={this.props.onSearchChange}
+                    name="filter-search"
                     placeholder={placeholder}
                     fullWidth
                   />

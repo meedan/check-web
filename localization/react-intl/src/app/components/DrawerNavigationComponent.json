@@ -1,9 +1,5 @@
 [
   {
-    "id": "teamMenu.teamSettings",
-    "defaultMessage": "Workspace settings"
-  },
-  {
     "id": "projects.trash",
     "defaultMessage": "Trash"
   },
