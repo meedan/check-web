@@ -9,9 +9,9 @@ import CardContent from '@material-ui/core/CardContent';
 import List from '@material-ui/core/List';
 import StatusListItem from './StatusListItem';
 import EditStatusDialog from './EditStatusDialog';
+import TranslateStatus from './TranslateStatus';
 import LanguageSwitcher from '../../LanguageSwitcher';
 import { ContentColumn } from '../../../styles/js/shared';
-
 
 const StatusesComponent = (props) => {
   const { team } = props;
@@ -137,8 +137,7 @@ const StatusesComponent = (props) => {
       id: newStatus.statusName,
       // label: newStatus.statusName,
       style: {
-        backgroundColor: '#72d18d',
-        color: '#5cae73',
+        color: newStatus.statusColor,
       },
       locales: {},
     };
@@ -170,15 +169,25 @@ const StatusesComponent = (props) => {
               languages={languages}
               onChange={handleChangeLanguage}
             />
-            <List>
-              { statuses.map(s => (
-                <StatusListItem
-                  key={s.id}
-                  status={s}
+            {
+              currentLanguage === defaultLanguage ? (
+                <List>
+                  { statuses.map(s => (
+                    <StatusListItem
+                      key={s.id}
+                      status={s}
+                      defaultLanguage={defaultLanguage}
+                    />
+                  ))}
+                </List>
+              ) : (
+                <TranslateStatus
+                  statuses={statuses}
                   defaultLanguage={defaultLanguage}
+                  currentLanguage={currentLanguage}
                 />
-              ))}
-            </List>
+              )
+            }
           </CardContent>
         </Card>
       </ContentColumn>

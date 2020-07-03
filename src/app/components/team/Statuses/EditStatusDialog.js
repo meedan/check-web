@@ -6,11 +6,19 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
+import { SliderPicker } from 'react-color';
+import styled from 'styled-components';
 import globalStrings from '../../../globalStrings';
+import { units } from '../../../styles/js/shared';
+
+const StyledColorPickerContainer = styled.div`
+  margin: ${units(2)};
+`;
 
 const EditStatusDialog = ({ open, onDismiss, onSubmit }) => {
   const [statusName, setStatusName] = React.useState('');
   const [statusDescription, setStatusDescription] = React.useState('');
+  const [statusColor, setStatusColor] = React.useState('');
 
   return (
     <Dialog
@@ -53,12 +61,26 @@ const EditStatusDialog = ({ open, onDismiss, onSubmit }) => {
           margin="normal"
           fullWidth
         />
+        <StyledColorPickerContainer>
+          <SliderPicker
+            color={statusColor}
+            onChangeComplete={color => setStatusColor(color.hex)}
+          />
+        </StyledColorPickerContainer>
       </DialogContent>
       <DialogActions>
         <Button onClick={onDismiss}>
           <FormattedMessage {...globalStrings.cancel} />
         </Button>
-        <Button onClick={() => onSubmit({ statusName, statusDescription })} color="primary" variant="contained">
+        <Button
+          onClick={() => onSubmit({
+            statusName,
+            statusDescription,
+            statusColor,
+          })}
+          color="primary"
+          variant="contained"
+        >
           <FormattedMessage
             id="editStatusDialog.addButton"
             defaultMessage="Add status"
