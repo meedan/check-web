@@ -111,7 +111,8 @@ class MediaComponent extends Component {
     this.setCurrentContext();
     MediaComponent.scrollToAnnotation();
     this.subscribe();
-    window.addEventListener('resize', this.onWindowResize);
+    window.addEventListener('resize', this.updatePlayerRect);
+    window.addEventListener('scroll', this.updatePlayerRect);
     this.setPlayerRect();
   }
 
@@ -130,11 +131,12 @@ class MediaComponent extends Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.onWindowResize);
+    window.removeEventListener('resize', this.updatePlayerRect);
+    window.removeEventListener('scroll', this.updatePlayerRect);
     this.unsubscribe();
   }
 
-  onWindowResize = () => {
+  updatePlayerRect = () => {
     this.setPlayerRect();
   }
 
