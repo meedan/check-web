@@ -5,9 +5,12 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import IconMoreVert from '@material-ui/icons/MoreVert';
 
-const StatusListItem = ({ status }) => (
+const StatusListItem = ({ status, defaultLanguage }) => (
   <ListItem>
-    <ListItemText primary={status.label} secondary={status.description} />
+    <ListItemText
+      primary={status.locales[defaultLanguage].label}
+      secondary={status.locales[defaultLanguage].description}
+    />
     <ListItemSecondaryAction>
       <IconButton>
         <IconMoreVert />

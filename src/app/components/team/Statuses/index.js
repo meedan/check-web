@@ -21,6 +21,8 @@ const Statuses = props => (
         team(slug: $teamSlug) {
           id
           verification_statuses
+          get_language
+          get_languages
         }
       }
     `}
