@@ -36,7 +36,7 @@ function isEmpty(data) {
 
 function formatDate(date, language) {
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
-  return new Intl.DateTimeFormat(language, options).format(date);
+  return new Intl.DateTimeFormat(language.replace('_', '-'), options).format(date);
 }
 
 function previewIntroduction(data) {
