@@ -581,6 +581,7 @@ export default function SearchResults({ query, teamSlug, ...props }) {
     <Relay.RootContainer
       Component={SearchResultsContainer}
       route={route}
+      forceFetch
       renderFetched={data => (
         <SearchResultsContainer {...props} query={query} search={data.search} />
       )}

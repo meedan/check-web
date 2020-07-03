@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
-import { injectIntl, FormattedMessage, defineMessages } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { browserHistory, Link } from 'react-router';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -24,30 +24,7 @@ import CheckContext from '../../CheckContext';
 import globalStrings from '../../globalStrings';
 import { withSetFlashMessage } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
-import { nested, getErrorMessage } from '../../helpers';
-
-const messages = defineMessages({
-  mediaTitle: {
-    id: 'mediaDetail.mediaTitle',
-    defaultMessage: 'Title',
-  },
-  mediaDescription: {
-    id: 'mediaDetail.mediaDescription',
-    defaultMessage: 'Description',
-  },
-  editReport: {
-    id: 'mediaDetail.editReport',
-    defaultMessage: 'Edit',
-  },
-  editReportError: {
-    id: 'mediaDetail.editReportError',
-    defaultMessage: 'Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists.',
-  },
-  trash: {
-    id: 'mediaDetail.trash',
-    defaultMessage: 'Trash',
-  },
-});
+import { getErrorMessage } from '../../helpers';
 
 const Styles = theme => ({
   root: {
@@ -95,11 +72,11 @@ class MediaActionsBarComponent extends Component {
   }
 
   getDescription() {
-    return (typeof this.state.description === 'string') ? this.state.description.trim() : this.props.media.description;
+    return (typeof this.state.description === 'string') ? this.state.description : this.props.media.description;
   }
 
   getTitle() {
-    return (typeof this.state.title === 'string') ? this.state.title.trim() : this.props.media.title;
+    return (typeof this.state.title === 'string') ? this.state.title : this.props.media.title;
   }
 
   currentProject() {
@@ -148,7 +125,12 @@ class MediaActionsBarComponent extends Component {
   }
 
   fail(transaction) {
-    const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+    const fallbackMessage = (
+      <FormattedMessage
+        {...globalStrings.unknownError}
+        values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
+      />
+    );
     const message = getErrorMessage(transaction, fallbackMessage);
     this.props.setFlashMessage(message);
   }
@@ -233,25 +215,23 @@ class MediaActionsBarComponent extends Component {
       event.preventDefault();
     }
 
-    const embed = {};
-
-    const title = this.getTitle();
-    const description = this.getDescription();
-
-    if (typeof title === 'string' && title.trim().length > 0) {
-      embed.title = title.trim();
-    }
-
-    if (typeof description === 'string' && description.trim().length > 0) {
-      embed.description = description.trim();
-    }
+    const embed = {
+      title: this.getTitle().trim(),
+      description: this.getDescription().trim(),
+    };
 
     if (embed.title === '' && media.media.embed_path) {
       embed.title = media.media.embed_path.split('/').pop().replace('embed_', '');
     }
 
     const onFailure = (transaction) => {
-      const fallbackMessage = this.props.intl.formatMessage(messages.editReportError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+      const fallbackMessage = (
+        <FormattedMessage
+          id="mediaDetail.editReportError"
+          defaultMessage="Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists."
+          values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
+        />
+      );
       const message = getErrorMessage(transaction, fallbackMessage);
       this.props.setFlashMessage(message);
     };
@@ -262,6 +242,8 @@ class MediaActionsBarComponent extends Component {
           media,
           metadata: JSON.stringify(embed),
           id: media.id,
+          srcProj: null,
+          dstProj: null,
         }),
         { onFailure },
       );
@@ -280,7 +262,7 @@ class MediaActionsBarComponent extends Component {
           values={{
             trash: (
               <Link to={`/${pm.team.slug}/trash`}>
-                {this.props.intl.formatMessage(messages.trash)}
+                <FormattedMessage id="mediaDetail.trash" defaultMessage="Trash" />
               </Link>
             ),
           }}
@@ -303,6 +285,8 @@ class MediaActionsBarComponent extends Component {
         media: this.props.media,
         context,
         id: this.props.media.id,
+        srcProj: null,
+        dstProj: null,
       }),
       { onSuccess, onFailure: this.fail },
     );
@@ -339,6 +323,8 @@ class MediaActionsBarComponent extends Component {
       new UpdateProjectMediaMutation({
         refresh_media: 1,
         id: this.props.media.id,
+        srcProj: null,
+        dstProj: null,
       }),
       { onFailure: this.fail },
     );
@@ -433,14 +419,15 @@ class MediaActionsBarComponent extends Component {
         check_search_project: this.props.media.project.search,
         check_search_trash: this.props.media.team.check_search_trash,
         context,
+        srcProj: null,
+        dstProj: null,
       }),
       { onSuccess, onFailure: this.fail },
     );
   }
 
   render() {
-    const { classes, media, intl: { locale } } = this.props;
-    const context = this.getContext();
+    const { classes, media } = this.props;
 
     const addToListDialogActions = [
       <Button
@@ -528,13 +515,15 @@ class MediaActionsBarComponent extends Component {
         maxWidth="md"
         fullWidth
       >
-        <DialogTitle>{this.props.intl.formatMessage(messages.editReport)}</DialogTitle>
+        <DialogTitle>
+          <FormattedMessage id="mediaDetail.editReport" defaultMessage="Edit" />
+        </DialogTitle>
         <DialogContent>
           <form onSubmit={this.handleSave.bind(this, media)} name="edit-media-form">
             <TextField
               id="media-detail__title-input"
-              label={this.props.intl.formatMessage(messages.mediaTitle)}
-              defaultValue={this.getTitle()}
+              label={<FormattedMessage id="mediaDetail.mediaTitle" defaultMessage="Title" />}
+              value={this.getTitle()}
               onChange={this.handleChangeTitle.bind(this)}
               fullWidth
               margin="normal"
@@ -542,8 +531,10 @@ class MediaActionsBarComponent extends Component {
 
             <TextField
               id="media-detail__description-input"
-              label={this.props.intl.formatMessage(messages.mediaDescription)}
-              defaultValue={this.getDescription()}
+              label={
+                <FormattedMessage id="mediaDetail.mediaDescription" defaultMessage="Description" />
+              }
+              value={this.getDescription()}
               onChange={this.handleChangeDescription.bind(this)}
               fullWidth
               multiline
@@ -657,7 +648,6 @@ class MediaActionsBarComponent extends Component {
             handleRestore={this.handleRestore.bind(this)}
             handleAssign={this.handleAssign.bind(this)}
             handleStatusLock={this.handleStatusLock.bind(this)}
-            locale={locale}
           />
         </div>
 
@@ -666,13 +656,11 @@ class MediaActionsBarComponent extends Component {
         <MoveDialog
           actions={addToListDialogActions}
           open={this.state.openAddToListDialog}
-          handleClose={this.handleCloseDialogs.bind(this)}
-          team={context.team}
-          projectId={media.project_ids}
+          onClose={this.handleCloseDialogs.bind(this)}
+          team={media.team}
+          excludeProjectDbids={media.project_ids}
+          value={this.state.dstProj}
           onChange={this.handleSelectDestProject.bind(this)}
-          style={{
-            minHeight: 400,
-          }}
           title={
             <FormattedMessage
               id="mediaActionsBar.dialogAddToListTitle"
@@ -684,13 +672,11 @@ class MediaActionsBarComponent extends Component {
         <MoveDialog
           actions={moveDialogActions}
           open={this.state.openMoveDialog}
-          handleClose={this.handleCloseDialogs.bind(this)}
-          team={context.team}
-          projectId={nested(['project', 'dbid'], media)}
+          onClose={this.handleCloseDialogs.bind(this)}
+          excludeProjectDbids={media.project_ids}
+          team={media.team}
+          value={this.state.dstProj}
           onChange={this.handleSelectDestProject.bind(this)}
-          style={{
-            minHeight: 400,
-          }}
           title={
             <FormattedMessage
               id="mediaActionsBar.dialogMoveTitle"
@@ -728,7 +714,6 @@ class MediaActionsBarComponent extends Component {
 }
 
 MediaActionsBarComponent.propTypes = {
-  intl: PropTypes.object.isRequired,
   setFlashMessage: PropTypes.func.isRequired,
 };
 
@@ -737,7 +722,7 @@ MediaActionsBarComponent.contextTypes = {
 };
 
 const ConnectedMediaActionsBarComponent =
-  withStyles(Styles)(withSetFlashMessage(injectIntl(MediaActionsBarComponent)));
+  withStyles(Styles)(withSetFlashMessage(MediaActionsBarComponent));
 
 const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarComponent, {
   initialVariables: {
@@ -812,6 +797,7 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
           }
         }
         team {
+          ${MoveDialog.getFragment('team')}
           id
           dbid
           slug

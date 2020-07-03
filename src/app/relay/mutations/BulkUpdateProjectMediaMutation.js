@@ -218,6 +218,39 @@ class BulkUpdateProjectMediaMutation extends Relay.Mutation {
     }
     return configs;
   }
+
+  static fragments = {
+    dstProject: () => Relay.QL`
+      fragment on Project {
+        id
+        dbid
+        search_id
+        medias_count
+      }
+    `,
+    dstProjectForAdd: () => Relay.QL`
+      fragment on Project {
+        id
+        dbid
+        search_id
+        medias_count
+      }
+    `,
+    srcProject: () => Relay.QL`
+      fragment on Project {
+        id
+        dbid
+        search_id
+      }
+    `,
+    srcProjectForRemove: () => Relay.QL`
+      fragment on Project {
+        id
+        dbid
+        search_id
+      }
+    `,
+  };
 }
 
 export default BulkUpdateProjectMediaMutation;
