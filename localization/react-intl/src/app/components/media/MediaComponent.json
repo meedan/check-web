@@ -22,5 +22,9 @@
   {
     "id": "mediaComponent.activity",
     "defaultMessage": "Activity"
+  },
+  {
+    "id": "mediaComponent.timelineTab",
+    "defaultMessage": "Timeline"
   }
 ]

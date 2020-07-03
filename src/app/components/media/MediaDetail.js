@@ -43,19 +43,19 @@ class MediaDetail extends React.Component {
     const {
       annotated,
       annotatedType,
-      media,
-      onPlayerReady,
-      onVideoAnnoToggle,
-      onTimelineCommentOpen,
-      playing,
-      start,
       end,
       gaps,
+      media,
+      onPlayerReady,
+      onTimelineCommentOpen,
+      onVideoAnnoToggle,
+      playerRef,
+      playing,
       scrubTo,
       seekTo,
       setPlayerState,
-      setPlayerRef,
       showVideoAnnotation,
+      start,
     } = this.props;
 
     // Build the item URL
@@ -90,18 +90,18 @@ class MediaDetail extends React.Component {
             media={this.props.media}
             mediaUrl={mediaUrl}
             {...{
-              onPlayerReady,
-              onVideoAnnoToggle,
-              onTimelineCommentOpen,
-              playing,
-              start,
               end,
               gaps,
+              onPlayerReady,
+              onTimelineCommentOpen,
+              onVideoAnnoToggle,
+              playerRef,
+              playing,
               scrubTo,
               seekTo,
-              setPlayerRef,
               setPlayerState,
               showVideoAnnotation,
+              start,
             }}
           />
         )}

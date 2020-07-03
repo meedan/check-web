@@ -25,6 +25,58 @@ const StyledMetadata = styled.div`
   }
 `;
 
+const ExtraMediaActions = ({
+  media,
+  showVideoAnnotation,
+  onVideoAnnoToggle,
+  reverseImageSearchGoogle,
+}) => {
+  const isYoutubeVideo = media.media.type === 'Link' && media.media.metadata.provider === 'youtube';
+  const isUploadedVideo = media.media.type === 'UploadedVideo';
+  const isPicture = media.picture !== null && media.picture !== undefined;
+  const allowsVideoAnnotation = isYoutubeVideo || isUploadedVideo;
+  const allowsReverseSearch = isPicture;
+  if (allowsVideoAnnotation) {
+    return (
+      <Button
+        color="primary"
+        disabled={showVideoAnnotation}
+        onClick={onVideoAnnoToggle}
+        variant="contained"
+        startIcon={<VideoAnnotationIcon color="action" />}
+      >
+        <FormattedMessage
+          id="mediaMetadata.VideoAnnotation"
+          defaultMessage="Video annotation"
+        />
+      </Button>
+    );
+  } else if (allowsReverseSearch) {
+    return (
+      <div className="media-detail__reverse-image-search">
+        <small>
+          <FormattedMessage
+            id="mediaMetadata.reverseImageSearch"
+            defaultMessage="Reverse image search"
+          />
+        </small>
+        <br />
+        <Button
+          style={{
+            border: '1px solid #000',
+            minWidth: 115,
+            marginRight: units(2),
+          }}
+          onClick={reverseImageSearchGoogle}
+        >
+          Google
+        </Button>
+      </div>
+    );
+  }
+  return null;
+};
+
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
 class MediaMetadata extends React.Component {
   reverseImageSearchGoogle() {
@@ -37,60 +89,17 @@ class MediaMetadata extends React.Component {
     const claimReview = media.metadata.schema && media.metadata.schema.ClaimReview ?
       media.metadata.schema.ClaimReview[0] : null;
 
-    // check if the media item is either a Youtube link or an uploaded video:
-    const displayExtraMediaActions = () => {
-      const isYoutubeVideo = media.media.type === 'Link' && media.media.metadata.provider === 'youtube';
-      const isUploadedVideo = media.media.type === 'UploadedVideo';
-      const isPicture = media.picture !== null && media.picture !== undefined;
-      const allowsVideoAnnotation = isYoutubeVideo || isUploadedVideo;
-      const allowsReverseSearch = isPicture;
-      if (allowsVideoAnnotation) {
-        return (
-          <Button
-            color="primary"
-            disabled={this.props.showVideoAnnotation}
-            onClick={this.props.onVideoAnnoToggle}
-            variant="contained"
-            startIcon={<VideoAnnotationIcon color="action" />}
-          >
-            <FormattedMessage
-              id="mediaMetadata.VideoAnnotation"
-              defaultMessage="Video annotation"
-            />
-          </Button>
-        );
-      } else if (allowsReverseSearch) {
-        return (
-          <div className="media-detail__reverse-image-search">
-            <small>
-              <FormattedMessage
-                id="mediaMetadata.reverseImageSearch"
-                defaultMessage="Reverse image search"
-              />
-            </small>
-            <br />
-            <Button
-              style={{
-                border: '1px solid #000',
-                minWidth: 115,
-                marginRight: units(2),
-              }}
-              onClick={this.reverseImageSearchGoogle.bind(this)}
-            >
-              Google
-            </Button>
-          </div>
-        );
-      }
-      return null;
-    };
-
     return (
       <StyledMetadata className="media-detail__check-metadata">
         { claimReview ? <Row><ClaimReview data={claimReview} /></Row> : null }
         { (media.picture || (media.media && media.media.file_path)) ?
           <Row style={{ display: 'flex', alignItems: 'center', marginBottom: units(2) }}>
-            {displayExtraMediaActions()}
+            <ExtraMediaActions
+              media={media}
+              onVideoAnnoToggle={this.props.onVideoAnnoToggle}
+              showVideoAnnotation={this.props.showVideoAnnotation}
+              reverseImageSearchGoogle={this.reverseImageSearchGoogle.bind(this)}
+            />
             { (media.media && media.media.file_path) ?
               <div
                 className="media-detail__download"
