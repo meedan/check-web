@@ -13,18 +13,22 @@ import TranslateStatus from './TranslateStatus';
 import LanguageSwitcher from '../../LanguageSwitcher';
 import { ContentColumn } from '../../../styles/js/shared';
 
-const StatusesComponent = (props) => {
-  const { team } = props;
+const StatusesComponent = ({ team }) => {
   const statuses = [...team.verification_statuses.statuses];
-  console.log('team', team);
-  console.log('statuses', statuses);
   const defaultLanguage = team.get_language || 'en';
-  const [currentLanguage, setCurrentLanguage] = React.useState(defaultLanguage);
   const languages = team.get_languages ? JSON.parse(team.get_languages) : [defaultLanguage];
-  const [menuOpen, setMenuOpen] = React.useState(false);
+
+  const [currentLanguage, setCurrentLanguage] = React.useState(defaultLanguage);
+  const [dialogOpen, setDialogOpen] = React.useState(false);
+  const [editStatus, setEditStatus] = React.useState(null);
 
   const handleChangeLanguage = (newValue) => {
     setCurrentLanguage(newValue);
+  };
+
+  const handleEdit = (status) => {
+    setEditStatus(status);
+    setDialogOpen(true);
   };
 
   const handleUpdateStatuses = (newStatuses) => {
@@ -46,109 +50,28 @@ const StatusesComponent = (props) => {
         },
       },
       onCompleted: (response, error) => {
-        console.log('response', response);
-        console.error('error', error);
-        setMenuOpen(false);
+        if (error) console.error('error', error); // TODO handle error
+        setDialogOpen(false);
       },
       onError: (error) => {
-        console.error('error', error);
+        console.error('error', error); // TODO handle error
       },
     });
   };
 
-  // const model = {
-  //   label: 'Custom Status',
-  //   default: 'initial',
-  //   active: 'ongoing',
-  //   statuses: [
-  //     {
-  //       id: 'initial',
-  //       style: { color: 'coral' },
-  //       locales: {
-  //         en: {
-  //           label: 'Initial',
-  //           description: 'Initial',
-  //         },
-  //         pt: {
-  //           label: 'Inicial',
-  //           description: 'Inicial',
-  //         },
-  //         fr: {
-  //           label: 'Initiale',
-  //           description: 'Initiale',
-  //         },
-  //         es: {
-  //           label: 'Primero',
-  //           description: 'Primero',
-  //         },
-  //       },
-  //     },
-  //     {
-  //       id: 'ongoing',
-  //       style: { color: 'gold' },
-  //       locales: {
-  //         en: {
-  //           label: 'On Going',
-  //           description: 'On Going',
-  //         },
-  //         pt: {
-  //           label: 'Ainda Em Andamento',
-  //           description: 'Em Andamento',
-  //         },
-  //         fr: {
-  //           label: 'Continu',
-  //           description: 'Continu',
-  //         },
-  //         es: {
-  //           label: 'En Marcha',
-  //           description: 'En Marcha',
-  //         },
-  //       },
-  //     },
-  //     {
-  //       id: 'done',
-  //       style: { color: 'indigo' },
-  //       locales: {
-  //         en: {
-  //           label: 'Done',
-  //           description: 'Done',
-  //         },
-  //         pt: {
-  //           label: 'Feito',
-  //           description: 'Feito',
-  //         },
-  //         fr: {
-  //           label: 'Fini',
-  //           description: 'Fini',
-  //         },
-  //         es: {
-  //           label: 'Hecho',
-  //           description: 'Hecho',
-  //         },
-  //       },
-  //     },
-  //   ],
-  // };
+  const handleAddStatus = (status) => {
+    const newStatuses = { ...team.verification_statuses };
+    const newStatusesArray = [...newStatuses.statuses];
 
-  const handleAddStatus = (newStatus) => {
-    const newStatuses = { ...props.team.verification_statuses };
-    const obj = {
-      // description: newStatus.statusDescription,
-      id: newStatus.statusName,
-      // label: newStatus.statusName,
-      style: {
-        color: newStatus.statusColor,
-      },
-      locales: {},
-    };
-    obj.locales[defaultLanguage] = {
-      description: newStatus.statusDescription,
-      label: newStatus.statusName,
-    };
-    const arr = [...newStatuses.statuses, obj];
-    newStatuses.statuses = arr;
+    if (status.id) {
+      const index = newStatusesArray.findIndex(s => s.id === status.id);
+      newStatusesArray.splice(index, 1, status);
+    } else {
+      newStatusesArray.push(status);
+    }
 
-    console.log('newStatuses', newStatuses);
+    newStatuses.statuses = newStatusesArray;
+
     handleUpdateStatuses(newStatuses);
   };
 
@@ -157,7 +80,7 @@ const StatusesComponent = (props) => {
       <ContentColumn>
         <Card>
           <CardContent>
-            <Button color="primary" variant="contained" onClick={() => setMenuOpen(true)}>
+            <Button color="primary" variant="contained" onClick={() => setDialogOpen(true)}>
               <FormattedMessage
                 id="statusesComponent.newStatus"
                 defaultMessage="New status"
@@ -174,9 +97,10 @@ const StatusesComponent = (props) => {
                 <List>
                   { statuses.map(s => (
                     <StatusListItem
-                      key={s.id}
-                      status={s}
                       defaultLanguage={defaultLanguage}
+                      key={s.id}
+                      onEdit={() => handleEdit(s)}
+                      status={s}
                     />
                   ))}
                 </List>
@@ -192,9 +116,12 @@ const StatusesComponent = (props) => {
         </Card>
       </ContentColumn>
       <EditStatusDialog
-        open={menuOpen}
-        onDismiss={() => setMenuOpen(false)}
+        defaultLanguage={defaultLanguage}
+        key={editStatus}
+        onDismiss={() => setDialogOpen(false)}
         onSubmit={handleAddStatus}
+        open={dialogOpen}
+        status={editStatus}
       />
     </React.Fragment>
   );

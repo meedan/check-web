@@ -15,10 +15,34 @@ const StyledColorPickerContainer = styled.div`
   margin: ${units(2)};
 `;
 
-const EditStatusDialog = ({ open, onDismiss, onSubmit }) => {
-  const [statusName, setStatusName] = React.useState('');
-  const [statusDescription, setStatusDescription] = React.useState('');
-  const [statusColor, setStatusColor] = React.useState('');
+const EditStatusDialog = ({
+  defaultLanguage,
+  onDismiss,
+  onSubmit,
+  open,
+  status,
+}) => {
+  const [statusName, setStatusName] = React.useState(status ? status.label : '');
+  const [statusDescription, setStatusDescription] = React.useState(status ? status.locales[defaultLanguage].label : '');
+  const [statusColor, setStatusColor] = React.useState(status ? status.style.color : '');
+
+  const handleSubmit = () => {
+    const newStatus = {
+      locales: {},
+      style: { color: statusColor },
+    };
+
+    if (status) newStatus.id = status.id;
+
+    newStatus.locales[defaultLanguage] = {
+      label: statusName,
+      description: statusDescription,
+    };
+
+    if (onSubmit) {
+      onSubmit(newStatus);
+    }
+  };
 
   return (
     <Dialog
@@ -73,11 +97,7 @@ const EditStatusDialog = ({ open, onDismiss, onSubmit }) => {
           <FormattedMessage {...globalStrings.cancel} />
         </Button>
         <Button
-          onClick={() => onSubmit({
-            statusName,
-            statusDescription,
-            statusColor,
-          })}
+          onClick={handleSubmit}
           color="primary"
           variant="contained"
         >
