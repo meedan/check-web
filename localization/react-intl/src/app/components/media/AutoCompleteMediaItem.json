@@ -4,12 +4,12 @@
     "defaultMessage": "Searching..."
   },
   {
-    "id": "autoCompleteMediaItem.error",
-    "defaultMessage": "Sorry, an error occurred while searching. Please try again and contact {supportEmail} if the condition persists."
-  },
-  {
     "id": "autoCompleteMediaItem.notFound",
     "defaultMessage": "No matches found"
+  },
+  {
+    "id": "autoCompleteMediaItem.error",
+    "defaultMessage": "Sorry, an error occurred while searching. Please try again and contact {supportEmail} if the condition persists."
   },
   {
     "id": "autoCompleteMediaItem.searchItem",
