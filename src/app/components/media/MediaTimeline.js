@@ -239,11 +239,13 @@ class MediaTimeline extends Component {
   render() {
     const {
       media, currentUser, duration, time,
+      fragment: { id: instanceId },
     } = this.props;
     const data = getTimelineData({ media, currentUser });
 
     return (
       <Timeline
+        activeInstanceId={instanceId}
         currentTime={time}
         data={data}
         duration={duration}
@@ -261,8 +263,8 @@ class MediaTimeline extends Component {
         onInstanceDelete={this.instanceDelete}
         onInstanceUpdate={this.instanceUpdate}
         onPlaylistLaunch={this.playlistLaunch}
-        onTimeChange={this.timeChange}
         onScrub={this.scrub}
+        onTimeChange={this.timeChange}
       />
     );
   }
