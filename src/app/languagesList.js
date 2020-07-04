@@ -524,6 +524,14 @@ const languagesList = {
     name: 'Portuguese',
     nativeName: 'Português',
   },
+  pt_PT: {
+    name: 'Portuguese',
+    nativeName: 'Português',
+  },
+  pt_BR: {
+    name: 'Portuguese',
+    nativeName: 'Português',
+  },
   qu: {
     name: 'Quechua',
     nativeName: 'Runa Simi',

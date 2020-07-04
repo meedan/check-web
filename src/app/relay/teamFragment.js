@@ -34,7 +34,6 @@ const teamFragment = Relay.QL`
           dbid,
           id,
           description,
-          medias_count,
           assignments_count,
         }
       }
