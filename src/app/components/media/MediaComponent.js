@@ -136,10 +136,6 @@ class MediaComponent extends Component {
     this.unsubscribe();
   }
 
-  updatePlayerRect = () => {
-    this.setPlayerRect();
-  }
-
   onTimelineCommentOpen = (fragment) => {
     // this call will come from Annotation.js
     // or from MediaTags.js
@@ -171,6 +167,10 @@ class MediaComponent extends Component {
 
   setPlayerState = payload =>
     this.setState({ playerState: { ...this.state.playerState, ...payload } });
+
+  updatePlayerRect = () => {
+    this.setPlayerRect();
+  }
 
   subscribe() {
     const { pusher, clientSessionId, media } = this.props;

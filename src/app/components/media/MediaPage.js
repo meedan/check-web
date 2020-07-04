@@ -39,5 +39,8 @@ MediaPage.propTypes = {
     projectId: PropTypes.string, // or undefined
     mediaId: PropTypes.string.isRequired,
   }).isRequired,
-  location: PropTypes.shape({ query: PropTypes.object.isRequired, hash: PropTypes.string.isRequired, }).isRequired,
+  location: PropTypes.shape({
+    query: PropTypes.object.isRequired,
+    hash: PropTypes.string.isRequired,
+  }).isRequired,
 };
