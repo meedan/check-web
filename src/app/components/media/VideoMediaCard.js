@@ -24,7 +24,6 @@ const VideoMediaCard = (props) => {
           url={props.videoPath}
           className="video-media-player"
           playbackRate={playbackRate}
-          key={`${props.videoPath}#t=${props.start},${props.end}`}
           onDuration={d => props.setPlayerState({ duration: d })}
           onPause={() => props.setPlayerState({ playing: false })}
           onPlay={() => props.setPlayerState({ playing: true })}
