@@ -245,8 +245,8 @@ class MediaTimeline extends Component {
 
     return (
       <Timeline
+        activeInstanceId={instanceId}
         currentTime={time}
-        instanceId={instanceId}
         data={data}
         duration={duration}
         onBeforeCommentThreadCreate={NOOP}
@@ -263,8 +263,8 @@ class MediaTimeline extends Component {
         onInstanceDelete={this.instanceDelete}
         onInstanceUpdate={this.instanceUpdate}
         onPlaylistLaunch={this.playlistLaunch}
-        onTimeChange={this.timeChange}
         onScrub={this.scrub}
+        onTimeChange={this.timeChange}
       />
     );
   }

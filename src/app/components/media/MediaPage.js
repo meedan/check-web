@@ -40,8 +40,7 @@ MediaPage.propTypes = {
     mediaId: PropTypes.string.isRequired,
   }).isRequired,
   location: PropTypes.shape({
-    listPath: PropTypes.string, // or undefined
-    listQuery: PropTypes.string, // JSON-encoded string or invalid/undefined
-    listIndex: PropTypes.string, // or undefined
+    query: PropTypes.object.isRequired,
+    hash: PropTypes.string.isRequired,
   }).isRequired,
 };
