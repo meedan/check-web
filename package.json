@@ -82,7 +82,7 @@
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.52",
     "@material-ui/pickers": "^3.2.10",
-    "@meedan/check-ui": "0.0.62",
+    "@meedan/check-ui": "0.0.68",
     "@meedan/react-jsonschema-form-material-ui-v1": "^99.0.0",
     "@react-google-maps/api": "1.8.7",
     "babel-eslint": "^7.1.1",
