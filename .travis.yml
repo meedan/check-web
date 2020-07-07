@@ -29,7 +29,7 @@ before_install:
 - docker run -d -p 9000:9000 -e "MINIO_ACCESS_KEY=AKIAIOSFODNN7EXAMPLE" -e "MINIO_SECRET_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY" minio/minio server /data
 # check api
 - export TEST_ENV_NUMBER=0
-- psql -c 'create database checkdesk_test0;' -U postgres
+- psql -c 'create database checkdesk_test0;' -U travis
 - redis-server 2>&1 >/dev/null &
 - wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.8.9.deb
 - wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.8.9.deb.sha512
