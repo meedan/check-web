@@ -61,10 +61,10 @@ TypeMessageOrNullMessage.propTypes = {
 function mediaTypeOrNull(projectMedia) {
   switch (projectMedia.domain) {
   case 'twitter.com': return MediaType.Twitter;
-  case 'facebook.com': return MediaType.Twitter;
-  case 'instagram.com': return MediaType.Twitter;
-  case 'youtube.com': return MediaType.Twitter;
-  case 'tiktok.com': return MediaType.Twitter;
+  case 'facebook.com': return MediaType.Facebook;
+  case 'instagram.com': return MediaType.Instagram;
+  case 'youtube.com': return MediaType.Youtube;
+  case 'tiktok.com': return MediaType.Tiktok;
   default: // keep going
   }
 
@@ -149,6 +149,7 @@ function MediaTitle({ projectMedia, children }) {
   case MediaType.Twitter:
   case MediaType.Instagram:
   case MediaType.Video:
+  case MediaType.Tiktok:
     return projectMedia.media.metadata.title
       ? retval(projectMedia.media.metadata.title)
       : (
