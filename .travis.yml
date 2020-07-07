@@ -24,12 +24,12 @@ before_install:
 - export PATH=/tmp/bundler/ruby/2.4.0/bin:$PATH
 - export GEM_PATH=/tmp/bundler/ruby/2.4.0/gems:$GEM_PATH
 # postgres
-- docker run -d -p 5432:5432 -e "POSTGRES_HOST_AUTH_METHOD=trust" postgres:11
+- docker run -d -n postgres -p 5432:5432 -e "POSTGRES_HOST_AUTH_METHOD=trust" postgres:11
 # minio
 - docker run -d -p 9000:9000 -e "MINIO_ACCESS_KEY=AKIAIOSFODNN7EXAMPLE" -e "MINIO_SECRET_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY" minio/minio server /data
 # check api
 - export TEST_ENV_NUMBER=0
-- psql -c 'create database checkdesk_test0;' -U postgres
+- psql -h localhost -c 'create database checkdesk_test0;' -U postgres
 - redis-server 2>&1 >/dev/null &
 - wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.8.9.deb
 - wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.8.9.deb.sha512
