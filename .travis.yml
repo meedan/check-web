@@ -1,8 +1,6 @@
 sudo: required
 dist: trusty
 language: node_js
-services:
-- postgresql
 node_js:
 - "12.16.1"
 rvm:
@@ -11,7 +9,6 @@ cache:
   directories:
     - "/tmp/bundler"
 addons:
-  postgresql: "9.5"
   hosts:
     - minio
     - redis
@@ -19,18 +16,20 @@ before_install:
 # extract configs
 - git clone https://${TOKEN}:x-oauth-basic@github.com/meedan/configurator ./configurator
 # apt dependencies
-- sudo rm /etc/apt/sources.list.d/mongodb*
+- sudo service postgresql stop
 - sudo rm /etc/apt/sources.list.d/google*
-- sudo apt-get -qq update
+- sudo apt-get update -qq
 - sudo apt-get install wget python-setuptools lsof unzip imagemagick ruby ruby-dev libnss3 libnss3-dev xvfb libnss3-1d libexif-dev curl build-essential libssl-dev libappindicator1 fonts-liberation redis-server -y
 # environment
 - export PATH=/tmp/bundler/ruby/2.4.0/bin:$PATH
 - export GEM_PATH=/tmp/bundler/ruby/2.4.0/gems:$GEM_PATH
+# postgres
+- docker run -d -v /var/run/postgresql:/var/run/postgresql -e "POSTGRES_HOST_AUTH_METHOD=trust" -e "POSTGRES_USER=travis" postgres:11
 # minio
 - docker run -d -p 9000:9000 -e "MINIO_ACCESS_KEY=AKIAIOSFODNN7EXAMPLE" -e "MINIO_SECRET_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY" minio/minio server /data
 # check api
 - export TEST_ENV_NUMBER=0
-- psql -c 'create database checkdesk_test0;' -U postgres
+- psql -c 'create database checkdesk_test0;' -U travis
 - redis-server 2>&1 >/dev/null &
 - wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.8.9.deb
 - wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.8.9.deb.sha512

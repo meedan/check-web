@@ -78,7 +78,7 @@ class MediaComponent extends Component {
     const showTab = showRequests ? 'requests' : 'tasks';
 
     // https://www.w3.org/TR/media-frags/
-    const { t: temporalInterval = '', id: clipId } = qs.parse(document.location.hash.substring(1));
+    const { t: temporalInterval = '', id: instanceId } = qs.parse(document.location.hash.substring(1));
     const [start, end] = temporalInterval.split(',').map(s => parseFloat(s));
 
     const gaps = [];
@@ -98,8 +98,8 @@ class MediaComponent extends Component {
       showRequests,
       showTab,
       showLocation,
-      showVideoAnnotation: Boolean(temporalInterval && clipId),
-      fragment: { t: temporalInterval, id: clipId },
+      showVideoAnnotation: Boolean(temporalInterval && instanceId),
+      fragment: { t: temporalInterval, id: instanceId },
       playerRect: null,
       videoAnnotationTab: 'timeline',
     };
@@ -111,7 +111,8 @@ class MediaComponent extends Component {
     this.setCurrentContext();
     MediaComponent.scrollToAnnotation();
     this.subscribe();
-    window.addEventListener('resize', this.onWindowResize);
+    window.addEventListener('resize', this.updatePlayerRect);
+    window.addEventListener('scroll', this.updatePlayerRect);
     this.setPlayerRect();
   }
 
@@ -130,12 +131,9 @@ class MediaComponent extends Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.onWindowResize);
+    window.removeEventListener('resize', this.updatePlayerRect);
+    window.removeEventListener('scroll', this.updatePlayerRect);
     this.unsubscribe();
-  }
-
-  onWindowResize = () => {
-    this.setPlayerRect();
   }
 
   onTimelineCommentOpen = (fragment) => {
@@ -169,6 +167,10 @@ class MediaComponent extends Component {
 
   setPlayerState = payload =>
     this.setState({ playerState: { ...this.state.playerState, ...payload } });
+
+  updatePlayerRect = () => {
+    this.setPlayerRect();
+  }
 
   subscribe() {
     const { pusher, clientSessionId, media } = this.props;
