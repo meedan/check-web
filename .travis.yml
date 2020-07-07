@@ -18,7 +18,7 @@ before_install:
 # apt dependencies
 - sudo rm /etc/apt/sources.list.d/mongodb*
 - sudo rm /etc/apt/sources.list.d/google*
-- sudo sh /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh trusty -y
+- sudo sh /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y trusty
 - sudo apt-get install wget python-setuptools lsof unzip imagemagick ruby ruby-dev libnss3 libnss3-dev xvfb postgres-11 libnss3-1d libexif-dev curl build-essential libssl-dev libappindicator1 fonts-liberation redis-server -y
 # environment
 - export PATH=/tmp/bundler/ruby/2.4.0/bin:$PATH
