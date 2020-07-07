@@ -382,8 +382,8 @@ module AppSpecHelpers
   def go(new_url)
     if defined? $caller_name and $caller_name.length > 0
       method_id = $caller_name[0]
-      method_id.gsub! (/(\s)/), '_'
-      method_id.gsub! (/("|\[|\])/), ''
+        .gsub(/\s/, '_')
+        .gsub(/"|\[|\]/, '')
       if new_url.include? '?'
         new_url = new_url + '&test_id='+method_id
       else
