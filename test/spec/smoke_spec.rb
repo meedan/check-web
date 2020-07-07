@@ -1351,9 +1351,12 @@ shared_examples 'smoke' do
     wait_for_selector('.rules__rule-field div[role="button"]').click
     wait_for_selector('ul[role=listbox] li[role=option]').click
     wait_for_selector('.rules__rule-field textarea').send_keys('foo,bar')
-    wait_for_selector('body').click
 
     # Select an action
+    wait_for_selector('.rules__actions .rules__rule-field div[role="button"]').click
+    # https://mantis.meedan.com/view.php?id=8463 clicking the select field
+    # doesn't open it. So let's click the select field again. FIXME fix #8463,
+    # then nix this line.
     wait_for_selector('.rules__actions .rules__rule-field div[role="button"]').click
     wait_for_selector('ul[role=listbox] li[role=option]').click
     expect(@driver.page_source.include?('Select destination list')).to be(true)
@@ -1401,8 +1404,8 @@ shared_examples 'smoke' do
 
     #delet rule
     wait_for_selector('tbody tr').click
-    wait_for_selector("//span[contains(text(), 'More')]", :xpath).click
-    wait_for_selector("//span[contains(text(), 'Delete')]", :xpath).click
+    wait_for_selector("//div[@role='button'][text()='More']", :xpath).click
+    wait_for_selector("//li[@role='option'][text()='Delete']", :xpath).click
     wait_for_selector("#confirm-dialog__checkbox").click
     wait_for_selector("#confirm-dialog__confirm-action-button").click
     wait_for_selector(".message")
