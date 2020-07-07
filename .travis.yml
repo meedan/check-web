@@ -16,6 +16,7 @@ before_install:
 # extract configs
 - git clone https://${TOKEN}:x-oauth-basic@github.com/meedan/configurator ./configurator
 # apt dependencies
+- sudo service postgresql stop
 - sudo rm /etc/apt/sources.list.d/google*
 - sudo apt-get install curl ca-certificates gnupg
 - curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
