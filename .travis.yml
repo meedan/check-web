@@ -4,7 +4,7 @@ language: node_js
 node_js:
 - "12.16.1"
 rvm:
-- 2.4
+- 2.4  # must be same as check-api/.travis.yml
 cache:
   directories:
     - "/tmp/bundler"
