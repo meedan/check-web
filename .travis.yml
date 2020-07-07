@@ -24,7 +24,7 @@ before_install:
 - export PATH=/tmp/bundler/ruby/2.4.0/bin:$PATH
 - export GEM_PATH=/tmp/bundler/ruby/2.4.0/gems:$GEM_PATH
 # postgres
-- docker run -d -p 5432:5432 -e "POSTGRES_HOST_AUTH_METHOD=trust" postgresql:11
+- docker run -d -p 5432:5432 -e "POSTGRES_HOST_AUTH_METHOD=trust" postgres:11
 # minio
 - docker run -d -p 9000:9000 -e "MINIO_ACCESS_KEY=AKIAIOSFODNN7EXAMPLE" -e "MINIO_SECRET_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY" minio/minio server /data
 # check api
