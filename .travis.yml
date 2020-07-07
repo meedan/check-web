@@ -9,6 +9,27 @@ cache:
   directories:
     - "/tmp/bundler"
 addons:
+  postgresql: "9.5"
+  apt:
+    packages:
+    - build-essential
+    - chromium-browser
+    - chromium-chromedriver
+    - curl
+    - fonts-liberation
+    - imagemagick
+    - libappindicator1
+    - libexif-dev
+    - libnss3
+    - libnss3-dev
+    - libssl-dev
+    - lsof
+    - python-setuptools
+    - ruby
+    - ruby-dev
+    - unzip
+    - wget
+    - xvfb
   hosts:
     - minio
     - redis
