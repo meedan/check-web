@@ -76,8 +76,8 @@ export const display2 = `500 45px/${units(6)} ${fontStackSans}`;
 export const display1 = `500 34px/${units(5)} ${fontStackSans}`;
 export const headline = `500 ${units(3)}/${units(4)} ${fontStackSans}`;
 export const title1 = `500 ${units(2.5)}/${units(4)} ${fontStackSans}`;
-export const subheading2 = `400 ${units(2)}/${units(3.5)} ${fontStackSans}`;
 export const subheading1 = `400 15px/${units(3)} ${fontStackSans}`;
+export const subheading2 = `400 ${units(2)}/${units(3.5)} ${fontStackSans}`;
 export const body2 = `400 14px/${units(3)} ${fontStackSans}`;
 export const body1 = `400 14px/${units(1.8)} ${fontStackSans}`;
 export const caption = `400 ${units(1.5)}/${units(2.5)} ${fontStackSans}`;
@@ -370,16 +370,6 @@ export const HeaderTitle = styled.h3`
   ${mediaQuery.handheld`
      max-width: 18vw;
   `}
-`;
-
-export const StyledHeading = styled.h3`
-  font: ${subheading1};
-  font-weight: 500;
-  &,
-  a,
-  a:visited {
-    color: ${black87} !important;
-  }
 `;
 
 export const HiddenOnMobile = styled.div`

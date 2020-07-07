@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 import { FormattedMessage } from 'react-intl';
@@ -9,14 +9,25 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
 import CreateProjectMutation from '../../relay/mutations/CreateProjectMutation';
 import { getErrorMessage } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
-import {
-  units,
-} from '../../styles/js/shared';
+import { units } from '../../styles/js/shared';
 
-class CreateProject extends Component {
+const Styles = theme => ({
+  rootCard: {
+  },
+  rootNotCard: {
+    padding: theme.spacing(0, 2),
+  },
+  rootHidden: {
+    visibility: 'hidden',
+    pointerEvents: 'none',
+  },
+});
+
+class CreateProject extends React.Component {
   constructor(props) {
     super(props);
 
@@ -77,11 +88,18 @@ class CreateProject extends Component {
   }
 
   render() {
+    const {
+      classes, team, visible, renderCard,
+    } = this.props;
+    const className = `create-project-${renderCard ? 'card' : 'form'} ${renderCard ? classes.rootCard : classes.rootNotCard} ${visible ? '' : classes.rootHidden}`;
+    const disabled = !visible;
+
     const textInput = (
       <FormattedMessage id="createProject.newProjectName" defaultMessage="List name">
         {placeholder => (
           <TextField
-            id="create-project-title"
+            key={visible /* re-render -- and thus autofocus -- when visible becomes true */}
+            name="title"
             className={this.props.className}
             placeholder={placeholder /* TODO make it `label`? */}
             style={this.props.style}
@@ -91,6 +109,7 @@ class CreateProject extends Component {
             value={this.state.name}
             onChange={this.handleChange}
             onKeyDown={this.handleKeyDown}
+            disabled={disabled}
             fullWidth
           />
         )}
@@ -98,28 +117,17 @@ class CreateProject extends Component {
     );
 
     const submitButton = (
-      <Button
-        id="create-project-submit-button"
-        onClick={this.handleSubmit.bind(this)}
-        color="primary"
-        disabled={!this.state.name}
-      >
+      <Button type="submit" color="primary" disabled={disabled || !this.state.name}>
         <FormattedMessage id="createProject.addProject" defaultMessage="Create list" />
       </Button>
     );
 
-    const form = (
-      <form onSubmit={this.handleSubmit.bind(this)} className="create-project">
-        {textInput}
-        {submitButton}
-      </form>
-    );
-
-    const { team } = this.props;
-
     if (this.props.renderCard) {
       return (
         <Card
+          component="form"
+          onSubmit={this.handleSubmit.bind(this)}
+          className={className}
           style={{ marginBottom: units(2) }}
         >
           <CardHeader
@@ -129,9 +137,7 @@ class CreateProject extends Component {
             }
           />
           <CardContent>
-            <form onSubmit={this.handleSubmit.bind(this)} className="create-project">
-              {textInput}
-            </form>
+            {textInput}
           </CardContent>
           <CardActions>
             {submitButton}
@@ -140,15 +146,20 @@ class CreateProject extends Component {
       );
     }
 
-    return form;
+    return (
+      <form onSubmit={this.handleSubmit.bind(this)} className={className}>
+        {textInput}
+        {submitButton}
+      </form>
+    );
   }
 }
 CreateProject.defaultProps = {
   onBlur: null,
-  className: 'team__new-project-input',
+  visible: true,
 };
 CreateProject.propTypes = {
-  className: PropTypes.string, // default "team__new-project-input"
+  visible: PropTypes.bool, // default true
   autoFocus: PropTypes.bool.isRequired,
   onBlur: PropTypes.func, // or null
   onCreate: PropTypes.func.isRequired,
@@ -160,4 +171,4 @@ CreateProject.propTypes = {
   }).isRequired,
 };
 
-export default CreateProject;
+export default withStyles(Styles)(CreateProject);

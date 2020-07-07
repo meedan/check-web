@@ -228,7 +228,8 @@ export const createPlaceInstance =
           }],
         },
       ],
-      onCompleted: (data, errors) => callback && callback(data, errors),
+      onCompleted: (data, errors) => callback && callback(errors, data),
+      onError: (data, errors) => callback && callback(errors, data),
     });
   };
 
@@ -307,7 +308,8 @@ export const createPlace = (name, payload, annotated_id, parentID, callback) => 
         }],
       },
     ],
-    onCompleted: (data, errors) => callback && callback(data, errors),
+    onCompleted: (data, errors) => callback && callback(errors, data),
+    onError: (data, errors) => callback && callback(errors, data),
   });
 };
 
@@ -356,7 +358,8 @@ export const createClip = (label, fragment, annotated_id, parentID, callback) =>
         }],
       },
     ],
-    onCompleted: (data, errors) => callback && callback(data, errors),
+    onCompleted: (data, errors) => callback && callback(errors, data),
+    onError: (data, errors) => callback && callback(errors, data),
   });
 
 export const renameClip = (id, label) => commitMutation(environment, {
@@ -463,7 +466,8 @@ export const updateComment = (id, text, callback) => commitMutation(environment,
       },
     },
   },
-  onCompleted: (data, errors) => callback && callback(data, errors),
+  onCompleted: (data, errors) => callback && callback(errors, data),
+  onError: (data, errors) => callback && callback(errors, data),
 });
 
 export const destroyComment = (id, annotated_id, callback) => commitMutation(environment, {
@@ -486,7 +490,8 @@ export const destroyComment = (id, annotated_id, callback) => commitMutation(env
       deletedIDFieldName: 'deletedId',
     },
   ],
-  onCompleted: (data, errors) => callback && callback(data, errors),
+  onCompleted: (data, errors) => callback && callback(errors, data),
+  onError: (data, errors) => callback && callback(errors, data),
 });
 
 export const createComment =
@@ -532,7 +537,8 @@ export const createComment =
         }],
       },
     ],
-    onCompleted: (data, errors) => callback && callback(data, errors),
+    onCompleted: (data, errors) => callback && callback(errors, data),
+    onError: (data, errors) => callback && callback(errors, data),
   });
 
 
@@ -600,7 +606,8 @@ export const createCommentThread =
         }],
       },
     ],
-    onCompleted: (data, errors) => callback && callback(data, errors),
+    onCompleted: (data, errors) => callback && callback(errors, data),
+    onError: (data, errors) => callback && callback(errors, data),
   });
 
 export const createTag = (tag, fragment, annotated_id, parentID, callback) =>
@@ -644,7 +651,8 @@ export const createTag = (tag, fragment, annotated_id, parentID, callback) =>
         }],
       },
     ],
-    onCompleted: (data, errors) => callback && callback(data, errors),
+    onCompleted: (data, errors) => callback && callback(errors, data),
+    onError: (data, errors) => callback && callback(errors, data),
   });
 
 export const retimeTag = (id, fragment) => commitMutation(environment, {
@@ -686,7 +694,8 @@ export const renameTag = (id, text, callback) => commitMutation(environment, {
   variables: {
     input: { id, text, clientMutationId: `m${Date.now()}` },
   },
-  onCompleted: (data, errors) => callback && callback(data, errors),
+  onCompleted: (data, errors) => callback && callback(errors, data),
+  onError: (data, errors) => callback && callback(errors, data),
   optimisticResponse: {
     updateTagText: {
       tag_text: {

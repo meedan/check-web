@@ -45,6 +45,10 @@ const optimisticProjectMedia = (media, proj, context, customTeam) => {
           id: project.search_id,
           number_of_results: mediasCount + 1,
         } : null,
+        check_search_team: {
+          id: team.search_id,
+          number_of_results: team.medias_count + 1,
+        },
         project_id: project ? project.dbid : null,
         id: relayId,
         permissions: JSON.stringify({

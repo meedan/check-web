@@ -8,14 +8,29 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Tooltip from '@material-ui/core/Tooltip';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Can from '../Can';
 import { withPusher, pusherShape } from '../../pusher';
 import CreateProject from '../project/CreateProject';
 import TeamRoute from '../../relay/TeamRoute';
 import RelayContainer from '../../relay/RelayContainer';
 
-import { units } from '../../styles/js/shared';
+const Styles = theme => ({
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    flex: '1 1 auto', // take up _all_ remaining vertical space in the <DrawerNavigationComponent>
+    overflow: 'hidden', // shrink when the list is too long
+  },
+  list: {
+    flex: '0 1 auto', // Shrink when the list is too long; don't grow when it's too short
+    overflow: 'hidden auto',
+  },
+  actions: {
+    flex: '1 0 auto', // Grow when the list is short; don't shrink when it's long
+    padding: theme.spacing(1, 0, 0), // padding helps us stand apart when the list is long
+  },
+});
 
 const useProjectLinkStyles = makeStyles(theme => ({
   root: {
@@ -132,11 +147,11 @@ class DrawerProjectsComponent extends Component {
   };
 
   render() {
-    const { team } = this.props;
+    const { classes, team } = this.props;
 
     return (
-      <div className="projects__list">
-        <List dense>
+      <div className={`projects__list ${classes.root}`}>
+        <List dense className={classes.list}>
           <ListItem>
             <ProjectListItemText
               teamSlug={team.slug}
@@ -161,37 +176,35 @@ class DrawerProjectsComponent extends Component {
           }
         </List>
         <Can permissions={team.permissions} permission="create Project">
-          <Tooltip title={
-            this.props.showAddProj
-              ? <FormattedMessage id="projects.dismiss" defaultMessage="Dismiss" />
-              : <FormattedMessage id="projects.addProject" defaultMessage="Add list" />
-          }
-          >
-            <Button
-              onClick={this.toggleShowCreateProject}
-              className="drawer__create-project-button"
-              style={{
-                fontSize: '12px',
-                marginLeft: '5px',
-                paddingLeft: '10px',
-                paddingRight: '10px',
-              }}
+          <div className={classes.actions}>
+            <Tooltip title={
+              this.props.showAddProj
+                ? <FormattedMessage id="projects.dismiss" defaultMessage="Dismiss" />
+                : <FormattedMessage id="projects.addProject" defaultMessage="Add list" />
+            }
             >
-              <FormattedMessage id="projects.newList" defaultMessage="+ New list" />
-            </Button>
-          </Tooltip>
-        </Can>
-        { this.state.showCreateProject ?
-          <div style={{ width: '100%', padding: `0 ${units(2)}` }}>
+              <Button
+                onClick={this.toggleShowCreateProject}
+                className="drawer__create-project-button"
+                style={{
+                  fontSize: '12px',
+                  marginLeft: '5px',
+                  paddingLeft: '10px',
+                  paddingRight: '10px',
+                }}
+              >
+                <FormattedMessage id="projects.newList" defaultMessage="+ New list" />
+              </Button>
+            </Tooltip>
             <CreateProject
-              className="project-list__input"
+              visible={this.state.showCreateProject}
               team={team}
               onCreate={this.toggleShowCreateProject}
               onBlur={this.toggleShowCreateProject}
               autoFocus
             />
           </div>
-          : null }
+        </Can>
       </div>
     );
   }
@@ -202,7 +215,7 @@ DrawerProjectsComponent.propTypes = {
   clientSessionId: PropTypes.string.isRequired,
 };
 
-const ConnectedDrawerProjectsComponent = withPusher(DrawerProjectsComponent);
+const ConnectedDrawerProjectsComponent = withStyles(Styles)(withPusher(DrawerProjectsComponent));
 
 const DrawerProjectsContainer = Relay.createContainer(ConnectedDrawerProjectsComponent, {
   fragments: {
@@ -236,7 +249,6 @@ const DrawerProjects = (props) => {
     <RelayContainer
       Component={DrawerProjectsContainer}
       route={route}
-      forceFetch
       renderFetched={data =>
         <DrawerProjectsContainer {...data} />}
     />

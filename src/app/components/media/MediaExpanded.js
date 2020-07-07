@@ -75,10 +75,6 @@ class MediaExpandedComponent extends Component {
     context.setContextStore({ team, project });
   }
 
-  getPlayerRef = (node) => {
-    this.props.setPlayerRef(node);
-  }
-
   subscribe() {
     const { pusher, clientSessionId, media } = this.props;
     pusher.subscribe(media.pusher_channel).bind('media_updated', 'MediaComponent', (data, run) => {
@@ -135,7 +131,7 @@ class MediaExpandedComponent extends Component {
         return <ImageMediaCard imagePath={media.embed_path} />;
       } else if (isVideo) {
         return (
-          <div ref={this.getPlayerRef}>
+          <div ref={this.props.playerRef}>
             <VideoMediaCard
               videoPath={media.media.file_path}
               {...{
@@ -146,7 +142,7 @@ class MediaExpandedComponent extends Component {
         );
       } else if (isYoutube) {
         return (
-          <div ref={this.getPlayerRef}>
+          <div ref={this.props.playerRef}>
             <VideoMediaCard
               videoPath={media.url}
               {...{
@@ -251,6 +247,7 @@ MediaExpandedComponent.contextTypes = {
 
 MediaExpandedComponent.propTypes = {
   pusher: pusherShape.isRequired,
+  playerRef: PropTypes.shape({ current: PropTypes.instanceOf(HTMLElement) }).isRequired,
 };
 
 const MediaExpandedContainer = Relay.createContainer(withPusher(MediaExpandedComponent), {

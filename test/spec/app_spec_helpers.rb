@@ -283,11 +283,6 @@ module AppSpecHelpers
     sleep 0.5
   end
 
-  def create_project(title = "Project #{Time.now}")
-    fill_field('#create-project-title', title)
-    @driver.action.send_keys(:enter).perform
-  end
-
   def register_with_email(should_create_team = true, email = @email, should_login = true)
     @driver.navigate.to @config['self_url']
     wait_for_selector("#register").click

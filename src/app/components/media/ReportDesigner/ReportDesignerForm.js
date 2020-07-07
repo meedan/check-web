@@ -177,12 +177,12 @@ const ReportDesignerForm = (props) => {
             key={`status-${data.language}`}
             value={data.status_label}
             onChange={(e) => { props.onUpdate('status_label', e.target.value); }}
-            inputProps={{ maxLength: 16 }}
+            inputProps={{ maxLength: 25 }}
             label={
               <FormattedMessage
                 id="reportDesigner.statusLabel"
                 defaultMessage="Status label - {max} characters max"
-                values={{ max: 16 }}
+                values={{ max: 25 }}
               />
             }
             {...textFieldProps}

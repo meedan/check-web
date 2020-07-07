@@ -153,9 +153,6 @@ class BulkActions extends React.Component {
       );
       this.props.setFlashMessage(message);
       this.props.onUnselectAll();
-      if (this.props.parentComponent) {
-        this.props.parentComponent.props.relay.forceFetch();
-      }
     };
 
     if (this.props.selectedMedia.length && !this.state.confirmationError) {
@@ -166,6 +163,7 @@ class BulkActions extends React.Component {
           srcProject: this.props.project,
           archived: params.archived,
           teamSearchId: this.props.team.search_id,
+          team: this.props.team,
           count: this.props.count,
           dstProject: null,
           dstProjectForAdd: null,
@@ -383,7 +381,17 @@ BulkActions.propTypes = {
 export default createFragmentContainer(withSetFlashMessage(BulkActions), graphql`
   fragment BulkActions_team on Team {
     ...MoveDialog_team
+    id
+    medias_count 
     permissions
     search_id
+    check_search_trash {
+      id
+      number_of_results
+    }
+    public_team {
+      id
+      trash_count
+    }
   }
 `);
