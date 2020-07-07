@@ -1,22 +1,22 @@
 [
   {
-    "id": "addAnnotation.invalidCommand",
-    "defaultMessage": "Invalid command"
-  },
-  {
     "id": "addAnnotation.error",
     "defaultMessage": "Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists."
+  },
+  {
+    "id": "addAnnotation.invalidCommand",
+    "defaultMessage": "Invalid command"
   },
   {
     "id": "addAnnotation.inputHint",
     "defaultMessage": "Add a note"
   },
   {
-    "id": "addAnnotation.submitButton",
-    "defaultMessage": "Submit"
-  },
-  {
     "id": "addAnnotation.addImage",
     "defaultMessage": "Add an image"
+  },
+  {
+    "id": "addAnnotation.submitButton",
+    "defaultMessage": "Submit"
   }
 ]

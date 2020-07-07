@@ -229,12 +229,12 @@ class MediaTimeline extends Component {
     const end = gaps.length > 0 ? Math.min(gaps[gaps.length - 1][0], duration) : null;
 
     setPlayerState({
-      gaps, transport: type, start, end,
+      gaps, transport: type, start, end, seekTo: start, playing: true,
     });
   };
 
-  timeChange = seekTo => this.props.setPlayerState({ seekTo });
-  scrub = scrubTo => this.props.setPlayerState({ scrubTo });
+  timeChange = seekTo => this.props.setPlayerState({ seekTo, gaps: [], transport: 'timeline' });
+  scrub = scrubTo => this.props.setPlayerState({ scrubTo, gaps: [], transport: 'timeline' });
 
   render() {
     const {
