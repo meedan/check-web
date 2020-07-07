@@ -393,40 +393,37 @@ module AppSpecHelpers
     @driver.navigate.to new_url
   end
 
-  def new_driver(webdriver_url, browser_capabilities)
-    if @config.key?('proxy')
-      proxy = Selenium::WebDriver::Proxy.new(
-        :http     => @config['proxy'],
-        :ftp      => @config['proxy'],
-        :ssl      => @config['proxy']
+  def new_driver(chrome_prefs: {}, extra_chrome_args: [])
+    proxy = if @config.key?('proxy')
+      Selenium::WebDriver::Proxy.new(
+        http: @config['proxy'],
+        ftp: @config['proxy'],
+        ssl: @config['proxy']
       )
-      if (Dir.entries(".").include? "extension.crx")
-        caps = Selenium::WebDriver::Remote::Capabilities.chrome ({
-            'chromeOptions' => {
-              'extensions' => [
-                Base64.strict_encode64(File.open('./extension.crx', 'rb').read)
-              ]
-            }, :proxy => proxy
-          })
-      else
-        caps = Selenium::WebDriver::Remote::Capabilities.chrome(:proxy => proxy)
-      end
-      dr = Selenium::WebDriver.for(:chrome, :desired_capabilities => caps , :url => webdriver_url)
     else
-      if ((Dir.entries(".").include? "extension.crx") and (browser_capabilities == :chrome))
-        caps = Selenium::WebDriver::Remote::Capabilities.chrome ({
-            'chromeOptions' => {
-              'extensions' => [
-                Base64.strict_encode64(File.open('./extension.crx', 'rb').read)
-              ]
-            }
-          })
-        dr = Selenium::WebDriver.for(:chrome, :desired_capabilities => caps , :url => webdriver_url)
-      else
-        dr = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
-      end
+      nil
     end
-    dr
+
+    extensions = begin
+      [ Base64.strict_encode64(File.open('./extension.crx', 'rb').read) ]
+    rescue Errno::ENOENT
+      []
+    end
+
+    chrome_args = %w(disable-gpu no-sandbox disable-dev-shm-usage)
+
+    chrome_options = {
+      extensions: extensions,
+      prefs: chrome_prefs,
+      args: chrome_args + extra_chrome_args,
+    }
+
+    desired_capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+      proxy: proxy,
+      chromeOptions: chrome_options,
+    )
+
+    Selenium::WebDriver.for(:chrome, desired_capabilities: desired_capabilities, url: @webdriver_url)
   end
 
   def install_bot (team, bot_name)

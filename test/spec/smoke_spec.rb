@@ -77,7 +77,7 @@ shared_examples 'smoke' do
     api_create_team(team: team)
     api_logout
     @driver.quit
-    @driver = new_driver(@webdriver_url,@browser_capabilities)
+    @driver = new_driver()
     @driver.navigate.to @config['self_url'] + "/"+team+"/join"
     wait_for_selector(".message")
     expect(@driver.page_source.include?("First you need to register. Once registered, you can request to join the workspace.")).to be(true)
@@ -829,8 +829,7 @@ shared_examples 'smoke' do
     wait_for_selector("//span[contains(text(), 'Edit')]", :xpath)
     wait_for_selector('.report-designer__copy-share-url').click
     embed_url = wait_for_selector('.report-designer__copy-share-url input').property('value').to_s
-    caps = Selenium::WebDriver::Remote::Capabilities.chrome('chromeOptions' => { 'args' => [ '--incognito' ]})
-    driver = Selenium::WebDriver.for(:remote, url: @webdriver_url, desired_capabilities: caps)
+    driver = new_driver(extra_chrome_args=%w(incognito))
     begin
       driver.navigate.to embed_url
       @wait.until { driver.find_element(:id, "container") }
@@ -1110,7 +1109,7 @@ shared_examples 'smoke' do
     api_logout
     @driver.quit
 
-    @driver = new_driver(@webdriver_url,@browser_capabilities)
+    @driver = new_driver()
     page = Page.new(config: @config, driver: @driver)
     page.go(@config['api_path'] + '/test/session?email='+@user_mail)
 
@@ -1153,7 +1152,7 @@ shared_examples 'smoke' do
     api_logout
     @driver.quit
 
-    @driver = new_driver(@webdriver_url,@browser_capabilities)
+    @driver = new_driver()
     page = Page.new(config: @config, driver: @driver)
     page.go(@config['api_path'] + '/test/session?email='+@user_mail)
     page = MePage.new(config: @config, driver: @driver).load
@@ -1206,7 +1205,7 @@ shared_examples 'smoke' do
     }
     api_logout
     @driver.quit
-    @driver = new_driver(@webdriver_url,@browser_capabilities)
+    @driver = new_driver()
     page = Page.new(config: @config, driver: @driver)
     page.go(@config['api_path'] + '/test/session?email='+@user_mail)
     #As the group creator, go to the members page and approve the joining request.
@@ -1251,7 +1250,7 @@ shared_examples 'smoke' do
     api_logout
     @driver.quit
     #As the journalist, go to the members page and can't see the request to join the another user
-    @driver = new_driver(@webdriver_url,@browser_capabilities)
+    @driver = new_driver()
     page = Page.new(config: @config, driver: @driver)
     page.go(@config['api_path'] + '/test/session?email=new'+@user_mail)
     page = MePage.new(config: @config, driver: @driver).load
@@ -1290,7 +1289,7 @@ shared_examples 'smoke' do
     @driver.quit
 
     #As the group creator, go to the members page and edit team member role to 'contribuitor'
-    @driver = new_driver(@webdriver_url,@browser_capabilities)
+    @driver = new_driver()
     page = Page.new(config: @config, driver: @driver)
     page.go(@config['api_path'] + '/test/session?email='+@user_mail)
     page = MePage.new(config: @config, driver: @driver).load
@@ -1304,7 +1303,7 @@ shared_examples 'smoke' do
     @driver.quit
 
     #log in as the contributor
-    @driver = new_driver(@webdriver_url,@browser_capabilities)
+    @driver = new_driver()
     page = Page.new(config: @config, driver: @driver)
     page.go(@config['api_path'] + '/test/session?email=new'+@user_mail)
     page = MePage.new(config: @config, driver: @driver).load
