@@ -12,6 +12,10 @@
     "defaultMessage": "Instagram"
   },
   {
+    "id": "media.typeYoutube",
+    "defaultMessage": "YouTube video"
+  },
+  {
     "id": "media.typeVideo",
     "defaultMessage": "Video"
   },

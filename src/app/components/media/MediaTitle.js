@@ -16,7 +16,7 @@ const NullMessage = ({ children }) => children(null);
 
 const MediaType = {
   Twitter: 'twitter',
-  Facebok: 'facebook',
+  Facebook: 'facebook',
   Instagram: 'instagram',
   Youtube: 'youtube',
   Tiktok: 'tiktok',
@@ -36,6 +36,8 @@ const TypeMessageOrNullMessage = ({ type, children }) => {
     return <FormattedMessage id="media.typeFacebook" defaultMessage="Facebook post">{children}</FormattedMessage>;
   case MediaType.Instagram:
     return <FormattedMessage id="media.typeInstagram" defaultMessage="Instagram">{children}</FormattedMessage>;
+  case MediaType.Youtube:
+    return <FormattedMessage id="media.typeYoutube" defaultMessage="YouTube video">{children}</FormattedMessage>;
   case MediaType.Video:
     return <FormattedMessage id="media.typeVideo" defaultMessage="Video">{children}</FormattedMessage>;
   case MediaType.Tiktok:
@@ -54,7 +56,7 @@ TypeMessageOrNullMessage.defaultProps = {
   type: null,
 };
 TypeMessageOrNullMessage.propTypes = {
-  type: PropTypes.oneOf(Object.keys(MediaType)), // or null
+  type: PropTypes.oneOf(Object.values(MediaType)), // or null
   children: PropTypes.func.isRequired,
 };
 
@@ -89,7 +91,7 @@ const ByAttribution = ({ mediaType, projectMedia, children }) => {
         <FormattedMessage
           id="media.byAttribution"
           defaultMessage="{typeLabel} by {attribution}"
-          values={{ mediaType, attribution }}
+          values={{ typeLabel, attribution }}
         >
           {children}
         </FormattedMessage>
@@ -157,7 +159,7 @@ function MediaTitle({ projectMedia, children }) {
           {retval}
         </ByAttribution>
       );
-  default: {
+  default: { // mediaType === null
     const text = projectMedia.media.quote || projectMedia.metadata.title;
     if (text) {
       return retval(text);
@@ -173,7 +175,19 @@ MediaTitle.defaultProps = {
 };
 MediaTitle.propTypes = {
   children: PropTypes.func, // render prop ... or null
+  projectMedia: PropTypes.shape({
+    media: PropTypes.shape({
+      embed_path: PropTypes.string, // or null?
+      metadata: PropTypes.object.isRequired,
+      quote: PropTypes.string, // or null
+    }).isRequired,
+    domain: PropTypes.string, // or null
+    metadata: PropTypes.object.isRequired,
+    overridden: PropTypes.object.isRequired,
+    quote: PropTypes.string, // or null
+  }).isRequired,
 };
+export { MediaTitle };
 
 export default createFragmentContainer(MediaTitle, graphql`
   fragment MediaTitle_projectMedia on ProjectMedia {
