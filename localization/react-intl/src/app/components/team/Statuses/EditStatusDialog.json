@@ -5,7 +5,7 @@
   },
   {
     "id": "editStatusDialog.statusTitle",
-    "defaultMessage": "Status (35 characters max)"
+    "defaultMessage": "Status ({maxLength} characters max)"
   },
   {
     "id": "editStatusDialog.statusDescription",

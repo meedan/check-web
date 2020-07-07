@@ -453,6 +453,7 @@ export const ContentColumn = styled.div`
   width: 100%;
   max-width: ${columnWidthMedium};
   ${props => props.narrow ? `max-width: ${columnWidthSmall}` : ''}
+  ${props => props.large ? `max-width: ${columnWidthLarge}` : ''}
   ${props => props.wide ? `max-width: ${columnWidthWide}` : ''}
   ${props => props.fullWidth ? 'max-width: 100%' : ''}
   ${props => props.flex ? 'display: flex; flex-direction: column;' : ''}

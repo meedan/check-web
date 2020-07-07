@@ -188,6 +188,19 @@ class TeamComponent extends Component {
               /> : null }
             {UserUtil.myRole(this.getCurrentUser(), team.slug) === 'owner' ?
               <Tab
+                className="team-settings__statuses-tab"
+                classes={{ root: classes.root }}
+                label={
+                  <FormattedMessage
+                    id="teamSettings.statuses"
+                    defaultMessage="Statuses"
+                  />
+                }
+                value="statuses"
+              />
+              : null }
+            {UserUtil.myRole(this.getCurrentUser(), team.slug) === 'owner' ?
+              <Tab
                 className="team-settings__report-tab"
                 classes={{ root: classes.root }}
                 label={
@@ -223,19 +236,6 @@ class TeamComponent extends Component {
                   />
                 }
                 value="bots"
-              />
-              : null }
-            {UserUtil.myRole(this.getCurrentUser(), team.slug) === 'owner' ?
-              <Tab
-                className="team-settings__statuses-tab"
-                classes={{ root: classes.root }}
-                label={
-                  <FormattedMessage
-                    id="teamSettings.statuses"
-                    defaultMessage="Statuses"
-                  />
-                }
-                value="statuses"
               />
               : null }
           </Tabs>
@@ -278,7 +278,7 @@ class TeamComponent extends Component {
             ? <TeamTags team={team} />
             : null }
           { isSettings && this.state.showTab === 'statuses'
-            ? <TeamStatuses team={team} />
+            ? <TeamStatuses teamSlug={team.slug} />
             : null }
         </div>
       </PageTitle>

@@ -1,0 +1,10 @@
+[
+  {
+    "id": "translateStatuses.missingTranslations",
+    "defaultMessage": "Missing translations"
+  },
+  {
+    "id": "translateStatuses.missingTranslationsBody",
+    "defaultMessage": "Some statuses are missing translation. If they need to be used in this language, they will be replaced by the same value in the default language, and may not be legible to users."
+  }
+]

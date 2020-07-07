@@ -1,6 +1,18 @@
 [
   {
+    "id": "statusesComponent.title",
+    "defaultMessage": "{statuses_count, plural, one {1 status} other {# statuses}}"
+  },
+  {
     "id": "statusesComponent.newStatus",
     "defaultMessage": "New status"
+  },
+  {
+    "id": "statusesComponent.blurb",
+    "defaultMessage": "The status title is visible when reports are sent to users."
+  },
+  {
+    "id": "statusesComponent.blurbSecondary",
+    "defaultMessage": "Translate statuses in secondary languages in order to display them in local languages in your fact checking reports."
   }
 ]

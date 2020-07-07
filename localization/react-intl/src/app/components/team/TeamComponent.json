@@ -12,6 +12,10 @@
     "defaultMessage": "Tags"
   },
   {
+    "id": "teamSettings.statuses",
+    "defaultMessage": "Statuses"
+  },
+  {
     "id": "teamSettings.report",
     "defaultMessage": "Report"
   },
@@ -22,9 +26,5 @@
   {
     "id": "teamSettings.bots",
     "defaultMessage": "Bots"
-  },
-  {
-    "id": "teamSettings.statuses",
-    "defaultMessage": "Statuses"
   }
 ]

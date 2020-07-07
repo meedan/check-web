@@ -11,6 +11,8 @@ import styled from 'styled-components';
 import globalStrings from '../../../globalStrings';
 import { units } from '../../../styles/js/shared';
 
+const maxLength = 35;
+
 const StyledColorPickerContainer = styled.div`
   margin: ${units(2)};
 `;
@@ -59,10 +61,14 @@ const EditStatusDialog = ({
       <DialogContent>
         <TextField
           id="edit-status-dialog__status-name"
+          inputProps={{
+            maxLength,
+          }}
           label={(
             <FormattedMessage
               id="editStatusDialog.statusTitle"
-              defaultMessage="Status (35 characters max)"
+              defaultMessage="Status ({maxLength} characters max)"
+              values={{ maxLength }}
             />
           )}
           value={statusName}

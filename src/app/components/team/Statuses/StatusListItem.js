@@ -40,7 +40,13 @@ const StatusListItem = ({
             {status.locales[defaultLanguage].label}
           </StyledStatusLabel>
         }
-        secondary={status.locales[defaultLanguage].description}
+        secondary={
+          status.locales[defaultLanguage].description ||
+          <FormattedMessage
+            id="statusListItem.noDescription"
+            defaultMessage="No description"
+          />
+        }
       />
       <ListItemSecondaryAction>
         <IconButton onClick={e => setAnchorEl(e.target)}>
