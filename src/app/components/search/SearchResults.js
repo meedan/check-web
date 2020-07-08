@@ -311,6 +311,19 @@ class SearchResultsComponent extends React.PureComponent {
 
     const isProject = !!this.props.project;
 
+
+    const selectedProjectMediaProjectIds = [];
+    const selectedProjectMediaDbids = [];
+
+    if (isProject) {
+      projectMedias.forEach((pm) => {
+        if (selectedProjectMediaIds.indexOf(pm.id) !== -1) {
+          selectedProjectMediaProjectIds.push(pm.project_media_project.id);
+          selectedProjectMediaDbids.push(pm.dbid);
+        }
+      });
+    }
+
     let content = null;
 
     if (count === 0) {
@@ -375,6 +388,8 @@ class SearchResultsComponent extends React.PureComponent {
                 team={team}
                 page={this.props.page}
                 project={this.props.project}
+                selectedProjectMediaProjectIds={selectedProjectMediaProjectIds}
+                selectedProjectMediaDbids={selectedProjectMediaDbids}
                 selectedMedia={selectedProjectMediaIds}
                 onUnselectAll={this.onUnselectAll}
               /> : null}
@@ -515,6 +530,10 @@ const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsCom
               first_seen: created_at,
               last_seen,
               share_count,
+              project_media_project(project_id: 3) {
+                dbid
+                id
+              }
               verification_statuses,
             }
           }

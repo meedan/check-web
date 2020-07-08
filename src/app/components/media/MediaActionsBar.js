@@ -17,6 +17,7 @@ import MediaActions from './MediaActions';
 import Attribution from '../task/Attribution';
 import CreateProjectMediaProjectMutation from '../../relay/mutations/CreateProjectMediaProjectMutation';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
+import UpdateProjectMediaProjectMutation from '../../relay/mutations/UpdateProjectMediaProjectMutation';
 import DeleteProjectMediaProjectMutation from '../../relay/mutations/DeleteProjectMediaProjectMutation';
 import UpdateStatusMutation from '../../relay/mutations/UpdateStatusMutation';
 import MoveDialog from './MoveDialog';
@@ -24,7 +25,7 @@ import CheckContext from '../../CheckContext';
 import globalStrings from '../../globalStrings';
 import { withSetFlashMessage } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
-import { getErrorMessage, getCurrentProject, getCurrentProjectId } from '../../helpers';
+import { getErrorMessage } from '../../helpers';
 
 const Styles = theme => ({
   root: {
@@ -77,6 +78,11 @@ class MediaActionsBarComponent extends Component {
 
   getTitle() {
     return (typeof this.state.title === 'string') ? this.state.title : this.props.media.title;
+  }
+
+  currentProject() {
+    const { project_media_project: projectMediaProject } = this.props.media;
+    return projectMediaProject ? projectMediaProject.project : null;
   }
 
   handleAddToList = () => {
@@ -153,10 +159,10 @@ class MediaActionsBarComponent extends Component {
     };
 
     Relay.Store.commitUpdate(
-      new UpdateProjectMediaMutation({
+      new UpdateProjectMediaProjectMutation({
+        id: media.project_media_project.id,
         project_id: projectId,
-        id: media.id,
-        srcProj: getCurrentProject(this.props.media.projects),
+        srcProj: this.currentProject(),
         dstProj: this.state.dstProj,
         context,
       }),
@@ -169,6 +175,7 @@ class MediaActionsBarComponent extends Component {
   handleRemoveFromList = () => {
     const context = this.getContext();
     const { media } = this.props;
+    const { project_media_project: projectMediaProject } = media;
 
     const onSuccess = () => {
       const message = (
@@ -184,7 +191,8 @@ class MediaActionsBarComponent extends Component {
 
     Relay.Store.commitUpdate(
       new DeleteProjectMediaProjectMutation({
-        project: getCurrentProject(this.props.media.projects),
+        id: projectMediaProject.id,
+        project: projectMediaProject.project,
         project_media: media,
         context,
       }),
@@ -404,7 +412,7 @@ class MediaActionsBarComponent extends Component {
         media: this.props.media,
         archived: 0,
         check_search_team: this.props.media.team.search,
-        check_search_project: getCurrentProject(this.props.media.projects),
+        check_search_project: this.currentProject().search,
         check_search_trash: this.props.media.team.check_search_trash,
         context,
         srcProj: null,
@@ -416,9 +424,7 @@ class MediaActionsBarComponent extends Component {
 
   render() {
     const { classes, media } = this.props;
-    const ids = this.props.media.project_ids;
-    const currentProjectId = getCurrentProjectId(ids);
-    const showRemoveFromList = ids.indexOf(currentProjectId) > -1;
+    const { project_media_project: projectMediaProject } = media;
 
     const addToListDialogActions = [
       <Button
@@ -590,7 +596,7 @@ class MediaActionsBarComponent extends Component {
               />
             </Button>
 
-            { showRemoveFromList ?
+            { projectMediaProject ?
               <Button
                 id="media-actions-bar__remove-from-list"
                 variant="outlined"
@@ -739,16 +745,15 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
           id
           data
         }
-        projects(first: 10000) {
-          edges {
-            node {
-              id
-              dbid
-              title
-              search_id
-              search { id, number_of_results }
-              medias_count
-            }
+        project_media_project(project_id: 3){
+          id
+          project {
+            id
+            dbid
+            title
+            search_id
+            search { id, number_of_results }
+            medias_count
           }
         }
         media {

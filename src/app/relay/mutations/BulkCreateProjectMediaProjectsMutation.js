@@ -1,15 +1,16 @@
 import Relay from 'react-relay/classic';
 
-class DeleteProjectMediaProjectMutation extends Relay.Mutation {
+class BulkCreateProjectMediaProjectsMutation extends Relay.Mutation {
   getMutation() {
-    return Relay.QL`mutation destroyProjectMediaProject {
-      destroyProjectMediaProject
+    return Relay.QL`mutation createProjectMediaProjects {
+      createProjectMediaProjects
     }`;
   }
 
   getFatQuery() {
     return Relay.QL`
-      fragment on DestroyProjectMediaProjectPayload {
+      fragment on CreateProjectMediaProjectsPayload {
+        project_media_projectEdge,
         check_search_project { id, number_of_results, medias },
         project {
           id
@@ -27,16 +28,20 @@ class DeleteProjectMediaProjectMutation extends Relay.Mutation {
 
   getOptimisticResponse() {
     return {
-      deletedId: this.props.project_media.id,
       project: {
         id: this.props.project.id,
-        medias_count: this.props.project.medias_count - 1,
+        medias_count: this.props.project.medias_count + this.props.projectMedias.length,
       },
     };
   }
 
   getVariables() {
-    return { id: this.props.id };
+    console.log('getVariables', this.props);
+    const vars = [];
+    this.props.projectMedias.forEach((projectMedia) => {
+      vars.push({ project_media_id: projectMedia, project_id: this.props.project.dbid });
+    });
+    return vars;
   }
 
   getConfigs() {
@@ -48,16 +53,8 @@ class DeleteProjectMediaProjectMutation extends Relay.Mutation {
           project: this.props.project.id,
         },
       },
-      {
-        type: 'RANGE_DELETE',
-        parentName: 'check_search_project',
-        parentID: this.props.project.search_id,
-        connectionName: 'medias',
-        pathToConnection: ['check_search_project', 'medias'],
-        deletedIDFieldName: 'deletedId',
-      },
     ];
   }
 }
 
-export default DeleteProjectMediaProjectMutation;
+export default BulkCreateProjectMediaProjectsMutation;
