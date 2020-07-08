@@ -32,6 +32,7 @@ const SmoochBotTextEditor = (props) => {
         {valueOrPlaceholder => (
           <TextField
             key={valueOrPlaceholder}
+            name={field}
             className={classes.textarea}
             defaultValue={valueOrPlaceholder}
             placeholder={valueOrPlaceholder}
