@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
-import { defineMessages, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -11,35 +11,9 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import CreateProjectMutation from '../../relay/mutations/CreateProjectMutation';
-import CheckContext from '../../CheckContext';
 import { getErrorMessage } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
-import {
-  units,
-} from '../../styles/js/shared';
-
-const messages = defineMessages({
-  addProject: {
-    id: 'createProject.addProject',
-    defaultMessage: 'Create list',
-  },
-  cardTitle: {
-    id: 'createProject.title',
-    defaultMessage: 'Add a list',
-  },
-  cardTitleBlank: {
-    id: 'createProject.titleBlank',
-    defaultMessage: 'Add your first list',
-  },
-  newProjectName: {
-    id: 'createProject.newProjectName',
-    defaultMessage: 'List name',
-  },
-  error: {
-    id: 'createProject.error',
-    defaultMessage: 'Sorry, an error occurred while updating the list. Please try again and contact {supportEmail} if the condition persists.',
-  },
-});
+import { units } from '../../styles/js/shared';
 
 const Styles = theme => ({
   rootCard: {
@@ -64,10 +38,6 @@ class CreateProject extends React.Component {
     };
   }
 
-  getCurrentUser() {
-    return new CheckContext(this).getContextStore().currentUser;
-  }
-
   handleChange = (e) => {
     this.setState({ name: e.target.value });
   };
@@ -83,7 +53,13 @@ class CreateProject extends React.Component {
     const { team } = this.props;
 
     const onFailure = (transaction) => {
-      const fallbackMessage = this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+      const fallbackMessage = (
+        <FormattedMessage
+          id="createProject.error"
+          defaultMessage="Sorry, an error occurred while updating the list. Please try again and contact {supportEmail} if the condition persists."
+          values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
+        />
+      );
       const message = getErrorMessage(transaction, fallbackMessage);
       this.setState({ message, submitDisabled: false });
     };
@@ -119,34 +95,34 @@ class CreateProject extends React.Component {
     const disabled = !visible;
 
     const textInput = (
-      <TextField
-        key={visible /* re-render -- and thus autofocus -- when visible becomes true */}
-        className={this.props.className || 'team__new-project-input'}
-        name="title"
-        placeholder={this.props.intl.formatMessage(messages.newProjectName)}
-        style={this.props.style}
-        autoFocus={this.props.autoFocus}
-        label={this.state.message}
-        error={this.state.message}
-        value={this.state.name}
-        onChange={this.handleChange}
-        onKeyDown={this.handleKeyDown}
-        disabled={disabled}
-        fullWidth
-      />
+      <FormattedMessage id="createProject.newProjectName" defaultMessage="List name">
+        {placeholder => (
+          <TextField
+            key={visible /* re-render -- and thus autofocus -- when visible becomes true */}
+            name="title"
+            className={this.props.className}
+            placeholder={placeholder /* TODO make it `label`? */}
+            style={this.props.style}
+            autoFocus={this.props.autoFocus}
+            label={this.state.message}
+            error={this.state.message}
+            value={this.state.name}
+            onChange={this.handleChange}
+            onKeyDown={this.handleKeyDown}
+            disabled={disabled}
+            fullWidth
+          />
+        )}
+      </FormattedMessage>
     );
 
     const submitButton = (
       <Button type="submit" color="primary" disabled={disabled || !this.state.name}>
-        {this.props.intl.formatMessage(messages.addProject)}
+        <FormattedMessage id="createProject.addProject" defaultMessage="Create list" />
       </Button>
     );
 
-    if (renderCard) {
-      const cardTitle = team.projects.edges.length
-        ? messages.cardTitle
-        : messages.cardTitleBlank;
-
+    if (this.props.renderCard) {
       return (
         <Card
           component="form"
@@ -154,7 +130,12 @@ class CreateProject extends React.Component {
           className={className}
           style={{ marginBottom: units(2) }}
         >
-          <CardHeader title={this.props.intl.formatMessage(cardTitle)} />
+          <CardHeader
+            title={team.projects.edges.length
+              ? <FormattedMessage id="createProject.title" defaultMessage="Add a list" />
+              : <FormattedMessage id="createProject.titleBlank" defaultMessage="Add your first list" />
+            }
+          />
           <CardContent>
             {textInput}
           </CardContent>
@@ -174,17 +155,20 @@ class CreateProject extends React.Component {
   }
 }
 CreateProject.defaultProps = {
+  onBlur: null,
   visible: true,
 };
 CreateProject.propTypes = {
-  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
-  // eslint-disable-next-line react/no-typos
-  intl: intlShape.isRequired,
   visible: PropTypes.bool, // default true
+  autoFocus: PropTypes.bool.isRequired,
+  onBlur: PropTypes.func, // or null
+  onCreate: PropTypes.func.isRequired,
+  team: PropTypes.shape({
+    slug: PropTypes.string.isRequired,
+    projects: PropTypes.shape({
+      edges: PropTypes.array.isRequired,
+    }).isRequired,
+  }).isRequired,
 };
 
-CreateProject.contextTypes = {
-  store: PropTypes.object,
-};
-
-export default withStyles(Styles)(injectIntl(CreateProject));
+export default withStyles(Styles)(CreateProject);

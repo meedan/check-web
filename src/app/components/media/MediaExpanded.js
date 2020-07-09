@@ -8,6 +8,7 @@ import CardActions from '@material-ui/core/CardActions';
 import styled from 'styled-components';
 import MediaRoute from '../../relay/MediaRoute';
 import MediaMetadata from './MediaMetadata';
+import MediaTypeDisplayName from './MediaTypeDisplayName';
 import MediaUtil from './MediaUtil';
 import MoreLess from '../layout/MoreLess';
 import ParsedText from '../ParsedText';
@@ -17,7 +18,7 @@ import WebPageMediaCard from './WebPageMediaCard';
 import ImageMediaCard from './ImageMediaCard';
 import VideoMediaCard from './VideoMediaCard';
 import PenderCard from '../PenderCard';
-import { truncateLength } from '../../helpers';
+import { parseStringUnixTimestamp, truncateLength } from '../../helpers';
 import CheckContext from '../../CheckContext';
 import { withPusher, pusherShape } from '../../pusher';
 import {
@@ -25,6 +26,14 @@ import {
   units,
   Row,
 } from '../../styles/js/shared';
+
+function mediaHasCustomDescription(media, data) {
+  const description = data && data.description && data.description.trim();
+  return description && (
+    (media && media.overridden && media.overridden.description) || // Link type report
+    (media.quote && (description !== media.quote)) || // Quote type report
+    (media.embed_path && description)); // Image type report
+}
 
 const StyledHeaderTextSecondary = styled.div`
   justify-content: flex-start;
@@ -110,12 +119,12 @@ class MediaExpandedComponent extends Component {
     const isQuote = media.media.type === 'Claim';
     const isWebPage = media.media.url && data.provider === 'page';
     const authorName = MediaUtil.authorName(media, data);
-    const authorUsername = MediaUtil.authorUsername(media, data);
+    const authorUsername = data.username;
     const isPender = media.media.url && data.provider !== 'page';
     const isYoutube = media.media.url && media.domain === 'youtube.com';
     const randomNumber = Math.floor(Math.random() * 1000000);
     const { mediaUrl, mediaQuery } = this.props;
-    const hasCustomDescription = MediaUtil.hasCustomDescription(media, data);
+    const hasCustomDescription = mediaHasCustomDescription(media, data);
 
     const embedCard = (() => {
       if (isImage) {
@@ -178,20 +187,18 @@ class MediaExpandedComponent extends Component {
       <div>
         <StyledHeaderTextSecondary>
           <Row flexWrap style={{ fontWeight: '500' }}>
-            <span>
-              {MediaUtil.mediaTypeLabel(media.media.type, this.props.intl)}
-            </span>
+            <span><MediaTypeDisplayName mediaType={media.media.type} /></span>
             <span style={{ margin: `0 ${units(1)}` }}> - </span>
             <span>
               <FormattedMessage id="mediaExpanded.firstSeen" defaultMessage="First seen: " />
-              <TimeBefore date={MediaUtil.createdAt({ published: media.created_at })} />
+              <TimeBefore date={parseStringUnixTimestamp(media.created_at)} />
             </span>
             { smoochBotInstalled ?
               <span>
                 <span style={{ margin: `0 ${units(1)}` }}> - </span>
                 <span>
                   <FormattedMessage id="mediaExpanded.lastSeen" defaultMessage="Last seen: " />
-                  <TimeBefore date={MediaUtil.createdAt({ published: media.last_seen })} />
+                  <TimeBefore date={parseStringUnixTimestamp(media.last_seen)} />
                 </span>
                 <span style={{ margin: `0 ${units(1)}` }}> - </span>
                 <span>

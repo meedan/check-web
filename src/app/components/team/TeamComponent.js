@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import deepEqual from 'deep-equal';
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
 import { withStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
@@ -270,9 +270,6 @@ class TeamComponent extends Component {
 }
 
 TeamComponent.propTypes = {
-  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
-  // eslint-disable-next-line react/no-typos
-  intl: intlShape.isRequired,
   classes: PropTypes.object.isRequired,
 };
 
@@ -280,4 +277,4 @@ TeamComponent.contextTypes = {
   store: PropTypes.object,
 };
 
-export default withStyles(styles)(injectIntl(TeamComponent));
+export default withStyles(styles)(TeamComponent);

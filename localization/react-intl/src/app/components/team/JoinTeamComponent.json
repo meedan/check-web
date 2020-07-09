@@ -4,12 +4,12 @@
     "defaultMessage": "Sorry, an error occurred while sending your request. Please try again and contact {supportEmail} if the condition persists."
   },
   {
-    "id": "joinTeamComponent.success",
-    "defaultMessage": "Thanks for your interest in joining {team}! A workspace administrator will review your application soon."
-  },
-  {
     "id": "joinTeamComponent.autoApprove",
     "defaultMessage": "Thanks for joining {team}! You can start contributing right away."
+  },
+  {
+    "id": "joinTeamComponent.success",
+    "defaultMessage": "Thanks for your interest in joining {team}! A workspace administrator will review your application soon."
   },
   {
     "id": "joinTeamComponent.title",
