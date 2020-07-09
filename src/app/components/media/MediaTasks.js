@@ -336,7 +336,7 @@ const MediaTasks = (props) => {
   if (!media && params) {
     media = {
       dbid: parseInt(params.mediaId, 10),
-      project_id: parseInt(params.projectId, 10),
+      project_ids: [parseInt(params.projectId, 10)],
     };
   }
 

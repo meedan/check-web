@@ -9,7 +9,7 @@ class BulkCreateProjectMediaProjectsMutation extends Relay.Mutation {
 
   getFatQuery() {
     return Relay.QL`
-      fragment on CreateProjectMediaProjectsPayload {
+      fragment on CreateProjectMediaProjectPayload {
         project_media_projectEdge,
         check_search_project { id, number_of_results, medias },
         project {
