@@ -12,6 +12,10 @@
     "defaultMessage": "Description"
   },
   {
+    "id": "editStatusDialog.statusColor",
+    "defaultMessage": "Status color"
+  },
+  {
     "id": "editStatusDialog.addButton",
     "defaultMessage": "Add status"
   }

@@ -9,12 +9,41 @@ import DialogActions from '@material-ui/core/DialogActions';
 import { SliderPicker } from 'react-color';
 import styled from 'styled-components';
 import globalStrings from '../../../globalStrings';
-import { units } from '../../../styles/js/shared';
+import { caption, opaqueBlack38, opaqueBlack87, units } from '../../../styles/js/shared';
 
 const maxLength = 35;
 
 const StyledColorPickerContainer = styled.div`
-  margin: ${units(2)};
+  margin: ${units(2)} 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const StyledSelectedColorDisplay = styled.div`
+  width: ${units(5)};
+  height: ${units(5)};
+  border-radius: 50%;
+  background-color: ${props => props.color};
+`;
+
+const StyledSelectedColor = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+const StyledParamName = styled.span`
+  font: ${caption};
+  color: ${opaqueBlack38};
+`;
+const StyledHexValue = styled.span`
+  font: ${caption};
+  color: ${opaqueBlack87};
+`;
+
+const StyledSliderContainer = styled.div`
+  width: 80%;
 `;
 
 const EditStatusDialog = ({
@@ -26,7 +55,7 @@ const EditStatusDialog = ({
 }) => {
   const [statusName, setStatusName] = React.useState(status ? status.label : '');
   const [statusDescription, setStatusDescription] = React.useState(status ? status.locales[defaultLanguage].label : '');
-  const [statusColor, setStatusColor] = React.useState(status ? status.style.color : '');
+  const [statusColor, setStatusColor] = React.useState(status ? status.style.color : '#000000');
 
   const handleSubmit = () => {
     const newStatus = {
@@ -93,10 +122,22 @@ const EditStatusDialog = ({
           fullWidth
         />
         <StyledColorPickerContainer>
-          <SliderPicker
-            color={statusColor}
-            onChangeComplete={color => setStatusColor(color.hex)}
-          />
+          <StyledSelectedColor>
+            <StyledParamName>
+              <FormattedMessage
+                id="editStatusDialog.statusColor"
+                defaultMessage="Status color"
+              />
+            </StyledParamName>
+            <StyledHexValue>{statusColor}</StyledHexValue>
+            <StyledSelectedColorDisplay color={statusColor} />
+          </StyledSelectedColor>
+          <StyledSliderContainer>
+            <SliderPicker
+              color={statusColor}
+              onChangeComplete={color => setStatusColor(color.hex)}
+            />
+          </StyledSliderContainer>
         </StyledColorPickerContainer>
       </DialogContent>
       <DialogActions>
