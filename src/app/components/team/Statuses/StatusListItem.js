@@ -45,17 +45,23 @@ const StatusListItem = ({
     <ListItem>
       <ListItemText
         primary={
-          <React.Fragment>
+          initialStatus ? (
+            <FormattedMessage
+              id="statusListItem.default"
+              defaultMessage="{statusLabel} (default)"
+              values={{
+                statusLabel: (
+                  <StyledStatusLabel color={status.style.color}>
+                    {status.locales[defaultLanguage].label}
+                  </StyledStatusLabel>
+                ),
+              }}
+            />
+          ) : (
             <StyledStatusLabel color={status.style.color}>
               {status.locales[defaultLanguage].label}
             </StyledStatusLabel>
-            { initialStatus ?
-              <FormattedMessage
-                id="statusListItem.default"
-                defaultMessage="(default)"
-              /> : null
-            }
-          </React.Fragment>
+          )
         }
         secondary={
           status.locales[defaultLanguage].description ||

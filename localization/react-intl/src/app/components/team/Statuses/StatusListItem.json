@@ -1,7 +1,7 @@
 [
   {
     "id": "statusListItem.default",
-    "defaultMessage": "(default)"
+    "defaultMessage": "{statusLabel} (default)"
   },
   {
     "id": "statusListItem.noDescription",

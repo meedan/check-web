@@ -66,7 +66,9 @@ const StatusesComponent = ({ team }) => {
     setDialogOpen(true);
   };
 
-  const handleHelp = () => {};
+  const handleHelp = () => {
+    window.open('https://help.checkmedia.org/en/articles/4235955-status-settings');
+  };
 
   const submitDeleteStatus = (input) => {
     commitMutation(Store, {
