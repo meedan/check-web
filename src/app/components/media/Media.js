@@ -6,6 +6,7 @@ import CheckContext from '../../CheckContext';
 import MediaRoute from '../../relay/MediaRoute';
 import MediaComponent from './MediaComponent';
 import MediasLoading from './MediasLoading';
+import MediaTitle from './MediaTitle'; // TODO put MediaComponent in this file
 
 const MediaContainer = Relay.createContainer(MediaComponent, {
   initialVariables: {
@@ -15,6 +16,7 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
     media: () => Relay.QL`
       fragment on ProjectMedia {
         id
+        ${MediaTitle.getFragment('projectMedia')}
         dbid
         title
         metadata

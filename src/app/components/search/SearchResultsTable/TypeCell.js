@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import TableCell from '@material-ui/core/TableCell';
-import MediaUtil from '../../media/MediaUtil';
+import MediaTypeDisplayName from '../../media/MediaTypeDisplayName';
 
 export default function TypeCell({ projectMedia }) {
   return (
     <TableCell>
-      {MediaUtil.mediaTypeLabelFormattedMessage(projectMedia.type)}
+      <MediaTypeDisplayName mediaType={projectMedia.type} />
     </TableCell>
   );
 }
 TypeCell.propTypes = {
   projectMedia: PropTypes.shape({
-    type: MediaUtil.TypeLabelPropType.isRequired,
+    type: MediaTypeDisplayName.MediaTypeShape.isRequired,
   }).isRequired,
 };

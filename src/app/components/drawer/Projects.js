@@ -198,7 +198,6 @@ class DrawerProjectsComponent extends Component {
             </Tooltip>
             <CreateProject
               visible={this.state.showCreateProject}
-              className="project-list__input"
               team={team}
               onCreate={this.toggleShowCreateProject}
               onBlur={this.toggleShowCreateProject}

@@ -134,11 +134,6 @@ export function boxShadow(level) {
 // <Foo style={somethingStyle} />
 // ===================================================================
 
-export const titleStyle = {
-  fontSize: `${units(2.5)}`,
-  lineHeight: `${units(4)}`,
-};
-
 export const listStyle = {
   padding: '0',
   borderBottom: `${borderWidthSmall} solid ${black05}`,

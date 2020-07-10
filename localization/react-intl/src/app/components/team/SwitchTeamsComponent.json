@@ -4,20 +4,20 @@
     "defaultMessage": "Sorry, an error occurred while updating the workspace. Please try again and contact {supportEmail} if the condition persists."
   },
   {
-    "id": "switchTeams.member",
-    "defaultMessage": "{membersCount, plural, =0 {No members} one {1 member} other {# members}}"
-  },
-  {
-    "id": "switchTeams.joinRequestMessage",
-    "defaultMessage": "You requested to join"
-  },
-  {
     "id": "teams.yourTeams",
     "defaultMessage": "Your workspaces"
   },
   {
     "id": "teams.userTeams",
     "defaultMessage": "{name}'s workspaces"
+  },
+  {
+    "id": "switchTeams.member",
+    "defaultMessage": "{membersCount, plural, =0 {No members} one {1 member} other {# members}}"
+  },
+  {
+    "id": "switchTeams.joinRequestMessage",
+    "defaultMessage": "You requested to join"
   },
   {
     "id": "switchTeams.cancelJoinRequest",

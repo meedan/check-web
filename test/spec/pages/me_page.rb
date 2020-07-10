@@ -6,10 +6,6 @@ class MePage < SourcePage
     @config['self_url'] + '/check/me'
   end
 
-  def source_id
-    element('.source').attribute('data-id')
-  end
-
   def select_team(options)
     wait_for_selector("#teams-tab").click
     team = wait_for_selector("//*[contains(text(), '#{options[:name]}')]", :xpath)
