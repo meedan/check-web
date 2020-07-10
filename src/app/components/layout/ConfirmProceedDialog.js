@@ -15,6 +15,7 @@ const ConfirmProceedDialog = ({
   onCancel,
   onLearnMore,
   onProceed,
+  proceedDisabled,
   proceedLabel,
 }) => (
   <Dialog
@@ -41,7 +42,12 @@ const ConfirmProceedDialog = ({
           <FormattedMessage {...globalStrings.cancel} />
         }
       </Button>
-      <Button color="primary" onClick={onProceed} variant="contained">
+      <Button
+        color="primary"
+        disabled={proceedDisabled}
+        onClick={onProceed}
+        variant="contained"
+      >
         { proceedLabel ||
           <FormattedMessage
             id="confirmProceed.confirm"

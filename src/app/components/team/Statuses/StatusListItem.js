@@ -19,26 +19,43 @@ const StyledStatusLabel = styled.span`
 
 const StatusListItem = ({
   defaultLanguage,
+  initialStatus,
   onDelete,
   onEdit,
+  onMakeDefault,
+  preventDelete,
   status,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleClose = () => setAnchorEl(null);
+  const handleDelete = () => {
+    handleClose();
+    if (onDelete) onDelete(status);
+  };
   const handleEdit = () => {
     handleClose();
-    if (onEdit) {
-      onEdit();
-    }
+    if (onEdit) onEdit(status); // TODO default props to avoid checking?
+  };
+  const handleMakeDefault = () => {
+    handleClose();
+    if (onMakeDefault) onMakeDefault(status); // TODO default props to avoid checking?
   };
 
   return (
     <ListItem>
       <ListItemText
         primary={
-          <StyledStatusLabel color={status.style.color}>
-            {status.locales[defaultLanguage].label}
-          </StyledStatusLabel>
+          <React.Fragment>
+            <StyledStatusLabel color={status.style.color}>
+              {status.locales[defaultLanguage].label}
+            </StyledStatusLabel>
+            { initialStatus ?
+              <FormattedMessage
+                id="statusListItem.default"
+                defaultMessage="(default)"
+              /> : null
+            }
+          </React.Fragment>
         }
         secondary={
           status.locales[defaultLanguage].description ||
@@ -57,10 +74,13 @@ const StatusListItem = ({
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
+          <MenuItem onClick={handleMakeDefault} disabled={initialStatus}>
+            <FormattedMessage id="statusListItem.makeDefault" defaultMessage="Make default" />
+          </MenuItem>
           <MenuItem onClick={handleEdit}>
             <FormattedMessage {...globalStrings.edit} />
           </MenuItem>
-          <MenuItem onClick={onDelete}>
+          <MenuItem onClick={handleDelete} disabled={preventDelete || initialStatus}>
             <FormattedMessage {...globalStrings.delete} />
           </MenuItem>
         </Menu>

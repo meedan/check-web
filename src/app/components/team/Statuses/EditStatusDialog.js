@@ -30,6 +30,7 @@ const EditStatusDialog = ({
 
   const handleSubmit = () => {
     const newStatus = {
+      id: statusName + Date.now(),
       locales: {},
       style: { color: statusColor },
     };

@@ -1,6 +1,14 @@
 [
   {
+    "id": "statusListItem.default",
+    "defaultMessage": "(default)"
+  },
+  {
     "id": "statusListItem.noDescription",
     "defaultMessage": "No description"
+  },
+  {
+    "id": "statusListItem.makeDefault",
+    "defaultMessage": "Make default"
   }
 ]

@@ -15,8 +15,9 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
-import StatusListItem from './StatusListItem';
+import DeleteStatusDialog from './DeleteStatusDialog';
 import EditStatusDialog from './EditStatusDialog';
+import StatusListItem from './StatusListItem';
 import TranslateStatuses from './TranslateStatuses';
 import LanguageSwitcher from '../../LanguageSwitcher';
 import { checkBlue, ContentColumn, units } from '../../../styles/js/shared';
@@ -46,27 +47,61 @@ const StyledBlurb = styled.div`
 
 const StatusesComponent = ({ team }) => {
   const statuses = [...team.verification_statuses.statuses];
-  // console.log('statuses', statuses);
+  console.log('statuses', statuses);
   const defaultLanguage = team.get_language || 'en';
   const languages = team.get_languages ? JSON.parse(team.get_languages) : [defaultLanguage];
 
   const [currentLanguage, setCurrentLanguage] = React.useState(defaultLanguage);
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [editStatus, setEditStatus] = React.useState(null);
+  const [deleteStatus, setDeleteStatus] = React.useState(null);
   const classes = useToolbarStyles();
 
   const handleChangeLanguage = (newValue) => {
     setCurrentLanguage(newValue);
   };
 
-  const handleEdit = (status) => {
+  const handleMenuEdit = (status) => {
     setEditStatus(status);
     setDialogOpen(true);
   };
 
   const handleHelp = () => {};
 
-  const handleUpdateStatuses = (newStatuses) => {
+  const submitDeleteStatus = (input) => {
+    commitMutation(Store, {
+      mutation: graphql`
+        mutation StatusesComponentDeleteTeamStatusMutation($input: DeleteTeamStatusInput!) {
+          deleteTeamStatus(input: $input) {
+            team {
+              id
+              verification_statuses
+            }
+          }
+        }
+      `,
+      variables: {
+        input,
+      },
+      onCompleted: (response, error) => {
+        if (error) console.error('error', error); // TODO handle error
+        setDeleteStatus(null);
+      },
+      onError: (error) => {
+        console.error('error', error); // TODO handle error
+      },
+    });
+  };
+
+  const handleDelete = ({ status_id, fallback_status_id }) => {
+    submitDeleteStatus({
+      team_id: team.id,
+      status_id,
+      fallback_status_id,
+    });
+  };
+
+  const submitUpdateStatuses = (newStatuses) => {
     commitMutation(Store, {
       mutation: graphql`
         mutation StatusesComponentUpdateTeamMutation($input: UpdateTeamInput!) {
@@ -98,15 +133,37 @@ const StatusesComponent = ({ team }) => {
     const newStatuses = { ...team.verification_statuses };
     const newStatusesArray = [...newStatuses.statuses];
 
-    if (status.id) {
+    if (editStatus && (status.id === editStatus.id)) {
       const index = newStatusesArray.findIndex(s => s.id === status.id);
       newStatusesArray.splice(index, 1, status);
     } else {
       newStatusesArray.push(status);
     }
 
+    console.log('status', status);
+    console.log('newStatusesArray', newStatusesArray);
+
     newStatuses.statuses = newStatusesArray;
-    handleUpdateStatuses(newStatuses);
+    submitUpdateStatuses(newStatuses);
+  };
+
+  const handleMenuDelete = (status) => {
+    setDeleteStatus(status);
+  };
+
+  const handleMenuMakeDefault = (status) => {
+    const newStatuses = { ...team.verification_statuses };
+    const newStatusesArray = [...newStatuses.statuses];
+
+    if (status.id) {
+      const index = newStatusesArray.findIndex(s => s.id === status.id);
+      newStatusesArray.splice(index, 1);
+      newStatusesArray.unshift(status);
+      newStatuses.default = status.id;
+    }
+
+    newStatuses.statuses = newStatusesArray;
+    submitUpdateStatuses(newStatuses);
   };
 
   const handleTranslateStatuses = (newStatusesArray) => {
@@ -114,7 +171,7 @@ const StatusesComponent = ({ team }) => {
     newStatuses.statuses = newStatusesArray;
     // console.log('newStatuses', newStatuses);
     // console.log('newStatusesArray', newStatusesArray);
-    handleUpdateStatuses(newStatuses);
+    submitUpdateStatuses(newStatuses);
   };
 
   return (
@@ -160,10 +217,13 @@ const StatusesComponent = ({ team }) => {
                   <List>
                     { statuses.map((s, index) => (
                       <StatusListItem
-                        default={index === 0}
                         defaultLanguage={defaultLanguage}
+                        initialStatus={index === 0}
                         key={s.id}
-                        onEdit={() => handleEdit(s)}
+                        onDelete={handleMenuDelete}
+                        onEdit={handleMenuEdit}
+                        onMakeDefault={handleMenuMakeDefault}
+                        preventDelete={statuses.length === 1}
                         status={s}
                       />
                     ))}
@@ -197,6 +257,13 @@ const StatusesComponent = ({ team }) => {
         onSubmit={handleAddOrEditStatus}
         open={dialogOpen}
         status={editStatus}
+      />
+      <DeleteStatusDialog
+        open={Boolean(deleteStatus)}
+        deleteStatus={deleteStatus}
+        statuses={statuses}
+        onCancel={() => setDeleteStatus(null)}
+        onProceed={handleDelete}
       />
     </React.Fragment>
   );
