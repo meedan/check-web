@@ -179,7 +179,7 @@ class BulkActions extends React.Component {
   }
 
   render() {
-    const { page, team } = this.props;
+    const { page, team, project } = this.props;
 
     const actions = (
       <div id="media-bulk-actions__actions">
@@ -223,24 +223,27 @@ class BulkActions extends React.Component {
                 <FormattedMessage id="bulkActions.addTo" defaultMessage="Add to..." />
               </Button>
             </Tooltip>
-            <Tooltip
-              title={
-                <FormattedMessage
-                  id="bulkActions.move"
-                  defaultMessage="Move selected items to another list"
-                />
-              }
-              style={{ margin: '0 10px' }}
-            >
-              <Button
-                id="media-bulk-actions__move-to"
-                onClick={this.moveSelected.bind(this)}
-                color="primary"
-                variant="contained"
+
+            { project ?
+              <Tooltip
+                title={
+                  <FormattedMessage
+                    id="bulkActions.move"
+                    defaultMessage="Move selected items to another list"
+                  />
+                }
+                style={{ margin: '0 10px' }}
               >
-                <FormattedMessage id="bulkActions.moveTo" defaultMessage="Move to..." />
-              </Button>
-            </Tooltip>
+                <Button
+                  id="media-bulk-actions__move-to"
+                  onClick={this.moveSelected.bind(this)}
+                  color="primary"
+                  variant="contained"
+                >
+                  <FormattedMessage id="bulkActions.moveTo" defaultMessage="Move to..." />
+                </Button>
+              </Tooltip> : null }
+
             { !/all-items/.test(window.location.pathname) ?
               <Tooltip
                 title={
@@ -334,7 +337,7 @@ class BulkActions extends React.Component {
           open={this.state.openMoveDialog}
           onClose={this.handleCloseDialogs.bind(this)}
           team={this.props.team}
-          excludeProjectDbids={this.props.project ? [this.props.project.dbid] : []}
+          excludeProjectDbids={project ? [project.dbid] : []}
           value={this.state.dstProj}
           onChange={this.handleSelectDestProject.bind(this)}
           title={
@@ -350,7 +353,7 @@ class BulkActions extends React.Component {
           open={this.state.openAddDialog}
           team={this.props.team}
           onClose={this.handleCloseDialogs.bind(this)}
-          excludeProjectDbids={this.props.project ? [this.props.project.dbid] : []}
+          excludeProjectDbids={project ? [project.dbid] : []}
           value={this.state.dstProjectForAdd}
           onChange={this.handleSelectDestProjectForAdd.bind(this)}
           title={

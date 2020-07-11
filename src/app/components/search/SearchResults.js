@@ -114,6 +114,7 @@ class SearchResultsComponent extends React.PureComponent {
   }
 
   componentDidMount() {
+    this.setProjectId();
     this.resubscribe();
   }
 
@@ -149,6 +150,12 @@ class SearchResultsComponent extends React.PureComponent {
       return null;
     }
     return this.buildSearchUrlAtOffset(this.beginIndex - pageSize);
+  }
+
+  setProjectId() {
+    const { project } = this.props;
+    const projectId = project ? project.dbid : 0;
+    this.props.relay.setVariables({ projectId });
   }
 
   resubscribe() {
@@ -315,14 +322,14 @@ class SearchResultsComponent extends React.PureComponent {
     const selectedProjectMediaProjectIds = [];
     const selectedProjectMediaDbids = [];
 
-    if (isProject) {
-      projectMedias.forEach((pm) => {
-        if (selectedProjectMediaIds.indexOf(pm.id) !== -1) {
+    projectMedias.forEach((pm) => {
+      if (selectedProjectMediaIds.indexOf(pm.id) !== -1) {
+        if (pm.project_media_project) {
           selectedProjectMediaProjectIds.push(pm.project_media_project.id);
-          selectedProjectMediaDbids.push(pm.dbid);
         }
-      });
-    }
+        selectedProjectMediaDbids.push(pm.dbid);
+      }
+    });
 
     let content = null;
 
@@ -485,6 +492,7 @@ SearchResultsComponent.propTypes = {
 
 const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsComponent), {
   initialVariables: {
+    projectId: 0,
     pageSize,
   },
   fragments: {
@@ -530,7 +538,7 @@ const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsCom
               first_seen: created_at,
               last_seen,
               share_count,
-              project_media_project(project_id: 3) {
+              project_media_project(project_id: $projectId) {
                 dbid
                 id
               }
