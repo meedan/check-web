@@ -5,7 +5,7 @@ import { mountWithIntlProvider } from '../../../../test/unit/helpers/intl-test';
 import Annotation from './Annotation';
 
 describe('<Annotation />', () => {
-  const timestamp = new Date('2017-02-08 17:19:40 UTC').valueOf() / 1000;
+  const timestamp = new Date('2017-02-08T17:19:40Z').valueOf() / 1000;
 
   const activity = {
     created_at: timestamp.toString(),
@@ -33,6 +33,6 @@ describe('<Annotation />', () => {
     const wrapper = mountWithIntlProvider(<Annotation annotation={activity} annotated={annotated} annotatedType="ProjectMedia" />);
     const container = wrapper.find('.annotation__timestamp time');
     expect(container.length).toEqual(1);
-    expect(container.prop('title')).toMatch('2017-02-08');
+    expect(container.prop('dateTime')).toEqual('2017-02-08T17:19:40.000Z');
   });
 });

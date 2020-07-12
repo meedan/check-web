@@ -60,5 +60,14 @@
 
         // TODO Consider standardizing on camelCase
         "camelcase": "off",
-    }
+    },
+    "overrides": [
+        {
+            // https://github.com/benmosher/eslint-plugin-import/issues/544
+            "files": ["src/app/components/**"],
+            "rules": {
+                "import/no-named-as-default": "off"
+            }
+        }
+    ]
 }

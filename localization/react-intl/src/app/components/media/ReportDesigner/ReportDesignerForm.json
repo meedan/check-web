@@ -1,19 +1,15 @@
 [
   {
-    "id": "reportDesigner.introductionPlaceholder",
-    "defaultMessage": "Type your introduction here..."
-  },
-  {
-    "id": "reportDesigner.textPlaceholder",
-    "defaultMessage": "Type your report here..."
-  },
-  {
     "id": "reportDesigner.reportEditorTitle",
     "defaultMessage": "Select the content to send in your report"
   },
   {
     "id": "reportDesigner.introduction",
     "defaultMessage": "Introduction message"
+  },
+  {
+    "id": "reportDesigner.introductionPlaceholder",
+    "defaultMessage": "Type your introduction here..."
   },
   {
     "id": "reportDesigner.introductionSub",
@@ -54,6 +50,10 @@
   {
     "id": "reportDesigner.textMessage",
     "defaultMessage": "Report text"
+  },
+  {
+    "id": "reportDesigner.textPlaceholder",
+    "defaultMessage": "Type your report here..."
   },
   {
     "id": "reportDesigner.textError",

@@ -5,8 +5,7 @@ import IconEdit from '@material-ui/icons/Edit';
 import AccountChips from './AccountChips';
 import Can from '../Can';
 import ParsedText from '../ParsedText';
-import MediaUtil from '../media/MediaUtil';
-import { truncateLength } from '../../helpers';
+import { parseStringUnixTimestamp, truncateLength } from '../../helpers';
 import SourcePicture from './SourcePicture';
 import {
   StyledContactInfo,
@@ -75,7 +74,7 @@ const UserInfo = (props) => {
             defaultMessage="Joined {date} &bull; {teamsCount, plural, one {1 workspace} other {# workspaces}}"
             values={{
               date: props.intl.formatDate(
-                MediaUtil.createdAt({ published: props.user.source.created_at }),
+                parseStringUnixTimestamp(props.user.source.created_at),
                 { year: 'numeric', month: 'short', day: '2-digit' },
               ),
               teamsCount: props.user.team_users.edges.length || 0,

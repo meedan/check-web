@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import { DatePicker } from '@material-ui/pickers';
 import IconDateRange from '@material-ui/icons/DateRange';
 import IconSchedule from '@material-ui/icons/Schedule';
@@ -39,21 +39,6 @@ const styles = {
     color: black38,
   },
 };
-
-const messages = defineMessages({
-  ok: {
-    id: 'datetimeRespondTask.ok',
-    defaultMessage: 'OK',
-  },
-  cancel: {
-    id: 'datetimeRespondTask.cancel',
-    defaultMessage: 'Cancel',
-  },
-  timeError: {
-    id: 'datetimeRespondTask.timeError',
-    defaultMessage: 'Error: invalid time',
-  },
-});
 
 class DatetimeRespondTask extends Component {
   constructor(props) {
@@ -228,8 +213,10 @@ class DatetimeRespondTask extends Component {
             name="response"
             value={this.state.date}
             onChange={this.handleChange.bind(this)}
-            okLabel={this.props.intl.formatMessage(messages.ok)}
-            cancelLabel={this.props.intl.formatMessage(messages.cancel)}
+            okLabel={<FormattedMessage id="datetimeRespondTask.ok" defaultMessage="OK" />}
+            cancelLabel={
+              <FormattedMessage id="datetimeRespondTask.cancel" defaultMessage="Cancel" />
+            }
             labelFunc={
               this.state.date ?
                 date => this.props.intl.formatDate(date) : null

@@ -159,7 +159,6 @@ class CreateTeamCard extends React.Component {
         <Message message={this.state.message} />
         <Card className="create-team-card">
           <CardHeader
-            titleStyle={{ fontSize: '20px', lineHeight: '32px' }}
             title={
               <FormattedMessage
                 id="createTeam.mainHeading"

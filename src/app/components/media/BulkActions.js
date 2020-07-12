@@ -4,9 +4,9 @@ import Relay from 'react-relay/classic';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import Button from '@material-ui/core/Button';
 import { FormattedMessage } from 'react-intl';
-import IconDelete from '@material-ui/icons/Delete';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 import Tooltip from '@material-ui/core/Tooltip';
-import styled from 'styled-components';
 import { withSetFlashMessage } from '../FlashMessage';
 import MoveDialog from './MoveDialog';
 import Can from '../Can';
@@ -14,12 +14,7 @@ import BulkUpdateProjectMediaMutation from '../../relay/mutations/BulkUpdateProj
 import BulkUpdateProjectMediaProjectMutation from '../../relay/mutations/BulkUpdateProjectMediaProjectMutation';
 import BulkDeleteProjectMediaProjectMutation from '../../relay/mutations/BulkDeleteProjectMediaProjectMutation';
 import BulkCreateProjectMediaProjectsMutation from '../../relay/mutations/BulkCreateProjectMediaProjectsMutation';
-import { Row, units } from '../../styles/js/shared';
-
-const StyledIcon = styled.span`
-  margin: 0 ${units(1)};
-  cursor: pointer;
-`;
+import { Row } from '../../styles/js/shared';
 
 class BulkActions extends React.Component {
   constructor(props) {
@@ -71,6 +66,10 @@ class BulkActions extends React.Component {
           project: this.state.dstProjForAdd,
           teamSearchId: this.props.team.search_id,
           count: this.props.count,
+          dstProject: null,
+          dstProjectForAdd: this.state.dstProjForAdd,
+          srcProject: null,
+          srcProjectForRemove: null,
         }),
         { onSuccess: onDone, onFailure: onDone },
       );
@@ -100,6 +99,9 @@ class BulkActions extends React.Component {
           teamSearchId: this.props.team.search_id,
           srcProjectForRemove: this.props.project,
           count: this.props.count,
+          dstProject: null,
+          dstProjectForAdd: null,
+          srcProject: null,
         }),
         { onSuccess: onDone, onFailure: onDone },
       );
@@ -131,6 +133,8 @@ class BulkActions extends React.Component {
           srcProject: this.props.project,
           teamSearchId: this.props.team.search_id,
           count: this.props.count,
+          dstProjectForAdd: null,
+          srcProjectForRemove: null,
         }),
         { onSuccess: onDone, onFailure: onDone },
       );
@@ -164,6 +168,9 @@ class BulkActions extends React.Component {
           teamSearchId: this.props.team.search_id,
           team: this.props.team,
           count: this.props.count,
+          dstProject: null,
+          dstProjectForAdd: null,
+          srcProjectForRemove: null,
         }),
         { onSuccess },
       );
@@ -179,7 +186,10 @@ class BulkActions extends React.Component {
   }
 
   render() {
-    const { page, team, project } = this.props;
+    const {
+      page, team, selectedMedia, project,
+    } = this.props;
+    const disabled = selectedMedia.length === 0;
 
     const actions = (
       <div id="media-bulk-actions__actions">
@@ -192,15 +202,14 @@ class BulkActions extends React.Component {
               />
             }
             >
-              <StyledIcon>
-                <Button
-                  className="media-bulk-actions__restore-button"
-                  onClick={() => { this.handleDelete({ archived: 0 }); }}
-                  variant="outlined"
-                >
-                  <FormattedMessage id="bulkActions.restore" defaultMessage="Restore from trash" />
-                </Button>
-              </StyledIcon>
+              <Button
+                disabled={disabled}
+                className="media-bulk-actions__restore-button"
+                onClick={() => { this.handleDelete({ archived: 0 }); }}
+                variant="outlined"
+              >
+                <FormattedMessage id="bulkActions.restore" defaultMessage="Restore from trash" />
+              </Button>
             </Tooltip>
           </Can>
           :
@@ -216,6 +225,7 @@ class BulkActions extends React.Component {
             >
               <Button
                 id="media-bulk-actions__add-icon"
+                disabled={disabled}
                 onClick={this.addSelected.bind(this)}
                 color="primary"
                 variant="contained"
@@ -237,6 +247,7 @@ class BulkActions extends React.Component {
                 <Button
                   id="media-bulk-actions__move-to"
                   onClick={this.moveSelected.bind(this)}
+                  disabled={disabled}
                   color="primary"
                   variant="contained"
                 >
@@ -256,6 +267,7 @@ class BulkActions extends React.Component {
               >
                 <Button
                   id="media-bulk-actions__remove-from-list"
+                  disabled={disabled}
                   style={{ margin: '0 8px', border: '1px solid #000' }}
                   onClick={this.handleRemoveSelectedFromList.bind(this)}
                 >
@@ -272,12 +284,13 @@ class BulkActions extends React.Component {
               />
             }
             >
-              <StyledIcon>
-                <IconDelete
-                  className="media-bulk-actions__delete-icon"
-                  onClick={() => { this.handleDelete({ archived: 1 }); }}
-                />
-              </StyledIcon>
+              <IconButton
+                disabled={disabled}
+                className="media-bulk-actions__delete-icon"
+                onClick={() => { this.handleDelete({ archived: 1 }); }}
+              >
+                <DeleteIcon />
+              </IconButton>
             </Tooltip>
           </Row>
         }

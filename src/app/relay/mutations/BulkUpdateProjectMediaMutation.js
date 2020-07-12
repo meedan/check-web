@@ -19,12 +19,10 @@ class BulkUpdateProjectMediaMutation extends Relay.Mutation {
     return Relay.QL`
       fragment on UpdateProjectMediaPayload {
         affectedIds
-        check_search_project_was { id, number_of_results, medias }
         check_search_project { id, number_of_results, medias }
         check_search_team { id, number_of_results }
         check_search_trash { id, number_of_results }
         team { id, medias_count, public_team { id, trash_count } }
-        project_was { id, medias_count }
       }
     `;
   }

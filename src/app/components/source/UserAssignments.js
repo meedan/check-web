@@ -22,7 +22,7 @@ import IconImageUpload from '@material-ui/icons/CloudUpload';
 import BlankState from '../layout/BlankState';
 import FilterPopup from '../layout/FilterPopup';
 import TeamSelect from '../team/TeamSelect';
-import MediaUtil from '../media/MediaUtil';
+import MediaTitle from '../media/MediaTitle';
 import UserRoute from '../../relay/UserRoute';
 import CheckContext from '../../CheckContext';
 import { units, AlignOpposite } from '../../styles/js/shared';
@@ -171,43 +171,41 @@ class UserAssignmentsComponent extends Component {
             />
             <List>
               {assignments[project].map(assignment => (
-                <div key={`div-${assignment.dbid}`}>
-                  <ListItem key={`media-${assignment.dbid}`}>
-                    <ListItemIcon>
-                      {icons[assignment.report_type]}
-                    </ListItemIcon>
-                    <Link to={assignment.path}>
-                      <ListItemText
-                        primary={
-                          MediaUtil.title(assignment, assignment.metadata, this.props.intl)
-                        }
-                      />
-                    </Link>
-                  </ListItem>
-                </div>
+                <ListItem
+                  button
+                  component={Link}
+                  to={assignment.path}
+                  key={`media-${assignment.dbid}`}
+                >
+                  <ListItemIcon>
+                    {icons[assignment.report_type]}
+                  </ListItemIcon>
+                  <ListItemText>
+                    <MediaTitle projectMedia={assignment} data={assignment.metadata} />
+                  </ListItemText>
+                </ListItem>
               ))}
             </List>
           </Card>
         ))}
         <Card style={{ marginTop: units(2), marginBottom: units(2) }}>
           <CardHeader
-            title={
-              <FormattedMessage id="userAssignments.other" defaultMessage="Other" />
-            }
+            title={<FormattedMessage id="userAssignments.other" defaultMessage="Other" />}
           />
           <List>
             {assignmentsWithoutProject.map(assignment => (
-              <ListItem key={`media-${assignment.dbid}`}>
+              <ListItem
+                button
+                component={Link}
+                to={assignment.path}
+                key={`media-${assignment.dbid}`}
+              >
                 <ListItemIcon>
                   {icons[assignment.report_type]}
                 </ListItemIcon>
-                <Link to={assignment.path}>
-                  <ListItemText
-                    primary={
-                      MediaUtil.title(assignment, assignment.metadata, this.props.intl)
-                    }
-                  />
-                </Link>
+                <ListItemText>
+                  <MediaTitle projectMedia={assignment} data={assignment.metadata} />
+                </ListItemText>
               </ListItem>
             ))}
           </List>
@@ -248,6 +246,7 @@ const UserAssignmentsContainer = Relay.createContainer(injectIntl(UserAssignment
           edges {
             node {
               id
+              ${MediaTitle.getFragment('projectMedia')}
               dbid
               metadata
               media {

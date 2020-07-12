@@ -412,7 +412,7 @@ class MediaActionsBarComponent extends Component {
         media: this.props.media,
         archived: 0,
         check_search_team: this.props.media.team.search,
-        check_search_project: this.currentProject().search,
+        check_search_project: this.currentProject() ? this.currentProject().search : null,
         check_search_trash: this.props.media.team.check_search_trash,
         context,
         srcProj: null,
@@ -583,18 +583,19 @@ class MediaActionsBarComponent extends Component {
               />
             </Button>
 
-            <Button
-              id="media-actions-bar__move-to"
-              variant="contained"
-              className={classes.spacedButton}
-              color="primary"
-              onClick={this.handleMove}
-            >
-              <FormattedMessage
-                id="mediaActionsBar.moveTo"
-                defaultMessage="Move to..."
-              />
-            </Button>
+            { projectMediaProject ?
+              <Button
+                id="media-actions-bar__move-to"
+                variant="contained"
+                className={classes.spacedButton}
+                color="primary"
+                onClick={this.handleMove}
+              >
+                <FormattedMessage
+                  id="mediaActionsBar.moveTo"
+                  defaultMessage="Move to..."
+                />
+              </Button> : null }
 
             { projectMediaProject ?
               <Button
@@ -724,6 +725,7 @@ const ConnectedMediaActionsBarComponent =
 const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarComponent, {
   initialVariables: {
     contextId: null,
+    projectId: 0,
   },
   fragments: {
     media: () => Relay.QL`
@@ -745,7 +747,7 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
           id
           data
         }
-        project_media_project(project_id: 3){
+        project_media_project(project_id: $projectId){
           id
           project {
             id
@@ -832,7 +834,8 @@ class MediaActionsBar extends React.PureComponent {
   render() {
     const { projectId, projectMediaId } = this.props;
     const ids = `${projectMediaId},${projectId}`;
-    const route = new MediaRoute({ ids });
+    const projectIdValue = projectId == null ? 0 : projectId;
+    const route = new MediaRoute({ ids, projectId: projectIdValue });
 
     return (
       <Relay.RootContainer

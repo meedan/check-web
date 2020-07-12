@@ -207,7 +207,7 @@ class MediaTags extends React.Component {
                 {tags.map((tag) => {
                   if (tag.node.tag_text) {
                     return (
-                      <li>
+                      <li key={tag.node.id}>
                         <Chip
                           icon={
                             tag.node.fragment ?
@@ -217,7 +217,6 @@ class MediaTags extends React.Component {
                               />
                               : null
                           }
-                          key={tag.node.id}
                           className="media-tags__tag"
                           onClick={this.handleTagViewClick.bind(this, tag.node.tag_text)}
                           label={tag.node.tag_text.replace(/^#/, '')}
@@ -286,7 +285,13 @@ class MediaTags extends React.Component {
 MediaTags.propTypes = {
   setFlashMessage: PropTypes.func.isRequired,
   media: PropTypes.object.isRequired,
-  tags: PropTypes.object.isRequired,
+  tags: PropTypes.arrayOf(PropTypes.shape({
+    node: PropTypes.shape({
+      tag: PropTypes.number.isRequired,
+      id: PropTypes.string.isRequired,
+      tag_text: PropTypes.string.isRequired,
+    }),
+  }).isRequired).isRequired,
 };
 
 export default withSetFlashMessage(MediaTags);

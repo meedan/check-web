@@ -25,7 +25,6 @@ import VideoAnnotationIcon from '../../../assets/images/video-annotation/video-a
 import TaskUpdate from './TaskUpdate';
 import SourcePicture from '../source/SourcePicture';
 import MediaDetail from '../media/MediaDetail';
-import MediaUtil from '../media/MediaUtil';
 import ProfileLink from '../layout/ProfileLink';
 import ParsedText from '../ParsedText';
 import DeleteAnnotationMutation from '../../relay/mutations/DeleteAnnotationMutation';
@@ -34,7 +33,13 @@ import UpdateTaskMutation from '../../relay/mutations/UpdateTaskMutation';
 import DatetimeTaskResponse from '../task/DatetimeTaskResponse';
 import { can } from '../Can';
 import TimeBefore from '../TimeBefore';
-import { getErrorMessage, getStatus, getStatusStyle, emojify } from '../../helpers';
+import {
+  getErrorMessage,
+  getStatus,
+  getStatusStyle,
+  emojify,
+  parseStringUnixTimestamp,
+} from '../../helpers';
 import globalStrings from '../../globalStrings';
 import { stringHelper } from '../../customHelpers';
 import UserTooltip from '../user/UserTooltip';
@@ -417,7 +422,7 @@ class Annotation extends Component {
         : null;
     }
 
-    const updatedAt = MediaUtil.createdAt({ published: activity.created_at });
+    const updatedAt = parseStringUnixTimestamp(activity.created_at);
     const timestamp = updatedAt
       ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span>
       : null;

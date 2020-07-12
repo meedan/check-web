@@ -237,6 +237,16 @@ function getCurrentProjectId(projectIds) {
   return projectId;
 }
 
+/**
+ * Return a JavaScript `Date` from a stringified UNIX timestamp.
+ *
+ * TODO don't pass stringified UNIX timestamps over the wire. Use ISO8601 ... or
+ * at least Numbers.
+ */
+function parseStringUnixTimestamp(s) {
+  return new Date(parseInt(s, 10) * 1000);
+}
+
 export {
   bemClass,
   bemClassFromMediaStatus,
@@ -257,4 +267,5 @@ export {
   capitalize,
   getCurrentProject,
   getCurrentProjectId,
+  parseStringUnixTimestamp,
 };

@@ -4,6 +4,10 @@
     "defaultMessage": "Sorry, an error occurred while updating the workspace. Please try again and contact {supportEmail} if the condition persists."
   },
   {
+    "id": "teamComponent.invalidLink",
+    "defaultMessage": "Please enter a valid URL"
+  },
+  {
     "id": "teamComponent.teamName",
     "defaultMessage": "Name"
   },
@@ -22,10 +26,6 @@
   {
     "id": "teamComponent.website",
     "defaultMessage": "Website"
-  },
-  {
-    "id": "teamComponent.invalidLink",
-    "defaultMessage": "Please enter a valid URL"
   },
   {
     "id": "teamComponent.cancelButton",
