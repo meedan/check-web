@@ -601,7 +601,15 @@ function encodeQueryToMimicTheWayCheckApiGeneratesIds(query, teamSlug) {
 
 export default function SearchResults({ query, teamSlug, ...props }) {
   const jsonEncodedQuery = encodeQueryToMimicTheWayCheckApiGeneratesIds(query, teamSlug);
-  const route = React.useMemo(() => new SearchRoute({ jsonEncodedQuery }), [jsonEncodedQuery]);
+  let projectId = 0;
+  const { projects } = query;
+  if (projects && projects.length === 1) {
+    [projectId] = projects;
+  }
+  const route = React.useMemo(() => new SearchRoute({
+    jsonEncodedQuery,
+    projectId,
+  }), [jsonEncodedQuery]);
 
   return (
     <Relay.RootContainer

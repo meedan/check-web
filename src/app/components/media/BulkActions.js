@@ -66,10 +66,7 @@ class BulkActions extends React.Component {
           project: this.state.dstProjForAdd,
           teamSearchId: this.props.team.search_id,
           count: this.props.count,
-          dstProject: null,
           dstProjectForAdd: this.state.dstProjForAdd,
-          srcProject: null,
-          srcProjectForRemove: null,
         }),
         { onSuccess: onDone, onFailure: onDone },
       );
@@ -99,9 +96,6 @@ class BulkActions extends React.Component {
           teamSearchId: this.props.team.search_id,
           srcProjectForRemove: this.props.project,
           count: this.props.count,
-          dstProject: null,
-          dstProjectForAdd: null,
-          srcProject: null,
         }),
         { onSuccess: onDone, onFailure: onDone },
       );
@@ -133,8 +127,6 @@ class BulkActions extends React.Component {
           srcProject: this.props.project,
           teamSearchId: this.props.team.search_id,
           count: this.props.count,
-          dstProjectForAdd: null,
-          srcProjectForRemove: null,
         }),
         { onSuccess: onDone, onFailure: onDone },
       );
@@ -168,9 +160,6 @@ class BulkActions extends React.Component {
           teamSearchId: this.props.team.search_id,
           team: this.props.team,
           count: this.props.count,
-          dstProject: null,
-          dstProjectForAdd: null,
-          srcProjectForRemove: null,
         }),
         { onSuccess },
       );
