@@ -47,6 +47,7 @@ const StyledBlurb = styled.div`
 
 const StatusesComponent = ({ team }) => {
   const statuses = [...team.verification_statuses.statuses];
+  const defaultStatusId = team.verification_statuses.default;
   console.log('statuses', statuses);
   const defaultLanguage = team.get_language || 'en';
   const languages = team.get_languages ? JSON.parse(team.get_languages) : [defaultLanguage];
@@ -77,7 +78,7 @@ const StatusesComponent = ({ team }) => {
           deleteTeamStatus(input: $input) {
             team {
               id
-              verification_statuses
+              verification_statuses(items_count: true)
             }
           }
         }
@@ -110,7 +111,7 @@ const StatusesComponent = ({ team }) => {
           updateTeam(input: $input) {
             team {
               id
-              verification_statuses
+              verification_statuses(items_count: true)
             }
           }
         }
@@ -147,6 +148,11 @@ const StatusesComponent = ({ team }) => {
 
     newStatuses.statuses = newStatusesArray;
     submitUpdateStatuses(newStatuses);
+  };
+
+  const handleCancelEdit = () => {
+    setDialogOpen(false);
+    setEditStatus(null);
   };
 
   const handleMenuDelete = (status) => {
@@ -217,10 +223,10 @@ const StatusesComponent = ({ team }) => {
                     />
                   </StyledBlurb>
                   <List>
-                    { statuses.map((s, index) => (
+                    { statuses.map(s => (
                       <StatusListItem
                         defaultLanguage={defaultLanguage}
-                        initialStatus={index === 0}
+                        initialStatus={s.id === defaultStatusId}
                         key={s.id}
                         onDelete={handleMenuDelete}
                         onEdit={handleMenuEdit}
@@ -255,7 +261,7 @@ const StatusesComponent = ({ team }) => {
       <EditStatusDialog
         defaultLanguage={defaultLanguage}
         key={editStatus}
-        onDismiss={() => setDialogOpen(false)}
+        onDismiss={handleCancelEdit}
         onSubmit={handleAddOrEditStatus}
         open={dialogOpen}
         status={editStatus}

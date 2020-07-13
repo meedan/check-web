@@ -54,12 +54,12 @@ const EditStatusDialog = ({
   status,
 }) => {
   const [statusName, setStatusName] = React.useState(status ? status.label : '');
-  const [statusDescription, setStatusDescription] = React.useState(status ? status.locales[defaultLanguage].label : '');
+  const [statusDescription, setStatusDescription] = React.useState(status ? status.locales[defaultLanguage].description : '');
   const [statusColor, setStatusColor] = React.useState(status ? status.style.color : '#000000');
 
   const handleSubmit = () => {
     const newStatus = {
-      id: statusName + Date.now(),
+      id: Date.now().toString(),
       locales: {},
       style: { color: statusColor },
     };
