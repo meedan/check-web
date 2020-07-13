@@ -18,7 +18,6 @@ import PageTitle from '../PageTitle';
 import MediaDetail from './MediaDetail';
 import MediaRelated from './MediaRelated';
 import MediaTasks from './MediaTasks';
-import MediaLocation from './MediaLocation';
 import MediaAnalysis from './MediaAnalysis';
 import MediaLog from './MediaLog';
 import MediaComments from './MediaComments';
@@ -70,9 +69,6 @@ class MediaComponent extends Component {
     super(props);
 
     const { team_bots: teamBots } = props.media.team;
-    const isYoutubeVideo = props.media.media.type === 'Link' && props.media.media.metadata.provider === 'youtube';
-    const isUploadedVideo = props.media.media.type === 'UploadedVideo';
-    const showLocation = isYoutubeVideo || isUploadedVideo;
     const enabledBots = teamBots.edges.map(b => b.node.login);
     const showRequests = (enabledBots.indexOf('smooch') > -1 || props.media.requests_count > 0);
     const showTab = showRequests ? 'requests' : 'tasks';
@@ -97,7 +93,6 @@ class MediaComponent extends Component {
       },
       showRequests,
       showTab,
-      showLocation,
       showVideoAnnotation: Boolean(temporalInterval && instanceId),
       fragment: { t: temporalInterval, id: instanceId },
       playerRect: null,
@@ -328,17 +323,6 @@ class MediaComponent extends Component {
                   value="notes"
                   className="media-tab__comments"
                 />
-                { this.state.showLocation ?
-                  <Tab
-                    label={
-                      <FormattedMessage
-                        id="mediaComponent.location"
-                        defaultMessage="Location"
-                      />
-                    }
-                    value="location"
-                    className="media-tab__location"
-                  /> : null }
                 <Tab
                   label={
                     <FormattedMessage
@@ -350,7 +334,6 @@ class MediaComponent extends Component {
                   className="media-tab__activity"
                 />
               </Tabs>
-              { this.state.showTab === 'location' ? <MediaLocation media={media} time={time} /> : null }
               { this.state.showTab === 'requests' ? <MediaRequests media={media} /> : null }
               { this.state.showTab === 'tasks' ? <MediaTasks media={media} /> : null }
               { this.state.showTab === 'analysis' ? <MediaAnalysis media={media} /> : null }
