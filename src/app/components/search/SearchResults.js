@@ -542,7 +542,9 @@ const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsCom
                 dbid
                 id
               }
-              verification_statuses,
+              team {
+                verification_statuses
+              }
             }
           }
         },

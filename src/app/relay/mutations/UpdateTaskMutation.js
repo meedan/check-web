@@ -16,7 +16,6 @@ class UpdateTaskMutation extends Relay.Mutation {
           first_response
         },
         project_media {
-          verification_statuses,
           last_status,
           id,
           log_count
@@ -26,7 +25,6 @@ class UpdateTaskMutation extends Relay.Mutation {
     return Relay.QL`fragment on UpdateTaskPayload {
       task,
       project_media {
-        verification_statuses,
         last_status,
         log,
         id,

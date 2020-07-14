@@ -21,7 +21,6 @@ const ReportDesignerContainer = Relay.createContainer(ReportDesignerComponent, {
         title
         demand
         description
-        verification_statuses
         last_status
         media {
           picture
@@ -45,6 +44,7 @@ const ReportDesignerContainer = Relay.createContainer(ReportDesignerComponent, {
           get_languages
           get_report
           get_report_design_image_template
+          verification_statuses
           contacts(first: 1) {
             edges {
               node {

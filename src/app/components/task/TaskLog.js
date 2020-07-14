@@ -284,7 +284,6 @@ const TaskLogContainer = Relay.createContainer(withPusher(TaskLogComponent), {
                       }
                       log_count,
                       permissions,
-                      verification_statuses,
                       domain,
                       team {
                         slug,

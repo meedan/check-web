@@ -11,7 +11,7 @@ import styled from 'styled-components';
 import { can } from '../Can';
 import CheckContext from '../../CheckContext';
 import { getStatus, getErrorMessage, bemClass, getCurrentProjectId } from '../../helpers';
-import { mediaStatuses, mediaLastStatus, stringHelper } from '../../customHelpers';
+import { stringHelper } from '../../customHelpers';
 import { withSetFlashMessage } from '../FlashMessage';
 
 const StyledMediaStatus = styled.div`
@@ -48,7 +48,7 @@ class MediaStatusCommon extends Component {
 
     this.setState({ anchorEl: null });
 
-    if (clickedStatus !== mediaLastStatus(media)) {
+    if (clickedStatus !== media.last_status) {
       this.props.setStatus(this, store, media, clickedStatus, this.props.parentComponent, null);
     }
   };
@@ -72,13 +72,13 @@ class MediaStatusCommon extends Component {
 
   render() {
     const { media } = this.props;
-    const { statuses } = mediaStatuses(media);
-    const currentStatus = getStatus(mediaStatuses(media), mediaLastStatus(media));
+    const { statuses } = media.team.verification_statuses;
+    const currentStatus = getStatus(media.team.verification_statuses, media.last_status);
 
     return (
       <StyledMediaStatus className="media-status">
         <Button
-          className={`media-status__label media-status__current ${MediaStatusCommon.currentStatusToClass(mediaLastStatus(media))}`}
+          className={`media-status__label media-status__current ${MediaStatusCommon.currentStatusToClass(media.last_status)}`}
           style={{ backgroundColor: currentStatus.style.color, color: 'white' }}
           variant="contained"
           disableElevation
@@ -99,7 +99,7 @@ class MediaStatusCommon extends Component {
               key={status.id}
               className={`${bemClass(
                 'media-status__menu-item',
-                mediaLastStatus(media) === status.id,
+                media.last_status === status.id,
                 '--current',
               )} media-status__menu-item--${status.id.replace('_', '-')}`}
               onClick={() => this.handleStatusClick(status.id)}

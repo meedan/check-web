@@ -737,7 +737,6 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
         demand
         description
         permissions
-        verification_statuses
         metadata
         overridden
         url
@@ -799,6 +798,7 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
           id
           dbid
           slug
+          verification_statuses
           medias_count
           trash_count
           public_team {

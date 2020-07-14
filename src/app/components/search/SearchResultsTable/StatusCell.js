@@ -23,7 +23,7 @@ const useStyles = makeStyles({
 export default function StatusCell({ projectMedia }) {
   const classes = useStyles();
   const statusObject = findStatusObjectOrNull(
-    projectMedia.verification_statuses.statuses,
+    projectMedia.team.verification_statuses.statuses,
     projectMedia.status,
   );
   return (
@@ -34,12 +34,14 @@ export default function StatusCell({ projectMedia }) {
 }
 StatusCell.propTypes = {
   projectMedia: PropTypes.shape({
-    verification_statuses: PropTypes.shape({
-      statuses: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        label: PropTypes.string.isRequired,
-      }).isRequired), // undefined during optimistic update
-    }).isRequired,
+    team: PropTypes.shape({
+      verification_statuses: PropTypes.shape({
+        statuses: PropTypes.arrayOf(PropTypes.shape({
+          id: PropTypes.string.isRequired,
+          label: PropTypes.string.isRequired,
+        }).isRequired), // undefined during optimistic update
+      }).isRequired,
+    }),
     status: PropTypes.string.isRequired,
   }).isRequired,
 };
