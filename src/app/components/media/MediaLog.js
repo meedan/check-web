@@ -202,7 +202,6 @@ const MediaLogContainer = Relay.createContainer(withPusher(MediaLogComponent), {
                       }
                       log_count,
                       permissions,
-                      verification_statuses,
                       domain,
                       team {
                         slug,

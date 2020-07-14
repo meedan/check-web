@@ -9,7 +9,6 @@ const teamPublicFragment = Relay.QL`
       private,
       slug,
       team_graphql_id,
-      verification_statuses,
       trash_count,
       pusher_channel,
     }

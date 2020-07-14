@@ -168,7 +168,6 @@ const MediaRequestsContainer = Relay.createContainer(withPusher(MediaRequestsCom
                       }
                       log_count,
                       permissions,
-                      verification_statuses,
                       domain,
                       team {
                         slug,

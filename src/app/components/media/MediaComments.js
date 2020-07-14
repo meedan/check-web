@@ -176,7 +176,6 @@ const MediaCommentsContainer = Relay.createContainer(withPusher(MediaCommentsCom
                       }
                       log_count,
                       permissions,
-                      verification_statuses,
                       domain,
                       team {
                         slug,
