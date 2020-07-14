@@ -20,7 +20,6 @@ import DateRangeFilter from './DateRangeFilter';
 import PageTitle from '../PageTitle';
 import CheckContext from '../../CheckContext';
 import { bemClass } from '../../helpers';
-import { teamStatuses } from '../../customHelpers';
 import {
   white,
   black87,
@@ -481,7 +480,7 @@ class SearchQueryComponent extends React.Component {
 
   render() {
     const { team, classes } = this.props;
-    const { statuses } = teamStatuses(team);
+    const { statuses } = team.verification_statuses;
     let projects = [];
     if (team.projects) {
       projects = team.projects.edges.slice().sort((a, b) =>

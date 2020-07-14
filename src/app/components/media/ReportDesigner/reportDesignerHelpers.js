@@ -1,9 +1,8 @@
 import { getStatus, getStatusStyle } from '../../../helpers';
-import { mediaStatuses, mediaLastStatus } from '../../../customHelpers';
 
 export function defaultOptions(media, language) {
   const { team } = media;
-  const status = getStatus(mediaStatuses(media), mediaLastStatus(media), language);
+  const status = getStatus(media.team.verification_statuses, media.last_status, language);
   const teamUrl = team.contacts.edges[0] ?
     team.contacts.edges[0].node.web :
     window.location.href.match(/https?:\/\/[^/]+\/[^/]+/)[0];
