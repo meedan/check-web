@@ -52,7 +52,6 @@ const StyledBlurb = styled.div`
 const StatusesComponent = ({ team, setFlashMessage }) => {
   const statuses = [...team.verification_statuses.statuses];
   const defaultStatusId = team.verification_statuses.default;
-  console.log('statuses', statuses);
   const defaultLanguage = team.get_language || 'en';
   const languages = team.get_languages ? JSON.parse(team.get_languages) : [defaultLanguage];
 
@@ -144,7 +143,9 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
         },
       },
       onCompleted: (response, error) => {
-        handleError(error);
+        if (error) {
+          handleError(error);
+        }
         setDialogOpen(false);
       },
       onError: (error) => {
@@ -164,9 +165,6 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
     } else {
       newStatusesArray.push(status);
     }
-
-    console.log('status', status);
-    console.log('newStatusesArray', newStatusesArray);
 
     newStatuses.statuses = newStatusesArray;
     submitUpdateStatuses(newStatuses);
@@ -201,8 +199,6 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
   const handleTranslateStatuses = (newStatusesArray) => {
     const newStatuses = { ...team.verification_statuses };
     newStatuses.statuses = newStatusesArray;
-    // console.log('newStatuses', newStatuses);
-    // console.log('newStatusesArray', newStatusesArray);
     submitUpdateStatuses(newStatuses);
   };
 
@@ -291,11 +287,12 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
         status={editStatus}
       />
       <DeleteStatusDialog
-        open={Boolean(deleteStatus)}
         deleteStatus={deleteStatus}
-        statuses={statuses}
+        key={deleteStatus}
+        open={Boolean(deleteStatus)}
         onCancel={() => setDeleteStatus(null)}
         onProceed={handleDelete}
+        statuses={statuses}
       />
     </React.Fragment>
   );

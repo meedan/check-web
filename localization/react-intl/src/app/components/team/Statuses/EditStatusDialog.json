@@ -1,5 +1,9 @@
 [
   {
+    "id": "editStatusDialog.titleEdit",
+    "defaultMessage": "Edit status"
+  },
+  {
     "id": "editStatusDialog.title",
     "defaultMessage": "Add a new status"
   },

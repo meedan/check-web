@@ -84,10 +84,17 @@ const EditStatusDialog = ({
       fullWidth
     >
       <DialogTitle>
-        <FormattedMessage
-          id="editStatusDialog.title"
-          defaultMessage="Add a new status"
-        />
+        { status ? (
+          <FormattedMessage
+            id="editStatusDialog.titleEdit"
+            defaultMessage="Edit status"
+          />
+        ) : (
+          <FormattedMessage
+            id="editStatusDialog.title"
+            defaultMessage="Add a new status"
+          />
+        )}
       </DialogTitle>
       <DialogContent>
         <TextField
@@ -150,10 +157,14 @@ const EditStatusDialog = ({
           color="primary"
           variant="contained"
         >
-          <FormattedMessage
-            id="editStatusDialog.addButton"
-            defaultMessage="Add status"
-          />
+          { status ? (
+            <FormattedMessage {...globalStrings.save} />
+          ) : (
+            <FormattedMessage
+              id="editStatusDialog.addButton"
+              defaultMessage="Add status"
+            />
+          )}
         </Button>
       </DialogActions>
     </Dialog>

@@ -50,7 +50,6 @@ const TranslateStatuses = ({
       return status;
     });
 
-    console.log('newStatusesArray', newStatusesArray);
     setShowWarning(false);
 
     if (onSubmit) {
@@ -59,8 +58,6 @@ const TranslateStatuses = ({
   };
 
   const handleSave = () => {
-    // console.log('translations', translations);
-
     let missingTranslation = false;
 
     if (Object.values(translations).length < statuses.length) {
@@ -71,7 +68,6 @@ const TranslateStatuses = ({
       });
     }
 
-    console.log('missingTranslation', missingTranslation);
     setShowWarning(missingTranslation);
   };
 
