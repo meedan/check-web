@@ -1553,8 +1553,6 @@ shared_examples 'smoke' do
   end
 
   it "should search by project through URL", bin2: true do
-    # TODO: Sawy - review
-    # api_create_team_project_and_claim_and_redirect_to_media_page
     data = api_create_team_and_project
     project_id = data[:project].dbid.to_s
     claim = request_api 'claim', { quote: 'Claim', email: data[:user].email, team_id: data[:team].dbid, project_id: project_id }
