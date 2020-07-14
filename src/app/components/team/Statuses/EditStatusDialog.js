@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -157,6 +158,18 @@ const EditStatusDialog = ({
       </DialogActions>
     </Dialog>
   );
+};
+
+EditStatusDialog.propTypes = {
+  defaultLanguage: PropTypes.string.isRequired,
+  onDismiss: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+  status: PropTypes.object,
+};
+
+EditStatusDialog.defaultProps = {
+  status: null,
 };
 
 export default EditStatusDialog;

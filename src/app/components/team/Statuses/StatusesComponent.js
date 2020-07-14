@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
@@ -78,7 +79,8 @@ const StatusesComponent = ({ team }) => {
           deleteTeamStatus(input: $input) {
             team {
               id
-              verification_statuses(items_count: true)
+              verification_statuses_with_counters: verification_statuses(items_count: true, published_reports_count: true)
+              verification_statuses
             }
           }
         }
@@ -111,7 +113,8 @@ const StatusesComponent = ({ team }) => {
           updateTeam(input: $input) {
             team {
               id
-              verification_statuses(items_count: true)
+              verification_statuses_with_counters: verification_statuses(items_count: true, published_reports_count: true)
+              verification_statuses
             }
           }
         }
@@ -156,7 +159,9 @@ const StatusesComponent = ({ team }) => {
   };
 
   const handleMenuDelete = (status) => {
-    setDeleteStatus(status);
+    const statusWithCounters =
+      team.verification_statuses_with_counters.statuses.find(t => t.id === status.id);
+    setDeleteStatus(statusWithCounters);
   };
 
   const handleMenuMakeDefault = (status) => {
@@ -275,6 +280,14 @@ const StatusesComponent = ({ team }) => {
       />
     </React.Fragment>
   );
+};
+
+StatusesComponent.propTypes = {
+  team: PropTypes.shape({
+    verification_statuses: PropTypes.object,
+    get_language: PropTypes.string,
+    get_languages: PropTypes.string,
+  }).isRequired,
 };
 
 export default StatusesComponent;

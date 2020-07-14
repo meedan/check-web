@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
@@ -93,6 +94,24 @@ const StatusListItem = ({
       </ListItemSecondaryAction>
     </ListItem>
   );
+};
+
+StatusListItem.propTypes = {
+  defaultLanguage: PropTypes.string.isRequired,
+  initialStatus: PropTypes.bool,
+  onDelete: PropTypes.func.isRequired,
+  onEdit: PropTypes.func.isRequired,
+  onMakeDefault: PropTypes.func.isRequired,
+  preventDelete: PropTypes.bool,
+  status: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    locales: PropTypes.object.isRequired,
+  }).isRequired,
+};
+
+StatusListItem.defaultProps = {
+  initialStatus: false,
+  preventDelete: false,
 };
 
 export default StatusListItem;

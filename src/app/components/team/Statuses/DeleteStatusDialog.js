@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -52,7 +53,7 @@ const DeleteStatusDialog = ({
             <FormattedMessage
               id="deleteStatusDialog.itemsPublishedMessage"
               defaultMessage="{published_count} of those items are currently published. Upon moving them to another status, the reports will be paused. Please review those items to re-publish them."
-              values={{ published_count: 'x' }}
+              values={{ published_count: deleteStatus.published_reports_count }}
             />
           </p>
           <div>
@@ -88,6 +89,18 @@ const DeleteStatusDialog = ({
       }
     />
   );
+};
+
+DeleteStatusDialog.propTypes = {
+  deleteStatus: PropTypes.object,
+  onCancel: PropTypes.func.isRequired,
+  onProceed: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+  statuses: PropTypes.array.isRequired,
+};
+
+DeleteStatusDialog.defaultProps = {
+  deleteStatus: null,
 };
 
 export default DeleteStatusDialog;

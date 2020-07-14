@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
@@ -147,6 +148,13 @@ const TranslateStatuses = ({
       />
     </StyledTranslateStatusesContainer>
   );
+};
+
+TranslateStatuses.propTypes = {
+  statuses: PropTypes.array.isRequired,
+  defaultLanguage: PropTypes.string.isRequired,
+  currentLanguage: PropTypes.string.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default TranslateStatuses;
