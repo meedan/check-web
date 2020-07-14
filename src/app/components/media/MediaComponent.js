@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import qs from 'qs';
-import { LoadScript } from '@react-google-maps/api';
 import Grid from '@material-ui/core/Grid';
 import Drawer from '@material-ui/core/Drawer';
 import IconButton from '@material-ui/core/IconButton';
@@ -12,13 +11,11 @@ import CloseIcon from '@material-ui/icons/Close';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import Toolbar from '@material-ui/core/Toolbar';
-import config from 'config';
 import { withPusher, pusherShape } from '../../pusher';
 import PageTitle from '../PageTitle';
 import MediaDetail from './MediaDetail';
 import MediaRelated from './MediaRelated';
 import MediaTasks from './MediaTasks';
-import MediaLocation from './MediaLocation';
 import MediaAnalysis from './MediaAnalysis';
 import MediaLog from './MediaLog';
 import MediaComments from './MediaComments';
@@ -53,8 +50,6 @@ const Column = styled.div`
   flex-grow: 1;
 `;
 
-const GOOGLE_MAPS_LIBRARIES = ['places'];
-
 class MediaComponent extends Component {
   static scrollToAnnotation() {
     if (window.location.hash !== '') {
@@ -70,9 +65,6 @@ class MediaComponent extends Component {
     super(props);
 
     const { team_bots: teamBots } = props.media.team;
-    const isYoutubeVideo = props.media.media.type === 'Link' && props.media.media.metadata.provider === 'youtube';
-    const isUploadedVideo = props.media.media.type === 'UploadedVideo';
-    const showLocation = isYoutubeVideo || isUploadedVideo;
     const enabledBots = teamBots.edges.map(b => b.node.login);
     const showRequests = (enabledBots.indexOf('smooch') > -1 || props.media.requests_count > 0);
     const showTab = showRequests ? 'requests' : 'tasks';
@@ -97,7 +89,6 @@ class MediaComponent extends Component {
       },
       showRequests,
       showTab,
-      showLocation,
       showVideoAnnotation: Boolean(temporalInterval && instanceId),
       fragment: { t: temporalInterval, id: instanceId },
       playerRect: null,
@@ -246,10 +237,7 @@ class MediaComponent extends Component {
     const { currentUser } = this.getContext();
 
     return (
-      <LoadScript
-        googleMapsApiKey={config.googleMapsApiKey}
-        libraries={GOOGLE_MAPS_LIBRARIES}
-      >
+      <div>
         <MediaTitle projectMedia={media}>
           {text => (
             <PageTitle prefix={text} team={media.team} />
@@ -328,17 +316,6 @@ class MediaComponent extends Component {
                 value="notes"
                 className="media-tab__comments"
               />
-              { this.state.showLocation ?
-                <Tab
-                  label={
-                    <FormattedMessage
-                      id="mediaComponent.location"
-                      defaultMessage="Location"
-                    />
-                  }
-                  value="location"
-                  className="media-tab__location"
-                /> : null }
               <Tab
                 label={
                   <FormattedMessage
@@ -350,7 +327,6 @@ class MediaComponent extends Component {
                 className="media-tab__activity"
               />
             </Tabs>
-            { this.state.showTab === 'location' ? <MediaLocation media={media} time={time} /> : null }
             { this.state.showTab === 'requests' ? <MediaRequests media={media} /> : null }
             { this.state.showTab === 'tasks' ? <MediaTasks media={media} /> : null }
             { this.state.showTab === 'analysis' ? <MediaAnalysis media={media} /> : null }
@@ -359,57 +335,58 @@ class MediaComponent extends Component {
           </Column>
         </StyledTwoColumnLayout>
 
-        {playerRect ? (
-          // render video annotation drawer only if we can anchor it to the bottom of the player:
-          <Drawer
-            PaperProps={{ style: { top: (playerRect.bottom + 10) || 'auto' } }}
-            anchor="bottom"
-            elevation={3}
-            open={showVideoAnnotation}
-            variant="persistent"
-          >
-            <StyledDrawerToolbar>
-              <Grid alignItems="center" container justify="space-between">
-                <Grid item>
-                  <Tabs value={this.state.videoAnnotationTab}>
-                    <Tab
-                      ariaControls=""
-                      disabled
-                      id="TimelineTab"
-                      label={
-                        <FormattedMessage
-                          id="mediaComponent.timelineTab"
-                          defaultMessage="Timeline"
-                        />
-                      }
-                      value="timeline"
-                    />
-                  </Tabs>
+        {// render video annotation drawer only if we can anchor it to the bottom of the player:
+          playerRect ?
+            <Drawer
+              PaperProps={{ style: { top: (playerRect.bottom + 10) || 'auto' } }}
+              anchor="bottom"
+              elevation={3}
+              open={showVideoAnnotation}
+              variant="persistent"
+            >
+              <StyledDrawerToolbar>
+                <Grid alignItems="center" container justify="space-between">
+                  <Grid item>
+                    <Tabs value={this.state.videoAnnotationTab}>
+                      <Tab
+                        ariaControls=""
+                        disabled
+                        id="TimelineTab"
+                        label={
+                          <FormattedMessage
+                            id="mediaComponent.timelineTab"
+                            defaultMessage="Timeline"
+                          />
+                        }
+                        value="timeline"
+                      />
+                    </Tabs>
+                  </Grid>
+                  <Grid item>
+                    <IconButton onClick={() => this.setState({ showVideoAnnotation: false })} size="small"><CloseIcon /></IconButton>
+                  </Grid>
                 </Grid>
-                <Grid item>
-                  <IconButton onClick={() => this.setState({ showVideoAnnotation: false })} size="small"><CloseIcon /></IconButton>
-                </Grid>
-              </Grid>
-            </StyledDrawerToolbar>
-            <div aria-labelledby="TimelineTab" role="tabpanel" hidden={this.state.videoAnnotationTab !== 'timeline'}>
-              <MediaTimeline
-                setPlayerState={this.setPlayerState}
-                {...{
-                  media,
-                  fragment,
-                  playing,
-                  duration,
-                  time,
-                  progress,
-                  seekTo,
-                  scrubTo,
-                  currentUser,
-                }}
-              />
-            </div>
-          </Drawer>
-        ) : null}
-      </LoadScript>
+              </StyledDrawerToolbar>
+              <div aria-labelledby="TimelineTab" role="tabpanel" hidden={this.state.videoAnnotationTab !== 'timeline'}>
+                <MediaTimeline
+                  setPlayerState={this.setPlayerState}
+                  {...{
+                    media,
+                    fragment,
+                    playing,
+                    duration,
+                    time,
+                    progress,
+                    seekTo,
+                    scrubTo,
+                    currentUser,
+                  }}
+                />
+              </div>
+            </Drawer> :
+            null
+        }
+      </div>
     );
   }
 }
