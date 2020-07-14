@@ -21,7 +21,10 @@ import EditStatusDialog from './EditStatusDialog';
 import StatusListItem from './StatusListItem';
 import TranslateStatuses from './TranslateStatuses';
 import LanguageSwitcher from '../../LanguageSwitcher';
+import { stringHelper } from '../../../customHelpers';
+import { getErrorMessage } from '../../../helpers';
 import { checkBlue, ContentColumn, units } from '../../../styles/js/shared';
+import { withSetFlashMessage } from '../../FlashMessage';
 
 const useToolbarStyles = makeStyles(theme => ({
   root: {
@@ -46,7 +49,7 @@ const StyledBlurb = styled.div`
   margin-top: ${units(4)};
 `;
 
-const StatusesComponent = ({ team }) => {
+const StatusesComponent = ({ team, setFlashMessage }) => {
   const statuses = [...team.verification_statuses.statuses];
   const defaultStatusId = team.verification_statuses.default;
   console.log('statuses', statuses);
@@ -58,6 +61,18 @@ const StatusesComponent = ({ team }) => {
   const [editStatus, setEditStatus] = React.useState(null);
   const [deleteStatus, setDeleteStatus] = React.useState(null);
   const classes = useToolbarStyles();
+
+  const handleError = (error) => {
+    const fallbackMessage = (
+      <FormattedMessage
+        id="statusesComponent.error"
+        defaultMessage="Sorry, an error occurred while updating the statuses. Please try again and contact {supportEmail} if the condition persists."
+        values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
+      />
+    );
+    const message = getErrorMessage(error, fallbackMessage);
+    setFlashMessage(message);
+  };
 
   const handleChangeLanguage = (newValue) => {
     setCurrentLanguage(newValue);
@@ -89,11 +104,14 @@ const StatusesComponent = ({ team }) => {
         input,
       },
       onCompleted: (response, error) => {
-        if (error) console.error('error', error); // TODO handle error
+        if (error) {
+          handleError(error);
+        }
         setDeleteStatus(null);
       },
       onError: (error) => {
-        console.error('error', error); // TODO handle error
+        handleError(error);
+        setDeleteStatus(null);
       },
     });
   };
@@ -126,11 +144,12 @@ const StatusesComponent = ({ team }) => {
         },
       },
       onCompleted: (response, error) => {
-        if (error) console.error('error', error); // TODO handle error
+        handleError(error);
         setDialogOpen(false);
       },
       onError: (error) => {
-        console.error('error', error); // TODO handle error
+        handleError(error);
+        setDialogOpen(false);
       },
     });
   };
@@ -290,4 +309,4 @@ StatusesComponent.propTypes = {
   }).isRequired,
 };
 
-export default StatusesComponent;
+export default withSetFlashMessage(StatusesComponent);

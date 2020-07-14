@@ -1,5 +1,9 @@
 [
   {
+    "id": "statusesComponent.error",
+    "defaultMessage": "Sorry, an error occurred while updating the statuses. Please try again and contact {supportEmail} if the condition persists."
+  },
+  {
     "id": "statusesComponent.title",
     "defaultMessage": "{statuses_count, plural, one {1 status} other {# statuses}}"
   },
