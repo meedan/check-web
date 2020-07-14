@@ -255,14 +255,8 @@ const UserAssignmentsContainer = Relay.createContainer(injectIntl(UserAssignment
                 quote
               }
               overridden
-              project_id
               project_ids
               report_type
-              project {
-                id
-                dbid
-                title
-              }
               team {
                 id
                 dbid

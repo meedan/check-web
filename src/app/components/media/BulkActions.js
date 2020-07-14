@@ -11,6 +11,9 @@ import { withSetFlashMessage } from '../FlashMessage';
 import MoveDialog from './MoveDialog';
 import Can from '../Can';
 import BulkUpdateProjectMediaMutation from '../../relay/mutations/BulkUpdateProjectMediaMutation';
+import BulkUpdateProjectMediaProjectMutation from '../../relay/mutations/BulkUpdateProjectMediaProjectMutation';
+import BulkDeleteProjectMediaProjectMutation from '../../relay/mutations/BulkDeleteProjectMediaProjectMutation';
+import BulkCreateProjectMediaProjectsMutation from '../../relay/mutations/BulkCreateProjectMediaProjectsMutation';
 import { Row } from '../../styles/js/shared';
 
 class BulkActions extends React.Component {
@@ -58,15 +61,12 @@ class BulkActions extends React.Component {
 
     if (this.props.selectedMedia.length && this.state.dstProjForAdd) {
       Relay.Store.commitUpdate(
-        new BulkUpdateProjectMediaMutation({
-          id: this.props.selectedMedia[0],
-          ids: this.props.selectedMedia,
+        new BulkCreateProjectMediaProjectsMutation({
+          projectMedias: this.props.selectedProjectMediaDbids,
+          project: this.state.dstProjForAdd,
           teamSearchId: this.props.team.search_id,
           count: this.props.count,
-          dstProject: null,
           dstProjectForAdd: this.state.dstProjForAdd,
-          srcProject: null,
-          srcProjectForRemove: null,
         }),
         { onSuccess: onDone, onFailure: onDone },
       );
@@ -90,15 +90,12 @@ class BulkActions extends React.Component {
 
     if (this.props.selectedMedia.length) {
       Relay.Store.commitUpdate(
-        new BulkUpdateProjectMediaMutation({
-          id: this.props.selectedMedia[0],
-          ids: this.props.selectedMedia,
+        new BulkDeleteProjectMediaProjectMutation({
+          id: this.props.selectedProjectMediaProjectIds[0],
+          ids: this.props.selectedProjectMediaProjectIds,
           teamSearchId: this.props.team.search_id,
           srcProjectForRemove: this.props.project,
           count: this.props.count,
-          dstProject: null,
-          dstProjectForAdd: null,
-          srcProject: null,
         }),
         { onSuccess: onDone, onFailure: onDone },
       );
@@ -123,15 +120,13 @@ class BulkActions extends React.Component {
 
     if (this.props.selectedMedia.length && this.state.dstProj) {
       Relay.Store.commitUpdate(
-        new BulkUpdateProjectMediaMutation({
-          id: this.props.selectedMedia[0],
-          ids: this.props.selectedMedia,
+        new BulkUpdateProjectMediaProjectMutation({
+          id: this.props.selectedProjectMediaProjectIds[0],
+          ids: this.props.selectedProjectMediaProjectIds,
           dstProject: this.state.dstProj,
           srcProject: this.props.project,
           teamSearchId: this.props.team.search_id,
           count: this.props.count,
-          dstProjectForAdd: null,
-          srcProjectForRemove: null,
         }),
         { onSuccess: onDone, onFailure: onDone },
       );
@@ -165,9 +160,6 @@ class BulkActions extends React.Component {
           teamSearchId: this.props.team.search_id,
           team: this.props.team,
           count: this.props.count,
-          dstProject: null,
-          dstProjectForAdd: null,
-          srcProjectForRemove: null,
         }),
         { onSuccess },
       );
@@ -183,7 +175,9 @@ class BulkActions extends React.Component {
   }
 
   render() {
-    const { page, team, selectedMedia } = this.props;
+    const {
+      page, team, selectedMedia, project,
+    } = this.props;
     const disabled = selectedMedia.length === 0;
 
     const actions = (
@@ -228,25 +222,28 @@ class BulkActions extends React.Component {
                 <FormattedMessage id="bulkActions.addTo" defaultMessage="Add to..." />
               </Button>
             </Tooltip>
-            <Tooltip
-              title={
-                <FormattedMessage
-                  id="bulkActions.move"
-                  defaultMessage="Move selected items to another list"
-                />
-              }
-              style={{ margin: '0 10px' }}
-            >
-              <Button
-                id="media-bulk-actions__move-to"
-                onClick={this.moveSelected.bind(this)}
-                disabled={disabled}
-                color="primary"
-                variant="contained"
+
+            { project ?
+              <Tooltip
+                title={
+                  <FormattedMessage
+                    id="bulkActions.move"
+                    defaultMessage="Move selected items to another list"
+                  />
+                }
+                style={{ margin: '0 10px' }}
               >
-                <FormattedMessage id="bulkActions.moveTo" defaultMessage="Move to..." />
-              </Button>
-            </Tooltip>
+                <Button
+                  id="media-bulk-actions__move-to"
+                  onClick={this.moveSelected.bind(this)}
+                  disabled={disabled}
+                  color="primary"
+                  variant="contained"
+                >
+                  <FormattedMessage id="bulkActions.moveTo" defaultMessage="Move to..." />
+                </Button>
+              </Tooltip> : null }
+
             { !/all-items/.test(window.location.pathname) ?
               <Tooltip
                 title={
@@ -342,7 +339,7 @@ class BulkActions extends React.Component {
           open={this.state.openMoveDialog}
           onClose={this.handleCloseDialogs.bind(this)}
           team={this.props.team}
-          excludeProjectDbids={this.props.project ? [this.props.project.dbid] : []}
+          excludeProjectDbids={project ? [project.dbid] : []}
           value={this.state.dstProj}
           onChange={this.handleSelectDestProject.bind(this)}
           title={
@@ -358,8 +355,8 @@ class BulkActions extends React.Component {
           open={this.state.openAddDialog}
           team={this.props.team}
           onClose={this.handleCloseDialogs.bind(this)}
-          excludeProjectDbids={this.props.project ? [this.props.project.dbid] : []}
-          value={this.state.dstProjForAdd}
+          excludeProjectDbids={project ? [project.dbid] : []}
+          value={this.state.dstProjectForAdd}
           onChange={this.handleSelectDestProjectForAdd.bind(this)}
           title={
             <FormattedMessage

@@ -36,10 +36,7 @@ class DeleteProjectMediaProjectMutation extends Relay.Mutation {
   }
 
   getVariables() {
-    return {
-      project_id: this.props.project.dbid,
-      project_media_id: this.props.project_media.dbid,
-    };
+    return { id: this.props.id };
   }
 
   getConfigs() {

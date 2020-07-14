@@ -114,6 +114,7 @@ class SearchResultsComponent extends React.PureComponent {
   }
 
   componentDidMount() {
+    this.setProjectId();
     this.resubscribe();
   }
 
@@ -149,6 +150,12 @@ class SearchResultsComponent extends React.PureComponent {
       return null;
     }
     return this.buildSearchUrlAtOffset(this.beginIndex - pageSize);
+  }
+
+  setProjectId() {
+    const { project } = this.props;
+    const projectId = project ? project.dbid : 0;
+    this.props.relay.setVariables({ projectId });
   }
 
   resubscribe() {
@@ -311,6 +318,19 @@ class SearchResultsComponent extends React.PureComponent {
 
     const isProject = !!this.props.project;
 
+
+    const selectedProjectMediaProjectIds = [];
+    const selectedProjectMediaDbids = [];
+
+    projectMedias.forEach((pm) => {
+      if (selectedProjectMediaIds.indexOf(pm.id) !== -1) {
+        if (pm.project_media_project) {
+          selectedProjectMediaProjectIds.push(pm.project_media_project.id);
+        }
+        selectedProjectMediaDbids.push(pm.dbid);
+      }
+    });
+
     let content = null;
 
     if (count === 0) {
@@ -375,6 +395,8 @@ class SearchResultsComponent extends React.PureComponent {
                 team={team}
                 page={this.props.page}
                 project={this.props.project}
+                selectedProjectMediaProjectIds={selectedProjectMediaProjectIds}
+                selectedProjectMediaDbids={selectedProjectMediaDbids}
                 selectedMedia={selectedProjectMediaIds}
                 onUnselectAll={this.onUnselectAll}
               /> : null}
@@ -470,6 +492,7 @@ SearchResultsComponent.propTypes = {
 
 const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsComponent), {
   initialVariables: {
+    projectId: 0,
     pageSize,
   },
   fragments: {
@@ -515,7 +538,10 @@ const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsCom
               first_seen: created_at,
               last_seen,
               share_count,
-              project_id,
+              project_media_project(project_id: $projectId) {
+                dbid
+                id
+              }
               verification_statuses,
             }
           }
@@ -575,7 +601,15 @@ function encodeQueryToMimicTheWayCheckApiGeneratesIds(query, teamSlug) {
 
 export default function SearchResults({ query, teamSlug, ...props }) {
   const jsonEncodedQuery = encodeQueryToMimicTheWayCheckApiGeneratesIds(query, teamSlug);
-  const route = React.useMemo(() => new SearchRoute({ jsonEncodedQuery }), [jsonEncodedQuery]);
+  let projectId = 0;
+  const { projects } = query;
+  if (projects && projects.length === 1) {
+    [projectId] = projects;
+  }
+  const route = React.useMemo(() => new SearchRoute({
+    jsonEncodedQuery,
+    projectId,
+  }), [jsonEncodedQuery]);
 
   return (
     <Relay.RootContainer

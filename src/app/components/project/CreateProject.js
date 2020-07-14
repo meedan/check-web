@@ -34,7 +34,7 @@ class CreateProject extends React.Component {
     this.state = {
       message: null,
       name: null,
-      submitDisabled: false,
+      isSubmitting: false,
     };
   }
 
@@ -61,7 +61,7 @@ class CreateProject extends React.Component {
         />
       );
       const message = getErrorMessage(transaction, fallbackMessage);
-      this.setState({ message, submitDisabled: false });
+      this.setState({ message, isSubmitting: false });
     };
 
     const onSuccess = (response) => {
@@ -71,9 +71,10 @@ class CreateProject extends React.Component {
       if (this.props.onCreate) {
         this.props.onCreate();
       }
+      this.setState({ message: null, name: null, isSubmitting: false });
     };
 
-    if (!this.state.submitDisabled && title) {
+    if (!this.state.isSubmitting && title) {
       Relay.Store.commitUpdate(
         new CreateProjectMutation({
           title,
@@ -81,7 +82,7 @@ class CreateProject extends React.Component {
         }),
         { onSuccess, onFailure },
       );
-      this.setState({ submitDisabled: true });
+      this.setState({ isSubmitting: true });
     }
 
     e.preventDefault();
@@ -100,7 +101,6 @@ class CreateProject extends React.Component {
           <TextField
             key={visible /* re-render -- and thus autofocus -- when visible becomes true */}
             name="title"
-            className={this.props.className}
             placeholder={placeholder /* TODO make it `label`? */}
             style={this.props.style}
             autoFocus={this.props.autoFocus}

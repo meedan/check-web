@@ -16,6 +16,7 @@ import RelayContainer from '../../relay/RelayContainer';
 import CheckContext from '../../CheckContext';
 import { createTag } from '../../relay/mutations/CreateTagMutation';
 import { deleteTag } from '../../relay/mutations/DeleteTagMutation';
+import { getCurrentProjectId } from '../../helpers';
 
 const StyledActions = styled.div`
   padding: ${units(2)};
@@ -212,7 +213,8 @@ const TagMenuContainer = Relay.createContainer(TagMenuComponent, {
 // eslint-disable-next-line react/no-multi-comp
 class TagMenu extends React.PureComponent {
   render() {
-    const ids = `${this.props.media.dbid},${this.props.media.project_id}`;
+    const projectId = getCurrentProjectId(this.props.media.project_ids);
+    const ids = `${this.props.media.dbid},${projectId}`;
     const route = new MediaRoute({ ids });
 
     return (
