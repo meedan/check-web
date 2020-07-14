@@ -24,7 +24,7 @@ import CheckContext from '../../CheckContext';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
 import DeleteRelationshipMutation from '../../relay/mutations/DeleteRelationshipMutation';
 import UpdateRelationshipMutation from '../../relay/mutations/UpdateRelationshipMutation';
-import { truncateLength, getErrorMessage, parseStringUnixTimestamp } from '../../helpers';
+import { truncateLength, getErrorMessage, parseStringUnixTimestamp, getCurrentProjectId } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 import { black87 } from '../../styles/js/shared';
 
@@ -439,7 +439,8 @@ const MediaCondensedContainer = Relay.createContainer(ConnectedMediaCondensedCom
 });
 
 const MediaCondensed = (props) => {
-  const ids = `${props.media.dbid},${props.media.project_id}`;
+  const projectId = getCurrentProjectId(props.media.project_ids);
+  const ids = `${props.media.dbid},${projectId}`;
   const route = new MediaRoute({ ids });
   const cachedMedia = Object.assign({}, props.media);
 

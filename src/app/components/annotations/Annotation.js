@@ -1044,7 +1044,7 @@ class Annotation extends Component {
           authorName={authorName}
         />);
       break;
-    case 'update_projectmedia':
+    case 'update_projectmediaproject':
       if (activity.projects.edges.length > 0 && activity.user) {
         const previousProject = activity.projects.edges[0].node;
         const currentProject = activity.projects.edges[1].node;
@@ -1097,22 +1097,15 @@ class Annotation extends Component {
       }
       break;
     case 'copy_projectmedia':
-      if (activity.projects.edges.length > 0 && activity.teams.edges.length > 0 && activity.user) {
-        const previousProject = activity.projects.edges[0].node;
+      if (activity.teams.edges.length > 0 && activity.user) {
         const previousTeam = activity.teams.edges[0].node;
-        const previousProjectUrl = `/${previousProject.team.slug}/project/`;
         const previousTeamUrl = `/${previousTeam.slug}/`;
         contentTemplate = (
           <span>
             <FormattedMessage
               id="annotation.teamCopied"
-              defaultMessage="Copied from list {previousProject} on workspace {previousTeam} by {author}"
+              defaultMessage="Copied from workspace {previousTeam} by {author}"
               values={{
-                previousProject: (
-                  <Link to={previousProjectUrl + previousTeam.dbid}>
-                    {previousProject.title}
-                  </Link>
-                ),
                 previousTeam: (
                   <Link to={previousTeamUrl}>
                     {previousTeam.name}

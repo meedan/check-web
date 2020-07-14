@@ -28,9 +28,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         check_search_team { id, number_of_results },
         check_search_trash { id, number_of_results },
         check_search_project { id, number_of_results },
-        check_search_project_was { id, number_of_results },
-        project { medias_count },
-        project_was { medias_count },
         related_to { id, relationships, log, log_count, demand, requests_count, linked_items_count },
         relationships_target { id },
         relationships_source { id },
@@ -38,7 +35,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
           demand
           requests_count
           linked_items_count
-          project_id,
           overridden,
           metadata,
           dbid,
@@ -46,6 +42,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
           log_count,
           archived,
           permissions,
+          project_ids,
           media {
             metadata,
             url,
@@ -71,12 +68,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
               id
               trash_count
             }
-          }
-          project {
-            id
-            title
-            search_id
-            medias_count
           }
         }
       }
@@ -135,19 +126,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         };
       }
 
-      response.project = {
-        id: this.props.media.project.id,
-        medias_count: this.props.media.project.medias_count + 1,
-        team: {
-          id: this.props.context.team.id,
-          medias_count: this.props.context.team.medias_count + 1,
-          public_team: {
-            id: this.props.context.team.public_team.id,
-            trash_count: this.props.context.team.public_team.trash_count - 1,
-          },
-        },
-      };
-
       response.affectedId = this.props.id;
 
       return response;
@@ -176,21 +154,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         };
       }
 
-      if (this.props.context.project) {
-        response.project = {
-          id: this.props.media.project.id,
-          medias_count: this.props.context.project.medias_count - 1,
-          team: {
-            id: this.props.context.team.id,
-            medias_count: this.props.context.team.medias_count - 1,
-            public_team: {
-              id: this.props.context.team.public_team.id,
-              trash_count: this.props.context.team.public_team.trash_count + 1,
-            },
-          },
-        };
-      }
-
       response.affectedId = this.props.id;
       return response;
     }
@@ -201,15 +164,11 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
     const vars = {
       id: this.props.id,
       metadata: this.props.metadata,
-      project_id: this.props.project_id,
       related_to_id: this.props.related_to_id,
       refresh_media: this.props.refresh_media,
       update_mt: this.props.update_mt,
       archived: this.props.archived,
     };
-    if (this.props.srcProj) {
-      vars.previous_project_id = this.props.srcProj.dbid;
-    }
     return vars;
   }
 
@@ -230,25 +189,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
                 slug
               }
             }
-            project {
-              id
-              medias_count
-              team {
-                id
-                medias_count
-                public_team {
-                  id
-                  trash_count
-                }
-              }
-              project_medias(first: 20) {
-                edges {
-                  node {
-                    id
-                  }
-                }
-              }
-            },
           }`,
         ],
       },
@@ -324,7 +264,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
       });
 
       ids.check_search_project = this.props.dstProj.search_id;
-      ids.project = this.props.dstProj.id;
     }
 
     if (this.props.archived === 1) {
@@ -399,10 +338,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         metadata
         overridden
         permissions
-        project {  # for the optimistic update. TODO nix this!
-          id
-          medias_count
-        }
       }
     `,
     srcProj: () => Relay.QL`

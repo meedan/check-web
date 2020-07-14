@@ -27,7 +27,6 @@ const mediaFragment = Relay.QL`
     log_count,
     verification_statuses,
     overridden,
-    project_id,
     project_ids,
     pusher_channel,
     domain,
@@ -55,12 +54,6 @@ const mediaFragment = Relay.QL`
         }
       }
     }
-    project {
-      id,
-      dbid,
-      search_id,
-      title
-    },
     media {
       type,
       metadata,

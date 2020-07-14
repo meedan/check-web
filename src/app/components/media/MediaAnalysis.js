@@ -11,6 +11,7 @@ import CreateAnalysisMutation from '../../relay/mutations/CreateAnalysisMutation
 import UpdateAnalysisMutation from '../../relay/mutations/UpdateAnalysisMutation';
 import CheckContext from '../../CheckContext';
 import { stringHelper } from '../../customHelpers';
+import { getCurrentProjectId } from '../../helpers';
 
 class MediaAnalysisComponent extends Component {
   constructor(props) {
@@ -172,7 +173,8 @@ const MediaAnalysisContainer = Relay.createContainer(withSetFlashMessage(MediaAn
 });
 
 const MediaAnalysis = (props) => {
-  const ids = `${props.media.dbid},${props.media.project_id}`;
+  const projectId = getCurrentProjectId(props.media.project_ids);
+  const ids = `${props.media.dbid},${projectId}`;
   const route = new MediaRoute({ ids });
   const cachedMedia = Object.assign({}, props.media);
 

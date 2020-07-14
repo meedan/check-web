@@ -9,7 +9,7 @@ import MediaRoute from '../../relay/MediaRoute';
 import mediaFragment from '../../relay/mediaFragment';
 import MediaDetail from './MediaDetail';
 import MediasLoading from './MediasLoading';
-import { getFilters } from '../../helpers';
+import { getFilters, getCurrentProjectId } from '../../helpers';
 import {
   FlexRow,
   black54,
@@ -213,6 +213,18 @@ const MediaRelatedContainer = Relay.createContainer(withPusher(MediaRelatedCompo
         archived
         permissions
         pusher_channel
+        projects(first: 10000) {
+          edges {
+            node {
+              id
+              dbid
+              title
+              search_id
+              search { id, number_of_results }
+              medias_count
+            }
+          }
+        }
         media {
           quote
         }
@@ -221,15 +233,6 @@ const MediaRelatedContainer = Relay.createContainer(withPusher(MediaRelatedCompo
           slug
           permissions
           search_id
-        }
-        project {
-          dbid
-          search_id
-          permissions
-          team {
-            search_id
-            verification_statuses
-          }
         }
         relationships {
           id
@@ -278,7 +281,8 @@ const MediaRelatedContainer = Relay.createContainer(withPusher(MediaRelatedCompo
 });
 
 const MediaRelated = (props) => {
-  const ids = `${props.media.dbid},${props.media.project_id}`;
+  const projectId = getCurrentProjectId(props.media.project_ids);
+  const ids = `${props.media.dbid},${projectId}`;
   const route = new MediaRoute({ ids });
 
   return (

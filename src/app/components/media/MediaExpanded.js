@@ -18,7 +18,7 @@ import WebPageMediaCard from './WebPageMediaCard';
 import ImageMediaCard from './ImageMediaCard';
 import VideoMediaCard from './VideoMediaCard';
 import PenderCard from '../PenderCard';
-import { parseStringUnixTimestamp, truncateLength } from '../../helpers';
+import { parseStringUnixTimestamp, truncateLength, getCurrentProjectId } from '../../helpers';
 import CheckContext from '../../CheckContext';
 import { withPusher, pusherShape } from '../../pusher';
 import {
@@ -272,17 +272,10 @@ const MediaExpandedContainer = Relay.createContainer(withPusher(MediaExpandedCom
         description
         language_code
         language
-        project_id
         project_ids
         pusher_channel
         dynamic_annotation_language {
           id
-        }
-        project {
-          id
-          dbid
-          title
-          search_id
         }
         relationships {
           id
@@ -355,7 +348,8 @@ const MediaExpandedContainer = Relay.createContainer(withPusher(MediaExpandedCom
 });
 
 const MediaExpanded = (props) => {
-  const ids = `${props.media.dbid},${props.media.project_id}`;
+  const projectId = getCurrentProjectId(props.media.project_ids);
+  const ids = `${props.media.dbid},${projectId}`;
   const route = new MediaRoute({ ids });
 
   return (
