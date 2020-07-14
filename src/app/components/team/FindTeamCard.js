@@ -96,7 +96,6 @@ class FindTeamCard extends React.Component {
       <div>
         <Card className="find-team-card">
           <CardHeader
-            titleStyle={{ fontSize: '20px', lineHeight: '32px' }}
             title={
               <FormattedMessage
                 id="findTeamCard.mainHeading"

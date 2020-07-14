@@ -25,7 +25,6 @@ import VideoAnnotationIcon from '../../../assets/images/video-annotation/video-a
 import TaskUpdate from './TaskUpdate';
 import SourcePicture from '../source/SourcePicture';
 import MediaDetail from '../media/MediaDetail';
-import MediaUtil from '../media/MediaUtil';
 import ProfileLink from '../layout/ProfileLink';
 import ParsedText from '../ParsedText';
 import DeleteAnnotationMutation from '../../relay/mutations/DeleteAnnotationMutation';
@@ -34,7 +33,13 @@ import UpdateTaskMutation from '../../relay/mutations/UpdateTaskMutation';
 import DatetimeTaskResponse from '../task/DatetimeTaskResponse';
 import { can } from '../Can';
 import TimeBefore from '../TimeBefore';
-import { getErrorMessage, getStatus, getStatusStyle, emojify } from '../../helpers';
+import {
+  getErrorMessage,
+  getStatus,
+  getStatusStyle,
+  emojify,
+  parseStringUnixTimestamp,
+} from '../../helpers';
 import globalStrings from '../../globalStrings';
 import { stringHelper } from '../../customHelpers';
 import UserTooltip from '../user/UserTooltip';
@@ -417,7 +422,7 @@ class Annotation extends Component {
         : null;
     }
 
-    const updatedAt = MediaUtil.createdAt({ published: activity.created_at });
+    const updatedAt = parseStringUnixTimestamp(activity.created_at);
     const timestamp = updatedAt
       ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span>
       : null;
@@ -707,7 +712,7 @@ class Annotation extends Component {
       if (object.field_name === 'verification_status_status' && config.appName === 'check' && activityType === 'update_dynamicannotationfield') {
         const statusValue = object.value;
         const statusCode = statusValue.toLowerCase().replace(/[ _]/g, '-');
-        const status = getStatus(this.props.annotated.verification_statuses, statusValue);
+        const status = getStatus(this.props.annotated.team.verification_statuses, statusValue);
         contentTemplate = (
           <span>
             <FormattedMessage
@@ -1039,7 +1044,7 @@ class Annotation extends Component {
           authorName={authorName}
         />);
       break;
-    case 'update_projectmedia':
+    case 'update_projectmediaproject':
       if (activity.projects.edges.length > 0 && activity.user) {
         const previousProject = activity.projects.edges[0].node;
         const currentProject = activity.projects.edges[1].node;
@@ -1092,22 +1097,15 @@ class Annotation extends Component {
       }
       break;
     case 'copy_projectmedia':
-      if (activity.projects.edges.length > 0 && activity.teams.edges.length > 0 && activity.user) {
-        const previousProject = activity.projects.edges[0].node;
+      if (activity.teams.edges.length > 0 && activity.user) {
         const previousTeam = activity.teams.edges[0].node;
-        const previousProjectUrl = `/${previousProject.team.slug}/project/`;
         const previousTeamUrl = `/${previousTeam.slug}/`;
         contentTemplate = (
           <span>
             <FormattedMessage
               id="annotation.teamCopied"
-              defaultMessage="Copied from list {previousProject} on workspace {previousTeam} by {author}"
+              defaultMessage="Copied from workspace {previousTeam} by {author}"
               values={{
-                previousProject: (
-                  <Link to={previousProjectUrl + previousTeam.dbid}>
-                    {previousProject.title}
-                  </Link>
-                ),
                 previousTeam: (
                   <Link to={previousTeamUrl}>
                     {previousTeam.name}

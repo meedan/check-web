@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import qs from 'qs';
-import { LoadScript } from '@react-google-maps/api';
 import Grid from '@material-ui/core/Grid';
 import Drawer from '@material-ui/core/Drawer';
 import IconButton from '@material-ui/core/IconButton';
@@ -12,7 +11,6 @@ import CloseIcon from '@material-ui/icons/Close';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import Toolbar from '@material-ui/core/Toolbar';
-import config from 'config';
 import { withPusher, pusherShape } from '../../pusher';
 import PageTitle from '../PageTitle';
 import MediaDetail from './MediaDetail';
@@ -22,7 +20,7 @@ import MediaAnalysis from './MediaAnalysis';
 import MediaLog from './MediaLog';
 import MediaComments from './MediaComments';
 import MediaRequests from './MediaRequests';
-import MediaUtil from './MediaUtil';
+import MediaTitle from './MediaTitle';
 import MediaTimeline from './MediaTimeline';
 import CheckContext from '../../CheckContext';
 import { columnWidthMedium, columnWidthLarge, units } from '../../styles/js/shared';
@@ -51,8 +49,6 @@ const Column = styled.div`
   padding: ${units(2)};
   flex-grow: 1;
 `;
-
-const GOOGLE_MAPS_LIBRARIES = ['places'];
 
 class MediaComponent extends Component {
   static scrollToAnnotation() {
@@ -241,159 +237,156 @@ class MediaComponent extends Component {
     const { currentUser } = this.getContext();
 
     return (
-      <LoadScript
-        googleMapsApiKey={config.googleMapsApiKey}
-        libraries={GOOGLE_MAPS_LIBRARIES}
-      >
-        <PageTitle
-          prefix={MediaUtil.title(media, media.metadata, this.props.intl)}
-          team={media.team}
-          data-id={media.dbid}
-        >
-          <StyledTwoColumnLayout className="media">
-            <Column>
-              <MediaDetail
-                hideBorder
-                hideRelated
-                media={media}
-                onPlayerReady={this.setPlayerRect}
-                onReady={this.handleMediaDetailReady}
-                onTimelineCommentOpen={this.onTimelineCommentOpen}
-                onVideoAnnoToggle={() => this.setState({ showVideoAnnotation: true })}
-                playerRef={this.playerRef}
-                setPlayerState={this.setPlayerState}
-                {...{
-                  playing, start, end, gaps, seekTo, scrubTo, showVideoAnnotation,
-                }}
+      <div>
+        <MediaTitle projectMedia={media}>
+          {text => (
+            <PageTitle prefix={text} team={media.team} />
+          )}
+        </MediaTitle>
+        <StyledTwoColumnLayout className="media">
+          <Column>
+            <MediaDetail
+              hideBorder
+              hideRelated
+              media={media}
+              onPlayerReady={this.setPlayerRect}
+              onReady={this.handleMediaDetailReady}
+              onTimelineCommentOpen={this.onTimelineCommentOpen}
+              onVideoAnnoToggle={() => this.setState({ showVideoAnnotation: true })}
+              playerRef={this.playerRef}
+              setPlayerState={this.setPlayerState}
+              {...{
+                playing, start, end, gaps, seekTo, scrubTo, showVideoAnnotation,
+              }}
+            />
+            {this.props.extras}
+            <MediaRelated
+              media={media}
+            />
+          </Column>
+          <Column className="media__annotations-column">
+            <Tabs
+              indicatorColor="primary"
+              onChange={this.handleTabChange}
+              scrollButtons="auto"
+              textColor="primary"
+              variant="scrollable"
+              value={this.state.showTab}
+            >
+              { this.state.showRequests ?
+                <Tab
+                  label={
+                    <FormattedMessage
+                      id="mediaComponent.requests"
+                      defaultMessage="Requests"
+                    />
+                  }
+                  value="requests"
+                  className="media-tab__requests"
+                />
+                : null }
+              <Tab
+                label={
+                  <FormattedMessage
+                    id="mediaComponent.tasks"
+                    defaultMessage="Tasks"
+                  />
+                }
+                value="tasks"
+                className="media-tab__tasks"
               />
-              {this.props.extras}
-              <MediaRelated
-                media={media}
+              <Tab
+                label={
+                  <FormattedMessage
+                    id="mediaComponent.analysis"
+                    defaultMessage="Analysis"
+                  />
+                }
+                value="analysis"
+                className="media-tab__analysis"
               />
-            </Column>
-            <Column className="media__annotations-column">
-              <Tabs
-                indicatorColor="primary"
-                onChange={this.handleTabChange}
-                scrollButtons="auto"
-                textColor="primary"
-                variant="scrollable"
-                value={this.state.showTab}
-              >
-                { this.state.showRequests ?
-                  <Tab
-                    label={
-                      <FormattedMessage
-                        id="mediaComponent.requests"
-                        defaultMessage="Requests"
+
+              <Tab
+                label={
+                  <FormattedMessage
+                    id="mediaComponent.notes"
+                    defaultMessage="Notes"
+                  />
+                }
+                value="notes"
+                className="media-tab__comments"
+              />
+              <Tab
+                label={
+                  <FormattedMessage
+                    id="mediaComponent.activity"
+                    defaultMessage="Activity"
+                  />
+                }
+                value="activity"
+                className="media-tab__activity"
+              />
+            </Tabs>
+            { this.state.showTab === 'requests' ? <MediaRequests media={media} /> : null }
+            { this.state.showTab === 'tasks' ? <MediaTasks media={media} /> : null }
+            { this.state.showTab === 'analysis' ? <MediaAnalysis media={media} /> : null }
+            { this.state.showTab === 'notes' ? <MediaComments media={media} onTimelineCommentOpen={this.onTimelineCommentOpen} /> : null }
+            { this.state.showTab === 'activity' ? <MediaLog media={media} /> : null }
+          </Column>
+        </StyledTwoColumnLayout>
+
+        {// render video annotation drawer only if we can anchor it to the bottom of the player:
+          playerRect ?
+            <Drawer
+              PaperProps={{ style: { top: (playerRect.bottom + 10) || 'auto' } }}
+              anchor="bottom"
+              elevation={3}
+              open={showVideoAnnotation}
+              variant="persistent"
+            >
+              <StyledDrawerToolbar>
+                <Grid alignItems="center" container justify="space-between">
+                  <Grid item>
+                    <Tabs value={this.state.videoAnnotationTab}>
+                      <Tab
+                        ariaControls=""
+                        disabled
+                        id="TimelineTab"
+                        label={
+                          <FormattedMessage
+                            id="mediaComponent.timelineTab"
+                            defaultMessage="Timeline"
+                          />
+                        }
+                        value="timeline"
                       />
-                    }
-                    value="requests"
-                    className="media-tab__requests"
-                  />
-                  : null }
-                <Tab
-                  label={
-                    <FormattedMessage
-                      id="mediaComponent.tasks"
-                      defaultMessage="Tasks"
-                    />
-                  }
-                  value="tasks"
-                  className="media-tab__tasks"
-                />
-                <Tab
-                  label={
-                    <FormattedMessage
-                      id="mediaComponent.analysis"
-                      defaultMessage="Analysis"
-                    />
-                  }
-                  value="analysis"
-                  className="media-tab__analysis"
-                />
-
-                <Tab
-                  label={
-                    <FormattedMessage
-                      id="mediaComponent.notes"
-                      defaultMessage="Notes"
-                    />
-                  }
-                  value="notes"
-                  className="media-tab__comments"
-                />
-                <Tab
-                  label={
-                    <FormattedMessage
-                      id="mediaComponent.activity"
-                      defaultMessage="Activity"
-                    />
-                  }
-                  value="activity"
-                  className="media-tab__activity"
-                />
-              </Tabs>
-              { this.state.showTab === 'requests' ? <MediaRequests media={media} /> : null }
-              { this.state.showTab === 'tasks' ? <MediaTasks media={media} /> : null }
-              { this.state.showTab === 'analysis' ? <MediaAnalysis media={media} /> : null }
-              { this.state.showTab === 'notes' ? <MediaComments media={media} onTimelineCommentOpen={this.onTimelineCommentOpen} /> : null }
-              { this.state.showTab === 'activity' ? <MediaLog media={media} /> : null }
-            </Column>
-          </StyledTwoColumnLayout>
-
-          {// render video annotation drawer only if we can anchor it to the bottom of the player:
-            playerRect ?
-              <Drawer
-                PaperProps={{ style: { top: (playerRect.bottom + 10) || 'auto' } }}
-                anchor="bottom"
-                elevation={3}
-                open={showVideoAnnotation}
-                variant="persistent"
-              >
-                <StyledDrawerToolbar>
-                  <Grid alignItems="center" container justify="space-between">
-                    <Grid item>
-                      <Tabs value={this.state.videoAnnotationTab}>
-                        <Tab
-                          ariaControls=""
-                          disabled
-                          id="TimelineTab"
-                          label={
-                            <FormattedMessage
-                              id="mediaComponent.timelineTab"
-                              defaultMessage="Timeline"
-                            />
-                          }
-                          value="timeline"
-                        />
-                      </Tabs>
-                    </Grid>
-                    <Grid item>
-                      <IconButton onClick={() => this.setState({ showVideoAnnotation: false })} size="small"><CloseIcon /></IconButton>
-                    </Grid>
+                    </Tabs>
                   </Grid>
-                </StyledDrawerToolbar>
-                <div aria-labelledby="TimelineTab" role="tabpanel" hidden={this.state.videoAnnotationTab !== 'timeline'}>
-                  <MediaTimeline
-                    setPlayerState={this.setPlayerState}
-                    {...{
-                      media,
-                      fragment,
-                      playing,
-                      duration,
-                      time,
-                      progress,
-                      seekTo,
-                      scrubTo,
-                      currentUser,
-                    }}
-                  />
-                </div>
-              </Drawer>
-              : null}
-        </PageTitle>
-      </LoadScript>
+                  <Grid item>
+                    <IconButton onClick={() => this.setState({ showVideoAnnotation: false })} size="small"><CloseIcon /></IconButton>
+                  </Grid>
+                </Grid>
+              </StyledDrawerToolbar>
+              <div aria-labelledby="TimelineTab" role="tabpanel" hidden={this.state.videoAnnotationTab !== 'timeline'}>
+                <MediaTimeline
+                  setPlayerState={this.setPlayerState}
+                  {...{
+                    media,
+                    fragment,
+                    playing,
+                    duration,
+                    time,
+                    progress,
+                    seekTo,
+                    scrubTo,
+                    currentUser,
+                  }}
+                />
+              </div>
+            </Drawer> :
+            null
+        }
+      </div>
     );
   }
 }
@@ -401,7 +394,6 @@ class MediaComponent extends Component {
 MediaComponent.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
-  intl: intlShape.isRequired,
   pusher: pusherShape.isRequired,
   clientSessionId: PropTypes.string.isRequired,
 };
@@ -410,4 +402,4 @@ MediaComponent.contextTypes = {
   store: PropTypes.object,
 };
 
-export default withPusher(injectIntl(MediaComponent));
+export default withPusher(MediaComponent);

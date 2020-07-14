@@ -6,6 +6,7 @@ import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
 import MediasLoading from './MediasLoading';
 import Annotations from '../annotations/Annotations';
+import { getCurrentProjectId } from '../../helpers';
 
 class MediaCommentsComponent extends Component {
   componentDidMount() {
@@ -153,7 +154,6 @@ const MediaCommentsContainer = Relay.createContainer(withPusher(MediaCommentsCom
                       published,
                       url,
                       metadata,
-                      project_id,
                       last_status,
                       last_status_obj {
                         id
@@ -176,7 +176,6 @@ const MediaCommentsContainer = Relay.createContainer(withPusher(MediaCommentsCom
                       }
                       log_count,
                       permissions,
-                      verification_statuses,
                       domain,
                       team {
                         slug,
@@ -222,7 +221,8 @@ const MediaCommentsContainer = Relay.createContainer(withPusher(MediaCommentsCom
 });
 
 const MediaComments = (props) => {
-  const ids = `${props.media.dbid},${props.media.project_id}`;
+  const projectId = getCurrentProjectId(props.media.project_ids);
+  const ids = `${props.media.dbid},${projectId}`;
   const route = new MediaRoute({ ids });
 
   return (

@@ -2,7 +2,7 @@ import Relay from 'react-relay/classic';
 
 class CreateProjectMediaProjectMutation extends Relay.Mutation {
   getMutation() {
-    return Relay.QL`mutation createProject {
+    return Relay.QL`mutation createProjectMediaProject {
       createProjectMediaProject
     }`;
   }

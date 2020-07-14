@@ -1,19 +1,5 @@
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 
-const customHelpers = {
-  check: {
-    teamStatuses(team) {
-      return team.verification_statuses;
-    },
-    mediaStatuses(media) {
-      return media.verification_statuses;
-    },
-    mediaLastStatus(media) {
-      return media.last_status;
-    },
-  },
-};
-
 const customStrings = {
   check: {
     ABOUT_URL: 'https://meedan.com/check',
@@ -26,29 +12,11 @@ const customStrings = {
   },
 };
 
-function resolveHelper(name, args) {
-  return customHelpers[config.appName][name].apply(this, args);
-}
-
-function teamStatuses(...args) {
-  return resolveHelper('teamStatuses', args);
-}
-
-function mediaStatuses(...args) {
-  return resolveHelper('mediaStatuses', args);
-}
-
-function mediaLastStatus(...args) {
-  return resolveHelper('mediaLastStatus', args);
-}
-
 function stringHelper(key) {
   return customStrings[config.appName][key];
 }
 
+// TODO finish removing customHelpers altogether
 export {
-  teamStatuses,
-  mediaStatuses,
-  mediaLastStatus,
-  stringHelper,
+  stringHelper, // eslint-disable-line import/prefer-default-export
 };

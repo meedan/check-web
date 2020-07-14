@@ -18,13 +18,13 @@ import IconMoreVert from '@material-ui/icons/MoreVert';
 import { can } from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
 import TimeBefore from '../TimeBefore';
-import MediaUtil from './MediaUtil';
+import MediaTypeDisplayName from './MediaTypeDisplayName';
 import MediaRoute from '../../relay/MediaRoute';
 import CheckContext from '../../CheckContext';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
 import DeleteRelationshipMutation from '../../relay/mutations/DeleteRelationshipMutation';
 import UpdateRelationshipMutation from '../../relay/mutations/UpdateRelationshipMutation';
-import { truncateLength, getErrorMessage } from '../../helpers';
+import { truncateLength, getErrorMessage, parseStringUnixTimestamp, getCurrentProjectId } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 import { black87 } from '../../styles/js/shared';
 
@@ -293,7 +293,7 @@ class MediaCondensedComponent extends Component {
           subheader={
             <p>
               <Link to={mediaUrl}>
-                <span>{MediaUtil.mediaTypeLabelFormattedMessage(media.type)}</span>
+                <span><MediaTypeDisplayName mediaType={media.type} /></span>
                 { smoochBotInstalled ?
                   <span>
                     <span style={{ margin: '0 8px' }}> - </span>
@@ -309,7 +309,7 @@ class MediaCondensedComponent extends Component {
                   </span> : null
                 }
                 <span style={{ margin: '0 8px' }}> - </span>
-                <TimeBefore date={MediaUtil.createdAt({ published: media.last_seen })} />
+                <TimeBefore date={parseStringUnixTimestamp(media.last_seen)} />
               </Link>
             </p>
           }
@@ -439,7 +439,8 @@ const MediaCondensedContainer = Relay.createContainer(ConnectedMediaCondensedCom
 });
 
 const MediaCondensed = (props) => {
-  const ids = `${props.media.dbid},${props.media.project_id}`;
+  const projectId = getCurrentProjectId(props.media.project_ids);
+  const ids = `${props.media.dbid},${projectId}`;
   const route = new MediaRoute({ ids });
   const cachedMedia = Object.assign({}, props.media);
 

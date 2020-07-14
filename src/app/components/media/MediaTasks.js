@@ -10,6 +10,7 @@ import MediaRoute from '../../relay/MediaRoute';
 import MediasLoading from './MediasLoading';
 import UserUtil from '../user/UserUtil';
 import CheckContext from '../../CheckContext';
+import { getCurrentProjectId } from '../../helpers';
 import {
   subheading2,
   body1,
@@ -335,11 +336,12 @@ const MediaTasks = (props) => {
   if (!media && params) {
     media = {
       dbid: parseInt(params.mediaId, 10),
-      project_id: parseInt(params.projectId, 10),
+      project_ids: [parseInt(params.projectId, 10)],
     };
   }
 
-  const ids = `${media.dbid},${media.project_id}`;
+  const projectId = getCurrentProjectId(media.project_ids);
+  const ids = `${media.dbid},${projectId}`;
   const route = new MediaRoute({ ids });
 
   return (

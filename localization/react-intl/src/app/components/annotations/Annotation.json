@@ -189,6 +189,6 @@
   },
   {
     "id": "annotation.teamCopied",
-    "defaultMessage": "Copied from list {previousProject} on workspace {previousTeam} by {author}"
+    "defaultMessage": "Copied from workspace {previousTeam} by {author}"
   }
 ]

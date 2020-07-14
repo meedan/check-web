@@ -58,6 +58,9 @@ module ApiHelpers
       project_id = data[:project].dbid
     end
     claim = request_api 'claim', { quote: quote, email: data[:user].email, team_id: data[:team].dbid, project_id: project_id }
+    if project_id
+      claim.full_url = "#{@config['self_url']}/#{data[:team].slug}/project/#{project_id}/media/#{claim.id}"
+    end
     @driver.quit if quit
     claim
   end
@@ -87,8 +90,11 @@ module ApiHelpers
     if project_id == 0
       project_id = data[:project].dbid
     end
-    data = request_api 'link', { url: url, email: data[:user].email, team_id: data[:team].dbid, project_id: project_id }
-    data
+    link = request_api 'link', { url: url, email: data[:user].email, team_id: data[:team].dbid, project_id: project_id }
+    if project_id
+      link.full_url = "#{@config['self_url']}/#{data[:team].slug}/project/#{project_id}/media/#{link.id}"
+    end
+    link
   end
 
   # Create things, then navigate to /my-team/project/123/media/234?listIndex=0

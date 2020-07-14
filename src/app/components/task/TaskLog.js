@@ -262,7 +262,6 @@ const TaskLogContainer = Relay.createContainer(withPusher(TaskLogComponent), {
                       published,
                       url,
                       metadata,
-                      project_id,
                       last_status,
                       last_status_obj {
                         id
@@ -285,7 +284,6 @@ const TaskLogContainer = Relay.createContainer(withPusher(TaskLogComponent), {
                       }
                       log_count,
                       permissions,
-                      verification_statuses,
                       domain,
                       team {
                         slug,
