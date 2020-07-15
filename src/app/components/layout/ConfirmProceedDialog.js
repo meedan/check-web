@@ -37,12 +37,13 @@ const ConfirmProceedDialog = ({
         </Button>
         : null
       }
-      <Button onClick={onCancel}>
+      <Button className="confirm-proceed-dialog__cancel" onClick={onCancel}>
         { cancelLabel ||
           <FormattedMessage {...globalStrings.cancel} />
         }
       </Button>
       <Button
+        className="confirm-proceed-dialog__proceed"
         color="primary"
         disabled={proceedDisabled}
         onClick={onProceed}

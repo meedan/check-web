@@ -73,7 +73,7 @@ const StatusListItem = ({
         }
       />
       <ListItemSecondaryAction>
-        <IconButton onClick={e => setAnchorEl(e.target)}>
+        <IconButton className="status-actions__menu" onClick={e => setAnchorEl(e.target)}>
           <IconMoreVert />
         </IconButton>
         <Menu
@@ -81,13 +81,13 @@ const StatusListItem = ({
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          <MenuItem onClick={handleMakeDefault} disabled={initialStatus}>
+          <MenuItem className="status-actions__make-default" onClick={handleMakeDefault} disabled={initialStatus}>
             <FormattedMessage id="statusListItem.makeDefault" defaultMessage="Make default" />
           </MenuItem>
-          <MenuItem onClick={handleEdit}>
+          <MenuItem className="status-actions__edit" onClick={handleEdit}>
             <FormattedMessage {...globalStrings.edit} />
           </MenuItem>
-          <MenuItem onClick={handleDelete} disabled={preventDelete || initialStatus}>
+          <MenuItem className="status-actions__delete" onClick={handleDelete} disabled={preventDelete || initialStatus}>
             <FormattedMessage {...globalStrings.delete} />
           </MenuItem>
         </Menu>

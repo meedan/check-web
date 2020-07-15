@@ -149,10 +149,11 @@ const EditStatusDialog = ({
         </StyledColorPickerContainer>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onDismiss}>
+        <Button className="edit-status-dialog__dismiss" onClick={onDismiss}>
           <FormattedMessage {...globalStrings.cancel} />
         </Button>
         <Button
+          className="edit-status-dialog__submit"
           onClick={handleSubmit}
           color="primary"
           variant="contained"

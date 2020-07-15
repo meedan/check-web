@@ -63,7 +63,7 @@ const DeleteStatusDialog = ({
                 value={moveToStatus}
                 onChange={handleSelect}
               >
-                <MenuItem value={0}>
+                <MenuItem className="delete-status-dialog__select-item-none" value={0}>
                   <FormattedMessage
                     id="deleteStatusDialog.moveItemsTo"
                     defaultMessage="Move items to"
@@ -71,7 +71,15 @@ const DeleteStatusDialog = ({
                 </MenuItem>
                 { statuses
                   .filter(s => s.id !== deleteStatus.id)
-                  .map(s => <MenuItem key={s.id} value={s.id}>{s.label}</MenuItem>)
+                  .map(s => (
+                    <MenuItem
+                      className={`delete-status-dialog__select-item-${s.id}`}
+                      key={s.id}
+                      value={s.id}
+                    >
+                      {s.label}
+                    </MenuItem>
+                  ))
                 }
               </Select>
             </FormControl>

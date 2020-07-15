@@ -34,7 +34,7 @@ const TranslateStatuses = ({
     setShowWarning(false);
   };
 
-  const handleDialogProceed = () => {
+  const handleSubmit = () => {
     const newStatusesArray = statuses.map((s) => {
       const status = { ...s };
       const locales = { ...s.locales };
@@ -60,15 +60,21 @@ const TranslateStatuses = ({
   const handleSave = () => {
     let missingTranslation = false;
 
-    if (Object.values(translations).length < statuses.length) {
-      missingTranslation = true;
-    } else {
-      Object.values(translations).forEach((t) => {
-        if (t.trim() === '') missingTranslation = true;
-      });
-    }
+    statuses.forEach((s) => {
+      const savedTranslation =
+        s.locales[currentLanguage] &&
+        s.locales[currentLanguage].label;
+      const newTranslation = translations[s.id];
+      if (!savedTranslation && !newTranslation) {
+        missingTranslation = true;
+      }
+    });
 
-    setShowWarning(missingTranslation);
+    if (missingTranslation) {
+      setShowWarning(missingTranslation);
+    } else {
+      handleSubmit();
+    }
   };
 
   const handleTextChange = (id, text) => {
@@ -90,7 +96,7 @@ const TranslateStatuses = ({
             <Typography variant="button">
               {languagesList[currentLanguage].nativeName}
             </Typography>
-            <Button variant="contained" color="primary" onClick={handleSave}>
+            <Button className="translate-statuses__save" variant="contained" color="primary" onClick={handleSave}>
               <FormattedMessage
                 {...globalStrings.save}
               />
@@ -113,11 +119,13 @@ const TranslateStatuses = ({
           </Grid>
           <Grid item xs={6}>
             <TextField
-              fullWidth
+              className="translate-statuses__input"
               defaultValue={
                 s.locales[currentLanguage] ?
                   s.locales[currentLanguage].label : ''
               }
+              fullWidth
+              id={`translate-statuses__input-${s.id}`}
               onChange={e => (handleTextChange(s.id, e.target.value))}
               size="small"
               variant="outlined"
@@ -140,7 +148,7 @@ const TranslateStatuses = ({
           />
         }
         onCancel={handleDialogCancel}
-        onProceed={handleDialogProceed}
+        onProceed={handleSubmit}
       />
     </StyledTranslateStatusesContainer>
   );

@@ -220,7 +220,7 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
                   <HelpIcon className={classes.helpIcon} />
                 </IconButton>
               </Box>
-              <Button className={classes.button} color="primary" variant="contained" onClick={() => setDialogOpen(true)}>
+              <Button className={[classes.button, 'team-statuses__add-button'].join(' ')} color="primary" variant="contained" onClick={() => setDialogOpen(true)}>
                 <FormattedMessage
                   id="statusesComponent.newStatus"
                   defaultMessage="New status"
