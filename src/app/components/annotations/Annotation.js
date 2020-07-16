@@ -712,7 +712,7 @@ class Annotation extends Component {
       if (object.field_name === 'verification_status_status' && config.appName === 'check' && activityType === 'update_dynamicannotationfield') {
         const statusValue = object.value;
         const statusCode = statusValue.toLowerCase().replace(/[ _]/g, '-');
-        const status = getStatus(this.props.annotated.verification_statuses, statusValue);
+        const status = getStatus(this.props.annotated.team.verification_statuses, statusValue);
         contentTemplate = (
           <span>
             <FormattedMessage

@@ -25,7 +25,6 @@ const mediaFragment = Relay.QL`
       target_id
     }
     log_count,
-    verification_statuses,
     overridden,
     project_ids,
     pusher_channel,
