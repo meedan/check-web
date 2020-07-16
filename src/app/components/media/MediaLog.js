@@ -5,6 +5,7 @@ import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
 import MediasLoading from './MediasLoading';
 import Annotations from '../annotations/Annotations';
+import ProfileLink from '../layout/ProfileLink';
 import { getCurrentProjectId } from '../../helpers';
 
 class MediaLogComponent extends Component {
@@ -98,6 +99,7 @@ const MediaLogContainer = Relay.createContainer(withPusher(MediaLogComponent), {
     eventTypes,
     fieldNames,
     annotationTypes,
+    teamSlug,
   },
   fragments: {
     media: () => Relay.QL`
@@ -145,6 +147,9 @@ const MediaLogContainer = Relay.createContainer(withPusher(MediaLogComponent), {
                 dbid,
                 name,
                 is_active,
+                team_user(team_slug: $teamSlug) {
+                  ${ProfileLink.getFragment('teamUser')},
+                },
                 source {
                   id,
                   dbid,

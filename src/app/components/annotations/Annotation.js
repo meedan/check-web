@@ -427,7 +427,7 @@ class Annotation extends Component {
       ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span>
       : null;
     let authorName = activity.user
-      ? <ProfileLink className="annotation__author-name" user={activity.user} team={annotated.team} /> : null;
+      ? <ProfileLink className="annotation__author-name" teamUser={activity.user.team_user} /> : null;
     const object = JSON.parse(activity.object_after);
     const content = object.data;
     const isVideoAnno = object.fragment !== undefined;
@@ -775,7 +775,6 @@ class Annotation extends Component {
         activityType = 'task_answer_suggestion';
         const suggestion = JSON.parse(object.value);
         const review = activity.meta ? JSON.parse(activity.meta) : null;
-        const { team } = this.props.annotated.project_media;
         contentTemplate = (
           <div>
             <div className="annotation__card-content annotation__task-answer-suggestion">
@@ -800,14 +799,14 @@ class Annotation extends Component {
                       id="annotation.suggestionAccepted"
                       defaultMessage="Accepted by {user}"
                       values={{
-                        user: <ProfileLink user={review.user} team={team} />,
+                        user: <ProfileLink teamUser={review.user.team_user} />,
                       }}
                     /> :
                     <FormattedMessage
                       id="annotation.suggestionRejected"
                       defaultMessage="Rejected by {user}"
                       values={{
-                        user: <ProfileLink user={review.user} team={team} />,
+                        user: <ProfileLink teamUser={review.user.team_user} />,
                       }}
                     />
                   }
@@ -1168,8 +1167,7 @@ class Annotation extends Component {
                       {authorName ?
                         <ProfileLink
                           className="annotation__card-author"
-                          user={activity.user}
-                          team={annotated.team}
+                          teamUser={activity.user.team_user}
                         /> : null}
                       <span>
                         {timestamp}
