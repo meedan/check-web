@@ -99,7 +99,7 @@ const MediaLogContainer = Relay.createContainer(withPusher(MediaLogComponent), {
     eventTypes,
     fieldNames,
     annotationTypes,
-    teamSlug,
+    teamSlug: /^\/([^/]+)/.test(window.location.pathname) ? window.location.pathname.match(/^\/([^/]+)/)[1] : null,
   },
   fragments: {
     media: () => Relay.QL`

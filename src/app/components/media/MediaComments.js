@@ -6,6 +6,8 @@ import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
 import MediasLoading from './MediasLoading';
 import Annotations from '../annotations/Annotations';
+import ProfileLink from '../layout/ProfileLink';
+import UserTooltip from '../user/UserTooltip';
 import { getCurrentProjectId } from '../../helpers';
 
 class MediaCommentsComponent extends Component {
@@ -105,6 +107,7 @@ const MediaCommentsContainer = Relay.createContainer(withPusher(MediaCommentsCom
     eventTypes,
     fieldNames,
     annotationTypes,
+    teamSlug: /^\/([^/]+)/.test(window.location.pathname) ? window.location.pathname.match(/^\/([^/]+)/)[1] : null,
   },
   fragments: {
     media: () => Relay.QL`
@@ -131,6 +134,10 @@ const MediaCommentsContainer = Relay.createContainer(withPusher(MediaCommentsCom
                 dbid,
                 name,
                 is_active,
+                team_user(team_slug: $teamSlug) {
+                  ${ProfileLink.getFragment('teamUser')},
+                  ${UserTooltip.getFragment('teamUser')},
+                },
                 source {
                   id,
                   dbid,

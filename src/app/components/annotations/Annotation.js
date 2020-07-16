@@ -1149,7 +1149,7 @@ class Annotation extends Component {
                 )}`}
               >
                 {authorName ?
-                  <RCTooltip placement="top" overlay={<UserTooltip user={activity.user} team={annotated.team} />}>
+                  <RCTooltip placement="top" overlay={<UserTooltip teamUser={activity.user.team_user} />}>
                     <StyledAvatarColumn className="annotation__avatar-col">
                       <SourcePicture
                         className="avatar"
