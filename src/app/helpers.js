@@ -226,12 +226,11 @@ function getCurrentProject(projects) {
 * Get current project id based on curent location and media.projects
 */
 function getCurrentProjectId(projectIds) {
-  let projectId = null;
-  let currentProjectId = window.location.pathname.match(/project\/([0-9]+)/);
-  if (currentProjectId) {
-    currentProjectId = parseInt(currentProjectId[1], 10);
-    if (projectIds.indexOf(currentProjectId) > -1) {
-      projectId = currentProjectId;
+  const currentProjectId = window.location.pathname.match(/project\/([0-9]+)/);
+  let projectId = currentProjectId ? parseInt(currentProjectId[1], 10) : null;
+  if (projectId && projectIds) {
+    if (projectIds.indexOf(projectId) === -1) {
+      projectId = null;
     }
   }
   return projectId;
