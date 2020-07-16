@@ -159,7 +159,6 @@ shared_examples 'smoke' do
   it "should lock and unlock status", bin2: true do
     api_create_team_project_and_link_and_redirect_to_media_page 'http://ca.ios.ba/files/meedan/random.php'
     wait_for_selector(".media")
-    expect(@driver.page_source.include?('makes the test fail')).to be(true)
     wait_for_selector('.media-actions__icon').click
     wait_for_selector('.media-actions__lock-status').click
     wait_for_selector(".media-tab__activity").click
