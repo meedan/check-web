@@ -3,14 +3,8 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import qs from 'qs';
-import Grid from '@material-ui/core/Grid';
-import Drawer from '@material-ui/core/Drawer';
-import IconButton from '@material-ui/core/IconButton';
-import { withStyles } from '@material-ui/core/styles';
-import CloseIcon from '@material-ui/icons/Close';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
-import Toolbar from '@material-ui/core/Toolbar';
 import { withPusher, pusherShape } from '../../pusher';
 import PageTitle from '../PageTitle';
 import MediaDetail from './MediaDetail';
@@ -19,22 +13,11 @@ import MediaTasks from './MediaTasks';
 import MediaAnalysis from './MediaAnalysis';
 import MediaLog from './MediaLog';
 import MediaComments from './MediaComments';
+import MediaDrawer from './MediaDrawer';
 import MediaRequests from './MediaRequests';
 import MediaTitle from './MediaTitle';
-import MediaTimeline from './MediaTimeline';
 import CheckContext from '../../CheckContext';
 import { columnWidthMedium, columnWidthLarge, units } from '../../styles/js/shared';
-
-const styles = theme => ({
-  root: {
-    borderBottom: `1px solid ${theme.palette.divider}`,
-    minHeight: 'auto',
-    paddingLeft: theme.spacing(1),
-    paddingRight: theme.spacing(1),
-  },
-});
-
-const StyledDrawerToolbar = withStyles(styles)(Toolbar);
 
 const StyledTwoColumnLayout = styled.div`
   display: flex;
@@ -92,7 +75,6 @@ class MediaComponent extends Component {
       showVideoAnnotation: Boolean(temporalInterval && instanceId),
       fragment: { t: temporalInterval, id: instanceId },
       playerRect: null,
-      videoAnnotationTab: 'timeline',
     };
 
     this.playerRef = React.createRef();
@@ -132,7 +114,7 @@ class MediaComponent extends Component {
     // or from MediaTags.js
     if (!fragment) return;
     const parsedFragment = parseInt(fragment.substring(2), 10);
-    this.setState({ showVideoAnnotation: true, videoAnnotationTab: 'timeline' });
+    this.setState({ showVideoAnnotation: true });
     this.setPlayerState({ seekTo: parsedFragment });
   };
 
@@ -335,57 +317,23 @@ class MediaComponent extends Component {
           </Column>
         </StyledTwoColumnLayout>
 
-        {// render video annotation drawer only if we can anchor it to the bottom of the player:
-          playerRect ?
-            <Drawer
-              PaperProps={{ style: { top: (playerRect.bottom + 10) || 'auto' } }}
-              anchor="bottom"
-              elevation={3}
-              open={showVideoAnnotation}
-              variant="persistent"
-            >
-              <StyledDrawerToolbar>
-                <Grid alignItems="center" container justify="space-between">
-                  <Grid item>
-                    <Tabs value={this.state.videoAnnotationTab}>
-                      <Tab
-                        ariaControls=""
-                        disabled
-                        id="TimelineTab"
-                        label={
-                          <FormattedMessage
-                            id="mediaComponent.timelineTab"
-                            defaultMessage="Timeline"
-                          />
-                        }
-                        value="timeline"
-                      />
-                    </Tabs>
-                  </Grid>
-                  <Grid item>
-                    <IconButton onClick={() => this.setState({ showVideoAnnotation: false })} size="small"><CloseIcon /></IconButton>
-                  </Grid>
-                </Grid>
-              </StyledDrawerToolbar>
-              <div aria-labelledby="TimelineTab" role="tabpanel" hidden={this.state.videoAnnotationTab !== 'timeline'}>
-                <MediaTimeline
-                  setPlayerState={this.setPlayerState}
-                  {...{
-                    media,
-                    fragment,
-                    playing,
-                    duration,
-                    time,
-                    progress,
-                    seekTo,
-                    scrubTo,
-                    currentUser,
-                  }}
-                />
-              </div>
-            </Drawer> :
-            null
-        }
+        <MediaDrawer
+          handleClose={() => this.setState({ showVideoAnnotation: false })}
+          open={showVideoAnnotation}
+          playerRect={playerRect}
+          setPlayerState={this.setPlayerState}
+          {...{
+            media,
+            fragment,
+            playing,
+            duration,
+            time,
+            progress,
+            seekTo,
+            scrubTo,
+            currentUser,
+          }}
+        />
       </div>
     );
   }
