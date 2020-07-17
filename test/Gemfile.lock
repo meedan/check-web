@@ -26,8 +26,6 @@ GEM
       domain_name (~> 0.5)
     httparty (0.16.2)
       multi_xml (>= 0.5.2)
-    imgur-api (0.0.4)
-      httparty
     json (2.1.0)
     launchy (2.4.3)
       addressable (~> 2.3)
@@ -105,7 +103,6 @@ PLATFORMS
 DEPENDENCIES
   ffi (>= 1.9.24)
   httparty
-  imgur-api
   json
   parallel_split_test
   rack (>= 2.0.6)
@@ -119,4 +116,4 @@ DEPENDENCIES
   travis
 
 BUNDLED WITH
-   1.17.1
+   1.17.3
