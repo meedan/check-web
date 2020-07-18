@@ -35,9 +35,8 @@ export default function MediaDrawer({
     <Drawer
       PaperProps={{
         style: {
-          top: playerRect ? playerRect.bottom + 8 : 'auto',
           minHeight: '200px',
-          maxHeight: playerRect ? 'auto' : '50%',
+          top: playerRect ? playerRect.bottom + 8 : 'auto',
         },
       }}
       anchor="bottom"
