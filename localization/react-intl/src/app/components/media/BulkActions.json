@@ -1,23 +1,23 @@
 [
   {
     "id": "bulkActions.moveToTrashSuccessfully",
-    "defaultMessage": "Done! Please note that it can take a while until the items are actually moved to the trash."
+    "defaultMessage": "Items moved to the trash."
   },
   {
     "id": "bulkActions.restoredFromTrashSuccessfully",
-    "defaultMessage": "Done! Please note that it can take a while until the items are actually restored from the trash."
+    "defaultMessage": "Items restored from the trash."
   },
   {
     "id": "bulkActions.addedSuccessfully",
-    "defaultMessage": "Done! Please note that it can take a while until the items are actually added."
+    "defaultMessage": "Items added to list!"
   },
   {
     "id": "bulkActions.removedSuccessfully",
-    "defaultMessage": "Done! Please note that it can take a while until the items are actually removed from this list."
+    "defaultMessage": "Items removed from this list!"
   },
   {
     "id": "bulkActions.movedSuccessfully",
-    "defaultMessage": "Done! Please note that it can take a while until the items are actually moved."
+    "defaultMessage": "Items moved!"
   },
   {
     "id": "bulkActions.restoreItemsFromTrash",

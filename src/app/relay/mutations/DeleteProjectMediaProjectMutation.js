@@ -10,27 +10,22 @@ class DeleteProjectMediaProjectMutation extends Relay.Mutation {
   getFatQuery() {
     return Relay.QL`
       fragment on DestroyProjectMediaProjectPayload {
-        check_search_project { id, number_of_results, medias },
-        project {
-          id
-          dbid
-          title
-          medias_count
-          search_id
-          team {
-            slug
-          }
-        }
+        project { id, medias_count, dbid, title, team { slug } }
+        check_search_project { id, number_of_results }
+        project_media { id, project_ids }
       }
     `;
   }
 
   getOptimisticResponse() {
     return {
-      deletedId: this.props.project_media.id,
       project: {
         id: this.props.project.id,
         medias_count: this.props.project.medias_count - 1,
+      },
+      check_search_project: {
+        id: this.props.project.search_id,
+        number_of_results: this.props.project.medias_count - 1,
       },
     };
   }
@@ -46,15 +41,8 @@ class DeleteProjectMediaProjectMutation extends Relay.Mutation {
         fieldIDs: {
           check_search_project: this.props.project.search_id,
           project: this.props.project.id,
+          project_media: this.props.projectMedia.id,
         },
-      },
-      {
-        type: 'RANGE_DELETE',
-        parentName: 'check_search_project',
-        parentID: this.props.project.search_id,
-        connectionName: 'medias',
-        pathToConnection: ['check_search_project', 'medias'],
-        deletedIDFieldName: 'deletedId',
       },
     ];
   }
