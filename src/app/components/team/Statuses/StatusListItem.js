@@ -9,7 +9,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import IconMoreVert from '@material-ui/icons/MoreVert';
 import styled from 'styled-components';
-import globalStrings from '../../../globalStrings';
+import { FormattedGlobalMessage } from '../../MappedMessage';
 import { subheading2 } from '../../../styles/js/shared';
 
 const StyledStatusLabel = styled.span`
@@ -20,7 +20,7 @@ const StyledStatusLabel = styled.span`
 
 const StatusListItem = ({
   defaultLanguage,
-  initialStatus,
+  isDefault,
   onDelete,
   onEdit,
   onMakeDefault,
@@ -31,22 +31,22 @@ const StatusListItem = ({
   const handleClose = () => setAnchorEl(null);
   const handleDelete = () => {
     handleClose();
-    if (onDelete) onDelete(status);
+    onDelete(status);
   };
   const handleEdit = () => {
     handleClose();
-    if (onEdit) onEdit(status); // TODO default props to avoid checking?
+    onEdit(status);
   };
   const handleMakeDefault = () => {
     handleClose();
-    if (onMakeDefault) onMakeDefault(status); // TODO default props to avoid checking?
+    onMakeDefault(status);
   };
 
   return (
     <ListItem>
       <ListItemText
         primary={
-          initialStatus ? (
+          isDefault ? (
             <FormattedMessage
               id="statusListItem.default"
               defaultMessage="{statusLabel} (default)"
@@ -81,14 +81,14 @@ const StatusListItem = ({
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          <MenuItem className="status-actions__make-default" onClick={handleMakeDefault} disabled={initialStatus}>
+          <MenuItem className="status-actions__make-default" onClick={handleMakeDefault} disabled={isDefault}>
             <FormattedMessage id="statusListItem.makeDefault" defaultMessage="Make default" />
           </MenuItem>
           <MenuItem className="status-actions__edit" onClick={handleEdit}>
-            <FormattedMessage {...globalStrings.edit} />
+            <FormattedGlobalMessage messageKey="edit" />
           </MenuItem>
-          <MenuItem className="status-actions__delete" onClick={handleDelete} disabled={preventDelete || initialStatus}>
-            <FormattedMessage {...globalStrings.delete} />
+          <MenuItem className="status-actions__delete" onClick={handleDelete} disabled={preventDelete || isDefault}>
+            <FormattedGlobalMessage messageKey="delete" />
           </MenuItem>
         </Menu>
       </ListItemSecondaryAction>
@@ -98,7 +98,7 @@ const StatusListItem = ({
 
 StatusListItem.propTypes = {
   defaultLanguage: PropTypes.string.isRequired,
-  initialStatus: PropTypes.bool,
+  isDefault: PropTypes.bool,
   onDelete: PropTypes.func.isRequired,
   onEdit: PropTypes.func.isRequired,
   onMakeDefault: PropTypes.func.isRequired,
@@ -110,7 +110,7 @@ StatusListItem.propTypes = {
 };
 
 StatusListItem.defaultProps = {
-  initialStatus: false,
+  isDefault: false,
   preventDelete: false,
 };
 

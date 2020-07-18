@@ -9,7 +9,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import { SliderPicker } from 'react-color';
 import styled from 'styled-components';
-import globalStrings from '../../../globalStrings';
+import { FormattedGlobalMessage } from '../../MappedMessage';
 import { caption, opaqueBlack38, opaqueBlack87, units } from '../../../styles/js/shared';
 
 const maxLength = 35;
@@ -49,12 +49,12 @@ const StyledSliderContainer = styled.div`
 
 const EditStatusDialog = ({
   defaultLanguage,
-  onDismiss,
+  onCancel,
   onSubmit,
   open,
-  status,
+  defaultValue: status,
 }) => {
-  const [statusName, setStatusName] = React.useState(status ? status.label : '');
+  const [statusLabel, setStatusLabel] = React.useState(status ? status.label : '');
   const [statusDescription, setStatusDescription] = React.useState(status ? status.locales[defaultLanguage].description : '');
   const [statusColor, setStatusColor] = React.useState(status ? status.style.color : '#000000');
 
@@ -68,13 +68,11 @@ const EditStatusDialog = ({
     if (status) newStatus.id = status.id;
 
     newStatus.locales[defaultLanguage] = {
-      label: statusName,
+      label: statusLabel,
       description: statusDescription,
     };
 
-    if (onSubmit) {
-      onSubmit(newStatus);
-    }
+    onSubmit(newStatus);
   };
 
   return (
@@ -109,8 +107,8 @@ const EditStatusDialog = ({
               values={{ maxLength }}
             />
           )}
-          value={statusName}
-          onChange={e => setStatusName(e.target.value)}
+          value={statusLabel}
+          onChange={e => setStatusLabel(e.target.value)}
           variant="outlined"
           margin="normal"
           fullWidth
@@ -149,8 +147,8 @@ const EditStatusDialog = ({
         </StyledColorPickerContainer>
       </DialogContent>
       <DialogActions>
-        <Button className="edit-status-dialog__dismiss" onClick={onDismiss}>
-          <FormattedMessage {...globalStrings.cancel} />
+        <Button className="edit-status-dialog__dismiss" onClick={onCancel}>
+          <FormattedGlobalMessage messageKey="cancel" />
         </Button>
         <Button
           className="edit-status-dialog__submit"
@@ -159,7 +157,7 @@ const EditStatusDialog = ({
           variant="contained"
         >
           { status ? (
-            <FormattedMessage {...globalStrings.save} />
+            <FormattedGlobalMessage messageKey="save" />
           ) : (
             <FormattedMessage
               id="editStatusDialog.addButton"
@@ -174,14 +172,14 @@ const EditStatusDialog = ({
 
 EditStatusDialog.propTypes = {
   defaultLanguage: PropTypes.string.isRequired,
-  onDismiss: PropTypes.func.isRequired,
+  defaultValue: PropTypes.object,
+  onCancel: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
-  status: PropTypes.object,
 };
 
 EditStatusDialog.defaultProps = {
-  status: null,
+  defaultValue: null,
 };
 
 export default EditStatusDialog;

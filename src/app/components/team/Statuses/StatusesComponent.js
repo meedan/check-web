@@ -56,8 +56,8 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
   const languages = team.get_languages ? JSON.parse(team.get_languages) : [defaultLanguage];
 
   const [currentLanguage, setCurrentLanguage] = React.useState(defaultLanguage);
-  const [dialogOpen, setDialogOpen] = React.useState(false);
-  const [editStatus, setEditStatus] = React.useState(null);
+  const [addingNewStatus, setAddingNewStatus] = React.useState(false);
+  const [selectedStatus, setSelectedStatus] = React.useState(null);
   const [deleteStatus, setDeleteStatus] = React.useState(null);
   const classes = useToolbarStyles();
 
@@ -78,15 +78,31 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
   };
 
   const handleMenuEdit = (status) => {
-    setEditStatus(status);
-    setDialogOpen(true);
+    setSelectedStatus(status);
   };
 
-  const handleHelp = () => {
-    window.open('https://help.checkmedia.org/en/articles/4235955-status-settings');
-  };
+  function submitUpdateStatuses({ input, onCompleted, onError }) {
+    commitMutation(Store, {
+      mutation: graphql`
+        mutation StatusesComponentUpdateTeamMutation($input: UpdateTeamInput!) {
+          updateTeam(input: $input) {
+            team {
+              id
+              verification_statuses_with_counters: verification_statuses(items_count: true, published_reports_count: true)
+              verification_statuses
+            }
+          }
+        }
+      `,
+      variables: {
+        input,
+      },
+      onCompleted,
+      onError,
+    });
+  }
 
-  const submitDeleteStatus = (input) => {
+  function submitDeleteStatus({ input, onCompleted, onError }) {
     commitMutation(Store, {
       mutation: graphql`
         mutation StatusesComponentDeleteTeamStatusMutation($input: DeleteTeamStatusInput!) {
@@ -102,56 +118,57 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
       variables: {
         input,
       },
-      onCompleted: (response, error) => {
-        if (error) {
-          handleError(error);
-        }
-        setDeleteStatus(null);
-      },
-      onError: (error) => {
-        handleError(error);
-        setDeleteStatus(null);
-      },
+      onCompleted,
+      onError,
     });
+  }
+
+  const handleHelp = () => {
+    window.open('https://help.checkmedia.org/en/articles/4235955-status-settings');
   };
 
   const handleDelete = ({ status_id, fallback_status_id }) => {
+    const onCompleted = (response, error) => {
+      if (error) {
+        handleError(error);
+      }
+      setDeleteStatus(null);
+    };
+    const onError = (error) => {
+      handleError(error);
+      setDeleteStatus(null);
+    };
     submitDeleteStatus({
-      team_id: team.id,
-      status_id,
-      fallback_status_id,
+      input: {
+        team_id: team.id,
+        status_id,
+        fallback_status_id,
+      },
+      onCompleted,
+      onError,
     });
   };
 
-  const submitUpdateStatuses = (newStatuses) => {
-    commitMutation(Store, {
-      mutation: graphql`
-        mutation StatusesComponentUpdateTeamMutation($input: UpdateTeamInput!) {
-          updateTeam(input: $input) {
-            team {
-              id
-              verification_statuses_with_counters: verification_statuses(items_count: true, published_reports_count: true)
-              verification_statuses
-            }
-          }
-        }
-      `,
-      variables: {
-        input: {
-          id: team.id,
-          media_verification_statuses: JSON.stringify(newStatuses),
-        },
-      },
-      onCompleted: (response, error) => {
-        if (error) {
-          handleError(error);
-        }
-        setDialogOpen(false);
-      },
-      onError: (error) => {
+  const handleSubmit = (newStatuses) => {
+    const onCompleted = (response, error) => {
+      if (error) {
         handleError(error);
-        setDialogOpen(false);
+      }
+      setAddingNewStatus(false);
+      setSelectedStatus(null);
+    };
+    const onError = (error) => {
+      handleError(error);
+      setAddingNewStatus(false);
+      setSelectedStatus(null);
+    };
+    submitUpdateStatuses({
+      input: {
+        id: team.id,
+        media_verification_statuses: JSON.stringify(newStatuses),
       },
+      onCompleted,
+      onError,
     });
   };
 
@@ -159,7 +176,7 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
     const newStatuses = { ...team.verification_statuses };
     const newStatusesArray = [...newStatuses.statuses];
 
-    if (editStatus && (status.id === editStatus.id)) {
+    if (selectedStatus && (status.id === selectedStatus.id)) {
       const index = newStatusesArray.findIndex(s => s.id === status.id);
       newStatusesArray.splice(index, 1, status);
     } else {
@@ -167,12 +184,12 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
     }
 
     newStatuses.statuses = newStatusesArray;
-    submitUpdateStatuses(newStatuses);
+    handleSubmit(newStatuses);
   };
 
   const handleCancelEdit = () => {
-    setDialogOpen(false);
-    setEditStatus(null);
+    setAddingNewStatus(false);
+    setSelectedStatus(null);
   };
 
   const handleMenuDelete = (status) => {
@@ -193,13 +210,13 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
     }
 
     newStatuses.statuses = newStatusesArray;
-    submitUpdateStatuses(newStatuses);
+    handleSubmit(newStatuses);
   };
 
   const handleTranslateStatuses = (newStatusesArray) => {
     const newStatuses = { ...team.verification_statuses };
     newStatuses.statuses = newStatusesArray;
-    submitUpdateStatuses(newStatuses);
+    handleSubmit(newStatuses);
   };
 
   return (
@@ -220,7 +237,7 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
                   <HelpIcon className={classes.helpIcon} />
                 </IconButton>
               </Box>
-              <Button className={[classes.button, 'team-statuses__add-button'].join(' ')} color="primary" variant="contained" onClick={() => setDialogOpen(true)}>
+              <Button className={[classes.button, 'team-statuses__add-button'].join(' ')} color="primary" variant="contained" onClick={() => setAddingNewStatus(true)}>
                 <FormattedMessage
                   id="statusesComponent.newStatus"
                   defaultMessage="New status"
@@ -246,7 +263,7 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
                     { statuses.map(s => (
                       <StatusListItem
                         defaultLanguage={defaultLanguage}
-                        initialStatus={s.id === defaultStatusId}
+                        isDefault={s.id === defaultStatusId}
                         key={s.id}
                         onDelete={handleMenuDelete}
                         onEdit={handleMenuEdit}
@@ -280,14 +297,14 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
       </ContentColumn>
       <EditStatusDialog
         defaultLanguage={defaultLanguage}
-        key={editStatus}
-        onDismiss={handleCancelEdit}
+        defaultValue={selectedStatus}
+        key={selectedStatus}
+        onCancel={handleCancelEdit}
         onSubmit={handleAddOrEditStatus}
-        open={dialogOpen}
-        status={editStatus}
+        open={addingNewStatus || Boolean(selectedStatus)}
       />
       <DeleteStatusDialog
-        deleteStatus={deleteStatus}
+        defaultValue={deleteStatus}
         key={deleteStatus}
         open={Boolean(deleteStatus)}
         onCancel={() => setDeleteStatus(null)}

@@ -27,7 +27,7 @@ const TranslateStatuses = ({
   currentLanguage,
   onSubmit,
 }) => {
-  const [translations, setStranslations] = React.useState({});
+  const [translations, setTranslations] = React.useState({});
   const [showWarning, setShowWarning] = React.useState(false);
 
   const handleDialogCancel = () => {
@@ -51,10 +51,7 @@ const TranslateStatuses = ({
     });
 
     setShowWarning(false);
-
-    if (onSubmit) {
-      onSubmit(newStatusesArray);
-    }
+    onSubmit(newStatusesArray);
   };
 
   const handleSave = () => {
@@ -80,7 +77,7 @@ const TranslateStatuses = ({
   const handleTextChange = (id, text) => {
     const newTranslations = { ...translations };
     newTranslations[id] = text;
-    setStranslations(newTranslations);
+    setTranslations(newTranslations);
   };
 
   return (
@@ -88,13 +85,15 @@ const TranslateStatuses = ({
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <Typography variant="button">
-            {languagesList[defaultLanguage].nativeName}
+            { languagesList[defaultLanguage] ?
+              languagesList[defaultLanguage].nativeName : defaultLanguage }
           </Typography>
         </Grid>
         <Grid item xs={6}>
           <StyledColHeader>
             <Typography variant="button">
-              {languagesList[currentLanguage].nativeName}
+              { languagesList[currentLanguage] ?
+                languagesList[currentLanguage].nativeName : currentLanguage }
             </Typography>
             <Button className="translate-statuses__save" variant="contained" color="primary" onClick={handleSave}>
               <FormattedMessage
@@ -144,7 +143,7 @@ const TranslateStatuses = ({
         body={
           <FormattedMessage
             id="translateStatuses.missingTranslationsBody"
-            defaultMessage="Some statuses are missing translation. If they need to be used in this language, they will be replaced by the same value in the default language, and may not be legible to users."
+            defaultMessage="Some statuses are missing translations. Users may not be able to read untranslated statuses."
           />
         }
         onCancel={handleDialogCancel}
@@ -155,7 +154,10 @@ const TranslateStatuses = ({
 };
 
 TranslateStatuses.propTypes = {
-  statuses: PropTypes.array.isRequired,
+  statuses: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+  }).isRequired).isRequired,
   defaultLanguage: PropTypes.string.isRequired,
   currentLanguage: PropTypes.string.isRequired,
   onSubmit: PropTypes.func.isRequired,

@@ -1,9 +1,5 @@
 [
   {
-    "id": "confirmProceed.learnMore",
-    "defaultMessage": "Learn more"
-  },
-  {
     "id": "confirmProceed.confirm",
     "defaultMessage": "Confirm and proceed"
   }

@@ -2,18 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 
 const DeleteStatusDialog = ({
-  deleteStatus,
+  defaultValue: deleteStatus,
   onCancel,
   onProceed,
   open,
   statuses,
 }) => {
-  const [moveToStatus, setMoveToStatus] = React.useState(0);
+  const [moveToStatus, setMoveToStatus] = React.useState(null);
 
   const handleSelect = (e) => {
     setMoveToStatus(e.target.value);
@@ -30,13 +31,20 @@ const DeleteStatusDialog = ({
 
   if (!deleteStatus || !open) return null;
 
+  const inputLabel = (
+    <FormattedMessage
+      id="deleteStatusDialog.moveItemsTo"
+      defaultMessage="Move items to"
+    />
+  );
+
   return (
     <ConfirmProceedDialog
       open={open}
       title={
         <FormattedMessage
           id="deleteStatusDialog.statusInUseTitle"
-          defaultMessage="You need change the status of {items_count} items to delete this status"
+          defaultMessage="You need to change the status of {items_count} items to delete this status"
           values={{ items_count: deleteStatus.items_count }}
         />
       }
@@ -45,30 +53,31 @@ const DeleteStatusDialog = ({
           <p>
             <FormattedMessage
               id="deleteStatusDialog.statusInUseMessage"
-              defaultMessage="There are {items_count} items with the status {statusName} that must be moved in order to delete this status, or you can go to each item and edit them individually."
-              values={{ items_count: deleteStatus.items_count, statusName: deleteStatus.label }}
+              defaultMessage="There are {itemsCount} items with the status {statusLabel} that must be changed to other statuses before delete this status. Alternatively, you can change each item statuses individually."
+              values={{ itemsCount: deleteStatus.items_count, statusLabel: deleteStatus.label }}
             />
           </p>
-          <p>
-            <FormattedMessage
-              id="deleteStatusDialog.itemsPublishedMessage"
-              defaultMessage="{published_count} of those items are currently published. Upon moving them to another status, the reports will be paused. Please review those items to re-publish them."
-              values={{ published_count: deleteStatus.published_reports_count }}
-            />
-          </p>
+          { deleteStatus.published_reports_count ?
+            <p>
+              <FormattedMessage
+                id="deleteStatusDialog.itemsPublishedMessage"
+                defaultMessage="{publishedCount} of those items are currently published. Upon moving them to another status, the reports will be paused. Please review those items to re-publish them."
+                values={{ publishedCount: deleteStatus.published_reports_count }}
+              />
+            </p>
+            : null
+          }
           <div>
             <FormControl variant="outlined" fullWidth>
+              <InputLabel id="delete-status-dialog__select">
+                {inputLabel}
+              </InputLabel>
               <Select
                 id="delete-status-dialog__select"
-                value={moveToStatus}
+                defaultValue={null}
+                label={inputLabel}
                 onChange={handleSelect}
               >
-                <MenuItem className="delete-status-dialog__select-item-none" value={0}>
-                  <FormattedMessage
-                    id="deleteStatusDialog.moveItemsTo"
-                    defaultMessage="Move items to"
-                  />
-                </MenuItem>
                 { statuses
                   .filter(s => s.id !== deleteStatus.id)
                   .map(s => (
@@ -88,7 +97,7 @@ const DeleteStatusDialog = ({
       }
       onCancel={onCancel}
       onProceed={handleSubmit}
-      proceedDisabled={moveToStatus === 0}
+      proceedDisabled={!moveToStatus}
       proceedLabel={
         <FormattedMessage
           id="statusesComponent.moveItemsAndDelete"
@@ -100,15 +109,18 @@ const DeleteStatusDialog = ({
 };
 
 DeleteStatusDialog.propTypes = {
-  deleteStatus: PropTypes.object,
+  defaultValue: PropTypes.object,
   onCancel: PropTypes.func.isRequired,
   onProceed: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
-  statuses: PropTypes.array.isRequired,
+  statuses: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+  }).isRequired).isRequired,
 };
 
 DeleteStatusDialog.defaultProps = {
-  deleteStatus: null,
+  defaultValue: {},
 };
 
 export default DeleteStatusDialog;
