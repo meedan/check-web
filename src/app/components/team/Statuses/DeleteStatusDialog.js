@@ -44,8 +44,8 @@ const DeleteStatusDialog = ({
       title={
         <FormattedMessage
           id="deleteStatusDialog.statusInUseTitle"
-          defaultMessage="You need to change the status of {items_count} items to delete this status"
-          values={{ items_count: deleteStatus.items_count }}
+          defaultMessage="You need to change the status of {itemsCount, plural, one {one item} other {# items}} to delete this status"
+          values={{ itemsCount: deleteStatus.items_count }}
         />
       }
       body={
@@ -53,15 +53,21 @@ const DeleteStatusDialog = ({
           <p>
             <FormattedMessage
               id="deleteStatusDialog.statusInUseMessage"
-              defaultMessage="There are {itemsCount} items with the status {statusLabel} that must be changed to other statuses before delete this status. Alternatively, you can change each item statuses individually."
+              defaultMessage="{itemsCount, plural, one {There is one item} other {There are # items}} with the status {statusLabel} that must be changed to other statuses before deleting this status."
               values={{ itemsCount: deleteStatus.items_count, statusLabel: deleteStatus.label }}
             />
+            { deleteStatus.items_count > 1 ? (
+              <FormattedMessage
+                id="deleteStatusDialog.alternatively"
+                defaultMessage="Alternatively, you can change each item statuses individually."
+              />
+            ) : null }
           </p>
           { deleteStatus.published_reports_count ?
             <p>
               <FormattedMessage
                 id="deleteStatusDialog.itemsPublishedMessage"
-                defaultMessage="{publishedCount} of those items are currently published. Upon moving them to another status, the reports will be paused. Please review those items to re-publish them."
+                defaultMessage="{publishedCount, plural, one {One of those items is currently published.} other {# of those items are currently published.}} Upon moving them to another status, the reports will be paused. Please review those items to re-publish them."
                 values={{ publishedCount: deleteStatus.published_reports_count }}
               />
             </p>
