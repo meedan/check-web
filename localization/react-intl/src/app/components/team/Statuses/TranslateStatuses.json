@@ -6,5 +6,9 @@
   {
     "id": "translateStatuses.missingTranslationsBody",
     "defaultMessage": "Some statuses are missing translations. Users may not be able to read untranslated statuses."
+  },
+  {
+    "id": "translateStatuses.continueAndSave",
+    "defaultMessage": "Continue and save"
   }
 ]

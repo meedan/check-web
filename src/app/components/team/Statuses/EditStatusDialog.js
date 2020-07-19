@@ -152,6 +152,7 @@ const EditStatusDialog = ({
         </Button>
         <Button
           className="edit-status-dialog__submit"
+          disabled={!statusLabel}
           onClick={handleSubmit}
           color="primary"
           variant="contained"

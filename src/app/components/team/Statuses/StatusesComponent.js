@@ -149,13 +149,21 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
     });
   };
 
-  const handleSubmit = (newStatuses) => {
+  const handleSubmit = (newStatuses, showSuccessMessage) => {
     const onCompleted = (response, error) => {
       if (error) {
         handleError(error);
       }
       setAddingNewStatus(false);
       setSelectedStatus(null);
+      if (showSuccessMessage) {
+        setFlashMessage((
+          <FormattedMessage
+            id="statusesComponent.saved"
+            defaultMessage="Statuses saved sucessfully!"
+          />
+        ));
+      }
     };
     const onError = (error) => {
       handleError(error);
@@ -195,7 +203,11 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
   const handleMenuDelete = (status) => {
     const statusWithCounters =
       team.verification_statuses_with_counters.statuses.find(t => t.id === status.id);
-    setDeleteStatus(statusWithCounters);
+    if (statusWithCounters.items_count) {
+      setDeleteStatus(statusWithCounters);
+    } else {
+      handleDelete({ status_id: status.id, fallback_status_id: '' });
+    }
   };
 
   const handleMenuMakeDefault = (status) => {
@@ -216,7 +228,7 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
   const handleTranslateStatuses = (newStatusesArray) => {
     const newStatuses = { ...team.verification_statuses };
     newStatuses.statuses = newStatusesArray;
-    handleSubmit(newStatuses);
+    handleSubmit(newStatuses, true);
   };
 
   return (

@@ -9,7 +9,7 @@ import styled from 'styled-components';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import languagesList from '../../../languagesList';
 import { units } from '../../../styles/js/shared';
-import globalStrings from '../../../globalStrings';
+import { FormattedGlobalMessage } from '../../MappedMessage';
 import { StyledStatusLabel } from './StatusListItem';
 
 const StyledTranslateStatusesContainer = styled.div`
@@ -55,16 +55,12 @@ const TranslateStatuses = ({
   };
 
   const handleSave = () => {
-    let missingTranslation = false;
-
-    statuses.forEach((s) => {
+    const missingTranslation = statuses.some((s) => {
       const savedTranslation =
         s.locales[currentLanguage] &&
         s.locales[currentLanguage].label;
       const newTranslation = translations[s.id];
-      if (!savedTranslation && !newTranslation) {
-        missingTranslation = true;
-      }
+      return (!savedTranslation && !newTranslation);
     });
 
     if (missingTranslation) {
@@ -75,8 +71,7 @@ const TranslateStatuses = ({
   };
 
   const handleTextChange = (id, text) => {
-    const newTranslations = { ...translations };
-    newTranslations[id] = text;
+    const newTranslations = { ...translations, [id]: text };
     setTranslations(newTranslations);
   };
 
@@ -96,9 +91,7 @@ const TranslateStatuses = ({
                 languagesList[currentLanguage].nativeName : currentLanguage }
             </Typography>
             <Button className="translate-statuses__save" variant="contained" color="primary" onClick={handleSave}>
-              <FormattedMessage
-                {...globalStrings.save}
-              />
+              <FormattedGlobalMessage messageKey="save" />
             </Button>
           </StyledColHeader>
         </Grid>
@@ -148,6 +141,12 @@ const TranslateStatuses = ({
         }
         onCancel={handleDialogCancel}
         onProceed={handleSubmit}
+        proceedLabel={
+          <FormattedMessage
+            id="translateStatuses.continueAndSave"
+            defaultMessage="Continue and save"
+          />
+        }
       />
     </StyledTranslateStatusesContainer>
   );
