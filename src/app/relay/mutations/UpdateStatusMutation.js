@@ -22,7 +22,6 @@ class UpdateStatusMutation extends Relay.Mutation {
         project_media {
           dbid,
           project_ids,
-          targets_by_users,
           log,
           id,
           last_status,
@@ -39,14 +38,6 @@ class UpdateStatusMutation extends Relay.Mutation {
   getOptimisticResponse() {
     if (this.props.parent_type === 'project_media') {
       const media = this.props.annotated;
-      let smoochBotInstalled = false;
-      if (media.team && media.team.team_bot_installations) {
-        media.team.team_bot_installations.edges.forEach((edge) => {
-          if (edge.node.team_bot.identifier === 'smooch') {
-            smoochBotInstalled = true;
-          }
-        });
-      }
       const optimisticContent = [];
       const obj = {
         project_media: {
@@ -58,18 +49,6 @@ class UpdateStatusMutation extends Relay.Mutation {
           },
         },
       };
-      if (smoochBotInstalled && media.targets_by_users && media.targets_by_users.edges.length > 0) {
-        const targets = [];
-        media.targets_by_users.edges.forEach((target) => {
-          const node = {
-            id: target.node.id,
-            dbid: 0,
-            last_status: this.props.annotation.status,
-          };
-          targets.push({ node });
-        });
-        obj.project_media.targets_by_users = { edges: targets };
-      }
       return obj;
     }
     return {};

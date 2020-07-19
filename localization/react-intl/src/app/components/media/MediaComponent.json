@@ -16,10 +16,6 @@
     "defaultMessage": "Notes"
   },
   {
-    "id": "mediaComponent.location",
-    "defaultMessage": "Location"
-  },
-  {
     "id": "mediaComponent.activity",
     "defaultMessage": "Activity"
   },

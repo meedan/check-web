@@ -113,7 +113,7 @@ class MediaActionsBarComponent extends Component {
     Relay.Store.commitUpdate(
       new CreateProjectMediaProjectMutation({
         project: this.state.dstProj,
-        project_media: this.props.media,
+        projectMedia: this.props.media,
         context,
       }),
       { onSuccess, onFailure: this.fail },
@@ -161,7 +161,6 @@ class MediaActionsBarComponent extends Component {
     Relay.Store.commitUpdate(
       new UpdateProjectMediaProjectMutation({
         id: media.project_media_project.id,
-        project_id: projectId,
         srcProj: this.currentProject(),
         dstProj: this.state.dstProj,
         context,
@@ -192,8 +191,8 @@ class MediaActionsBarComponent extends Component {
     Relay.Store.commitUpdate(
       new DeleteProjectMediaProjectMutation({
         id: projectMediaProject.id,
-        project: projectMediaProject.project,
-        project_media: media,
+        project: this.currentProject(),
+        projectMedia: media,
         context,
       }),
       { onSuccess, onFailure: this.fail },
@@ -761,15 +760,6 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
           url
           embed_path
           metadata
-        }
-        targets_by_users(first: 50) {
-          edges {
-            node {
-              id
-              dbid
-              last_status
-            }
-          }
         }
         last_status
         last_status_obj {
