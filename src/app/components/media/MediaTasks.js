@@ -8,6 +8,7 @@ import { withPusher, pusherShape } from '../../pusher';
 import CreateTask from '../task/CreateTask';
 import MediaRoute from '../../relay/MediaRoute';
 import MediasLoading from './MediasLoading';
+import ProfileLink from '../layout/ProfileLink';
 import UserUtil from '../user/UserUtil';
 import CheckContext from '../../CheckContext';
 import { getCurrentProjectId } from '../../helpers';
@@ -208,6 +209,10 @@ MediaTasksComponent.propTypes = {
 };
 
 const MediaTasksContainer = Relay.createContainer(withPusher(MediaTasksComponent), {
+  prepareVariables: vars => ({
+    ...vars,
+    teamSlug: /^\/([^/]+)/.test(window.location.pathname) ? window.location.pathname.match(/^\/([^/]+)/)[1] : null,
+  }),
   fragments: {
     media: () => Relay.QL`
       fragment on ProjectMedia {
@@ -245,6 +250,9 @@ const MediaTasksContainer = Relay.createContainer(withPusher(MediaTasksComponent
                           id
                           dbid
                           name
+                          team_user(team_slug: $teamSlug) {
+                            ${ProfileLink.getFragment('teamUser')}, # FIXME: Make Task a container
+                          },
                           source {
                             id
                             dbid
@@ -261,6 +269,9 @@ const MediaTasksContainer = Relay.createContainer(withPusher(MediaTasksComponent
                         dbid,
                         name,
                         is_active
+                        team_user(team_slug: $teamSlug) {
+                          ${ProfileLink.getFragment('teamUser')},
+                        },
                         source {
                           id,
                           dbid,
@@ -277,6 +288,9 @@ const MediaTasksContainer = Relay.createContainer(withPusher(MediaTasksComponent
                     name
                     id
                     dbid
+                    team_user(team_slug: $teamSlug) {
+                      ${ProfileLink.getFragment('teamUser')},
+                    },
                     source {
                       id
                       dbid
@@ -297,6 +311,9 @@ const MediaTasksContainer = Relay.createContainer(withPusher(MediaTasksComponent
                       id
                       dbid
                       name
+                      team_user(team_slug: $teamSlug) {
+                        ${ProfileLink.getFragment('teamUser')},
+                      },
                       source {
                         id
                         dbid
@@ -313,6 +330,9 @@ const MediaTasksContainer = Relay.createContainer(withPusher(MediaTasksComponent
                     dbid,
                     name,
                     is_active
+                    team_user(team_slug: $teamSlug) {
+                      ${ProfileLink.getFragment('teamUser')},
+                    },
                     source {
                       id,
                       dbid,
