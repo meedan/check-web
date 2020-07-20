@@ -11,7 +11,12 @@ const LanguageSwitcher = (props) => {
   };
 
   return (
-    <Tabs value={props.currentLanguage} onChange={handleChange} variant="fullWidth">
+    <Tabs
+      value={props.currentLanguage}
+      onChange={handleChange}
+      scrollButtons="auto"
+      variant="scrollable"
+    >
       { props.languages.map((languageCode) => {
         const label = Object.keys(languagesList).indexOf(languageCode) > -1 ?
           languagesList[languageCode].nativeName : languageCode;

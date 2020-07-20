@@ -17,6 +17,10 @@ const globalStrings = defineMessages({
     id: 'global.confirm',
     defaultMessage: 'Confirm',
   },
+  delete: {
+    id: 'global.delete',
+    defaultMessage: 'Delete',
+  },
   ok: {
     id: 'global.ok',
     defaultMessage: 'OK',
