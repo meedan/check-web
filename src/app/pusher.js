@@ -38,7 +38,7 @@ function createPusher({ cluster, pusherKey, debug }) {
     Object.values(callbacks).forEach((callback) => {
       callback();
     });
-  }, 30000);
+  }, 5000);
 
   function processPusherMessage(data, run) {
     const message = safelyParseJSON(data.message, {});

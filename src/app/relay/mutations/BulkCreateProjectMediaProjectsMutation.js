@@ -9,8 +9,11 @@ class BulkCreateProjectMediaProjectsMutation extends Relay.Mutation {
 
   getFatQuery() {
     return Relay.QL`
-      fragment on CreateProjectMediaProjectsMutationPayload {
-       enqueued
+      fragment on CreateProjectMediaProjectsPayload {
+        project {
+          id
+          medias_count
+        }
       }
     `;
   }
@@ -19,22 +22,36 @@ class BulkCreateProjectMediaProjectsMutation extends Relay.Mutation {
     return {
       project: {
         id: this.props.project.id,
-        medias_count: this.props.project.medias_count + this.props.projectMedias.length,
+        medias_count: this.props.project.medias_count + this.props.projectMediaDbids.length,
       },
     };
   }
 
   getVariables() {
-    const vars = [];
-    this.props.projectMedias.forEach((projectMedia) => {
-      vars.push({ project_media_id: projectMedia, project_id: this.props.project.dbid });
-    });
-    return { inputs: vars };
+    const inputs = this.props.projectMediaDbids.map(projectMediaDbid => (
+      { project_media_id: projectMediaDbid, project_id: this.props.project.dbid }
+    ));
+    return { inputs };
   }
 
   getConfigs() {
-    return [];
+    return [
+      {
+        type: 'FIELDS_CHANGE',
+        fieldIDs: { project: this.props.project.id },
+      },
+    ];
   }
+
+  static fragments = {
+    project: () => Relay.QL`
+      fragment on Project {
+        id
+        dbid
+        medias_count
+      }
+    `,
+  };
 }
 
 export default BulkCreateProjectMediaProjectsMutation;
