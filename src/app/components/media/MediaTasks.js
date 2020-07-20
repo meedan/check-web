@@ -209,9 +209,10 @@ MediaTasksComponent.propTypes = {
 };
 
 const MediaTasksContainer = Relay.createContainer(withPusher(MediaTasksComponent), {
-  initialVariables: {
+  prepareVariables: vars => ({
+    ...vars,
     teamSlug: /^\/([^/]+)/.test(window.location.pathname) ? window.location.pathname.match(/^\/([^/]+)/)[1] : null,
-  },
+  }),
   fragments: {
     media: () => Relay.QL`
       fragment on ProjectMedia {
@@ -250,7 +251,7 @@ const MediaTasksContainer = Relay.createContainer(withPusher(MediaTasksComponent
                           dbid
                           name
                           team_user(team_slug: $teamSlug) {
-                            ${ProfileLink.getFragment('teamUser')},
+                            ${ProfileLink.getFragment('teamUser')}, # FIXME: Make Task a container
                           },
                           source {
                             id

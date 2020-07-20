@@ -201,9 +201,10 @@ TaskLogComponent.propTypes = {
 };
 
 const TaskLogContainer = Relay.createContainer(withPusher(TaskLogComponent), {
-  initialVariables: {
+  prepareVariables: vars => ({
+    ...vars,
     teamSlug: /^\/([^/]+)/.test(window.location.pathname) ? window.location.pathname.match(/^\/([^/]+)/)[1] : null,
-  },
+  }),
   fragments: {
     task: () => Relay.QL`
       fragment on Task {
@@ -242,8 +243,8 @@ const TaskLogContainer = Relay.createContainer(withPusher(TaskLogComponent), {
                 name,
                 is_active,
                 team_user(team_slug: $teamSlug) {
-                  ${ProfileLink.getFragment('teamUser')},
-                  ${UserTooltip.getFragment('teamUser')},
+                  ${ProfileLink.getFragment('teamUser')}, # FIXME: Make Annotation a container
+                  ${UserTooltip.getFragment('teamUser')}, # FIXME: Make Annotation a container
                 },
                 source {
                   id,

@@ -99,8 +99,11 @@ const MediaLogContainer = Relay.createContainer(withPusher(MediaLogComponent), {
     eventTypes,
     fieldNames,
     annotationTypes,
-    teamSlug: /^\/([^/]+)/.test(window.location.pathname) ? window.location.pathname.match(/^\/([^/]+)/)[1] : null,
   },
+  prepareVariables: vars => ({
+    ...vars,
+    teamSlug: /^\/([^/]+)/.test(window.location.pathname) ? window.location.pathname.match(/^\/([^/]+)/)[1] : null,
+  }),
   fragments: {
     media: () => Relay.QL`
       fragment on ProjectMedia {
@@ -148,7 +151,7 @@ const MediaLogContainer = Relay.createContainer(withPusher(MediaLogComponent), {
                 name,
                 is_active,
                 team_user(team_slug: $teamSlug) {
-                  ${ProfileLink.getFragment('teamUser')},
+                  ${ProfileLink.getFragment('teamUser')}, # FIXME: Make Annotation a container
                 },
                 source {
                   id,

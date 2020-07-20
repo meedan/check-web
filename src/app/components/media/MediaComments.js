@@ -107,8 +107,11 @@ const MediaCommentsContainer = Relay.createContainer(withPusher(MediaCommentsCom
     eventTypes,
     fieldNames,
     annotationTypes,
-    teamSlug: /^\/([^/]+)/.test(window.location.pathname) ? window.location.pathname.match(/^\/([^/]+)/)[1] : null,
   },
+  prepareVariables: vars => ({
+    ...vars,
+    teamSlug: /^\/([^/]+)/.test(window.location.pathname) ? window.location.pathname.match(/^\/([^/]+)/)[1] : null,
+  }),
   fragments: {
     media: () => Relay.QL`
       fragment on ProjectMedia {
@@ -135,8 +138,8 @@ const MediaCommentsContainer = Relay.createContainer(withPusher(MediaCommentsCom
                 name,
                 is_active,
                 team_user(team_slug: $teamSlug) {
-                  ${ProfileLink.getFragment('teamUser')},
-                  ${UserTooltip.getFragment('teamUser')},
+                  ${ProfileLink.getFragment('teamUser')}, # FIXME: Make Annotation a container
+                  ${UserTooltip.getFragment('teamUser')}, # FIXME: Make Annotation a container
                 },
                 source {
                   id,
