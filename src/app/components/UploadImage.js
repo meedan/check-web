@@ -66,29 +66,46 @@ const Preview = styled.span`
   width: ${previewSize};
 `;
 
-const UploadMessage = ({ type, about }) => type === 'image' ? (
-  <FormattedMessage
-    id="uploadImage.message"
-    defaultMessage="Drop an image file here, or click to upload a file (max size: {upload_max_size}, allowed extensions: {upload_extensions}, allowed dimensions between {upload_min_dimensions} and {upload_max_dimensions} pixels)"
-    values={{
-      upload_max_size: about.upload_max_size,
-      upload_extensions: about.upload_extensions,
-      upload_max_dimensions: about.upload_max_dimensions,
-      upload_min_dimensions: about.upload_min_dimensions,
-    }}
-  />
-) : (
-  <FormattedMessage
-    id="uploadImage.videoMessage"
-    defaultMessage="Drop a video file here, or click to upload a file (max size: {video_max_size}, allowed extensions: {video_extensions})"
-    values={{
-      video_max_size: about.video_max_size,
-      video_extensions: about.video_extensions,
-    }}
-  />
-);
+const UploadMessage = ({ type, about }) => {
+  switch (type) {
+  case 'image': return (
+    <FormattedMessage
+      id="uploadImage.message"
+      defaultMessage="Drop an image file here, or click to upload a file (max size: {upload_max_size}, allowed extensions: {upload_extensions}, allowed dimensions between {upload_min_dimensions} and {upload_max_dimensions} pixels)"
+      values={{
+        upload_max_size: about.upload_max_size,
+        upload_extensions: about.upload_extensions,
+        upload_max_dimensions: about.upload_max_dimensions,
+        upload_min_dimensions: about.upload_min_dimensions,
+      }}
+    />
+  );
+  case 'video': return (
+    <FormattedMessage
+      id="uploadImage.videoMessage"
+      defaultMessage="Drop a video file here, or click to upload a file (max size: {video_max_size}, allowed extensions: {video_extensions})"
+      values={{
+        video_max_size: about.video_max_size,
+        video_extensions: about.video_extensions,
+      }}
+    />
+  );
+  case 'audio': return (
+    <FormattedMessage
+      id="uploadImage.audioMessage"
+      defaultMessage="Drop an audio file here, or click to upload a file (max size: {audio_max_size}, allowed extensions: {audio_extensions})"
+      values={{
+        audio_max_size: about.audio_max_size,
+        audio_extensions: about.audio_extensions,
+      }}
+    />
+  );
+  default: return null;
+  }
+};
+
 UploadMessage.propTypes = {
-  type: PropTypes.oneOf(['image', 'video']).isRequired,
+  type: PropTypes.oneOf(['image', 'video', 'audio']).isRequired,
   about: PropTypes.shape({
     upload_max_size: PropTypes.string.isRequired,
     upload_extensions: PropTypes.string.isRequired,
@@ -96,6 +113,8 @@ UploadMessage.propTypes = {
     upload_min_dimensions: PropTypes.string.isRequired,
     video_max_size: PropTypes.string.isRequired,
     video_extensions: PropTypes.string.isRequired,
+    audio_max_size: PropTypes.string.isRequired,
+    audio_extensions: PropTypes.string.isRequired,
   }).isRequired,
 };
 
@@ -108,8 +127,18 @@ class UploadImageComponent extends React.PureComponent {
       onError,
     } = this.props;
     const file = files[0];
-    const extensions = type === 'image' ? about.upload_extensions : about.video_extensions;
-    const maxSize = type === 'image' ? about.upload_max_size : about.video_max_size;
+    let extensions = '';
+    let maxSize = 0;
+    if (type === 'image') {
+      extensions = about.upload_extensions;
+      maxSize = about.upload_max_size;
+    } else if (type === 'video') {
+      extensions = about.video_extensions;
+      maxSize = about.video_max_size;
+    } else if (type === 'audio') {
+      extensions = about.audio_extensions;
+      maxSize = about.audio_max_size;
+    }
     const valid_extensions = extensions.toLowerCase().split(/[\s,]+/);
     const extension = file.name.substr(file.name.lastIndexOf('.') + 1).toLowerCase();
     if (valid_extensions.length > 0 && valid_extensions.indexOf(extension) < 0) {
@@ -195,6 +224,8 @@ const UploadImage = childProps => (
           upload_extensions
           video_max_size
           video_extensions
+          audio_max_size
+          audio_extensions
           upload_max_dimensions
           upload_min_dimensions
         }
@@ -216,7 +247,7 @@ UploadImage.defaultProps = {
 };
 UploadImage.propTypes = {
   value: PropTypes.object, // or null
-  type: PropTypes.oneOf(['image', 'video']).isRequired,
+  type: PropTypes.oneOf(['image', 'video', 'audio']).isRequired,
   noPreview: PropTypes.bool,
   onChange: PropTypes.func.isRequired, // func(Image) => undefined
   onError: PropTypes.func.isRequired, // func(Image?, <FormattedMessage ...>) => undefined

@@ -58,8 +58,17 @@ class CreateProjectMediaMutation extends Relay.Mutation {
   }
 
   getFiles() {
-    const { image, video } = this.props;
-    const file = this.props.mode === 'image' ? image : video;
+    const {
+      mode, image, video, audio,
+    } = this.props;
+    let file = null;
+    if (mode === 'image') {
+      file = image;
+    } else if (mode === 'video') {
+      file = video;
+    } else if (mode === 'audio') {
+      file = audio;
+    }
     return { file };
   }
 

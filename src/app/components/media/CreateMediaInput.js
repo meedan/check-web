@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 import MovieIcon from '@material-ui/icons/Movie';
+import AudiotrackIcon from '@material-ui/icons/Audiotrack';
 import FormatQuoteIcon from '@material-ui/icons/FormatQuote';
 import LinkIcon from '@material-ui/icons/Link';
 import styled from 'styled-components';
@@ -46,6 +47,8 @@ class CreateMediaInput extends React.Component {
     imageMessage: null,
     videoFile: null,
     videoMessage: null,
+    audioFile: null,
+    audioMessage: null,
   };
 
   getMediaInputValue = () => {
@@ -53,11 +56,13 @@ class CreateMediaInput extends React.Component {
       mode,
       imageFile,
       videoFile,
+      audioFile,
       textValue,
     } = this.state;
     let mediaType = '';
     let image = '';
     let video = '';
+    let audio = '';
     let inputValue = '';
     let urls = '';
     let url = '';
@@ -73,6 +78,12 @@ class CreateMediaInput extends React.Component {
       video = videoFile;
       mediaType = 'UploadedVideo';
       if (!video) {
+        return null;
+      }
+    } else if (mode === 'audio') {
+      audio = audioFile;
+      mediaType = 'UploadedAudio';
+      if (!audio) {
         return null;
       }
     } else if (mode === 'quote') {
@@ -109,13 +120,17 @@ class CreateMediaInput extends React.Component {
     if (video !== '') {
       title = video.name;
     }
+    if (audio !== '') {
+      title = audio.name;
+    }
 
-    if (url || quote || image || video) {
+    if (url || quote || image || video || audio) {
       return ({
         url,
         quote,
         image,
         video,
+        audio,
         title,
         mode: this.state.mode,
         mediaType,
@@ -126,9 +141,13 @@ class CreateMediaInput extends React.Component {
   };
 
   get currentErrorMessageOrNull() {
-    const { mode, imageMessage, videoMessage } = this.state;
+    const {
+      mode, imageMessage, videoMessage, audioMessage,
+    } = this.state;
     if (mode === 'video' && videoMessage) {
       return videoMessage;
+    } else if (mode === 'audioMessage' && audioMessage) {
+      return audioMessage;
     } else if (mode === 'image' && imageMessage) {
       return imageMessage;
     }
@@ -184,6 +203,14 @@ class CreateMediaInput extends React.Component {
     this.setState({ videoFile: null, videoMessage: message });
   };
 
+  handleAudioChange = (file) => {
+    this.setState({ audioFile: file, audioMessage: null });
+  };
+
+  handleAudioError = (file, message) => {
+    this.setState({ audioFile: null, audioMessage: message });
+  };
+
   handleChange = (ev) => {
     const textValue = ev.target.value;
     this.setState({ textValue });
@@ -196,6 +223,8 @@ class CreateMediaInput extends React.Component {
       imageMessage: null,
       videoFile: null,
       videoMessage: null,
+      audioFile: null,
+      audioMessage: null,
     });
   }
 
@@ -225,6 +254,16 @@ class CreateMediaInput extends React.Component {
         onChange={this.handleVideoChange}
         onError={this.handleVideoError}
         value={this.state.videoFile}
+        noPreview
+      />
+    );
+    case 'audio': return (
+      <UploadImage
+        key="createMedia.audio.upload"
+        type="audio"
+        onChange={this.handleAudioChange}
+        onError={this.handleAudioError}
+        value={this.state.audioFile}
         noPreview
       />
     );
@@ -321,6 +360,17 @@ class CreateMediaInput extends React.Component {
                   <MovieIcon />
                   <StyledTabLabelText>
                     <FormattedMessage id="createMedia.video" defaultMessage="Video" />
+                  </StyledTabLabelText>
+                </StyledTabLabel>
+              </Button>
+              <Button
+                id="create-media__audio"
+                onClick={e => this.handleTabChange(e, 'audio')}
+              >
+                <StyledTabLabel active={this.state.mode === 'audio'}>
+                  <AudiotrackIcon />
+                  <StyledTabLabelText>
+                    <FormattedMessage id="createMedia.audio" defaultMessage="Audio" />
                   </StyledTabLabelText>
                 </StyledTabLabel>
               </Button>

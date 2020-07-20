@@ -14,5 +14,9 @@
   {
     "id": "media.typeVideo",
     "defaultMessage": "Video"
+  },
+  {
+    "id": "media.typeAudio",
+    "defaultMessage": "Audio"
   }
 ]
