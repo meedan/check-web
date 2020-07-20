@@ -807,6 +807,18 @@ SearchQueryComponent.propTypes = {
   clientSessionId: PropTypes.string.isRequired,
   query: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired, // onChange({ ... /* query */ }) => undefined
+  team: PropTypes.shape({
+    dynamic_search_fields_json_schema: PropTypes.shape({
+      properties: PropTypes.object.isRequired,
+    }).isRequired,
+    rules_search_fields_json_schema: PropTypes.shape({
+      rules: PropTypes.shape({
+        properties: PropTypes.arrayOf(PropTypes.shape({
+          label: PropTypes.string.isRequired,
+        }).isRequired).isRequired,
+      }).isRequired,
+    }).isRequired,
+  }).isRequired,
 };
 
 SearchQueryComponent.contextTypes = {
