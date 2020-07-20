@@ -13,6 +13,6 @@ describe('<TimeBefore />', () => {
     expect(container.prop('title')).toEqual('February 8, 2017, 5:19 PM');
     const content = wrapper.find('time span');
     expect(content.length).toEqual(1);
-    expect(content.text()).toEqual('3 years ago');
+    expect(content.text()).toMatch('years ago');
   });
 });
