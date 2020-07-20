@@ -123,7 +123,7 @@ function MoveProjectMediaToProjectAction({
       toProject,
       onSuccess: () => {
         setIsSaving(false);
-        browserHistory.push(`/${team.slug}/project/${toProject.dbid}/media/${projectMedia.dbid}`);
+        browserHistory.push(`/${team.slug}/project/${toProject.dbid}`);
       },
       onFailure: (errors) => {
         setIsSaving(false);
