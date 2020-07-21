@@ -12,20 +12,7 @@ class CreateStatusMutation extends Relay.Mutation {
     case 'source':
       return Relay.QL`fragment on CreateDynamicPayload { dynamicEdge, source { id } }`;
     case 'project_media':
-      return Relay.QL`fragment on CreateDynamicPayload {
-        dynamicEdge,
-        project_media {
-          dbid,
-          project_ids,
-          log,
-          id,
-          last_status,
-          log_count,
-          last_status_obj {
-            id
-          }
-        }
-      }`;
+      return Relay.QL`fragment on CreateDynamicPayload { dynamicEdge, project_media { log, id, last_status, log_count, last_status_obj { id } } }`;
     default:
       return '';
     }
