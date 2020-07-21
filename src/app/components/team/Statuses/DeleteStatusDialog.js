@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -51,16 +51,22 @@ const DeleteStatusDialog = ({
       body={
         <React.Fragment>
           <p>
-            <FormattedHTMLMessage
+            <FormattedMessage
               id="deleteStatusDialog.statusInUseMessage"
-              defaultMessage="{itemsCount, plural, one {There is one item} other {There are # items}} with the status <b>{statusLabel}</b> that must be changed to other statuses before deleting this status."
-              values={{ itemsCount: deleteStatus.items_count, statusLabel: deleteStatus.label }}
+              defaultMessage="{itemsCount, plural, one {There is one item} other {There are # items}} with the status {statusLabel} that must be changed to other statuses before deleting this status."
+              values={{
+                itemsCount: deleteStatus.items_count,
+                statusLabel: <strong>{deleteStatus.label}</strong>,
+              }}
             />
             { deleteStatus.items_count > 1 ? (
-              <FormattedMessage
-                id="deleteStatusDialog.alternatively"
-                defaultMessage="Alternatively, you can change each item statuses individually."
-              />
+              <span>
+                {' '}
+                <FormattedMessage
+                  id="deleteStatusDialog.alternatively"
+                  defaultMessage="Alternatively, you can change each item statuses individually."
+                />
+              </span>
             ) : null }
           </p>
           { deleteStatus.published_reports_count ?
