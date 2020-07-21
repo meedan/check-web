@@ -107,6 +107,7 @@ const MediaCommentsContainer = Relay.createContainer(withPusher(MediaCommentsCom
     eventTypes,
     fieldNames,
     annotationTypes,
+    teamSlug: null,
   },
   prepareVariables: vars => ({
     ...vars,

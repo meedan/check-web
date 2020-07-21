@@ -201,6 +201,9 @@ TaskLogComponent.propTypes = {
 };
 
 const TaskLogContainer = Relay.createContainer(withPusher(TaskLogComponent), {
+  initialVariables: {
+    teamSlug: null,
+  },
   prepareVariables: vars => ({
     ...vars,
     teamSlug: /^\/([^/]+)/.test(window.location.pathname) ? window.location.pathname.match(/^\/([^/]+)/)[1] : null,

@@ -99,6 +99,7 @@ const MediaLogContainer = Relay.createContainer(withPusher(MediaLogComponent), {
     eventTypes,
     fieldNames,
     annotationTypes,
+    teamSlug: null,
   },
   prepareVariables: vars => ({
     ...vars,
