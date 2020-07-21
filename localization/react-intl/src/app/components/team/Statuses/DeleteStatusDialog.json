@@ -9,11 +9,11 @@
   },
   {
     "id": "deleteStatusDialog.statusInUseMessage",
-    "defaultMessage": "{itemsCount, plural, one {There is one item} other {There are # items}} with the status {statusLabel} that must be changed to other statuses before deleting this status."
+    "defaultMessage": "There {itemsCount, plural, one {is one item} other {are # items}} with the status {statusLabel} that must be changed to other statuses before deleting this status."
   },
   {
     "id": "deleteStatusDialog.alternatively",
-    "defaultMessage": "Alternatively, you can change each item statuses individually."
+    "defaultMessage": "Alternatively, you can change each item status individually."
   },
   {
     "id": "deleteStatusDialog.itemsPublishedMessage",
