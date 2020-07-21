@@ -22,6 +22,7 @@ const ReportDesignerContainer = Relay.createContainer(ReportDesignerComponent, {
         demand
         description
         last_status
+        project_ids
         media {
           picture
         }
