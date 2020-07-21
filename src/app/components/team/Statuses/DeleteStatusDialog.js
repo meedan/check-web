@@ -54,13 +54,19 @@ const DeleteStatusDialog = ({
             <FormattedMessage
               id="deleteStatusDialog.statusInUseMessage"
               defaultMessage="{itemsCount, plural, one {There is one item} other {There are # items}} with the status {statusLabel} that must be changed to other statuses before deleting this status."
-              values={{ itemsCount: deleteStatus.items_count, statusLabel: deleteStatus.label }}
+              values={{
+                itemsCount: deleteStatus.items_count,
+                statusLabel: <strong>{deleteStatus.label}</strong>,
+              }}
             />
             { deleteStatus.items_count > 1 ? (
-              <FormattedMessage
-                id="deleteStatusDialog.alternatively"
-                defaultMessage="Alternatively, you can change each item statuses individually."
-              />
+              <span>
+                {' '}
+                <FormattedMessage
+                  id="deleteStatusDialog.alternatively"
+                  defaultMessage="Alternatively, you can change each item statuses individually."
+                />
+              </span>
             ) : null }
           </p>
           { deleteStatus.published_reports_count ?
