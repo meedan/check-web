@@ -53,7 +53,8 @@ const DeleteStatusDialog = ({
           <p>
             <FormattedMessage
               id="deleteStatusDialog.statusInUseMessage"
-              // FIXME Transifex does not accept a plural form at string start (wrongly), that's why I moved "There" outside.
+              // FIXME Transifex does not accept a plural form at string start (wrongly)
+              // that's why I moved "There" outside.
               defaultMessage="There {itemsCount, plural, one {is one item} other {are # items}} with the status {statusLabel} that must be changed to other statuses before deleting this status."
               values={{
 
