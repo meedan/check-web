@@ -1,25 +1,41 @@
 import React from 'react';
+import Relay from 'react-relay/classic';
 import { Link } from 'react-router';
 import Tooltip from 'rc-tooltip';
 import UserTooltip from '../user/UserTooltip';
 
-const ProfileLink = (props) => {
-  if (!props.user) return null;
+const ProfileLink = ({ className, teamUser }) => {
+  if (!teamUser) return null;
 
   let url = '';
-  if (props.user.dbid && props.user.is_active) {
-    url = `/check/user/${props.user.dbid}`;
+  if (teamUser.user.dbid && teamUser.user.is_active) {
+    url = `/check/user/${teamUser.user.dbid}`;
   }
 
   return url ?
-    <Tooltip placement="top" overlay={<UserTooltip user={props.user} team={props.team} />}>
-      <Link to={url} className={props.className}>
-        {props.user.name}
+    <Tooltip placement="top" overlay={<UserTooltip teamUser={teamUser} />}>
+      <Link to={url} className={className}>
+        {teamUser.user.name}
       </Link>
     </Tooltip> :
-    <span className={props.className}>
-      {props.user.name}
+    <span className={className}>
+      {teamUser.user.name}
     </span>;
 };
 
-export default ProfileLink;
+export default Relay.createContainer(ProfileLink, {
+  fragments: {
+    teamUser: () => Relay.QL`
+      fragment on TeamUser {
+        id
+        ${UserTooltip.getFragment('teamUser')}
+        user {
+          id
+          dbid
+          name
+          is_active
+        }
+      }
+    `,
+  },
+});
