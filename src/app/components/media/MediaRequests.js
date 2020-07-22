@@ -6,6 +6,8 @@ import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
 import MediasLoading from './MediasLoading';
 import Annotations from '../annotations/Annotations';
+import ProfileLink from '../layout/ProfileLink';
+import UserTooltip from '../user/UserTooltip';
 import { getCurrentProjectId } from '../../helpers';
 
 class MediaRequestsComponent extends Component {
@@ -123,6 +125,10 @@ const MediaRequestsContainer = Relay.createContainer(withPusher(MediaRequestsCom
                 dbid,
                 name,
                 is_active,
+                team_user(team_slug: $teamSlug) {
+                  ${ProfileLink.getFragment('teamUser')}, # FIXME: Make Annotation a container
+                  ${UserTooltip.getFragment('teamUser')}, # FIXME: Make Annotation a container
+                },
                 source {
                   id,
                   dbid,

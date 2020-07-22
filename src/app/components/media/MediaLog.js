@@ -153,6 +153,7 @@ const MediaLogContainer = Relay.createContainer(withPusher(MediaLogComponent), {
                 is_active,
                 team_user(team_slug: $teamSlug) {
                   ${ProfileLink.getFragment('teamUser')}, # FIXME: Make Annotation a container
+                  ${UserTooltip.getFragment('teamUser')}, # FIXME: Make Annotation a container
                 },
                 source {
                   id,
