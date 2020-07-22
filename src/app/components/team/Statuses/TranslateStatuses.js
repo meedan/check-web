@@ -106,7 +106,8 @@ const TranslateStatuses = ({
         >
           <Grid item xs={6}>
             <StyledStatusLabel color={s.style.color}>
-              {s.label}
+              { s.locales[defaultLanguage] ?
+                s.locales[defaultLanguage].label : s.label }
             </StyledStatusLabel>
           </Grid>
           <Grid item xs={6}>
