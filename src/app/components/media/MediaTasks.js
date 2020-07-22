@@ -209,6 +209,9 @@ MediaTasksComponent.propTypes = {
 };
 
 const MediaTasksContainer = Relay.createContainer(withPusher(MediaTasksComponent), {
+  initialVariables: {
+    teamSlug: null,
+  },
   prepareVariables: vars => ({
     ...vars,
     teamSlug: /^\/([^/]+)/.test(window.location.pathname) ? window.location.pathname.match(/^\/([^/]+)/)[1] : null,
