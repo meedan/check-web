@@ -17,6 +17,7 @@ import QuoteMediaCard from './QuoteMediaCard';
 import WebPageMediaCard from './WebPageMediaCard';
 import ImageMediaCard from './ImageMediaCard';
 import VideoMediaCard from './VideoMediaCard';
+import AudioMediaCard from './AudioMediaCard';
 import PenderCard from '../PenderCard';
 import { parseStringUnixTimestamp, truncateLength, getCurrentProjectId } from '../../helpers';
 import CheckContext from '../../CheckContext';
@@ -116,6 +117,7 @@ class MediaExpandedComponent extends Component {
     const data = typeof media.metadata === 'string' ? JSON.parse(media.metadata) : media.metadata;
     const isImage = media.media.type === 'UploadedImage';
     const isVideo = media.media.type === 'UploadedVideo';
+    const isAudio = media.media.type === 'UploadedAudio';
     const isQuote = media.media.type === 'Claim';
     const isWebPage = media.media.url && data.provider === 'page';
     const authorName = MediaUtil.authorName(media, data);
@@ -129,6 +131,17 @@ class MediaExpandedComponent extends Component {
     const embedCard = (() => {
       if (isImage) {
         return <ImageMediaCard imagePath={media.embed_path} />;
+      } else if (isAudio) {
+        return (
+          <div ref={this.props.playerRef}>
+            <AudioMediaCard
+              audioPath={media.media.file_path}
+              {...{
+                playing, start, end, gaps, scrubTo, seekTo, onPlayerReady, setPlayerState,
+              }}
+            />
+          </div>
+        );
       } else if (isVideo) {
         return (
           <div ref={this.props.playerRef}>
