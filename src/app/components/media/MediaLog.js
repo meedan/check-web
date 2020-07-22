@@ -112,6 +112,7 @@ const MediaLogContainer = Relay.createContainer(withPusher(MediaLogComponent), {
         id
         dbid
         pusher_channel
+        team { verification_statuses } # FIXME: Make Annotation a container
         log(last: $pageSize, event_types: $eventTypes, field_names: $fieldNames, annotation_types: $annotationTypes) {
           edges {
             node {
