@@ -5,6 +5,7 @@ import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
 import MediasLoading from './MediasLoading';
 import Annotations from '../annotations/Annotations';
+import UserTooltip from '../user/UserTooltip';
 import ProfileLink from '../layout/ProfileLink';
 import { getCurrentProjectId } from '../../helpers';
 
