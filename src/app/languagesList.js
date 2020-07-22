@@ -740,6 +740,18 @@ const languagesList = {
     name: 'Chinese',
     nativeName: '中文',
   },
+  zh_TW: {
+    name: 'Chinese (Taiwan)',
+    nativeName: '中文',
+  },
+  zh_CN: {
+    name: 'Chinese (China)',
+    nativeName: '中文',
+  },
+  zh_HK: {
+    name: 'Chinese (Hong Kong)',
+    nativeName: '中文',
+  },
   zu: {
     name: 'Zulu',
     nativeName: 'isiZulu',

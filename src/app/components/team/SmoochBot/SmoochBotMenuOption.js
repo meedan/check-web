@@ -152,7 +152,8 @@ const SmoochBotMenuOption = (props) => {
                     id="smoochBotMenuOption.languageAction"
                     defaultMessage="{languageName} (main menu)"
                     values={{
-                      languageName: languagesList[language].nativeName,
+                      languageName: languagesList[language] ?
+                        languagesList[language].nativeName : language,
                     }}
                   />
                 </MenuItem>
