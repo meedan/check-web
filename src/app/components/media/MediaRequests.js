@@ -98,7 +98,12 @@ const MediaRequestsContainer = Relay.createContainer(withPusher(MediaRequestsCom
     fieldNames,
     annotationTypes,
     whoDunnit,
+    teamSlug: null,
   },
+  prepareVariables: vars => ({
+    ...vars,
+    teamSlug: /^\/([^/]+)/.test(window.location.pathname) ? window.location.pathname.match(/^\/([^/]+)/)[1] : null,
+  }),
   fragments: {
     media: () => Relay.QL`
       fragment on ProjectMedia {
