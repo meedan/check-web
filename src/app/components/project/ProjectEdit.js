@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
-import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
 import TextField from '@material-ui/core/TextField';
 import Card from '@material-ui/core/Card';
@@ -16,22 +16,7 @@ import { getErrorMessage } from '../../helpers';
 import { ContentColumn } from '../../styles/js/shared';
 import { stringHelper } from '../../customHelpers';
 import { withSetFlashMessage } from '../FlashMessage';
-import globalStrings from '../../globalStrings';
-
-const messages = defineMessages({
-  error: {
-    id: 'projectEdit.error',
-    defaultMessage: 'Sorry, an error occurred while updating the list. Please try again and contact {supportEmail} if the condition persists.',
-  },
-  titleField: {
-    id: 'projectEdit.titleField',
-    defaultMessage: 'Title',
-  },
-  descriptionField: {
-    id: 'projectEdit.descriptionField',
-    defaultMessage: 'Description',
-  },
-});
+import { FormattedGlobalMessage } from '../MappedMessage';
 
 class ProjectEditComponent extends Component {
   constructor(props) {
@@ -110,7 +95,13 @@ class ProjectEditComponent extends Component {
     }
 
     const onFailure = (transaction) => {
-      const fallbackMessage = this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+      const fallbackMessage = (
+        <FormattedMessage
+          id="projectEdit.error"
+          defaultMessage="Sorry, an error occurred while updating the list. Please try again and contact {supportEmail} if the condition persists."
+          values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
+        />
+      );
       const message = getErrorMessage(transaction, fallbackMessage);
       this.props.setFlashMessage(message);
       browserHistory.push(`${window.location.pathname}/edit`);
@@ -144,7 +135,7 @@ class ProjectEditComponent extends Component {
                     name="name"
                     id="project-title-field"
                     className="project-edit__title-field"
-                    label={this.props.intl.formatMessage(messages.titleField)}
+                    label={<FormattedMessage id="projectEdit.titleField" defaultMessage="Title" />}
                     type="text"
                     fullWidth
                     value={this.state.title}
@@ -161,7 +152,12 @@ class ProjectEditComponent extends Component {
                     fullWidth
                     multiline
                     value={this.state.description}
-                    label={this.props.intl.formatMessage(messages.descriptionField)}
+                    label={
+                      <FormattedMessage
+                        id="projectEdit.descriptionField"
+                        defaultMessage="Description"
+                      />
+                    }
                     autoComplete="off"
                     onChange={this.handleDescriptionChange.bind(this)}
                     margin="normal"
@@ -172,7 +168,7 @@ class ProjectEditComponent extends Component {
                     onClick={this.handleCancel}
                     className="project-edit__editing-button project-edit__editing-button--cancel"
                   >
-                    {this.props.intl.formatMessage(globalStrings.cancel)}
+                    <FormattedGlobalMessage messageKey="cancel" />
                   </Button>
                   <Button
                     variant="contained"
@@ -194,9 +190,6 @@ class ProjectEditComponent extends Component {
 }
 
 ProjectEditComponent.propTypes = {
-  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
-  // eslint-disable-next-line react/no-typos
-  intl: intlShape.isRequired,
   setFlashMessage: PropTypes.func.isRequired,
 };
 
@@ -204,7 +197,7 @@ ProjectEditComponent.contextTypes = {
   store: PropTypes.object,
 };
 
-const ConnectedProjectEditComponent = withSetFlashMessage(injectIntl(ProjectEditComponent));
+const ConnectedProjectEditComponent = withSetFlashMessage(ProjectEditComponent);
 
 const ProjectEditContainer = Relay.createContainer(ConnectedProjectEditComponent, {
   initialVariables: {

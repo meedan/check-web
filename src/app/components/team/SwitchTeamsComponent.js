@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
-import { FormattedMessage, defineMessages, intlShape, injectIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import { browserHistory, Link } from 'react-router';
 import Card from '@material-ui/core/Card';
@@ -9,19 +9,15 @@ import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
+import Avatar from '@material-ui/core/Avatar';
+import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import Avatar from '@material-ui/core/Avatar';
-import styled from 'styled-components';
 import {
   defaultBorderRadius,
-  opaqueBlack87,
-  borderWidthMedium,
-  tiny,
-  units,
-  titleStyle,
   listStyle,
   listItemButtonStyle,
   white,
@@ -34,21 +30,6 @@ import { can } from '../Can';
 import { getErrorMessage } from '../../helpers';
 import { withSetFlashMessage } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
-
-const messages = defineMessages({
-  switchTeamsError: {
-    id: 'switchTeams.error',
-    defaultMessage: 'Sorry, an error occurred while updating the workspace. Please try again and contact {supportEmail} if the condition persists.',
-  },
-  switchTeamsMember: {
-    id: 'switchTeams.member',
-    defaultMessage: '{membersCount, plural, =0 {No members} one {1 member} other {# members}}',
-  },
-  joinTeam: {
-    id: 'switchTeams.joinRequestMessage',
-    defaultMessage: 'You requested to join',
-  },
-});
 
 class SwitchTeamsComponent extends Component {
   getContext() {
@@ -63,7 +44,13 @@ class SwitchTeamsComponent extends Component {
     context.setContextStore({ team, currentUser });
 
     const onFailure = (transaction) => {
-      const fallbackMessage = this.props.intl.formatMessage(messages.switchTeamsError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+      const fallbackMessage = (
+        <FormattedMessage
+          id="switchTeams.error"
+          defaultMessage="Sorry, an error occurred while updating the workspace. Please try again and contact {supportEmail} if the condition persists."
+          values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
+        />
+      );
       const message = getErrorMessage(transaction, fallbackMessage);
       this.props.setFlashMessage(message);
     };
@@ -97,23 +84,6 @@ class SwitchTeamsComponent extends Component {
     const joinedTeams = [];
     const pendingTeams = [];
 
-    const StyledListItemContainer = styled.div`
-      position: relative;
-      .team__badge {
-        background-color: ${opaqueBlack87};
-        border-radius: ${borderWidthMedium};
-        color: ${white};
-        font: ${tiny};
-        line-height: 1.2;
-        padding: ${units(0.25)} ${units(0.5)};
-        position: absolute;
-        ${props => props.isRtl ? 'right' : 'left'}: ${units(5)};
-        top: ${units(2.5)};
-        text-transform: uppercase;
-        z-index: 9999;
-      }
-    `;
-
     const teamAvatarStyle = {
       border: `1px solid ${black05}`,
       borderRadius: `${defaultBorderRadius}`,
@@ -141,56 +111,69 @@ class SwitchTeamsComponent extends Component {
     return (
       <Card>
         <CardHeader
-          titleStyle={titleStyle}
           title={cardTitle}
         />
         { (joinedTeams.length + pendingTeams.length) ?
           <List className="teams" style={listStyle}>
             {joinedTeams.map(team => (
-              <StyledListItemContainer key={`team-${team.dbid}`} isRtl={this.props.isRtl}>
-                <Link to={`/${team.slug}/all-items`} id={`switch-teams__link-to-${team.slug}`}>
-                  <ListItem
-                    className="switch-teams__joined-team"
-                    onClick={this.setCurrentTeam.bind(this, team, currentUser)}
-                  >
-                    <Avatar style={teamAvatarStyle} src={team.avatar} />
-                    <ListItemText
-                      primary={team.name}
-                      secondary={
-                        this.props.intl.formatMessage(messages.switchTeamsMember, {
-                          membersCount: team.members_count,
-                        })}
+              <ListItem
+                key={team.slug}
+                className="switch-teams__joined-team"
+                onClick={this.setCurrentTeam.bind(this, team, currentUser)}
+                component={Link}
+                to={`/${team.slug}/all-items`}
+                id={`switch-teams__link-to-${team.slug}`}
+              >
+                <ListItemAvatar>
+                  <Avatar style={teamAvatarStyle} src={team.avatar} />
+                </ListItemAvatar>
+                <ListItemText
+                  primary={team.name}
+                  secondary={
+                    <FormattedMessage
+                      id="switchTeams.member"
+                      defaultMessage="{membersCount, plural, =0 {No members} one {1 member} other {# members}}"
+                      values={{ membersCount: team.members_count }}
                     />
-                    <ListItemSecondaryAction>
-                      <KeyboardArrowRight />
-                    </ListItemSecondaryAction>
-                  </ListItem>
-                </Link>
-              </StyledListItemContainer>
+                  }
+                />
+                <ListItemSecondaryAction>
+                  <IconButton edge="end" onClick={this.setCurrentTeam.bind(this, team, currentUser)}>
+                    <KeyboardArrowRight />
+                  </IconButton>
+                </ListItemSecondaryAction>
+              </ListItem>
             ))}
 
             {pendingTeams.map(team => (
-              <Link key={team.slug} to={`/${team.slug}`}>
-                <ListItem
-                  className="switch-teams__pending-team"
-                  key={`team-${team.dbid}`}
-                >
+              <ListItem
+                key={team.slug}
+                className="switch-teams__pending-team"
+                component={Link}
+                to={`/${team.slug}`}
+              >
+                <ListItemAvatar>
                   <Avatar style={teamAvatarStyle} src={team.avatar} />
-                  <ListItemText
-                    primary={team.name}
-                    secondary={this.props.intl.formatMessage(messages.joinTeam)}
-                  />
-                  <ListItemSecondaryAction>
-                    <Button
-                      className="switch-team__cancel-request"
-                      style={listItemButtonStyle}
-                      onClick={this.cancelRequest.bind(this, team)}
-                    >
-                      <FormattedMessage id="switchTeams.cancelJoinRequest" defaultMessage="Cancel" />
-                    </Button>
-                  </ListItemSecondaryAction>
-                </ListItem>
-              </Link>
+                </ListItemAvatar>
+                <ListItemText
+                  primary={team.name}
+                  secondary={
+                    <FormattedMessage
+                      id="switchTeams.joinRequestMessage"
+                      defaultMessage="You requested to join"
+                    />
+                  }
+                />
+                <ListItemSecondaryAction>
+                  <Button
+                    className="switch-team__cancel-request"
+                    style={listItemButtonStyle}
+                    onClick={this.cancelRequest.bind(this, team)}
+                  >
+                    <FormattedMessage id="switchTeams.cancelJoinRequest" defaultMessage="Cancel" />
+                  </Button>
+                </ListItemSecondaryAction>
+              </ListItem>
             ))}
           </List> :
           <CardContent>
@@ -213,9 +196,6 @@ class SwitchTeamsComponent extends Component {
 }
 
 SwitchTeamsComponent.propTypes = {
-  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
-  // eslint-disable-next-line react/no-typos
-  intl: intlShape.isRequired,
   user: PropTypes.object.isRequired,
   setFlashMessage: PropTypes.func.isRequired,
 };
@@ -224,4 +204,4 @@ SwitchTeamsComponent.contextTypes = {
   store: PropTypes.object,
 };
 
-export default withSetFlashMessage(injectIntl(SwitchTeamsComponent));
+export default withSetFlashMessage(SwitchTeamsComponent);

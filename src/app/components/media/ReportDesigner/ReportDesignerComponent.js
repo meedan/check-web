@@ -19,7 +19,7 @@ import {
   cloneData,
 } from './reportDesignerHelpers';
 import { getStatus, getStatusStyle } from '../../../helpers';
-import { stringHelper, mediaStatuses, mediaLastStatus } from '../../../customHelpers';
+import { stringHelper } from '../../../customHelpers';
 import CreateReportDesignMutation from '../../../relay/mutations/CreateReportDesignMutation';
 import UpdateReportDesignMutation from '../../../relay/mutations/UpdateReportDesignMutation';
 
@@ -95,16 +95,18 @@ const ReportDesignerComponent = (props) => {
   };
 
   const handleStatusChange = () => {
-    const status = getStatus(mediaStatuses(media), mediaLastStatus(media));
-    if (status) {
-      const updatedData = cloneData(data);
-      updatedData.options.forEach((option, i) => {
-        updatedData.options[i].previous_published_status_label = option.status_label;
-        updatedData.options[i].status_label = status.label.substring(0, 16);
-        updatedData.options[i].theme_color = getStatusStyle(status, 'color');
-      });
-      setData(updatedData);
-    }
+    const updatedData = cloneData(data);
+    updatedData.options.forEach((option, i) => {
+      const status = getStatus(
+        media.team.verification_statuses,
+        media.last_status,
+        option.language,
+      );
+      updatedData.options[i].previous_published_status_label = option.status_label;
+      updatedData.options[i].status_label = status.label.substring(0, 16);
+      updatedData.options[i].theme_color = getStatusStyle(status, 'color');
+    });
+    setData(updatedData);
   };
 
   const handleEdit = () => {

@@ -8,9 +8,11 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { withPusher, pusherShape } from '../../pusher';
 import TaskRoute from '../../relay/TaskRoute';
 import CheckContext from '../../CheckContext';
-import Annotation from '../annotations/Annotation';
-import MediasLoading from '../media/MediasLoading';
 import AddAnnotation from '../annotations/AddAnnotation';
+import Annotation from '../annotations/Annotation';
+import ProfileLink from '../layout/ProfileLink';
+import MediasLoading from '../media/MediasLoading';
+import UserTooltip from '../user/UserTooltip';
 import UserUtil from '../user/UserUtil';
 import { black16, units, opaqueBlack54, checkBlue } from '../../styles/js/shared';
 
@@ -199,6 +201,13 @@ TaskLogComponent.propTypes = {
 };
 
 const TaskLogContainer = Relay.createContainer(withPusher(TaskLogComponent), {
+  initialVariables: {
+    teamSlug: null,
+  },
+  prepareVariables: vars => ({
+    ...vars,
+    teamSlug: /^\/([^/]+)/.test(window.location.pathname) ? window.location.pathname.match(/^\/([^/]+)/)[1] : null,
+  }),
   fragments: {
     task: () => Relay.QL`
       fragment on Task {
@@ -236,6 +245,10 @@ const TaskLogContainer = Relay.createContainer(withPusher(TaskLogComponent), {
                 dbid,
                 name,
                 is_active,
+                team_user(team_slug: $teamSlug) {
+                  ${ProfileLink.getFragment('teamUser')}, # FIXME: Make Annotation a container
+                  ${UserTooltip.getFragment('teamUser')}, # FIXME: Make Annotation a container
+                },
                 source {
                   id,
                   dbid,
@@ -262,7 +275,6 @@ const TaskLogContainer = Relay.createContainer(withPusher(TaskLogComponent), {
                       published,
                       url,
                       metadata,
-                      project_id,
                       last_status,
                       last_status_obj {
                         id
@@ -285,7 +297,6 @@ const TaskLogContainer = Relay.createContainer(withPusher(TaskLogComponent), {
                       }
                       log_count,
                       permissions,
-                      verification_statuses,
                       domain,
                       team {
                         slug,

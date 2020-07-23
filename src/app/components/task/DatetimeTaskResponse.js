@@ -1,13 +1,66 @@
 import React from 'react';
-import { FormattedMessage, FormattedDate, injectIntl, intlShape, defineMessages } from 'react-intl';
+import { FormattedMessage, FormattedDate } from 'react-intl';
 import { convertNumbers2English } from '../../helpers';
 
-const messages = defineMessages({
-  timeIs: {
-    id: 'datetimeTaskResponse.timeIs',
-    defaultMessage: 'View this timezone on time.is',
-  },
-});
+const DateDisplay = ({ isoDate }) => (
+  <time dateTime={isoDate}>
+    <FormattedDate value={new Date(isoDate)} day="numeric" month="long" year="numeric" />
+  </time>
+);
+
+function tzOffsetHoursToIso8601Offset(nHours) {
+  if (nHours === 0) {
+    return 'Z';
+  }
+
+  const sign = nHours > 0 ? '+' : '-';
+  return `${sign}${String(Math.abs(nHours)).padStart(2, '0')}:00`;
+}
+
+function DateTimeDisplay({
+  isoDate, hourString, minuteString, tzOffsetHours, tzString,
+}) {
+  const dateString = `${isoDate}T${hourString.padStart(2, '0')}:${minuteString.padStart(2, '0')}`;
+  const iso8601TzOffset = tzOffsetHoursToIso8601Offset(tzOffsetHours);
+  const date = new Date(`${dateString}${iso8601TzOffset}`);
+  // We can't format `date`, because we don't know its timezone. All we
+  // have is its offset, and that isn't enough: `Intl.DateTimeFormat` needs
+  // an IANA timezone.  TODO fix https://mantis.meedan.com/view.php?id=8437,
+  // then format with `value={date}`.
+
+  // `Date.parse("YYYY-MM-DDThh:mm")` will parse in user's local timezone.
+  // This date may not exist! Hence https://mantis.meedan.com/view.php?id=8437
+  const displayDate = new Date(dateString);
+  const urlDate = encodeURIComponent(`${isoDate} ${hourString}:${minuteString} ${tzString}`);
+  return (
+    <time dateTime={date.toISOString()}>
+      <FormattedDate
+        value={displayDate /* https://mantis.meedan.com/view.php?id=8437 */}
+        year="numeric"
+        month="long"
+        day="numeric"
+        hour="numeric"
+        minute="numeric"
+      />
+      {' '}
+      <FormattedMessage
+        id="datetimeTaskResponse.timeIs"
+        defaultMessage="View this timezone on time.is"
+      >
+        {title => (
+          <a
+            href={`https://time.is/${urlDate}`}
+            target="_blank"
+            rel="noreferrer noopener"
+            title={title}
+          >
+            {tzString}
+          </a>
+        )}
+      </FormattedMessage>
+    </time>
+  );
+}
 
 const DatetimeTaskResponse = (props) => {
   if (!props.response) {
@@ -18,55 +71,27 @@ const DatetimeTaskResponse = (props) => {
   const values = response.match(/^(\d+-\d+-\d+) (\d+):(\d+) ([+-]?\d+) (.*)$/);
 
   if (!values) {
-    return <FormattedMessage id="datetimeTaskResponse.invalidTimestamp" defaultMessage="Error: Invalid timestamp" />;
+    return (
+      <FormattedMessage
+        id="datetimeTaskResponse.invalidTimestamp"
+        defaultMessage="Error: Invalid timestamp"
+      />
+    );
   }
 
   const noTime = /notime/.test(response);
-  let hour = parseInt(values[2], 10);
-  let minute = parseInt(values[3], 10);
 
-  if (hour < 10) {
-    hour = `0${hour}`;
-  }
-
-  if (minute < 10) {
-    minute = `0${minute}`;
-  }
-
-  const date = new Date(`${values[1]} 00:00`); // Make sure we get the real day and not the day before or after
-  const time = `${hour}:${minute} ${values[5]}`;
-
-  const formattedDate = <FormattedDate value={date} day="numeric" month="long" year="numeric" />;
-
-  return (
-    <span className="task__datetime-response">
-      {noTime
-        ? formattedDate
-        : <FormattedMessage
-          id="datetimeTaskResponse.taskResponse"
-          defaultMessage="{date} at {timeLink}"
-          values={{
-            date: formattedDate,
-            timeLink: (
-              <a
-                href={`https://time.is/${values[1]} ${time}`}
-                target="_blank"
-                rel="noreferrer noopener"
-                title={props.intl.formatMessage(messages.timeIs)}
-              >
-                {time}
-              </a>
-            ),
-          }}
-        />}
-    </span>
+  return noTime ? (
+    <DateDisplay isoDate={values[1]} />
+  ) : (
+    <DateTimeDisplay
+      isoDate={values[1]}
+      hourString={values[2]}
+      minuteString={values[3]}
+      tzOffsetHours={Number(values[4])}
+      tzString={values[5]}
+    />
   );
 };
 
-DatetimeTaskResponse.propTypes = {
-  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
-  // eslint-disable-next-line react/no-typos
-  intl: intlShape.isRequired,
-};
-
-export default injectIntl(DatetimeTaskResponse);
+export default DatetimeTaskResponse;

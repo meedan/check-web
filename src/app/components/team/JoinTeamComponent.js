@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
-import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { browserHistory, Link } from 'react-router';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -10,32 +10,11 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardActions from '@material-ui/core/CardActions';
 import PageTitle from '../PageTitle';
 import CreateTeamUserMutation from '../../relay/mutations/CreateTeamUserMutation';
-import { mapGlobalMessage } from '../MappedMessage';
 import Message from '../Message';
 import CheckContext from '../../CheckContext';
 import { getErrorMessage } from '../../helpers';
 import { ContentColumn } from '../../styles/js/shared';
 import { stringHelper } from '../../customHelpers';
-
-const messages = defineMessages({
-  error: {
-    id: 'joinTeamComponent.error',
-    defaultMessage: 'Sorry, an error occurred while sending your request. Please try again and contact {supportEmail} if the condition persists.',
-  },
-  success: {
-    id: 'joinTeamComponent.success',
-    defaultMessage:
-      'Thanks for your interest in joining {team}! A workspace administrator will review your application soon.',
-  },
-  autoApprove: {
-    id: 'joinTeamComponent.autoApprove',
-    defaultMessage: 'Thanks for joining {team}! You can start contributing right away.',
-  },
-  title: {
-    id: 'joinTeamComponent.title',
-    defaultMessage: 'Join Workspace',
-  },
-});
 
 class JoinTeamComponent extends Component {
   constructor(props) {
@@ -71,19 +50,33 @@ class JoinTeamComponent extends Component {
     this.setState({ requestStatus: 'requested' });
 
     const onFailure = (transaction) => {
-      const fallbackMessage = this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+      const fallbackMessage = (
+        <FormattedMessage
+          id="joinTeamComponent.error"
+          defaultMessage="Sorry, an error occurred while sending your request. Please try again and contact {supportEmail} if the condition persists."
+          values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
+        />
+      );
       const message = getErrorMessage(transaction, fallbackMessage);
       this.setState({ message });
     };
 
     const onSuccess = (response) => {
-      const appName = mapGlobalMessage(this.props.intl, 'appNameHuman');
       const { createTeamUser: { team_user: { status } } } = response;
-      const message = status === 'member' ? messages.autoApprove : messages.success;
       this.setState({
-        message: this.props.intl.formatMessage(message, {
-          team: this.props.team.name, appName,
-        }),
+        message: status === 'member' ? (
+          <FormattedMessage
+            id="joinTeamComponent.autoApprove"
+            defaultMessage="Thanks for joining {team}! You can start contributing right away."
+            values={{ team: this.props.team.name }}
+          />
+        ) : (
+          <FormattedMessage
+            id="joinTeamComponent.success"
+            defaultMessage="Thanks for your interest in joining {team}! A workspace administrator will review your application soon."
+            values={{ team: this.props.team.name }}
+          />
+        ),
         requestStatus: status,
       });
     };
@@ -137,7 +130,10 @@ class JoinTeamComponent extends Component {
     }
 
     return (
-      <PageTitle prefix={this.props.intl.formatMessage(messages.title)} team={team}>
+      <PageTitle
+        prefix={<FormattedMessage id="joinTeamComponent.title" defaultMessage="Join Workspace" />}
+        team={team}
+      >
         <div>
           <ContentColumn>
             <Message message={this.state.message} />
@@ -222,14 +218,8 @@ class JoinTeamComponent extends Component {
   }
 }
 
-JoinTeamComponent.propTypes = {
-  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
-  // eslint-disable-next-line react/no-typos
-  intl: intlShape.isRequired,
-};
-
 JoinTeamComponent.contextTypes = {
   store: PropTypes.object,
 };
 
-export default injectIntl(JoinTeamComponent);
+export default JoinTeamComponent;

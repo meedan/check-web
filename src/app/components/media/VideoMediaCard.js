@@ -24,6 +24,18 @@ const VideoMediaCard = (props) => {
           url={props.videoPath}
           className="video-media-player"
           playbackRate={playbackRate}
+          onDuration={d => props.setPlayerState({ duration: d })}
+          onPause={() => props.setPlayerState({ playing: false, gaps: [] })}
+          onPlay={() => props.setPlayerState({ playing: true })}
+          onProgress={p => props.setPlayerState({ progress: p })}
+          onReady={props.onPlayerReady}
+          onTimeUpdate={t => props.setPlayerState({ time: t })}
+          playing={props.playing}
+          start={props.start}
+          end={props.end}
+          gaps={props.gaps}
+          scrubTo={props.scrubTo}
+          seekTo={props.seekTo}
         />
       </AspectRatio>
       <StyledPlaybackRate>

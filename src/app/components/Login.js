@@ -1,9 +1,9 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import FASlack from 'react-icons/lib/fa/slack';
-import FAFacebook from 'react-icons/lib/fa/facebook-official';
-import FATwitter from 'react-icons/lib/fa/twitter';
-import MDEmail from 'react-icons/lib/md/email';
+import { FaSlack } from 'react-icons/fa';
+import FacebookIcon from '@material-ui/icons/Facebook';
+import TwitterIcon from '@material-ui/icons/Twitter';
+import EmailIcon from '@material-ui/icons/Email';
 import { browserHistory, Link } from 'react-router';
 import Button from '@material-ui/core/Button';
 import ButtonBase from '@material-ui/core/ButtonBase';
@@ -476,7 +476,7 @@ class Login extends React.Component {
           <BigButton
             onClick={this.oAuthLogin.bind(this, 'slack')}
             id="slack-login"
-            icon={<FASlack style={{ color: slackGreen }} className="logo" />}
+            icon={<FaSlack style={{ color: slackGreen }} className="logo" />}
             headerText={
               <FormattedMessage
                 id="login.with"
@@ -490,7 +490,7 @@ class Login extends React.Component {
           <BigButton
             onClick={this.oAuthLogin.bind(this, 'twitter')}
             id="twitter-login"
-            icon={<FATwitter style={{ color: twitterBlue }} className="logo" />}
+            icon={<TwitterIcon style={{ color: twitterBlue }} className="logo" />}
             headerText={
               <FormattedMessage
                 id="login.with"
@@ -504,7 +504,7 @@ class Login extends React.Component {
           <BigButton
             onClick={this.oAuthLogin.bind(this, 'facebook')}
             id="facebook-login"
-            icon={<FAFacebook style={{ color: facebookBlue }} className="logo" />}
+            icon={<FacebookIcon style={{ color: facebookBlue }} className="logo" />}
             headerText={
               <FormattedMessage
                 id="login.with"
@@ -519,7 +519,7 @@ class Login extends React.Component {
             <BigButton
               id="register"
               onClick={this.handleSwitchToRegister}
-              icon={<MDEmail style={{ color: black54 }} />}
+              icon={<EmailIcon style={{ color: black54 }} />}
               headerText={
                 <FormattedMessage
                   id="login.newAccount"
@@ -532,7 +532,7 @@ class Login extends React.Component {
             <BigButton
               id="register"
               onClick={this.handleSwitchToLogin}
-              icon={<MDEmail style={{ color: black54 }} />}
+              icon={<EmailIcon style={{ color: black54 }} />}
               headerText={
                 <FormattedMessage
                   id="login.alreadyHasAccount"

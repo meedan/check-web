@@ -30,8 +30,8 @@ class TeamPage < Page
   def create_project(options = {})
     wait_for_selector(".team")
     name = options[:name] || "Project #{Time.now.to_i}"
-    wait_for_selector('#create-project-title').send_keys(name)
-    wait_for_selector('#create-project-submit-button').click
+    wait_for_selector('.create-project-card input[name="title"]').send_keys(name)
+    wait_for_selector('.create-project-card button[type="submit"]').click
     wait_for_selector('.project')
     ProjectPage.new(config: @config, driver: @driver)
   end

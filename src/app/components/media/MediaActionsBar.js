@@ -17,6 +17,7 @@ import MediaActions from './MediaActions';
 import Attribution from '../task/Attribution';
 import CreateProjectMediaProjectMutation from '../../relay/mutations/CreateProjectMediaProjectMutation';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
+import UpdateProjectMediaProjectMutation from '../../relay/mutations/UpdateProjectMediaProjectMutation';
 import DeleteProjectMediaProjectMutation from '../../relay/mutations/DeleteProjectMediaProjectMutation';
 import UpdateStatusMutation from '../../relay/mutations/UpdateStatusMutation';
 import MoveDialog from './MoveDialog';
@@ -80,7 +81,8 @@ class MediaActionsBarComponent extends Component {
   }
 
   currentProject() {
-    return this.props.media.project;
+    const { project_media_project: projectMediaProject } = this.props.media;
+    return projectMediaProject ? projectMediaProject.project : null;
   }
 
   handleAddToList = () => {
@@ -111,7 +113,7 @@ class MediaActionsBarComponent extends Component {
     Relay.Store.commitUpdate(
       new CreateProjectMediaProjectMutation({
         project: this.state.dstProj,
-        project_media: this.props.media,
+        projectMedia: this.props.media,
         context,
       }),
       { onSuccess, onFailure: this.fail },
@@ -157,9 +159,8 @@ class MediaActionsBarComponent extends Component {
     };
 
     Relay.Store.commitUpdate(
-      new UpdateProjectMediaMutation({
-        project_id: projectId,
-        id: media.id,
+      new UpdateProjectMediaProjectMutation({
+        id: media.project_media_project.id,
         srcProj: this.currentProject(),
         dstProj: this.state.dstProj,
         context,
@@ -173,6 +174,7 @@ class MediaActionsBarComponent extends Component {
   handleRemoveFromList = () => {
     const context = this.getContext();
     const { media } = this.props;
+    const { project_media_project: projectMediaProject } = media;
 
     const onSuccess = () => {
       const message = (
@@ -188,8 +190,9 @@ class MediaActionsBarComponent extends Component {
 
     Relay.Store.commitUpdate(
       new DeleteProjectMediaProjectMutation({
-        project: media.project,
-        project_media: media,
+        id: projectMediaProject.id,
+        project: this.currentProject(),
+        projectMedia: media,
         context,
       }),
       { onSuccess, onFailure: this.fail },
@@ -387,19 +390,11 @@ class MediaActionsBarComponent extends Component {
   }
 
   handleRestore() {
-    const onSuccess = (response) => {
-      const pm = response.updateProjectMedia.project_media;
+    const onSuccess = () => {
       const message = (
         <FormattedMessage
           id="mediaActionsBar.movedBack"
-          defaultMessage="Restored to list {project}"
-          values={{
-            project: (
-              <Link to={`/${pm.team.slug}/project/${pm.project_id}`}>
-                {pm.project.title}
-              </Link>
-            ),
-          }}
+          defaultMessage="Restored from trash"
         />
       );
       this.props.setFlashMessage(message);
@@ -416,7 +411,7 @@ class MediaActionsBarComponent extends Component {
         media: this.props.media,
         archived: 0,
         check_search_team: this.props.media.team.search,
-        check_search_project: this.props.media.project.search,
+        check_search_project: this.currentProject() ? this.currentProject().search : null,
         check_search_trash: this.props.media.team.check_search_trash,
         context,
         srcProj: null,
@@ -428,6 +423,7 @@ class MediaActionsBarComponent extends Component {
 
   render() {
     const { classes, media } = this.props;
+    const { project_media_project: projectMediaProject } = media;
 
     const addToListDialogActions = [
       <Button
@@ -586,20 +582,21 @@ class MediaActionsBarComponent extends Component {
               />
             </Button>
 
-            <Button
-              id="media-actions-bar__move-to"
-              variant="contained"
-              className={classes.spacedButton}
-              color="primary"
-              onClick={this.handleMove}
-            >
-              <FormattedMessage
-                id="mediaActionsBar.moveTo"
-                defaultMessage="Move to..."
-              />
-            </Button>
+            { projectMediaProject ?
+              <Button
+                id="media-actions-bar__move-to"
+                variant="contained"
+                className={classes.spacedButton}
+                color="primary"
+                onClick={this.handleMove}
+              >
+                <FormattedMessage
+                  id="mediaActionsBar.moveTo"
+                  defaultMessage="Move to..."
+                />
+              </Button> : null }
 
-            { media.project_id ?
+            { projectMediaProject ?
               <Button
                 id="media-actions-bar__remove-from-list"
                 variant="outlined"
@@ -727,19 +724,18 @@ const ConnectedMediaActionsBarComponent =
 const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarComponent, {
   initialVariables: {
     contextId: null,
+    projectId: 0,
   },
   fragments: {
     media: () => Relay.QL`
       fragment on ProjectMedia {
         id
         dbid
-        project_id
         project_ids
         title
         demand
         description
         permissions
-        verification_statuses
         metadata
         overridden
         url
@@ -749,19 +745,21 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
           id
           data
         }
+        project_media_project(project_id: $projectId){
+          id
+          project {
+            id
+            dbid
+            title
+            search_id
+            search { id, number_of_results }
+            medias_count
+          }
+        }
         media {
           url
           embed_path
           metadata
-        }
-        targets_by_users(first: 50) {
-          edges {
-            node {
-              id
-              dbid
-              last_status
-            }
-          }
         }
         last_status
         last_status_obj {
@@ -785,22 +783,12 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
           target_id
           source_id
         }
-        project {
-          id
-          dbid
-          title
-          search_id
-          medias_count
-          search {
-            id
-            number_of_results
-          }
-        }
         team {
           ${MoveDialog.getFragment('team')}
           id
           dbid
           slug
+          verification_statuses
           medias_count
           trash_count
           public_team {
@@ -836,7 +824,8 @@ class MediaActionsBar extends React.PureComponent {
   render() {
     const { projectId, projectMediaId } = this.props;
     const ids = `${projectMediaId},${projectId}`;
-    const route = new MediaRoute({ ids });
+    const projectIdValue = projectId == null ? 0 : projectId;
+    const route = new MediaRoute({ ids, projectId: projectIdValue });
 
     return (
       <Relay.RootContainer

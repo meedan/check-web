@@ -283,11 +283,6 @@ module AppSpecHelpers
     sleep 0.5
   end
 
-  def create_project(title = "Project #{Time.now}")
-    fill_field('#create-project-title', title)
-    @driver.action.send_keys(:enter).perform
-  end
-
   def register_with_email(should_create_team = true, email = @email, should_login = true)
     @driver.navigate.to @config['self_url']
     wait_for_selector("#register").click
@@ -368,14 +363,14 @@ module AppSpecHelpers
   end
 
   def save_screenshot(title)
-    require 'imgur'
     path = '/tmp/' + (0...8).map{ (65 + rand(26)).chr }.join + '.png'
     @driver.save_screenshot(path)
 
-    client = Imgur.new(@config['imgur_client_id'])
-    image = Imgur::LocalImage.new(path, title: title)
-    uploaded = client.upload(image)
-    uploaded.link
+    auth_header =  {'Authorization' => 'Client-ID ' + @config['imgur_client_id']}
+    image = File.new(path)
+    body = {image: image, type: 'file'}
+    response = HTTParty.post('https://api.imgur.com/3/upload', body: body, headers: auth_header)
+    JSON.parse(response.body)['data']['link']
   end
 
   def wait_page_load(options = {})

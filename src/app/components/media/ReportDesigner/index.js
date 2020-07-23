@@ -21,8 +21,8 @@ const ReportDesignerContainer = Relay.createContainer(ReportDesignerComponent, {
         title
         demand
         description
-        verification_statuses
         last_status
+        project_ids # FIXME: Make MediaVerificationStatus a container
         media {
           picture
         }
@@ -45,6 +45,7 @@ const ReportDesignerContainer = Relay.createContainer(ReportDesignerComponent, {
           get_languages
           get_report
           get_report_design_image_template
+          verification_statuses
           contacts(first: 1) {
             edges {
               node {

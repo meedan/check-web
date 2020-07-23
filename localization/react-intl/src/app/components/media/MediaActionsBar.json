@@ -1,25 +1,5 @@
 [
   {
-    "id": "mediaDetail.mediaTitle",
-    "defaultMessage": "Title"
-  },
-  {
-    "id": "mediaDetail.mediaDescription",
-    "defaultMessage": "Description"
-  },
-  {
-    "id": "mediaDetail.editReport",
-    "defaultMessage": "Edit"
-  },
-  {
-    "id": "mediaDetail.editReportError",
-    "defaultMessage": "Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists."
-  },
-  {
-    "id": "mediaDetail.trash",
-    "defaultMessage": "Trash"
-  },
-  {
     "id": "mediaActionsBar.removedFromList",
     "defaultMessage": "Removed from list"
   },
@@ -32,8 +12,16 @@
     "defaultMessage": "Moving item..."
   },
   {
+    "id": "mediaDetail.editReportError",
+    "defaultMessage": "Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists."
+  },
+  {
     "id": "mediaActionsBar.movedToTrash",
     "defaultMessage": "Sent to {trash}"
+  },
+  {
+    "id": "mediaDetail.trash",
+    "defaultMessage": "Trash"
   },
   {
     "id": "mediaActionsBar.assignmentsUpdated",
@@ -41,7 +29,7 @@
   },
   {
     "id": "mediaActionsBar.movedBack",
-    "defaultMessage": "Restored to list {project}"
+    "defaultMessage": "Restored from trash"
   },
   {
     "id": "mediaActionsBar.cancelButton",
@@ -58,6 +46,18 @@
   {
     "id": "mediaActionsBar.done",
     "defaultMessage": "Done"
+  },
+  {
+    "id": "mediaDetail.editReport",
+    "defaultMessage": "Edit"
+  },
+  {
+    "id": "mediaDetail.mediaTitle",
+    "defaultMessage": "Title"
+  },
+  {
+    "id": "mediaDetail.mediaDescription",
+    "defaultMessage": "Description"
   },
   {
     "id": "mediaDetail.cancelButton",

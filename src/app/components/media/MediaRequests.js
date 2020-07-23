@@ -6,6 +6,9 @@ import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
 import MediasLoading from './MediasLoading';
 import Annotations from '../annotations/Annotations';
+import ProfileLink from '../layout/ProfileLink';
+import UserTooltip from '../user/UserTooltip';
+import { getCurrentProjectId } from '../../helpers';
 
 class MediaRequestsComponent extends Component {
   componentDidMount() {
@@ -95,7 +98,12 @@ const MediaRequestsContainer = Relay.createContainer(withPusher(MediaRequestsCom
     fieldNames,
     annotationTypes,
     whoDunnit,
+    teamSlug: null,
   },
+  prepareVariables: vars => ({
+    ...vars,
+    teamSlug: /^\/([^/]+)/.test(window.location.pathname) ? window.location.pathname.match(/^\/([^/]+)/)[1] : null,
+  }),
   fragments: {
     media: () => Relay.QL`
       fragment on ProjectMedia {
@@ -122,6 +130,10 @@ const MediaRequestsContainer = Relay.createContainer(withPusher(MediaRequestsCom
                 dbid,
                 name,
                 is_active,
+                team_user(team_slug: $teamSlug) {
+                  ${ProfileLink.getFragment('teamUser')}, # FIXME: Make Annotation a container
+                  ${UserTooltip.getFragment('teamUser')}, # FIXME: Make Annotation a container
+                },
                 source {
                   id,
                   dbid,
@@ -145,7 +157,6 @@ const MediaRequestsContainer = Relay.createContainer(withPusher(MediaRequestsCom
                       published,
                       url,
                       metadata,
-                      project_id,
                       last_status,
                       last_status_obj {
                         id
@@ -168,7 +179,6 @@ const MediaRequestsContainer = Relay.createContainer(withPusher(MediaRequestsCom
                       }
                       log_count,
                       permissions,
-                      verification_statuses,
                       domain,
                       team {
                         slug,
@@ -214,7 +224,8 @@ const MediaRequestsContainer = Relay.createContainer(withPusher(MediaRequestsCom
 });
 
 const MediaRequests = (props) => {
-  const ids = `${props.media.dbid},${props.media.project_id}`;
+  const projectId = getCurrentProjectId(props.media.project_ids);
+  const ids = `${props.media.dbid},${projectId}`;
   const route = new MediaRoute({ ids });
 
   return (

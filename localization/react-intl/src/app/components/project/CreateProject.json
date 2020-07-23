@@ -1,5 +1,13 @@
 [
   {
+    "id": "createProject.error",
+    "defaultMessage": "Sorry, an error occurred while updating the list. Please try again and contact {supportEmail} if the condition persists."
+  },
+  {
+    "id": "createProject.newProjectName",
+    "defaultMessage": "List name"
+  },
+  {
     "id": "createProject.addProject",
     "defaultMessage": "Create list"
   },
@@ -10,13 +18,5 @@
   {
     "id": "createProject.titleBlank",
     "defaultMessage": "Add your first list"
-  },
-  {
-    "id": "createProject.newProjectName",
-    "defaultMessage": "List name"
-  },
-  {
-    "id": "createProject.error",
-    "defaultMessage": "Sorry, an error occurred while updating the list. Please try again and contact {supportEmail} if the condition persists."
   }
 ]

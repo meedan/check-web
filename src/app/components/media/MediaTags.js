@@ -1,11 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { defineMessages, intlShape, injectIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
 import Relay from 'react-relay/classic';
 import mergeWith from 'lodash.mergewith';
 import xor from 'lodash.xor';
+import memoize from 'memoize-one';
 import styled from 'styled-components';
+import Chip from '@material-ui/core/Chip';
 import EditIcon from '@material-ui/icons/Edit';
 import CancelIcon from '@material-ui/icons/Cancel';
 import Can from '../Can';
@@ -18,24 +20,9 @@ import {
   units,
   opaqueBlack54,
   opaqueBlack05,
-  chipStyles,
 } from '../../styles/js/shared';
 import { stringHelper } from '../../customHelpers';
-
-const messages = defineMessages({
-  loading: {
-    id: 'mediaTags.loading',
-    defaultMessage: 'Loading...',
-  },
-  language: {
-    id: 'mediaTags.language',
-    defaultMessage: 'Language: {language}',
-  },
-  error: {
-    id: 'mediaTags.error',
-    defaultMessage: 'Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists.',
-  },
-});
+import VideoAnnotationIcon from '../../../assets/images/video-annotation/video-annotation';
 
 const StyledLanguageSelect = styled.span`
   select {
@@ -67,23 +54,28 @@ const StyledMediaTagsContainer = styled.div`
     }
   }
 
-  .media-tags__tag {
-    ${chipStyles}
-    svg {
-      color: ${opaqueBlack54};
-      margin-${props => (props.theme.dir === 'rtl' ? 'left' : 'right')}: ${units(1)};
-    }
-  }
-
   .media-tags__language {
     white-space: nowrap;
+  }
+
+  .media-tags__list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: ${units(0.5)};
+    margin: 0;
+
+    li {
+      margin: ${units(0.5)};
+    }
   }
 `;
 
 // TODO Fix a11y issues
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
 /* eslint jsx-a11y/no-noninteractive-element-interactions: 0 */
-class MediaTags extends Component {
+class MediaTags extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -92,10 +84,51 @@ class MediaTags extends Component {
   }
 
   fail = (transaction) => {
-    const fallbackMessage = this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+    const fallbackMessage = (
+      <FormattedMessage
+        id="mediaTags.error"
+        defaultMessage="Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists."
+        values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
+      />
+    );
     const errorMessage = getErrorMessage(transaction, fallbackMessage);
     this.props.setFlashMessage(errorMessage);
   };
+
+  filterTags = memoize((tags) => {
+    const splitTags = {
+      regularTags: [],
+      videoTags: [],
+    };
+    const fragments = {};
+
+    // Get regular tags and cluster video tags by tag_text
+    if (Array.isArray(tags)) {
+      tags.forEach((t) => {
+        if (t.node.fragment) {
+          if (!fragments[t.node.tag_text]) {
+            fragments[t.node.tag_text] = [];
+          }
+          fragments[t.node.tag_text].push(t);
+        } else {
+          splitTags.regularTags.push(t);
+        }
+      });
+    }
+
+    // Get the video tags with earliest timestamp
+    Object.values(fragments).forEach((tagFragments) => {
+      tagFragments.sort((a, b) => {
+        const aStart = parseFloat(a.node.fragment.match(/\d+(\.\d+)?/)[0]);
+        const bStart = parseFloat(b.node.fragment.match(/\d+(\.\d+)?/)[0]);
+        return aStart - bStart;
+      });
+
+      splitTags.videoTags.push(tagFragments[0]);
+    });
+
+    return splitTags;
+  });
 
   searchTagUrl(tagString) {
     const { media } = this.props;
@@ -153,9 +186,17 @@ class MediaTags extends Component {
     browserHistory.push(url);
   }
 
+  handleVideoAnnotationIconClick = (e, fragment) => {
+    e.stopPropagation();
+    if (this.props.onTimelineCommentOpen) {
+      this.props.onTimelineCommentOpen(fragment);
+    }
+  };
+
   render() {
     const { media } = this.props;
-    const tags = this.props.tags || [];
+    const { regularTags, videoTags } = this.filterTags(this.props.tags);
+    const tags = regularTags.concat(videoTags);
 
     return (
       <StyledMediaTagsContainer className="media-tags__container">
@@ -166,12 +207,20 @@ class MediaTags extends Component {
                 {tags.map((tag) => {
                   if (tag.node.tag_text) {
                     return (
-                      <li
-                        key={tag.node.id}
-                        onClick={this.handleTagViewClick.bind(this, tag.node.tag_text)}
-                        className="media-tags__tag"
-                      >
-                        {tag.node.tag_text.replace(/^#/, '')}
+                      <li key={tag.node.id}>
+                        <Chip
+                          icon={
+                            tag.node.fragment ?
+                              <VideoAnnotationIcon
+                                onClick={e =>
+                                  this.handleVideoAnnotationIconClick(e, tag.node.fragment)}
+                              />
+                              : null
+                          }
+                          className="media-tags__tag"
+                          onClick={this.handleTagViewClick.bind(this, tag.node.tag_text)}
+                          label={tag.node.tag_text.replace(/^#/, '')}
+                        />
                       </li>
                     );
                   }
@@ -182,39 +231,46 @@ class MediaTags extends Component {
             <div style={{ display: 'flex', alignItems: 'flex-end' }}>
               {media.language ?
                 <ul className="media-tags__list">
-                  <li className="media-tags__tag media-tags__language">
-                    {this.state.correctingLanguage ?
-                      <span>
-                        {this.props.intl.formatMessage(messages.language, { language: '' })}
-                        {' '}
-                        <StyledLanguageSelect>
-                          <LanguageSelector
-                            onChange={this.handleLanguageChange.bind(this)}
-                            team={media.team}
-                            selected={media.language_code}
-                          />
-                        </StyledLanguageSelect>
-                        {' '}
-                        <StyledLanguageIcon>
-                          <CancelIcon
-                            onClick={this.handleCorrectLanguageCancel.bind(this)}
-                          />
-                        </StyledLanguageIcon>
-                      </span> :
-                      <span>
-                        {this.props.intl.formatMessage(
-                          messages.language,
-                          { language: media.language },
-                        )}
-                        <Can permissions={media.permissions} permission="create Dynamic">
-                          <StyledLanguageIcon>
-                            <EditIcon
-                              onClick={this.handleCorrectLanguage.bind(this)}
-                            />
-                          </StyledLanguageIcon>
-                        </Can>
-                      </span>
-                    }
+                  <li>
+                    <Chip
+                      className="media-tags__tag media-tags__language"
+                      label={
+                        <FormattedMessage
+                          id="mediaTags.language"
+                          defaultMessage="Language: {language}"
+                          values={{
+                            language: this.state.correctingLanguage ? (
+                              <React.Fragment>
+                                <StyledLanguageSelect>
+                                  <LanguageSelector
+                                    onChange={this.handleLanguageChange.bind(this)}
+                                    team={media.team}
+                                    selected={media.language_code}
+                                  />
+                                </StyledLanguageSelect>
+                                {' '}
+                                <StyledLanguageIcon>
+                                  <CancelIcon
+                                    onClick={this.handleCorrectLanguageCancel.bind(this)}
+                                  />
+                                </StyledLanguageIcon>
+                              </React.Fragment>
+                            ) : (
+                              <React.Fragment>
+                                {media.language}
+                                <Can permissions={media.permissions} permission="create Dynamic">
+                                  <StyledLanguageIcon>
+                                    <EditIcon
+                                      onClick={this.handleCorrectLanguage.bind(this)}
+                                    />
+                                  </StyledLanguageIcon>
+                                </Can>
+                              </React.Fragment>
+                            ),
+                          }}
+                        />
+                      }
+                    />
                   </li>
                 </ul>
                 : null}
@@ -227,12 +283,15 @@ class MediaTags extends Component {
 }
 
 MediaTags.propTypes = {
-  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
-  // eslint-disable-next-line react/no-typos
-  intl: intlShape.isRequired,
   setFlashMessage: PropTypes.func.isRequired,
   media: PropTypes.object.isRequired,
-  tags: PropTypes.object.isRequired,
+  tags: PropTypes.arrayOf(PropTypes.shape({
+    node: PropTypes.shape({
+      tag: PropTypes.number.isRequired,
+      id: PropTypes.string.isRequired,
+      tag_text: PropTypes.string.isRequired,
+    }),
+  }).isRequired).isRequired,
 };
 
-export default withSetFlashMessage(injectIntl(MediaTags));
+export default withSetFlashMessage(MediaTags);

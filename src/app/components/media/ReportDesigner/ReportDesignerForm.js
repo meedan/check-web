@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
@@ -41,17 +41,6 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(2),
   },
 }));
-
-const messages = defineMessages({
-  introductionPlaceholder: {
-    id: 'reportDesigner.introductionPlaceholder',
-    defaultMessage: 'Type your introduction here...',
-  },
-  textPlaceholder: {
-    id: 'reportDesigner.textPlaceholder',
-    defaultMessage: 'Type your report here...',
-  },
-});
 
 const ReportDesignerForm = (props) => {
   const classes = useStyles();
@@ -106,15 +95,22 @@ const ReportDesignerForm = (props) => {
             />
           }
         >
-          <TextField
-            key={`introduction-${data.language}`}
-            value={data.introduction}
-            onChange={(e) => { props.onUpdate('introduction', e.target.value); }}
-            placeholder={props.intl.formatMessage(messages.introductionPlaceholder)}
-            rows={10}
-            multiline
-            {...textFieldProps}
-          />
+          <FormattedMessage
+            id="reportDesigner.introductionPlaceholder"
+            defaultMessage="Type your introduction here..."
+          >
+            {introductionPlaceholder => (
+              <TextField
+                key={`introduction-${data.language}`}
+                value={data.introduction}
+                onChange={(e) => { props.onUpdate('introduction', e.target.value); }}
+                placeholder={introductionPlaceholder}
+                rows={10}
+                multiline
+                {...textFieldProps}
+              />
+            )}
+          </FormattedMessage>
           <Typography variant="caption">
             <FormattedMessage
               id="reportDesigner.introductionSub"
@@ -155,7 +151,7 @@ const ReportDesignerForm = (props) => {
             label={
               <FormattedMessage
                 id="reportDesigner.headline"
-                defaultMessage="Headline - {max} characters max"
+                defaultMessage="Headline ({max} characters max)"
                 values={{ max: 85 }}
               />
             }
@@ -169,7 +165,7 @@ const ReportDesignerForm = (props) => {
             label={
               <FormattedMessage
                 id="reportDesigner.description"
-                defaultMessage="Description - {max} characters max"
+                defaultMessage="Description ({max} characters max)"
                 values={{ max: 240 }}
               />
             }
@@ -185,7 +181,7 @@ const ReportDesignerForm = (props) => {
             label={
               <FormattedMessage
                 id="reportDesigner.statusLabel"
-                defaultMessage="Status label - {max} characters max"
+                defaultMessage="Status label ({max} characters max)"
                 values={{ max: 25 }}
               />
             }
@@ -235,7 +231,7 @@ const ReportDesignerForm = (props) => {
             label={
               <FormattedMessage
                 id="reportDesigner.url"
-                defaultMessage="URL - {max} characters max"
+                defaultMessage="URL ({max} characters max)"
                 values={{ max: 40 }}
               />
             }
@@ -253,24 +249,31 @@ const ReportDesignerForm = (props) => {
             />
           }
         >
-          <TextField
-            id="report-designer__text" // For integration test
-            key={`text-${data.language}`}
-            value={data.text}
-            onChange={(e) => { props.onUpdate('text', e.target.value); }}
-            placeholder={props.intl.formatMessage(messages.textPlaceholder)}
-            rows={10}
-            multiline
-            error={data.use_text_message && data.text.length === 0}
-            helperText={
-              data.use_text_message && data.text.length === 0 ?
-                <FormattedMessage
-                  id="reportDesigner.textError"
-                  defaultMessage="You must either provide text for the report or uncheck the 'Report text' box"
-                /> : null
-            }
-            {...textFieldProps}
-          />
+          <FormattedMessage
+            id="reportDesigner.textPlaceholder"
+            defaultMessage="Type your report here..."
+          >
+            {textPlaceholder => (
+              <TextField
+                id="report-designer__text" // For integration test
+                key={`text-${data.language}`}
+                value={data.text}
+                onChange={(e) => { props.onUpdate('text', e.target.value); }}
+                placeholder={textPlaceholder}
+                rows={10}
+                multiline
+                error={data.use_text_message && data.text.length === 0}
+                helperText={
+                  data.use_text_message && data.text.length === 0 ?
+                    <FormattedMessage
+                      id="reportDesigner.textError"
+                      defaultMessage="You must either provide text for the report or uncheck the 'Report text' box"
+                    /> : null
+                }
+                {...textFieldProps}
+              />
+            )}
+          </FormattedMessage>
           <Box>
             <FormControlLabel
               control={
@@ -309,9 +312,6 @@ ReportDesignerForm.propTypes = {
   media: PropTypes.object.isRequired,
   onUpdate: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
-  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
-  // eslint-disable-next-line react/no-typos
-  intl: intlShape.isRequired,
 };
 
-export default injectIntl(ReportDesignerForm);
+export default ReportDesignerForm;

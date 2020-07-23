@@ -8,22 +8,21 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import RadioButtonIcon from '@material-ui/icons/RadioButtonUnchecked';
 import { Link } from 'react-router';
-import MdShortText from 'react-icons/lib/md/short-text';
-import MdRadioButtonChecked from 'react-icons/lib/md/radio-button-checked';
-import MdCheckBox from 'react-icons/lib/md/check-box';
-import MdLocationOn from 'react-icons/lib/md/location-on';
-import MdDateRange from 'react-icons/lib/md/date-range';
-import MdFormatQuote from 'react-icons/lib/md/format-quote';
-import MdLink from 'react-icons/lib/md/link';
-import MdImage from 'react-icons/lib/md/image';
+import ShortTextIcon from '@material-ui/icons/ShortText';
+import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import DateRangeIcon from '@material-ui/icons/DateRange';
+import FormatQuoteIcon from '@material-ui/icons/FormatQuote';
+import LinkIcon from '@material-ui/icons/Link';
+import ImageIcon from '@material-ui/icons/Image';
 import IconImageUpload from '@material-ui/icons/CloudUpload';
 import BlankState from '../layout/BlankState';
 import FilterPopup from '../layout/FilterPopup';
 import TeamSelect from '../team/TeamSelect';
-import MediaUtil from '../media/MediaUtil';
+import MediaTitle from '../media/MediaTitle';
 import UserRoute from '../../relay/UserRoute';
 import CheckContext from '../../CheckContext';
 import { units, AlignOpposite } from '../../styles/js/shared';
@@ -36,14 +35,14 @@ const messages = defineMessages({
 });
 
 const icons = {
-  free_text: <MdShortText />,
-  single_choice: <MdRadioButtonChecked />,
-  multiple_choice: <MdCheckBox style={{ transform: 'scale(1,1)' }} />,
-  geolocation: <MdLocationOn />,
-  datetime: <MdDateRange />,
-  claim: <MdFormatQuote />,
-  link: <MdLink />,
-  uploadedimage: <MdImage />,
+  free_text: <ShortTextIcon />,
+  single_choice: <RadioButtonCheckedIcon />,
+  multiple_choice: <CheckBoxIcon style={{ transform: 'scale(1,1)' }} />,
+  geolocation: <LocationOnIcon />,
+  datetime: <DateRangeIcon />,
+  claim: <FormatQuoteIcon />,
+  link: <LinkIcon />,
+  uploadedimage: <ImageIcon />,
   image_upload: <IconImageUpload />,
 };
 
@@ -172,43 +171,41 @@ class UserAssignmentsComponent extends Component {
             />
             <List>
               {assignments[project].map(assignment => (
-                <div key={`div-${assignment.dbid}`}>
-                  <ListItem key={`media-${assignment.dbid}`}>
-                    <ListItemIcon>
-                      {icons[assignment.report_type]}
-                    </ListItemIcon>
-                    <Link to={assignment.path}>
-                      <ListItemText
-                        primary={
-                          MediaUtil.title(assignment, assignment.metadata, this.props.intl)
-                        }
-                      />
-                    </Link>
-                  </ListItem>
-                </div>
+                <ListItem
+                  button
+                  component={Link}
+                  to={assignment.path}
+                  key={`media-${assignment.dbid}`}
+                >
+                  <ListItemIcon>
+                    {icons[assignment.report_type]}
+                  </ListItemIcon>
+                  <ListItemText>
+                    <MediaTitle projectMedia={assignment} data={assignment.metadata} />
+                  </ListItemText>
+                </ListItem>
               ))}
             </List>
           </Card>
         ))}
         <Card style={{ marginTop: units(2), marginBottom: units(2) }}>
           <CardHeader
-            title={
-              <FormattedMessage id="userAssignments.other" defaultMessage="Other" />
-            }
+            title={<FormattedMessage id="userAssignments.other" defaultMessage="Other" />}
           />
           <List>
             {assignmentsWithoutProject.map(assignment => (
-              <ListItem key={`media-${assignment.dbid}`}>
+              <ListItem
+                button
+                component={Link}
+                to={assignment.path}
+                key={`media-${assignment.dbid}`}
+              >
                 <ListItemIcon>
                   {icons[assignment.report_type]}
                 </ListItemIcon>
-                <Link to={assignment.path}>
-                  <ListItemText
-                    primary={
-                      MediaUtil.title(assignment, assignment.metadata, this.props.intl)
-                    }
-                  />
-                </Link>
+                <ListItemText>
+                  <MediaTitle projectMedia={assignment} data={assignment.metadata} />
+                </ListItemText>
               </ListItem>
             ))}
           </List>
@@ -249,6 +246,7 @@ const UserAssignmentsContainer = Relay.createContainer(injectIntl(UserAssignment
           edges {
             node {
               id
+              ${MediaTitle.getFragment('projectMedia')}
               dbid
               metadata
               media {
@@ -257,14 +255,8 @@ const UserAssignmentsContainer = Relay.createContainer(injectIntl(UserAssignment
                 quote
               }
               overridden
-              project_id
               project_ids
               report_type
-              project {
-                id
-                dbid
-                title
-              }
               team {
                 id
                 dbid

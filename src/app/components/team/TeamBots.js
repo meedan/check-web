@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
-import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
@@ -19,24 +19,13 @@ import DeleteTeamBotInstallationMutation from '../../relay/mutations/DeleteTeamB
 import UpdateTeamBotInstallationMutation from '../../relay/mutations/UpdateTeamBotInstallationMutation';
 import ConfirmDialog from '../layout/ConfirmDialog';
 
-const messages = defineMessages({
-  confirmUninstall: {
-    id: 'teamBots.confirmUninstall',
-    defaultMessage: 'Are you sure you want to uninstall this bot?',
-  },
-  settingsTooltip: {
-    id: 'teamBots.settingsTooltip',
-    defaultMessage: 'Bot settings',
-  },
-});
-
 const StyledCardContent = styled(CardContent)`
   display: flex;
 
   img {
     height: 100px;
     border: 1px solid ${black32};
-    margin-${props => props.direction.to}: ${units(3)};
+    margin-${props => props.theme.dir === 'rtl' ? 'left' : 'right'}: ${units(3)};
   }
 
   h2 {
@@ -47,8 +36,8 @@ const StyledCardContent = styled(CardContent)`
 const StyledSettings = styled.div`
   display: inline;
 
-  margin-${props => props.direction.to}: 0;
-  margin-${props => props.direction.from}: auto;
+  margin-${props => props.theme.dir === 'rtl' ? 'left' : 'right'}: 0;
+  margin-${props => props.theme.dir === 'rtl' ? 'right' : 'left'}: auto;
 
   .settingsIcon {
     vertical-align: middle;
@@ -156,7 +145,7 @@ class TeamBotsComponent extends Component {
   }
 
   render() {
-    const { team, direction } = this.props;
+    const { team } = this.props;
 
     return (
       <ContentColumn style={{ maxWidth: 900 }}>
@@ -177,7 +166,7 @@ class TeamBotsComponent extends Component {
               style={{ marginBottom: units(5) }}
               key={`bot-${bot.dbid}`}
             >
-              <StyledCardContent direction={direction}>
+              <StyledCardContent>
                 <img src={bot.avatar} alt={bot.name} />
                 <div>
                   <h2 style={{ font: title1 }}>{bot.name}</h2>
@@ -196,8 +185,12 @@ class TeamBotsComponent extends Component {
                 </div>
               </StyledCardContent>
               <CardActions>
-                <StyledSettings direction={direction}>
-                  <Tooltip title={this.props.intl.formatMessage(messages.settingsTooltip)}>
+                <StyledSettings>
+                  <Tooltip
+                    title={
+                      <FormattedMessage id="teamBots.settingsTooltip" defaultMessage="Bot settings" />
+                    }
+                  >
                     <Settings
                       onClick={this.handleToggleSettings.bind(this, bot.dbid)}
                       className="settingsIcon"
@@ -273,7 +266,7 @@ class TeamBotsComponent extends Component {
             </Card>
           );
         })}
-        <p style={{ textAlign: direction.to }}>
+        <p style={{ textAlign: 'end' }}>
           <Button id="team-bots__bot-garden-button" onClick={TeamBotsComponent.handleBotGardenClick}>
             <span>
               <FormattedMessage
@@ -298,13 +291,7 @@ class TeamBotsComponent extends Component {
   }
 }
 
-TeamBotsComponent.propTypes = {
-  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
-  // eslint-disable-next-line react/no-typos
-  intl: intlShape.isRequired,
-};
-
-const TeamBotsContainer = Relay.createContainer(injectIntl(TeamBotsComponent), {
+const TeamBotsContainer = Relay.createContainer(TeamBotsComponent, {
   initialVariables: {
     teamSlug: /^\/([^/]+)/.test(window.location.pathname) ? window.location.pathname.match(/^\/([^/]+)/)[1] : null,
   },
@@ -341,7 +328,7 @@ const TeamBotsContainer = Relay.createContainer(injectIntl(TeamBotsComponent), {
 
 const TeamBots = (props) => {
   const route = new TeamRoute({ teamSlug: props.team.slug });
-  const params = { propTeam: props.team, direction: props.direction };
+  const params = { propTeam: props.team };
   return (
     <Relay.RootContainer
       Component={TeamBotsContainer}

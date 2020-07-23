@@ -1,19 +1,15 @@
 [
   {
-    "id": "reportDesigner.introductionPlaceholder",
-    "defaultMessage": "Type your introduction here..."
-  },
-  {
-    "id": "reportDesigner.textPlaceholder",
-    "defaultMessage": "Type your report here..."
-  },
-  {
     "id": "reportDesigner.reportEditorTitle",
     "defaultMessage": "Select the content to send in your report"
   },
   {
     "id": "reportDesigner.introduction",
     "defaultMessage": "Introduction message"
+  },
+  {
+    "id": "reportDesigner.introductionPlaceholder",
+    "defaultMessage": "Type your introduction here..."
   },
   {
     "id": "reportDesigner.introductionSub",
@@ -29,15 +25,15 @@
   },
   {
     "id": "reportDesigner.headline",
-    "defaultMessage": "Headline - {max} characters max"
+    "defaultMessage": "Headline ({max} characters max)"
   },
   {
     "id": "reportDesigner.description",
-    "defaultMessage": "Description - {max} characters max"
+    "defaultMessage": "Description ({max} characters max)"
   },
   {
     "id": "reportDesigner.statusLabel",
-    "defaultMessage": "Status label - {max} characters max"
+    "defaultMessage": "Status label ({max} characters max)"
   },
   {
     "id": "reportDesigner.themeColor",
@@ -49,11 +45,15 @@
   },
   {
     "id": "reportDesigner.url",
-    "defaultMessage": "URL - {max} characters max"
+    "defaultMessage": "URL ({max} characters max)"
   },
   {
     "id": "reportDesigner.textMessage",
     "defaultMessage": "Report text"
+  },
+  {
+    "id": "reportDesigner.textPlaceholder",
+    "defaultMessage": "Type your report here..."
   },
   {
     "id": "reportDesigner.textError",

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import styled from 'styled-components';
 import IconButton from '@material-ui/core/IconButton';
-import MdClear from 'react-icons/lib/md/clear';
+import ClearIcon from '@material-ui/icons/Clear';
 import { mapGlobalMessage } from './MappedMessage';
 
 import {
@@ -60,7 +60,7 @@ class BrowserSupport extends Component {
         <Message>
           <ContentColumn>
             <IconButton style={{ fontSize: '20px', color: black54 }} onClick={this.close.bind(this)}>
-              <MdClear />
+              <ClearIcon />
             </IconButton>
             <div>
               <FormattedMessage id="browserSupport.message" defaultMessage="{appName} is optimized for Google Chrome on desktop." values={{ appName: mapGlobalMessage(this.props.intl, 'appNameHuman') }} />
