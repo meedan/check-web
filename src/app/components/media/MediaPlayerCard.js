@@ -14,14 +14,14 @@ const StyledPlaybackRate = styled.div`
   right: 0;
 `;
 
-const AudioMediaCard = (props) => {
+const MediaPlayerCard = (props) => {
   const [playbackRate, setplaybackRate] = React.useState(1);
 
   return (
     <article className="video-media-card" style={{ position: 'relative' }}>
       <AspectRatio>
         <Player
-          url={props.audioPath}
+          url={props.filePath}
           className="video-media-player"
           playbackRate={playbackRate}
           onDuration={d => props.setPlayerState({ duration: d })}
@@ -48,7 +48,7 @@ const AudioMediaCard = (props) => {
             <MenuItem value={0.25}>0.25x</MenuItem>
             <MenuItem value={0.5}>0.5x</MenuItem>
             <MenuItem value={0.75}>0.75x</MenuItem>
-            <MenuItem value={1}><FormattedMessage id="video.normalSpeed" defaultMessage="Normal speed" /></MenuItem>
+            <MenuItem value={1}><FormattedMessage id="media.normalSpeed" defaultMessage="Normal speed" /></MenuItem>
             <MenuItem value={1.25}>1.25x</MenuItem>
             <MenuItem value={1.5}>1.5x</MenuItem>
             <MenuItem value={1.75}>1.75x</MenuItem>
@@ -60,4 +60,4 @@ const AudioMediaCard = (props) => {
   );
 };
 
-export default AudioMediaCard;
+export default MediaPlayerCard;

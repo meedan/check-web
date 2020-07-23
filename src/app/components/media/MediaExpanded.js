@@ -16,8 +16,7 @@ import TimeBefore from '../TimeBefore';
 import QuoteMediaCard from './QuoteMediaCard';
 import WebPageMediaCard from './WebPageMediaCard';
 import ImageMediaCard from './ImageMediaCard';
-import VideoMediaCard from './VideoMediaCard';
-import AudioMediaCard from './AudioMediaCard';
+import MediaPlayerCard from './MediaPlayerCard';
 import PenderCard from '../PenderCard';
 import { parseStringUnixTimestamp, truncateLength, getCurrentProjectId } from '../../helpers';
 import CheckContext from '../../CheckContext';
@@ -116,14 +115,17 @@ class MediaExpandedComponent extends Component {
     media.embed_path = media.media.embed_path;
     const data = typeof media.metadata === 'string' ? JSON.parse(media.metadata) : media.metadata;
     const isImage = media.media.type === 'UploadedImage';
-    const isVideo = media.media.type === 'UploadedVideo';
-    const isAudio = media.media.type === 'UploadedAudio';
+    const isMedia = ['UploadedVideo', 'UploadedAudio'].indexOf(media.media.type) > -1;
+    const isYoutube = media.media.url && media.domain === 'youtube.com';
+    let filePath = media.media.file_path;
+    if (isYoutube) {
+      filePath = media.url;
+    }
     const isQuote = media.media.type === 'Claim';
     const isWebPage = media.media.url && data.provider === 'page';
     const authorName = MediaUtil.authorName(media, data);
     const authorUsername = data.username;
     const isPender = media.media.url && data.provider !== 'page';
-    const isYoutube = media.media.url && media.domain === 'youtube.com';
     const randomNumber = Math.floor(Math.random() * 1000000);
     const { mediaUrl, mediaQuery } = this.props;
     const hasCustomDescription = mediaHasCustomDescription(media, data);
@@ -131,33 +133,11 @@ class MediaExpandedComponent extends Component {
     const embedCard = (() => {
       if (isImage) {
         return <ImageMediaCard imagePath={media.embed_path} />;
-      } else if (isAudio) {
+      } else if (isMedia || isYoutube) {
         return (
           <div ref={this.props.playerRef}>
-            <AudioMediaCard
-              audioPath={media.media.file_path}
-              {...{
-                playing, start, end, gaps, scrubTo, seekTo, onPlayerReady, setPlayerState,
-              }}
-            />
-          </div>
-        );
-      } else if (isVideo) {
-        return (
-          <div ref={this.props.playerRef}>
-            <VideoMediaCard
-              videoPath={media.media.file_path}
-              {...{
-                playing, start, end, gaps, scrubTo, seekTo, onPlayerReady, setPlayerState,
-              }}
-            />
-          </div>
-        );
-      } else if (isYoutube) {
-        return (
-          <div ref={this.props.playerRef}>
-            <VideoMediaCard
-              videoPath={media.url}
+            <MediaPlayerCard
+              filePath={filePath}
               {...{
                 playing, start, end, gaps, scrubTo, seekTo, onPlayerReady, setPlayerState,
               }}
