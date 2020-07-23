@@ -88,8 +88,8 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
           updateTeam(input: $input) {
             team {
               id
-              verification_statuses_with_counters: verification_statuses(items_count: true, published_reports_count: true)
               verification_statuses
+              verification_statuses_with_counters: verification_statuses(items_count: true, published_reports_count: true)
             }
           }
         }
@@ -109,8 +109,8 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
           deleteTeamStatus(input: $input) {
             team {
               id
-              verification_statuses_with_counters: verification_statuses(items_count: true, published_reports_count: true)
               verification_statuses
+              verification_statuses_with_counters: verification_statuses(items_count: true, published_reports_count: true)
             }
           }
         }
@@ -329,9 +329,10 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
 
 StatusesComponent.propTypes = {
   team: PropTypes.shape({
-    verification_statuses: PropTypes.object,
-    get_language: PropTypes.string,
-    get_languages: PropTypes.string,
+    verification_statuses: PropTypes.object.isRequired,
+    verification_statuses_with_counters: PropTypes.object.isRequired,
+    get_language: PropTypes.string.isRequired,
+    get_languages: PropTypes.string.isRequired,
   }).isRequired,
 };
 
