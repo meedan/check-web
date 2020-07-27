@@ -11,7 +11,7 @@ import TextField from '@material-ui/core/TextField';
 import Card from '@material-ui/core/Card';
 import styled from 'styled-components';
 import Message from './Message';
-import UploadImage from './UploadImage';
+import UploadFile from './UploadFile';
 import UserTosForm from './UserTosForm';
 import { login, request } from '../redux/actions';
 import { FormattedGlobalMessage } from './MappedMessage';
@@ -419,7 +419,7 @@ class Login extends React.Component {
                         defaultMessage="Profile picture"
                       />
                     </StyledLabel>
-                    <UploadImage
+                    <UploadFile
                       type="image"
                       value={this.state.image}
                       onChange={this.handleImageChange}

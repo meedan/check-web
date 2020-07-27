@@ -22,5 +22,9 @@
   {
     "id": "createMedia.video",
     "defaultMessage": "Video"
+  },
+  {
+    "id": "createMedia.audio",
+    "defaultMessage": "Audio"
   }
 ]
