@@ -5,6 +5,7 @@ import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
 import MediasLoading from './MediasLoading';
 import Annotations from '../annotations/Annotations';
+import UserTooltip from '../user/UserTooltip';
 import ProfileLink from '../layout/ProfileLink';
 import { getCurrentProjectId } from '../../helpers';
 
@@ -111,6 +112,7 @@ const MediaLogContainer = Relay.createContainer(withPusher(MediaLogComponent), {
         id
         dbid
         pusher_channel
+        team { verification_statuses } # FIXME: Make Annotation a container
         log(last: $pageSize, event_types: $eventTypes, field_names: $fieldNames, annotation_types: $annotationTypes) {
           edges {
             node {
@@ -153,6 +155,7 @@ const MediaLogContainer = Relay.createContainer(withPusher(MediaLogComponent), {
                 is_active,
                 team_user(team_slug: $teamSlug) {
                   ${ProfileLink.getFragment('teamUser')}, # FIXME: Make Annotation a container
+                  ${UserTooltip.getFragment('teamUser')}, # FIXME: Make Annotation a container
                 },
                 source {
                   id,
