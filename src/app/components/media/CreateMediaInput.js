@@ -10,7 +10,7 @@ import LinkIcon from '@material-ui/icons/Link';
 import styled from 'styled-components';
 import urlRegex from 'url-regex';
 import Message from '../Message';
-import UploadImage from '../UploadImage';
+import UploadFile from '../UploadFile';
 import {
   Row,
   units,
@@ -153,6 +153,7 @@ class CreateMediaInput extends React.Component {
     if (this.props.onTabChange) {
       this.props.onTabChange(mode);
     }
+    this.resetForm();
   }
 
   handleFileChange = (file) => {
@@ -187,7 +188,7 @@ class CreateMediaInput extends React.Component {
 
     switch (this.state.mode) {
     case 'image': return (
-      <UploadImage
+      <UploadFile
         key="createMedia.image.upload"
         type="image"
         onChange={this.handleFileChange}
@@ -196,7 +197,7 @@ class CreateMediaInput extends React.Component {
       />
     );
     case 'video': return (
-      <UploadImage
+      <UploadFile
         key="createMedia.video.upload"
         type="video"
         onChange={this.handleFileChange}
@@ -206,7 +207,7 @@ class CreateMediaInput extends React.Component {
       />
     );
     case 'audio': return (
-      <UploadImage
+      <UploadFile
         key="createMedia.audio.upload"
         type="audio"
         onChange={this.handleFileChange}

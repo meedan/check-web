@@ -70,7 +70,7 @@ const UploadMessage = ({ type, about }) => {
   switch (type) {
   case 'image': return (
     <FormattedMessage
-      id="uploadImage.message"
+      id="uploadFile.message"
       defaultMessage="Drop an image file here, or click to upload a file (max size: {upload_max_size}, allowed extensions: {upload_extensions}, allowed dimensions between {upload_min_dimensions} and {upload_max_dimensions} pixels)"
       values={{
         upload_max_size: about.upload_max_size,
@@ -82,7 +82,7 @@ const UploadMessage = ({ type, about }) => {
   );
   case 'video': return (
     <FormattedMessage
-      id="uploadImage.videoMessage"
+      id="uploadFile.videoMessage"
       defaultMessage="Drop a video file here, or click to upload a file (max size: {video_max_size}, allowed extensions: {video_extensions})"
       values={{
         video_max_size: about.video_max_size,
@@ -92,7 +92,7 @@ const UploadMessage = ({ type, about }) => {
   );
   case 'audio': return (
     <FormattedMessage
-      id="uploadImage.audioMessage"
+      id="uploadFile.audioMessage"
       defaultMessage="Drop an audio file here, or click to upload a file (max size: {audio_max_size}, allowed extensions: {audio_extensions})"
       values={{
         audio_max_size: about.audio_max_size,
@@ -118,7 +118,7 @@ UploadMessage.propTypes = {
   }).isRequired,
 };
 
-class UploadImageComponent extends React.PureComponent {
+class UploadFileComponent extends React.PureComponent {
   onDrop = (files) => {
     const {
       about,
@@ -143,7 +143,7 @@ class UploadImageComponent extends React.PureComponent {
     const extension = file.name.substr(file.name.lastIndexOf('.') + 1).toLowerCase();
     if (valid_extensions.length > 0 && valid_extensions.indexOf(extension) < 0) {
       onError(file, <FormattedMessage
-        id="uploadImage.invalidExtension"
+        id="uploadFile.invalidExtension"
         defaultMessage='The file cannot have type "{extension}". Please try with the following file types: {allowed_types}.'
         values={{ extension, allowed_types: extensions }}
       />);
@@ -151,7 +151,7 @@ class UploadImageComponent extends React.PureComponent {
     }
     if (file.size && unhumanizeSize(maxSize) < file.size) {
       onError(file, <FormattedMessage
-        id="uploadImage.fileTooLarge"
+        id="uploadFile.fileTooLarge"
         defaultMessage="The file size should be less than {size}. Please try with a smaller file."
         values={{ size: maxSize }}
       />);
@@ -199,7 +199,7 @@ class UploadImageComponent extends React.PureComponent {
           <div>
             {value ? (
               <FormattedMessage
-                id="uploadImage.changeFile"
+                id="uploadFile.changeFile"
                 defaultMessage="{filename} (click or drop to change)"
                 values={{ filename: value.name }}
               />
@@ -214,11 +214,11 @@ class UploadImageComponent extends React.PureComponent {
   }
 }
 
-const UploadImage = childProps => (
+const UploadFile = childProps => (
   <QueryRenderer
     environment={Relay.Store}
     query={graphql`
-      query UploadImageQuery {
+      query UploadFileQuery {
         about {
           upload_max_size
           upload_extensions
@@ -235,17 +235,17 @@ const UploadImage = childProps => (
       if (error) {
         return <div className="TODO-handle-error">{error.message}</div>;
       } else if (props) {
-        return <UploadImageComponent about={props.about} {...childProps} />;
+        return <UploadFileComponent about={props.about} {...childProps} />;
       }
       return <CircularProgress />;
     }}
   />
 );
-UploadImage.defaultProps = {
+UploadFile.defaultProps = {
   value: null,
   noPreview: false,
 };
-UploadImage.propTypes = {
+UploadFile.propTypes = {
   value: PropTypes.object, // or null
   type: PropTypes.oneOf(['image', 'video', 'audio']).isRequired,
   noPreview: PropTypes.bool,
@@ -253,4 +253,4 @@ UploadImage.propTypes = {
   onError: PropTypes.func.isRequired, // func(Image?, <FormattedMessage ...>) => undefined
 };
 
-export default UploadImage;
+export default UploadFile;
