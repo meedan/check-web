@@ -865,7 +865,7 @@ SearchQueryComponent.propTypes = {
           label: PropTypes.string.isRequired,
         }).isRequired).isRequired,
       }).isRequired,
-    }).isRequired,
+    }),
   }).isRequired,
 };
 
