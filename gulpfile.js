@@ -23,7 +23,6 @@ const RelayCommand = [
 let transifexClient = null;
 if (buildConfig.transifex) {
   transifexClient = transifex.createClient({
-    host: 'www.transifex.com',
     user: buildConfig.transifex.user,
     password: buildConfig.transifex.password,
     project: buildConfig.transifex.project,

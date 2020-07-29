@@ -1,18 +1,8 @@
 module AppSpecHelpers
   def update_field(selector, value, type = :css, visible = true)
-    wait = Selenium::WebDriver::Wait.new(timeout: 50)
-    input = wait.until {
-      element = @driver.find_element(type, selector)
-      if visible
-        element if element.displayed?
-      else
-        element
-      end
-    }
+    wait_for_selector(selector).send_keys(:control, 'a', :delete)
     sleep 0.5
-    input.send_keys(:control, 'a', :delete)
-    sleep 0.5
-    input.send_keys(value)
+    wait_for_selector(selector).send_keys(value)
   end
 
   def fill_field(selector, value, type = :css, visible = true)

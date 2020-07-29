@@ -165,11 +165,11 @@ function getFilters() {
 /**
  * Safely extract an error message from a transaction, with default fallback.
  */
-function getErrorMessage(transaction, fallbackMessage) {
+function getErrorMessage(transactionOrError, fallbackMessage) {
   let message = fallbackMessage;
-
-  const transactionError = transaction.getError();
-  const json = safelyParseJSON(transactionError.source);
+  const json = transactionOrError.source ?
+    safelyParseJSON(transactionOrError.source) :
+    safelyParseJSON(transactionOrError.getError().source); // TODO remove after Relay Modern update
   const error = json && json.errors && json.errors.length > 0 ? json.errors[0] : {};
   if (error && error.message) {
     message = error.message; // eslint-disable-line prefer-destructuring

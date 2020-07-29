@@ -1,0 +1,26 @@
+[
+  {
+    "id": "deleteStatusDialog.moveItemsTo",
+    "defaultMessage": "Move items to"
+  },
+  {
+    "id": "deleteStatusDialog.statusInUseTitle",
+    "defaultMessage": "You need to change the status of {itemsCount, plural, one {one item} other {# items}} to delete this status"
+  },
+  {
+    "id": "deleteStatusDialog.statusInUseMessage",
+    "defaultMessage": "There {itemsCount, plural, one {is one item} other {are # items}} with the status {statusLabel} that must be changed to other statuses before deleting this status."
+  },
+  {
+    "id": "deleteStatusDialog.alternatively",
+    "defaultMessage": "Alternatively, you can change each item status individually."
+  },
+  {
+    "id": "deleteStatusDialog.itemsPublishedMessage",
+    "defaultMessage": "{publishedCount, plural, one {One of those items is currently published.} other {# of those items are currently published.}} Upon moving them to another status, the reports will be paused. Please review those items to re-publish them."
+  },
+  {
+    "id": "statusesComponent.moveItemsAndDelete",
+    "defaultMessage": "Move items and delete status"
+  }
+]

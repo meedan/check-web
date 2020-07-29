@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import TeamAvatar from './TeamAvatar';
 import Message from '../Message';
-import UploadImage from '../UploadImage';
+import UploadFile from '../UploadFile';
 import { FormattedGlobalMessage } from '../MappedMessage';
 import { getErrorMessage, validateURL } from '../../helpers';
 import UpdateTeamMutation from '../../relay/mutations/UpdateTeamMutation';
@@ -161,7 +161,7 @@ class TeamInfoEdit extends React.Component {
 
           <StyledBigColumn>
             {this.state.editProfileImg ?
-              <UploadImage
+              <UploadFile
                 type="image"
                 value={this.state.avatar}
                 onChange={this.handleImageChange}

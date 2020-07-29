@@ -2,7 +2,7 @@
 import React from 'react';
 import { mountWithIntlProvider } from '../../../../test/unit/helpers/intl-test';
 import CreateMediaInput from './CreateMediaInput';
-import UploadImage from '../UploadImage';
+import UploadFile from '../UploadFile';
 
 describe('<CreateMediaInput />', () => {
   it('should render all input tabs buttons', () => {
@@ -18,6 +18,6 @@ describe('<CreateMediaInput />', () => {
     wrapper.find('#create-media__quote').hostNodes().simulate('click');
     expect(wrapper.find('#create-media-quote-input').hostNodes()).toHaveLength(1);
     wrapper.find('#create-media__image').hostNodes().simulate('click');
-    expect(wrapper.find(UploadImage)).toHaveLength(1);
+    expect(wrapper.find(UploadFile)).toHaveLength(1);
   });
 });

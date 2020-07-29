@@ -12,7 +12,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { SliderPicker } from 'react-color';
 import ReportDesignerFormSection from './ReportDesignerFormSection';
-import UploadImage from '../../UploadImage';
+import UploadFile from '../../UploadFile';
 import { checkBlue } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
@@ -133,7 +133,7 @@ const ReportDesignerForm = (props) => {
             />
           }
         >
-          <UploadImage onChange={handleImageChange} onError={handleImageError} type="image" />
+          <UploadFile onChange={handleImageChange} onError={handleImageError} type="image" />
           <Box>
             { media.media.picture ?
               <Button onClick={handleDefaultImage}>
@@ -151,7 +151,7 @@ const ReportDesignerForm = (props) => {
             label={
               <FormattedMessage
                 id="reportDesigner.headline"
-                defaultMessage="Headline - {max} characters max"
+                defaultMessage="Headline ({max} characters max)"
                 values={{ max: 85 }}
               />
             }
@@ -165,7 +165,7 @@ const ReportDesignerForm = (props) => {
             label={
               <FormattedMessage
                 id="reportDesigner.description"
-                defaultMessage="Description - {max} characters max"
+                defaultMessage="Description ({max} characters max)"
                 values={{ max: 240 }}
               />
             }
@@ -181,7 +181,7 @@ const ReportDesignerForm = (props) => {
             label={
               <FormattedMessage
                 id="reportDesigner.statusLabel"
-                defaultMessage="Status label - {max} characters max"
+                defaultMessage="Status label ({max} characters max)"
                 values={{ max: 25 }}
               />
             }
@@ -231,7 +231,7 @@ const ReportDesignerForm = (props) => {
             label={
               <FormattedMessage
                 id="reportDesigner.url"
-                defaultMessage="URL - {max} characters max"
+                defaultMessage="URL ({max} characters max)"
                 values={{ max: 40 }}
               />
             }

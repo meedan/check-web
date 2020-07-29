@@ -52,6 +52,10 @@
     "defaultMessage": "Videos"
   },
   {
+    "id": "search.showAudios",
+    "defaultMessage": "Audios"
+  },
+  {
     "id": "search.rules",
     "defaultMessage": "Rules"
   },
