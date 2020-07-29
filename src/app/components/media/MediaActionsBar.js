@@ -17,8 +17,8 @@ import MediaActions from './MediaActions';
 import Attribution from '../task/Attribution';
 import AddProjectMediaToProjectAction from './AddProjectMediaToProjectAction';
 import MoveProjectMediaToProjectAction from './MoveProjectMediaToProjectAction';
+import RemoveProjectMediaFromProjectAction from './RemoveProjectMediaFromProjectAction';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
-import DeleteProjectMediaProjectMutation from '../../relay/mutations/DeleteProjectMediaProjectMutation';
 import UpdateStatusMutation from '../../relay/mutations/UpdateStatusMutation';
 import CheckContext from '../../CheckContext';
 import globalStrings from '../../globalStrings';
@@ -92,34 +92,6 @@ class MediaActionsBarComponent extends Component {
     );
     const message = getErrorMessage(transaction, fallbackMessage);
     this.props.setFlashMessage(message);
-  }
-
-  handleRemoveFromList = () => {
-    const context = this.getContext();
-    const { media } = this.props;
-    const { project_media_project: projectMediaProject } = media;
-
-    const onSuccess = () => {
-      const message = (
-        <FormattedMessage
-          id="mediaActionsBar.removedFromList"
-          defaultMessage="Removed from list"
-        />
-      );
-      this.props.setFlashMessage(message);
-      const path = `/${media.team.slug}/media/${media.dbid}`;
-      browserHistory.push(path);
-    };
-
-    Relay.Store.commitUpdate(
-      new DeleteProjectMediaProjectMutation({
-        id: projectMediaProject.id,
-        project: this.currentProject(),
-        projectMedia: media,
-        context,
-      }),
-      { onSuccess, onFailure: this.fail },
-    );
   }
 
   canSubmit = () => {
@@ -462,17 +434,12 @@ class MediaActionsBarComponent extends Component {
             ) : null}
 
             { projectMediaProject ? (
-              <Button
-                id="media-actions-bar__remove-from-list"
-                variant="outlined"
+              <RemoveProjectMediaFromProjectAction
+                team={this.props.media.team}
+                project={projectMediaProject.project}
+                projectMedia={this.props.media}
                 className={classes.spacedButton}
-                onClick={this.handleRemoveFromList}
-              >
-                <FormattedMessage
-                  id="mediaActionsBar.removeFromList"
-                  defaultMessage="Remove from list"
-                />
-              </Button>
+              />
             ) : null}
 
             <Button
@@ -566,6 +533,7 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
         id
         ${AddProjectMediaToProjectAction.getFragment('projectMedia')}
         ${MoveProjectMediaToProjectAction.getFragment('projectMedia')}
+        ${RemoveProjectMediaFromProjectAction.getFragment('projectMedia')}
         dbid
         project_ids
         title
@@ -587,6 +555,7 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
           project {
             id
             ${MoveProjectMediaToProjectAction.getFragment('project')}
+            ${RemoveProjectMediaFromProjectAction.getFragment('project')}
             dbid
             title
             search_id
@@ -622,8 +591,9 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
           source_id
         }
         team {
-          ${MoveProjectMediaToProjectAction.getFragment('team')}
           ${AddProjectMediaToProjectAction.getFragment('team')}
+          ${MoveProjectMediaToProjectAction.getFragment('team')}
+          ${RemoveProjectMediaFromProjectAction.getFragment('team')}
           id
           dbid
           slug
