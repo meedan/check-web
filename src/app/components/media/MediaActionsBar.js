@@ -8,12 +8,11 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import IconReport from '@material-ui/icons/Receipt';
 import MediaStatus from './MediaStatus';
 import MediaRoute from '../../relay/MediaRoute';
-import MediaActions from './MediaActions';
+import MediaActionsMenuButton from './MediaActionsMenuButton';
 import Attribution from '../task/Attribution';
 import AddProjectMediaToProjectAction from './AddProjectMediaToProjectAction';
 import MoveProjectMediaToProjectAction from './MoveProjectMediaToProjectAction';
@@ -58,24 +57,11 @@ class MediaActionsBarComponent extends Component {
 
     this.state = {
       openAssignDialog: false,
-      isEditing: false,
-      title: null,
-      description: null,
     };
   }
 
   getContext() {
     return new CheckContext(this).getContextStore();
-  }
-
-  getDescription() {
-    const description = (typeof this.state.description === 'string') ? this.state.description : this.props.media.description;
-    return description || '';
-  }
-
-  getTitle() {
-    const title = (typeof this.state.title === 'string') ? this.state.title : this.props.media.title;
-    return title || '';
   }
 
   currentProject() {
@@ -99,56 +85,6 @@ class MediaActionsBarComponent extends Component {
     const permissions = JSON.parse(this.props.media.permissions);
     return (permissions['update Dynamic'] !== false && (typeof title === 'string' || typeof description === 'string'));
   };
-
-  handleChangeTitle(e) {
-    this.setState({ title: e.target.value });
-  }
-
-  handleChangeDescription(e) {
-    this.setState({ description: e.target.value });
-  }
-
-  handleSave(media, event) {
-    if (event) {
-      event.preventDefault();
-    }
-
-    const embed = {
-      title: this.getTitle().trim(),
-      description: this.getDescription().trim(),
-    };
-
-    if (embed.title === '' && media.media.embed_path) {
-      embed.title = media.media.embed_path.split('/').pop().replace('embed_', '');
-    }
-
-    const onFailure = (transaction) => {
-      const fallbackMessage = (
-        <FormattedMessage
-          id="mediaDetail.editReportError"
-          defaultMessage="Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists."
-          values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
-        />
-      );
-      const message = getErrorMessage(transaction, fallbackMessage);
-      this.props.setFlashMessage(message);
-    };
-
-    if (this.canSubmit()) {
-      Relay.Store.commitUpdate(
-        new UpdateProjectMediaMutation({
-          media,
-          metadata: JSON.stringify(embed),
-          id: media.id,
-          srcProj: null,
-          dstProj: null,
-        }),
-        { onFailure },
-      );
-    }
-
-    this.handleCancel();
-  }
 
   handleSendToTrash() {
     const onSuccess = (response) => {
@@ -192,7 +128,6 @@ class MediaActionsBarComponent extends Component {
 
   handleCancel() {
     this.setState({
-      isEditing: false,
       title: null,
       description: null,
     });
@@ -200,13 +135,8 @@ class MediaActionsBarComponent extends Component {
 
   handleCloseDialogs() {
     this.setState({
-      isEditing: false,
       openAssignDialog: false,
     });
-  }
-
-  handleEdit() {
-    this.setState({ isEditing: true });
   }
 
   handleRefresh() {
@@ -352,67 +282,6 @@ class MediaActionsBarComponent extends Component {
       </Button>,
     ];
 
-    const editDialog = (
-      <Dialog
-        open={this.state.isEditing}
-        onClose={this.handleCloseDialogs.bind(this)}
-        maxWidth="md"
-        fullWidth
-      >
-        <DialogTitle>
-          <FormattedMessage id="mediaDetail.editReport" defaultMessage="Edit" />
-        </DialogTitle>
-        <DialogContent>
-          <form onSubmit={this.handleSave.bind(this, media)} name="edit-media-form">
-            <TextField
-              id="media-detail__title-input"
-              label={<FormattedMessage id="mediaDetail.mediaTitle" defaultMessage="Title" />}
-              value={this.getTitle()}
-              onChange={this.handleChangeTitle.bind(this)}
-              fullWidth
-              margin="normal"
-            />
-
-            <TextField
-              id="media-detail__description-input"
-              label={
-                <FormattedMessage id="mediaDetail.mediaDescription" defaultMessage="Description" />
-              }
-              value={this.getDescription()}
-              onChange={this.handleChangeDescription.bind(this)}
-              fullWidth
-              multiline
-              margin="normal"
-            />
-          </form>
-        </DialogContent>
-        <DialogActions>
-          <span style={{ display: 'flex' }}>
-            <Button
-              onClick={this.handleCancel.bind(this)}
-              className="media-detail__cancel-edits"
-            >
-              <FormattedMessage
-                id="mediaDetail.cancelButton"
-                defaultMessage="Cancel"
-              />
-            </Button>
-            <Button
-              onClick={this.handleSave.bind(this, media)}
-              className="media-detail__save-edits"
-              disabled={!this.canSubmit()}
-              color="primary"
-            >
-              <FormattedMessage
-                id="mediaDetail.doneButton"
-                defaultMessage="Done"
-              />
-            </Button>
-          </span>
-        </DialogActions>
-      </Dialog>
-    );
-
     return (
       <div className={classes.root}>
         { !media.archived ?
@@ -466,13 +335,13 @@ class MediaActionsBarComponent extends Component {
             readonly={media.archived || media.last_status_obj.locked || readonlyStatus || published}
           />
 
-          <MediaActions
+          <MediaActionsMenuButton
             style={{
               height: 36,
               marginTop: -5,
             }}
-            media={media}
-            handleEdit={this.handleEdit.bind(this)}
+            key={media.id /* close menu if we navigate to a different projectMedia */}
+            projectMedia={media}
             handleRefresh={this.handleRefresh.bind(this)}
             handleSendToTrash={this.handleSendToTrash.bind(this)}
             handleRestore={this.handleRestore.bind(this)}
@@ -480,8 +349,6 @@ class MediaActionsBarComponent extends Component {
             handleStatusLock={this.handleStatusLock.bind(this)}
           />
         </div>
-
-        {this.state.isEditing ? editDialog : null}
 
         <Dialog
           open={this.state.openAssignDialog}
@@ -534,6 +401,7 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
         ${AddProjectMediaToProjectAction.getFragment('projectMedia')}
         ${MoveProjectMediaToProjectAction.getFragment('projectMedia')}
         ${RemoveProjectMediaFromProjectAction.getFragment('projectMedia')}
+        ${MediaActionsMenuButton.getFragment('projectMedia')}
         dbid
         project_ids
         title

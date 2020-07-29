@@ -1,9 +1,5 @@
 [
   {
-    "id": "mediaDetail.editReportError",
-    "defaultMessage": "Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists."
-  },
-  {
     "id": "mediaActionsBar.movedToTrash",
     "defaultMessage": "Sent to {trash}"
   },
@@ -25,26 +21,6 @@
   },
   {
     "id": "mediaActionsBar.done",
-    "defaultMessage": "Done"
-  },
-  {
-    "id": "mediaDetail.editReport",
-    "defaultMessage": "Edit"
-  },
-  {
-    "id": "mediaDetail.mediaTitle",
-    "defaultMessage": "Title"
-  },
-  {
-    "id": "mediaDetail.mediaDescription",
-    "defaultMessage": "Description"
-  },
-  {
-    "id": "mediaDetail.cancelButton",
-    "defaultMessage": "Cancel"
-  },
-  {
-    "id": "mediaDetail.doneButton",
     "defaultMessage": "Done"
   },
   {
