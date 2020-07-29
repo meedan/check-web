@@ -40,9 +40,11 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
                 text
                 parsed_fragment
                 annotator {
-                  id
-                  name
-                  profile_image
+                  ... on User {
+                    id
+                    name
+                    profile_image
+                  }
                 }
                 comments: annotations(first: 10000, annotation_type: "comment") {
                   edges {
@@ -52,9 +54,11 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
                         created_at
                         text
                         annotator {
-                          id
-                          name
-                          profile_image
+                          ... on User {
+                            id
+                            name
+                            profile_image
+                          }
                         }
                       }
                     }
