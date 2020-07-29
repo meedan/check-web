@@ -112,7 +112,7 @@ function MoveProjectMediaToProjectAction({
   const [isSaving, setIsSaving] = React.useState(false);
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
   const openDialog = React.useCallback(() => setIsDialogOpen(true), [setIsDialogOpen]);
-  const closeDialog = React.useCallback(() => setIsDialogOpen(true), [setIsDialogOpen]);
+  const closeDialog = React.useCallback(() => setIsDialogOpen(false), [setIsDialogOpen]);
   const handleSubmit = React.useCallback((toProject) => {
     setIsDialogOpen(false);
     setIsSaving(true);

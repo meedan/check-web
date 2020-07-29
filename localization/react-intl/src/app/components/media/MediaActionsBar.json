@@ -4,10 +4,6 @@
     "defaultMessage": "Removed from list"
   },
   {
-    "id": "mediaMetadata.addedToList",
-    "defaultMessage": "Added to list {listName}"
-  },
-  {
     "id": "mediaDetail.editReportError",
     "defaultMessage": "Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists."
   },
@@ -30,10 +26,6 @@
   {
     "id": "mediaActionsBar.cancelButton",
     "defaultMessage": "Cancel"
-  },
-  {
-    "id": "mediaActionsBar.add",
-    "defaultMessage": "Add"
   },
   {
     "id": "mediaActionsBar.done",
@@ -60,20 +52,12 @@
     "defaultMessage": "Done"
   },
   {
-    "id": "mediaActionsBar.addTo",
-    "defaultMessage": "Add to..."
-  },
-  {
     "id": "mediaActionsBar.removeFromList",
     "defaultMessage": "Remove from list"
   },
   {
     "id": "mediaActionsBar.reportDesigner",
     "defaultMessage": "Report"
-  },
-  {
-    "id": "mediaActionsBar.dialogAddToListTitle",
-    "defaultMessage": "Add to a different list"
   },
   {
     "id": "mediaActionsBar.assignDialogHeader",

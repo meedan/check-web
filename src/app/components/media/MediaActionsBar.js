@@ -15,12 +15,11 @@ import MediaStatus from './MediaStatus';
 import MediaRoute from '../../relay/MediaRoute';
 import MediaActions from './MediaActions';
 import Attribution from '../task/Attribution';
+import AddProjectMediaToProjectAction from './AddProjectMediaToProjectAction';
 import MoveProjectMediaToProjectAction from './MoveProjectMediaToProjectAction';
-import CreateProjectMediaProjectMutation from '../../relay/mutations/CreateProjectMediaProjectMutation';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
 import DeleteProjectMediaProjectMutation from '../../relay/mutations/DeleteProjectMediaProjectMutation';
 import UpdateStatusMutation from '../../relay/mutations/UpdateStatusMutation';
-import MoveDialog from './MoveDialog';
 import CheckContext from '../../CheckContext';
 import globalStrings from '../../globalStrings';
 import { withSetFlashMessage } from '../FlashMessage';
@@ -58,9 +57,7 @@ class MediaActionsBarComponent extends Component {
     super(props);
 
     this.state = {
-      openAddToListDialog: false,
       openAssignDialog: false,
-      dstProj: null,
       isEditing: false,
       title: null,
       description: null,
@@ -84,43 +81,6 @@ class MediaActionsBarComponent extends Component {
   currentProject() {
     const { project_media_project: projectMediaProject } = this.props.media;
     return projectMediaProject ? projectMediaProject.project : null;
-  }
-
-  handleAddToList = () => {
-    this.setState({ openAddToListDialog: true });
-  }
-
-  handleAddItemToList() {
-    const onSuccess = (response) => {
-      const { project } = response.createProjectMediaProject;
-      const message = (
-        <FormattedMessage
-          id="mediaMetadata.addedToList"
-          defaultMessage="Added to list {listName}"
-          values={{
-            listName: (
-              <Link to={`/${project.team.slug}/project/${project.dbid}`}>
-                {project.title}
-              </Link>
-            ),
-          }}
-        />
-      );
-      this.props.setFlashMessage(message);
-    };
-
-    const context = this.getContext();
-
-    Relay.Store.commitUpdate(
-      new CreateProjectMediaProjectMutation({
-        project: this.state.dstProj,
-        projectMedia: this.props.media,
-        context,
-      }),
-      { onSuccess, onFailure: this.fail },
-    );
-
-    this.setState({ openAddToListDialog: false });
   }
 
   fail(transaction) {
@@ -269,14 +229,8 @@ class MediaActionsBarComponent extends Component {
   handleCloseDialogs() {
     this.setState({
       isEditing: false,
-      openAddToListDialog: false,
       openAssignDialog: false,
-      dstProj: null,
     });
-  }
-
-  handleSelectDestProject(dstProj) {
-    this.setState({ dstProj });
   }
 
   handleEdit() {
@@ -387,26 +341,6 @@ class MediaActionsBarComponent extends Component {
     const { classes, media } = this.props;
     const { project_media_project: projectMediaProject } = media;
 
-    const addToListDialogActions = [
-      <Button
-        color="primary"
-        onClick={this.handleCloseDialogs.bind(this)}
-      >
-        <FormattedMessage
-          id="mediaActionsBar.cancelButton"
-          defaultMessage="Cancel"
-        />
-      </Button>,
-      <Button
-        color="primary"
-        className="media-actions-bar__add-button"
-        onClick={this.handleAddItemToList.bind(this)}
-        disabled={!this.state.dstProj}
-      >
-        <FormattedMessage id="mediaActionsBar.add" defaultMessage="Add" />
-      </Button>,
-    ];
-
     let smoochBotInstalled = false;
     if (media.team && media.team.team_bot_installations) {
       media.team.team_bot_installations.edges.forEach((edge) => {
@@ -511,18 +445,11 @@ class MediaActionsBarComponent extends Component {
       <div className={classes.root}>
         { !media.archived ?
           <div>
-            <Button
-              id="media-actions-bar__add-to"
-              variant="contained"
+            <AddProjectMediaToProjectAction
+              team={this.props.media.team}
+              projectMedia={this.props.media}
               className={classes.spacedButton}
-              color="primary"
-              onClick={this.handleAddToList}
-            >
-              <FormattedMessage
-                id="mediaActionsBar.addTo"
-                defaultMessage="Add to..."
-              />
-            </Button>
+            />
 
             {projectMediaProject ? (
               <MoveProjectMediaToProjectAction
@@ -534,7 +461,7 @@ class MediaActionsBarComponent extends Component {
               />
             ) : null}
 
-            { projectMediaProject ?
+            { projectMediaProject ? (
               <Button
                 id="media-actions-bar__remove-from-list"
                 variant="outlined"
@@ -545,7 +472,8 @@ class MediaActionsBarComponent extends Component {
                   id="mediaActionsBar.removeFromList"
                   defaultMessage="Remove from list"
                 />
-              </Button> : null }
+              </Button>
+            ) : null}
 
             <Button
               onClick={MediaActionsBarComponent.handleReportDesigner}
@@ -587,22 +515,6 @@ class MediaActionsBarComponent extends Component {
         </div>
 
         {this.state.isEditing ? editDialog : null}
-
-        <MoveDialog
-          actions={addToListDialogActions}
-          open={this.state.openAddToListDialog}
-          onClose={this.handleCloseDialogs.bind(this)}
-          team={media.team}
-          excludeProjectDbids={media.project_ids}
-          value={this.state.dstProj}
-          onChange={this.handleSelectDestProject.bind(this)}
-          title={
-            <FormattedMessage
-              id="mediaActionsBar.dialogAddToListTitle"
-              defaultMessage="Add to a different list"
-            />
-          }
-        />
 
         <Dialog
           open={this.state.openAssignDialog}
@@ -652,6 +564,7 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
     media: () => Relay.QL`
       fragment on ProjectMedia {
         id
+        ${AddProjectMediaToProjectAction.getFragment('projectMedia')}
         ${MoveProjectMediaToProjectAction.getFragment('projectMedia')}
         dbid
         project_ids
@@ -709,8 +622,8 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
           source_id
         }
         team {
-          ${MoveDialog.getFragment('team')}
           ${MoveProjectMediaToProjectAction.getFragment('team')}
+          ${AddProjectMediaToProjectAction.getFragment('team')}
           id
           dbid
           slug
