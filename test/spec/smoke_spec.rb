@@ -113,12 +113,12 @@ shared_examples 'smoke' do
     wait_for_selector("//h4[contains(text(), 'Happy')]", :xpath)
     expect(@driver.page_source.include?('Happy birthday Mick')).to be(true)
 
-    #from Youtube commented until #8390 is fixed
-    # expect(@driver.page_source.include?("How To Check An")).to be(false)
-    # create_media("https://www.youtube.com/watch?v=ykLgjhBnik0")
-    # wait_for_selector_list_size('.media__heading',3)
-    # wait_for_selector("//h4[contains(text(), 'How')]", :xpath)
-    # expect(@driver.page_source.include?("How To Check An")).to be(true)
+    # from Youtube 
+    expect(@driver.page_source.include?("How To Check An")).to be(false)
+    create_media("https://www.youtube.com/watch?v=ykLgjhBnik0")
+    wait_for_selector_list_size('.media__heading',3)
+    wait_for_selector("//h4[contains(text(), 'How')]", :xpath)
+    expect(@driver.page_source.include?("How To Check An")).to be(true)
 
     #from Instagram
     expect(@driver.page_source.include?('#wEDnesday')).to be(false)
@@ -755,7 +755,7 @@ shared_examples 'smoke' do
   end
 #Related items section end
 
-#Embed section Start
+#Report section Start
   {
     'YouTube' => 'https://www.youtube.com/watch?v=ykLgjhBnik0',
     'Facebook' => 'https://www.facebook.com/FirstDraftNews/posts/1808121032783161',
@@ -1004,56 +1004,56 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?("Claim")).to be(true)
   end
 
-  #comment until 8294 be fixed
-  # it "should restore item from trash from item page", bin2: true do
-  #   #create media from list and send it to trash
-  #   api_create_team_project_and_claim_and_redirect_to_media_page
-  #   wait_for_selector(".media")
-  #   expect(@driver.page_source.include?("Claim")).to be(true)
-  #   wait_for_selector(".media-actions__icon").click
-  #   wait_for_selector(".media-actions__send-to-trash").click
-  #   wait_for_selector(".message").click
-  #   wait_for_selector(".project-header__back-button").click
-  #   wait_for_selector("#search-input")
-  #   expect(@driver.find_elements(:css, '.medias__item').length == 0 )
-  #   #create media from all items and send it to trash
-  #   wait_for_selector(".project-list__link-all").click
-  #   create_media("media from all items")
-  #   wait_for_selector(".media__heading").click
-  #   wait_for_selector(".create-related-media__add-button")
-  #   wait_for_selector(".media-actions__icon").click
-  #   wait_for_selector(".media-actions__send-to-trash").click
-  #   wait_for_selector_none(".create-related-media__add-button")
-  #   wait_for_selector(".message",:css,30).click #message
-  #   wait_for_selector(".project-header__back-button").click
-  #   wait_for_selector("#search-input")
-  #   expect(@driver.find_elements(:css, '.medias__item').length == 0 )
-  #   #Go to the trash page and restore the item
-  #   wait_for_selector(".project-list__item-trash").click
-  #   wait_for_selector_list_size(".media__heading",2)
-  #   wait_for_selector(".media__heading").click
-  #   wait_for_selector(".media-status")
-  #   wait_for_selector(".media-actions__icon").click
-  #   wait_for_selector("#media-actions__restore").click
-  #   wait_for_selector(".message").click
-  #   wait_for_selector(".create-related-media__add-button")
-  #   wait_for_selector(".projects__list")
-  #   wait_for_selector(".project-list__link-all").click
-  #   wait_for_selector(".media__heading" )
-  #   expect(@driver.page_source.include?("media from all items")).to be(true)
-  #   # Go to the trash page and restore the another item
-  #   wait_for_selector(".project-list__item-trash").click
-  #   wait_for_selector(".media__heading").click
-  #   wait_for_selector(".media-status")
-  #   wait_for_selector(".media-actions__icon").click
-  #   wait_for_selector("#media-actions__restore").click
-  #   wait_for_selector(".create-related-media__add-button")
-  #   wait_for_selector(".message").click
-  #   wait_for_selector(".projects__list")
-  #   wait_for_selector(".project-list__link").click
-  #   wait_for_selector(".media__heading")
-  #   expect(@driver.page_source.include?("Claim")).to be(true)
-  # end
+  it "should restore item from trash from item page", bin2: true do
+    #create media from list and send it to trash
+    api_create_team_project_and_claim_and_redirect_to_media_page
+    wait_for_selector(".media")
+    expect(@driver.page_source.include?("Claim")).to be(true)
+    wait_for_selector(".media-actions__icon").click
+    wait_for_selector(".media-actions__send-to-trash").click
+    wait_for_selector(".message").click
+    wait_for_selector(".project-header__back-button").click
+    wait_for_selector("#search-input")
+    expect(@driver.find_elements(:css, '.medias__item').length == 0 )
+    #create media from all items and send it to trash
+    wait_for_selector(".project-list__link-all").click
+    create_media("media from all items")
+    wait_for_selector(".media__heading").click
+    wait_for_selector(".create-related-media__add-button")
+    wait_for_selector(".media-actions__icon").click
+    wait_for_selector(".media-actions__send-to-trash").click
+    wait_for_selector_none(".create-related-media__add-button")
+    wait_for_selector(".message",:css,30).click #message
+    wait_for_selector(".project-header__back-button").click
+    wait_for_selector("#search-input")
+    expect(@driver.find_elements(:css, '.medias__item').length == 0 )
+    #Go to the trash page and restore the item
+    wait_for_selector(".project-list__item-trash").click
+    wait_for_selector_list_size(".media__heading",2)
+    wait_for_selector(".media__heading").click
+    wait_for_selector(".media-status")
+    wait_for_selector(".media-actions__icon").click
+    wait_for_selector("#media-actions__restore").click
+    wait_for_selector(".message").click
+    wait_for_selector(".project-header__back-button").click
+    wait_for_selector("#search-input")
+    wait_for_selector(".project-list__link-all").click
+    wait_for_selector(".media__heading" )
+    expect(@driver.page_source.include?("media from all items")).to be(true)
+    # Go to the trash page and restore the another item
+    wait_for_selector(".project-list__item-trash").click
+    wait_for_selector(".media__heading").click
+    wait_for_selector(".media-status")
+    wait_for_selector(".media-actions__icon").click
+    wait_for_selector("#media-actions__restore").click
+    wait_for_selector(".create-related-media__add-button")
+    wait_for_selector(".message").click
+    wait_for_selector(".project-header__back-button").click
+    wait_for_selector("#search-input")
+    wait_for_selector(".project-list__link").click
+    wait_for_selector(".media__heading")
+    expect(@driver.page_source.include?("Claim")).to be(true)
+  end
 
   it "should remove item from list", bin2: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
@@ -1067,7 +1067,6 @@ shared_examples 'smoke' do
     expect(@driver.find_elements(:css, '.medias__item').length == 0 )
     expect(@driver.page_source.include?("Add a link or text")).to be(true)
   end
-
 #Bulk Actions section end
 
 #Permissions section start
@@ -1594,34 +1593,19 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('My search result')).to be(false)
   end
 
-  it "should change search sort criteria through URL", bin2: true do
+  it "should change search sort and search criteria through URL", bin2: true do
     api_create_claim_and_go_to_search_page
     @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"related"%2C"sort_type"%3A"DESC"%7D'
     wait_for_selector("#create-media__add-item")
     expect(@driver.page_source.include?('My search result')).to be(true)
-    el = wait_for_selector("th[data-field=linked_items_count][aria-sort]")
-    expect(el).to be  # TODO nix this line after https://mantis.meedan.com/view.php?id=8221
+    expect(@driver.find_elements(:css, "th[data-field=linked_items_count]> span > svg").length).to eq 1 
+    expect(@driver.find_elements(:css, "th[data-field=created_at]> span > svg").empty?).to be(true)
 
     @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"recent_added"%2C"sort_type"%3A"DESC"%7D'
     wait_for_selector("#create-media__add-item")
     expect(@driver.page_source.include?('My search result')).to be(true)
-    el = wait_for_selector("th[data-field=created_at][aria-sort]")
-    expect(el).to be  # TODO nix this line after https://mantis.meedan.com/view.php?id=8221
-  end
-
-  it "should change search sort order through URL", bin2: true do
-    api_create_claim_and_go_to_search_page
-    @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"related"%2C"sort_type"%3A"DESC"%7D'
-    wait_for_selector("#create-media__add-item")
-    expect(@driver.page_source.include?('My search result')).to be(true)
-    el = wait_for_selector("th[data-field=linked_items_count][aria-sort=descending]")
-    expect(el).to be  # TODO nix this line after https://mantis.meedan.com/view.php?id=8221
-
-    @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"related"%2C"sort_type"%3A"ASC"%7D'
-    wait_for_selector("#create-media__add-item")
-    expect(@driver.page_source.include?('My search result')).to be(true)
-    el = wait_for_selector("th[data-field=linked_items_count][aria-sort=ascending]")
-    expect(el).to be  # TODO nix this line after https://mantis.meedan.com/view.php?id=8221
+    expect(@driver.find_elements(:css, "th[data-field=linked_items_count]> span > svg").empty?).to be(true)
+    expect(@driver.find_elements(:css, "th[data-field=created_at]> span > svg").length).to eq 1 
   end
 
   it "should search for reverse images", bin2: true do
@@ -1712,4 +1696,109 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('newtagedited')).to be(false)
   end
 #tag section end
+
+# video timeline section start
+  it "should manage video notes", bin2: true do
+    api_create_team_project_and_link_and_redirect_to_media_page 'https://www.youtube.com/watch?v=em8gwDcjPzU'
+    wait_for_selector(".media-detail")
+    wait_for_selector("//span[contains(text(), 'Video annotation')]", :xpath).click
+    wait_for_selector("div[aria-labelledby=TimelineTab]")
+    expect(@driver.page_source.include?('Timeline')).to be(true)
+    #add a new note
+    wait_for_selector("button[data-testid=new-comment-thread-button]").click
+    wait_for_selector("#comment").send_keys("my note")
+    wait_for_selector("//span[contains(text(), 'Save')]", :xpath).click
+    wait_for_selector(".MuiAvatar-img")
+    wait_for_selector(".MuiIconButton-sizeSmall").click #close timeline button
+    @driver.navigate.refresh
+    wait_for_selector("#video-media-card__playback-rate")
+    wait_for_selector(".media-tab__comments").click
+    wait_for_selector(".annotation__card-content") 
+    expect(@driver.page_source.include?('my note')).to be(true) # check the video note appears on the note tab
+    wait_for_selector("//span[contains(text(), 'Video annotation')]", :xpath).click
+    wait_for_selector(".MuiAvatar-img").click
+    #add a new note the comment
+    wait_for_selector("#comment").send_keys("new note")
+    wait_for_selector("//span[contains(text(), 'Save')]", :xpath).click
+    wait_for_selector("//p[contains(text(), 'new note')]", :xpath)
+    #delet note
+    wait_for_selector("button[aria-label='Delete thread']").click
+    wait_for_selector_none(".MuiAvatar-img")
+    expect(@driver.page_source.include?('my note')).to be(false)
+    wait_for_selector(".MuiIconButton-sizeSmall").click #close timeline button
+    @driver.navigate.refresh
+    wait_for_selector(".media-detail")
+    wait_for_selector(".media-tab__comments").click
+    expect(@driver.page_source.include?('my note')).to be(false) # check the video note disappears from the comments tab
+  end
+
+  it "should manage videotags", bin2: true do
+    api_create_team_project_and_link_and_redirect_to_media_page 'https://www.youtube.com/watch?v=em8gwDcjPzU'
+    wait_for_selector(".media-detail")
+    expect(@driver.page_source.include?('my videotag')).to be(false) 
+    wait_for_selector("//span[contains(text(), 'Video annotation')]", :xpath).click
+    wait_for_selector("div[aria-labelledby=TimelineTab]")
+    expect(@driver.page_source.include?('Timeline')).to be(true)
+    #add a videotag
+    wait_for_selector("div[data-testid=entities-tags]")
+    wait_for_selector("button[data-testid=new-tag-button]").click
+    wait_for_selector("#tag-suggestions").send_keys("my videotag")
+    @driver.action.send_keys(:enter).perform
+    wait_for_selector("//p[contains(text(), 'my videotag')]", :xpath)
+    wait_for_selector(".MuiIconButton-sizeSmall").click #close timeline button
+    wait_for_selector(".MuiChip-icon")
+    wait_for_selector("#video-media-card__playback-rate")
+    expect(@driver.page_source.include?('my videotag')).to be(true) # check the videotag appears on the page
+    wait_for_selector(".MuiChip-icon").click
+    wait_for_selector("div[aria-labelledby=TimelineTab]")
+    expect(@driver.page_source.include?('Timeline')).to be(true)
+    wait_for_selector(".MuiIconButton-sizeSmall").click #close timeline button
+    wait_for_selector("//span[contains(text(), 'my videotag')]", :xpath).click
+    wait_for_selector("#search-input")
+    expect(@driver.current_url.to_s.match(/all-items/).nil?).to be(false) # check the redirect 
+  end
+#videotimeline section end
+
+#status section start
+  it "should customize status", bin1: true do
+    api_create_team_project_and_claim_and_redirect_to_media_page
+    wait_for_selector(".media-detail")
+    wait_for_selector(".media-status__current").click
+    wait_for_selector(".media-status__menu-item")
+    ['UNSTARTED', 'INCONCLUSIVE','IN PROGRESS'].each do |status_label|
+      expect(@driver.page_source.include?(status_label)).to be(true)
+    end
+    expect(@driver.page_source.include?('new status')).to be(false)
+    item_page = @driver.current_url
+    @driver.navigate.to @config['self_url'] + '/' + get_team + '/settings'
+    wait_for_selector(".team__primary-info")
+    wait_for_selector(".team-settings__statuses-tab").click
+    wait_for_selector("//span[contains(text(), 'English (primary)')]", :xpath)
+    expect(@driver.page_source.include?('Unstarted')).to be(true)
+    wait_for_selector(".status-actions__menu").click
+    # edit status name
+    wait_for_selector(".status-actions__edit").click
+    update_field("#edit-status-dialog__status-name", "new status")
+    wait_for_selector(".edit-status-dialog__submit").click
+    wait_for_selector_none(".edit-status-dialog__dismiss")
+    expect(@driver.page_source.include?('new status')).to be(true)
+    expect(@driver.page_source.include?('UNSTARTED')).to be(false)
+    #make another status as default
+    wait_for_selector_list(".status-actions__menu")[3].click
+    wait_for_selector(".status-actions__make-default").click
+    #delete status
+    wait_for_selector_list(".status-actions__menu")[2].click
+    wait_for_selector(".status-actions__delete").click
+    wait_for_selector_list(".status-actions__menu")[2].click
+    wait_for_selector(".status-actions__delete").click
+    @driver.navigate.to item_page
+    wait_for_selector(".media-detail")
+    wait_for_selector(".media-status__current").click
+    wait_for_selector(".media-status__menu-item")
+    ['UNSTARTED', 'INCONCLUSIVE', 'IN PROGRESS'].each do |status_label|
+      expect(@driver.page_source.include?(status_label)).to be(false)
+    expect(@driver.page_source.include?('new status')).to be(true)
+    end
+  end
+#status section end
 end
