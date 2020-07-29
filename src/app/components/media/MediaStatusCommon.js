@@ -5,6 +5,7 @@ import { browserHistory } from 'react-router';
 import Button from '@material-ui/core/Button';
 import Popover from '@material-ui/core/Popover';
 import MenuItem from '@material-ui/core/MenuItem';
+import { makeStyles } from '@material-ui/core/styles';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import LockIcon from '@material-ui/icons/Lock';
 import styled from 'styled-components';
@@ -18,6 +19,23 @@ const StyledMediaStatus = styled.div`
   display: flex;
   align-items: center;
 `;
+
+const useStyles = makeStyles({
+  statusLabel: props => ({
+    color: props.color,
+    textTransform: 'uppercase',
+  }),
+});
+
+const StatusLabel = (props) => {
+  const classes = useStyles(props);
+
+  return (
+    <span className={classes.statusLabel}>
+      {props.children}
+    </span>
+  );
+};
 
 class MediaStatusCommon extends Component {
   static currentStatusToClass(status) {
@@ -104,9 +122,9 @@ class MediaStatusCommon extends Component {
               )} media-status__menu-item--${status.id.replace('_', '-')}`}
               onClick={() => this.handleStatusClick(status.id)}
             >
-              <span style={{ color: status.style.color }}>
-                {status.label.toUpperCase()}
-              </span>
+              <StatusLabel color={status.style.color}>
+                {status.label}
+              </StatusLabel>
             </MenuItem>
           ))}
         </Popover>
