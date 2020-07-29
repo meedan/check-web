@@ -8,10 +8,6 @@
     "defaultMessage": "Added to list {listName}"
   },
   {
-    "id": "mediaActionsBar.movingItem",
-    "defaultMessage": "Moving item..."
-  },
-  {
     "id": "mediaDetail.editReportError",
     "defaultMessage": "Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists."
   },
@@ -38,10 +34,6 @@
   {
     "id": "mediaActionsBar.add",
     "defaultMessage": "Add"
-  },
-  {
-    "id": "mediaActionsBar.move",
-    "defaultMessage": "Move"
   },
   {
     "id": "mediaActionsBar.done",
@@ -72,10 +64,6 @@
     "defaultMessage": "Add to..."
   },
   {
-    "id": "mediaActionsBar.moveTo",
-    "defaultMessage": "Move to..."
-  },
-  {
     "id": "mediaActionsBar.removeFromList",
     "defaultMessage": "Remove from list"
   },
@@ -86,10 +74,6 @@
   {
     "id": "mediaActionsBar.dialogAddToListTitle",
     "defaultMessage": "Add to a different list"
-  },
-  {
-    "id": "mediaActionsBar.dialogMoveTitle",
-    "defaultMessage": "Move to a different list"
   },
   {
     "id": "mediaActionsBar.assignDialogHeader",

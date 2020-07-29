@@ -15,9 +15,9 @@ import MediaStatus from './MediaStatus';
 import MediaRoute from '../../relay/MediaRoute';
 import MediaActions from './MediaActions';
 import Attribution from '../task/Attribution';
+import MoveProjectMediaToProjectAction from './MoveProjectMediaToProjectAction';
 import CreateProjectMediaProjectMutation from '../../relay/mutations/CreateProjectMediaProjectMutation';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
-import UpdateProjectMediaProjectMutation from '../../relay/mutations/UpdateProjectMediaProjectMutation';
 import DeleteProjectMediaProjectMutation from '../../relay/mutations/DeleteProjectMediaProjectMutation';
 import UpdateStatusMutation from '../../relay/mutations/UpdateStatusMutation';
 import MoveDialog from './MoveDialog';
@@ -59,7 +59,6 @@ class MediaActionsBarComponent extends Component {
 
     this.state = {
       openAddToListDialog: false,
-      openMoveDialog: false,
       openAssignDialog: false,
       dstProj: null,
       isEditing: false,
@@ -122,10 +121,6 @@ class MediaActionsBarComponent extends Component {
     this.setState({ openAddToListDialog: false });
   }
 
-  handleMove = () => {
-    this.setState({ openMoveDialog: true });
-  }
-
   fail(transaction) {
     const fallbackMessage = (
       <FormattedMessage
@@ -135,40 +130,6 @@ class MediaActionsBarComponent extends Component {
     );
     const message = getErrorMessage(transaction, fallbackMessage);
     this.props.setFlashMessage(message);
-  }
-
-  handleMoveProjectMedia() {
-    const { media } = this.props;
-    const { dstProj: { dbid: projectId } } = this.state;
-
-    const onFailure = (transaction) => {
-      this.fail(transaction);
-    };
-
-    const path = `/${media.team.slug}/project/${projectId}`;
-    const context = this.getContext();
-    this.props.setFlashMessage((
-      <FormattedMessage
-        id="mediaActionsBar.movingItem"
-        defaultMessage="Moving item..."
-      />
-    ));
-
-    const onSuccess = () => {
-      browserHistory.push(path);
-    };
-
-    Relay.Store.commitUpdate(
-      new UpdateProjectMediaProjectMutation({
-        id: media.project_media_project.id,
-        srcProj: this.currentProject(),
-        dstProj: this.state.dstProj,
-        context,
-      }),
-      { onSuccess, onFailure },
-    );
-
-    this.setState({ openMoveDialog: false });
   }
 
   handleRemoveFromList = () => {
@@ -307,7 +268,6 @@ class MediaActionsBarComponent extends Component {
     this.setState({
       isEditing: false,
       openAddToListDialog: false,
-      openMoveDialog: false,
       openAssignDialog: false,
       dstProj: null,
     });
@@ -445,26 +405,6 @@ class MediaActionsBarComponent extends Component {
       </Button>,
     ];
 
-    const moveDialogActions = [
-      <Button
-        color="primary"
-        onClick={this.handleCloseDialogs.bind(this)}
-      >
-        <FormattedMessage
-          id="mediaActionsBar.cancelButton"
-          defaultMessage="Cancel"
-        />
-      </Button>,
-      <Button
-        color="primary"
-        className="media-actions-bar__move-button"
-        onClick={this.handleMoveProjectMedia.bind(this)}
-        disabled={!this.state.dstProj}
-      >
-        <FormattedMessage id="mediaActionsBar.move" defaultMessage="Move" />
-      </Button>,
-    ];
-
     let smoochBotInstalled = false;
     if (media.team && media.team.team_bot_installations) {
       media.team.team_bot_installations.edges.forEach((edge) => {
@@ -582,19 +522,15 @@ class MediaActionsBarComponent extends Component {
               />
             </Button>
 
-            { projectMediaProject ?
-              <Button
-                id="media-actions-bar__move-to"
-                variant="contained"
+            {projectMediaProject ? (
+              <MoveProjectMediaToProjectAction
+                team={this.props.media.team}
+                project={projectMediaProject.project}
+                projectMedia={this.props.media}
+                projectMediaProject={projectMediaProject}
                 className={classes.spacedButton}
-                color="primary"
-                onClick={this.handleMove}
-              >
-                <FormattedMessage
-                  id="mediaActionsBar.moveTo"
-                  defaultMessage="Move to..."
-                />
-              </Button> : null }
+              />
+            ) : null}
 
             { projectMediaProject ?
               <Button
@@ -666,22 +602,6 @@ class MediaActionsBarComponent extends Component {
           }
         />
 
-        <MoveDialog
-          actions={moveDialogActions}
-          open={this.state.openMoveDialog}
-          onClose={this.handleCloseDialogs.bind(this)}
-          excludeProjectDbids={media.project_ids}
-          team={media.team}
-          value={this.state.dstProj}
-          onChange={this.handleSelectDestProject.bind(this)}
-          title={
-            <FormattedMessage
-              id="mediaActionsBar.dialogMoveTitle"
-              defaultMessage="Move to a different list"
-            />
-          }
-        />
-
         <Dialog
           open={this.state.openAssignDialog}
           onClose={this.handleCloseDialogs.bind(this)}
@@ -730,6 +650,7 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
     media: () => Relay.QL`
       fragment on ProjectMedia {
         id
+        ${MoveProjectMediaToProjectAction.getFragment('projectMedia')}
         dbid
         project_ids
         title
@@ -747,8 +668,10 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
         }
         project_media_project(project_id: $projectId){
           id
+          ${MoveProjectMediaToProjectAction.getFragment('projectMediaProject')}
           project {
             id
+            ${MoveProjectMediaToProjectAction.getFragment('project')}
             dbid
             title
             search_id
@@ -785,6 +708,7 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
         }
         team {
           ${MoveDialog.getFragment('team')}
+          ${MoveProjectMediaToProjectAction.getFragment('team')}
           id
           dbid
           slug
