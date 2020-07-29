@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { defineMessages, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import MdInsertPhoto from 'react-icons/lib/md/insert-photo';
+import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 import styled from 'styled-components';
-import rtlDetect from 'rtl-detect';
 import CreateCommentMutation from '../../relay/mutations/CreateCommentMutation';
 import CreateTagMutation from '../../relay/mutations/CreateTagMutation';
 import CreateStatusMutation from '../../relay/mutations/CreateStatusMutation';
@@ -14,33 +13,10 @@ import UpdateStatusMutation from '../../relay/mutations/UpdateStatusMutation';
 import CreateDynamicMutation from '../../relay/mutations/CreateDynamicMutation';
 import { can } from '../Can';
 import CheckContext from '../../CheckContext';
-import UploadImage from '../UploadImage';
+import UploadFile from '../UploadFile';
 import { ContentColumn, Row, black38, black87, units } from '../../styles/js/shared';
 import { getErrorMessage } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
-
-const messages = defineMessages({
-  invalidCommand: {
-    id: 'addAnnotation.invalidCommand',
-    defaultMessage: 'Invalid command',
-  },
-  error: {
-    id: 'addAnnotation.error',
-    defaultMessage: 'Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists.',
-  },
-  inputHint: {
-    id: 'addAnnotation.inputHint',
-    defaultMessage: 'Add a note',
-  },
-  submitButton: {
-    id: 'addAnnotation.submitButton',
-    defaultMessage: 'Submit',
-  },
-  addImage: {
-    id: 'addAnnotation.addImage',
-    defaultMessage: 'Add an image',
-  },
-});
 
 class AddAnnotation extends Component {
   static parseCommand(input) {
@@ -99,7 +75,9 @@ class AddAnnotation extends Component {
 
   invalidCommand() {
     this.setState({
-      message: this.props.intl.formatMessage(messages.invalidCommand),
+      message: (
+        <FormattedMessage id="addAnnotation.invalidCommand" defaultMessage="Invalid command" />
+      ),
       isSubmitting: false,
     });
   }
@@ -115,7 +93,13 @@ class AddAnnotation extends Component {
   };
 
   fail = (transaction) => {
-    const fallbackMessage = this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+    const fallbackMessage = (
+      <FormattedMessage
+        id="addAnnotation.error"
+        defaultMessage="Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists."
+        values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
+      />
+    );
     const message = getErrorMessage(transaction, fallbackMessage);
     this.setState({
       message: message.replace(/<br\s*\/?>/gm, '; '),
@@ -321,7 +305,6 @@ class AddAnnotation extends Component {
       align-items: center;
       display: flex;
       justify-content: flex-end;
-      margin-${props => props.isRtl ? 'right' : 'left'}: auto;
       .add-annotation__insert-photo {
         svg {
           path { color: ${black38}; }
@@ -329,7 +312,6 @@ class AddAnnotation extends Component {
             color: ${black87};
             cusor: pointer;
           }
-          margin-${props => props.isRtl ? 'left' : 'right'}: 0;
         }
       }
     `;
@@ -356,48 +338,46 @@ class AddAnnotation extends Component {
         }}
       >
         <ContentColumn flex style={{ maxWidth: '100%' }}>
-          <TextField
-            placeholder={this.props.intl.formatMessage(messages.inputHint)}
-            onFocus={this.handleFocus.bind(this)}
-            ref={(i) => { this.cmd = i; }}
-            error={Boolean(this.state.message)}
-            helperText={this.state.message}
-            name="cmd"
-            id="cmd-input"
-            multiline
-            fullWidth
-            onKeyPress={this.handleKeyPress.bind(this)}
-            onKeyUp={this.handleKeyUp.bind(this)}
-            value={this.state.cmd}
-            onChange={this.handleChange.bind(this)}
-          />
-          {(() => {
-            if (this.state.fileMode) {
-              return (
-                <UploadImage
-                  type="image"
-                  value={this.state.image}
-                  onChange={this.onImageChange}
-                  onError={this.onImageError}
-                />
-              );
-            }
-            return null;
-          })()}
-          <AddAnnotationButtonGroup
-            className="add-annotation__buttons"
-            isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
-          >
+          <FormattedMessage id="addAnnotation.inputHint" defaultMessage="Add a note">
+            {inputHint => (
+              <TextField
+                placeholder={inputHint}
+                onFocus={this.handleFocus.bind(this)}
+                ref={(i) => { this.cmd = i; }}
+                error={Boolean(this.state.message)}
+                helperText={this.state.message}
+                name="cmd"
+                id="cmd-input"
+                multiline
+                fullWidth
+                onKeyPress={this.handleKeyPress.bind(this)}
+                onKeyUp={this.handleKeyUp.bind(this)}
+                value={this.state.cmd}
+                onChange={this.handleChange.bind(this)}
+              />
+            )}
+          </FormattedMessage>
+          {this.state.fileMode ? (
+            <UploadFile
+              type="image"
+              value={this.state.image}
+              onChange={this.onImageChange}
+              onError={this.onImageError}
+            />
+          ) : null}
+          <AddAnnotationButtonGroup className="add-annotation__buttons">
             <div className="add-annotation__insert-photo">
-              <MdInsertPhoto
+              <InsertPhotoIcon
                 id="add-annotation__switcher"
-                title={this.props.intl.formatMessage(messages.addImage)}
+                title={
+                  <FormattedMessage id="addAnnotation.addImage" defaultMessage="Add an image" />
+                }
                 className={this.state.fileMode ? 'add-annotation__file' : ''}
                 onClick={this.switchMode.bind(this)}
               />
             </div>
             <Button color="primary" type="submit">
-              {this.props.intl.formatMessage(messages.submitButton)}
+              <FormattedMessage id="addAnnotation.submitButton" defaultMessage="Submit" />
             </Button>
           </AddAnnotationButtonGroup>
         </ContentColumn>
@@ -406,14 +386,8 @@ class AddAnnotation extends Component {
   }
 }
 
-AddAnnotation.propTypes = {
-  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
-  // eslint-disable-next-line react/no-typos
-  intl: intlShape.isRequired,
-};
-
 AddAnnotation.contextTypes = {
   store: PropTypes.object,
 };
 
-export default injectIntl(AddAnnotation);
+export default AddAnnotation;

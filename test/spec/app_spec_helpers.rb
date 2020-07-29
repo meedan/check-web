@@ -1,18 +1,8 @@
 module AppSpecHelpers
   def update_field(selector, value, type = :css, visible = true)
-    wait = Selenium::WebDriver::Wait.new(timeout: 50)
-    input = wait.until {
-      element = @driver.find_element(type, selector)
-      if visible
-        element if element.displayed?
-      else
-        element
-      end
-    }
+    wait_for_selector(selector).send_keys(:control, 'a', :delete)
     sleep 0.5
-    input.send_keys(:control, 'a', :delete)
-    sleep 0.5
-    input.send_keys(value)
+    wait_for_selector(selector).send_keys(value)
   end
 
   def fill_field(selector, value, type = :css, visible = true)
@@ -105,8 +95,8 @@ module AppSpecHelpers
     sleep 3
   end
 
-  def wait_for_selector(selector, type = :css, timeout = 20, index = 0)
-    wait_for_selector_list(selector, type, timeout)[index]
+  def wait_for_selector(selector, type = :css, timeout = 20, index: 0)
+    wait_for_selector_list_size(selector, index + 1, type)[index]
   end
 
   def wait_for_selector_list(selector, type = :css, timeout = 20, test = 'unknown')
@@ -128,7 +118,7 @@ module AppSpecHelpers
       end
     end
     finish = Time.now.to_i - start
-    raise "Could not find element with selector #{type.upcase} '#{selector}' for test '#{test}' after #{finish} seconds!" if elements.empty? 
+    raise "Could not find element with selector #{type.upcase} '#{selector}' after #{finish} seconds!" if elements.empty?
     elements
   end
 
@@ -283,11 +273,6 @@ module AppSpecHelpers
     sleep 0.5
   end
 
-  def create_project(title = "Project #{Time.now}")
-    fill_field('#create-project-title', title)
-    @driver.action.send_keys(:enter).perform
-  end
-
   def register_with_email(should_create_team = true, email = @email, should_login = true)
     @driver.navigate.to @config['self_url']
     wait_for_selector("#register").click
@@ -368,14 +353,14 @@ module AppSpecHelpers
   end
 
   def save_screenshot(title)
-    require 'imgur'
     path = '/tmp/' + (0...8).map{ (65 + rand(26)).chr }.join + '.png'
     @driver.save_screenshot(path)
 
-    client = Imgur.new(@config['imgur_client_id'])
-    image = Imgur::LocalImage.new(path, title: title)
-    uploaded = client.upload(image)
-    uploaded.link
+    auth_header =  {'Authorization' => 'Client-ID ' + @config['imgur_client_id']}
+    image = File.new(path)
+    body = {image: image, type: 'file'}
+    response = HTTParty.post('https://api.imgur.com/3/upload', body: body, headers: auth_header)
+    JSON.parse(response.body)['data']['link']
   end
 
   def wait_page_load(options = {})
@@ -450,7 +435,7 @@ module AppSpecHelpers
 
   def generate_a_report_and_copy_report_code
     wait_for_selector('#media-detail__report-designer').click
-    wait_for_selector('#report-designer__actions-copy').click
+    wait_for_selector('.report-designer__actions-copy').click
   end
 
   def change_the_status_to(status_class, confirm)
@@ -466,7 +451,7 @@ module AppSpecHelpers
 
   def change_the_member_role_to(rule_class)
     wait_for_selector('.team-members__edit-button', :css).click
-    wait_for_selector('.role-select', :css, 29, 1).click
+    wait_for_selector('.role-select', :css, 29, index: 1).click
     wait_for_selector(rule_class).click
     wait_for_selector('#confirm-dialog__checkbox').click
     wait_for_selector('#confirm-dialog__confirm-action-button').click

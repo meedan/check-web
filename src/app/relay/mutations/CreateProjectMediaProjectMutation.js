@@ -2,7 +2,7 @@ import Relay from 'react-relay/classic';
 
 class CreateProjectMediaProjectMutation extends Relay.Mutation {
   getMutation() {
-    return Relay.QL`mutation createProject {
+    return Relay.QL`mutation createProjectMediaProject {
       createProjectMediaProject
     }`;
   }
@@ -10,18 +10,9 @@ class CreateProjectMediaProjectMutation extends Relay.Mutation {
   getFatQuery() {
     return Relay.QL`
       fragment on CreateProjectMediaProjectPayload {
-        project_media_projectEdge,
-        check_search_project { id, number_of_results, medias },
-        project {
-          id
-          dbid
-          title
-          medias_count
-          search_id
-          team {
-            slug
-          }
-        }
+        project { id, medias_count, dbid, title, team { slug } }
+        check_search_project { id, number_of_results },
+        project_media { id, project_ids }
       }
     `;
   }
@@ -32,13 +23,17 @@ class CreateProjectMediaProjectMutation extends Relay.Mutation {
         id: this.props.project.id,
         medias_count: this.props.project.medias_count + 1,
       },
+      check_search_project: {
+        id: this.props.project.search_id,
+        number_of_results: this.props.project.medias_count + 1,
+      },
     };
   }
 
   getVariables() {
     return {
       project_id: this.props.project.dbid,
-      project_media_id: this.props.project_media.dbid,
+      project_media_id: this.props.projectMedia.dbid,
     };
   }
 
@@ -49,10 +44,22 @@ class CreateProjectMediaProjectMutation extends Relay.Mutation {
         fieldIDs: {
           check_search_project: this.props.project.search_id,
           project: this.props.project.id,
+          project_media: this.props.projectMedia.id,
         },
       },
     ];
   }
+
+  static fragments = {
+    project: () => Relay.QL`
+      fragment on Project {
+        id
+        dbid
+        search_id
+        medias_count
+      }
+    `,
+  };
 }
 
 export default CreateProjectMediaProjectMutation;

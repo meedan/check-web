@@ -1,0 +1,22 @@
+[
+  {
+    "id": "media.typeClaim",
+    "defaultMessage": "Text"
+  },
+  {
+    "id": "media.typeLink",
+    "defaultMessage": "Link"
+  },
+  {
+    "id": "media.typeImage",
+    "defaultMessage": "Image"
+  },
+  {
+    "id": "media.typeVideo",
+    "defaultMessage": "Video"
+  },
+  {
+    "id": "media.typeAudio",
+    "defaultMessage": "Audio"
+  }
+]

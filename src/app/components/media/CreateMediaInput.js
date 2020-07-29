@@ -4,12 +4,13 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 import MovieIcon from '@material-ui/icons/Movie';
+import AudiotrackIcon from '@material-ui/icons/Audiotrack';
 import FormatQuoteIcon from '@material-ui/icons/FormatQuote';
 import LinkIcon from '@material-ui/icons/Link';
 import styled from 'styled-components';
 import urlRegex from 'url-regex';
 import Message from '../Message';
-import UploadImage from '../UploadImage';
+import UploadFile from '../UploadFile';
 import {
   Row,
   units,
@@ -42,37 +43,29 @@ class CreateMediaInput extends React.Component {
   state = {
     mode: 'link',
     textValue: '',
-    imageFile: null,
-    imageMessage: null,
-    videoFile: null,
-    videoMessage: null,
+    mediaFile: null,
+    mediaMessage: null,
   };
 
   getMediaInputValue = () => {
-    const {
-      mode,
-      imageFile,
-      videoFile,
-      textValue,
-    } = this.state;
+    const { mode, mediaFile, textValue } = this.state;
     let mediaType = '';
-    let image = '';
-    let video = '';
+    let file = '';
     let inputValue = '';
     let urls = '';
     let url = '';
     let quote = '';
 
-    if (mode === 'image') {
-      image = imageFile;
-      mediaType = 'UploadedImage';
-      if (!image) {
-        return null;
+    if (['image', 'video', 'audio'].indexOf(mode) > -1) {
+      file = mediaFile;
+      if (mode === 'image') {
+        mediaType = 'UploadedImage';
+      } else if (mode === 'video') {
+        mediaType = 'UploadedVideo';
+      } else if (mode === 'audio') {
+        mediaType = 'UploadedAudio';
       }
-    } else if (mode === 'video') {
-      video = videoFile;
-      mediaType = 'UploadedVideo';
-      if (!video) {
+      if (!file) {
         return null;
       }
     } else if (mode === 'quote') {
@@ -103,19 +96,15 @@ class CreateMediaInput extends React.Component {
     if (url !== '') {
       title = url;
     }
-    if (image !== '') {
-      title = image.name;
-    }
-    if (video !== '') {
-      title = video.name;
+    if (file !== '') {
+      title = file.name;
     }
 
-    if (url || quote || image || video) {
+    if (url || quote || file) {
       return ({
         url,
         quote,
-        image,
-        video,
+        file,
         title,
         mode: this.state.mode,
         mediaType,
@@ -126,11 +115,9 @@ class CreateMediaInput extends React.Component {
   };
 
   get currentErrorMessageOrNull() {
-    const { mode, imageMessage, videoMessage } = this.state;
-    if (mode === 'video' && videoMessage) {
-      return videoMessage;
-    } else if (mode === 'image' && imageMessage) {
-      return imageMessage;
+    const { mode, mediaMessage } = this.state;
+    if (['video', 'audio', 'image'].indexOf(mode) > -1) {
+      return mediaMessage;
     }
     return this.props.message; // hopefully null
   }
@@ -166,22 +153,15 @@ class CreateMediaInput extends React.Component {
     if (this.props.onTabChange) {
       this.props.onTabChange(mode);
     }
+    this.resetForm();
   }
 
-  handleImageChange = (file) => {
-    this.setState({ imageFile: file, imageMessage: null });
+  handleFileChange = (file) => {
+    this.setState({ mediaFile: file, mediaMessage: null });
   };
 
-  handleImageError = (file, message) => {
-    this.setState({ imageFile: null, imageMessage: message });
-  };
-
-  handleVideoChange = (file) => {
-    this.setState({ videoFile: file, videoMessage: null });
-  };
-
-  handleVideoError = (file, message) => {
-    this.setState({ videoFile: null, videoMessage: message });
+  handleFileError = (file, message) => {
+    this.setState({ mediaFile: null, mediaMessage: message });
   };
 
   handleChange = (ev) => {
@@ -192,10 +172,8 @@ class CreateMediaInput extends React.Component {
   resetForm() {
     this.setState({
       textValue: '',
-      imageFile: null,
-      imageMessage: null,
-      videoFile: null,
-      videoMessage: null,
+      mediaFile: null,
+      mediaMessage: null,
     });
   }
 
@@ -210,21 +188,31 @@ class CreateMediaInput extends React.Component {
 
     switch (this.state.mode) {
     case 'image': return (
-      <UploadImage
+      <UploadFile
         key="createMedia.image.upload"
         type="image"
-        onChange={this.handleImageChange}
-        onError={this.handleImageError}
-        value={this.state.imageFile}
+        onChange={this.handleFileChange}
+        onError={this.handleFileError}
+        value={this.state.mediaFile}
       />
     );
     case 'video': return (
-      <UploadImage
+      <UploadFile
         key="createMedia.video.upload"
         type="video"
-        onChange={this.handleVideoChange}
-        onError={this.handleVideoError}
-        value={this.state.videoFile}
+        onChange={this.handleFileChange}
+        onError={this.handleFileError}
+        value={this.state.mediaFile}
+        noPreview
+      />
+    );
+    case 'audio': return (
+      <UploadFile
+        key="createMedia.audio.upload"
+        type="audio"
+        onChange={this.handleFileChange}
+        onError={this.handleFileError}
+        value={this.state.mediaFile}
         noPreview
       />
     );
@@ -321,6 +309,17 @@ class CreateMediaInput extends React.Component {
                   <MovieIcon />
                   <StyledTabLabelText>
                     <FormattedMessage id="createMedia.video" defaultMessage="Video" />
+                  </StyledTabLabelText>
+                </StyledTabLabel>
+              </Button>
+              <Button
+                id="create-media__audio"
+                onClick={e => this.handleTabChange(e, 'audio')}
+              >
+                <StyledTabLabel active={this.state.mode === 'audio'}>
+                  <AudiotrackIcon />
+                  <StyledTabLabelText>
+                    <FormattedMessage id="createMedia.audio" defaultMessage="Audio" />
                   </StyledTabLabelText>
                 </StyledTabLabel>
               </Button>

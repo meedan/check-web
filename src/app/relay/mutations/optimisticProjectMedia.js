@@ -40,11 +40,14 @@ const optimisticProjectMedia = (media, proj, context, customTeam) => {
         created_at: now,
         last_seen: now,
         share_count: 0,
-        verification_statuses: team.verification_statuses,
         check_search_project: project ? {
           id: project.search_id,
           number_of_results: mediasCount + 1,
         } : null,
+        check_search_team: {
+          id: team.search_id,
+          number_of_results: team.medias_count + 1,
+        },
         project_id: project ? project.dbid : null,
         id: relayId,
         permissions: JSON.stringify({

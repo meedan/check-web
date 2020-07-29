@@ -1,14 +1,13 @@
 import React from 'react';
-import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
 import Relay from 'react-relay/classic';
-import rtlDetect from 'rtl-detect';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import TeamAvatar from './TeamAvatar';
 import Message from '../Message';
-import UploadImage from '../UploadImage';
-import globalStrings from '../../globalStrings';
+import UploadFile from '../UploadFile';
+import { FormattedGlobalMessage } from '../MappedMessage';
 import { getErrorMessage, validateURL } from '../../helpers';
 import UpdateTeamMutation from '../../relay/mutations/UpdateTeamMutation';
 import {
@@ -18,41 +17,8 @@ import {
   StyledBigColumn,
   StyledAvatarEditButton,
 } from '../../styles/js/HeaderCard';
-import {
-  units,
-} from '../../styles/js/shared';
+import { units } from '../../styles/js/shared';
 import { stringHelper } from '../../customHelpers';
-
-const messages = defineMessages({
-  editError: {
-    id: 'teamComponent.editError',
-    defaultMessage: 'Sorry, an error occurred while updating the workspace. Please try again and contact {supportEmail} if the condition persists.',
-  },
-  teamName: {
-    id: 'teamComponent.teamName',
-    defaultMessage: 'Name',
-  },
-  teamDescription: {
-    id: 'teamComponent.teamDescription',
-    defaultMessage: 'Description',
-  },
-  location: {
-    id: 'teamComponent.location',
-    defaultMessage: 'Location',
-  },
-  phone: {
-    id: 'teamComponent.phone',
-    defaultMessage: 'Phone number',
-  },
-  website: {
-    id: 'teamComponent.website',
-    defaultMessage: 'Website',
-  },
-  invalidLink: {
-    id: 'teamComponent.invalidLink',
-    defaultMessage: 'Please enter a valid URL',
-  },
-});
 
 class TeamInfoEdit extends React.Component {
   constructor(props) {
@@ -106,7 +72,13 @@ class TeamInfoEdit extends React.Component {
 
   handleSubmit() {
     const onFailure = (transaction) => {
-      const fallbackMessage = this.props.intl.formatMessage(messages.editError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+      const fallbackMessage = (
+        <FormattedMessage
+          id="teamComponent.editError"
+          defaultMessage="Sorry, an error occurred while updating the workspace. Please try again and contact {supportEmail} if the condition persists."
+          values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
+        />
+      );
       const message = getErrorMessage(transaction, fallbackMessage);
       this.setState({ message, avatar: null, submitDisabled: false });
     };
@@ -147,7 +119,13 @@ class TeamInfoEdit extends React.Component {
     const url = e.target.value;
 
     if (url.trim() && !validateURL(url)) {
-      urlError = this.props.intl.formatMessage(messages.invalidLink);
+      // TODO nix this derived state. Instead, only store "user is editing URL"
+      urlError = (
+        <FormattedMessage
+          id="teamComponent.invalidLink"
+          defaultMessage="Please enter a valid URL"
+        />
+      );
     }
 
     this.setState({ urlError, submitDisabled: !!urlError });
@@ -175,7 +153,7 @@ class TeamInfoEdit extends React.Component {
                   color="primary"
                   onClick={this.handleEditProfileImg.bind(this)}
                 >
-                  {this.props.intl.formatMessage(globalStrings.edit)}
+                  <FormattedGlobalMessage messageKey="edit" />
                 </Button>
               </StyledAvatarEditButton>
               : null}
@@ -183,7 +161,7 @@ class TeamInfoEdit extends React.Component {
 
           <StyledBigColumn>
             {this.state.editProfileImg ?
-              <UploadImage
+              <UploadFile
                 type="image"
                 value={this.state.avatar}
                 onChange={this.handleImageChange}
@@ -196,7 +174,7 @@ class TeamInfoEdit extends React.Component {
               className="team__name-input"
               id="team__name-container"
               defaultValue={team.name}
-              label={this.props.intl.formatMessage(messages.teamName)}
+              label={<FormattedMessage id="teamComponent.teamName" defaultMessage="Name" />}
               onChange={this.handleChange.bind(this, 'name')}
               margin="normal"
               fullWidth
@@ -207,7 +185,7 @@ class TeamInfoEdit extends React.Component {
               id="team__description-container"
               defaultValue={team.description}
               label={
-                this.props.intl.formatMessage(messages.teamDescription)
+                <FormattedMessage id="teamComponent.teamDescription" defaultMessage="Description" />
               }
               onChange={this.handleChange.bind(this, 'description')}
               fullWidth
@@ -220,7 +198,7 @@ class TeamInfoEdit extends React.Component {
               className="team__location"
               id="team__location-container"
               defaultValue={contact ? contact.node.location : ''}
-              label={this.props.intl.formatMessage(messages.location)}
+              label={<FormattedMessage id="teamComponent.location" defaultMessage="Location" />}
               onChange={this.handleChange.bind(this, 'contact_location')}
               fullWidth
               margin="normal"
@@ -230,7 +208,7 @@ class TeamInfoEdit extends React.Component {
               className="team__phone"
               id="team__phone-container"
               defaultValue={contact ? contact.node.phone : ''}
-              label={this.props.intl.formatMessage(messages.phone)}
+              label={<FormattedMessage id="teamComponent.phone" defaultMessage="Phone number" />}
               onChange={this.handleChange.bind(this, 'contact_phone')}
               fullWidth
               margin="normal"
@@ -240,7 +218,7 @@ class TeamInfoEdit extends React.Component {
               className="team__location-name-input"
               id="team__link-container"
               defaultValue={contact ? contact.node.web : ''}
-              label={this.props.intl.formatMessage(messages.website)}
+              label={<FormattedMessage id="teamComponent.website" defaultMessage="Website" />}
               onBlur={this.validateWebsite.bind(this)}
               onChange={this.handleChange.bind(this, 'contact_web')}
               fullWidth
@@ -249,9 +227,7 @@ class TeamInfoEdit extends React.Component {
               helperText={this.state.urlError}
             />
 
-            <StyledButtonGroup
-              isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
-            >
+            <StyledButtonGroup>
               <div className="source__edit-buttons-cancel-save">
                 <Button
                   className="source__edit-cancel-button"
@@ -283,10 +259,4 @@ class TeamInfoEdit extends React.Component {
   }
 }
 
-TeamInfoEdit.propTypes = {
-  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
-  // eslint-disable-next-line react/no-typos
-  intl: intlShape.isRequired,
-};
-
-export default injectIntl(TeamInfoEdit);
+export default TeamInfoEdit;

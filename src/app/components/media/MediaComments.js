@@ -6,6 +6,9 @@ import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
 import MediasLoading from './MediasLoading';
 import Annotations from '../annotations/Annotations';
+import ProfileLink from '../layout/ProfileLink';
+import UserTooltip from '../user/UserTooltip';
+import { getCurrentProjectId } from '../../helpers';
 
 class MediaCommentsComponent extends Component {
   componentDidMount() {
@@ -75,6 +78,7 @@ class MediaCommentsComponent extends Component {
           annotations={media.log.edges}
           annotated={media}
           annotatedType="ProjectMedia"
+          onTimelineCommentOpen={this.props.onTimelineCommentOpen}
           noActivityMessage={
             <FormattedMessage
               id="mediaComments.noNote"
@@ -88,8 +92,8 @@ class MediaCommentsComponent extends Component {
 }
 
 MediaCommentsComponent.propTypes = {
-  pusher: pusherShape.isRequired,
   clientSessionId: PropTypes.string.isRequired,
+  pusher: pusherShape.isRequired,
 };
 
 const pageSize = 30;
@@ -103,7 +107,12 @@ const MediaCommentsContainer = Relay.createContainer(withPusher(MediaCommentsCom
     eventTypes,
     fieldNames,
     annotationTypes,
+    teamSlug: null,
   },
+  prepareVariables: vars => ({
+    ...vars,
+    teamSlug: /^\/([^/]+)/.test(window.location.pathname) ? window.location.pathname.match(/^\/([^/]+)/)[1] : null,
+  }),
   fragments: {
     media: () => Relay.QL`
       fragment on ProjectMedia {
@@ -129,6 +138,10 @@ const MediaCommentsContainer = Relay.createContainer(withPusher(MediaCommentsCom
                 dbid,
                 name,
                 is_active,
+                team_user(team_slug: $teamSlug) {
+                  ${ProfileLink.getFragment('teamUser')}, # FIXME: Make Annotation a container
+                  ${UserTooltip.getFragment('teamUser')}, # FIXME: Make Annotation a container
+                },
                 source {
                   id,
                   dbid,
@@ -152,7 +165,6 @@ const MediaCommentsContainer = Relay.createContainer(withPusher(MediaCommentsCom
                       created_at,
                       url,
                       metadata,
-                      project_id,
                       last_status,
                       last_status_obj {
                         id
@@ -175,7 +187,6 @@ const MediaCommentsContainer = Relay.createContainer(withPusher(MediaCommentsCom
                       }
                       log_count,
                       permissions,
-                      verification_statuses,
                       domain,
                       team {
                         slug,
@@ -223,14 +234,20 @@ const MediaCommentsContainer = Relay.createContainer(withPusher(MediaCommentsCom
 });
 
 const MediaComments = (props) => {
-  const ids = `${props.media.dbid},${props.media.project_id}`;
+  const projectId = getCurrentProjectId(props.media.project_ids);
+  const ids = `${props.media.dbid},${projectId}`;
   const route = new MediaRoute({ ids });
 
   return (
     <Relay.RootContainer
       Component={MediaCommentsContainer}
-      renderFetched={data =>
-        <MediaCommentsContainer cachedMedia={props.media} style={props.style} {...data} />}
+      renderFetched={data => (
+        <MediaCommentsContainer
+          cachedMedia={props.media}
+          style={props.style}
+          {...data}
+          onTimelineCommentOpen={props.onTimelineCommentOpen}
+        />)}
       route={route}
       renderLoading={() => <MediasLoading count={1} />}
     />

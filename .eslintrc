@@ -60,8 +60,14 @@
 
         // TODO Consider standardizing on camelCase
         "camelcase": "off",
-
-        // Allow to override Array class for cleaner code
-        "no-extend-native": ["error", {"exceptions": ["Array"]}],
-    }
+    },
+    "overrides": [
+        {
+            // https://github.com/benmosher/eslint-plugin-import/issues/544
+            "files": ["src/app/components/**"],
+            "rules": {
+                "import/no-named-as-default": "off"
+            }
+        }
+    ]
 }

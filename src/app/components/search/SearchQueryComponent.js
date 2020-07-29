@@ -20,7 +20,6 @@ import DateRangeFilter from './DateRangeFilter';
 import PageTitle from '../PageTitle';
 import CheckContext from '../../CheckContext';
 import { bemClass } from '../../helpers';
-import { teamStatuses } from '../../customHelpers';
 import {
   white,
   black87,
@@ -481,10 +480,10 @@ class SearchQueryComponent extends React.Component {
 
   render() {
     const { team, classes } = this.props;
-    const { statuses } = teamStatuses(team);
+    const { statuses } = team.verification_statuses;
     let projects = [];
     if (team.projects) {
-      projects = team.projects.edges.sortp((a, b) =>
+      projects = team.projects.edges.slice().sort((a, b) =>
         a.node.title.localeCompare(b.node.title));
     }
 
@@ -704,6 +703,17 @@ class SearchQueryComponent extends React.Component {
                     >
                       <FormattedMessage id="search.showVideos" defaultMessage="Videos" />
                     </StyledFilterChip>
+                    <StyledFilterChip
+                      active={this.showIsSelected('audios')}
+                      onClick={this.handleShowClick.bind(this, 'audios')}
+                      className={bemClass(
+                        'search-query__filter-button',
+                        this.showIsSelected('audios'),
+                        '--selected',
+                      )}
+                    >
+                      <FormattedMessage id="search.showAudios" defaultMessage="Audios" />
+                    </StyledFilterChip>
                   </StyledFilterRow>
                   : null}
 
@@ -808,6 +818,18 @@ SearchQueryComponent.propTypes = {
   clientSessionId: PropTypes.string.isRequired,
   query: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired, // onChange({ ... /* query */ }) => undefined
+  team: PropTypes.shape({
+    dynamic_search_fields_json_schema: PropTypes.shape({
+      properties: PropTypes.object.isRequired,
+    }).isRequired,
+    rules_search_fields_json_schema: PropTypes.shape({
+      rules: PropTypes.shape({
+        properties: PropTypes.arrayOf(PropTypes.shape({
+          label: PropTypes.string.isRequired,
+        }).isRequired).isRequired,
+      }).isRequired,
+    }).isRequired,
+  }).isRequired,
 };
 
 SearchQueryComponent.contextTypes = {

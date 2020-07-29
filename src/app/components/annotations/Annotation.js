@@ -12,6 +12,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
+import { withStyles } from '@material-ui/core/styles';
 import MoreHoriz from '@material-ui/icons/MoreHoriz';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
@@ -20,10 +21,10 @@ import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { withSetFlashMessage } from '../FlashMessage';
 import EmbedUpdate from './EmbedUpdate';
 import EmbedCreate from './EmbedCreate';
+import VideoAnnotationIcon from '../../../assets/images/video-annotation/video-annotation';
 import TaskUpdate from './TaskUpdate';
 import SourcePicture from '../source/SourcePicture';
 import MediaDetail from '../media/MediaDetail';
-import MediaUtil from '../media/MediaUtil';
 import ProfileLink from '../layout/ProfileLink';
 import ParsedText from '../ParsedText';
 import DeleteAnnotationMutation from '../../relay/mutations/DeleteAnnotationMutation';
@@ -32,7 +33,13 @@ import UpdateTaskMutation from '../../relay/mutations/UpdateTaskMutation';
 import DatetimeTaskResponse from '../task/DatetimeTaskResponse';
 import { can } from '../Can';
 import TimeBefore from '../TimeBefore';
-import { getErrorMessage, getStatus, getStatusStyle, emojify } from '../../helpers';
+import {
+  getErrorMessage,
+  getStatus,
+  getStatusStyle,
+  emojify,
+  parseStringUnixTimestamp,
+} from '../../helpers';
 import globalStrings from '../../globalStrings';
 import { stringHelper } from '../../customHelpers';
 import UserTooltip from '../user/UserTooltip';
@@ -266,6 +273,7 @@ class Annotation extends Component {
   }
 
   handleOpenMenu = (e) => {
+    e.stopPropagation();
     this.setState({ anchorEl: e.currentTarget });
   };
 
@@ -331,6 +339,7 @@ class Annotation extends Component {
 
   static renderTaskResponse(type, object) {
     if (type === 'multiple_choice') {
+      // FIXME Should not have to JSON parse.
       const response = JSON.parse(object.value);
       const selected = response.selected || [];
       if (response.other) {
@@ -338,6 +347,7 @@ class Annotation extends Component {
       }
       return <ul>{selected.map(s => <li><ParsedText text={s} /></li>)}</ul>;
     } else if (type === 'geolocation') {
+      // FIXME Should not have to JSON parse.
       const geojson = JSON.parse(object.value);
       const { geometry: { coordinates }, properties: { name } } = geojson;
       if (!coordinates[0] || !coordinates[1]) {
@@ -360,7 +370,9 @@ class Annotation extends Component {
   }
 
   render() {
-    const { annotation: activity, annotated, annotation: { annotation } } = this.props;
+    const {
+      annotation: activity, annotated, annotation: { annotation }, classes,
+    } = this.props;
 
     let annotationActions = null;
     if (annotation && annotation.annotation_type) {
@@ -412,14 +424,16 @@ class Annotation extends Component {
         : null;
     }
 
-    const updatedAt = MediaUtil.createdAt(activity);
+    const updatedAt = parseStringUnixTimestamp(activity.created_at);
     const timestamp = updatedAt
       ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span>
       : null;
     let authorName = activity.user
-      ? <ProfileLink className="annotation__author-name" user={activity.user} team={annotated.team} /> : null;
+      ? <ProfileLink className="annotation__author-name" teamUser={activity.user.team_user} /> : null;
+    // FIXME Should not have to JSON parse.
     const object = JSON.parse(activity.object_after);
     const content = object.data;
+    const isVideoAnno = object.fragment !== undefined;
     let activityType = activity.event_type;
     let contentTemplate = null;
     let showCard = false;
@@ -427,11 +441,14 @@ class Annotation extends Component {
     switch (activityType) {
     case 'create_comment': {
       const commentText = content.text;
+      // FIXME Should not have to JSON parse.
       const commentContent = JSON.parse(annotation.content);
       contentTemplate = (
         <div>
           <div className="annotation__card-content">
-            <ParsedText text={commentText} />
+            <div className={isVideoAnno ? classes.videoAnnoText : ''} onClick={isVideoAnno ? () => this.props.onTimelineCommentOpen(object.fragment) : null}>
+              {isVideoAnno ? <VideoAnnotationIcon fontSize="small" className={classes.VideoAnnotationIcon} /> : null} <ParsedText text={commentText} />
+            </div>
             {/* thumbnail */}
             {commentContent.original ?
               <div onClick={this.handleOpenCommentImage.bind(this, commentContent.original)}>
@@ -442,7 +459,6 @@ class Annotation extends Component {
                 />
               </div> : null}
           </div>
-
           {/* referenced medias */}
           <div className="annotation__card-references">
             {annotation.references.edges.map(media => (
@@ -451,7 +467,6 @@ class Annotation extends Component {
               </div>))
             }
           </div>
-
           {/* lightbox */}
           {commentContent.original && !!this.state.zoomedCommentImage
             ? <Lightbox
@@ -507,6 +522,7 @@ class Annotation extends Component {
       );
       break;
     case 'create_relationship': {
+    // FIXME Should not have to JSON parse.
       const meta = JSON.parse(activity.meta);
       if (meta) {
         const { target } = meta;
@@ -526,6 +542,7 @@ class Annotation extends Component {
       break;
     }
     case 'destroy_relationship': {
+    // FIXME Should not have to JSON parse.
       const meta = JSON.parse(activity.meta);
       if (meta) {
         const { target } = meta;
@@ -545,6 +562,7 @@ class Annotation extends Component {
       break;
     }
     case 'create_assignment': {
+    // FIXME Should not have to JSON parse.
       const meta = JSON.parse(activity.meta);
       if (meta) {
         const { type, title, user_name } = meta;
@@ -579,6 +597,7 @@ class Annotation extends Component {
       break;
     }
     case 'destroy_assignment': {
+    // FIXME Should not have to JSON parse.
       const meta = JSON.parse(activity.meta);
       if (meta) {
         const { type, title, user_name } = meta;
@@ -639,6 +658,7 @@ class Annotation extends Component {
           </div>
         );
       } else if (object.annotation_type === 'verification_status') {
+        // FIXME Should not have to JSON parse.
         const statusChanges = JSON.parse(activity.object_changes_json);
         if (statusChanges.locked) {
           if (statusChanges.locked[1]) {
@@ -659,6 +679,7 @@ class Annotation extends Component {
             );
           }
         } else if (statusChanges.assigned_to_id) {
+          // FIXME Should not have to JSON parse.
           const assignment = JSON.parse(activity.meta);
           if (assignment.assigned_to_name) {
             contentTemplate = (
@@ -700,7 +721,7 @@ class Annotation extends Component {
       if (object.field_name === 'verification_status_status' && config.appName === 'check' && activityType === 'update_dynamicannotationfield') {
         const statusValue = object.value;
         const statusCode = statusValue.toLowerCase().replace(/[ _]/g, '-');
-        const status = getStatus(this.props.annotated.verification_statuses, statusValue);
+        const status = getStatus(this.props.annotated.team.verification_statuses, statusValue);
         contentTemplate = (
           <span>
             <FormattedMessage
@@ -761,9 +782,10 @@ class Annotation extends Component {
 
       if (/^suggestion_/.test(object.field_name)) {
         activityType = 'task_answer_suggestion';
+        // FIXME Should not have to JSON parse.
         const suggestion = JSON.parse(object.value);
+        // FIXME Should not have to JSON parse.
         const review = activity.meta ? JSON.parse(activity.meta) : null;
-        const { team } = this.props.annotated.project_media;
         contentTemplate = (
           <div>
             <div className="annotation__card-content annotation__task-answer-suggestion">
@@ -788,14 +810,14 @@ class Annotation extends Component {
                       id="annotation.suggestionAccepted"
                       defaultMessage="Accepted by {user}"
                       values={{
-                        user: <ProfileLink user={review.user} team={team} />,
+                        user: <ProfileLink teamUser={review.user.team_user} />,
                       }}
                     /> :
                     <FormattedMessage
                       id="annotation.suggestionRejected"
                       defaultMessage="Rejected by {user}"
                       values={{
-                        user: <ProfileLink user={review.user} team={team} />,
+                        user: <ProfileLink teamUser={review.user.team_user} />,
                       }}
                     />
                   }
@@ -853,8 +875,10 @@ class Annotation extends Component {
         video_archiver_response: 'Video Archiver',
       };
       if (object.annotation_type === 'archiver' && activityType === 'create_dynamicannotationfield') {
+        // FIXME Should not have to JSON parse.
         const archiveContent = JSON.parse(annotation.content);
         const archive = archiveContent.filter(item => item.field_name === object.field_name);
+        // FIXME Should not have to JSON parse.
         const archiveResponse = JSON.parse(archive[0].value);
         const archiveLink = archiveResponse.location;
         const archiveStatus = parseInt(archiveResponse.status, 10);
@@ -905,6 +929,7 @@ class Annotation extends Component {
       }
 
       if (object.field_name === 'pender_archive_response' && activityType === 'create_dynamicannotationfield') {
+        // FIXME Should not have to JSON parse.
         const penderResponse = JSON.parse(JSON.parse(annotation.content)[0].value);
         contentTemplate = null;
         if (penderResponse.error) {
@@ -967,6 +992,7 @@ class Annotation extends Component {
 
       if (object.field_name === 'smooch_data' && activityType === 'create_dynamicannotationfield') {
         showCard = true;
+        // FIXME Should not have to JSON parse.
         const objectValue = JSON.parse(object.value);
         const messageType = objectValue.source.type;
         const messageText = objectValue.text ? objectValue.text.trim() : null;
@@ -1032,7 +1058,7 @@ class Annotation extends Component {
           authorName={authorName}
         />);
       break;
-    case 'update_projectmedia':
+    case 'update_projectmediaproject':
       if (activity.projects.edges.length > 0 && activity.user) {
         const previousProject = activity.projects.edges[0].node;
         const currentProject = activity.projects.edges[1].node;
@@ -1085,22 +1111,15 @@ class Annotation extends Component {
       }
       break;
     case 'copy_projectmedia':
-      if (activity.projects.edges.length > 0 && activity.teams.edges.length > 0 && activity.user) {
-        const previousProject = activity.projects.edges[0].node;
+      if (activity.teams.edges.length > 0 && activity.user) {
         const previousTeam = activity.teams.edges[0].node;
-        const previousProjectUrl = `/${previousProject.team.slug}/project/`;
         const previousTeamUrl = `/${previousTeam.slug}/`;
         contentTemplate = (
           <span>
             <FormattedMessage
               id="annotation.teamCopied"
-              defaultMessage="Copied from list {previousProject} on workspace {previousTeam} by {author}"
+              defaultMessage="Copied from workspace {previousTeam} by {author}"
               values={{
-                previousProject: (
-                  <Link to={previousProjectUrl + previousTeam.dbid}>
-                    {previousProject.title}
-                  </Link>
-                ),
                 previousTeam: (
                   <Link to={previousTeamUrl}>
                     {previousTeam.name}
@@ -1129,6 +1148,7 @@ class Annotation extends Component {
     const useCardTemplate = (cardActivities.indexOf(activityType) > -1 || showCard);
     const templateClass = `annotation--${useCardTemplate ? 'card' : 'default'}`;
     const typeClass = annotation ? `annotation--${annotation.annotation_type}` : '';
+
     return (
       <StyledAnnotationWrapper
         className={`annotation ${templateClass} ${typeClass}`}
@@ -1144,7 +1164,7 @@ class Annotation extends Component {
                 )}`}
               >
                 {authorName ?
-                  <RCTooltip placement="top" overlay={<UserTooltip user={activity.user} team={annotated.team} />}>
+                  <RCTooltip placement="top" overlay={<UserTooltip teamUser={activity.user.team_user} />}>
                     <StyledAvatarColumn className="annotation__avatar-col">
                       <SourcePicture
                         className="avatar"
@@ -1162,8 +1182,7 @@ class Annotation extends Component {
                       {authorName ?
                         <ProfileLink
                           className="annotation__card-author"
-                          user={activity.user}
-                          team={annotated.team}
+                          teamUser={activity.user.team_user}
                         /> : null}
                       <span>
                         {timestamp}
@@ -1196,4 +1215,15 @@ Annotation.propTypes = {
   setFlashMessage: PropTypes.func.isRequired,
 };
 
-export default withSetFlashMessage(Annotation);
+const annotationStyles = theme => ({
+  VideoAnnotationIcon: {
+    marginRight: theme.spacing(1),
+    position: 'relative',
+    top: theme.spacing(0.5),
+  },
+  videoAnnoText: {
+    cursor: 'pointer',
+  },
+});
+
+export default withStyles(annotationStyles)(withSetFlashMessage(Annotation));

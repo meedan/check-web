@@ -20,14 +20,13 @@ class UpdateStatusMutation extends Relay.Mutation {
       return Relay.QL`fragment on UpdateDynamicPayload {
         dynamicEdge
         project_media {
-          dbid
-          targets_by_users
-          log
-          id
-          last_status
-          last_status_obj
-          log_count
-          project_id
+          dbid,
+          project_ids,
+          log,
+          id,
+          last_status,
+          last_status_obj,
+          log_count,
           dynamic_annotation_report_design: annotation(annotation_type: "report_design")
         }
       }`;
@@ -39,19 +38,10 @@ class UpdateStatusMutation extends Relay.Mutation {
   getOptimisticResponse() {
     if (this.props.parent_type === 'project_media') {
       const media = this.props.annotated;
-      let smoochBotInstalled = false;
-      if (media.team && media.team.team_bot_installations) {
-        media.team.team_bot_installations.edges.forEach((edge) => {
-          if (edge.node.team_bot.identifier === 'smooch') {
-            smoochBotInstalled = true;
-          }
-        });
-      }
       const optimisticContent = [];
       const obj = {
         project_media: {
           id: media.id,
-          project_id: media.project_id,
           last_status: this.props.annotation.status,
           last_status_obj: {
             id: this.props.annotation.status_id,
@@ -59,18 +49,6 @@ class UpdateStatusMutation extends Relay.Mutation {
           },
         },
       };
-      if (smoochBotInstalled && media.targets_by_users && media.targets_by_users.edges.length > 0) {
-        const targets = [];
-        media.targets_by_users.edges.forEach((target) => {
-          const node = {
-            id: target.node.id,
-            dbid: 0,
-            last_status: this.props.annotation.status,
-          };
-          targets.push({ node });
-        });
-        obj.project_media.targets_by_users = { edges: targets };
-      }
       return obj;
     }
     return {};

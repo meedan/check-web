@@ -1,13 +1,11 @@
 import React from 'react';
 import { FormattedHTMLMessage, injectIntl } from 'react-intl';
 import { browserHistory } from 'react-router';
-import rtlDetect from 'rtl-detect';
 import IconEdit from '@material-ui/icons/Edit';
 import AccountChips from './AccountChips';
 import Can from '../Can';
 import ParsedText from '../ParsedText';
-import MediaUtil from '../media/MediaUtil';
-import { truncateLength } from '../../helpers';
+import { parseStringUnixTimestamp, truncateLength } from '../../helpers';
 import SourcePicture from './SourcePicture';
 import {
   StyledContactInfo,
@@ -28,7 +26,7 @@ const UserInfo = (props) => {
 
   return (
     <StyledTwoColumns>
-      <StyledSmallColumn isRtl={rtlDetect.isRtlLang(props.intl.locale)}>
+      <StyledSmallColumn>
         <SourcePicture
           size="large"
           object={props.user.source}
@@ -76,7 +74,7 @@ const UserInfo = (props) => {
             defaultMessage="Joined {date} &bull; {teamsCount, plural, one {1 workspace} other {# workspaces}}"
             values={{
               date: props.intl.formatDate(
-                MediaUtil.createdAt(props.user.source),
+                parseStringUnixTimestamp(props.user.source.created_at),
                 { year: 'numeric', month: 'short', day: '2-digit' },
               ),
               teamsCount: props.user.team_users.edges.length || 0,

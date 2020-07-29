@@ -1,48 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
+import { createFragmentContainer, graphql } from 'react-relay/compat';
 import Button from '@material-ui/core/Button';
-import { injectIntl, intlShape, defineMessages, FormattedMessage } from 'react-intl';
-import IconDelete from '@material-ui/icons/Delete';
+import { FormattedMessage } from 'react-intl';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 import Tooltip from '@material-ui/core/Tooltip';
-import styled from 'styled-components';
 import { withSetFlashMessage } from '../FlashMessage';
 import MoveDialog from './MoveDialog';
 import Can from '../Can';
-import BulkUpdateProjectMediaMutation from '../../relay/mutations/BulkUpdateProjectMediaMutation';
-import { Row, units } from '../../styles/js/shared';
-
-const StyledIcon = styled.span`
-  margin: 0 ${units(1)};
-  cursor: pointer;
-`;
-
-const messages = defineMessages({
-  move: {
-    id: 'bulkActions.move',
-    defaultMessage: 'Move selected items to another list',
-  },
-  delete: {
-    id: 'bulkActions.sendItemsToTrash',
-    defaultMessage: 'Send selected items to trash',
-  },
-  restore: {
-    id: 'bulkActions.restoreItemsFromTrash',
-    defaultMessage: 'Restore selected items from trash',
-  },
-  selectAll: {
-    id: 'bulkActions.selectAll',
-    defaultMessage: 'Select all items on this page',
-  },
-  add: {
-    id: 'bulkActions.add',
-    defaultMessage: 'Add selected items to another list',
-  },
-  remove: {
-    id: 'bulkActions.remove',
-    defaultMessage: 'Remove selected items from this list',
-  },
-});
+import BulkArchiveProjectMediaMutation from '../../relay/mutations/BulkArchiveProjectMediaMutation';
+import BulkRestoreProjectMediaMutation from '../../relay/mutations/BulkRestoreProjectMediaMutation';
+import BulkUpdateProjectMediaProjectsMutation from '../../relay/mutations/BulkUpdateProjectMediaProjectsMutation';
+import BulkDeleteProjectMediaProjectsMutation from '../../relay/mutations/BulkDeleteProjectMediaProjectsMutation';
+import BulkCreateProjectMediaProjectsMutation from '../../relay/mutations/BulkCreateProjectMediaProjectsMutation';
+import { Row } from '../../styles/js/shared';
 
 class BulkActions extends React.Component {
   constructor(props) {
@@ -76,7 +49,7 @@ class BulkActions extends React.Component {
       const message = (
         <FormattedMessage
           id="bulkActions.addedSuccessfully"
-          defaultMessage="Done! Please note that it can take a while until the items are actually added."
+          defaultMessage="Items added to list!"
         />
       );
       this.props.setFlashMessage(message);
@@ -89,14 +62,11 @@ class BulkActions extends React.Component {
 
     if (this.props.selectedMedia.length && this.state.dstProjForAdd) {
       Relay.Store.commitUpdate(
-        new BulkUpdateProjectMediaMutation({
-          id: this.props.selectedMedia[0],
-          ids: this.props.selectedMedia,
-          dstProjectForAdd: this.state.dstProjForAdd,
-          teamSearchId: this.props.team.search_id,
-          count: this.props.count,
+        new BulkCreateProjectMediaProjectsMutation({
+          projectMediaDbids: this.props.selectedProjectMediaDbids,
+          project: this.state.dstProjForAdd,
         }),
-        { onSuccess: onDone, onFailure: onDone },
+        { onSuccess, onFailure: onDone },
       );
     }
   }
@@ -106,7 +76,7 @@ class BulkActions extends React.Component {
       const message = (
         <FormattedMessage
           id="bulkActions.removedSuccessfully"
-          defaultMessage="Done! Please note that it can take a while until the items are actually removed from this list."
+          defaultMessage="Items removed from this list!"
         />
       );
       this.props.setFlashMessage(message);
@@ -118,14 +88,12 @@ class BulkActions extends React.Component {
 
     if (this.props.selectedMedia.length) {
       Relay.Store.commitUpdate(
-        new BulkUpdateProjectMediaMutation({
-          id: this.props.selectedMedia[0],
-          ids: this.props.selectedMedia,
-          teamSearchId: this.props.team.search_id,
-          srcProjectForRemove: this.props.project,
-          count: this.props.count,
+        new BulkDeleteProjectMediaProjectsMutation({
+          ids: this.props.selectedProjectMediaProjectIds,
+          projectMediaIds: this.props.selectedMedia,
+          project: this.props.project,
         }),
-        { onSuccess: onDone, onFailure: onDone },
+        { onSuccess, onFailure: onDone },
       );
     }
   }
@@ -135,7 +103,7 @@ class BulkActions extends React.Component {
       const message = (
         <FormattedMessage
           id="bulkActions.movedSuccessfully"
-          defaultMessage="Done! Please note that it can take a while until the items are actually moved."
+          defaultMessage="Items moved!"
         />
       );
       this.props.setFlashMessage(message);
@@ -148,15 +116,13 @@ class BulkActions extends React.Component {
 
     if (this.props.selectedMedia.length && this.state.dstProj) {
       Relay.Store.commitUpdate(
-        new BulkUpdateProjectMediaMutation({
-          id: this.props.selectedMedia[0],
-          ids: this.props.selectedMedia,
+        new BulkUpdateProjectMediaProjectsMutation({
+          ids: this.props.selectedProjectMediaProjectIds,
+          projectMediaIds: this.props.selectedMedia,
           dstProject: this.state.dstProj,
           srcProject: this.props.project,
-          teamSearchId: this.props.team.search_id,
-          count: this.props.count,
         }),
-        { onSuccess: onDone, onFailure: onDone },
+        { onSuccess, onFailure: onDone },
       );
     }
   }
@@ -166,33 +132,31 @@ class BulkActions extends React.Component {
       const message = params.archived === 1 ? (
         <FormattedMessage
           id="bulkActions.moveToTrashSuccessfully"
-          defaultMessage="Done! Please note that it can take a while until the items are actually moved to the trash."
+          defaultMessage="Items moved to the trash."
         />
       ) : (
         <FormattedMessage
           id="bulkActions.restoredFromTrashSuccessfully"
-          defaultMessage="Done! Please note that it can take a while until the items are actually restored from the trash."
+          defaultMessage="Items restored from the trash."
         />
       );
       this.props.setFlashMessage(message);
       this.props.onUnselectAll();
-      if (this.props.parentComponent) {
-        this.props.parentComponent.props.relay.forceFetch();
-      }
     };
 
     if (this.props.selectedMedia.length && !this.state.confirmationError) {
-      Relay.Store.commitUpdate(
-        new BulkUpdateProjectMediaMutation({
-          id: this.props.selectedMedia[0],
+      const mutation = params.archived ?
+        new BulkArchiveProjectMediaMutation({
           ids: this.props.selectedMedia,
-          srcProject: this.props.project,
-          archived: params.archived,
-          teamSearchId: this.props.team.search_id,
-          count: this.props.count,
-        }),
-        { onSuccess },
-      );
+          project: this.props.project,
+          team: this.props.team,
+        }) :
+        new BulkRestoreProjectMediaMutation({
+          ids: this.props.selectedMedia,
+          project: this.props.project,
+          team: this.props.team,
+        });
+      Relay.Store.commitUpdate(mutation, { onSuccess });
     }
   };
 
@@ -205,29 +169,46 @@ class BulkActions extends React.Component {
   }
 
   render() {
-    const { page, team } = this.props;
+    const {
+      page, team, selectedMedia, project,
+    } = this.props;
+    const disabled = selectedMedia.length === 0;
 
     const actions = (
       <div id="media-bulk-actions__actions">
         { page === 'trash' ?
           <Can permission="restore ProjectMedia" permissions={team.permissions}>
-            <Tooltip title={this.props.intl.formatMessage(messages.restore)}>
-              <StyledIcon>
-                <Button
-                  className="media-bulk-actions__restore-button"
-                  onClick={() => { this.handleDelete({ archived: 0 }); }}
-                  variant="outlined"
-                >
-                  <FormattedMessage id="bulkActions.restore" defaultMessage="Restore from trash" />
-                </Button>
-              </StyledIcon>
+            <Tooltip title={
+              <FormattedMessage
+                id="bulkActions.restoreItemsFromTrash"
+                defaultMessage="Restore selected items from trash"
+              />
+            }
+            >
+              <Button
+                disabled={disabled}
+                className="media-bulk-actions__restore-button"
+                onClick={() => { this.handleDelete({ archived: 0 }); }}
+                variant="outlined"
+              >
+                <FormattedMessage id="bulkActions.restore" defaultMessage="Restore from trash" />
+              </Button>
             </Tooltip>
           </Can>
           :
           <Row>
-            <Tooltip title={this.props.intl.formatMessage(messages.add)} style={{ margin: '0 10px' }}>
+            <Tooltip
+              title={
+                <FormattedMessage
+                  id="bulkActions.add"
+                  defaultMessage="Add selected items to another list"
+                />
+              }
+              style={{ margin: '0 10px' }}
+            >
               <Button
                 id="media-bulk-actions__add-icon"
+                disabled={disabled}
                 onClick={this.addSelected.bind(this)}
                 color="primary"
                 variant="contained"
@@ -235,20 +216,41 @@ class BulkActions extends React.Component {
                 <FormattedMessage id="bulkActions.addTo" defaultMessage="Add to..." />
               </Button>
             </Tooltip>
-            <Tooltip title={this.props.intl.formatMessage(messages.move)} style={{ margin: '0 10px' }}>
-              <Button
-                id="media-bulk-actions__move-to"
-                onClick={this.moveSelected.bind(this)}
-                color="primary"
-                variant="contained"
+
+            { project ?
+              <Tooltip
+                title={
+                  <FormattedMessage
+                    id="bulkActions.move"
+                    defaultMessage="Move selected items to another list"
+                  />
+                }
+                style={{ margin: '0 10px' }}
               >
-                <FormattedMessage id="bulkActions.moveTo" defaultMessage="Move to..." />
-              </Button>
-            </Tooltip>
+                <Button
+                  id="media-bulk-actions__move-to"
+                  onClick={this.moveSelected.bind(this)}
+                  disabled={disabled}
+                  color="primary"
+                  variant="contained"
+                >
+                  <FormattedMessage id="bulkActions.moveTo" defaultMessage="Move to..." />
+                </Button>
+              </Tooltip> : null }
+
             { !/all-items/.test(window.location.pathname) ?
-              <Tooltip title={this.props.intl.formatMessage(messages.remove)} style={{ margin: '0 10px' }}>
+              <Tooltip
+                title={
+                  <FormattedMessage
+                    id="bulkActions.remove"
+                    defaultMessage="Remove selected items from this list"
+                  />
+                }
+                style={{ margin: '0 10px' }}
+              >
                 <Button
                   id="media-bulk-actions__remove-from-list"
+                  disabled={disabled}
                   style={{ margin: '0 8px', border: '1px solid #000' }}
                   onClick={this.handleRemoveSelectedFromList.bind(this)}
                 >
@@ -258,13 +260,20 @@ class BulkActions extends React.Component {
                   />
                 </Button>
               </Tooltip> : null }
-            <Tooltip title={this.props.intl.formatMessage(messages.delete)}>
-              <StyledIcon>
-                <IconDelete
-                  className="media-bulk-actions__delete-icon"
-                  onClick={() => { this.handleDelete({ archived: 1 }); }}
-                />
-              </StyledIcon>
+            <Tooltip title={
+              <FormattedMessage
+                id="bulkActions.sendItemsToTrash"
+                defaultMessage="Send selected items to trash"
+              />
+            }
+            >
+              <IconButton
+                disabled={disabled}
+                className="media-bulk-actions__delete-icon"
+                onClick={() => { this.handleDelete({ archived: 1 }); }}
+              >
+                <DeleteIcon />
+              </IconButton>
             </Tooltip>
           </Row>
         }
@@ -322,13 +331,11 @@ class BulkActions extends React.Component {
         <MoveDialog
           actions={moveDialogActions}
           open={this.state.openMoveDialog}
-          handleClose={this.handleCloseDialogs.bind(this)}
+          onClose={this.handleCloseDialogs.bind(this)}
           team={this.props.team}
-          projectId={this.props.project ? this.props.project.dbid : null}
+          excludeProjectDbids={project ? [project.dbid] : []}
+          value={this.state.dstProj}
           onChange={this.handleSelectDestProject.bind(this)}
-          style={{
-            minHeight: 400,
-          }}
           title={
             <FormattedMessage
               id="bulkActions.dialogMoveTitle"
@@ -340,13 +347,11 @@ class BulkActions extends React.Component {
         <MoveDialog
           actions={addDialogActions}
           open={this.state.openAddDialog}
-          handleClose={this.handleCloseDialogs.bind(this)}
           team={this.props.team}
-          projectId={this.props.project ? this.props.project.dbid : null}
+          onClose={this.handleCloseDialogs.bind(this)}
+          excludeProjectDbids={project ? [project.dbid] : []}
+          value={this.state.dstProjectForAdd}
           onChange={this.handleSelectDestProjectForAdd.bind(this)}
-          style={{
-            minHeight: 400,
-          }}
           title={
             <FormattedMessage
               id="bulkActions.dialogAddTitle"
@@ -360,10 +365,24 @@ class BulkActions extends React.Component {
 }
 
 BulkActions.propTypes = {
-  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
-  // eslint-disable-next-line react/no-typos
-  intl: intlShape.isRequired,
   setFlashMessage: PropTypes.func.isRequired,
+  team: PropTypes.object.isRequired,
 };
 
-export default withSetFlashMessage(injectIntl(BulkActions));
+export default createFragmentContainer(withSetFlashMessage(BulkActions), graphql`
+  fragment BulkActions_team on Team {
+    ...MoveDialog_team
+    id
+    medias_count 
+    permissions
+    search_id
+    check_search_trash {
+      id
+      number_of_results
+    }
+    public_team {
+      id
+      trash_count
+    }
+  }
+`);

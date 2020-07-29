@@ -28,9 +28,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         check_search_team { id, number_of_results },
         check_search_trash { id, number_of_results },
         check_search_project { id, number_of_results },
-        check_search_project_was { id, number_of_results },
-        project { medias_count },
-        project_was { medias_count },
         related_to { id, relationships, log, log_count, requests_related_count, requests_count, related_count },
         relationships_target { id },
         relationships_source { id },
@@ -38,7 +35,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
           requests_related_count
           requests_count
           related_count
-          project_id,
           overridden,
           metadata,
           dbid,
@@ -46,6 +42,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
           log_count,
           archived,
           permissions,
+          project_ids,
           media {
             metadata,
             url,
@@ -68,14 +65,9 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
             slug
             medias_count
             public_team {
+              id
               trash_count
             }
-          }
-          project {
-            id
-            title
-            search_id
-            medias_count
           }
         }
       }
@@ -85,11 +77,11 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
   getOptimisticResponse() {
     if (this.props.metadata) {
       const metadataNew = this.props.metadata;
-      const metadata = Object.assign(this.props.media.metadata, metadataNew);
+      const metadata = { ...this.props.media.metadata, metadataNew };
       // FIXME Receive this non-stringified
       const permissions = JSON.parse(this.props.media.permissions);
       permissions['update Dynamic'] = false;
-      const { overridden } = this.props.media;
+      const overridden = { ...this.props.media.overridden };
       Object.keys(metadataNew).forEach((attribute) => {
         overridden[attribute] = true;
       });
@@ -135,19 +127,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         };
       }
 
-      response.project = {
-        id: this.props.media.project.id,
-        medias_count: this.props.media.project.medias_count + 1,
-        team: {
-          id: this.props.context.team.id,
-          medias_count: this.props.context.team.medias_count + 1,
-          public_team: {
-            id: this.props.context.team.public_team.id,
-            trash_count: this.props.context.team.public_team.trash_count - 1,
-          },
-        },
-      };
-
       response.affectedId = this.props.id;
 
       return response;
@@ -176,21 +155,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         };
       }
 
-      if (this.props.context.project) {
-        response.project = {
-          id: this.props.media.project.id,
-          medias_count: this.props.context.project.medias_count - 1,
-          team: {
-            id: this.props.context.team.id,
-            medias_count: this.props.context.team.medias_count - 1,
-            public_team: {
-              id: this.props.context.team.public_team.id,
-              trash_count: this.props.context.team.public_team.trash_count + 1,
-            },
-          },
-        };
-      }
-
       response.affectedId = this.props.id;
       return response;
     }
@@ -201,15 +165,11 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
     const vars = {
       id: this.props.id,
       metadata: JSON.stringify(this.props.metadata), // FIXME Should send this non-stringified
-      project_id: this.props.project_id,
       related_to_id: this.props.related_to_id,
       refresh_media: this.props.refresh_media,
       update_mt: this.props.update_mt,
       archived: this.props.archived,
     };
-    if (this.props.srcProj) {
-      vars.previous_project_id = this.props.srcProj.dbid;
-    }
     return vars;
   }
 
@@ -230,25 +190,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
                 slug
               }
             }
-            project {
-              id
-              medias_count
-              team {
-                id
-                medias_count
-                public_team {
-                  id
-                  trash_count
-                }
-              }
-              project_medias(first: 20) {
-                edges {
-                  node {
-                    id
-                  }
-                }
-              }
-            },
           }`,
         ],
       },
@@ -324,7 +265,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
       });
 
       ids.check_search_project = this.props.dstProj.search_id;
-      ids.project = this.props.dstProj.id;
     }
 
     if (this.props.archived === 1) {
@@ -391,6 +331,33 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
 
     return configs;
   }
+
+  static fragments = {
+    media: () => Relay.QL`
+      fragment on ProjectMedia {
+        id
+        metadata
+        overridden
+        permissions
+      }
+    `,
+    srcProj: () => Relay.QL`
+      fragment on Project {
+        id
+        dbid
+        search_id
+        medias_count
+      }
+    `,
+    dstProj: () => Relay.QL`
+      fragment on Project {
+        id
+        dbid
+        search_id
+        medias_count
+      }
+    `,
+  };
 }
 
 export default UpdateProjectMediaMutation;

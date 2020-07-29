@@ -1,5 +1,17 @@
 [
   {
+    "id": "TeamMembersListItem.leaveTeam",
+    "defaultMessage": "Leave workspace"
+  },
+  {
+    "id": "TeamMembersListItem.singleOwner",
+    "defaultMessage": "Before you can leave the workspace, please transfer ownership to another member."
+  },
+  {
+    "id": "TeamMembersListItem.deleteMember",
+    "defaultMessage": "Remove member"
+  },
+  {
     "id": "TeamMembersListItem.confirmLeaveTitle",
     "defaultMessage": "Are you sure you want to leave {team}?"
   },
@@ -18,18 +30,6 @@
   {
     "id": "TeamMembersListItem.confirmDeleteMemberBlurb",
     "defaultMessage": "User will be removed from {team}"
-  },
-  {
-    "id": "TeamMembersListItem.deleteMember",
-    "defaultMessage": "Remove member"
-  },
-  {
-    "id": "TeamMembersListItem.leaveTeam",
-    "defaultMessage": "Leave workspace"
-  },
-  {
-    "id": "TeamMembersListItem.singleOwner",
-    "defaultMessage": "Before you can leave the workspace, please transfer ownership to another member."
   },
   {
     "id": "TeamMembershipRequestsListItem.approve",

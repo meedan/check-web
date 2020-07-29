@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  QueryRenderer,
-  graphql,
-} from 'react-relay/compat';
+import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import RulesComponent from './RulesComponent';
@@ -11,7 +8,8 @@ const renderQuery = ({ error, props }) => {
   if (!error && props) {
     return <RulesComponent team={props.team} />;
   }
-  return null; // We need a better error handling in the future, standardized with other components
+  // TODO: We need a better error handling in the future, standardized with other components
+  return null;
 };
 
 const Rules = props => (

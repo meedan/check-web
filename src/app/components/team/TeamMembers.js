@@ -2,8 +2,10 @@ import React from 'react';
 import Relay from 'react-relay/classic';
 import TeamRoute from '../../relay/TeamRoute';
 import TeamMembersComponent from './TeamMembersComponent';
+import TeamInviteMembers from './TeamInviteMembers';
+import TeamMembersListItem from './TeamMembersListItem';
 
-const TeamMembersContainer = Relay.createContainer(TeamMembersComponent, {
+export const TeamMembersContainer = Relay.createContainer(TeamMembersComponent, {
   initialVariables: {
     pageSize: 20,
   },
@@ -11,6 +13,8 @@ const TeamMembersContainer = Relay.createContainer(TeamMembersComponent, {
     team: () => Relay.QL`
       fragment on Team {
         id,
+        ${TeamMembersListItem.getFragment('team')}
+        ${TeamInviteMembers.getFragment('team')}
         dbid,
         name,
         slug,
@@ -20,52 +24,21 @@ const TeamMembersContainer = Relay.createContainer(TeamMembersComponent, {
         join_requests(first: 100) {
           edges {
             node {
-              id,
-              user {
-                id,
-                dbid,
-                name,
-                is_active,
-                source {
-                  id,
-                  dbid,
-                  image,
-                }
-              }
-              team {
-                id
-                slug
-              },
+              ${TeamMembersListItem.getFragment('teamUser')}
+              id
+              status
             }
           }
         },
         team_users(first: $pageSize) {
           edges {
             node {
-              user {
-                id,
-                dbid,
-                name,
-                email,
-                is_active,
-                source {
-                  id,
-                  dbid,
-                  image,
-                }
-              },
-              team {
-                name
-                slug
-              },
-              status,
-              team_id,
-              user_id,
-              id,
-              role,
+              ${TeamMembersListItem.getFragment('teamUser')}
+              id
+              status
             }
           }
-        },
+        }
       }
     `,
   },

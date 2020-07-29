@@ -6,9 +6,5 @@
   {
     "id": "datetimeTaskResponse.invalidTimestamp",
     "defaultMessage": "Error: Invalid timestamp"
-  },
-  {
-    "id": "datetimeTaskResponse.taskResponse",
-    "defaultMessage": "{date} at {timeLink}"
   }
 ]

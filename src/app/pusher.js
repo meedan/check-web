@@ -38,7 +38,7 @@ function createPusher({ cluster, pusherKey, debug }) {
     Object.values(callbacks).forEach((callback) => {
       callback();
     });
-  }, 30000);
+  }, 5000);
 
   function processPusherMessage(data, run) {
     const message = safelyParseJSON(data.message, {});
@@ -197,13 +197,13 @@ const PusherContext = React.createContext({ subscribe: () => {}, unsubscribe: ()
 PusherContext.displayName = 'PusherContext';
 
 function withPusher(Component) {
-  const inner = (props) => {
+  const inner = React.forwardRef((props, ref) => {
     const pusher = React.useContext(PusherContext);
     // TODO streamline design, so components don't need to check
     // clientSessionId.
     const clientSessionId = React.useContext(ClientSessionIdContext);
-    return <Component pusher={pusher} clientSessionId={clientSessionId} {...props} />;
-  };
+    return <Component ref={ref} pusher={pusher} clientSessionId={clientSessionId} {...props} />;
+  });
   inner.displayName = `WithPusher(${Component.displayName || Component.name || 'Component'})`;
   return inner;
 }

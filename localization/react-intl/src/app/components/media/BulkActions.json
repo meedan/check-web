@@ -1,63 +1,59 @@
 [
   {
-    "id": "bulkActions.move",
-    "defaultMessage": "Move selected items to another list"
+    "id": "bulkActions.moveToTrashSuccessfully",
+    "defaultMessage": "Items moved to the trash."
   },
   {
-    "id": "bulkActions.sendItemsToTrash",
-    "defaultMessage": "Send selected items to trash"
+    "id": "bulkActions.restoredFromTrashSuccessfully",
+    "defaultMessage": "Items restored from the trash."
+  },
+  {
+    "id": "bulkActions.addedSuccessfully",
+    "defaultMessage": "Items added to list!"
+  },
+  {
+    "id": "bulkActions.removedSuccessfully",
+    "defaultMessage": "Items removed from this list!"
+  },
+  {
+    "id": "bulkActions.movedSuccessfully",
+    "defaultMessage": "Items moved!"
   },
   {
     "id": "bulkActions.restoreItemsFromTrash",
     "defaultMessage": "Restore selected items from trash"
   },
   {
-    "id": "bulkActions.selectAll",
-    "defaultMessage": "Select all items on this page"
+    "id": "bulkActions.restore",
+    "defaultMessage": "Restore from trash"
   },
   {
     "id": "bulkActions.add",
     "defaultMessage": "Add selected items to another list"
   },
   {
-    "id": "bulkActions.remove",
-    "defaultMessage": "Remove selected items from this list"
-  },
-  {
-    "id": "bulkActions.moveToTrashSuccessfully",
-    "defaultMessage": "Done! Please note that it can take a while until the items are actually moved to the trash."
-  },
-  {
-    "id": "bulkActions.restoredFromTrashSuccessfully",
-    "defaultMessage": "Done! Please note that it can take a while until the items are actually restored from the trash."
-  },
-  {
-    "id": "bulkActions.addedSuccessfully",
-    "defaultMessage": "Done! Please note that it can take a while until the items are actually added."
-  },
-  {
-    "id": "bulkActions.removedSuccessfully",
-    "defaultMessage": "Done! Please note that it can take a while until the items are actually removed from this list."
-  },
-  {
-    "id": "bulkActions.movedSuccessfully",
-    "defaultMessage": "Done! Please note that it can take a while until the items are actually moved."
-  },
-  {
-    "id": "bulkActions.restore",
-    "defaultMessage": "Restore from trash"
-  },
-  {
     "id": "bulkActions.addTo",
     "defaultMessage": "Add to..."
+  },
+  {
+    "id": "bulkActions.move",
+    "defaultMessage": "Move selected items to another list"
   },
   {
     "id": "bulkActions.moveTo",
     "defaultMessage": "Move to..."
   },
   {
+    "id": "bulkActions.remove",
+    "defaultMessage": "Remove selected items from this list"
+  },
+  {
     "id": "bulkActions.removeFromList",
     "defaultMessage": "Remove from list"
+  },
+  {
+    "id": "bulkActions.sendItemsToTrash",
+    "defaultMessage": "Send selected items to trash"
   },
   {
     "id": "bulkActions.cancelButton",

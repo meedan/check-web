@@ -3,13 +3,6 @@ import LinkifyIt from 'linkify-it';
 import { toArray } from 'react-emoji-render';
 
 /**
- * Functionally-pure sort: keeps the given array unchanged and returns sorted one.
- */
-Array.prototype.sortp = function sortp(fn) {
-  return [].concat(this).sort(fn);
-};
-
-/**
  * TODO
  */
 function bemClass(baseClass, modifierBoolean, modifierSuffix) {
@@ -48,7 +41,7 @@ function nested(path, obj) {
 /**
  * Find a status given its id.
  */
-function getStatus(statusesParam, id) {
+function getStatus(statusesParam, id, language) {
   let statusesJson = statusesParam;
   if (typeof statusesJson === 'string') {
     statusesJson = JSON.parse(statusesJson);
@@ -57,9 +50,13 @@ function getStatus(statusesParam, id) {
   let status = '';
   statuses.forEach((st) => {
     if (st.id === id) {
-      status = st;
+      status = JSON.parse(JSON.stringify(st));
     }
   });
+  if (language) {
+    status.label = status.locales[language] ?
+      status.locales[language].label : status.locales.en.label;
+  }
   return status;
 }
 
@@ -168,11 +165,11 @@ function getFilters() {
 /**
  * Safely extract an error message from a transaction, with default fallback.
  */
-function getErrorMessage(transaction, fallbackMessage) {
+function getErrorMessage(transactionOrError, fallbackMessage) {
   let message = fallbackMessage;
-
-  const transactionError = transaction.getError();
-  const json = safelyParseJSON(transactionError.source);
+  const json = transactionOrError.source ?
+    safelyParseJSON(transactionOrError.source) :
+    safelyParseJSON(transactionOrError.getError().source); // TODO remove after Relay Modern update
   const error = json && json.errors && json.errors.length > 0 ? json.errors[0] : {};
   if (error && error.message) {
     message = error.message; // eslint-disable-line prefer-destructuring
@@ -209,6 +206,46 @@ function capitalize(text) {
   return text.replace(/(?:^|\s)\S/g, a => a.toUpperCase());
 }
 
+/**
+* Get current project based on curent location and media.projects
+*/
+function getCurrentProject(projects) {
+  let project = null;
+  let currentProjectId = window.location.pathname.match(/project\/([0-9]+)/);
+  if (currentProjectId) {
+    currentProjectId = parseInt(currentProjectId[1], 10);
+    project = projects.edges.find(p => parseInt(p.node.dbid, 10) === currentProjectId);
+    if (project) {
+      project = project.node;
+    }
+  }
+  return project;
+}
+
+/**
+* Get current project id based on curent location and media.projects
+*/
+function getCurrentProjectId(projectIds) {
+  const currentProjectId = window.location.pathname.match(/project\/([0-9]+)/);
+  let projectId = currentProjectId ? parseInt(currentProjectId[1], 10) : null;
+  if (projectId && projectIds) {
+    if (projectIds.indexOf(projectId) === -1) {
+      projectId = null;
+    }
+  }
+  return projectId;
+}
+
+/**
+ * Return a JavaScript `Date` from a stringified UNIX timestamp.
+ *
+ * TODO don't pass stringified UNIX timestamps over the wire. Use ISO8601 ... or
+ * at least Numbers.
+ */
+function parseStringUnixTimestamp(s) {
+  return new Date(parseInt(s, 10) * 1000);
+}
+
 export {
   bemClass,
   bemClassFromMediaStatus,
@@ -227,4 +264,7 @@ export {
   getErrorObjects,
   emojify,
   capitalize,
+  getCurrentProject,
+  getCurrentProjectId,
+  parseStringUnixTimestamp,
 };

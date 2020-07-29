@@ -69,6 +69,7 @@ const RuleBody = (props) => {
     <Paper className={classes.paper}>
       <TextField
         key={rule.name}
+        name="rule-name"
         defaultValue={rule.name}
         helperText={
           <FormattedMessage

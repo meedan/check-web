@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { Link } from 'react-router';
-import { injectIntl, defineMessages, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import CardHeader from '@material-ui/core/CardHeader';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -18,34 +18,15 @@ import IconMoreVert from '@material-ui/icons/MoreVert';
 import { can } from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
 import TimeBefore from '../TimeBefore';
-import MediaUtil from './MediaUtil';
+import MediaTypeDisplayName from './MediaTypeDisplayName';
 import MediaRoute from '../../relay/MediaRoute';
 import CheckContext from '../../CheckContext';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
 import DeleteRelationshipMutation from '../../relay/mutations/DeleteRelationshipMutation';
 import UpdateRelationshipMutation from '../../relay/mutations/UpdateRelationshipMutation';
-import { truncateLength, getErrorMessage } from '../../helpers';
+import { truncateLength, getErrorMessage, parseStringUnixTimestamp, getCurrentProjectId } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 import { black87 } from '../../styles/js/shared';
-
-const messages = defineMessages({
-  editReport: {
-    id: 'mediaCondensed.editReport',
-    defaultMessage: 'Edit',
-  },
-  editReportError: {
-    id: 'mediaCondensed.editReportError',
-    defaultMessage: 'Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists.',
-  },
-  errorBreakRelationship: {
-    id: 'mediaCondensed.breakRelationshipError',
-    defaultMessage: 'Sorry, an error occurred while breaking the relationship. Please try again and contact {supportEmail} if the condition persists.',
-  },
-  errorUpdateRelationship: {
-    id: 'mediaCondensed.updateRelationshipError',
-    defaultMessage: 'Sorry, an error occurred while updating the relationship. Please try again and contact {supportEmail} if the condition persists.',
-  },
-});
 
 class MediaCondensedComponent extends Component {
   constructor(props) {
@@ -119,7 +100,13 @@ class MediaCondensedComponent extends Component {
     }
 
     const onFailure = (transaction) => {
-      const fallbackMessage = this.props.intl.formatMessage(messages.editReportError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+      const fallbackMessage = (
+        <FormattedMessage
+          id="mediaCondensed.editReportError"
+          defaultMessage="Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists."
+          values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
+        />
+      );
       const message = getErrorMessage(transaction, fallbackMessage);
       this.props.setFlashMessage(message);
     };
@@ -140,7 +127,13 @@ class MediaCondensedComponent extends Component {
 
   handleBreakRelationship() {
     const onFailure = () => {
-      const message = this.props.intl.formatMessage(messages.errorBreakRelationship, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+      const message = (
+        <FormattedMessage
+          id="mediaCondensed.breakRelationshipError"
+          defaultMessage="Sorry, an error occurred while breaking the relationship. Please try again and contact {supportEmail} if the condition persists."
+          values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
+        />
+      );
       this.props.setFlashMessage(message);
       this.setState({ broken: false });
     };
@@ -165,7 +158,13 @@ class MediaCondensedComponent extends Component {
     const { id, source, target } = this.props.media.relationship;
 
     const onFailure = () => {
-      const message = this.props.intl.formatMessage(messages.errorUpdateRelationship, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+      const message = (
+        <FormattedMessage
+          id="mediaCondensed.updateRelationshipError"
+          defaultMessage="Sorry, an error occurred while updating the relationship. Please try again and contact {supportEmail} if the condition persists."
+          values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
+        />
+      );
       this.props.setFlashMessage(message);
     };
 
@@ -223,7 +222,7 @@ class MediaCondensedComponent extends Component {
         onClose={this.handleCloseDialogs.bind(this)}
       >
         <DialogTitle>
-          {this.props.intl && this.props.intl.formatMessage(messages.editReport)}
+          <FormattedMessage id="mediaCondensed.editReport" defaultMessage="Edit" />
         </DialogTitle>
         <DialogContent>
           <form onSubmit={this.handleSave.bind(this, media)} name="edit-media-form">
@@ -291,7 +290,7 @@ class MediaCondensedComponent extends Component {
           subheader={
             <p>
               <Link to={mediaUrl}>
-                <span>{MediaUtil.mediaTypeLabel(media.type, this.props.intl)}</span>
+                <span><MediaTypeDisplayName mediaType={media.type} /></span>
                 { smoochBotInstalled ?
                   <span>
                     <span style={{ margin: '0 8px' }}> - </span>
@@ -307,7 +306,7 @@ class MediaCondensedComponent extends Component {
                   </span> : null
                 }
                 <span style={{ margin: '0 8px' }}> - </span>
-                <TimeBefore date={MediaUtil.createdAt({ created_at: media.last_seen })} />
+                <TimeBefore date={parseStringUnixTimestamp(media.last_seen)} />
               </Link>
             </p>
           }
@@ -383,7 +382,6 @@ class MediaCondensedComponent extends Component {
 }
 
 MediaCondensedComponent.propTypes = {
-  intl: PropTypes.object.isRequired,
   setFlashMessage: PropTypes.func.isRequired,
 };
 
@@ -391,7 +389,7 @@ MediaCondensedComponent.contextTypes = {
   store: PropTypes.object,
 };
 
-const ConnectedMediaCondensedComponent = withSetFlashMessage(injectIntl(MediaCondensedComponent));
+const ConnectedMediaCondensedComponent = withSetFlashMessage(MediaCondensedComponent);
 
 const MediaCondensedContainer = Relay.createContainer(ConnectedMediaCondensedComponent, {
   initialVariables: {
@@ -438,7 +436,8 @@ const MediaCondensedContainer = Relay.createContainer(ConnectedMediaCondensedCom
 });
 
 const MediaCondensed = (props) => {
-  const ids = `${props.media.dbid},${props.media.project_id}`;
+  const projectId = getCurrentProjectId(props.media.project_ids);
+  const ids = `${props.media.dbid},${projectId}`;
   const route = new MediaRoute({ ids });
   const cachedMedia = Object.assign({}, props.media);
 

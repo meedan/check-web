@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import deepEqual from 'deep-equal';
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
-import rtlDetect from 'rtl-detect';
 import { withStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import styled from 'styled-components';
 import TeamBots from './TeamBots';
 import TeamRules from './Rules';
+import TeamStatuses from './Statuses';
 import TeamTags from './TeamTags';
 import TeamTasks from './TeamTasks';
 import TeamReport from './TeamReport';
@@ -117,13 +117,6 @@ class TeamComponent extends Component {
     const isSettings = (action === 'settings') && can(team.permissions, 'update Team');
     const isReadOnly = (action === 'settings') && can(team.permissions, 'read Team');
 
-    const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
-
-    const direction = {
-      from: isRtl ? 'right' : 'left',
-      to: isRtl ? 'left' : 'right',
-    };
-
     const context = new CheckContext(this).getContextStore();
 
     const TeamPageContent = (
@@ -195,6 +188,19 @@ class TeamComponent extends Component {
               /> : null }
             {UserUtil.myRole(this.getCurrentUser(), team.slug) === 'owner' ?
               <Tab
+                className="team-settings__statuses-tab"
+                classes={{ root: classes.root }}
+                label={
+                  <FormattedMessage
+                    id="teamSettings.statuses"
+                    defaultMessage="Statuses"
+                  />
+                }
+                value="statuses"
+              />
+              : null }
+            {UserUtil.myRole(this.getCurrentUser(), team.slug) === 'owner' ?
+              <Tab
                 className="team-settings__report-tab"
                 classes={{ root: classes.root }}
                 label={
@@ -242,7 +248,7 @@ class TeamComponent extends Component {
     return (
       <PageTitle team={team}>
         <div className="team">
-          <HeaderCard direction={direction} isEditing={isEditing}>
+          <HeaderCard>
             <ContentColumn>
               <Message message={this.state.message} />
               <HeaderContent />
@@ -251,16 +257,16 @@ class TeamComponent extends Component {
           </HeaderCard>
           { !isEditing && !isSettings && !isReadOnly ? TeamPageContent : null }
           { isSettings && this.state.showTab === 'tasks'
-            ? <TeamTasks team={team} direction={direction} />
+            ? <TeamTasks team={team} />
             : null }
           { isSettings && this.state.showTab === 'bots'
-            ? <TeamBots team={team} direction={direction} />
+            ? <TeamBots team={team} />
             : null }
           { isSettings && this.state.showTab === 'rules'
             ? <TeamRules teamSlug={team.slug} />
             : null }
           { isSettings && this.state.showTab === 'report'
-            ? <TeamReport team={team} direction={direction} />
+            ? <TeamReport team={team} />
             : null }
           { isSettings && this.state.showTab === 'integrations'
             ? (
@@ -269,7 +275,10 @@ class TeamComponent extends Component {
               </ContentColumn>
             ) : null }
           { isReadOnly && this.state.showTab === 'tags'
-            ? <TeamTags team={team} direction={direction} />
+            ? <TeamTags team={team} />
+            : null }
+          { isSettings && this.state.showTab === 'statuses'
+            ? <TeamStatuses teamSlug={team.slug} />
             : null }
         </div>
       </PageTitle>
@@ -278,9 +287,6 @@ class TeamComponent extends Component {
 }
 
 TeamComponent.propTypes = {
-  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
-  // eslint-disable-next-line react/no-typos
-  intl: intlShape.isRequired,
   classes: PropTypes.object.isRequired,
 };
 
@@ -288,4 +294,4 @@ TeamComponent.contextTypes = {
   store: PropTypes.object,
 };
 
-export default withStyles(styles)(injectIntl(TeamComponent));
+export default withStyles(styles)(TeamComponent);

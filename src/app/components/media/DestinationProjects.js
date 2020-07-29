@@ -1,166 +1,92 @@
 import React from 'react';
-import {
-  createFragmentContainer,
-  graphql,
-} from 'react-relay/compat';
-import Select from 'react-select';
-import 'react-select/dist/react-select.css';
-import styled from 'styled-components';
-import { injectIntl, intlShape, defineMessages } from 'react-intl';
-import MeRoute from '../../relay/MeRoute';
-import RelayContainer from '../../relay/RelayContainer';
-import { units } from '../../styles/js/shared';
+import PropTypes from 'prop-types';
+import { createFragmentContainer, graphql } from 'react-relay/compat';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import TextField from '@material-ui/core/TextField';
+import { FormattedMessage } from 'react-intl';
+// Import mutations so we can include them in query fragments
+// eslint-disable-next-line no-unused-vars
+import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
+// eslint-disable-next-line no-unused-vars
+import CreateProjectMediaProjectMutation from '../../relay/mutations/CreateProjectMediaProjectMutation';
+// eslint-disable-next-line no-unused-vars
+import BulkArchiveProjectMediaMutation from '../../relay/mutations/BulkArchiveProjectMediaMutation';
+// eslint-disable-next-line no-unused-vars
+import BulkCreateProjectMediaProjectsMutation from '../../relay/mutations/BulkCreateProjectMediaProjectsMutation';
+// eslint-disable-next-line no-unused-vars
+import BulkUpdateProjectMediaProjectsMutation from '../../relay/mutations/BulkUpdateProjectMediaProjectsMutation';
+// eslint-disable-next-line no-unused-vars
+import BulkDeleteProjectMediaProjectsMutation from '../../relay/mutations/BulkDeleteProjectMediaProjectsMutation';
 
-const messages = defineMessages({
-  choose: {
-    id: 'destinationProjects.choose',
-    defaultMessage: 'Choose a list',
-  },
-});
+function DestinationProjects({
+  team, excludeProjectDbids, value, onChange,
+}) {
+  const filteredProjects = team.projects.edges
+    .map(({ node }) => node)
+    .filter(({ dbid }) => !excludeProjectDbids.includes(dbid));
 
-class DestinationProjectsComponent extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      selectedValue: null,
-    };
-  }
-
-  componentDidMount() {
-    if (this.props.onLoad) {
-      this.props.onLoad();
+  const handleChange = React.useCallback((ev, newValue, reason) => {
+    switch (reason) {
+    case 'select-option': onChange(newValue); break;
+    case 'clear': onChange(null); break;
+    default: break;
     }
-  }
+  }, [onChange]);
 
-  componentWillUpdate(nextProps) {
-    if (this.props.onLoad && (
-      nextProps.user.team_users.length > this.props.user.team_users.length || !this.props.user
-    )) {
-      this.props.onLoad();
-    }
-  }
-
-  handleChange(selectedValue) {
-    this.setState({ selectedValue });
-    if (this.props.onChange) {
-      let project = null;
-      this.props.user.team_users.edges.forEach((teamUserNode) => {
-        teamUserNode.node.team.projects.edges.forEach((projectNode) => {
-          if (selectedValue && projectNode.node.dbid === selectedValue.value) {
-            project = projectNode.node;
-          }
-        });
-      });
-      this.props.onChange(project);
-    }
-  }
-
-  render() {
-    const StyledSelect = styled(Select)`
-      margin-top: ${units(3)};
-
-      .Select-option {
-        padding-left: ${units(2)};
-        padding-right: ${units(2)};
-      }
-      .Select-option.is-disabled {
-        cursor: default;
-        padding-left: ${units(1)};
-        padding-right: ${units(1)};
-      }
-    `;
-
-    const options = [];
-    this.props.user.team_users.edges.forEach((teamUserNode) => {
-      if (teamUserNode.node.status === 'member') {
-        const { team } = teamUserNode.node;
-        let skip = false;
-        if (
-          (this.props.include && this.props.include.indexOf(team.slug) === -1) ||
-          (this.props.exclude && this.props.exclude.indexOf(team.slug) > -1)
-        ) {
-          skip = true;
-        }
-        let projectIds = this.props.projectId;
-        if (!Array.isArray(projectIds)) {
-          projectIds = [projectIds];
-        }
-        if (!skip) {
-          options.push({ label: team.name, value: team.slug, disabled: true });
-          team.projects.edges.forEach((projectNode) => {
-            const project = projectNode.node;
-            if (projectIds.indexOf(project.dbid) === -1) {
-              options.push({ label: project.title, value: project.dbid });
-            }
-          });
-        }
-      }
-    });
-
-    return (
-      <StyledSelect
-        value={this.state.selectedValue && this.state.selectedValue.value}
-        onChange={this.handleChange.bind(this)}
-        options={options}
-        placeholder={this.props.intl.formatMessage(messages.choose)}
-        style={{
-          boxShadow: 'none',
-        }}
-      />
-    );
-  }
-}
-
-const DestinationProjectsContainer = createFragmentContainer(
-  DestinationProjectsComponent,
-  graphql`
-    fragment DestinationProjects_user on User {
-      id
-      team_users(first: 10000) {
-        edges {
-          node {
-            id
-            status
-            team {
-              id
-              dbid
-              slug
-              name
-              projects(first: 10000) {
-                edges {
-                  node {
-                    id
-                    dbid
-                    title
-                    search_id
-                    medias_count
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  `,
-);
-
-const DestinationProjects = (props) => {
-  const route = new MeRoute();
+  // autoHighlight: makes it so user can type name and press Enter to choose list
   return (
-    <RelayContainer
-      Component={DestinationProjectsContainer}
-      route={route}
-      renderFetched={data => <DestinationProjectsContainer {...props} {...data} />}
+    <Autocomplete
+      options={filteredProjects}
+      autoHighlight
+      value={value}
+      onChange={handleChange}
+      getOptionLabel={({ title }) => title}
+      getOptionSelected={(option, val) => val !== null && option.id === val.id}
+      groupBy={() => team.name /* show team name on top of all options */}
+      renderInput={params => (
+        <TextField
+          {...params}
+          autoFocus
+          name="project-title"
+          label={
+            <FormattedMessage id="destinationProjects.choose" defaultMessage="Choose a list" />
+          }
+          variant="outlined"
+        />
+      )}
     />
   );
+}
+DestinationProjects.defaultProps = {
+  value: null,
 };
-
 DestinationProjects.propTypes = {
-  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
-  // eslint-disable-next-line react/no-typos
-  intl: intlShape.isRequired,
+  value: PropTypes.object, // GraphQL "Project" object or null
+  team: PropTypes.object.isRequired,
+  onChange: PropTypes.func.isRequired, // func(<Project>) => undefined
+  excludeProjectDbids: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
 };
 
-export default injectIntl(DestinationProjects);
+export default createFragmentContainer(DestinationProjects, graphql`
+  fragment DestinationProjects_team on Team {
+    name
+    projects(first: 10000) {
+      edges {
+        node {
+          id
+          dbid
+          title
+          medias_count  # MoveProjectMediaToProjectAction optimistic update
+          search_id  # MoveProjectMediaToProjectAction optimistic update
+          ...UpdateProjectMediaMutation_srcProj
+          ...CreateProjectMediaProjectMutation_project
+          ...BulkArchiveProjectMediaMutation_project
+          ...BulkCreateProjectMediaProjectsMutation_project
+          ...BulkDeleteProjectMediaProjectsMutation_project
+          ...BulkUpdateProjectMediaProjectsMutation_srcProject
+          ...BulkUpdateProjectMediaProjectsMutation_dstProject
+        }
+      }
+    }
+  }
+`);

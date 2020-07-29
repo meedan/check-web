@@ -1,0 +1,18 @@
+[
+  {
+    "id": "mediaActionsBar.moveTo",
+    "defaultMessage": "Move to..."
+  },
+  {
+    "id": "mediaActionsBar.dialogMoveTitle",
+    "defaultMessage": "Move to a different list"
+  },
+  {
+    "id": "mediaActionsBar.cancelButton",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "mediaActionsBar.move",
+    "defaultMessage": "Move"
+  }
+]

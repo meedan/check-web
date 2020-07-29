@@ -10,7 +10,6 @@ import Collapse from '@material-ui/core/Collapse';
 import EditIcon from '@material-ui/icons/Edit';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import styled from 'styled-components';
-import rtlDetect from 'rtl-detect';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
 import EditTaskDialog from './EditTaskDialog';
@@ -77,6 +76,30 @@ const StyledTaskResponses = styled.div`
   }
 `;
 
+function getResponseData(response) {
+  const data = {};
+
+  if (response) {
+    data.by = [];
+    data.byPictures = [];
+    response.attribution.edges.forEach((user) => {
+      const u = user.node;
+      data.by.push(<ProfileLink teamUser={u.team_user} />);
+      data.byPictures.push(u);
+    });
+    const fields = JSON.parse(response.content);
+    if (Array.isArray(fields)) {
+      fields.forEach((field) => {
+        if (/^response_/.test(field.field_name) && field.value && field.value !== '') {
+          data.response = field.value;
+        }
+      });
+    }
+  }
+
+  return data;
+}
+
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
 class Task extends Component {
   constructor(props) {
@@ -102,31 +125,6 @@ class Task extends Component {
 
   getCurrentUser() {
     return new CheckContext(this).getContextStore().currentUser;
-  }
-
-  getResponseData(response) {
-    const data = {};
-    const { media } = this.props;
-
-    if (response) {
-      data.by = [];
-      data.byPictures = [];
-      response.attribution.edges.forEach((user) => {
-        const u = user.node;
-        data.by.push(<ProfileLink user={u} team={media.team} />);
-        data.byPictures.push(u);
-      });
-      const fields = JSON.parse(response.content);
-      if (Array.isArray(fields)) {
-        fields.forEach((field) => {
-          if (/^response_/.test(field.field_name) && field.value && field.value !== '') {
-            data.response = field.value;
-          }
-        });
-      }
-    }
-
-    return data;
   }
 
   fail = (transaction) => {
@@ -321,7 +319,7 @@ class Task extends Component {
     const { task } = this.props;
 
     if (this.state.editingResponse && this.state.editingResponse.id === responseObj.id) {
-      const editingResponseData = this.getResponseData(this.state.editingResponse);
+      const editingResponseData = getResponseData(this.state.editingResponse);
       const editingResponseText = editingResponseData.response;
       return (
         <div className="task__editing">
@@ -468,7 +466,7 @@ class Task extends Component {
 
   render() {
     const { task, media } = this.props;
-    const data = this.getResponseData(task.first_response);
+    const data = getResponseData(task.first_response);
     const {
       response, by, byPictures,
     } = data;
@@ -482,18 +480,11 @@ class Task extends Component {
     const assignments = task.assignments.edges;
     const assignmentComponents = [];
     assignments.forEach((assignment) => {
-      assignmentComponents.push(<ProfileLink user={assignment.node} team={media.team} />);
+      assignmentComponents.push(<ProfileLink user={assignment.node.team_user} />);
       if (currentUser && assignment.node.dbid === currentUser.dbid) {
         taskAssigned = true;
       }
     });
-
-    const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
-
-    const direction = {
-      from: isRtl ? 'right' : 'left',
-      to: isRtl ? 'left' : 'right',
-    };
 
     const taskAssignment = task.assignments.edges.length > 0 && !response ? (
       <div className="task__assigned" style={{ display: 'flex', alignItems: 'center', width: 420 }}>
@@ -513,16 +504,13 @@ class Task extends Component {
     ) : null;
 
     const taskActionsStyle = {
-      marginLeft: 'auto',
-      position: 'absolute',
-      bottom: '0',
+      textAlign: 'end',
     };
-    taskActionsStyle[direction.to] = units(0.5);
 
     const zeroAnswer = task.responses.edges.length === 0;
 
     const taskActions = !media.archived ? (
-      <div style={{ position: 'relative' }}>
+      <div>
         {taskAssignment}
         {data.by ?
           <div className="task__resolver" style={{ display: 'flex', alignItems: 'center', marginTop: units(1) }}>
@@ -563,7 +551,7 @@ class Task extends Component {
         <div>
           <StyledTaskResponses>
             {task.responses.edges.map((singleResponse) => {
-              const singleResponseData = this.getResponseData(singleResponse.node);
+              const singleResponseData = getResponseData(singleResponse.node);
               return this.renderTaskResponse(
                 singleResponse.node,
                 singleResponseData.response,

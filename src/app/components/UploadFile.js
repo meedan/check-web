@@ -4,7 +4,7 @@ import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Dropzone from 'react-dropzone';
 import { FormattedMessage } from 'react-intl';
-import MdHighlightRemove from 'react-icons/lib/md/highlight-remove';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import styled from 'styled-components';
 import CircularProgress from './CircularProgress';
 import { unhumanizeSize } from '../helpers';
@@ -64,29 +64,47 @@ const Preview = styled.span`
   width: ${previewSize};
 `;
 
-const UploadMessage = ({ type, about }) => type === 'image' ? (
-  <FormattedMessage
-    id="uploadImage.message"
-    defaultMessage="Drop an image file here, or click to upload a file (max size: {image_max_size}, allowed extensions: {image_extensions}, allowed dimensions between {image_min_dimensions} and {image_max_dimensions} pixels)"
-    values={{
-      image_max_size: about.image_max_size,
-      image_extensions: about.image_extensions,
-      image_max_dimensions: about.image_max_dimensions,
-      image_min_dimensions: about.image_min_dimensions,
-    }}
-  />
-) : (
-  <FormattedMessage
-    id="uploadImage.videoMessage"
-    defaultMessage="Drop a video file here, or click to upload a file (max size: {video_max_size}, allowed extensions: {video_extensions})"
-    values={{
-      video_max_size: about.video_max_size,
-      video_extensions: about.video_extensions,
-    }}
-  />
-);
+const UploadMessage = ({ type, about }) => {
+  switch (type) {
+  case 'image': return (
+    <FormattedMessage
+      id="uploadFile.message"
+      defaultMessage="Drop an image file here, or click to upload a file (max size: {image_max_size}, allowed extensions: {image_extensions}, allowed dimensions between {image_min_dimensions} and {image_max_dimensions} pixels)"
+      values={{
+        image_max_size: about.image_max_size,
+        image_extensions: about.image_extensions,
+        image_max_dimensions: about.image_max_dimensions,
+        image_min_dimensions: about.image_min_dimensions,
+      }}
+    />
+  );
+  case 'video': return (
+    <FormattedMessage
+      id="uploadFile.videoMessage"
+      defaultMessage="Drop a video file here, or click to upload a file (max size: {video_max_size}, allowed extensions: {video_extensions})"
+      values={{
+        video_max_size: about.video_max_size,
+        video_extensions: about.video_extensions,
+      }}
+    />
+  );
+  case 'audio': return (
+    <FormattedMessage
+      id="uploadFile.audioMessage"
+      defaultMessage="Drop an audio file here, or click to upload a file (max size: {audio_max_size}, allowed extensions: {audio_extensions})"
+      values={{
+        audio_max_size: about.audio_max_size,
+        audio_extensions: about.audio_extensions,
+      }}
+    />
+  );
+  default: return null;
+  }
+};
+
+
 UploadMessage.propTypes = {
-  type: PropTypes.oneOf(['image', 'video']).isRequired,
+  type: PropTypes.oneOf(['image', 'video', 'audio']).isRequired,
   about: PropTypes.shape({
     image_max_size: PropTypes.string.isRequired,
     image_extensions: PropTypes.string.isRequired,
@@ -94,10 +112,12 @@ UploadMessage.propTypes = {
     image_min_dimensions: PropTypes.string.isRequired,
     video_max_size: PropTypes.string.isRequired,
     video_extensions: PropTypes.string.isRequired,
+    audio_max_size: PropTypes.string.isRequired,
+    audio_extensions: PropTypes.string.isRequired,
   }).isRequired,
 };
 
-class UploadImageComponent extends React.PureComponent {
+class UploadFileComponent extends React.PureComponent {
   onDrop = (files) => {
     const {
       about,
@@ -106,13 +126,23 @@ class UploadImageComponent extends React.PureComponent {
       onError,
     } = this.props;
     const file = files[0];
-    const extensions = type === 'image' ? about.image_extensions : about.video_extensions;
-    const maxSize = type === 'image' ? about.image_max_size : about.video_max_size;
+    let extensions = '';
+    let maxSize = 0;
+    if (type === 'image') {
+      extensions = about.image_extensions;
+      maxSize = about.image_max_size;
+    } else if (type === 'video') {
+      extensions = about.video_extensions;
+      maxSize = about.video_max_size;
+    } else if (type === 'audio') {
+      extensions = about.audio_extensions;
+      maxSize = about.audio_max_size;
+    }
     const valid_extensions = extensions.toLowerCase().split(/[\s,]+/);
     const extension = file.name.substr(file.name.lastIndexOf('.') + 1).toLowerCase();
     if (valid_extensions.length > 0 && valid_extensions.indexOf(extension) < 0) {
       onError(file, <FormattedMessage
-        id="uploadImage.invalidExtension"
+        id="uploadFile.invalidExtension"
         defaultMessage='The file cannot have type "{extension}". Please try with the following file types: {allowed_types}.'
         values={{ extension, allowed_types: extensions }}
       />);
@@ -120,7 +150,7 @@ class UploadImageComponent extends React.PureComponent {
     }
     if (file.size && unhumanizeSize(maxSize) < file.size) {
       onError(file, <FormattedMessage
-        id="uploadImage.fileTooLarge"
+        id="uploadFile.fileTooLarge"
         defaultMessage="The file size should be less than {size}. Please try with a smaller file."
         values={{ size: maxSize }}
       />);
@@ -137,17 +167,13 @@ class UploadImageComponent extends React.PureComponent {
   maybePreview() {
     const { value, noPreview, type } = this.props;
 
-    if (type !== 'image') {
-      return null;
-    }
-
-    if (value) {
+    if (value && type === 'image') {
       return (
         <Row>
           {noPreview ? <NoPreview /> : <Preview image={value.preview} />}
           <span className="no-preview" />
           <StyledIconButton id="remove-image" onClick={this.onDelete}>
-            <MdHighlightRemove />
+            <HighlightOffIcon />
           </StyledIconButton>
         </Row>
       );
@@ -168,7 +194,7 @@ class UploadImageComponent extends React.PureComponent {
           <div>
             {value ? (
               <FormattedMessage
-                id="uploadImage.changeFile"
+                id="uploadFile.changeFile"
                 defaultMessage="{filename} (click or drop to change)"
                 values={{ filename: value.name }}
               />
@@ -183,18 +209,20 @@ class UploadImageComponent extends React.PureComponent {
   }
 }
 
-const UploadImage = childProps => (
+const UploadFile = childProps => (
   <QueryRenderer
     environment={Relay.Store}
     query={graphql`
-      query UploadImageQuery {
+      query UploadFileQuery {
         about {
-          image_max_size,
-          image_extensions,
-          video_max_size,
-          video_extensions,
-          image_max_dimensions,
+          image_max_size
+          image_extensions
+          image_max_dimensions
           image_min_dimensions
+          video_max_size
+          video_extensions
+          audio_max_size
+          audio_extensions
         }
       }
     `}
@@ -202,22 +230,22 @@ const UploadImage = childProps => (
       if (error) {
         return <div className="TODO-handle-error">{error.message}</div>;
       } else if (props) {
-        return <UploadImageComponent about={props.about} {...childProps} />;
+        return <UploadFileComponent about={props.about} {...childProps} />;
       }
       return <CircularProgress />;
     }}
   />
 );
-UploadImage.defaultProps = {
+UploadFile.defaultProps = {
   value: null,
   noPreview: false,
 };
-UploadImage.propTypes = {
+UploadFile.propTypes = {
   value: PropTypes.object, // or null
-  type: PropTypes.oneOf(['image', 'video']).isRequired,
+  type: PropTypes.oneOf(['image', 'video', 'audio']).isRequired,
   noPreview: PropTypes.bool,
   onChange: PropTypes.func.isRequired, // func(Image) => undefined
   onError: PropTypes.func.isRequired, // func(Image?, <FormattedMessage ...>) => undefined
 };
 
-export default UploadImage;
+export default UploadFile;

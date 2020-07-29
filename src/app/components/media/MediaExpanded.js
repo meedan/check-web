@@ -8,6 +8,7 @@ import CardActions from '@material-ui/core/CardActions';
 import styled from 'styled-components';
 import MediaRoute from '../../relay/MediaRoute';
 import MediaMetadata from './MediaMetadata';
+import MediaTypeDisplayName from './MediaTypeDisplayName';
 import MediaUtil from './MediaUtil';
 import MoreLess from '../layout/MoreLess';
 import ParsedText from '../ParsedText';
@@ -15,9 +16,9 @@ import TimeBefore from '../TimeBefore';
 import QuoteMediaCard from './QuoteMediaCard';
 import WebPageMediaCard from './WebPageMediaCard';
 import ImageMediaCard from './ImageMediaCard';
-import VideoMediaCard from './VideoMediaCard';
+import MediaPlayerCard from './MediaPlayerCard';
 import PenderCard from '../PenderCard';
-import { truncateLength } from '../../helpers';
+import { parseStringUnixTimestamp, truncateLength, getCurrentProjectId } from '../../helpers';
 import CheckContext from '../../CheckContext';
 import { withPusher, pusherShape } from '../../pusher';
 import {
@@ -25,6 +26,14 @@ import {
   units,
   Row,
 } from '../../styles/js/shared';
+
+function mediaHasCustomDescription(media, data) {
+  const description = data && data.description && data.description.trim();
+  return description && (
+    (media && media.overridden && media.overridden.description) || // Link type report
+    (media.quote && (description !== media.quote)) || // Quote type report
+    (media.embed_path && description)); // Image type report
+}
 
 const StyledHeaderTextSecondary = styled.div`
   justify-content: flex-start;
@@ -90,7 +99,9 @@ class MediaExpandedComponent extends Component {
   }
 
   render() {
-    const { media } = this.props;
+    const {
+      media, playing, start, end, gaps, seekTo, scrubTo, setPlayerState, onPlayerReady,
+    } = this.props;
     let smoochBotInstalled = false;
     if (media.team && media.team.team_bot_installations) {
       media.team.team_bot_installations.edges.forEach((edge) => {
@@ -104,24 +115,35 @@ class MediaExpandedComponent extends Component {
     media.embed_path = media.media.embed_path;
     const data = typeof media.metadata === 'string' ? JSON.parse(media.metadata) : media.metadata;
     const isImage = media.media.type === 'UploadedImage';
-    const isVideo = media.media.type === 'UploadedVideo';
+    const isMedia = ['UploadedVideo', 'UploadedAudio'].indexOf(media.media.type) > -1;
+    const isYoutube = media.media.url && media.domain === 'youtube.com';
+    let filePath = media.media.file_path;
+    if (isYoutube) {
+      filePath = media.url;
+    }
     const isQuote = media.media.type === 'Claim';
     const isWebPage = media.media.url && data.provider === 'page';
     const authorName = MediaUtil.authorName(media, data);
-    const authorUsername = MediaUtil.authorUsername(media, data);
+    const authorUsername = data.username;
     const isPender = media.media.url && data.provider !== 'page';
-    const isYoutube = media.media.url && media.domain === 'youtube.com';
     const randomNumber = Math.floor(Math.random() * 1000000);
-    const { isRtl, mediaUrl, mediaQuery } = this.props;
-    const hasCustomDescription = MediaUtil.hasCustomDescription(media, data);
+    const { mediaUrl, mediaQuery } = this.props;
+    const hasCustomDescription = mediaHasCustomDescription(media, data);
 
     const embedCard = (() => {
       if (isImage) {
         return <ImageMediaCard imagePath={media.embed_path} />;
-      } else if (isVideo) {
-        return <VideoMediaCard videoPath={media.media.file_path} />;
-      } else if (isYoutube) {
-        return <VideoMediaCard videoPath={media.url} />;
+      } else if (isMedia || isYoutube) {
+        return (
+          <div ref={this.props.playerRef}>
+            <MediaPlayerCard
+              filePath={filePath}
+              {...{
+                playing, start, end, gaps, scrubTo, seekTo, onPlayerReady, setPlayerState,
+              }}
+            />
+          </div>
+        );
       } else if (isQuote) {
         return (
           <QuoteMediaCard
@@ -136,7 +158,6 @@ class MediaExpandedComponent extends Component {
             mediaUrl={mediaUrl}
             mediaQuery={mediaQuery}
             data={data}
-            isRtl={isRtl}
             authorName={authorName}
             authorUserName={authorUsername}
           />
@@ -159,20 +180,18 @@ class MediaExpandedComponent extends Component {
       <div>
         <StyledHeaderTextSecondary>
           <Row flexWrap style={{ fontWeight: '500' }}>
-            <span>
-              {MediaUtil.mediaTypeLabel(media.media.type, this.props.intl)}
-            </span>
+            <span><MediaTypeDisplayName mediaType={media.media.type} /></span>
             <span style={{ margin: `0 ${units(1)}` }}> - </span>
             <span>
               <FormattedMessage id="mediaExpanded.firstSeen" defaultMessage="First seen: " />
-              <TimeBefore date={MediaUtil.createdAt(media)} />
+              <TimeBefore date={parseStringUnixTimestamp(media.created_at)} />
             </span>
             { smoochBotInstalled ?
               <span>
                 <span style={{ margin: `0 ${units(1)}` }}> - </span>
                 <span>
                   <FormattedMessage id="mediaExpanded.lastSeen" defaultMessage="Last seen: " />
-                  <TimeBefore date={MediaUtil.createdAt({ created_at: media.last_seen })} />
+                  <TimeBefore date={parseStringUnixTimestamp(media.last_seen)} />
                 </span>
                 <span style={{ margin: `0 ${units(1)}` }}> - </span>
                 <span>
@@ -221,6 +240,7 @@ MediaExpandedComponent.contextTypes = {
 
 MediaExpandedComponent.propTypes = {
   pusher: pusherShape.isRequired,
+  playerRef: PropTypes.shape({ current: PropTypes.instanceOf(HTMLElement) }).isRequired,
 };
 
 const MediaExpandedContainer = Relay.createContainer(withPusher(MediaExpandedComponent), {
@@ -245,17 +265,10 @@ const MediaExpandedContainer = Relay.createContainer(withPusher(MediaExpandedCom
         description
         language_code
         language
-        project_id
         project_ids
         pusher_channel
         dynamic_annotation_language: annotation(annotation_type: "language") {
           id
-        }
-        project {
-          id
-          dbid
-          title
-          search_id
         }
         relationships {
           id
@@ -318,6 +331,7 @@ const MediaExpandedContainer = Relay.createContainer(withPusher(MediaExpandedCom
               id
               tag
               tag_text
+              fragment
             }
           }
         }
@@ -327,7 +341,8 @@ const MediaExpandedContainer = Relay.createContainer(withPusher(MediaExpandedCom
 });
 
 const MediaExpanded = (props) => {
-  const ids = `${props.media.dbid},${props.media.project_id}`;
+  const projectId = getCurrentProjectId(props.media.project_ids);
+  const ids = `${props.media.dbid},${projectId}`;
   const route = new MediaRoute({ ids });
 
   return (

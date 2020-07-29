@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import CreateRelatedMediaDialog from './CreateRelatedMediaDialog';
 import Can from '../Can';
 import CheckContext from '../../CheckContext';
-import { getErrorMessage } from '../../helpers';
+import { getErrorMessage, getCurrentProject } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 import globalStrings from '../../globalStrings';
 import { black05 } from '../../styles/js/shared';
@@ -56,7 +56,7 @@ class CreateRelatedMedia extends Component {
       new CreateProjectMediaMutation({
         ...value,
         context,
-        project: this.props.media.project,
+        project: getCurrentProject(this.props.media.team.projects),
         team: this.props.media.team,
         related: this.props.media,
         related_to_id: this.props.media.dbid,
@@ -88,7 +88,7 @@ class CreateRelatedMedia extends Component {
         obj,
         context,
         id: obj.id,
-        project: this.props.media.project,
+        project: getCurrentProject(this.props.media.team.projects),
         related_to: this.props.media,
         related_to_id: this.props.media.dbid,
         relationships_target_id: this.props.media.relationships.target_id,

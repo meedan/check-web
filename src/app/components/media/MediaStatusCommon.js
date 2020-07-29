@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { defineMessages, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
 import Button from '@material-ui/core/Button';
 import Popover from '@material-ui/core/Popover';
@@ -10,16 +10,9 @@ import LockIcon from '@material-ui/icons/Lock';
 import styled from 'styled-components';
 import { can } from '../Can';
 import CheckContext from '../../CheckContext';
-import { getStatus, getErrorMessage, bemClass } from '../../helpers';
-import { mediaStatuses, mediaLastStatus, stringHelper } from '../../customHelpers';
+import { getStatus, getErrorMessage, bemClass, getCurrentProjectId } from '../../helpers';
+import { stringHelper } from '../../customHelpers';
 import { withSetFlashMessage } from '../FlashMessage';
-
-const messages = defineMessages({
-  error: {
-    id: 'mediaStatus.error',
-    defaultMessage: 'Sorry, an error occurred while updating the status. Please try again and contact {supportEmail} if the condition persists.',
-  },
-});
 
 const StyledMediaStatus = styled.div`
   display: flex;
@@ -44,7 +37,8 @@ class MediaStatusCommon extends Component {
 
   handleEdit() {
     const { media } = this.props;
-    const projectPart = media.project_id ? `/project/${media.project_id}` : '';
+    const projectId = getCurrentProjectId(media.project_ids);
+    const projectPart = projectId ? `/project/${projectId}` : '';
     browserHistory.push(`/${media.team.slug}${projectPart}/media/${media.dbid}/embed`);
   }
 
@@ -54,13 +48,19 @@ class MediaStatusCommon extends Component {
 
     this.setState({ anchorEl: null });
 
-    if (clickedStatus !== mediaLastStatus(media)) {
+    if (clickedStatus !== media.last_status) {
       this.props.setStatus(this, store, media, clickedStatus, this.props.parentComponent, null);
     }
   };
 
   fail = (transaction) => {
-    const fallbackMessage = this.props.intl.formatMessage(messages.error, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+    const fallbackMessage = (
+      <FormattedMessage
+        id="mediaStatus.error"
+        defaultMessage="Sorry, an error occurred while updating the status. Please try again and contact {supportEmail} if the condition persists."
+        values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
+      />
+    );
     const message = getErrorMessage(transaction, fallbackMessage);
     this.props.setFlashMessage(message);
   };
@@ -72,13 +72,13 @@ class MediaStatusCommon extends Component {
 
   render() {
     const { media } = this.props;
-    const { statuses } = mediaStatuses(media);
-    const currentStatus = getStatus(mediaStatuses(media), mediaLastStatus(media));
+    const { statuses } = media.team.verification_statuses;
+    const currentStatus = getStatus(media.team.verification_statuses, media.last_status);
 
     return (
       <StyledMediaStatus className="media-status">
         <Button
-          className={`media-status__label media-status__current ${MediaStatusCommon.currentStatusToClass(mediaLastStatus(media))}`}
+          className={`media-status__label media-status__current ${MediaStatusCommon.currentStatusToClass(media.last_status)}`}
           style={{ backgroundColor: currentStatus.style.color, color: 'white' }}
           variant="contained"
           disableElevation
@@ -99,7 +99,7 @@ class MediaStatusCommon extends Component {
               key={status.id}
               className={`${bemClass(
                 'media-status__menu-item',
-                mediaLastStatus(media) === status.id,
+                media.last_status === status.id,
                 '--current',
               )} media-status__menu-item--${status.id.replace('_', '-')}`}
               onClick={() => this.handleStatusClick(status.id)}
@@ -116,9 +116,6 @@ class MediaStatusCommon extends Component {
 }
 
 MediaStatusCommon.propTypes = {
-  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
-  // eslint-disable-next-line react/no-typos
-  intl: intlShape.isRequired,
   setFlashMessage: PropTypes.func.isRequired,
 };
 
@@ -126,4 +123,4 @@ MediaStatusCommon.contextTypes = {
   store: PropTypes.object,
 };
 
-export default withSetFlashMessage(injectIntl(MediaStatusCommon));
+export default withSetFlashMessage(MediaStatusCommon);

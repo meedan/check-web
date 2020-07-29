@@ -6,13 +6,12 @@ import Button from '@material-ui/core/Button';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '@material-ui/core/TextField';
-import MdCancel from 'react-icons/lib/md/cancel';
+import CancelIcon from '@material-ui/icons/Cancel';
 import capitalize from 'lodash.capitalize';
 import LinkifyIt from 'linkify-it';
-import rtlDetect from 'rtl-detect';
 import SourcePicture from './SourcePicture';
 import Message from '../Message';
-import UploadImage from '../UploadImage';
+import UploadFile from '../UploadFile';
 import globalStrings from '../../globalStrings';
 import UpdateSourceMutation from '../../relay/mutations/UpdateSourceMutation';
 import { updateUserNameEmail } from '../../relay/mutations/UpdateUserNameEmailMutation';
@@ -420,7 +419,7 @@ class UserInfoEdit extends React.Component {
                 className="source__remove-link-button"
                 onClick={() => this.handleRemoveLink(as.node.id)}
               >
-                <MdCancel />
+                <CancelIcon />
               </StyledIconButton>
             </Row>
           </div>))}
@@ -442,7 +441,7 @@ class UserInfoEdit extends React.Component {
                 className="source__remove-link-button"
                 onClick={() => this.handleRemoveNewLink(index)}
               >
-                <MdCancel />
+                <CancelIcon />
               </StyledIconButton>
             </Row>
             {link.error ?
@@ -470,9 +469,7 @@ class UserInfoEdit extends React.Component {
       <ContentColumn noPadding>
         <Message message={this.state.message} />
         <StyledTwoColumns>
-          <StyledSmallColumn
-            isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
-          >
+          <StyledSmallColumn>
             <SourcePicture
               size="large"
               object={source}
@@ -497,7 +494,7 @@ class UserInfoEdit extends React.Component {
               name="edit-source-form"
             >
               {this.state.editProfileImg ?
-                <UploadImage
+                <UploadFile
                   type="image"
                   value={this.state.image}
                   onChange={this.handleImageChange}
@@ -550,9 +547,7 @@ class UserInfoEdit extends React.Component {
               {this.renderAccountsEdit()}
             </form>
 
-            <StyledButtonGroup
-              isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
-            >
+            <StyledButtonGroup>
               <div>
                 <Button
                   color="primary"

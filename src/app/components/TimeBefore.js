@@ -1,22 +1,25 @@
 import React from 'react';
-import { injectIntl, intlShape } from 'react-intl';
+import PropTypes from 'prop-types';
+import { FormattedDate, FormattedRelative } from 'react-intl';
 
-const TimeBefore = (props) => {
-  const date = new Date(props.date);
-  const datetimeLabel = new Date(+date - (date.getTimezoneOffset() * 60 * 1000)).toISOString().split('.')[0].replace('T', ' ').slice(0, -3);
-  const title = props.titlePrefix ? `${props.titlePrefix} ${datetimeLabel}` : datetimeLabel;
-
-  return (
-    <time style={props.style} title={title}>
-      {props.intl.formatRelative(date)}
-    </time>
-  );
-};
-
+const TimeBefore = ({ date }) => (
+  <FormattedDate
+    value={date}
+    year="numeric"
+    month="long"
+    day="numeric"
+    hour="numeric"
+    minute="numeric"
+  >
+    {title => (
+      <time dateTime={date.toISOString()} title={title}>
+        <FormattedRelative value={date} />
+      </time>
+    )}
+  </FormattedDate>
+);
 TimeBefore.propTypes = {
-  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
-  // eslint-disable-next-line react/no-typos
-  intl: intlShape.isRequired,
+  date: PropTypes.instanceOf(Date).isRequired,
 };
 
-export default injectIntl(TimeBefore);
+export default TimeBefore;

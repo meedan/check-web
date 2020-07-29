@@ -1,25 +1,5 @@
 [
   {
-    "id": "mediaDetail.mediaTitle",
-    "defaultMessage": "Title"
-  },
-  {
-    "id": "mediaDetail.mediaDescription",
-    "defaultMessage": "Description"
-  },
-  {
-    "id": "mediaDetail.editReport",
-    "defaultMessage": "Edit"
-  },
-  {
-    "id": "mediaDetail.editReportError",
-    "defaultMessage": "Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists."
-  },
-  {
-    "id": "mediaDetail.trash",
-    "defaultMessage": "Trash"
-  },
-  {
     "id": "mediaActionsBar.removedFromList",
     "defaultMessage": "Removed from list"
   },
@@ -28,12 +8,16 @@
     "defaultMessage": "Added to list {listName}"
   },
   {
-    "id": "mediaActionsBar.movingItem",
-    "defaultMessage": "Moving item..."
+    "id": "mediaDetail.editReportError",
+    "defaultMessage": "Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists."
   },
   {
     "id": "mediaActionsBar.movedToTrash",
     "defaultMessage": "Sent to {trash}"
+  },
+  {
+    "id": "mediaDetail.trash",
+    "defaultMessage": "Trash"
   },
   {
     "id": "mediaActionsBar.assignmentsUpdated",
@@ -41,7 +25,7 @@
   },
   {
     "id": "mediaActionsBar.movedBack",
-    "defaultMessage": "Restored to list {project}"
+    "defaultMessage": "Restored from trash"
   },
   {
     "id": "mediaActionsBar.cancelButton",
@@ -52,12 +36,20 @@
     "defaultMessage": "Add"
   },
   {
-    "id": "mediaActionsBar.move",
-    "defaultMessage": "Move"
-  },
-  {
     "id": "mediaActionsBar.done",
     "defaultMessage": "Done"
+  },
+  {
+    "id": "mediaDetail.editReport",
+    "defaultMessage": "Edit"
+  },
+  {
+    "id": "mediaDetail.mediaTitle",
+    "defaultMessage": "Title"
+  },
+  {
+    "id": "mediaDetail.mediaDescription",
+    "defaultMessage": "Description"
   },
   {
     "id": "mediaDetail.cancelButton",
@@ -72,10 +64,6 @@
     "defaultMessage": "Add to..."
   },
   {
-    "id": "mediaActionsBar.moveTo",
-    "defaultMessage": "Move to..."
-  },
-  {
     "id": "mediaActionsBar.removeFromList",
     "defaultMessage": "Remove from list"
   },
@@ -86,10 +74,6 @@
   {
     "id": "mediaActionsBar.dialogAddToListTitle",
     "defaultMessage": "Add to a different list"
-  },
-  {
-    "id": "mediaActionsBar.dialogMoveTitle",
-    "defaultMessage": "Move to a different list"
   },
   {
     "id": "mediaActionsBar.assignDialogHeader",

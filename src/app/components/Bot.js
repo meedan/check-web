@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
-import { FormattedDate, FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import { FormattedDate, FormattedMessage } from 'react-intl';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
@@ -9,7 +9,6 @@ import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import { Link, browserHistory } from 'react-router';
 import styled from 'styled-components';
-import rtlDetect from 'rtl-detect';
 import BotRoute from '../relay/BotRoute';
 import { units, ContentColumn, black32, black87 } from '../styles/js/shared';
 import { LocalizedRole } from './user/UserUtil';
@@ -19,28 +18,13 @@ import CheckContext from '../CheckContext';
 import { stringHelper } from '../customHelpers';
 import CreateTeamBotInstallationMutation from '../relay/mutations/CreateTeamBotInstallationMutation';
 
-const messages = defineMessages({
-  confirmInstall: {
-    id: 'bot.confirmInstall',
-    defaultMessage: 'Are you sure you want to install bot in {teamName}?',
-  },
-  confirmUninstall: {
-    id: 'bot.confirmUninstall',
-    defaultMessage: 'Are you sure you want to uninstall this bot from {teamName}?',
-  },
-  cantChange: {
-    id: 'bot.cantChange',
-    defaultMessage: 'Sorry, an error occurred while updating the bot. Please try again and contact {supportEmail} if the condition persists.',
-  },
-});
-
 const StyledCardText = styled(CardContent)`
   display: flex;
 
   img {
     height: 150px;
     border: 1px solid ${black32};
-    margin-${props => props.direction.to}: ${units(3)};
+    margin-${props => props.theme.dir === 'rtl' ? 'left' : 'right'}: ${units(3)};
   }
 
   h2 {
@@ -69,10 +53,12 @@ const StyledCardFooter = styled.div`
   }
 `;
 
-const StyledInstall = styled.div`
-  ${props => props.direction.to}: 0;
-  margin-${props => props.direction.from}: auto;
-  margin-${props => props.direction.to}: 0;
+const CardContainer = styled.div`
+  flex: 1 1 auto;
+`;
+
+const ButtonContainer = styled.div`
+  flex: 0 0 auto;
 `;
 
 class BotComponent extends Component {
@@ -106,8 +92,15 @@ class BotComponent extends Component {
     };
 
     const onFailure = () => {
-      const errorMessage = this.props.intl.formatMessage(messages.cantChange, { supportEmail: stringHelper('SUPPORT_EMAIL') });
-      this.setState({ message: errorMessage });
+      this.setState({
+        message: (
+          <FormattedMessage
+            id="bot.cantChange"
+            defaultMessage="Sorry, an error occurred while updating the bot. Please try again and contact {supportEmail} if the condition persists."
+            values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
+          />
+        ),
+      });
     };
 
     Relay.Store.commitUpdate(
@@ -118,14 +111,6 @@ class BotComponent extends Component {
 
   render() {
     const { bot } = this.props;
-
-    const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
-
-    const direction = {
-      from: isRtl ? 'right' : 'left',
-      to: isRtl ? 'left' : 'right',
-    };
-
     const botDate = new Date(parseInt(bot.updated_at, 10) * 1000);
 
     return (
@@ -133,9 +118,9 @@ class BotComponent extends Component {
         <ContentColumn>
           <Message message={this.state.message} />
           <Card key={`bot-${bot.dbid}`}>
-            <StyledCardText direction={direction}>
+            <StyledCardText>
               <img src={bot.avatar} alt={bot.name} />
-              <div>
+              <CardContainer>
                 <CardHeader
                   style={{ padding: 0, paddingTop: units(2) }}
                   title={bot.name}
@@ -151,8 +136,8 @@ class BotComponent extends Component {
                   }
                 />
                 <p>{bot.description}</p>
-              </div>
-              <StyledInstall direction={direction}>
+              </CardContainer>
+              <ButtonContainer>
                 <Button
                   id="bot__install-button"
                   variant="contained"
@@ -165,7 +150,7 @@ class BotComponent extends Component {
                     <FormattedMessage id="bot.install" defaultMessage="Install" />
                   }
                 </Button>
-              </StyledInstall>
+              </ButtonContainer>
             </StyledCardText>
             <CardContent>
               <p><b><FormattedMessage id="bot.permissions" defaultMessage="Permissions" /></b></p>
@@ -211,17 +196,11 @@ class BotComponent extends Component {
   }
 }
 
-BotComponent.propTypes = {
-  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
-  // eslint-disable-next-line react/no-typos
-  intl: intlShape.isRequired,
-};
-
 BotComponent.contextTypes = {
   store: PropTypes.object,
 };
 
-const BotContainer = Relay.createContainer(injectIntl(BotComponent), {
+const BotContainer = Relay.createContainer(BotComponent, {
   fragments: {
     bot: () => Relay.QL`
       fragment on BotUser {

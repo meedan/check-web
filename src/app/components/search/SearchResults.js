@@ -114,6 +114,7 @@ class SearchResultsComponent extends React.PureComponent {
   }
 
   componentDidMount() {
+    this.setProjectId();
     this.resubscribe();
   }
 
@@ -149,6 +150,12 @@ class SearchResultsComponent extends React.PureComponent {
       return null;
     }
     return this.buildSearchUrlAtOffset(this.beginIndex - pageSize);
+  }
+
+  setProjectId() {
+    const { project } = this.props;
+    const projectId = project ? project.dbid : 0;
+    this.props.relay.setVariables({ projectId });
   }
 
   resubscribe() {
@@ -304,12 +311,25 @@ class SearchResultsComponent extends React.PureComponent {
       ? this.props.search.medias.edges.map(({ node }) => node)
       : [];
 
-    const count = this.props.search ? this.props.search.number_of_results : 0;
+    const count = this.props.search.number_of_results;
     const { team } = this.props.search;
     const isIdInSearchResults = wantedId => projectMedias.some(({ id }) => id === wantedId);
     const selectedProjectMediaIds = this.state.selectedProjectMediaIds.filter(isIdInSearchResults);
 
     const isProject = !!this.props.project;
+
+
+    const selectedProjectMediaProjectIds = [];
+    const selectedProjectMediaDbids = [];
+
+    projectMedias.forEach((pm) => {
+      if (selectedProjectMediaIds.indexOf(pm.id) !== -1) {
+        if (pm.project_media_project) {
+          selectedProjectMediaProjectIds.push(pm.project_media_project.id);
+        }
+        selectedProjectMediaDbids.push(pm.dbid);
+      }
+    });
 
     let content = null;
 
@@ -375,6 +395,8 @@ class SearchResultsComponent extends React.PureComponent {
                 team={team}
                 page={this.props.page}
                 project={this.props.project}
+                selectedProjectMediaProjectIds={selectedProjectMediaProjectIds}
+                selectedProjectMediaDbids={selectedProjectMediaDbids}
                 selectedMedia={selectedProjectMediaIds}
                 onUnselectAll={this.onUnselectAll}
               /> : null}
@@ -470,6 +492,7 @@ SearchResultsComponent.propTypes = {
 
 const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsComponent), {
   initialVariables: {
+    projectId: 0,
     pageSize,
   },
   fragments: {
@@ -478,6 +501,9 @@ const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsCom
         id,
         pusher_channel,
         team {
+          ${BulkActions.getFragment('team')}
+          ${SearchQuery.getFragment('team')}
+          id
           slug
           search_id,
           permissions,
@@ -512,8 +538,13 @@ const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsCom
               first_seen: created_at,
               last_seen,
               share_count,
-              project_id,
-              verification_statuses,
+              project_media_project(project_id: $projectId) {
+                dbid
+                id
+              }
+              team {
+                verification_statuses
+              }
             }
           }
         },
@@ -572,12 +603,21 @@ function encodeQueryToMimicTheWayCheckApiGeneratesIds(query, teamSlug) {
 
 export default function SearchResults({ query, teamSlug, ...props }) {
   const jsonEncodedQuery = encodeQueryToMimicTheWayCheckApiGeneratesIds(query, teamSlug);
-  const route = React.useMemo(() => new SearchRoute({ jsonEncodedQuery }), [jsonEncodedQuery]);
+  let projectId = 0;
+  const { projects } = query;
+  if (projects && projects.length === 1) {
+    [projectId] = projects;
+  }
+  const route = React.useMemo(() => new SearchRoute({
+    jsonEncodedQuery,
+    projectId,
+  }), [jsonEncodedQuery]);
 
   return (
     <Relay.RootContainer
       Component={SearchResultsContainer}
       route={route}
+      forceFetch
       renderFetched={data => (
         <SearchResultsContainer {...props} query={query} search={data.search} />
       )}
