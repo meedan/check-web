@@ -52,12 +52,13 @@ ConfirmProceedDialog.propTypes = {
   cancelLabel: PropTypes.element,
   onCancel: PropTypes.func.isRequired,
   onProceed: PropTypes.func.isRequired,
-  proceedDisabled: PropTypes.bool.isRequired,
+  proceedDisabled: PropTypes.bool,
   proceedLabel: PropTypes.element.isRequired,
 };
 
 ConfirmProceedDialog.defaultProps = {
   cancelLabel: null,
+  proceedDisabled: false,
 };
 
 export default ConfirmProceedDialog;

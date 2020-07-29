@@ -12,6 +12,10 @@
     "defaultMessage": "Tags"
   },
   {
+    "id": "teamSettings.languages",
+    "defaultMessage": "Languages"
+  },
+  {
     "id": "teamSettings.statuses",
     "defaultMessage": "Statuses"
   },

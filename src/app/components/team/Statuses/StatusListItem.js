@@ -29,6 +29,7 @@ const StatusListItem = ({
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleClose = () => setAnchorEl(null);
+
   const handleDelete = () => {
     handleClose();
     onDelete(status);

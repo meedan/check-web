@@ -26,7 +26,7 @@ const LanguageSwitcher = (props) => {
               languageCode === props.primaryLanguage ?
                 <FormattedMessage
                   id="languageSwitcher.primaryLanguage"
-                  defaultMessage="{language} (primary)"
+                  defaultMessage="{language} (default)"
                   values={{
                     language: label,
                   }}

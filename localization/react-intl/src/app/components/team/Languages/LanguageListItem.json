@@ -1,0 +1,34 @@
+[
+  {
+    "id": "languageListItem.default",
+    "defaultMessage": "{languageLabel} (default)"
+  },
+  {
+    "id": "statusListItem.makeDefault",
+    "defaultMessage": "Make default"
+  },
+  {
+    "id": "statusListItem.confirmDefaultBody",
+    "defaultMessage": "This language will become the default one to respond to users who interact with the bot in any other languages than the ones added to this list."
+  },
+  {
+    "id": "statusListItem.confirmDefaultButton",
+    "defaultMessage": "Set as default"
+  },
+  {
+    "id": "statusListItem.confirmDefaultTitle",
+    "defaultMessage": "Set as default language?"
+  },
+  {
+    "id": "statusListItem.confirmDeleteBody1",
+    "defaultMessage": "All content in this language will stop being sent, and the default language will be used instead."
+  },
+  {
+    "id": "statusListItem.confirmDeleteBody2",
+    "defaultMessage": "This includes content in the Tipline bot, Statuses, and Report."
+  },
+  {
+    "id": "statusListItem.confirmDeleteTitle",
+    "defaultMessage": "Delete this language?"
+  }
+]
