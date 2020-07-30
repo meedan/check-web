@@ -37,9 +37,11 @@ const useToolbarStyles = makeStyles(theme => ({
 }));
 
 const LanguagesComponent = ({ team }) => {
-  const language = team.get_language;
-  const languages = safelyParseJSON(team.get_languages) || [];
   const classes = useToolbarStyles();
+  const language = team.get_language;
+
+  let languages = safelyParseJSON(team.get_languages) || [];
+  languages = [language, ...languages.filter(l => l !== language)];
 
   const handleHelp = () => {
     window.open('https://help.checkmedia.org/en/articles/4285291-content-language');
@@ -64,6 +66,12 @@ const LanguagesComponent = ({ team }) => {
               </Box>
               <AddLanguageAction languages={languages} team={team} />
             </Toolbar>
+            <p>
+              <FormattedMessage
+                id="languagesComponent.blurb"
+                defaultMessage="Add new languages to your workspace in order to create reports, tipline bots and statuses in multiple languages when communicating with users."
+              />
+            </p>
             <List>
               {languages.map(l => (
                 <LanguageListItem

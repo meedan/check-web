@@ -7,16 +7,26 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import IconMoreVert from '@material-ui/icons/MoreVert';
-import styled from 'styled-components';
 import { FormattedGlobalMessage } from '../../MappedMessage';
-import { subheading2 } from '../../../styles/js/shared';
 
-const StyledStatusLabel = styled.span`
-  color: ${props => props.color};
-  font: ${subheading2};
-  font-weight: 500;
-`;
+const useStyles = makeStyles({
+  statusLabel: props => ({
+    color: props.color,
+  }),
+});
+
+const StatusLabel = (props) => {
+  const classes = useStyles(props);
+
+  return (
+    <Typography className={classes.statusLabel} variant="h6" component="span">
+      {props.children}
+    </Typography>
+  );
+};
 
 const StatusListItem = ({
   defaultLanguage,
@@ -43,6 +53,19 @@ const StatusListItem = ({
     onMakeDefault(status);
   };
 
+  const localeStatus = status.locales[defaultLanguage];
+
+  const statusLabel =
+    localeStatus && localeStatus.label ? localeStatus.label : status.label;
+
+  const statusDescription =
+    localeStatus && localeStatus.description ? localeStatus.description : (
+      <FormattedMessage
+        id="statusListItem.noDescription"
+        defaultMessage="No description"
+      />
+    );
+
   return (
     <ListItem>
       <ListItemText
@@ -53,25 +76,19 @@ const StatusListItem = ({
               defaultMessage="{statusLabel} (default)"
               values={{
                 statusLabel: (
-                  <StyledStatusLabel color={status.style.color}>
-                    {status.locales[defaultLanguage].label}
-                  </StyledStatusLabel>
+                  <StatusLabel color={status.style.color}>
+                    {statusLabel}
+                  </StatusLabel>
                 ),
               }}
             />
           ) : (
-            <StyledStatusLabel color={status.style.color}>
-              {status.locales[defaultLanguage].label}
-            </StyledStatusLabel>
+            <StatusLabel color={status.style.color}>
+              {statusLabel}
+            </StatusLabel>
           )
         }
-        secondary={
-          status.locales[defaultLanguage].description ||
-          <FormattedMessage
-            id="statusListItem.noDescription"
-            defaultMessage="No description"
-          />
-        }
+        secondary={statusDescription}
       />
       <ListItemSecondaryAction>
         <IconButton className="status-actions__menu" onClick={e => setAnchorEl(e.target)}>
@@ -116,4 +133,4 @@ StatusListItem.defaultProps = {
 };
 
 export default StatusListItem;
-export { StyledStatusLabel };
+export { StatusLabel };

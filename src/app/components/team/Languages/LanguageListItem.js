@@ -9,6 +9,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import Typography from '@material-ui/core/Typography';
 import IconMoreVert from '@material-ui/icons/MoreVert';
 import { FormattedGlobalMessage } from '../../MappedMessage';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
@@ -93,7 +94,11 @@ const LanguageListItem = ({
     });
   };
 
-  const languageLabel = languagesList[code] ? languagesList[code].nativeName : code;
+  const languageLabel = (
+    <Typography variant="h6" component="span">
+      { languagesList[code] ? languagesList[code].nativeName : code }
+    </Typography>
+  );
 
   return (
     <React.Fragment>

@@ -2,5 +2,9 @@
   {
     "id": "languagesComponent.title",
     "defaultMessage": "Content languages"
+  },
+  {
+    "id": "languagesComponent.blurb",
+    "defaultMessage": "Add new languages to your workspace in order to create reports, tipline bots and statuses in multiple languages when communicating with users."
   }
 ]

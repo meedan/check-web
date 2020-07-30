@@ -30,12 +30,12 @@ function submitAddLanguage({ input, onCompleted, onError }) {
   });
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   autocompleteWrapper: {
-    width: '300px', // FIXME: Don't use arbitrary value. Use material 8-unit-grid compliant
-    height: '100px', // FIXME: Don't use arbitrary value. Use material 8-unit-grid compliant
+    width: theme.spacing(40),
+    height: theme.spacing(12),
   },
-});
+}));
 
 const AddLanguageAction = ({
   languages,

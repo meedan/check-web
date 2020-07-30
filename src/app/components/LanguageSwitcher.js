@@ -10,20 +10,23 @@ const LanguageSwitcher = (props) => {
     props.onChange(newValue);
   };
 
+  const { primaryLanguage, currentLanguage } = props;
+  const languages = [primaryLanguage, ...props.languages.filter(l => l !== primaryLanguage)];
+
   return (
     <Tabs
-      value={props.currentLanguage}
+      value={currentLanguage}
       onChange={handleChange}
       scrollButtons="auto"
       variant="scrollable"
     >
-      { props.languages.map((languageCode) => {
+      { languages.map((languageCode) => {
         const label = Object.keys(languagesList).indexOf(languageCode) > -1 ?
           languagesList[languageCode].nativeName : languageCode;
         return (
           <Tab
             label={
-              languageCode === props.primaryLanguage ?
+              languageCode === primaryLanguage ?
                 <FormattedMessage
                   id="languageSwitcher.primaryLanguage"
                   defaultMessage="{language} (default)"

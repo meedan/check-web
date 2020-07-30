@@ -10,7 +10,7 @@ import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import languagesList from '../../../languagesList';
 import { units } from '../../../styles/js/shared';
 import { FormattedGlobalMessage } from '../../MappedMessage';
-import { StyledStatusLabel } from './StatusListItem';
+import { StatusLabel } from './StatusListItem';
 
 const StyledTranslateStatusesContainer = styled.div`
   margin: ${units(4)};
@@ -105,10 +105,10 @@ const TranslateStatuses = ({
           key={s.id}
         >
           <Grid item xs={6}>
-            <StyledStatusLabel color={s.style.color}>
+            <StatusLabel color={s.style.color}>
               { s.locales[defaultLanguage] ?
                 s.locales[defaultLanguage].label : s.label }
-            </StyledStatusLabel>
+            </StatusLabel>
           </Grid>
           <Grid item xs={6}>
             <TextField
