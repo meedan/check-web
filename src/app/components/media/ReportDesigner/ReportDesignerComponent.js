@@ -195,7 +195,7 @@ const ReportDesignerComponent = (props) => {
         }),
         {
           onFailure,
-          onSuccess: response => onSuccess(response.createDynamicAnnotationReportDesign),
+          onSuccess: response => onSuccess(response.createDynamic),
         },
       );
     } else {
@@ -214,7 +214,7 @@ const ReportDesignerComponent = (props) => {
         }),
         {
           onFailure,
-          onSuccess: response => onSuccess(response.updateDynamicAnnotationReportDesign),
+          onSuccess: response => onSuccess(response.updateDynamic),
         },
       );
     }
