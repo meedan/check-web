@@ -113,7 +113,7 @@ shared_examples 'smoke' do
     wait_for_selector("//h4[contains(text(), 'Happy')]", :xpath)
     expect(@driver.page_source.include?('Happy birthday Mick')).to be(true)
 
-    # from Youtube 
+    # from Youtube
     expect(@driver.page_source.include?("How To Check An")).to be(false)
     create_media("https://www.youtube.com/watch?v=ykLgjhBnik0")
     wait_for_selector_list_size('.media__heading',3)
@@ -1598,14 +1598,14 @@ shared_examples 'smoke' do
     @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"related"%2C"sort_type"%3A"DESC"%7D'
     wait_for_selector("#create-media__add-item")
     expect(@driver.page_source.include?('My search result')).to be(true)
-    expect(@driver.find_elements(:css, "th[data-field=linked_items_count]> span > svg").length).to eq 1 
+    expect(@driver.find_elements(:css, "th[data-field=linked_items_count]> span > svg").length).to eq 1
     expect(@driver.find_elements(:css, "th[data-field=created_at]> span > svg").empty?).to be(true)
 
     @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"recent_added"%2C"sort_type"%3A"DESC"%7D'
     wait_for_selector("#create-media__add-item")
     expect(@driver.page_source.include?('My search result')).to be(true)
     expect(@driver.find_elements(:css, "th[data-field=linked_items_count]> span > svg").empty?).to be(true)
-    expect(@driver.find_elements(:css, "th[data-field=created_at]> span > svg").length).to eq 1 
+    expect(@driver.find_elements(:css, "th[data-field=created_at]> span > svg").length).to eq 1
   end
 
   it "should search for reverse images", bin2: true do
@@ -1713,7 +1713,7 @@ shared_examples 'smoke' do
     @driver.navigate.refresh
     wait_for_selector("#video-media-card__playback-rate")
     wait_for_selector(".media-tab__comments").click
-    wait_for_selector(".annotation__card-content") 
+    wait_for_selector(".annotation__card-content")
     expect(@driver.page_source.include?('my note')).to be(true) # check the video note appears on the note tab
     wait_for_selector("//span[contains(text(), 'Video annotation')]", :xpath).click
     wait_for_selector(".MuiAvatar-img").click
@@ -1735,7 +1735,7 @@ shared_examples 'smoke' do
   it "should manage videotags", bin2: true do
     api_create_team_project_and_link_and_redirect_to_media_page 'https://www.youtube.com/watch?v=em8gwDcjPzU'
     wait_for_selector(".media-detail")
-    expect(@driver.page_source.include?('my videotag')).to be(false) 
+    expect(@driver.page_source.include?('my videotag')).to be(false)
     wait_for_selector("//span[contains(text(), 'Video annotation')]", :xpath).click
     wait_for_selector("div[aria-labelledby=TimelineTab]")
     expect(@driver.page_source.include?('Timeline')).to be(true)
@@ -1755,7 +1755,7 @@ shared_examples 'smoke' do
     wait_for_selector(".MuiIconButton-sizeSmall").click #close timeline button
     wait_for_selector("//span[contains(text(), 'my videotag')]", :xpath).click
     wait_for_selector("#search-input")
-    expect(@driver.current_url.to_s.match(/all-items/).nil?).to be(false) # check the redirect 
+    expect(@driver.current_url.to_s.match(/all-items/).nil?).to be(false) # check the redirect
   end
 #videotimeline section end
 
@@ -1773,7 +1773,7 @@ shared_examples 'smoke' do
     @driver.navigate.to @config['self_url'] + '/' + get_team + '/settings'
     wait_for_selector(".team__primary-info")
     wait_for_selector(".team-settings__statuses-tab").click
-    wait_for_selector("//span[contains(text(), 'English (primary)')]", :xpath)
+    wait_for_selector("//span[contains(text(), 'English (default)')]", :xpath)
     expect(@driver.page_source.include?('Unstarted')).to be(true)
     wait_for_selector(".status-actions__menu").click
     # edit status name
