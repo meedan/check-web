@@ -11,6 +11,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import TextField from '@material-ui/core/TextField';
 import { FlashMessageSetterContext } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
+import { getErrorMessageForRelayModernProblem } from '../../helpers';
 
 function commitSetProjectMediaTitleAndDescription({
   projectMedia, title, description, onSuccess, onFailure,
@@ -121,7 +122,7 @@ function EditTitleAndDescriptionDialog({
       onSuccess: () => {},
       onFailure: (errors) => {
         console.error(errors); // eslint-disable-line no-console
-        setFlashMessage((
+        setFlashMessage(getErrorMessageForRelayModernProblem(errors) || (
           <FormattedMessage
             id="mediaDetail.editReportError"
             defaultMessage="Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists."

@@ -10,6 +10,7 @@ import { FormattedGlobalMessage } from '../MappedMessage';
 import { FlashMessageSetterContext } from '../FlashMessage';
 import SelectProjectDialog from './SelectProjectDialog';
 import { stringHelper } from '../../customHelpers';
+import { getErrorMessageForRelayModernProblem } from '../../helpers';
 
 function commitAddProjectMediaToProject({
   projectMedia, project, onSuccess, onFailure,
@@ -97,7 +98,7 @@ function AddProjectMediaToProjectAction({ team, projectMedia, className }) {
       onFailure: (errors) => {
         setIsSaving(false);
         console.error(errors); // eslint-disable-line no-console
-        setFlashMessage((
+        setFlashMessage(getErrorMessageForRelayModernProblem(errors) || (
           <FormattedGlobalMessage
             messageKey="unknownError"
             values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
