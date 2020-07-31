@@ -1,13 +1,14 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { graphql, commitMutation } from 'react-relay/compat';
+import { commitMutation, createFragmentContainer, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
+import { safelyParseJSON } from '../../../helpers';
 import languagesList from '../../../languagesList';
 
 function submitAddLanguage({ input, onCompleted, onError }) {
@@ -18,6 +19,7 @@ function submitAddLanguage({ input, onCompleted, onError }) {
           team {
             id
             get_languages
+            rules_json_schema
           }
         }
       }
@@ -37,24 +39,24 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const AddLanguageAction = ({
-  languages,
-  team,
-}) => {
+const AddLanguageAction = ({ team }) => {
   const [dialogOpen, setDialogOpen] = React.useState(false);
-  const [selectedLanguage, setSelectedLanguage] = React.useState('');
+  const [value, setValue] = React.useState(null);
   const classes = useStyles();
 
+  const languages = safelyParseJSON(team.get_languages) || [];
   const options = Object.keys(languagesList).filter(code => !languages.includes(code));
-  const getOptionLabel = code => `${languagesList[code].nativeName} (${code})`;
+  const getOptionLabel = code => (
+    languagesList[code] ? `${languagesList[code].nativeName} (${code})` : ''
+  );
 
-  const handleSelectLanguage = (e, value) => {
-    setSelectedLanguage(value);
+  const handleChange = (e, val) => {
+    setValue(val);
   };
 
   const handleSubmit = () => {
     const onCompleted = () => {
-      setSelectedLanguage('');
+      setValue('');
       setDialogOpen(false);
     };
     const onError = () => {};
@@ -62,7 +64,7 @@ const AddLanguageAction = ({
     submitAddLanguage({
       input: {
         id: team.id,
-        languages: JSON.stringify([...languages, selectedLanguage]),
+        languages: JSON.stringify([...languages, value]),
       },
       onCompleted,
       onError,
@@ -86,6 +88,7 @@ const AddLanguageAction = ({
               options={options}
               openOnFocus
               getOptionLabel={getOptionLabel}
+              value={value}
               renderInput={
                 params => (<TextField
                   label={
@@ -97,7 +100,7 @@ const AddLanguageAction = ({
                   {...params}
                 />)
               }
-              onChange={handleSelectLanguage}
+              onChange={handleChange}
               fullWidth
             />
           </div>
@@ -105,7 +108,7 @@ const AddLanguageAction = ({
         onCancel={() => setDialogOpen(false)}
         onProceed={handleSubmit}
         open={dialogOpen}
-        proceedDisabled={!selectedLanguage}
+        proceedDisabled={!value}
         proceedLabel={<FormattedMessage id="addLanguageAction.addLanguage" defaultMessage="Add language" />}
         title={<FormattedMessage id="addLanguageAction.title" defaultMessage="Choose a new language" />}
       />
@@ -114,10 +117,15 @@ const AddLanguageAction = ({
 };
 
 AddLanguageAction.propTypes = {
-  languages: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   team: PropTypes.shape({
     id: PropTypes.string.isRequired,
+    get_languages: PropTypes.string.isRequired,
   }).isRequired,
 };
 
-export default AddLanguageAction;
+export default createFragmentContainer(AddLanguageAction, graphql`
+  fragment AddLanguageAction_team on Team {
+    id
+    get_languages
+  }
+`);

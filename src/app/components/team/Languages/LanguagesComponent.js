@@ -1,6 +1,7 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import { createFragmentContainer, graphql } from 'react-relay/compat';
 
 import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
@@ -15,7 +16,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import AddLanguageAction from './AddLanguageAction';
 import LanguageListItem from './LanguageListItem';
 import { safelyParseJSON } from '../../../helpers';
-import { checkBlue, ContentColumn } from '../../../styles/js/shared';
+import { ContentColumn } from '../../../styles/js/shared';
 
 const useToolbarStyles = makeStyles(theme => ({
   root: {
@@ -31,14 +32,11 @@ const useToolbarStyles = makeStyles(theme => ({
   button: {
     whiteSpace: 'nowrap',
   },
-  helpIcon: {
-    color: checkBlue,
-  },
 }));
 
 const LanguagesComponent = ({ team }) => {
   const classes = useToolbarStyles();
-  const language = team.get_language;
+  const language = team.get_language || 'en';
 
   let languages = safelyParseJSON(team.get_languages) || [];
   languages = [language, ...languages.filter(l => l !== language)];
@@ -60,11 +58,11 @@ const LanguagesComponent = ({ team }) => {
                     defaultMessage="Content languages"
                   />
                 </Typography>
-                <IconButton onClick={handleHelp}>
-                  <HelpIcon className={classes.helpIcon} />
+                <IconButton color="primary" onClick={handleHelp}>
+                  <HelpIcon />
                 </IconButton>
               </Box>
-              <AddLanguageAction languages={languages} team={team} />
+              <AddLanguageAction team={team} />
             </Toolbar>
             <p>
               <FormattedMessage
@@ -77,8 +75,6 @@ const LanguagesComponent = ({ team }) => {
                 <LanguageListItem
                   code={l}
                   key={l}
-                  languages={languages}
-                  isDefault={l === language}
                   team={team}
                 />
               ))}
@@ -98,4 +94,12 @@ LanguagesComponent.propTypes = {
   }).isRequired,
 };
 
-export default LanguagesComponent;
+export default createFragmentContainer(LanguagesComponent, graphql`
+  fragment LanguagesComponent_team on Team {
+    id
+    get_language
+    get_languages
+    ...LanguageListItem_team
+    ...AddLanguageAction_team
+  }
+`);

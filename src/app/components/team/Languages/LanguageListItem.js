@@ -1,7 +1,7 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { graphql, commitMutation } from 'react-relay/compat';
+import { commitMutation, createFragmentContainer, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
@@ -13,12 +13,18 @@ import Typography from '@material-ui/core/Typography';
 import IconMoreVert from '@material-ui/icons/MoreVert';
 import { FormattedGlobalMessage } from '../../MappedMessage';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
+import { safelyParseJSON } from '../../../helpers';
 import languagesList from '../../../languagesList';
 
-function submitLanguage({ input, onCompleted, onError }) {
+function submitDefaultLanguage({
+  team,
+  code,
+  onCompleted,
+  onError,
+}) {
   commitMutation(Store, {
     mutation: graphql`
-      mutation LanguageListItemUpdateTeamMutation($input: UpdateTeamInput!) {
+      mutation LanguageListItemSetDefaultLanguageMutation($input: UpdateTeamInput!) {
         updateTeam(input: $input) {
           team {
             id
@@ -29,19 +35,49 @@ function submitLanguage({ input, onCompleted, onError }) {
       }
     `,
     variables: {
-      input,
+      input: {
+        id: team.id,
+        language: code,
+      },
     },
     onCompleted,
     onError,
   });
 }
 
-const LanguageListItem = ({
-  code,
-  isDefault,
-  languages,
+function submitDeleteLanguage({
   team,
-}) => {
+  languages,
+  onCompleted,
+  onError,
+}) {
+  commitMutation(Store, {
+    mutation: graphql`
+      mutation LanguageListItemDeleteLanguageMutation($input: UpdateTeamInput!) {
+        updateTeam(input: $input) {
+          team {
+            id
+            get_language
+            get_languages
+            rules_json_schema
+          }
+        }
+      }
+    `,
+    variables: {
+      input: {
+        id: team.id,
+        languages,
+      },
+    },
+    onCompleted,
+    onError,
+  });
+}
+
+const LanguageListItem = ({ code, team }) => {
+  const languages = safelyParseJSON(team.get_languages) || [];
+  const isDefault = (code === team.get_language);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [defaultDialogOpen, setDefaultDialogOpen] = React.useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
@@ -61,11 +97,9 @@ const LanguageListItem = ({
       setDeleteDialogOpen(false);
     };
 
-    submitLanguage({
-      input: {
-        id: team.id,
-        languages: JSON.stringify(languages.filter(l => l !== code)),
-      },
+    submitDeleteLanguage({
+      team,
+      languages: JSON.stringify(languages.filter(l => l !== code)),
       onCompleted,
       onError,
     });
@@ -84,11 +118,9 @@ const LanguageListItem = ({
       setDefaultDialogOpen(false);
     };
 
-    submitLanguage({
-      input: {
-        id: team.id,
-        language: code,
-      },
+    submitDefaultLanguage({
+      team,
+      code,
       onCompleted,
       onError,
     });
@@ -160,8 +192,17 @@ const LanguageListItem = ({
 };
 
 LanguageListItem.propTypes = {
-  languages: PropTypes.arrayOf(PropTypes.string).isRequired,
-  team: PropTypes.shape({ id: PropTypes.string.isRequired }).isRequired,
+  team: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    get_language: PropTypes.string.isRequired,
+    get_languages: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
-export default LanguageListItem;
+export default createFragmentContainer(LanguageListItem, graphql`
+  fragment LanguageListItem_team on Team {
+    id
+    get_language
+    get_languages
+  }
+`);

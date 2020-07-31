@@ -10,7 +10,7 @@ import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import languagesList from '../../../languagesList';
 import { units } from '../../../styles/js/shared';
 import { FormattedGlobalMessage } from '../../MappedMessage';
-import { StatusLabel } from './StatusListItem';
+import StatusLabel from './StatusLabel';
 
 const StyledTranslateStatusesContainer = styled.div`
   margin: ${units(4)};

@@ -20,8 +20,7 @@ const Languages = props => (
       query LanguagesQuery($teamSlug: String!) {
         team(slug: $teamSlug) {
           id
-          get_language
-          get_languages
+          ...LanguagesComponent_team
         }
       }
     `}

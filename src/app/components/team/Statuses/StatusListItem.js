@@ -7,26 +7,9 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import IconMoreVert from '@material-ui/icons/MoreVert';
+import StatusLabel from './StatusLabel';
 import { FormattedGlobalMessage } from '../../MappedMessage';
-
-const useStyles = makeStyles({
-  statusLabel: props => ({
-    color: props.color,
-  }),
-});
-
-const StatusLabel = (props) => {
-  const classes = useStyles(props);
-
-  return (
-    <Typography className={classes.statusLabel} variant="h6" component="span">
-      {props.children}
-    </Typography>
-  );
-};
 
 const StatusListItem = ({
   defaultLanguage,
@@ -133,4 +116,3 @@ StatusListItem.defaultProps = {
 };
 
 export default StatusListItem;
-export { StatusLabel };
