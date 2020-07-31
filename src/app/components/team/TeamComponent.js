@@ -61,20 +61,8 @@ class TeamComponent extends Component {
     super(props);
 
     this.state = {
-      showTab: props.params.tab,
       message: null,
     };
-  }
-
-  componentWillMount() {
-    let { showTab } = this.state;
-
-    if (!showTab) {
-      showTab = UserUtil.myRole(this.getCurrentUser(), this.props.team.slug) === 'owner'
-        ? 'tasks' : 'tags';
-    }
-
-    this.setState({ showTab });
   }
 
   componentDidMount() {
@@ -105,8 +93,10 @@ class TeamComponent extends Component {
     return new CheckContext(this).getContextStore().currentUser;
   }
 
-  handleTabChange = (e, value) => {
-    this.setState({ showTab: value });
+  handleTabChange = (e, tab) => {
+    const { team } = this.props;
+    const path = `/${team.slug}/settings/${tab}`;
+    browserHistory.push(path);
   };
 
   render() {
@@ -138,17 +128,23 @@ class TeamComponent extends Component {
       return <TeamInfo team={team} context={context} />;
     };
 
+    const currentUserIsOwner = UserUtil.myRole(this.getCurrentUser(), this.props.team.slug) === 'owner';
+    let { tab } = this.props.params;
+    if (!tab || !currentUserIsOwner) {
+      tab = 'tags';
+    }
+
     const TeamSettingsTabs = () => {
       if (isSettings || isReadOnly) {
         return (
           <Tabs
             indicatorColor="primary"
             textColor="primary"
-            value={this.state.showTab}
+            value={tab}
             onChange={this.handleTabChange}
             centered
           >
-            { UserUtil.myRole(this.getCurrentUser(), team.slug) === 'owner' ?
+            { currentUserIsOwner ?
               <Tab
                 className="team-settings__tasks-tab"
                 classes={{ root: classes.root }}
@@ -161,7 +157,7 @@ class TeamComponent extends Component {
                 value="tasks"
               /> : null
             }
-            {UserUtil.myRole(this.getCurrentUser(), team.slug) === 'owner' ?
+            {currentUserIsOwner ?
               <Tab
                 className="team-settings__rules-tab"
                 classes={{ root: classes.root }}
@@ -186,7 +182,7 @@ class TeamComponent extends Component {
                 }
                 value="tags"
               /> : null }
-            {UserUtil.myRole(this.getCurrentUser(), team.slug) === 'owner' ?
+            {currentUserIsOwner ?
               <Tab
                 className="team-settings__statuses-tab"
                 classes={{ root: classes.root }}
@@ -199,7 +195,7 @@ class TeamComponent extends Component {
                 value="statuses"
               />
               : null }
-            {UserUtil.myRole(this.getCurrentUser(), team.slug) === 'owner' ?
+            {currentUserIsOwner ?
               <Tab
                 className="team-settings__report-tab"
                 classes={{ root: classes.root }}
@@ -212,7 +208,7 @@ class TeamComponent extends Component {
                 value="report"
               />
               : null }
-            {UserUtil.myRole(this.getCurrentUser(), team.slug) === 'owner' ?
+            {currentUserIsOwner ?
               <Tab
                 className="team-settings__integrations-tab"
                 classes={{ root: classes.root }}
@@ -225,7 +221,7 @@ class TeamComponent extends Component {
                 value="integrations"
               />
               : null }
-            {UserUtil.myRole(this.getCurrentUser(), team.slug) === 'owner' ?
+            {currentUserIsOwner ?
               <Tab
                 className="team-settings__bots-tab"
                 classes={{ root: classes.root }}
@@ -256,28 +252,28 @@ class TeamComponent extends Component {
             <TeamSettingsTabs />
           </HeaderCard>
           { !isEditing && !isSettings && !isReadOnly ? TeamPageContent : null }
-          { isSettings && this.state.showTab === 'tasks'
+          { isSettings && tab === 'tasks'
             ? <TeamTasks team={team} />
             : null }
-          { isSettings && this.state.showTab === 'bots'
-            ? <TeamBots team={team} />
+          { isSettings && tab === 'bots'
+            ? <TeamBots team={team} route={this.props.route} router={this.props.router} />
             : null }
-          { isSettings && this.state.showTab === 'rules'
+          { isSettings && tab === 'rules'
             ? <TeamRules teamSlug={team.slug} />
             : null }
-          { isSettings && this.state.showTab === 'report'
+          { isSettings && tab === 'report'
             ? <TeamReport team={team} />
             : null }
-          { isSettings && this.state.showTab === 'integrations'
+          { isSettings && tab === 'integrations'
             ? (
               <ContentColumn>
                 <SlackConfig team={team} />
               </ContentColumn>
             ) : null }
-          { isReadOnly && this.state.showTab === 'tags'
+          { isReadOnly && tab === 'tags'
             ? <TeamTags team={team} />
             : null }
-          { isSettings && this.state.showTab === 'statuses'
+          { isSettings && tab === 'statuses'
             ? <TeamStatuses teamSlug={team.slug} />
             : null }
         </div>
