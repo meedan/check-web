@@ -221,30 +221,31 @@ class TeamBotsComponent extends Component {
                 <CardContent>
                   { bot.settings_as_json_schema ?
                     <React.Fragment>
-                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <h3><FormattedMessage id="teamBots.settings" defaultMessage="Settings" /></h3>
-                        <div>
-                          <Button
-                            variant="contained"
-                            color="primary"
-                            onClick={
-                              bot.name === 'Smooch' ?
-                                this.handleOpen.bind(this, installation.node) :
-                                this.handleSubmitSettings.bind(this, installation.node)
-                            }
-                          >
-                            <FormattedMessage
-                              id="teamBots.save"
-                              defaultMessage="Save"
-                            />
-                          </Button>
-                          <small style={{ margin: `0 ${units(1)}` }}>
-                            { this.state.message && this.state.messageBotId === bot.dbid ?
-                              this.state.message : null
-                            }
-                          </small>
-                        </div>
-                      </div>
+                      { bot.name !== 'Fetch' ?
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                          <h3><FormattedMessage id="teamBots.settings" defaultMessage="Settings" /></h3>
+                          <div>
+                            <Button
+                              variant="contained"
+                              color="primary"
+                              onClick={
+                                bot.name === 'Smooch' ?
+                                  this.handleOpen.bind(this, installation.node) :
+                                  this.handleSubmitSettings.bind(this, installation.node)
+                              }
+                            >
+                              <FormattedMessage
+                                id="teamBots.save"
+                                defaultMessage="Save"
+                              />
+                            </Button>
+                            <small style={{ margin: `0 ${units(1)}` }}>
+                              { this.state.message && this.state.messageBotId === bot.dbid ?
+                                this.state.message : null
+                              }
+                            </small>
+                          </div>
+                        </div> : null }
                       { botExpanded ?
                         <TeamBot
                           team={team}
