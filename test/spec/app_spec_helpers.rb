@@ -6,7 +6,7 @@ module AppSpecHelpers
   end
 
   def fill_field(selector, value, type = :css, visible = true)
-    wait_for_selector(selector).send_keys(value)
+    wait_for_selector(selector,type).send_keys(value)
   end
 
   def press_button(selector = 'button', type = :css)
