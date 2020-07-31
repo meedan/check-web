@@ -6,26 +6,11 @@ module AppSpecHelpers
   end
 
   def fill_field(selector, value, type = :css, visible = true)
-    wait = Selenium::WebDriver::Wait.new(timeout: 50)
-    input = wait.until {
-      element = @driver.find_element(type, selector)
-      if visible
-        element if element.displayed?
-      else
-        element
-      end
-    }
-    sleep 1
-    input.send_keys(value)
+    wait_for_selector(selector).send_keys(value)
   end
 
   def press_button(selector = 'button', type = :css)
-    wait = Selenium::WebDriver::Wait.new(timeout: 100)
-    input = wait.until {
-      element = @driver.find_element(type, selector)
-      element if element.displayed?
-    }
-    input.click
+    wait_for_selector(selector).click
   end
 
   def alert_accept
@@ -244,7 +229,7 @@ module AppSpecHelpers
   end
 
   def agree_to_tos(should_submit = true)
-    element = wait_for_selector('#tos__tos-agree', :css, 10)
+    element = wait_for_selector('#tos__tos-agree', :css)
     if element != nil
       @driver.find_element(:css, '#tos__tos-agree').click
       sleep 1
@@ -284,9 +269,9 @@ module AppSpecHelpers
     wait_for_selector('input[type=file]').send_keys(File.join(File.dirname(__FILE__), 'test.png'))
     agree_to_tos(false)
     press_button('#submit-register-or-login')
-    sleep 3
+    wait_for_selector_none(".login__name")
     confirm_email(email)
-    sleep 1
+    sleep 3
     login_with_email(true, email) if should_login
   end
 
@@ -326,16 +311,9 @@ module AppSpecHelpers
   end
 
   def create_claim_and_go_to_search_page
-    page = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @email, password: @password)
-    @wait.until { @driver.page_source.include?('Claim') }
-    page.create_media(input: 'My search result')
-
-    sleep 8 # wait for Sidekiq
-
-    @driver.navigate.to @config['self_url'] + '/' + get_team + '/search'
-
-    sleep 8 # wait for Godot
-
+    login_with_email
+    wait_for_selector("#input")
+    create_media('My search result')
     expect(@driver.page_source.include?('My search result')).to be(true)
   end
 
@@ -453,5 +431,28 @@ module AppSpecHelpers
     wait_for_selector('#confirm-dialog__checkbox').click
     wait_for_selector('#confirm-dialog__confirm-action-button').click
     wait_for_selector('.team-members__edit-button', :css).click
+  end
+
+  def login_with_facebook
+    @driver.navigate.to 'https://www.facebook.com'
+    wait_for_selector('#email').send_keys(@config['facebook_user'])
+    wait_for_selector('#pass').send_keys(@config['facebook_password'])
+    wait_for_selector('#loginbutton input').click
+    wait_for_selector_none("#pass")
+
+    @driver.navigate.to @config['self_url']
+    wait_for_selector('#facebook-login').click
+
+    window = @driver.window_handles.first
+    @driver.switch_to.window(window)
+    sleep 5
+    agree_to_tos
+    wait_for_selector('.home')
+  end
+
+  def reset_password(email)
+    wait_for_selector('.login__forgot-password a').click
+    wait_for_selector('#password-reset-email-input').send_keys(email)
+    wait_for_selector('.user-password-reset__actions button + button').click
   end
 end

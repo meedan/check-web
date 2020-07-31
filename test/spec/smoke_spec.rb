@@ -18,11 +18,10 @@ shared_examples 'smoke' do
   end
 
   it "should login using Facebook", bin5: true, quick:true do
-    login_pg = LoginPage.new(config: @config, driver: @driver).load
-    login_pg.login_with_facebook
-    me_pg = MePage.new(config: @config, driver: login_pg.driver).load
-    displayed_name = me_pg.title
-    expected_name = @config['facebook_name']
+    login_with_facebook
+    @driver.navigate.to @config['self_url'] + '/check/me'
+    displayed_name = wait_for_selector('h1.source__name').text.upcase
+    expected_name = @config['facebook_name'].upcase
     expect(displayed_name).to eq(expected_name)
   end
 
@@ -54,11 +53,9 @@ shared_examples 'smoke' do
   end
 
   it "should register and login using e-mail", bin5: true, quick:true do
-    login_pg = LoginPage.new(config: @config, driver: @driver).load
-    email, password = ['sysops+' + Time.now.to_i.to_s + '@meedan.com', '22345678']
-    login_pg.register_and_login_with_email(email: email, password: password)
-    me_pg = MePage.new(config: @config, driver: login_pg.driver).load # reuse tab
-    displayed_name = me_pg.title
+    register_with_email
+    @driver.navigate.to @config['self_url'] + '/check/me'
+    displayed_name = wait_for_selector('h1.source__name').text
     expect(displayed_name == 'User With Email').to be(true)
   end
 
@@ -87,8 +84,13 @@ shared_examples 'smoke' do
 #security section start
   it "should reset password", bin5: true do
     user = api_create_and_confirm_user
-    page = LoginPage.new(config: @config, driver: @driver)
-    page.reset_password(user.email)
+    api_logout
+    @driver.quit
+    @driver = new_driver()
+    @driver.navigate.to @config['self_url']
+    wait_for_selector('.login__forgot-password a').click
+    wait_for_selector('#password-reset-email-input').send_keys(user.email)
+    wait_for_selector('.user-password-reset__actions button + button').click
     wait_for_selector_none(".user-password-reset__email-input")
     expect(@driver.page_source.include?('email was not found')).to be(false)
     expect(@driver.page_source.include?('Password reset sent')).to be(true)
@@ -135,13 +137,9 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('Who agrees with this')).to be(true)
   end
 
-  it "should register, create a claim and assign it", bin4: true do
-    page = LoginPage.new(config: @config, driver: @driver).load
-    page = page.register_and_login_with_email(email: "sysops+#{Time.now.to_i}#{rand(1000)}@meedan.com", password: @password)
-    page
-      .create_team
-      .create_project
-      .create_media(input: 'Claim')
+  it "should create a item and assign it", bin4: true do
+    api_create_team_project_and_claim_and_redirect_to_media_page
+    wait_for_selector(".media")
     expect(@driver.page_source.include?('Assigments updated successfully!')).to be(false)
     wait_for_selector('.media-actions__icon').click
     wait_for_selector(".media-actions__assign").click
@@ -813,7 +811,7 @@ shared_examples 'smoke' do
   end
 
   it "should generate a report, copy the share url and open the report page in a incognito window", bin4: true do
-   api_create_team_and_project
+    api_create_team_and_project
     @driver.navigate.to @config['self_url']
     wait_for_selector('.project__description')
     create_image('test.png')
@@ -829,7 +827,8 @@ shared_examples 'smoke' do
     wait_for_selector("//span[contains(text(), 'Edit')]", :xpath)
     wait_for_selector('.report-designer__copy-share-url').click
     embed_url = wait_for_selector('.report-designer__copy-share-url input').property('value').to_s
-    driver = new_driver(extra_chrome_args=%w(incognito))
+    caps = Selenium::WebDriver::Remote::Capabilities.chrome('chromeOptions' => { 'args' => [ '--incognito' ]})
+    driver = Selenium::WebDriver.for(:remote, url: @webdriver_url, desired_capabilities: caps)
     begin
       driver.navigate.to embed_url
       @wait.until { driver.find_element(:id, "container") }
@@ -1393,8 +1392,7 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('Select destination list')).to be(true)
 
     #edit rule
-    wait_for_selector('input[name="rule-name"]').click
-    @driver.action.send_keys('- Edited').perform
+    wait_for_selector('input[name="rule-name"]').send_keys("- Edited")
     wait_for_selector('.rules__save-button').click
     wait_for_selector('#tableTitle')
     expect(@driver.page_source.include?('1 rule')).to be(true)
@@ -1402,8 +1400,8 @@ shared_examples 'smoke' do
 
     #delet rule
     wait_for_selector('tbody tr').click
-    wait_for_selector("//div[@role='button'][text()='More']", :xpath).click
-    wait_for_selector("//li[@role='option'][text()='Delete']", :xpath).click
+    wait_for_selector("//span[contains(text(), 'More')]", :xpath).click
+    wait_for_selector("//span[contains(text(), 'Delete')]", :xpath).click
     wait_for_selector("#confirm-dialog__checkbox").click
     wait_for_selector("#confirm-dialog__confirm-action-button").click
     wait_for_selector(".message")

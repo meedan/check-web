@@ -57,7 +57,6 @@ shared_examples 'app' do |webdriver_url|
     @media_url = "https://twitter.com/meedan/status/773947372527288320/?_test_hash=#{test_hash}"
     @team1_slug = "team1_#{test_hash}"
     @user_mail = "sysops_#{test_hash}@meedan.com"
-    api_create_team_project_and_claim()
   end
 
   after :each do |example|
@@ -302,8 +301,8 @@ shared_examples 'app' do |webdriver_url|
     end
 
     it "should not reset password", bin5: true do
-      page = LoginPage.new(config: @config, driver: @driver)
-      page.reset_password('test@meedan.com')
+      @driver.navigate.to @config['self_url']
+      reset_password('test@meedan.com')
       wait_for_selector(".user-password-reset__email-input")
       wait_for_selector("#password-reset-email-input-helper-text")
       expect(@driver.page_source.include?('email was not found')).to be(true)
