@@ -28,6 +28,10 @@
     "defaultMessage": "List"
   },
   {
+    "id": "search.userHeading",
+    "defaultMessage": "Author"
+  },
+  {
     "id": "status.categoriesHeading",
     "defaultMessage": "Tags"
   },
