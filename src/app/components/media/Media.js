@@ -20,6 +20,7 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
         dbid
         title
         metadata
+        opened
         permissions
         pusher_channel
         project_ids
