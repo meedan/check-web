@@ -64,12 +64,12 @@ const LanguagesComponent = ({ team }) => {
               </Box>
               <AddLanguageAction team={team} />
             </Toolbar>
-            <p>
+            <Typography variant="body1" component="p">
               <FormattedMessage
                 id="languagesComponent.blurb"
                 defaultMessage="Add new languages to your workspace in order to create reports, tipline bots and statuses in multiple languages when communicating with users."
               />
-            </p>
+            </Typography>
             <List>
               {languages.map(l => (
                 <LanguageListItem

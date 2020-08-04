@@ -9,7 +9,7 @@
   },
   {
     "id": "statusListItem.confirmDefaultBody",
-    "defaultMessage": "This language will become the default one to respond to users who interact with the bot in any other languages than the ones added to this list."
+    "defaultMessage": "{language} will become the default one to respond to users who interact with the bot in any other languages than the ones added to this list."
   },
   {
     "id": "statusListItem.confirmDefaultButton",
@@ -21,7 +21,7 @@
   },
   {
     "id": "statusListItem.confirmDeleteBody1",
-    "defaultMessage": "All content in this language will stop being sent, and the default language will be used instead."
+    "defaultMessage": "All content in {language} will stop being sent, and the default language will be used instead."
   },
   {
     "id": "statusListItem.confirmDeleteBody2",

@@ -7,11 +7,19 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import { FormattedGlobalMessage } from '../../MappedMessage';
+import { FlashMessageSetterContext } from '../../FlashMessage';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
+import { stringHelper } from '../../../customHelpers';
 import { safelyParseJSON } from '../../../helpers';
 import languagesList from '../../../languagesList';
 
-function submitAddLanguage({ input, onCompleted, onError }) {
+function submitAddLanguage({
+  team,
+  languages,
+  onSuccess,
+  onFailure,
+}) {
   commitMutation(Store, {
     mutation: graphql`
       mutation AddLanguageActionUpdateTeamMutation($input: UpdateTeamInput!) {
@@ -25,10 +33,18 @@ function submitAddLanguage({ input, onCompleted, onError }) {
       }
     `,
     variables: {
-      input,
+      input: {
+        id: team.id,
+        languages,
+      },
     },
-    onCompleted,
-    onError,
+    onError: onFailure,
+    onCompleted: ({ data, errors }) => {
+      if (errors) {
+        return onFailure(errors);
+      }
+      return onSuccess(data);
+    },
   });
 }
 
@@ -42,6 +58,7 @@ const useStyles = makeStyles(theme => ({
 const AddLanguageAction = ({ team }) => {
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [value, setValue] = React.useState(null);
+  const setFlashMessage = React.useContext(FlashMessageSetterContext);
   const classes = useStyles();
 
   const languages = safelyParseJSON(team.get_languages) || [];
@@ -55,19 +72,26 @@ const AddLanguageAction = ({ team }) => {
   };
 
   const handleSubmit = () => {
-    const onCompleted = () => {
-      setValue('');
+    const onSuccess = () => {
+      setValue(null);
       setDialogOpen(false);
     };
-    const onError = () => {};
+
+    const onFailure = () => {
+      setDialogOpen(false);
+      setFlashMessage((
+        <FormattedGlobalMessage
+          messageKey="unknownError"
+          values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
+        />
+      ));
+    };
 
     submitAddLanguage({
-      input: {
-        id: team.id,
-        languages: JSON.stringify([...languages, value]),
-      },
-      onCompleted,
-      onError,
+      team,
+      languages: JSON.stringify([...languages, value]),
+      onSuccess,
+      onFailure,
     });
   };
 

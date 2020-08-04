@@ -11,16 +11,19 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import IconMoreVert from '@material-ui/icons/MoreVert';
+import TranslationNeededDialog from './TranslationNeededDialog';
 import { FormattedGlobalMessage } from '../../MappedMessage';
+import { FlashMessageSetterContext } from '../../FlashMessage';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
+import { stringHelper } from '../../../customHelpers';
 import { safelyParseJSON } from '../../../helpers';
 import languagesList from '../../../languagesList';
 
 function submitDefaultLanguage({
   team,
   code,
-  onCompleted,
-  onError,
+  onSuccess,
+  onFailure,
 }) {
   commitMutation(Store, {
     mutation: graphql`
@@ -40,16 +43,21 @@ function submitDefaultLanguage({
         language: code,
       },
     },
-    onCompleted,
-    onError,
+    onError: onFailure,
+    onCompleted: ({ data, errors }) => {
+      if (errors) {
+        return onFailure(errors);
+      }
+      return onSuccess(data);
+    },
   });
 }
 
 function submitDeleteLanguage({
   team,
   languages,
-  onCompleted,
-  onError,
+  onSuccess,
+  onFailure,
 }) {
   commitMutation(Store, {
     mutation: graphql`
@@ -70,9 +78,21 @@ function submitDeleteLanguage({
         languages,
       },
     },
-    onCompleted,
-    onError,
+    onError: onFailure,
+    onCompleted: ({ data, errors }) => {
+      if (errors) {
+        return onFailure(errors);
+      }
+      return onSuccess(data);
+    },
   });
+}
+
+function checkTranslation(code, statuses) {
+  return statuses.some(s =>
+    !s.locales[code] ||
+    !s.locales[code].label ||
+    !s.locales[code].label.trim());
 }
 
 const LanguageListItem = ({ code, team }) => {
@@ -81,6 +101,9 @@ const LanguageListItem = ({ code, team }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [defaultDialogOpen, setDefaultDialogOpen] = React.useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
+  const setFlashMessage = React.useContext(FlashMessageSetterContext);
+  const isTranslationPending =
+    checkTranslation(code, team.verification_statuses.statuses);
 
   const handleClose = () => setAnchorEl(null);
 
@@ -90,18 +113,24 @@ const LanguageListItem = ({ code, team }) => {
   };
 
   const submitDelete = () => {
-    const onCompleted = () => {
+    const onSuccess = () => {
       setDeleteDialogOpen(false);
     };
-    const onError = () => {
+    const onFailure = () => {
       setDeleteDialogOpen(false);
+      setFlashMessage((
+        <FormattedGlobalMessage
+          messageKey="unknownError"
+          values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
+        />
+      ));
     };
 
     submitDeleteLanguage({
       team,
       languages: JSON.stringify(languages.filter(l => l !== code)),
-      onCompleted,
-      onError,
+      onSuccess,
+      onFailure,
     });
   };
 
@@ -111,24 +140,34 @@ const LanguageListItem = ({ code, team }) => {
   };
 
   const submitDefault = () => {
-    const onCompleted = () => {
+    if (isTranslationPending) return;
+
+    const onSuccess = () => {
       setDefaultDialogOpen(false);
     };
-    const onError = () => {
+    const onFailure = () => {
       setDefaultDialogOpen(false);
+      setFlashMessage((
+        <FormattedGlobalMessage
+          messageKey="unknownError"
+          values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
+        />
+      ));
     };
 
     submitDefaultLanguage({
       team,
       code,
-      onCompleted,
-      onError,
+      onSuccess,
+      onFailure,
     });
   };
 
+  const languageName = languagesList[code] ? languagesList[code].nativeName : code;
+
   const languageLabel = (
     <Typography variant="h6" component="span">
-      { languagesList[code] ? languagesList[code].nativeName : code }
+      {languageName}
     </Typography>
   );
 
@@ -162,23 +201,44 @@ const LanguageListItem = ({ code, team }) => {
           </Menu>
         </ListItemSecondaryAction>
       </ListItem>
-      <ConfirmProceedDialog
-        body={<FormattedMessage id="statusListItem.confirmDefaultBody" defaultMessage="This language will become the default one to respond to users who interact with the bot in any other languages than the ones added to this list." />}
-        onCancel={() => setDefaultDialogOpen(false)}
-        onProceed={submitDefault}
-        open={defaultDialogOpen}
-        proceedLabel={<FormattedMessage id="statusListItem.confirmDefaultButton" defaultMessage="Set as default" />}
-        title={<FormattedMessage id="statusListItem.confirmDefaultTitle" defaultMessage="Set as default language?" />}
-      />
+      { isTranslationPending ? (
+        <TranslationNeededDialog
+          languageName={languageName}
+          open={defaultDialogOpen}
+          onClose={() => setDefaultDialogOpen(false)}
+        />
+      ) : (
+        <ConfirmProceedDialog
+          body={
+            <Typography variant="body1" component="p">
+              <FormattedMessage
+                id="statusListItem.confirmDefaultBody"
+                defaultMessage="{language} will become the default one to respond to users who interact with the bot in any other languages than the ones added to this list."
+                values={{ language: <strong>{languageName}</strong> }}
+              />
+            </Typography>
+          }
+          onCancel={() => setDefaultDialogOpen(false)}
+          onProceed={submitDefault}
+          open={defaultDialogOpen}
+          proceedLabel={<FormattedMessage id="statusListItem.confirmDefaultButton" defaultMessage="Set as default" />}
+          title={<FormattedMessage id="statusListItem.confirmDefaultTitle" defaultMessage="Set as default language?" />}
+        />
+      )
+      }
       <ConfirmProceedDialog
         body={(
           <div>
-            <p>
-              <FormattedMessage id="statusListItem.confirmDeleteBody1" defaultMessage="All content in this language will stop being sent, and the default language will be used instead." />
-            </p>
-            <p>
+            <Typography variant="body1" component="p">
+              <FormattedMessage
+                id="statusListItem.confirmDeleteBody1"
+                defaultMessage="All content in {language} will stop being sent, and the default language will be used instead."
+                values={{ language: <strong>{languageName}</strong> }}
+              />
+            </Typography>
+            <Typography variant="body1" component="p">
               <FormattedMessage id="statusListItem.confirmDeleteBody2" defaultMessage="This includes content in the Tipline bot, Statuses, and Report." />
-            </p>
+            </Typography>
           </div>
         )}
         onCancel={() => setDeleteDialogOpen(false)}
@@ -196,6 +256,13 @@ LanguageListItem.propTypes = {
     id: PropTypes.string.isRequired,
     get_language: PropTypes.string.isRequired,
     get_languages: PropTypes.string.isRequired,
+    verification_statuses: PropTypes.shape({
+      statuses: PropTypes.arrayOf((
+        PropTypes.shape({
+          locales: PropTypes.object.isRequired,
+        }).isRequired
+      )).isRequired,
+    }).isRequired,
   }).isRequired,
 };
 
@@ -204,5 +271,6 @@ export default createFragmentContainer(LanguageListItem, graphql`
     id
     get_language
     get_languages
+    verification_statuses
   }
 `);
