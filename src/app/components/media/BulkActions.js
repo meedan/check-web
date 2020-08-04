@@ -213,7 +213,7 @@ class BulkActions extends React.Component {
                 color="primary"
                 variant="contained"
               >
-                <FormattedMessage id="bulkActions.addTo" defaultMessage="Add to..." />
+                <FormattedMessage id="bulkActions.addTo" defaultMessage="Add to…" />
               </Button>
             </Tooltip>
 
@@ -234,7 +234,7 @@ class BulkActions extends React.Component {
                   color="primary"
                   variant="contained"
                 >
-                  <FormattedMessage id="bulkActions.moveTo" defaultMessage="Move to..." />
+                  <FormattedMessage id="bulkActions.moveTo" defaultMessage="Move to…" />
                 </Button>
               </Tooltip> : null }
 
@@ -373,7 +373,7 @@ export default createFragmentContainer(withSetFlashMessage(BulkActions), graphql
   fragment BulkActions_team on Team {
     ...MoveDialog_team
     id
-    medias_count 
+    medias_count
     permissions
     search_id
     check_search_trash {

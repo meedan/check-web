@@ -496,7 +496,7 @@ class Annotation extends Component {
         <em className="annotation__deleted">
           <FormattedMessage
             id="annotation.deletedComment"
-            defaultMessage="Comment deleted by {author}{comment}"
+            defaultMessage="Comment deleted by {author}: {comment}"
             values={{
               author: authorName,
               comment: <ParsedText text={content.text} block />,

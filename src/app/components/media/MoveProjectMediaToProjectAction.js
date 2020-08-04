@@ -148,7 +148,7 @@ function MoveProjectMediaToProjectAction({
         color="primary"
         onClick={openDialog}
       >
-        <FormattedMessage id="mediaActionsBar.moveTo" defaultMessage="Move to..." />
+        <FormattedMessage id="mediaActionsBar.moveTo" defaultMessage="Move to…" />
       </Button>
       <SelectProjectDialog
         open={isDialogOpen}

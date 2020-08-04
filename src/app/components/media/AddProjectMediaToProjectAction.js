@@ -117,7 +117,7 @@ function AddProjectMediaToProjectAction({ team, projectMedia, className }) {
         color="primary"
         onClick={openDialog}
       >
-        <FormattedMessage id="mediaActionsBar.addTo" defaultMessage="Add to..." />
+        <FormattedMessage id="mediaActionsBar.addTo" defaultMessage="Add to…" />
       </Button>
       <SelectProjectDialog
         open={isDialogOpen}

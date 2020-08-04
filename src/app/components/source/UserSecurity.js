@@ -458,7 +458,7 @@ class UserSecurity extends Component {
                     <span style={{ lineHeight: units(3) }}>
                       <FormattedMessage
                         id="userSecurity.verifyDescription"
-                        defaultMessage="To enable two-factor authentication, enter the 6-digit token from your two-factor app:"
+                        defaultMessage="To enable two-factor authentication, enter the 6-digit code from your two-factor app:"
                       />
                     </span>
                     <TextField

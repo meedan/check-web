@@ -134,7 +134,7 @@ class GeolocationRespondTask extends Component {
     if (query) {
       this.setState({
         message: (
-          <FormattedMessage id="geoLocationRespondTask.searching" defaultMessage="Searching..." />
+          <FormattedMessage id="geoLocationRespondTask.searching" defaultMessage="Searching…" />
         ),
       });
       this.timer = setTimeout(() => this.geoCodeQueryOpenCage(query), keystrokeWait);
