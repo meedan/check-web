@@ -109,8 +109,12 @@ function EditTitleAndDescriptionDialog({
     }
   }, [open, newTitle, newDescription, setNewTitle, setNewDescription]);
 
-  const title = newTitle === null ? projectMedia.metadata.title : newTitle;
-  const description = newDescription === null ? projectMedia.metadata.description : newDescription;
+  const title = newTitle === null
+    ? (projectMedia.metadata.title || '')
+    : newTitle;
+  const description = newDescription === null
+    ? (projectMedia.metadata.description || '')
+    : newDescription;
 
   const handleSubmit = React.useCallback((ev) => {
     ev.preventDefault();
