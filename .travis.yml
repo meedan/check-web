@@ -75,7 +75,7 @@ before_install:
 - bundle exec rails s -p 3005 >/dev/null &
 - cd -
 # chromedriver
-- chromedriver --port=9516 >/dev/null 2>/dev/null &
+- chromedriver --port=9515 >/dev/null 2>/dev/null &
 # ruby / bundler / rspec
 - cd test && bundle install && cd -
 # config files
