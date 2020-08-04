@@ -267,14 +267,6 @@ export const MuiTheme = {
     },
   },
   overrides: {
-    MuiInput: {
-      underline: {
-        '&:hover:not($disabled):before': {
-          backgroundColor: black54,
-          height: 1,
-        },
-      },
-    },
     MuiTableCell: {
       stickyHeader: {
         // @material-ui/core sets #fafafa, only for sticky header. Undo that.

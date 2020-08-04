@@ -1,0 +1,10 @@
+[
+  {
+    "id": "mediaActionsBar.removedFromList",
+    "defaultMessage": "Removed from list"
+  },
+  {
+    "id": "mediaActionsBar.removeFromList",
+    "defaultMessage": "Remove from list"
+  }
+]

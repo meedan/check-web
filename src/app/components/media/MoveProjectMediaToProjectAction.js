@@ -6,10 +6,10 @@ import { browserHistory } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { FormattedGlobalMessage } from '../MappedMessage';
-import { FlashMessageSetterContext } from '../FlashMessage';
 import SelectProjectDialog from './SelectProjectDialog';
-import { stringHelper } from '../../customHelpers';
+import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
+import { FlashMessageSetterContext } from '../FlashMessage';
+import { getErrorMessageForRelayModernProblem } from '../../helpers';
 
 function commitMoveProjectMediaToProject({
   projectMedia, projectMediaProject, fromProject, toProject, onSuccess, onFailure,
@@ -112,7 +112,7 @@ function MoveProjectMediaToProjectAction({
   const [isSaving, setIsSaving] = React.useState(false);
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
   const openDialog = React.useCallback(() => setIsDialogOpen(true), [setIsDialogOpen]);
-  const closeDialog = React.useCallback(() => setIsDialogOpen(true), [setIsDialogOpen]);
+  const closeDialog = React.useCallback(() => setIsDialogOpen(false), [setIsDialogOpen]);
   const handleSubmit = React.useCallback((toProject) => {
     setIsDialogOpen(false);
     setIsSaving(true);
@@ -129,10 +129,8 @@ function MoveProjectMediaToProjectAction({
         setIsSaving(false);
         console.error(errors); // eslint-disable-line no-console
         setFlashMessage((
-          <FormattedGlobalMessage
-            messageKey="unknownError"
-            values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
-          />
+          getErrorMessageForRelayModernProblem(errors)
+          || <GenericUnknownErrorMessage />
         ));
       },
     });
