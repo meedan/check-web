@@ -6,10 +6,9 @@ import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { FormattedGlobalMessage } from '../MappedMessage';
+import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { FlashMessageSetterContext } from '../FlashMessage';
 import SelectProjectDialog from './SelectProjectDialog';
-import { stringHelper } from '../../customHelpers';
 import { getErrorMessageForRelayModernProblem } from '../../helpers';
 
 function commitAddProjectMediaToProject({
@@ -98,11 +97,9 @@ function AddProjectMediaToProjectAction({ team, projectMedia, className }) {
       onFailure: (errors) => {
         setIsSaving(false);
         console.error(errors); // eslint-disable-line no-console
-        setFlashMessage(getErrorMessageForRelayModernProblem(errors) || (
-          <FormattedGlobalMessage
-            messageKey="unknownError"
-            values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
-          />
+        setFlashMessage((
+          getErrorMessageForRelayModernProblem(errors)
+          || <GenericUnknownErrorMessage />
         ));
       },
     });
