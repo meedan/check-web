@@ -12,9 +12,7 @@ services:
   - postgresql
   - xvfb
 env:
-  global:
-    TEST_ENV_NUMBER: "0"
-    CHROMEDRIVER_URL: "http://localhost:9515"
+  - TEST_ENV_NUMBER=0 CHROMEDRIVER_URL=http://localhost:9515
 addons:
   postgresql: "11"
   apt:
