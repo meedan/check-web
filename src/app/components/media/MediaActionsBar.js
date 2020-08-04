@@ -72,11 +72,13 @@ class MediaActionsBarComponent extends Component {
   }
 
   getDescription() {
-    return (typeof this.state.description === 'string') ? this.state.description : this.props.media.description;
+    const description = (typeof this.state.description === 'string') ? this.state.description : this.props.media.description;
+    return description || '';
   }
 
   getTitle() {
-    return (typeof this.state.title === 'string') ? this.state.title : this.props.media.title;
+    const title = (typeof this.state.title === 'string') ? this.state.title : this.props.media.title;
+    return title || '';
   }
 
   currentProject() {
