@@ -80,7 +80,8 @@ before_install:
 - cd test && bundle install && cd -
 # config files
 - d=configurator/$APP/travis/check-web/; for f in $(find $d -type f); do cp "$f" "${f/$d/}"; done
-# `npm install` runs here automatically on Travis
+install:
+- npm install
 before_script:
 - npm run build
 - export SERVER_PORT=3333
