@@ -4,15 +4,15 @@
     "defaultMessage": "New language"
   },
   {
+    "id": "addLanguageAction.title",
+    "defaultMessage": "Choose a new language"
+  },
+  {
     "id": "addLanguageAction.selectLanguage",
     "defaultMessage": "Select a language"
   },
   {
     "id": "addLanguageAction.addLanguage",
     "defaultMessage": "Add language"
-  },
-  {
-    "id": "addLanguageAction.title",
-    "defaultMessage": "Choose a new language"
   }
 ]

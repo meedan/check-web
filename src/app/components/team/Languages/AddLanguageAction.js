@@ -5,11 +5,15 @@ import { commitMutation, createFragmentContainer, graphql } from 'react-relay/co
 import { Store } from 'react-relay/classic';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import { FormattedGlobalMessage } from '../../MappedMessage';
 import { FlashMessageSetterContext } from '../../FlashMessage';
-import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import { stringHelper } from '../../../customHelpers';
 import { safelyParseJSON } from '../../../helpers';
 import languagesList from '../../../languagesList';
@@ -57,6 +61,7 @@ const useStyles = makeStyles(theme => ({
 
 const AddLanguageAction = ({ team }) => {
   const [dialogOpen, setDialogOpen] = React.useState(false);
+  const [isSaving, setIsSaving] = React.useState(false);
   const [value, setValue] = React.useState(null);
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
   const classes = useStyles();
@@ -87,6 +92,7 @@ const AddLanguageAction = ({ team }) => {
       ));
     };
 
+    setIsSaving(true);
     submitAddLanguage({
       team,
       languages: JSON.stringify([...languages, value]),
@@ -103,8 +109,13 @@ const AddLanguageAction = ({ team }) => {
           defaultMessage="New language"
         />
       </Button>
-      <ConfirmProceedDialog
-        body={
+      <Dialog
+        open={dialogOpen}
+      >
+        <DialogTitle>
+          <FormattedMessage id="addLanguageAction.title" defaultMessage="Choose a new language" />
+        </DialogTitle>
+        <DialogContent>
           <div className={classes.autocompleteWrapper}>
             <Autocomplete
               id="autocomplete-media-item"
@@ -128,14 +139,23 @@ const AddLanguageAction = ({ team }) => {
               fullWidth
             />
           </div>
-        }
-        onCancel={() => setDialogOpen(false)}
-        onProceed={handleSubmit}
-        open={dialogOpen}
-        proceedDisabled={!value}
-        proceedLabel={<FormattedMessage id="addLanguageAction.addLanguage" defaultMessage="Add language" />}
-        title={<FormattedMessage id="addLanguageAction.title" defaultMessage="Choose a new language" />}
-      />
+        </DialogContent>
+        <DialogActions>
+          <Button className="add-language-action__cancel" onClick={() => setDialogOpen(false)}>
+            <FormattedGlobalMessage messageKey="cancel" />
+          </Button>
+          <Button
+            className="add-language-action__submit"
+            color="primary"
+            endIcon={isSaving ? <CircularProgress color="inherit" size="1em" /> : null}
+            disabled={!value || isSaving}
+            onClick={handleSubmit}
+            variant="contained"
+          >
+            <FormattedMessage id="addLanguageAction.addLanguage" defaultMessage="Add language" />
+          </Button>
+        </DialogActions>
+      </Dialog>
     </React.Fragment>
   );
 };
