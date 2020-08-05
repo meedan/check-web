@@ -1,7 +1,7 @@
 [
   {
     "id": "languageListItem.default",
-    "defaultMessage": "{languageLabel} (default)"
+    "defaultMessage": "{language} (default)"
   },
   {
     "id": "statusListItem.makeDefault",

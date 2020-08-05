@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
-import languagesList from '../languagesList';
+import { compareLanguages, languageLabel } from '../LanguageRegistry';
 
 const LanguageSwitcher = (props) => {
   const handleChange = (event, newValue) => {
@@ -11,7 +11,7 @@ const LanguageSwitcher = (props) => {
   };
 
   const { primaryLanguage, currentLanguage } = props;
-  const languages = [primaryLanguage, ...props.languages.filter(l => l !== primaryLanguage)];
+  const languages = props.languages.sort((a, b) => compareLanguages(primaryLanguage, a, b));
 
   return (
     <Tabs
@@ -21,8 +21,7 @@ const LanguageSwitcher = (props) => {
       variant="scrollable"
     >
       { languages.map((languageCode) => {
-        const label = Object.keys(languagesList).indexOf(languageCode) > -1 ?
-          languagesList[languageCode].nativeName : languageCode;
+        const label = languageLabel(languageCode);
         return (
           <Tab
             label={

@@ -14,9 +14,9 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { FormattedGlobalMessage } from '../../MappedMessage';
 import { FlashMessageSetterContext } from '../../FlashMessage';
-import { stringHelper } from '../../../customHelpers';
-import { safelyParseJSON } from '../../../helpers';
-import languagesList from '../../../languagesList';
+import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
+import { safelyParseJSON, getErrorMessageForRelayModernProblem } from '../../../helpers';
+import LanguageRegistry, { compareLanguages, languageLabel } from '../../../LanguageRegistry';
 
 function submitAddLanguage({
   team,
@@ -67,10 +67,10 @@ const AddLanguageAction = ({ team }) => {
   const classes = useStyles();
 
   const languages = safelyParseJSON(team.get_languages) || [];
-  const options = Object.keys(languagesList).filter(code => !languages.includes(code));
-  const getOptionLabel = code => (
-    languagesList[code] ? `${languagesList[code].nativeName} (${code})` : ''
-  );
+  const options = Object.keys(LanguageRegistry)
+    .filter(code => !languages.includes(code))
+    .sort((a, b) => compareLanguages(null, a, b));
+  const getOptionLabel = code => `${languageLabel(code)} (${code})`;
 
   const handleChange = (e, val) => {
     setValue(val);
@@ -82,13 +82,12 @@ const AddLanguageAction = ({ team }) => {
       setDialogOpen(false);
     };
 
-    const onFailure = () => {
+    const onFailure = (errors) => {
       setDialogOpen(false);
+      console.error(errors); // eslint-disable-line no-console
       setFlashMessage((
-        <FormattedGlobalMessage
-          messageKey="unknownError"
-          values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
-        />
+        getErrorMessageForRelayModernProblem(errors)
+        || <GenericUnknownErrorMessage />
       ));
     };
 

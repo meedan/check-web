@@ -290,7 +290,7 @@ class TeamComponent extends Component {
           { isSettings && tab === 'statuses'
             ? <TeamStatuses teamSlug={team.slug} />
             : null }
-          { isSettings && this.state.showTab === 'languages'
+          { isSettings && tab === 'languages'
             ? <TeamLanguages teamSlug={team.slug} />
             : null }
         </div>

@@ -12,12 +12,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import IconMoreVert from '@material-ui/icons/MoreVert';
 import TranslationNeededDialog from './TranslationNeededDialog';
+import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
 import { FormattedGlobalMessage } from '../../MappedMessage';
 import { FlashMessageSetterContext } from '../../FlashMessage';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
-import { stringHelper } from '../../../customHelpers';
-import { safelyParseJSON } from '../../../helpers';
-import languagesList from '../../../languagesList';
+import { safelyParseJSON, getErrorMessageForRelayModernProblem } from '../../../helpers';
+import { languageLabel } from '../../../LanguageRegistry';
 
 function submitDefaultLanguage({
   team,
@@ -116,13 +116,12 @@ const LanguageListItem = ({ code, team }) => {
     const onSuccess = () => {
       setDeleteDialogOpen(false);
     };
-    const onFailure = () => {
+    const onFailure = (errors) => {
       setDeleteDialogOpen(false);
+      console.error(errors); // eslint-disable-line no-console
       setFlashMessage((
-        <FormattedGlobalMessage
-          messageKey="unknownError"
-          values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
-        />
+        getErrorMessageForRelayModernProblem(errors)
+        || <GenericUnknownErrorMessage />
       ));
     };
 
@@ -145,13 +144,12 @@ const LanguageListItem = ({ code, team }) => {
     const onSuccess = () => {
       setDefaultDialogOpen(false);
     };
-    const onFailure = () => {
+    const onFailure = (errors) => {
       setDefaultDialogOpen(false);
+      console.error(errors); // eslint-disable-line no-console
       setFlashMessage((
-        <FormattedGlobalMessage
-          messageKey="unknownError"
-          values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
-        />
+        getErrorMessageForRelayModernProblem(errors)
+        || <GenericUnknownErrorMessage />
       ));
     };
 
@@ -163,11 +161,9 @@ const LanguageListItem = ({ code, team }) => {
     });
   };
 
-  const languageName = languagesList[code] ? languagesList[code].nativeName : code;
-
-  const languageLabel = (
+  const listItemText = (
     <Typography variant="h6" component="span">
-      {languageName}
+      { languageLabel(code) }
     </Typography>
   );
 
@@ -178,10 +174,10 @@ const LanguageListItem = ({ code, team }) => {
           { isDefault ? (
             <FormattedMessage
               id="languageListItem.default"
-              defaultMessage="{languageLabel} (default)"
-              values={{ languageLabel }}
+              defaultMessage="{language} (default)"
+              values={{ language: listItemText }}
             />
-          ) : languageLabel }
+          ) : listItemText }
         </ListItemText>
         <ListItemSecondaryAction>
           <IconButton className="status-actions__menu" onClick={e => setAnchorEl(e.target)}>
@@ -203,7 +199,7 @@ const LanguageListItem = ({ code, team }) => {
       </ListItem>
       { isTranslationPending ? (
         <TranslationNeededDialog
-          languageName={languageName}
+          languageName={languageLabel(code)}
           open={defaultDialogOpen}
           onClose={() => setDefaultDialogOpen(false)}
         />
@@ -214,7 +210,7 @@ const LanguageListItem = ({ code, team }) => {
               <FormattedMessage
                 id="statusListItem.confirmDefaultBody"
                 defaultMessage="{language} will become the default one to respond to users who interact with the bot in any other languages than the ones added to this list."
-                values={{ language: <strong>{languageName}</strong> }}
+                values={{ language: <strong>{languageLabel(code)}</strong> }}
               />
             </Typography>
           }
@@ -233,7 +229,7 @@ const LanguageListItem = ({ code, team }) => {
               <FormattedMessage
                 id="statusListItem.confirmDeleteBody1"
                 defaultMessage="All content in {language} will stop being sent, and the default language will be used instead."
-                values={{ language: <strong>{languageName}</strong> }}
+                values={{ language: <strong>{languageLabel(code)}</strong> }}
               />
             </Typography>
             <Typography variant="body1" component="p">
