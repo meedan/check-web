@@ -38,6 +38,8 @@ addons:
       channel: 12/stable  # must be same as check-web/Dockerfile
       confinement: classic
 before_install:
+- dpkg -l | grep chrom  # what has Travis installed?
+- sudo apt-get remove google-chrome  # so chromium-chromedriver finds chromium-browser
 - export TEST_ENV_NUMBER=0
 - export CHROMEDRIVER_URL=http://localhost:9515
 # extract configs
