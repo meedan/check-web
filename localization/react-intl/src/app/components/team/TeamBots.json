@@ -32,6 +32,18 @@
     "defaultMessage": "All settings will be deleted and cannot be recovered. Are you sure you want to proceed?"
   },
   {
+    "id": "teamBots.confirmLeaveTitle",
+    "defaultMessage": "Leave without saving?"
+  },
+  {
+    "id": "teamBots.confirmLeaveText",
+    "defaultMessage": "If you leave, you will lose your changes."
+  },
+  {
+    "id": "teamBots.confirmLeaveButtonLabel",
+    "defaultMessage": "Leave"
+  },
+  {
     "id": "teamBots.settings",
     "defaultMessage": "Settings"
   },

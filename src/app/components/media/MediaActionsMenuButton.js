@@ -1,21 +1,50 @@
-import React, { Component } from 'react';
-import { browserHistory } from 'react-router';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { createFragmentContainer, graphql } from 'react-relay/compat';
+import { FormattedMessage } from 'react-intl';
 import IconMoreVert from '@material-ui/icons/MoreVert';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import EditTitleAndDescriptionDialog from './EditTitleAndDescriptionDialog';
 import { can } from '../Can';
-import { getCurrentProjectId } from '../../helpers';
 
-class MediaActions extends Component {
+class MediaActionsMenuButton extends React.PureComponent {
+  static propTypes = {
+    projectMedia: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      permissions: PropTypes.string.isRequired,
+      archived: PropTypes.bool.isRequired,
+      last_status_obj: PropTypes.shape({
+        locked: PropTypes.bool.isRequired,
+      }).isRequired,
+      media: PropTypes.shape({
+        url: PropTypes.string,
+      }).isRequired,
+    }).isRequired,
+    handleRefresh: PropTypes.func.isRequired,
+    handleSendToTrash: PropTypes.func.isRequired,
+    handleRestore: PropTypes.func.isRequired,
+    handleAssign: PropTypes.func.isRequired,
+    handleStatusLock: PropTypes.func.isRequired,
+  };
+
   state = {
     anchorEl: null,
+    isEditTitleAndDescriptionDialogOpen: false,
   };
 
   handleOpenMenu = (e) => {
     this.setState({ anchorEl: e.currentTarget });
+  };
+
+  handleOpenEditTitleAndDescriptionDialog = () => {
+    this.setState({ isEditTitleAndDescriptionDialogOpen: true, anchorEl: null });
+  };
+
+  handleCloseEditTitleAndDescriptionDialog = () => {
+    this.setState({ isEditTitleAndDescriptionDialogOpen: false });
   };
 
   handleCloseMenu = () => {
@@ -29,37 +58,26 @@ class MediaActions extends Component {
     }
   };
 
-  handleEmbed() {
-    const { media } = this.props;
-    const projectId = getCurrentProjectId(media.project_ids);
-    const projectPart = projectId ? `/project/${projectId}` : '';
-    browserHistory.push(`/${media.team.slug}${projectPart}/media/${media.dbid}/embed`);
-  }
-
   render() {
     const {
-      media,
-      handleEdit,
-      handleMove,
+      projectMedia,
       handleRefresh,
       handleSendToTrash,
-      handleAddToList,
-      handleRemoveFromList,
       handleRestore,
       handleAssign,
       handleStatusLock,
     } = this.props;
+    const {
+      isEditTitleAndDescriptionDialogOpen,
+    } = this.state;
     const menuItems = [];
 
-    const currentProjectId = getCurrentProjectId(media.project_ids);
-    const showRemoveFromList = media.project_ids.indexOf(currentProjectId) > -1;
-
-    if (can(media.permissions, 'update ProjectMedia') && !media.archived && handleEdit) {
+    if (can(projectMedia.permissions, 'update ProjectMedia') && !projectMedia.archived) {
       menuItems.push((
         <MenuItem
           key="mediaActions.edit"
           className="media-actions__edit"
-          onClick={() => this.handleActionAndClose(handleEdit)}
+          onClick={this.handleOpenEditTitleAndDescriptionDialog}
         >
           <ListItemText
             primary={
@@ -69,8 +87,8 @@ class MediaActions extends Component {
         </MenuItem>));
     }
 
-    if (can(media.permissions, 'update ProjectMedia') && !media.archived) {
-      if ((media.url || media.media.url) && handleRefresh) {
+    if (can(projectMedia.permissions, 'update ProjectMedia') && !projectMedia.archived) {
+      if (projectMedia.media.url) {
         menuItems.push((
           <MenuItem
             key="mediaActions.refresh"
@@ -87,7 +105,7 @@ class MediaActions extends Component {
       }
     }
 
-    if (can(media.permissions, 'update Status') && !media.archived && handleAssign) {
+    if (can(projectMedia.permissions, 'update Status') && !projectMedia.archived) {
       menuItems.push((
         <MenuItem
           key="mediaActions.assign"
@@ -102,7 +120,7 @@ class MediaActions extends Component {
         </MenuItem>));
     }
 
-    if (can(media.permissions, 'lock Annotation') && !media.archived && handleStatusLock) {
+    if (can(projectMedia.permissions, 'lock Annotation') && !projectMedia.archived) {
       menuItems.push((
         <MenuItem
           key="mediaActions.lockStatus"
@@ -110,14 +128,14 @@ class MediaActions extends Component {
           onClick={() => this.handleActionAndClose(handleStatusLock)}
         >
           <ListItemText
-            primary={media.last_status_obj.locked ?
+            primary={projectMedia.last_status_obj.locked ?
               <FormattedMessage id="mediaActions.unlockStatus" defaultMessage="Unlock status" /> :
               <FormattedMessage id="mediaActions.lockStatus" defaultMessage="Lock status" />}
           />
         </MenuItem>));
     }
 
-    if (can(media.permissions, 'update ProjectMedia') && !media.archived && handleSendToTrash) {
+    if (can(projectMedia.permissions, 'update ProjectMedia') && !projectMedia.archived) {
       menuItems.push((
         <MenuItem
           key="mediaActions.sendToTrash"
@@ -130,7 +148,7 @@ class MediaActions extends Component {
         </MenuItem>));
     }
 
-    if (can(media.permissions, 'restore ProjectMedia') && media.archived && handleRestore) {
+    if (can(projectMedia.permissions, 'restore ProjectMedia') && projectMedia.archived) {
       menuItems.push((
         <MenuItem
           key="mediaActions.restore"
@@ -144,56 +162,10 @@ class MediaActions extends Component {
         </MenuItem>));
     }
 
-    if (can(media.permissions, 'update ProjectMedia') && !media.archived) {
-      if (handleMove) {
-        menuItems.push((
-          <MenuItem
-            key="mediaActions.move"
-            className="media-actions__move"
-            onClick={() => this.handleActionAndClose(handleMove)}
-          >
-            <ListItemText
-              primary={<FormattedMessage id="mediaActions.move" defaultMessage="Move" />}
-            />
-          </MenuItem>));
-      }
-    }
-
-    if (can(media.permissions, 'update ProjectMedia') && !media.archived && handleAddToList) {
-      menuItems.push((
-        <MenuItem
-          key="mediaActions.addToList"
-          className="media-actions__add-to-list"
-          onClick={() => this.handleActionAndClose(handleAddToList)}
-        >
-          <ListItemText
-            primary={<FormattedMessage id="mediaActions.addToList" defaultMessage="Add to list" />}
-          />
-        </MenuItem>));
-    }
-
-    if (can(media.permissions, 'update ProjectMedia') &&
-      !media.archived &&
-      handleRemoveFromList &&
-      showRemoveFromList) {
-      menuItems.push((
-        <MenuItem
-          key="mediaActions.removeFromList"
-          className="media-actions__remove-from-list"
-          onClick={() => this.handleActionAndClose(handleRemoveFromList)}
-        >
-          <ListItemText
-            primary={<FormattedMessage id="mediaActions.removeFromList" defaultMessage="Remove from list" />}
-          />
-        </MenuItem>));
-    }
-
     return menuItems.length ? (
       <div>
         <IconButton
-          tooltip={
-            <FormattedMessage id="mediaActions.tooltip" defaultMessage="Item actions" />
-          }
+          tooltip={<FormattedMessage id="mediaActions.tooltip" defaultMessage="Item actions" />}
           onClick={this.handleOpenMenu}
         >
           <IconMoreVert className="media-actions__icon" />
@@ -206,9 +178,29 @@ class MediaActions extends Component {
         >
           {menuItems}
         </Menu>
+        <EditTitleAndDescriptionDialog
+          open={isEditTitleAndDescriptionDialogOpen}
+          projectMedia={projectMedia}
+          onClose={this.handleCloseEditTitleAndDescriptionDialog}
+        />
       </div>
     ) : null;
   }
 }
 
-export default injectIntl(MediaActions);
+export default createFragmentContainer(MediaActionsMenuButton, {
+  projectMedia: graphql`
+    fragment MediaActionsMenuButton_projectMedia on ProjectMedia {
+      id
+      permissions
+      archived
+      media {
+        url
+      }
+      last_status_obj {
+        locked
+      }
+      ...EditTitleAndDescriptionDialog_projectMedia
+    }
+  `,
+});

@@ -179,6 +179,66 @@ function getErrorMessage(transactionOrError, fallbackMessage) {
 }
 
 /**
+ * Extract an error message from a Relay Modern error(s) or return `null` if
+ * not possible.
+ *
+ * Note: with Relay Compat and CheckNetworkLayer c. 2019, we'll get `null` on
+ * a network error (since the network layer will throw an Error). When we
+ * upgrade our network layer to a Relay Modern one we should be able to avoid
+ * JavaScript Errors and rely on Objects instead. Then we should discuss what
+ * to do in the event of a network error.
+ *
+ * Calling convention:
+ *
+ * ```
+ * commitUpdate(
+ *   // ...
+ *   onComplete: ({ data, errors }) => {
+ *     if (data === null && errors) {
+ *       reportProblem(errors);
+ *     }
+ *     handleData(data);
+ *   }
+ *   onError: err => reportProblem(err) // Error object
+ * ```
+ *
+ * `reportProblem()` in this example must be able to handle `null`: we may not
+ * be able to extract a sensible error message, even when the caller is certain
+ * there was a problem. In that case, the caller should have a fallback. To
+ * continue this example:
+ *
+ * ```
+ * function MyComponent(props) {
+ *   const [problem, setProblem] = React.useState(null);
+ *   // ...
+ *   if (problem !== null) {
+ *     return (
+ *       getErrorMessageForRelayModernProblem(problem) || (
+   *       <FormattedMessage id="myComponent.unknownError" defaultMessage="Oops" />
+   *     )
+ *     );
+ *   }
+ * }
+ * ```
+ */
+function getErrorMessageForRelayModernProblem(errorOrErrors) {
+  if (errorOrErrors.source) { // Error was thrown from CheckNetworkLayer, c. 2019
+    return getErrorMessage(errorOrErrors, null);
+  }
+  if (errorOrErrors.length) { // Error is an Array the API returned, alongside null data
+    return errorOrErrors.map(({ message }) => message).filter(m => Boolean(m))[0] || null;
+  }
+
+  // If we didn't get an error from our network layer, and we didn't get an
+  // error from the API, then what happened? Let's log the error and let the
+  // user supply a fallback.
+
+  // eslint-disable-next-line no-console
+  console.warn('Unhandled error from Relay Modern', errorOrErrors);
+  return null;
+}
+
+/**
  * Safely extract an error object from a transaction
  */
 function getErrorObjects(transaction) {
@@ -261,6 +321,7 @@ export {
   validateURL,
   getFilters,
   getErrorMessage,
+  getErrorMessageForRelayModernProblem,
   getErrorObjects,
   emojify,
   capitalize,

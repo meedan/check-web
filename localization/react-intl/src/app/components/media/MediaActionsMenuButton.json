@@ -1,0 +1,34 @@
+[
+  {
+    "id": "mediaActions.edit",
+    "defaultMessage": "Edit title and description"
+  },
+  {
+    "id": "mediaActions.refresh",
+    "defaultMessage": "Refresh"
+  },
+  {
+    "id": "mediaActions.assignOrUnassign",
+    "defaultMessage": "Assignment"
+  },
+  {
+    "id": "mediaActions.unlockStatus",
+    "defaultMessage": "Unlock status"
+  },
+  {
+    "id": "mediaActions.lockStatus",
+    "defaultMessage": "Lock status"
+  },
+  {
+    "id": "mediaActions.sendToTrash",
+    "defaultMessage": "Send to trash"
+  },
+  {
+    "id": "mediaActions.restore",
+    "defaultMessage": "Restore from trash"
+  },
+  {
+    "id": "mediaActions.tooltip",
+    "defaultMessage": "Item actions"
+  }
+]

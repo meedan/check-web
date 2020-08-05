@@ -32,7 +32,7 @@ import { stringHelper } from '../../customHelpers';
 const messages = defineMessages({
   slugChecking: {
     id: 'createTeam.slugChecking',
-    defaultMessage: 'Checking availability...',
+    defaultMessage: 'Checking availability…',
   },
   slugAvailable: {
     id: 'createTeam.slugAvailable',

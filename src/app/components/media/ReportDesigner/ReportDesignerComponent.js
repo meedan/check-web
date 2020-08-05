@@ -263,13 +263,19 @@ const ReportDesignerComponent = (props) => {
         title={
           <FormattedMessage
             id="reportDesigner.confirmLeaveTitle"
-            defaultMessage="Close without saving?"
+            defaultMessage="Leave without saving?"
           />
         }
         blurb={
           <FormattedMessage
             id="reportDesigner.confirmLeaveText"
-            defaultMessage="If you continue, you will lose your changes."
+            defaultMessage="If you leave, you will lose your changes."
+          />
+        }
+        continueButtonLabel={
+          <FormattedMessage
+            id="reportDesigner.confirmLeaveButtonLabel"
+            defaultMessage="Leave"
           />
         }
         handleClose={handleCancelLeave}

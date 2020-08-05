@@ -265,7 +265,7 @@ class SearchQueryComponent extends React.Component {
 
   filterIsActive = () => {
     const { query } = this.props;
-    const filterFields = ['range', 'verification_status', 'projects', 'tags', 'show', 'dynamic'];
+    const filterFields = ['range', 'verification_status', 'projects', 'tags', 'show', 'dynamic', 'users'];
     return filterFields.some(key => !!query[key]);
   }
 
@@ -277,6 +277,11 @@ class SearchQueryComponent extends React.Component {
   projectIsSelected(projectId) {
     const array = this.state.query.projects;
     return array ? array.includes(projectId) : false;
+  }
+
+  userIsSelected(userId) {
+    const array = this.state.query.users;
+    return array ? array.includes(userId) : false;
   }
 
   tagIsSelected(tag) {
@@ -313,6 +318,12 @@ class SearchQueryComponent extends React.Component {
   handleProjectClick(projectId) {
     this.setState({
       query: toggleStateQueryArrayValue(this.state.query, 'projects', projectId),
+    });
+  }
+
+  handleUserClick(userId) {
+    this.setState({
+      query: toggleStateQueryArrayValue(this.state.query, 'users', userId),
     });
   }
 
@@ -486,6 +497,11 @@ class SearchQueryComponent extends React.Component {
       projects = team.projects.edges.slice().sort((a, b) =>
         a.node.title.localeCompare(b.node.title));
     }
+    let users = [];
+    if (team.users) {
+      users = team.users.edges.slice().sort((a, b) =>
+        a.node.name.localeCompare(b.node.name));
+    }
 
     const { currentUser } = this.currentContext();
     const plainTagsTexts = team.tag_texts ?
@@ -630,6 +646,27 @@ class SearchQueryComponent extends React.Component {
                         )}
                       >
                         {project.node.title}
+                      </StyledFilterChip>))}
+                  </StyledFilterRow>
+                  : null}
+
+                {this.showField('user') && users.length ?
+                  <StyledFilterRow>
+                    <h4>
+                      <FormattedMessage id="search.userHeading" defaultMessage="Author" />
+                    </h4>
+                    {users.map(user => (
+                      <StyledFilterChip
+                        active={this.userIsSelected(user.node.dbid)}
+                        key={user.node.dbid}
+                        onClick={this.handleUserClick.bind(this, user.node.dbid)}
+                        className={bemClass(
+                          'search-filter__user-chip',
+                          this.userIsSelected(user.node.dbid),
+                          '--selected',
+                        )}
+                      >
+                        {user.node.name}
                       </StyledFilterChip>))}
                   </StyledFilterRow>
                   : null}
@@ -828,7 +865,7 @@ SearchQueryComponent.propTypes = {
           label: PropTypes.string.isRequired,
         }).isRequired).isRequired,
       }).isRequired,
-    }).isRequired,
+    }),
   }).isRequired,
 };
 

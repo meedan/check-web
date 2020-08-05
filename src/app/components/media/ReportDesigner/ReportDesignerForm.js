@@ -97,7 +97,7 @@ const ReportDesignerForm = (props) => {
         >
           <FormattedMessage
             id="reportDesigner.introductionPlaceholder"
-            defaultMessage="Type your introduction here..."
+            defaultMessage="Type your introduction here…"
           >
             {introductionPlaceholder => (
               <TextField
@@ -251,7 +251,7 @@ const ReportDesignerForm = (props) => {
         >
           <FormattedMessage
             id="reportDesigner.textPlaceholder"
-            defaultMessage="Type your report here..."
+            defaultMessage="Type your report here…"
           >
             {textPlaceholder => (
               <TextField

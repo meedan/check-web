@@ -30,6 +30,15 @@ export default Relay.createContainer(SearchQueryComponent, {
             }
           }
         }
+        users(first: 10000) {
+          edges {
+            node {
+              id
+              dbid
+              name
+            }
+          }
+        }
       }
     `,
   },
