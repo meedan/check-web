@@ -4,7 +4,6 @@ import { FormattedMessage } from 'react-intl';
 import { commitMutation, createFragmentContainer, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
@@ -52,19 +51,11 @@ function submitAddLanguage({
   });
 }
 
-const useStyles = makeStyles(theme => ({
-  autocompleteWrapper: {
-    width: theme.spacing(40),
-    height: theme.spacing(12),
-  },
-}));
-
 const AddLanguageAction = ({ team }) => {
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [isSaving, setIsSaving] = React.useState(false);
   const [value, setValue] = React.useState(null);
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
-  const classes = useStyles();
 
   const languages = safelyParseJSON(team.get_languages) || [];
   const options = Object.keys(LanguageRegistry)
@@ -79,10 +70,12 @@ const AddLanguageAction = ({ team }) => {
   const handleSubmit = () => {
     const onSuccess = () => {
       setValue(null);
+      setIsSaving(false);
       setDialogOpen(false);
     };
 
     const onFailure = (errors) => {
+      setIsSaving(false);
       setDialogOpen(false);
       console.error(errors); // eslint-disable-line no-console
       setFlashMessage((
@@ -110,34 +103,34 @@ const AddLanguageAction = ({ team }) => {
       </Button>
       <Dialog
         open={dialogOpen}
+        maxWidth="xs"
+        fullWidth
       >
         <DialogTitle>
           <FormattedMessage id="addLanguageAction.title" defaultMessage="Choose a new language" />
         </DialogTitle>
         <DialogContent>
-          <div className={classes.autocompleteWrapper}>
-            <Autocomplete
-              id="autocomplete-media-item"
-              name="autocomplete-media-item"
-              options={options}
-              openOnFocus
-              getOptionLabel={getOptionLabel}
-              value={value}
-              renderInput={
-                params => (<TextField
-                  label={
-                    <FormattedMessage
-                      id="addLanguageAction.selectLanguage"
-                      defaultMessage="Select a language"
-                    />
-                  }
-                  {...params}
-                />)
-              }
-              onChange={handleChange}
-              fullWidth
-            />
-          </div>
+          <Autocomplete
+            id="autocomplete-media-item"
+            name="autocomplete-media-item"
+            options={options}
+            openOnFocus
+            getOptionLabel={getOptionLabel}
+            value={value}
+            renderInput={
+              params => (<TextField
+                label={
+                  <FormattedMessage
+                    id="addLanguageAction.selectLanguage"
+                    defaultMessage="Select a language"
+                  />
+                }
+                {...params}
+              />)
+            }
+            onChange={handleChange}
+            fullWidth
+          />
         </DialogContent>
         <DialogActions>
           <Button className="add-language-action__cancel" onClick={() => setDialogOpen(false)}>

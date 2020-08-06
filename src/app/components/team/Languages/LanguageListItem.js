@@ -101,6 +101,7 @@ const LanguageListItem = ({ code, team }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [defaultDialogOpen, setDefaultDialogOpen] = React.useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
+  const [isSaving, setIsSaving] = React.useState(false);
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
   const isTranslationPending =
     checkTranslation(code, team.verification_statuses.statuses);
@@ -114,9 +115,11 @@ const LanguageListItem = ({ code, team }) => {
 
   const submitDelete = () => {
     const onSuccess = () => {
+      setIsSaving(false);
       setDeleteDialogOpen(false);
     };
     const onFailure = (errors) => {
+      setIsSaving(false);
       setDeleteDialogOpen(false);
       console.error(errors); // eslint-disable-line no-console
       setFlashMessage((
@@ -125,6 +128,7 @@ const LanguageListItem = ({ code, team }) => {
       ));
     };
 
+    setIsSaving(true);
     submitDeleteLanguage({
       team,
       languages: JSON.stringify(languages.filter(l => l !== code)),
@@ -142,9 +146,11 @@ const LanguageListItem = ({ code, team }) => {
     if (isTranslationPending) return;
 
     const onSuccess = () => {
+      setIsSaving(false);
       setDefaultDialogOpen(false);
     };
     const onFailure = (errors) => {
+      setIsSaving(false);
       setDefaultDialogOpen(false);
       console.error(errors); // eslint-disable-line no-console
       setFlashMessage((
@@ -153,6 +159,7 @@ const LanguageListItem = ({ code, team }) => {
       ));
     };
 
+    setIsSaving(true);
     submitDefaultLanguage({
       team,
       code,
@@ -214,6 +221,7 @@ const LanguageListItem = ({ code, team }) => {
               />
             </Typography>
           }
+          isSaving={isSaving}
           onCancel={() => setDefaultDialogOpen(false)}
           onProceed={submitDefault}
           open={defaultDialogOpen}
@@ -237,6 +245,7 @@ const LanguageListItem = ({ code, team }) => {
             </Typography>
           </div>
         )}
+        isSaving={isSaving}
         onCancel={() => setDeleteDialogOpen(false)}
         onProceed={submitDelete}
         open={deleteDialogOpen}

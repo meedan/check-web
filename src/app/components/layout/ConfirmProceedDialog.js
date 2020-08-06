@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -12,6 +13,7 @@ const ConfirmProceedDialog = ({
   title,
   body,
   cancelLabel,
+  isSaving,
   onCancel,
   onProceed,
   proceedDisabled,
@@ -35,7 +37,8 @@ const ConfirmProceedDialog = ({
       <Button
         className="confirm-proceed-dialog__proceed"
         color="primary"
-        disabled={proceedDisabled}
+        disabled={proceedDisabled || isSaving}
+        endIcon={isSaving ? <CircularProgress color="inherit" size="1em" /> : null}
         onClick={onProceed}
         variant="contained"
       >
@@ -50,6 +53,7 @@ ConfirmProceedDialog.propTypes = {
   title: PropTypes.element.isRequired,
   body: PropTypes.element.isRequired,
   cancelLabel: PropTypes.element,
+  isSaving: PropTypes.bool,
   onCancel: PropTypes.func.isRequired,
   onProceed: PropTypes.func.isRequired,
   proceedDisabled: PropTypes.bool,
@@ -59,6 +63,7 @@ ConfirmProceedDialog.propTypes = {
 ConfirmProceedDialog.defaultProps = {
   cancelLabel: null,
   proceedDisabled: false,
+  isSaving: false,
 };
 
 export default ConfirmProceedDialog;
