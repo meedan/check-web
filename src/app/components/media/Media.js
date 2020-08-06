@@ -20,7 +20,8 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
         dbid
         title
         metadata
-        opened
+        read_by_someone: is_read
+        read_by_me: is_read(by_me: true)
         permissions
         pusher_channel
         project_ids

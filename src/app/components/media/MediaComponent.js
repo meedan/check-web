@@ -107,22 +107,23 @@ class MediaComponent extends Component {
     window.addEventListener('resize', this.updatePlayerRect);
     window.addEventListener('scroll', this.updatePlayerRect);
     this.setPlayerRect();
-    if (!this.props.media.opened) {
+    if (!this.props.media.read_by_me) {
       commitMutation(Store, {
         mutation: graphql`
-          mutation MediaComponentUpdateProjectMediaMutation($input: UpdateProjectMediaInput!) {
-            updateProjectMedia(input: $input) {
+          mutation MediaComponentCreateProjectMediaUserMutation($input: CreateProjectMediaUserInput!) {
+            createProjectMediaUser(input: $input) {
               project_media {
                 id
-                opened
+                read_by_someone: is_read
+                read_by_me: is_read(by_me: true)
               }
             }
           }
         `,
         variables: {
           input: {
-            id: this.props.media.id,
-            opened: true,
+            project_media_id: this.props.media.dbid,
+            read: true,
           },
         },
       });

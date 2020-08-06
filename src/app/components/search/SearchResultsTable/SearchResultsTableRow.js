@@ -5,6 +5,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import { makeStyles } from '@material-ui/core/styles';
+import { boxShadow, opaqueBlack05 } from '../../../styles/js/shared';
 
 const swallowClick = (ev) => {
   // prevent <TableRow onClick> from firing when we check the checkbox
@@ -12,16 +13,23 @@ const swallowClick = (ev) => {
 };
 
 const useStyles = makeStyles({
-  root: ({ dbid }) => ({
+  root: ({ dbid, isRead }) => ({
     cursor: dbid ? 'pointer' : 'auto',
+    background: isRead ? opaqueBlack05 : 'transparent',
+  }),
+  hover: ({ isRead }) => ({
+    '&$hover:hover': {
+      boxShadow: boxShadow(1),
+      background: isRead ? opaqueBlack05 : 'transparent',
+    },
   }),
 });
 
 export default function SearchResultsTableRow({
   projectMedia, projectMediaUrl, checked, columnDefs, onChangeChecked,
 }) {
-  const { dbid } = projectMedia;
-  const classes = useStyles({ dbid });
+  const { dbid, is_read: isRead } = projectMedia;
+  const classes = useStyles({ dbid, isRead });
 
   const handleClick = React.useCallback(() => {
     if (!projectMediaUrl) {
@@ -68,6 +76,7 @@ SearchResultsTableRow.propTypes = {
   }).isRequired).isRequired,
   projectMedia: PropTypes.shape({
     dbid: PropTypes.number, // or null/0
+    is_read: PropTypes.bool,
   }).isRequired,
   projectMediaUrl: PropTypes.string, // or null
   checked: PropTypes.bool.isRequired,
