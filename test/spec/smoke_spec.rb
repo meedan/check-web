@@ -1773,7 +1773,7 @@ shared_examples 'smoke' do
     @driver.navigate.to @config['self_url'] + '/' + get_team + '/settings'
     wait_for_selector(".team__primary-info")
     wait_for_selector(".team-settings__statuses-tab").click
-    wait_for_selector("//span[contains(text(), 'English (primary)')]", :xpath)
+    wait_for_selector("//span[contains(text(), 'English (default)')]", :xpath)
     expect(@driver.page_source.include?('Unstarted')).to be(true)
     wait_for_selector(".status-actions__menu").click
     # edit status name

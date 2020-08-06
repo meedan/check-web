@@ -7,10 +7,10 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import styled from 'styled-components';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
-import languagesList from '../../../languagesList';
+import { languageLabel } from '../../../LanguageRegistry';
 import { units } from '../../../styles/js/shared';
 import { FormattedGlobalMessage } from '../../MappedMessage';
-import { StyledStatusLabel } from './StatusListItem';
+import StatusLabel from './StatusLabel';
 
 const StyledTranslateStatusesContainer = styled.div`
   margin: ${units(4)};
@@ -80,15 +80,13 @@ const TranslateStatuses = ({
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <Typography variant="button">
-            { languagesList[defaultLanguage] ?
-              languagesList[defaultLanguage].nativeName : defaultLanguage }
+            { languageLabel(defaultLanguage) }
           </Typography>
         </Grid>
         <Grid item xs={6}>
           <StyledColHeader>
             <Typography variant="button">
-              { languagesList[currentLanguage] ?
-                languagesList[currentLanguage].nativeName : currentLanguage }
+              { languageLabel(currentLanguage) }
             </Typography>
             <Button className="translate-statuses__save" variant="contained" color="primary" onClick={handleSave}>
               <FormattedGlobalMessage messageKey="save" />
@@ -105,10 +103,10 @@ const TranslateStatuses = ({
           key={s.id}
         >
           <Grid item xs={6}>
-            <StyledStatusLabel color={s.style.color}>
+            <StatusLabel color={s.style.color}>
               { s.locales[defaultLanguage] ?
                 s.locales[defaultLanguage].label : s.label }
-            </StyledStatusLabel>
+            </StatusLabel>
           </Grid>
           <Grid item xs={6}>
             <TextField

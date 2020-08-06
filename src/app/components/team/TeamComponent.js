@@ -8,6 +8,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import styled from 'styled-components';
 import TeamBots from './TeamBots';
+import TeamLanguages from './Languages';
 import TeamRules from './Rules';
 import TeamStatuses from './Statuses';
 import TeamTags from './TeamTags';
@@ -184,6 +185,19 @@ class TeamComponent extends Component {
               /> : null }
             {currentUserIsOwner ?
               <Tab
+                className="team-settings__languages-tab"
+                classes={{ root: classes.root }}
+                label={
+                  <FormattedMessage
+                    id="teamSettings.languages"
+                    defaultMessage="Languages"
+                  />
+                }
+                value="languages"
+              />
+              : null }
+            {currentUserIsOwner ?
+              <Tab
                 className="team-settings__statuses-tab"
                 classes={{ root: classes.root }}
                 label={
@@ -275,6 +289,9 @@ class TeamComponent extends Component {
             : null }
           { isSettings && tab === 'statuses'
             ? <TeamStatuses teamSlug={team.slug} />
+            : null }
+          { isSettings && tab === 'languages'
+            ? <TeamLanguages teamSlug={team.slug} />
             : null }
         </div>
       </PageTitle>
