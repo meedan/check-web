@@ -265,7 +265,7 @@ class SearchQueryComponent extends React.Component {
 
   filterIsActive = () => {
     const { query } = this.props;
-    const filterFields = ['range', 'verification_status', 'projects', 'tags', 'show', 'dynamic', 'users'];
+    const filterFields = ['range', 'verification_status', 'projects', 'tags', 'show', 'dynamic', 'users', 'read'];
     return filterFields.some(key => !!query[key]);
   }
 
@@ -282,6 +282,10 @@ class SearchQueryComponent extends React.Component {
   userIsSelected(userId) {
     const array = this.state.query.users;
     return array ? array.includes(userId) : false;
+  }
+
+  readIsSelected(isRead) {
+    return this.state.query.read === isRead;
   }
 
   tagIsSelected(tag) {
@@ -324,6 +328,12 @@ class SearchQueryComponent extends React.Component {
   handleUserClick(userId) {
     this.setState({
       query: toggleStateQueryArrayValue(this.state.query, 'users', userId),
+    });
+  }
+
+  handleReadClick(isRead) {
+    this.setState({
+      query: { ...this.state.query, read: isRead },
     });
   }
 
@@ -668,6 +678,36 @@ class SearchQueryComponent extends React.Component {
                       >
                         {user.node.name}
                       </StyledFilterChip>))}
+                  </StyledFilterRow>
+                  : null}
+
+                {this.showField('read') ?
+                  <StyledFilterRow>
+                    <h4>
+                      <FormattedMessage id="search.readHeading" defaultMessage="Read or unread?" />
+                    </h4>
+                    <StyledFilterChip
+                      active={this.readIsSelected(true)}
+                      onClick={this.handleReadClick.bind(this, true)}
+                      className={bemClass(
+                        'search-filter__read-chip',
+                        this.readIsSelected(true),
+                        '--selected',
+                      )}
+                    >
+                      <FormattedMessage id="search.read" defaultMessage="Read" />
+                    </StyledFilterChip>
+                    <StyledFilterChip
+                      active={this.readIsSelected(false)}
+                      onClick={this.handleReadClick.bind(this, false)}
+                      className={bemClass(
+                        'search-filter__read-chip',
+                        this.readIsSelected(false),
+                        '--selected',
+                      )}
+                    >
+                      <FormattedMessage id="search.unread" defaultMessage="Unread" />
+                    </StyledFilterChip>
                   </StyledFilterRow>
                   : null}
 

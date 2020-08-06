@@ -11,6 +11,9 @@ const useStyles = makeStyles({
     // the rest. (display: float; is too finicky.)
     display: 'flex',
     minWidth: units(30),
+    '&:hover': {
+      textDecoration: 'none',
+    },
   },
   thumbnail: {
     display: 'block',
@@ -35,11 +38,12 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     justifyContent: 'center',
   },
-  title: {
+  title: ({ isRead }) => ({
     maxHeight: units(5),
     color: black87,
     overflow: 'hidden',
-  },
+    fontWeight: isRead ? 'normal' : 'bold',
+  }),
   description: {
     maxHeight: units(5),
     overflow: 'hidden',
@@ -71,8 +75,9 @@ const TitleCell = ({ projectMedia, projectMediaUrl }) => {
     picture,
     title,
     description,
+    is_read: isRead,
   } = projectMedia;
-  const classes = useStyles();
+  const classes = useStyles({ isRead });
 
   return (
     <TableCell className="media__heading" component="th" scope="row">
@@ -93,6 +98,7 @@ TitleCell.propTypes = {
     title: PropTypes.string.isRequired,
     description: PropTypes.string, // may be empty string or null
     picture: PropTypes.string, // thumbnail URL or null
+    is_read: PropTypes.bool,
   }).isRequired,
   projectMediaUrl: PropTypes.string, // or null
 };
