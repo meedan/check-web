@@ -32,7 +32,6 @@ function submitDefaultLanguage({
           team {
             id
             get_language
-            get_languages
           }
         }
       }
@@ -65,7 +64,6 @@ function submitDeleteLanguage({
         updateTeam(input: $input) {
           team {
             id
-            get_language
             get_languages
             rules_json_schema
           }

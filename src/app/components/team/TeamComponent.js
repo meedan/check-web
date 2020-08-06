@@ -196,7 +196,7 @@ class TeamComponent extends Component {
                 value="languages"
               />
               : null }
-            {UserUtil.myRole(this.getCurrentUser(), team.slug) === 'owner' ?
+            {currentUserIsOwner ?
               <Tab
                 className="team-settings__statuses-tab"
                 classes={{ root: classes.root }}

@@ -1,5 +1,9 @@
 [
   {
+    "id": "addLanguageAction.optionLabel",
+    "defaultMessage": "{languageName} ({languageCode})"
+  },
+  {
     "id": "addLanguageAction.newLanguage",
     "defaultMessage": "New language"
   },

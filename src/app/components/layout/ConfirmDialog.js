@@ -106,14 +106,8 @@ ConfirmDialog.propTypes = {
   message: PropTypes.object,
   blurb: PropTypes.node,
   disabled: PropTypes.bool,
-  checkBoxLabel: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.element,
-  ]),
-  continueButtonLabel: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.element,
-  ]),
+  checkBoxLabel: PropTypes.node,
+  continueButtonLabel: PropTypes.node,
 };
 
 export default ConfirmDialog;

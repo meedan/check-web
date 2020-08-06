@@ -1,6 +1,6 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import { commitMutation, createFragmentContainer, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import Button from '@material-ui/core/Button';
@@ -16,6 +16,13 @@ import { FlashMessageSetterContext } from '../../FlashMessage';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
 import { safelyParseJSON, getErrorMessageForRelayModernProblem } from '../../../helpers';
 import LanguageRegistry, { compareLanguages, languageLabel } from '../../../LanguageRegistry';
+
+const messages = defineMessages({
+  optionLabel: {
+    id: 'addLanguageAction.optionLabel',
+    defaultMessage: '{languageName} ({languageCode})',
+  },
+});
 
 function submitAddLanguage({
   team,
@@ -51,7 +58,7 @@ function submitAddLanguage({
   });
 }
 
-const AddLanguageAction = ({ team }) => {
+const AddLanguageAction = ({ team, intl }) => {
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [isSaving, setIsSaving] = React.useState(false);
   const [value, setValue] = React.useState(null);
@@ -61,7 +68,11 @@ const AddLanguageAction = ({ team }) => {
   const options = Object.keys(LanguageRegistry)
     .filter(code => !languages.includes(code))
     .sort((a, b) => compareLanguages(null, a, b));
-  const getOptionLabel = code => `${languageLabel(code)} (${code})`;
+  const getOptionLabel =
+    code => intl.formatMessage(messages.optionLabel, {
+      languageName: languageLabel(code),
+      languageCode: code,
+    });
 
   const handleChange = (e, val) => {
     setValue(val);
@@ -157,9 +168,10 @@ AddLanguageAction.propTypes = {
     id: PropTypes.string.isRequired,
     get_languages: PropTypes.string.isRequired,
   }).isRequired,
+  intl: intlShape.isRequired,
 };
 
-export default createFragmentContainer(AddLanguageAction, graphql`
+export default createFragmentContainer(injectIntl(AddLanguageAction), graphql`
   fragment AddLanguageAction_team on Team {
     id
     get_languages
