@@ -1765,7 +1765,7 @@ shared_examples 'smoke' do
     wait_for_selector(".media-detail")
     wait_for_selector(".media-status__current").click
     wait_for_selector(".media-status__menu-item")
-    ['UNSTARTED', 'INCONCLUSIVE','IN PROGRESS'].each do |status_label|
+    ['Unstarted', 'Inconclusive','In Progress'].each do |status_label|
       expect(@driver.page_source.include?(status_label)).to be(true)
     end
     expect(@driver.page_source.include?('new status')).to be(false)
@@ -1782,7 +1782,7 @@ shared_examples 'smoke' do
     wait_for_selector(".edit-status-dialog__submit").click
     wait_for_selector_none(".edit-status-dialog__dismiss")
     expect(@driver.page_source.include?('new status')).to be(true)
-    expect(@driver.page_source.include?('UNSTARTED')).to be(false)
+    expect(@driver.page_source.include?('Unstarted')).to be(false)
     #make another status as default
     wait_for_selector_list(".status-actions__menu")[3].click
     wait_for_selector(".status-actions__make-default").click
@@ -1795,7 +1795,7 @@ shared_examples 'smoke' do
     wait_for_selector(".media-detail")
     wait_for_selector(".media-status__current").click
     wait_for_selector(".media-status__menu-item")
-    ['UNSTARTED', 'INCONCLUSIVE', 'IN PROGRESS'].each do |status_label|
+    ['Unstarted', 'Inconclusive','In Progress'].each do |status_label|
       expect(@driver.page_source.include?(status_label)).to be(false)
     expect(@driver.page_source.include?('new status')).to be(true)
     end
