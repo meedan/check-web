@@ -122,8 +122,8 @@ const AddLanguageAction = ({ team, intl }) => {
         </DialogTitle>
         <DialogContent>
           <Autocomplete
-            id="autocomplete-media-item"
-            name="autocomplete-media-item"
+            id="autocomplete-add-language"
+            name="autocomplete-add-language"
             options={options}
             openOnFocus
             getOptionLabel={getOptionLabel}

@@ -30,7 +30,7 @@ const TranslationNeededDialog = ({
       </Typography>
     </DialogContent>
     <DialogActions>
-      <Button onClick={onClose}>
+      <Button className="translation-needed-dialog__close" onClick={onClose}>
         <FormattedGlobalMessage messageKey="close" />
       </Button>
     </DialogActions>

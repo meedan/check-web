@@ -175,7 +175,9 @@ const LanguageListItem = ({ code, team }) => {
   return (
     <React.Fragment>
       <ListItem>
-        <ListItemText>
+        <ListItemText
+          className={isDefault ? `language-list-item__${code}-default` : `language-list-item__${code}`}
+        >
           { isDefault ? (
             <FormattedMessage
               id="languageListItem.default"
@@ -185,7 +187,7 @@ const LanguageListItem = ({ code, team }) => {
           ) : listItemText }
         </ListItemText>
         <ListItemSecondaryAction>
-          <IconButton className="status-actions__menu" onClick={e => setAnchorEl(e.target)}>
+          <IconButton className="language-actions__menu" onClick={e => setAnchorEl(e.target)}>
             <IconMoreVert />
           </IconButton>
           <Menu
@@ -193,10 +195,10 @@ const LanguageListItem = ({ code, team }) => {
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
-            <MenuItem className="status-actions__make-default" onClick={handleMenuMakeDefault} disabled={isDefault}>
+            <MenuItem className="language-actions__make-default" onClick={handleMenuMakeDefault} disabled={isDefault}>
               <FormattedMessage id="statusListItem.makeDefault" defaultMessage="Make default" />
             </MenuItem>
-            <MenuItem className="status-actions__delete" onClick={handleMenuDelete} disabled={isDefault}>
+            <MenuItem className="language-actions__delete" onClick={handleMenuDelete} disabled={isDefault}>
               <FormattedGlobalMessage messageKey="delete" />
             </MenuItem>
           </Menu>
