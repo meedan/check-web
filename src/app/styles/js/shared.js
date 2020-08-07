@@ -37,11 +37,12 @@ export const black02 = 'rgba(0, 0, 0, .02)';
 export const opaqueBlack87 = '#212121';
 export const opaqueBlack54 = '#757575';
 export const opaqueBlack38 = '#9e9e9e';
+export const opaqueBlack23 = '#c4c4c4';
 export const opaqueBlack16 = '#d6d6d6';
 export const opaqueBlack10 = '#e5e5e5';
 export const opaqueBlack05 = '#f2f2f2';
+export const opaqueBlack03 = '#f8f8f8';
 export const opaqueBlack02 = '#fafafa';
-export const opaqueBlack23 = '#c4c4c4';
 
 // Social network colors
 //

@@ -5,7 +5,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import { makeStyles } from '@material-ui/core/styles';
-import { boxShadow, opaqueBlack05 } from '../../../styles/js/shared';
+import { opaqueBlack03 } from '../../../styles/js/shared';
 
 const swallowClick = (ev) => {
   // prevent <TableRow onClick> from firing when we check the checkbox
@@ -15,12 +15,12 @@ const swallowClick = (ev) => {
 const useStyles = makeStyles({
   root: ({ dbid, isRead }) => ({
     cursor: dbid ? 'pointer' : 'auto',
-    background: isRead ? opaqueBlack05 : 'transparent',
+    background: isRead ? opaqueBlack03 : 'transparent',
   }),
   hover: ({ isRead }) => ({
     '&$hover:hover': {
-      boxShadow: boxShadow(1),
-      background: isRead ? opaqueBlack05 : 'transparent',
+      boxShadow: '0px 1px 6px rgba(0, 0, 0, 0.25)',
+      background: isRead ? opaqueBlack03 : 'transparent',
     },
   }),
 });
