@@ -102,7 +102,6 @@ const ReportDesignerComponent = (props) => {
         media.last_status,
         option.language,
       );
-      updatedData.options[i].previous_published_status_label = option.status_label;
       updatedData.options[i].status_label = status.label.substring(0, 16);
       updatedData.options[i].theme_color = getStatusStyle(status, 'color');
     });
@@ -165,7 +164,6 @@ const ReportDesignerComponent = (props) => {
 
     const images = {};
     fields.options.forEach((option, i) => {
-      delete fields.options[i].previous_published_status_label;
       const { image } = data.options[i]; // File, String or null
       if (!image || image.preview) {
         // image is a File? The mutation's fields.image must be "" and its

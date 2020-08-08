@@ -32,12 +32,16 @@
     "defaultMessage": "Fill in at least the report text or image to publish your report. Make sure to create a report for the primary language ({language})."
   },
   {
-    "id": "reportDesigner.confirmRepublishTitle",
-    "defaultMessage": "Ready to publish your changes?"
-  },
-  {
     "id": "reportDesigner.confirmPublishTitle",
     "defaultMessage": "Ready to publish your report?"
+  },
+  {
+    "id": "reportDesigner.confirmRepublishResendTitle",
+    "defaultMessage": "Ready to publish your correction?"
+  },
+  {
+    "id": "reportDesigner.confirmRepublishTitle",
+    "defaultMessage": "Ready to publish your changes?"
   },
   {
     "id": "reportDesigner.confirmPublishText",
@@ -46,6 +50,10 @@
   {
     "id": "reportDesigner.confirmRepublishResendText",
     "defaultMessage": "{demand, plural, one {Your correction will be sent to the user who has received the previous report.} other {Your correction will be sent to the # users who have received the previous report.}}"
+  },
+  {
+    "id": "reportDesigner.republishAndResend",
+    "defaultMessage": "{demand, plural, one {Also send correction to the user who already received the previous version of this report} other {Also send correction to the # users who already received the previous version of this report}}"
   },
   {
     "id": "reportDesigner.confirmPublishText2",
