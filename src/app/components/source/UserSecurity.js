@@ -419,13 +419,13 @@ class UserSecurity extends Component {
                     <span style={{ lineHeight: units(3) }}>
                       <FormattedMessage
                         id="userSecurity.backupDescription"
-                        defaultMessage="We strongly suggest that you generate and print backup codes using the button below. These are single-use tokens to be used instead of your two-factor token in the event that you lose access to your two-factor device."
+                        defaultMessage="We strongly suggest that you generate and print backup codes using the button below. These are single-use codes to be used instead of 2FA login in the event that you lose access to your 2FA device."
                       />
                     </span>
                     <p>
                       <FormattedMessage
                         id="userSecurity.backupNote"
-                        defaultMessage="Note: any existing backup codes will be invalidated by clicking the button."
+                        defaultMessage="Note: Existing backup codes will be invalidated by clicking this button."
                       />
                     </p>
                     <Button
