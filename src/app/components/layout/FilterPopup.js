@@ -55,7 +55,7 @@ class FilterPopup extends React.Component {
         >
           <StyledPaper>
             {this.props.onSearchChange ? (
-              <FormattedMessage id="MultiSelector.search" defaultMessage="Search...">
+              <FormattedMessage id="MultiSelector.search" defaultMessage="Search…">
                 {placeholder => (
                   <TextField
                     defaultValue={this.props.search}

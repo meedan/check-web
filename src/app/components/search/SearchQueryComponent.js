@@ -265,7 +265,7 @@ class SearchQueryComponent extends React.Component {
 
   filterIsActive = () => {
     const { query } = this.props;
-    const filterFields = ['range', 'verification_status', 'projects', 'tags', 'show', 'dynamic'];
+    const filterFields = ['range', 'verification_status', 'projects', 'tags', 'show', 'dynamic', 'users', 'read'];
     return filterFields.some(key => !!query[key]);
   }
 
@@ -277,6 +277,15 @@ class SearchQueryComponent extends React.Component {
   projectIsSelected(projectId) {
     const array = this.state.query.projects;
     return array ? array.includes(projectId) : false;
+  }
+
+  userIsSelected(userId) {
+    const array = this.state.query.users;
+    return array ? array.includes(userId) : false;
+  }
+
+  readIsSelected(isRead) {
+    return this.state.query.read === isRead;
   }
 
   tagIsSelected(tag) {
@@ -313,6 +322,18 @@ class SearchQueryComponent extends React.Component {
   handleProjectClick(projectId) {
     this.setState({
       query: toggleStateQueryArrayValue(this.state.query, 'projects', projectId),
+    });
+  }
+
+  handleUserClick(userId) {
+    this.setState({
+      query: toggleStateQueryArrayValue(this.state.query, 'users', userId),
+    });
+  }
+
+  handleReadClick(isRead) {
+    this.setState({
+      query: { ...this.state.query, read: isRead },
     });
   }
 
@@ -486,6 +507,11 @@ class SearchQueryComponent extends React.Component {
       projects = team.projects.edges.slice().sort((a, b) =>
         a.node.title.localeCompare(b.node.title));
     }
+    let users = [];
+    if (team.users) {
+      users = team.users.edges.slice().sort((a, b) =>
+        a.node.name.localeCompare(b.node.name));
+    }
 
     const { currentUser } = this.currentContext();
     const plainTagsTexts = team.tag_texts ?
@@ -634,6 +660,57 @@ class SearchQueryComponent extends React.Component {
                   </StyledFilterRow>
                   : null}
 
+                {this.showField('user') && users.length ?
+                  <StyledFilterRow>
+                    <h4>
+                      <FormattedMessage id="search.userHeading" defaultMessage="Author" />
+                    </h4>
+                    {users.map(user => (
+                      <StyledFilterChip
+                        active={this.userIsSelected(user.node.dbid)}
+                        key={user.node.dbid}
+                        onClick={this.handleUserClick.bind(this, user.node.dbid)}
+                        className={bemClass(
+                          'search-filter__user-chip',
+                          this.userIsSelected(user.node.dbid),
+                          '--selected',
+                        )}
+                      >
+                        {user.node.name}
+                      </StyledFilterChip>))}
+                  </StyledFilterRow>
+                  : null}
+
+                {this.showField('read') ?
+                  <StyledFilterRow>
+                    <h4>
+                      <FormattedMessage id="search.readHeading" defaultMessage="Read or unread?" />
+                    </h4>
+                    <StyledFilterChip
+                      active={this.readIsSelected(true)}
+                      onClick={this.handleReadClick.bind(this, true)}
+                      className={bemClass(
+                        'search-filter__read-chip',
+                        this.readIsSelected(true),
+                        '--selected',
+                      )}
+                    >
+                      <FormattedMessage id="search.read" defaultMessage="Read" />
+                    </StyledFilterChip>
+                    <StyledFilterChip
+                      active={this.readIsSelected(false)}
+                      onClick={this.handleReadClick.bind(this, false)}
+                      className={bemClass(
+                        'search-filter__read-chip',
+                        this.readIsSelected(false),
+                        '--selected',
+                      )}
+                    >
+                      <FormattedMessage id="search.unread" defaultMessage="Unread" />
+                    </StyledFilterChip>
+                  </StyledFilterRow>
+                  : null}
+
                 {this.showField('tags') && plainTagsTexts.length ?
                   <StyledFilterRow>
                     <h4>
@@ -702,6 +779,17 @@ class SearchQueryComponent extends React.Component {
                       )}
                     >
                       <FormattedMessage id="search.showVideos" defaultMessage="Videos" />
+                    </StyledFilterChip>
+                    <StyledFilterChip
+                      active={this.showIsSelected('audios')}
+                      onClick={this.handleShowClick.bind(this, 'audios')}
+                      className={bemClass(
+                        'search-query__filter-button',
+                        this.showIsSelected('audios'),
+                        '--selected',
+                      )}
+                    >
+                      <FormattedMessage id="search.showAudios" defaultMessage="Audios" />
                     </StyledFilterChip>
                   </StyledFilterRow>
                   : null}
@@ -807,6 +895,18 @@ SearchQueryComponent.propTypes = {
   clientSessionId: PropTypes.string.isRequired,
   query: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired, // onChange({ ... /* query */ }) => undefined
+  team: PropTypes.shape({
+    dynamic_search_fields_json_schema: PropTypes.shape({
+      properties: PropTypes.object.isRequired,
+    }).isRequired,
+    rules_search_fields_json_schema: PropTypes.shape({
+      rules: PropTypes.shape({
+        properties: PropTypes.arrayOf(PropTypes.shape({
+          label: PropTypes.string.isRequired,
+        }).isRequired).isRequired,
+      }).isRequired,
+    }),
+  }).isRequired,
 };
 
 SearchQueryComponent.contextTypes = {

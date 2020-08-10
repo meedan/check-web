@@ -3,30 +3,32 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
-import languagesList from '../languagesList';
+import { compareLanguages, languageLabel } from '../LanguageRegistry';
 
 const LanguageSwitcher = (props) => {
   const handleChange = (event, newValue) => {
     props.onChange(newValue);
   };
 
+  const { primaryLanguage, currentLanguage } = props;
+  const languages = props.languages.sort((a, b) => compareLanguages(primaryLanguage, a, b));
+
   return (
     <Tabs
-      value={props.currentLanguage}
+      value={currentLanguage}
       onChange={handleChange}
       scrollButtons="auto"
       variant="scrollable"
     >
-      { props.languages.map((languageCode) => {
-        const label = Object.keys(languagesList).indexOf(languageCode) > -1 ?
-          languagesList[languageCode].nativeName : languageCode;
+      { languages.map((languageCode) => {
+        const label = languageLabel(languageCode);
         return (
           <Tab
             label={
-              languageCode === props.primaryLanguage ?
+              languageCode === primaryLanguage ?
                 <FormattedMessage
                   id="languageSwitcher.primaryLanguage"
-                  defaultMessage="{language} (primary)"
+                  defaultMessage="{language} (default)"
                   values={{
                     language: label,
                   }}

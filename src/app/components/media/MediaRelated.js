@@ -213,26 +213,27 @@ const MediaRelatedContainer = Relay.createContainer(withPusher(MediaRelatedCompo
         archived
         permissions
         pusher_channel
-        projects(first: 10000) {
-          edges {
-            node {
-              id
-              dbid
-              title
-              search_id
-              search { id, number_of_results }
-              medias_count
-            }
-          }
-        }
         media {
           quote
         }
-        team {
+        team {  # TODO pass as separate prop
           id
           slug
           permissions
           search_id
+          projects(first: 10000) {  # for CreateRelatedMedia's CreateProjectMediaMutation
+            # TODO pass as separate prop
+            edges {
+              node {
+                id
+                dbid
+                title
+                search_id
+                search { id, number_of_results }
+                medias_count
+              }
+            }
+          }
         }
         relationships {
           id

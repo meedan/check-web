@@ -311,7 +311,7 @@ class SearchResultsComponent extends React.PureComponent {
       ? this.props.search.medias.edges.map(({ node }) => node)
       : [];
 
-    const count = this.props.search ? this.props.search.number_of_results : 0;
+    const count = this.props.search.number_of_results;
     const { team } = this.props.search;
     const isIdInSearchResults = wantedId => projectMedias.some(({ id }) => id === wantedId);
     const selectedProjectMediaIds = this.state.selectedProjectMediaIds.filter(isIdInSearchResults);
@@ -502,6 +502,7 @@ const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsCom
         pusher_channel,
         team {
           ${BulkActions.getFragment('team')}
+          ${SearchQuery.getFragment('team')}
           id
           slug
           search_id,
@@ -538,6 +539,7 @@ const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsCom
               first_seen: created_at,
               last_seen,
               share_count,
+              is_read,
               project_media_project(project_id: $projectId) {
                 dbid
                 id

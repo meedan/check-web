@@ -13,7 +13,7 @@ import UpdateStatusMutation from '../../relay/mutations/UpdateStatusMutation';
 import CreateDynamicMutation from '../../relay/mutations/CreateDynamicMutation';
 import { can } from '../Can';
 import CheckContext from '../../CheckContext';
-import UploadImage from '../UploadImage';
+import UploadFile from '../UploadFile';
 import { ContentColumn, Row, black38, black87, units } from '../../styles/js/shared';
 import { getErrorMessage } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
@@ -358,7 +358,7 @@ class AddAnnotation extends Component {
             )}
           </FormattedMessage>
           {this.state.fileMode ? (
-            <UploadImage
+            <UploadFile
               type="image"
               value={this.state.image}
               onChange={this.onImageChange}

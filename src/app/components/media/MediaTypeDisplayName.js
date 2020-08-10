@@ -12,13 +12,15 @@ export default function MediaTypeDisplayName({ mediaType }) {
     return <FormattedMessage id="media.typeImage" defaultMessage="Image" />;
   case 'UploadedVideo':
     return <FormattedMessage id="media.typeVideo" defaultMessage="Video" />;
+  case 'UploadedAudio':
+    return <FormattedMessage id="media.typeAudio" defaultMessage="Audio" />;
   case '-':
   default:
     return <React.Fragment>-</React.Fragment>;
   }
 }
 MediaTypeDisplayName.MediaTypeShape = PropTypes.oneOf([
-  'Claim', 'Link', 'UploadedImage', 'UploadedVideo', '-',
+  'Claim', 'Link', 'UploadedImage', 'UploadedVideo', 'UploadedAudio', '-',
 ]);
 MediaTypeDisplayName.propTypes = {
   mediaType: MediaTypeDisplayName.MediaTypeShape.isRequired,

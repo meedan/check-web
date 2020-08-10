@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { graphql, commitMutation } from 'react-relay/compat';
+import { Store } from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
@@ -105,6 +107,27 @@ class MediaComponent extends Component {
     window.addEventListener('resize', this.updatePlayerRect);
     window.addEventListener('scroll', this.updatePlayerRect);
     this.setPlayerRect();
+    if (!this.props.media.read_by_me) {
+      commitMutation(Store, {
+        mutation: graphql`
+          mutation MediaComponentCreateProjectMediaUserMutation($input: CreateProjectMediaUserInput!) {
+            createProjectMediaUser(input: $input) {
+              project_media {
+                id
+                read_by_someone: is_read
+                read_by_me: is_read(by_me: true)
+              }
+            }
+          }
+        `,
+        variables: {
+          input: {
+            project_media_id: this.props.media.dbid,
+            read: true,
+          },
+        },
+      });
+    }
   }
 
   componentWillUpdate(nextProps) {

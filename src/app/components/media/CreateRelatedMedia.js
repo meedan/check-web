@@ -56,7 +56,7 @@ class CreateRelatedMedia extends Component {
       new CreateProjectMediaMutation({
         ...value,
         context,
-        project: getCurrentProject(this.props.media.projects),
+        project: getCurrentProject(this.props.media.team.projects),
         team: this.props.media.team,
         related: this.props.media,
         related_to_id: this.props.media.dbid,
@@ -88,7 +88,7 @@ class CreateRelatedMedia extends Component {
         obj,
         context,
         id: obj.id,
-        project: getCurrentProject(this.props.media.projects),
+        project: getCurrentProject(this.props.media.team.projects),
         related_to: this.props.media,
         related_to_id: this.props.media.dbid,
         relationships_target_id: this.props.media.relationships.target_id,

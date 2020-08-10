@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Button from '@material-ui/core/Button';
-import UploadImage from '../UploadImage';
+import UploadFile from '../UploadFile';
 import Message from '../Message';
 
 export default function ImageUploadRespondTask({
@@ -33,7 +33,7 @@ export default function ImageUploadRespondTask({
   return (
     <div>
       <Message message={state.message} />
-      <UploadImage
+      <UploadFile
         type="image"
         value={state.image}
         onChange={handleChange}

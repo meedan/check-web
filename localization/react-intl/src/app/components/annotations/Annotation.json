@@ -61,7 +61,7 @@
   },
   {
     "id": "annotation.deletedComment",
-    "defaultMessage": "Comment deleted by {author}{comment}"
+    "defaultMessage": "Comment deleted by {author}: {comment}"
   },
   {
     "id": "annotation.taskCreated",

@@ -11,7 +11,7 @@ import capitalize from 'lodash.capitalize';
 import LinkifyIt from 'linkify-it';
 import SourcePicture from './SourcePicture';
 import Message from '../Message';
-import UploadImage from '../UploadImage';
+import UploadFile from '../UploadFile';
 import globalStrings from '../../globalStrings';
 import UpdateSourceMutation from '../../relay/mutations/UpdateSourceMutation';
 import { updateUserNameEmail } from '../../relay/mutations/UpdateUserNameEmailMutation';
@@ -494,7 +494,7 @@ class UserInfoEdit extends React.Component {
               name="edit-source-form"
             >
               {this.state.editProfileImg ?
-                <UploadImage
+                <UploadFile
                   type="image"
                   value={this.state.image}
                   onChange={this.handleImageChange}

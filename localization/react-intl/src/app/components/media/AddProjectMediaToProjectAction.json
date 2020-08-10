@@ -1,0 +1,22 @@
+[
+  {
+    "id": "mediaMetadata.addedToList",
+    "defaultMessage": "Added to list {listName}"
+  },
+  {
+    "id": "mediaActionsBar.addTo",
+    "defaultMessage": "Add to…"
+  },
+  {
+    "id": "mediaActionsBar.dialogAddToListTitle",
+    "defaultMessage": "Add to a different list"
+  },
+  {
+    "id": "mediaActionsBar.cancelButton",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "mediaActionsBar.add",
+    "defaultMessage": "Add"
+  }
+]

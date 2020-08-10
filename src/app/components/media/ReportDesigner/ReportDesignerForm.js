@@ -12,7 +12,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { SliderPicker } from 'react-color';
 import ReportDesignerFormSection from './ReportDesignerFormSection';
-import UploadImage from '../../UploadImage';
+import UploadFile from '../../UploadFile';
 import { checkBlue } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
@@ -97,7 +97,7 @@ const ReportDesignerForm = (props) => {
         >
           <FormattedMessage
             id="reportDesigner.introductionPlaceholder"
-            defaultMessage="Type your introduction here..."
+            defaultMessage="Type your introduction here…"
           >
             {introductionPlaceholder => (
               <TextField
@@ -133,7 +133,7 @@ const ReportDesignerForm = (props) => {
             />
           }
         >
-          <UploadImage onChange={handleImageChange} onError={handleImageError} type="image" />
+          <UploadFile onChange={handleImageChange} onError={handleImageError} type="image" />
           <Box>
             { media.media.picture ?
               <Button onClick={handleDefaultImage}>
@@ -251,7 +251,7 @@ const ReportDesignerForm = (props) => {
         >
           <FormattedMessage
             id="reportDesigner.textPlaceholder"
-            defaultMessage="Type your report here..."
+            defaultMessage="Type your report here…"
           >
             {textPlaceholder => (
               <TextField

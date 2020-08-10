@@ -63,7 +63,7 @@ const EmbedUpdate = (props) => {
           {editedNote ?
             <FormattedMessage
               id="annotation.embedNoteUpdated"
-              defaultMessage="Item description edited by {author}{description}"
+              defaultMessage="Item description edited by {author}: {description}"
               values={{
                 author,
                 description: <ParsedText test={to.description} block />,
@@ -74,7 +74,7 @@ const EmbedUpdate = (props) => {
           {createdNote ?
             <FormattedMessage
               id="annotation.embedNoteCreated"
-              defaultMessage="Item description added by {author}{description}"
+              defaultMessage="Item description added by {author}: {description}"
               values={{
                 author,
                 description: <ParsedText test={to.description} block />,
@@ -85,7 +85,7 @@ const EmbedUpdate = (props) => {
           {removedNote ?
             <FormattedMessage
               id="annotation.embedNoteRemoved"
-              defaultMessage="Item description removed by {author}{description}"
+              defaultMessage="Item description removed by {author}: {description}"
               values={{
                 author,
                 description: <ParsedText test={to.description} block />,
