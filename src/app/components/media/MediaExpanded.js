@@ -129,13 +129,23 @@ class MediaExpandedComponent extends Component {
     const randomNumber = Math.floor(Math.random() * 1000000);
     const { mediaUrl, mediaQuery } = this.props;
     const hasCustomDescription = mediaHasCustomDescription(media, data);
+    let style = {};
+    if (media.media.type === 'UploadedAudio') {
+      const backgroundImage = media.media.thumbnail_path === null ? '/images/player_cover.svg' : media.media.thumbnail_path;
+      style = {
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        backgroundColor: '#979797',
+      };
+    }
 
     const embedCard = (() => {
       if (isImage) {
         return <ImageMediaCard imagePath={media.embed_path} />;
       } else if (isMedia || isYoutube) {
         return (
-          <div ref={this.props.playerRef}>
+          <div ref={this.props.playerRef} style={style}>
             <MediaPlayerCard
               filePath={filePath}
               {...{
