@@ -18,11 +18,10 @@ shared_examples 'smoke' do
   end
 
   it "should login using Facebook", bin5: true, quick:true do
-    login_pg = LoginPage.new(config: @config, driver: @driver).load
-    login_pg.login_with_facebook
-    me_pg = MePage.new(config: @config, driver: login_pg.driver).load
-    displayed_name = me_pg.title
-    expected_name = @config['facebook_name']
+    login_with_facebook
+    @driver.navigate.to @config['self_url'] + '/check/me'
+    displayed_name = wait_for_selector('h1.source__name').text.upcase
+    expected_name = @config['facebook_name'].upcase
     expect(displayed_name).to eq(expected_name)
   end
 
@@ -54,11 +53,9 @@ shared_examples 'smoke' do
   end
 
   it "should register and login using e-mail", bin5: true, quick:true do
-    login_pg = LoginPage.new(config: @config, driver: @driver).load
-    email, password = ['sysops+' + Time.now.to_i.to_s + '@meedan.com', '22345678']
-    login_pg.register_and_login_with_email(email: email, password: password)
-    me_pg = MePage.new(config: @config, driver: login_pg.driver).load # reuse tab
-    displayed_name = me_pg.title
+    register_with_email
+    @driver.navigate.to @config['self_url'] + '/check/me'
+    displayed_name = wait_for_selector('h1.source__name').text
     expect(displayed_name == 'User With Email').to be(true)
   end
 
@@ -77,7 +74,7 @@ shared_examples 'smoke' do
     api_create_team(team: team)
     api_logout
     @driver.quit
-    @driver = new_driver(@webdriver_url,@browser_capabilities)
+    @driver = new_driver()
     @driver.navigate.to @config['self_url'] + "/"+team+"/join"
     wait_for_selector(".message")
     expect(@driver.page_source.include?("First you need to register. Once registered, you can request to join the workspace.")).to be(true)
@@ -87,8 +84,13 @@ shared_examples 'smoke' do
 #security section start
   it "should reset password", bin5: true do
     user = api_create_and_confirm_user
-    page = LoginPage.new(config: @config, driver: @driver)
-    page.reset_password(user.email)
+    api_logout
+    @driver.quit
+    @driver = new_driver()
+    @driver.navigate.to @config['self_url']
+    wait_for_selector('.login__forgot-password a').click
+    wait_for_selector('#password-reset-email-input').send_keys(user.email)
+    wait_for_selector('.user-password-reset__actions button + button').click
     wait_for_selector_none(".user-password-reset__email-input")
     expect(@driver.page_source.include?('email was not found')).to be(false)
     expect(@driver.page_source.include?('Password reset sent')).to be(true)
@@ -135,13 +137,9 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('Who agrees with this')).to be(true)
   end
 
-  it "should register, create a claim and assign it", bin4: true do
-    page = LoginPage.new(config: @config, driver: @driver).load
-    page = page.register_and_login_with_email(email: "sysops+#{Time.now.to_i}#{rand(1000)}@meedan.com", password: @password)
-    page
-      .create_team
-      .create_project
-      .create_media(input: 'Claim')
+  it "should create a item and assign it", bin4: true do
+    api_create_team_project_and_claim_and_redirect_to_media_page
+    wait_for_selector(".media")
     expect(@driver.page_source.include?('Assigments updated successfully!')).to be(false)
     wait_for_selector('.media-actions__icon').click
     wait_for_selector(".media-actions__assign").click
@@ -813,7 +811,7 @@ shared_examples 'smoke' do
   end
 
   it "should generate a report, copy the share url and open the report page in a incognito window", bin4: true do
-   api_create_team_and_project
+    api_create_team_and_project
     @driver.navigate.to @config['self_url']
     wait_for_selector('.project__description')
     create_image('test.png')
@@ -1109,7 +1107,7 @@ shared_examples 'smoke' do
     api_logout
     @driver.quit
 
-    @driver = new_driver(@webdriver_url,@browser_capabilities)
+    @driver = new_driver()
     page = Page.new(config: @config, driver: @driver)
     page.go(@config['api_path'] + '/test/session?email='+@user_mail)
 
@@ -1152,7 +1150,7 @@ shared_examples 'smoke' do
     api_logout
     @driver.quit
 
-    @driver = new_driver(@webdriver_url,@browser_capabilities)
+    @driver = new_driver()
     page = Page.new(config: @config, driver: @driver)
     page.go(@config['api_path'] + '/test/session?email='+@user_mail)
     page = MePage.new(config: @config, driver: @driver).load
@@ -1205,7 +1203,7 @@ shared_examples 'smoke' do
     }
     api_logout
     @driver.quit
-    @driver = new_driver(@webdriver_url,@browser_capabilities)
+    @driver = new_driver()
     page = Page.new(config: @config, driver: @driver)
     page.go(@config['api_path'] + '/test/session?email='+@user_mail)
     #As the group creator, go to the members page and approve the joining request.
@@ -1250,7 +1248,7 @@ shared_examples 'smoke' do
     api_logout
     @driver.quit
     #As the journalist, go to the members page and can't see the request to join the another user
-    @driver = new_driver(@webdriver_url,@browser_capabilities)
+    @driver = new_driver()
     page = Page.new(config: @config, driver: @driver)
     page.go(@config['api_path'] + '/test/session?email=new'+@user_mail)
     page = MePage.new(config: @config, driver: @driver).load
@@ -1289,7 +1287,7 @@ shared_examples 'smoke' do
     @driver.quit
 
     #As the group creator, go to the members page and edit team member role to 'contribuitor'
-    @driver = new_driver(@webdriver_url,@browser_capabilities)
+    @driver = new_driver()
     page = Page.new(config: @config, driver: @driver)
     page.go(@config['api_path'] + '/test/session?email='+@user_mail)
     page = MePage.new(config: @config, driver: @driver).load
@@ -1303,7 +1301,7 @@ shared_examples 'smoke' do
     @driver.quit
 
     #log in as the contributor
-    @driver = new_driver(@webdriver_url,@browser_capabilities)
+    @driver = new_driver()
     page = Page.new(config: @config, driver: @driver)
     page.go(@config['api_path'] + '/test/session?email=new'+@user_mail)
     page = MePage.new(config: @config, driver: @driver).load
@@ -1350,9 +1348,12 @@ shared_examples 'smoke' do
     wait_for_selector('.rules__rule-field div[role="button"]').click
     wait_for_selector('ul[role=listbox] li[role=option]').click
     wait_for_selector('.rules__rule-field textarea').send_keys('foo,bar')
-    wait_for_selector('body').click
 
     # Select an action
+    wait_for_selector('.rules__actions .rules__rule-field div[role="button"]').click
+    # https://mantis.meedan.com/view.php?id=8463 clicking the select field
+    # doesn't open it. So let's click the select field again. FIXME fix #8463,
+    # then nix this line.
     wait_for_selector('.rules__actions .rules__rule-field div[role="button"]').click
     wait_for_selector('ul[role=listbox] li[role=option]').click
     expect(@driver.page_source.include?('Select destination list')).to be(true)
@@ -1391,8 +1392,7 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('Select destination list')).to be(true)
 
     #edit rule
-    wait_for_selector('input[name="rule-name"]').click
-    @driver.action.send_keys('- Edited').perform
+    wait_for_selector('input[name="rule-name"]').send_keys("- Edited")
     wait_for_selector('.rules__save-button').click
     wait_for_selector('#tableTitle')
     expect(@driver.page_source.include?('1 rule')).to be(true)

@@ -6,26 +6,11 @@ module AppSpecHelpers
   end
 
   def fill_field(selector, value, type = :css, visible = true)
-    wait = Selenium::WebDriver::Wait.new(timeout: 50)
-    input = wait.until {
-      element = @driver.find_element(type, selector)
-      if visible
-        element if element.displayed?
-      else
-        element
-      end
-    }
-    sleep 1
-    input.send_keys(value)
+    wait_for_selector(selector,type).send_keys(value)
   end
 
   def press_button(selector = 'button', type = :css)
-    wait = Selenium::WebDriver::Wait.new(timeout: 100)
-    input = wait.until {
-      element = @driver.find_element(type, selector)
-      element if element.displayed?
-    }
-    input.click
+    wait_for_selector(selector).click
   end
 
   def alert_accept
@@ -244,7 +229,7 @@ module AppSpecHelpers
   end
 
   def agree_to_tos(should_submit = true)
-    element = wait_for_selector('#tos__tos-agree', :css, 10)
+    element = wait_for_selector('#tos__tos-agree', :css)
     if element != nil
       @driver.find_element(:css, '#tos__tos-agree').click
       sleep 1
@@ -284,9 +269,9 @@ module AppSpecHelpers
     wait_for_selector('input[type=file]').send_keys(File.join(File.dirname(__FILE__), 'test.png'))
     agree_to_tos(false)
     press_button('#submit-register-or-login')
-    sleep 3
+    wait_for_selector_none(".login__name")
     confirm_email(email)
-    sleep 1
+    sleep 3
     login_with_email(true, email) if should_login
   end
 
@@ -326,16 +311,9 @@ module AppSpecHelpers
   end
 
   def create_claim_and_go_to_search_page
-    page = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @email, password: @password)
-    @wait.until { @driver.page_source.include?('Claim') }
-    page.create_media(input: 'My search result')
-
-    sleep 8 # wait for Sidekiq
-
-    @driver.navigate.to @config['self_url'] + '/' + get_team + '/search'
-
-    sleep 8 # wait for Godot
-
+    login_with_email
+    wait_for_selector("#input")
+    create_media('My search result')
     expect(@driver.page_source.include?('My search result')).to be(true)
   end
 
@@ -372,8 +350,8 @@ module AppSpecHelpers
   def go(new_url)
     if defined? $caller_name and $caller_name.length > 0
       method_id = $caller_name[0]
-      method_id.gsub! (/(\s)/), '_'
-      method_id.gsub! (/("|\[|\])/), ''
+        .gsub(/\s/, '_')
+        .gsub(/"|\[|\]/, '')
       if new_url.include? '?'
         new_url = new_url + '&test_id='+method_id
       else
@@ -383,40 +361,37 @@ module AppSpecHelpers
     @driver.navigate.to new_url
   end
 
-  def new_driver(webdriver_url, browser_capabilities)
-    if @config.key?('proxy')
-      proxy = Selenium::WebDriver::Proxy.new(
-        :http     => @config['proxy'],
-        :ftp      => @config['proxy'],
-        :ssl      => @config['proxy']
+  def new_driver(chrome_prefs: {}, extra_chrome_args: [])
+    proxy = if @config.key?('proxy')
+      Selenium::WebDriver::Proxy.new(
+        http: @config['proxy'],
+        ftp: @config['proxy'],
+        ssl: @config['proxy']
       )
-      if (Dir.entries(".").include? "extension.crx")
-        caps = Selenium::WebDriver::Remote::Capabilities.chrome ({
-            'chromeOptions' => {
-              'extensions' => [
-                Base64.strict_encode64(File.open('./extension.crx', 'rb').read)
-              ]
-            }, :proxy => proxy
-          })
-      else
-        caps = Selenium::WebDriver::Remote::Capabilities.chrome(:proxy => proxy)
-      end
-      dr = Selenium::WebDriver.for(:chrome, :desired_capabilities => caps , :url => webdriver_url)
     else
-      if ((Dir.entries(".").include? "extension.crx") and (browser_capabilities == :chrome))
-        caps = Selenium::WebDriver::Remote::Capabilities.chrome ({
-            'chromeOptions' => {
-              'extensions' => [
-                Base64.strict_encode64(File.open('./extension.crx', 'rb').read)
-              ]
-            }
-          })
-        dr = Selenium::WebDriver.for(:chrome, :desired_capabilities => caps , :url => webdriver_url)
-      else
-        dr = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
-      end
+      nil
     end
-    dr
+
+    extensions = begin
+      [ Base64.strict_encode64(File.open('./extension.crx', 'rb').read) ]
+    rescue Errno::ENOENT
+      []
+    end
+
+    chrome_args = %w(disable-gpu no-sandbox disable-dev-shm-usage)
+
+    chrome_options = {
+      extensions: extensions,
+      prefs: chrome_prefs,
+      args: chrome_args + extra_chrome_args,
+    }
+
+    desired_capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+      proxy: proxy,
+      chromeOptions: chrome_options,
+    )
+
+    Selenium::WebDriver.for(:chrome, desired_capabilities: desired_capabilities, url: @webdriver_url)
   end
 
   def install_bot (team, bot_name)
@@ -456,5 +431,28 @@ module AppSpecHelpers
     wait_for_selector('#confirm-dialog__checkbox').click
     wait_for_selector('#confirm-dialog__confirm-action-button').click
     wait_for_selector('.team-members__edit-button', :css).click
+  end
+
+  def login_with_facebook
+    @driver.navigate.to 'https://www.facebook.com'
+    wait_for_selector('#email').send_keys(@config['facebook_user'])
+    wait_for_selector('#pass').send_keys(@config['facebook_password'])
+    wait_for_selector('#loginbutton input').click
+    wait_for_selector_none("#pass")
+
+    @driver.navigate.to @config['self_url']
+    wait_for_selector('#facebook-login').click
+
+    window = @driver.window_handles.first
+    @driver.switch_to.window(window)
+    sleep 5
+    agree_to_tos
+    wait_for_selector('.home')
+  end
+
+  def reset_password(email)
+    wait_for_selector('.login__forgot-password a').click
+    wait_for_selector('#password-reset-email-input').send_keys(email)
+    wait_for_selector('.user-password-reset__actions button + button').click
   end
 end

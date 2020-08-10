@@ -13,48 +13,50 @@ require_relative './media_spec.rb'
 CONFIG = YAML.load_file('config.yml')
 require_relative "#{CONFIG['app_name']}_spec.rb"
 
-shared_examples 'app' do |webdriver_url, browser_capabilities|
+shared_examples 'app' do |webdriver_url|
 
   # Helpers
   include AppSpecHelpers
   include ApiHelpers
 
   before :all do
-    @wait = Selenium::WebDriver::Wait.new(timeout: 10)
-
-    @email = "sysops+#{Time.now.to_i}#{Process.pid}@meedan.com"
-    @password = '12345678'
-    @source_name = 'Iron Maiden'
-    @source_url = 'https://twitter.com/ironmaiden?timestamp=' + Time.now.to_i.to_s
-    @media_url = 'https://twitter.com/meedan/status/773947372527288320/?t=' + Time.now.to_i.to_s
     @config = CONFIG
-    @team1_slug = 'team1'+Time.now.to_i.to_s
-    @user_mail = 'sysops_' + Time.now.to_i.to_s + '@meedan.com'
     @webdriver_url = webdriver_url
-    @browser_capabilities = browser_capabilities
-
-    begin
-      FileUtils.cp('./config.js', '../build/web/js/config.js')
-    rescue
-      puts "Could not copy local ./config.js to ../build/web/js/"
-    end
-
-    #EXTRACT USER:PWD FROM URL FOR CHROME
-    if ((browser_capabilities == :chrome) and (@config['self_url'].include? "@" and @config['self_url'].include? ":"))
-      @config['self_url'] = @config['self_url'][0..(@config['self_url'].index('//')+1)] + @config['self_url'][(@config['self_url'].index('@')+1)..-1]
-    end
-
-    @driver = new_driver(webdriver_url,browser_capabilities)
-    api_create_team_project_and_claim(true)
+    FileUtils.ln_sf(File.realpath('./config.js'), '../build/web/js/config.js')
   end
 
   after :all do
-    FileUtils.cp('../config.js', '../build/web/js/config.js')
+    begin
+      FileUtils.ln_sf(File.realpath('../config.js'), '../build/web/js/config.js')
+    rescue Errno::ENOENT
+      puts "Could not copy config.js to ../build/web/js/"
+    end
   end
 
   before :each do |example|
-    $caller_name = example.metadata[:description_args]
-    @driver = new_driver(webdriver_url,browser_capabilities)
+    $caller_name = example.metadata[:description_args]  # for Page#go()
+  end
+
+  around(:each) do |example|
+    @wait = Selenium::WebDriver::Wait.new(timeout: 10)
+    @driver = new_driver()
+    begin
+      example.run
+    ensure
+      @driver.quit
+    end
+  end
+
+  before :each do |example|
+    @password = '12345678'
+
+    test_hash = [example.metadata[:description_args], Process.pid].hash.to_s
+    @email = "sysops+#{test_hash}@meedan.com"
+    @source_name = 'Iron Maiden'
+    @source_url = "https://twitter.com/ironmaiden?_test_hash=#{test_hash}"
+    @media_url = "https://twitter.com/meedan/status/773947372527288320/?_test_hash=#{test_hash}"
+    @team1_slug = "team1_#{test_hash}"
+    @user_mail = "sysops_#{test_hash}@meedan.com"
   end
 
   after :each do |example|
@@ -62,7 +64,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       link = save_screenshot("Test failed: #{example.description}")
       print " [Test \"#{example.description}\" failed! Check screenshot at #{link} and browser console output: #{console_logs}] "
     end
-    @driver.quit
   end
 
   # The tests themselves start here
@@ -89,15 +90,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should localize interface based on browser language", bin6: true do
-      caps = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { prefs: { 'intl.accept_languages' => 'fr' } })
-      driver = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: caps)
+      driver = new_driver(chrome_prefs: { 'intl.accept_languages' => 'fr' })
       driver.navigate.to @config['self_url']
       @wait.until { driver.find_element(:id, "register") }
       expect(driver.find_element(:css, '.login__heading span').text == 'Connexion').to be(true)
       driver.quit
 
-      caps = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { prefs: { 'intl.accept_languages' => 'pt' } })
-      driver = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: caps)
+      driver = new_driver(chrome_prefs: { 'intl.accept_languages' => 'pt' })
       driver.navigate.to @config['self_url']
       @wait.until { driver.find_element(:id, "register") }
       expect(driver.find_element(:css, '.login__heading span').text == 'Entrar').to be(true)
@@ -302,8 +301,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should not reset password", bin5: true do
-      page = LoginPage.new(config: @config, driver: @driver)
-      page.reset_password('test@meedan.com')
+      @driver.navigate.to @config['self_url']
+      reset_password('test@meedan.com')
       wait_for_selector(".user-password-reset__email-input")
       wait_for_selector("#password-reset-email-input-helper-text")
       expect(@driver.page_source.include?('email was not found')).to be(true)
