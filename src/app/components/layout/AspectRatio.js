@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { black16 } from '../../styles/js/shared.js';
+import { opaqueBlack38 } from '../../styles/js/shared.js';
 
 const Container = styled.div`
   width: 100%;
   height: 0;
   padding-bottom: 56.25%;
   position: relative;
-  background-color: ${black16};
+  background-color: ${opaqueBlack38};
 `;
 
 const InnerWrapper = styled.div`
@@ -22,6 +22,14 @@ const InnerWrapper = styled.div`
     width: 100%;
     height: 100%;
     object-fit: contain;
+  }
+
+  div.aspect-ratio__overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    z-index: 10;
   }
 `;
 
