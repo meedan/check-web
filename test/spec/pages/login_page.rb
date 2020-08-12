@@ -66,7 +66,7 @@ class LoginPage < Page
     @driver.navigate.to 'https://www.facebook.com'
     wait_for_selector('#email').send_keys(@config['facebook_user'])
     wait_for_selector('#pass').send_keys(@config['facebook_password'])
-    click_button('#loginbutton input')
+    click_button('button[data-testid="royal_login_button"]')
     sleep 2
 
     @driver.navigate.to url
