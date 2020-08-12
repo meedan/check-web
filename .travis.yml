@@ -19,7 +19,7 @@ before_install:
 - sudo service postgresql stop
 - sudo rm /etc/apt/sources.list.d/google*
 - sudo apt-get update -qq
-- sudo apt-get install wget python-setuptools lsof unzip imagemagick ruby ruby-dev libnss3 libnss3-dev xvfb libnss3-1d libexif-dev curl build-essential libssl-dev libappindicator1 fonts-liberation redis-server -y
+- sudo apt-get install wget python-setuptools lsof unzip imagemagick ruby ruby-dev libnss3 libnss3-dev xvfb libnss3-1d libexif-dev curl build-essential libssl-dev libtag1-dev libappindicator1 fonts-liberation redis-server -y
 # environment
 - export PATH=/tmp/bundler/ruby/2.4.0/bin:$PATH
 - export GEM_PATH=/tmp/bundler/ruby/2.4.0/gems:$GEM_PATH
