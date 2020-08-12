@@ -17,7 +17,6 @@ function commitSetProjectMediaTitleAndDescription({
   projectMedia, title, description, onSuccess, onFailure,
 }) {
   const metadata = {
-    ...projectMedia.metadata,
     title: title.trim(),
     description: description.trim(),
   };
@@ -51,6 +50,8 @@ function commitSetProjectMediaTitleAndDescription({
     variables: {
       input: {
         id: projectMedia.id,
+        // UpdateProjectMediaInput.metadata is a _diff_. Don't upload all the metadata,
+        // or you'll hit https://mantis.meedan.com/view.php?id=8582
         metadata: JSON.stringify(metadata),
       },
     },
