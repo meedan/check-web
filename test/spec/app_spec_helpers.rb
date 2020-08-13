@@ -207,11 +207,12 @@ module AppSpecHelpers
     wait = Selenium::WebDriver::Wait.new(timeout: 100)
     fill_field('#email', @config['facebook_user'])
     fill_field('#pass', @config['facebook_password'])
-    press_button('#loginbutton input')
+    press_button('button[data-testid="royal_login_button"]')
     sleep 3
   end
 
   def facebook_auth
+    wait_for_selector("#register")
     @driver.find_element(:xpath, "//button[@id='facebook-login']").click
     sleep 10
     window = @driver.window_handles.first
@@ -431,23 +432,6 @@ module AppSpecHelpers
     wait_for_selector('#confirm-dialog__checkbox').click
     wait_for_selector('#confirm-dialog__confirm-action-button').click
     wait_for_selector('.team-members__edit-button', :css).click
-  end
-
-  def login_with_facebook
-    @driver.navigate.to 'https://www.facebook.com'
-    wait_for_selector('#email').send_keys(@config['facebook_user'])
-    wait_for_selector('#pass').send_keys(@config['facebook_password'])
-    wait_for_selector('#loginbutton input').click
-    wait_for_selector_none("#pass")
-
-    @driver.navigate.to @config['self_url']
-    wait_for_selector('#facebook-login').click
-
-    window = @driver.window_handles.first
-    @driver.switch_to.window(window)
-    sleep 5
-    agree_to_tos
-    wait_for_selector('.home')
   end
 
   def reset_password(email)
