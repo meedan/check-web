@@ -389,7 +389,7 @@ module AppSpecHelpers
 
     desired_capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
       proxy: proxy,
-      chromeOptions: chrome_options,
+      'goog:chromeOptions': chrome_options,
     )
 
     Selenium::WebDriver.for(:chrome, desired_capabilities: desired_capabilities, url: @webdriver_url)
