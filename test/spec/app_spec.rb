@@ -21,14 +21,20 @@ shared_examples 'app' do |webdriver_url|
   before :all do
     @config = CONFIG
     @webdriver_url = webdriver_url
-    FileUtils.ln_sf(File.realpath('./config.js'), '../build/web/js/config.js')
   end
 
-  after :all do
-    begin
-      FileUtils.ln_sf(File.realpath('../config.js'), '../build/web/js/config.js')
-    rescue Errno::ENOENT
-      puts "Could not copy config.js to ../build/web/js/"
+  if not ENV['SKIP_CONFIG_JS_OVERWRITE']
+    around(:all) do |block|
+      FileUtils.ln_sf(File.realpath('./config.js'), '../build/web/js/config.js')
+      begin
+        block.run
+      ensure
+        begin
+          FileUtils.ln_sf(File.realpath('../config.js'), '../build/web/js/config.js')
+        rescue Errno::ENOENT
+          puts "Could not copy config.js to ../build/web/js/"
+        end
+      end
     end
   end
 
