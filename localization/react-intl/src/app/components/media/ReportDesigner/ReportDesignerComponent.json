@@ -5,10 +5,14 @@
   },
   {
     "id": "reportDesigner.confirmLeaveTitle",
-    "defaultMessage": "Close without saving?"
+    "defaultMessage": "Leave without saving?"
   },
   {
     "id": "reportDesigner.confirmLeaveText",
-    "defaultMessage": "If you continue, you will lose your changes."
+    "defaultMessage": "If you leave, you will lose your changes."
+  },
+  {
+    "id": "reportDesigner.confirmLeaveButtonLabel",
+    "defaultMessage": "Leave"
   }
 ]

@@ -1,5 +1,5 @@
 // https://raw.githubusercontent.com/meikidd/iso-639-1/master/src/data.js
-const languagesList = {
+const LanguageRegistry = {
   aa: {
     name: 'Afar',
     nativeName: 'Afaraf',
@@ -758,4 +758,15 @@ const languagesList = {
   },
 };
 
-export default languagesList;
+export function languageLabel(code) {
+  const language = LanguageRegistry[code];
+  return language ? language.nativeName : code;
+}
+
+export function compareLanguages(defaultCode, a, b) {
+  if (a === defaultCode) { return -1; }
+  if (b === defaultCode) { return 1; }
+  return languageLabel(a).localeCompare(languageLabel(b));
+}
+
+export default LanguageRegistry;

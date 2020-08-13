@@ -589,5 +589,18 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.login__form')
       expect(@driver.page_source.include?('Sign in')).to be(true)
     end
+
+    it "should be able to edit only the title of an item", bin2: true do
+      api_create_team_project_and_claim_and_redirect_to_media_page
+      expect(@driver.page_source.include?('New Title')).to be(false)
+      wait_for_selector('.media-actions__icon').click
+      wait_for_selector('li').click
+      fill_field('#media-detail__title-input', 'New Title')
+      wait_for_selector('.media-detail__save-edits').click
+      wait_for_selector_none('.media-detail__save-edits')
+      @driver.navigate.refresh
+      wait_for_selector('.media-actions__icon')
+      expect(@driver.page_source.include?('New Title')).to be(true)
+    end
   end
 end

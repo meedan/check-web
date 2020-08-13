@@ -8,19 +8,17 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import IconReport from '@material-ui/icons/Receipt';
 import MediaStatus from './MediaStatus';
 import MediaRoute from '../../relay/MediaRoute';
-import MediaActions from './MediaActions';
+import MediaActionsMenuButton from './MediaActionsMenuButton';
 import Attribution from '../task/Attribution';
+import AddProjectMediaToProjectAction from './AddProjectMediaToProjectAction';
 import MoveProjectMediaToProjectAction from './MoveProjectMediaToProjectAction';
-import CreateProjectMediaProjectMutation from '../../relay/mutations/CreateProjectMediaProjectMutation';
+import RemoveProjectMediaFromProjectAction from './RemoveProjectMediaFromProjectAction';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
-import DeleteProjectMediaProjectMutation from '../../relay/mutations/DeleteProjectMediaProjectMutation';
 import UpdateStatusMutation from '../../relay/mutations/UpdateStatusMutation';
-import MoveDialog from './MoveDialog';
 import CheckContext from '../../CheckContext';
 import globalStrings from '../../globalStrings';
 import { withSetFlashMessage } from '../FlashMessage';
@@ -58,12 +56,7 @@ class MediaActionsBarComponent extends Component {
     super(props);
 
     this.state = {
-      openAddToListDialog: false,
       openAssignDialog: false,
-      dstProj: null,
-      isEditing: false,
-      title: null,
-      description: null,
     };
   }
 
@@ -71,54 +64,9 @@ class MediaActionsBarComponent extends Component {
     return new CheckContext(this).getContextStore();
   }
 
-  getDescription() {
-    return (typeof this.state.description === 'string') ? this.state.description : this.props.media.description;
-  }
-
-  getTitle() {
-    return (typeof this.state.title === 'string') ? this.state.title : this.props.media.title;
-  }
-
   currentProject() {
     const { project_media_project: projectMediaProject } = this.props.media;
     return projectMediaProject ? projectMediaProject.project : null;
-  }
-
-  handleAddToList = () => {
-    this.setState({ openAddToListDialog: true });
-  }
-
-  handleAddItemToList() {
-    const onSuccess = (response) => {
-      const { project } = response.createProjectMediaProject;
-      const message = (
-        <FormattedMessage
-          id="mediaMetadata.addedToList"
-          defaultMessage="Added to list {listName}"
-          values={{
-            listName: (
-              <Link to={`/${project.team.slug}/project/${project.dbid}`}>
-                {project.title}
-              </Link>
-            ),
-          }}
-        />
-      );
-      this.props.setFlashMessage(message);
-    };
-
-    const context = this.getContext();
-
-    Relay.Store.commitUpdate(
-      new CreateProjectMediaProjectMutation({
-        project: this.state.dstProj,
-        projectMedia: this.props.media,
-        context,
-      }),
-      { onSuccess, onFailure: this.fail },
-    );
-
-    this.setState({ openAddToListDialog: false });
   }
 
   fail(transaction) {
@@ -132,34 +80,6 @@ class MediaActionsBarComponent extends Component {
     this.props.setFlashMessage(message);
   }
 
-  handleRemoveFromList = () => {
-    const context = this.getContext();
-    const { media } = this.props;
-    const { project_media_project: projectMediaProject } = media;
-
-    const onSuccess = () => {
-      const message = (
-        <FormattedMessage
-          id="mediaActionsBar.removedFromList"
-          defaultMessage="Removed from list"
-        />
-      );
-      this.props.setFlashMessage(message);
-      const path = `/${media.team.slug}/media/${media.dbid}`;
-      browserHistory.push(path);
-    };
-
-    Relay.Store.commitUpdate(
-      new DeleteProjectMediaProjectMutation({
-        id: projectMediaProject.id,
-        project: this.currentProject(),
-        projectMedia: media,
-        context,
-      }),
-      { onSuccess, onFailure: this.fail },
-    );
-  }
-
   canSubmit = () => {
     const { title, description } = this.state;
     const permissions = JSON.parse(this.props.media.permissions);
@@ -167,56 +87,6 @@ class MediaActionsBarComponent extends Component {
     // FIXME Should not open dialog if this permission is not set.
     return (permissions['update Dynamic'] !== false && (typeof title === 'string' || typeof description === 'string'));
   };
-
-  handleChangeTitle(e) {
-    this.setState({ title: e.target.value });
-  }
-
-  handleChangeDescription(e) {
-    this.setState({ description: e.target.value });
-  }
-
-  handleSave(media, event) {
-    if (event) {
-      event.preventDefault();
-    }
-
-    const metadata = {
-      title: this.getTitle().trim(),
-      description: this.getDescription().trim(),
-    };
-
-    if (metadata.title === '' && media.media.embed_path) {
-      metadata.title = media.media.embed_path.split('/').pop().replace('embed_', '');
-    }
-
-    const onFailure = (transaction) => {
-      const fallbackMessage = (
-        <FormattedMessage
-          id="mediaDetail.editReportError"
-          defaultMessage="Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists."
-          values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
-        />
-      );
-      const message = getErrorMessage(transaction, fallbackMessage);
-      this.props.setFlashMessage(message);
-    };
-
-    if (this.canSubmit()) {
-      Relay.Store.commitUpdate(
-        new UpdateProjectMediaMutation({
-          media,
-          metadata,
-          id: media.id,
-          srcProj: null,
-          dstProj: null,
-        }),
-        { onFailure },
-      );
-    }
-
-    this.handleCancel();
-  }
 
   handleSendToTrash() {
     const onSuccess = (response) => {
@@ -260,7 +130,6 @@ class MediaActionsBarComponent extends Component {
 
   handleCancel() {
     this.setState({
-      isEditing: false,
       title: null,
       description: null,
     });
@@ -268,19 +137,8 @@ class MediaActionsBarComponent extends Component {
 
   handleCloseDialogs() {
     this.setState({
-      isEditing: false,
-      openAddToListDialog: false,
       openAssignDialog: false,
-      dstProj: null,
     });
-  }
-
-  handleSelectDestProject(dstProj) {
-    this.setState({ dstProj });
-  }
-
-  handleEdit() {
-    this.setState({ isEditing: true });
   }
 
   handleRefresh() {
@@ -387,26 +245,6 @@ class MediaActionsBarComponent extends Component {
     const { classes, media } = this.props;
     const { project_media_project: projectMediaProject } = media;
 
-    const addToListDialogActions = [
-      <Button
-        color="primary"
-        onClick={this.handleCloseDialogs.bind(this)}
-      >
-        <FormattedMessage
-          id="mediaActionsBar.cancelButton"
-          defaultMessage="Cancel"
-        />
-      </Button>,
-      <Button
-        color="primary"
-        className="media-actions-bar__add-button"
-        onClick={this.handleAddItemToList.bind(this)}
-        disabled={!this.state.dstProj}
-      >
-        <FormattedMessage id="mediaActionsBar.add" defaultMessage="Add" />
-      </Button>,
-    ];
-
     let smoochBotInstalled = false;
     if (media.team && media.team.team_bot_installations) {
       media.team.team_bot_installations.edges.forEach((edge) => {
@@ -446,83 +284,15 @@ class MediaActionsBarComponent extends Component {
       </Button>,
     ];
 
-    const editDialog = (
-      <Dialog
-        open={this.state.isEditing}
-        onClose={this.handleCloseDialogs.bind(this)}
-        maxWidth="md"
-        fullWidth
-      >
-        <DialogTitle>
-          <FormattedMessage id="mediaDetail.editReport" defaultMessage="Edit" />
-        </DialogTitle>
-        <DialogContent>
-          <form onSubmit={this.handleSave.bind(this, media)} name="edit-media-form">
-            <TextField
-              id="media-detail__title-input"
-              label={<FormattedMessage id="mediaDetail.mediaTitle" defaultMessage="Title" />}
-              value={this.getTitle()}
-              onChange={this.handleChangeTitle.bind(this)}
-              fullWidth
-              margin="normal"
-            />
-
-            <TextField
-              id="media-detail__description-input"
-              label={
-                <FormattedMessage id="mediaDetail.mediaDescription" defaultMessage="Description" />
-              }
-              value={this.getDescription()}
-              onChange={this.handleChangeDescription.bind(this)}
-              fullWidth
-              multiline
-              margin="normal"
-            />
-          </form>
-        </DialogContent>
-        <DialogActions>
-          <span style={{ display: 'flex' }}>
-            <Button
-              onClick={this.handleCancel.bind(this)}
-              className="media-detail__cancel-edits"
-            >
-              <FormattedMessage
-                id="mediaDetail.cancelButton"
-                defaultMessage="Cancel"
-              />
-            </Button>
-            <Button
-              onClick={this.handleSave.bind(this, media)}
-              className="media-detail__save-edits"
-              disabled={!this.canSubmit()}
-              color="primary"
-            >
-              <FormattedMessage
-                id="mediaDetail.doneButton"
-                defaultMessage="Done"
-              />
-            </Button>
-          </span>
-        </DialogActions>
-      </Dialog>
-    );
-
     return (
       <div className={classes.root}>
         { !media.archived ?
           <div>
-            <Button
-              id="media-actions-bar__add-to"
-              variant="contained"
+            <AddProjectMediaToProjectAction
+              team={this.props.media.team}
+              projectMedia={this.props.media}
               className={classes.spacedButton}
-              color="primary"
-              onClick={this.handleAddToList}
-            >
-              <FormattedMessage
-                id="mediaActionsBar.addTo"
-                defaultMessage="Add to..."
-              />
-            </Button>
+            />
 
             {projectMediaProject ? (
               <MoveProjectMediaToProjectAction
@@ -534,18 +304,14 @@ class MediaActionsBarComponent extends Component {
               />
             ) : null}
 
-            { projectMediaProject ?
-              <Button
-                id="media-actions-bar__remove-from-list"
-                variant="outlined"
+            { projectMediaProject ? (
+              <RemoveProjectMediaFromProjectAction
+                team={this.props.media.team}
+                project={projectMediaProject.project}
+                projectMedia={this.props.media}
                 className={classes.spacedButton}
-                onClick={this.handleRemoveFromList}
-              >
-                <FormattedMessage
-                  id="mediaActionsBar.removeFromList"
-                  defaultMessage="Remove from list"
-                />
-              </Button> : null }
+              />
+            ) : null}
 
             <Button
               onClick={MediaActionsBarComponent.handleReportDesigner}
@@ -571,13 +337,13 @@ class MediaActionsBarComponent extends Component {
             readonly={media.archived || media.last_status_obj.locked || readonlyStatus || published}
           />
 
-          <MediaActions
+          <MediaActionsMenuButton
             style={{
               height: 36,
               marginTop: -5,
             }}
-            media={media}
-            handleEdit={this.handleEdit.bind(this)}
+            key={media.id /* close menu if we navigate to a different projectMedia */}
+            projectMedia={media}
             handleRefresh={this.handleRefresh.bind(this)}
             handleSendToTrash={this.handleSendToTrash.bind(this)}
             handleRestore={this.handleRestore.bind(this)}
@@ -585,24 +351,6 @@ class MediaActionsBarComponent extends Component {
             handleStatusLock={this.handleStatusLock.bind(this)}
           />
         </div>
-
-        {this.state.isEditing ? editDialog : null}
-
-        <MoveDialog
-          actions={addToListDialogActions}
-          open={this.state.openAddToListDialog}
-          onClose={this.handleCloseDialogs.bind(this)}
-          team={media.team}
-          excludeProjectDbids={media.project_ids}
-          value={this.state.dstProj}
-          onChange={this.handleSelectDestProject.bind(this)}
-          title={
-            <FormattedMessage
-              id="mediaActionsBar.dialogAddToListTitle"
-              defaultMessage="Add to a different list"
-            />
-          }
-        />
 
         <Dialog
           open={this.state.openAssignDialog}
@@ -652,7 +400,10 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
     media: () => Relay.QL`
       fragment on ProjectMedia {
         id
+        ${AddProjectMediaToProjectAction.getFragment('projectMedia')}
         ${MoveProjectMediaToProjectAction.getFragment('projectMedia')}
+        ${RemoveProjectMediaFromProjectAction.getFragment('projectMedia')}
+        ${MediaActionsMenuButton.getFragment('projectMedia')}
         dbid
         project_ids
         title
@@ -674,6 +425,7 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
           project {
             id
             ${MoveProjectMediaToProjectAction.getFragment('project')}
+            ${RemoveProjectMediaFromProjectAction.getFragment('project')}
             dbid
             title
             search_id
@@ -709,8 +461,9 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
           source_id
         }
         team {
-          ${MoveDialog.getFragment('team')}
+          ${AddProjectMediaToProjectAction.getFragment('team')}
           ${MoveProjectMediaToProjectAction.getFragment('team')}
+          ${RemoveProjectMediaFromProjectAction.getFragment('team')}
           id
           dbid
           slug

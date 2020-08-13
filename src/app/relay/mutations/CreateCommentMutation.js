@@ -10,9 +10,9 @@ class CreateCommentMutation extends Relay.Mutation {
   getFatQuery() {
     switch (this.props.parent_type) {
     case 'project_media':
-      return Relay.QL`fragment on CreateCommentPayload { commentEdge, comment_versionEdge, project_media { last_status, last_status_obj, log, log_count } }`;
+      return Relay.QL`fragment on CreateCommentPayload { commentEdge, versionEdge, project_media { last_status, last_status_obj, log, log_count } }`;
     case 'task':
-      return Relay.QL`fragment on CreateCommentPayload { commentEdge, comment_versionEdge, task { id, log_count }, project_media { last_status, last_status_obj, id, log, log_count } }`;
+      return Relay.QL`fragment on CreateCommentPayload { commentEdge, versionEdge, task { id, log_count }, project_media { last_status, last_status_obj, id, log, log_count } }`;
     default:
       return '';
     }
@@ -46,7 +46,7 @@ class CreateCommentMutation extends Relay.Mutation {
 
     const now = new Date().getTime() / 1000;
 
-    const comment_versionEdge = {
+    const versionEdge = {
       node: {
         id: 'VmVyc2lvbi8w',
         dbid: 0,
@@ -95,7 +95,7 @@ class CreateCommentMutation extends Relay.Mutation {
       log_count: this.props.annotated.log_count + 1,
     };
 
-    const response = { comment_versionEdge };
+    const response = { versionEdge };
 
     if (annotated_type !== 'ProjectSource') {
       response.project_media = project_media;
@@ -134,7 +134,7 @@ class CreateCommentMutation extends Relay.Mutation {
         parentName: parent_type,
         parentID: annotated.id,
         connectionName: 'log',
-        edgeName: 'comment_versionEdge',
+        edgeName: 'versionEdge',
         rangeBehaviors: () => ('append'),
       },
     ];

@@ -8,8 +8,6 @@ import { FormattedMessage } from 'react-intl';
 // eslint-disable-next-line no-unused-vars
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
 // eslint-disable-next-line no-unused-vars
-import CreateProjectMediaProjectMutation from '../../relay/mutations/CreateProjectMediaProjectMutation';
-// eslint-disable-next-line no-unused-vars
 import BulkArchiveProjectMediaMutation from '../../relay/mutations/BulkArchiveProjectMediaMutation';
 // eslint-disable-next-line no-unused-vars
 import BulkCreateProjectMediaProjectsMutation from '../../relay/mutations/BulkCreateProjectMediaProjectsMutation';
@@ -76,10 +74,9 @@ export default createFragmentContainer(DestinationProjects, graphql`
           id
           dbid
           title
-          medias_count  # MoveProjectMediaToProjectAction optimistic update
-          search_id  # MoveProjectMediaToProjectAction optimistic update
+          medias_count  # Add|MoveProjectMediaToProjectAction optimistic update
+          search_id  # Add|MoveProjectMediaToProjectAction optimistic update
           ...UpdateProjectMediaMutation_srcProj
-          ...CreateProjectMediaProjectMutation_project
           ...BulkArchiveProjectMediaMutation_project
           ...BulkCreateProjectMediaProjectsMutation_project
           ...BulkDeleteProjectMediaProjectsMutation_project

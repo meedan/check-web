@@ -1,11 +1,11 @@
 [
   {
-    "id": "teamTasks.confirmAction",
-    "defaultMessage": "Yes"
-  },
-  {
     "id": "teamTasks.cancelAction",
     "defaultMessage": "Cancel"
+  },
+  {
+    "id": "teamTasks.confirmAction",
+    "defaultMessage": "Yes"
   },
   {
     "id": "teamTasks.continue",

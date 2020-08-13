@@ -538,6 +538,7 @@ const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsCom
               first_seen: created_at,
               last_seen,
               share_count,
+              is_read,
               project_media_project(project_id: $projectId) {
                 dbid
                 id

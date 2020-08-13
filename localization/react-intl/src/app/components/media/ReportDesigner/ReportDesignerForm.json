@@ -9,7 +9,7 @@
   },
   {
     "id": "reportDesigner.introductionPlaceholder",
-    "defaultMessage": "Type your introduction here..."
+    "defaultMessage": "Type your introduction here…"
   },
   {
     "id": "reportDesigner.introductionSub",
@@ -53,7 +53,7 @@
   },
   {
     "id": "reportDesigner.textPlaceholder",
-    "defaultMessage": "Type your report here..."
+    "defaultMessage": "Type your report here…"
   },
   {
     "id": "reportDesigner.textError",

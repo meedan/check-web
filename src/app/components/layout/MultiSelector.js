@@ -111,7 +111,7 @@ class MultiSelector extends React.Component {
       <div>
         { this.props.allowSearch ?
           <div style={{ padding: units(2) }}>
-            <FormattedMessage id="MultiSelector.search" defaultMessage="Search...">
+            <FormattedMessage id="MultiSelector.search" defaultMessage="Search…">
               {placeholder => (
                 <TextField onChange={this.handleChange} placeholder={placeholder} fullWidth />
               )}

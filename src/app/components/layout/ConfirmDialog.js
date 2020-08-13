@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -61,10 +62,7 @@ class ConfirmDialog extends React.Component {
                   checked={this.state.confirmed}
                 />
               }
-              label={
-                this.props.checkBoxLabel ||
-                <FormattedMessage id="teamTasks.confirmAction" defaultMessage="Yes" />
-              }
+              label={this.props.checkBoxLabel}
             />
           </div>
         </DialogContent>
@@ -81,12 +79,35 @@ class ConfirmDialog extends React.Component {
             color="primary"
             disabled={this.props.disabled || !this.state.confirmed}
           >
-            <FormattedMessage id="teamTasks.continue" defaultMessage="Continue" />
+            {this.props.continueButtonLabel}
           </Button>
         </DialogActions>
       </Dialog>
     );
   }
 }
+
+ConfirmDialog.defaultProps = {
+  blurb: null,
+  disabled: false,
+  checkBoxLabel: <FormattedMessage id="teamTasks.confirmAction" defaultMessage="Yes" />,
+  continueButtonLabel: <FormattedMessage id="teamTasks.continue" defaultMessage="Continue" />,
+  message: null,
+};
+
+ConfirmDialog.propTypes = {
+  handleClose: PropTypes.func.isRequired,
+  handleConfirm: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+  title: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.element,
+  ]).isRequired,
+  message: PropTypes.object,
+  blurb: PropTypes.node,
+  disabled: PropTypes.bool,
+  checkBoxLabel: PropTypes.node,
+  continueButtonLabel: PropTypes.node,
+};
 
 export default ConfirmDialog;

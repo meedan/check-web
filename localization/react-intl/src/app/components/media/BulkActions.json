@@ -33,7 +33,7 @@
   },
   {
     "id": "bulkActions.addTo",
-    "defaultMessage": "Add to..."
+    "defaultMessage": "Add to…"
   },
   {
     "id": "bulkActions.move",
@@ -41,7 +41,7 @@
   },
   {
     "id": "bulkActions.moveTo",
-    "defaultMessage": "Move to..."
+    "defaultMessage": "Move to…"
   },
   {
     "id": "bulkActions.remove",

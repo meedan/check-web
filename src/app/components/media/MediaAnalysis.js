@@ -112,7 +112,7 @@ class MediaAnalysisComponent extends Component {
             label={
               <FormattedMessage
                 id="mediaAnalysis.type"
-                defaultMessage="Type an analysis of this item that will appear in the item's report..."
+                defaultMessage="Type an analysis of this item that will appear in the item's report…"
               />
             }
             defaultValue={value}

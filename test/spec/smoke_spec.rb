@@ -1678,7 +1678,7 @@ shared_examples 'smoke' do
     #search tag by keyword
     wait_for_selector(".filter-popup > div > button > span > svg").click
     wait_for_selector("input[name=sort-select]")
-    wait_for_selector("input[placeholder='Search...']").send_keys("edited")
+    wait_for_selector("input[placeholder='Search…']").send_keys("edited")
     @driver.action.send_keys(:enter).perform
     wait_for_selector("//span[contains(text(), 'Done')]", :xpath).click
     expect(@driver.page_source.include?('newtagedited')).to be(true)
@@ -1765,7 +1765,7 @@ shared_examples 'smoke' do
     wait_for_selector(".media-detail")
     wait_for_selector(".media-status__current").click
     wait_for_selector(".media-status__menu-item")
-    ['UNSTARTED', 'INCONCLUSIVE','IN PROGRESS'].each do |status_label|
+    ['Unstarted', 'Inconclusive','In Progress'].each do |status_label|
       expect(@driver.page_source.include?(status_label)).to be(true)
     end
     expect(@driver.page_source.include?('new status')).to be(false)
@@ -1773,7 +1773,7 @@ shared_examples 'smoke' do
     @driver.navigate.to @config['self_url'] + '/' + get_team + '/settings'
     wait_for_selector(".team__primary-info")
     wait_for_selector(".team-settings__statuses-tab").click
-    wait_for_selector("//span[contains(text(), 'English (primary)')]", :xpath)
+    wait_for_selector("//span[contains(text(), 'English (default)')]", :xpath)
     expect(@driver.page_source.include?('Unstarted')).to be(true)
     wait_for_selector(".status-actions__menu").click
     # edit status name
@@ -1782,7 +1782,7 @@ shared_examples 'smoke' do
     wait_for_selector(".edit-status-dialog__submit").click
     wait_for_selector_none(".edit-status-dialog__dismiss")
     expect(@driver.page_source.include?('new status')).to be(true)
-    expect(@driver.page_source.include?('UNSTARTED')).to be(false)
+    expect(@driver.page_source.include?('Unstarted')).to be(false)
     #make another status as default
     wait_for_selector_list(".status-actions__menu")[3].click
     wait_for_selector(".status-actions__make-default").click
@@ -1795,10 +1795,63 @@ shared_examples 'smoke' do
     wait_for_selector(".media-detail")
     wait_for_selector(".media-status__current").click
     wait_for_selector(".media-status__menu-item")
-    ['UNSTARTED', 'INCONCLUSIVE', 'IN PROGRESS'].each do |status_label|
+    ['Unstarted', 'Inconclusive','In Progress'].each do |status_label|
       expect(@driver.page_source.include?(status_label)).to be(false)
     expect(@driver.page_source.include?('new status')).to be(true)
     end
   end
 #status section end
+
+#language section start
+  it "should manage workspace languages", bin2: true do
+    api_create_team_project_and_claim_and_redirect_to_media_page
+    wait_for_selector(".media-detail")
+    @driver.navigate.to @config['self_url'] + '/' + get_team + '/settings'
+    wait_for_selector(".team__primary-info")
+    wait_for_selector(".team-settings__languages-tab").click
+    wait_for_selector(".language-list-item__en-default")
+    expect(@driver.page_source.include?('language-list-item__en-default')).to be(true)
+    expect(@driver.page_source.include?('English')).to be(true)
+    #verify that actions are blocked for default language
+    wait_for_selector_list(".language-actions__menu")[0].click
+    expect(@driver.find_elements(:css, ".language-actions__make-default[aria-disabled=true]").size).to eq 1
+    expect(@driver.find_elements(:css, ".language-actions__delete[aria-disabled=true]").size).to eq 1
+    @driver.action.send_keys(:escape).perform
+    #add translated language
+    wait_for_selector(".add-language-action__add-button").click
+    wait_for_selector("#autocomplete-add-language").send_keys("español")
+    @driver.action.send_keys(:arrow_down).perform
+    @driver.action.send_keys(:enter).perform
+    wait_for_selector(".add-language-action__submit").click
+    wait_for_selector(".language-list-item__es")
+    expect(@driver.page_source.include?('language-list-item__es')).to be(true)
+    expect(@driver.page_source.include?('Español')).to be(true)
+    #set as default
+    wait_for_selector_list(".language-actions__menu")[1].click
+    wait_for_selector(".language-actions__make-default").click
+    wait_for_selector(".confirm-proceed-dialog__proceed").click
+    wait_for_selector(".language-list-item__es-default")
+    expect(@driver.page_source.include?('language-list-item__es-default')).to be(true)
+    #add untranslated language
+    wait_for_selector(".add-language-action__add-button").click
+    wait_for_selector("#autocomplete-add-language").send_keys("norsk")
+    @driver.action.send_keys(:arrow_down).perform
+    @driver.action.send_keys(:enter).perform
+    wait_for_selector(".add-language-action__submit").click
+    wait_for_selector(".language-list-item__no")
+    expect(@driver.page_source.include?('language-list-item__no')).to be(true)
+    expect(@driver.page_source.include?('Norsk')).to be(true)
+    #try to set as default but fail because statuses aren't translated to norsk
+    wait_for_selector_list(".language-actions__menu")[2].click
+    wait_for_selector(".language-actions__make-default").click
+    expect(@driver.page_source.include?('Status translation needed')).to be(true)
+    wait_for_selector(".translation-needed-dialog__close").click
+    #delete language
+    wait_for_selector_list(".language-actions__menu")[1].click
+    wait_for_selector(".language-actions__delete").click
+    wait_for_selector(".confirm-proceed-dialog__proceed").click
+    wait_for_selector_none(".language-list-item__en")
+    expect(@driver.page_source.include?('English')).to be(false)
+  end
+#language section end
 end

@@ -5,6 +5,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import { browserHistory } from 'react-router';
 import Button from '@material-ui/core/Button';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import IconArrowBack from '@material-ui/icons/ArrowBack';
@@ -17,7 +19,7 @@ import ReportDesignerEditButton from './ReportDesignerEditButton';
 import MediaStatus from '../MediaStatus';
 import { completedGreen, inProgressYellow } from '../../../styles/js/shared';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(theme => ({
   publish: {
     background: completedGreen,
     color: 'white',
@@ -26,10 +28,14 @@ const useStyles = makeStyles(() => ({
     background: inProgressYellow,
     color: 'white',
   },
+  confirmation: {
+    marginBottom: theme.spacing(2),
+  },
 }));
 
 const ReportDesignerTopBar = (props) => {
   const classes = useStyles();
+
   const {
     media,
     state,
@@ -38,10 +44,15 @@ const ReportDesignerTopBar = (props) => {
     readOnly,
   } = props;
 
+  const [resendToPrevious, setResendToPrevious] = React.useState(false);
+
   const url = window.location.href.replace(/\/report$/, `?t=${new Date().getTime()}`);
   const embedTag = `<script src="${config.penderUrl}/api/medias.js?url=${encodeURIComponent(url)}"></script>`;
   const itemUrl = media.oembed.permalink.replace(/^https?:\/\/[^/]+/, '');
   const shareUrl = media.oembed.embed_url;
+  const statusChanged = !!(data.last_published && data.options && data.options.length &&
+    data.options[0].previous_published_status_label &&
+    data.options[0].status_label !== data.options[0].previous_published_status_label);
 
   const handleGoBack = () => {
     browserHistory.push(itemUrl);
@@ -126,18 +137,32 @@ const ReportDesignerTopBar = (props) => {
                   />
               }
               title={
-                data.last_published ?
-                  <FormattedMessage
-                    id="reportDesigner.confirmRepublishTitle"
-                    defaultMessage="Ready to publish your changes?"
-                  /> :
-                  <FormattedMessage
-                    id="reportDesigner.confirmPublishTitle"
-                    defaultMessage="Ready to publish your report?"
-                  />
+                <React.Fragment>
+                  {/* Sending report for the first time */}
+                  { !data.last_published ?
+                    <FormattedMessage
+                      id="reportDesigner.confirmPublishTitle"
+                      defaultMessage="Ready to publish your report?"
+                    /> : null }
+
+                  {/* Re-sending a report after a status change */}
+                  { statusChanged ?
+                    <FormattedMessage
+                      id="reportDesigner.confirmRepublishResendTitle"
+                      defaultMessage="Ready to publish your correction?"
+                    /> : null }
+
+                  {/* Re-sending a report with the same status */}
+                  { data.last_published && !statusChanged ?
+                    <FormattedMessage
+                      id="reportDesigner.confirmRepublishTitle"
+                      defaultMessage="Ready to publish your changes?"
+                    /> : null }
+                </React.Fragment>
               }
               content={
                 <Box>
+                  {/* Sending report for the first time */}
                   { !data.last_published && media.requests_related_count > 0 ?
                     <Typography>
                       <FormattedMessage
@@ -146,7 +171,8 @@ const ReportDesignerTopBar = (props) => {
                         values={{ requests_related_count: media.requests_related_count }}
                       />
                     </Typography> : null }
-                  { data.last_published && media.requests_related_count > 0 ?
+                  {/* Re-sending a report after a status change */}
+                  { statusChanged && media.requests_related_count > 0 ?
                     <Typography>
                       <FormattedMessage
                         id="reportDesigner.confirmRepublishResendText"
@@ -154,6 +180,28 @@ const ReportDesignerTopBar = (props) => {
                         values={{ requests_related_count: media.requests_related_count }}
                       />
                     </Typography> : null }
+
+                  {/* Re-sending a report with the same status */}
+                  { data.last_published && !statusChanged && media.requests_related_count > 0 ?
+                    <Box className={classes.confirmation}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            key="resend-report"
+                            onChange={(e) => { setResendToPrevious(e.target.checked); }}
+                            checked={resendToPrevious}
+                          />
+                        }
+                        label={
+                          <FormattedMessage
+                            id="reportDesigner.republishAndResend"
+                            defaultMessage="{demand, plural, one {Also send correction to the user who already received the previous version of this report} other {Also send correction to the # users who already received the previous version of this report}}"
+                            values={{ demand: media.requests_related_count }}
+                          />
+                        }
+                      />
+                    </Box> : null }
+
                   <Typography>
                     <FormattedMessage
                       id="reportDesigner.confirmPublishText2"
@@ -164,7 +212,11 @@ const ReportDesignerTopBar = (props) => {
               }
               onConfirm={() => {
                 if (data.last_published) {
-                  props.onStateChange('republish_and_resend', 'published');
+                  if (statusChanged || resendToPrevious) {
+                    props.onStateChange('republish_and_resend', 'published');
+                  } else {
+                    props.onStateChange('republish_but_not_resend', 'published');
+                  }
                 } else {
                   props.onStateChange('publish', 'published');
                 }

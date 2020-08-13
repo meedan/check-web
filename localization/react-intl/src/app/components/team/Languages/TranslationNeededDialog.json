@@ -1,0 +1,10 @@
+[
+  {
+    "id": "translationNeededDialog.title",
+    "defaultMessage": "Status translation needed"
+  },
+  {
+    "id": "translationNeededDialog.body",
+    "defaultMessage": "In order to make {language} the default language, you must first translate all existing statuses into {language} in the Statuses setting tab."
+  }
+]

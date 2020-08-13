@@ -10,7 +10,7 @@ class UpdateTaskMutation extends Relay.Mutation {
   getFatQuery() {
     if (this.props.operation === 'answer') {
       return Relay.QL`fragment on UpdateTaskPayload {
-        first_response_versionEdge
+        versionEdge
         task {
           responses
           first_response
@@ -119,7 +119,7 @@ class UpdateTaskMutation extends Relay.Mutation {
         parentName: 'project_media',
         parentID: this.props.annotated.id,
         connectionName: 'log',
-        edgeName: 'first_response_versionEdge',
+        edgeName: 'versionEdge',
         rangeBehaviors: () => ('prepend'),
       });
     }
