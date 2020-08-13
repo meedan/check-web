@@ -728,9 +728,8 @@ shared_examples 'smoke' do
     bot_name = 'Smooch'
     install_bot(response[:team].slug, bot_name)
     wait_for_selector(".home--team")
-    card_member = wait_for_selector(".team-members__member")
-    card_member.location_once_scrolled_into_view
-    expect(@driver.page_source.include?('Smooch')).to be(true)
+    wait_for_selector(".team-members__member")
+    wait_for_selector("//div[contains(text(), 'Smooch')]", :xpath)
     wait_for_selector(".team__project").click
     wait_for_selector("#search__open-dialog-button")
     create_media("Claim")
@@ -768,7 +767,7 @@ shared_examples 'smoke' do
       title = 'A report at ' + Time.now.to_i.to_s
       fill_field('#id_poster' , title)
       wait_for_selector('#id_content').send_keys(' ')
-      @driver.action.send_keys(:control, 'v').perform
+      wait_for_selector('#id_content').send_keys(:control, 'v')
       wait_for_text_change(' ',"#id_content", :css)
       expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
     end
@@ -780,10 +779,9 @@ shared_examples 'smoke' do
     generate_a_report_and_copy_report_code
     @driver.navigate.to 'http://codemagic.gr/'
     wait_for_selector('.ace_text-input').send_keys(' ')
-    @driver.action.send_keys(:control, 'v').perform
+    wait_for_selector('.ace_text-input').send_keys(:control, 'v')
     wait_for_text_change(' ',".ace_text-input", :css)
-    button = wait_for_selector("#update")
-    button.click
+    wait_for_selector("#update").click
     expect(@driver.page_source.include?('test-team')).to be(true)
   end
 
@@ -805,7 +803,7 @@ shared_examples 'smoke' do
     title = 'a report from image' + Time.now.to_i.to_s
     fill_field('#id_poster' , title)
     wait_for_selector('#id_content').send_keys(' ')
-    @driver.action.send_keys(:control, 'v').perform
+    wait_for_selector('#id_content').send_keys(:control, 'v')
     wait_for_text_change(' ',"#id_content", :css)
     expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
   end

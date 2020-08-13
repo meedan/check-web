@@ -92,12 +92,14 @@ shared_examples 'app' do |webdriver_url|
     it "should localize interface based on browser language", bin6: true do
       driver = new_driver(chrome_prefs: { 'intl.accept_languages' => 'fr' })
       driver.navigate.to @config['self_url']
+      @wait.until { driver.find_element(:class, "login__email") }
       @wait.until { driver.find_element(:id, "register") }
       expect(driver.find_element(:css, '.login__heading span').text == 'Connexion').to be(true)
       driver.quit
 
       driver = new_driver(chrome_prefs: { 'intl.accept_languages' => 'pt' })
       driver.navigate.to @config['self_url']
+      @wait.until { driver.find_element(:class, "login__email") }
       @wait.until { driver.find_element(:id, "register") }
       expect(driver.find_element(:css, '.login__heading span').text == 'Entrar').to be(true)
       driver.quit
