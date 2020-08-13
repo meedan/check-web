@@ -94,19 +94,17 @@ shared_examples 'app' do |webdriver_url|
     end
 
     it "should localize interface based on browser language", bin6: true do
-      caps = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { prefs: { 'intl.accept_languages' => 'fr' } })
-      driver = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: caps)
-      driver.navigate.to @config['self_url']
-      @wait.until { driver.find_element(:id, "register") }
-      expect(driver.find_element(:css, '.login__heading span').text == 'Connexion').to be(true)
-      driver.quit
+      @driver = new_driver(chrome_prefs: { 'intl.accept_languages' => 'fr' })
+      @driver.navigate.to @config['self_url']
+      @wait.until { @driver.find_element(:id, "login") }
+      @wait.until { @driver.find_element(:class, "login__heading") }
+      expect(@driver.find_element(:css, '.login__heading span').text == 'Connexion').to be(true)
 
-      caps = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { prefs: { 'intl.accept_languages' => 'pt' } })
-      driver = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: caps)
-      driver.navigate.to @config['self_url']
-      @wait.until { driver.find_element(:id, "register") }
-      expect(driver.find_element(:css, '.login__heading span').text == 'Entrar').to be(true)
-      driver.quit
+      @driver = new_driver(chrome_prefs: { 'intl.accept_languages' => 'pt' })
+      @driver.navigate.to @config['self_url']
+      @wait.until { @driver.find_element(:id, "login") }
+      @wait.until { @driver.find_element(:class, "login__heading") }
+      expect(@driver.find_element(:css, '.login__heading span').text == 'Entrar').to be(true)
     end
 
     it "should access user confirmed page", bin5: true do
