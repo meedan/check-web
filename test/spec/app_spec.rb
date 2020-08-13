@@ -314,8 +314,9 @@ shared_examples 'app' do |webdriver_url|
       wait_for_selector(".create-related-media__add-button")
       url = @driver.current_url.to_s
       @driver.navigate.to url
+      wait_for_selector('.media-detail')
       site = @driver.find_element(:css, 'meta[name="twitter\\:site"]').attribute('content')
-      expect(site == @config['app_name']).to be(true)
+      expect(site == 'check').to be(true)
       twitter_title = @driver.find_element(:css, 'meta[name="twitter\\:title"]').attribute('content')
       expect(twitter_title == 'This is a test').to be(true)
     end
