@@ -326,6 +326,7 @@ class Task extends Component {
           <form name={`edit-response-${this.state.editingResponse.id}`}>
             {task.type === 'free_text' ?
               <ShortTextRespondTask
+                fieldset={task.fieldset}
                 task={task}
                 response={editingResponseText}
                 onSubmit={this.handleUpdateResponse}
@@ -334,6 +335,7 @@ class Task extends Component {
               : null}
             {task.type === 'geolocation' ?
               <GeolocationRespondTask
+                fieldset={task.fieldset}
                 response={editingResponseText}
                 onSubmit={this.handleUpdateResponse}
                 onDismiss={this.handleCancelEditResponse}
@@ -341,6 +343,7 @@ class Task extends Component {
               : null}
             {task.type === 'datetime' ?
               <DatetimeRespondTask
+                fieldset={task.fieldset}
                 response={editingResponseText}
                 onSubmit={this.handleUpdateResponse}
                 onDismiss={this.handleCancelEditResponse}
@@ -348,6 +351,7 @@ class Task extends Component {
               : null}
             {task.type === 'single_choice' ?
               <SingleChoiceTask
+                fieldset={task.fieldset}
                 mode="edit_response"
                 response={editingResponseText}
                 jsonoptions={task.jsonoptions}
@@ -357,6 +361,7 @@ class Task extends Component {
               : null}
             {task.type === 'multiple_choice' ?
               <MultiSelectTask
+                fieldset={task.fieldset}
                 mode="edit_response"
                 jsonresponse={editingResponseText}
                 jsonoptions={task.jsonoptions}
@@ -366,6 +371,7 @@ class Task extends Component {
               : null}
             {task.type === 'image_upload' ?
               <ImageUploadRespondTask
+                fieldset={task.fieldset}
                 task={task}
                 response={editingResponseText}
                 onSubmit={this.handleUpdateResponse}
@@ -570,18 +576,24 @@ class Task extends Component {
                     {task.type === 'free_text' ?
                       <ShortTextRespondTask
                         task={task}
+                        fieldset={task.fieldset}
                         onSubmit={this.handleSubmitResponse}
                       />
                       : null}
                     {task.type === 'geolocation' ?
                       <GeolocationRespondTask
+                        fieldset={task.fieldset}
                         onSubmit={this.handleSubmitResponse}
                       /> : null}
                     {task.type === 'datetime' ?
-                      <DatetimeRespondTask onSubmit={this.handleSubmitResponse} />
+                      <DatetimeRespondTask
+                        fieldset={task.fieldset}
+                        onSubmit={this.handleSubmitResponse}
+                      />
                       : null}
                     {task.type === 'single_choice' ?
                       <SingleChoiceTask
+                        fieldset={task.fieldset}
                         mode="respond"
                         response={response}
                         jsonoptions={task.jsonoptions}
@@ -590,6 +602,7 @@ class Task extends Component {
                       : null}
                     {task.type === 'multiple_choice' ?
                       <MultiSelectTask
+                        fieldset={task.fieldset}
                         mode="respond"
                         jsonresponse={response}
                         jsonoptions={task.jsonoptions}
@@ -598,6 +611,7 @@ class Task extends Component {
                       : null}
                     {task.type === 'image_upload' ?
                       <ImageUploadRespondTask
+                        fieldset={task.fieldset}
                         task={task}
                         onSubmit={this.handleSubmitResponse}
                       />

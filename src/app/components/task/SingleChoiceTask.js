@@ -6,6 +6,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
 import { FormattedMessage } from 'react-intl';
 import ParsedText from '../ParsedText';
+import { FormattedGlobalMessage } from '../MappedMessage';
 import { safelyParseJSON } from '../../helpers';
 import { StyledSmallTextField } from '../../styles/js/shared';
 
@@ -98,6 +99,7 @@ class SingleChoiceTask extends Component {
   }
 
   renderOptions(response, jsonoptions) {
+    const { fieldset } = this.props;
     const options = safelyParseJSON(jsonoptions);
     const editable = !response || this.props.mode === 'edit_response';
     const submitCallback = this.handleSubmitResponse.bind(this);
@@ -115,7 +117,10 @@ class SingleChoiceTask extends Component {
           onClick={submitCallback}
           disabled={this.state.taskAnswerDisabled}
         >
-          <FormattedMessage id="tasks.answer" defaultMessage="Answer Task" />
+          { fieldset === 'tasks' ?
+            <FormattedMessage id="tasks.answer" defaultMessage="Answer Task" /> :
+            <FormattedGlobalMessage messageKey="save" />
+          }
         </Button>
       </div>
     );
