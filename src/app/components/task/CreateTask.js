@@ -79,6 +79,7 @@ class CreateTask extends Component {
         annotated_id: this.props.media.id,
         annotated_dbid: `${this.props.media.dbid}`,
         assigned_to_ids: CreateTask.getAssignment(),
+        fieldset: 'tasks',
       }),
       { onSuccess, onFailure },
     );
