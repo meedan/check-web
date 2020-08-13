@@ -11,7 +11,6 @@ require_relative './media_spec.rb'
 # require_relative './source_spec.rb'
 
 CONFIG = YAML.load_file('config.yml')
-require_relative "#{CONFIG['app_name']}_spec.rb"
 
 shared_examples 'app' do |webdriver_url|
 
@@ -69,7 +68,6 @@ shared_examples 'app' do |webdriver_url|
   # The tests themselves start here
   context "web" do
 
-    include_examples "custom"
     include_examples "smoke"
     it_behaves_like "media", 'BELONGS_TO_ONE_PROJECT'
     it_behaves_like "media", 'DOES_NOT_BELONG_TO_ANY_PROJECT'
