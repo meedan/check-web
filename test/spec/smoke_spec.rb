@@ -1549,7 +1549,20 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('My search result')).to be(true)
   end
 
-  it "should search by project through URL", bin2: true do
+  it "should search by status through URL", bin1: true do
+    api_create_claim_and_go_to_search_page
+    expect((@driver.title =~ /False/).nil?).to be(true)
+    @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"verification_status"%3A%5B"false"%5D%7D'
+    wait_for_selector("#search-query__clear-button")
+    expect((@driver.title =~ /False/).nil?).to be(false)
+    expect(@driver.page_source.include?('My search result')).to be(false)
+    wait_for_selector("#search__open-dialog-button").click
+    wait_for_selector("#search-query__cancel-button")
+    selected = @driver.find_elements(:css, '.search-query__filter-button--selected').map(&:text).sort
+    expect(selected == ['False'].sort).to be(true)
+  end
+
+  it "should search by project through URL", bin3: true do
     data = api_create_team_and_project
     project_id = data[:project].dbid.to_s
     claim = request_api 'claim', { quote: 'Claim', email: data[:user].email, team_id: data[:team].dbid, project_id: project_id }
@@ -1591,7 +1604,7 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('My search result')).to be(false)
   end
 
-  it "should change search sort and search criteria through URL", bin2: true do
+  it "should change search sort and search criteria through URL", bin3: true do
     api_create_claim_and_go_to_search_page
     @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"related"%2C"sort_type"%3A"DESC"%7D'
     wait_for_selector("#create-media__add-item")
@@ -1696,7 +1709,7 @@ shared_examples 'smoke' do
 #tag section end
 
 # video timeline section start
-  it "should manage video notes", bin2: true do
+  it "should manage video notes", bin4: true do
     api_create_team_project_and_link_and_redirect_to_media_page 'https://www.youtube.com/watch?v=em8gwDcjPzU'
     wait_for_selector(".media-detail")
     wait_for_selector("//span[contains(text(), 'Video annotation')]", :xpath).click
@@ -1730,7 +1743,7 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('my note')).to be(false) # check the video note disappears from the comments tab
   end
 
-  it "should manage videotags", bin2: true do
+  it "should manage videotags", bin4: true do
     api_create_team_project_and_link_and_redirect_to_media_page 'https://www.youtube.com/watch?v=em8gwDcjPzU'
     wait_for_selector(".media-detail")
     expect(@driver.page_source.include?('my videotag')).to be(false)
@@ -1758,7 +1771,7 @@ shared_examples 'smoke' do
 #videotimeline section end
 
 #status section start
-  it "should customize status", bin1: true do
+  it "should customize status", bin4: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector(".media-detail")
     wait_for_selector(".media-status__current").click

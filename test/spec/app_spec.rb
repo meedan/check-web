@@ -322,7 +322,7 @@ shared_examples 'app' do |webdriver_url|
       expect(twitter_title == 'This is a test').to be(true)
     end
 
-    it "should paginate project page", bin2: true do
+    it "should paginate project page", bin4: true do
       page = api_create_team_project_claims_sources_and_redirect_to_project_page 21, 0
       page.load
       wait_for_selector('.media__heading')
@@ -574,7 +574,7 @@ shared_examples 'app' do |webdriver_url|
       expect((@driver.title =~ /Secondary/).nil?).to be(true)
     end
 
-    it "should show current team content on sidebar when viewing profile", bin2: true do
+    it "should show current team content on sidebar when viewing profile", bin3: true do
       user = api_register_and_login_with_email
       api_create_team_and_project(user: user)
       @driver.navigate.to(@config['self_url'] + '/check/me')
@@ -582,14 +582,14 @@ shared_examples 'app' do |webdriver_url|
       wait_for_selector('.projects__list a[href$="/all-items"]')
     end
 
-    it "should redirect to login page if not logged in and team is private", bin2: true do
+    it "should redirect to login page if not logged in and team is private", bin4: true do
       t = api_create_team(private: true, user: OpenStruct.new(email: 'anonymous@test.test'))
       @driver.navigate.to @config['self_url'] + '/' + t.slug + '/all-items'
       wait_for_selector('.login__form')
       expect(@driver.page_source.include?('Sign in')).to be(true)
     end
 
-    it "should be able to edit only the title of an item", bin2: true do
+    it "should be able to edit only the title of an item", bin4: true do
       api_create_team_project_and_claim_and_redirect_to_media_page
       expect(@driver.page_source.include?('New Title')).to be(false)
       wait_for_selector('.media-actions__icon').click
