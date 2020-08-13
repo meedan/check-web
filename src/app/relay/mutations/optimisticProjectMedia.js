@@ -38,6 +38,7 @@ const optimisticProjectMedia = (media, proj, context, customTeam) => {
         picture: null,
         description: '',
         created_at: now,
+        updated_at: now,
         last_seen: now,
         share_count: 0,
         check_search_project: project ? {

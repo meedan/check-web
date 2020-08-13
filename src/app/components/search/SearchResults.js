@@ -346,7 +346,10 @@ class SearchResultsComponent extends React.PureComponent {
           sortParams={query.sort ? {
             key: query.sort,
             ascending: query.sort_type !== 'DESC',
-          } : null}
+          } : {
+            key: 'recent_activity',
+            ascending: false,
+          }}
           onChangeSelectedIds={this.handleChangeSelectedIds}
           onChangeSortParams={this.handleChangeSortParams}
           buildProjectMediaUrl={this.buildProjectMediaUrl}
@@ -531,7 +534,6 @@ const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsCom
               picture,
               title,
               description,
-              virality,
               demand,
               linked_items_count,
               type,
@@ -539,6 +541,7 @@ const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsCom
               first_seen: created_at,
               last_seen,
               share_count,
+              updated_at,
               is_read,
               project_media_project(project_id: $projectId) {
                 dbid
