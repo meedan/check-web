@@ -23,63 +23,6 @@ class LoginPage < Page
     end
   end
 
-  def register_with_email(options)
-    @driver.navigate.to @config['self_url']
-    wait_for_selector(".login__form")
-    wait_for_selector("#register").click
-    wait_for_selector(".login__form")
-    fill_input('.login__name input', 'User With Email')
-    fill_input('.login__email input', options[:email])
-    fill_input('.login__password input', options[:password])
-    fill_input('.login__password-confirmation input', options[:password])
-    wait_for_selector(".without-file")
-    fill_input('input[type=file]', options[:file], { hidden: true }) if options[:file]
-    agree_to_tos(false)
-    wait_for_selector("#submit-register-or-login").click
-    @wait.until { @driver.page_source.include?("Please check your email to verify your account.") }
-    wait_for_selector_none("#submit-register-or-login")
-    confirm_email(options[:email])
-    sleep 3
-  end
-
-  def reset_password(email)
-    load
-    wait_for_selector('.login__forgot-password a').click
-    wait_for_selector('#password-reset-email-input').send_keys(email)
-    wait_for_selector('.user-password-reset__actions button + button').click
-  end
-
-  def login_with_email(options)
-    load
-    fill_input('.login__email input', options[:email])
-    fill_input('.login__password input', options[:password])
-    # TODO: fix or remove click_button() for mobile browsers
-    (@wait.until { @driver.find_element(:xpath, "//button[@id='submit-register-or-login']") }).click
-
-    wait_for_selector('.home')
-    return CreateTeamPage.new(config: @config, driver: @driver) if contains_element?('.create-team', {timeout: 1})
-    return ProjectPage.new(config: @config, driver: @driver) if contains_element?('.project')
-    return ProjectPage.new(config: @config, driver: @driver) if options[:project]
-  end
-
-  def login_with_facebook
-    @driver.navigate.to 'https://www.facebook.com'
-    wait_for_selector('#email').send_keys(@config['facebook_user'])
-    wait_for_selector('#pass').send_keys(@config['facebook_password'])
-    click_button('button[data-testid="royal_login_button"]')
-    sleep 2
-
-    @driver.navigate.to url
-    click_button('#facebook-login')
-    sleep 3
-
-    window = @driver.window_handles.first
-    @driver.switch_to.window(window)
-    sleep 20
-    agree_to_tos
-    wait_for_selector('.home')
-  end
-
   private
 
   def confirm_email(email) # TODO: test real email confirmation flow
