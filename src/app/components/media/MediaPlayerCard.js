@@ -14,29 +14,37 @@ const StyledPlaybackRate = styled.div`
   right: 0;
 `;
 
-const VideoMediaCard = (props) => {
+const MediaPlayerCard = (props) => {
   const [playbackRate, setplaybackRate] = React.useState(1);
 
   return (
     <article className="video-media-card" style={{ position: 'relative' }}>
       <AspectRatio>
-        <Player
-          url={props.videoPath}
-          className="video-media-player"
-          playbackRate={playbackRate}
-          onDuration={d => props.setPlayerState({ duration: d })}
-          onPause={() => props.setPlayerState({ playing: false, gaps: [] })}
-          onPlay={() => props.setPlayerState({ playing: true })}
-          onProgress={p => props.setPlayerState({ progress: p })}
-          onReady={props.onPlayerReady}
-          onTimeUpdate={t => props.setPlayerState({ time: t })}
-          playing={props.playing}
-          start={props.start}
-          end={props.end}
-          gaps={props.gaps}
-          scrubTo={props.scrubTo}
-          seekTo={props.seekTo}
-        />
+        { props.coverImage ? (
+          <img
+            src={props.coverImage}
+            alt=""
+          />
+        ) : null }
+        <div className="aspect-ratio__overlay">
+          <Player
+            url={props.filePath}
+            className="video-media-player"
+            playbackRate={playbackRate}
+            onDuration={d => props.setPlayerState({ duration: d })}
+            onPause={() => props.setPlayerState({ playing: false, gaps: [] })}
+            onPlay={() => props.setPlayerState({ playing: true })}
+            onProgress={p => props.setPlayerState({ progress: p })}
+            onReady={props.onPlayerReady}
+            onTimeUpdate={t => props.setPlayerState({ time: t })}
+            playing={props.playing}
+            start={props.start}
+            end={props.end}
+            gaps={props.gaps}
+            scrubTo={props.scrubTo}
+            seekTo={props.seekTo}
+          />
+        </div>
       </AspectRatio>
       <StyledPlaybackRate>
         <FormControl variant="outlined">
@@ -48,7 +56,7 @@ const VideoMediaCard = (props) => {
             <MenuItem value={0.25}>0.25x</MenuItem>
             <MenuItem value={0.5}>0.5x</MenuItem>
             <MenuItem value={0.75}>0.75x</MenuItem>
-            <MenuItem value={1}><FormattedMessage id="video.normalSpeed" defaultMessage="Normal speed" /></MenuItem>
+            <MenuItem value={1}><FormattedMessage id="media.normalSpeed" defaultMessage="Normal speed" /></MenuItem>
             <MenuItem value={1.25}>1.25x</MenuItem>
             <MenuItem value={1.5}>1.5x</MenuItem>
             <MenuItem value={1.75}>1.75x</MenuItem>
@@ -60,4 +68,4 @@ const VideoMediaCard = (props) => {
   );
 };
 
-export default VideoMediaCard;
+export default MediaPlayerCard;

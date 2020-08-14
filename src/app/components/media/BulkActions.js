@@ -10,9 +10,10 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { withSetFlashMessage } from '../FlashMessage';
 import MoveDialog from './MoveDialog';
 import Can from '../Can';
-import BulkUpdateProjectMediaMutation from '../../relay/mutations/BulkUpdateProjectMediaMutation';
-import BulkUpdateProjectMediaProjectMutation from '../../relay/mutations/BulkUpdateProjectMediaProjectMutation';
-import BulkDeleteProjectMediaProjectMutation from '../../relay/mutations/BulkDeleteProjectMediaProjectMutation';
+import BulkArchiveProjectMediaMutation from '../../relay/mutations/BulkArchiveProjectMediaMutation';
+import BulkRestoreProjectMediaMutation from '../../relay/mutations/BulkRestoreProjectMediaMutation';
+import BulkUpdateProjectMediaProjectsMutation from '../../relay/mutations/BulkUpdateProjectMediaProjectsMutation';
+import BulkDeleteProjectMediaProjectsMutation from '../../relay/mutations/BulkDeleteProjectMediaProjectsMutation';
 import BulkCreateProjectMediaProjectsMutation from '../../relay/mutations/BulkCreateProjectMediaProjectsMutation';
 import { Row } from '../../styles/js/shared';
 
@@ -48,7 +49,7 @@ class BulkActions extends React.Component {
       const message = (
         <FormattedMessage
           id="bulkActions.addedSuccessfully"
-          defaultMessage="Done! Please note that it can take a while until the items are actually added."
+          defaultMessage="Items added to list!"
         />
       );
       this.props.setFlashMessage(message);
@@ -62,13 +63,10 @@ class BulkActions extends React.Component {
     if (this.props.selectedMedia.length && this.state.dstProjForAdd) {
       Relay.Store.commitUpdate(
         new BulkCreateProjectMediaProjectsMutation({
-          projectMedias: this.props.selectedProjectMediaDbids,
+          projectMediaDbids: this.props.selectedProjectMediaDbids,
           project: this.state.dstProjForAdd,
-          teamSearchId: this.props.team.search_id,
-          count: this.props.count,
-          dstProjectForAdd: this.state.dstProjForAdd,
         }),
-        { onSuccess: onDone, onFailure: onDone },
+        { onSuccess, onFailure: onDone },
       );
     }
   }
@@ -78,7 +76,7 @@ class BulkActions extends React.Component {
       const message = (
         <FormattedMessage
           id="bulkActions.removedSuccessfully"
-          defaultMessage="Done! Please note that it can take a while until the items are actually removed from this list."
+          defaultMessage="Items removed from this list!"
         />
       );
       this.props.setFlashMessage(message);
@@ -90,14 +88,12 @@ class BulkActions extends React.Component {
 
     if (this.props.selectedMedia.length) {
       Relay.Store.commitUpdate(
-        new BulkDeleteProjectMediaProjectMutation({
-          id: this.props.selectedProjectMediaProjectIds[0],
+        new BulkDeleteProjectMediaProjectsMutation({
           ids: this.props.selectedProjectMediaProjectIds,
-          teamSearchId: this.props.team.search_id,
-          srcProjectForRemove: this.props.project,
-          count: this.props.count,
+          projectMediaIds: this.props.selectedMedia,
+          project: this.props.project,
         }),
-        { onSuccess: onDone, onFailure: onDone },
+        { onSuccess, onFailure: onDone },
       );
     }
   }
@@ -107,7 +103,7 @@ class BulkActions extends React.Component {
       const message = (
         <FormattedMessage
           id="bulkActions.movedSuccessfully"
-          defaultMessage="Done! Please note that it can take a while until the items are actually moved."
+          defaultMessage="Items moved!"
         />
       );
       this.props.setFlashMessage(message);
@@ -120,15 +116,13 @@ class BulkActions extends React.Component {
 
     if (this.props.selectedMedia.length && this.state.dstProj) {
       Relay.Store.commitUpdate(
-        new BulkUpdateProjectMediaProjectMutation({
-          id: this.props.selectedProjectMediaProjectIds[0],
+        new BulkUpdateProjectMediaProjectsMutation({
           ids: this.props.selectedProjectMediaProjectIds,
+          projectMediaIds: this.props.selectedMedia,
           dstProject: this.state.dstProj,
           srcProject: this.props.project,
-          teamSearchId: this.props.team.search_id,
-          count: this.props.count,
         }),
-        { onSuccess: onDone, onFailure: onDone },
+        { onSuccess, onFailure: onDone },
       );
     }
   }
@@ -138,12 +132,12 @@ class BulkActions extends React.Component {
       const message = params.archived === 1 ? (
         <FormattedMessage
           id="bulkActions.moveToTrashSuccessfully"
-          defaultMessage="Done! Please note that it can take a while until the items are actually moved to the trash."
+          defaultMessage="Items moved to the trash."
         />
       ) : (
         <FormattedMessage
           id="bulkActions.restoredFromTrashSuccessfully"
-          defaultMessage="Done! Please note that it can take a while until the items are actually restored from the trash."
+          defaultMessage="Items restored from the trash."
         />
       );
       this.props.setFlashMessage(message);
@@ -151,18 +145,18 @@ class BulkActions extends React.Component {
     };
 
     if (this.props.selectedMedia.length && !this.state.confirmationError) {
-      Relay.Store.commitUpdate(
-        new BulkUpdateProjectMediaMutation({
-          id: this.props.selectedMedia[0],
+      const mutation = params.archived ?
+        new BulkArchiveProjectMediaMutation({
           ids: this.props.selectedMedia,
-          srcProject: this.props.project,
-          archived: params.archived,
-          teamSearchId: this.props.team.search_id,
+          project: this.props.project,
           team: this.props.team,
-          count: this.props.count,
-        }),
-        { onSuccess },
-      );
+        }) :
+        new BulkRestoreProjectMediaMutation({
+          ids: this.props.selectedMedia,
+          project: this.props.project,
+          team: this.props.team,
+        });
+      Relay.Store.commitUpdate(mutation, { onSuccess });
     }
   };
 
@@ -219,7 +213,7 @@ class BulkActions extends React.Component {
                 color="primary"
                 variant="contained"
               >
-                <FormattedMessage id="bulkActions.addTo" defaultMessage="Add to..." />
+                <FormattedMessage id="bulkActions.addTo" defaultMessage="Add to…" />
               </Button>
             </Tooltip>
 
@@ -240,7 +234,7 @@ class BulkActions extends React.Component {
                   color="primary"
                   variant="contained"
                 >
-                  <FormattedMessage id="bulkActions.moveTo" defaultMessage="Move to..." />
+                  <FormattedMessage id="bulkActions.moveTo" defaultMessage="Move to…" />
                 </Button>
               </Tooltip> : null }
 
@@ -379,7 +373,7 @@ export default createFragmentContainer(withSetFlashMessage(BulkActions), graphql
   fragment BulkActions_team on Team {
     ...MoveDialog_team
     id
-    medias_count 
+    medias_count
     permissions
     search_id
     check_search_trash {

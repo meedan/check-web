@@ -165,17 +165,77 @@ function getFilters() {
 /**
  * Safely extract an error message from a transaction, with default fallback.
  */
-function getErrorMessage(transaction, fallbackMessage) {
+function getErrorMessage(transactionOrError, fallbackMessage) {
   let message = fallbackMessage;
-
-  const transactionError = transaction.getError();
-  const json = safelyParseJSON(transactionError.source);
+  const json = transactionOrError.source ?
+    safelyParseJSON(transactionOrError.source) :
+    safelyParseJSON(transactionOrError.getError().source); // TODO remove after Relay Modern update
   const error = json && json.errors && json.errors.length > 0 ? json.errors[0] : {};
   if (error && error.message) {
     message = error.message; // eslint-disable-line prefer-destructuring
   }
 
   return message;
+}
+
+/**
+ * Extract an error message from a Relay Modern error(s) or return `null` if
+ * not possible.
+ *
+ * Note: with Relay Compat and CheckNetworkLayer c. 2019, we'll get `null` on
+ * a network error (since the network layer will throw an Error). When we
+ * upgrade our network layer to a Relay Modern one we should be able to avoid
+ * JavaScript Errors and rely on Objects instead. Then we should discuss what
+ * to do in the event of a network error.
+ *
+ * Calling convention:
+ *
+ * ```
+ * commitUpdate(
+ *   // ...
+ *   onComplete: ({ data, errors }) => {
+ *     if (data === null && errors) {
+ *       reportProblem(errors);
+ *     }
+ *     handleData(data);
+ *   }
+ *   onError: err => reportProblem(err) // Error object
+ * ```
+ *
+ * `reportProblem()` in this example must be able to handle `null`: we may not
+ * be able to extract a sensible error message, even when the caller is certain
+ * there was a problem. In that case, the caller should have a fallback. To
+ * continue this example:
+ *
+ * ```
+ * function MyComponent(props) {
+ *   const [problem, setProblem] = React.useState(null);
+ *   // ...
+ *   if (problem !== null) {
+ *     return (
+ *       getErrorMessageForRelayModernProblem(problem) || (
+   *       <FormattedMessage id="myComponent.unknownError" defaultMessage="Oops" />
+   *     )
+ *     );
+ *   }
+ * }
+ * ```
+ */
+function getErrorMessageForRelayModernProblem(errorOrErrors) {
+  if (errorOrErrors.source) { // Error was thrown from CheckNetworkLayer, c. 2019
+    return getErrorMessage(errorOrErrors, null);
+  }
+  if (errorOrErrors.length) { // Error is an Array the API returned, alongside null data
+    return errorOrErrors.map(({ message }) => message).filter(m => Boolean(m))[0] || null;
+  }
+
+  // If we didn't get an error from our network layer, and we didn't get an
+  // error from the API, then what happened? Let's log the error and let the
+  // user supply a fallback.
+
+  // eslint-disable-next-line no-console
+  console.warn('Unhandled error from Relay Modern', errorOrErrors);
+  return null;
 }
 
 /**
@@ -226,12 +286,11 @@ function getCurrentProject(projects) {
 * Get current project id based on curent location and media.projects
 */
 function getCurrentProjectId(projectIds) {
-  let projectId = null;
-  let currentProjectId = window.location.pathname.match(/project\/([0-9]+)/);
-  if (currentProjectId) {
-    currentProjectId = parseInt(currentProjectId[1], 10);
-    if (projectIds.indexOf(currentProjectId) > -1) {
-      projectId = currentProjectId;
+  const currentProjectId = window.location.pathname.match(/project\/([0-9]+)/);
+  let projectId = currentProjectId ? parseInt(currentProjectId[1], 10) : null;
+  if (projectId && projectIds) {
+    if (projectIds.indexOf(projectId) === -1) {
+      projectId = null;
     }
   }
   return projectId;
@@ -262,6 +321,7 @@ export {
   validateURL,
   getFilters,
   getErrorMessage,
+  getErrorMessageForRelayModernProblem,
   getErrorObjects,
   emojify,
   capitalize,

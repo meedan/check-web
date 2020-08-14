@@ -1,18 +1,8 @@
 module AppSpecHelpers
   def update_field(selector, value, type = :css, visible = true)
-    wait = Selenium::WebDriver::Wait.new(timeout: 50)
-    input = wait.until {
-      element = @driver.find_element(type, selector)
-      if visible
-        element if element.displayed?
-      else
-        element
-      end
-    }
+    wait_for_selector(selector).send_keys(:control, 'a', :delete)
     sleep 0.5
-    input.send_keys(:control, 'a', :delete)
-    sleep 0.5
-    input.send_keys(value)
+    wait_for_selector(selector).send_keys(value)
   end
 
   def fill_field(selector, value, type = :css, visible = true)
@@ -232,11 +222,12 @@ module AppSpecHelpers
     wait = Selenium::WebDriver::Wait.new(timeout: 100)
     fill_field('#email', @config['facebook_user'])
     fill_field('#pass', @config['facebook_password'])
-    press_button('#loginbutton input')
+    press_button('button[data-testid="royal_login_button"]')
     sleep 3
   end
 
   def facebook_auth
+    wait_for_selector("#register")
     @driver.find_element(:xpath, "//button[@id='facebook-login']").click
     sleep 10
     window = @driver.window_handles.first
@@ -363,14 +354,14 @@ module AppSpecHelpers
   end
 
   def save_screenshot(title)
-    require 'imgur'
     path = '/tmp/' + (0...8).map{ (65 + rand(26)).chr }.join + '.png'
     @driver.save_screenshot(path)
 
-    client = Imgur.new(@config['imgur_client_id'])
-    image = Imgur::LocalImage.new(path, title: title)
-    uploaded = client.upload(image)
-    uploaded.link
+    auth_header =  {'Authorization' => 'Client-ID ' + @config['imgur_client_id']}
+    image = File.new(path)
+    body = {image: image, type: 'file'}
+    response = HTTParty.post('https://api.imgur.com/3/upload', body: body, headers: auth_header)
+    JSON.parse(response.body)['data']['link']
   end
 
   def wait_page_load(options = {})

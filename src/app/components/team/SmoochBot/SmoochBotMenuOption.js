@@ -11,7 +11,7 @@ import TextField from '@material-ui/core/TextField';
 import ClearIcon from '@material-ui/icons/Clear';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import SmoochBotSelectReport from './SmoochBotSelectReport';
-import languagesList from '../../../languagesList';
+import { languageLabel } from '../../../LanguageRegistry';
 import { checkBlue, inProgressYellow } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
@@ -146,14 +146,12 @@ const SmoochBotMenuOption = (props) => {
                   {actionLabels[action.key]}
                 </MenuItem>
               ))}
-              {props.languages.map(language => (
-                <MenuItem value={language} key={language}>
+              {props.languages.map(languageCode => (
+                <MenuItem value={languageCode} key={languageCode}>
                   <FormattedMessage
                     id="smoochBotMenuOption.languageAction"
                     defaultMessage="{languageName} (main menu)"
-                    values={{
-                      languageName: languagesList[language].nativeName,
-                    }}
+                    values={{ languageName: languageLabel(languageCode) }}
                   />
                 </MenuItem>
               ))}

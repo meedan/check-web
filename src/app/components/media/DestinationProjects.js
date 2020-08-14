@@ -6,9 +6,15 @@ import TextField from '@material-ui/core/TextField';
 import { FormattedMessage } from 'react-intl';
 // Import mutations so we can include them in query fragments
 // eslint-disable-next-line no-unused-vars
-import BulkUpdateProjectMediaMutation from '../../relay/mutations/BulkUpdateProjectMediaMutation';
-// eslint-disable-next-line no-unused-vars
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
+// eslint-disable-next-line no-unused-vars
+import BulkArchiveProjectMediaMutation from '../../relay/mutations/BulkArchiveProjectMediaMutation';
+// eslint-disable-next-line no-unused-vars
+import BulkCreateProjectMediaProjectsMutation from '../../relay/mutations/BulkCreateProjectMediaProjectsMutation';
+// eslint-disable-next-line no-unused-vars
+import BulkUpdateProjectMediaProjectsMutation from '../../relay/mutations/BulkUpdateProjectMediaProjectsMutation';
+// eslint-disable-next-line no-unused-vars
+import BulkDeleteProjectMediaProjectsMutation from '../../relay/mutations/BulkDeleteProjectMediaProjectsMutation';
 
 function DestinationProjects({
   team, excludeProjectDbids, value, onChange,
@@ -33,6 +39,7 @@ function DestinationProjects({
       value={value}
       onChange={handleChange}
       getOptionLabel={({ title }) => title}
+      getOptionSelected={(option, val) => val !== null && option.id === val.id}
       groupBy={() => team.name /* show team name on top of all options */}
       renderInput={params => (
         <TextField
@@ -67,12 +74,14 @@ export default createFragmentContainer(DestinationProjects, graphql`
           id
           dbid
           title
+          medias_count  # Add|MoveProjectMediaToProjectAction optimistic update
+          search_id  # Add|MoveProjectMediaToProjectAction optimistic update
           ...UpdateProjectMediaMutation_srcProj
-          ...UpdateProjectMediaMutation_dstProj
-          ...BulkUpdateProjectMediaMutation_dstProject
-          ...BulkUpdateProjectMediaMutation_dstProjectForAdd
-          ...BulkUpdateProjectMediaMutation_srcProject
-          ...BulkUpdateProjectMediaMutation_srcProjectForRemove
+          ...BulkArchiveProjectMediaMutation_project
+          ...BulkCreateProjectMediaProjectsMutation_project
+          ...BulkDeleteProjectMediaProjectsMutation_project
+          ...BulkUpdateProjectMediaProjectsMutation_srcProject
+          ...BulkUpdateProjectMediaProjectsMutation_dstProject
         }
       }
     }

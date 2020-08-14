@@ -232,26 +232,6 @@ shared_examples 'media' do |type|
     expect(@driver.page_source.include?('Claim 2')).to be(false)
     expect(@driver.page_source.include?('Claim 1')).to be(false)
     expect(@driver.page_source.include?('Claim 0')).to be(true)
-
-    # Second item
-    wait_for_selector('.media-search__previous-item').click
-    wait_for_selector('.media-search__actions-bar')
-    expect(@driver.page_source.include?('1 of 3')).to be(false)
-    expect(@driver.page_source.include?('2 of 3')).to be(true)
-    expect(@driver.page_source.include?('3 of 3')).to be(false)
-    expect(@driver.page_source.include?('Claim 2')).to be(false)
-    expect(@driver.page_source.include?('Claim 1')).to be(true)
-    expect(@driver.page_source.include?('Claim 0')).to be(false)
-
-    # First item
-    wait_for_selector('.media-search__previous-item').click
-    wait_for_selector('.media-search__actions-bar')
-    expect(@driver.page_source.include?('1 of 3')).to be(true)
-    expect(@driver.page_source.include?('2 of 3')).to be(false)
-    expect(@driver.page_source.include?('3 of 3')).to be(false)
-    expect(@driver.page_source.include?('Claim 2')).to be(true)
-    expect(@driver.page_source.include?('Claim 1')).to be(false)
-    expect(@driver.page_source.include?('Claim 0')).to be(false)
   end
 
   it "should update notes count after delete annotation", bin3: true do

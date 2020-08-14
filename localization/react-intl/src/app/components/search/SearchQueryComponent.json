@@ -28,6 +28,22 @@
     "defaultMessage": "List"
   },
   {
+    "id": "search.userHeading",
+    "defaultMessage": "Author"
+  },
+  {
+    "id": "search.readHeading",
+    "defaultMessage": "Read or unread?"
+  },
+  {
+    "id": "search.read",
+    "defaultMessage": "Read"
+  },
+  {
+    "id": "search.unread",
+    "defaultMessage": "Unread"
+  },
+  {
     "id": "status.categoriesHeading",
     "defaultMessage": "Tags"
   },
@@ -50,6 +66,10 @@
   {
     "id": "search.showVideos",
     "defaultMessage": "Videos"
+  },
+  {
+    "id": "search.showAudios",
+    "defaultMessage": "Audios"
   },
   {
     "id": "search.rules",

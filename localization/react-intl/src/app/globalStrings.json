@@ -12,8 +12,16 @@
     "defaultMessage": "Cancel"
   },
   {
+    "id": "global.close",
+    "defaultMessage": "Close"
+  },
+  {
     "id": "global.confirm",
     "defaultMessage": "Confirm"
+  },
+  {
+    "id": "global.delete",
+    "defaultMessage": "Delete"
   },
   {
     "id": "global.ok",

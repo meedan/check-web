@@ -61,6 +61,8 @@ class TeamBotsComponent extends Component {
       messageBotId: null,
       open: false,
       currentInstallation: null,
+      confirmedToLeave: false,
+      leaveLocation: null,
     };
   }
 
@@ -71,6 +73,42 @@ class TeamBotsComponent extends Component {
       settings[installation.node.id] = JSON.parse(value);
     });
     this.setState({ settings });
+  }
+
+  componentDidMount() {
+    this.unregisterLeaveHook = this.props.router.setRouteLeaveHook(
+      this.props.route,
+      (nextLocation) => {
+        if (!this.hasUnsavedChanges || this.state.confirmedToLeave) {
+          return true;
+        }
+        this.setState({ leaveLocation: nextLocation });
+        return false;
+      },
+    );
+  }
+
+  get hasUnsavedChanges() {
+    const savedSettings = {};
+    this.props.team.team_bot_installations.edges.forEach((installation) => {
+      const value = installation.node.json_settings || '{}';
+      savedSettings[installation.node.id] = JSON.parse(value);
+    });
+    return JSON.stringify(savedSettings) !== JSON.stringify(this.state.settings);
+  }
+
+  componentWillUmount() {
+    this.unregisterLeaveHook();
+  }
+
+  handleConfirmLeave() {
+    this.setState({ confirmedToLeave: true }, () => {
+      browserHistory.push(this.state.leaveLocation);
+    });
+  }
+
+  handleCancelLeave() {
+    this.setState({ leaveLocation: null });
   }
 
   handleClose() {
@@ -216,35 +254,59 @@ class TeamBotsComponent extends Component {
                 handleClose={this.handleCloseDialog.bind(this)}
                 handleConfirm={this.handleDestroy.bind(this)}
               />
+              <ConfirmDialog
+                open={this.state.leaveLocation}
+                title={
+                  <FormattedMessage
+                    id="teamBots.confirmLeaveTitle"
+                    defaultMessage="Leave without saving?"
+                  />
+                }
+                blurb={
+                  <FormattedMessage
+                    id="teamBots.confirmLeaveText"
+                    defaultMessage="If you leave, you will lose your changes."
+                  />
+                }
+                continueButtonLabel={
+                  <FormattedMessage
+                    id="teamBots.confirmLeaveButtonLabel"
+                    defaultMessage="Leave"
+                  />
+                }
+                handleClose={this.handleCancelLeave.bind(this)}
+                handleConfirm={this.handleConfirmLeave.bind(this)}
+              />
               <Divider />
               <Collapse in={botExpanded} timeout="auto">
                 <CardContent>
                   { bot.settings_as_json_schema ?
                     <React.Fragment>
-                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <h3><FormattedMessage id="teamBots.settings" defaultMessage="Settings" /></h3>
-                        <div>
-                          <Button
-                            variant="contained"
-                            color="primary"
-                            onClick={
-                              bot.name === 'Smooch' ?
-                                this.handleOpen.bind(this, installation.node) :
-                                this.handleSubmitSettings.bind(this, installation.node)
-                            }
-                          >
-                            <FormattedMessage
-                              id="teamBots.save"
-                              defaultMessage="Save"
-                            />
-                          </Button>
-                          <small style={{ margin: `0 ${units(1)}` }}>
-                            { this.state.message && this.state.messageBotId === bot.dbid ?
-                              this.state.message : null
-                            }
-                          </small>
-                        </div>
-                      </div>
+                      { bot.name !== 'Fetch' ?
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                          <h3><FormattedMessage id="teamBots.settings" defaultMessage="Settings" /></h3>
+                          <div>
+                            <Button
+                              variant="contained"
+                              color="primary"
+                              onClick={
+                                bot.name === 'Smooch' ?
+                                  this.handleOpen.bind(this, installation.node) :
+                                  this.handleSubmitSettings.bind(this, installation.node)
+                              }
+                            >
+                              <FormattedMessage
+                                id="teamBots.save"
+                                defaultMessage="Save"
+                              />
+                            </Button>
+                            <small style={{ margin: `0 ${units(1)}` }}>
+                              { this.state.message && this.state.messageBotId === bot.dbid ?
+                                this.state.message : null
+                              }
+                            </small>
+                          </div>
+                        </div> : null }
                       { botExpanded ?
                         <TeamBot
                           team={team}
@@ -333,7 +395,8 @@ const TeamBots = (props) => {
     <Relay.RootContainer
       Component={TeamBotsContainer}
       route={route}
-      renderFetched={data => <TeamBotsContainer {...data} {...params} />}
+      renderFetched={data =>
+        <TeamBotsContainer {...data} {...params} route={props.route} router={props.router} />}
     />
   );
 };

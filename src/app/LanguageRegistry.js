@@ -1,5 +1,5 @@
 // https://raw.githubusercontent.com/meikidd/iso-639-1/master/src/data.js
-const languagesList = {
+const LanguageRegistry = {
   aa: {
     name: 'Afar',
     nativeName: 'Afaraf',
@@ -740,10 +740,33 @@ const languagesList = {
     name: 'Chinese',
     nativeName: '中文',
   },
+  zh_TW: {
+    name: 'Chinese (Taiwan)',
+    nativeName: '中文',
+  },
+  zh_CN: {
+    name: 'Chinese (China)',
+    nativeName: '中文',
+  },
+  zh_HK: {
+    name: 'Chinese (Hong Kong)',
+    nativeName: '中文',
+  },
   zu: {
     name: 'Zulu',
     nativeName: 'isiZulu',
   },
 };
 
-export default languagesList;
+export function languageLabel(code) {
+  const language = LanguageRegistry[code];
+  return language ? language.nativeName : code;
+}
+
+export function compareLanguages(defaultCode, a, b) {
+  if (a === defaultCode) { return -1; }
+  if (b === defaultCode) { return 1; }
+  return languageLabel(a).localeCompare(languageLabel(b));
+}
+
+export default LanguageRegistry;

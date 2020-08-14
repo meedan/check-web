@@ -1,7 +1,7 @@
 [
   {
     "id": "createTeam.slugChecking",
-    "defaultMessage": "Checking availability..."
+    "defaultMessage": "Checking availability…"
   },
   {
     "id": "createTeam.slugAvailable",

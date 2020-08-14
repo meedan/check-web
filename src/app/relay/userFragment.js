@@ -25,7 +25,7 @@ const userFragment = Relay.QL`
       slug,
       members_count
     },
-    team_users(first: 10000) {
+    team_users(first: 10000, status: "member") {
       edges {
         node {
           team {

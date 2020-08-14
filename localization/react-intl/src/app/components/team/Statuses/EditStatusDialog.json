@@ -1,0 +1,26 @@
+[
+  {
+    "id": "editStatusDialog.titleEdit",
+    "defaultMessage": "Edit status"
+  },
+  {
+    "id": "editStatusDialog.title",
+    "defaultMessage": "Add a new status"
+  },
+  {
+    "id": "editStatusDialog.statusTitle",
+    "defaultMessage": "Status ({maxLength} characters max)"
+  },
+  {
+    "id": "editStatusDialog.statusDescription",
+    "defaultMessage": "Description"
+  },
+  {
+    "id": "editStatusDialog.statusColor",
+    "defaultMessage": "Status color"
+  },
+  {
+    "id": "editStatusDialog.addButton",
+    "defaultMessage": "Add status"
+  }
+]

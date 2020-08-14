@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Form from '@meedan/react-jsonschema-form-material-ui-v1';
 import styled from 'styled-components';
 import SmoochBot from './SmoochBot';
+import FetchBot from './FetchBot';
 import { units, black32 } from '../../styles/js/shared';
 
 const StyledSchemaForm = styled.div`
@@ -48,6 +49,9 @@ class TeamBot extends Component {
   render() {
     if (this.props.bot.name === 'Smooch') {
       return (<SmoochBot {...this.props} />);
+    }
+    if (this.props.bot.name === 'Fetch') {
+      return (<FetchBot />);
     }
     return (
       <StyledSchemaForm>

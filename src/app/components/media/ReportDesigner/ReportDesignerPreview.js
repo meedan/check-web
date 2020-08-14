@@ -17,6 +17,7 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(2),
     width: 502,
     color: 'black',
+    lineHeight: '1.5em',
   },
 }));
 
