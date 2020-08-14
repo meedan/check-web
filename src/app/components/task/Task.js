@@ -317,6 +317,7 @@ class Task extends Component {
 
   renderTaskResponse(responseObj, response, by, byPictures, showEditIcon) {
     const { task } = this.props;
+    const isTask = task.fieldset === 'tasks';
 
     if (this.state.editingResponse && this.state.editingResponse.id === responseObj.id) {
       const editingResponseData = getResponseData(this.state.editingResponse);
@@ -448,7 +449,7 @@ class Task extends Component {
             </div>
           </div>
           : null}
-        { (by && byPictures) ?
+        { by && byPictures && isTask ?
           <div className="task__resolver" style={resolverStyle}>
             <small style={{ display: 'flex' }}>
               <UserAvatars users={byPictures} />
@@ -472,6 +473,7 @@ class Task extends Component {
 
   render() {
     const { task, media } = this.props;
+    const isTask = task.fieldset === 'tasks';
     const data = getResponseData(task.first_response);
     const {
       response, by, byPictures,
@@ -518,7 +520,7 @@ class Task extends Component {
     const taskActions = !media.archived ? (
       <div>
         {taskAssignment}
-        {data.by ?
+        { data.by && isTask ?
           <div className="task__resolver" style={{ display: 'flex', alignItems: 'center', marginTop: units(1) }}>
             <small style={{ display: 'flex' }}>
               <UserAvatars users={byPictures} />
@@ -669,7 +671,9 @@ class Task extends Component {
             </CardContent>
             <div style={{ minHeight: units(6) }} />
             {taskActions}
-            <TaskLog task={task} response={response} />
+            { isTask ?
+              <TaskLog task={task} response={response} /> : null
+            }
           </Collapse>
         </Card>
 

@@ -113,17 +113,6 @@ class TeamTasksComponent extends React.Component {
       task.node.project_ids.indexOf(projectId) > -1 ||
       projectId === null).map(task => task.node);
 
-    // const projects = this.filterProjects(this.props.team.projects.edges);
-
-    // const projectsWithTasks = [];
-    // projects.forEach((p, index) => {
-    //   const projectTasks = getTasksForProjectId(p.node.dbid);
-    //   if (projectTasks.length > 0) {
-    //     projects[index].node.teamTasks = projectTasks;
-    //     projectsWithTasks.push(projects[index]);
-    //   }
-    // });
-
     return (
       <div className="team-tasks">
         <ContentColumn>
