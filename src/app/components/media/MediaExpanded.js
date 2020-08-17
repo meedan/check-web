@@ -129,6 +129,7 @@ class MediaExpandedComponent extends Component {
     const randomNumber = Math.floor(Math.random() * 1000000);
     const { mediaUrl, mediaQuery } = this.props;
     const hasCustomDescription = mediaHasCustomDescription(media, data);
+    const coverImage = media.media.thumbnail_path || '/images/player_cover.svg';
 
     const embedCard = (() => {
       if (isImage) {
@@ -138,6 +139,7 @@ class MediaExpandedComponent extends Component {
           <div ref={this.props.playerRef}>
             <MediaPlayerCard
               filePath={filePath}
+              coverImage={coverImage}
               {...{
                 playing, start, end, gaps, scrubTo, seekTo, onPlayerReady, setPlayerState,
               }}
