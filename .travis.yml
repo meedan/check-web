@@ -28,6 +28,7 @@ addons:
     - libssl-dev
     - lsof
     - python-setuptools
+    - libtag1-dev
     - unzip
     - wget
   hosts:
