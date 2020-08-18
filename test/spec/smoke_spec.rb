@@ -159,12 +159,13 @@ shared_examples 'smoke' do
     wait_for_selector(".media")
     wait_for_selector('.media-actions__icon').click
     wait_for_selector('.media-actions__lock-status').click
+    wait_for_selector_none(".media-actions__assign")
     wait_for_selector(".media-tab__activity").click
-    wait_for_selector('.annotation--verification_status')
+    wait_for_selector('.annotation__timestamp')
     expect(@driver.page_source.include?('Item status locked by')).to be(true)
     wait_for_selector('.media-actions__icon').click
     wait_for_selector('.media-actions__lock-status').click
-    wait_for_size_change(1, '.annotation--verification_status')
+    wait_for_selector("//span[contains(text(), 'Item status unlocked by')]", :xpath)
     expect(@driver.page_source.include?('Item status unlocked by')).to be(true)
   end
 
