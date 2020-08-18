@@ -224,7 +224,7 @@ const MediaTasksContainer = Relay.createContainer(withPusher(MediaTasksComponent
         archived
         permissions
         pusher_channel
-        tasks(first: 10000) {
+        tasks(fieldset: "tasks", first: 10000) {
           edges {
             node {
               id,
