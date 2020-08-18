@@ -143,7 +143,7 @@ class TeamTasksListItem extends React.Component {
 
   render() {
     const { team, task } = this.props;
-    const projects = team ? team.projects.edges : null;
+    const projects = team.projects ? team.projects.edges : null;
     const selectedProjects = task ? task.project_ids : [];
     const { anchorEl } = this.state;
 

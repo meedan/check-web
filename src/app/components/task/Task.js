@@ -737,4 +737,136 @@ Task.contextTypes = {
   store: PropTypes.object,
 };
 
-export default injectIntl(Task);
+export default Relay.createContainer(injectIntl(Task), {
+  initialVariables: {
+    teamSlug: null,
+  },
+  prepareVariables: vars => ({
+    ...vars,
+    teamSlug: /^\/([^/]+)/.test(window.location.pathname) ? window.location.pathname.match(/^\/([^/]+)/)[1] : null,
+  }),
+  fragments: {
+    task: () => Relay.QL`
+      fragment on Task {
+        id,
+        dbid,
+        label,
+        type,
+        description,
+        fieldset,
+        permissions,
+        jsonoptions,
+        json_schema,
+        options,
+        pending_suggestions_count,
+        suggestions_count,
+        log_count,
+        responses(first: 10000) {
+          edges {
+            node {
+              id,
+              dbid,
+              permissions,
+              content,
+              image_data,
+              attribution(first: 10000) {
+                edges {
+                  node {
+                    id
+                    dbid
+                    name
+                    team_user(team_slug: $teamSlug) {
+                      ${ProfileLink.getFragment('teamUser')},
+                    },
+                    source {
+                      id
+                      dbid
+                      image
+                    }
+                  }
+                }
+              }
+              annotator {
+                name,
+                profile_image,
+                user {
+                  id,
+                  dbid,
+                  name,
+                  is_active
+                  team_user(team_slug: $teamSlug) {
+                    ${ProfileLink.getFragment('teamUser')},
+                  },
+                  source {
+                    id,
+                    dbid,
+                    image,
+                  }
+                }
+              }
+            }
+          }
+        }
+        assignments(first: 10000) {
+          edges {
+            node {
+              name
+              id
+              dbid
+              team_user(team_slug: $teamSlug) {
+                ${ProfileLink.getFragment('teamUser')},
+              },
+              source {
+                id
+                dbid
+                image
+              }
+            }
+          }
+        }
+        first_response {
+          id,
+          dbid,
+          permissions,
+          content,
+          image_data,
+          attribution(first: 10000) {
+            edges {
+              node {
+                id
+                dbid
+                name
+                team_user(team_slug: $teamSlug) {
+                  ${ProfileLink.getFragment('teamUser')},
+                },
+                source {
+                  id
+                  dbid
+                  image
+                }
+              }
+            }
+          }
+          annotator {
+            name,
+            profile_image,
+            user {
+              id,
+              dbid,
+              name,
+              is_active
+              team_user(team_slug: $teamSlug) {
+                ${ProfileLink.getFragment('teamUser')},
+              },
+              source {
+                id,
+                dbid,
+                image,
+              }
+            }
+          }
+        }
+      }
+    `,
+  },
+});

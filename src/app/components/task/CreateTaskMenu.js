@@ -12,17 +12,6 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import GradeIcon from '@material-ui/icons/Grade';
 import IconImageUpload from '@material-ui/icons/CloudUpload';
-import styled from 'styled-components';
-import config from 'config'; // eslint-disable-line require-path-exists/exists
-import { units, black05 } from '../../styles/js/shared';
-
-const StyledCreateTaskButton = styled(Button)`
-  margin-bottom: ${units(2)} !important;
-
-  &:hover {
-    background-color: ${black05} !important;
-  }
-`;
 
 class CreateTaskMenu extends React.Component {
   constructor(props) {
@@ -51,14 +40,27 @@ class CreateTaskMenu extends React.Component {
   };
 
   render() {
+    const isTask = this.props.fieldset === 'tasks';
+    const { teamSettings } = this.props;
+    const buttonProps = {};
+
+    if (teamSettings) {
+      buttonProps.color = 'primary';
+      buttonProps.variant = 'contained';
+    }
+
     return (
       <div>
-        <StyledCreateTaskButton
+        <Button
           className="create-task__add-button"
           onClick={this.handleClick.bind(this)}
+          {...buttonProps}
         >
-          <FormattedMessage id="tasks.addTask" defaultMessage="Add task" />
-        </StyledCreateTaskButton>
+          { isTask ?
+            <FormattedMessage id="tasks.addTask" defaultMessage="New task" /> :
+            <FormattedMessage id="tasks.addMetadata" defaultMessage="New metadata" />
+          }
+        </Button>
 
         <Menu
           open={this.state.menuOpen}
@@ -123,7 +125,7 @@ class CreateTaskMenu extends React.Component {
               primary={<FormattedMessage id="tasks.imageUpload" defaultMessage="Image upload" />}
             />
           </MenuItem>
-          {config.appName === 'check' && !this.props.hideTeamwideOption ?
+          { !this.props.teamSettings && isTask ?
             <MenuItem
               className="create-task__teamwide-nudge"
               onClick={() => this.handleSelectType('teamwide')}

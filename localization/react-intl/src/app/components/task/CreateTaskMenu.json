@@ -1,7 +1,11 @@
 [
   {
     "id": "tasks.addTask",
-    "defaultMessage": "Add task"
+    "defaultMessage": "New task"
+  },
+  {
+    "id": "tasks.addMetadata",
+    "defaultMessage": "New metadata"
   },
   {
     "id": "tasks.shortAnswer",

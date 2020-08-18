@@ -249,6 +249,7 @@ class EditTaskDialog extends React.Component {
   }
 
   render() {
+    const isTask = this.props.fieldset === 'task';
     const dialogTitle = this.props.task ? messages.editTask : messages.newTask;
 
     return (
@@ -287,7 +288,7 @@ class EditTaskDialog extends React.Component {
             fullWidth
           />
           <p />
-          { this.props.projects ?
+          { this.props.projects && isTask ?
             <StyledProjectsArea>
               <FormattedMessage id="tasks.showInProj" defaultMessage="Show tasks in" />
               <ProjectSelector

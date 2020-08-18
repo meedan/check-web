@@ -39,7 +39,7 @@ class CreateTeamTask extends React.Component {
       json_options: task.jsonoptions,
       json_project_ids: task.json_project_ids,
       json_schema: task.jsonschema,
-      fieldset: 'tasks',
+      fieldset: this.props.fieldset,
     };
 
     const onSuccess = () => {
@@ -63,16 +63,23 @@ class CreateTeamTask extends React.Component {
   };
 
   render() {
+    const { projects } = this.props.team;
+
     return (
       <div>
-        <CreateTaskMenu onSelect={this.handleSelectType} hideTeamwideOption />
+        <CreateTaskMenu
+          fieldset={this.props.fieldset}
+          onSelect={this.handleSelectType}
+          teamSettings
+        />
         { this.state.createType ?
           <EditTaskDialog
+            fieldset={this.props.fieldset}
             message={this.state.message}
             taskType={this.state.createType}
             onDismiss={this.handleClose}
             onSubmit={this.handleSubmitTask}
-            projects={this.props.team.projects.edges}
+            projects={projects ? projects.edges : null}
           />
           : null
         }

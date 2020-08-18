@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
+import Task from '../task/Task';
 import Tasks from '../task/Tasks';
 import { withPusher, pusherShape } from '../../pusher';
 import CreateTask from '../task/CreateTask';
 import MediaRoute from '../../relay/MediaRoute';
 import MediasLoading from './MediasLoading';
-import ProfileLink from '../layout/ProfileLink';
 import UserUtil from '../user/UserUtil';
 import CheckContext from '../../CheckContext';
 import { getCurrentProjectId } from '../../helpers';
@@ -210,13 +210,6 @@ MediaTasksComponent.propTypes = {
 };
 
 const MediaTasksContainer = Relay.createContainer(withPusher(MediaTasksComponent), {
-  initialVariables: {
-    teamSlug: null,
-  },
-  prepareVariables: vars => ({
-    ...vars,
-    teamSlug: /^\/([^/]+)/.test(window.location.pathname) ? window.location.pathname.match(/^\/([^/]+)/)[1] : null,
-  }),
   fragments: {
     media: () => Relay.QL`
       fragment on ProjectMedia {
@@ -228,124 +221,15 @@ const MediaTasksContainer = Relay.createContainer(withPusher(MediaTasksComponent
         tasks(fieldset: "tasks", first: 10000) {
           edges {
             node {
-              id,
-              dbid,
-              label,
-              type,
-              description,
-              fieldset,
-              permissions,
-              jsonoptions,
-              json_schema,
-              options,
-              pending_suggestions_count,
-              suggestions_count,
-              log_count,
               responses(first: 10000) {
                 edges {
                   node {
                     id,
                     dbid,
-                    permissions,
-                    content,
-                    image_data,
-                    attribution(first: 10000) {
-                      edges {
-                        node {
-                          id
-                          dbid
-                          name
-                          team_user(team_slug: $teamSlug) {
-                            ${ProfileLink.getFragment('teamUser')}, # FIXME: Make Task a container
-                          },
-                          source {
-                            id
-                            dbid
-                            image
-                          }
-                        }
-                      }
-                    }
-                    annotator {
-                      name,
-                      profile_image,
-                      user {
-                        id,
-                        dbid,
-                        name,
-                        is_active
-                        team_user(team_slug: $teamSlug) {
-                          ${ProfileLink.getFragment('teamUser')},
-                        },
-                        source {
-                          id,
-                          dbid,
-                          image,
-                        }
-                      }
-                    }
                   }
                 }
               }
-              assignments(first: 10000) {
-                edges {
-                  node {
-                    name
-                    id
-                    dbid
-                    team_user(team_slug: $teamSlug) {
-                      ${ProfileLink.getFragment('teamUser')},
-                    },
-                    source {
-                      id
-                      dbid
-                      image
-                    }
-                  }
-                }
-              }
-              first_response {
-                id,
-                dbid,
-                permissions,
-                content,
-                image_data,
-                attribution(first: 10000) {
-                  edges {
-                    node {
-                      id
-                      dbid
-                      name
-                      team_user(team_slug: $teamSlug) {
-                        ${ProfileLink.getFragment('teamUser')},
-                      },
-                      source {
-                        id
-                        dbid
-                        image
-                      }
-                    }
-                  }
-                }
-                annotator {
-                  name,
-                  profile_image,
-                  user {
-                    id,
-                    dbid,
-                    name,
-                    is_active
-                    team_user(team_slug: $teamSlug) {
-                      ${ProfileLink.getFragment('teamUser')},
-                    },
-                    source {
-                      id,
-                      dbid,
-                      image,
-                    }
-                  }
-                }
-              }
+              ${Task.getFragment('task')},
             }
           }
         }
@@ -355,13 +239,6 @@ const MediaTasksContainer = Relay.createContainer(withPusher(MediaTasksComponent
 });
 
 const MediaMetadataContainer = Relay.createContainer(withPusher(MediaTasksComponent), {
-  initialVariables: {
-    teamSlug: null,
-  },
-  prepareVariables: vars => ({
-    ...vars,
-    teamSlug: /^\/([^/]+)/.test(window.location.pathname) ? window.location.pathname.match(/^\/([^/]+)/)[1] : null,
-  }),
   fragments: {
     media: () => Relay.QL`
       fragment on ProjectMedia {
@@ -375,122 +252,7 @@ const MediaMetadataContainer = Relay.createContainer(withPusher(MediaTasksCompon
             node {
               id,
               dbid,
-              label,
-              type,
-              description,
-              fieldset,
-              permissions,
-              jsonoptions,
-              json_schema,
-              options,
-              pending_suggestions_count,
-              suggestions_count,
-              log_count,
-              responses(first: 10000) {
-                edges {
-                  node {
-                    id,
-                    dbid,
-                    permissions,
-                    content,
-                    image_data,
-                    attribution(first: 10000) {
-                      edges {
-                        node {
-                          id
-                          dbid
-                          name
-                          team_user(team_slug: $teamSlug) {
-                            ${ProfileLink.getFragment('teamUser')}, # FIXME: Make Task a container
-                          },
-                          source {
-                            id
-                            dbid
-                            image
-                          }
-                        }
-                      }
-                    }
-                    annotator {
-                      name,
-                      profile_image,
-                      user {
-                        id,
-                        dbid,
-                        name,
-                        is_active
-                        team_user(team_slug: $teamSlug) {
-                          ${ProfileLink.getFragment('teamUser')},
-                        },
-                        source {
-                          id,
-                          dbid,
-                          image,
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-              assignments(first: 10000) {
-                edges {
-                  node {
-                    name
-                    id
-                    dbid
-                    team_user(team_slug: $teamSlug) {
-                      ${ProfileLink.getFragment('teamUser')},
-                    },
-                    source {
-                      id
-                      dbid
-                      image
-                    }
-                  }
-                }
-              }
-              first_response {
-                id,
-                dbid,
-                permissions,
-                content,
-                image_data,
-                attribution(first: 10000) {
-                  edges {
-                    node {
-                      id
-                      dbid
-                      name
-                      team_user(team_slug: $teamSlug) {
-                        ${ProfileLink.getFragment('teamUser')},
-                      },
-                      source {
-                        id
-                        dbid
-                        image
-                      }
-                    }
-                  }
-                }
-                annotator {
-                  name,
-                  profile_image,
-                  user {
-                    id,
-                    dbid,
-                    name,
-                    is_active
-                    team_user(team_slug: $teamSlug) {
-                      ${ProfileLink.getFragment('teamUser')},
-                    },
-                    source {
-                      id,
-                      dbid,
-                      image,
-                    }
-                  }
-                }
-              }
+              ${Task.getFragment('task')},
             }
           }
         }

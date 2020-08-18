@@ -103,7 +103,10 @@ class CreateTask extends Component {
     return (
       <div>
         <Can permissions={media.permissions} permission="create Task">
-          <CreateTaskMenu onSelect={this.handleSelectType} />
+          <CreateTaskMenu
+            onSelect={this.handleSelectType}
+            fieldset="tasks"
+          />
         </Can>
         { this.state.type ?
           <EditTaskDialog
