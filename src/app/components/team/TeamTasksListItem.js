@@ -181,10 +181,10 @@ class TeamTasksListItem extends React.Component {
               onClose={this.handleCloseMenu}
             >
               <MenuItem className="team-tasks__edit-button" onClick={this.handleMenuEdit}>
-                <FormattedMessage id="teamTasks.edit" defaultMessage="Edit task" />
+                <FormattedMessage id="teamTasks.edit" defaultMessage="Edit" />
               </MenuItem>
               <MenuItem className="team-tasks__delete-button" onClick={this.handleMenuDelete}>
-                <FormattedMessage id="teamTasks.delete" defaultMessage="Delete task" />
+                <FormattedMessage id="teamTasks.delete" defaultMessage="Delete" />
               </MenuItem>
             </Menu>
           </ListItemSecondaryAction>

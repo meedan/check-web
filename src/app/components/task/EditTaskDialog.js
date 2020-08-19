@@ -52,14 +52,6 @@ const messages = defineMessages({
     id: 'singleChoiceTask.other',
     defaultMessage: 'Other',
   },
-  newTask: {
-    id: 'singleChoiceTask.newTask',
-    defaultMessage: 'New task',
-  },
-  editTask: {
-    id: 'singleChoiceTask.editTask',
-    defaultMessage: 'Edit task',
-  },
 });
 
 class EditTaskDialog extends React.Component {
@@ -249,8 +241,22 @@ class EditTaskDialog extends React.Component {
   }
 
   render() {
-    const isTask = this.props.fieldset === 'task';
-    const dialogTitle = this.props.task ? messages.editTask : messages.newTask;
+    const isTask = this.props.fieldset === 'tasks';
+    const dialogTitle = () => {
+      if (this.props.task) {
+        return isTask ? (
+          <FormattedMessage id="editTaskDialog.editTask" defaultMessage="Edit task" />
+        ) : (
+          <FormattedMessage id="editTaskDialog.editMetadata" defaultMessage="Edit metadata field" />
+        );
+      }
+
+      return isTask ? (
+        <FormattedMessage id="editTaskDialog.newTask" defaultMessage="New task" />
+      ) : (
+        <FormattedMessage id="editTaskDialog.newMetadata" defaultMessage="New metadata field" />
+      );
+    };
 
     return (
       <Dialog
@@ -261,7 +267,7 @@ class EditTaskDialog extends React.Component {
         maxWidth="md"
         fullWidth
       >
-        <DialogTitle>{this.props.intl.formatMessage(dialogTitle)}</DialogTitle>
+        <DialogTitle>{dialogTitle()}</DialogTitle>
         <DialogContent>
           <Message message={this.props.message} />
 
@@ -320,7 +326,7 @@ class EditTaskDialog extends React.Component {
               </button> : null
             }
           </StyledTaskAssignment>
-          { this.props.taskType === 'free_text' ?
+          { this.props.taskType === 'free_text' && isTask ?
             <TextField
               id="task-jsonschema-input"
               className="tasks__task-jsonschema-input"

@@ -9,15 +9,15 @@
   },
   {
     "id": "tasks.shortAnswer",
-    "defaultMessage": "Short answer"
+    "defaultMessage": "Text"
   },
   {
     "id": "tasks.chooseOne",
-    "defaultMessage": "Choose one"
+    "defaultMessage": "Single select"
   },
   {
     "id": "tasks.chooseMultiple",
-    "defaultMessage": "Choose multiple"
+    "defaultMessage": "Multiple select"
   },
   {
     "id": "tasks.geolocation",

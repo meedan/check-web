@@ -74,7 +74,7 @@ class CreateTaskMenu extends React.Component {
             <ListItemIcon><ShortTextIcon /></ListItemIcon>
             <ListItemText
               primary={
-                <FormattedMessage id="tasks.shortAnswer" defaultMessage="Short answer" />
+                <FormattedMessage id="tasks.shortAnswer" defaultMessage="Text" />
               }
             />
           </MenuItem>
@@ -84,7 +84,7 @@ class CreateTaskMenu extends React.Component {
           >
             <ListItemIcon><RadioButtonCheckedIcon /></ListItemIcon>
             <ListItemText
-              primary={<FormattedMessage id="tasks.chooseOne" defaultMessage="Choose one" />}
+              primary={<FormattedMessage id="tasks.chooseOne" defaultMessage="Single select" />}
             />
           </MenuItem>
           <MenuItem
@@ -94,7 +94,7 @@ class CreateTaskMenu extends React.Component {
             <ListItemIcon><CheckBoxIcon style={{ transform: 'scale(1,1)' }} /></ListItemIcon>
             <ListItemText
               primary={
-                <FormattedMessage id="tasks.chooseMultiple" defaultMessage="Choose multiple" />
+                <FormattedMessage id="tasks.chooseMultiple" defaultMessage="Multiple select" />
               }
             />
           </MenuItem>

@@ -9,14 +9,14 @@
   },
   {
     "id": "createTeamTask.menuTooltip",
-    "defaultMessage": "Task actions"
+    "defaultMessage": "Actions menu"
   },
   {
     "id": "teamTasks.edit",
-    "defaultMessage": "Edit task"
+    "defaultMessage": "Edit"
   },
   {
     "id": "teamTasks.delete",
-    "defaultMessage": "Delete task"
+    "defaultMessage": "Delete"
   }
 ]
