@@ -1,6 +1,7 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
+import Box from '@material-ui/core/Box';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -16,17 +17,29 @@ import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import IconImageUpload from '@material-ui/icons/CloudUpload';
+import { withStyles } from '@material-ui/core/styles';
 import TeamTaskConfirmDialog from './TeamTaskConfirmDialog';
+import Reorder from '../layout/Reorder';
 import EditTaskDialog from '../task/EditTaskDialog';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import UpdateTeamTaskMutation from '../../relay/mutations/UpdateTeamTaskMutation';
 import DeleteTeamTaskMutation from '../../relay/mutations/DeleteTeamTaskMutation';
 import { getErrorMessage } from '../../helpers';
+import { black16 } from '../../styles/js/shared';
 
 const messages = defineMessages({
   menuTooltip: {
     id: 'createTeamTask.menuTooltip',
     defaultMessage: 'Task actions',
+  },
+});
+
+const styles = theme => ({
+  container: {
+    border: `2px solid ${black16}`,
+    borderRadius: '5px',
+    width: '100%',
+    marginRight: theme.spacing(2),
   },
 });
 
@@ -134,7 +147,7 @@ class TeamTasksListItem extends React.Component {
   };
 
   render() {
-    const { team, task } = this.props;
+    const { classes, task, team } = this.props;
     const projects = team.projects ? team.projects.edges : null;
     const selectedProjects = task ? task.project_ids : [];
     const { anchorEl } = this.state;
@@ -155,8 +168,9 @@ class TeamTasksListItem extends React.Component {
     );
 
     return (
-      <div>
-        <ListItem className="team-tasks__list-item">
+      <Box display="flex" alignItems="center">
+        <Reorder />
+        <ListItem classes={{ container: classes.container }} className="team-tasks__list-item">
           <ListItemIcon className="team-tasks__task-icon">
             {icon[task.type]}
           </ListItemIcon>
@@ -203,9 +217,9 @@ class TeamTasksListItem extends React.Component {
           />
           : null
         }
-      </div>
+      </Box>
     );
   }
 }
 
-export default injectIntl(TeamTasksListItem);
+export default withStyles(styles)(injectIntl(TeamTasksListItem));
