@@ -18,19 +18,12 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import IconImageUpload from '@material-ui/icons/CloudUpload';
 import TeamTaskConfirmDialog from './TeamTaskConfirmDialog';
 import EditTaskDialog from '../task/EditTaskDialog';
+import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import UpdateTeamTaskMutation from '../../relay/mutations/UpdateTeamTaskMutation';
 import DeleteTeamTaskMutation from '../../relay/mutations/DeleteTeamTaskMutation';
 import { getErrorMessage } from '../../helpers';
 
 const messages = defineMessages({
-  editError: {
-    id: 'createTeamTask.editError',
-    defaultMessage: 'Failed to edit default task',
-  },
-  deleteError: {
-    id: 'createTeamTask.deleteError',
-    defaultMessage: 'Failed to delete default task',
-  },
   menuTooltip: {
     id: 'createTeamTask.menuTooltip',
     defaultMessage: 'Task actions',
@@ -51,8 +44,7 @@ class TeamTasksListItem extends React.Component {
   }
 
   fail = (transaction) => {
-    const fallbackMessage = this.props.intl.formatMessage(messages.deleteError);
-    const message = getErrorMessage(transaction, fallbackMessage);
+    const message = getErrorMessage(transaction, <GenericUnknownErrorMessage />);
     this.setState({ message });
   };
 

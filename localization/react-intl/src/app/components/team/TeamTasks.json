@@ -16,6 +16,18 @@
     "defaultMessage": "No metadata fields"
   },
   {
+    "id": "teamTasks.filter",
+    "defaultMessage": "Filter tasks"
+  },
+  {
+    "id": "teamTasks.projFilter",
+    "defaultMessage": "Show tasks in"
+  },
+  {
+    "id": "teamTasks.typeFilter",
+    "defaultMessage": "Task type"
+  },
+  {
     "id": "teamTasks.tasks",
     "defaultMessage": "Tasks"
   },

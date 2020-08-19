@@ -1,15 +1,7 @@
 [
   {
-    "id": "createTeamTask.editError",
-    "defaultMessage": "Failed to edit default task"
-  },
-  {
-    "id": "createTeamTask.deleteError",
-    "defaultMessage": "Failed to delete default task"
-  },
-  {
     "id": "createTeamTask.menuTooltip",
-    "defaultMessage": "Actions menu"
+    "defaultMessage": "Task actions"
   },
   {
     "id": "teamTasks.edit",

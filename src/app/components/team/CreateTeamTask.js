@@ -1,17 +1,11 @@
 import React from 'react';
-import { defineMessages, injectIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
 import CreateTaskMenu from '../task/CreateTaskMenu';
 import EditTaskDialog from '../task/EditTaskDialog';
 import CreateTeamTaskMutation from '../../relay/mutations/CreateTeamTaskMutation';
 import { getErrorMessage } from '../../helpers';
-
-const messages = defineMessages({
-  error: {
-    id: 'createTeamTask.error',
-    defaultMessage: 'Failed to create default task',
-  },
-});
+import { stringHelper } from '../../customHelpers';
 
 class CreateTeamTask extends React.Component {
   constructor(props) {
@@ -48,7 +42,20 @@ class CreateTeamTask extends React.Component {
     };
 
     const onFailure = (transaction) => {
-      const fallbackMessage = this.props.intl.formatMessage(messages.error);
+      const fallbackMessage = this.props.fieldset === 'tasks' ? (
+        <FormattedMessage
+          id="createTeamTask.errorTask"
+          defaultMessage="Sorry, an error occurred while creating the task. Please try again and contact {supportEmail} if the condition persists."
+          values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
+        />
+      ) : (
+        <FormattedMessage
+          id="createTeamTask.errorMetadata"
+          defaultMessage="Sorry, an error occurred while updating the metadata field. Please try again and contact {supportEmail} if the condition persists."
+          values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
+        />
+      );
+
       const message = getErrorMessage(transaction, fallbackMessage);
       this.setState({ message });
     };
@@ -88,4 +95,4 @@ class CreateTeamTask extends React.Component {
   }
 }
 
-export default injectIntl(CreateTeamTask);
+export default CreateTeamTask;

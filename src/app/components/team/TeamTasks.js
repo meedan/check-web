@@ -2,15 +2,16 @@ import React from 'react';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import intersection from 'lodash.intersection';
+import Box from '@material-ui/core/Box';
 import TeamTasksProject from './TeamTasksProject';
 import CreateTeamTask from './CreateTeamTask';
-// import ProjectSelector from '../project/ProjectSelector';
-// import TaskTypeSelector from '../task/TaskTypeSelector';
+import ProjectSelector from '../project/ProjectSelector';
+import TaskTypeSelector from '../task/TaskTypeSelector';
 import BlankState from '../layout/BlankState';
 import CardToolbar from '../layout/CardToolbar';
-// import FilterPopup from '../layout/FilterPopup';
+import FilterPopup from '../layout/FilterPopup';
 import TeamRoute from '../../relay/TeamRoute';
-import { ContentColumn } from '../../styles/js/shared';
+import { ContentColumn, units } from '../../styles/js/shared';
 
 class TeamTasksComponent extends React.Component {
   state = {
@@ -103,7 +104,7 @@ class TeamTasksComponent extends React.Component {
     const isTask = this.props.fieldset === 'tasks';
     const { team_tasks } = this.props.team;
     const filteredTasks = this.filterTeamTasks(team_tasks.edges);
-    // const filterLabel = this.renderFilterLabel(filteredTasks, team_tasks.edges);
+    const filterLabel = this.renderFilterLabel(filteredTasks, team_tasks.edges);
 
     const getTasksForProjectId = projectId => filteredTasks.filter(task =>
       task.node.project_ids.length === 0 ||
@@ -114,7 +115,38 @@ class TeamTasksComponent extends React.Component {
       <div className="team-tasks">
         <ContentColumn>
           <CardToolbar
-            action={<CreateTeamTask fieldset={fieldset} team={this.props.team} />}
+            action={
+              <Box alignItems="center" display="flex">
+                { isTask ? (
+                  <FilterPopup
+                    search={this.state.search}
+                    onSearchChange={this.handleSearchChange}
+                    label={filterLabel}
+                    tooltip={<FormattedMessage id="teamTasks.filter" defaultMessage="Filter tasks" />}
+                  >
+                    <div style={{ marginTop: units(4) }}>
+                      <FormattedMessage id="teamTasks.projFilter" defaultMessage="Show tasks in" />
+                      <ProjectSelector
+                        projects={this.props.team.projects.edges}
+                        selected={this.state.projFilter}
+                        onSelect={this.handleSelectProjects}
+                        fullWidth
+                      />
+                    </div>
+                    <div style={{ marginTop: units(2) }}>
+                      <FormattedMessage id="teamTasks.typeFilter" defaultMessage="Task type" />
+                      <TaskTypeSelector
+                        selected={this.state.typeFilter}
+                        onSelect={this.handleSelectTaskTypes}
+                        fullWidth
+                      />
+                    </div>
+                  </FilterPopup>
+                ) : null
+                }
+                <CreateTeamTask fieldset={fieldset} team={this.props.team} />
+              </Box>
+            }
             helpUrl={
               isTask ?
                 'https://help.checkmedia.org/en/articles/3648632-tasks' :
@@ -126,34 +158,6 @@ class TeamTasksComponent extends React.Component {
                 <FormattedMessage id="teamTasks.metadata" defaultMessage="Metadata" />
             }
           />
-          {/*
-            <AlignOpposite>
-              <FilterPopup
-                search={this.state.search}
-                onSearchChange={this.handleSearchChange}
-                label={filterLabel}
-                tooltip={<FormattedMessage id="teamTasks.filter" defaultMessage="Filter tasks" />}
-              >
-                <div style={{ marginTop: units(4) }}>
-                  <FormattedMessage id="teamTasks.projFilter" defaultMessage="Show tasks in" />
-                  <ProjectSelector
-                    projects={this.props.team.projects.edges}
-                    selected={this.state.projFilter}
-                    onSelect={this.handleSelectProjects}
-                    fullWidth
-                  />
-                </div>
-                <div style={{ marginTop: units(2) }}>
-                  <FormattedMessage id="teamTasks.typeFilter" defaultMessage="Task type" />
-                  <TaskTypeSelector
-                    selected={this.state.typeFilter}
-                    onSelect={this.handleSelectTaskTypes}
-                    fullWidth
-                  />
-                </div>
-              </FilterPopup>
-            </AlignOpposite>
-          */}
           { this.renderTeamTaskList(getTasksForProjectId(null)) }
         </ContentColumn>
       </div>

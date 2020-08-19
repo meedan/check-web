@@ -1,18 +1,11 @@
 import React from 'react';
-import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import MoreHoriz from '@material-ui/icons/MoreHoriz';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { can } from '../Can';
-
-const messages = defineMessages({
-  menuTooltip: {
-    id: 'taskActions.menuTooltip',
-    defaultMessage: 'Task actions',
-  },
-});
 
 class TaskActions extends React.Component {
   state = {
@@ -47,10 +40,19 @@ class TaskActions extends React.Component {
     }
 
     const menuItems = [];
+    const menuTooltip = isTask ? (
+      <FormattedMessage id="taskActions.tooltipTask" defaultMessage="Task actions" />
+    ) : (
+      <FormattedMessage id="taskActions.tooltipMetadata" defaultMessage="Metadata actions" />
+    );
 
     if (can(media.permissions, 'create Task') && isTask) {
       menuItems.push((
-        <MenuItem className="task-actions__edit" onClick={() => this.handleAction('edit_question')}>
+        <MenuItem
+          key="edit"
+          className="task-actions__edit"
+          onClick={() => this.handleAction('edit_question')}
+        >
           <FormattedMessage id="task.edit" defaultMessage="Edit task" />
         </MenuItem>
       ));
@@ -58,13 +60,21 @@ class TaskActions extends React.Component {
 
     if (response && can(task.first_response.permissions, 'update Dynamic')) {
       menuItems.push((
-        <MenuItem className="task-actions__edit-response" onClick={() => this.handleAction('edit_response', task.first_response)}>
+        <MenuItem
+          key="edit-answer"
+          className="task-actions__edit-response"
+          onClick={() => this.handleAction('edit_response', task.first_response)}
+        >
           <FormattedMessage id="task.editResponse" defaultMessage="Edit answer" />
         </MenuItem>
       ));
 
       menuItems.push((
-        <MenuItem className="task-actions__delete-response" onClick={() => this.handleAction('delete_response', task.first_response)}>
+        <MenuItem
+          key="delete-answer"
+          className="task-actions__delete-response"
+          onClick={() => this.handleAction('delete_response', task.first_response)}
+        >
           <FormattedMessage id="task.deleteResponse" defaultMessage="Delete answer" />
         </MenuItem>
       ));
@@ -72,7 +82,11 @@ class TaskActions extends React.Component {
 
     if (can(media.permissions, 'create Task') && isTask) {
       menuItems.push((
-        <MenuItem className="task-actions__assign" onClick={() => this.handleAction('edit_assignment')}>
+        <MenuItem
+          key="edit-assignment"
+          className="task-actions__assign"
+          onClick={() => this.handleAction('edit_assignment')}
+        >
           <FormattedMessage id="task.assignOrUnassign" defaultMessage="Assign / Unassign" />
         </MenuItem>
       ));
@@ -80,7 +94,11 @@ class TaskActions extends React.Component {
 
     if (response && can(task.first_response.permissions, 'update Dynamic') && isTask) {
       menuItems.push((
-        <MenuItem className="task-actions__edit-attribution" onClick={() => this.handleAction('edit_attribution')}>
+        <MenuItem
+          key="edit-attribution"
+          className="task-actions__edit-attribution"
+          onClick={() => this.handleAction('edit_attribution')}
+        >
           <FormattedMessage id="task.editAttribution" defaultMessage="Edit attribution" />
         </MenuItem>
       ));
@@ -88,7 +106,11 @@ class TaskActions extends React.Component {
 
     if (can(task.permissions, 'destroy Task') && isTask) {
       menuItems.push((
-        <MenuItem className="task-actions__delete" onClick={() => this.handleAction('delete')}>
+        <MenuItem
+          key="delete"
+          className="task-actions__delete"
+          onClick={() => this.handleAction('delete')}
+        >
           <FormattedMessage id="task.delete" defaultMessage="Delete task" />
         </MenuItem>
       ));
@@ -96,7 +118,7 @@ class TaskActions extends React.Component {
 
     return menuItems.length ? (
       <React.Fragment>
-        <Tooltip title={this.props.intl.formatMessage(messages.menuTooltip)}>
+        <Tooltip title={menuTooltip}>
           <IconButton className="task-actions__icon" onClick={this.handleMenuClick}>
             <MoreHoriz />
           </IconButton>
@@ -114,4 +136,4 @@ class TaskActions extends React.Component {
   }
 }
 
-export default injectIntl(TaskActions);
+export default TaskActions;
