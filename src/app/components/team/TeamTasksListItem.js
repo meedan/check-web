@@ -1,5 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
+import { commitMutation, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
 import ListItem from '@material-ui/core/ListItem';
@@ -35,6 +37,84 @@ const styles = theme => ({
     marginRight: theme.spacing(2),
   },
 });
+
+function submitMoveTeamTaskUp({
+  fieldset,
+  task,
+  onFailure,
+}) {
+  commitMutation(Relay.Store, {
+    mutation: graphql`
+      mutation TeamTasksListItemMoveTaskUpMutation($input: MoveTeamTaskUpInput!, $fieldset: String!) {
+        moveTeamTaskUp(input: $input) {
+          team {
+            team_tasks(fieldset: $fieldset, first: 10000) {
+              edges {
+                node {
+                  id
+                  label
+                  order
+                }
+              }
+            }
+          }
+        }
+      }
+    `,
+    variables: {
+      input: {
+        id: task.id,
+      },
+      fieldset,
+    },
+    onError: onFailure,
+    onCompleted: ({ errors }) => {
+      if (errors) {
+        return onFailure(errors);
+      }
+      return null;
+    },
+  });
+}
+
+function submitMoveTeamTaskDown({
+  fieldset,
+  task,
+  onFailure,
+}) {
+  commitMutation(Relay.Store, {
+    mutation: graphql`
+      mutation TeamTasksListItemMoveTaskDownMutation($input: MoveTeamTaskDownInput!, $fieldset: String!) {
+        moveTeamTaskDown(input: $input) {
+          team {
+            team_tasks(fieldset: $fieldset, first: 10000) {
+              edges {
+                node {
+                  id
+                  label
+                  order
+                }
+              }
+            }
+          }
+        }
+      }
+    `,
+    variables: {
+      input: {
+        id: task.id,
+      },
+      fieldset,
+    },
+    onError: onFailure,
+    onCompleted: ({ errors }) => {
+      if (errors) {
+        return onFailure(errors);
+      }
+      return null;
+    },
+  });
+}
 
 class TeamTasksListItem extends React.Component {
   constructor(props) {
@@ -139,6 +219,26 @@ class TeamTasksListItem extends React.Component {
     );
   };
 
+  handleMoveTaskUp = () => {
+    const { task, fieldset } = this.props;
+
+    submitMoveTeamTaskUp({
+      fieldset,
+      task,
+      onFailure: this.fail,
+    });
+  }
+
+  handleMoveTaskDown = () => {
+    const { task, fieldset } = this.props;
+
+    submitMoveTeamTaskDown({
+      fieldset,
+      task,
+      onFailure: this.fail,
+    });
+  };
+
   render() {
     const { classes, task, team } = this.props;
     const projects = team.projects ? team.projects.edges : null;
@@ -168,7 +268,7 @@ class TeamTasksListItem extends React.Component {
 
     return (
       <Box display="flex" alignItems="center">
-        <Reorder />
+        <Reorder onMoveUp={this.handleMoveTaskUp} onMoveDown={this.handleMoveTaskDown} />
         <ListItem classes={{ container: classes.container }} className="team-tasks__list-item">
           <ListItemIcon className="team-tasks__task-icon">
             {icon[task.type]}
@@ -220,5 +320,32 @@ class TeamTasksListItem extends React.Component {
     );
   }
 }
+
+TeamTasksListItem.propTypes = {
+  classes: PropTypes.object.isRequired,
+  task: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+    description: PropTypes.string,
+    type: PropTypes.string.isRequired,
+    json_options: PropTypes.string,
+    json_project_ids: PropTypes.string,
+    json_schema: PropTypes.string,
+  }).isRequired,
+  team: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    projects: PropTypes.shape({
+      edges: PropTypes.arrayOf((
+        PropTypes.shape({
+          node: PropTypes.shape({
+            title: PropTypes.string.isRequired,
+            dbid: PropTypes.number.isRequired,
+          }),
+        })
+      )),
+    }),
+  }).isRequired,
+  fieldset: PropTypes.string.isRequired,
+};
 
 export default withStyles(styles)(TeamTasksListItem);
