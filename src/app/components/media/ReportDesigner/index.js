@@ -26,6 +26,15 @@ const ReportDesignerContainer = Relay.createContainer(ReportDesignerComponent, {
         media {
           picture
         }
+        first_smooch_request: annotations(first: 1, annotation_type: "smooch") {
+          edges {
+            node {
+              ... on Dynamic {
+                created_at
+              }
+            }
+          }
+        }
         last_status_obj {
           id
           dbid

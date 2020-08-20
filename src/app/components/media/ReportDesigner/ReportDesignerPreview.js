@@ -40,13 +40,20 @@ function formatDate(date, language) {
   return new Intl.DateTimeFormat(language.replace('_', '-'), options).format(date);
 }
 
-function previewIntroduction(data) {
+function previewIntroduction(data, media) {
   let { introduction } = data;
   if (!introduction) {
     introduction = '';
+  } else {
+    let firstSmoochRequest = media.first_smooch_request.edges;
+    if (firstSmoochRequest.length > 0) {
+      firstSmoochRequest = firstSmoochRequest[0].node;
+      introduction = introduction.replace(/{{query_date}}/g, formatDate(new Date(parseInt(firstSmoochRequest.created_at, 10) * 1000), data.language));
+    } else {
+      introduction = introduction.replace(/{{query_date}}/g, formatDate(new Date(), data.language));
+    }
+    introduction = introduction.replace(/{{status}}/g, data.status_label);
   }
-  introduction = introduction.replace(/{{query_date}}/g, formatDate(new Date(), data.language));
-  introduction = introduction.replace(/{{status}}/g, data.status_label);
   return introduction;
 }
 
@@ -69,7 +76,7 @@ const ReportDesignerPreview = (props) => {
     <Box className={classes.root}>
       { data.use_introduction ?
         <Box className={classes.box}>
-          <ParsedText text={previewIntroduction(data)} />
+          <ParsedText text={previewIntroduction(data, media)} />
         </Box> : null }
       { data.use_visual_card ?
         <Box>
