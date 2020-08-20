@@ -41,11 +41,12 @@ const ReportDesignerTopBar = (props) => {
     state,
     editing,
     data,
-    readOnly,
   } = props;
 
   const [resendToPrevious, setResendToPrevious] = React.useState(false);
+  const [statusChanging, setStatusChanging] = React.useState(false);
 
+  const readOnly = props.readOnly || statusChanging;
   const url = window.location.href.replace(/\/report$/, `?t=${new Date().getTime()}`);
   const embedTag = `<script src="${config.penderUrl}/api/medias.js?url=${encodeURIComponent(url)}"></script>`;
   const metadata = JSON.parse(media.oembed_metadata);
@@ -57,6 +58,15 @@ const ReportDesignerTopBar = (props) => {
 
   const handleGoBack = () => {
     browserHistory.push(itemUrl);
+  };
+
+  const handleStatusChanging = () => {
+    setStatusChanging(true);
+  };
+
+  const handleStatusChanged = () => {
+    setStatusChanging(false);
+    props.onStatusChange();
   };
 
   return (
@@ -262,7 +272,8 @@ const ReportDesignerTopBar = (props) => {
           <MediaStatus
             media={media}
             readonly={readOnly || state === 'published'}
-            callback={props.onStatusChange}
+            callback={handleStatusChanged}
+            onChanging={handleStatusChanging}
           />
         </Box>
       </Box>
