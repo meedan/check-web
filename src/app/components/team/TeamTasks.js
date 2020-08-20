@@ -170,7 +170,7 @@ const TeamTasksContainer = Relay.createContainer(TeamTasksComponent, {
       fragment on Team {
         id
         dbid
-        team_tasks(first: 10000) {
+        team_tasks(fieldset: "tasks", first: 10000) {
           edges {
             node {
               id

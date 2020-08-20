@@ -18,11 +18,10 @@ shared_examples 'smoke' do
   end
 
   it "should login using Facebook", bin5: true, quick:true do
-    login_pg = LoginPage.new(config: @config, driver: @driver).load
-    login_pg.login_with_facebook
-    me_pg = MePage.new(config: @config, driver: login_pg.driver).load
-    displayed_name = me_pg.title
-    expected_name = @config['facebook_name']
+    login_with_facebook
+    @driver.navigate.to @config['self_url'] + '/check/me'
+    displayed_name = wait_for_selector('h1.source__name').text.upcase
+    expected_name = @config['facebook_name'].upcase
     expect(displayed_name).to eq(expected_name)
   end
 
@@ -54,11 +53,9 @@ shared_examples 'smoke' do
   end
 
   it "should register and login using e-mail", bin5: true, quick:true do
-    login_pg = LoginPage.new(config: @config, driver: @driver).load
-    email, password = ['sysops+' + Time.now.to_i.to_s + '@meedan.com', '22345678']
-    login_pg.register_and_login_with_email(email: email, password: password)
-    me_pg = MePage.new(config: @config, driver: login_pg.driver).load # reuse tab
-    displayed_name = me_pg.title
+    register_with_email
+    @driver.navigate.to @config['self_url'] + '/check/me'
+    displayed_name = wait_for_selector('h1.source__name').text
     expect(displayed_name == 'User With Email').to be(true)
   end
 
@@ -77,7 +74,7 @@ shared_examples 'smoke' do
     api_create_team(team: team)
     api_logout
     @driver.quit
-    @driver = new_driver(@webdriver_url,@browser_capabilities)
+    @driver = new_driver()
     @driver.navigate.to @config['self_url'] + "/"+team+"/join"
     wait_for_selector(".message")
     expect(@driver.page_source.include?("First you need to register. Once registered, you can request to join the workspace.")).to be(true)
@@ -87,8 +84,13 @@ shared_examples 'smoke' do
 #security section start
   it "should reset password", bin5: true do
     user = api_create_and_confirm_user
-    page = LoginPage.new(config: @config, driver: @driver)
-    page.reset_password(user.email)
+    api_logout
+    @driver.quit
+    @driver = new_driver()
+    @driver.navigate.to @config['self_url']
+    wait_for_selector('.login__forgot-password a').click
+    wait_for_selector('#password-reset-email-input').send_keys(user.email)
+    wait_for_selector('.user-password-reset__actions button + button').click
     wait_for_selector_none(".user-password-reset__email-input")
     expect(@driver.page_source.include?('email was not found')).to be(false)
     expect(@driver.page_source.include?('Password reset sent')).to be(true)
@@ -135,13 +137,9 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('Who agrees with this')).to be(true)
   end
 
-  it "should register, create a claim and assign it", bin4: true do
-    page = LoginPage.new(config: @config, driver: @driver).load
-    page = page.register_and_login_with_email(email: "sysops+#{Time.now.to_i}#{rand(1000)}@meedan.com", password: @password)
-    page
-      .create_team
-      .create_project
-      .create_media(input: 'Claim')
+  it "should create a item and assign it", bin4: true do
+    api_create_team_project_and_claim_and_redirect_to_media_page
+    wait_for_selector(".media")
     expect(@driver.page_source.include?('Assigments updated successfully!')).to be(false)
     wait_for_selector('.media-actions__icon').click
     wait_for_selector(".media-actions__assign").click
@@ -618,17 +616,17 @@ shared_examples 'smoke' do
     wait_for_selector('.team-settings__integrations-tab').click
     expect(@driver.find_elements(:css, '.Mui-checked').length == 0 )
     wait_for_selector("input[type=checkbox]").click
-    @driver.navigate.refresh
-    wait_for_selector('.team-settings__integrations-tab').click
-    wait_for_selector(".Mui-checked")
-    expect(@driver.find_elements(:css, '.Mui-checked').length == 1 )
     wait_for_selector(".MuiCardHeader-action").click
-    wait_for_selector("//span[contains(text(), 'Cancel')]", :xpath)
+    wait_for_selector('input[name="channel"]')
     wait_for_selector('input[name="webhook"]').send_keys("https://hooks.slack.com/services/00000/0000000000")
     wait_for_selector("//span[contains(text(), 'Save')]", :xpath).click
     wait_for_selector_none("//span[contains(text(), 'Cancel')]", :xpath)
+    @driver.navigate.refresh
+    wait_for_selector('.team-settings__integrations-tab').click
     wait_for_selector(".MuiCardHeader-action").click
-    wait_for_selector("//span[contains(text(), 'Cancel')]", :xpath)
+    wait_for_selector(".Mui-checked")
+    expect(@driver.find_elements(:css, '.Mui-checked').length == 1 )
+    wait_for_selector('input[name="channel"]')
     expect(@driver.page_source.include?('hooks.slack.com/services')).to be(true)
   end
 
@@ -730,9 +728,8 @@ shared_examples 'smoke' do
     bot_name = 'Smooch'
     install_bot(response[:team].slug, bot_name)
     wait_for_selector(".home--team")
-    card_member = wait_for_selector(".team-members__member")
-    card_member.location_once_scrolled_into_view
-    expect(@driver.page_source.include?('Smooch')).to be(true)
+    wait_for_selector(".team-members__member")
+    wait_for_selector("//div[contains(text(), 'Smooch')]", :xpath)
     wait_for_selector(".team__project").click
     wait_for_selector("#search__open-dialog-button")
     create_media("Claim")
@@ -770,7 +767,7 @@ shared_examples 'smoke' do
       title = 'A report at ' + Time.now.to_i.to_s
       fill_field('#id_poster' , title)
       wait_for_selector('#id_content').send_keys(' ')
-      @driver.action.send_keys(:control, 'v').perform
+      wait_for_selector('#id_content').send_keys(:control, 'v')
       wait_for_text_change(' ',"#id_content", :css)
       expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
     end
@@ -782,10 +779,9 @@ shared_examples 'smoke' do
     generate_a_report_and_copy_report_code
     @driver.navigate.to 'http://codemagic.gr/'
     wait_for_selector('.ace_text-input').send_keys(' ')
-    @driver.action.send_keys(:control, 'v').perform
+    wait_for_selector('.ace_text-input').send_keys(:control, 'v')
     wait_for_text_change(' ',".ace_text-input", :css)
-    button = wait_for_selector("#update")
-    button.click
+    wait_for_selector("#update").click
     expect(@driver.page_source.include?('test-team')).to be(true)
   end
 
@@ -807,13 +803,13 @@ shared_examples 'smoke' do
     title = 'a report from image' + Time.now.to_i.to_s
     fill_field('#id_poster' , title)
     wait_for_selector('#id_content').send_keys(' ')
-    @driver.action.send_keys(:control, 'v').perform
+    wait_for_selector('#id_content').send_keys(:control, 'v')
     wait_for_text_change(' ',"#id_content", :css)
     expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
   end
 
   it "should generate a report, copy the share url and open the report page in a incognito window", bin4: true do
-   api_create_team_and_project
+    api_create_team_and_project
     @driver.navigate.to @config['self_url']
     wait_for_selector('.project__description')
     create_image('test.png')
@@ -1109,7 +1105,7 @@ shared_examples 'smoke' do
     api_logout
     @driver.quit
 
-    @driver = new_driver(@webdriver_url,@browser_capabilities)
+    @driver = new_driver()
     page = Page.new(config: @config, driver: @driver)
     page.go(@config['api_path'] + '/test/session?email='+@user_mail)
 
@@ -1152,7 +1148,7 @@ shared_examples 'smoke' do
     api_logout
     @driver.quit
 
-    @driver = new_driver(@webdriver_url,@browser_capabilities)
+    @driver = new_driver()
     page = Page.new(config: @config, driver: @driver)
     page.go(@config['api_path'] + '/test/session?email='+@user_mail)
     page = MePage.new(config: @config, driver: @driver).load
@@ -1205,7 +1201,7 @@ shared_examples 'smoke' do
     }
     api_logout
     @driver.quit
-    @driver = new_driver(@webdriver_url,@browser_capabilities)
+    @driver = new_driver()
     page = Page.new(config: @config, driver: @driver)
     page.go(@config['api_path'] + '/test/session?email='+@user_mail)
     #As the group creator, go to the members page and approve the joining request.
@@ -1250,7 +1246,7 @@ shared_examples 'smoke' do
     api_logout
     @driver.quit
     #As the journalist, go to the members page and can't see the request to join the another user
-    @driver = new_driver(@webdriver_url,@browser_capabilities)
+    @driver = new_driver()
     page = Page.new(config: @config, driver: @driver)
     page.go(@config['api_path'] + '/test/session?email=new'+@user_mail)
     page = MePage.new(config: @config, driver: @driver).load
@@ -1289,7 +1285,7 @@ shared_examples 'smoke' do
     @driver.quit
 
     #As the group creator, go to the members page and edit team member role to 'contribuitor'
-    @driver = new_driver(@webdriver_url,@browser_capabilities)
+    @driver = new_driver()
     page = Page.new(config: @config, driver: @driver)
     page.go(@config['api_path'] + '/test/session?email='+@user_mail)
     page = MePage.new(config: @config, driver: @driver).load
@@ -1303,7 +1299,7 @@ shared_examples 'smoke' do
     @driver.quit
 
     #log in as the contributor
-    @driver = new_driver(@webdriver_url,@browser_capabilities)
+    @driver = new_driver()
     page = Page.new(config: @config, driver: @driver)
     page.go(@config['api_path'] + '/test/session?email=new'+@user_mail)
     page = MePage.new(config: @config, driver: @driver).load
@@ -1350,9 +1346,12 @@ shared_examples 'smoke' do
     wait_for_selector('.rules__rule-field div[role="button"]').click
     wait_for_selector('ul[role=listbox] li[role=option]').click
     wait_for_selector('.rules__rule-field textarea').send_keys('foo,bar')
-    wait_for_selector('body').click
 
     # Select an action
+    wait_for_selector('.rules__actions .rules__rule-field div[role="button"]').click
+    # https://mantis.meedan.com/view.php?id=8463 clicking the select field
+    # doesn't open it. So let's click the select field again. FIXME fix #8463,
+    # then nix this line.
     wait_for_selector('.rules__actions .rules__rule-field div[role="button"]').click
     wait_for_selector('ul[role=listbox] li[role=option]').click
     expect(@driver.page_source.include?('Select destination list')).to be(true)
@@ -1391,8 +1390,7 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('Select destination list')).to be(true)
 
     #edit rule
-    wait_for_selector('input[name="rule-name"]').click
-    @driver.action.send_keys('- Edited').perform
+    wait_for_selector('input[name="rule-name"]').send_keys("- Edited")
     wait_for_selector('.rules__save-button').click
     wait_for_selector('#tableTitle')
     expect(@driver.page_source.include?('1 rule')).to be(true)
@@ -1551,7 +1549,20 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('My search result')).to be(true)
   end
 
-  it "should search by project through URL", bin2: true do
+  it "should search by status through URL", bin1: true do
+    api_create_claim_and_go_to_search_page
+    expect((@driver.title =~ /False/).nil?).to be(true)
+    @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"verification_status"%3A%5B"false"%5D%7D'
+    wait_for_selector("#search-query__clear-button")
+    expect((@driver.title =~ /False/).nil?).to be(false)
+    expect(@driver.page_source.include?('My search result')).to be(false)
+    wait_for_selector("#search__open-dialog-button").click
+    wait_for_selector("#search-query__cancel-button")
+    selected = @driver.find_elements(:css, '.search-query__filter-button--selected').map(&:text).sort
+    expect(selected == ['False'].sort).to be(true)
+  end
+
+  it "should search by project through URL", bin3: true do
     data = api_create_team_and_project
     project_id = data[:project].dbid.to_s
     claim = request_api 'claim', { quote: 'Claim', email: data[:user].email, team_id: data[:team].dbid, project_id: project_id }
@@ -1593,7 +1604,7 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('My search result')).to be(false)
   end
 
-  it "should change search sort and search criteria through URL", bin2: true do
+  it "should change search sort and search criteria through URL", bin3: true do
     api_create_claim_and_go_to_search_page
     @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"related"%2C"sort_type"%3A"DESC"%7D'
     wait_for_selector("#create-media__add-item")
@@ -1698,7 +1709,7 @@ shared_examples 'smoke' do
 #tag section end
 
 # video timeline section start
-  it "should manage video notes", bin2: true do
+  it "should manage video notes", bin4: true do
     api_create_team_project_and_link_and_redirect_to_media_page 'https://www.youtube.com/watch?v=em8gwDcjPzU'
     wait_for_selector(".media-detail")
     wait_for_selector("//span[contains(text(), 'Video annotation')]", :xpath).click
@@ -1732,7 +1743,7 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('my note')).to be(false) # check the video note disappears from the comments tab
   end
 
-  it "should manage videotags", bin2: true do
+  it "should manage videotags", bin4: true do
     api_create_team_project_and_link_and_redirect_to_media_page 'https://www.youtube.com/watch?v=em8gwDcjPzU'
     wait_for_selector(".media-detail")
     expect(@driver.page_source.include?('my videotag')).to be(false)
@@ -1760,7 +1771,7 @@ shared_examples 'smoke' do
 #videotimeline section end
 
 #status section start
-  it "should customize status", bin1: true do
+  it "should customize status", bin4: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector(".media-detail")
     wait_for_selector(".media-status__current").click

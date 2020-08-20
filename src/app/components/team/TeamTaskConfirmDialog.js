@@ -82,7 +82,7 @@ class TeamTaskConfirmDialog extends React.Component {
       />,
       editLabelOrDescription: <FormattedMessage
         id="teamTasks.confirmEditLabelOrDescriptionBlurb"
-        defaultMessage="You are about to edit tasks in {itemsNumber, plural, one {1 item} other {# items}}. If you proceed, all those tasks will also modified."
+        defaultMessage="You are about to edit tasks in {itemsNumber, plural, one {1 item} other {# items}}. If you proceed, all those tasks will also be modified."
         values={{ itemsNumber: affectedItems }}
       />,
       delete: <FormattedMessage
