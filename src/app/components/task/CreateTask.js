@@ -110,6 +110,7 @@ class CreateTask extends Component {
         </Can>
         { this.state.type ?
           <EditTaskDialog
+            fieldset="tasks"
             media={media}
             message={this.state.message}
             taskType={this.state.type}

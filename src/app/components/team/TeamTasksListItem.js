@@ -1,6 +1,6 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
-import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -26,13 +26,6 @@ import UpdateTeamTaskMutation from '../../relay/mutations/UpdateTeamTaskMutation
 import DeleteTeamTaskMutation from '../../relay/mutations/DeleteTeamTaskMutation';
 import { getErrorMessage } from '../../helpers';
 import { black16 } from '../../styles/js/shared';
-
-const messages = defineMessages({
-  menuTooltip: {
-    id: 'createTeamTask.menuTooltip',
-    defaultMessage: 'Task actions',
-  },
-});
 
 const styles = theme => ({
   container: {
@@ -167,6 +160,12 @@ class TeamTasksListItem extends React.Component {
       </span>
     );
 
+    const menuTooltip = this.props.fieldset === 'tasks' ? (
+      <FormattedMessage id="taskActions.tooltipTask" defaultMessage="Task actions" />
+    ) : (
+      <FormattedMessage id="taskActions.tooltipMetadata" defaultMessage="Metadata actions" />
+    );
+
     return (
       <Box display="flex" alignItems="center">
         <Reorder />
@@ -176,7 +175,7 @@ class TeamTasksListItem extends React.Component {
           </ListItemIcon>
           <ListItemText className="team-tasks__task-label" primary={label} />
           <ListItemSecondaryAction>
-            <Tooltip title={this.props.intl.formatMessage(messages.menuTooltip)}>
+            <Tooltip title={menuTooltip}>
               <IconButton className="team-tasks__menu-item-button" onClick={this.handleMenuClick}>
                 <MoreHorizIcon />
               </IconButton>
@@ -222,4 +221,4 @@ class TeamTasksListItem extends React.Component {
   }
 }
 
-export default withStyles(styles)(injectIntl(TeamTasksListItem));
+export default withStyles(styles)(TeamTasksListItem);

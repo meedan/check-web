@@ -86,7 +86,12 @@ class TeamTasksComponent extends React.Component {
 
   renderTeamTaskList(teamTasks) {
     if (teamTasks.length) {
-      return (<TeamTasksProject project={{ teamTasks }} team={this.props.team} />);
+      return (
+        <TeamTasksProject
+          fieldset={this.props.fieldset}
+          project={{ teamTasks }}
+          team={this.props.team}
+        />);
     }
 
     return (
@@ -103,13 +108,8 @@ class TeamTasksComponent extends React.Component {
     const { fieldset } = this.props;
     const isTask = this.props.fieldset === 'tasks';
     const { team_tasks } = this.props.team;
-    const filteredTasks = this.filterTeamTasks(team_tasks.edges);
+    const filteredTasks = this.filterTeamTasks(team_tasks.edges).map(task => task.node);
     const filterLabel = this.renderFilterLabel(filteredTasks, team_tasks.edges);
-
-    const getTasksForProjectId = projectId => filteredTasks.filter(task =>
-      task.node.project_ids.length === 0 ||
-      task.node.project_ids.indexOf(projectId) > -1 ||
-      projectId === null).map(task => task.node);
 
     return (
       <div className="team-tasks">
@@ -158,7 +158,7 @@ class TeamTasksComponent extends React.Component {
                 <FormattedMessage id="teamTasks.metadata" defaultMessage="Metadata" />
             }
           />
-          { this.renderTeamTaskList(getTasksForProjectId(null)) }
+          { this.renderTeamTaskList(filteredTasks) }
         </ContentColumn>
       </div>
     );
