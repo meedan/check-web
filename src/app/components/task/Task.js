@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
+import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -511,17 +512,13 @@ class Task extends Component {
       </div>
     ) : null;
 
-    const taskActionsStyle = {
-      textAlign: 'end',
-    };
-
     const zeroAnswer = task.responses.edges.length === 0;
 
     const taskActions = !media.archived ? (
-      <div>
+      <Box display="flex" alignItems="center">
         {taskAssignment}
         { data.by && isTask ?
-          <div className="task__resolver" style={{ display: 'flex', alignItems: 'center', marginTop: units(1) }}>
+          <Box className="task__resolver" display="flex" alignItems="center" margin={2}>
             <small style={{ display: 'flex' }}>
               <UserAvatars users={byPictures} />
               <span style={{ lineHeight: '24px', paddingLeft: units(1), paddingRight: units(1) }}>
@@ -533,12 +530,12 @@ class Task extends Component {
                   /> : null }
               </span>
             </small>
-          </div>
+          </Box>
           : null}
-        <div style={taskActionsStyle}>
+        <Box marginLeft="auto">
           <TaskActions task={task} media={media} response={response} onSelect={this.handleAction} />
-        </div>
-      </div>
+        </Box>
+      </Box>
     ) : null;
 
     const taskQuestion = (
