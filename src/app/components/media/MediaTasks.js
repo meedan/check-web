@@ -165,10 +165,12 @@ class MediaTasksComponent extends Component {
       this.getContext().team.slug,
     );
 
+    const itemTasks = fieldset === 'tasks' ? media.item_tasks : media.item_metadata;
+
     return (
       <div>
         <StyledTaskHeaderRow>
-          {media.tasks.edges.length && fieldset === 'tasks' ?
+          {itemTasks.edges.length && fieldset === 'tasks' ?
             <FlexRow>
               <h2>
                 <FormattedMessage
@@ -179,8 +181,8 @@ class MediaTasksComponent extends Component {
                 &nbsp;
               {currentUserRole !== 'annotator' ?
                 <FlexRow>
-                  {media.tasks.edges.filter(t =>
-                    t.node.responses.edges.length > 0).length}/{media.tasks.edges.length
+                  {itemTasks.edges.filter(t =>
+                    t.node.responses.edges.length > 0).length}/{itemTasks.edges.length
                   }
                   &nbsp;
                   <FormattedMessage id="mediaComponent.answered" defaultMessage="completed" />
@@ -189,12 +191,12 @@ class MediaTasksComponent extends Component {
             </FlexRow> : null}
           {window.parent === window && fieldset === 'tasks' ?
             <CreateTask style={{ marginLeft: 'auto' }} media={media} /> : null}
-          {window.parent !== window && media.tasks.edges.length === 0 ?
+          {window.parent !== window && itemTasks.edges.length === 0 ?
             <p style={{ textAlign: 'center', width: '100%' }}>
               <FormattedMessage id="mediaComponent.noTasks" defaultMessage="No tasks to show." />
             </p> : null}
         </StyledTaskHeaderRow>
-        <Tasks tasks={media.tasks.edges} media={media} fieldset={fieldset} />
+        <Tasks tasks={itemTasks.edges} media={media} fieldset={fieldset} />
       </div>
     );
   }
@@ -218,7 +220,7 @@ const MediaTasksContainer = Relay.createContainer(withPusher(MediaTasksComponent
         archived
         permissions
         pusher_channel
-        tasks(fieldset: "tasks", first: 10000) {
+        item_tasks: tasks(fieldset: "tasks", first: 10000) {
           edges {
             node {
               id
@@ -249,7 +251,7 @@ const MediaMetadataContainer = Relay.createContainer(withPusher(MediaTasksCompon
         archived
         permissions
         pusher_channel
-        tasks(fieldset: "metadata", first: 10000) {
+        item_metadata: tasks(fieldset: "metadata", first: 10000) {
           edges {
             node {
               id,
