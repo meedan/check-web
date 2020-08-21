@@ -516,15 +516,15 @@ shared_examples 'app' do |webdriver_url|
       # Search map
       wait_for_selector(".media-tab__tasks").click
       wait_for_selector('.create-task__add-button')
-      expect(@driver.page_source.include?('Salvador, Avenida Providencia')).to be(false)
+      expect(@driver.page_source.include?('Brazil')).to be(false)
       wait_for_selector("#task__response-geolocation-name")
-      fill_field("#geolocationsearch", "Salvador")
+      fill_field("#geolocationsearch", "Sao Paulo ")
       wait_for_selector("#geolocationsearch-option-0")
       wait_for_selector("#geolocationsearch").click
       wait_for_selector("#geolocationsearch").send_keys(:arrow_down)
       @driver.action.send_keys(:enter).perform
       wait_for_text_change(' ',"#task__response-geolocation-name")
-      expect(@driver.page_source.include?('Salvador, Avenida Providencia')).to be(true)
+      expect(@driver.page_source.include?('Brazil')).to be(true)
     end
 
     it "should go back to previous team", bin1: true do
