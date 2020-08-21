@@ -63,7 +63,7 @@ shared_examples 'media' do |type|
 
   it "should add, edit, answer, update answer and delete short answer task", bin3: true do
     create_media_depending_on_type
-    wait_for_selector('.create-task__add-button')
+    wait_for_selector('.media-detail')
 
     # Create a task
     expect(@driver.page_source.include?('Foo or bar?')).to be(false)
@@ -79,7 +79,7 @@ shared_examples 'media' do |type|
 
     # Answer task
     expect(@driver.page_source.include?('Completed by')).to be(false)
-    wait_for_selector('.task-type__free_text > div > div > button').click
+    wait_for_selector('.create-task__add-button')
 
     wait_for_selector("#task__response-input")
     fill_field('#task__response-input', 'Foo')
@@ -127,7 +127,7 @@ shared_examples 'media' do |type|
     wait_for_selector('.task-type__single_choice')
     expect(@driver.page_source.include?('Foo or bar?')).to be(true)
     # Answer task
-    wait_for_selector('.task-type__single_choice > div > div > button').click
+    wait_for_selector('.create-task__add-button')
     wait_for_selector('0', :id).click
     wait_for_selector('.task__submit').click
     wait_for_selector("#user__avatars")
@@ -168,7 +168,7 @@ shared_examples 'media' do |type|
     expect(@driver.page_source.include?('Foo, Doo or bar?')).to be(true)
     # Answer task
     expect(@driver.page_source.include?('Completed by')).to be(false)
-    wait_for_selector('.task-type__multiple_choice > div > div > button').click
+    wait_for_selector('.create-task__add-button')
     wait_for_selector('#Foo').click
     wait_for_selector('#Doo').click
     wait_for_selector('.task__submit').click
