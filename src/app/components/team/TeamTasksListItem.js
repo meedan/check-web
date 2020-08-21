@@ -307,6 +307,7 @@ class TeamTasksListItem extends React.Component {
         />
         { this.state.isEditing ?
           <EditTaskDialog
+            fieldset={this.props.fieldset}
             task={task}
             message={this.state.message}
             taskType={task.type}
