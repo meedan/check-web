@@ -34,7 +34,11 @@ const styles = theme => ({
     border: `2px solid ${black16}`,
     borderRadius: '5px',
     width: '100%',
-    marginRight: theme.spacing(2),
+    margin: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
+    marginLeft: 0,
+    height: theme.spacing(12),
+    display: 'flex',
+    alignItems: 'center',
   },
 });
 
