@@ -9,7 +9,7 @@ const Reorder = ({
   onMoveDown,
   onMoveUp,
 }) => (
-  <Box display="flex" flexDirection="column">
+  <Box display="flex" flexDirection="column" width="fit-content">
     <IconButton
       onClick={onMoveUp}
     >
