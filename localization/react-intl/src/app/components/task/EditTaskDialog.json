@@ -16,12 +16,20 @@
     "defaultMessage": "Other"
   },
   {
-    "id": "singleChoiceTask.newTask",
+    "id": "editTaskDialog.editTask",
+    "defaultMessage": "Edit task"
+  },
+  {
+    "id": "editTaskDialog.editMetadata",
+    "defaultMessage": "Edit metadata field"
+  },
+  {
+    "id": "editTaskDialog.newTask",
     "defaultMessage": "New task"
   },
   {
-    "id": "singleChoiceTask.editTask",
-    "defaultMessage": "Edit task"
+    "id": "editTaskDialog.newMetadata",
+    "defaultMessage": "New metadata field"
   },
   {
     "id": "tasks.taskPrompt",

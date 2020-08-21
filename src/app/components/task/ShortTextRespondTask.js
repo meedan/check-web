@@ -2,6 +2,7 @@ import React from 'react';
 import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import { FormattedGlobalMessage } from '../MappedMessage';
 
 
 const messages = defineMessages({
@@ -92,6 +93,7 @@ class ShortTextRespondTask extends React.Component {
   }
 
   render() {
+    const { fieldset } = this.props;
     const actionBtns = (
       <p className="task__resolver">
         <Button
@@ -106,7 +108,10 @@ class ShortTextRespondTask extends React.Component {
           disabled={this.state.taskAnswerDisabled}
           color="primary"
         >
-          <FormattedMessage id="shortTextRespondTask.answerTask" defaultMessage="Answer task" />
+          { fieldset === 'tasks' ?
+            <FormattedMessage id="shortTextRespondTask.answerTask" defaultMessage="Answer task" /> :
+            <FormattedGlobalMessage messageKey="save" />
+          }
         </Button>
       </p>
     );

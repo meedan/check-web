@@ -8,6 +8,7 @@ import IconSchedule from '@material-ui/icons/Schedule';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import { FormattedGlobalMessage } from '../MappedMessage';
 import { convertNumbers2English } from '../../helpers';
 import { alertRed, black38, black54, units, caption, FlexRow } from '../../styles/js/shared';
 import timezones from '../../timezones';
@@ -178,6 +179,8 @@ class DatetimeRespondTask extends Component {
   }
 
   render() {
+    const { fieldset } = this.props;
+
     const actionBtns = (
       <p className="task__resolver">
         <Button className="task__cancel" onClick={this.handleCancel.bind(this)}>
@@ -189,10 +192,14 @@ class DatetimeRespondTask extends Component {
           onClick={this.handlePressButton.bind(this)}
           disabled={this.state.taskAnswerDisabled}
         >
-          <FormattedMessage
-            id="datetimeRespondTask.answerTask"
-            defaultMessage="Answer task"
-          />
+          { fieldset === 'tasks' ? (
+            <FormattedMessage
+              id="datetimeRespondTask.answerTask"
+              defaultMessage="Answer task"
+            />
+          ) :
+            <FormattedGlobalMessage messageKey="save" />
+          }
         </Button>
       </p>
     );

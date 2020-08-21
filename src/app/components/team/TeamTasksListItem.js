@@ -1,6 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
-import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
+import { commitMutation, graphql } from 'react-relay/compat';
+import { FormattedMessage } from 'react-intl';
+import Box from '@material-ui/core/Box';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -16,26 +19,102 @@ import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import IconImageUpload from '@material-ui/icons/CloudUpload';
+import { withStyles } from '@material-ui/core/styles';
 import TeamTaskConfirmDialog from './TeamTaskConfirmDialog';
+import Reorder from '../layout/Reorder';
 import EditTaskDialog from '../task/EditTaskDialog';
+import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import UpdateTeamTaskMutation from '../../relay/mutations/UpdateTeamTaskMutation';
 import DeleteTeamTaskMutation from '../../relay/mutations/DeleteTeamTaskMutation';
 import { getErrorMessage } from '../../helpers';
+import { black16 } from '../../styles/js/shared';
 
-const messages = defineMessages({
-  editError: {
-    id: 'createTeamTask.editError',
-    defaultMessage: 'Failed to edit default task',
-  },
-  deleteError: {
-    id: 'createTeamTask.deleteError',
-    defaultMessage: 'Failed to delete default task',
-  },
-  menuTooltip: {
-    id: 'createTeamTask.menuTooltip',
-    defaultMessage: 'Task actions',
+const styles = theme => ({
+  container: {
+    border: `2px solid ${black16}`,
+    borderRadius: '5px',
+    width: '100%',
+    marginRight: theme.spacing(2),
   },
 });
+
+function submitMoveTeamTaskUp({
+  fieldset,
+  task,
+  onFailure,
+}) {
+  commitMutation(Relay.Store, {
+    mutation: graphql`
+      mutation TeamTasksListItemMoveTaskUpMutation($input: MoveTeamTaskUpInput!, $fieldset: String!) {
+        moveTeamTaskUp(input: $input) {
+          team {
+            team_tasks(fieldset: $fieldset, first: 10000) {
+              edges {
+                node {
+                  id
+                  label
+                  order
+                }
+              }
+            }
+          }
+        }
+      }
+    `,
+    variables: {
+      input: {
+        id: task.id,
+      },
+      fieldset,
+    },
+    onError: onFailure,
+    onCompleted: ({ errors }) => {
+      if (errors) {
+        return onFailure(errors);
+      }
+      return null;
+    },
+  });
+}
+
+function submitMoveTeamTaskDown({
+  fieldset,
+  task,
+  onFailure,
+}) {
+  commitMutation(Relay.Store, {
+    mutation: graphql`
+      mutation TeamTasksListItemMoveTaskDownMutation($input: MoveTeamTaskDownInput!, $fieldset: String!) {
+        moveTeamTaskDown(input: $input) {
+          team {
+            team_tasks(fieldset: $fieldset, first: 10000) {
+              edges {
+                node {
+                  id
+                  label
+                  order
+                }
+              }
+            }
+          }
+        }
+      }
+    `,
+    variables: {
+      input: {
+        id: task.id,
+      },
+      fieldset,
+    },
+    onError: onFailure,
+    onCompleted: ({ errors }) => {
+      if (errors) {
+        return onFailure(errors);
+      }
+      return null;
+    },
+  });
+}
 
 class TeamTasksListItem extends React.Component {
   constructor(props) {
@@ -51,8 +130,7 @@ class TeamTasksListItem extends React.Component {
   }
 
   fail = (transaction) => {
-    const fallbackMessage = this.props.intl.formatMessage(messages.deleteError);
-    const message = getErrorMessage(transaction, fallbackMessage);
+    const message = getErrorMessage(transaction, <GenericUnknownErrorMessage />);
     this.setState({ message });
   };
 
@@ -141,9 +219,29 @@ class TeamTasksListItem extends React.Component {
     );
   };
 
+  handleMoveTaskUp = () => {
+    const { task, fieldset } = this.props;
+
+    submitMoveTeamTaskUp({
+      fieldset,
+      task,
+      onFailure: this.fail,
+    });
+  }
+
+  handleMoveTaskDown = () => {
+    const { task, fieldset } = this.props;
+
+    submitMoveTeamTaskDown({
+      fieldset,
+      task,
+      onFailure: this.fail,
+    });
+  };
+
   render() {
-    const { team, task } = this.props;
-    const projects = team ? team.projects.edges : null;
+    const { classes, task, team } = this.props;
+    const projects = team.projects ? team.projects.edges : null;
     const selectedProjects = task ? task.project_ids : [];
     const { anchorEl } = this.state;
 
@@ -162,15 +260,22 @@ class TeamTasksListItem extends React.Component {
       </span>
     );
 
+    const menuTooltip = this.props.fieldset === 'tasks' ? (
+      <FormattedMessage id="taskActions.tooltipTask" defaultMessage="Task actions" />
+    ) : (
+      <FormattedMessage id="taskActions.tooltipMetadata" defaultMessage="Metadata actions" />
+    );
+
     return (
-      <div>
-        <ListItem className="team-tasks__list-item">
+      <Box display="flex" alignItems="center">
+        <Reorder onMoveUp={this.handleMoveTaskUp} onMoveDown={this.handleMoveTaskDown} />
+        <ListItem classes={{ container: classes.container }} className="team-tasks__list-item">
           <ListItemIcon className="team-tasks__task-icon">
             {icon[task.type]}
           </ListItemIcon>
           <ListItemText className="team-tasks__task-label" primary={label} />
           <ListItemSecondaryAction>
-            <Tooltip title={this.props.intl.formatMessage(messages.menuTooltip)}>
+            <Tooltip title={menuTooltip}>
               <IconButton className="team-tasks__menu-item-button" onClick={this.handleMenuClick}>
                 <MoreHorizIcon />
               </IconButton>
@@ -181,10 +286,10 @@ class TeamTasksListItem extends React.Component {
               onClose={this.handleCloseMenu}
             >
               <MenuItem className="team-tasks__edit-button" onClick={this.handleMenuEdit}>
-                <FormattedMessage id="teamTasks.edit" defaultMessage="Edit task" />
+                <FormattedMessage id="teamTasks.edit" defaultMessage="Edit" />
               </MenuItem>
               <MenuItem className="team-tasks__delete-button" onClick={this.handleMenuDelete}>
-                <FormattedMessage id="teamTasks.delete" defaultMessage="Delete task" />
+                <FormattedMessage id="teamTasks.delete" defaultMessage="Delete" />
               </MenuItem>
             </Menu>
           </ListItemSecondaryAction>
@@ -211,9 +316,36 @@ class TeamTasksListItem extends React.Component {
           />
           : null
         }
-      </div>
+      </Box>
     );
   }
 }
 
-export default injectIntl(TeamTasksListItem);
+TeamTasksListItem.propTypes = {
+  classes: PropTypes.object.isRequired,
+  task: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+    description: PropTypes.string,
+    type: PropTypes.string.isRequired,
+    json_options: PropTypes.string,
+    json_project_ids: PropTypes.string,
+    json_schema: PropTypes.string,
+  }).isRequired,
+  team: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    projects: PropTypes.shape({
+      edges: PropTypes.arrayOf((
+        PropTypes.shape({
+          node: PropTypes.shape({
+            title: PropTypes.string.isRequired,
+            dbid: PropTypes.number.isRequired,
+          }),
+        })
+      )),
+    }),
+  }).isRequired,
+  fieldset: PropTypes.string.isRequired,
+};
+
+export default withStyles(styles)(TeamTasksListItem);

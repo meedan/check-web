@@ -68,6 +68,10 @@
     "defaultMessage": "Task created by {author}: {task}"
   },
   {
+    "id": "annotation.metadataCreated",
+    "defaultMessage": "Metadata field created by {author}: {fieldLabel}"
+  },
+  {
     "id": "annotation.relationshipCreated",
     "defaultMessage": "Related item added by {author}: {title}"
   },
@@ -138,6 +142,10 @@
   {
     "id": "annotation.taskResolve",
     "defaultMessage": "Task completed by {author}: {task}{response}"
+  },
+  {
+    "id": "annotation.metadataResponse",
+    "defaultMessage": "Metadata field \"{fieldLabel}\" filled by {author}: {response}"
   },
   {
     "id": "annotation.archiverSuccess",

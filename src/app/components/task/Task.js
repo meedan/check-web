@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
+import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -317,6 +318,7 @@ class Task extends Component {
 
   renderTaskResponse(responseObj, response, by, byPictures, showEditIcon) {
     const { task } = this.props;
+    const isTask = task.fieldset === 'tasks';
 
     if (this.state.editingResponse && this.state.editingResponse.id === responseObj.id) {
       const editingResponseData = getResponseData(this.state.editingResponse);
@@ -326,6 +328,7 @@ class Task extends Component {
           <form name={`edit-response-${this.state.editingResponse.id}`}>
             {task.type === 'free_text' ?
               <ShortTextRespondTask
+                fieldset={task.fieldset}
                 task={task}
                 response={editingResponseText}
                 onSubmit={this.handleUpdateResponse}
@@ -334,6 +337,7 @@ class Task extends Component {
               : null}
             {task.type === 'geolocation' ?
               <GeolocationRespondTask
+                fieldset={task.fieldset}
                 response={editingResponseText}
                 onSubmit={this.handleUpdateResponse}
                 onDismiss={this.handleCancelEditResponse}
@@ -341,6 +345,7 @@ class Task extends Component {
               : null}
             {task.type === 'datetime' ?
               <DatetimeRespondTask
+                fieldset={task.fieldset}
                 response={editingResponseText}
                 onSubmit={this.handleUpdateResponse}
                 onDismiss={this.handleCancelEditResponse}
@@ -348,6 +353,7 @@ class Task extends Component {
               : null}
             {task.type === 'single_choice' ?
               <SingleChoiceTask
+                fieldset={task.fieldset}
                 mode="edit_response"
                 response={editingResponseText}
                 jsonoptions={task.jsonoptions}
@@ -357,6 +363,7 @@ class Task extends Component {
               : null}
             {task.type === 'multiple_choice' ?
               <MultiSelectTask
+                fieldset={task.fieldset}
                 mode="edit_response"
                 jsonresponse={editingResponseText}
                 jsonoptions={task.jsonoptions}
@@ -366,6 +373,7 @@ class Task extends Component {
               : null}
             {task.type === 'image_upload' ?
               <ImageUploadRespondTask
+                fieldset={task.fieldset}
                 task={task}
                 response={editingResponseText}
                 onSubmit={this.handleUpdateResponse}
@@ -442,7 +450,7 @@ class Task extends Component {
             </div>
           </div>
           : null}
-        { (by && byPictures) ?
+        { by && byPictures && isTask ?
           <div className="task__resolver" style={resolverStyle}>
             <small style={{ display: 'flex' }}>
               <UserAvatars users={byPictures} />
@@ -466,6 +474,7 @@ class Task extends Component {
 
   render() {
     const { task, media } = this.props;
+    const isTask = task.fieldset === 'tasks';
     const data = getResponseData(task.first_response);
     const {
       response, by, byPictures,
@@ -503,17 +512,13 @@ class Task extends Component {
       </div>
     ) : null;
 
-    const taskActionsStyle = {
-      textAlign: 'end',
-    };
-
     const zeroAnswer = task.responses.edges.length === 0;
 
     const taskActions = !media.archived ? (
-      <div>
+      <Box display="flex" alignItems="center">
         {taskAssignment}
-        {data.by ?
-          <div className="task__resolver" style={{ display: 'flex', alignItems: 'center', marginTop: units(1) }}>
+        { data.by && isTask ?
+          <Box className="task__resolver" display="flex" alignItems="center" margin={2}>
             <small style={{ display: 'flex' }}>
               <UserAvatars users={byPictures} />
               <span style={{ lineHeight: '24px', paddingLeft: units(1), paddingRight: units(1) }}>
@@ -525,12 +530,12 @@ class Task extends Component {
                   /> : null }
               </span>
             </small>
-          </div>
+          </Box>
           : null}
-        <div style={taskActionsStyle}>
+        <Box marginLeft="auto">
           <TaskActions task={task} media={media} response={response} onSelect={this.handleAction} />
-        </div>
-      </div>
+        </Box>
+      </Box>
     ) : null;
 
     const taskQuestion = (
@@ -570,18 +575,24 @@ class Task extends Component {
                     {task.type === 'free_text' ?
                       <ShortTextRespondTask
                         task={task}
+                        fieldset={task.fieldset}
                         onSubmit={this.handleSubmitResponse}
                       />
                       : null}
                     {task.type === 'geolocation' ?
                       <GeolocationRespondTask
+                        fieldset={task.fieldset}
                         onSubmit={this.handleSubmitResponse}
                       /> : null}
                     {task.type === 'datetime' ?
-                      <DatetimeRespondTask onSubmit={this.handleSubmitResponse} />
+                      <DatetimeRespondTask
+                        fieldset={task.fieldset}
+                        onSubmit={this.handleSubmitResponse}
+                      />
                       : null}
                     {task.type === 'single_choice' ?
                       <SingleChoiceTask
+                        fieldset={task.fieldset}
                         mode="respond"
                         response={response}
                         jsonoptions={task.jsonoptions}
@@ -590,6 +601,7 @@ class Task extends Component {
                       : null}
                     {task.type === 'multiple_choice' ?
                       <MultiSelectTask
+                        fieldset={task.fieldset}
                         mode="respond"
                         jsonresponse={response}
                         jsonoptions={task.jsonoptions}
@@ -598,6 +610,7 @@ class Task extends Component {
                       : null}
                     {task.type === 'image_upload' ?
                       <ImageUploadRespondTask
+                        fieldset={task.fieldset}
                         task={task}
                         onSubmit={this.handleSubmitResponse}
                       />
@@ -655,7 +668,9 @@ class Task extends Component {
             </CardContent>
             <div style={{ minHeight: units(6) }} />
             {taskActions}
-            <TaskLog task={task} response={response} />
+            { isTask ?
+              <TaskLog task={task} response={response} /> : null
+            }
           </Collapse>
         </Card>
 
@@ -719,4 +734,136 @@ Task.contextTypes = {
   store: PropTypes.object,
 };
 
-export default injectIntl(Task);
+export default Relay.createContainer(injectIntl(Task), {
+  initialVariables: {
+    teamSlug: null,
+  },
+  prepareVariables: vars => ({
+    ...vars,
+    teamSlug: /^\/([^/]+)/.test(window.location.pathname) ? window.location.pathname.match(/^\/([^/]+)/)[1] : null,
+  }),
+  fragments: {
+    task: () => Relay.QL`
+      fragment on Task {
+        id,
+        dbid,
+        label,
+        type,
+        description,
+        fieldset,
+        permissions,
+        jsonoptions,
+        json_schema,
+        options,
+        pending_suggestions_count,
+        suggestions_count,
+        log_count,
+        responses(first: 10000) {
+          edges {
+            node {
+              id,
+              dbid,
+              permissions,
+              content,
+              image_data,
+              attribution(first: 10000) {
+                edges {
+                  node {
+                    id
+                    dbid
+                    name
+                    team_user(team_slug: $teamSlug) {
+                      ${ProfileLink.getFragment('teamUser')},
+                    },
+                    source {
+                      id
+                      dbid
+                      image
+                    }
+                  }
+                }
+              }
+              annotator {
+                name,
+                profile_image,
+                user {
+                  id,
+                  dbid,
+                  name,
+                  is_active
+                  team_user(team_slug: $teamSlug) {
+                    ${ProfileLink.getFragment('teamUser')},
+                  },
+                  source {
+                    id,
+                    dbid,
+                    image,
+                  }
+                }
+              }
+            }
+          }
+        }
+        assignments(first: 10000) {
+          edges {
+            node {
+              name
+              id
+              dbid
+              team_user(team_slug: $teamSlug) {
+                ${ProfileLink.getFragment('teamUser')},
+              },
+              source {
+                id
+                dbid
+                image
+              }
+            }
+          }
+        }
+        first_response {
+          id,
+          dbid,
+          permissions,
+          content,
+          image_data,
+          attribution(first: 10000) {
+            edges {
+              node {
+                id
+                dbid
+                name
+                team_user(team_slug: $teamSlug) {
+                  ${ProfileLink.getFragment('teamUser')},
+                },
+                source {
+                  id
+                  dbid
+                  image
+                }
+              }
+            }
+          }
+          annotator {
+            name,
+            profile_image,
+            user {
+              id,
+              dbid,
+              name,
+              is_active
+              team_user(team_slug: $teamSlug) {
+                ${ProfileLink.getFragment('teamUser')},
+              },
+              source {
+                id,
+                dbid,
+                image,
+              }
+            }
+          }
+        }
+      }
+    `,
+  },
+});

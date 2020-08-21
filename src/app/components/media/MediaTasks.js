@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
+import Task from '../task/Task';
 import Tasks from '../task/Tasks';
 import { withPusher, pusherShape } from '../../pusher';
 import CreateTask from '../task/CreateTask';
 import MediaRoute from '../../relay/MediaRoute';
 import MediasLoading from './MediasLoading';
-import ProfileLink from '../layout/ProfileLink';
 import UserUtil from '../user/UserUtil';
 import CheckContext from '../../CheckContext';
 import { getCurrentProjectId } from '../../helpers';
@@ -158,6 +158,7 @@ class MediaTasksComponent extends Component {
   }
 
   render() {
+    const { fieldset } = this.props;
     const media = Object.assign(this.props.cachedMedia, this.props.media);
     const currentUserRole = UserUtil.myRole(
       this.getContext().currentUser,
@@ -167,7 +168,7 @@ class MediaTasksComponent extends Component {
     return (
       <div>
         <StyledTaskHeaderRow>
-          {media.tasks.edges.length ?
+          {media.tasks.edges.length && fieldset === 'tasks' ?
             <FlexRow>
               <h2>
                 <FormattedMessage
@@ -186,14 +187,14 @@ class MediaTasksComponent extends Component {
                 </FlexRow> : null
               }
             </FlexRow> : null}
-          {window.parent === window ?
+          {window.parent === window && fieldset === 'tasks' ?
             <CreateTask style={{ marginLeft: 'auto' }} media={media} /> : null}
           {window.parent !== window && media.tasks.edges.length === 0 ?
             <p style={{ textAlign: 'center', width: '100%' }}>
               <FormattedMessage id="mediaComponent.noTasks" defaultMessage="No tasks to show." />
             </p> : null}
         </StyledTaskHeaderRow>
-        <Tasks tasks={media.tasks.edges} media={media} />
+        <Tasks tasks={media.tasks.edges} media={media} fieldset={fieldset} />
       </div>
     );
   }
@@ -209,13 +210,6 @@ MediaTasksComponent.propTypes = {
 };
 
 const MediaTasksContainer = Relay.createContainer(withPusher(MediaTasksComponent), {
-  initialVariables: {
-    teamSlug: null,
-  },
-  prepareVariables: vars => ({
-    ...vars,
-    teamSlug: /^\/([^/]+)/.test(window.location.pathname) ? window.location.pathname.match(/^\/([^/]+)/)[1] : null,
-  }),
   fragments: {
     media: () => Relay.QL`
       fragment on ProjectMedia {
@@ -227,123 +221,38 @@ const MediaTasksContainer = Relay.createContainer(withPusher(MediaTasksComponent
         tasks(fieldset: "tasks", first: 10000) {
           edges {
             node {
-              id,
-              dbid,
-              label,
-              type,
-              description,
-              permissions,
-              jsonoptions,
-              json_schema,
-              options,
-              pending_suggestions_count,
-              suggestions_count,
-              log_count,
               responses(first: 10000) {
                 edges {
                   node {
                     id,
                     dbid,
-                    permissions,
-                    content,
-                    image_data,
-                    attribution(first: 10000) {
-                      edges {
-                        node {
-                          id
-                          dbid
-                          name
-                          team_user(team_slug: $teamSlug) {
-                            ${ProfileLink.getFragment('teamUser')}, # FIXME: Make Task a container
-                          },
-                          source {
-                            id
-                            dbid
-                            image
-                          }
-                        }
-                      }
-                    }
-                    annotator {
-                      name,
-                      profile_image,
-                      user {
-                        id,
-                        dbid,
-                        name,
-                        is_active
-                        team_user(team_slug: $teamSlug) {
-                          ${ProfileLink.getFragment('teamUser')},
-                        },
-                        source {
-                          id,
-                          dbid,
-                          image,
-                        }
-                      }
-                    }
                   }
                 }
               }
-              assignments(first: 10000) {
-                edges {
-                  node {
-                    name
-                    id
-                    dbid
-                    team_user(team_slug: $teamSlug) {
-                      ${ProfileLink.getFragment('teamUser')},
-                    },
-                    source {
-                      id
-                      dbid
-                      image
-                    }
-                  }
-                }
-              }
-              first_response {
-                id,
-                dbid,
-                permissions,
-                content,
-                image_data,
-                attribution(first: 10000) {
-                  edges {
-                    node {
-                      id
-                      dbid
-                      name
-                      team_user(team_slug: $teamSlug) {
-                        ${ProfileLink.getFragment('teamUser')},
-                      },
-                      source {
-                        id
-                        dbid
-                        image
-                      }
-                    }
-                  }
-                }
-                annotator {
-                  name,
-                  profile_image,
-                  user {
-                    id,
-                    dbid,
-                    name,
-                    is_active
-                    team_user(team_slug: $teamSlug) {
-                      ${ProfileLink.getFragment('teamUser')},
-                    },
-                    source {
-                      id,
-                      dbid,
-                      image,
-                    }
-                  }
-                }
-              }
+              ${Task.getFragment('task')},
+            }
+          }
+        }
+      }
+    `,
+  },
+});
+
+const MediaMetadataContainer = Relay.createContainer(withPusher(MediaTasksComponent), {
+  fragments: {
+    media: () => Relay.QL`
+      fragment on ProjectMedia {
+        id
+        dbid
+        archived
+        permissions
+        pusher_channel
+        tasks(fieldset: "metadata", first: 10000) {
+          edges {
+            node {
+              id,
+              dbid,
+              ${Task.getFragment('task')},
             }
           }
         }
@@ -367,10 +276,21 @@ const MediaTasks = (props) => {
   const ids = `${media.dbid},${projectId}`;
   const route = new MediaRoute({ ids });
 
+  if (props.fieldset === 'metadata') {
+    return (
+      <Relay.RootContainer
+        Component={MediaMetadataContainer}
+        renderFetched={data => <MediaMetadataContainer cachedMedia={media} {...data} fieldset="metadata" />}
+        route={route}
+        renderLoading={() => <MediasLoading count={1} />}
+      />
+    );
+  }
+
   return (
     <Relay.RootContainer
       Component={MediaTasksContainer}
-      renderFetched={data => <MediaTasksContainer cachedMedia={media} {...data} />}
+      renderFetched={data => <MediaTasksContainer cachedMedia={media} {...data} fieldset="tasks" />}
       route={route}
       renderLoading={() => <MediasLoading count={1} />}
     />

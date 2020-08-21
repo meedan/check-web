@@ -12,6 +12,10 @@
     "defaultMessage": "No default tasks to display"
   },
   {
+    "id": "teamTasks.blankMetadata",
+    "defaultMessage": "No metadata fields"
+  },
+  {
     "id": "teamTasks.filter",
     "defaultMessage": "Filter tasks"
   },
@@ -22,5 +26,13 @@
   {
     "id": "teamTasks.typeFilter",
     "defaultMessage": "Task type"
+  },
+  {
+    "id": "teamTasks.tasks",
+    "defaultMessage": "Tasks"
+  },
+  {
+    "id": "teamTasks.metadata",
+    "defaultMessage": "Metadata"
   }
 ]

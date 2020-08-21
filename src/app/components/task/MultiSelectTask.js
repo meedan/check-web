@@ -4,6 +4,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
 import { FormattedMessage } from 'react-intl';
 import ParsedText from '../ParsedText';
+import { FormattedGlobalMessage } from '../MappedMessage';
 import { safelyParseJSON } from '../../helpers';
 import { StyledSmallTextField, StyledCheckbox } from '../../styles/js/shared';
 
@@ -139,6 +140,7 @@ class MultiSelectTask extends Component {
   }
 
   renderOptions(jsonresponse, jsonoptions) {
+    const { fieldset } = this.props;
     const options = safelyParseJSON(jsonoptions);
     const editable = jsonresponse == null || this.props.mode === 'edit_response';
     const submitCallback = this.handleSubmitResponse.bind(this);
@@ -156,7 +158,10 @@ class MultiSelectTask extends Component {
           onClick={submitCallback}
           disabled={this.state.taskAnswerDisabled}
         >
-          <FormattedMessage id="tasks.answer" defaultMessage="Answer Task" />
+          { fieldset === 'tasks' ?
+            <FormattedMessage id="tasks.answer" defaultMessage="Answer Task" /> :
+            <FormattedGlobalMessage messageKey="save" />
+          }
         </Button>
       </div>
     );

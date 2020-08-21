@@ -51,7 +51,7 @@ class FilterPopup extends React.Component {
         <Popper
           open={this.state.popper.open}
           anchorEl={this.state.popper.anchorEl}
-          placement="bottom-start"
+          placement="bottom"
         >
           <StyledPaper>
             {this.props.onSearchChange ? (

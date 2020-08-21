@@ -1,7 +1,11 @@
 [
   {
-    "id": "taskActions.menuTooltip",
+    "id": "taskActions.tooltipTask",
     "defaultMessage": "Task actions"
+  },
+  {
+    "id": "taskActions.tooltipMetadata",
+    "defaultMessage": "Metadata actions"
   },
   {
     "id": "task.edit",

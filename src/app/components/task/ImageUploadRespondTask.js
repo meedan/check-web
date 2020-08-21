@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Button from '@material-ui/core/Button';
 import UploadFile from '../UploadFile';
+import { FormattedGlobalMessage } from '../MappedMessage';
 import Message from '../Message';
 
 export default function ImageUploadRespondTask({
-  onDismiss, onSubmit,
+  fieldset, onDismiss, onSubmit,
 }) {
   // Store image+message as a single value: they always change as one.
   const [state, setState] = React.useState({ image: null, message: null });
@@ -49,7 +50,10 @@ export default function ImageUploadRespondTask({
           disabled={!state.image}
           color="primary"
         >
-          <FormattedMessage id="imageUploadRespondTask.answerTask" defaultMessage="Answer task" />
+          { fieldset === 'tasks' ?
+            <FormattedMessage id="imageUploadRespondTask.answerTask" defaultMessage="Answer task" /> :
+            <FormattedGlobalMessage messageKey="save" />
+          }
         </Button>
       </p>
     </div>
