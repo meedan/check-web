@@ -111,6 +111,32 @@ const RuleField = (props) => {
               />
             );
           })}
+          { props.definition.allOf ?
+            <React.Fragment>
+              {props.definition.allOf.map((condition) => {
+                const fieldName = Object.keys(condition.if.properties)[0];
+                if (value[fieldName] === condition.if.properties[fieldName].const) {
+                  const subFieldName = Object.keys(condition.then.properties)[0];
+                  const subSubDefinition = condition.then.properties[subFieldName];
+                  const subSubValue = value[subFieldName] || '';
+                  return (
+                    <RuleField
+                      className={classes.inner}
+                      key={`${fieldName}-${subFieldName}`}
+                      definition={subSubDefinition}
+                      value={subSubValue}
+                      onChange={(newSubSubValue) => {
+                        const newSubValue = Object.assign({}, value);
+                        newSubValue[subFieldName] = newSubSubValue;
+                        setValue(newSubValue);
+                        props.onChange(newSubValue);
+                      }}
+                    />
+                  );
+                }
+                return null;
+              })}
+            </React.Fragment> : null }
         </React.Fragment> : null }
     </Paper>
   );
