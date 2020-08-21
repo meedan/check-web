@@ -13,6 +13,7 @@ describe('<TeamTasksListItem />', () => {
     const wrapper = mountWithIntl(
       <TeamTasksListItem
         task={task}
+        team={{}}
       />
     );
     expect(wrapper.find('.team-tasks__task-icon').hostNodes()).toHaveLength(1);
