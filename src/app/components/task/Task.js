@@ -42,6 +42,7 @@ import DeleteDynamicMutation from '../../relay/mutations/DeleteDynamicMutation';
 import { Row, units, black16, black87 } from '../../styles/js/shared';
 
 const StyledWordBreakDiv = styled.div`
+  width: 100%;
   hyphens: auto;
   overflow-wrap: break-word;
   word-break: break-word;

@@ -4,6 +4,7 @@ import { browserHistory } from 'react-router';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Task from './Task';
+import ReorderTask from './ReorderTask';
 import BlankState from '../layout/BlankState';
 
 const Tasks = ({
@@ -34,10 +35,17 @@ const Tasks = ({
   return (
     <div className="tasks">
       <ul className="tasks__list / tasks-list">
-        {tasks
-          .slice() // so sort() doesn't mutate input
-          .sort((a, b) => a.node.dbid - b.node.dbid)
-          .map(task => <li key={task.node.dbid}><Task task={task.node} media={media} /></li>)}
+        {tasks.map(task => (
+          <li key={task.node.dbid}>
+            { isMetadata ? (
+              <Task task={task.node} media={media} />
+            ) : (
+              <ReorderTask fieldset={fieldset} task={task.node}>
+                <Task task={task.node} media={media} />
+              </ReorderTask>
+            )}
+          </li>
+        ))}
       </ul>
     </div>
   );

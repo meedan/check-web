@@ -221,6 +221,8 @@ const MediaTasksContainer = Relay.createContainer(withPusher(MediaTasksComponent
         tasks(fieldset: "tasks", first: 10000) {
           edges {
             node {
+              id
+              dbid
               responses(first: 10000) {
                 edges {
                   node {
