@@ -336,7 +336,7 @@ shared_examples 'smoke' do
     # Answer task
     expect(@driver.page_source.include?('Task completed by')).to be(false)
     wait_for_selector(".media-tab__tasks").click
-    wait_for_selector('.task__card-expand').click
+    wait_for_selector('.create-task__add-button')
     fill_field('input[name="hour"]', '23')
     fill_field('input[name="minute"]', '59')
     wait_for_selector('#task__response-date').click
@@ -348,7 +348,7 @@ shared_examples 'smoke' do
 
     # Edit task
     wait_for_selector(".media-tab__tasks").click
-    wait_for_selector('.task__card-expand').click
+    wait_for_selector('.create-task__add-button')
     expect(@driver.page_source.include?('When was it?')).to be(false)
     wait_for_selector('.task-actions__icon').click
     el = wait_for_selector(".task-actions__edit")
@@ -362,7 +362,7 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('When was it?')).to be(true)
     # Edit task response
     wait_for_selector(".media-tab__tasks").click
-    wait_for_selector('.task__card-expand').click
+    wait_for_selector('.create-task__add-button')
     expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('12:34')).to be(false)
     wait_for_selector('.task-actions__icon').click
     wait_for_selector('.task-actions__edit-response').click
@@ -377,19 +377,17 @@ shared_examples 'smoke' do
 
     # Delete task
     wait_for_selector(".media-tab__tasks").click
-    wait_for_selector('.task__card-expand').click
+    wait_for_selector('.create-task__add-button')
     delete_task('When was it')
   end
 
   it "should assign, answer with a link and add a comment to a task", bin5: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
-    wait_for_selector('.create-task__add-button')
+    wait_for_selector('.media-detail')
 
     # Create a task
     wait_for_selector('.create-task__add-button').click
-    el = wait_for_selector('.create-task__add-short-answer')
-    el.location_once_scrolled_into_view
-    el.click
+    wait_for_selector('.create-task__add-short-answer').click
     wait_for_selector('#task-label-input')
     fill_field('#task-label-input', 'Test')
     wait_for_selector('.create-task__dialog-submit-button').click
@@ -400,7 +398,7 @@ shared_examples 'smoke' do
     #assign the task
     wait_for_selector(".media-tab__tasks").click
     expect(@driver.page_source.include?("Assigned to")).to be (false)
-    wait_for_selector('.task__card-expand').click
+    wait_for_selector("#task__response-input")
     wait_for_selector(".task-actions__icon").click
     wait_for_selector(".task-actions__assign").click
     wait_for_selector("#attribution")

@@ -112,7 +112,7 @@ class Task extends Component {
       message: null,
       editingResponse: false,
       editingAttribution: false,
-      expand: false,
+      expand: true,
       zoomedImage: null,
     };
   }
