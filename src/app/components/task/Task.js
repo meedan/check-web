@@ -86,7 +86,7 @@ function getResponseData(response) {
     data.byPictures = [];
     response.attribution.edges.forEach((user) => {
       const u = user.node;
-      data.by.push(<ProfileLink teamUser={u.team_user} />);
+      data.by.push(<ProfileLink teamUser={u.team_user || null} />);
       data.byPictures.push(u);
     });
     const fields = JSON.parse(response.content);
@@ -170,7 +170,6 @@ class Task extends Component {
 
     const fields = {};
     fields[`response_${task.type}`] = response;
-
     Relay.Store.commitUpdate(
       new UpdateTaskMutation({
         operation: 'answer',
