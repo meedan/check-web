@@ -19,9 +19,12 @@ import {
   black54,
   black16,
   FlexRow,
+  units,
 } from '../../styles/js/shared';
 
 const StyledTaskHeaderRow = styled.div`
+  padding: ${units(2)} 0;
+  margin-left: ${units(6)};
   justify-content: space-between;
   display: flex;
   color: ${black54};

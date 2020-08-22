@@ -665,9 +665,10 @@ class Task extends Component {
           <Collapse in={this.state.expand} timeout="auto">
             <CardContent className="task__card-text">
               <Message message={this.state.message} />
-              {taskBody}
+              <Box marginBottom={2}>
+                {taskBody}
+              </Box>
             </CardContent>
-            <div style={{ minHeight: units(6) }} />
             {taskActions}
             { isTask ?
               <TaskLog task={task} response={response} /> : null
