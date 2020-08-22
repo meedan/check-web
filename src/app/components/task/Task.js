@@ -664,7 +664,7 @@ class Task extends Component {
           <Collapse in={this.state.expand} timeout="auto">
             <CardContent className="task__card-text">
               <Message message={this.state.message} />
-              <Box>
+              <Box marginBottom={2}>
                 {taskBody}
               </Box>
             </CardContent>
