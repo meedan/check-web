@@ -101,6 +101,7 @@ const ReportDesignerComponent = (props) => {
         media.team.verification_statuses,
         media.last_status,
         option.language,
+        media.team.get_language,
       );
       updatedData.options[i].status_label = status.label.substring(0, 16);
       updatedData.options[i].theme_color = getStatusStyle(status, 'color');
