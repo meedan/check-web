@@ -62,9 +62,20 @@ class UpdateTaskMutation extends Relay.Mutation {
               edges: [
                 {
                   node: {
+                    id: user ? user.id : '',
+                    dbid: user ? user.dbid : 0,
                     name: user ? user.name : '',
+                    is_active: true,
                     source: {
                       image: user ? user.profile_image : '',
+                    },
+                    team_user: {
+                      user: {
+                        id: user ? user.id : '',
+                        dbid: user ? user.dbid : 0,
+                        name: user ? user.name : '',
+                        is_active: true,
+                      },
                     },
                   },
                 },

@@ -1,6 +1,10 @@
 [
   {
-    "id": "createTeamTask.error",
-    "defaultMessage": "Failed to create default task"
+    "id": "createTeamTask.errorTask",
+    "defaultMessage": "Sorry, an error occurred while creating the task. Please try again and contact {supportEmail} if the condition persists."
+  },
+  {
+    "id": "createTeamTask.errorMetadata",
+    "defaultMessage": "Sorry, an error occurred while updating the metadata field. Please try again and contact {supportEmail} if the condition persists."
   }
 ]

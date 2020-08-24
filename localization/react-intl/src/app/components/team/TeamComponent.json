@@ -1,5 +1,9 @@
 [
   {
+    "id": "teamSettings.Metadata",
+    "defaultMessage": "Metadata"
+  },
+  {
     "id": "teamSettings.Tasks",
     "defaultMessage": "Tasks"
   },

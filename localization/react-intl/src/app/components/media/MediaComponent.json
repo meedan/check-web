@@ -4,6 +4,10 @@
     "defaultMessage": "Requests"
   },
   {
+    "id": "mediaComponent.metadata",
+    "defaultMessage": "Metadata"
+  },
+  {
     "id": "mediaComponent.tasks",
     "defaultMessage": "Tasks"
   },

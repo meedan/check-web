@@ -6,6 +6,9 @@ import MediaStatusCommon from './MediaStatusCommon';
 
 class MediaStatus extends Component {
   setStatus(context, store, media, status) {
+    if (this.props.onChanging) {
+      this.props.onChanging();
+    }
     const status_id = media.last_status_obj ? media.last_status_obj.id : '';
     const status_attr = {
       parent_type: 'project_media',

@@ -31,7 +31,7 @@ const UserAvatars = (props) => {
       {users.slice(0, maxNumberOfAvatars).map((userNode, index) => {
         const user = userNode.node || userNode;
         return (
-          <span title={user.name} key={user.id}>
+          <span title={user.name} key={user.name}>
             <UserAvatar
               user={user}
               size="extraSmall"

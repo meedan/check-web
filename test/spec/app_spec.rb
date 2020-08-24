@@ -369,7 +369,7 @@ shared_examples 'app' do |webdriver_url|
       expect(@driver.page_source.include?('Where?')).to be(true)
       expect(@driver.page_source.include?('Task created by')).to be(true)
       wait_for_selector(".media-tab__tasks").click
-      wait_for_selector('.task-type__geolocation > div > div > button').click
+      wait_for_selector('.create-task__add-button')
 
       # Answer task
       expect(@driver.page_source.include?('task__answered-by-current-user')).to be(false)
@@ -380,7 +380,7 @@ shared_examples 'app' do |webdriver_url|
       old = wait_for_size_change(old, "annotations__list-item", :class)
       expect(@driver.page_source.include?('Task completed by')).to be(true)
       wait_for_selector(".media-tab__tasks").click
-      wait_for_selector('.task-type__geolocation > div > div > button').click
+      wait_for_selector('.create-task__add-button')
 
 
       # Edit task
@@ -395,7 +395,7 @@ shared_examples 'app' do |webdriver_url|
       old = wait_for_size_change(old, "annotations__list-item", :class)
       expect(@driver.page_source.include?('Where was it?')).to be(true)
       wait_for_selector(".media-tab__tasks").click
-      wait_for_selector('.task-type__geolocation > div > div > button').click
+      wait_for_selector('.create-task__add-button')
 
       # Edit task answer
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Vancouver')).to be(false)
@@ -411,7 +411,7 @@ shared_examples 'app' do |webdriver_url|
       wait_for_selector(".media-tab__tasks").click
 
       # Delete task
-      wait_for_selector('.task-type__geolocation > div > div > button').click
+      wait_for_selector('.create-task__add-button')
       delete_task('Where was it')
     end
 
@@ -515,17 +515,16 @@ shared_examples 'app' do |webdriver_url|
 
       # Search map
       wait_for_selector(".media-tab__tasks").click
-      expect(@driver.page_source.include?('Salvador, Microrregião de Salvador, Brazil')).to be(false)
-      wait_for_selector('.task-type__geolocation > div > div > button').click
+      wait_for_selector('.create-task__add-button')
+      expect(@driver.page_source.include?('Brazil')).to be(false)
       wait_for_selector("#task__response-geolocation-name")
-      fill_field("#geolocationsearch", "Salvador")
+      fill_field("#geolocationsearch", "Sao Paulo ")
       wait_for_selector("#geolocationsearch-option-0")
-      dropdown = @driver.find_element(:id,'geolocationsearch')
-      dropdown.send_keys(:arrow_down)
-      dropdown.send_keys(:arrow_down)
+      wait_for_selector("#geolocationsearch").click
+      wait_for_selector("#geolocationsearch").send_keys(:arrow_down)
       @driver.action.send_keys(:enter).perform
       wait_for_text_change(' ',"#task__response-geolocation-name")
-      expect(@driver.page_source.include?('Salvador, Microrregião de Salvador, Brazil')).to be(true)
+      expect(@driver.page_source.include?('Brazil')).to be(true)
     end
 
     it "should go back to previous team", bin1: true do

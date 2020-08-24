@@ -159,12 +159,13 @@ shared_examples 'smoke' do
     wait_for_selector(".media")
     wait_for_selector('.media-actions__icon').click
     wait_for_selector('.media-actions__lock-status').click
+    wait_for_selector_none(".media-actions__assign")
     wait_for_selector(".media-tab__activity").click
-    wait_for_selector('.annotation--verification_status')
+    wait_for_selector('.annotation__timestamp')
     expect(@driver.page_source.include?('Item status locked by')).to be(true)
     wait_for_selector('.media-actions__icon').click
     wait_for_selector('.media-actions__lock-status').click
-    wait_for_size_change(1, '.annotation--verification_status')
+    wait_for_selector("//span[contains(text(), 'Item status unlocked by')]", :xpath)
     expect(@driver.page_source.include?('Item status unlocked by')).to be(true)
   end
 
@@ -335,7 +336,7 @@ shared_examples 'smoke' do
     # Answer task
     expect(@driver.page_source.include?('Task completed by')).to be(false)
     wait_for_selector(".media-tab__tasks").click
-    wait_for_selector('.task__card-expand').click
+    wait_for_selector('.create-task__add-button')
     fill_field('input[name="hour"]', '23')
     fill_field('input[name="minute"]', '59')
     wait_for_selector('#task__response-date').click
@@ -347,7 +348,7 @@ shared_examples 'smoke' do
 
     # Edit task
     wait_for_selector(".media-tab__tasks").click
-    wait_for_selector('.task__card-expand').click
+    wait_for_selector('.create-task__add-button')
     expect(@driver.page_source.include?('When was it?')).to be(false)
     wait_for_selector('.task-actions__icon').click
     el = wait_for_selector(".task-actions__edit")
@@ -361,7 +362,7 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('When was it?')).to be(true)
     # Edit task response
     wait_for_selector(".media-tab__tasks").click
-    wait_for_selector('.task__card-expand').click
+    wait_for_selector('.create-task__add-button')
     expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('12:34')).to be(false)
     wait_for_selector('.task-actions__icon').click
     wait_for_selector('.task-actions__edit-response').click
@@ -376,19 +377,17 @@ shared_examples 'smoke' do
 
     # Delete task
     wait_for_selector(".media-tab__tasks").click
-    wait_for_selector('.task__card-expand').click
+    wait_for_selector('.create-task__add-button')
     delete_task('When was it')
   end
 
   it "should assign, answer with a link and add a comment to a task", bin5: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
-    wait_for_selector('.create-task__add-button')
+    wait_for_selector('.media-detail')
 
     # Create a task
     wait_for_selector('.create-task__add-button').click
-    el = wait_for_selector('.create-task__add-short-answer')
-    el.location_once_scrolled_into_view
-    el.click
+    wait_for_selector('.create-task__add-short-answer').click
     wait_for_selector('#task-label-input')
     fill_field('#task-label-input', 'Test')
     wait_for_selector('.create-task__dialog-submit-button').click
@@ -399,7 +398,7 @@ shared_examples 'smoke' do
     #assign the task
     wait_for_selector(".media-tab__tasks").click
     expect(@driver.page_source.include?("Assigned to")).to be (false)
-    wait_for_selector('.task__card-expand').click
+    wait_for_selector("#task__response-input")
     wait_for_selector(".task-actions__icon").click
     wait_for_selector(".task-actions__assign").click
     wait_for_selector("#attribution")
@@ -1715,11 +1714,12 @@ shared_examples 'smoke' do
     wait_for_selector("//span[contains(text(), 'Video annotation')]", :xpath).click
     wait_for_selector("div[aria-labelledby=TimelineTab]")
     expect(@driver.page_source.include?('Timeline')).to be(true)
-    #add a new note
+    #add a note
     wait_for_selector("button[data-testid=new-comment-thread-button]").click
     wait_for_selector("#comment").send_keys("my note")
     wait_for_selector("//span[contains(text(), 'Save')]", :xpath).click
     wait_for_selector(".MuiAvatar-img")
+    expect(@driver.find_elements(:class, "MuiAvatar-img").size).to eq 1
     wait_for_selector(".MuiIconButton-sizeSmall").click #close timeline button
     @driver.navigate.refresh
     wait_for_selector("#video-media-card__playback-rate")
@@ -1728,14 +1728,14 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('my note')).to be(true) # check the video note appears on the note tab
     wait_for_selector("//span[contains(text(), 'Video annotation')]", :xpath).click
     wait_for_selector(".MuiAvatar-img").click
-    #add a new note the comment
+    #add a new note
     wait_for_selector("#comment").send_keys("new note")
     wait_for_selector("//span[contains(text(), 'Save')]", :xpath).click
     wait_for_selector("//p[contains(text(), 'new note')]", :xpath)
     #delet note
     wait_for_selector("button[aria-label='Delete thread']").click
     wait_for_selector_none(".MuiAvatar-img")
-    expect(@driver.page_source.include?('my note')).to be(false)
+    expect(@driver.find_elements(:class, "MuiAvatar-img").size).to eq 0
     wait_for_selector(".MuiIconButton-sizeSmall").click #close timeline button
     @driver.navigate.refresh
     wait_for_selector(".media-detail")
