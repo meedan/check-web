@@ -27,14 +27,7 @@ module AppSpecHelpers
     expect(@driver.page_source.include?(task_text)).to be(true)
     wait_for_selector('.task-actions__icon').click
     wait_for_selector('.task-actions__delete').click
-
-    n = 0
-    ret = false
-    begin
-      ret = alert_accept
-      n = n + 1
-    end while (!ret and n < 10)
-
+    wait_for_selector('.confirm-proceed-dialog__proceed').click
     wait = Selenium::WebDriver::Wait.new(timeout: 90)
     wait.until { !@driver.page_source.include?(task_text) }
     expect(@driver.page_source.include?(task_text)).to be(false)
@@ -128,8 +121,8 @@ module AppSpecHelpers
       sleep 0.5
       begin
         element = wait_for_selector_list(selector, type)
-      rescue 
-        element = [] 
+      rescue
+        element = []
         #rescue from Selenium::WebDriver::Error::NoSuchElementError: to give more information about the failure
       end
     end while element.size > 0 && attempts < retries
