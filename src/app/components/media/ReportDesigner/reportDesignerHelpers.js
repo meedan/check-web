@@ -2,7 +2,12 @@ import { getStatus, getStatusStyle } from '../../../helpers';
 
 export function defaultOptions(media, language) {
   const { team } = media;
-  const status = getStatus(media.team.verification_statuses, media.last_status, language);
+  const status = getStatus(
+    media.team.verification_statuses,
+    media.last_status,
+    language,
+    team.get_language,
+  );
   const teamUrl = team.contacts.edges[0] ?
     team.contacts.edges[0].node.web :
     window.location.href.match(/https?:\/\/[^/]+\/[^/]+/)[0];

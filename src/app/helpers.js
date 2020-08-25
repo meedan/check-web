@@ -41,7 +41,7 @@ function nested(path, obj) {
 /**
  * Find a status given its id.
  */
-function getStatus(statusesParam, id, language) {
+function getStatus(statusesParam, id, language, defaultLanguage) {
   let statusesJson = statusesParam;
   if (typeof statusesJson === 'string') {
     statusesJson = JSON.parse(statusesJson);
@@ -54,8 +54,10 @@ function getStatus(statusesParam, id, language) {
     }
   });
   if (language) {
+    const defaultLabel = status.locales[defaultLanguage || 'en'] ?
+      status.locales[defaultLanguage || 'en'].label : '';
     status.label = status.locales[language] ?
-      status.locales[language].label : status.locales.en.label;
+      status.locales[language].label : defaultLabel;
   }
   return status;
 }
