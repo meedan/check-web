@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
-import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Collapse from '@material-ui/core/Collapse';
+import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import styled from 'styled-components';
@@ -24,17 +25,18 @@ import GeolocationTaskResponse from './GeolocationTaskResponse';
 import DatetimeRespondTask from './DatetimeRespondTask';
 import DatetimeTaskResponse from './DatetimeTaskResponse';
 import ImageUploadRespondTask from './ImageUploadRespondTask';
+import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
+import { FormattedGlobalMessage } from '../MappedMessage';
 import Message from '../Message';
 import Can, { can } from '../Can';
 import ParsedText from '../ParsedText';
 import UserAvatars from '../UserAvatars';
 import Sentence from '../Sentence';
+import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 import ProfileLink from '../layout/ProfileLink';
 import AttributionDialog from '../user/AttributionDialog';
 import CheckContext from '../../CheckContext';
 import { getErrorMessage } from '../../helpers';
-import { stringHelper } from '../../customHelpers';
-import globalStrings from '../../globalStrings';
 import UpdateTaskMutation from '../../relay/mutations/UpdateTaskMutation';
 import UpdateDynamicMutation from '../../relay/mutations/UpdateDynamicMutation';
 import DeleteAnnotationMutation from '../../relay/mutations/DeleteAnnotationMutation';
@@ -52,17 +54,6 @@ const StyledWordBreakDiv = styled.div`
     padding-top: 0 !important;
   }
 `;
-
-const messages = defineMessages({
-  confirmDelete: {
-    id: 'task.confirmDelete',
-    defaultMessage: 'Are you sure you want to delete this task?',
-  },
-  confirmDeleteResponse: {
-    id: 'task.confirmDeleteResponse',
-    defaultMessage: 'Are you sure you want to delete this task answer?',
-  },
-});
 
 const StyledTaskTitle = styled.span`
   line-height: ${units(3)};
@@ -110,6 +101,8 @@ class Task extends Component {
     this.state = {
       editingQuestion: false,
       message: null,
+      deleteResponse: null,
+      deletingTask: false,
       editingResponse: false,
       editingAttribution: false,
       expand: true,
@@ -130,8 +123,7 @@ class Task extends Component {
   }
 
   fail = (transaction) => {
-    const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
-    const message = getErrorMessage(transaction, fallbackMessage);
+    const message = getErrorMessage(transaction, <GenericUnknownErrorMessage />);
     this.setState({ message });
   };
 
@@ -150,10 +142,10 @@ class Task extends Component {
       this.setState({ editingAttribution: true });
       break;
     case 'delete':
-      this.handleDelete();
+      this.setState({ deletingTask: true });
       break;
     case 'delete_response':
-      this.handleDeleteResponse(value);
+      this.setState({ deleteResponse: value });
       break;
     default:
     }
@@ -282,31 +274,40 @@ class Task extends Component {
     );
   };
 
-  handleDelete() {
+  submitDeleteTask = () => {
     const { task, media } = this.props;
 
-    // eslint-disable-next-line no-alert
-    if (window.confirm(this.props.intl.formatMessage(messages.confirmDelete))) {
-      Relay.Store.commitUpdate(new DeleteAnnotationMutation({
+    const onSuccess = () => {
+      this.setState({ deletingTask: false });
+    };
+
+    Relay.Store.commitUpdate(
+      new DeleteAnnotationMutation({
         parent_type: 'project_media',
         annotated: media,
         id: task.id,
-      }));
-    }
-  }
+      }),
+      { onSuccess, onFailure: this.fail },
+    );
+  };
 
-  handleDeleteResponse(response) {
+  submitDeleteTaskResponse = () => {
     const { task } = this.props;
+    const { deleteResponse } = this.state;
 
-    // eslint-disable-next-line no-alert
-    if (window.confirm(this.props.intl.formatMessage(messages.confirmDeleteResponse))) {
-      Relay.Store.commitUpdate(new DeleteDynamicMutation({
+    const onSuccess = () => {
+      this.setState({ deleteResponse: null });
+    };
+
+    Relay.Store.commitUpdate(
+      new DeleteDynamicMutation({
         parent_type: 'task',
         annotated: task,
-        id: response.id,
-      }));
-    }
-  }
+        id: deleteResponse.id,
+      }),
+      { onSuccess, onFailure: this.fail },
+    );
+  };
 
   handleCloseImage() {
     this.setState({ zoomedImage: false });
@@ -726,6 +727,38 @@ class Task extends Component {
             onSubmit={this.handleUpdateAttribution}
           /> : null
         }
+
+        <ConfirmProceedDialog
+          body={
+            <Typography variant="body1" component="p">
+              <FormattedMessage
+                id="task.confirmDelete"
+                defaultMessage="Are you sure you want to delete this task?"
+              />
+            </Typography>
+          }
+          onCancel={() => this.setState({ deletingTask: false })}
+          onProceed={this.submitDeleteTask}
+          open={this.state.deletingTask}
+          proceedLabel={<FormattedGlobalMessage messageKey="delete" />}
+          title={<FormattedMessage id="task.confirmDeleteTitle" defaultMessage="Delete task?" />}
+        />
+
+        <ConfirmProceedDialog
+          body={
+            <Typography variant="body1" component="p">
+              <FormattedMessage
+                id="task.confirmDeleteResponse"
+                defaultMessage="Are you sure you want to delete this answer?"
+              />
+            </Typography>
+          }
+          onCancel={() => this.setState({ deleteResponse: null })}
+          onProceed={this.submitDeleteTaskResponse}
+          open={this.state.deleteResponse}
+          proceedLabel={<FormattedGlobalMessage messageKey="delete" />}
+          title={<FormattedMessage id="task.confirmDeleteResponseTitle" defaultMessage="Delete answer?" />}
+        />
       </StyledWordBreakDiv>
     );
   }
@@ -735,7 +768,7 @@ Task.contextTypes = {
   store: PropTypes.object,
 };
 
-export default Relay.createContainer(injectIntl(Task), {
+export default Relay.createContainer(Task, {
   initialVariables: {
     teamSlug: null,
   },

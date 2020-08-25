@@ -1,13 +1,5 @@
 [
   {
-    "id": "task.confirmDelete",
-    "defaultMessage": "Are you sure you want to delete this task?"
-  },
-  {
-    "id": "task.confirmDeleteResponse",
-    "defaultMessage": "Are you sure you want to delete this task answer?"
-  },
-  {
     "id": "task.answeredBy",
     "defaultMessage": "Completed by {byName}"
   },
@@ -26,5 +18,21 @@
   {
     "id": "tasks.editAttribution",
     "defaultMessage": "Edit attribution"
+  },
+  {
+    "id": "task.confirmDelete",
+    "defaultMessage": "Are you sure you want to delete this task?"
+  },
+  {
+    "id": "task.confirmDeleteTitle",
+    "defaultMessage": "Delete task?"
+  },
+  {
+    "id": "task.confirmDeleteResponse",
+    "defaultMessage": "Are you sure you want to delete this answer?"
+  },
+  {
+    "id": "task.confirmDeleteResponseTitle",
+    "defaultMessage": "Delete answer?"
   }
 ]
