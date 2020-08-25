@@ -124,7 +124,7 @@ class Task extends Component {
 
   fail = (transaction) => {
     const message = getErrorMessage(transaction, <GenericUnknownErrorMessage />);
-    this.setState({ message });
+    this.setState({ message, isSaving: false });
   };
 
   handleAction = (action, value) => {
@@ -276,9 +276,10 @@ class Task extends Component {
 
   submitDeleteTask = () => {
     const { task, media } = this.props;
+    this.setState({ isSaving: true });
 
     const onSuccess = () => {
-      this.setState({ deletingTask: false });
+      this.setState({ deletingTask: false, isSaving: false });
     };
 
     Relay.Store.commitUpdate(
@@ -294,9 +295,10 @@ class Task extends Component {
   submitDeleteTaskResponse = () => {
     const { task } = this.props;
     const { deleteResponse } = this.state;
+    this.setState({ isSaving: true });
 
     const onSuccess = () => {
-      this.setState({ deleteResponse: null });
+      this.setState({ deleteResponse: null, isSaving: false });
     };
 
     Relay.Store.commitUpdate(
@@ -737,6 +739,7 @@ class Task extends Component {
               />
             </Typography>
           }
+          isSaving={this.state.isSaving}
           onCancel={() => this.setState({ deletingTask: false })}
           onProceed={this.submitDeleteTask}
           open={this.state.deletingTask}
@@ -753,6 +756,7 @@ class Task extends Component {
               />
             </Typography>
           }
+          isSaving={this.state.isSaving}
           onCancel={() => this.setState({ deleteResponse: null })}
           onProceed={this.submitDeleteTaskResponse}
           open={this.state.deleteResponse}
