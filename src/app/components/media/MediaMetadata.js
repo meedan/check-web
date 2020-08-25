@@ -35,46 +35,36 @@ const ExtraMediaActions = ({
   const isUploadedVideo = media.media.type === 'UploadedVideo';
   const isPicture = media.picture !== null && media.picture !== undefined;
   const allowsVideoAnnotation = isYoutubeVideo || isUploadedVideo;
-  const allowsReverseSearch = isPicture;
-  if (allowsVideoAnnotation) {
-    return (
-      <Button
-        color="primary"
-        disabled={showVideoAnnotation}
-        onClick={onVideoAnnoToggle}
-        variant="contained"
-        startIcon={<VideoAnnotationIcon color="action" />}
-      >
-        <FormattedMessage
-          id="mediaMetadata.VideoAnnotation"
-          defaultMessage="Video annotation"
-        />
-      </Button>
-    );
-  } else if (allowsReverseSearch) {
-    return (
-      <div className="media-detail__reverse-image-search">
-        <small>
-          <FormattedMessage
-            id="mediaMetadata.reverseImageSearch"
-            defaultMessage="Reverse image search"
-          />
-        </small>
-        <br />
+  const allowsReverseSearch = isPicture || allowsVideoAnnotation;
+
+  return (
+    <div>
+      { allowsVideoAnnotation ?
         <Button
-          style={{
-            border: '1px solid #000',
-            minWidth: 115,
-            marginRight: units(2),
-          }}
+          color="primary"
+          disabled={showVideoAnnotation}
+          onClick={onVideoAnnoToggle}
+          variant="contained"
+          startIcon={<VideoAnnotationIcon color="action" />}
+        >
+          <FormattedMessage
+            id="mediaMetadata.Timeline"
+            defaultMessage="Timeline"
+          />
+        </Button>
+        : null }
+      { allowsReverseSearch ?
+        <Button
           onClick={reverseImageSearchGoogle}
         >
-          Google
+          <FormattedMessage
+            id="mediaMetadata.ImageSearch"
+            defaultMessage="Image Search"
+          />
         </Button>
-      </div>
-    );
-  }
-  return null;
+        : null }
+    </div>
+  );
 };
 
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
