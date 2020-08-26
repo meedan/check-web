@@ -47,7 +47,7 @@ const ExtraMediaActions = ({
   const classes = useStyles();
 
   return (
-    <Box margin={`0 ${units(-0.5)}`}>
+    <Box>
       { allowsVideoAnnotation ?
         <Button
           classes={classes}
@@ -95,7 +95,10 @@ class MediaMetadata extends React.Component {
       <StyledMetadata className="media-detail__check-metadata">
         { claimReview ? <Row><ClaimReview data={claimReview} /></Row> : null }
         { (media.picture || (media.media && media.media.file_path)) ?
-          <Row style={{ display: 'flex', alignItems: 'center', marginBottom: units(2) }}>
+          <Row style={{
+            display: 'flex', alignItems: 'center', marginBottom: units(2), marginLeft: units(-0.5), marginRight: units(-0.5),
+          }}
+          >
             <ExtraMediaActions
               media={media}
               onVideoAnnoToggle={this.props.onVideoAnnoToggle}
@@ -108,6 +111,8 @@ class MediaMetadata extends React.Component {
                 style={{
                   alignSelf: 'flex-end',
                   display: 'flex',
+                  marginRight: units(0.5),
+                  marginLeft: units(0.5),
                 }}
               >
                 <ExternalLink
