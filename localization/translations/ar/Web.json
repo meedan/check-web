@@ -143,6 +143,7 @@
 	"annotation.taggedHeader": "قام {author} بإضافة علامة #{tag}",
 	"annotation.deletedComment": "قام {author} بحذف التعليق: {comment}",
 	"annotation.taskCreated": "قام {author} بإضافة مهمة : {task}",
+	"annotation.metadataCreated": "Metadata field created by {author}: {fieldLabel}",
 	"annotation.relationshipCreated": "قام {author} بإضافة عنصر مرتبط : {title}",
 	"annotation.relationshipDeleted": "قام {author} بحذف عنصر مرتبط : {title}",
 	"annotation.taskAssignmentCreated": "قام {author} بتكليف مهمة إلى {name} : {title}",
@@ -161,6 +162,7 @@
 	"annotation.acceptSuggestion": "قبول",
 	"annotation.rejectSuggestion": "رفض",
 	"annotation.taskResolve": "قام {author} بإنجاز المهمة: {task}{response}",
+	"annotation.metadataResponse": "Metadata field \"{fieldLabel}\" filled by {author}: {response}",
 	"annotation.archiverSuccess": "في حالة إختفاء هذا الرابط يمكنك <a href=\"{link}\" target=\"_blank\" rel=\"noopener noreferrer\">الحصول على نسخة إحتياطية في {name}</a>.",
 	"annotation.archiverError": "عذراً ، لقد واجهنا الخطأ التالي أثناء أرشفة العنصر إلى {name}: \"{message}\". من فضلك أعد المحاولة بتحديث العنصر وتواصل مع {supportEmail} إن استمرت المشكلة.",
 	"annotation.archiverWait": "لقد تم إرسال هذا الرابط للحفاظ في {name} وسوف يظهر رابط النسخة اﻹحتياطية هنا عندما يصبح متاحاً.",
@@ -291,6 +293,7 @@
 	"mediaAnalysis.save": "حفظ",
 	"mediaComments.noNote": "لا توجد ملحوظة",
 	"mediaComponent.requests": "الطلبات",
+	"mediaComponent.metadata": "Metadata",
 	"mediaComponent.tasks": "المهام",
 	"mediaComponent.analysis": "التحليل",
 	"mediaComponent.notes": "الملحوظات",
@@ -370,7 +373,7 @@
 	"reportDesigner.edit": "تحرير",
 	"reportDesigner.publish": "نشر",
 	"reportDesigner.pause": "توقيف",
-	"reportDesigner.nothingToPreview": "ابدأ فى انشاء التقرير لمعاينة ما سيراه المستخدمون حين يتلقونه.",
+	"reportDesigner.nothingToPreview": "ابدأ فى انشاء التقرير لمعاينة ما ستراه المستخدمات حين يتلقونه.",
 	"reportDesigner.reportEditorTitle": "حدد المحتوى الذى تريد ارساله في تقريرك",
 	"reportDesigner.introduction": "رسالة المقدمة",
 	"reportDesigner.introductionSub": "استخدم النص النائب {query_date} لعرض تاريخ الاستعلام الرئيسي. استخدم {status} للتواصل مع حالة التقرير.",
@@ -385,18 +388,18 @@
 	"reportDesigner.disclaimer": "إخلاء المسؤولية",
 	"reportDesigner.confirmPublishTitle": "جاهز لنشر تقريرك؟",
 	"reportDesigner.confirmPublishText": "{demand, plural, zero {لا يوجد مستخدم طلب هذا العنصر.} one {انت على وشك إرسال هذا التقرير للمستخدم الذى طلب هذا العنصر.} two {انت على وشك إرسال هذا التقرير للمستخدمين اللذين طلبا هذا العنصر.} few {انت على وشك إرسال هذا التقرير إلى # مستخدمين طلبوا هذا العنصر.} many {انت على وشك إرسال هذا التقرير إلى # مستخدم طلبوا هذا العنصر.} other {انت على وشك إرسال هذا التقرير إلى # مستخدم طلبوا هذا العنصر.}}",
-	"reportDesigner.confirmPublishText2": "المستخدمين الذين سيطلبون هذا العنصر فى المستقبل سيستلمون تقريرك طالما هو منشور.",
+	"reportDesigner.confirmPublishText2": "المستخدمات اللاتي سيطلبن هذا العنصر فى المستقبل سيستلمن تقريرك طالما هو منشور.",
 	"reportDesigner.confirmPauseTitle": "انت على وشك إيقاف التقرير",
-	"reportDesigner.confirmPauseText": "لن يتم إرسال هذا التقرير إلى المستخدمين حتى يتم نشره ثانية. هل تود المتابعة؟",
+	"reportDesigner.confirmPauseText": "لن يتم إرسال هذا التقرير إلى المستخدمات حتى يتم نشره ثانية. هل تود المتابعة؟",
 	"reportDesigner.confirmRepublishTitle": "جاهز لنشر تغييراتك؟",
-	"reportDesigner.confirmRepublishText": "المستخدمين الذين سيطلبون هذا العنصر فى المستقبل سيستلمون الإصدار الجديد من التقرير.",
+	"reportDesigner.confirmRepublishText": "المستخدمات اللاتي سيطلبن هذا العنصر فى المستقبل سيستلمن الإصدار الجديد من التقرير.",
 	"reportDesigner.republishAndResend": "{demand, plural, zero {لا أحد استلم بالفعل الإصدار السابق من التقرير.} one {إرسال التصحيحات أيضا إلى المستخدم الذى استلم بالفعل الإصدار السابق من التقرير.} two {إرسال التصحيحات أيضا إلى المستخدمين اللذين استلما بالفعل الإصدار السابق من التقرير.} few {إرسال التصحيحات أيضا إلى # مستخدمين استلموا بالفعل الإصدار السابق من التقرير.} many {إرسال التصحيحات أيضا إلى # مستخدم استلموا بالفعل الإصدار السابق من التقرير.} other {إرسال التصحيحات أيضا إلى # مستخدم استلموا بالفعل الإصدار السابق من التقرير.}}",
 	"reportDesigner.confirmRepublishResendTitle": "جاهز لنشر تصحيحاتك؟",
 	"reportDesigner.confirmRepublishResendText": "{demand, plural, zero {لن يتم إرسال تصحيحاتك إلى أحد.} one {سيتم إرسال تصحيحاتك إلى المستخدم الذي استلم التقرير السابق.} two {سيتم إرسال تصحيحاتك إلى المستخدمين اللذين استلما التقرير السابق.} few {سيتم إرسال تصحيحاتك إلى # مستخدمين استلموا التقرير السابق.} many {سيتم إرسال تصحيحاتك إلى # مستخدم استلموا التقرير السابق.} other {سيتم إرسال تصحيحاتك إلى # مستخدم استلموا التقرير السابق.}}",
-	"reportDesigner.confirmRepublishResendText2": "المستخدمين الذين سيطلبون هذا العنصر فى المستقبل سيستلمون الإصدار الجديد من التقرير.",
+	"reportDesigner.confirmRepublishResendText2": "المستخدمات اللاتي سيطلبن هذا العنصر فى المستقبل سيستلمن الإصدار الجديد من التقرير.",
 	"reportDesigner.confirmLeaveText": "سوف تفقد تعديلاتك اذا غادرت.",
 	"reportDesigner.reportImagePreviewTitle": "العرض المسبق للتقرير",
-	"webPageMediaCard.Error": "هذا العنصر لا يمكن تحديده. ربما تم حذفه و ربما يظهر فقط للمستخدمين الذين قاموا بتسجيل الدخول. انقر بالأسفل لفتحه.",
+	"webPageMediaCard.Error": "هذا العنصر لا يمكن تحديده. ربما تم حذفه و ربما يظهر فقط للمستخدمات اللاتي قمن بتسجيل الدخول. انقر بالأسفل لفتحه.",
 	"createProject.error": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث القائمة. من فضلك أعد المحاولة وتواصل مع {supportEmail} إن استمرت المشكلة.",
 	"createProject.newProjectName": "عنوان القائمة",
 	"createProject.addProject": "إنشاء قائمة",
@@ -523,10 +526,11 @@
 	"attribution.noResults": "لا توجد نتائج",
 	"attribution.search": "بحث الأعضاء",
 	"createTask.newTask": "مهمة جديدة",
-	"tasks.addTask": "إضافة مهمة",
-	"tasks.shortAnswer": "إجابة قصيرة",
-	"tasks.chooseOne": "سؤال أحادي الاختيارات",
-	"tasks.chooseMultiple": "سؤال متعدد الاختيارات",
+	"tasks.addTask": "مهمة جديدة",
+	"tasks.addMetadata": "New metadata",
+	"tasks.shortAnswer": "نص",
+	"tasks.chooseOne": "Single select",
+	"tasks.chooseMultiple": "Multiple select",
 	"tasks.geolocation": "الموقع",
 	"tasks.datetime": "التاريخ والزمن",
 	"tasks.imageUpload": "رفع الصورة",
@@ -543,15 +547,17 @@
 	"singleChoiceTask.value": "القيمة",
 	"singleChoiceTask.addOther": "إضافة خيار (آخر)",
 	"singleChoiceTask.other": "آخر",
-	"singleChoiceTask.newTask": "مهمة جديدة",
-	"singleChoiceTask.editTask": "تحرير المهمة",
+	"editTaskDialog.editTask": "تحرير المهمة",
+	"editTaskDialog.editMetadata": "Edit metadata field",
+	"editTaskDialog.newTask": "مهمة جديدة",
+	"editTaskDialog.newMetadata": "New metadata field",
 	"tasks.taskPrompt": "السؤال",
-	"tasks.description": "وصف",
+	"tasks.description": "الوصف (اختياري)",
 	"tasks.showInProj": "عرض المهام في",
 	"tasks.assign": "تكليف",
 	"tasks.taskJsonSchema": "مخطط JSON (اختياري / متقدم)",
 	"tasks.cancelAdd": "إلغاء",
-	"tasks.add": "إضافة",
+	"tasks.add": "حفظ",
 	"geoLocationRespondTask.invalidCoords": "احداثيات غير صالحة",
 	"geoLocationRespondTask.searching": "البحث جارٍ...",
 	"geoLocationRespondTask.error": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث المهمة. من فضلك أعد المحاولة وتواصل مع {supportEmail} إن استمرت المشكلة.",
@@ -575,7 +581,8 @@
 	"tasks.editAssignment": "تحرير التكليف",
 	"tasks.attributionSlogan": "للمهمة \"{label}\"",
 	"tasks.editAttribution": "تحرير اﻹسناد",
-	"taskActions.menuTooltip": "إجراءات المهام",
+	"taskActions.tooltipTask": "إجراءات المهام",
+	"taskActions.tooltipMetadata": "Metadata actions",
 	"task.edit": "تحرير المهمة",
 	"task.editResponse": "تحرير اﻹجابة",
 	"task.deleteResponse": "حذف اﻹجابة",
@@ -585,8 +592,8 @@
 	"taskLog.bubbleTooltip": "تبديل التسجيل",
 	"taskTypeSelector.numTypes": "{length, number} محدد",
 	"taskTypeSelector.allTypes": "كل المهام",
-	"tasks.taskLabel": "عنوان المهمة",
-	"tasks.addDescription": "إضافة وصف",
+	"tasks.blankMetadata": "No metadata fields",
+	"tasks.goToSettings": "Go to settings",
 	"addTeamPage.titleFind": "العثور على مساحة العمل موجودة",
 	"addTeamPage.titleCreate": "إنشاء مساحة عمل",
 	"createTeam.slugChecking": "جارٍ التحقق من توفر المسار...",
@@ -602,7 +609,8 @@
 	"createTeam.url": "رابط الفريق",
 	"createTeam.submitButton": "أضف",
 	"createTeam.requestToJoin": "يمكنك أيضا طلب الانضمام الى مساحة عمل حالية.",
-	"createTeamTask.error": "عذراً ، لقد واجهنا خطأ ما اثناء ادخال المهمة. من فضلك أعد المحاولة وتواصل مع فريق الدعم إن استمر الخطأ.",
+	"createTeamTask.errorTask": "Sorry, an error occurred while creating the task. Please try again and contact {supportEmail} if the condition persists.",
+	"createTeamTask.errorMetadata": "Sorry, an error occurred while updating the metadata field. Please try again and contact {supportEmail} if the condition persists.",
 	"trash.emptyTrash": "إفراغ سلة المهملات",
 	"trash.emptyTrashConfirmationText": "هل أنت متأكد؟ سوف يتم حذف نهائي {itemsCount, plural, one {عنصر واحد} other {# عنصر}} و {notesCount, plural, one {تعليق واحد} other {# تعليق}}.",
 	"fetchBot.contactUs": "تواصل معنا للتثبيت",
@@ -656,7 +664,8 @@
 	"teamBots.noSettings": "لا يوجد إعدادات لهذا البوت,",
 	"teamBots.botGarden": "تصفح Bot Garden",
 	"teamBots.confirmationTitle": "تأكيد",
-	"teamBots.confirmationMessage": "أنت على وشك تفعيل تغييراتك على البوت. كل المستخدمين على Tipline الخاص بك سيرون هذه التغييرات. هل أنت متأكد أنك تريد المتابعة؟",
+	"teamBots.confirmationMessage": "أنت على وشك تفعيل تغييراتك على البوت. كل المستخدمات على Tipline الخاص بك سيرين هذه التغييرات. هل أنت متأكد أنك تريد المتابعة؟",
+	"teamSettings.Metadata": "Metadata",
 	"teamSettings.Tasks": "المهام",
 	"teamSettings.rules": "القواعد",
 	"teamSettings.Tags": "العلامات",
@@ -747,7 +756,7 @@
 	"teamTasks.confirmEditTitle": "هل أنت متأكد أنك تود تحرير هذه المهمة؟",
 	"teamTasks.confirmDeleteTitle": "هل أنت متأكد أنك تود حذف هذه المهمة؟",
 	"teamTasks.confirmEditBlurb": "سيتم تعديل مهام العناصر المرتبطة كنتيجة لهذا التغيير، باستثناء اللاتي تم إكمالها بالفعل.",
-	"teamTasks.confirmEditLabelOrDescriptionBlurb": "أنت على وشك تحرير المهام في {itemsNumber, plural, one {عنصر واحد} other {# عنصر}}. اذا تابعت سيتم تعديل كل هذه المهام.",
+	"teamTasks.confirmEditLabelOrDescriptionBlurb": "You are about to edit tasks in {itemsNumber, plural, one {1 item} other {# items}}. If you proceed, all those tasks will also be modified.",
 	"teamTasks.confirmDeleteBlurb": "أنت على وشك حذف المهام المحددة من {itemsNumber, plural, one {عنصر واحد} other {# عنصر}}. اذا تابعت سيتم أيضا حذف إجابات هذه المهام.",
 	"teamTasks.confirmEditkeepCompleted": "إبقاء على المهام المكتملة باسمهم و وصفهم الحاليين.",
 	"teamTasks.confirmDeletekeepCompleted": "إبقاء على المهام المكتملة بإجاباتهم الحالية.",
@@ -755,14 +764,14 @@
 	"teamTasks.filterLabelHidden": "{total, plural, =0 {لا توجد مهام} one {مهمة واحدة ({hidden} مُصفاة)} other {# مهام ({hidden} مُصفاة)}}",
 	"teamTasks.filterLabel": "{total, plural, =0 {لا توجد مهام} one {مهمة واحدة} other {# مهام}}",
 	"teamTasks.blank": "لا توجد مهام افتراضية لعرضها",
+	"teamTasks.blankMetadata": "No metadata fields",
 	"teamTasks.filter": "تصفية المهام",
 	"teamTasks.projFilter": "عرض المهام في",
 	"teamTasks.typeFilter": "نوع المهمة",
-	"createTeamTask.editError": "لم ينجح تحرير المهمة الإفتراضية",
-	"createTeamTask.deleteError": "لم ينجح حذف المهمة الإفتراضية",
-	"createTeamTask.menuTooltip": "إجراءات المهام",
+	"teamTasks.tasks": "المهام",
+	"teamTasks.metadata": "Metadata",
 	"teamTasks.edit": "تحرير",
-	"teamTasks.delete": "حذف المهمة",
+	"teamTasks.delete": "حذف",
 	"teams.title": "مساحات العمل",
 	"trash.title": "سلة المهملات",
 	"tasks.done": "إتمام",
@@ -806,14 +815,14 @@
 	"addLanguageAction.addLanguage": "إضافة لغة",
 	"languageListItem.default": "{language} (الافتراضية)",
 	"statusListItem.makeDefault": "اجعلها اﻹفتراضية",
-	"statusListItem.confirmDefaultBody": "{language} ستصبح اللغة الافتراضية للرد على المستخدمين الذين يتفاعلون مع البوت بأى لغة أخري عدا اللغات المضافة إلى هذه القائمة.",
+	"statusListItem.confirmDefaultBody": "{language} ستصبح اللغة الافتراضية للرد على المستخدمات اللاتي يتفاعلن مع البوت بأى لغة أخري عدا اللغات المضافة إلى هذه القائمة.",
 	"statusListItem.confirmDefaultButton": "تعيين الافتراضية",
 	"statusListItem.confirmDefaultTitle": "تعيينها كلغة افتراضية؟",
 	"statusListItem.confirmDeleteBody1": "سيتوقف إرسال كل المحتويات بلغة {language} ، وسوف يتم استخدام اللغة الإفتراضية بدلا منها.",
 	"statusListItem.confirmDeleteBody2": "هذا يشمل المحتويات في بوت Tipline والحالات والتقرير.",
 	"statusListItem.confirmDeleteTitle": "حذف هذه اللغة؟",
 	"languagesComponent.title": "لغات المحتوى",
-	"languagesComponent.blurb": "قم بإضافة لغات جديدة إلى مساحة العمل الخاصة بك لإنشاء التقارير وبوتات Tipline والحالات بلغات متعددة حين تتواصل مع المستخدمين.",
+	"languagesComponent.blurb": "قم بإضافة لغات جديدة إلى مساحة العمل الخاصة بك لإنشاء التقارير وبوتات Tipline والحالات بلغات متعددة حين تتواصل مع المستخدمات.",
 	"translationNeededDialog.title": "مطلوب ترجمة للحالة",
 	"translationNeededDialog.body": "لكى تصبح {language} هى اللغة الافتراضية، لا بد من ترجمة كل الحالات الموجودة أولا إلى لغة {language} في تبويب اعداد الحالات.",
 	"rule.copyOf": "نسخة من {ruleName}",
@@ -882,15 +891,15 @@
 	"smoochBot.descriptionInactive": "هذه الرسالة يتم إرسالها إلى أى مستخدم يرسل رسالة إلى Tipline حين يكون بوت رسائل Check غير نشط.",
 	"smoochBot.descriptionTos": "هذه الرسالة تتبع مباشرة أى تقرير يتم إرساله إلى المستخدم ويجب أن تتضمن رابطا إلى شروط إستخدام Check.",
 	"smoochBot.placeholderGreeting": "مرحبا! وأهلا بك فى بوت تقصي الحقائق الخاص ب[Name of your organization]. نحن نتقصى حقيقة الدعاوى والفيديوهات والصور المتعلقة بمواضيع مثل السياسة والصحة والتمويل والتقنية.",
-	"smoochBot.placeholderMainMenu": "📌*Main Menu*\n\n*Reply 1* (or 🔍) to submit a request for a fact-check about an article, video, image, or other content.\n*Reply 2* (or 🦠) to get the latest information about coronavirus disease (COVID-19)",
-	"smoochBot.placeholderSecondaryMenu": "*Information about Coronavirus disease (COVID-19)* 🦠\n\n👉*Reply with any one of the following numbers (or emoji) to get information about that topic:*\n\n*1:* How do I protect myself and/or my family? 👨‍👩‍👧\n*2:* I think I might be getting sick 🤒\n*3:* How can I handle stress associated with COVID-19? ❤️\n*4:* Information about cases and recoveries globally 📊\n*5:* Latest updates from the World Health Organization 🌐\n\n*Reply 0* to get back to the *Main Menu* 📌",
-	"smoochBot.placeholderQueryPrompt": "*Please enter the question, link, picture, or video that you want fact-checked,* followed by any context or additional questions related to that item. Your request will be sent to fact-checkers about 30 seconds after you have sent your last message.\n\n*Reply 0 (or 📌)* to go back to the *Main Menu*",
-	"smoochBot.placeholderQueryReceived": "Thank you! Your request has been received. Responses are being aggregated and sorted, and we're working on fact-checking your questions.\n\n✔️*Follow this link for an updated list of common questions that we have fact-checked:* [ Link to a page of fact-checks on your website ]\n\n👉*Reply with any text* to get back to the *Main Menu* 📌",
-	"smoochBot.placeholderOptionNotAvailable": "🤖I'm sorry, I didn't understand your message. Please try again!",
-	"smoochBot.placeholderReportUpdated": "❗️The fact-check that we sent to you has been *updated* with new information:",
-	"smoochBot.placeholderInvalidFormat": "❌Sorry, we can't accept this type of message for verification at this time.\n\nWe can accept most images, videos, links, text messages, and shared WhatsApp messages.",
-	"smoochBot.placeholderInactive": "❌Thank you for your message. Our fact-checking service is currently *inactive.*\n\nContact us at *[email or other contact]* for further inquiries.",
-	"smoochBot.placeholderTos": "This service is provided under the following terms: %{tos}",
+	"smoochBot.placeholderMainMenu": "📌*القائمة الرئيسية*\n\n*أرسل 1* (أو 🔍) لإرسال طلب تقصي الحقائق لمقال أو فيديو أو صورة أو محتوى آخر.\n*أرسل 2* (أو 🦠) لكي تحصل على آخر المعلومات عن مرض فيروس كورونا (كوفيد-19)",
+	"smoochBot.placeholderSecondaryMenu": "*معلومات عن مرض فيروس كورونا (كوفيد-19)* 🦠\n\n👉*أرسل أى من الأرقام التالية (أو الرموز التعبيرية) لكي تحصل على معلومات عن هذا الموضوع:*\n\n*1:* كيف أحمي نفسي و/أو عائلتي؟ 👨‍👩‍👧\n*2:* أظن أنني قد أصبت بالمرض 🤒\n*3:* كيف أتعامل مع الضغط المتعلق بكوفيد-19؟ ❤️\n*4:* معلومات عن الحالات والتعافي على مستوى العالم 📊\n*5:* آخر التحديثات من منظمة الصحة العالمية 🌐\n\n*أرسل 0* للعودة إلى *القائمة الرئيسية* 📌",
+	"smoochBot.placeholderQueryPrompt": "*من فضلك اكتب السؤال أو الرابط أو الصورة أو الفيديو الذي تريد تقصي حقيقته،* ثم أتبعه بأى سياق أو أسئلة إضافية متعلقة بهذا العنصر. طلبك سوف يرسل إلى متقصي الحقائق بعد حوالي 30 ثانية من إرسال آخر رسالة.\n\n*أرسل 0 (أو 📌)*للعودة إلى *القائمة الرئيسية*",
+	"smoochBot.placeholderQueryReceived": "شكرا لك! تم استلام طلبك. الردود يتم تجميعها و تخزينها و نحن نعمل على تقصي حقائق أسئلتك.\n\n✔️*اتبع هذا الرابط للوصول إلى قائمة محدثة عن أسئلة عامة تم عمل تقصي حقائق لها:* [ رابط إلى صفحة تقصي الحقائق على موقعك ]\n\n👉*أرسل أي نص* للعودة إلى *القائمة الرئيسية* 📌",
+	"smoochBot.placeholderOptionNotAvailable": "🤖أنا آسف، لم أفهم رسالتك. من فضلك حاول ثانية!",
+	"smoochBot.placeholderReportUpdated": "❗️تم *تحديث* تقصي الحقائق الذي أرسلناه لك بمعلومات جديدة:",
+	"smoochBot.placeholderInvalidFormat": "❌عذرا، لا يمكننا قبول هذا النوع من الرسائل للتحقق منها في الوقت الحالي\n\nيمكننا قبول أغلب الصور و الفيديوهات و الروابط و الرسائل النصية و رسائل الواتس آب التى تمت مشاركتها.",
+	"smoochBot.placeholderInactive": "❌شكرا لك على رسالتك. خدمة تقصي الحقائق *غير نشطة* حاليا.\n\nتواصل معنا على *[البريد الإلكتروني أو وسيلة تواصل أخرى]* للمزيد من الإستفسارات.",
+	"smoochBot.placeholderTos": "هذه الخدمة مقدمة وفقا للشروط التالية: %{tos}",
 	"deleteStatusDialog.moveItemsTo": "نقل العناصر إلى",
 	"deleteStatusDialog.statusInUseTitle": "أنت بحاجة إلى تغيير حالة {itemsCount, plural, one {عنصر واحد} other {# عنصر}}",
 	"deleteStatusDialog.statusInUseMessage": "هناك {itemsCount, plural, one {عنصر واحد} other {# عنصر}} في الحالة {statusLabel} بحاجة إلى تغيير إلى حالات أخرى قبل حذف هذه الحالة.",
@@ -900,7 +909,7 @@
 	"editStatusDialog.titleEdit": "تحرير الحالة",
 	"editStatusDialog.title": "إضافة حالة جديدة",
 	"editStatusDialog.statusTitle": "الحالة (بحد أقصى {maxLength} حرفا)",
-	"editStatusDialog.statusDescription": "Description",
+	"editStatusDialog.statusDescription": "الوصف",
 	"editStatusDialog.statusColor": "لون الحالة",
 	"editStatusDialog.addButton": "إضافة حالة",
 	"statusListItem.noDescription": "لا يوجد وصف",
@@ -909,9 +918,9 @@
 	"statusesComponent.saved": "تم حفظ الحالات بنجاح!",
 	"statusesComponent.title": "{statuses_count, plural, zero {# حالة} one {حالة واحدة} two {حالتان} few {# حالات} many {# حالة} other {# حالة}}",
 	"statusesComponent.newStatus": "حالة جديدة",
-	"statusesComponent.blurb": "عنوان الحالة يكون ظاهرًا عند إرسال التقارير إلى المستخدمين.",
+	"statusesComponent.blurb": "عنوان الحالة يكون ظاهرًا عند إرسال التقارير إلى المستخدمات.",
 	"statusesComponent.blurbSecondary": "قم بترجمة الحالات في اللغات الثانوية لاظهارهم باللغات المحلية في تقارير تقصي الحقائق الخاصة بك.",
 	"translateStatuses.missingTranslations": "الترجمة غير موجودة",
-	"translateStatuses.missingTranslationsBody": "ترجمة بعض الحالات غير موجودة. قد لا يستطيع المستخدمين قراءة الحالات الغير مترجمة.",
+	"translateStatuses.missingTranslationsBody": "ترجمة بعض الحالات غير موجودة. قد لا تستطيع المستخدمات قراءة الحالات الغير مترجمة.",
 	"translateStatuses.continueAndSave": "متابعة و حفظ"
 }
