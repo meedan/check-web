@@ -37,10 +37,20 @@ const ExtraMediaActions = ({
   const allowsVideoAnnotation = isYoutubeVideo || isUploadedVideo;
   const allowsReverseSearch = isPicture || allowsVideoAnnotation;
 
+  const videoButtonStyle = {
+    marginRight: units(0.5),
+  };
+
+  const ImageButtonStyle = {
+    marginRight: units(0.5),
+    border: '1px solid #D5D5D5',
+  };
+
   return (
     <div>
       { allowsVideoAnnotation ?
         <Button
+          style={videoButtonStyle}
           color="primary"
           disabled={showVideoAnnotation}
           onClick={onVideoAnnoToggle}
@@ -55,6 +65,7 @@ const ExtraMediaActions = ({
         : null }
       { allowsReverseSearch ?
         <Button
+          style={ImageButtonStyle}
           onClick={reverseImageSearchGoogle}
         >
           <FormattedMessage
