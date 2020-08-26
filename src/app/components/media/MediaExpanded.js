@@ -228,7 +228,7 @@ class MediaExpandedComponent extends Component {
             {embedCard}
           </FadeIn>
         </CardContent>
-        <CardActions style={{ paddingRight: units(0.5) }}>
+        <CardActions>
           <MediaMetadata data={data} {...this.props} media={media} />
         </CardActions>
       </span>

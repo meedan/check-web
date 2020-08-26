@@ -2,8 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
+import { makeStyles } from '@material-ui/core/styles';
 import DownloadIcon from '@material-ui/icons/MoveToInbox';
 import ExternalLink from '../ExternalLink';
 import MediaTags from './MediaTags';
@@ -25,6 +27,12 @@ const StyledMetadata = styled.div`
   }
 `;
 
+const useStyles = makeStyles(theme => ({
+  root: {
+    margin: `0 ${theme.spacing(0.5)}px`,
+  },
+}));
+
 const ExtraMediaActions = ({
   media,
   showVideoAnnotation,
@@ -36,21 +44,13 @@ const ExtraMediaActions = ({
   const isPicture = media.picture !== null && media.picture !== undefined;
   const allowsVideoAnnotation = isYoutubeVideo || isUploadedVideo;
   const allowsReverseSearch = isPicture || allowsVideoAnnotation;
-
-  const videoButtonStyle = {
-    marginRight: units(0.5),
-  };
-
-  const ImageButtonStyle = {
-    marginRight: units(0.5),
-    border: '1px solid #D5D5D5',
-  };
+  const classes = useStyles();
 
   return (
-    <div>
+    <Box margin={`0 ${units(-0.5)}`}>
       { allowsVideoAnnotation ?
         <Button
-          style={videoButtonStyle}
+          classes={classes}
           color="primary"
           disabled={showVideoAnnotation}
           onClick={onVideoAnnoToggle}
@@ -65,8 +65,9 @@ const ExtraMediaActions = ({
         : null }
       { allowsReverseSearch ?
         <Button
-          style={ImageButtonStyle}
+          classes={classes}
           onClick={reverseImageSearchGoogle}
+          variant="outlined"
         >
           <FormattedMessage
             id="mediaMetadata.ImageSearch"
@@ -74,7 +75,7 @@ const ExtraMediaActions = ({
           />
         </Button>
         : null }
-    </div>
+    </Box>
   );
 };
 

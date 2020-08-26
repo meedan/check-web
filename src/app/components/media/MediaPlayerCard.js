@@ -1,18 +1,12 @@
 import React from 'react';
 import { Player } from '@meedan/check-ui';
+import Box from '@material-ui/core/Box';
 import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
-import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 import AspectRatio from '../layout/AspectRatio';
 import { units } from '../../styles/js/shared';
-
-const StyledPlaybackRate = styled.div`
-  margin-top: ${units(2)};
-  position: absolute;
-  right: 0;
-`;
 
 const MediaPlayerCard = (props) => {
   const [playbackRate, setplaybackRate] = React.useState(1);
@@ -46,7 +40,7 @@ const MediaPlayerCard = (props) => {
           />
         </div>
       </AspectRatio>
-      <StyledPlaybackRate>
+      <Box marginTop={units(2)} position="absolute" right={0}>
         <FormControl variant="outlined">
           <Select
             id="video-media-card__playback-rate"
@@ -63,7 +57,7 @@ const MediaPlayerCard = (props) => {
             <MenuItem value={2}>2x</MenuItem>
           </Select>
         </FormControl>
-      </StyledPlaybackRate>
+      </Box>
     </article>
   );
 };
