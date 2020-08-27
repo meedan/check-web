@@ -30,6 +30,7 @@ class TaskActions extends React.Component {
     const { task, media, response } = this.props;
     const isTask = task.fieldset === 'tasks';
     const { anchorEl } = this.state;
+    const isBrowserExtension = (window.parent !== window);
 
     if (task.cannotAct) {
       return null;
@@ -46,7 +47,7 @@ class TaskActions extends React.Component {
       <FormattedMessage id="taskActions.tooltipMetadata" defaultMessage="Metadata actions" />
     );
 
-    if (can(media.permissions, 'create Task') && isTask) {
+    if (can(media.permissions, 'create Task') && isTask && !isBrowserExtension) {
       menuItems.push((
         <MenuItem
           key="edit"
@@ -80,7 +81,7 @@ class TaskActions extends React.Component {
       ));
     }
 
-    if (can(media.permissions, 'create Task') && isTask) {
+    if (can(media.permissions, 'create Task') && isTask && !isBrowserExtension) {
       menuItems.push((
         <MenuItem
           key="edit-assignment"
@@ -92,7 +93,7 @@ class TaskActions extends React.Component {
       ));
     }
 
-    if (response && can(task.first_response.permissions, 'update Dynamic') && isTask) {
+    if (response && can(task.first_response.permissions, 'update Dynamic') && isTask && !isBrowserExtension) {
       menuItems.push((
         <MenuItem
           key="edit-attribution"
