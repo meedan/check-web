@@ -1,11 +1,11 @@
 [
   {
-    "id": "mediaMetadata.VideoAnnotation",
-    "defaultMessage": "Video annotation"
+    "id": "mediaMetadata.Timeline",
+    "defaultMessage": "Timeline"
   },
   {
-    "id": "mediaMetadata.reverseImageSearch",
-    "defaultMessage": "Reverse image search"
+    "id": "mediaMetadata.ImageSearch",
+    "defaultMessage": "Image Search"
   },
   {
     "id": "mediaMetadata.download",

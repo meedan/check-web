@@ -1624,7 +1624,7 @@ shared_examples 'smoke' do
     expect(card == 1).to be(true)
     expect((@driver.current_url.to_s =~ /google/).nil?).to be(true)
     current_window = @driver.window_handles.last
-    wait_for_selector(".media-detail__reverse-image-search > button").click
+    wait_for_selector("//span[contains(text(), 'Image Search')]", :xpath).click
     @driver.switch_to.window(@driver.window_handles.last)
     expect((@driver.current_url.to_s =~ /google/).nil?).to be(false)
     @driver.switch_to.window(current_window)
@@ -1711,7 +1711,7 @@ shared_examples 'smoke' do
   it "should manage video notes", bin4: true do
     api_create_team_project_and_link_and_redirect_to_media_page 'https://www.youtube.com/watch?v=em8gwDcjPzU'
     wait_for_selector(".media-detail")
-    wait_for_selector("//span[contains(text(), 'Video annotation')]", :xpath).click
+    wait_for_selector("//span[contains(text(), 'Timeline')]", :xpath).click
     wait_for_selector("div[aria-labelledby=TimelineTab]")
     expect(@driver.page_source.include?('Timeline')).to be(true)
     #add a note
@@ -1726,7 +1726,7 @@ shared_examples 'smoke' do
     wait_for_selector(".media-tab__comments").click
     wait_for_selector(".annotation__card-content")
     expect(@driver.page_source.include?('my note')).to be(true) # check the video note appears on the note tab
-    wait_for_selector("//span[contains(text(), 'Video annotation')]", :xpath).click
+    wait_for_selector("//span[contains(text(), 'Timeline')]", :xpath).click
     wait_for_selector(".MuiAvatar-img").click
     #add a new note
     wait_for_selector("#comment").send_keys("new note")
@@ -1747,7 +1747,7 @@ shared_examples 'smoke' do
     api_create_team_project_and_link_and_redirect_to_media_page 'https://www.youtube.com/watch?v=em8gwDcjPzU'
     wait_for_selector(".media-detail")
     expect(@driver.page_source.include?('my videotag')).to be(false)
-    wait_for_selector("//span[contains(text(), 'Video annotation')]", :xpath).click
+    wait_for_selector("//span[contains(text(), 'Timeline')]", :xpath).click
     wait_for_selector("div[aria-labelledby=TimelineTab]")
     expect(@driver.page_source.include?('Timeline')).to be(true)
     #add a videotag

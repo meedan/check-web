@@ -17,6 +17,7 @@ import MoreHoriz from '@material-ui/icons/MoreHoriz';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import Typography from '@material-ui/core/Typography';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { withSetFlashMessage } from '../FlashMessage';
 import EmbedUpdate from './EmbedUpdate';
@@ -1197,7 +1198,9 @@ class Annotation extends Component {
                   </RCTooltip> : null}
 
                 <StyledPrimaryColumn>
-                  {contentTemplate}
+                  <Typography variant="body1" component="div">
+                    {contentTemplate}
+                  </Typography>
                   <StyledAnnotationMetadata>
                     <span className="annotation__card-footer">
                       {authorName ?
