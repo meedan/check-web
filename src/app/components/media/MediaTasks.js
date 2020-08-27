@@ -66,20 +66,15 @@ class MediaTasksComponent extends Component {
           window.parent.postMessage(JSON.stringify({ height }), '*');
           this.setState({ height });
         }
-        setTimeout(updateHeight, 1000);
+        setTimeout(updateHeight, 500);
       };
-      setTimeout(updateHeight, 1000);
+      setTimeout(updateHeight, 500);
 
       document.body.addEventListener('click', (e) => {
         const tasks = document.getElementsByClassName('tasks')[0];
         if (tasks && !tasks.contains(e.target)) {
           const id = this.getSelectedTask();
           if (id) {
-            const task = document.getElementById(id);
-            task.style.border = 0;
-            if (document.getElementById(`${id}-log`)) {
-              task.getElementsByClassName('task__log-icon')[0].click();
-            }
             window.parent.postMessage(JSON.stringify({ task: 0 }), '*');
             this.setState({ selectedTask: null });
           }
@@ -93,17 +88,6 @@ class MediaTasksComponent extends Component {
         div.addEventListener('click', (e) => {
           const id = this.getSelectedTask();
           if (id !== div.id && e.target.className !== 'task__log-icon') {
-            if (id) {
-              const prevDiv = document.getElementById(id);
-              prevDiv.style.border = 0;
-              if (document.getElementById(`${id}-log`)) {
-                prevDiv.getElementsByClassName('task__log-icon')[0].click();
-              }
-            }
-            div.style.border = '1px solid #000';
-            if (!document.getElementById(`${div.id}-log`)) {
-              div.getElementsByClassName('task__log-icon')[0].click();
-            }
             const task = parseInt(div.id.replace(/^task-/, ''), 10);
             window.parent.postMessage(JSON.stringify({ task }), '*');
             this.setState({ selectedTask: div.id });
@@ -169,11 +153,12 @@ class MediaTasksComponent extends Component {
     );
 
     const itemTasks = fieldset === 'tasks' ? media.item_tasks : media.item_metadata;
+    const isBrowserExtension = (window.parent !== window);
 
     return (
       <div>
-        <StyledTaskHeaderRow>
-          {itemTasks.edges.length && fieldset === 'tasks' ?
+        <StyledTaskHeaderRow style={isBrowserExtension ? { padding: 0 } : {}}>
+          { itemTasks.edges.length && fieldset === 'tasks' && !isBrowserExtension ?
             <FlexRow>
               <h2>
                 <FormattedMessage
@@ -192,11 +177,11 @@ class MediaTasksComponent extends Component {
                 </FlexRow> : null
               }
             </FlexRow> : null}
-          {window.parent === window && fieldset === 'tasks' ?
+          { !isBrowserExtension && fieldset === 'tasks' ?
             <CreateTask style={{ marginLeft: 'auto' }} media={media} /> : null}
-          {window.parent !== window && itemTasks.edges.length === 0 ?
-            <p style={{ textAlign: 'center', width: '100%' }}>
-              <FormattedMessage id="mediaComponent.noTasks" defaultMessage="No tasks to show." />
+          { isBrowserExtension && itemTasks.edges.length === 0 ?
+            <p style={{ textAlign: 'center', width: '100%', marginTop: units(6) }}>
+              <FormattedMessage id="mediaComponent.noTasks" defaultMessage="Nothing to show." />
             </p> : null}
         </StyledTaskHeaderRow>
         <Tasks tasks={itemTasks.edges} media={media} fieldset={fieldset} />
@@ -279,11 +264,22 @@ const MediaTasks = (props) => {
     };
   }
 
+  let { fieldset } = props;
+
+  // Accessing through /.../tasks or /.../metadata
+  if (props.route && props.route.path) {
+    const path = props.route.path.split('/');
+    const lastPathPart = path[path.length - 1];
+    if (['tasks', 'metadata'].indexOf(lastPathPart) > -1) {
+      fieldset = lastPathPart;
+    }
+  }
+
   const projectId = getCurrentProjectId(media.project_ids);
   const ids = `${media.dbid},${projectId}`;
   const route = new MediaRoute({ ids });
 
-  if (props.fieldset === 'metadata') {
+  if (fieldset === 'metadata') {
     return (
       <Relay.RootContainer
         Component={MediaMetadataContainer}

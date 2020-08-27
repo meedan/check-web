@@ -17,7 +17,9 @@ const Tasks = ({
 
   const goToSettings = () => browserHistory.push(`/${teamSlug}/settings/metadata`);
 
-  if (isMetadata && tasks.length === 0) {
+  const isBrowserExtension = (window.parent !== window);
+
+  if (isMetadata && tasks.length === 0 && !isBrowserExtension) {
     return (
       <React.Fragment>
         <BlankState>
@@ -37,7 +39,7 @@ const Tasks = ({
       <ul className="tasks__list / tasks-list">
         {tasks.map(task => (
           <li key={task.node.dbid}>
-            { isMetadata ? (
+            { (isMetadata || isBrowserExtension) ? (
               <Task task={task.node} media={media} />
             ) : (
               <ReorderTask fieldset={fieldset} task={task.node}>
