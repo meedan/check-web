@@ -1,0 +1,14 @@
+[
+  {
+    "id": "mediaMetadata.Timeline",
+    "defaultMessage": "Timeline"
+  },
+  {
+    "id": "mediaMetadata.ImageSearch",
+    "defaultMessage": "Image Search"
+  },
+  {
+    "id": "mediaMetadata.download",
+    "defaultMessage": "Download"
+  }
+]

@@ -1,0 +1,18 @@
+[
+  {
+    "id": "mediaExpandedMetadata.publishedOn",
+    "defaultMessage": "Published on"
+  },
+  {
+    "id": "mediaExpandedMetadata.shares",
+    "defaultMessage": "Shares"
+  },
+  {
+    "id": "mediaExpandedMetadata.reactions",
+    "defaultMessage": "Reactions"
+  },
+  {
+    "id": "mediaExpandedMetadata.comments",
+    "defaultMessage": "Comments"
+  }
+]

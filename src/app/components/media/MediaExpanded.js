@@ -1,47 +1,26 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
-import { injectIntl, FormattedMessage } from 'react-intl';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardActions from '@material-ui/core/CardActions';
-import styled from 'styled-components';
+import Typography from '@material-ui/core/Typography';
 import MediaRoute from '../../relay/MediaRoute';
-import MediaMetadata from './MediaMetadata';
-import MediaTypeDisplayName from './MediaTypeDisplayName';
-import MediaUtil from './MediaUtil';
+import MediaExpandedSecondRow from './MediaExpandedSecondRow';
+import MediaExpandedActions from './MediaExpandedActions';
+import MediaExpandedMetadata from './MediaExpandedMetadata';
+import MediaExpandedUrl from './MediaExpandedUrl';
 import MoreLess from '../layout/MoreLess';
 import ParsedText from '../ParsedText';
-import TimeBefore from '../TimeBefore';
 import QuoteMediaCard from './QuoteMediaCard';
 import WebPageMediaCard from './WebPageMediaCard';
 import ImageMediaCard from './ImageMediaCard';
 import MediaPlayerCard from './MediaPlayerCard';
 import PenderCard from '../PenderCard';
-import { parseStringUnixTimestamp, truncateLength, getCurrentProjectId } from '../../helpers';
+import { truncateLength, getCurrentProjectId } from '../../helpers';
 import CheckContext from '../../CheckContext';
 import { withPusher, pusherShape } from '../../pusher';
-import {
-  FadeIn,
-  units,
-  Row,
-} from '../../styles/js/shared';
-
-function mediaHasCustomDescription(media, data) {
-  const description = data && data.description && data.description.trim();
-  return description && (
-    (media && media.overridden && media.overridden.description) || // Link type report
-    (media.quote && (description !== media.quote)) || // Quote type report
-    (media.embed_path && description)); // Image type report
-}
-
-const StyledHeaderTextSecondary = styled.div`
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  font-weight: 400;
-  white-space: nowrap;
-  margin-bottom: ${units(3)};
-`;
+import { units } from '../../styles/js/shared';
 
 class MediaExpandedComponent extends Component {
   constructor(props) {
@@ -102,38 +81,25 @@ class MediaExpandedComponent extends Component {
     const {
       media, playing, start, end, gaps, seekTo, scrubTo, setPlayerState, onPlayerReady,
     } = this.props;
-    let smoochBotInstalled = false;
-    if (media.team && media.team.team_bot_installations) {
-      media.team.team_bot_installations.edges.forEach((edge) => {
-        if (edge.node.team_bot.identifier === 'smooch') {
-          smoochBotInstalled = true;
-        }
-      });
-    }
-    media.url = media.media.url;
-    media.quote = media.media.quote;
-    media.embed_path = media.media.embed_path;
+
     const data = typeof media.metadata === 'string' ? JSON.parse(media.metadata) : media.metadata;
     const isImage = media.media.type === 'UploadedImage';
     const isMedia = ['UploadedVideo', 'UploadedAudio'].indexOf(media.media.type) > -1;
     const isYoutube = media.media.url && media.domain === 'youtube.com';
     let filePath = media.media.file_path;
     if (isYoutube) {
-      filePath = media.url;
+      filePath = media.media.url;
     }
     const isQuote = media.media.type === 'Claim';
     const isWebPage = media.media.url && data.provider === 'page';
-    const authorName = MediaUtil.authorName(media, data);
-    const authorUsername = data.username;
     const isPender = media.media.url && data.provider !== 'page';
     const randomNumber = Math.floor(Math.random() * 1000000);
     const { mediaUrl, mediaQuery } = this.props;
-    const hasCustomDescription = mediaHasCustomDescription(media, data);
     const coverImage = media.media.thumbnail_path || '/images/player_cover.svg';
 
     const embedCard = (() => {
       if (isImage) {
-        return <ImageMediaCard imagePath={media.embed_path} />;
+        return <ImageMediaCard imagePath={media.media.embed_path} />;
       } else if (isMedia || isYoutube) {
         return (
           <div ref={this.props.playerRef}>
@@ -149,7 +115,7 @@ class MediaExpandedComponent extends Component {
       } else if (isQuote) {
         return (
           <QuoteMediaCard
-            quote={media.quote}
+            quote={media.media.quote}
             languageCode={media.language_code}
           />
         );
@@ -160,14 +126,12 @@ class MediaExpandedComponent extends Component {
             mediaUrl={mediaUrl}
             mediaQuery={mediaQuery}
             data={data}
-            authorName={authorName}
-            authorUserName={authorUsername}
           />
         );
       } else if (isPender) {
         return (
           <PenderCard
-            url={media.url}
+            url={media.media.url}
             fallback={null}
             domId={`pender-card-${randomNumber}`}
             mediaVersion={this.state.mediaVersion || data.refreshes_count}
@@ -178,60 +142,26 @@ class MediaExpandedComponent extends Component {
       return null;
     })();
 
-    const cardHeaderText = (
-      <div>
-        <StyledHeaderTextSecondary>
-          <Row flexWrap style={{ fontWeight: '500' }}>
-            <span><MediaTypeDisplayName mediaType={media.media.type} /></span>
-            <span style={{ margin: `0 ${units(1)}` }}> - </span>
-            <span>
-              <FormattedMessage id="mediaExpanded.firstSeen" defaultMessage="First seen: " />
-              <TimeBefore date={parseStringUnixTimestamp(media.created_at)} />
-            </span>
-            { smoochBotInstalled ?
-              <span>
-                <span style={{ margin: `0 ${units(1)}` }}> - </span>
-                <span>
-                  <FormattedMessage id="mediaExpanded.lastSeen" defaultMessage="Last seen: " />
-                  <TimeBefore date={parseStringUnixTimestamp(media.last_seen)} />
-                </span>
-                <span style={{ margin: `0 ${units(1)}` }}> - </span>
-                <span>
-                  <FormattedMessage
-                    id="mediaExpanded.requests"
-                    defaultMessage="{count} requests"
-                    values={{
-                      count: media.requests_count,
-                    }}
-                  />
-                </span>
-              </span> : null
-            }
-          </Row>
-        </StyledHeaderTextSecondary>
-      </div>
-    );
-
     return (
-      <span>
+      <React.Fragment>
         <CardHeader
-          style={{ lineHeight: units(4) }}
           title={truncateLength(media.title, 110)}
         />
         <CardContent style={{ padding: `0 ${units(2)}` }}>
-          {cardHeaderText}
-          <FadeIn>
-            { hasCustomDescription ?
-              <MoreLess key={media.description /* reset on new text */}>
-                <ParsedText text={media.description} />
-              </MoreLess> : null }
-            {embedCard}
-          </FadeIn>
+          <MediaExpandedSecondRow media={media} />
+          <MoreLess>
+            <Typography variant="body2">
+              <ParsedText text={media.media.metadata.description} />
+            </Typography>
+          </MoreLess>
+          <MediaExpandedUrl url={media.media.url} />
+          <MediaExpandedMetadata projectMedia={media} />
+          {embedCard}
         </CardContent>
         <CardActions>
-          <MediaMetadata data={data} {...this.props} media={media} />
+          <MediaExpandedActions data={data} {...this.props} media={media} />
         </CardActions>
-      </span>
+      </React.Fragment>
     );
   }
 }
@@ -264,7 +194,6 @@ const MediaExpandedContainer = Relay.createContainer(withPusher(MediaExpandedCom
         title
         picture
         overridden
-        description
         language_code
         language
         project_ids
@@ -272,6 +201,7 @@ const MediaExpandedContainer = Relay.createContainer(withPusher(MediaExpandedCom
         dynamic_annotation_language {
           id
         }
+        ${MediaExpandedMetadata.getFragment('projectMedia')}
         relationships {
           id
           sources_count
@@ -356,4 +286,4 @@ const MediaExpanded = (props) => {
   );
 };
 
-export default injectIntl(MediaExpanded);
+export default MediaExpanded;

@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import isEqual from 'lodash.isequal';
 import { units } from '../../styles/js/shared';
 
-const MaxHeight = units(12);
+const MaxHeight = units(5);
 
 const StyledMoreLessArea = styled.div`
   ${props => props.isExpanded ? null : `max-height: ${MaxHeight}; overflow: hidden;`}
