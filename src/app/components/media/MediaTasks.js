@@ -260,8 +260,10 @@ const MediaTasks = (props) => {
   if (!media && params) {
     media = {
       dbid: parseInt(params.mediaId, 10),
-      project_ids: [parseInt(params.projectId, 10)],
     };
+    if (params.projectId) {
+      media.project_ids = [parseInt(params.projectId, 10)];
+    }
   }
 
   let { fieldset } = props;
@@ -275,7 +277,10 @@ const MediaTasks = (props) => {
     }
   }
 
-  const projectId = getCurrentProjectId(media.project_ids);
+  let projectId = null;
+  if (media.project_ids && media.project_ids.length > 0) {
+    projectId = getCurrentProjectId(media.project_ids);
+  }
   const ids = `${media.dbid},${projectId}`;
   const route = new MediaRoute({ ids });
 
