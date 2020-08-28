@@ -1,12 +1,15 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import ExternalLink from '../ExternalLink';
+import { checkBlue } from '../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
     '& a': {
+      color: checkBlue,
       textDecoration: 'underline',
     },
   },
@@ -19,9 +22,11 @@ const MediaExpandedUrl = ({ url }) => {
 
   return (
     <div className={classes.root}>
-      <ExternalLink url={url}>
-        {url}
-      </ExternalLink>
+      <Typography variant="body2">
+        <ExternalLink url={url}>
+          {url}
+        </ExternalLink>
+      </Typography>
     </div>
   );
 };

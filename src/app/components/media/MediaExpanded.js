@@ -145,13 +145,13 @@ class MediaExpandedComponent extends Component {
     return (
       <React.Fragment>
         <CardHeader
-          title={truncateLength(media.title, 110)}
+          title={truncateLength(media.title || media.media.metadata.description, 110)}
         />
         <CardContent style={{ padding: `0 ${units(2)}` }}>
           <MediaExpandedSecondRow media={media} />
           <MoreLess>
             <Typography variant="body2">
-              <ParsedText text={media.media.metadata.description} />
+              <ParsedText text={media.description || media.media.metadata.description} />
             </Typography>
           </MoreLess>
           <MediaExpandedUrl url={media.media.url} />
@@ -192,6 +192,7 @@ const MediaExpandedContainer = Relay.createContainer(withPusher(MediaExpandedCom
         share_count
         requests_count
         title
+        description
         picture
         overridden
         language_code
