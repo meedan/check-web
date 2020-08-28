@@ -47,7 +47,7 @@ class TaskActions extends React.Component {
       <FormattedMessage id="taskActions.tooltipMetadata" defaultMessage="Metadata actions" />
     );
 
-    if (can(media.permissions, 'create Task') && isTask && !isBrowserExtension) {
+    if (can(media.permissions, 'create Task') && isTask && !isBrowserExtension && !task.team_task_id) {
       menuItems.push((
         <MenuItem
           key="edit"
