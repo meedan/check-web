@@ -368,21 +368,23 @@ class TaskLog extends Component {
     const { currentUser, team } = this.currentContext();
     const logCount = UserUtil.myRole(currentUser, team.slug) === 'annotator' ?
       null : (this.props.task.log_count + suggestionsCount);
+    const isBrowserExtension = (window.parent !== window);
 
     return (
       <StyledTaskLog>
         <div className="task__log-top">
-          <Tooltip title={this.props.intl.formatMessage(messages.bubbleTooltip)}>
-            <span
-              className="task__log-icon"
-              onClick={this.toggle.bind(this)}
-              style={
-                this.props.task.cannotAct ? {} : { marginLeft: 50, marginRight: 50 }
-              }
-            >
-              <b>{ pendingSuggestionsCount > 0 ? '•' : null }</b> <ChatBubble /> <span>{logCount}</span>
-            </span>
-          </Tooltip>
+          { !isBrowserExtension ?
+            <Tooltip title={this.props.intl.formatMessage(messages.bubbleTooltip)}>
+              <span
+                className="task__log-icon"
+                onClick={this.toggle.bind(this)}
+                style={
+                  this.props.task.cannotAct ? {} : { marginLeft: 50, marginRight: 50 }
+                }
+              >
+                <b>{ pendingSuggestionsCount > 0 ? '•' : null }</b> <ChatBubble /> <span>{logCount}</span>
+              </span>
+            </Tooltip> : null }
         </div>
         { !this.state.collapsed ? <Relay.RootContainer
           Component={TaskLogContainer}
