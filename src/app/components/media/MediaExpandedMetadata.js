@@ -43,7 +43,9 @@ const MediaExpandedMetadata = ({ projectMedia }) => {
               <Typography variant="button" component="div">
                 <FormattedMessage id="mediaExpandedMetadata.comments" defaultMessage="Comments" />
               </Typography>
-              <div><FormattedNumber value={metrics.comment_count} /></div>
+              <div>
+                <FormattedNumber value={metrics.comment_count + metrics.comment_plugin_count} />
+              </div>
             </Grid>
           </React.Fragment>
         ) : null }
