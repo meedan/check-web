@@ -29,19 +29,19 @@ const MediaExpandedMetadata = ({ projectMedia }) => {
           <React.Fragment>
             <Grid item xs={2}>
               <Typography variant="button" component="div">
-                <FormattedMessage id="mediaExpandedMetadata.shares" defaultMessage="Shares" />
+                <FormattedMessage id="mediaExpandedMetadata.shares" defaultMessage="FB Shares" />
               </Typography>
               <div><FormattedNumber value={metrics.share_count} /></div>
             </Grid>
             <Grid item xs={2}>
               <Typography variant="button" component="div">
-                <FormattedMessage id="mediaExpandedMetadata.reactions" defaultMessage="Reactions" />
+                <FormattedMessage id="mediaExpandedMetadata.reactions" defaultMessage="FB Reactions" />
               </Typography>
               <div><FormattedNumber value={metrics.reaction_count} /></div>
             </Grid>
             <Grid item xs={2}>
               <Typography variant="button" component="div">
-                <FormattedMessage id="mediaExpandedMetadata.comments" defaultMessage="Comments" />
+                <FormattedMessage id="mediaExpandedMetadata.comments" defaultMessage="FB Comments" />
               </Typography>
               <div>
                 <FormattedNumber value={metrics.comment_count + metrics.comment_plugin_count} />

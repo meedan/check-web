@@ -5,14 +5,14 @@
   },
   {
     "id": "mediaExpandedMetadata.shares",
-    "defaultMessage": "Shares"
+    "defaultMessage": "FB Shares"
   },
   {
     "id": "mediaExpandedMetadata.reactions",
-    "defaultMessage": "Reactions"
+    "defaultMessage": "FB Reactions"
   },
   {
     "id": "mediaExpandedMetadata.comments",
-    "defaultMessage": "Comments"
+    "defaultMessage": "FB Comments"
   }
 ]
