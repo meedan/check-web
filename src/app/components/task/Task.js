@@ -492,14 +492,21 @@ class Task extends Component {
     const assignments = task.assignments.edges;
     const assignmentComponents = [];
     assignments.forEach((assignment) => {
-      assignmentComponents.push(<ProfileLink user={assignment.node.team_user} />);
+      assignmentComponents.push(<ProfileLink teamUser={assignment.node.team_user || null} />);
       if (currentUser && assignment.node.dbid === currentUser.dbid) {
         taskAssigned = true;
       }
     });
 
-    const taskAssignment = task.assignments.edges.length > 0 && !response ? (
-      <div className="task__assigned" style={{ display: 'flex', alignItems: 'center', width: 420 }}>
+    const assignmentStyle = {
+      display: 'flex',
+      alignItems: 'center',
+      width: 420,
+      margin: units(2),
+      justifyContent: 'space-between',
+    };
+    const taskAssignment = task.assignments.edges.length > 0 && !response && task.fieldset === 'tasks' ? (
+      <div className="task__assigned" style={assignmentStyle}>
         <small style={{ display: 'flex' }}>
           <UserAvatars users={assignments} />
           <span style={{ lineHeight: '24px', paddingLeft: units(1), paddingRight: units(1) }}>
@@ -796,6 +803,7 @@ export default Relay.createContainer(Task, {
         pending_suggestions_count,
         suggestions_count,
         log_count,
+        team_task_id,
         responses(first: 10000) {
           edges {
             node {
