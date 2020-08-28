@@ -2,14 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
-import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 import { makeStyles } from '@material-ui/core/styles';
 import DownloadIcon from '@material-ui/icons/MoveToInbox';
 import ExternalLink from '../ExternalLink';
 import MediaTags from './MediaTags';
-import ClaimReview from './ClaimReview';
 import TagMenu from '../tag/TagMenu';
 import VideoAnnotationIcon from '../../../assets/images/video-annotation/video-annotation';
 import {
@@ -47,7 +45,7 @@ const ExtraMediaActions = ({
   const classes = useStyles();
 
   return (
-    <Box>
+    <div>
       { allowsVideoAnnotation ?
         <Button
           classes={classes}
@@ -75,12 +73,12 @@ const ExtraMediaActions = ({
           />
         </Button>
         : null }
-    </Box>
+    </div>
   );
 };
 
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
-class MediaMetadata extends React.Component {
+class MediaExpandedActions extends React.Component {
   reverseImageSearchGoogle() {
     const imagePath = this.props.media.picture;
     window.open(`https://www.google.com/searchbyimage?image_url=${imagePath}`);
@@ -88,12 +86,9 @@ class MediaMetadata extends React.Component {
 
   render() {
     const { media, onTimelineCommentOpen } = this.props;
-    const claimReview = media.metadata.schema && media.metadata.schema.ClaimReview ?
-      media.metadata.schema.ClaimReview[0] : null;
 
     return (
       <StyledMetadata className="media-detail__check-metadata">
-        { claimReview ? <Row><ClaimReview data={claimReview} /></Row> : null }
         { (media.picture || (media.media && media.media.file_path)) ?
           <Row style={{
             display: 'flex', alignItems: 'center', marginBottom: units(2), marginLeft: units(-0.5), marginRight: units(-0.5),
@@ -157,7 +152,7 @@ class MediaMetadata extends React.Component {
   }
 }
 
-MediaMetadata.propTypes = {
+MediaExpandedActions.propTypes = {
   media: PropTypes.shape({
     media: PropTypes.shape({
       type: PropTypes.string,
@@ -168,4 +163,4 @@ MediaMetadata.propTypes = {
   }).isRequired,
 };
 
-export default MediaMetadata;
+export default MediaExpandedActions;
