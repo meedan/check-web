@@ -9,6 +9,10 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
     '& a': {
+      /*
+        TODO define with Pierre if all links are to be blue
+        and style accordingly on the app theme instead of locally
+      */
       color: checkBlue,
       textDecoration: 'underline',
     },

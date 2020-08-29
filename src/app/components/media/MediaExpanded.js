@@ -6,9 +6,10 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 import MediaRoute from '../../relay/MediaRoute';
-import MediaExpandedSecondRow from './MediaExpandedSecondRow';
 import MediaExpandedActions from './MediaExpandedActions';
+import MediaExpandedArchives from './MediaExpandedArchives';
 import MediaExpandedMetadata from './MediaExpandedMetadata';
+import MediaExpandedSecondRow from './MediaExpandedSecondRow';
 import MediaExpandedUrl from './MediaExpandedUrl';
 import MoreLess from '../layout/MoreLess';
 import ParsedText from '../ParsedText';
@@ -155,6 +156,7 @@ class MediaExpandedComponent extends Component {
             </Typography>
           </MoreLess>
           <MediaExpandedUrl url={media.media.url} />
+          <MediaExpandedArchives projectMedia={media} />
           <MediaExpandedMetadata projectMedia={media} />
           {embedCard}
         </CardContent>
@@ -202,6 +204,7 @@ const MediaExpandedContainer = Relay.createContainer(withPusher(MediaExpandedCom
         dynamic_annotation_language {
           id
         }
+        ${MediaExpandedArchives.getFragment('projectMedia')}
         ${MediaExpandedMetadata.getFragment('projectMedia')}
         relationships {
           id
