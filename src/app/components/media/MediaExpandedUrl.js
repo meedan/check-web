@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import ExternalLink from '../ExternalLink';
@@ -9,6 +10,10 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
     '& a': {
+      /*
+        TODO define with Pierre if all links are to be blue
+        and style accordingly on the app theme instead of locally
+      */
       color: checkBlue,
       textDecoration: 'underline',
     },
@@ -29,6 +34,10 @@ const MediaExpandedUrl = ({ url }) => {
       </Typography>
     </div>
   );
+};
+
+MediaExpandedUrl.propTypes = {
+  url: PropTypes.string.isRequired,
 };
 
 export default MediaExpandedUrl;

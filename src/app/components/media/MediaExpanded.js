@@ -6,9 +6,10 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 import MediaRoute from '../../relay/MediaRoute';
-import MediaExpandedSecondRow from './MediaExpandedSecondRow';
 import MediaExpandedActions from './MediaExpandedActions';
+import MediaExpandedArchives from './MediaExpandedArchives';
 import MediaExpandedMetadata from './MediaExpandedMetadata';
+import MediaExpandedSecondRow from './MediaExpandedSecondRow';
 import MediaExpandedUrl from './MediaExpandedUrl';
 import MoreLess from '../layout/MoreLess';
 import ParsedText from '../ParsedText';
@@ -148,13 +149,14 @@ class MediaExpandedComponent extends Component {
           title={truncateLength(media.title || media.media.metadata.description, 110)}
         />
         <CardContent style={{ padding: `0 ${units(2)}` }}>
-          <MediaExpandedSecondRow media={media} />
+          <MediaExpandedSecondRow projectMedia={media} />
           <MoreLess>
             <Typography variant="body2">
               <ParsedText text={media.description || media.media.metadata.description} />
             </Typography>
           </MoreLess>
           <MediaExpandedUrl url={media.media.url} />
+          <MediaExpandedArchives projectMedia={media} />
           <MediaExpandedMetadata projectMedia={media} />
           {embedCard}
         </CardContent>
@@ -173,6 +175,13 @@ MediaExpandedComponent.contextTypes = {
 MediaExpandedComponent.propTypes = {
   pusher: pusherShape.isRequired,
   playerRef: PropTypes.shape({ current: PropTypes.instanceOf(HTMLElement) }).isRequired,
+  relay: PropTypes.object.isRequired,
+  /*
+    FIXME refactor MediaExpanded component and children.
+    Make children fragmentContainer and simplify parent query.
+    Define actual propTypes shape of media for MediaExpanded.
+  */
+  media: PropTypes.object.isRequired,
 };
 
 const MediaExpandedContainer = Relay.createContainer(withPusher(MediaExpandedComponent), {
@@ -202,6 +211,7 @@ const MediaExpandedContainer = Relay.createContainer(withPusher(MediaExpandedCom
         dynamic_annotation_language {
           id
         }
+        ${MediaExpandedArchives.getFragment('projectMedia')}
         ${MediaExpandedMetadata.getFragment('projectMedia')}
         relationships {
           id
