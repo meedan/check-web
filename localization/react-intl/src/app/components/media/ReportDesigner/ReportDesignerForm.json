@@ -13,11 +13,11 @@
   },
   {
     "id": "reportDesigner.textTitle",
-    "defaultMessage": "Headline"
+    "defaultMessage": "Headline ({max} characters max)"
   },
   {
     "id": "reportDesigner.content",
-    "defaultMessage": "Content"
+    "defaultMessage": "Content ({max} characters max)"
   },
   {
     "id": "reportDesigner.textError",

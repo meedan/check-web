@@ -28,7 +28,8 @@ const useStyles = makeStyles(theme => ({
     right: 0,
     bottom: 0,
     background: 'white',
-    opacity: 0.8,
+    opacity: 0.5,
+    cursor: 'not-allowed',
     zIndex: 2,
   },
   textField: {
@@ -139,11 +140,12 @@ const ReportDesignerForm = (props) => {
           <TextField
             key={`text-title-${data.language}`}
             value={data.title}
-            inputProps={{ className: classes.headlineField }}
+            inputProps={{ maxLength: 140, className: classes.headlineField }}
             label={
               <FormattedMessage
                 id="reportDesigner.textTitle"
-                defaultMessage="Headline"
+                defaultMessage="Headline ({max} characters max)"
+                values={{ max: 140 }}
               />
             }
             onChange={(e) => { props.onUpdate('title', e.target.value); }}
@@ -153,10 +155,12 @@ const ReportDesignerForm = (props) => {
             id="report-designer__text" // For integration test
             key={`text-${data.language}`}
             value={data.text}
+            inputProps={{ maxLength: 760 }}
             label={
               <FormattedMessage
                 id="reportDesigner.content"
-                defaultMessage="Content"
+                defaultMessage="Content ({max} characters max)"
+                values={{ max: 760 }}
               />
             }
             onChange={(e) => { props.onUpdate('text', e.target.value); }}
@@ -254,7 +258,7 @@ const ReportDesignerForm = (props) => {
                     defaultMessage="Use default image"
                   />
                 </Button> : null }
-              <Button onClick={handleRemoveImage}>
+              <Button onClick={handleRemoveImage} color="primary">
                 <FormattedMessage
                   id="reportDesigner.removeImage"
                   defaultMessage="Remove image"

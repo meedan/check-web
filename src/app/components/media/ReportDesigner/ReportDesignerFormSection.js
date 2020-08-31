@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
@@ -13,6 +14,14 @@ const useStyles = makeStyles(() => ({
     display: 'block',
   },
 }));
+
+const IconLeftExpansionPanelSummary = withStyles({
+  expandIcon: {
+    order: -1,
+    marginLeft: 0,
+    marginRight: 0,
+  },
+})(ExpansionPanelSummary);
 
 const ReportDesignerFormSection = (props) => {
   const classes = useStyles();
@@ -41,7 +50,7 @@ const ReportDesignerFormSection = (props) => {
       TransitionProps={{ unmountOnExit: true }}
       expanded={expanded}
     >
-      <ExpansionPanelSummary
+      <IconLeftExpansionPanelSummary
         expandIcon={<ExpandMoreIcon />}
         onClick={handleClick}
       >
@@ -56,7 +65,7 @@ const ReportDesignerFormSection = (props) => {
           }
           label={<strong>{label}</strong>}
         />
-      </ExpansionPanelSummary>
+      </IconLeftExpansionPanelSummary>
       <ExpansionPanelDetails className={classes.expansionPanelDetails}>
         {props.children}
       </ExpansionPanelDetails>
