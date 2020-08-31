@@ -817,7 +817,7 @@ shared_examples 'smoke' do
     wait_for_selector('#media-detail__report-designer').click
     wait_for_selector('.report-designer__actions-copy')
     wait_for_selector("//span[contains(text(), 'Edit')]", :xpath).click
-    wait_for_selector("//span[contains(text(), 'Report image')]", :xpath).click
+    wait_for_selector("//span[contains(text(), 'Visual card')]", :xpath).click
     wait_for_selector("//span[contains(text(), 'Report text')]", :xpath).click
     wait_for_selector("#report-designer__text").send_keys("text message")
     wait_for_selector("//span[contains(text(), 'Save')]", :xpath).click

@@ -4,20 +4,22 @@ import { FormattedMessage } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import HelpIcon from '@material-ui/icons/HelpOutline';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import TextField from '@material-ui/core/TextField';
+import Popover from '@material-ui/core/Popover';
+import { SketchPicker } from 'react-color';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { SliderPicker } from 'react-color';
 import ReportDesignerFormSection from './ReportDesignerFormSection';
 import UploadFile from '../../UploadFile';
-import { checkBlue } from '../../../styles/js/shared';
+import { formatDate } from './reportDesignerHelpers';
 
 const useStyles = makeStyles(theme => ({
   root: {
     position: 'relative',
+    marginTop: theme.spacing(2),
   },
   mask: {
     position: 'absolute',
@@ -29,26 +31,28 @@ const useStyles = makeStyles(theme => ({
     opacity: 0.8,
     zIndex: 2,
   },
-  helpIcon: {
-    color: checkBlue,
-  },
-  colorPicker: {
-    width: 400,
-    margin: theme.spacing(3),
-  },
   textField: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
+  },
+  headlineField: {
+    fontWeight: 'bold',
+  },
+  spacer: {
+    width: theme.spacing(2),
+  },
+  statusButton: {
+    borderRadius: theme.spacing(0.5),
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+    color: 'white',
   },
 }));
 
 const ReportDesignerForm = (props) => {
   const classes = useStyles();
   const { data, media } = props;
-
-  const handleHelp = () => {
-    window.open('http://help.checkmedia.org/en/articles/3627266-check-message-report');
-  };
+  const [colorPickerAnchorEl, setColorPickerAnchorEl] = React.useState(null);
 
   const handleImageChange = (image) => {
     props.onUpdate('image', image);
@@ -64,26 +68,27 @@ const ReportDesignerForm = (props) => {
     }
   };
 
+  const handleRemoveImage = () => {
+    props.onUpdate('image', null);
+  };
+
   const textFieldProps = {
     className: classes.textField,
     variant: 'outlined',
     fullWidth: true,
   };
 
+  const handleOpenColorPicker = (event) => {
+    setColorPickerAnchorEl(event.currentTarget);
+  };
+
+  const handleCloseColorPicker = () => {
+    setColorPickerAnchorEl(null);
+  };
+
   return (
     <Box className={classes.root}>
       { props.disabled ? <Box className={classes.mask} /> : null }
-      <Box display="flex" alignItems="center">
-        <Typography variant="subtitle1">
-          <FormattedMessage
-            id="reportDesigner.reportEditorTitle"
-            defaultMessage="Select the content to send in your report"
-          />
-        </Typography>
-        <IconButton onClick={handleHelp}>
-          <HelpIcon className={classes.helpIcon} />
-        </IconButton>
-      </Box>
       <Box>
         <ReportDesignerFormSection
           enabled={data.use_introduction}
@@ -91,36 +96,97 @@ const ReportDesignerForm = (props) => {
           label={
             <FormattedMessage
               id="reportDesigner.introduction"
-              defaultMessage="Introduction message"
+              defaultMessage="Introduction"
             />
           }
         >
-          <FormattedMessage
-            id="reportDesigner.introductionPlaceholder"
-            defaultMessage="Type your introduction here…"
-          >
-            {introductionPlaceholder => (
-              <TextField
-                key={`introduction-${data.language}`}
-                value={data.introduction}
-                onChange={(e) => { props.onUpdate('introduction', e.target.value); }}
-                placeholder={introductionPlaceholder}
-                rows={10}
-                multiline
-                {...textFieldProps}
-              />
-            )}
-          </FormattedMessage>
-          <Typography variant="caption">
+          <Typography variant="body1">
             <FormattedMessage
               id="reportDesigner.introductionSub"
               defaultMessage="Use {query_date} placeholder to display the date of the original query. Use {status} to communicate the status of the article."
               values={{
-                query_date: '{{query_date}}',
-                status: '{{status}}',
+                query_date: <strong>{'{{query_date}}'}</strong>,
+                status: <strong>{'{{status}}'}</strong>,
               }}
             />
           </Typography>
+          <TextField
+            key={`introduction-${data.language}`}
+            label={
+              <FormattedMessage
+                id="reportDesigner.introduction"
+                defaultMessage="Introduction"
+              />
+            }
+            value={data.introduction}
+            onChange={(e) => { props.onUpdate('introduction', e.target.value); }}
+            rows={4}
+            multiline
+            {...textFieldProps}
+          />
+        </ReportDesignerFormSection>
+
+        <ReportDesignerFormSection
+          enabled={data.use_text_message}
+          onToggle={(enabled) => { props.onUpdate('use_text_message', enabled); }}
+          label={
+            <FormattedMessage
+              id="reportDesigner.textMessage"
+              defaultMessage="Report text"
+            />
+          }
+        >
+          <TextField
+            key={`text-title-${data.language}`}
+            value={data.title}
+            inputProps={{ className: classes.headlineField }}
+            label={
+              <FormattedMessage
+                id="reportDesigner.textTitle"
+                defaultMessage="Headline"
+              />
+            }
+            onChange={(e) => { props.onUpdate('title', e.target.value); }}
+            {...textFieldProps}
+          />
+          <TextField
+            id="report-designer__text" // For integration test
+            key={`text-${data.language}`}
+            value={data.text}
+            label={
+              <FormattedMessage
+                id="reportDesigner.content"
+                defaultMessage="Content"
+              />
+            }
+            onChange={(e) => { props.onUpdate('text', e.target.value); }}
+            rows={10}
+            multiline
+            error={data.use_text_message && data.text.length === 0}
+            helperText={
+              data.use_text_message && data.text.length === 0 ?
+                <FormattedMessage
+                  id="reportDesigner.textError"
+                  defaultMessage="You must either provide text for the report or uncheck the 'Report text' box"
+                /> : null
+            }
+            {...textFieldProps}
+          />
+          <TextField
+            key={`disclaimer-${data.language}`}
+            value={data.disclaimer}
+            label={
+              <FormattedMessage
+                id="reportDesigner.disclaimer"
+                defaultMessage="Disclaimer"
+              />
+            }
+            onChange={(e) => {
+              props.onUpdate('use_disclaimer', Boolean(e.target.value));
+              props.onUpdate('disclaimer', e.target.value);
+            }}
+            {...textFieldProps}
+          />
         </ReportDesignerFormSection>
 
         <ReportDesignerFormSection
@@ -129,25 +195,15 @@ const ReportDesignerForm = (props) => {
           label={
             <FormattedMessage
               id="reportDesigner.visualCard"
-              defaultMessage="Report image"
+              defaultMessage="Visual card"
             />
           }
         >
-          <UploadFile onChange={handleImageChange} onError={handleImageError} type="image" />
-          <Box>
-            { media.media.picture ?
-              <Button onClick={handleDefaultImage}>
-                <FormattedMessage
-                  id="reportDesigner.useDefaultImage"
-                  defaultMessage="Use default image"
-                />
-              </Button> : null }
-          </Box>
           <TextField
             key={`headline-${data.language}`}
             value={data.headline}
             onChange={(e) => { props.onUpdate('headline', e.target.value); }}
-            inputProps={{ maxLength: 85 }}
+            inputProps={{ maxLength: 85, className: classes.headlineField }}
             label={
               <FormattedMessage
                 id="reportDesigner.headline"
@@ -170,133 +226,112 @@ const ReportDesignerForm = (props) => {
               />
             }
             multiline
-            rows={6}
+            rows={3}
             {...textFieldProps}
           />
-          <TextField
-            key={`status-${data.language}`}
-            value={data.status_label}
-            onChange={(e) => { props.onUpdate('status_label', e.target.value); }}
-            inputProps={{ maxLength: 25 }}
-            label={
-              <FormattedMessage
-                id="reportDesigner.statusLabel"
-                defaultMessage="Status label ({max} characters max)"
-                values={{ max: 25 }}
-              />
-            }
-            {...textFieldProps}
-          />
-          <Box display="flex">
-            <TextField
-              key={`color-${data.language}`}
-              value={data.theme_color}
-              onChange={(e) => { props.onUpdate('theme_color', e.target.value); }}
-              inputProps={{ maxLength: 7 }}
-              label={
-                <FormattedMessage
-                  id="reportDesigner.themeColor"
-                  defaultMessage="Theme color"
-                />
-              }
-              {...textFieldProps}
-            />
-            <Box className={classes.colorPicker}>
-              <SliderPicker
-                color={data.theme_color}
-                onChangeComplete={(color) => { props.onUpdate('theme_color', color.hex); }}
-              />
-            </Box>
-          </Box>
-          <FormControlLabel
-            control={
-              <Checkbox
-                key={`dark-overlay-${data.language}`}
-                onChange={(e) => { props.onUpdate('dark_overlay', e.target.checked); }}
-                checked={data.dark_overlay || false}
-              />
-            }
-            label={
-              <FormattedMessage
-                id="reportDesigner.darkOverlay"
-                defaultMessage="Dark overlay"
-              />
-            }
-          />
-          <TextField
-            key={`url-${data.language}`}
-            value={data.url}
-            onChange={(e) => { props.onUpdate('url', e.target.value); }}
-            inputProps={{ maxLength: 40 }}
-            label={
-              <FormattedMessage
-                id="reportDesigner.url"
-                defaultMessage="URL ({max} characters max)"
-                values={{ max: 40 }}
-              />
-            }
-            {...textFieldProps}
-          />
-        </ReportDesignerFormSection>
-
-        <ReportDesignerFormSection
-          enabled={data.use_text_message}
-          onToggle={(enabled) => { props.onUpdate('use_text_message', enabled); }}
-          label={
-            <FormattedMessage
-              id="reportDesigner.textMessage"
-              defaultMessage="Report text"
-            />
-          }
-        >
-          <FormattedMessage
-            id="reportDesigner.textPlaceholder"
-            defaultMessage="Type your report here…"
-          >
-            {textPlaceholder => (
-              <TextField
-                id="report-designer__text" // For integration test
-                key={`text-${data.language}`}
-                value={data.text}
-                onChange={(e) => { props.onUpdate('text', e.target.value); }}
-                placeholder={textPlaceholder}
-                rows={10}
-                multiline
-                error={data.use_text_message && data.text.length === 0}
-                helperText={
-                  data.use_text_message && data.text.length === 0 ?
-                    <FormattedMessage
-                      id="reportDesigner.textError"
-                      defaultMessage="You must either provide text for the report or uncheck the 'Report text' box"
-                    /> : null
-                }
-                {...textFieldProps}
-              />
-            )}
-          </FormattedMessage>
-          <Box>
+          <UploadFile onChange={handleImageChange} onError={handleImageError} type="image" />
+          <Box display="flex" justifyContent="space-between">
             <FormControlLabel
               control={
                 <Checkbox
-                  key={`use-disclaimer-${data.language}`}
-                  onChange={(e) => { props.onUpdate('use_disclaimer', e.target.checked); }}
-                  checked={data.use_disclaimer}
+                  key={`dark-overlay-${data.language}`}
+                  onChange={(e) => { props.onUpdate('dark_overlay', e.target.checked); }}
+                  checked={data.dark_overlay || false}
                 />
               }
               label={
                 <FormattedMessage
-                  id="reportDesigner.disclaimer"
-                  defaultMessage="Disclaimer"
+                  id="reportDesigner.darkOverlay"
+                  defaultMessage="Dark overlay"
                 />
               }
             />
+            <Box>
+              { media.media.picture ?
+                <Button onClick={handleDefaultImage}>
+                  <FormattedMessage
+                    id="reportDesigner.useDefaultImage"
+                    defaultMessage="Use default image"
+                  />
+                </Button> : null }
+              <Button onClick={handleRemoveImage}>
+                <FormattedMessage
+                  id="reportDesigner.removeImage"
+                  defaultMessage="Remove image"
+                />
+              </Button>
+            </Box>
           </Box>
-          <TextField
-            key={`disclaimer-${data.language}`}
-            value={data.disclaimer}
-            onChange={(e) => { props.onUpdate('disclaimer', e.target.value); }}
-            {...textFieldProps}
-          />
+          <Popover
+            open={Boolean(colorPickerAnchorEl)}
+            anchorEl={colorPickerAnchorEl}
+            onClose={handleCloseColorPicker}
+          >
+            <SketchPicker
+              color={data.theme_color}
+              onChangeComplete={(color) => { props.onUpdate('theme_color', color.hex); }}
+              disableAlpha
+            />
+          </Popover>
+          <Box display="flex">
+            <IconButton
+              style={{ backgroundColor: data.theme_color }}
+              className={classes.statusButton}
+              onClick={handleOpenColorPicker}
+            >
+              <ExpandMoreIcon fontSize="large" />
+            </IconButton>
+            <div className={classes.spacer} />
+            <Box display="flex" flexWrap="wrap" flexGrow="1">
+              <Box display="flex" width="100%">
+                <TextField
+                  key={`status-${data.language}`}
+                  value={data.status_label}
+                  onChange={(e) => { props.onUpdate('status_label', e.target.value); }}
+                  inputProps={{ maxLength: 25 }}
+                  fullWidth
+                  label={
+                    <FormattedMessage
+                      id="reportDesigner.statusLabel"
+                      defaultMessage="Status label ({max} characters max)"
+                      values={{ max: 25 }}
+                    />
+                  }
+                  {...textFieldProps}
+                />
+                <div className={classes.spacer} />
+                <TextField
+                  key={`date-${data.language}`}
+                  value={data.date || formatDate(new Date(), data.language)}
+                  onChange={(e) => { props.onUpdate('date', e.target.value); }}
+                  inputProps={{ maxLength: 100 }}
+                  fullWidth
+                  label={
+                    <FormattedMessage
+                      id="reportDesigner.datePublished"
+                      defaultMessage="Date published"
+                    />
+                  }
+                  {...textFieldProps}
+                />
+              </Box>
+              <TextField
+                key={`url-${data.language}`}
+                value={data.url}
+                onChange={(e) => { props.onUpdate('url', e.target.value); }}
+                inputProps={{ maxLength: 40 }}
+                fullWidth
+                label={
+                  <FormattedMessage
+                    id="reportDesigner.url"
+                    defaultMessage="Website URL ({max} characters max)"
+                    values={{ max: 40 }}
+                  />
+                }
+                {...textFieldProps}
+              />
+            </Box>
+          </Box>
         </ReportDesignerFormSection>
       </Box>
     </Box>

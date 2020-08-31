@@ -21,7 +21,7 @@ const ReportDesignerFormSection = (props) => {
     enabled,
     onToggle,
   } = props;
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = React.useState(enabled);
 
   const handleClick = (e) => {
     if (enabled) {
@@ -54,7 +54,7 @@ const ReportDesignerFormSection = (props) => {
               checked={enabled}
             />
           }
-          label={label}
+          label={<strong>{label}</strong>}
         />
       </ExpansionPanelSummary>
       <ExpansionPanelDetails className={classes.expansionPanelDetails}>

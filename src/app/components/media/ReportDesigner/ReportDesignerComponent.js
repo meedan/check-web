@@ -4,7 +4,11 @@ import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import deepEqual from 'deep-equal';
+import IconButton from '@material-ui/core/IconButton';
+import HelpIcon from '@material-ui/icons/HelpOutline';
 import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
 import LanguageSwitcher from '../../LanguageSwitcher';
 import ReportDesignerTopBar from './ReportDesignerTopBar';
 import ReportDesignerPreview from './ReportDesignerPreview';
@@ -20,12 +24,29 @@ import {
 } from './reportDesignerHelpers';
 import { getStatus, getStatusStyle } from '../../../helpers';
 import { stringHelper } from '../../../customHelpers';
+import { checkBlue } from '../../../styles/js/shared';
 import CreateReportDesignMutation from '../../../relay/mutations/CreateReportDesignMutation';
 import UpdateReportDesignMutation from '../../../relay/mutations/UpdateReportDesignMutation';
 
 let hasUnsavedChanges = false;
 
+const useStyles = makeStyles(theme => ({
+  column: {
+    height: 'calc(100vh - 100px)',
+    overflow: 'auto',
+    padding: theme.spacing(2),
+  },
+  title: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  helpIcon: {
+    color: checkBlue,
+  },
+}));
+
 const ReportDesignerComponent = (props) => {
+  const classes = useStyles();
   const { media, media: { team } } = props;
 
   const defaultLanguage = team.get_language || 'en';
@@ -219,6 +240,10 @@ const ReportDesignerComponent = (props) => {
     }
   };
 
+  const handleHelp = () => {
+    window.open('http://help.checkmedia.org/en/articles/3627266-check-message-report');
+  };
+
   return (
     <React.Fragment>
       <ReportDesignerTopBar
@@ -239,10 +264,21 @@ const ReportDesignerComponent = (props) => {
         onEdit={handleEdit}
       />
       <Box display="flex" width="1">
-        <Box flex="1" alignItems="flex-start" display="flex">
+        <Box flex="1" alignItems="flex-start" display="flex" className={classes.column}>
           <ReportDesignerPreview data={data.options[currentReportIndex]} media={media} />
         </Box>
-        <Box flex="1">
+        <Box flex="1" className={classes.column}>
+          <Box display="flex">
+            <Typography className={classes.title} color="inherit" variant="h6" component="div">
+              <FormattedMessage
+                id="reportDesigner.title"
+                defaultMessage="Design your report"
+              />
+            </Typography>
+            <IconButton onClick={handleHelp}>
+              <HelpIcon className={classes.helpIcon} />
+            </IconButton>
+          </Box>
           <LanguageSwitcher
             primaryLanguage={defaultLanguage}
             currentLanguage={currentLanguage}
