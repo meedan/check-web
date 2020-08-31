@@ -77,9 +77,7 @@ class UserPasswordReset extends React.Component {
   }
 
   render() {
-    const previousErrorMsg = this.props.location.state && this.props.location.state.errorMsg ?
-      `${this.props.location.state.errorMsg.replace(/\.$/, '')}. ` :
-      '';
+    const previousErrorMsg = this.props.location.state && this.props.location.state.errorMsg;
 
     return (
       <PageTitle prefix={this.props.intl.formatMessage(messages.title)}>
@@ -110,7 +108,7 @@ class UserPasswordReset extends React.Component {
             ] : [
               <CardHeader key="usr-1" title={<FormattedMessage id="passwordReset.title" defaultMessage="Reset password" />} />,
               <CardContent key="usr-2">
-                {previousErrorMsg}
+                { previousErrorMsg ? <p>{previousErrorMsg}</p> : null }
                 <FormattedMessage id="passwordReset.text" defaultMessage="Add your address and an email will be sent with further instructions." />
                 <div className="user-password-reset__email-input">
                   <TextField
