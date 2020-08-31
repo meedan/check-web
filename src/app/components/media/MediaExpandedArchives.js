@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { makeStyles } from '@material-ui/core/styles';
@@ -45,7 +46,7 @@ const MediaExpandedArchives = ({ projectMedia }) => {
           </Typography>
         </Grid>
         { activeArchivers.map(f => (
-          <Grid item xs={2}>
+          <Grid key={f.field_name} item xs={2}>
             <Typography className={classes.url} variant="body2">
               <ExternalLink url={f.value_json.location}>
                 {archivers[f.field_name]}
@@ -56,6 +57,22 @@ const MediaExpandedArchives = ({ projectMedia }) => {
       </Grid>
     </div>
   );
+};
+
+MediaExpandedArchives.propTypes = {
+  projectMedia: PropTypes.shape({
+    archiver: PropTypes.shape({
+      data: PropTypes.shape({
+        fields: PropTypes.arrayOf(PropTypes.shape({
+          field_name: PropTypes.string.isRequired,
+          value_json: PropTypes.shape({
+            error: PropTypes.object,
+            location: PropTypes.string,
+          }).isRequired,
+        })).isRequired,
+      }).isRequired,
+    }),
+  }).isRequired,
 };
 
 export default createFragmentContainer(MediaExpandedArchives, {

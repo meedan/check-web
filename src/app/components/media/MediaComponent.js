@@ -383,7 +383,6 @@ class MediaComponent extends Component {
                   <Grid item>
                     <Tabs value={this.state.videoAnnotationTab}>
                       <Tab
-                        ariaControls=""
                         disabled
                         id="TimelineTab"
                         label={

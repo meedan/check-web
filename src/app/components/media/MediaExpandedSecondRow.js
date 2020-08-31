@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import MediaTypeDisplayName from './MediaTypeDisplayName';
@@ -17,11 +18,11 @@ const StyledHeaderTextSecondary = styled.div`
   margin-bottom: ${units(2)};
 `;
 
-const MediaExpandedSecondRow = ({ media }) => {
+const MediaExpandedSecondRow = ({ projectMedia }) => {
   let smoochBotInstalled = false;
 
-  if (media.team && media.team.team_bot_installations) {
-    media.team.team_bot_installations.edges.forEach((edge) => {
+  if (projectMedia.team && projectMedia.team.team_bot_installations) {
+    projectMedia.team.team_bot_installations.edges.forEach((edge) => {
       if (edge.node.team_bot.identifier === 'smooch') {
         smoochBotInstalled = true;
       }
@@ -32,18 +33,18 @@ const MediaExpandedSecondRow = ({ media }) => {
     <div>
       <StyledHeaderTextSecondary>
         <Row flexWrap style={{ fontWeight: '500' }}>
-          <span><MediaTypeDisplayName mediaType={media.media.type} /></span>
+          <span><MediaTypeDisplayName mediaType={projectMedia.media.type} /></span>
           <span style={{ margin: `0 ${units(1)}` }}> - </span>
           <span>
             <FormattedMessage id="mediaExpanded.firstSeen" defaultMessage="First seen: " />
-            <TimeBefore date={parseStringUnixTimestamp(media.created_at)} />
+            <TimeBefore date={parseStringUnixTimestamp(projectMedia.created_at)} />
           </span>
           { smoochBotInstalled ?
             <span>
               <span style={{ margin: `0 ${units(1)}` }}> - </span>
               <span>
                 <FormattedMessage id="mediaExpanded.lastSeen" defaultMessage="Last seen: " />
-                <TimeBefore date={parseStringUnixTimestamp(media.last_seen)} />
+                <TimeBefore date={parseStringUnixTimestamp(projectMedia.last_seen)} />
               </span>
               <span style={{ margin: `0 ${units(1)}` }}> - </span>
               <span>
@@ -51,7 +52,7 @@ const MediaExpandedSecondRow = ({ media }) => {
                   id="mediaExpanded.requests"
                   defaultMessage="{count} requests"
                   values={{
-                    count: media.requests_count,
+                    count: projectMedia.requests_count,
                   }}
                 />
               </span>
@@ -61,6 +62,28 @@ const MediaExpandedSecondRow = ({ media }) => {
       </StyledHeaderTextSecondary>
     </div>
   );
+};
+
+MediaExpandedSecondRow.propTypes = {
+  projectMedia: PropTypes.shape({
+    team: PropTypes.shape({
+      team_bot_installations: PropTypes.shape({
+        edges: PropTypes.arrayOf(PropTypes.shape({
+          node: PropTypes.shape({
+            team_bot: PropTypes.shape({
+              identifier: PropTypes.string.isRequired,
+            }).isRequired,
+          }).isRequired,
+        })).isRequired,
+      }),
+    }).isRequired,
+    media: PropTypes.shape({
+      type: PropTypes.string.isRequired,
+    }),
+    created_at: PropTypes.string.isRequired,
+    last_seen: PropTypes.string.isRequired,
+    requests_count: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 export default MediaExpandedSecondRow;
