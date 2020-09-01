@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 import MovieIcon from '@material-ui/icons/Movie';
-import AudiotrackIcon from '@material-ui/icons/Audiotrack';
+import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import FormatQuoteIcon from '@material-ui/icons/FormatQuote';
 import LinkIcon from '@material-ui/icons/Link';
 import styled from 'styled-components';
@@ -317,7 +317,7 @@ class CreateMediaInput extends React.Component {
                 onClick={e => this.handleTabChange(e, 'audio')}
               >
                 <StyledTabLabel active={this.state.mode === 'audio'}>
-                  <AudiotrackIcon />
+                  <VolumeUpIcon />
                   <StyledTabLabelText>
                     <FormattedMessage id="createMedia.audio" defaultMessage="Audio" />
                   </StyledTabLabelText>
