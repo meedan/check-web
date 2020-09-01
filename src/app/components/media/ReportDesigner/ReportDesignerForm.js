@@ -70,7 +70,7 @@ const ReportDesignerForm = (props) => {
   };
 
   const handleRemoveImage = () => {
-    props.onUpdate('image', null);
+    props.onUpdate('image', ' ');
   };
 
   const textFieldProps = {
