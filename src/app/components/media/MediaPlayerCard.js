@@ -1,21 +1,23 @@
 import React from 'react';
 import { Player } from '@meedan/check-ui';
-import FormControl from '@material-ui/core/FormControl';
+import Box from '@material-ui/core/Box';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
-import styled from 'styled-components';
+import { makeStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
 import AspectRatio from '../layout/AspectRatio';
 import { units } from '../../styles/js/shared';
 
-const StyledPlaybackRate = styled.div`
-  margin-top: ${units(2)};
-  position: absolute;
-  right: 0;
-`;
+const useStyles = makeStyles({
+  input: {
+    maxHeight: '36px',
+  },
+});
 
 const MediaPlayerCard = (props) => {
   const [playbackRate, setplaybackRate] = React.useState(1);
+  const classes = useStyles();
 
   return (
     <article className="video-media-card" style={{ position: 'relative' }}>
@@ -46,24 +48,24 @@ const MediaPlayerCard = (props) => {
           />
         </div>
       </AspectRatio>
-      <StyledPlaybackRate>
-        <FormControl variant="outlined">
-          <Select
-            id="video-media-card__playback-rate"
-            value={playbackRate}
-            onChange={e => setplaybackRate(e.target.value)}
-          >
-            <MenuItem value={0.25}>0.25x</MenuItem>
-            <MenuItem value={0.5}>0.5x</MenuItem>
-            <MenuItem value={0.75}>0.75x</MenuItem>
-            <MenuItem value={1}><FormattedMessage id="media.normalSpeed" defaultMessage="Normal speed" /></MenuItem>
-            <MenuItem value={1.25}>1.25x</MenuItem>
-            <MenuItem value={1.5}>1.5x</MenuItem>
-            <MenuItem value={1.75}>1.75x</MenuItem>
-            <MenuItem value={2}>2x</MenuItem>
-          </Select>
-        </FormControl>
-      </StyledPlaybackRate>
+      <Box marginTop={units(2)} position="absolute" right={0}>
+        <Select
+          id="video-media-card__playback-rate"
+          input={<OutlinedInput className={classes.input} />}
+          value={playbackRate}
+          onChange={e => setplaybackRate(e.target.value)}
+          variant="outlined"
+        >
+          <MenuItem value={0.25}>0.25x</MenuItem>
+          <MenuItem value={0.5}>0.5x</MenuItem>
+          <MenuItem value={0.75}>0.75x</MenuItem>
+          <MenuItem value={1}><FormattedMessage id="media.normalSpeed" defaultMessage="Normal speed" /></MenuItem>
+          <MenuItem value={1.25}>1.25x</MenuItem>
+          <MenuItem value={1.5}>1.5x</MenuItem>
+          <MenuItem value={1.75}>1.75x</MenuItem>
+          <MenuItem value={2}>2x</MenuItem>
+        </Select>
+      </Box>
     </article>
   );
 };

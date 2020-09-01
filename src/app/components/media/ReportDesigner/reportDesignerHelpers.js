@@ -59,3 +59,8 @@ export function cloneData(data) {
   });
   return clone;
 }
+
+export function formatDate(date, language) {
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  return new Intl.DateTimeFormat(language.replace('_', '-'), options).format(date);
+}

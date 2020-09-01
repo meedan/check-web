@@ -4,10 +4,10 @@ import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
+import { makeStyles } from '@material-ui/core/styles';
 import DownloadIcon from '@material-ui/icons/MoveToInbox';
 import ExternalLink from '../ExternalLink';
 import MediaTags from './MediaTags';
-import ClaimReview from './ClaimReview';
 import TagMenu from '../tag/TagMenu';
 import VideoAnnotationIcon from '../../../assets/images/video-annotation/video-annotation';
 import {
@@ -25,6 +25,12 @@ const StyledMetadata = styled.div`
   }
 `;
 
+const useStyles = makeStyles(theme => ({
+  root: {
+    margin: `0 ${theme.spacing(0.5)}px`,
+  },
+}));
+
 const ExtraMediaActions = ({
   media,
   showVideoAnnotation,
@@ -35,50 +41,44 @@ const ExtraMediaActions = ({
   const isUploadedVideo = media.media.type === 'UploadedVideo';
   const isPicture = media.picture !== null && media.picture !== undefined;
   const allowsVideoAnnotation = isYoutubeVideo || isUploadedVideo;
-  const allowsReverseSearch = isPicture;
-  if (allowsVideoAnnotation) {
-    return (
-      <Button
-        color="primary"
-        disabled={showVideoAnnotation}
-        onClick={onVideoAnnoToggle}
-        variant="contained"
-        startIcon={<VideoAnnotationIcon color="action" />}
-      >
-        <FormattedMessage
-          id="mediaMetadata.VideoAnnotation"
-          defaultMessage="Video annotation"
-        />
-      </Button>
-    );
-  } else if (allowsReverseSearch) {
-    return (
-      <div className="media-detail__reverse-image-search">
-        <small>
-          <FormattedMessage
-            id="mediaMetadata.reverseImageSearch"
-            defaultMessage="Reverse image search"
-          />
-        </small>
-        <br />
+  const allowsReverseSearch = isPicture || allowsVideoAnnotation;
+  const classes = useStyles();
+
+  return (
+    <div>
+      { allowsVideoAnnotation ?
         <Button
-          style={{
-            border: '1px solid #000',
-            minWidth: 115,
-            marginRight: units(2),
-          }}
-          onClick={reverseImageSearchGoogle}
+          classes={classes}
+          color="primary"
+          disabled={showVideoAnnotation}
+          onClick={onVideoAnnoToggle}
+          variant="contained"
+          startIcon={<VideoAnnotationIcon color="action" />}
         >
-          Google
+          <FormattedMessage
+            id="mediaMetadata.Timeline"
+            defaultMessage="Timeline"
+          />
         </Button>
-      </div>
-    );
-  }
-  return null;
+        : null }
+      { allowsReverseSearch ?
+        <Button
+          classes={classes}
+          onClick={reverseImageSearchGoogle}
+          variant="outlined"
+        >
+          <FormattedMessage
+            id="mediaMetadata.ImageSearch"
+            defaultMessage="Image Search"
+          />
+        </Button>
+        : null }
+    </div>
+  );
 };
 
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
-class MediaMetadata extends React.Component {
+class MediaExpandedActions extends React.Component {
   reverseImageSearchGoogle() {
     const imagePath = this.props.media.picture;
     window.open(`https://www.google.com/searchbyimage?image_url=${imagePath}`);
@@ -86,14 +86,14 @@ class MediaMetadata extends React.Component {
 
   render() {
     const { media, onTimelineCommentOpen } = this.props;
-    const claimReview = media.metadata.schema && media.metadata.schema.ClaimReview ?
-      media.metadata.schema.ClaimReview[0] : null;
 
     return (
       <StyledMetadata className="media-detail__check-metadata">
-        { claimReview ? <Row><ClaimReview data={claimReview} /></Row> : null }
         { (media.picture || (media.media && media.media.file_path)) ?
-          <Row style={{ display: 'flex', alignItems: 'center', marginBottom: units(2) }}>
+          <Row style={{
+            display: 'flex', alignItems: 'center', marginBottom: units(2), marginLeft: units(-0.5), marginRight: units(-0.5),
+          }}
+          >
             <ExtraMediaActions
               media={media}
               onVideoAnnoToggle={this.props.onVideoAnnoToggle}
@@ -106,6 +106,8 @@ class MediaMetadata extends React.Component {
                 style={{
                   alignSelf: 'flex-end',
                   display: 'flex',
+                  marginRight: units(0.5),
+                  marginLeft: units(0.5),
                 }}
               >
                 <ExternalLink
@@ -150,7 +152,7 @@ class MediaMetadata extends React.Component {
   }
 }
 
-MediaMetadata.propTypes = {
+MediaExpandedActions.propTypes = {
   media: PropTypes.shape({
     media: PropTypes.shape({
       type: PropTypes.string,
@@ -161,4 +163,4 @@ MediaMetadata.propTypes = {
   }).isRequired,
 };
 
-export default MediaMetadata;
+export default MediaExpandedActions;

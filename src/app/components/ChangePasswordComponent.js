@@ -4,9 +4,8 @@ import { browserHistory } from 'react-router';
 import Relay from 'react-relay/classic';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import GenericUnknownErrorMessage from './GenericUnknownErrorMessage';
 import ChangePasswordMutation from '../relay/mutations/ChangePasswordMutation';
-import globalStrings from '../globalStrings';
-import { stringHelper } from '../customHelpers';
 import { getErrorMessage } from '../helpers';
 
 // TODO Read this from the backend.
@@ -50,8 +49,7 @@ class ChangePasswordComponent extends Component {
 
   handleSubmit(e) {
     const onFailure = (transaction) => {
-      const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
-      const message = getErrorMessage(transaction, fallbackMessage);
+      const message = getErrorMessage(transaction, <GenericUnknownErrorMessage />);
       if (this.props.type === 'reset-password') {
         browserHistory.push({ pathname: '/check/user/password-reset', state: { errorMsg: message } });
         return;

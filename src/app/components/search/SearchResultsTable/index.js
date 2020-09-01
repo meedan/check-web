@@ -32,7 +32,7 @@ const AllPossibleColumns = [
   },
   {
     field: 'share_count',
-    headerText: <FormattedMessage id="list.ShareCount" defaultMessage="Social shares" />,
+    headerText: <FormattedMessage id="list.ShareCount" defaultMessage="FB Shares" />,
     cellComponent: ShareCountCell,
     align: 'center',
     sortKey: 'share_count',

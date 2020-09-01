@@ -4,6 +4,10 @@
     "defaultMessage": "Sorry, an error occurred while updating the report settings. Please try again and contact {supportEmail} if the condition persists."
   },
   {
+    "id": "reportDesigner.title",
+    "defaultMessage": "Design your report"
+  },
+  {
     "id": "reportDesigner.confirmLeaveTitle",
     "defaultMessage": "Leave without saving?"
   },

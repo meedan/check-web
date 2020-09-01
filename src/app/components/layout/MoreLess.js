@@ -2,11 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
 import styled from 'styled-components';
 import isEqual from 'lodash.isequal';
 import { units } from '../../styles/js/shared';
 
-const MaxHeight = units(12);
+const TextButton = withStyles({
+  root: {
+    margin: 0,
+    padding: 0,
+    minWidth: 0,
+    '&:hover': {
+      textDecoration: 'underline',
+    },
+  },
+})(Button);
+
+const MaxHeight = units(5);
 
 const StyledMoreLessArea = styled.div`
   ${props => props.isExpanded ? null : `max-height: ${MaxHeight}; overflow: hidden;`}
@@ -64,12 +76,12 @@ class MoreLess extends React.PureComponent {
           </div>
         </StyledMoreLessArea>
         {canExpand ? (
-          <Button color="primary" onClick={this.toggleExpand}>
+          <TextButton color="primary" onClick={this.toggleExpand}>
             {isExpanded ?
               <FormattedMessage id="moreLess.less" defaultMessage="Less" /> :
               <FormattedMessage id="moreLess.more" defaultMessage="More" />
             }
-          </Button>
+          </TextButton>
         ) : null}
       </div>
     );

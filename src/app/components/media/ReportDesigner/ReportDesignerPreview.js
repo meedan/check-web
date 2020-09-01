@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import ParsedText from '../../ParsedText';
 import ReportDesignerImagePreview from './ReportDesignerImagePreview';
+import { formatDate } from './reportDesignerHelpers';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -33,11 +34,6 @@ function isEmpty(data) {
     }
   });
   return empty;
-}
-
-function formatDate(date, language) {
-  const options = { year: 'numeric', month: 'long', day: 'numeric' };
-  return new Intl.DateTimeFormat(language.replace('_', '-'), options).format(date);
 }
 
 function previewIntroduction(data, media) {
@@ -72,11 +68,25 @@ const ReportDesignerPreview = (props) => {
     );
   }
 
+  const text = [];
+  if (data.title) {
+    text.push(`*${data.title}*`);
+  }
+  if (data.text) {
+    text.push(data.text);
+  }
+
   return (
     <Box className={classes.root}>
       { data.use_introduction ?
         <Box className={classes.box}>
           <ParsedText text={previewIntroduction(data, media)} />
+        </Box> : null }
+      { data.use_text_message ?
+        <Box className={classes.box}>
+          <ParsedText text={text.join('\n\n')} block />
+          { data.disclaimer ?
+            <ParsedText text={data.disclaimer} block /> : null }
         </Box> : null }
       { data.use_visual_card ?
         <Box>
@@ -95,14 +105,8 @@ const ReportDesignerPreview = (props) => {
             teamAvatar={media.team.avatar}
             params={data}
             template={media.team.get_report_design_image_template}
-            date={formatDate(new Date(), data.language)}
+            date={data.date || formatDate(new Date(), data.language)}
           />
-        </Box> : null }
-      { data.use_text_message ?
-        <Box className={classes.box}>
-          <ParsedText text={data.text} block />
-          { data.use_disclaimer ?
-            <ParsedText text={data.disclaimer} block /> : null }
         </Box> : null }
     </Box>
   );
