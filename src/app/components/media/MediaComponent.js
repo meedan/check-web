@@ -18,7 +18,6 @@ import PageTitle from '../PageTitle';
 import MediaDetail from './MediaDetail';
 import MediaRelated from './MediaRelated';
 import MediaTasks from './MediaTasks';
-import MediaAnalysis from './MediaAnalysis';
 import MediaLog from './MediaLog';
 import MediaComments from './MediaComments';
 import MediaRequests from './MediaRequests';
@@ -51,6 +50,12 @@ const Column = styled.div`
   padding: ${units(2)};
   flex-grow: 1;
 `;
+
+const StyledTab = withStyles(theme => ({
+  root: {
+    minWidth: theme.spacing(16),
+  },
+}))(Tab);
 
 class MediaComponent extends Component {
   static scrollToAnnotation() {
@@ -297,7 +302,7 @@ class MediaComponent extends Component {
               value={this.state.showTab}
             >
               { this.state.showRequests ?
-                <Tab
+                <StyledTab
                   label={
                     <FormattedMessage
                       id="mediaComponent.requests"
@@ -308,7 +313,7 @@ class MediaComponent extends Component {
                   className="media-tab__requests"
                 />
                 : null }
-              <Tab
+              <StyledTab
                 label={
                   <FormattedMessage
                     id="mediaComponent.metadata"
@@ -318,7 +323,7 @@ class MediaComponent extends Component {
                 value="metadata"
                 className="media-tab__metadata"
               />
-              <Tab
+              <StyledTab
                 label={
                   <FormattedMessage
                     id="mediaComponent.tasks"
@@ -328,18 +333,7 @@ class MediaComponent extends Component {
                 value="tasks"
                 className="media-tab__tasks"
               />
-              <Tab
-                label={
-                  <FormattedMessage
-                    id="mediaComponent.analysis"
-                    defaultMessage="Analysis"
-                  />
-                }
-                value="analysis"
-                className="media-tab__analysis"
-              />
-
-              <Tab
+              <StyledTab
                 label={
                   <FormattedMessage
                     id="mediaComponent.notes"
@@ -349,7 +343,7 @@ class MediaComponent extends Component {
                 value="notes"
                 className="media-tab__comments"
               />
-              <Tab
+              <StyledTab
                 label={
                   <FormattedMessage
                     id="mediaComponent.activity"
@@ -363,7 +357,6 @@ class MediaComponent extends Component {
             { this.state.showTab === 'requests' ? <MediaRequests media={media} /> : null }
             { this.state.showTab === 'metadata' ? <MediaTasks media={media} fieldset="metadata" /> : null }
             { this.state.showTab === 'tasks' ? <MediaTasks media={media} fieldset="tasks" /> : null }
-            { this.state.showTab === 'analysis' ? <MediaAnalysis media={media} /> : null }
             { this.state.showTab === 'notes' ? <MediaComments media={media} onTimelineCommentOpen={this.onTimelineCommentOpen} /> : null }
             { this.state.showTab === 'activity' ? <MediaLog media={media} /> : null }
           </Column>
