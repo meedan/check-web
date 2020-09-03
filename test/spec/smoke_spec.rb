@@ -1342,17 +1342,17 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('Select destination list')).to be(false)
 
     # Select a condition and set a value for it
-    wait_for_selector('.rules__rule-field div[role="button"]').click
-    wait_for_selector('ul[role=listbox] li[role=option]').click
+    wait_for_selector('.rules__rule-field button + button').click
+    wait_for_selector('ul[role=listbox] li[data-option-index="7"]').click
     wait_for_selector('.rules__rule-field textarea').send_keys('foo,bar')
 
     # Select an action
-    wait_for_selector('.rules__actions .rules__rule-field div[role="button"]').click
+    wait_for_selector('.rules__actions .rules__rule-field button + button').click
     # https://mantis.meedan.com/view.php?id=8463 clicking the select field
     # doesn't open it. So let's click the select field again. FIXME fix #8463,
     # then nix this line.
-    wait_for_selector('.rules__actions .rules__rule-field div[role="button"]').click
-    wait_for_selector('ul[role=listbox] li[role=option]').click
+    wait_for_selector('.rules__actions .rules__rule-field button + button').click
+    wait_for_selector('ul[role=listbox] li[data-option-index="2"]').click
     expect(@driver.page_source.include?('Select destination list')).to be(true)
 
     # Set rule name
