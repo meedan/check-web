@@ -53,7 +53,7 @@ shared_examples 'media' do |type|
     wait_for_selector(".tag-menu__icon").click
     fill_field('#tag-input__tag-input', new_tag)
     @driver.action.send_keys(:enter).perform
-    @wait.until { (@driver.page_source.include?('Validation failed: Tag already exists')) }
+    @wait.until { (@driver.page_source.include?('Tag already exists')) }
     wait_for_selector(".tag-menu__done").click
     # Verify that tag is not added and that error message is displayed
     expect(page.tags.count(new_tag)).to be(1)
