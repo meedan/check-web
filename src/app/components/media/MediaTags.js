@@ -10,6 +10,7 @@ import styled from 'styled-components';
 import Chip from '@material-ui/core/Chip';
 import EditIcon from '@material-ui/icons/Edit';
 import CancelIcon from '@material-ui/icons/Cancel';
+import { withStyles } from '@material-ui/core/styles';
 import Can from '../Can';
 import UpdateLanguageMutation from '../../relay/mutations/UpdateLanguageMutation';
 import LanguageSelector from '../LanguageSelector';
@@ -71,6 +72,15 @@ const StyledMediaTagsContainer = styled.div`
     }
   }
 `;
+
+const StyledLanguageChip = withStyles({
+  label: {
+    '& span': {
+      display: 'flex',
+      alignItems: 'center',
+    },
+  },
+})(Chip);
 
 // TODO Fix a11y issues
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
@@ -159,11 +169,11 @@ class MediaTags extends React.Component {
     this.setState({ correctingLanguage: true });
   }
 
-  handleLanguageChange(e) {
-    this.handleLanguageSubmit(e);
+  handleLanguageChange(value) {
+    this.handleLanguageSubmit(value);
   }
 
-  handleLanguageSubmit(e) {
+  handleLanguageSubmit(value) {
     const { media } = this.props;
     const onSuccess = () => {
       this.setState({ correctingLanguage: false });
@@ -174,8 +184,8 @@ class MediaTags extends React.Component {
       new UpdateLanguageMutation({
         id: media.dynamic_annotation_language.id,
         projectMediaId: media.id,
-        languageCode: e.target.value,
-        languageName: e.target.selectedOptions[0].innerText,
+        languageCode: value.languageCode,
+        languageName: value.languageName,
       }),
       { onSuccess, onFailure },
     );
@@ -232,10 +242,11 @@ class MediaTags extends React.Component {
               {media.language ?
                 <ul className="media-tags__list">
                   <li>
-                    <Chip
+                    <StyledLanguageChip
                       className="media-tags__tag media-tags__language"
                       label={
                         <FormattedMessage
+                          className="media-tags__language-chip-label"
                           id="mediaTags.language"
                           defaultMessage="Language: {language}"
                           values={{

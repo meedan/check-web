@@ -1,33 +1,54 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import AboutRoute from '../relay/AboutRoute';
 import { safelyParseJSON } from '../helpers';
 
-class LanguageSelectorComponent extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+const LanguageSelectorComponent = ({
+  about,
+  onChange,
+  selected,
+  team,
+}) => {
+  const supportedLanguages = safelyParseJSON(about.languages_supported);
+  const teamLanguages = safelyParseJSON(team.get_languages);
 
-  render() {
-    const { team } = this.props;
-    const supportedLanguages = safelyParseJSON(this.props.about.languages_supported);
-    const teamLanguages = safelyParseJSON(team.get_languages);
-    return (
-      <select onChange={this.props.onChange} defaultValue={this.props.selected}>
-        {(teamLanguages ?
-          (teamLanguages.map(code =>
-            (<option key={code} value={code}>{supportedLanguages[code]}</option>))
-            .concat(<option key="disabled" disabled>──────────</option>))
-          : [])
-          .concat(Object.keys(supportedLanguages)
-            .filter(code => !teamLanguages || !teamLanguages.includes(code))
-            .map(code =>
-              (<option key={code} value={code}>{supportedLanguages[code]}</option>)))}
-      </select>
-    );
-  }
-}
+  const options = (teamLanguages ? teamLanguages.concat('disabled') : [])
+    .concat(Object.keys(supportedLanguages)
+      .filter(code => !teamLanguages || !teamLanguages.includes(code)));
+
+  const handleChange = (e, value) => {
+    if (value !== 'disabled') {
+      onChange({ languageCode: value, languageName: supportedLanguages[value] });
+    }
+  };
+
+  return (
+    <Autocomplete
+      options={options}
+      getOptionLabel={code => supportedLanguages[code] || '──────────'}
+      renderInput={params => (
+        <div ref={params.InputProps.ref}>
+          <input style={{ width: 200 }} type="text" {...params.inputProps} />
+        </div>
+      )}
+      onChange={handleChange}
+      defaultValue={selected}
+    />
+  );
+};
+
+LanguageSelectorComponent.propTypes = {
+  about: PropTypes.shape({
+    languages_supported: PropTypes.string.isRequired,
+  }).isRequired,
+  onChange: PropTypes.func.isRequired,
+  selected: PropTypes.string.isRequired,
+  team: PropTypes.shape({
+    get_languages: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 const LanguageSelectorContainer = Relay.createContainer(LanguageSelectorComponent, {
   fragments: {
