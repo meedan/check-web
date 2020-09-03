@@ -5,14 +5,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import TextField from '@material-ui/core/TextField';
-import Popover from '@material-ui/core/Popover';
-import { SketchPicker } from 'react-color';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import ReportDesignerFormSection from './ReportDesignerFormSection';
+import ColorPicker from '../../layout/ColorPicker';
 import UploadFile from '../../UploadFile';
 import { formatDate } from './reportDesignerHelpers';
 
@@ -42,18 +39,11 @@ const useStyles = makeStyles(theme => ({
   spacer: {
     width: theme.spacing(2),
   },
-  statusButton: {
-    borderRadius: theme.spacing(0.5),
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-    color: 'white',
-  },
 }));
 
 const ReportDesignerForm = (props) => {
   const classes = useStyles();
   const { data, media } = props;
-  const [colorPickerAnchorEl, setColorPickerAnchorEl] = React.useState(null);
 
   const handleImageChange = (image) => {
     props.onUpdate('image', image);
@@ -77,14 +67,6 @@ const ReportDesignerForm = (props) => {
     className: classes.textField,
     variant: 'outlined',
     fullWidth: true,
-  };
-
-  const handleOpenColorPicker = (event) => {
-    setColorPickerAnchorEl(event.currentTarget);
-  };
-
-  const handleCloseColorPicker = () => {
-    setColorPickerAnchorEl(null);
   };
 
   return (
@@ -266,25 +248,11 @@ const ReportDesignerForm = (props) => {
               </Button>
             </Box>
           </Box>
-          <Popover
-            open={Boolean(colorPickerAnchorEl)}
-            anchorEl={colorPickerAnchorEl}
-            onClose={handleCloseColorPicker}
-          >
-            <SketchPicker
-              color={data.theme_color}
-              onChangeComplete={(color) => { props.onUpdate('theme_color', color.hex); }}
-              disableAlpha
-            />
-          </Popover>
           <Box display="flex">
-            <IconButton
-              style={{ backgroundColor: data.theme_color }}
-              className={classes.statusButton}
-              onClick={handleOpenColorPicker}
-            >
-              <ExpandMoreIcon fontSize="large" />
-            </IconButton>
+            <ColorPicker
+              color={data.theme_color}
+              onChange={color => props.onUpdate('theme_color', color.hex)}
+            />
             <div className={classes.spacer} />
             <Box display="flex" flexWrap="wrap" flexGrow="1">
               <Box display="flex" width="100%">
