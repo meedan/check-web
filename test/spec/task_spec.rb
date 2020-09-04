@@ -51,7 +51,6 @@ shared_examples 'task' do
     create_task(task_type_class:".create-task__add-short-answer",task_name:"Task 1")
     expect(@driver.page_source.include?("Task 1")).to be (false)
 
-
     #assign the task
     wait_for_selector(".media-tab__tasks").click
     expect(@driver.page_source.include?("Assigned to")).to be (false)
