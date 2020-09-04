@@ -23,16 +23,6 @@ module AppSpecHelpers
     end
   end
 
-  def delete_task(task_text)
-    expect(@driver.page_source.include?(task_text)).to be(true)
-    wait_for_selector('.task-actions__icon').click
-    wait_for_selector('.task-actions__delete').click
-    wait_for_selector('.confirm-proceed-dialog__proceed').click
-    wait = Selenium::WebDriver::Wait.new(timeout: 90)
-    wait.until { !@driver.page_source.include?(task_text) }
-    expect(@driver.page_source.include?(task_text)).to be(false)
-  end
-
   def twitter_login
     @driver.navigate.to 'https://twitter.com/login'
     fill_field('input[name="session[username_or_email]"]', @config['twitter_user'])
@@ -304,6 +294,12 @@ module AppSpecHelpers
     @config['self_url'] + '/' + get_team + '/' + path
   end
 
+  def create_team_and_go_to_settings_page(team)
+    api_create_team(team: team)
+    @driver.navigate.to @config['self_url'] + '/' + team + '/settings'
+    wait_for_selector(".team__privacy")
+  end
+
   def create_claim_and_go_to_search_page
     login_with_email
     wait_for_selector("#input")
@@ -431,5 +427,45 @@ module AppSpecHelpers
     wait_for_selector('.login__forgot-password a').click
     wait_for_selector('#password-reset-email-input').send_keys(email)
     wait_for_selector('.user-password-reset__actions button + button').click
+  end
+
+  def add_image_note(image_file)
+    wait_for_selector("textarea")
+    wait_for_selector(".task__log-icon > svg").click
+    wait_for_selector(".add-annotation")
+    wait_for_selector(".add-annotation__insert-photo").click
+    wait_for_selector(".without-file")
+    input = wait_for_selector('input[type=file]')
+    input.send_keys(File.join(File.dirname(__FILE__), image_file))
+    wait_for_selector("#remove-image")
+    wait_for_selector('button[type=submit]').click
+    wait_for_selector(".annotation__card-thumbnail")
+  end
+
+  def create_team_data_field(params ={})
+    wait_for_selector(params[:tab_class]).click
+    create_task(params)
+  end
+
+  def edit_team_data_field(new_data_field_name)
+    wait_for_selector('.create-task__add-button')
+    wait_for_selector(".team-tasks__menu-item-button").click
+    wait_for_selector(".team-tasks__edit-button").click
+    wait_for_selector("//span[contains(text(), 'Cancel')]", :xpath)
+    update_field('#task-label-input',new_data_field_name)
+    wait_for_selector('.create-task__dialog-submit-button').click
+    wait_for_selector("#confirm-dialog__checkbox").click
+    wait_for_selector("#confirm-dialog__confirm-action-button").click
+    wait_for_selector_none("//span[contains(text(), 'Cancel')]", :xpath)
+  end
+
+  def delete_team_data_field
+    wait_for_selector(".team-tasks__menu-item-button").click
+    wait_for_selector(".team-tasks__edit-button")
+    wait_for_selector('.team-tasks__delete-button').click
+    wait_for_selector("//span[contains(text(), 'Cancel')]", :xpath)
+    wait_for_selector("#confirm-dialog__checkbox").click
+    wait_for_selector("#confirm-dialog__confirm-action-button").click
+    wait_for_selector_none("//span[contains(text(), 'Cancel')]", :xpath)
   end
 end
