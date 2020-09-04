@@ -49,10 +49,9 @@ shared_examples 'task' do
     # Create a task
     expect(@driver.page_source.include?("Task 1")).to be (false)
     create_task(task_type_class:".create-task__add-short-answer",task_name:"Task 1")
-    expect(@driver.page_source.include?("Task 1")).to be (false)
+    expect(@driver.page_source.include?("Task 1")).to be (true)
 
     #assign the task
-    wait_for_selector(".media-tab__tasks").click
     expect(@driver.page_source.include?("Assigned to")).to be (false)
     wait_for_selector("#task__response-input")
     assign_task
@@ -76,10 +75,17 @@ shared_examples 'task' do
     wait_for_selector("//span[contains(text(), 'Task note added')]", :xpath)
     expect(@driver.page_source.include?('This is a comment under a task')).to be(true)
 
-    # Create aother task
-    expect(@driver.page_source.include?('Task created by')).to be(false)
+    # Create another task
+    wait_for_selector(".media-tab__tasks").click
+    expect(@driver.page_source.include?("Task 2")).to be (false)
     create_task(task_type_class:".create-task__add-short-answer",task_name:"Task 2")
-    expect(@driver.page_source.include?('Task created by')).to be(true)
+    expect(@driver.page_source.include?("Task 2")).to be (true)
+
+    task = wait_for_selector(".task__label-container > div > span") #first metadata
+    expect(task.text ).to eq "Task 1"
+    wait_for_selector(".reorder__button-down").click
+    task = wait_for_selector(".task__label-container > div > span")  # the second becomes the first
+    expect(task.text ).to eq "Task 2"
   end
 
   it "should add, edit, answer, update answer and delete datetime task", bin3: true do

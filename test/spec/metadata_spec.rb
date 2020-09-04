@@ -9,7 +9,6 @@ shared_examples 'metadata' do
   include ApiHelpers
   include TaskSpecHelpers
 
-
   it "should manage metadata", bin6: true do
     # Create team and go to team page that should not contain any task
     team = "task-team-#{Time.now.to_i}"
@@ -33,12 +32,19 @@ shared_examples 'metadata' do
     create_team_data_field(tab_class:'.team-settings__metadata-tab',task_type_class:'.create-task__add-datetime',task_name:'my data time metadata' )
     expect(@driver.page_source.include?('my data time metadata')).to be(true)
 
+    #change the metadata order
+    task = wait_for_selector(".team-tasks__task-label > span > span") #first metadata
+    expect(task.text ).to eq "my metadata - Edited"
+    wait_for_selector(".reorder__button-down").click
+    task = wait_for_selector(".team-tasks__task-label > span > span")  # the second becomes the first
+    expect(task.text ).to eq "my data time metadata"
+
     #delete metadata
     delete_team_data_field
-    expect(@driver.page_source.include?('my metadata - Edited')).to be(false)
+    expect(@driver.page_source.include?('my data time metadata')).to be(false)
   end
 
-  it "should add, edit and delet a metada response", bin6: true do
+  it "should add, edit and delet a metada response", bin5: true do
     # Create team and go to team page that should not contain any task
     team = "task-team-#{Time.now.to_i}"
     create_team_and_go_to_settings_page(team)

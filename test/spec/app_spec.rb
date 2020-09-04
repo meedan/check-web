@@ -10,6 +10,7 @@ require_relative './smoke_spec.rb'
 require_relative './media_spec.rb'
 require_relative './task_spec.rb'
 require_relative './metadata_spec.rb'
+require_relative './login_spec.rb'
 require_relative './task_spec_helpers.rb'
 # require_relative './source_spec.rb'
 
@@ -81,6 +82,7 @@ shared_examples 'app' do |webdriver_url|
     include_examples "smoke"
     include_examples "task"
     include_examples "metadata"
+    include_examples "login"
     it_behaves_like "media", 'BELONGS_TO_ONE_PROJECT'
     it_behaves_like "media", 'DOES_NOT_BELONG_TO_ANY_PROJECT'
 
@@ -310,15 +312,6 @@ shared_examples 'app' do |webdriver_url|
       title2 = @driver.title
       expect((title2 =~ /Random/).nil?).to be(false)
       expect(title1 != title2).to be(true)
-    end
-
-    it "should not reset password", bin5: true do
-      @driver.navigate.to @config['self_url']
-      reset_password('test@meedan.com')
-      wait_for_selector(".user-password-reset__email-input")
-      wait_for_selector("#password-reset-email-input-helper-text")
-      expect(@driver.page_source.include?('email was not found')).to be(true)
-      expect(@driver.page_source.include?('Password reset sent')).to be(false)
     end
 
     it "should set metatags", bin5: true do
