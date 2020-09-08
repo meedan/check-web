@@ -174,8 +174,9 @@ MediaTags.propTypes = {
   }).isRequired,
 };
 
+
+export { MediaTags };
 export default createFragmentContainer(MediaTags, graphql`
-  # projectMedia: graphql
   fragment MediaTags_projectMedia on ProjectMedia {
     id
     dbid
