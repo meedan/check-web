@@ -81,7 +81,8 @@ shared_examples 'task' do
     create_task(task_type_class:".create-task__add-short-answer",task_name:"Task 2")
     expect(@driver.page_source.include?("Task 2")).to be (true)
 
-    task = wait_for_selector(".task__label-container > div > span") #first metadata
+    #change the task order
+    task = wait_for_selector(".task__label-container > div > span") #first task
     expect(task.text ).to eq "Task 1"
     wait_for_selector(".reorder__button-down").click
     task = wait_for_selector(".task__label-container > div > span")  # the second becomes the first
@@ -227,6 +228,13 @@ shared_examples 'task' do
     # #add new task
     create_team_data_field(tab_class:'.team-settings__tasks-tab',task_type_class:'.create-task__add-geolocation',task_name:'geolocation task' )
     expect(@driver.page_source.include?('geolocation task')).to be(true)
+
+    #change the task order
+    task = wait_for_selector(".team-tasks__task-label > span > span") #first task
+    expect(task.text ).to eq "New teamwide task-EDITED"
+    wait_for_selector(".reorder__button-down").click
+    task = wait_for_selector(".team-tasks__task-label > span > span")  # the second becomes the first
+    expect(task.text ).to eq "geolocation task"
 
     #search task by keyword
     wait_for_selector(".filter-popup > div > button > span > svg").click

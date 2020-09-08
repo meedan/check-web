@@ -29,7 +29,7 @@ shared_examples 'metadata' do
 
     #create 'data and time' metadata    
     expect(@driver.page_source.include?('my data time metadata')).to be(false)
-    create_team_data_field(tab_class:'.team-settings__metadata-tab',task_type_class:'.create-task__add-datetime',task_name:'my data time metadata' )
+    create_team_data_field(tab_class:'.team-settings__metadata-tab',task_type_class:'.create-task__add-datetime',task_name:'my data time metadata')
     expect(@driver.page_source.include?('my data time metadata')).to be(true)
 
     #change the metadata order

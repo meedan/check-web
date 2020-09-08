@@ -443,6 +443,7 @@ module AppSpecHelpers
   end
 
   def create_team_data_field(params ={})
+    wait_for_selector(".team__primary-info")
     wait_for_selector(params[:tab_class]).click
     create_task(params)
   end
@@ -456,7 +457,7 @@ module AppSpecHelpers
     wait_for_selector('.create-task__dialog-submit-button').click
     wait_for_selector("#confirm-dialog__checkbox").click
     wait_for_selector("#confirm-dialog__confirm-action-button").click
-    wait_for_selector_none("//span[contains(text(), 'Cancel')]", :xpath)
+    wait_for_selector_none("#confirm-dialog__checkbox")
   end
 
   def delete_team_data_field
