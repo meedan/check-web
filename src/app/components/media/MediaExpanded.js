@@ -83,7 +83,11 @@ class MediaExpandedComponent extends Component {
       media, playing, start, end, gaps, seekTo, scrubTo, setPlayerState, onPlayerReady,
     } = this.props;
 
-    const { onTimelineCommentOpen } = this.props;
+    const {
+      onTimelineCommentOpen,
+      onVideoAnnoToggle,
+      showVideoAnnotation,
+    } = this.props;
 
     const data = typeof media.metadata === 'string' ? JSON.parse(media.metadata) : media.metadata;
     const isImage = media.media.type === 'UploadedImage';
@@ -165,6 +169,8 @@ class MediaExpandedComponent extends Component {
         <CardActions>
           <MediaExpandedActions
             onTimelineCommentOpen={onTimelineCommentOpen}
+            onVideoAnnoToggle={onVideoAnnoToggle}
+            showVideoAnnotation={showVideoAnnotation}
             projectMedia={media}
           />
         </CardActions>

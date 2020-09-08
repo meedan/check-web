@@ -86,7 +86,12 @@ class MediaExpandedActions extends React.Component {
   }
 
   render() {
-    const { projectMedia, onTimelineCommentOpen } = this.props;
+    const {
+      projectMedia,
+      onTimelineCommentOpen,
+      onVideoAnnoToggle,
+      showVideoAnnotation,
+    } = this.props;
 
     return (
       <StyledMetadata className="media-detail__check-metadata">
@@ -97,8 +102,8 @@ class MediaExpandedActions extends React.Component {
           >
             <ExtraMediaActions
               projectMedia={projectMedia}
-              onVideoAnnoToggle={this.props.onVideoAnnoToggle}
-              showVideoAnnotation={this.props.showVideoAnnotation}
+              onVideoAnnoToggle={onVideoAnnoToggle}
+              showVideoAnnotation={showVideoAnnotation}
               reverseImageSearchGoogle={this.reverseImageSearchGoogle.bind(this)}
             />
             { (projectMedia.media && projectMedia.media.file_path) ?
@@ -158,6 +163,8 @@ MediaExpandedActions.propTypes = {
       }).isRequired,
     }).isRequired,
   }).isRequired,
+  onTimelineCommentOpen: PropTypes.func.isRequired,
+  onVideoAnnoToggle: PropTypes.func.isRequired,
 };
 
 export default createFragmentContainer(MediaExpandedActions, graphql`
