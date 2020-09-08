@@ -444,7 +444,6 @@ module AppSpecHelpers
 
   def create_team_data_field(params ={})
     wait_for_selector(".team__primary-info")
-    wait_for_selector(params[:tab_class]).click
     create_task(params)
   end
 

@@ -217,7 +217,7 @@ shared_examples 'task' do
     expect(@driver.page_source.include?('New teamwide task')).to be(false)
 
     # Create task
-    create_team_data_field(tab_class:'.team-settings__tasks-tab',task_type_class:'.create-task__add-short-answer',task_name:'New teamwide task' )
+    create_team_data_field(task_type_class:'.create-task__add-short-answer',task_name:'New teamwide task')
     expect(@driver.page_source.include?('No default tasks to display')).to be(false)
     expect(@driver.page_source.include?('New teamwide task')).to be(true)
 
