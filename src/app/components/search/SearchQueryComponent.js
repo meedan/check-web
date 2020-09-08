@@ -530,7 +530,7 @@ class SearchQueryComponent extends React.Component {
     filterButtonClasses[classes.filterInactive] = !this.filterIsActive();
 
     return (
-      <div>
+      <div style={{ minWidth: 350 }}>
         <Row>
           <form
             id="search-form"
