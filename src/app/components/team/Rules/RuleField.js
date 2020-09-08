@@ -63,7 +63,7 @@ const RuleField = (props) => {
           }}
           options={options.sort((a, b) => (a.value.localeCompare(b.value)))}
           getOptionLabel={option => option.value}
-          renderInput={params => <TextField {...params} variant="outlined" fullWidth />}
+          renderInput={params => <TextField {...params} variant="outlined" label={label} fullWidth />}
           fullWidth
         /> : null }
       { type === 'string' && !options ?
