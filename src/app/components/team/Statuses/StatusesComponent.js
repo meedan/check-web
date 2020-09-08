@@ -310,14 +310,14 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
       <EditStatusDialog
         defaultLanguage={defaultLanguage}
         defaultValue={selectedStatus}
-        key={selectedStatus}
+        key={selectedStatus || 'edit-status-dialog'}
         onCancel={handleCancelEdit}
         onSubmit={handleAddOrEditStatus}
         open={addingNewStatus || Boolean(selectedStatus)}
       />
       <DeleteStatusDialog
         defaultValue={deleteStatus}
-        key={deleteStatus}
+        key={deleteStatus || 'delete-status-dialog'}
         open={Boolean(deleteStatus)}
         onCancel={() => setDeleteStatus(null)}
         onProceed={handleDelete}
