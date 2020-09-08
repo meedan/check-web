@@ -46,7 +46,10 @@ const StyledTwoColumnLayout = styled.div`
 
 const Column = styled.div`
   min-width: min(50%, ${columnWidthMedium});
-  max-width: ${columnWidthLarge};
+  max-width: min(50%, ${columnWidthLarge});
+  @media (max-width: 1280px) {
+    max-width: ${columnWidthLarge};
+  }
   padding: ${units(2)};
   flex-grow: 1;
 `;

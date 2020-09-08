@@ -6,7 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import Chip from '@material-ui/core/Chip';
 import EditIcon from '@material-ui/icons/Edit';
 import LanguageIcon from '@material-ui/icons/Language';
-// import Can from '../Can'; // FIXME put permissions on language editing
+import { can } from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
 import LanguagePickerDialog from '../layout/LanguagePickerDialog';
 import { getErrorMessage } from '../../helpers';
@@ -63,7 +63,10 @@ const MediaLanguageChip = ({ projectMedia, setFlashMessage }) => {
             values={{ language: projectMedia.language }}
           />
         }
-        onDelete={() => setCorrectingLanguage(true)}
+        onDelete={
+          can(projectMedia.permissions, 'create Dynamic') ?
+            () => setCorrectingLanguage(true) : null
+        }
       />
       <LanguagePickerDialog
         isSaving={isSaving}
@@ -82,7 +85,6 @@ MediaLanguageChip.propTypes = {
 };
 
 export default createFragmentContainer(withSetFlashMessage(MediaLanguageChip), graphql`
-  # projectMedia: graphql
   fragment MediaLanguageChip_projectMedia on ProjectMedia {
     id
     language
