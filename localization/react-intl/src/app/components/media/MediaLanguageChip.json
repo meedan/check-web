@@ -2,5 +2,9 @@
   {
     "id": "mediaTags.error",
     "defaultMessage": "Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists."
+  },
+  {
+    "id": "mediaTags.language",
+    "defaultMessage": "Language: {language}"
   }
 ]

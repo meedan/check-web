@@ -14,6 +14,7 @@ const LanguageSelectorComponent = ({
   const supportedLanguages = safelyParseJSON(about.languages_supported);
   const teamLanguages = safelyParseJSON(team.get_languages);
 
+  // FIXME move team languages first logic to LanguagePickerDialog and delete this component
   const options = (teamLanguages ? teamLanguages.concat('disabled') : [])
     .concat(Object.keys(supportedLanguages)
       .filter(code => !teamLanguages || !teamLanguages.includes(code)));
