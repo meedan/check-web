@@ -27,8 +27,8 @@ const MediaLanguageChip = ({ projectMedia, setFlashMessage }) => {
     const onFailure = (transaction) => {
       const fallbackMessage = (
         <FormattedMessage
-          id="mediaTags.error"
-          defaultMessage="Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists."
+          id="mediaLanguageChip.error"
+          defaultMessage="Sorry, an error occurred while updating the language. Please try again and contact {supportEmail} if the condition persists."
           values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
         />
       );
@@ -63,7 +63,7 @@ const MediaLanguageChip = ({ projectMedia, setFlashMessage }) => {
         label={
           <FormattedMessage
             className="media-tags__language-chip-label"
-            id="mediaTags.language"
+            id="mediaLanguageChip.language"
             defaultMessage="Language: {language}"
             values={{ language: projectMedia.language }}
           />
