@@ -11,11 +11,13 @@ const Reorder = ({
 }) => (
   <Box display="flex" flexDirection="column" width="fit-content">
     <IconButton
+      className="reorder__button-up"
       onClick={onMoveUp}
     >
       <ArrowUpwardIcon />
     </IconButton>
     <IconButton
+      className="reorder__button-down"
       onClick={onMoveDown}
     >
       <ArrowDownwardIcon />
