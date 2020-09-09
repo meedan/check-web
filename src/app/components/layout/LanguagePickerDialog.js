@@ -111,11 +111,15 @@ const LanguagePickerDialog = ({
 };
 
 LanguagePickerDialog.propTypes = {
+  isSaving: PropTypes.bool.isRequired,
+  intl: intlShape.isRequired,
+  onDismiss: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
   team: PropTypes.shape({
     id: PropTypes.string.isRequired,
     get_languages: PropTypes.string.isRequired,
   }).isRequired,
-  intl: intlShape.isRequired,
 };
 
 export default injectIntl(LanguagePickerDialog);
