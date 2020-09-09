@@ -13,17 +13,12 @@ import TagMenu from '../tag/TagMenu';
 import VideoAnnotationIcon from '../../../assets/images/video-annotation/video-annotation';
 import {
   Row,
-  black54,
   units,
   opaqueBlack05,
 } from '../../styles/js/shared';
 
 const StyledMetadata = styled.div`
   margin: ${units(1)} ${units(1)} 0;
-
-  svg {
-    color: ${black54};
-  }
 `;
 
 const useStyles = makeStyles(theme => ({
