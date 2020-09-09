@@ -1,18 +1,14 @@
 [
   {
-    "id": "addLanguageAction.optionLabel",
+    "id": "languagePickerDialog.optionLabel",
     "defaultMessage": "{languageName} ({languageCode})"
   },
   {
-    "id": "addLanguageAction.title",
-    "defaultMessage": "Choose a new language"
+    "id": "languagePickerDialog.title",
+    "defaultMessage": "Choose a language"
   },
   {
-    "id": "addLanguageAction.selectLanguage",
+    "id": "languagePickerDialog.selectLanguage",
     "defaultMessage": "Select a language"
-  },
-  {
-    "id": "addLanguageAction.addLanguage",
-    "defaultMessage": "Add language"
   }
 ]

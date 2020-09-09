@@ -11,11 +11,12 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { FormattedGlobalMessage } from '../MappedMessage';
 import { safelyParseJSON } from '../../helpers';
-import LanguageRegistry, { compareLanguages, languageLabel } from '../../LanguageRegistry';
+// import LanguageRegistry, { compareLanguages, languageLabel } from '../../LanguageRegistry';
+import LanguageRegistry, { languageLabel } from '../../LanguageRegistry';
 
 const messages = defineMessages({
   optionLabel: {
-    id: 'addLanguageAction.optionLabel',
+    id: 'languagePickerDialog.optionLabel',
     defaultMessage: '{languageName} ({languageCode})',
   },
 });
@@ -31,18 +32,27 @@ const LanguagePickerDialog = ({
   const [value, setValue] = React.useState(null);
   const languages = safelyParseJSON(team.get_languages) || [];
 
+  const options = (languages ? languages.concat('disabled') : [])
+    .concat(Object.keys(LanguageRegistry)
+      .filter(code => !languages.includes(code)));
+
   // FIXME Make team languages appear first as in previous picker
-  const options = Object.keys(LanguageRegistry)
-    .filter(code => !languages.includes(code))
-    .sort((a, b) => compareLanguages(null, a, b));
+  // const options = Object.keys(LanguageRegistry).sort((a, b) => compareLanguages(null, a, b));
 
   // intl.formatMessage needed here because Autocomplete
   // performs toLowerCase on strings for comparison
-  const getOptionLabel =
-    code => intl.formatMessage(messages.optionLabel, {
-      languageName: `${LanguageRegistry[code].name} / ${languageLabel(code)}`,
+  const getOptionLabel = (code) => {
+    if (code === 'disabled') return '──────────';
+
+    return intl.formatMessage(messages.optionLabel, {
+      languageName: (
+        LanguageRegistry[code] ?
+          `${LanguageRegistry[code].name} / ${languageLabel(code)}` :
+          `${languageLabel(code)}`
+      ),
       languageCode: code,
     });
+  };
 
   const handleChange = (e, val) => {
     setValue(val);
@@ -59,7 +69,7 @@ const LanguagePickerDialog = ({
       fullWidth
     >
       <DialogTitle>
-        <FormattedMessage id="addLanguageAction.title" defaultMessage="Choose a new language" />
+        <FormattedMessage id="languagePickerDialog.title" defaultMessage="Choose a language" />
       </DialogTitle>
       <DialogContent>
         <Autocomplete
@@ -68,12 +78,13 @@ const LanguagePickerDialog = ({
           options={options}
           openOnFocus
           getOptionLabel={getOptionLabel}
+          getOptionDisabled={option => option === 'disabled'}
           value={value}
           renderInput={
             params => (<TextField
               label={
                 <FormattedMessage
-                  id="addLanguageAction.selectLanguage"
+                  id="languagePickerDialog.selectLanguage"
                   defaultMessage="Select a language"
                 />
               }
@@ -96,7 +107,7 @@ const LanguagePickerDialog = ({
           onClick={handleSubmit}
           variant="contained"
         >
-          <FormattedMessage id="addLanguageAction.addLanguage" defaultMessage="Add language" />
+          <FormattedGlobalMessage messageKey="submit" />
         </Button>
       </DialogActions>
     </Dialog>

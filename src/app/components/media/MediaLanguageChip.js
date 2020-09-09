@@ -17,6 +17,7 @@ const MediaLanguageChip = ({ projectMedia, setFlashMessage }) => {
   const [correctingLanguage, setCorrectingLanguage] = React.useState(false);
   const [isSaving, setIsSaving] = React.useState(false);
 
+  // FIXME Modernize mutation
   const handleLanguageSubmit = (value) => {
     const onSuccess = () => {
       setCorrectingLanguage(false);
@@ -48,6 +49,10 @@ const MediaLanguageChip = ({ projectMedia, setFlashMessage }) => {
       { onSuccess, onFailure },
     );
   };
+
+  if (!projectMedia.dynamic_annotation_language) {
+    return null;
+  }
 
   return (
     <React.Fragment>
@@ -81,7 +86,19 @@ const MediaLanguageChip = ({ projectMedia, setFlashMessage }) => {
 
 MediaLanguageChip.propTypes = {
   setFlashMessage: PropTypes.func.isRequired,
-  projectMedia: PropTypes.object.isRequired, // FIXME write fitting shape
+  projectMedia: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    language: PropTypes.string,
+    language_code: PropTypes.string,
+    permissions: PropTypes.string.isRequired,
+    dynamic_annotation_language: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }),
+    team: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      get_languages: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
 };
 
 export default createFragmentContainer(withSetFlashMessage(MediaLanguageChip), graphql`
