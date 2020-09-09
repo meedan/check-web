@@ -60,14 +60,8 @@ const MediaLanguageChip = ({ projectMedia, setFlashMessage }) => {
         className="media-tags__tag media-tags__language"
         deleteIcon={<EditIcon />}
         icon={<LanguageIcon />}
-        label={
-          <FormattedMessage
-            className="media-tags__language-chip-label"
-            id="mediaLanguageChip.language"
-            defaultMessage="Language: {language}"
-            values={{ language: projectMedia.language }}
-          />
-        }
+        color="primary"
+        label={projectMedia.language}
         onDelete={
           can(projectMedia.permissions, 'create Dynamic') ?
             () => setCorrectingLanguage(true) : null
