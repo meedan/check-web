@@ -11,7 +11,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { FormattedGlobalMessage } from '../MappedMessage';
 import { safelyParseJSON } from '../../helpers';
-// import LanguageRegistry, { compareLanguages, languageLabel } from '../../LanguageRegistry';
 import LanguageRegistry, { languageLabel } from '../../LanguageRegistry';
 
 const messages = defineMessages({
@@ -35,9 +34,6 @@ const LanguagePickerDialog = ({
   const options = (languages ? languages.concat('disabled') : [])
     .concat(Object.keys(LanguageRegistry)
       .filter(code => !languages.includes(code)));
-
-  // FIXME Make team languages appear first as in previous picker
-  // const options = Object.keys(LanguageRegistry).sort((a, b) => compareLanguages(null, a, b));
 
   // intl.formatMessage needed here because Autocomplete
   // performs toLowerCase on strings for comparison
