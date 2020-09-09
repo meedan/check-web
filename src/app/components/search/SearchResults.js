@@ -40,7 +40,6 @@ const StyledListHeader = styled.div`
   }
 
   .project__title {
-    max-width: 35%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -363,7 +362,7 @@ class SearchResultsComponent extends React.PureComponent {
         <StyledListHeader>
           <Row className="search__list-header-filter-row">
             <Row className="search__list-header-title-and-filter">
-              <div style={{ font: headline }} className="project__title">
+              <div style={{ font: headline }} className="project__title" title={title}>
                 {title}
               </div>
               <SearchQuery
