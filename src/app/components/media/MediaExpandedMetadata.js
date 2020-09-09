@@ -78,7 +78,7 @@ MediaExpandedMetadata.propTypes = {
           }).isRequired,
         })).isRequired,
       }).isRequired,
-    }).isRequired,
+    }),
   }).isRequired,
 };
 
