@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
@@ -32,14 +33,14 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const ExtraMediaActions = ({
-  media,
+  projectMedia,
   showVideoAnnotation,
   onVideoAnnoToggle,
   reverseImageSearchGoogle,
 }) => {
-  const isYoutubeVideo = media.media.type === 'Link' && media.media.metadata.provider === 'youtube';
-  const isUploadedVideo = media.media.type === 'UploadedVideo';
-  const isPicture = media.picture !== null && media.picture !== undefined;
+  const isYoutubeVideo = projectMedia.media.type === 'Link' && projectMedia.media.metadata.provider === 'youtube';
+  const isUploadedVideo = projectMedia.media.type === 'UploadedVideo';
+  const isPicture = projectMedia.picture !== null && projectMedia.picture !== undefined;
   const allowsVideoAnnotation = isYoutubeVideo || isUploadedVideo;
   const allowsReverseSearch = isPicture || allowsVideoAnnotation;
   const classes = useStyles();
@@ -80,27 +81,32 @@ const ExtraMediaActions = ({
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
 class MediaExpandedActions extends React.Component {
   reverseImageSearchGoogle() {
-    const imagePath = this.props.media.picture;
+    const imagePath = this.props.projectMedia.picture;
     window.open(`https://www.google.com/searchbyimage?image_url=${imagePath}`);
   }
 
   render() {
-    const { media, onTimelineCommentOpen } = this.props;
+    const {
+      projectMedia,
+      onTimelineCommentOpen,
+      onVideoAnnoToggle,
+      showVideoAnnotation,
+    } = this.props;
 
     return (
       <StyledMetadata className="media-detail__check-metadata">
-        { (media.picture || (media.media && media.media.file_path)) ?
+        { (projectMedia.picture || (projectMedia.media && projectMedia.media.file_path)) ?
           <Row style={{
             display: 'flex', alignItems: 'center', marginBottom: units(2), marginLeft: units(-0.5), marginRight: units(-0.5),
           }}
           >
             <ExtraMediaActions
-              media={media}
-              onVideoAnnoToggle={this.props.onVideoAnnoToggle}
-              showVideoAnnotation={this.props.showVideoAnnotation}
+              projectMedia={projectMedia}
+              onVideoAnnoToggle={onVideoAnnoToggle}
+              showVideoAnnotation={showVideoAnnotation}
               reverseImageSearchGoogle={this.reverseImageSearchGoogle.bind(this)}
             />
-            { (media.media && media.media.file_path) ?
+            { (projectMedia.media && projectMedia.media.file_path) ?
               <div
                 className="media-detail__download"
                 style={{
@@ -111,7 +117,7 @@ class MediaExpandedActions extends React.Component {
                 }}
               >
                 <ExternalLink
-                  url={this.props.media.media.file_path}
+                  url={this.props.projectMedia.media.file_path}
                   style={{
                     cursor: 'pointer',
                     height: 36,
@@ -137,15 +143,11 @@ class MediaExpandedActions extends React.Component {
               </div> : null }
           </Row> : null }
         <Row>
-          <TagMenu media={media} />
-          { media.tags ?
-            <MediaTags
-              media={media}
-              tags={media.tags.edges}
-              onTimelineCommentOpen={onTimelineCommentOpen}
-            />
-            : null
-          }
+          <TagMenu media={projectMedia} />
+          <MediaTags
+            projectMedia={projectMedia}
+            onTimelineCommentOpen={onTimelineCommentOpen}
+          />
         </Row>
       </StyledMetadata>
     );
@@ -153,7 +155,7 @@ class MediaExpandedActions extends React.Component {
 }
 
 MediaExpandedActions.propTypes = {
-  media: PropTypes.shape({
+  projectMedia: PropTypes.shape({
     media: PropTypes.shape({
       type: PropTypes.string,
       metadata: PropTypes.shape({
@@ -161,6 +163,21 @@ MediaExpandedActions.propTypes = {
       }).isRequired,
     }).isRequired,
   }).isRequired,
+  onTimelineCommentOpen: PropTypes.func.isRequired,
+  onVideoAnnoToggle: PropTypes.func.isRequired,
 };
 
-export default MediaExpandedActions;
+export default createFragmentContainer(MediaExpandedActions, graphql`
+  # projectMedia: graphql
+  fragment MediaExpandedActions_projectMedia on ProjectMedia {
+    id
+    dbid
+    picture
+    media {
+      type
+      metadata
+      file_path
+    }
+    ...MediaTags_projectMedia
+  }
+`);

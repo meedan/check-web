@@ -1,0 +1,10 @@
+[
+  {
+    "id": "mediaLanguageChip.error",
+    "defaultMessage": "Sorry, an error occurred while updating the language. Please try again and contact {supportEmail} if the condition persists."
+  },
+  {
+    "id": "mediaLanguageChip.language",
+    "defaultMessage": "Language: {language}"
+  }
+]

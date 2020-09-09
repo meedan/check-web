@@ -599,7 +599,7 @@ shared_examples 'app' do |webdriver_url|
       api_create_team_project_and_claim_and_redirect_to_media_page
       expect(@driver.page_source.include?('New Title')).to be(false)
       wait_for_selector('.media-actions__icon').click
-      wait_for_selector('li').click
+      wait_for_selector('.media-actions__edit').click
       fill_field('#media-detail__title-input', 'New Title')
       wait_for_selector('.media-detail__save-edits').click
       wait_for_selector_none('.media-detail__save-edits')
