@@ -36,12 +36,32 @@
     "defaultMessage": "Add to…"
   },
   {
+    "id": "bulkActions.cancelButton",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "bulkActions.addTitle",
+    "defaultMessage": "Add"
+  },
+  {
+    "id": "bulkActions.dialogAddTitle",
+    "defaultMessage": "Add to a different list"
+  },
+  {
     "id": "bulkActions.move",
     "defaultMessage": "Move selected items to another list"
   },
   {
     "id": "bulkActions.moveTo",
     "defaultMessage": "Move to…"
+  },
+  {
+    "id": "bulkActions.moveTitle",
+    "defaultMessage": "Move"
+  },
+  {
+    "id": "bulkActions.dialogMoveTitle",
+    "defaultMessage": "Move to a different list"
   },
   {
     "id": "bulkActions.remove",
@@ -54,25 +74,5 @@
   {
     "id": "bulkActions.sendItemsToTrash",
     "defaultMessage": "Send selected items to trash"
-  },
-  {
-    "id": "bulkActions.cancelButton",
-    "defaultMessage": "Cancel"
-  },
-  {
-    "id": "bulkActions.moveTitle",
-    "defaultMessage": "Move"
-  },
-  {
-    "id": "bulkActions.addTitle",
-    "defaultMessage": "Add"
-  },
-  {
-    "id": "bulkActions.dialogMoveTitle",
-    "defaultMessage": "Move to a different list"
-  },
-  {
-    "id": "bulkActions.dialogAddTitle",
-    "defaultMessage": "Add to a different list"
   }
 ]

@@ -147,6 +147,19 @@ class TeamComponent extends Component {
           >
             { currentUserIsOwner ?
               <Tab
+                className="team-settings__metadata-tab"
+                classes={{ root: classes.root }}
+                label={
+                  <FormattedMessage
+                    id="teamSettings.Metadata"
+                    defaultMessage="Metadata"
+                  />
+                }
+                value="metadata"
+              /> : null
+            }
+            { currentUserIsOwner ?
+              <Tab
                 className="team-settings__tasks-tab"
                 classes={{ root: classes.root }}
                 label={
@@ -266,8 +279,11 @@ class TeamComponent extends Component {
             <TeamSettingsTabs />
           </HeaderCard>
           { !isEditing && !isSettings && !isReadOnly ? TeamPageContent : null }
+          { isSettings && tab === 'metadata'
+            ? <TeamTasks key={tab} team={team} fieldset="metadata" />
+            : null }
           { isSettings && tab === 'tasks'
-            ? <TeamTasks team={team} />
+            ? <TeamTasks key={tab} team={team} fieldset="tasks" />
             : null }
           { isSettings && tab === 'bots'
             ? <TeamBots team={team} route={this.props.route} router={this.props.router} />

@@ -256,7 +256,7 @@ class HomeComponent extends Component {
       <React.Fragment>
         <GlobalStyle />
         <MuiPickersUtilsProvider utils={MomentUtils}>
-          {config.intercomAppId && user.dbid ?
+          {config.intercomAppId && user.dbid && window.parent === window ?
             <Intercom
               appID={config.intercomAppId}
               user_id={user.dbid}

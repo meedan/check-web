@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
-import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
+import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Collapse from '@material-ui/core/Collapse';
+import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import styled from 'styled-components';
@@ -23,17 +25,18 @@ import GeolocationTaskResponse from './GeolocationTaskResponse';
 import DatetimeRespondTask from './DatetimeRespondTask';
 import DatetimeTaskResponse from './DatetimeTaskResponse';
 import ImageUploadRespondTask from './ImageUploadRespondTask';
+import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
+import { FormattedGlobalMessage } from '../MappedMessage';
 import Message from '../Message';
 import Can, { can } from '../Can';
 import ParsedText from '../ParsedText';
 import UserAvatars from '../UserAvatars';
 import Sentence from '../Sentence';
+import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 import ProfileLink from '../layout/ProfileLink';
 import AttributionDialog from '../user/AttributionDialog';
 import CheckContext from '../../CheckContext';
 import { getErrorMessage } from '../../helpers';
-import { stringHelper } from '../../customHelpers';
-import globalStrings from '../../globalStrings';
 import UpdateTaskMutation from '../../relay/mutations/UpdateTaskMutation';
 import UpdateDynamicMutation from '../../relay/mutations/UpdateDynamicMutation';
 import DeleteAnnotationMutation from '../../relay/mutations/DeleteAnnotationMutation';
@@ -41,6 +44,7 @@ import DeleteDynamicMutation from '../../relay/mutations/DeleteDynamicMutation';
 import { Row, units, black16, black87 } from '../../styles/js/shared';
 
 const StyledWordBreakDiv = styled.div`
+  width: 100%;
   hyphens: auto;
   overflow-wrap: break-word;
   word-break: break-word;
@@ -50,17 +54,6 @@ const StyledWordBreakDiv = styled.div`
     padding-top: 0 !important;
   }
 `;
-
-const messages = defineMessages({
-  confirmDelete: {
-    id: 'task.confirmDelete',
-    defaultMessage: 'Are you sure you want to delete this task?',
-  },
-  confirmDeleteResponse: {
-    id: 'task.confirmDeleteResponse',
-    defaultMessage: 'Are you sure you want to delete this task answer?',
-  },
-});
 
 const StyledTaskTitle = styled.span`
   line-height: ${units(3)};
@@ -84,7 +77,7 @@ function getResponseData(response) {
     data.byPictures = [];
     response.attribution.edges.forEach((user) => {
       const u = user.node;
-      data.by.push(<ProfileLink teamUser={u.team_user} />);
+      data.by.push(<ProfileLink teamUser={u.team_user || null} />);
       data.byPictures.push(u);
     });
     const fields = JSON.parse(response.content);
@@ -108,9 +101,11 @@ class Task extends Component {
     this.state = {
       editingQuestion: false,
       message: null,
+      deleteResponse: null,
+      deletingTask: false,
       editingResponse: false,
       editingAttribution: false,
-      expand: false,
+      expand: true,
       zoomedImage: null,
     };
   }
@@ -128,9 +123,8 @@ class Task extends Component {
   }
 
   fail = (transaction) => {
-    const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
-    const message = getErrorMessage(transaction, fallbackMessage);
-    this.setState({ message });
+    const message = getErrorMessage(transaction, <GenericUnknownErrorMessage />);
+    this.setState({ message, isSaving: false });
   };
 
   handleAction = (action, value) => {
@@ -148,10 +142,10 @@ class Task extends Component {
       this.setState({ editingAttribution: true });
       break;
     case 'delete':
-      this.handleDelete();
+      this.setState({ deletingTask: true });
       break;
     case 'delete_response':
-      this.handleDeleteResponse(value);
+      this.setState({ deleteResponse: value });
       break;
     default:
     }
@@ -168,7 +162,6 @@ class Task extends Component {
 
     const fields = {};
     fields[`response_${task.type}`] = response;
-
     Relay.Store.commitUpdate(
       new UpdateTaskMutation({
         operation: 'answer',
@@ -281,31 +274,42 @@ class Task extends Component {
     );
   };
 
-  handleDelete() {
+  submitDeleteTask = () => {
     const { task, media } = this.props;
+    this.setState({ isSaving: true });
 
-    // eslint-disable-next-line no-alert
-    if (window.confirm(this.props.intl.formatMessage(messages.confirmDelete))) {
-      Relay.Store.commitUpdate(new DeleteAnnotationMutation({
+    const onSuccess = () => {
+      this.setState({ deletingTask: false, isSaving: false });
+    };
+
+    Relay.Store.commitUpdate(
+      new DeleteAnnotationMutation({
         parent_type: 'project_media',
         annotated: media,
         id: task.id,
-      }));
-    }
-  }
+      }),
+      { onSuccess, onFailure: this.fail },
+    );
+  };
 
-  handleDeleteResponse(response) {
+  submitDeleteTaskResponse = () => {
     const { task } = this.props;
+    const { deleteResponse } = this.state;
+    this.setState({ isSaving: true });
 
-    // eslint-disable-next-line no-alert
-    if (window.confirm(this.props.intl.formatMessage(messages.confirmDeleteResponse))) {
-      Relay.Store.commitUpdate(new DeleteDynamicMutation({
+    const onSuccess = () => {
+      this.setState({ deleteResponse: null, isSaving: false });
+    };
+
+    Relay.Store.commitUpdate(
+      new DeleteDynamicMutation({
         parent_type: 'task',
         annotated: task,
-        id: response.id,
-      }));
-    }
-  }
+        id: deleteResponse.id,
+      }),
+      { onSuccess, onFailure: this.fail },
+    );
+  };
 
   handleCloseImage() {
     this.setState({ zoomedImage: false });
@@ -317,6 +321,7 @@ class Task extends Component {
 
   renderTaskResponse(responseObj, response, by, byPictures, showEditIcon) {
     const { task } = this.props;
+    const isTask = task.fieldset === 'tasks';
 
     if (this.state.editingResponse && this.state.editingResponse.id === responseObj.id) {
       const editingResponseData = getResponseData(this.state.editingResponse);
@@ -326,6 +331,7 @@ class Task extends Component {
           <form name={`edit-response-${this.state.editingResponse.id}`}>
             {task.type === 'free_text' ?
               <ShortTextRespondTask
+                fieldset={task.fieldset}
                 task={task}
                 response={editingResponseText}
                 onSubmit={this.handleUpdateResponse}
@@ -334,6 +340,7 @@ class Task extends Component {
               : null}
             {task.type === 'geolocation' ?
               <GeolocationRespondTask
+                fieldset={task.fieldset}
                 response={editingResponseText}
                 onSubmit={this.handleUpdateResponse}
                 onDismiss={this.handleCancelEditResponse}
@@ -341,6 +348,7 @@ class Task extends Component {
               : null}
             {task.type === 'datetime' ?
               <DatetimeRespondTask
+                fieldset={task.fieldset}
                 response={editingResponseText}
                 onSubmit={this.handleUpdateResponse}
                 onDismiss={this.handleCancelEditResponse}
@@ -348,6 +356,7 @@ class Task extends Component {
               : null}
             {task.type === 'single_choice' ?
               <SingleChoiceTask
+                fieldset={task.fieldset}
                 mode="edit_response"
                 response={editingResponseText}
                 jsonoptions={task.jsonoptions}
@@ -357,6 +366,7 @@ class Task extends Component {
               : null}
             {task.type === 'multiple_choice' ?
               <MultiSelectTask
+                fieldset={task.fieldset}
                 mode="edit_response"
                 jsonresponse={editingResponseText}
                 jsonoptions={task.jsonoptions}
@@ -366,6 +376,7 @@ class Task extends Component {
               : null}
             {task.type === 'image_upload' ?
               <ImageUploadRespondTask
+                fieldset={task.fieldset}
                 task={task}
                 response={editingResponseText}
                 onSubmit={this.handleUpdateResponse}
@@ -442,7 +453,7 @@ class Task extends Component {
             </div>
           </div>
           : null}
-        { (by && byPictures) ?
+        { by && byPictures && isTask ?
           <div className="task__resolver" style={resolverStyle}>
             <small style={{ display: 'flex' }}>
               <UserAvatars users={byPictures} />
@@ -466,6 +477,7 @@ class Task extends Component {
 
   render() {
     const { task, media } = this.props;
+    const isTask = task.fieldset === 'tasks';
     const data = getResponseData(task.first_response);
     const {
       response, by, byPictures,
@@ -480,14 +492,21 @@ class Task extends Component {
     const assignments = task.assignments.edges;
     const assignmentComponents = [];
     assignments.forEach((assignment) => {
-      assignmentComponents.push(<ProfileLink user={assignment.node.team_user} />);
+      assignmentComponents.push(<ProfileLink teamUser={assignment.node.team_user || null} />);
       if (currentUser && assignment.node.dbid === currentUser.dbid) {
         taskAssigned = true;
       }
     });
 
-    const taskAssignment = task.assignments.edges.length > 0 && !response ? (
-      <div className="task__assigned" style={{ display: 'flex', alignItems: 'center', width: 420 }}>
+    const assignmentStyle = {
+      display: 'flex',
+      alignItems: 'center',
+      width: 420,
+      margin: units(2),
+      justifyContent: 'space-between',
+    };
+    const taskAssignment = task.assignments.edges.length > 0 && !response && task.fieldset === 'tasks' ? (
+      <div className="task__assigned" style={assignmentStyle}>
         <small style={{ display: 'flex' }}>
           <UserAvatars users={assignments} />
           <span style={{ lineHeight: '24px', paddingLeft: units(1), paddingRight: units(1) }}>
@@ -503,17 +522,13 @@ class Task extends Component {
       </div>
     ) : null;
 
-    const taskActionsStyle = {
-      textAlign: 'end',
-    };
-
     const zeroAnswer = task.responses.edges.length === 0;
 
     const taskActions = !media.archived ? (
-      <div>
+      <Box display="flex" alignItems="center">
         {taskAssignment}
-        {data.by ?
-          <div className="task__resolver" style={{ display: 'flex', alignItems: 'center', marginTop: units(1) }}>
+        { data.by && isTask ?
+          <Box className="task__resolver" display="flex" alignItems="center" margin={2}>
             <small style={{ display: 'flex' }}>
               <UserAvatars users={byPictures} />
               <span style={{ lineHeight: '24px', paddingLeft: units(1), paddingRight: units(1) }}>
@@ -525,12 +540,12 @@ class Task extends Component {
                   /> : null }
               </span>
             </small>
-          </div>
+          </Box>
           : null}
-        <div style={taskActionsStyle}>
+        <Box marginLeft="auto">
           <TaskActions task={task} media={media} response={response} onSelect={this.handleAction} />
-        </div>
-      </div>
+        </Box>
+      </Box>
     ) : null;
 
     const taskQuestion = (
@@ -570,18 +585,24 @@ class Task extends Component {
                     {task.type === 'free_text' ?
                       <ShortTextRespondTask
                         task={task}
+                        fieldset={task.fieldset}
                         onSubmit={this.handleSubmitResponse}
                       />
                       : null}
                     {task.type === 'geolocation' ?
                       <GeolocationRespondTask
+                        fieldset={task.fieldset}
                         onSubmit={this.handleSubmitResponse}
                       /> : null}
                     {task.type === 'datetime' ?
-                      <DatetimeRespondTask onSubmit={this.handleSubmitResponse} />
+                      <DatetimeRespondTask
+                        fieldset={task.fieldset}
+                        onSubmit={this.handleSubmitResponse}
+                      />
                       : null}
                     {task.type === 'single_choice' ?
                       <SingleChoiceTask
+                        fieldset={task.fieldset}
                         mode="respond"
                         response={response}
                         jsonoptions={task.jsonoptions}
@@ -590,6 +611,7 @@ class Task extends Component {
                       : null}
                     {task.type === 'multiple_choice' ?
                       <MultiSelectTask
+                        fieldset={task.fieldset}
                         mode="respond"
                         jsonresponse={response}
                         jsonoptions={task.jsonoptions}
@@ -598,6 +620,7 @@ class Task extends Component {
                       : null}
                     {task.type === 'image_upload' ?
                       <ImageUploadRespondTask
+                        fieldset={task.fieldset}
                         task={task}
                         onSubmit={this.handleSubmitResponse}
                       />
@@ -651,11 +674,14 @@ class Task extends Component {
           <Collapse in={this.state.expand} timeout="auto">
             <CardContent className="task__card-text">
               <Message message={this.state.message} />
-              {taskBody}
+              <Box marginBottom={2}>
+                {taskBody}
+              </Box>
             </CardContent>
-            <div style={{ minHeight: units(6) }} />
             {taskActions}
-            <TaskLog task={task} response={response} />
+            { isTask ?
+              <TaskLog task={task} response={response} /> : null
+            }
           </Collapse>
         </Card>
 
@@ -710,6 +736,40 @@ class Task extends Component {
             onSubmit={this.handleUpdateAttribution}
           /> : null
         }
+
+        <ConfirmProceedDialog
+          body={
+            <Typography variant="body1" component="p">
+              <FormattedMessage
+                id="task.confirmDelete"
+                defaultMessage="Are you sure you want to delete this task?"
+              />
+            </Typography>
+          }
+          isSaving={this.state.isSaving}
+          onCancel={() => this.setState({ deletingTask: false })}
+          onProceed={this.submitDeleteTask}
+          open={this.state.deletingTask}
+          proceedLabel={<FormattedGlobalMessage messageKey="delete" />}
+          title={<FormattedMessage id="task.confirmDeleteTitle" defaultMessage="Delete task?" />}
+        />
+
+        <ConfirmProceedDialog
+          body={
+            <Typography variant="body1" component="p">
+              <FormattedMessage
+                id="task.confirmDeleteResponse"
+                defaultMessage="Are you sure you want to delete this answer?"
+              />
+            </Typography>
+          }
+          isSaving={this.state.isSaving}
+          onCancel={() => this.setState({ deleteResponse: null })}
+          onProceed={this.submitDeleteTaskResponse}
+          open={this.state.deleteResponse}
+          proceedLabel={<FormattedGlobalMessage messageKey="delete" />}
+          title={<FormattedMessage id="task.confirmDeleteResponseTitle" defaultMessage="Delete answer?" />}
+        />
       </StyledWordBreakDiv>
     );
   }
@@ -719,4 +779,137 @@ Task.contextTypes = {
   store: PropTypes.object,
 };
 
-export default injectIntl(Task);
+export default Relay.createContainer(Task, {
+  initialVariables: {
+    teamSlug: null,
+  },
+  prepareVariables: vars => ({
+    ...vars,
+    teamSlug: /^\/([^/]+)/.test(window.location.pathname) ? window.location.pathname.match(/^\/([^/]+)/)[1] : null,
+  }),
+  fragments: {
+    task: () => Relay.QL`
+      fragment on Task {
+        id,
+        dbid,
+        label,
+        type,
+        description,
+        fieldset,
+        permissions,
+        jsonoptions,
+        json_schema,
+        options,
+        pending_suggestions_count,
+        suggestions_count,
+        log_count,
+        team_task_id,
+        responses(first: 10000) {
+          edges {
+            node {
+              id,
+              dbid,
+              permissions,
+              content,
+              image_data,
+              attribution(first: 10000) {
+                edges {
+                  node {
+                    id
+                    dbid
+                    name
+                    team_user(team_slug: $teamSlug) {
+                      ${ProfileLink.getFragment('teamUser')},
+                    },
+                    source {
+                      id
+                      dbid
+                      image
+                    }
+                  }
+                }
+              }
+              annotator {
+                name,
+                profile_image,
+                user {
+                  id,
+                  dbid,
+                  name,
+                  is_active
+                  team_user(team_slug: $teamSlug) {
+                    ${ProfileLink.getFragment('teamUser')},
+                  },
+                  source {
+                    id,
+                    dbid,
+                    image,
+                  }
+                }
+              }
+            }
+          }
+        }
+        assignments(first: 10000) {
+          edges {
+            node {
+              name
+              id
+              dbid
+              team_user(team_slug: $teamSlug) {
+                ${ProfileLink.getFragment('teamUser')},
+              },
+              source {
+                id
+                dbid
+                image
+              }
+            }
+          }
+        }
+        first_response {
+          id,
+          dbid,
+          permissions,
+          content,
+          image_data,
+          attribution(first: 10000) {
+            edges {
+              node {
+                id
+                dbid
+                name
+                team_user(team_slug: $teamSlug) {
+                  ${ProfileLink.getFragment('teamUser')},
+                },
+                source {
+                  id
+                  dbid
+                  image
+                }
+              }
+            }
+          }
+          annotator {
+            name,
+            profile_image,
+            user {
+              id,
+              dbid,
+              name,
+              is_active
+              team_user(team_slug: $teamSlug) {
+                ${ProfileLink.getFragment('teamUser')},
+              },
+              source {
+                id,
+                dbid,
+                image,
+              }
+            }
+          }
+        }
+      }
+    `,
+  },
+});

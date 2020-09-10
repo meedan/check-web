@@ -47,7 +47,10 @@ const StyledTwoColumnLayout = styled.div`
 
 const Column = styled.div`
   min-width: min(50%, ${columnWidthMedium});
-  max-width: ${columnWidthLarge};
+  max-width: min(50%, ${columnWidthLarge});
+  @media (max-width: 1280px) {
+    max-width: ${columnWidthLarge};
+  }
   padding: ${units(2)};
   flex-grow: 1;
 `;
@@ -311,6 +314,16 @@ class MediaComponent extends Component {
               <Tab
                 label={
                   <FormattedMessage
+                    id="mediaComponent.metadata"
+                    defaultMessage="Metadata"
+                  />
+                }
+                value="metadata"
+                className="media-tab__metadata"
+              />
+              <Tab
+                label={
+                  <FormattedMessage
                     id="mediaComponent.tasks"
                     defaultMessage="Tasks"
                   />
@@ -351,7 +364,8 @@ class MediaComponent extends Component {
               />
             </Tabs>
             { this.state.showTab === 'requests' ? <MediaRequests media={media} /> : null }
-            { this.state.showTab === 'tasks' ? <MediaTasks media={media} /> : null }
+            { this.state.showTab === 'metadata' ? <MediaTasks media={media} fieldset="metadata" /> : null }
+            { this.state.showTab === 'tasks' ? <MediaTasks media={media} fieldset="tasks" /> : null }
             { this.state.showTab === 'analysis' ? <MediaAnalysis media={media} /> : null }
             { this.state.showTab === 'notes' ? <MediaComments media={media} onTimelineCommentOpen={this.onTimelineCommentOpen} /> : null }
             { this.state.showTab === 'activity' ? <MediaLog media={media} /> : null }
@@ -372,7 +386,6 @@ class MediaComponent extends Component {
                   <Grid item>
                     <Tabs value={this.state.videoAnnotationTab}>
                       <Tab
-                        ariaControls=""
                         disabled
                         id="TimelineTab"
                         label={

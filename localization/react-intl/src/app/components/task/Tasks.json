@@ -1,30 +1,10 @@
 [
   {
-    "id": "tasks.cancelAdd",
-    "defaultMessage": "Cancel"
+    "id": "tasks.blankMetadata",
+    "defaultMessage": "No metadata fields"
   },
   {
-    "id": "tasks.add",
-    "defaultMessage": "Add"
-  },
-  {
-    "id": "tasks.addTask",
-    "defaultMessage": "Add task"
-  },
-  {
-    "id": "tasks.shortAnswer",
-    "defaultMessage": "Short answer"
-  },
-  {
-    "id": "tasks.taskLabel",
-    "defaultMessage": "Task label"
-  },
-  {
-    "id": "tasks.description",
-    "defaultMessage": "Description"
-  },
-  {
-    "id": "tasks.addDescription",
-    "defaultMessage": "Add a description"
+    "id": "tasks.goToSettings",
+    "defaultMessage": "Go to settings"
   }
 ]

@@ -167,7 +167,8 @@ const MediaLogContainer = Relay.createContainer(withPusher(MediaLogComponent), {
                 id,
                 dbid,
                 label,
-                type
+                type,
+                fieldset,
               }
               tag {
                 id

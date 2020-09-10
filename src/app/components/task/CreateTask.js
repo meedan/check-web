@@ -79,6 +79,7 @@ class CreateTask extends Component {
         annotated_id: this.props.media.id,
         annotated_dbid: `${this.props.media.dbid}`,
         assigned_to_ids: CreateTask.getAssignment(),
+        fieldset: 'tasks',
       }),
       { onSuccess, onFailure },
     );
@@ -102,10 +103,14 @@ class CreateTask extends Component {
     return (
       <div>
         <Can permissions={media.permissions} permission="create Task">
-          <CreateTaskMenu onSelect={this.handleSelectType} />
+          <CreateTaskMenu
+            onSelect={this.handleSelectType}
+            fieldset="tasks"
+          />
         </Can>
         { this.state.type ?
           <EditTaskDialog
+            fieldset="tasks"
             media={media}
             message={this.state.message}
             taskType={this.state.type}

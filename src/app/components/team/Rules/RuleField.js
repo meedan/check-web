@@ -1,10 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
-import Select from '@material-ui/core/Select';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -38,8 +35,8 @@ const RuleField = (props) => {
     props.onChange(value);
   };
 
-  const handleSelect = (event) => {
-    props.onChange(event.target.value);
+  const handleSelect = (newValue) => {
+    props.onChange(newValue);
   };
 
   const inputProps = {};
@@ -56,19 +53,19 @@ const RuleField = (props) => {
   return (
     <Paper className={[classes.paper, props.className, 'rules__rule-field'].join(' ')}>
       { options ?
-        <FormControl variant="outlined" fullWidth>
-          <InputLabel>{label}</InputLabel>
-          <Select
-            value={props.value}
-            label={label}
-            onChange={handleSelect}
-            MenuProps={{ autoFocus: false, disableScrollLock: true }}
-          >
-            {options.map(option => (
-              <MenuItem value={option.key} key={option.key}>{option.value}</MenuItem>
-            ))}
-          </Select>
-        </FormControl> : null }
+        <Autocomplete
+          label={label}
+          value={options.find(option => option.key === props.value)}
+          onChange={(event, newValue) => {
+            if (newValue) {
+              handleSelect(newValue.key);
+            }
+          }}
+          options={options.sort((a, b) => (a.value.localeCompare(b.value)))}
+          getOptionLabel={option => option.value}
+          renderInput={params => <TextField {...params} variant="outlined" label={label} fullWidth />}
+          fullWidth
+        /> : null }
       { type === 'string' && !options ?
         <TextField
           value={value}
@@ -111,6 +108,32 @@ const RuleField = (props) => {
               />
             );
           })}
+          { props.definition.allOf ?
+            <React.Fragment>
+              {props.definition.allOf.map((condition) => {
+                const fieldName = Object.keys(condition.if.properties)[0];
+                if (value[fieldName] === condition.if.properties[fieldName].const) {
+                  const subFieldName = Object.keys(condition.then.properties)[0];
+                  const subSubDefinition = condition.then.properties[subFieldName];
+                  const subSubValue = value[subFieldName] || '';
+                  return (
+                    <RuleField
+                      className={classes.inner}
+                      key={`${fieldName}-${subFieldName}`}
+                      definition={subSubDefinition}
+                      value={subSubValue}
+                      onChange={(newSubSubValue) => {
+                        const newSubValue = Object.assign({}, value);
+                        newSubValue[subFieldName] = newSubSubValue;
+                        setValue(newSubValue);
+                        props.onChange(newSubValue);
+                      }}
+                    />
+                  );
+                }
+                return null;
+              })}
+            </React.Fragment> : null }
         </React.Fragment> : null }
     </Paper>
   );

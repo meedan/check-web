@@ -8,6 +8,7 @@ import CoordinateParser from 'coordinate-parser';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { black54, caption } from '../../styles/js/shared';
 import { stringHelper } from '../../customHelpers';
+import { FormattedGlobalMessage } from '../MappedMessage';
 
 class GeolocationRespondTask extends Component {
   constructor(props) {
@@ -262,6 +263,7 @@ class GeolocationRespondTask extends Component {
   }
 
   render() {
+    const { fieldset } = this.props;
     const position = [this.state.lat, this.state.lng];
 
     const actionBtns = (
@@ -278,10 +280,14 @@ class GeolocationRespondTask extends Component {
           color="primary"
           onClick={this.handlePressButton.bind(this)}
         >
-          <FormattedMessage
-            id="geolocationRespondTask.answerTask"
-            defaultMessage="Answer task"
-          />
+          { fieldset === 'tasks' ? (
+            <FormattedMessage
+              id="geolocationRespondTask.answerTask"
+              defaultMessage="Answer task"
+            />
+          ) :
+            <FormattedGlobalMessage messageKey="save" />
+          }
         </Button>
       </p>
     );

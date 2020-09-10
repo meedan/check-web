@@ -17,6 +17,7 @@ import MoreHoriz from '@material-ui/icons/MoreHoriz';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import Typography from '@material-ui/core/Typography';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { withSetFlashMessage } from '../FlashMessage';
 import EmbedUpdate from './EmbedUpdate';
@@ -66,9 +67,11 @@ const StyledDefaultAnnotation = styled.div`
   color: ${black87};
   display: flex;
   font: ${caption};
+  width: 100%;
   ${props => (props.theme.dir === 'rtl' ? 'padding-right' : 'padding-left')}: ${units(10)};
 
   .annotation__default-content {
+    width: 100%;
     @extend ${breakWordStyles};
     display: block;
     margin-${props => (props.theme.dir === 'rtl' ? 'left' : 'right')}: ${units(2)};
@@ -505,18 +508,34 @@ class Annotation extends Component {
         </em>);
       break;
     case 'create_task':
-      contentTemplate = (
-        <span className="annotation__task-created">
-          <FormattedMessage
-            id="annotation.taskCreated"
-            defaultMessage="Task created by {author}: {task}"
-            values={{
-              task: content.label,
-              author: authorName,
-            }}
-          />
-        </span>
-      );
+      if (content.fieldset === 'tasks') {
+        contentTemplate = (
+          <span className="annotation__task-created">
+            <FormattedMessage
+              id="annotation.taskCreated"
+              defaultMessage="Task created by {author}: {task}"
+              values={{
+                task: content.label,
+                author: authorName,
+              }}
+            />
+          </span>
+        );
+      }
+      if (content.fieldset === 'metadata') {
+        contentTemplate = (
+          <span className="annotation__metadata-created">
+            <FormattedMessage
+              id="annotation.metadataCreated"
+              defaultMessage="Metadata field created by {author}: {fieldLabel}"
+              values={{
+                fieldLabel: content.label,
+                author: authorName,
+              }}
+            />
+          </span>
+        );
+      }
       break;
     case 'create_relationship': {
       const meta = JSON.parse(activity.meta);
@@ -841,19 +860,37 @@ class Annotation extends Component {
       }
 
       if (/^response_/.test(object.field_name) && activity.task) {
-        contentTemplate = (
-          <span className="annotation__task-resolved">
-            <FormattedMessage
-              id="annotation.taskResolve"
-              defaultMessage="Task completed by {author}: {task}{response}"
-              values={{
-                task: activity.task.label,
-                author: authorName,
-                response: Annotation.renderTaskResponse(activity.task.type, object),
-              }}
-            />
-          </span>
-        );
+        if (activity.task.fieldset === 'tasks') {
+          contentTemplate = (
+            <span className="annotation__task-resolved">
+              <FormattedMessage
+                id="annotation.taskResolve"
+                defaultMessage="Task completed by {author}: {task}{response}"
+                values={{
+                  task: activity.task.label,
+                  author: authorName,
+                  response: Annotation.renderTaskResponse(activity.task.type, object),
+                }}
+              />
+            </span>
+          );
+        }
+
+        if (activity.task.fieldset === 'metadata') {
+          contentTemplate = (
+            <span className="annotation__metadata-filled">
+              <FormattedMessage
+                id="annotation.metadataResponse"
+                defaultMessage='Metadata field "{fieldLabel}" filled by {author}: {response}'
+                values={{
+                  fieldLabel: activity.task.label,
+                  author: authorName,
+                  response: Annotation.renderTaskResponse(activity.task.type, object),
+                }}
+              />
+            </span>
+          );
+        }
       }
 
       // TODO Replace with Pender-supplied names.
@@ -1161,7 +1198,9 @@ class Annotation extends Component {
                   </RCTooltip> : null}
 
                 <StyledPrimaryColumn>
-                  {contentTemplate}
+                  <Typography variant="body1" component="div">
+                    {contentTemplate}
+                  </Typography>
                   <StyledAnnotationMetadata>
                     <span className="annotation__card-footer">
                       {authorName ?

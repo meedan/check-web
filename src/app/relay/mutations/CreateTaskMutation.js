@@ -8,7 +8,16 @@ class CreateTaskMutation extends Relay.Mutation {
   }
 
   getFatQuery() {
-    return Relay.QL`fragment on CreateTaskPayload { taskEdge, project_media { log, log_count, last_status, last_status_obj } }`;
+    return Relay.QL`fragment on CreateTaskPayload {
+      taskEdge,
+      project_media {
+        log,
+        tasks,
+        log_count,
+        last_status,
+        last_status_obj
+      }
+    }`;
   }
 
   getVariables() {
@@ -21,6 +30,7 @@ class CreateTaskMutation extends Relay.Mutation {
       annotated_type,
       annotated_dbid,
       assigned_to_ids,
+      fieldset,
     } = this.props;
 
     return {
@@ -32,6 +42,7 @@ class CreateTaskMutation extends Relay.Mutation {
       annotated_type,
       annotated_id: annotated_dbid,
       assigned_to_ids,
+      fieldset,
     };
   }
 
@@ -44,7 +55,7 @@ class CreateTaskMutation extends Relay.Mutation {
         type: 'RANGE_ADD',
         parentName: 'project_media',
         parentID: this.props.annotated_id,
-        connectionName: 'tasks',
+        connectionName: 'item_tasks',
         edgeName: 'taskEdge',
         rangeBehaviors: () => ('prepend'),
       },
