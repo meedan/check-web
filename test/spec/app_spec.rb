@@ -8,6 +8,10 @@ require_relative './pages/page.rb'
 require_relative './api_helpers.rb'
 require_relative './smoke_spec.rb'
 require_relative './media_spec.rb'
+require_relative './task_spec.rb'
+require_relative './metadata_spec.rb'
+require_relative './login_spec.rb'
+require_relative './task_spec_helpers.rb'
 # require_relative './source_spec.rb'
 
 CONFIG = YAML.load_file('config.yml')
@@ -17,6 +21,7 @@ shared_examples 'app' do |webdriver_url|
   # Helpers
   include AppSpecHelpers
   include ApiHelpers
+  include TaskSpecHelpers
 
   before :all do
     @config = CONFIG
@@ -75,6 +80,9 @@ shared_examples 'app' do |webdriver_url|
   context "web" do
 
     include_examples "smoke"
+    include_examples "task"
+    include_examples "metadata"
+    include_examples "login"
     it_behaves_like "media", 'BELONGS_TO_ONE_PROJECT'
     it_behaves_like "media", 'DOES_NOT_BELONG_TO_ANY_PROJECT'
 
@@ -306,15 +314,6 @@ shared_examples 'app' do |webdriver_url|
       expect(title1 != title2).to be(true)
     end
 
-    it "should not reset password", bin5: true do
-      @driver.navigate.to @config['self_url']
-      reset_password('test@meedan.com')
-      wait_for_selector(".user-password-reset__email-input")
-      wait_for_selector("#password-reset-email-input-helper-text")
-      expect(@driver.page_source.include?('email was not found')).to be(true)
-      expect(@driver.page_source.include?('Password reset sent')).to be(false)
-    end
-
     it "should set metatags", bin5: true do
       api_create_team_project_and_link_and_redirect_to_media_page 'https://twitter.com/marcouza/status/875424957613920256'
       wait_for_selector(".tasks")
@@ -346,73 +345,6 @@ shared_examples 'app' do |webdriver_url|
       @driver.navigate.to @config['self_url'] + '/check/teams'
       wait_for_selector("teams", :class)
       expect(@driver.find_elements(:css, '.teams').empty?).to be(false)
-    end
-
-    it "should add, edit, answer, update answer and delete geolocation task", bin3: true do
-      api_create_team_project_and_claim_and_redirect_to_media_page
-      wait_for_selector('.media-detail')
-
-      # Create a task
-      wait_for_selector(".media-tab__activity").click
-      old = @driver.find_elements(:class, "annotations__list-item").length
-      wait_for_selector(".media-tab__tasks").click
-      expect(@driver.page_source.include?('Where?')).to be(false)
-      expect(@driver.page_source.include?('Task created by')).to be(false)
-      wait_for_selector('.create-task__add-button').click
-      wait_for_selector('.create-task__add-geolocation').click
-      wait_for_selector("#task-description-input" )
-      fill_field('#task-label-input', 'Where?')
-      wait_for_selector('.create-task__dialog-submit-button').click
-      wait_for_selector_none("#task-label-input")
-      wait_for_selector(".media-tab__activity").click
-      old = wait_for_size_change(old, "annotations__list-item", :class)
-      expect(@driver.page_source.include?('Where?')).to be(true)
-      expect(@driver.page_source.include?('Task created by')).to be(true)
-      wait_for_selector(".media-tab__tasks").click
-      wait_for_selector('.create-task__add-button')
-
-      # Answer task
-      expect(@driver.page_source.include?('task__answered-by-current-user')).to be(false)
-      fill_field('textarea[name="response"]', 'Salvador')
-      fill_field('#task__response-geolocation-coordinates', '-12.9015866, -38.560239')
-      wait_for_selector('.task__save').click
-      wait_for_selector(".media-tab__activity").click
-      old = wait_for_size_change(old, "annotations__list-item", :class)
-      expect(@driver.page_source.include?('Task completed by')).to be(true)
-      wait_for_selector(".media-tab__tasks").click
-      wait_for_selector('.create-task__add-button')
-
-
-      # Edit task
-      expect(@driver.page_source.include?('Where was it?')).to be(false)
-      wait_for_selector('.task-actions__icon').click
-      wait_for_selector('.task-actions__edit').click
-      wait_for_selector("#task-description-input" )
-      update_field('#task-label-input', 'Where was it?')
-      wait_for_selector( '.create-task__dialog-submit-button').click
-      wait_for_selector_none("#task-description-input")
-      wait_for_selector(".media-tab__activity").click
-      old = wait_for_size_change(old, "annotations__list-item", :class)
-      expect(@driver.page_source.include?('Where was it?')).to be(true)
-      wait_for_selector(".media-tab__tasks").click
-      wait_for_selector('.create-task__add-button')
-
-      # Edit task answer
-      expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Vancouver')).to be(false)
-      wait_for_selector('.task-actions__icon').click
-      wait_for_selector('.task-actions__edit-response').click
-      wait_for_selector(".task__cancel")
-      update_field('textarea[name="response"]', 'Vancouver')
-      update_field('#task__response-geolocation-coordinates', '49.2577142, -123.1941156')
-      wait_for_selector('.task__save').click
-      wait_for_selector(".media-tab__activity").click
-      old = wait_for_size_change(old, "annotations__list-item", :class)
-      expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Vancouver')).to be(true)
-      wait_for_selector(".media-tab__tasks").click
-
-      # Delete task
-      wait_for_selector('.create-task__add-button')
-      delete_task('Where was it')
     end
 
     it "should upload image when registering", bin3: true do
@@ -599,7 +531,7 @@ shared_examples 'app' do |webdriver_url|
       api_create_team_project_and_claim_and_redirect_to_media_page
       expect(@driver.page_source.include?('New Title')).to be(false)
       wait_for_selector('.media-actions__icon').click
-      wait_for_selector('li').click
+      wait_for_selector('.media-actions__edit').click
       fill_field('#media-detail__title-input', 'New Title')
       wait_for_selector('.media-detail__save-edits').click
       wait_for_selector_none('.media-detail__save-edits')

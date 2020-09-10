@@ -58,6 +58,7 @@ function submitAddLanguage({
   });
 }
 
+// FIXME rewrite using LanguagePickerDialog
 const AddLanguageAction = ({ team, intl }) => {
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [isSaving, setIsSaving] = React.useState(false);
@@ -70,7 +71,8 @@ const AddLanguageAction = ({ team, intl }) => {
     .sort((a, b) => compareLanguages(null, a, b));
   const getOptionLabel =
     code => intl.formatMessage(messages.optionLabel, {
-      languageName: languageLabel(code),
+      // FIXME Another helper for english label
+      languageName: `${LanguageRegistry[code].name} / ${languageLabel(code)}`,
       languageCode: code,
     });
 

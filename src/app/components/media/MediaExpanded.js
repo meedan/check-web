@@ -83,6 +83,12 @@ class MediaExpandedComponent extends Component {
       media, playing, start, end, gaps, seekTo, scrubTo, setPlayerState, onPlayerReady,
     } = this.props;
 
+    const {
+      onTimelineCommentOpen,
+      onVideoAnnoToggle,
+      showVideoAnnotation,
+    } = this.props;
+
     const data = typeof media.metadata === 'string' ? JSON.parse(media.metadata) : media.metadata;
     const isImage = media.media.type === 'UploadedImage';
     const isMedia = ['UploadedVideo', 'UploadedAudio'].indexOf(media.media.type) > -1;
@@ -161,7 +167,12 @@ class MediaExpandedComponent extends Component {
           {embedCard}
         </CardContent>
         <CardActions>
-          <MediaExpandedActions data={data} {...this.props} media={media} />
+          <MediaExpandedActions
+            onTimelineCommentOpen={onTimelineCommentOpen}
+            onVideoAnnoToggle={onVideoAnnoToggle}
+            showVideoAnnotation={showVideoAnnotation}
+            projectMedia={media}
+          />
         </CardActions>
       </React.Fragment>
     );
@@ -211,6 +222,7 @@ const MediaExpandedContainer = Relay.createContainer(withPusher(MediaExpandedCom
         dynamic_annotation_language {
           id
         }
+        ${MediaExpandedActions.getFragment('projectMedia')}
         ${MediaExpandedArchives.getFragment('projectMedia')}
         ${MediaExpandedMetadata.getFragment('projectMedia')}
         relationships {
@@ -265,16 +277,6 @@ const MediaExpandedContainer = Relay.createContainer(withPusher(MediaExpandedCom
                   identifier
                 }
               }
-            }
-          }
-        }
-        tags(first: 10000) {
-          edges {
-            node {
-              id
-              tag
-              tag_text
-              fragment
             }
           }
         }

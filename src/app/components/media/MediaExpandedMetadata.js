@@ -6,14 +6,22 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
+function shouldDisplayMetrics(metrics) {
+  return metrics &&
+    (metrics.share_count !== 0 ||
+     metrics.reaction_count !== 0 ||
+     metrics.comment_count !== 0 ||
+     metrics.comment_plugin_count !== 0
+    );
+}
 
 const MediaExpandedMetadata = ({ projectMedia }) => {
-  const metrics = projectMedia.metrics ?
-    projectMedia.metrics.data.fields[0].value_json.facebook : null;
+  const metrics = projectMedia.media.metadata.metrics ?
+    projectMedia.media.metadata.metrics.facebook : null;
 
   const { published_at } = projectMedia.media.metadata;
 
-  if (!metrics && !published_at) { return null; }
+  if (!shouldDisplayMetrics(metrics) && !published_at) { return null; }
 
   return (
     <Box marginTop={2} marginBottom={2}>
@@ -26,7 +34,7 @@ const MediaExpandedMetadata = ({ projectMedia }) => {
             <div><FormattedDate value={published_at} day="numeric" month="long" year="numeric" /></div>
           </Grid>
         ) : null }
-        { metrics ? (
+        { shouldDisplayMetrics(metrics) ? (
           <React.Fragment>
             <Grid item xs={2}>
               <Typography variant="button" component="div">

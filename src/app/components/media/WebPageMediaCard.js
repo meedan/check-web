@@ -44,7 +44,7 @@ class WebPageMediaCard extends Component {
               <span className="web-page-media-card__error">
                 <FormattedMessage
                   id="webPageMediaCard.Error"
-                  defaultMessage="This item could not be identified. It may have been removed, or may only be visible to users who are logged in. Click below to open it."
+                  defaultMessage="This item could not be identified. It may have been removed, or may only be visible to users who are logged in. Click above to open it."
                 />
               </span> : null
             }

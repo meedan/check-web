@@ -88,37 +88,40 @@ export default function RulesTable(props) {
               rowCount={rows.length}
             />
             <TableBody>
-              {rows.map((row, index) => {
-                const isItemSelected = isSelected(index);
-                const labelId = `rules-table-checkbox-${index}`;
-                const { name } = row;
-                const date = new Date(row.updated_at * 1000);
+              {rows
+                .sort((a, b) => (a.name.localeCompare(b.name)))
+                .map((row) => {
+                  const { name, index } = row;
+                  const isItemSelected = isSelected(index);
+                  const labelId = `rules-table-checkbox-${index}`;
+                  const date = new Date(row.updated_at * 1000);
 
-                return (
-                  <TableRow
-                    hover
-                    className={classes.tableRow}
-                    onClick={() => { handleClick(index); }}
-                    key={row.index}
-                  >
-                    <TableCell padding="checkbox">
-                      <Checkbox
-                        checked={isItemSelected}
-                        onClick={(event) => { handleChange(event, index); }}
-                        inputProps={{ 'aria-labelledby': labelId }}
-                      />
-                    </TableCell>
-                    <TableCell component="th" id={labelId} scope="row">
-                      {name}
-                    </TableCell>
-                    <TableCell>
-                      <time dateTime={date.toISOString()}>
-                        <FormattedRelative value={date} />
-                      </time>
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
+                  return (
+                    <TableRow
+                      hover
+                      className={classes.tableRow}
+                      onClick={() => { handleClick(index); }}
+                      key={row.index}
+                    >
+                      <TableCell padding="checkbox">
+                        <Checkbox
+                          checked={isItemSelected}
+                          onClick={(event) => { handleChange(event, index); }}
+                          inputProps={{ 'aria-labelledby': labelId }}
+                        />
+                      </TableCell>
+                      <TableCell component="th" id={labelId} scope="row">
+                        {name}
+                      </TableCell>
+                      <TableCell>
+                        <time dateTime={date.toISOString()}>
+                          <FormattedRelative value={date} />
+                        </time>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })
+              }
             </TableBody>
           </Table>
         </TableContainer>

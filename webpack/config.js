@@ -79,8 +79,6 @@ module.exports = {
         level: NODE_ENV === 'production' ? zlib.Z_BEST_COMPRESSION : zlib.Z_NO_COMPRESSION,
       },
       test: /\.js$|\.css$|\.html$/,
-      threshold: 5000,
-      minRatio: 0.8
     }),
   ],
   resolve: {
