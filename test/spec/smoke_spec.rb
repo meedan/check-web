@@ -1,11 +1,13 @@
 require_relative './spec_helper.rb'
 require_relative './app_spec_helpers.rb'
 require_relative './api_helpers.rb'
+require_relative './login_spec_helpers.rb'
 
 shared_examples 'smoke' do
 
   include AppSpecHelpers
   include ApiHelpers
+  include LoginSpecHelpers
 
 #media items section start
   it "should create new medias using links from Facebook, Twitter, Youtube, Instagram and Tiktok", bin2: true do
@@ -157,9 +159,8 @@ shared_examples 'smoke' do
     api_create_team
     @driver.navigate.to @config['self_url']
     project_name = "Project #{Time.now}"
-    project_pg = TeamPage.new(config: @config, driver: @driver).create_project(name: project_name)
-    # create_project(project_name)
-    expect(project_pg.driver.current_url.to_s.match(/\/project\/[0-9]+$/).nil?).to be(false)
+    create_project(project_name)
+    expect(@driver.current_url.to_s.match(/\/project\/[0-9]+$/).nil?).to be(false)
     wait_for_selector('.team-header__drawer-team-link').click
     element = wait_for_selector('.team__project-title')
     expect(element.text == project_name).to be(true)
@@ -167,18 +168,18 @@ shared_examples 'smoke' do
 
   it "should edit project", bin4: true do
     api_create_team_and_project
-    project_pg = ProjectPage.new(config: @config, driver: @driver).load
+    @driver.navigate.to @config['self_url']
     new_title = "Changed title #{Time.now.to_i}"
     new_description = "Set description #{Time.now.to_i}"
-    expect(project_pg.contains_string?(new_title)).to be(false)
-    expect(project_pg.contains_string?(new_description)).to be(false)
+    expect(@driver.page_source.include?(new_title)).to be(false)
+    expect(@driver.page_source.include?(new_description)).to be(false)
     #7204 edit title and description separately
-    project_pg.edit(title: new_title, description: "")
+    edit_project(title: new_title, description: "")
     expect(@driver.page_source.include?(new_title)).to be(true)
     expect(@driver.page_source.include?(new_description)).to be(false)
     wait_for_selector('.project-actions', :css)
     #7204 edit title and description separately
-    project_pg.edit(description: new_description)
+    edit_project(description: new_description)
     expect(@driver.page_source.include?(new_title)).to be(true)
     expect(@driver.page_source.include?(new_description)).to be(true)
   end
@@ -350,7 +351,6 @@ shared_examples 'smoke' do
     wait_for_selector("#user__avatars")
     expect(@driver.page_source.include?('Assigned to')).to be(true)
   end
-
 #team section end
 
 #related items section start
@@ -779,9 +779,9 @@ shared_examples 'smoke' do
     team = request_api 'team', { name: 'Team 2', email: user.email, slug: "team-2-#{rand(9999)}#{Time.now.to_i}" }
     request_api 'project', { title: 'Team 2 Project', team_id: team.dbid }
 
-    page = MePage.new(config: @config, driver: @driver).load
+    @driver.navigate.to(@config['self_url'] + '/check/me')
     wait_for_selector(".source__primary-info")
-    page.select_team(name: 'Team 1')
+    select_team(name: 'Team 1')
 
     team_name = wait_for_selector('.team__name').text
     expect(team_name).to eq('Team 1')
@@ -790,7 +790,7 @@ shared_examples 'smoke' do
 
     @driver.navigate.to(@config['self_url'] + '/check/me')
     wait_for_selector(".source__primary-info")
-    page.select_team(name: 'Team 2')
+    select_team(name: 'Team 2')
 
     wait_for_selector(".team__primary-info")
     team_name = wait_for_selector('.team__name').text
@@ -800,8 +800,7 @@ shared_examples 'smoke' do
 
     #As a different user, request to join one team and be accepted.
     user = api_register_and_login_with_email(email: "new"+@user_mail, password: @password)
-    page = MePage.new(config: @config, driver: @driver).load
-    page.ask_join_team(subdomain: @team1_slug)
+    ask_join_team(subdomain: @team1_slug)
     @wait.until {
       expect(@driver.find_element(:class, "message").nil?).to be(false)
     }
@@ -809,13 +808,9 @@ shared_examples 'smoke' do
     @driver.quit
 
     @driver = new_driver()
-    page = Page.new(config: @config, driver: @driver)
-    page.go(@config['api_path'] + '/test/session?email='+@user_mail)
-
     #As the group creator, go to the members page and approve the joining request.
-    page = MePage.new(config: @config, driver: @driver).load
-    page.go(@config['self_url'] + '/check/me')
-    page.approve_join_team(subdomain: @team1_slug)
+    @driver.navigate.to(@config['api_path'] + '/test/session?email='+@user_mail)
+    approve_join_team(subdomain: @team1_slug)
     count = 0
     elems = @driver.find_elements(:css => ".team-members__member")
     while elems.size <= 1 && count < 15
@@ -830,21 +825,16 @@ shared_examples 'smoke' do
     el = wait_for_selector('input[name="role-select"]', index: 1)
     expect(el.property('value')).to eq 'journalist'
 
-    # "should redirect to team page if user asking to join a team is already a member"
-    page = Page.new(config: @config, driver: @driver)
-    page.go(@config['api_path'] + '/test/session?email=new'+@user_mail)
-    #page = MePage.new(config: @config, driver: @driver).load
+    # # "should redirect to team page if user asking to join a team is already a member"
     @driver.navigate.to @config['self_url'] + "/"+@team1_slug+"/join"
-
     wait_for_selector('.team__primary-info')
     @wait.until {
       expect(@driver.current_url.eql? @config['self_url']+"/"+@team1_slug ).to be(true)
     }
 
-    # "should reject member to join team"
-    user = api_register_and_login_with_email
-    page = MePage.new(config: @config, driver: @driver).load
-    page.ask_join_team(subdomain: @team1_slug)
+    # # "should reject member to join team"
+    api_register_and_login_with_email
+    ask_join_team(subdomain: @team1_slug)
     @wait.until {
       expect(@driver.find_element(:class, "message").nil?).to be(false)
     }
@@ -852,21 +842,13 @@ shared_examples 'smoke' do
     @driver.quit
 
     @driver = new_driver()
-    page = Page.new(config: @config, driver: @driver)
-    page.go(@config['api_path'] + '/test/session?email='+@user_mail)
-    page = MePage.new(config: @config, driver: @driver).load
-        .disapprove_join_team(subdomain: @team1_slug)
-    count = 0
-    while @driver.page_source.include?('Requests to join') && count < 15
-      sleep 5
-      count += 1
-    end
+    @driver.navigate.to(@config['api_path'] + '/test/session?email='+@user_mail)
+    disapprove_join_team(subdomain: @team1_slug)
+    @driver.navigate.refresh
+    wait_for_selector(".team-header__drawer-team-link")
     expect(@driver.page_source.include?('Requests to join')).to be(false)
 
-    # "should delete member from team"
-    page = Page.new(config: @config, driver: @driver)
-    page.go(@config['api_path'] + '/test/session?email='+@user_mail)
-    page = MePage.new(config: @config, driver: @driver).load
+    # # "should delete member from team"
     @driver.navigate.to @config['self_url'] + '/'+@team1_slug
     wait_for_selector('.team-members__member')
     wait_for_selector('.team-members__edit-button').click
@@ -897,20 +879,16 @@ shared_examples 'smoke' do
     api_logout
     #As a different user, request to join one team and be accepted.
     user2 = api_register_and_login_with_email(email: "new"+@user_mail, password: @password)
-    page = MePage.new(config: @config, driver: @driver).load
-    page.ask_join_team(subdomain: @team1_slug)
+    ask_join_team(subdomain: @team1_slug)
     @wait.until {
       expect(@driver.find_element(:class, "message").nil?).to be(false)
     }
     api_logout
     @driver.quit
     @driver = new_driver()
-    page = Page.new(config: @config, driver: @driver)
-    page.go(@config['api_path'] + '/test/session?email='+@user_mail)
+    @driver.navigate.to(@config['api_path'] + '/test/session?email='+@user_mail)
     #As the group creator, go to the members page and approve the joining request.
-    page = MePage.new(config: @config, driver: @driver).load
-    page.go(@config['self_url'] + '/check/me')
-    page.approve_join_team(subdomain: @team1_slug)
+    approve_join_team(subdomain: @team1_slug)
     count = 0
     elems = @driver.find_elements(:css => ".team-members__member")
     while elems.size <= 1 && count < 15
@@ -930,29 +908,19 @@ shared_examples 'smoke' do
     wait_for_selector_list_size(".medias__item", 1)
     expect(@driver.page_source.include?('one item')).to be(true)
 
-    # "should redirect to team page if user asking to join a team is already a member"
-    page = Page.new(config: @config, driver: @driver)
-    page.go(@config['api_path'] + '/test/session?email=new'+@user_mail)
-    #page = MePage.new(config: @config, driver: @driver).load
-    @driver.navigate.to @config['self_url'] + "/"+@team1_slug+"/join"
-    wait_for_selector('.team__primary-info')
-    @wait.until {
-      expect(@driver.current_url.eql? @config['self_url']+"/"+@team1_slug ).to be(true)
-    }
     #As a different user, request to join one team
     user3 = api_register_and_login_with_email(email: "one_more"+@user_mail, password: @password)
-    page = MePage.new(config: @config, driver: @driver).load
-    page.ask_join_team(subdomain: @team1_slug)
+    ask_join_team(subdomain: @team1_slug)
     @wait.until {
       expect(@driver.find_element(:class, "message").nil?).to be(false)
     }
     api_logout
     @driver.quit
-    #As the journalist, go to the members page and can't see the request to join the another user
+    #log in as  the journalist
     @driver = new_driver()
-    page = Page.new(config: @config, driver: @driver)
-    page.go(@config['api_path'] + '/test/session?email=new'+@user_mail)
-    page = MePage.new(config: @config, driver: @driver).load
+    @driver.navigate.to(@config['api_path'] + '/test/session?email=new'+@user_mail)
+
+    #go to the members page and can't see the request to join the another user
     @driver.navigate.to @config['self_url'] + "/"+@team1_slug
     wait_for_selector(".create-project-card")
     expect(@driver.page_source.include?('Requests to join')).to be(false)
@@ -987,11 +955,11 @@ shared_examples 'smoke' do
     api_logout
     @driver.quit
 
-    #As the group creator, go to the members page and edit team member role to 'contribuitor'
+    #log in as the group creator
     @driver = new_driver()
-    page = Page.new(config: @config, driver: @driver)
-    page.go(@config['api_path'] + '/test/session?email='+@user_mail)
-    page = MePage.new(config: @config, driver: @driver).load
+    @driver.navigate.to(@config['api_path'] + '/test/session?email='+@user_mail)
+
+    # go to the members page and edit team member role to 'contribuitor'
     @driver.navigate.to @config['self_url'] + "/"+@team1_slug
     #edit team member role
     change_the_member_role_to('li.role-contributor')
@@ -1003,12 +971,10 @@ shared_examples 'smoke' do
 
     #log in as the contributor
     @driver = new_driver()
-    page = Page.new(config: @config, driver: @driver)
-    page.go(@config['api_path'] + '/test/session?email=new'+@user_mail)
-    page = MePage.new(config: @config, driver: @driver).load
-    @driver.navigate.to @config['self_url'] + "/"+@team1_slug
-
+    @driver.navigate.to(@config['api_path'] + '/test/session?email=new'+@user_mail)
+    
     #can't see the link 'edit member roles'
+    @driver.navigate.to @config['self_url'] + "/"+@team1_slug
     expect(@driver.find_elements(:css, ".team-members__edit-button").size).to eq 0
 
     #can't see the link 'create a new list'
@@ -1052,9 +1018,6 @@ shared_examples 'smoke' do
 
     # Select an action
     wait_for_selector('.rules__actions .rules__rule-field button + button').click
-    # https://mantis.meedan.com/view.php?id=8463 clicking the select field
-    # doesn't open it. So let's click the select field again. FIXME fix #8463,
-    # then nix this line.
     wait_for_selector('.rules__actions .rules__rule-field button + button').click
     wait_for_selector('ul[role=listbox] li[data-option-index="2"]').click
     expect(@driver.page_source.include?('Select destination list')).to be(true)
@@ -1269,8 +1232,6 @@ shared_examples 'smoke' do
     data = api_create_team_and_project
     project_id = data[:project].dbid.to_s
     claim = request_api 'claim', { quote: 'Claim', email: data[:user].email, team_id: data[:team].dbid, project_id: project_id }
-    sleep 2
-    MediaPage.new(config: @config, driver: @driver)
     @driver.navigate.to @config['self_url'] + '/' + data[:team].slug + '/all-items/%7B"projects"%3A%5B' + project_id + '%5D%7D'
     wait_for_selector(".search__results-heading")
     expect(@driver.page_source.include?('My search result')).to be(false)
