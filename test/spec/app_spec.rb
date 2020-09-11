@@ -43,7 +43,7 @@ shared_examples 'app' do |webdriver_url|
   end
 
   before :each do |example|
-    $caller_name = example.metadata[:description_args]  # for Page#go()
+    $caller_name = example.metadata[:description_args]
   end
 
   around(:each) do |example|
