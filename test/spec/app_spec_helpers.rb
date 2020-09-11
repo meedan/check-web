@@ -286,15 +286,6 @@ module AppSpecHelpers
     wait_for_selector_none(".media-status__menu-item")
   end
 
-  def change_the_member_role_to(rule_class)
-    wait_for_selector('.team-members__edit-button', :css).click
-    wait_for_selector('.role-select', :css, 29, index: 1).click
-    wait_for_selector(rule_class).click
-    wait_for_selector('#confirm-dialog__checkbox').click
-    wait_for_selector('#confirm-dialog__confirm-action-button').click
-    wait_for_selector('.team-members__edit-button', :css).click
-  end
-
   def add_image_note(image_file)
     wait_for_selector("textarea")
     wait_for_selector(".task__log-icon > svg").click
@@ -335,6 +326,14 @@ module AppSpecHelpers
     wait_for_selector_none("//span[contains(text(), 'Cancel')]", :xpath)
   end
 
+  def create_project(project_name)
+    wait_for_selector(".team")
+    name = project_name || "Project #{Time.now.to_i}"
+    wait_for_selector('.create-project-card input[name="title"]').send_keys(name)
+    wait_for_selector('.create-project-card button[type="submit"]').click
+    wait_for_selector('.project')
+  end
+
   def select_team(options)
     wait_for_selector("#teams-tab").click
     wait_for_selector("//*[contains(text(), '#{options[:name]}')]", :xpath).click
@@ -343,14 +342,6 @@ module AppSpecHelpers
     wait_for_selector(".team-header__drawer-team-link").click
     wait_for_selector(".team__primary-info")
     wait_for_selector('.team')
-  end
-
-  def create_project(project_name)
-    wait_for_selector(".team")
-    name = project_name || "Project #{Time.now.to_i}"
-    wait_for_selector('.create-project-card input[name="title"]').send_keys(name)
-    wait_for_selector('.create-project-card button[type="submit"]').click
-    wait_for_selector('.project')
   end
 
   def ask_join_team(options = {})
@@ -373,5 +364,28 @@ module AppSpecHelpers
     wait_for_selector('button.team-member-requests__user-button--deny').click
     wait_for_selector_none('.team-member-requests__user-button--approve')
   end
-  
+
+  def change_the_member_role_to(rule_class)
+    wait_for_selector('.team-members__edit-button', :css).click
+    wait_for_selector('.role-select', :css, 29, index: 1).click
+    wait_for_selector(rule_class).click
+    wait_for_selector('#confirm-dialog__checkbox').click
+    wait_for_selector('#confirm-dialog__confirm-action-button').click
+    wait_for_selector('.team-members__edit-button', :css).click
+  end
+
+  def add_tag(tag_name)
+    wait_for_selector(".tag-menu__icon").click
+    fill_field('#tag-input__tag-input', tag_name)
+    @driver.action.send_keys(:enter).perform
+    wait_for_selector(".tag-menu__done").click
+    wait_for_selector_none("#tag-input__tag-input")
+  end
+
+  def delete_tag(tag_name)
+    wait_for_selector(".tag-menu__icon").click
+    wait_for_selector("#tag-input__tag-input")
+    wait_for_selector("input[type=checkbox]").click
+    wait_for_selector(".tag-menu__done").click
+  end
 end

@@ -78,7 +78,7 @@ module ApiHelpers
       sleep 1
     end
     if project_id_was == 0
-      @driver.navigate.to @config['self_url'] + '/' + data[:team].slug + 'project/' + project_id.to_s
+      @driver.navigate.to @config['self_url'] + '/' + data[:team].slug + '/project/' + project_id.to_s
     else
       @driver.navigate.to @config['self_url'] + '/' + data[:team].slug + '/all-items'
       return nil
