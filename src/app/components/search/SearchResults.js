@@ -318,6 +318,19 @@ class SearchResultsComponent extends React.PureComponent {
 
     const isProject = !!this.props.project;
 
+    const smoochBotInstalled = (
+      team
+      && team.team_bot_installations
+      && team.team_bot_installations.edges.some(edge => edge.node.team_bot.identifier === 'smooch')
+    );
+
+    const sortParams = query.sort ? {
+      key: query.sort,
+      ascending: query.sort_type !== 'DESC',
+    } : {
+      key: smoochBotInstalled ? 'last_seen' : 'recent_added',
+      ascending: false,
+    };
 
     const selectedProjectMediaProjectIds = [];
     const selectedProjectMediaDbids = [];
@@ -343,13 +356,7 @@ class SearchResultsComponent extends React.PureComponent {
           projectMedias={projectMedias}
           team={team}
           selectedIds={selectedProjectMediaIds}
-          sortParams={query.sort ? {
-            key: query.sort,
-            ascending: query.sort_type !== 'DESC',
-          } : {
-            key: 'recent_activity',
-            ascending: false,
-          }}
+          sortParams={sortParams}
           onChangeSelectedIds={this.handleChangeSelectedIds}
           onChangeSortParams={this.handleChangeSortParams}
           buildProjectMediaUrl={this.buildProjectMediaUrl}
