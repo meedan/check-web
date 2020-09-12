@@ -126,6 +126,7 @@ shared_examples 'media' do |type|
     expect(@driver.page_source.include?('verified')).to be(true)
     expect(@driver.page_source.include?('Related Claim')).to be(false)
     press_button('.create-related-media__add-button')
+    wait_for_selector('#create-media-dialog__tab-new').click
     wait_for_selector('#create-media__quote').click
     wait_for_selector("#create-media-quote-input")
     fill_field('#create-media-quote-input', 'Related Claim')

@@ -18,6 +18,7 @@ import WebPageMediaCard from './WebPageMediaCard';
 import ImageMediaCard from './ImageMediaCard';
 import MediaPlayerCard from './MediaPlayerCard';
 import PenderCard from '../PenderCard';
+import BlankMediaCard from './BlankMediaCard';
 import { truncateLength, getCurrentProjectId } from '../../helpers';
 import CheckContext from '../../CheckContext';
 import { withPusher, pusherShape } from '../../pusher';
@@ -98,6 +99,7 @@ class MediaExpandedComponent extends Component {
       filePath = media.media.url;
     }
     const isQuote = media.media.type === 'Claim';
+    const isBlank = media.media.type === 'Blank';
     const isWebPage = media.media.url && data.provider === 'page';
     const isPender = media.media.url && data.provider !== 'page';
     const randomNumber = Math.floor(Math.random() * 1000000);
@@ -148,6 +150,17 @@ class MediaExpandedComponent extends Component {
 
       return null;
     })();
+
+    if (isBlank) {
+      return (
+        <CardContent>
+          <BlankMediaCard
+            projectMediaId={media.id}
+            team={media.team}
+          />
+        </CardContent>
+      );
+    }
 
     return (
       <React.Fragment>

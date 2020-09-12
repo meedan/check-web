@@ -493,6 +493,7 @@ shared_examples 'app' do |webdriver_url|
       wait_for_selector('.media-detail')
       wait_for_selector('.create-related-media__add-button')
       press_button('.create-related-media__add-button')
+      wait_for_selector('#create-media-dialog__tab-new').click
       wait_for_selector('#create-media__quote').click
       wait_for_selector('#create-media-quote-input')
       fill_field('#create-media-quote-input', 'Secondary Item')

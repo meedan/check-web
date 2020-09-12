@@ -359,6 +359,7 @@ shared_examples 'smoke' do
     wait_for_selector(".media-detail")
     expect(@driver.page_source.include?('Main Item')).to be(false)
     press_button('.create-related-media__add-button')
+    wait_for_selector('#create-media-dialog__tab-new').click
     wait_for_selector('#create-media__quote').click
     wait_for_selector("#create-media-quote-input")
     fill_field('#create-media-quote-input', 'Main Item')
@@ -381,6 +382,7 @@ shared_examples 'smoke' do
     wait_for_selector(".media-detail")
     #add a related image
     wait_for_selector('.create-related-media__add-button').click
+    wait_for_selector('#create-media-dialog__tab-new').click
     wait_for_selector('#create-media__image').click
     wait_for_selector('input[type=file]').send_keys(File.join(File.dirname(__FILE__), 'test.png'))
     wait_for_selector('#create-media-dialog__submit-button').click
@@ -408,6 +410,7 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('Claim Related')).to be(false)
     press_button('.create-related-media__add-button')
     #add a related link
+    wait_for_selector('#create-media-dialog__tab-new').click
     wait_for_selector('#create-media__link').click
     wait_for_selector("#create-media-input")
     fill_field('#create-media-input', 'https://twitter.com/meedan/status/1167366036791943168')
@@ -444,6 +447,7 @@ shared_examples 'smoke' do
     wait_for_selector(".media-status__current--in-progress")
     expect(@driver.page_source.include?('Claim Related')).to be(false)
     press_button('.create-related-media__add-button')
+    wait_for_selector('#create-media-dialog__tab-new').click
     wait_for_selector('#create-media__quote').click
     wait_for_selector("#create-media-quote-input")
     fill_field('#create-media-quote-input', 'Claim Related')
