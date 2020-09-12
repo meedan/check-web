@@ -1,11 +1,13 @@
 require_relative './spec_helper.rb'
 require_relative './app_spec_helpers.rb'
 require_relative './api_helpers.rb'
+require_relative './login_spec_helpers.rb'
 
 shared_examples 'login' do
 
   include AppSpecHelpers
   include ApiHelpers
+  include LoginSpecHelpers
 
   it "should sign up using e-mail", bin2: true do
     @driver.navigate.to @config['self_url']
@@ -86,6 +88,20 @@ shared_examples 'login' do
     wait_for_selector("#password-reset-email-input-helper-text")
     expect(@driver.page_source.include?('email was not found')).to be(true)
     expect(@driver.page_source.include?('Password reset sent')).to be(false)
+  end
+
+  it "should redirect to login page if not logged in and team is private", bin4: true do
+    t = api_create_team(private: true, user: OpenStruct.new(email: 'anonymous@test.test'))
+    @driver.navigate.to @config['self_url'] + '/' + t.slug + '/all-items'
+    wait_for_selector('.login__form')
+    expect(@driver.page_source.include?('Sign in')).to be(true)
+  end
+
+  it "should logout", bin5: true do
+    api_create_team_and_project
+    @driver.navigate.to @config['self_url']
+    logout
+    expect(@driver.page_source.include?('Sign in')).to be(true)
   end
 
   it "should reset password", bin5: true do

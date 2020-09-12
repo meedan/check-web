@@ -41,14 +41,14 @@ shared_examples 'media' do |type|
   end
 
   it "should add a tag, reject duplicated and delete tag", bin3: true, quick: true  do
-    page = create_media_depending_on_type
+    create_media_depending_on_type
     wait_for_selector(".media-detail")
     new_tag = 'tag:'+Time.now.to_i.to_s
     # Validate assumption that tag does not exist
-    expect(page.has_tag?(new_tag)).to be(false)
+    expect(@driver.page_source.include?(new_tag)).to be(false)
     # Add tag
-    page.add_tag(new_tag)
-    expect(page.has_tag?(new_tag)).to be(true)
+    add_tag(new_tag)
+    @wait.until { (@driver.page_source.include?(new_tag)) }
     # Try to add duplicate
     wait_for_selector(".tag-menu__icon").click
     fill_field('#tag-input__tag-input', new_tag)
@@ -56,14 +56,16 @@ shared_examples 'media' do |type|
     @wait.until { (@driver.page_source.include?('Tag already exists')) }
     wait_for_selector(".tag-menu__done").click
     # Verify that tag is not added and that error message is displayed
-    expect(page.tags.count(new_tag)).to be(1)
-    page.delete_tag(new_tag)
-    expect(page.has_tag?(new_tag)).to be(false)
+    wait_for_selector_none("#tag-input__tag-input")
+    expect(@driver.find_elements(:class, "media-tags__tag").length).to eq 1
+    delete_tag(new_tag)
+    wait_for_selector_none(".media-tags__tag")
+    expect(@driver.find_elements(:class, "media-tags__tag").length).to eq 0
   end
 
   it "should go from one item to another", bin2: true do
-    page = create_media_depending_on_type(nil, 3)
-    page.load unless page.nil?
+    create_media_depending_on_type(nil, 3)
+    wait_for_selector(".projects__list")
     wait_for_selector(".medias__item")
     wait_for_selector('.media__heading a').click
     wait_for_selector('.media-search__actions-bar')
