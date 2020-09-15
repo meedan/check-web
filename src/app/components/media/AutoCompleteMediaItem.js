@@ -143,7 +143,12 @@ function AutoCompleteMediaItem(props, context) {
         if (props.onlyPublished) {
           items = items.filter(isPublished);
         }
-        items = items.map(({ title, dbid, id }) => ({ text: title, value: dbid, id }));
+        items = items.map(item => ({
+          text: item.title,
+          value: item.dbid,
+          id: item.id,
+          isPublished: isPublished(item),
+        }));
         setSearchResult({ loading: false, items, error: null });
       } catch (err) {
         // TODO nix catch-all error handler for errors we've likely never seen

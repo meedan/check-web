@@ -7,7 +7,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import EditTitleAndDescriptionDialog from './EditTitleAndDescriptionDialog';
 import { can } from '../Can';
 
 class MediaActionsMenuButton extends React.PureComponent {
@@ -32,19 +31,10 @@ class MediaActionsMenuButton extends React.PureComponent {
 
   state = {
     anchorEl: null,
-    isEditTitleAndDescriptionDialogOpen: false,
   };
 
   handleOpenMenu = (e) => {
     this.setState({ anchorEl: e.currentTarget });
-  };
-
-  handleOpenEditTitleAndDescriptionDialog = () => {
-    this.setState({ isEditTitleAndDescriptionDialogOpen: true, anchorEl: null });
-  };
-
-  handleCloseEditTitleAndDescriptionDialog = () => {
-    this.setState({ isEditTitleAndDescriptionDialogOpen: false });
   };
 
   handleCloseMenu = () => {
@@ -67,25 +57,7 @@ class MediaActionsMenuButton extends React.PureComponent {
       handleAssign,
       handleStatusLock,
     } = this.props;
-    const {
-      isEditTitleAndDescriptionDialogOpen,
-    } = this.state;
     const menuItems = [];
-
-    if (can(projectMedia.permissions, 'update ProjectMedia') && !projectMedia.archived) {
-      menuItems.push((
-        <MenuItem
-          key="mediaActions.edit"
-          className="media-actions__edit"
-          onClick={this.handleOpenEditTitleAndDescriptionDialog}
-        >
-          <ListItemText
-            primary={
-              <FormattedMessage id="mediaActions.edit" defaultMessage="Edit title and description" />
-            }
-          />
-        </MenuItem>));
-    }
 
     if (can(projectMedia.permissions, 'update ProjectMedia') && !projectMedia.archived) {
       if (projectMedia.media.url) {
@@ -178,11 +150,6 @@ class MediaActionsMenuButton extends React.PureComponent {
         >
           {menuItems}
         </Menu>
-        <EditTitleAndDescriptionDialog
-          open={isEditTitleAndDescriptionDialogOpen}
-          projectMedia={projectMedia}
-          onClose={this.handleCloseEditTitleAndDescriptionDialog}
-        />
       </div>
     ) : null;
   }
@@ -200,7 +167,6 @@ export default createFragmentContainer(MediaActionsMenuButton, {
       last_status_obj {
         locked
       }
-      ...EditTitleAndDescriptionDialog_projectMedia
     }
   `,
 });

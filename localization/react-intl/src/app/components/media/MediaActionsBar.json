@@ -24,8 +24,12 @@
     "defaultMessage": "Done"
   },
   {
-    "id": "mediaActionsBar.reportDesigner",
-    "defaultMessage": "Report"
+    "id": "mediaActionsBar.publishedReport",
+    "defaultMessage": "Published report"
+  },
+  {
+    "id": "mediaActionsBar.unpublishedReport",
+    "defaultMessage": "Unpublished report"
   },
   {
     "id": "mediaActionsBar.assignDialogHeader",

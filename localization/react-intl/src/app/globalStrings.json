@@ -36,6 +36,10 @@
     "defaultMessage": "Submit"
   },
   {
+    "id": "global.submitting",
+    "defaultMessage": "Submitting..."
+  },
+  {
     "id": "global.tags",
     "defaultMessage": "Tags"
   },

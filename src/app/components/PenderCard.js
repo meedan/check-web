@@ -18,6 +18,7 @@ const PenderCardContainer = styled.div`
     z-index: 1;
     left: 0;
     right: 0;
+    width: 100%;
   }
 `;
 

@@ -1,9 +1,5 @@
 [
   {
-    "id": "mediaActions.edit",
-    "defaultMessage": "Edit title and description"
-  },
-  {
     "id": "mediaActions.refresh",
     "defaultMessage": "Refresh"
   },
