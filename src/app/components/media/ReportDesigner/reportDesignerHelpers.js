@@ -8,7 +8,7 @@ export function defaultOptions(media, language) {
     language,
     team.get_language,
   );
-  const teamUrl = team.contacts.edges[0] ?
+  const teamUrl = team.contacts && team.contacts.edges[0] ?
     team.contacts.edges[0].node.web :
     window.location.href.match(/https?:\/\/[^/]+\/[^/]+/)[0];
   const default_reports = team.get_report || {};
@@ -17,11 +17,12 @@ export function defaultOptions(media, language) {
     language,
     use_disclaimer: !!default_report.use_disclaimer,
     disclaimer: default_report.disclaimer || '',
-    use_introduction: !!default_report.use_introduction,
+    use_introduction: true,
     introduction: default_report.introduction || '',
     use_visual_card: false,
     image: (media.media && media.media.picture) ? media.media.picture : '',
-    use_text_message: false,
+    use_text_message: true,
+    title: '',
     text: '',
     headline: media.title ? media.title.substring(0, 85) : '',
     description: media.description ? media.description.substring(0, 240) : '',

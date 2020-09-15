@@ -9,19 +9,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
   }
 
   getFatQuery() {
-    if (this.props.metadata) {
-      return Relay.QL`
-        fragment on UpdateProjectMediaPayload {
-          project_media {
-            id,
-            overridden,
-            metadata,
-            title,
-            description,
-          }
-        }
-      `;
-    }
     return Relay.QL`
       fragment on UpdateProjectMediaPayload {
         project_mediaEdge,
@@ -35,8 +22,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
           demand
           requests_count
           linked_items_count
-          overridden,
-          metadata,
           dbid,
           log,
           log_count,
@@ -75,26 +60,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
   }
 
   getOptimisticResponse() {
-    if (this.props.metadata) {
-      const newEmbed = JSON.parse(this.props.metadata);
-      const embed = { ...this.props.media.metadata, newEmbed };
-      const permissions = JSON.parse(this.props.media.permissions);
-      permissions['update Dynamic'] = false;
-      const overridden = { ...this.props.media.overridden };
-      Object.keys(newEmbed).forEach((attribute) => {
-        overridden[attribute] = true;
-      });
-      return {
-        project_media: {
-          id: this.props.media.id,
-          title: embed.title,
-          description: embed.description,
-          metadata: JSON.stringify(embed),
-          overridden: JSON.stringify(overridden),
-          permissions: JSON.stringify(permissions),
-        },
-      };
-    }
     if (this.props.related_to_id && this.props.obj) {
       return optimisticProjectMedia(
         this.props.obj.text,
@@ -163,7 +128,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
   getVariables() {
     const vars = {
       id: this.props.id,
-      metadata: this.props.metadata,
       related_to_id: this.props.related_to_id,
       refresh_media: this.props.refresh_media,
       update_mt: this.props.update_mt,
@@ -335,8 +299,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
     media: () => Relay.QL`
       fragment on ProjectMedia {
         id
-        metadata
-        overridden
         permissions
       }
     `,

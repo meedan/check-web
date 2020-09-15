@@ -318,10 +318,15 @@ class MediaActionsBarComponent extends Component {
               className={classes.spacedButton}
               startIcon={<IconReport />}
             >
-              <FormattedMessage
-                id="mediaActionsBar.reportDesigner"
-                defaultMessage="Report"
-              />
+              { published ?
+                <FormattedMessage
+                  id="mediaActionsBar.publishedReport"
+                  defaultMessage="Published report"
+                /> :
+                <FormattedMessage
+                  id="mediaActionsBar.unpublishedReport"
+                  defaultMessage="Unpublished report"
+                /> }
             </Button>
           </div> : <div />}
 
@@ -408,8 +413,6 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
         demand
         description
         permissions
-        metadata
-        overridden
         url
         quote
         archived

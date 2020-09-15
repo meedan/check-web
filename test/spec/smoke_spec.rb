@@ -391,8 +391,7 @@ shared_examples 'smoke' do
     cards = wait_for_selector_list(".card").length
     expect(cards == 2).to be(true)
     wait_for_selector('.media-actions__icon').click
-    wait_for_selector('.media-actions__edit')
-    #delet the main item
+    #delete the main item
     wait_for_selector(".media-actions__send-to-trash").click
     wait_for_selector(".message").click
     wait_for_selector_none(".message")
@@ -1385,7 +1384,8 @@ shared_examples 'smoke' do
     #add a note
     wait_for_selector("button[data-testid=new-comment-thread-button]").click
     wait_for_selector("#comment").send_keys("my note")
-    wait_for_selector("//span[contains(text(), 'Save')]", :xpath).click
+    @driver.execute_script("window.scrollTo(0, document.body.scrollHeight)")
+    wait_for_selector("//button/span[contains(text(), 'Save')]", :xpath).click
     wait_for_selector(".MuiAvatar-img")
     expect(@driver.find_elements(:class, "MuiAvatar-img").size).to eq 1
     wait_for_selector(".MuiIconButton-sizeSmall").click #close timeline button
@@ -1398,7 +1398,7 @@ shared_examples 'smoke' do
     wait_for_selector(".MuiAvatar-img").click
     #add a new note
     wait_for_selector("#comment").send_keys("new note")
-    wait_for_selector("//span[contains(text(), 'Save')]", :xpath).click
+    wait_for_selector("//button/span[contains(text(), 'Save')]", :xpath).click
     wait_for_selector("//p[contains(text(), 'new note')]", :xpath)
     #delet note
     wait_for_selector("button[aria-label='Delete thread']").click

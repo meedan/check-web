@@ -90,7 +90,7 @@ class MediaExpandedComponent extends Component {
       showVideoAnnotation,
     } = this.props;
 
-    const data = typeof media.metadata === 'string' ? JSON.parse(media.metadata) : media.metadata;
+    const data = typeof media.media.metadata === 'string' ? JSON.parse(media.media.metadata) : media.media.metadata;
     const isImage = media.media.type === 'UploadedImage';
     const isMedia = ['UploadedVideo', 'UploadedAudio'].indexOf(media.media.type) > -1;
     const isYoutube = media.media.url && media.domain === 'youtube.com';
@@ -162,16 +162,21 @@ class MediaExpandedComponent extends Component {
       );
     }
 
+    const fileTitle = media.media.file_path ? media.media.file_path.split('/').pop().replace(/\..*$/, '') : null;
+    const title = media.media.metadata.title || media.media.quote || fileTitle || media.title;
+    const { description } = media.media.metadata;
+
     return (
       <React.Fragment>
         <CardHeader
-          title={truncateLength(media.title || media.media.metadata.description, 110)}
+          className="media-expanded__title"
+          title={truncateLength(title, 110)}
         />
         <CardContent style={{ padding: `0 ${units(2)}` }}>
           <MediaExpandedSecondRow projectMedia={media} />
           <MoreLess>
             <Typography variant="body2">
-              <ParsedText text={media.description || media.media.metadata.description} />
+              <ParsedText text={description} />
             </Typography>
           </MoreLess>
           <MediaExpandedUrl url={media.media.url} />
@@ -217,17 +222,15 @@ const MediaExpandedContainer = Relay.createContainer(withPusher(MediaExpandedCom
       fragment on ProjectMedia {
         id
         dbid
-        metadata
         permissions
         domain
         created_at
         last_seen
         share_count
         requests_count
+        picture
         title
         description
-        picture
-        overridden
         language_code
         language
         project_ids

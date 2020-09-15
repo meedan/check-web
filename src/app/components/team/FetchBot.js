@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 
 const FetchBot = () => {
   const handleOpenForm = () => {
-    window.open('https://airtable.com/shrRtHDE2J18vJ9zR');
+    window.open('https://airtable.com/shrlr5jDk7z6bvE5W');
   };
 
   return (

@@ -17,7 +17,6 @@ const ReportDesignerContainer = Relay.createContainer(ReportDesignerComponent, {
         archived
         permissions
         oembed_metadata
-        metadata
         title
         demand
         description

@@ -287,15 +287,12 @@ shared_examples 'app' do |webdriver_url|
     it "should refresh media", bin1: true do
       api_create_team_project_and_link_and_redirect_to_media_page 'http://ca.ios.ba/files/meedan/random.php'
       wait_for_selector(".media-detail")
-      title1 = @driver.title
+      title1 = wait_for_selector('.media-expanded__title span').text
       expect((title1 =~ /Random/).nil?).to be(false)
       wait_for_selector('.media-actions__icon').click
-      wait_for_selector(".media-actions__edit")
-      @driver.find_element(:css, '.media-actions__refresh').click
-      wait_for_selector_none(".media-actions__edit")
-      wait_for_text_change(title1,"title", :css)
-      @wait.until { (@driver.title != title1) }
-      title2 = @driver.title
+      wait_for_selector('.media-actions__refresh').click
+      wait_for_text_change(title1, '.media-expanded__title span', :css)
+      title2 = wait_for_selector('.media-expanded__title span').text
       expect((title2 =~ /Random/).nil?).to be(false)
       expect(title1 != title2).to be(true)
     end
@@ -468,19 +465,6 @@ shared_examples 'app' do |webdriver_url|
       @driver.navigate.to(@config['self_url'] + '/check/me')
       wait_for_selector('#teams-tab')
       wait_for_selector('.projects__list a[href$="/all-items"]')
-    end
-
-    it "should be able to edit only the title of an item", bin4: true do
-      api_create_team_project_and_claim_and_redirect_to_media_page
-      expect(@driver.page_source.include?('New Title')).to be(false)
-      wait_for_selector('.media-actions__icon').click
-      wait_for_selector('.media-actions__edit').click
-      fill_field('#media-detail__title-input', 'New Title')
-      wait_for_selector('.media-detail__save-edits').click
-      wait_for_selector_none('.media-detail__save-edits')
-      @driver.navigate.refresh
-      wait_for_selector('.media-actions__icon')
-      expect(@driver.page_source.include?('New Title')).to be(true)
     end
 
     def edit_project(options)

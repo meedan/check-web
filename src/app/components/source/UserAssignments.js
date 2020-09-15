@@ -22,7 +22,6 @@ import IconImageUpload from '@material-ui/icons/CloudUpload';
 import BlankState from '../layout/BlankState';
 import FilterPopup from '../layout/FilterPopup';
 import TeamSelect from '../team/TeamSelect';
-import MediaTitle from '../media/MediaTitle';
 import UserRoute from '../../relay/UserRoute';
 import CheckContext from '../../CheckContext';
 import { units, AlignOpposite } from '../../styles/js/shared';
@@ -181,7 +180,7 @@ class UserAssignmentsComponent extends Component {
                     {icons[assignment.report_type]}
                   </ListItemIcon>
                   <ListItemText>
-                    <MediaTitle projectMedia={assignment} data={assignment.metadata} />
+                    {assignment.title}
                   </ListItemText>
                 </ListItem>
               ))}
@@ -204,7 +203,7 @@ class UserAssignmentsComponent extends Component {
                   {icons[assignment.report_type]}
                 </ListItemIcon>
                 <ListItemText>
-                  <MediaTitle projectMedia={assignment} data={assignment.metadata} />
+                  {assignment.title}
                 </ListItemText>
               </ListItem>
             ))}
@@ -246,15 +245,13 @@ const UserAssignmentsContainer = Relay.createContainer(injectIntl(UserAssignment
           edges {
             node {
               id
-              ${MediaTitle.getFragment('projectMedia')}
               dbid
-              metadata
+              title
               media {
                 metadata
                 embed_path
                 quote
               }
-              overridden
               project_ids
               report_type
               team {
