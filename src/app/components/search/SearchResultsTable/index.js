@@ -16,6 +16,7 @@ import UpdatedCell from './UpdatedCell';
 import DemandCell from './DemandCell';
 import ShareCountCell from './ShareCountCell';
 import LinkedItemsCountCell from './LinkedItemsCountCell';
+import { isBotInstalled } from '../../../helpers';
 
 const AllPossibleColumns = [
   {
@@ -84,15 +85,9 @@ const AllPossibleColumns = [
 ];
 
 function buildColumnDefs(team) {
-  const smoochBotInstalled = (
-    team
-    && team.team_bot_installations
-    && team.team_bot_installations.edges.some(edge => edge.node.team_bot.identifier === 'smooch')
-  );
-
   return AllPossibleColumns
     // "demand" and "last_seen" only appear if smooch bot is installed
-    .filter(({ onlyIfSmoochBotEnabled }) => onlyIfSmoochBotEnabled ? smoochBotInstalled : true);
+    .filter(({ onlyIfSmoochBotEnabled }) => onlyIfSmoochBotEnabled ? isBotInstalled(team, 'smooch') : true);
 }
 
 /**

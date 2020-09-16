@@ -23,7 +23,7 @@ import CheckContext from '../../CheckContext';
 import globalStrings from '../../globalStrings';
 import { withSetFlashMessage } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
-import { getErrorMessage } from '../../helpers';
+import { getErrorMessage, isBotInstalled } from '../../helpers';
 
 const Styles = theme => ({
   root: {
@@ -242,15 +242,6 @@ class MediaActionsBarComponent extends Component {
   render() {
     const { classes, media } = this.props;
     const { project_media_project: projectMediaProject } = media;
-
-    let smoochBotInstalled = false;
-    if (media.team && media.team.team_bot_installations) {
-      media.team.team_bot_installations.edges.forEach((edge) => {
-        if (edge.node.team_bot.identifier === 'smooch') {
-          smoochBotInstalled = true;
-        }
-      });
-    }
     let isChild = false;
     let isParent = false;
     if (media.relationship) {
@@ -260,7 +251,7 @@ class MediaActionsBarComponent extends Component {
         isParent = true;
       }
     }
-    const readonlyStatus = smoochBotInstalled && isChild && !isParent;
+    const readonlyStatus = isBotInstalled(media.team, 'smooch') && isChild && !isParent;
     const published = (media.dynamic_annotation_report_design && media.dynamic_annotation_report_design.data && media.dynamic_annotation_report_design.data.state === 'published');
 
     const assignments = media.last_status_obj.assignments.edges;

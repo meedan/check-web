@@ -17,6 +17,7 @@ import ProjectBlankState from '../project/ProjectBlankState';
 import { black87, headline, units, Row } from '../../styles/js/shared';
 import SearchResultsTable from './SearchResultsTable';
 import SearchRoute from '../../relay/SearchRoute';
+import { isBotInstalled } from '../../helpers';
 
 // TODO Make this a config
 const pageSize = 20;
@@ -317,18 +318,11 @@ class SearchResultsComponent extends React.PureComponent {
     const selectedProjectMediaIds = this.state.selectedProjectMediaIds.filter(isIdInSearchResults);
 
     const isProject = !!this.props.project;
-
-    const smoochBotInstalled = (
-      team
-      && team.team_bot_installations
-      && team.team_bot_installations.edges.some(edge => edge.node.team_bot.identifier === 'smooch')
-    );
-
     const sortParams = query.sort ? {
       key: query.sort,
       ascending: query.sort_type !== 'DESC',
     } : {
-      key: smoochBotInstalled ? 'last_seen' : 'recent_added',
+      key: isBotInstalled(team, 'smooch') ? 'last_seen' : 'recent_added',
       ascending: false,
     };
 
