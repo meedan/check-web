@@ -437,7 +437,9 @@ shared_examples 'smoke' do
     wait_for_selector("//div[contains(text(), 'Smooch')]", :xpath)
     wait_for_selector(".team__project").click
     wait_for_selector("#search__open-dialog-button")
-    create_media("Claim")
+    create_media("Claim", false)
+    sleep 10 # Wait for ElasticSearch
+    @driver.navigate.refresh
     wait_for_selector(".medias__item")
     wait_for_selector(".media__heading a").click
     wait_for_selector(".create-related-media__add-button")

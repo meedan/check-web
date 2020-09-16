@@ -144,12 +144,12 @@ module AppSpecHelpers
     @driver.manage.logs.get("browser").pretty_inspect
   end
 
-  def create_media(url)
+  def create_media(url, wait_for_creation = true)
     wait_for_selector("#create-media__add-item").click
     fill_field('#create-media-input', url)
     press_button('#create-media-dialog__submit-button')
     wait_for_selector_none("#create-media-input")
-    wait_for_selector(".media__heading a")
+    wait_for_selector(".media__heading a") if wait_for_creation
   end
 
   def create_image(file)
