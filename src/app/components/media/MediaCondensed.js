@@ -17,7 +17,12 @@ import MediaRoute from '../../relay/MediaRoute';
 import CheckContext from '../../CheckContext';
 import DeleteRelationshipMutation from '../../relay/mutations/DeleteRelationshipMutation';
 import UpdateRelationshipMutation from '../../relay/mutations/UpdateRelationshipMutation';
-import { truncateLength, parseStringUnixTimestamp, getCurrentProjectId } from '../../helpers';
+import {
+  getCurrentProjectId,
+  isBotInstalled,
+  parseStringUnixTimestamp,
+  truncateLength,
+} from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 import { black87 } from '../../styles/js/shared';
 
@@ -114,16 +119,6 @@ class MediaCondensedComponent extends Component {
 
     const cachedMedia = this.props.cachedMedia || {};
     const media = Object.assign(cachedMedia, this.props.media);
-
-    let smoochBotInstalled = false;
-    if (media.team && media.team.team_bot_installations) {
-      media.team.team_bot_installations.edges.forEach((edge) => {
-        if (edge.node.team_bot.identifier === 'smooch') {
-          smoochBotInstalled = true;
-        }
-      });
-    }
-
     const { mediaUrl } = this.props;
 
     return (
@@ -139,7 +134,7 @@ class MediaCondensedComponent extends Component {
             <p>
               <Link to={mediaUrl}>
                 <span><MediaTypeDisplayName mediaType={media.type} /></span>
-                { smoochBotInstalled ?
+                { isBotInstalled(media.team, 'smooch') ?
                   <span>
                     <span style={{ margin: '0 8px' }}> - </span>
                     <span>

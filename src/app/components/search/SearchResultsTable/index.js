@@ -10,11 +10,13 @@ import SearchResultsTableRow from './SearchResultsTableRow';
 import TitleCell from './TitleCell';
 import TypeCell from './TypeCell';
 import StatusCell from './StatusCell';
-import FirstSeenCell from './FirstSeenCell';
-import LastSeenCell from './LastSeenCell';
+import SubmittedCell from './SubmittedCell';
+import LastSubmittedCell from './LastSubmittedCell';
+import UpdatedCell from './UpdatedCell';
 import DemandCell from './DemandCell';
 import ShareCountCell from './ShareCountCell';
 import LinkedItemsCountCell from './LinkedItemsCountCell';
+import { isBotInstalled } from '../../../helpers';
 
 const AllPossibleColumns = [
   {
@@ -60,31 +62,32 @@ const AllPossibleColumns = [
   },
   {
     field: 'created_at',
-    headerText: <FormattedMessage id="list.FirstSeen" defaultMessage="First seen" />,
-    cellComponent: FirstSeenCell,
+    headerText: <FormattedMessage id="list.FirstSeen" defaultMessage="Submitted" />,
+    cellComponent: SubmittedCell,
     sortKey: 'recent_added',
     width: '1px',
   },
   {
     field: 'last_seen',
-    headerText: <FormattedMessage id="list.LastSeen" defaultMessage="Last seen" />,
+    headerText: <FormattedMessage id="list.LastSeen" defaultMessage="Last submitted" />,
     onlyIfSmoochBotEnabled: true,
     sortKey: 'last_seen',
-    cellComponent: LastSeenCell,
+    cellComponent: LastSubmittedCell,
+    width: '1px',
+  },
+  {
+    field: 'recent_activity',
+    headerText: <FormattedMessage id="list.updated" defaultMessage="Updated" />,
+    sortKey: 'recent_activity',
+    cellComponent: UpdatedCell,
     width: '1px',
   },
 ];
 
 function buildColumnDefs(team) {
-  const smoochBotInstalled = (
-    team
-    && team.team_bot_installations
-    && team.team_bot_installations.edges.some(edge => edge.node.team_bot.identifier === 'smooch')
-  );
-
   return AllPossibleColumns
     // "demand" and "last_seen" only appear if smooch bot is installed
-    .filter(({ onlyIfSmoochBotEnabled }) => onlyIfSmoochBotEnabled ? smoochBotInstalled : true);
+    .filter(({ onlyIfSmoochBotEnabled }) => onlyIfSmoochBotEnabled ? isBotInstalled(team, 'smooch') : true);
 }
 
 /**
