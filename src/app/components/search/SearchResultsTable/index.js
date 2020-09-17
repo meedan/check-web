@@ -29,8 +29,8 @@ const AllPossibleColumns = [
     headerText: <FormattedMessage id="list.Demand" defaultMessage="Requests" />,
     onlyIfSmoochBotEnabled: true,
     cellComponent: DemandCell,
+    align: 'center',
     sortKey: 'demand',
-    width: '1px', // "width: 1px" means, "consume the minimum width to fit the contents"
   },
   {
     field: 'share_count',
@@ -38,7 +38,6 @@ const AllPossibleColumns = [
     cellComponent: ShareCountCell,
     align: 'center',
     sortKey: 'share_count',
-    width: '1px',
   },
   {
     field: 'linked_items_count',
@@ -46,26 +45,22 @@ const AllPossibleColumns = [
     cellComponent: LinkedItemsCountCell,
     align: 'center',
     sortKey: 'related',
-    width: '1px',
   },
   {
     field: 'type',
     headerText: <FormattedMessage id="list.Type" defaultMessage="Type" />,
     cellComponent: TypeCell,
-    width: '1px',
   },
   {
     field: 'status',
     headerText: <FormattedMessage id="list.Status" defaultMessage="Status" />,
     cellComponent: StatusCell,
-    width: '1px',
   },
   {
     field: 'created_at',
     headerText: <FormattedMessage id="list.FirstSeen" defaultMessage="Submitted" />,
     cellComponent: SubmittedCell,
     sortKey: 'recent_added',
-    width: '1px',
   },
   {
     field: 'last_seen',
@@ -73,14 +68,12 @@ const AllPossibleColumns = [
     onlyIfSmoochBotEnabled: true,
     sortKey: 'last_seen',
     cellComponent: LastSubmittedCell,
-    width: '1px',
   },
   {
     field: 'recent_activity',
     headerText: <FormattedMessage id="list.updated" defaultMessage="Updated" />,
     sortKey: 'recent_activity',
     cellComponent: UpdatedCell,
-    width: '1px',
   },
 ];
 
@@ -96,12 +89,11 @@ function buildColumnDefs(team) {
  * This implies a parent must manage scrolling. Our design is: <html> shows
  * scrollbars; and the table's sticky header appears here.
  */
-const TableContainerWithoutScrollbars = withStyles(theme => ({
+const TableContainerWithoutScrollbars = withStyles({
   root: {
     overflow: 'visible',
-    paddingLeft: theme.spacing(2),
   },
-}))(TableContainer);
+})(TableContainer);
 
 export default function SearchResultsTable({
   team,
