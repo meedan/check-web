@@ -181,7 +181,7 @@ function AutoCompleteMediaItem(props, context) {
       getOptionLabel={option => option.text}
       loading={searchResult ? searchResult.loading : false}
       loadingText={
-        <FormattedMessage id="autoCompleteMediaItem.searching" defaultMessage="Searching..." />
+        <FormattedMessage id="autoCompleteMediaItem.searching" defaultMessage="Searching…" />
       }
       noOptionsText={searchResult && searchResult.error ? (
         <FormattedMessage

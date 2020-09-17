@@ -200,7 +200,7 @@ const MediaAnalysis = ({ projectMedia }) => {
             { saving ?
               <FormattedMessage
                 id="mediaAnalysis.saving"
-                defaultMessage="Saving..."
+                defaultMessage="Saving…"
               /> : null }
             { !saving && !error ?
               <FormattedMessage
@@ -223,7 +223,7 @@ const MediaAnalysis = ({ projectMedia }) => {
         <Box>
           <Button onClick={handleConfirmCopyToReport} variant="contained" color="primary" disabled={saving || copying || !canCopy}>
             { copying ?
-              <FormattedMessage id="mediaAnalysis.copying" defaultMessage="Copying..." /> :
+              <FormattedMessage id="mediaAnalysis.copying" defaultMessage="Copying…" /> :
               <FormattedMessage id="mediaAnalysis.copyToReport" defaultMessage="Copy to report" /> }
           </Button>
         </Box>
