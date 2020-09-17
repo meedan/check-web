@@ -286,10 +286,7 @@ class HomeComponent extends Component {
                 {...this.props}
               />
               <FlashMessage />
-              <StyledContent
-                inMediaPage={routeSlug === 'media'}
-                className="content-wrapper"
-              >
+              <StyledContent className="content-wrapper">
                 {children}
               </StyledContent>
             </Main>
