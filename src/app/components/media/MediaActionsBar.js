@@ -9,14 +9,13 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import { withStyles } from '@material-ui/core/styles';
-import IconReport from '@material-ui/icons/Receipt';
+import IconReport from '@material-ui/icons/PlaylistAddCheck';
 import MediaStatus from './MediaStatus';
 import MediaRoute from '../../relay/MediaRoute';
 import MediaActionsMenuButton from './MediaActionsMenuButton';
 import Attribution from '../task/Attribution';
 import AddProjectMediaToProjectAction from './AddProjectMediaToProjectAction';
 import MoveProjectMediaToProjectAction from './MoveProjectMediaToProjectAction';
-import RemoveProjectMediaFromProjectAction from './RemoveProjectMediaFromProjectAction';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
 import UpdateStatusMutation from '../../relay/mutations/UpdateStatusMutation';
 import CheckContext from '../../CheckContext';
@@ -293,15 +292,6 @@ class MediaActionsBarComponent extends Component {
               />
             ) : null}
 
-            { projectMediaProject ? (
-              <RemoveProjectMediaFromProjectAction
-                team={this.props.media.team}
-                project={projectMediaProject.project}
-                projectMedia={this.props.media}
-                className={classes.spacedButton}
-              />
-            ) : null}
-
             <Button
               onClick={MediaActionsBarComponent.handleReportDesigner}
               id="media-detail__report-designer"
@@ -396,7 +386,6 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
         id
         ${AddProjectMediaToProjectAction.getFragment('projectMedia')}
         ${MoveProjectMediaToProjectAction.getFragment('projectMedia')}
-        ${RemoveProjectMediaFromProjectAction.getFragment('projectMedia')}
         ${MediaActionsMenuButton.getFragment('projectMedia')}
         dbid
         project_ids
@@ -417,7 +406,6 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
           project {
             id
             ${MoveProjectMediaToProjectAction.getFragment('project')}
-            ${RemoveProjectMediaFromProjectAction.getFragment('project')}
             dbid
             title
             search_id
@@ -455,7 +443,6 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
         team {
           ${AddProjectMediaToProjectAction.getFragment('team')}
           ${MoveProjectMediaToProjectAction.getFragment('team')}
-          ${RemoveProjectMediaFromProjectAction.getFragment('team')}
           id
           dbid
           slug

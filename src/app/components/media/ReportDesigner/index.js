@@ -76,6 +76,7 @@ const ReportDesigner = (props) => {
       Component={ReportDesignerContainer}
       route={route}
       renderFetched={data => <ReportDesignerContainer {...props} {...data} />}
+      forceFetch
     />
   );
 };

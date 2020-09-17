@@ -757,19 +757,6 @@ shared_examples 'smoke' do
     wait_for_selector(".media__heading")
     expect(@driver.page_source.include?("Claim")).to be(true)
   end
-
-  it "should remove item from list", bin2: true do
-    api_create_team_project_and_claim_and_redirect_to_media_page
-    wait_for_selector(".media")
-    wait_for_selector(".project-header__back-button").click
-    expect(@driver.page_source.include?("Add a link or text")).to be(false)
-    wait_for_selector_list_size(".medias__item",1)
-    wait_for_selector("body input[type='checkbox']:not(:checked)").click
-    wait_for_selector("#media-bulk-actions__remove-from-list").click #remove_button
-    wait_for_selector_none(".media")
-    expect(@driver.find_elements(:css, '.medias__item').length == 0 )
-    expect(@driver.page_source.include?("Add a link or text")).to be(true)
-  end
 #Bulk Actions section end
 
 #Permissions section start
