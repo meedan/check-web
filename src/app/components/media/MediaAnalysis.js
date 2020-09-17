@@ -248,13 +248,18 @@ const MediaAnalysis = ({ projectMedia }) => {
         </Box>
         <Box display="flex" className={classes.box}>
           <TextField
+            inputProps={{ maxLength: 760 }}
             label={
-              <FormattedMessage id="mediaAnalysis.content" defaultMessage="Content" />
+              <FormattedMessage
+                id="mediaAnalysis.content"
+                defaultMessage="Content ({max} characters max)"
+                values={{ max: 760 }}
+              />
             }
             defaultValue={getValue('content') || getDefaultValue('description')}
             placeholder={getDefaultValue('description')}
             variant="outlined"
-            rows={6}
+            rows={12}
             onBlur={(e) => { handleChange('content', e.target.value); }}
             disabled={!canEdit}
             multiline
@@ -264,7 +269,7 @@ const MediaAnalysis = ({ projectMedia }) => {
         <Box display="flex" className={classes.box}>
           <TextField
             label={
-              <FormattedMessage id="mediaAnalysis.publishedArticle" defaultMessage="Published article" />
+              <FormattedMessage id="mediaAnalysis.publishedArticle" defaultMessage="Published article URL" />
             }
             defaultValue={getValue('published_article_url')}
             variant="outlined"
@@ -284,6 +289,7 @@ const MediaAnalysis = ({ projectMedia }) => {
             value={getValue('date_published') ? new Date(parseInt(getValue('date_published'), 10) * 1000) : new Date()}
             inputVariant="outlined"
             disabled={!canEdit}
+            format="MMMM DD, YYYY"
             onChange={(date) => { handleChange('date_published', date.unix()); }}
           />
         </Box>

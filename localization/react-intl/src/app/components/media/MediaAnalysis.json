@@ -29,11 +29,11 @@
   },
   {
     "id": "mediaAnalysis.content",
-    "defaultMessage": "Content"
+    "defaultMessage": "Content ({max} characters max)"
   },
   {
     "id": "mediaAnalysis.publishedArticle",
-    "defaultMessage": "Published article"
+    "defaultMessage": "Published article URL"
   },
   {
     "id": "mediaAnalysis.date",
