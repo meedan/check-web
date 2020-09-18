@@ -81,7 +81,7 @@ class MediaComponent extends Component {
     const { team_bots: teamBots } = props.media.team;
     const enabledBots = teamBots.edges.map(b => b.node.login);
     const showRequests = (enabledBots.indexOf('smooch') > -1 || props.media.requests_count > 0);
-    const showTab = showRequests ? 'requests' : 'tasks';
+    const showTab = showRequests ? 'requests' : 'metadata';
 
     // https://www.w3.org/TR/media-frags/
     const { t: temporalInterval = '', id: instanceId } = qs.parse(document.location.hash.substring(1));
@@ -361,7 +361,7 @@ class MediaComponent extends Component {
               />
             </Tabs>
             { this.state.showTab === 'requests' ? <MediaRequests media={media} /> : null }
-            { this.state.showTab === 'metadata' ? <MediaTasks media={media} fieldset="metadata" /> : null }
+            { this.state.showTab === 'metadata' ? <MediaTasks media={media} fieldset="metadata" onTimelineCommentOpen={this.onTimelineCommentOpen} /> : null }
             { this.state.showTab === 'tasks' ? <MediaTasks media={media} fieldset="tasks" /> : null }
             { this.state.showTab === 'notes' ? <MediaComments media={media} onTimelineCommentOpen={this.onTimelineCommentOpen} /> : null }
             { this.state.showTab === 'activity' ? <MediaLog media={media} /> : null }

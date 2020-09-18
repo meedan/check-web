@@ -47,6 +47,7 @@ shared_examples 'task' do
     wait_for_selector('.media-detail')
 
     # Create a task
+    wait_for_selector('.media-tab__tasks').click
     expect(@driver.page_source.include?("Task 1")).to be (false)
     create_task(task_type_class:".create-task__add-short-answer",task_name:"Task 1")
     expect(@driver.page_source.include?("Task 1")).to be (true)
@@ -127,6 +128,7 @@ shared_examples 'task' do
     wait_for_selector('.media-detail')
 
     # Create a task
+    wait_for_selector('.media-tab__tasks').click
     expect(@driver.page_source.include?('Foo or bar?')).to be(false)
     create_task(task_type_class:".create-task__add-short-answer",task_name:"Foo or bar?")
     wait_for_selector('.task-type__free_text')
@@ -157,6 +159,7 @@ shared_examples 'task' do
     wait_for_selector('.media-detail')
 
     # Create a task
+    wait_for_selector('.media-tab__tasks').click
     expect(@driver.page_source.include?('Foo or bar?')).to be(false)
     create_task(task_type_class:".create-task__add-choose-one",task_name:"Foo or bar?", value1: "Foo" , value2: 'Bar' )
     wait_for_selector('.task-type__single_choice')
@@ -185,6 +188,7 @@ shared_examples 'task' do
     wait_for_selector('.media-detail')
     # Create a task
     expect(@driver.page_source.include?('Foo, Doo or Bar?')).to be(false)
+    wait_for_selector('.media-tab__tasks').click
     create_task(task_type_class:".create-task__add-choose-multiple",task_name:"Foo, Doo or Bar?", value1: "Foo" , value2: 'Bar',add_options: true, value3:"Doo" )
     expect(@driver.page_source.include?('Foo, Doo or Bar?')).to be(true)
 
