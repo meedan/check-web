@@ -15,6 +15,7 @@ import ConfirmDialog from '../layout/ConfirmDialog';
 import { parseStringUnixTimestamp } from '../../helpers';
 import { propsToData, formatDate } from './ReportDesigner/reportDesignerHelpers';
 import { can } from '../Can';
+import { opaqueBlack54 } from '../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   saved: {
@@ -32,6 +33,9 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
   },
+  placeholder: {
+    color: opaqueBlack54,
+  },
 }));
 
 const MediaAnalysis = ({ projectMedia }) => {
@@ -39,6 +43,7 @@ const MediaAnalysis = ({ projectMedia }) => {
   const [error, setError] = React.useState(false);
   const [saving, setSaving] = React.useState(false);
   const [copying, setCopying] = React.useState(false);
+  const [editing, setEditing] = React.useState(false);
   const [showConfirmationDialog, setShowConfirmationDialog] = React.useState(false);
 
   const analysis = projectMedia.last_status_obj;
@@ -63,9 +68,27 @@ const MediaAnalysis = ({ projectMedia }) => {
     return fieldValue;
   };
 
+  const [title, setTitle] = React.useState(getValue('title') || getDefaultValue('title'));
+  const [content, setContent] = React.useState(getValue('content') || getDefaultValue('description'));
+
+  const handleFocus = () => {
+    if (!editing) {
+      setEditing(true);
+    }
+  };
+
+  const handleChangeTitle = (e) => {
+    setTitle(e.target.value);
+  };
+
+  const handleChangeContent = (e) => {
+    setContent(e.target.value);
+  };
+
   const canEdit = can(projectMedia.permissions, 'update Status');
 
   const handleChange = (field, value) => {
+    setEditing(false);
     if (value !== getValue(field) && canEdit) {
       setSaving(true);
       const fields = {};
@@ -221,7 +244,7 @@ const MediaAnalysis = ({ projectMedia }) => {
           </Typography>
         </Box>
         <Box>
-          <Button onClick={handleConfirmCopyToReport} variant="contained" color="primary" disabled={saving || copying || !canCopy}>
+          <Button onClick={handleConfirmCopyToReport} variant="contained" color="primary" disabled={saving || copying || !canCopy || editing}>
             { copying ?
               <FormattedMessage id="mediaAnalysis.copying" defaultMessage="Copying…" /> :
               <FormattedMessage id="mediaAnalysis.copyToReport" defaultMessage="Copy to report" /> }
@@ -236,11 +259,15 @@ const MediaAnalysis = ({ projectMedia }) => {
             label={
               <FormattedMessage id="mediaAnalysis.title" defaultMessage="Title" />
             }
-            defaultValue={getValue('title') || getDefaultValue('title')}
-            placeholder={getDefaultValue('title')}
+            inputProps={{
+              className: title === getDefaultValue('title') ? classes.placeholder : null,
+            }}
+            value={title}
             variant="outlined"
             rows={3}
             onBlur={(e) => { handleChange('title', e.target.value); }}
+            onFocus={handleFocus}
+            onChange={handleChangeTitle}
             disabled={!canEdit}
             multiline
             fullWidth
@@ -248,7 +275,10 @@ const MediaAnalysis = ({ projectMedia }) => {
         </Box>
         <Box display="flex" className={classes.box}>
           <TextField
-            inputProps={{ maxLength: 760 }}
+            inputProps={{
+              maxLength: 760,
+              className: content === getDefaultValue('description') ? classes.placeholder : null,
+            }}
             label={
               <FormattedMessage
                 id="mediaAnalysis.content"
@@ -256,11 +286,12 @@ const MediaAnalysis = ({ projectMedia }) => {
                 values={{ max: 760 }}
               />
             }
-            defaultValue={getValue('content') || getDefaultValue('description')}
-            placeholder={getDefaultValue('description')}
+            value={content}
             variant="outlined"
             rows={12}
             onBlur={(e) => { handleChange('content', e.target.value); }}
+            onFocus={handleFocus}
+            onChange={handleChangeContent}
             disabled={!canEdit}
             multiline
             fullWidth
@@ -274,6 +305,7 @@ const MediaAnalysis = ({ projectMedia }) => {
             defaultValue={getValue('published_article_url')}
             variant="outlined"
             onBlur={(e) => { handleChange('published_article_url', e.target.value); }}
+            onFocus={handleFocus}
             disabled={!canEdit}
             fullWidth
           />

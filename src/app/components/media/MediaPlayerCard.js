@@ -11,7 +11,11 @@ import { units } from '../../styles/js/shared';
 
 const useStyles = makeStyles({
   input: {
-    maxHeight: '36px',
+    maxHeight: 30,
+    '@media (max-width: 1300px)': {
+      maxWidth: 65,
+      overflow: 'hidden',
+    },
   },
 });
 
@@ -50,11 +54,11 @@ const MediaPlayerCard = (props) => {
       </AspectRatio>
       <Box marginTop={units(2)} position="absolute" right={0}>
         <Select
+          size="small"
           id="video-media-card__playback-rate"
           input={<OutlinedInput className={classes.input} />}
           value={playbackRate}
           onChange={e => setplaybackRate(e.target.value)}
-          variant="outlined"
         >
           <MenuItem value={0.25}>0.25x</MenuItem>
           <MenuItem value={0.5}>0.5x</MenuItem>

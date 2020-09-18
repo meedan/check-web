@@ -44,6 +44,7 @@ const ExtraMediaActions = ({
     <div>
       { allowsVideoAnnotation ?
         <Button
+          size="small"
           classes={classes}
           color="primary"
           disabled={showVideoAnnotation}
@@ -59,6 +60,7 @@ const ExtraMediaActions = ({
         : null }
       { allowsReverseSearch ?
         <Button
+          size="small"
           classes={classes}
           onClick={reverseImageSearchGoogle}
           variant="outlined"

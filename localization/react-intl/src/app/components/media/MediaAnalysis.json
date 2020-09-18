@@ -5,7 +5,7 @@
   },
   {
     "id": "mediaAnalysis.saving",
-    "defaultMessage": "Saving..."
+    "defaultMessage": "Saving…"
   },
   {
     "id": "mediaAnalysis.saved",
@@ -17,7 +17,7 @@
   },
   {
     "id": "mediaAnalysis.copying",
-    "defaultMessage": "Copying..."
+    "defaultMessage": "Copying…"
   },
   {
     "id": "mediaAnalysis.copyToReport",

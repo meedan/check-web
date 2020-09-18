@@ -32,13 +32,6 @@ const Styles = theme => ({
     alignItems: 'center',
     padding: '0 16px',
     justifyContent: 'space-between',
-    [theme.breakpoints.up(1500)]: {
-      top: 0,
-      right: 0,
-      width: '50%',
-      position: 'absolute',
-      zIndex: 2,
-    },
   },
   spacedButton: {
     marginRight: theme.spacing(1),

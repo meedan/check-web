@@ -56,10 +56,6 @@ const Column = styled.div`
   padding: ${units(2)};
   height: calc(100vh - 100px);
   overflow: auto;
-
-  @media(max-width: 1499px) {
-    height: calc(100vh - 155px);
-  }
 `;
 
 const StyledTab = withStyles(theme => ({

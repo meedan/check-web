@@ -80,7 +80,11 @@ function AutoCompleteMediaItem(props, context) {
         return;
       }
 
-      const encodedQuery = JSON.stringify(JSON.stringify({ keyword: searchText, eslimit: 30 }));
+      const encodedQuery = JSON.stringify(JSON.stringify({
+        keyword: searchText,
+        show: ['claims', 'links', 'images', 'videos', 'audios'],
+        eslimit: 30,
+      }));
       const params = {
         body: JSON.stringify({
           query: `
@@ -174,6 +178,7 @@ function AutoCompleteMediaItem(props, context) {
 
   return (
     <Autocomplete
+      blurOnSelect
       id="autocomplete-media-item"
       name="autocomplete-media-item"
       options={(searchResult && searchResult.items) ? searchResult.items : []}
