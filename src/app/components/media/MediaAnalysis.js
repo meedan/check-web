@@ -132,7 +132,7 @@ const MediaAnalysis = ({ projectMedia }) => {
     setShowConfirmationDialog(false);
   };
 
-  const canCopy = can(projectMedia.permissions, 'create Dynamic') && getValue('title') && getValue('content');
+  const canCopy = can(projectMedia.permissions, 'create Dynamic');
   const published = (projectMedia.report && projectMedia.report.data && projectMedia.report.data.state === 'published');
 
   const handleCopyToReport = () => {
@@ -146,15 +146,17 @@ const MediaAnalysis = ({ projectMedia }) => {
         dynamic_annotation_report_design: projectMedia.report,
       },
     };
+    const headline = getValue('title') || getDefaultValue('title') || '';
+    const description = getValue('content') || getDefaultValue('description') || '';
     const fields = propsToData(props, language);
     fields.state = 'paused';
     fields.options.forEach((option, i) => {
       if (fields.options[i].language === language) {
         fields.options[i].use_text_message = true;
-        fields.options[i].headline = getValue('title').substring(0, 85);
-        fields.options[i].description = getValue('content').substring(0, 240);
-        fields.options[i].title = getValue('title');
-        fields.options[i].text = `${getValue('content')}\n\n${getValue('published_article_url') || ''}`;
+        fields.options[i].headline = headline.substring(0, 85);
+        fields.options[i].description = description.substring(0, 240);
+        fields.options[i].title = headline;
+        fields.options[i].text = `${description}\n\n${getValue('published_article_url') || ''}`;
         fields.options[i].date = getValue('date_published') ? formatDate(new Date(parseInt(getValue('date_published'), 10) * 1000), language) : formatDate(new Date(), language);
       }
     });

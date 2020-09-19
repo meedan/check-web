@@ -13,15 +13,16 @@ export function defaultOptions(media, language) {
     window.location.href.match(/https?:\/\/[^/]+\/[^/]+/)[0];
   const default_reports = team.get_report || {};
   const default_report = default_reports[language] || {};
+  const isDefaultLanguage = (language === team.get_language);
   return {
     language,
     use_disclaimer: !!default_report.use_disclaimer,
     disclaimer: default_report.disclaimer || '',
-    use_introduction: true,
+    use_introduction: isDefaultLanguage,
     introduction: default_report.introduction || '',
     use_visual_card: false,
     image: (media.media && media.media.picture) ? media.media.picture : '',
-    use_text_message: true,
+    use_text_message: isDefaultLanguage,
     title: '',
     text: '',
     headline: media.title ? media.title.substring(0, 85) : '',
