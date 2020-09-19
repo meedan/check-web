@@ -18,6 +18,10 @@ const messages = defineMessages({
     id: 'languagePickerDialog.optionLabel',
     defaultMessage: '{languageName} ({languageCode})',
   },
+  unknownLanguage: {
+    id: 'languagePickerDialog.unknownLanguage',
+    defaultMessage: 'Unknown language',
+  },
 });
 
 const LanguagePickerDialog = ({
@@ -31,6 +35,8 @@ const LanguagePickerDialog = ({
   const [value, setValue] = React.useState(null);
   const languages = safelyParseJSON(team.get_languages) || [];
 
+  languages.unshift('und');
+
   const options = (languages ? languages.concat('disabled') : [])
     .concat(Object.keys(LanguageRegistry)
       .filter(code => !languages.includes(code)));
@@ -39,6 +45,7 @@ const LanguagePickerDialog = ({
   // performs toLowerCase on strings for comparison
   const getOptionLabel = (code) => {
     if (code === 'disabled') return '──────────';
+    if (code === 'und') return intl.formatMessage(messages.unknownLanguage);
 
     return intl.formatMessage(messages.optionLabel, {
       languageName: (

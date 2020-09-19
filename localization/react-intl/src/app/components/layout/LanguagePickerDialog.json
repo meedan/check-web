@@ -4,6 +4,10 @@
     "defaultMessage": "{languageName} ({languageCode})"
   },
   {
+    "id": "languagePickerDialog.unknownLanguage",
+    "defaultMessage": "Unknown language"
+  },
+  {
     "id": "languagePickerDialog.title",
     "defaultMessage": "Choose a language"
   },
