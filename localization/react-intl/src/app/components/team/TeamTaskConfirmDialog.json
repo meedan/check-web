@@ -1,11 +1,15 @@
 [
   {
-    "id": "teamTasks.confirmEditTitle",
-    "defaultMessage": "Are you sure you want to edit this task?"
+    "id": "teamTasks.confirmDeleteTaskTitle",
+    "defaultMessage": "Are you sure you want to delete this task?"
   },
   {
-    "id": "teamTasks.confirmDeleteTitle",
-    "defaultMessage": "Are you sure you want to delete this task?"
+    "id": "teamTasks.confirmDeleteMetadataTitle",
+    "defaultMessage": "Are you sure you want to delete this metadata?"
+  },
+  {
+    "id": "teamTasks.confirmEditTitle",
+    "defaultMessage": "Are you sure you want to edit this task?"
   },
   {
     "id": "teamTasks.confirmEditBlurb",
