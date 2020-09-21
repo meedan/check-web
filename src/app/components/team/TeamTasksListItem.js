@@ -299,6 +299,7 @@ class TeamTasksListItem extends React.Component {
           </ListItemSecondaryAction>
         </ListItem>
         <TeamTaskConfirmDialog
+          fieldset={this.props.fieldset}
           projects={projects}
           selectedProjects={selectedProjects}
           editedTask={this.state.editedTask}

@@ -756,6 +756,30 @@ const LanguageRegistry = {
     name: 'Zulu',
     nativeName: 'isiZulu',
   },
+  shn: {
+    name: 'Shan',
+    nativeName: 'လိၵ်ႈတႆ',
+  },
+  rki: {
+    name: 'Rakhine',
+    nativeName: 'ရခိုင်ဘာသာ',
+  },
+  mnw: {
+    name: 'Mon',
+    nativeName: 'ဘာသာ မွန်',
+  },
+  kac: {
+    name: 'Kachin',
+    nativeName: 'ကချင်ဘာသာ',
+  },
+  eky: {
+    name: 'Kayah',
+    nativeName: 'ကယား',
+  },
+  kar: {
+    name: 'Karen',
+    nativeName: 'ကရင်',
+  },
 };
 
 export function languageLabel(code) {

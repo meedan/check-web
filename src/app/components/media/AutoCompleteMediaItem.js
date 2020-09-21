@@ -80,7 +80,11 @@ function AutoCompleteMediaItem(props, context) {
         return;
       }
 
-      const encodedQuery = JSON.stringify(JSON.stringify({ keyword: searchText, eslimit: 30 }));
+      const encodedQuery = JSON.stringify(JSON.stringify({
+        keyword: searchText,
+        show: ['claims', 'links', 'images', 'videos', 'audios'],
+        eslimit: 30,
+      }));
       const params = {
         body: JSON.stringify({
           query: `
@@ -143,7 +147,12 @@ function AutoCompleteMediaItem(props, context) {
         if (props.onlyPublished) {
           items = items.filter(isPublished);
         }
-        items = items.map(({ title, dbid, id }) => ({ text: title, value: dbid, id }));
+        items = items.map(item => ({
+          text: item.title,
+          value: item.dbid,
+          id: item.id,
+          isPublished: isPublished(item),
+        }));
         setSearchResult({ loading: false, items, error: null });
       } catch (err) {
         // TODO nix catch-all error handler for errors we've likely never seen
@@ -169,6 +178,7 @@ function AutoCompleteMediaItem(props, context) {
 
   return (
     <Autocomplete
+      blurOnSelect
       id="autocomplete-media-item"
       name="autocomplete-media-item"
       options={(searchResult && searchResult.items) ? searchResult.items : []}
@@ -176,7 +186,7 @@ function AutoCompleteMediaItem(props, context) {
       getOptionLabel={option => option.text}
       loading={searchResult ? searchResult.loading : false}
       loadingText={
-        <FormattedMessage id="autoCompleteMediaItem.searching" defaultMessage="Searching..." />
+        <FormattedMessage id="autoCompleteMediaItem.searching" defaultMessage="Searching…" />
       }
       noOptionsText={searchResult && searchResult.error ? (
         <FormattedMessage

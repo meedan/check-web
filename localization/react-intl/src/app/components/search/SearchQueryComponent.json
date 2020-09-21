@@ -72,6 +72,10 @@
     "defaultMessage": "Audios"
   },
   {
+    "id": "search.showBlank",
+    "defaultMessage": "Blank"
+  },
+  {
     "id": "search.rules",
     "defaultMessage": "Rules"
   },

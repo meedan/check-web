@@ -164,7 +164,6 @@ const MediaCommentsContainer = Relay.createContainer(withPusher(MediaCommentsCom
                       quote,
                       published,
                       url,
-                      metadata,
                       last_status,
                       last_status_obj {
                         id

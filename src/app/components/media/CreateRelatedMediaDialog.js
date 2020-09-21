@@ -24,7 +24,7 @@ class CreateRelatedMediaDialog extends React.Component {
     this.formRef = React.createRef(null);
 
     this.state = {
-      mode: 'new',
+      mode: 'existing',
       selectedId: null,
     };
   }
@@ -58,39 +58,42 @@ class CreateRelatedMediaDialog extends React.Component {
             indicatorColor="primary"
             textColor="primary"
             onChange={this.handleChange}
-            fullWidth
           >
             <Tab
-              value="new"
-              label={
-                <FormattedMessage id="createMedia.addNew" defaultMessage="Add new item" />
-              }
-            />
-            <Tab
+              id="create-media-dialog__tab-existing"
               value="existing"
               label={
                 <FormattedMessage id="createMedia.existing" defaultMessage="Add existing item" />
               }
             />
-          </Tabs>
-          { mode === 'new' &&
-            <CreateMediaInput
-              message={this.props.message}
-              formId={formId}
-              isSubmitting={this.props.isSubmitting}
-              onSubmit={this.props.onSubmit}
-              noSource
+            <Tab
+              id="create-media-dialog__tab-new"
+              value="new"
+              label={
+                <FormattedMessage id="createMedia.addNew" defaultMessage="Add new item" />
+              }
             />
-          }
-          { mode === 'existing' &&
-            <StyledAutoCompleteWrapper>
-              <Message message={this.props.message} />
-              <AutoCompleteMediaItem
-                media={media}
-                onSelect={this.handleSelectExisting}
+          </Tabs>
+          <div style={{ marginTop: units(2), marginBottom: units(2) }}>
+            { mode === 'new' &&
+              <CreateMediaInput
+                message={this.props.message}
+                formId={formId}
+                isSubmitting={this.props.isSubmitting}
+                onSubmit={this.props.onSubmit}
+                noSource
               />
-            </StyledAutoCompleteWrapper>
-          }
+            }
+            { mode === 'existing' &&
+              <StyledAutoCompleteWrapper>
+                <Message message={this.props.message} />
+                <AutoCompleteMediaItem
+                  media={media}
+                  onSelect={this.handleSelectExisting}
+                />
+              </StyledAutoCompleteWrapper>
+            }
+          </div>
         </DialogContent>
         <DialogActions>
           <Button id="create-media-dialog__dismiss-button" onClick={this.props.onDismiss}>
@@ -102,8 +105,11 @@ class CreateRelatedMediaDialog extends React.Component {
               id="create-media-dialog__submit-button"
               color="primary"
               form={formId}
+              disabled={this.props.isSubmitting}
             >
-              <FormattedMessage {...globalStrings.submit} />
+              { this.props.isSubmitting ?
+                <FormattedMessage {...globalStrings.submitting} /> :
+                <FormattedMessage {...globalStrings.submit} /> }
             </Button>
           }
           { mode === 'existing' &&
@@ -111,9 +117,11 @@ class CreateRelatedMediaDialog extends React.Component {
               id="create-media-dialog__submit-button"
               color="primary"
               onClick={this.handleSubmitExisting}
-              disabled={this.submitExistingDisabled()}
+              disabled={this.submitExistingDisabled() || this.props.isSubmitting}
             >
-              <FormattedMessage {...globalStrings.submit} />
+              { this.props.isSubmitting ?
+                <FormattedMessage {...globalStrings.submitting} /> :
+                <FormattedMessage {...globalStrings.submit} /> }
             </Button>
           }
         </DialogActions>

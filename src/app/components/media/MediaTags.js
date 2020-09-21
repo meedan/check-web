@@ -101,7 +101,11 @@ class MediaTags extends React.Component {
 
   handleTagViewClick(tagString) {
     const url = this.searchTagUrl(tagString);
-    browserHistory.push(url);
+    if (window !== window.parent) { // Browser extension
+      window.open(`${window.location.origin}${url}`);
+    } else {
+      browserHistory.push(url);
+    }
   }
 
   handleVideoAnnotationIconClick = (e, fragment) => {
@@ -119,7 +123,7 @@ class MediaTags extends React.Component {
     return (
       <StyledMediaTagsContainer className="media-tags__container">
         <div className="media-tags">
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div>
               <ul className="media-tags__list">
                 {tags.map((tag) => {
@@ -173,7 +177,6 @@ MediaTags.propTypes = {
     }).isRequired,
   }).isRequired,
 };
-
 
 export { MediaTags };
 export default createFragmentContainer(MediaTags, graphql`

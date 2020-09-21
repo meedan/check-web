@@ -337,25 +337,6 @@ class BulkActions extends React.Component {
                 </React.Fragment>
               ) : null}
 
-              {!/all-items/.test(window.location.pathname) ? (
-                <ButtonWithTooltip
-                  title={
-                    <FormattedMessage
-                      id="bulkActions.remove"
-                      defaultMessage="Remove selected items from this list"
-                    />
-                  }
-                  id="media-bulk-actions__remove-from-list"
-                  disabled={disabled}
-                  variant="outlined"
-                  onClick={this.handleRemoveSelectedFromList.bind(this)}
-                >
-                  <FormattedMessage
-                    id="bulkActions.removeFromList"
-                    defaultMessage="Remove from list"
-                  />
-                </ButtonWithTooltip>
-              ) : null}
               <IconButtonWithTooltip
                 title={
                   <FormattedMessage

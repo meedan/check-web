@@ -8,8 +8,6 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { makeStyles } from '@material-ui/core/styles';
 import DownloadIcon from '@material-ui/icons/MoveToInbox';
 import ExternalLink from '../ExternalLink';
-import MediaTags from './MediaTags';
-import TagMenu from '../tag/TagMenu';
 import VideoAnnotationIcon from '../../../assets/images/video-annotation/video-annotation';
 import {
   Row,
@@ -44,6 +42,7 @@ const ExtraMediaActions = ({
     <div>
       { allowsVideoAnnotation ?
         <Button
+          size="small"
           classes={classes}
           color="primary"
           disabled={showVideoAnnotation}
@@ -59,6 +58,7 @@ const ExtraMediaActions = ({
         : null }
       { allowsReverseSearch ?
         <Button
+          size="small"
           classes={classes}
           onClick={reverseImageSearchGoogle}
           variant="outlined"
@@ -83,7 +83,6 @@ class MediaExpandedActions extends React.Component {
   render() {
     const {
       projectMedia,
-      onTimelineCommentOpen,
       onVideoAnnoToggle,
       showVideoAnnotation,
     } = this.props;
@@ -137,13 +136,6 @@ class MediaExpandedActions extends React.Component {
                 </ExternalLink>
               </div> : null }
           </Row> : null }
-        <Row>
-          <TagMenu media={projectMedia} />
-          <MediaTags
-            projectMedia={projectMedia}
-            onTimelineCommentOpen={onTimelineCommentOpen}
-          />
-        </Row>
       </StyledMetadata>
     );
   }
@@ -158,7 +150,6 @@ MediaExpandedActions.propTypes = {
       }).isRequired,
     }).isRequired,
   }).isRequired,
-  onTimelineCommentOpen: PropTypes.func.isRequired,
   onVideoAnnoToggle: PropTypes.func.isRequired,
 };
 
@@ -173,6 +164,5 @@ export default createFragmentContainer(MediaExpandedActions, graphql`
       metadata
       file_path
     }
-    ...MediaTags_projectMedia
   }
 `);

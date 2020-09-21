@@ -276,6 +276,14 @@ export const MuiTheme = {
         backgroundColor: white,
       },
     },
+    MuiTableSortLabel: {
+      active: {
+        color: `${highlightOrange} !important`,
+      },
+      icon: {
+        color: `${highlightOrange} !important`,
+      },
+    },
   },
 };
 

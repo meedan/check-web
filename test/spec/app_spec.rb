@@ -2,9 +2,6 @@ require 'selenium-webdriver'
 require 'yaml'
 require_relative './spec_helper.rb'
 require_relative './app_spec_helpers.rb'
-require_relative './pages/login_page.rb'
-require_relative './pages/me_page.rb'
-require_relative './pages/page.rb'
 require_relative './api_helpers.rb'
 require_relative './smoke_spec.rb'
 require_relative './media_spec.rb'
@@ -12,6 +9,7 @@ require_relative './task_spec.rb'
 require_relative './metadata_spec.rb'
 require_relative './login_spec.rb'
 require_relative './task_spec_helpers.rb'
+require_relative './login_spec_helpers.rb'
 # require_relative './source_spec.rb'
 
 CONFIG = YAML.load_file('config.yml')
@@ -22,6 +20,7 @@ shared_examples 'app' do |webdriver_url|
   include AppSpecHelpers
   include ApiHelpers
   include TaskSpecHelpers
+  include LoginSpecHelpers
 
   before :all do
     @config = CONFIG
@@ -44,7 +43,7 @@ shared_examples 'app' do |webdriver_url|
   end
 
   before :each do |example|
-    $caller_name = example.metadata[:description_args]  # for Page#go()
+    $caller_name = example.metadata[:description_args]
   end
 
   around(:each) do |example|
@@ -90,12 +89,12 @@ shared_examples 'app' do |webdriver_url|
       user = api_register_and_login_with_email
       api_logout
       api_register_and_login_with_email
-      me_pg = MePage.new(config: @config, driver: @driver).load
+      @driver.navigate.to(@config['self_url'] + '/check/me')
       wait_for_selector("#teams-tab").click;
       wait_for_selector("//span[contains(text(), 'Create Workspace')]", :xpath)
       expect(@driver.page_source.include?('Access Denied')).to be(false)
       expect((@driver.current_url.to_s =~ /\/forbidden$/).nil?).to be(true)
-      unauthorized_pg = SourcePage.new(id: user.dbid, config: @config, driver: @driver).load
+      @driver.navigate.to(@config['self_url'] + "/check/user/#{user.dbid}") #unauthorized page
       wait_for_selector(".main-title")
       expect(@driver.page_source.include?('Access Denied')).to be(true)
       expect((@driver.current_url.to_s =~ /\/forbidden$/).nil?).to be(false)
@@ -186,25 +185,14 @@ shared_examples 'app' do |webdriver_url|
       expect((@driver.current_url.to_s =~ /\/not-found$/).nil?).to be(false)
     end
 
-    it "should logout", bin5: true do
-      api_create_team_and_project
-      @driver.navigate.to @config['self_url']
-      page = ProjectPage.new(config: @config, driver: @driver).logout
-
-      expect(page.contains_string?('Sign in')).to be(true)
-    end
-
     it "should show: edit project (link only to users with update project permission)", bin3: true do
       utp = api_create_team_project_and_two_users
-      page = Page.new(config: @config, driver: @driver)
-      page.go(@config['api_path'] + '/test/session?email='+utp[:user1]["email"])
-      page.go(@config['self_url'] + '/'+utp[:team]["slug"]+'/project/'+utp[:project]["dbid"].to_s)
+      @driver.navigate.to (@config['api_path'] + '/test/session?email='+utp[:user1]["email"])
+      @driver.navigate.to (@config['self_url'] + '/'+utp[:team]["slug"]+'/project/'+utp[:project]["dbid"].to_s)
       wait_for_selector("#search-form")
-      l = wait_for_selector_list('.project-actions')
-      expect(l.length == 1).to be(true)
-
-      page.go(@config['api_path'] + '/test/session?email='+utp[:user2]["email"])
-      page.go(@config['self_url'] + '/'+utp[:team]["slug"]+'/project/'+utp[:project]["dbid"].to_s)
+      expect(wait_for_selector_list('.project-actions').length == 1).to be(true)
+      @driver.navigate.to (@config['api_path'] + '/test/session?email='+utp[:user2]["email"])
+      @driver.navigate.to (@config['self_url'] + '/'+utp[:team]["slug"]+'/project/'+utp[:project]["dbid"].to_s)
       wait_for_selector("#search-form")
       wait_for_selector_none('.project-actions')
       expect(@driver.find_elements(:class, "project-actions").length == 0).to be(true)
@@ -270,15 +258,15 @@ shared_examples 'app' do |webdriver_url|
       user = api_register_and_login_with_email
       t1 = api_create_team(user: user)
       t2 = api_create_team(user: user)
-      page = MePage.new(config: @config, driver: @driver).load
+      @driver.navigate.to(@config['self_url'] + '/check/me')
       wait_for_selector(".source__primary-info")
-      page.select_team(name: t1.name)
+      select_team(name: t1.name)
       wait_for_selector(".team-menu__edit-team-button")
       team_name = wait_for_selector('.team__name').text
       expect(team_name).to eq(t1.name)
       @driver.navigate.to(@config['self_url'] + '/check/me')
       wait_for_selector(".source__primary-info")
-      page.select_team(name: t2.name)
+      select_team(name: t2.name)
       wait_for_selector(".team-menu__edit-team-button")
       team_name = wait_for_selector('.team__name').text
       expect(team_name).to eq(t2.name)
@@ -293,30 +281,24 @@ shared_examples 'app' do |webdriver_url|
       wait_for_selector('.annotation__avatar-col')
       wait_for_size_change(0, 'annotation__card-content', :class, 25)
       expect(@driver.page_source.include?('https://meedan.com/en/')).to be(true)
-      el = wait_for_selector_list("//a[contains(text(), 'https://meedan.com/en/')]", :xpath)
-      expect(el.length == 1).to be(true)
+      expect(wait_for_selector_list("//a[contains(text(), 'https://meedan.com/en/')]", :xpath).length == 1).to be(true)
     end
 
     it "should refresh media", bin1: true do
       api_create_team_project_and_link_and_redirect_to_media_page 'http://ca.ios.ba/files/meedan/random.php'
       wait_for_selector(".media-detail")
-      title1 = @driver.title
+      title1 = wait_for_selector('.media-expanded__title span').text
       expect((title1 =~ /Random/).nil?).to be(false)
-      el = wait_for_selector('.media-actions__icon')
-      el.click
-      wait_for_selector(".media-actions__edit")
-      @driver.find_element(:css, '.media-actions__refresh').click
-      wait_for_selector_none(".media-actions__edit")
-      wait_for_text_change(title1,"title", :css)
-      @wait.until { (@driver.title != title1) }
-      title2 = @driver.title
+      wait_for_selector('.media-actions__icon').click
+      wait_for_selector('.media-actions__refresh').click
+      wait_for_text_change(title1, '.media-expanded__title span', :css)
+      title2 = wait_for_selector('.media-expanded__title span').text
       expect((title2 =~ /Random/).nil?).to be(false)
       expect(title1 != title2).to be(true)
     end
 
     it "should set metatags", bin5: true do
       api_create_team_project_and_link_and_redirect_to_media_page 'https://twitter.com/marcouza/status/875424957613920256'
-      wait_for_selector(".tasks")
       request_api('make_team_public', { slug: get_team })
       wait_for_selector(".create-related-media__add-button")
       url = @driver.current_url.to_s
@@ -329,14 +311,15 @@ shared_examples 'app' do |webdriver_url|
     end
 
     it "should paginate project page", bin4: true do
-      page = api_create_team_project_claims_sources_and_redirect_to_project_page 21, 0
-      page.load
-      wait_for_selector('.media__heading')
+      api_create_team_project_claims_sources_and_redirect_to_project_page 21, 0
       wait_for_selector(".search__results-heading")
+      wait_for_selector('.media__heading')
+      wait_for_selector("//span[contains(text(), '1 - 20 / 21')]", :xpath)
       expect(@driver.page_source.include?('1 - 20 / 21')).to be(true)
       wait_for_selector(".search__next-page").click
-      wait_for_selector('.media__heading')
       wait_for_selector(".search__results-heading")
+      wait_for_selector('.media__heading')
+      wait_for_selector("//span[contains(text(), '21 - 21 / 21')]", :xpath)
       expect(@driver.page_source.include?('21 - 21 / 21')).to be(true)
     end
 
@@ -371,8 +354,7 @@ shared_examples 'app' do |webdriver_url|
       api_create_team_and_project(user: user)
 
       @driver.navigate.to(@config['self_url'] + '/check/me')
-      button = wait_for_selector('#teams-tab')
-      button.click
+      wait_for_selector('#teams-tab').click
       wait_for_selector(".switch-teams__joined-team")
       wait_for_selector_list('.teams a').first.click
       wait_for_selector(".project__title")
@@ -383,8 +365,7 @@ shared_examples 'app' do |webdriver_url|
       wait_for_selector_none(".team-members__edit-button", :css, 10)
 
       @driver.navigate.to(@config['self_url'] + '/check/me')
-      button = wait_for_selector('#teams-tab')
-      button.click
+      wait_for_selector('#teams-tab').click
       wait_for_selector(".switch-teams__joined-team")
       wait_for_selector_list('.teams a').last.click
       wait_for_selector(".project__title")
@@ -405,58 +386,22 @@ shared_examples 'app' do |webdriver_url|
 
       # return error for non existing team
       fill_field('#team-slug-container', 'non-existing-slug')
-      el = wait_for_selector('.find-team__submit-button')
-      el.click
+      wait_for_selector('.find-team__submit-button').click
       wait_for_selector('.find-team-card')
       expect(@driver.page_source.include?('Workspace not found!')).to be(true)
 
       # redirect to /team-slug/join if team exists
       # /team-slug/join in turn redirects to team page because already member
-      page = CreateTeamPage.new(config: @config, driver: @driver).load
+      @driver.navigate.to @config['self_url']  + "/check/teams/new"
       wait_for_selector('.create-team__submit-button')
       team = "existing-team-#{Time.now.to_i}"
       api_create_team(team: team)
       @driver.navigate.to @config['self_url'] + '/check/teams/find'
-      el = wait_for_selector('.find-team__submit-button')
+      wait_for_selector(".find-team__form")
       fill_field('#team-slug-container', team )
-      el.click
+      wait_for_selector('.find-team__submit-button').click
       wait_for_selector(".team__primary-info")
       expect(@driver.page_source.include?(team)).to be(true)
-    end
-
-    it "should search map in geolocation task", bin3: true do
-      api_create_team_project_and_claim_and_redirect_to_media_page
-      wait_for_selector('.media-detail')
-
-      wait_for_selector(".media-tab__activity").click
-      old = wait_for_size_change(old, "annotations__list-item", :class)
-      wait_for_selector(".media-tab__tasks").click
-
-      # Create a task
-      expect(@driver.page_source.include?('Where?')).to be(false)
-      expect(@driver.page_source.include?('Task "Where?" created by')).to be(false)
-      wait_for_selector('.create-task__add-button').click
-      wait_for_selector('.create-task__add-geolocation').click
-      wait_for_selector("#task-description-input")
-      fill_field('#task-label-input', 'Where?')
-      wait_for_selector('.create-task__dialog-submit-button').click
-      wait_for_selector_none("#task-label-input")
-      wait_for_selector(".media-tab__activity").click
-      old = @driver.find_elements(:class, "annotations__list-item").length
-      expect(@driver.page_source.include?('Where?')).to be(true)
-
-      # Search map
-      wait_for_selector(".media-tab__tasks").click
-      wait_for_selector('.create-task__add-button')
-      expect(@driver.page_source.include?('Brazil')).to be(false)
-      wait_for_selector("#task__response-geolocation-name")
-      fill_field("#geolocationsearch", "Sao Paulo ")
-      wait_for_selector("#geolocationsearch-option-0")
-      wait_for_selector("#geolocationsearch").click
-      wait_for_selector("#geolocationsearch").send_keys(:arrow_down)
-      @driver.action.send_keys(:enter).perform
-      wait_for_text_change(' ',"#task__response-geolocation-name")
-      expect(@driver.page_source.include?('Brazil')).to be(true)
     end
 
     it "should go back to previous team", bin1: true do
@@ -493,6 +438,7 @@ shared_examples 'app' do |webdriver_url|
       wait_for_selector('.media-detail')
       wait_for_selector('.create-related-media__add-button')
       press_button('.create-related-media__add-button')
+      wait_for_selector('#create-media-dialog__tab-new').click
       wait_for_selector('#create-media__quote').click
       wait_for_selector('#create-media-quote-input')
       fill_field('#create-media-quote-input', 'Secondary Item')
@@ -520,24 +466,21 @@ shared_examples 'app' do |webdriver_url|
       wait_for_selector('.projects__list a[href$="/all-items"]')
     end
 
-    it "should redirect to login page if not logged in and team is private", bin4: true do
-      t = api_create_team(private: true, user: OpenStruct.new(email: 'anonymous@test.test'))
-      @driver.navigate.to @config['self_url'] + '/' + t.slug + '/all-items'
-      wait_for_selector('.login__form')
-      expect(@driver.page_source.include?('Sign in')).to be(true)
+    def edit_project(options)
+      wait_for_selector('.project-actions').click
+      wait_for_selector('.project-actions__edit').click
+      if (options[:title])
+        update_field('#project-title-field', options[:title])
+      end
+      if (options[:description] != nil)
+        wait_for_selector('#project-description-field').send_keys(:control, 'a', :delete)
+        @driver.action.send_keys(" \b").perform
+        sleep 1
+        update_field('#project-description-field', options[:description])
+      end
+      wait_for_selector('button.project-edit__editing-button--save').click
+      self
     end
 
-    it "should be able to edit only the title of an item", bin4: true do
-      api_create_team_project_and_claim_and_redirect_to_media_page
-      expect(@driver.page_source.include?('New Title')).to be(false)
-      wait_for_selector('.media-actions__icon').click
-      wait_for_selector('.media-actions__edit').click
-      fill_field('#media-detail__title-input', 'New Title')
-      wait_for_selector('.media-detail__save-edits').click
-      wait_for_selector_none('.media-detail__save-edits')
-      @driver.navigate.refresh
-      wait_for_selector('.media-actions__icon')
-      expect(@driver.page_source.include?('New Title')).to be(true)
-    end
   end
 end

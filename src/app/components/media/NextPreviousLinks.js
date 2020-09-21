@@ -13,7 +13,7 @@ const StyledPager = styled.div`
   position: absolute;
   top: 0;
   width: 20%;
-  left: 30%;
+  left: 20%;
   height: ${units(8)};
   z-index: 1;
   display: flex;
@@ -33,12 +33,6 @@ const StyledPager = styled.div`
 
   @media (max-width: 650px) {
     top: 43px;
-  }
-
-  @media (max-width: 1300px) {
-    width: 20%;
-    right: 24px;
-    left: auto;
   }
 `;
 

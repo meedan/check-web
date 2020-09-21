@@ -12,6 +12,7 @@ import LanguagePickerDialog from '../layout/LanguagePickerDialog';
 import { getErrorMessage } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 import UpdateLanguageMutation from '../../relay/mutations/UpdateLanguageMutation';
+import { languageLabel } from '../../LanguageRegistry';
 
 const MediaLanguageChip = ({ projectMedia, setFlashMessage }) => {
   const [correctingLanguage, setCorrectingLanguage] = React.useState(false);
@@ -61,7 +62,7 @@ const MediaLanguageChip = ({ projectMedia, setFlashMessage }) => {
         deleteIcon={<EditIcon />}
         icon={<LanguageIcon />}
         color="primary"
-        label={projectMedia.language}
+        label={projectMedia.language_code !== 'und' ? languageLabel(projectMedia.language_code) : projectMedia.language}
         onDelete={
           can(projectMedia.permissions, 'create Dynamic') ?
             () => setCorrectingLanguage(true) : null

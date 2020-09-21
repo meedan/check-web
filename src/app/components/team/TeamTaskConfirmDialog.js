@@ -52,15 +52,15 @@ class TeamTaskConfirmDialog extends React.Component {
     if (this.props.action === 'edit') {
       action = this.props.editLabelOrDescription ? 'editLabelOrDescription' : 'edit';
     }
+    const deleteConfirmDialogTitle = this.props.fieldset === 'tasks' ?
+      <FormattedMessage id="teamTasks.confirmDeleteTaskTitle" defaultMessage="Are you sure you want to delete this task?" /> :
+      <FormattedMessage id="teamTasks.confirmDeleteMetadataTitle" defaultMessage="Are you sure you want to delete this metadata?" />;
     const confirmDialogTitle = {
       edit: <FormattedMessage
         id="teamTasks.confirmEditTitle"
         defaultMessage="Are you sure you want to edit this task?"
       />,
-      delete: <FormattedMessage
-        id="teamTasks.confirmDeleteTitle"
-        defaultMessage="Are you sure you want to delete this task?"
-      />,
+      delete: deleteConfirmDialogTitle,
     };
     let affectedItems = 0;
     if (projects !== null) {

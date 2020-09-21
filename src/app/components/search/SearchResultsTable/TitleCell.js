@@ -11,6 +11,7 @@ const useStyles = makeStyles({
     // the rest. (display: float; is too finicky.)
     display: 'flex',
     minWidth: units(30),
+    maxWidth: units(110),
     '&:hover': {
       textDecoration: 'none',
     },

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import MediaTypeDisplayName from './MediaTypeDisplayName';
-import { parseStringUnixTimestamp } from '../../helpers';
+import { isBotInstalled, parseStringUnixTimestamp } from '../../helpers';
 import TimeBefore from '../TimeBefore';
 import {
   units,
@@ -18,51 +18,39 @@ const StyledHeaderTextSecondary = styled.div`
   margin-bottom: ${units(2)};
 `;
 
-const MediaExpandedSecondRow = ({ projectMedia }) => {
-  let smoochBotInstalled = false;
-
-  if (projectMedia.team && projectMedia.team.team_bot_installations) {
-    projectMedia.team.team_bot_installations.edges.forEach((edge) => {
-      if (edge.node.team_bot.identifier === 'smooch') {
-        smoochBotInstalled = true;
-      }
-    });
-  }
-
-  return (
-    <div>
-      <StyledHeaderTextSecondary>
-        <Row flexWrap style={{ fontWeight: '500' }}>
-          <span><MediaTypeDisplayName mediaType={projectMedia.media.type} /></span>
-          <span style={{ margin: `0 ${units(1)}` }}> - </span>
+const MediaExpandedSecondRow = ({ projectMedia }) => (
+  <div>
+    <StyledHeaderTextSecondary>
+      <Row flexWrap style={{ fontWeight: '500' }}>
+        <span><MediaTypeDisplayName mediaType={projectMedia.media.type} /></span>
+        <span style={{ margin: `0 ${units(1)}` }}> - </span>
+        <span>
+          <FormattedMessage id="mediaExpanded.firstSeen" defaultMessage="First seen: " />
+          <TimeBefore date={parseStringUnixTimestamp(projectMedia.created_at)} />
+        </span>
+        { isBotInstalled(projectMedia.team, 'smooch') ?
           <span>
-            <FormattedMessage id="mediaExpanded.firstSeen" defaultMessage="First seen: " />
-            <TimeBefore date={parseStringUnixTimestamp(projectMedia.created_at)} />
-          </span>
-          { smoochBotInstalled ?
+            <span style={{ margin: `0 ${units(1)}` }}> - </span>
             <span>
-              <span style={{ margin: `0 ${units(1)}` }}> - </span>
-              <span>
-                <FormattedMessage id="mediaExpanded.lastSeen" defaultMessage="Last seen: " />
-                <TimeBefore date={parseStringUnixTimestamp(projectMedia.last_seen)} />
-              </span>
-              <span style={{ margin: `0 ${units(1)}` }}> - </span>
-              <span>
-                <FormattedMessage
-                  id="mediaExpanded.requests"
-                  defaultMessage="{count} requests"
-                  values={{
-                    count: projectMedia.requests_count,
-                  }}
-                />
-              </span>
-            </span> : null
-          }
-        </Row>
-      </StyledHeaderTextSecondary>
-    </div>
-  );
-};
+              <FormattedMessage id="mediaExpanded.lastSeen" defaultMessage="Last seen: " />
+              <TimeBefore date={parseStringUnixTimestamp(projectMedia.last_seen)} />
+            </span>
+            <span style={{ margin: `0 ${units(1)}` }}> - </span>
+            <span>
+              <FormattedMessage
+                id="mediaExpanded.requests"
+                defaultMessage="{count} requests"
+                values={{
+                  count: projectMedia.requests_count,
+                }}
+              />
+            </span>
+          </span> : null
+        }
+      </Row>
+    </StyledHeaderTextSecondary>
+  </div>
+);
 
 MediaExpandedSecondRow.propTypes = {
   projectMedia: PropTypes.shape({

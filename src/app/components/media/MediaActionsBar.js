@@ -9,21 +9,20 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import { withStyles } from '@material-ui/core/styles';
-import IconReport from '@material-ui/icons/Receipt';
+import IconReport from '@material-ui/icons/PlaylistAddCheck';
 import MediaStatus from './MediaStatus';
 import MediaRoute from '../../relay/MediaRoute';
 import MediaActionsMenuButton from './MediaActionsMenuButton';
 import Attribution from '../task/Attribution';
 import AddProjectMediaToProjectAction from './AddProjectMediaToProjectAction';
 import MoveProjectMediaToProjectAction from './MoveProjectMediaToProjectAction';
-import RemoveProjectMediaFromProjectAction from './RemoveProjectMediaFromProjectAction';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
 import UpdateStatusMutation from '../../relay/mutations/UpdateStatusMutation';
 import CheckContext from '../../CheckContext';
 import globalStrings from '../../globalStrings';
 import { withSetFlashMessage } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
-import { getErrorMessage } from '../../helpers';
+import { getErrorMessage, isBotInstalled } from '../../helpers';
 
 const Styles = theme => ({
   root: {
@@ -33,13 +32,6 @@ const Styles = theme => ({
     alignItems: 'center',
     padding: '0 16px',
     justifyContent: 'space-between',
-    [theme.breakpoints.up(1500)]: {
-      top: 0,
-      right: 0,
-      width: '50%',
-      position: 'absolute',
-      zIndex: 2,
-    },
   },
   spacedButton: {
     marginRight: theme.spacing(1),
@@ -242,15 +234,6 @@ class MediaActionsBarComponent extends Component {
   render() {
     const { classes, media } = this.props;
     const { project_media_project: projectMediaProject } = media;
-
-    let smoochBotInstalled = false;
-    if (media.team && media.team.team_bot_installations) {
-      media.team.team_bot_installations.edges.forEach((edge) => {
-        if (edge.node.team_bot.identifier === 'smooch') {
-          smoochBotInstalled = true;
-        }
-      });
-    }
     let isChild = false;
     let isParent = false;
     if (media.relationship) {
@@ -260,7 +243,7 @@ class MediaActionsBarComponent extends Component {
         isParent = true;
       }
     }
-    const readonlyStatus = smoochBotInstalled && isChild && !isParent;
+    const readonlyStatus = isBotInstalled(media.team, 'smooch') && isChild && !isParent;
     const published = (media.dynamic_annotation_report_design && media.dynamic_annotation_report_design.data && media.dynamic_annotation_report_design.data.state === 'published');
 
     const assignments = media.last_status_obj.assignments.edges;
@@ -302,15 +285,6 @@ class MediaActionsBarComponent extends Component {
               />
             ) : null}
 
-            { projectMediaProject ? (
-              <RemoveProjectMediaFromProjectAction
-                team={this.props.media.team}
-                project={projectMediaProject.project}
-                projectMedia={this.props.media}
-                className={classes.spacedButton}
-              />
-            ) : null}
-
             <Button
               onClick={MediaActionsBarComponent.handleReportDesigner}
               id="media-detail__report-designer"
@@ -318,10 +292,15 @@ class MediaActionsBarComponent extends Component {
               className={classes.spacedButton}
               startIcon={<IconReport />}
             >
-              <FormattedMessage
-                id="mediaActionsBar.reportDesigner"
-                defaultMessage="Report"
-              />
+              { published ?
+                <FormattedMessage
+                  id="mediaActionsBar.publishedReport"
+                  defaultMessage="Published report"
+                /> :
+                <FormattedMessage
+                  id="mediaActionsBar.unpublishedReport"
+                  defaultMessage="Unpublished report"
+                /> }
             </Button>
           </div> : <div />}
 
@@ -400,7 +379,6 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
         id
         ${AddProjectMediaToProjectAction.getFragment('projectMedia')}
         ${MoveProjectMediaToProjectAction.getFragment('projectMedia')}
-        ${RemoveProjectMediaFromProjectAction.getFragment('projectMedia')}
         ${MediaActionsMenuButton.getFragment('projectMedia')}
         dbid
         project_ids
@@ -408,8 +386,6 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
         demand
         description
         permissions
-        metadata
-        overridden
         url
         quote
         archived
@@ -423,7 +399,6 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
           project {
             id
             ${MoveProjectMediaToProjectAction.getFragment('project')}
-            ${RemoveProjectMediaFromProjectAction.getFragment('project')}
             dbid
             title
             search_id
@@ -461,7 +436,6 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
         team {
           ${AddProjectMediaToProjectAction.getFragment('team')}
           ${MoveProjectMediaToProjectAction.getFragment('team')}
-          ${RemoveProjectMediaFromProjectAction.getFragment('team')}
           id
           dbid
           slug

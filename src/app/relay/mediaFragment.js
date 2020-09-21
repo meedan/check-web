@@ -13,7 +13,6 @@ const mediaFragment = Relay.QL`
     updated_at,
     last_seen,
     share_count,
-    metadata,
     archived,
     relationships { sources_count, targets_count },
     relationship {
@@ -25,7 +24,6 @@ const mediaFragment = Relay.QL`
       target_id
     }
     log_count,
-    overridden,
     project_ids,
     pusher_channel,
     domain,

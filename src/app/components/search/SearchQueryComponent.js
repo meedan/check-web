@@ -791,6 +791,17 @@ class SearchQueryComponent extends React.Component {
                     >
                       <FormattedMessage id="search.showAudios" defaultMessage="Audios" />
                     </StyledFilterChip>
+                    <StyledFilterChip
+                      active={this.showIsSelected('blank')}
+                      onClick={this.handleShowClick.bind(this, 'blank')}
+                      className={bemClass(
+                        'search-query__filter-button',
+                        this.showIsSelected('blank'),
+                        '--selected',
+                      )}
+                    >
+                      <FormattedMessage id="search.showBlank" defaultMessage="Blank" />
+                    </StyledFilterChip>
                   </StyledFilterRow>
                   : null}
 

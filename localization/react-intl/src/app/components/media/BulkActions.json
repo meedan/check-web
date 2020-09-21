@@ -64,14 +64,6 @@
     "defaultMessage": "Move to a different list"
   },
   {
-    "id": "bulkActions.remove",
-    "defaultMessage": "Remove selected items from this list"
-  },
-  {
-    "id": "bulkActions.removeFromList",
-    "defaultMessage": "Remove from list"
-  },
-  {
     "id": "bulkActions.sendItemsToTrash",
     "defaultMessage": "Send selected items to trash"
   }
