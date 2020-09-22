@@ -4,6 +4,7 @@ import deepEqual from 'deep-equal';
 import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
 import { withStyles } from '@material-ui/core/styles';
+import Box from '@material-ui/core/Box';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import styled from 'styled-components';
@@ -21,7 +22,6 @@ import TeamProjects from './TeamProjects';
 import SlackConfig from './SlackConfig';
 import HeaderCard from '../HeaderCard';
 import PageTitle from '../PageTitle';
-import Message from '../Message';
 import { can } from '../Can';
 import UserUtil from '../user/UserUtil';
 import CheckContext from '../../CheckContext';
@@ -58,14 +58,6 @@ const StyledTwoColumnLayout = styled(ContentColumn)`
 `;
 
 class TeamComponent extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      message: null,
-    };
-  }
-
   componentDidMount() {
     this.setContextTeam();
   }
@@ -121,13 +113,14 @@ class TeamComponent extends Component {
       </StyledTwoColumnLayout>
     );
 
-    const HeaderContent = () => {
-      if (isEditing) {
-        return <TeamInfoEdit team={team} />;
-      }
-
-      return <TeamInfo team={team} context={context} />;
-    };
+    const HeaderContent = () => (
+      <Box pt={3} pb={3}>
+        { isEditing ?
+          <TeamInfoEdit team={team} /> :
+          <TeamInfo team={team} context={context} />
+        }
+      </Box>
+    );
 
     const currentUserIsOwner = UserUtil.myRole(this.getCurrentUser(), this.props.team.slug) === 'owner';
     let { tab } = this.props.params;
@@ -273,8 +266,7 @@ class TeamComponent extends Component {
         <div className="team">
           <HeaderCard>
             <ContentColumn>
-              <Message message={this.state.message} />
-              <HeaderContent />
+              { isSettings ? null : <HeaderContent /> }
             </ContentColumn>
             <TeamSettingsTabs />
           </HeaderCard>
