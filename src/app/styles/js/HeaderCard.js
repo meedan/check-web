@@ -11,6 +11,7 @@ import {
   boxShadow,
   subheading1,
   Row,
+  gutterMedium,
   avatarSizeLarge,
 } from './shared';
 
@@ -22,10 +23,8 @@ import {
 // TODO Standardize to use the HeaderCard in all three components that use this layout.
 // @chris 2017-10-17
 
-const sourceProfileOffset = units(24);
-
 export const StyledButtonGroup = styled.div`
-  margin: ${units(6)} auto;
+  margin: ${units(6)} auto 0;
   display: flex;
 
   .source__edit-buttons-cancel-save {
@@ -69,8 +68,7 @@ export const StyledHelper = styled.div`
 
 export const StyledProfileCard = styled.div`
   margin-bottom: ${units(6)};
-  margin-top: ${stripUnit(sourceProfileOffset) * -1}px;
-  padding-top: ${sourceProfileOffset};
+  margin-top: ${stripUnit(gutterMedium) * -1}px;
   background-color: white;
   box-shadow: ${boxShadow(1)};
 `;
@@ -103,7 +101,6 @@ export const StyledAvatarEditButton = styled.div`
 
 export const StyledTwoColumns = styled(Row)`
   align-items: flex-start;
-  padding-bottom: ${units(3)};
 `;
 
 export const StyledSmallColumn = styled.div`
