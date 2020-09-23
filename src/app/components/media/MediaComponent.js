@@ -21,10 +21,10 @@ import MediaTasks from './MediaTasks';
 import MediaLog from './MediaLog';
 import MediaComments from './MediaComments';
 import MediaRequests from './MediaRequests';
-import MediaTitle from './MediaTitle';
 import MediaTimeline from './MediaTimeline';
+import MediaAnalysis from './MediaAnalysis';
 import CheckContext from '../../CheckContext';
-import { columnWidthMedium, columnWidthLarge, units } from '../../styles/js/shared';
+import { units } from '../../styles/js/shared';
 
 const styles = theme => ({
   root: {
@@ -37,18 +37,25 @@ const styles = theme => ({
 
 const StyledDrawerToolbar = withStyles(styles)(Toolbar);
 
-const StyledTwoColumnLayout = styled.div`
+const StyledThreeColumnLayout = styled.div`
   display: flex;
   flex-wrap: wrap;
-  flex-direction: row;
   justify-content: center;
 `;
 
-const Column = styled.div`
-  min-width: min(50%, ${columnWidthMedium});
-  max-width: ${columnWidthLarge};
+const FixedColumn = styled.div`
+  width: 420px;
+  flex-grow: 0;
   padding: ${units(2)};
-  flex-grow: 1;
+`;
+
+const Column = styled.div`
+  flex: 1;
+  min-width: 340px;
+  max-width: 720px;
+  padding: ${units(2)};
+  height: calc(100vh - 100px);
+  overflow: auto;
 `;
 
 const StyledTab = withStyles(theme => ({
@@ -74,7 +81,7 @@ class MediaComponent extends Component {
     const { team_bots: teamBots } = props.media.team;
     const enabledBots = teamBots.edges.map(b => b.node.login);
     const showRequests = (enabledBots.indexOf('smooch') > -1 || props.media.requests_count > 0);
-    const showTab = showRequests ? 'requests' : 'tasks';
+    const showTab = showRequests ? 'requests' : 'metadata';
 
     // https://www.w3.org/TR/media-frags/
     const { t: temporalInterval = '', id: instanceId } = qs.parse(document.location.hash.substring(1));
@@ -266,12 +273,11 @@ class MediaComponent extends Component {
 
     return (
       <div>
-        <MediaTitle projectMedia={media}>
-          {text => (
-            <PageTitle prefix={text} team={media.team} />
-          )}
-        </MediaTitle>
-        <StyledTwoColumnLayout className="media">
+        <PageTitle prefix={media.title} team={media.team} />
+        <StyledThreeColumnLayout className="media">
+          <FixedColumn>
+            <MediaAnalysis projectMedia={media} />
+          </FixedColumn>
           <Column>
             <MediaDetail
               hideBorder
@@ -355,12 +361,12 @@ class MediaComponent extends Component {
               />
             </Tabs>
             { this.state.showTab === 'requests' ? <MediaRequests media={media} /> : null }
-            { this.state.showTab === 'metadata' ? <MediaTasks media={media} fieldset="metadata" /> : null }
+            { this.state.showTab === 'metadata' ? <MediaTasks media={media} fieldset="metadata" onTimelineCommentOpen={this.onTimelineCommentOpen} /> : null }
             { this.state.showTab === 'tasks' ? <MediaTasks media={media} fieldset="tasks" /> : null }
             { this.state.showTab === 'notes' ? <MediaComments media={media} onTimelineCommentOpen={this.onTimelineCommentOpen} /> : null }
             { this.state.showTab === 'activity' ? <MediaLog media={media} /> : null }
           </Column>
-        </StyledTwoColumnLayout>
+        </StyledThreeColumnLayout>
 
         {// render video annotation drawer only if we can anchor it to the bottom of the player:
           playerRect ?

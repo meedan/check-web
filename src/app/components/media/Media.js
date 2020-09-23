@@ -6,7 +6,6 @@ import CheckContext from '../../CheckContext';
 import MediaRoute from '../../relay/MediaRoute';
 import MediaComponent from './MediaComponent';
 import MediasLoading from './MediasLoading';
-import MediaTitle from './MediaTitle'; // TODO put MediaComponent in this file
 
 const MediaContainer = Relay.createContainer(MediaComponent, {
   initialVariables: {
@@ -16,22 +15,31 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
     media: () => Relay.QL`
       fragment on ProjectMedia {
         id
-        ${MediaTitle.getFragment('projectMedia')}
         dbid
         title
-        metadata
         read_by_someone: is_read
         read_by_me: is_read(by_me: true)
         permissions
         pusher_channel
         project_ids
         requests_count
+        picture
         media {
           url
           quote
           embed_path
           metadata
           type
+        }
+        last_status
+        last_status_obj {
+          id
+          data
+          updated_at
+        }
+        report: dynamic_annotation_report_design {
+          id
+          data
         }
         comments: annotations(first: 10000, annotation_type: "comment") {
           edges {
@@ -110,6 +118,9 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
           dbid
           slug
           name
+          get_language
+          get_report
+          verification_statuses
           team_bots(first: 10000) {
             edges {
               node {

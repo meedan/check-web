@@ -9,6 +9,8 @@ import { withPusher, pusherShape } from '../../pusher';
 import CreateTask from '../task/CreateTask';
 import MediaRoute from '../../relay/MediaRoute';
 import MediasLoading from './MediasLoading';
+import MediaTags from './MediaTags';
+import TagMenu from '../tag/TagMenu';
 import UserUtil from '../user/UserUtil';
 import CheckContext from '../../CheckContext';
 import { getCurrentProjectId } from '../../helpers';
@@ -42,6 +44,13 @@ const StyledTaskHeaderRow = styled.div`
     color: ${black16};
     cursor: pointer;
   }
+`;
+
+const StyledMetadataRow = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: ${units(3)};
 `;
 
 class MediaTasksComponent extends Component {
@@ -145,7 +154,7 @@ class MediaTasksComponent extends Component {
   }
 
   render() {
-    const { fieldset } = this.props;
+    const { fieldset, onTimelineCommentOpen } = this.props;
     const media = Object.assign(this.props.cachedMedia, this.props.media);
     const currentUserRole = UserUtil.myRole(
       this.getContext().currentUser,
@@ -157,6 +166,14 @@ class MediaTasksComponent extends Component {
 
     return (
       <div>
+        { fieldset === 'metadata' ?
+          <StyledMetadataRow>
+            <TagMenu media={media} />
+            <MediaTags
+              projectMedia={media}
+              onTimelineCommentOpen={onTimelineCommentOpen}
+            />
+          </StyledMetadataRow> : null }
         <StyledTaskHeaderRow style={isBrowserExtension ? { padding: 0 } : {}}>
           { itemTasks.edges.length && fieldset === 'tasks' && !isBrowserExtension ?
             <FlexRow>
@@ -248,6 +265,7 @@ const MediaMetadataContainer = Relay.createContainer(withPusher(MediaTasksCompon
             }
           }
         }
+        ${MediaTags.getFragment('projectMedia')}
       }
     `,
   },
@@ -288,7 +306,7 @@ const MediaTasks = (props) => {
     return (
       <Relay.RootContainer
         Component={MediaMetadataContainer}
-        renderFetched={data => <MediaMetadataContainer cachedMedia={media} {...data} fieldset="metadata" />}
+        renderFetched={data => <MediaMetadataContainer cachedMedia={media} {...data} onTimelineCommentOpen={props.onTimelineCommentOpen} fieldset="metadata" />}
         route={route}
         renderLoading={() => <MediasLoading count={1} />}
       />

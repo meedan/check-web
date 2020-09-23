@@ -156,7 +156,6 @@ const MediaRequestsContainer = Relay.createContainer(withPusher(MediaRequestsCom
                       quote,
                       published,
                       url,
-                      metadata,
                       last_status,
                       last_status_obj {
                         id

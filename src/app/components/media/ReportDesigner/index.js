@@ -17,7 +17,6 @@ const ReportDesignerContainer = Relay.createContainer(ReportDesignerComponent, {
         archived
         permissions
         oembed_metadata
-        metadata
         title
         demand
         description
@@ -77,6 +76,7 @@ const ReportDesigner = (props) => {
       Component={ReportDesignerContainer}
       route={route}
       renderFetched={data => <ReportDesignerContainer {...props} {...data} />}
+      forceFetch
     />
   );
 };

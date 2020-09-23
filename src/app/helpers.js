@@ -308,6 +308,17 @@ function parseStringUnixTimestamp(s) {
   return new Date(parseInt(s, 10) * 1000);
 }
 
+/**
+ * Return whether a team has a given bot installed or not
+ */
+function isBotInstalled(team, identifier) {
+  return Boolean((
+    team
+    && team.team_bot_installations
+    && team.team_bot_installations.edges.some(edge => edge.node.team_bot.identifier === identifier)
+  ));
+}
+
 export {
   bemClass,
   bemClassFromMediaStatus,
@@ -315,6 +326,7 @@ export {
   nested,
   getStatus,
   getStatusStyle,
+  isBotInstalled,
   notify,
   truncateLength,
   unhumanizeSize,

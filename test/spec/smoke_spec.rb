@@ -1,102 +1,13 @@
 require_relative './spec_helper.rb'
 require_relative './app_spec_helpers.rb'
 require_relative './api_helpers.rb'
+require_relative './login_spec_helpers.rb'
 
 shared_examples 'smoke' do
 
   include AppSpecHelpers
   include ApiHelpers
-
-#Login section Start
-  it "should sign up using e-mail", bin2: true do
-    @driver.navigate.to @config['self_url']
-    expect(@driver.page_source.include?('Please check your email to verify your account')).to be(false)
-    email = 'userTest+' + Time.now.to_i.to_s + '@email.com'
-    register_with_email(false, email, false)
-    wait_for_selector(".message")
-    expect(@driver.page_source.include?('Please check your email to verify your account')).to be(true)
-  end
-
-  it "should login using Facebook", bin5: true, quick:true do
-    login_with_facebook
-    @driver.navigate.to @config['self_url'] + '/check/me'
-    displayed_name = wait_for_selector('h1.source__name').text.upcase
-    expected_name = @config['facebook_name'].upcase
-    expect(displayed_name).to eq(expected_name)
-  end
-
-  it "should login using Twitter and edit user profile", bin5: true, quick: true do
-    login_with_twitter
-    @driver.navigate.to @config['self_url'] + '/check/me'
-    wait_for_selector("#assignments-tab")
-    displayed_name = wait_for_selector('h1.source__name').text.upcase
-    expected_name = @config['twitter_name'].upcase
-    expect(displayed_name == expected_name).to be(true)
-    expect(@driver.page_source.include?(' - edited')).to be(false)
-    expect(@driver.page_source.include?('bio')).to be(false)
-    wait_for_selector(".source__edit-source-button").click
-    wait_for_selector("#source__name-container").send_keys("- edited")
-    wait_for_selector("#source__bio-container").send_keys("Bio")
-    wait_for_selector(".source__edit-save-button").click
-    wait_for_selector_none("#source__bio-container")
-    wait_for_selector("#assignments-tab")
-    expect(@driver.page_source.include?('- edited')).to be(true)
-    expect(@driver.page_source.include?("Bio")).to be(true)
-  end
-
-  it "should login using Slack", bin4: true, quick:true do
-    login_with_slack
-    @driver.navigate.to @config['self_url'] + '/check/me'
-    displayed_name = wait_for_selector('h1.source__name').text.upcase
-    expected_name = @config['slack_name'].upcase
-    expect(displayed_name == expected_name).to be(true)
-  end
-
-  it "should register and login using e-mail", bin5: true, quick:true do
-    register_with_email
-    @driver.navigate.to @config['self_url'] + '/check/me'
-    displayed_name = wait_for_selector('h1.source__name').text
-    expect(displayed_name == 'User With Email').to be(true)
-  end
-
-  it "should invite a user by e-mail to join team", bin6: true do
-    team = "team#{Time.now.to_i}"
-    api_create_team(team: team)
-    @driver.navigate.to @config['self_url']+'/'+team
-    wait_for_selector(".team-members__invite-button").click
-    wait_for_selector(".invite-member-email-input input").send_keys("user-email@email.com")
-    wait_for_selector(".team-invite-members__dialog-submit-button").click
-    wait_for_selector_none(".invite-member-email-input")
-  end
-
-  it "should redirect to login screen by the join team link", bin2: true do
-    team = "team#{Time.now.to_i}"
-    api_create_team(team: team)
-    api_logout
-    @driver.quit
-    @driver = new_driver()
-    @driver.navigate.to @config['self_url'] + "/"+team+"/join"
-    wait_for_selector(".message")
-    expect(@driver.page_source.include?("First you need to register. Once registered, you can request to join the workspace.")).to be(true)
-  end
-# Login section end
-
-#security section start
-  it "should reset password", bin5: true do
-    user = api_create_and_confirm_user
-    api_logout
-    @driver.quit
-    @driver = new_driver()
-    @driver.navigate.to @config['self_url']
-    wait_for_selector('.login__forgot-password a').click
-    wait_for_selector('#password-reset-email-input').send_keys(user.email)
-    wait_for_selector('.user-password-reset__actions button + button').click
-    wait_for_selector_none(".user-password-reset__email-input")
-    expect(@driver.page_source.include?('email was not found')).to be(false)
-    expect(@driver.page_source.include?('Password reset sent')).to be(true)
-  end
-
-#security section end
+  include LoginSpecHelpers
 
 #media items section start
   it "should create new medias using links from Facebook, Twitter, Youtube, Instagram and Tiktok", bin2: true do
@@ -241,209 +152,15 @@ shared_examples 'smoke' do
     wait_for_selector("#create-media__add-item")
     expect(@driver.current_url.to_s.match(/all-items/).nil?).to be(false) # all items page
   end
-
 #media items section end
-
-#tasks section start
-  it "should manage, search by keywords and filter team tasks", bin6: true do
-    # Create team and go to team page that should not contain any task
-    team = "task-team-#{Time.now.to_i}"
-    api_create_team(team: team)
-    p = Page.new(config: @config, driver: @driver)
-    p.go(@config['self_url'] + '/' + team)
-    wait_for_selector('.team-menu__team-settings-button').click
-    wait_for_selector(".team__privacy")
-    wait_for_selector('.team-settings__tasks-tab').click
-    wait_for_selector('.team-tasks')
-    expect(@driver.page_source.include?('No default tasks to display')).to be(true)
-    expect(@driver.page_source.include?('No tasks')).to be(true)
-    expect(@driver.page_source.include?('New teamwide task')).to be(false)
-
-    # Create task
-    wait_for_selector('.create-task__add-button').click
-    wait_for_selector('.create-task__add-short-answer').click
-    fill_field('#task-label-input', 'New teamwide task')
-    wait_for_selector('.create-task__dialog-submit-button').click
-    wait_for_selector('.team-tasks-project')
-    expect(@driver.page_source.include?('No default tasks to display')).to be(false)
-    expect(@driver.page_source.include?('1 task')).to be(true)
-    expect(@driver.page_source.include?('New teamwide task')).to be(true)
-
-    # Edit task
-    wait_for_selector('.team-tasks__menu-item-button').click
-    wait_for_selector('.team-tasks__edit-button').click
-    fill_field('#task-label-input', '-EDITED')
-    wait_for_selector('.create-task__dialog-submit-button').click
-    wait_for_selector('#confirm-dialog__checkbox').click
-    wait_for_selector('#confirm-dialog__confirm-action-button').click
-    wait_for_selector_none("#confirm-dialog__cancel-action-button")
-    expect(@driver.page_source.include?('New teamwide task-EDITED')).to be(true)
-
-    #add new task
-    wait_for_selector('.create-task__add-button').click
-    wait_for_selector('.create-task__add-geolocation').click
-    fill_field('#task-label-input', 'geolocation task')
-    wait_for_selector('.create-task__dialog-submit-button').click
-    wait_for_selector('.team-tasks-project')
-    expect(@driver.page_source.include?('geolocation task')).to be(true)
-
-    #search task by keyword
-    wait_for_selector(".filter-popup > div > button > span > svg").click
-    wait_for_selector('input[name="filter-search"]').send_keys("New")
-    wait_for_selector("//span[contains(text(), 'Done')]", :xpath).click
-    wait_for_selector_none('input[name="filter-search"]')
-    expect(@driver.page_source.include?('New teamwide task-EDITED')).to be(true)
-    expect(@driver.page_source.include?('geolocation task')).to be(false)
-
-    #filter by type
-    wait_for_selector(".filter-popup > div > button > span > svg").click
-    wait_for_selector('input[name="filter-search"]').send_keys(:control, 'a', :delete)
-    wait_for_selector("//span[contains(text(), 'All tasks')]", :xpath).click
-    wait_for_selector("//span[contains(text(), 'Location')]", :xpath).click
-    wait_for_selector(".multi__selector-save").click
-    wait_for_selector("//span[contains(text(), 'Done')]", :xpath).click
-    wait_for_selector_none('input[name="filter-search"]')
-    expect(@driver.page_source.include?('geolocation task')).to be(true)
-
-    # Delete task
-    wait_for_selector('.team-tasks__menu-item-button').click
-    wait_for_selector('.team-tasks__delete-button').click
-    wait_for_selector('#confirm-dialog__checkbox').click
-    wait_for_selector('#confirm-dialog__confirm-action-button').click
-    wait_for_selector_none("#confirm-dialog__cancel-action-button")
-    expect(@driver.page_source.include?('No default tasks to display')).to be(true)
-    expect(@driver.page_source.include?('geolocation task')).to be(false)
-  end
-
-  it "should add, edit, answer, update answer and delete datetime task", bin3: true do
-    api_create_team_project_and_claim_and_redirect_to_media_page
-    wait_for_selector('.media-detail')
-
-    # Create a task
-    expect(@driver.page_source.include?('When?')).to be(false)
-    expect(@driver.page_source.include?('Task created by')).to be(false)
-    wait_for_selector('.create-task__add-button').click
-    wait_for_selector(".create-task__add-short-answer")
-    wait_for_selector('.create-task__add-datetime').click
-    wait_for_selector('#task-label-input').send_keys("When?")
-    wait_for_selector('.create-task__dialog-submit-button').click
-    wait_for_selector_none(".create-task__add-short-answer")
-    wait_for_selector(".media-tab__activity").click
-    old = wait_for_size_change(old, 'annotation__default-content', :class, 25, 'datetime task 2')
-    expect(@driver.page_source.include?('When?')).to be(true)
-    expect(@driver.page_source.include?('Task created by')).to be(true)
-
-    # Answer task
-    expect(@driver.page_source.include?('Task completed by')).to be(false)
-    wait_for_selector(".media-tab__tasks").click
-    wait_for_selector('.create-task__add-button')
-    fill_field('input[name="hour"]', '23')
-    fill_field('input[name="minute"]', '59')
-    wait_for_selector('#task__response-date').click
-    wait_for_selector_list('button').last.click
-    wait_for_selector('.task__save').click
-    wait_for_selector(".media-tab__activity").click
-    old = wait_for_size_change(old, 'annotation__default-content', :class, 25, 'datetime task 3')
-    expect(@driver.page_source.include?('Task completed by')).to be(true)
-
-    # Edit task
-    wait_for_selector(".media-tab__tasks").click
-    wait_for_selector('.create-task__add-button')
-    expect(@driver.page_source.include?('When was it?')).to be(false)
-    wait_for_selector('.task-actions__icon').click
-    el = wait_for_selector(".task-actions__edit")
-    @driver.action.move_to(el).perform
-    el.click
-    wait_for_selector("//textarea[contains(text(), 'When?')]", :xpath)
-    update_field('#task-label-input', 'When was it?')
-    wait_for_selector('.create-task__dialog-submit-button').click
-    wait_for_selector(".media-tab__activity").click
-    old = wait_for_size_change(old, 'annotation__default-content', :class, 25, 'datetime task 4')
-    expect(@driver.page_source.include?('When was it?')).to be(true)
-    # Edit task response
-    wait_for_selector(".media-tab__tasks").click
-    wait_for_selector('.create-task__add-button')
-    expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('12:34')).to be(false)
-    wait_for_selector('.task-actions__icon').click
-    wait_for_selector('.task-actions__edit-response').click
-    wait_for_selector('input[name="hour"]').send_keys(:control, 'a', :delete)
-    update_field('input[name="hour"]', '12')
-    wait_for_selector('input[name="minute"]').send_keys(:control, 'a', :delete)
-    update_field('input[name="minute"]', '34')
-    wait_for_selector('.task__save').click
-    wait_for_selector(".media-tab__activity").click
-    old = wait_for_size_change(old, 'annotation__default-content', :class, 25, 'datetime task 5')
-    expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('12:34')).to be(true)
-
-    # Delete task
-    wait_for_selector(".media-tab__tasks").click
-    wait_for_selector('.create-task__add-button')
-    delete_task('When was it')
-  end
-
-  it "should assign, answer with a link and add a comment to a task", bin5: true do
-    api_create_team_project_and_claim_and_redirect_to_media_page
-    wait_for_selector('.media-detail')
-
-    # Create a task
-    wait_for_selector('.create-task__add-button').click
-    wait_for_selector('.create-task__add-short-answer').click
-    wait_for_selector('#task-label-input')
-    fill_field('#task-label-input', 'Test')
-    wait_for_selector('.create-task__dialog-submit-button').click
-    wait_for_selector_none("#task-label-input")
-    wait_for_selector(".media-tab__activity").click
-    wait_for_selector_list_size(".annotations__list-item", 2)
-
-    #assign the task
-    wait_for_selector(".media-tab__tasks").click
-    expect(@driver.page_source.include?("Assigned to")).to be (false)
-    wait_for_selector("#task__response-input")
-    wait_for_selector(".task-actions__icon").click
-    wait_for_selector(".task-actions__assign").click
-    wait_for_selector("#attribution")
-    wait_for_selector(".Select-input input").send_keys("user")
-    @driver.action.send_keys(:enter).perform
-    wait_for_selector(".attribution-dialog__save").click
-    wait_for_selector(".task__assigned")
-    expect(@driver.page_source.include?("Assigned to")).to be (true)
-
-    # insert a image
-    wait_for_selector(".task__log-icon > svg").click
-    wait_for_selector(".add-annotation")
-    wait_for_selector(".add-annotation__insert-photo").click
-    wait_for_selector(".without-file")
-    input = wait_for_selector('input[type=file]')
-    input.send_keys(File.join(File.dirname(__FILE__), 'test.png'))
-    wait_for_selector('button[type=submit]').click
-
-    #Answer with link
-    wait_for_selector(".task__log-icon > svg").click
-    wait_for_selector("#task__response-input")
-    wait_for_selector("textarea[name=response]").send_keys("https://www.youtube.com/watch?v=ykLgjhBnik0")
-    @driver.action.send_keys(:enter).perform
-    expect(@driver.find_elements(:css, ".task__response").size).to eq 1
-
-    # Add comment to task
-    expect(@driver.page_source.include?('This is a comment under a task')).to be(false)
-    wait_for_selector('.task__log-top span').click
-    wait_for_selector("#cmd-input")
-    fill_field('#cmd-input', 'This is a comment under a task')
-    @driver.action.send_keys(:enter).perform
-    wait_for_selector(".media-tab__activity").click
-    wait_for_selector(".annotation__author-name")
-    expect(@driver.page_source.include?('This is a comment under a task')).to be(true)
-  end
-#tasks section end
 
 #project section start
   it "should create a project for a team", bin3: true do
     api_create_team
     @driver.navigate.to @config['self_url']
     project_name = "Project #{Time.now}"
-    project_pg = TeamPage.new(config: @config, driver: @driver).create_project(name: project_name)
-    # create_project(project_name)
-    expect(project_pg.driver.current_url.to_s.match(/\/project\/[0-9]+$/).nil?).to be(false)
+    create_project(project_name)
+    expect(@driver.current_url.to_s.match(/\/project\/[0-9]+$/).nil?).to be(false)
     wait_for_selector('.team-header__drawer-team-link').click
     element = wait_for_selector('.team__project-title')
     expect(element.text == project_name).to be(true)
@@ -451,18 +168,18 @@ shared_examples 'smoke' do
 
   it "should edit project", bin4: true do
     api_create_team_and_project
-    project_pg = ProjectPage.new(config: @config, driver: @driver).load
+    @driver.navigate.to @config['self_url']
     new_title = "Changed title #{Time.now.to_i}"
     new_description = "Set description #{Time.now.to_i}"
-    expect(project_pg.contains_string?(new_title)).to be(false)
-    expect(project_pg.contains_string?(new_description)).to be(false)
+    expect(@driver.page_source.include?(new_title)).to be(false)
+    expect(@driver.page_source.include?(new_description)).to be(false)
     #7204 edit title and description separately
-    project_pg.edit(title: new_title, description: "")
+    edit_project(title: new_title, description: "")
     expect(@driver.page_source.include?(new_title)).to be(true)
     expect(@driver.page_source.include?(new_description)).to be(false)
     wait_for_selector('.project-actions', :css)
     #7204 edit title and description separately
-    project_pg.edit(description: new_description)
+    edit_project(description: new_description)
     expect(@driver.page_source.include?(new_title)).to be(true)
     expect(@driver.page_source.include?(new_description)).to be(true)
   end
@@ -498,8 +215,7 @@ shared_examples 'smoke' do
   it "should edit team and logo", bin1: true do
     team = "testteam#{Time.now.to_i}"
     api_create_team(team:team)
-    p = Page.new(config: @config, driver: @driver)
-    p.go(@config['self_url'] + '/' + team)
+    @driver.navigate.to @config['self_url'] + '/' + team
     wait_for_selector("team-menu__edit-team-button", :class)
     expect(@driver.page_source.include?('Rome')).to be(false)
     expect(@driver.page_source.include?('www.meedan.com')).to be(false)
@@ -508,25 +224,20 @@ shared_examples 'smoke' do
 
     wait_for_selector('.team-menu__edit-team-button').click
 
-    el = wait_for_selector("#team__name-container")
-    el.click
-    el.send_keys " - EDIT"
+    wait_for_selector("#team__name-container").click
+    wait_for_selector("#team__name-container").send_keys(" - EDIT")
 
-    el = wait_for_selector("#team__description-container")
-    el.click
-    el.send_keys "EDIT DESCRIPTION"
+    wait_for_selector("#team__description-container").click
+    wait_for_selector("#team__description-container").send_keys "EDIT DESCRIPTION"
 
-    el = wait_for_selector("#team__location-container")
-    el.click
-    el.send_keys "Rome"
+    wait_for_selector("#team__location-container").click
+    wait_for_selector("#team__location-container").send_keys "Rome"
 
-    el = wait_for_selector("#team__phone-container")
-    el.click
-    el.send_keys "555199889988"
+    wait_for_selector("#team__phone-container").click
+    wait_for_selector("#team__phone-container").send_keys "555199889988"
 
-    el = wait_for_selector("#team__link-container")
-    el.click
-    el.send_keys "www.meedan.com"
+    wait_for_selector("#team__link-container").click
+    wait_for_selector("#team__link-container").send_keys "www.meedan.com"
 
     #Logo
     wait_for_selector(".team__edit-avatar-button").click
@@ -590,10 +301,7 @@ shared_examples 'smoke' do
 
   it "should add introduction and a disclaimer to team report settings", bin5: true do
     team = "team#{Time.now.to_i}"
-    api_create_team(team: team)
-    @driver.navigate.to @config['self_url']+'/'+team
-    wait_for_selector('.team')
-    wait_for_selector('.team-menu__team-settings-button').click
+    create_team_and_go_to_settings_page(team)
     wait_for_selector('.team-settings__report-tab').click
     wait_for_selector('#use_introduction').click
     expect(@driver.page_source.include?('Report settings updated successfully!')).to be(false)
@@ -608,10 +316,7 @@ shared_examples 'smoke' do
 
   it "should enable the slack notifications", bin5: true do
     team = "team#{Time.now.to_i}"
-    api_create_team(team: team)
-    @driver.navigate.to @config['self_url']+'/'+team
-    wait_for_selector('.team')
-    wait_for_selector('.team-menu__team-settings-button').click
+    create_team_and_go_to_settings_page(team)
     wait_for_selector('.team-settings__integrations-tab').click
     expect(@driver.find_elements(:css, '.Mui-checked').length == 0 )
     wait_for_selector("input[type=checkbox]").click
@@ -646,7 +351,6 @@ shared_examples 'smoke' do
     wait_for_selector("#user__avatars")
     expect(@driver.page_source.include?('Assigned to')).to be(true)
   end
-
 #team section end
 
 #related items section start
@@ -655,6 +359,7 @@ shared_examples 'smoke' do
     wait_for_selector(".media-detail")
     expect(@driver.page_source.include?('Main Item')).to be(false)
     press_button('.create-related-media__add-button')
+    wait_for_selector('#create-media-dialog__tab-new').click
     wait_for_selector('#create-media__quote').click
     wait_for_selector("#create-media-quote-input")
     fill_field('#create-media-quote-input', 'Main Item')
@@ -677,6 +382,7 @@ shared_examples 'smoke' do
     wait_for_selector(".media-detail")
     #add a related image
     wait_for_selector('.create-related-media__add-button').click
+    wait_for_selector('#create-media-dialog__tab-new').click
     wait_for_selector('#create-media__image').click
     wait_for_selector('input[type=file]').send_keys(File.join(File.dirname(__FILE__), 'test.png'))
     wait_for_selector('#create-media-dialog__submit-button').click
@@ -685,8 +391,7 @@ shared_examples 'smoke' do
     cards = wait_for_selector_list(".card").length
     expect(cards == 2).to be(true)
     wait_for_selector('.media-actions__icon').click
-    wait_for_selector('.media-actions__edit')
-    #delet the main item
+    #delete the main item
     wait_for_selector(".media-actions__send-to-trash").click
     wait_for_selector(".message").click
     wait_for_selector_none(".message")
@@ -704,6 +409,7 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('Claim Related')).to be(false)
     press_button('.create-related-media__add-button')
     #add a related link
+    wait_for_selector('#create-media-dialog__tab-new').click
     wait_for_selector('#create-media__link').click
     wait_for_selector("#create-media-input")
     fill_field('#create-media-input', 'https://twitter.com/meedan/status/1167366036791943168')
@@ -731,7 +437,9 @@ shared_examples 'smoke' do
     wait_for_selector("//div[contains(text(), 'Smooch')]", :xpath)
     wait_for_selector(".team__project").click
     wait_for_selector("#search__open-dialog-button")
-    create_media("Claim")
+    create_media("Claim", false)
+    sleep 10 # Wait for ElasticSearch
+    @driver.navigate.refresh
     wait_for_selector(".medias__item")
     wait_for_selector(".media__heading a").click
     wait_for_selector(".create-related-media__add-button")
@@ -740,6 +448,7 @@ shared_examples 'smoke' do
     wait_for_selector(".media-status__current--in-progress")
     expect(@driver.page_source.include?('Claim Related')).to be(false)
     press_button('.create-related-media__add-button')
+    wait_for_selector('#create-media-dialog__tab-new').click
     wait_for_selector('#create-media__quote').click
     wait_for_selector("#create-media-quote-input")
     fill_field('#create-media-quote-input', 'Claim Related')
@@ -818,7 +527,6 @@ shared_examples 'smoke' do
     wait_for_selector('.report-designer__actions-copy')
     wait_for_selector("//span[contains(text(), 'Edit')]", :xpath).click
     wait_for_selector("//span[contains(text(), 'Visual card')]", :xpath).click
-    wait_for_selector("//span[contains(text(), 'Report text')]", :xpath).click
     wait_for_selector("#report-designer__text").send_keys("text message")
     wait_for_selector("//span[contains(text(), 'Save')]", :xpath).click
     wait_for_selector("//span[contains(text(), 'Edit')]", :xpath)
@@ -1049,19 +757,6 @@ shared_examples 'smoke' do
     wait_for_selector(".media__heading")
     expect(@driver.page_source.include?("Claim")).to be(true)
   end
-
-  it "should remove item from list", bin2: true do
-    api_create_team_project_and_claim_and_redirect_to_media_page
-    wait_for_selector(".media")
-    wait_for_selector(".project-header__back-button").click
-    expect(@driver.page_source.include?("Add a link or text")).to be(false)
-    wait_for_selector_list_size(".medias__item",1)
-    wait_for_selector("body input[type='checkbox']:not(:checked)").click
-    wait_for_selector("#media-bulk-actions__remove-from-list").click #remove_button
-    wait_for_selector_none(".media")
-    expect(@driver.find_elements(:css, '.medias__item').length == 0 )
-    expect(@driver.page_source.include?("Add a link or text")).to be(true)
-  end
 #Bulk Actions section end
 
 #Permissions section start
@@ -1075,9 +770,9 @@ shared_examples 'smoke' do
     team = request_api 'team', { name: 'Team 2', email: user.email, slug: "team-2-#{rand(9999)}#{Time.now.to_i}" }
     request_api 'project', { title: 'Team 2 Project', team_id: team.dbid }
 
-    page = MePage.new(config: @config, driver: @driver).load
+    @driver.navigate.to(@config['self_url'] + '/check/me')
     wait_for_selector(".source__primary-info")
-    page.select_team(name: 'Team 1')
+    select_team(name: 'Team 1')
 
     team_name = wait_for_selector('.team__name').text
     expect(team_name).to eq('Team 1')
@@ -1086,7 +781,7 @@ shared_examples 'smoke' do
 
     @driver.navigate.to(@config['self_url'] + '/check/me')
     wait_for_selector(".source__primary-info")
-    page.select_team(name: 'Team 2')
+    select_team(name: 'Team 2')
 
     wait_for_selector(".team__primary-info")
     team_name = wait_for_selector('.team__name').text
@@ -1096,8 +791,7 @@ shared_examples 'smoke' do
 
     #As a different user, request to join one team and be accepted.
     user = api_register_and_login_with_email(email: "new"+@user_mail, password: @password)
-    page = MePage.new(config: @config, driver: @driver).load
-    page.ask_join_team(subdomain: @team1_slug)
+    ask_join_team(subdomain: @team1_slug)
     @wait.until {
       expect(@driver.find_element(:class, "message").nil?).to be(false)
     }
@@ -1105,13 +799,9 @@ shared_examples 'smoke' do
     @driver.quit
 
     @driver = new_driver()
-    page = Page.new(config: @config, driver: @driver)
-    page.go(@config['api_path'] + '/test/session?email='+@user_mail)
-
     #As the group creator, go to the members page and approve the joining request.
-    page = MePage.new(config: @config, driver: @driver).load
-    page.go(@config['self_url'] + '/check/me')
-    page.approve_join_team(subdomain: @team1_slug)
+    @driver.navigate.to(@config['api_path'] + '/test/session?email='+@user_mail)
+    approve_join_team(subdomain: @team1_slug)
     count = 0
     elems = @driver.find_elements(:css => ".team-members__member")
     while elems.size <= 1 && count < 15
@@ -1126,21 +816,16 @@ shared_examples 'smoke' do
     el = wait_for_selector('input[name="role-select"]', index: 1)
     expect(el.property('value')).to eq 'journalist'
 
-    # "should redirect to team page if user asking to join a team is already a member"
-    page = Page.new(config: @config, driver: @driver)
-    page.go(@config['api_path'] + '/test/session?email=new'+@user_mail)
-    #page = MePage.new(config: @config, driver: @driver).load
+    # # "should redirect to team page if user asking to join a team is already a member"
     @driver.navigate.to @config['self_url'] + "/"+@team1_slug+"/join"
-
     wait_for_selector('.team__primary-info')
     @wait.until {
       expect(@driver.current_url.eql? @config['self_url']+"/"+@team1_slug ).to be(true)
     }
 
-    # "should reject member to join team"
-    user = api_register_and_login_with_email
-    page = MePage.new(config: @config, driver: @driver).load
-    page.ask_join_team(subdomain: @team1_slug)
+    # # "should reject member to join team"
+    api_register_and_login_with_email
+    ask_join_team(subdomain: @team1_slug)
     @wait.until {
       expect(@driver.find_element(:class, "message").nil?).to be(false)
     }
@@ -1148,21 +833,13 @@ shared_examples 'smoke' do
     @driver.quit
 
     @driver = new_driver()
-    page = Page.new(config: @config, driver: @driver)
-    page.go(@config['api_path'] + '/test/session?email='+@user_mail)
-    page = MePage.new(config: @config, driver: @driver).load
-        .disapprove_join_team(subdomain: @team1_slug)
-    count = 0
-    while @driver.page_source.include?('Requests to join') && count < 15
-      sleep 5
-      count += 1
-    end
+    @driver.navigate.to(@config['api_path'] + '/test/session?email='+@user_mail)
+    disapprove_join_team(subdomain: @team1_slug)
+    @driver.navigate.refresh
+    wait_for_selector(".team-header__drawer-team-link")
     expect(@driver.page_source.include?('Requests to join')).to be(false)
 
-    # "should delete member from team"
-    page = Page.new(config: @config, driver: @driver)
-    page.go(@config['api_path'] + '/test/session?email='+@user_mail)
-    page = MePage.new(config: @config, driver: @driver).load
+    # # "should delete member from team"
     @driver.navigate.to @config['self_url'] + '/'+@team1_slug
     wait_for_selector('.team-members__member')
     wait_for_selector('.team-members__edit-button').click
@@ -1193,20 +870,16 @@ shared_examples 'smoke' do
     api_logout
     #As a different user, request to join one team and be accepted.
     user2 = api_register_and_login_with_email(email: "new"+@user_mail, password: @password)
-    page = MePage.new(config: @config, driver: @driver).load
-    page.ask_join_team(subdomain: @team1_slug)
+    ask_join_team(subdomain: @team1_slug)
     @wait.until {
       expect(@driver.find_element(:class, "message").nil?).to be(false)
     }
     api_logout
     @driver.quit
     @driver = new_driver()
-    page = Page.new(config: @config, driver: @driver)
-    page.go(@config['api_path'] + '/test/session?email='+@user_mail)
+    @driver.navigate.to(@config['api_path'] + '/test/session?email='+@user_mail)
     #As the group creator, go to the members page and approve the joining request.
-    page = MePage.new(config: @config, driver: @driver).load
-    page.go(@config['self_url'] + '/check/me')
-    page.approve_join_team(subdomain: @team1_slug)
+    approve_join_team(subdomain: @team1_slug)
     count = 0
     elems = @driver.find_elements(:css => ".team-members__member")
     while elems.size <= 1 && count < 15
@@ -1226,29 +899,19 @@ shared_examples 'smoke' do
     wait_for_selector_list_size(".medias__item", 1)
     expect(@driver.page_source.include?('one item')).to be(true)
 
-    # "should redirect to team page if user asking to join a team is already a member"
-    page = Page.new(config: @config, driver: @driver)
-    page.go(@config['api_path'] + '/test/session?email=new'+@user_mail)
-    #page = MePage.new(config: @config, driver: @driver).load
-    @driver.navigate.to @config['self_url'] + "/"+@team1_slug+"/join"
-    wait_for_selector('.team__primary-info')
-    @wait.until {
-      expect(@driver.current_url.eql? @config['self_url']+"/"+@team1_slug ).to be(true)
-    }
     #As a different user, request to join one team
     user3 = api_register_and_login_with_email(email: "one_more"+@user_mail, password: @password)
-    page = MePage.new(config: @config, driver: @driver).load
-    page.ask_join_team(subdomain: @team1_slug)
+    ask_join_team(subdomain: @team1_slug)
     @wait.until {
       expect(@driver.find_element(:class, "message").nil?).to be(false)
     }
     api_logout
     @driver.quit
-    #As the journalist, go to the members page and can't see the request to join the another user
+    #log in as  the journalist
     @driver = new_driver()
-    page = Page.new(config: @config, driver: @driver)
-    page.go(@config['api_path'] + '/test/session?email=new'+@user_mail)
-    page = MePage.new(config: @config, driver: @driver).load
+    @driver.navigate.to(@config['api_path'] + '/test/session?email=new'+@user_mail)
+
+    #go to the members page and can't see the request to join the another user
     @driver.navigate.to @config['self_url'] + "/"+@team1_slug
     wait_for_selector(".create-project-card")
     expect(@driver.page_source.include?('Requests to join')).to be(false)
@@ -1283,11 +946,11 @@ shared_examples 'smoke' do
     api_logout
     @driver.quit
 
-    #As the group creator, go to the members page and edit team member role to 'contribuitor'
+    #log in as the group creator
     @driver = new_driver()
-    page = Page.new(config: @config, driver: @driver)
-    page.go(@config['api_path'] + '/test/session?email='+@user_mail)
-    page = MePage.new(config: @config, driver: @driver).load
+    @driver.navigate.to(@config['api_path'] + '/test/session?email='+@user_mail)
+
+    # go to the members page and edit team member role to 'contribuitor'
     @driver.navigate.to @config['self_url'] + "/"+@team1_slug
     #edit team member role
     change_the_member_role_to('li.role-contributor')
@@ -1299,12 +962,10 @@ shared_examples 'smoke' do
 
     #log in as the contributor
     @driver = new_driver()
-    page = Page.new(config: @config, driver: @driver)
-    page.go(@config['api_path'] + '/test/session?email=new'+@user_mail)
-    page = MePage.new(config: @config, driver: @driver).load
-    @driver.navigate.to @config['self_url'] + "/"+@team1_slug
-
+    @driver.navigate.to(@config['api_path'] + '/test/session?email=new'+@user_mail)
+    
     #can't see the link 'edit member roles'
+    @driver.navigate.to @config['self_url'] + "/"+@team1_slug
     expect(@driver.find_elements(:css, ".team-members__edit-button").size).to eq 0
 
     #can't see the link 'create a new list'
@@ -1348,9 +1009,6 @@ shared_examples 'smoke' do
 
     # Select an action
     wait_for_selector('.rules__actions .rules__rule-field button + button').click
-    # https://mantis.meedan.com/view.php?id=8463 clicking the select field
-    # doesn't open it. So let's click the select field again. FIXME fix #8463,
-    # then nix this line.
     wait_for_selector('.rules__actions .rules__rule-field button + button').click
     wait_for_selector('ul[role=listbox] li[data-option-index="2"]').click
     expect(@driver.page_source.include?('Select destination list')).to be(true)
@@ -1565,8 +1223,6 @@ shared_examples 'smoke' do
     data = api_create_team_and_project
     project_id = data[:project].dbid.to_s
     claim = request_api 'claim', { quote: 'Claim', email: data[:user].email, team_id: data[:team].dbid, project_id: project_id }
-    sleep 2
-    MediaPage.new(config: @config, driver: @driver)
     @driver.navigate.to @config['self_url'] + '/' + data[:team].slug + '/all-items/%7B"projects"%3A%5B' + project_id + '%5D%7D'
     wait_for_selector(".search__results-heading")
     expect(@driver.page_source.include?('My search result')).to be(false)
@@ -1650,7 +1306,6 @@ shared_examples 'smoke' do
     # Create team and go to team page that should not contain any tag
     team = "tag-team-#{Time.now.to_i}"
     api_create_team(team: team)
-    p = Page.new(config: @config, driver: @driver)
     @driver.navigate.to @config['self_url'] + '/' + team
     wait_for_selector('.team-menu__team-settings-button').click
     wait_for_selector('.team-settings__tasks-tab')
@@ -1717,7 +1372,8 @@ shared_examples 'smoke' do
     #add a note
     wait_for_selector("button[data-testid=new-comment-thread-button]").click
     wait_for_selector("#comment").send_keys("my note")
-    wait_for_selector("//span[contains(text(), 'Save')]", :xpath).click
+    @driver.execute_script("window.scrollTo(0, document.body.scrollHeight)")
+    wait_for_selector("//button/span[contains(text(), 'Save')]", :xpath).click
     wait_for_selector(".MuiAvatar-img")
     expect(@driver.find_elements(:class, "MuiAvatar-img").size).to eq 1
     wait_for_selector(".MuiIconButton-sizeSmall").click #close timeline button
@@ -1730,7 +1386,7 @@ shared_examples 'smoke' do
     wait_for_selector(".MuiAvatar-img").click
     #add a new note
     wait_for_selector("#comment").send_keys("new note")
-    wait_for_selector("//span[contains(text(), 'Save')]", :xpath).click
+    wait_for_selector("//button/span[contains(text(), 'Save')]", :xpath).click
     wait_for_selector("//p[contains(text(), 'new note')]", :xpath)
     #delet note
     wait_for_selector("button[aria-label='Delete thread']").click

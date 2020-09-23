@@ -204,7 +204,7 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
     }
 
     const timeout = setTimeout(() => {
-      this.setFlashMessage(<FormattedMessage id="network.stillWorking" defaultMessage="Still working..." />);
+      this.setFlashMessage(<FormattedMessage id="network.stillWorking" defaultMessage="Still working…" />);
     }, fetchTimeout);
 
     return fetch(this._uri, init).then((response) => {

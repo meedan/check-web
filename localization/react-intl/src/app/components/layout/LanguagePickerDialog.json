@@ -1,0 +1,18 @@
+[
+  {
+    "id": "languagePickerDialog.optionLabel",
+    "defaultMessage": "{languageName} ({languageCode})"
+  },
+  {
+    "id": "languagePickerDialog.unknownLanguage",
+    "defaultMessage": "Unknown language"
+  },
+  {
+    "id": "languagePickerDialog.title",
+    "defaultMessage": "Choose a language"
+  },
+  {
+    "id": "languagePickerDialog.selectLanguage",
+    "defaultMessage": "Select a language"
+  }
+]

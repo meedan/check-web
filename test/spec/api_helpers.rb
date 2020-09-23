@@ -78,7 +78,7 @@ module ApiHelpers
       sleep 1
     end
     if project_id_was == 0
-      return ProjectPage.new(config: @config, driver: @driver)
+      @driver.navigate.to @config['self_url'] + '/' + data[:team].slug + '/project/' + project_id.to_s
     else
       @driver.navigate.to @config['self_url'] + '/' + data[:team].slug + '/all-items'
       return nil
@@ -105,7 +105,6 @@ module ApiHelpers
     media = api_create_team_project_and_link url, project_id
     @driver.navigate.to "#{media.full_url}?listIndex=0"
     sleep 2
-    MediaPage.new(config: @config, driver: @driver)
   end
 
   # Create things, then navigate to /my-team/project/123/media/234?listIndex=0
@@ -116,7 +115,6 @@ module ApiHelpers
     media = api_create_team_project_and_claim false, quote, project_id
     @driver.navigate.to "#{media.full_url}?listIndex=0"
     sleep 2
-    MediaPage.new(config: @config, driver: @driver)
   end
 
   def api_create_media_and_go_to_search_page

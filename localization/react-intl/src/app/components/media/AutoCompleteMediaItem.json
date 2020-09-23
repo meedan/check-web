@@ -1,7 +1,7 @@
 [
   {
     "id": "autoCompleteMediaItem.searching",
-    "defaultMessage": "Searching..."
+    "defaultMessage": "Searching…"
   },
   {
     "id": "autoCompleteMediaItem.error",

@@ -14,11 +14,14 @@ function findStatusObjectOrNull(statuses, statusId) {
   return statuses[index];
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
     whiteSpace: 'nowrap',
+    maxWidth: theme.spacing(28),
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   },
-});
+}));
 
 export default function StatusCell({ projectMedia }) {
   const classes = useStyles();

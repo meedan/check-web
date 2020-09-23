@@ -1,10 +1,10 @@
 [
   {
-    "id": "createMedia.addNew",
-    "defaultMessage": "Add new item"
-  },
-  {
     "id": "createMedia.existing",
     "defaultMessage": "Add existing item"
+  },
+  {
+    "id": "createMedia.addNew",
+    "defaultMessage": "Add new item"
   }
 ]

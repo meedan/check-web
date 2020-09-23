@@ -8,27 +8,16 @@ import NextPreviousLinks from './NextPreviousLinks';
 const StyledTopBar = styled.div`
   display: flex;
   flex-wrap: wrap;
-
-  .media-search__actions-bar {
-    width: 50%;
-    position: absolute;
-    height: 64px;
-    right: 0;
-    top: 0;
-    display: flex;
-    align-items: center;
-    z-index: 2;
-    padding: 0 16px;
-    justify-content: space-between;
-  }
-
-  @media (max-width: 1500px) {
-    .media-search__actions-bar {
-      width: 100%;
-      position: static;
-      margin-top: -28px;
-    }
-  }
+  width: 60%;
+  position: absolute;
+  height: 64px;
+  right: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  z-index: 2;
+  padding: 0 16px;
+  justify-content: space-between;
 `;
 
 export default function MediaPageLayout({

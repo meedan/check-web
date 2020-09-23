@@ -1,14 +1,66 @@
 [
   {
+    "id": "mediaAnalysis.analysis",
+    "defaultMessage": "Analysis"
+  },
+  {
+    "id": "mediaAnalysis.saving",
+    "defaultMessage": "Saving…"
+  },
+  {
+    "id": "mediaAnalysis.saved",
+    "defaultMessage": "Saved {ago}"
+  },
+  {
     "id": "mediaAnalysis.error",
-    "defaultMessage": "Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists."
+    "defaultMessage": "Could not save! Last save {ago}"
   },
   {
-    "id": "mediaAnalysis.type",
-    "defaultMessage": "Type an analysis of this item that will appear in the item's report…"
+    "id": "mediaAnalysis.copying",
+    "defaultMessage": "Copying…"
   },
   {
-    "id": "mediaAnalysis.save",
-    "defaultMessage": "Save"
+    "id": "mediaAnalysis.copyToReport",
+    "defaultMessage": "Copy to report"
+  },
+  {
+    "id": "mediaAnalysis.title",
+    "defaultMessage": "Title"
+  },
+  {
+    "id": "mediaAnalysis.content",
+    "defaultMessage": "Content ({max} characters max)"
+  },
+  {
+    "id": "mediaAnalysis.publishedArticle",
+    "defaultMessage": "Published article URL"
+  },
+  {
+    "id": "mediaAnalysis.date",
+    "defaultMessage": "Date published"
+  },
+  {
+    "id": "mediaAnalysis.confirmTitle1",
+    "defaultMessage": "Current report is published"
+  },
+  {
+    "id": "mediaAnalysis.confirmTitle2",
+    "defaultMessage": "Overwrite existing report?"
+  },
+  {
+    "id": "mediaAnalysis.confirmText1",
+    "defaultMessage": "You need to first pause your report in order to edit it. Do you want to pause the report and update it with the new content?"
+  },
+  {
+    "id": "mediaAnalysis.confirmText2",
+    "defaultMessage": "Do you want to update the report with this new content? All edits will be lost."
+  },
+  {
+    "id": "mediaAnalysis.confirmButtonLabel1",
+    "defaultMessage": "Pause report and update content"
+  },
+  {
+    "id": "mediaAnalysis.confirmButtonLabel2",
+    "defaultMessage": "Overwrite content"
   }
 ]

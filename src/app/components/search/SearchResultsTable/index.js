@@ -10,11 +10,13 @@ import SearchResultsTableRow from './SearchResultsTableRow';
 import TitleCell from './TitleCell';
 import TypeCell from './TypeCell';
 import StatusCell from './StatusCell';
-import FirstSeenCell from './FirstSeenCell';
-import LastSeenCell from './LastSeenCell';
+import SubmittedCell from './SubmittedCell';
+import LastSubmittedCell from './LastSubmittedCell';
+import UpdatedCell from './UpdatedCell';
 import DemandCell from './DemandCell';
 import ShareCountCell from './ShareCountCell';
 import LinkedItemsCountCell from './LinkedItemsCountCell';
+import { isBotInstalled } from '../../../helpers';
 
 const AllPossibleColumns = [
   {
@@ -27,8 +29,8 @@ const AllPossibleColumns = [
     headerText: <FormattedMessage id="list.Demand" defaultMessage="Requests" />,
     onlyIfSmoochBotEnabled: true,
     cellComponent: DemandCell,
+    align: 'center',
     sortKey: 'demand',
-    width: '1px', // "width: 1px" means, "consume the minimum width to fit the contents"
   },
   {
     field: 'share_count',
@@ -36,7 +38,6 @@ const AllPossibleColumns = [
     cellComponent: ShareCountCell,
     align: 'center',
     sortKey: 'share_count',
-    width: '1px',
   },
   {
     field: 'linked_items_count',
@@ -44,47 +45,42 @@ const AllPossibleColumns = [
     cellComponent: LinkedItemsCountCell,
     align: 'center',
     sortKey: 'related',
-    width: '1px',
   },
   {
     field: 'type',
     headerText: <FormattedMessage id="list.Type" defaultMessage="Type" />,
     cellComponent: TypeCell,
-    width: '1px',
   },
   {
     field: 'status',
     headerText: <FormattedMessage id="list.Status" defaultMessage="Status" />,
     cellComponent: StatusCell,
-    width: '1px',
   },
   {
     field: 'created_at',
-    headerText: <FormattedMessage id="list.FirstSeen" defaultMessage="First seen" />,
-    cellComponent: FirstSeenCell,
+    headerText: <FormattedMessage id="list.FirstSeen" defaultMessage="Submitted" />,
+    cellComponent: SubmittedCell,
     sortKey: 'recent_added',
-    width: '1px',
   },
   {
     field: 'last_seen',
-    headerText: <FormattedMessage id="list.LastSeen" defaultMessage="Last seen" />,
+    headerText: <FormattedMessage id="list.LastSeen" defaultMessage="Last submitted" />,
     onlyIfSmoochBotEnabled: true,
     sortKey: 'last_seen',
-    cellComponent: LastSeenCell,
-    width: '1px',
+    cellComponent: LastSubmittedCell,
+  },
+  {
+    field: 'recent_activity',
+    headerText: <FormattedMessage id="list.updated" defaultMessage="Updated" />,
+    sortKey: 'recent_activity',
+    cellComponent: UpdatedCell,
   },
 ];
 
 function buildColumnDefs(team) {
-  const smoochBotInstalled = (
-    team
-    && team.team_bot_installations
-    && team.team_bot_installations.edges.some(edge => edge.node.team_bot.identifier === 'smooch')
-  );
-
   return AllPossibleColumns
     // "demand" and "last_seen" only appear if smooch bot is installed
-    .filter(({ onlyIfSmoochBotEnabled }) => onlyIfSmoochBotEnabled ? smoochBotInstalled : true);
+    .filter(({ onlyIfSmoochBotEnabled }) => onlyIfSmoochBotEnabled ? isBotInstalled(team, 'smooch') : true);
 }
 
 /**
@@ -93,12 +89,11 @@ function buildColumnDefs(team) {
  * This implies a parent must manage scrolling. Our design is: <html> shows
  * scrollbars; and the table's sticky header appears here.
  */
-const TableContainerWithoutScrollbars = withStyles(theme => ({
+const TableContainerWithoutScrollbars = withStyles({
   root: {
     overflow: 'visible',
-    paddingLeft: theme.spacing(2),
   },
-}))(TableContainer);
+})(TableContainer);
 
 export default function SearchResultsTable({
   team,

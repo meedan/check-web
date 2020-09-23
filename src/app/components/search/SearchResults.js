@@ -17,12 +17,14 @@ import ProjectBlankState from '../project/ProjectBlankState';
 import { black87, headline, units, Row } from '../../styles/js/shared';
 import SearchResultsTable from './SearchResultsTable';
 import SearchRoute from '../../relay/SearchRoute';
+import { isBotInstalled } from '../../helpers';
 
 // TODO Make this a config
 const pageSize = 20;
 
 const StyledListHeader = styled.div`
   padding: 0 ${units(2)};
+  max-width: calc(100vw - ${units(34)});
 
   .search__list-header-filter-row {
     justify-content: space-between;
@@ -40,7 +42,6 @@ const StyledListHeader = styled.div`
   }
 
   .project__title {
-    max-width: 35%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -317,7 +318,13 @@ class SearchResultsComponent extends React.PureComponent {
     const selectedProjectMediaIds = this.state.selectedProjectMediaIds.filter(isIdInSearchResults);
 
     const isProject = !!this.props.project;
-
+    const sortParams = query.sort ? {
+      key: query.sort,
+      ascending: query.sort_type !== 'DESC',
+    } : {
+      key: isBotInstalled(team, 'smooch') ? 'last_seen' : 'recent_added',
+      ascending: false,
+    };
 
     const selectedProjectMediaProjectIds = [];
     const selectedProjectMediaDbids = [];
@@ -343,10 +350,7 @@ class SearchResultsComponent extends React.PureComponent {
           projectMedias={projectMedias}
           team={team}
           selectedIds={selectedProjectMediaIds}
-          sortParams={query.sort ? {
-            key: query.sort,
-            ascending: query.sort_type !== 'DESC',
-          } : null}
+          sortParams={sortParams}
           onChangeSelectedIds={this.handleChangeSelectedIds}
           onChangeSortParams={this.handleChangeSortParams}
           buildProjectMediaUrl={this.buildProjectMediaUrl}
@@ -363,7 +367,7 @@ class SearchResultsComponent extends React.PureComponent {
         <StyledListHeader>
           <Row className="search__list-header-filter-row">
             <Row className="search__list-header-title-and-filter">
-              <div style={{ font: headline }} className="project__title">
+              <div style={{ font: headline }} className="project__title" title={title}>
                 {title}
               </div>
               <SearchQuery
@@ -531,7 +535,6 @@ const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsCom
               picture,
               title,
               description,
-              virality,
               demand,
               linked_items_count,
               type,
@@ -539,6 +542,7 @@ const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsCom
               first_seen: created_at,
               last_seen,
               share_count,
+              updated_at,
               is_read,
               project_media_project(project_id: $projectId) {
                 dbid
