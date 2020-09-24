@@ -103,9 +103,13 @@ shared_examples 'task' do
 
     # Answer task
     expect(@driver.page_source.include?('Task completed by')).to be(false)
-    answer_task(task_type_class:".create-task__add-datetime", selector:'input[name="hour"]', response:'23', selector_two: 'input[name="minute"]', response_two: '59' )
+    expect(@driver.page_source.include?('10:59')).to be(false)
+    update_field('#task__response-time-input', '10:59')
+    sleep 0.5
+    answer_task(task_type_class: '.create-task__add-datetime', selector: '#task__response-time-input', response: '10:59')
     wait_for_selector("//span[contains(text(), 'Completed by')]", :xpath)
     expect(@driver.page_source.include?('Completed by')).to be(true)
+    expect(@driver.page_source.include?('10:59')).to be(true)
 
     # Edit task
     wait_for_selector(".media-tab__tasks").click
@@ -115,12 +119,12 @@ shared_examples 'task' do
 
     # Edit task response
     expect(@driver.page_source.include?('11:34')).to be(false)
-    edit_task_response(selector:'input[name="hour"]', response:'11', selector_two: 'input[name="minute"]', response_two: '34' )
+    edit_task_response(selector: '#task__response-time-input', response: '11:34')
     expect(@driver.page_source.include?('11:34')).to be(true)
 
     # Delete task
     delete_task
-    expect(@driver.page_source.include?('when was it')).to be(false)
+    expect(@driver.page_source.include?('When was it')).to be(false)
   end
 
   it "should add, edit, answer, update answer and delete short answer task", bin3: true do

@@ -8,8 +8,12 @@
     "defaultMessage": "Are you sure you want to delete this metadata?"
   },
   {
-    "id": "teamTasks.confirmEditTitle",
+    "id": "teamTasks.confirmEditTaskTitle",
     "defaultMessage": "Are you sure you want to edit this task?"
+  },
+  {
+    "id": "teamTasks.confirmEditMetadataTitle",
+    "defaultMessage": "Are you sure you want to edit this metadata?"
   },
   {
     "id": "teamTasks.confirmEditBlurb",

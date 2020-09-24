@@ -5,14 +5,20 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '@material-ui/core/TextField';
 import CancelIcon from '@material-ui/icons/Cancel';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import IconButton from '@material-ui/core/IconButton';
+import HelpIcon from '@material-ui/icons/HelpOutline';
 import styled from 'styled-components';
 import Attribution from './Attribution';
 import Message from '../Message';
 import ProjectSelector from '../project/ProjectSelector';
-import { units, StyledIconButton, caption, black54, Row } from '../../styles/js/shared';
+import timezones from '../../timezones';
+import { units, StyledIconButton, caption, black54, Row, checkBlue } from '../../styles/js/shared';
 
 const StyledProjectsArea = styled.div`
   margin-top: ${units(2)};
@@ -60,14 +66,19 @@ class EditTaskDialog extends React.Component {
 
     const { task } = props;
 
+    let defaultOptions = [{ label: '' }, { label: '' }];
+    if (props.taskType === 'datetime') {
+      defaultOptions = [];
+    }
+
     this.state = {
       label: task ? task.label : null,
       description: task ? task.description : null,
-      options: task ? task.options : [{ label: '' }, { label: '' }],
+      showInBrowserExtension: task ? task.show_in_browser_extension : true,
+      options: task ? task.options : defaultOptions,
       project_ids: task ? task.project_ids : [],
       submitDisabled: true,
       showAssignmentField: false,
-      jsonschema: task ? task.json_schema : null,
       editLabelOrDescription: false,
     };
   }
@@ -146,8 +157,8 @@ class EditTaskDialog extends React.Component {
     this.validateTask(e.target.value, this.state.options);
   }
 
-  handleJsonSchemaChange(e) {
-    this.setState({ jsonschema: e.target.value });
+  handleToogleShowInBrowserExtension(e) {
+    this.setState({ showInBrowserExtension: e.target.checked });
     this.validateTask(this.state.label, this.state.options);
   }
 
@@ -167,9 +178,9 @@ class EditTaskDialog extends React.Component {
     const task = {
       label: this.state.label,
       description: this.state.description,
+      show_in_browser_extension: this.state.showInBrowserExtension,
       jsonoptions,
       json_project_ids: JSON.stringify(this.state.project_ids),
-      jsonschema: this.state.jsonschema,
       editLabelOrDescription: this.state.editLabelOrDescription,
     };
 
@@ -257,6 +268,9 @@ class EditTaskDialog extends React.Component {
         <FormattedMessage id="editTaskDialog.newMetadata" defaultMessage="New metadata field" />
       );
     };
+    const handleHelp = () => {
+      window.open('https://help.checkmedia.org/en/articles/4423863-using-the-check-browser-extension');
+    };
 
     return (
       <Dialog
@@ -278,6 +292,7 @@ class EditTaskDialog extends React.Component {
             defaultValue={this.state.label}
             onChange={this.handleLabelChange.bind(this)}
             margin="normal"
+            variant="outlined"
             multiline
             fullWidth
           />
@@ -290,9 +305,56 @@ class EditTaskDialog extends React.Component {
             defaultValue={this.state.description}
             onChange={this.handleDescriptionChange.bind(this)}
             margin="normal"
+            variant="outlined"
             multiline
             fullWidth
           />
+          <p />
+          { this.props.isTeamTask && this.props.taskType === 'datetime' ?
+            <Autocomplete
+              multiple
+              options={Object.values(timezones)}
+              getOptionLabel={option => option.label}
+              defaultValue={this.state.options}
+              filterSelectedOptions
+              onChange={(event, newValue) => {
+                this.setState({ options: newValue });
+                this.validateTask(this.state.label, newValue);
+              }}
+              renderInput={params => (
+                <TextField
+                  {...params}
+                  variant="outlined"
+                  label={
+                    <FormattedMessage
+                      id="tasks.timezones"
+                      defaultMessage="Timezones available to complete the task"
+                    />
+                  }
+                />
+              )}
+            /> : null }
+          <p />
+          { this.props.isTeamTask ?
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={this.state.showInBrowserExtension}
+                  onChange={this.handleToogleShowInBrowserExtension.bind(this)}
+                />
+              }
+              label={
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <FormattedMessage
+                    id="tasks.showInBrowserExtension"
+                    defaultMessage="Show in browser extension"
+                  />
+                  <IconButton onClick={handleHelp}>
+                    <HelpIcon style={{ color: checkBlue }} />
+                  </IconButton>
+                </div>
+              }
+            /> : null }
           <p />
           { this.props.projects && isTask ?
             <StyledProjectsArea>
@@ -326,17 +388,6 @@ class EditTaskDialog extends React.Component {
               </button> : null
             }
           </StyledTaskAssignment>
-          { this.props.taskType === 'free_text' && isTask ?
-            <TextField
-              id="task-jsonschema-input"
-              className="tasks__task-jsonschema-input"
-              label={<FormattedMessage id="tasks.taskJsonSchema" defaultMessage="JSON Schema (optional / advanced)" />}
-              defaultValue={this.state.jsonschema}
-              onChange={this.handleJsonSchemaChange.bind(this)}
-              margin="normal"
-              multiline
-              fullWidth
-            /> : null }
         </DialogContent>
         <DialogActions>
           <Button

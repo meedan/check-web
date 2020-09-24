@@ -29,6 +29,7 @@ class CreateTeamTask extends React.Component {
     const teamTask = {
       label: task.label,
       description: task.description,
+      show_in_browser_extension: task.show_in_browser_extension,
       task_type: this.state.createType,
       json_options: task.jsonoptions,
       json_project_ids: task.json_project_ids,
@@ -87,6 +88,7 @@ class CreateTeamTask extends React.Component {
             onDismiss={this.handleClose}
             onSubmit={this.handleSubmitTask}
             projects={projects ? projects.edges : null}
+            isTeamTask
           />
           : null
         }

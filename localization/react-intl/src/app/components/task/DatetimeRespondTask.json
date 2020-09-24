@@ -9,18 +9,14 @@
   },
   {
     "id": "datetimeRespondTask.pickDate",
-    "defaultMessage": "Pick a date from the calendar"
+    "defaultMessage": "Pick a date"
   },
   {
-    "id": "datetimeRespondTask.ok",
-    "defaultMessage": "OK"
+    "id": "datetimeRespondTask.time",
+    "defaultMessage": "Pick a time"
   },
   {
-    "id": "datetimeRespondTask.cancel",
-    "defaultMessage": "Cancel"
-  },
-  {
-    "id": "datetimeRespondTask.timeOptional",
-    "defaultMessage": "Time (optional)"
+    "id": "datetimeRespondTask.timezone",
+    "defaultMessage": "Select a timezone"
   }
 ]

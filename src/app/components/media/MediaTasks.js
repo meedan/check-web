@@ -230,6 +230,7 @@ const MediaTasksContainer = Relay.createContainer(withPusher(MediaTasksComponent
             node {
               id
               dbid
+              show_in_browser_extension
               responses(first: 10000) {
                 edges {
                   node {
@@ -261,6 +262,7 @@ const MediaMetadataContainer = Relay.createContainer(withPusher(MediaTasksCompon
             node {
               id,
               dbid,
+              show_in_browser_extension,
               ${Task.getFragment('task')},
             }
           }
