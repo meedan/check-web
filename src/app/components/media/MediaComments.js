@@ -78,6 +78,8 @@ class MediaCommentsComponent extends Component {
           annotations={media.log.edges}
           annotated={media}
           annotatedType="ProjectMedia"
+          annotationsCount={media.annotations_count}
+          relay={this.props.relay}
           onTimelineCommentOpen={this.props.onTimelineCommentOpen}
           noActivityMessage={
             <FormattedMessage
@@ -96,7 +98,7 @@ MediaCommentsComponent.propTypes = {
   pusher: pusherShape.isRequired,
 };
 
-const pageSize = 30;
+const pageSize = 10;
 const eventTypes = ['create_comment'];
 const fieldNames = [];
 const annotationTypes = [];
@@ -120,6 +122,7 @@ const MediaCommentsContainer = Relay.createContainer(withPusher(MediaCommentsCom
         dbid
         archived
         pusher_channel
+        annotations_count(annotation_type: "comment")
         log(last: $pageSize, event_types: $eventTypes, field_names: $fieldNames, annotation_types: $annotationTypes) {
           edges {
             node {
