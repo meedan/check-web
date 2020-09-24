@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { FormattedMessage } from 'react-intl';
-import { KeyboardDatePicker } from '@material-ui/pickers';
+import { DatePicker, TimePicker } from '@material-ui/pickers';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import AccessTimeIcon from '@material-ui/icons/AccessTime';
+import EventIcon from '@material-ui/icons/Event';
 import { FormattedGlobalMessage } from '../MappedMessage';
 import { convertNumbers2English } from '../../helpers';
 import { alertRed, black38, black54, units, caption, FlexRow } from '../../styles/js/shared';
@@ -101,8 +104,8 @@ class DatetimeRespondTask extends Component {
     this.setState({ focus: true, timezone, taskAnswerDisabled: !this.canSubmit() });
   }
 
-  handleChangeTime(e) {
-    const time = e.target.value.split(':');
+  handleChangeTime(value) {
+    const time = [value.toDate().getHours().toString(), value.toDate().getMinutes().toString()];
     const hour = convertNumbers2English(time[0]);
     const minute = convertNumbers2English(time[1]);
     this.setState({
@@ -201,13 +204,20 @@ class DatetimeRespondTask extends Component {
     return (
       <div>
         <FlexRow style={styles.row}>
-          <KeyboardDatePicker
+          <DatePicker
             label={
               <FormattedMessage
                 id="datetimeRespondTask.pickDate"
                 defaultMessage="Pick a date"
               />
             }
+            InputProps={{
+              endAdornment: (
+                <InputAdornment>
+                  <EventIcon />
+                </InputAdornment>
+              ),
+            }}
             id="task__response-date"
             className="task__response-input"
             name="response"
@@ -228,7 +238,7 @@ class DatetimeRespondTask extends Component {
               style={{ justifyContent: 'flex-start', alignItems: 'center' }}
               id="task__response-time"
             >
-              <TextField
+              <TimePicker
                 id="task__response-time-input"
                 label={
                   <FormattedMessage
@@ -236,20 +246,20 @@ class DatetimeRespondTask extends Component {
                     defaultMessage="Pick a time"
                   />
                 }
-                type="time"
                 onChange={this.handleChangeTime.bind(this)}
-                variant="outlined"
-                placeholder=""
-                defaultValue={
-                  this.state.hour !== '' && this.state.minute !== '' ?
-                    `${this.state.hour}:${this.state.minute}` : null
+                value={
+                  this.state.hour && this.state.minute ?
+                    new Date().setHours(this.state.hour, this.state.minute) : null
                 }
-                inputProps={{
-                  /* Hack: Didn't find a way to disable the default --:-- placeholder :( */
-                  style: this.state.hour === '' && this.state.minute === '' ?
-                    { color: 'transparent' } : {},
-                  step: 60, // 1 min
+                inputVariant="outlined"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment>
+                      <AccessTimeIcon />
+                    </InputAdornment>
+                  ),
                 }}
+                variant="inline"
                 fullWidth
               />
               <Autocomplete

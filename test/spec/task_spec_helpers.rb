@@ -63,13 +63,6 @@ module TaskSpecHelpers
       if params[:selector_two]
         update_field(params[:selector_two], params[:response_two])
       end
-      if params[:task_type_class] == '.create-task__add-datetime'
-        wait_for_selector('.task__response-input button').click
-        wait_for_selector('.MuiPickersDay-daySelected').click
-        sleep 2
-        @driver.action.send_keys(:escape).perform
-      end
-      sleep 10
       wait_for_selector('.task__save').click
     end
   end
