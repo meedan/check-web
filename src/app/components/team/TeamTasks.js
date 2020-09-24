@@ -182,6 +182,7 @@ const TeamTasksContainer = Relay.createContainer(TeamTasksComponent, {
               type
               project_ids
               json_schema
+              show_in_browser_extension
             }
           }
         }
@@ -217,6 +218,7 @@ const TeamMetadataContainer = Relay.createContainer(TeamTasksComponent, {
               type
               project_ids
               json_schema
+              show_in_browser_extension
             }
           }
         }

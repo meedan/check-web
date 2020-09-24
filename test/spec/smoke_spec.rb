@@ -963,7 +963,7 @@ shared_examples 'smoke' do
     #log in as the contributor
     @driver = new_driver()
     @driver.navigate.to(@config['api_path'] + '/test/session?email=new'+@user_mail)
-    
+
     #can't see the link 'edit member roles'
     @driver.navigate.to @config['self_url'] + "/"+@team1_slug
     expect(@driver.find_elements(:css, ".team-members__edit-button").size).to eq 0
@@ -1438,7 +1438,6 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('new status')).to be(false)
     item_page = @driver.current_url
     @driver.navigate.to @config['self_url'] + '/' + get_team + '/settings'
-    wait_for_selector(".team__primary-info")
     wait_for_selector(".team-settings__statuses-tab").click
     wait_for_selector("//span[contains(text(), 'English (default)')]", :xpath)
     expect(@driver.page_source.include?('Unstarted')).to be(true)
@@ -1474,7 +1473,6 @@ shared_examples 'smoke' do
     api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector(".media-detail")
     @driver.navigate.to @config['self_url'] + '/' + get_team + '/settings'
-    wait_for_selector(".team__primary-info")
     wait_for_selector(".team-settings__languages-tab").click
     wait_for_selector(".language-list-item__en-default")
     expect(@driver.page_source.include?('language-list-item__en-default')).to be(true)

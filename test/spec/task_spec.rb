@@ -103,7 +103,11 @@ shared_examples 'task' do
 
     # Answer task
     expect(@driver.page_source.include?('Task completed by')).to be(false)
-    answer_task(task_type_class:".create-task__add-datetime", selector:'input[name="hour"]', response:'23', selector_two: 'input[name="minute"]', response_two: '59' )
+    wait_for_selector('.task__response-input').click
+    wait_for_selector('.MuiPickersDay-daySelected').click
+    sleep 2
+    @driver.action.send_keys(:escape).perform
+    wait_for_selector('.task__save').click
     wait_for_selector("//span[contains(text(), 'Completed by')]", :xpath)
     expect(@driver.page_source.include?('Completed by')).to be(true)
 
@@ -113,14 +117,9 @@ shared_examples 'task' do
     edit_task("When was it?")
     expect(@driver.page_source.include?('When was it?')).to be(true)
 
-    # Edit task response
-    expect(@driver.page_source.include?('11:34')).to be(false)
-    edit_task_response(selector:'input[name="hour"]', response:'11', selector_two: 'input[name="minute"]', response_two: '34' )
-    expect(@driver.page_source.include?('11:34')).to be(true)
-
     # Delete task
     delete_task
-    expect(@driver.page_source.include?('when was it')).to be(false)
+    expect(@driver.page_source.include?('When was it')).to be(false)
   end
 
   it "should add, edit, answer, update answer and delete short answer task", bin3: true do

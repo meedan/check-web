@@ -33,7 +33,7 @@ class CreateProject extends React.Component {
 
     this.state = {
       message: null,
-      name: null,
+      name: '',
       isSubmitting: false,
     };
   }
@@ -71,7 +71,7 @@ class CreateProject extends React.Component {
       if (this.props.onCreate) {
         this.props.onCreate();
       }
-      this.setState({ message: null, name: null, isSubmitting: false });
+      this.setState({ message: null, name: '', isSubmitting: false });
     };
 
     if (!this.state.isSubmitting && title) {

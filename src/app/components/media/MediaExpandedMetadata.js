@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedDate, FormattedMessage, FormattedNumber } from 'react-intl';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -18,20 +18,25 @@ function shouldDisplayMetrics(metrics) {
 const MediaExpandedMetadata = ({ projectMedia }) => {
   const metrics = projectMedia.media.metadata.metrics ?
     projectMedia.media.metadata.metrics.facebook : null;
-
   const { published_at } = projectMedia.media.metadata;
 
   if (!shouldDisplayMetrics(metrics) && !published_at) { return null; }
 
+  let publishedOn = null;
+  if (published_at) {
+    const { locale } = (new window.Intl.NumberFormat()).resolvedOptions();
+    publishedOn = new Date(published_at).toLocaleString(locale, { timeZoneName: 'short' });
+  }
+
   return (
     <Box marginTop={2} marginBottom={2}>
       <Grid container spacing={2}>
-        { published_at ? (
+        { publishedOn ? (
           <Grid item xs={3}>
             <Typography variant="button" component="div">
               <FormattedMessage id="mediaExpandedMetadata.publishedOn" defaultMessage="Published on" />
             </Typography>
-            <div><FormattedDate value={published_at} day="numeric" month="long" year="numeric" /></div>
+            <div>{publishedOn}</div>
           </Grid>
         ) : null }
         { shouldDisplayMetrics(metrics) ? (
@@ -78,7 +83,7 @@ MediaExpandedMetadata.propTypes = {
           }).isRequired,
         })).isRequired,
       }).isRequired,
-    }).isRequired,
+    }),
   }).isRequired,
 };
 

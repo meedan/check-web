@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 import { FormattedMessage } from 'react-intl';
+import Box from '@material-ui/core/Box';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import UserEmail from '../user/UserEmail';
@@ -51,15 +52,23 @@ class UserComponent extends React.Component {
     const context = this.getContext();
     const isUserSelf = (user.id === context.currentUser.id);
 
+    const HeaderContent = () => (
+      <Box pt={3} pb={3}>
+        { isEditing ?
+          <UserInfoEdit user={user} /> :
+          <UserInfo user={user} context={context} />
+        }
+      </Box>
+    );
+
     return (
       <PageTitle prefix={user.name}>
         <div className="source">
           <HeaderCard>
             <ContentColumn>
+              <HeaderContent />
               { isEditing ?
-                <UserInfoEdit user={user} /> :
-                <div>
-                  <UserInfo user={user} context={context} />
+                null : (
                   <Tabs
                     indicatorColor="primary"
                     textColor="primary"
@@ -111,7 +120,7 @@ class UserComponent extends React.Component {
                       /> : null
                     }
                   </Tabs>
-                </div>
+                )
               }
             </ContentColumn>
           </HeaderCard>

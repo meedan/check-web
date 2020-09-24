@@ -203,6 +203,7 @@ class TeamTasksListItem extends React.Component {
       task_type: type,
       label: task.label,
       description: task.description,
+      show_in_browser_extension: task.show_in_browser_extension,
       json_options: task.jsonoptions,
       json_project_ids: task.json_project_ids,
       json_schema: task.jsonschema,
@@ -319,6 +320,7 @@ class TeamTasksListItem extends React.Component {
             onDismiss={this.handleCloseEdit}
             onSubmit={this.handleEdit}
             projects={projects}
+            isTeamTask
           />
           : null
         }
@@ -333,6 +335,7 @@ TeamTasksListItem.propTypes = {
     id: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     description: PropTypes.string,
+    show_in_browser_extension: PropTypes.bool,
     type: PropTypes.string.isRequired,
     json_options: PropTypes.string,
     json_project_ids: PropTypes.string,

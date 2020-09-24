@@ -169,7 +169,7 @@ module AppSpecHelpers
   def create_team_and_go_to_settings_page(team)
     api_create_team(team: team)
     @driver.navigate.to @config['self_url'] + '/' + team + '/settings'
-    wait_for_selector(".team__privacy")
+    wait_for_selector(".team-settings__statuses-tab")
   end
 
   def create_claim_and_go_to_search_page
@@ -300,7 +300,6 @@ module AppSpecHelpers
   end
 
   def create_team_data_field(params ={})
-    wait_for_selector(".team__primary-info")
     create_task(params)
   end
 

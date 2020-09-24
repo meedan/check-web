@@ -46,7 +46,7 @@ class BrowserSupport extends Component {
   }
 
   static shouldShowMessage() {
-    return !BrowserSupport.supported() && !BrowserSupport.closed();
+    return !BrowserSupport.supported() && !BrowserSupport.closed() && window.parent === window;
   }
 
   close() {

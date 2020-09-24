@@ -40,16 +40,20 @@
     "defaultMessage": "Description (optional)"
   },
   {
+    "id": "tasks.timezones",
+    "defaultMessage": "Timezones available to complete the task"
+  },
+  {
+    "id": "tasks.showInBrowserExtension",
+    "defaultMessage": "Show in browser extension"
+  },
+  {
     "id": "tasks.showInProj",
     "defaultMessage": "Show tasks in"
   },
   {
     "id": "tasks.assign",
     "defaultMessage": "Assign"
-  },
-  {
-    "id": "tasks.taskJsonSchema",
-    "defaultMessage": "JSON Schema (optional / advanced)"
   },
   {
     "id": "tasks.cancelAdd",

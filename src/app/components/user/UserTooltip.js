@@ -95,7 +95,7 @@ function UserTooltipComponent({ teamUser }) {
 
   return (
     <StyledTooltip>
-      <StyledTwoColumns style={{ paddingBottom: 0 }}>
+      <StyledTwoColumns>
         <StyledSmallColumnTooltip>
           <Avatar
             className="avatar"

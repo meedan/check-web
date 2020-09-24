@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
-import { DatePicker } from '@material-ui/pickers';
-import IconDateRange from '@material-ui/icons/DateRange';
-import IconSchedule from '@material-ui/icons/Schedule';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import ListItemText from '@material-ui/core/ListItemText';
+import { FormattedMessage } from 'react-intl';
+import { DatePicker, TimePicker } from '@material-ui/pickers';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import AccessTimeIcon from '@material-ui/icons/AccessTime';
+import EventIcon from '@material-ui/icons/Event';
 import { FormattedGlobalMessage } from '../MappedMessage';
 import { convertNumbers2English } from '../../helpers';
 import { alertRed, black38, black54, units, caption, FlexRow } from '../../styles/js/shared';
@@ -48,7 +47,7 @@ class DatetimeRespondTask extends Component {
     let date = null;
     let hour = '';
     let minute = '';
-    let timezone = 'GMT';
+    let timezone = null;
     const response = this.props.response ? convertNumbers2English(this.props.response) : null;
     if (response) {
       const values = response.match(/^(\d+-\d+-\d+) (\d+):(\d+) ([+-]?\d+) ([^ ]+)/);
@@ -58,6 +57,10 @@ class DatetimeRespondTask extends Component {
         ([, , hour, minute] = values);
       }
       ([, , , , , timezone] = values);
+    }
+    if (timezone) {
+      const code = timezone;
+      timezone = timezones[code];
     }
 
     this.state = {
@@ -97,37 +100,26 @@ class DatetimeRespondTask extends Component {
     this.setState({ focus: true, taskAnswerDisabled: !this.canSubmit(date), date });
   }
 
-  handleChangeTimezone(e) {
-    const { value } = e.target;
-    this.setState({ focus: true, timezone: value, taskAnswerDisabled: !this.canSubmit() });
+  handleChangeTimezone(timezone) {
+    this.setState({ focus: true, timezone, taskAnswerDisabled: !this.canSubmit() });
   }
 
-  handleChangeTime(part, e) {
-    const value = convertNumbers2English(e.target.value);
-
-    const validators = {
-      hour: /^$|^([0-9]|0[0-9]|1[0-9]|2[0-3])$/,
-      minute: /^$|^([0-5]?[0-9])$/,
-    };
-
-    const state = {
+  handleChangeTime(value) {
+    const time = [value.toDate().getHours().toString(), value.toDate().getMinutes().toString()];
+    const hour = convertNumbers2English(time[0]);
+    const minute = convertNumbers2English(time[1]);
+    this.setState({
+      hour,
+      minute,
       focus: true,
       taskAnswerDisabled: !this.canSubmit(),
-    };
-
-    if (!validators[part].test(value)) {
-      this.setState(state);
-      return;
-    }
-
-    state[part] = e.target.value;
-
-    this.setState(state);
+    });
   }
 
   handleSubmit() {
     if (!this.state.taskAnswerDisabled && !this.state.timeError) {
-      const { date, timezone } = this.state;
+      const { date } = this.state;
+      const timezone = this.state.timezone || { code: 'GMT' };
 
       const format = (val, size, char) => `${val}`.padStart(size, char);
 
@@ -144,8 +136,8 @@ class DatetimeRespondTask extends Component {
         : '0';
 
       let offset = '';
-      if (timezones[timezone]) {
-        ({ offset } = timezones[timezone]);
+      if (timezone && timezones[timezone.code]) {
+        ({ offset } = timezones[timezone.code]);
         if (offset > 0) {
           offset = `+${offset}`;
         }
@@ -156,7 +148,7 @@ class DatetimeRespondTask extends Component {
         notime = 'notime';
       }
 
-      const response = `${year}-${month}-${day} ${hour}:${minute} ${offset} ${timezone} ${notime}`;
+      const response = `${year}-${month}-${day} ${hour}:${minute} ${offset} ${timezone ? timezone.code : ''} ${notime}`;
 
       this.setState({ taskAnswerDisabled: true });
       this.props.onSubmit(response);
@@ -180,6 +172,11 @@ class DatetimeRespondTask extends Component {
 
   render() {
     const { fieldset } = this.props;
+
+    let taskTimezones = Object.values(timezones);
+    if (this.props.timezones) {
+      taskTimezones = JSON.parse(this.props.timezones);
+    }
 
     const actionBtns = (
       <p className="task__resolver">
@@ -207,90 +204,89 @@ class DatetimeRespondTask extends Component {
     return (
       <div>
         <FlexRow style={styles.row}>
-          <IconDateRange className="task__icon" style={styles.secondaryColumn} />
           <DatePicker
             label={
               <FormattedMessage
                 id="datetimeRespondTask.pickDate"
-                defaultMessage="Pick a date from the calendar"
+                defaultMessage="Pick a date"
               />
             }
+            InputProps={{
+              endAdornment: (
+                <InputAdornment>
+                  <EventIcon />
+                </InputAdornment>
+              ),
+            }}
             id="task__response-date"
             className="task__response-input"
             name="response"
             value={this.state.date}
             onChange={this.handleChange.bind(this)}
-            okLabel={<FormattedMessage id="datetimeRespondTask.ok" defaultMessage="OK" />}
-            cancelLabel={
-              <FormattedMessage id="datetimeRespondTask.cancel" defaultMessage="Cancel" />
-            }
-            labelFunc={
-              this.state.date ?
-                date => this.props.intl.formatDate(date) : null
-            }
             style={styles.primaryColumn}
+            disableToolbar
+            inputVariant="outlined"
+            variant="inline"
+            format="MMMM DD, YYYY"
+            margin="normal"
           />
         </FlexRow>
 
         <FlexRow style={styles.row}>
-          <IconSchedule className="task__icon" style={styles.secondaryColumn} />
           <div style={styles.primaryColumn}>
-            <label htmlFor="task__response-time" style={styles.label} className="task__label">
-              <FormattedMessage
-                id="datetimeRespondTask.timeOptional"
-                defaultMessage="Time (optional)"
-              />
-            </label>
             <FlexRow
               style={{ justifyContent: 'flex-start', alignItems: 'center' }}
               id="task__response-time"
             >
-              <TextField
-                name="hour"
-                placeholder="HH"
-                inputProps={{
-                  maxLength: 2,
-                  style: {
-                    textAlign: 'center',
-                  },
+              <TimePicker
+                id="task__response-time-input"
+                label={
+                  <FormattedMessage
+                    id="datetimeRespondTask.time"
+                    defaultMessage="Pick a time"
+                  />
+                }
+                onChange={this.handleChangeTime.bind(this)}
+                value={
+                  this.state.hour && this.state.minute ?
+                    new Date().setHours(this.state.hour, this.state.minute) : null
+                }
+                inputVariant="outlined"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment>
+                      <AccessTimeIcon />
+                    </InputAdornment>
+                  ),
                 }}
-                style={styles.time}
-                value={this.state.hour}
-                onChange={this.handleChangeTime.bind(this, 'hour')}
-                onFocus={() => { this.setState({ focus: true }); }}
-              />{' '}
-              <div>:</div>{' '}
-              <TextField
-                name="minute"
-                placeholder="MM"
-                inputProps={{
-                  maxLength: 2,
-                  style: {
-                    textAlign: 'center',
-                  },
-                }}
-                style={styles.time}
-                value={this.state.minute}
-                onChange={this.handleChangeTime.bind(this, 'minute')}
-                onFocus={() => { this.setState({ focus: true }); }}
+                variant="inline"
+                fullWidth
               />
-              <Select
-                value={this.state.timezone}
-                onChange={this.handleChangeTimezone.bind(this)}
-                autoWidth
+              <Autocomplete
                 className="task__datetime-timezone"
                 style={{ marginLeft: units(2) }}
-              >
-                {Object.keys(timezones).map(tz => (
-                  <MenuItem
-                    key={tz}
-                    value={timezones[tz].code}
-                  >
-                    <ListItemText
-                      primary={<span dir="ltr">{timezones[tz].label}</span>}
-                    />
-                  </MenuItem>))}
-              </Select>
+                options={
+                  taskTimezones && taskTimezones.length ? taskTimezones : Object.values(timezones)
+                }
+                getOptionLabel={option => option.label}
+                defaultValue={this.state.timezone}
+                onChange={(event, newValue) => {
+                  this.handleChangeTimezone(newValue);
+                }}
+                renderInput={params => (
+                  <TextField
+                    {...params}
+                    variant="outlined"
+                    label={
+                      <FormattedMessage
+                        id="datetimeRespondTask.timezone"
+                        defaultMessage="Select a timezone"
+                      />
+                    }
+                  />
+                )}
+                fullWidth
+              />
             </FlexRow>
           </div>
         </FlexRow>
@@ -303,10 +299,4 @@ class DatetimeRespondTask extends Component {
   }
 }
 
-DatetimeRespondTask.propTypes = {
-  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
-  // eslint-disable-next-line react/no-typos
-  intl: intlShape.isRequired,
-};
-
-export default injectIntl(DatetimeRespondTask);
+export default DatetimeRespondTask;

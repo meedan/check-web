@@ -37,17 +37,20 @@ const Tasks = ({
   return (
     <div className="tasks">
       <ul className="tasks__list / tasks-list">
-        {tasks.map(task => (
-          <li key={task.node.dbid}>
-            { (isMetadata || isBrowserExtension) ? (
-              <Task task={task.node} media={media} />
-            ) : (
-              <ReorderTask fieldset={fieldset} task={task.node}>
+        {tasks
+          .filter(task => (!isBrowserExtension || task.node.show_in_browser_extension))
+          .map(task => (
+            <li key={task.node.dbid}>
+              { (isMetadata || isBrowserExtension) ? (
                 <Task task={task.node} media={media} />
-              </ReorderTask>
-            )}
-          </li>
-        ))}
+              ) : (
+                <ReorderTask fieldset={fieldset} task={task.node}>
+                  <Task task={task.node} media={media} />
+                </ReorderTask>
+              )}
+            </li>
+          ))
+        }
       </ul>
     </div>
   );

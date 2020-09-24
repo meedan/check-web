@@ -350,6 +350,7 @@ class Task extends Component {
               <DatetimeRespondTask
                 fieldset={task.fieldset}
                 response={editingResponseText}
+                timezones={task.jsonoptions}
                 onSubmit={this.handleUpdateResponse}
                 onDismiss={this.handleCancelEditResponse}
               />
@@ -596,6 +597,7 @@ class Task extends Component {
                       /> : null}
                     {task.type === 'datetime' ?
                       <DatetimeRespondTask
+                        timezones={task.jsonoptions}
                         fieldset={task.fieldset}
                         onSubmit={this.handleSubmitResponse}
                       />
