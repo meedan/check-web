@@ -96,7 +96,6 @@ class Annotations extends React.Component {
           <div className="annotations__list">
             { props.annotations.length < props.annotationsCount ? (
               <Button
-                variant="contained"
                 onClick={this.loadMore}
                 disabled={this.state.loadingMore}
               >
