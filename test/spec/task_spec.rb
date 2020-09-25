@@ -103,24 +103,19 @@ shared_examples 'task' do
 
     # Answer task
     expect(@driver.page_source.include?('Task completed by')).to be(false)
-    expect(@driver.page_source.include?('10:59')).to be(false)
-    update_field('#task__response-time-input', '10:59')
-    sleep 0.5
-    answer_task(task_type_class: '.create-task__add-datetime', selector: '#task__response-time-input', response: '10:59')
+    wait_for_selector('.task__response-input').click
+    wait_for_selector('.MuiPickersDay-daySelected').click
+    sleep 2
+    @driver.action.send_keys(:escape).perform
+    wait_for_selector('.task__save').click
     wait_for_selector("//span[contains(text(), 'Completed by')]", :xpath)
     expect(@driver.page_source.include?('Completed by')).to be(true)
-    expect(@driver.page_source.include?('10:59')).to be(true)
 
     # Edit task
     wait_for_selector(".media-tab__tasks").click
     expect(@driver.page_source.include?('When was it?')).to be(false)
     edit_task("When was it?")
     expect(@driver.page_source.include?('When was it?')).to be(true)
-
-    # Edit task response
-    expect(@driver.page_source.include?('11:34')).to be(false)
-    edit_task_response(selector: '#task__response-time-input', response: '11:34')
-    expect(@driver.page_source.include?('11:34')).to be(true)
 
     # Delete task
     delete_task
