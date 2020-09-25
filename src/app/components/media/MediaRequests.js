@@ -68,6 +68,8 @@ class MediaRequestsComponent extends Component {
           annotations={media.requests.edges}
           annotated={media}
           annotatedType="ProjectMedia"
+          annotationsCount={media.requests_count}
+          relay={this.props.relay}
           noActivityMessage={
             <FormattedMessage
               id="MediaRequests.noRequest"
@@ -85,7 +87,7 @@ MediaRequestsComponent.propTypes = {
   clientSessionId: PropTypes.string.isRequired,
 };
 
-const pageSize = 30;
+const pageSize = 10;
 const eventTypes = ['create_dynamicannotationfield'];
 const fieldNames = ['smooch_data'];
 const annotationTypes = [];
@@ -111,6 +113,7 @@ const MediaRequestsContainer = Relay.createContainer(withPusher(MediaRequestsCom
         dbid
         archived
         pusher_channel
+        requests_count
         requests: log(last: $pageSize, event_types: $eventTypes, field_names: $fieldNames, annotation_types: $annotationTypes, who_dunnit: $whoDunnit, include_related: true) {
           edges {
             node {

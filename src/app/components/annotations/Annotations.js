@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
+import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import styled from 'styled-components';
@@ -46,7 +47,13 @@ const StyledAnnotationCardActions = styled(CardActions)`
   margin-top: auto;
 `;
 
+const pageSize = 10;
+
 class Annotations extends React.Component {
+  state = {
+    loadingMore: false,
+  };
+
   componentDidMount() {
     this.scrollToBottom();
   }
@@ -62,19 +69,43 @@ class Annotations extends React.Component {
     }
   };
 
+  loadMore = () => {
+    if (!this.state.loadingMore) {
+      this.setState({ loadingMore: true }, () => {
+        const newSize = this.props.annotations.length + pageSize;
+        this.props.relay.setVariables(
+          { pageSize: newSize },
+          (state) => {
+            if (state.done || state.aborted) {
+              this.setState({ loadingMore: false });
+            }
+          },
+        );
+      });
+    }
+  };
+
   render() {
     const { props } = this;
     return (
       <StyledAnnotations
         className="annotations"
         showAddAnnotation={props.showAddAnnotation}
-        annotationCount={props.annotations.length}
       >
         <Card style={props.style}>
           <div className="annotations__list">
+            { props.annotations.length < props.annotationsCount ? (
+              <Button
+                variant="contained"
+                onClick={this.loadMore}
+                disabled={this.state.loadingMore}
+              >
+                Load More
+              </Button>
+            ) : null }
             {!props.annotations.length ?
               <Text style={{ margin: 'auto', color: black38 }}>
-                { props.noActivityMessage ? props.noActivityMessage : <FormattedMessage id="annotation.noAnnotationsYet" defaultMessage="No activity" /> }
+                { props.noActivityMessage || <FormattedMessage id="annotation.noAnnotationsYet" defaultMessage="No activity" />}
               </Text> :
               props.annotations.map(annotation => (
                 <div key={annotation.node.dbid} className="annotations__list-item">
