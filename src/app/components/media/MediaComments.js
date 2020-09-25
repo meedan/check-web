@@ -70,11 +70,6 @@ class MediaCommentsComponent extends Component {
       <div id="media__comments" style={this.props.style}>
         <Annotations
           showAddAnnotation
-          style={{
-            background: 'transparent',
-            border: 0,
-            boxShadow: 'none',
-          }}
           annotations={media.log.edges}
           annotated={media}
           annotatedType="ProjectMedia"
