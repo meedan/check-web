@@ -60,11 +60,6 @@ class MediaRequestsComponent extends Component {
     return (
       <div id="media__requests" style={this.props.style}>
         <Annotations
-          style={{
-            background: 'transparent',
-            border: 0,
-            boxShadow: 'none',
-          }}
           annotations={media.requests.edges}
           annotated={media}
           annotatedType="ProjectMedia"
