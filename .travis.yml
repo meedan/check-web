@@ -47,7 +47,7 @@ before_install:
 - docker run -d -p 9000:9000 -e "MINIO_ACCESS_KEY=AKIAIOSFODNN7EXAMPLE" -e "MINIO_SECRET_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY" minio/minio server /data
 # check api
 - psql -c 'create database checkdesk_test0;' -U postgres
-- docker run -d --name elasticsearch -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:7.9.1
+- docker run -d --name elasticsearch -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:7.9.2
 - docker exec elasticsearch elasticsearch-plugin install analysis-icu
 - docker restart elasticsearch
 - until curl --silent -XGET --fail http://localhost:9200; do printf '.'; sleep 1; done
