@@ -48,13 +48,11 @@ before_install:
 - docker run -d -p 9000:9000 -e "MINIO_ACCESS_KEY=AKIAIOSFODNN7EXAMPLE" -e "MINIO_SECRET_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY" minio/minio server /data
 # check api
 - psql -c 'create database checkdesk_test0;' -U postgres
-- wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.8.9.deb && sudo dpkg -i --force-confnew elasticsearch-6.8.9.deb && sudo service elasticsearch restart
-- sudo /usr/share/elasticsearch/bin/elasticsearch-plugin install analysis-icu
-- sudo chown -R elasticsearch:elasticsearch /etc/default/elasticsearch
-- sudo service elasticsearch restart
+- docker run -d --name elasticsearch -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:7.9.1
+- docker exec elasticsearch elasticsearch-plugin install analysis-icu
+- docker restart elasticsearch
 - until curl --silent -XGET --fail http://localhost:9200; do printf '.'; sleep 1; done
 - curl --silent -XPUT http://localhost:9200/check_api_tests0
-- sudo service elasticsearch status
 - export CHECK_API_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/check-api.git $TRAVIS_BRANCH >/dev/null && echo $TRAVIS_BRANCH) || echo 'develop')
 - echo "Using branch $CHECK_API_BRANCH for Check API"
 - git clone --branch=$CHECK_API_BRANCH https://github.com/meedan/check-api.git
