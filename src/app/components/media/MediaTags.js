@@ -27,7 +27,6 @@ const StyledMediaTagsContainer = styled.div`
 
   .media-tags__list {
     display: flex;
-    justify-content: center;
     flex-wrap: wrap;
     list-style: none;
     padding: ${units(0.5)};
@@ -126,6 +125,9 @@ class MediaTags extends React.Component {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div>
               <ul className="media-tags__list">
+                <li>
+                  <MediaLanguageChip projectMedia={projectMedia} />
+                </li>
                 {tags.map((tag) => {
                   if (tag.node.tag_text) {
                     return (
@@ -148,13 +150,6 @@ class MediaTags extends React.Component {
                   }
                   return null;
                 })}
-              </ul>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'flex-end' }}>
-              <ul className="media-tags__list">
-                <li>
-                  <MediaLanguageChip projectMedia={projectMedia} />
-                </li>
               </ul>
             </div>
           </div>
