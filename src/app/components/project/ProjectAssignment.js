@@ -4,6 +4,10 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import { withStyles } from '@material-ui/core/styles';
 import IconArrowDropDown from '@material-ui/icons/ArrowDropDown';
 import { can } from '../Can';
 import MultiSelector from '../layout/MultiSelector';
@@ -16,9 +20,24 @@ import { stringHelper } from '../../customHelpers';
 import { withSetFlashMessage } from '../FlashMessage';
 import globalStrings from '../../globalStrings';
 
+const Styles = theme => ({
+  root: {
+    flex: '1 0 auto',
+    margin: theme.spacing(1),
+  },
+  spaced: {
+    margin: theme.spacing(1),
+  },
+  title: {
+    margin: theme.spacing(2),
+    outline: 0,
+  },
+});
+
 class ProjectAssignmentComponent extends Component {
   state = {
     anchorEl: null,
+    message: '',
   };
 
   handleClick = (event) => {
@@ -55,6 +74,7 @@ class ProjectAssignmentComponent extends Component {
       new UpdateProjectMutation({
         id: this.props.project.id,
         assigned_to_ids: selected.join(','),
+        assignment_message: this.state.message,
       }),
       { onSuccess, onFailure },
     );
@@ -67,6 +87,7 @@ class ProjectAssignmentComponent extends Component {
       return null;
     }
 
+    const { classes } = this.props;
     const anchorEl = this.state.anchorEl || this.props.anchorEl;
     const buttonStyle = {
       border: 0,
@@ -93,15 +114,45 @@ class ProjectAssignmentComponent extends Component {
         open={Boolean(anchorEl)}
         onClose={this.handleClose}
       >
-        <MultiSelector
-          allowSelectAll
-          allowUnselectAll
-          allowSearch
-          options={options}
-          selected={selected}
-          onDismiss={this.handleClose}
-          onSubmit={this.handleSelect}
-        />
+        <Typography variant="h6" className={classes.title}>
+          <FormattedMessage
+            id="projectAssignment.title"
+            defaultMessage="Assign list to collaborators"
+          />
+        </Typography>
+        <Box display="flex" style={{ outline: 0 }}>
+          <MultiSelector
+            allowSelectAll
+            allowUnselectAll
+            allowSearch
+            options={options}
+            selected={selected}
+            onDismiss={this.handleClose}
+            onSubmit={this.handleSelect}
+          />
+          <div className={classes.spaced}>
+            <Typography variant="body1" component="div" className={classes.spaced}>
+              <FormattedMessage
+                id="projectAssignment.headlineTitle"
+                defaultMessage="Add a note to the e-mail"
+              />
+            </Typography>
+            <TextField
+              label={
+                <FormattedMessage
+                  id="projectAssignment.headline"
+                  defaultMessage="Headline"
+                />
+              }
+              variant="outlined"
+              value={this.state.message}
+              onChange={(e) => { this.setState({ message: e.target.value }); }}
+              rows={21}
+              InputProps={{ classes: { root: classes.root } }}
+              multiline
+            />
+          </div>
+        </Box>
       </Menu>
     );
 
@@ -143,7 +194,7 @@ ProjectAssignmentComponent.propTypes = {
 };
 
 const ConnectedProjectAssignmentComponent =
-  withSetFlashMessage(injectIntl(ProjectAssignmentComponent));
+  withStyles(Styles)(withSetFlashMessage(injectIntl(ProjectAssignmentComponent)));
 
 const ProjectAssignmentContainer = Relay.createContainer(ConnectedProjectAssignmentComponent, {
   initialVariables: {

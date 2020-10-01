@@ -48,16 +48,14 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('Who agrees with this')).to be(true)
   end
 
-  it "should create a item and assign it", bin4: true do
+  it "should create an item and assign it", bin4: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector(".media")
     expect(@driver.page_source.include?('Assigments updated successfully!')).to be(false)
     wait_for_selector('.media-actions__icon').click
     wait_for_selector(".media-actions__assign").click
-    wait_for_selector(".Select-input input").send_keys("user")
-    @driver.action.send_keys(:enter).perform
-    wait_for_selector("//span[contains(text(), 'Done')]", :xpath).click
-    wait_for_selector_none("//span[contains(text(), 'Done')]", :xpath)
+    wait_for_selector("input[type=checkbox]").click
+    wait_for_selector(".multi__selector-save").click
     wait_for_selector(".message")
     expect(@driver.page_source.include?('Assignments updated successfully!')).to be(true)
     wait_for_selector(".media-tab__activity").click
