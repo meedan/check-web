@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -141,12 +141,12 @@ UserTosForm.propTypes = {
   showTitle: PropTypes.bool,
   termsLastUpdatedAt: PropTypes.number.isRequired,
   user: PropTypes.shape({
-    last_accepted_terms_at: PropTypes.number
+    last_accepted_terms_at: PropTypes.string,
   }).isRequired,
 };
 
 UserTosForm.defaultProps = {
-  showTitle: false
+  showTitle: false,
 };
 
 export default UserTosForm;
