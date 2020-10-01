@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types'
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -131,5 +132,21 @@ class UserTosForm extends Component {
     );
   }
 }
+
+UserTosForm.propTypes = {
+  checkedPp: PropTypes.bool.isRequired,
+  checkedTos: PropTypes.bool.isRequired,
+  handleCheckPp: PropTypes.func.isRequired,
+  handleCheckTos: PropTypes.func.isRequired,
+  showTitle: PropTypes.bool,
+  termsLastUpdatedAt: PropTypes.number.isRequired,
+  user: PropTypes.shape({
+    last_accepted_terms_at: PropTypes.number
+  }).isRequired,
+};
+
+UserTosForm.defaultProps = {
+  showTitle: false
+};
 
 export default UserTosForm;

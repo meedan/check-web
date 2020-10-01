@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 import styled from 'styled-components';
 import {
   white,
@@ -50,5 +51,14 @@ const Message = (props) => {
   }
   return null;
 };
+
+Message.propTypes = {
+  message: PropTypes.string,
+  onClick: PropTypes.func.isRequired
+}
+
+Message.defaultProps = {
+  message: ''
+}
 
 export default Message;
