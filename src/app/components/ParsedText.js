@@ -26,6 +26,9 @@ const marked = (text) => {
   parsedText = reactStringReplace(parsedText, /```([^`]*)```/gm, (match, i) => (
     <code key={i}>{match}</code>
   ));
+  parsedText = reactStringReplace(parsedText, /(https:\/\/media.smooch.io[^ ]+)/gm, (match, i) => (
+    <a href={match} target="_blank" key={i} rel="noopener noreferrer">{match.replace(/.*\//, '')}</a>
+  ));
   return parsedText;
 };
 

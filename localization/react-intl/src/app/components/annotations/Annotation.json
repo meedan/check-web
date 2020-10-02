@@ -176,8 +176,8 @@
     "defaultMessage": "The screenshot of this item is being taken by Keep. Come back in a few minutes to see it."
   },
   {
-    "id": "annotation.slackChannel",
-    "defaultMessage": "Slack channel"
+    "id": "annotation.openInSlack",
+    "defaultMessage": "Open in Slack"
   },
   {
     "id": "annotation.smoochNoMessage",
