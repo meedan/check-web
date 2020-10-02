@@ -25,12 +25,15 @@ import {
 } from '../../styles/js/shared';
 
 const StyledTaskHeaderRow = styled.div`
-  padding: ${units(2)} 0;
-  margin-left: ${units(6)};
+  padding: ${units(1)} 0;
+  margin-left: ${units(3)};
+  margin-right: ${units(3)};
   justify-content: space-between;
   display: flex;
   color: ${black54};
   font: ${body1};
+  border-bottom: 1px solid #D0D6E8;
+  /* TODO: add to shared CSS */
 
   h2 {
     color: ${black87};
@@ -50,7 +53,8 @@ const StyledMetadataRow = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: ${units(3)};
+  margin-top: ${units(1)};
+  margin-bottom: ${units(1)};
 `;
 
 class MediaTasksComponent extends Component {

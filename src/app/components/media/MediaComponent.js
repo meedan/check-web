@@ -41,12 +41,29 @@ const StyledThreeColumnLayout = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+
+  .media__column {
+    background-color: #F7F8FD;
+      /* Did not manage to import colors by adding to  '../../styles/js/shared'; */
+  }
+
+  .media__annotations-column {
+    border-left: 1px solid #D0D6E8;
+    padding-top: 0;
+    padding-left: 0;
+    padding-right: 0;
+
+    .media__annotations-tabs {
+      background-color: #F7F8FD;
+    }
+  }
 `;
 
-const FixedColumn = styled.div`
+const AnalysisColumn = styled.div`
   width: 420px;
   flex-grow: 0;
   padding: ${units(2)};
+  border-right: 1px solid #D0D6E8;
 `;
 
 const Column = styled.div`
@@ -54,9 +71,11 @@ const Column = styled.div`
   min-width: 340px;
   max-width: 720px;
   padding: ${units(2)};
-  height: calc(100vh - 100px);
+  height: calc(100vh - 60px);
   overflow: auto;
 `;
+
+
 
 const StyledTab = withStyles(theme => ({
   root: {
@@ -275,10 +294,10 @@ class MediaComponent extends Component {
       <div>
         <PageTitle prefix={media.title} team={media.team} />
         <StyledThreeColumnLayout className="media">
-          <FixedColumn>
+          <AnalysisColumn>
             <MediaAnalysis projectMedia={media} />
-          </FixedColumn>
-          <Column>
+          </AnalysisColumn>
+          <Column className="media__column">
             <MediaDetail
               hideBorder
               hideRelated
@@ -306,6 +325,7 @@ class MediaComponent extends Component {
               textColor="primary"
               variant="scrollable"
               value={this.state.showTab}
+              className="media__annotations-tabs"
             >
               { this.state.showRequests ?
                 <StyledTab

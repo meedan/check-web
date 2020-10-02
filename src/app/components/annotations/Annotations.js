@@ -19,7 +19,7 @@ const StyledAnnotations = styled.div`
     overflow: auto;
     display: flex;
     flex-direction: column;
-
+  
     .annotations__list-item {
       position: relative;
       margin: 0 ${units(1)};

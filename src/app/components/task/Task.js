@@ -49,6 +49,14 @@ const StyledWordBreakDiv = styled.div`
   overflow-wrap: break-word;
   word-break: break-word;
 
+  .task {
+    box-shadow: none;
+    border-bottom: 1px solid #E5E5E5;
+    border-radius: 0;
+    margin-right: ${units(2)};
+    /* TODO: add color "tertiary-element: #e5e5e5" to _shared.scss */
+  }
+
   .task__card-text {
     padding-bottom: 0 !important;
     padding-top: 0 !important;
@@ -652,7 +660,7 @@ class Task extends Component {
       className.push('task__assigned-to-current-user');
     }
 
-    return (
+    return ( // Task cards
       <StyledWordBreakDiv>
         <Card
           id={`task-${task.dbid}`}

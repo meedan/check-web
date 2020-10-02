@@ -41,7 +41,6 @@ const Main = styled.main`
 `;
 
 const StyledContent = styled.div`
-  padding-top: ${gutterMedium};
   background-color: white;
 `;
 
