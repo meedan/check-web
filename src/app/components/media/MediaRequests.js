@@ -122,6 +122,7 @@ const MediaRequestsContainer = Relay.createContainer(withPusher(MediaRequestsCom
               object_after,
               object_changes_json,
               smooch_user_slack_channel_url,
+              smooch_user_external_identifier,
               meta,
               user {
                 id,
