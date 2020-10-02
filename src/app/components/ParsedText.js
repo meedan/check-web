@@ -37,8 +37,14 @@ const ParsedText = (props) => {
     return null;
   }
 
+  // Convert unicode.
+  const text = props.text.replace(/\\u(\w\w\w\w)/g, (a, b) => {
+    const charCode = parseInt(b, 16);
+    return String.fromCharCode(charCode);
+  });
+
   // Break into lines.
-  const lines = props.text.split('\n');
+  const lines = text.split('\n');
 
   // Emojify each text line into array of elements.
   const emojified = lines.map(line =>
