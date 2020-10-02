@@ -27,47 +27,6 @@ const StyledFormControlLabel = styled(FormControlLabel)`
 `;
 
 class TagPicker extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selected: [],
-      unselected: [],
-    };
-  }
-
-  handleSelectCheckbox = (e, inputChecked) => {
-    const tag = e.target.id;
-
-    const selected = [...this.state.selected];
-    const unselected = [...this.state.unselected];
-
-    if (inputChecked) {
-      this.props.onAddTag(tag);
-      selected.push(tag);
-      if (unselected.indexOf(tag)) {
-        unselected.splice(unselected.indexOf(tag), 1);
-      }
-    } else {
-      this.props.onRemoveTag(tag);
-      unselected.push(tag);
-      if (selected.indexOf(tag)) {
-        selected.splice(selected.indexOf(tag), 1);
-      }
-    }
-    this.setState({ selected, unselected });
-  }
-
-  tagIsChecked = (tag) => {
-    const { selected, unselected } = this.state;
-    if (selected.includes(tag)) {
-      return true;
-    }
-    if (unselected.includes(tag)) {
-      return false;
-    }
-    return this.props.tags.map(t => t.node.tag_text).includes(tag);
-  };
-
   renderNotFound(totalTagsCount) {
     if (totalTagsCount === 0) {
       return (
@@ -92,7 +51,12 @@ class TagPicker extends React.PureComponent {
   }
 
   render() {
-    const { media, value } = this.props;
+    const {
+      media,
+      value,
+      selectedTags,
+      onClick,
+    } = this.props;
 
     const compareString = (tag, val) => {
       if (!tag) {
@@ -120,8 +84,8 @@ class TagPicker extends React.PureComponent {
                   key={`team-suggested-tag-${index.toString()}`}
                   control={
                     <StyledCheckbox
-                      checked={this.tagIsChecked(tag.node.text)}
-                      onChange={this.handleSelectCheckbox}
+                      checked={selectedTags.includes(tag.node.text)}
+                      onChange={onClick}
                       id={tag.node.text}
                     />
                   }
@@ -137,11 +101,8 @@ class TagPicker extends React.PureComponent {
 }
 
 TagPicker.propTypes = {
-  onAddTag: PropTypes.func.isRequired,
-  onRemoveTag: PropTypes.func.isRequired,
   value: PropTypes.string,
   media: PropTypes.object.isRequired,
-  tags: PropTypes.array.isRequired,
 };
 
 TagPicker.defaultProps = {

@@ -48,7 +48,16 @@ class TagMenuComponent extends Component {
     this.props.relay.forceFetch();
   };
 
-  handleCloseMenu = () => {
+  closeMenu = () => {
+    this.setState({
+      anchorEl: null,
+      value: '',
+      tagsToAdd: [],
+      tagsToRemove: [],
+    });
+  };
+
+  handleSubmit = () => {
     const tags = this.props.media.tags.edges.map(tag => tag.node.tag_text);
     this.state.tagsToAdd.forEach((tag) => {
       if (tags.indexOf(tag) === -1) {
@@ -60,31 +69,40 @@ class TagMenuComponent extends Component {
         this.handleRemoveTag(tag);
       }
     });
-    this.setState({
-      anchorEl: null,
-      value: '',
-      tagsToAdd: [],
-      tagsToRemove: [],
-    });
+    this.closeMenu();
   };
+
+  handleTagClick = (e, inputChecked) => {
+    if (inputChecked) {
+      this.handleTagToAdd(e.target.id);
+    } else {
+      this.handleTagToRemove(e.target.id);
+    }
+  }
 
   handleTagToAdd(tag) {
     const tagsToAdd = this.state.tagsToAdd.slice();
-    tagsToAdd.push(tag);
     const tagsToRemove = this.state.tagsToRemove.slice();
+
     if (tagsToRemove.indexOf(tag) > -1) {
       tagsToRemove.splice(tagsToRemove.indexOf(tag), 1);
+    } else {
+      tagsToAdd.push(tag);
     }
+
     this.setState({ tagsToRemove, tagsToAdd });
   }
 
   handleTagToRemove(tag) {
     const tagsToRemove = this.state.tagsToRemove.slice();
-    tagsToRemove.push(tag);
     const tagsToAdd = this.state.tagsToAdd.slice();
+
     if (tagsToAdd.indexOf(tag) > -1) {
       tagsToAdd.splice(tagsToAdd.indexOf(tag), 1);
+    } else {
+      tagsToRemove.push(tag);
     }
+
     this.setState({ tagsToRemove, tagsToAdd });
   }
 
@@ -130,6 +148,11 @@ class TagMenuComponent extends Component {
       return null;
     }
 
+    const selected = media.tags.edges
+      .map(t => t.node.tag_text)
+      .concat(this.state.tagsToAdd)
+      .filter(text => !this.state.tagsToRemove.includes(text));
+
     return (
       <div>
         <IconButton
@@ -142,21 +165,21 @@ class TagMenuComponent extends Component {
         <Popover
           anchorEl={this.state.anchorEl}
           open={Boolean(this.state.anchorEl)}
+          onClose={this.closeMenu}
         >
           <div>
             <TagInput media={media} onChange={this.handleChange} />
             <TagPicker
-              value={this.state.value}
               media={media}
-              tags={media.tags.edges}
-              onAddTag={this.handleTagToAdd.bind(this)}
-              onRemoveTag={this.handleTagToRemove.bind(this)}
+              value={this.state.value}
+              selectedTags={selected}
+              onClick={this.handleTagClick}
             />
             <StyledActions>
               <Button
                 style={{ marginLeft: 'auto' }}
                 className="tag-menu__done"
-                onClick={this.handleCloseMenu}
+                onClick={this.handleSubmit}
                 color="primary"
               >
                 <FormattedMessage id="tagMenu.done" defaultMessage="Done" />
