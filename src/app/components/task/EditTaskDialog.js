@@ -238,13 +238,13 @@ class EditTaskDialog extends React.Component {
         ))}
         <div style={{ marginTop: units(1) }}>
           <Button onClick={this.handleAddValue.bind(this)}>
-            {this.props.intl.formatMessage(messages.addValue)}
+            {<FormattedMessage {...messages.addValue} />}
           </Button>
           <Button
             onClick={this.handleAddOther.bind(this)}
             disabled={this.state.hasOther}
           >
-            {this.props.intl.formatMessage(messages.addOther)}
+            {<FormattedMessage {...messages.addOther} />}
           </Button>
         </div>
       </div>
