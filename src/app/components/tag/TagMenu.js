@@ -9,6 +9,8 @@ import styled from 'styled-components';
 import TagInput from './TagInput';
 import TagPicker from './TagPicker';
 import { can } from '../Can';
+import { withSetFlashMessage } from '../FlashMessage';
+import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { units } from '../../styles/js/shared';
 import TagOutline from '../../../assets/images/tag/tag-outline';
 import MediaRoute from '../../relay/MediaRoute';
@@ -16,7 +18,7 @@ import RelayContainer from '../../relay/RelayContainer';
 import CheckContext from '../../CheckContext';
 import { createTag } from '../../relay/mutations/CreateTagMutation';
 import { deleteTag } from '../../relay/mutations/DeleteTagMutation';
-import { getCurrentProjectId } from '../../helpers';
+import { getCurrentProjectId, getErrorMessage } from '../../helpers';
 
 const StyledActions = styled.div`
   padding: ${units(2)};
@@ -31,16 +33,21 @@ class TagMenuComponent extends Component {
 
     this.state = {
       anchorEl: null,
-      value: '',
+      searchValue: '',
       tagsToAdd: [],
       tagsToRemove: [],
     };
   }
 
-  callback = () => {};
+  noop = () => {}; // FIXME: avoid this pattern and simply omit onSuccess
 
-  handleChange = (value) => {
-    this.setState({ value });
+  fail = (transaction) => {
+    const message = getErrorMessage(transaction, <GenericUnknownErrorMessage />);
+    this.props.setFlashMessage(message);
+  };
+
+  handleChange = (searchValue) => {
+    this.setState({ searchValue });
   };
 
   handleOpenMenu = (e) => {
@@ -51,7 +58,7 @@ class TagMenuComponent extends Component {
   closeMenu = () => {
     this.setState({
       anchorEl: null,
-      value: '',
+      searchValue: '',
       tagsToAdd: [],
       tagsToRemove: [],
     });
@@ -117,8 +124,8 @@ class TagMenuComponent extends Component {
         value,
         annotator: context.currentUser,
       },
-      this.callback,
-      this.callback,
+      this.noop,
+      this.fail,
     );
   }
 
@@ -136,8 +143,8 @@ class TagMenuComponent extends Component {
         media,
         tagId: removedTag.node.id,
       },
-      this.callback,
-      this.callback,
+      this.noop,
+      this.fail,
     );
   };
 
@@ -170,8 +177,8 @@ class TagMenuComponent extends Component {
           <div>
             <TagInput media={media} onChange={this.handleChange} />
             <TagPicker
-              media={media}
-              value={this.state.value}
+              team={media.team}
+              searchValue={this.state.searchValue}
               selectedTags={selected}
               onClick={this.handleTagClick}
             />
@@ -199,9 +206,10 @@ TagMenuComponent.contextTypes = {
 TagMenuComponent.propTypes = {
   media: PropTypes.object.isRequired,
   relay: PropTypes.object.isRequired,
+  setFlashMessage: PropTypes.func.isRequired,
 };
 
-const TagMenuContainer = Relay.createContainer(TagMenuComponent, {
+const TagMenuContainer = Relay.createContainer(withSetFlashMessage(TagMenuComponent), {
   fragments: {
     media: () => Relay.QL`
       fragment on ProjectMedia {

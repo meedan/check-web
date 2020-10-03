@@ -44,7 +44,7 @@ class TagPicker extends React.PureComponent {
         <FormattedMessage
           id="tagPicker.tagNotFound"
           defaultMessage="Tag #{tag} not found."
-          values={{ tag: this.props.value }}
+          values={{ tag: this.props.searchValue }}
         />
       </StyledNotFound>
     );
@@ -52,8 +52,8 @@ class TagPicker extends React.PureComponent {
 
   render() {
     const {
-      media,
-      value,
+      team,
+      searchValue,
       selectedTags,
       onClick,
     } = this.props;
@@ -65,9 +65,9 @@ class TagPicker extends React.PureComponent {
       return tag.toLowerCase().includes(val.toLowerCase());
     };
 
-    const tag_texts = media.team.tag_texts || { edges: [] };
-    const shown_tag_texts = value ?
-      tag_texts.edges.filter(t => compareString(t.node.text, value)) :
+    const tag_texts = team.tag_texts || { edges: [] };
+    const shown_tag_texts = searchValue ?
+      tag_texts.edges.filter(t => compareString(t.node.text, searchValue)) :
       tag_texts.edges;
 
     const shownTagsCount = shown_tag_texts.length;
@@ -101,12 +101,22 @@ class TagPicker extends React.PureComponent {
 }
 
 TagPicker.propTypes = {
-  value: PropTypes.string,
-  media: PropTypes.object.isRequired,
+  searchValue: PropTypes.string,
+  team: PropTypes.shape({
+    tag_texts: PropTypes.shape({
+      edges: PropTypes.arrayOf(PropTypes.shape({
+        node: PropTypes.shape({
+          text: PropTypes.string.isRequired,
+        }).isRequired,
+      })).isRequired,
+    }).isRequired,
+  }).isRequired,
+  selectedTags: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 TagPicker.defaultProps = {
-  value: null,
+  searchValue: '',
 };
 
 export default TagPicker;
