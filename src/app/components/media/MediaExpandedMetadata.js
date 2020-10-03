@@ -5,6 +5,7 @@ import { createFragmentContainer, graphql } from 'react-relay/compat';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
 
 function shouldDisplayMetrics(metrics) {
   return metrics &&
@@ -15,7 +16,14 @@ function shouldDisplayMetrics(metrics) {
     );
 }
 
+const useStyles = makeStyles(theme => ({
+  metric: {
+    margin: theme.spacing(1),
+  },
+}));
+
 const MediaExpandedMetadata = ({ projectMedia }) => {
+  const classes = useStyles();
   const metrics = projectMedia.media.metadata.metrics ?
     projectMedia.media.metadata.metrics.facebook : null;
   const { published_at } = projectMedia.media.metadata;
@@ -40,28 +48,28 @@ const MediaExpandedMetadata = ({ projectMedia }) => {
           </Grid>
         ) : null }
         { shouldDisplayMetrics(metrics) ? (
-          <React.Fragment>
-            <Grid item xs={2}>
+          <Box display="flex" width="100%" margin={1}>
+            <div className={classes.metric}>
               <Typography variant="button" component="div">
                 <FormattedMessage id="mediaExpandedMetadata.shares" defaultMessage="FB Shares" />
               </Typography>
               <div><FormattedNumber value={metrics.share_count} /></div>
-            </Grid>
-            <Grid item xs={2}>
+            </div>
+            <div className={classes.metric}>
               <Typography variant="button" component="div">
                 <FormattedMessage id="mediaExpandedMetadata.reactions" defaultMessage="FB Reactions" />
               </Typography>
               <div><FormattedNumber value={metrics.reaction_count} /></div>
-            </Grid>
-            <Grid item xs={2}>
+            </div>
+            <div className={classes.metric}>
               <Typography variant="button" component="div">
                 <FormattedMessage id="mediaExpandedMetadata.comments" defaultMessage="FB Comments" />
               </Typography>
               <div>
                 <FormattedNumber value={metrics.comment_count + metrics.comment_plugin_count} />
               </div>
-            </Grid>
-          </React.Fragment>
+            </div>
+          </Box>
         ) : null }
       </Grid>
     </Box>
