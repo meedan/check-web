@@ -14,7 +14,7 @@ const StyledEmojiOnly = styled.span`
 const marked = (text) => {
   // For now, only WhatsApp formatting rules... extend it if needed in the future,
   // for example, use a proper Markdown library (WhatsApp doesn't follow Markdown properly)
-  let parsedText = reactStringReplace(text, /\*([^*]*)\*/gm, (match, i) => (
+  let parsedText = reactStringReplace(text, /\*([^ ][^*]*[^ ])\*/gm, (match, i) => (
     <b key={i}>{match}</b>
   ));
   parsedText = reactStringReplace(parsedText, /_([^_]*)_/gm, (match, i) => (
