@@ -147,7 +147,8 @@ const MediaAnalysis = ({ projectMedia }) => {
       },
     };
     const headline = getValue('title') || getDefaultValue('title') || '';
-    const description = getValue('content') || getDefaultValue('description') || '';
+    let description = getValue('content') || getDefaultValue('description') || '';
+    description = description.substring(0, 760);
     const fields = propsToData(props, language);
     fields.state = 'paused';
     fields.options.forEach((option, i) => {
@@ -278,14 +279,12 @@ const MediaAnalysis = ({ projectMedia }) => {
         <Box display="flex" className={classes.box}>
           <TextField
             inputProps={{
-              maxLength: 760,
               className: content === getDefaultValue('description') ? classes.placeholder : null,
             }}
             label={
               <FormattedMessage
                 id="mediaAnalysis.content"
-                defaultMessage="Content ({max} characters max)"
-                values={{ max: 760 }}
+                defaultMessage="Content"
               />
             }
             value={content}

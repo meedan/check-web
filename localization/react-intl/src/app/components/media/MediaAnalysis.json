@@ -29,7 +29,7 @@
   },
   {
     "id": "mediaAnalysis.content",
-    "defaultMessage": "Content ({max} characters max)"
+    "defaultMessage": "Content"
   },
   {
     "id": "mediaAnalysis.publishedArticle",
