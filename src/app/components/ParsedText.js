@@ -14,7 +14,13 @@ const StyledEmojiOnly = styled.span`
 const marked = (text) => {
   // For now, only WhatsApp formatting rules... extend it if needed in the future,
   // for example, use a proper Markdown library (WhatsApp doesn't follow Markdown properly)
-  let parsedText = reactStringReplace(text, /\*([^ ][^*]*[^ ])\*/gm, (match, i) => (
+  let parsedText = reactStringReplace(text, /(https:\/\/media.smooch.io[^ ]+)/gm, (match, i) => (
+    <a href={match} target="_blank" key={i} rel="noopener noreferrer">{match.replace(/.*\//, '')}</a>
+  ));
+  parsedText = reactStringReplace(parsedText, /(https?:\/\/[^ ]+)/gm, (match, i) => (
+    <a href={match} target="_blank" key={i} rel="noopener noreferrer">{match}</a>
+  ));
+  parsedText = reactStringReplace(parsedText, /\*([^ ][^*]*[^ ])\*/gm, (match, i) => (
     <b key={i}>{match}</b>
   ));
   parsedText = reactStringReplace(parsedText, /_([^_]*)_/gm, (match, i) => (
@@ -25,9 +31,6 @@ const marked = (text) => {
   ));
   parsedText = reactStringReplace(parsedText, /```([^`]*)```/gm, (match, i) => (
     <code key={i}>{match}</code>
-  ));
-  parsedText = reactStringReplace(parsedText, /(https:\/\/media.smooch.io[^ ]+)/gm, (match, i) => (
-    <a href={match} target="_blank" key={i} rel="noopener noreferrer">{match.replace(/.*\//, '')}</a>
   ));
   return parsedText;
 };
