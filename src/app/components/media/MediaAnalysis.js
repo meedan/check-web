@@ -247,7 +247,7 @@ const MediaAnalysis = ({ projectMedia }) => {
           </Typography>
         </Box>
         <Box>
-          <Button onClick={handleConfirmCopyToReport} variant="contained" color="primary" disabled={saving || copying || !canCopy || editing}>
+          <Button onClick={handleConfirmCopyToReport} className="media-analysis__copy-to-report" variant="contained" color="primary" disabled={saving || copying || !canCopy || editing}>
             { copying ?
               <FormattedMessage id="mediaAnalysis.copying" defaultMessage="Copying…" /> :
               <FormattedMessage id="mediaAnalysis.copyToReport" defaultMessage="Copy to report" /> }
@@ -272,6 +272,7 @@ const MediaAnalysis = ({ projectMedia }) => {
             onFocus={handleFocus}
             onChange={handleChangeTitle}
             disabled={!canEdit}
+            className="media-analysis__title"
             multiline
             fullWidth
           />
@@ -294,6 +295,7 @@ const MediaAnalysis = ({ projectMedia }) => {
             onFocus={handleFocus}
             onChange={handleChangeContent}
             disabled={!canEdit}
+            className="media-analysis__content"
             multiline
             fullWidth
           />
