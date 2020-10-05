@@ -447,7 +447,10 @@ class UserInfoEdit extends React.Component {
             {link.error ?
               null :
               <StyledHelper>
-                {this.props.intl.formatMessage(messages.addLinkHelper)}
+                <FormattedMessage 
+                  id={messages.addLinkHelper.id} 
+                  defaultMessage={messages.addLinkHelper.defaultMessage} 
+                />
               </StyledHelper>}
           </div>))}
       </div>
@@ -482,7 +485,10 @@ class UserInfoEdit extends React.Component {
                   onClick={this.handleEditProfileImg.bind(this)}
                   color="primary"
                 >
-                  {this.props.intl.formatMessage(globalStrings.edit)}
+                  <FormattedMessage 
+                    id={globalStrings.edit.id} 
+                    defaultMessage={globalStrings.edit.defaultMessage} 
+                  />
                 </Button>
               </StyledAvatarEditButton>
               : null}
@@ -553,7 +559,10 @@ class UserInfoEdit extends React.Component {
                   color="primary"
                   onClick={this.handleAddLink.bind(this)}
                 >
-                  {this.props.intl.formatMessage(messages.addLink)}
+                  <FormattedMessage 
+                    id={messages.addLink.id} 
+                    defaultMessage={messages.addLink.defaultMessage} 
+                  />
                 </Button>
               </div>
 
@@ -562,7 +571,10 @@ class UserInfoEdit extends React.Component {
                   className="source__edit-cancel-button"
                   onClick={handleLeaveEditMode}
                 >
-                  {this.props.intl.formatMessage(globalStrings.cancel)}
+                  <FormattedMessage 
+                    id={globalStrings.cancel.id} 
+                    defaultMessage={globalStrings.cancel.defaultMessage} 
+                  />
                 </Button>
                 <Button
                   variant="contained"
@@ -570,7 +582,10 @@ class UserInfoEdit extends React.Component {
                   color="primary"
                   onClick={this.handleSubmit.bind(this)}
                 >
-                  {this.props.intl.formatMessage(globalStrings.save)}
+                  <FormattedMessage 
+                    id={globalStrings.save.id} 
+                    defaultMessage={globalStrings.save.defaultMessage} 
+                  />
                 </Button>
               </div>
             </StyledButtonGroup>
