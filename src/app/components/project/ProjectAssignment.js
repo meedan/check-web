@@ -3,7 +3,9 @@ import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import Button from '@material-ui/core/Button';
-import Menu from '@material-ui/core/Menu';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
@@ -28,29 +30,24 @@ const Styles = theme => ({
   spaced: {
     margin: theme.spacing(1),
   },
-  title: {
-    margin: theme.spacing(2),
-    outline: 0,
-  },
 });
 
 class ProjectAssignmentComponent extends Component {
   state = {
-    anchorEl: null,
+    assignmentDialogOpened: false,
     message: '',
   };
 
-  handleClick = (event) => {
-    this.setState({ anchorEl: event.currentTarget });
+  handleClick = () => {
+    this.setState({ assignmentDialogOpened: true });
   };
 
   handleClose = () => {
     if (this.props.onDismiss) {
       this.props.onDismiss();
-      return;
     }
 
-    this.setState({ anchorEl: null });
+    this.setState({ assignmentDialogOpened: false });
   };
 
   handleSelect = (selected) => {
@@ -88,7 +85,8 @@ class ProjectAssignmentComponent extends Component {
     }
 
     const { classes } = this.props;
-    const anchorEl = this.state.anchorEl || this.props.anchorEl;
+    const assignmentDialogOpened = this.state.assignmentDialogOpened ||
+      this.props.assignmentDialogOpened;
     const buttonStyle = {
       border: 0,
       color: black54,
@@ -108,55 +106,56 @@ class ProjectAssignmentComponent extends Component {
     });
 
     const assignmentPopup = (
-      <Menu
+      <Dialog
         className="project__assignment-menu"
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
+        open={assignmentDialogOpened}
         onClose={this.handleClose}
       >
-        <Typography variant="h6" className={classes.title}>
+        <DialogTitle>
           <FormattedMessage
             id="projectAssignment.title"
             defaultMessage="Assign list to collaborators"
           />
-        </Typography>
-        <Box display="flex" style={{ outline: 0 }}>
-          <MultiSelector
-            allowSelectAll
-            allowUnselectAll
-            allowSearch
-            options={options}
-            selected={selected}
-            onDismiss={this.handleClose}
-            onSubmit={this.handleSelect}
-          />
-          <div className={classes.spaced}>
-            <Typography variant="body1" component="div" className={classes.spaced}>
-              <FormattedMessage
-                id="projectAssignment.headlineTitle"
-                defaultMessage="Add a note to the e-mail"
-              />
-            </Typography>
-            <TextField
-              label={
-                <FormattedMessage
-                  id="projectAssignment.headline"
-                  defaultMessage="Headline"
-                />
-              }
-              variant="outlined"
-              value={this.state.message}
-              onChange={(e) => { this.setState({ message: e.target.value }); }}
-              rows={21}
-              InputProps={{ classes: { root: classes.root } }}
-              multiline
+        </DialogTitle>
+        <DialogContent>
+          <Box display="flex" style={{ outline: 0 }}>
+            <MultiSelector
+              allowSelectAll
+              allowUnselectAll
+              allowSearch
+              options={options}
+              selected={selected}
+              onDismiss={this.handleClose}
+              onSubmit={this.handleSelect}
             />
-          </div>
-        </Box>
-      </Menu>
+            <div className={classes.spaced}>
+              <Typography variant="body1" component="div" className={classes.spaced}>
+                <FormattedMessage
+                  id="projectAssignment.headlineTitle"
+                  defaultMessage="Add a note to the e-mail"
+                />
+              </Typography>
+              <TextField
+                label={
+                  <FormattedMessage
+                    id="projectAssignment.headline"
+                    defaultMessage="Headline"
+                  />
+                }
+                variant="outlined"
+                value={this.state.message}
+                onChange={(e) => { this.setState({ message: e.target.value }); }}
+                rows={21}
+                InputProps={{ classes: { root: classes.root } }}
+                multiline
+              />
+            </div>
+          </Box>
+        </DialogContent>
+      </Dialog>
     );
 
-    if (this.props.anchorEl) {
+    if (this.props.assignmentDialogOpened) {
       return assignmentPopup;
     }
 
