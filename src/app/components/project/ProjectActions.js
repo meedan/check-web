@@ -180,7 +180,7 @@ class ProjectActions extends Component {
         {
           this.state.openAssignPopup ?
             <ProjectAssignment
-              anchorEl={this.state.anchorEl}
+              assignmentDialogOpened={Boolean(this.state.anchorEl)}
               onDismiss={this.handleAssignClose}
               project={project}
             />
