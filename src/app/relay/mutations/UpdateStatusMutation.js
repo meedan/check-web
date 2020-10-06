@@ -63,6 +63,9 @@ class UpdateStatusMutation extends Relay.Mutation {
     if ('assigned_to_ids' in status) {
       vars.assigned_to_ids = status.assigned_to_ids;
     }
+    if ('assignment_message' in status) {
+      vars.assignment_message = status.assignment_message;
+    }
     return vars;
   }
 

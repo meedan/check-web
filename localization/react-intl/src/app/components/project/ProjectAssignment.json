@@ -4,6 +4,18 @@
     "defaultMessage": "Done! The assignments are now propagating to items and tasks. You will receive an e-mail when it's ready."
   },
   {
+    "id": "projectAssignment.title",
+    "defaultMessage": "Assign list to collaborators"
+  },
+  {
+    "id": "projectAssignment.notesTitle",
+    "defaultMessage": "Add a note to the e-mail"
+  },
+  {
+    "id": "projectAssignment.notes",
+    "defaultMessage": "Notes"
+  },
+  {
     "id": "projectAssignment.assignedTo",
     "defaultMessage": "Assigned to"
   },

@@ -41,11 +41,11 @@ class MediaActionsMenuButton extends React.PureComponent {
     this.setState({ anchorEl: null });
   };
 
-  handleActionAndClose = (callback) => {
-    this.handleCloseMenu();
+  handleActionAndClose = (e, callback) => {
     if (callback) {
-      callback();
+      callback(e);
     }
+    this.handleCloseMenu();
   };
 
   render() {
@@ -66,7 +66,7 @@ class MediaActionsMenuButton extends React.PureComponent {
             key="mediaActions.refresh"
             className="media-actions__refresh"
             id="media-actions__refresh"
-            onClick={() => this.handleActionAndClose(handleRefresh)}
+            onClick={e => this.handleActionAndClose(e, handleRefresh)}
           >
             <ListItemText
               primary={
@@ -82,7 +82,7 @@ class MediaActionsMenuButton extends React.PureComponent {
         <MenuItem
           key="mediaActions.assign"
           className="media-actions__assign"
-          onClick={() => this.handleActionAndClose(handleAssign)}
+          onClick={e => this.handleActionAndClose(e, handleAssign)}
         >
           <ListItemText
             primary={
@@ -97,7 +97,7 @@ class MediaActionsMenuButton extends React.PureComponent {
         <MenuItem
           key="mediaActions.lockStatus"
           className="media-actions__lock-status"
-          onClick={() => this.handleActionAndClose(handleStatusLock)}
+          onClick={e => this.handleActionAndClose(e, handleStatusLock)}
         >
           <ListItemText
             primary={projectMedia.last_status_obj.locked ?
@@ -112,7 +112,7 @@ class MediaActionsMenuButton extends React.PureComponent {
         <MenuItem
           key="mediaActions.sendToTrash"
           className="media-actions__send-to-trash"
-          onClick={() => this.handleActionAndClose(handleSendToTrash)}
+          onClick={e => this.handleActionAndClose(e, handleSendToTrash)}
         >
           <ListItemText
             primary={<FormattedMessage id="mediaActions.sendToTrash" defaultMessage="Send to trash" />}
@@ -126,7 +126,7 @@ class MediaActionsMenuButton extends React.PureComponent {
           key="mediaActions.restore"
           className="media-actions__restore"
           id="media-actions__restore"
-          onClick={() => this.handleActionAndClose(handleRestore)}
+          onClick={e => this.handleActionAndClose(e, handleRestore)}
         >
           <ListItemText
             primary={<FormattedMessage id="mediaActions.restore" defaultMessage="Restore from trash" />}
