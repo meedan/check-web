@@ -131,15 +131,15 @@ class ProjectAssignmentComponent extends Component {
             <div className={classes.spaced}>
               <Typography variant="body1" component="div" className={classes.spaced}>
                 <FormattedMessage
-                  id="projectAssignment.headlineTitle"
+                  id="projectAssignment.notesTitle"
                   defaultMessage="Add a note to the e-mail"
                 />
               </Typography>
               <TextField
                 label={
                   <FormattedMessage
-                    id="projectAssignment.headline"
-                    defaultMessage="Headline"
+                    id="projectAssignment.notes"
+                    defaultMessage="Notes"
                   />
                 }
                 variant="outlined"
