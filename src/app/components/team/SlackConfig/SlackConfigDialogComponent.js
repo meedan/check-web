@@ -63,6 +63,17 @@ function eventsFromProjects(projects) {
   return events;
 }
 
+const updateProjectMutation = graphql`
+  mutation SlackConfigDialogComponentUpdateProjectMutation($input: UpdateProjectInput!) {
+    updateProject(input: $input) {
+      project {
+        id
+        get_slack_events
+      }
+    }
+  }
+`;
+
 const SlackConfigDialogComponent = ({ team, onCancel, setFlashMessage }) => {
   const projects = team.projects.edges.map(project => project.node);
 
@@ -83,16 +94,7 @@ const SlackConfigDialogComponent = ({ team, onCancel, setFlashMessage }) => {
     const event = events[i];
     if (event.projectId) {
       commitMutation(Store, {
-        mutation: graphql`
-          mutation SlackConfigDialogComponentUpdateProjectMutation($input: UpdateProjectInput!) {
-            updateProject(input: $input) {
-              project {
-                id
-                get_slack_events
-              }
-            }
-          }
-        `,
+        mutation: updateProjectMutation,
         variables: {
           input: {
             id: event.projectId,
@@ -174,16 +176,7 @@ const SlackConfigDialogComponent = ({ team, onCancel, setFlashMessage }) => {
     events.forEach((event) => {
       if (event.projectId && event.channelName) {
         commitMutation(Store, {
-          mutation: graphql`
-            mutation SlackConfigDialogComponentUpdateProjectMutation($input: UpdateProjectInput!) {
-              updateProject(input: $input) {
-                project {
-                  id
-                  get_slack_events
-                }
-              }
-            }
-          `,
+          mutation: updateProjectMutation,
           variables: {
             input: {
               id: event.projectId,
