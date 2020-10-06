@@ -224,6 +224,7 @@ const SlackConfigDialogComponent = ({ team, onCancel, setFlashMessage }) => {
               defaultMessage="Slack webhook"
             />
           }
+          id="slack-config__webhook"
           value={webhook}
           onChange={(e) => { setWebhook(e.target.value); }}
           variant="outlined"
@@ -268,6 +269,7 @@ const SlackConfigDialogComponent = ({ team, onCancel, setFlashMessage }) => {
                         defaultMessage="Slack channel"
                       />
                     }
+                    id="slack-config__channel"
                     value={channel}
                     onChange={(e) => { setChannel(e.target.value); }}
                     variant="outlined"

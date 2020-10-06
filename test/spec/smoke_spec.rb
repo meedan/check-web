@@ -312,15 +312,14 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('Report settings updated successfully!')).to be(true)
   end
 
-  it "should enable the slack notifications", bin5: true do
+  it "should enable the Slack notifications", bin5: true do
     team = "team#{Time.now.to_i}"
     create_team_and_go_to_settings_page(team)
     wait_for_selector('.team-settings__integrations-tab').click
     expect(@driver.find_elements(:css, '.Mui-checked').length == 0 )
     wait_for_selector("input[type=checkbox]").click
     wait_for_selector(".MuiCardHeader-action").click
-    wait_for_selector('input[name="channel"]')
-    wait_for_selector('input[name="webhook"]').send_keys("https://hooks.slack.com/services/00000/0000000000")
+    wait_for_selector('#slack-config__webhook').send_keys("https://hooks.slack.com/services/00000/0000000000")
     wait_for_selector("//span[contains(text(), 'Save')]", :xpath).click
     wait_for_selector_none("//span[contains(text(), 'Cancel')]", :xpath)
     @driver.navigate.refresh
@@ -328,7 +327,7 @@ shared_examples 'smoke' do
     wait_for_selector(".MuiCardHeader-action").click
     wait_for_selector(".Mui-checked")
     expect(@driver.find_elements(:css, '.Mui-checked').length == 1 )
-    wait_for_selector('input[name="channel"]')
+    wait_for_selector('#slack-config__webhook')
     expect(@driver.page_source.include?('hooks.slack.com/services')).to be(true)
   end
 
