@@ -104,15 +104,15 @@ shared_examples 'app' do |webdriver_url|
       @driver.quit
       @driver = new_driver(chrome_prefs: { 'intl.accept_languages' => 'fr' })
       @driver.navigate.to @config['self_url']
-      @wait.until { @driver.find_element(:id, "login") }
-      @wait.until { @driver.find_element(:class, "login__heading") }
+      wait_for_selector(".login__form")
+      wait_for_selector(".login__icon")
       expect(@driver.find_element(:css, '.login__heading span').text == 'Connexion').to be(true)
 
       @driver.quit
       @driver = new_driver(chrome_prefs: { 'intl.accept_languages' => 'pt' })
       @driver.navigate.to @config['self_url']
-      @wait.until { @driver.find_element(:id, "login") }
-      @wait.until { @driver.find_element(:class, "login__heading") }
+      wait_for_selector(".login__form")
+      wait_for_selector(".login__icon")
       expect(@driver.find_element(:css, '.login__heading span').text == 'Entrar').to be(true)
     end
 

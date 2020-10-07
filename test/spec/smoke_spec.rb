@@ -48,16 +48,14 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('Who agrees with this')).to be(true)
   end
 
-  it "should create a item and assign it", bin4: true do
+  it "should create an item and assign it", bin4: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector(".media")
     expect(@driver.page_source.include?('Assigments updated successfully!')).to be(false)
     wait_for_selector('.media-actions__icon').click
     wait_for_selector(".media-actions__assign").click
-    wait_for_selector(".Select-input input").send_keys("user")
-    @driver.action.send_keys(:enter).perform
-    wait_for_selector("//span[contains(text(), 'Done')]", :xpath).click
-    wait_for_selector_none("//span[contains(text(), 'Done')]", :xpath)
+    wait_for_selector("input[type=checkbox]").click
+    wait_for_selector(".multi__selector-save").click
     wait_for_selector(".message")
     expect(@driver.page_source.include?('Assignments updated successfully!')).to be(true)
     wait_for_selector(".media-tab__activity").click
@@ -132,8 +130,6 @@ shared_examples 'smoke' do
     # send this item to trash go to the item page and go back to trash page
     wait_for_selector("input[type=checkbox]").click
     wait_for_selector(".media-bulk-actions__delete-icon").click
-    wait_for_selector(".message")
-    wait_for_selector('a[href$="/all-items"]').click
     wait_for_selector_none(".medias__item")
     wait_for_selector(".project-list__item-trash").click #Go to the trash page
     wait_for_selector("//span[contains(text(), 'Trash')]", :xpath)
@@ -314,15 +310,14 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('Report settings updated successfully!')).to be(true)
   end
 
-  it "should enable the slack notifications", bin5: true do
+  it "should enable the Slack notifications", bin5: true do
     team = "team#{Time.now.to_i}"
     create_team_and_go_to_settings_page(team)
     wait_for_selector('.team-settings__integrations-tab').click
     expect(@driver.find_elements(:css, '.Mui-checked').length == 0 )
     wait_for_selector("input[type=checkbox]").click
     wait_for_selector(".MuiCardHeader-action").click
-    wait_for_selector('input[name="channel"]')
-    wait_for_selector('input[name="webhook"]').send_keys("https://hooks.slack.com/services/00000/0000000000")
+    wait_for_selector('#slack-config__webhook').send_keys("https://hooks.slack.com/services/00000/0000000000")
     wait_for_selector("//span[contains(text(), 'Save')]", :xpath).click
     wait_for_selector_none("//span[contains(text(), 'Cancel')]", :xpath)
     @driver.navigate.refresh
@@ -330,7 +325,7 @@ shared_examples 'smoke' do
     wait_for_selector(".MuiCardHeader-action").click
     wait_for_selector(".Mui-checked")
     expect(@driver.find_elements(:css, '.Mui-checked').length == 1 )
-    wait_for_selector('input[name="channel"]')
+    wait_for_selector('#slack-config__webhook')
     expect(@driver.page_source.include?('hooks.slack.com/services')).to be(true)
   end
 
@@ -542,6 +537,35 @@ shared_examples 'smoke' do
       driver.quit
     end
   end
+
+  it "should set analysis information for an item and copy to report", bin2: true do
+    api_create_team_project_and_claim_and_redirect_to_media_page
+    wait_for_selector(".media-detail")
+    expect(@driver.page_source.include?("my content")).to be(false)
+    expect(@driver.page_source.include?("- my title")).to be(false)
+    wait_for_selector(".media-analysis__title > div > textarea").send_keys("- my title")
+    wait_for_selector(".media-analysis__content > div > textarea").send_keys("my content")
+    wait_for_text_change("my content", ".media-analysis__content > div > textarea")
+    wait_for_selector(".media-analysis__title").click
+    @driver.navigate.refresh
+    wait_for_selector(".media-analysis__title")
+    expect(@driver.page_source.include?("- my title")).to be(true)
+    expect(@driver.page_source.include?("my content")).to be(true)
+    wait_for_selector(".media-analysis__copy-to-report").click
+    wait_for_selector("#confirm-dialog__checkbox").click
+    wait_for_selector("#confirm-dialog__confirm-action-button").click
+    wait_for_selector(".report-designer__copy-share-url")
+    expect(@driver.page_source.include?("Design your report")).to be(true)
+    expect(@driver.page_source.include?("my content")).to be(true)
+    expect(@driver.page_source.include?("- my title")).to be(true)
+    wait_for_selector("//span[contains(text(), 'Back to annotation')]", :xpath).click
+    wait_for_selector(".media-detail")
+    @driver.navigate.refresh
+    wait_for_selector(".media-analysis__title")
+    expect(@driver.page_source.include?("my content")).to be(true)
+    expect(@driver.page_source.include?("- my title")).to be(true)
+  end
+
 #Report section end
 
 #Bulk Actions section start

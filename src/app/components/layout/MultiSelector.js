@@ -13,6 +13,7 @@ import { emojify } from '../../helpers';
 const StyledMultiSelectorArea = styled.div`
   padding: ${units(2)};
   max-height: ${units(40)};
+  height: ${units(40)};
   min-width: ${units(32)};
   overflow-y: auto;
   border: 1px solid ${opaqueBlack05};

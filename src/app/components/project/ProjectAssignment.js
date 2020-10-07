@@ -3,7 +3,13 @@ import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import Button from '@material-ui/core/Button';
-import Menu from '@material-ui/core/Menu';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import { withStyles } from '@material-ui/core/styles';
 import IconArrowDropDown from '@material-ui/icons/ArrowDropDown';
 import { can } from '../Can';
 import MultiSelector from '../layout/MultiSelector';
@@ -16,22 +22,32 @@ import { stringHelper } from '../../customHelpers';
 import { withSetFlashMessage } from '../FlashMessage';
 import globalStrings from '../../globalStrings';
 
+const Styles = theme => ({
+  root: {
+    flex: '1 0 auto',
+    margin: theme.spacing(1),
+  },
+  spaced: {
+    margin: theme.spacing(1),
+  },
+});
+
 class ProjectAssignmentComponent extends Component {
   state = {
-    anchorEl: null,
+    assignmentDialogOpened: false,
+    message: '',
   };
 
-  handleClick = (event) => {
-    this.setState({ anchorEl: event.currentTarget });
+  handleClick = () => {
+    this.setState({ assignmentDialogOpened: true });
   };
 
   handleClose = () => {
     if (this.props.onDismiss) {
       this.props.onDismiss();
-      return;
     }
 
-    this.setState({ anchorEl: null });
+    this.setState({ assignmentDialogOpened: false });
   };
 
   handleSelect = (selected) => {
@@ -55,6 +71,7 @@ class ProjectAssignmentComponent extends Component {
       new UpdateProjectMutation({
         id: this.props.project.id,
         assigned_to_ids: selected.join(','),
+        assignment_message: this.state.message,
       }),
       { onSuccess, onFailure },
     );
@@ -67,7 +84,9 @@ class ProjectAssignmentComponent extends Component {
       return null;
     }
 
-    const anchorEl = this.state.anchorEl || this.props.anchorEl;
+    const { classes } = this.props;
+    const assignmentDialogOpened = this.state.assignmentDialogOpened ||
+      this.props.assignmentDialogOpened;
     const buttonStyle = {
       border: 0,
       color: black54,
@@ -87,25 +106,56 @@ class ProjectAssignmentComponent extends Component {
     });
 
     const assignmentPopup = (
-      <Menu
+      <Dialog
         className="project__assignment-menu"
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
+        open={assignmentDialogOpened}
         onClose={this.handleClose}
       >
-        <MultiSelector
-          allowSelectAll
-          allowUnselectAll
-          allowSearch
-          options={options}
-          selected={selected}
-          onDismiss={this.handleClose}
-          onSubmit={this.handleSelect}
-        />
-      </Menu>
+        <DialogTitle>
+          <FormattedMessage
+            id="projectAssignment.title"
+            defaultMessage="Assign list to collaborators"
+          />
+        </DialogTitle>
+        <DialogContent>
+          <Box display="flex" style={{ outline: 0 }}>
+            <MultiSelector
+              allowSelectAll
+              allowUnselectAll
+              allowSearch
+              options={options}
+              selected={selected}
+              onDismiss={this.handleClose}
+              onSubmit={this.handleSelect}
+            />
+            <div className={classes.spaced}>
+              <Typography variant="body1" component="div" className={classes.spaced}>
+                <FormattedMessage
+                  id="projectAssignment.notesTitle"
+                  defaultMessage="Add a note to the e-mail"
+                />
+              </Typography>
+              <TextField
+                label={
+                  <FormattedMessage
+                    id="projectAssignment.notes"
+                    defaultMessage="Notes"
+                  />
+                }
+                variant="outlined"
+                value={this.state.message}
+                onChange={(e) => { this.setState({ message: e.target.value }); }}
+                rows={21}
+                InputProps={{ classes: { root: classes.root } }}
+                multiline
+              />
+            </div>
+          </Box>
+        </DialogContent>
+      </Dialog>
     );
 
-    if (this.props.anchorEl) {
+    if (this.props.assignmentDialogOpened) {
       return assignmentPopup;
     }
 
@@ -143,7 +193,7 @@ ProjectAssignmentComponent.propTypes = {
 };
 
 const ConnectedProjectAssignmentComponent =
-  withSetFlashMessage(injectIntl(ProjectAssignmentComponent));
+  withStyles(Styles)(withSetFlashMessage(injectIntl(ProjectAssignmentComponent)));
 
 const ProjectAssignmentContainer = Relay.createContainer(ConnectedProjectAssignmentComponent, {
   initialVariables: {

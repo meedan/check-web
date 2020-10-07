@@ -30,6 +30,7 @@ class UpdateProjectMutation extends Relay.Mutation {
       title: this.props.title,
       description: this.props.description,
       assigned_to_ids: this.props.assigned_to_ids,
+      assignment_message: this.props.assignment_message,
     };
   }
 

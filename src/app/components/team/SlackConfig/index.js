@@ -6,26 +6,22 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import Switch from '@material-ui/core/Switch';
-import TextField from '@material-ui/core/TextField';
 import MoreHoriz from '@material-ui/icons/MoreHoriz';
 import styled from 'styled-components';
-import UserUtil from '../user/UserUtil';
-import Message from '../Message';
-import CheckContext from '../../CheckContext';
-import UpdateTeamMutation from '../../relay/mutations/UpdateTeamMutation';
-import globalStrings from '../../globalStrings';
-import { getErrorMessage } from '../../helpers';
-import { stringHelper } from '../../customHelpers';
+import UserUtil from '../../user/UserUtil';
+import Message from '../../Message';
+import SlackConfigDialog from './SlackConfigDialog';
+import CheckContext from '../../../CheckContext';
+import UpdateTeamMutation from '../../../relay/mutations/UpdateTeamMutation';
+import globalStrings from '../../../globalStrings';
+import { getErrorMessage } from '../../../helpers';
+import { stringHelper } from '../../../customHelpers';
 import {
   title1,
-} from '../../styles/js/shared';
+} from '../../../styles/js/shared';
 
 const messages = defineMessages({
   title: {
@@ -51,12 +47,6 @@ class SlackConfig extends React.Component {
     return new CheckContext(this).getContextStore().currentUser;
   }
 
-  handleChange(e) {
-    const state = {};
-    state[e.target.name] = e.target.value;
-    this.setState(state);
-  }
-
   handleCloseDialog = () => {
     this.setState({ openDialog: false });
   }
@@ -64,9 +54,6 @@ class SlackConfig extends React.Component {
   handleOpenDialog = () => {
     this.setState({
       openDialog: true,
-      channel: null,
-      webhook: null,
-      message: null,
     });
   }
 
@@ -83,14 +70,6 @@ class SlackConfig extends React.Component {
       ? this.state.enabled
       : Boolean(parseInt(this.props.team.get_slack_notifications_enabled, 10));
 
-    const channel = typeof this.state.channel !== 'undefined' && this.state.channel !== null
-      ? this.state.channel
-      : this.props.team.get_slack_channel;
-
-    const webhook = typeof this.state.webhook !== 'undefined' && this.state.webhook !== null
-      ? this.state.webhook
-      : this.props.team.get_slack_webhook;
-
     const onFailure = (transaction) => {
       const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
       const message = getErrorMessage(transaction, fallbackMessage);
@@ -105,8 +84,6 @@ class SlackConfig extends React.Component {
       new UpdateTeamMutation({
         id: this.props.team.id,
         slack_notifications_enabled: enabled ? '1' : '0',
-        slack_webhook: webhook,
-        slack_channel: channel,
       }),
       { onSuccess, onFailure },
     );
@@ -150,6 +127,7 @@ class SlackConfig extends React.Component {
               </Tooltip>
             }
           />
+          <Message message={this.state.message} />
           <CardContent>
             <FormattedMessage
               id="slackConfig.text"
@@ -164,43 +142,9 @@ class SlackConfig extends React.Component {
         <Dialog
           open={this.state.openDialog}
           onClose={this.handleCloseDialog}
+          maxWidth="lg"
         >
-          <DialogTitle>
-            {this.props.intl.formatMessage(messages.title)}
-          </DialogTitle>
-          <DialogContent>
-            <Message message={this.state.message} />
-            <FormattedMessage
-              id="slackConfig.text"
-              defaultMessage="Notify a Slack channel about workspace activity."
-            />
-            <TextField
-              className="team__slack-webhook-input"
-              label="Slack webhook"
-              name="webhook"
-              defaultValue={team.get_slack_webhook}
-              onChange={this.handleChange.bind(this)}
-              margin="normal"
-              fullWidth
-            />
-            <TextField
-              className="team__slack-channel-input"
-              label="Slack default #channel"
-              name="channel"
-              defaultValue={team.get_slack_channel}
-              onChange={this.handleChange.bind(this)}
-              margin="normal"
-              fullWidth
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleCloseDialog}>
-              {this.props.intl.formatMessage(globalStrings.cancel)}
-            </Button>
-            <Button color="primary" onClick={this.handleSubmit.bind(this)}>
-              {this.props.intl.formatMessage(globalStrings.save)}
-            </Button>
-          </DialogActions>
+          <SlackConfigDialog teamSlug={this.props.team.slug} onCancel={this.handleCloseDialog} />
         </Dialog>
       </div>
     );

@@ -27,47 +27,6 @@ const StyledFormControlLabel = styled(FormControlLabel)`
 `;
 
 class TagPicker extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selected: [],
-      unselected: [],
-    };
-  }
-
-  handleSelectCheckbox = (e, inputChecked) => {
-    const tag = e.target.id;
-
-    const selected = [...this.state.selected];
-    const unselected = [...this.state.unselected];
-
-    if (inputChecked) {
-      this.props.onAddTag(tag);
-      selected.push(tag);
-      if (unselected.indexOf(tag)) {
-        unselected.splice(unselected.indexOf(tag), 1);
-      }
-    } else {
-      this.props.onRemoveTag(tag);
-      unselected.push(tag);
-      if (selected.indexOf(tag)) {
-        selected.splice(selected.indexOf(tag), 1);
-      }
-    }
-    this.setState({ selected, unselected });
-  }
-
-  tagIsChecked = (tag) => {
-    const { selected, unselected } = this.state;
-    if (selected.includes(tag)) {
-      return true;
-    }
-    if (unselected.includes(tag)) {
-      return false;
-    }
-    return this.props.tags.map(t => t.node.tag_text).includes(tag);
-  };
-
   renderNotFound(totalTagsCount) {
     if (totalTagsCount === 0) {
       return (
@@ -85,14 +44,19 @@ class TagPicker extends React.PureComponent {
         <FormattedMessage
           id="tagPicker.tagNotFound"
           defaultMessage="Tag #{tag} not found."
-          values={{ tag: this.props.value }}
+          values={{ tag: this.props.searchValue }}
         />
       </StyledNotFound>
     );
   }
 
   render() {
-    const { media, value } = this.props;
+    const {
+      team,
+      searchValue,
+      selectedTags,
+      onClick,
+    } = this.props;
 
     const compareString = (tag, val) => {
       if (!tag) {
@@ -101,9 +65,9 @@ class TagPicker extends React.PureComponent {
       return tag.toLowerCase().includes(val.toLowerCase());
     };
 
-    const tag_texts = media.team.tag_texts || { edges: [] };
-    const shown_tag_texts = value ?
-      tag_texts.edges.filter(t => compareString(t.node.text, value)) :
+    const tag_texts = team.tag_texts || { edges: [] };
+    const shown_tag_texts = searchValue ?
+      tag_texts.edges.filter(t => compareString(t.node.text, searchValue)) :
       tag_texts.edges;
 
     const shownTagsCount = shown_tag_texts.length;
@@ -120,8 +84,8 @@ class TagPicker extends React.PureComponent {
                   key={`team-suggested-tag-${index.toString()}`}
                   control={
                     <StyledCheckbox
-                      checked={this.tagIsChecked(tag.node.text)}
-                      onChange={this.handleSelectCheckbox}
+                      checked={selectedTags.includes(tag.node.text)}
+                      onChange={onClick}
                       id={tag.node.text}
                     />
                   }
@@ -137,15 +101,22 @@ class TagPicker extends React.PureComponent {
 }
 
 TagPicker.propTypes = {
-  onAddTag: PropTypes.func.isRequired,
-  onRemoveTag: PropTypes.func.isRequired,
-  value: PropTypes.string,
-  media: PropTypes.object.isRequired,
-  tags: PropTypes.array.isRequired,
+  searchValue: PropTypes.string,
+  team: PropTypes.shape({
+    tag_texts: PropTypes.shape({
+      edges: PropTypes.arrayOf(PropTypes.shape({
+        node: PropTypes.shape({
+          text: PropTypes.string.isRequired,
+        }).isRequired,
+      })).isRequired,
+    }).isRequired,
+  }).isRequired,
+  selectedTags: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 TagPicker.defaultProps = {
-  value: null,
+  searchValue: '',
 };
 
 export default TagPicker;

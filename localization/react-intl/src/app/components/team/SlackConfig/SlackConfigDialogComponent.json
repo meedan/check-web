@@ -1,0 +1,50 @@
+[
+  {
+    "id": "slackConfigDialogComponent.defaultErrorMessage",
+    "defaultMessage": "Could not save Slack settings"
+  },
+  {
+    "id": "slackConfigDialogComponent.savedSuccessfully",
+    "defaultMessage": "Slack settings saved successfully!"
+  },
+  {
+    "id": "slackConfigDialogComponent.title",
+    "defaultMessage": "Send notifications to Slack channels when claims are added to specific lists"
+  },
+  {
+    "id": "slackConfigDialogComponent.webhook",
+    "defaultMessage": "Slack webhook"
+  },
+  {
+    "id": "slackConfigDialogComponent.event",
+    "defaultMessage": "Event"
+  },
+  {
+    "id": "slackConfigDialogComponent.sendNotificationsTo",
+    "defaultMessage": "Send notifications to"
+  },
+  {
+    "id": "slackConfigDialogComponent.allActivity",
+    "defaultMessage": "All workspace activity"
+  },
+  {
+    "id": "slackConfigDialogComponent.channel",
+    "defaultMessage": "Slack channel"
+  },
+  {
+    "id": "slackConfigDialogComponent.ifItemAddedTo",
+    "defaultMessage": "If item is added to"
+  },
+  {
+    "id": "slackConfigDialogComponent.new",
+    "defaultMessage": "New notification"
+  },
+  {
+    "id": "slackConfigDialogComponent.cancel",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "slackConfigDialogComponent.save",
+    "defaultMessage": "Save"
+  }
+]

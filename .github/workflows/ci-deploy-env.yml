@@ -1,0 +1,106 @@
+name: Build Test and Deploy
+
+on:
+  push:
+    branches:
+      - 'develop'
+      - 'master'
+      - '*deploy/*'
+
+jobs:
+  build-test-deploy:
+    runs-on: ubuntu-latest
+
+    outputs:
+      image: ${{ steps.build-image.outputs.image }}
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+        aws-region: eu-west-1
+
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
+    - name: Set up Docker Buildx
+      uses: crazy-max/ghaction-docker-buildx@v3
+
+    - name: Cache Docker layers
+      uses: actions/cache@v2
+      id: cache
+      with:
+        path: /tmp/.buildx-cache
+        key: ${{ runner.os }}-buildx-${{ github.sha }}
+        restore-keys: |
+          ${{ runner.os }}-buildx-
+
+    - name: Docker Buildx (build)
+      id: build-image
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: ${{ github.event.repository.name }}
+        IMAGE_TAG: ${{ github.sha }}
+      run: |
+        docker buildx build \
+          --cache-from "type=local,src=/tmp/.buildx-cache" \
+          --cache-to "type=local,dest=/tmp/.buildx-cache" \
+          --load \
+          --tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG \
+          --file ./Dockerfile ./
+        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+
+#    - name: Run Unit Tests
+#      id: run-unit-tests
+
+    - name: Docker Buildx (push)
+      id: push-image-to-ecr
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: ${{ github.event.repository.name }}
+        IMAGE_TAG: ${{ github.sha }}
+      run: |
+        BRANCH=$(echo "${GITHUB_REF#refs/*/}" | sed 's/.*\///')
+        # push with git sha
+        docker buildx build \
+          --cache-from "type=local,src=/tmp/.buildx-cache" \
+          --output "type=image,push=true" \
+          --tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG \
+          --file ./Dockerfile ./
+        # push docker tag to indicate branch
+        docker buildx build \
+          --cache-from "type=local,src=/tmp/.buildx-cache" \
+          --output "type=image,push=true" \
+          --tag $ECR_REGISTRY/$ECR_REPOSITORY:$BRANCH \
+          --file ./Dockerfile ./
+
+#    - name: Kick off Terraform deploy in sysops/ if not live
+#      id: sysops-deploy
+#      run: |
+#        BRANCH=$(echo "${GITHUB_REF#refs/*/}" | sed 's/.*\///')
+#        if [[ "$BRANCH" != master ]]; then
+#          curl \
+#          -X POST \
+#          -H "Accept: application/vnd.github.v3+json" \
+#          https://api.github.com/repos/meedan/sysops/actions/workflows/deploy_${{ github.event.repository.name }}.yml/dispatches \
+#          -u ${{ secrets.SYSOPS_RW_GITHUB_TOKEN }} \
+#          -d '{"ref": "master", "inputs": {"git_sha": "${{ github.sha }}", "branch": "'$BRANCH'"}}'
+#        fi
+
+#   - name: Send Slack Notification
+#     id: slack-notify
+#     if: ${{ always() }}
+#     uses: 8398a7/action-slack@v3
+#     with:
+#       status: ${{ job.status }}
+#       author_name: 'Github Actions'
+#       icon_emoji: ':octocat:'
+#       fields: repo,message,author # selectable (default: repo,message)
+#     env:
+#       GITHUB_TOKEN: ${{ secrets.CONFIGURATOR_TOKEN }} # optional
+#       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required

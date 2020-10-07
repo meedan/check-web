@@ -13,7 +13,7 @@
   },
   {
     "id": "reportDesigner.textTitle",
-    "defaultMessage": "Headline ({max} characters max)"
+    "defaultMessage": "Title ({max} characters max)"
   },
   {
     "id": "reportDesigner.content",
@@ -33,11 +33,11 @@
   },
   {
     "id": "reportDesigner.headline",
-    "defaultMessage": "Headline ({max} characters max)"
+    "defaultMessage": "Title ({max} characters max)"
   },
   {
     "id": "reportDesigner.description",
-    "defaultMessage": "Description ({max} characters max)"
+    "defaultMessage": "Content ({max} characters max)"
   },
   {
     "id": "reportDesigner.darkOverlay",
