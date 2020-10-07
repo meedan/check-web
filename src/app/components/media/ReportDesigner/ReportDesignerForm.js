@@ -126,7 +126,7 @@ const ReportDesignerForm = (props) => {
             label={
               <FormattedMessage
                 id="reportDesigner.textTitle"
-                defaultMessage="Headline ({max} characters max)"
+                defaultMessage="Title ({max} characters max)"
                 values={{ max: 140 }}
               />
             }
@@ -193,7 +193,7 @@ const ReportDesignerForm = (props) => {
             label={
               <FormattedMessage
                 id="reportDesigner.headline"
-                defaultMessage="Headline ({max} characters max)"
+                defaultMessage="Title ({max} characters max)"
                 values={{ max: 85 }}
               />
             }
@@ -207,7 +207,7 @@ const ReportDesignerForm = (props) => {
             label={
               <FormattedMessage
                 id="reportDesigner.description"
-                defaultMessage="Description ({max} characters max)"
+                defaultMessage="Content ({max} characters max)"
                 values={{ max: 240 }}
               />
             }
