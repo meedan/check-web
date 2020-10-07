@@ -7,7 +7,6 @@ import xor from 'lodash.xor';
 import memoize from 'memoize-one';
 import styled from 'styled-components';
 import Chip from '@material-ui/core/Chip';
-import MediaLanguageChip from './MediaLanguageChip';
 import { searchQueryFromUrl, urlFromSearchQuery } from '../search/Search';
 import VideoAnnotationIcon from '../../../assets/images/video-annotation/video-annotation';
 import { units } from '../../styles/js/shared';
@@ -19,10 +18,6 @@ const StyledMediaTagsContainer = styled.div`
     &:empty {
       display: none;
     }
-  }
-
-  .media-tags__language {
-    white-space: nowrap;
   }
 
   .media-tags__list {
@@ -125,9 +120,6 @@ class MediaTags extends React.Component {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div>
               <ul className="media-tags__list">
-                <li>
-                  <MediaLanguageChip projectMedia={projectMedia} />
-                </li>
                 {tags.map((tag) => {
                   if (tag.node.tag_text) {
                     return (
@@ -191,6 +183,5 @@ export default createFragmentContainer(MediaTags, graphql`
         }
       }
     }
-    ...MediaLanguageChip_projectMedia
   }
 `);

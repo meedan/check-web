@@ -3,15 +3,16 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
-import Task from '../task/Task';
-import Tasks from '../task/Tasks';
-import { withPusher, pusherShape } from '../../pusher';
-import CreateTask from '../task/CreateTask';
-import MediaRoute from '../../relay/MediaRoute';
+import MediaLanguageChip from './MediaLanguageChip';
 import MediasLoading from './MediasLoading';
 import MediaTags from './MediaTags';
 import TagMenu from '../tag/TagMenu';
+import Task from '../task/Task';
+import Tasks from '../task/Tasks';
+import CreateTask from '../task/CreateTask';
 import UserUtil from '../user/UserUtil';
+import { withPusher, pusherShape } from '../../pusher';
+import MediaRoute from '../../relay/MediaRoute';
 import CheckContext from '../../CheckContext';
 import { getCurrentProjectId } from '../../helpers';
 import {
@@ -168,6 +169,7 @@ class MediaTasksComponent extends Component {
       <div>
         { fieldset === 'metadata' ?
           <StyledMetadataRow>
+            <MediaLanguageChip projectMedia={media} />
             <TagMenu media={media} />
             <MediaTags
               projectMedia={media}
@@ -257,6 +259,7 @@ const MediaMetadataContainer = Relay.createContainer(withPusher(MediaTasksCompon
         archived
         permissions
         pusher_channel
+        ${MediaLanguageChip.getFragment('projectMedia')}
         item_metadata: tasks(fieldset: "metadata", first: 10000) {
           edges {
             node {
