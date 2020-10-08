@@ -230,13 +230,13 @@ class EditTaskDialog extends React.Component {
         ))}
         <div style={{ marginTop: units(1) }}>
           <Button onClick={this.handleAddValue.bind(this)}>
-            <FormattedMessage id='singleChoiceTask.addValue' defaultMessage='Add Option'/>
+            <FormattedMessage id="singleChoiceTask.addValue" defaultMessage="Add Option"/>
           </Button>
           <Button
             onClick={this.handleAddOther.bind(this)}
             disabled={this.state.hasOther}
           >
-            <FormattedMessage id='singleChoiceTask.addOther'  defaultMessage='Add "Other"'  />
+            <FormattedMessage id="singleChoiceTask.addOther"  defaultMessage='Add "Other"'  />
           </Button>
         </div>
       </div>

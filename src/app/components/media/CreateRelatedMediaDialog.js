@@ -97,7 +97,7 @@ class CreateRelatedMediaDialog extends React.Component {
         </DialogContent>
         <DialogActions>
           <Button id="create-media-dialog__dismiss-button" onClick={this.props.onDismiss}>
-            <FormattedMessage {...globalStrings.cancel}/>
+            <FormattedMessage {...globalStrings.cancel} />
           </Button>
           { mode === 'new' &&
             <Button
