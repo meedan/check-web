@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
+import Box from '@material-ui/core/Box';
 import MediaLanguageChip from './MediaLanguageChip';
 import MediasLoading from './MediasLoading';
 import MediaTags from './MediaTags';
-import TagMenu from '../tag/TagMenu';
 import Task from '../task/Task';
 import Tasks from '../task/Tasks';
 import CreateTask from '../task/CreateTask';
@@ -45,13 +45,6 @@ const StyledTaskHeaderRow = styled.div`
     color: ${black16};
     cursor: pointer;
   }
-`;
-
-const StyledMetadataRow = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: ${units(3)};
 `;
 
 class MediaTasksComponent extends Component {
@@ -168,14 +161,13 @@ class MediaTasksComponent extends Component {
     return (
       <div>
         { fieldset === 'metadata' ?
-          <StyledMetadataRow>
+          <Box mt={3}>
             <MediaLanguageChip projectMedia={media} />
-            <TagMenu media={media} />
             <MediaTags
               projectMedia={media}
               onTimelineCommentOpen={onTimelineCommentOpen}
             />
-          </StyledMetadataRow> : null }
+          </Box> : null }
         <StyledTaskHeaderRow style={isBrowserExtension ? { padding: 0 } : {}}>
           { itemTasks.edges.length && fieldset === 'tasks' && !isBrowserExtension ?
             <FlexRow>
