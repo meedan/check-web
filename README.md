@@ -108,3 +108,5 @@ it("should do whatever my unit expects");
 ## Notes and tips
 
 * Remove your `node_modules` directory if you face errors related to `npm install`
+* If you getting problems when using npm it's better to refer this web site https://www.npmjs.com and [this](https://docs.npmjs.com) documentation.
+                                           
