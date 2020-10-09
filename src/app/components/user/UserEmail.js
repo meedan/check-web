@@ -24,14 +24,6 @@ const messages = defineMessages({
     id: 'userEmail.emailInputHint',
     defaultMessage: 'email@example.com',
   },
-  submit: {
-    id: 'userEmail.submit',
-    defaultMessage: 'Submit',
-  },
-  skip: {
-    id: 'userEmail.skip',
-    defaultMessage: 'Skip',
-  },
 });
 
 class UserEmail extends React.Component {
@@ -114,10 +106,10 @@ class UserEmail extends React.Component {
           </CardContent>
           <CardActions>
             <Button onClick={this.handleClickSkip}>
-              {this.props.intl.formatMessage(messages.skip)}
+              <FormattedMessage id="userEmail.skip" defaultMessage="Skip" />
             </Button>
             <Button onClick={this.handleSubmit} color="primary">
-              {this.props.intl.formatMessage(messages.submit)}
+              <FormattedMessage id="userEmail.submit" defaultMessage="Submit" />
             </Button>
           </CardActions>
         </Card>

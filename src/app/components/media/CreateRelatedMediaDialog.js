@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -106,7 +106,7 @@ class CreateRelatedMediaDialog extends React.Component {
         </DialogContent>
         <DialogActions>
           <Button id="create-media-dialog__dismiss-button" onClick={this.props.onDismiss}>
-            {this.props.intl.formatMessage(globalStrings.cancel)}
+            <FormattedMessage {...globalStrings.cancel} />
           </Button>
           { mode === 'new' &&
             <Button
@@ -139,4 +139,4 @@ class CreateRelatedMediaDialog extends React.Component {
   }
 }
 
-export default injectIntl(CreateRelatedMediaDialog);
+export default CreateRelatedMediaDialog;
