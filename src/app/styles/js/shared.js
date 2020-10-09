@@ -286,6 +286,16 @@ export const MuiTheme = {
         color: `${highlightOrange} !important`,
       },
     },
+    MuiIconButton: {
+      root: {
+        margin: '4px',
+        padding: '4px',
+        '&:hover': {
+          backgroundColor: 'transparent',
+          color: checkBlue,
+        },
+      },
+    },
   },
 };
 
