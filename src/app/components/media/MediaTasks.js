@@ -3,15 +3,16 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
-import Task from '../task/Task';
-import Tasks from '../task/Tasks';
-import { withPusher, pusherShape } from '../../pusher';
-import CreateTask from '../task/CreateTask';
-import MediaRoute from '../../relay/MediaRoute';
+import Box from '@material-ui/core/Box';
+import MediaLanguageChip from './MediaLanguageChip';
 import MediasLoading from './MediasLoading';
 import MediaTags from './MediaTags';
-import TagMenu from '../tag/TagMenu';
+import Task from '../task/Task';
+import Tasks from '../task/Tasks';
+import CreateTask from '../task/CreateTask';
 import UserUtil from '../user/UserUtil';
+import { withPusher, pusherShape } from '../../pusher';
+import MediaRoute from '../../relay/MediaRoute';
 import CheckContext from '../../CheckContext';
 import { getCurrentProjectId } from '../../helpers';
 import {
@@ -44,13 +45,6 @@ const StyledTaskHeaderRow = styled.div`
     color: ${black16};
     cursor: pointer;
   }
-`;
-
-const StyledMetadataRow = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: ${units(3)};
 `;
 
 class MediaTasksComponent extends Component {
@@ -167,13 +161,13 @@ class MediaTasksComponent extends Component {
     return (
       <div>
         { fieldset === 'metadata' ?
-          <StyledMetadataRow>
-            <TagMenu media={media} />
+          <Box mt={3}>
+            <MediaLanguageChip projectMedia={media} />
             <MediaTags
               projectMedia={media}
               onTimelineCommentOpen={onTimelineCommentOpen}
             />
-          </StyledMetadataRow> : null }
+          </Box> : null }
         <StyledTaskHeaderRow style={isBrowserExtension ? { padding: 0 } : {}}>
           { itemTasks.edges.length && fieldset === 'tasks' && !isBrowserExtension ?
             <FlexRow>
@@ -257,6 +251,7 @@ const MediaMetadataContainer = Relay.createContainer(withPusher(MediaTasksCompon
         archived
         permissions
         pusher_channel
+        ${MediaLanguageChip.getFragment('projectMedia')}
         item_metadata: tasks(fieldset: "metadata", first: 10000) {
           edges {
             node {

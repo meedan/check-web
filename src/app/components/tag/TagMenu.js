@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, injectIntl } from 'react-intl';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Popover from '@material-ui/core/Popover';
-import styled from 'styled-components';
+import { withStyles } from '@material-ui/core/styles';
 import TagInput from './TagInput';
 import TagPicker from './TagPicker';
 import { can } from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
-import { units } from '../../styles/js/shared';
 import TagOutline from '../../../assets/images/tag/tag-outline';
 import MediaRoute from '../../relay/MediaRoute';
 import RelayContainer from '../../relay/RelayContainer';
@@ -20,12 +20,15 @@ import { createTag } from '../../relay/mutations/CreateTagMutation';
 import { deleteTag } from '../../relay/mutations/DeleteTagMutation';
 import { getCurrentProjectId, getErrorMessage } from '../../helpers';
 
-const StyledActions = styled.div`
-  padding: ${units(2)};
-  align-items: flex-end;
-  flex-direction: row;
-  display: flex;
-`;
+const StyledIconButton = withStyles(theme => ({
+  root: {
+    padding: theme.spacing(0.5),
+    '&:hover': {
+      backgroundColor: 'transparent',
+      color: theme.palette.primary.main,
+    },
+  },
+}))(IconButton);
 
 class TagMenuComponent extends Component {
   constructor(props) {
@@ -161,14 +164,14 @@ class TagMenuComponent extends Component {
       .filter(text => !this.state.tagsToRemove.includes(text));
 
     return (
-      <div>
-        <IconButton
+      <React.Fragment>
+        <StyledIconButton
           className="tag-menu__icon"
           tooltip={<FormattedMessage id="tagMenu.tooltip" defaultMessage="Edit tags" />}
           onClick={this.handleOpenMenu}
         >
           <TagOutline />
-        </IconButton>
+        </StyledIconButton>
         <Popover
           anchorEl={this.state.anchorEl}
           open={Boolean(this.state.anchorEl)}
@@ -182,19 +185,18 @@ class TagMenuComponent extends Component {
               selectedTags={selected}
               onClick={this.handleTagClick}
             />
-            <StyledActions>
+            <Box p={2} display="flex" flexDirection="row" justifyContent="flex-end">
               <Button
-                style={{ marginLeft: 'auto' }}
                 className="tag-menu__done"
                 onClick={this.handleSubmit}
                 color="primary"
               >
                 <FormattedMessage id="tagMenu.done" defaultMessage="Done" />
               </Button>
-            </StyledActions>
+            </Box>
           </div>
         </Popover>
-      </div>
+      </React.Fragment>
     );
   }
 }
