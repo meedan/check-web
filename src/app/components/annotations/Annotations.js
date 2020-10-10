@@ -2,6 +2,7 @@ import React from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import styled from 'styled-components';
 import AddAnnotation from './AddAnnotation';
 import Annotation from './Annotation';
@@ -97,6 +98,11 @@ class Annotations extends React.Component {
             <Button
               onClick={this.loadMore}
               disabled={this.state.loadingMore}
+              endIcon={
+                this.state.loadingMore ?
+                  <CircularProgress color="inherit" size="1em" /> :
+                  null
+              }
             >
               Load More
             </Button>
