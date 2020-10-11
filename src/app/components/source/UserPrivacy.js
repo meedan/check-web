@@ -15,12 +15,9 @@ import CheckContext from '../../CheckContext';
 import { mapGlobalMessage } from '../MappedMessage';
 import { getErrorMessage } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
-import { units } from '../../styles/js/shared';
 import globalStrings from '../../globalStrings';
-import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
-import {Theme} from "@material-ui/core";
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(theme => ({
   linkStyle: {
     textDecoration: 'underline',
   },
