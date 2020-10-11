@@ -311,6 +311,7 @@ class TeamBotsComponent extends Component {
                         <TeamBot
                           team={team}
                           bot={bot}
+                          installationId={installation.node.id}
                           schema={JSON.parse(bot.settings_as_json_schema)}
                           uiSchema={JSON.parse(bot.settings_ui_schema)}
                           value={this.state.settings[installation.node.id]}

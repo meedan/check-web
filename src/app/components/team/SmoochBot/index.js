@@ -6,13 +6,16 @@ import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
 import HelpIcon from '@material-ui/icons/HelpOutline';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Box from '@material-ui/core/Box';
-import { checkBlue } from '../../../styles/js/shared';
+import { checkBlue, inProgressYellow } from '../../../styles/js/shared';
 import LanguageSwitcher from '../../LanguageSwitcher';
 import SmoochBotSidebar from './SmoochBotSidebar';
 import SmoochBotTextEditor from './SmoochBotTextEditor';
 import SmoochBotMenuEditor from './SmoochBotMenuEditor';
+import SmoochBotResourceEditor from './SmoochBotResourceEditor';
 import SmoochBotSettings from './SmoochBotSettings';
 import { placeholders } from './localizables';
 
@@ -25,6 +28,9 @@ const useStyles = makeStyles(theme => ({
   },
   box: {
     padding: theme.spacing(2),
+  },
+  resource: {
+    color: inProgressYellow,
   },
 }));
 
@@ -45,6 +51,14 @@ const SmoochBot = (props) => {
       currentWorkflowIndex = index;
     }
   });
+
+  // Look for current selected resource
+  let currentResource = null;
+  if (/^resource_/.test(currentOption)) {
+    const resourceIndex = parseInt(currentOption.replace(/^resource_/, ''), 10);
+    currentResource = value.smooch_workflows[currentWorkflowIndex]
+      .smooch_custom_resources[resourceIndex];
+  }
 
   const languages = props.team.get_languages ? JSON.parse(props.team.get_languages) : ['en'];
 
@@ -110,6 +124,22 @@ const SmoochBot = (props) => {
     setCurrentOption(option);
   };
 
+  const handleAddResource = (currentValue, title, id) => {
+    const updatedValue = JSON.parse(JSON.stringify(currentValue));
+    if (!value.smooch_workflows[currentWorkflowIndex].smooch_custom_resources) {
+      updatedValue.smooch_workflows[currentWorkflowIndex].smooch_custom_resources = [];
+    }
+    updatedValue.smooch_workflows[currentWorkflowIndex].smooch_custom_resources.push({
+      smooch_custom_resource_id: id || Math.random().toString().substring(2, 10),
+      smooch_custom_resource_title:
+        title || props.intl.formatMessage(placeholders.default_new_resource_title),
+      smooch_custom_resource_body: '',
+      smooch_custom_resource_feed_url: '',
+      smooch_custom_resource_number_of_articles: 3,
+    });
+    return updatedValue;
+  };
+
   const handleChangeTextField = (newValue) => {
     const updatedValue = JSON.parse(JSON.stringify(value));
     updatedValue.smooch_workflows[currentWorkflowIndex][currentOption] = newValue;
@@ -117,11 +147,25 @@ const SmoochBot = (props) => {
   };
 
   const handleChangeMenu = (newValue) => {
-    const updatedValue = JSON.parse(JSON.stringify(value));
+    let updatedValue = JSON.parse(JSON.stringify(value));
     if (!updatedValue.smooch_workflows[currentWorkflowIndex][currentOption]) {
       updatedValue.smooch_workflows[currentWorkflowIndex][currentOption] = {};
     }
     Object.assign(updatedValue.smooch_workflows[currentWorkflowIndex][currentOption], newValue);
+    // Create new resource if needed
+    if (newValue && newValue.smooch_menu_options) {
+      newValue.smooch_menu_options.forEach((option, i) => {
+        if (option.smooch_menu_custom_resource_title) {
+          updatedValue = handleAddResource(
+            updatedValue,
+            option.smooch_menu_custom_resource_title,
+            option.smooch_menu_custom_resource_id,
+          );
+          delete updatedValue.smooch_workflows[currentWorkflowIndex][currentOption]
+            .smooch_menu_options[i].smooch_menu_custom_resource_title;
+        }
+      });
+    }
     setValue(updatedValue);
   };
 
@@ -129,6 +173,27 @@ const SmoochBot = (props) => {
     const updatedValue = JSON.parse(JSON.stringify(value));
     updatedValue[key] = newValue;
     setValue(updatedValue);
+  };
+
+  const handleChangeResource = (key, newValue) => {
+    if (currentResource) {
+      const updatedValue = JSON.parse(JSON.stringify(value));
+      const resourceIndex = parseInt(currentOption.replace(/^resource_/, ''), 10);
+      updatedValue.smooch_workflows[currentWorkflowIndex]
+        .smooch_custom_resources[resourceIndex][key] = newValue;
+      setValue(updatedValue);
+    }
+  };
+
+  const handleDeleteResource = () => {
+    if (currentResource) {
+      const updatedValue = JSON.parse(JSON.stringify(value));
+      const resourceIndex = parseInt(currentOption.replace(/^resource_/, ''), 10);
+      updatedValue.smooch_workflows[currentWorkflowIndex]
+        .smooch_custom_resources.splice(resourceIndex, 1);
+      setValue(updatedValue);
+      setCurrentOption('smooch_message_smooch_bot_greetings');
+    }
   };
 
   return (
@@ -157,7 +222,26 @@ const SmoochBot = (props) => {
             </IconButton>
           </Box>
           <Box display="flex">
-            <SmoochBotSidebar currentOption={currentOption} onClick={handleSelectOption} />
+            <Box>
+              <SmoochBotSidebar
+                currentOption={currentOption}
+                resources={value.smooch_workflows[currentWorkflowIndex].smooch_custom_resources}
+                onClick={handleSelectOption}
+              />
+              <Button
+                startIcon={<AddCircleOutlineIcon />}
+                className={classes.resource}
+                onClick={() => {
+                  const updatedValue = handleAddResource(value);
+                  setValue(updatedValue);
+                }}
+              >
+                <FormattedMessage
+                  id="smoochBot.addResource"
+                  defaultMessage="Add resource"
+                />
+              </Button>
+            </Box>
             <Box flexGrow="1" className={classes.box}>
               { /^smooch_message_smooch_bot_/.test(currentOption) ?
                 <SmoochBotTextEditor
@@ -170,8 +254,16 @@ const SmoochBot = (props) => {
                   languages={languages}
                   field={currentOption}
                   value={value.smooch_workflows[currentWorkflowIndex][currentOption]}
+                  resources={value.smooch_workflows[currentWorkflowIndex].smooch_custom_resources}
                   menuActions={menuActions}
                   onChange={handleChangeMenu}
+                /> : null }
+              { currentResource ?
+                <SmoochBotResourceEditor
+                  installationId={props.installationId}
+                  resource={currentResource}
+                  onChange={handleChangeResource}
+                  onDelete={handleDeleteResource}
                 /> : null }
             </Box>
           </Box>
@@ -188,6 +280,7 @@ const SmoochBot = (props) => {
 
 SmoochBot.propTypes = {
   team: PropTypes.object.isRequired,
+  installationId: PropTypes.string.isRequired,
   value: PropTypes.object.isRequired, // saved settings for the Smooch Bot
   onChange: PropTypes.func.isRequired, // called after "save" is clicked
   schema: PropTypes.object.isRequired,
