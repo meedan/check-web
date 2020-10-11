@@ -56,8 +56,15 @@ const SmoochBot = (props) => {
   let currentResource = null;
   if (/^resource_/.test(currentOption)) {
     const resourceIndex = parseInt(currentOption.replace(/^resource_/, ''), 10);
-    currentResource = value.smooch_workflows[currentWorkflowIndex]
-      .smooch_custom_resources[resourceIndex];
+    if (value.smooch_workflows[currentWorkflowIndex].smooch_custom_resources) {
+      currentResource = value.smooch_workflows[currentWorkflowIndex]
+        .smooch_custom_resources[resourceIndex];
+      if (!currentResource) {
+        setCurrentOption('smooch_message_smooch_bot_greetings');
+      }
+    } else {
+      setCurrentOption('smooch_message_smooch_bot_greetings');
+    }
   }
 
   const languages = props.team.get_languages ? JSON.parse(props.team.get_languages) : ['en'];
