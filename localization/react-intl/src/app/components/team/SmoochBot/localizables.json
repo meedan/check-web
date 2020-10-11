@@ -118,5 +118,9 @@
   {
     "id": "smoochBot.placeholderTos",
     "defaultMessage": "This service is provided under the following terms: %{tos}"
+  },
+  {
+    "id": "smoochBot.newResourceTitle",
+    "defaultMessage": "New bot resource"
   }
 ]

@@ -16,6 +16,10 @@
     "defaultMessage": "Report"
   },
   {
+    "id": "smoochBotMenuOption.languageAction",
+    "defaultMessage": "{languageName} (main menu)"
+  },
+  {
     "id": "smoochBotMenuOption.if",
     "defaultMessage": "If"
   },
@@ -32,7 +36,11 @@
     "defaultMessage": "Respond with"
   },
   {
-    "id": "smoochBotMenuOption.languageAction",
-    "defaultMessage": "{languageName} (main menu)"
+    "id": "smoochBotMenuOption.add",
+    "defaultMessage": "Create \"{resourceName}\""
+  },
+  {
+    "id": "smoochBotMenuOption.selectAction",
+    "defaultMessage": "Select action"
   }
 ]

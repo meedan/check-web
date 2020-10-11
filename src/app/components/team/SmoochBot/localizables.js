@@ -91,6 +91,10 @@ Contact us at *[email or other contact]* for further inquiries.`,
     id: 'smoochBot.placeholderTos',
     defaultMessage: 'This service is provided under the following terms: %{tos}',
   },
+  default_new_resource_title: {
+    id: 'smoochBot.newResourceTitle',
+    defaultMessage: 'New bot resource',
+  },
 });
 
 export { labels, descriptions, placeholders };
