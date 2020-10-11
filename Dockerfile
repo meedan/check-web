@@ -1,4 +1,4 @@
-FROM node:12.16.1-buster AS base
+FROM node:12.19.0-buster AS base
 MAINTAINER Meedan <sysops@meedan.com>
 
 # TODO develop our own `watchman` image, so we can version it
