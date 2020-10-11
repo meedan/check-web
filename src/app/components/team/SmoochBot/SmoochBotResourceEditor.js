@@ -5,8 +5,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Typography from '@material-ui/core/Typography';
+import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
 import SmoochBotPreviewFeed from './SmoochBotPreviewFeed';
 import ParsedText from '../../ParsedText';
 
@@ -27,6 +29,12 @@ const useStyles = makeStyles(theme => ({
   },
   content: {
     flexWrap: 'wrap',
+  },
+  icon: {
+    color: '#979797',
+  },
+  load: {
+    height: theme.spacing(4),
   },
 }));
 
@@ -83,10 +91,11 @@ const SmoochBotResourceEditor = ({
     }
   };
 
-  let loadingMessage = null;
-  if (loading) {
-    loadingMessage = <FormattedMessage id="smoochBotResourceEditor.loading" defaultMessage="Loading articles from RSS feed..." />;
-  }
+  const handleReset = () => {
+    setRssPreview(null);
+    setUrl('');
+    onChange('smooch_custom_resource_feed_url', '');
+  };
 
   return (
     <React.Fragment>
@@ -151,7 +160,7 @@ const SmoochBotResourceEditor = ({
           defaultMessage="Add content from RSS feed"
         />
       </Typography>
-      <Box display="flex" justifyContent="space-between">
+      <Box display="flex" justifyContent="space-between" alignItems={error ? 'baseline' : 'center'}>
         <TextField
           key={Math.random().toString().substring(2, 10)}
           label={
@@ -167,7 +176,7 @@ const SmoochBotResourceEditor = ({
             onChange('smooch_custom_resource_feed_url', event.target.value);
           }}
           error={Boolean(error)}
-          helperText={error || loadingMessage}
+          helperText={error}
           variant="outlined"
           fullWidth
         />
@@ -190,9 +199,7 @@ const SmoochBotResourceEditor = ({
           variant="outlined"
           fullWidth
         />
-      </Box>
 
-      <Box display="flex" flexDirection="row-reverse">
         <Button variant="contained" color="primary" className={classes.spaced} onClick={handleLoad} disabled={loading}>
           <FormattedMessage
             id="smoochBotResourceEditor.load"
@@ -200,6 +207,12 @@ const SmoochBotResourceEditor = ({
           />
         </Button>
 
+        <IconButton onClick={handleReset}>
+          <CancelOutlinedIcon className={classes.icon} />
+        </IconButton>
+      </Box>
+
+      <Box display="flex">
         <Button variant="outlined" onClick={onDelete} className={classes.spaced}>
           <FormattedMessage
             id="smoochBotResourceEditor.delete"
