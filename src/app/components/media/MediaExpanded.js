@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
+import Box from '@material-ui/core/Box';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardActions from '@material-ui/core/CardActions';
@@ -18,7 +19,7 @@ import WebPageMediaCard from './WebPageMediaCard';
 import ImageMediaCard from './ImageMediaCard';
 import MediaPlayerCard from './MediaPlayerCard';
 import PenderCard from '../PenderCard';
-import BlankMediaCard from './BlankMediaCard';
+import BlankMediaButton from './BlankMediaButton';
 import { truncateLength, getCurrentProjectId } from '../../helpers';
 import CheckContext from '../../CheckContext';
 import { withPusher, pusherShape } from '../../pusher';
@@ -154,10 +155,17 @@ class MediaExpandedComponent extends Component {
     if (isBlank) {
       return (
         <CardContent>
-          <BlankMediaCard
-            projectMediaId={media.id}
-            team={media.team}
-          />
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            style={{ minHeight: 400 }}
+          >
+            <BlankMediaButton
+              projectMediaId={media.id}
+              team={media.team}
+            />
+          </Box>
         </CardContent>
       );
     }

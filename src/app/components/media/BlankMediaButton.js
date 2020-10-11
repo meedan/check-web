@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
-import { browserHistory } from 'react-router';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
@@ -17,16 +16,13 @@ function itemLink(itemDbid) {
 }
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    minHeight: theme.spacing(50),
-  },
   box: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
   },
 }));
 
-const BlankMediaCard = ({ projectMediaId, team }) => {
+const BlankMediaButton = ({ projectMediaId, team, reverse }) => {
   const classes = useStyles();
   const [showItemDialog, setShowItemDialog] = React.useState(false);
   const [showConfirmationDialog, setShowConfirmationDialog] = React.useState(false);
@@ -35,7 +31,7 @@ const BlankMediaCard = ({ projectMediaId, team }) => {
   const [selectedItem, setSelectedItem] = React.useState(null);
 
   const handleError = (error) => {
-    let errorMessage = <FormattedMessage id="blankMediaCard.defaultErrorMessage" defaultMessage="Could not save item" />;
+    let errorMessage = <FormattedMessage id="blankMediaButton.defaultErrorMessage" defaultMessage="Could not save item" />;
     const json = safelyParseJSON(error.source);
     if (json && json.errors && json.errors[0] && json.errors[0].message) {
       errorMessage = json.errors[0].message;
@@ -58,11 +54,8 @@ const BlankMediaCard = ({ projectMediaId, team }) => {
 
   const handleSuccess = (projectMediaDbid) => {
     const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
-    browserHistory.push(`/${teamSlug}/media/${projectMediaDbid}`);
-    setShowItemDialog(false);
-    setShowConfirmationDialog(false);
-    setMessage(null);
-    setPending(false);
+    const newPath = `/${teamSlug}/media/${projectMediaDbid}`;
+    window.location.href = window.location.href.replace(window.location.pathname, newPath);
   };
 
   const handleSubmitExisting = (projectMedia, confirmed) => {
@@ -74,7 +67,7 @@ const BlankMediaCard = ({ projectMediaId, team }) => {
       setMessage(null);
       commitMutation(Relay.Store, {
         mutation: graphql`
-          mutation BlankMediaCardReplaceProjectMediaMutation($input: ReplaceProjectMediaInput!) {
+          mutation BlankMediaButtonReplaceProjectMediaMutation($input: ReplaceProjectMediaInput!) {
             replaceProjectMedia(input: $input) {
               new_project_media {
                 dbid
@@ -84,8 +77,8 @@ const BlankMediaCard = ({ projectMediaId, team }) => {
         `,
         variables: {
           input: {
-            project_media_to_be_replaced_id: projectMediaId,
-            new_project_media_id: projectMedia.id,
+            project_media_to_be_replaced_id: reverse ? projectMedia.id : projectMediaId,
+            new_project_media_id: reverse ? projectMediaId : projectMedia.id,
           },
         },
         onCompleted: (response, error) => {
@@ -125,11 +118,9 @@ const BlankMediaCard = ({ projectMediaId, team }) => {
 
   return (
     <React.Fragment>
-      <Box className={classes.root} display="flex" justifyContent="center" alignItems="center">
-        <Button variant="contained" color="primary" onClick={handleOpenItemDialog}>
-          <FormattedMessage id="blankMediaCard.addItem" defaultMessage="Add item" />
-        </Button>
-      </Box>
+      <Button variant="contained" color="primary" onClick={handleOpenItemDialog}>
+        <FormattedMessage id="blankMediaButton.addItem" defaultMessage="Add item" />
+      </Button>
       <CreateRelatedMediaDialog
         message={message}
         title={null}
@@ -139,19 +130,21 @@ const BlankMediaCard = ({ projectMediaId, team }) => {
         onSelect={handleSubmitExisting}
         media={null}
         isSubmitting={pending}
+        hideNew={reverse}
+        typesToShow={reverse ? ['blank'] : null}
       />
       { selectedItem ?
         <ConfirmDialog
           open={showConfirmationDialog}
           title={
             <FormattedMessage
-              id="blankMediaCard.confirmTitle"
+              id="blankMediaButton.confirmTitle"
               defaultMessage="Overwrite report and status?"
             />
           }
           blurb={
             <FormattedMessage
-              id="blankMediaCard.confirmText"
+              id="blankMediaButton.confirmText"
               defaultMessage="The following item already has a published report:
               {link}
               If you proceed, both the status and the report will be overwritten, and the report will be paused."
@@ -168,7 +161,7 @@ const BlankMediaCard = ({ projectMediaId, team }) => {
           }
           continueButtonLabel={
             <FormattedMessage
-              id="blankMediaCard.confirmButtonLabel"
+              id="blankMediaButton.confirmButtonLabel"
               defaultMessage="Pause report and update content"
             />
           }
@@ -179,9 +172,14 @@ const BlankMediaCard = ({ projectMediaId, team }) => {
   );
 };
 
-BlankMediaCard.propTypes = {
-  projectMediaId: PropTypes.string.isRequired,
-  team: PropTypes.object.isRequired,
+BlankMediaButton.defaultProps = {
+  reverse: false,
 };
 
-export default BlankMediaCard;
+BlankMediaButton.propTypes = {
+  projectMediaId: PropTypes.string.isRequired,
+  team: PropTypes.object.isRequired,
+  reverse: PropTypes.bool, // When "reverse" is true, the selected report is the source
+};
+
+export default BlankMediaButton;
