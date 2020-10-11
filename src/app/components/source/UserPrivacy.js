@@ -6,7 +6,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import ConfirmDialog from '../layout/ConfirmDialog';
 import UserConnectedAccount from '../user/UserConnectedAccount';
 import { logout } from '../../redux/actions';
@@ -17,20 +17,22 @@ import { getErrorMessage } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 import { units } from '../../styles/js/shared';
 import globalStrings from '../../globalStrings';
+import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
+import {Theme} from "@material-ui/core";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: Theme) => createStyles({
   linkStyle: {
     textDecoration: 'underline',
   },
   headerStyle: {
-    margin: `${units(2)} 0`,
-    marginTop: units(6),
+    margin: theme.spacing(2, 0),
+    marginTop: theme.spacing(6),
   },
   style: {
-    margin: `${units(2)} 0`,
+    margin: theme.spacing(2, 0),
   },
   cardStyle: {
-    margin: `${units(2)} 0`,
+    margin: theme.spacing(2, 0),
   },
   cardTextStyle: {
     display: 'flex',
@@ -40,7 +42,7 @@ const useStyles = makeStyles({
     minWidth: 300,
     textAlign: 'end',
   },
-});
+}));
 
 const messages = defineMessages({
   deleteAccount: {
