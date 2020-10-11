@@ -8,10 +8,6 @@
     "defaultMessage": "This URL does not seem to be a valid RSS feed"
   },
   {
-    "id": "smoochBotResourceEditor.loading",
-    "defaultMessage": "Loading articles from RSS feed..."
-  },
-  {
     "id": "smoochBotResourceEditor.title",
     "defaultMessage": "Bot resource title"
   },

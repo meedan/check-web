@@ -11,6 +11,10 @@ const SmoochBotPreviewFeed = ({
   onError,
   onSuccess,
 }) => {
+  if (!feedUrl) {
+    onSuccess('');
+    return null;
+  }
   if (feedUrl && count && refetch) {
     return (
       <QueryRenderer
