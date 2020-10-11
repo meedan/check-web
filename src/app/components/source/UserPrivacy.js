@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { compose } from 'redux';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import Relay from 'react-relay/classic';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 import ConfirmDialog from '../layout/ConfirmDialog';
 import UserConnectedAccount from '../user/UserConnectedAccount';
 import { logout } from '../../redux/actions';
@@ -17,7 +18,7 @@ import { getErrorMessage } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 import globalStrings from '../../globalStrings';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = theme => ({
   linkStyle: {
     textDecoration: 'underline',
   },
@@ -39,7 +40,7 @@ const useStyles = makeStyles(theme => ({
     minWidth: 300,
     textAlign: 'end',
   },
-}));
+});
 
 const messages = defineMessages({
   deleteAccount: {
@@ -102,7 +103,7 @@ class UserPrivacy extends Component {
 
   render() {
     const { user } = this.props;
-    const classes = useStyles();
+    const { classes } = this.props;
 
     const currentUser = this.getCurrentUser();
 
@@ -235,4 +236,4 @@ UserPrivacy.contextTypes = {
   store: PropTypes.object,
 };
 
-export default injectIntl(UserPrivacy);
+export default compose(withStyles(useStyles))(injectIntl(UserPrivacy));
