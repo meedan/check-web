@@ -47,7 +47,7 @@ class CreateRelatedMediaDialog extends React.Component {
 
   render() {
     const { mode } = this.state;
-    const { media } = this.props;
+    const { media, hideNew, typesToShow } = this.props;
     const formId = 'create-related-media-dialog-form';
 
     return (
@@ -66,13 +66,14 @@ class CreateRelatedMediaDialog extends React.Component {
                 <FormattedMessage id="createMedia.existing" defaultMessage="Add existing item" />
               }
             />
-            <Tab
-              id="create-media-dialog__tab-new"
-              value="new"
-              label={
-                <FormattedMessage id="createMedia.addNew" defaultMessage="Add new item" />
-              }
-            />
+            { !hideNew ?
+              <Tab
+                id="create-media-dialog__tab-new"
+                value="new"
+                label={
+                  <FormattedMessage id="createMedia.addNew" defaultMessage="Add new item" />
+                }
+              /> : null }
           </Tabs>
           <div style={{ marginTop: units(2), marginBottom: units(2) }}>
             { mode === 'new' &&
@@ -90,6 +91,7 @@ class CreateRelatedMediaDialog extends React.Component {
                 <AutoCompleteMediaItem
                   media={media}
                   onSelect={this.handleSelectExisting}
+                  typesToShow={typesToShow}
                 />
               </StyledAutoCompleteWrapper>
             }
