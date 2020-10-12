@@ -4,10 +4,6 @@
     "defaultMessage": "Could not save item"
   },
   {
-    "id": "blankMediaButton.addItem",
-    "defaultMessage": "Add item"
-  },
-  {
     "id": "blankMediaButton.confirmTitle",
     "defaultMessage": "Overwrite report and status?"
   },
@@ -18,5 +14,9 @@
   {
     "id": "blankMediaButton.confirmButtonLabel",
     "defaultMessage": "Pause report and update content"
+  },
+  {
+    "id": "blankMediaButton.addItem",
+    "defaultMessage": "Add item"
   }
 ]
