@@ -36,7 +36,7 @@ const StyledAnnotations = styled.div`
         ${props => (props.theme.dir === 'rtl' ? 'right' : 'left')}: ${units(4)};
       }
       &:last-of-type {
-        height: 100%;
+        height: ${props => props.noLastItemStretch ? 'auto' : '100%'};
       }
     }
   }
@@ -67,10 +67,13 @@ class Annotations extends React.Component {
 
   render() {
     const { props } = this;
+    const hasMore = props.annotations.length < props.annotationsCount;
+
     return (
       <StyledAnnotations
         className="annotations"
         showAddAnnotation={props.showAddAnnotation}
+        noLastItemStretch={hasMore}
       >
         { props.showAddAnnotation ?
           <AddAnnotation
@@ -94,7 +97,7 @@ class Annotations extends React.Component {
                   onTimelineCommentOpen={props.onTimelineCommentOpen}
                 />
               </div>))}
-          { props.annotations.length < props.annotationsCount ? (
+          { hasMore ? (
             <Button
               onClick={this.loadMore}
               disabled={this.state.loadingMore}
