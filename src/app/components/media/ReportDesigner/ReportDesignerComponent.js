@@ -24,17 +24,22 @@ import {
 } from './reportDesignerHelpers';
 import { getStatus, getStatusStyle } from '../../../helpers';
 import { stringHelper } from '../../../customHelpers';
-import { checkBlue } from '../../../styles/js/shared';
+import { checkBlue, backgroundMain, brandSecondary } from '../../../styles/js/shared';
 import CreateReportDesignMutation from '../../../relay/mutations/CreateReportDesignMutation';
 import UpdateReportDesignMutation from '../../../relay/mutations/UpdateReportDesignMutation';
 
 let hasUnsavedChanges = false;
 
 const useStyles = makeStyles(theme => ({
-  column: {
-    height: 'calc(100vh - 100px)',
+
+  section: {
+    height: 'calc(100vh - 60px)',
     overflow: 'auto',
     padding: theme.spacing(2),
+  },
+  preview: {
+    backgroundColor: backgroundMain,
+    borderRight: '1px solid #DFE4F4',
   },
   title: {
     display: 'flex',
@@ -264,10 +269,10 @@ const ReportDesignerComponent = (props) => {
         onEdit={handleEdit}
       />
       <Box display="flex" width="1">
-        <Box flex="1" alignItems="flex-start" display="flex" className={classes.column}>
+        <Box flex="1" alignItems="flex-start" display="flex" className={[classes.preview, classes.section].join(' ')}>
           <ReportDesignerPreview data={data.options[currentReportIndex]} media={media} />
         </Box>
-        <Box flex="1" className={classes.column}>
+        <Box flex="1" className={[classes.editor, classes.section].join(' ')}>
           <Box display="flex">
             <Typography className={classes.title} color="inherit" variant="h6" component="div">
               <FormattedMessage

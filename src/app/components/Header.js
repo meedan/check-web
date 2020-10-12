@@ -12,15 +12,15 @@ import {
   headerHeight,
   Row,
   black02,
+  brandSecondary,
 } from '../styles/js/shared';
 
 const HeaderBar = styled.div`
-  background-color: ${black02};
+  background-color: ${brandSecondary};
   display: flex;
   align-items: center;
   padding: 0 ${units(2)};
   height: ${headerHeight};
-  border-bottom: 1px solid #D0D6E8; 
   /* Relative positioning is used here to create a new
   positioning context to avoid a z-index inconsistency
   on Safari, Safari Mobile, Ubuntu Chrome,

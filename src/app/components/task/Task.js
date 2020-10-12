@@ -41,7 +41,7 @@ import UpdateTaskMutation from '../../relay/mutations/UpdateTaskMutation';
 import UpdateDynamicMutation from '../../relay/mutations/UpdateDynamicMutation';
 import DeleteAnnotationMutation from '../../relay/mutations/DeleteAnnotationMutation';
 import DeleteDynamicMutation from '../../relay/mutations/DeleteDynamicMutation';
-import { Row, units, black16, black87 } from '../../styles/js/shared';
+import { Row, units, black16, black87, separationGray } from '../../styles/js/shared';
 
 const StyledWordBreakDiv = styled.div`
   width: 100%;
@@ -51,10 +51,25 @@ const StyledWordBreakDiv = styled.div`
 
   .task {
     box-shadow: none;
-    border-bottom: 1px solid #E5E5E5;
+    border-bottom: 1px solid ${separationGray};
     border-radius: 0;
-    margin-right: ${units(2)};
-    /* TODO: add color "tertiary-element: #e5e5e5" to _shared.scss */
+    margin-right: ${units(3)};
+    margin-bottom: 0 !important;
+
+    .task__card-header {
+      padding: ${units(3)} 0 ${units(3)} 0;
+      flex-direction: row-reverse;
+      display: flex;
+      align-items: flex-start;
+
+      .task__card-expand {
+        margin: ${units(1)} ${units(1)} 0 0;
+      }
+
+      .task__card-description {
+        padding: ${units(2)} 0;
+      }
+    }
   }
 
   .task__card-text {
@@ -649,8 +664,9 @@ class Task extends Component {
     delete task.project_media.tasks;
 
     const taskDescription = task.description ?
-      <ParsedText text={task.description} />
-      : null;
+      <div className="task__card-description">
+        <ParsedText text={task.description} />
+      </div> : null;
 
     const className = ['task', `task-type__${task.type}`];
     if (taskAnswered) {
@@ -668,6 +684,7 @@ class Task extends Component {
           style={{ marginBottom: units(1) }}
         >
           <CardHeader
+            className="task__card-header"
             disableTypography
             title={taskQuestion}
             subheader={taskDescription}
@@ -684,7 +701,7 @@ class Task extends Component {
           <Collapse in={this.state.expand} timeout="auto">
             <CardContent className="task__card-text">
               <Message message={this.state.message} />
-              <Box marginBottom={2}>
+              <Box>
                 {taskBody}
               </Box>
             </CardContent>

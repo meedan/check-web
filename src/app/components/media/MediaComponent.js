@@ -24,7 +24,12 @@ import MediaRequests from './MediaRequests';
 import MediaTimeline from './MediaTimeline';
 import MediaAnalysis from './MediaAnalysis';
 import CheckContext from '../../CheckContext';
-import { units } from '../../styles/js/shared';
+
+import {
+  units,
+  brandSecondary,
+  backgroundMain,
+} from '../../styles/js/shared';
 
 const styles = theme => ({
   root: {
@@ -42,19 +47,22 @@ const StyledThreeColumnLayout = styled.div`
   flex-wrap: wrap;
   justify-content: center;
 
+/* Middle column */
   .media__column {
-    background-color: #F7F8FD;
-      /* Did not manage to import colors by adding to  '../../styles/js/shared'; */
+    background-color: ${backgroundMain};
   }
 
+/* Right Column */
   .media__annotations-column {
-    border-left: 1px solid #D0D6E8;
+    border-left: 1px solid ${brandSecondary};
     padding-top: 0;
     padding-left: 0;
     padding-right: 0;
+    max-width: none;
 
+    /* Container of tabs */
     .media__annotations-tabs {
-      background-color: #F7F8FD;
+      background-color: ${backgroundMain};
     }
   }
 `;
@@ -63,7 +71,7 @@ const AnalysisColumn = styled.div`
   width: 420px;
   flex-grow: 0;
   padding: ${units(2)};
-  border-right: 1px solid #D0D6E8;
+  border-right: 1px solid ${brandSecondary};
 `;
 
 const Column = styled.div`
