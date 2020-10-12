@@ -30,7 +30,7 @@ const descriptions = {
 const placeholders = defineMessages({
   smooch_message_smooch_bot_greetings: {
     id: 'smoochBot.placeholderGreeting',
-    defaultMessage: 'Hi! Welcome to [Name of your organization]’s fact-checking bot. We fact-check claims, videos and images related to topics such as politics, health, finance, and technology.',
+    defaultMessage: 'Hi! Welcome to [Name of your organization]’s fact-checking bot.',
   },
   smooch_state_main: {
     id: 'smoochBot.placeholderMainMenu',
