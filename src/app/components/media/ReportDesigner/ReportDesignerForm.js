@@ -234,7 +234,7 @@ const ReportDesignerForm = (props) => {
             />
             <Box>
               { media.media.picture ?
-                <Button onClick={handleDefaultImage}>
+                <Button onClick={handleDefaultImage} disabled={media.media.picture === data.image}>
                   <FormattedMessage
                     id="reportDesigner.useDefaultImage"
                     defaultMessage="Use default image"
