@@ -86,6 +86,7 @@ const SmoochBotMenuEditor = (props) => {
             languages={props.languages}
             option={option}
             menuActions={props.menuActions}
+            resources={props.resources}
             onChange={(newValue) => { handleChangeMenu(index, newValue); }}
           />
           <Box>
@@ -122,6 +123,7 @@ const SmoochBotMenuEditor = (props) => {
 
 SmoochBotMenuEditor.defaultProps = {
   value: { smooch_menu_message: null, smooch_menu_options: [] },
+  resources: [],
 };
 
 SmoochBotMenuEditor.propTypes = {
@@ -129,6 +131,7 @@ SmoochBotMenuEditor.propTypes = {
   languages: PropTypes.arrayOf(PropTypes.string).isRequired,
   menuActions: PropTypes.arrayOf(PropTypes.object).isRequired,
   field: PropTypes.string.isRequired,
+  resources: PropTypes.arrayOf(PropTypes.object),
   onChange: PropTypes.func.isRequired,
 };
 

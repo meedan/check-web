@@ -75,6 +75,9 @@ const ReportDesignerPreview = (props) => {
   if (data.text) {
     text.push(data.text);
   }
+  if (data.disclaimer) {
+    text.push(`_${data.disclaimer}_`);
+  }
 
   return (
     <Box className={classes.root}>
@@ -85,8 +88,6 @@ const ReportDesignerPreview = (props) => {
       { data.use_text_message ?
         <Box className={classes.box}>
           <ParsedText text={text.join('\n\n')} block />
-          { data.disclaimer ?
-            <ParsedText text={data.disclaimer} block /> : null }
         </Box> : null }
       { data.use_visual_card ?
         <Box>

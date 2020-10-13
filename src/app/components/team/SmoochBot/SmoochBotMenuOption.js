@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { injectIntl, intlShape, defineMessages, FormattedMessage } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
+import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
@@ -42,28 +41,62 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const actionLabels = {
-  main_state: <FormattedMessage id="smoochBotMenuOption.mainState" defaultMessage="Main menu" />,
-  secondary_state: <FormattedMessage id="smoochBotMenuOption.secondaryState" defaultMessage="Secondary menu" />,
-  query_state: <FormattedMessage id="smoochBotMenuOption.queryState" defaultMessage="Query prompt" />,
-  resource: <FormattedMessage id="smoochBotMenuOption.resource" defaultMessage="Report" />,
-};
+const actionLabels = defineMessages({
+  main_state: {
+    id: 'smoochBotMenuOption.mainState',
+    defaultMessage: 'Main menu',
+  },
+  secondary_state: {
+    id: 'smoochBotMenuOption.secondaryState',
+    defaultMessage: 'Secondary menu',
+  },
+  query_state: {
+    id: 'smoochBotMenuOption.queryState',
+    defaultMessage: 'Query prompt',
+  },
+  resource: {
+    id: 'smoochBotMenuOption.resource',
+    defaultMessage: 'Report',
+  },
+  language: {
+    id: 'smoochBotMenuOption.languageAction',
+    defaultMessage: '{languageName} (main menu)',
+  },
+});
 
 const SmoochBotMenuOption = (props) => {
   const classes = useStyles();
   const { option } = props;
-  const [showReportDialog, setShowReportDialog] = React.useState(null);
+  const [showReportDialog, setShowReportDialog] = React.useState(false);
 
   const handleChangeKeywords = (event) => {
     props.onChange({ smooch_menu_option_keyword: event.target.value });
   };
 
-  const handleSelectAction = (event) => {
-    const action = event.target.value;
-    if (action === 'resource') {
+  const resourceIdToTitle = (id) => {
+    const resource = props.resources.find(r => r.smooch_custom_resource_id === id);
+    if (resource) {
+      return resource.smooch_custom_resource_title;
+    }
+    return null;
+  };
+
+  const handleSelectAction = (event, newValue) => {
+    if (newValue.value === 'resource') {
       setShowReportDialog(true);
+    } else if (newValue && newValue.inputValue) {
+      props.onChange({
+        smooch_menu_option_value: 'custom_resource',
+        smooch_menu_custom_resource_title: newValue.inputValue,
+        smooch_menu_custom_resource_id: Math.random().toString().substring(2, 10),
+      });
+    } else if (newValue.value === 'custom_resource') {
+      props.onChange({
+        smooch_menu_option_value: 'custom_resource',
+        smooch_menu_custom_resource_id: newValue.id,
+      });
     } else {
-      props.onChange({ smooch_menu_option_value: event.target.value });
+      props.onChange({ smooch_menu_option_value: newValue.value });
     }
   };
 
@@ -75,9 +108,41 @@ const SmoochBotMenuOption = (props) => {
     });
   };
 
-  const handleClearReport = () => {
-    props.onChange({ smooch_menu_project_media_title: '', smooch_menu_project_media_id: '' });
+  const handleClear = () => {
+    props.onChange({
+      smooch_menu_project_media_title: '',
+      smooch_menu_project_media_id: '',
+      smooch_menu_option_value: '',
+      smooch_menu_custom_resource_id: '',
+    });
   };
+
+  const filter = createFilterOptions();
+  const menuOptions = [];
+  props.menuActions.forEach((action) => {
+    if (action.key !== 'custom_resource') {
+      menuOptions.push({
+        title: props.intl.formatMessage(actionLabels[action.key]),
+        value: action.key,
+      });
+    }
+  });
+  props.languages.forEach((languageCode) => {
+    menuOptions.push({
+      title: props.intl.formatMessage(
+        actionLabels.language,
+        { languageName: languageLabel(languageCode) },
+      ),
+      value: languageCode,
+    });
+  });
+  props.resources.forEach((resource) => {
+    menuOptions.push({
+      title: resource.smooch_custom_resource_title,
+      id: resource.smooch_custom_resource_id,
+      value: 'custom_resource',
+    });
+  });
 
   return (
     <Paper className={classes.paper}>
@@ -120,13 +185,13 @@ const SmoochBotMenuOption = (props) => {
               />
             </Typography>
           </Box>
-          { option.smooch_menu_project_media_id && option.smooch_menu_project_media_title ?
+          { option.smooch_menu_option_value === 'resource' ?
             <TextField
               key={option.smooch_menu_project_media_id}
               defaultValue={option.smooch_menu_project_media_title}
               InputProps={{
                 endAdornment: (
-                  <InputAdornment onClick={handleClearReport} className={classes.button}>
+                  <InputAdornment onClick={handleClear} className={classes.button}>
                     <ClearIcon />
                   </InputAdornment>
                 ),
@@ -134,28 +199,85 @@ const SmoochBotMenuOption = (props) => {
               variant="outlined"
               fullWidth
               disabled
-            /> :
-            <Select
-              value={option.smooch_menu_option_value}
-              onChange={handleSelectAction}
+            /> : null }
+          { option.smooch_menu_option_value === 'custom_resource' && resourceIdToTitle(option.smooch_menu_custom_resource_id) ?
+            <TextField
+              key={option.smooch_menu_custom_resource_id}
+              defaultValue={resourceIdToTitle(option.smooch_menu_custom_resource_id)}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment onClick={handleClear} className={classes.button}>
+                    <ClearIcon />
+                  </InputAdornment>
+                ),
+              }}
               variant="outlined"
               fullWidth
-            >
-              {props.menuActions.map(action => (
-                <MenuItem value={action.key} key={action.key}>
-                  {actionLabels[action.key]}
-                </MenuItem>
-              ))}
-              {props.languages.map(languageCode => (
-                <MenuItem value={languageCode} key={languageCode}>
-                  <FormattedMessage
-                    id="smoochBotMenuOption.languageAction"
-                    defaultMessage="{languageName} (main menu)"
-                    values={{ languageName: languageLabel(languageCode) }}
-                  />
-                </MenuItem>
-              ))}
-            </Select> }
+              disabled
+            /> : null }
+          { (option.smooch_menu_option_value !== 'custom_resource' || !resourceIdToTitle(option.smooch_menu_custom_resource_id)) && option.smooch_menu_option_value !== 'resource' ?
+            <Autocomplete
+              value={option.smooch_menu_option_value}
+              onChange={handleSelectAction}
+              filterOptions={(options, params) => {
+                const filtered = filter(options, params);
+
+                // Suggest the creation of a new value
+                if (params.inputValue !== '') {
+                  filtered.push({
+                    inputValue: params.inputValue,
+                    title: (
+                      <FormattedMessage
+                        id="smoochBotMenuOption.add"
+                        defaultMessage='Create "{resourceName}"'
+                        values={{ resourceName: params.inputValue }}
+                      />
+                    ),
+                  });
+                }
+
+                return filtered;
+              }}
+              selectOnFocus
+              clearOnBlur
+              options={menuOptions}
+              getOptionLabel={(opt) => {
+                // Value selected from the options
+                if (typeof opt === 'string' && opt !== '') {
+                  if (Object.keys(actionLabels).indexOf(opt) > -1) {
+                    return props.intl.formatMessage(actionLabels[opt]);
+                  }
+                  if (opt === 'custom_resource') { // Deleted resource
+                    return '';
+                  }
+                  return props.intl.formatMessage(
+                    actionLabels.language,
+                    { languageName: languageLabel(opt) },
+                  );
+                }
+                // Add option created dynamically
+                if (opt.inputValue) {
+                  return opt.inputValue;
+                }
+                // Regular option
+                return opt.title;
+              }}
+              renderOption={opt => opt.title}
+              freeSolo
+              renderInput={params => (
+                <TextField
+                  {...params}
+                  label={
+                    <FormattedMessage
+                      id="smoochBotMenuOption.selectAction"
+                      defaultMessage="Select action"
+                    />
+                  }
+                  variant="outlined"
+                  fullWidth
+                />
+              )}
+            /> : null }
         </Box>
       </Box>
       { showReportDialog ?
@@ -172,11 +294,17 @@ const SmoochBotMenuOption = (props) => {
   );
 };
 
+SmoochBotMenuOption.defaultProps = {
+  resources: [],
+};
+
 SmoochBotMenuOption.propTypes = {
   languages: PropTypes.arrayOf(PropTypes.string).isRequired,
   menuActions: PropTypes.arrayOf(PropTypes.object).isRequired,
   option: PropTypes.object.isRequired,
+  resources: PropTypes.arrayOf(PropTypes.object),
   onChange: PropTypes.func.isRequired,
+  intl: intlShape.isRequired,
 };
 
-export default SmoochBotMenuOption;
+export default injectIntl(SmoochBotMenuOption);
