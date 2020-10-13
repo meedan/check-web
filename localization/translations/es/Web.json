@@ -342,7 +342,7 @@
 	"mediaExpandedMetadata.shares": "Compartidas en FB",
 	"mediaExpandedMetadata.reactions": "Reacciones en FB",
 	"mediaExpandedMetadata.comments": "Comentarios en FB",
-	"mediaExpanded.firstSeen": "Visto por primera vez:",
+	"mediaExpanded.firstSeen": "Visto por primera vez: ",
 	"mediaExpanded.lastSeen": "Visto por última vez: ",
 	"mediaExpanded.requests": "{count} solicitudes",
 	"mediaLanguageChip.error": "Lo sentimos, se produjo un error al actualizar el idioma. Por favor, intentalo nuevamente y si el problema persiste ponte en contacto con {supportEmail}.",
