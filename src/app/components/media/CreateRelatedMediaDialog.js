@@ -2,6 +2,7 @@ import React from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import Tabs from '@material-ui/core/Tabs';
@@ -53,28 +54,34 @@ class CreateRelatedMediaDialog extends React.Component {
     return (
       <Dialog open={this.props.open} fullWidth>
         <DialogContent>
-          <Tabs
-            value={this.state.mode}
-            indicatorColor="primary"
-            textColor="primary"
-            onChange={this.handleChange}
-          >
-            <Tab
-              id="create-media-dialog__tab-existing"
-              value="existing"
-              label={
-                <FormattedMessage id="createMedia.existing" defaultMessage="Add existing item" />
-              }
-            />
-            { !hideNew ?
+          { hideNew ?
+            <DialogTitle style={{ paddingLeft: 0, paddingRight: 0 }}>
+              <FormattedMessage
+                id="createMedia.existingReport"
+                defaultMessage="Add to imported report"
+              />
+            </DialogTitle> :
+            <Tabs
+              value={this.state.mode}
+              indicatorColor="primary"
+              textColor="primary"
+              onChange={this.handleChange}
+            >
+              <Tab
+                id="create-media-dialog__tab-existing"
+                value="existing"
+                label={
+                  <FormattedMessage id="createMedia.existing" defaultMessage="Add existing item" />
+                }
+              />
               <Tab
                 id="create-media-dialog__tab-new"
                 value="new"
                 label={
                   <FormattedMessage id="createMedia.addNew" defaultMessage="Add new item" />
                 }
-              /> : null }
-          </Tabs>
+              />
+            </Tabs> }
           <div style={{ marginTop: units(2), marginBottom: units(2) }}>
             { mode === 'new' &&
               <CreateMediaInput

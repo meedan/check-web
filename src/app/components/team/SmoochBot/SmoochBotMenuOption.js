@@ -78,7 +78,7 @@ const SmoochBotMenuOption = (props) => {
     if (resource) {
       return resource.smooch_custom_resource_title;
     }
-    return id;
+    return null;
   };
 
   const handleSelectAction = (event, newValue) => {
@@ -200,7 +200,7 @@ const SmoochBotMenuOption = (props) => {
               fullWidth
               disabled
             /> : null }
-          { option.smooch_menu_option_value === 'custom_resource' ?
+          { option.smooch_menu_option_value === 'custom_resource' && resourceIdToTitle(option.smooch_menu_custom_resource_id) ?
             <TextField
               key={option.smooch_menu_custom_resource_id}
               defaultValue={resourceIdToTitle(option.smooch_menu_custom_resource_id)}
@@ -215,7 +215,7 @@ const SmoochBotMenuOption = (props) => {
               fullWidth
               disabled
             /> : null }
-          { option.smooch_menu_option_value !== 'custom_resource' && option.smooch_menu_option_value !== 'resource' ?
+          { (option.smooch_menu_option_value !== 'custom_resource' || !resourceIdToTitle(option.smooch_menu_custom_resource_id)) && option.smooch_menu_option_value !== 'resource' ?
             <Autocomplete
               value={option.smooch_menu_option_value}
               onChange={handleSelectAction}
@@ -246,6 +246,9 @@ const SmoochBotMenuOption = (props) => {
                 if (typeof opt === 'string' && opt !== '') {
                   if (Object.keys(actionLabels).indexOf(opt) > -1) {
                     return props.intl.formatMessage(actionLabels[opt]);
+                  }
+                  if (opt === 'custom_resource') { // Deleted resource
+                    return '';
                   }
                   return props.intl.formatMessage(
                     actionLabels.language,

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -20,7 +21,7 @@ import ImageMediaCard from './ImageMediaCard';
 import MediaPlayerCard from './MediaPlayerCard';
 import PenderCard from '../PenderCard';
 import BlankMediaButton from './BlankMediaButton';
-import { truncateLength, getCurrentProjectId } from '../../helpers';
+import { isBotInstalled, truncateLength, getCurrentProjectId } from '../../helpers';
 import CheckContext from '../../CheckContext';
 import { withPusher, pusherShape } from '../../pusher';
 import { units } from '../../styles/js/shared';
@@ -176,6 +177,24 @@ class MediaExpandedComponent extends Component {
 
     return (
       <React.Fragment>
+        { isBotInstalled(media.team, 'fetch') ?
+          <Box display="flex" flexDirection="row-reverse" style={{ padding: units(2) }}>
+            <BlankMediaButton
+              projectMediaId={media.id}
+              team={media.team}
+              label={
+                <FormattedMessage
+                  id="mediaExpanded.addToImportedReport"
+                  defaultMessage="Add to imported report"
+                />
+              }
+              ButtonProps={{
+                variant: 'outlined',
+                color: 'default',
+              }}
+              reverse
+            />
+          </Box> : null }
         <CardHeader
           className="media-expanded__title"
           title={truncateLength(title, 110)}

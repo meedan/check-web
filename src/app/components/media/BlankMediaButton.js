@@ -22,7 +22,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const BlankMediaButton = ({ projectMediaId, team, reverse }) => {
+const BlankMediaButton = ({
+  projectMediaId,
+  team,
+  reverse,
+  label,
+  ButtonProps,
+}) => {
   const classes = useStyles();
   const [showItemDialog, setShowItemDialog] = React.useState(false);
   const [showConfirmationDialog, setShowConfirmationDialog] = React.useState(false);
@@ -118,8 +124,8 @@ const BlankMediaButton = ({ projectMediaId, team, reverse }) => {
 
   return (
     <React.Fragment>
-      <Button variant="contained" color="primary" onClick={handleOpenItemDialog}>
-        <FormattedMessage id="blankMediaButton.addItem" defaultMessage="Add item" />
+      <Button variant="contained" color="primary" onClick={handleOpenItemDialog} {...ButtonProps}>
+        {label}
       </Button>
       <CreateRelatedMediaDialog
         message={message}
@@ -173,12 +179,16 @@ const BlankMediaButton = ({ projectMediaId, team, reverse }) => {
 };
 
 BlankMediaButton.defaultProps = {
+  label: <FormattedMessage id="blankMediaButton.addItem" defaultMessage="Add item" />,
   reverse: false,
+  ButtonProps: {},
 };
 
 BlankMediaButton.propTypes = {
+  label: PropTypes.object,
   projectMediaId: PropTypes.string.isRequired,
   team: PropTypes.object.isRequired,
+  ButtonProps: PropTypes.object,
   reverse: PropTypes.bool, // When "reverse" is true, the selected report is the source
 };
 
