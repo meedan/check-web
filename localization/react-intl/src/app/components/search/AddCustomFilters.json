@@ -1,0 +1,10 @@
+[
+  {
+    "id": "AddCustomFilters.entityTaskLabel",
+    "defaultMessage": "Select task"
+  },
+  {
+    "id": "AddCustomFilters.entityMetadataLabel",
+    "defaultMessage": "Select metadata"
+  }
+]

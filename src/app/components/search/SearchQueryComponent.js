@@ -314,6 +314,10 @@ class SearchQueryComponent extends React.Component {
     this.setState({ query: { ...this.state.query, range: value } });
   }
 
+  handleCustomFilterChange = (value) => {
+    this.setState({ query: { ...this.state.query, ...value } });
+  }
+
   handleStatusClick = (statusCode) => {
     this.setState({
       query: toggleStateQueryArrayValue(this.state.query, 'verification_status', statusCode),
@@ -873,7 +877,10 @@ class SearchQueryComponent extends React.Component {
                     }
                   </StyledFilterRow>
                 ) : null}
-                <AddCustomFilters team={team} />
+                <AddCustomFilters
+                  onFilterChange={this.handleCustomFilterChange}
+                  team={team}
+                />
               </StyledSearchFiltersSection>
             </DialogContent>
             <DialogActions>
