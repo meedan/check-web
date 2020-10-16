@@ -8,6 +8,19 @@ import CheckContext from '../../CheckContext';
 import { units, Row } from '../../styles/js/shared';
 import { createTag } from '../../relay/mutations/CreateTagMutation';
 import { stringHelper } from '../../customHelpers';
+import { makeStyles } from '@material-ui/core/styles';
+
+const TagInputStyle = makeStyles ({
+ 
+  paddingStyle: {
+    padding: units(2),
+  },
+  
+  buttonStyle: {
+    marginLeft: 'auto',
+  },                           
+
+});
 
 const messages = defineMessages({
   error: {
@@ -95,7 +108,7 @@ class TagInput extends React.Component {
 
   render() {
     return (
-      <div style={{ padding: units(2) }}>
+      <div style={paddingStyle}>
         <Row>
           <TextField
             id="tag-input__tag-input"
@@ -106,8 +119,7 @@ class TagInput extends React.Component {
             onKeyPress={this.handleKeyPress.bind(this)}
             placeholder={this.props.intl.formatMessage(messages.search)}
           />
-          <Button
-            style={{ marginLeft: 'auto' }}
+          <Button style={buttonStyle}
             onClick={this.handleSubmit.bind(this)}
             color="primary"
             disabled={this.state.submitDisabled}
