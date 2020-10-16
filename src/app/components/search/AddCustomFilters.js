@@ -1,9 +1,29 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import CustomFilter from './CustomFilter';
 
+const messages = defineMessages({
+  metadataChoiceLabel: {
+    id: 'AddCustomFilters.metadataChoiceLabel',
+    defaultMessage: 'Metadata has specific value',
+  },
+  metadataTextLabel: {
+    id: 'AddCustomFilters.metadataTextLabel',
+    defaultMessage: 'Metadata contains keyword',
+  },
+  taskChoiceLabel: {
+    id: 'AddCustomFilters.taskChoiceLabel',
+    defaultMessage: 'Task has specific answer',
+  },
+  taskTextLabel: {
+    id: 'AddCustomFilters.taskTextLabel',
+    defaultMessage: 'Task answer contains keyword',
+  },
+});
+
 const AddCustomFilters = ({
+  intl,
   team: { team_tasks },
   onFilterChange,
 }) => {
@@ -58,20 +78,34 @@ const AddCustomFilters = ({
     const options = [];
     if (team_tasks.edges.some(t => t.node.fieldset === 'metadata' &&
     (t.node.type === 'single_choice' || t.node.type === 'multiple_choice'))) {
-      options.push({ key: 'metadata_choice', value: 'Metadata has specific value' });
+      options.push({
+        key: 'metadata_choice',
+        value: intl.formatMessage(messages.metadataChoiceLabel),
+      });
     }
 
     if (team_tasks.edges.some(t => t.node.fieldset === 'metadata' && t.node.type === 'free_text')) {
-      options.push({ key: 'metadata_text', value: 'Metadata contains keyword' });
+      options.push({
+        key: 'metadata_text',
+        value: intl.formatMessage(messages.metadataTextLabel),
+      });
+    }
+
+    if (team_tasks.edges.some(t => t.node.fieldset === 'tasks' &&
+    (t.node.type === 'single_choice' || t.node.type === 'multiple_choice'))) {
+      options.push({
+        key: 'task_choice',
+        value: intl.formatMessage(messages.taskChoiceLabel),
+      });
     }
 
     if (team_tasks.edges.some(t => t.node.fieldset === 'tasks' && t.node.type === 'free_text')) {
-      options.push({ key: 'task_text', value: 'Task answer contains keyword' });
+      options.push({
+        key: 'task_text',
+        value: intl.formatMessage(messages.taskTextLabel),
+      });
     }
-    if (team_tasks.edges.some(t => t.node.fieldset === 'tasks' &&
-      (t.node.type === 'single_choice' || t.node.type === 'multiple_choice'))) {
-      options.push({ key: 'task_choice', value: 'Task has specific answer' });
-    }
+
     return options;
   };
 
@@ -142,7 +176,7 @@ const AddCustomFilters = ({
   );
 };
 
-export default createFragmentContainer(AddCustomFilters, graphql`
+export default createFragmentContainer(injectIntl(AddCustomFilters), graphql`
   fragment AddCustomFilters_team on Team {
     team_tasks(first: 10000) {
       edges {

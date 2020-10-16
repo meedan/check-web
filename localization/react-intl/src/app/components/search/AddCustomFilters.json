@@ -1,5 +1,21 @@
 [
   {
+    "id": "AddCustomFilters.metadataChoiceLabel",
+    "defaultMessage": "Metadata has specific value"
+  },
+  {
+    "id": "AddCustomFilters.metadataTextLabel",
+    "defaultMessage": "Metadata contains keyword"
+  },
+  {
+    "id": "AddCustomFilters.taskChoiceLabel",
+    "defaultMessage": "Task has specific answer"
+  },
+  {
+    "id": "AddCustomFilters.taskTextLabel",
+    "defaultMessage": "Task answer contains keyword"
+  },
+  {
     "id": "AddCustomFilters.entityTaskLabel",
     "defaultMessage": "Select task"
   },
