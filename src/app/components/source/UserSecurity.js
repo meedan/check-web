@@ -19,6 +19,7 @@ import { withSetFlashMessage } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
 import globalStrings from '../../globalStrings';
 import { units, opaqueBlack10, StyledPasswordChange } from '../../styles/js/shared';
+import { makeStyles } from '@material-ui/core/styles';
 
 const messages = defineMessages({
   passwordInput: {
@@ -196,24 +197,26 @@ class UserSecurity extends Component {
       return null;
     }
 
-    const style = {
-      margin: `${units(2)} 0`,
-    };
+    const style = makeStyles ({
+      
+   
+    margin: `${units(2)} 0`;
+  
 
     const cardTextStyle = {
       display: 'flex',
       alignItems: 'center',
-    };
+    },
 
     const cardTextAuthStyle = {
       display: 'table-row',
       alignItems: 'center',
-    };
+    },
 
     const subTitleStyle = {
       margin: '5px 0px',
       textTransform: 'uppercase',
-    };
+    },
 
     const divBackupStyle = {
       lineHeight: units(3),
@@ -222,7 +225,8 @@ class UserSecurity extends Component {
       backgroundColor: opaqueBlack10,
       margin: '5px',
       textAlign: 'center',
-    };
+    },
+});
 
     const appsUrls = {
       apple: 'https://apps.apple.com/us/app/google-authenticator/id388497605',
