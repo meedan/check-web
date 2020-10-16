@@ -16,6 +16,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import deepEqual from 'deep-equal';
 import styled from 'styled-components';
 import { withPusher, pusherShape } from '../../pusher';
+import AddCustomFilters from './AddCustomFilters';
 import DateRangeFilter from './DateRangeFilter';
 import PageTitle from '../PageTitle';
 import CheckContext from '../../CheckContext';
@@ -872,6 +873,7 @@ class SearchQueryComponent extends React.Component {
                     }
                   </StyledFilterRow>
                 ) : null}
+                <AddCustomFilters team={team} />
               </StyledSearchFiltersSection>
             </DialogContent>
             <DialogActions>
