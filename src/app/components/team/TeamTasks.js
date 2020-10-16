@@ -12,6 +12,28 @@ import CardToolbar from '../layout/CardToolbar';
 import FilterPopup from '../layout/FilterPopup';
 import TeamRoute from '../../relay/TeamRoute';
 import { ContentColumn, units } from '../../styles/js/shared';
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+
+const TeamTasksStyles = makeStyles ({
+  
+  boxStyle: {
+  
+    alignItems="center" display="flex",
+  
+  }, 
+  
+  divStyle: {
+   marginTop: units(4),
+   
+  },
+  
+   divStyle2: {
+   marginTop: units(2),
+   
+  },
+  
+});
 
 class TeamTasksComponent extends React.Component {
   state = {
@@ -116,7 +138,7 @@ class TeamTasksComponent extends React.Component {
         <ContentColumn>
           <CardToolbar
             action={
-              <Box alignItems="center" display="flex">
+              <Box style={boxStyle}>
                 { isTask ? (
                   <FilterPopup
                     search={this.state.search}
@@ -124,7 +146,7 @@ class TeamTasksComponent extends React.Component {
                     label={filterLabel}
                     tooltip={<FormattedMessage id="teamTasks.filter" defaultMessage="Filter tasks" />}
                   >
-                    <div style={{ marginTop: units(4) }}>
+                    <div style={divStyle}>
                       <FormattedMessage id="teamTasks.projFilter" defaultMessage="Show tasks in" />
                       <ProjectSelector
                         projects={this.props.team.projects.edges}
@@ -133,7 +155,7 @@ class TeamTasksComponent extends React.Component {
                         fullWidth
                       />
                     </div>
-                    <div style={{ marginTop: units(2) }}>
+                    <div style={divStyle2}>
                       <FormattedMessage id="teamTasks.typeFilter" defaultMessage="Task type" />
                       <TaskTypeSelector
                         selected={this.state.typeFilter}
