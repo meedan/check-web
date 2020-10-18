@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import { browserHistory } from 'react-router';
@@ -31,6 +31,10 @@ const useStyles = makeStyles(theme => ({
   confirmation: {
     marginBottom: theme.spacing(2),
   },
+  cell: {
+    marginRight: theme.spacing(2),
+    marginLeft: theme.spacing(2),
+  },
 }));
 
 const ReportDesignerTopBar = (props) => {
@@ -41,6 +45,7 @@ const ReportDesignerTopBar = (props) => {
     state,
     editing,
     data,
+    intl,
   } = props;
 
   const [resendToPrevious, setResendToPrevious] = React.useState(false);
@@ -55,6 +60,13 @@ const ReportDesignerTopBar = (props) => {
   const statusChanged = !!(data.last_published && data.options && data.options.length &&
     data.options[0].previous_published_status_label &&
     data.options[0].status_label !== data.options[0].previous_published_status_label);
+  let firstSent = data.first_published;
+  if (!firstSent && data.last_published && data.published_count > 0) {
+    firstSent = data.last_published;
+  }
+  if (firstSent) {
+    firstSent = new Date(parseInt(firstSent, 10) * 1000).toLocaleDateString(intl.locale, { month: 'short', year: 'numeric', day: '2-digit' });
+  }
 
   const handleGoBack = () => {
     browserHistory.push(itemUrl);
@@ -100,181 +112,208 @@ const ReportDesignerTopBar = (props) => {
             }
           />
         </Box>
-        <Box display="flex">
-          { editing ?
-            <ReportDesignerEditButton
-              disabled={readOnly}
-              onClick={props.onSave}
-              label={
+        <Box display="flex" justifyContent="space-between" width="0.5">
+          <Box display="flex">
+            <Box className={classes.cell}>
+              <Typography variant="subtitle2">
                 <FormattedMessage
-                  id="reportDesigner.save"
-                  defaultMessage="Save"
+                  id="reportDesigner.firstSent"
+                  defaultMessage="First sent"
                 />
-              }
-            /> :
-            <ReportDesignerEditButton
-              disabled={readOnly || state === 'published'}
-              onClick={props.onEdit}
-              label={
+              </Typography>
+              <Typography variant="body2">
+                {firstSent || <FormattedMessage id="reportDesigner.never" defaultMessage="Never" />}
+              </Typography>
+            </Box>
+            <Box className={classes.cell}>
+              <Typography variant="subtitle2">
                 <FormattedMessage
-                  id="reportDesigner.edit"
-                  defaultMessage="Edit"
+                  id="reportDesigner.sentCount"
+                  defaultMessage="Sent"
                 />
-              }
-            /> }
-          { !editing && state === 'paused' ?
-            <ReportDesignerConfirmableButton
-              className={classes.publish}
-              disabled={readOnly || !props.canPublish}
-              label={
-                <FormattedMessage
-                  id="reportDesigner.publish"
-                  defaultMessage="Publish"
-                />
-              }
-              icon={<IconPlay />}
-              tooltip={
-                props.canPublish ?
+              </Typography>
+              <Typography variant="body2">
+                { media.dynamic_annotation_report_design ?
+                  media.dynamic_annotation_report_design.sent_count : 0 }
+              </Typography>
+            </Box>
+          </Box>
+          <Box display="flex">
+            { editing ?
+              <ReportDesignerEditButton
+                disabled={readOnly}
+                onClick={props.onSave}
+                label={
                   <FormattedMessage
-                    id="reportDesigner.canPublish"
-                    defaultMessage="Publish report"
-                  /> :
-                  <FormattedMessage
-                    id="reportDesigner.cannotPublish"
-                    defaultMessage="Fill in at least the report text or image to publish your report. Make sure to create a report for the primary language ({language})."
-                    values={{
-                      language: props.defaultLanguage,
-                    }}
+                    id="reportDesigner.save"
+                    defaultMessage="Save"
                   />
-              }
-              title={
-                <React.Fragment>
-                  {/* Sending report for the first time */}
-                  { !data.last_published ?
+                }
+              /> :
+              <ReportDesignerEditButton
+                disabled={readOnly || state === 'published'}
+                onClick={props.onEdit}
+                label={
+                  <FormattedMessage
+                    id="reportDesigner.edit"
+                    defaultMessage="Edit"
+                  />
+                }
+              /> }
+            { !editing && state === 'paused' ?
+              <ReportDesignerConfirmableButton
+                className={classes.publish}
+                disabled={readOnly || !props.canPublish}
+                label={
+                  <FormattedMessage
+                    id="reportDesigner.publish"
+                    defaultMessage="Publish"
+                  />
+                }
+                icon={<IconPlay />}
+                tooltip={
+                  props.canPublish ?
                     <FormattedMessage
-                      id="reportDesigner.confirmPublishTitle"
-                      defaultMessage="Ready to publish your report?"
-                    /> : null }
+                      id="reportDesigner.canPublish"
+                      defaultMessage="Publish report"
+                    /> :
+                    <FormattedMessage
+                      id="reportDesigner.cannotPublish"
+                      defaultMessage="Fill in at least the report text or image to publish your report. Make sure to create a report for the primary language ({language})."
+                      values={{
+                        language: props.defaultLanguage,
+                      }}
+                    />
+                }
+                title={
+                  <React.Fragment>
+                    {/* Sending report for the first time */}
+                    { !data.last_published ?
+                      <FormattedMessage
+                        id="reportDesigner.confirmPublishTitle"
+                        defaultMessage="Ready to publish your report?"
+                      /> : null }
 
-                  {/* Re-sending a report after a status change */}
-                  { statusChanged ?
-                    <FormattedMessage
-                      id="reportDesigner.confirmRepublishResendTitle"
-                      defaultMessage="Ready to publish your correction?"
-                    /> : null }
+                    {/* Re-sending a report after a status change */}
+                    { statusChanged ?
+                      <FormattedMessage
+                        id="reportDesigner.confirmRepublishResendTitle"
+                        defaultMessage="Ready to publish your correction?"
+                      /> : null }
 
-                  {/* Re-sending a report with the same status */}
-                  { data.last_published && !statusChanged ?
-                    <FormattedMessage
-                      id="reportDesigner.confirmRepublishTitle"
-                      defaultMessage="Ready to publish your changes?"
-                    /> : null }
-                </React.Fragment>
-              }
-              content={
-                <Box>
-                  {/* Sending report for the first time */}
-                  { !data.last_published && media.demand > 0 ?
+                    {/* Re-sending a report with the same status */}
+                    { data.last_published && !statusChanged ?
+                      <FormattedMessage
+                        id="reportDesigner.confirmRepublishTitle"
+                        defaultMessage="Ready to publish your changes?"
+                      /> : null }
+                  </React.Fragment>
+                }
+                content={
+                  <Box>
+                    {/* Sending report for the first time */}
+                    { !data.last_published && media.demand > 0 ?
+                      <Typography>
+                        <FormattedMessage
+                          id="reportDesigner.confirmPublishText"
+                          defaultMessage="{demand, plural, one {You are about to send this report to the user who requested this item.} other {You are about to send this report to the # users who requested this item.}}"
+                          values={{ demand: media.demand }}
+                        />
+                      </Typography> : null }
+
+                    {/* Re-sending a report after a status change */}
+                    { statusChanged && media.demand > 0 ?
+                      <Typography>
+                        <FormattedMessage
+                          id="reportDesigner.confirmRepublishResendText"
+                          defaultMessage="{demand, plural, one {Your correction will be sent to the user who has received the previous report.} other {Your correction will be sent to the # users who have received the previous report.}}"
+                          values={{ demand: media.demand }}
+                        />
+                      </Typography> : null }
+
+                    {/* Re-sending a report with the same status */}
+                    { data.last_published && !statusChanged && media.demand > 0 ?
+                      <Box className={classes.confirmation}>
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              key="resend-report"
+                              onChange={(e) => { setResendToPrevious(e.target.checked); }}
+                              checked={resendToPrevious}
+                            />
+                          }
+                          label={
+                            <FormattedMessage
+                              id="reportDesigner.republishAndResend"
+                              defaultMessage="{demand, plural, one {Also send correction to the user who already received the previous version of this report} other {Also send correction to the # users who already received the previous version of this report}}"
+                              values={{ demand: media.demand }}
+                            />
+                          }
+                        />
+                      </Box> : null }
+
                     <Typography>
                       <FormattedMessage
-                        id="reportDesigner.confirmPublishText"
-                        defaultMessage="{demand, plural, one {You are about to send this report to the user who requested this item.} other {You are about to send this report to the # users who requested this item.}}"
-                        values={{ demand: media.demand }}
+                        id="reportDesigner.confirmPublishText2"
+                        defaultMessage="In the future, users who request this item will receive your report while it remains published."
                       />
-                    </Typography> : null }
-
-                  {/* Re-sending a report after a status change */}
-                  { statusChanged && media.demand > 0 ?
-                    <Typography>
-                      <FormattedMessage
-                        id="reportDesigner.confirmRepublishResendText"
-                        defaultMessage="{demand, plural, one {Your correction will be sent to the user who has received the previous report.} other {Your correction will be sent to the # users who have received the previous report.}}"
-                        values={{ demand: media.demand }}
-                      />
-                    </Typography> : null }
-
-                  {/* Re-sending a report with the same status */}
-                  { data.last_published && !statusChanged && media.demand > 0 ?
-                    <Box className={classes.confirmation}>
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            key="resend-report"
-                            onChange={(e) => { setResendToPrevious(e.target.checked); }}
-                            checked={resendToPrevious}
-                          />
-                        }
-                        label={
-                          <FormattedMessage
-                            id="reportDesigner.republishAndResend"
-                            defaultMessage="{demand, plural, one {Also send correction to the user who already received the previous version of this report} other {Also send correction to the # users who already received the previous version of this report}}"
-                            values={{ demand: media.demand }}
-                          />
-                        }
-                      />
-                    </Box> : null }
-
+                    </Typography>
+                  </Box>
+                }
+                onConfirm={() => {
+                  if (data.last_published) {
+                    if (statusChanged || resendToPrevious) {
+                      props.onStateChange('republish_and_resend', 'published');
+                    } else {
+                      props.onStateChange('republish_but_not_resend', 'published');
+                    }
+                  } else {
+                    props.onStateChange('publish', 'published');
+                  }
+                }}
+              /> : null }
+            { !editing && state === 'published' ?
+              <ReportDesignerConfirmableButton
+                className={classes.pause}
+                disabled={readOnly}
+                label={
+                  <FormattedMessage
+                    id="reportDesigner.pause"
+                    defaultMessage="Pause"
+                  />
+                }
+                icon={<IconPause />}
+                tooltip={
+                  <FormattedMessage
+                    id="reportDesigner.pauseReport"
+                    defaultMessage="Pause report"
+                  />
+                }
+                title={
+                  <FormattedMessage
+                    id="reportDesigner.confirmPauseTitle"
+                    defaultMessage="You are about to pause the report"
+                  />
+                }
+                content={
                   <Typography>
                     <FormattedMessage
-                      id="reportDesigner.confirmPublishText2"
-                      defaultMessage="In the future, users who request this item will receive your report while it remains published."
+                      id="reportDesigner.confirmPauseText"
+                      defaultMessage="This report will not be sent to users until it is published again. Do you want to continue?"
                     />
                   </Typography>
-                </Box>
-              }
-              onConfirm={() => {
-                if (data.last_published) {
-                  if (statusChanged || resendToPrevious) {
-                    props.onStateChange('republish_and_resend', 'published');
-                  } else {
-                    props.onStateChange('republish_but_not_resend', 'published');
-                  }
-                } else {
-                  props.onStateChange('publish', 'published');
                 }
-              }}
-            /> : null }
-          { !editing && state === 'published' ?
-            <ReportDesignerConfirmableButton
-              className={classes.pause}
-              disabled={readOnly}
-              label={
-                <FormattedMessage
-                  id="reportDesigner.pause"
-                  defaultMessage="Pause"
-                />
-              }
-              icon={<IconPause />}
-              tooltip={
-                <FormattedMessage
-                  id="reportDesigner.pauseReport"
-                  defaultMessage="Pause report"
-                />
-              }
-              title={
-                <FormattedMessage
-                  id="reportDesigner.confirmPauseTitle"
-                  defaultMessage="You are about to pause the report"
-                />
-              }
-              content={
-                <Typography>
-                  <FormattedMessage
-                    id="reportDesigner.confirmPauseText"
-                    defaultMessage="This report will not be sent to users until it is published again. Do you want to continue?"
-                  />
-                </Typography>
-              }
-              onConfirm={() => {
-                props.onStateChange('pause', 'paused');
-              }}
-            /> : null }
-          <MediaStatus
-            media={media}
-            readonly={readOnly || state === 'published'}
-            callback={handleStatusChanged}
-            onChanging={handleStatusChanging}
-          />
+                onConfirm={() => {
+                  props.onStateChange('pause', 'paused');
+                }}
+              /> : null }
+            <MediaStatus
+              media={media}
+              readonly={readOnly || state === 'published'}
+              callback={handleStatusChanged}
+              onChanging={handleStatusChanging}
+            />
+          </Box>
         </Box>
       </Box>
     </Toolbar>
@@ -297,6 +336,7 @@ ReportDesignerTopBar.propTypes = {
   onSave: PropTypes.func.isRequired,
   onEdit: PropTypes.func.isRequired,
   readOnly: PropTypes.bool,
+  intl: intlShape.isRequired,
 };
 
-export default ReportDesignerTopBar;
+export default injectIntl(ReportDesignerTopBar);

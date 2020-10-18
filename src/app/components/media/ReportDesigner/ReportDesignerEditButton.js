@@ -8,6 +8,7 @@ const useStyles = makeStyles(theme => ({
   button: {
     marginRight: theme.spacing(1),
     marginLeft: theme.spacing(1),
+    boxShadow: 'none',
   },
 }));
 
