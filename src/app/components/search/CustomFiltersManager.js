@@ -34,7 +34,7 @@ const CustomFiltersManager = ({
       {
         filters.map((ttf, i) => (
           <CustomTeamTaskFilter
-            key={ttf.id || 'initial'}
+            key={ttf.id || `uncommitted-filter-${i}`}
             filter={ttf}
             index={i}
             onAdd={handleAddFilter}

@@ -122,10 +122,9 @@ const CustomFilter = ({
           ) : null }
           { filterEntity && !filterEntityValueOptions.length ? (
             <TextField
-              autoFocus
               label={filterEntityValueTextFieldLabel}
-              value={filterEntityValue}
-              onChange={(event) => {
+              defaultValue={filterEntityValue}
+              onBlur={(event) => {
                 handleSelectFilterEntityValue(event.target.value);
               }}
               variant="outlined"
