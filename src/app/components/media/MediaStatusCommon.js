@@ -96,7 +96,7 @@ class MediaStatusCommon extends Component {
 
     return (
       <StyledMediaStatus className="media-status">
-        <Box clone bgcolor={currentStatus.style.color} color="white">
+        <Box clone bgcolor={currentStatus.style.color} color="white" minHeight={41}>
           <Button
             className={`media-status__label media-status__current ${MediaStatusCommon.currentStatusToClass(media.last_status)}`}
             variant="contained"

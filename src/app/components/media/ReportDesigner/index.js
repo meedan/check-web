@@ -44,6 +44,7 @@ const ReportDesignerContainer = Relay.createContainer(ReportDesignerComponent, {
           id
           dbid
           data
+          sent_count
         }
         team {
           name
