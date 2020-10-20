@@ -5,101 +5,116 @@ import CustomFilter from './CustomFilter';
 
 const messages = defineMessages({
   metadataChoiceLabel: {
-    id: 'AddCustomFilters.metadataChoiceLabel',
+    id: 'CustomTeamTaskFilter.metadataChoiceLabel',
     defaultMessage: 'Metadata has specific value',
   },
   metadataTextLabel: {
-    id: 'AddCustomFilters.metadataTextLabel',
+    id: 'CustomTeamTaskFilter.metadataTextLabel',
     defaultMessage: 'Metadata contains keyword',
   },
   taskChoiceLabel: {
-    id: 'AddCustomFilters.taskChoiceLabel',
+    id: 'CustomTeamTaskFilter.taskChoiceLabel',
     defaultMessage: 'Task has specific answer',
   },
   taskTextLabel: {
-    id: 'AddCustomFilters.taskTextLabel',
+    id: 'CustomTeamTaskFilter.taskTextLabel',
     defaultMessage: 'Task answer contains keyword',
   },
 });
 
-const AddCustomFilters = ({
+const isMetadataChoice = t =>
+  t.node.fieldset === 'metadata' &&
+  (t.node.type === 'single_choice' || t.node.type === 'multiple_choice');
+
+const isMetadataText = t =>
+  t.node.fieldset === 'metadata' &&
+  t.node.type === 'free_text';
+
+const isTaskChoice = t =>
+  t.node.fieldset === 'tasks' &&
+  (t.node.type === 'single_choice' || t.node.type === 'multiple_choice');
+
+const isTaskText = t =>
+  t.node.fieldset === 'tasks' &&
+  t.node.type === 'free_text';
+
+const CustomTeamTaskFilter = ({
+  filter,
+  index,
   intl,
   team: { team_tasks },
+  onAdd,
+  onRemove,
   onFilterChange,
 }) => {
-  const [filterType, setFilterType] = React.useState(null);
-  const [filterEntity, setFilterEntity] = React.useState(null);
+  const getTypeFromFilter = (f) => {
+    let type = null;
+    if (f) {
+      const task = team_tasks.edges.find(t => String(t.node.dbid) === f.id);
+      if (task && isMetadataChoice(task)) type = 'metadata_choice';
+      if (task && isMetadataText(task)) type = 'metadata_text';
+      if (task && isTaskChoice(task)) type = 'task_choice';
+      if (task && isTaskText(task)) type = 'task_text';
+    }
+    return type;
+  };
+
+  const getEntityFromFilter = f => f ? Number(f.id) : null;
+  const getEntityValueFromFilter = f => f ? f.response : null;
+
+  const [filterType, setFilterType] = React.useState(getTypeFromFilter(filter));
+  const [filterEntity, setFilterEntity] = React.useState(getEntityFromFilter(filter));
+
+  const filterEntityValue = getEntityValueFromFilter(filter);
 
   const handleChangeFilterType = (value) => {
     setFilterType(value);
   };
   const handleChangeFilterEntity = (value) => {
     setFilterEntity(value);
-    // console.log('value', value);
   };
 
-  const handleChangeFilterEntityValue = (fev) => {
-    // console.log('value', fev);
-
+  const handleChangeFilterEntityValue = (value) => {
     const filterParams = {
-      responses: fev.target ? fev.target.value : fev,
-      responses_type: (
-        filterType === 'metadata_choice' ||
-        filterType === 'tasks_choice' ?
-          'choice' : 'free_text'
+      id: `${filterEntity}`,
+      response_type: (
+        filterType === 'metadata_text' ||
+        filterType === 'tasks_text' ?
+          'free_text' : 'choice'
       ),
-      team_tasks: [`${filterEntity}`],
+      response: value,
     };
-    onFilterChange(filterParams);
+    onFilterChange(filterParams, index);
   };
 
-  // const filterSettings = {
-  //   metadata_choice: {
-  //     label: 'Metadata has specific value',
-  //     condition: (t => t.node.fieldset === 'metadata' &&
-  //       (t.node.type === 'single_choice' || t.node.type === 'multiple_choice')),
-  //   },
-  //   metadata_text: {
-  //     label: 'Metadata contains keyword',
-  //     condition: (t => t.node.fieldset === 'metadata' && t.node.type === 'free_text'),
-  //   },
-  //   task_choice: {
-  //     label: 'Task has specific answer',
-  //     condition: (t => t.node.fieldset === 'tasks' &&
-  //       (t.node.type === 'single_choice' || t.node.type === 'multiple_choice')),
-  //   },
-  //   task_text: {
-  //     label: 'Task answer contains keyword',
-  //     condition: (t => t.node.fieldset === 'tasks' && t.node.type === 'free_text'),
-  //   },
-  // };
+  const handleRemove = () => {
+    onRemove(index);
+  };
 
   const buildFilterTypeOptions = () => {
     const options = [];
-    if (team_tasks.edges.some(t => t.node.fieldset === 'metadata' &&
-    (t.node.type === 'single_choice' || t.node.type === 'multiple_choice'))) {
+    if (team_tasks.edges.some(t => isMetadataChoice(t))) {
       options.push({
         key: 'metadata_choice',
         value: intl.formatMessage(messages.metadataChoiceLabel),
       });
     }
 
-    if (team_tasks.edges.some(t => t.node.fieldset === 'metadata' && t.node.type === 'free_text')) {
+    if (team_tasks.edges.some(t => isMetadataText(t))) {
       options.push({
         key: 'metadata_text',
         value: intl.formatMessage(messages.metadataTextLabel),
       });
     }
 
-    if (team_tasks.edges.some(t => t.node.fieldset === 'tasks' &&
-    (t.node.type === 'single_choice' || t.node.type === 'multiple_choice'))) {
+    if (team_tasks.edges.some(t => isTaskChoice(t))) {
       options.push({
         key: 'task_choice',
         value: intl.formatMessage(messages.taskChoiceLabel),
       });
     }
 
-    if (team_tasks.edges.some(t => t.node.fieldset === 'tasks' && t.node.type === 'free_text')) {
+    if (team_tasks.edges.some(t => isTaskText(t))) {
       options.push({
         key: 'task_text',
         value: intl.formatMessage(messages.taskTextLabel),
@@ -113,27 +128,25 @@ const AddCustomFilters = ({
     const options = [];
     if (filterType === 'metadata_choice') {
       options.push(...(
-        team_tasks.edges.filter(t => t.node.fieldset === 'metadata' &&
-        (t.node.type === 'single_choice' || t.node.type === 'multiple_choice'))
+        team_tasks.edges.filter(t => isMetadataChoice(t))
           .map(t => ({ key: t.node.dbid, value: t.node.label }))
       ));
     }
     if (filterType === 'metadata_text') {
       options.push(...(
-        team_tasks.edges.filter(t => t.node.fieldset === 'metadata' && t.node.type === 'free_text')
+        team_tasks.edges.filter(t => isMetadataText(t))
           .map(t => ({ key: t.node.dbid, value: t.node.label }))
       ));
     }
     if (filterType === 'task_choice') {
       options.push(...(
-        team_tasks.edges.filter(t => t.node.fieldset === 'tasks' &&
-        (t.node.type === 'single_choice' || t.node.type === 'multiple_choice'))
+        team_tasks.edges.filter(t => isTaskChoice(t))
           .map(t => ({ key: t.node.dbid, value: t.node.label }))
       ));
     }
     if (filterType === 'task_text') {
       options.push(...(
-        team_tasks.edges.filter(t => t.node.fieldset === 'tasks' && t.node.type === 'free_text')
+        team_tasks.edges.filter(t => isTaskText(t))
           .map(t => ({ key: t.node.dbid, value: t.node.label }))
       ));
     }
@@ -143,7 +156,6 @@ const AddCustomFilters = ({
   const buildFilterEntityValueOptions = () => {
     const options = [];
     const entity = team_tasks.edges.find(t => t.node.dbid === filterEntity);
-    // console.log('entity', entity);
     if (entity) {
       options.push(...entity.node.options.map(o => ({ key: o.label, value: o.label })));
     }
@@ -154,21 +166,22 @@ const AddCustomFilters = ({
   const filterEntityOptions = buildFilterEntityOptions();
   const filterEntityValueOptions = buildFilterEntityValueOptions();
   const filterEntityLabel = filterType === 'task_text' || filterType === 'task_choice' ? (
-    <FormattedMessage id="AddCustomFilters.entityTaskLabel" defaultMessage="Select task" />
+    <FormattedMessage id="CustomTeamTaskFilter.entityTaskLabel" defaultMessage="Select task" />
   ) : (
-    <FormattedMessage id="AddCustomFilters.entityMetadataLabel" defaultMessage="Select metadata" />
+    <FormattedMessage id="CustomTeamTaskFilter.entityMetadataLabel" defaultMessage="Select metadata" />
   );
-
-  // console.log('team', team);
 
   return (
     <CustomFilter
       filterType={filterType}
       filterEntity={filterEntity}
+      filterEntityValue={filterEntityValue}
       filterEntityLabel={filterEntityLabel}
       filterTypeOptions={filterTypeOptions}
       filterEntityOptions={filterEntityOptions}
       filterEntityValueOptions={filterEntityValueOptions}
+      onAdd={onAdd}
+      onRemove={handleRemove}
       onChangeFilterType={handleChangeFilterType}
       onChangeFilterEntity={handleChangeFilterEntity}
       onChangeFilterEntityValue={handleChangeFilterEntityValue}
@@ -176,8 +189,8 @@ const AddCustomFilters = ({
   );
 };
 
-export default createFragmentContainer(injectIntl(AddCustomFilters), graphql`
-  fragment AddCustomFilters_team on Team {
+export default createFragmentContainer(injectIntl(CustomTeamTaskFilter), graphql`
+  fragment CustomTeamTaskFilter_team on Team {
     team_tasks(first: 10000) {
       edges {
         node {

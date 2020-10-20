@@ -33,6 +33,8 @@ const CustomFilter = ({
   filterEntityValue,
   filterEntityValueOptions,
   onChangeFilterEntityValue,
+  onAdd,
+  onRemove,
 }) => {
   const filterTypeLabel = <FormattedMessage id="CustomFilter.filterBy" defaultMessage="Filter by" />;
   const filterEntityValueSelectLabel = (
@@ -49,27 +51,27 @@ const CustomFilter = ({
   );
 
   const handleSelectFilterType = (selectedFilterType) => {
-    // console.log('filterType', filterType);
-    // console.log('filterType', selectedFilterType);
     onChangeFilterType(selectedFilterType);
   };
 
   const handleSelectFilterEntity = (selectedFilterEntity) => {
-    // console.log('filterEntity', filterEntity);
-    // console.log('filterEntity', selectedFilterEntity);
     onChangeFilterEntity(selectedFilterEntity);
   };
 
   const handleSelectFilterEntityValue = (selectedFilterEntityValue) => {
-    // console.log('filterEntityValue', filterEntityValue);
-    // console.log('filterEntityValue', selectedFilterEntityValue);
     onChangeFilterEntityValue(selectedFilterEntityValue);
   };
 
   const classes = useStyles();
 
   return (
-    <RuleOperatorWrapper center color={inProgressYellow}>
+    <RuleOperatorWrapper
+      allowRemove
+      center
+      color={inProgressYellow}
+      onAdd={onAdd}
+      onRemove={onRemove}
+    >
       {[
         <Paper className={[classes.paper, classes.paper2, classes.ifGroup].join(' ')}>
           <Autocomplete
@@ -120,8 +122,12 @@ const CustomFilter = ({
           ) : null }
           { filterEntity && !filterEntityValueOptions.length ? (
             <TextField
+              autoFocus
               label={filterEntityValueTextFieldLabel}
-              onChange={handleSelectFilterEntityValue}
+              value={filterEntityValue}
+              onChange={(event) => {
+                handleSelectFilterEntityValue(event.target.value);
+              }}
               variant="outlined"
               fullWidth
             />
