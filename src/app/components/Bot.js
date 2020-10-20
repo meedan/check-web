@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { FormattedDate, FormattedMessage } from 'react-intl';
+import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
@@ -121,20 +122,21 @@ class BotComponent extends Component {
             <StyledCardText>
               <img src={bot.avatar} alt={bot.name} />
               <CardContainer>
-                <CardHeader
-                  style={{ padding: 0, paddingTop: units(2) }}
-                  title={bot.name}
-                  subheader={
-                    bot.team_author ?
-                      <FormattedMessage
-                        id="bot.madeBy"
-                        defaultMessage="Made by {teamLink}"
-                        values={{
-                          teamLink: <Link to={`/${bot.team_author.slug}`}>{bot.team_author.name}</Link>,
-                        }}
-                      /> : null
-                  }
-                />
+                <Box clone p={`${units(2)} 0 0 0`}>
+                  <CardHeader
+                    title={bot.name}
+                    subheader={
+                      bot.team_author ?
+                        <FormattedMessage
+                          id="bot.madeBy"
+                          defaultMessage="Made by {teamLink}"
+                          values={{
+                            teamLink: <Link to={`/${bot.team_author.slug}`}>{bot.team_author.name}</Link>,
+                          }}
+                        /> : null
+                    }
+                  />
+                </Box>
                 <p>{bot.description}</p>
               </CardContainer>
               <ButtonContainer>

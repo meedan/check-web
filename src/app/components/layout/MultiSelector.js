@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import FormGroup from '@material-ui/core/FormGroup';
@@ -111,17 +112,17 @@ class MultiSelector extends React.Component {
     return (
       <div>
         { this.props.allowSearch ?
-          <div style={{ padding: units(2) }}>
+          <Box p={units(2)}>
             <FormattedMessage id="MultiSelector.search" defaultMessage="Search…">
               {placeholder => (
                 <TextField onChange={this.handleChange} placeholder={placeholder} fullWidth />
               )}
             </FormattedMessage>
-          </div>
+          </Box>
           : null
         }
         { (this.props.allowSelectAll || this.props.allowUnselectAll) ?
-          <div style={{ padding: units(2) }}>
+          <Box p={units(2)}>
             { this.props.allowSelectAll ?
               <Button color="primary" onClick={this.handleSelectAll}>
                 <FormattedMessage id="multiSelector.all" defaultMessage="Select all" />
@@ -134,7 +135,7 @@ class MultiSelector extends React.Component {
               </Button>
               : null
             }
-          </div>
+          </Box>
           : null
         }
         <StyledMultiSelectorArea>

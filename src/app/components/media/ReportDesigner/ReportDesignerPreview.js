@@ -91,23 +91,21 @@ const ReportDesignerPreview = (props) => {
         </Box> : null }
       { data.use_visual_card ?
         <Box>
-          <ReportDesignerImagePreview
-            style={{
-              width: 500,
-              height: 500,
-            }}
-            image={
-              data.image
-                // data.image is either String (from backend) or File (from upload).
-                // <ReportImagePreview> needs String.
-                ? (data.image.preview || data.image)
-                : media.media.picture
-            }
-            teamAvatar={media.team.avatar}
-            params={data}
-            template={media.team.get_report_design_image_template}
-            date={data.date || formatDate(new Date(), data.language)}
-          />
+          <Box clone width={500} height={500}>
+            <ReportDesignerImagePreview
+              image={
+                data.image
+                  // data.image is either String (from backend) or File (from upload).
+                  // <ReportImagePreview> needs String.
+                  ? (data.image.preview || data.image)
+                  : media.media.picture
+              }
+              teamAvatar={media.team.avatar}
+              params={data}
+              template={media.team.get_report_design_image_template}
+              date={data.date || formatDate(new Date(), data.language)}
+            />
+          </Box>
         </Box> : null }
     </Box>
   );

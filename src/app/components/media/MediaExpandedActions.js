@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 import { makeStyles } from '@material-ui/core/styles';
@@ -17,6 +18,17 @@ import {
 
 const StyledMetadata = styled.div`
   margin: ${units(1)} ${units(1)} 0;
+`;
+
+const StyledExternalLink = styled(ExternalLink)`
+  cursor: pointer;
+  height: 36;
+  overflow: hidden;
+  border-radius: 50%;
+  background: ${opaqueBlack05};
+  display: inline-block;
+  text-align: center;
+  align-self: flex-end;
 `;
 
 const useStyles = makeStyles(theme => ({
@@ -90,52 +102,33 @@ class MediaExpandedActions extends React.Component {
     return (
       <StyledMetadata className="media-detail__check-metadata">
         { (projectMedia.picture || (projectMedia.media && projectMedia.media.file_path)) ?
-          <Row style={{
-            display: 'flex', alignItems: 'center', marginBottom: units(2), marginLeft: units(-0.5), marginRight: units(-0.5),
-          }}
-          >
-            <ExtraMediaActions
-              projectMedia={projectMedia}
-              onVideoAnnoToggle={onVideoAnnoToggle}
-              showVideoAnnotation={showVideoAnnotation}
-              reverseImageSearchGoogle={this.reverseImageSearchGoogle.bind(this)}
-            />
-            { (projectMedia.media && projectMedia.media.file_path) ?
-              <div
-                className="media-detail__download"
-                style={{
-                  alignSelf: 'flex-end',
-                  display: 'flex',
-                  marginRight: units(0.5),
-                  marginLeft: units(0.5),
-                }}
-              >
-                <ExternalLink
-                  url={this.props.projectMedia.media.file_path}
-                  style={{
-                    cursor: 'pointer',
-                    height: 36,
-                    overflow: 'hidden',
-                    borderRadius: '50%',
-                    background: opaqueBlack05,
-                    display: 'inline-block',
-                    textAlign: 'center',
-                    alignSelf: 'flex-end',
-                  }}
-                >
-                  <Tooltip
-                    title={
-                      <FormattedMessage
-                        id="mediaMetadata.download"
-                        defaultMessage="Download"
-                      />
-                    }
-                  >
-                    <DownloadIcon style={{ margin: 6 }} />
-                  </Tooltip>
-                </ExternalLink>
-              </div> : null }
-          </Row> : null }
+          <Box clone display="flex" alignItems="center" mb={units(2)} ml={units(-0.5)} mr={units(-0.5)}>
+            <Row>
+              <ExtraMediaActions
+                projectMedia={projectMedia}
+                onVideoAnnoToggle={onVideoAnnoToggle}
+                showVideoAnnotation={showVideoAnnotation}
+                reverseImageSearchGoogle={this.reverseImageSearchGoogle.bind(this)}
+              />
+              { (projectMedia.media && projectMedia.media.file_path) ?
+                <Box display="flex" alignSelf="flex-end" mr={units(0.5)} ml={units(0.5)} className="media-detail__download">
+                  <StyledExternalLink url={this.props.projectMedia.media.file_path}>
+                    <Tooltip
+                      title={
+                        <FormattedMessage
+                          id="mediaMetadata.download"
+                          defaultMessage="Download"
+                        />
+                      }
+                    >
+                      <Box clone m={6}>
+                        <DownloadIcon />
+                      </Box>
+                    </Tooltip>
+                  </StyledExternalLink>
+                </Box> : null }
+            </Row>
+          </Box> : null }
       </StyledMetadata>
     );
   }

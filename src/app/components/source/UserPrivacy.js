@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import Relay from 'react-relay/classic';
+import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
+import styled from 'styled-components';
 import ConfirmDialog from '../layout/ConfirmDialog';
 import UserConnectedAccount from '../user/UserConnectedAccount';
 import { logout } from '../../redux/actions';
@@ -23,6 +25,10 @@ const messages = defineMessages({
     defaultMessage: 'Delete Account',
   },
 });
+
+const StyledLink = styled.a`
+  text-decoration: underline;
+`;
 
 class UserPrivacy extends Component {
   static handleSubmit(subject) {
@@ -85,28 +91,6 @@ class UserPrivacy extends Component {
       return null;
     }
 
-    const linkStyle = {
-      textDecoration: 'underline',
-    };
-
-    const style = {
-      margin: `${units(2)} 0`,
-    };
-
-    const cardStyle = {
-      margin: `${units(2)} 0`,
-    };
-
-    const cardTextStyle = {
-      display: 'flex',
-      alignItems: 'center',
-    };
-
-    const buttonStyle = {
-      minWidth: 300,
-      textAlign: 'end',
-    };
-
     const confirmDialog = {
       blurb: <FormattedMessage
         id="userPrivacy.deleteAccountConfirmationText"
@@ -117,14 +101,13 @@ class UserPrivacy extends Component {
     const appName = mapGlobalMessage(this.props.intl, 'appNameHuman');
 
     const ppLink = (
-      <a
+      <StyledLink
         target="_blank"
         rel="noopener noreferrer"
-        style={linkStyle}
         href={stringHelper('PP_URL')}
       >
         <FormattedMessage id="userPrivacy.ppLink" defaultMessage="Privacy Policy" />
-      </a>
+      </StyledLink>
     );
 
     const { providers } = this.props.user;
@@ -132,97 +115,124 @@ class UserPrivacy extends Component {
 
     return (
       <div id="user__privacy">
-        <h2 style={style}>
-          <FormattedMessage id="userPrivacy.title" defaultMessage="Your information" />
-        </h2>
-        <p style={style}>
-          <FormattedMessage
-            id="userPrivacy.description"
-            defaultMessage="Please review our {ppLink} to learn how {appName} uses and stores your information."
-            values={{
-              ppLink,
-              appName,
-            }}
-          />
-        </p>
-        <Card style={cardStyle}>
-          <CardContent style={cardTextStyle}>
+        <Box clone m={`${units(2)} 0`}>
+          <h2>
+            <FormattedMessage id="userPrivacy.title" defaultMessage="Your information" />
+          </h2>
+        </Box>
+        <Box clone m={`${units(2)} 0`}>
+          <p>
             <FormattedMessage
-              id="userPrivacy.seeInformationText"
-              defaultMessage="We will send you a file with the content and data you created and generated on {appName}. This can be kept for your records or transferred to another service."
-              values={{ appName }}
+              id="userPrivacy.description"
+              defaultMessage="Please review our {ppLink} to learn how {appName} uses and stores your information."
+              values={{
+                ppLink,
+                appName,
+              }}
             />
-            <Button
-              id="user-privacy__see-info"
-              style={buttonStyle}
-              color="primary"
-              onClick={UserPrivacy.handleSubmit.bind(this, 'Send information')}
-            >
-              <FormattedMessage id="userPrivacy.seeInformationButton" defaultMessage="See my information" />
-            </Button>
-          </CardContent>
-        </Card>
-        <Card style={cardStyle}>
-          <CardContent style={cardTextStyle}>
-            <FormattedMessage
-              id="userPrivacy.stopProcessingText"
-              defaultMessage="You can request {appName} to stop processing your information under certain conditions."
-              values={{ appName }}
-            />
-            <Button
-              id="user-privacy__stop-processing"
-              style={buttonStyle}
-              color="primary"
-              onClick={UserPrivacy.handleSubmit.bind(this, 'Stop processing')}
-            >
-              <FormattedMessage id="userPrivacy.stopProcessingButton" defaultMessage="Request to stop processing" />
-            </Button>
-          </CardContent>
-        </Card>
-        <h2 style={style}>
-          <FormattedMessage id="userPrivacy.connectedAccounts" defaultMessage="Connected accounts" />
-        </h2>
-        <Card style={cardStyle}>
-          <CardContent style={cardTextStyle}>
-            <List>
-              { providers.map(provider => (
-                <UserConnectedAccount
-                  provider={provider}
-                  user={user}
-                  key={provider.key}
+          </p>
+        </Box>
+        <Box clone m={`${units(2)} 0`}>
+          <Card>
+            <Box clone display="flex" alignItems="center">
+              <CardContent>
+                <FormattedMessage
+                  id="userPrivacy.seeInformationText"
+                  defaultMessage="We will send you a file with the content and data you created and generated on {appName}. This can be kept for your records or transferred to another service."
+                  values={{ appName }}
                 />
-              ))}
-            </List>
-          </CardContent>
-        </Card>
-        <h2 style={Object.assign({}, style, { marginTop: units(6) })}>
-          <FormattedMessage id="userPrivacy.delete" defaultMessage="Delete your account" />
-        </h2>
-        <Card style={cardStyle}>
-          <CardContent style={cardTextStyle}>
-            <FormattedMessage
-              id="userPrivacy.deleteAccountText"
-              defaultMessage="If you delete your account, your personal information will be erased. Comments, annotations, and workspace activity will become pseudonymous and remain on {appName}."
-              values={{ appName }}
-            />
-            <Button
-              id="user-privacy__delete-account"
-              style={buttonStyle}
-              color="primary"
-              onClick={this.handleOpenDialog.bind(this)}
-            >
-              <FormattedMessage id="userPrivacy.deleteAccountButton" defaultMessage="Delete my account" />
-            </Button>
-            <ConfirmDialog
-              message={this.state.message}
-              open={this.state.dialogOpen}
-              title={this.props.intl.formatMessage(messages.deleteAccount)}
-              blurb={confirmDialog.blurb}
-              handleClose={this.handleCloseDialog.bind(this)}
-              handleConfirm={this.handleDeleteAccount.bind(this)}
-            />
-          </CardContent>
-        </Card>
+                <Box clone minWidth={300} textAlign="end">
+                  <Button
+                    id="user-privacy__see-info"
+                    color="primary"
+                    onClick={UserPrivacy.handleSubmit.bind(this, 'Send information')}
+                  >
+                    <FormattedMessage id="userPrivacy.seeInformationButton" defaultMessage="See my information" />
+                  </Button>
+                </Box>
+              </CardContent>
+            </Box>
+          </Card>
+        </Box>
+        <Box clone m={`${units(2)} 0`}>
+          <Card>
+            <Box clone display="flex" alignItems="center">
+              <CardContent>
+                <FormattedMessage
+                  id="userPrivacy.stopProcessingText"
+                  defaultMessage="You can request {appName} to stop processing your information under certain conditions."
+                  values={{ appName }}
+                />
+                <Box clone minWidth={300} textAlign="end">
+                  <Button
+                    id="user-privacy__stop-processing"
+                    color="primary"
+                    onClick={UserPrivacy.handleSubmit.bind(this, 'Stop processing')}
+                  >
+                    <FormattedMessage id="userPrivacy.stopProcessingButton" defaultMessage="Request to stop processing" />
+                  </Button>
+                </Box>
+              </CardContent>
+            </Box>
+          </Card>
+        </Box>
+        <Box clone m={`${units(2)} 0`}>
+          <h2>
+            <FormattedMessage id="userPrivacy.connectedAccounts" defaultMessage="Connected accounts" />
+          </h2>
+        </Box>
+        <Box clone m={`${units(2)} 0`}>
+          <Card>
+            <Box clone display="flex" alignItems="center">
+              <CardContent>
+                <List>
+                  { providers.map(provider => (
+                    <UserConnectedAccount
+                      provider={provider}
+                      user={user}
+                      key={provider.key}
+                    />
+                  ))}
+                </List>
+              </CardContent>
+            </Box>
+          </Card>
+        </Box>
+        <Box clone m={`${units(2)} 0`} mt={units(6)}>
+          <h2>
+            <FormattedMessage id="userPrivacy.delete" defaultMessage="Delete your account" />
+          </h2>
+        </Box>
+        <Box clone m={`${units(2)} 0`}>
+          <Card>
+            <Box clone display="flex" alignItems="center">
+              <CardContent>
+                <FormattedMessage
+                  id="userPrivacy.deleteAccountText"
+                  defaultMessage="If you delete your account, your personal information will be erased. Comments, annotations, and workspace activity will become pseudonymous and remain on {appName}."
+                  values={{ appName }}
+                />
+                <Box clone minWidth={300} textAlign="end">
+                  <Button
+                    id="user-privacy__delete-account"
+                    color="primary"
+                    onClick={this.handleOpenDialog.bind(this)}
+                  >
+                    <FormattedMessage id="userPrivacy.deleteAccountButton" defaultMessage="Delete my account" />
+                  </Button>
+                </Box>
+                <ConfirmDialog
+                  message={this.state.message}
+                  open={this.state.dialogOpen}
+                  title={this.props.intl.formatMessage(messages.deleteAccount)}
+                  blurb={confirmDialog.blurb}
+                  handleClose={this.handleCloseDialog.bind(this)}
+                  handleConfirm={this.handleDeleteAccount.bind(this)}
+                />
+              </CardContent>
+            </Box>
+          </Card>
+        </Box>
       </div>
     );
   }

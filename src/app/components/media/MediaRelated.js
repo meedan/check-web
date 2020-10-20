@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
+import Box from '@material-ui/core/Box';
 import styled from 'styled-components';
 import { withPusher, pusherShape } from '../../pusher';
 import CreateRelatedMedia from './CreateRelatedMedia';
@@ -118,18 +119,20 @@ class MediaRelatedComponent extends Component {
     previousFilters[dbid] = filters;
 
     return (
-      <div style={{ marginTop: units(5) }}>
+      <Box mt={units(5)}>
         { primaryItem ?
-          <div style={{ marginBottom: units(4) }} id="media-related__primary-item">
+          <Box mb={units(4)} id="media-related__primary-item">
             <StyledHeaderRow>
-              <FlexRow style={{ marginBottom: units(2) }}>
-                <h2>
-                  <FormattedMessage
-                    id="mediaRelated.primaryItem"
-                    defaultMessage="Primary item"
-                  />
-                </h2>
-              </FlexRow>
+              <Box clone mb={units(2)}>
+                <FlexRow>
+                  <h2>
+                    <FormattedMessage
+                      id="mediaRelated.primaryItem"
+                      defaultMessage="Primary item"
+                    />
+                  </h2>
+                </FlexRow>
+              </Box>
             </StyledHeaderRow>
             <MediaDetail
               media={primaryItem}
@@ -139,18 +142,22 @@ class MediaRelatedComponent extends Component {
               parentComponentName="MediaRelated"
               hideRelated
             />
-          </div> : null }
+          </Box> : null }
 
         <StyledHeaderRow>
-          <FlexRow style={{ marginBottom: units(2) }}>
-            <h2>
-              <FormattedMessage
-                id="mediaRelated.secondaryItems"
-                defaultMessage="Secondary items"
-              />
-            </h2>
-          </FlexRow>
-          <CreateRelatedMedia style={{ marginLeft: 'auto' }} media={this.props.media} />
+          <Box clone mb={units(2)}>
+            <FlexRow>
+              <h2>
+                <FormattedMessage
+                  id="mediaRelated.secondaryItems"
+                  defaultMessage="Secondary items"
+                />
+              </h2>
+            </FlexRow>
+          </Box>
+          <Box clone ml="auto">
+            <CreateRelatedMedia media={this.props.media} />
+          </Box>
         </StyledHeaderRow>
 
         { (this.props.showNumbers && medias.length > 0) ?
@@ -167,29 +174,33 @@ class MediaRelatedComponent extends Component {
         <FlexRow>
           { (sources_count === 0 && targets_count === 0) ?
             null :
-            <ul style={{ width: '100%' }}>
-              {medias.map((item) => {
-                if (item.node.archived) {
-                  return null;
-                }
-                return (
-                  <li key={item.node.id} className="medias__item media-related__secondary-item" style={{ paddingBottom: units(1) }}>
-                    {<MediaDetail
-                      media={item.node}
-                      condensed
-                      currentRelatedMedia={this.props.media}
-                      parentComponent={this}
-                      parentComponentName="MediaRelated"
-                      hideRelated
-                    />}
-                    {<ul className="empty" />}
-                  </li>
-                );
-              })}
-            </ul>
+            <Box width="100%">
+              <ul>
+                {medias.map((item) => {
+                  if (item.node.archived) {
+                    return null;
+                  }
+                  return (
+                    <Box clone pb={units(1)}>
+                      <li key={item.node.id} className="medias__item media-related__secondary-item">
+                        {<MediaDetail
+                          media={item.node}
+                          condensed
+                          currentRelatedMedia={this.props.media}
+                          parentComponent={this}
+                          parentComponentName="MediaRelated"
+                          hideRelated
+                        />}
+                        {<ul className="empty" />}
+                      </li>
+                    </Box>
+                  );
+                })}
+              </ul>
+            </Box>
           }
         </FlexRow>
-      </div>
+      </Box>
     );
   }
 }

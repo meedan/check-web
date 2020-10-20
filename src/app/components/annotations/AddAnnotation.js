@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
-import TextField from '@material-ui/core/TextField';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 import styled from 'styled-components';
 import CreateCommentMutation from '../../relay/mutations/CreateCommentMutation';
@@ -326,62 +327,59 @@ class AddAnnotation extends Component {
     }
 
     return (
-      <form
-        className="add-annotation"
-        onSubmit={this.handleSubmit.bind(this)}
-        style={{
-          height: '100%',
-          width: '100%',
-          paddingTop: units(2),
-          position: 'relative',
-          zIndex: 0,
-        }}
-      >
-        <ContentColumn flex style={{ maxWidth: '100%' }}>
-          <FormattedMessage id="addAnnotation.inputHint" defaultMessage="Add a note">
-            {inputHint => (
-              <TextField
-                placeholder={inputHint}
-                onFocus={this.handleFocus.bind(this)}
-                ref={(i) => { this.cmd = i; }}
-                error={Boolean(this.state.message)}
-                helperText={this.state.message}
-                name="cmd"
-                id="cmd-input"
-                multiline
-                fullWidth
-                onKeyPress={this.handleKeyPress.bind(this)}
-                onKeyUp={this.handleKeyUp.bind(this)}
-                value={this.state.cmd}
-                onChange={this.handleChange.bind(this)}
-              />
-            )}
-          </FormattedMessage>
-          {this.state.fileMode ? (
-            <UploadFile
-              type="image"
-              value={this.state.image}
-              onChange={this.onImageChange}
-              onError={this.onImageError}
-            />
-          ) : null}
-          <AddAnnotationButtonGroup className="add-annotation__buttons">
-            <div className="add-annotation__insert-photo">
-              <InsertPhotoIcon
-                id="add-annotation__switcher"
-                title={
-                  <FormattedMessage id="addAnnotation.addImage" defaultMessage="Add an image" />
-                }
-                className={this.state.fileMode ? 'add-annotation__file' : ''}
-                onClick={this.switchMode.bind(this)}
-              />
-            </div>
-            <Button color="primary" type="submit">
-              <FormattedMessage id="addAnnotation.submitButton" defaultMessage="Submit" />
-            </Button>
-          </AddAnnotationButtonGroup>
-        </ContentColumn>
-      </form>
+      <Box clone height="100%" weight="100%" pt={units(2)} position="relative" zIndex={0}>
+        <form
+          className="add-annotation"
+          onSubmit={this.handleSubmit.bind(this)}
+        >
+          <Box clone maxWidth="100%">
+            <ContentColumn flex>
+              <FormattedMessage id="addAnnotation.inputHint" defaultMessage="Add a note">
+                {inputHint => (
+                  <TextField
+                    placeholder={inputHint}
+                    onFocus={this.handleFocus.bind(this)}
+                    ref={(i) => { this.cmd = i; }}
+                    error={Boolean(this.state.message)}
+                    helperText={this.state.message}
+                    name="cmd"
+                    id="cmd-input"
+                    multiline
+                    fullWidth
+                    onKeyPress={this.handleKeyPress.bind(this)}
+                    onKeyUp={this.handleKeyUp.bind(this)}
+                    value={this.state.cmd}
+                    onChange={this.handleChange.bind(this)}
+                  />
+                )}
+              </FormattedMessage>
+              {this.state.fileMode ? (
+                <UploadFile
+                  type="image"
+                  value={this.state.image}
+                  onChange={this.onImageChange}
+                  onError={this.onImageError}
+                />
+              ) : null}
+              <AddAnnotationButtonGroup className="add-annotation__buttons">
+                <div className="add-annotation__insert-photo">
+                  <InsertPhotoIcon
+                    id="add-annotation__switcher"
+                    title={
+                      <FormattedMessage id="addAnnotation.addImage" defaultMessage="Add an image" />
+                    }
+                    className={this.state.fileMode ? 'add-annotation__file' : ''}
+                    onClick={this.switchMode.bind(this)}
+                  />
+                </div>
+                <Button color="primary" type="submit">
+                  <FormattedMessage id="addAnnotation.submitButton" defaultMessage="Submit" />
+                </Button>
+              </AddAnnotationButtonGroup>
+            </ContentColumn>
+          </Box>
+        </form>
+      </Box>
     );
   }
 }

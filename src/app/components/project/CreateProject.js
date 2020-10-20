@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
+import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardActions from '@material-ui/core/CardActions';
@@ -124,25 +125,26 @@ class CreateProject extends React.Component {
 
     if (this.props.renderCard) {
       return (
-        <Card
-          component="form"
-          onSubmit={this.handleSubmit.bind(this)}
-          className={className}
-          style={{ marginBottom: units(2) }}
-        >
-          <CardHeader
-            title={team.projects.edges.length
-              ? <FormattedMessage id="createProject.title" defaultMessage="Add a list" />
-              : <FormattedMessage id="createProject.titleBlank" defaultMessage="Add your first list" />
-            }
-          />
-          <CardContent>
-            {textInput}
-          </CardContent>
-          <CardActions>
-            {submitButton}
-          </CardActions>
-        </Card>
+        <Box clone mb={units(2)}>
+          <Card
+            component="form"
+            onSubmit={this.handleSubmit.bind(this)}
+            className={className}
+          >
+            <CardHeader
+              title={team.projects.edges.length
+                ? <FormattedMessage id="createProject.title" defaultMessage="Add a list" />
+                : <FormattedMessage id="createProject.titleBlank" defaultMessage="Add your first list" />
+              }
+            />
+            <CardContent>
+              {textInput}
+            </CardContent>
+            <CardActions>
+              {submitButton}
+            </CardActions>
+          </Card>
+        </Box>
       );
     }
 

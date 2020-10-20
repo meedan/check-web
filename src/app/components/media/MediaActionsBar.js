@@ -12,6 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import IconReport from '@material-ui/icons/PlaylistAddCheck';
+import styled from 'styled-components';
 import MediaStatus from './MediaStatus';
 import MediaRoute from '../../relay/MediaRoute';
 import MediaActionsMenuButton from './MediaActionsMenuButton';
@@ -50,6 +51,11 @@ const Styles = theme => ({
     outline: 0,
   },
 });
+
+const StyledDialog = styled.div`
+  display: flex;
+  outline: 0;
+`;
 
 class MediaActionsBarComponent extends Component {
   static handleReportDesigner() {
@@ -310,30 +316,23 @@ class MediaActionsBarComponent extends Component {
             </Button>
           </div> : <div />}
 
-        <div
-          style={{
-            display: 'flex',
-          }}
-        >
+        <Box display="flex">
           <MediaStatus
             media={media}
             readonly={media.archived || media.last_status_obj.locked || readonlyStatus || published}
           />
-
-          <MediaActionsMenuButton
-            style={{
-              height: 36,
-              marginTop: -5,
-            }}
-            key={media.id /* close menu if we navigate to a different projectMedia */}
-            projectMedia={media}
-            handleRefresh={this.handleRefresh.bind(this)}
-            handleSendToTrash={this.handleSendToTrash.bind(this)}
-            handleRestore={this.handleRestore.bind(this)}
-            handleAssign={this.handleAssign.bind(this)}
-            handleStatusLock={this.handleStatusLock.bind(this)}
-          />
-        </div>
+          <Box clone height={36} mt={-5}>
+            <MediaActionsMenuButton
+              key={media.id /* close menu if we navigate to a different projectMedia */}
+              projectMedia={media}
+              handleRefresh={this.handleRefresh.bind(this)}
+              handleSendToTrash={this.handleSendToTrash.bind(this)}
+              handleRestore={this.handleRestore.bind(this)}
+              handleAssign={this.handleAssign.bind(this)}
+              handleStatusLock={this.handleStatusLock.bind(this)}
+            />
+          </Box>
+        </Box>
 
         <Dialog
           className="project__assignment-menu"
@@ -347,7 +346,7 @@ class MediaActionsBarComponent extends Component {
             />
           </DialogTitle>
           <DialogContent>
-            <Box display="flex" style={{ outline: 0 }}>
+            <StyledDialog>
               <MultiSelector
                 allowSelectAll
                 allowUnselectAll
@@ -381,7 +380,7 @@ class MediaActionsBarComponent extends Component {
                   multiline
                 />
               </div>
-            </Box>
+            </StyledDialog>
           </DialogContent>
         </Dialog>
       </div>

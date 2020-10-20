@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import Relay from 'react-relay/classic';
 import { Link } from 'react-router';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -183,18 +184,14 @@ class DrawerProjectsComponent extends Component {
                 : <FormattedMessage id="projects.addProject" defaultMessage="Add list" />
             }
             >
-              <Button
-                onClick={this.toggleShowCreateProject}
-                className="drawer__create-project-button"
-                style={{
-                  fontSize: '12px',
-                  marginLeft: '5px',
-                  paddingLeft: '10px',
-                  paddingRight: '10px',
-                }}
-              >
-                <FormattedMessage id="projects.newList" defaultMessage="+ New list" />
-              </Button>
+              <Box clone fontSize="12px" ml="5px" pl="10px" pr="10px">
+                <Button
+                  onClick={this.toggleShowCreateProject}
+                  className="drawer__create-project-button"
+                >
+                  <FormattedMessage id="projects.newList" defaultMessage="+ New list" />
+                </Button>
+              </Box>
             </Tooltip>
             <CreateProject
               visible={this.state.showCreateProject}

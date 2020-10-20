@@ -1,4 +1,5 @@
 import React from 'react';
+import Box from '@material-ui/core/Box';
 import Message from './Message';
 
 /**
@@ -41,14 +42,6 @@ const FlashMessageProvider = ({ children }) => {
   );
 };
 
-
-const flashMessageStyle = {
-  marginTop: '0',
-  position: 'fixed',
-  width: '100%',
-  zIndex: '1000',
-};
-
 /**
  * Display the message in an ancestor <FlashMessageContext.Provider>.
  */
@@ -58,12 +51,13 @@ const FlashMessage = () => {
   const resetMessage = React.useCallback(() => setMessage(null), [setMessage]);
 
   return (
-    <Message
-      message={message}
-      onClick={resetMessage}
-      className="home__message"
-      style={flashMessageStyle}
-    />
+    <Box clone mt={0} position="fixed" width="100%" zIndex={1000}>
+      <Message
+        message={message}
+        onClick={resetMessage}
+        className="home__message"
+      />
+    </Box>
   );
 };
 

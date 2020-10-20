@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
 import Relay from 'react-relay/classic';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import GenericUnknownErrorMessage from './GenericUnknownErrorMessage';
@@ -89,9 +90,9 @@ class ChangePasswordComponent extends Component {
 
     return (
       <div className="user-password-change__password-input">
-        <div style={{ color: 'red', textAlign: 'center' }}>
+        <Box color="red" textAlign="center">
           {this.state.errorMsg}
-        </div>
+        </Box>
         {show_current_password === true ? (
           <FormattedMessage
             id="passwordChange.currentPassword"

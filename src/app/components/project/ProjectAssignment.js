@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import IconArrowDropDown from '@material-ui/icons/ArrowDropDown';
+import styled from 'styled-components';
 import { can } from '../Can';
 import MultiSelector from '../layout/MultiSelector';
 import ProjectRoute from '../../relay/ProjectRoute';
@@ -31,6 +32,11 @@ const Styles = theme => ({
     margin: theme.spacing(1),
   },
 });
+
+const StyledDialog = styled.div`
+  display: flex;
+  outline: 0;
+`;
 
 class ProjectAssignmentComponent extends Component {
   state = {
@@ -87,10 +93,6 @@ class ProjectAssignmentComponent extends Component {
     const { classes } = this.props;
     const assignmentDialogOpened = this.state.assignmentDialogOpened ||
       this.props.assignmentDialogOpened;
-    const buttonStyle = {
-      border: 0,
-      color: black54,
-    };
 
     const options = [];
     this.props.project.team.team_users.edges.forEach((teamUser) => {
@@ -118,7 +120,7 @@ class ProjectAssignmentComponent extends Component {
           />
         </DialogTitle>
         <DialogContent>
-          <Box display="flex" style={{ outline: 0 }}>
+          <StyledDialog>
             <MultiSelector
               allowSelectAll
               allowUnselectAll
@@ -150,7 +152,7 @@ class ProjectAssignmentComponent extends Component {
                 multiline
               />
             </div>
-          </Box>
+          </StyledDialog>
         </DialogContent>
       </Dialog>
     );
@@ -161,27 +163,28 @@ class ProjectAssignmentComponent extends Component {
 
     return (
       <div>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <Button
-            className="project__assignment-button"
-            onClick={this.handleClick}
-            style={buttonStyle}
-            disableTouchRipple
-          >
-            { selected.length > 0 ?
-              <FormattedMessage
-                id="projectAssignment.assignedTo"
-                defaultMessage="Assigned to"
-              /> :
-              <FormattedMessage
-                id="projectAssignment.notAssigned"
-                defaultMessage="Not assigned"
-              /> }
-            <IconArrowDropDown color={black54} />
-          </Button>
+        <Box display="flex" alignItems="center">
+          <Box clone border={0} color={black54}>
+            <Button
+              className="project__assignment-button"
+              onClick={this.handleClick}
+              disableTouchRipple
+            >
+              { selected.length > 0 ?
+                <FormattedMessage
+                  id="projectAssignment.assignedTo"
+                  defaultMessage="Assigned to"
+                /> :
+                <FormattedMessage
+                  id="projectAssignment.notAssigned"
+                  defaultMessage="Not assigned"
+                /> }
+              <IconArrowDropDown color={black54} />
+            </Button>
+          </Box>
           { assignmentPopup }
           <UserAvatars users={assignments} showMore />
-        </div>
+        </Box>
       </div>
     );
   }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
+import Box from '@material-ui/core/Box';
 import CircularProgress from './CircularProgress';
 import { units } from '../styles/js/shared';
 
@@ -77,11 +78,12 @@ class PenderCard extends Component {
   render() {
     return (
       <div>
-        <PenderCardContainer
-          id={this.props.domId}
-          className="pender-card"
-          style={{ maxHeight: 'none' }}
-        />
+        <Box clone maxHeight="none">
+          <PenderCardContainer
+            id={this.props.domId}
+            className="pender-card"
+          />
+        </Box>
 
         <PenderCardLoader
           id={`pender-card-loader-${this.props.domId}`}

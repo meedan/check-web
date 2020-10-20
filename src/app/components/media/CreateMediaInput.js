@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
@@ -266,7 +267,7 @@ class CreateMediaInput extends React.Component {
             {this.renderFormInput()}
           </div>
 
-          <div style={{ marginTop: units(2) }}>
+          <Box mt={units(2)}>
             <Row>
               <Button
                 id="create-media__link"
@@ -324,7 +325,7 @@ class CreateMediaInput extends React.Component {
                 </StyledTabLabel>
               </Button>
             </Row>
-          </div>
+          </Box>
         </form>
       </div>
     );

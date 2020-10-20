@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
+import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -21,34 +22,40 @@ class BotGardenComponent extends Component {
 
     return (
       <ContentColumn>
-        <h2 style={{ textAlign: 'center' }}>
-          <FormattedMessage
-            id="botGarden.botGarden"
-            defaultMessage="Bot Garden"
-          /> <Emojione text="🤖 🌼" />
-        </h2>
-        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+        <Box clone textAlign="center">
+          <h2>
+            <FormattedMessage
+              id="botGarden.botGarden"
+              defaultMessage="Bot Garden"
+            /> <Emojione text="🤖 🌼" />
+          </h2>
+        </Box>
+        <Box display="flex" flexWrap="wrap">
           { root.team_bots_approved.edges.map((team_bot) => {
             const bot = team_bot.node;
 
             return (
-              <Card style={{ margin: units(2), width: 150 }} key={`bot-${bot.id}`}>
-                <Link to={`/check/bot/${bot.dbid}`}>
-                  <img src={bot.avatar} alt={bot.name} style={{ border: `1px solid ${black32}`, width: '100%' }} />
-                  <CardHeader
-                    className="bot-garden__bot-name"
-                    title={bot.name}
-                  />
-                </Link>
-                <CardContent>
-                  {bot.team_author ?
-                    <Link to={`/${bot.team_author.slug}`}>{bot.team_author.name}</Link> : null
-                  }
-                </CardContent>
-              </Card>
+              <Box clone m={units(2)} width={150}>
+                <Card key={`bot-${bot.id}`}>
+                  <Link to={`/check/bot/${bot.dbid}`}>
+                    <Box clone border={`1px solid ${black32}`} width="100%">
+                      <img src={bot.avatar} alt={bot.name} />
+                    </Box>
+                    <CardHeader
+                      className="bot-garden__bot-name"
+                      title={bot.name}
+                    />
+                  </Link>
+                  <CardContent>
+                    {bot.team_author ?
+                      <Link to={`/${bot.team_author.slug}`}>{bot.team_author.name}</Link> : null
+                    }
+                  </CardContent>
+                </Card>
+              </Box>
             );
           })}
-        </div>
+        </Box>
       </ContentColumn>
     );
   }

@@ -4,6 +4,7 @@ import Relay from 'react-relay/classic';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
+import Box from '@material-ui/core/Box';
 import Chip from '@material-ui/core/Chip';
 import styled from 'styled-components';
 import TeamRoute from '../../relay/TeamRoute';
@@ -139,7 +140,7 @@ class AttributionComponent extends React.Component {
 
           <input type="hidden" value={value} name="selected-user-ids" id={`attribution-${id}`} />
 
-          <div style={{ marginTop: units(4), marginBottom: units(4) }}>
+          <Box my={units(4)}>
             <StyledTagsWrapper className="attribution__selected-users">
               {this.state.selectedUsers.map(user => (
                 <Chip
@@ -150,7 +151,7 @@ class AttributionComponent extends React.Component {
                 />))
               }
             </StyledTagsWrapper>
-          </div>
+          </Box>
 
           <StyledSelect
             options={this.state.unselectedUsers}

@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import Box from '@material-ui/core/Box';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -530,7 +531,7 @@ class SearchQueryComponent extends React.Component {
     filterButtonClasses[classes.filterInactive] = !this.filterIsActive();
 
     return (
-      <div style={{ minWidth: 350 }}>
+      <Box maxWidth={350}>
         <Row>
           <form
             id="search-form"
@@ -599,7 +600,9 @@ class SearchQueryComponent extends React.Component {
           {(this.filterIsActive() || this.keywordIsActive()) ? (
             <Tooltip title={<FormattedMessage id="search.clear" defaultMessage="Clear filter" />}>
               <IconButton id="search-query__clear-button" onClick={this.handleClickClear}>
-                <ClearIcon style={{ color: highlightOrange }} />
+                <Box clone color={highlightOrange}>
+                  <ClearIcon />
+                </Box>
               </IconButton>
             </Tooltip>
           ) : null}
@@ -895,7 +898,7 @@ class SearchQueryComponent extends React.Component {
             </DialogActions>
           </Dialog>
         </PageTitle>
-      </div>
+      </Box>
     );
   }
 }

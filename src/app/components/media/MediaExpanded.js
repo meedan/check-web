@@ -156,12 +156,7 @@ class MediaExpandedComponent extends Component {
     if (isBlank) {
       return (
         <CardContent>
-          <Box
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            style={{ minHeight: 400 }}
-          >
+          <Box display="flex" justifyContent="center" alignItems="center" minHeight={400}>
             <BlankMediaButton
               projectMediaId={media.id}
               team={media.team}
@@ -178,7 +173,7 @@ class MediaExpandedComponent extends Component {
     return (
       <React.Fragment>
         { isBotInstalled(media.team, 'fetch') ?
-          <Box display="flex" flexDirection="row-reverse" style={{ padding: units(2) }}>
+          <Box display="flex" flexDirection="row-reverse" p={units(2)}>
             <BlankMediaButton
               projectMediaId={media.id}
               team={media.team}
@@ -199,18 +194,20 @@ class MediaExpandedComponent extends Component {
           className="media-expanded__title"
           title={truncateLength(title, 110)}
         />
-        <CardContent style={{ padding: `0 ${units(2)}` }}>
-          <MediaExpandedSecondRow projectMedia={media} />
-          <MoreLess>
-            <Typography variant="body2">
-              <ParsedText text={description} />
-            </Typography>
-          </MoreLess>
-          <MediaExpandedUrl url={media.media.url} />
-          <MediaExpandedArchives projectMedia={media} />
-          <MediaExpandedMetadata projectMedia={media} />
-          {embedCard}
-        </CardContent>
+        <Box clone p={`0 ${units(2)}`}>
+          <CardContent>
+            <MediaExpandedSecondRow projectMedia={media} />
+            <MoreLess>
+              <Typography variant="body2">
+                <ParsedText text={description} />
+              </Typography>
+            </MoreLess>
+            <MediaExpandedUrl url={media.media.url} />
+            <MediaExpandedArchives projectMedia={media} />
+            <MediaExpandedMetadata projectMedia={media} />
+            {embedCard}
+          </CardContent>
+        </Box>
         <CardActions>
           <MediaExpandedActions
             onTimelineCommentOpen={onTimelineCommentOpen}

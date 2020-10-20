@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Paper from '@material-ui/core/Paper';
@@ -69,9 +70,11 @@ class FilterPopup extends React.Component {
             ) : null}
             {this.props.children}
             <div>
-              <Button onClick={this.handleClose} style={{ marginTop: units(2) }}>
-                <FormattedMessage id="FilterPopup.close" defaultMessage="Done" />
-              </Button>
+              <Box clone mt={units(2)}>
+                <Button onClick={this.handleClose}>
+                  <FormattedMessage id="FilterPopup.close" defaultMessage="Done" />
+                </Button>
+              </Box>
             </div>
           </StyledPaper>
         </Popper>

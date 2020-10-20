@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { injectIntl, FormattedMessage, defineMessages } from 'react-intl';
+import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import List from '@material-ui/core/List';
@@ -162,14 +163,40 @@ class UserAssignmentsComponent extends Component {
           </BlankState>
         )}
         {Object.keys(assignments).map(project => (
-          <Card key={project} style={{ marginTop: units(2), marginBottom: units(2) }}>
-            <CardHeader title={
-              <Link to={projectPaths[project]}>
-                {project}
-              </Link>}
+          <Box clone mt={units(2)} mb={units(2)}>
+            <Card key={project}>
+              <CardHeader title={
+                <Link to={projectPaths[project]}>
+                  {project}
+                </Link>}
+              />
+              <List>
+                {assignments[project].map(assignment => (
+                  <ListItem
+                    button
+                    component={Link}
+                    to={assignment.path}
+                    key={`media-${assignment.dbid}`}
+                  >
+                    <ListItemIcon>
+                      {icons[assignment.report_type]}
+                    </ListItemIcon>
+                    <ListItemText>
+                      {assignment.title}
+                    </ListItemText>
+                  </ListItem>
+                ))}
+              </List>
+            </Card>
+          </Box>
+        ))}
+        <Box clone mt={units(2)} mb={units(2)}>
+          <Card>
+            <CardHeader
+              title={<FormattedMessage id="userAssignments.other" defaultMessage="Other" />}
             />
             <List>
-              {assignments[project].map(assignment => (
+              {assignmentsWithoutProject.map(assignment => (
                 <ListItem
                   button
                   component={Link}
@@ -186,29 +213,7 @@ class UserAssignmentsComponent extends Component {
               ))}
             </List>
           </Card>
-        ))}
-        <Card style={{ marginTop: units(2), marginBottom: units(2) }}>
-          <CardHeader
-            title={<FormattedMessage id="userAssignments.other" defaultMessage="Other" />}
-          />
-          <List>
-            {assignmentsWithoutProject.map(assignment => (
-              <ListItem
-                button
-                component={Link}
-                to={assignment.path}
-                key={`media-${assignment.dbid}`}
-              >
-                <ListItemIcon>
-                  {icons[assignment.report_type]}
-                </ListItemIcon>
-                <ListItemText>
-                  {assignment.title}
-                </ListItemText>
-              </ListItem>
-            ))}
-          </List>
-        </Card>
+        </Box>
       </div>
     );
   }

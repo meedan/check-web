@@ -8,6 +8,7 @@ import { stripUnit } from 'polished';
 import { Link } from 'react-router';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
+import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import IconButton from '@material-ui/core/IconButton';
@@ -247,6 +248,25 @@ const StyledRequest = styled.div`
   }
 `;
 
+const StyledLink = styled.a`
+  text-decoration: underline;
+`;
+
+const StyledListItem = styled.li`
+  margin: ${units(1)};
+  list-style: disc;
+`;
+
+const StyledCommentImage = styled.div`
+  background: transparent url('${props => props.imageUrl}') top left no-repeat;
+  background-size: cover;
+  border: 1px solid #ccc;
+  width: 80;
+  height: 80;
+  cursor: pointer;
+  display: inline-block;
+`;
+
 const FlagName = ({ flag }) => {
   switch (flag) {
   case 'adult': return <FormattedMessage id="annotation.flagAdult" defaultMessage="Adult" />;
@@ -282,17 +302,12 @@ const SmoochIcon = ({ name }) => {
   switch (name) {
   case 'whatsapp':
     return (
-      <WhatsAppIcon
-        style={{
-          backgroundColor: whatsappGreen,
-          color: '#FFF',
-          borderRadius: 4,
-          padding: 2,
-        }}
-      />
+      <Box clone bgcolor={whatsappGreen} color="#FFF" borderRadius={4} p={2}>
+        <WhatsAppIcon />
+      </Box>
     );
-  case 'messenger': return <FacebookIcon style={{ color: facebookBlue }} />;
-  case 'twitter': return <TwitterIcon style={{ color: twitterBlue }} />;
+  case 'messenger': return <Box clone color={facebookBlue}><FacebookIcon /></Box>;
+  case 'twitter': return <Box clone color={twitterBlue}><TwitterIcon /></Box>;
   default: return null;
   }
 };
@@ -398,14 +413,13 @@ class Annotation extends Component {
       const { geometry: { coordinates }, properties: { name } } = geojson;
       if (!coordinates[0] || !coordinates[1]) {
         return (
-          <a
-            style={{ textDecoration: 'underline' }}
+          <StyledLink
             href={`http://www.openstreetmap.org/?mlat=${coordinates[0]}&mlon=${coordinates[1]}&zoom=12#map=12/${coordinates[0]}/${coordinates[1]}`}
             target="_blank"
             rel="noreferrer noopener"
           >
             <ParsedText text={name} block />
-          </a>
+          </StyledLink>
         );
       }
       return <ParsedText text={name} block />;
@@ -455,15 +469,16 @@ class Annotation extends Component {
               </MenuItem>
             ) : null}
             <MenuItem>
-              <a
-                href={`#annotation-${activity.dbid}`}
-                style={{ textDecoration: 'none', color: black87 }}
-              >
-                <FormattedMessage
-                  id="annotation.permalink"
-                  defaultMessage="Permalink"
-                />
-              </a>
+              <Box clone color={black87}>
+                <StyledLink
+                  href={`#annotation-${activity.dbid}`}
+                >
+                  <FormattedMessage
+                    id="annotation.permalink"
+                    defaultMessage="Permalink"
+                  />
+                </StyledLink>
+              </Box>
             </MenuItem>
           </Menu>
         </div>)
@@ -698,11 +713,11 @@ class Annotation extends Component {
         const flagsContent = (
           <ul>
             { Object.keys(flags).filter(flag => flag !== 'spam').map(flag => (
-              <li style={{ margin: units(1), listStyle: 'disc' }}>
+              <StyledListItem>
                 <FlagName flag={flag} />
                 {': '}
                 <FlagLikelihood likelihood={flags[flag]} />
-              </li>
+              </StyledListItem>
             ))}
           </ul>
         );
@@ -785,12 +800,13 @@ class Annotation extends Component {
               defaultMessage="Status set to {status} by {author}"
               values={{
                 status: (
-                  <span
+                  <Box
+                    component="span"
                     className={`annotation__status annotation__status--${statusCode}`}
-                    style={{ color: getStatusStyle(status, 'color') }}
+                    color={getStatusStyle(status, 'color')}
                   >
                     {status.label}
-                  </span>
+                  </Box>
                 ),
                 author: authorName,
               }}
@@ -811,16 +827,8 @@ class Annotation extends Component {
               </span>
               <div>
                 { botResponse.image_url ?
-                  <div
-                    style={{
-                      background: `transparent url('${botResponse.image_url}') top left no-repeat`,
-                      backgroundSize: 'cover',
-                      border: '1px solid #ccc',
-                      width: 80,
-                      height: 80,
-                      cursor: 'pointer',
-                      display: 'inline-block',
-                    }}
+                  <StyledCommentImage
+                    imageUrl={botResponse.image_url}
                     className="annotation__card-thumbnail annotation__bot-response-thumbnail"
                     onClick={this.handleOpenCommentImage.bind(this, botResponse.image_url)}
                   /> : null }
@@ -857,7 +865,7 @@ class Annotation extends Component {
               </small>
             </p>
             { review ?
-              <div style={{ fontStyle: 'italic' }}>
+              <Box fontStyle="italic">
                 <small>
                   { review.accepted ?
                     <FormattedMessage
@@ -876,29 +884,31 @@ class Annotation extends Component {
                     />
                   }
                 </small>
-              </div> :
+              </Box> :
               <div>
-                <Button
-                  onClick={this.handleSuggestion.bind(this, activity.dbid, true)}
-                  style={{ border: `1px solid ${black38}` }}
-                  color="primary"
-                >
-                  <FormattedMessage
-                    id="annotation.acceptSuggestion"
-                    defaultMessage="Accept"
-                  />
-                </Button>
+                <Box clone border={`1px solid ${black38}`}>
+                  <Button
+                    onClick={this.handleSuggestion.bind(this, activity.dbid, true)}
+                    color="primary"
+                  >
+                    <FormattedMessage
+                      id="annotation.acceptSuggestion"
+                      defaultMessage="Accept"
+                    />
+                  </Button>
+                </Box>
                 &nbsp;
-                <Button
-                  onClick={this.handleSuggestion.bind(this, activity.dbid, false)}
-                  style={{ border: `1px solid ${black38}` }}
-                  color="primary"
-                >
-                  <FormattedMessage
-                    id="annotation.rejectSuggestion"
-                    defaultMessage="Reject"
-                  />
-                </Button>
+                <Box clone border={`1px solid ${black38}`}>
+                  <Button
+                    onClick={this.handleSuggestion.bind(this, activity.dbid, false)}
+                    color="primary"
+                  >
+                    <FormattedMessage
+                      id="annotation.rejectSuggestion"
+                      defaultMessage="Reject"
+                    />
+                  </Button>
+                </Box>
               </div>
             }
           </div>
@@ -1022,16 +1032,8 @@ class Annotation extends Component {
                   defaultMessage="Keep has taken a screenshot of this URL."
                 />
                 <div>
-                  <div
-                    style={{
-                      background: `transparent url('${penderResponse.screenshot_url}') top left no-repeat`,
-                      backgroundSize: 'cover',
-                      border: '1px solid #ccc',
-                      width: 80,
-                      height: 80,
-                      cursor: 'pointer',
-                      display: 'inline-block',
-                    }}
+                  <StyledCommentImage
+                    imageUrl={penderResponse.screenshot_url}
                     className="annotation__card-thumbnail annotation__pender-archive-thumbnail"
                     onClick={this.handleOpenCommentImage.bind(this, penderResponse.screenshot_url)}
                   />
@@ -1072,29 +1074,30 @@ class Annotation extends Component {
           <div>
             <StyledRequestHeader>
               <span className="annotation__card-header">
-                <span style={{ display: 'flex' }}>
+                <Box component="span" display="flex">
                   <SmoochIcon name={messageType} />
-                </span>
-                <span style={{ margin: `0 ${units(0.5)}` }} />
+                </Box>
+                <Box component="span" m={`0 ${units(0.5)}`} />
                 { emojify(objectValue.name) }
                 { smoochExternalId ?
                   <span>
-                    <span style={{ margin: `0 ${units(0.5)}` }} className="circle_delimeter" />
+                    <Box component="span" m={`0 ${units(0.5)}`} className="circle_delimeter" />
                     {smoochExternalId}
                   </span> : null }
-                <span style={{ margin: `0 ${units(0.5)}` }} className="circle_delimeter" />
+                <Box m={`0 ${units(0.5)}`} className="circle_delimeter" />
                 <TimeBefore date={updatedAt} />
                 { smoochSlackUrl ?
                   <span>
-                    <span style={{ margin: `0 ${units(0.5)}` }} className="circle_delimeter" />
-                    <a
-                      target="_blank"
-                      style={{ margin: `0 ${units(0.5)}`, textDecoration: 'underline' }}
-                      rel="noopener noreferrer"
-                      href={smoochSlackUrl}
-                    >
-                      <FormattedMessage id="annotation.openInSlack" defaultMessage="Open in Slack" />
-                    </a>
+                    <Box component="span" m={`0 ${units(0.5)}`} className="circle_delimeter" />
+                    <Box clone m={`0 ${units(0.5)}`}>
+                      <StyledLink
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href={smoochSlackUrl}
+                      >
+                        <FormattedMessage id="annotation.openInSlack" defaultMessage="Open in Slack" />
+                      </StyledLink>
+                    </Box>
                   </span> : null }
               </span>
             </StyledRequestHeader>

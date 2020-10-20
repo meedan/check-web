@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
+import Box from '@material-ui/core/Box';
 import CardHeader from '@material-ui/core/CardHeader';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Menu from '@material-ui/core/Menu';
 import IconButton from '@material-ui/core/IconButton';
 import IconMoreVert from '@material-ui/icons/MoreVert';
+import styled from 'styled-components';
 import { can } from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
 import TimeBefore from '../TimeBefore';
@@ -25,6 +27,18 @@ import {
 } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 import { black87 } from '../../styles/js/shared';
+
+const StyledCardHeader = styled(CardHeader)`
+  cursor: pointer;
+  padding: 0;
+  height: 100;
+`;
+
+const StyledMediaImage = styled.img`
+  height: 100px;
+  width: 100px;
+  object-fit: cover;
+`;
 
 class MediaCondensedComponent extends Component {
   constructor(props) {
@@ -122,13 +136,13 @@ class MediaCondensedComponent extends Component {
     const { mediaUrl } = this.props;
 
     return (
-      <span style={{ display: 'block', position: 'relative' }}>
-        <CardHeader
+      <Box component="span" display="block" position="relative">
+        <StyledCardHeader
           title={
             <Link to={mediaUrl} className="media-condensed__title">
-              <span style={{ color: black87 }}>
+              <Box component="span" color={black87}>
                 {truncateLength(media.title, 120)}
-              </span>
+              </Box>
             </Link>}
           subheader={
             <p>
@@ -136,7 +150,7 @@ class MediaCondensedComponent extends Component {
                 <span><MediaTypeDisplayName mediaType={media.type} /></span>
                 { isBotInstalled(media.team, 'smooch') ?
                   <span>
-                    <span style={{ margin: '0 8px' }}> - </span>
+                    <Box component="span" m="0 8px"> - </Box>
                     <span>
                       <FormattedMessage
                         id="mediaCondensed.requests"
@@ -148,41 +162,32 @@ class MediaCondensedComponent extends Component {
                     </span>
                   </span> : null
                 }
-                <span style={{ margin: '0 8px' }}> - </span>
+                <Box component="span" m="0 8px"> - </Box>
                 <TimeBefore date={parseStringUnixTimestamp(media.last_seen)} />
               </Link>
             </p>
           }
           avatar={
             <Link to={mediaUrl}>
-              <img
+              <StyledMediaImage
                 alt=""
-                style={{ height: '100px', width: '100px', objectFit: 'cover' }}
                 src={media.picture}
               />
             </Link>
           }
-          style={{
-            cursor: 'pointer',
-            padding: 0,
-            height: 100,
-          }}
         />
         { !media.archived ?
           <div>
-            <IconButton
-              style={{
-                position: 'absolute',
-                top: 0,
-                right: 0,
-              }}
-              tooltip={
-                <FormattedMessage id="mediaCondensed.tooltip" defaultMessage="Item actions" />
-              }
-              onClick={this.handleOpenMenu}
-            >
-              <IconMoreVert className="media-condensed__actions_icon" />
-            </IconButton>
+            <Box clone position="absolute" top={0} right={0}>
+              <IconButton
+                tooltip={
+                  <FormattedMessage id="mediaCondensed.tooltip" defaultMessage="Item actions" />
+                }
+                onClick={this.handleOpenMenu}
+              >
+                <IconMoreVert className="media-condensed__actions_icon" />
+              </IconButton>
+            </Box>
             <Menu
               anchorEl={this.state.anchorEl}
               keepMounted
@@ -209,7 +214,7 @@ class MediaCondensedComponent extends Component {
               ) : null}
             </Menu>
           </div> : null }
-      </span>
+      </Box>
     );
   }
 }

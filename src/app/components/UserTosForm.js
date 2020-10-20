@@ -1,10 +1,25 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedDate, FormattedMessage } from 'react-intl';
+import Box from '@material-ui/core/Box';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import styled from 'styled-components';
 import { units, title1, caption } from '../styles/js/shared';
 import { stringHelper } from '../customHelpers';
+
+const StyledLink = styled.a`
+  text-decoration: underline;
+`;
+
+const StyledTitle = styled.h2`
+  font: ${title1};
+`;
+
+const LastUpdatedMessage = styled.p`
+  margin: ${units(1)} 0;
+  font: ${caption};
+`;
 
 class UserTosForm extends Component {
   constructor(props) {
@@ -13,30 +28,24 @@ class UserTosForm extends Component {
   }
 
   render() {
-    const linkStyle = {
-      textDecoration: 'underline',
-    };
-
     const tosLink = (
-      <a
+      <StyledLink
         target="_blank"
         rel="noopener noreferrer"
-        style={linkStyle}
         href={stringHelper('TOS_URL')}
       >
         <FormattedMessage id="userTos.tosLink" defaultMessage="Terms of Service" />
-      </a>
+      </StyledLink>
     );
 
     const ppLink = (
-      <a
+      <StyledLink
         target="_blank"
         rel="noopener noreferrer"
-        style={linkStyle}
         href={stringHelper('PP_URL')}
       >
         <FormattedMessage id="userTos.ppLink" defaultMessage="Privacy Policy" />
-      </a>
+      </StyledLink>
     );
 
     const { termsLastUpdatedAt } = this.props;
@@ -46,15 +55,15 @@ class UserTosForm extends Component {
         { !this.props.user.last_accepted_terms_at ?
           <div>
             { this.props.showTitle ?
-              <h2 style={{ font: title1 }}>
+              <StyledTitle>
                 <FormattedMessage
                   id="userTos.title"
                   defaultMessage="Terms of Service and Privacy Policy"
                 />
-              </h2> : null
+              </StyledTitle> : null
             }
             { termsLastUpdatedAt ?
-              <p style={{ margin: `${units(1)} 0`, font: caption }}>
+              <LastUpdatedMessage>
                 <FormattedMessage
                   id="userTos.termsLastUpdatedAt"
                   defaultMessage="Last updated {lastUpdated}"
@@ -62,18 +71,20 @@ class UserTosForm extends Component {
                     lastUpdated: <FormattedDate value={termsLastUpdatedAt * 1000} day="numeric" month="long" year="numeric" />,
                   }}
                 />
-              </p> : null
+              </LastUpdatedMessage> : null
             }
-            <p style={{ margin: `${units(4)} 0` }}>
-              <FormattedMessage
-                id="userTos.disclaimer"
-                defaultMessage="Please review our {tosLink} and our {ppLink} and consent to the following:"
-                values={{
-                  tosLink,
-                  ppLink,
-                }}
-              />
-            </p>
+            <Box clone m={`${units(4)} 0`}>
+              <p>
+                <FormattedMessage
+                  id="userTos.disclaimer"
+                  defaultMessage="Please review our {tosLink} and our {ppLink} and consent to the following:"
+                  values={{
+                    tosLink,
+                    ppLink,
+                  }}
+                />
+              </p>
+            </Box>
           </div> :
           <div>
             <h2>
@@ -82,19 +93,21 @@ class UserTosForm extends Component {
                 defaultMessage="Updated Terms and Privacy Policy"
               />
             </h2>
-            <p style={{ margin: `${units(4)} 0` }}>
-              <FormattedMessage
-                id="userTos.disclaimerUpdate"
-                defaultMessage="We've updated our {tosLink} and our {ppLink}. Please review and consent to the following:"
-                values={{
-                  tosLink,
-                  ppLink,
-                }}
-              />
-            </p>
+            <Box clone m={`${units(4)} 0`}>
+              <p>
+                <FormattedMessage
+                  id="userTos.disclaimerUpdate"
+                  defaultMessage="We've updated our {tosLink} and our {ppLink}. Please review and consent to the following:"
+                  values={{
+                    tosLink,
+                    ppLink,
+                  }}
+                />
+              </p>
+            </Box>
           </div>
         }
-        <div style={{ margin: `${units(4)} 0` }}>
+        <Box m={`${units(4)} 0`}>
           <FormControlLabel
             control={
               <Checkbox
@@ -110,8 +123,8 @@ class UserTosForm extends Component {
               />
             }
           />
-        </div>
-        <div style={{ margin: `${units(4)} 0` }}>
+        </Box>
+        <Box m={`${units(4)} 0`}>
           <FormControlLabel
             control={
               <Checkbox
@@ -127,7 +140,7 @@ class UserTosForm extends Component {
               />
             }
           />
-        </div>
+        </Box>
       </div>
     );
   }

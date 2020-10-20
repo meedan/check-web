@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import Relay from 'react-relay/classic';
+import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Switch from '@material-ui/core/Switch';
@@ -9,6 +10,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import styled from 'styled-components';
 import ChangePasswordComponent from '../ChangePasswordComponent';
 import SetUserSecuritySettingsMutation from '../../relay/mutations/SetUserSecuritySettingsMutation';
 import GenerateTwoFactorBackupCodesMutation from '../../relay/mutations/GenerateTwoFactorBackupCodesMutation';
@@ -19,6 +21,29 @@ import { withSetFlashMessage } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
 import globalStrings from '../../globalStrings';
 import { units, opaqueBlack10, StyledPasswordChange } from '../../styles/js/shared';
+
+const StyledTitle = styled.h2`
+  margin: ${units(2)} 0;
+`;
+
+const StyledCard = styled(Card)`
+  margin: ${units(2)} 0;
+`;
+
+const StyledCardText = styled(CardContent)`
+  display: 'flex';
+  align-items: 'center';
+`;
+
+const StyledCardAuthText = styled(CardContent)`
+  display: 'table-row';
+  align-items: 'center';
+`;
+
+const StyledSubTitle = styled.h3`
+  margin: '5px 0px';
+  text-transform: 'uppercase';
+`;
 
 const messages = defineMessages({
   passwordInput: {
@@ -196,34 +221,6 @@ class UserSecurity extends Component {
       return null;
     }
 
-    const style = {
-      margin: `${units(2)} 0`,
-    };
-
-    const cardTextStyle = {
-      display: 'flex',
-      alignItems: 'center',
-    };
-
-    const cardTextAuthStyle = {
-      display: 'table-row',
-      alignItems: 'center',
-    };
-
-    const subTitleStyle = {
-      margin: '5px 0px',
-      textTransform: 'uppercase',
-    };
-
-    const divBackupStyle = {
-      lineHeight: units(3),
-      fontWeight: 'bold',
-      fontSize: units(1.5),
-      backgroundColor: opaqueBlack10,
-      margin: '5px',
-      textAlign: 'center',
-    };
-
     const appsUrls = {
       apple: 'https://apps.apple.com/us/app/google-authenticator/id388497605',
       play: 'https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2',
@@ -236,57 +233,57 @@ class UserSecurity extends Component {
 
     return (
       <div id="user__security">
-        <h2 style={style}>
+        <StyledTitle>
           <FormattedMessage id="userSecurity.notification" defaultMessage="Notification" />
-        </h2>
-        <Card style={style}>
-          <CardContent style={cardTextStyle}>
-            <span style={{ minWidth: units(64), padding: '0px' }}>
+        </StyledTitle>
+        <StyledCard>
+          <StyledCardText>
+            <Box component="span" minWidth={units(64)} p="0px">
               <FormattedMessage
                 id="userSecurity.successfulLoginText"
                 defaultMessage="Receive a notification for logins from a new location or device"
               />
-            </span>
+            </Box>
             <Switch
               id="edit-security__successfull-login-switch"
               checked={Boolean(this.state.sendSuccessfulLogin)}
               onChange={this.handleSecuritySettings.bind(this, 'successfulLogin')}
               color="primary"
             />
-          </CardContent>
-          <CardContent style={cardTextStyle}>
-            <span style={{ minWidth: units(64), padding: '0px' }}>
+          </StyledCardText>
+          <StyledCardText>
+            <Box component="span" minWidth={units(64)} p="0px">
               <FormattedMessage
                 id="userSecurity.failedfulLoginText"
                 defaultMessage="Receive a notification for {loginTrial} consecutive failed login attempts"
                 values={{ loginTrial }}
-                style={{ minWidth: units(64), padding: '0px' }}
               />
-            </span>
+            </Box>
             <Switch
               id="edit-security__failed-login-switch"
               checked={Boolean(this.state.sendFailedLogin)}
               onChange={this.handleSecuritySettings.bind(this, 'failedLogin')}
               color="primary"
             />
-          </CardContent>
-        </Card>
-        <h2 style={style}>
+          </StyledCardText>
+        </StyledCard>
+        <StyledTitle>
           <FormattedMessage id="userSecurity.twoFactorAuthentication" defaultMessage="Two factor authentication" />
-        </h2>
+        </StyledTitle>
         {can_enable_otp === false ?
-          <Card style={style}>
-            <CardContent style={cardTextStyle}>
-              <FormattedMessage
-                id="userSecurity.suggestTwoFactorForSocialAccounts"
-                defaultMessage="In order to enable 2FA, you need to create a password on Check. Please do so in the 'Change password' section below."
-                style={{ minWidth: units(64), padding: '0px' }}
-              />
-            </CardContent>
-          </Card>
+          <StyledCard>
+            <StyledCardText>
+              <Box component="span" minWidth={units(64)} p="0px">
+                <FormattedMessage
+                  id="userSecurity.suggestTwoFactorForSocialAccounts"
+                  defaultMessage="In order to enable 2FA, you need to create a password on Check. Please do so in the 'Change password' section below."
+                />
+              </Box>
+            </StyledCardText>
+          </StyledCard>
           :
-          <Card style={style}>
-            <CardContent style={cardTextStyle}>
+          <StyledCard>
+            <StyledCardText>
               <FormControlLabel
                 control={
                   <Checkbox
@@ -303,33 +300,33 @@ class UserSecurity extends Component {
                   />
                 }
               />
-            </CardContent>
-            <div className="two-f-a-container" style={{ padding: '0px 25px 25px 25px' }}>
-              <CardContent style={cardTextAuthStyle}>
+            </StyledCardText>
+            <Box className="two-f-a-container" p="0px 25px 25px 25px">
+              <StyledCardAuthText>
                 {!this.state.showFactorAuthForm ?
                   null :
                   <div>
-                    <h3 style={subTitleStyle}>
+                    <StyledSubTitle>
                       <FormattedMessage
                         id="userSecurity.authenticateHeader"
                         defaultMessage="Step 1: Authenticate"
                       />
-                    </h3>
-                    <span style={{ lineHeight: units(3) }}>
+                    </StyledSubTitle>
+                    <Box component="span" lineHeight={units(3)}>
                       <FormattedMessage
                         id="userSecurity.authenticateDescription"
                         defaultMessage="Enter your current password to confirm your identity:"
                       />
-                    </span>
+                    </Box>
                   </div>
                 }
                 {this.state.twoFactorAuthentication ?
-                  <span style={{ lineHeight: units(3) }}>
+                  <Box component="span" lineHeight={units(3)}>
                     <FormattedMessage
                       id="userSecurity.disableAuthenticateDescription"
                       defaultMessage="Enter your password to disable two-factor authentication:"
                     />
-                  </span>
+                  </Box>
                   : null }
                 {this.state.showFactorCommonFields ?
                   <TextField
@@ -346,121 +343,127 @@ class UserSecurity extends Component {
                   : null
                 }
                 {this.state.twoFactorAuthentication ?
-                  <CardContent style={cardTextAuthStyle}>
-                    <Button
-                      variant="contained"
-                      style={{ marginLeft: 'auto', marginRight: units(2) }}
-                      onClick={this.handleSubmitTwoFactorAuthentication.bind(this, false)}
-                      className="user-two-factor__enable-button"
-                    >
-                      <FormattedMessage id="userSecurity.disableTwofactor" defaultMessage="Disable" />
-                    </Button>
-                  </CardContent>
+                  <StyledCardAuthText>
+                    <Box ml="auto" mr={units(2)}>
+                      <Button
+                        variant="contained"
+                        onClick={this.handleSubmitTwoFactorAuthentication.bind(this, false)}
+                        className="user-two-factor__enable-button"
+                      >
+                        <FormattedMessage id="userSecurity.disableTwofactor" defaultMessage="Disable" />
+                      </Button>
+                    </Box>
+                  </StyledCardAuthText>
                   : null
                 }
-              </CardContent>
+              </StyledCardAuthText>
               {this.state.showFactorAuthForm ?
                 <div>
-                  <CardContent style={cardTextAuthStyle}>
-                    <h3 style={subTitleStyle}>
+                  <StyledCardAuthText>
+                    <StyledSubTitle>
                       <FormattedMessage
                         id="userSecurity.downloadHeader"
                         defaultMessage="Step 2: Download"
                       />
-                    </h3>
-                    <span style={{ lineHeight: units(3) }}>
+                    </StyledSubTitle>
+                    <Box component="span" lineHeight={units(3)}>
                       <FormattedMessage
                         id="userSecurity.downloadDescription"
                         defaultMessage="You'll need a two-factor app, like Google Authenticator, on your smartphone to proceed:"
                       />
-                    </span>
-                    <a href={appsUrls.apple} rel="noopener noreferrer" target="_blank" style={{ padding: '5px' }} >
-                      <img src={appsUrls.appleImage} alt="" />
-                    </a>
-                    <a href={appsUrls.play} rel="noopener noreferrer" target="_blank" style={{ padding: '5px' }}>
-                      <img src={appsUrls.playImage} alt="" />
-                    </a>
-                  </CardContent>
-                  <CardContent style={cardTextAuthStyle}>
-                    <h3 style={subTitleStyle}>
+                    </Box>
+                    <Box clone p="5px">
+                      <a href={appsUrls.apple} rel="noopener noreferrer" target="_blank">
+                        <img src={appsUrls.appleImage} alt="" />
+                      </a>
+                    </Box>
+                    <Box clone p="5px">
+                      <a href={appsUrls.play} rel="noopener noreferrer" target="_blank">
+                        <img src={appsUrls.playImage} alt="" />
+                      </a>
+                    </Box>
+                  </StyledCardAuthText>
+                  <StyledCardAuthText>
+                    <StyledSubTitle>
                       <FormattedMessage
                         id="userSecurity.qrcodeHeader"
                         defaultMessage="Step 3: Scan"
                       />
-                    </h3>
-                    <span style={{ lineHeight: units(3) }}>
+                    </StyledSubTitle>
+                    <Box component="span" lineHeight={units(3)}>
                       <FormattedMessage
                         id="userSecurity.qrcodeDescription"
                         defaultMessage="Using your two-factor app, scan this QR code:"
                       />
-                    </span>
+                    </Box>
                     <div
                       id="svg-container"
                       dangerouslySetInnerHTML={{ // eslint-disable-line react/no-danger
                         __html: qrcode_svg,
                       }}
                     />
-                  </CardContent>
+                  </StyledCardAuthText>
                 </div>
                 : null
               }
-              <CardContent style={cardTextAuthStyle}>
+              <StyledCardAuthText>
                 {this.state.showFactorAuthForm ?
-                  <h3 style={subTitleStyle}>
+                  <StyledSubTitle>
                     <FormattedMessage
                       id="userSecurity.backupHeader"
                       defaultMessage="Step 4: Backup codes"
                     />
-                  </h3>
+                  </StyledSubTitle>
                   : null
                 }
                 {this.state.showFactorCommonFields ?
                   <div>
-                    <span style={{ lineHeight: units(3) }}>
+                    <Box component="span" lineHeight={units(3)}>
                       <FormattedMessage
                         id="userSecurity.backupDescription"
                         defaultMessage="We strongly suggest that you generate and print backup codes using the button below. These are single-use codes to be used instead of 2FA login in the event that you lose access to your 2FA device."
                       />
-                    </span>
+                    </Box>
                     <p>
                       <FormattedMessage
                         id="userSecurity.backupNote"
                         defaultMessage="Note: Existing backup codes will be invalidated by clicking this button."
                       />
                     </p>
-                    <Button
-                      variant="contained"
-                      style={{ marginLeft: 'auto', marginRight: units(2) }}
-                      onClick={this.handleGenerateBackupCodes.bind(this)}
-                      className="user-two-factor__backup-button"
-                    >
-                      <FormattedMessage id="userSecurity.generateGackup" defaultMessage="Generate backup code" />
-                    </Button>
+                    <Box clone ml="auto" mr={units(2)}>
+                      <Button
+                        variant="contained"
+                        onClick={this.handleGenerateBackupCodes.bind(this)}
+                        className="user-two-factor__backup-button"
+                      >
+                        <FormattedMessage id="userSecurity.generateGackup" defaultMessage="Generate backup code" />
+                      </Button>
+                    </Box>
                     {this.state.backupCodes.length === 0 ?
                       null :
-                      <div style={divBackupStyle}>
+                      <Box lineHeight={units(3)} fontWeight="bold" fontSize={units(1.5)} bgcolor={opaqueBlack10} m="5px" textAlign="center">
                         {this.state.backupCodes.join(' - ')}
-                      </div>
+                      </Box>
                     }
                   </div>
                   : null
                 }
-              </CardContent>
+              </StyledCardAuthText>
               {this.state.showFactorAuthForm ?
                 <div>
-                  <CardContent style={cardTextAuthStyle}>
-                    <h3 style={subTitleStyle}>
+                  <StyledCardAuthText>
+                    <StyledSubTitle>
                       <FormattedMessage
                         id="userSecurity.verifyHeader"
                         defaultMessage="Step 5: Verify"
                       />
-                    </h3>
-                    <span style={{ lineHeight: units(3) }}>
+                    </StyledSubTitle>
+                    <Box component="span" lineHeight={units(3)}>
                       <FormattedMessage
                         id="userSecurity.verifyDescription"
                         defaultMessage="To enable two-factor authentication, enter the 6-digit code from your two-factor app:"
                       />
-                    </span>
+                    </Box>
                     <TextField
                       fullWidth
                       type="text"
@@ -472,28 +475,29 @@ class UserSecurity extends Component {
                       helperText={this.state.errors.qrcode ? null : this.renderMessage('verifyError')}
                       placeholder={this.renderMessage('verifyInput')}
                     />
-                  </CardContent>
-                  <CardContent style={cardTextAuthStyle}>
-                    <Button
-                      variant="contained"
-                      style={{ marginLeft: 'auto', marginRight: units(2) }}
-                      onClick={this.handleSubmitTwoFactorAuthentication.bind(this, true)}
-                      className="user-two-factor__enable-button"
-                    >
-                      <FormattedMessage id="userSecurity.enableTwofactor" defaultMessage="Enable" />
-                    </Button>
-                  </CardContent>
+                  </StyledCardAuthText>
+                  <StyledCardAuthText>
+                    <Box clone ml="auto" mr={units(2)}>
+                      <Button
+                        variant="contained"
+                        onClick={this.handleSubmitTwoFactorAuthentication.bind(this, true)}
+                        className="user-two-factor__enable-button"
+                      >
+                        <FormattedMessage id="userSecurity.enableTwofactor" defaultMessage="Enable" />
+                      </Button>
+                    </Box>
+                  </StyledCardAuthText>
                 </div>
                 : null
               }
-            </div>
-          </Card>
+            </Box>
+          </StyledCard>
         }
-        <h2 style={style}>
+        <StyledTitle>
           <FormattedMessage id="userSecurity.changePassword" defaultMessage="Change password" />
-        </h2>
+        </StyledTitle>
         <StyledPasswordChange>
-          <Card style={style} className="user-password-change__card">
+          <StyledCard className="user-password-change__card">
             <CardContent>
               <ChangePasswordComponent
                 type="update-password"
@@ -501,7 +505,7 @@ class UserSecurity extends Component {
                 user={this.props.user}
               />
             </CardContent>
-          </Card>
+          </StyledCard>
         </StyledPasswordChange>
       </div>
     );

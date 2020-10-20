@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import Box from '@material-ui/core/Box';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
@@ -49,11 +50,11 @@ class ConfirmDialog extends React.Component {
         </DialogTitle>
         <DialogContent>
           <Message message={this.props.message} />
-          <div style={{ lineHeight: '1.5em' }}>
+          <Box lineHeight="1.5em">
             {this.props.blurb}
-          </div>
+          </Box>
           <div>{this.props.children}</div>
-          <div style={{ margin: `${units(4)} 0` }}>
+          <Box m={`${units(4)} 0`}>
             <FormControlLabel
               control={
                 <Checkbox
@@ -64,7 +65,7 @@ class ConfirmDialog extends React.Component {
               }
               label={this.props.checkBoxLabel}
             />
-          </div>
+          </Box>
         </DialogContent>
         <DialogActions>
           <Button

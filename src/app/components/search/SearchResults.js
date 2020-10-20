@@ -77,6 +77,10 @@ const StyledSearchResultsWrapper = styled.div`
   }
 `;
 
+const StyledHeadline = styled.div`
+  font: ${headline};
+`;
+
 /**
  * Delete `esoffset`, `timestamp`, and maybe `projects` -- whenever
  * they can be inferred from the URL or defaults.
@@ -367,9 +371,9 @@ class SearchResultsComponent extends React.PureComponent {
         <StyledListHeader>
           <Row className="search__list-header-filter-row">
             <Row className="search__list-header-title-and-filter">
-              <div style={{ font: headline }} className="project__title" title={title}>
+              <StyledHeadline className="project__title" title={title}>
                 {title}
-              </div>
+              </StyledHeadline>
               <SearchQuery
                 className="search-query"
                 key={JSON.stringify(unsortedQuery) /* TODO make <SearchQuery> stateless */}

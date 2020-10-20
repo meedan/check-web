@@ -1,6 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { DatePicker } from '@material-ui/pickers';
+import Box from '@material-ui/core/Box';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -113,26 +114,28 @@ class DateRangeFilter extends React.Component {
                 </MenuItem>
               </Select>
             </FormControl>
-            <DatePicker
-              label={<FormattedMessage id="search.pickDateFrom" defaultMessage="Starting date" />}
-              className="date-range__start-date"
-              onChange={this.handleChangeStartDate}
-              maxDate={this.endDateStringOrNull || undefined}
-              okLabel={<FormattedMessage {...globalStrings.ok} />}
-              cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
-              value={this.startDateStringOrNull}
-              style={{ margin: `0 ${units(2)}` }}
-            />
-            <DatePicker
-              label={<FormattedMessage id="search.pickDateTo" defaultMessage="Ending date" />}
-              className="date-range__end-date"
-              onChange={this.handleChangeEndDate}
-              minDate={this.startDateStringOrNull || undefined}
-              okLabel={<FormattedMessage {...globalStrings.ok} />}
-              cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
-              value={this.endDateStringOrNull}
-              style={{ margin: `0 ${units(2)}` }}
-            />
+            <Box clone m={`0 ${units(2)}`}>
+              <DatePicker
+                label={<FormattedMessage id="search.pickDateFrom" defaultMessage="Starting date" />}
+                className="date-range__start-date"
+                onChange={this.handleChangeStartDate}
+                maxDate={this.endDateStringOrNull || undefined}
+                okLabel={<FormattedMessage {...globalStrings.ok} />}
+                cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
+                value={this.startDateStringOrNull}
+              />
+            </Box>
+            <Box clone m={`0 ${units(2)}`}>
+              <DatePicker
+                label={<FormattedMessage id="search.pickDateTo" defaultMessage="Ending date" />}
+                className="date-range__end-date"
+                onChange={this.handleChangeEndDate}
+                minDate={this.startDateStringOrNull || undefined}
+                okLabel={<FormattedMessage {...globalStrings.ok} />}
+                cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
+                value={this.endDateStringOrNull}
+              />
+            </Box>
           </FlexRow>
         </div>
       </StyledFilterRow>

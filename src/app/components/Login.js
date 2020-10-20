@@ -5,6 +5,7 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import EmailIcon from '@material-ui/icons/Email';
 import { browserHistory, Link } from 'react-router';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import TextField from '@material-ui/core/TextField';
@@ -109,27 +110,6 @@ const BigButtons = styled.div`
   align-items: center;
   margin: 0 0 ${units(3)};
 `;
-
-const styles = {
-  logo: {
-    margin: '0 auto',
-    display: 'block',
-  },
-  buttonGroup: {
-    marginTop: units(8),
-  },
-  primaryButton: {
-    display: 'block',
-    margin: `${units(2)} auto`,
-    maxWidth: units(21),
-  },
-  secondaryButton: {
-    display: 'block',
-    color: black54,
-    maxWidth: units(26),
-    margin: `${units(2)} auto`,
-  },
-};
 
 const Row = styled.div`
   display: flex;
@@ -296,13 +276,14 @@ class Login extends React.Component {
           <form onSubmit={this.onFormSubmit.bind(this)} className="login__form">
             <FormattedGlobalMessage messageKey="appNameHuman">
               {appNameHuman => (
-                <img
-                  style={styles.logo}
-                  alt={appNameHuman}
-                  width="120"
-                  className="login__icon"
-                  src={stringHelper('LOGO_URL')}
-                />
+                <Box clone m="0 auto" display="block">
+                  <img
+                    alt={appNameHuman}
+                    width="120"
+                    className="login__icon"
+                    src={stringHelper('LOGO_URL')}
+                  />
+                </Box>
               )}
             </FormattedGlobalMessage>
             <StyledSubHeader className="login__heading">
@@ -435,39 +416,42 @@ class Login extends React.Component {
                     />
                   </div> }
 
-                <div className="login__actions" style={styles.buttonGroup}>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    style={styles.primaryButton}
-                    type="submit"
-                    id="submit-register-or-login"
-                    className={`login__submit login__submit--${this.state.type}`}
-                  >
-                    {this.state.type === 'login' ?
-                      <FormattedMessage
-                        id="login.signIn"
-                        defaultMessage="SIGN IN"
-                      /> :
-                      <FormattedMessage
-                        id="login.signUp"
-                        defaultMessage="REGISTER"
-                      />
-                    }
-                  </Button>
+                <Box className="login__actions" mt={units(8)}>
+                  <Box clone display="block" m={`${units(2)} auto`} maxWidth={units(21)}>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      type="submit"
+                      id="submit-register-or-login"
+                      className={`login__submit login__submit--${this.state.type}`}
+                    >
+                      {this.state.type === 'login' ?
+                        <FormattedMessage
+                          id="login.signIn"
+                          defaultMessage="SIGN IN"
+                        /> :
+                        <FormattedMessage
+                          id="login.signUp"
+                          defaultMessage="REGISTER"
+                        />
+                      }
+                    </Button>
+                  </Box>
                   {this.state.type === 'login' ?
                     <span className="login__forgot-password">
                       <Link to="/check/user/password-reset">
-                        <Button style={styles.secondaryButton}>
-                          <FormattedMessage
-                            id="loginEmail.lostPassword"
-                            defaultMessage="Forgot password"
-                          />
-                        </Button>
+                        <Box clone display="block" color={black54} maxWidth={units(26)} m={`${units(2)} auto`}>
+                          <Button>
+                            <FormattedMessage
+                              id="loginEmail.lostPassword"
+                              defaultMessage="Forgot password"
+                            />
+                          </Button>
+                        </Box>
                       </Link>
                     </span>
                     : null}
-                </div>
+                </Box>
               </div>}
           </form>
         </StyledCard>
@@ -476,7 +460,7 @@ class Login extends React.Component {
           <BigButton
             onClick={this.oAuthLogin.bind(this, 'slack')}
             id="slack-login"
-            icon={<FaSlack style={{ color: slackGreen }} className="logo" />}
+            icon={<Box clone color={slackGreen}><FaSlack className="logo" /></Box>}
             headerText={
               <FormattedMessage
                 id="login.with"
@@ -490,7 +474,7 @@ class Login extends React.Component {
           <BigButton
             onClick={this.oAuthLogin.bind(this, 'twitter')}
             id="twitter-login"
-            icon={<TwitterIcon style={{ color: twitterBlue }} className="logo" />}
+            icon={<Box clone color={twitterBlue}><TwitterIcon className="logo" /></Box>}
             headerText={
               <FormattedMessage
                 id="login.with"
@@ -504,7 +488,7 @@ class Login extends React.Component {
           <BigButton
             onClick={this.oAuthLogin.bind(this, 'facebook')}
             id="facebook-login"
-            icon={<FacebookIcon style={{ color: facebookBlue }} className="logo" />}
+            icon={<Box clone color={facebookBlue}><FacebookIcon className="logo" /></Box>}
             headerText={
               <FormattedMessage
                 id="login.with"
@@ -519,7 +503,7 @@ class Login extends React.Component {
             <BigButton
               id="register"
               onClick={this.handleSwitchToRegister}
-              icon={<EmailIcon style={{ color: black54 }} />}
+              icon={<Box clone color={black54}><EmailIcon /></Box>}
               headerText={
                 <FormattedMessage
                   id="login.newAccount"
@@ -532,7 +516,7 @@ class Login extends React.Component {
             <BigButton
               id="register"
               onClick={this.handleSwitchToLogin}
-              icon={<EmailIcon style={{ color: black54 }} />}
+              icon={<Box clone color={black54}><EmailIcon /></Box>}
               headerText={
                 <FormattedMessage
                   id="login.alreadyHasAccount"

@@ -1,7 +1,14 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import Button from '@material-ui/core/Button';
+import styled from 'styled-components';
 import InfiniteScroll from 'react-infinite-scroller';
+
+const StyledDiv = styled.div`
+  max-height: 500px;
+  overflow-y: auto;
+  overflow-x: hidden;
+`;
 
 class LoadMore extends React.Component {
   constructor(props) {
@@ -32,17 +39,11 @@ class LoadMore extends React.Component {
 
     return (
       <div>
-        <div
-          style={{
-            maxHeight: '500px',
-            overflowY: 'auto',
-            overflowX: 'hidden',
-          }}
-        >
+        <StyledDiv>
           <InfiniteScroll hasMore={hasMore} loadMore={this.loadMore.bind(this)} useWindow={false}>
             {this.props.children}
           </InfiniteScroll>
-        </div>
+        </StyledDiv>
         { hasMore ?
           <Button
             onClick={this.loadMore.bind(this)}

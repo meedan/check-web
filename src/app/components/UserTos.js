@@ -6,6 +6,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import Button from '@material-ui/core/Button';
+import styled from 'styled-components';
 import { mapGlobalMessage } from './MappedMessage';
 import UserTosForm from './UserTosForm';
 import Message from './Message';
@@ -14,6 +15,14 @@ import { stringHelper } from '../customHelpers';
 import AboutRoute from '../relay/AboutRoute';
 import RelayContainer from '../relay/RelayContainer';
 import UpdateUserMutation from '../relay/mutations/UpdateUserMutation';
+
+const PointerDiv = styled.div`
+  cursor: pointer;
+`;
+
+const StyledLink = styled.a`
+  text-decoration: underline;
+`;
 
 class UserTosComponent extends Component {
   constructor(props) {
@@ -66,7 +75,7 @@ class UserTosComponent extends Component {
 
     const actions = [
       // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-      <div onClick={this.handleValidate.bind(this)} style={{ cursor: 'pointer' }}>
+      <PointerDiv onClick={this.handleValidate.bind(this)}>
         <Button
           id="tos__save"
           color="primary"
@@ -75,22 +84,17 @@ class UserTosComponent extends Component {
         >
           <FormattedMessage id="userTos.save" defaultMessage="Save" />
         </Button>
-      </div>,
+      </PointerDiv>,
     ];
 
-    const linkStyle = {
-      textDecoration: 'underline',
-    };
-
     const communityGuidelinesLink = (
-      <a
+      <StyledLink
         target="_blank"
         rel="noopener noreferrer"
-        style={linkStyle}
         href="https://meedan.com/en/community_guidelines/"
       >
         <FormattedMessage id="userTos.commGuidelinesLink" defaultMessage="Community Guidelines" />
-      </a>
+      </StyledLink>
     );
 
     return (

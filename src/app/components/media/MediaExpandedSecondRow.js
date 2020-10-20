@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import Box from '@material-ui/core/Box';
 import styled from 'styled-components';
 import MediaTypeDisplayName from './MediaTypeDisplayName';
 import { isBotInstalled, parseStringUnixTimestamp } from '../../helpers';
@@ -21,32 +22,34 @@ const StyledHeaderTextSecondary = styled.div`
 const MediaExpandedSecondRow = ({ projectMedia }) => (
   <div>
     <StyledHeaderTextSecondary>
-      <Row flexWrap style={{ fontWeight: '500' }}>
-        <span><MediaTypeDisplayName mediaType={projectMedia.media.type} /></span>
-        <span style={{ margin: `0 ${units(1)}` }}> - </span>
-        <span>
-          <FormattedMessage id="mediaExpanded.firstSeen" defaultMessage="First seen: " />
-          <TimeBefore date={parseStringUnixTimestamp(projectMedia.created_at)} />
-        </span>
-        { isBotInstalled(projectMedia.team, 'smooch') ?
+      <Box clone fontWeight={500}>
+        <Row flexWrap>
+          <span><MediaTypeDisplayName mediaType={projectMedia.media.type} /></span>
+          <Box component="span" m={`0 ${units(1)}`}> - </Box>
           <span>
-            <span style={{ margin: `0 ${units(1)}` }}> - </span>
+            <FormattedMessage id="mediaExpanded.firstSeen" defaultMessage="First seen: " />
+            <TimeBefore date={parseStringUnixTimestamp(projectMedia.created_at)} />
+          </span>
+          { isBotInstalled(projectMedia.team, 'smooch') ?
             <span>
-              <FormattedMessage id="mediaExpanded.lastSeen" defaultMessage="Last seen: " />
-              <TimeBefore date={parseStringUnixTimestamp(projectMedia.last_seen)} />
-            </span>
-            <span style={{ margin: `0 ${units(1)}` }}> - </span>
-            <span>
-              <FormattedMessage
-                id="mediaExpanded.requests"
-                defaultMessage="{count} requests"
-                values={{
-                  count: projectMedia.requests_count,
-                }}
-              />
-            </span>
-          </span> : null }
-      </Row>
+              <Box component="span" m={`0 ${units(1)}`}> - </Box>
+              <span>
+                <FormattedMessage id="mediaExpanded.lastSeen" defaultMessage="Last seen: " />
+                <TimeBefore date={parseStringUnixTimestamp(projectMedia.last_seen)} />
+              </span>
+              <Box component="span" m={`0 ${units(1)}`}> - </Box>
+              <span>
+                <FormattedMessage
+                  id="mediaExpanded.requests"
+                  defaultMessage="{count} requests"
+                  values={{
+                    count: projectMedia.requests_count,
+                  }}
+                />
+              </span>
+            </span> : null }
+        </Row>
+      </Box>
     </StyledHeaderTextSecondary>
   </div>
 );

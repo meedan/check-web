@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
+import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import Popover from '@material-ui/core/Popover';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -24,13 +25,14 @@ const ColorPicker = ({ color, onChange }) => {
 
   return (
     <React.Fragment>
-      <IconButton
-        style={{ backgroundColor: color }}
-        className={classes.statusButton}
-        onClick={e => setColorPickerAnchorEl(e.currentTarget)}
-      >
-        <ExpandMoreIcon className={classes.statusButtonIcon} />
-      </IconButton>
+      <Box clone bgcolor={color}>
+        <IconButton
+          className={classes.statusButton}
+          onClick={e => setColorPickerAnchorEl(e.currentTarget)}
+        >
+          <ExpandMoreIcon className={classes.statusButtonIcon} />
+        </IconButton>
+      </Box>
       <Popover
         open={Boolean(colorPickerAnchorEl)}
         anchorEl={colorPickerAnchorEl}

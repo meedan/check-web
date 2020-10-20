@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { QueryRenderer, createFragmentContainer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import { Link } from 'react-router';
+import Box from '@material-ui/core/Box';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import IconButton from '@material-ui/core/IconButton';
 import { FormattedMessage } from 'react-intl';
@@ -24,18 +25,20 @@ class ProjectHeaderComponent extends React.PureComponent {
     }
 
     return (
-      <div style={{ display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
+      <Box display="flex" alignItems="center" overflow="hidden">
         <Row>
           <IconButton component={Link} to={listUrl} className="project-header__back-button">
             <ArrowBackIcon />
           </IconButton>
-          <HeaderTitle className="project-header__title" style={{ maxWidth: '100%' }}>
-            <Text ellipsis>
-              {pageTitle}
-            </Text>
-          </HeaderTitle>
+          <Box clone maxWidth="100%">
+            <HeaderTitle className="project-header__title">
+              <Text ellipsis>
+                {pageTitle}
+              </Text>
+            </HeaderTitle>
+          </Box>
         </Row>
-      </div>
+      </Box>
     );
   }
 }

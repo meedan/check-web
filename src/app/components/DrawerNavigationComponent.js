@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory, Link } from 'react-router';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
@@ -10,6 +11,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
 import DeleteIcon from '@material-ui/icons/Delete';
+import styled from 'styled-components';
 import { withPusher, pusherShape } from '../pusher';
 import DrawerProjects from './drawer/Projects';
 import DrawerHeader from './drawer/DrawerHeader';
@@ -21,6 +23,10 @@ import {
   body1,
   units,
 } from '../styles/js/shared';
+
+const StyledRow = styled(Row)`
+  font: ${body1};
+`;
 
 const useStylesBigEmptySpaceInSidebar = makeStyles({
   root: {
@@ -133,12 +139,12 @@ class DrawerNavigationComponent extends Component {
                   </ListItemIcon>
                   <ListItemText
                     primary={
-                      <Row style={{ font: body1 }}>
+                      <StyledRow>
                         <FormattedMessage id="projects.trash" defaultMessage="Trash" />
                         <AlignOpposite>
                           {String(team.trash_count)}
                         </AlignOpposite>
-                      </Row>
+                      </StyledRow>
                     }
                   />
                 </MenuItem>
@@ -150,14 +156,15 @@ class DrawerNavigationComponent extends Component {
         <div className="drawer__footer">
           {loggedIn ? <div><UserMenuRelay {...this.props} /></div> : (
             <Link to="/">
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={saveCurrentPage}
-                style={{ width: '100%' }}
-              >
-                <FormattedMessage defaultMessage="Sign In" id="headerActions.signIn" />
-              </Button>
+              <Box clone width="100%">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={saveCurrentPage}
+                >
+                  <FormattedMessage defaultMessage="Sign In" id="headerActions.signIn" />
+                </Button>
+              </Box>
             </Link>
           )}
         </div>

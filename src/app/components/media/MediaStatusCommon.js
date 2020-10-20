@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Popover from '@material-ui/core/Popover';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -95,17 +96,18 @@ class MediaStatusCommon extends Component {
 
     return (
       <StyledMediaStatus className="media-status">
-        <Button
-          className={`media-status__label media-status__current ${MediaStatusCommon.currentStatusToClass(media.last_status)}`}
-          style={{ backgroundColor: currentStatus.style.color, color: 'white' }}
-          variant="contained"
-          disableElevation
-          onClick={e => this.setState({ anchorEl: e.currentTarget })}
-          disabled={!this.canUpdate()}
-          endIcon={this.canUpdate() ? <KeyboardArrowDownIcon /> : <LockIcon />}
-        >
-          {currentStatus.label}
-        </Button>
+        <Box clone bgcolor={currentStatus.style.color} color="white">
+          <Button
+            className={`media-status__label media-status__current ${MediaStatusCommon.currentStatusToClass(media.last_status)}`}
+            variant="contained"
+            disableElevation
+            onClick={e => this.setState({ anchorEl: e.currentTarget })}
+            disabled={!this.canUpdate()}
+            endIcon={this.canUpdate() ? <KeyboardArrowDownIcon /> : <LockIcon />}
+          >
+            {currentStatus.label}
+          </Button>
+        </Box>
         <Popover
           anchorEl={this.state.anchorEl}
           open={Boolean(this.state.anchorEl)}

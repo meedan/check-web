@@ -32,6 +32,7 @@ const StyledTaskHeaderRow = styled.div`
   display: flex;
   color: ${black54};
   font: ${body1};
+  ${props => props.isBrowserExtension ? 'padding: 0;' : null}
 
   h2 {
     color: ${black87};
@@ -168,7 +169,7 @@ class MediaTasksComponent extends Component {
               onTimelineCommentOpen={onTimelineCommentOpen}
             />
           </Box> : null }
-        <StyledTaskHeaderRow style={isBrowserExtension ? { padding: 0 } : {}}>
+        <StyledTaskHeaderRow isBrowserExtension={isBrowserExtension}>
           { itemTasks.edges.length && fieldset === 'tasks' && !isBrowserExtension ?
             <FlexRow>
               <h2>
@@ -189,11 +190,15 @@ class MediaTasksComponent extends Component {
               }
             </FlexRow> : null}
           { !isBrowserExtension && fieldset === 'tasks' ?
-            <CreateTask style={{ marginLeft: 'auto' }} media={media} /> : null}
+            <Box clone ml="auto">
+              <CreateTask media={media} />
+            </Box> : null}
           { isBrowserExtension && itemTasks.edges.length === 0 ?
-            <p style={{ textAlign: 'center', width: '100%', marginTop: units(6) }}>
-              <FormattedMessage id="mediaComponent.noTasks" defaultMessage="Nothing to show." />
-            </p> : null}
+            <Box clone textAlign="center" width="100%" mt={units(6)}>
+              <p>
+                <FormattedMessage id="mediaComponent.noTasks" defaultMessage="Nothing to show." />
+              </p>
+            </Box> : null}
         </StyledTaskHeaderRow>
         <Tasks tasks={itemTasks.edges} media={media} fieldset={fieldset} />
       </div>

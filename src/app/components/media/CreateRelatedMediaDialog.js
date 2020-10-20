@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -55,12 +56,14 @@ class CreateRelatedMediaDialog extends React.Component {
       <Dialog open={this.props.open} fullWidth>
         <DialogContent>
           { hideNew ?
-            <DialogTitle style={{ paddingLeft: 0, paddingRight: 0 }}>
-              <FormattedMessage
-                id="createMedia.existingReport"
-                defaultMessage="Add to imported report"
-              />
-            </DialogTitle> :
+            <Box clone pl={0} pr={0}>
+              <DialogTitle>
+                <FormattedMessage
+                  id="createMedia.existingReport"
+                  defaultMessage="Add to imported report"
+                />
+              </DialogTitle>
+            </Box> :
             <Tabs
               value={this.state.mode}
               indicatorColor="primary"
@@ -82,7 +85,7 @@ class CreateRelatedMediaDialog extends React.Component {
                 }
               />
             </Tabs> }
-          <div style={{ marginTop: units(2), marginBottom: units(2) }}>
+          <Box mt={units(2)} mb={units(2)}>
             { mode === 'new' &&
               <CreateMediaInput
                 message={this.props.message}
@@ -102,7 +105,7 @@ class CreateRelatedMediaDialog extends React.Component {
                 />
               </StyledAutoCompleteWrapper>
             }
-          </div>
+          </Box>
         </DialogContent>
         <DialogActions>
           <Button id="create-media-dialog__dismiss-button" onClick={this.props.onDismiss}>

@@ -2,6 +2,7 @@ import React from 'react';
 import Relay from 'react-relay/classic';
 import { browserHistory } from 'react-router';
 import { injectIntl, defineMessages } from 'react-intl';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -407,14 +408,15 @@ class UserInfoEdit extends React.Component {
         {showNonLoginAccount.map((as, index) => (
           <div key={as.node.id} className="source__url">
             <Row>
-              <TextField
-                id={`source__link-item${index.toString()}`}
-                defaultValue={as.node.account.url}
-                label={capitalize(as.node.account.provider)}
-                style={{ width: '85%' }}
-                margin="normal"
-                disabled
-              />
+              <Box clone width="85%">
+                <TextField
+                  id={`source__link-item${index.toString()}`}
+                  defaultValue={as.node.account.url}
+                  label={capitalize(as.node.account.provider)}
+                  margin="normal"
+                  disabled
+                />
+              </Box>
               <StyledIconButton
                 className="source__remove-link-button"
                 onClick={() => this.handleRemoveLink(as.node.id)}
@@ -426,17 +428,18 @@ class UserInfoEdit extends React.Component {
         {links.map((link, index) => (
           <div key={index.toString()} className="source__url-input">
             <Row>
-              <TextField
-                id={`source__link-input${index.toString()}`}
-                name={`source__link-input${index.toString()}`}
-                value={link.url}
-                error={link.error}
-                helperText={link.error}
-                label={this.props.intl.formatMessage(messages.addLinkLabel)}
-                onChange={e => this.handleChangeLink(e, index)}
-                style={{ width: '85%' }}
-                margin="normal"
-              />
+              <Box clone width="85%">
+                <TextField
+                  id={`source__link-input${index.toString()}`}
+                  name={`source__link-input${index.toString()}`}
+                  value={link.url}
+                  error={link.error}
+                  helperText={link.error}
+                  label={this.props.intl.formatMessage(messages.addLinkLabel)}
+                  onChange={e => this.handleChangeLink(e, index)}
+                  margin="normal"
+                />
+              </Box>
               <StyledIconButton
                 className="source__remove-link-button"
                 onClick={() => this.handleRemoveNewLink(index)}
@@ -502,35 +505,38 @@ class UserInfoEdit extends React.Component {
                   noPreview
                 />
                 : null}
-              <TextField
-                className="source__name-input"
-                name="name"
-                id="source__name-container"
-                defaultValue={user.name}
-                label={this.props.intl.formatMessage(messages.sourceName)}
-                style={{ width: '85%' }}
-                margin="normal"
-              />
-              <TextField
-                className="source__bio-input"
-                name="description"
-                id="source__bio-container"
-                defaultValue={source.description}
-                label={this.props.intl.formatMessage(messages.sourceBio)}
-                multiline
-                rowsMax={4}
-                style={{ width: '85%' }}
-                margin="normal"
-              />
-              <TextField
-                className="source__email-input"
-                name="email"
-                id="source__email-container"
-                defaultValue={user.unconfirmed_email || user.email}
-                label={this.props.intl.formatMessage(messages.userEmail)}
-                style={{ width: '85%' }}
-                margin="normal"
-              />
+              <Box clone width="85%">
+                <TextField
+                  className="source__name-input"
+                  name="name"
+                  id="source__name-container"
+                  defaultValue={user.name}
+                  label={this.props.intl.formatMessage(messages.sourceName)}
+                  margin="normal"
+                />
+              </Box>
+              <Box clone width="85%">
+                <TextField
+                  className="source__bio-input"
+                  name="description"
+                  id="source__bio-container"
+                  defaultValue={source.description}
+                  label={this.props.intl.formatMessage(messages.sourceBio)}
+                  multiline
+                  rowsMax={4}
+                  margin="normal"
+                />
+              </Box>
+              <Box clone width="85%">
+                <TextField
+                  className="source__email-input"
+                  name="email"
+                  id="source__email-container"
+                  defaultValue={user.unconfirmed_email || user.email}
+                  label={this.props.intl.formatMessage(messages.userEmail)}
+                  margin="normal"
+                />
+              </Box>
               <StyledHelper>
                 {emailHelperText}
               </StyledHelper>
