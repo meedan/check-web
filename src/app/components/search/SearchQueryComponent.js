@@ -266,7 +266,17 @@ class SearchQueryComponent extends React.Component {
 
   filterIsActive = () => {
     const { query } = this.props;
-    const filterFields = ['range', 'verification_status', 'projects', 'tags', 'show', 'dynamic', 'users', 'read'];
+    const filterFields = [
+      'range',
+      'verification_status',
+      'projects',
+      'tags',
+      'show',
+      'dynamic',
+      'users',
+      'read',
+      'team_tasks',
+    ];
     return filterFields.some(key => !!query[key]);
   }
 
