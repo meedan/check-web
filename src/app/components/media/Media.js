@@ -30,6 +30,7 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
           embed_path
           metadata
           type
+          picture
         }
         last_status
         last_status_obj {

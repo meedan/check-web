@@ -97,7 +97,7 @@ class MediaStatusCommon extends Component {
       <StyledMediaStatus className="media-status">
         <Button
           className={`media-status__label media-status__current ${MediaStatusCommon.currentStatusToClass(media.last_status)}`}
-          style={{ backgroundColor: currentStatus.style.color, color: 'white' }}
+          style={{ backgroundColor: currentStatus.style.color, color: 'white', minHeight: 41 }}
           variant="contained"
           disableElevation
           onClick={e => this.setState({ anchorEl: e.currentTarget })}
