@@ -11,6 +11,7 @@ require_relative './login_spec.rb'
 require_relative './task_spec_helpers.rb'
 require_relative './login_spec_helpers.rb'
 # require_relative './source_spec.rb'
+# require_relative './config_sheet_spec.rb'
 
 CONFIG = YAML.load_file('config.yml')
 
@@ -21,10 +22,12 @@ shared_examples 'app' do |webdriver_url|
   include ApiHelpers
   include TaskSpecHelpers
   include LoginSpecHelpers
+  # include Spreadsheet
 
   before :all do
     @config = CONFIG
     @webdriver_url = webdriver_url
+    @failing_tests = {}
   end
 
   if not ENV['SKIP_CONFIG_JS_OVERWRITE']
@@ -70,9 +73,18 @@ shared_examples 'app' do |webdriver_url|
 
   after :each do |example|
     if example.exception
+      if @failing_tests.has_key? example.description
+        @failing_tests[example.description]= example.metadata[:retry_attempts] + 1
+      else 
+        @failing_tests[example.description]= example.metadata[:retry_attempts] + 1
+      end 
       link = save_screenshot("Test failed: #{example.description}")
       print " [Test \"#{example.description}\" failed! Check screenshot at #{link} and browser console output: #{console_logs}] "
     end
+  end
+
+  after :all do
+    puts @failing_tests
   end
 
   # The tests themselves start here
