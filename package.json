@@ -5,14 +5,14 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git://github.com/meedan/check-web.git"
+    "url": "git://github.com/meedan/check-web.git",
   },
   "nyc": {
     "include": [
-      "src/**/*.js"
+      "src/**/*.js",
     ],
     "instrument": false,
-    "sourceMap": false
+    "sourceMap": false,
   },
   "scripts": {
     "build": "rm -rf build/web && npm run build:gulp",
@@ -36,37 +36,37 @@
     "test:browsers:parallel": "cd test && PARALLEL_SPLIT_TEST_PROCESSES=2 parallel_split_test spec/browser_spec.rb && cd ..",
     "test:ff": "cd test && bundle exec rspec --fail-fast && cd ..",
     "test:bins": "grep -rI 'bin[0-9]' test/spec | grep -v '#' | sed 's/.*\\(bin[0-9]\\).*/\\1/g' | sort | uniq -c",
-    "test:lint": "eslint src/app"
+    "test:lint": "eslint src/app",
   },
   "authors": [
-    "Meedan"
+    "Meedan",
   ],
   "license": "MIT",
   "jest": {
     "collectCoverage": true,
     "collectCoverageFrom": [
-      "<rootDir>/src/**/*.{js,jsx}"
+      "<rootDir>/src/**/*.{js,jsx}",
     ],
     "coverageDirectory": "<rootDir>/coverage/",
     "coverageReporters": [
-      "lcov"
+      "lcov",
     ],
     "moduleNameMapper": {
       "\\.(css)$": "<rootDir>/test/unit/__mocks__/fileMock.js",
-      "^config$": "<rootDir>/test/unit/__mocks__/config.json"
+      "^config$": "<rootDir>/test/unit/__mocks__/config.json",
     },
     "roots": [
       "<rootDir>/src/",
-      "<rootDir>/test/unit/"
+      "<rootDir>/test/unit/",
     ],
     "setupFilesAfterEnv": [
-      "<rootDir>/test/unit/setupJest.js"
+      "<rootDir>/test/unit/setupJest.js",
     ]
   },
   "devDependencies": {
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
-    "jest": "^25.4.0"
+    "jest": "^25.4.0",
   },
   "dependencies": {
     "@babel/core": "^7.9.0",
@@ -172,6 +172,6 @@
     "url-regex": "^3.2.0",
     "webpack": "^4.42.1",
     "whatwg-fetch": "^2.0.1",
-    "xregexp": "^3.1.1"
+    "xregexp": "^3.1.1",
   }
 }
