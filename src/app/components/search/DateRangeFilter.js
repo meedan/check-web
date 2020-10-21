@@ -17,10 +17,6 @@ const Styles = {
 };
 
 function buildValue(valueType, startTimeOrNull, endTimeOrNull) {
-  if (startTimeOrNull === null && endTimeOrNull === null) {
-    return null;
-  }
-
   const range = {};
   if (startTimeOrNull) {
     range.start_time = startTimeOrNull;
