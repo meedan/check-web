@@ -1,5 +1,7 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import CustomTeamTaskFilter from './CustomTeamTaskFilter';
+import { StyledFilterRow } from './SearchQueryComponent';
 
 const CustomFiltersManager = ({
   team,
@@ -30,7 +32,10 @@ const CustomFiltersManager = ({
   const filters = query.team_tasks ? query.team_tasks : [{}];
 
   return (
-    <div>
+    <React.Fragment>
+      <StyledFilterRow>
+        <h4><FormattedMessage id="CustomFiltersManager.addFilters" defaultMessage="Add filters" /></h4>
+      </StyledFilterRow>
       {
         filters.map((ttf, i) => (
           <CustomTeamTaskFilter
@@ -44,7 +49,7 @@ const CustomFiltersManager = ({
           />
         ))
       }
-    </div>
+    </React.Fragment>
   );
 };
 

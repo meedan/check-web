@@ -253,9 +253,25 @@ class SearchQueryComponent extends React.Component {
     return this.getContext().getContextStore();
   }
 
+  cleanup = (query) => {
+    const cleanQuery = { ...query };
+    if (query.team_tasks) {
+      cleanQuery.team_tasks = query.team_tasks.filter(tt => (
+        tt.id && tt.response && tt.response_type
+      ));
+      if (!cleanQuery.team_tasks.length) {
+        delete cleanQuery.team_tasks;
+      }
+    }
+    return cleanQuery;
+  }
+
   handleApplyFilters() {
-    if (!deepEqual(this.state.query, this.props.query)) {
-      this.props.onChange(this.state.query);
+    const cleanQuery = this.cleanup(this.state.query);
+    if (!deepEqual(cleanQuery, this.props.query)) {
+      this.props.onChange(cleanQuery);
+    } else {
+      this.setState({ dialogOpen: false, query: cleanQuery });
     }
   }
 
@@ -471,10 +487,6 @@ class SearchQueryComponent extends React.Component {
 
   handleClickReset = () => {
     this.setState({ query: {} });
-  }
-
-  doneButtonDisabled() {
-    return deepEqual(this.state.query, this.props.query);
   }
 
   subscribe() {
@@ -907,7 +919,6 @@ class SearchQueryComponent extends React.Component {
                 id="search-query__submit-button"
                 type="submit"
                 form="search-form"
-                disabled={this.doneButtonDisabled()}
                 color="primary"
               >
                 <FormattedMessage id="search.applyFilters" defaultMessage="Done" />

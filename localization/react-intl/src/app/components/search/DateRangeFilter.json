@@ -4,8 +4,12 @@
     "defaultMessage": "Date"
   },
   {
-    "id": "search.dateCreatedHeading",
-    "defaultMessage": "Created"
+    "id": "search.dateSubmittedHeading",
+    "defaultMessage": "Submitted"
+  },
+  {
+    "id": "search.dateLastSubmittedHeading",
+    "defaultMessage": "Last submitted"
   },
   {
     "id": "search.dateUpdatedHeading",
