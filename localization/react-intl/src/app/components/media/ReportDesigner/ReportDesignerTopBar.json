@@ -13,15 +13,11 @@
   },
   {
     "id": "reportDesigner.firstSent",
-    "defaultMessage": "First sent"
-  },
-  {
-    "id": "reportDesigner.never",
-    "defaultMessage": "Never"
+    "defaultMessage": "First published"
   },
   {
     "id": "reportDesigner.sentCount",
-    "defaultMessage": "Sent"
+    "defaultMessage": "Reports received"
   },
   {
     "id": "reportDesigner.save",
